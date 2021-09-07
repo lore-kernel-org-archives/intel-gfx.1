@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B988C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1988EC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD82B6108D
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD82B6108D
+	by mail.kernel.org (Postfix) with ESMTPS id DCD2B6108D
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DCD2B6108D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 093A56E08E;
-	Tue,  7 Sep 2021 17:19:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6212D6E0AA;
+	Tue,  7 Sep 2021 17:19:31 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DFE26E087;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DA56E088;
  Tue,  7 Sep 2021 17:19:27 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220322733"
-X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="220322733"
+X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220322736"
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="220322736"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Sep 2021 10:19:26 -0700
-X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="605352248"
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="605352260"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Sep 2021 10:19:26 -0700
@@ -36,18 +36,17 @@ From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Date: Tue,  7 Sep 2021 10:19:10 -0700
-Message-Id: <20210907171916.2548047-3-matthew.d.roper@intel.com>
+ Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
+ Prasad Nallani <prasad.nallani@intel.com>
+Date: Tue,  7 Sep 2021 10:19:14 -0700
+Message-Id: <20210907171916.2548047-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210907171916.2548047-1-matthew.d.roper@intel.com>
 References: <20210907171916.2548047-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/8] drm/i915/xehp: CCS shares the render reset
- domain
+Subject: [Intel-gfx] [PATCH 6/8] drm/i915/xehp: Define context scheduling
+ attributes in lrc descriptor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,41 +62,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The reset domain is shared between render and all compute engines,
-so resetting one will affect the others.
+In Dual Context mode the EUs are shared between render and compute
+command streamers. The hardware provides a field in the lrc descriptor
+to indicate the prioritization of the thread dispatch associated to the
+corresponding context.
 
-Note:  Before performing a reset on an RCS or CCS engine, the GuC will
-attempt to preempt-to-idle the other non-hung RCS/CCS engines to avoid
-impacting other clients (since some shared modules will be reset).  If
-other engines are executing non-preemptable workloads, the impact is
-unavoidable and some work may be lost.
+The context priority is set to 'low' at creation time and relies on the
+existing context priority to set it to low/normal/high.
 
-Bspec: 52549
+HSDES: 1604462009
+Bspec: 46145, 46260
 Original-patch-by: Michel Thierry
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Signed-off-by: Prasad Nallani <prasad.nallani@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_reset.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c            |  4 +++-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h         |  1 +
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c |  6 +++++-
+ drivers/gpu/drm/i915/gt/intel_lrc.h                  | 10 ++++++++++
+ drivers/gpu/drm/i915/i915_reg.h                      |  4 ++++
+ 5 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 91200c43951f..30598c1d070c 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -507,6 +507,10 @@ static int gen11_reset_engines(struct intel_gt *gt,
- 		[VECS1] = GEN11_GRDOM_VECS2,
- 		[VECS2] = GEN11_GRDOM_VECS3,
- 		[VECS3] = GEN11_GRDOM_VECS4,
-+		[CCS0] = GEN11_GRDOM_RENDER,
-+		[CCS1] = GEN11_GRDOM_RENDER,
-+		[CCS2] = GEN11_GRDOM_RENDER,
-+		[CCS3] = GEN11_GRDOM_RENDER,
- 	};
- 	struct intel_engine_cs *engine;
- 	intel_engine_mask_t tmp;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index b346b946602d..2f719f0ecac3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -382,8 +382,10 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ 		engine->props.preempt_timeout_ms = 0;
+ 
+ 	/* features common between engines sharing EUs */
+-	if (engine->class == RENDER_CLASS || engine->class == COMPUTE_CLASS)
++	if (engine->class == RENDER_CLASS || engine->class == COMPUTE_CLASS) {
+ 		engine->flags |= I915_ENGINE_HAS_RCS_REG_STATE;
++		engine->flags |= I915_ENGINE_HAS_EU_PRIORITY;
++	}
+ 
+ 	engine->defaults = engine->props; /* never to change again */
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 30a0c69c36c8..00bf0296b28a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -455,6 +455,7 @@ struct intel_engine_cs {
+ #define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
+ #define I915_ENGINE_WANT_FORCED_PREEMPTION BIT(8)
+ #define I915_ENGINE_HAS_RCS_REG_STATE  BIT(9)
++#define I915_ENGINE_HAS_EU_PRIORITY    BIT(10)
+ 	unsigned int flags;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 4c600c46414d..2b36ec7f3a04 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -662,9 +662,13 @@ static inline void execlists_schedule_out(struct i915_request *rq)
+ static u64 execlists_update_context(struct i915_request *rq)
+ {
+ 	struct intel_context *ce = rq->context;
+-	u64 desc = ce->lrc.desc;
++	u64 desc;
+ 	u32 tail, prev;
+ 
++	desc = ce->lrc.desc;
++	if (rq->engine->flags & I915_ENGINE_HAS_EU_PRIORITY)
++		desc |= lrc_desc_priority(rq_prio(rq));
++
+ 	/*
+ 	 * WaIdleLiteRestore:bdw,skl
+ 	 *
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
+index 7f697845c4cf..d3f2096b3d51 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.h
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
+@@ -79,4 +79,14 @@ static inline u32 lrc_get_runtime(const struct intel_context *ce)
+ 	return READ_ONCE(ce->lrc_reg_state[CTX_TIMESTAMP]);
+ }
+ 
++static inline u32 lrc_desc_priority(int prio)
++{
++	if (prio > I915_PRIORITY_NORMAL)
++		return GEN12_CTX_PRIORITY_HIGH;
++	else if (prio < I915_PRIORITY_NORMAL)
++		return GEN12_CTX_PRIORITY_LOW;
++	else
++		return GEN12_CTX_PRIORITY_NORMAL;
++}
++
+ #endif /* __INTEL_LRC_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 0bb185ce9529..5b68c02c35af 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4212,6 +4212,10 @@ enum {
+ #define GEN8_CTX_L3LLC_COHERENT (1 << 5)
+ #define GEN8_CTX_PRIVILEGE (1 << 8)
+ #define GEN8_CTX_ADDRESSING_MODE_SHIFT 3
++#define GEN12_CTX_PRIORITY_MASK REG_GENMASK(10, 9)
++#define GEN12_CTX_PRIORITY_HIGH REG_FIELD_PREP(GEN12_CTX_PRIORITY_MASK, 2)
++#define GEN12_CTX_PRIORITY_NORMAL REG_FIELD_PREP(GEN12_CTX_PRIORITY_MASK, 1)
++#define GEN12_CTX_PRIORITY_LOW REG_FIELD_PREP(GEN12_CTX_PRIORITY_MASK, 0)
+ 
+ #define GEN8_CTX_ID_SHIFT 32
+ #define GEN8_CTX_ID_WIDTH 21
 -- 
 2.25.4
 
