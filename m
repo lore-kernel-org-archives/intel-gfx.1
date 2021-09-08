@@ -2,83 +2,70 @@ Return-Path: <SRS0=r3jS=N6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 272A8C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 18:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 746CFC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 19:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E31D061078
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 18:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E31D061078
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 35EE761074
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 19:04:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 35EE761074
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39B726E255;
-	Wed,  8 Sep 2021 18:31:00 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 368C76E255
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 18:30:59 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id g22so4141706edy.12
- for <intel-gfx@lists.freedesktop.org>; Wed, 08 Sep 2021 11:30:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=/Qn6ettxHUUoxqY83dg+ur8SjU1z9HvqkiJi94oBfho=;
- b=WxFpfRLNjaZpO/2CuP+mTre5GuaHvTQMhYzbjqTPagPHEXTcvsj6iG8jwEamgYQPxV
- 3lqRjPv3oQ0OYD4pgcWC3IuoV7ySuoUq2b8K5MVqTNIc55GfKCotJatBofjrVUln5ecO
- XrQBt7fQKm4DXqtYcbTWdzcbVtTFV2kYPG458=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=/Qn6ettxHUUoxqY83dg+ur8SjU1z9HvqkiJi94oBfho=;
- b=NCK7QgNcfRnhb0nF6XFlcr0dlU18Wa+BgGpH9pBDmlhnFOAQNhEeP04MHcRh1qHZVo
- StnmG3O+7CfggNE3ABAcV5uEw8LfHAuxIWypx52WLfHOGe1u0j4VF0UlOF4HzFuUTzgI
- Adk7XXrozSQ8Qy357uFJismUUhgHMUhE8dmwGA+RwsacgUmOC7PgnlzL7WGVj6nwuIS6
- oX0FOWVQIC/ZCVjORsrFuNmhsEEePBrn/vOtOC1pdoTpvxGm4g/LKTZ+HfM+n9q9OSid
- id13xjFTnkYpd+UWNvgHR5QDK505D9jLvFnLIhfv8817FVWLgfIGyFPYk6zWgnQzXmuw
- LIvw==
-X-Gm-Message-State: AOAM5331uhH00YWg2ptEFkggXrGiQih+CORBPLOC8uL3IMupXpqJg9GV
- sMLeuJzVstClZYi990C3Ui+Kdw==
-X-Google-Smtp-Source: ABdhPJzfI6Dt3rToBuXWwhqleGZ3105bWeKsWetnzWu6+M9Zwc3CxKRDDbnDMVWO6Xp6hXQxmkopqw==
-X-Received: by 2002:aa7:d40b:: with SMTP id z11mr5374364edq.224.1631125857634; 
- Wed, 08 Sep 2021 11:30:57 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p8sm1402262ejo.2.2021.09.08.11.30.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Sep 2021 11:30:56 -0700 (PDT)
-Date: Wed, 8 Sep 2021 20:30:54 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
-Message-ID: <YTkBXhu1QRxfqq1R@phenom.ffwll.local>
-Mail-Followup-To: Peter Zijlstra <peterz@infradead.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
-References: <20210907132044.157225-1-maarten.lankhorst@linux.intel.com>
- <YTiM/zf8BuNw7wes@hirez.programming.kicks-ass.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 696A16E283;
+	Wed,  8 Sep 2021 19:04:52 +0000 (UTC)
+X-Greylist: delayed 459 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Sep 2021 19:04:51 UTC
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EDA76E283;
+ Wed,  8 Sep 2021 19:04:51 +0000 (UTC)
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1631127427;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6pw/RdHrc/CzkC23is54QzO2uIf7Wy7vdaWPzx8kuIk=;
+ b=Dr5cIEnN4ZlXZuQQSARgL8tqun+7XF/7mNoC+c7ICPQnKRkE9pBwX86T90/ZPCg1zL6AlK
+ YJsjSeFZjXJor8MN02Y4+8aE5OfMKobLG+a9jSdBx6N1GoEFgVs5av8obROCEoIvhqSg/v
+ tvrH7LL/Hx5G9m0v/ZwUUaSz4oHTfgCpv64sSm9FXvYtef4UwfaGMTgjx+XT5EBKnfZgmQ
+ nN+1v9QER5hEF03a4NgNigXPt1YDGktaNZx3tXAQlnC90vSiDwHUoVZ583ZjQv0dVa1S38
+ /YfGnOOxZz7gXnz47Vlwyhj8YZ9ItwTOwiWchknT33Eq6nrrTW1Pw24QTgVcCw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1631127427;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6pw/RdHrc/CzkC23is54QzO2uIf7Wy7vdaWPzx8kuIk=;
+ b=twWw5P+IrUvvgm2INwYv5u3UywepNToT+zB7iSdYKp4Bmc+wHtaAP1/1YI2ZfT75ovtBUc
+ TMjE/Qc2PU9aRgCQ==
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Clark Williams <williams@redhat.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Date: Wed,  8 Sep 2021 20:57:03 +0200
+Message-Id: <20210908185703.2989414-3-bigeasy@linutronix.de>
+In-Reply-To: <20210908185703.2989414-1-bigeasy@linutronix.de>
+References: <20210908185703.2989414-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YTiM/zf8BuNw7wes@hirez.programming.kicks-ass.net>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [PATCH] kernel/locking: Add context to
- ww_mutex_trylock.
+Content-Transfer-Encoding: quoted-printable
+Subject: [Intel-gfx] [RFC PATCH 2/2] drm/i915/gt: Use spin_lock_irq()
+ instead of local_irq_disable() + spin_lock()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,84 +81,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 08, 2021 at 12:14:23PM +0200, Peter Zijlstra wrote:
-> On Tue, Sep 07, 2021 at 03:20:44PM +0200, Maarten Lankhorst wrote:
-> > i915 will soon gain an eviction path that trylock a whole lot of locks
-> > for eviction, getting dmesg failures like below:
-> > 
-> > BUG: MAX_LOCK_DEPTH too low!
-> > turning off the locking correctness validator.
-> > depth: 48  max: 48!
-> > 48 locks held by i915_selftest/5776:
-> >  #0: ffff888101a79240 (&dev->mutex){....}-{3:3}, at: __driver_attach+0x88/0x160
-> >  #1: ffffc900009778c0 (reservation_ww_class_acquire){+.+.}-{0:0}, at: i915_vma_pin.constprop.63+0x39/0x1b0 [i915]
-> >  #2: ffff88800cf74de8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: i915_vma_pin.constprop.63+0x5f/0x1b0 [i915]
-> >  #3: ffff88810c7f9e38 (&vm->mutex/1){+.+.}-{3:3}, at: i915_vma_pin_ww+0x1c4/0x9d0 [i915]
-> >  #4: ffff88810bad5768 (reservation_ww_class_mutex){+.+.}-{3:3}, at: i915_gem_evict_something+0x110/0x860 [i915]
-> >  #5: ffff88810bad60e8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: i915_gem_evict_something+0x110/0x860 [i915]
-> > ...
-> >  #46: ffff88811964d768 (reservation_ww_class_mutex){+.+.}-{3:3}, at: i915_gem_evict_something+0x110/0x860 [i915]
-> >  #47: ffff88811964e0e8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: i915_gem_evict_something+0x110/0x860 [i915]
-> > INFO: lockdep is turned off.
-> 
-> > As an intermediate solution, add an acquire context to ww_mutex_trylock,
-> > which allows us to do proper nesting annotations on the trylocks, making
-> > the above lockdep splat disappear.
-> 
-> Fair enough I suppose.
+execlists_dequeue() is invoked from a function which uses
+local_irq_disable() to disable interrupts so the spin_lock() behaves
+like spin_lock_irq().
+This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
+the same as spin_lock_irq().
 
-What's maybe missing from the commit message
-- we'll probably use this for ttm too eventually
-- even when we add full ww_mutex locking we'll still have the trylock
-  fastpath. This is because we have a lock inversion against list locks in
-  these eviction paths, and the slow path unroll to drop that list lock is
-  a bit nasty (and defintely expensive).
+execlists_dequeue_irq() and execlists_dequeue() has each one caller
+only. If intel_engine_cs::active::lock is acquired and released with the
+_irq suffix then it behaves almost as if execlists_dequeue() would be
+invoked with disabled interrupts. The difference is the last part of the
+function which is then invoked with enabled interrupts.
+I can't tell if this makes a difference. From looking at it, it might
+work to move the last unlock at the end of the function as I didn't find
+anything that would acquire the lock again.
 
-iow even long term this here is needed in some form I think.
--Daniel
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-> 
-> > +/**
-> > + * ww_mutex_trylock - tries to acquire the w/w mutex with optional acquire context
-> > + * @lock: mutex to lock
-> > + * @ctx: optional w/w acquire context
-> > + *
-> > + * Trylocks a mutex with the optional acquire context; no deadlock detection is
-> > + * possible. Returns 1 if the mutex has been acquired successfully, 0 otherwise.
-> > + *
-> > + * Unlike ww_mutex_lock, no deadlock handling is performed. However, if a @ctx is
-> > + * specified, -EALREADY and -EDEADLK handling may happen in calls to ww_mutex_lock.
-> > + *
-> > + * A mutex acquired with this function must be released with ww_mutex_unlock.
-> > + */
-> > +int __sched
-> > +ww_mutex_trylock(struct ww_mutex *ww, struct ww_acquire_ctx *ctx)
-> > +{
-> > +	bool locked;
-> > +
-> > +	if (!ctx)
-> > +		return mutex_trylock(&ww->base);
-> > +
-> > +#ifdef CONFIG_DEBUG_MUTEXES
-> > +	DEBUG_LOCKS_WARN_ON(ww->base.magic != &ww->base);
-> > +#endif
-> > +
-> > +	preempt_disable();
-> > +	locked = __mutex_trylock(&ww->base);
-> > +
-> > +	if (locked) {
-> > +		ww_mutex_set_context_fastpath(ww, ctx);
-> > +		mutex_acquire_nest(&ww->base.dep_map, 0, 1, &ctx->dep_map, _RET_IP_);
-> > +	}
-> > +	preempt_enable();
-> > +
-> > +	return locked;
-> > +}
-> > +EXPORT_SYMBOL(ww_mutex_trylock);
-> 
-> You'll need a similar hunk in ww_rt_mutex.c
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers=
+/gpu/drm/i915/gt/intel_execlists_submission.c
+index fc77592d88a96..2ec1dd352960b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1265,7 +1265,7 @@ static void execlists_dequeue(struct intel_engine_cs =
+*engine)
+ 	 * and context switches) submission.
+ 	 */
+=20
+-	spin_lock(&engine->active.lock);
++	spin_lock_irq(&engine->active.lock);
+=20
+ 	/*
+ 	 * If the queue is higher priority than the last
+@@ -1365,7 +1365,7 @@ static void execlists_dequeue(struct intel_engine_cs =
+*engine)
+ 				 * Even if ELSP[1] is occupied and not worthy
+ 				 * of timeslices, our queue might be.
+ 				 */
+-				spin_unlock(&engine->active.lock);
++				spin_unlock_irq(&engine->active.lock);
+ 				return;
+ 			}
+ 		}
+@@ -1391,7 +1391,7 @@ static void execlists_dequeue(struct intel_engine_cs =
+*engine)
+=20
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.active.lock);
+-			spin_unlock(&engine->active.lock);
++			spin_unlock_irq(&engine->active.lock);
+ 			return; /* leave this for another sibling */
+ 		}
+=20
+@@ -1552,7 +1552,7 @@ static void execlists_dequeue(struct intel_engine_cs =
+*engine)
+ 	 * interrupt for secondary ports).
+ 	 */
+ 	execlists->queue_priority_hint =3D queue_prio(execlists);
+-	spin_unlock(&engine->active.lock);
++	spin_unlock_irq(&engine->active.lock);
+=20
+ 	/*
+ 	 * We can skip poking the HW if we ended up with exactly the same set
+@@ -1578,13 +1578,6 @@ static void execlists_dequeue(struct intel_engine_cs=
+ *engine)
+ 	}
+ }
+=20
+-static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+-{
+-	local_irq_disable(); /* Suspend interrupts across request submission */
+-	execlists_dequeue(engine);
+-	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-}
+-
+ static void clear_ports(struct i915_request **ports, int count)
+ {
+ 	memset_p((void **)ports, NULL, count);
+@@ -2377,7 +2370,7 @@ static void execlists_submission_tasklet(struct taskl=
+et_struct *t)
+ 	}
+=20
+ 	if (!engine->execlists.pending[0]) {
+-		execlists_dequeue_irq(engine);
++		execlists_dequeue(engine);
+ 		start_timeslice(engine);
+ 	}
+=20
+--=20
+2.33.0
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
