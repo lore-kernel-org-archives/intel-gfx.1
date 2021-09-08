@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51137C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9770FC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0AFEB61130
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0AFEB61130
+	by mail.kernel.org (Postfix) with ESMTPS id 3670C61130
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3670C61130
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 331F66E0F8;
-	Wed,  8 Sep 2021 00:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 994436E0F7;
+	Wed,  8 Sep 2021 00:40:23 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE926E0F7
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 00:40:17 +0000 (UTC)
+ (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EED56E0FC
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 00:40:21 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-109-FYRQ8_VDPLWxRfG0zmQ_qQ-1; Tue, 07 Sep 2021 20:40:15 -0400
-X-MC-Unique: FYRQ8_VDPLWxRfG0zmQ_qQ-1
+ us-mta-224-k0sgL3QSMEadGu9owIvuYw-1; Tue, 07 Sep 2021 20:40:18 -0400
+X-MC-Unique: k0sgL3QSMEadGu9owIvuYw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
  [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 899CA5180;
- Wed,  8 Sep 2021 00:40:14 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F2898042C3;
+ Wed,  8 Sep 2021 00:40:18 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 2715F60C7F;
- Wed,  8 Sep 2021 00:40:12 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id CD56C60C7F;
+ Wed,  8 Sep 2021 00:40:16 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Wed,  8 Sep 2021 10:39:32 +1000
-Message-Id: <20210908003944.2972024-10-airlied@gmail.com>
+Date: Wed,  8 Sep 2021 10:39:34 +1000
+Message-Id: <20210908003944.2972024-12-airlied@gmail.com>
 In-Reply-To: <20210908003944.2972024-1-airlied@gmail.com>
 References: <20210908003944.2972024-1-airlied@gmail.com>
 MIME-Version: 1.0
@@ -51,8 +51,8 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 09/21] drm/i915: split irq hotplug function from
- display vtable
+Subject: [Intel-gfx] [PATCH 11/21] drm/i915: split the dpll clock compute
+ out from display vtable.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,98 +70,110 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This provide a service from irq to display, so make it separate
+this could be merged later but for now it's simple to split it out.
 ---
- drivers/gpu/drm/i915/display/intel_hotplug.c |  4 ++--
- drivers/gpu/drm/i915/i915_drv.h              |  9 ++++++++-
- drivers/gpu/drm/i915/i915_irq.c              | 14 +++++++-------
- 3 files changed, 17 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c |  6 +++---
+ drivers/gpu/drm/i915/display/intel_dpll.c    | 16 ++++++++--------
+ drivers/gpu/drm/i915/i915_drv.h              |  8 +++++++-
+ 3 files changed, 18 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm=
-/i915/display/intel_hotplug.c
-index 47c85ac97c87..a06e1e1b33e1 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -215,8 +215,8 @@ intel_hpd_irq_storm_switch_to_polling(struct drm_i915_p=
-rivate *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
+/i915/display/intel_display.c
+index b981a923cc2f..87950202f4ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6768,10 +6768,10 @@ static int intel_crtc_atomic_check(struct intel_ato=
+mic_state *state,
+ =09=09crtc_state->update_wm_post =3D true;
 =20
- static void intel_hpd_irq_setup(struct drm_i915_private *i915)
+ =09if (mode_changed && crtc_state->hw.enable &&
+-=09    dev_priv->display.crtc_compute_clock &&
++=09    dev_priv->dpll_funcs.crtc_compute_clock &&
+ =09    !crtc_state->bigjoiner_slave &&
+ =09    !drm_WARN_ON(&dev_priv->drm, crtc_state->shared_dpll)) {
+-=09=09ret =3D dev_priv->display.crtc_compute_clock(crtc_state);
++=09=09ret =3D dev_priv->dpll_funcs.crtc_compute_clock(crtc_state);
+ =09=09if (ret)
+ =09=09=09return ret;
+ =09}
+@@ -8807,7 +8807,7 @@ static void intel_modeset_clear_plls(struct intel_ato=
+mic_state *state)
+ =09struct intel_crtc *crtc;
+ =09int i;
+=20
+-=09if (!dev_priv->display.crtc_compute_clock)
++=09if (!dev_priv->dpll_funcs.crtc_compute_clock)
+ =09=09return;
+=20
+ =09for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i9=
+15/display/intel_dpll.c
+index 210f91f4a576..9326c7cbb05c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -1367,21 +1367,21 @@ void
+ intel_dpll_init_clock_hook(struct drm_i915_private *dev_priv)
  {
--=09if (i915->display_irqs_enabled && i915->display.hpd_irq_setup)
--=09=09i915->display.hpd_irq_setup(i915);
-+=09if (i915->display_irqs_enabled && i915->irq_funcs.hpd_irq_setup)
-+=09=09i915->irq_funcs.hpd_irq_setup(i915);
+ =09if (DISPLAY_VER(dev_priv) >=3D 9 || HAS_DDI(dev_priv))
+-=09=09dev_priv->display.crtc_compute_clock =3D hsw_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D hsw_crtc_compute_clock;
+ =09else if (HAS_PCH_SPLIT(dev_priv))
+-=09=09dev_priv->display.crtc_compute_clock =3D ilk_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D ilk_crtc_compute_clock;
+ =09else if (IS_CHERRYVIEW(dev_priv))
+-=09=09dev_priv->display.crtc_compute_clock =3D chv_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D chv_crtc_compute_clock;
+ =09else if (IS_VALLEYVIEW(dev_priv))
+-=09=09dev_priv->display.crtc_compute_clock =3D vlv_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D vlv_crtc_compute_clock;
+ =09else if (IS_G4X(dev_priv))
+-=09=09dev_priv->display.crtc_compute_clock =3D g4x_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D g4x_crtc_compute_clock;
+ =09else if (IS_PINEVIEW(dev_priv))
+-=09=09dev_priv->display.crtc_compute_clock =3D pnv_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D pnv_crtc_compute_clock;
+ =09else if (DISPLAY_VER(dev_priv) !=3D 2)
+-=09=09dev_priv->display.crtc_compute_clock =3D i9xx_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D i9xx_crtc_compute_clock;
+ =09else
+-=09=09dev_priv->display.crtc_compute_clock =3D i8xx_crtc_compute_clock;
++=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D i8xx_crtc_compute_clock;
  }
 =20
- static void intel_hpd_irq_storm_reenable_work(struct work_struct *work)
+ static bool i9xx_has_pps(struct drm_i915_private *dev_priv)
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
 v.h
-index fbe92f248d05..ece23401cb46 100644
+index 49b23ea46475..461ab0a0f088 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -384,6 +384,10 @@ struct drm_i915_display_cdclk_funcs {
- =09u8 (*calc_voltage_level)(int cdclk);
+@@ -393,6 +393,10 @@ struct drm_i915_fdi_link_train_funcs {
+ =09=09=09       const struct intel_crtc_state *crtc_state);
  };
 =20
-+struct drm_i915_irq_funcs {
-+=09void (*hpd_irq_setup)(struct drm_i915_private *dev_priv);
++struct drm_i915_dpll_funcs {
++=09int (*crtc_compute_clock)(struct intel_crtc_state *crtc_state);
 +};
 +
  struct drm_i915_display_funcs {
  =09/* Returns the active state of the crtc, and if the crtc is active,
  =09 * fills out the pipe-config with the hw state. */
-@@ -401,7 +405,7 @@ struct drm_i915_display_funcs {
+@@ -400,7 +404,6 @@ struct drm_i915_display_funcs {
+ =09=09=09=09struct intel_crtc_state *);
+ =09void (*get_initial_plane_config)(struct intel_crtc *,
+ =09=09=09=09=09 struct intel_initial_plane_config *);
+-=09int (*crtc_compute_clock)(struct intel_crtc_state *crtc_state);
+ =09void (*crtc_enable)(struct intel_atomic_state *state,
+ =09=09=09    struct intel_crtc *crtc);
+ =09void (*crtc_disable)(struct intel_atomic_state *state,
+@@ -1005,6 +1008,9 @@ struct drm_i915_private {
+ =09/* fdi display functions */
+ =09struct drm_i915_fdi_link_train_funcs fdi_funcs;
 =20
- =09void (*fdi_link_train)(struct intel_crtc *crtc,
- =09=09=09       const struct intel_crtc_state *crtc_state);
--=09void (*hpd_irq_setup)(struct drm_i915_private *dev_priv);
-+
- =09/* clock updates for mode set */
- =09/* cursor updates */
- =09/* render clock increase/decrease */
-@@ -993,6 +997,9 @@ struct drm_i915_private {
- =09/* pm display functions */
- =09struct drm_i915_wm_disp_funcs wm_disp;
-=20
-+=09/* irq display functions */
-+=09struct drm_i915_irq_funcs irq_funcs;
++=09/* display pll funcs */
++=09struct drm_i915_dpll_funcs dpll_funcs;
 +
  =09/* Display functions */
  =09struct drm_i915_display_funcs display;
-=20
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_ir=
-q.c
-index 0a1681384c84..f515a3a76a8e 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -4395,20 +4395,20 @@ void intel_irq_init(struct drm_i915_private *dev_pr=
-iv)
-=20
- =09if (HAS_GMCH(dev_priv)) {
- =09=09if (I915_HAS_HOTPLUG(dev_priv))
--=09=09=09dev_priv->display.hpd_irq_setup =3D i915_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D i915_hpd_irq_setup;
- =09} else {
- =09=09if (HAS_PCH_DG1(dev_priv))
--=09=09=09dev_priv->display.hpd_irq_setup =3D dg1_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D dg1_hpd_irq_setup;
- =09=09else if (DISPLAY_VER(dev_priv) >=3D 11)
--=09=09=09dev_priv->display.hpd_irq_setup =3D gen11_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D gen11_hpd_irq_setup;
- =09=09else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
--=09=09=09dev_priv->display.hpd_irq_setup =3D bxt_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D bxt_hpd_irq_setup;
- =09=09else if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_ICP)
--=09=09=09dev_priv->display.hpd_irq_setup =3D icp_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D icp_hpd_irq_setup;
- =09=09else if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_SPT)
--=09=09=09dev_priv->display.hpd_irq_setup =3D spt_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D spt_hpd_irq_setup;
- =09=09else
--=09=09=09dev_priv->display.hpd_irq_setup =3D ilk_hpd_irq_setup;
-+=09=09=09dev_priv->irq_funcs.hpd_irq_setup =3D ilk_hpd_irq_setup;
- =09}
- }
 =20
 --=20
 2.31.1
