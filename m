@@ -2,50 +2,81 @@ Return-Path: <SRS0=r3jS=N6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06967C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:58:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B419C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:59:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2DB0610E9
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:58:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2DB0610E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4764261100
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:59:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4764261100
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EFE26E194;
-	Wed,  8 Sep 2021 11:58:53 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9D1F6E194
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 11:58:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220493574"
-X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="220493574"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2021 04:58:51 -0700
-X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="547693940"
-Received: from mdoerbec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.249.33.106])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2021 04:58:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
-Cc: Dave Airlie <airlied@redhat.com>
-In-Reply-To: <20210908003944.2972024-20-airlied@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210908003944.2972024-1-airlied@gmail.com>
- <20210908003944.2972024-20-airlied@gmail.com>
-Date: Wed, 08 Sep 2021 14:58:45 +0300
-Message-ID: <8735qf5le2.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A00066E194;
+	Wed,  8 Sep 2021 11:59:57 +0000 (UTC)
+X-Greylist: delayed 355 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Sep 2021 03:23:01 UTC
+Received: from condef-05.nifty.com (condef-05.nifty.com [202.248.20.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E776E0F7
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 03:23:01 +0000 (UTC)
+Received: from conssluserg-05.nifty.com ([10.126.8.84])by condef-05.nifty.com
+ with ESMTP id 1883EZ58020190; Wed, 8 Sep 2021 12:14:36 +0900
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173]) (authenticated)
+ by conssluserg-05.nifty.com with ESMTP id 1883Dv7r024261;
+ Wed, 8 Sep 2021 12:13:58 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-05.nifty.com 1883Dv7r024261
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1631070838;
+ bh=DiTP/AS3T3vq4JaeKSJu2Ri/qt3KnM6Fx/+72YJ6xGU=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=uq24T7VOY9DzMY2Ttse8IMfSKSJ3nAzJEww51VcTiGop5IKF9mXMZoEJE8g+oB25J
+ H8FXrW273mevkmofLJZdPfyWYc7pVppc52cATl3m3HQR+Gbp2A46519A8xON0MtMat
+ WCZdIstesFb5Hc212QXqESmLXSp6bZ7HLWJy3VCA3v952l+bZD02aJFWB2W9en3ZVY
+ EGhJzWA9IbCxNqGyycrcBGMJs6uKzPeKuM5EZ9KjI3hYnltsimRBj7f5uwhX2jTHbi
+ tEJIOmIrTqFFHa5TDe+OF8CU7Ty9FDvzDKanrRSMdxfajodpXa150TF0+tG+22ez/a
+ DPe2n7cd1ZXRQ==
+X-Nifty-SrcIP: [209.85.215.173]
+Received: by mail-pg1-f173.google.com with SMTP id w7so1021036pgk.13;
+ Tue, 07 Sep 2021 20:13:58 -0700 (PDT)
+X-Gm-Message-State: AOAM532yhB3hzh26rhPaZtX7vUeAJEm2OjA8J3K1vBvXKHGSSKROIXte
+ J+iXo16dsSOV9C8S/BwhUP6/Es7IMoebIJlZ1k0=
+X-Google-Smtp-Source: ABdhPJyPU4uh1o2NcT/aR4ZPGLpv6t2vzuzFEOmM8q5aihG3cwIUJLm6ZYqb445avfVEnp26Ym0k8VmPnUWDt0gqMjM=
+X-Received: by 2002:aa7:949d:0:b0:416:4555:3021 with SMTP id
+ z29-20020aa7949d000000b0041645553021mr1560140pfk.36.1631070837441; Tue, 07
+ Sep 2021 20:13:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 19/21] drm/i915: constify display function
- vtable
+References: <20210820123348.6535a87e@canb.auug.org.au>
+ <CAK7LNASv-F1Y7kpaDF+_=TW0Jzvpo1uuNL1B5jUmCCRqv-45bA@mail.gmail.com>
+ <20210902075038.7461d3c8@canb.auug.org.au>
+ <20210906084947.4f65761d@canb.auug.org.au>
+ <CAKMK7uF6K+gdWVT09wL0sPBQs8RRixggk01e291veE0VecD=TQ@mail.gmail.com>
+In-Reply-To: <CAKMK7uF6K+gdWVT09wL0sPBQs8RRixggk01e291veE0VecD=TQ@mail.gmail.com>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Wed, 8 Sep 2021 12:13:20 +0900
+X-Gmail-Original-Message-ID: <CAK7LNAQdgr7pn0j9mdAGfB_0fGOVMn+uq=Kv7buRaCOcoF+p7A@mail.gmail.com>
+Message-ID: <CAK7LNAQdgr7pn0j9mdAGfB_0fGOVMn+uq=Kv7buRaCOcoF+p7A@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Nikula, Jani" <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@linux.ie>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ John Harrison <John.C.Harrison@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Alexey Dobriyan <adobriyan@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 08 Sep 2021 11:59:56 +0000
+Subject: Re: [Intel-gfx] linux-next: build failure after merge of the drm
+ tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,180 +92,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 08 Sep 2021, Dave Airlie <airlied@gmail.com> wrote:
-> From: Dave Airlie <airlied@redhat.com>
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-
+On Mon, Sep 6, 2021 at 4:34 PM Daniel Vetter <daniel@ffwll.ch> wrote:
 >
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 81 ++++++++++++--------
->  drivers/gpu/drm/i915/i915_drv.h              |  2 +-
->  2 files changed, 52 insertions(+), 31 deletions(-)
+> On Mon, Sep 6, 2021 at 12:49 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+> > Hi all,
+> >
+> > On Thu, 2 Sep 2021 07:50:38 +1000 Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+> > >
+> > > On Fri, 20 Aug 2021 15:23:34 +0900 Masahiro Yamada <masahiroy@kernel.org> wrote:
+> > > >
+> > > > On Fri, Aug 20, 2021 at 11:33 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+> > > > >
+> >  > > After merging the drm tree, today's linux-next build (x86_64 allmodconfig)
+> > > > > failed like this:
+> > > > >
+> > > > > In file included from drivers/gpu/drm/i915/i915_debugfs.c:39:
+> > > > > drivers/gpu/drm/i915/gt/intel_gt_requests.h:9:10: fatal error: stddef.h: No such file or directory
+> > > > >     9 | #include <stddef.h>
+> > > > >       |          ^~~~~~~~~~
+> > > > >
+> > > > > Caused by commit
+> > > > >
+> > > > >   564f963eabd1 ("isystem: delete global -isystem compile option")
+> > > > >
+> > > > > from the kbuild tree interacting with commit
+> > > > >
+> > > > >   b97060a99b01 ("drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC")
+> > > > >
+> > > > > I have applied the following patch for today.
+> > > >
+> > > >
+> > > > Thanks.
+> > > >
+> > > > This fix-up does not depend on my kbuild tree in any way.
+> > > >
+> > > > So, the drm maintainer can apply it to his tree.
+> > > >
+> > > > Perhaps with
+> > > >
+> > > > Fixes: b97060a99b01 ("drm/i915/guc: Update intel_gt_wait_for_idle to
+> > > > work with GuC")
+> > >
+> > > OK, so that didn't happen so I will now apply the merge fix up to the
+> > > merge of the kbuild tree.
+> > >
+> > > > > From: Stephen Rothwell <sfr@canb.auug.org.au>
+> > > > > Date: Fri, 20 Aug 2021 12:24:19 +1000
+> > > > > Subject: [PATCH] drm/i915: use linux/stddef.h due to "isystem: trim/fixup stdarg.h and other headers"
+> > > > >
+> > > > > Signed-off-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> > > > > ---
+> > > > >  drivers/gpu/drm/i915/gt/intel_gt_requests.h | 2 +-
+> > > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.h b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> > > > > index 51dbe0e3294e..d2969f68dd64 100644
+> > > > > --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> > > > > +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> > > > > @@ -6,7 +6,7 @@
+> > > > >  #ifndef INTEL_GT_REQUESTS_H
+> > > > >  #define INTEL_GT_REQUESTS_H
+> > > > >
+> > > > > -#include <stddef.h>
+> > > > > +#include <linux/stddef.h>
+> > > > >
+> > > > >  struct intel_engine_cs;
+> > > > >  struct intel_gt;
+> > > > > --
+> > > > > 2.32.0
+> >
+> > Ping?  I am still applying this ...
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 09c9dc741026..20fd35c6858c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -3736,7 +3736,7 @@ static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
->  
->  	drm_WARN_ON(&dev_priv->drm, IS_ERR(temp_crtc_state) || ret);
->  
-> -	dev_priv->display.crtc_disable(to_intel_atomic_state(state), crtc);
-> +	dev_priv->display->crtc_disable(to_intel_atomic_state(state), crtc);
->  
->  	drm_atomic_state_put(state);
->  
-> @@ -5941,7 +5941,7 @@ static bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state)
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
->  	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
->  
-> -	if (!i915->display.get_pipe_config(crtc, crtc_state))
-> +	if (!i915->display->get_pipe_config(crtc, crtc_state))
->  		return false;
->  
->  	crtc_state->hw.active = true;
-> @@ -9778,7 +9778,7 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
->  
->  	intel_crtc_update_active_timings(new_crtc_state);
->  
-> -	dev_priv->display.crtc_enable(state, crtc);
-> +	dev_priv->display->crtc_enable(state, crtc);
->  
->  	if (new_crtc_state->bigjoiner_slave)
->  		return;
-> @@ -9866,7 +9866,7 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
->  	 */
->  	intel_crtc_disable_pipe_crc(crtc);
->  
-> -	dev_priv->display.crtc_disable(state, crtc);
-> +	dev_priv->display->crtc_disable(state, crtc);
->  	crtc->active = false;
->  	intel_fbc_disable(crtc);
->  	intel_disable_shared_dpll(old_crtc_state);
-> @@ -10246,7 +10246,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
->  	}
->  
->  	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
-> -	dev_priv->display.commit_modeset_enables(state);
-> +	dev_priv->display->commit_modeset_enables(state);
->  
->  	if (state->modeset) {
->  		intel_encoders_update_complete(state);
-> @@ -11250,6 +11250,46 @@ static const struct drm_mode_config_funcs intel_mode_funcs = {
->  	.atomic_state_free = intel_atomic_state_free,
->  };
->  
-> +static const struct drm_i915_display_funcs skl_display_funcs = {
-> +	.get_pipe_config = hsw_get_pipe_config,
-> +	.crtc_enable = hsw_crtc_enable,
-> +	.crtc_disable = hsw_crtc_disable,
-> +	.commit_modeset_enables = skl_commit_modeset_enables,
-> +	.get_initial_plane_config = skl_get_initial_plane_config,
-> +};
-> +
-> +static const struct drm_i915_display_funcs ddi_display_funcs = {
-> +	.get_pipe_config = hsw_get_pipe_config,
-> +	.crtc_enable = hsw_crtc_enable,
-> +	.crtc_disable = hsw_crtc_disable,
-> +	.commit_modeset_enables = intel_commit_modeset_enables,
-> +	.get_initial_plane_config = i9xx_get_initial_plane_config,
-> +};
-> +
-> +static const struct drm_i915_display_funcs pch_split_display_funcs = {
-> +	.get_pipe_config = ilk_get_pipe_config,
-> +	.crtc_enable = ilk_crtc_enable,
-> +	.crtc_disable = ilk_crtc_disable,
-> +	.commit_modeset_enables = intel_commit_modeset_enables,
-> +	.get_initial_plane_config = i9xx_get_initial_plane_config,
-> +};
-> +
-> +static const struct drm_i915_display_funcs vlv_display_funcs = {
-> +	.get_pipe_config = i9xx_get_pipe_config,
-> +	.crtc_enable = valleyview_crtc_enable,
-> +	.crtc_disable = i9xx_crtc_disable,
-> +	.commit_modeset_enables = intel_commit_modeset_enables,
-> +	.get_initial_plane_config = i9xx_get_initial_plane_config,
-> +};
-> +
-> +static const struct drm_i915_display_funcs i9xx_display_funcs = {
-> +	.get_pipe_config = i9xx_get_pipe_config,
-> +	.crtc_enable = i9xx_crtc_enable,
-> +	.crtc_disable = i9xx_crtc_disable,
-> +	.commit_modeset_enables = intel_commit_modeset_enables,
-> +	.get_initial_plane_config = i9xx_get_initial_plane_config,
-> +};
-> +
->  /**
->   * intel_init_display_hooks - initialize the display modesetting hooks
->   * @dev_priv: device private
-> @@ -11265,38 +11305,19 @@ void intel_init_display_hooks(struct drm_i915_private *dev_priv)
->  	intel_dpll_init_clock_hook(dev_priv);
->  
->  	if (DISPLAY_VER(dev_priv) >= 9) {
-> -		dev_priv->display.get_pipe_config = hsw_get_pipe_config;
-> -		dev_priv->display.crtc_enable = hsw_crtc_enable;
-> -		dev_priv->display.crtc_disable = hsw_crtc_disable;
-> +		dev_priv->display = &skl_display_funcs;
->  	} else if (HAS_DDI(dev_priv)) {
-> -		dev_priv->display.get_pipe_config = hsw_get_pipe_config;
-> -		dev_priv->display.crtc_enable = hsw_crtc_enable;
-> -		dev_priv->display.crtc_disable = hsw_crtc_disable;
-> +		dev_priv->display = &ddi_display_funcs;
->  	} else if (HAS_PCH_SPLIT(dev_priv)) {
-> -		dev_priv->display.get_pipe_config = ilk_get_pipe_config;
-> -		dev_priv->display.crtc_enable = ilk_crtc_enable;
-> -		dev_priv->display.crtc_disable = ilk_crtc_disable;
-> +		dev_priv->display = &pch_split_display_funcs;
->  	} else if (IS_CHERRYVIEW(dev_priv) ||
->  		   IS_VALLEYVIEW(dev_priv)) {
-> -		dev_priv->display.get_pipe_config = i9xx_get_pipe_config;
-> -		dev_priv->display.crtc_enable = valleyview_crtc_enable;
-> -		dev_priv->display.crtc_disable = i9xx_crtc_disable;
-> +		dev_priv->display = &vlv_display_funcs;
->  	} else {
-> -		dev_priv->display.get_pipe_config = i9xx_get_pipe_config;
-> -		dev_priv->display.crtc_enable = i9xx_crtc_enable;
-> -		dev_priv->display.crtc_disable = i9xx_crtc_disable;
-> +		dev_priv->display = &i9xx_display_funcs;
->  	}
->  
->  	intel_fdi_init_hook(dev_priv);
-> -
-> -	if (DISPLAY_VER(dev_priv) >= 9) {
-> -		dev_priv->display.commit_modeset_enables = skl_commit_modeset_enables;
-> -		dev_priv->display.get_initial_plane_config = skl_get_initial_plane_config;
-> -	} else {
-> -		dev_priv->display.commit_modeset_enables = intel_commit_modeset_enables;
-> -		dev_priv->display.get_initial_plane_config = i9xx_get_initial_plane_config;
-> -	}
-> -
->  }
->  
->  void intel_modeset_init_hw(struct drm_i915_private *i915)
-> @@ -11723,7 +11744,7 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
->  		 * can even allow for smooth boot transitions if the BIOS
->  		 * fb is large enough for the active pipe configuration.
->  		 */
-> -		i915->display.get_initial_plane_config(crtc, &plane_config);
-> +		i915->display->get_initial_plane_config(crtc, &plane_config);
->  
->  		/*
->  		 * If the fb is shared between multiple heads, we'll
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 2231b93c2111..fbcafc7cc075 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -1005,7 +1005,7 @@ struct drm_i915_private {
->  	const struct drm_i915_dpll_funcs *dpll_funcs;
->  
->  	/* Display functions */
-> -	struct drm_i915_display_funcs display;
-> +	const struct drm_i915_display_funcs *display;
->  
->  	/* Display internal color functions */
->  	const struct drm_i915_display_color_funcs *color_funcs;
+> Apologies, this fell through a lot of cracks. I applied this to drm-next now.
+
+
+
+Rather, I was planning to apply this fix to my kbuild tree.
+
+Since you guys did not fix the issue in time,
+I ended up with dropping [1] from my pull request.
+
+I want to get [1] merged in this MW.
+
+If I postponed it, somebody would add new
+<stddef.h> or <stdint.h> inclusion in the next development
+cycle, I will never make it in the mainline.
+
+[1] https://lore.kernel.org/linux-kernel/YQhY40teUJcTc5H4@localhost.localdomain/
+
+
+
+
+
+> Matt/John, as author/committer it's your job to make sure issues and
+> fixes for the stuff you're pushing don't get lost. I'd have expected
+> John to apply this to at least drm-intel-gt-next (it's not even
+> there).
+>
+> Joonas, I think this is the 2nd or 3rd or so issue this release cycle
+> where some compile fix got stuck a bit because drm-intel-gt-next isn't
+> in linux-next. Can we please fix that? It probably needs some changes
+> to the dim script.
+>
+> Cheers, Daniel
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+
+
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+Best Regards
+Masahiro Yamada
