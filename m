@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-2.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	UNWANTED_LANGUAGE_BODY autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5A9FC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D347C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7E85610F8
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A7E85610F8
+	by mail.kernel.org (Postfix) with ESMTPS id 2028861130
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 00:40:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2028861130
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184E16E0FF;
-	Wed,  8 Sep 2021 00:40:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3A96E0F1;
+	Wed,  8 Sep 2021 00:40:28 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B166B6E0FE
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 00:40:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9DB26E0FC
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 00:40:26 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-433-nQ8ll4EtNLmKJJXnQzMjlw-1; Tue, 07 Sep 2021 20:40:20 -0400
-X-MC-Unique: nQ8ll4EtNLmKJJXnQzMjlw-1
+ us-mta-91-qsHSedWWMPaO9ROI3MbwUg-1; Tue, 07 Sep 2021 20:40:24 -0400
+X-MC-Unique: qsHSedWWMPaO9ROI3MbwUg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
  [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC4FC107ACC7;
- Wed,  8 Sep 2021 00:40:19 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87668801B3D;
+ Wed,  8 Sep 2021 00:40:23 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9710E60CD1;
- Wed,  8 Sep 2021 00:40:18 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2B84760E1C;
+ Wed,  8 Sep 2021 00:40:21 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Wed,  8 Sep 2021 10:39:35 +1000
-Message-Id: <20210908003944.2972024-13-airlied@gmail.com>
+Date: Wed,  8 Sep 2021 10:39:37 +1000
+Message-Id: <20210908003944.2972024-15-airlied@gmail.com>
 In-Reply-To: <20210908003944.2972024-1-airlied@gmail.com>
 References: <20210908003944.2972024-1-airlied@gmail.com>
 MIME-Version: 1.0
@@ -51,8 +51,7 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 12/21] drm/i915: constify fdi link training
- vtable
+Subject: [Intel-gfx] [PATCH 14/21] drm/i915: constify color function vtable.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,80 +69,221 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-Avoid having writeable function pointers.
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  2 +-
- drivers/gpu/drm/i915/display/intel_fdi.c     | 18 +++++++++++++++---
- drivers/gpu/drm/i915/i915_drv.h              |  2 +-
- 3 files changed, 17 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 138 ++++++++++++++-------
+ drivers/gpu/drm/i915/i915_drv.h            |   2 +-
+ 2 files changed, 93 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
-/i915/display/intel_display.c
-index 87950202f4ce..0ad577aceb9d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2100,7 +2100,7 @@ static void ilk_pch_enable(const struct intel_atomic_=
-state *state,
- =09assert_pch_transcoder_disabled(dev_priv, pipe);
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i=
+915/display/intel_color.c
+index ed79075158dd..b4e010c7e29d 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1137,14 +1137,14 @@ void intel_color_load_luts(const struct intel_crtc_=
+state *crtc_state)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(crtc_state->uapi.crtc->de=
+v);
 =20
- =09/* For PCH output, training FDI link */
--=09dev_priv->fdi_funcs.fdi_link_train(crtc, crtc_state);
-+=09dev_priv->fdi_funcs->fdi_link_train(crtc, crtc_state);
-=20
- =09/* We need to program the right clock selection before writing the pixe=
-l
- =09 * mutliplier into the DPLL. */
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i91=
-5/display/intel_fdi.c
-index d9f952e0c67f..68aa9c7b18ec 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -1005,15 +1005,27 @@ void lpt_fdi_program_mphy(struct drm_i915_private *=
-dev_priv)
- =09intel_sbi_write(dev_priv, 0x21EC, tmp, SBI_MPHY);
+-=09dev_priv->color_funcs.load_luts(crtc_state);
++=09dev_priv->color_funcs->load_luts(crtc_state);
  }
 =20
-+static const struct drm_i915_fdi_link_train_funcs ilk_funcs =3D {
-+=09.fdi_link_train =3D ilk_fdi_link_train
-+};
-+
-+static const struct drm_i915_fdi_link_train_funcs gen6_funcs =3D {
-+=09.fdi_link_train =3D gen6_fdi_link_train
-+};
-+
-+static const struct drm_i915_fdi_link_train_funcs ivb_funcs =3D {
-+=09.fdi_link_train =3D ivb_manual_fdi_link_train
-+};
-+
- void
- intel_fdi_init_hook(struct drm_i915_private *dev_priv)
+ void intel_color_commit(const struct intel_crtc_state *crtc_state)
  {
- =09if (IS_IRONLAKE(dev_priv)) {
--=09=09dev_priv->fdi_funcs.fdi_link_train =3D ilk_fdi_link_train;
-+=09=09dev_priv->fdi_funcs =3D &ilk_funcs;
- =09} else if (IS_SANDYBRIDGE(dev_priv)) {
--=09=09dev_priv->fdi_funcs.fdi_link_train =3D gen6_fdi_link_train;
-+=09=09dev_priv->fdi_funcs =3D &gen6_funcs;
- =09} else if (IS_IVYBRIDGE(dev_priv)) {
- =09=09/* FIXME: detect B0+ stepping and use auto training */
--=09=09dev_priv->fdi_funcs.fdi_link_train =3D ivb_manual_fdi_link_train;
-+=09=09dev_priv->fdi_funcs =3D &ivb_funcs;
+ =09struct drm_i915_private *dev_priv =3D to_i915(crtc_state->uapi.crtc->de=
+v);
+=20
+-=09dev_priv->color_funcs.color_commit(crtc_state);
++=09dev_priv->color_funcs->color_commit(crtc_state);
+ }
+=20
+ static bool intel_can_preload_luts(const struct intel_crtc_state *new_crtc=
+_state)
+@@ -1200,15 +1200,15 @@ int intel_color_check(struct intel_crtc_state *crtc=
+_state)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(crtc_state->uapi.crtc->de=
+v);
+=20
+-=09return dev_priv->color_funcs.color_check(crtc_state);
++=09return dev_priv->color_funcs->color_check(crtc_state);
+ }
+=20
+ void intel_color_get_config(struct intel_crtc_state *crtc_state)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(crtc_state->uapi.crtc->de=
+v);
+=20
+-=09if (dev_priv->color_funcs.read_luts)
+-=09=09dev_priv->color_funcs.read_luts(crtc_state);
++=09if (dev_priv->color_funcs->read_luts)
++=09=09dev_priv->color_funcs->read_luts(crtc_state);
+ }
+=20
+ static bool need_plane_update(struct intel_plane *plane,
+@@ -2092,6 +2092,76 @@ static void icl_read_luts(struct intel_crtc_state *c=
+rtc_state)
  =09}
  }
+=20
++static const struct drm_i915_display_color_funcs chv_color_funcs =3D {
++=09.color_check =3D chv_color_check,
++=09.color_commit =3D i9xx_color_commit,
++=09.load_luts =3D chv_load_luts,
++=09.read_luts =3D chv_read_luts,
++};
++
++static const struct drm_i915_display_color_funcs i965_color_funcs =3D {
++=09.color_check =3D i9xx_color_check,
++=09.color_commit =3D i9xx_color_commit,
++=09.load_luts =3D i965_load_luts,
++=09.read_luts =3D i965_read_luts,
++};
++
++static const struct drm_i915_display_color_funcs i9xx_color_funcs =3D {
++=09.color_check =3D i9xx_color_check,
++=09.color_commit =3D i9xx_color_commit,
++=09.load_luts =3D i9xx_load_luts,
++=09.read_luts =3D i9xx_read_luts,
++};
++
++static const struct drm_i915_display_color_funcs icl_color_funcs =3D {
++=09.color_check =3D icl_color_check,
++=09.color_commit =3D skl_color_commit,
++=09.load_luts =3D icl_load_luts,
++=09.read_luts =3D icl_read_luts,
++};
++
++static const struct drm_i915_display_color_funcs glk_color_funcs =3D {
++=09.color_check =3D glk_color_check,
++=09.color_commit =3D skl_color_commit,
++=09.load_luts =3D glk_load_luts,
++=09.read_luts =3D glk_read_luts,
++};
++
++static const struct drm_i915_display_color_funcs skl_color_funcs =3D {
++=09.color_check =3D ivb_color_check,
++=09.color_commit =3D skl_color_commit,
++=09.load_luts =3D bdw_load_luts,
++=09.read_luts =3D NULL,
++};
++
++static const struct drm_i915_display_color_funcs bdw_color_funcs =3D {
++=09.color_check =3D ivb_color_check,
++=09.color_commit =3D hsw_color_commit,
++=09.load_luts =3D bdw_load_luts,
++=09.read_luts =3D NULL,
++};
++
++static const struct drm_i915_display_color_funcs hsw_color_funcs =3D {
++=09.color_check =3D ivb_color_check,
++=09.color_commit =3D hsw_color_commit,
++=09.load_luts =3D ivb_load_luts,
++=09.read_luts =3D NULL,
++};
++
++static const struct drm_i915_display_color_funcs ivb_color_funcs =3D {
++=09.color_check =3D ivb_color_check,
++=09.color_commit =3D ilk_color_commit,
++=09.load_luts =3D ilk_load_luts,
++=09.read_luts =3D ilk_read_luts,
++};
++
++static const struct drm_i915_display_color_funcs ilk_color_funcs =3D {
++=09.color_check =3D ilk_color_check,
++=09.color_commit =3D ilk_color_commit,
++=09.load_luts =3D ilk_load_luts,
++=09.read_luts =3D ilk_read_luts,
++};
++
+ void intel_color_init(struct intel_crtc *crtc)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+@@ -2101,52 +2171,28 @@ void intel_color_init(struct intel_crtc *crtc)
+=20
+ =09if (HAS_GMCH(dev_priv)) {
+ =09=09if (IS_CHERRYVIEW(dev_priv)) {
+-=09=09=09dev_priv->color_funcs.color_check =3D chv_color_check;
+-=09=09=09dev_priv->color_funcs.color_commit =3D i9xx_color_commit;
+-=09=09=09dev_priv->color_funcs.load_luts =3D chv_load_luts;
+-=09=09=09dev_priv->color_funcs.read_luts =3D chv_read_luts;
++=09=09=09dev_priv->color_funcs =3D &chv_color_funcs;
+ =09=09} else if (DISPLAY_VER(dev_priv) >=3D 4) {
+-=09=09=09dev_priv->color_funcs.color_check =3D i9xx_color_check;
+-=09=09=09dev_priv->color_funcs.color_commit =3D i9xx_color_commit;
+-=09=09=09dev_priv->color_funcs.load_luts =3D i965_load_luts;
+-=09=09=09dev_priv->color_funcs.read_luts =3D i965_read_luts;
++=09=09=09dev_priv->color_funcs =3D &i965_color_funcs;
+ =09=09} else {
+-=09=09=09dev_priv->color_funcs.color_check =3D i9xx_color_check;
+-=09=09=09dev_priv->color_funcs.color_commit =3D i9xx_color_commit;
+-=09=09=09dev_priv->color_funcs.load_luts =3D i9xx_load_luts;
+-=09=09=09dev_priv->color_funcs.read_luts =3D i9xx_read_luts;
++=09=09=09dev_priv->color_funcs =3D &i9xx_color_funcs;
+ =09=09}
+ =09} else {
+ =09=09if (DISPLAY_VER(dev_priv) >=3D 11)
+-=09=09=09dev_priv->color_funcs.color_check =3D icl_color_check;
+-=09=09else if (DISPLAY_VER(dev_priv) >=3D 10)
+-=09=09=09dev_priv->color_funcs.color_check =3D glk_color_check;
+-=09=09else if (DISPLAY_VER(dev_priv) >=3D 7)
+-=09=09=09dev_priv->color_funcs.color_check =3D ivb_color_check;
+-=09=09else
+-=09=09=09dev_priv->color_funcs.color_check =3D ilk_color_check;
+-
+-=09=09if (DISPLAY_VER(dev_priv) >=3D 9)
+-=09=09=09dev_priv->color_funcs.color_commit =3D skl_color_commit;
+-=09=09else if (IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
+-=09=09=09dev_priv->color_funcs.color_commit =3D hsw_color_commit;
+-=09=09else
+-=09=09=09dev_priv->color_funcs.color_commit =3D ilk_color_commit;
+-
+-=09=09if (DISPLAY_VER(dev_priv) >=3D 11) {
+-=09=09=09dev_priv->color_funcs.load_luts =3D icl_load_luts;
+-=09=09=09dev_priv->color_funcs.read_luts =3D icl_read_luts;
+-=09=09} else if (DISPLAY_VER(dev_priv) =3D=3D 10) {
+-=09=09=09dev_priv->color_funcs.load_luts =3D glk_load_luts;
+-=09=09=09dev_priv->color_funcs.read_luts =3D glk_read_luts;
+-=09=09} else if (DISPLAY_VER(dev_priv) >=3D 8) {
+-=09=09=09dev_priv->color_funcs.load_luts =3D bdw_load_luts;
+-=09=09} else if (DISPLAY_VER(dev_priv) >=3D 7) {
+-=09=09=09dev_priv->color_funcs.load_luts =3D ivb_load_luts;
+-=09=09} else {
+-=09=09=09dev_priv->color_funcs.load_luts =3D ilk_load_luts;
+-=09=09=09dev_priv->color_funcs.read_luts =3D ilk_read_luts;
+-=09=09}
++=09=09=09dev_priv->color_funcs =3D &icl_color_funcs;
++=09=09else if (DISPLAY_VER(dev_priv) =3D=3D 10)
++=09=09=09dev_priv->color_funcs =3D &glk_color_funcs;
++=09=09else if (DISPLAY_VER(dev_priv) =3D=3D 9)
++=09=09=09dev_priv->color_funcs =3D &skl_color_funcs;
++=09=09else if (DISPLAY_VER(dev_priv) =3D=3D 8)
++=09=09=09dev_priv->color_funcs =3D &bdw_color_funcs;
++=09=09else if (DISPLAY_VER(dev_priv) =3D=3D 7) {
++=09=09=09if (IS_HASWELL(dev_priv))
++=09=09=09=09dev_priv->color_funcs =3D &hsw_color_funcs;
++=09=09=09else
++=09=09=09=09dev_priv->color_funcs =3D &ivb_color_funcs;
++=09=09} else
++=09=09=09dev_priv->color_funcs =3D &ilk_color_funcs;
+ =09}
+=20
+ =09drm_crtc_enable_color_mgmt(&crtc->base,
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
 v.h
-index 461ab0a0f088..b3765222e717 100644
+index 6050bb519b18..e82df3bf493b 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1006,7 +1006,7 @@ struct drm_i915_private {
- =09struct drm_i915_irq_funcs irq_funcs;
+@@ -1015,7 +1015,7 @@ struct drm_i915_private {
+ =09struct drm_i915_display_funcs display;
 =20
- =09/* fdi display functions */
--=09struct drm_i915_fdi_link_train_funcs fdi_funcs;
-+=09const struct drm_i915_fdi_link_train_funcs *fdi_funcs;
+ =09/* Display internal color functions */
+-=09struct drm_i915_display_color_funcs color_funcs;
++=09const struct drm_i915_display_color_funcs *color_funcs;
 =20
- =09/* display pll funcs */
- =09struct drm_i915_dpll_funcs dpll_funcs;
+ =09/* Display internal audio functions */
+ =09struct drm_i915_display_audio_funcs audio_funcs;
 --=20
 2.31.1
 
