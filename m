@@ -7,44 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C968C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F27C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:52:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1D19960187
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:52:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1D19960187
+	by mail.kernel.org (Postfix) with ESMTPS id 2AC18610E8
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:52:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2AC18610E8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8846E196;
-	Wed,  8 Sep 2021 11:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1F56E197;
+	Wed,  8 Sep 2021 11:52:37 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3227D6E196
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 11:52:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="242758082"
-X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="242758082"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295A56E197
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 11:52:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="242758084"
+X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="242758084"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2021 04:52:34 -0700
+ 08 Sep 2021 04:52:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="479135363"
+X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="479135380"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by orsmga008.jf.intel.com with ESMTP; 08 Sep 2021 04:52:32 -0700
+ by orsmga008.jf.intel.com with ESMTP; 08 Sep 2021 04:52:34 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  vandita.kulkarni@intel.com, cooper.chiou@intel.com,
  william.tseng@intel.com, Lee Shawn C <shawn.c.lee@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>
-Date: Wed,  8 Sep 2021 19:56:04 +0800
-Message-Id: <20210908115607.9633-3-shawn.c.lee@intel.com>
+Date: Wed,  8 Sep 2021 19:56:05 +0800
+Message-Id: <20210908115607.9633-4-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210908115607.9633-1-shawn.c.lee@intel.com>
 References: <20210908115607.9633-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [v4 2/5] drm/i915/dsi: refine send MIPI DCS command
- sequence
+Subject: [Intel-gfx] [v4 3/5] drm/i915: Get proper min cdclk if vDSC enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,11 +59,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-According to chapter "Sending Commands to the Panel" in bspec #29738
-and #49188. If driver try to send DCS long pakcet, we have to program
-TX payload register at first. And configure TX header HW register later.
-DSC long packet would not be sent properly if we don't follow this
-sequence.
+VDSC engine can process only 1 pixel per Cd clock. In case
+VDSC is used and max slice count == 1, max supported pixel
+clock should be 100% of CD clock. Then do min_cdclk and
+pixel clock comparison to get proper min cdclk.
+
+v2:
+- Check for dsc enable and slice count ==1 then allow to
+  double confirm min cdclk value.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -73,38 +75,32 @@ Cc: Cooper Chiou <cooper.chiou@intel.com>
 Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 Reviewed-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 44289003b709..060bc8fb0d30 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1831,11 +1831,6 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
- 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
- 		enable_lpdt = true;
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 34fa4130d5c4..9aec17b33819 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2139,6 +2139,16 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	/* Account for additional needs from the planes */
+ 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
  
--	/* send packet header */
--	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
--	if (ret < 0)
--		return ret;
--
- 	/* only long packet contains payload */
- 	if (mipi_dsi_packet_format_is_long(msg->type)) {
- 		ret = dsi_send_pkt_payld(intel_dsi_host, dsi_pkt);
-@@ -1843,6 +1838,11 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
- 			return ret;
- 	}
- 
-+	/* send packet header */
-+	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
-+	if (ret < 0)
-+		return ret;
++	/*
++	 * VDSC engine can process only 1 pixel per Cd clock.
++	 * In case VDSC is used and max slice count == 1,
++	 * max supported pixel clock should be 100% of CD clock.
++	 * Then do min_cdclk and pixel clock comparison to get cdclk.
++	 */
++	if (crtc_state->dsc.compression_enable &&
++	    crtc_state->dsc.slice_count == 1)
++		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
 +
- 	//TODO: add payload receive code if needed
- 
- 	ret = sizeof(dsi_pkt.header) + dsi_pkt.payload_length;
+ 	/*
+ 	 * HACK. Currently for TGL platforms we calculate
+ 	 * min_cdclk initially based on pixel_rate divided
 -- 
 2.17.1
 
