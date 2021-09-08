@@ -2,51 +2,47 @@ Return-Path: <SRS0=r3jS=N6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FE2DC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 19:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 142E3C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 19:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0010561074
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 19:04:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0010561074
+	by mail.kernel.org (Postfix) with ESMTPS id C3F1A61074
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 19:04:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3F1A61074
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC1776E29D;
-	Wed,  8 Sep 2021 19:04:52 +0000 (UTC)
-X-Greylist: delayed 461 seconds by postgrey-1.36 at gabe;
- Wed, 08 Sep 2021 19:04:51 UTC
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD0C6E296;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 164A86E2B6;
+	Wed,  8 Sep 2021 19:04:54 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B6B6E28B;
  Wed,  8 Sep 2021 19:04:51 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020; t=1631127427;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=uojuMhK8EFqg62qCIyHIniDCbF3TH69reqpSG63YWT0=;
- b=F1L/ndDQDV6uDNe9gJlyb5O9Ww3altx4PMFmNewqMQrxFjRyzKpJo4FReeBdwjyZtZuzpt
- 5NG5NAoJbJ8K89xHjE1ka+0HUHWplx+xaSu88aAgBoK4bwHzQYfR9mXN7pFoZZvQLBlLzc
- i0U8JGuEf4Vq+aqOzIQvK3O2ogNUhSDyQTv7F88Z6fcy+WhQjcKylHV0lADAVGdAsWy6qo
- +DvG1yu5Wr2LLvqf+Lg1tStvfaLxz+Gd8hOeeuPaMS7DpEW3jBHVUfjITJQU6hcOiB7uWF
- rhRIQpC4W4xQAkQjah3obbkx41wdTtB6QxzrRQuNJlzkELHVtQMxsA8k0haf6g==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ja6UVY/K51tXsi/XK0upPS/i2C7NG+UnVxqjbfVoGk4=;
+ b=dHHaZQKqI2XbPRdwg09l8XmX2++tSCWJ/STqtynlVm9FvHiYw2Jtloj/xZIXxXDBwZGwDl
+ MPXqnOt0Vgt3EhaZ208fFDJ2O9LYs+beJCgEHIS/wG1i9GNqHtsCtExiOsotjgULdl/WJK
+ 97gqGYLR2ll5lcuH5ELCgen57GSK4EiOYXpwN5nBxYucntCHHjuRKKE7UXUNVJLhhvk8d4
+ eB+/XWdL5Ofgi8t5LpqdAYi+tLVRj2uu+4EHjnl9PK/ctDUN7I/9tIyWENWlZwmK5mPEWt
+ eKc9t5twN4pUnv0BXsH08Ax2YfdwsUTx9JYm6nseApR8dShHzFOLuIDXOqCGZg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020e; t=1631127427;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=uojuMhK8EFqg62qCIyHIniDCbF3TH69reqpSG63YWT0=;
- b=lxdFr/YJDauQKuNKOf4Ph1bxaENUVYRVp/729ws38DPEqjzPRzDnWvEKTwjd805AYCcopS
- t7TDe2ogcO+H2jDg==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ja6UVY/K51tXsi/XK0upPS/i2C7NG+UnVxqjbfVoGk4=;
+ b=QQzOpSv7gV3E4Yhh0WCZStnU34gClc1Xft1BQ4pEZW8t1B2mfnoQ7pSSQOh0AMZAJADqZM
+ QQrEMqNgIBCau3Dw==
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -55,16 +51,12 @@ Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Clark Williams <williams@redhat.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Date: Wed,  8 Sep 2021 20:57:02 +0200
-Message-Id: <20210908185703.2989414-2-bigeasy@linutronix.de>
-In-Reply-To: <20210908185703.2989414-1-bigeasy@linutronix.de>
-References: <20210908185703.2989414-1-bigeasy@linutronix.de>
+ Thomas Gleixner <tglx@linutronix.de>, Clark Williams <williams@redhat.com>
+Date: Wed,  8 Sep 2021 20:57:01 +0200
+Message-Id: <20210908185703.2989414-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gt: Queue and wait for the
- irq_work item.
+Subject: [Intel-gfx] [PATCH 0/2] drm/i915/gt: Locking splats PREEMPT_RT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +72,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Disabling interrupts and invoking the irq_work function directly breaks
-on PREEMPT_RT.
-PREEMPT_RT does not invoke all irq_work from hardirq context because
-some of the user have spinlock_t locking in the callback function.
-These locks are then turned into a sleeping locks which can not be
-acquired with disabled interrupts.
+Clark Williams reported two issues with the i915 driver running on
+PREEMPT_RT. While #1 looks simple I have no idea about #2 thus the RFC.
 
-Using irq_work_queue() has the benefit that the irqwork will be invoked
-in the regular context. In general there is "no" delay between enqueuing
-the callback and its invocation because the interrupt is raised right
-away on architectures which support it (which includes x86).
-
-Use irq_work_queue() + irq_work_sync() instead invoking the callback
-directly.
-
-Reported-by: Clark Williams <williams@redhat.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/=
-i915/gt/intel_breadcrumbs.c
-index 38cc42783dfb2..594dec2f76954 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -318,10 +318,9 @@ void __intel_breadcrumbs_park(struct intel_breadcrumbs=
- *b)
- 	/* Kick the work once more to drain the signalers, and disarm the irq */
- 	irq_work_sync(&b->irq_work);
- 	while (READ_ONCE(b->irq_armed) && !atomic_read(&b->active)) {
--		local_irq_disable();
--		signal_irq_work(&b->irq_work);
--		local_irq_enable();
-+		irq_work_queue(&b->irq_work);
- 		cond_resched();
-+		irq_work_sync(&b->irq_work);
- 	}
- }
-=20
---=20
-2.33.0
+Sebastian
 
