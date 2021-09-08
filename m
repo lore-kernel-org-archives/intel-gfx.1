@@ -2,81 +2,50 @@ Return-Path: <SRS0=r3jS=N6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B419C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:59:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 921A8C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 12:00:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4764261100
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 11:59:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4764261100
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id EF2BB610E9
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 12:00:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EF2BB610E9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A00066E194;
-	Wed,  8 Sep 2021 11:59:57 +0000 (UTC)
-X-Greylist: delayed 355 seconds by postgrey-1.36 at gabe;
- Wed, 08 Sep 2021 03:23:01 UTC
-Received: from condef-05.nifty.com (condef-05.nifty.com [202.248.20.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7E776E0F7
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 03:23:01 +0000 (UTC)
-Received: from conssluserg-05.nifty.com ([10.126.8.84])by condef-05.nifty.com
- with ESMTP id 1883EZ58020190; Wed, 8 Sep 2021 12:14:36 +0900
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173]) (authenticated)
- by conssluserg-05.nifty.com with ESMTP id 1883Dv7r024261;
- Wed, 8 Sep 2021 12:13:58 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-05.nifty.com 1883Dv7r024261
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1631070838;
- bh=DiTP/AS3T3vq4JaeKSJu2Ri/qt3KnM6Fx/+72YJ6xGU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=uq24T7VOY9DzMY2Ttse8IMfSKSJ3nAzJEww51VcTiGop5IKF9mXMZoEJE8g+oB25J
- H8FXrW273mevkmofLJZdPfyWYc7pVppc52cATl3m3HQR+Gbp2A46519A8xON0MtMat
- WCZdIstesFb5Hc212QXqESmLXSp6bZ7HLWJy3VCA3v952l+bZD02aJFWB2W9en3ZVY
- EGhJzWA9IbCxNqGyycrcBGMJs6uKzPeKuM5EZ9KjI3hYnltsimRBj7f5uwhX2jTHbi
- tEJIOmIrTqFFHa5TDe+OF8CU7Ty9FDvzDKanrRSMdxfajodpXa150TF0+tG+22ez/a
- DPe2n7cd1ZXRQ==
-X-Nifty-SrcIP: [209.85.215.173]
-Received: by mail-pg1-f173.google.com with SMTP id w7so1021036pgk.13;
- Tue, 07 Sep 2021 20:13:58 -0700 (PDT)
-X-Gm-Message-State: AOAM532yhB3hzh26rhPaZtX7vUeAJEm2OjA8J3K1vBvXKHGSSKROIXte
- J+iXo16dsSOV9C8S/BwhUP6/Es7IMoebIJlZ1k0=
-X-Google-Smtp-Source: ABdhPJyPU4uh1o2NcT/aR4ZPGLpv6t2vzuzFEOmM8q5aihG3cwIUJLm6ZYqb445avfVEnp26Ym0k8VmPnUWDt0gqMjM=
-X-Received: by 2002:aa7:949d:0:b0:416:4555:3021 with SMTP id
- z29-20020aa7949d000000b0041645553021mr1560140pfk.36.1631070837441; Tue, 07
- Sep 2021 20:13:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7322E6E195;
+	Wed,  8 Sep 2021 12:00:29 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE7656E195
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 12:00:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="218599465"
+X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="218599465"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2021 05:00:06 -0700
+X-IronPort-AV: E=Sophos;i="5.85,277,1624345200"; d="scan'208";a="538612365"
+Received: from mdoerbec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.249.33.106])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2021 05:00:04 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
+Cc: Dave Airlie <airlied@redhat.com>
+In-Reply-To: <20210908003944.2972024-21-airlied@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210908003944.2972024-1-airlied@gmail.com>
+ <20210908003944.2972024-21-airlied@gmail.com>
+Date: Wed, 08 Sep 2021 15:00:00 +0300
+Message-ID: <87zgsn46rj.fsf@intel.com>
 MIME-Version: 1.0
-References: <20210820123348.6535a87e@canb.auug.org.au>
- <CAK7LNASv-F1Y7kpaDF+_=TW0Jzvpo1uuNL1B5jUmCCRqv-45bA@mail.gmail.com>
- <20210902075038.7461d3c8@canb.auug.org.au>
- <20210906084947.4f65761d@canb.auug.org.au>
- <CAKMK7uF6K+gdWVT09wL0sPBQs8RRixggk01e291veE0VecD=TQ@mail.gmail.com>
-In-Reply-To: <CAKMK7uF6K+gdWVT09wL0sPBQs8RRixggk01e291veE0VecD=TQ@mail.gmail.com>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Wed, 8 Sep 2021 12:13:20 +0900
-X-Gmail-Original-Message-ID: <CAK7LNAQdgr7pn0j9mdAGfB_0fGOVMn+uq=Kv7buRaCOcoF+p7A@mail.gmail.com>
-Message-ID: <CAK7LNAQdgr7pn0j9mdAGfB_0fGOVMn+uq=Kv7buRaCOcoF+p7A@mail.gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "Nikula, Jani" <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@linux.ie>,
- DRI <dri-devel@lists.freedesktop.org>,
- John Harrison <John.C.Harrison@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Alexey Dobriyan <adobriyan@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 08 Sep 2021 11:59:56 +0000
-Subject: Re: [Intel-gfx] linux-next: build failure after merge of the drm
- tree
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 20/21] drm/i915: constify clock gating init
+ vtable.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,116 +61,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 6, 2021 at 4:34 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Wed, 08 Sep 2021, Dave Airlie <airlied@gmail.com> wrote:
+> From: Dave Airlie <airlied@redhat.com>
 >
-> On Mon, Sep 6, 2021 at 12:49 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> > Hi all,
-> >
-> > On Thu, 2 Sep 2021 07:50:38 +1000 Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> > >
-> > > On Fri, 20 Aug 2021 15:23:34 +0900 Masahiro Yamada <masahiroy@kernel.org> wrote:
-> > > >
-> > > > On Fri, Aug 20, 2021 at 11:33 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> > > > >
-> >  > > After merging the drm tree, today's linux-next build (x86_64 allmodconfig)
-> > > > > failed like this:
-> > > > >
-> > > > > In file included from drivers/gpu/drm/i915/i915_debugfs.c:39:
-> > > > > drivers/gpu/drm/i915/gt/intel_gt_requests.h:9:10: fatal error: stddef.h: No such file or directory
-> > > > >     9 | #include <stddef.h>
-> > > > >       |          ^~~~~~~~~~
-> > > > >
-> > > > > Caused by commit
-> > > > >
-> > > > >   564f963eabd1 ("isystem: delete global -isystem compile option")
-> > > > >
-> > > > > from the kbuild tree interacting with commit
-> > > > >
-> > > > >   b97060a99b01 ("drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC")
-> > > > >
-> > > > > I have applied the following patch for today.
-> > > >
-> > > >
-> > > > Thanks.
-> > > >
-> > > > This fix-up does not depend on my kbuild tree in any way.
-> > > >
-> > > > So, the drm maintainer can apply it to his tree.
-> > > >
-> > > > Perhaps with
-> > > >
-> > > > Fixes: b97060a99b01 ("drm/i915/guc: Update intel_gt_wait_for_idle to
-> > > > work with GuC")
-> > >
-> > > OK, so that didn't happen so I will now apply the merge fix up to the
-> > > merge of the kbuild tree.
-> > >
-> > > > > From: Stephen Rothwell <sfr@canb.auug.org.au>
-> > > > > Date: Fri, 20 Aug 2021 12:24:19 +1000
-> > > > > Subject: [PATCH] drm/i915: use linux/stddef.h due to "isystem: trim/fixup stdarg.h and other headers"
-> > > > >
-> > > > > Signed-off-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> > > > > ---
-> > > > >  drivers/gpu/drm/i915/gt/intel_gt_requests.h | 2 +-
-> > > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.h b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-> > > > > index 51dbe0e3294e..d2969f68dd64 100644
-> > > > > --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-> > > > > +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-> > > > > @@ -6,7 +6,7 @@
-> > > > >  #ifndef INTEL_GT_REQUESTS_H
-> > > > >  #define INTEL_GT_REQUESTS_H
-> > > > >
-> > > > > -#include <stddef.h>
-> > > > > +#include <linux/stddef.h>
-> > > > >
-> > > > >  struct intel_engine_cs;
-> > > > >  struct intel_gt;
-> > > > > --
-> > > > > 2.32.0
-> >
-> > Ping?  I am still applying this ...
+> I used a macro to avoid making any really silly mistakes here.
+> ---
+>  drivers/gpu/drm/i915/i915_drv.h |  2 +-
+>  drivers/gpu/drm/i915/intel_pm.c | 77 +++++++++++++++++++++++----------
+>  2 files changed, 54 insertions(+), 25 deletions(-)
 >
-> Apologies, this fell through a lot of cracks. I applied this to drm-next now.
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index fbcafc7cc075..44094a25a110 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -990,7 +990,7 @@ struct drm_i915_private {
+>  	struct workqueue_struct *flip_wq;
+>  
+>  	/* pm private clock gating functions */
+> -	struct drm_i915_cg_funcs cg_funcs;
+> +	const struct drm_i915_cg_funcs *cg_funcs;
+>  
+>  	/* pm display functions */
+>  	struct drm_i915_wm_disp_funcs wm_disp;
+> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+> index 7a457646fb84..44f5582531ac 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_pm.c
+> @@ -7871,7 +7871,7 @@ static void i830_init_clock_gating(struct drm_i915_private *dev_priv)
+>  
+>  void intel_init_clock_gating(struct drm_i915_private *dev_priv)
+>  {
+> -	dev_priv->cg_funcs.init_clock_gating(dev_priv);
+> +	dev_priv->cg_funcs->init_clock_gating(dev_priv);
+>  }
+>  
+>  void intel_suspend_hw(struct drm_i915_private *dev_priv)
+> @@ -7886,6 +7886,35 @@ static void nop_init_clock_gating(struct drm_i915_private *dev_priv)
+>  		    "No clock gating settings or workarounds applied.\n");
+>  }
+>  
+> +#define CG_FUNCS(platform) \
+> +static const struct drm_i915_cg_funcs platform##_cg_funcs = { \
+> +	.init_clock_gating = platform##_init_clock_gating     \
+> +}
+> +
+> +CG_FUNCS(adlp);
+> +CG_FUNCS(dg1);
+> +CG_FUNCS(gen12lp);
+> +CG_FUNCS(icl);
+> +CG_FUNCS(cfl);
+> +CG_FUNCS(skl);
+> +CG_FUNCS(kbl);
+> +CG_FUNCS(bxt);
+> +CG_FUNCS(glk);
+> +CG_FUNCS(bdw);
+> +CG_FUNCS(chv);
+> +CG_FUNCS(hsw);
+> +CG_FUNCS(ivb);
+> +CG_FUNCS(vlv);
+> +CG_FUNCS(gen6);
+> +CG_FUNCS(ilk);
+> +CG_FUNCS(g4x);
+> +CG_FUNCS(i965gm);
+> +CG_FUNCS(i965g);
+> +CG_FUNCS(gen3);
+> +CG_FUNCS(i85x);
+> +CG_FUNCS(i830);
+> +CG_FUNCS(nop);
+
+#undef CF_FUNCS
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 
-
-Rather, I was planning to apply this fix to my kbuild tree.
-
-Since you guys did not fix the issue in time,
-I ended up with dropping [1] from my pull request.
-
-I want to get [1] merged in this MW.
-
-If I postponed it, somebody would add new
-<stddef.h> or <stdint.h> inclusion in the next development
-cycle, I will never make it in the mainline.
-
-[1] https://lore.kernel.org/linux-kernel/YQhY40teUJcTc5H4@localhost.localdomain/
-
-
-
-
-
-> Matt/John, as author/committer it's your job to make sure issues and
-> fixes for the stuff you're pushing don't get lost. I'd have expected
-> John to apply this to at least drm-intel-gt-next (it's not even
-> there).
->
-> Joonas, I think this is the 2nd or 3rd or so issue this release cycle
-> where some compile fix got stuck a bit because drm-intel-gt-next isn't
-> in linux-next. Can we please fix that? It probably needs some changes
-> to the dim script.
->
-> Cheers, Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-
-
+> +
+>  /**
+>   * intel_init_clock_gating_hooks - setup the clock gating hooks
+>   * @dev_priv: device private
+> @@ -7898,52 +7927,52 @@ static void nop_init_clock_gating(struct drm_i915_private *dev_priv)
+>  void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv)
+>  {
+>  	if (IS_ALDERLAKE_P(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = adlp_init_clock_gating;
+> +		dev_priv->cg_funcs = &adlp_cg_funcs;
+>  	else if (IS_DG1(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = dg1_init_clock_gating;
+> +		dev_priv->cg_funcs = &dg1_cg_funcs;
+>  	else if (GRAPHICS_VER(dev_priv) == 12)
+> -		dev_priv->cg_funcs.init_clock_gating = gen12lp_init_clock_gating;
+> +		dev_priv->cg_funcs = &gen12lp_cg_funcs;
+>  	else if (GRAPHICS_VER(dev_priv) == 11)
+> -		dev_priv->cg_funcs.init_clock_gating = icl_init_clock_gating;
+> +		dev_priv->cg_funcs = &icl_cg_funcs;
+>  	else if (IS_COFFEELAKE(dev_priv) || IS_COMETLAKE(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = cfl_init_clock_gating;
+> +		dev_priv->cg_funcs = &cfl_cg_funcs;
+>  	else if (IS_SKYLAKE(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = skl_init_clock_gating;
+> +		dev_priv->cg_funcs = &skl_cg_funcs;
+>  	else if (IS_KABYLAKE(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = kbl_init_clock_gating;
+> +		dev_priv->cg_funcs = &kbl_cg_funcs;
+>  	else if (IS_BROXTON(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = bxt_init_clock_gating;
+> +		dev_priv->cg_funcs = &bxt_cg_funcs;
+>  	else if (IS_GEMINILAKE(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = glk_init_clock_gating;
+> +		dev_priv->cg_funcs = &glk_cg_funcs;
+>  	else if (IS_BROADWELL(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = bdw_init_clock_gating;
+> +		dev_priv->cg_funcs = &bdw_cg_funcs;
+>  	else if (IS_CHERRYVIEW(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = chv_init_clock_gating;
+> +		dev_priv->cg_funcs = &chv_cg_funcs;
+>  	else if (IS_HASWELL(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = hsw_init_clock_gating;
+> +		dev_priv->cg_funcs = &hsw_cg_funcs;
+>  	else if (IS_IVYBRIDGE(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = ivb_init_clock_gating;
+> +		dev_priv->cg_funcs = &ivb_cg_funcs;
+>  	else if (IS_VALLEYVIEW(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = vlv_init_clock_gating;
+> +		dev_priv->cg_funcs = &vlv_cg_funcs;
+>  	else if (GRAPHICS_VER(dev_priv) == 6)
+> -		dev_priv->cg_funcs.init_clock_gating = gen6_init_clock_gating;
+> +		dev_priv->cg_funcs = &gen6_cg_funcs;
+>  	else if (GRAPHICS_VER(dev_priv) == 5)
+> -		dev_priv->cg_funcs.init_clock_gating = ilk_init_clock_gating;
+> +		dev_priv->cg_funcs = &ilk_cg_funcs;
+>  	else if (IS_G4X(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = g4x_init_clock_gating;
+> +		dev_priv->cg_funcs = &g4x_cg_funcs;
+>  	else if (IS_I965GM(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = i965gm_init_clock_gating;
+> +		dev_priv->cg_funcs = &i965gm_cg_funcs;
+>  	else if (IS_I965G(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = i965g_init_clock_gating;
+> +		dev_priv->cg_funcs = &i965g_cg_funcs;
+>  	else if (GRAPHICS_VER(dev_priv) == 3)
+> -		dev_priv->cg_funcs.init_clock_gating = gen3_init_clock_gating;
+> +		dev_priv->cg_funcs = &gen3_cg_funcs;
+>  	else if (IS_I85X(dev_priv) || IS_I865G(dev_priv))
+> -		dev_priv->cg_funcs.init_clock_gating = i85x_init_clock_gating;
+> +		dev_priv->cg_funcs = &i85x_cg_funcs;
+>  	else if (GRAPHICS_VER(dev_priv) == 2)
+> -		dev_priv->cg_funcs.init_clock_gating = i830_init_clock_gating;
+> +		dev_priv->cg_funcs = &i830_cg_funcs;
+>  	else {
+>  		MISSING_CASE(INTEL_DEVID(dev_priv));
+> -		dev_priv->cg_funcs.init_clock_gating = nop_init_clock_gating;
+> +		dev_priv->cg_funcs = &nop_cg_funcs;
+>  	}
+>  }
 
 -- 
-Best Regards
-Masahiro Yamada
+Jani Nikula, Intel Open Source Graphics Center
