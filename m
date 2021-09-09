@@ -5,47 +5,47 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42C74C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65F1EC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 136536023D
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 136536023D
+	by mail.kernel.org (Postfix) with ESMTPS id 346A56023D
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 346A56023D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EFFF6E8D3;
-	Thu,  9 Sep 2021 16:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F366E8CB;
+	Thu,  9 Sep 2021 16:52:55 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 812C16E8C6;
- Thu,  9 Sep 2021 16:52:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="218988842"
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="218988842"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D086E8C6;
+ Thu,  9 Sep 2021 16:52:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="218988854"
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="218988854"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:52:50 -0700
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="649003792"
+ 09 Sep 2021 09:52:52 -0700
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="649003819"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:52:50 -0700
+ 09 Sep 2021 09:52:52 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Thu,  9 Sep 2021 09:47:23 -0700
-Message-Id: <20210909164744.31249-3-matthew.brost@intel.com>
+Date: Thu,  9 Sep 2021 09:47:31 -0700
+Message-Id: <20210909164744.31249-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210909164744.31249-1-matthew.brost@intel.com>
 References: <20210909164744.31249-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/23] drm/i915/guc: Fix outstanding G2H
- accounting
+Subject: [Intel-gfx] [PATCH 10/23] drm/i915/guc: Copy whole golden context,
+ set engine state size of subset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,197 +61,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A small race that could result in incorrect accounting of the number
-of outstanding G2H. Basically prior to this patch we did not increment
-the number of outstanding G2H if we encoutered a GT reset while sending
-a H2G. This was incorrect as the context state had already been updated
-to anticipate a G2H response thus the counter should be incremented.
+When the GuC does a media reset, it copies a golden context state back
+into the corrupted context's state. The address of the golden context
+and the size of the engine state restore are passed in via the GuC ADS.
+The i915 had a bug where it passed in the whole size of the golden
+context, not the size of the engine state to restore resulting in a
+memory corruption.
 
-As part of this change we remove a legacy (now unused) path that was the
-last caller requiring a G2H response that was not guaranteed to loop.
-This allows us to simplify the accounting as we don't need to handle the
-case where the send fails due to the channel being busy.
+Also copy the entire golden context on init rather than just the engine
+state that is restored.
 
-Also always use helper when decrementing this value.
+v2 (Daniele): use defines to avoid duplicated const variables (John).
 
-v2 (Daniele): update GEM_BUG_ON check, pull in dead code removal from
-later patch, remove loop param from context_deregister.
-
-Fixes: f4eb1f3fe946 ("drm/i915/guc: Ensure G2H response has space in buffer")
+Fixes: 481d458caede ("drm/i915/guc: Add golden context to GuC ADS")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: <stable@vger.kernel.org>
+Cc: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 79 +++++++++----------
- 1 file changed, 37 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 26 ++++++++++++++--------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 69faa39da178..aff5dd247a88 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -352,20 +352,29 @@ static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
- 	xa_unlock_irqrestore(&guc->context_lookup, flags);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 6926919bcac6..2c6ea64af7ec 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -349,6 +349,8 @@ static void fill_engine_enable_masks(struct intel_gt *gt,
+ 	info->engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
  }
  
-+static void decr_outstanding_submission_g2h(struct intel_guc *guc)
-+{
-+	if (atomic_dec_and_test(&guc->outstanding_submission_g2h))
-+		wake_up_all(&guc->ct.wq);
-+}
-+
- static int guc_submission_send_busy_loop(struct intel_guc *guc,
- 					 const u32 *action,
- 					 u32 len,
- 					 u32 g2h_len_dw,
- 					 bool loop)
++#define LR_HW_CONTEXT_SIZE (80 * sizeof(u32))
++#define LRC_SKIP_SIZE (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE)
+ static int guc_prep_golden_context(struct intel_guc *guc,
+ 				   struct __guc_ads_blob *blob)
  {
--	int err;
+@@ -396,7 +398,18 @@ static int guc_prep_golden_context(struct intel_guc *guc,
+ 		if (!blob)
+ 			continue;
+ 
+-		blob->ads.eng_state_size[guc_class] = real_size;
++		/*
++		 * This interface is slightly confusing. We need to pass the
++		 * base address of the full golden context and the size of just
++		 * the engine state, which is the section of the context image
++		 * that starts after the execlists context. This is required to
++		 * allow the GuC to restore just the engine state when a
++		 * watchdog reset occurs.
++		 * We calculate the engine state size by removing the size of
++		 * what comes before it in the context image (which is identical
++		 * on all engines).
++		 */
++		blob->ads.eng_state_size[guc_class] = real_size - LRC_SKIP_SIZE;
+ 		blob->ads.golden_context_lrca[guc_class] = addr_ggtt;
+ 		addr_ggtt += alloc_size;
+ 	}
+@@ -436,11 +449,6 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 	u8 engine_class, guc_class;
+ 	u8 *ptr;
+ 
+-	/* Skip execlist and PPGTT registers + HWSP */
+-	const u32 lr_hw_context_size = 80 * sizeof(u32);
+-	const u32 skip_size = LRC_PPHWSP_SZ * PAGE_SIZE +
+-		lr_hw_context_size;
 -
--	err = intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
-+	/*
-+	 * We always loop when a send requires a reply (i.e. g2h_len_dw > 0),
-+	 * so we don't handle the case where we don't get a reply because we
-+	 * aborted the send due to the channel being busy.
-+	 */
-+	GEM_BUG_ON(g2h_len_dw && !loop);
+ 	if (!intel_uc_uses_guc_submission(&gt->uc))
+ 		return;
  
--	if (!err && g2h_len_dw)
-+	if (g2h_len_dw)
- 		atomic_inc(&guc->outstanding_submission_g2h);
- 
--	return err;
-+	return intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
- }
- 
- int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
-@@ -616,7 +625,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 		init_sched_state(ce);
- 
- 		if (pending_enable || destroyed || deregister) {
--			atomic_dec(&guc->outstanding_submission_g2h);
-+			decr_outstanding_submission_g2h(guc);
- 			if (deregister)
- 				guc_signal_context_fence(ce);
- 			if (destroyed) {
-@@ -635,7 +644,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 				intel_engine_signal_breadcrumbs(ce->engine);
- 			}
- 			intel_context_sched_disable_unpin(ce);
--			atomic_dec(&guc->outstanding_submission_g2h);
-+			decr_outstanding_submission_g2h(guc);
- 			spin_lock_irqsave(&ce->guc_state.lock, flags);
- 			guc_blocked_fence_complete(ce);
- 			spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-@@ -1233,8 +1242,7 @@ static int register_context(struct intel_context *ce, bool loop)
- }
- 
- static int __guc_action_deregister_context(struct intel_guc *guc,
--					   u32 guc_id,
--					   bool loop)
-+					   u32 guc_id)
- {
- 	u32 action[] = {
- 		INTEL_GUC_ACTION_DEREGISTER_CONTEXT,
-@@ -1243,16 +1251,16 @@ static int __guc_action_deregister_context(struct intel_guc *guc,
- 
- 	return guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
- 					     G2H_LEN_DW_DEREGISTER_CONTEXT,
--					     loop);
-+					     true);
- }
- 
--static int deregister_context(struct intel_context *ce, u32 guc_id, bool loop)
-+static int deregister_context(struct intel_context *ce, u32 guc_id)
- {
- 	struct intel_guc *guc = ce_to_guc(ce);
- 
- 	trace_intel_context_deregister(ce);
- 
--	return __guc_action_deregister_context(guc, guc_id, loop);
-+	return __guc_action_deregister_context(guc, guc_id);
- }
- 
- static intel_engine_mask_t adjust_engine_mask(u8 class, intel_engine_mask_t mask)
-@@ -1340,26 +1348,23 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	 * registering this context.
- 	 */
- 	if (context_registered) {
-+		bool disabled;
-+		unsigned long flags;
-+
- 		trace_intel_context_steal_guc_id(ce);
--		if (!loop) {
-+		GEM_BUG_ON(!loop);
-+
-+		/* Seal race with Reset */
-+		spin_lock_irqsave(&ce->guc_state.lock, flags);
-+		disabled = submission_disabled(guc);
-+		if (likely(!disabled)) {
- 			set_context_wait_for_deregister_to_register(ce);
- 			intel_context_get(ce);
--		} else {
--			bool disabled;
--			unsigned long flags;
--
--			/* Seal race with Reset */
--			spin_lock_irqsave(&ce->guc_state.lock, flags);
--			disabled = submission_disabled(guc);
--			if (likely(!disabled)) {
--				set_context_wait_for_deregister_to_register(ce);
--				intel_context_get(ce);
--			}
--			spin_unlock_irqrestore(&ce->guc_state.lock, flags);
--			if (unlikely(disabled)) {
--				reset_lrc_desc(guc, desc_idx);
--				return 0;	/* Will get registered later */
--			}
-+		}
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+		if (unlikely(disabled)) {
-+			reset_lrc_desc(guc, desc_idx);
-+			return 0;	/* Will get registered later */
+@@ -476,12 +484,12 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 			continue;
  		}
  
- 		/*
-@@ -1367,13 +1372,9 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 		 * context whose guc_id was stolen.
- 		 */
- 		with_intel_runtime_pm(runtime_pm, wakeref)
--			ret = deregister_context(ce, ce->guc_id, loop);
--		if (unlikely(ret == -EBUSY)) {
--			clr_context_wait_for_deregister_to_register(ce);
--			intel_context_put(ce);
--		} else if (unlikely(ret == -ENODEV)) {
-+			ret = deregister_context(ce, ce->guc_id);
-+		if (unlikely(ret == -ENODEV))
- 			ret = 0;	/* Will get registered later */
--		}
- 	} else {
- 		with_intel_runtime_pm(runtime_pm, wakeref)
- 			ret = register_context(ce, loop);
-@@ -1730,7 +1731,7 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
- 	GEM_BUG_ON(context_enabled(ce));
+-		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] != real_size);
++		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] !=
++			   real_size - LRC_SKIP_SIZE);
+ 		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
+ 		addr_ggtt += alloc_size;
  
- 	clr_context_registered(ce);
--	deregister_context(ce, ce->guc_id, true);
-+	deregister_context(ce, ce->guc_id);
- }
+-		shmem_read(engine->default_state, skip_size, ptr + skip_size,
+-			   real_size - skip_size);
++		shmem_read(engine->default_state, 0, ptr, real_size);
+ 		ptr += alloc_size;
+ 	}
  
- static void __guc_context_destroy(struct intel_context *ce)
-@@ -2583,12 +2584,6 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
- 	return ce;
- }
- 
--static void decr_outstanding_submission_g2h(struct intel_guc *guc)
--{
--	if (atomic_dec_and_test(&guc->outstanding_submission_g2h))
--		wake_up_all(&guc->ct.wq);
--}
--
- int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg,
- 					  u32 len)
 -- 
 2.32.0
 
