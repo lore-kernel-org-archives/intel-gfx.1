@@ -5,47 +5,47 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61684C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9046BC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 33A506023D
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 33A506023D
+	by mail.kernel.org (Postfix) with ESMTPS id 617EE61100
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 617EE61100
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B66E86E8E3;
-	Thu,  9 Sep 2021 16:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 651DA6E8D5;
+	Thu,  9 Sep 2021 16:52:54 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54A886E8C9;
- Thu,  9 Sep 2021 16:52:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="218988857"
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="218988857"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0A06E8C7;
+ Thu,  9 Sep 2021 16:52:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="218988847"
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="218988847"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:52:53 -0700
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="649003830"
+ 09 Sep 2021 09:52:51 -0700
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="649003802"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:52:52 -0700
+ 09 Sep 2021 09:52:51 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Thu,  9 Sep 2021 09:47:34 -0700
-Message-Id: <20210909164744.31249-14-matthew.brost@intel.com>
+Date: Thu,  9 Sep 2021 09:47:26 -0700
+Message-Id: <20210909164744.31249-6-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210909164744.31249-1-matthew.brost@intel.com>
 References: <20210909164744.31249-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/23] drm/i915/guc: Don't touch
- guc_state.sched_state without a lock
+Subject: [Intel-gfx] [PATCH 05/23] drm/i915/guc: Process all G2H message at
+ once in work queue
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,97 +61,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before we did some clever tricks to not use the a lock when touching
-guc_state.sched_state in certain cases. Don't do that, enforce the use
-of the lock.
-
-v2:
- (kernel test robo )
-  - Add __maybe_unused to sched_state_is_init()
-
-v3: rebase after the unused code path removal has been moved to an
-earlier patch.
+Rather than processing 1 G2H at a time and re-queuing the work queue if
+more messages exist, process all the G2H in a single pass of the work
+queue.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
 Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 22 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index e036a171ff17..ca73128d7b4d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -151,11 +151,23 @@ static inline void clr_context_registered(struct intel_context *ce)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 22b4733b55e2..20c710a74498 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -1042,9 +1042,9 @@ static void ct_incoming_request_worker_func(struct work_struct *w)
+ 		container_of(w, struct intel_guc_ct, requests.worker);
+ 	bool done;
  
- static inline void init_sched_state(struct intel_context *ce)
- {
--	/* Only should be called from guc_lrc_desc_pin() */
-+	lockdep_assert_held(&ce->guc_state.lock);
- 	atomic_set(&ce->guc_sched_state_no_lock, 0);
- 	ce->guc_state.sched_state &= SCHED_STATE_BLOCKED_MASK;
+-	done = ct_process_incoming_requests(ct);
+-	if (!done)
+-		queue_work(system_unbound_wq, &ct->requests.worker);
++	do {
++		done = ct_process_incoming_requests(ct);
++	} while (!done);
  }
  
-+__maybe_unused
-+static bool sched_state_is_init(struct intel_context *ce)
-+{
-+	/*
-+	 * XXX: Kernel contexts can have SCHED_STATE_NO_LOCK_REGISTERED after
-+	 * suspend.
-+	 */
-+	return !(atomic_read(&ce->guc_sched_state_no_lock) &
-+		 ~SCHED_STATE_NO_LOCK_REGISTERED) &&
-+		!(ce->guc_state.sched_state &= ~SCHED_STATE_BLOCKED_MASK);
-+}
-+
- static inline bool
- context_wait_for_deregister_to_register(struct intel_context *ce)
- {
-@@ -166,7 +178,7 @@ context_wait_for_deregister_to_register(struct intel_context *ce)
- static inline void
- set_context_wait_for_deregister_to_register(struct intel_context *ce)
- {
--	/* Only should be called from guc_lrc_desc_pin() without lock */
-+	lockdep_assert_held(&ce->guc_state.lock);
- 	ce->guc_state.sched_state |=
- 		SCHED_STATE_WAIT_FOR_DEREGISTER_TO_REGISTER;
- }
-@@ -607,9 +619,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 	bool pending_disable, pending_enable, deregister, destroyed, banned;
- 
- 	xa_for_each(&guc->context_lookup, index, ce) {
--		/* Flush context */
- 		spin_lock_irqsave(&ce->guc_state.lock, flags);
--		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 
- 		/*
- 		 * Once we are at this point submission_disabled() is guaranteed
-@@ -625,6 +635,8 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 		banned = context_banned(ce);
- 		init_sched_state(ce);
- 
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+
- 		if (pending_enable || destroyed || deregister) {
- 			decr_outstanding_submission_g2h(guc);
- 			if (deregister)
-@@ -1324,6 +1336,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	int ret = 0;
- 
- 	GEM_BUG_ON(!engine->mask);
-+	GEM_BUG_ON(!sched_state_is_init(ce));
- 
- 	/*
- 	 * Ensure LRC + CT vmas are is same region as write barrier is done
-@@ -1352,7 +1365,6 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	desc->priority = ce->guc_prio;
- 	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
- 	guc_context_policy_init(engine, desc);
--	init_sched_state(ce);
- 
- 	/*
- 	 * The context_lookup xarray is used to determine if the hardware
+ static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *request)
 -- 
 2.32.0
 
