@@ -2,60 +2,57 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-7.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D0C0C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:53:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9970BC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:53:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 467B461167
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:53:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 467B461167
+	by mail.kernel.org (Postfix) with ESMTPS id 6931460187
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:53:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6931460187
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83BC96E435;
-	Thu,  9 Sep 2021 01:53:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D0DF6E434;
+	Thu,  9 Sep 2021 01:53:50 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F27C76E433
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 01:53:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E9566E433
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 01:53:47 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-332-RBC8xmTKMvm29uZJbxMajA-1; Wed, 08 Sep 2021 21:53:39 -0400
-X-MC-Unique: RBC8xmTKMvm29uZJbxMajA-1
+ us-mta-186-hYStKE02OQ2HpnZL_96OYg-1; Wed, 08 Sep 2021 21:53:45 -0400
+X-MC-Unique: hYStKE02OQ2HpnZL_96OYg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C421F102C7E9;
- Thu,  9 Sep 2021 01:53:38 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8DC91824FA6;
+ Thu,  9 Sep 2021 01:53:44 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 7D47F19736;
- Thu,  9 Sep 2021 01:53:37 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4659919736;
+ Thu,  9 Sep 2021 01:53:43 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Thu,  9 Sep 2021 11:53:03 +1000
-Message-Id: <20210909015322.2988500-5-airlied@gmail.com>
+Date: Thu,  9 Sep 2021 11:53:06 +1000
+Message-Id: <20210909015322.2988500-8-airlied@gmail.com>
 In-Reply-To: <20210909015322.2988500-1-airlied@gmail.com>
 References: <20210909015322.2988500-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 04/23] drm/i915: add wrappers around cdclk
- vtable funcs.
+Subject: [Intel-gfx] [PATCH 07/23] drm/i915: split watermark vfuncs from
+ display vtable.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,194 +70,272 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This adds wrappers around all the vtable callers so they are in
-one place.
-
-Suggested by Jani.
+These are the watermark api between display and pm.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 47 +++++++++++++++----
- drivers/gpu/drm/i915/display/intel_cdclk.h    |  4 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  2 +-
- .../drm/i915/display/intel_display_power.c    |  2 +-
- 4 files changed, 44 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 35 ++++++++---------
+ drivers/gpu/drm/i915/i915_drv.h              | 24 ++++++++----
+ drivers/gpu/drm/i915/intel_pm.c              | 40 ++++++++++----------
+ 3 files changed, 54 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i=
-915/display/intel_cdclk.c
-index 9aec17b33819..0e09f259914f 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -59,6 +59,37 @@
-  * dividers can be programmed correctly.
-  */
-=20
-+void intel_cdclk_get_cdclk(struct drm_i915_private *dev_priv,
-+=09=09=09   struct intel_cdclk_config *cdclk_config)
-+{
-+=09dev_priv->display.get_cdclk(dev_priv, cdclk_config);
-+}
-+
-+int intel_cdclk_bw_calc_min_cdclk(struct intel_atomic_state *state)
-+{
-+=09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
-+=09return dev_priv->display.bw_calc_min_cdclk(state);
-+}
-+
-+static void intel_cdclk_set_cdclk(struct drm_i915_private *dev_priv,
-+=09=09=09=09  const struct intel_cdclk_config *cdclk_config,
-+=09=09=09=09  enum pipe pipe)
-+{
-+=09dev_priv->display.set_cdclk(dev_priv, cdclk_config, pipe);
-+}
-+
-+static int intel_cdclk_modeset_calc_cdclk(struct drm_i915_private *dev_pri=
-v,
-+=09=09=09=09=09  struct intel_cdclk_state *cdclk_config)
-+{
-+=09return dev_priv->display.modeset_calc_cdclk(cdclk_config);
-+}
-+
-+static u8 intel_cdclk_calc_voltage_level(struct drm_i915_private *dev_priv=
-,
-+=09=09=09=09=09 int cdclk)
-+{
-+=09return dev_priv->display.calc_voltage_level(cdclk);
-+}
-+
- static void fixed_133mhz_get_cdclk(struct drm_i915_private *dev_priv,
- =09=09=09=09   struct intel_cdclk_config *cdclk_config)
- {
-@@ -1466,7 +1497,7 @@ static void bxt_get_cdclk(struct drm_i915_private *de=
-v_priv,
- =09 * at least what the CDCLK frequency requires.
- =09 */
- =09cdclk_config->voltage_level =3D
--=09=09dev_priv->display.calc_voltage_level(cdclk_config->cdclk);
-+=09=09intel_cdclk_calc_voltage_level(dev_priv, cdclk_config->cdclk);
- }
-=20
- static void bxt_de_pll_disable(struct drm_i915_private *dev_priv)
-@@ -1777,7 +1808,7 @@ static void bxt_cdclk_init_hw(struct drm_i915_private=
- *dev_priv)
- =09cdclk_config.cdclk =3D bxt_calc_cdclk(dev_priv, 0);
- =09cdclk_config.vco =3D bxt_calc_cdclk_pll_vco(dev_priv, cdclk_config.cdcl=
-k);
- =09cdclk_config.voltage_level =3D
--=09=09dev_priv->display.calc_voltage_level(cdclk_config.cdclk);
-+=09=09intel_cdclk_calc_voltage_level(dev_priv, cdclk_config.cdclk);
-=20
- =09bxt_set_cdclk(dev_priv, &cdclk_config, INVALID_PIPE);
- }
-@@ -1789,7 +1820,7 @@ static void bxt_cdclk_uninit_hw(struct drm_i915_priva=
-te *dev_priv)
- =09cdclk_config.cdclk =3D cdclk_config.bypass;
- =09cdclk_config.vco =3D 0;
- =09cdclk_config.voltage_level =3D
--=09=09dev_priv->display.calc_voltage_level(cdclk_config.cdclk);
-+=09=09intel_cdclk_calc_voltage_level(dev_priv, cdclk_config.cdclk);
-=20
- =09bxt_set_cdclk(dev_priv, &cdclk_config, INVALID_PIPE);
- }
-@@ -1956,7 +1987,7 @@ static void intel_set_cdclk(struct drm_i915_private *=
-dev_priv,
- =09=09=09=09     &dev_priv->gmbus_mutex);
- =09}
-=20
--=09dev_priv->display.set_cdclk(dev_priv, cdclk_config, pipe);
-+=09intel_cdclk_set_cdclk(dev_priv, cdclk_config, pipe);
-=20
- =09for_each_intel_dp(&dev_priv->drm, encoder) {
- =09=09struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
-@@ -2424,7 +2455,7 @@ static int bxt_modeset_calc_cdclk(struct intel_cdclk_=
-state *cdclk_state)
- =09cdclk_state->logical.cdclk =3D cdclk;
- =09cdclk_state->logical.voltage_level =3D
- =09=09max_t(int, min_voltage_level,
--=09=09      dev_priv->display.calc_voltage_level(cdclk));
-+=09=09      intel_cdclk_calc_voltage_level(dev_priv, cdclk));
-=20
- =09if (!cdclk_state->active_pipes) {
- =09=09cdclk =3D bxt_calc_cdclk(dev_priv, cdclk_state->force_min_cdclk);
-@@ -2433,7 +2464,7 @@ static int bxt_modeset_calc_cdclk(struct intel_cdclk_=
-state *cdclk_state)
- =09=09cdclk_state->actual.vco =3D vco;
- =09=09cdclk_state->actual.cdclk =3D cdclk;
- =09=09cdclk_state->actual.voltage_level =3D
--=09=09=09dev_priv->display.calc_voltage_level(cdclk);
-+=09=09=09intel_cdclk_calc_voltage_level(dev_priv, cdclk);
- =09} else {
- =09=09cdclk_state->actual =3D cdclk_state->logical;
- =09}
-@@ -2525,7 +2556,7 @@ int intel_modeset_calc_cdclk(struct intel_atomic_stat=
-e *state)
- =09new_cdclk_state->active_pipes =3D
- =09=09intel_calc_active_pipes(state, old_cdclk_state->active_pipes);
-=20
--=09ret =3D dev_priv->display.modeset_calc_cdclk(new_cdclk_state);
-+=09ret =3D intel_cdclk_modeset_calc_cdclk(dev_priv, new_cdclk_state);
- =09if (ret)
- =09=09return ret;
-=20
-@@ -2705,7 +2736,7 @@ void intel_update_max_cdclk(struct drm_i915_private *=
-dev_priv)
-  */
- void intel_update_cdclk(struct drm_i915_private *dev_priv)
- {
--=09dev_priv->display.get_cdclk(dev_priv, &dev_priv->cdclk.hw);
-+=09intel_cdclk_get_cdclk(dev_priv, &dev_priv->cdclk.hw);
-=20
- =09/*
- =09 * 9:0 CMBUS [sic] CDCLK frequency (cdfreq):
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i=
-915/display/intel_cdclk.h
-index b34eb00fb327..309b3f394e24 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.h
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
-@@ -68,7 +68,9 @@ void intel_set_cdclk_post_plane_update(struct intel_atomi=
-c_state *state);
- void intel_dump_cdclk_config(const struct intel_cdclk_config *cdclk_config=
-,
- =09=09=09     const char *context);
- int intel_modeset_calc_cdclk(struct intel_atomic_state *state);
--
-+void intel_cdclk_get_cdclk(struct drm_i915_private *dev_priv,
-+=09=09=09   struct intel_cdclk_config *cdclk_config);
-+int intel_cdclk_bw_calc_min_cdclk(struct intel_atomic_state *state);
- struct intel_cdclk_state *
- intel_atomic_get_cdclk_state(struct intel_atomic_state *state);
-=20
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
 /i915/display/intel_display.c
-index 3d8afa9f3237..8d2147880fa1 100644
+index f2678d26cd17..413bc4667e47 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9146,7 +9146,7 @@ static int intel_atomic_check_cdclk(struct intel_atom=
-ic_state *state,
- =09    old_cdclk_state->force_min_cdclk !=3D new_cdclk_state->force_min_cd=
-clk)
- =09=09*need_cdclk_calc =3D true;
+@@ -162,16 +162,16 @@ static void intel_modeset_setup_hw_state(struct drm_d=
+evice *dev,
+  */
+ static void intel_update_watermarks(struct drm_i915_private *dev_priv)
+ {
+-=09if (dev_priv->display.update_wm)
+-=09=09dev_priv->display.update_wm(dev_priv);
++=09if (dev_priv->wm_disp.update_wm)
++=09=09dev_priv->wm_disp.update_wm(dev_priv);
+ }
 =20
--=09ret =3D dev_priv->display.bw_calc_min_cdclk(state);
-+=09ret =3D intel_cdclk_bw_calc_min_cdclk(state);
- =09if (ret)
- =09=09return ret;
+ static int intel_compute_pipe_wm(struct intel_atomic_state *state,
+ =09=09=09=09 struct intel_crtc *crtc)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+-=09if (dev_priv->display.compute_pipe_wm)
+-=09=09return dev_priv->display.compute_pipe_wm(state, crtc);
++=09if (dev_priv->wm_disp.compute_pipe_wm)
++=09=09return dev_priv->wm_disp.compute_pipe_wm(state, crtc);
+ =09return 0;
+ }
 =20
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/g=
-pu/drm/i915/display/intel_display_power.c
-index cce1a926fcc1..a274e2b33e91 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1195,7 +1195,7 @@ static void gen9_disable_dc_states(struct drm_i915_pr=
-ivate *dev_priv)
- =09if (!HAS_DISPLAY(dev_priv))
+@@ -180,10 +180,10 @@ static int intel_compute_intermediate_wm(struct intel=
+_atomic_state *state,
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+ =09if (drm_WARN_ON(&dev_priv->drm,
+-=09=09=09!dev_priv->display.compute_pipe_wm))
++=09=09=09!dev_priv->wm_disp.compute_pipe_wm))
+ =09=09return 0;
+-=09if (dev_priv->display.compute_pipe_wm)
+-=09=09return dev_priv->display.compute_intermediate_wm(state, crtc);
++=09if (dev_priv->wm_disp.compute_pipe_wm)
++=09=09return dev_priv->wm_disp.compute_intermediate_wm(state, crtc);
+ =09return 0;
+ }
+=20
+@@ -191,8 +191,8 @@ static bool intel_initial_watermarks(struct intel_atomi=
+c_state *state,
+ =09=09=09=09     struct intel_crtc *crtc)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+-=09if (dev_priv->display.initial_watermarks) {
+-=09=09dev_priv->display.initial_watermarks(state, crtc);
++=09if (dev_priv->wm_disp.initial_watermarks) {
++=09=09dev_priv->wm_disp.initial_watermarks(state, crtc);
+ =09=09return true;
+ =09}
+ =09return false;
+@@ -202,23 +202,23 @@ static void intel_atomic_update_watermarks(struct int=
+el_atomic_state *state,
+ =09=09=09=09=09   struct intel_crtc *crtc)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+-=09if (dev_priv->display.atomic_update_watermarks)
+-=09=09dev_priv->display.atomic_update_watermarks(state, crtc);
++=09if (dev_priv->wm_disp.atomic_update_watermarks)
++=09=09dev_priv->wm_disp.atomic_update_watermarks(state, crtc);
+ }
+=20
+ static void intel_optimize_watermarks(struct intel_atomic_state *state,
+ =09=09=09=09      struct intel_crtc *crtc)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+-=09if (dev_priv->display.optimize_watermarks)
+-=09=09dev_priv->display.optimize_watermarks(state, crtc);
++=09if (dev_priv->wm_disp.optimize_watermarks)
++=09=09dev_priv->wm_disp.optimize_watermarks(state, crtc);
+ }
+=20
+ static void intel_compute_global_watermarks(struct intel_atomic_state *sta=
+te)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+-=09if (dev_priv->display.compute_global_watermarks)
+-=09=09dev_priv->display.compute_global_watermarks(state);
++=09if (dev_priv->wm_disp.compute_global_watermarks)
++=09=09dev_priv->wm_disp.compute_global_watermarks(state);
+ }
+=20
+ /* returns HPLL frequency in kHz */
+@@ -3669,6 +3669,7 @@ static void i9xx_crtc_enable(struct intel_atomic_stat=
+e *state,
+=20
+ =09if (!intel_initial_watermarks(state, crtc))
+ =09    intel_update_watermarks(dev_priv);
++
+ =09intel_enable_pipe(new_crtc_state);
+=20
+ =09intel_crtc_vblank_on(new_crtc_state);
+@@ -3734,7 +3735,7 @@ static void i9xx_crtc_disable(struct intel_atomic_sta=
+te *state,
+ =09if (DISPLAY_VER(dev_priv) !=3D 2)
+ =09=09intel_set_cpu_fifo_underrun_reporting(dev_priv, pipe, false);
+=20
+-=09if (!dev_priv->display.initial_watermarks)
++=09if (!dev_priv->wm_disp.initial_watermarks)
+ =09=09intel_update_watermarks(dev_priv);
+=20
+ =09/* clock the pipe down to 640x480@60 to potentially save power */
+@@ -11387,7 +11388,7 @@ static void sanitize_watermarks(struct drm_i915_pri=
+vate *dev_priv)
+ =09int i;
+=20
+ =09/* Only supported on platforms that use atomic watermark design */
+-=09if (!dev_priv->display.optimize_watermarks)
++=09if (!dev_priv->wm_disp.optimize_watermarks)
  =09=09return;
 =20
--=09dev_priv->display.get_cdclk(dev_priv, &cdclk_config);
-+=09intel_cdclk_get_cdclk(dev_priv, &cdclk_config);
- =09/* Can't read out voltage_level so can't use intel_cdclk_changed() */
- =09drm_WARN_ON(&dev_priv->drm,
- =09=09    intel_cdclk_needs_modeset(&dev_priv->cdclk.hw,
+ =09state =3D drm_atomic_state_alloc(&dev_priv->drm);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
+v.h
+index 48d30b967def..e70587cf8679 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -328,13 +328,10 @@ struct drm_i915_clock_gating_funcs {
+ =09void (*init_clock_gating)(struct drm_i915_private *dev_priv);
+ };
+=20
+-struct drm_i915_display_funcs {
+-=09void (*get_cdclk)(struct drm_i915_private *dev_priv,
+-=09=09=09  struct intel_cdclk_config *cdclk_config);
+-=09void (*set_cdclk)(struct drm_i915_private *dev_priv,
+-=09=09=09  const struct intel_cdclk_config *cdclk_config,
+-=09=09=09  enum pipe pipe);
+-=09int (*bw_calc_min_cdclk)(struct intel_atomic_state *state);
++/* functions used for watermark calcs for display. */
++struct drm_i915_wm_disp_funcs {
++=09/* update_wm is for legacy wm management */
++=09void (*update_wm)(struct drm_i915_private *dev_priv);
+ =09int (*compute_pipe_wm)(struct intel_atomic_state *state,
+ =09=09=09       struct intel_crtc *crtc);
+ =09int (*compute_intermediate_wm)(struct intel_atomic_state *state,
+@@ -346,7 +343,15 @@ struct drm_i915_display_funcs {
+ =09void (*optimize_watermarks)(struct intel_atomic_state *state,
+ =09=09=09=09    struct intel_crtc *crtc);
+ =09int (*compute_global_watermarks)(struct intel_atomic_state *state);
+-=09void (*update_wm)(struct drm_i915_private *dev_priv);
++};
++
++struct drm_i915_display_funcs {
++=09void (*get_cdclk)(struct drm_i915_private *dev_priv,
++=09=09=09  struct intel_cdclk_config *cdclk_config);
++=09void (*set_cdclk)(struct drm_i915_private *dev_priv,
++=09=09=09  const struct intel_cdclk_config *cdclk_config,
++=09=09=09  enum pipe pipe);
++=09int (*bw_calc_min_cdclk)(struct intel_atomic_state *state);
+ =09int (*modeset_calc_cdclk)(struct intel_cdclk_state *state);
+ =09u8 (*calc_voltage_level)(int cdclk);
+ =09/* Returns the active state of the crtc, and if the crtc is active,
+@@ -961,6 +966,9 @@ struct drm_i915_private {
+ =09/* pm private clock gating functions */
+ =09struct drm_i915_clock_gating_funcs clock_gating_funcs;
+=20
++=09/* pm display functions */
++=09struct drm_i915_wm_disp_funcs wm_disp;
++
+ =09/* Display functions */
+ =09struct drm_i915_display_funcs display;
+=20
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_p=
+m.c
+index add50ff01d7c..826216a115fd 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7962,7 +7962,7 @@ void intel_init_pm(struct drm_i915_private *dev_priv)
+ =09/* For FIFO watermark updates */
+ =09if (DISPLAY_VER(dev_priv) >=3D 9) {
+ =09=09skl_setup_wm_latency(dev_priv);
+-=09=09dev_priv->display.compute_global_watermarks =3D skl_compute_wm;
++=09=09dev_priv->wm_disp.compute_global_watermarks =3D skl_compute_wm;
+ =09} else if (HAS_PCH_SPLIT(dev_priv)) {
+ =09=09ilk_setup_wm_latency(dev_priv);
+=20
+@@ -7970,12 +7970,12 @@ void intel_init_pm(struct drm_i915_private *dev_pri=
+v)
+ =09=09     dev_priv->wm.spr_latency[1] && dev_priv->wm.cur_latency[1]) ||
+ =09=09    (DISPLAY_VER(dev_priv) !=3D 5 && dev_priv->wm.pri_latency[0] &&
+ =09=09     dev_priv->wm.spr_latency[0] && dev_priv->wm.cur_latency[0])) {
+-=09=09=09dev_priv->display.compute_pipe_wm =3D ilk_compute_pipe_wm;
+-=09=09=09dev_priv->display.compute_intermediate_wm =3D
++=09=09=09dev_priv->wm_disp.compute_pipe_wm =3D ilk_compute_pipe_wm;
++=09=09=09dev_priv->wm_disp.compute_intermediate_wm =3D
+ =09=09=09=09ilk_compute_intermediate_wm;
+-=09=09=09dev_priv->display.initial_watermarks =3D
++=09=09=09dev_priv->wm_disp.initial_watermarks =3D
+ =09=09=09=09ilk_initial_watermarks;
+-=09=09=09dev_priv->display.optimize_watermarks =3D
++=09=09=09dev_priv->wm_disp.optimize_watermarks =3D
+ =09=09=09=09ilk_optimize_watermarks;
+ =09=09} else {
+ =09=09=09drm_dbg_kms(&dev_priv->drm,
+@@ -7984,17 +7984,17 @@ void intel_init_pm(struct drm_i915_private *dev_pri=
+v)
+ =09=09}
+ =09} else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
+ =09=09vlv_setup_wm_latency(dev_priv);
+-=09=09dev_priv->display.compute_pipe_wm =3D vlv_compute_pipe_wm;
+-=09=09dev_priv->display.compute_intermediate_wm =3D vlv_compute_intermedia=
+te_wm;
+-=09=09dev_priv->display.initial_watermarks =3D vlv_initial_watermarks;
+-=09=09dev_priv->display.optimize_watermarks =3D vlv_optimize_watermarks;
+-=09=09dev_priv->display.atomic_update_watermarks =3D vlv_atomic_update_fif=
+o;
++=09=09dev_priv->wm_disp.compute_pipe_wm =3D vlv_compute_pipe_wm;
++=09=09dev_priv->wm_disp.compute_intermediate_wm =3D vlv_compute_intermedia=
+te_wm;
++=09=09dev_priv->wm_disp.initial_watermarks =3D vlv_initial_watermarks;
++=09=09dev_priv->wm_disp.optimize_watermarks =3D vlv_optimize_watermarks;
++=09=09dev_priv->wm_disp.atomic_update_watermarks =3D vlv_atomic_update_fif=
+o;
+ =09} else if (IS_G4X(dev_priv)) {
+ =09=09g4x_setup_wm_latency(dev_priv);
+-=09=09dev_priv->display.compute_pipe_wm =3D g4x_compute_pipe_wm;
+-=09=09dev_priv->display.compute_intermediate_wm =3D g4x_compute_intermedia=
+te_wm;
+-=09=09dev_priv->display.initial_watermarks =3D g4x_initial_watermarks;
+-=09=09dev_priv->display.optimize_watermarks =3D g4x_optimize_watermarks;
++=09=09dev_priv->wm_disp.compute_pipe_wm =3D g4x_compute_pipe_wm;
++=09=09dev_priv->wm_disp.compute_intermediate_wm =3D g4x_compute_intermedia=
+te_wm;
++=09=09dev_priv->wm_disp.initial_watermarks =3D g4x_initial_watermarks;
++=09=09dev_priv->wm_disp.optimize_watermarks =3D g4x_optimize_watermarks;
+ =09} else if (IS_PINEVIEW(dev_priv)) {
+ =09=09if (!intel_get_cxsr_latency(!IS_MOBILE(dev_priv),
+ =09=09=09=09=09    dev_priv->is_ddr3,
+@@ -8008,18 +8008,18 @@ void intel_init_pm(struct drm_i915_private *dev_pri=
+v)
+ =09=09=09=09 dev_priv->fsb_freq, dev_priv->mem_freq);
+ =09=09=09/* Disable CxSR and never update its watermark again */
+ =09=09=09intel_set_memory_cxsr(dev_priv, false);
+-=09=09=09dev_priv->display.update_wm =3D NULL;
++=09=09=09dev_priv->wm_disp.update_wm =3D NULL;
+ =09=09} else
+-=09=09=09dev_priv->display.update_wm =3D pnv_update_wm;
++=09=09=09dev_priv->wm_disp.update_wm =3D pnv_update_wm;
+ =09} else if (DISPLAY_VER(dev_priv) =3D=3D 4) {
+-=09=09dev_priv->display.update_wm =3D i965_update_wm;
++=09=09dev_priv->wm_disp.update_wm =3D i965_update_wm;
+ =09} else if (DISPLAY_VER(dev_priv) =3D=3D 3) {
+-=09=09dev_priv->display.update_wm =3D i9xx_update_wm;
++=09=09dev_priv->wm_disp.update_wm =3D i9xx_update_wm;
+ =09} else if (DISPLAY_VER(dev_priv) =3D=3D 2) {
+ =09=09if (INTEL_NUM_PIPES(dev_priv) =3D=3D 1)
+-=09=09=09dev_priv->display.update_wm =3D i845_update_wm;
++=09=09=09dev_priv->wm_disp.update_wm =3D i845_update_wm;
+ =09=09else
+-=09=09=09dev_priv->display.update_wm =3D i9xx_update_wm;
++=09=09=09dev_priv->wm_disp.update_wm =3D i9xx_update_wm;
+ =09} else {
+ =09=09drm_err(&dev_priv->drm,
+ =09=09=09"unexpected fall-through in %s\n", __func__);
 --=20
 2.31.1
 
