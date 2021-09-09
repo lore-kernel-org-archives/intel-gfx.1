@@ -7,48 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECACDC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43E76C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7C6560F45
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:52:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7C6560F45
+	by mail.kernel.org (Postfix) with ESMTPS id 15E9760F45
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:52:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 15E9760F45
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BFAD6E857;
-	Thu,  9 Sep 2021 12:52:43 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B79F36E857;
- Thu,  9 Sep 2021 12:52:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10101"; a="208009627"
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="208009627"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 05:52:26 -0700
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="548547744"
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA80C6E861;
+	Thu,  9 Sep 2021 12:52:47 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04AC76E861;
+ Thu,  9 Sep 2021 12:52:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10101"; a="306348406"
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="306348406"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 05:52:44 -0700
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="694103693"
 Received: from okozlyk-mobl.ger.corp.intel.com (HELO localhost)
  ([10.251.214.52])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 05:52:23 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 05:52:41 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, manasi.d.navare@intel.com,
- Lyude Paul <lyude@redhat.com>
-Date: Thu,  9 Sep 2021 15:51:54 +0300
-Message-Id: <649051cb896821147feee91aab1f2abc523c1353.1631191763.git.jani.nikula@intel.com>
+ ville.syrjala@linux.intel.com, manasi.d.navare@intel.com
+Date: Thu,  9 Sep 2021 15:51:57 +0300
+Message-Id: <260e4da302d47ae50122eb8d517be6ac3ccb15f2.1631191763.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1631191763.git.jani.nikula@intel.com>
 References: <cover.1631191763.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 02/13] drm/dp: use more of the extended
- receiver cap
+Subject: [Intel-gfx] [PATCH v3 05/13] drm/i915/dg2: add DG2+
+ TRANS_DDI_FUNC_CTL DP 2.0 128b/132b mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,34 +62,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extend the use of extended receiver cap at 0x2200 to cover
-MAIN_LINK_CHANNEL_CODING_CAP in 0x2206, in case an implementation hides
-the DP 2.0 128b/132b channel encoding cap.
+Unfortunately, the DP 2.0 128b/132b DDI mode selection in the register
+conflicts with FDI. Since we have to deal with both meanings in the same
+code, for different platforms, clarify the macro name so we don't
+forget.
 
-v2: Extend to DP_RECEIVER_CAP_SIZE (Ville)
-
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Bspec: 50493
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_dp_helper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 6 +++---
+ drivers/gpu/drm/i915/i915_reg.h          | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 9b2a2961fca8..2e74b02ed96b 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -608,7 +608,7 @@ static u8 drm_dp_downstream_port_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
- 					  u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
--	u8 dpcd_ext[6];
-+	u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 23ef291f7b30..2361f48537b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -489,7 +489,7 @@ intel_ddi_transcoder_func_reg_val_get(struct intel_encoder *encoder,
+ 		if (crtc_state->hdmi_high_tmds_clock_ratio)
+ 			temp |= TRANS_DDI_HIGH_TMDS_CHAR_RATE;
+ 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_ANALOG)) {
+-		temp |= TRANS_DDI_MODE_SELECT_FDI;
++		temp |= TRANS_DDI_MODE_SELECT_FDI_OR_128B132B;
+ 		temp |= (crtc_state->fdi_lanes - 1) << 1;
+ 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
+ 		temp |= TRANS_DDI_MODE_SELECT_DP_MST;
+@@ -679,7 +679,7 @@ bool intel_ddi_connector_get_hw_state(struct intel_connector *intel_connector)
+ 		ret = false;
+ 		break;
  
- 	/*
+-	case TRANS_DDI_MODE_SELECT_FDI:
++	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
+ 		ret = type == DRM_MODE_CONNECTOR_VGA;
+ 		break;
+ 
+@@ -3558,7 +3558,7 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
+ 		pipe_config->output_types |= BIT(INTEL_OUTPUT_HDMI);
+ 		pipe_config->lane_count = 4;
+ 		break;
+-	case TRANS_DDI_MODE_SELECT_FDI:
++	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
+ 		pipe_config->output_types |= BIT(INTEL_OUTPUT_ANALOG);
+ 		break;
+ 	case TRANS_DDI_MODE_SELECT_DP_SST:
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index c2853cc005ee..03a94389c514 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -10202,7 +10202,7 @@ enum skl_power_gate {
+ #define  TRANS_DDI_MODE_SELECT_DVI	(1 << 24)
+ #define  TRANS_DDI_MODE_SELECT_DP_SST	(2 << 24)
+ #define  TRANS_DDI_MODE_SELECT_DP_MST	(3 << 24)
+-#define  TRANS_DDI_MODE_SELECT_FDI	(4 << 24)
++#define  TRANS_DDI_MODE_SELECT_FDI_OR_128B132B	(4 << 24)
+ #define  TRANS_DDI_BPC_MASK		(7 << 20)
+ #define  TRANS_DDI_BPC_8		(0 << 20)
+ #define  TRANS_DDI_BPC_10		(1 << 20)
 -- 
 2.30.2
 
