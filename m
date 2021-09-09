@@ -2,53 +2,92 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D10ABC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6B9FC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:18:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 99EF26113A
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:17:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 99EF26113A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6B6FE61179
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:18:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B6FE61179
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70F866E8B1;
-	Thu,  9 Sep 2021 16:17:04 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE4B6E8B1;
- Thu,  9 Sep 2021 16:17:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10101"; a="220509109"
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="220509109"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:17:00 -0700
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="539693697"
-Received: from ralloyd-mobl1.ger.corp.intel.com (HELO [10.252.29.63])
- ([10.252.29.63])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:16:59 -0700
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Michael Mason <michael.w.mason@intel.com>
-References: <20210903112405.1794793-1-matthew.auld@intel.com>
- <YTj1B4BnLcSemOxq@phenom.ffwll.local>
-From: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <34241eb5-424b-1a79-6956-1e51ebdb0d1e@intel.com>
-Date: Thu, 9 Sep 2021 17:16:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14C376E8AA;
+	Thu,  9 Sep 2021 16:18:10 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120196E8AA
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 16:18:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1631204288;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DFYwJKNou+RmjsI/G6x/CnVjB7CdXNyU2huXcy7mF1g=;
+ b=RKXvmoZsByxn+qAgTu+mXd6W4PFsgsNso8OVbyPUisn4fpga4pfWQoXutmfAOsEIMnik/N
+ qo9d4A2xgZcSHR+BHzMZI3UPlSHweI/OCyUcr2/Gq3t2eGKuvDdjNiAfJCBzqzwwDhHu4W
+ w24c8DCIvUVpeVXv5SlYUCCJjRLvh3E=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-234-ZSQq0wXQMGmvb9Rp-3dKHA-1; Thu, 09 Sep 2021 12:18:07 -0400
+X-MC-Unique: ZSQq0wXQMGmvb9Rp-3dKHA-1
+Received: by mail-qt1-f198.google.com with SMTP id
+ l22-20020a05622a175600b0029d63a970f6so5310627qtk.23
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Sep 2021 09:18:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=DFYwJKNou+RmjsI/G6x/CnVjB7CdXNyU2huXcy7mF1g=;
+ b=66k05ukhlCdSx3hx0MaFhc0tUUXvK5dxCy2blPL2Cfpot8OslVmrcjJY63tTPV9KBZ
+ 1DT3eK/ph8avgrKYSjI8S779okikMtrjaISBAiJDhCKCEMzPUZ5svT1/ujmgF3YCIdFM
+ TIUxiFS+vjrtxhCneyJmkuy5Gr+FbuPyxi1zCf6VGsuncLs/Acet3T7hPceV8kRQHMV2
+ OWFcCQADThA0yoPJeZhUx9mXTclCRqGYQK8p3XZvd5c1hJigDIN6JIt0ZlkMK2mczNvm
+ BbmhSRGrDVsErZtYDAj3lUU+BeeVQwMfTPv5G+bmnKWLB+WzLEOgHttlxoBQ6in2R8XX
+ dGXw==
+X-Gm-Message-State: AOAM531cJIredqcHMqFnIqKfU7YCgfbIkg15t8Lbx3vtKr6sC+efjR6g
+ tWkVP/qpjsxi8s7Zx/8Rxu9fpOJyTOzktztDqpDBsXbqTrZfhMrvdjkcwd4LX+HTiOePcPMKyRl
+ lP6QAtlT+Zb5MLCVxNjA5DI1ObRJd
+X-Received: by 2002:a05:620a:24c1:: with SMTP id
+ m1mr3611778qkn.309.1631204286642; 
+ Thu, 09 Sep 2021 09:18:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwazGn7UBmgC1TBQ165kEqC4DoOcnYeiKcKpObQmVijagBpm/wDcSQc/gk5CEYx6NniMCZykQ==
+X-Received: by 2002:a05:620a:24c1:: with SMTP id
+ m1mr3611752qkn.309.1631204286413; 
+ Thu, 09 Sep 2021 09:18:06 -0700 (PDT)
+Received: from [192.168.8.206] (pool-108-49-102-102.bstnma.fios.verizon.net.
+ [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id o23sm1619422qkk.40.2021.09.09.09.18.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Sep 2021 09:18:06 -0700 (PDT)
+Message-ID: <282213f032b3dfe10cf7c461083c26b474f09f0f.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com, 
+ manasi.d.navare@intel.com
+Date: Thu, 09 Sep 2021 12:18:05 -0400
+In-Reply-To: <649051cb896821147feee91aab1f2abc523c1353.1631191763.git.jani.nikula@intel.com>
+References: <cover.1631191763.git.jani.nikula@intel.com>
+ <649051cb896821147feee91aab1f2abc523c1353.1631191763.git.jani.nikula@intel.com>
+Organization: Red Hat
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34)
 MIME-Version: 1.0
-In-Reply-To: <YTj1B4BnLcSemOxq@phenom.ffwll.local>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/request: fix early tracepoints
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH v3 02/13] drm/dp: use more of the extended
+ receiver cap
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,140 +103,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 08/09/2021 18:38, Daniel Vetter wrote:
-> On Fri, Sep 03, 2021 at 12:24:05PM +0100, Matthew Auld wrote:
->> Currently we blow up in trace_dma_fence_init, when calling into
->> get_driver_name or get_timeline_name, since both the engine and context
->> might be NULL(or contain some garbage address) in the case of newly
->> allocated slab objects via the request ctor. Note that we also use
->> SLAB_TYPESAFE_BY_RCU here, which allows requests to be immediately
->> freed, but delay freeing the underlying page by an RCU grace period.
->> With this scheme requests can be re-allocated, at the same time as they
->> are also being read by some lockless RCU lookup mechanism.
->>
->> One possible fix, since we don't yet have a fully initialised request
->> when in the ctor, is just setting the context/engine as NULL and adding
->> some extra handling in get_driver_name etc. And since the ctor is only
->> called for new slab objects(i.e allocate new page and call the ctor for
->> each object) it's safe to reset the context/engine prior to calling into
->> dma_fence_init, since we can be certain that no one is doing an RCU
->> lookup which might depend on peeking at the engine/context, like in
->> active_engine(), since the object can't yet be externally visible.
->>
->> In the recycled case(which might also be externally visible) the request
->> refcount always transitions from 0->1 after we set the context/engine
->> etc, which should ensure it's valid to dereference the engine for
->> example, when doing an RCU list-walk, so long as we can also increment
->> the refcount first. If the refcount is already zero, then the request is
->> considered complete/released.  If it's non-zero, then the request might
->> be in the process of being re-allocated, or potentially still in flight,
->> however after successfully incrementing the refcount, it's possible to
->> carefully inspect the request state, to determine if the request is
->> still what we were looking for. Note that all externally visible
->> requests returned to the cache must have zero refcount.
-> 
-> The commit message here is a bit confusing, since you start out with
-> describing a solution that you're not actually implementing it. I usually
-> do this by putting alternate solutions at the bottom, starting with "An
-> alternate solution would be ..." or so.
-> 
-> And then closing with why we don't do that, here it would be that we do
-> no longer have a need for these partially set up i915_requests, and
-> therefore just reverting that complication is the simplest solution.
-> 
->> An alternative fix then is to instead move the dma_fence_init out from
->> the request ctor. Originally this was how it was done, but it was moved
->> in:
->>
->> commit 855e39e65cfc33a73724f1cc644ffc5754864a20
->> Author: Chris Wilson <chris@chris-wilson.co.uk>
->> Date:   Mon Feb 3 09:41:48 2020 +0000
->>
->>      drm/i915: Initialise basic fence before acquiring seqno
->>
->> where it looks like intel_timeline_get_seqno() relied on some of the
->> rq->fence state, but that is no longer the case since:
->>
->> commit 12ca695d2c1ed26b2dcbb528b42813bd0f216cfc
->> Author: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Date:   Tue Mar 23 16:49:50 2021 +0100
->>
->>      drm/i915: Do not share hwsp across contexts any more, v8.
->>
->> intel_timeline_get_seqno() could also be cleaned up slightly by dropping
->> the request argument.
->>
->> Moving dma_fence_init back out of the ctor, should ensure we have enough
->> of the request initialised in case of trace_dma_fence_init.
->> Functionally this should be the same, and is effectively what we were
->> already open coding before, except now we also assign the fence->lock
->> and fence->ops, but since these are invariant for recycled
->> requests(which might be externally visible), and will therefore already
->> hold the same value, it shouldn't matter. We still leave the
->> spin_lock_init() in the ctor, since we can't re-init the rq->lock in
->> case it is already held.
-> 
-> Holding rq->lock without having a full reference to it sounds like really
-> bad taste. I think it would be good to have a (kerneldoc) comment next to
-> i915_request.lock about this, with a FIXME. But separate patch.
+I thought I remembered an issue with this but looked up the previous emails,
+and it looks like that this change actually should be safe!
 
-Sorry, I guess I just meant that we can't blindly move the lock_init() 
-i.e if for some unknown reason we moved it out from the ctor then it 
-needs to go before the ref transitions from 0->1. Touching rq->lock 
-should require the full ref. I'll reword.
+Signed-off-by: Lyude Paul <lyude@redhat.com>
 
+On Thu, 2021-09-09 at 15:51 +0300, Jani Nikula wrote:
+> Extend the use of extended receiver cap at 0x2200 to cover
+> MAIN_LINK_CHANNEL_CODING_CAP in 0x2206, in case an implementation hides
+> the DP 2.0 128b/132b channel encoding cap.
 > 
->> Fixes: 855e39e65cfc ("drm/i915: Initialise basic fence before acquiring seqno")
->> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->> Cc: Michael Mason <michael.w.mason@intel.com>
->> Cc: Daniel Vetter <daniel@ffwll.ch>
+> v2: Extend to DP_RECEIVER_CAP_SIZE (Ville)
 > 
-> With the commit message restructured a bit, and assuming this one actually
-> works:
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: Manasi Navare <manasi.d.navare@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/drm_dp_helper.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> 
-> But I'm really not confident :-(
-> -Daniel
-> 
->> ---
->>   drivers/gpu/drm/i915/i915_request.c | 11 ++---------
->>   1 file changed, 2 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
->> index ce446716d092..79da5eca60af 100644
->> --- a/drivers/gpu/drm/i915/i915_request.c
->> +++ b/drivers/gpu/drm/i915/i915_request.c
->> @@ -829,8 +829,6 @@ static void __i915_request_ctor(void *arg)
->>   	i915_sw_fence_init(&rq->submit, submit_notify);
->>   	i915_sw_fence_init(&rq->semaphore, semaphore_notify);
->>   
->> -	dma_fence_init(&rq->fence, &i915_fence_ops, &rq->lock, 0, 0);
->> -
->>   	rq->capture_list = NULL;
->>   
->>   	init_llist_head(&rq->execute_cb);
->> @@ -905,17 +903,12 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
->>   	rq->ring = ce->ring;
->>   	rq->execution_mask = ce->engine->mask;
->>   
->> -	kref_init(&rq->fence.refcount);
->> -	rq->fence.flags = 0;
->> -	rq->fence.error = 0;
->> -	INIT_LIST_HEAD(&rq->fence.cb_list);
->> -
->>   	ret = intel_timeline_get_seqno(tl, rq, &seqno);
->>   	if (ret)
->>   		goto err_free;
->>   
->> -	rq->fence.context = tl->fence_context;
->> -	rq->fence.seqno = seqno;
->> +	dma_fence_init(&rq->fence, &i915_fence_ops, &rq->lock,
->> +		       tl->fence_context, seqno);
->>   
->>   	RCU_INIT_POINTER(rq->timeline, tl);
->>   	rq->hwsp_seqno = tl->hwsp_seqno;
->> -- 
->> 2.26.3
->>
-> 
+> diff --git a/drivers/gpu/drm/drm_dp_helper.c
+> b/drivers/gpu/drm/drm_dp_helper.c
+> index 9b2a2961fca8..2e74b02ed96b 100644
+> --- a/drivers/gpu/drm/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/drm_dp_helper.c
+> @@ -608,7 +608,7 @@ static u8 drm_dp_downstream_port_count(const u8
+> dpcd[DP_RECEIVER_CAP_SIZE])
+>  static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
+>                                           u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  {
+> -       u8 dpcd_ext[6];
+> +       u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
+>         int ret;
+>  
+>         /*
+
+-- 
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
+
