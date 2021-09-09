@@ -2,44 +2,48 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85D49C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E09D5C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 44F5C6023D
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 44F5C6023D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id A82DE6023D
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A82DE6023D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8CC36E8C5;
-	Thu,  9 Sep 2021 16:52:46 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8BB8D6E8C5;
- Thu,  9 Sep 2021 16:52:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 83DAAA363C;
- Thu,  9 Sep 2021 16:52:45 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5030724131346473253=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E5E86E8CE;
+	Thu,  9 Sep 2021 16:52:52 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 318886E8C6;
+ Thu,  9 Sep 2021 16:52:51 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="218988839"
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="218988839"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 09:52:50 -0700
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="649003785"
+Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 09:52:50 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Cc: <john.c.harrison@intel.com>,
+	<daniele.ceraolospurio@intel.com>
+Date: Thu,  9 Sep 2021 09:47:21 -0700
+Message-Id: <20210909164744.31249-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 09 Sep 2021 16:52:45 -0000
-Message-ID: <163120636550.16811.3058685668649851924@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210908014259.50346-1-John.C.Harrison@Intel.com>
-In-Reply-To: <20210908014259.50346-1-John.C.Harrison@Intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRW5h?=
- =?utf-8?q?ble_GuC_submission_by_default_on_DG1_=28rev4=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 00/23] Clean up GuC CI failures, simplify locking,
+ and kernel DOC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,194 +56,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5030724131346473253==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Daniel Vetter pointed out that locking in the GuC submission code was
+overly complicated, let's clean this up a bit before introducing more
+features in the GuC submission backend.
 
-== Series Details ==
+Also fix some CI failures, port fixes from our internal tree, and add a
+few more selftests for coverage.
 
-Series: Enable GuC submission by default on DG1 (rev4)
-URL   : https://patchwork.freedesktop.org/series/93325/
-State : success
+Lastly, add some kernel DOC explaining how the GuC submission backend
+works.
 
-== Summary ==
+v2: Fix logic error in 'Workaround reset G2H is received after schedule
+done G2H', don't propagate errors to dependent fences in execlists
+submissiom, resolve checkpatch issues, resend to correct lists
+v3: Fix issue kicking tasklet, drop guc_active, fix ref counting in
+xarray, add guc_id sub structure, drop inline fuctions, and various
+other cleanup suggested by Daniel
+v4: Address Daniele's feedback, rebase to tip, resend for CI
+v5 [Daniele taking over while Matt is out]: drop patches 8 and 27 for
+now (not critical, Matt will update and resend when he's back), address
+review comments, improve kerneldoc. Also move all code related to busy
+loop to patch 2 so we have a standalone fix.
+v6: Drop allocate of error capture in nowait context, drop flushing of
+work queue (will get respun individually).
 
-CI Bug Log - changes from CI_DRM_10565 -> Patchwork_21003
-====================================================
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com> #v5
 
-Summary
--------
+Matthew Brost (23):
+  drm/i915/guc: Fix blocked context accounting
+  drm/i915/guc: Fix outstanding G2H accounting
+  drm/i915/guc: Unwind context requests in reverse order
+  drm/i915/guc: Don't drop ce->guc_active.lock when unwinding context
+  drm/i915/guc: Process all G2H message at once in work queue
+  drm/i915/guc: Workaround reset G2H is received after schedule done G2H
+  Revert "drm/i915/gt: Propagate change in error status to children on
+    unhold"
+  drm/i915/guc: Kick tasklet after queuing a request
+  drm/i915/guc: Don't enable scheduling on a banned context, guc_id
+    invalid, not registered
+  drm/i915/guc: Copy whole golden context, set engine state size of
+    subset
+  drm/i915/selftests: Add initial GuC selftest for scrubbing lost G2H
+  drm/i915/guc: Take context ref when cancelling request
+  drm/i915/guc: Don't touch guc_state.sched_state without a lock
+  drm/i915/guc: Reset LRC descriptor if register returns -ENODEV
+  drm/i915/guc: Release submit fence from an irq_work
+  drm/i915/guc: Move guc_blocked fence to struct guc_state
+  drm/i915/guc: Rework and simplify locking
+  drm/i915/guc: Proper xarray usage for contexts_lookup
+  drm/i915/guc: Drop pin count check trick between sched_disable and
+    re-pin
+  drm/i915/guc: Move GuC priority fields in context under guc_active
+  drm/i915/guc: Move fields protected by guc->contexts_lock into sub
+    structure
+  drm/i915/guc: Drop guc_active move everything into guc_state
+  drm/i915/guc: Add GuC kernel doc
 
-  **SUCCESS**
+ Documentation/gpu/i915.rst                    |   2 +
+ drivers/gpu/drm/i915/gt/intel_context.c       |  19 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  80 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |   4 -
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |   6 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  75 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  26 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   6 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 904 +++++++++++-------
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     | 127 +++
+ drivers/gpu/drm/i915/i915_request.h           |  26 +-
+ drivers/gpu/drm/i915/i915_trace.h             |  12 +-
+ .../drm/i915/selftests/i915_live_selftests.h  |   1 +
+ .../i915/selftests/intel_scheduler_helpers.c  |  12 +
+ .../i915/selftests/intel_scheduler_helpers.h  |   2 +
+ 15 files changed, 872 insertions(+), 430 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc.c
 
-  No regressions found.
+-- 
+2.32.0
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21003 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@semaphore:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][1] ([fdo#109271]) +27 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
-
-  * igt@core_hotunplug@unbind-rebind:
-    - fi-bdw-5557u:       NOTRUN -> [WARN][2] ([i915#3718])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][3] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_pm:
-    - {fi-jsl-1}:         [DMESG-FAIL][4] ([i915#1886]) -> [PASS][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10565/fi-jsl-1/igt@i915_selftest@live@gt_pm.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-jsl-1/igt@i915_selftest@live@gt_pm.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
-  [i915#3718]: https://gitlab.freedesktop.org/drm/intel/issues/3718
-
-
-Participating hosts (47 -> 39)
-------------------------------
-
-  Missing    (8): fi-ilk-m540 bat-adls-5 bat-dg1-6 fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 fi-bdw-samus bat-jsl-1 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10565 -> Patchwork_21003
-
-  CI-20190529: 20190529
-  CI_DRM_10565: 8c3cd60dcfa81a649b14f0705eb5e5c9336f1881 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6201: be0d02ff0775235ead63ccb1e3a1e8c10f0209cf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21003: 9fb951546c18f2195d202fa2fc7a252614ddd2f6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-9fb951546c18 drm/i915: Get PM ref before accessing HW register
-e76c7801ac7b Me: Dump GuC log to dmesg on SLPC load failure
-c999fb206dc0 Me: Workaround LMEM blow up
-8201803a4cca Me: Allow relocs on DG1 for CI
-11a547556597 drm/i915/guc: Enable GuC submission by default on DG1
-921371699ce0 drm/i915/guc: Add DG1 GuC / HuC firmware defs
-60923cb16879 drm/i915/guc: put all guc objects in lmem when available
-b2951b760586 drm/i915: Do not define vma on stack
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/index.html
-
---===============5030724131346473253==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Enable GuC submission by default on DG1 (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93325/">https://patchwork.freedesktop.org/series/93325/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10565 -&gt; Patchwork_21003</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21003 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@semaphore:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@core_hotunplug@unbind-rebind:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html">WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3718">i915#3718</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_pm:<ul>
-<li>{fi-jsl-1}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10565/fi-jsl-1/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21003/fi-jsl-1/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (47 -&gt; 39)</h2>
-<p>Missing    (8): fi-ilk-m540 bat-adls-5 bat-dg1-6 fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 fi-bdw-samus bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10565 -&gt; Patchwork_21003</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10565: 8c3cd60dcfa81a649b14f0705eb5e5c9336f1881 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6201: be0d02ff0775235ead63ccb1e3a1e8c10f0209cf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21003: 9fb951546c18f2195d202fa2fc7a252614ddd2f6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>9fb951546c18 drm/i915: Get PM ref before accessing HW register<br />
-e76c7801ac7b Me: Dump GuC log to dmesg on SLPC load failure<br />
-c999fb206dc0 Me: Workaround LMEM blow up<br />
-8201803a4cca Me: Allow relocs on DG1 for CI<br />
-11a547556597 drm/i915/guc: Enable GuC submission by default on DG1<br />
-921371699ce0 drm/i915/guc: Add DG1 GuC / HuC firmware defs<br />
-60923cb16879 drm/i915/guc: put all guc objects in lmem when available<br />
-b2951b760586 drm/i915: Do not define vma on stack</p>
-
-</body>
-</html>
-
---===============5030724131346473253==--
