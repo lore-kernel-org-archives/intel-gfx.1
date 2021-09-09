@@ -2,52 +2,43 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 783D0C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 19:44:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64B93C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 19:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F9F76103D
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 19:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F9F76103D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 284CD610A3
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 19:54:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 284CD610A3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F36386E903;
-	Thu,  9 Sep 2021 19:44:00 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 255D06E902
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 19:43:59 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="243205710"
-X-IronPort-AV: E=Sophos;i="5.85,281,1624345200"; d="scan'208";a="243205710"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 12:43:58 -0700
-X-IronPort-AV: E=Sophos;i="5.85,281,1624345200"; d="scan'208";a="450112664"
-Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
- ([10.24.14.60])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 12:43:58 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Thu,  9 Sep 2021 12:49:16 -0700
-Message-Id: <20210909194917.66433-1-jose.souza@intel.com>
-X-Mailer: git-send-email 2.33.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A52D06E907;
+	Thu,  9 Sep 2021 19:54:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6329A6E907;
+ Thu,  9 Sep 2021 19:54:43 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5C24DA77A5;
+ Thu,  9 Sep 2021 19:54:43 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH CI 1/2] drm/i915/display/skl+: Drop frontbuffer
- rendering support
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jason Gunthorpe" <jgg@nvidia.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 09 Sep 2021 19:54:43 -0000
+Message-ID: <163121728334.16811.10304906137948536746@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
+In-Reply-To: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBN?=
+ =?utf-8?q?ove_vfio=5Fccw_to_the_new_mdev_API?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,165 +51,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By now all the userspace applications should have migrated to atomic
-or at least be calling DRM_IOCTL_MODE_DIRTYFB.
+== Series Details ==
 
-With that we can kill frontbuffer rendering support in i915 for
-modern platforms.
+Series: Move vfio_ccw to the new mdev API
+URL   : https://patchwork.freedesktop.org/series/94520/
+State : failure
 
-So here converting legacy APIs into atomic commits so it can be
-properly handled by driver i915.
+== Summary ==
 
-Several IGT tests will fail with this changes, because some tests
-were stressing those frontbuffer rendering scenarios that no userspace
-should be using by now, fixes to IGT should be sent soon.
+Applying: vfio/ccw: Use functions for alloc/free of the vfio_ccw_private
+Using index info to reconstruct a base tree...
+M	drivers/s390/cio/vfio_ccw_drv.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/s390/cio/vfio_ccw_drv.c
+Applying: vfio/ccw: Pass vfio_ccw_private not mdev_device to various functions
+Applying: vfio/ccw: Convert to use vfio_register_group_dev()
+error: sha1 information is lacking or useless (drivers/s390/cio/vfio_ccw_ops.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0003 vfio/ccw: Convert to use vfio_register_group_dev()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-v2:
-- return earlier to not set fb_tracking.busy/flip_bits
-- added a warn on to make sure we are not setting the busy/flip_bits
-
-Reviewed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c    |  6 ++----
- drivers/gpu/drm/i915/display/intel_fb.c        |  8 +++++++-
- .../gpu/drm/i915/display/intel_frontbuffer.c   | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/i915_drv.h                |  2 ++
- 4 files changed, 29 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index c7618fef01439..5aa996c3b7980 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -617,6 +617,7 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 			   u32 src_w, u32 src_h,
- 			   struct drm_modeset_acquire_ctx *ctx)
- {
-+	struct drm_i915_private *i915 = to_i915(_crtc->dev);
- 	struct intel_plane *plane = to_intel_plane(_plane);
- 	struct intel_crtc *crtc = to_intel_crtc(_crtc);
- 	struct intel_plane_state *old_plane_state =
-@@ -633,12 +634,9 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 	 * PSR2 selective fetch also requires the slow path as
- 	 * PSR2 plane and transcoder registers can only be updated during
- 	 * vblank.
--	 *
--	 * FIXME bigjoiner fastpath would be good
- 	 */
- 	if (!crtc_state->hw.active || intel_crtc_needs_modeset(crtc_state) ||
--	    crtc_state->update_pipe || crtc_state->bigjoiner ||
--	    crtc_state->enable_psr2_sel_fetch)
-+	    crtc_state->update_pipe || !HAS_FRONTBUFFER_RENDERING(i915))
- 		goto slow;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index e4b8602ec0cd2..3eb60785c9f29 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2021 Intel Corporation
-  */
- 
-+#include <drm/drm_damage_helper.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_modeset_helper.h>
- 
-@@ -1235,10 +1236,15 @@ static int intel_user_framebuffer_dirty(struct drm_framebuffer *fb,
- 					unsigned int num_clips)
- {
- 	struct drm_i915_gem_object *obj = intel_fb_obj(fb);
-+	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 
- 	i915_gem_object_flush_if_display(obj);
--	intel_frontbuffer_flush(to_intel_frontbuffer(fb), ORIGIN_DIRTYFB);
- 
-+	if (!HAS_FRONTBUFFER_RENDERING(i915))
-+		return drm_atomic_helper_dirtyfb(fb, file, flags, color, clips,
-+						 num_clips);
-+
-+	intel_frontbuffer_flush(to_intel_frontbuffer(fb), ORIGIN_DIRTYFB);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-index 0492446cd04ad..3860f87dac31c 100644
---- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-+++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-@@ -112,6 +112,9 @@ static void frontbuffer_flush(struct drm_i915_private *i915,
- void intel_frontbuffer_flip_prepare(struct drm_i915_private *i915,
- 				    unsigned frontbuffer_bits)
- {
-+	if (!HAS_FRONTBUFFER_RENDERING(i915))
-+		return;
-+
- 	spin_lock(&i915->fb_tracking.lock);
- 	i915->fb_tracking.flip_bits |= frontbuffer_bits;
- 	/* Remove stale busy bits due to the old buffer. */
-@@ -132,6 +135,12 @@ void intel_frontbuffer_flip_prepare(struct drm_i915_private *i915,
- void intel_frontbuffer_flip_complete(struct drm_i915_private *i915,
- 				     unsigned frontbuffer_bits)
- {
-+	if (!HAS_FRONTBUFFER_RENDERING(i915)) {
-+		drm_WARN_ON_ONCE(&i915->drm, i915->fb_tracking.flip_bits |
-+					     i915->fb_tracking.busy_bits);
-+		return;
-+	}
-+
- 	spin_lock(&i915->fb_tracking.lock);
- 	/* Mask any cancelled flips. */
- 	frontbuffer_bits &= i915->fb_tracking.flip_bits;
-@@ -156,6 +165,9 @@ void intel_frontbuffer_flip_complete(struct drm_i915_private *i915,
- void intel_frontbuffer_flip(struct drm_i915_private *i915,
- 			    unsigned frontbuffer_bits)
- {
-+	if (!HAS_FRONTBUFFER_RENDERING(i915))
-+		return;
-+
- 	spin_lock(&i915->fb_tracking.lock);
- 	/* Remove stale busy bits due to the old buffer. */
- 	i915->fb_tracking.busy_bits &= ~frontbuffer_bits;
-@@ -170,6 +182,9 @@ void __intel_fb_invalidate(struct intel_frontbuffer *front,
- {
- 	struct drm_i915_private *i915 = to_i915(front->obj->base.dev);
- 
-+	if (!HAS_FRONTBUFFER_RENDERING(i915))
-+		return;
-+
- 	if (origin == ORIGIN_CS) {
- 		spin_lock(&i915->fb_tracking.lock);
- 		i915->fb_tracking.busy_bits |= frontbuffer_bits;
-@@ -191,6 +206,9 @@ void __intel_fb_flush(struct intel_frontbuffer *front,
- {
- 	struct drm_i915_private *i915 = to_i915(front->obj->base.dev);
- 
-+	if (!HAS_FRONTBUFFER_RENDERING(i915))
-+		return;
-+
- 	if (origin == ORIGIN_CS) {
- 		spin_lock(&i915->fb_tracking.lock);
- 		/* Filter out new bits since rendering started. */
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 37c1ca266bcdf..3324ba8d8523c 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1699,6 +1699,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HAS_ASYNC_FLIPS(i915)		(DISPLAY_VER(i915) >= 5)
- 
-+#define HAS_FRONTBUFFER_RENDERING(i915)	(DISPLAY_VER(i915) < 9)
-+
- /* Only valid when HAS_DISPLAY() is true */
- #define INTEL_DISPLAY_ENABLED(dev_priv) \
- 	(drm_WARN_ON(&(dev_priv)->drm, !HAS_DISPLAY(dev_priv)), !(dev_priv)->params.disable_display)
--- 
-2.33.0
 
