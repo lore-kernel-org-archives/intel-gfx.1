@@ -2,51 +2,51 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5E94C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DDB8C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 94AD660F45
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:53:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 94AD660F45
+	by mail.kernel.org (Postfix) with ESMTPS id 5E73760F45
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 12:53:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E73760F45
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC79B6E877;
-	Thu,  9 Sep 2021 12:53:27 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C463C6E879;
- Thu,  9 Sep 2021 12:53:26 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10101"; a="200979668"
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="200979668"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 05:53:21 -0700
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="466479214"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1B96E87B;
+	Thu,  9 Sep 2021 12:53:30 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7D76E879;
+ Thu,  9 Sep 2021 12:53:28 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10101"; a="220811797"
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="220811797"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 05:53:27 -0700
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="694103814"
 Received: from okozlyk-mobl.ger.corp.intel.com (HELO localhost)
  ([10.251.214.52])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 05:53:18 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 05:53:24 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, manasi.d.navare@intel.com
-Date: Thu,  9 Sep 2021 15:52:03 +0300
-Message-Id: <279bfbd979e0256fae13a5231e07e2f4fb665c07.1631191763.git.jani.nikula@intel.com>
+Date: Thu,  9 Sep 2021 15:52:04 +0300
+Message-Id: <a2902cc188973f022f282f2a77e693afdecefb5a.1631191763.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1631191763.git.jani.nikula@intel.com>
 References: <cover.1631191763.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/13] drm/i915/dg2: use 128b/132b transcoder
- DDI mode
+Subject: [Intel-gfx] [PATCH v3 12/13] drm/i915/dg2: configure
+ TRANS_DP2_VFREQ{HIGH, LOW} for 128b/132b
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,89 +62,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-128b/132b has a separate transcoder DDI mode, which also requires the
-MST transport select to be set. Note that we'll use DP MST also for
-single-stream 128b/132b.
+There's a new register pair for 128b/132b mode where you need to set the
+pixel clock in Hz.
 
-Having the FDI and 128b/132b modes share the register mode value
-complicates things a bit.
+v2: Fix UHBR rate check, use intel_dp_is_uhbr() helper
 
-v2:
-- Use HAS_DP20 abstraction for 128b/132b mode (Ville)
-- Use intel_dp_is_uhbr() helper
-
-Bspec: 50493
+Bspec: 54128
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 27 ++++++++++++++++++------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index a7b7e4fafcb3..d2b96b2efdfe 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -506,7 +506,10 @@ intel_ddi_transcoder_func_reg_val_get(struct intel_encoder *encoder,
- 		temp |= TRANS_DDI_MODE_SELECT_FDI_OR_128B132B;
- 		temp |= (crtc_state->fdi_lanes - 1) << 1;
- 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
--		temp |= TRANS_DDI_MODE_SELECT_DP_MST;
-+		if (intel_dp_is_uhbr(crtc_state))
-+			temp |= TRANS_DDI_MODE_SELECT_FDI_OR_128B132B;
-+		else
-+			temp |= TRANS_DDI_MODE_SELECT_DP_MST;
- 		temp |= DDI_PORT_WIDTH(crtc_state->lane_count);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index d104441344c0..97af19fd9780 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -550,6 +550,17 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
  
- 		if (DISPLAY_VER(dev_priv) >= 12) {
-@@ -694,7 +697,12 @@ bool intel_ddi_connector_get_hw_state(struct intel_connector *intel_connector)
- 		break;
+ 	clear_act_sent(encoder, pipe_config);
  
- 	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
--		ret = type == DRM_MODE_CONNECTOR_VGA;
-+		if (HAS_DP20(dev_priv))
-+			/* 128b/132b */
-+			ret = false;
-+		else
-+			/* FDI */
-+			ret = type == DRM_MODE_CONNECTOR_VGA;
- 		break;
++	if (intel_dp_is_uhbr(pipe_config)) {
++		const struct drm_display_mode *adjusted_mode =
++			&pipe_config->hw.adjusted_mode;
++		u64 crtc_clock_hz = KHz(adjusted_mode->crtc_clock);
++
++		intel_de_write(dev_priv, TRANS_DP2_VFREQHIGH(pipe_config->cpu_transcoder),
++			       TRANS_DP2_VFREQ_PIXEL_CLOCK(crtc_clock_hz >> 24));
++		intel_de_write(dev_priv, TRANS_DP2_VFREQLOW(pipe_config->cpu_transcoder),
++			       TRANS_DP2_VFREQ_PIXEL_CLOCK(crtc_clock_hz & 0xffffff));
++	}
++
+ 	intel_ddi_enable_transcoder_func(encoder, pipe_config);
  
- 	default:
-@@ -781,8 +789,9 @@ static void intel_ddi_get_encoder_pipes(struct intel_encoder *encoder,
- 		if ((tmp & port_mask) != ddi_select)
- 			continue;
- 
--		if ((tmp & TRANS_DDI_MODE_SELECT_MASK) ==
--		    TRANS_DDI_MODE_SELECT_DP_MST)
-+		if ((tmp & TRANS_DDI_MODE_SELECT_MASK) == TRANS_DDI_MODE_SELECT_DP_MST ||
-+		    (HAS_DP20(dev_priv) &&
-+		     (tmp & TRANS_DDI_MODE_SELECT_MASK) == TRANS_DDI_MODE_SELECT_FDI_OR_128B132B))
- 			mst_pipe_mask |= BIT(p);
- 
- 		*pipe_mask |= BIT(p);
-@@ -3573,9 +3582,6 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
- 		pipe_config->output_types |= BIT(INTEL_OUTPUT_HDMI);
- 		pipe_config->lane_count = 4;
- 		break;
--	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
--		pipe_config->output_types |= BIT(INTEL_OUTPUT_ANALOG);
--		break;
- 	case TRANS_DDI_MODE_SELECT_DP_SST:
- 		if (encoder->type == INTEL_OUTPUT_EDP)
- 			pipe_config->output_types |= BIT(INTEL_OUTPUT_EDP);
-@@ -3604,6 +3610,13 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
- 			pipe_config->infoframes.enable |=
- 				intel_hdmi_infoframes_enabled(encoder, pipe_config);
- 		break;
-+	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
-+		if (!HAS_DP20(dev_priv)) {
-+			/* FDI */
-+			pipe_config->output_types |= BIT(INTEL_OUTPUT_ANALOG);
-+			break;
-+		}
-+		fallthrough; /* 128b/132b */
- 	case TRANS_DDI_MODE_SELECT_DP_MST:
- 		pipe_config->output_types |= BIT(INTEL_OUTPUT_DP_MST);
- 		pipe_config->lane_count =
+ 	intel_de_rmw(dev_priv, TRANS_DDI_FUNC_CTL(trans), 0,
 -- 
 2.30.2
 
