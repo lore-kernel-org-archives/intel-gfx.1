@@ -2,49 +2,58 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89966C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3451FC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 17:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 599996023D
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:54:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 599996023D
+	by mail.kernel.org (Postfix) with ESMTPS id EB5D2610CE
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 17:16:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB5D2610CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD5546E8F8;
-	Thu,  9 Sep 2021 16:53:20 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56E066E8D4;
- Thu,  9 Sep 2021 16:52:54 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="218988864"
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="218988864"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:52:54 -0700
-X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="649003845"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 09:52:53 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Cc: <john.c.harrison@intel.com>,
-	<daniele.ceraolospurio@intel.com>
-Date: Thu,  9 Sep 2021 09:47:38 -0700
-Message-Id: <20210909164744.31249-18-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210909164744.31249-1-matthew.brost@intel.com>
-References: <20210909164744.31249-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3CD56E8D1;
+	Thu,  9 Sep 2021 17:15:59 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9AAE6E8D1
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 17:15:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="207961307"
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="207961307"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 10:15:58 -0700
+X-IronPort-AV: E=Sophos;i="5.85,280,1624345200"; d="scan'208";a="466604869"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2021 10:15:57 -0700
+Date: Thu, 9 Sep 2021 10:15:56 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>, intel-gfx@lists.freedesktop.org
+Message-ID: <20210909171556.GC461228@mdroper-desk1.amr.corp.intel.com>
+References: <20210907171639.1221287-1-ayaz.siddiqui@intel.com>
+ <20210907172728.GF461228@mdroper-desk1.amr.corp.intel.com>
+ <YTekMq0Kfb3Xkeid@intel.com>
+ <20210907181929.GG461228@mdroper-desk1.amr.corp.intel.com>
+ <YToTGr2kSQjGtpan@intel.com>
+ <20210909142933.GZ461228@mdroper-desk1.amr.corp.intel.com>
+ <YTocngFdY1dynYrc@intel.com>
+ <20210909150002.GA461228@mdroper-desk1.amr.corp.intel.com>
+ <YTojw4z1JkfBoI+q@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 17/23] drm/i915/guc: Rework and simplify locking
+In-Reply-To: <YTojw4z1JkfBoI+q@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Add separate MOCS table for
+ Gen12 devices other than TGL/RKL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,469 +69,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rework and simplify the locking with GuC subission. Drop
-sched_state_no_lock and move all fields under the guc_state.sched_state
-and protect all these fields with guc_state.lock . This requires
-changing the locking hierarchy from guc_state.lock -> sched_engine.lock
-to sched_engine.lock -> guc_state.lock.
+On Thu, Sep 09, 2021 at 06:09:55PM +0300, Ville Syrjälä wrote:
+> On Thu, Sep 09, 2021 at 08:00:02AM -0700, Matt Roper wrote:
+> > On Thu, Sep 09, 2021 at 05:39:26PM +0300, Ville Syrjälä wrote:
+> > > On Thu, Sep 09, 2021 at 07:29:33AM -0700, Matt Roper wrote:
+> > > > On Thu, Sep 09, 2021 at 04:58:50PM +0300, Ville Syrjälä wrote:
+> > > > > On Tue, Sep 07, 2021 at 11:19:29AM -0700, Matt Roper wrote:
+> > > > > > On Tue, Sep 07, 2021 at 08:41:06PM +0300, Ville Syrjälä wrote:
+> > > > > > > On Tue, Sep 07, 2021 at 10:27:28AM -0700, Matt Roper wrote:
+> > > > > > > > On Tue, Sep 07, 2021 at 10:46:39PM +0530, Ayaz A Siddiqui wrote:
+> > > > > > > > > MOCS table of TGL/RKL has MOCS[1] set to L3_UC.
+> > > > > > > > > While for other gen12 devices we need to set MOCS[1] as L3_WB,
+> > > > > > > > > So adding a new MOCS table for other gen 12 devices eg. ADL.
+> > > > > > > > > 
+> > > > > > > > > Fixes: cfbe5291a189 ("drm/i915/gt: Initialize unused MOCS entries with device specific values")
+> > > > > > > > > Cc: Matt Roper <matthew.d.roper@intel.com>
+> > > > > > > > > Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+> > > > > > > > 
+> > > > > > > > Yep, we overlooked that the TGL table still had an explicit entry for
+> > > > > > > > I915_MOCS_PTE and wasn't just using an implicit 'unused_entries' lookup
+> > > > > > > > for MOCS[1].  The new table is the same as the TGL table, just with
+> > > > > > > > I915_MOCS_PTE (1) removed.
+> > > > > > > 
+> > > > > > > And just how are people planning on handling display cacheability
+> > > > > > > control without a PTE MOCS entry? Is Mesa/etc. already making all
+> > > > > > > external bos uncached on these platforms just in case we might
+> > > > > > > scan out said bo?
+> > > > > > 
+> > > > > > MOCS entry 1 has never been considered a valid MOCS table entry on gen12
+> > > > > > platforms (despite the old #define, it's not actually related to PTE,
+> > > > > > display, etc. anymore).
+> > > > > 
+> > > > > So can someone finally explain to me how we're supposed to cache
+> > > > > anything that might become a scanout buffer later (eg. window system
+> > > > > buffers)? Or are we just making everything like that UC now, and is
+> > > > > everyone happy with that? Is userspace actually following that?
+> > > > 
+> > > > Table entry #1 has never had anything to do with scanout on gen12+.  I
+> > > > would assume that UMDs are either using the display entry in the MOCS
+> > > > table (which is 61 on gen12+) or some other UC entry.
+> > > 
+> > > If 61 is meant to to be the new PTE entry wy hasn't it been defines as
+> > > such in the code? And I know for a fact that userspace (Mesa) is not
+> > 
+> > There is no "PTE" entry anymore.  But 61 is already documented as
+> > "displayable" in both the spec and the code:
+> > 
+> >         /* HW Special Case (Displayable) */                                      
+> >         MOCS_ENTRY(61,                             
+> 
+> Why is it called a "HW special case"? I don't think there's any hw
+> magic in there?
+> 
+> And why aren't we setting it to PTE to get some cacheability for
+> window back buffers and such?
 
-v2:
- (Daniele)
-  - Don't check fields outside of lock during sched disable, check less
-    fields within lock as some of the outside are no longer needed
+Who is "we" here?  The MOCS table is a pre-defined set of per-platform
+magic numbers.  The software teams don't get to decide what the values
+are, we just program the hardware with the per-platform numbers that
+have been agreed upon as part of a platform-wide stack (everything from
+low-level firmware to high level userspace should be working from the
+same table, defined in the bspec).
 
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_context_types.h |   5 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 199 ++++++++----------
- drivers/gpu/drm/i915/i915_trace.h             |   6 +-
- 3 files changed, 90 insertions(+), 120 deletions(-)
+Once we know what the per-platform magic numbers are, we're supposed to
+pick the table entry that matches the behavior we're trying to
+accomplish.  If you want some specific level of cacheability, then you
+select a table row that gives you that.  Maybe 61 isn't the best
+setting, I don't know; userspace can pick whichever defined setting is
+actually best, using the data from the table.  But table row #1 is
+already well-documented as reserved/dontuse across the full stack; the
+fact that row #1 had values similar to PTE on Icelake hardware doesn't
+carry forward to any post-gen11 platform.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 5aecb9038b5b..d2f798ef678c 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -161,7 +161,7 @@ struct intel_context {
- 		 * sched_state: scheduling state of this context using GuC
- 		 * submission
- 		 */
--		u16 sched_state;
-+		u32 sched_state;
- 		/*
- 		 * fences: maintains of list of requests that have a submit
- 		 * fence related to GuC submission
-@@ -178,9 +178,6 @@ struct intel_context {
- 		struct list_head requests;
- 	} guc_active;
- 
--	/* GuC scheduling state flags that do not require a lock. */
--	atomic_t guc_sched_state_no_lock;
--
- 	/* GuC LRC descriptor ID */
- 	u16 guc_id;
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 99f223114331..383dc1017004 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -72,87 +72,24 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count);
- 
- #define GUC_REQUEST_SIZE 64 /* bytes */
- 
--/*
-- * Below is a set of functions which control the GuC scheduling state which do
-- * not require a lock as all state transitions are mutually exclusive. i.e. It
-- * is not possible for the context pinning code and submission, for the same
-- * context, to be executing simultaneously. We still need an atomic as it is
-- * possible for some of the bits to changing at the same time though.
-- */
--#define SCHED_STATE_NO_LOCK_ENABLED			BIT(0)
--#define SCHED_STATE_NO_LOCK_PENDING_ENABLE		BIT(1)
--#define SCHED_STATE_NO_LOCK_REGISTERED			BIT(2)
--static inline bool context_enabled(struct intel_context *ce)
--{
--	return (atomic_read(&ce->guc_sched_state_no_lock) &
--		SCHED_STATE_NO_LOCK_ENABLED);
--}
--
--static inline void set_context_enabled(struct intel_context *ce)
--{
--	atomic_or(SCHED_STATE_NO_LOCK_ENABLED, &ce->guc_sched_state_no_lock);
--}
--
--static inline void clr_context_enabled(struct intel_context *ce)
--{
--	atomic_and((u32)~SCHED_STATE_NO_LOCK_ENABLED,
--		   &ce->guc_sched_state_no_lock);
--}
--
--static inline bool context_pending_enable(struct intel_context *ce)
--{
--	return (atomic_read(&ce->guc_sched_state_no_lock) &
--		SCHED_STATE_NO_LOCK_PENDING_ENABLE);
--}
--
--static inline void set_context_pending_enable(struct intel_context *ce)
--{
--	atomic_or(SCHED_STATE_NO_LOCK_PENDING_ENABLE,
--		  &ce->guc_sched_state_no_lock);
--}
--
--static inline void clr_context_pending_enable(struct intel_context *ce)
--{
--	atomic_and((u32)~SCHED_STATE_NO_LOCK_PENDING_ENABLE,
--		   &ce->guc_sched_state_no_lock);
--}
--
--static inline bool context_registered(struct intel_context *ce)
--{
--	return (atomic_read(&ce->guc_sched_state_no_lock) &
--		SCHED_STATE_NO_LOCK_REGISTERED);
--}
--
--static inline void set_context_registered(struct intel_context *ce)
--{
--	atomic_or(SCHED_STATE_NO_LOCK_REGISTERED,
--		  &ce->guc_sched_state_no_lock);
--}
--
--static inline void clr_context_registered(struct intel_context *ce)
--{
--	atomic_and((u32)~SCHED_STATE_NO_LOCK_REGISTERED,
--		   &ce->guc_sched_state_no_lock);
--}
--
- /*
-  * Below is a set of functions which control the GuC scheduling state which
-- * require a lock, aside from the special case where the functions are called
-- * from guc_lrc_desc_pin(). In that case it isn't possible for any other code
-- * path to be executing on the context.
-+ * require a lock.
-  */
- #define SCHED_STATE_WAIT_FOR_DEREGISTER_TO_REGISTER	BIT(0)
- #define SCHED_STATE_DESTROYED				BIT(1)
- #define SCHED_STATE_PENDING_DISABLE			BIT(2)
- #define SCHED_STATE_BANNED				BIT(3)
--#define SCHED_STATE_BLOCKED_SHIFT			4
-+#define SCHED_STATE_ENABLED				BIT(4)
-+#define SCHED_STATE_PENDING_ENABLE			BIT(5)
-+#define SCHED_STATE_REGISTERED				BIT(6)
-+#define SCHED_STATE_BLOCKED_SHIFT			7
- #define SCHED_STATE_BLOCKED		BIT(SCHED_STATE_BLOCKED_SHIFT)
- #define SCHED_STATE_BLOCKED_MASK	(0xfff << SCHED_STATE_BLOCKED_SHIFT)
- 
- static inline void init_sched_state(struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->guc_state.lock);
--	atomic_set(&ce->guc_sched_state_no_lock, 0);
- 	ce->guc_state.sched_state &= SCHED_STATE_BLOCKED_MASK;
- }
- 
-@@ -163,9 +100,8 @@ static bool sched_state_is_init(struct intel_context *ce)
- 	 * XXX: Kernel contexts can have SCHED_STATE_NO_LOCK_REGISTERED after
- 	 * suspend.
- 	 */
--	return !(atomic_read(&ce->guc_sched_state_no_lock) &
--		 ~SCHED_STATE_NO_LOCK_REGISTERED) &&
--		!(ce->guc_state.sched_state &= ~SCHED_STATE_BLOCKED_MASK);
-+	return !(ce->guc_state.sched_state &=
-+		 ~(SCHED_STATE_BLOCKED_MASK | SCHED_STATE_REGISTERED));
- }
- 
- static inline bool
-@@ -238,6 +174,57 @@ static inline void clr_context_banned(struct intel_context *ce)
- 	ce->guc_state.sched_state &= ~SCHED_STATE_BANNED;
- }
- 
-+static inline bool context_enabled(struct intel_context *ce)
-+{
-+	return ce->guc_state.sched_state & SCHED_STATE_ENABLED;
-+}
-+
-+static inline void set_context_enabled(struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_state.lock);
-+	ce->guc_state.sched_state |= SCHED_STATE_ENABLED;
-+}
-+
-+static inline void clr_context_enabled(struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_state.lock);
-+	ce->guc_state.sched_state &= ~SCHED_STATE_ENABLED;
-+}
-+
-+static inline bool context_pending_enable(struct intel_context *ce)
-+{
-+	return ce->guc_state.sched_state & SCHED_STATE_PENDING_ENABLE;
-+}
-+
-+static inline void set_context_pending_enable(struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_state.lock);
-+	ce->guc_state.sched_state |= SCHED_STATE_PENDING_ENABLE;
-+}
-+
-+static inline void clr_context_pending_enable(struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_state.lock);
-+	ce->guc_state.sched_state &= ~SCHED_STATE_PENDING_ENABLE;
-+}
-+
-+static inline bool context_registered(struct intel_context *ce)
-+{
-+	return ce->guc_state.sched_state & SCHED_STATE_REGISTERED;
-+}
-+
-+static inline void set_context_registered(struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_state.lock);
-+	ce->guc_state.sched_state |= SCHED_STATE_REGISTERED;
-+}
-+
-+static inline void clr_context_registered(struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_state.lock);
-+	ce->guc_state.sched_state &= ~SCHED_STATE_REGISTERED;
-+}
-+
- static inline u32 context_blocked(struct intel_context *ce)
- {
- 	return (ce->guc_state.sched_state & SCHED_STATE_BLOCKED_MASK) >>
-@@ -246,7 +233,6 @@ static inline u32 context_blocked(struct intel_context *ce)
- 
- static inline void incr_context_blocked(struct intel_context *ce)
- {
--	lockdep_assert_held(&ce->engine->sched_engine->lock);
- 	lockdep_assert_held(&ce->guc_state.lock);
- 
- 	ce->guc_state.sched_state += SCHED_STATE_BLOCKED;
-@@ -256,7 +242,6 @@ static inline void incr_context_blocked(struct intel_context *ce)
- 
- static inline void decr_context_blocked(struct intel_context *ce)
- {
--	lockdep_assert_held(&ce->engine->sched_engine->lock);
- 	lockdep_assert_held(&ce->guc_state.lock);
- 
- 	GEM_BUG_ON(!context_blocked(ce));	/* Underflow check */
-@@ -452,6 +437,8 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	u32 g2h_len_dw = 0;
- 	bool enabled;
- 
-+	lockdep_assert_held(&rq->engine->sched_engine->lock);
-+
- 	/*
- 	 * Corner case where requests were sitting in the priority list or a
- 	 * request resubmitted after the context was banned.
-@@ -459,7 +446,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	if (unlikely(intel_context_is_banned(ce))) {
- 		i915_request_put(i915_request_mark_eio(rq));
- 		intel_engine_signal_breadcrumbs(ce->engine);
--		goto out;
-+		return 0;
- 	}
- 
- 	GEM_BUG_ON(!atomic_read(&ce->guc_id_ref));
-@@ -472,9 +459,11 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	if (unlikely(!lrc_desc_registered(guc, ce->guc_id))) {
- 		err = guc_lrc_desc_pin(ce, false);
- 		if (unlikely(err))
--			goto out;
-+			return err;
- 	}
- 
-+	spin_lock(&ce->guc_state.lock);
-+
- 	/*
- 	 * The request / context will be run on the hardware when scheduling
- 	 * gets enabled in the unblock.
-@@ -509,6 +498,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 		trace_i915_request_guc_submit(rq);
- 
- out:
-+	spin_unlock(&ce->guc_state.lock);
- 	return err;
- }
- 
-@@ -747,6 +737,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
- 			wait_for_reset(guc, &guc->outstanding_submission_g2h);
- 		} while (!list_empty(&guc->ct.requests.incoming));
- 	}
-+
- 	scrub_guc_desc_for_outstanding_g2h(guc);
- }
- 
-@@ -1147,7 +1138,11 @@ static int steal_guc_id(struct intel_guc *guc)
- 
- 		list_del_init(&ce->guc_id_link);
- 		guc_id = ce->guc_id;
-+
-+		spin_lock(&ce->guc_state.lock);
- 		clr_context_registered(ce);
-+		spin_unlock(&ce->guc_state.lock);
-+
- 		set_context_guc_id_invalid(ce);
- 		return guc_id;
- 	} else {
-@@ -1183,6 +1178,8 @@ static int pin_guc_id(struct intel_guc *guc, struct intel_context *ce)
- try_again:
- 	spin_lock_irqsave(&guc->contexts_lock, flags);
- 
-+	might_lock(&ce->guc_state.lock);
-+
- 	if (context_guc_id_invalid(ce)) {
- 		ret = assign_guc_id(guc, &ce->guc_id);
- 		if (ret)
-@@ -1262,8 +1259,13 @@ static int register_context(struct intel_context *ce, bool loop)
- 	trace_intel_context_register(ce);
- 
- 	ret = __guc_action_register_context(guc, ce->guc_id, offset, loop);
--	if (likely(!ret))
-+	if (likely(!ret)) {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&ce->guc_state.lock, flags);
- 		set_context_registered(ce);
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+	}
- 
- 	return ret;
- }
-@@ -1537,7 +1539,6 @@ static u16 prep_context_pending_disable(struct intel_context *ce)
- static struct i915_sw_fence *guc_context_block(struct intel_context *ce)
- {
- 	struct intel_guc *guc = ce_to_guc(ce);
--	struct i915_sched_engine *sched_engine = ce->engine->sched_engine;
- 	unsigned long flags;
- 	struct intel_runtime_pm *runtime_pm = ce->engine->uncore->rpm;
- 	intel_wakeref_t wakeref;
-@@ -1546,13 +1547,7 @@ static struct i915_sw_fence *guc_context_block(struct intel_context *ce)
- 
- 	spin_lock_irqsave(&ce->guc_state.lock, flags);
- 
--	/*
--	 * Sync with submission path, increment before below changes to context
--	 * state.
--	 */
--	spin_lock(&sched_engine->lock);
- 	incr_context_blocked(ce);
--	spin_unlock(&sched_engine->lock);
- 
- 	enabled = context_enabled(ce);
- 	if (unlikely(!enabled || submission_disabled(guc))) {
-@@ -1598,7 +1593,6 @@ static bool context_cant_unblock(struct intel_context *ce)
- static void guc_context_unblock(struct intel_context *ce)
- {
- 	struct intel_guc *guc = ce_to_guc(ce);
--	struct i915_sched_engine *sched_engine = ce->engine->sched_engine;
- 	unsigned long flags;
- 	struct intel_runtime_pm *runtime_pm = ce->engine->uncore->rpm;
- 	intel_wakeref_t wakeref;
-@@ -1618,13 +1612,7 @@ static void guc_context_unblock(struct intel_context *ce)
- 		intel_context_get(ce);
- 	}
- 
--	/*
--	 * Sync with submission path, decrement after above changes to context
--	 * state.
--	 */
--	spin_lock(&sched_engine->lock);
- 	decr_context_blocked(ce);
--	spin_unlock(&sched_engine->lock);
- 
- 	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 
-@@ -1730,16 +1718,6 @@ static void guc_context_sched_disable(struct intel_context *ce)
- 	struct intel_runtime_pm *runtime_pm = &ce->engine->gt->i915->runtime_pm;
- 	intel_wakeref_t wakeref;
- 	u16 guc_id;
--	bool enabled;
--
--	if (submission_disabled(guc) || context_guc_id_invalid(ce) ||
--	    !lrc_desc_registered(guc, ce->guc_id)) {
--		clr_context_enabled(ce);
--		goto unpin;
--	}
--
--	if (!context_enabled(ce))
--		goto unpin;
- 
- 	spin_lock_irqsave(&ce->guc_state.lock, flags);
- 
-@@ -1753,10 +1731,8 @@ static void guc_context_sched_disable(struct intel_context *ce)
- 	 * sleep) ensures another process doesn't pin this context and generate
- 	 * a request before we set the 'context_pending_disable' flag here.
- 	 */
--	enabled = context_enabled(ce);
--	if (unlikely(!enabled || submission_disabled(guc))) {
--		if (enabled)
--			clr_context_enabled(ce);
-+	if (unlikely(!context_enabled(ce) || submission_disabled(guc))) {
-+		clr_context_enabled(ce);
- 		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 		goto unpin;
- 	}
-@@ -1784,7 +1760,6 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
- 	GEM_BUG_ON(ce != __get_context(guc, ce->guc_id));
- 	GEM_BUG_ON(context_enabled(ce));
- 
--	clr_context_registered(ce);
- 	deregister_context(ce, ce->guc_id);
- }
- 
-@@ -1857,8 +1832,10 @@ static void guc_context_destroy(struct kref *kref)
- 	/* Seal race with Reset */
- 	spin_lock_irqsave(&ce->guc_state.lock, flags);
- 	disabled = submission_disabled(guc);
--	if (likely(!disabled))
-+	if (likely(!disabled)) {
- 		set_context_destroyed(ce);
-+		clr_context_registered(ce);
-+	}
- 	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 	if (unlikely(disabled)) {
- 		release_guc_id(guc, ce);
-@@ -2724,8 +2701,7 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 		     (!context_pending_enable(ce) &&
- 		     !context_pending_disable(ce)))) {
- 		drm_err(&guc_to_gt(guc)->i915->drm,
--			"Bad context sched_state 0x%x, 0x%x, desc_idx %u",
--			atomic_read(&ce->guc_sched_state_no_lock),
-+			"Bad context sched_state 0x%x, desc_idx %u",
- 			ce->guc_state.sched_state, desc_idx);
- 		return -EPROTO;
- 	}
-@@ -2740,7 +2716,9 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 		}
- #endif
- 
-+		spin_lock_irqsave(&ce->guc_state.lock, flags);
- 		clr_context_pending_enable(ce);
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 	} else if (context_pending_disable(ce)) {
- 		bool banned;
- 
-@@ -3014,9 +2992,8 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 			   atomic_read(&ce->pin_count));
- 		drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
- 			   atomic_read(&ce->guc_id_ref));
--		drm_printf(p, "\t\tSchedule State: 0x%x, 0x%x\n\n",
--			   ce->guc_state.sched_state,
--			   atomic_read(&ce->guc_sched_state_no_lock));
-+		drm_printf(p, "\t\tSchedule State: 0x%x\n\n",
-+			   ce->guc_state.sched_state);
- 
- 		guc_log_context_priority(p, ce);
- 	}
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index 237e5061381b..510168c1d703 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -903,7 +903,6 @@ DECLARE_EVENT_CLASS(intel_context,
- 			     __field(u32, guc_id)
- 			     __field(int, pin_count)
- 			     __field(u32, sched_state)
--			     __field(u32, guc_sched_state_no_lock)
- 			     __field(u8, guc_prio)
- 			     ),
- 
-@@ -911,15 +910,12 @@ DECLARE_EVENT_CLASS(intel_context,
- 			   __entry->guc_id = ce->guc_id;
- 			   __entry->pin_count = atomic_read(&ce->pin_count);
- 			   __entry->sched_state = ce->guc_state.sched_state;
--			   __entry->guc_sched_state_no_lock =
--			   atomic_read(&ce->guc_sched_state_no_lock);
- 			   __entry->guc_prio = ce->guc_prio;
- 			   ),
- 
--		    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x,0x%x, guc_prio=%u",
-+		    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x, guc_prio=%u",
- 			      __entry->guc_id, __entry->pin_count,
- 			      __entry->sched_state,
--			      __entry->guc_sched_state_no_lock,
- 			      __entry->guc_prio)
- );
- 
+> 
+> > 
+> > > using entry 61. I think there is a massive communication gap here
+> > > where everyone just seems to assume the other side is doing something.
+> > > 
+> > > Could someone actually come up with a clear abi definition for this
+> > > and get all the stakeholders to sign off on it?
+> > 
+> > The agreement between the i915 team, various userspace teams, Windows
+> > driver team, hardware architects, software architects, and bspec writers
+> > was just completed; that's what triggered the kernel updates here (and
+> > I'm guessing is triggering similar work on the UMD side).  It's also why
+> > we held off on removing the force_probe flag on ADL until now since we
+> > couldn't consider enablement of the platform complete until the
+> > agreement and definitions here was finalized.
+> 
+> Can we get that agreement visible on the mailing list? Since MOCS is
+> abi I don't see why we shouldn't follow the normal abi rules for these,
+> ie. post to dri-devel, get acks from relevant people, links to agreed
+> userspace changes, etc.
+
+The ABI design here was designed and agreed upon years ago, during early
+gen11 development.  The ABI design is that the kernel driver will
+faithfully initialize the hardware with the pre-determined set of magic
+numbers documented by the hardware team.  Since these are
+well-documented and unchanging numbers per-platform, there's no
+ambiguity for userspace, firmware, etc. about what a specific mocs index
+means, and no need to provide additional ABI for userspace to query what
+the kernel used in each row or anything like that.  The specific magic
+numbers are also ABI in the sense that we can't change the set of
+defined values once they're set for a platform (and it's been a long
+road to get the hardware and other OS software teams to understand and
+agree to this requirement), but we don't get to define or overrule what
+the initial values and order of those magic numbers are.
+
+What is a bit vague in the formal documentation is what should be done
+about the reserved/dontuse table entries.  In theory it wouldn't matter
+since they'd never be used anyway, but in reality userspace can still
+use them by accident, such as by forgetting to update their MOCS
+selection logic from past platforms (e.g., still trying to use row #1 on
+platforms where it isn't defined).  Given that it's legal for entries to
+be added to MOCS tables, but never removed/modified, it follows that we
+should always initialize the undefined entries to fully cached; if a
+MOCS table update happens in the future and new rows show up, they can
+only become more coherent, and any userspace software that was
+incorrectly trying to use them previously will remain functionally
+correct.
+
+What you're proposing would be a change to existing ABI --- instead of
+following the agreed upon contract, i915 would start defining its own
+set of magic numbers that potentially contradict the documentation that
+every other team is depending on.  We already made this mistake on
+TGL/RKL, so due to an i915 bug we're outside the spec; if entry #1 ever
+becomes a formally defined setting in the future, the rest of the
+software stack will need to explicitly work around i915's bug since we
+can't fix it now without breaking ABI.
+
+If you really want to redefine how the MOCS ABI works and have i915 no
+longer follow the current contract, I think you need to do the
+following:
+
+ * Re-add force_probe requirement to ADL and add appropriate Fixes: so
+   that the platform isn't enabled yet.
+ * Document clearly how you want i915 to select the MOCS settings it
+   uses for each table row if we're no longer going to follow the
+   documented values in the bspec.
+ * Provide a way for userspace to determine how i915 has defined the
+   MOCS settings (since they can no longer rely on us following the
+   previously agreed upon contract).
+ * Get acks from all the userspace teams on the new direction you're
+   proposing.
+ * Get an ack from the GuC team to make sure that programming
+   MOCS values differently than documented in the bspec won't have any
+   kind of impact on their operation.
+
+Alternatively, you could lobby for a new table row #1 to be added to the
+formal MOCS table for gen12.  It's legal for new MOCS entries to show up
+in the future, so if that happens, we can follow up with the
+corresponding change in i915; since we'll be moving to a more coherent
+value (from today's fully cached entry), we'll be becoming more
+permissive from a correctness point of view.  But we absolutely should
+not try to add entries unilaterally in i915 that haven't been formally
+agreed upon because they may clash with a different definition of the
+row that shows up in the future through formal channels.
+
+
+
+Matt
+
+> 
+> -- 
+> Ville Syrjälä
+> Intel
+
 -- 
-2.32.0
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
