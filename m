@@ -2,57 +2,59 @@ Return-Path: <SRS0=8Ejf=N7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F024BC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6E0CC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BCA9661167
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:54:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BCA9661167
+	by mail.kernel.org (Postfix) with ESMTPS id A2B7561167
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:54:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2B7561167
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 553666E420;
-	Thu,  9 Sep 2021 01:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B38786E423;
+	Thu,  9 Sep 2021 01:54:24 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3E66E440
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 01:54:16 +0000 (UTC)
+ (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 671896E440
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 01:54:21 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-297-L1jCLd8lO0u7PFU0T9y5uw-1; Wed, 08 Sep 2021 21:54:12 -0400
-X-MC-Unique: L1jCLd8lO0u7PFU0T9y5uw-1
+ us-mta-242-MiP5iggpO5OcTu9-iLvSrA-1; Wed, 08 Sep 2021 21:54:18 -0400
+X-MC-Unique: MiP5iggpO5OcTu9-iLvSrA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 414471023F4D;
- Thu,  9 Sep 2021 01:54:11 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CBB631006ABB;
+ Thu,  9 Sep 2021 01:54:17 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 728573AE5;
- Thu,  9 Sep 2021 01:54:09 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 46E3419736;
+ Thu,  9 Sep 2021 01:54:16 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, Dave Airlie <airlied@redhat.com>,
  Jani Nikula <jani.nikula@intel.com>
-Date: Thu,  9 Sep 2021 11:53:18 +1000
-Message-Id: <20210909015322.2988500-20-airlied@gmail.com>
+Date: Thu,  9 Sep 2021 11:53:20 +1000
+Message-Id: <20210909015322.2988500-22-airlied@gmail.com>
 In-Reply-To: <20210909015322.2988500-1-airlied@gmail.com>
 References: <20210909015322.2988500-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 19/23] drm/i915: constify the cdclk vtable
+Subject: [Intel-gfx] [PATCH 21/23] drm/i915: constify display function vtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,415 +72,192 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This is a bit of a twisty one since each platform is slightly
-different, so might take some more review care.
+Make nice clear tables instead of having things in two places.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 300 ++++++++++++++-------
- drivers/gpu/drm/i915/i915_drv.h            |   2 +-
- 2 files changed, 206 insertions(+), 96 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 81 ++++++++++++--------
+ drivers/gpu/drm/i915/i915_drv.h              |  2 +-
+ 2 files changed, 52 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i=
-915/display/intel_cdclk.c
-index 27a4a226aa49..f501c748458e 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -62,32 +62,32 @@
- void intel_cdclk_get_cdclk(struct drm_i915_private *dev_priv,
- =09=09=09   struct intel_cdclk_config *cdclk_config)
- {
--=09dev_priv->cdclk_funcs.get_cdclk(dev_priv, cdclk_config);
-+=09dev_priv->cdclk_funcs->get_cdclk(dev_priv, cdclk_config);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
+/i915/display/intel_display.c
+index 2e672b988343..8b9727d84435 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3789,7 +3789,7 @@ static void intel_crtc_disable_noatomic(struct intel_=
+crtc *crtc,
 =20
- int intel_cdclk_bw_calc_min_cdclk(struct intel_atomic_state *state)
- {
- =09struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
--=09return dev_priv->cdclk_funcs.bw_calc_min_cdclk(state);
-+=09return dev_priv->cdclk_funcs->bw_calc_min_cdclk(state);
- }
+ =09drm_WARN_ON(&dev_priv->drm, IS_ERR(temp_crtc_state) || ret);
 =20
- static void intel_cdclk_set_cdclk(struct drm_i915_private *dev_priv,
- =09=09=09=09  const struct intel_cdclk_config *cdclk_config,
- =09=09=09=09  enum pipe pipe)
- {
--=09dev_priv->cdclk_funcs.set_cdclk(dev_priv, cdclk_config, pipe);
-+=09dev_priv->cdclk_funcs->set_cdclk(dev_priv, cdclk_config, pipe);
- }
+-=09dev_priv->display.crtc_disable(to_intel_atomic_state(state), crtc);
++=09dev_priv->display->crtc_disable(to_intel_atomic_state(state), crtc);
 =20
- static int intel_cdclk_modeset_calc_cdclk(struct drm_i915_private *dev_pri=
-v,
- =09=09=09=09=09  struct intel_cdclk_state *cdclk_config)
- {
--=09return dev_priv->cdclk_funcs.modeset_calc_cdclk(cdclk_config);
-+=09return dev_priv->cdclk_funcs->modeset_calc_cdclk(cdclk_config);
- }
+ =09drm_atomic_state_put(state);
 =20
- static u8 intel_cdclk_calc_voltage_level(struct drm_i915_private *dev_priv=
-,
- =09=09=09=09=09 int cdclk)
- {
--=09return dev_priv->cdclk_funcs.calc_voltage_level(cdclk);
-+=09return dev_priv->cdclk_funcs->calc_voltage_level(cdclk);
- }
+@@ -5994,7 +5994,7 @@ static bool intel_crtc_get_pipe_config(struct intel_c=
+rtc_state *crtc_state)
+ =09struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+ =09struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
 =20
- static void fixed_133mhz_get_cdclk(struct drm_i915_private *dev_priv,
-@@ -1963,7 +1963,7 @@ static void intel_set_cdclk(struct drm_i915_private *=
-dev_priv,
- =09if (!intel_cdclk_changed(&dev_priv->cdclk.hw, cdclk_config))
+-=09if (!i915->display.get_pipe_config(crtc, crtc_state))
++=09if (!i915->display->get_pipe_config(crtc, crtc_state))
+ =09=09return false;
+=20
+ =09crtc_state->hw.active =3D true;
+@@ -9802,7 +9802,7 @@ static void intel_enable_crtc(struct intel_atomic_sta=
+te *state,
+=20
+ =09intel_crtc_update_active_timings(new_crtc_state);
+=20
+-=09dev_priv->display.crtc_enable(state, crtc);
++=09dev_priv->display->crtc_enable(state, crtc);
+=20
+ =09if (new_crtc_state->bigjoiner_slave)
  =09=09return;
+@@ -9890,7 +9890,7 @@ static void intel_old_crtc_state_disables(struct inte=
+l_atomic_state *state,
+ =09 */
+ =09intel_crtc_disable_pipe_crc(crtc);
 =20
--=09if (drm_WARN_ON_ONCE(&dev_priv->drm, !dev_priv->cdclk_funcs.set_cdclk))
-+=09if (drm_WARN_ON_ONCE(&dev_priv->drm, !dev_priv->cdclk_funcs->set_cdclk)=
-)
- =09=09return;
+-=09dev_priv->display.crtc_disable(state, crtc);
++=09dev_priv->display->crtc_disable(state, crtc);
+ =09crtc->active =3D false;
+ =09intel_fbc_disable(crtc);
+ =09intel_disable_shared_dpll(old_crtc_state);
+@@ -10269,7 +10269,7 @@ static void intel_atomic_commit_tail(struct intel_a=
+tomic_state *state)
+ =09}
 =20
- =09intel_dump_cdclk_config(cdclk_config, "Changing CDCLK to");
-@@ -2886,6 +2886,157 @@ u32 intel_read_rawclk(struct drm_i915_private *dev_=
-priv)
- =09return freq;
- }
+ =09/* Now enable the clocks, plane, pipe, and connectors that we set up. *=
+/
+-=09dev_priv->display.commit_modeset_enables(state);
++=09dev_priv->display->commit_modeset_enables(state);
 =20
-+static struct intel_cdclk_funcs tgl_cdclk_funcs =3D {
-+=09.get_cdclk =3D bxt_get_cdclk,
-+=09.set_cdclk =3D bxt_set_cdclk,
-+=09.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-+=09.calc_voltage_level =3D tgl_calc_voltage_level,
+ =09if (state->modeset) {
+ =09=09intel_encoders_update_complete(state);
+@@ -11272,6 +11272,46 @@ static const struct drm_mode_config_funcs intel_mo=
+de_funcs =3D {
+ =09.atomic_state_free =3D intel_atomic_state_free,
+ };
+=20
++static const struct drm_i915_display_funcs skl_display_funcs =3D {
++=09.get_pipe_config =3D hsw_get_pipe_config,
++=09.crtc_enable =3D hsw_crtc_enable,
++=09.crtc_disable =3D hsw_crtc_disable,
++=09.commit_modeset_enables =3D skl_commit_modeset_enables,
++=09.get_initial_plane_config =3D skl_get_initial_plane_config,
 +};
 +
-+static struct intel_cdclk_funcs ehl_cdclk_funcs =3D {
-+=09.get_cdclk =3D bxt_get_cdclk,
-+=09.set_cdclk =3D bxt_set_cdclk,
-+=09.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-+=09.calc_voltage_level =3D ehl_calc_voltage_level,
++static const struct drm_i915_display_funcs ddi_display_funcs =3D {
++=09.get_pipe_config =3D hsw_get_pipe_config,
++=09.crtc_enable =3D hsw_crtc_enable,
++=09.crtc_disable =3D hsw_crtc_disable,
++=09.commit_modeset_enables =3D intel_commit_modeset_enables,
++=09.get_initial_plane_config =3D i9xx_get_initial_plane_config,
 +};
 +
-+static struct intel_cdclk_funcs icl_cdclk_funcs =3D {
-+=09.get_cdclk =3D bxt_get_cdclk,
-+=09.set_cdclk =3D bxt_set_cdclk,
-+=09.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-+=09.calc_voltage_level =3D icl_calc_voltage_level,
++static const struct drm_i915_display_funcs pch_split_display_funcs =3D {
++=09.get_pipe_config =3D ilk_get_pipe_config,
++=09.crtc_enable =3D ilk_crtc_enable,
++=09.crtc_disable =3D ilk_crtc_disable,
++=09.commit_modeset_enables =3D intel_commit_modeset_enables,
++=09.get_initial_plane_config =3D i9xx_get_initial_plane_config,
 +};
 +
-+static struct intel_cdclk_funcs bxt_cdclk_funcs =3D {
-+=09.get_cdclk =3D bxt_get_cdclk,
-+=09.set_cdclk =3D bxt_set_cdclk,
-+=09.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-+=09.calc_voltage_level =3D bxt_calc_voltage_level,
++static const struct drm_i915_display_funcs vlv_display_funcs =3D {
++=09.get_pipe_config =3D i9xx_get_pipe_config,
++=09.crtc_enable =3D valleyview_crtc_enable,
++=09.crtc_disable =3D i9xx_crtc_disable,
++=09.commit_modeset_enables =3D intel_commit_modeset_enables,
++=09.get_initial_plane_config =3D i9xx_get_initial_plane_config,
 +};
 +
-+static struct intel_cdclk_funcs skl_cdclk_funcs =3D {
-+=09.get_cdclk =3D skl_get_cdclk,
-+=09.set_cdclk =3D skl_set_cdclk,
-+=09.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D skl_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs bdw_cdclk_funcs =3D {
-+=09.get_cdclk =3D bdw_get_cdclk,
-+=09.set_cdclk =3D bdw_set_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D bdw_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs chv_cdclk_funcs =3D {
-+=09.get_cdclk =3D vlv_get_cdclk,
-+=09.set_cdclk =3D chv_set_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D vlv_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs vlv_cdclk_funcs =3D {
-+=09.get_cdclk =3D vlv_get_cdclk,
-+=09.set_cdclk =3D vlv_set_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D vlv_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs hsw_cdclk_funcs =3D {
-+=09.get_cdclk =3D hsw_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+/* SNB, IVB, 965G, 945G */
-+static struct intel_cdclk_funcs fixed_400mhz_cdclk_funcs =3D {
-+=09.get_cdclk =3D fixed_400mhz_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs ilk_cdclk_funcs =3D {
-+=09.get_cdclk =3D fixed_450mhz_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs gm45_cdclk_funcs =3D {
-+=09.get_cdclk =3D gm45_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+/* G45 uses G33 */
-+
-+static struct intel_cdclk_funcs i965gm_cdclk_funcs =3D {
-+=09.get_cdclk =3D i965gm_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+/* i965G uses fixed 400 */
-+
-+static struct intel_cdclk_funcs pnv_cdclk_funcs =3D {
-+=09.get_cdclk =3D pnv_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs g33_cdclk_funcs =3D {
-+=09.get_cdclk =3D g33_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs i945gm_cdclk_funcs =3D {
-+=09.get_cdclk =3D i945gm_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+/* i945G uses fixed 400 */
-+
-+static struct intel_cdclk_funcs i915gm_cdclk_funcs =3D {
-+=09.get_cdclk =3D i915gm_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs i915g_cdclk_funcs =3D {
-+=09.get_cdclk =3D fixed_333mhz_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs i865g_cdclk_funcs =3D {
-+=09.get_cdclk =3D fixed_266mhz_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs i85x_cdclk_funcs =3D {
-+=09.get_cdclk =3D i85x_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs i845g_cdclk_funcs =3D {
-+=09.get_cdclk =3D fixed_200mhz_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
-+};
-+
-+static struct intel_cdclk_funcs i830_cdclk_funcs =3D {
-+=09.get_cdclk =3D fixed_133mhz_get_cdclk,
-+=09.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk,
-+=09.modeset_calc_cdclk =3D fixed_modeset_calc_cdclk,
++static const struct drm_i915_display_funcs i9xx_display_funcs =3D {
++=09.get_pipe_config =3D i9xx_get_pipe_config,
++=09.crtc_enable =3D i9xx_crtc_enable,
++=09.crtc_disable =3D i9xx_crtc_disable,
++=09.commit_modeset_enables =3D intel_commit_modeset_enables,
++=09.get_initial_plane_config =3D i9xx_get_initial_plane_config,
 +};
 +
  /**
-  * intel_init_cdclk_hooks - Initialize CDCLK related modesetting hooks
-  * @dev_priv: i915 device
-@@ -2893,119 +3044,78 @@ u32 intel_read_rawclk(struct drm_i915_private *dev=
-_priv)
- void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
- {
- =09if (IS_DG2(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D tgl_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &tgl_cdclk_funcs;
- =09=09dev_priv->cdclk.table =3D dg2_cdclk_table;
- =09} else if (IS_ALDERLAKE_P(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D tgl_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &tgl_cdclk_funcs;
- =09=09/* Wa_22011320316:adl-p[a0] */
- =09=09if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
- =09=09=09dev_priv->cdclk.table =3D adlp_a_step_cdclk_table;
- =09=09else
- =09=09=09dev_priv->cdclk.table =3D adlp_cdclk_table;
- =09} else if (IS_ROCKETLAKE(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D tgl_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &tgl_cdclk_funcs;
- =09=09dev_priv->cdclk.table =3D rkl_cdclk_table;
- =09} else if (DISPLAY_VER(dev_priv) >=3D 12) {
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D tgl_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &tgl_cdclk_funcs;
- =09=09dev_priv->cdclk.table =3D icl_cdclk_table;
- =09} else if (IS_JSL_EHL(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D ehl_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &ehl_cdclk_funcs;
- =09=09dev_priv->cdclk.table =3D icl_cdclk_table;
- =09} else if (DISPLAY_VER(dev_priv) >=3D 11) {
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D icl_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &icl_cdclk_funcs;
- =09=09dev_priv->cdclk.table =3D icl_cdclk_table;
- =09} else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bxt_set_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk;
--=09=09dev_priv->cdclk_funcs.calc_voltage_level =3D bxt_calc_voltage_level;
-+=09=09dev_priv->cdclk_funcs =3D &bxt_cdclk_funcs;
- =09=09if (IS_GEMINILAKE(dev_priv))
- =09=09=09dev_priv->cdclk.table =3D glk_cdclk_table;
- =09=09else
- =09=09=09dev_priv->cdclk.table =3D bxt_cdclk_table;
- =09} else if (DISPLAY_VER(dev_priv) =3D=3D 9) {
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D skl_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D skl_set_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D skl_modeset_calc_cdclk;
-+=09=09dev_priv->cdclk_funcs =3D &skl_cdclk_funcs;
- =09} else if (IS_BROADWELL(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D bdw_set_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D bdw_modeset_calc_cdclk;
-+=09=09dev_priv->cdclk_funcs =3D &bdw_cdclk_funcs;
-+=09} else if (IS_HASWELL(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &hsw_cdclk_funcs;
- =09} else if (IS_CHERRYVIEW(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D chv_set_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D vlv_modeset_calc_cdclk;
-+=09=09dev_priv->cdclk_funcs =3D &chv_cdclk_funcs;
- =09} else if (IS_VALLEYVIEW(dev_priv)) {
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.set_cdclk =3D vlv_set_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D vlv_modeset_calc_cdclk;
--=09} else {
--=09=09dev_priv->cdclk_funcs.bw_calc_min_cdclk =3D intel_bw_calc_min_cdclk;
--=09=09dev_priv->cdclk_funcs.modeset_calc_cdclk =3D fixed_modeset_calc_cdcl=
-k;
-+=09=09dev_priv->cdclk_funcs =3D &vlv_cdclk_funcs;
-+=09} else if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &fixed_400mhz_cdclk_funcs;
-+=09} else if (IS_IRONLAKE(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &ilk_cdclk_funcs;
-+=09} else if (IS_GM45(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &gm45_cdclk_funcs;
-+=09} else if (IS_G45(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &g33_cdclk_funcs;
-+=09} else if (IS_I965GM(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i965gm_cdclk_funcs;
-+=09} else if (IS_I965G(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &fixed_400mhz_cdclk_funcs;
-+=09} else if (IS_PINEVIEW(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &pnv_cdclk_funcs;
-+=09} else if (IS_G33(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &g33_cdclk_funcs;
-+=09} else if (IS_I945GM(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i945gm_cdclk_funcs;
-+=09} else if (IS_I945G(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &fixed_400mhz_cdclk_funcs;
-+=09} else if (IS_I915GM(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i915gm_cdclk_funcs;
-+=09} else if (IS_I915G(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i915g_cdclk_funcs;
-+=09} else if (IS_I865G(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i865g_cdclk_funcs;
-+=09} else if (IS_I85X(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i85x_cdclk_funcs;
-+=09} else if (IS_I845G(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i845g_cdclk_funcs;
-+=09} else if (IS_I830(dev_priv)) {
-+=09=09dev_priv->cdclk_funcs =3D &i830_cdclk_funcs;
+  * intel_init_display_hooks - initialize the display modesetting hooks
+  * @dev_priv: device private
+@@ -11287,38 +11327,19 @@ void intel_init_display_hooks(struct drm_i915_pri=
+vate *dev_priv)
+ =09intel_dpll_init_clock_hook(dev_priv);
+=20
+ =09if (DISPLAY_VER(dev_priv) >=3D 9) {
+-=09=09dev_priv->display.get_pipe_config =3D hsw_get_pipe_config;
+-=09=09dev_priv->display.crtc_enable =3D hsw_crtc_enable;
+-=09=09dev_priv->display.crtc_disable =3D hsw_crtc_disable;
++=09=09dev_priv->display =3D &skl_display_funcs;
+ =09} else if (HAS_DDI(dev_priv)) {
+-=09=09dev_priv->display.get_pipe_config =3D hsw_get_pipe_config;
+-=09=09dev_priv->display.crtc_enable =3D hsw_crtc_enable;
+-=09=09dev_priv->display.crtc_disable =3D hsw_crtc_disable;
++=09=09dev_priv->display =3D &ddi_display_funcs;
+ =09} else if (HAS_PCH_SPLIT(dev_priv)) {
+-=09=09dev_priv->display.get_pipe_config =3D ilk_get_pipe_config;
+-=09=09dev_priv->display.crtc_enable =3D ilk_crtc_enable;
+-=09=09dev_priv->display.crtc_disable =3D ilk_crtc_disable;
++=09=09dev_priv->display =3D &pch_split_display_funcs;
+ =09} else if (IS_CHERRYVIEW(dev_priv) ||
+ =09=09   IS_VALLEYVIEW(dev_priv)) {
+-=09=09dev_priv->display.get_pipe_config =3D i9xx_get_pipe_config;
+-=09=09dev_priv->display.crtc_enable =3D valleyview_crtc_enable;
+-=09=09dev_priv->display.crtc_disable =3D i9xx_crtc_disable;
++=09=09dev_priv->display =3D &vlv_display_funcs;
+ =09} else {
+-=09=09dev_priv->display.get_pipe_config =3D i9xx_get_pipe_config;
+-=09=09dev_priv->display.crtc_enable =3D i9xx_crtc_enable;
+-=09=09dev_priv->display.crtc_disable =3D i9xx_crtc_disable;
++=09=09dev_priv->display =3D &i9xx_display_funcs;
  =09}
 =20
--=09if (DISPLAY_VER(dev_priv) >=3D 10 || IS_BROXTON(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D bxt_get_cdclk;
--=09else if (DISPLAY_VER(dev_priv) =3D=3D 9)
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D skl_get_cdclk;
--=09else if (IS_BROADWELL(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D bdw_get_cdclk;
--=09else if (IS_HASWELL(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D hsw_get_cdclk;
--=09else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D vlv_get_cdclk;
--=09else if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_400mhz_get_cdclk;
--=09else if (IS_IRONLAKE(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_450mhz_get_cdclk;
--=09else if (IS_GM45(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D gm45_get_cdclk;
--=09else if (IS_G45(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D g33_get_cdclk;
--=09else if (IS_I965GM(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D i965gm_get_cdclk;
--=09else if (IS_I965G(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_400mhz_get_cdclk;
--=09else if (IS_PINEVIEW(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D pnv_get_cdclk;
--=09else if (IS_G33(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D g33_get_cdclk;
--=09else if (IS_I945GM(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D i945gm_get_cdclk;
--=09else if (IS_I945G(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_400mhz_get_cdclk;
--=09else if (IS_I915GM(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D i915gm_get_cdclk;
--=09else if (IS_I915G(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_333mhz_get_cdclk;
--=09else if (IS_I865G(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_266mhz_get_cdclk;
--=09else if (IS_I85X(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D i85x_get_cdclk;
--=09else if (IS_I845G(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_200mhz_get_cdclk;
--=09else if (IS_I830(dev_priv))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_133mhz_get_cdclk;
+ =09intel_fdi_init_hook(dev_priv);
 -
--=09if (drm_WARN(&dev_priv->drm, !dev_priv->cdclk_funcs.get_cdclk,
--=09=09     "Unknown platform. Assuming 133 MHz CDCLK\n"))
--=09=09dev_priv->cdclk_funcs.get_cdclk =3D fixed_133mhz_get_cdclk;
-+=09if (drm_WARN(&dev_priv->drm, !dev_priv->cdclk_funcs,
-+=09=09     "Unknown platform. Assuming i830\n"))
-+=09=09dev_priv->cdclk_funcs =3D &i830_cdclk_funcs;
+-=09if (DISPLAY_VER(dev_priv) >=3D 9) {
+-=09=09dev_priv->display.commit_modeset_enables =3D skl_commit_modeset_enab=
+les;
+-=09=09dev_priv->display.get_initial_plane_config =3D skl_get_initial_plane=
+_config;
+-=09} else {
+-=09=09dev_priv->display.commit_modeset_enables =3D intel_commit_modeset_en=
+ables;
+-=09=09dev_priv->display.get_initial_plane_config =3D i9xx_get_initial_plan=
+e_config;
+-=09}
+-
  }
+=20
+ void intel_modeset_init_hw(struct drm_i915_private *i915)
+@@ -11745,7 +11766,7 @@ int intel_modeset_init_nogem(struct drm_i915_privat=
+e *i915)
+ =09=09 * can even allow for smooth boot transitions if the BIOS
+ =09=09 * fb is large enough for the active pipe configuration.
+ =09=09 */
+-=09=09i915->display.get_initial_plane_config(crtc, &plane_config);
++=09=09i915->display->get_initial_plane_config(crtc, &plane_config);
+=20
+ =09=09/*
+ =09=09 * If the fb is shared between multiple heads, we'll
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
 v.h
-index 5ed624b9c3cc..b2c63ed5b8fe 100644
+index 2e8e4db627e3..5bbdd3b06e6d 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1006,7 +1006,7 @@ struct drm_i915_private {
- =09const struct intel_audio_funcs *audio_funcs;
+@@ -990,7 +990,7 @@ struct drm_i915_private {
+ =09const struct intel_dpll_funcs *dpll_funcs;
 =20
- =09/* Display CDCLK functions */
--=09struct intel_cdclk_funcs cdclk_funcs;
-+=09const struct intel_cdclk_funcs *cdclk_funcs;
+ =09/* Display functions */
+-=09struct drm_i915_display_funcs display;
++=09const struct drm_i915_display_funcs *display;
 =20
- =09/* PCH chipset type */
- =09enum intel_pch pch_type;
+ =09/* Display internal color functions */
+ =09const struct intel_color_funcs *color_funcs;
 --=20
 2.31.1
 
