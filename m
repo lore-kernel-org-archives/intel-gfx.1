@@ -2,44 +2,55 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90692C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6F39C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5556160295
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:37:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5556160295
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8234060295
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:39:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8234060295
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A20B46EA1B;
-	Fri, 10 Sep 2021 15:37:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 581876EA1B;
- Fri, 10 Sep 2021 15:37:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 53F8BA00FD;
- Fri, 10 Sep 2021 15:37:44 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2478876111412731214=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99896EA1F;
+	Fri, 10 Sep 2021 15:39:07 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 970E96EA1B;
+ Fri, 10 Sep 2021 15:39:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="284807741"
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="284807741"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2021 08:39:05 -0700
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="649412247"
+Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2021 08:39:05 -0700
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Gaurav Kumar <kumar.gaurav@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Juston Li <juston.li@intel.com>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ Jason Ekstrand <jason@jlekstrand.net>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Date: Fri, 10 Sep 2021 08:36:10 -0700
+Message-Id: <20210910153627.1060858-1-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kai Vehmanen" <kai.vehmanen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 10 Sep 2021 15:37:44 -0000
-Message-ID: <163128826433.14826.3299193037500497243@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210910131916.3782933-1-kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210910131916.3782933-1-kai.vehmanen@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/display=3A_program_audio_CDCLK-TS_for_keepalives?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 00/17] drm/i915: Introduce Intel PXP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,221 +63,131 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2478876111412731214==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+PXP (Protected Xe Path) is an i915 component, available on
+GEN12i and newer platforms, that helps to establish the hardware
+protected session and manage the status of the alive software session,
+as well as its life cycle.
 
-== Series Details ==
+changes from v8:
+- comments/docs improvements
+- remove rpm put race (pxp_inval vs context_close)
+- don't call pxp_invalidate on rpm suspend because it's redundant
 
-Series: drm/i915/display: program audio CDCLK-TS for keepalives
-URL   : https://patchwork.freedesktop.org/series/94551/
-State : success
+Tested with: https://patchwork.freedesktop.org/series/87570/
 
-== Summary ==
+Cc: Gaurav Kumar <kumar.gaurav@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Juston Li <juston.li@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+Cc: Daniel Vetter <daniel.vetter@intel.com>
 
-CI Bug Log - changes from CI_DRM_10570 -> Patchwork_21013
-====================================================
+Anshuman Gupta (2):
+  drm/i915/pxp: Add plane decryption support
+  drm/i915/pxp: black pixels on pxp disabled
 
-Summary
--------
+Daniele Ceraolo Spurio (9):
+  drm/i915/pxp: Define PXP component interface
+  drm/i915/pxp: define PXP device flag and kconfig
+  drm/i915/pxp: allocate a vcs context for pxp usage
+  drm/i915/pxp: set KCR reg init
+  drm/i915/pxp: interfaces for using protected objects
+  drm/i915/pxp: start the arb session on demand
+  drm/i915/pxp: add pxp debugfs
+  drm/i915/pxp: add PXP documentation
+  drm/i915/pxp: enable PXP for integrated Gen12
 
-  **SUCCESS**
+Huang, Sean Z (5):
+  drm/i915/pxp: Implement funcs to create the TEE channel
+  drm/i915/pxp: Create the arbitrary session after boot
+  drm/i915/pxp: Implement arb session teardown
+  drm/i915/pxp: Implement PXP irq handler
+  drm/i915/pxp: Enable PXP power management
 
-  No regressions found.
+Vitaly Lubart (1):
+  mei: pxp: export pavp client to me client bus
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/index.html
+ Documentation/gpu/i915.rst                    |   8 +
+ drivers/gpu/drm/i915/Kconfig                  |  11 +
+ drivers/gpu/drm/i915/Makefile                 |  10 +
+ drivers/gpu/drm/i915/display/intel_display.c  |  34 +++
+ .../drm/i915/display/intel_display_types.h    |   6 +
+ .../drm/i915/display/skl_universal_plane.c    |  49 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 100 +++++-
+ drivers/gpu/drm/i915/gem/i915_gem_context.h   |   6 +
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  28 ++
+ drivers/gpu/drm/i915/gem/i915_gem_create.c    |  72 +++--
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  18 ++
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |   6 +
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |   8 +
+ .../gpu/drm/i915/gem/selftests/mock_context.c |   4 +-
+ drivers/gpu/drm/i915/gt/debugfs_gt.c          |   2 +
+ drivers/gpu/drm/i915/gt/intel_engine.h        |   2 +
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |  22 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            |   5 +
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |   7 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  15 +-
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |   3 +
+ drivers/gpu/drm/i915/i915_drv.c               |   2 +
+ drivers/gpu/drm/i915/i915_drv.h               |   3 +
+ drivers/gpu/drm/i915/i915_pci.c               |   2 +
+ drivers/gpu/drm/i915/i915_reg.h               |  48 +++
+ drivers/gpu/drm/i915/intel_device_info.h      |   1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp.c          | 288 ++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h          |  67 ++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c      | 141 +++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h      |  15 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |  78 +++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.h  |  21 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_irq.c      | 100 ++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_irq.h      |  32 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |  46 +++
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.h       |  23 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.c  | 175 +++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.h  |  15 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 172 +++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h      |  17 ++
+ .../drm/i915/pxp/intel_pxp_tee_interface.h    |  37 +++
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  83 +++++
+ drivers/misc/mei/Kconfig                      |   2 +
+ drivers/misc/mei/Makefile                     |   1 +
+ drivers/misc/mei/pxp/Kconfig                  |  13 +
+ drivers/misc/mei/pxp/Makefile                 |   7 +
+ drivers/misc/mei/pxp/mei_pxp.c                | 229 ++++++++++++++
+ drivers/misc/mei/pxp/mei_pxp.h                |  18 ++
+ include/drm/i915_component.h                  |   1 +
+ include/drm/i915_pxp_tee_interface.h          |  42 +++
+ include/uapi/drm/i915_drm.h                   |  99 +++++-
+ 52 files changed, 2153 insertions(+), 42 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+ create mode 100644 drivers/misc/mei/pxp/Kconfig
+ create mode 100644 drivers/misc/mei/pxp/Makefile
+ create mode 100644 drivers/misc/mei/pxp/mei_pxp.c
+ create mode 100644 drivers/misc/mei/pxp/mei_pxp.h
+ create mode 100644 include/drm/i915_pxp_tee_interface.h
 
-Known issues
-------------
+-- 
+2.25.1
 
-  Here are the changes found in Patchwork_21013 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_lrc:
-    - fi-bsw-n3050:       [PASS][1] -> [DMESG-FAIL][2] ([i915#2373])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-bsw-n3050/igt@i915_selftest@live@gt_lrc.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-bsw-n3050/igt@i915_selftest@live@gt_lrc.html
-    - fi-rkl-guc:         [PASS][3] -> [DMESG-WARN][4] ([i915#3958])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
-
-  * igt@runner@aborted:
-    - fi-kbl-7500u:       NOTRUN -> [FAIL][5] ([i915#1814] / [i915#3363])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-kbl-7500u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - {fi-hsw-gt1}:       [INCOMPLETE][6] ([i915#151]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-hsw-gt1/igt@i915_pm_rpm@module-reload.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-hsw-gt1/igt@i915_pm_rpm@module-reload.html
-
-  * igt@kms_flip@basic-flip-vs-modeset@c-dp1:
-    - fi-cfl-8109u:       [FAIL][8] -> [PASS][9] +1 similar issue
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html
-
-  * igt@kms_flip@basic-flip-vs-wf_vblank@a-vga1:
-    - fi-bwr-2160:        [FAIL][10] ([i915#2122]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-bwr-2160/igt@kms_flip@basic-flip-vs-wf_vblank@a-vga1.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-bwr-2160/igt@kms_flip@basic-flip-vs-wf_vblank@a-vga1.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:
-    - fi-cfl-8109u:       [DMESG-WARN][12] ([i915#295]) -> [PASS][13] +18 similar issues
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
-  [i915#151]: https://gitlab.freedesktop.org/drm/intel/issues/151
-  [i915#1814]: https://gitlab.freedesktop.org/drm/intel/issues/1814
-  [i915#2122]: https://gitlab.freedesktop.org/drm/intel/issues/2122
-  [i915#2373]: https://gitlab.freedesktop.org/drm/intel/issues/2373
-  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
-  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
-  [i915#3958]: https://gitlab.freedesktop.org/drm/intel/issues/3958
-
-
-Participating hosts (44 -> 39)
-------------------------------
-
-  Additional (1): fi-kbl-7500u 
-  Missing    (6): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 bat-jsl-2 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10570 -> Patchwork_21013
-
-  CI-20190529: 20190529
-  CI_DRM_10570: 8ba36ce2437426b91de6f03d30e75629108ea22b @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6203: 64452a46b57ca4ef35eb65a547df8ed1b131e8f0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21013: 0bc8f32e2c2653c288d8cd49887c10d40dd44e62 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-0bc8f32e2c26 drm/i915/display: program audio CDCLK-TS for keepalives
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/index.html
-
---===============2478876111412731214==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: program audio CDCLK-TS for keepalives</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94551/">https://patchwork.freedesktop.org/series/94551/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10570 -&gt; Patchwork_21013</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21013 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_lrc:</p>
-<ul>
-<li>
-<p>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-bsw-n3050/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-bsw-n3050/igt@i915_selftest@live@gt_lrc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2373">i915#2373</a>)</p>
-</li>
-<li>
-<p>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3958">i915#3958</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-kbl-7500u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-kbl-7500u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1814">i915#1814</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-hsw-gt1/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/151">i915#151</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-hsw-gt1/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-modeset@c-dp1:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html">FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-wf_vblank@a-vga1:</p>
-<ul>
-<li>fi-bwr-2160:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-bwr-2160/igt@kms_flip@basic-flip-vs-wf_vblank@a-vga1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2122">i915#2122</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-bwr-2160/igt@kms_flip@basic-flip-vs-wf_vblank@a-vga1.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10570/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21013/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">PASS</a> +18 similar issues</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (44 -&gt; 39)</h2>
-<p>Additional (1): fi-kbl-7500u <br />
-  Missing    (6): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 bat-jsl-2 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10570 -&gt; Patchwork_21013</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10570: 8ba36ce2437426b91de6f03d30e75629108ea22b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6203: 64452a46b57ca4ef35eb65a547df8ed1b131e8f0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21013: 0bc8f32e2c2653c288d8cd49887c10d40dd44e62 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>0bc8f32e2c26 drm/i915/display: program audio CDCLK-TS for keepalives</p>
-
-</body>
-</html>
-
---===============2478876111412731214==--
