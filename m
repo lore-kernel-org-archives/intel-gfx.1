@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6768BC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EBB2AC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 34976611EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:10:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 34976611EF
+	by mail.kernel.org (Postfix) with ESMTPS id B63CB611EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B63CB611EF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6C56EAAF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F15B6EAAD;
 	Fri, 10 Sep 2021 20:10:46 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0929E6EAAA;
- Fri, 10 Sep 2021 20:10:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="221205110"
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="221205110"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973BC6EAAA;
+ Fri, 10 Sep 2021 20:10:44 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="221205107"
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="221205107"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 13:10:44 -0700
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="480346575"
+ 10 Sep 2021 13:10:43 -0700
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="480346568"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 13:10:44 -0700
+ 10 Sep 2021 13:10:43 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Matt Roper <matthew.d.roper@intel.com>
-Date: Fri, 10 Sep 2021 13:10:27 -0700
-Message-Id: <20210910201030.3436066-4-matthew.d.roper@intel.com>
+Cc: dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Date: Fri, 10 Sep 2021 13:10:25 -0700
+Message-Id: <20210910201030.3436066-2-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210910201030.3436066-1-matthew.d.roper@intel.com>
 References: <20210910201030.3436066-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/6] drm/i915/uncore: Replace gen8 write
- functions with general fwtable
+Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915/uncore: Convert gen6/gen7 read
+ operations to fwtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,53 +60,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we have both a standard forcewake table (albeit a single-entry
-table) and the shadow table stored in the uncore, we can drop the
-gen8-specific write handlers in favor of the general fwtable version.
+On gen6-gen8 (except vlv/chv) we don't use a forcewake lookup table; we
+simply check whether the register offset is < 0x40000, and return
+FORCEWAKE_RENDER if it is.  To prepare for upcoming refactoring, let's
+define a single-entry forcewake table from [0x0, 0x3ffff] and switch
+these platforms over to use the fwtable reader functions.
 
+v2:
+ - Drop __gen6_reg_read_fw_domains which is no longer used.  (Tvrtko)
+
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/intel_uncore.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 5fa2bf26a948..4c6898746d10 100644
+index f9767054dbdf..8c09af1e9f7a 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -1046,16 +1046,6 @@ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
- 	return FORCEWAKE_RENDER;
- }
+@@ -853,16 +853,6 @@ void assert_forcewakes_active(struct intel_uncore *uncore,
+ /* We give fast paths for the really cool registers */
+ #define NEEDS_FORCE_WAKE(reg) ((reg) < 0x40000)
  
--#define __gen8_reg_write_fw_domains(uncore, offset) \
+-#define __gen6_reg_read_fw_domains(uncore, offset) \
 -({ \
 -	enum forcewake_domains __fwd; \
--	if (NEEDS_FORCE_WAKE(offset) && !is_shadowed(uncore, offset)) \
+-	if (NEEDS_FORCE_WAKE(offset)) \
 -		__fwd = FORCEWAKE_RENDER; \
 -	else \
 -		__fwd = 0; \
 -	__fwd; \
 -})
 -
- static const struct intel_forcewake_range __gen6_fw_ranges[] = {
- 	GEN_FW_RANGE(0x0, 0x3ffff, FORCEWAKE_RENDER),
- };
-@@ -1711,7 +1701,6 @@ __gen_write(func, 32)
- __gen_reg_write_funcs(gen12_fwtable);
- __gen_reg_write_funcs(gen11_fwtable);
- __gen_reg_write_funcs(fwtable);
--__gen_reg_write_funcs(gen8);
+ static int fw_range_cmp(u32 offset, const struct intel_forcewake_range *entry)
+ {
+ 	if (offset < entry->start)
+@@ -1064,6 +1054,10 @@ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+ 	__fwd; \
+ })
  
- #undef __gen_reg_write_funcs
- #undef GEN6_WRITE_FOOTER
-@@ -2121,7 +2110,7 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
- 	} else if (GRAPHICS_VER(i915) == 8) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
- 		ASSIGN_SHADOW_TABLE(uncore, gen8_shadowed_regs);
--		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
-+		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
++static const struct intel_forcewake_range __gen6_fw_ranges[] = {
++	GEN_FW_RANGE(0x0, 0x3ffff, FORCEWAKE_RENDER),
++};
++
+ /* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
+ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x2000, 0x3fff, FORCEWAKE_RENDER),
+@@ -1623,7 +1617,6 @@ __gen_read(func, 64)
+ 
+ __gen_reg_read_funcs(gen11_fwtable);
+ __gen_reg_read_funcs(fwtable);
+-__gen_reg_read_funcs(gen6);
+ 
+ #undef __gen_reg_read_funcs
+ #undef GEN6_READ_FOOTER
+@@ -2111,15 +2104,17 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
  		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+ 	} else if (GRAPHICS_VER(i915) == 8) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
+-		ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
  	} else if (IS_VALLEYVIEW(i915)) {
  		ASSIGN_FW_DOMAINS_TABLE(uncore, __vlv_fw_ranges);
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+ 	} else if (IS_GRAPHICS_VER(i915, 6, 7)) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
+-		ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+ 	}
+ 
+ 	uncore->pmic_bus_access_nb.notifier_call = i915_pmic_bus_access_notifier;
 -- 
 2.25.4
 
