@@ -2,53 +2,52 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9356FC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FD6FC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4EB70611C8
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:03:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4EB70611C8
+	by mail.kernel.org (Postfix) with ESMTPS id 4205061074
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4205061074
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7226A6E9F1;
-	Fri, 10 Sep 2021 13:03:49 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A50A6E9EF;
- Fri, 10 Sep 2021 13:03:47 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="221124704"
-X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="221124704"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 06:03:46 -0700
-X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="540594297"
-Received: from cmmooney-mobl3.ger.corp.intel.com (HELO [10.213.215.191])
- ([10.213.215.191])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 06:03:45 -0700
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20210910053317.3379249-1-matthew.d.roper@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <8d211f7a-9dcb-dc5e-8703-5ffc33898ee7@linux.intel.com>
-Date: Fri, 10 Sep 2021 14:03:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 446EF6E9F8;
+	Fri, 10 Sep 2021 13:15:47 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27F0D6E9F7;
+ Fri, 10 Sep 2021 13:15:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="284777475"
+X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="284777475"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2021 06:15:44 -0700
+X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="467107526"
+Received: from gjanssen-mobl5.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.69])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2021 06:15:42 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Auld <matthew.william.auld@gmail.com>,
+ =?UTF-8?q?K=C3=B6nig=20Christian?= <Christian.Koenig@amd.com>
+Date: Fri, 10 Sep 2021 15:15:12 +0200
+Message-Id: <20210910131512.161655-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <20210910053317.3379249-1-matthew.d.roper@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 0/6] i915: Simplify mmio handling & add new
- DG2 shadow table
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC PATCH] drm/ttm: Add a private member to the struct
+ ttm_resource
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +63,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Both the provider (resource manager) and the consumer (the TTM driver)
+want to subclass struct ttm_resource. Since this is left for the resource
+manager, we need to provide a private pointer for the TTM driver.
 
-On 10/09/2021 06:33, Matt Roper wrote:
-> Our uncore MMIO functions for reading/writing registers have become very
-> complicated over time.  There's significant macro magic used to generate
-> several nearly-identical functions that only really differ in terms of
-> which platform-specific shadow register table they should check on write
-> operations.  We can significantly simplify our MMIO handlers by storing
-> a reference to the current platform's shadow table within the 'struct
-> intel_uncore' the same way we already do for forcewake; this allows us
-> to consolidate the multiple variants of each 'write' function down to
-> just a single 'fwtable' version that gets the shadow table out of the
-> uncore struct rather than hardcoding the name of a specific platform's
-> table.  We can do similar consolidation on the MMIO read side by
-> creating a single-entry forcewake table to replace the open-coded range
-> check they had been using previously.
-> 
-> The final patch of the series adds a new shadow table for DG2; this
-> becomes quite clean and simple now, given the refactoring in the first
-> five patches.
+Provide a struct ttm_resource_private for the driver to subclass for
+data with the same lifetime as the struct ttm_resource: In the i915 case
+it will, for example, be an sg-table and radix tree into the LMEM
+/VRAM pages that currently are awkwardly attached to the GEM object.
 
-Tidy and it ends up saving kernel binary size.
+Provide an ops structure for associated ops (Which is only destroy() ATM)
+It might seem pointless to provide a separate ops structure, but Linus
+has previously made it clear that that's the norm.
 
-However I am undecided yet, because one thing to note is that the trade 
-off is source code and kernel text consolidation at the expense of more 
-indirect calls at runtime and larger common read/write functions.
+After careful audit one could perhaps also on a per-driver basis
+replace the delete_mem_notify() TTM driver callback with the above
+destroy function.
 
-To expand, current code generates a bunch of per gen functions but in 
-doing so it manages to inline a bunch of checks like NEEDS_FORCE_WAKE 
-and BSEARCH (from find_fw_domain) so at runtime each platform mmio 
-read/write does not have to do indirect calls to do lookups.
+Cc: Matthew Auld <matthew.william.auld@gmail.com>
+Cc: König Christian <Christian.Koenig@amd.com>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/ttm/ttm_resource.c | 10 +++++++---
+ include/drm/ttm/ttm_resource.h     | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+), 3 deletions(-)
 
-It may matter a lot in the grand scheme of things but this trade off is 
-something to note in the cover letter I think.
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 2431717376e7..973e7c50bfed 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -57,13 +57,17 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
+ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
+ {
+ 	struct ttm_resource_manager *man;
++	struct ttm_resource *resource = *res;
+ 
+-	if (!*res)
++	if (!resource)
+ 		return;
+ 
+-	man = ttm_manager_type(bo->bdev, (*res)->mem_type);
+-	man->func->free(man, *res);
+ 	*res = NULL;
++	if (resource->priv)
++		resource->priv->ops.destroy(resource->priv);
++
++	man = ttm_manager_type(bo->bdev, resource->mem_type);
++	man->func->free(man, resource);
+ }
+ EXPORT_SYMBOL(ttm_resource_free);
+ 
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index 140b6b9a8bbe..5a22c9a29c05 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -44,6 +44,7 @@ struct dma_buf_map;
+ struct io_mapping;
+ struct sg_table;
+ struct scatterlist;
++struct ttm_resource_private;
+ 
+ struct ttm_resource_manager_func {
+ 	/**
+@@ -153,6 +154,32 @@ struct ttm_bus_placement {
+ 	enum ttm_caching	caching;
+ };
+ 
++/**
++ * struct ttm_resource_private_ops - Operations for a struct
++ * ttm_resource_private
++ *
++ * Not much benefit to keep this as a separate struct with only a single member,
++ * but keeping a separate ops struct is the norm.
++ */
++struct ttm_resource_private_ops {
++	/**
++	 * destroy() - Callback to destroy the private data
++	 * @priv - The private data to destroy
++	 */
++	void (*destroy) (struct ttm_resource_private *priv);
++};
++
++/**
++ * struct ttm_resource_private - TTM driver private data
++ * @ops: Pointer to struct ttm_resource_private_ops with associated operations
++ *
++ * Intended to be subclassed to hold, for example cached data sharing the
++ * lifetime with a struct ttm_resource.
++ */
++struct ttm_resource_private {
++	const struct ttm_resource_private_ops ops;
++};
++
+ /**
+  * struct ttm_resource
+  *
+@@ -171,6 +198,7 @@ struct ttm_resource {
+ 	uint32_t mem_type;
+ 	uint32_t placement;
+ 	struct ttm_bus_placement bus;
++	struct ttm_resource_private *priv;
+ };
+ 
+ /**
+-- 
+2.31.1
 
-Regards,
-
-Tvrtko
-
-> Matt Roper (6):
->    drm/i915/uncore: Convert gen6/gen7 read operations to fwtable
->    drm/i915/uncore: Associate shadow table with uncore
->    drm/i915/uncore: Replace gen8 write functions with general fwtable
->    drm/i915/uncore: Drop gen11/gen12 mmio write handlers
->    drm/i915/uncore: Drop gen11 mmio read handlers
->    drm/i915/dg2: Add DG2-specific shadow register table
-> 
->   drivers/gpu/drm/i915/intel_uncore.c           | 190 ++++++++++--------
->   drivers/gpu/drm/i915/intel_uncore.h           |   7 +
->   drivers/gpu/drm/i915/selftests/intel_uncore.c |   1 +
->   3 files changed, 110 insertions(+), 88 deletions(-)
-> 
