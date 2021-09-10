@@ -2,47 +2,48 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49B2CC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDAA8C433F5
 	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 03:18:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1407D61074
+	by mail.kernel.org (Postfix) with ESMTPS id 888FF610C9
 	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 03:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1407D61074
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 888FF610C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 706A76E959;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1FA66E96F;
 	Fri, 10 Sep 2021 03:18:52 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327356E971
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 03:18:51 +0000 (UTC)
+ (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFB936E96F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 03:18:50 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-FMaG16vJPtyaMaC643vRkA-1; Thu, 09 Sep 2021 23:18:44 -0400
-X-MC-Unique: FMaG16vJPtyaMaC643vRkA-1
+ us-mta-498-2YHVRH4gMp266RhzgabJMA-1; Thu, 09 Sep 2021 23:18:48 -0400
+X-MC-Unique: 2YHVRH4gMp266RhzgabJMA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
  [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 867898042C7;
- Fri, 10 Sep 2021 03:18:43 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D09AE1084680;
+ Fri, 10 Sep 2021 03:18:47 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 01FA5100EBC1;
- Fri, 10 Sep 2021 03:18:41 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4DC751045E80;
+ Fri, 10 Sep 2021 03:18:46 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, Dave Airlie <airlied@redhat.com>,
  Jani Nikula <jani.nikula@intel.com>
-Date: Fri, 10 Sep 2021 13:17:36 +1000
-Message-Id: <20210910031741.3292388-21-airlied@gmail.com>
+Date: Fri, 10 Sep 2021 13:17:38 +1000
+Message-Id: <20210910031741.3292388-23-airlied@gmail.com>
 In-Reply-To: <20210910031741.3292388-1-airlied@gmail.com>
 References: <20210910031741.3292388-1-airlied@gmail.com>
 MIME-Version: 1.0
@@ -53,7 +54,8 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 20/25] drm/i915: constify the dpll clock vtable
+Subject: [Intel-gfx] [PATCH 22/25] drm/i915: drop unused function ptr and
+ comments.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,131 +73,33 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-Most the dpll vtable into read-only memory.
+There was some excess comments and an unused vtbl ptr.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  6 +--
- drivers/gpu/drm/i915/display/intel_dpll.c    | 48 ++++++++++++++++----
- drivers/gpu/drm/i915/i915_drv.h              |  2 +-
- 3 files changed, 44 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
-/i915/display/intel_display.c
-index db7b0d54b6ce..1998e7132c30 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6821,10 +6821,10 @@ static int intel_crtc_atomic_check(struct intel_ato=
-mic_state *state,
- =09=09crtc_state->update_wm_post =3D true;
-=20
- =09if (mode_changed && crtc_state->hw.enable &&
--=09    dev_priv->dpll_funcs.crtc_compute_clock &&
-+=09    dev_priv->dpll_funcs &&
- =09    !crtc_state->bigjoiner_slave &&
- =09    !drm_WARN_ON(&dev_priv->drm, crtc_state->shared_dpll)) {
--=09=09ret =3D dev_priv->dpll_funcs.crtc_compute_clock(crtc_state);
-+=09=09ret =3D dev_priv->dpll_funcs->crtc_compute_clock(crtc_state);
- =09=09if (ret)
- =09=09=09return ret;
- =09}
-@@ -8851,7 +8851,7 @@ static void intel_modeset_clear_plls(struct intel_ato=
-mic_state *state)
- =09struct intel_crtc *crtc;
- =09int i;
-=20
--=09if (!dev_priv->dpll_funcs.crtc_compute_clock)
-+=09if (!dev_priv->dpll_funcs)
- =09=09return;
-=20
- =09for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i9=
-15/display/intel_dpll.c
-index 9326c7cbb05c..231b337df166 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1363,25 +1363,57 @@ static int i8xx_crtc_compute_clock(struct intel_crt=
-c_state *crtc_state)
- =09return 0;
- }
-=20
-+static const struct intel_dpll_funcs hsw_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D hsw_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs ilk_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D ilk_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs chv_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D chv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs vlv_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D vlv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs g4x_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D g4x_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs pnv_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D pnv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs i9xx_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D i9xx_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs i8xx_dpll_funcs =3D {
-+=09.crtc_compute_clock =3D i8xx_crtc_compute_clock,
-+};
-+
- void
- intel_dpll_init_clock_hook(struct drm_i915_private *dev_priv)
- {
- =09if (DISPLAY_VER(dev_priv) >=3D 9 || HAS_DDI(dev_priv))
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D hsw_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &hsw_dpll_funcs;
- =09else if (HAS_PCH_SPLIT(dev_priv))
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D ilk_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &ilk_dpll_funcs;
- =09else if (IS_CHERRYVIEW(dev_priv))
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D chv_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &chv_dpll_funcs;
- =09else if (IS_VALLEYVIEW(dev_priv))
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D vlv_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &vlv_dpll_funcs;
- =09else if (IS_G4X(dev_priv))
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D g4x_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &g4x_dpll_funcs;
- =09else if (IS_PINEVIEW(dev_priv))
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D pnv_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &pnv_dpll_funcs;
- =09else if (DISPLAY_VER(dev_priv) !=3D 2)
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D i9xx_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &i9xx_dpll_funcs;
- =09else
--=09=09dev_priv->dpll_funcs.crtc_compute_clock =3D i8xx_crtc_compute_clock;
-+=09=09dev_priv->dpll_funcs =3D &i8xx_dpll_funcs;
- }
-=20
- static bool i9xx_has_pps(struct drm_i915_private *dev_priv)
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
 v.h
-index 95f7a7a19a58..5ed624b9c3cc 100644
+index b2c63ed5b8fe..2e8e4db627e3 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -994,7 +994,7 @@ struct drm_i915_private {
- =09const struct intel_fdi_funcs *fdi_funcs;
+@@ -409,13 +409,6 @@ struct drm_i915_display_funcs {
+ =09void (*crtc_disable)(struct intel_atomic_state *state,
+ =09=09=09     struct intel_crtc *crtc);
+ =09void (*commit_modeset_enables)(struct intel_atomic_state *state);
+-=09void (*commit_modeset_disables)(struct intel_atomic_state *state);
+-
+-=09/* clock updates for mode set */
+-=09/* cursor updates */
+-=09/* render clock increase/decrease */
+-=09/* display clock increase/decrease */
+-=09/* pll clock increase/decrease */
+ };
 =20
- =09/* display pll funcs */
--=09struct intel_dpll_funcs dpll_funcs;
-+=09const struct intel_dpll_funcs *dpll_funcs;
 =20
- =09/* Display functions */
- =09struct drm_i915_display_funcs display;
 --=20
 2.31.1
 
