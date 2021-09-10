@@ -2,52 +2,44 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FD6FC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD49EC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:25:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4205061074
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:15:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4205061074
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 806E860462
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 13:25:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 806E860462
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 446EF6E9F8;
-	Fri, 10 Sep 2021 13:15:47 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F0D6E9F7;
- Fri, 10 Sep 2021 13:15:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="284777475"
-X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="284777475"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 06:15:44 -0700
-X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="467107526"
-Received: from gjanssen-mobl5.ger.corp.intel.com (HELO
- thellstr-mobl1.intel.com) ([10.249.254.69])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 06:15:42 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.william.auld@gmail.com>,
- =?UTF-8?q?K=C3=B6nig=20Christian?= <Christian.Koenig@amd.com>
-Date: Fri, 10 Sep 2021 15:15:12 +0200
-Message-Id: <20210910131512.161655-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADB4B6E9FE;
+	Fri, 10 Sep 2021 13:25:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D21486E095;
+ Fri, 10 Sep 2021 13:25:42 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id BA659A9A42;
+ Fri, 10 Sep 2021 13:25:42 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH] drm/ttm: Add a private member to the struct
- ttm_resource
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 10 Sep 2021 13:25:42 -0000
+Message-ID: <163128034272.14829.5044866813007605238@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210910131512.161655-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20210910131512.161655-1-thomas.hellstrom@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/ttm=3A_Add_a_private_member_to_the_struct_ttm=5Fresourc?=
+ =?utf-8?q?e?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,112 +52,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Both the provider (resource manager) and the consumer (the TTM driver)
-want to subclass struct ttm_resource. Since this is left for the resource
-manager, we need to provide a private pointer for the TTM driver.
+== Series Details ==
 
-Provide a struct ttm_resource_private for the driver to subclass for
-data with the same lifetime as the struct ttm_resource: In the i915 case
-it will, for example, be an sg-table and radix tree into the LMEM
-/VRAM pages that currently are awkwardly attached to the GEM object.
+Series: drm/ttm: Add a private member to the struct ttm_resource
+URL   : https://patchwork.freedesktop.org/series/94550/
+State : warning
 
-Provide an ops structure for associated ops (Which is only destroy() ATM)
-It might seem pointless to provide a separate ops structure, but Linus
-has previously made it clear that that's the norm.
+== Summary ==
 
-After careful audit one could perhaps also on a per-driver basis
-replace the delete_mem_notify() TTM driver callback with the above
-destroy function.
-
-Cc: Matthew Auld <matthew.william.auld@gmail.com>
-Cc: König Christian <Christian.Koenig@amd.com>
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/ttm/ttm_resource.c | 10 +++++++---
- include/drm/ttm/ttm_resource.h     | 28 ++++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 2431717376e7..973e7c50bfed 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -57,13 +57,17 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
- void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
- {
- 	struct ttm_resource_manager *man;
-+	struct ttm_resource *resource = *res;
- 
--	if (!*res)
-+	if (!resource)
- 		return;
- 
--	man = ttm_manager_type(bo->bdev, (*res)->mem_type);
--	man->func->free(man, *res);
- 	*res = NULL;
-+	if (resource->priv)
-+		resource->priv->ops.destroy(resource->priv);
-+
-+	man = ttm_manager_type(bo->bdev, resource->mem_type);
-+	man->func->free(man, resource);
- }
- EXPORT_SYMBOL(ttm_resource_free);
- 
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 140b6b9a8bbe..5a22c9a29c05 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -44,6 +44,7 @@ struct dma_buf_map;
- struct io_mapping;
- struct sg_table;
- struct scatterlist;
-+struct ttm_resource_private;
- 
- struct ttm_resource_manager_func {
- 	/**
-@@ -153,6 +154,32 @@ struct ttm_bus_placement {
- 	enum ttm_caching	caching;
- };
- 
-+/**
-+ * struct ttm_resource_private_ops - Operations for a struct
-+ * ttm_resource_private
-+ *
-+ * Not much benefit to keep this as a separate struct with only a single member,
-+ * but keeping a separate ops struct is the norm.
-+ */
-+struct ttm_resource_private_ops {
-+	/**
-+	 * destroy() - Callback to destroy the private data
-+	 * @priv - The private data to destroy
-+	 */
+$ dim checkpatch origin/drm-tip
+6fac6006f050 drm/ttm: Add a private member to the struct ttm_resource
+-:83: WARNING:SPACING: Unnecessary space before function pointer arguments
+#83: FILE: include/drm/ttm/ttm_resource.h:168:
 +	void (*destroy) (struct ttm_resource_private *priv);
-+};
-+
-+/**
-+ * struct ttm_resource_private - TTM driver private data
-+ * @ops: Pointer to struct ttm_resource_private_ops with associated operations
-+ *
-+ * Intended to be subclassed to hold, for example cached data sharing the
-+ * lifetime with a struct ttm_resource.
-+ */
-+struct ttm_resource_private {
-+	const struct ttm_resource_private_ops ops;
-+};
-+
- /**
-  * struct ttm_resource
-  *
-@@ -171,6 +198,7 @@ struct ttm_resource {
- 	uint32_t mem_type;
- 	uint32_t placement;
- 	struct ttm_bus_placement bus;
-+	struct ttm_resource_private *priv;
- };
- 
- /**
--- 
-2.31.1
+
+total: 0 errors, 1 warnings, 0 checks, 66 lines checked
+
 
