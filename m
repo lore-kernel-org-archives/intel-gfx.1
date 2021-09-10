@@ -7,44 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBB2AC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47EE4C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B63CB611EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:11:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B63CB611EF
+	by mail.kernel.org (Postfix) with ESMTPS id 103CA600AA
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 20:11:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 103CA600AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F15B6EAAD;
-	Fri, 10 Sep 2021 20:10:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72F056EAB3;
+	Fri, 10 Sep 2021 20:10:47 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 973BC6EAAA;
- Fri, 10 Sep 2021 20:10:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="221205107"
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="221205107"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC716EAA5;
+ Fri, 10 Sep 2021 20:10:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="221205111"
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="221205111"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 13:10:43 -0700
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="480346568"
+ 10 Sep 2021 13:10:44 -0700
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="480346578"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 13:10:43 -0700
+ 10 Sep 2021 13:10:44 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Fri, 10 Sep 2021 13:10:25 -0700
-Message-Id: <20210910201030.3436066-2-matthew.d.roper@intel.com>
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Date: Fri, 10 Sep 2021 13:10:28 -0700
+Message-Id: <20210910201030.3436066-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210910201030.3436066-1-matthew.d.roper@intel.com>
 References: <20210910201030.3436066-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915/uncore: Convert gen6/gen7 read
- operations to fwtable
+Subject: [Intel-gfx] [PATCH v2 4/6] drm/i915/uncore: Drop gen11/gen12 mmio
+ write handlers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,81 +61,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On gen6-gen8 (except vlv/chv) we don't use a forcewake lookup table; we
-simply check whether the register offset is < 0x40000, and return
-FORCEWAKE_RENDER if it is.  To prepare for upcoming refactoring, let's
-define a single-entry forcewake table from [0x0, 0x3ffff] and switch
-these platforms over to use the fwtable reader functions.
+Now that the reference to the shadow table is stored within the uncore,
+we don't need to generate separate fwtable, gen11_fwtable, and
+gen12_fwtable variants of the register write functions; a single
+'fwtable' implementation will work for all of those platforms now.
+
+While consolidating the functions, gen11/gen12 pick up a
+NEEDS_FORCE_WAKE() check that they didn't have before, allowing them to
+bypass a lot of forcewake/shadow checking for non-GT registers (e.g.,
+display).  However since these later platforms also introduce media
+engines at higher MMIO offsets, the definition of NEEDS_FORCE_WAKE() is
+extended to also consider register offsets above GEN11_BSD_RING_BASE.
 
 v2:
- - Drop __gen6_reg_read_fw_domains which is no longer used.  (Tvrtko)
+ - Restore NEEDS_FORCE_WAKE(), but extend it for compatibility with the
+   gen11+ platforms by also passing offsets above GEN11_BSD_RING_BASE.
+   (Chris, Tvrtko)
 
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/intel_uncore.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c | 61 ++++++++++-------------------
+ 1 file changed, 21 insertions(+), 40 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index f9767054dbdf..8c09af1e9f7a 100644
+index 4c6898746d10..bfb2a6337f9d 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -853,16 +853,6 @@ void assert_forcewakes_active(struct intel_uncore *uncore,
- /* We give fast paths for the really cool registers */
- #define NEEDS_FORCE_WAKE(reg) ((reg) < 0x40000)
+@@ -851,7 +851,10 @@ void assert_forcewakes_active(struct intel_uncore *uncore,
+ }
  
--#define __gen6_reg_read_fw_domains(uncore, offset) \
+ /* We give fast paths for the really cool registers */
+-#define NEEDS_FORCE_WAKE(reg) ((reg) < 0x40000)
++#define NEEDS_FORCE_WAKE(reg) ({ \
++	u32 __reg = (reg); \
++	__reg < 0x40000 || __reg >= GEN11_BSD_RING_BASE; \
++})
+ 
+ static int fw_range_cmp(u32 offset, const struct intel_forcewake_range *entry)
+ {
+@@ -1071,27 +1074,10 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+ };
+ 
+ #define __fwtable_reg_write_fw_domains(uncore, offset) \
 -({ \
--	enum forcewake_domains __fwd; \
--	if (NEEDS_FORCE_WAKE(offset)) \
--		__fwd = FORCEWAKE_RENDER; \
--	else \
--		__fwd = 0; \
+-	enum forcewake_domains __fwd = 0; \
+-	if (NEEDS_FORCE_WAKE((offset)) && !is_shadowed(uncore, offset)) \
+-		__fwd = find_fw_domain(uncore, offset); \
 -	__fwd; \
 -})
 -
- static int fw_range_cmp(u32 offset, const struct intel_forcewake_range *entry)
- {
- 	if (offset < entry->start)
-@@ -1064,6 +1054,10 @@ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+-#define __gen11_fwtable_reg_write_fw_domains(uncore, offset) \
+ ({ \
+ 	enum forcewake_domains __fwd = 0; \
+ 	const u32 __offset = (offset); \
+-	if (!is_shadowed(uncore, __offset)) \
+-		__fwd = find_fw_domain(uncore, __offset); \
+-	__fwd; \
+-})
+-
+-#define __gen12_fwtable_reg_write_fw_domains(uncore, offset) \
+-({ \
+-	enum forcewake_domains __fwd = 0; \
+-	const u32 __offset = (offset); \
+-	if (!is_shadowed(uncore, __offset)) \
++	if (NEEDS_FORCE_WAKE((__offset)) && !is_shadowed(uncore, __offset)) \
+ 		__fwd = find_fw_domain(uncore, __offset); \
  	__fwd; \
  })
+@@ -1675,34 +1661,29 @@ __gen6_write(8)
+ __gen6_write(16)
+ __gen6_write(32)
  
-+static const struct intel_forcewake_range __gen6_fw_ranges[] = {
-+	GEN_FW_RANGE(0x0, 0x3ffff, FORCEWAKE_RENDER),
-+};
-+
- /* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
- static const struct intel_forcewake_range __chv_fw_ranges[] = {
- 	GEN_FW_RANGE(0x2000, 0x3fff, FORCEWAKE_RENDER),
-@@ -1623,7 +1617,6 @@ __gen_read(func, 64)
+-#define __gen_write(func, x) \
++#define __gen_fwtable_write(x) \
+ static void \
+-func##_write##x(struct intel_uncore *uncore, i915_reg_t reg, u##x val, bool trace) { \
++fwtable_write##x(struct intel_uncore *uncore, i915_reg_t reg, u##x val, bool trace) { \
+ 	enum forcewake_domains fw_engine; \
+ 	GEN6_WRITE_HEADER; \
+-	fw_engine = __##func##_reg_write_fw_domains(uncore, offset); \
++	fw_engine = __fwtable_reg_write_fw_domains(uncore, offset); \
+ 	if (fw_engine) \
+ 		__force_wake_auto(uncore, fw_engine); \
+ 	__raw_uncore_write##x(uncore, reg, val); \
+ 	GEN6_WRITE_FOOTER; \
+ }
  
- __gen_reg_read_funcs(gen11_fwtable);
- __gen_reg_read_funcs(fwtable);
--__gen_reg_read_funcs(gen6);
+-#define __gen_reg_write_funcs(func) \
+-static enum forcewake_domains \
+-func##_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg) { \
+-	return __##func##_reg_write_fw_domains(uncore, i915_mmio_reg_offset(reg)); \
+-} \
+-\
+-__gen_write(func, 8) \
+-__gen_write(func, 16) \
+-__gen_write(func, 32)
+-
++static enum forcewake_domains
++fwtable_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
++{
++	return __fwtable_reg_write_fw_domains(uncore, i915_mmio_reg_offset(reg));
++}
  
- #undef __gen_reg_read_funcs
- #undef GEN6_READ_FOOTER
-@@ -2111,15 +2104,17 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
- 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
- 		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
- 	} else if (GRAPHICS_VER(i915) == 8) {
-+		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
- 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
--		ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
-+		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
- 	} else if (IS_VALLEYVIEW(i915)) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __vlv_fw_ranges);
- 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
- 		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
- 	} else if (IS_GRAPHICS_VER(i915, 6, 7)) {
-+		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
- 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
--		ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
-+		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
- 	}
+-__gen_reg_write_funcs(gen12_fwtable);
+-__gen_reg_write_funcs(gen11_fwtable);
+-__gen_reg_write_funcs(fwtable);
++__gen_fwtable_write(8)
++__gen_fwtable_write(16)
++__gen_fwtable_write(32)
  
- 	uncore->pmic_bus_access_nb.notifier_call = i915_pmic_bus_access_notifier;
+-#undef __gen_reg_write_funcs
++#undef __gen_fwtable_write
+ #undef GEN6_WRITE_FOOTER
+ #undef GEN6_WRITE_HEADER
+ 
+@@ -2080,22 +2061,22 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __dg2_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+ 	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __xehp_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+ 	} else if (GRAPHICS_VER(i915) >= 12) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen12_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+ 	} else if (GRAPHICS_VER(i915) == 11) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen11_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, gen11_shadowed_regs);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen11_fwtable);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+ 	} else if (IS_GRAPHICS_VER(i915, 9, 10)) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen9_fw_ranges);
 -- 
 2.25.4
 
