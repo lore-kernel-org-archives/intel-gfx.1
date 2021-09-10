@@ -2,62 +2,44 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75729C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 18:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C72EEC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 18:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A3C36109F
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 18:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1A3C36109F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 834A1611CE
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 18:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 834A1611CE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277EE6EA5A;
-	Fri, 10 Sep 2021 18:06:41 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2FFC6EA57;
- Fri, 10 Sep 2021 18:06:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8E7D76113A;
- Fri, 10 Sep 2021 18:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631297199;
- bh=y7gzzPXHMkryt9e4+4AKiJdOsSmuXw9tQqMcv44sZO4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aZj3p9/AxT/C6MApqRK4nHQPKulw+LKH3LIemaam4nAojJ/zOqveJ//NsqBebMhHN
- B0vcjKK9OjuJkxOXGolJHy4oNDJjy9AvUMMxYTcZhhY5+3WPkQrosvJrcptfXY6ROF
- VFaSHruncpG+fCj2A0R9TFE/uEvx7o4d4b4ASo9ph/p7PzghQ6svl3Om8wDUgYx++o
- mUVD/47AuKw5cQhIKWU2UDLj6CisPbkVGKU5h/+wGixpHiyIiHQRkq9hY+EnPdreQz
- jmUYZPjsbHvDydbHG1wqJz+2xfIRY+X/om4Olq+XFymwHE227GrsCVaZ+1wSI+sH5n
- 5po5YKvlxfd0g==
-Date: Fri, 10 Sep 2021 19:06:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>,
- Boqun Feng <boqun.feng@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20210910180601.GH4474@sirena.org.uk>
-References: <20210907132044.157225-1-maarten.lankhorst@linux.intel.com>
- <YTiM/zf8BuNw7wes@hirez.programming.kicks-ass.net>
- <96ab9cf1-250a-8f34-51ec-4a7f66a87b39@linux.intel.com>
- <YTnETRSy9H0CRdpc@hirez.programming.kicks-ass.net>
- <a7e5d99d-39c4-6d27-3029-4689a2a1a17a@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1E5F6EA5A;
+	Fri, 10 Sep 2021 18:10:25 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3AB3D6EA5A;
+ Fri, 10 Sep 2021 18:10:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 245EBA7E03;
+ Fri, 10 Sep 2021 18:10:24 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="U3BNvdZEnlJXqmh+"
-Content-Disposition: inline
-In-Reply-To: <a7e5d99d-39c4-6d27-3029-4689a2a1a17a@linux.intel.com>
-X-Cookie: You are standing on my toes.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH v2] kernel/locking: Add context to
- ww_mutex_trylock.
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 10 Sep 2021 18:10:24 -0000
+Message-ID: <163129742411.14827.17181534191338145304@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210910174447.289750-1-rodrigo.vivi@intel.com>
+In-Reply-To: <20210910174447.289750-1-rodrigo.vivi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/3=5D_drm/i915/runtime=5Fpm=3A_Consoli?=
+ =?utf-8?q?date_runtime=5Fpm_functions?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,34 +52,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
---U3BNvdZEnlJXqmh+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Series: series starting with [1/3] drm/i915/runtime_pm: Consolidate runtime_pm functions
+URL   : https://patchwork.freedesktop.org/series/94563/
+State : warning
 
-On Thu, Sep 09, 2021 at 11:32:18AM +0200, Maarten Lankhorst wrote:
+== Summary ==
 
-> This is also useful in regulator_lock_nested, which may avoid dropping
-> regulator_nesting_mutex in the uncontended path, so use it there.
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_reset.c:1392:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/i915_perf.c:1442:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1496:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/intel_wakeref.c:137:19: warning: context imbalance in 'wakeref_auto_timeout' - unexpected unlock
++./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
++./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
 
-Acked-by: Mark Brown <broonie@kernel.org>
 
---U3BNvdZEnlJXqmh+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmE7nogACgkQJNaLcl1U
-h9C1wAf8DRBLZNw/1NtB8vjzFkFGUyhl1QcogXZ/PZiQr8ZaYyuCxWV6f4cXYJOV
-uoUy/RXBkW5rX4+TDqj2dDcugYffBDQ4XjLKAsNaUznOlo6kvlGtKwIoNibDGuoh
-MYx9mFMNlSEhK2q2QVXhgVeKCc19e03XsN6EzN6fqzGCRKlGxdBRGWLZ1HkPfKia
-eo2oFiowQmJdrm1INKM39md3CDY4z6e09p0fmIUs6nCl5VvgWls/FyNCMuILlw8C
-BhimfCE429mqI4KDYr0ndzYNWXv+y4f2PI4EB+0aFhBxKYYj4xlBTwrXmiS/nxwR
-/o/o58UBtmax/fFX4l5pT+u8Cj4WAA==
-=X/vV
------END PGP SIGNATURE-----
-
---U3BNvdZEnlJXqmh+--
