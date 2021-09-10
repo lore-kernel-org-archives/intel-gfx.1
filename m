@@ -2,52 +2,105 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE0D2C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEED0C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 16:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB3C161074
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:40:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AB3C161074
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B872061242
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 16:10:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B872061242
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 207646EA34;
-	Fri, 10 Sep 2021 15:39:42 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 883AB6EA2C;
- Fri, 10 Sep 2021 15:39:21 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="284807863"
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="284807863"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 08:39:21 -0700
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="649412377"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 08:39:20 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	"Huang, Sean Z" <sean.z.huang@intel.com>, Huang@freedesktop.org,
-	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Fri, 10 Sep 2021 08:36:22 -0700
-Message-Id: <20210910153627.1060858-13-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210910153627.1060858-1-daniele.ceraolospurio@intel.com>
-References: <20210910153627.1060858-1-daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1A196EA28;
+	Fri, 10 Sep 2021 16:09:59 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF3E6EA28
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 16:09:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1631290196;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6/69qBPEq+ZxoLUCx7D3iUMKDE0eou/SmM/DmrEsT78=;
+ b=FN005Z4iU0lqZChXTlZ+78Ze9k/Sqaf9Oc4bzTV28KKla6lMOy1qrkGIAaSotlWG7KeZtN
+ oh14wFh9gU6cZcLbioHR0uYj4zEK2qIri4Zepu4SF9T2X6Jg+KToEgdpb04S3JYVmq224U
+ MPdh0awidgOGAAtHMviaQATtG/mXwN4=
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-127-677DoFkyNqigtjOtdylyTA-1; Fri, 10 Sep 2021 12:09:55 -0400
+X-MC-Unique: 677DoFkyNqigtjOtdylyTA-1
+Received: by mail-io1-f71.google.com with SMTP id
+ o128-20020a6bbe86000000b005bd06eaeca6so4096655iof.22
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 09:09:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:organization:mime-version:content-transfer-encoding;
+ bh=6/69qBPEq+ZxoLUCx7D3iUMKDE0eou/SmM/DmrEsT78=;
+ b=GwcIj6XiiSMVcCNz9eaHoU1axFD0tAVIgtHzGzlqbPZ9hkOA3yHOXiNXxDzQeP5Fsy
+ UUZ9OQeXPaKct/0IPEuPz7Phw9ePecT9IZ2/niawOLHeewqThYDB0MNybuNJbrJU7b01
+ zxgXNV6+NXq7LGuS+TfYpjRw/nZ8sdHIvswrvrzW3LMirpDbo50F2ZJnPwzfoKvaTYOx
+ SkhxkPbwJQYgn7a2m7bzYnwBHZR9V2llVTP9+3sGFsfjM6YXU7ar6IjgWxLEGXqKwMHo
+ j/CRKP53Yq9kNk9kF1lAJkifvrnLBTxrTJLklYwS9e1CNniibeMVc3NAw4bDO23Uzrd3
+ juBQ==
+X-Gm-Message-State: AOAM5326VVhR8YuKpvT+0VMc+jpu7lZ/gIy3lAIzjRH0ef8cZ421D66L
+ 1yAixGdCDHVQ0TeY8PmTn4KbO5yBnbpG6G8owJ4G5kkJ43PuYi78h2yGU9d5OOAcVzidYyYUqw9
+ FkIfXqqFMslaj8HJtJJNOYyPpOVqT
+X-Received: by 2002:a05:6e02:8f2:: with SMTP id
+ n18mr6862655ilt.256.1631290194683; 
+ Fri, 10 Sep 2021 09:09:54 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxP8Y1TihJai/O/xPIO5JmfEsEgfV81tQvv38D8IJQRDSK+KLhAXgtQ59aQINI+2fQswrVxaA==
+X-Received: by 2002:a05:6e02:8f2:: with SMTP id
+ n18mr6862610ilt.256.1631290194398; 
+ Fri, 10 Sep 2021 09:09:54 -0700 (PDT)
+Received: from redhat.com (c-73-14-100-188.hsd1.co.comcast.net.
+ [73.14.100.188])
+ by smtp.gmail.com with ESMTPSA id y10sm2555019ilv.35.2021.09.10.09.09.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Sep 2021 09:09:54 -0700 (PDT)
+Date: Fri, 10 Sep 2021 10:09:51 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Christoph Hellwig <hch@infradead.org>, David Airlie <airlied@linux.ie>,
+ Tony Krowiak <akrowiak@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@de.ibm.com>, Cornelia Huck <cohuck@redhat.com>, Daniel Vetter
+ <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, Eric Farman
+ <farman@linux.ibm.com>, Harald Freudenberger <freude@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, Jani
+ Nikula <jani.nikula@linux.intel.com>, Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org, Matthew
+ Rosato <mjrosato@linux.ibm.com>, Peter Oberparleiter
+ <oberpar@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Vineeth Vijayan <vneethv@linux.ibm.com>, Zhenyu
+ Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>, Christoph
+ Hellwig <hch@lst.de>
+Message-ID: <20210910100951.4da06602.alex.williamson@redhat.com>
+In-Reply-To: <20210910133850.GT2505917@nvidia.com>
+References: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
+ <5-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
+ <YTtLRmiXq+QtJ+la@infradead.org>
+ <20210910133850.GT2505917@nvidia.com>
+Organization: Red Hat
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 12/17] drm/i915/pxp: Enable PXP power
- management
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=alex.williamson@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2 5/9] vfio/mdev: Consolidate all the
+ device_api sysfs into the core code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,326 +116,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
+On Fri, 10 Sep 2021 10:38:50 -0300
+Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-During the power event S3+ sleep/resume, hardware will lose all the
-encryption keys for every hardware session, even though the
-session state might still be marked as alive after resume. Therefore,
-we should consider the session as dead on suspend and invalidate all the
-objects. The session will be automatically restarted on the first
-protected submission on resume.
+> On Fri, Sep 10, 2021 at 01:10:46PM +0100, Christoph Hellwig wrote:
+> > On Thu, Sep 09, 2021 at 04:38:45PM -0300, Jason Gunthorpe wrote:  
+> > > Every driver just emits a static string, simply feed it through the ops
+> > > and provide a standard sysfs show function.  
+> > 
+> > Looks sensible.  But can you make the attribute optional and add a
+> > comment marking it deprecated?  Because it really is completely useless.
+> > We don't version userspace APIs, userspae has to discover new features
+> > individually by e.g. finding new sysfs files or just trying new ioctls.  
+> 
+> To be honest I have no idea what side effects that would have..
+> 
+> device code search tells me libvirt reads it and stuffs it into some
+> XML
+> 
+> Something called mdevctl touches it, feeds it into some JSON and
+> other stuff..
+> 
+> qemu has some VFIO_DEVICE_API_* constants but it is all dead code
+> 
+> I agree it shouldn't have been there in the first place
+> 
+> Cornelia? Alex? Any thoughts?
 
-v2: runtime suspend also invalidates the keys
-v3: fix return codes, simplify rpm ops (Chris), use the new worker func
-v4: invalidate the objects on suspend, don't re-create the arb sesson on
-resume (delayed to first submission).
-v5: move irq changes back to irq patch (Rodrigo)
-v6: drop invalidation in runtime suspend (Rodrigo)
+It's not a version, it's a means for userspace to determine the basic
+API for an mdev device without needing to go through the process of
+creating a container, adding the group, setting an IOMMU type, opening
+the device before being able to call VFIO_DEVICE_GET_INFO to determine
+the API.  For example, it wouldn't make sense for libvirt to attach a
+vfio-ccw device to a PCIe root port in a VM.  It's a means to say this
+mdev device is a vfio-pci or that mdev device is a vfio-ccw.  If it were
+optional, then management tools would have no basic idea how to attach
+the device to a VM without gaining access to the device themselves.
+Thanks,
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/Makefile                |  1 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c        | 15 ++++++-
- drivers/gpu/drm/i915/i915_drv.c              |  2 +
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c     |  1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c      | 46 ++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h      | 23 ++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c | 38 +++++++++++-----
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c     |  9 ++++
- 8 files changed, 124 insertions(+), 11 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index b22b8c195bb8..366e82cec44d 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -286,6 +286,7 @@ i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp.o \
- 	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_irq.o \
-+	pxp/intel_pxp_pm.o \
- 	pxp/intel_pxp_session.o \
- 	pxp/intel_pxp_tee.o
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index dea8e2479897..b47a8d8f1bb5 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -18,6 +18,7 @@
- #include "intel_rc6.h"
- #include "intel_rps.h"
- #include "intel_wakeref.h"
-+#include "pxp/intel_pxp_pm.h"
- 
- static void user_forcewake(struct intel_gt *gt, bool suspend)
- {
-@@ -262,6 +263,8 @@ int intel_gt_resume(struct intel_gt *gt)
- 
- 	intel_uc_resume(&gt->uc);
- 
-+	intel_pxp_resume(&gt->pxp);
-+
- 	user_forcewake(gt, false);
- 
- out_fw:
-@@ -296,6 +299,7 @@ void intel_gt_suspend_prepare(struct intel_gt *gt)
- 	user_forcewake(gt, true);
- 	wait_for_suspend(gt);
- 
-+	intel_pxp_suspend(&gt->pxp, false);
- 	intel_uc_suspend(&gt->uc);
- }
- 
-@@ -346,6 +350,7 @@ void intel_gt_suspend_late(struct intel_gt *gt)
- 
- void intel_gt_runtime_suspend(struct intel_gt *gt)
- {
-+	intel_pxp_suspend(&gt->pxp, true);
- 	intel_uc_runtime_suspend(&gt->uc);
- 
- 	GT_TRACE(gt, "\n");
-@@ -353,11 +358,19 @@ void intel_gt_runtime_suspend(struct intel_gt *gt)
- 
- int intel_gt_runtime_resume(struct intel_gt *gt)
- {
-+	int ret;
-+
- 	GT_TRACE(gt, "\n");
- 	intel_gt_init_swizzling(gt);
- 	intel_ggtt_restore_fences(gt->ggtt);
- 
--	return intel_uc_runtime_resume(&gt->uc);
-+	ret = intel_uc_runtime_resume(&gt->uc);
-+	if (ret)
-+		return ret;
-+
-+	intel_pxp_resume(&gt->pxp);
-+
-+	return 0;
- }
- 
- static ktime_t __intel_gt_get_awake_time(const struct intel_gt *gt)
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 59fb4c710c8c..d5bcc70a22d4 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -67,6 +67,8 @@
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_rc6.h"
- 
-+#include "pxp/intel_pxp_pm.h"
-+
- #include "i915_debugfs.h"
- #include "i915_drv.h"
- #include "i915_ioc32.h"
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-index 340f20d130a8..9e5847c653f2 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-@@ -9,6 +9,7 @@
- #include "gt/intel_gt_irq.h"
- #include "i915_irq.h"
- #include "i915_reg.h"
-+#include "intel_runtime_pm.h"
- 
- /**
-  * intel_pxp_irq_handler - Handles PXP interrupts.
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-new file mode 100644
-index 000000000000..23fd86de5a24
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
-+
-+#include "intel_pxp.h"
-+#include "intel_pxp_irq.h"
-+#include "intel_pxp_pm.h"
-+#include "intel_pxp_session.h"
-+
-+void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
-+{
-+	if (!intel_pxp_is_enabled(pxp))
-+		return;
-+
-+	pxp->arb_is_valid = false;
-+
-+	/*
-+	 * Contexts using protected objects keep a runtime PM reference, so we
-+	 * can only runtime suspend when all of them have been either closed
-+	 * or banned. Therefore, there is no need to invalidate in that
-+	 * scenario.
-+	 */
-+	if (!runtime)
-+		intel_pxp_invalidate(pxp);
-+
-+	intel_pxp_fini_hw(pxp);
-+
-+	pxp->hw_state_invalidated = false;
-+}
-+
-+void intel_pxp_resume(struct intel_pxp *pxp)
-+{
-+	if (!intel_pxp_is_enabled(pxp))
-+		return;
-+
-+	/*
-+	 * The PXP component gets automatically unbound when we go into S3 and
-+	 * re-bound after we come out, so in that scenario we can defer the
-+	 * hw init to the bind call.
-+	 */
-+	if (!pxp->pxp_component)
-+		return;
-+
-+	intel_pxp_init_hw(pxp);
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-new file mode 100644
-index 000000000000..e6a357996e19
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-@@ -0,0 +1,23 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_PM_H__
-+#define __INTEL_PXP_PM_H__
-+
-+#include "i915_drv.h"
-+
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime);
-+void intel_pxp_resume(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
-+{
-+}
-+static inline void intel_pxp_resume(struct intel_pxp *pxp)
-+{
-+}
-+#endif
-+
-+#endif /* __INTEL_PXP_PM_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index a95cc443a48d..d02732f04757 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -21,29 +21,36 @@
- 
- static bool intel_pxp_session_is_in_play(struct intel_pxp *pxp, u32 id)
- {
--	struct intel_gt *gt = pxp_to_gt(pxp);
-+	struct intel_uncore *uncore = pxp_to_gt(pxp)->uncore;
- 	intel_wakeref_t wakeref;
- 	u32 sip = 0;
- 
--	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
--		sip = intel_uncore_read(gt->uncore, GEN12_KCR_SIP);
-+	/* if we're suspended the session is considered off */
-+	with_intel_runtime_pm_if_in_use(uncore->rpm, wakeref)
-+		sip = intel_uncore_read(uncore, GEN12_KCR_SIP);
- 
- 	return sip & BIT(id);
- }
- 
- static int pxp_wait_for_session_state(struct intel_pxp *pxp, u32 id, bool in_play)
- {
--	struct intel_gt *gt = pxp_to_gt(pxp);
-+	struct intel_uncore *uncore = pxp_to_gt(pxp)->uncore;
- 	intel_wakeref_t wakeref;
- 	u32 mask = BIT(id);
- 	int ret;
- 
--	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
--		ret = intel_wait_for_register(gt->uncore,
--					      GEN12_KCR_SIP,
--					      mask,
--					      in_play ? mask : 0,
--					      100);
-+	/* if we're suspended the session is considered off */
-+	wakeref = intel_runtime_pm_get_if_in_use(uncore->rpm);
-+	if (!wakeref)
-+		return in_play ? -ENODEV : 0;
-+
-+	ret = intel_wait_for_register(uncore,
-+				      GEN12_KCR_SIP,
-+				      mask,
-+				      in_play ? mask : 0,
-+				      100);
-+
-+	intel_runtime_pm_put(uncore->rpm, wakeref);
- 
- 	return ret;
- }
-@@ -135,6 +142,7 @@ void intel_pxp_session_work(struct work_struct *work)
- {
- 	struct intel_pxp *pxp = container_of(work, typeof(*pxp), session_work);
- 	struct intel_gt *gt = pxp_to_gt(pxp);
-+	intel_wakeref_t wakeref;
- 	u32 events = 0;
- 
- 	spin_lock_irq(&gt->irq_lock);
-@@ -147,6 +155,14 @@ void intel_pxp_session_work(struct work_struct *work)
- 	if (events & PXP_INVAL_REQUIRED)
- 		intel_pxp_invalidate(pxp);
- 
-+	/*
-+	 * If we're processing an event while suspending then don't bother,
-+	 * we're going to re-init everything on resume anyway.
-+	 */
-+	wakeref = intel_runtime_pm_get_if_in_use(gt->uncore->rpm);
-+	if (!wakeref)
-+		return;
-+
- 	if (events & PXP_TERMINATION_REQUEST) {
- 		events &= ~PXP_TERMINATION_COMPLETE;
- 		pxp_terminate(pxp);
-@@ -154,4 +170,6 @@ void intel_pxp_session_work(struct work_struct *work)
- 
- 	if (events & PXP_TERMINATION_COMPLETE)
- 		pxp_terminate_complete(pxp);
-+
-+	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
- }
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 3fc3ddfd02b3..49508f31dcb7 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -78,16 +78,25 @@ static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
- static int i915_pxp_tee_component_bind(struct device *i915_kdev,
- 				       struct device *tee_kdev, void *data)
- {
-+	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
- 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
-+	intel_wakeref_t wakeref;
- 
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = data;
- 	pxp->pxp_component->tee_dev = tee_kdev;
- 	mutex_unlock(&pxp->tee_mutex);
- 
-+	/* if we are suspended, the HW will be re-initialized on resume */
-+	wakeref = intel_runtime_pm_get_if_in_use(&i915->runtime_pm);
-+	if (!wakeref)
-+		return 0;
-+
- 	/* the component is required to fully start the PXP HW */
- 	intel_pxp_init_hw(pxp);
- 
-+	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
-+
- 	return 0;
- }
- 
--- 
-2.25.1
+Alex
 
