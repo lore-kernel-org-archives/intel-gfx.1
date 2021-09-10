@@ -2,51 +2,50 @@ Return-Path: <SRS0=qdHQ=OA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84D5FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CEE6C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5587461074
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:39:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5587461074
+	by mail.kernel.org (Postfix) with ESMTPS id 555BB61074
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 15:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 555BB61074
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C3FA6EA28;
-	Fri, 10 Sep 2021 15:39:15 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C7A96EA27
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 15:39:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="221139220"
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="221139220"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 08:39:02 -0700
-X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="540659514"
-Received: from dmbuckle-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.213.110])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2021 08:38:49 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: uma.shankar@intel.com, ville.syrjala@linux.intel.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210910131916.3782933-1-kai.vehmanen@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210910131916.3782933-1-kai.vehmanen@linux.intel.com>
-Date: Fri, 10 Sep 2021 18:38:44 +0300
-Message-ID: <871r5w4f0b.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07B4D6EA2D;
+	Fri, 10 Sep 2021 15:39:17 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2906EA22;
+ Fri, 10 Sep 2021 15:39:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10103"; a="284807787"
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="284807787"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2021 08:39:10 -0700
+X-IronPort-AV: E=Sophos;i="5.85,283,1624345200"; d="scan'208";a="649412263"
+Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2021 08:39:10 -0700
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Fri, 10 Sep 2021 08:36:13 -0700
+Message-Id: <20210910153627.1060858-4-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210910153627.1060858-1-daniele.ceraolospurio@intel.com>
+References: <20210910153627.1060858-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: program audio CDCLK-TS
- for keepalives
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 03/17] drm/i915/pxp: define PXP device flag
+ and kconfig
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,170 +61,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 10 Sep 2021, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
-> XE_LPD display adds support for display audio codec keepalive feature.
-> This feature works also when display codec is in D3 state and the audio
-> link is off (BCLK off). To enable this functionality, display driver
-> must update the AUD_TS_CDCLK_M/N registers whenever CDCLK is changed.
-> Actual timestamps are generated only when the audio codec driver
-> specifically enables the KeepAlive (KAE) feature.
->
-> This patch adds new hooks to intel_set_cdclk() in order to inform
-> display audio driver when CDCLK change is started and when it is
-> complete.
->
-> Bspec: 53679
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_audio.c | 54 ++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_audio.h |  2 +
->  drivers/gpu/drm/i915/display/intel_cdclk.c |  5 ++
->  drivers/gpu/drm/i915/i915_reg.h            |  4 ++
->  4 files changed, 65 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-> index 532237588511..48cced7f56f0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.c
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.c
-> @@ -936,6 +936,60 @@ void intel_init_audio_hooks(struct drm_i915_private *dev_priv)
->  	}
->  }
->  
-> +struct aud_ts_cdclk_m_n {
-> +	u8 m;
-> +	u16 n;
-> +};
-> +
-> +void intel_audio_cdclk_change_pre(struct drm_i915_private *dev_priv)
+Ahead of the PXP implementation, define the relevant define flag and
+kconfig option.
 
-Nitpick, switching to i915 variable name instead of dev_priv is
-preferred for new code throughout.
+v2: flip kconfig default to N. Some machines have IFWIs that do not
+support PXP, so we need it to be an opt-in until we add support to query
+the caps from the mei device.
 
-> +{
-> +	u32 tmp;
-> +
-> +	if (DISPLAY_VER(dev_priv) >= 13) {
-> +		tmp = intel_de_read(dev_priv, AUD_TS_CDCLK_M);
-> +		tmp &= ~AUD_TS_CDCLK_M_EN;
-> +		intel_de_write(dev_priv, AUD_TS_CDCLK_M, tmp);
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/Kconfig             | 11 +++++++++++
+ drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 3 files changed, 15 insertions(+)
 
-Nitpick, could use intel_de_rmw() to do this on a single line.
-
-> +	}
-> +}
-> +
-> +static int get_aud_ts_cdclk_m_n(int refclk, int cdclk, struct aud_ts_cdclk_m_n *aud_ts)
-> +{
-> +	if (!aud_ts)
-> +		return -EINVAL;
-> +
-> +	if (refclk == 24000)
-> +		aud_ts->m = 12;
-> +	else
-> +		aud_ts->m = 15;
-> +
-> +	aud_ts->n = cdclk * aud_ts->m / 24000;
-> +
-> +	return 0;
-
-Is the return code added for future? For now, it just complicates this
-for no apparent reason.
-
-> +}
-> +
-> +void intel_audio_cdclk_change_post(struct drm_i915_private *dev_priv)
-> +{
-> +	struct aud_ts_cdclk_m_n aud_ts;
-> +	int res;
-> +
-> +	if (DISPLAY_VER(dev_priv) >= 13) {
-> +		res = get_aud_ts_cdclk_m_n(dev_priv->cdclk.hw.ref,
-> +					   dev_priv->cdclk.hw.cdclk,
-> +					   &aud_ts);
-> +
-> +		if (!res) {
-> +			intel_de_write(dev_priv, AUD_TS_CDCLK_N, aud_ts.n);
-> +			intel_de_write(dev_priv, AUD_TS_CDCLK_M, aud_ts.m | AUD_TS_CDCLK_M_EN);
-> +			drm_dbg(&dev_priv->drm, "aud_ts_cdclk set to M=%u, N=%u\n",
-> +				aud_ts.m, aud_ts.n);
-
-Usually drm_dbg_kms() for display code, including audio.
-
-I'll need to look up the bspec too, can't do that right now... this was
-just the nitpicks. ;D
-
-BR,
-Jani.
-
-> +		} else {
-> +			drm_err(&dev_priv->drm,
-> +				"failed to find aud_ts_cdclk values for refclk %u cdclk %u\n",
-> +				dev_priv->cdclk.hw.ref, dev_priv->cdclk.hw.cdclk);
-> +		}
-> +	}
-> +}
-> +
->  static int glk_force_audio_cdclk_commit(struct intel_atomic_state *state,
->  					struct intel_crtc *crtc,
->  					bool enable)
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.h b/drivers/gpu/drm/i915/display/intel_audio.h
-> index a3657c7a7ba2..dcb259dd2da7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.h
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.h
-> @@ -18,6 +18,8 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
->  void intel_audio_codec_disable(struct intel_encoder *encoder,
->  			       const struct intel_crtc_state *old_crtc_state,
->  			       const struct drm_connector_state *old_conn_state);
-> +void intel_audio_cdclk_change_pre(struct drm_i915_private *dev_priv);
-> +void intel_audio_cdclk_change_post(struct drm_i915_private *dev_priv);
->  void intel_audio_init(struct drm_i915_private *dev_priv);
->  void intel_audio_deinit(struct drm_i915_private *dev_priv);
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> index 9aec17b33819..a1365f31142d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> @@ -24,6 +24,7 @@
->  #include <linux/time.h>
->  
->  #include "intel_atomic.h"
-> +#include "intel_audio.h"
->  #include "intel_bw.h"
->  #include "intel_cdclk.h"
->  #include "intel_de.h"
-> @@ -1943,6 +1944,8 @@ static void intel_set_cdclk(struct drm_i915_private *dev_priv,
->  		intel_psr_pause(intel_dp);
->  	}
->  
-> +	intel_audio_cdclk_change_pre(dev_priv);
-> +
->  	/*
->  	 * Lock aux/gmbus while we change cdclk in case those
->  	 * functions use cdclk. Not all platforms/ports do,
-> @@ -1971,6 +1974,8 @@ static void intel_set_cdclk(struct drm_i915_private *dev_priv,
->  		intel_psr_resume(intel_dp);
->  	}
->  
-> +	intel_audio_cdclk_change_post(dev_priv);
-> +
->  	if (drm_WARN(&dev_priv->drm,
->  		     intel_cdclk_changed(&dev_priv->cdclk.hw, cdclk_config),
->  		     "cdclk state doesn't match!\n")) {
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index bd63760207b0..795775c9e2eb 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -9734,6 +9734,10 @@ enum {
->  #define AUD_PIN_BUF_CTL		_MMIO(0x48414)
->  #define   AUD_PIN_BUF_ENABLE		REG_BIT(31)
->  
-> +#define AUD_TS_CDCLK_M			_MMIO(0x65ea0)
-> +#define   AUD_TS_CDCLK_M_EN		REG_BIT(31)
-> +#define AUD_TS_CDCLK_N			_MMIO(0x65ea4)
-> +
->  /* Display Audio Config Reg */
->  #define AUD_CONFIG_BE			_MMIO(0x65ef0)
->  #define HBLANK_EARLY_ENABLE_ICL(pipe)		(0x1 << (20 - (pipe)))
-
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index f960f5d7664e..5987c3d5d9fb 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -131,6 +131,17 @@ config DRM_I915_GVT_KVMGT
+ 	  Choose this option if you want to enable KVMGT support for
+ 	  Intel GVT-g.
+ 
++config DRM_I915_PXP
++	bool "Enable Intel PXP support for Intel Gen12+ platform"
++	depends on DRM_I915
++	depends on INTEL_MEI && INTEL_MEI_PXP
++	default n
++	help
++	  PXP (Protected Xe Path) is an i915 component, available on GEN12+
++	  GPUs, that helps to establish the hardware protected session and
++	  manage the status of the alive software session, as well as its life
++	  cycle.
++
+ menu "drm/i915 Debugging"
+ depends on DRM_I915
+ depends on EXPERT
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 37c1ca266bcd..447a248f14aa 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1678,6 +1678,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
+ 
++#define HAS_PXP(dev_priv) (IS_ENABLED(CONFIG_DRM_I915_PXP) && \
++			   INTEL_INFO(dev_priv)->has_pxp) && \
++			   VDBOX_MASK(&dev_priv->gt)
+ 
+ #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index d328bb95c49b..8e6f48d1eb7b 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -133,6 +133,7 @@ enum intel_ppgtt_type {
+ 	func(has_logical_ring_elsq); \
+ 	func(has_mslices); \
+ 	func(has_pooled_eu); \
++	func(has_pxp); \
+ 	func(has_rc6); \
+ 	func(has_rc6p); \
+ 	func(has_rps); \
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
