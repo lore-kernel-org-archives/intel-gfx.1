@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EC99C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 05:34:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53403C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 05:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D14F6101A
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 05:34:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5D14F6101A
+	by mail.kernel.org (Postfix) with ESMTPS id 22E036113E
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 05:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22E036113E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B70356E974;
-	Fri, 10 Sep 2021 05:33:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B61A6E976;
+	Fri, 10 Sep 2021 05:33:44 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 997446E972;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FBE86E971;
  Fri, 10 Sep 2021 05:33:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="217832062"
-X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="217832062"
+X-IronPort-AV: E=McAfee;i="6200,9189,10102"; a="217832061"
+X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="217832061"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2021 22:33:32 -0700
-X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="480012430"
+ 09 Sep 2021 22:33:31 -0700
+X-IronPort-AV: E=Sophos;i="5.85,282,1624345200"; d="scan'208";a="480012425"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Sep 2021 22:33:31 -0700
@@ -36,15 +36,15 @@ From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Matt Roper <matthew.d.roper@intel.com>
-Date: Thu,  9 Sep 2021 22:33:15 -0700
-Message-Id: <20210910053317.3379249-5-matthew.d.roper@intel.com>
+Date: Thu,  9 Sep 2021 22:33:14 -0700
+Message-Id: <20210910053317.3379249-4-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210910053317.3379249-1-matthew.d.roper@intel.com>
 References: <20210910053317.3379249-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915/uncore: Drop gen11/gen12 mmio
- write handlers
+Subject: [Intel-gfx] [PATCH 3/6] drm/i915/uncore: Replace gen8 write
+ functions with general fwtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,123 +60,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the reference to the shadow table is stored within the uncore,
-we don't need to generate separate fwtable, gen11_fwtable, and
-gen12_fwtable variants of the register write functions; a single
-'fwtable' implementation will work for all of those platforms now.
-
-Note that while consolidating down to __fwtable_reg_write_fw_domains()
-we drop the NEEDS_FORCE_WAKE() check.  If an MMIO offset is outside that
-range on older platforms, it also won't be part of a range in the
-forcewake table, so a '0' will be returned anyway.
+Now that we have both a standard forcewake table (albeit a single-entry
+table) and the shadow table stored in the uncore, we can drop the
+gen8-specific write handlers in favor of the general fwtable version.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/intel_uncore.c | 54 +++++++++--------------------
- 1 file changed, 16 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 80533cf24fe8..c181e74fbf43 100644
+index 159880e3e77d..80533cf24fe8 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -1081,23 +1081,6 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
- };
- 
- #define __fwtable_reg_write_fw_domains(uncore, offset) \
--({ \
--	enum forcewake_domains __fwd = 0; \
--	if (NEEDS_FORCE_WAKE((offset)) && !is_shadowed(uncore, offset)) \
--		__fwd = find_fw_domain(uncore, offset); \
--	__fwd; \
--})
--
--#define __gen11_fwtable_reg_write_fw_domains(uncore, offset) \
--({ \
--	enum forcewake_domains __fwd = 0; \
--	const u32 __offset = (offset); \
--	if (!is_shadowed(uncore, __offset)) \
--		__fwd = find_fw_domain(uncore, __offset); \
--	__fwd; \
--})
--
--#define __gen12_fwtable_reg_write_fw_domains(uncore, offset) \
- ({ \
- 	enum forcewake_domains __fwd = 0; \
- 	const u32 __offset = (offset); \
-@@ -1685,34 +1668,29 @@ __gen6_write(8)
- __gen6_write(16)
- __gen6_write(32)
- 
--#define __gen_write(func, x) \
-+#define __gen_fwtable_write(x) \
- static void \
--func##_write##x(struct intel_uncore *uncore, i915_reg_t reg, u##x val, bool trace) { \
-+fwtable_write##x(struct intel_uncore *uncore, i915_reg_t reg, u##x val, bool trace) { \
- 	enum forcewake_domains fw_engine; \
- 	GEN6_WRITE_HEADER; \
--	fw_engine = __##func##_reg_write_fw_domains(uncore, offset); \
-+	fw_engine = __fwtable_reg_write_fw_domains(uncore, offset); \
- 	if (fw_engine) \
- 		__force_wake_auto(uncore, fw_engine); \
- 	__raw_uncore_write##x(uncore, reg, val); \
- 	GEN6_WRITE_FOOTER; \
+@@ -1056,16 +1056,6 @@ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+ 	return FORCEWAKE_RENDER;
  }
  
--#define __gen_reg_write_funcs(func) \
--static enum forcewake_domains \
--func##_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg) { \
--	return __##func##_reg_write_fw_domains(uncore, i915_mmio_reg_offset(reg)); \
--} \
--\
--__gen_write(func, 8) \
--__gen_write(func, 16) \
--__gen_write(func, 32)
+-#define __gen8_reg_write_fw_domains(uncore, offset) \
+-({ \
+-	enum forcewake_domains __fwd; \
+-	if (NEEDS_FORCE_WAKE(offset) && !is_shadowed(uncore, offset)) \
+-		__fwd = FORCEWAKE_RENDER; \
+-	else \
+-		__fwd = 0; \
+-	__fwd; \
+-})
 -
-+static enum forcewake_domains
-+fwtable_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
-+{
-+	return __fwtable_reg_write_fw_domains(uncore, i915_mmio_reg_offset(reg));
-+}
+ static const struct intel_forcewake_range __gen6_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0x3ffff, FORCEWAKE_RENDER),
+ };
+@@ -1721,7 +1711,6 @@ __gen_write(func, 32)
+ __gen_reg_write_funcs(gen12_fwtable);
+ __gen_reg_write_funcs(gen11_fwtable);
+ __gen_reg_write_funcs(fwtable);
+-__gen_reg_write_funcs(gen8);
  
--__gen_reg_write_funcs(gen12_fwtable);
--__gen_reg_write_funcs(gen11_fwtable);
--__gen_reg_write_funcs(fwtable);
-+__gen_fwtable_write(8)
-+__gen_fwtable_write(16)
-+__gen_fwtable_write(32)
- 
--#undef __gen_reg_write_funcs
-+#undef __gen_fwtable_write
+ #undef __gen_reg_write_funcs
  #undef GEN6_WRITE_FOOTER
- #undef GEN6_WRITE_HEADER
- 
-@@ -2090,22 +2068,22 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
- 	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __dg2_fw_ranges);
- 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
--		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
+@@ -2131,7 +2120,7 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 	} else if (GRAPHICS_VER(i915) == 8) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, gen8_shadowed_regs);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
 +		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
- 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
- 	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __xehp_fw_ranges);
- 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
--		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
-+		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
- 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
- 	} else if (GRAPHICS_VER(i915) >= 12) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen12_fw_ranges);
- 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
--		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
-+		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
- 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
- 	} else if (GRAPHICS_VER(i915) == 11) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen11_fw_ranges);
- 		ASSIGN_SHADOW_TABLE(uncore, gen11_shadowed_regs);
--		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen11_fwtable);
-+		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
- 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
- 	} else if (IS_GRAPHICS_VER(i915, 9, 10)) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen9_fw_ranges);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+ 	} else if (IS_VALLEYVIEW(i915)) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __vlv_fw_ranges);
 -- 
 2.25.4
 
