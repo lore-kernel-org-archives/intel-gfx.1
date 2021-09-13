@@ -8,56 +8,56 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85DACC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65DE0C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 57AAC61BB5
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 57AAC61BB5
+	by mail.kernel.org (Postfix) with ESMTPS id 3A2ED61872
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A2ED61872
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 241D96ECA9;
-	Mon, 13 Sep 2021 13:52:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C40956ECB2;
+	Mon, 13 Sep 2021 13:52:19 +0000 (UTC)
 Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
  [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 165186E1A5;
- Mon, 13 Sep 2021 13:17:42 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id b6so14629697wrh.10;
- Mon, 13 Sep 2021 06:17:41 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29E536EABA;
+ Mon, 13 Sep 2021 13:17:37 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id q26so14650054wrc.7;
+ Mon, 13 Sep 2021 06:17:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=aaz1/XKVq6nri9Uw2UQQseQfjyJkmrID5vYRDnEleeE=;
- b=j5ApZPjuGQSysR3D2rbwxwT0NziPLN8aIS6xGHDYJfIEG6npP+fSZzcA8ChWpt/NSn
- pyu7jaEzbr61aIbCz5NzAjJb5bxa93okLzdjBXmjA+0jfBhVGDNeWorL+VF8iAbr0x9d
- j1HkejHfFZBHRhqNBbAn7/VPD2OOS5BFGEEoYzqaKL39WDWiQj7FmDhVvnYITRWVR8OZ
- tO1e/mQPZgSSIICro0jrgr/Axg1xFFZ9OKPqro0uSM9R4dyCWbfV9UY3jjkr066gZCce
- tiQV3Lt415N8gpXIpqW4Ru0VYj/IpX/YjXX5KQrVUhUtzMsY1CoiaTCNVOruh+NDrs1l
- qZiQ==
+ bh=yu+uANfSVtr9RYJDKCjIWM/agN/tBH1C9/EMJmqSKvI=;
+ b=a+/bhKH0jW9epgYrHnpIdEsBMYm0jm1t0FDhEk9F7lXVcqgduaiSs+VnX8Np9p6AcU
+ JvuZPm1F3lpM1dMVEcXSpeFaAeku0FYps9n7Zy7LIlAAr3rKIkLqgy/E46+CCIIFOu1+
+ QChFR2z6JMS22sm5OdOYt834Y6HQXYt3z5k/Cnw1a0peu3zrKNoZNVrL4Mffaq/NFdu+
+ 7HXic7NNPAnaHDW5uTwUKceMM0UZGBcoyMsuTaYTrpxtRkVHg+xV5Xw8L69xuBtzQJQU
+ rmKt57SYv1S5LrZETWQCTrp1s3m6ifWTysLqX+8BZwUoUYFc5Oc67bBx+18SUEspN+xo
+ XcaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=aaz1/XKVq6nri9Uw2UQQseQfjyJkmrID5vYRDnEleeE=;
- b=5BojaabEak5RpX7j9H+4VE3r7x5WZdiIe2TejNI7G2C7i17bYD8X12zUsUOy/dfF9y
- l9Br3I60pmkyp11vZvJ0nyuvCBMqNe5Qv3rFh5QmHs5SDdmoSfXfdSJlZfBcGK/RVTfp
- SJK1GIze1V3udkJU8OaBugIM3JWO+wmOA4rdUObjE/MGdLkIX7RZRBPNIFHYOWyCL08W
- lGJYfYQMAR+uKExHPIiM2l8iEbYmL6vR3/0wRbu3CW9imwmCaNi4qDkSvKY+ZR70tFAc
- DNXYzPJ/Xba4fXTugjlWWFled6fNdZVvXDAdmW52OyQrWmvPiXVH7jr3TXBBFKTL9OPY
- 0+Sg==
-X-Gm-Message-State: AOAM531PP04owmaK4qbmw84EYFvMRkFm9cOoW68EuGhhRyoJFj6TRCVH
- f6IqFyGUPHZOqbh/iPPCNtE=
-X-Google-Smtp-Source: ABdhPJxX0s81w0+HJgCXtbBFD53hSzsmklMXxNzsAXztcryHleJTU3rmTPSVM5YgEFZEVyP0HdEfLQ==
-X-Received: by 2002:adf:ce89:: with SMTP id r9mr9243123wrn.238.1631539060549; 
- Mon, 13 Sep 2021 06:17:40 -0700 (PDT)
+ bh=yu+uANfSVtr9RYJDKCjIWM/agN/tBH1C9/EMJmqSKvI=;
+ b=WY+m7DFJYkH7hqwe4ltbZMNPe9fJ4R4bnKIf0wXe0jruv53o8AaS9is0u/3K52dTX6
+ P8DPylYQvgQS4uLP0PngmWqu5r4u+Tp0LQApetTX2AA4DOybzoRxwRuXKZ8nt9zbxpUn
+ e9uQ5Cx17B/nGRGKK50vYgyrcEtr+SVid+B4ME/7ikjd7Oza9fkeKcz2bO3bmM5E6Uof
+ 3cMmiDkSQbiyHKnGydqXOYIFaVeU/eG5sKpr8jqDbDi/CnxJvS7/xCxgxRsGtiM8Wen9
+ 9cPPdTMcJ/apR9M4FY+cBzbyUIBACO2s26fZYm2Renojb3lmOs3fQ9/v5B5Cpfq65ihw
+ xbrQ==
+X-Gm-Message-State: AOAM533Qkr/bGDwty9shhzmmckrduX7OZPuNU1HZoU/ePR5ca1UtL7hv
+ U15KPT00vYOIA3DNupYZBJM=
+X-Google-Smtp-Source: ABdhPJydXs0asWZpyrRJrMmjsSDul5X8jlQvC2GehIIYBg8yV+HU7Q1UFpMBJjKJ4JU1wkLZ+baPQA==
+X-Received: by 2002:a5d:47a4:: with SMTP id 4mr12693618wrb.329.1631539055735; 
+ Mon, 13 Sep 2021 06:17:35 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- h18sm7602834wrb.33.2021.09.13.06.17.39
+ h18sm7602834wrb.33.2021.09.13.06.17.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Sep 2021 06:17:40 -0700 (PDT)
+ Mon, 13 Sep 2021 06:17:35 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -65,8 +65,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org
 Cc: daniel@ffwll.ch,
 	intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Sep 2021 15:17:03 +0200
-Message-Id: <20210913131707.45639-23-christian.koenig@amd.com>
+Date: Mon, 13 Sep 2021 15:16:59 +0200
+Message-Id: <20210913131707.45639-19-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210913131707.45639-1-christian.koenig@amd.com>
 References: <20210913131707.45639-1-christian.koenig@amd.com>
@@ -74,8 +74,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Sep 2021 13:52:14 +0000
-Subject: [Intel-gfx] [PATCH 22/26] drm/nouveau: use the new iterator in
- nouveau_fence_sync
+Subject: [Intel-gfx] [PATCH 18/26] drm/i915: use new iterator in
+ i915_gem_object_last_write_engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,97 +91,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+This is maybe even a fix since the RCU usage here looks incorrect.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_fence.c | 48 +++++++------------------
- 1 file changed, 12 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.h | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
-index 05d0b3eb3690..dc8d7ca1e239 100644
---- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-@@ -339,14 +339,15 @@ nouveau_fence_wait(struct nouveau_fence *fence, bool lazy, bool intr)
- }
- 
- int
--nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool exclusive, bool intr)
-+nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan,
-+		   bool exclusive, bool intr)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index e9eecebf5c9d..3343922af4d6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -500,16 +500,15 @@ static inline struct intel_engine_cs *
+ i915_gem_object_last_write_engine(struct drm_i915_gem_object *obj)
  {
- 	struct nouveau_fence_chan *fctx = chan->fence;
--	struct dma_fence *fence;
- 	struct dma_resv *resv = nvbo->bo.base.resv;
--	struct dma_resv_list *fobj;
+ 	struct intel_engine_cs *engine = NULL;
 +	struct dma_resv_cursor cursor;
-+	struct dma_fence *fence;
- 	struct nouveau_fence *f;
--	int ret = 0, i;
-+	int ret;
+ 	struct dma_fence *fence;
  
- 	if (!exclusive) {
- 		ret = dma_resv_reserve_shared(resv, 1);
-@@ -355,10 +356,7 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
- 			return ret;
- 	}
- 
--	fobj = dma_resv_shared_list(resv);
--	fence = dma_resv_excl_fence(resv);
+-	rcu_read_lock();
+-	fence = dma_resv_get_excl_unlocked(obj->base.resv);
+-	rcu_read_unlock();
 -
--	if (fence) {
-+	dma_resv_for_each_fence(resv, &cursor, exclusive, fence) {
- 		struct nouveau_channel *prev = NULL;
- 		bool must_wait = true;
- 
-@@ -366,41 +364,19 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
- 		if (f) {
- 			rcu_read_lock();
- 			prev = rcu_dereference(f->channel);
--			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
-+			if (prev && (prev == chan ||
-+				     fctx->sync(f, prev, chan) == 0))
- 				must_wait = false;
- 			rcu_read_unlock();
- 		}
- 
--		if (must_wait)
-+		if (must_wait) {
- 			ret = dma_fence_wait(fence, intr);
+-	if (fence && dma_fence_is_i915(fence) && !dma_fence_is_signaled(fence))
+-		engine = to_request(fence)->engine;
+-	dma_fence_put(fence);
 -
--		return ret;
--	}
--
--	if (!exclusive || !fobj)
--		return ret;
--
--	for (i = 0; i < fobj->shared_count && !ret; ++i) {
--		struct nouveau_channel *prev = NULL;
--		bool must_wait = true;
--
--		fence = rcu_dereference_protected(fobj->shared[i],
--						dma_resv_held(resv));
--
--		f = nouveau_local_fence(fence, chan->drm);
--		if (f) {
--			rcu_read_lock();
--			prev = rcu_dereference(f->channel);
--			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
--				must_wait = false;
--			rcu_read_unlock();
-+			if (ret)
-+				return ret;
- 		}
--
--		if (must_wait)
--			ret = dma_fence_wait(fence, intr);
- 	}
--
--	return ret;
-+	return 0;
++	dma_resv_for_each_fence_unlocked(obj->base.resv, &cursor, false,
++					 fence) {
++		if (fence && dma_fence_is_i915(fence) &&
++		    !dma_fence_is_signaled(fence))
++			engine = to_request(fence)->engine;
++	}
+ 	return engine;
  }
  
- void
 -- 
 2.25.1
 
