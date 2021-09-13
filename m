@@ -2,118 +2,134 @@ Return-Path: <SRS0=s8fd=OD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B54C4C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 20:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC2D4C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 21:08:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 442E1610E7
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 20:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 442E1610E7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 65D3260FC1
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 21:08:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 65D3260FC1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C236E252;
-	Mon, 13 Sep 2021 20:47:08 +0000 (UTC)
-X-Greylist: delayed 1965 seconds by postgrey-1.36 at gabe;
- Mon, 13 Sep 2021 18:13:52 UTC
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA08C6E21D;
- Mon, 13 Sep 2021 18:13:52 +0000 (UTC)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 18DGRBUv018538;
- Mon, 13 Sep 2021 13:41:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=/NN3jaUxPuN1Z0XMRm7SAz5tZplp4p3QlUjz9/vCUbc=;
- b=gO39d4TnwFjmc7xxvNJGf0GVcXd02hsuUO1bvxu2ZDiXoKFn2lyr3Ga3IW6qdqZISaoA
- Yzoca+q97jMS2R9VoXLd00SvHsYvqwXbultrFG2N3xEcaVAttzCGwcpb+cQkwr5gDb7W
- ABjjTVYR/z0/F0T1Vd/9CDuHbFL2ryENB/Lfs+9ddrArVMJJ/rg3yCn0Y4xrtZm0tHyi
- zERGOsLVdO76nPD7zFC/GFafhtor/nYWdPr/CVO9EY7Tg6K4llpeViKhOwEFhsVAFQhr
- Jk5UsCkpqrKYCLRDPgt9m0jufcPfVREB+9CHfITC7euvKIWljd90An0qkF4rVVlz/Ffx 4w== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3b247749d6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Sep 2021 13:41:02 -0400
-Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 18DHYb4u002637;
- Mon, 13 Sep 2021 13:41:01 -0400
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3b247749ch-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Sep 2021 13:41:01 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18DHNkKQ030419;
- Mon, 13 Sep 2021 17:41:00 GMT
-Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
- [9.57.198.25]) by ppma03dal.us.ibm.com with ESMTP id 3b0m3a7j57-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Sep 2021 17:41:00 +0000
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 18DHehJp41025848
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 13 Sep 2021 17:40:43 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BD939124066;
- Mon, 13 Sep 2021 17:40:43 +0000 (GMT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 50577124076;
- Mon, 13 Sep 2021 17:40:36 +0000 (GMT)
-Received: from farman-thinkpad-t470p (unknown [9.211.116.76])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon, 13 Sep 2021 17:40:36 +0000 (GMT)
-Message-ID: <1e431e58465b86430d02d429c86c427f7088bf1f.camel@linux.ibm.com>
-From: Eric Farman <farman@linux.ibm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, David Airlie <airlied@linux.ie>, Tony
- Krowiak <akrowiak@linux.ibm.com>, Alex Williamson
- <alex.williamson@redhat.com>, Christian Borntraeger
- <borntraeger@de.ibm.com>, Cornelia Huck <cohuck@redhat.com>, Daniel Vetter
- <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, Harald Freudenberger
- <freude@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Jason Herne <jjherne@linux.ibm.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org, Kirti
- Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org, Matthew
- Rosato <mjrosato@linux.ibm.com>, Peter Oberparleiter
- <oberpar@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Vineeth Vijayan <vneethv@linux.ibm.com>, Zhenyu
- Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Date: Mon, 13 Sep 2021 13:40:34 -0400
-In-Reply-To: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
-References: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-16.el8) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: -Y_Guw0LHcHmxLUcn1T9ujGqJJ8_C5Jd
-X-Proofpoint-ORIG-GUID: z1fn5zdhFz8KxePmVCxN-fxKjMKHYvcA
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AAF56E284;
+	Mon, 13 Sep 2021 21:08:39 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2075.outbound.protection.outlook.com [40.107.102.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F26D46E25A;
+ Mon, 13 Sep 2021 21:08:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VA6KpH2M3b95W0Ykikq45/WnprVI7crAGtabPrHy87W9DxaJWDDANrqFSr5fVtE+D7OBte3GOkjrlV9dv3Ta9o/2myMealKXs9iCNK9OiJnOmp3TYN9P5MKEOqIYSpOG4ruV9Rzn60Ytsqgj8GNJQA6HJnZ+A3TAmET8C3ZIanOdog9z+uLUdKAdN5Nb70j/VD7TecLUJ7JP6SnCqeYhOG2G3luKlRTtvAj35T88GfBZ6NOIK+i1rY0EETOxXiVJGR5Lg/9pm8tMihcY+tt8BE3NalEpYa4RldCBmfwY2sjwCl9rQVJJLVi9cQwjnpNWrQZVznmjP7EFzC3TWh+klg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=8O18j0m8Faol+di/BWZ5ROzHb4HarPkahOYf2N16BaM=;
+ b=Jm7ugU18oxq3eWO9ZV9Ayymz2v0IEvDzxfA6gdVBawjnYRuwOPkXJrDTnevf0QhJFlLOjMk0ClL/vwaV4/nNhv+yjFWkL/Xjt49agdzoJLDkRYSsmEYjSCu9MR5P8MlwQuVqqz5l3m85RwHlv76y+ogVYIhMH05ccFwUiYGC2KNGhloVAIHyIZVBT6EcN1MxD0CAM0hbOAgI0qTo+lixP52ygNkJTiEZTCxHuAP4Uf8XaULUA4S8A1mimQRRvkUSA7zrM7S0ZhbEA58GmTAVOCgiC8ZDqzKW8bLclcU1iD1Chk8cBHROVg3De6KP59KjjFKXnEVEvMugcOfYEr9Ftg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8O18j0m8Faol+di/BWZ5ROzHb4HarPkahOYf2N16BaM=;
+ b=B9Y8zv7uYaRO9igF+ouAOKsowzAeX4ZdgStTyIRE02swDWw6zEmfoMnbFANU6zwdeHJPqcu37fFBQPkN3NEhLgcoVgFtSNuJ+T13iTPVEGPJOnvV3JnZpX2ugdiPooO3Ebwl9QKAcsDRSj7M2FhkpadPCYMw9AKpRAkFu/qlQJc=
+Authentication-Results: chromium.org; dkim=none (message not signed)
+ header.d=none;chromium.org; dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CO6PR12MB5396.namprd12.prod.outlook.com (2603:10b6:303:139::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.15; Mon, 13 Sep
+ 2021 21:08:36 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4500.019; Mon, 13 Sep 2021
+ 21:08:36 +0000
+To: Sean Paul <sean@poorly.run>, Alex Deucher <alexdeucher@gmail.com>
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sean Paul <seanpaul@chromium.org>
+References: <20210913175747.47456-1-sean@poorly.run>
+ <CADnq5_OA=Hz-DOj6X-wnZwsk+wU924rHxCKOCepsMfbdFGasQw@mail.gmail.com>
+ <CAMavQK+BJqSmxFCPvTJKpt1VTaY=KeQPw-VwGYM8mQQU4TS=Wg@mail.gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Message-ID: <e74888d0-7b08-01fb-6ebd-dc138617f171@amd.com>
+Date: Mon, 13 Sep 2021 17:08:32 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <CAMavQK+BJqSmxFCPvTJKpt1VTaY=KeQPw-VwGYM8mQQU4TS=Wg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+X-ClientProxiedBy: YQBPR01CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::14)
+ To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.687,Hydra:6.0.235,FMLib:17.0.607.475
- definitions=2020-10-13_15,2020-10-13_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011
- lowpriorityscore=0 malwarescore=0 mlxlogscore=999 suspectscore=0
- adultscore=0 mlxscore=0 priorityscore=1501 spamscore=0 impostorscore=0
- bulkscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109030001 definitions=main-2109130063
-X-Mailman-Approved-At: Mon, 13 Sep 2021 20:47:06 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 0/9] Move vfio_ccw to the new mdev API
+Received: from [192.168.50.3] (198.200.67.104) by
+ YQBPR01CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Mon, 13 Sep 2021 21:08:35 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c2d68831-840e-4c38-bd62-08d976faa6b3
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5396:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB539665AC125FEDCAC6889F188CD99@CO6PR12MB5396.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +TC8E3Z/DyHeR/kORqtw+7M7S+2Te3p3U7uSrHNLJOdprQJMZ8Npw+iKfLmiT8DybIPUq9dbdmVTA8R3Sd1zTbOeeWt7uNx7gmUJ53m35rouHE77zR/dSUeDVxJROwEOO7y4qrZVAx0vfcN/gCDjJaqgf9/pqzQbwAie38m6qIPbp58c9y1IX81oVh5xcmnx7PdH8WRKfdEDBTvrcN8guWxj3R4bHwo6wGm3otHtI62hDQlqJm3Moc2n/Br8YdOdM6VhcAgN54acxb23tQNL11CFGD1wIRxD7gizTmO/6Kcr4HLsA+b+1sghhAD3DlaC3rzffo/Aeu8SENqnD1wvh1D5NLL3zteC9ptpHDebQEpcob4u311qRcJ31jQ/cf82Mvj1YpuB/9NPcjGD1kIGRdhcN96j3tCpRfugN+SXq09e3lsxsoh04vXFM2MQWoF9Jbn0/jgarfq9oFzqmmGt3EpKaNxJN7FO23+jobKAEF5noynbiDMmgAFengRQbQJXHYuQiAkXU7yoNkxf9yzYUFwWl2n5hQulTd1eb3QkYQ8VE7Fa7HHQoWHhewVOoptuLWM6C0Jkzel3XttWREkoJnCzeeNQ62U3nJlqW9wNwfCMntU18BEnNeqqxpVNxhxAMQ1YKMr1hDDNLMnsEkA89SB4dhySLt96mqziH/zhnIYY33RRcFC2jLF/zQA8k4dxBX/lStLaH1eLphJYKToBbFNwPtmDRlEeawIFs08atzA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(396003)(346002)(136003)(39860400002)(38100700002)(26005)(110136005)(5660300002)(66476007)(16576012)(316002)(54906003)(186003)(66556008)(2906002)(86362001)(44832011)(6486002)(31686004)(4326008)(31696002)(8676002)(956004)(8936002)(83380400001)(66946007)(36756003)(6666004)(2616005)(478600001)(53546011)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnFIR3Y4Mm5YS1llcWpIYnpmdEZaV1FkZCtRTUVKakxWbmdJNXRuR1YvT2VT?=
+ =?utf-8?B?T2lWd211UFhRNDArOENsb3dDNmZNQmNjY0JyZ0RvMVFxY0dXQUNyY3NXV25I?=
+ =?utf-8?B?VTNKNFdZQmlSSGZHYmZPelBVd0VYb2pkUVR2RWNuMmRQSms0Nyt1MUxaUnp0?=
+ =?utf-8?B?b3VMM2tCT2gvdUV4M2VOREFJNXh2NkNOQk9kbHRMaGNCbWNEdWI3bExwNnFj?=
+ =?utf-8?B?cklHYWRNQTVvVG1kT3BFYmVQM2M0QzZoZkpVSTc4MEZqSWZBMVB1cVArc2dB?=
+ =?utf-8?B?ZHF6UzVFbm5uVjZqTWxqZ0Iwa2hMZXRhTzZlQkVkK25YRkpTOFQrUEpaM3hJ?=
+ =?utf-8?B?QjFmQ1doS2ozenpNaThrYk5oWDNJQk1ORWxsMmhwOENMejRXVFNzSU9vamFG?=
+ =?utf-8?B?cDdwN1lPVnpLOE9NM3BhNXN2TjNWMS9MVFBaeEhYNFh0WEpiaUhjVUdzeWlS?=
+ =?utf-8?B?MjQ4VndIVnh0WTdPRmdGcDQvNGN2RDREb3VVSnZRam1uSS9LOWdndTRsM1lh?=
+ =?utf-8?B?V1pIYWlyNEEwYm5RdXBVNmg4Z2lKbm0rUjZTMlVZall3SzFacVgvVDBmUXBm?=
+ =?utf-8?B?K3Y5d3lGRkdPeUg1TzdaSUV5YzJDM2ltbERVL0V5R2YwcUNpTjlzYTA1RzIz?=
+ =?utf-8?B?SHR4NEFUVHM3dm5hdTF0a2hnL1hNR2k3d3BlWlFVYlB1RnhNbDgvYjBQdkw5?=
+ =?utf-8?B?R0VOY1d2MEhVaHZ6TDJScXNSQkVJMWxqdHNIV0grc1pIWUtXQkVyWDhHR3pz?=
+ =?utf-8?B?d2RMZXFENFJoaVZDRlhxNDR0bmQzQWpzSnB6MmhsaTJoalVpeUJFdWY1MmRO?=
+ =?utf-8?B?clB5YlQ3bmNNamY3Q2dzNnpMQm9aMW1NaHlVTEJNZWtuTEd6cHorcElMTVhx?=
+ =?utf-8?B?K1ZxSnBzaHNWaGZ0aDBQTStHSTZ2aUlsSkZqZnpraHlpOVdGNzE2Tk5CdU1x?=
+ =?utf-8?B?WHJWdzRtQzMxQTAzMVV6MXVwSlVDbGRiaWxSMklINVQ5cVpNbnZiV0YwZkJk?=
+ =?utf-8?B?RU8vMVdBU09UTk5oRE1ibVloRDFQa0V0RmwyY01TVGZBYkNSMHlxenk5OW13?=
+ =?utf-8?B?OHVrckI1NW5DY1V5OEtOV01OZmxNUVNvR1BJYm1rK1JmSmJjU1h5SG5Pemlz?=
+ =?utf-8?B?QlQ2N3FkbjhEZzM1Y2tKa08zK1lCQ3RSa2ZqY3NaQTRuNVlyRlkweXZndnp4?=
+ =?utf-8?B?NnlmMTRBWDJQalpJVlp5TVBsMUpWUGFQZnBBSnBlK21NTzlvRmkxaFRvMng1?=
+ =?utf-8?B?MVJDcGJsMCt0cnZmVUlKdmJUZjNLMUREejBkYU9USlpqMHJBeTI5OWdDWE9N?=
+ =?utf-8?B?VWFlSVQ2RjRMNnN4b1hBejFMakw0N3V0TlVucmpSV0Zxa0R3czZkTmtESUY0?=
+ =?utf-8?B?WkVNdmhnRWRwa1dXcEZPUTZJaEYzdjNKZTJUcDJHYTducUJieG01c05qcWVK?=
+ =?utf-8?B?TkVkUWFVbXRPc01ySGFLb0xIUXNzVkZmYk1sdVhRT3ZsVXVnRGFoaUdrWVVZ?=
+ =?utf-8?B?dlhvTy90ZXFlNkgxRmQ0MUtzM2N0Y2FqYW5PN1pRT1EzZFl1VjdvSGYzMnNo?=
+ =?utf-8?B?cDRoNjVnb3lWMy80bWhTUCthbldlZ1lzUGhEYlFHVi9wZTZBRVZEWUVhcktK?=
+ =?utf-8?B?OGtxT04raldGRmF3WGxaZ0p0aDFldXZiakVpQWh1WU5KelZxbkh5cVR4a0pQ?=
+ =?utf-8?B?THpZQit0SExham1HdGVJZWdsMmxGNENCUmpzbmE5bUhLeDlvNG5PTVc3eE0r?=
+ =?utf-8?Q?HzFxvI7VyiwHCPRa7N7HPqcGTzQAQXVVID+jwtk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2d68831-840e-4c38-bd62-08d976faa6b3
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2021 21:08:36.3361 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sjYsfQ2w6AA5+jqxoKJRnRWQ3NoyRZ6b/dF2eAOLu31pxgSPXpjuHNGVIqd2zivqV7CYZgUoVMgeGsOS2GiQjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5396
+Subject: Re: [Intel-gfx] [PATCH 00/14] drm/hdcp: Pull HDCP
+ auth/exchange/check into
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,128 +145,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2021-09-09 at 16:38 -0300, Jason Gunthorpe wrote:
-> This addresses Cornelia's remark on the earlier patch that ccw has a
-> confusing lifecycle. While it doesn't seem like the original attempt
-> was
-> functionally wrong, the result can be made better with a lot of
-> further
-> work.
 
-I thought I'd take a stab at seeing how this works with the hardware
-before looking at the code much. git couldn't apply patches 1, 6, or 9
-to 5.15-rc1, but I was able to hand-fit them into place. Shutting down
-the guest and de-configuring a device ends up bringing my whole system
-down. I haven't looked at this any further; hopefully something jumps
-to mind for you:
 
-[   64.585347] vfio_ccw 0.0.08fe: MDEV: Unregistering
-[   64.585357] illegal operation: 0001 ilc:1 [#1] SMP 
-[   64.585362] Modules linked in: vhost_vsock
-vmw_vsock_virtio_transport_common vsock vhost
-[   64.585364] vfio_ccw_mdev b50bbd4b-eab8-4f8c-9f0c-3cf636f936b9:
-Relaying device request to user (#0)
-[   64.585364]  vhost_iotlb lcs ctcm fsm kvm xt_MASQUERADE xt_conntrack
-ipt_REJECT nf_reject_ipv4 xt_tcpudp iptable_mangle iptable_nat nf_nat
-nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 iptable_filter bridge stp
-llc dm_multipath dm_mod s390_trng eadm_sch zcrypt_cex4 qeth_l2 vfio_ccw
-mdev vfio_iommu_type1 vfio configfs zram zsmalloc ip_tables x_tables
-mlx5_core ghash_s390 prng aes_s390 des_s390 libdes sha3_512_s390
-sha3_256_s390 sha512_s390 sha256_s390 sha1_s390 sha_common pkey zcrypt
-rng_core autofs4
-[   64.585392] CPU: 14 PID: 4487 Comm: qemu-system-s39 Kdump: loaded
-Not tainted 5.15.0-rc1 #1
-[   64.585395] Hardware name: IBM 3906 M05 780 (LPAR)
-[   64.585396] Krnl PSW : 0704c00180000000 0000000000000002 (0x2)
-[   64.585404]            R:0 T:1 IO:1 EX:1 Key:0 M:1 W:0 P:0 AS:3 CC:0
-PM:0 RI:0 EA:3
-[   64.585407] Krnl GPRS: 0000000000000001 0000000000000000
-00000000005f4800 0000000000000004
-[   64.585410]            0000000000000000 0000000000000002
-0000000000000000 000002aa3e65085e
-[   64.585412]            000000008de09100 0000000000003b6f
-000003ff8017fa08 00000000005f4800
-[   64.585413]            0000000081450000 000003ff7c032310
-000003ff80179db0 000003800bf53da0
-[   64.585418] Krnl Code:#0000000000000000:
-0000                illegal 
-          >0000000000000002: 0000               illegal 
-           0000000000000004: 0000               illegal 
-           0000000000000006: 0000               illegal 
-           0000000000000008: 0000               illegal 
-           000000000000000a: 0000               illegal 
-           000000000000000c: 0000               illegal 
-           000000000000000e: 0000               illegal 
-[   64.585462] Call Trace:
-[   64.585464]  [<0000000000000002>] 0x2 
-[   64.585467] ([<000003ff80179d74>] vfio_ccw_mdev_ioctl+0x84/0x318
-[vfio_ccw])
-[   64.585476]  [<00000000bb7adda6>] __s390x_sys_ioctl+0xbe/0x100 
-[   64.585481]  [<00000000bbfbf5e4>] __do_syscall+0x1bc/0x1e8 
-[   64.585488]  [<00000000bbfcc8d8>] system_call+0x78/0xa0 
+On 2021-09-13 3:26 p.m., Sean Paul wrote:
+> On Mon, Sep 13, 2021 at 2:05 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> On Mon, Sep 13, 2021 at 1:57 PM Sean Paul <sean@poorly.run> wrote:
+>>>
+>>> From: Sean Paul <seanpaul@chromium.org>
+>>>
+>>> Hello,
+>>> This patchset pulls the HDCP protocol auth/exchange/check logic out from
+>>> i915 into a HDCP helper library which drivers can use to implement the
+>>> proper protocol and UAPI interactions for achieving HDCP.
+>>>
+>>> Originally this was all stuffed into i915 since it was the only driver
+>>> supporting HDCP. Over the last while I've been working on HDCP support
+>>> in the msm driver and have identified the parts which can/should be
+>>> shared between drivers and the parts which are hw-specific.
+>>>
+>>> We can generalize all of the sink interactions in the helper as well as
+>>> state handling and link checks. This tends to be the trickiest part of
+>>> adding HDCP support, since the property state and locking is a bit of a
+>>> nightmare. The driver need only implement the more mechanical display
+>>> controller register accesses.
+>>>
+>>> The first third of the pachset is establishing the helpers, the next
+>>> third is converting the i915 driver to use the helpers, and the last
+>>> third is the msm driver implementation.
+>>>
+>>> I've left out HDCP 2.x support, since we still only have i915 as the
+>>> reference implementation and I'm not super comfortable speculating on
+>>> which parts are platform independent.
+>>
+>> FWIW, amdgpu has support for both HDCP 1.x and 2.x
+>>
+> 
+> Thanks Alex, I knew this and neglected to mention it, apologies for
+> the omission.
+> 
+> IIRC amdgpu is much less hands-on than i915/msm, with PSP doing most
+> of the heavy lifting. There's probably some value in using the helpers
+> since it'll handle the state transitions in a consistent manner, do
+> you think this is something you can use?
+> 
 
-Eric
+We might be able to use drm_hdcp_atomic_check but the HDCP protocol
+stuff is sitting in our hdcp module and shared with other OSes so
+sharing it would be difficult.
 
+Harry
+
+> Sean
 > 
-> Reorganize the driver so that the mdev owns the private memory and
-> controls the lifecycle, not the css_driver. The memory associated
-> with the
-> css_driver lifecycle is only the mdev_parent/mdev_type registration.
 > 
-> Along the way we change when the sch is quiescent or not to be linked
-> to
-> the open/close_device lifetime of the vfio_device, which is sort of
-> what
-> it was tring to do already, just not completely.
-> 
-> The troublesome racey lifecycle of the css_driver callbacks is made
-> clear
-> with simple vfio_device refcounting so a callback is only delivered
-> into a
-> registered vfio_device and has obvious correctness.
-> 
-> Move the only per-css_driver state, the "available instance" counter,
-> into
-> the core code and share that logic with many of the other drivers.
-> The
-> value is kept in the mdev_type memory.
-> 
-> v2:
->  - Clean up the lifecycle in ccw with 7 new patches
->  - Rebase
-> v1: 
-> https://lore.kernel.org/all/7-v2-7667f42c9bad+935-vfio3_jgg@nvidia.com
-> 
-> Jason Gunthorpe (9):
->   vfio/ccw: Use functions for alloc/free of the vfio_ccw_private
->   vfio/ccw: Pass vfio_ccw_private not mdev_device to various
-> functions
->   vfio/ccw: Convert to use vfio_register_group_dev()
->   vfio/ccw: Make the FSM complete and synchronize it to the mdev
->   vfio/mdev: Consolidate all the device_api sysfs into the core code
->   vfio/mdev: Add mdev available instance checking to the core
->   vfio/ccw: Remove private->mdev
->   vfio: Export vfio_device_try_get()
->   vfio/ccw: Move the lifecycle of the struct vfio_ccw_private to the
->     mdev
-> 
->  drivers/gpu/drm/i915/gvt/kvmgt.c      |   9 +-
->  drivers/s390/cio/vfio_ccw_drv.c       | 282 +++++++++++-------------
-> --
->  drivers/s390/cio/vfio_ccw_fsm.c       | 152 ++++++++++----
->  drivers/s390/cio/vfio_ccw_ops.c       | 240 ++++++++++------------
->  drivers/s390/cio/vfio_ccw_private.h   |  42 +++-
->  drivers/s390/crypto/vfio_ap_ops.c     |  41 +---
->  drivers/s390/crypto/vfio_ap_private.h |   2 -
->  drivers/vfio/mdev/mdev_core.c         |  13 +-
->  drivers/vfio/mdev/mdev_private.h      |   2 +
->  drivers/vfio/mdev/mdev_sysfs.c        |  64 +++++-
->  drivers/vfio/vfio.c                   |   3 +-
->  include/linux/mdev.h                  |  13 +-
->  include/linux/vfio.h                  |   1 +
->  samples/vfio-mdev/mbochs.c            |   9 +-
->  samples/vfio-mdev/mdpy.c              |  31 +--
->  samples/vfio-mdev/mtty.c              |  10 +-
->  16 files changed, 470 insertions(+), 444 deletions(-)
-> 
+>> Alex
+>>
+>>>
+>>> Please take a look,
+>>>
+>>> Sean
+>>>
+>>> Sean Paul (14):
+>>>   drm/hdcp: Add drm_hdcp_atomic_check()
+>>>   drm/hdcp: Avoid changing crtc state in hdcp atomic check
+>>>   drm/hdcp: Update property value on content type and user changes
+>>>   drm/hdcp: Expand HDCP helper library for enable/disable/check
+>>>   drm/i915/hdcp: Consolidate HDCP setup/state cache
+>>>   drm/i915/hdcp: Retain hdcp_capable return codes
+>>>   drm/i915/hdcp: Use HDCP helpers for i915
+>>>   drm/msm/dpu_kms: Re-order dpu includes
+>>>   drm/msm/dpu: Remove useless checks in dpu_encoder
+>>>   drm/msm/dpu: Remove encoder->enable() hack
+>>>   drm/msm/dp: Re-order dp_audio_put in deinit_sub_modules
+>>>   dt-bindings: msm/dp: Add bindings for HDCP registers
+>>>   drm/msm: Add hdcp register ranges to sc7180 device tree
+>>>   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+>>>
+>>>  .../bindings/display/msm/dp-controller.yaml   |   11 +-
+>>>  drivers/gpu/drm/drm_hdcp.c                    | 1198 ++++++++++++++++-
+>>>  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
+>>>  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
+>>>  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
+>>>  .../drm/i915/display/intel_display_types.h    |   58 +-
+>>>  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  341 ++---
+>>>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
+>>>  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
+>>>  drivers/gpu/drm/i915/display/intel_hdcp.h     |   35 +-
+>>>  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
+>>>  drivers/gpu/drm/msm/Makefile                  |    1 +
+>>>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   17 +-
+>>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   30 +-
+>>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 -
+>>>  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |    4 -
+>>>  drivers/gpu/drm/msm/dp/dp_debug.c             |   49 +-
+>>>  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
+>>>  drivers/gpu/drm/msm/dp/dp_display.c           |   47 +-
+>>>  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+>>>  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
+>>>  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
+>>>  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  433 ++++++
+>>>  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
+>>>  drivers/gpu/drm/msm/dp/dp_parser.c            |   30 +-
+>>>  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+>>>  drivers/gpu/drm/msm/dp/dp_reg.h               |   44 +-
+>>>  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
+>>>  include/drm/drm_hdcp.h                        |  194 +++
+>>>  29 files changed, 2570 insertions(+), 1385 deletions(-)
+>>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+>>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+>>>
+>>> --
+>>> Sean Paul, Software Engineer, Google / Chromium OS
+>>>
 
