@@ -8,56 +8,56 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45A8FC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C9EDC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 10E2A61BA8
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 10E2A61BA8
+	by mail.kernel.org (Postfix) with ESMTPS id 67A6F61BD0
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 13:52:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 67A6F61BD0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 639E66E1A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 185EF6E0EC;
 	Mon, 13 Sep 2021 13:52:15 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 173C36EC8D;
- Mon, 13 Sep 2021 13:17:49 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id u16so14660277wrn.5;
- Mon, 13 Sep 2021 06:17:49 -0700 (PDT)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 826DC6E1A4;
+ Mon, 13 Sep 2021 13:17:30 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id m9so14676220wrb.1;
+ Mon, 13 Sep 2021 06:17:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FH+1Y8etpSt7hl5BvOARvtVNTQnEKf9GJ8OSstB4GW0=;
- b=IRBEB/Z+uCUNNkQZrfkgIhbJIwP2pgNtoD3UDZYc9GFrjVoQemzgAWzQdNEiefvCsz
- m+RqoK9rB+6LydBB1G3ol89TFYhzaY7Bb4sa64uo8qbrvDefpdvIsxUzX3ZIEfsThCA5
- ek5ExJ2wiqx56JaMtXcPYSTx/Aw4FNMYlT0j5MryEIkdVskf5OJfvtRNYw44LkB8l42t
- 7XV3py4qEvmh+Y0Jgzrp887rBfbHzMqPUPHHqZqofhp113bYW6ArPbRTfgWGfoL2weGh
- cohH5f3H0eB9Amw5/roZlGNzi7lIWlKHktTiOqbBZB2OaTE0gVdDa81MH8PvGeYLgdKP
- 02Qw==
+ bh=byLSDqjdKi3+cE2IMMDe/R3eVJ9OpfF5t0/Jijtn6q0=;
+ b=mMMsaxM/vqjd5bLOQEvmmghM1+sHlOGCK5AYCcY9EWM+gfhyIMh36GOKiviHLgg4Ay
+ ENpYvpHiuivUK55Ba0nru9D9RF10DOIJLDeN4a1LrTO64bUundiyJ+uzEgrGVTo+DBc1
+ AR/WyEByuXIC9CEqqnHcXkcqd75rF9kkco8an4rQqqkn3A9l4OVQT9uClhy6Ru/jSmh9
+ u2GPC20iWnuzQ7H/T0GGu4ip7BrIAfQzdTxULNLFiwrj7Qu2Q6G6/cG3eyU1vz9bunQ9
+ Uy5IhHgLU76CgGheiqQVXfUW9kAWER3MI7/jMzTLo3bODrRDilW/SzF3mPwywo73mWJn
+ vMgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FH+1Y8etpSt7hl5BvOARvtVNTQnEKf9GJ8OSstB4GW0=;
- b=QWF0V5P0SHQYpCyA0slqiqqM71xKWmGm65rJsG0xD5kopNXMCCJLm//1PtXZCUA9u9
- Y1tNpUNZ0pay7cg3Uptqte6+qdpnDT4LU3REdmJKRd6R2gHtcuYPUKPwQzmjSzrV7C86
- 0kQBr6h2xRZC0HMvA2VyzvJBYK2kbDeWnv/lnDhZPvxpBGvD+/0ln/PgEoIwx3YEHFZ5
- HQ8RDPlmuIp6W44YoZx2HjerVKO0VO2qwdlR6yZ4jsD5v9ElY+2i8jeNfNbAT/HAvyL0
- FTDTCvf9Yu9ARTfMXSFKizrWRyxBxI7OSdEkIjcvMXzbUBCVrABnrRoxmL3fLXIj0Eqf
- TibQ==
-X-Gm-Message-State: AOAM531mAOLqAEy7y12u4ZR2hpgs+ZYiDeVHIAKSWvOBcYOrQ2rd+jr4
- brpqQzkACROndQIMFpr/x3o=
-X-Google-Smtp-Source: ABdhPJzDBDz9n7p6FviVglwiX9to5ht8Ev+V3kXammh1L6gotOGiN99UxVy/CWUMpe7mH0cAtrMT0A==
-X-Received: by 2002:adf:8b52:: with SMTP id v18mr7251297wra.1.1631539065006;
- Mon, 13 Sep 2021 06:17:45 -0700 (PDT)
+ bh=byLSDqjdKi3+cE2IMMDe/R3eVJ9OpfF5t0/Jijtn6q0=;
+ b=Fkhs6AZG2SafyoPeubFmRBAXIt+mRbOrpMB5m7Vvo53QwVI/wxtVuKztNk3yE7O0dR
+ yPPyJRs2LY6dLObgzTaI/F/lNomgnsiZFS8DOiu/V7u2Iw9WjSKsBhqsYcNzWzlHVtBf
+ xYXoxumKMZFptrubfV2mnIsmAnyhYqA0xfxnhQWbTEjkGekni2Ch106VCANBR/A0yvqF
+ gDxxO5Im8vPgDWjc/jsyDdjIxpc1pwqJSjZRmv2/AcoEk8IDxihUsQlhn6Woz+FFrR3A
+ 91pJi8elbTOnU+e46xQEzQxp0GFycxGRUEMvSVNfm4VHm41PXaXloGO3+PMRaHHiTu/4
+ DY+w==
+X-Gm-Message-State: AOAM530isRTVA88xbi4HOHtTFVGhpl4cbO25ebzW6R5lPpIYycuJztKe
+ JvcFxQdEbOsJkP6w74hgYg4jjtqOwlyV6zLf
+X-Google-Smtp-Source: ABdhPJyUciFZQ3By420tUv3xvxnipAiMOetjs7jLCuB17bFGBNKPMPEX2Hft+7f69h5t/ldyAUvkOA==
+X-Received: by 2002:adf:9e0b:: with SMTP id u11mr12589510wre.85.1631539049145; 
+ Mon, 13 Sep 2021 06:17:29 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- h18sm7602834wrb.33.2021.09.13.06.17.44
+ h18sm7602834wrb.33.2021.09.13.06.17.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Sep 2021 06:17:44 -0700 (PDT)
+ Mon, 13 Sep 2021 06:17:28 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -65,8 +65,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org
 Cc: daniel@ffwll.ch,
 	intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Sep 2021 15:17:07 +0200
-Message-Id: <20210913131707.45639-27-christian.koenig@amd.com>
+Date: Mon, 13 Sep 2021 15:16:54 +0200
+Message-Id: <20210913131707.45639-14-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210913131707.45639-1-christian.koenig@amd.com>
 References: <20210913131707.45639-1-christian.koenig@amd.com>
@@ -74,7 +74,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Sep 2021 13:52:14 +0000
-Subject: [Intel-gfx] [PATCH 26/26] dma-buf: nuke dma_resv_get_excl_unlocked
+Subject: [Intel-gfx] [PATCH 13/26] drm/i915: use the new iterator in
+ i915_gem_busy_ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,50 +91,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Heureka, that's finally not used any more.
+This makes the function much simpler since the complex
+retry logic is now handled else where.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- include/linux/dma-resv.h | 26 --------------------------
- 1 file changed, 26 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_busy.c | 30 +++++++-----------------
+ 1 file changed, 9 insertions(+), 21 deletions(-)
 
-diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
-index 6f9bb7e4c538..90c15cbe7d92 100644
---- a/include/linux/dma-resv.h
-+++ b/include/linux/dma-resv.h
-@@ -370,32 +370,6 @@ dma_resv_excl_fence(struct dma_resv *obj)
- 	return rcu_dereference_check(obj->fence_excl, dma_resv_held(obj));
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+index 6234e17259c1..c6c6d747b33e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+@@ -82,8 +82,8 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
+ {
+ 	struct drm_i915_gem_busy *args = data;
+ 	struct drm_i915_gem_object *obj;
+-	struct dma_resv_list *list;
+-	unsigned int seq;
++	struct dma_resv_cursor cursor;
++	struct dma_fence *fence;
+ 	int err;
  
--/**
-- * dma_resv_get_excl_unlocked - get the reservation object's
-- * exclusive fence, without lock held.
-- * @obj: the reservation object
-- *
-- * If there is an exclusive fence, this atomically increments it's
-- * reference count and returns it.
-- *
-- * RETURNS
-- * The exclusive fence or NULL if none
-- */
--static inline struct dma_fence *
--dma_resv_get_excl_unlocked(struct dma_resv *obj)
--{
--	struct dma_fence *fence;
+ 	err = -ENOENT;
+@@ -109,28 +109,16 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
+ 	 * to report the overall busyness. This is what the wait-ioctl does.
+ 	 *
+ 	 */
+-retry:
+-	seq = raw_read_seqcount(&obj->base.resv->seq);
 -
--	if (!rcu_access_pointer(obj->fence_excl))
--		return NULL;
+-	/* Translate the exclusive fence to the READ *and* WRITE engine */
+-	args->busy = busy_check_writer(dma_resv_excl_fence(obj->base.resv));
 -
--	rcu_read_lock();
--	fence = dma_fence_get_rcu_safe(&obj->fence_excl);
--	rcu_read_unlock();
+-	/* Translate shared fences to READ set of engines */
+-	list = dma_resv_shared_list(obj->base.resv);
+-	if (list) {
+-		unsigned int shared_count = list->shared_count, i;
 -
--	return fence;
--}
+-		for (i = 0; i < shared_count; ++i) {
+-			struct dma_fence *fence =
+-				rcu_dereference(list->shared[i]);
 -
- /**
-  * dma_resv_shared_list - get the reservation object's shared fence list
-  * @obj: the reservation object
++	args->busy = false;
++	dma_resv_for_each_fence_unlocked(obj->base.resv, &cursor, true, fence) {
++		if (cursor.is_exclusive)
++			/* Translate the exclusive fence to the READ *and* WRITE engine */
++			args->busy = busy_check_writer(fence);
++		else
++			/* Translate shared fences to READ set of engines */
+ 			args->busy |= busy_check_reader(fence);
+-		}
+ 	}
+ 
+-	if (args->busy && read_seqcount_retry(&obj->base.resv->seq, seq))
+-		goto retry;
+-
+ 	err = 0;
+ out:
+ 	rcu_read_unlock();
 -- 
 2.25.1
 
