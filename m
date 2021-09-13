@@ -5,47 +5,46 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E465AC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDD14C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B545560F23
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B545560F23
+	by mail.kernel.org (Postfix) with ESMTPS id 88B6D60F6D
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:13:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 88B6D60F6D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 278656ECE5;
-	Mon, 13 Sep 2021 18:08:47 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3EB86E216;
- Mon, 13 Sep 2021 18:08:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="221792539"
-X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="221792539"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 11:08:22 -0700
-X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="551796996"
-Received: from jpcooney-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.5.201])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 11:08:21 -0700
-From: Matthew Auld <matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18DBD89CDD;
+	Mon, 13 Sep 2021 18:13:48 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FF489CDD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 18:13:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="221805555"
+X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="221805555"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 11:13:45 -0700
+X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="471658510"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 11:13:45 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 13 Sep 2021 19:06:05 +0100
-Message-Id: <20210913180605.2778493-8-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20210913180605.2778493-1-matthew.auld@intel.com>
-References: <20210913180605.2778493-1-matthew.auld@intel.com>
+Cc: Caz Yokoyama <caz.yokoyama@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Mon, 13 Sep 2021 11:19:09 -0700
+Message-Id: <20210913181909.35237-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 8/8] drm/i915/ttm: enable shmem tt backend
+Subject: [Intel-gfx] [PATCH] drm/i915/dg1: Add new PCI id
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,26 +60,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable shmem tt backend, and enable shrinking.
+New DG1 PCI id.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+BSpec: 44463
+Cc: Caz Yokoyama <caz.yokoyama@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/drm/i915_pciids.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index dbf06a2af8bf..e888111c68c4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -1048,6 +1048,7 @@ static u64 i915_ttm_mmap_offset(struct drm_i915_gem_object *obj)
+diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
+index cb45af9f2c44f..c00ac54692d70 100644
+--- a/include/drm/i915_pciids.h
++++ b/include/drm/i915_pciids.h
+@@ -632,7 +632,8 @@
+ 	INTEL_VGA_DEVICE(0x4905, info), \
+ 	INTEL_VGA_DEVICE(0x4906, info), \
+ 	INTEL_VGA_DEVICE(0x4907, info), \
+-	INTEL_VGA_DEVICE(0x4908, info)
++	INTEL_VGA_DEVICE(0x4908, info), \
++	INTEL_VGA_DEVICE(0x4909, info)
  
- static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
- 	.name = "i915_gem_object_ttm",
-+	.flags = I915_GEM_OBJECT_IS_SHRINKABLE,
- 
- 	.get_pages = i915_ttm_get_pages,
- 	.put_pages = i915_ttm_put_pages,
+ /* ADL-S */
+ #define INTEL_ADLS_IDS(info) \
 -- 
-2.26.3
+2.33.0
 
