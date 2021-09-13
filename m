@@ -2,71 +2,47 @@ Return-Path: <SRS0=s8fd=OD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46FBAC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 16:45:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61F00C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 16:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1755960F36
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 16:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1755960F36
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0A34260F3A
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 16:46:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0A34260F3A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 707EA6E207;
-	Mon, 13 Sep 2021 16:45:48 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8348C6E207
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 16:45:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="282725923"
-X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="282725923"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 09:45:45 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 566646E1BD;
+	Mon, 13 Sep 2021 16:46:46 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 559AB6E1BD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 16:46:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="201905213"
+X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="201905213"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 09:46:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="507429491"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by fmsmga008.fm.intel.com with ESMTP; 13 Sep 2021 09:45:36 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 13 Sep 2021 09:45:36 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 13 Sep 2021 09:45:35 -0700
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.012;
- Mon, 13 Sep 2021 09:45:35 -0700
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "Mun, Gwan-gyeong" <gwan-gyeong.mun@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "daniel@ffwll.ch" <daniel@ffwll.ch>
-Thread-Topic: [PATCH 4/5] drm/i915/display/psr: Use drm damage helpers to
- calculate plane damaged area
-Thread-Index: AQHXpc63i0umsKEfREOuEGtTxoSO5quim3IAgAANXIA=
-Date: Mon, 13 Sep 2021 16:45:35 +0000
-Message-ID: <154efb8de3e47e327e495b7e516a73a82a906674.camel@intel.com>
-References: <20210909230725.33735-1-jose.souza@intel.com>
- <20210909230725.33735-4-jose.souza@intel.com>
- <4fe68cb6-41cf-6ecc-2dd8-f5081fffcc00@intel.com>
-In-Reply-To: <4fe68cb6-41cf-6ecc-2dd8-f5081fffcc00@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.22.254.132]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <76386B84BF8A7445BAC5514341186A63@intel.com>
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="515514025"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga001.jf.intel.com with ESMTP; 13 Sep 2021 09:46:38 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: uma.shankar@intel.com, ville.syrjala@linux.intel.com,
+ jani.nikula@intel.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Mon, 13 Sep 2021 19:40:04 +0300
+Message-Id: <20210913164004.3999218-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915/display/psr: Use drm damage
- helpers to calculate plane damaged area
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915/display: program audio CDCLK-TS for
+ keepalives
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,102 +58,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMDIxLTA5LTEzIGF0IDE5OjAzICswMzAwLCBHd2FuLWd5ZW9uZyBNdW4gd3JvdGU6
-DQo+IA0KPiBPbiA5LzEwLzIxIDI6MDcgQU0sIEpvc8OpIFJvYmVydG8gZGUgU291emEgd3JvdGU6
-DQo+ID4gZHJtX2F0b21pY19oZWxwZXJfZGFtYWdlX2l0ZXJfaW5pdCgpICsgZHJtX2F0b21pY19m
-b3JfZWFjaF9wbGFuZV9kYW1hZ2UoKQ0KPiA+IHJldHVybnMgdGhlIGZ1bGwgcGxhbmUgYXJlYSBp
-biBjYXNlIG5vIGRhbWFnZWQgYXJlYSB3YXMgc2V0IGJ5DQo+ID4gdXNlcnNwYWNlIG9yIGl0IHdh
-cyBkaXNjYXJ0ZWQgYnkgZHJpdmVyLg0KPiA+IA0KPiA+IFRoaXMgaXMgaW1wb3J0YW50IHRvIGZp
-eCB0aGUgcmVuZGVyaW5nIG9mIHVzZXJzcGFjZSBhcHBsaWNhdGlvbnMgdGhhdA0KPiA+IGRvZXMg
-ZnJvbnRidWZmZXIgcmVuZGVyaW5nIGFuZCBub3RpZnkgZHJpdmVyIGFib3V0IGRpcnR5IGFyZWFz
-IGJ1dCBkbw0KPiA+IG5vdCBzZXQgYW55IGRpcnR5IGNsaXBzLg0KPiA+IA0KPiA+IFdpdGggdGhp
-cyB3ZSBkb24ndCBuZWVkIHRvIHdvcnJ5IGFib3V0IHRvIGNoZWNrIGFuZCBtYXJrIHRoZSB3aG9s
-ZQ0KPiA+IGFyZWEgYXMgZGFtYWdlZCBpbiBwYWdlIGZsaXBzLg0KPiA+IA0KPiA+IEFub3RoZXIg
-aW1wb3J0YW50IGNoYW5nZSBoZXJlIGlzIHRoZSBtb3ZlIG9mDQo+ID4gZHJtX2F0b21pY19hZGRf
-YWZmZWN0ZWRfcGxhbmVzKCkgY2FsbCwgaXQgbmVlZHMgdG8gY2FsbGVkIGxhdGUNCj4gPiBvdGhl
-cndpc2UgdGhlIGFyZWEgb2YgYWxsIHRoZSBwbGFuZXMgd291bGQgYmUgYWRkZWQgdG8gcGlwZV9j
-bGlwIGFuZA0KPiA+IG5vdCBzYXZpbmcgcG93ZXIuDQo+ID4gDQo+ID4gQ2M6IERhbmllbCBWZXR0
-ZXIgPGRhbmllbEBmZndsbC5jaD4NCj4gPiBDYzogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5ZW9u
-Zy5tdW5AaW50ZWwuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291
-emEgPGpvc2Uuc291emFAaW50ZWwuY29tPg0KPiA+IC0tLQ0KPiA+ICAgZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYyB8IDM3ICsrKysrKysrKy0tLS0tLS0tLS0tLS0tLQ0K
-PiA+ICAgMSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDI0IGRlbGV0aW9ucygtKQ0K
-PiA+IA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X3Bzci5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiA+IGlu
-ZGV4IDFhM2VmZmEzY2U3MDkuLjY3MGIwY2ViYTExMGYgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMNCj4gPiBAQCAtMjIsNiArMjIsNyBAQA0KPiA+
-ICAgICovDQo+ID4gICANCj4gPiAgICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pY19oZWxwZXIuaD4N
-Cj4gPiArI2luY2x1ZGUgPGRybS9kcm1fZGFtYWdlX2hlbHBlci5oPg0KPiA+ICAgDQo+ID4gICAj
-aW5jbHVkZSAiZGlzcGxheS9pbnRlbF9kcC5oIg0KPiA+ICAgDQo+ID4gQEAgLTE1NzcsMTAgKzE1
-NzgsNiBAQCBpbnQgaW50ZWxfcHNyMl9zZWxfZmV0Y2hfdXBkYXRlKHN0cnVjdCBpbnRlbF9hdG9t
-aWNfc3RhdGUgKnN0YXRlLA0KPiA+ICAgCWlmICghY3J0Y19zdGF0ZS0+ZW5hYmxlX3BzcjJfc2Vs
-X2ZldGNoKQ0KPiA+ICAgCQlyZXR1cm4gMDsNCj4gPiAgIA0KPiA+IC0JcmV0ID0gZHJtX2F0b21p
-Y19hZGRfYWZmZWN0ZWRfcGxhbmVzKCZzdGF0ZS0+YmFzZSwgJmNydGMtPmJhc2UpOw0KPiA+IC0J
-aWYgKHJldCkNCj4gPiAtCQlyZXR1cm4gcmV0Ow0KPiA+IC0NCj4gPiAgIAkvKg0KPiA+ICAgCSAq
-IENhbGN1bGF0ZSBtaW5pbWFsIHNlbGVjdGl2ZSBmZXRjaCBhcmVhIG9mIGVhY2ggcGxhbmUgYW5k
-IGNhbGN1bGF0ZQ0KPiA+ICAgCSAqIHRoZSBwaXBlIGRhbWFnZWQgYXJlYS4NCj4gPiBAQCAtMTU5
-MCw4ICsxNTg3LDggQEAgaW50IGludGVsX3BzcjJfc2VsX2ZldGNoX3VwZGF0ZShzdHJ1Y3QgaW50
-ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gPiAgIAlmb3JfZWFjaF9vbGRuZXdfaW50ZWxfcGxh
-bmVfaW5fc3RhdGUoc3RhdGUsIHBsYW5lLCBvbGRfcGxhbmVfc3RhdGUsDQo+ID4gICAJCQkJCSAg
-ICAgbmV3X3BsYW5lX3N0YXRlLCBpKSB7DQo+ID4gICAJCXN0cnVjdCBkcm1fcmVjdCBzcmMsIGRh
-bWFnZWRfYXJlYSA9IHsgLnkxID0gLTEgfTsNCj4gPiAtCQlzdHJ1Y3QgZHJtX21vZGVfcmVjdCAq
-ZGFtYWdlZF9jbGlwczsNCj4gPiAtCQl1MzIgbnVtX2NsaXBzLCBqOw0KPiA+ICsJCXN0cnVjdCBk
-cm1fYXRvbWljX2hlbHBlcl9kYW1hZ2VfaXRlciBpdGVyOw0KPiA+ICsJCXN0cnVjdCBkcm1fcmVj
-dCBjbGlwOw0KPiA+ICAgDQo+ID4gICAJCWlmIChuZXdfcGxhbmVfc3RhdGUtPnVhcGkuY3J0YyAh
-PSBjcnRjX3N0YXRlLT51YXBpLmNydGMpDQo+ID4gICAJCQljb250aW51ZTsNCj4gPiBAQCAtMTYx
-MSw4ICsxNjA4LDYgQEAgaW50IGludGVsX3BzcjJfc2VsX2ZldGNoX3VwZGF0ZShzdHJ1Y3QgaW50
-ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gPiAgIAkJCWJyZWFrOw0KPiA+ICAgCQl9DQo+ID4g
-ICANCj4gPiAtCQludW1fY2xpcHMgPSBkcm1fcGxhbmVfZ2V0X2RhbWFnZV9jbGlwc19jb3VudCgm
-bmV3X3BsYW5lX3N0YXRlLT51YXBpKTsNCj4gPiAtDQo+ID4gICAJCS8qDQo+ID4gICAJCSAqIElm
-IHZpc2liaWxpdHkgb3IgcGxhbmUgbW92ZWQsIG1hcmsgdGhlIHdob2xlIHBsYW5lIGFyZWEgYXMN
-Cj4gPiAgIAkJICogZGFtYWdlZCBhcyBpdCBuZWVkcyB0byBiZSBjb21wbGV0ZSByZWRyYXcgaW4g
-dGhlIG5ldyBhbmQgb2xkDQo+ID4gQEAgLTE2MzMsMTQgKzE2MjgsOCBAQCBpbnQgaW50ZWxfcHNy
-Ml9zZWxfZmV0Y2hfdXBkYXRlKHN0cnVjdCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiA+
-ICAgCQkJCWNsaXBfYXJlYV91cGRhdGUoJnBpcGVfY2xpcCwgJmRhbWFnZWRfYXJlYSk7DQo+ID4g
-ICAJCQl9DQo+ID4gICAJCQljb250aW51ZTsNCj4gPiAtCQl9IGVsc2UgaWYgKG5ld19wbGFuZV9z
-dGF0ZS0+dWFwaS5hbHBoYSAhPSBvbGRfcGxhbmVfc3RhdGUtPnVhcGkuYWxwaGEgfHwNCj4gPiAt
-CQkJICAgKCFudW1fY2xpcHMgJiYNCj4gPiAtCQkJICAgIG5ld19wbGFuZV9zdGF0ZS0+dWFwaS5m
-YiAhPSBvbGRfcGxhbmVfc3RhdGUtPnVhcGkuZmIpKSB7DQo+ID4gLQkJCS8qDQo+ID4gLQkJCSAq
-IElmIHRoZSBwbGFuZSBkb24ndCBoYXZlIGRhbWFnZWQgYXJlYXMgYnV0IHRoZQ0KPiA+IC0JCQkg
-KiBmcmFtZWJ1ZmZlciBjaGFuZ2VkIG9yIGFscGhhIGNoYW5nZWQsIG1hcmsgdGhlIHdob2xlDQo+
-ID4gLQkJCSAqIHBsYW5lIGFyZWEgYXMgZGFtYWdlZC4NCj4gPiAtCQkJICovDQo+ID4gKwkJfSBl
-bHNlIGlmIChuZXdfcGxhbmVfc3RhdGUtPnVhcGkuYWxwaGEgIT0gb2xkX3BsYW5lX3N0YXRlLT51
-YXBpLmFscGhhKSB7DQo+ID4gKwkJCS8qIElmIGFscGhhIGNoYW5nZWQgbWFyayB0aGUgd2hvbGUg
-cGxhbmUgYXJlYSBhcyBkYW1hZ2VkICovDQo+ID4gICAJCQlkYW1hZ2VkX2FyZWEueTEgPSBuZXdf
-cGxhbmVfc3RhdGUtPnVhcGkuZHN0LnkxOw0KPiA+ICAgCQkJZGFtYWdlZF9hcmVhLnkyID0gbmV3
-X3BsYW5lX3N0YXRlLT51YXBpLmRzdC55MjsNCj4gPiAgIAkJCWNsaXBfYXJlYV91cGRhdGUoJnBp
-cGVfY2xpcCwgJmRhbWFnZWRfYXJlYSk7DQo+ID4gQEAgLTE2NDgsMTUgKzE2MzcsMTEgQEAgaW50
-IGludGVsX3BzcjJfc2VsX2ZldGNoX3VwZGF0ZShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpz
-dGF0ZSwNCj4gPiAgIAkJfQ0KPiA+ICAgDQo+ID4gICAJCWRybV9yZWN0X2ZwX3RvX2ludCgmc3Jj
-LCAmbmV3X3BsYW5lX3N0YXRlLT51YXBpLnNyYyk7DQo+ID4gLQkJZGFtYWdlZF9jbGlwcyA9IGRy
-bV9wbGFuZV9nZXRfZGFtYWdlX2NsaXBzKCZuZXdfcGxhbmVfc3RhdGUtPnVhcGkpOw0KPiA+ICAg
-DQo+ID4gLQkJZm9yIChqID0gMDsgaiA8IG51bV9jbGlwczsgaisrKSB7DQo+ID4gLQkJCXN0cnVj
-dCBkcm1fcmVjdCBjbGlwOw0KPiA+IC0NCj4gPiAtCQkJY2xpcC54MSA9IGRhbWFnZWRfY2xpcHNb
-al0ueDE7DQo+ID4gLQkJCWNsaXAueTEgPSBkYW1hZ2VkX2NsaXBzW2pdLnkxOw0KPiA+IC0JCQlj
-bGlwLngyID0gZGFtYWdlZF9jbGlwc1tqXS54MjsNCj4gPiAtCQkJY2xpcC55MiA9IGRhbWFnZWRf
-Y2xpcHNbal0ueTI7DQo+ID4gKwkJZHJtX2F0b21pY19oZWxwZXJfZGFtYWdlX2l0ZXJfaW5pdCgm
-aXRlciwNCj4gPiArCQkJCQkJICAgJm9sZF9wbGFuZV9zdGF0ZS0+dWFwaSwNCj4gPiArCQkJCQkJ
-ICAgJm5ld19wbGFuZV9zdGF0ZS0+dWFwaSk7DQo+IEluIHRoZSBkZXNjcmlwdGlvbiBvZiB0aGUg
-ZHJtX2F0b21pY19oZWxwZXJfZGFtYWdlX2l0ZXJfaW5pdCgpIGZ1bmN0aW9uIA0KPiBzYXlzLCBp
-biBvcmRlciB0byB1c2UgZHJtX2F0b21pY19oZWxwZXJfZGFtYWdlX2l0ZXJfaW5pdCgpLCB0aGUg
-ZHJpdmVyIA0KPiByZXF1aXJlcyB0aGF0IHRoZSBkcm1fYXRvbWljX2hlbHBlcl9jaGVja19wbGFu
-ZV9zdGF0ZSgpIGhlbHBlciBmdW5jdGlvbiANCj4gc2hvdWxkIGJlIGNhbGxlZCBpbiBhZHZhbmNl
-Lg0KPiBIb3dldmVyLCBpbiBpOTE1LCBkcm1fYXRvbWljX2hlbHBlcl9jaGVja19wbGFuZV9zdGF0
-ZSgpIGhlbHBlciBpcyBub3QgDQo+IHVzZWQsIGFuZCBpbnRlbF9hdG9taWNfcGxhbmVfY2hlY2tf
-Y2xpcHBpbmcoKSBoYW5kbGVzIHNyYy4NCj4gQW5kIGk5MTUgaXMgbm90IHVzaW5nIHRoZSBhdG9t
-aWNfY2hlY2sgY2FsbGJhY2sgb2YgDQo+IGRybV9wbGFuZV9oZWxwZXJfZnVuY3MuIElzIGl0IGZp
-bmUgdG8gdXNlIA0KPiBkcm1fYXRvbWljX2hlbHBlcl9kYW1hZ2VfaXRlcl9pbml0KCkgaW4gdGhp
-cyBjYXNlIGFzIHdlbGw/DQoNCmludGVsX2F0b21pY19wbGFuZV9jaGVja19jbGlwcGluZygpIGRv
-ZXMgdGhlIHNyYyByZWN0IHJvdGF0aW9uLCBzY2FsZSBhbmQgY2xpcHBpbmcgdGhhdCBkcm1fYXRv
-bWljX2hlbHBlcl9jaGVja19wbGFuZV9zdGF0ZSgpIGFsc28gZG8sIHNvIHdlIGFyZSBzYWZlDQpo
-ZXJlLg0KDQoNCj4gPiArCQlkcm1fYXRvbWljX2Zvcl9lYWNoX3BsYW5lX2RhbWFnZSgmaXRlciwg
-JmNsaXApIHsNCj4gPiAgIAkJCWlmIChkcm1fcmVjdF9pbnRlcnNlY3QoJmNsaXAsICZzcmMpKQ0K
-PiA+ICAgCQkJCWNsaXBfYXJlYV91cGRhdGUoJmRhbWFnZWRfYXJlYSwgJmNsaXApOw0KPiA+ICAg
-CQl9DQo+ID4gQEAgLTE2NzIsNiArMTY1NywxMCBAQCBpbnQgaW50ZWxfcHNyMl9zZWxfZmV0Y2hf
-dXBkYXRlKHN0cnVjdCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiA+ICAgCWlmIChmdWxs
-X3VwZGF0ZSkNCj4gPiAgIAkJZ290byBza2lwX3NlbF9mZXRjaF9zZXRfbG9vcDsNCj4gPiAgIA0K
-PiA+ICsJcmV0ID0gZHJtX2F0b21pY19hZGRfYWZmZWN0ZWRfcGxhbmVzKCZzdGF0ZS0+YmFzZSwg
-JmNydGMtPmJhc2UpOw0KPiA+ICsJaWYgKHJldCkNCj4gPiArCQlyZXR1cm4gcmV0Ow0KPiA+ICsN
-Cj4gPiAgIAlpbnRlbF9wc3IyX3NlbF9mZXRjaF9waXBlX2FsaWdubWVudChjcnRjX3N0YXRlLCAm
-cGlwZV9jbGlwKTsNCj4gPiAgIA0KPiA+ICAgCS8qDQo+ID4gDQoNCg==
+XE_LPD display adds support for display audio codec keepalive feature.
+This feature works also when display codec is in D3 state and the audio
+link is off (BCLK off). To enable this functionality, display driver
+must update the AUD_TS_CDCLK_M/N registers whenever CDCLK is changed.
+Actual timestamps are generated only when the audio codec driver
+specifically enables the KeepAlive (KAE) feature.
+
+This patch adds new hooks to intel_set_cdclk() in order to inform
+display audio driver when CDCLK change is started and when it is
+complete.
+
+Bspec: 53679
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_audio.c | 37 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_audio.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_cdclk.c |  5 +++
+ drivers/gpu/drm/i915/i915_reg.h            |  4 +++
+ 4 files changed, 48 insertions(+)
+
+Changes V1->V2:
+ - addressed review comments Jani Nikula (Sep 10)
+ - added an initial call to intel_audio_cdclk_change_post() so 
+   that AUD_CDCLK initial configuration is always performance
+
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index 532237588511..ff74dc4dc121 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -936,6 +936,40 @@ void intel_init_audio_hooks(struct drm_i915_private *dev_priv)
+ 	}
+ }
+ 
++struct aud_ts_cdclk_m_n {
++	u8 m;
++	u16 n;
++};
++
++void intel_audio_cdclk_change_pre(struct drm_i915_private *i915)
++{
++	if (DISPLAY_VER(i915) >= 13)
++		intel_de_rmw(i915, AUD_TS_CDCLK_M, AUD_TS_CDCLK_M_EN, 0);
++}
++
++static void get_aud_ts_cdclk_m_n(int refclk, int cdclk, struct aud_ts_cdclk_m_n *aud_ts)
++{
++	if (refclk == 24000)
++		aud_ts->m = 12;
++	else
++		aud_ts->m = 15;
++
++	aud_ts->n = cdclk * aud_ts->m / 24000;
++}
++
++void intel_audio_cdclk_change_post(struct drm_i915_private *i915)
++{
++	struct aud_ts_cdclk_m_n aud_ts;
++
++	if (DISPLAY_VER(i915) >= 13) {
++		get_aud_ts_cdclk_m_n(i915->cdclk.hw.ref, i915->cdclk.hw.cdclk, &aud_ts);
++
++		intel_de_write(i915, AUD_TS_CDCLK_N, aud_ts.n);
++		intel_de_write(i915, AUD_TS_CDCLK_M, aud_ts.m | AUD_TS_CDCLK_M_EN);
++		drm_dbg_kms(&i915->drm, "aud_ts_cdclk set to M=%u, N=%u\n", aud_ts.m, aud_ts.n);
++	}
++}
++
+ static int glk_force_audio_cdclk_commit(struct intel_atomic_state *state,
+ 					struct intel_crtc *crtc,
+ 					bool enable)
+@@ -1318,6 +1352,9 @@ static void i915_audio_component_init(struct drm_i915_private *dev_priv)
+ 		dev_priv->audio_freq_cntrl = aud_freq;
+ 	}
+ 
++	/* init with current cdclk */
++	intel_audio_cdclk_change_post(dev_priv);
++
+ 	dev_priv->audio_component_registered = true;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.h b/drivers/gpu/drm/i915/display/intel_audio.h
+index a3657c7a7ba2..dcb259dd2da7 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.h
++++ b/drivers/gpu/drm/i915/display/intel_audio.h
+@@ -18,6 +18,8 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
+ void intel_audio_codec_disable(struct intel_encoder *encoder,
+ 			       const struct intel_crtc_state *old_crtc_state,
+ 			       const struct drm_connector_state *old_conn_state);
++void intel_audio_cdclk_change_pre(struct drm_i915_private *dev_priv);
++void intel_audio_cdclk_change_post(struct drm_i915_private *dev_priv);
+ void intel_audio_init(struct drm_i915_private *dev_priv);
+ void intel_audio_deinit(struct drm_i915_private *dev_priv);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 9aec17b33819..a1365f31142d 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -24,6 +24,7 @@
+ #include <linux/time.h>
+ 
+ #include "intel_atomic.h"
++#include "intel_audio.h"
+ #include "intel_bw.h"
+ #include "intel_cdclk.h"
+ #include "intel_de.h"
+@@ -1943,6 +1944,8 @@ static void intel_set_cdclk(struct drm_i915_private *dev_priv,
+ 		intel_psr_pause(intel_dp);
+ 	}
+ 
++	intel_audio_cdclk_change_pre(dev_priv);
++
+ 	/*
+ 	 * Lock aux/gmbus while we change cdclk in case those
+ 	 * functions use cdclk. Not all platforms/ports do,
+@@ -1971,6 +1974,8 @@ static void intel_set_cdclk(struct drm_i915_private *dev_priv,
+ 		intel_psr_resume(intel_dp);
+ 	}
+ 
++	intel_audio_cdclk_change_post(dev_priv);
++
+ 	if (drm_WARN(&dev_priv->drm,
+ 		     intel_cdclk_changed(&dev_priv->cdclk.hw, cdclk_config),
+ 		     "cdclk state doesn't match!\n")) {
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index bd63760207b0..795775c9e2eb 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -9734,6 +9734,10 @@ enum {
+ #define AUD_PIN_BUF_CTL		_MMIO(0x48414)
+ #define   AUD_PIN_BUF_ENABLE		REG_BIT(31)
+ 
++#define AUD_TS_CDCLK_M			_MMIO(0x65ea0)
++#define   AUD_TS_CDCLK_M_EN		REG_BIT(31)
++#define AUD_TS_CDCLK_N			_MMIO(0x65ea4)
++
+ /* Display Audio Config Reg */
+ #define AUD_CONFIG_BE			_MMIO(0x65ef0)
+ #define HBLANK_EARLY_ENABLE_ICL(pipe)		(0x1 << (20 - (pipe)))
+-- 
+2.32.0
+
