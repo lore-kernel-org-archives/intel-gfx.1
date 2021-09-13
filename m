@@ -2,60 +2,102 @@ Return-Path: <SRS0=s8fd=OD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3379C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:17:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A643C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 786066101C
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:17:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 786066101C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 192F360FBF
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:33:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 192F360FBF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EF076E11F;
-	Mon, 13 Sep 2021 10:16:55 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD1189CAA;
- Mon, 13 Sep 2021 10:16:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10105"; a="221671981"
-X-IronPort-AV: E=Sophos;i="5.85,288,1624345200"; d="scan'208";a="221671981"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 03:16:52 -0700
-X-IronPort-AV: E=Sophos;i="5.85,288,1624345200"; d="scan'208";a="481263968"
-Received: from vdvoloki-mobl.ccr.corp.intel.com (HELO [10.249.254.107])
- ([10.249.254.107])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 03:16:51 -0700
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- Matthew Auld <matthew.william.auld@gmail.com>
-References: <20210910131512.161655-1-thomas.hellstrom@linux.intel.com>
- <d7570cab-d402-761d-40e0-3d08d9b9d3c9@amd.com>
- <a1a8fd3f1ca13b84192bd3c8719f510e5b655b2c.camel@linux.intel.com>
- <c8484b51-4365-bedd-be73-4c0898ac70b1@amd.com>
- <5ea3f498cc5ae84fa6aeba97a64e4eb8ab32e02b.camel@linux.intel.com>
- <c67b3b42-d260-44dc-81cb-1d1eb18db643@amd.com>
- <a6badfa3-efbb-7830-e019-1dd61b0f800e@linux.intel.com>
- <5ca10e93-9bac-bd8f-39b0-d60fe06bc289@amd.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-Message-ID: <4b9e25e3-0a9d-a7a8-e092-8355c6b5878f@linux.intel.com>
-Date: Mon, 13 Sep 2021 12:16:48 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 118706E154;
+	Mon, 13 Sep 2021 10:33:55 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 235BA6E154
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 10:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1631529231;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WmccRh4NFFHd/GLsqDlsJId99Nc/0CkvaEVlagcImLE=;
+ b=MSGWNq1prbmzHviOL9D47sN7xubWnHWcxFqUSWsyv7+9PGvIAnjtmCILalKFN/tCeOHRic
+ /sQ/0Kmeql4QsMu+djAMYhUSIrwQt+EQsECNV1Zcs22tBD76ruzw/EzGN91F8OGLyBsiyI
+ in/rgtcV+9j2+qPAOqElzxOOJSQ8CiE=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-460-5foHIqH7MT6Myk16k8s_4g-1; Mon, 13 Sep 2021 06:33:48 -0400
+X-MC-Unique: 5foHIqH7MT6Myk16k8s_4g-1
+Received: by mail-ej1-f72.google.com with SMTP id
+ cf17-20020a170906b2d100b005d42490f86bso3487807ejb.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 03:33:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=WmccRh4NFFHd/GLsqDlsJId99Nc/0CkvaEVlagcImLE=;
+ b=TfXahyvvxtmVv1KL7wD+5ZzDa/LlKWpJi55uQY2FhwmAHFa1Mr2kn3Ka4FKi9qy3ns
+ 10xEIMQNQLxUkiv+KLi87q+wuijdAGnrxfnXdXJJMyvrHoFeK77qVGAaDlEz1GS/QUjl
+ w4nYyBfG/BYIj9KoxUIIcUJfj8d3qHOzQvfVd0pGxylFz6bVxTYGp5XrvXZiOUuOIElr
+ T73FuG0Ytfyw7fB9xC4w7A2TIRg23l9FVaY9fgifUMG2evr4VfyvfQwoX4LP4wlAzEBN
+ BFR3OnOclKVswBlXJAyo3mh+98QfYBm+ALEG4UC8tMiA8BrSlGR3lgD/iYEtbM2lRESo
+ 0vuw==
+X-Gm-Message-State: AOAM530yVQuh2WStFzxtQLzW3raZWJIoKaWuadhOwnxqPhUS4G12rSB9
+ wSi2CusMC8NlPDNF+G9Lgm+Ug4h7RfVZnAuBEGP+pg+65inGo13QnTuNeAdL2l2/GrLKUUGRx05
+ JgKq0c7ROq6rVVIZ0Ks3tEAydb8v+
+X-Received: by 2002:a05:6402:40e:: with SMTP id
+ q14mr10383622edv.11.1631529227671; 
+ Mon, 13 Sep 2021 03:33:47 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzAkGIUyY457cbpjejmUdefwTgXeIoIb67nfCUewmNi8VAMWd7WVbLzYn8kSdDFUlkBMiX9EQ==
+X-Received: by 2002:a05:6402:40e:: with SMTP id
+ q14mr10383594edv.11.1631529227339; 
+ Mon, 13 Sep 2021 03:33:47 -0700 (PDT)
+Received: from x1.localdomain ([81.30.35.201])
+ by smtp.gmail.com with ESMTPSA id i26sm3661682edt.62.2021.09.13.03.33.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Sep 2021 03:33:46 -0700 (PDT)
+To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "maxime@cerno.tech" <maxime@cerno.tech>
+Cc: "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>
+References: <34f13e21-9b1a-5f54-7e03-9705a6b51428@redhat.com>
+ <871r6jgrin.fsf@intel.com> <15400f71-dfe6-3142-d191-596ef9af7e7a@redhat.com>
+ <b24d3733d0b0c79fa6fce4f4e696b0c3a338469a.camel@intel.com>
+ <20210826082357.xttccb5thrv2eo2e@gilmour>
+ <aee6d8d5cad5cb989208a6e5533c59c7828ec69b.camel@intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <3d490f59-5a1e-da51-6086-5bb947e0c1fd@redhat.com>
+Date: Mon, 13 Sep 2021 12:33:46 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <5ca10e93-9bac-bd8f-39b0-d60fe06bc289@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <aee6d8d5cad5cb989208a6e5533c59c7828ec69b.camel@intel.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [RFC PATCH] drm/ttm: Add a private member to the
- struct ttm_resource
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [GIT PULL] drm-misc + drm-intel: Add support for
+ out-of-band hotplug notification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,155 +113,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 9/13/21 11:41 AM, Christian König wrote:
-> Am 13.09.21 um 11:36 schrieb Thomas Hellström:
->> On 9/13/21 8:17 AM, Christian König wrote:
->>> Am 11.09.21 um 08:07 schrieb Thomas Hellström:
->>>> On Fri, 2021-09-10 at 19:03 +0200, Christian König wrote:
->>>>> Am 10.09.21 um 17:30 schrieb Thomas Hellström:
->>>>>> On Fri, 2021-09-10 at 16:40 +0200, Christian König wrote:
->>>>>>> Am 10.09.21 um 15:15 schrieb Thomas Hellström:
->>>>>>>> Both the provider (resource manager) and the consumer (the TTM
->>>>>>>> driver)
->>>>>>>> want to subclass struct ttm_resource. Since this is left for
->>>>>>>> the
->>>>>>>> resource
->>>>>>>> manager, we need to provide a private pointer for the TTM
->>>>>>>> driver.
->>>>>>>>
->>>>>>>> Provide a struct ttm_resource_private for the driver to
->>>>>>>> subclass
->>>>>>>> for
->>>>>>>> data with the same lifetime as the struct ttm_resource: In the
->>>>>>>> i915
->>>>>>>> case
->>>>>>>> it will, for example, be an sg-table and radix tree into the
->>>>>>>> LMEM
->>>>>>>> /VRAM pages that currently are awkwardly attached to the GEM
->>>>>>>> object.
->>>>>>>>
->>>>>>>> Provide an ops structure for associated ops (Which is only
->>>>>>>> destroy() ATM)
->>>>>>>> It might seem pointless to provide a separate ops structure,
->>>>>>>> but
->>>>>>>> Linus
->>>>>>>> has previously made it clear that that's the norm.
->>>>>>>>
->>>>>>>> After careful audit one could perhaps also on a per-driver
->>>>>>>> basis
->>>>>>>> replace the delete_mem_notify() TTM driver callback with the
->>>>>>>> above
->>>>>>>> destroy function.
->>>>>>> Well this is a really big NAK to this approach.
->>>>>>>
->>>>>>> If you need to attach some additional information to the resource
->>>>>>> then
->>>>>>> implement your own resource manager like everybody else does.
->>>>>> Well this was the long discussion we had back then when the
->>>>>> resource
->>>>>> mangagers started to derive from struct resource and I was under
->>>>>> the
->>>>>> impression that we had come to an agreement about the different
->>>>>> use-
->>>>>> cases here, and this was my main concern.
->>>>> Ok, then we somehow didn't understood each other.
->>>>>
->>>>>> I mean, it's a pretty big layer violation to do that for this use-
->>>>>> case.
->>>>> Well exactly that's the point. TTM should not have a layer design in
->>>>> the
->>>>> first place.
->>>>>
->>>>> Devices, BOs, resources etc.. are base classes which should implement
->>>>> a
->>>>> base functionality which is then extended by the drivers to implement
->>>>> the driver specific functionality.
->>>>>
->>>>> That is a component based approach, and not layered at all.
->>>>>
->>>>>> The TTM resource manager doesn't want to know about this data at
->>>>>> all,
->>>>>> it's private to the ttm resource user layer and the resource
->>>>>> manager
->>>>>> works perfectly well without it. (I assume the other drivers that
->>>>>> implement their own resource managers need the data that the
->>>>>> subclassing provides?)
->>>>> Yes, that's exactly why we have the subclassing.
->>>>>
->>>>>> The fundamental problem here is that there are two layers wanting
->>>>>> to
->>>>>> subclass struct ttm_resource. That means one layer gets to do that,
->>>>>> the
->>>>>> second gets to use a private pointer, (which in turn can provide
->>>>>> yet
->>>>>> another private pointer to a potential third layer). With your
->>>>>> suggestion, the second layer instead is forced to subclass each
->>>>>> subclassed instance it uses from  the first layer provides?
->>>>> Well completely drop the layer approach/thinking here.
->>>>>
->>>>> The resource is an object with a base class. The base class
->>>>> implements
->>>>> the interface TTM needs to handle the object, e.g.
->>>>> create/destroy/debug
->>>>> etc...
->>>>>
->>>>> Then we need to subclass this object because without any additional
->>>>> information the object is pretty pointless.
->>>>>
->>>>> One possibility for this is to use the range manager to implement
->>>>> something drm_mm based. BTW: We should probably rename that to
->>>>> something
->>>>> like ttm_res_drm_mm or similar.
->>>> Sure I'm all in on that, but my point is this becomes pretty awkward
->>>> because the reusable code already subclasses struct ttm_resource. Let
->>>> me give you an example:
+On 8/26/21 1:43 PM, Vivi, Rodrigo wrote:
+> On Thu, 2021-08-26 at 10:23 +0200, Maxime Ripard wrote:
+>> On Wed, Aug 25, 2021 at 04:03:43PM +0000, Vivi, Rodrigo wrote:
+>>> On Tue, 2021-08-24 at 18:48 +0200, Hans de Goede wrote:
+>>>> Hi,
 >>>>
->>>> Prereqs:
->>>> 1) We want to be able to re-use resource manager implementations among
->>>> drivers.
->>>> 2) A driver might want to re-use multiple implementations and have
->>>> identical data "struct i915_data" attached to both
+>>>> On 8/24/21 10:45 AM, Jani Nikula wrote:
+>>>>> On Fri, 20 Aug 2021, Hans de Goede <hdegoede@redhat.com> wrote:
+>>>>>> Hello drm-misc and drm-intel maintainers,
+>>>>>>
+>>>>>> My "Add support for out-of-band hotplug notification"
+>>>>>> patchset:
+>>>>>> https://patchwork.freedesktop.org/series/93763/
+>>>>>>
+>>>>>> Is ready for merging now, as discussed on IRC I based this
+>>>>>> series
+>>>>>> on top drm-tip and when trying to apply the i915 parts on top
+>>>>>> of drm-misc this fails due to conflict.
+>>>>>>
+>>>>>> So as Jani suggested here is a pull-req for a topic-branch
+>>>>>> with
+>>>>>> the
+>>>>>> entire set, minus the troublesome i915 bits. Once this has
+>>>>>> been
+>>>>>> merged
+>>>>>> into both drm-misc-next and drm-intel-next I can push the 2
+>>>>>> i915
+>>>>>> patch do drm-intel-next on top of the merge.
+>>>>>>
+>>>>>> Note there are also 2 drivers/usb/typec patches in here these
+>>>>>> have Greg KH's Reviewed-by for merging through the drm tree,
+>>>>>> Since this USB code does not change all that much. I also
+>>>>>> checked
+>>>>>> and the drm-misc-next-2021-08-12 base of this tree contains
+>>>>>> the
+>>>>>> same last commit to the modified file as usb-next.
+>>>>>>
+>>>>>> Daniel Vetter mentioned on IRC that it might be better for
+>>>>>> you to
+>>>>>> simply
+>>>>>> pick-up the series directly from patchwork, that is fine too
+>>>>>> in
+>>>>>> that
+>>>>>> case don't forget to add:
+>>>>>>
+>>>>>> Reviewed-by: Lyude Paul <lyude@redhat.com>
+>>>>>>
+>>>>>> To the entire series (given in a reply to the cover-letter)
+>>>>>>
+>>>>>> And:
+>>>>>>
+>>>>>> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>>>>>>
+>>>>>> To the usb/typec patches (patch 7/8), this was given in reply
+>>>>>> to a previous posting of the series and I forgot to add this
+>>>>>> in the resend.
+>>>>>
+>>>>> Since this is mostly touching drm core, I think it should be
+>>>>> merged
+>>>>> to
+>>>>> drm-misc-next first, and drm-intel-next after. Please let us
+>>>>> know.
+>>>>
+>>>> I agree this should go to drm-misc-next first.
+>>>>
+>>>> (I was planning on pushing this to drm-misc-next myself,
+>>>> but then ended up going with the topic branch because of the
+>>>> conflict in the i915 bits.)
 >>>
->>> Well that's the point I don't really understand. Why would a driver 
->>> want to do this?
+>>> Just to be clear and avoid confusion: This pull request does apply
+>>> cleanly on drm-misc-next nd drm-intel-next right now.
+>>>
+>>> I'm just waiting for drm-misc-next maintainers to pull this to drm-
+>>> misc-next so I can pull it to drm-intel-next.
+>>>
+>>> Maxime, is that your round now?
+>>> or Thomas?
 >>
->> Let's say you have a struct ttm_object_vram and a struct 
->> ttm_object_gtt, both subclassing drm_gem_object. Then I'd say a 
->> driver would want to subclass those to attach identical data, extend 
->> functionality and provide a single i915_gem_object to the rest of the 
->> driver, which couldn't care less whether it's vram or gtt? Wouldn't 
->> you say having separate struct ttm_object_vram and a struct 
->> ttm_object_gtt in this case would be awkward?. We *want* to allow 
->> common handling.
->
-> Yeah, but that's a bad idea. This is like diamond inheritance in C++.
->
-> When you need the same functionality in different backends you 
-> implement that as separate object and then add a parent class.
->
->>
->> It's the exact same situation here. With struct ttm_resource you let 
->> *different* implementation flavours subclass it, which makes it 
->> awkward for the driver to extend the functionality in a common way by 
->> subclassing, unless the driver only uses a single implementation.
->
-> Well the driver should use separate implementations for their 
-> different domains as much as possible.
->
-Hmm, Now you lost me a bit. Are you saying that the way we do dynamic 
-backends in the struct ttm_buffer_object to facilitate driver 
-subclassing is a bad idea or that the RFC with backpointer is a bad idea?
+>> That's me, I just pushed it to drm-misc-next
+> 
+> Thank you!
+> I also pushed to drm-intel-next.
 
-If the latter, I can agree with that, but could we perhaps then work to 
-find a way to turn the common manager (or in the future perhaps 
-managers) into helpers that doesn't embed struct ttm_resource rather 
-than a full-fledged resource manager. Then the driver will always be 
-responsible for embedding the struct ttm_resource and combines helpers 
-as it sees fit?
+Thanks, I pushed the remaining 2 i915 patches depending on this
+to drm-intel-next last week (but I forgot to reply to this email then).
 
-Thanks,
-/Thomas
+Regards,
 
-
+Hans
 
