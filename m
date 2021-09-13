@@ -2,57 +2,71 @@ Return-Path: <SRS0=s8fd=OD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ABC48C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AE96C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5637F60E94
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5637F60E94
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F027760F12
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 10:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F027760F12
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE73E6E0A6;
-	Mon, 13 Sep 2021 10:52:28 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF126E0A6;
- Mon, 13 Sep 2021 10:52:27 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10105"; a="208740768"
-X-IronPort-AV: E=Sophos;i="5.85,288,1624345200"; d="scan'208";a="208740768"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 03:52:26 -0700
-X-IronPort-AV: E=Sophos;i="5.85,288,1624345200"; d="scan'208";a="469159921"
-Received: from dennis-mobl.ger.corp.intel.com (HELO [10.213.217.72])
- ([10.213.217.72])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 03:52:24 -0700
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tony.ye@intel.com, zhengguo.xu@intel.com
-References: <20210820224446.30620-1-matthew.brost@intel.com>
- <20210820224446.30620-24-matthew.brost@intel.com>
- <a2a377cb-c0f0-fcae-b1bd-ee5da3566411@linux.intel.com>
- <20210910204935.GA24315@jons-linux-dev-box>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <722dd221-3867-2e27-ec48-323e8c36ae43@linux.intel.com>
-Date: Mon, 13 Sep 2021 11:52:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210910204935.GA24315@jons-linux-dev-box>
-Content-Type: text/plain; charset=utf-8; format=flowed
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81DEF6E0A6;
+	Mon, 13 Sep 2021 10:53:17 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 523BB6E0A6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 10:53:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10105"; a="201146520"
+X-IronPort-AV: E=Sophos;i="5.85,288,1624345200"; d="scan'208";a="201146520"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 03:53:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,288,1624345200"; d="scan'208";a="551562107"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by fmsmga002.fm.intel.com with ESMTP; 13 Sep 2021 03:53:12 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Mon, 13 Sep 2021 03:53:11 -0700
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Mon, 13 Sep 2021 03:52:53 -0700
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2242.012;
+ Mon, 13 Sep 2021 16:22:51 +0530
+From: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "Tangudu, Tilak"
+ <tilak.tangudu@intel.com>, "Deak, Imre" <imre.deak@intel.com>
+Thread-Topic: [Intel-gfx] [PATCH 2/3] drm/i915: Disallow D3Cold.
+Thread-Index: AQHXpmuZx07Xjd5UKEyn7LmA3U8dH6uhyd8g
+Date: Mon, 13 Sep 2021 10:52:51 +0000
+Message-ID: <05c65f7e1cf04fdea37d2914beb0fe7c@intel.com>
+References: <20210910174447.289750-1-rodrigo.vivi@intel.com>
+ <20210910174447.289750-2-rodrigo.vivi@intel.com>
+In-Reply-To: <20210910174447.289750-2-rodrigo.vivi@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 23/27] drm/i915/guc: Implement no mid batch
- preemption for multi-lrc
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.5.1.3
+dlp-reaction: no-action
+x-originating-ip: [10.223.10.1]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: Disallow D3Cold.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,37 +83,78 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 10/09/2021 21:49, Matthew Brost wrote:
-> On Fri, Sep 10, 2021 at 12:25:43PM +0100, Tvrtko Ursulin wrote:
->>
->> On 20/08/2021 23:44, Matthew Brost wrote:
->>> For some users of multi-lrc, e.g. split frame, it isn't safe to preempt
->>> mid BB. To safely enable preemption at the BB boundary, a handshake
->>> between to parent and child is needed. This is implemented via custom
->>> emit_bb_start & emit_fini_breadcrumb functions and enabled via by
->>> default if a context is configured by set parallel extension.
->>
->> FWIW I think it's wrong to hardcode the requirements of a particular
->> hardware generation fixed media pipeline into the uapi. IMO better solution
->> was when concept of parallel submission was decoupled from the no preemption
->> mid batch preambles. Otherwise might as well call the extension
->> I915_CONTEXT_ENGINES_EXT_MEDIA_SPLIT_FRAME_SUBMIT or something.
->>
-> 
-> I don't disagree but this where we landed per Daniel Vetter's feedback -
-> default to what our current hardware supports and extend it later to
-> newer hardware / requirements as needed.
 
-I think this only re-affirms my argument - no point giving the extension 
-a generic name if it is so tightly coupled to a specific use case. But I 
-wrote FWIW so whatever.
+> -----Original Message-----
+> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ro=
+drigo
+> Vivi
+> Sent: Friday, September 10, 2021 11:15 PM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: Vivi, Rodrigo <rodrigo.vivi@intel.com>; Tangudu, Tilak
+> <tilak.tangudu@intel.com>; Deak, Imre <imre.deak@intel.com>
+> Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Disallow D3Cold.
+>=20
+> During runtime or s2idle suspend and resume cases on discrete cards, if D=
+3Cold
+> is really achieved, we will blow everything up and freeze the machine bec=
+ause
+> we are not yet handling the pci states properly.
+>=20
+> On Integrated it simply doesn't matter because D3hot is the maximum that =
+we
+> will get anyway, unless the system is on S3/S4 and our power is cut.
+>=20
+> Let's put this hammer for now everywhere. So we can work to enable the au=
+to-
+> suspend by default without blowing up the world.
+>=20
+> Then, this should be removed when we finally fix the D3Cold flow.
+>=20
+> Cc: Tilak Tangudu <tilak.tangudu@intel.com>
+> Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Acked-by: Imre Deak <imre.deak@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_drv.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_=
+drv.c
+> index a40b5d806321..086a9a475ce8 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -301,6 +301,7 @@ static void sanitize_gpu(struct drm_i915_private *i91=
+5)
+>   */
+>  static int i915_driver_early_probe(struct drm_i915_private *dev_priv)  {
+> +	struct pci_dev *pdev =3D to_pci_dev(dev_priv->drm.dev);
+>  	int ret =3D 0;
+>=20
+>  	if (i915_inject_probe_failure(dev_priv))
+> @@ -331,6 +332,13 @@ static int i915_driver_early_probe(struct
+> drm_i915_private *dev_priv)
+>  	if (ret < 0)
+>  		return ret;
+>=20
+> +	/*
+> +	 * FIXME: Temporary hammer to avoid freezing the machine on our
+> DGFX
+> +	 * This should be totally removed when we handle the pci states
+> properly
+> +	 * on runtime PM and on s2idle cases.
+> +	 */
+> +	pci_d3cold_disable(pdev);
+	This still doesn't protect, if user space enables d3cold via sys-fs.
+	d3cold_allowed_store() may call pci_d3cold_enable()
+	Is it possible to disable it via PCI PM Caps at early probe?
+	Otherwise it should done in respective suspend callback to make sure
+	d3cold is disabled.
 
-It will be mighty awkward if compute multi-lrc will need to specify a 
-flag to allow preemption, when turning off preemption is otherwise not 
-something we allow unprivileged clients to do. So it will be kind of 
-opt-out from unfriendly/dangerous default behaviour instead of explicit 
-requesting it.
+Thanks,
+Anshuman Gupta.
+> +
+>  	ret =3D vlv_suspend_init(dev_priv);
+>  	if (ret < 0)
+>  		goto err_workqueues;
+> --
+> 2.31.1
 
-Regards,
-
-Tvrtko
