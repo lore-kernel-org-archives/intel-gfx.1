@@ -2,45 +2,49 @@ Return-Path: <SRS0=s8fd=OD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 608FCC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3170DC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DAE2610CE
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2DAE2610CE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id F340B60F23
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 18:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F340B60F23
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 890A36E220;
-	Mon, 13 Sep 2021 18:06:25 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 719F66E220;
- Mon, 13 Sep 2021 18:06:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6AB8FA9932;
- Mon, 13 Sep 2021 18:06:24 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8991827599960727029=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 680A26E212;
+	Mon, 13 Sep 2021 18:08:15 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE8D6E212;
+ Mon, 13 Sep 2021 18:08:15 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="221792508"
+X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="221792508"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 11:08:13 -0700
+X-IronPort-AV: E=Sophos;i="5.85,290,1624345200"; d="scan'208";a="551796968"
+Received: from jpcooney-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.5.201])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 11:08:12 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Mon, 13 Sep 2021 19:05:58 +0100
+Message-Id: <20210913180605.2778493-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kai Vehmanen" <kai.vehmanen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Sep 2021 18:06:24 -0000
-Message-ID: <163155638443.12460.13369173643322501420@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210913164004.3999218-1-kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210913164004.3999218-1-kai.vehmanen@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/display=3A_program_audio_CDCLK-TS_for_keepalives_=28rev2?=
- =?utf-8?q?=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/8] drm/i915/gem: Break out some shmem backend
+ utils
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,288 +57,335 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8991827599960727029==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-== Series Details ==
+Break out some shmem backend utils for future reuse by the TTM backend:
+shmem_alloc_st(), shmem_free_st() and __shmem_writeback() which we can
+use to provide a shmem-backed TTM page pool for cached-only TTM
+buffer objects.
 
-Series: drm/i915/display: program audio CDCLK-TS for keepalives (rev2)
-URL   : https://patchwork.freedesktop.org/series/94551/
-State : failure
+Main functional change here is that we now compute the page sizes using
+the dma segments rather than using the physical page address segments.
 
-== Summary ==
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 182 +++++++++++++---------
+ 1 file changed, 107 insertions(+), 75 deletions(-)
 
-CI Bug Log - changes from CI_DRM_10574 -> Patchwork_21024
-====================================================
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 11f072193f3b..ab02309f0752 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -25,46 +25,61 @@ static void check_release_pagevec(struct pagevec *pvec)
+ 	cond_resched();
+ }
+ 
+-static int shmem_get_pages(struct drm_i915_gem_object *obj)
++static void shmem_free_st(struct sg_table *st, struct address_space *mapping,
++			  bool dirty, bool backup)
+ {
+-	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+-	struct intel_memory_region *mem = obj->mm.region;
+-	const unsigned long page_count = obj->base.size / PAGE_SIZE;
++	struct sgt_iter sgt_iter;
++	struct pagevec pvec;
++	struct page *page;
++
++	mapping_clear_unevictable(mapping);
++
++	pagevec_init(&pvec);
++	for_each_sgt_page(page, sgt_iter, st) {
++		if (dirty)
++			set_page_dirty(page);
++
++		if (backup)
++			mark_page_accessed(page);
++
++		if (!pagevec_add(&pvec, page))
++			check_release_pagevec(&pvec);
++	}
++	if (pagevec_count(&pvec))
++		check_release_pagevec(&pvec);
++
++	sg_free_table(st);
++	kfree(st);
++}
++
++static struct sg_table *shmem_alloc_st(struct drm_i915_private *i915,
++				       size_t size, struct intel_memory_region *mr,
++				       struct address_space *mapping,
++				       unsigned int max_segment)
++{
++	const unsigned long page_count = size / PAGE_SIZE;
+ 	unsigned long i;
+-	struct address_space *mapping;
+ 	struct sg_table *st;
+ 	struct scatterlist *sg;
+-	struct sgt_iter sgt_iter;
+ 	struct page *page;
+ 	unsigned long last_pfn = 0;	/* suppress gcc warning */
+-	unsigned int max_segment = i915_sg_segment_size();
+-	unsigned int sg_page_sizes;
+ 	gfp_t noreclaim;
+ 	int ret;
+ 
+-	/*
+-	 * Assert that the object is not currently in any GPU domain. As it
+-	 * wasn't in the GTT, there shouldn't be any way it could have been in
+-	 * a GPU cache
+-	 */
+-	GEM_BUG_ON(obj->read_domains & I915_GEM_GPU_DOMAINS);
+-	GEM_BUG_ON(obj->write_domain & I915_GEM_GPU_DOMAINS);
+-
+ 	/*
+ 	 * If there's no chance of allocating enough pages for the whole
+ 	 * object, bail early.
+ 	 */
+-	if (obj->base.size > resource_size(&mem->region))
+-		return -ENOMEM;
++	if (size > resource_size(&mr->region))
++		return ERR_PTR(-ENOMEM);
+ 
+ 	st = kmalloc(sizeof(*st), GFP_KERNEL);
+ 	if (!st)
+-		return -ENOMEM;
++		return ERR_PTR(-ENOMEM);
+ 
+-rebuild_st:
+ 	if (sg_alloc_table(st, page_count, GFP_KERNEL)) {
+ 		kfree(st);
+-		return -ENOMEM;
++		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+ 	/*
+@@ -73,14 +88,12 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 	 *
+ 	 * Fail silently without starting the shrinker
+ 	 */
+-	mapping = obj->base.filp->f_mapping;
+ 	mapping_set_unevictable(mapping);
+ 	noreclaim = mapping_gfp_constraint(mapping, ~__GFP_RECLAIM);
+ 	noreclaim |= __GFP_NORETRY | __GFP_NOWARN;
+ 
+ 	sg = st->sgl;
+ 	st->nents = 0;
+-	sg_page_sizes = 0;
+ 	for (i = 0; i < page_count; i++) {
+ 		const unsigned int shrink[] = {
+ 			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
+@@ -135,10 +148,9 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 		if (!i ||
+ 		    sg->length >= max_segment ||
+ 		    page_to_pfn(page) != last_pfn + 1) {
+-			if (i) {
+-				sg_page_sizes |= sg->length;
++			if (i)
+ 				sg = sg_next(sg);
+-			}
++
+ 			st->nents++;
+ 			sg_set_page(sg, page, PAGE_SIZE, 0);
+ 		} else {
+@@ -149,14 +161,66 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 		/* Check that the i965g/gm workaround works. */
+ 		GEM_BUG_ON(gfp & __GFP_DMA32 && last_pfn >= 0x00100000UL);
+ 	}
+-	if (sg) { /* loop terminated early; short sg table */
+-		sg_page_sizes |= sg->length;
++	if (sg) /* loop terminated early; short sg table */
+ 		sg_mark_end(sg);
+-	}
+ 
+ 	/* Trim unused sg entries to avoid wasting memory. */
+ 	i915_sg_trim(st);
+ 
++	return st;
++err_sg:
++	sg_mark_end(sg);
++	if (sg != st->sgl) {
++		shmem_free_st(st, mapping, false, false);
++	} else {
++		mapping_clear_unevictable(mapping);
++		sg_free_table(st);
++		kfree(st);
++	}
++
++	/*
++	 * shmemfs first checks if there is enough memory to allocate the page
++	 * and reports ENOSPC should there be insufficient, along with the usual
++	 * ENOMEM for a genuine allocation failure.
++	 *
++	 * We use ENOSPC in our driver to mean that we have run out of aperture
++	 * space and so want to translate the error from shmemfs back to our
++	 * usual understanding of ENOMEM.
++	 */
++	if (ret == -ENOSPC)
++		ret = -ENOMEM;
++
++	return ERR_PTR(ret);
++}
++
++static int shmem_get_pages(struct drm_i915_gem_object *obj)
++{
++	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++	struct intel_memory_region *mem = obj->mm.region;
++	const unsigned long page_count = obj->base.size / PAGE_SIZE;
++	struct address_space *mapping;
++	struct sg_table *st;
++	struct sgt_iter sgt_iter;
++	struct page *page;
++	unsigned int max_segment = i915_sg_segment_size();
++	int ret;
++
++	/*
++	 * Assert that the object is not currently in any GPU domain. As it
++	 * wasn't in the GTT, there shouldn't be any way it could have been in
++	 * a GPU cache
++	 */
++	GEM_BUG_ON(obj->read_domains & I915_GEM_GPU_DOMAINS);
++	GEM_BUG_ON(obj->write_domain & I915_GEM_GPU_DOMAINS);
++
++rebuild_st:
++	st = shmem_alloc_st(i915, obj->base.size, mem,
++			    obj->base.filp->f_mapping, max_segment);
++	if (IS_ERR(st)) {
++		ret = PTR_ERR(st);
++		goto err_st;
++	}
++
+ 	ret = i915_gem_gtt_prepare_pages(obj, st);
+ 	if (ret) {
+ 		/*
+@@ -168,6 +232,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 			for_each_sgt_page(page, sgt_iter, st)
+ 				put_page(page);
+ 			sg_free_table(st);
++			kfree(st);
+ 
+ 			max_segment = PAGE_SIZE;
+ 			goto rebuild_st;
+@@ -200,28 +265,12 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 	if (IS_JSL_EHL(i915) && obj->flags & I915_BO_ALLOC_USER)
+ 		obj->cache_dirty = true;
+ 
+-	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
++	__i915_gem_object_set_pages(obj, st, i915_sg_dma_sizes(st->sgl));
+ 
+ 	return 0;
+ 
+-err_sg:
+-	sg_mark_end(sg);
+ err_pages:
+-	mapping_clear_unevictable(mapping);
+-	if (sg != st->sgl) {
+-		struct pagevec pvec;
+-
+-		pagevec_init(&pvec);
+-		for_each_sgt_page(page, sgt_iter, st) {
+-			if (!pagevec_add(&pvec, page))
+-				check_release_pagevec(&pvec);
+-		}
+-		if (pagevec_count(&pvec))
+-			check_release_pagevec(&pvec);
+-	}
+-	sg_free_table(st);
+-	kfree(st);
+-
++	shmem_free_st(st, mapping, false, false);
+ 	/*
+ 	 * shmemfs first checks if there is enough memory to allocate the page
+ 	 * and reports ENOSPC should there be insufficient, along with the usual
+@@ -231,6 +280,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 	 * space and so want to translate the error from shmemfs back to our
+ 	 * usual understanding of ENOMEM.
+ 	 */
++err_st:
+ 	if (ret == -ENOSPC)
+ 		ret = -ENOMEM;
+ 
+@@ -251,10 +301,8 @@ shmem_truncate(struct drm_i915_gem_object *obj)
+ 	obj->mm.pages = ERR_PTR(-EFAULT);
+ }
+ 
+-static void
+-shmem_writeback(struct drm_i915_gem_object *obj)
++static void __shmem_writeback(size_t size, struct address_space *mapping)
+ {
+-	struct address_space *mapping;
+ 	struct writeback_control wbc = {
+ 		.sync_mode = WB_SYNC_NONE,
+ 		.nr_to_write = SWAP_CLUSTER_MAX,
+@@ -270,10 +318,9 @@ shmem_writeback(struct drm_i915_gem_object *obj)
+ 	 * instead of invoking writeback so they are aged and paged out
+ 	 * as normal.
+ 	 */
+-	mapping = obj->base.filp->f_mapping;
+ 
+ 	/* Begin writeback on each dirty page */
+-	for (i = 0; i < obj->base.size >> PAGE_SHIFT; i++) {
++	for (i = 0; i < size >> PAGE_SHIFT; i++) {
+ 		struct page *page;
+ 
+ 		page = find_lock_page(mapping, i);
+@@ -296,6 +343,12 @@ shmem_writeback(struct drm_i915_gem_object *obj)
+ 	}
+ }
+ 
++static void
++shmem_writeback(struct drm_i915_gem_object *obj)
++{
++	__shmem_writeback(obj->base.size, obj->base.filp->f_mapping);
++}
++
+ void
+ __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
+ 				struct sg_table *pages,
+@@ -316,11 +369,6 @@ __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
+ 
+ void i915_gem_object_put_pages_shmem(struct drm_i915_gem_object *obj, struct sg_table *pages)
+ {
+-	struct sgt_iter sgt_iter;
+-	struct pagevec pvec;
+-	struct page *page;
+-
+-	GEM_WARN_ON(IS_DGFX(to_i915(obj->base.dev)));
+ 	__i915_gem_object_release_shmem(obj, pages, true);
+ 
+ 	i915_gem_gtt_finish_pages(obj, pages);
+@@ -328,25 +376,9 @@ void i915_gem_object_put_pages_shmem(struct drm_i915_gem_object *obj, struct sg_
+ 	if (i915_gem_object_needs_bit17_swizzle(obj))
+ 		i915_gem_object_save_bit_17_swizzle(obj, pages);
+ 
+-	mapping_clear_unevictable(file_inode(obj->base.filp)->i_mapping);
+-
+-	pagevec_init(&pvec);
+-	for_each_sgt_page(page, sgt_iter, pages) {
+-		if (obj->mm.dirty)
+-			set_page_dirty(page);
+-
+-		if (obj->mm.madv == I915_MADV_WILLNEED)
+-			mark_page_accessed(page);
+-
+-		if (!pagevec_add(&pvec, page))
+-			check_release_pagevec(&pvec);
+-	}
+-	if (pagevec_count(&pvec))
+-		check_release_pagevec(&pvec);
++	shmem_free_st(pages, file_inode(obj->base.filp)->i_mapping,
++		      obj->mm.dirty, obj->mm.madv == I915_MADV_WILLNEED);
+ 	obj->mm.dirty = false;
+-
+-	sg_free_table(pages);
+-	kfree(pages);
+ }
+ 
+ static void
+-- 
+2.26.3
 
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_21024 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_21024, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_21024:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@kms_flip@basic-flip-vs-modeset@c-dp1:
-    - fi-cfl-8109u:       [PASS][1] -> [FAIL][2] +1 similar issue
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html
-
-  
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_selftest@live@hangcheck:
-    - {fi-ehl-2}:         [PASS][3] -> [INCOMPLETE][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-ehl-2/igt@i915_selftest@live@hangcheck.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-ehl-2/igt@i915_selftest@live@hangcheck.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21024 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_module_load@reload:
-    - fi-kbl-soraka:      [PASS][5] -> [DMESG-WARN][6] ([i915#1982])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-kbl-soraka/igt@i915_module_load@reload.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-kbl-soraka/igt@i915_module_load@reload.html
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-nick:        [PASS][7] -> [INCOMPLETE][8] ([i915#2940])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-bsw-nick/igt@i915_selftest@live@execlists.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-bsw-nick/igt@i915_selftest@live@execlists.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [PASS][9] -> [INCOMPLETE][10] ([i915#3921])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:
-    - fi-cfl-8109u:       [PASS][11] -> [DMESG-WARN][12] ([i915#295]) +18 similar issues
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-
-  * igt@runner@aborted:
-    - fi-bsw-nick:        NOTRUN -> [FAIL][13] ([fdo#109271] / [i915#1436] / [i915#3428])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-bsw-nick/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_module_load@reload:
-    - fi-tgl-y:           [DMESG-WARN][14] ([i915#1982]) -> [PASS][15]
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-tgl-y/igt@i915_module_load@reload.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-tgl-y/igt@i915_module_load@reload.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - {fi-hsw-gt1}:       [DMESG-WARN][16] ([i915#3303]) -> [PASS][17]
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_force_connector_basic@force-connector-state:
-    - fi-rkl-guc:         [FAIL][18] ([i915#3983]) -> [PASS][19]
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-rkl-guc/igt@kms_force_connector_basic@force-connector-state.html
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-rkl-guc/igt@kms_force_connector_basic@force-connector-state.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
-  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
-  [i915#3428]: https://gitlab.freedesktop.org/drm/intel/issues/3428
-  [i915#3918]: https://gitlab.freedesktop.org/drm/intel/issues/3918
-  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
-  [i915#3983]: https://gitlab.freedesktop.org/drm/intel/issues/3983
-
-
-Participating hosts (44 -> 38)
-------------------------------
-
-  Missing    (6): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-bdw-samus bat-jsl-1 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10574 -> Patchwork_21024
-
-  CI-20190529: 20190529
-  CI_DRM_10574: 3ad0415f7f7a68058d5ff02d8a7ac51d8b542cf9 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6204: 1084c5eb74fd0daf8c9b8e83e85f5208c396579b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21024: c29e3f40b371798ebc2cb00686fac2f52118b36f @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-c29e3f40b371 drm/i915/display: program audio CDCLK-TS for keepalives
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/index.html
-
---===============8991827599960727029==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: program audio CDCLK-TS for keepalives (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94551/">https://patchwork.freedesktop.org/series/94551/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10574 -&gt; Patchwork_21024</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_21024 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_21024, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_21024:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@kms_flip@basic-flip-vs-modeset@c-dp1:<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html">FAIL</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_selftest@live@hangcheck:<ul>
-<li>{fi-ehl-2}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-ehl-2/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-ehl-2/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21024 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@reload:</p>
-<ul>
-<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-kbl-soraka/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-kbl-soraka/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-bsw-nick/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) +18 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-bsw-nick/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3428">i915#3428</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@reload:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-tgl-y/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-tgl-y/igt@i915_module_load@reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-connector-state:</p>
-<ul>
-<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10574/fi-rkl-guc/igt@kms_force_connector_basic@force-connector-state.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3983">i915#3983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21024/fi-rkl-guc/igt@kms_force_connector_basic@force-connector-state.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (44 -&gt; 38)</h2>
-<p>Missing    (6): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-bdw-samus bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10574 -&gt; Patchwork_21024</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10574: 3ad0415f7f7a68058d5ff02d8a7ac51d8b542cf9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6204: 1084c5eb74fd0daf8c9b8e83e85f5208c396579b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21024: c29e3f40b371798ebc2cb00686fac2f52118b36f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>c29e3f40b371 drm/i915/display: program audio CDCLK-TS for keepalives</p>
-
-</body>
-</html>
-
---===============8991827599960727029==--
