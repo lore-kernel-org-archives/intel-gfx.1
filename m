@@ -2,61 +2,58 @@ Return-Path: <SRS0=u2GV=OE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72747C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 08:27:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBD24C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 08:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE32B61107
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 08:27:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE32B61107
+	by mail.kernel.org (Postfix) with ESMTPS id 9CF5D60EE0
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 08:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9CF5D60EE0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59FBE6E42C;
-	Tue, 14 Sep 2021 08:27:53 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3976E429;
- Tue, 14 Sep 2021 08:27:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="285614522"
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="285614522"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 01:27:51 -0700
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="481713398"
-Received: from skofoed-mobl.ger.corp.intel.com (HELO [10.249.254.174])
- ([10.249.254.174])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 01:27:49 -0700
-Message-ID: <4add643ae0b1a1daa4657106f5554894145a9778.camel@linux.intel.com>
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com, Matthew Auld
- <matthew.william.auld@gmail.com>
-Date: Tue, 14 Sep 2021 10:27:47 +0200
-In-Reply-To: <0a0f1b45-a668-e0a8-dcd0-d4413ec3b39b@amd.com>
-References: <20210910131512.161655-1-thomas.hellstrom@linux.intel.com>
- <d7570cab-d402-761d-40e0-3d08d9b9d3c9@amd.com>
- <a1a8fd3f1ca13b84192bd3c8719f510e5b655b2c.camel@linux.intel.com>
- <c8484b51-4365-bedd-be73-4c0898ac70b1@amd.com>
- <5ea3f498cc5ae84fa6aeba97a64e4eb8ab32e02b.camel@linux.intel.com>
- <c67b3b42-d260-44dc-81cb-1d1eb18db643@amd.com>
- <a6badfa3-efbb-7830-e019-1dd61b0f800e@linux.intel.com>
- <5ca10e93-9bac-bd8f-39b0-d60fe06bc289@amd.com>
- <4b9e25e3-0a9d-a7a8-e092-8355c6b5878f@linux.intel.com>
- <7c0b6e6d-fd36-9a5c-758d-7c172c0c5e05@linux.intel.com>
- <0a0f1b45-a668-e0a8-dcd0-d4413ec3b39b@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3D16E432;
+	Tue, 14 Sep 2021 08:34:14 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C9AB6E432;
+ Tue, 14 Sep 2021 08:34:12 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="202099417"
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="202099417"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 01:34:11 -0700
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="432915056"
+Received: from ocascan-mobl.ger.corp.intel.com (HELO [10.213.234.116])
+ ([10.213.234.116])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 01:34:10 -0700
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tony.ye@intel.com, zhengguo.xu@intel.com
+References: <20210820224446.30620-1-matthew.brost@intel.com>
+ <20210820224446.30620-9-matthew.brost@intel.com>
+ <c599bfef-418f-9a25-9e90-c20117dc4665@linux.intel.com>
+ <20210910194955.GA24003@jons-linux-dev-box>
+ <d95ee5e5-7118-cd98-49c0-964f22ade45d@linux.intel.com>
+ <20210913165029.GA8526@jons-linux-dev-box>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <68b40289-b8c6-9740-b1a6-f37ea4ffc2f7@linux.intel.com>
+Date: Tue, 14 Sep 2021 09:34:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [RFC PATCH] drm/ttm: Add a private member to the
- struct ttm_resource
+In-Reply-To: <20210913165029.GA8526@jons-linux-dev-box>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 08/27] drm/i915: Add logical engine mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,176 +69,408 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2021-09-14 at 09:40 +0200, Christian König wrote:
-> Am 13.09.21 um 14:41 schrieb Thomas Hellström:
-> > [SNIP]
-> > > > > Let's say you have a struct ttm_object_vram and a struct 
-> > > > > ttm_object_gtt, both subclassing drm_gem_object. Then I'd say
-> > > > > a 
-> > > > > driver would want to subclass those to attach identical data,
-> > > > > extend functionality and provide a single i915_gem_object to
-> > > > > the 
-> > > > > rest of the driver, which couldn't care less whether it's
-> > > > > vram or 
-> > > > > gtt? Wouldn't you say having separate struct ttm_object_vram
-> > > > > and a 
-> > > > > struct ttm_object_gtt in this case would be awkward?. We
-> > > > > *want* to 
-> > > > > allow common handling.
-> > > > 
-> > > > Yeah, but that's a bad idea. This is like diamond inheritance
-> > > > in C++.
-> > > > 
-> > > > When you need the same functionality in different backends you 
-> > > > implement that as separate object and then add a parent class.
-> > > > 
-> > > > > 
-> > > > > It's the exact same situation here. With struct ttm_resource
-> > > > > you 
-> > > > > let *different* implementation flavours subclass it, which
-> > > > > makes it 
-> > > > > awkward for the driver to extend the functionality in a
-> > > > > common way 
-> > > > > by subclassing, unless the driver only uses a single
-> > > > > implementation.
-> > > > 
-> > > > Well the driver should use separate implementations for their 
-> > > > different domains as much as possible.
-> > > > 
-> > > Hmm, Now you lost me a bit. Are you saying that the way we do
-> > > dynamic 
-> > > backends in the struct ttm_buffer_object to facilitate driver 
-> > > subclassing is a bad idea or that the RFC with backpointer is a
-> > > bad 
-> > > idea?
-> > > 
-> > > 
-> > Or if you mean diamond inheritance is bad, yes that's basically my
-> > point.
+
+On 13/09/2021 17:50, Matthew Brost wrote:
+> On Mon, Sep 13, 2021 at 10:24:43AM +0100, Tvrtko Ursulin wrote:
+>>
+>> On 10/09/2021 20:49, Matthew Brost wrote:
+>>> On Fri, Sep 10, 2021 at 12:12:42PM +0100, Tvrtko Ursulin wrote:
+>>>>
+>>>> On 20/08/2021 23:44, Matthew Brost wrote:
+>>>>> Add logical engine mapping. This is required for split-frame, as
+>>>>> workloads need to be placed on engines in a logically contiguous manner.
+>>>>>
+>>>>> v2:
+>>>>>     (Daniel Vetter)
+>>>>>      - Add kernel doc for new fields
+>>>>>
+>>>>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>>>>> ---
+>>>>>     drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 60 ++++++++++++++++---
+>>>>>     drivers/gpu/drm/i915/gt/intel_engine_types.h  |  5 ++
+>>>>>     .../drm/i915/gt/intel_execlists_submission.c  |  1 +
+>>>>>     drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  2 +-
+>>>>>     .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 21 +------
+>>>>>     5 files changed, 60 insertions(+), 29 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>> index 0d9105a31d84..4d790f9a65dd 100644
+>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>> @@ -290,7 +290,8 @@ static void nop_irq_handler(struct intel_engine_cs *engine, u16 iir)
+>>>>>     	GEM_DEBUG_WARN_ON(iir);
+>>>>>     }
+>>>>> -static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+>>>>> +static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
+>>>>> +			      u8 logical_instance)
+>>>>>     {
+>>>>>     	const struct engine_info *info = &intel_engines[id];
+>>>>>     	struct drm_i915_private *i915 = gt->i915;
+>>>>> @@ -334,6 +335,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+>>>>>     	engine->class = info->class;
+>>>>>     	engine->instance = info->instance;
+>>>>> +	engine->logical_mask = BIT(logical_instance);
+>>>>>     	__sprint_engine_name(engine);
+>>>>>     	engine->props.heartbeat_interval_ms =
+>>>>> @@ -572,6 +574,37 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
+>>>>>     	return info->engine_mask;
+>>>>>     }
+>>>>> +static void populate_logical_ids(struct intel_gt *gt, u8 *logical_ids,
+>>>>> +				 u8 class, const u8 *map, u8 num_instances)
+>>>>> +{
+>>>>> +	int i, j;
+>>>>> +	u8 current_logical_id = 0;
+>>>>> +
+>>>>> +	for (j = 0; j < num_instances; ++j) {
+>>>>> +		for (i = 0; i < ARRAY_SIZE(intel_engines); ++i) {
+>>>>> +			if (!HAS_ENGINE(gt, i) ||
+>>>>> +			    intel_engines[i].class != class)
+>>>>> +				continue;
+>>>>> +
+>>>>> +			if (intel_engines[i].instance == map[j]) {
+>>>>> +				logical_ids[intel_engines[i].instance] =
+>>>>> +					current_logical_id++;
+>>>>> +				break;
+>>>>> +			}
+>>>>> +		}
+>>>>> +	}
+>>>>> +}
+>>>>> +
+>>>>> +static void setup_logical_ids(struct intel_gt *gt, u8 *logical_ids, u8 class)
+>>>>> +{
+>>>>> +	int i;
+>>>>> +	u8 map[MAX_ENGINE_INSTANCE + 1];
+>>>>> +
+>>>>> +	for (i = 0; i < MAX_ENGINE_INSTANCE + 1; ++i)
+>>>>> +		map[i] = i;
+>>>>
+>>>> What's the point of the map array since it is 1:1 with instance?
+>>>>
+>>>
+>>> Future products do not have a 1 to 1 mapping and that mapping can change
+>>> based on fusing, e.g. XeHP SDV.
+>>>
+>>> Also technically ICL / TGL / ADL physical instance 2 maps to logical
+>>> instance 1.
+>>
+>> I don't follow the argument. All I can see is that "map[i] = i" always in
+>> the proposed code, which is then used to check "instance == map[instance]".
+>> So I'd suggest to remove this array from the code until there is a need for
+>> it.
+>>
 > 
-> That diamond inheritance is a bad idea. What I don't understand is
-> why 
-> you need that in the first place?
+> Ok, this logic is slightly confusing and makes more sense once we have
+> non-standard mappings. Yes, map is setup in a 1 to 1 mapping by default
+> with the value in map[i] being a physical instance. Populate_logical_ids
+> searches the map finding all physical instances present in the map
+> assigning each found instance a new logical id increasing by 1 each
+> time.
 > 
-> Information that you attach to a resource are specific to the domain 
-> where the resource is allocated from. So why do you want to attach
-> the 
-> same information to a resources from different domains?
+> e.g. If the map is setup 0-N and only physical instance 0 / 2 are
+> present they will get logical mapping 0 / 1 respectfully.
+> 
+> This algorithm works for non-standard mappings too /w fused parts. e.g.
+> on XeHP SDV the map is: { 0, 2, 4, 6, 1, 3, 5, 7 } and if any of the
+> physical instances can't be found due to fusing the logical mapping is
+> still correct per the bspec.
+> 
+> This array is absolutely needed for multi-lrc submission to work, even
+> on ICL / TGL / ADL as the GuC only supports logically contiguous engine
+> instances.
 
-Again, for the same reason that we do that with struct i915_gem_objects
-and struct ttm_tts, to extend the functionality. I mean information
-that we attach when we subclass a struct ttm_buffer_object doesn't
-necessarily care about whether it's a VRAM or a GTT object. In exactly
-the same way, information that we want to attach to a struct
-ttm_resource doesn't necessarily care whether it's a system or a VRAM
-resource, and need not be specific to any of those.
+No idea how can an array fixed at "map[i] = i" be absolutely needed when 
+you can just write it like "i". Sometimes it is okay to lay some ground 
+work for future platforms but in this case to me it's just obfuscation 
+which should be added later, when it is required.
 
-In this particular case, as memory management becomes asynchronous, you
-can't attach things like sg-tables and gpu binding information to the
-gem object anymore, because the object may have a number of migrations
-in the pipeline. Such things need to be attached to the structure that
-abstracts the memory allocation, and which may have a completely
-different lifetime than the object itself.
+>>>>> +	populate_logical_ids(gt, logical_ids, class, map, ARRAY_SIZE(map));
+>>>>> +}
+>>>>> +
+>>>>>     /**
+>>>>>      * intel_engines_init_mmio() - allocate and prepare the Engine Command Streamers
+>>>>>      * @gt: pointer to struct intel_gt
+>>>>> @@ -583,7 +616,8 @@ int intel_engines_init_mmio(struct intel_gt *gt)
+>>>>>     	struct drm_i915_private *i915 = gt->i915;
+>>>>>     	const unsigned int engine_mask = init_engine_mask(gt);
+>>>>>     	unsigned int mask = 0;
+>>>>> -	unsigned int i;
+>>>>> +	unsigned int i, class;
+>>>>> +	u8 logical_ids[MAX_ENGINE_INSTANCE + 1];
+>>>>>     	int err;
+>>>>>     	drm_WARN_ON(&i915->drm, engine_mask == 0);
+>>>>> @@ -593,15 +627,23 @@ int intel_engines_init_mmio(struct intel_gt *gt)
+>>>>>     	if (i915_inject_probe_failure(i915))
+>>>>>     		return -ENODEV;
+>>>>> -	for (i = 0; i < ARRAY_SIZE(intel_engines); i++) {
+>>>>> -		if (!HAS_ENGINE(gt, i))
+>>>>> -			continue;
+>>>>> +	for (class = 0; class < MAX_ENGINE_CLASS + 1; ++class) {
+>>>>> +		setup_logical_ids(gt, logical_ids, class);
+>>>>> -		err = intel_engine_setup(gt, i);
+>>>>> -		if (err)
+>>>>> -			goto cleanup;
+>>>>> +		for (i = 0; i < ARRAY_SIZE(intel_engines); ++i) {
+>>>>> +			u8 instance = intel_engines[i].instance;
+>>>>> +
+>>>>> +			if (intel_engines[i].class != class ||
+>>>>> +			    !HAS_ENGINE(gt, i))
+>>>>> +				continue;
+>>>>> -		mask |= BIT(i);
+>>>>> +			err = intel_engine_setup(gt, i,
+>>>>> +						 logical_ids[instance]);
+>>>>> +			if (err)
+>>>>> +				goto cleanup;
+>>>>> +
+>>>>> +			mask |= BIT(i);
+>>>>
+>>>> I still this there is a less clunky way to set this up in less code and more
+>>>> readable at the same time. Like do it in two passes so you can iterate
+>>>> gt->engine_class[] array instead of having to implement a skip condition
+>>>> (both on class and HAS_ENGINE at two places) and also avoid walking the flat
+>>>> intel_engines array recursively.
+>>>>
+>>>
+>>> Kinda a bikeshed arguing about a pretty simple loop structure, don't you
+>>> think? I personally like the way it laid out.
+>>>
+>>> Pseudo code for your suggestion?
+>>
+>> Leave the existing setup loop as is and add an additional "for engine class"
+>> walk after it. That way you can walk already setup gt->engine_class[] array
+>> so wouldn't need to skip wrong classes and have HAS_ENGINE checks when
+>> walking the flat intel_engines[] array several times. It also applies to the
+>> helper which counts logical instances per class.
+>>
+> 
+> Ok, I think I see what you are getting at. Again IMO this is a total
+> bikeshed as this is 1 time setup step that we really should only care if
+> the loop works or not rather than it being optimized / looks a way a
+> certain person wants. I can change this if you really insist but again
+> IMO disucssing this is a total waste of energy.
 
-In our particular case we want to attach information for cached page
-lookup and and sg-table, and moving forward probably the gpu binding
-(vma) information, and that is the same information for any
-ttm_resource regardless where it's allocated from.
+It should be such a no brainer to go with simpler and less invasive 
+change that I honestly don't understand where is the big deal. Here is 
+my pseudo code one more time and that will be the last from me on the topic.
 
-Typical example: A pipelined GPU operation happening before an async
-eviction goes wrong. We need to error capture and reset. But if we look
-at the object for error capturing, it's already updated pointing to an
-after-eviction resource, and the resource sits on a ghost object (or in
-the future when ghost objects go away perhaps in limbo somewhere).
+Today we have:
 
-We need to capture the memory pointed to by the struct ttm_resource the
-GPU was referencing, and to be able to do that we need to cache driver-
-specific info on the resource. Typically an sg-list and GPU binding
-information. 
+for_each intel_engines: // intel_engines is a flat list of all engines
+	intel_engine_setup()
 
-Anyway, that cached information needs to be destroyed together with the
-resource and thus we need to be able to access that information from
-the resource in some way, regardless whether it's a pointer or whether
-we embed the struct resource.
+You propose to change it to:
 
-I think it's pretty important here that we (using the inheritance
-diagram below) recognize the need for D to inherit from A, just like we
-do for objects or ttm_tts.
+for_each engine_class:
+    for 0..max_global_engine_instance:
+       for_each intel_engines:
+          skip engine not present
+          skip class not matching
 
+          count logical instance
+
+    for_each intel_engines:
+       skip engine not present
+       skip wrong class
+
+       intel_engine_setup()
+
+
+I propose:
+
+// Leave as is:
+
+for_each intel_engines:
+    intel_engine_setup()
+
+// Add:
+
+for_each engine_class:
+    logical = 0
+    for_each gt->engine_class[class]:
+       skip engine not present
+
+       engine->logical_instance = logical++
+
+
+When code which actually needs a preturbed "map" arrives you add that in 
+to this second loop.
+
+>   
+>>>>> +		}
+>>>>>     	}
+>>>>>     	/*
+>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+>>>>> index ed91bcff20eb..fddf35546b58 100644
+>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
+>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+>>>>> @@ -266,6 +266,11 @@ struct intel_engine_cs {
+>>>>>     	unsigned int guc_id;
+>>>>>     	intel_engine_mask_t mask;
+>>>>> +	/**
+>>>>> +	 * @logical_mask: logical mask of engine, reported to user space via
+>>>>> +	 * query IOCTL and used to communicate with the GuC in logical space
+>>>>> +	 */
+>>>>> +	intel_engine_mask_t logical_mask;
+>>>>
+>>>> You could prefix the new field with uabi_ to match the existing scheme and
+>>>> to signify to anyone who might be touching it in the future it should not be
+>>>> changed.
+>>>
+>>> This is kinda uabi, but also kinda isn't. We do report a logical
+>>> instance via IOCTL but it also really is tied the GuC backend as we only
+>>> can communicate with the GuC in logical space. IMO we should leave as
+>>> is.
+>>
+>> Perhaps it would be best to call the new field uabi_logical_instance so it's
+>> clear it is reported in the query directly and do the BIT() transformation
+>> in the GuC backend?
+>>
+> 
+> Virtual engines can have a multiple bits set in this mask, so this is
+> used for both the query on physical engines via UABI and submission in
+> the GuC backend.
+
+You could add both fields if that would help. I just think it is 
+preferrable to keep the existing convetion of uabi_ prefix for the 
+fields which i915 refactors must not change willy-nilly.
 
 > 
-> > 
-> > Looking at
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FMultiple_inheritance%23%2Fmedia%2FFile%3ADiamond_inheritance.svg&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7Cece4bd8aab644feacc1808d976b3ca56%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637671336950757656%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=LPMnfvC1px0bW8o420vP72oBbkm1v76A%2B0PDUw7urQY%3D&amp;reserved=0
-> >  
-> > 
-> > 
-> > 1)
-> > 
-> > A would be the struct ttm_resource itself,
-> > D would be struct i915_resource,
-> > B would be struct ttm_range_mgr_node,
-> > C would be struct i915_ttm_buddy_resource
-> > 
-> > And we need to resolve the ambiguity using the awkward union 
-> > construct, iff we need to derive from both B and C.
-> > 
-> > Struct ttm_buffer_object and struct ttm_tt instead have B) and C) 
-> > being dynamic backends of A) or a single type derived from A) Hence
-> > the problem doesn't exist for these types.
-> > 
-> > So the question from last email remains, if ditching this RFC, can
-> > we 
-> > have B) and C) implemented by helpers that can be used from D) and 
-> > that don't derive from A?
+>>>
+>>>>
+>>>> Also, I think comment should explain what is logical space ie. how the
+>>>> numbering works.
+>>>>
+>>>
+>>> Don't I already do that? I suppose I could add something like:
+>>
+>> Where is it? Can't see it in the uapi kerneldoc AFAICS (for the new query)
+>> or here.
+>>
 > 
-> Well we already have that in the form of drm_mm. I mean the 
-> ttm_range_manager is just a relatively small glue code which
-> implements 
-> the TTMs resource interface using the drm_mm object and a spinlock.
-> IIRC 
-> that less than 200 lines of code.
+> 	/**
+> 	 * @logical_mask: logical mask of engine, reported to user space via
+> 	 * query IOCTL and used to communicate with the GuC in logical space
+> 	 */
+>   
+>>>
+>>> The logical mask within engine class must be contiguous across all
+>>> instances.
+>>
+>> Best not to start mentioning the mask for the first time. Just explain what
+>> logical numbering is in terms of how engines are enumerated in order of
+>> physical instances but skipping the fused off ones. In the kerneldoc for the
+>> new query is I think the right place.
+>>
 > 
-> So you should already have the necessary helpers and just need to 
-> implement the resource manager as far as I can see.
+> Maybe I can add:
 > 
-> I mean I reused the ttm_range_manager_node in for amdgpu_gtt_mgr and 
-> could potentially reuse a bit more of the ttm_range_manager code. But
-> I 
-> don't see that as much of an issue, the extra functionality there is 
-> just minimal.
+> The logical mapping is defined on per part basis in the bspec and can
+> very based the parts fusing.
 
-Sure but that would give up the prereq of having reusable resource
-manager implementations. What happens if someone would like to reuse
-the buddy manager? And to complicate things even more, the information
-we attach to VRAM resources also needs to be attached to system
-resources. Sure we could probably re-implement a combined system-buddy-
-range manager, but that seems like something overly complex.
+Sounds good, I think that would be useful. But in the uapi kerneldoc.
 
-The other object examples resolve the diamond inheritance with a
-pointer to the specialization (BC) and let D derive from A.
+Perhaps a cross-link to/from the kernel doc which talks about frame 
+split to explain consecutive logical instances have to be used. That 
+would tie the new query with that uapi in the narrative.
 
-TTM resources do it backwards. If we can just recognize that and ponder
-what's the easiest way to resolve this given the current design, I
-actually think we'd arrive at a backpointer to allow downcasting from A
-to D.
+Regards,
 
-Thanks,
-Thomas
+Tvrtko
 
-
-
+>>>> Not sure the part about GuC needs to be in the comment since uapi is
+>>>> supposed to be backend agnostic.
+>>>>
+>>>
+>>> Communicating with the GuC in logical space is a pretty key point here.
+>>> The communication with the GuC in logical space is backend specific but
+>>> how our hardware works (e.g. split frame workloads must be placed
+>>> logical contiguous) is not. Mentioning the GuC requirement here makes
+>>> sense to me for completeness.
+>>
+>> Yeah might be, I was thinking more about the new query. Query definitely is
+>> backend agnostic but yes it is fine to say in the comment here the new field
+>> is used both for the query and for communicating with GuC.
+>>
 > 
-> Regards,
-> Christian.
+> Sounds good, will make it clear it used for the query and from
+> communicating with the GuC.
 > 
-> > 
-> > Thanks,
-> > 
-> > Thomas
-> > 
-> > 
-> > 
-> 
-
-
+> Matt
+>   
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>
+>>> Matt
+>>>
+>>>> Regards,
+>>>>
+>>>> Tvrtko
+>>>>
+>>>>>     	u8 class;
+>>>>>     	u8 instance;
+>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+>>>>> index cafb0608ffb4..813a6de01382 100644
+>>>>> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+>>>>> @@ -3875,6 +3875,7 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+>>>>>     		ve->siblings[ve->num_siblings++] = sibling;
+>>>>>     		ve->base.mask |= sibling->mask;
+>>>>> +		ve->base.logical_mask |= sibling->logical_mask;
+>>>>>     		/*
+>>>>>     		 * All physical engines must be compatible for their emission
+>>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+>>>>> index 6926919bcac6..9f5f43a16182 100644
+>>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+>>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+>>>>> @@ -176,7 +176,7 @@ static void guc_mapping_table_init(struct intel_gt *gt,
+>>>>>     	for_each_engine(engine, gt, id) {
+>>>>>     		u8 guc_class = engine_class_to_guc_class(engine->class);
+>>>>> -		system_info->mapping_table[guc_class][engine->instance] =
+>>>>> +		system_info->mapping_table[guc_class][ilog2(engine->logical_mask)] =
+>>>>>     			engine->instance;
+>>>>>     	}
+>>>>>     }
+>>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>>>> index e0eed70f9b92..ffafbac7335e 100644
+>>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>>>> @@ -1401,23 +1401,6 @@ static int deregister_context(struct intel_context *ce, u32 guc_id, bool loop)
+>>>>>     	return __guc_action_deregister_context(guc, guc_id, loop);
+>>>>>     }
+>>>>> -static intel_engine_mask_t adjust_engine_mask(u8 class, intel_engine_mask_t mask)
+>>>>> -{
+>>>>> -	switch (class) {
+>>>>> -	case RENDER_CLASS:
+>>>>> -		return mask >> RCS0;
+>>>>> -	case VIDEO_ENHANCEMENT_CLASS:
+>>>>> -		return mask >> VECS0;
+>>>>> -	case VIDEO_DECODE_CLASS:
+>>>>> -		return mask >> VCS0;
+>>>>> -	case COPY_ENGINE_CLASS:
+>>>>> -		return mask >> BCS0;
+>>>>> -	default:
+>>>>> -		MISSING_CASE(class);
+>>>>> -		return 0;
+>>>>> -	}
+>>>>> -}
+>>>>> -
+>>>>>     static void guc_context_policy_init(struct intel_engine_cs *engine,
+>>>>>     				    struct guc_lrc_desc *desc)
+>>>>>     {
+>>>>> @@ -1459,8 +1442,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+>>>>>     	desc = __get_lrc_desc(guc, desc_idx);
+>>>>>     	desc->engine_class = engine_class_to_guc_class(engine->class);
+>>>>> -	desc->engine_submit_mask = adjust_engine_mask(engine->class,
+>>>>> -						      engine->mask);
+>>>>> +	desc->engine_submit_mask = engine->logical_mask;
+>>>>>     	desc->hw_context_desc = ce->lrc.lrca;
+>>>>>     	desc->priority = ce->guc_state.prio;
+>>>>>     	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
+>>>>> @@ -3260,6 +3242,7 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+>>>>>     		}
+>>>>>     		ve->base.mask |= sibling->mask;
+>>>>> +		ve->base.logical_mask |= sibling->logical_mask;
+>>>>>     		if (n != 0 && ve->base.class != sibling->class) {
+>>>>>     			DRM_DEBUG("invalid mixing of engine class, sibling %d, already %d\n",
+>>>>>
