@@ -2,50 +2,50 @@ Return-Path: <SRS0=u2GV=OE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 850FDC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 18:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB6C4C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 18:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 45CEF6109E
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 18:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 45CEF6109E
+	by mail.kernel.org (Postfix) with ESMTPS id 7A8F06109E
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 18:27:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7A8F06109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C80F389E43;
-	Tue, 14 Sep 2021 18:27:41 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4158489E3F
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 18:27:40 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10107"; a="307648309"
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="307648309"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 11:27:24 -0700
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="470310784"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 082A56E532;
+	Tue, 14 Sep 2021 18:27:48 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3978689E47
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 18:27:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10107"; a="221763336"
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="221763336"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 11:27:42 -0700
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="544230873"
 Received: from lveltman-mobl.ger.corp.intel.com (HELO localhost)
  ([10.251.216.6])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 11:27:22 -0700
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 11:27:39 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com, Dave Airlie <airlied@gmail.com>,
  Dave Airlie <airlied@redhat.com>
-Date: Tue, 14 Sep 2021 21:25:17 +0300
-Message-Id: <d6ade757eef202415c09e8633b9e7a2b7ebfd06a.1631643729.git.jani.nikula@intel.com>
+Date: Tue, 14 Sep 2021 21:25:20 +0300
+Message-Id: <117ae634730292a1283ac4eec2c9e7c32f3a6be7.1631643729.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1631643729.git.jani.nikula@intel.com>
 References: <cover.1631643729.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/24] drm/i915: constify the dpll clock vtable
+Subject: [Intel-gfx] [PATCH 22/24] drm/i915: constify display function vtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,126 +63,178 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-Most the dpll vtable into read-only memory.
+Make nice clear tables instead of having things in two places.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  6 +--
- drivers/gpu/drm/i915/display/intel_dpll.c    | 48 ++++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_display.c | 81 ++++++++++++--------
  drivers/gpu/drm/i915/i915_drv.h              |  2 +-
- 3 files changed, 44 insertions(+), 12 deletions(-)
+ 2 files changed, 52 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 49d7f0468002..36810c5181b3 100644
+index 36810c5181b3..dcdb7db313e4 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6821,10 +6821,10 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
- 		crtc_state->update_wm_post = true;
+@@ -3789,7 +3789,7 @@ static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
  
- 	if (mode_changed && crtc_state->hw.enable &&
--	    dev_priv->dpll_funcs.crtc_compute_clock &&
-+	    dev_priv->dpll_funcs &&
- 	    !crtc_state->bigjoiner_slave &&
- 	    !drm_WARN_ON(&dev_priv->drm, crtc_state->shared_dpll)) {
--		ret = dev_priv->dpll_funcs.crtc_compute_clock(crtc_state);
-+		ret = dev_priv->dpll_funcs->crtc_compute_clock(crtc_state);
- 		if (ret)
- 			return ret;
- 	}
-@@ -8851,7 +8851,7 @@ static void intel_modeset_clear_plls(struct intel_atomic_state *state)
- 	struct intel_crtc *crtc;
- 	int i;
+ 	drm_WARN_ON(&dev_priv->drm, IS_ERR(temp_crtc_state) || ret);
  
--	if (!dev_priv->dpll_funcs.crtc_compute_clock)
-+	if (!dev_priv->dpll_funcs)
+-	dev_priv->display.crtc_disable(to_intel_atomic_state(state), crtc);
++	dev_priv->display->crtc_disable(to_intel_atomic_state(state), crtc);
+ 
+ 	drm_atomic_state_put(state);
+ 
+@@ -5994,7 +5994,7 @@ static bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state)
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 
+-	if (!i915->display.get_pipe_config(crtc, crtc_state))
++	if (!i915->display->get_pipe_config(crtc, crtc_state))
+ 		return false;
+ 
+ 	crtc_state->hw.active = true;
+@@ -9802,7 +9802,7 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
+ 
+ 	intel_crtc_update_active_timings(new_crtc_state);
+ 
+-	dev_priv->display.crtc_enable(state, crtc);
++	dev_priv->display->crtc_enable(state, crtc);
+ 
+ 	if (new_crtc_state->bigjoiner_slave)
  		return;
+@@ -9890,7 +9890,7 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
+ 	 */
+ 	intel_crtc_disable_pipe_crc(crtc);
  
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 9326c7cbb05c..231b337df166 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1363,25 +1363,57 @@ static int i8xx_crtc_compute_clock(struct intel_crtc_state *crtc_state)
- 	return 0;
+-	dev_priv->display.crtc_disable(state, crtc);
++	dev_priv->display->crtc_disable(state, crtc);
+ 	crtc->active = false;
+ 	intel_fbc_disable(crtc);
+ 	intel_disable_shared_dpll(old_crtc_state);
+@@ -10269,7 +10269,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	}
+ 
+ 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
+-	dev_priv->display.commit_modeset_enables(state);
++	dev_priv->display->commit_modeset_enables(state);
+ 
+ 	if (state->modeset) {
+ 		intel_encoders_update_complete(state);
+@@ -11272,6 +11272,46 @@ static const struct drm_mode_config_funcs intel_mode_funcs = {
+ 	.atomic_state_free = intel_atomic_state_free,
+ };
+ 
++static const struct drm_i915_display_funcs skl_display_funcs = {
++	.get_pipe_config = hsw_get_pipe_config,
++	.crtc_enable = hsw_crtc_enable,
++	.crtc_disable = hsw_crtc_disable,
++	.commit_modeset_enables = skl_commit_modeset_enables,
++	.get_initial_plane_config = skl_get_initial_plane_config,
++};
++
++static const struct drm_i915_display_funcs ddi_display_funcs = {
++	.get_pipe_config = hsw_get_pipe_config,
++	.crtc_enable = hsw_crtc_enable,
++	.crtc_disable = hsw_crtc_disable,
++	.commit_modeset_enables = intel_commit_modeset_enables,
++	.get_initial_plane_config = i9xx_get_initial_plane_config,
++};
++
++static const struct drm_i915_display_funcs pch_split_display_funcs = {
++	.get_pipe_config = ilk_get_pipe_config,
++	.crtc_enable = ilk_crtc_enable,
++	.crtc_disable = ilk_crtc_disable,
++	.commit_modeset_enables = intel_commit_modeset_enables,
++	.get_initial_plane_config = i9xx_get_initial_plane_config,
++};
++
++static const struct drm_i915_display_funcs vlv_display_funcs = {
++	.get_pipe_config = i9xx_get_pipe_config,
++	.crtc_enable = valleyview_crtc_enable,
++	.crtc_disable = i9xx_crtc_disable,
++	.commit_modeset_enables = intel_commit_modeset_enables,
++	.get_initial_plane_config = i9xx_get_initial_plane_config,
++};
++
++static const struct drm_i915_display_funcs i9xx_display_funcs = {
++	.get_pipe_config = i9xx_get_pipe_config,
++	.crtc_enable = i9xx_crtc_enable,
++	.crtc_disable = i9xx_crtc_disable,
++	.commit_modeset_enables = intel_commit_modeset_enables,
++	.get_initial_plane_config = i9xx_get_initial_plane_config,
++};
++
+ /**
+  * intel_init_display_hooks - initialize the display modesetting hooks
+  * @dev_priv: device private
+@@ -11287,38 +11327,19 @@ void intel_init_display_hooks(struct drm_i915_private *dev_priv)
+ 	intel_dpll_init_clock_hook(dev_priv);
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 9) {
+-		dev_priv->display.get_pipe_config = hsw_get_pipe_config;
+-		dev_priv->display.crtc_enable = hsw_crtc_enable;
+-		dev_priv->display.crtc_disable = hsw_crtc_disable;
++		dev_priv->display = &skl_display_funcs;
+ 	} else if (HAS_DDI(dev_priv)) {
+-		dev_priv->display.get_pipe_config = hsw_get_pipe_config;
+-		dev_priv->display.crtc_enable = hsw_crtc_enable;
+-		dev_priv->display.crtc_disable = hsw_crtc_disable;
++		dev_priv->display = &ddi_display_funcs;
+ 	} else if (HAS_PCH_SPLIT(dev_priv)) {
+-		dev_priv->display.get_pipe_config = ilk_get_pipe_config;
+-		dev_priv->display.crtc_enable = ilk_crtc_enable;
+-		dev_priv->display.crtc_disable = ilk_crtc_disable;
++		dev_priv->display = &pch_split_display_funcs;
+ 	} else if (IS_CHERRYVIEW(dev_priv) ||
+ 		   IS_VALLEYVIEW(dev_priv)) {
+-		dev_priv->display.get_pipe_config = i9xx_get_pipe_config;
+-		dev_priv->display.crtc_enable = valleyview_crtc_enable;
+-		dev_priv->display.crtc_disable = i9xx_crtc_disable;
++		dev_priv->display = &vlv_display_funcs;
+ 	} else {
+-		dev_priv->display.get_pipe_config = i9xx_get_pipe_config;
+-		dev_priv->display.crtc_enable = i9xx_crtc_enable;
+-		dev_priv->display.crtc_disable = i9xx_crtc_disable;
++		dev_priv->display = &i9xx_display_funcs;
+ 	}
+ 
+ 	intel_fdi_init_hook(dev_priv);
+-
+-	if (DISPLAY_VER(dev_priv) >= 9) {
+-		dev_priv->display.commit_modeset_enables = skl_commit_modeset_enables;
+-		dev_priv->display.get_initial_plane_config = skl_get_initial_plane_config;
+-	} else {
+-		dev_priv->display.commit_modeset_enables = intel_commit_modeset_enables;
+-		dev_priv->display.get_initial_plane_config = i9xx_get_initial_plane_config;
+-	}
+-
  }
  
-+static const struct intel_dpll_funcs hsw_dpll_funcs = {
-+	.crtc_compute_clock = hsw_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs ilk_dpll_funcs = {
-+	.crtc_compute_clock = ilk_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs chv_dpll_funcs = {
-+	.crtc_compute_clock = chv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs vlv_dpll_funcs = {
-+	.crtc_compute_clock = vlv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs g4x_dpll_funcs = {
-+	.crtc_compute_clock = g4x_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs pnv_dpll_funcs = {
-+	.crtc_compute_clock = pnv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs i9xx_dpll_funcs = {
-+	.crtc_compute_clock = i9xx_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs i8xx_dpll_funcs = {
-+	.crtc_compute_clock = i8xx_crtc_compute_clock,
-+};
-+
- void
- intel_dpll_init_clock_hook(struct drm_i915_private *dev_priv)
- {
- 	if (DISPLAY_VER(dev_priv) >= 9 || HAS_DDI(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = hsw_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &hsw_dpll_funcs;
- 	else if (HAS_PCH_SPLIT(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = ilk_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &ilk_dpll_funcs;
- 	else if (IS_CHERRYVIEW(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = chv_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &chv_dpll_funcs;
- 	else if (IS_VALLEYVIEW(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = vlv_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &vlv_dpll_funcs;
- 	else if (IS_G4X(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = g4x_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &g4x_dpll_funcs;
- 	else if (IS_PINEVIEW(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = pnv_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &pnv_dpll_funcs;
- 	else if (DISPLAY_VER(dev_priv) != 2)
--		dev_priv->dpll_funcs.crtc_compute_clock = i9xx_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &i9xx_dpll_funcs;
- 	else
--		dev_priv->dpll_funcs.crtc_compute_clock = i8xx_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &i8xx_dpll_funcs;
- }
+ void intel_modeset_init_hw(struct drm_i915_private *i915)
+@@ -11746,7 +11767,7 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ 		 * can even allow for smooth boot transitions if the BIOS
+ 		 * fb is large enough for the active pipe configuration.
+ 		 */
+-		i915->display.get_initial_plane_config(crtc, &plane_config);
++		i915->display->get_initial_plane_config(crtc, &plane_config);
  
- static bool i9xx_has_pps(struct drm_i915_private *dev_priv)
+ 		/*
+ 		 * If the fb is shared between multiple heads, we'll
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index c2c127d979fe..cdab03818ecf 100644
+index 870ec3f046ab..2d0800b9b671 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -994,7 +994,7 @@ struct drm_i915_private {
- 	const struct intel_fdi_funcs *fdi_funcs;
- 
- 	/* display pll funcs */
--	struct intel_dpll_funcs dpll_funcs;
-+	const struct intel_dpll_funcs *dpll_funcs;
+@@ -990,7 +990,7 @@ struct drm_i915_private {
+ 	const struct intel_dpll_funcs *dpll_funcs;
  
  	/* Display functions */
- 	struct drm_i915_display_funcs display;
+-	struct drm_i915_display_funcs display;
++	const struct drm_i915_display_funcs *display;
+ 
+ 	/* Display internal color functions */
+ 	const struct intel_color_funcs *color_funcs;
 -- 
 2.30.2
 
