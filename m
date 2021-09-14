@@ -2,48 +2,51 @@ Return-Path: <SRS0=u2GV=OE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCF8CC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 07:18:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F3EEC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 07:28:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D7EF610A6
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 07:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9D7EF610A6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D07A860E74
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 07:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D07A860E74
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 098B46E41B;
-	Tue, 14 Sep 2021 07:18:32 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 952A46E41B
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 07:18:29 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="244239142"
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="244239142"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 00:18:27 -0700
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="469996639"
-Received: from unknown (HELO intel.com) ([10.237.72.91])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 00:18:25 -0700
-Date: Tue, 14 Sep 2021 10:19:09 +0300
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53B876E41D;
+	Tue, 14 Sep 2021 07:28:46 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2E26E41D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 07:28:44 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="218732847"
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="218732847"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 00:28:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="481691561"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga008.jf.intel.com with SMTP; 14 Sep 2021 00:28:39 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 14 Sep 2021 10:28:39 +0300
+Date: Tue, 14 Sep 2021 10:28:38 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
  manasi.d.navare@intel.com
-Message-ID: <20210914071909.GA27173@intel.com>
+Message-ID: <YUBPJrm1IZWwukS5@intel.com>
 References: <20210913143923.21119-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 In-Reply-To: <20210913143923.21119-1-vandita.kulkarni@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Patchwork-Hint: comment
 Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Enable second VDSC engine
  for higher moderates
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -113,16 +116,15 @@ On Mon, Sep 13, 2021 at 08:09:23PM +0530, Vandita Kulkarni wrote:
 > -	if (adjusted_mode->crtc_clock > dev_priv->max_cdclk_freq ||
 > +	if (adjusted_mode->crtc_clock > cdclk_state->actual.cdclk ||
 
-So in the end, we didn't have to bump CDCLK up to get rid of that?
-
-Anyways, checked with BSpec 49259, seems to make sense, was no point in
-comparing to max CDCLK, which is not even currently used.
-
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+This is wrong. We compute the cdclk based on the requirements of the
+mode/etc., not the other way around.
 
 >  	    pipe_config->bigjoiner) {
 >  		if (pipe_config->dsc.slice_count < 2) {
 >  			drm_dbg_kms(&dev_priv->drm,
 > -- 
 > 2.32.0
-> 
+
+-- 
+Ville Syrjälä
+Intel
