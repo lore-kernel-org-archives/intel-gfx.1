@@ -6,40 +6,39 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72CB0C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:45:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA817C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C85460187
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C85460187
+	by mail.kernel.org (Postfix) with ESMTPS id 85DB060187
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:46:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 85DB060187
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C11A06E49F;
-	Tue, 14 Sep 2021 13:45:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E84D89F2E;
+	Tue, 14 Sep 2021 13:46:09 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EECAB89F19;
- Tue, 14 Sep 2021 13:45:19 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5F03B89F19;
+ Tue, 14 Sep 2021 13:46:08 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id EAB1BA01BB;
- Tue, 14 Sep 2021 13:45:19 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5B203A01BB;
+ Tue, 14 Sep 2021 13:46:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Imran Khan" <imran.f.khan@oracle.com>
+To: "Jason Gunthorpe" <jgg@nvidia.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Sep 2021 13:45:19 -0000
-Message-ID: <163162711995.3455.10758271315536785044@emeril.freedesktop.org>
+Date: Tue, 14 Sep 2021 13:46:08 -0000
+Message-ID: <163162716836.3457.7678314993820239786@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210914042345.1919996-1-imran.f.khan@oracle.com>
-In-Reply-To: <20210914042345.1919996-1-imran.f.khan@oracle.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBs?=
- =?utf-8?q?ib=2C_stackdepot=3A_Add_helper_to_print_stack_entries_into_buff?=
- =?utf-8?b?ZXIu?=
+References: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
+In-Reply-To: <0-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBN?=
+ =?utf-8?q?ove_vfio=5Fccw_to_the_new_mdev_API_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,17 +57,17 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: lib, stackdepot: Add helper to print stack entries into buffer.
-URL   : https://patchwork.freedesktop.org/series/94655/
+Series: Move vfio_ccw to the new mdev API (rev2)
+URL   : https://patchwork.freedesktop.org/series/94520/
 State : failure
 
 == Summary ==
 
-Applying: lib, stackdepot: Add helper to print stack entries into buffer.
-error: sha1 information is lacking or useless (include/linux/stackdepot.h).
+Applying: Move vfio_ccw to the new mdev API
+error: sha1 information is lacking or useless (drivers/s390/cio/vfio_ccw_fsm.c).
 error: could not build fake ancestor
 hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 lib, stackdepot: Add helper to print stack entries into buffer.
+Patch failed at 0001 Move vfio_ccw to the new mdev API
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
 To restore the original branch and stop patching, run "git am --abort".
