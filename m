@@ -2,55 +2,51 @@ Return-Path: <SRS0=u2GV=OE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1EBEC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 21:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDFA1C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 21:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A22A461178
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 21:15:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A22A461178
+	by mail.kernel.org (Postfix) with ESMTPS id 8820461183
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 21:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8820461183
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E36BF6E824;
-	Tue, 14 Sep 2021 21:15:22 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20F466E824;
- Tue, 14 Sep 2021 21:15:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10107"; a="222175013"
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="222175013"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 14:15:21 -0700
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="508312014"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 14:15:21 -0700
-Date: Tue, 14 Sep 2021 14:10:22 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: Dave Airlie <airlied@gmail.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, john.c.harrison@intel.com
-Message-ID: <20210914211022.GA15442@jons-linux-dev-box>
-References: <20210914044933.22932-1-matthew.brost@intel.com>
- <20210914044933.22932-2-matthew.brost@intel.com>
- <CAPM=9tzHmYkf_y2W_1TO2MPeohFQ9MzkTD1s0gmpNgLcWbX1NA@mail.gmail.com>
- <20210914153656.GA23874@jons-linux-dev-box>
- <YUEAb30j+TPBMKGN@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9450D6E823;
+	Tue, 14 Sep 2021 21:19:42 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1B926E821
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 21:19:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10107"; a="222187453"
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="222187453"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 14:19:41 -0700
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="482026285"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 14:19:41 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Tue, 14 Sep 2021 14:25:04 -0700
+Message-Id: <20210914212507.177511-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210914212507.177511-1-jose.souza@intel.com>
+References: <20210914212507.177511-1-jose.souza@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YUEAb30j+TPBMKGN@phenom.ffwll.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915: Do not define vma on stack
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 2/5] drm/i915/display: Wait at least 2 frames
+ before selective update
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,116 +62,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 14, 2021 at 10:05:03PM +0200, Daniel Vetter wrote:
-> On Tue, Sep 14, 2021 at 08:36:56AM -0700, Matthew Brost wrote:
-> > On Tue, Sep 14, 2021 at 03:04:59PM +1000, Dave Airlie wrote:
-> > > On Tue, 14 Sept 2021 at 14:55, Matthew Brost <matthew.brost@intel.com> wrote:
-> > > >
-> > > > From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> > > >
-> > > > Defining vma on stack can cause stack overflow, if
-> > > > vma gets populated with new fields.
-> > > 
-> > > Is there some higher level locking stopping that from getting trashed?
-> > > or a guarantee that uc_fw_bind_ggtt is only entered by one thread at a
-> > > time?
-> > > 
-> > 
-> > I believe this function is only called during driver load (inherently
-> > one thread) or during a GT reset (protected by reset mutex) so at most 1
-> > thread can be executing this code at once, thus it is safe to use a
-> > global dummy vma in this function.
-> 
-> This kind of stuff must be documented in kerneldoc comments. Please use
-> the inline struct member format.
-> 
+BSpec states that the minimum number of frames before selective update
+is 2, so making sure this minimum limit is fulfilled.
 
-Forgot to include kerneldoc for this new field, will add.
+BSpec: 50422
+Reviewed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Also please document the other fields in that struct, cant hurt :-)
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 36816abb3bcc0..567c7ceef8dba 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -510,7 +510,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 	if (DISPLAY_VER(dev_priv) >= 10 && DISPLAY_VER(dev_priv) <= 12)
+ 		val |= EDP_Y_COORDINATE_ENABLE;
+ 
+-	val |= EDP_PSR2_FRAME_BEFORE_SU(intel_dp->psr.sink_sync_latency + 1);
++	val |= EDP_PSR2_FRAME_BEFORE_SU(max_t(u8, intel_dp->psr.sink_sync_latency + 1, 2));
+ 	val |= intel_psr2_get_tp_time(intel_dp);
+ 
+ 	/* Wa_22012278275:adl-p */
+-- 
+2.33.0
 
-I'll see what I can do but I didn't write this code and may not fully
-understand all the fields off hand.
-
-Matt
-
-> -Daniel
-> 
-> > 
-> > Matt
-> > 
-> > > Dave.
-> > > 
-> > > >
-> > > > Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> > > > Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> > > > Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > > > ---
-> > > >  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 18 +++++++++---------
-> > > >  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h |  2 ++
-> > > >  2 files changed, 11 insertions(+), 9 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> > > > index 3a16d08608a5..f632dbd32b42 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> > > > @@ -413,20 +413,20 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
-> > > >  {
-> > > >         struct drm_i915_gem_object *obj = uc_fw->obj;
-> > > >         struct i915_ggtt *ggtt = __uc_fw_to_gt(uc_fw)->ggtt;
-> > > > -       struct i915_vma dummy = {
-> > > > -               .node.start = uc_fw_ggtt_offset(uc_fw),
-> > > > -               .node.size = obj->base.size,
-> > > > -               .pages = obj->mm.pages,
-> > > > -               .vm = &ggtt->vm,
-> > > > -       };
-> > > > +       struct i915_vma *dummy = &uc_fw->dummy;
-> > > > +
-> > > > +       dummy->node.start = uc_fw_ggtt_offset(uc_fw);
-> > > > +       dummy->node.size = obj->base.size;
-> > > > +       dummy->pages = obj->mm.pages;
-> > > > +       dummy->vm = &ggtt->vm;
-> > > >
-> > > >         GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
-> > > > -       GEM_BUG_ON(dummy.node.size > ggtt->uc_fw.size);
-> > > > +       GEM_BUG_ON(dummy->node.size > ggtt->uc_fw.size);
-> > > >
-> > > >         /* uc_fw->obj cache domains were not controlled across suspend */
-> > > > -       drm_clflush_sg(dummy.pages);
-> > > > +       drm_clflush_sg(dummy->pages);
-> > > >
-> > > > -       ggtt->vm.insert_entries(&ggtt->vm, &dummy, I915_CACHE_NONE, 0);
-> > > > +       ggtt->vm.insert_entries(&ggtt->vm, dummy, I915_CACHE_NONE, 0);
-> > > >  }
-> > > >
-> > > >  static void uc_fw_unbind_ggtt(struct intel_uc_fw *uc_fw)
-> > > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-> > > > index 99bb1fe1af66..693cc0ebcd63 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-> > > > @@ -10,6 +10,7 @@
-> > > >  #include "intel_uc_fw_abi.h"
-> > > >  #include "intel_device_info.h"
-> > > >  #include "i915_gem.h"
-> > > > +#include "i915_vma.h"
-> > > >
-> > > >  struct drm_printer;
-> > > >  struct drm_i915_private;
-> > > > @@ -75,6 +76,7 @@ struct intel_uc_fw {
-> > > >         bool user_overridden;
-> > > >         size_t size;
-> > > >         struct drm_i915_gem_object *obj;
-> > > > +       struct i915_vma dummy;
-> > > >
-> > > >         /*
-> > > >          * The firmware build process will generate a version header file with major and
-> > > > --
-> > > > 2.32.0
-> > > >
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
