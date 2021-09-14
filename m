@@ -2,83 +2,168 @@ Return-Path: <SRS0=u2GV=OE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7BE2C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 12:25:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D78EC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 12:25:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9289160FED
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 12:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9289160FED
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6A06660F6F
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 12:25:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A06660F6F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDB3889D83;
-	Tue, 14 Sep 2021 12:24:59 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2347D6E47A;
- Tue, 14 Sep 2021 11:25:40 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id i3so8961574wmq.3;
- Tue, 14 Sep 2021 04:25:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Q5xCNZRfsW9YhsltTaL5l8iwaYOFMsNiuAvcB1mol2g=;
- b=CHN0S94ZfEhV3MTCXevFs3OT/rlvRv1Jct153FrQzVj2RjPGYrUkA5paT0Xr1gVFnS
- avZtiTOy8jW5Aigzx//MxBHh8b1pKPJykpiZkET2veQ2ZfFE8guA1H2m6u9LaugJcmVF
- csdtIkEcN7vfMHs9k2EcQsIH76ZH7llfQ824W+D9tWopwFPsEHggdukRkZ/Hsjy2M+lK
- pAVjH+WVqvYG4bdvGewgreW00Wvd2RIvHF6gZNp9wQ9vVyYC+l4zRGEjlHYF9661msVP
- 3tRxb0XPKzWgoG34OCO0lw1BX+m3Oy03iJVH4HooK/DC4DkrlNMh2CmPkJ9c0S4LOYBD
- Z2hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Q5xCNZRfsW9YhsltTaL5l8iwaYOFMsNiuAvcB1mol2g=;
- b=rcKOIxqsECHFPFCVg46R6Z7s89qNhZHOBy/KnfZodSZhTQHdfeEGQHCl2PKCvZU5Z3
- ubUSAHwB6OIqd3QTikRNbnFXb9qzc2eyq9c5VMpgEFmvO7RR0n7M1Apl2Cr3kXEQ5cY3
- Y8cPED3Xrob+jJ381lZKDJT/zDBaAhCHZnbhGrTVVaxIp63Lwm4JtPenCMHxnHrIWYbt
- Vs2UPNgYJlk5sTh+gU0bH2czf9oa0yf1GBWjmyYeE0Z+90u4mkgBnFzGddOONCZGbZik
- km43b1mAEJnucwZKfPMayxyXmADQVdinib9qNHl/C5taLVw/I366xy49d5gm/I+ByTcI
- OKtg==
-X-Gm-Message-State: AOAM533CUhocGT6zy23g7kJA2166t4oKfgDdxWZIkJ1kJCf92XEM4NH1
- hZ49HqEgJJSuQcicCnxgwe73R2tZsv7TDuGr
-X-Google-Smtp-Source: ABdhPJznhGSWS3eOlmDxoHwitHR0ajKmFS7aEhck6TKCIKibVg27EwxRS7lb+qUbKspEnS3fOG/E0A==
-X-Received: by 2002:a7b:c048:: with SMTP id u8mr1605129wmc.113.1631618738591; 
- Tue, 14 Sep 2021 04:25:38 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id c23sm870196wmb.37.2021.09.14.04.25.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Sep 2021 04:25:38 -0700 (PDT)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org
-Cc: daniel@ffwll.ch, intel-gfx@lists.freedesktop.org
-References: <20210913131707.45639-1-christian.koenig@amd.com>
- <20210913131707.45639-2-christian.koenig@amd.com>
- <1eee4105-e154-9d1d-b92b-d17c6f8f8432@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <abeccf85-13d1-9e3a-26c9-1ca0f6d4c322@gmail.com>
-Date: Tue, 14 Sep 2021 13:25:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <1eee4105-e154-9d1d-b92b-d17c6f8f8432@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD63289D87;
+	Tue, 14 Sep 2021 12:25:03 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67F716E3D0;
+ Tue, 14 Sep 2021 04:25:08 +0000 (UTC)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18DNXxd8005145; 
+ Tue, 14 Sep 2021 04:23:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=corp-2021-07-09;
+ bh=LuSSPO8rPO6qQmQGMJt11MCmkYoR0fS+S+Jszci0sr0=;
+ b=c1vPNApsF3zNQZroRLetnmG2MfRHCQmqwqC0RaFRXvUL95ZyE8vgTg6oMfwfWj5q5q/B
+ U7FeToKV1fXoVesyttHbHa/3mcdh6Koqrz8TFtIqyseK5QDnCnxud0IB8NaT4HpvlDB7
+ 2fKjQR5I5vgfvi0vDdLRuFILjEYSpic8JCfEaI7aLmpVQuv2aR5Dfo1s3/89Z+UOqmLh
+ iVYSaNns+E1wwCowbRx58w9QLO8XJN8caRBuxjNeE3ppWdxVZM5ujgsvY7VkfG6Ea00F
+ 4cStm+4YXzv6j5yqwFKZutiJrK2WcrBUyuuaiJEbm1oZxW/P+X6E8BWIl4SCAOn5ilml gA== 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=corp-2020-01-29;
+ bh=LuSSPO8rPO6qQmQGMJt11MCmkYoR0fS+S+Jszci0sr0=;
+ b=A4WdMJKHw6qZaDze0SNrSrAKLeqPxz1xWeaF/xB/qV7QUQ+x2ZqVylPKxts+2YDG8FE/
+ ywcAkpNVXmYLsuSYyx6x9Hmmx17i5Vjp0mJB4MCjelUgLVWs4hSsmDRQnFoWmJFdFeXS
+ ehtSols7c3a2GXs/PFiSNBxNbQMMi01bkajdtYuiq36it56GlZaiK7D24yAH2Gd2YL9y
+ BVhbos1UuQ/LuIqa93soaw+IuXObG+a3f2iYgSIBrMTi1iJc3bQ6p/Gy0lPFbLhGFnN9
+ NMmAXe1HFQWSD31c8GbCnnkPskWVa2vH65fzoCHBui6Kr8OjAd1T0TV7A9xMKAQq70Ef Gg== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3b1ka9508x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 14 Sep 2021 04:23:57 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18E4BP7J193858;
+ Tue, 14 Sep 2021 04:23:55 GMT
+Received: from nam11-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11lp2174.outbound.protection.outlook.com [104.47.57.174])
+ by userp3020.oracle.com with ESMTP id 3b167re69e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 14 Sep 2021 04:23:55 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Vt5PydtBN5Q4rsxUrH8wDX+Hc8xiHnkG4sQUoleDQmLHskJ2Rz0XsgcBC9NoqpFr4IG0upT/BB8ubFDBhCDHBQ5HVO9YGtc5wRvL/U+aAM3PT7B3PGTrQe5i/WM9KLI0sL98VrtG1GHRsfA2pTsYZedEhZS9mEqbdv2f+WLpVYl8gAtNiBKBemZGUJTIFIIsFHnSLW7Nw4BNtmhv/YVz+KiRHE/AuYBcBio/p03Qn3av0m60g2XbLwPVwrNJ7Nrz/om5r7Ny7KM9K499i+4SDqMqgxZ8LNmcIye+BoxkfGQQCds7nDLOvhlBGYJV0xcl8xU4t9mcRm4yGvMtPVRCgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=LuSSPO8rPO6qQmQGMJt11MCmkYoR0fS+S+Jszci0sr0=;
+ b=HAsrjifo7/dZ9SajdoBr7HY0dCJCE54a4fi5gnOAc7qPVY8aOSPW2tDaFibeEPqgqxCJdyhyuu5lRluqDQTOKO3CVFSI1VA2XAlofhrptRf7NioY+wSWrBrTdSQYts20uH/HJb/b8bZtB23YP4I3KhV2rcVsEftvZHW6StbXkK5enPNKf9loyTi70MWG2QLVUOlbjKPs1nyZKGDd0L+P6ItaHbDff8J4t1YpHAzhfftc56UUFu41mkLD29+/teJd9g05aPsLDm40zBWYEnEGWrlpZQsJeqtcnC0GcCOiV75ptpV+MaD2Yk4sGajXAIE5RD905i3Cj+gWeHCUA50pkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LuSSPO8rPO6qQmQGMJt11MCmkYoR0fS+S+Jszci0sr0=;
+ b=pgNuFX6aXr0eOsdsa9iLxTVwrW+IagyESm5hx4jFd8fwMGjwacv6ZwjsI+Eezy0Zxk4rOYZjzbuOQiOnhdkxSRCXLshYBrzx3JpmCuy+OoAhc9TCnd8uxw0IMyRaYYQumLXQV0FsHIlgpCNbXZxJLprrYICNFLfJniVy0h0vFTA=
+Authentication-Results: suse.cz; dkim=none (message not signed)
+ header.d=none;suse.cz; dmarc=none action=none header.from=oracle.com;
+Received: from CO1PR10MB4468.namprd10.prod.outlook.com (2603:10b6:303:6c::24)
+ by MWHPR1001MB2319.namprd10.prod.outlook.com (2603:10b6:301:34::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Tue, 14 Sep
+ 2021 04:23:53 +0000
+Received: from CO1PR10MB4468.namprd10.prod.outlook.com
+ ([fe80::f091:1dd2:38a8:e986]) by CO1PR10MB4468.namprd10.prod.outlook.com
+ ([fe80::f091:1dd2:38a8:e986%6]) with mapi id 15.20.4500.019; Tue, 14 Sep 2021
+ 04:23:53 +0000
+From: Imran Khan <imran.f.khan@oracle.com>
+To: vbabka@suse.cz, geert@linux-m68k.org, akpm@linux-foundation.org,
+ ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com,
+ dvyukov@google.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@linux.ie, daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mm@kvack.org
+Date: Tue, 14 Sep 2021 14:23:44 +1000
+Message-Id: <20210914042345.1919996-1-imran.f.khan@oracle.com>
+X-Mailer: git-send-email 2.30.2
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-ClientProxiedBy: SYCPR01CA0016.ausprd01.prod.outlook.com
+ (2603:10c6:10:31::28) To CO1PR10MB4468.namprd10.prod.outlook.com
+ (2603:10b6:303:6c::24)
+MIME-Version: 1.0
+Received: from localhost.localdomain (110.33.47.182) by
+ SYCPR01CA0016.ausprd01.prod.outlook.com (2603:10c6:10:31::28) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Tue, 14 Sep 2021 04:23:49 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fb67ba73-b098-4407-4af5-08d9773775ce
+X-MS-TrafficTypeDiagnostic: MWHPR1001MB2319:
+X-Microsoft-Antispam-PRVS: <MWHPR1001MB23199D7326DDE7105E6440C6B0DA9@MWHPR1001MB2319.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tYxGFZLjUiDp/ZUMijY+RDihAZgUCX7HuFcLkjpLI9KgqT0NqwOv/bWH5a1OkaJcU5gx9hSqujuFFasI0fwLDNfA2eg0Ja60YJ7KXhVh74FQlLsf4XcayXytFaU8xMoSOQJyZLkL+S7l9HtdtEND7mMLpm8YC9qXUIKB/+H82fPbonytWznxA/V3+uuR1dqOyq3tpYtKlsmD796FhT1JYkv9j9tOj9AOYuOGoWx28+jppjzvze5SxxytHKzRd8TbT5Yt7PkSKga5kNczG4/Xyta5HE+zFGeuOa4tkwvidQKn9TRk78qYKre2kVqa6yDUYkpwLfAtQA6QQGiOrU9ZgeXH+60wih1YHTImdYPWHzX0XssjRa0N06NIHTuG/bX/G6OJUaLY6oOEZQ0AIrgbTyq09sZYxyPTv4SpsM9byGMQFOjkrw6TC8VoIuIXys3/jxH9BWDBfcILyQ+QHowJVRVmGd+2NKaFhv3pKPB/9VGMQBgq/hmNZSgSiPYZKXNfiNFoHggc4TkysFpdbFeo2quKIVOBqFoelcHz4eG1VdkTOf29QEszG5IZpe8feAuq8vvtIe2zD8lwdYeSET7/Jzp3JLT9NZYgoS6UZc/LtD4gSpa0Eij9Aiebum55nND49G4vjSURBo0zSEMGqsBkIDJKO1YwbmDXxyYeCn3/0kJLkunDfOKkPbUvlD+aj+JlpW64tk2GSdVdglYk2bo+xGJuPK4PeQd9MJOwKFj79e6z2LBl27ht6rO0WHZap6H9Sm1xH/N/KeiRm3Rx+hkxqYCu2q3zEv5NSaAOVSg0A+BScsRlGpEcevCuUQ4nWYqo70LnMHnY+oR87PHJMC+/IvHFIoAXChhy4TZu+jl4Gtc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR10MB4468.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(6512007)(921005)(6486002)(66946007)(956004)(4326008)(2616005)(966005)(2906002)(103116003)(5660300002)(316002)(36756003)(186003)(7416002)(508600001)(1076003)(6506007)(52116002)(26005)(8936002)(38350700002)(38100700002)(66556008)(6666004)(66476007)(8676002)(86362001)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XOjiLQDPD7XqMJM1tolZAflJ9Kr3XylHx9Eo0IGWoBhq+nKmLgvF2o7q7+3+?=
+ =?us-ascii?Q?FLqIk+Z3d1cdGmjL9HRiqF2n5uJeEcJK0c5frN1L5N/RHTgGp4SqwpqGkDNL?=
+ =?us-ascii?Q?EYW8lVLFlgG8thFju4uYRYo+7FglanPPj7jaJtcDv9WN+vYnqTDey/GX7boX?=
+ =?us-ascii?Q?GiYjFWQWpYvWvPvmQ2AjqBBU6TOBKDaGAW4KUKs0dwBiDn85gPODmVUcK1OP?=
+ =?us-ascii?Q?ztH+L8MPhOkuVxyXCPKGzBl58M2X1DPxsIgAJK26qHTiO7VU5mb5OAjsjWu9?=
+ =?us-ascii?Q?7NIrdJmcbwDLfIJGi9N0q+hecWOZgitNw+jKojN2C7i+a1Wf6WkKacLJ3YTO?=
+ =?us-ascii?Q?LOGiXGhiIcJf3DXxIjanHPUaGEmTKR0cLia0W7pHkUfE4EE0nS5S7ZkquXoQ?=
+ =?us-ascii?Q?EK0fa6yULZOXcOjFhhh/4p6gSNi8T2l2pKAxWRDHxe2jZYBF4yreJjKIndWR?=
+ =?us-ascii?Q?VAk8Dc6ZM1aXL2ObLsUDp0cTeBUq5rMtFhh/UcBgwEknkRg1ayGKgs/3++Vh?=
+ =?us-ascii?Q?KGxnJnnMRNnm7UxO7y9QaZfpCWKKS5KOgIxy+PlrWvJywbHRsAfgIf+pYo4S?=
+ =?us-ascii?Q?3ordy4bvI51kVAXuNjgpXvbUy8F5reVxKQkVP3qYM71MZrQfBk4iT3XOdr2w?=
+ =?us-ascii?Q?SbtIiGw1aJy0bsypwxWkOkElvgg80/dXkP8BlkI2Dn6TFf4TMeqKx6ZnGHkC?=
+ =?us-ascii?Q?hY0M77kx6NPA77fQD/dRnuyHR6gIiF5Actf1QoXF51UG4KHrSjlyyThgDO9R?=
+ =?us-ascii?Q?mQ0/j2tg8CVJiWHRNBkd07vpTVFUlUe+2G061JAkCRaHaL+a13vsLzAvjARf?=
+ =?us-ascii?Q?hZHricl6eGoixkXS27pGr+oZyrpjaQ0nAm1gdH+hhRSXlxjCxzyZ2zVH3Gav?=
+ =?us-ascii?Q?5a1oFg1K2oc3f5xAz0lkHYFjCZGLOXvwMCOltBR2oX6EDTNdT0+wUzOX5Myb?=
+ =?us-ascii?Q?fzvreVqUFaqNrre7Oz6+4uIRNLwat/sAS4bFZq1BiCRFkqntQocewx9J1Kzi?=
+ =?us-ascii?Q?6rrY0+FIy2rn17E6bng3IPKbDwhZ5dt+QgVYyfqLX1u7GVpiSrxdKrinGVo1?=
+ =?us-ascii?Q?hy1Qz7iixsSo1BIIT2yA+TaCc4H9EcYvO/AItFv40kd19L07Kml1b9UYKHIQ?=
+ =?us-ascii?Q?vTIGk5u5iQxid2IlJi9Hm6nneZmlKf584BfyIbcS27ujvR8te5r8j33/Mfwv?=
+ =?us-ascii?Q?nApDkaKWnWSxVkZIERET5V05MgxKqirpO+UC9rh8r3NHQtZva5AWAx2YhsXs?=
+ =?us-ascii?Q?qPUcxG+o7Dc/3Dzsa9FOCXmh+D+I/fM1UHoUO+LML16ISasEbr3kIvN+ttqW?=
+ =?us-ascii?Q?LthFkKt63IgeHMTlSTQeb2t8?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb67ba73-b098-4407-4af5-08d9773775ce
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR10MB4468.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 04:23:53.3902 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w+o7XgwjoEM+fevQVbS9ukvNco3ykGkTtgK/wLpb5FfRccNj1yaBbUPpMECyc1fVs28gtbtn8q6B4R8tA/s2zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2319
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10106
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ adultscore=0 suspectscore=0
+ phishscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
+ definitions=main-2109140024
+X-Proofpoint-GUID: cD7I0HNu_PpV4qY-32uAk-AMDzQoYCyz
+X-Proofpoint-ORIG-GUID: cD7I0HNu_PpV4qY-32uAk-AMDzQoYCyz
 X-Mailman-Approved-At: Tue, 14 Sep 2021 12:24:52 +0000
-Subject: Re: [Intel-gfx] [PATCH 01/26] dma-buf: add
- dma_resv_for_each_fence_unlocked
+Subject: [Intel-gfx] [PATCH v2 0/1] lib,
+ stackdepot: Add helper to print stack entries into buffer.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,259 +179,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 14.09.21 um 12:53 schrieb Tvrtko Ursulin:
->
-> On 13/09/2021 14:16, Christian König wrote:
->> Abstract the complexity of iterating over all the fences
->> in a dma_resv object.
->>
->> The new loop handles the whole RCU and retry dance and
->> returns only fences where we can be sure we grabbed the
->> right one.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/dma-buf/dma-resv.c | 63 ++++++++++++++++++++++++++++++++++++++
->>   include/linux/dma-resv.h   | 36 ++++++++++++++++++++++
->>   2 files changed, 99 insertions(+)
->>
->> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
->> index 84fbe60629e3..213a9b7251ca 100644
->> --- a/drivers/dma-buf/dma-resv.c
->> +++ b/drivers/dma-buf/dma-resv.c
->> @@ -323,6 +323,69 @@ void dma_resv_add_excl_fence(struct dma_resv 
->> *obj, struct dma_fence *fence)
->>   }
->>   EXPORT_SYMBOL(dma_resv_add_excl_fence);
->>   +/**
->> + * dma_resv_walk_unlocked - walk over fences in a dma_resv obj
->> + * @obj: the dma_resv object
->> + * @cursor: cursor to record the current position
->> + * @all_fences: true returns also the shared fences
->> + * @first: if we should start over
->> + *
->> + * Return all the fences in the dma_resv object which are not yet 
->> signaled.
->> + * The returned fence has an extra local reference so will stay alive.
->> + * If a concurrent modify is detected the whole iterator is started 
->> over again.
->> + */
->> +struct dma_fence *dma_resv_walk_unlocked(struct dma_resv *obj,
->> +                     struct dma_resv_cursor *cursor,
->> +                     bool all_fences, bool first)
->> +{
->> +    struct dma_fence *fence = NULL;
->> +
->> +    do {
->> +        /* Drop the reference from the previous round */
->> +        dma_fence_put(fence);
->> +
->> +        cursor->is_first = first;
->> +        if (first) {
->> +            cursor->seq = read_seqcount_begin(&obj->seq);
->> +            cursor->index = -1;
->> +            cursor->fences = dma_resv_shared_list(obj);
->> +            cursor->is_exclusive = true;
->> +
->> +            fence = dma_resv_excl_fence(obj);
->> +            if (fence && test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->> +                          &fence->flags))
->> +                fence = NULL;
->> +        } else {
->> +            fence = NULL;
->> +        }
->> +
->> +        if (fence) {
->> +            fence = dma_fence_get_rcu(fence);
->> +        } else if (all_fences && cursor->fences) {
->> +            struct dma_resv_list *fences = cursor->fences;
->
-> If rcu lock is allowed to be dropped while walking the list what 
-> guarantees list of fences hasn't been freed?
+Changes in v2:
+  - Addressed review comment.
+  - Added Acked from Vlastimil.
+  - Fixed one mistake, due to which stack_trace_snprint was always
+    getting invoked with 0 as space value.
+    Changed it to make use of space argument, because users that
+    are printing stack entries into buffer, may intend to specify
+    indentation as well.
 
-Ah, good point! We need to test the sequence number when we enter the 
-function as well. Going to fix that.
+I also observed build error reported at [4]. This is happening
+due to failure in cherry-picking this patch and this happens because
+the earlier patches (mentioned in original cover lette), are not there
+in the tree.
 
->
-> Like:
->
-> 1st call
->   -> gets seqcount
->   -> stores cursor->fences
->
-> rcu lock dropped/re-acquired
->
-> 2nd call
->   -> dereferences into cursor->fences -> boom?
->
->> +
->> +            cursor->is_exclusive = false;
->> +            while (++cursor->index < fences->shared_count) {
->> +                fence = rcu_dereference(fences->shared[
->> +                            cursor->index]);
->> +                if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->> +                          &fence->flags))
->> +                    break;
->> +            }
->> +            if (cursor->index < fences->shared_count)
->> +                fence = dma_fence_get_rcu(fence);
->> +            else
->> +                fence = NULL;
->> +        }
->> +
->> +        /* For the eventually next round */
->> +        first = true;
->> +    } while (read_seqcount_retry(&obj->seq, cursor->seq));
->> +
->> +    return fence;
->> +}
->> +EXPORT_SYMBOL_GPL(dma_resv_walk_unlocked);
->> +
->>   /**
->>    * dma_resv_copy_fences - Copy all fences from src to dst.
->>    * @dst: the destination reservation object
->> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
->> index 9100dd3dc21f..f5b91c292ee0 100644
->> --- a/include/linux/dma-resv.h
->> +++ b/include/linux/dma-resv.h
->> @@ -149,6 +149,39 @@ struct dma_resv {
->>       struct dma_resv_list __rcu *fence;
->>   };
->>   +/**
->> + * struct dma_resv_cursor - current position into the dma_resv fences
->> + * @seq: sequence number to check
->> + * @index: index into the shared fences
->> + * @shared: the shared fences
->> + * @is_first: true if this is the first returned fence
->> + * @is_exclusive: if the current fence is the exclusive one
->> + */
->> +struct dma_resv_cursor {
->> +    unsigned int seq;
->> +    unsigned int index;
->> +    struct dma_resv_list *fences;
->> +    bool is_first;
->
-> Is_first is useful to callers - like they are legitimately allowed to 
-> look inside this, what could otherwise be private object?
+Please let me know, if it would be better if I send earlier patches with
+this change as well. I can resend those patches keeping the Acked-by and
+Reviewed-by tags, obtained in those patches.
 
-Yes, I was pondering on the same question. Key point is that this is 
-only used by other dma_resv functions which also use cursor.fences for 
-example.
+[4] https://urldefense.com/v3/__https://patchwork.freedesktop.org/series/94553/__;!!ACWV5N9M2RV99hQ!f4tVsbn8O3mxUrGV-8udpN7kFqqQ84bFeSgkqV0aOmatwAJStZV0dkai1xkpsOSDpQ$
 
-So this is only supposed to be used by code working with other privates 
-of the dma_resv object as well.
+Original cover letter
+----------------------
+This change is in response to discussion at [1].
+The patch has been created on top of my earlier changes [2] and [3].
+If needed I can resend all of these patches together, though my
+earlier patches have been Acked.
 
-Maybe adding that as a comment?
+[1] https://lore.kernel.org/lkml/e6f6fb85-1d83-425b-9e36-b5784cc9e69a@suse.cz/
+[2] https://lore.kernel.org/lkml/fe94ffd8-d235-87d8-9c3d-80f7f73e0c4e@suse.cz/
+[3] https://lore.kernel.org/lkml/85f4f073-0b5a-9052-0ba9-74d450608656@suse.cz/
 
-> What is the intended use case, given when true the returned fence can 
-> be either exclusive or first from a shared list?
+Imran Khan (1):
+  lib, stackdepot: Add helper to print stack entries into buffer.
 
-To reset counters for and know that the sequence has restarted. See how 
-this is used in dma_resv_copy_fences() for example:
+ drivers/gpu/drm/drm_dp_mst_topology.c   |  5 +----
+ drivers/gpu/drm/drm_mm.c                |  5 +----
+ drivers/gpu/drm/i915/i915_vma.c         |  5 +----
+ drivers/gpu/drm/i915/intel_runtime_pm.c | 20 +++++---------------
+ include/linux/stackdepot.h              |  3 +++
+ lib/stackdepot.c                        | 24 ++++++++++++++++++++++++
+ mm/page_owner.c                         |  5 +----
+ 7 files changed, 36 insertions(+), 31 deletions(-)
 
-         rcu_read_lock();
-         dma_resv_for_each_fence_unlocked(dst, &cursor, true, f) {
-
-                 if (cursor.is_first) {
-                         dma_resv_list_free(list);
-                         dma_fence_put(excl);
-
-                         if (cursor.fences) {
-                                 unsigned int cnt = 
-cursor.fences->shared_count;
-
-                                 rcu_read_unlock();
-                                 list = dma_resv_list_alloc(cnt);
-...
-
-
->
->> +    bool is_exclusive;
->
-> Is_exclusive could be written as index == -1 in the code, right? If so 
-> then an opportunity to remove some redundancy.
-
-Correct and good point. But I want to move away a bit from the 
-exclusive/shared notation in the future and avoid that tests like index 
-== -1 spread around in the code.
-
-What we could do is to add some helper like 
-dma_resv_cursor_is_excludive(cursor) which tests that.
-
->
->> +};
->> +
->> +/**
->> + * dma_resv_for_each_fence_unlocked - fence iterator
->> + * @obj: a dma_resv object pointer
->> + * @cursor: a struct dma_resv_cursor pointer
->> + * @all_fences: true if all fences should be returned
->> + * @fence: the current fence
->> + *
->> + * Iterate over the fences in a struct dma_resv object without 
->> holding the
->> + * dma_resv::lock. The RCU read side lock must be hold when using 
->> this, but can
->> + * be dropped and re-taken as necessary inside the loop. @all_fences 
->> controls
->> + * if the shared fences are returned as well.
->> + */
->> +#define dma_resv_for_each_fence_unlocked(obj, cursor, all_fences, 
->> fence)    \
->> +    for (fence = dma_resv_walk_unlocked(obj, cursor, all_fences, 
->> true); \
->> +         fence; dma_fence_put(fence),                    \
->> +         fence = dma_resv_walk_unlocked(obj, cursor, all_fences, 
->> false))
->
-> Has the fact RCU lock can be dropped so there is potential to walk 
-> over completely different snapshots been discussed?
-
-Well that's basically the heart of the functionality. Even without 
-dropping the RCU lock there can be an restart at any time when the 
-dma_resv object is modified.
-
-> At least if I followed the code correctly - it appears there is 
-> potential the walk restarts from the start (exclusive slot) at any 
-> point during the walk.
-
-Correct, yes.
-
-> Because theoretically I think you could take an atomic snapshot of 
-> everything (given you have a cursor object) and then release it on the 
-> end condition.
-
-That's what the dma_resv_get_fences() function is good for, yes. This 
-one returns an array of fences.
-
-The key difference is that we need to allocate memory for that which is 
-at least sometimes not feasible or desired.
-
-Thanks for the review,
-Christian.
-
->
-> Regards,
->
-> Tvrtko
->
->> +
->>   #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->>   #define dma_resv_assert_held(obj) 
->> lockdep_assert_held(&(obj)->lock.base)
->>   @@ -366,6 +399,9 @@ void dma_resv_fini(struct dma_resv *obj);
->>   int dma_resv_reserve_shared(struct dma_resv *obj, unsigned int 
->> num_fences);
->>   void dma_resv_add_shared_fence(struct dma_resv *obj, struct 
->> dma_fence *fence);
->>   void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence 
->> *fence);
->> +struct dma_fence *dma_resv_walk_unlocked(struct dma_resv *obj,
->> +                     struct dma_resv_cursor *cursor,
->> +                     bool first, bool all_fences);
->>   int dma_resv_get_fences(struct dma_resv *obj, struct dma_fence 
->> **pfence_excl,
->>               unsigned *pshared_count, struct dma_fence ***pshared);
->>   int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src);
->>
+-- 
+2.30.2
 
