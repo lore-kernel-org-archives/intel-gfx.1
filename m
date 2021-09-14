@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 731D5C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 04:30:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E120C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 04:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C572610CE
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 04:30:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C572610CE
+	by mail.kernel.org (Postfix) with ESMTPS id 4CED9610F9
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 04:54:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4CED9610F9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7E026E3EB;
-	Tue, 14 Sep 2021 04:29:57 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB246E3BB;
- Tue, 14 Sep 2021 04:29:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="218696863"
-X-IronPort-AV: E=Sophos;i="5.85,291,1624345200"; d="scan'208";a="218696863"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 21:29:52 -0700
-X-IronPort-AV: E=Sophos;i="5.85,291,1624345200"; d="scan'208";a="543660556"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47D526E3D6;
+	Tue, 14 Sep 2021 04:54:42 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2616B6E3D6;
+ Tue, 14 Sep 2021 04:54:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="220001357"
+X-IronPort-AV: E=Sophos;i="5.85,291,1624345200"; d="scan'208";a="220001357"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 21:54:37 -0700
+X-IronPort-AV: E=Sophos;i="5.85,291,1624345200"; d="scan'208";a="552120062"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 21:29:47 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2021 21:54:37 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Cc: <john.c.harrison@intel.com>,
-	<daniele.ceraolospurio@intel.com>
-Date: Mon, 13 Sep 2021 21:24:45 -0700
-Message-Id: <20210914042445.29466-5-matthew.brost@intel.com>
+Cc: <john.c.harrison@intel.com>
+Date: Mon, 13 Sep 2021 21:49:31 -0700
+Message-Id: <20210914044933.22932-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210914042445.29466-1-matthew.brost@intel.com>
-References: <20210914042445.29466-1-matthew.brost@intel.com>
+In-Reply-To: <20210914044933.22932-1-matthew.brost@intel.com>
+References: <20210914044933.22932-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/guc: Refcount context during error
- capture
+Subject: [Intel-gfx] [PATCH 3/5] drm/i915/guc: Add DG1 GuC / HuC firmware
+ defs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,103 +60,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-When i915 receives a context reset notification from GuC, it triggers
-an error capture before resetting any outstanding requsts of that
-context. Unfortunately, the error capture is not a time bound
-operation. In certain situations it can take a long time, particularly
-when multiple large LMEM buffers must be read back and eoncoded. If
-this delay is longer than other timeouts (heartbeat, test recovery,
-etc.) then a full GT reset can be triggered in the middle.
+Add DG1 GuC / HuC firmware defs
 
-That can result in the context being reset by GuC actually being
-destroyed before the error capture completes and the GuC submission
-code resumes. Thus, the GuC side can start dereferencing stale
-pointers and Bad Things ensue.
-
-So add a refcount get of the context during the entire reset
-operation. That way, the context can't be destroyed part way through
-no matter what other resets or user interactions occur.
-
-v2:
- (Matthew Brost)
-  - Update patch to work with async error capture
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 24 +++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 1986a57b52cc..02917fc4d4a8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2888,6 +2888,8 @@ static void capture_worker_func(struct work_struct *w)
- 	intel_engine_set_hung_context(engine, ce);
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
- 		i915_capture_error_state(gt, ce->engine->mask);
-+
-+	intel_context_put(ce);
- }
- 
- static void capture_error_state(struct intel_guc *guc,
-@@ -2924,7 +2926,7 @@ static void guc_context_replay(struct intel_context *ce)
- 	tasklet_hi_schedule(&sched_engine->tasklet);
- }
- 
--static void guc_handle_context_reset(struct intel_guc *guc,
-+static bool guc_handle_context_reset(struct intel_guc *guc,
- 				     struct intel_context *ce)
- {
- 	trace_intel_context_reset(ce);
-@@ -2937,7 +2939,11 @@ static void guc_handle_context_reset(struct intel_guc *guc,
- 		   !context_blocked(ce))) {
- 		capture_error_state(guc, ce);
- 		guc_context_replay(ce);
-+
-+		return false;
- 	}
-+
-+	return true;
- }
- 
- int intel_guc_context_reset_process_msg(struct intel_guc *guc,
-@@ -2945,6 +2951,7 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
- {
- 	struct intel_context *ce;
- 	int desc_idx;
-+	unsigned long flags;
- 
- 	if (unlikely(len != 1)) {
- 		drm_err(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
-@@ -2952,11 +2959,24 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
- 	}
- 
- 	desc_idx = msg[0];
-+
-+	/*
-+	 * The context lookup uses the xarray but lookups only require an RCU lock
-+	 * not the full spinlock. So take the lock explicitly and keep it until the
-+	 * context has been reference count locked to ensure it can't be destroyed
-+	 * asynchronously until the reset is done.
-+	 */
-+	xa_lock_irqsave(&guc->context_lookup, flags);
- 	ce = g2h_context_lookup(guc, desc_idx);
-+	if (ce)
-+		intel_context_get(ce);
-+	xa_unlock_irqrestore(&guc->context_lookup, flags);
-+
- 	if (unlikely(!ce))
- 		return -EPROTO;
- 
--	guc_handle_context_reset(guc, ce);
-+	if (guc_handle_context_reset(guc, ce))
-+		intel_context_put(ce);
- 
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index f8cb00ffb506..a685d563df72 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -51,6 +51,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
+ 	fw_def(ALDERLAKE_P, 0, guc_def(adlp, 62, 0, 3), huc_def(tgl, 7, 9, 3)) \
+ 	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
++	fw_def(DG1,         0, guc_def(dg1, 62, 0, 0), huc_def(dg1,  7, 9, 3)) \
+ 	fw_def(ROCKETLAKE,  0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
+ 	fw_def(TIGERLAKE,   0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
+ 	fw_def(JASPERLAKE,  0, guc_def(ehl, 62, 0, 0), huc_def(ehl,  9, 0, 0)) \
 -- 
 2.32.0
 
