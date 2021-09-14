@@ -2,55 +2,75 @@ Return-Path: <SRS0=u2GV=OE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1517FC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 01:17:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BCC3C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 01:23:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2AA760F36
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 01:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B2AA760F36
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3030561151
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 01:23:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3030561151
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E930C6E301;
-	Tue, 14 Sep 2021 01:17:13 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23B0C6E301;
- Tue, 14 Sep 2021 01:17:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="285531604"
-X-IronPort-AV: E=Sophos;i="5.85,291,1624345200"; d="scan'208";a="285531604"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 18:17:11 -0700
-X-IronPort-AV: E=Sophos;i="5.85,291,1624345200"; d="scan'208";a="551981340"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2021 18:17:11 -0700
-Date: Mon, 13 Sep 2021 18:12:11 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tony.ye@intel.com, zhengguo.xu@intel.com
-Message-ID: <20210914011211.GA14967@jons-linux-dev-box>
-References: <20210820224446.30620-1-matthew.brost@intel.com>
- <20210820224446.30620-7-matthew.brost@intel.com>
- <a741a93f-7a23-6188-1455-beff457d6189@intel.com>
- <20210910004142.GA36638@jons-linux-dev-box>
- <07d15bba-998c-bd03-e0e9-88394053b610@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36BC56E2A3;
+	Tue, 14 Sep 2021 01:23:40 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5846E301
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 01:23:39 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ m7-20020a9d4c87000000b0051875f56b95so16052984otf.6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 18:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=QApNJaQ+4zf4NOG0NQxMwjGWEI23AT3h/AkJ/g+8Fgs=;
+ b=B5Ou/+YkeYt3m8Q4F5zkxmBu02DaZz1pg/FLbUK/u9KR9D6/RBSadeL749BhJffFZS
+ ddZSGbKbX7mjHwLeAJm9SOVnxFLF3RbBLh30gTW/tmeDg4J21yw/L3DWCT0XyVA8IKYj
+ MObgqrM+4P5HiRWPev07GLPN4TATag+/AXGAc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=QApNJaQ+4zf4NOG0NQxMwjGWEI23AT3h/AkJ/g+8Fgs=;
+ b=njEBP2UlBG3OV9EtZk09NrJ9kmmgtTgG4vwHxDFdsNjXzMosZlBMNYkGiwYtqb2tqf
+ Azevd4GVVImnRyRwQCu7JRYaHNmGQULFZg4BGGS8+m1jG0PjRxDqKXsUTuRJdnRKElCS
+ ovP6bB+8NUXuV6Jm1NT8nBIcjEyqH7ezeoh1OIZwR7EPmcis4ty/VGlrJs1S0mSiSQLL
+ 6zKNd5k+c2eBoN+G73gpM8MPLnG/PQsO1mxBqkl8mb9kqBmkyOFZI0ls2ec34eC9BJvu
+ cpFixgRBAOA6fw+jZtfpnQCLrz1u3YgGJj4PePiPhpL4FiW9ekH7G4/gFEuTDXbeGeja
+ iZGg==
+X-Gm-Message-State: AOAM530+oDhTJxliUW595P8sZb9PrV6opXN7TAgct67J07k/0sqLHKbe
+ MnLjjtolSwbNTPKHMEt6ArEm1dYIH/OyuGwPxyUl+A==
+X-Google-Smtp-Source: ABdhPJz81mU20V2tbBwEn6dAUEH0d4iWsffBcpOJ1p+/Gm0extfrRrbnhXl70N8M3Fw8rJM5F/QFgiqaOkCPoiRYZeo=
+X-Received: by 2002:a05:6830:719:: with SMTP id
+ y25mr12251836ots.77.1631582618692; 
+ Mon, 13 Sep 2021 18:23:38 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Sep 2021 18:23:38 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07d15bba-998c-bd03-e0e9-88394053b610@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 06/27] drm/i915/guc: Take engine PM when a
- context is pinned with GuC submission
+In-Reply-To: <20210913175747.47456-13-sean@poorly.run>
+References: <20210913175747.47456-1-sean@poorly.run>
+ <20210913175747.47456-13-sean@poorly.run>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Mon, 13 Sep 2021 18:23:38 -0700
+Message-ID: <CAE-0n507ehHX3FHDUjvsdNRXHvNUM4YRNYuE+PN=PrZb+94U+w@mail.gmail.com>
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@gmail.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [PATCH 12/14] dt-bindings: msm/dp: Add bindings for
+ HDCP registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,226 +86,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 13, 2021 at 03:26:29PM -0700, John Harrison wrote:
-> On 9/9/2021 17:41, Matthew Brost wrote:
-> > On Thu, Sep 09, 2021 at 03:46:43PM -0700, John Harrison wrote:
-> > > On 8/20/2021 15:44, Matthew Brost wrote:
-> > > > Taking a PM reference to prevent intel_gt_wait_for_idle from short
-> > > > circuiting while a scheduling of user context could be enabled.
-> > > As with earlier PM patch, needs more explanation of what the problem is and
-> > > why it is only now a problem.
-> > > 
-> > > 
-> > Same explaination, will add here.
-> > 
-> > > > v2:
-> > > >    (Daniel Vetter)
-> > > >     - Add might_lock annotations to pin / unpin function
-> > > > 
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > ---
-> > > >    drivers/gpu/drm/i915/gt/intel_context.c       |  3 ++
-> > > >    drivers/gpu/drm/i915/gt/intel_engine_pm.h     | 15 ++++++++
-> > > >    drivers/gpu/drm/i915/gt/intel_gt_pm.h         | 10 ++++++
-> > > >    .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 36 +++++++++++++++++--
-> > > >    drivers/gpu/drm/i915/intel_wakeref.h          | 12 +++++++
-> > > >    5 files changed, 73 insertions(+), 3 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-> > > > index c8595da64ad8..508cfe5770c0 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_context.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-> > > > @@ -240,6 +240,8 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
-> > > >    	if (err)
-> > > >    		goto err_post_unpin;
-> > > > +	intel_engine_pm_might_get(ce->engine);
-> > > > +
-> > > >    	if (unlikely(intel_context_is_closed(ce))) {
-> > > >    		err = -ENOENT;
-> > > >    		goto err_unlock;
-> > > > @@ -313,6 +315,7 @@ void __intel_context_do_unpin(struct intel_context *ce, int sub)
-> > > >    		return;
-> > > >    	CE_TRACE(ce, "unpin\n");
-> > > > +	intel_engine_pm_might_put(ce->engine);
-> > > >    	ce->ops->unpin(ce);
-> > > >    	ce->ops->post_unpin(ce);
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-> > > > index 17a5028ea177..3fe2ae1bcc26 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-> > > > @@ -9,6 +9,7 @@
-> > > >    #include "i915_request.h"
-> > > >    #include "intel_engine_types.h"
-> > > >    #include "intel_wakeref.h"
-> > > > +#include "intel_gt_pm.h"
-> > > >    static inline bool
-> > > >    intel_engine_pm_is_awake(const struct intel_engine_cs *engine)
-> > > > @@ -31,6 +32,13 @@ static inline bool intel_engine_pm_get_if_awake(struct intel_engine_cs *engine)
-> > > >    	return intel_wakeref_get_if_active(&engine->wakeref);
-> > > >    }
-> > > > +static inline void intel_engine_pm_might_get(struct intel_engine_cs *engine)
-> > > > +{
-> > > > +	if (!intel_engine_is_virtual(engine))
-> > > > +		intel_wakeref_might_get(&engine->wakeref);
-> > > Why doesn't this need to iterate through the physical engines of the virtual
-> > > engine?
-> > > 
-> > Yea, technically it should. This is just an annotation though to check
-> > if we do something horribly wrong in our code. If we use any physical
-> > engine in our stack this annotation should pop and we can fix it. I just
-> > don't see what making this 100% correct for virtual engines buys us. If
-> > you want I can fix this but thinking the more complex we make this
-> > annotation the less likely it just gets compiled out with lockdep off
-> > which is what we are aiming for.
-> But if the annotation is missing a fundamental lock then it is surely not
-> actually going to do any good? Not sure if you need to iterate over all
-> child engines + parent but it seems like you should be calling might_lock()
-> on at least one engine's mutex to feed the lockdep annotation.
-> 
+Quoting Sean Paul (2021-09-13 10:57:43)
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 64d8d9e5e47a..984301442653 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -21,6 +21,11 @@ properties:
+>    reg:
+>      maxItems: 1
+>
+> +  reg-names:
+> +    const: dp_controller
+> +    const: hdcp_key
+> +    const: hdcp_tz
 
-These are all inline functions so the compiler to be able to compile
-this out if lockdep is disabled. I'll fix this in the next rev.
+Perhaps we should drop reg-names and assume index 1 is hdcp_key and
+index 2 is hdcp_tz? And then make them optional by having minItems: 1 on
+the reg property.
 
-Matt 
-
-> John.
-> 
-> > Matt
-> > 
-> > > John.
-> > > 
-> > > > +	intel_gt_pm_might_get(engine->gt);
-> > > > +}
-> > > > +
-> > > >    static inline void intel_engine_pm_put(struct intel_engine_cs *engine)
-> > > >    {
-> > > >    	intel_wakeref_put(&engine->wakeref);
-> > > > @@ -52,6 +60,13 @@ static inline void intel_engine_pm_flush(struct intel_engine_cs *engine)
-> > > >    	intel_wakeref_unlock_wait(&engine->wakeref);
-> > > >    }
-> > > > +static inline void intel_engine_pm_might_put(struct intel_engine_cs *engine)
-> > > > +{
-> > > > +	if (!intel_engine_is_virtual(engine))
-> > > > +		intel_wakeref_might_put(&engine->wakeref);
-> > > > +	intel_gt_pm_might_put(engine->gt);
-> > > > +}
-> > > > +
-> > > >    static inline struct i915_request *
-> > > >    intel_engine_create_kernel_request(struct intel_engine_cs *engine)
-> > > >    {
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-> > > > index a17bf0d4592b..3c173033ce23 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-> > > > @@ -31,6 +31,11 @@ static inline bool intel_gt_pm_get_if_awake(struct intel_gt *gt)
-> > > >    	return intel_wakeref_get_if_active(&gt->wakeref);
-> > > >    }
-> > > > +static inline void intel_gt_pm_might_get(struct intel_gt *gt)
-> > > > +{
-> > > > +	intel_wakeref_might_get(&gt->wakeref);
-> > > > +}
-> > > > +
-> > > >    static inline void intel_gt_pm_put(struct intel_gt *gt)
-> > > >    {
-> > > >    	intel_wakeref_put(&gt->wakeref);
-> > > > @@ -41,6 +46,11 @@ static inline void intel_gt_pm_put_async(struct intel_gt *gt)
-> > > >    	intel_wakeref_put_async(&gt->wakeref);
-> > > >    }
-> > > > +static inline void intel_gt_pm_might_put(struct intel_gt *gt)
-> > > > +{
-> > > > +	intel_wakeref_might_put(&gt->wakeref);
-> > > > +}
-> > > > +
-> > > >    #define with_intel_gt_pm(gt, tmp) \
-> > > >    	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
-> > > >    	     intel_gt_pm_put(gt), tmp = 0)
-> > > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > > index dbf919801de2..e0eed70f9b92 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > > @@ -1550,7 +1550,12 @@ static int guc_context_pre_pin(struct intel_context *ce,
-> > > >    static int guc_context_pin(struct intel_context *ce, void *vaddr)
-> > > >    {
-> > > > -	return __guc_context_pin(ce, ce->engine, vaddr);
-> > > > +	int ret = __guc_context_pin(ce, ce->engine, vaddr);
-> > > > +
-> > > > +	if (likely(!ret && !intel_context_is_barrier(ce)))
-> > > > +		intel_engine_pm_get(ce->engine);
-> > > > +
-> > > > +	return ret;
-> > > >    }
-> > > >    static void guc_context_unpin(struct intel_context *ce)
-> > > > @@ -1559,6 +1564,9 @@ static void guc_context_unpin(struct intel_context *ce)
-> > > >    	unpin_guc_id(guc, ce);
-> > > >    	lrc_unpin(ce);
-> > > > +
-> > > > +	if (likely(!intel_context_is_barrier(ce)))
-> > > > +		intel_engine_pm_put_async(ce->engine);
-> > > >    }
-> > > >    static void guc_context_post_unpin(struct intel_context *ce)
-> > > > @@ -2328,8 +2336,30 @@ static int guc_virtual_context_pre_pin(struct intel_context *ce,
-> > > >    static int guc_virtual_context_pin(struct intel_context *ce, void *vaddr)
-> > > >    {
-> > > >    	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-> > > > +	int ret = __guc_context_pin(ce, engine, vaddr);
-> > > > +	intel_engine_mask_t tmp, mask = ce->engine->mask;
-> > > > +
-> > > > +	if (likely(!ret))
-> > > > +		for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
-> > > > +			intel_engine_pm_get(engine);
-> > > > -	return __guc_context_pin(ce, engine, vaddr);
-> > > > +	return ret;
-> > > > +}
-> > > > +
-> > > > +static void guc_virtual_context_unpin(struct intel_context *ce)
-> > > > +{
-> > > > +	intel_engine_mask_t tmp, mask = ce->engine->mask;
-> > > > +	struct intel_engine_cs *engine;
-> > > > +	struct intel_guc *guc = ce_to_guc(ce);
-> > > > +
-> > > > +	GEM_BUG_ON(context_enabled(ce));
-> > > > +	GEM_BUG_ON(intel_context_is_barrier(ce));
-> > > > +
-> > > > +	unpin_guc_id(guc, ce);
-> > > > +	lrc_unpin(ce);
-> > > > +
-> > > > +	for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
-> > > > +		intel_engine_pm_put_async(engine);
-> > > >    }
-> > > >    static void guc_virtual_context_enter(struct intel_context *ce)
-> > > > @@ -2366,7 +2396,7 @@ static const struct intel_context_ops virtual_guc_context_ops = {
-> > > >    	.pre_pin = guc_virtual_context_pre_pin,
-> > > >    	.pin = guc_virtual_context_pin,
-> > > > -	.unpin = guc_context_unpin,
-> > > > +	.unpin = guc_virtual_context_unpin,
-> > > >    	.post_unpin = guc_context_post_unpin,
-> > > >    	.ban = guc_context_ban,
-> > > > diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
-> > > > index ef7e6a698e8a..dd530ae028e0 100644
-> > > > --- a/drivers/gpu/drm/i915/intel_wakeref.h
-> > > > +++ b/drivers/gpu/drm/i915/intel_wakeref.h
-> > > > @@ -124,6 +124,12 @@ enum {
-> > > >    	__INTEL_WAKEREF_PUT_LAST_BIT__
-> > > >    };
-> > > > +static inline void
-> > > > +intel_wakeref_might_get(struct intel_wakeref *wf)
-> > > > +{
-> > > > +	might_lock(&wf->mutex);
-> > > > +}
-> > > > +
-> > > >    /**
-> > > >     * intel_wakeref_put_flags: Release the wakeref
-> > > >     * @wf: the wakeref
-> > > > @@ -171,6 +177,12 @@ intel_wakeref_put_delay(struct intel_wakeref *wf, unsigned long delay)
-> > > >    			    FIELD_PREP(INTEL_WAKEREF_PUT_DELAY, delay));
-> > > >    }
-> > > > +static inline void
-> > > > +intel_wakeref_might_put(struct intel_wakeref *wf)
-> > > > +{
-> > > > +	might_lock(&wf->mutex);
-> > > > +}
-> > > > +
-> > > >    /**
-> > > >     * intel_wakeref_lock: Lock the wakeref (mutex)
-> > > >     * @wf: the wakeref
-> 
+> +
+>    interrupts:
+>      maxItems: 1
+>
