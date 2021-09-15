@@ -2,81 +2,170 @@ Return-Path: <SRS0=l9+3=OG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04200C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2A6DC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C0BA661263
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:00:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C0BA661263
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 227A96128A
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 227A96128A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE3226ED0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 971FF6EB75;
 	Thu, 16 Sep 2021 12:00:18 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8217B6ECE7;
- Thu, 16 Sep 2021 11:31:03 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- d207-20020a1c1dd8000000b00307e2d1ec1aso4230626wmd.5; 
- Thu, 16 Sep 2021 04:31:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=nKJGab4KxNdwiRXb5cOBKKfaCdcTidREjaK9cb7+I50=;
- b=faC9MiRQTffUsa9jeg4wzjIR+8ziw8LUSd/l7eg45cOhMU4ErUSfimwL4tqzjPghpt
- LuNCyQJ86XDUiv+5Uexn+RL9LYs+ixfFp+aQXprFunAoIjC728oe5hmkbPzORbc5aD6k
- zfJkmBLyOW5jOYVf0reUr8LNw4MG983Jav4CMltaJ7frH+X9l5n9SeKDtNNK2cT3UrtQ
- FEOCUn/wY3v0dlMDfc5T8F7dOp/P67KWFS0kUBgeVRKp85tOk+VRKJC2ORsXTcr42GZi
- mk/0ZpbauxL0WZjXi9PDG/BuoT2MjcPXnMCwmPLWkBDLbo7sgUtclt0pl5onmRKZWK32
- JynA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=nKJGab4KxNdwiRXb5cOBKKfaCdcTidREjaK9cb7+I50=;
- b=3ejhpHzUmDuIzylisqTb3NC7HpJo7ySPvO6rLEqSYiU9tNp5lQ6FxHqySqSLtC4SWI
- tJz1DDQqHEVBwBPdISK8R0aIx9rL5LDDL7P6M8d/BUKTSoRFI+RVM/CCnnNHTwI2pI5w
- Y0DSxGPwrZzv1to6X6hvLoEltIxrSpLchsJJnS9xyZgJVXDJYOr14eSeuMKnyZPDWKaE
- OtVX1rSXq9qHpRe7JsPvxv2qewXTFuiBm39cz5a65hNHdu7JqNWCrihHdgnezf9PKLzl
- F9LNEc8TL4HQdQSrpENuHOWgSHro3zmiNnPZ2b3dLl34dMqcx917QlJ99i8oGA4Kn31C
- QMSg==
-X-Gm-Message-State: AOAM5314VPEeQ0c1M7UKCfu7sTTkjps9KCtZlSRWsV4fZ6O+WNGpaEY4
- DAZ+4UrRW/PPmY5Ilpf7Sxs=
-X-Google-Smtp-Source: ABdhPJyZjUH4DtJZeezkSkAZ1UqJnFkp/cGf8pQdOoCFKn3HbozqyHhH6ejvkAZtKawfIwM534rzUQ==
-X-Received: by 2002:a1c:4c14:: with SMTP id z20mr9530127wmf.82.1631791862006; 
- Thu, 16 Sep 2021 04:31:02 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- c17sm3803674wrn.54.2021.09.16.04.31.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Sep 2021 04:31:01 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch,
-	tvrtko.ursulin@linux.intel.com
-Date: Thu, 16 Sep 2021 13:30:34 +0200
-Message-Id: <20210916113042.3631-19-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210916113042.3631-1-christian.koenig@amd.com>
-References: <20210916113042.3631-1-christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B9676E9CC;
+ Wed, 15 Sep 2021 17:53:47 +0000 (UTC)
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18FGQVkA032050; 
+ Wed, 15 Sep 2021 17:53:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references :
+ content-transfer-encoding : content-type : mime-version;
+ s=corp-2021-07-09; bh=djpiZ+Iw4TesK+uaQeTOjrZ8ApiLlTS279wKi/Fpmok=;
+ b=zKfVn/Mqc1xE4x64XLRXmpSvVCJ62Twm1d236cJpZl9yPnf66sJN5O1h3sxSx5CrYynG
+ 8lmXGungbTTMcSe9my5CjeksvNiRH+PTn/AFhLifnx8WHwSlYa9WeQ78EZV/MPgDBjz+
+ ZEOS0IZ7G2fHpCyptOo6FvfQ7xifFZcP9wa/2SKhEsX1g/zi2ZrOc+tHFcsCo3Aoilof
+ 5q4MXdTXpuAHy6+XVrXJ4vcnVysiAX2kGUZurk8x56XwHf+3i6jxKj1yLBhfJ5UoFSFo
+ 1k9AC8n2C5qkOVq081ilpW0JNuAlpb6zpsIOS/2Mzq+7NCS5dkKQjUOFGQJdrkD0EITj kQ== 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references :
+ content-transfer-encoding : content-type : mime-version;
+ s=corp-2020-01-29; bh=djpiZ+Iw4TesK+uaQeTOjrZ8ApiLlTS279wKi/Fpmok=;
+ b=a5XfrbiPavTh73+Y+eCYxpGJxgeyAneBzfbm0VoSukjpNtEyckOWA56PzHWWasrfZNKZ
+ N4uD4H2fOHQNuJvq2j6XG+0YS/2DA85ANqD/JL5eYB0pKTGKEo74q8ff4v2C8dNFfkXY
+ mIvXjzz96EnV4dHXw4CkqmyA8BEizxAl2l3XkA3VPZ+0lv399xBR5cxT50kxE8b7BZT6
+ kfh4QiyehHRLR3y9u+F7ynbcMe2p6Gi7ENcEMKC3Wr5VXwjH4menpM/kJG2LkEBWX5ZJ
+ SyY90rILeVedQov5oo+RUo5E7dHg/vcRCOp1KqbwEIJlFYIEaDgGG96wHtBSi5+28kq+ lQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3b2p3mp3nn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 15 Sep 2021 17:53:37 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18FHkb8R011001;
+ Wed, 15 Sep 2021 17:53:36 GMT
+Received: from nam12-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12lp2049.outbound.protection.outlook.com [104.47.66.49])
+ by aserp3030.oracle.com with ESMTP id 3b0jgeywkk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 15 Sep 2021 17:53:35 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kXTB79vBiWsMnI5lwanDOdzOLQ138GrKLjAT6ueT8DrLoZ1XJ3ZmF1N2rF3+paQQ+LxYqkf9bLzJle/X4pSTFmZn5IsTMcGFU8rYGYk5vlR/ycKWTLcCu2PlBpZxe7qXL3zFLRx6gbs7MMYpGtGJAvXgEPv2I6UB+9Fb5gg1vgaC+3DCWWLY+4fo52pe6t0QH81fUyhPh+H/kwx8u1FUEnbuzbFkQPuHDl9ij4H2y8Ut8xulhvfXeDeBxh63Hz1onNEo+o/ppjsvxt2nknwtpazrwdppwG39mYnpjx7f3RdSdBxhLoVJFe22Uhjz0ZvQi7jm295s6n2ziz5QqO9b8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=djpiZ+Iw4TesK+uaQeTOjrZ8ApiLlTS279wKi/Fpmok=;
+ b=f3UH+543Ve8LOpISL1CKTl/atkRXkIHoPLLLUgkwOsOQK0cEv14kw6o4RLLa1M/shX2h2Lxu0YkKIxJ4To8/0jb0R4/nST5nfo14ARayhuEwY/Hj72omBNlnYV6r0a+8A+6V7pZy8b0oImuh8pY7zHIV7i5y0rWd927gg+EdyPAGnfYMvKXO0AhwlwQWzDHrQKKPH59p8PB5IdP66w8qBw04v4h30FcIRs7hIf2Y2H/azlz8RZHwj2QxPkkJeoe9daLormBDmxzGABgQXGNFsdxkYrK0ojMrXRAcZHp/UtmANyP2pxFfBFEDIMc18o20sJDB7nWgLAIpvA4SpLKQPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=djpiZ+Iw4TesK+uaQeTOjrZ8ApiLlTS279wKi/Fpmok=;
+ b=d3ZUtT44ww5GbBBWPuPNZCleqrABnJfcRts8/xdfweJizuuzFAVS5Dx5iwzCbVgsHQd8w7tNexP9ZMfcDwW/hCDlljgFiS3bEB188g8AS0IN4RaNp7u/xoPEDcsp9REh1Cntj3rso1GIaMrCzISI+MpO8/uZ7Tb6/Rn0vddny70=
+Authentication-Results: suse.cz; dkim=none (message not signed)
+ header.d=none;suse.cz; dmarc=none action=none header.from=oracle.com;
+Received: from CO1PR10MB4468.namprd10.prod.outlook.com (2603:10b6:303:6c::24)
+ by MWHPR10MB1568.namprd10.prod.outlook.com (2603:10b6:300:26::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 15 Sep
+ 2021 17:53:33 +0000
+Received: from CO1PR10MB4468.namprd10.prod.outlook.com
+ ([fe80::f091:1dd2:38a8:e986]) by CO1PR10MB4468.namprd10.prod.outlook.com
+ ([fe80::f091:1dd2:38a8:e986%6]) with mapi id 15.20.4500.019; Wed, 15 Sep 2021
+ 17:53:33 +0000
+From: Imran Khan <imran.f.khan@oracle.com>
+To: vbabka@suse.cz, geert@linux-m68k.org, akpm@linux-foundation.org,
+ ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com,
+ dvyukov@google.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@linux.ie, daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mm@kvack.org
+Date: Thu, 16 Sep 2021 03:53:19 +1000
+Message-Id: <20210915175321.3472770-2-imran.f.khan@oracle.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210915175321.3472770-1-imran.f.khan@oracle.com>
+References: <20210915175321.3472770-1-imran.f.khan@oracle.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY6PR01CA0105.ausprd01.prod.outlook.com
+ (2603:10c6:10:111::20) To CO1PR10MB4468.namprd10.prod.outlook.com
+ (2603:10b6:303:6c::24)
+MIME-Version: 1.0
+Received: from localhost.localdomain (110.33.47.182) by
+ SY6PR01CA0105.ausprd01.prod.outlook.com (2603:10c6:10:111::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 17:53:28 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a069c18a-1825-4b5e-b4a7-08d97871bbbf
+X-MS-TrafficTypeDiagnostic: MWHPR10MB1568:
+X-Microsoft-Antispam-PRVS: <MWHPR10MB15680A0B236C98FE4700A8EDB0DB9@MWHPR10MB1568.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: u3Lm5TQIlUVOZO2oecX7ouScxglXQmPxd68bP8BnIrxS8W+ksohXkLBwwCNuFMm/tlO+zm3gXbp0kqUNVSiNmJOCyC+Zzo3pYb9KfVTTVmFGvyjXT3RnKdaOUF9lu2SnZ5Pmp87jFzhjt103vADjqaW1EEMLfPVIfh1Bpu0wPscmgDhaXS6zh/MnWIdd1WPhYDrqvVdLdQ7F/MD0izMwhBPyI4bVXnM12v7xUew3jdCJoN4H+lZD0R36m+MdkGE6DtECdGJweXC06yIdMR9W4P56Q6Z47nxczab2a3dP6+KiShl2XgYi7GmjRRaRTSULdc2Zc+Ouu3xbYClVGQJsrlHG7rsplKn7yvJLg7RePFwuNiuV9QzRkeJ4OwCtKylREWVwNcq/gfNGVJ+5kLWO00vxh2bQPdvtCbVdkVfhbf5CdMf0YamtvOiQDNfpFGWji2DHWImEjTswjv5d3bW55+LvcIPweOm5uma45ACpGaOYTBBRT4cAixHvWiu93fDn9tzvqWapwEbRJlAc11Ds5IRwL2gqfPZr4tCgQXyMjBS7Pl4LkPT70S41EwFzA5/3wjOBuJrvhUnD8bJelV9NgD1QJnG2/FIpWL4JV6gVH4yRfLisV0Vd3FrRsvtiRKcBjKttDOMZhGD7DezMuXIROxxY5IpX2Ew7l4DaEajtAOpRQS6CKRUSi2grXjIeBAfCCb42ZiPj9Cv+W4uCt/sBUi5AfKbE9aizIYKb610I8Cg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR10MB4468.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(376002)(136003)(39860400002)(396003)(366004)(346002)(6486002)(66556008)(66946007)(2906002)(6666004)(921005)(66476007)(38100700002)(8936002)(6506007)(38350700002)(7416002)(956004)(2616005)(8676002)(26005)(186003)(52116002)(103116003)(36756003)(316002)(86362001)(1076003)(5660300002)(478600001)(6512007)(4326008);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Trjx/dKqg0i7yvemaymtLmhGpKWMn8ohJQp91GR+HhOkJUp0FBTwJ3SGcQuX?=
+ =?us-ascii?Q?j2M8cjnzP/hyzxZSTLdFSCD7Z/9T9IhCz1sJvvSr29iUog3lLddVtdudkqig?=
+ =?us-ascii?Q?j65K8d3CdU2P+RNNpGR1Sf7sne515aSyAKYonG+DQU0ndw7m4PFklfGAdQCV?=
+ =?us-ascii?Q?+WQg3Km1k/jD9KDuYMtF3gxDM7l71dXJJ3FgCS5lqOunP1rOB8yFJRVXfruh?=
+ =?us-ascii?Q?Z4cwWdfRa4SX+gi6KZoi4G60U1loIVkARFROvMMIY8yaUdVjoH5kUuM8y3Th?=
+ =?us-ascii?Q?Z9aeTlZUzO2B4jps4jx7nIlxrOhOUewcbTuMxPDYKgXANgzfje4DoB/DvZcI?=
+ =?us-ascii?Q?Idbld22fmjeiO78Gj1Intcx8a9pqhjdWPdJroWh993k+zenE/uJQctim2rfX?=
+ =?us-ascii?Q?7jkxD6K3fMOCDhUjE5DdGkiHWiTW53URAHFe23qYveCnz/YLM2aNYGrJtIoU?=
+ =?us-ascii?Q?XOjwC7m2Pqi4AwBMpvP5FM9ZdRQ1Y17YesNPI/x9G8XKJTWcOEMqQumQgBeg?=
+ =?us-ascii?Q?4irwfBXlIS+nncpXDL/MYzHzTUxdbwJXqU491wq+ijOi56f7YbjUSPUXU+A9?=
+ =?us-ascii?Q?XT8ajuE51/0V1tFPAR/vRVtUBacWFbhnLt0gM1N005m4aM6eXP1HKrgp4obC?=
+ =?us-ascii?Q?L4/WtWPDP5daHZlRaTneci4azcmT2T2uUQ5Z61sMu+RyedseH2sPxPJUBmC8?=
+ =?us-ascii?Q?NMcfUhhpH78xN6BkAHzQrekzbZENN/fQgGaLXO++1FNMvi3cV1XygWdEwZfk?=
+ =?us-ascii?Q?FZU0p7WCM4zzVLH0XkDEI3R4t8Io/kUn+25NjeHj66drLRXkoMYmHRou98h7?=
+ =?us-ascii?Q?4LNbeM25v+/K5qDYh3t3HMbuZPCtaJ9oUsMgSxrJWKwX8B7dok1sLpbM3D+C?=
+ =?us-ascii?Q?ot/jWJCD81KBSyYph4NH37uanLTkAqoEBWUl7V1X2vxC3QtvwyGel14GDW0b?=
+ =?us-ascii?Q?5ZEVCbvvcuoV5mo9TueMIVxQZwIQ+dkWOBIgWaom9RK0cR7nG4OD3QBAzvXc?=
+ =?us-ascii?Q?uRaV89a/vkcUls/4lwi6d2ztuWMe0FfbvrKVzbmEYIEOnCJlUEpoSZbiYbpl?=
+ =?us-ascii?Q?VqivIM46V6HEV82uxPBGxUZ0jrwTevY4ceLmVeMtLB0dkMAgvGmv2Xj28YOC?=
+ =?us-ascii?Q?cVc9YLYYKDPz+lzZOr31UwLH9RXy4P6ZOTAUnK3zaVbVzLelGTREalasmh8N?=
+ =?us-ascii?Q?Xp72OE/oJnc2OxoU0XviEKIPIRe2PMaMxYPULiA7EYh0ktXe44B8FiGy+IEr?=
+ =?us-ascii?Q?sfOzGi9gSBzmE/8B9h++P6sGJm39kbrooQreqJtLrnzSzWwvlbTLSWLAvEVf?=
+ =?us-ascii?Q?xwVxp5J2I7IsloCaLqk1apFO?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a069c18a-1825-4b5e-b4a7-08d97871bbbf
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR10MB4468.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 17:53:32.9850 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +6R+y6355P3zst+4PNstQuQc3mXzVlBTEw9S5HxG8STyHm9exRZFjBebDxJ4Loj3fJGU91Puw/+VOYTlMs8GAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR10MB1568
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10108
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ mlxscore=0
+ mlxlogscore=999 adultscore=0 bulkscore=0 spamscore=0 phishscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109030001 definitions=main-2109150105
+X-Proofpoint-GUID: 3bRBentITE57k1T5UTIDpPS-FFao9OqJ
+X-Proofpoint-ORIG-GUID: 3bRBentITE57k1T5UTIDpPS-FFao9OqJ
 X-Mailman-Approved-At: Thu, 16 Sep 2021 12:00:18 +0000
-Subject: [Intel-gfx] [PATCH 18/26] drm/i915: use new iterator in
- i915_gem_object_last_write_engine v2
+Subject: [Intel-gfx] [PATCH RESEND v2 1/3] lib,
+ stackdepot: check stackdepot handle before accessing slabs.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,43 +181,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is maybe even a fix since the RCU usage here looks incorrect.
+stack_depot_save allocates slabs that will be used for storing
+objects in future.If this slab allocation fails we may get to
+a situation where space allocation for a new stack_record fails,
+causing stack_depot_save to return 0 as handle.
+If user of this handle ends up invoking stack_depot_fetch with
+this handle value, current implementation of stack_depot_fetch
+will end up using slab from wrong index.
+To avoid this check handle value at the beginning.
 
-v2: add missing rcu_read_lock()/unlock()
+Signed-off-by: Imran Khan <imran.f.khan@oracle.com>
+Suggested-by: Vlastimil Babka <vbabka@suse.cz>
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Acked-by: Vlastimil Babka <vbabka@suse.cz>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.h | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ lib/stackdepot.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 48112b9d76df..7ff0027af7d9 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -507,16 +507,17 @@ static inline struct intel_engine_cs *
- i915_gem_object_last_write_engine(struct drm_i915_gem_object *obj)
- {
- 	struct intel_engine_cs *engine = NULL;
-+	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index 0a2e417f83cb..67439c082490 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -232,6 +232,9 @@ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+ 	struct stack_record *stack;
  
- 	rcu_read_lock();
--	fence = dma_resv_get_excl_unlocked(obj->base.resv);
-+	dma_resv_for_each_fence_unlocked(obj->base.resv, &cursor, false,
-+					 fence) {
-+		if (fence && dma_fence_is_i915(fence) &&
-+		    !dma_fence_is_signaled(fence))
-+			engine = to_request(fence)->engine;
-+	}
- 	rcu_read_unlock();
--
--	if (fence && dma_fence_is_i915(fence) && !dma_fence_is_signaled(fence))
--		engine = to_request(fence)->engine;
--	dma_fence_put(fence);
--
- 	return engine;
- }
- 
+ 	*entries = NULL;
++	if (!handle)
++		return 0;
++
+ 	if (parts.slabindex > depot_index) {
+ 		WARN(1, "slab index %d out of bounds (%d) for stack id %08x\n",
+ 			parts.slabindex, depot_index, handle);
 -- 
-2.25.1
+2.30.2
 
