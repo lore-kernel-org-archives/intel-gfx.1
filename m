@@ -2,55 +2,78 @@ Return-Path: <SRS0=Y9sQ=OF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93F37C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:38:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 960BEC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F5FB6112E
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:38:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F5FB6112E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 61F3A60E08
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:39:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 61F3A60E08
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70EC96EA2D;
-	Wed, 15 Sep 2021 20:38:45 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50DA26EA2E;
- Wed, 15 Sep 2021 20:38:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10108"; a="307970115"
-X-IronPort-AV: E=Sophos;i="5.85,296,1624345200"; d="scan'208";a="307970115"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2021 13:38:43 -0700
-X-IronPort-AV: E=Sophos;i="5.85,296,1624345200"; d="scan'208";a="508954914"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2021 13:38:43 -0700
-Date: Wed, 15 Sep 2021 13:33:45 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tony.ye@intel.com, zhengguo.xu@intel.com
-Message-ID: <20210915203345.GA17178@jons-linux-dev-box>
-References: <20210820224446.30620-1-matthew.brost@intel.com>
- <20210820224446.30620-13-matthew.brost@intel.com>
- <64a5c154-1a00-820e-2b30-d95af73937d7@intel.com>
- <20210915193115.GA1933@jons-linux-dev-box>
- <1a6800f8-24ac-ebbb-03a5-1121e86e893f@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1486EA31;
+	Wed, 15 Sep 2021 20:38:48 +0000 (UTC)
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [IPv6:2607:f8b0:4864:20::72b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738AB6EA31
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 20:38:46 +0000 (UTC)
+Received: by mail-qk1-x72b.google.com with SMTP id b64so5071903qkg.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 13:38:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=L2n2v2WT0jKdzQoBIBQPTMah26sbTTiefgydTVaSEP4=;
+ b=d+6OI8hD0xcc0Lcl7aP9MmZ0NNUzERtcj7iAdDMQqeOKFKV+VetnxuodZJdnx40Zok
+ O1rCApVW6k7bnGkuCuWr/CDrcpOHT7a/3bYGAGE+TPLQnhAcPMBss5OcIvOLe5b0gPzW
+ sSIbKhSc+2liBUqNu0qncYbwh/qU4rqWI4/5/kO4t2fsARMBMrwbVWtwYRtUiaakPrSH
+ uN0hNH3HtW+aSy2MgkjOBtMiNWV/29Uh5jndcCVjZzHpvzNGIQy+YMBbIxlQbfSwrrGJ
+ MhqifMnbC01UddKQ2cuCUjkUejM6mJW1XPI8khuuUMU86vh5DdyFmXwgPKlut4o1Uoio
+ 2Epw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=L2n2v2WT0jKdzQoBIBQPTMah26sbTTiefgydTVaSEP4=;
+ b=QYq8eiYDFUR/aE0WKvme+mOIhSOVmRyx+ICk7DZSxEy/gsdmxLBDmyEzCVUJ4TylTo
+ sxiMIdmGaKHVbBQcKgM3lUCWS7dtkxjcV/kEAjihOTFk3G1NwE0qbX5rocmBO0KCzmDy
+ eXxXZWnyJ1KmVJ8IJCCvwdP/o/LHBHCz6BFtQJ6Oaj8odmTzfqapNytn5cMxoAErq1Jz
+ IGQcHlsoixL3epcZyAWu3LF05bRCOV1UH4vlRFsxyBBvGrEZV4KIcZ08nxNdlN2H2jzt
+ 33ysp4wbKnqTIT5Fm8Sp7BwuU+BRZm4DmG2NYkbHJkZ9guGmM4YbjkqEOA0lViOrrIhU
+ u4TA==
+X-Gm-Message-State: AOAM533E4kdyWbXBoQ6cl9CyHgHbpm1vMydCjo6vuqOgPD99HK9kog7H
+ 317nTnL4DvzxkSF0VaA7k/hhpw==
+X-Google-Smtp-Source: ABdhPJxLKpjVrzXpGOgkT1ElU6tJqB+eCIPZ0ZSGZCgexJxFuLA/0uMBs/DAW6S6XqsuLI1SWgXKiQ==
+X-Received: by 2002:a37:a554:: with SMTP id o81mr1848431qke.231.1631738325415; 
+ Wed, 15 Sep 2021 13:38:45 -0700 (PDT)
+Received: from localhost ([167.100.64.199])
+ by smtp.gmail.com with ESMTPSA id g12sm670948qtq.92.2021.09.15.13.38.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 15 Sep 2021 13:38:45 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Cc: swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Wed, 15 Sep 2021 16:38:20 -0400
+Message-Id: <20210915203834.1439-2-sean@poorly.run>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210915203834.1439-1-sean@poorly.run>
+References: <20210915203834.1439-1-sean@poorly.run>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1a6800f8-24ac-ebbb-03a5-1121e86e893f@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 12/27] drm/i915/guc: Add multi-lrc context
- registration
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 01/13] drm/hdcp: Add drm_hdcp_atomic_check()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,317 +89,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 15, 2021 at 01:23:19PM -0700, John Harrison wrote:
-> On 9/15/2021 12:31, Matthew Brost wrote:
-> > On Wed, Sep 15, 2021 at 12:21:35PM -0700, John Harrison wrote:
-> > > On 8/20/2021 15:44, Matthew Brost wrote:
-> > > > Add multi-lrc context registration H2G. In addition a workqueue and
-> > > > process descriptor are setup during multi-lrc context registration as
-> > > > these data structures are needed for multi-lrc submission.
-> > > > 
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > ---
-> > > >    drivers/gpu/drm/i915/gt/intel_context_types.h |  12 ++
-> > > >    drivers/gpu/drm/i915/gt/intel_lrc.c           |   5 +
-> > > >    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   2 +-
-> > > >    .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 109 +++++++++++++++++-
-> > > >    4 files changed, 126 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > > index 0fafc178cf2c..6f567ebeb039 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > > @@ -232,8 +232,20 @@ struct intel_context {
-> > > >    		/** @parent: pointer to parent if child */
-> > > >    		struct intel_context *parent;
-> > > > +
-> > > > +		/** @guc_wqi_head: head pointer in work queue */
-> > > > +		u16 guc_wqi_head;
-> > > > +		/** @guc_wqi_tail: tail pointer in work queue */
-> > > > +		u16 guc_wqi_tail;
-> > > > +
-> > > These should be in the 'guc_state' sub-struct? Would be good to keep all GuC
-> > > specific content in one self-contained struct. Especially given the other
-> > > child/parent fields are no going to be guc_ prefixed any more.
-> > > 
-> > Right now I have everything in guc_state protected by guc_state.lock,
-> > these fields are not protected by this lock. IMO it is better to use a
-> > different sub-structure for the parallel fields (even if anonymous).
-> Hmm, I still think it is bad to be scattering back-end specific fields
-> amongst regular fields. The GuC patches include a whole bunch of complaints
-> about execlist back-end specific stuff leaking through to the higher levels,
-> we really shouldn't be guilty of doing the same with GuC if at all possible.
-> At the very least, the GuC specific fields should be grouped together at the
-> end of the struct rather than inter-mingled.
-> 
+From: Sean Paul <seanpaul@chromium.org>
 
-How 2 different sub-structures - parallel (shared) & guc_parallel (guc specific)?
+This patch moves the hdcp atomic check from i915 to drm_hdcp so other
+drivers can use it. No functional changes, just cleaned up some of the
+code when moving it over.
 
-> > 
-> > > >    		/** @guc_number_children: number of children if parent */
-> > > >    		u8 guc_number_children;
-> > > > +
-> > > > +		/**
-> > > > +		 * @parent_page: page in context used by parent for work queue,
-> > > Maybe 'page in context record'? Otherwise, exactly what 'context' is meant
-> > > here? It isn't the 'struct intel_context'. The contetx record is saved as
-> > > 'ce->state' / 'ce->lrc_reg_state', yes? Is it possible to link to either of
-> > It is the page in ce->state / page minus LRC reg offset in
-> > ce->lrg_reg_state. Will update the commit to make that clear.
-> > 
-> > > those field? Probably not given that they don't appear to have any kerneldoc
-> > > description :(. Maybe add that in too :).
-> > > 
-> > > > +		 * work queue descriptor
-> > > Later on, it is described as 'process descriptor and work queue'. It would
-> > > be good to be consistent.
-> > > 
-> > Yep. Will fix.
-> > 
-> > > > +		 */
-> > > > +		u8 parent_page;
-> > > >    	};
-> > > >    #ifdef CONFIG_DRM_I915_SELFTEST
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > > index bb4af4977920..0ddbad4e062a 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > > @@ -861,6 +861,11 @@ __lrc_alloc_state(struct intel_context *ce, struct intel_engine_cs *engine)
-> > > >    		context_size += PAGE_SIZE;
-> > > >    	}
-> > > > +	if (intel_context_is_parent(ce)) {
-> > > > +		ce->parent_page = context_size / PAGE_SIZE;
-> > > > +		context_size += PAGE_SIZE;
-> > > > +	}
-> > > > +
-> > > >    	obj = i915_gem_object_create_lmem(engine->i915, context_size, 0);
-> > > >    	if (IS_ERR(obj))
-> > > >    		obj = i915_gem_object_create_shmem(engine->i915, context_size);
-> > > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > > index fa4be13c8854..0e600a3b8f1e 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > > @@ -52,7 +52,7 @@
-> > > >    #define GUC_DOORBELL_INVALID		256
-> > > > -#define GUC_WQ_SIZE			(PAGE_SIZE * 2)
-> > > > +#define GUC_WQ_SIZE			(PAGE_SIZE / 2)
-> > > Is this size actually dictated by the GuC API? Or is it just a driver level
-> > > decision? If the latter, shouldn't this be below instead?
-> > > 
-> > Driver level decision. What exactly do you mean by below?
-> The next chunk of the patch - where WQ_OFFSET is defined and the whole
-> caboodle is described.
-> 
-> > > >    /* Work queue item header definitions */
-> > > >    #define WQ_STATUS_ACTIVE		1
-> > > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > > index 14b24298cdd7..dbcb9ab28a9a 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > > @@ -340,6 +340,39 @@ static struct i915_priolist *to_priolist(struct rb_node *rb)
-> > > >    	return rb_entry(rb, struct i915_priolist, node);
-> > > >    }
-> > > > +/*
-> > > > + * When using multi-lrc submission an extra page in the context state is
-> > > > + * reserved for the process descriptor and work queue.
-> > > > + *
-> > > > + * The layout of this page is below:
-> > > > + * 0						guc_process_desc
-> > > > + * ...						unused
-> > > > + * PAGE_SIZE / 2				work queue start
-> > > > + * ...						work queue
-> > > > + * PAGE_SIZE - 1				work queue end
-> > > > + */
-> > > > +#define WQ_OFFSET	(PAGE_SIZE / 2)
-> > > Can this not be derived from GUC_WQ_SIZE given that the two are
-> > > fundamentally linked? E.g. '#define WQ_OFFSET (PAGE_SIZE - GUC_WQ_SIZE)'?
-> > Yes. I like 'define WQ_OFFSET (PAGE_SIZE - GUC_WQ_SIZE)'. Will change.
-> > 
-> > > And maybe have a '#define WQ_TOTAL_SIZE PAGE_SIZE' and use that in all of
-> > > WQ_OFFSET, GUC_WQ_SIZE and the allocation itself in intel_lrc.c?
-> > > 
-> > > Also, the process descriptor is actually an array of descriptors sized by
-> > > the number of children? Or am I misunderstanding the code below? In so,
-> > No, it is fixed size descriptor.
-> Yeah, I think I was getting confused between pdesc and desc in the code
-> below.
-> 
-> I still think it would be a good idea to have everything explicitly named
-> and the only mention of PAGE_SIZE is in the 'total size' definition.
-> 
+Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-2-sean@poorly.run #v1
 
-#define PARENT_SCRATCH_SIZE 	PAGE_SIZE?
+Changes in v2:
+-None
+---
+ drivers/gpu/drm/drm_hdcp.c                  | 71 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_atomic.c |  4 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c   | 47 --------------
+ drivers/gpu/drm/i915/display/intel_hdcp.h   |  3 -
+ include/drm/drm_hdcp.h                      |  3 +
+ 5 files changed, 75 insertions(+), 53 deletions(-)
 
-Matt 
+diff --git a/drivers/gpu/drm/drm_hdcp.c b/drivers/gpu/drm/drm_hdcp.c
+index ca9b8f697202..522326b03e66 100644
+--- a/drivers/gpu/drm/drm_hdcp.c
++++ b/drivers/gpu/drm/drm_hdcp.c
+@@ -13,13 +13,14 @@
+ #include <linux/slab.h>
+ #include <linux/firmware.h>
+ 
++#include <drm/drm_atomic.h>
++#include <drm/drm_connector.h>
+ #include <drm/drm_hdcp.h>
+ #include <drm/drm_sysfs.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_device.h>
+ #include <drm/drm_property.h>
+ #include <drm/drm_mode_object.h>
+-#include <drm/drm_connector.h>
+ 
+ #include "drm_internal.h"
+ 
+@@ -421,3 +422,71 @@ void drm_hdcp_update_content_protection(struct drm_connector *connector,
+ 				 dev->mode_config.content_protection_property);
+ }
+ EXPORT_SYMBOL(drm_hdcp_update_content_protection);
++
++/**
++ * drm_hdcp_atomic_check - Helper for drivers to call during connector->atomic_check
++ *
++ * @state: pointer to the atomic state being checked
++ * @connector: drm_connector on which content protection state needs an update
++ *
++ * This function can be used by display drivers to perform an atomic check on the
++ * hdcp state elements. If hdcp state has changed, this function will set
++ * mode_changed on the crtc driving the connector so it can update its hardware
++ * to match the hdcp state.
++ */
++void drm_hdcp_atomic_check(struct drm_connector *connector,
++			   struct drm_atomic_state *state)
++{
++	struct drm_connector_state *new_conn_state, *old_conn_state;
++	struct drm_crtc_state *new_crtc_state;
++	u64 old_hdcp, new_hdcp;
++
++	old_conn_state = drm_atomic_get_old_connector_state(state, connector);
++	old_hdcp = old_conn_state->content_protection;
++
++	new_conn_state = drm_atomic_get_new_connector_state(state, connector);
++	new_hdcp = new_conn_state->content_protection;
++
++	if (!new_conn_state->crtc) {
++		/*
++		 * If the connector is being disabled with CP enabled, mark it
++		 * desired so it's re-enabled when the connector is brought back
++		 */
++		if (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED)
++			new_conn_state->content_protection =
++				DRM_MODE_CONTENT_PROTECTION_DESIRED;
++		return;
++	}
++
++	new_crtc_state = drm_atomic_get_new_crtc_state(state,
++						       new_conn_state->crtc);
++	/*
++	* Fix the HDCP uapi content protection state in case of modeset.
++	* FIXME: As per HDCP content protection property uapi doc, an uevent()
++	* need to be sent if there is transition from ENABLED->DESIRED.
++	*/
++	if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
++	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
++	     new_hdcp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED))
++		new_conn_state->content_protection =
++			DRM_MODE_CONTENT_PROTECTION_DESIRED;
++
++	/*
++	 * Nothing to do if content type is unchanged and one of:
++	 *  - state didn't change
++	 *  - HDCP was activated since the last commit
++	 *  - attempting to set to desired while already enabled
++	 */
++	if (old_hdcp == new_hdcp ||
++	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
++	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED) ||
++	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
++	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED)) {
++		if (old_conn_state->hdcp_content_type ==
++				new_conn_state->hdcp_content_type)
++			return;
++	}
++
++	new_crtc_state->mode_changed = true;
++}
++EXPORT_SYMBOL(drm_hdcp_atomic_check);
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index b4e7ac51aa31..1e306e8427ec 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -32,13 +32,13 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_hdcp.h>
+ #include <drm/drm_plane_helper.h>
+ 
+ #include "intel_atomic.h"
+ #include "intel_cdclk.h"
+ #include "intel_display_types.h"
+ #include "intel_global_state.h"
+-#include "intel_hdcp.h"
+ #include "intel_psr.h"
+ #include "skl_universal_plane.h"
+ 
+@@ -122,7 +122,7 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 		to_intel_digital_connector_state(old_state);
+ 	struct drm_crtc_state *crtc_state;
+ 
+-	intel_hdcp_atomic_check(conn, old_state, new_state);
++	drm_hdcp_atomic_check(conn, state);
+ 
+ 	if (!new_state->crtc)
+ 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 9b9fd9d13043..feebafead046 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -2501,53 +2501,6 @@ void intel_hdcp_cleanup(struct intel_connector *connector)
+ 	mutex_unlock(&hdcp->mutex);
+ }
+ 
+-void intel_hdcp_atomic_check(struct drm_connector *connector,
+-			     struct drm_connector_state *old_state,
+-			     struct drm_connector_state *new_state)
+-{
+-	u64 old_cp = old_state->content_protection;
+-	u64 new_cp = new_state->content_protection;
+-	struct drm_crtc_state *crtc_state;
+-
+-	if (!new_state->crtc) {
+-		/*
+-		 * If the connector is being disabled with CP enabled, mark it
+-		 * desired so it's re-enabled when the connector is brought back
+-		 */
+-		if (old_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED)
+-			new_state->content_protection =
+-				DRM_MODE_CONTENT_PROTECTION_DESIRED;
+-		return;
+-	}
+-
+-	crtc_state = drm_atomic_get_new_crtc_state(new_state->state,
+-						   new_state->crtc);
+-	/*
+-	 * Fix the HDCP uapi content protection state in case of modeset.
+-	 * FIXME: As per HDCP content protection property uapi doc, an uevent()
+-	 * need to be sent if there is transition from ENABLED->DESIRED.
+-	 */
+-	if (drm_atomic_crtc_needs_modeset(crtc_state) &&
+-	    (old_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
+-	    new_cp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED))
+-		new_state->content_protection =
+-			DRM_MODE_CONTENT_PROTECTION_DESIRED;
+-
+-	/*
+-	 * Nothing to do if the state didn't change, or HDCP was activated since
+-	 * the last commit. And also no change in hdcp content type.
+-	 */
+-	if (old_cp == new_cp ||
+-	    (old_cp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
+-	     new_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED)) {
+-		if (old_state->hdcp_content_type ==
+-				new_state->hdcp_content_type)
+-			return;
+-	}
+-
+-	crtc_state->mode_changed = true;
+-}
+-
+ /* Handles the CP_IRQ raised from the DP HDCP sink */
+ void intel_hdcp_handle_cp_irq(struct intel_connector *connector)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.h b/drivers/gpu/drm/i915/display/intel_hdcp.h
+index 8f53b0c7fe5c..7c5fd84a7b65 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.h
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
+@@ -22,9 +22,6 @@ struct intel_digital_port;
+ enum port;
+ enum transcoder;
+ 
+-void intel_hdcp_atomic_check(struct drm_connector *connector,
+-			     struct drm_connector_state *old_state,
+-			     struct drm_connector_state *new_state);
+ int intel_hdcp_init(struct intel_connector *connector,
+ 		    struct intel_digital_port *dig_port,
+ 		    const struct intel_hdcp_shim *hdcp_shim);
+diff --git a/include/drm/drm_hdcp.h b/include/drm/drm_hdcp.h
+index 0b1111e3228e..d49977a042e1 100644
+--- a/include/drm/drm_hdcp.h
++++ b/include/drm/drm_hdcp.h
+@@ -291,6 +291,7 @@ struct hdcp_srm_header {
+ 	u8 srm_gen_no;
+ } __packed;
+ 
++struct drm_atomic_state;
+ struct drm_device;
+ struct drm_connector;
+ 
+@@ -300,6 +301,8 @@ int drm_connector_attach_content_protection_property(
+ 		struct drm_connector *connector, bool hdcp_content_type);
+ void drm_hdcp_update_content_protection(struct drm_connector *connector,
+ 					u64 val);
++void drm_hdcp_atomic_check(struct drm_connector *connector,
++			   struct drm_atomic_state *state);
+ 
+ /* Content Type classification for HDCP2.2 vs others */
+ #define DRM_MODE_HDCP_CONTENT_TYPE0		0
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
 
-> John.
-> 
-> 
-> > 
-> > A later patch in the series uses the space of above the process
-> > descriptor for insertation of preeemption points handshake. That does
-> > depend on the number of children. I will add a COMPILE_BUG_ON for that
-> > to ensure everything fits in the memory layout.
-> > 
-> > > shouldn't there be a 'COMPILE_BUG_ON((MAX_ENGINE_INSTANCE *
-> > > sizeof(descriptor)) < (WQ_DESC_SIZE)' where WQ_DESC_SIZE is WQ_TOTAL_SIZE -
-> > > WQ_SIZE?
-> > > 
-> > > > +static u32 __get_process_desc_offset(struct intel_context *ce)
-> > > > +{
-> > > > +	GEM_BUG_ON(!ce->parent_page);
-> > > > +
-> > > > +	return ce->parent_page * PAGE_SIZE;
-> > > > +}
-> > > > +
-> > > > +static u32 __get_wq_offset(struct intel_context *ce)
-> > > > +{
-> > > > +	return __get_process_desc_offset(ce) + WQ_OFFSET;
-> > > > +}
-> > > > +
-> > > > +static struct guc_process_desc *
-> > > > +__get_process_desc(struct intel_context *ce)
-> > > > +{
-> > > > +	return (struct guc_process_desc *)
-> > > > +		(ce->lrc_reg_state +
-> > > > +		 ((__get_process_desc_offset(ce) -
-> > > > +		   LRC_STATE_OFFSET) / sizeof(u32)));
-> > > Where did the LRC_STATE_OFFSET come from? Is that built in to the
-> > > lrg_reg_state pointer itself? That needs to be documented somewhere.
-> > > 
-> > In gt/intel_lrc.c (lrc_pin) ce->lrc_reg_state is assigned to
-> > mmap(ce->state) + LRC_STATE_OFFSET. I can update the kerneldoc for that
-> > field in this patch.
-> > 
-> > > > +}
-> > > > +
-> > > >    static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
-> > > >    {
-> > > >    	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
-> > > > @@ -1342,6 +1375,30 @@ static void unpin_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> > > >    	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
-> > > >    }
-> > > > +static int __guc_action_register_multi_lrc(struct intel_guc *guc,
-> > > > +					   struct intel_context *ce,
-> > > > +					   u32 guc_id,
-> > > > +					   u32 offset,
-> > > > +					   bool loop)
-> > > > +{
-> > > > +	struct intel_context *child;
-> > > > +	u32 action[4 + MAX_ENGINE_INSTANCE];
-> > > > +	int len = 0;
-> > > > +
-> > > > +	GEM_BUG_ON(ce->guc_number_children > MAX_ENGINE_INSTANCE);
-> > > > +
-> > > > +	action[len++] = INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC;
-> > > > +	action[len++] = guc_id;
-> > > > +	action[len++] = ce->guc_number_children + 1;
-> > > > +	action[len++] = offset;
-> > > > +	for_each_child(ce, child) {
-> > > > +		offset += sizeof(struct guc_lrc_desc);
-> > > > +		action[len++] = offset;
-> > > > +	}
-> > > > +
-> > > > +	return guc_submission_send_busy_loop(guc, action, len, 0, loop);
-> > > > +}
-> > > > +
-> > > >    static int __guc_action_register_context(struct intel_guc *guc,
-> > > >    					 u32 guc_id,
-> > > >    					 u32 offset,
-> > > > @@ -1364,9 +1421,15 @@ static int register_context(struct intel_context *ce, bool loop)
-> > > >    		ce->guc_id.id * sizeof(struct guc_lrc_desc);
-> > > >    	int ret;
-> > > > +	GEM_BUG_ON(intel_context_is_child(ce));
-> > > >    	trace_intel_context_register(ce);
-> > > > -	ret = __guc_action_register_context(guc, ce->guc_id.id, offset, loop);
-> > > > +	if (intel_context_is_parent(ce))
-> > > > +		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
-> > > > +						      offset, loop);
-> > > > +	else
-> > > > +		ret = __guc_action_register_context(guc, ce->guc_id.id, offset,
-> > > > +						    loop);
-> > > >    	if (likely(!ret)) {
-> > > >    		unsigned long flags;
-> > > > @@ -1396,6 +1459,7 @@ static int deregister_context(struct intel_context *ce, u32 guc_id, bool loop)
-> > > >    {
-> > > >    	struct intel_guc *guc = ce_to_guc(ce);
-> > > > +	GEM_BUG_ON(intel_context_is_child(ce));
-> > > >    	trace_intel_context_deregister(ce);
-> > > >    	return __guc_action_deregister_context(guc, guc_id, loop);
-> > > > @@ -1423,6 +1487,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
-> > > >    	struct guc_lrc_desc *desc;
-> > > >    	bool context_registered;
-> > > >    	intel_wakeref_t wakeref;
-> > > > +	struct intel_context *child;
-> > > >    	int ret = 0;
-> > > >    	GEM_BUG_ON(!engine->mask);
-> > > > @@ -1448,6 +1513,42 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
-> > > >    	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-> > > >    	guc_context_policy_init(engine, desc);
-> > > > +	/*
-> > > > +	 * Context is a parent, we need to register a process descriptor
-> > > > +	 * describing a work queue and register all child contexts.
-> > > Technically, this should say 'If the context is a parent'. Or just move it
-> > > to be inside the if block.
-> > > 
-> > I will add the "If the".
-> > 
-> > > > +	 */
-> > > > +	if (intel_context_is_parent(ce)) {
-> > > > +		struct guc_process_desc *pdesc;
-> > > > +
-> > > > +		ce->guc_wqi_tail = 0;
-> > > > +		ce->guc_wqi_head = 0;
-> > > > +
-> > > > +		desc->process_desc = i915_ggtt_offset(ce->state) +
-> > > > +			__get_process_desc_offset(ce);
-> > > > +		desc->wq_addr = i915_ggtt_offset(ce->state) +
-> > > > +			__get_wq_offset(ce);
-> > > > +		desc->wq_size = GUC_WQ_SIZE;
-> > > > +
-> > > > +		pdesc = __get_process_desc(ce);
-> > > > +		memset(pdesc, 0, sizeof(*(pdesc)));
-> > > > +		pdesc->stage_id = ce->guc_id.id;
-> > > > +		pdesc->wq_base_addr = desc->wq_addr;
-> > > > +		pdesc->wq_size_bytes = desc->wq_size;
-> > > > +		pdesc->priority = GUC_CLIENT_PRIORITY_KMD_NORMAL;
-> > > Should this not be inherited from the ce? And same below. Or are we not
-> > > using this priority in that way?
-> > > 
-> > Honestly I don't think this field is used or maybe doesn't even exist
-> > anymore. I'll check the GuC code and likely delete this or if it is
-> > still present I'll inherited this from the ce.
-> > 
-> > Matt
-> > 
-> > > John.
-> > > 
-> > > > +		pdesc->wq_status = WQ_STATUS_ACTIVE;
-> > > > +
-> > > > +		for_each_child(ce, child) {
-> > > > +			desc = __get_lrc_desc(guc, child->guc_id.id);
-> > > > +
-> > > > +			desc->engine_class =
-> > > > +				engine_class_to_guc_class(engine->class);
-> > > > +			desc->hw_context_desc = child->lrc.lrca;
-> > > > +			desc->priority = GUC_CLIENT_PRIORITY_KMD_NORMAL;
-> > > > +			desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-> > > > +			guc_context_policy_init(engine, desc);
-> > > > +		}
-> > > > +	}
-> > > > +
-> > > >    	/*
-> > > >    	 * The context_lookup xarray is used to determine if the hardware
-> > > >    	 * context is currently registered. There are two cases in which it
-> > > > @@ -2858,6 +2959,12 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
-> > > >    		return NULL;
-> > > >    	}
-> > > > +	if (unlikely(intel_context_is_child(ce))) {
-> > > > +		drm_err(&guc_to_gt(guc)->i915->drm,
-> > > > +			"Context is child, desc_idx %u", desc_idx);
-> > > > +		return NULL;
-> > > > +	}
-> > > > +
-> > > >    	return ce;
-> > > >    }
-> 
