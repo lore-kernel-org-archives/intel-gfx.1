@@ -7,72 +7,73 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3106C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:39:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38CC3C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:39:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B56D860724
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:39:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B56D860724
+	by mail.kernel.org (Postfix) with ESMTPS id 0947160E08
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 20:39:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0947160E08
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 371766EA38;
-	Wed, 15 Sep 2021 20:38:58 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D0D6EA3A
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 20:38:55 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id t35so3599840qtc.6
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 13:38:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3B7F6EA35;
+	Wed, 15 Sep 2021 20:39:10 +0000 (UTC)
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D02A16EA3F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 20:39:07 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id f22so5003766qkm.5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 13:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8mqkW45lWHgijrobFYKhB0jUxwyFWG7Hg7GMe+qA4bY=;
- b=M69omufWdQExDl96QlWBTeZQNs7S3qk/Elh+3xzRpTiMdrsEQKC+BLk1wC8TrGOXp4
- nXvz609fgP4wmLMVaD+BqbHrdls5TN4d9XMevJcbaAhFvAE1rdaoWMrzJNvaeKPM1qpS
- Q2jnZaeBV2KTMXz6McIF36+ry41Ul1Q+GuX70ifrir54HFO2+XV031MG470EO8KeN50i
- UZk2RaDw+HOBMX7bJSc85Bs7MSaIVU6g+1c4X3955PTEiwNzxFNP4H2zqMGdBWqLt6Rm
- vighGWgqVWqZJiXolA2/wTztSn27lt9lgjvtgzuBgyVM9xkFmAIMkWF9Q6PqYJq47kYW
- VlAg==
+ bh=EzhM5e5dPVJ8cbEOQ+kFjFOnqRe4MfO+I5K+E1Gofyg=;
+ b=eMnKlKRcC/+Y1ZXCNUvg7Mm8BAY0et7n8in88bx23iXk0ohO5xRYUJlCTnrfZvvtOS
+ In5e3YyBhFcwgvaMyD25x5IAkeBjPqaJhpeXtbLFFnYelr+PUdnDtTWYF8C7izmDyH03
+ tbD8wx8iSezHaFRNMzWbaRvRQksqbQQzCPXME+vOSRQjC/rZAwxqidGvUC+n+PddGIQA
+ BKglCRNf5L5+6bMYMJgyKx5qBQZnB7jL+Ji/TNmghKzJi+OWx8NnkJm0/7l4vdUGO3ZB
+ kCSay9I13/FuE3JoM2LN9mwXODnKxYpS122Ud1o2NJxDv3opGM/Hy0zfgKV46J4Hepij
+ NFVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8mqkW45lWHgijrobFYKhB0jUxwyFWG7Hg7GMe+qA4bY=;
- b=iUm4+uN+vZ+46lYDXqee51E3MuCIiHcPJ4Pwuw1n0DExqV0cHsTE9wCSrVfGARvZNQ
- jn9nKWwascW7AL/NunuThKsdGWJAM0Go9/jY6bpPDACyJGDzlGCmJg+RAsJGb0IL/jSs
- dMYiPUwzpv9BbFHnOeZ6mTnTguaC7dXR5XnyOoixayXaLm8ngW8R2CjtMMA69E7vjiHN
- WY2clEjxRMhAj/kPvOuiyrhIL9IenBni4FCW2bjy5mvgepCjYDMJDolkzGqIMTA9GfSs
- yncjOxM12zIyoJt5fXD36adj+QDYU+i2uTMYYVNxIBAPxt7XCSdTy7KWd/CnJvHNygb5
- nXDg==
-X-Gm-Message-State: AOAM533s0RdMgdwLy6UpeMuF8LRyf7ZwN9YRxSH03zBiC95S4W6SATMN
- hLdE+JE32Ohhw6crQiW8Kq2yzg==
-X-Google-Smtp-Source: ABdhPJx/ej8tB0rDWmxtn1zzwQrWpoL6HXA6X8wfF3MAR+qHBmrZQW9Gq/cJhggXJ+XSpH/1wFReew==
-X-Received: by 2002:ac8:4716:: with SMTP id f22mr1825779qtp.250.1631738334905; 
- Wed, 15 Sep 2021 13:38:54 -0700 (PDT)
+ bh=EzhM5e5dPVJ8cbEOQ+kFjFOnqRe4MfO+I5K+E1Gofyg=;
+ b=c7LpKEYF4OLiKxGhWVz9yQ87ch4l5y/pK3UK7XOV+XQFNFjZcmij6Su1OOs/vwDk8G
+ Tpmafl2/NPDqMXKFaADXYOahRtV2apcEVc3a7G2d6uaI8037bQlXAB04VmsWMFWUaXMV
+ KcDW+KDLpKAIH/Loz0EqpN6eUG65FXXv8qO7Fcz7RrBK+kIG757/wpZpovGPj6dQpQIg
+ PomzIxBdbv3CbQj1rRoD2CV1RyCoeRQmXutUWHF1Mp4ZGiTpQ4q6hg6aBivthllZvlsr
+ OnjzvYuLvYPdBBFZh66trw5QaJARYuIbS3m6JtJOGSlWV1aoW4kSZsjEbmI0NtP8399p
+ q2rA==
+X-Gm-Message-State: AOAM531QPsDPjYMM7+tmRNwHJB1CaCExDcyoh860NUa1Yy+2zOyqmdst
+ 2qX3WAdcsVgYPfxLD/YgDI51IQ==
+X-Google-Smtp-Source: ABdhPJzeWcsfG7VI1lQyjbI034VKXwzFo5P/ToKHk3TaZhBgX1oZxyFx7Q76yHysbrQyJu3xkXkKdg==
+X-Received: by 2002:a05:620a:1307:: with SMTP id
+ o7mr1809189qkj.437.1631738346461; 
+ Wed, 15 Sep 2021 13:39:06 -0700 (PDT)
 Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id h9sm834052qkl.4.2021.09.15.13.38.54
+ by smtp.gmail.com with ESMTPSA id u189sm822308qkh.14.2021.09.15.13.39.05
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 Sep 2021 13:38:54 -0700 (PDT)
+ Wed, 15 Sep 2021 13:39:06 -0700 (PDT)
 From: Sean Paul <sean@poorly.run>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
 Cc: swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 15 Sep 2021 16:38:22 -0400
-Message-Id: <20210915203834.1439-4-sean@poorly.run>
+Date: Wed, 15 Sep 2021 16:38:24 -0400
+Message-Id: <20210915203834.1439-6-sean@poorly.run>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210915203834.1439-1-sean@poorly.run>
 References: <20210915203834.1439-1-sean@poorly.run>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 03/13] drm/hdcp: Update property value on
- content type and user changes
+Subject: [Intel-gfx] [PATCH v2 05/13] drm/i915/hdcp: Consolidate HDCP
+ setup/state cache
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,72 +91,100 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sean Paul <seanpaul@chromium.org>
 
-This patch updates the connector's property value in 2 cases which were
-previously missed:
-
-1- Content type changes. The value should revert back to DESIRED from
-   ENABLED in case the driver must re-authenticate the link due to the
-   new content type.
-
-2- Userspace sets value to DESIRED while ENABLED. In this case, the
-   value should be reset immediately to ENABLED since the link is
-   actively being encrypted.
-
-To accommodate these changes, I've split up the conditionals to make
-things a bit more clear (as much as one can with this mess of state).
+Stick all of the setup for HDCP into a dedicated function. No functional
+change, but this will facilitate moving HDCP logic into helpers.
 
 Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-4-sean@poorly.run #v1
+Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-6-sean@poorly.run #v1
 
 Changes in v2:
 -None
 ---
- drivers/gpu/drm/drm_hdcp.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 52 +++++++++++++++--------
+ 1 file changed, 35 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_hdcp.c b/drivers/gpu/drm/drm_hdcp.c
-index dd8fa91c51d6..742313ce8f6f 100644
---- a/drivers/gpu/drm/drm_hdcp.c
-+++ b/drivers/gpu/drm/drm_hdcp.c
-@@ -487,21 +487,29 @@ bool drm_hdcp_atomic_check(struct drm_connector *connector,
- 		return true;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index feebafead046..af166baf8c71 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -2167,6 +2167,37 @@ static enum mei_fw_tc intel_get_mei_fw_tc(enum transcoder cpu_transcoder)
+ 	}
+ }
  
- 	/*
--	 * Nothing to do if content type is unchanged and one of:
--	 *  - state didn't change
-+	 * Content type changes require an HDCP disable/enable cycle.
-+	 */
-+	if (new_conn_state->hdcp_content_type != old_conn_state->hdcp_content_type) {
-+		new_conn_state->content_protection =
-+			DRM_MODE_CONTENT_PROTECTION_DESIRED;
-+		return true;
++static int
++_intel_hdcp_setup(struct intel_connector *connector,
++		  const struct intel_crtc_state *pipe_config, u8 content_type)
++{
++	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
++	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
++	struct intel_hdcp *hdcp = &connector->hdcp;
++	int ret = 0;
++
++	if (!connector->encoder) {
++		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
++			connector->base.name, connector->base.base.id);
++		return -ENODEV;
 +	}
 +
-+	/*
-+	 * Ignore meaningless state changes:
- 	 *  - HDCP was activated since the last commit
--	 *  - attempting to set to desired while already enabled
-+	 *  - Attempting to set to desired while already enabled
- 	 */
--	if (old_hdcp == new_hdcp ||
--	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
-+	if ((old_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
- 	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED) ||
- 	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
- 	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED)) {
--		if (old_conn_state->hdcp_content_type ==
--				new_conn_state->hdcp_content_type)
--			return false;
-+		new_conn_state->content_protection =
-+			DRM_MODE_CONTENT_PROTECTION_ENABLED;
-+	     return false;
++	hdcp->content_type = content_type;
++
++	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
++		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
++		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
++	} else {
++		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
++		hdcp->stream_transcoder = INVALID_TRANSCODER;
++	}
++
++	if (DISPLAY_VER(dev_priv) >= 12)
++		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
++
++	return ret;
++}
++
+ static int initialize_hdcp_port_data(struct intel_connector *connector,
+ 				     struct intel_digital_port *dig_port,
+ 				     const struct intel_hdcp_shim *shim)
+@@ -2306,28 +2337,14 @@ int intel_hdcp_enable(struct intel_connector *connector,
+ 	if (!hdcp->shim)
+ 		return -ENOENT;
+ 
+-	if (!connector->encoder) {
+-		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
+-			connector->base.name, connector->base.base.id);
+-		return -ENODEV;
+-	}
+-
+ 	mutex_lock(&hdcp->mutex);
+ 	mutex_lock(&dig_port->hdcp_mutex);
+ 	drm_WARN_ON(&dev_priv->drm,
+ 		    hdcp->value == DRM_MODE_CONTENT_PROTECTION_ENABLED);
+-	hdcp->content_type = content_type;
+-
+-	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
+-		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
+-		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
+-	} else {
+-		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
+-		hdcp->stream_transcoder = INVALID_TRANSCODER;
+-	}
+ 
+-	if (DISPLAY_VER(dev_priv) >= 12)
+-		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
++	ret = _intel_hdcp_setup(connector, pipe_config, content_type);
++	if (ret)
++		goto out;
+ 
+ 	/*
+ 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
+@@ -2355,6 +2372,7 @@ int intel_hdcp_enable(struct intel_connector *connector,
+ 					true);
  	}
  
--	return true;
-+	/* Finally, if state changes, we need action */
-+	return old_hdcp != new_hdcp;
- }
- EXPORT_SYMBOL(drm_hdcp_atomic_check);
++out:
+ 	mutex_unlock(&dig_port->hdcp_mutex);
+ 	mutex_unlock(&hdcp->mutex);
+ 	return ret;
 -- 
 Sean Paul, Software Engineer, Google / Chromium OS
 
