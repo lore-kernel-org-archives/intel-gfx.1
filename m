@@ -2,85 +2,169 @@ Return-Path: <SRS0=Y9sQ=OF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 548FDC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 14:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E569C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 14:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B2EA611C1
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 14:05:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1B2EA611C1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 56C98611C1
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 14:05:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 56C98611C1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5AC6E944;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37CBD6E941;
 	Wed, 15 Sep 2021 14:05:12 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 432646E905;
- Wed, 15 Sep 2021 10:46:25 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id d6so3106351wrc.11;
- Wed, 15 Sep 2021 03:46:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=D9nsboeoRFRFMehNMSk+eKmCHRNzoEroL4U7NXf5xHE=;
- b=JPbeJFkuszuQHi62VBPFVyfsXE7vZIeRAcKmlRyPAcUXrtDixV1O2vSpzNP+27dS5b
- Oc+x3Ox1YY3dN6n1Wmt6/LHjo17mdc/I9jAtbqgnoPV8X52nfezTfcWVsrlnLx1MTNlk
- LJBDP13s+Z2MBEoQItK+ztISeVq9VVdxsm6yMqVqZ813/JJXRoxF+l4D5iJfwRvst520
- gkMgX+/6jR6uh9U9BP9HkLYgmDyNcy4DQm0ZiVcZ7cwO1AFWcxP6G9Liu60pOCVJLnMD
- NcmOSs2I3eBKe8HqozjGaZN3AAkYTxCAHK0u1umJnemFmsh4A132BZNkXj1ORbe1SbmA
- /C5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=D9nsboeoRFRFMehNMSk+eKmCHRNzoEroL4U7NXf5xHE=;
- b=DOKj4lam/+XWO48ZommAteyg1Yy9cmzgo3XIwY8V6wI8dYPFlSEzzvzgk5dNOkaSRO
- QL52MgW9zQfrG5EhLzHRB+N5DADtW0AofiNDlfmm44ePAowBtGWIMumGCXAymb3GeNv5
- XR0zhyZAwL2d8vxZvghmxeG9wIRczezb9nbK6z+PSNIlGif68Ao4EaykvPCYWBt5WAUn
- XXGh9c3JlQ075AJqsZiE08u+1W75rcteA9aNpoT8y/lSaXYBfdVpUX1WjAaMWTuwI4Cy
- Lf9HXiuW0jknLC7soCEy11CUoJ2tK3q9uB9TlZkQlpB6/oI8SnRxy2DJ1or8Lez2lUDr
- gT9g==
-X-Gm-Message-State: AOAM532tLfcwMA192sjOltBJjxgWEwe8Z4FcxFfaC2lYoiyjOe7x3nwH
- 74HImWxkFiCGlRPEBh01CCvWPRHyKeY=
-X-Google-Smtp-Source: ABdhPJyhAqvQHAu9Wliypo7hySMKWisUP9ZWL1O87o2QWfl41r7mOXE9Jd9sB6J0ZYNElkdIpUFJBw==
-X-Received: by 2002:adf:e649:: with SMTP id b9mr4299584wrn.309.1631702783814; 
- Wed, 15 Sep 2021 03:46:23 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:d03d:8939:3840:1f95?
- ([2a02:908:1252:fb60:d03d:8939:3840:1f95])
- by smtp.gmail.com with ESMTPSA id q128sm4727091wma.27.2021.09.15.03.46.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Sep 2021 03:46:23 -0700 (PDT)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org
-Cc: daniel@ffwll.ch, intel-gfx@lists.freedesktop.org
-References: <20210913131707.45639-1-christian.koenig@amd.com>
- <20210913131707.45639-2-christian.koenig@amd.com>
- <1eee4105-e154-9d1d-b92b-d17c6f8f8432@linux.intel.com>
- <abeccf85-13d1-9e3a-26c9-1ca0f6d4c322@gmail.com>
- <c03a61f2-9d70-c6f4-584d-b91c89ec7462@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <4da378ec-0411-aaf5-fb02-e3a18e7175d3@gmail.com>
-Date: Wed, 15 Sep 2021 12:46:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <c03a61f2-9d70-c6f4-584d-b91c89ec7462@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51DC96E891;
+ Wed, 15 Sep 2021 01:48:35 +0000 (UTC)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18EKxbhG026050; 
+ Wed, 15 Sep 2021 01:48:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references :
+ content-transfer-encoding : content-type : mime-version;
+ s=corp-2021-07-09; bh=dipXClo1/UKYWeu/BfE3k5ffLLi+bpTaCkDFmK7oqGU=;
+ b=0ZZY0p2vPSKRoyzuLWvKu2U/plQdPdZRUmTKOxSdHSLe3FoyaiuzDLDa0TcbGEm5kgAE
+ fX0E7Hxbz8bcU5StGi1TdwY6QfKQ3/ctttiUjVEvhjP2OFDvP4L5rx4pzTlC+4ZqgqgN
+ ExTvHneblst9g2o/2qnUBrrCVpXjO5gWFoKUB/biVukscvh4jbOFG11s5yHqtFnUq1mt
+ 3EuukbqskkS4OuOWO7hLFCRbQz0Cre9LqzgbgN8kVCkkbIvMOZUp4XFYWgzPgK2cIa/D
+ U9Czgn/eCLUBwmS3YTdgWcZosgccq8pAVJMhEcb2FMdKwZ+J+DJhH25OqBFGKlkAL4YJ DQ== 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references :
+ content-transfer-encoding : content-type : mime-version;
+ s=corp-2020-01-29; bh=dipXClo1/UKYWeu/BfE3k5ffLLi+bpTaCkDFmK7oqGU=;
+ b=APGMlZST5qBsYKRO+SGzlDTKWMiXA3h1laa7XorkM9z592fZWKG4hNSAdLpnoQVNj+2f
+ YVRInNNLH+jdXuSTtDCTkQNO91NpU4O5rmj2Sqd+S+aPvnXgMgl+wuJ10wLFRgbaRZ6B
+ yVc7far3TsBebaS/+qLCmWEZOzpY20zK37brz1xTyQf5uKvMdPrP67vuKFfQis9GVLnk
+ hv6NSS7Mcnb5ca2ZOLG/eIoupltpcmzUKICUX7sPIT8GadDV/m+snqeZ0x7P04S11/+H
+ RuhJpO4T+TayzX/6xMl3Wyf3lz94LmTJaXdQbgmEb5yoJH4+IMwsOVAszZNF4ja1Tt2Y KQ== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3b2j4sbs4v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 15 Sep 2021 01:48:26 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18F1fWfB091944;
+ Wed, 15 Sep 2021 01:48:25 GMT
+Received: from nam11-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11lp2172.outbound.protection.outlook.com [104.47.58.172])
+ by userp3020.oracle.com with ESMTP id 3b167swfg7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 15 Sep 2021 01:48:24 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BzD5wp40tlStcO851+8bIHyNIVS7zEi/tITs4QP7fWbLzCIW+XJOgZh1mOzFCmgtIWJj/fvkInW0XDLh+BbH6Eucg4XD0GCjPmRyG/rN8Kf76XQ1jOfftzfZll8QJjUUtG9/ze+SKJI6SvOU20IlAD5Wx6wiVnusjmv2CScvsRD9I2JeBU18spmV8sXDNuGp0E+sbwTxGu6XO4YLi8zH8ICCLhVpnpUejg9e+tNTR2rvT1qKVDntUlwxF0tn5Xm1BT1skTsgOJ0Hrf2lhzLSYEg/6ooA8wwqXKpcJc/x8tLSt7p1XQOZMls+ejXAS6Bw7Kp8kL+2yv5W6TIB1dsGdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=dipXClo1/UKYWeu/BfE3k5ffLLi+bpTaCkDFmK7oqGU=;
+ b=VbsHBpzj0or54iDsqmmujIpi/0jBfAfbqgb1uRjd8tQE771bBmUwa76hI8ETITzeZz0rlO0zirJLEl/se0g0iF94ecj+t3WEoZ4Rkkl3+zJ+dU84SGAG7sP3wJEeqed3bQM7kJO1VqmblBaZLcWAh5j7mgu+kSM9pu8DghKFjTQ1sBecX+7exbN+YtDUDVEHVJ636SA9udg5IncskDLSvjAh/Ng0f7fuJtQs8cz9xf1wVJp6LZpjLrfLjljioJNohPl8qPf8z3xroTvKMMmrALORhGwWhZMGgynIub/1z0U7Ekjxhd8kte4jJmAfUntahnxqGfLVYO/QDzhqaRD0Pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dipXClo1/UKYWeu/BfE3k5ffLLi+bpTaCkDFmK7oqGU=;
+ b=GwaKiAWngeN7fUBfh/gqTc2CmYRE/Kbl9KzxjvZdMrRD2biidkyb5MGeYu2Wsx+VJyViWYfaPuOOnKJhzhR4CThu50YB8305Iic3tc4M1bnWu6f0JQjiejD6yFv5nxz3WiRubaJYpRLPT0t6PXb7HMmYMLYMScWyQ9qmylC7t9w=
+Authentication-Results: suse.cz; dkim=none (message not signed)
+ header.d=none;suse.cz; dmarc=none action=none header.from=oracle.com;
+Received: from CO1PR10MB4468.namprd10.prod.outlook.com (2603:10b6:303:6c::24)
+ by CO1PR10MB4577.namprd10.prod.outlook.com (2603:10b6:303:97::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 15 Sep
+ 2021 01:48:22 +0000
+Received: from CO1PR10MB4468.namprd10.prod.outlook.com
+ ([fe80::f091:1dd2:38a8:e986]) by CO1PR10MB4468.namprd10.prod.outlook.com
+ ([fe80::f091:1dd2:38a8:e986%6]) with mapi id 15.20.4500.019; Wed, 15 Sep 2021
+ 01:48:22 +0000
+From: Imran Khan <imran.f.khan@oracle.com>
+To: vbabka@suse.cz, geert@linux-m68k.org, akpm@linux-foundation.org,
+ ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com,
+ dvyukov@google.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@linux.ie, daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mm@kvack.org
+Date: Wed, 15 Sep 2021 11:48:05 +1000
+Message-Id: <20210915014806.3206938-3-imran.f.khan@oracle.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210915014806.3206938-1-imran.f.khan@oracle.com>
+References: <20210915014806.3206938-1-imran.f.khan@oracle.com>
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-ClientProxiedBy: SYAPR01CA0016.ausprd01.prod.outlook.com (2603:10c6:1::28)
+ To CO1PR10MB4468.namprd10.prod.outlook.com (2603:10b6:303:6c::24)
+MIME-Version: 1.0
+Received: from localhost.localdomain (110.33.47.182) by
+ SYAPR01CA0016.ausprd01.prod.outlook.com (2603:10c6:1::28) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 01:48:18 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 25fd4beb-d08a-495b-6150-08d977eae693
+X-MS-TrafficTypeDiagnostic: CO1PR10MB4577:
+X-Microsoft-Antispam-PRVS: <CO1PR10MB4577031E0109347C67139D10B0DB9@CO1PR10MB4577.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:147;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tayQhzbet4B5SveKAysc3+lQs1wvBlqjjr/+AUkPBd57GNIw7vhtG+de6U7Tbw0AiVCBWN2/ez1W0FhvkaMk2uRy9fKjc39jU1C9LekuhvGIwatL5LDE5EMnvgQRyh/IOE+M7s0NaFJH+uOlHtW9MJ1d69G1xzG+HNLujpQeXo9Q/RqxD0xkymvpd5JzOZWp51a9KoAqqwu+oM0ol5YTiVnIIBnc/Ut5FTmYJAxRCSHBUc8FzmQr1agRxzUfbcoyPsns8/0KweZ/UONGWLAMk6WvSquXQ7XHW2v1eemY7sXNSxJ9OwOtP8xCIKzPk3EO9Ih8bMnlYQnycOxCCn9/GaoVDhKa23phKFCTafgmsdNSecpy1DF2DfgCwWIMJb9o5I86Cis7HGVEJHYAHCFt+FtIyvVpMxQ4fuWi2MU/N0fJDXhIMdHWwbNl6M788IdzEcdXap85HBV0LBDJq9brpfmaG3j21NVSeqIkvkUzRZpQk3mbTfm5uEaOmPjtZHqzC+P+itpG9Df8dJ/0MPfXCZRfdHOojnEy/13oOqBvWdOTo/sJCdTXeWS9Kmai2RSP1ehZuYp6N625NnmEPsuhIT5Cb3O4Vs/ljyKIsqj1nuYvfZ9C7A1pE2EDidP0TQcJ2p6FY3ct+yIEsZ+Rtblv0KVwek4+0aJ3P6J26chkFWIXMUL/0G9gOhH9h056Kk4lkGZ+YSjBlcVMngrJB93ZjIbMtz3B5zz5qnlvHHn//RM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR10MB4468.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(396003)(376002)(39860400002)(136003)(366004)(103116003)(36756003)(478600001)(86362001)(956004)(4326008)(52116002)(5660300002)(6486002)(66946007)(2906002)(38350700002)(186003)(38100700002)(66556008)(26005)(66476007)(6506007)(6666004)(6512007)(316002)(8676002)(8936002)(1076003)(7416002)(83380400001)(2616005)(921005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZbuR8++3DzWAtSZPwXRh95AXSrVxCpeF0FWyo5i2ywl0cJZEzlzDNUX5P4ri?=
+ =?us-ascii?Q?fO+1iHtZrfGUwMUdFw53RApi6gZc/YXsMU9Xo2WD9k2dKIxXN0phQXUsov1U?=
+ =?us-ascii?Q?pmL+4YUhgTkj82iMUofiHVJeQh6i8KkwFmYbTucc5UyItNT8ls2DSQDiI+iI?=
+ =?us-ascii?Q?ru14ZSnyHH9KnSO1Kcy3I4TN1h7U/P9thZ7u2G0GbSV7QJjxxt2roWQIfxs5?=
+ =?us-ascii?Q?AYiexKvxnzTJkUPtfbIzBqd3EuOi7U+QioBUhTib6EYUYuagGHdKHpcLExr1?=
+ =?us-ascii?Q?OvEbZlbOkJAOvBa+kYqQxS8fAO77OzecMEkM4TtG0bfEQsAhpWH87qzyYuuV?=
+ =?us-ascii?Q?MvXlYikDQ6zHG46q/7+Pq6galSeIaramvGCm4y7rlevzCTidFE++QIpwde3L?=
+ =?us-ascii?Q?3EliXs1xzhqIT7wZilJwDhrlC4k2YDS8st8DtC4C8cTwH8lEhsRcWRp4t/GH?=
+ =?us-ascii?Q?bfxXpMl+g3bjRV9PYnZ9XlwmpG+EpDilVFq/RMnMXQ7z71gyV3xH6oM/L9He?=
+ =?us-ascii?Q?f72fRkksdZMCpgARTGCCtK6JdDzqcrO23oLtcDY6yKCD8Y1Bjdz6cwD1YncN?=
+ =?us-ascii?Q?XCaZ3OppbFr5H79u8aWmob+EvHFqT4p+pIenvsmYDXAKVDrT5eeLQMPuupMV?=
+ =?us-ascii?Q?bhMJemUwQ/l2An0B7MhSB7ew5ICoBCOj3SF8IxXrGwl8ZpXJq4upbY6pdSgx?=
+ =?us-ascii?Q?+YlCOuHAKwRjdCZ+f4bz22KGxxCMiduL6mfpYRt32irGypAVYfSTM7l+ag9R?=
+ =?us-ascii?Q?5H5KUrHqtl41kBLbpmwxWeIJHLJRJvOgcId3/Q+00MMPFUciHPDfHocPJjUo?=
+ =?us-ascii?Q?O8P2x8QnMGdsSK27qRG+kGcs/I/IVxum+79ndvVR2gQdMDbDMgqNvTY49beC?=
+ =?us-ascii?Q?IP7hwgpWE62dGQDgV1SlkAlQK+2UzUjpS3ECorkL9mTaWx5pYtzVUlbYyem7?=
+ =?us-ascii?Q?LrfkGh+b5COOvbDXuEcEjO0hvpdWjaP+CYgJJ8ZPTPV/10HwrxP95wOcqo4G?=
+ =?us-ascii?Q?ghlq31wKh/LS/dlkIkYZPBhteMltCRYstUwkWwv6xC4+eN2lEcm0O9hVJigM?=
+ =?us-ascii?Q?y9+3xa5lXrqFAvMQmPQz5sfYUbtcz7Yg5HxSI11rD13lbn4Fg0+auF+LRGMl?=
+ =?us-ascii?Q?W+r3Qi5MRd0BFsDt1gsX6wlywSOhftb7KQkmnoJwlVo6viTkZbtx8b2ItSfl?=
+ =?us-ascii?Q?LCAluRim8YdSk+fFNEgds2+eASIbjeySswBi9ohHqGMsDO5PGKAAA1h5aZaR?=
+ =?us-ascii?Q?ixxtVj1CUNVjIh3B5gdDs9AMsssp2nHf4PVw67CXsLAstg73RuauDfx4RCpe?=
+ =?us-ascii?Q?ooI+4+yKHZf263PpEv3XvT5D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25fd4beb-d08a-495b-6150-08d977eae693
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR10MB4468.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 01:48:22.5908 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J/8JFKW2LPg7rfGKEMfYIqQooIJiBF4nvJ/T0XJCJFGGGr4FiABbbNO7I25tJ+L9RQBcxN7o1yozfsapK0B/Qg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4577
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10107
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ adultscore=0 suspectscore=0
+ phishscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
+ definitions=main-2109150008
+X-Proofpoint-ORIG-GUID: 6Zj1zZONZy-82WMXeALUx-Mi4dJ5FG8-
+X-Proofpoint-GUID: 6Zj1zZONZy-82WMXeALUx-Mi4dJ5FG8-
 X-Mailman-Approved-At: Wed, 15 Sep 2021 14:05:10 +0000
-Subject: Re: [Intel-gfx] [PATCH 01/26] dma-buf: add
- dma_resv_for_each_fence_unlocked
+Subject: [Intel-gfx] [PATCH RESEND 2/3] lib,
+ stackdepot: Add helper to print stack entries.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,177 +180,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 14.09.21 um 15:07 schrieb Tvrtko Ursulin:
-> On 14/09/2021 12:25, Christian König wrote:
->> Am 14.09.21 um 12:53 schrieb Tvrtko Ursulin:
->>>
->>> On 13/09/2021 14:16, Christian König wrote:
->>>> [SNIP]
->>>> +        if (fence) {
->>>> +            fence = dma_fence_get_rcu(fence);
->>>> +        } else if (all_fences && cursor->fences) {
->>>> +            struct dma_resv_list *fences = cursor->fences;
->>>
->>> If rcu lock is allowed to be dropped while walking the list what 
->>> guarantees list of fences hasn't been freed?
->>
->> Ah, good point! We need to test the sequence number when we enter the 
->> function as well. Going to fix that.
->
-> Right, but just to say, I am still on the fence a bit on the concept 
-> of the unlocked iterator. So for now I am looking only superficially 
-> at the implementation and i915 side of things.
+To print a stack entries, users of stackdepot, first
+use stack_depot_fetch to get a list of stack entries
+and then use stack_trace_print to print this list.
+Provide a helper in stackdepot to print stack entries
+based on stackdepot handle.
+Also change above mentioned users to use this helper.
 
-I'm really in favor of taking the lock as well and contain the unlocked 
-operation into the dma_resv object code and I think Daniel is on 
-absolutely the same side as well.
+Signed-off-by: Imran Khan <imran.f.khan@oracle.com>
+Suggested-by: Vlastimil Babka <vbabka@suse.cz>
 
-But the use cases are as they are for now and I think containing the 
-internal structure of the dma_resv object is the right next step.
+Acked-by: Vlastimil Babka <vbabka@suse.cz>
+Reviewed-by: Alexander Potapenko <glider@google.com>
+---
+ include/linux/stackdepot.h |  2 ++
+ lib/stackdepot.c           | 18 ++++++++++++++++++
+ mm/kasan/report.c          | 15 +++------------
+ mm/page_owner.c            | 13 ++++---------
+ 4 files changed, 27 insertions(+), 21 deletions(-)
 
->>> [SNIP]
->>>>   +/**
->>>> + * struct dma_resv_cursor - current position into the dma_resv fences
->>>> + * @seq: sequence number to check
->>>> + * @index: index into the shared fences
->>>> + * @shared: the shared fences
->>>> + * @is_first: true if this is the first returned fence
->>>> + * @is_exclusive: if the current fence is the exclusive one
->>>> + */
->>>> +struct dma_resv_cursor {
->>>> +    unsigned int seq;
->>>> +    unsigned int index;
->>>> +    struct dma_resv_list *fences;
->>>> +    bool is_first;
->>>
->>> Is_first is useful to callers - like they are legitimately allowed 
->>> to look inside this, what could otherwise be private object?
->>
->> Yes, I was pondering on the same question. Key point is that this is 
->> only used by other dma_resv functions which also use cursor.fences 
->> for example.
->>
->> So this is only supposed to be used by code working with other 
->> privates of the dma_resv object as well.
->
-> Hmmm and you think external callers have no legitimate case of 
-> detecting restarts?
-
-Yes, if somebody needs a snapshot of the current state and can't for 
-some reason take the lock they should use dma_resv_get_fences() instead.
-
-On the other hand allocating memory in dma_resv_get_fences() has 
-probably more overhead than just grabbing and releasing the lock.
-
-> Or to better say will not have the need of distinguishing between real 
-> restarts and just the first iteration? I need to read more of the 
-> series to get a more complete opinion here.
-
-Yeah, that's indeed a good point. Off hand I don't see any, but we 
-should probably decide for each place individually if we should take the 
-lock, allocate memory or use the lockless iterator.
-
-> [SNIP]
->>>
->>>> +};
->>>> +
->>>> +/**
->>>> + * dma_resv_for_each_fence_unlocked - fence iterator
->>>> + * @obj: a dma_resv object pointer
->>>> + * @cursor: a struct dma_resv_cursor pointer
->>>> + * @all_fences: true if all fences should be returned
->>>> + * @fence: the current fence
->>>> + *
->>>> + * Iterate over the fences in a struct dma_resv object without 
->>>> holding the
->>>> + * dma_resv::lock. The RCU read side lock must be hold when using 
->>>> this, but can
->>>> + * be dropped and re-taken as necessary inside the loop. 
->>>> @all_fences controls
->>>> + * if the shared fences are returned as well.
->>>> + */
->>>> +#define dma_resv_for_each_fence_unlocked(obj, cursor, all_fences, 
->>>> fence)    \
->>>> +    for (fence = dma_resv_walk_unlocked(obj, cursor, all_fences, 
->>>> true); \
->>>> +         fence; dma_fence_put(fence),                    \
->>>> +         fence = dma_resv_walk_unlocked(obj, cursor, all_fences, 
->>>> false))
->>>
->>> Has the fact RCU lock can be dropped so there is potential to walk 
->>> over completely different snapshots been discussed?
->>
->> Well that's basically the heart of the functionality. Even without 
->> dropping the RCU lock there can be an restart at any time when the 
->> dma_resv object is modified.
->
-> Hm yes.. that's one of the thing which makes me undecided yet whether 
-> a generalised helper is desirable. For example i915_gem_busy_ioctl, as 
-> converted, is not completely like-for-like. Maybe it is irrelevant for 
-> that one, but then the question needs to be answered for all of the 
-> replacements.
->
->>
->>> At least if I followed the code correctly - it appears there is 
->>> potential the walk restarts from the start (exclusive slot) at any 
->>> point during the walk.
->>
->> Correct, yes.
->>
->>> Because theoretically I think you could take an atomic snapshot of 
->>> everything (given you have a cursor object) and then release it on 
->>> the end condition.
->>
->> That's what the dma_resv_get_fences() function is good for, yes. This 
->> one returns an array of fences.
->>
->> The key difference is that we need to allocate memory for that which 
->> is at least sometimes not feasible or desired.
->
-> Ah true.. dma_resv_list is not reference counted to simply grab it 
-> during setup.
->
->> Thanks for the review,
->
-> Np, it is intriguing to look at the option of code consolidation. Just 
-> need to read more of the series to form a better high level opinion.
-
-Really appreciated, thanks for looking into this.
-
-Regards,
-Christian.
-
->
-> Regards,
->
-> Tvrtko
->
->> Christian.
->>
->>>
->>> Regards,
->>>
->>> Tvrtko
->>>
->>>> +
->>>>   #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->>>>   #define dma_resv_assert_held(obj) 
->>>> lockdep_assert_held(&(obj)->lock.base)
->>>>   @@ -366,6 +399,9 @@ void dma_resv_fini(struct dma_resv *obj);
->>>>   int dma_resv_reserve_shared(struct dma_resv *obj, unsigned int 
->>>> num_fences);
->>>>   void dma_resv_add_shared_fence(struct dma_resv *obj, struct 
->>>> dma_fence *fence);
->>>>   void dma_resv_add_excl_fence(struct dma_resv *obj, struct 
->>>> dma_fence *fence);
->>>> +struct dma_fence *dma_resv_walk_unlocked(struct dma_resv *obj,
->>>> +                     struct dma_resv_cursor *cursor,
->>>> +                     bool first, bool all_fences);
->>>>   int dma_resv_get_fences(struct dma_resv *obj, struct dma_fence 
->>>> **pfence_excl,
->>>>               unsigned *pshared_count, struct dma_fence ***pshared);
->>>>   int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv 
->>>> *src);
->>>>
->>
+diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+index 6bb4bc1a5f54..d77a30543dd4 100644
+--- a/include/linux/stackdepot.h
++++ b/include/linux/stackdepot.h
+@@ -19,6 +19,8 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
+ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+ 			       unsigned long **entries);
+ 
++void stack_depot_print(depot_stack_handle_t stack);
++
+ unsigned int filter_irq_stacks(unsigned long *entries, unsigned int nr_entries);
+ 
+ #ifdef CONFIG_STACKDEPOT
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index 67439c082490..354fe1b62017 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -214,6 +214,24 @@ static inline struct stack_record *find_stack(struct stack_record *bucket,
+ 	return NULL;
+ }
+ 
++/**
++ * stack_depot_print - print stack entries from a depot
++ *
++ * @stack:		Stack depot handle which was returned from
++ *			stack_depot_save().
++ *
++ */
++void stack_depot_print(depot_stack_handle_t stack)
++{
++	unsigned long *entries;
++	unsigned int nr_entries;
++
++	nr_entries = stack_depot_fetch(stack, &entries);
++	if (nr_entries > 0)
++		stack_trace_print(entries, nr_entries, 0);
++}
++EXPORT_SYMBOL_GPL(stack_depot_print);
++
+ /**
+  * stack_depot_fetch - Fetch stack entries from a depot
+  *
+diff --git a/mm/kasan/report.c b/mm/kasan/report.c
+index 884a950c7026..3239fd8f8747 100644
+--- a/mm/kasan/report.c
++++ b/mm/kasan/report.c
+@@ -132,20 +132,11 @@ static void end_report(unsigned long *flags, unsigned long addr)
+ 	kasan_enable_current();
+ }
+ 
+-static void print_stack(depot_stack_handle_t stack)
+-{
+-	unsigned long *entries;
+-	unsigned int nr_entries;
+-
+-	nr_entries = stack_depot_fetch(stack, &entries);
+-	stack_trace_print(entries, nr_entries, 0);
+-}
+-
+ static void print_track(struct kasan_track *track, const char *prefix)
+ {
+ 	pr_err("%s by task %u:\n", prefix, track->pid);
+ 	if (track->stack) {
+-		print_stack(track->stack);
++		stack_depot_print(track->stack);
+ 	} else {
+ 		pr_err("(stack is not available)\n");
+ 	}
+@@ -214,12 +205,12 @@ static void describe_object_stacks(struct kmem_cache *cache, void *object,
+ 		return;
+ 	if (alloc_meta->aux_stack[0]) {
+ 		pr_err("Last potentially related work creation:\n");
+-		print_stack(alloc_meta->aux_stack[0]);
++		stack_depot_print(alloc_meta->aux_stack[0]);
+ 		pr_err("\n");
+ 	}
+ 	if (alloc_meta->aux_stack[1]) {
+ 		pr_err("Second to last potentially related work creation:\n");
+-		print_stack(alloc_meta->aux_stack[1]);
++		stack_depot_print(alloc_meta->aux_stack[1]);
+ 		pr_err("\n");
+ 	}
+ #endif
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index d24ed221357c..7918770c2b2b 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -394,8 +394,6 @@ void __dump_page_owner(const struct page *page)
+ 	struct page_ext *page_ext = lookup_page_ext(page);
+ 	struct page_owner *page_owner;
+ 	depot_stack_handle_t handle;
+-	unsigned long *entries;
+-	unsigned int nr_entries;
+ 	gfp_t gfp_mask;
+ 	int mt;
+ 
+@@ -423,20 +421,17 @@ void __dump_page_owner(const struct page *page)
+ 		 page_owner->pid, page_owner->ts_nsec, page_owner->free_ts_nsec);
+ 
+ 	handle = READ_ONCE(page_owner->handle);
+-	if (!handle) {
++	if (!handle)
+ 		pr_alert("page_owner allocation stack trace missing\n");
+-	} else {
+-		nr_entries = stack_depot_fetch(handle, &entries);
+-		stack_trace_print(entries, nr_entries, 0);
+-	}
++	else
++		stack_depot_print(handle);
+ 
+ 	handle = READ_ONCE(page_owner->free_handle);
+ 	if (!handle) {
+ 		pr_alert("page_owner free stack trace missing\n");
+ 	} else {
+-		nr_entries = stack_depot_fetch(handle, &entries);
+ 		pr_alert("page last free stack trace:\n");
+-		stack_trace_print(entries, nr_entries, 0);
++		stack_depot_print(handle);
+ 	}
+ 
+ 	if (page_owner->last_migrate_reason != -1)
+-- 
+2.30.2
 
