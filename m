@@ -2,88 +2,44 @@ Return-Path: <SRS0=Y9sQ=OF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C97CC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 19:31:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C9A5C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 19:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19F8160ED7
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 19:31:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 19F8160ED7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5D1E961165
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 19:32:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5D1E961165
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1CB36EA04;
-	Wed, 15 Sep 2021 19:31:45 +0000 (UTC)
-X-Greylist: delayed 487 seconds by postgrey-1.36 at gabe;
- Wed, 15 Sep 2021 19:31:44 UTC
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 779966EA03
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 19:31:44 +0000 (UTC)
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8478240194
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 19:23:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1631733816;
- bh=reGZLIrkND9NmREfF+uJdu/zbEvtwF8yhm5BzYRS4EE=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=Y/8CpJlUnGk/rvwg/XmE0/iQzSkkVsvVnF/NYa/4uCJR6XVS9tW2es+e/qAhpAzQO
- QIZKS/DmJTSqmOKK2YuZDl7hK54f6C+kXpP+N47ed7STordYWmCKC8nA9VXY9C80xg
- Orig6ninBkJYEwFosdtr/koou63vgleNpAz6IbrylipKaM79Js9S6RbQjlLShaW3nT
- P/Xh5zQGd77FIzlwbfvBN1yigSI/Lf7DERPKjONbDZKtTLeE45G2j4MqXX9bL2mUw5
- OqemSaG9Z6mKuLnp0qDpjDZ/4zxaqi2saIyDBGrV3Bs/RNr1EizpNLGOTCVZbrsMSX
- 9UYiP1Z5em+UA==
-Received: by mail-pf1-f197.google.com with SMTP id
- q8-20020aa79828000000b0043d5595dad4so2416985pfl.13
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 12:23:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=reGZLIrkND9NmREfF+uJdu/zbEvtwF8yhm5BzYRS4EE=;
- b=6snHM95/+43nOvEZQ0v/wMFIRyTmEjTxXfUeGAaPLaDANw+nIPYDLMXF8XkT+xW8VI
- OUop1zVRx0+WC42KsSkmrt5Oe/7OKfLtn5Wojf2tk5KRvsBdqYcxQDduF5ci8TRDg4+6
- gIIs6b17mzC4RQ1RE+sep8wXBKlhLozrpWWqBkWoDCPCbgP6F1G2/UY0L9Gps77qYs21
- zQZUsAiaCRk7D7f2v2J5jGwEctSLju5Ca6nrbaI5RPo9Q5+BlXfwT0v3pFwTKZQ+NRp0
- 1xB50K1yHi6UjPAkS0kHnrjQp1jxINC2glBMvHSMbz0b6tgiNVAeYuX6uwURNfg6eWjy
- ysCQ==
-X-Gm-Message-State: AOAM531dayQoeYdWIoiqWz2WlpWgt38ClXsWAn4xfnxRqZgOGHU4G7s7
- eqEshRxEd/IrZEsc7h70zPVnjKwXvxa57/fL+aGUgb6P8RgjlOskTb1zx0X6oubF8Ir/mUaWl0V
- i9WiTIfH3XoDCMstG78QTslWouvfWrLhaS+KiYXUa4X/fDw==
-X-Received: by 2002:a05:6a00:aca:b029:392:9c79:3a39 with SMTP id
- c10-20020a056a000acab02903929c793a39mr1100593pfl.57.1631733814767; 
- Wed, 15 Sep 2021 12:23:34 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzLv/mm48E1hK21/iAiUnlGrUqkaD1mVhXMQzwUCOu3vlwewW1pnR9aODuvrw5GmvbZX8djSA==
-X-Received: by 2002:a05:6a00:aca:b029:392:9c79:3a39 with SMTP id
- c10-20020a056a000acab02903929c793a39mr1100566pfl.57.1631733814535; 
- Wed, 15 Sep 2021 12:23:34 -0700 (PDT)
-Received: from localhost.localdomain ([69.163.84.166])
- by smtp.gmail.com with ESMTPSA id f144sm640405pfa.24.2021.09.15.12.23.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Sep 2021 12:23:34 -0700 (PDT)
-From: Tim Gardner <tim.gardner@canonical.com>
-To: linux-kernel@vger.kernel.org
-Cc: tim.gardner@canonical.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Date: Wed, 15 Sep 2021 13:23:18 -0600
-Message-Id: <20210915192318.2061-1-tim.gardner@canonical.com>
-X-Mailer: git-send-email 2.33.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2776EA03;
+	Wed, 15 Sep 2021 19:32:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 753516EA03;
+ Wed, 15 Sep 2021 19:32:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6E57BA01BB;
+ Wed, 15 Sep 2021 19:32:26 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: zero fill vma name buffer
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 15 Sep 2021 19:32:26 -0000
+Message-ID: <163173434644.30118.9170720679818994813@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210915185954.3114858-1-matthew.auld@intel.com>
+In-Reply-To: <20210915185954.3114858-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv3=2C01/12=5D_drm/ttm=3A_stop_setti?=
+ =?utf-8?q?ng_page-=3Eindex_for_the_ttm=5Ftt?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,71 +52,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In capture_vma() Coverity complains of a possible buffer overrun. Even
-though this is a static function where all call sites can be checked,
-limiting the copy length could save some future grief.
+== Series Details ==
 
-CID 93300 (#1 of 1): Copy into fixed size buffer (STRING_OVERFLOW)
-4. fixed_size_dest: You might overrun the 16-character fixed-size string c->name
-   by copying name without checking the length.
-5. parameter_as_source: Note: This defect has an elevated risk because the
-   source argument is a parameter of the current function.
-1326        strcpy(c->name, name);
+Series: series starting with [v3,01/12] drm/ttm: stop setting page->index for the ttm_tt
+URL   : https://patchwork.freedesktop.org/series/94705/
+State : warning
 
-Fix any possible overflows by using strncpy(). Zero fill the name buffer to
-guarantee ASCII string NULL termination.
+== Summary ==
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Tim Gardner <tim.gardner@canonical.com>
----
- drivers/gpu/drm/i915/i915_gpu_error.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+$ dim checkpatch origin/drm-tip
+13d749649308 drm/ttm: stop setting page->index for the ttm_tt
+-:11: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 58aa6622d32a ("drm/ttm: Correctly set page mapping and -index members")'
+#11: 
+commit 58aa6622d32af7d2c08d45085f44c54554a16ed7
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 9cf6ac575de1..154df174e2d7 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1297,10 +1297,11 @@ static bool record_context(struct i915_gem_context_coredump *e,
- 	return simulated;
- }
+total: 1 errors, 0 warnings, 0 checks, 19 lines checked
+625b6c6d2e8a drm/ttm: move ttm_tt_{add, clear}_mapping into amdgpu
+437d165efeea drm/ttm: remove TTM_PAGE_FLAG_NO_RETRY
+7f778166b103 drm/ttm: s/FLAG_SG/FLAG_EXTERNAL/
+d5ca5e74a3c8 drm/ttm: add some kernel-doc for TTM_PAGE_FLAG_*
+fa296d488d3b drm/ttm: add TTM_PAGE_FLAG_EXTERNAL_MAPPABLE
+-:11: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 667a50db0477 ("drm/ttm: Refuse to fault (prime-) imported pages")'
+#11: 
+commit 667a50db0477d47fdff01c666f5ee1ce26b5264c
+
+total: 1 errors, 0 warnings, 0 checks, 30 lines checked
+fc851ac1bf9e drm/i915/gem: Break out some shmem backend utils
+6ebd10cc602b drm/i915/ttm: add tt shmem backend
+3674047745cb drm/i915/ttm: use cached system pages when evicting lmem
+de3f5e9a7e28 drm/i915: try to simplify make_{un}shrinkable
+-:164: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#164: FILE: drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:510:
  
-+#define VMA_NAME_LEN 16
- struct intel_engine_capture_vma {
- 	struct intel_engine_capture_vma *next;
- 	struct i915_vma *vma;
--	char name[16];
-+	char name[VMA_NAME_LEN];
- };
- 
- static struct intel_engine_capture_vma *
-@@ -1314,7 +1315,7 @@ capture_vma(struct intel_engine_capture_vma *next,
- 	if (!vma)
- 		return next;
- 
--	c = kmalloc(sizeof(*c), gfp);
-+	c = kzalloc(sizeof(*c), gfp);
- 	if (!c)
- 		return next;
- 
-@@ -1323,7 +1324,7 @@ capture_vma(struct intel_engine_capture_vma *next,
- 		return next;
- 	}
- 
--	strcpy(c->name, name);
-+	strncpy(c->name, name, VMA_NAME_LEN-1);
- 	c->vma = vma; /* reference held while active */
- 
- 	c->next = next;
--- 
-2.33.0
++
+
+total: 0 errors, 0 warnings, 1 checks, 194 lines checked
+7b31a03b4172 drm/i915/ttm: make evicted shmem pages visible to the shrinker
+7401d4e19fbe drm/i915/ttm: enable shmem tt backend
+
 
