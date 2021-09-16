@@ -6,40 +6,40 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54CDDC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 20:39:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FB2FC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 20:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1449860FBF
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 20:39:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1449860FBF
+	by mail.kernel.org (Postfix) with ESMTPS id 3CF1B60FBF
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 20:39:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3CF1B60FBF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81B616E8B3;
-	Thu, 16 Sep 2021 20:39:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66C16E839;
+	Thu, 16 Sep 2021 20:39:57 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B53E36E839;
- Thu, 16 Sep 2021 20:39:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0BDE46E839;
+ Thu, 16 Sep 2021 20:39:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id AE2D0A66C9;
- Thu, 16 Sep 2021 20:39:25 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 08C22A66C9;
+ Thu, 16 Sep 2021 20:39:56 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Lee Shawn C" <shawn.c.lee@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Sep 2021 20:39:25 -0000
-Message-ID: <163182476568.8838.17634288470935121563@emeril.freedesktop.org>
+Date: Thu, 16 Sep 2021 20:39:56 -0000
+Message-ID: <163182479603.8836.7834259764149906074@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210916102118.17356-1-shawn.c.lee@intel.com>
 In-Reply-To: <20210916102118.17356-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/dsi=3A_unregister_gmbus_if_LFP_display_was_MIPI_pa?=
- =?utf-8?q?nel_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/dsi=3A_unregister_gmbus_if_LFP_display_was_MIPI_panel_?=
+ =?utf-8?b?KHJldjIp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,13 +64,10 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-55ecb5a0d048 drm/i915/dsi: do not register gmbus if it was reserved for MIPI display
--:42: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#42: FILE: drivers/gpu/drm/i915/display/intel_gmbus.c:152:
-+			if ((pin == GMBUS_PIN_2_BXT && dev_priv->vbt.dsi.config->dual_link) ||
-+			     pin == GMBUS_PIN_1_BXT)
-
-total: 0 errors, 0 warnings, 1 checks, 31 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/display/intel_gmbus.c:144:6: warning: symbol 'intel_gmbus_ddc_reserve_for_mipi' was not declared. Should it be static?
 
 
