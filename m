@@ -7,65 +7,65 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94A93C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75D5BC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5803D60E94
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5803D60E94
+	by mail.kernel.org (Postfix) with ESMTPS id 49D466112E
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:27:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 49D466112E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 686E56EA52;
-	Thu, 16 Sep 2021 21:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14626EA38;
+	Thu, 16 Sep 2021 21:26:07 +0000 (UTC)
 Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
  [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 367CD6E927;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516426E939;
  Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.west.internal (Postfix) with ESMTP id B84122B011F6;
- Thu, 16 Sep 2021 17:16:41 -0400 (EDT)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.west.internal (Postfix) with ESMTP id 075AE2B011FE;
+ Thu, 16 Sep 2021 17:17:04 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 16 Sep 2021 17:16:42 -0400
+ by compute1.internal (MEProxy); Thu, 16 Sep 2021 17:17:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=R/tidGid4Cs5Z
- uAv4KbqJodwLkPczaEEwqfZnwHWGhA=; b=Ww7IZCgPdJ/+CnohNULzwbPegKHZm
- 2Fh5R4WPjB4Y81MyzS3+EckYPDynlcPE6sQQOwSX53OyiSKkaWOiMh4AFh7EXpAn
- +wRjliC1GBDKWX5G1m4fueYXC+jQSswijqD/0wZJqisS8vsNWQws2SQA6eUwCafY
- MHQOjNAXbFTxsRNiTHnC3h7rkVCBzSF2Oawk9eHriy7p/Vzg8/SWCnDOktGqTUiK
- hHnLWRzO8sTDjGtc3LmanAWho+I4FiCGWBu1Dk6yov6gMr5nILEIaP0xCHaNlad6
- LrhaLPss+rRkMvjBGCoOSMS8ODKXzKZT2C1Eu45YnxFpHw6YczUOlVMqA==
+ :mime-version:content-transfer-encoding; s=fm3; bh=iroseorgTS5+5
+ 6n4OvAi9A0zE9zzgwEyhNq+UyaK88I=; b=JqB6MykZyikjd8FHQpkP2BVRiApCi
+ p97PKlwm5G0/L/4XVX3lqmTmwqebWnYTO76yp5b24TACA4mDucytOHtFwCKVR8pi
+ 5Ut3HOIY7pMqcVlQPruSd3NBk1nqJmyk6Q8GmUt/PhC6uecC5BsJCQbe7izkUB1N
+ 1oODFBA15PXUkwVN1edova19IWI1k7sl3D7GZlEfJxWteVbHVqnCXIiBON1YeF6Q
+ ke7f46GEo8x9M8/x8g/68cQq+/34OnakZm4nftR794yVgm7HS84DcfEz9/9Xquzn
+ NQIrRugchM7CwmINRox74fte0FisiWe+QHwoEe63kzk/D7XsFOC+W5/Hg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=R/tidGid4Cs5ZuAv4KbqJodwLkPczaEEwqfZnwHWGhA=; b=o2nanYhl
- tJ6IrghK66DSKGstszmQbsNs/9ffr+s17BLdUcdTnDI3rES+6plBw1YtKahLbuFS
- D7jh8Qsic4+7+WuHiuLkbWiW2lfzMcRVI7TNMQstY2LKhw52HpTdPMBmnjaJt1Pr
- ECf2x0ftFJsjdXBsCT2TYpM5KJ47mBouT4whPF9N4YWFiKvqtrgCLmTtOZYQ7LzV
- gid6YHc3rF79+xNIxdyspAc1qkeb2otfhnE4smCW438kzJSwBffyt8BuevAUGtZr
- ZsQ3berHJ20M3Q8vLhfStTq99P/WQTAVsCh+PTetDRRj147Bh3TfnrztmyZ7AzgD
- e14RaGyP6+Btwg==
-X-ME-Sender: <xms:ObRDYZ7yhET2pR1O0lfl4voYSG-yazq9YUaMssrZkS_WrbqM35ojJw>
- <xme:ObRDYW5dM5Rhn0yZr-imNxIZlf4uNUFx0uZnzTLDpIxPUr9Y5crukNzN_UMVNFAEj
- MEkrxqyjd-ps51_tg>
-X-ME-Received: <xmr:ObRDYQf0l7yIpvoFLSWko3l9G7_o-Ie0q0pyE5Fx0QHc4GpIqVSIElCUvkIeam1VkgsU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehvdcutefuodetggdotefrod
+ fm3; bh=iroseorgTS5+56n4OvAi9A0zE9zzgwEyhNq+UyaK88I=; b=KFmCLz46
+ 1FPNUNZEQDILKwJHhkCM3LDNBWvz+Du0FfVwgzscjCIa1lfAFUMCnimOCnz+v2VN
+ OIGyPho+V34dOTg+c/liZ3nhJ8V7rjnRiHRq7+K4LuplvVdLlICSGB4EQRysKM3m
+ XsRnIfK3DrD1MuKduXDb3s4qXdjLNNXnWPtLpx+Svp+INZSW7vWv7S+5pgFBVO/7
+ YKtF8vjl/idG8MDmrMGP+k7KpEgPEie9FYkCHdSaT6Qs2myEMyviDTW4WP8Qkv3U
+ y+kmKM4SWxPDHOWwdVvrKTSZPvdibP0auTw41yvGQfEUDCrBhInYnVVyzHzf1P8w
+ /zDqSRxgO6ai9A==
+X-ME-Sender: <xms:ULRDYUreEiKr9-wfH7gjUQbDYKJlFusHfKWDogv7Ge602Ckdj2vj2g>
+ <xme:ULRDYao97dVnQm7nZvkBz6y2xX7-1i4D6m8xRuEBPuUiX83LHVnC-ALNHac7hyfxI
+ eqfXjkzgZz4MQdYaQ>
+X-ME-Received: <xmr:ULRDYZNVgneZAgEhKnokbUl8KnYcgUKXaZlcEOsOsRIX_j_8iuHMQKyHUnZMPLTcfbv1>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehfecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
  ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpeehnecu
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpeefnecu
  rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:ObRDYSKdSB9h_UDhyjspM0TmpwERkwU-s9SzKBZGZmRHmZJQJEG9WA>
- <xmx:ObRDYdI3syJRkb3v7NwoxSWpd2tkAe33QrtMsNoivpLMUdz2bG09Sg>
- <xmx:ObRDYbwM9NzW-pIW8WdhdnP5TknDBiBWtTdeJTK_PjMKfzvEbNmD1Q>
- <xmx:ObRDYWVKJ5P7d5DsQZ0etF8JKSpwYUb9y0RBJdrIsKrDIl9KPSyZkKNK1M0>
+X-ME-Proxy: <xmx:ULRDYb7tx52V7V4Uy3ZFmKN34pzWAWKKXV2pf9Luy9WJAsmvqBWktg>
+ <xmx:ULRDYT6yJPnE9_oDxHhEFQK0wZYXfux_ly9TKvbmMj96gpW4clHJnQ>
+ <xmx:ULRDYbg00qLPg30a5Fg6nDCEH4CMmlk7HY8xQlq1WDVb42fpgWPiGQ>
+ <xmx:ULRDYQH6y7bdl-ZVVuxrF3UsbDA2Ufy00zFfyaZw0zyk9jss2N3JQIvlack>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Sep 2021 17:16:38 -0400 (EDT)
+ 16 Sep 2021 17:17:01 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -73,15 +73,15 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Date: Thu, 16 Sep 2021 23:15:47 +0200
-Message-Id: <20210916211552.33490-11-greenfoo@u92.eu>
+Date: Thu, 16 Sep 2021 23:15:52 +0200
+Message-Id: <20210916211552.33490-16-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
 References: <20210916211552.33490-1-greenfoo@u92.eu>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/15] drm/nouveau: cleanup:
- drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Subject: [Intel-gfx] [PATCH 15/15] doc: drm: remove TODO entry regarding
+ DRM_MODSET_LOCK_ALL cleanup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,56 +97,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As requested in Documentation/gpu/todo.rst, replace driver calls to
-drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
-DRM_MODESET_LOCK_ALL_END()
+The previous commits do exactly what this entry in the TODO file asks
+for, thus we can remove it now as it is no longer applicable.
 
 Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ Documentation/gpu/todo.rst                | 17 -----------------
+ Documentation/locking/ww-mutex-design.rst |  2 +-
+ 2 files changed, 1 insertion(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index d7b9f7f8c9e3..eb613af4cdd5 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -667,15 +667,17 @@ nv50_audio_component_bind(struct device *kdev, struct device *hda_kdev,
- 	struct drm_device *drm_dev = dev_get_drvdata(kdev);
- 	struct nouveau_drm *drm = nouveau_drm(drm_dev);
- 	struct drm_audio_component *acomp = data;
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index 12e61869939e..6613543955e9 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -353,23 +353,6 @@ converted, except for struct drm_driver.gem_prime_mmap.
  
- 	if (WARN_ON(!device_link_add(hda_kdev, kdev, DL_FLAG_STATELESS)))
- 		return -ENOMEM;
+ Level: Intermediate
  
--	drm_modeset_lock_all(drm_dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(drm_dev, ctx, 0, ret);
- 	acomp->ops = &nv50_audio_component_ops;
- 	acomp->dev = kdev;
- 	drm->audio.component = acomp;
--	drm_modeset_unlock_all(drm_dev);
-+	DRM_MODESET_LOCK_ALL_END(drm_dev, ctx, ret);
- 	return 0;
- }
+-Use DRM_MODESET_LOCK_ALL_* helpers instead of boilerplate
+----------------------------------------------------------
+-
+-For cases where drivers are attempting to grab the modeset locks with a local
+-acquire context. Replace the boilerplate code surrounding
+-drm_modeset_lock_all_ctx() with DRM_MODESET_LOCK_ALL_BEGIN() and
+-DRM_MODESET_LOCK_ALL_END() instead.
+-
+-This should also be done for all places where drm_modeset_lock_all() is still
+-used.
+-
+-As a reference, take a look at the conversions already completed in drm core.
+-
+-Contact: Sean Paul, respective driver maintainers
+-
+-Level: Starter
+-
+ Rename CMA helpers to DMA helpers
+ ---------------------------------
  
-@@ -686,12 +688,14 @@ nv50_audio_component_unbind(struct device *kdev, struct device *hda_kdev,
- 	struct drm_device *drm_dev = dev_get_drvdata(kdev);
- 	struct nouveau_drm *drm = nouveau_drm(drm_dev);
- 	struct drm_audio_component *acomp = data;
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
+diff --git a/Documentation/locking/ww-mutex-design.rst b/Documentation/locking/ww-mutex-design.rst
+index 6a4d7319f8f0..6a8f8beb9ec4 100644
+--- a/Documentation/locking/ww-mutex-design.rst
++++ b/Documentation/locking/ww-mutex-design.rst
+@@ -60,7 +60,7 @@ Concepts
+ Compared to normal mutexes two additional concepts/objects show up in the lock
+ interface for w/w mutexes:
  
--	drm_modeset_lock_all(drm_dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(drm_dev, ctx, 0, ret);
- 	drm->audio.component = NULL;
- 	acomp->ops = NULL;
- 	acomp->dev = NULL;
--	drm_modeset_unlock_all(drm_dev);
-+	DRM_MODESET_LOCK_ALL_END(drm_dev, ctx, ret);
- }
- 
- static const struct component_ops nv50_audio_component_bind_ops = {
+-Acquire context: To ensure eventual forward progress it is important the a task
++Acquire context: To ensure eventual forward progress it is important that a task
+ trying to acquire locks doesn't grab a new reservation id, but keeps the one it
+ acquired when starting the lock acquisition. This ticket is stored in the
+ acquire context. Furthermore the acquire context keeps track of debugging state
 -- 
 2.33.0
 
