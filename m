@@ -2,89 +2,89 @@ Return-Path: <SRS0=l9+3=OG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D87ACC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 13:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 356E0C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 13:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C15161212
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 13:40:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C15161212
+	by mail.kernel.org (Postfix) with ESMTPS id EFAFC6120F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 13:40:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EFAFC6120F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D416EB88;
-	Thu, 16 Sep 2021 13:40:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E776EDCC;
+	Thu, 16 Sep 2021 13:40:06 +0000 (UTC)
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
  [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03BB36EDCA;
- Thu, 16 Sep 2021 13:36:07 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18GDCHpq012704; 
- Thu, 16 Sep 2021 13:36:00 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F37E06EDC3;
+ Thu, 16 Sep 2021 13:35:54 +0000 (UTC)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18GDQDJm004749; 
+ Thu, 16 Sep 2021 13:35:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references :
- content-transfer-encoding : content-type : mime-version;
- s=corp-2021-07-09; bh=wx5WfZpBztikPSuUwtEhbSOsfuO0L5IaK5Z8T2MYYC0=;
- b=Z1NCjhAn05HCRc5PUeX+3xY79NnGUvcPQcWtpjGkHy7EbG38nLgY+JG1YEfyEESn6je4
- GCLTu4smb3+RYPoJdkdk3y7WrbydxAm7Yga3vw+hrJwSj2ECT6mAbbX8W6crilmW2NWu
- WC5uKaia1qjo1gxzgw8itMjfqtd13s4hQDs29DGgW/tbkhiKxdXd7edH2R8wt6Lg7wN0
- EJKWlH1Uj67bqPRHapopWUFPDYsslyJggbGLQgL2xg5BsJoQwrpB06g3GKYtTdPndT7y
- XZm7AkHO20+cRcfyGrWFTeIPB6JO0rxE8/mYA+02v1hijhv2Uk3Isg7E0TT25BZZqBtx dw== 
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=corp-2021-07-09;
+ bh=y4GJHNUxGwbXl9l9lQQZYHCZRYz4WE1RdEtDkfUsRFs=;
+ b=kVKEhC0ymlPER05VlAPc8SC0QNvhhmzFbVX6AZZp7Tmb1lUn1juIb6ekbSLLjWpH037/
+ UqM109hzU7Zk4w9dUGaki/skM5y6QjMp2KkwWGkWdQNpR6N7MMy7+M0wDzTEMQGH9Gs5
+ Uj6ZsNT0sZjy7QgxCzFI+fI4Zcp436SAgFTK20n1Q2jP3aI71a8JlmMYv+6+8Sp58ACO
+ 5csLHjgvzCos8vJaVS0JhBEiCPwNjeE0rcN7YfKMMvs3ray+ifbEWHoyIOzkG0yellAv
+ qem/c9/mNbs9ne6iOngBRgjNSrX+oUi1HOgeEtTm6i1x9jgr+5vPqGGUCUJEX+n2HQXB nw== 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references :
- content-transfer-encoding : content-type : mime-version;
- s=corp-2020-01-29; bh=wx5WfZpBztikPSuUwtEhbSOsfuO0L5IaK5Z8T2MYYC0=;
- b=j+UbCiJHQcAH0An/n/HAirlLRk3MoP7AMcV/tUEFhiRyfLwl+SA73nZTVmEC7G+jkyuA
- 8seDs4JHF2HZFL/RvHAWCWSxqe5WPbSzX2jhBmKYQOR8jSvPD5mAiSkkI3WNRLoLqgv/
- BJSKp+XuDb0gA1AGXWR2FPAzW0fECv16WKqAxsBtA87Rq9khB+EWgK49DHDjVkUAFrzS
- zCZ1bCIGlytYS8WHyNfTdoCIg8zKrPPBhksC7tneOBYGKjfRgFPyaJqVM0iN5sNRXgYo
- B0owubN6v2K2uubXImRbKb0AU1IZzo0BOJ45W6pIxPc9o/qD3gk5J0Fj69AJgJIUTtS8 sw== 
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=corp-2020-01-29;
+ bh=y4GJHNUxGwbXl9l9lQQZYHCZRYz4WE1RdEtDkfUsRFs=;
+ b=TH5SuCa0HBsZ1HSgNqIRieNst3SKLTU0PGHd4MPRKs8PIqAZqmpfURPnyC7Crh52O8pF
+ q1G8NQaB96Ym7+FDJU/3EmikxqDhHg0ZPf6BwPY2w/iVLDTTwzUfIXjXfTqbs5yQvAzQ
+ C1A1vrgfhUcVZZu7cBjNGZyRxlmQ817QYw15JCAwKhxG+icDNvHibkXylW717ac9BwxF
+ OU6kEtPYWMwPuBTnX+C0ah3JJnq0OihXLAbi8qyOUlUZtIwZiaCdNaJPlDh4B8DDAYKg
+ Gbbi3E/H3mSZsC/HysxeEU+A9UFMRKS9D465qhIBpQFXrWMTZRxfm+8qnhAW84paytOs Rw== 
 Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 3b3s74j9wj-1
+ by mx0b-00069f02.pphosted.com with ESMTP id 3b3jy7kfwu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Sep 2021 13:35:59 +0000
+ Thu, 16 Sep 2021 13:35:45 +0000
 Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18GDZK1M084032;
- Thu, 16 Sep 2021 13:35:58 GMT
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2109.outbound.protection.outlook.com [104.47.55.109])
- by userp3030.oracle.com with ESMTP id 3b0hjy8gk8-1
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18GDZHt2083818;
+ Thu, 16 Sep 2021 13:35:44 GMT
+Received: from nam02-dm3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07lp2042.outbound.protection.outlook.com [104.47.56.42])
+ by userp3030.oracle.com with ESMTP id 3b0hjy8gc7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Sep 2021 13:35:58 +0000
+ Thu, 16 Sep 2021 13:35:44 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IoFCokSP2MG2fQZcG4yK1Ji3pDIkMH3C0tPP7w8bXJSN+7n+ZJHFnK3Vcw6jmSvTAOpi3XOfo7KGkx0IbQ+MtURe+PSqfyJCDRAfjF5JLP3cK7dMdZ2yPsB8iWmKJfvx0O/oPKJIX+8wWDNIgeCWbxIPfnUDEItvb/R4k+KTMRBjMplYgXUznN3i8yyORIASDarfEnSoHzZepKhwNZgpCLCX6p2rYMkFsoVdIO9T4H6TaLSl3k8ZPRHKTMxqlCjzRObLzkI+FqewBlFRuoGX+nuO9ZyAZlCynuEkYxqrJ/AAAL2aBkELBAKHdQcqnoYtQOALgcsZQBGt0l5gHh6L6A==
+ b=KU2rhnbxNab9qoGQ5tI6uzBl8mYBfBjDL2XWitFX0I6UBojRMHL359+GsT18NuJzDRSGNlyG6vXXCFes2LQvyjuh9k15eDGPuzb53+D+j/VDQnPSBEZWI1rZBnNS5wDeWFtwc9H8EoPNQPy7mfA283p7nRLc7Yx92ISqfFRkukHC6o0kWIDv7caF9mB1TmS/HeH+oo/C4ACkWTJJ50auX/+QXsOx6QTG1SFmOHIkeqDanjFwuEhUguUpNDnYkO+WZ6LcyfyQvNV2Uw0s8qC45uAPyU9FLl0Ra5wCGjRxv6Bt908YOr3+c052MIrZz1m7fzpRruok0PNY3UlEdiUE8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=wx5WfZpBztikPSuUwtEhbSOsfuO0L5IaK5Z8T2MYYC0=;
- b=NYcmaX3jeSHzfokIZyRuDIFgLxQG7pICEXJjIlv0L72ACSbWp8Pc/FQVZCyB7wtqU8ZqtJcVx9jlPVWQ/fwEMyf61HS8iQ7Qy1QBEHCxOJIfSBCfEqDh27eVWyzMfFZ+/G7xYenUiGvr+GqLpGW98GF2SpvYnxHKcVLnW374g6p28fB2Q8VA4SU99RrGB6/5B+d5jVSb5DMWVFt6n/aMoVMbTkagTsGCLYXjIeAb84tXdfmP95Vfx9Ugh4k3tERbllP4U0cJmv3GJsOBOkEu3gD8tAu+IzrBejDPa3T907PddOOKEXUC0idUJ3V0UpuVLqcv3bOMcKAdJ60mYWHmzw==
+ bh=y4GJHNUxGwbXl9l9lQQZYHCZRYz4WE1RdEtDkfUsRFs=;
+ b=j9YZgxBQK0sy5Nek+3l87lxrQ+uMyJnLzvUSiqwAXgn7I6/rw4JFBgcBedux2UJwVHO/i4LOdffP0i4Tjlbt3AQT/F2RuwcWG1m6M3k+1Y71i6RNYxlMjKrJ+QXb+T7ODJBVrF0gwHErBJFZe90kVD6tqhDpVWpM5E0SU7Wqm5cZeFN02c+BCsko9bh1vhncB32SmU8TBlSuygQFstiGOq0lDvzi2bRydKma1O3GbSrkUFP5hWPp3wXbo3nvL+6PeopkPvZT4uXY6fRoXwlcp+sxAYHvSopGRLaO5+ggZpqNQ5Q9ju79Ya5kVX26etOhmDrLNBPB0V0dY5fwaCKWcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wx5WfZpBztikPSuUwtEhbSOsfuO0L5IaK5Z8T2MYYC0=;
- b=vMSulnLucVoQAHtr/nskOHitvGf04Ha/ua+4C1FkgpqHCxFkjdfxThU04Y6AY6XMpBLUEL4zSdwvm2BDqinQV27po5VZI6UKcUYQAfWs7c9a79sKKEFWiEAf0LMe/BEntvgstjJf9Hr3nRiSX1lP/N1yihqyl0LAF1id15T4EKI=
+ bh=y4GJHNUxGwbXl9l9lQQZYHCZRYz4WE1RdEtDkfUsRFs=;
+ b=HgKzcp92zjg1UrZx8ClBw7uyQyJfH58PnOqA7Clv1yZ6/xpuNM6dk5lVrjQcWFmLmHoGqHAzl1OsjRtkJNWKaMhmVsd3N/feHpIrXiC/Vf9dNDe7O0/Ru5fgymfPAN2CToQy7pWJ5uUo8AKXW+icnGk9tC62/q3OoUj5+07eM0g=
 Authentication-Results: suse.cz; dkim=none (message not signed)
  header.d=none;suse.cz; dmarc=none action=none header.from=oracle.com;
 Received: from CO1PR10MB4468.namprd10.prod.outlook.com (2603:10b6:303:6c::24)
- by CO6PR10MB5572.namprd10.prod.outlook.com (2603:10b6:303:147::6)
+ by CO6PR10MB5553.namprd10.prod.outlook.com (2603:10b6:303:140::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
- 2021 13:35:56 +0000
+ 2021 13:35:42 +0000
 Received: from CO1PR10MB4468.namprd10.prod.outlook.com
  ([fe80::f091:1dd2:38a8:e986]) by CO1PR10MB4468.namprd10.prod.outlook.com
  ([fe80::f091:1dd2:38a8:e986%6]) with mapi id 15.20.4523.016; Thu, 16 Sep 2021
- 13:35:56 +0000
+ 13:35:42 +0000
 From: Imran Khan <imran.f.khan@oracle.com>
 To: vbabka@suse.cz, geert@linux-m68k.org, akpm@linux-foundation.org,
  ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com,
@@ -92,11 +92,9 @@ To: vbabka@suse.cz, geert@linux-m68k.org, akpm@linux-foundation.org,
  mripard@kernel.org, tzimmermann@suse.de, airlied@linux.ie, daniel@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org
-Date: Thu, 16 Sep 2021 23:35:35 +1000
-Message-Id: <20210916133535.3592491-4-imran.f.khan@oracle.com>
+Date: Thu, 16 Sep 2021 23:35:32 +1000
+Message-Id: <20210916133535.3592491-1-imran.f.khan@oracle.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210916133535.3592491-1-imran.f.khan@oracle.com>
-References: <20210916133535.3592491-1-imran.f.khan@oracle.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: SYBPR01CA0008.ausprd01.prod.outlook.com (2603:10c6:10::20)
@@ -106,54 +104,54 @@ MIME-Version: 1.0
 Received: from localhost.localdomain (110.33.47.182) by
  SYBPR01CA0008.ausprd01.prod.outlook.com (2603:10c6:10::20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.16 via Frontend Transport; Thu, 16 Sep 2021 13:35:52 +0000
+ 15.20.4523.16 via Frontend Transport; Thu, 16 Sep 2021 13:35:38 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3078b39e-e702-4bf0-41e3-08d97916e926
-X-MS-TrafficTypeDiagnostic: CO6PR10MB5572:
-X-Microsoft-Antispam-PRVS: <CO6PR10MB5572C23437CD7F020345E1A8B0DC9@CO6PR10MB5572.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-MS-Office365-Filtering-Correlation-Id: 2c302ddc-ccbe-4280-47cd-08d97916e127
+X-MS-TrafficTypeDiagnostic: CO6PR10MB5553:
+X-Microsoft-Antispam-PRVS: <CO6PR10MB555328F891C3325AFF991071B0DC9@CO6PR10MB5553.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RqbqLMlJ1H/keDqGbML3JnTmgdnePK/+IEqZIcwTTPu+MseEZwuo4NJf3EZYkEYIjnNcvRKSgfcaA7lnoqyew+1DkxQQA9k1iPZsQDQLUidhxE6bcBR8jCZzhmCFcfm5IKbZQK9OOV4TCa4BLNGTjU7vuFGjAciJpz65pTmV0J54IyN3T+eyTdFfqT+mnvAPuPkZKA1ugtE9OqbgdenoznM1urs06BJYc0WeJdXsAuAKyc+AIZhF0Uyxw5NXOXsaKO2wMGreH8gWFqEaf08S5iYApDNez9OJLaqzzN79Tx50Y3fuyC/naeSwnCqgIJRjdYuvXqNLqJsBOBt6l1yON9eNp+T3YVg0fQGaX4ODxw10R53dbwLLgWvCdlJV64qt12v+7FBEJhE3JueHwNpyWZ0zGxaT7ueAtWteGWckirsetBTCv1CRvZsCztlcff74oqAJ7TVH/KnLBxcDV1v7WhawUBvdj1AkIFwTxpgcUHo1zQ7WxkHq1PLl6ZQL7u7WNV5Ivm+fh2SzDQ9Fkh58ZRwXeqPofOMK2sljzvgkz9cRBAF/b9ltptsArIeF/9OcbOM6Dpb3Uo1KW5LxQuqoxI+szzMarGO1Wneo1uffn+dYQ3i5A01OyXCL89Aidf7drnCl+WP7orSKqmLiX2GuaoQLKSLrUTHXH1gJyThcAIAvrkf1uEZCegkdzHmu1GFigIZzEMuZU4/CKwCsjKaU2UhCLyp8bepMONBsrkbohwI=
+X-Microsoft-Antispam-Message-Info: HOjpQ1fCz4sBWawZ5cGu+iUko1WGuHrdo6r8dETW2nJYCSnbnwj3PKbnV/lQJgAkTAS+PHLb63RBomXnnxLBZA4dFA/Co2b6FGKNTUmWlbT+oPZOtD4GNL8VDC8ApYcn9bs894B1pnlxRr3C7xMJyaG7XbCzjUc8ShUnaESHE7wgvrtsXflvvxENmv5A+ri67bNFJ8pl6mL5gTnmwbMwWK1hcpp0AoAFXqQkp90QHp9nVzyjxRznrFQtsbSgCWpMPJ5LqJuooz2KkRmI+k4tpkK0GdB0K+DxF573WdXbWdX5vDWjJG0I/IIPAR/EZM2WoxtmkCy5YszbSXG4K5+GYkpM285uQc7SsqVvToeSS6jsY9Av4Ho0tr3XBi3/oVs7BJmE8Ir1ekgLzZIbJ83Jft5G3QNS9zxYbXVPIjvftTvAyI31jvYy+lsI5iRqkZOm6wUnHFAhpgwi+L4E11487Uc8E0jOBATLIiLjYRiHytNqybrGZLx1Ms1Noi/3up57rHMb7lUVmPhE8PbPY2hHCcryORBcvu/fgQlqDv6zO2eHIMEnAdVQl0CAGEJPOBiAjcanCO2ew39z4So49rvj/EPBPHlmjK1bhHlSQC6nZnU3MoeGDH+DRbYo+30b0WB1kADNq7FKJuk1pI8R3Ns0TfVTlgiK0Hc6B5eRMXRpFig/fNWOAKDvy7ZjkkSQhZOU9hw4NQxysI/BA912iwHxWKg+2SBa1e3DKIR0V6BFbc45rY9xXeOXe4ZHLsXzRv+5P2LFbJx3Chz9jNXqWWjIBt7VmpmXXEJdWFiJQMPxf7++lTAesyP1A+XMlTivMGrCJYlgjtclPvcg8QW8/2ASG63LWR61qCYw0nfL4UESzSw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CO1PR10MB4468.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(39860400002)(136003)(376002)(396003)(366004)(346002)(956004)(26005)(38100700002)(36756003)(83380400001)(2616005)(8936002)(38350700002)(186003)(316002)(2906002)(8676002)(921005)(52116002)(6486002)(6666004)(7416002)(6512007)(6506007)(103116003)(4326008)(478600001)(66946007)(5660300002)(86362001)(66556008)(66476007)(1076003);
+ SFS:(366004)(376002)(39860400002)(136003)(396003)(346002)(4326008)(316002)(36756003)(26005)(5660300002)(956004)(8936002)(83380400001)(7416002)(66946007)(52116002)(2616005)(38350700002)(6512007)(6666004)(38100700002)(66556008)(66476007)(103116003)(921005)(8676002)(86362001)(6486002)(966005)(478600001)(6506007)(2906002)(186003)(1076003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?glgeouBfCvFvuzgKMz8698ZZ8dP3P/TdGVBri8zsdjHC9sDcyj8pRJmz253f?=
- =?us-ascii?Q?SuuL7NUQuUyhtzw7C7QomZaWfT0ODar4JaPDbMM6XbLdk5+UT+j65z6GMewX?=
- =?us-ascii?Q?kIDo7zBQVWvhzqMh5WMoWakFU47KD4mKmQ5fc/V6XB6OO2a0gGDmm1HaNUmL?=
- =?us-ascii?Q?XvTK5z/vWTL8nXjqyM4hABVIbf/pU+oANx5fqB5AwBmkZRYjzMPUJNbFO2SA?=
- =?us-ascii?Q?FZrki7PPUVtn3+t+hK7MJ2qps7VLmB0lHH58unk1gjbNxNg2P+YWJx9DV8OE?=
- =?us-ascii?Q?SIIik7sJDXTw+Rtg7/dlRPhPLMW7zKKIdkGBY+HQSYPU1wfjK0Y227v5xiF2?=
- =?us-ascii?Q?ccbCCLLWsntvgdk7G2RdlQ4C4nPAqwnxwqOVPl1+DMPYBibcaN4qF9JCl8o5?=
- =?us-ascii?Q?g3d1X4VB6jt/uy7O+GdlH5EQwtYgEdAMOBWaoR0AtAKzWZEANNwi+dundj1f?=
- =?us-ascii?Q?6AjoHVOnbUIrDb6qS6PvUQLfuLGcy/Lsq8GBNSFVAAItVsX10SOGpEV2UllB?=
- =?us-ascii?Q?wqCeqyUAhtvfmb2eZh4n56Lwq9/zIkGbKbfXi7f9OpVn9l6ZPkKUb/dU7OSV?=
- =?us-ascii?Q?Je+UjHwYuOndLZU9gIw/+lsyY0J8sWD7K5FKYx/kKeyq6yxq4lEHrMFgYeqS?=
- =?us-ascii?Q?K5Ee7uoC+nX8MMO1vjBl/SldbZNDvh5aMRpwFsnE6weOzJ237QQzVAD8O1yP?=
- =?us-ascii?Q?a8zrw5O65hHHo/gjimGutPKy0erYno/u0KRNfgO6PO05ecP2CXKm9K2a1GUP?=
- =?us-ascii?Q?tmDtD0d1ElXAi0Tr5rmuA5yLc98EKfPbTXyAmbvLnBkwmXCabpwdKzt9yY+P?=
- =?us-ascii?Q?u6ijKtzAr5ylWpyuLhNTujGNqne/cNOhuxna+DMN/gNPopcVvBTDJ2ykVTkk?=
- =?us-ascii?Q?Incxvu7n23aaYCiqabUQk1Ks0MkLFscieuMBs7dFLSo6ehGnVAQq7WpQh1tq?=
- =?us-ascii?Q?gPwFieg84APvvupqg+Wb04PTunMggPWE8J4ys0VSsaHDun50NndSGAL1Z48L?=
- =?us-ascii?Q?ecPKfh2u1rwEqfBQ9FXNaAn4r7slwR9FZsoQ1S8im2CgBnKz6JJOFCJL+bVJ?=
- =?us-ascii?Q?7zXL+es+KxEQdbl654gRg/3HWRhGcCkIS9Wpb0KcUn8EsZVZYncOn2/Jch4m?=
- =?us-ascii?Q?IacAu5A+lZgedVe56wgha0ue7O8+vUECIHl1iWWMrCSZpqBvSO+PJ1jcLU9J?=
- =?us-ascii?Q?oTI5E3Fon4qkNEYqyNfyZm7B9BiRUQecm/RvyAtESMtEhPQGVHyAJfqluU42?=
- =?us-ascii?Q?xyqSYupJ8+X98MaKWRmeyHmN8kHVVK24n2+qKvvoOJPVBI8Fjw1JrWHHlmLB?=
- =?us-ascii?Q?KJcz02w8n4KnAyouGmEavhUh?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1VFxJY7qV94LvuPhwE1ZX0JkW/2eRLODHEUJiX3k6V5zknpZO0xT/bLvbf2w?=
+ =?us-ascii?Q?0kdf4rtnRIV1MhyjaI2kRN6BVZcPPsQqEt8fqAOIE9S0nkE+ppEHIJMMwyg+?=
+ =?us-ascii?Q?iE6oLDNfFE42hXq0C69GRR3jojD8c8OAWP6Ce5rQB+LVA7WfXa0CX75OW5PW?=
+ =?us-ascii?Q?/e+1zfWlR5WWnklbfaIYL6b+L+27WzUk2rEEixXE0NBE3ZVA2bE9lLnNTTlx?=
+ =?us-ascii?Q?SHTh4Qziz08/IRdM5BDFv7uoIPET2KJNtc6XShhuSF2ZX0neGrxSbuSNibCY?=
+ =?us-ascii?Q?p1a+AtkwTLjvijw7DnCX1E4e5+5mqaOCgDhinwGINFoqLb+IPkXU+QAsYNv4?=
+ =?us-ascii?Q?PmQki3CmBCuLNbwSdMjAy9wzEwXjnYJhOuek1l5E0Z4uqDKWgmzyt7vqldTh?=
+ =?us-ascii?Q?j2gfpb8ZV64TZzrdaU81iKJ2naxaS19eoIeV79Be0Eqka4HL3XMLlXr2D4WQ?=
+ =?us-ascii?Q?CgNxdYxheV1mLYNLB04DRQNCtFc5edL4iEKK/3VtDuW0addYg5CSkPSGiAPl?=
+ =?us-ascii?Q?pZAvdjheP6bX0AQZV7OgnMNAM31wnqe1MQRhDbnL54rqfyaObUM+kTWNGP41?=
+ =?us-ascii?Q?+ToPt1XLwcQJieyPSgKgdy6dMmGKvZgDWQn/QOmewqexR4mzTqVdusH+GNMy?=
+ =?us-ascii?Q?NEzCprktVJ3UKgkFa0NAt5SbLs9hhua0iQaDbitaDRtzIrvxoK68PpQNDx3p?=
+ =?us-ascii?Q?PW1xw40lx5d0/go37s66RCwEBaSoriBdA2uhrOLU/5D5KN6NmbYB64wYhwda?=
+ =?us-ascii?Q?ka5oLtxepXHJkYpGRMNtM7/3kNBIt9gtN7AefHtuwQnCYR2+2T5hOfQ1kUBV?=
+ =?us-ascii?Q?CcSnbpPe13qiDdKVbCETpFcfiMjgtiThXFEFLBK6eZNJHIim6W42TNJEGvek?=
+ =?us-ascii?Q?NFFwbHiIvhLo9SHxON5vCHteE0tD8lfk5q7PZ604CSjjnjoyU6FHwZX/iQyu?=
+ =?us-ascii?Q?bRlJZBMsMdw5YQ85OOjYYQ1pGA1i3DuIAljOTPLUY6U3TIAtRllHZWxbRfcw?=
+ =?us-ascii?Q?kCfBkt/7VDNLY6lYxBqfOSfzjQvxVW8evqOkjoSWB1EbZMFXFFAC+NtmBZEU?=
+ =?us-ascii?Q?uVQeHcjzGncYphCVc+mnOzjaYE2eUfosXaxU4NbXwP3molgMKJk1FIiPnwYY?=
+ =?us-ascii?Q?363wY3ByFIFrAMNN71fTziUdPK3mDftkUnUadtGEMlBiDqDo7OYJlHC3E6p1?=
+ =?us-ascii?Q?sieYdqN7Qg6YsR70qU3S13mAaTK2/P4Tp7QwiSpmHCx/XdYY8segEplIGQ+u?=
+ =?us-ascii?Q?YnvR7VIVZ+NZjaGvWX/pzpyK7R74hLZX1htojZrcMWby4nncmYOwzfX4iHVd?=
+ =?us-ascii?Q?IjQcmcr9Yq0Ih8ozjywgVmAs?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3078b39e-e702-4bf0-41e3-08d97916e926
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c302ddc-ccbe-4280-47cd-08d97916e127
 X-MS-Exchange-CrossTenant-AuthSource: CO1PR10MB4468.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 13:35:55.8620 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 13:35:42.4569 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gGRTPMeViesqycXGR2SoGHNs6VU+Alc0YzU5wrHr7iSKUOhLNaI5G6rZalMIR/samrKCAG3nOFWby3crSni0ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5572
+X-MS-Exchange-CrossTenant-UserPrincipalName: CnWaEuVRVvhI98Q7Mem/RG4V8JOoaLgV1Efv+keeSR4fz5H1heeL5rYWPUMSvjdyn4SjYFZqiwMPsDd3ba2P6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5553
 X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10109
  signatures=668682
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
@@ -161,11 +159,11 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
  mlxlogscore=999 suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
  definitions=main-2109160087
-X-Proofpoint-ORIG-GUID: V132fvO_-FHOSG82cGI_Hrto9Gt2DnMp
-X-Proofpoint-GUID: V132fvO_-FHOSG82cGI_Hrto9Gt2DnMp
+X-Proofpoint-GUID: tTwR4aXqdaV8JPmAMbPeMdzvJmGfK1jj
+X-Proofpoint-ORIG-GUID: tTwR4aXqdaV8JPmAMbPeMdzvJmGfK1jj
 X-Mailman-Approved-At: Thu, 16 Sep 2021 13:40:01 +0000
-Subject: [Intel-gfx] [PATCH RESEND v3 3/3] lib,
- stackdepot: Add helper to print stack entries into buffer.
+Subject: [Intel-gfx] [PATCH RESEND v3 0/3] lib,
+ stackdepot: check stackdepot handle before accessing slabs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,224 +179,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To print stack entries into a buffer, users of stackdepot,
-first get a list of stack entries using stack_depot_fetch
-and then print this list into a buffer using stack_trace_snprint.
-Provide a helper in stackdepot for this purpose.
-Also change above mentioned users to use this helper.
+Changes in v3:
+ - Fixed build error [1], due to missing EXPORT_SYMBOL_GPL in patch-3
 
-Signed-off-by: Imran Khan <imran.f.khan@oracle.com>
-Suggested-by: Vlastimil Babka <vbabka@suse.cz>
+[1] https://patchwork.freedesktop.org/series/94696/#rev2
 
-Acked-by: Vlastimil Babka <vbabka@suse.cz>
----
- drivers/gpu/drm/drm_dp_mst_topology.c   |  5 +----
- drivers/gpu/drm/drm_mm.c                |  5 +----
- drivers/gpu/drm/i915/i915_vma.c         |  5 +----
- drivers/gpu/drm/i915/intel_runtime_pm.c | 20 +++++---------------
- include/linux/stackdepot.h              |  3 +++
- lib/stackdepot.c                        | 25 +++++++++++++++++++++++++
- mm/page_owner.c                         |  5 +----
- 7 files changed, 37 insertions(+), 31 deletions(-)
+Changes in v2:
+ - Fixed compilation error [1] due to typo in patch-3 (stack_depot_print
+   used in place of stack_depot_snprint)
+   This compilation error appears with CONFIG_DRM_I915_DEBUG_RUNTIME_PM=y
+   and this was missed by my test config (x86_64_defconfig)
 
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 86d13d6bc463..2d1adab9e360 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -1668,13 +1668,10 @@ __dump_topology_ref_history(struct drm_dp_mst_topology_ref_history *history,
- 	for (i = 0; i < history->len; i++) {
- 		const struct drm_dp_mst_topology_ref_entry *entry =
- 			&history->entries[i];
--		ulong *entries;
--		uint nr_entries;
- 		u64 ts_nsec = entry->ts_nsec;
- 		u32 rem_nsec = do_div(ts_nsec, 1000000000);
- 
--		nr_entries = stack_depot_fetch(entry->backtrace, &entries);
--		stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 4);
-+		stack_depot_snprint(entry->backtrace, buf, PAGE_SIZE, 4);
- 
- 		drm_printf(&p, "  %d %ss (last at %5llu.%06u):\n%s",
- 			   entry->count,
-diff --git a/drivers/gpu/drm/drm_mm.c b/drivers/gpu/drm/drm_mm.c
-index 93d48a6f04ab..7d1c578388d3 100644
---- a/drivers/gpu/drm/drm_mm.c
-+++ b/drivers/gpu/drm/drm_mm.c
-@@ -118,8 +118,6 @@ static noinline void save_stack(struct drm_mm_node *node)
- static void show_leaks(struct drm_mm *mm)
- {
- 	struct drm_mm_node *node;
--	unsigned long *entries;
--	unsigned int nr_entries;
- 	char *buf;
- 
- 	buf = kmalloc(BUFSZ, GFP_KERNEL);
-@@ -133,8 +131,7 @@ static void show_leaks(struct drm_mm *mm)
- 			continue;
- 		}
- 
--		nr_entries = stack_depot_fetch(node->stack, &entries);
--		stack_trace_snprint(buf, BUFSZ, entries, nr_entries, 0);
-+		stack_depot_snprint(node->stack, buf, BUFSZ, 0);
- 		DRM_ERROR("node [%08llx + %08llx]: inserted at\n%s",
- 			  node->start, node->size, buf);
- 	}
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 4b7fc4647e46..f2d9ed375109 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -56,8 +56,6 @@ void i915_vma_free(struct i915_vma *vma)
- 
- static void vma_print_allocator(struct i915_vma *vma, const char *reason)
- {
--	unsigned long *entries;
--	unsigned int nr_entries;
- 	char buf[512];
- 
- 	if (!vma->node.stack) {
-@@ -66,8 +64,7 @@ static void vma_print_allocator(struct i915_vma *vma, const char *reason)
- 		return;
- 	}
- 
--	nr_entries = stack_depot_fetch(vma->node.stack, &entries);
--	stack_trace_snprint(buf, sizeof(buf), entries, nr_entries, 0);
-+	stack_depot_snprint(vma->node.stack, buf, sizeof(buf), 0);
- 	DRM_DEBUG_DRIVER("vma.node [%08llx + %08llx] %s: inserted at %s\n",
- 			 vma->node.start, vma->node.size, reason, buf);
- }
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
-index eaf7688f517d..0d85f3c5c526 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.c
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
-@@ -65,16 +65,6 @@ static noinline depot_stack_handle_t __save_depot_stack(void)
- 	return stack_depot_save(entries, n, GFP_NOWAIT | __GFP_NOWARN);
- }
- 
--static void __print_depot_stack(depot_stack_handle_t stack,
--				char *buf, int sz, int indent)
--{
--	unsigned long *entries;
--	unsigned int nr_entries;
--
--	nr_entries = stack_depot_fetch(stack, &entries);
--	stack_trace_snprint(buf, sz, entries, nr_entries, indent);
--}
--
- static void init_intel_runtime_pm_wakeref(struct intel_runtime_pm *rpm)
- {
- 	spin_lock_init(&rpm->debug.lock);
-@@ -146,12 +136,12 @@ static void untrack_intel_runtime_pm_wakeref(struct intel_runtime_pm *rpm,
- 		if (!buf)
- 			return;
- 
--		__print_depot_stack(stack, buf, PAGE_SIZE, 2);
-+		stack_depot_snprint(stack, buf, PAGE_SIZE, 2);
- 		DRM_DEBUG_DRIVER("wakeref %x from\n%s", stack, buf);
- 
- 		stack = READ_ONCE(rpm->debug.last_release);
- 		if (stack) {
--			__print_depot_stack(stack, buf, PAGE_SIZE, 2);
-+			stack_depot_snprint(stack, buf, PAGE_SIZE, 2);
- 			DRM_DEBUG_DRIVER("wakeref last released at\n%s", buf);
- 		}
- 
-@@ -183,12 +173,12 @@ __print_intel_runtime_pm_wakeref(struct drm_printer *p,
- 		return;
- 
- 	if (dbg->last_acquire) {
--		__print_depot_stack(dbg->last_acquire, buf, PAGE_SIZE, 2);
-+		stack_depot_snprint(dbg->last_acquire, buf, PAGE_SIZE, 2);
- 		drm_printf(p, "Wakeref last acquired:\n%s", buf);
- 	}
- 
- 	if (dbg->last_release) {
--		__print_depot_stack(dbg->last_release, buf, PAGE_SIZE, 2);
-+		stack_depot_snprint(dbg->last_release, buf, PAGE_SIZE, 2);
- 		drm_printf(p, "Wakeref last released:\n%s", buf);
- 	}
- 
-@@ -203,7 +193,7 @@ __print_intel_runtime_pm_wakeref(struct drm_printer *p,
- 		rep = 1;
- 		while (i + 1 < dbg->count && dbg->owners[i + 1] == stack)
- 			rep++, i++;
--		__print_depot_stack(stack, buf, PAGE_SIZE, 2);
-+		stack_depot_snprint(stack, buf, PAGE_SIZE, 2);
- 		drm_printf(p, "Wakeref x%lu taken at:\n%s", rep, buf);
- 	}
- 
-diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
-index d77a30543dd4..88b0b4cc9906 100644
---- a/include/linux/stackdepot.h
-+++ b/include/linux/stackdepot.h
-@@ -19,6 +19,9 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
- unsigned int stack_depot_fetch(depot_stack_handle_t handle,
- 			       unsigned long **entries);
- 
-+int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
-+		       int spaces);
-+
- void stack_depot_print(depot_stack_handle_t stack);
- 
- unsigned int filter_irq_stacks(unsigned long *entries, unsigned int nr_entries);
-diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-index 354fe1b62017..f953752aa885 100644
---- a/lib/stackdepot.c
-+++ b/lib/stackdepot.c
-@@ -214,6 +214,31 @@ static inline struct stack_record *find_stack(struct stack_record *bucket,
- 	return NULL;
- }
- 
-+/**
-+ * stack_depot_snprint - print stack entries from a depot into a buffer
-+ *
-+ * @handle:	Stack depot handle which was returned from
-+ *		stack_depot_save().
-+ * @buf:	Pointer to the print buffer
-+ *
-+ * @size:	Size of the print buffer
-+ *
-+ * @spaces:	Number of leading spaces to print
-+ *
-+ * Return:	Number of bytes printed.
-+ */
-+int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
-+		       int spaces)
-+{
-+	unsigned long *entries;
-+	unsigned int nr_entries;
-+
-+	nr_entries = stack_depot_fetch(handle, &entries);
-+	return nr_entries ? stack_trace_snprint(buf, size, entries, nr_entries,
-+						spaces) : 0;
-+}
-+EXPORT_SYMBOL_GPL(stack_depot_snprint);
-+
- /**
-  * stack_depot_print - print stack entries from a depot
-  *
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 7918770c2b2b..a83f546c06b5 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -329,8 +329,6 @@ print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 		depot_stack_handle_t handle)
- {
- 	int ret, pageblock_mt, page_mt;
--	unsigned long *entries;
--	unsigned int nr_entries;
- 	char *kbuf;
- 
- 	count = min_t(size_t, count, PAGE_SIZE);
-@@ -361,8 +359,7 @@ print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 	if (ret >= count)
- 		goto err;
- 
--	nr_entries = stack_depot_fetch(handle, &entries);
--	ret += stack_trace_snprint(kbuf + ret, count - ret, entries, nr_entries, 0);
-+	ret += stack_depot_snprint(handle, kbuf + ret, count - ret, 0);
- 	if (ret >= count)
- 		goto err;
- 
+[1] https://patchwork.freedesktop.org/series/94696/
+
+Original cover letter
+------------------------------------------
+This patch series consolidates the changes submitted and reviewed at [1]
+and [2].
+The patches at [1] and [2] were submitted separarely, but they have some
+inter dependency (later patches were created on top of earlier ones).
+As both sets are still under review, I have put them in a single
+change set here, so that it can be reviewed/included together and also
+to avoid automation build failures where git am fails because of absent
+parent.
+
+I have included Acked-by (from Vlastimil) and Reviewed-by (from Alexander)
+tags obtained so far for these changes and have also addressed last review
+comment from Vlastimil [3].
+
+To summarize, the changes in this set are as follows:
+
+PATCH-1: Checks validity of a stackdepot handle before proceeding
+to access stackdepot slab/objects.
+
+PATCH-2: Adds a helper in stackdepot, to allow users to print
+stack entries just by specifying the stackdepot handle. It also
+changes such users to use this new interface.   
+
+PATCH-3: Adds a helper in stackdepot, to allow users to print
+stack entries into buffers just by specifying the stackdepot handle and
+destination buffer. It also changes such users to use this new interface.
+
+[1] https://lore.kernel.org/lkml/20210902000154.1096484-1-imran.f.khan@oracle.com/
+[2] https://lore.kernel.org/lkml/20210910141001.1622130-1-imran.f.khan@oracle.com/
+[3] https://lore.kernel.org/lkml/ef0aa660-0cb6-dc21-f2ce-368b34f8af3d@suse.cz/
+
+Imran Khan (3):
+  lib, stackdepot: check stackdepot handle before accessing slabs.
+  lib, stackdepot: Add helper to print stack entries.
+  lib, stackdepot: Add helper to print stack entries into buffer.
+
+ drivers/gpu/drm/drm_dp_mst_topology.c   |  5 +--
+ drivers/gpu/drm/drm_mm.c                |  5 +--
+ drivers/gpu/drm/i915/i915_vma.c         |  5 +--
+ drivers/gpu/drm/i915/intel_runtime_pm.c | 20 +++--------
+ include/linux/stackdepot.h              |  5 +++
+ lib/stackdepot.c                        | 46 +++++++++++++++++++++++++
+ mm/kasan/report.c                       | 15 ++------
+ mm/page_owner.c                         | 18 +++-------
+ 8 files changed, 67 insertions(+), 52 deletions(-)
+
+
+base-commit: 70ced02f322fd5bde59e805e77b19c811950d165
 -- 
 2.30.2
 
