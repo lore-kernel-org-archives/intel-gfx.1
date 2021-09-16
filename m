@@ -2,51 +2,51 @@ Return-Path: <SRS0=l9+3=OG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3A04C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:33:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30101C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:42:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1056613A2
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:33:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B1056613A2
+	by mail.kernel.org (Postfix) with ESMTPS id 00BC561BB4
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00BC561BB4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A08D6EE3B;
-	Thu, 16 Sep 2021 16:33:31 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46AB16EE35;
- Thu, 16 Sep 2021 16:33:26 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="286292481"
-X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="286292481"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2021 09:33:21 -0700
-X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="433843934"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2021 09:33:21 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Cc: <thomas.hellstrom@linux.intel.com>,
-	<john.c.harrison@intel.com>
-Date: Thu, 16 Sep 2021 09:28:16 -0700
-Message-Id: <20210916162819.27848-3-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210916162819.27848-1-matthew.brost@intel.com>
-References: <20210916162819.27848-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D45D6EB9B;
+	Thu, 16 Sep 2021 16:42:24 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1136EB9B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 16:42:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="209699118"
+X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="209699118"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 09:42:22 -0700
+X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="554158889"
+Received: from unknown (HELO intel.com) ([10.237.72.91])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 09:42:21 -0700
+Date: Thu, 16 Sep 2021 19:43:05 +0300
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <20210916164305.GA30357@intel.com>
+References: <20210514125751.17075-1-ville.syrjala@linux.intel.com>
+ <20210514125751.17075-4-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/5] drm/i915/guc: put all guc objects in lmem
- when available
+In-Reply-To: <20210514125751.17075-4-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 03/14] drm/i915: Use u8 consistently for
+ active_planes bitmask
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,304 +62,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+On Fri, May 14, 2021 at 03:57:40PM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Be consistent in that active_planes bitmask fits in a u8.
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The firmware binary has to be loaded from lmem and the recommendation is
-to put all other objects in there as well. Note that we don't fall back
-to system memory if the allocation in lmem fails because all objects are
-allocated during driver load and if we have issues with lmem at that point
-something is seriously wrong with the system, so no point in trying to
-handle it.
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Cc: Radoslaw Szwichtenberg <radoslaw.szwichtenberg@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_lmem.c  | 26 ++++++++
- drivers/gpu/drm/i915/gem/i915_gem_lmem.h  |  4 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c    |  9 ++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 13 ++--
- drivers/gpu/drm/i915/gt/uc/intel_huc.c    | 14 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c  | 75 +++++++++++++++++++++--
- 6 files changed, 128 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-index eb345305dc52..034226c5d4d0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-@@ -103,6 +103,32 @@ __i915_gem_object_create_lmem_with_ps(struct drm_i915_private *i915,
- 					     size, page_size, flags);
- }
- 
-+struct drm_i915_gem_object *
-+i915_gem_object_create_lmem_from_data(struct drm_i915_private *i915,
-+				      const void *data, size_t size)
-+{
-+	struct drm_i915_gem_object *obj;
-+	void *map;
-+
-+	obj = i915_gem_object_create_lmem(i915,
-+					  round_up(size, PAGE_SIZE),
-+					  I915_BO_ALLOC_CONTIGUOUS);
-+	if (IS_ERR(obj))
-+		return obj;
-+
-+	map = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
-+	if (IS_ERR(map)) {
-+		i915_gem_object_put(obj);
-+		return map;
-+	}
-+
-+	memcpy(map, data, size);
-+
-+	i915_gem_object_unpin_map(obj);
-+
-+	return obj;
-+}
-+
- struct drm_i915_gem_object *
- i915_gem_object_create_lmem(struct drm_i915_private *i915,
- 			    resource_size_t size,
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-index 4ee81fc66302..1b88ea13435c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-@@ -23,6 +23,10 @@ bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj);
- 
- bool __i915_gem_object_is_lmem(struct drm_i915_gem_object *obj);
- 
-+struct drm_i915_gem_object *
-+i915_gem_object_create_lmem_from_data(struct drm_i915_private *i915,
-+				      const void *data, size_t size);
-+
- struct drm_i915_gem_object *
- __i915_gem_object_create_lmem_with_ps(struct drm_i915_private *i915,
- 				      resource_size_t size,
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index fbfcae727d7f..8ffb689066f6 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -3,6 +3,7 @@
-  * Copyright Â© 2014-2019 Intel Corporation
-  */
- 
-+#include "gem/i915_gem_lmem.h"
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_irq.h"
- #include "gt/intel_gt_pm_irq.h"
-@@ -647,7 +648,13 @@ struct i915_vma *intel_guc_allocate_vma(struct intel_guc *guc, u32 size)
- 	u64 flags;
- 	int ret;
- 
--	obj = i915_gem_object_create_shmem(gt->i915, size);
-+	if (HAS_LMEM(gt->i915))
-+		obj = i915_gem_object_create_lmem(gt->i915, size,
-+						  I915_BO_ALLOC_CPU_CLEAR |
-+						  I915_BO_ALLOC_CONTIGUOUS);
-+	else
-+		obj = i915_gem_object_create_shmem(gt->i915, size);
-+
- 	if (IS_ERR(obj))
- 		return ERR_CAST(obj);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 76fe766ad1bc..196424be0998 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -41,18 +41,21 @@ static void guc_prepare_xfer(struct intel_uncore *uncore)
- }
- 
- /* Copy RSA signature from the fw image to HW for verification */
--static void guc_xfer_rsa(struct intel_uc_fw *guc_fw,
--			 struct intel_uncore *uncore)
-+static int guc_xfer_rsa(struct intel_uc_fw *guc_fw,
-+			struct intel_uncore *uncore)
- {
- 	u32 rsa[UOS_RSA_SCRATCH_COUNT];
- 	size_t copied;
- 	int i;
- 
- 	copied = intel_uc_fw_copy_rsa(guc_fw, rsa, sizeof(rsa));
--	GEM_BUG_ON(copied < sizeof(rsa));
-+	if (copied < sizeof(rsa))
-+		return -ENOMEM;
- 
- 	for (i = 0; i < UOS_RSA_SCRATCH_COUNT; i++)
- 		intel_uncore_write(uncore, UOS_RSA_SCRATCH(i), rsa[i]);
-+
-+	return 0;
- }
- 
- /*
-@@ -141,7 +144,9 @@ int intel_guc_fw_upload(struct intel_guc *guc)
- 	 * by the DMA engine in one operation, whereas the RSA signature is
- 	 * loaded via MMIO.
- 	 */
--	guc_xfer_rsa(&guc->fw, uncore);
-+	ret = guc_xfer_rsa(&guc->fw, uncore);
-+	if (ret)
-+		goto out;
- 
- 	/*
- 	 * Current uCode expects the code to be loaded at 8k; locations below
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index fc5387b410a2..ff4b6869b80b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -87,17 +87,25 @@ static int intel_huc_rsa_data_create(struct intel_huc *huc)
- 									vma->obj, true));
- 	if (IS_ERR(vaddr)) {
- 		i915_vma_unpin_and_release(&vma, 0);
--		return PTR_ERR(vaddr);
-+		err = PTR_ERR(vaddr);
-+		goto unpin_out;
- 	}
- 
- 	copied = intel_uc_fw_copy_rsa(&huc->fw, vaddr, vma->size);
--	GEM_BUG_ON(copied < huc->fw.rsa_size);
--
- 	i915_gem_object_unpin_map(vma->obj);
- 
-+	if (copied < huc->fw.rsa_size) {
-+		err = -ENOMEM;
-+		goto unpin_out;
-+	}
-+
- 	huc->rsa_data = vma;
- 
- 	return 0;
-+
-+unpin_out:
-+	i915_vma_unpin_and_release(&vma, 0);
-+	return err;
- }
- 
- static void intel_huc_rsa_data_destroy(struct intel_huc *huc)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index f632dbd32b42..f8cb00ffb506 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -7,6 +7,7 @@
- #include <linux/firmware.h>
- #include <drm/drm_print.h>
- 
-+#include "gem/i915_gem_lmem.h"
- #include "intel_uc_fw.h"
- #include "intel_uc_fw_abi.h"
- #include "i915_drv.h"
-@@ -370,7 +371,11 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 	if (uc_fw->type == INTEL_UC_FW_TYPE_GUC)
- 		uc_fw->private_data_size = css->private_data_size;
- 
--	obj = i915_gem_object_create_shmem_from_data(i915, fw->data, fw->size);
-+	if (HAS_LMEM(i915))
-+		obj = i915_gem_object_create_lmem_from_data(i915, fw->data, fw->size);
-+	else
-+		obj = i915_gem_object_create_shmem_from_data(i915, fw->data, fw->size);
-+
- 	if (IS_ERR(obj)) {
- 		err = PTR_ERR(obj);
- 		goto fail;
-@@ -414,6 +419,7 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
- 	struct drm_i915_gem_object *obj = uc_fw->obj;
- 	struct i915_ggtt *ggtt = __uc_fw_to_gt(uc_fw)->ggtt;
- 	struct i915_vma *dummy = &uc_fw->dummy;
-+	u32 pte_flags = 0;
- 
- 	dummy->node.start = uc_fw_ggtt_offset(uc_fw);
- 	dummy->node.size = obj->base.size;
-@@ -424,9 +430,13 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
- 	GEM_BUG_ON(dummy->node.size > ggtt->uc_fw.size);
- 
- 	/* uc_fw->obj cache domains were not controlled across suspend */
--	drm_clflush_sg(dummy->pages);
-+	if (i915_gem_object_has_struct_page(obj))
-+		drm_clflush_sg(dummy->pages);
-+
-+	if (i915_gem_object_is_lmem(obj))
-+		pte_flags |= PTE_LM;
- 
--	ggtt->vm.insert_entries(&ggtt->vm, dummy, I915_CACHE_NONE, 0);
-+	ggtt->vm.insert_entries(&ggtt->vm, dummy, I915_CACHE_NONE, pte_flags);
- }
- 
- static void uc_fw_unbind_ggtt(struct intel_uc_fw *uc_fw)
-@@ -585,13 +595,68 @@ void intel_uc_fw_cleanup_fetch(struct intel_uc_fw *uc_fw)
-  */
- size_t intel_uc_fw_copy_rsa(struct intel_uc_fw *uc_fw, void *dst, u32 max_len)
- {
--	struct sg_table *pages = uc_fw->obj->mm.pages;
-+	struct intel_memory_region *mr = uc_fw->obj->mm.region;
- 	u32 size = min_t(u32, uc_fw->rsa_size, max_len);
- 	u32 offset = sizeof(struct uc_css_header) + uc_fw->ucode_size;
-+	struct sgt_iter iter;
-+	size_t count = 0;
-+	int idx;
- 
-+	/* Called during reset handling, must be atomic [no fs_reclaim] */
- 	GEM_BUG_ON(!intel_uc_fw_is_available(uc_fw));
- 
--	return sg_pcopy_to_buffer(pages->sgl, pages->nents, dst, size, offset);
-+	idx = offset >> PAGE_SHIFT;
-+	offset = offset_in_page(offset);
-+	if (i915_gem_object_has_struct_page(uc_fw->obj)) {
-+		struct page *page;
-+
-+		for_each_sgt_page(page, iter, uc_fw->obj->mm.pages) {
-+			u32 len = min_t(u32, size, PAGE_SIZE - offset);
-+			void *vaddr;
-+
-+			if (idx > 0) {
-+				idx--;
-+				continue;
-+			}
-+
-+			vaddr = kmap_atomic(page);
-+			memcpy(dst, vaddr + offset, len);
-+			kunmap_atomic(vaddr);
-+
-+			offset = 0;
-+			dst += len;
-+			size -= len;
-+			count += len;
-+			if (!size)
-+				break;
-+		}
-+	} else {
-+		dma_addr_t addr;
-+
-+		for_each_sgt_daddr(addr, iter, uc_fw->obj->mm.pages) {
-+			u32 len = min_t(u32, size, PAGE_SIZE - offset);
-+			void __iomem *vaddr;
-+
-+			if (idx > 0) {
-+				idx--;
-+				continue;
-+			}
-+
-+			vaddr = io_mapping_map_atomic_wc(&mr->iomap,
-+							 addr - mr->region.start);
-+			memcpy_fromio(dst, vaddr + offset, len);
-+			io_mapping_unmap_atomic(vaddr);
-+
-+			offset = 0;
-+			dst += len;
-+			size -= len;
-+			count += len;
-+			if (!size)
-+				break;
-+		}
-+	}
-+
-+	return count;
- }
- 
- /**
--- 
-2.32.0
-
+> ---
+>  drivers/gpu/drm/i915/intel_pm.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+> index 2fb496fbed43..8a08a7c0e71f 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_pm.c
+> @@ -1706,7 +1706,7 @@ static int vlv_compute_fifo(struct intel_crtc_state *crtc_state)
+>  	const struct g4x_pipe_wm *raw =
+>  		&crtc_state->wm.vlv.raw[VLV_WM_LEVEL_PM2];
+>  	struct vlv_fifo_state *fifo_state = &crtc_state->wm.vlv.fifo_state;
+> -	unsigned int active_planes = crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+> +	u8 active_planes = crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+>  	int num_active_planes = hweight8(active_planes);
+>  	const int fifo_size = 511;
+>  	int fifo_extra, fifo_left = fifo_size;
+> @@ -1898,8 +1898,8 @@ static int vlv_compute_pipe_wm(struct intel_crtc_state *crtc_state)
+>  	struct vlv_wm_state *wm_state = &crtc_state->wm.vlv.optimal;
+>  	const struct vlv_fifo_state *fifo_state =
+>  		&crtc_state->wm.vlv.fifo_state;
+> -	int num_active_planes = hweight8(crtc_state->active_planes &
+> -					 ~BIT(PLANE_CURSOR));
+> +	u8 active_planes = crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+> +	int num_active_planes = hweight8(active_planes);
+>  	bool needs_modeset = drm_atomic_crtc_needs_modeset(&crtc_state->uapi);
+>  	const struct intel_plane_state *old_plane_state;
+>  	const struct intel_plane_state *new_plane_state;
+> -- 
+> 2.26.3
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
