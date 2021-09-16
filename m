@@ -2,51 +2,51 @@ Return-Path: <SRS0=l9+3=OG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A20B6C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 880CDC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 557B861462
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 557B861462
+	by mail.kernel.org (Postfix) with ESMTPS id 32ADA61AFE
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 16:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 32ADA61AFE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904F26EE30;
-	Thu, 16 Sep 2021 16:23:57 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54FD86EE30
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 16:23:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="202760475"
-X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="202760475"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2021 09:23:34 -0700
-X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="545772717"
-Received: from unknown (HELO intel.com) ([10.237.72.91])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2021 09:23:31 -0700
-Date: Thu, 16 Sep 2021 19:24:21 +0300
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210916162421.GB30274@intel.com>
-References: <20210514125751.17075-1-ville.syrjala@linux.intel.com>
- <20210514125751.17075-3-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DAB26EE29;
+	Thu, 16 Sep 2021 16:33:24 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B0226EE29;
+ Thu, 16 Sep 2021 16:33:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="222645106"
+X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="222645106"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 09:33:22 -0700
+X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="433843947"
+Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 09:33:22 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Cc: <thomas.hellstrom@linux.intel.com>,
+	<john.c.harrison@intel.com>
+Date: Thu, 16 Sep 2021 09:28:19 -0700
+Message-Id: <20210916162819.27848-6-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210916162819.27848-1-matthew.brost@intel.com>
+References: <20210916162819.27848-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210514125751.17075-3-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 02/14] drm/i915: Fix g4x cxsr enable
- condition
+Subject: [Intel-gfx] [PATCH 5/5] drm/i915: Take pinning into account in
+ __i915_gem_object_is_lmem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +62,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 14, 2021 at 03:57:39PM +0300, Ville Syrjala wrote:
-> From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> 
-> The intention was to check whether the primary plane is enabled
-> without any sprites planes being enabled. Instead we ended up checking
-> whether just any one of the planes is enabled. g4x isn't vlv/chv and
-> cxsr only works with the primary plane. Fix the check to examine the
-> bitmask of active planes rather than the number of bits set in said
-> bitmask.
-> 
-> Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/intel_pm.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> index 00a5fe424c5a..2fb496fbed43 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -1376,8 +1376,7 @@ static int g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
->  	struct intel_atomic_state *state =
->  		to_intel_atomic_state(crtc_state->uapi.state);
->  	struct g4x_wm_state *wm_state = &crtc_state->wm.g4x.optimal;
-> -	int num_active_planes = hweight8(crtc_state->active_planes &
-> -					 ~BIT(PLANE_CURSOR));
-> +	u8 active_planes = crtc_state->active_planes & ~BIT(PLANE_CURSOR);
->  	const struct g4x_pipe_wm *raw;
->  	const struct intel_plane_state *old_plane_state;
->  	const struct intel_plane_state *new_plane_state;
-> @@ -1417,7 +1416,7 @@ static int g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
->  	wm_state->sr.cursor = raw->plane[PLANE_CURSOR];
->  	wm_state->sr.fbc = raw->fbc;
->  
-> -	wm_state->cxsr = num_active_planes == BIT(PLANE_PRIMARY);
-> +	wm_state->cxsr = active_planes == BIT(PLANE_PRIMARY);
+Don't blow up on a GEM_WARN_ON in __i915_gem_object_is_lmem if the
+object is pinned (not evictable).
 
-Shouldn't this be "active_planes & BIT(PLANE_PRIMARY)" as we might
-have other non-cursor planes enabled, which will then fail or am I missing something?
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_lmem.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Stan
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
+index 034226c5d4d0..d659239fcbcc 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
+@@ -56,8 +56,8 @@ bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
+  * @obj: The object to check.
+  *
+  * This function is intended to be called from within the fence signaling
+- * path where the fence keeps the object from being migrated. For example
+- * during gpu reset or similar.
++ * path where the fence, or a pin, keeps the object from being migrated. For
++ * example during gpu reset or similar.
+  *
+  * Return: Whether the object is resident in lmem.
+  */
+@@ -66,7 +66,8 @@ bool __i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
+ 	struct intel_memory_region *mr = READ_ONCE(obj->mm.region);
+ 
+ #ifdef CONFIG_LOCKDEP
+-	GEM_WARN_ON(dma_resv_test_signaled(obj->base.resv, true));
++	GEM_WARN_ON(dma_resv_test_signaled(obj->base.resv, true) &&
++		    !i915_gem_object_evictable(obj));
+ #endif
+ 	return mr && (mr->type == INTEL_MEMORY_LOCAL ||
+ 		      mr->type == INTEL_MEMORY_STOLEN_LOCAL);
+-- 
+2.32.0
 
->  
->  	level = G4X_WM_LEVEL_HPLL;
->  	if (!g4x_raw_crtc_wm_is_valid(crtc_state, level))
-> -- 
-> 2.26.3
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
