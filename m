@@ -1,44 +1,52 @@
-Return-Path: <SRS0=Y9sQ=OF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=l9+3=OG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-21.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35AFDC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 21:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6FFDC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 00:06:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02B2760E08
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 21:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 02B2760E08
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8528D61164
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 00:06:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8528D61164
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E1F46EA6F;
-	Wed, 15 Sep 2021 21:58:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E19606EA6F;
- Wed, 15 Sep 2021 21:58:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D8E4DA66C9;
- Wed, 15 Sep 2021 21:58:24 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF3456EA7E;
+	Thu, 16 Sep 2021 00:06:22 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 710C66EA7D;
+ Thu, 16 Sep 2021 00:06:22 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10108"; a="222507673"
+X-IronPort-AV: E=Sophos;i="5.85,296,1624345200"; d="scan'208";a="222507673"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2021 17:06:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,296,1624345200"; d="scan'208";a="610393325"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
+ by fmsmga001.fm.intel.com with ESMTP; 15 Sep 2021 17:06:20 -0700
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>,
+ Katarzyna Cencelewska <katarzyna.cencelewska@intel.com>,
+ Tony Ye <tony.ye@intel.com>, Jason Ekstrand <jason.ekstrand@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Date: Wed, 15 Sep 2021 17:06:18 -0700
+Message-Id: <20210916000620.2588179-1-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sean Paul" <sean@poorly.run>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Sep 2021 21:58:24 -0000
-Message-ID: <163174310488.30119.7167050785544499122@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210915203834.1439-1-sean@poorly.run>
-In-Reply-To: <20210915203834.1439-1-sean@poorly.run>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/hdcp=3A_Pull_HDCP_auth/exchange/check_into_helpers?=
+Subject: [Intel-gfx] [PATCH 0/2] Add support for querying hw info that UMDs
+ need
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,38 +59,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Series: drm/hdcp: Pull HDCP auth/exchange/check into helpers
-URL   : https://patchwork.freedesktop.org/series/94712/
-State : failure
+Various UMDs require hardware configuration information about the
+current platform. A bunch of static information is available in a
+fixed table that can be retrieved from the GuC.
 
-== Summary ==
+Test-with: 20210915215558.2473428-2-John.C.Harrison@Intel.com
+UMD: https://github.com/intel/compute-runtime/pull/432/files
+UMD: https://github.com/intel/media-driver/pull/1239/files
 
-CALL    scripts/checksyscalls.sh
-  CALL    scripts/atomic/check-atomics.sh
-  DESCEND objtool
-  CHK     include/generated/compile.h
-  LD [M]  drivers/gpu/drm/i915/i915.o
-  HDRTEST drivers/gpu/drm/i915/display/intel_hdcp.h
-In file included from <command-line>:
-./drivers/gpu/drm/i915/display/intel_hdcp.h:30:15: error: ‘struct drm_atomic_state’ declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
-        struct drm_atomic_state *state);
-               ^~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
-drivers/gpu/drm/i915/Makefile:324: recipe for target 'drivers/gpu/drm/i915/display/intel_hdcp.hdrtest' failed
-make[4]: *** [drivers/gpu/drm/i915/display/intel_hdcp.hdrtest] Error 1
-scripts/Makefile.build:540: recipe for target 'drivers/gpu/drm/i915' failed
-make[3]: *** [drivers/gpu/drm/i915] Error 2
-scripts/Makefile.build:540: recipe for target 'drivers/gpu/drm' failed
-make[2]: *** [drivers/gpu/drm] Error 2
-scripts/Makefile.build:540: recipe for target 'drivers/gpu' failed
-make[1]: *** [drivers/gpu] Error 2
-Makefile:1868: recipe for target 'drivers' failed
-make: *** [drivers] Error 2
+CC: Katarzyna Cencelewska <katarzyna.cencelewska@intel.com>
+CC: Tony Ye <tony.ye@intel.com>
+CC: Jason Ekstrand <jason.ekstrand@intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
+
+John Harrison (1):
+  drm/i915/guc: Add fetch of hwconfig table
+
+Rodrigo Vivi (1):
+  drm/i915/uapi: Add query for hwconfig table
+
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   1 +
+ .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   |   4 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +
+ .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.c   | 156 ++++++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.h   |  19 +++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   6 +
+ drivers/gpu/drm/i915/i915_query.c             |  23 +++
+ include/uapi/drm/i915_drm.h                   |   1 +
+ 10 files changed, 215 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.h
+
+-- 
+2.25.1
 
