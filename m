@@ -2,68 +2,53 @@ Return-Path: <SRS0=l9+3=OG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 582F6C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 09:48:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E03DC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 09:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7D6D61185
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 09:48:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E7D6D61185
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
+	by mail.kernel.org (Postfix) with ESMTPS id 0A50D61185
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 09:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0A50D61185
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 407D16EB2F;
-	Thu, 16 Sep 2021 09:48:42 +0000 (UTC)
-X-Greylist: delayed 475 seconds by postgrey-1.36 at gabe;
- Thu, 16 Sep 2021 09:48:40 UTC
-Received: from ste-pvt-msa2.bahnhof.se (ste-pvt-msa2.bahnhof.se
- [213.80.101.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D936EB2F
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 09:48:40 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by ste-pvt-msa2.bahnhof.se (Postfix) with ESMTP id CAF343F3E7;
- Thu, 16 Sep 2021 11:40:42 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Authentication-Results: ste-ftg-msa2.bahnhof.se (amavisd-new);
- dkim=pass (1024-bit key) header.d=shipmail.org
-Received: from ste-pvt-msa2.bahnhof.se ([127.0.0.1])
- by localhost (ste-ftg-msa2.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id IpmOW-D5c-kt; Thu, 16 Sep 2021 11:40:41 +0200 (CEST)
-Received: by ste-pvt-msa2.bahnhof.se (Postfix) with ESMTPA id 02DF63F2D8;
- Thu, 16 Sep 2021 11:40:40 +0200 (CEST)
-Authentication-Results: ste-pvt-msa2.bahnhof.se; dkim=pass (1024-bit key;
- unprotected) header.d=shipmail.org header.i=@shipmail.org header.b="Cb2RPszU";
- dkim-atps=neutral
-Received: from [192.168.0.209] (unknown [192.198.151.53])
- by mail1.shipmail.org (Postfix) with ESMTPSA id 001453601AE;
- Thu, 16 Sep 2021 11:40:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1631785240; bh=AukGa+7vNuzOZ9mLnixSzzMgsLMMB6gVBmkMHhY6DkU=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=Cb2RPszU8QDwjrLdV98O2i9xRFlT2wERHxxYX1mRJx3BWUIrBEXY451fKgV+KFnGT
- 13owyxlSHtcZIx+006xxghyAdQHYA2utsQ65m46fYkJLo/r5DtL5En+kpeP4jSQBZD
- E5dgWcSKeblyV0czCpqzRCmAIVARetL4olVo6ZUc=
+	by gabe.freedesktop.org (Postfix) with ESMTP id A655C6EB3C;
+	Thu, 16 Sep 2021 09:48:57 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1FD06EB3C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 09:48:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10108"; a="209758692"
+X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="209758692"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 02:48:56 -0700
+X-IronPort-AV: E=Sophos;i="5.85,298,1624345200"; d="scan'208";a="434440038"
+Received: from mkrygin-mobl1.ccr.corp.intel.com (HELO [10.249.254.218])
+ ([10.249.254.218])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 02:48:55 -0700
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 References: <20210830121006.2978297-1-maarten.lankhorst@linux.intel.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <1baadb2d-6636-1fe1-a1a2-34600947c5e7@shipmail.org>
-Date: Thu, 16 Sep 2021 11:40:38 +0200
+ <20210830121006.2978297-18-maarten.lankhorst@linux.intel.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <42f9eb28-e07e-a240-489d-2c3cdf585d01@linux.intel.com>
+Date: Thu, 16 Sep 2021 11:48:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210830121006.2978297-1-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20210830121006.2978297-18-maarten.lankhorst@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 00/19] drm/i915: Short-term pinning and
- async eviction.
+Subject: Re: [Intel-gfx] [PATCH 17/19] drm/i915: Add functions to set/get
+ moving fence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,92 +65,73 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 8/30/21 2:09 PM, Maarten Lankhorst wrote:
-> Remove some parts of the i915_vma api, ensure obj->vma always exists,
-> and finally force the object lock to be taken when calling i915_vma_unbind
-> is called.
-
-Should this be vma->obj?
-
-
-
+On 8/30/21 2:10 PM, Maarten Lankhorst wrote:
+> We want to get rid of i915_vma tracking to simplify the code and
+> lifetimes. Add a way to set/put the moving fence, in preparation for
+> removing the tracking.
 >
-> With this, locking is a lot cleaner, and we no longer need all the if (!obj->vma) checks.
-> We kill off the locking around i915_vma->set/get pages, and kill off the short-term
-> pinning/unpinning in execbuf.
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c | 15 +++++++++++++++
+>   drivers/gpu/drm/i915/gem/i915_gem_object.h |  6 ++++++
+>   2 files changed, 21 insertions(+)
 >
-> After this, we go 1 step further, populate obj->moving where required, and add support
-> for async eviction/clearing.
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index 6fb9afb65034..dc0d2da297a0 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -32,6 +32,7 @@
+>   #include "i915_gem_object.h"
+>   #include "i915_memcpy.h"
+>   #include "i915_trace.h"
+> +#include "i915_gem_ttm.h"
+>   
+>   static struct kmem_cache *slab_objects;
+>   
+> @@ -674,6 +675,20 @@ static const struct drm_gem_object_funcs i915_gem_object_funcs = {
+>   	.export = i915_gem_prime_export,
+>   };
+>   
+> +struct dma_fence *
+> +i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj)
+> +{
+> +	return dma_fence_get(i915_gem_to_ttm(obj)->moving);
+> +}
+> +
+> +void  i915_gem_object_set_moving_fence(struct drm_i915_gem_object *obj,
 
-Does the async eviction / clearing depend on the vma cleanup? If not can 
-we move that into a separate series?
+Two spaces after void?
 
-Thanks,
+With that fixed:
 
-Thomas
-
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
 
->
-> Maarten Lankhorst (19):
->    drm/i915: Move __i915_gem_free_object to ttm_bo_destroy
->    drm/i915: Remove unused bits of i915_vma/active api
->    drm/i915: Slightly rework EXEC_OBJECT_CAPTURE handling
->    drm/i915: Remove gen6_ppgtt_unpin_all
->    drm/i915: Create a dummy object for gen6 ppgtt
->    drm/i915: Create a full object for mock_ring
->    drm/i915: vma is always backed by an object.
->    drm/i915: Fix runtime pm handling in i915_gem_shrink
->    drm/i915: Change shrink ordering to use locking around unbinding.
->    Move CONTEXT_VALID_BIT check
->    drm/i915: Remove resv from i915_vma
->    drm/i915: Remove pages_mutex and intel_gtt->vma_ops.set/clear_pages
->      members
->    drm/i915: Take object lock in i915_ggtt_pin if ww is not set
->    drm/i915: Add i915_vma_unbind_unlocked, and take obj lock for
->      i915_vma_unbind
->    drm/i915: Remove support for unlocked i915_vma unbind
->    drm/i915: Remove short-term pins from execbuf
->    drm/i915: Add functions to set/get moving fence
->    drm/i915: Add support for asynchronous moving fence waiting
->    drm/i915: Add accelerated migration to ttm
->
->   drivers/gpu/drm/i915/display/intel_display.c  |   2 +-
->   drivers/gpu/drm/i915/display/intel_dpt.c      |   2 -
->   .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  94 ++--
->   drivers/gpu/drm/i915/gem/i915_gem_internal.c  |  44 +-
->   drivers/gpu/drm/i915/gem/i915_gem_object.c    |  15 +
->   drivers/gpu/drm/i915/gem/i915_gem_object.h    |   6 +
->   drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  10 +
->   drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  63 ++-
->   drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 111 ++--
->   .../gpu/drm/i915/gem/selftests/huge_pages.c   |   4 +-
->   .../i915/gem/selftests/i915_gem_client_blt.c  |   2 +-
->   .../drm/i915/gem/selftests/i915_gem_mman.c    |   6 +
->   drivers/gpu/drm/i915/gt/gen6_ppgtt.c          | 148 +++--
->   drivers/gpu/drm/i915/gt/gen6_ppgtt.h          |   2 -
->   drivers/gpu/drm/i915/gt/intel_context.c       |   2 +-
->   drivers/gpu/drm/i915/gt/intel_engine_pm.c     |   5 +-
->   drivers/gpu/drm/i915/gt/intel_ggtt.c          | 366 ++----------
->   drivers/gpu/drm/i915/gt/intel_gtt.c           |  13 -
->   drivers/gpu/drm/i915/gt/intel_gtt.h           |   7 -
->   drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  12 -
->   .../gpu/drm/i915/gt/intel_ring_submission.c   |   2 +-
->   drivers/gpu/drm/i915/gt/mock_engine.c         |  35 +-
->   drivers/gpu/drm/i915/i915_active.c            |  28 +-
->   drivers/gpu/drm/i915/i915_active.h            |  17 +-
->   drivers/gpu/drm/i915/i915_drv.h               |  11 +-
->   drivers/gpu/drm/i915/i915_gem.c               |  29 +-
->   drivers/gpu/drm/i915/i915_gem_evict.c         |  74 ++-
->   drivers/gpu/drm/i915/i915_gem_gtt.h           |   1 +
->   drivers/gpu/drm/i915/i915_gpu_error.c         |   9 +-
->   drivers/gpu/drm/i915/i915_request.c           |   9 +-
->   drivers/gpu/drm/i915/i915_request.h           |   7 +-
->   drivers/gpu/drm/i915/i915_vma.c               | 522 ++++++++++++++----
->   drivers/gpu/drm/i915/i915_vma.h               |  15 +-
->   drivers/gpu/drm/i915/i915_vma_types.h         |   2 -
->   drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  34 +-
->   drivers/gpu/drm/i915/selftests/i915_vma.c     |   2 +-
->   drivers/gpu/drm/i915/selftests/mock_gtt.c     |   4 -
->   37 files changed, 899 insertions(+), 816 deletions(-)
->
+
+> +				       struct dma_fence *fence)
+> +{
+> +	dma_fence_put(i915_gem_to_ttm(obj)->moving);
+> +
+> +	i915_gem_to_ttm(obj)->moving = dma_fence_get(fence);
+> +}
+> +
+>   #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+>   #include "selftests/huge_gem_object.c"
+>   #include "selftests/huge_pages.c"
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index 48112b9d76df..a23acfa98e21 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -520,6 +520,12 @@ i915_gem_object_last_write_engine(struct drm_i915_gem_object *obj)
+>   	return engine;
+>   }
+>   
+> +struct dma_fence *
+> +i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj);
+> +
+> +void  i915_gem_object_set_moving_fence(struct drm_i915_gem_object *obj,
+> +				       struct dma_fence *fence);
+> +
+>   void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
+>   					 unsigned int cache_level);
+>   void i915_gem_object_flush_if_display(struct drm_i915_gem_object *obj);
