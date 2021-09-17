@@ -2,55 +2,59 @@ Return-Path: <SRS0=NK3F=OH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 91EEDC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:10:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0FC5C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1591C60EE2
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1591C60EE2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
+	by mail.kernel.org (Postfix) with ESMTPS id 6383E60FC2
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6383E60FC2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D951B6EC08;
-	Fri, 17 Sep 2021 07:10:03 +0000 (UTC)
-Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A38136EC07;
- Fri, 17 Sep 2021 07:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1631862598;
- bh=bp0ZUgxCQhZbRnxIHPQI96iWY/FZMiRUNVypU7TLoCE=;
- h=Date:From:To:Cc:Subject:From;
- b=iFXX8Rq0LD9Ebq6aGKM2Eqb/JrL4epmgtLmA8mPndCRIJNsC1o1HlLZEbU++LacWi
- PxsU5/2vdAkqjmzcTfHbeOoPc88kwJxbo0lFkgIf6JrARzJfKG8c5huL2+AHclw+0Z
- in7JBPNB9VXKAyDOWkZmXZ0QRk437VmpzjPOiqt2RYBcU3gOEKSJqul7CCLNrLvJyL
- WO98I/3Oacmp6aQi5YDmc37JnEZ7iwZ0KFt6aAHhe5clJvlrVENhDNX5j26tqofyJN
- 9iDk7maTLlrSfAl+OyUIUbj+/BII5UT2DR4Mcm0qL7U9prEF5eQ+IcyHCfc1OAiLB6
- kzBCIZPYgrLRA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4H9lT116S1z9sW4;
- Fri, 17 Sep 2021 17:09:55 +1000 (AEST)
-Date: Fri, 17 Sep 2021 17:09:53 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Maxime Ripard <maxime@cerno.tech>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>
-Message-ID: <20210917170953.19d0177f@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 792DE6EC0D;
+	Fri, 17 Sep 2021 07:37:26 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 355F86EC0C;
+ Fri, 17 Sep 2021 07:37:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="245135628"
+X-IronPort-AV: E=Sophos;i="5.85,300,1624345200"; d="scan'208";a="245135628"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 00:37:24 -0700
+X-IronPort-AV: E=Sophos;i="5.85,300,1624345200"; d="scan'208";a="554499884"
+Received: from shettiar-mobl2.ger.corp.intel.com (HELO [10.213.243.199])
+ ([10.213.243.199])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 00:37:22 -0700
+To: Tim Gardner <tim.gardner@canonical.com>, intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <dc88e195-949c-bb46-b7d3-18e90df9b064@canonical.com>
+ <20210916122649.12691-1-tim.gardner@canonical.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <77c6c991-b7b4-0362-63ca-17a801187f7a@linux.intel.com>
+Date: Fri, 17 Sep 2021 08:37:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/DbFq18WWwwrtySTT.BPm7f_";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: [Intel-gfx] linux-next: build failure after merge of the drm-misc
- tree
+In-Reply-To: <20210916122649.12691-1-tim.gardner@canonical.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: use strscpy() to avoid buffer
+ overrun
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,47 +70,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/DbFq18WWwwrtySTT.BPm7f_
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On 16/09/2021 13:26, Tim Gardner wrote:
+> In capture_vma() Coverity complains of a possible buffer overrun. Even
+> though this is a static function where all call sites can be checked,
+> limiting the copy length could save some future grief.
+> 
+> CID 93300 (#1 of 1): Copy into fixed size buffer (STRING_OVERFLOW)
+> 4. fixed_size_dest: You might overrun the 16-character fixed-size string c->name
+>     by copying name without checking the length.
+> 5. parameter_as_source: Note: This defect has an elevated risk because the
+>     source argument is a parameter of the current function.
+> 1326        strcpy(c->name, name);
+> 
+> Fix any possible overflows by using strscpy() which guarantees NULL termination.
+> 
+> Also correct 2 other strcpy() call sites with the same potential for Coverity
+> warnings or overruns.
+> 
+> v2 - Change $SUBJECT from "drm/i915: zero fill vma name buffer"
+>       Use strscpy() instead of strncpy(). Its a much simpler change.
+> 
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Tim Gardner <tim.gardner@canonical.com>
+> ---
+>   drivers/gpu/drm/i915/i915_gpu_error.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> index 9cf6ac575de1..7f246f51959d 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> @@ -1015,7 +1015,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>   		return NULL;
+>   	}
+>   
+> -	strcpy(dst->name, name);
+> +	strscpy(dst->name, name, sizeof(dst->name));
+>   	dst->next = NULL;
+>   
+>   	dst->gtt_offset = vma->node.start;
+> @@ -1279,7 +1279,7 @@ static bool record_context(struct i915_gem_context_coredump *e,
+>   	rcu_read_lock();
+>   	task = pid_task(ctx->pid, PIDTYPE_PID);
+>   	if (task) {
+> -		strcpy(e->comm, task->comm);
+> +		strscpy(e->comm, task->comm, sizeof(e->comm));
+>   		e->pid = task->pid;
+>   	}
+>   	rcu_read_unlock();
+> @@ -1323,7 +1323,7 @@ capture_vma(struct intel_engine_capture_vma *next,
+>   		return next;
+>   	}
+>   
+> -	strcpy(c->name, name);
+> +	strscpy(c->name, name, sizeof(c->name));
+>   	c->vma = vma; /* reference held while active */
+>   
+>   	c->next = next;
+> 
 
-After merging the drm-misc tree, today's linux-next build (x86_64
-modules_install) failed like this:
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-depmod: ERROR: Cycle detected: drm_kms_helper -> drm -> drm_kms_helper
-depmod: ERROR: Cycle detected: cec
-depmod: ERROR: Found 2 modules in dependency cycles!
+Regards,
 
-Caused by commit
-
-  87ea95808d53 ("drm/bridge: Add a function to abstract away panels")
-
-I have reverted these commits for today:
-
-  a43dd76bacd0 ("drm/vc4: dsi: Switch to devm_drm_of_get_bridge")
-  0caddbbfdfa2 ("drm/vc4: dpi: Switch to devm_drm_of_get_bridge")
-  87ea95808d53 ("drm/bridge: Add a function to abstract away panels")
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/DbFq18WWwwrtySTT.BPm7f_
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmFEP0EACgkQAVBC80lX
-0GzMtwf/cTt3xaEfQHZ7JsDX0+AwM/sYl4xNWtaU6fKrZi000GsPNbxx7xZSz7K7
-5kW0VIM76nkMzTpV6y4midx25Tzgp8vMUnkbuiGUkHApIBRCNgCvRyweg0PsQFhS
-jMVqc4UNxv4V+1OzC5PGXiEOhpLmYyPCGex5lyvibykvDUJ4F//brQKmKYTfkW3Y
-6SukkK+u4M+e21vBNryrPcM4OJykoLh3kZgKrsM9DSpoAq3AZoYYTQOV7jbWC/MN
-qn6+NoiQjraPIVRBrYa/mUHb6dGpeC9pwllOST9ijOMxrQ+zZpDj9aDJfFyJv7Yd
-QrY/kuu4R7rtsriQNyuKy8f+jUKSWA==
-=esFv
------END PGP SIGNATURE-----
-
---Sig_/DbFq18WWwwrtySTT.BPm7f_--
+Tvrtko
