@@ -7,53 +7,47 @@ X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 382EAC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 08:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DBB5C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 10:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EEB676113A
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 08:34:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EEB676113A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BB42D61152
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 10:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BB42D61152
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08C1B6EC11;
-	Fri, 17 Sep 2021 08:34:31 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 212726EC10;
- Fri, 17 Sep 2021 08:34:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="222790780"
-X-IronPort-AV: E=Sophos;i="5.85,300,1624345200"; d="scan'208";a="222790780"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 01:34:15 -0700
-X-IronPort-AV: E=Sophos;i="5.85,300,1624345200"; d="scan'208";a="554516520"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 01:34:13 -0700
-Received: from platvala by thrakatuluk with local (Exim 4.94)
- (envelope-from <petri.latvala@intel.com>)
- id 1mR9NA-0001cy-Ba; Fri, 17 Sep 2021 11:37:28 +0300
-Date: Fri, 17 Sep 2021 11:37:28 +0300
-From: Petri Latvala <petri.latvala@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Cc: IGT-Dev@lists.freedesktop.org, Intel-GFX@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Slawomir Milczarek <slawomir.milczarek@intel.com>,
- Matthew Brost <matthew.brost@intel.com>
-Message-ID: <YURTyDN+Y2Odmm1B@platvala-desk.ger.corp.intel.com>
-References: <20210915215558.2473428-1-John.C.Harrison@Intel.com>
- <20210915215558.2473428-2-John.C.Harrison@Intel.com>
- <YUMHcIsB1+9UmWKV@platvala-desk.ger.corp.intel.com>
- <e4f66112-8628-0870-81a3-622838cdd86a@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053416EC20;
+	Fri, 17 Sep 2021 10:59:11 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0736EC20
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 10:59:09 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="202933024"
+X-IronPort-AV: E=Sophos;i="5.85,301,1624345200"; d="scan'208";a="202933024"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 03:59:08 -0700
+X-IronPort-AV: E=Sophos;i="5.85,301,1624345200"; d="scan'208";a="546290435"
+Received: from unknown (HELO localhost) ([10.251.216.224])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 03:59:05 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lee Shawn C <shawn.c.lee@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Lee Shawn C <shawn.c.lee@intel.com>, Vandita Kulkarni
+ <vandita.kulkarni@intel.com>, Cooper Chiou <cooper.chiou@intel.com>,
+ William Tseng <william.tseng@intel.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>
+In-Reply-To: <20210917043537.4575-1-shawn.c.lee@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210916102118.17356-1-shawn.c.lee@intel.com>
+ <20210917043537.4575-1-shawn.c.lee@intel.com>
+Date: Fri, 17 Sep 2021 13:59:01 +0300
+Message-ID: <87wnnfv56y.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e4f66112-8628-0870-81a3-622838cdd86a@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t 1/1] tests/i915/query: Query,
- parse and validate the hwconfig table
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dsi: do not register gmbus if it
+ was reserved for MIPI display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,53 +63,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 16, 2021 at 10:27:41AM -0700, John Harrison wrote:
-> On 9/16/2021 01:59, Petri Latvala wrote:
-> > On Wed, Sep 15, 2021 at 02:55:58PM -0700, John.C.Harrison@Intel.com wrote:
-> > > From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > 
-> > > Newer platforms have an embedded table giving details about that
-> > > platform's hardware configuration. This table can be retrieved from
-> > > the KMD via the existing query API. So add a test for it as both an
-> > > example of how to fetch the table and to validate the contents as much
-> > > as is possible.
-> > > 
-> > > Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> > > Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
-> > > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > > ---
-> > >   include/drm-uapi/i915_drm.h |   1 +
-> > >   lib/intel_hwconfig_types.h  | 106 +++++++++++++++++++++++
-> > >   tests/i915/i915_query.c     | 168 ++++++++++++++++++++++++++++++++++++
-> > >   3 files changed, 275 insertions(+)
-> > >   create mode 100644 lib/intel_hwconfig_types.h
-> > > 
-> > > diff --git a/include/drm-uapi/i915_drm.h b/include/drm-uapi/i915_drm.h
-> > > index b9632bb2c..ae0c8dfad 100644
-> > > --- a/include/drm-uapi/i915_drm.h
-> > > +++ b/include/drm-uapi/i915_drm.h
-> > > @@ -2451,6 +2451,7 @@ struct drm_i915_query_item {
-> > >   #define DRM_I915_QUERY_ENGINE_INFO	2
-> > >   #define DRM_I915_QUERY_PERF_CONFIG      3
-> > >   #define DRM_I915_QUERY_MEMORY_REGIONS   4
-> > > +#define DRM_I915_QUERY_HWCONFIG_TABLE   5
-> > >   /* Must be kept compact -- no holes and well documented */
-> > Please update i915_drm.h with a copy from the kernel and state in the
-> > commit message which kernel commit sha it's from. If this change is
-> > not in the kernel yet, add this token to lib/i915/i915_drm_local.h
-> > instead.
-> > 
-> > 
-> Neither side is merged yet. My understanding is that all sides need to be
-> posted in parallel for CI to work. Once green and reviewed, the kernel side
-> gets merged first. Then the IGT/UMD patches get updated with the official
-> kernel headers, reposted and then merged.
+On Fri, 17 Sep 2021, Lee Shawn C <shawn.c.lee@intel.com> wrote:
+> Gmbus driver would setup all Intel i2c GMBuses. But DDC bus
+> may configured as gpio and reserved for MIPI driver to control
+> panel power on/off sequence.
+>
+> Using i2c tool to communicate to peripherals via i2c interface
+> reversed for gmbus(DDC). There will be some high/low pulse
+> appear on DDC SCL and SDA (might be host sent out i2c slave
+> address). MIPI panel would be impacted due to unexpected signal
+> then caused abnormal display or shut down issue.
+>
+> v2: gmbus driver should not add i2c adapter for DDC interface
+>     if LFP display was configured to support MIPI panel.
+> v3: fix sparse warning
+>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Cooper Chiou <cooper.chiou@intel.com>
+> Cc: William Tseng <william.tseng@intel.com>
+> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_gmbus.c | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> index ceb1bf8a8c3c..51d2b6bf2ed2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
+> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> @@ -141,6 +141,21 @@ bool intel_gmbus_is_valid_pin(struct drm_i915_private *dev_priv,
+>  	return pin < size && get_gmbus_pin(dev_priv, pin)->name;
+>  }
+>  
+> +static bool intel_gmbus_ddc_reserve_for_mipi(struct drm_i915_private *dev_priv,
+> +					     unsigned int pin)
+> +{
+> +	if (intel_bios_is_dsi_present(dev_priv, NULL)) {
+> +		if (DISPLAY_VER(dev_priv) >= 11) {
+> +			if ((pin == GMBUS_PIN_2_BXT && dev_priv->vbt.dsi.config->dual_link) ||
+> +			     pin == GMBUS_PIN_1_BXT) {
+> +				return true;
+> +			}
+> +		}
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  /* Intel GPIO access functions */
+>  
+>  #define I2C_RISEFALL_TIME 10
+> @@ -859,7 +874,8 @@ int intel_gmbus_setup(struct drm_i915_private *dev_priv)
+>  	init_waitqueue_head(&dev_priv->gmbus_wait_queue);
+>  
+>  	for (pin = 0; pin < ARRAY_SIZE(dev_priv->gmbus); pin++) {
+> -		if (!intel_gmbus_is_valid_pin(dev_priv, pin))
+> +		if (!intel_gmbus_is_valid_pin(dev_priv, pin) ||
+> +		     intel_gmbus_ddc_reserve_for_mipi(dev_priv, pin))
+>  			continue;
+>  
+>  		bus = &dev_priv->gmbus[pin];
 
-That lockstep dancing removal is the point of i915_drm_local.h. IGT
-side can even be merged that way before kernel side is ready, then
-updated with the real thing later at whatever cadence.
+This does not prevent the pin from being used for e.g. HDMI, and things
+are probably going to go awfully wrong with intel_gmbus_get_adapter()
+when the adapter hasn't been registered. In that sense, this is no
+different from v1.
+
+Sure, the VBT probably shouldn't do that, but that's not an excuse for
+us to not take it into account.
+
+Cc: Ville in case he has some clever ideas off the top of his head. I
+know I'd have to spend time I don't have to figure this out.
+
+
+BR,
+Jani.
 
 
 -- 
-Petri Latvala
+Jani Nikula, Intel Open Source Graphics Center
