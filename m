@@ -8,64 +8,65 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54A33C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 13:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B73EC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 13:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25414610C7
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 13:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 25414610C7
+	by mail.kernel.org (Postfix) with ESMTPS id 2A03B610C7
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 13:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2A03B610C7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED6976ED17;
-	Fri, 17 Sep 2021 13:03:13 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E73F46EC48;
- Fri, 17 Sep 2021 12:35:37 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id x6so14882685wrv.13;
- Fri, 17 Sep 2021 05:35:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C08B6EC7C;
+	Fri, 17 Sep 2021 13:03:48 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E44766EC42;
+ Fri, 17 Sep 2021 12:35:27 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ l18-20020a05600c4f1200b002f8cf606262so9840082wmq.1; 
+ Fri, 17 Sep 2021 05:35:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=AUpHD5Mst15U8lHt1Hgxp+Cu6jJmPPk21DhsAGpzZ+s=;
- b=j+uAS7ZkiO0ApRZo17ZwTDrdSBOiMynTykHMOTGXqTXiQQ1p6ejG6KfnZ9XeJgbh22
- AKsV4AWL7PbDytdH2vV7R8VYd/xPzEGjOYX+C07N4l/AKlApEraVUvbKCn7l7pN9izXm
- NxrY/tY3a/3IZCKtUznLpISCgzSlofZLz+OcphEPaLbHEekzrjXMlyjH3LO7TQkzGTLh
- YuucCnOf8VUv/Mi23x5SN0BxOFfHlMYMzKOKCc73XvciU5o9GGBbASXplusvUeueuPX2
- n/XGrIvLtesDBJeaIEZmsxnOxgcE/sz97Cc9Jt3q6YDJX1ObCUDaMdMHPU9Ud2WrPS0+
- IoMQ==
+ bh=a24rUD+lvDbozllBrOmPRNBHQxSSbhyfXU0oYcihzyg=;
+ b=nIdwXfLabzXcW1XiceUdnmzctWEURDQizwpJU2OUqH6G1ZuU2YX9NskikFXUwzC392
+ C5rT93WnEzI1d4Ke7nxW2BlJsrJbVJK2iydZlt5YaIzbEqGtKMBUGj2I3IPDHW18JhRw
+ uYr3RCuz1bJLcMzHogMCrhy7GS4HCNI79lUSSd7Q2iKhSNYeQZ896b2jE6LSGgUP50LX
+ IJfUfcPPVKBVQekWxSWFIVSQkiGPlHcbN/HB9LuOH9NvXIYHPkxN/KocH83NGwHhXRzR
+ RJZoBw7DJdr7lDQlEeZA3IZMHAnq9h4cj5h2pcyZzDIgyQdWDJXJTMlLjCtgn4KohfgW
+ enZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=AUpHD5Mst15U8lHt1Hgxp+Cu6jJmPPk21DhsAGpzZ+s=;
- b=zpHzFWMO2GLYHorrCcPduxRTFHNmTB3bN/FyIP4JdV+HP1uHy2pEhSBLENOsTEFs84
- nHzdK8AAACXzwmEtMYl5Inlu2MpF3zLY9KTPYsqw7W1zq9z9mLLbDgYySfU52ISrUNRi
- pTxTpm7kWcshu1gy9FCoeDOLCRwJvXsUbGF/i0UvO9kQd0E2QPs4pSQRC826ea5QmRW9
- 2FuX5CL1kagJM9HwWzyMRg0LXPzYTvLG4W3LO4vqtdTYfyZ0adsNVf8PGzGMiPDpzgcb
- sGc9q+idpbJfPwA8akmOsTgb5N0kGo+idcFfymCa9u0hoB+8lfmO8MsbbqWgf7IoT3RO
- d5zw==
-X-Gm-Message-State: AOAM530nwJKAdDx9dFxPd02bLQnw8KX36Lh1z/j3Qoq0EUehqf7WDMYJ
- Z5Y/GGoMJsTEX3a4tagbOCw=
-X-Google-Smtp-Source: ABdhPJz+TxgvDq1tNUR5ZcT7whVGLx4K5oVeHiddhXow//SYV0XseFxVr5yspabtLCqA2Wclcvx5bQ==
-X-Received: by 2002:a5d:404b:: with SMTP id w11mr11830630wrp.437.1631882136529; 
- Fri, 17 Sep 2021 05:35:36 -0700 (PDT)
+ bh=a24rUD+lvDbozllBrOmPRNBHQxSSbhyfXU0oYcihzyg=;
+ b=ovaMoYsWXmlxH0dex9XlymEBOWWUOnou3GRfpIt+IoAkA6NPdBP85B1KMCBOtcrf/3
+ LDBfmr1R0t5cilCr48PcWAhZxoWOjGVBNvHGfg7j8jJWg+fq0PlD5jokVax3YsN2Jvqd
+ axDh8qLVi6d9jbxBB1JONXtP+IPbUmdq/J7uTzX6c32aTtdXxibJv9AfXYa7d1zPABU6
+ VUmhsYrcSc5h86mxsATbGOtjHP+ImuHxLexE2kGjsllE0hHk6SP0NUNnu23cf/8m6xHv
+ b1KC1Lcl35NJffylFOabzqlYFgFwEDpPWz9zfE3K2GUsZl8Rl5u8AvYRSE3Ds86mqaeJ
+ HWCg==
+X-Gm-Message-State: AOAM530RGV3TqYKZu/DS56L7uqLqYTMiMy7nhQpDsdDPTc6gDj5u2FE0
+ cJAAxWQY0kvXyDPlUhZDLP4=
+X-Google-Smtp-Source: ABdhPJxh2B8tbcdyMHyLlJwdm9twJffSI2woQBoj+J90WpQgS6tgdN39QXiHuGZvFewkLx3TxfV2Kw==
+X-Received: by 2002:a7b:c4c2:: with SMTP id g2mr10105760wmk.134.1631882126494; 
+ Fri, 17 Sep 2021 05:35:26 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- l21sm6122049wmh.31.2021.09.17.05.35.35
+ l21sm6122049wmh.31.2021.09.17.05.35.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Sep 2021 05:35:36 -0700 (PDT)
+ Fri, 17 Sep 2021 05:35:26 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch
-Date: Fri, 17 Sep 2021 14:35:11 +0200
-Message-Id: <20210917123513.1106-25-christian.koenig@amd.com>
+Date: Fri, 17 Sep 2021 14:34:59 +0200
+Message-Id: <20210917123513.1106-13-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210917123513.1106-1-christian.koenig@amd.com>
 References: <20210917123513.1106-1-christian.koenig@amd.com>
@@ -73,8 +74,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 17 Sep 2021 13:02:50 +0000
-Subject: [Intel-gfx] [PATCH 24/26] drm/etnaviv: use new iterator in
- etnaviv_gem_describe
+Subject: [Intel-gfx] [PATCH 12/26] drm/scheduler: use new iterator in
+ drm_sched_job_add_implicit_dependencies v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,67 +91,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of hand rolling the logic.
+Simplifying the code a bit.
+
+v2: use dma_resv_for_each_fence
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gem.c | 29 ++++++++++-----------------
- 1 file changed, 11 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 26 ++++++--------------------
+ 1 file changed, 6 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index 8f1b5af47dd6..16f5991446c8 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -428,19 +428,17 @@ int etnaviv_gem_wait_bo(struct etnaviv_gpu *gpu, struct drm_gem_object *obj,
- static void etnaviv_gem_describe_fence(struct dma_fence *fence,
- 	const char *type, struct seq_file *m)
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 042c16b5d54a..5bc5f775abe1 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -699,30 +699,16 @@ int drm_sched_job_add_implicit_dependencies(struct drm_sched_job *job,
+ 					    struct drm_gem_object *obj,
+ 					    bool write)
  {
--	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
--		seq_printf(m, "\t%9s: %s %s seq %llu\n",
--			   type,
--			   fence->ops->get_driver_name(fence),
--			   fence->ops->get_timeline_name(fence),
--			   fence->seqno);
-+	seq_printf(m, "\t%9s: %s %s seq %llu\n", type,
-+		   fence->ops->get_driver_name(fence),
-+		   fence->ops->get_timeline_name(fence),
-+		   fence->seqno);
- }
- 
- static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- {
- 	struct etnaviv_gem_object *etnaviv_obj = to_etnaviv_bo(obj);
- 	struct dma_resv *robj = obj->resv;
--	struct dma_resv_list *fobj;
 +	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
- 	unsigned long off = drm_vma_node_start(&obj->vma_node);
- 
-@@ -450,19 +448,14 @@ static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- 			off, etnaviv_obj->vaddr, obj->size);
- 
- 	rcu_read_lock();
--	fobj = dma_resv_shared_list(robj);
--	if (fobj) {
--		unsigned int i, shared_count = fobj->shared_count;
++	struct dma_fence *fence;
+ 	int ret;
+-	struct dma_fence **fences;
+-	unsigned int i, fence_count;
 -
--		for (i = 0; i < shared_count; i++) {
--			fence = rcu_dereference(fobj->shared[i]);
-+	dma_resv_iter_begin(&cursor, robj, true);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		if (dma_resv_iter_is_exclusive(&cursor))
-+			etnaviv_gem_describe_fence(fence, "Exclusive", m);
-+		else
- 			etnaviv_gem_describe_fence(fence, "Shared", m);
--		}
+-	if (!write) {
+-		struct dma_fence *fence = dma_resv_get_excl_unlocked(obj->resv);
+-
+-		return drm_sched_job_add_dependency(job, fence);
+-	}
+-
+-	ret = dma_resv_get_fences(obj->resv, NULL, &fence_count, &fences);
+-	if (ret || !fence_count)
+-		return ret;
+ 
+-	for (i = 0; i < fence_count; i++) {
+-		ret = drm_sched_job_add_dependency(job, fences[i]);
++	dma_resv_for_each_fence(&cursor, obj->resv, write, fence) {
++		ret = drm_sched_job_add_dependency(job, fence);
+ 		if (ret)
+-			break;
++			return ret;
  	}
 -
--	fence = dma_resv_excl_fence(robj);
--	if (fence)
--		etnaviv_gem_describe_fence(fence, "Exclusive", m);
-+	dma_resv_iter_end(&cursor);
- 	rcu_read_unlock();
+-	for (; i < fence_count; i++)
+-		dma_fence_put(fences[i]);
+-	kfree(fences);
+-	return ret;
++	return 0;
  }
+ EXPORT_SYMBOL(drm_sched_job_add_implicit_dependencies);
  
 -- 
 2.25.1
