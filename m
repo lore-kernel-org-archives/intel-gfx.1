@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6431C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 23:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDF58C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 23:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7162261155
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 23:43:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7162261155
+	by mail.kernel.org (Postfix) with ESMTPS id 85B7160E97
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 23:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 85B7160E97
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25226EEA5;
-	Fri, 17 Sep 2021 23:43:13 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 475C66EEA5;
- Fri, 17 Sep 2021 23:43:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10110"; a="286576805"
-X-IronPort-AV: E=Sophos;i="5.85,302,1624345200"; d="scan'208";a="286576805"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 044676EEA7;
+	Fri, 17 Sep 2021 23:43:20 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFED6EEA7;
+ Fri, 17 Sep 2021 23:43:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10110"; a="221014319"
+X-IronPort-AV: E=Sophos;i="5.85,302,1624345200"; d="scan'208";a="221014319"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 16:43:12 -0700
-X-IronPort-AV: E=Sophos;i="5.85,302,1624345200"; d="scan'208";a="473271926"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 16:43:18 -0700
+X-IronPort-AV: E=Sophos;i="5.85,302,1624345200"; d="scan'208";a="473271932"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 16:43:12 -0700
+ 17 Sep 2021 16:43:18 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 17 Sep 2021 16:38:08 -0700
-Message-Id: <20210917233808.32009-1-matthew.brost@intel.com>
+Date: Fri, 17 Sep 2021 16:38:18 -0700
+Message-Id: <20210917233818.33659-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
