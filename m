@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EB1FC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1615C433EF
+	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE17861251
-	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CE17861251
+	by mail.kernel.org (Postfix) with ESMTPS id 783BC61179
+	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 783BC61179
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2556F3A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91FA56F3A8;
 	Sat, 18 Sep 2021 04:19:47 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77FAF6F3A1
- for <intel-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 04:19:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10110"; a="222948820"
-X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="222948820"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B7C26E0D5
+ for <intel-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 04:19:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10110"; a="222948825"
+X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="222948825"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 21:19:45 -0700
+ 17 Sep 2021 21:19:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="652066392"
+X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="652066409"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga005.jf.intel.com with ESMTP; 17 Sep 2021 21:19:44 -0700
+ by orsmga005.jf.intel.com with ESMTP; 17 Sep 2021 21:19:45 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Fri, 17 Sep 2021 21:19:54 -0700
-Message-Id: <20210918042008.29468-4-alan.previn.teres.alexis@intel.com>
+	Huang@freedesktop.org, Sean Z <sean.z.huang@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Fri, 17 Sep 2021 21:19:57 -0700
+Message-Id: <20210918042008.29468-7-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210918042008.29468-1-alan.previn.teres.alexis@intel.com>
 References: <20210918042008.29468-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 03/17] drm/i915/pxp: define PXP device flag
- and kconfig
+Subject: [Intel-gfx] [PATCH v10 06/17] drm/i915/pxp: set KCR reg init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +62,107 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Ahead of the PXP implementation, define the relevant define flag and
-kconfig option.
+The setting is required by hardware to allow us doing further protection
+operation such as sending commands to GPU or TEE. The register needs to
+be re-programmed on resume, so for simplicitly we bundle the programming
+with the component binding, which is automatically called on resume.
 
-v2: flip kconfig default to N. Some machines have IFWIs that do not
-support PXP, so we need it to be an opt-in until we add support to query
-the caps from the mei device.
+Further HW set-up operations will be added in the same location in
+follow-up patches, so get ready for them by using a couple of
+init/fini_hw wrappers instead of calling the KCR funcs directly.
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+v3: move programming to component binding function, rework commit msg
+
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig             | 11 +++++++++++
- drivers/gpu/drm/i915/i915_drv.h          |  3 +++
- drivers/gpu/drm/i915/intel_device_info.h |  1 +
- 3 files changed, 15 insertions(+)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     | 27 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h     |  3 +++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c |  5 +++++
+ 3 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index f960f5d7664e..8859444943a0 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -131,6 +131,17 @@ config DRM_I915_GVT_KVMGT
- 	  Choose this option if you want to enable KVMGT support for
- 	  Intel GVT-g.
- 
-+config DRM_I915_PXP
-+	bool "Enable Intel PXP support for Intel Gen12 and newer platform"
-+	depends on DRM_I915
-+	depends on INTEL_MEI && INTEL_MEI_PXP
-+	default n
-+	help
-+	  PXP (Protected Xe Path) is an i915 component, available on GEN12 and
-+	  newer GPUs, that helps to establish the hardware protected session and
-+	  manage the status of the alive software session, as well as its life
-+	  cycle.
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 4f22848a1001..3fd9306b2ce4 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -10,6 +10,24 @@
+ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
+ {
+ 	return container_of(pxp, struct intel_gt, pxp);
 +
- menu "drm/i915 Debugging"
- depends on DRM_I915
- depends on EXPERT
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 37c1ca266bcd..447a248f14aa 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1678,6 +1678,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
++}
++
++/* KCR register definitions */
++#define KCR_INIT _MMIO(0x320f0)
++/* Setting KCR Init bit is required after system boot */
++#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES REG_BIT(14)
++
++static void kcr_pxp_enable(struct intel_gt *gt)
++{
++	intel_uncore_write(gt->uncore, KCR_INIT,
++			   _MASKED_BIT_ENABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
++}
++
++static void kcr_pxp_disable(struct intel_gt *gt)
++{
++	intel_uncore_write(gt->uncore, KCR_INIT,
++			   _MASKED_BIT_DISABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
+ }
  
- #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
+ static int create_vcs_context(struct intel_pxp *pxp)
+@@ -76,5 +94,14 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+ 	intel_pxp_tee_component_fini(pxp);
  
-+#define HAS_PXP(dev_priv) (IS_ENABLED(CONFIG_DRM_I915_PXP) && \
-+			   INTEL_INFO(dev_priv)->has_pxp) && \
-+			   VDBOX_MASK(&dev_priv->gt)
+ 	destroy_vcs_context(pxp);
++}
++
++void intel_pxp_init_hw(struct intel_pxp *pxp)
++{
++	kcr_pxp_enable(pxp_to_gt(pxp));
++}
  
- #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
++void intel_pxp_fini_hw(struct intel_pxp *pxp)
++{
++	kcr_pxp_disable(pxp_to_gt(pxp));
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 73acd879f2fb..cd6560b2605c 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -17,6 +17,9 @@ static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
+ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
++
++void intel_pxp_init_hw(struct intel_pxp *pxp);
++void intel_pxp_fini_hw(struct intel_pxp *pxp);
+ #else
+ static inline void intel_pxp_init(struct intel_pxp *pxp)
+ {
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index f1d8de832653..0c0c7946e6a0 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -33,6 +33,9 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ 	pxp->pxp_component = data;
+ 	pxp->pxp_component->tee_dev = tee_kdev;
  
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index d328bb95c49b..8e6f48d1eb7b 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -133,6 +133,7 @@ enum intel_ppgtt_type {
- 	func(has_logical_ring_elsq); \
- 	func(has_mslices); \
- 	func(has_pooled_eu); \
-+	func(has_pxp); \
- 	func(has_rc6); \
- 	func(has_rc6p); \
- 	func(has_rps); \
++	/* the component is required to fully start the PXP HW */
++	intel_pxp_init_hw(pxp);
++
+ 	return 0;
+ }
+ 
+@@ -41,6 +44,8 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
+ {
+ 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
+ 
++	intel_pxp_fini_hw(pxp);
++
+ 	pxp->pxp_component = NULL;
+ }
+ 
 -- 
 2.25.1
 
