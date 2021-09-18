@@ -7,44 +7,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A439DC433FE
-	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D12DBC433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7507A61179
-	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7507A61179
+	by mail.kernel.org (Postfix) with ESMTPS id A67EE61212
+	for <intel-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 04:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A67EE61212
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869046F3CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95E676F3CF;
 	Sat, 18 Sep 2021 04:20:06 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE456F3A2
- for <intel-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 04:19:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10110"; a="222948845"
-X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="222948845"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E1CE6E0D5
+ for <intel-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 04:19:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10110"; a="222948818"
+X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="222948818"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 21:19:50 -0700
+ 17 Sep 2021 21:19:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="652066473"
+X-IronPort-AV: E=Sophos;i="5.85,303,1624345200"; d="scan'208";a="652066386"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga005.jf.intel.com with ESMTP; 17 Sep 2021 21:19:50 -0700
+ by orsmga005.jf.intel.com with ESMTP; 17 Sep 2021 21:19:44 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+Cc: Vitaly Lubart <vitaly.lubart@intel.com>,
+ Tomas Winkler <tomas.winkler@intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Fri, 17 Sep 2021 21:20:08 -0700
-Message-Id: <20210918042008.29468-18-alan.previn.teres.alexis@intel.com>
+Date: Fri, 17 Sep 2021 21:19:53 -0700
+Message-Id: <20210918042008.29468-3-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210918042008.29468-1-alan.previn.teres.alexis@intel.com>
 References: <20210918042008.29468-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 17/17] drm/i915/pxp: enable PXP for
- integrated Gen12
+Subject: [Intel-gfx] [PATCH v10 02/17] mei: pxp: export pavp client to me
+ client bus
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +63,340 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: Vitaly Lubart <vitaly.lubart@intel.com>
 
-Note that discrete cards can support PXP as well, but we haven't tested
-on those yet so keeping it disabled for now.
+Export PAVP client to work with i915 driver,
+for binding it uses kernel component framework.
 
+v2:drop debug prints, refactor match code to match mei_hdcp (Tomas)
+
+Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/misc/mei/Kconfig       |   2 +
+ drivers/misc/mei/Makefile      |   1 +
+ drivers/misc/mei/pxp/Kconfig   |  13 ++
+ drivers/misc/mei/pxp/Makefile  |   7 +
+ drivers/misc/mei/pxp/mei_pxp.c | 229 +++++++++++++++++++++++++++++++++
+ drivers/misc/mei/pxp/mei_pxp.h |  18 +++
+ 6 files changed, 270 insertions(+)
+ create mode 100644 drivers/misc/mei/pxp/Kconfig
+ create mode 100644 drivers/misc/mei/pxp/Makefile
+ create mode 100644 drivers/misc/mei/pxp/mei_pxp.c
+ create mode 100644 drivers/misc/mei/pxp/mei_pxp.h
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index d4a6a9dcf182..169837de395d 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -865,6 +865,7 @@ static const struct intel_device_info jsl_info = {
- 	}, \
- 	TGL_CURSOR_OFFSETS, \
- 	.has_global_mocs = 1, \
-+	.has_pxp = 1, \
- 	.display.has_dsb = 1
+diff --git a/drivers/misc/mei/Kconfig b/drivers/misc/mei/Kconfig
+index f5fd5b786607..0e0bcd0da852 100644
+--- a/drivers/misc/mei/Kconfig
++++ b/drivers/misc/mei/Kconfig
+@@ -47,3 +47,5 @@ config INTEL_MEI_TXE
+ 	  Intel Bay Trail
  
- static const struct intel_device_info tgl_info = {
-@@ -891,6 +892,7 @@ static const struct intel_device_info rkl_info = {
- #define DGFX_FEATURES \
- 	.memory_regions = REGION_SMEM | REGION_LMEM | REGION_STOLEN_LMEM, \
- 	.has_llc = 0, \
-+	.has_pxp = 0, \
- 	.has_snoop = 1, \
- 	.is_dgfx = 1
+ source "drivers/misc/mei/hdcp/Kconfig"
++source "drivers/misc/mei/pxp/Kconfig"
++
+diff --git a/drivers/misc/mei/Makefile b/drivers/misc/mei/Makefile
+index f1c76f7ee804..d8e5165917f2 100644
+--- a/drivers/misc/mei/Makefile
++++ b/drivers/misc/mei/Makefile
+@@ -26,3 +26,4 @@ mei-$(CONFIG_EVENT_TRACING) += mei-trace.o
+ CFLAGS_mei-trace.o = -I$(src)
  
+ obj-$(CONFIG_INTEL_MEI_HDCP) += hdcp/
++obj-$(CONFIG_INTEL_MEI_PXP) += pxp/
+diff --git a/drivers/misc/mei/pxp/Kconfig b/drivers/misc/mei/pxp/Kconfig
+new file mode 100644
+index 000000000000..4029b96afc04
+--- /dev/null
++++ b/drivers/misc/mei/pxp/Kconfig
+@@ -0,0 +1,13 @@
++
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (c) 2020, Intel Corporation. All rights reserved.
++#
++config INTEL_MEI_PXP
++	tristate "Intel PXP services of ME Interface"
++	select INTEL_MEI_ME
++	depends on DRM_I915
++	help
++	  MEI Support for PXP Services on Intel platforms.
++
++	  Enables the ME FW services required for PXP support through
++	  I915 display driver of Intel.
+diff --git a/drivers/misc/mei/pxp/Makefile b/drivers/misc/mei/pxp/Makefile
+new file mode 100644
+index 000000000000..0329950d5794
+--- /dev/null
++++ b/drivers/misc/mei/pxp/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Copyright (c) 2020, Intel Corporation. All rights reserved.
++#
++# Makefile - PXP client driver for Intel MEI Bus Driver.
++
++obj-$(CONFIG_INTEL_MEI_PXP) += mei_pxp.o
+diff --git a/drivers/misc/mei/pxp/mei_pxp.c b/drivers/misc/mei/pxp/mei_pxp.c
+new file mode 100644
+index 000000000000..f7380d387bab
+--- /dev/null
++++ b/drivers/misc/mei/pxp/mei_pxp.c
+@@ -0,0 +1,229 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright © 2020 - 2021 Intel Corporation
++ */
++
++/**
++ * DOC: MEI_PXP Client Driver
++ *
++ * The mei_pxp driver acts as a translation layer between PXP
++ * protocol  implementer (I915) and ME FW by translating PXP
++ * negotiation messages to ME FW command payloads and vice versa.
++ */
++
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/uuid.h>
++#include <linux/mei_cl_bus.h>
++#include <linux/component.h>
++#include <drm/drm_connector.h>
++#include <drm/i915_component.h>
++#include <drm/i915_pxp_tee_interface.h>
++
++#include "mei_pxp.h"
++
++/**
++ * mei_pxp_send_message() - Sends a PXP message to ME FW.
++ * @dev: device corresponding to the mei_cl_device
++ * @message: a message buffer to send
++ * @size: size of the message
++ * Return: 0 on Success, <0 on Failure
++ */
++static int
++mei_pxp_send_message(struct device *dev, const void *message, size_t size)
++{
++	struct mei_cl_device *cldev;
++	ssize_t byte;
++
++	if (!dev || !message)
++		return -EINVAL;
++
++	cldev = to_mei_cl_device(dev);
++
++	/* temporary drop const qualifier till the API is fixed */
++	byte = mei_cldev_send(cldev, (u8 *)message, size);
++	if (byte < 0) {
++		dev_dbg(dev, "mei_cldev_send failed. %zd\n", byte);
++		return byte;
++	}
++
++	return 0;
++}
++
++/**
++ * mei_pxp_receive_message() - Receives a PXP message from ME FW.
++ * @dev: device corresponding to the mei_cl_device
++ * @buffer: a message buffer to contain the received message
++ * @size: size of the buffer
++ * Return: bytes sent on Success, <0 on Failure
++ */
++static int
++mei_pxp_receive_message(struct device *dev, void *buffer, size_t size)
++{
++	struct mei_cl_device *cldev;
++	ssize_t byte;
++
++	if (!dev || !buffer)
++		return -EINVAL;
++
++	cldev = to_mei_cl_device(dev);
++
++	byte = mei_cldev_recv(cldev, buffer, size);
++	if (byte < 0) {
++		dev_dbg(dev, "mei_cldev_recv failed. %zd\n", byte);
++		return byte;
++	}
++
++	return byte;
++}
++
++static const struct i915_pxp_component_ops mei_pxp_ops = {
++	.owner = THIS_MODULE,
++	.send = mei_pxp_send_message,
++	.recv = mei_pxp_receive_message,
++};
++
++static int mei_component_master_bind(struct device *dev)
++{
++	struct mei_cl_device *cldev = to_mei_cl_device(dev);
++	struct i915_pxp_component *comp_master = mei_cldev_get_drvdata(cldev);
++	int ret;
++
++	comp_master->ops = &mei_pxp_ops;
++	comp_master->tee_dev = dev;
++	ret = component_bind_all(dev, comp_master);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
++static void mei_component_master_unbind(struct device *dev)
++{
++	struct mei_cl_device *cldev = to_mei_cl_device(dev);
++	struct i915_pxp_component *comp_master = mei_cldev_get_drvdata(cldev);
++
++	component_unbind_all(dev, comp_master);
++}
++
++static const struct component_master_ops mei_component_master_ops = {
++	.bind = mei_component_master_bind,
++	.unbind = mei_component_master_unbind,
++};
++
++/**
++ * mei_pxp_component_match - compare function for matching mei pxp.
++ *
++ *    The function checks if the driver is i915, the subcomponent is PXP
++ *    and the grand parent of pxp and the parent of i915 are the same
++ *    PCH device.
++ *
++ * @dev: master device
++ * @subcomponent: subcomponent to match (I915_COMPONENT_PXP)
++ * @data: compare data (mei pxp device)
++ *
++ * Return:
++ * * 1 - if components match
++ * * 0 - otherwise
++ */
++static int mei_pxp_component_match(struct device *dev, int subcomponent,
++				   void *data)
++{
++	struct device *base = data;
++
++	if (strcmp(dev->driver->name, "i915") ||
++	    subcomponent != I915_COMPONENT_PXP)
++		return 0;
++
++	base = base->parent;
++	if (!base)
++		return 0;
++
++	base = base->parent;
++	dev = dev->parent;
++
++	return (base && dev && dev == base);
++}
++
++static int mei_pxp_probe(struct mei_cl_device *cldev,
++			 const struct mei_cl_device_id *id)
++{
++	struct i915_pxp_component *comp_master;
++	struct component_match *master_match;
++	int ret;
++
++	ret = mei_cldev_enable(cldev);
++	if (ret < 0) {
++		dev_err(&cldev->dev, "mei_cldev_enable Failed. %d\n", ret);
++		goto enable_err_exit;
++	}
++
++	comp_master = kzalloc(sizeof(*comp_master), GFP_KERNEL);
++	if (!comp_master) {
++		ret = -ENOMEM;
++		goto err_exit;
++	}
++
++	master_match = NULL;
++	component_match_add_typed(&cldev->dev, &master_match,
++				  mei_pxp_component_match, &cldev->dev);
++	if (IS_ERR_OR_NULL(master_match)) {
++		ret = -ENOMEM;
++		goto err_exit;
++	}
++
++	mei_cldev_set_drvdata(cldev, comp_master);
++	ret = component_master_add_with_match(&cldev->dev,
++					      &mei_component_master_ops,
++					      master_match);
++	if (ret < 0) {
++		dev_err(&cldev->dev, "Master comp add failed %d\n", ret);
++		goto err_exit;
++	}
++
++	return 0;
++
++err_exit:
++	mei_cldev_set_drvdata(cldev, NULL);
++	kfree(comp_master);
++	mei_cldev_disable(cldev);
++enable_err_exit:
++	return ret;
++}
++
++static void mei_pxp_remove(struct mei_cl_device *cldev)
++{
++	struct i915_pxp_component *comp_master = mei_cldev_get_drvdata(cldev);
++	int ret;
++
++	component_master_del(&cldev->dev, &mei_component_master_ops);
++	kfree(comp_master);
++	mei_cldev_set_drvdata(cldev, NULL);
++
++	ret = mei_cldev_disable(cldev);
++	if (ret)
++		dev_warn(&cldev->dev, "mei_cldev_disable() failed\n");
++}
++
++/* fbf6fcf1-96cf-4e2e-a6a6-1bab8cbe36b1 : PAVP GUID*/
++#define MEI_GUID_PXP GUID_INIT(0xfbf6fcf1, 0x96cf, 0x4e2e, 0xA6, \
++			       0xa6, 0x1b, 0xab, 0x8c, 0xbe, 0x36, 0xb1)
++
++static struct mei_cl_device_id mei_pxp_tbl[] = {
++	{ .uuid = MEI_GUID_PXP, .version = MEI_CL_VERSION_ANY },
++	{ }
++};
++MODULE_DEVICE_TABLE(mei, mei_pxp_tbl);
++
++static struct mei_cl_driver mei_pxp_driver = {
++	.id_table = mei_pxp_tbl,
++	.name = KBUILD_MODNAME,
++	.probe = mei_pxp_probe,
++	.remove	= mei_pxp_remove,
++};
++
++module_mei_cl_driver(mei_pxp_driver);
++
++MODULE_AUTHOR("Intel Corporation");
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("MEI PXP");
+diff --git a/drivers/misc/mei/pxp/mei_pxp.h b/drivers/misc/mei/pxp/mei_pxp.h
+new file mode 100644
+index 000000000000..e7b15373fefd
+--- /dev/null
++++ b/drivers/misc/mei/pxp/mei_pxp.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright © 2020 Intel Corporation
++ *
++ * Authors:
++ * Vitaly Lubart <vitaly.lubart@intel.com>
++ */
++
++#ifndef __MEI_PXP_H__
++#define __MEI_PXP_H__
++
++/* me_pxp_status: Enumeration of all PXP Status Codes */
++enum me_pxp_status {
++	ME_PXP_STATUS_SUCCESS			= 0x0000,
++
++};
++
++#endif /* __MEI_PXP_H__ */
 -- 
 2.25.1
 
