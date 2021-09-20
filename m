@@ -2,82 +2,83 @@ Return-Path: <SRS0=beGZ=OK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-17.0 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C974C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 196BEC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C351E60F93
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C351E60F93
+	by mail.kernel.org (Postfix) with ESMTPS id CFFEC60F93
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CFFEC60F93
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 591246E4FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D73646E504;
 	Mon, 20 Sep 2021 13:28:52 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28BA76E400;
- Mon, 20 Sep 2021 07:35:24 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id x6so27070098wrv.13;
- Mon, 20 Sep 2021 00:35:24 -0700 (PDT)
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B2AA6E3B7;
+ Mon, 20 Sep 2021 07:05:05 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id e16so15363749pfc.6;
+ Mon, 20 Sep 2021 00:05:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=4P1io5nUKE9cYx4NjlZE02ncCC38OG0LveUarkFjV+4=;
- b=g1ECzyspCR1I5FXZUYHtyQjmn0g8obadz/rLTIBlDOnrWeK1lYdb3dq8fXweE8pgIm
- zeVqQxIrvocx0hYvxeUpUllzbjdMRJquTTNHCMqST+4ZUYhooFzm/It2BrdYC3HMLDnO
- CKvNyRc7uAY1bxU2Vac1ZSZySnmvoSB+UE4idjXKpjIEPn+fj0MfP4nPTwQWB/hJ+iKn
- 2IAkDl8Wcz3jsqN1ck9SIn6J9NExLt/oGu9FfacfJqQwBghvkiGSAmbQ8+Sinn16cHj6
- JYMDp3ZC+4aP32H2XE2MPv2eqZGjXRM9J0pYcAF21RBHbCWTxF3rDxSFXMZZHnFTBbqG
- B0pA==
+ h=cc:from:subject:to:message-id:date:user-agent:mime-version
+ :content-language:content-transfer-encoding;
+ bh=Pc9p5CeYocJsFTsxO2J3P5SkG+9sBB3CRGrdNGvJ86w=;
+ b=hbmwZqj3MpKQ5//Hg10kU6Kj8T04rOQQtH9AWjBljqu3Pxs/4Q1pkTbp14+1JpVMyS
+ 63HcbV4pZl++7Rlt3dSRBeSnOKHdMJc2dM7JwxX2P89coD2bAIXs9akKSZt4xw7GmaLs
+ N7GepXnWxgCnFi24KlLWI4eOa3UvwMAU4HRD+bbF8TU7PT0/wBsdSealXQjH5gIsJRj3
+ mDmO6+A2sTLkbtF87sDF5KlLe03C1q+9lshJQxNVdeJQWtvIL+PC7dJFXT+mOq3hmj21
+ rh+E8gmCT/UARrWcEmLtbl7fvmjCMRkyzNk+hLgbuYcRxMJsWziXPa1oJvtbVnijnB71
+ dGmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=4P1io5nUKE9cYx4NjlZE02ncCC38OG0LveUarkFjV+4=;
- b=koo3e2bhsasDT16Si2no5Pc0aS3FfMU5OrMG1t6RyXpOklLBUaMrhfM0tR6D+e+tJq
- VvWHD5F57sU1cYv5B+omXf5bBTZWKJYi4Me8Koj1cgobKJIoMYtm3F4Vnj0Vryt94oWZ
- K45p5teOGjO+Uqwl3iN+39TvZ2qLS7TzHClGX0wTugnWYNrA9FBc6kUx9vM4x5oJECEI
- ICkwDxeC2fOW3qBZZ+xUPxtZbgpQaT527b0lKNUIHgiRgzpD+nPLH3wSkEjRl5xiTm3N
- sz836qE48/XuWfOM7UXmumj7mJX25lsHrcLfjBc07hTkKjFcYB7D9AQeZooJGLbxpazw
- 0Pwg==
-X-Gm-Message-State: AOAM531lGzA3xo109t8ytUBg1ANQzIMBlgdzj0xDR2lTCPPHoZx5Tb7F
- Y997OqaQ4bq/WhLAEWxiPyTcVA0HFv4=
-X-Google-Smtp-Source: ABdhPJypvNSGDrPpIVDHLrykJEmmH/dwdyUKHUY1DGVerjxgk4VaBJNzEgJNAkRV7PORtSTG0FxAig==
-X-Received: by 2002:adf:ed92:: with SMTP id c18mr26101944wro.86.1632123322752; 
- Mon, 20 Sep 2021 00:35:22 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id q11sm14805870wrn.65.2021.09.20.00.35.21
+ h=x-gm-message-state:cc:from:subject:to:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=Pc9p5CeYocJsFTsxO2J3P5SkG+9sBB3CRGrdNGvJ86w=;
+ b=AGN3B/TDp4a6LHfkEDvi4gF5BeI5ufB5G29aoh9aCFH7lYww/7AEyp6+UJPjtgfE4j
+ 2YIkPeQEPRboutnNn20WXgfCmt7lb49C6TDGn1OTUs2F+2vW51tzkEXNa8Um8NOaIF/B
+ lTpzqs5jV56gikFfk52oCY/t8UMArdVK3lZUcitvn8gCGqP3e9AaqIEpZZtz6UFi0eJl
+ V+KkEda6p7BDPwoUuuDLx2nhOMzb5T1+sA0zWFPzCixWKfuo40gHYYIfOlIK3GxRHI06
+ uIwMxhFyp2MdpzBvrmGs72SckTVTqwN2AWo4Qq90jOa+sNO1ugXqpUYtDcRgNBpclyHU
+ 8Vbg==
+X-Gm-Message-State: AOAM531u4dxDEYwxGlnsKvsMEo2Iuhozanv8TfE8qrxqDN9U67wL5fSv
+ 8nieQ66GFTSxzjKrf8ET/Fw=
+X-Google-Smtp-Source: ABdhPJy0g/g/0MXLpBUsJfWEhVRkdyUgSGWsPHG4TnjrOKnWaswLMzGC8Sdf8xnA4o4sa03Behlz4Q==
+X-Received: by 2002:a62:60c2:0:b0:446:b494:39cc with SMTP id
+ u185-20020a6260c2000000b00446b49439ccmr10743109pfb.22.1632121504570; 
+ Mon, 20 Sep 2021 00:05:04 -0700 (PDT)
+Received: from [192.168.11.2] (KD106167171201.ppp-bb.dion.ne.jp.
+ [106.167.171.201])
+ by smtp.gmail.com with ESMTPSA id h17sm5814700pfk.66.2021.09.20.00.05.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Sep 2021 00:35:22 -0700 (PDT)
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-References: <20210917123513.1106-1-christian.koenig@amd.com>
- <20210917123513.1106-22-christian.koenig@amd.com>
- <YUSsdbTxvJwaRv9x@phenom.ffwll.local>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <2ded7e42-e1f3-72fb-5de6-810c000255be@gmail.com>
-Date: Mon, 20 Sep 2021 09:35:20 +0200
+ Mon, 20 Sep 2021 00:05:04 -0700 (PDT)
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: Akira Yokosawa <akiyks@gmail.com>
+To: John Harrison <John.C.Harrison@Intel.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
+Message-ID: <4a227569-074f-c501-58bb-d0d8f60a8ae9@gmail.com>
+Date: Mon, 20 Sep 2021 16:05:00 +0900
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <YUSsdbTxvJwaRv9x@phenom.ffwll.local>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 20 Sep 2021 13:28:35 +0000
-Subject: Re: [Intel-gfx] [PATCH 21/26] drm: use new iterator in
- drm_gem_plane_helper_prepare_fb v2
+Subject: [Intel-gfx] [PATCH] drm/i915/guc,
+ docs: Fix pdfdocs build error by removing nested grid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,72 +94,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 17.09.21 um 16:55 schrieb Daniel Vetter:
-> On Fri, Sep 17, 2021 at 02:35:08PM +0200, Christian König wrote:
->> Makes the handling a bit more complex, but avoids the use of
->> dma_resv_get_excl_unlocked().
->>
->> v2: add missing rcu_read_lock()/unlock()
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/drm_gem_atomic_helper.c | 14 ++++++++++++--
->>   1 file changed, 12 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
->> index e570398abd78..d8f9c6432544 100644
->> --- a/drivers/gpu/drm/drm_gem_atomic_helper.c
->> +++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
->> @@ -143,6 +143,7 @@
->>    */
->>   int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane, struct drm_plane_state *state)
->>   {
->> +	struct dma_resv_iter cursor;
->>   	struct drm_gem_object *obj;
->>   	struct dma_fence *fence;
->>   
->> @@ -150,9 +151,18 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane, struct drm_plane_st
->>   		return 0;
->>   
->>   	obj = drm_gem_fb_get_obj(state->fb, 0);
->> -	fence = dma_resv_get_excl_unlocked(obj->resv);
->> -	drm_atomic_set_fence_for_plane(state, fence);
->> +	rcu_read_lock();
->> +	dma_resv_iter_begin(&cursor, obj->resv, false);
->> +	dma_resv_for_each_fence_unlocked(&cursor, fence) {
->> +		rcu_read_unlock();
->> +		/* TODO: We only use the first write fence here */
->> +		drm_atomic_set_fence_for_plane(state, fence);
-> Yeah I wonder whether we should/need to collate them all together. But I
-> guesss whomever hits that first with their funny multi-plane yuv or
-> whatever gets to do that. Or I'm not clear on what exactly your TODO here
-> means?
+Nested grids in grid-table cells are not specified as proper ReST
+constructs.
+Commit 572f2a5cd974 ("drm/i915/guc: Update firmware to v62.0.0")
+added a couple of kerneldoc tables of the form:
 
-Yeah, exactly that. Basically we have use cases where where we have more 
-than one fence to wait for.
+  +---+-------+------------------------------------------------------+
+  | 1 |  31:0 |  +------------------------------------------------+  |
+  +---+-------+  |                                                |  |
+  |...|       |  |  Embedded `HXG Message`_                       |  |
+  +---+-------+  |                                                |  |
+  | n |  31:0 |  +------------------------------------------------+  |
+  +---+-------+------------------------------------------------------+
 
-The TODO is here because adding that to the atomic helper is just not my 
-construction site at the moment.
+For "make htmldocs", they happen to work as one might expect,
+but they are incompatible with "make latexdocs" and "make pdfdocs",
+and cause the generated gpu.tex file to become incomplete and
+unbuildable by xelatex.
 
-Regards,
-Christian.
+Restore the compatibility by removing those nested grids in the tables.
 
->
->> +		return 0;
->> +	}
->> +	dma_resv_iter_end(&cursor);
->> +	rcu_read_unlock();
-> Imo we should do full dma_resv_lock here. atomic helpers are designed to
-> allow this, and it simplifies things. Also it really doesn't matter for
-> atomic, we should be able to do 60fps*a few planes easily :-)
-> -Daniel
->
->>   
->> +	drm_atomic_set_fence_for_plane(state, NULL);
->>   	return 0;
->>   }
->>   EXPORT_SYMBOL_GPL(drm_gem_plane_helper_prepare_fb);
->> -- 
->> 2.25.1
->>
+Size comparison of generated gpu.tex:
+
+                  Sphinx 2.4.4  Sphinx 4.2.0
+  v5.14:               3238686       3841631
+  v5.15-rc1:            376270        432729
+  with this fix:       3377846       3998095
+
+Fixes: 572f2a5cd974 ("drm/i915/guc: Update firmware to v62.0.0")
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Signed-off-by: Akira Yokosawa <akiyks@gmail.com>
+---
+Hi all,
+
+I know there is little interest in building pdfdocs (or LaTeX) version
+of kernel-doc, and this issue does not matter most of you.
+
+But "make pdfdocs" is supposed to work, give or take those tables
+with squeezed columns, and at least it is expected to complete
+without fatal errors.
+
+I have no idea who is responsible to those grid-tables, so added
+a lot of people in the To: and Cc: lists.
+
+Does removing those nested grids look reasonable to you?
+
+Any feedback is welcome!
+
+Note: This patch is against the docs-next branch of Jon's -doc tree
+(git://git.lwn.net/linux.git).  It can be applied against v5.15-rc1
+and v5.15-rc2 as well.
+
+        Thanks, Akira
+--
+ .../gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h | 10 +++++-----
+ .../drm/i915/gt/uc/abi/guc_communication_mmio_abi.h    | 10 +++++-----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+index 99e1fad5ca20..c9086a600bce 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+@@ -102,11 +102,11 @@ static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
+  *  |   +-------+--------------------------------------------------------------+
+  *  |   |   7:0 | NUM_DWORDS = length (in dwords) of the embedded HXG message  |
+  *  +---+-------+--------------------------------------------------------------+
+- *  | 1 |  31:0 |  +--------------------------------------------------------+  |
+- *  +---+-------+  |                                                        |  |
+- *  |...|       |  |  Embedded `HXG Message`_                               |  |
+- *  +---+-------+  |                                                        |  |
+- *  | n |  31:0 |  +--------------------------------------------------------+  |
++ *  | 1 |  31:0 |                                                              |
++ *  +---+-------+                                                              |
++ *  |...|       | [Embedded `HXG Message`_]                                    |
++ *  +---+-------+                                                              |
++ *  | n |  31:0 |                                                              |
+  *  +---+-------+--------------------------------------------------------------+
+  */
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
+index bbf1ddb77434..9baa3cb07d13 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
+@@ -38,11 +38,11 @@
+  *  +---+-------+--------------------------------------------------------------+
+  *  |   | Bits  | Description                                                  |
+  *  +===+=======+==============================================================+
+- *  | 0 |  31:0 |  +--------------------------------------------------------+  |
+- *  +---+-------+  |                                                        |  |
+- *  |...|       |  |  Embedded `HXG Message`_                               |  |
+- *  +---+-------+  |                                                        |  |
+- *  | n |  31:0 |  +--------------------------------------------------------+  |
++ *  | 0 |  31:0 |                                                              |
++ *  +---+-------+                                                              |
++ *  |...|       | [Embedded `HXG Message`_]                                    |
++ *  +---+-------+                                                              |
++ *  | n |  31:0 |                                                              |
+  *  +---+-------+--------------------------------------------------------------+
+  */
+ 
+
+base-commit: 242f4c77b1c8cebfdfa0ad5b40e2e4ae0316e57d
+-- 
+2.17.1
 
