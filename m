@@ -2,83 +2,84 @@ Return-Path: <SRS0=beGZ=OK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 196BEC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83718C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CFFEC60F93
+	by mail.kernel.org (Postfix) with ESMTPS id 4471F60F93
 	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CFFEC60F93
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4471F60F93
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D73646E504;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1BB6E503;
 	Mon, 20 Sep 2021 13:28:52 +0000 (UTC)
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B2AA6E3B7;
- Mon, 20 Sep 2021 07:05:05 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id e16so15363749pfc.6;
- Mon, 20 Sep 2021 00:05:05 -0700 (PDT)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E1BD6E45D;
+ Mon, 20 Sep 2021 10:09:36 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id q26so27978506wrc.7;
+ Mon, 20 Sep 2021 03:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:from:subject:to:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=Pc9p5CeYocJsFTsxO2J3P5SkG+9sBB3CRGrdNGvJ86w=;
- b=hbmwZqj3MpKQ5//Hg10kU6Kj8T04rOQQtH9AWjBljqu3Pxs/4Q1pkTbp14+1JpVMyS
- 63HcbV4pZl++7Rlt3dSRBeSnOKHdMJc2dM7JwxX2P89coD2bAIXs9akKSZt4xw7GmaLs
- N7GepXnWxgCnFi24KlLWI4eOa3UvwMAU4HRD+bbF8TU7PT0/wBsdSealXQjH5gIsJRj3
- mDmO6+A2sTLkbtF87sDF5KlLe03C1q+9lshJQxNVdeJQWtvIL+PC7dJFXT+mOq3hmj21
- rh+E8gmCT/UARrWcEmLtbl7fvmjCMRkyzNk+hLgbuYcRxMJsWziXPa1oJvtbVnijnB71
- dGmQ==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=3VemnJCb4o4i8G4jW2f7/S7wTJolafn8kMYbyHr6SFk=;
+ b=eSGIIcJaT4kNOCy+9SOq9MXZUInm7154x0Y0TDUf1zJUnCm3MYD2V1eiaEDFM+ikIu
+ mTn9HImJPxCawMjCUC6YlVF7Ch+njUhzUpgD5ZWlQRzZC+qUmSTh5hAu9+JwMlZh7reb
+ MKImCjo4FtxgVLUdjSSJsu8KwWEDlhcb6qP4Eg+DuHmVGo98S5QndTPgr81vqFVn5qiw
+ GQVBzB7dR8ZUn7uILPeIIkf2YnJRkE9LrfrCHvWtHsNUKJ4QnsK3j1mVbzbrLSsCYC19
+ y61gqOdNFGytLhVMVSWuN1G3WnbRbMiXXx51AYgIU8DVlGA5ghHfbbszX/BhmAPHnOW4
+ R1Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:cc:from:subject:to:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=Pc9p5CeYocJsFTsxO2J3P5SkG+9sBB3CRGrdNGvJ86w=;
- b=AGN3B/TDp4a6LHfkEDvi4gF5BeI5ufB5G29aoh9aCFH7lYww/7AEyp6+UJPjtgfE4j
- 2YIkPeQEPRboutnNn20WXgfCmt7lb49C6TDGn1OTUs2F+2vW51tzkEXNa8Um8NOaIF/B
- lTpzqs5jV56gikFfk52oCY/t8UMArdVK3lZUcitvn8gCGqP3e9AaqIEpZZtz6UFi0eJl
- V+KkEda6p7BDPwoUuuDLx2nhOMzb5T1+sA0zWFPzCixWKfuo40gHYYIfOlIK3GxRHI06
- uIwMxhFyp2MdpzBvrmGs72SckTVTqwN2AWo4Qq90jOa+sNO1ugXqpUYtDcRgNBpclyHU
- 8Vbg==
-X-Gm-Message-State: AOAM531u4dxDEYwxGlnsKvsMEo2Iuhozanv8TfE8qrxqDN9U67wL5fSv
- 8nieQ66GFTSxzjKrf8ET/Fw=
-X-Google-Smtp-Source: ABdhPJy0g/g/0MXLpBUsJfWEhVRkdyUgSGWsPHG4TnjrOKnWaswLMzGC8Sdf8xnA4o4sa03Behlz4Q==
-X-Received: by 2002:a62:60c2:0:b0:446:b494:39cc with SMTP id
- u185-20020a6260c2000000b00446b49439ccmr10743109pfb.22.1632121504570; 
- Mon, 20 Sep 2021 00:05:04 -0700 (PDT)
-Received: from [192.168.11.2] (KD106167171201.ppp-bb.dion.ne.jp.
- [106.167.171.201])
- by smtp.gmail.com with ESMTPSA id h17sm5814700pfk.66.2021.09.20.00.05.02
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=3VemnJCb4o4i8G4jW2f7/S7wTJolafn8kMYbyHr6SFk=;
+ b=kp6cPNoQPQ+neFRAyAqNfWruQm1HdO9e7d1t+NuoWsTjAsQdeGaIZIGu6/Ds24vJUA
+ HoK9IcYnY4SaxKwwo9RY3Xuizbf8UhLGThxMK7OV2IedrcMcxi20ecOZeEUov1ltwEMh
+ 8nK7O4xm6tttmg2mgG5m4y/0gToBl7byGWi4AjAoZoxZfVV8oQ5/c3Jr63rYy03rvLTn
+ n5d9IJRrqMH5wavxLQ63LQGod9LE9ybVXFwcjuaXz1/WDEbUWQ/DVPaNHZgI0Wv3Vshq
+ BCFII9dcpGBKv1XXNvkVul7WfBYvKj8sIwOQBtVQjqRxXVz8OdeFYkdApp9+jeM6ociy
+ Woyw==
+X-Gm-Message-State: AOAM533pI+rpMgtexWPlmGawFP4Etk+YKEV+gmuRVYrJRU72r55C7mn1
+ tW5sJvANkX3sZiSpZotEf+lRtAx96k8=
+X-Google-Smtp-Source: ABdhPJz/o/fBTI27PJ7q0BWsTxmcjTrE8Gty+CrpeqGWtFMAVDa+3w99KLO7NaciY60qWWbKLQH2Mw==
+X-Received: by 2002:adf:f207:: with SMTP id p7mr27559291wro.166.1632132574548; 
+ Mon, 20 Sep 2021 03:09:34 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id c14sm9748086wrd.50.2021.09.20.03.09.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Sep 2021 00:05:04 -0700 (PDT)
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-From: Akira Yokosawa <akiyks@gmail.com>
-To: John Harrison <John.C.Harrison@Intel.com>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <4a227569-074f-c501-58bb-d0d8f60a8ae9@gmail.com>
-Date: Mon, 20 Sep 2021 16:05:00 +0900
+ Mon, 20 Sep 2021 03:09:33 -0700 (PDT)
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
+References: <20210917123513.1106-1-christian.koenig@amd.com>
+ <20210917123513.1106-2-christian.koenig@amd.com>
+ <YUSWzm+TjD7GHHO5@phenom.ffwll.local>
+ <8268d2e8-8a37-0ff1-7065-c8aaf5c8672b@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e4aa2e1e-753e-655c-423f-93a0bb853b9d@gmail.com>
+Date: Mon, 20 Sep 2021 12:09:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <8268d2e8-8a37-0ff1-7065-c8aaf5c8672b@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 20 Sep 2021 13:28:35 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/guc,
- docs: Fix pdfdocs build error by removing nested grid
+Subject: Re: [Intel-gfx] [PATCH 01/26] dma-buf: add
+ dma_resv_for_each_fence_unlocked v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,112 +95,374 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Nested grids in grid-table cells are not specified as proper ReST
-constructs.
-Commit 572f2a5cd974 ("drm/i915/guc: Update firmware to v62.0.0")
-added a couple of kerneldoc tables of the form:
+Am 20.09.21 um 10:43 schrieb Tvrtko Ursulin:
+> On 17/09/2021 14:23, Daniel Vetter wrote:
+>> On Fri, Sep 17, 2021 at 02:34:48PM +0200, Christian König wrote:
+>>> Abstract the complexity of iterating over all the fences
+>>> in a dma_resv object.
+>>>
+>>> The new loop handles the whole RCU and retry dance and
+>>> returns only fences where we can be sure we grabbed the
+>>> right one.
+>>>
+>>> v2: fix accessing the shared fences while they might be freed,
+>>>      improve kerneldoc, rename _cursor to _iter, add
+>>>      dma_resv_iter_is_exclusive, add dma_resv_iter_begin/end
+>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>   drivers/dma-buf/dma-resv.c | 61 +++++++++++++++++++++++++++
+>>>   include/linux/dma-resv.h   | 84 
+>>> ++++++++++++++++++++++++++++++++++++++
+>>>   2 files changed, 145 insertions(+)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+>>> index 84fbe60629e3..3e77cad2c9d4 100644
+>>> --- a/drivers/dma-buf/dma-resv.c
+>>> +++ b/drivers/dma-buf/dma-resv.c
+>>> @@ -323,6 +323,67 @@ void dma_resv_add_excl_fence(struct dma_resv 
+>>> *obj, struct dma_fence *fence)
+>>>   }
+>>>   EXPORT_SYMBOL(dma_resv_add_excl_fence);
+>>>   +/**
+>>> + * dma_resv_iter_walk_unlocked - walk over fences in a dma_resv obj
+>>> + * @cursor: cursor to record the current position
+>>> + * @first: if we should start over
+>>> + *
+>>> + * Return all the fences in the dma_resv object which are not yet 
+>>> signaled.
+>>> + * The returned fence has an extra local reference so will stay alive.
+>>> + * If a concurrent modify is detected the whole iterration is 
+>>> started over again.
+>>> + */
+>>> +struct dma_fence *dma_resv_iter_walk_unlocked(struct dma_resv_iter 
+>>> *cursor,
+>>
+>> Bit ocd, but I'd still just call that iter_next.
+>>
+>>> +                          bool first)
+>>
+>> Hm I'd put all the init code into iter_begin ...
+>
+> @Christian:
+>
+> Could you engineer something in here which would, at least in debug 
+> builds, catch failures to call "iter begin" before using the iterator 
+> macro?
 
-  +---+-------+------------------------------------------------------+
-  | 1 |  31:0 |  +------------------------------------------------+  |
-  +---+-------+  |                                                |  |
-  |...|       |  |  Embedded `HXG Message`_                       |  |
-  +---+-------+  |                                                |  |
-  | n |  31:0 |  +------------------------------------------------+  |
-  +---+-------+------------------------------------------------------+
+Yeah, I've already played with the thought of somehow teaching lockdep 
+that. But then abandoned this as abusive of lockdep.
 
-For "make htmldocs", they happen to work as one might expect,
-but they are incompatible with "make latexdocs" and "make pdfdocs",
-and cause the generated gpu.tex file to become incomplete and
-unbuildable by xelatex.
+>
+>>
+>>> +{
+>>> +    struct dma_resv *obj = cursor->obj;
+>>
+>> Aren't we missing rcu_read_lock() around the entire thing here?
+>>
+>>> +
+>>> +    first |= read_seqcount_retry(&obj->seq, cursor->seq);
+>>> +    do {
+>>> +        /* Drop the reference from the previous round */
+>>> +        dma_fence_put(cursor->fence);
+>>> +
+>>> +        cursor->is_first = first;
+>>> +        if (first) {
+>>> +            cursor->seq = read_seqcount_begin(&obj->seq);
+>>> +            cursor->index = -1;
+>>> +            cursor->fences = dma_resv_shared_list(obj);
+>>
+>> And then also call iter_begin from here. That way we guarantee that
+>> read_seqcount_begin is always called before _retry(). It's not a problem
+>> with the seqcount implementation (I think at least), but it definitely
+>> looks funny.
+>>
+>> Calling iter_begin here also makes it clear that we're essentially
+>> restarting.
+>>
+>>> +
+>>> +            cursor->fence = dma_resv_excl_fence(obj);
+>>> +            if (cursor->fence &&
+>>> +                test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+>>
+>> Please use the right dma_fence wrapper here for this and don't look 
+>> at the
+>> bits/flags outside of dma_fence.[hc] code. I just realized that we don't
+>> have the right amount of barriers in there for the fastpath, i.e. if we
+>> have:
+>>
+>> x = 0; /* static initializer */
+>>
+>> thread a
+>>     x = 1;
+>>     dma_fence_signal(fence);
+>>
+>>
+>> thread b;
+>>     if (dma_fence_is_signalled(fence))
+>>         printk("%i\n", x);
+>>
+>> Then you might actually be able to observe x == 0 in thread b. Which is
+>> not what we want at all.
+>
+> @Daniel:
+>
+> What do you mean here - in terms of if 'x' is "external" (not part of 
+> dma-fence), then are you suggesting dma-fence code should serialise it 
+> by using barriers?
+>
+> That would sound incorrect to me, or in other words, I think it's fine 
+> if x == 0 is observed in your example thread B since that code is 
+> mixing external data with dma-fence.
 
-Restore the compatibility by removing those nested grids in the tables.
+No, Daniel is right. The problem is that on architectures other than x86 
+barriers are per memory address (or rather cache line in practice).
 
-Size comparison of generated gpu.tex:
+So you need to be really careful that you see the fully consistent state 
+and not just one variable but others in the old state.
 
-                  Sphinx 2.4.4  Sphinx 4.2.0
-  v5.14:               3238686       3841631
-  v5.15-rc1:            376270        432729
-  with this fix:       3377846       3998095
+But this was buggy before as well. I'm just pulling the existing test 
+into the new iterator.
 
-Fixes: 572f2a5cd974 ("drm/i915/guc: Update firmware to v62.0.0")
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Signed-off-by: Akira Yokosawa <akiyks@gmail.com>
----
-Hi all,
+>
+> Hm also, there is that annoying bit where by using 
+> dma_fence_is_signaled any code becomes a fence signaling critical 
+> path, which I never bought into. There should be a way to test the 
+> signaled status without actually doing the signaling. Or I am 
+> misunderstanding something so badly that is really really has to be 
+> like this?
 
-I know there is little interest in building pdfdocs (or LaTeX) version
-of kernel-doc, and this issue does not matter most of you.
+You are mixing things up. Testing is unproblematic, signaling is the 
+problematic one.
 
-But "make pdfdocs" is supposed to work, give or take those tables
-with squeezed columns, and at least it is expected to complete
-without fatal errors.
+>
+>> So no open-coding of dma_fence flag bits code outside of drm_fence.[hc]
+>> please. And yes i915-gem code is unfortunately a disaster.
+>
+> Don't even miss an opportunity for some good trashing no? :D
+>
+> But yes, deconstructed dma_fence_signal I thought we were supposed to 
+> add to core. Or at least propose, don't exactly remember how that went.
 
-I have no idea who is responsible to those grid-tables, so added
-a lot of people in the To: and Cc: lists.
+The problem is that you need to grab a reference to call 
+dma_fence_signal while testing the flag works without one.
 
-Does removing those nested grids look reasonable to you?
+Regards,
+Christian.
 
-Any feedback is welcome!
-
-Note: This patch is against the docs-next branch of Jon's -doc tree
-(git://git.lwn.net/linux.git).  It can be applied against v5.15-rc1
-and v5.15-rc2 as well.
-
-        Thanks, Akira
---
- .../gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h | 10 +++++-----
- .../drm/i915/gt/uc/abi/guc_communication_mmio_abi.h    | 10 +++++-----
- 2 files changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-index 99e1fad5ca20..c9086a600bce 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-@@ -102,11 +102,11 @@ static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
-  *  |   +-------+--------------------------------------------------------------+
-  *  |   |   7:0 | NUM_DWORDS = length (in dwords) of the embedded HXG message  |
-  *  +---+-------+--------------------------------------------------------------+
-- *  | 1 |  31:0 |  +--------------------------------------------------------+  |
-- *  +---+-------+  |                                                        |  |
-- *  |...|       |  |  Embedded `HXG Message`_                               |  |
-- *  +---+-------+  |                                                        |  |
-- *  | n |  31:0 |  +--------------------------------------------------------+  |
-+ *  | 1 |  31:0 |                                                              |
-+ *  +---+-------+                                                              |
-+ *  |...|       | [Embedded `HXG Message`_]                                    |
-+ *  +---+-------+                                                              |
-+ *  | n |  31:0 |                                                              |
-  *  +---+-------+--------------------------------------------------------------+
-  */
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
-index bbf1ddb77434..9baa3cb07d13 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
-@@ -38,11 +38,11 @@
-  *  +---+-------+--------------------------------------------------------------+
-  *  |   | Bits  | Description                                                  |
-  *  +===+=======+==============================================================+
-- *  | 0 |  31:0 |  +--------------------------------------------------------+  |
-- *  +---+-------+  |                                                        |  |
-- *  |...|       |  |  Embedded `HXG Message`_                               |  |
-- *  +---+-------+  |                                                        |  |
-- *  | n |  31:0 |  +--------------------------------------------------------+  |
-+ *  | 0 |  31:0 |                                                              |
-+ *  +---+-------+                                                              |
-+ *  |...|       | [Embedded `HXG Message`_]                                    |
-+ *  +---+-------+                                                              |
-+ *  | n |  31:0 |                                                              |
-  *  +---+-------+--------------------------------------------------------------+
-  */
- 
-
-base-commit: 242f4c77b1c8cebfdfa0ad5b40e2e4ae0316e57d
--- 
-2.17.1
+>
+>>
+>>> + &cursor->fence->flags))
+>>> +                cursor->fence = NULL;
+>>> +        } else {
+>>> +            cursor->fence = NULL;
+>>> +        }
+>>> +
+>>> +        if (cursor->fence) {
+>>> +            cursor->fence = dma_fence_get_rcu(cursor->fence);
+>>> +        } else if (cursor->all_fences && cursor->fences) {
+>>> +            struct dma_resv_list *fences = cursor->fences;
+>>> +
+>>> +            while (++cursor->index < fences->shared_count) {
+>>> +                cursor->fence = rcu_dereference(
+>>> +                    fences->shared[cursor->index]);
+>>> +                if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+>>> +                          &cursor->fence->flags))
+>>> +                    break;
+>>> +            }
+>>> +            if (cursor->index < fences->shared_count)
+>>> +                cursor->fence =
+>>> +                    dma_fence_get_rcu(cursor->fence);
+>>> +            else
+>>> +                cursor->fence = NULL;
+>>> +        }
+>>
+>> The control flow here is very hairy, but I'm not sure how to best do 
+>> this.
+>> With my suggestion to move the read_seqcount_begin into iter_begin maybe
+>> something like this:
+>>
+>> iter_next()
+>> {
+>>     do {
+>>         dma_fence_put(cursor->fence)
+>>         cursor->fence = NULL;
+>>
+>>         if (cursor->index == -1) { /* reset by iter_begin()
+>>             cursor->fence = get_exclusive();
+>>             cusor->index++;
+>>         } else {
+>>             cursor->fence = shared_fences[++cursor->index]
+>>         }
+>>
+>>         if (!dma_fence_is_signalled(cursor->fence))
+>>             continue; /* just grab the next fence. */
+>>
+>>         cursor->fence =  dma_fence_get_rcu(cursor->fence);
+>>
+>>         if (!cursor->fence || read_seqcount_retry()) {
+>>             /* we lost the race, restart completely */
+>>             iter_begin(); /* ->fence will be cleaned up at beginning 
+>> of the loop */
+>>             continue;
+>>         }
+>>
+>>         return cursor->fence;
+>>     } while (true);
+>> }
+>>
+>> Maybe I missed something, but that avoids the duplication of all the
+>> tricky code, i.e. checking for signalling, rcu protected conditional
+>> fence_get, and the retry is also nicely at the end.
+>>> +
+>>> +        /* For the eventually next round */
+>>> +        first = true;
+>>> +    } while (read_seqcount_retry(&obj->seq, cursor->seq));
+>>> +
+>>> +    return cursor->fence;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(dma_resv_iter_walk_unlocked);
+>>> +
+>>>   /**
+>>>    * dma_resv_copy_fences - Copy all fences from src to dst.
+>>>    * @dst: the destination reservation object
+>>> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+>>> index 9100dd3dc21f..693d16117153 100644
+>>> --- a/include/linux/dma-resv.h
+>>> +++ b/include/linux/dma-resv.h
+>>> @@ -149,6 +149,90 @@ struct dma_resv {
+>>>       struct dma_resv_list __rcu *fence;
+>>>   };
+>>>   +/**
+>>> + * struct dma_resv_iter - current position into the dma_resv fences
+>>> + *
+>>> + * Don't touch this directly in the driver, use the accessor 
+>>> function instead.
+>>> + */
+>>> +struct dma_resv_iter {
+>>> +    /** @obj: The dma_resv object we iterate over */
+>>> +    struct dma_resv *obj;
+>>> +
+>>> +    /** @all_fences: If all fences should be returned */
+>>> +    bool all_fences;
+>>> +
+>>> +    /** @fence: the currently handled fence */
+>>> +    struct dma_fence *fence;
+>>> +
+>>> +    /** @seq: sequence number to check for modifications */
+>>> +    unsigned int seq;
+>>> +
+>>> +    /** @index: index into the shared fences */
+>>
+>> If you go with my suggestion (assuming it works): Please add "-1 
+>> indicates
+>> to pick the exclusive fence instead."
+>>
+>>> +    unsigned int index;
+>>> +
+>>> +    /** @fences: the shared fences */
+>>> +    struct dma_resv_list *fences;
+>>> +
+>>> +    /** @is_first: true if this is the first returned fence */
+>>> +    bool is_first;
+>>
+>> I think if we just rely on -1 == exclusive fence/is_first we don't need
+>> this one here?
+>>
+>>> +};
+>>> +
+>>> +struct dma_fence *dma_resv_iter_walk_unlocked(struct dma_resv_iter 
+>>> *cursor,
+>>> +                          bool first);
+>>> +
+>>> +/**
+>>> + * dma_resv_iter_begin - initialize a dma_resv_iter object
+>>> + * @cursor: The dma_resv_iter object to initialize
+>>> + * @obj: The dma_resv object which we want to iterator over
+>>> + * @all_fences: If all fences should be returned or just the 
+>>> exclusive one
+>>
+>> Please add: "Callers must clean up the iterator with 
+>> dma_resv_iter_end()."
+>>
+>>> + */
+>>> +static inline void dma_resv_iter_begin(struct dma_resv_iter *cursor,
+>>> +                    struct dma_resv *obj,
+>>> +                    bool all_fences)
+>>> +{
+>>> +    cursor->obj = obj;
+>>> +    cursor->all_fences = all_fences;
+>>> +    cursor->fence = NULL;
+>>> +}
+>>> +
+>>> +/**
+>>> + * dma_resv_iter_end - cleanup a dma_resv_iter object
+>>> + * @cursor: the dma_resv_iter object which should be cleaned up
+>>> + *
+>>> + * Make sure that the reference to the fence in the cursor is properly
+>>> + * dropped.
+>>
+>> Please add:
+>>
+>> "This function must be called every time dma_resv_iter_begin() was 
+>> called
+>> to clean up any references."
+>>> + */
+>>> +static inline void dma_resv_iter_end(struct dma_resv_iter *cursor)
+>>> +{
+>>> +    dma_fence_put(cursor->fence);
+>>> +}
+>>> +
+>>> +/**
+>>> + * dma_resv_iter_is_exclusive - test if the current fence is the 
+>>> exclusive one
+>>> + * @cursor: the cursor of the current position
+>>> + *
+>>> + * Returns true if the currently returned fence is the exclusive one.
+>>> + */
+>>> +static inline bool dma_resv_iter_is_exclusive(struct dma_resv_iter 
+>>> *cursor)
+>>> +{
+>>> +    return cursor->index == -1;
+>>> +}
+>>> +
+>>> +/**
+>>> + * dma_resv_for_each_fence_unlocked - unlocked fence iterator
+>>> + * @cursor: a struct dma_resv_iter pointer
+>>> + * @fence: the current fence
+>>> + *
+>>> + * Iterate over the fences in a struct dma_resv object without 
+>>> holding the
+>>> + * dma_resv::lock. The RCU read side lock must be hold when using 
+>>> this, but can
+>>> + * be dropped and re-taken as necessary inside the loop. The cursor 
+>>> needs to be
+>>> + * initialized with dma_resv_iter_begin_unlocked() and cleaned up with
+>>
+>> We don't have an _unlocked version?
+>
+> @Christian:
+>
+> I'd also mention that the fence reference is held during the walk so 
+> someone is less likely to grab extra ones.
+>
+>>
+>>> + * dma_resv_iter_end_unlocked().
+>>> + */
+>>> +#define dma_resv_for_each_fence_unlocked(cursor, fence)            \
+>>> +    for (fence = dma_resv_iter_walk_unlocked(cursor, true);        \
+>>> +         fence; fence = dma_resv_iter_walk_unlocked(cursor, false))
+>>> +
+>>>   #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
+>>>   #define dma_resv_assert_held(obj) 
+>>> lockdep_assert_held(&(obj)->lock.base)
+>>>   --
+>>> 2.25.1
+>>>
+>>
+>
+> Regards,
+>
+> Tvrtko
+>
 
