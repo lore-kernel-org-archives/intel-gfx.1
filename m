@@ -2,83 +2,51 @@ Return-Path: <SRS0=beGZ=OK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,PLING_QUERY,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F6ADC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9ADB6C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E9CD76109D
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E9CD76109D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0D23660F93
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D23660F93
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631F96E4EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7951B6E4F1;
 	Mon, 20 Sep 2021 13:28:36 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 374256E47A;
- Mon, 20 Sep 2021 10:13:45 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id u18so26277945wrg.5;
- Mon, 20 Sep 2021 03:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Ijf8BnGoBReJLtthF3oociyimY+iDY1OqlO2QvejboY=;
- b=Sdr32UjiaBTNtRHHGYIY+toV7a1CRVt3k2GCdQ5p+wRqBziXgsCEf14miJvrVfmfa4
- 8dN9n7FZV18YNiUqdGAOo1cFYVs0x5IZ52yFAoblW7M0S7CWNyHYACE+wz91ll50CP3L
- P14akjFNafFfAllxmDjcO4sh14Piz0TzWs0nQOKdublydqwC53nPA9cy0MSDG5TKKWoG
- TQaS1WkjFrMW27PgRFtN2pVQbIm701MgfyREbZvbliFlOA3R3zk9c1mhGl3HyU3zmo9X
- QaH+9iZ4iW1n71dk8QNSxGL5qSCO7lYaSyIJ6L56pKNqpd9m0hvab7Gq3Uq5xGZMTqSy
- 5sag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Ijf8BnGoBReJLtthF3oociyimY+iDY1OqlO2QvejboY=;
- b=NXH0Gm0wurmWMP84F0QngY6tnO0stnihI60dIAzUx3ilJYJSoUg/T7w/17Cb3xfF+5
- 7E7rnhWBw5HyoGwgiavBbaBRVSeAxGoINreV2EwzS9zbQwQGjUjlolTlX3/8Vqvd/48W
- pIiC1oCc5773ZSjHXrGWMYYup2oiaKyy+C6DC0JVfjM9PUKqUw0sc4v2mGA51oE3bSOQ
- Fc2ygZlNUSofX3R7FCbHPeu1/pGezG+JpfZCEuhSr8ia2gvqU5WbqCKrltJWnVq1XoXU
- BgloFLaWiGUmZoX9ScDbNF2nTwT9Xh/90nMDOywz1bkumAAtFyZuT/B/q3bv61bfy4nm
- 3q+Q==
-X-Gm-Message-State: AOAM5327W6ffk328MqEtz4caU1sFAx006UAr9mU9eEdbqlNdId79LrnT
- D1sU5BRqb3BDPxp7RPEXVXk=
-X-Google-Smtp-Source: ABdhPJxDEIj93yjMQea+LHs4FRqtqwAVoag8hA/rDb0lD5JZEwAo34hl2lIOUjmZXosR7OvYy3iMWA==
-X-Received: by 2002:a1c:1b10:: with SMTP id b16mr23308889wmb.194.1632132823778; 
- Mon, 20 Sep 2021 03:13:43 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id c8sm8208615wru.30.2021.09.20.03.13.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Sep 2021 03:13:43 -0700 (PDT)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch
-References: <20210917123513.1106-1-christian.koenig@amd.com>
- <20210917123513.1106-14-christian.koenig@amd.com>
- <6fbaca09-ec51-c44e-708c-334ef8be8595@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <368e8495-f4de-cbb2-3584-e022a5937885@gmail.com>
-Date: Mon, 20 Sep 2021 12:13:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 939DD89D30;
+ Mon, 20 Sep 2021 06:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:Date:Cc:To:From:Subject:Message-ID;
+ bh=HIeG4c8Cgmfkp2RX70iP04l8SH3i1ZCSA3GfMJ3wXno=; 
+ b=DCzMV7lmoCMokoovP1iX2KHPGYUR/wTQpGCNy+9xKRZkBQcH07aWbXFGYERIkHM3lfFVNoNx0iGJ5Xbps1UWSIYcX6hrx1iwGVmKoldMLAR7Q1Y5Ggxlj1lUKDEA4xMMs2cAyZmRB8Ra+zyIl/BeQL2G/ezHTAnxTieKYFoai4KWnNlxXKPINbVM6yWl/GYC0oNJD4FftCFPmgwUQfb1rjvYfjF2tpYeAuStkjfKhdqUWloAn/k/f6NXLhEhVr5YeKcpgrNvWGZ8jJ0W2xAMRYm7YRg9/9ggKVljN6gjGrn3CKcXmHEiZYC8YOapYTB7Tm6mlLYaguEqBmczc5PJkw==;
+Received: from 1.pool85-50-22.dynamic.orange.es ([85.50.22.1]
+ helo=[192.168.1.109]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1mSD9s-0001Nl-0K; Mon, 20 Sep 2021 08:52:08 +0200
+Message-ID: <f61913b1abac118c7c85a3b788264e2f8c8fab33.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Cc: board@foundation.x.org
+Date: Mon, 20 Sep 2021 08:51:57 +0200
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-2+e6MjXtLH+zpwS79csn"
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
 MIME-Version: 1.0
-In-Reply-To: <6fbaca09-ec51-c44e-708c-334ef8be8595@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-Mailman-Approved-At: Mon, 20 Sep 2021 13:28:35 +0000
-Subject: Re: [Intel-gfx] [PATCH 13/26] drm/i915: use the new iterator in
- i915_gem_busy_ioctl
+Subject: [Intel-gfx] Have you attended XDC 2021? Give us your feedback!
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,87 +62,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 20.09.21 um 10:45 schrieb Tvrtko Ursulin:
->
-> On 17/09/2021 13:35, Christian König wrote:
->> This makes the function much simpler since the complex
->> retry logic is now handled else where.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/i915/gem/i915_gem_busy.c | 32 ++++++++----------------
->>   1 file changed, 11 insertions(+), 21 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c 
->> b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
->> index 6234e17259c1..b1cb7ba688da 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
->> @@ -82,8 +82,8 @@ i915_gem_busy_ioctl(struct drm_device *dev, void 
->> *data,
->>   {
->>       struct drm_i915_gem_busy *args = data;
->>       struct drm_i915_gem_object *obj;
->> -    struct dma_resv_list *list;
->> -    unsigned int seq;
->> +    struct dma_resv_iter cursor;
->> +    struct dma_fence *fence;
->>       int err;
->>         err = -ENOENT;
->> @@ -109,27 +109,17 @@ i915_gem_busy_ioctl(struct drm_device *dev, 
->> void *data,
->>        * to report the overall busyness. This is what the wait-ioctl 
->> does.
->>        *
->>        */
->> -retry:
->> -    seq = raw_read_seqcount(&obj->base.resv->seq);
->> -
->> -    /* Translate the exclusive fence to the READ *and* WRITE engine */
->> -    args->busy = 
->> busy_check_writer(dma_resv_excl_fence(obj->base.resv));
->> -
->> -    /* Translate shared fences to READ set of engines */
->> -    list = dma_resv_shared_list(obj->base.resv);
->> -    if (list) {
->> -        unsigned int shared_count = list->shared_count, i;
->> -
->> -        for (i = 0; i < shared_count; ++i) {
->> -            struct dma_fence *fence =
->> -                rcu_dereference(list->shared[i]);
->> -
->> +    args->busy = false;
->> +    dma_resv_iter_begin(&cursor, obj->base.resv, true);
->> +    dma_resv_for_each_fence_unlocked(&cursor, fence) {
->
-> You did not agree with my suggestion to reset args->busy on restart 
-> and so preserve current behaviour?
 
-No, I want to keep the restart behavior internally to the dma_resv 
-object and as far as I can see it should not make a difference here.
+--=-2+e6MjXtLH+zpwS79csn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Christian.
+Hi,
 
->
-> Regards,
->
-> Tvrtko
->
->> +        if (dma_resv_iter_is_exclusive(&cursor))
->> +            /* Translate the exclusive fence to the READ *and* WRITE 
->> engine */
->> +            args->busy = busy_check_writer(fence);
->> +        else
->> +            /* Translate shared fences to READ set of engines */
->>               args->busy |= busy_check_reader(fence);
->> -        }
->>       }
->> -
->> -    if (args->busy && read_seqcount_retry(&obj->base.resv->seq, seq))
->> -        goto retry;
->> +    dma_resv_iter_end(&cursor);
->>         err = 0;
->>   out:
->>
+First of all, thanks organizers for such a great conference. It was
+smooth and, although there were some issues as it is usual in any
+conference, they were fixed promptly :-)
+
+I would like also to thank all of you for attending and participating
+either via submitting talks, watching them or joining the hallway track
+in IRC :-D Without you this conference won't make sense.
+
+Now it is time to gather feedback from you :-D
+
+* Do you have any comment on how was XDC 2021?
+  - For example, have you tried the new streaming service
+(https://streaming.media.ccc.de/xdc2021)? Was it fine?
+
+* Do you think we can improve on something for future events?
+
+* What did you like most/least about the conference?
+
+You can reply privately to me if you wish. We will share all the
+gathered feedback among organizers and the X.Org Foundation board.
+
+Now that I got your attention... Did you like XDC 2021? What about
+organizing XDC 2023 (likely in Europe)?
+
+We know this is a decision that takes time (trigger internal
+discussion, looking for volunteers, budget, and a venue suitable for
+the event, etc). Therefore, we encourage potential interested parties
+to start the internal discussions now, so any question they have can be
+answered before we open the call for proposals for XDC 2023 next year.
+Please read [0] and feel free to contact me or the board for more info
+if needed.
+
+Thanks,
+
+Sam
+
+[0] https://www.x.org/wiki/Events/RFP/
+
+
+--=-2+e6MjXtLH+zpwS79csn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmFIL40ACgkQf/S6MvF9
+w0Pm2xAAiXNnIPiWHUDIS5hG6kdWVdDYs0mf/4THHuuVhq6m3TmlKWgpE4EACuNu
+mRX84tg+mEpvp8BDvWYH9sweHTM8qjzRvm95m/RODQGkIHy2VPcHVAeswUm6+9Gh
+a1z8trwsFqIeAiyCXzzQzHx1ix/NrleOnSAL6vSSYvKzDJl5gLfMX4b910SZIhGD
+MSRBDQyi1xTg+4bwvDTP3Digp/Z/YPjoQi8W/TMyMArwoP6Wh/knDfamm/cE+fhF
+1Ijd0JAy5EAB3da9ElurrMuYnlG1N4V0qhS7VCBsaHDSb+/5eM+sZVZcn8tUboVM
+qQ2Vk7+zdlHKxLGEIDePJKQWACG91EpMahZGmAFgJHP0V8iD78XO6oXGLVrzJNYZ
+ppYlgfVXzQLpeKC/SIgIi1qtVI3r1mmbjNVk3tmAOURFxJjm/E2e+Sushh0P0RSN
+T4wuUA8Y3dcmyya/A+k+mu7hkQqmHa2ejbjtn0ie4F2qlXA4X1gypeWSGQdDEKHp
+wvbZKawnEQhPQMAIoX7WoeEmxebMIO8xIJL+A698P+/G7aaIqjuOIvYGX7JWKp5k
+HhxiAnf/iAimeCkkdLhjfDO3zbtEqwQ28XCOM2IW3kI9pmCohbWH7bUxKXYgSuIr
+PInGDOUadk/c3jDZGf7Ta1d7ekcp9b62czwrZSw6rVeHG5NYrUA=
+=JFe3
+-----END PGP SIGNATURE-----
+
+--=-2+e6MjXtLH+zpwS79csn--
 
