@@ -2,84 +2,45 @@ Return-Path: <SRS0=beGZ=OK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83718C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B80AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 14:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4471F60F93
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 13:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4471F60F93
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0636660F70
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 14:51:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0636660F70
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC1BB6E503;
-	Mon, 20 Sep 2021 13:28:52 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E1BD6E45D;
- Mon, 20 Sep 2021 10:09:36 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id q26so27978506wrc.7;
- Mon, 20 Sep 2021 03:09:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=3VemnJCb4o4i8G4jW2f7/S7wTJolafn8kMYbyHr6SFk=;
- b=eSGIIcJaT4kNOCy+9SOq9MXZUInm7154x0Y0TDUf1zJUnCm3MYD2V1eiaEDFM+ikIu
- mTn9HImJPxCawMjCUC6YlVF7Ch+njUhzUpgD5ZWlQRzZC+qUmSTh5hAu9+JwMlZh7reb
- MKImCjo4FtxgVLUdjSSJsu8KwWEDlhcb6qP4Eg+DuHmVGo98S5QndTPgr81vqFVn5qiw
- GQVBzB7dR8ZUn7uILPeIIkf2YnJRkE9LrfrCHvWtHsNUKJ4QnsK3j1mVbzbrLSsCYC19
- y61gqOdNFGytLhVMVSWuN1G3WnbRbMiXXx51AYgIU8DVlGA5ghHfbbszX/BhmAPHnOW4
- R1Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=3VemnJCb4o4i8G4jW2f7/S7wTJolafn8kMYbyHr6SFk=;
- b=kp6cPNoQPQ+neFRAyAqNfWruQm1HdO9e7d1t+NuoWsTjAsQdeGaIZIGu6/Ds24vJUA
- HoK9IcYnY4SaxKwwo9RY3Xuizbf8UhLGThxMK7OV2IedrcMcxi20ecOZeEUov1ltwEMh
- 8nK7O4xm6tttmg2mgG5m4y/0gToBl7byGWi4AjAoZoxZfVV8oQ5/c3Jr63rYy03rvLTn
- n5d9IJRrqMH5wavxLQ63LQGod9LE9ybVXFwcjuaXz1/WDEbUWQ/DVPaNHZgI0Wv3Vshq
- BCFII9dcpGBKv1XXNvkVul7WfBYvKj8sIwOQBtVQjqRxXVz8OdeFYkdApp9+jeM6ociy
- Woyw==
-X-Gm-Message-State: AOAM533pI+rpMgtexWPlmGawFP4Etk+YKEV+gmuRVYrJRU72r55C7mn1
- tW5sJvANkX3sZiSpZotEf+lRtAx96k8=
-X-Google-Smtp-Source: ABdhPJz/o/fBTI27PJ7q0BWsTxmcjTrE8Gty+CrpeqGWtFMAVDa+3w99KLO7NaciY60qWWbKLQH2Mw==
-X-Received: by 2002:adf:f207:: with SMTP id p7mr27559291wro.166.1632132574548; 
- Mon, 20 Sep 2021 03:09:34 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id c14sm9748086wrd.50.2021.09.20.03.09.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Sep 2021 03:09:33 -0700 (PDT)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-References: <20210917123513.1106-1-christian.koenig@amd.com>
- <20210917123513.1106-2-christian.koenig@amd.com>
- <YUSWzm+TjD7GHHO5@phenom.ffwll.local>
- <8268d2e8-8a37-0ff1-7065-c8aaf5c8672b@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <e4aa2e1e-753e-655c-423f-93a0bb853b9d@gmail.com>
-Date: Mon, 20 Sep 2021 12:09:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 546CF6E520;
+	Mon, 20 Sep 2021 14:50:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 347646E520;
+ Mon, 20 Sep 2021 14:50:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1C307AA915;
+ Mon, 20 Sep 2021 14:50:58 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4111995713956163057=="
 MIME-Version: 1.0
-In-Reply-To: <8268d2e8-8a37-0ff1-7065-c8aaf5c8672b@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Mailman-Approved-At: Mon, 20 Sep 2021 13:28:35 +0000
-Subject: Re: [Intel-gfx] [PATCH 01/26] dma-buf: add
- dma_resv_for_each_fence_unlocked v2
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Akira Yokosawa" <akiyks@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 20 Sep 2021 14:50:58 -0000
+Message-ID: <163214945807.25898.10160938088133665102@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <4a227569-074f-c501-58bb-d0d8f60a8ae9@gmail.com>
+In-Reply-To: <4a227569-074f-c501-58bb-d0d8f60a8ae9@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/guc=2C_docs=3A_Fix_pdfdocs_build_error_by_removing_nested?=
+ =?utf-8?q?_grid?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,377 +53,453 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 20.09.21 um 10:43 schrieb Tvrtko Ursulin:
-> On 17/09/2021 14:23, Daniel Vetter wrote:
->> On Fri, Sep 17, 2021 at 02:34:48PM +0200, Christian König wrote:
->>> Abstract the complexity of iterating over all the fences
->>> in a dma_resv object.
->>>
->>> The new loop handles the whole RCU and retry dance and
->>> returns only fences where we can be sure we grabbed the
->>> right one.
->>>
->>> v2: fix accessing the shared fences while they might be freed,
->>>      improve kerneldoc, rename _cursor to _iter, add
->>>      dma_resv_iter_is_exclusive, add dma_resv_iter_begin/end
->>>
->>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>> ---
->>>   drivers/dma-buf/dma-resv.c | 61 +++++++++++++++++++++++++++
->>>   include/linux/dma-resv.h   | 84 
->>> ++++++++++++++++++++++++++++++++++++++
->>>   2 files changed, 145 insertions(+)
->>>
->>> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
->>> index 84fbe60629e3..3e77cad2c9d4 100644
->>> --- a/drivers/dma-buf/dma-resv.c
->>> +++ b/drivers/dma-buf/dma-resv.c
->>> @@ -323,6 +323,67 @@ void dma_resv_add_excl_fence(struct dma_resv 
->>> *obj, struct dma_fence *fence)
->>>   }
->>>   EXPORT_SYMBOL(dma_resv_add_excl_fence);
->>>   +/**
->>> + * dma_resv_iter_walk_unlocked - walk over fences in a dma_resv obj
->>> + * @cursor: cursor to record the current position
->>> + * @first: if we should start over
->>> + *
->>> + * Return all the fences in the dma_resv object which are not yet 
->>> signaled.
->>> + * The returned fence has an extra local reference so will stay alive.
->>> + * If a concurrent modify is detected the whole iterration is 
->>> started over again.
->>> + */
->>> +struct dma_fence *dma_resv_iter_walk_unlocked(struct dma_resv_iter 
->>> *cursor,
->>
->> Bit ocd, but I'd still just call that iter_next.
->>
->>> +                          bool first)
->>
->> Hm I'd put all the init code into iter_begin ...
->
-> @Christian:
->
-> Could you engineer something in here which would, at least in debug 
-> builds, catch failures to call "iter begin" before using the iterator 
-> macro?
+--===============4111995713956163057==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Yeah, I've already played with the thought of somehow teaching lockdep 
-that. But then abandoned this as abusive of lockdep.
+== Series Details ==
 
->
->>
->>> +{
->>> +    struct dma_resv *obj = cursor->obj;
->>
->> Aren't we missing rcu_read_lock() around the entire thing here?
->>
->>> +
->>> +    first |= read_seqcount_retry(&obj->seq, cursor->seq);
->>> +    do {
->>> +        /* Drop the reference from the previous round */
->>> +        dma_fence_put(cursor->fence);
->>> +
->>> +        cursor->is_first = first;
->>> +        if (first) {
->>> +            cursor->seq = read_seqcount_begin(&obj->seq);
->>> +            cursor->index = -1;
->>> +            cursor->fences = dma_resv_shared_list(obj);
->>
->> And then also call iter_begin from here. That way we guarantee that
->> read_seqcount_begin is always called before _retry(). It's not a problem
->> with the seqcount implementation (I think at least), but it definitely
->> looks funny.
->>
->> Calling iter_begin here also makes it clear that we're essentially
->> restarting.
->>
->>> +
->>> +            cursor->fence = dma_resv_excl_fence(obj);
->>> +            if (cursor->fence &&
->>> +                test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->>
->> Please use the right dma_fence wrapper here for this and don't look 
->> at the
->> bits/flags outside of dma_fence.[hc] code. I just realized that we don't
->> have the right amount of barriers in there for the fastpath, i.e. if we
->> have:
->>
->> x = 0; /* static initializer */
->>
->> thread a
->>     x = 1;
->>     dma_fence_signal(fence);
->>
->>
->> thread b;
->>     if (dma_fence_is_signalled(fence))
->>         printk("%i\n", x);
->>
->> Then you might actually be able to observe x == 0 in thread b. Which is
->> not what we want at all.
->
-> @Daniel:
->
-> What do you mean here - in terms of if 'x' is "external" (not part of 
-> dma-fence), then are you suggesting dma-fence code should serialise it 
-> by using barriers?
->
-> That would sound incorrect to me, or in other words, I think it's fine 
-> if x == 0 is observed in your example thread B since that code is 
-> mixing external data with dma-fence.
+Series: drm/i915/guc, docs: Fix pdfdocs build error by removing nested grid
+URL   : https://patchwork.freedesktop.org/series/94858/
+State : failure
 
-No, Daniel is right. The problem is that on architectures other than x86 
-barriers are per memory address (or rather cache line in practice).
+== Summary ==
 
-So you need to be really careful that you see the fully consistent state 
-and not just one variable but others in the old state.
+CI Bug Log - changes from CI_DRM_10611 -> Patchwork_21098
+====================================================
 
-But this was buggy before as well. I'm just pulling the existing test 
-into the new iterator.
+Summary
+-------
 
->
-> Hm also, there is that annoying bit where by using 
-> dma_fence_is_signaled any code becomes a fence signaling critical 
-> path, which I never bought into. There should be a way to test the 
-> signaled status without actually doing the signaling. Or I am 
-> misunderstanding something so badly that is really really has to be 
-> like this?
+  **FAILURE**
 
-You are mixing things up. Testing is unproblematic, signaling is the 
-problematic one.
+  Serious unknown changes coming with Patchwork_21098 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_21098, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
->
->> So no open-coding of dma_fence flag bits code outside of drm_fence.[hc]
->> please. And yes i915-gem code is unfortunately a disaster.
->
-> Don't even miss an opportunity for some good trashing no? :D
->
-> But yes, deconstructed dma_fence_signal I thought we were supposed to 
-> add to core. Or at least propose, don't exactly remember how that went.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/index.html
 
-The problem is that you need to grab a reference to call 
-dma_fence_signal while testing the flag works without one.
+Possible new issues
+-------------------
 
-Regards,
-Christian.
+  Here are the unknown changes that may have been introduced in Patchwork_21098:
 
->
->>
->>> + &cursor->fence->flags))
->>> +                cursor->fence = NULL;
->>> +        } else {
->>> +            cursor->fence = NULL;
->>> +        }
->>> +
->>> +        if (cursor->fence) {
->>> +            cursor->fence = dma_fence_get_rcu(cursor->fence);
->>> +        } else if (cursor->all_fences && cursor->fences) {
->>> +            struct dma_resv_list *fences = cursor->fences;
->>> +
->>> +            while (++cursor->index < fences->shared_count) {
->>> +                cursor->fence = rcu_dereference(
->>> +                    fences->shared[cursor->index]);
->>> +                if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->>> +                          &cursor->fence->flags))
->>> +                    break;
->>> +            }
->>> +            if (cursor->index < fences->shared_count)
->>> +                cursor->fence =
->>> +                    dma_fence_get_rcu(cursor->fence);
->>> +            else
->>> +                cursor->fence = NULL;
->>> +        }
->>
->> The control flow here is very hairy, but I'm not sure how to best do 
->> this.
->> With my suggestion to move the read_seqcount_begin into iter_begin maybe
->> something like this:
->>
->> iter_next()
->> {
->>     do {
->>         dma_fence_put(cursor->fence)
->>         cursor->fence = NULL;
->>
->>         if (cursor->index == -1) { /* reset by iter_begin()
->>             cursor->fence = get_exclusive();
->>             cusor->index++;
->>         } else {
->>             cursor->fence = shared_fences[++cursor->index]
->>         }
->>
->>         if (!dma_fence_is_signalled(cursor->fence))
->>             continue; /* just grab the next fence. */
->>
->>         cursor->fence =  dma_fence_get_rcu(cursor->fence);
->>
->>         if (!cursor->fence || read_seqcount_retry()) {
->>             /* we lost the race, restart completely */
->>             iter_begin(); /* ->fence will be cleaned up at beginning 
->> of the loop */
->>             continue;
->>         }
->>
->>         return cursor->fence;
->>     } while (true);
->> }
->>
->> Maybe I missed something, but that avoids the duplication of all the
->> tricky code, i.e. checking for signalling, rcu protected conditional
->> fence_get, and the retry is also nicely at the end.
->>> +
->>> +        /* For the eventually next round */
->>> +        first = true;
->>> +    } while (read_seqcount_retry(&obj->seq, cursor->seq));
->>> +
->>> +    return cursor->fence;
->>> +}
->>> +EXPORT_SYMBOL_GPL(dma_resv_iter_walk_unlocked);
->>> +
->>>   /**
->>>    * dma_resv_copy_fences - Copy all fences from src to dst.
->>>    * @dst: the destination reservation object
->>> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
->>> index 9100dd3dc21f..693d16117153 100644
->>> --- a/include/linux/dma-resv.h
->>> +++ b/include/linux/dma-resv.h
->>> @@ -149,6 +149,90 @@ struct dma_resv {
->>>       struct dma_resv_list __rcu *fence;
->>>   };
->>>   +/**
->>> + * struct dma_resv_iter - current position into the dma_resv fences
->>> + *
->>> + * Don't touch this directly in the driver, use the accessor 
->>> function instead.
->>> + */
->>> +struct dma_resv_iter {
->>> +    /** @obj: The dma_resv object we iterate over */
->>> +    struct dma_resv *obj;
->>> +
->>> +    /** @all_fences: If all fences should be returned */
->>> +    bool all_fences;
->>> +
->>> +    /** @fence: the currently handled fence */
->>> +    struct dma_fence *fence;
->>> +
->>> +    /** @seq: sequence number to check for modifications */
->>> +    unsigned int seq;
->>> +
->>> +    /** @index: index into the shared fences */
->>
->> If you go with my suggestion (assuming it works): Please add "-1 
->> indicates
->> to pick the exclusive fence instead."
->>
->>> +    unsigned int index;
->>> +
->>> +    /** @fences: the shared fences */
->>> +    struct dma_resv_list *fences;
->>> +
->>> +    /** @is_first: true if this is the first returned fence */
->>> +    bool is_first;
->>
->> I think if we just rely on -1 == exclusive fence/is_first we don't need
->> this one here?
->>
->>> +};
->>> +
->>> +struct dma_fence *dma_resv_iter_walk_unlocked(struct dma_resv_iter 
->>> *cursor,
->>> +                          bool first);
->>> +
->>> +/**
->>> + * dma_resv_iter_begin - initialize a dma_resv_iter object
->>> + * @cursor: The dma_resv_iter object to initialize
->>> + * @obj: The dma_resv object which we want to iterator over
->>> + * @all_fences: If all fences should be returned or just the 
->>> exclusive one
->>
->> Please add: "Callers must clean up the iterator with 
->> dma_resv_iter_end()."
->>
->>> + */
->>> +static inline void dma_resv_iter_begin(struct dma_resv_iter *cursor,
->>> +                    struct dma_resv *obj,
->>> +                    bool all_fences)
->>> +{
->>> +    cursor->obj = obj;
->>> +    cursor->all_fences = all_fences;
->>> +    cursor->fence = NULL;
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_end - cleanup a dma_resv_iter object
->>> + * @cursor: the dma_resv_iter object which should be cleaned up
->>> + *
->>> + * Make sure that the reference to the fence in the cursor is properly
->>> + * dropped.
->>
->> Please add:
->>
->> "This function must be called every time dma_resv_iter_begin() was 
->> called
->> to clean up any references."
->>> + */
->>> +static inline void dma_resv_iter_end(struct dma_resv_iter *cursor)
->>> +{
->>> +    dma_fence_put(cursor->fence);
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_is_exclusive - test if the current fence is the 
->>> exclusive one
->>> + * @cursor: the cursor of the current position
->>> + *
->>> + * Returns true if the currently returned fence is the exclusive one.
->>> + */
->>> +static inline bool dma_resv_iter_is_exclusive(struct dma_resv_iter 
->>> *cursor)
->>> +{
->>> +    return cursor->index == -1;
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_for_each_fence_unlocked - unlocked fence iterator
->>> + * @cursor: a struct dma_resv_iter pointer
->>> + * @fence: the current fence
->>> + *
->>> + * Iterate over the fences in a struct dma_resv object without 
->>> holding the
->>> + * dma_resv::lock. The RCU read side lock must be hold when using 
->>> this, but can
->>> + * be dropped and re-taken as necessary inside the loop. The cursor 
->>> needs to be
->>> + * initialized with dma_resv_iter_begin_unlocked() and cleaned up with
->>
->> We don't have an _unlocked version?
->
-> @Christian:
->
-> I'd also mention that the fence reference is held during the walk so 
-> someone is less likely to grab extra ones.
->
->>
->>> + * dma_resv_iter_end_unlocked().
->>> + */
->>> +#define dma_resv_for_each_fence_unlocked(cursor, fence)            \
->>> +    for (fence = dma_resv_iter_walk_unlocked(cursor, true);        \
->>> +         fence; fence = dma_resv_iter_walk_unlocked(cursor, false))
->>> +
->>>   #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->>>   #define dma_resv_assert_held(obj) 
->>> lockdep_assert_held(&(obj)->lock.base)
->>>   --
->>> 2.25.1
->>>
->>
->
-> Regards,
->
-> Tvrtko
->
+### IGT changes ###
 
+#### Possible regressions ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-bxt-dsi:         [PASS][1] -> [DMESG-WARN][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-bxt-dsi/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bxt-dsi/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_module_load@reload:
+    - fi-snb-2600:        [PASS][3] -> [INCOMPLETE][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-snb-2600/igt@i915_module_load@reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-snb-2600/igt@i915_module_load@reload.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21098 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@cs-compute:
+    - fi-cfl-guc:         NOTRUN -> [SKIP][5] ([fdo#109271]) +17 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-guc/igt@amdgpu/amd_basic@cs-compute.html
+
+  * igt@amdgpu/amd_basic@cs-gfx:
+    - fi-skl-6700k2:      NOTRUN -> [SKIP][6] ([fdo#109271]) +31 similar issues
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@amdgpu/amd_basic@cs-gfx.html
+
+  * igt@amdgpu/amd_basic@query-info:
+    - fi-glk-dsi:         NOTRUN -> [SKIP][7] ([fdo#109271]) +17 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-glk-dsi/igt@amdgpu/amd_basic@query-info.html
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-icl-y:           NOTRUN -> [SKIP][8] ([fdo#109315]) +17 similar issues
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-icl-y/igt@amdgpu/amd_basic@semaphore.html
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][9] ([fdo#109271]) +27 similar issues
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@amdgpu/amd_cs_nop@fork-compute0:
+    - fi-ivb-3770:        NOTRUN -> [SKIP][10] ([fdo#109271]) +18 similar issues
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ivb-3770/igt@amdgpu/amd_cs_nop@fork-compute0.html
+
+  * igt@amdgpu/amd_cs_nop@nop-compute0:
+    - fi-ilk-650:         NOTRUN -> [SKIP][11] ([fdo#109271]) +18 similar issues
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ilk-650/igt@amdgpu/amd_cs_nop@nop-compute0.html
+
+  * igt@amdgpu/amd_cs_nop@sync-gfx0:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][12] ([fdo#109315]) +17 similar issues
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-rkl-11600/igt@amdgpu/amd_cs_nop@sync-gfx0.html
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-rkl-guc:         [PASS][13] -> [INCOMPLETE][14] ([i915#4130])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html
+    - fi-cfl-8700k:       [PASS][15] -> [INCOMPLETE][16] ([i915#4130])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-cfl-8700k/igt@core_hotunplug@unbind-rebind.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-8700k/igt@core_hotunplug@unbind-rebind.html
+    - fi-bdw-5557u:       NOTRUN -> [WARN][17] ([i915#3718])
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-skl-6700k2:      NOTRUN -> [SKIP][18] ([fdo#109271] / [i915#2190])
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@gem_huc_copy@huc-copy.html
+
+  * igt@i915_module_load@reload:
+    - fi-cfl-8109u:       [PASS][19] -> [INCOMPLETE][20] ([i915#4130])
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-cfl-8109u/igt@i915_module_load@reload.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-8109u/igt@i915_module_load@reload.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][21] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-skl-6700k2:      NOTRUN -> [SKIP][22] ([fdo#109271] / [i915#533])
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@runner@aborted:
+    - fi-cfl-8109u:       NOTRUN -> [FAIL][23] ([i915#2426] / [i915#3363])
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-8109u/igt@runner@aborted.html
+    - fi-kbl-soraka:      NOTRUN -> [FAIL][24] ([i915#2426] / [i915#3363])
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-kbl-soraka/igt@runner@aborted.html
+    - fi-snb-2600:        NOTRUN -> [FAIL][25] ([i915#2426])
+   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-snb-2600/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-ilk-650:         [DMESG-WARN][26] ([i915#164]) -> [PASS][27]
+   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html
+   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html
+    - fi-cfl-guc:         [INCOMPLETE][28] ([i915#4130]) -> [PASS][29]
+   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-cfl-guc/igt@core_hotunplug@unbind-rebind.html
+   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-guc/igt@core_hotunplug@unbind-rebind.html
+    - fi-rkl-11600:       [INCOMPLETE][30] ([i915#4130]) -> [PASS][31]
+   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html
+   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-skl-6700k2:      [DMESG-WARN][32] ([i915#1602]) -> [PASS][33]
+   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html
+   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html
+
+  * igt@i915_module_load@reload:
+    - fi-ilk-650:         [INCOMPLETE][34] -> [PASS][35]
+   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-ilk-650/igt@i915_module_load@reload.html
+   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ilk-650/igt@i915_module_load@reload.html
+    - fi-ivb-3770:        [INCOMPLETE][36] -> [PASS][37]
+   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-ivb-3770/igt@i915_module_load@reload.html
+   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ivb-3770/igt@i915_module_load@reload.html
+    - fi-glk-dsi:         [INCOMPLETE][38] ([i915#4130]) -> [PASS][39]
+   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-glk-dsi/igt@i915_module_load@reload.html
+   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-glk-dsi/igt@i915_module_load@reload.html
+    - fi-kbl-guc:         [INCOMPLETE][40] ([i915#4130] / [i915#4139]) -> [PASS][41]
+   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-kbl-guc/igt@i915_module_load@reload.html
+   [41]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-kbl-guc/igt@i915_module_load@reload.html
+
+  
+#### Warnings ####
+
+  * igt@i915_module_load@reload:
+    - fi-kbl-soraka:      [INCOMPLETE][42] ([i915#4136]) -> [INCOMPLETE][43] ([i915#4130])
+   [42]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-kbl-soraka/igt@i915_module_load@reload.html
+   [43]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-kbl-soraka/igt@i915_module_load@reload.html
+    - fi-icl-y:           [INCOMPLETE][44] ([i915#4130]) -> [TIMEOUT][45] ([i915#4136])
+   [44]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-icl-y/igt@i915_module_load@reload.html
+   [45]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-icl-y/igt@i915_module_load@reload.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#164]: https://gitlab.freedesktop.org/drm/intel/issues/164
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
+  [i915#3718]: https://gitlab.freedesktop.org/drm/intel/issues/3718
+  [i915#4130]: https://gitlab.freedesktop.org/drm/intel/issues/4130
+  [i915#4136]: https://gitlab.freedesktop.org/drm/intel/issues/4136
+  [i915#4139]: https://gitlab.freedesktop.org/drm/intel/issues/4139
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+
+
+Participating hosts (43 -> 36)
+------------------------------
+
+  Missing    (7): bat-adls-5 bat-dg1-6 fi-tgl-1115g4 fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10611 -> Patchwork_21098
+
+  CI-20190529: 20190529
+  CI_DRM_10611: 8b0f8845694719e82824fad249557557077cd895 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6212: 0faa6b2533da9416a3428c34ca99661725577449 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21098: a7d7175da96fa437d3cca74786e5d1900c42d085 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+a7d7175da96f drm/i915/guc, docs: Fix pdfdocs build error by removing nested grid
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/index.html
+
+--===============4111995713956163057==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/guc, docs: Fix pdfdocs build error by removing nested grid</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94858/">https://patchwork.freedesktop.org/series/94858/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10611 -&gt; Patchwork_21098</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_21098 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_21098, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_21098:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>fi-bxt-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-bxt-dsi/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bxt-dsi/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-snb-2600/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-snb-2600/igt@i915_module_load@reload.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21098 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@cs-compute:</p>
+<ul>
+<li>fi-cfl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-guc/igt@amdgpu/amd_basic@cs-compute.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_basic@cs-gfx:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@amdgpu/amd_basic@cs-gfx.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +31 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_basic@query-info:</p>
+<ul>
+<li>fi-glk-dsi:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-glk-dsi/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>
+<p>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-icl-y/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</p>
+</li>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@fork-compute0:</p>
+<ul>
+<li>fi-ivb-3770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ivb-3770/igt@amdgpu/amd_cs_nop@fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +18 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@nop-compute0:</p>
+<ul>
+<li>fi-ilk-650:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ilk-650/igt@amdgpu/amd_cs_nop@nop-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +18 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@sync-gfx0:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-rkl-11600/igt@amdgpu/amd_cs_nop@sync-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>
+<p>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>)</p>
+</li>
+<li>
+<p>fi-cfl-8700k:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-cfl-8700k/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-8700k/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>)</p>
+</li>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html">WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3718">i915#3718</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-cfl-8109u/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-8109u/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-8109u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</p>
+</li>
+<li>
+<p>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-kbl-soraka/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</p>
+</li>
+<li>
+<p>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-snb-2600/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>
+<p>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/164">i915#164</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html">PASS</a></p>
+</li>
+<li>
+<p>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-cfl-guc/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-cfl-guc/igt@core_hotunplug@unbind-rebind.html">PASS</a></p>
+</li>
+<li>
+<p>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html">PASS</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s0:</p>
+<ul>
+<li>fi-skl-6700k2:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>
+<p>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-ilk-650/igt@i915_module_load@reload.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ilk-650/igt@i915_module_load@reload.html">PASS</a></p>
+</li>
+<li>
+<p>fi-ivb-3770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-ivb-3770/igt@i915_module_load@reload.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-ivb-3770/igt@i915_module_load@reload.html">PASS</a></p>
+</li>
+<li>
+<p>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-glk-dsi/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-glk-dsi/igt@i915_module_load@reload.html">PASS</a></p>
+</li>
+<li>
+<p>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-kbl-guc/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4139">i915#4139</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-kbl-guc/igt@i915_module_load@reload.html">PASS</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>
+<p>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-kbl-soraka/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4136">i915#4136</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-kbl-soraka/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>)</p>
+</li>
+<li>
+<p>fi-icl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10611/fi-icl-y/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4130">i915#4130</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21098/fi-icl-y/igt@i915_module_load@reload.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4136">i915#4136</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (43 -&gt; 36)</h2>
+<p>Missing    (7): bat-adls-5 bat-dg1-6 fi-tgl-1115g4 fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10611 -&gt; Patchwork_21098</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10611: 8b0f8845694719e82824fad249557557077cd895 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6212: 0faa6b2533da9416a3428c34ca99661725577449 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21098: a7d7175da96fa437d3cca74786e5d1900c42d085 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>a7d7175da96f drm/i915/guc, docs: Fix pdfdocs build error by removing nested grid</p>
+
+</body>
+</html>
+
+--===============4111995713956163057==--
