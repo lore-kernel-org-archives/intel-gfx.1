@@ -2,54 +2,72 @@ Return-Path: <SRS0=beGZ=OK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B152EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 07:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B518EC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 08:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78C5760F6E
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 07:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 78C5760F6E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 426FE60F93
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 08:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 426FE60F93
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C7796E40F;
-	Mon, 20 Sep 2021 07:48:46 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D8C6E40F;
- Mon, 20 Sep 2021 07:48:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10112"; a="223116643"
-X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="223116643"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2021 00:48:32 -0700
-X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="473463832"
-Received: from gbradyx-mobl2.ger.corp.intel.com (HELO [10.213.235.119])
- ([10.213.235.119])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2021 00:48:29 -0700
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-References: <20210917170845.836358-1-matthew.d.roper@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <957ef05f-601b-ed61-5df9-d3f788ff5e4e@linux.intel.com>
-Date: Mon, 20 Sep 2021 08:48:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210917170845.836358-1-matthew.d.roper@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2CD26E40F;
+	Mon, 20 Sep 2021 08:04:38 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F080689D56;
+ Mon, 20 Sep 2021 08:04:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10112"; a="223128994"
+X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="223128994"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2021 01:04:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="612380727"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga001.fm.intel.com with ESMTP; 20 Sep 2021 01:04:36 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Mon, 20 Sep 2021 01:04:35 -0700
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Mon, 20 Sep 2021 01:04:34 -0700
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2242.012;
+ Mon, 20 Sep 2021 13:34:32 +0530
+From: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+To: "Nikula, Jani" <jani.nikula@intel.com>, "De Marchi, Lucas"
+ <lucas.demarchi@intel.com>
+CC: "Auld, Matthew" <matthew.auld@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH 14/19] drm/i915/oprom: Basic sanitization
+Thread-Index: AQHXL3uUZJb5Qa4rAEOKCneFU4maiarnbHmAgMJkIoCAA1owAIAAXUjg
+Date: Mon, 20 Sep 2021 08:04:32 +0000
+Message-ID: <97159e5b7e8f4ef49b773be085b886be@intel.com>
+References: <20210412090526.30547-1-matthew.auld@intel.com>
+ <20210412090526.30547-15-matthew.auld@intel.com> <87im3hh8sy.fsf@intel.com>
+ <20210918043019.hhol5fgwbi2ogod2@ldmartin-desk2> <87czp3vgl9.fsf@intel.com>
+In-Reply-To: <87czp3vgl9.fsf@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Make wa list per-gt
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.6.200.16
+dlp-reaction: no-action
+x-originating-ip: [10.223.10.1]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Subject: Re: [Intel-gfx] [PATCH 14/19] drm/i915/oprom: Basic sanitization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,509 +84,48 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 17/09/2021 18:08, Matt Roper wrote:
-> From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> 
-> Support for multiple GT's within a single i915 device will be arriving
-> soon.  Since each GT may have its own fusing and require different
-> workarounds, we need to make the GT workaround functions and multicast
-> steering setup per-gt.
-> 
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-> ---
->   drivers/gpu/drm/i915/gt/intel_gt.c            |   3 +
->   drivers/gpu/drm/i915/gt/intel_gt_types.h      |   2 +
->   drivers/gpu/drm/i915/gt/intel_workarounds.c   | 143 +++++++++---------
->   drivers/gpu/drm/i915/gt/intel_workarounds.h   |   2 +-
->   .../gpu/drm/i915/gt/selftest_workarounds.c    |   2 +-
->   drivers/gpu/drm/i915/i915_drv.c               |   2 -
->   drivers/gpu/drm/i915/i915_drv.h               |   2 -
->   drivers/gpu/drm/i915/i915_gem.c               |   2 -
->   8 files changed, 81 insertions(+), 77 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index 55e87aff51d2..449ff6e83543 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -660,6 +660,8 @@ int intel_gt_init(struct intel_gt *gt)
->   	if (err)
->   		return err;
->   
-> +	intel_gt_init_workarounds(gt);
-> +
->   	/*
->   	 * This is just a security blanket to placate dragons.
->   	 * On some systems, we very sporadically observe that the first TLBs
-> @@ -767,6 +769,7 @@ void intel_gt_driver_release(struct intel_gt *gt)
->   	if (vm) /* FIXME being called twice on error paths :( */
->   		i915_vm_put(vm);
->   
-> +	intel_wa_list_free(&gt->wa_list);
->   	intel_gt_pm_fini(gt);
->   	intel_gt_fini_scratch(gt);
->   	intel_gt_fini_buffer_pool(gt);
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> index 6fdcde64c180..ce127cae9e49 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> @@ -72,6 +72,8 @@ struct intel_gt {
->   
->   	struct intel_uc uc;
->   
-> +	struct i915_wa_list wa_list;
-> +
->   	struct intel_gt_timelines {
->   		spinlock_t lock; /* protects active_list */
->   		struct list_head active_list;
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> index c314d4917b6b..1f0a54b383d9 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -804,7 +804,7 @@ int intel_engine_emit_ctx_wa(struct i915_request *rq)
->   }
->   
->   static void
-> -gen4_gt_workarounds_init(struct drm_i915_private *i915,
-> +gen4_gt_workarounds_init(struct intel_gt *gt,
->   			 struct i915_wa_list *wal)
->   {
->   	/* WaDisable_RenderCache_OperationalFlush:gen4,ilk */
-> @@ -812,29 +812,29 @@ gen4_gt_workarounds_init(struct drm_i915_private *i915,
->   }
->   
->   static void
-> -g4x_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +g4x_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen4_gt_workarounds_init(i915, wal);
-> +	gen4_gt_workarounds_init(gt, wal);
->   
->   	/* WaDisableRenderCachePipelinedFlush:g4x,ilk */
->   	wa_masked_en(wal, CACHE_MODE_0, CM0_PIPELINED_RENDER_FLUSH_DISABLE);
->   }
->   
->   static void
-> -ilk_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +ilk_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	g4x_gt_workarounds_init(i915, wal);
-> +	g4x_gt_workarounds_init(gt, wal);
->   
->   	wa_masked_en(wal, _3D_CHICKEN2, _3D_CHICKEN2_WM_READ_PIPELINED);
->   }
->   
->   static void
-> -snb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +snb_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   }
->   
->   static void
-> -ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +ivb_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   	/* Apply the WaDisableRHWOOptimizationForRenderHang:ivb workaround. */
->   	wa_masked_dis(wal,
-> @@ -850,7 +850,7 @@ ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -vlv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +vlv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   	/* WaForceL3Serialization:vlv */
->   	wa_write_clr(wal, GEN7_L3SQCREG4, L3SQ_URB_READ_CAM_MATCH_DISABLE);
-> @@ -863,7 +863,7 @@ vlv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -hsw_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +hsw_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   	/* L3 caching of data atomics doesn't work -- disable it. */
->   	wa_write(wal, HSW_SCRATCH1, HSW_SCRATCH1_L3_DATA_ATOMICS_DISABLE);
-> @@ -878,15 +878,15 @@ hsw_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -gen9_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +gen9_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   	/* WaDisableKillLogic:bxt,skl,kbl */
-> -	if (!IS_COFFEELAKE(i915) && !IS_COMETLAKE(i915))
-> +	if (!IS_COFFEELAKE(gt->i915) && !IS_COMETLAKE(gt->i915))
->   		wa_write_or(wal,
->   			    GAM_ECOCHK,
->   			    ECOCHK_DIS_TLB);
->   
-> -	if (HAS_LLC(i915)) {
-> +	if (HAS_LLC(gt->i915)) {
 
-Maybe see if local i915 looks better here, but optional.
-
-Patch LGTM:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Regards,
-
-Tvrtko
-
->   		/* WaCompressedResourceSamplerPbeMediaNewHashMode:skl,kbl
->   		 *
->   		 * Must match Display Engine. See
-> @@ -904,9 +904,9 @@ gen9_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal
->   }
->   
->   static void
-> -skl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +skl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen9_gt_workarounds_init(i915, wal);
-> +	gen9_gt_workarounds_init(gt, wal);
->   
->   	/* WaDisableGafsUnitClkGating:skl */
->   	wa_write_or(wal,
-> @@ -914,19 +914,19 @@ skl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   		    GEN8_EU_GAUNIT_CLOCK_GATE_DISABLE);
->   
->   	/* WaInPlaceDecompressionHang:skl */
-> -	if (IS_SKL_GT_STEP(i915, STEP_A0, STEP_H0))
-> +	if (IS_SKL_GT_STEP(gt->i915, STEP_A0, STEP_H0))
->   		wa_write_or(wal,
->   			    GEN9_GAMT_ECO_REG_RW_IA,
->   			    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
->   }
->   
->   static void
-> -kbl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +kbl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen9_gt_workarounds_init(i915, wal);
-> +	gen9_gt_workarounds_init(gt, wal);
->   
->   	/* WaDisableDynamicCreditSharing:kbl */
-> -	if (IS_KBL_GT_STEP(i915, 0, STEP_C0))
-> +	if (IS_KBL_GT_STEP(gt->i915, 0, STEP_C0))
->   		wa_write_or(wal,
->   			    GAMT_CHKN_BIT_REG,
->   			    GAMT_CHKN_DISABLE_DYNAMIC_CREDIT_SHARING);
-> @@ -943,15 +943,15 @@ kbl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -glk_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +glk_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen9_gt_workarounds_init(i915, wal);
-> +	gen9_gt_workarounds_init(gt, wal);
->   }
->   
->   static void
-> -cfl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +cfl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen9_gt_workarounds_init(i915, wal);
-> +	gen9_gt_workarounds_init(gt, wal);
->   
->   	/* WaDisableGafsUnitClkGating:cfl */
->   	wa_write_or(wal,
-> @@ -976,21 +976,21 @@ static void __set_mcr_steering(struct i915_wa_list *wal,
->   	wa_write_clr_set(wal, steering_reg, mcr_mask, mcr);
->   }
->   
-> -static void __add_mcr_wa(struct drm_i915_private *i915, struct i915_wa_list *wal,
-> +static void __add_mcr_wa(struct intel_gt *gt, struct i915_wa_list *wal,
->   			 unsigned int slice, unsigned int subslice)
->   {
-> -	drm_dbg(&i915->drm, "MCR slice=0x%x, subslice=0x%x\n", slice, subslice);
-> +	drm_dbg(&gt->i915->drm, "MCR slice=0x%x, subslice=0x%x\n", slice, subslice);
->   
->   	__set_mcr_steering(wal, GEN8_MCR_SELECTOR, slice, subslice);
->   }
->   
->   static void
-> -icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +icl_wa_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	const struct sseu_dev_info *sseu = &i915->gt.info.sseu;
-> +	const struct sseu_dev_info *sseu = &gt->info.sseu;
->   	unsigned int slice, subslice;
->   
-> -	GEM_BUG_ON(GRAPHICS_VER(i915) < 11);
-> +	GEM_BUG_ON(GRAPHICS_VER(gt->i915) < 11);
->   	GEM_BUG_ON(hweight8(sseu->slice_mask) > 1);
->   	slice = 0;
->   
-> @@ -1010,16 +1010,15 @@ icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   	 * then we can just rely on the default steering and won't need to
->   	 * worry about explicitly re-steering L3BANK reads later.
->   	 */
-> -	if (i915->gt.info.l3bank_mask & BIT(subslice))
-> -		i915->gt.steering_table[L3BANK] = NULL;
-> +	if (gt->info.l3bank_mask & BIT(subslice))
-> +		gt->steering_table[L3BANK] = NULL;
->   
-> -	__add_mcr_wa(i915, wal, slice, subslice);
-> +	__add_mcr_wa(gt, wal, slice, subslice);
->   }
->   
->   static void
->   xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	struct drm_i915_private *i915 = gt->i915;
->   	const struct sseu_dev_info *sseu = &gt->info.sseu;
->   	unsigned long slice, subslice = 0, slice_mask = 0;
->   	u64 dss_mask = 0;
-> @@ -1083,7 +1082,7 @@ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
->   	WARN_ON(subslice > GEN_DSS_PER_GSLICE);
->   	WARN_ON(dss_mask >> (slice * GEN_DSS_PER_GSLICE) == 0);
->   
-> -	__add_mcr_wa(i915, wal, slice, subslice);
-> +	__add_mcr_wa(gt, wal, slice, subslice);
->   
->   	/*
->   	 * SQIDI ranges are special because they use different steering
-> @@ -1099,9 +1098,11 @@ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +icl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	icl_wa_init_mcr(i915, wal);
-> +	struct drm_i915_private *i915 = gt->i915;
-> +
-> +	icl_wa_init_mcr(gt, wal);
->   
->   	/* WaModifyGamTlbPartitioning:icl */
->   	wa_write_clr_set(wal,
-> @@ -1152,10 +1153,9 @@ icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->    * the engine-specific workaround list.
->    */
->   static void
-> -wa_14011060649(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +wa_14011060649(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   	struct intel_engine_cs *engine;
-> -	struct intel_gt *gt = &i915->gt;
->   	int id;
->   
->   	for_each_engine(engine, gt, id) {
-> @@ -1169,22 +1169,23 @@ wa_14011060649(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -gen12_gt_workarounds_init(struct drm_i915_private *i915,
-> -			  struct i915_wa_list *wal)
-> +gen12_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	icl_wa_init_mcr(i915, wal);
-> +	icl_wa_init_mcr(gt, wal);
->   
->   	/* Wa_14011060649:tgl,rkl,dg1,adl-s,adl-p */
-> -	wa_14011060649(i915, wal);
-> +	wa_14011060649(gt, wal);
->   
->   	/* Wa_14011059788:tgl,rkl,adl-s,dg1,adl-p */
->   	wa_write_or(wal, GEN10_DFR_RATIO_EN_AND_CHICKEN, DFR_DISABLE);
->   }
->   
->   static void
-> -tgl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +tgl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen12_gt_workarounds_init(i915, wal);
-> +	struct drm_i915_private *i915 = gt->i915;
-> +
-> +	gen12_gt_workarounds_init(gt, wal);
->   
->   	/* Wa_1409420604:tgl */
->   	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
-> @@ -1205,9 +1206,11 @@ tgl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -dg1_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +dg1_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	gen12_gt_workarounds_init(i915, wal);
-> +	struct drm_i915_private *i915 = gt->i915;
-> +
-> +	gen12_gt_workarounds_init(gt, wal);
->   
->   	/* Wa_1607087056:dg1 */
->   	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0))
-> @@ -1229,60 +1232,62 @@ dg1_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->   }
->   
->   static void
-> -xehpsdv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> -	xehp_init_mcr(&i915->gt, wal);
-> +	xehp_init_mcr(gt, wal);
->   }
->   
->   static void
-> -gt_init_workarounds(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +gt_init_workarounds(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
-> +	struct drm_i915_private *i915 = gt->i915;
-> +
->   	if (IS_XEHPSDV(i915))
-> -		xehpsdv_gt_workarounds_init(i915, wal);
-> +		xehpsdv_gt_workarounds_init(gt, wal);
->   	else if (IS_DG1(i915))
-> -		dg1_gt_workarounds_init(i915, wal);
-> +		dg1_gt_workarounds_init(gt, wal);
->   	else if (IS_TIGERLAKE(i915))
-> -		tgl_gt_workarounds_init(i915, wal);
-> +		tgl_gt_workarounds_init(gt, wal);
->   	else if (GRAPHICS_VER(i915) == 12)
-> -		gen12_gt_workarounds_init(i915, wal);
-> +		gen12_gt_workarounds_init(gt, wal);
->   	else if (GRAPHICS_VER(i915) == 11)
-> -		icl_gt_workarounds_init(i915, wal);
-> +		icl_gt_workarounds_init(gt, wal);
->   	else if (IS_COFFEELAKE(i915) || IS_COMETLAKE(i915))
-> -		cfl_gt_workarounds_init(i915, wal);
-> +		cfl_gt_workarounds_init(gt, wal);
->   	else if (IS_GEMINILAKE(i915))
-> -		glk_gt_workarounds_init(i915, wal);
-> +		glk_gt_workarounds_init(gt, wal);
->   	else if (IS_KABYLAKE(i915))
-> -		kbl_gt_workarounds_init(i915, wal);
-> +		kbl_gt_workarounds_init(gt, wal);
->   	else if (IS_BROXTON(i915))
-> -		gen9_gt_workarounds_init(i915, wal);
-> +		gen9_gt_workarounds_init(gt, wal);
->   	else if (IS_SKYLAKE(i915))
-> -		skl_gt_workarounds_init(i915, wal);
-> +		skl_gt_workarounds_init(gt, wal);
->   	else if (IS_HASWELL(i915))
-> -		hsw_gt_workarounds_init(i915, wal);
-> +		hsw_gt_workarounds_init(gt, wal);
->   	else if (IS_VALLEYVIEW(i915))
-> -		vlv_gt_workarounds_init(i915, wal);
-> +		vlv_gt_workarounds_init(gt, wal);
->   	else if (IS_IVYBRIDGE(i915))
-> -		ivb_gt_workarounds_init(i915, wal);
-> +		ivb_gt_workarounds_init(gt, wal);
->   	else if (GRAPHICS_VER(i915) == 6)
-> -		snb_gt_workarounds_init(i915, wal);
-> +		snb_gt_workarounds_init(gt, wal);
->   	else if (GRAPHICS_VER(i915) == 5)
-> -		ilk_gt_workarounds_init(i915, wal);
-> +		ilk_gt_workarounds_init(gt, wal);
->   	else if (IS_G4X(i915))
-> -		g4x_gt_workarounds_init(i915, wal);
-> +		g4x_gt_workarounds_init(gt, wal);
->   	else if (GRAPHICS_VER(i915) == 4)
-> -		gen4_gt_workarounds_init(i915, wal);
-> +		gen4_gt_workarounds_init(gt, wal);
->   	else if (GRAPHICS_VER(i915) <= 8)
->   		;
->   	else
->   		MISSING_CASE(GRAPHICS_VER(i915));
->   }
->   
-> -void intel_gt_init_workarounds(struct drm_i915_private *i915)
-> +void intel_gt_init_workarounds(struct intel_gt *gt)
->   {
-> -	struct i915_wa_list *wal = &i915->gt_wa_list;
-> +	struct i915_wa_list *wal = &gt->wa_list;
->   
->   	wa_init_start(wal, "GT", "global");
-> -	gt_init_workarounds(i915, wal);
-> +	gt_init_workarounds(gt, wal);
->   	wa_init_finish(wal);
->   }
->   
-> @@ -1353,7 +1358,7 @@ wa_list_apply(struct intel_gt *gt, const struct i915_wa_list *wal)
->   
->   void intel_gt_apply_workarounds(struct intel_gt *gt)
->   {
-> -	wa_list_apply(gt, &gt->i915->gt_wa_list);
-> +	wa_list_apply(gt, &gt->wa_list);
->   }
->   
->   static bool wa_list_verify(struct intel_gt *gt,
-> @@ -1385,7 +1390,7 @@ static bool wa_list_verify(struct intel_gt *gt,
->   
->   bool intel_gt_verify_workarounds(struct intel_gt *gt, const char *from)
->   {
-> -	return wa_list_verify(gt, &gt->i915->gt_wa_list, from);
-> +	return wa_list_verify(gt, &gt->wa_list, from);
->   }
->   
->   __maybe_unused
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.h b/drivers/gpu/drm/i915/gt/intel_workarounds.h
-> index 15abb68b6c00..9beaab77c7f0 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.h
-> @@ -24,7 +24,7 @@ static inline void intel_wa_list_free(struct i915_wa_list *wal)
->   void intel_engine_init_ctx_wa(struct intel_engine_cs *engine);
->   int intel_engine_emit_ctx_wa(struct i915_request *rq);
->   
-> -void intel_gt_init_workarounds(struct drm_i915_private *i915);
-> +void intel_gt_init_workarounds(struct intel_gt *gt);
->   void intel_gt_apply_workarounds(struct intel_gt *gt);
->   bool intel_gt_verify_workarounds(struct intel_gt *gt, const char *from);
->   
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> index e623ac45f4aa..962e91ba3be4 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> @@ -66,7 +66,7 @@ reference_lists_init(struct intel_gt *gt, struct wa_lists *lists)
->   	memset(lists, 0, sizeof(*lists));
->   
->   	wa_init_start(&lists->gt_wa_list, "GT_REF", "global");
-> -	gt_init_workarounds(gt->i915, &lists->gt_wa_list);
-> +	gt_init_workarounds(gt, &lists->gt_wa_list);
->   	wa_init_finish(&lists->gt_wa_list);
->   
->   	for_each_engine(engine, gt, id) {
-> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-> index 59fb4c710c8c..3cf61bead2f6 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.c
-> +++ b/drivers/gpu/drm/i915/i915_drv.c
-> @@ -588,8 +588,6 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
->   
->   	pci_set_master(pdev);
->   
-> -	intel_gt_init_workarounds(dev_priv);
-> -
->   	/* On the 945G/GM, the chipset reports the MSI capability on the
->   	 * integrated graphics even though the support isn't actually there
->   	 * according to the published specs.  It doesn't appear to function
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 37c1ca266bcd..93c23eaf3fc7 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -998,8 +998,6 @@ struct drm_i915_private {
->   
->   	struct list_head global_obj_list;
->   
-> -	struct i915_wa_list gt_wa_list;
-> -
->   	struct i915_frontbuffer_tracking fb_tracking;
->   
->   	struct intel_atomic_helper {
-> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-> index 590efc8b0265..981e383d1a5d 100644
-> --- a/drivers/gpu/drm/i915/i915_gem.c
-> +++ b/drivers/gpu/drm/i915/i915_gem.c
-> @@ -1139,8 +1139,6 @@ void i915_gem_driver_release(struct drm_i915_private *dev_priv)
->   {
->   	intel_gt_driver_release(&dev_priv->gt);
->   
-> -	intel_wa_list_free(&dev_priv->gt_wa_list);
-> -
->   	intel_uc_cleanup_firmwares(&dev_priv->gt.uc);
->   
->   	i915_gem_drain_freed_objects(dev_priv);
-> 
+> -----Original Message-----
+> From: Nikula, Jani <jani.nikula@intel.com>
+> Sent: Monday, September 20, 2021 1:12 PM
+> To: De Marchi, Lucas <lucas.demarchi@intel.com>
+> Cc: Auld, Matthew <matthew.auld@intel.com>; intel-gfx@lists.freedesktop.o=
+rg;
+> dri-devel@lists.freedesktop.org; Gupta, Anshuman
+> <anshuman.gupta@intel.com>
+> Subject: Re: [Intel-gfx] [PATCH 14/19] drm/i915/oprom: Basic sanitization
+>=20
+> On Fri, 17 Sep 2021, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> > On Mon, May 17, 2021 at 02:57:33PM +0300, Jani Nikula wrote:
+> >>On Mon, 12 Apr 2021, Matthew Auld <matthew.auld@intel.com> wrote:
+> >>> From: Anshuman Gupta <anshuman.gupta@intel.com>
+> >>>
+> >>> Sanitize OPROM header, CPD signature and OPROM PCI version.
+> >>> OPROM_HEADER, EXPANSION_ROM_HEADER and OPROM_MEU_BLOB
+> structures and
+> >>> PCI struct offsets are provided by GSC counterparts.
+> >>> These are yet to be Documented in B.Spec.
+> >>> After successful sanitization, extract VBT from opregion image.
+> >>
+> >>So I don't understand what the point is with two consecutive patches
+> >>where the latter rewrites a lot of the former.
+> >
+> > I actually wonder what's the point of this. Getting it from spi is
+> > already the fallback and looks much more complex. Yes, it's pretty
+> > detailed and document the format pretty well, but it still looks more
+> > complex than the initial code. Do you see additional benefit in this
+> > one?
+Getting opregion image from spi is needed to get the intel_opregion and its=
+ mailboxes on discrete card.
+>=20
+> The commit message doesn't really explain much. Anshuman?
+I will get rework of the patches and float it again.
+Thanks,
+Anshuman Gupta.
+>=20
+> BR,
+> Jani.
+>=20
+>=20
+> --
+> Jani Nikula, Intel Open Source Graphics Center
