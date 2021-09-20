@@ -2,52 +2,50 @@ Return-Path: <SRS0=beGZ=OK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0A27C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 07:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 591E4C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 07:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F43060F26
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 07:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F43060F26
+	by mail.kernel.org (Postfix) with ESMTPS id 2084D60F26
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 07:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2084D60F26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDEE56E409;
-	Mon, 20 Sep 2021 07:40:46 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B01C6E409
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Sep 2021 07:40:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10112"; a="219887949"
-X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="219887949"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2021 00:40:41 -0700
-X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="700907703"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2021 00:40:40 -0700
-Date: Mon, 20 Sep 2021 00:52:15 -0700
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210920075210.GA439@labuser-Z97X-UD5H>
-References: <20210913144440.23008-1-ville.syrjala@linux.intel.com>
- <20210913144440.23008-3-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB496E409;
+	Mon, 20 Sep 2021 07:42:03 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D93966E406;
+ Mon, 20 Sep 2021 07:42:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10112"; a="223126102"
+X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="223126102"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2021 00:42:01 -0700
+X-IronPort-AV: E=Sophos;i="5.85,307,1624345200"; d="scan'208";a="548604539"
+Received: from svandens-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.251.216.120])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2021 00:41:58 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Anshuman Gupta <anshuman.gupta@intel.com>
+In-Reply-To: <20210918043019.hhol5fgwbi2ogod2@ldmartin-desk2>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210412090526.30547-1-matthew.auld@intel.com>
+ <20210412090526.30547-15-matthew.auld@intel.com> <87im3hh8sy.fsf@intel.com>
+ <20210918043019.hhol5fgwbi2ogod2@ldmartin-desk2>
+Date: Mon, 20 Sep 2021 10:41:54 +0300
+Message-ID: <87czp3vgl9.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210913144440.23008-3-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 02/16] drm/i915: Disable all planes before
- modesetting any pipes
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 14/19] drm/i915/oprom: Basic sanitization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,103 +61,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 13, 2021 at 05:44:26PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Let's disable planes on all pipes affected by the modeset before
-> we start doing the actual modeset. This means we have less
-> random planes enabled during the modeset, and it also mirrors
-> what we already do when enabling pipes on skl+ since we enable
-> planes on all pipes as the very last step. As a bonus we also
-> nuke a bunch og bigjoiner special casing.
-> 
-> I've occasionally pondered about going even furher here and
-> doing the pre_plane_update() stuff for all pipes first, then
-> actually disabling the planes, and finally running the rest
-> of the modeset sequence. This would potentially allow
-> parallelizing all the extra vblank waits across multiple pipes,
-> and would make the plane disable even more atomic. But let's
-> go one step a time here.
+On Fri, 17 Sep 2021, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> On Mon, May 17, 2021 at 02:57:33PM +0300, Jani Nikula wrote:
+>>On Mon, 12 Apr 2021, Matthew Auld <matthew.auld@intel.com> wrote:
+>>> From: Anshuman Gupta <anshuman.gupta@intel.com>
+>>>
+>>> Sanitize OPROM header, CPD signature and OPROM PCI version.
+>>> OPROM_HEADER, EXPANSION_ROM_HEADER and OPROM_MEU_BLOB structures
+>>> and PCI struct offsets are provided by GSC counterparts.
+>>> These are yet to be Documented in B.Spec.
+>>> After successful sanitization, extract VBT from opregion
+>>> image.
+>>
+>>So I don't understand what the point is with two consecutive patches
+>>where the latter rewrites a lot of the former.
+>
+> I actually wonder what's the point of this. Getting it from spi is
+> already the fallback and looks much more complex. Yes, it's pretty
+> detailed and document the format pretty well, but it still looks more
+> complex than the initial code. Do you see additional benefit in this
+> one?
 
-So you are moving the plane disables all together in the commit_disables()?
-But dont we need to pass old_crtc_state->bigjoiner_linked_crtc) crtc in case of bigjoiner?
-How is that handled?
+The commit message doesn't really explain much. Anshuman?
 
-Regards
-Manasi
+BR,
+Jani.
 
-> 
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 28 +++++++++-----------
->  1 file changed, 13 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index cd150512d275..afa26911c236 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -9785,18 +9785,13 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
->  
->  	drm_WARN_ON(&dev_priv->drm, old_crtc_state->bigjoiner_slave);
->  
-> -	intel_crtc_disable_planes(state, crtc);
-> -
->  	/*
->  	 * We still need special handling for disabling bigjoiner master
->  	 * and slaves since for slave we do not have encoder or plls
->  	 * so we dont need to disable those.
->  	 */
-> -	if (old_crtc_state->bigjoiner) {
-> -		intel_crtc_disable_planes(state,
-> -					  old_crtc_state->bigjoiner_linked_crtc);
-> +	if (old_crtc_state->bigjoiner)
->  		old_crtc_state->bigjoiner_linked_crtc->active = false;
-> -	}
->  
->  	/*
->  	 * We need to disable pipe CRC before disabling the pipe,
-> @@ -9823,6 +9818,18 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
->  	u32 handled = 0;
->  	int i;
->  
-> +	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
-> +					    new_crtc_state, i) {
-> +		if (!intel_crtc_needs_modeset(new_crtc_state))
-> +			continue;
-> +
-> +		if (!old_crtc_state->hw.active)
-> +			continue;
-> +
-> +		intel_pre_plane_update(state, crtc);
-> +		intel_crtc_disable_planes(state, crtc);
-> +	}
-> +
->  	/* Only disable port sync and MST slaves */
->  	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
->  					    new_crtc_state, i) {
-> @@ -9841,7 +9848,6 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
->  		    !intel_dp_mst_is_slave_trans(old_crtc_state))
->  			continue;
->  
-> -		intel_pre_plane_update(state, crtc);
->  		intel_old_crtc_state_disables(state, old_crtc_state,
->  					      new_crtc_state, crtc);
->  		handled |= BIT(crtc->pipe);
-> @@ -9855,14 +9861,6 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
->  		    old_crtc_state->bigjoiner_slave)
->  			continue;
->  
-> -		intel_pre_plane_update(state, crtc);
-> -		if (old_crtc_state->bigjoiner) {
-> -			struct intel_crtc *slave =
-> -				old_crtc_state->bigjoiner_linked_crtc;
-> -
-> -			intel_pre_plane_update(state, slave);
-> -		}
-> -
->  		if (old_crtc_state->hw.active)
->  			intel_old_crtc_state_disables(state, old_crtc_state,
->  						      new_crtc_state, crtc);
-> -- 
-> 2.32.0
-> 
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
