@@ -2,52 +2,52 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2FF2C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F28A1C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:37:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4DDD161166
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4DDD161166
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BC3D760F41
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:37:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC3D760F41
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED7556E969;
-	Tue, 21 Sep 2021 11:34:51 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 273056E92E
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 11:34:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="245750817"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="245750817"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 04:34:49 -0700
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="556899596"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 04:34:49 -0700
-Date: Tue, 21 Sep 2021 04:46:26 -0700
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210921114626.GA5521@labuser-Z97X-UD5H>
-References: <20210913144440.23008-1-ville.syrjala@linux.intel.com>
- <20210913144440.23008-10-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E136E92E;
+	Tue, 21 Sep 2021 11:37:45 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F90D6E92E;
+ Tue, 21 Sep 2021 11:37:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="220140876"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220140876"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 04:37:39 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="652898568"
+Received: from rogerc2x-mobl.ger.corp.intel.com (HELO [10.249.254.52])
+ ([10.249.254.52])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 04:37:37 -0700
+Message-ID: <bc9ca2021c05d4d0d1072f95d7bda42fa7f174d1.camel@linux.intel.com>
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Matthew
+ Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Date: Tue, 21 Sep 2021 13:37:35 +0200
+In-Reply-To: <e358c620-fd78-f3c6-2558-7376a86701b9@amd.com>
+References: <20210921110121.3783395-1-matthew.auld@intel.com>
+ <e358c620-fd78-f3c6-2558-7376a86701b9@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210913144440.23008-10-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 09/16] drm/i915: Pimp HSW+ transcoder state
- readout
+Subject: Re: [Intel-gfx] [PATCH v4 01/14] drm/ttm: stop calling tt_swapin in
+ vm_access
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,220 +63,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 13, 2021 at 05:44:33PM +0300, Ville Syrjala wrote:
-> From: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+HI, Christian,
+On Tue, 2021-09-21 at 13:28 +0200, Christian König wrote:
+> Am 21.09.21 um 13:01 schrieb Matthew Auld:
+> > In commit:
+> > 
+> > commit 09ac4fcb3f255e9225967c75f5893325c116cdbe
+> > Author: Felix Kuehling <Felix.Kuehling@amd.com>
+> > Date:   Thu Jul 13 17:01:16 2017 -0400
+> > 
+> >      drm/ttm: Implement vm_operations_struct.access v2
+> > 
+> > we added the vm_access hook, where we also directly call tt_swapin
+> > for
+> > some reason. If something is swapped-out then the ttm_tt must also
+> > be
+> > unpopulated, and since access_kmap should also call tt_populate, if
+> > needed, then swapping-in will already be handled there.
 > 
-> Adjust the HSW+ transcoder state readout to just read through
-> all the possible transcoders for the pipe, and stuff the results
-> in a bitmask.
+> Sounds like you completely misunderstand what that is good for.
 > 
-> We can conveniently cross check the bitmask for invalid
-> combinations of enabled transcoders, and later we can easily
-> extend the bitmask readout to handle the bigjoiner case.
-> 
-> One slight change in behaviour is that we no longer read out
-> the AONOFF->force_pfit.pfit bit for all the enabled "panel
-> transcoders". But having more than one enabled would anyway
-> be illegal so no big loss. Also the AONOFF selection should
-> only ever be used on HSW, which only has the EDP transcoder
-> an no DSI transcoders.
-> 
-> Signed-off-by: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+> This is for debugger attaching to a process and peek/poke into the
+> VMA 
+> and completely unrelated to kmap.
 
-Looks good to me
+I think what Matthew is saying is that there is a fallthrough to
+TTM_PL_TT which calls
 
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+ttm_bo_vm_access_kmap
 
-Manasi
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 130 ++++++++++++++-----
->  1 file changed, 95 insertions(+), 35 deletions(-)
+which calls
+
+ttm_tt_populate().
+
+So from my pow, unless there are other concerns, this is
+
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+
+
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 3848f7963cec..2430142b0337 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -5577,6 +5577,21 @@ static bool ilk_get_pipe_config(struct intel_crtc *crtc,
->  	return ret;
->  }
->  
-> +static bool transcoder_ddi_func_is_enabled(struct drm_i915_private *dev_priv,
-> +					   enum transcoder cpu_transcoder)
-> +{
-> +	enum intel_display_power_domain power_domain;
-> +	intel_wakeref_t wakeref;
-> +	u32 tmp = 0;
-> +
-> +	power_domain = POWER_DOMAIN_TRANSCODER(cpu_transcoder);
-> +
-> +	with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref)
-> +		tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder));
-> +
-> +	return tmp & TRANS_DDI_FUNC_ENABLE;
-> +}
-> +
->  static u8 hsw_panel_transcoders(struct drm_i915_private *i915)
->  {
->  	u8 panel_transcoder_mask = BIT(TRANSCODER_EDP);
-> @@ -5587,55 +5602,39 @@ static u8 hsw_panel_transcoders(struct drm_i915_private *i915)
->  	return panel_transcoder_mask;
->  }
->  
-> -static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
-> -				     struct intel_crtc_state *pipe_config,
-> -				     struct intel_display_power_domain_set *power_domain_set)
-> +static u8 hsw_enabled_transcoders(struct intel_crtc *crtc)
->  {
->  	struct drm_device *dev = crtc->base.dev;
->  	struct drm_i915_private *dev_priv = to_i915(dev);
->  	u8 panel_transcoder_mask = hsw_panel_transcoders(dev_priv);
-> -	unsigned long enabled_panel_transcoders = 0;
-> -	enum transcoder panel_transcoder;
-> -	u32 tmp;
-> -
-> -	/*
-> -	 * The pipe->transcoder mapping is fixed with the exception of the eDP
-> -	 * and DSI transcoders handled below.
-> -	 */
-> -	pipe_config->cpu_transcoder = (enum transcoder) crtc->pipe;
-> +	enum transcoder cpu_transcoder;
-> +	u8 enabled_transcoders = 0;
->  
->  	/*
->  	 * XXX: Do intel_display_power_get_if_enabled before reading this (for
->  	 * consistency and less surprising code; it's in always on power).
->  	 */
-> -	for_each_cpu_transcoder_masked(dev_priv, panel_transcoder,
-> +	for_each_cpu_transcoder_masked(dev_priv, cpu_transcoder,
->  				       panel_transcoder_mask) {
-> -		bool force_thru = false;
-> +		enum intel_display_power_domain power_domain;
-> +		intel_wakeref_t wakeref;
->  		enum pipe trans_pipe;
-> +		u32 tmp = 0;
-> +
-> +		power_domain = POWER_DOMAIN_TRANSCODER(cpu_transcoder);
-> +		with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref)
-> +			tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder));
->  
-> -		tmp = intel_de_read(dev_priv,
-> -				    TRANS_DDI_FUNC_CTL(panel_transcoder));
->  		if (!(tmp & TRANS_DDI_FUNC_ENABLE))
->  			continue;
->  
-> -		/*
-> -		 * Log all enabled ones, only use the first one.
-> -		 *
-> -		 * FIXME: This won't work for two separate DSI displays.
-> -		 */
-> -		enabled_panel_transcoders |= BIT(panel_transcoder);
-> -		if (enabled_panel_transcoders != BIT(panel_transcoder))
-> -			continue;
-> -
->  		switch (tmp & TRANS_DDI_EDP_INPUT_MASK) {
->  		default:
->  			drm_WARN(dev, 1,
->  				 "unknown pipe linked to transcoder %s\n",
-> -				 transcoder_name(panel_transcoder));
-> +				 transcoder_name(cpu_transcoder));
->  			fallthrough;
->  		case TRANS_DDI_EDP_INPUT_A_ONOFF:
-> -			force_thru = true;
-> -			fallthrough;
->  		case TRANS_DDI_EDP_INPUT_A_ON:
->  			trans_pipe = PIPE_A;
->  			break;
-> @@ -5650,22 +5649,83 @@ static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
->  			break;
->  		}
->  
-> -		if (trans_pipe == crtc->pipe) {
-> -			pipe_config->cpu_transcoder = panel_transcoder;
-> -			pipe_config->pch_pfit.force_thru = force_thru;
-> -		}
-> +		if (trans_pipe == crtc->pipe)
-> +			enabled_transcoders |= BIT(cpu_transcoder);
->  	}
->  
-> +	cpu_transcoder = (enum transcoder) crtc->pipe;
-> +	if (transcoder_ddi_func_is_enabled(dev_priv, cpu_transcoder))
-> +		enabled_transcoders |= BIT(cpu_transcoder);
-> +
-> +	return enabled_transcoders;
-> +}
-> +
-> +static bool has_edp_transcoders(u8 enabled_transcoders)
-> +{
-> +	return enabled_transcoders & BIT(TRANSCODER_EDP);
-> +}
-> +
-> +static bool has_dsi_transcoders(u8 enabled_transcoders)
-> +{
-> +	return enabled_transcoders & (BIT(TRANSCODER_DSI_0) |
-> +				      BIT(TRANSCODER_DSI_1));
-> +}
-> +
-> +static bool has_pipe_transcoders(u8 enabled_transcoders)
-> +{
-> +	return enabled_transcoders & ~(BIT(TRANSCODER_EDP) |
-> +				       BIT(TRANSCODER_DSI_0) |
-> +				       BIT(TRANSCODER_DSI_1));
-> +}
-> +
-> +static void assert_enabled_transcoders(struct drm_i915_private *i915,
-> +				       u8 enabled_transcoders)
-> +{
-> +	/* Only one type of transcoder please */
-> +	drm_WARN_ON(&i915->drm,
-> +		    has_edp_transcoders(enabled_transcoders) +
-> +		    has_dsi_transcoders(enabled_transcoders) +
-> +		    has_pipe_transcoders(enabled_transcoders) > 1);
-> +
-> +	/* Only DSI transcoders can be ganged */
-> +	drm_WARN_ON(&i915->drm,
-> +		    !has_dsi_transcoders(enabled_transcoders) &&
-> +		    !is_power_of_2(enabled_transcoders));
-> +}
-> +
-> +static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
-> +				     struct intel_crtc_state *pipe_config,
-> +				     struct intel_display_power_domain_set *power_domain_set)
-> +{
-> +	struct drm_device *dev = crtc->base.dev;
-> +	struct drm_i915_private *dev_priv = to_i915(dev);
-> +	unsigned long enabled_transcoders;
-> +	u32 tmp;
-> +
-> +	enabled_transcoders = hsw_enabled_transcoders(crtc);
-> +	if (!enabled_transcoders)
-> +		return false;
-> +
-> +	assert_enabled_transcoders(dev_priv, enabled_transcoders);
-> +
->  	/*
-> -	 * Valid combos: none, eDP, DSI0, DSI1, DSI0+DSI1
-> +	 * With the exception of DSI we should only ever have
-> +	 * a single enabled transcoder. With DSI let's just
-> +	 * pick the first one.
->  	 */
-> -	drm_WARN_ON(dev, (enabled_panel_transcoders & BIT(TRANSCODER_EDP)) &&
-> -		    enabled_panel_transcoders != BIT(TRANSCODER_EDP));
-> +	pipe_config->cpu_transcoder = ffs(enabled_transcoders) - 1;
->  
->  	if (!intel_display_power_get_in_set_if_enabled(dev_priv, power_domain_set,
->  						       POWER_DOMAIN_TRANSCODER(pipe_config->cpu_transcoder)))
->  		return false;
->  
-> +	if (hsw_panel_transcoders(dev_priv) & BIT(pipe_config->cpu_transcoder)) {
-> +		tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(pipe_config->cpu_transcoder));
-> +
-> +		if ((tmp & TRANS_DDI_EDP_INPUT_MASK) == TRANS_DDI_EDP_INPUT_A_ONOFF)
-> +			pipe_config->pch_pfit.force_thru = true;
-> +	}
-> +
->  	tmp = intel_de_read(dev_priv, PIPECONF(pipe_config->cpu_transcoder));
->  
->  	return tmp & PIPECONF_ENABLE;
-> -- 
-> 2.32.0
+> > 
+> > If anything, calling tt_swapin directly here would likely always
+> > fail
+> > since the tt->pages won't yet be populated, or worse since the tt-
+> > >pages
+> > array is never actually cleared in unpopulate this might lead to a
+> > nasty
+> > uaf.
 > 
+> That's indeed true, but we just need to unconditionally call 
+> ttm_tt_populate() here instead.
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Fixes: 09ac4fcb3f25 ("drm/ttm: Implement
+> > vm_operations_struct.access v2")
+> > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Cc: Christian König <christian.koenig@amd.com>
+> > ---
+> >   drivers/gpu/drm/ttm/ttm_bo_vm.c | 5 -----
+> >   1 file changed, 5 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > index f56be5bc0861..5b9b7fd01a69 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > @@ -519,11 +519,6 @@ int ttm_bo_vm_access(struct vm_area_struct
+> > *vma, unsigned long addr,
+> >   
+> >         switch (bo->resource->mem_type) {
+> >         case TTM_PL_SYSTEM:
+> > -               if (unlikely(bo->ttm->page_flags &
+> > TTM_PAGE_FLAG_SWAPPED)) {
+> > -                       ret = ttm_tt_swapin(bo->ttm);
+> > -                       if (unlikely(ret != 0))
+> > -                               return ret;
+> > -               }
+> >                 fallthrough;
+> >         case TTM_PL_TT:
+> >                 ret = ttm_bo_vm_access_kmap(bo, offset, buf, len,
+> > write);
+> 
+
+
