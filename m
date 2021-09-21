@@ -2,49 +2,43 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A8CEC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 00:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2D87C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 00:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 39372611AF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 00:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 39372611AF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 59D66611ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 00:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 59D66611ED
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6C526E8CB;
-	Tue, 21 Sep 2021 00:23:53 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 834F96E8C4
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 00:23:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="203410803"
-X-IronPort-AV: E=Sophos;i="5.85,309,1624345200"; d="scan'208";a="203410803"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2021 17:23:33 -0700
-X-IronPort-AV: E=Sophos;i="5.85,309,1624345200"; d="scan'208";a="549183761"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2021 17:23:32 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Tue, 21 Sep 2021 03:23:12 +0300
-Message-Id: <20210921002313.1132357-13-imre.deak@intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210921002313.1132357-1-imre.deak@intel.com>
-References: <20210921002313.1132357-1-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC4806E8BD;
+	Tue, 21 Sep 2021 00:30:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0A6796E8BD;
+ Tue, 21 Sep 2021 00:30:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 015FCA47EA;
+ Tue, 21 Sep 2021 00:30:58 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/13] drm/i915/tc: Drop extra TC cold blocking
- from intel_tc_port_connected()
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 21 Sep 2021 00:30:58 -0000
+Message-ID: <163218425897.15890.4835298907171051239@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210921002313.1132357-1-imre.deak@intel.com>
+In-Reply-To: <20210921002313.1132357-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/tc=3A_Fix_TypeC_connect/disconnect_sequences?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,40 +51,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After the previous patch the driver holds a power domain blocking
-TC-cold whenever the port is locked, so we can remove the extra blocking
-around the lock/unlock sequence.
+== Series Details ==
 
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_tc.c | 4 ----
- 1 file changed, 4 deletions(-)
+Series: drm/i915/tc: Fix TypeC connect/disconnect sequences
+URL   : https://patchwork.freedesktop.org/series/94878/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 3fefd00e04685..99b66c2852e53 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -719,16 +719,12 @@ bool intel_tc_port_connected(struct intel_encoder *encoder)
- {
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	bool is_connected;
--	enum intel_display_power_domain domain;
--	intel_wakeref_t tc_cold_wref;
- 
- 	intel_tc_port_lock(dig_port);
--	tc_cold_wref = tc_cold_block(dig_port, &domain);
- 
- 	is_connected = tc_port_live_status_mask(dig_port) &
- 		       BIT(dig_port->tc_mode);
- 
--	tc_cold_unblock(dig_port, domain, tc_cold_wref);
- 	intel_tc_port_unlock(dig_port);
- 
- 	return is_connected;
--- 
-2.27.0
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+9d2a21b4286f drm/i915/tc: Fix TypeC port init/resume time sanitization
+8cf6d77baac7 drm/i915/adlp/tc: Fix PHY connected check for Thunderbolt mode
+3a96d2e03bbf drm/i915/tc: Remove waiting for PHY complete during releasing ownership
+-:13: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#13: 
+commit ddec362724f9 ("drm/i915: Wait for TypeC PHY complete flag to clear in safe mode")
+
+total: 0 errors, 1 warnings, 0 checks, 11 lines checked
+4e8751ecf807 drm/i915/tc: Check for DP-alt, legacy sinks before taking PHY ownership
+cc76a5af71d5 drm/i915/tc: Add/use helpers to retrieve TypeC port properties
+344a4da141dd drm/i915/tc: Don't keep legacy TypeC ports in connected state w/o a sink
+dc6bbabc3efa drm/i915/tc: Add a mode for the TypeC PHY's disconnected state
+-:111: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#111: FILE: drivers/gpu/drm/i915/display/intel_tc.c:714:
++	drm_WARN_ON(&i915->drm, dig_port->tc_mode != TC_PORT_TBT_ALT &&
++				!tc_phy_is_owned(dig_port));
+
+total: 0 errors, 0 warnings, 1 checks, 91 lines checked
+1a6d3f2220ba drm/i915/tc: Refactor TC-cold block/unblock helpers
+d163824eae60 drm/i915/tc: Avoid using legacy AUX PW in TBT mode
+24944d022b80 drm/i915/icl/tc: Remove the ICL special casing during TC-cold blocking
+d9687de8553d drm/i915/tc: Fix TypeC PHY connect/disconnect logic on ADL-P
+14a2cb6aae07 drm/i915/tc: Drop extra TC cold blocking from intel_tc_port_connected()
+1890abf291df drm/i915/tc: Fix system hang on ADL-P during TypeC PHY disconnect
+
 
