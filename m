@@ -8,56 +8,56 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F04FC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:43:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA13BC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00106610A0
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00106610A0
+	by mail.kernel.org (Postfix) with ESMTPS id 9F5C7610A0
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9F5C7610A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8761F6EA19;
-	Tue, 21 Sep 2021 17:43:04 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1556C6E9D6;
- Tue, 21 Sep 2021 17:37:20 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id i23so41644922wrb.2;
- Tue, 21 Sep 2021 10:37:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F273D6EA26;
+	Tue, 21 Sep 2021 17:43:05 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F01246E9CC;
+ Tue, 21 Sep 2021 17:37:16 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id d6so41375823wrc.11;
+ Tue, 21 Sep 2021 10:37:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=sR69q70gSeg6sG3/QgjbBFqvIqYfytfoA0SgvZr7HAU=;
- b=ASeqxfhV9w2u70s80hnfGNFnU5dmjRz2YBiQ7UHNSa6DuGjH6nEjSaGOFwjoGr3Ngk
- OsF6e8rljOOHzPaM6Uqo+nNAkMenqie0UR85wYUOMF2itNkuiZxgp+PcNuoFkh0uAR+o
- JCO5W25qt9EiZ5MAlAbwfVhOeHFAIs82EXwXLh9sZwVM1cqEmD0rX+cEsi4gFtAOpmIN
- And+T7i3omYCqT/+l4z0ZAG7LaYrj9oxsxh1FiKcpQXNHbQV65w2ipTVrRwtcNYWNkI6
- 6uD9G0l6ICgnEPEYBG3H7aMWoIFirlglUQZrYgEFE++swyz3i5KTGb+NpmtqgIOSwgBW
- 3nIQ==
+ bh=s+B96AdxRkADIO5Sz7pGY2LZZPwHDe6rOqsFSHpv8M0=;
+ b=o0c5sLphEjpIBKOSaXz5/fHrqrt2IVkgr4hU24XlAYU+cJn1rlTPVFMpMV9PZMrr59
+ YxGpKauocLOGbH9BMqAgJLgx7Nnt7J3CDCBZrXFYS283UM4SmTjzlhNy+5Lkrl8SHMUG
+ pbdXUFXD3Y+so3/GzAr/IPyGAwwQ8mvwmEXFfaG2qje4PTfxJI2xkqFg+Gg2lW3a8htx
+ SSjVQ2CnY/LzXP+nzPKfJIb2IYoHw49dU3RzXsny0D4nMJ3VepBtB/yj9Le+uChGfjpz
+ Jq/ZqZwg8d7dEsaBbRPBDFroQpr3NTH2gM1ervLAeJV2opj8QsYlrp5puq5TfHTMVHPj
+ K+BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=sR69q70gSeg6sG3/QgjbBFqvIqYfytfoA0SgvZr7HAU=;
- b=02Pmow2LZzjsxqX8ZS0n7wQ2SWHem1FtCe7GdJWQjEhXQbo2G63Keh3B7INjk845XO
- oAZWdKQaQSGBqLDcepxQ/mu7rGrnbuQLpKaloLMCUJv1rFTxeWRMtlsFBkTTd8JXChxT
- 0JD0P50fddWEWC8EGzE4DTn523Q9Qv0p01QUYKLmGvvqZL8p+6EOpd+K0n6QbmXaPId2
- /cy/zeCskrduB6eKUpHFKc0dPbp+26ST5IDB7LlAi85FX463r8LPc+RBHh+2XQN9wbFa
- Gbtk8y3gfaOfx1uMDQU8I4eaJPOw4xasLb4HK5EJ9egDazIP7LEGwzZrgSEpnlESkCe5
- LzkQ==
-X-Gm-Message-State: AOAM533DDpnwm1kej2tyvIFzEQp2jvnBmQOxj/fhHYLJPfBlkF1Khb7L
- LOjBmdBPuecQJgGsYtjysFYrNv4ID5g=
-X-Google-Smtp-Source: ABdhPJwlzB0biUHAG3WLi9lDLjR+cNGbXPohCdHBMasqxBhW5gM4Vorg44beBvytvEnF/f+/0iN96g==
-X-Received: by 2002:adf:e44f:: with SMTP id t15mr36944797wrm.394.1632245838354; 
- Tue, 21 Sep 2021 10:37:18 -0700 (PDT)
+ bh=s+B96AdxRkADIO5Sz7pGY2LZZPwHDe6rOqsFSHpv8M0=;
+ b=TVW9HwYC7uqsyNJ1AZ3s+ijQp7BLqqZB464x0T7yM72IJV+dJzefGljS4uYytdavV1
+ vzTO6HHqKs4OdJ9Uvc3zesBFY4IwXNOhexGnOIKZHqxCzvXtADi6NXEOceCZGNM7lovC
+ gG5fqr7Ebft/HwLbww5+CJGMdS5YxPXg4a4ypNMcAXiSD+NWwpAopi+Uu29DvXbhEovm
+ I/mbfxqMnLYkoQaa59UIX0zXyq1ZQ/SagVuJsBfCozVSjNQV0C+TquIfArTe8moPgGnu
+ wiKjWN+ErZPlzPZkLR8h1w/rb5jy+N1gigF2hs+KbElWYtpIV5q1oZT0ZGVIEbDpckkI
+ 8n3A==
+X-Gm-Message-State: AOAM532hvLKKtCPblXLCzwLbRaP8uezCENK+LjaRm1IUIfMgLMGWMqW6
+ JDcW5+ivBsmzjO9Mw+enXoI=
+X-Google-Smtp-Source: ABdhPJwMhsbn+SQN7/l3vKaNbjoCRSrcF4KCBqzFjyHJHxwrJ6QRt566viqlaxP8rbXtCqAr7Xbm7g==
+X-Received: by 2002:adf:fb50:: with SMTP id c16mr16649214wrs.120.1632245835526; 
+ Tue, 21 Sep 2021 10:37:15 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- z13sm23310477wrs.90.2021.09.21.10.37.17
+ z13sm23310477wrs.90.2021.09.21.10.37.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 10:37:18 -0700 (PDT)
+ Tue, 21 Sep 2021 10:37:15 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -66,8 +66,8 @@ To: ckoenig.leichtzumerken@gmail.com, linaro-mm-sig@lists.linaro.org,
  intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Tue, 21 Sep 2021 19:36:50 +0200
-Message-Id: <20210921173659.246165-17-christian.koenig@amd.com>
+Date: Tue, 21 Sep 2021 19:36:47 +0200
+Message-Id: <20210921173659.246165-14-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210921173659.246165-1-christian.koenig@amd.com>
 References: <20210921173659.246165-1-christian.koenig@amd.com>
@@ -75,8 +75,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Sep 2021 17:43:01 +0000
-Subject: [Intel-gfx] [PATCH 17/26] drm/i915: use new iterator in
- i915_gem_object_wait_priority
+Subject: [Intel-gfx] [PATCH 14/26] drm/i915: use the new iterator in
+ i915_sw_fence_await_reservation v3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,52 +94,85 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Simplifying the code a bit.
 
+v2: use dma_resv_for_each_fence instead, according to Tvrtko the lock is
+    held here anyway.
+v3: back to using dma_resv_for_each_fence_unlocked.
+
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 31 +++++-------------------
- 1 file changed, 6 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/i915_sw_fence.c | 53 ++++++----------------------
+ 1 file changed, 11 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index a13193db1dba..569658c7859c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -118,32 +118,13 @@ i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 			      unsigned int flags,
- 			      const struct i915_sched_attr *attr)
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index c589a681da77..7ea0dbf81530 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -572,56 +572,25 @@ int i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
+ 				    unsigned long timeout,
+ 				    gfp_t gfp)
  {
 -	struct dma_fence *excl;
--
--	if (flags & I915_WAIT_ALL) {
++	struct dma_resv_iter cursor;
++	struct dma_fence *f;
+ 	int ret = 0, pending;
+ 
+ 	debug_fence_assert(fence);
+ 	might_sleep_if(gfpflags_allow_blocking(gfp));
+ 
+-	if (write) {
 -		struct dma_fence **shared;
 -		unsigned int count, i;
--		int ret;
 -
--		ret = dma_resv_get_fences(obj->base.resv, &excl, &count,
--					  &shared);
+-		ret = dma_resv_get_fences(resv, &excl, &count, &shared);
 -		if (ret)
 -			return ret;
 -
 -		for (i = 0; i < count; i++) {
--			i915_gem_fence_wait_priority(shared[i], attr);
--			dma_fence_put(shared[i]);
+-			if (shared[i]->ops == exclude)
+-				continue;
+-
+-			pending = i915_sw_fence_await_dma_fence(fence,
+-								shared[i],
+-								timeout,
+-								gfp);
+-			if (pending < 0) {
+-				ret = pending;
+-				break;
+-			}
+-
+-			ret |= pending;
 -		}
 -
+-		for (i = 0; i < count; i++)
+-			dma_fence_put(shared[i]);
 -		kfree(shared);
 -	} else {
--		excl = dma_resv_get_excl_unlocked(obj->base.resv);
+-		excl = dma_resv_get_excl_unlocked(resv);
 -	}
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
+-
+-	if (ret >= 0 && excl && excl->ops != exclude) {
+-		pending = i915_sw_fence_await_dma_fence(fence,
+-							excl,
+-							timeout,
++	dma_resv_iter_begin(&cursor, resv, write);
++	dma_resv_for_each_fence_unlocked(&cursor, f) {
++		pending = i915_sw_fence_await_dma_fence(fence, f, timeout,
+ 							gfp);
+-		if (pending < 0)
++		if (pending < 0) {
+ 			ret = pending;
+-		else
+-			ret |= pending;
+-	}
+-
+-	dma_fence_put(excl);
++			break;
++		}
  
--	if (excl) {
--		i915_gem_fence_wait_priority(excl, attr);
--		dma_fence_put(excl);
--	}
-+	dma_resv_iter_begin(&cursor, obj->base.resv, flags & I915_WAIT_ALL);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence)
-+		i915_gem_fence_wait_priority(fence, attr);
++		ret |= pending;
++	}
 +	dma_resv_iter_end(&cursor);
- 	return 0;
+ 	return ret;
  }
  
 -- 
