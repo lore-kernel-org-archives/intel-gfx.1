@@ -2,134 +2,82 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33054C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:48:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49394C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 12:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F037D61215
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F037D61215
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id BC45960F43
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 12:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC45960F43
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41FCD6E95D;
-	Tue, 21 Sep 2021 11:48:45 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2051.outbound.protection.outlook.com [40.107.100.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95B996E95D;
- Tue, 21 Sep 2021 11:48:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lfb0HFL0CGh4Dt8XYc9GrKx9nxi2XjodKzFDaVAnfVuc10cjsD8oJRyqApOPwkWiLA7okxIcsKbAIywkW3SDUCfqL7jWCZoMIIj1I2FT2V96Uv2E3SO3ESrcnIqb+XuiFSlT7FyYuKv3OGkBBDCVuww2kzAJekB6G2/tt+n1EACw5rStVL+BQL0KxpCr+k9Gx08BhKlRafzpzX1viHJWtiE/zYsxTXiscfl5f806Zw1zWQBCOuxwkDndQqJiTzqgqHkhQW82ioK7HKE8tlSBhjFogHoem9mhe+we91+yn4SKer4kSpoZwYTVHejIaWCm3B/tooSxrOCwZNQHmn6REg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=1H53PA4gIdptGHPIa1znP8y9jzfbz2RrC6TZYP5MibA=;
- b=NwmMgeOFHJUEddXNq400s6f5ztdKEDCNCmGTnATEpGXbfqvj6FLJDd4ZV+E70ho25N0soy+WQ051Z1q+7g4s/hWOMPRPT1KOrt7b2S5p69Cx75GAKbWT6t64IvhT5Jq4jDLwcLKbrFipyrJyoIo8OAIUODjxPSzvn6+3s9MYvtVL+B42RqKipGf+AUw/F8KxBXZbkTKjwenVDJkW2ZlJWwbFycR1J0ZGjuI72brV8nvLHH/2MOas29BG9Hi4zfxrdgiOmap39RROLV7wfA2gB9i6iL0W7M3mfznfkxHPtfOYOS9RfY4ZCHQx3sVlqf36GIb36mn5H2roeB1pwgHCaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1H53PA4gIdptGHPIa1znP8y9jzfbz2RrC6TZYP5MibA=;
- b=yeaZMwlWcLFjZ+9qZoEwYgQvp2S/bYLs8C7s84TpzYGKyyFQTGVMIPN1ShkvfXHFNv7GwQ9DKTWmWW3r4fYnBRwnV5aeGdKHgMV0Lu0LQEcyJpG/j64KWvZd3kXaT9qNnyry7bFvSTKY2JxLzduShEkVAxO4cjTISBOAHcnDPWg=
-Authentication-Results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4440.namprd12.prod.outlook.com (2603:10b6:208:26e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Tue, 21 Sep
- 2021 11:48:41 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
- 11:48:41 +0000
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-References: <20210921110121.3783395-1-matthew.auld@intel.com>
- <20210921110121.3783395-10-matthew.auld@intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <92d33ac7-f1b9-26e4-d39f-c351c4220dfa@amd.com>
-Date: Tue, 21 Sep 2021 13:48:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210921110121.3783395-10-matthew.auld@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: FR0P281CA0015.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::20) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 351B96E95D;
+	Tue, 21 Sep 2021 12:09:39 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC896E95D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 12:09:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="203491773"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="203491773"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 05:09:36 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="549459308"
+Received: from unknown (HELO localhost) ([10.251.218.108])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 05:09:35 -0700
+Resent-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7,
+ 02160 Espoo
+Resent-To: intel-gfx@lists.freedesktop.org
+Resent-From: Jani Nikula <jani.nikula@intel.com>
+Resent-Date: Tue, 21 Sep 2021 15:09:33 +0300
+Resent-Message-ID: <8735pyt9j6.fsf@intel.com>
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:8582:d9f8:1318:9d2b]
- (2a02:908:1252:fb60:8582:d9f8:1318:9d2b) by
- FR0P281CA0015.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:15::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.6 via Frontend Transport; Tue, 21 Sep 2021 11:48:40 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e79d9d10-a6c0-46c1-5b87-08d97cf5c1d5
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4440:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB444016C328B631D349AF922C83A19@MN2PR12MB4440.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2GoXJMckFedUpv5D908bF7pHjRiM5OrrZBiKLQt5ZS/c09v5JumtbDXMrfqyv+Qi94lsnGEdPsDokTuYBO+2TujDmdZfyyq5weVTDs0myFoThAprIvu6OSxn+jtjifW4FQ8v2l+a4Bi+d3ghQzkrLVHN4GrhZ0hneYQhnLcc9KDYQH2gTU8Ik7Co5KYjdREHcqZftLYMaXnlXawmZHyN4KD2v+iWwZqP8ot+Jx1mW4ZaKOWikEcahba19WY5n/Q0JBKfoSlB6xuPR1K0TKeqagoPXVa2VH/RDXclPbB6ZV3XZTz1Bgi5GEMHt1J3zz8DjQI6D7pJ3tkZP7kQ3mJu3ystS760dLxa8PiupOuyfY5RxPlBa/7nsszMQvCgVC/h3Q3WSOgMRA2sOg6zTJITN1Uw44s9rT69l0dN05CKStEKKwMD0U0VYZ2eHhMXlpAca8WJ6O8WB0RMTSSdYily+lrIS7BoUUjFVjyv9tkdXKUfY5qcXwKkhMP0g4pNpoYSZe2tW1v1+cM9RydEe6xGddMDUQQ1siQPIJIF1RDqgAng3WqkArGScJOXWhVCOiUkeSUvdNEaADm3EHfU5k4z7VwK4CLK2aboK+eVetzLDFVdXzc63o5D4jEmW+JpUdSlL/TC4mmr5nt7Uklg0u4fXOABZS659kyUdr8GH2k1IRed8nVYRi/sle70SYQ1b2VqU057n011WoXfwtJR0Wq7LGqDxIa05B/+7erZI40AD6s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(66946007)(8936002)(66556008)(66476007)(2616005)(2906002)(83380400001)(316002)(4326008)(36756003)(38100700002)(186003)(6666004)(508600001)(31686004)(86362001)(8676002)(5660300002)(6486002)(66574015)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2RoT1JCaDN3V0JrQ2hCYVJ5bzh4TVBsWEh6cHlDQllmZmp2UHVkOTZqMG9C?=
- =?utf-8?B?cG5kdTFmazZDbm5TWDdPVWhqbDRCUmc0U1E5Z0hBdWVpaTVnSmtDT2sreVhF?=
- =?utf-8?B?NzR4WmVHUnQva0VIMGRXV3NYcU5vYzc2Mk5WSi81RndMajFVbEFNYzI5SFJI?=
- =?utf-8?B?YzJ1ek94a0tQN1l5Q2d3ZTZxTExjVTJSZWdpRDRJRVNFWFFIZUVGVUZoNUdR?=
- =?utf-8?B?UGRqSUwrTWx6NS9iWmNTNktMcGxRVkpzYWhjRVJtR0NxMjhtZUVXSWpYTUcx?=
- =?utf-8?B?eXBOZFF5Y0ZidFpmSlVyTE01SXJQc3Yvc2pxd1A4ZVVtclRvYnhLdGhmbEIz?=
- =?utf-8?B?UW9QQ1F4YldlZFd4TERoTFVwdjEzWEJDKzZyT2JiOVNGem1yQ2xpM2lHTE1R?=
- =?utf-8?B?TDRrWlFCUUdiejcyWittSGtzSCt6dnNFalpNUTFOazZ4am43eW5yNU9oNjhs?=
- =?utf-8?B?aEZmdlVqTzlWOVRrM3VzVEhJZHBqM1R3cC9EeTNHRWVLcnVJb28xdHlEcXJq?=
- =?utf-8?B?Y0E5S05JU0JIdW1LaGwzQThBMXBUL05sdHNDTTR5WjBjYXc1WnlqVGxuQUp4?=
- =?utf-8?B?QTlDT3d4eGdHcXlYLzh5SS92cXJUUmdFMzBqdkZYdW9RQkxtcU1Gcm5teVNQ?=
- =?utf-8?B?MzcrWjhpeWo4eWtOSG40cFN4cFhqbWlxYy9xN1RINW02U1k4ajJIMTRFaFh4?=
- =?utf-8?B?bEp2WHY2azZNclcvZ05pM0crYVhuUzlCeit3TTkwQUVmQndkcmtqMXFIdEpH?=
- =?utf-8?B?aVhJR3dDdjZzbkFlc2JWMm9UK2pEYjZNMjV5M0pDY0hqUTkzYVVJczRETjVH?=
- =?utf-8?B?TGg0VndGRlhtcVdYYmd0R2IwWE1hazE4Wm1RdDVBM3NPcy9rdm5VMHRiWW43?=
- =?utf-8?B?dWcrU3ptVzMrYmhCWGordlhsT2ZNVHUxTk1Gd21VZ3g0a0RGSXBnMWJYZy9Y?=
- =?utf-8?B?M1pvc2Q4dmNXL3dzUGFaTEpRd2hoamZjQzgzRXFNTmh6RGcxaEJXaHJUemFK?=
- =?utf-8?B?Zm1LTUl3bzczS1RhZTZCOXlkdGVZZmc0VTdGRnNZeGY5MTFFNWhrQW1PbStn?=
- =?utf-8?B?bEc2djlRSUFYRG9hVjRNdGpBT0loTHYvbkt2Tmd2eVp1cXhLbm1Db3hvZXdk?=
- =?utf-8?B?NDFVemIzZDIwV0x6dFN3NkdFWTl5c3RkRVJ5QzJOd1hkQmcwS1JBMGMzZlNH?=
- =?utf-8?B?bGVGcGFLdVRkUXhuamJPd2xaUERGTjdqN1U3ZVRSeW51WFFCU0tONGhCSGh1?=
- =?utf-8?B?ZXUySVk0dkVaMkQ3RWh5Z0J5K0FCSVNHNmpNeWlpcWROSXhGUHhjY0xRT1M2?=
- =?utf-8?B?T2tJeExYUDg2alNYNzVqNVVIRmJYTFZjL0ZXMDM0a0ZwUFFoWGY4U0p5MnpF?=
- =?utf-8?B?ZjIrWnJ0YlJ0akhOUXZLQ1lDRDF2dWZiY1ZLbUsxQm5PK0R3Y3dubWczczBj?=
- =?utf-8?B?RVV5LzRKSzVLZmlwYlpIQ1hFMjNuODRhOHhaSVptVUNRTHdHNEx3V1VkYXgx?=
- =?utf-8?B?YlU5NFZJWG5uaFVQSFFqTWYya0xtWjlBNCthK0Vub1kvdFA4S1lrTnRyaUNF?=
- =?utf-8?B?R1Z6ck9lUkpWRGtpVjFlMlByYVB1U1VoNUpLU1hJclZ4OTQxNGExUXk5NDUz?=
- =?utf-8?B?Rm55STM0cVpjV09UMFcyNk1IODdBWmt4YXZkTmg1R3hMZFBZMVRwbEQ5ODRN?=
- =?utf-8?B?SDJaaXl1dTBUcmlqQ0xUNDdxb0kxK1UrQnRKUTNSc1VIMlJHeTJFdDZ5Vzcr?=
- =?utf-8?B?TDJWVTB2cVRlRG4vR3BVbGhwUXNvZ0c0WEF2TCs3RUtVVnRwRjJ1TUlaUzkx?=
- =?utf-8?B?L2c0SzdTUmk4eHlRVTFkdytGYmd4Mm9PVzhRUnp0L0hYNHVEMEl2QURiamdi?=
- =?utf-8?Q?sxqfA7vQgFKxD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e79d9d10-a6c0-46c1-5b87-08d97cf5c1d5
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 11:48:41.2861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ikV7j5szssL9AeYKdKukYpv2SDkU6nTy8JLzcmwNUMUXLquMlxT+DVJTgZN7I/Q/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4440
-Subject: Re: [Intel-gfx] [PATCH v4 10/14] drm/i915/ttm: hide shmem objects
- from TTM LRU
+Received: from outlook.iglb.intel.com [163.33.184.135]
+ by jnikula-mobl3.ger.corp.intel.com with IMAP (fetchmail-6.4.0.beta4)
+ for <jani@localhost> (single-drop); Tue, 21 Sep 2021 14:27:00 +0300 (EEST)
+Received: from irsmsx603.ger.corp.intel.com (163.33.146.9) by
+ irsmsx605.ger.corp.intel.com (163.33.146.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12 via Mailbox Transport; Tue, 21 Sep 2021 12:26:18 +0100
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ irsmsx603.ger.corp.intel.com (163.33.146.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Tue, 21 Sep 2021 12:26:17 +0100
+Received: from orsmga008.jf.intel.com (10.7.209.65) by
+ orsmsx607.amr.corp.intel.com (10.22.229.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12 via Frontend Transport; Tue, 21 Sep 2021 04:26:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="484148609"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga008.jf.intel.com with ESMTP; 21 Sep 2021 04:26:14 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: <alsa-devel@alsa-project.org>, <tiwai@suse.de>, <jani.nikula@intel.com>,
+ Imre Deak <imre.deak@intel.com>, <dri-devel@lists.freedesktop.org>, "Russell
+ King" <rmk+kernel@arm.linux.org.uk>, <gregkh@linuxfoundation.org>
+CC: "Rafael J . Wysocki" <rafael@kernel.org>, <kai.vehmanen@linux.intel.com>, 
+ <intel-gfx@lists.freedesktop.org>
+Date: Tue, 21 Sep 2021 14:18:10 +0300
+Message-ID: <20210921111810.2766726-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
+Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Organization-Network-Message-Id: b45520f4-f2d2-4ff5-09df-08d97cf2a0e0
+X-MS-Exchange-Organization-AuthSource: ORSMSX607.amr.corp.intel.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+Content-Type: text/plain
+X-MS-Exchange-Organization-AVStamp-Enterprise: 1.0
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:00.8921095
+X-MS-Exchange-Processed-By-BccFoldering: 15.01.2242.012
+Subject: [Intel-gfx] [RFC PATCH] component: do not leave master devres group
+ open after bind
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,72 +92,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+Message-ID: <20210921111810.mefpmlxJpA95K61Hv0GvjHgpvzC9BL_JhOq7UC9IGN0@z>
 
-Am 21.09.21 um 13:01 schrieb Matthew Auld:
-> This is probably a NAK. But ideally we need to somehow prevent TTM from
-> seeing shmem objects when doing its LRU swap walk. Since these are
-> EXTERNAL they are ignored anyway, but keeping them in the LRU seems
-> pretty wasteful.  Trying to use bo_pin() for this is all kinds of nasty
-> since we need to be able to do the bo_unpin() from the unpopulate hook,
-> but since that can be called from the BO destroy path we will likely go
-> down in flames.
->
-> An alternative is to maybe just add EXTERNAL objects to some
-> bdev->external LRU in TTM, or just don't add them at all?
+In current code, the devres group for aggregate master is left open
+after call to component_master_add_*(). This leads to problems when the
+master does further managed allocations on its own. When any
+participating driver calls component_del(), this leads to immediate
+release of resources.
 
-Yeah, that goes into the same direction as why I want to push the LRU 
-into the resource for some time.
+This came up when investigating a page fault occurring with i915 DRM
+driver unbind with 5.15-rc1 kernel. The following sequence occurs:
 
-The problem is that the LRU is needed for multiple things. E.g. 
-swapping, GART management, resource constrains, IOMMU teardown etc..
+ i915_pci_remove()
+   -> intel_display_driver_unregister()
+     -> i915_audio_component_cleanup()
+       -> component_del()
+         -> component.c:take_down_master()
+           -> hdac_component_master_unbind() [via master->ops->unbind()]
+           -> devres_release_group(master->parent, NULL)
 
-So for now I think that everything should be on the LRU even if it isn't 
-valid to be there for some use case.
+With older kernels this has not caused issues, but with audio driver
+moving to use managed interfaces for more of its allocations, this no
+longer works. Devres log shows following to occur:
 
-Regards,
-Christian.
+component_master_add_with_match()
+[  126.886032] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000323ccdc5 devm_component_match_release (24 bytes)
+[  126.886045] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000865cdb29 grp< (0 bytes)
+[  126.886049] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 grp< (0 bytes)
 
->
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 17 +++++++++++++++++
->   1 file changed, 17 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> index 174aebe11264..b438ddb52764 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> @@ -800,6 +800,22 @@ static unsigned long i915_ttm_io_mem_pfn(struct ttm_buffer_object *bo,
->   	return ((base + sg_dma_address(sg)) >> PAGE_SHIFT) + ofs;
->   }
->   
-> +static void i915_ttm_del_from_lru_notify(struct ttm_buffer_object *bo)
-> +{
-> +	struct i915_ttm_tt *i915_tt =
-> +		container_of(bo->ttm, typeof(*i915_tt), ttm);
-> +
-> +	/* Idealy we need to prevent TTM from seeing shmem objects when doing
-> +	 * its LRU swap walk. Since these are EXTERNAL they are ignored anyway,
-> +	 * but keeping them in the LRU is pretty waseful. Trying to use bo_pin()
-> +	 * for this is very nasty since we need to be able to do the bo_unpin()
-> +	 * from the unpopulate hook, but since that can be called from the BO
-> +	 * destroy path we will go down in flames.
-> +	 */
-> +	if (bo->ttm && ttm_tt_is_populated(bo->ttm) && i915_tt->is_shmem)
-> +		list_del_init(&bo->lru);
-> +}
-> +
->   static struct ttm_device_funcs i915_ttm_bo_driver = {
->   	.ttm_tt_create = i915_ttm_tt_create,
->   	.ttm_tt_populate = i915_ttm_tt_populate,
-> @@ -810,6 +826,7 @@ static struct ttm_device_funcs i915_ttm_bo_driver = {
->   	.move = i915_ttm_move,
->   	.swap_notify = i915_ttm_swap_notify,
->   	.delete_mem_notify = i915_ttm_delete_mem_notify,
-> +	.del_from_lru_notify = i915_ttm_del_from_lru_notify,
->   	.io_mem_reserve = i915_ttm_io_mem_reserve,
->   	.io_mem_pfn = i915_ttm_io_mem_pfn,
->   };
+audio driver completes its PCI probe()
+[  126.892238] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 pcim_iomap_release (48 bytes)
+
+component_del() called() at DRM/i915 unbind()
+[  137.579422] i915 0000:00:02.0: DEVRES REL 00000000ef44c293 grp< (0 bytes)
+[  137.579445] snd_hda_intel 0000:00:1f.3: DEVRES REL 00000000865cdb29 grp< (0 bytes)
+[  137.579458] snd_hda_intel 0000:00:1f.3: DEVRES REL 000000001b480725 pcim_iomap_release (48 bytes)
+
+So the "devres_release_group(master->parent, NULL)" ends up freeing the
+pcim_iomap allocation. Upon next runtime resume, the audio driver will
+cause a page fault as the iomap alloc was released without the driver
+knowing about it.
+
+Fix this issue by using the "struct master" pointer as identifier for
+the devres group, and by closing the devres group after the master->ops->bind()
+call is done. This allows devres allocations done by the driver acting as
+master to be isolated from the binding state of the aggregate driver. This
+modifies the logic originally introduced in commit 9e1ccb4a7700
+("drivers/base: fix devres handling for master device").
+
+BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ drivers/base/component.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+Hi,
+I'm sending this as RFC as I'm not sure of the implications of
+not leaving the devres group open might have to other users
+of the component framework.
+
+For audio, the current behaviour seems very problematic. The display
+codec is usually just one of many audio codecs attached to the controller,
+and unbind of the display codec (and the aggregate driver created with
+DRM), should not bring down the whole audio card.
+
+However, now all allocations audio driver does after call to
+component_master_add_with_match(), will be freed when display
+driver calls component_del().
+
+Closing the devres group at end of component_master_add_*() would
+seem the cleanest option. Looking for feedback whether this approach
+is feasible. One alternative would be for the audio driver to
+close the "last opened" group after its call to component_master_add(),
+but this seems messy (audio would make assumptions on component.c
+internals).
+
+diff --git a/drivers/base/component.c b/drivers/base/component.c
+index 5e79299f6c3f..870485cbbb87 100644
+--- a/drivers/base/component.c
++++ b/drivers/base/component.c
+@@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
+ 		return 0;
+ 	}
+ 
+-	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
++	if (!devres_open_group(master->parent, master, GFP_KERNEL))
+ 		return -ENOMEM;
+ 
+ 	/* Found all components */
+@@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
+ 		return ret;
+ 	}
+ 
++	devres_close_group(master->parent, NULL);
+ 	master->bound = true;
+ 	return 1;
+ }
+@@ -282,7 +283,7 @@ static void take_down_master(struct master *master)
+ {
+ 	if (master->bound) {
+ 		master->ops->unbind(master->parent);
+-		devres_release_group(master->parent, NULL);
++		devres_release_group(master->parent, master);
+ 		master->bound = false;
+ 	}
+ }
+
+base-commit: 930e99a51fcc8b1254e0a45fbe0cd5a5b8a704a5
+-- 
+2.32.0
 
