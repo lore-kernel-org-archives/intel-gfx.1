@@ -2,51 +2,47 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A1F0C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DDB51C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF22360F3A
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EF22360F3A
+	by mail.kernel.org (Postfix) with ESMTPS id 9E4776115A
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:02:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E4776115A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2DE96E999;
-	Tue, 21 Sep 2021 11:02:21 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1CD6E95C;
- Tue, 21 Sep 2021 11:02:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="284344246"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="284344246"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 04:01:53 -0700
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="484141846"
-Received: from agallagh-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.17.108])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 04:01:51 -0700
-From: Matthew Auld <matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40FE66E94A;
+	Tue, 21 Sep 2021 11:02:55 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E3C6E94A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 11:02:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="202825356"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="202825356"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 04:02:52 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="549440537"
+Received: from unknown (HELO localhost) ([10.251.218.108])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 04:02:50 -0700
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Tue, 21 Sep 2021 12:01:20 +0100
-Message-Id: <20210921110121.3783395-13-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20210921110121.3783395-1-matthew.auld@intel.com>
-References: <20210921110121.3783395-1-matthew.auld@intel.com>
+Cc: jani.nikula@intel.com
+Date: Tue, 21 Sep 2021 14:02:44 +0300
+Message-Id: <20210921110244.8666-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 13/14] drm/i915/ttm: make evicted shmem pages
- visible to the shrinker
+Subject: [Intel-gfx] [PATCH] drm/i915/hdmi: convert intel_hdmi_to_dev to
+ intel_hdmi_to_i915
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,126 +58,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We currently just evict lmem objects to system memory when under memory
-pressure. For this case we lack the usual object mm.pages, which
-effectively hides the pages from the i915-gem shrinker, until we
-actually "attach" the TT to the object, or in the case of lmem-only
-objects it just gets migrated back to lmem when touched again. For such
-cases we can make the object visible as soon as we populate the TT with
-shmem pages, and then hide it again when doing the unpopulate.
+Prefer i915 over drm pointer.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.h   |  1 +
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c | 29 +++++++++++++++-----
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c      | 11 ++++++++
- 3 files changed, 34 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 561d6bd0a5c9..28b831c78c47 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -540,6 +540,7 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 1bc33766ed39..1e8a87f81e8e 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -53,21 +53,20 @@
+ #include "intel_panel.h"
+ #include "intel_snps_phy.h"
  
- void i915_gem_object_make_unshrinkable(struct drm_i915_gem_object *obj);
- void i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj);
-+void __i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj);
- void i915_gem_object_make_purgeable(struct drm_i915_gem_object *obj);
- 
- static inline bool cpu_write_needs_clflush(struct drm_i915_gem_object *obj)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index 4f5d49ada9e6..a69d7c207558 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -487,13 +487,12 @@ void i915_gem_object_make_unshrinkable(struct drm_i915_gem_object *obj)
- 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
- }
- 
--static void __i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj,
--					      struct list_head *head)
-+static void ___i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj,
-+					       struct list_head *head)
+-static struct drm_device *intel_hdmi_to_dev(struct intel_hdmi *intel_hdmi)
++static struct drm_i915_private *intel_hdmi_to_i915(struct intel_hdmi *intel_hdmi)
  {
- 	struct drm_i915_private *i915 = obj_to_i915(obj);
- 	unsigned long flags;
- 
--	GEM_BUG_ON(!i915_gem_object_has_pages(obj));
- 	if (!i915_gem_object_is_shrinkable(obj))
- 		return;
- 
-@@ -512,6 +511,21 @@ static void __i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj,
- 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
+-	return hdmi_to_dig_port(intel_hdmi)->base.base.dev;
++	return to_i915(hdmi_to_dig_port(intel_hdmi)->base.base.dev);
  }
  
-+/**
-+ * __i915_gem_object_make_shrinkable - Move the object to the tail of the
-+ * shrinkable list. Objects on this list might be swapped out. Used with
-+ * WILLNEED objects.
-+ * @obj: The GEM object.
-+ *
-+ * DO NOT USE. This is intended to be called on very special objects that don't
-+ * yet have mm.pages, but are guaranteed to have potentially reclaimable pages
-+ * underneath.
-+ */
-+void __i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj)
-+{
-+	___i915_gem_object_make_shrinkable(obj,
-+					   &obj_to_i915(obj)->mm.shrink_list);
-+}
- 
- /**
-  * i915_gem_object_make_shrinkable - Move the object to the tail of the
-@@ -523,8 +537,8 @@ static void __i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj,
-  */
- void i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj)
+ static void
+ assert_hdmi_port_disabled(struct intel_hdmi *intel_hdmi)
  {
--	__i915_gem_object_make_shrinkable(obj,
--					  &obj_to_i915(obj)->mm.shrink_list);
-+	GEM_BUG_ON(!i915_gem_object_has_pages(obj));
-+	__i915_gem_object_make_shrinkable(obj);
- }
+-	struct drm_device *dev = intel_hdmi_to_dev(intel_hdmi);
+-	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct drm_i915_private *dev_priv = intel_hdmi_to_i915(intel_hdmi);
+ 	u32 enabled_bits;
  
- /**
-@@ -538,6 +552,7 @@ void i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj)
-  */
- void i915_gem_object_make_purgeable(struct drm_i915_gem_object *obj)
+ 	enabled_bits = HAS_DDI(dev_priv) ? DDI_BUF_CTL_ENABLE : SDVO_ENABLE;
+ 
+-	drm_WARN(dev,
++	drm_WARN(&dev_priv->drm,
+ 		 intel_de_read(dev_priv, intel_hdmi->hdmi_reg) & enabled_bits,
+ 		 "HDMI port enabled, expecting disabled\n");
+ }
+@@ -1246,7 +1245,7 @@ static void hsw_set_infoframes(struct intel_encoder *encoder,
+ 
+ void intel_dp_dual_mode_set_tmds_output(struct intel_hdmi *hdmi, bool enable)
  {
--	__i915_gem_object_make_shrinkable(obj,
--					  &obj_to_i915(obj)->mm.purge_list);
-+	GEM_BUG_ON(!i915_gem_object_has_pages(obj));
-+	___i915_gem_object_make_shrinkable(obj,
-+					   &obj_to_i915(obj)->mm.purge_list);
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index f4f7010e1c15..f68481b852ff 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -233,6 +233,15 @@ static int i915_ttm_tt_shmem_populate(struct ttm_device *bdev,
- 	if (ttm->page_flags & TTM_TT_FLAG_SWAPPED)
- 		ttm->page_flags &= ~TTM_TT_FLAG_SWAPPED;
+-	struct drm_i915_private *dev_priv = to_i915(intel_hdmi_to_dev(hdmi));
++	struct drm_i915_private *dev_priv = intel_hdmi_to_i915(hdmi);
+ 	struct i2c_adapter *adapter =
+ 		intel_gmbus_get_adapter(dev_priv, hdmi->ddc_bus);
  
-+	/*
-+	 * Even if we lack mm.pages for this object(which will be the case when
-+	 * something is evicted to system memory by TTM), we still want to make
-+	 * this object visible to the shrinker, since the underlying ttm_tt
-+	 * still has the real shmem pages. When unpopulating the tt(possibly due
-+	 * to shrinking) we hide it again from the shrinker.
-+	 */
-+	__i915_gem_object_make_shrinkable(obj);
-+
- 	i915_tt->cached_st = st;
- 	return 0;
+@@ -1830,7 +1829,7 @@ hdmi_port_clock_valid(struct intel_hdmi *hdmi,
+ 		      int clock, bool respect_downstream_limits,
+ 		      bool has_hdmi_sink)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(intel_hdmi_to_dev(hdmi));
++	struct drm_i915_private *dev_priv = intel_hdmi_to_i915(hdmi);
  
-@@ -247,6 +256,8 @@ static void i915_ttm_tt_shmem_unpopulate(struct ttm_tt *ttm)
- 	struct drm_i915_gem_object *obj = i915_tt->obj;
- 	bool backup = i915_tt->do_backup;
- 
-+	i915_gem_object_make_unshrinkable(obj);
-+
- 	if (obj->mm.madv == I915_MADV_DONTNEED) {
- 		obj->mm.dirty = false;
- 		GEM_BUG_ON(backup);
+ 	if (clock < 25000)
+ 		return MODE_CLOCK_LOW;
+@@ -1946,8 +1945,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
+ 		      struct drm_display_mode *mode)
+ {
+ 	struct intel_hdmi *hdmi = intel_attached_hdmi(to_intel_connector(connector));
+-	struct drm_device *dev = intel_hdmi_to_dev(hdmi);
+-	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct drm_i915_private *dev_priv = intel_hdmi_to_i915(hdmi);
+ 	enum drm_mode_status status;
+ 	int clock = mode->clock;
+ 	int max_dotclk = to_i915(connector->dev)->max_dotclk_freq;
 -- 
-2.26.3
+2.30.2
 
