@@ -2,45 +2,49 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72376C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D9F2C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:51:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3B65961178
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:48:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B65961178
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 076E660EDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:51:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 076E660EDF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818256E9FA;
-	Tue, 21 Sep 2021 17:48:35 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4631F6E9F5;
- Tue, 21 Sep 2021 17:48:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220236384"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220236384"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 10:48:33 -0700
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="484265889"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 10:48:33 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Tue, 21 Sep 2021 10:43:32 -0700
-Message-Id: <20210921174332.30784-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF066E9F5;
+	Tue, 21 Sep 2021 17:51:33 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36D226E9F5;
+ Tue, 21 Sep 2021 17:51:32 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="210509798"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="210509798"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 10:51:31 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="512413667"
+Received: from rogerc2x-mobl.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.52])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 10:51:29 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Tue, 21 Sep 2021 19:51:04 +0200
+Message-Id: <20210921175111.850331-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: fix blank screen booting crashes
+Subject: [Intel-gfx] [PATCH v5 0/7] drm/i915: Suspend / resume backup- and
+ restore of LMEM.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,102 +60,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Hugh Dickins <hughd@google.com>
+Implement backup and restore of LMEM during suspend / resume.
+What complicates things a bit is handling of pinned LMEM memory during
+suspend and the fact that we might be dealing with unmappable LMEM in
+the future, which makes us want to restrict the number of pinned objects that
+need memcpy resume.
 
-5.15-rc1 crashes with blank screen when booting up on two ThinkPads
-using i915.  Bisections converge convincingly, but arrive at different
-and surprising "culprits", none of them the actual culprit.
-
-netconsole (with init_netconsole() hacked to call i915_init() when
-logging has started, instead of by module_init()) tells the story:
-
-kernel BUG at drivers/gpu/drm/i915/i915_sw_fence.c:245!
-with RSI: ffffffff814d408b pointing to sw_fence_dummy_notify().
-I've been building with CONFIG_CC_OPTIMIZE_FOR_SIZE=y, and that
-function needs to be 4-byte aligned.
+The first two patches are prereq patches implementing object content copy
+and a generic means of iterating through all objects in a region.
+The third patch adds the backup / recover / restore functions and the
+two last patches deal with restricting the number of objects we need to
+use memcpy for.
 
 v2:
- (Jani Nikula)
-  - Change BUG_ON to WARN_ON
+- Some polishing of patch 4/6, see patch commit message for details (Chris
+  Wilson)
+- Rework of patch 3/6.
+
 v3:
- (Jani / Tvrtko)
-  - Short circuit __i915_sw_fence_init on WARN_ON
+- Comment changes in patch 2/6 (Matthew Auld)
+- A number of changes to patch 3/6, see commit message.
+- Slightly reword comment in patch 5/6. (Matthew Auld).
 
-Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
-Signed-off-by: Hugh Dickins <hughd@google.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_context.c |  4 ++--
- drivers/gpu/drm/i915/i915_sw_fence.c    | 17 ++++++++++-------
- 2 files changed, 12 insertions(+), 9 deletions(-)
+v4:
+- Various cleanups, among other things reworking the ttm / lmem backup-
+  and resume interfaces somewhat.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index ff637147b1a9..e7f78bc7ebfc 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -362,8 +362,8 @@ static int __intel_context_active(struct i915_active *active)
- 	return 0;
- }
- 
--static int sw_fence_dummy_notify(struct i915_sw_fence *sf,
--				 enum i915_sw_fence_notify state)
-+static int __i915_sw_fence_call
-+sw_fence_dummy_notify(struct i915_sw_fence *sf, enum i915_sw_fence_notify state)
- {
- 	return NOTIFY_DONE;
- }
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index c589a681da77..08cea73264e7 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -13,9 +13,9 @@
- #include "i915_selftest.h"
- 
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG)
--#define I915_SW_FENCE_BUG_ON(expr) BUG_ON(expr)
-+#define I915_SW_FENCE_WARN_ON(expr) WARN_ON(expr)
- #else
--#define I915_SW_FENCE_BUG_ON(expr) BUILD_BUG_ON_INVALID(expr)
-+#define I915_SW_FENCE_WARN_ON(expr) BUILD_BUG_ON_INVALID(expr)
- #endif
- 
- static DEFINE_SPINLOCK(i915_sw_fence_lock);
-@@ -129,7 +129,10 @@ static int __i915_sw_fence_notify(struct i915_sw_fence *fence,
- 	i915_sw_fence_notify_t fn;
- 
- 	fn = (i915_sw_fence_notify_t)(fence->flags & I915_SW_FENCE_MASK);
--	return fn(fence, state);
-+	if (likely(fn))
-+		return fn(fence, state);
-+	else
-+		return 0;
- }
- 
- #ifdef CONFIG_DRM_I915_SW_FENCE_DEBUG_OBJECTS
-@@ -242,9 +245,9 @@ void __i915_sw_fence_init(struct i915_sw_fence *fence,
- 			  const char *name,
- 			  struct lock_class_key *key)
- {
--	BUG_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK);
--
- 	__init_waitqueue_head(&fence->wait, name, key);
-+	if (WARN_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK))
-+		return;
- 	fence->flags = (unsigned long)fn;
- 
- 	i915_sw_fence_reinit(fence);
-@@ -257,8 +260,8 @@ void i915_sw_fence_reinit(struct i915_sw_fence *fence)
- 	atomic_set(&fence->pending, 1);
- 	fence->error = 0;
- 
--	I915_SW_FENCE_BUG_ON(!fence->flags);
--	I915_SW_FENCE_BUG_ON(!list_empty(&fence->wait.head));
-+	I915_SW_FENCE_WARN_ON(!fence->flags);
-+	I915_SW_FENCE_WARN_ON(!list_empty(&fence->wait.head));
- }
- 
- void i915_sw_fence_commit(struct i915_sw_fence *fence)
+v5:
+- GuC adaptations. Mark GuC LMEM objects for early resume and increase
+  the suspend idle timeout.
+
+Thomas Hellström (7):
+  drm/i915/ttm: Implement a function to copy the contents of two
+    TTM-based objects
+  drm/i915/gem: Implement a function to process all gem objects of a
+    region
+  drm/i915/gt: Increase suspend timeout
+  drm/i915 Implement LMEM backup and restore for suspend / resume
+  drm/i915/gt: Register the migrate contexts with their engines
+  drm/i915: Don't back up pinned LMEM context images and rings during
+    suspend
+  drm/i915: Reduce the number of objects subject to memcpy recover
+
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |   4 +-
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  21 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c        |  91 ++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_pm.h        |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_region.c    |  70 ++++++
+ drivers/gpu/drm/i915/gem/i915_gem_region.h    |  37 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  99 +++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.h       |  14 ++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c    | 206 ++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.h    |  26 +++
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |   2 +-
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c          |   2 +-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          |   5 +-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.h          |   4 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   8 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   4 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     |  23 ++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     |   2 +
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |   7 +
+ .../drm/i915/gt/intel_execlists_submission.c  |   2 +
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |   3 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            |   2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   8 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |   3 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |   9 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |   3 +-
+ drivers/gpu/drm/i915/gt/intel_migrate.c       |   2 +-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  13 +-
+ drivers/gpu/drm/i915/gt/intel_ring.c          |   3 +-
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |   3 +
+ drivers/gpu/drm/i915/gt/mock_engine.c         |   2 +
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |   2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   3 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  12 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |   7 +-
+ drivers/gpu/drm/i915/gvt/scheduler.c          |   2 +-
+ drivers/gpu/drm/i915/i915_drv.c               |   4 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |   4 +-
+ 39 files changed, 654 insertions(+), 60 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+ create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.h
+
 -- 
-2.32.0
+2.31.1
 
