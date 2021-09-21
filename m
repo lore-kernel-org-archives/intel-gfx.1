@@ -7,46 +7,47 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F612C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8670C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60AD860F6B
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:51:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 60AD860F6B
+	by mail.kernel.org (Postfix) with ESMTPS id 7B77A61038
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:52:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7B77A61038
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FEFD6EA0D;
-	Tue, 21 Sep 2021 17:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4106EA1E;
+	Tue, 21 Sep 2021 17:51:47 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4F0B6EA0B;
- Tue, 21 Sep 2021 17:51:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="210509818"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="210509818"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2C8D6EA16;
+ Tue, 21 Sep 2021 17:51:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="210509849"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="210509849"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 10:51:36 -0700
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="512413695"
+ 21 Sep 2021 10:51:42 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="512413770"
 Received: from rogerc2x-mobl.ger.corp.intel.com (HELO
  thellstr-mobl1.intel.com) ([10.249.254.52])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 10:51:34 -0700
+ 21 Sep 2021 10:51:40 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Tue, 21 Sep 2021 19:51:07 +0200
-Message-Id: <20210921175111.850331-4-thomas.hellstrom@linux.intel.com>
+Date: Tue, 21 Sep 2021 19:51:10 +0200
+Message-Id: <20210921175111.850331-7-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210921175111.850331-1-thomas.hellstrom@linux.intel.com>
 References: <20210921175111.850331-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 3/7] drm/i915/gt: Increase suspend timeout
+Subject: [Intel-gfx] [PATCH v5 6/7] drm/i915: Don't back up pinned LMEM
+ context images and rings during suspend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +63,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With GuC submission on DG1, the execution of the requests times out
-for the gem_exec_suspend igt test case after executing around 800-900
-of 1000 submitted requests.
+Pinned context images are now reset during resume. Don't back them up,
+and assuming that rings can be assumed empty at suspend, don't back them
+up either.
 
-Given the time we allow elsewhere for fences to signal (in the order of
-seconds), increase the timeout before we mark the gt wedged and proceed.
+Introduce a new object flag, I915_BO_ALLOC_PM_VOLATILE meaning that an
+object is allowed to lose its content on suspend.
+
+v3:
+- Slight documentation clarification (Matthew Auld)
 
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_pm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../gpu/drm/i915/gem/i915_gem_object_types.h    | 17 ++++++++++-------
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c      |  3 +++
+ drivers/gpu/drm/i915/gt/intel_lrc.c             |  3 ++-
+ drivers/gpu/drm/i915/gt/intel_ring.c            |  3 ++-
+ 4 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index dea8e2479897..f84f2bfe2de0 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -19,6 +19,8 @@
- #include "intel_rps.h"
- #include "intel_wakeref.h"
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 734cc8e16481..118691ce81d7 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -288,16 +288,19 @@ struct drm_i915_gem_object {
+ 	I915_SELFTEST_DECLARE(struct list_head st_link);
  
-+#define I915_GT_SUSPEND_IDLE_TIMEOUT (HZ / 2)
+ 	unsigned long flags;
+-#define I915_BO_ALLOC_CONTIGUOUS BIT(0)
+-#define I915_BO_ALLOC_VOLATILE   BIT(1)
+-#define I915_BO_ALLOC_CPU_CLEAR  BIT(2)
+-#define I915_BO_ALLOC_USER       BIT(3)
++#define I915_BO_ALLOC_CONTIGUOUS  BIT(0)
++#define I915_BO_ALLOC_VOLATILE    BIT(1)
++#define I915_BO_ALLOC_CPU_CLEAR   BIT(2)
++#define I915_BO_ALLOC_USER        BIT(3)
++/* Object is allowed to lose its contents on suspend / resume, even if pinned */
++#define I915_BO_ALLOC_PM_VOLATILE BIT(4)
+ #define I915_BO_ALLOC_FLAGS (I915_BO_ALLOC_CONTIGUOUS | \
+ 			     I915_BO_ALLOC_VOLATILE | \
+ 			     I915_BO_ALLOC_CPU_CLEAR | \
+-			     I915_BO_ALLOC_USER)
+-#define I915_BO_READONLY         BIT(4)
+-#define I915_TILING_QUIRK_BIT    5 /* unknown swizzling; do not release! */
++			     I915_BO_ALLOC_USER | \
++			     I915_BO_ALLOC_PM_VOLATILE)
++#define I915_BO_READONLY          BIT(5)
++#define I915_TILING_QUIRK_BIT     6 /* unknown swizzling; do not release! */
+ 
+ 	/**
+ 	 * @mem_flags - Mutable placement-related flags
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+index cb1c46724f70..03a00d193f40 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+@@ -60,6 +60,9 @@ static int i915_ttm_backup(struct i915_gem_apply_to_region *apply,
+ 	if (!pm_apply->backup_pinned)
+ 		return 0;
+ 
++	if (obj->flags & I915_BO_ALLOC_PM_VOLATILE)
++		return 0;
 +
- static void user_forcewake(struct intel_gt *gt, bool suspend)
- {
- 	int count = atomic_read(&gt->user_wakeref);
-@@ -279,7 +281,7 @@ static void wait_for_suspend(struct intel_gt *gt)
- 	if (!intel_gt_pm_is_awake(gt))
- 		return;
+ 	backup = i915_gem_object_create_shmem(i915, obj->base.size);
+ 	if (IS_ERR(backup))
+ 		return PTR_ERR(backup);
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 6ba8daea2f56..3ef9eaf8c50e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -942,7 +942,8 @@ __lrc_alloc_state(struct intel_context *ce, struct intel_engine_cs *engine)
+ 		context_size += PAGE_SIZE;
+ 	}
  
--	if (intel_gt_wait_for_idle(gt, I915_GEM_IDLE_TIMEOUT) == -ETIME) {
-+	if (intel_gt_wait_for_idle(gt, I915_GT_SUSPEND_IDLE_TIMEOUT) == -ETIME) {
- 		/*
- 		 * Forcibly cancel outstanding work and leave
- 		 * the gpu quiet.
+-	obj = i915_gem_object_create_lmem(engine->i915, context_size, 0);
++	obj = i915_gem_object_create_lmem(engine->i915, context_size,
++					  I915_BO_ALLOC_PM_VOLATILE);
+ 	if (IS_ERR(obj))
+ 		obj = i915_gem_object_create_shmem(engine->i915, context_size);
+ 	if (IS_ERR(obj))
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c b/drivers/gpu/drm/i915/gt/intel_ring.c
+index 7c4d5158e03b..2fdd52b62092 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+@@ -112,7 +112,8 @@ static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
+ 	struct drm_i915_gem_object *obj;
+ 	struct i915_vma *vma;
+ 
+-	obj = i915_gem_object_create_lmem(i915, size, I915_BO_ALLOC_VOLATILE);
++	obj = i915_gem_object_create_lmem(i915, size, I915_BO_ALLOC_VOLATILE |
++					  I915_BO_ALLOC_PM_VOLATILE);
+ 	if (IS_ERR(obj) && i915_ggtt_has_aperture(ggtt))
+ 		obj = i915_gem_object_create_stolen(i915, size);
+ 	if (IS_ERR(obj))
 -- 
 2.31.1
 
