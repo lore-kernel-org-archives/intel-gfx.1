@@ -2,49 +2,50 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A3EAC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 23:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1481FC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 23:29:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 077A861168
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 23:00:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 077A861168
+	by mail.kernel.org (Postfix) with ESMTPS id D533D611CE
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 23:29:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D533D611CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 671606E8B3;
-	Tue, 21 Sep 2021 23:00:12 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8E66E8B3;
- Tue, 21 Sep 2021 23:00:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="245914794"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="245914794"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 16:00:10 -0700
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="613181479"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 16:00:10 -0700
-Date: Tue, 21 Sep 2021 15:55:15 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2366E943;
+	Tue, 21 Sep 2021 23:29:34 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E1A6E91B;
+ Tue, 21 Sep 2021 23:29:32 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220287594"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220287594"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 16:29:31 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="533492534"
+Received: from ewarnerx-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.209.115.97])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 16:29:31 -0700
+Date: Tue, 21 Sep 2021 16:29:31 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-ID: <20210921225514.GA8109@jons-linux-dev-box>
+Message-ID: <20210921232931.5j4h4l7tmfp7mjzj@ldmartin-desk2>
+X-Patchwork-Hint: comment
 References: <20210921174332.30784-1-matthew.brost@intel.com>
  <20210921184637.ullcwswqd6z5hi4j@ldmartin-desk2>
+ <20210921225514.GA8109@jons-linux-dev-box>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20210921184637.ullcwswqd6z5hi4j@ldmartin-desk2>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20210921225514.GA8109@jons-linux-dev-box>
 Subject: Re: [Intel-gfx] [PATCH] drm/i915: fix blank screen booting crashes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,148 +62,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 21, 2021 at 11:46:37AM -0700, Lucas De Marchi wrote:
-> On Tue, Sep 21, 2021 at 10:43:32AM -0700, Matthew Brost wrote:
-> > From: Hugh Dickins <hughd@google.com>
-> > 
-> > 5.15-rc1 crashes with blank screen when booting up on two ThinkPads
-> > using i915.  Bisections converge convincingly, but arrive at different
-> > and surprising "culprits", none of them the actual culprit.
-> > 
-> > netconsole (with init_netconsole() hacked to call i915_init() when
-> > logging has started, instead of by module_init()) tells the story:
-> > 
-> > kernel BUG at drivers/gpu/drm/i915/i915_sw_fence.c:245!
-> > with RSI: ffffffff814d408b pointing to sw_fence_dummy_notify().
-> > I've been building with CONFIG_CC_OPTIMIZE_FOR_SIZE=y, and that
-> > function needs to be 4-byte aligned.
-> > 
-> > v2:
-> > (Jani Nikula)
-> >  - Change BUG_ON to WARN_ON
-> > v3:
-> > (Jani / Tvrtko)
-> >  - Short circuit __i915_sw_fence_init on WARN_ON
-> > 
-> > Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
-> > Signed-off-by: Hugh Dickins <hughd@google.com>
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> > drivers/gpu/drm/i915/gt/intel_context.c |  4 ++--
-> > drivers/gpu/drm/i915/i915_sw_fence.c    | 17 ++++++++++-------
-> > 2 files changed, 12 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-> > index ff637147b1a9..e7f78bc7ebfc 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_context.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-> > @@ -362,8 +362,8 @@ static int __intel_context_active(struct i915_active *active)
-> > 	return 0;
-> > }
-> > 
-> 
-> > -static int sw_fence_dummy_notify(struct i915_sw_fence *sf,
-> > -				 enum i915_sw_fence_notify state)
-> > +static int __i915_sw_fence_call
-> > +sw_fence_dummy_notify(struct i915_sw_fence *sf, enum i915_sw_fence_notify state)
-> > {
-> > 	return NOTIFY_DONE;
-> > }
-> > diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-> > index c589a681da77..08cea73264e7 100644
-> > --- a/drivers/gpu/drm/i915/i915_sw_fence.c
-> > +++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-> > @@ -13,9 +13,9 @@
-> > #include "i915_selftest.h"
-> > 
-> > #if IS_ENABLED(CONFIG_DRM_I915_DEBUG)
-> > -#define I915_SW_FENCE_BUG_ON(expr) BUG_ON(expr)
-> > +#define I915_SW_FENCE_WARN_ON(expr) WARN_ON(expr)
-> > #else
-> > -#define I915_SW_FENCE_BUG_ON(expr) BUILD_BUG_ON_INVALID(expr)
-> > +#define I915_SW_FENCE_WARN_ON(expr) BUILD_BUG_ON_INVALID(expr)
-> > #endif
-> > 
-> > static DEFINE_SPINLOCK(i915_sw_fence_lock);
-> > @@ -129,7 +129,10 @@ static int __i915_sw_fence_notify(struct i915_sw_fence *fence,
-> > 	i915_sw_fence_notify_t fn;
-> > 
-> > 	fn = (i915_sw_fence_notify_t)(fence->flags & I915_SW_FENCE_MASK);
-> > -	return fn(fence, state);
-> > +	if (likely(fn))
-> > +		return fn(fence, state);
-> > +	else
-> > +		return 0;
-> 
-> since the knowledge for these being NULL (or with the wrong alignment)
-> are in the init/reinit functions,  wouldn't it be better to just add a
-> fence_nop() and assign it there instead this likely() here?
-> 
+On Tue, Sep 21, 2021 at 03:55:15PM -0700, Matthew Brost wrote:
+>On Tue, Sep 21, 2021 at 11:46:37AM -0700, Lucas De Marchi wrote:
+>> On Tue, Sep 21, 2021 at 10:43:32AM -0700, Matthew Brost wrote:
+>> > From: Hugh Dickins <hughd@google.com>
+>> >
+>> > 5.15-rc1 crashes with blank screen when booting up on two ThinkPads
+>> > using i915.  Bisections converge convincingly, but arrive at different
+>> > and surprising "culprits", none of them the actual culprit.
+>> >
+>> > netconsole (with init_netconsole() hacked to call i915_init() when
+>> > logging has started, instead of by module_init()) tells the story:
+>> >
+>> > kernel BUG at drivers/gpu/drm/i915/i915_sw_fence.c:245!
+>> > with RSI: ffffffff814d408b pointing to sw_fence_dummy_notify().
+>> > I've been building with CONFIG_CC_OPTIMIZE_FOR_SIZE=y, and that
+>> > function needs to be 4-byte aligned.
+>> >
+>> > v2:
+>> > (Jani Nikula)
+>> >  - Change BUG_ON to WARN_ON
+>> > v3:
+>> > (Jani / Tvrtko)
+>> >  - Short circuit __i915_sw_fence_init on WARN_ON
+>> >
+>> > Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
+>> > Signed-off-by: Hugh Dickins <hughd@google.com>
+>> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+>> > ---
+>> > drivers/gpu/drm/i915/gt/intel_context.c |  4 ++--
+>> > drivers/gpu/drm/i915/i915_sw_fence.c    | 17 ++++++++++-------
+>> > 2 files changed, 12 insertions(+), 9 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+>> > index ff637147b1a9..e7f78bc7ebfc 100644
+>> > --- a/drivers/gpu/drm/i915/gt/intel_context.c
+>> > +++ b/drivers/gpu/drm/i915/gt/intel_context.c
+>> > @@ -362,8 +362,8 @@ static int __intel_context_active(struct i915_active *active)
+>> > 	return 0;
+>> > }
+>> >
+>>
+>> > -static int sw_fence_dummy_notify(struct i915_sw_fence *sf,
+>> > -				 enum i915_sw_fence_notify state)
+>> > +static int __i915_sw_fence_call
+>> > +sw_fence_dummy_notify(struct i915_sw_fence *sf, enum i915_sw_fence_notify state)
+>> > {
+>> > 	return NOTIFY_DONE;
+>> > }
+>> > diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+>> > index c589a681da77..08cea73264e7 100644
+>> > --- a/drivers/gpu/drm/i915/i915_sw_fence.c
+>> > +++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+>> > @@ -13,9 +13,9 @@
+>> > #include "i915_selftest.h"
+>> >
+>> > #if IS_ENABLED(CONFIG_DRM_I915_DEBUG)
+>> > -#define I915_SW_FENCE_BUG_ON(expr) BUG_ON(expr)
+>> > +#define I915_SW_FENCE_WARN_ON(expr) WARN_ON(expr)
+>> > #else
+>> > -#define I915_SW_FENCE_BUG_ON(expr) BUILD_BUG_ON_INVALID(expr)
+>> > +#define I915_SW_FENCE_WARN_ON(expr) BUILD_BUG_ON_INVALID(expr)
+>> > #endif
+>> >
+>> > static DEFINE_SPINLOCK(i915_sw_fence_lock);
+>> > @@ -129,7 +129,10 @@ static int __i915_sw_fence_notify(struct i915_sw_fence *fence,
+>> > 	i915_sw_fence_notify_t fn;
+>> >
+>> > 	fn = (i915_sw_fence_notify_t)(fence->flags & I915_SW_FENCE_MASK);
+>> > -	return fn(fence, state);
+>> > +	if (likely(fn))
+>> > +		return fn(fence, state);
+>> > +	else
+>> > +		return 0;
+>>
+>> since the knowledge for these being NULL (or with the wrong alignment)
+>> are in the init/reinit functions,  wouldn't it be better to just add a
+>> fence_nop() and assign it there instead this likely() here?
+>>
+>
+>Maybe? I prefer the way it is.
+>
+>> > }
+>> >
+>> > #ifdef CONFIG_DRM_I915_SW_FENCE_DEBUG_OBJECTS
+>> > @@ -242,9 +245,9 @@ void __i915_sw_fence_init(struct i915_sw_fence *fence,
+>> > 			  const char *name,
+>> > 			  struct lock_class_key *key)
+>> > {
+>> > -	BUG_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK);
+>> > -
+>> > 	__init_waitqueue_head(&fence->wait, name, key);
+>> > +	if (WARN_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK))
+>> > +		return;
+>>
+>> like:
+>> 	if (WARN_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK))
+>> 		fence->flags = (unsigned long)sw_fence_dummy_notify;
+>> 	else
+>> 		fence->flags = (unsigned long)fn;
+>>
+>>
+>> f you return here instead of calling i915_sw_fence_reinit(), aren't you
+>> just going to use uninitialized memory later? At least in the selftests,
+>> which allocate it with kmalloc()... I didn't check others.
+>>
+>
+>I don't think so, maybe the fence won't work but it won't blow up
+>either.
+>
+>>
+>> For the bug fix we could just add the __aligned(4) and leave the rest to a
+>> separate patch.
+>>
+>
+>The bug was sw_fence_dummy_notify in gt/intel_context.c was not 4 byte
+>align which triggered a BUG_ON during boot which blank screened a
+>laptop. Jani / Tvrtko suggested that we make the BUG_ON to WARN_ONs so
+>if someone makes this mistake in the future kernel should boot albiet
+>with a WARNING.
 
-Maybe? I prefer the way it is.
+yes, I understood. But afaics with WARN_ON you are allowing it to
+continue and may be using uninitialized memory later, just causing other
+problems down the line, which may be equally difficult to debug.
 
-> > }
-> > 
-> > #ifdef CONFIG_DRM_I915_SW_FENCE_DEBUG_OBJECTS
-> > @@ -242,9 +245,9 @@ void __i915_sw_fence_init(struct i915_sw_fence *fence,
-> > 			  const char *name,
-> > 			  struct lock_class_key *key)
-> > {
-> > -	BUG_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK);
-> > -
-> > 	__init_waitqueue_head(&fence->wait, name, key);
-> > +	if (WARN_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK))
-> > +		return;
-> 
-> like:
-> 	if (WARN_ON(!fn || (unsigned long)fn & ~I915_SW_FENCE_MASK))
-> 		fence->flags = (unsigned long)sw_fence_dummy_notify;
-> 	else
-> 		fence->flags = (unsigned long)fn;
-> 
-> 
-> f you return here instead of calling i915_sw_fence_reinit(), aren't you
-> just going to use uninitialized memory later? At least in the selftests,
-> which allocate it with kmalloc()... I didn't check others.
-> 
+what I suggested is that there is the easy fix to apply to the current
+rcX kernel, adding __aligned(4) to sw_fence_dummy_notify() (patch 1).
+And there is the additional protection being added here (patch 2) which
+is subject to the debate.
 
-I don't think so, maybe the fence won't work but it won't blow up
-either.
+>
+>The long term fix is just pull out the I915_SW_FENCE_MASK (stealing bits
+>from a poitner) and we don't have to worry any of this.
 
-> 
-> For the bug fix we could just add the __aligned(4) and leave the rest to a
-> separate patch.
-> 
+Patch 2 may not even be needed if you're going that route. But we are
+not only protecting against unaligned, but also from code calling
+i915_sw_fence_init() with a NULL fn. 
 
-The bug was sw_fence_dummy_notify in gt/intel_context.c was not 4 byte
-align which triggered a BUG_ON during boot which blank screened a
-laptop. Jani / Tvrtko suggested that we make the BUG_ON to WARN_ONs so
-if someone makes this mistake in the future kernel should boot albiet
-with a WARNING.
+Lucas De Marchi
 
-The long term fix is just pull out the I915_SW_FENCE_MASK (stealing bits
-from a poitner) and we don't have to worry any of this.
-
-Matt
-
-> 
-> Lucas De Marchi
-> 
-> > 	fence->flags = (unsigned long)fn;
-> > 
-> > 	i915_sw_fence_reinit(fence);
-> > @@ -257,8 +260,8 @@ void i915_sw_fence_reinit(struct i915_sw_fence *fence)
-> > 	atomic_set(&fence->pending, 1);
-> > 	fence->error = 0;
-> > 
-> > -	I915_SW_FENCE_BUG_ON(!fence->flags);
-> > -	I915_SW_FENCE_BUG_ON(!list_empty(&fence->wait.head));
-> > +	I915_SW_FENCE_WARN_ON(!fence->flags);
-> > +	I915_SW_FENCE_WARN_ON(!list_empty(&fence->wait.head));
-> > }
-> > 
-> > void i915_sw_fence_commit(struct i915_sw_fence *fence)
-> > -- 
-> > 2.32.0
-> > 
+>
+>Matt
+>
+>>
+>> Lucas De Marchi
+>>
+>> > 	fence->flags = (unsigned long)fn;
+>> >
+>> > 	i915_sw_fence_reinit(fence);
+>> > @@ -257,8 +260,8 @@ void i915_sw_fence_reinit(struct i915_sw_fence *fence)
+>> > 	atomic_set(&fence->pending, 1);
+>> > 	fence->error = 0;
+>> >
+>> > -	I915_SW_FENCE_BUG_ON(!fence->flags);
+>> > -	I915_SW_FENCE_BUG_ON(!list_empty(&fence->wait.head));
+>> > +	I915_SW_FENCE_WARN_ON(!fence->flags);
+>> > +	I915_SW_FENCE_WARN_ON(!list_empty(&fence->wait.head));
+>> > }
+>> >
+>> > void i915_sw_fence_commit(struct i915_sw_fence *fence)
+>> > --
+>> > 2.32.0
+>> >
