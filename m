@@ -2,81 +2,58 @@ Return-Path: <SRS0=at8c=OM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.5 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5296BC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 718F9C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22E3561100
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22E3561100
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 40BC161100
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40BC161100
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A769B6EBA0;
-	Wed, 22 Sep 2021 12:45:00 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D526EB27;
- Wed, 22 Sep 2021 09:11:04 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id t8so4781514wri.1;
- Wed, 22 Sep 2021 02:11:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=QNte/ZxHyZbzH1TCe5eQqnVIdZH6R4S8//YNPJMBVTc=;
- b=Z7r0BHBb473Aw7EwDwvEQngSxDBhifuHEtikWVS1sp3F5PH3aho2z4JFwIKzC47F0I
- VvIMxADlwdyoDZ+tbusNCy9pJhCkdUj2GXxb41/Ice0WJ8/LU/25Gscc+/P3HZQN/5Vd
- REHPj3N68K2ygL/4wvzrFZTgWz8DXvN4r6u7RYgxN13cjYULjzEQZxfvT28sz0V9Yz12
- KG7r2GXM3yQetzsZoc5ktCtCN8u097ajH8HICBG55Trb3Xm/yxvbj2RXlMODwtkj2LX4
- yxm0I1tdPZ6fOT3IcbJfqB7UL5qp3RgoYit36Cwa3BkEJC28yWvPMhc/zwJueF/I89Hw
- zGwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=QNte/ZxHyZbzH1TCe5eQqnVIdZH6R4S8//YNPJMBVTc=;
- b=BdKn6IVQw3pWkzArDbTOLw4FNJa5kQpAI/fKK082j6uodj/lvFnYs9YDcAV6qyDE1B
- XDNO4Hq5h+kI82mEkEf8RhBcGNjyVjVsKNXtQfpenDixgveRHd4atG1rV6W9sWGK9JKk
- RY3HcxsQxs0hJ8mSFsHp+tBWzpOWX2gretkLxjgif2MMcy+2wMpZvynUDghs97rK0Fp9
- iaWvM3UTFMchTzijQY/522qh4jq2UudDTIXX0dTeQ+texonzuhNsO+U70Fy9I7/JgNGs
- pcS+if4fVpyZII3rLQoEfE1MIloUEMkWYX+YOr9HBXHd1jSUsAhylLD420LEDaKVBxrU
- B9DQ==
-X-Gm-Message-State: AOAM531Erv5KrsDDJBv4wh8eKJtSK38jIm2ZfmuOTtfycaTN3E9gw+kx
- kf2+b4d0v7PsnJLu/3U+0Wo=
-X-Google-Smtp-Source: ABdhPJx7PXS+33TVwrtZR0GnbwAPurCWxNCjO00cJ/+f/zD5z38yi9pUm3aDPZTtXgdpTFI1I9TPYQ==
-X-Received: by 2002:a05:6000:186d:: with SMTP id
- d13mr25375692wri.169.1632301862830; 
- Wed, 22 Sep 2021 02:11:02 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- r25sm1535515wra.76.2021.09.22.02.11.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Sep 2021 02:11:02 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch,
-	tvrtko.ursulin@linux.intel.com
-Date: Wed, 22 Sep 2021 11:10:34 +0200
-Message-Id: <20210922091044.2612-17-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210922091044.2612-1-christian.koenig@amd.com>
-References: <20210922091044.2612-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1663B6EBA5;
+	Wed, 22 Sep 2021 12:45:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55C56E5B2;
+ Tue, 21 Sep 2021 22:58:29 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A9D061183;
+ Tue, 21 Sep 2021 22:58:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632265109;
+ bh=bohJExFW1yPNYHxfeNBgqeE4SD0v9efgL6NRIGVa8Vk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JdP5nbViHn1pi8Gh+UqzeMFvIgX8AN46LPD9EhqxYmi432PXTu0HORAxwcCwbvUb0
+ bRZe/gmXbE6tcVYIUHgesdWpl7PAIo1Rs/VzGozbeRgYwzf+rUBUITHRHSLbJuKO/z
+ Y0Im/8ygppODghkp7NmQHTX4P/Qd1628Zf4Dhxr7Vb4x2uHWA2FdDuu/6cviKa8fCg
+ 3ZA8maPCNjHPsaXAzATTdsYKOdGaw1ewfRDRxh8899H7rKvp6ObrGtvMTdkVwmMhfM
+ 7ER/E6Ebt6FUht5sjN/cg5fLIuWwjeQxd8oDhyX+u1Lkq+qa9OLST7TeVVHciJkDru
+ p1f+uXVf8IG9A==
+Date: Tue, 21 Sep 2021 15:58:23 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com, manasi.d.navare@intel.com,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ Stephen Rothwell <sfr@canb.auug.org.au>, linux-next@vger.kernel.org
+Message-ID: <YUpjj7IwBqMYSR7z@archlinux-ax161>
+References: <cover.1631191763.git.jani.nikula@intel.com>
+ <def17e2329722f22c35807be26b35590ccb93bfd.1631191763.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <def17e2329722f22c35807be26b35590ccb93bfd.1631191763.git.jani.nikula@intel.com>
 X-Mailman-Approved-At: Wed, 22 Sep 2021 12:44:58 +0000
-Subject: [Intel-gfx] [PATCH 16/26] drm/i915: use new iterator in
- i915_gem_object_wait_reservation
+Subject: Re: [Intel-gfx] [PATCH v3 03/13] drm/dp: add LTTPR DP 2.0 DPCD
+ addresses
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,82 +69,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+On Thu, Sep 09, 2021 at 03:51:55PM +0300, Jani Nikula wrote:
+> DP 2.0 brings some new DPCD addresses for PHY repeaters.
+> 
+> Cc: dri-devel@lists.freedesktop.org
+> Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  include/drm/drm_dp_helper.h | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+> index 1d5b3dbb6e56..f3a61341011d 100644
+> --- a/include/drm/drm_dp_helper.h
+> +++ b/include/drm/drm_dp_helper.h
+> @@ -1319,6 +1319,10 @@ struct drm_panel;
+>  #define DP_MAX_LANE_COUNT_PHY_REPEATER			    0xf0004 /* 1.4a */
+>  #define DP_Repeater_FEC_CAPABILITY			    0xf0004 /* 1.4 */
+>  #define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT		    0xf0005 /* 1.4a */
+> +#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	    0xf0006 /* 2.0 */
+> +# define DP_PHY_REPEATER_128B132B_SUPPORTED		    (1 << 0)
+> +/* See DP_128B132B_SUPPORTED_LINK_RATES for values */
+> +#define DP_PHY_REPEATER_128B132B_RATES			    0xf0007 /* 2.0 */
+>  
+>  enum drm_dp_phy {
+>  	DP_PHY_DPRX,
+> -- 
+> 2.30.2
+> 
+> 
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 51 +++++-------------------
- 1 file changed, 9 insertions(+), 42 deletions(-)
+This patch causes a build failure in -next when combined with the AMD
+tree:
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index f909aaa09d9c..a13193db1dba 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -37,55 +37,22 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
- 				 unsigned int flags,
- 				 long timeout)
- {
--	struct dma_fence *excl;
--	bool prune_fences = false;
--
--	if (flags & I915_WAIT_ALL) {
--		struct dma_fence **shared;
--		unsigned int count, i;
--		int ret;
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
- 
--		ret = dma_resv_get_fences(resv, &excl, &count, &shared);
--		if (ret)
--			return ret;
--
--		for (i = 0; i < count; i++) {
--			timeout = i915_gem_object_wait_fence(shared[i],
--							     flags, timeout);
--			if (timeout < 0)
--				break;
--
--			dma_fence_put(shared[i]);
--		}
--
--		for (; i < count; i++)
--			dma_fence_put(shared[i]);
--		kfree(shared);
--
--		/*
--		 * If both shared fences and an exclusive fence exist,
--		 * then by construction the shared fences must be later
--		 * than the exclusive fence. If we successfully wait for
--		 * all the shared fences, we know that the exclusive fence
--		 * must all be signaled. If all the shared fences are
--		 * signaled, we can prune the array and recover the
--		 * floating references on the fences/requests.
--		 */
--		prune_fences = count && timeout >= 0;
--	} else {
--		excl = dma_resv_get_excl_unlocked(resv);
-+	dma_resv_iter_begin(&cursor, resv, flags & I915_WAIT_ALL);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		timeout = i915_gem_object_wait_fence(fence, flags, timeout);
-+		if (timeout < 0)
-+			break;
- 	}
--
--	if (excl && timeout >= 0)
--		timeout = i915_gem_object_wait_fence(excl, flags, timeout);
--
--	dma_fence_put(excl);
-+	dma_resv_iter_end(&cursor);
- 
- 	/*
- 	 * Opportunistically prune the fences iff we know they have *all* been
- 	 * signaled.
- 	 */
--	if (prune_fences)
-+	if (timeout > 0)
- 		dma_resv_prune(resv);
- 
- 	return timeout;
--- 
-2.25.1
+In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:33:
+In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:70:
+In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_mode.h:36:
+./include/drm/drm_dp_helper.h:1322:9: error: 'DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER' macro redefined [-Werror,-Wmacro-redefined]
+#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER            0xf0006 /* 2.0 */
+        ^
+./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dp_types.h:881:9: note: previous definition is here
+#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER        0xF0006
+        ^
+1 error generated.
 
+Perhaps something like this should be applied during the merge of the
+second tree or maybe this patch should be in a branch that could be
+shared between the Intel and AMD trees so that this diff could be
+applied to the AMD tree directly? Not sure what the standard procedure
+for this is.
+
+Cheers,
+Nathan
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 234dfbea926a..279863b5c650 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -4590,7 +4590,7 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
+ 								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
+ 
+ 		link->dpcd_caps.lttpr_caps.supported_128b_132b_rates.raw =
+-				lttpr_dpcd_data[DP_PHY_REPEATER_128b_132b_RATES -
++				lttpr_dpcd_data[DP_PHY_REPEATER_128B132B_RATES -
+ 								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
+ #endif
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index a5e798b5da79..8caf9af5ffa2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -878,8 +878,6 @@ struct psr_caps {
+ # define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
+ # define DP_DSC_DECODER_COUNT_SHIFT			5
+ #define DP_MAIN_LINK_CHANNEL_CODING_SET			0x108
+-#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	0xF0006
+-#define DP_PHY_REPEATER_128b_132b_RATES			0xF0007
+ #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1	0xF0022
+ #define DP_INTRA_HOP_AUX_REPLY_INDICATION		(1 << 3)
+ /* TODO - Use DRM header to replace above once available */
