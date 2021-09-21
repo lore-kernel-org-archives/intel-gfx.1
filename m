@@ -2,44 +2,54 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A886CC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 14:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 753E8C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 14:14:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D1B260FE8
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 14:08:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6D1B260FE8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3A50F61156
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 14:14:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A50F61156
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C388389DB4;
-	Tue, 21 Sep 2021 14:08:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id A4EC589DB4;
- Tue, 21 Sep 2021 14:08:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 9DF33A47E2;
- Tue, 21 Sep 2021 14:08:36 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7C76E990;
+	Tue, 21 Sep 2021 14:14:04 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC2D76E990;
+ Tue, 21 Sep 2021 14:14:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="220173584"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220173584"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 06:54:05 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="556939078"
+Received: from ekyne-mobl.ger.corp.intel.com (HELO [10.213.200.64])
+ ([10.213.200.64])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 06:54:04 -0700
+To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+References: <20210910201030.3436066-1-matthew.d.roper@intel.com>
+ <20210910201030.3436066-3-matthew.d.roper@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <7257164d-c9a8-5859-8526-31782e99da01@linux.intel.com>
+Date: Tue, 21 Sep 2021 14:54:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+In-Reply-To: <20210910201030.3436066-3-matthew.d.roper@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kai Vehmanen" <kai.vehmanen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Sep 2021 14:08:36 -0000
-Message-ID: <163223331664.15889.6922592788588435065@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210921111810.2766726-1-kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210921111810.2766726-1-kai.vehmanen@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_component=3A_do_not_leave_master_devres_group_open_after_bi?=
- =?utf-8?q?nd?=
+Subject: Re: [Intel-gfx] [PATCH v2 2/6] drm/i915/uncore: Associate shadow
+ table with uncore
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,24 +62,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
 
-Series: component: do not leave master devres group open after bind
-URL   : https://patchwork.freedesktop.org/series/94889/
-State : warning
+On 10/09/2021 21:10, Matt Roper wrote:
+> Store a reference to a platform's shadow table inside the uncore, the
+> same as we do with the forcewake table.  This will allow us to use a
+> single set of functions that operate on the shadow table reference
+> rather than generating lots of nearly-identical functions via macros
+> that differ only in terms of the table that they reference.
+> 
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> ---
+>   drivers/gpu/drm/i915/intel_uncore.c | 40 ++++++++++++++++++++---------
+>   drivers/gpu/drm/i915/intel_uncore.h |  7 +++++
+>   2 files changed, 35 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+> index 8c09af1e9f7a..5fa2bf26a948 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.c
+> +++ b/drivers/gpu/drm/i915/intel_uncore.c
+> @@ -1026,17 +1026,19 @@ static int mmio_range_cmp(u32 key, const struct i915_range *range)
+>   		return 0;
+>   }
+>   
+> -#define __is_X_shadowed(x) \
+> -static bool is_##x##_shadowed(u32 offset) \
+> -{ \
+> -	const struct i915_range *regs = x##_shadowed_regs; \
+> -	return BSEARCH(offset, regs, ARRAY_SIZE(x##_shadowed_regs), \
+> +static bool
+> +is_shadowed(struct intel_uncore *uncore, u32 offset)
 
-== Summary ==
+Fits in one line if you want.
 
-$ dim checkpatch origin/drm-tip
-b30f203aee1a component: do not leave master devres group open after bind
--:46: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#46: 
-the devres group, and by closing the devres group after the master->ops->bind()
+> +{
+> +	if (drm_WARN_ON(&uncore->i915->drm, !uncore->shadowed_reg_table))
+> +		return false;
+> +
+> +	return BSEARCH(offset,
+> +		       uncore->shadowed_reg_table,
+> +		       uncore->shadowed_reg_table_entries,
+>   		       mmio_range_cmp); \
+>   }
+>   
+> -__is_X_shadowed(gen8)
+> -__is_X_shadowed(gen11)
+> -__is_X_shadowed(gen12)
+> +
 
-total: 0 errors, 1 warnings, 0 checks, 23 lines checked
+If you want to tidy.
 
+>   
+>   static enum forcewake_domains
+>   gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+> @@ -1047,7 +1049,7 @@ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+>   #define __gen8_reg_write_fw_domains(uncore, offset) \
+>   ({ \
+>   	enum forcewake_domains __fwd; \
+> -	if (NEEDS_FORCE_WAKE(offset) && !is_gen8_shadowed(offset)) \
+> +	if (NEEDS_FORCE_WAKE(offset) && !is_shadowed(uncore, offset)) \
+>   		__fwd = FORCEWAKE_RENDER; \
+>   	else \
+>   		__fwd = 0; \
+> @@ -1081,7 +1083,7 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+>   #define __fwtable_reg_write_fw_domains(uncore, offset) \
+>   ({ \
+>   	enum forcewake_domains __fwd = 0; \
+> -	if (NEEDS_FORCE_WAKE((offset)) && !is_gen8_shadowed(offset)) \
+> +	if (NEEDS_FORCE_WAKE((offset)) && !is_shadowed(uncore, offset)) \
+>   		__fwd = find_fw_domain(uncore, offset); \
+>   	__fwd; \
+>   })
+> @@ -1090,7 +1092,7 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+>   ({ \
+>   	enum forcewake_domains __fwd = 0; \
+>   	const u32 __offset = (offset); \
+> -	if (!is_gen11_shadowed(__offset)) \
+> +	if (!is_shadowed(uncore, __offset)) \
+>   		__fwd = find_fw_domain(uncore, __offset); \
+>   	__fwd; \
+>   })
+> @@ -1099,7 +1101,7 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+>   ({ \
+>   	enum forcewake_domains __fwd = 0; \
+>   	const u32 __offset = (offset); \
+> -	if (!is_gen12_shadowed(__offset)) \
+> +	if (!is_shadowed(uncore, __offset)) \
+>   		__fwd = find_fw_domain(uncore, __offset); \
+>   	__fwd; \
+>   })
+> @@ -1705,6 +1707,7 @@ __gen_write(func, 8) \
+>   __gen_write(func, 16) \
+>   __gen_write(func, 32)
+>   
+> +
 
+Ditto.
+
+>   __gen_reg_write_funcs(gen12_fwtable);
+>   __gen_reg_write_funcs(gen11_fwtable);
+>   __gen_reg_write_funcs(fwtable);
+> @@ -1969,6 +1972,12 @@ static int intel_uncore_fw_domains_init(struct intel_uncore *uncore)
+>   	(uncore)->fw_domains_table_entries = ARRAY_SIZE((d)); \
+>   }
+>   
+> +#define ASSIGN_SHADOW_TABLE(uncore, d) \
+> +{ \
+> +	(uncore)->shadowed_reg_table = d; \
+> +	(uncore)->shadowed_reg_table_entries = ARRAY_SIZE((d)); \
+> +}
+> +
+>   static int i915_pmic_bus_access_notifier(struct notifier_block *nb,
+>   					 unsigned long action, void *data)
+>   {
+> @@ -2081,30 +2090,37 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+>   
+>   	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __dg2_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+>   	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __xehp_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+>   	} else if (GRAPHICS_VER(i915) >= 12) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen12_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+>   	} else if (GRAPHICS_VER(i915) == 11) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen11_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen11_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen11_fwtable);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+>   	} else if (IS_GRAPHICS_VER(i915, 9, 10)) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen9_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen8_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+>   	} else if (IS_CHERRYVIEW(i915)) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __chv_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen8_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+>   	} else if (GRAPHICS_VER(i915) == 8) {
+>   		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen6_fw_ranges);
+> +		ASSIGN_SHADOW_TABLE(uncore, gen8_shadowed_regs);
+>   		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
+>   		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+
+Note for later - I think by the end of the series all "assign read" in 
+this block become fwtable so you could consolidate them if wanted.
+
+>   	} else if (IS_VALLEYVIEW(i915)) {
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+> index 531665b08039..2f31c50eeae2 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.h
+> +++ b/drivers/gpu/drm/i915/intel_uncore.h
+> @@ -142,6 +142,13 @@ struct intel_uncore {
+>   	const struct intel_forcewake_range *fw_domains_table;
+>   	unsigned int fw_domains_table_entries;
+>   
+> +	/*
+> +	 * Shadowed registers are special cases where we can safely write
+> +	 * to the register *without* grabbing forcewake.
+> +	 */
+> +	const struct i915_range *shadowed_reg_table;
+> +	unsigned int shadowed_reg_table_entries;
+> +
+>   	struct notifier_block pmic_bus_access_nb;
+>   	struct intel_uncore_funcs funcs;
+>   
+> 
+
+Looks fine and all tidies are optional.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Regards,
+
+Tvrtko
