@@ -2,53 +2,79 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30A26C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DEC47C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0067A61178
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:40:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0067A61178
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A5CBF61166
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 17:43:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A5CBF61166
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B9489EBD;
-	Tue, 21 Sep 2021 17:40:37 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE9A89EBD;
- Tue, 21 Sep 2021 17:40:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220232975"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220232975"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 10:36:42 -0700
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="518295650"
-Received: from twallyn-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
- ([10.209.83.37])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 10:36:41 -0700
-Date: Tue, 21 Sep 2021 10:36:41 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <20210921173641.zkkyt2wygd7g3xq2@ldmartin-desk2>
-X-Patchwork-Hint: comment
-References: <20210910201030.3436066-1-matthew.d.roper@intel.com>
- <20210910201030.3436066-6-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C7DD6E9ED;
+	Tue, 21 Sep 2021 17:43:01 +0000 (UTC)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0385189DBF;
+ Tue, 21 Sep 2021 17:37:03 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id t8so41610950wrq.4;
+ Tue, 21 Sep 2021 10:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Uf9+jpJeEgCFnOIPRcwH4Xus10PdccW5sZ8+5fRgjtI=;
+ b=Hx6CmGIL3yNe3WSoedSEgQ5EPn07dSWNkriSXIoqUcit8q0uTucUwBc+mz+51bXr9w
+ SVprnbu/mXoLd1o/vQKzVbDQSNQhIIV78cGQahRuitiyXx6Hkx5+TPpyohaqdiOQ4kw7
+ Q1FWh5GaLgKSZ9NwBXzzSV8r3blpbWLScsd+uziOYzeZCvcaBap6tuuoytExP7Pxnsba
+ FpY0PCfLlk5L27PJAbBKYOM9II1UDmEVa4uykUeu8bWpt681bu3fJkqQ1YjrwDwY5Xqx
+ m2FhiAakai/B3bJZ0vScDYlR8wIsEDdWKZzYOa9lNj/vpHGQ8dr9Bparg3wF6zs93dXP
+ XnuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Uf9+jpJeEgCFnOIPRcwH4Xus10PdccW5sZ8+5fRgjtI=;
+ b=oThXQo+VB2gTAm8I8a6n9/BprI3NRlEF6WnGwcQPVaaB8kecZkInOgUSpB34urBToA
+ aPlLKpXnsy4D/HdF2rXkD9aflf83qkj5jRmX+Oe5AKIeb2oDlBLN0yaO6luhDkpIijkF
+ bTlnET6/KJuHZY4ZNPZqSAS6XevNnBO7nntsFLOZebjUDZVJV15oo/m0eqCGn+IbrWyQ
+ xTW1J/1ZWJQsUFg+3bAQ4imcXEy5aPKLi6KEp2n70p7jevTkwlh8vHE+FCQKz7pwpr3V
+ 2zoYsdqhwJ6IX5hHpj9bQMmY8ibWeMoC+zrcEE2dUca8G3khsAjFmiGdWAzqatQ0C31i
+ Kx0w==
+X-Gm-Message-State: AOAM533xq3xPoiVkWzvIPfUXzHzgo19Nt70cILPDu+yNYUWe5Ug3Xgsh
+ pUknZWp7QzTUZMbsCNsMXIs=
+X-Google-Smtp-Source: ABdhPJzrUCurtyeGxjMbFgwgCWmKyQY6dPJ2HueooXFdqbs6snAaHkPoiDnHbg92FkEoyUsZ3ANj2Q==
+X-Received: by 2002:adf:fc0e:: with SMTP id i14mr36346897wrr.173.1632245821522; 
+ Tue, 21 Sep 2021 10:37:01 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ z13sm23310477wrs.90.2021.09.21.10.37.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Sep 2021 10:37:01 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: ckoenig.leichtzumerken@gmail.com, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Cc: daniel@ffwll.ch,
+	tvrtko.ursulin@linux.intel.com
+Date: Tue, 21 Sep 2021 19:36:34 +0200
+Message-Id: <20210921173659.246165-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20210910201030.3436066-6-matthew.d.roper@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 5/6] drm/i915/uncore: Drop gen11 mmio
- read handlers
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 21 Sep 2021 17:43:00 +0000
+Subject: [Intel-gfx] [PATCH 01/26] dma-buf: add
+ dma_resv_for_each_fence_unlocked v3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,125 +90,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 10, 2021 at 01:10:29PM -0700, Matt Roper wrote:
->Consolidate down to just a single 'fwtable' implementation.  For reads
->we don't need to worry about shadow tables.  Also, the
->NEEDS_FORCE_WAKE() check we previously had in the fwtable implementation
->can be dropped --- if a register is outside that range on one of the old
->platforms, then it won't belong to any forcewake range and 0 will be
->returned anyway.
->
->v2:
-> - Restore NEEDS_FORCE_WAKE() check.  (Chris, Tvrtko)
->
->Cc: Chris Wilson <chris@chris-wilson.co.uk>
->Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
->Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
->---
-> drivers/gpu/drm/i915/intel_uncore.c | 40 ++++++++++++-----------------
-> 1 file changed, 17 insertions(+), 23 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
->index bfb2a6337f9d..10f124297e7c 100644
->--- a/drivers/gpu/drm/i915/intel_uncore.c
->+++ b/drivers/gpu/drm/i915/intel_uncore.c
->@@ -935,9 +935,6 @@ static const struct intel_forcewake_range __vlv_fw_ranges[] = {
-> 	__fwd; \
-> })
->
->-#define __gen11_fwtable_reg_read_fw_domains(uncore, offset) \
->-	find_fw_domain(uncore, offset)
->-
-> /* *Must* be sorted by offset! See intel_shadow_table_check(). */
-> static const struct i915_range gen8_shadowed_regs[] = {
-> 	{ .start =  0x2030, .end =  0x2030 },
->@@ -1570,33 +1567,30 @@ static inline void __force_wake_auto(struct intel_uncore *uncore,
-> 		___force_wake_auto(uncore, fw_domains);
-> }
->
->-#define __gen_read(func, x) \
->+#define __gen_fwtable_read(x) \
-> static u##x \
->-func##_read##x(struct intel_uncore *uncore, i915_reg_t reg, bool trace) { \
->+fwtable_read##x(struct intel_uncore *uncore, i915_reg_t reg, bool trace) \
->+{ \
-> 	enum forcewake_domains fw_engine; \
-> 	GEN6_READ_HEADER(x); \
->-	fw_engine = __##func##_reg_read_fw_domains(uncore, offset); \
->+	fw_engine = __fwtable_reg_read_fw_domains(uncore, offset); \
-> 	if (fw_engine) \
-> 		__force_wake_auto(uncore, fw_engine); \
-> 	val = __raw_uncore_read##x(uncore, reg); \
-> 	GEN6_READ_FOOTER; \
-> }
->
->-#define __gen_reg_read_funcs(func) \
->-static enum forcewake_domains \
->-func##_reg_read_fw_domains(struct intel_uncore *uncore, i915_reg_t reg) { \
->-	return __##func##_reg_read_fw_domains(uncore, i915_mmio_reg_offset(reg)); \
->-} \
->-\
->-__gen_read(func, 8) \
->-__gen_read(func, 16) \
->-__gen_read(func, 32) \
->-__gen_read(func, 64)
->+static enum forcewake_domains
->+fwtable_reg_read_fw_domains(struct intel_uncore *uncore, i915_reg_t reg) {
->+	return __fwtable_reg_read_fw_domains(uncore, i915_mmio_reg_offset(reg));
->+}
->
->-__gen_reg_read_funcs(gen11_fwtable);
->-__gen_reg_read_funcs(fwtable);
->+__gen_fwtable_read(8)
->+__gen_fwtable_read(16)
->+__gen_fwtable_read(32)
->+__gen_fwtable_read(64)
->
->-#undef __gen_reg_read_funcs
->+#undef __gen_fwtable_read
-> #undef GEN6_READ_FOOTER
-> #undef GEN6_READ_HEADER
->
->@@ -2062,22 +2056,22 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
-> 		ASSIGN_FW_DOMAINS_TABLE(uncore, __dg2_fw_ranges);
-> 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
-> 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
->-		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
->+		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
-> 	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
-> 		ASSIGN_FW_DOMAINS_TABLE(uncore, __xehp_fw_ranges);
-> 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
-> 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
->-		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
->+		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
-> 	} else if (GRAPHICS_VER(i915) >= 12) {
-> 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen12_fw_ranges);
-> 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
-> 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
->-		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
->+		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
-> 	} else if (GRAPHICS_VER(i915) == 11) {
-> 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen11_fw_ranges);
-> 		ASSIGN_SHADOW_TABLE(uncore, gen11_shadowed_regs);
-> 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
->-		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
->+		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+Abstract the complexity of iterating over all the fences
+in a dma_resv object.
 
-these together with patch 1 make the fwtable variant be the only one
-used for reads.... so, should we pull these assignments out of if/else
-chain? gen < 6 don't have forcewake so afaics we cover all the
-platforms.
+The new loop handles the whole RCU and retry dance and
+returns only fences where we can be sure we grabbed the
+right one.
 
-this can be done as a separate patch though.
+v2: fix accessing the shared fences while they might be freed,
+    improve kerneldoc, rename _cursor to _iter, add
+    dma_resv_iter_is_exclusive, add dma_resv_iter_begin/end
 
+v3: restructor the code, move rcu_read_lock()/unlock() into the
+    iterator, add dma_resv_iter_is_restarted()
 
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/dma-buf/dma-resv.c | 98 ++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-resv.h   | 95 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 193 insertions(+)
 
-Lucas De Marchi
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 84fbe60629e3..11b5399f4bd3 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -323,6 +323,104 @@ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
+ }
+ EXPORT_SYMBOL(dma_resv_add_excl_fence);
+ 
++/**
++ * dma_resv_iter_restart_unlocked - restart the unlocked iterator
++ * @cursor: The dma_resv_iter object to restart
++ *
++ * Restart the unlocked iteration by initializing the cursor object.
++ */
++static void dma_resv_iter_restart_unlocked(struct dma_resv_iter *cursor)
++{
++	cursor->seq = read_seqcount_begin(&cursor->obj->seq);
++	cursor->index = -1;
++	if (cursor->all_fences) {
++		rcu_read_lock();
++		cursor->fences = dma_resv_shared_list(cursor->obj);
++		rcu_read_unlock();
++	} else {
++		cursor->fences = NULL;
++	}
++	cursor->is_restarted = true;
++}
++
++/**
++ * dma_resv_iter_walk_unlocked - walk over fences in a dma_resv obj
++ * @cursor: cursor to record the current position
++ *
++ * Return all the fences in the dma_resv object which are not yet signaled.
++ * The returned fence has an extra local reference so will stay alive.
++ * If a concurrent modify is detected the whole iterration is started over again.
++ */
++static void dma_resv_iter_walk_unlocked(struct dma_resv_iter *cursor)
++{
++	struct dma_resv *obj = cursor->obj;
++
++	do {
++		/* Drop the reference from the previous round */
++		dma_fence_put(cursor->fence);
++
++		if (cursor->index++ == -1) {
++			cursor->fence = dma_resv_excl_fence(obj);
++			cursor->fence = dma_fence_get_rcu(cursor->fence);
++
++		} else if (!cursor->fences ||
++			   cursor->index >= cursor->fences->shared_count) {
++			cursor->fence = NULL;
++
++		} else {
++			struct dma_resv_list *fences = cursor->fences;
++			unsigned int idx = cursor->index;
++
++			cursor->fence = rcu_dereference(fences->shared[idx]);
++			cursor->fence = dma_fence_get_rcu(cursor->fence);
++		}
++	} while (cursor->fence && dma_fence_is_signaled(cursor->fence));
++}
++
++/**
++ * dma_resv_iter_first_unlocked - first fence in an unlocked dma_resv obj.
++ * @cursor: the cursor with the current position
++ *
++ * Returns the first fence from an unlocked dma_resv obj.
++ */
++struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter *cursor)
++{
++	rcu_read_lock();
++	do {
++		dma_resv_iter_restart_unlocked(cursor);
++		dma_resv_iter_walk_unlocked(cursor);
++	} while (read_seqcount_retry(&cursor->obj->seq, cursor->seq));
++	rcu_read_unlock();
++
++	return cursor->fence;
++}
++EXPORT_SYMBOL(dma_resv_iter_first_unlocked);
++
++/**
++ * dma_resv_iter_next_unlocked - next fence in an unlocked dma_resv obj.
++ * @cursor: the cursor with the current position
++ *
++ * Returns the next fence from an unlocked dma_resv obj.
++ */
++struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter *cursor)
++{
++	bool restart;
++
++	rcu_read_lock();
++	cursor->is_restarted = false;
++	restart = read_seqcount_retry(&cursor->obj->seq, cursor->seq);
++	do {
++		if (restart)
++			dma_resv_iter_restart_unlocked(cursor);
++		dma_resv_iter_walk_unlocked(cursor);
++		restart = true;
++	} while (read_seqcount_retry(&cursor->obj->seq, cursor->seq));
++	rcu_read_unlock();
++
++	return cursor->fence;
++}
++EXPORT_SYMBOL(dma_resv_iter_next_unlocked);
++
+ /**
+  * dma_resv_copy_fences - Copy all fences from src to dst.
+  * @dst: the destination reservation object
+diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+index 9100dd3dc21f..baf77a542392 100644
+--- a/include/linux/dma-resv.h
++++ b/include/linux/dma-resv.h
+@@ -149,6 +149,101 @@ struct dma_resv {
+ 	struct dma_resv_list __rcu *fence;
+ };
+ 
++/**
++ * struct dma_resv_iter - current position into the dma_resv fences
++ *
++ * Don't touch this directly in the driver, use the accessor function instead.
++ */
++struct dma_resv_iter {
++	/** @obj: The dma_resv object we iterate over */
++	struct dma_resv *obj;
++
++	/** @all_fences: If all fences should be returned */
++	bool all_fences;
++
++	/** @fence: the currently handled fence */
++	struct dma_fence *fence;
++
++	/** @seq: sequence number to check for modifications */
++	unsigned int seq;
++
++	/** @index: index into the shared fences */
++	unsigned int index;
++
++	/** @fences: the shared fences */
++	struct dma_resv_list *fences;
++
++	/** @is_restarted: true if this is the first returned fence */
++	bool is_restarted;
++};
++
++struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter *cursor);
++struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter *cursor);
++
++/**
++ * dma_resv_iter_begin - initialize a dma_resv_iter object
++ * @cursor: The dma_resv_iter object to initialize
++ * @obj: The dma_resv object which we want to iterator over
++ * @all_fences: If all fences should be returned or just the exclusive one
++ */
++static inline void dma_resv_iter_begin(struct dma_resv_iter *cursor,
++				       struct dma_resv *obj,
++				       bool all_fences)
++{
++	cursor->obj = obj;
++	cursor->all_fences = all_fences;
++	cursor->fence = NULL;
++}
++
++/**
++ * dma_resv_iter_end - cleanup a dma_resv_iter object
++ * @cursor: the dma_resv_iter object which should be cleaned up
++ *
++ * Make sure that the reference to the fence in the cursor is properly
++ * dropped.
++ */
++static inline void dma_resv_iter_end(struct dma_resv_iter *cursor)
++{
++	dma_fence_put(cursor->fence);
++}
++
++/**
++ * dma_resv_iter_is_exclusive - test if the current fence is the exclusive one
++ * @cursor: the cursor of the current position
++ *
++ * Returns true if the currently returned fence is the exclusive one.
++ */
++static inline bool dma_resv_iter_is_exclusive(struct dma_resv_iter *cursor)
++{
++	return cursor->index == -1;
++}
++
++/**
++ * dma_resv_iter_is_restarted - test if this is the first fence after a restart
++ * @cursor: the cursor with the current position
++ *
++ * Return true if this is the first fence in an interation after a restart.
++ */
++static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
++{
++	return cursor->is_restarted;
++}
++
++/**
++ * dma_resv_for_each_fence_unlocked - unlocked fence iterator
++ * @cursor: a struct dma_resv_iter pointer
++ * @fence: the current fence
++ *
++ * Iterate over the fences in a struct dma_resv object without holding the
++ * &dma_resv.lock and using RCU instead. The cursor needs to be initialized
++ * with dma_resv_iter_begin() and cleaned up with dma_resv_iter_end(). Inside
++ * the iterator a reference to the dma_fence is hold and the RCU lock dropped.
++ * When the dma_resv is modified the iteration starts over again.
++ */
++#define dma_resv_for_each_fence_unlocked(cursor, fence)			\
++	for (fence = dma_resv_iter_first_unlocked(cursor);		\
++	     fence; fence = dma_resv_iter_next_unlocked(cursor))
++
+ #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
+ #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
+ 
+-- 
+2.25.1
 
-> 	} else if (IS_GRAPHICS_VER(i915, 9, 10)) {
-> 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen9_fw_ranges);
-> 		ASSIGN_SHADOW_TABLE(uncore, gen8_shadowed_regs);
->-- 
->2.25.4
->
