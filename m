@@ -2,135 +2,52 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DBA9BC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2FF2C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A409961166
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:33:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A409961166
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4DDD161166
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 11:34:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4DDD161166
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55A86E92E;
-	Tue, 21 Sep 2021 11:33:20 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559F66E92E;
- Tue, 21 Sep 2021 11:33:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ET6kEo2pNZAs2sRNBefN5wTZdyCr7GAfx8e6HYkDTepbqdEy2lKERscbQ2KyOd1vvjjntsObpdrac53cvMUQ5fNO346ibZhtsmJaEj2SULeVMcTYRoMpNm+fNtOpy2UEp1Ga/phbVYy6efzTJIeVgmTsG6HWczP/o5qnKauDrN+WptavAocopHGb4FpdM+NKNmdc/PM6aBX98FV1uaFGBLk4YMGSi8J2HYSGYQSJ+zk4AfQSUPlQ2XC6ve56fQMvx5m3qJZHwV85BSzL5yb5jLvFXM0NmUxd5WmZrNxrALr8iuP4DnZPJRrvirTaSI9GqN7Vd6WA948ZDTOrxeJQjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=FimE1Z/D4PXwStiL2ebbxZQnmn2PQjso3WrsHDMRp8M=;
- b=VM2IEhk5ydgZCNFxeafayQADoczyJd+8/sXZ0jPTgFHFYxeVDnoLhUAeqY+AiBnMlaQtecFcDb5GckvA0NtY9zNwjyRw1DFzD3mKS9d+XgMW7kirn9K5YRg7TF0ZYYs6FpoAw4CyZRT9yMM3gFk6cwI2s+How88eI+2T5Y8mpczSHk1vaSemLHBemQjeqFw/dgs6ikTeoMPZxikspGYHZxI6SV+NjcZFlG6c2XC9y8nSdERgQk6RkPg1qDaP6dt0JOJELkCK3aiNQxMHzjvduS4DFx79bCIxRxcJN17Zyl7CQqghbVCR0jK5YUHu95WmU9TlmWI9abQgQhmqX0fc/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FimE1Z/D4PXwStiL2ebbxZQnmn2PQjso3WrsHDMRp8M=;
- b=pdiS6ty9jymRqkSWW+Rnb7fJNvu2BQKigeTshq1tht8S1jYGUADhAf2F22owGz1Gq+24X7GnqB0b04kaPWOq0Sj3Ni2/CaH6hcSIEKkawcI9u/ckFRDqTh0kukdalJPdF4R0N/DhpHpcsQG+KAs6pHzCnnPQwJ2HX8hqJhXEONg=
-Authentication-Results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4440.namprd12.prod.outlook.com (2603:10b6:208:26e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Tue, 21 Sep
- 2021 11:33:17 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
- 11:33:17 +0000
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-References: <20210921110121.3783395-1-matthew.auld@intel.com>
- <20210921110121.3783395-6-matthew.auld@intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <b3413978-9a52-ca06-47cb-27dee3d89ce6@amd.com>
-Date: Tue, 21 Sep 2021 13:33:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210921110121.3783395-6-matthew.auld@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: PR1PR01CA0022.eurprd01.prod.exchangelabs.com
- (2603:10a6:102::35) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7556E969;
+	Tue, 21 Sep 2021 11:34:51 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 273056E92E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 11:34:50 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="245750817"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="245750817"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 04:34:49 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="556899596"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 04:34:49 -0700
+Date: Tue, 21 Sep 2021 04:46:26 -0700
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <20210921114626.GA5521@labuser-Z97X-UD5H>
+References: <20210913144440.23008-1-ville.syrjala@linux.intel.com>
+ <20210913144440.23008-10-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:8582:d9f8:1318:9d2b]
- (2a02:908:1252:fb60:8582:d9f8:1318:9d2b) by
- PR1PR01CA0022.eurprd01.prod.exchangelabs.com (2603:10a6:102::35) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.17 via Frontend
- Transport; Tue, 21 Sep 2021 11:33:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f5cd8a2-c746-49b3-ddab-08d97cf39b1e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4440:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB444064145247F4916052B76B83A19@MN2PR12MB4440.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yTZb/UDpT6lEKrXyLq9qcpfS2eXLbfTyP3fEqDLrPvXWRB5SgqJAOnBp7ksalvNRJ6pY78PxSoRrnMvzNltXc0BWoMBdEQzkiQzo3DRmDqC+z+m5xT1WmHCX3rcCEweX4CqbbKIW63OL1LOGq9dMe+moFafaypRYqNWmA9FFXseDWF6P9NyAjNuysggTG1B0Jh+PJzDpfNrQ8wnQhpwpD81qMNk1G4reirx4mcp3Frk5Zg6v4HF8etg/b3MqnWxJZcezNwIoktIxMQLxeFEvI8RENlZArmuGm4g1Etl1iG9gNRVP+aw/8daHD1nQpg7PdYXk/3zHfIwqIdhs3NQY7fI/4hkTBCFEabW8yR/LsYyT50/lm8bSrH5ef7mLNBydei4XUiV0laEI8vGIxP86R9S3PkEvSsoQsEwMxME8iz+uc75Sf/12yWSs85NPhR/gc6HI6lUPg7inrOs48pz+DEyAo7faCTRu8MqC3C+tH3Yy3iDZWY+u5XhpvZNLfIKdALCj8Zsik1llXHhphz0OcT8OFHUUiVA+qElmV/ITlvIYH9FHvUVc6bF26o/B78KQMKi9COZWoyB636Rdy9ZpCVX3LGRIE9OcgCWuTCbI6vQ1TovqCugE5x+K2ihFAApCBkq1HEUCa0zYM5reCsxiieMa6mBO7KFTfCU3axZBOYzAN6MKA4IJ56vtpI8bK4oN4OEbyk1cLuKm6XC4NOWkLA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(86362001)(8676002)(508600001)(31686004)(66574015)(5660300002)(6486002)(8936002)(2616005)(66556008)(31696002)(66946007)(66476007)(38100700002)(36756003)(186003)(6666004)(83380400001)(2906002)(316002)(4326008)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUZuWnovSVUrUXVkSk1rOWpXdlc4ZTBENTRVOWZJSVhScnZpNzVlczB5ekRa?=
- =?utf-8?B?RnpLY1EzL0ZxZ2p3QzFDNHNyd05qZW5VNGgyK3FqU3BtTzR4TXlSUGIyODJl?=
- =?utf-8?B?WWo4Sk1wNTRvNWppb0hqc1dXRDhheU9mTk1RVE9BY1YrNHRRS0NlNFFnQTJD?=
- =?utf-8?B?Q1NkVUpnVUdPMHlFdU13cXZIeDEzZ0ZpcHkweUF3MU03RUZDSzcvMzdRYmRX?=
- =?utf-8?B?SFJxSTY3SnNlT2hDSjVqdmRiWENuVk0rMUhzTFpVTXJNeUVOQlRSM05DTitq?=
- =?utf-8?B?K1hub1F3b052a0xDWDZvdDQ4WEpBYnhicEc0M2ZsMDhDam5KZUNNalZCZHNj?=
- =?utf-8?B?L0ZLRjh2NjlkVUZTMmR1Z3huR3hYeXMwZXZaYmdrMzU3dXVDRmFRcEZyTlFG?=
- =?utf-8?B?OThROG8wd2JPSWlBandmbzl0bC9mVnlPWC9TWThMcEtvenVQZXlHSnJQWTNq?=
- =?utf-8?B?MTNxOUZyWHpHSis2OGptTFYxelBvTjBscGNPbkMwMnNONkRBb3YybzMvb2lJ?=
- =?utf-8?B?eHd0Y1k5UkxYMzl3WGo5NmdxQUU1QXhBbGdpNHhxQXAySFIxdmRCSjJaQ1Vy?=
- =?utf-8?B?bUZvOEdxOHpEOEJIM3h4c3MxeEtEUWhHY3NsSGQvVlNmaTNJSytKUFlRcnZQ?=
- =?utf-8?B?WTgrSlEyTmdqQzFPM0pQZUdwT285Um5NNjJuNlQ5TkdSVGh3dVE5eVBuZE5D?=
- =?utf-8?B?OEE2SGprUWQ5QjB0RFJhYm91a1BpV1RMSHRkYWtkYWcwUGZUam1FMm9KeGl6?=
- =?utf-8?B?OElpOWtDbzdwekdmMDBqZkFHbzBxWXdKNUJUSXQyS1lSSmhQL2tncFBRMjIx?=
- =?utf-8?B?eGdOeXJ4OUowUUN4a1NkTmlNOVFsOCtLTDZHSDVhVEI1ZFVWZWRvU3o1TWh6?=
- =?utf-8?B?Y09VTXNBck1Gdkk4YWR5ME5UQVcrbkRxUGxuS0RrdG4rY05RbThIUHZMaUo2?=
- =?utf-8?B?RmxFaEFWNm5FMEdHelVUN3h5UmFiTG9Edm5jZzRMeDNwd3haTGMrYXFRdGdG?=
- =?utf-8?B?TEYrOSsxYzRCTHU3VlRmOUtXQlRNbUROekNjQUpxNDFCQVZ3NWJwY3E1Q09E?=
- =?utf-8?B?aG92TlduR3lOM0lVQ3RuTDdpTm1iR3M5QXNlaWJtVWIvR2lrU1BpRmUxbUtK?=
- =?utf-8?B?RnNvZGthdC9VTTVxUUo0MXhxb0VkNUpTMXd3WnJjb1VHQnpOUmZJRFBpQzRu?=
- =?utf-8?B?c25uNmVvQm9raTB4ZTF5dkYyemt4NExLREd0dm92TGZnTnQ0NG42T0w1Y2Nh?=
- =?utf-8?B?VmpadC9ZRDhEajY1RGpIWlpJWmFaVmlRSW1TT0h0SDQyU3A4dzQ3aU9zQUNj?=
- =?utf-8?B?Ri9yNkVZYXk4Vy84VHJDTDNCOXBuem5OVnpVZnkzcDN4TXRVeHhqT2U3cGZE?=
- =?utf-8?B?ZCtsT2ZWQlI4OTJNRW5DZFB3TWgxNFRramlZVXo3SktHcnkrYW9yYURaa001?=
- =?utf-8?B?ZjJUOFEzbVArYXc3aUNYKzhtdjQ0SjByVW1OMXBycFcxTjhPUmtYUUg3ZVFv?=
- =?utf-8?B?UXVOeStNV09JN0xDdEtoL0pKYU1hNW83MnZ6UGZpTTVWczJHZVdCcHJWd3JK?=
- =?utf-8?B?b3EyRzN1YWZORzBGZG5UT1ozVlpCRHdiTEVhdDNFUkE1MTliNjVCajBmSjg4?=
- =?utf-8?B?Q1hLQnNoalJlUFFWZTZtK2Jvd3h6ZWFJdkw2SnJ3c294bjRiOUl0dW5lL2Z5?=
- =?utf-8?B?YWxucW5Cc2Nydjc4YThYaVU5TWQ1VW9rdGZGWmRnejVYbzhQb05oWVZmL3Iy?=
- =?utf-8?B?azFoOElZdW53eHdVaVlnZEFNTlVNMyswa0hyWWxWZ1N5dlU4NzAvUXJweWg3?=
- =?utf-8?B?d0JXb25lTGlZYXowSDY3em1Sb1JUbDgySHIrZDFRcXFZOEpYU1hrUlNpcmhU?=
- =?utf-8?Q?2F3QhuhQCWc1c?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f5cd8a2-c746-49b3-ddab-08d97cf39b1e
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 11:33:17.2583 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kRX6IZPB16A+NndnaSSuWKDsOSgrRpTq+xGubI2OthUd80E1F2rHExWsXat5z/0w
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4440
-Subject: Re: [Intel-gfx] [PATCH v4 06/14] drm/ttm: add some kernel-doc for
- TTM_TT_FLAG_*
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210913144440.23008-10-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH 09/16] drm/i915: Pimp HSW+ transcoder state
+ readout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,105 +63,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 21.09.21 um 13:01 schrieb Matthew Auld:
-> Move it to inline kernel-doc, otherwise we can't add empty lines it
-> seems. Also drop the kernel-doc for pages_list, which doesn't seem to
-> exist.
->
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
-> Cc: Christian K√∂nig <christian.koenig@amd.com>
+On Mon, Sep 13, 2021 at 05:44:33PM +0300, Ville Syrjala wrote:
+> From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> 
+> Adjust the HSW+ transcoder state readout to just read through
+> all the possible transcoders for the pipe, and stuff the results
+> in a bitmask.
+> 
+> We can conveniently cross check the bitmask for invalid
+> combinations of enabled transcoders, and later we can easily
+> extend the bitmask readout to handle the bigjoiner case.
+> 
+> One slight change in behaviour is that we no longer read out
+> the AONOFF->force_pfit.pfit bit for all the enabled "panel
+> transcoders". But having more than one enabled would anyway
+> be illegal so no big loss. Also the AONOFF selection should
+> only ever be used on HSW, which only has the EDP transcoder
+> an no DSI transcoders.
+> 
+> Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
 
-One comment below, with that fixed Reviewed-by: Christian K√∂nig 
-<christian.koenig@amd.com>
+Looks good to me
 
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+
+Manasi
 > ---
->   include/drm/ttm/ttm_tt.h | 57 ++++++++++++++++++++++++++--------------
->   1 file changed, 38 insertions(+), 19 deletions(-)
->
-> diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
-> index b023cd58ff38..f3ef568da651 100644
-> --- a/include/drm/ttm/ttm_tt.h
-> +++ b/include/drm/ttm/ttm_tt.h
-> @@ -38,35 +38,54 @@ struct ttm_resource;
->   struct ttm_buffer_object;
->   struct ttm_operation_ctx;
->   
-> -#define TTM_TT_FLAG_SWAPPED	(1 << 0)
-> -#define TTM_TT_FLAG_ZERO_ALLOC	(1 << 1)
-> -#define TTM_TT_FLAG_EXTERNAL	(1 << 2)
-> -
-> -#define TTM_TT_FLAG_PRIV_POPULATED  (1 << 31)
-> -
->   /**
-> - * struct ttm_tt
-> - *
-> - * @pages: Array of pages backing the data.
-> - * @page_flags: see TTM_TT_FLAG_*
-> - * @num_pages: Number of pages in the page array.
-> - * @sg: for SG objects via dma-buf
-> - * @dma_address: The DMA (bus) addresses of the pages
-> - * @swap_storage: Pointer to shmem struct file for swap storage.
-> - * @pages_list: used by some page allocation backend
-> - * @caching: The current caching state of the pages, see enum ttm_caching.
-> - *
-> - * This is a structure holding the pages, caching- and aperture binding
-> - * status for a buffer object that isn't backed by fixed (VRAM / AGP)
-> + * struct ttm_tt - This is a structure holding the pages, caching- and aperture
-> + * binding status for a buffer object that isn't backed by fixed (VRAM / AGP)
->    * memory.
->    */
->   struct ttm_tt {
-> +	/** @pages: Array of pages backing the data. */
->   	struct page **pages;
-> +	/**
-> +	 * @page_flags: The page flags.
-> +	 *
-> +	 * Supported values:
-> +	 *
-> +	 * TTM_TT_FLAG_SWAPPED: Set if the pages have been swapped out.
-> +	 * Calling ttm_tt_populate() will swap the pages back in, and unset the
-> +	 * flag.
-> +	 *
-> +	 * TTM_TT_FLAG_ZERO_ALLOC: Set if the pages will be zeroed on
-> +	 * allocation.
-> +	 *
-> +	 * TTM_TT_FLAG_EXTERNAL: Set if the underlying pages were allocated
-> +	 * externally, like with dma-buf or userptr. This effectively disables
-> +	 * TTM swapping out such pages.  Also important is to prevent TTM from
-> +	 * ever directly mapping these pages.
-> +	 *
-> +	 * Note that enum ttm_bo_type.ttm_bo_type_sg objects will always enable
-> +	 * this flag.
-> +	 *
-> +	 * TTM_TT_FLAG_PRIV_POPULATED: TTM internal only. DO NOT USE.
-
-The swapped flag should probably not be touched by the drivers either.
-
-Better just describe what this is good for.
-
-Christian.
-
-> +	 */
-> +#define TTM_TT_FLAG_SWAPPED	(1 << 0)
-> +#define TTM_TT_FLAG_ZERO_ALLOC	(1 << 1)
-> +#define TTM_TT_FLAG_EXTERNAL	(1 << 2)
+>  drivers/gpu/drm/i915/display/intel_display.c | 130 ++++++++++++++-----
+>  1 file changed, 95 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 3848f7963cec..2430142b0337 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -5577,6 +5577,21 @@ static bool ilk_get_pipe_config(struct intel_crtc *crtc,
+>  	return ret;
+>  }
+>  
+> +static bool transcoder_ddi_func_is_enabled(struct drm_i915_private *dev_priv,
+> +					   enum transcoder cpu_transcoder)
+> +{
+> +	enum intel_display_power_domain power_domain;
+> +	intel_wakeref_t wakeref;
+> +	u32 tmp = 0;
 > +
-> +#define TTM_TT_FLAG_PRIV_POPULATED  (1 << 31)
->   	uint32_t page_flags;
-> +	/** @num_pages: Number of pages in the page array. */
->   	uint32_t num_pages;
-> +	/** @sg: for SG objects via dma-buf. */
->   	struct sg_table *sg;
-> +	/** @dma_address: The DMA (bus) addresses of the pages. */
->   	dma_addr_t *dma_address;
-> +	/** @swap_storage: Pointer to shmem struct file for swap storage. */
->   	struct file *swap_storage;
-> +	/**
-> +	 * @caching: The current caching state of the pages, see enum
-> +	 * ttm_caching.
-> +	 */
->   	enum ttm_caching caching;
->   };
->   
-
+> +	power_domain = POWER_DOMAIN_TRANSCODER(cpu_transcoder);
+> +
+> +	with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref)
+> +		tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder));
+> +
+> +	return tmp & TRANS_DDI_FUNC_ENABLE;
+> +}
+> +
+>  static u8 hsw_panel_transcoders(struct drm_i915_private *i915)
+>  {
+>  	u8 panel_transcoder_mask = BIT(TRANSCODER_EDP);
+> @@ -5587,55 +5602,39 @@ static u8 hsw_panel_transcoders(struct drm_i915_private *i915)
+>  	return panel_transcoder_mask;
+>  }
+>  
+> -static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
+> -				     struct intel_crtc_state *pipe_config,
+> -				     struct intel_display_power_domain_set *power_domain_set)
+> +static u8 hsw_enabled_transcoders(struct intel_crtc *crtc)
+>  {
+>  	struct drm_device *dev = crtc->base.dev;
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+>  	u8 panel_transcoder_mask = hsw_panel_transcoders(dev_priv);
+> -	unsigned long enabled_panel_transcoders = 0;
+> -	enum transcoder panel_transcoder;
+> -	u32 tmp;
+> -
+> -	/*
+> -	 * The pipe->transcoder mapping is fixed with the exception of the eDP
+> -	 * and DSI transcoders handled below.
+> -	 */
+> -	pipe_config->cpu_transcoder = (enum transcoder) crtc->pipe;
+> +	enum transcoder cpu_transcoder;
+> +	u8 enabled_transcoders = 0;
+>  
+>  	/*
+>  	 * XXX: Do intel_display_power_get_if_enabled before reading this (for
+>  	 * consistency and less surprising code; it's in always on power).
+>  	 */
+> -	for_each_cpu_transcoder_masked(dev_priv, panel_transcoder,
+> +	for_each_cpu_transcoder_masked(dev_priv, cpu_transcoder,
+>  				       panel_transcoder_mask) {
+> -		bool force_thru = false;
+> +		enum intel_display_power_domain power_domain;
+> +		intel_wakeref_t wakeref;
+>  		enum pipe trans_pipe;
+> +		u32 tmp = 0;
+> +
+> +		power_domain = POWER_DOMAIN_TRANSCODER(cpu_transcoder);
+> +		with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref)
+> +			tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder));
+>  
+> -		tmp = intel_de_read(dev_priv,
+> -				    TRANS_DDI_FUNC_CTL(panel_transcoder));
+>  		if (!(tmp & TRANS_DDI_FUNC_ENABLE))
+>  			continue;
+>  
+> -		/*
+> -		 * Log all enabled ones, only use the first one.
+> -		 *
+> -		 * FIXME: This won't work for two separate DSI displays.
+> -		 */
+> -		enabled_panel_transcoders |= BIT(panel_transcoder);
+> -		if (enabled_panel_transcoders != BIT(panel_transcoder))
+> -			continue;
+> -
+>  		switch (tmp & TRANS_DDI_EDP_INPUT_MASK) {
+>  		default:
+>  			drm_WARN(dev, 1,
+>  				 "unknown pipe linked to transcoder %s\n",
+> -				 transcoder_name(panel_transcoder));
+> +				 transcoder_name(cpu_transcoder));
+>  			fallthrough;
+>  		case TRANS_DDI_EDP_INPUT_A_ONOFF:
+> -			force_thru = true;
+> -			fallthrough;
+>  		case TRANS_DDI_EDP_INPUT_A_ON:
+>  			trans_pipe = PIPE_A;
+>  			break;
+> @@ -5650,22 +5649,83 @@ static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
+>  			break;
+>  		}
+>  
+> -		if (trans_pipe == crtc->pipe) {
+> -			pipe_config->cpu_transcoder = panel_transcoder;
+> -			pipe_config->pch_pfit.force_thru = force_thru;
+> -		}
+> +		if (trans_pipe == crtc->pipe)
+> +			enabled_transcoders |= BIT(cpu_transcoder);
+>  	}
+>  
+> +	cpu_transcoder = (enum transcoder) crtc->pipe;
+> +	if (transcoder_ddi_func_is_enabled(dev_priv, cpu_transcoder))
+> +		enabled_transcoders |= BIT(cpu_transcoder);
+> +
+> +	return enabled_transcoders;
+> +}
+> +
+> +static bool has_edp_transcoders(u8 enabled_transcoders)
+> +{
+> +	return enabled_transcoders & BIT(TRANSCODER_EDP);
+> +}
+> +
+> +static bool has_dsi_transcoders(u8 enabled_transcoders)
+> +{
+> +	return enabled_transcoders & (BIT(TRANSCODER_DSI_0) |
+> +				      BIT(TRANSCODER_DSI_1));
+> +}
+> +
+> +static bool has_pipe_transcoders(u8 enabled_transcoders)
+> +{
+> +	return enabled_transcoders & ~(BIT(TRANSCODER_EDP) |
+> +				       BIT(TRANSCODER_DSI_0) |
+> +				       BIT(TRANSCODER_DSI_1));
+> +}
+> +
+> +static void assert_enabled_transcoders(struct drm_i915_private *i915,
+> +				       u8 enabled_transcoders)
+> +{
+> +	/* Only one type of transcoder please */
+> +	drm_WARN_ON(&i915->drm,
+> +		    has_edp_transcoders(enabled_transcoders) +
+> +		    has_dsi_transcoders(enabled_transcoders) +
+> +		    has_pipe_transcoders(enabled_transcoders) > 1);
+> +
+> +	/* Only DSI transcoders can be ganged */
+> +	drm_WARN_ON(&i915->drm,
+> +		    !has_dsi_transcoders(enabled_transcoders) &&
+> +		    !is_power_of_2(enabled_transcoders));
+> +}
+> +
+> +static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
+> +				     struct intel_crtc_state *pipe_config,
+> +				     struct intel_display_power_domain_set *power_domain_set)
+> +{
+> +	struct drm_device *dev = crtc->base.dev;
+> +	struct drm_i915_private *dev_priv = to_i915(dev);
+> +	unsigned long enabled_transcoders;
+> +	u32 tmp;
+> +
+> +	enabled_transcoders = hsw_enabled_transcoders(crtc);
+> +	if (!enabled_transcoders)
+> +		return false;
+> +
+> +	assert_enabled_transcoders(dev_priv, enabled_transcoders);
+> +
+>  	/*
+> -	 * Valid combos: none, eDP, DSI0, DSI1, DSI0+DSI1
+> +	 * With the exception of DSI we should only ever have
+> +	 * a single enabled transcoder. With DSI let's just
+> +	 * pick the first one.
+>  	 */
+> -	drm_WARN_ON(dev, (enabled_panel_transcoders & BIT(TRANSCODER_EDP)) &&
+> -		    enabled_panel_transcoders != BIT(TRANSCODER_EDP));
+> +	pipe_config->cpu_transcoder = ffs(enabled_transcoders) - 1;
+>  
+>  	if (!intel_display_power_get_in_set_if_enabled(dev_priv, power_domain_set,
+>  						       POWER_DOMAIN_TRANSCODER(pipe_config->cpu_transcoder)))
+>  		return false;
+>  
+> +	if (hsw_panel_transcoders(dev_priv) & BIT(pipe_config->cpu_transcoder)) {
+> +		tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(pipe_config->cpu_transcoder));
+> +
+> +		if ((tmp & TRANS_DDI_EDP_INPUT_MASK) == TRANS_DDI_EDP_INPUT_A_ONOFF)
+> +			pipe_config->pch_pfit.force_thru = true;
+> +	}
+> +
+>  	tmp = intel_de_read(dev_priv, PIPECONF(pipe_config->cpu_transcoder));
+>  
+>  	return tmp & PIPECONF_ENABLE;
+> -- 
+> 2.32.0
+> 
