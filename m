@@ -2,78 +2,60 @@ Return-Path: <SRS0=FeUR=OL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E867C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 13:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B763C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 13:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FEB3610A1
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 13:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2FEB3610A1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=semihalf.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1BD5961178
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 13:10:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1BD5961178
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12E0B89D44;
-	Tue, 21 Sep 2021 13:06:51 +0000 (UTC)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 601B96E911
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 09:01:49 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id
- lb1-20020a17090b4a4100b001993f863df2so2026931pjb.5
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 02:01:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf-com.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=56qdcbF4khZId0epbEdp0X64oIo3h3hxQw6L3Qej4kk=;
- b=Emi4BcUvaAsnynPqDTuG2hpNeLk/xr71b1qG5TugJPDqcKT/fyduYe3k/Z3YaROuoX
- bxYrzx1E6I+4zDr5c5wqwk7YSI072ENQ0Jp+JstaYy7sevPGVQG+FWl9qhQjtjfBYu9B
- OOPYGotgS7HsdY674eyHohczO4NCAnzcy/kbaa0siOcXrgrQSyMscVj0vagpyEHWvjSw
- ykaJR1wJILV8GMnj9VN/7Lk6KTJ2GfUVqVepYjsv0Xk8nc67z+p+wLbtHsvrwyMOIE2Y
- Cm0VHIdP4obcMSFJzQ19ZELoeTbHMMMwMViPsXep990NrkPnSrf92MdOo7E+boB40Fu8
- wk5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=56qdcbF4khZId0epbEdp0X64oIo3h3hxQw6L3Qej4kk=;
- b=NBjafggmIyqLUHhlpA4u4YjrhoDhwdv0YYjMszrQOJlzNBa8voklDEgowh7rO2NbS7
- d2NMFcVcB0GC5EeGccxraungwSZIa8nXGHZmnV2JHjyzZ32KKzTDE3W2XXAujPhMYvVC
- JOJgj8E0CTm7bF5vtgSBGAU4QTtk8rv0fGsL7W8WqhQUQYNCgMHBw49+CvliNFrYOCwX
- OSj8hGDNGUfI9sVjV6nKMg/IVs6bUEloSqm3DFOb3a32tdkTtI23f/x6rK4/mtrB7e+c
- flpLp9JaGmkwIqAA4kYf2WhWReMrTc8syBcgi83OTWO87DXFMReozCzUZtV9K5kGrHSy
- 2eYQ==
-X-Gm-Message-State: AOAM530pKwbQXujZpGkisY/USIYITPvQPyl36B4C+PLbuB+jvUwcsTy1
- AnEgBSQlPxqaGDzAvXHLFG+dN7g45P9KbdFuoq0u5g==
-X-Google-Smtp-Source: ABdhPJxkhXDAgMHSOB81dxPKEiV/mPe07wPsWzLzC7dGArUAzbmez9eAszJ13drtSIgf5gkJT7PkZxdrGqUClXPaTxw=
-X-Received: by 2002:a17:90a:de98:: with SMTP id
- n24mr4176955pjv.4.1632214908782; 
- Tue, 21 Sep 2021 02:01:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8364A89D02;
+	Tue, 21 Sep 2021 13:10:31 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F50E6E998;
+ Tue, 21 Sep 2021 13:10:30 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="220156236"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220156236"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 06:10:29 -0700
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="556923492"
+Received: from ekyne-mobl.ger.corp.intel.com (HELO [10.213.200.64])
+ ([10.213.200.64])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2021 06:10:28 -0700
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Cc: daniel@ffwll.ch
+References: <20210917123513.1106-1-christian.koenig@amd.com>
+ <20210917123513.1106-14-christian.koenig@amd.com>
+ <6fbaca09-ec51-c44e-708c-334ef8be8595@linux.intel.com>
+ <368e8495-f4de-cbb2-3584-e022a5937885@gmail.com>
+ <563bb7c3-f956-212d-6085-b1b88292887c@linux.intel.com>
+ <64b6a924-be38-0ed0-da92-86296702f71c@gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <5705c186-1c17-cd5d-c11d-8b5337204c8a@linux.intel.com>
+Date: Tue, 21 Sep 2021 14:10:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-References: <20210920141101.194959-1-lma@semihalf.com>
- <051f4a37e178d11c6dbcd05b5d6be28731cd7302.camel@intel.com>
-In-Reply-To: <051f4a37e178d11c6dbcd05b5d6be28731cd7302.camel@intel.com>
-From: Lukasz Majczak <lma@semihalf.com>
-Date: Tue, 21 Sep 2021 11:01:37 +0200
-Message-ID: <CAFJ_xboPCc5HkSmu-yVsBF253JhBNSmttDgbOa=2w23EKvbW5A@mail.gmail.com>
-To: "Souza, Jose" <jose.souza@intel.com>
-Cc: "Lee, Shawn C" <shawn.c.lee@intel.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>, 
- "upstream@semihalf.com" <upstream@semihalf.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 21 Sep 2021 13:06:49 +0000
-Subject: Re: [Intel-gfx] [PATCH v1] drm/i915/bdb: Fix version check
+In-Reply-To: <64b6a924-be38-0ed0-da92-86296702f71c@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH 13/26] drm/i915: use the new iterator in
+ i915_gem_busy_ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,127 +71,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-pon., 20 wrz 2021 o 22:47 Souza, Jose <jose.souza@intel.com> napisa=C5=82(a=
-):
->
-> On Mon, 2021-09-20 at 16:11 +0200, Lukasz Majczak wrote:
-> > With patch "drm/i915/vbt: Fix backlight parsing for VBT 234+"
-> > the size of bdb_lfp_backlight_data structure has been increased,
-> > causing if-statement in the parse_lfp_backlight function
-> > that comapres this structure size to the one retrieved from BDB,
-> > always to fail for older revisions.
-> > This patch fixes it by comparing a total size of all fileds from
-> > the structure (present before the change) with the value gathered from =
-BDB.
-> > Tested on Chromebook Pixelbook (Nocturne) (reports bdb->version =3D 221=
-)
-> >
-> > Cc: <stable@vger.kernel.org> # 5.4+
-> > Tested-by: Lukasz Majczak <lma@semihalf.com>
-> > Signed-off-by: Lukasz Majczak <lma@semihalf.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_bios.c     | 4 +++-
-> >  drivers/gpu/drm/i915/display/intel_vbt_defs.h | 5 +++++
-> >  2 files changed, 8 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/dr=
-m/i915/display/intel_bios.c
-> > index 3c25926092de..052a19b455d1 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> > @@ -452,7 +452,9 @@ parse_lfp_backlight(struct drm_i915_private *i915,
-> >
-> >       i915->vbt.backlight.type =3D INTEL_BACKLIGHT_DISPLAY_DDI;
-> >       if (bdb->version >=3D 191 &&
-> > -         get_blocksize(backlight_data) >=3D sizeof(*backlight_data)) {
-> > +         get_blocksize(backlight_data) >=3D (sizeof(backlight_data->en=
-try_size) +
-> > +                                           sizeof(backlight_data->data=
-) +
-> > +                                           sizeof(backlight_data->leve=
-l))) {
->
-> Missing sizeof(backlight_data->backlight_control) but this is getting ver=
-y verbose.
-> Would be better have a expected size variable set each version set in the=
- beginning of this function.
->
-> something like:
-> switch (bdb->version) {
-> case 191:
->         expected_size =3D x;
->         break;
-> case 234:
->         expected_size =3D x;
->         break;
-> case 236:
-> default:
->         expected_size =3D x;
-> }
->
->
-> >               const struct lfp_backlight_control_method *method;
-> >
-> >               method =3D &backlight_data->backlight_control[panel_type]=
-;
-> > diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gp=
-u/drm/i915/display/intel_vbt_defs.h
-> > index 330077c2e588..fff456bf8783 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> > @@ -814,6 +814,11 @@ struct lfp_brightness_level {
-> >       u16 reserved;
-> >  } __packed;
-> >
-> > +/*
-> > + * Changing struct bdb_lfp_backlight_data might affect its
-> > + * size comparation to the value hold in BDB.
-> > + * (e.g. in parse_lfp_backlight())
-> > + */
->
-> This is true for all the blocks so I don't think we need this comment.
->
-> >  struct bdb_lfp_backlight_data {
-> >       u8 entry_size;
-> >       struct lfp_backlight_data_entry data[16];
->
-Hi Jose, Jani
 
-Jani - you are right - I was working on 5.4 with a backported patch  -
-I'm sorry for this confusion.
+On 21/09/2021 10:41, Christian König wrote:
+> Am 20.09.21 um 12:33 schrieb Tvrtko Ursulin:
+>> On 20/09/2021 11:13, Christian König wrote:
+>>> Am 20.09.21 um 10:45 schrieb Tvrtko Ursulin:
+>>>>
+>>>> On 17/09/2021 13:35, Christian König wrote:
+>>>>> This makes the function much simpler since the complex
+>>>>> retry logic is now handled else where.
+>>>>>
+>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/i915/gem/i915_gem_busy.c | 32 
+>>>>> ++++++++----------------
+>>>>>   1 file changed, 11 insertions(+), 21 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c 
+>>>>> b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+>>>>> index 6234e17259c1..b1cb7ba688da 100644
+>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+>>>>> @@ -82,8 +82,8 @@ i915_gem_busy_ioctl(struct drm_device *dev, void 
+>>>>> *data,
+>>>>>   {
+>>>>>       struct drm_i915_gem_busy *args = data;
+>>>>>       struct drm_i915_gem_object *obj;
+>>>>> -    struct dma_resv_list *list;
+>>>>> -    unsigned int seq;
+>>>>> +    struct dma_resv_iter cursor;
+>>>>> +    struct dma_fence *fence;
+>>>>>       int err;
+>>>>>         err = -ENOENT;
+>>>>> @@ -109,27 +109,17 @@ i915_gem_busy_ioctl(struct drm_device *dev, 
+>>>>> void *data,
+>>>>>        * to report the overall busyness. This is what the 
+>>>>> wait-ioctl does.
+>>>>>        *
+>>>>>        */
+>>>>> -retry:
+>>>>> -    seq = raw_read_seqcount(&obj->base.resv->seq);
+>>>>> -
+>>>>> -    /* Translate the exclusive fence to the READ *and* WRITE 
+>>>>> engine */
+>>>>> -    args->busy = 
+>>>>> busy_check_writer(dma_resv_excl_fence(obj->base.resv));
+>>>>> -
+>>>>> -    /* Translate shared fences to READ set of engines */
+>>>>> -    list = dma_resv_shared_list(obj->base.resv);
+>>>>> -    if (list) {
+>>>>> -        unsigned int shared_count = list->shared_count, i;
+>>>>> -
+>>>>> -        for (i = 0; i < shared_count; ++i) {
+>>>>> -            struct dma_fence *fence =
+>>>>> -                rcu_dereference(list->shared[i]);
+>>>>> -
+>>>>> +    args->busy = false;
+>>>>> +    dma_resv_iter_begin(&cursor, obj->base.resv, true);
+>>>>> +    dma_resv_for_each_fence_unlocked(&cursor, fence) {
+>>>>
+>>>> You did not agree with my suggestion to reset args->busy on restart 
+>>>> and so preserve current behaviour?
+>>>
+>>> No, I want to keep the restart behavior internally to the dma_resv 
+>>> object and as far as I can see it should not make a difference here.
+>>
+>> To be clear, on paper difference between old and new implementation is 
+>> if the restart happens while processing the shared fences.
+>>
+>> Old implementation unconditionally goes to "args->busy =
+>> >>> busy_check_writer(dma_resv_excl_fence(obj->base.resv));" and so 
+>> overwrites the set of flags returned to userspace.
+>>
+>> New implementation can merge new read flags to the old set of flags 
+>> and so return a composition of past and current fences.
+>>
+>> Maybe it does not matter hugely in this case, depends if userspace 
+>> typically just restarts until flags are clear. But I am not sure.
+>>
+>> On the higher level - what do you mean with wanting to keep the 
+>> restart behaviour internal? Not providing iterators users means of 
+>> detecting it? I think it has to be provided.
+> 
+> Ok I will adjust that for now to get the patch set upstream. But in 
+> general when somebody outside of the dma_resv code base depends on the 
+> restart behavior then that's a bug inside the design of that code.
 
-Jose,
+Thanks, no change in behaviour makes for an easy r-b. :)
 
-Regarding expected_size, I couldn't find documentation that could
-described this structure size changes among revisions, so all I could
-do is to do an educated guess, basing on comments at this structure,
-like:
+> The callers should only care about what unsignaled fences are inside the 
+> dma_resv container and it shouldn't matter if those fences are presented 
+> once or multiple times because of a reset..
+> 
+> When this makes a difference we have a bug in the handling and should 
+> probably consider taking the dma_resv.lock instead.
 
-(gdb) ptype /o  struct bdb_lfp_backlight_data
-/* offset    |  size */  type =3D struct bdb_lfp_backlight_data {
-/*    0      |     1 */    u8 entry_size;
-/*    1      |    96 */    struct lfp_backlight_data_entry data[16];
-/*   97      |    16 */    u8 level[16];
-/*  113      |    16 */    struct lfp_backlight_control_method
-backlight_control[16];
-/*  129      |    64 */    struct lfp_brightness_level
-brightness_level[16]; /* 234+ */
-/*  193      |    64 */    struct lfp_brightness_level
-brightness_min_level[16]; /* 234+ */
-/*  257      |    16 */    u8 brightness_precision_bits[16]; /* 236+ */
+I agree, which is why I was mentioning earlier how it would be good to 
+completely sort locked from unlocked iterators and avoid situations 
+where unlocked one is called from a path where object is locked.
 
-                           /* total size (bytes):  273 */
-                         }
+Unfortunately for the display code path I cannot easily help with the 
+audit of call paths. And I think there are at least two patches in your 
+series which need KMS expertise.
 
-if (revision <=3D 234)
-   expected_size =3D 129;
-else if (revision > 234 && revision <=3D236)
-  expected_size =3D 257;
-else /* revision > 236 */
-   expected_size =3D 273;
+Regards,
 
-Is this approach ok? Otherwise I think I would need help from you to
-get exact numbers for each revision...
-
-Best regards,
-Lukasz
+Tvrtko
