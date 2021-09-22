@@ -7,50 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93B90C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 00:15:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8346C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 00:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B75C61166
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 00:15:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5B75C61166
+	by mail.kernel.org (Postfix) with ESMTPS id 2D79261166
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 00:15:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D79261166
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79B4F6E942;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3716E947;
 	Wed, 22 Sep 2021 00:15:04 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6796C6E936
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1725D6E940
  for <intel-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 00:15:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220292684"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220292684"
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220292681"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="220292681"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Sep 2021 17:15:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="613200283"
+X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="613200262"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga001.fm.intel.com with ESMTP; 21 Sep 2021 17:15:01 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 21 Sep 2021 17:15:00 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Jason Ekstrand <jason@jlekstrand.net>,
- Daniel Vetter <daniel.vetter@intel.com>
-Date: Tue, 21 Sep 2021 17:15:24 -0700
-Message-Id: <20210922001531.399533-11-alan.previn.teres.alexis@intel.com>
+Cc: "Huang, Sean Z" <sean.z.huang@intel.com>, Huang@freedesktop.org,
+	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Tue, 21 Sep 2021 17:15:21 -0700
+Message-Id: <20210922001531.399533-8-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210922001531.399533-1-alan.previn.teres.alexis@intel.com>
 References: <20210922001531.399533-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v11 10/17] drm/i915/pxp: interfaces for using
- protected objects
+Subject: [Intel-gfx] [PATCH v11 07/17] drm/i915/pxp: Create the arbitrary
+ session after boot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,925 +62,452 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
 
-This api allow user mode to create protected buffers and to mark
-contexts as making use of such objects. Only when using contexts
-marked in such a way is the execution guaranteed to work as expected.
+Create the arbitrary session, with the fixed session id 0xf, after
+system boot, for the case that application allocates the protected
+buffer without establishing any protection session. Because the
+hardware requires at least one alive session for protected buffer
+creation. This arbitrary session will need to be re-created after
+teardown or power event because hardware encryption key won't be
+valid after such cases.
 
-Contexts can only be marked as using protected content at creation time
-(i.e. the parameter is immutable) and they must be both bannable and not
-recoverable. Given that the protected session gets invalidated on
-suspend, contexts created this way hold a runtime pm wakeref until
-they're either destroyed or invalidated.
+The session ID is exposed as part of the uapi so it can be used as part
+of userspace commands.
 
-All protected objects and contexts will be considered invalid when the
-PXP session is destroyed and all new submissions using them will be
-rejected. All intel contexts within the invalidated gem contexts will be
-marked banned. Userspace can detect that an invalidation has occurred via
-the RESET_STATS ioctl, where we report it the same way as a ban due to a
-hang.
+v2: use gt->uncore->rpm (Chris)
+v3: s/arb_is_in_play/arb_is_valid (Chris), move set-up to the new
+    init_hw function
+v4: move interface defs to separate header, set arb_is valid to false
+    on fini (Rodrigo)
+v5: handle async component binding
 
-v5: squash patches, rebase on proto_ctx, update kerneldoc
-
-v6: rebase on obj create_ext changes
-
-v7: Use session counter to check if an object it valid, hold wakeref in
-    context, don't add a new flag to RESET_STATS (Daniel)
-
-v8: don't increase guilty count for contexts banned during pxp
-    invalidation (Rodrigo)
-
-v9: better comments, avoid wakeref put race between pxp_inval and
-    context_close, add usage examples (Rodrigo)
-
-v10: modify internal set/get-protected-context functions to not
-     return -ENODEV when setting PXP param to false or getting param
-     when running on pxp-unsupported hw or getting param when i915
-     was built with CONFIG_PXP off
-
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
-Cc: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 94 +++++++++++++++---
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |  6 ++
- .../gpu/drm/i915/gem/i915_gem_context_types.h | 28 ++++++
- drivers/gpu/drm/i915/gem/i915_gem_create.c    | 72 ++++++++++----
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 18 ++++
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |  1 +
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  6 ++
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  8 ++
- .../gpu/drm/i915/gem/selftests/mock_context.c |  4 +-
- drivers/gpu/drm/i915/pxp/intel_pxp.c          | 78 +++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h          | 12 +++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  6 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  9 ++
- include/uapi/drm/i915_drm.h                   | 96 ++++++++++++++++++-
- 14 files changed, 403 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/i915/Makefile                 |  1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp.c          | 12 +++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h          |  2 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.c  | 74 ++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.h  | 15 ++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 87 +++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h      |  3 +
+ .../drm/i915/pxp/intel_pxp_tee_interface.h    | 36 ++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h    | 10 +++
+ include/uapi/drm/i915_drm.h                   |  3 +
+ 10 files changed, 243 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index c2ab0e22db0a..3efbfbfed0b9 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -77,6 +77,8 @@
- #include "gt/intel_gpu_commands.h"
- #include "gt/intel_ring.h"
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 5f1734ff3d26..334efd835cd8 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -283,6 +283,7 @@ i915-y += i915_perf.o
+ # Protected execution platform (PXP) support
+ i915-$(CONFIG_DRM_I915_PXP) += \
+ 	pxp/intel_pxp.o \
++	pxp/intel_pxp_session.o \
+ 	pxp/intel_pxp_tee.o
  
-+#include "pxp/intel_pxp.h"
-+
- #include "i915_gem_context.h"
- #include "i915_trace.h"
- #include "i915_user_extensions.h"
-@@ -186,10 +188,13 @@ static int validate_priority(struct drm_i915_private *i915,
- 	return 0;
+ # Post-mortem debug and GPU hang state capture
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index ebbc6923c7ad..54ad5e3d0df2 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -3,6 +3,7 @@
+  * Copyright(c) 2020 Intel Corporation.
+  */
+ #include "intel_pxp.h"
++#include "intel_pxp_session.h"
+ #include "intel_pxp_tee.h"
+ #include "gt/intel_context.h"
+ #include "i915_drv.h"
+@@ -12,6 +13,11 @@ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
+ 	return container_of(pxp, struct intel_gt, pxp);
  }
  
--static void proto_context_close(struct i915_gem_proto_context *pc)
-+static void proto_context_close(struct drm_i915_private *i915,
-+				struct i915_gem_proto_context *pc)
- {
- 	int i;
- 
-+	if (pc->pxp_wakeref)
-+		intel_runtime_pm_put(&i915->runtime_pm, pc->pxp_wakeref);
- 	if (pc->vm)
- 		i915_vm_put(pc->vm);
- 	if (pc->user_engines) {
-@@ -241,6 +246,33 @@ static int proto_context_set_persistence(struct drm_i915_private *i915,
- 	return 0;
- }
- 
-+static int proto_context_set_protected(struct drm_i915_private *i915,
-+				       struct i915_gem_proto_context *pc,
-+				       bool protected)
++bool intel_pxp_is_active(const struct intel_pxp *pxp)
 +{
-+	int ret = 0;
++	return pxp->arb_is_valid;
++}
 +
-+	if (!protected) {
-+		pc->uses_protected_content = false;
-+	} else if (!intel_pxp_is_enabled(&i915->gt.pxp)) {
-+		ret = -ENODEV;
-+	} else if ((pc->user_flags & BIT(UCONTEXT_RECOVERABLE)) ||
-+		   !(pc->user_flags & BIT(UCONTEXT_BANNABLE))) {
-+		ret = -EPERM;
-+	} else {
-+		pc->uses_protected_content = true;
+ /* KCR register definitions */
+ #define KCR_INIT _MMIO(0x320f0)
+ /* Setting KCR Init bit is required after system boot */
+@@ -71,6 +77,8 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ 	if (!HAS_PXP(gt->i915))
+ 		return;
+ 
++	mutex_init(&pxp->tee_mutex);
 +
-+		/*
-+		 * protected context usage requires the PXP session to be up,
-+		 * which in turn requires the device to be active.
-+		 */
-+		pc->pxp_wakeref = intel_runtime_pm_get(&i915->runtime_pm);
-+		ret = intel_pxp_wait_for_arb_start(&i915->gt.pxp);
-+	}
+ 	ret = create_vcs_context(pxp);
+ 	if (ret)
+ 		return;
+@@ -92,6 +100,8 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+ 	if (!intel_pxp_is_enabled(pxp))
+ 		return;
+ 
++	pxp->arb_is_valid = false;
++
+ 	intel_pxp_tee_component_fini(pxp);
+ 
+ 	destroy_vcs_context(pxp);
+@@ -100,6 +110,8 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+ void intel_pxp_init_hw(struct intel_pxp *pxp)
+ {
+ 	kcr_pxp_enable(pxp_to_gt(pxp));
++
++	intel_pxp_create_arb_session(pxp);
+ }
+ 
+ void intel_pxp_fini_hw(struct intel_pxp *pxp)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index cd6560b2605c..2960e8338c82 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -15,6 +15,8 @@ static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
+ 
+ #ifdef CONFIG_DRM_I915_PXP
+ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
++bool intel_pxp_is_active(const struct intel_pxp *pxp);
++
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+new file mode 100644
+index 000000000000..3331868f354c
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+@@ -0,0 +1,74 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ */
++
++#include "drm/i915_drm.h"
++#include "i915_drv.h"
++
++#include "intel_pxp.h"
++#include "intel_pxp_session.h"
++#include "intel_pxp_tee.h"
++#include "intel_pxp_types.h"
++
++#define ARB_SESSION I915_PROTECTED_CONTENT_DEFAULT_SESSION /* shorter define */
++
++#define GEN12_KCR_SIP _MMIO(0x32260) /* KCR hwdrm session in play 0-31 */
++
++static bool intel_pxp_session_is_in_play(struct intel_pxp *pxp, u32 id)
++{
++	struct intel_gt *gt = pxp_to_gt(pxp);
++	intel_wakeref_t wakeref;
++	u32 sip = 0;
++
++	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
++		sip = intel_uncore_read(gt->uncore, GEN12_KCR_SIP);
++
++	return sip & BIT(id);
++}
++
++static int pxp_wait_for_session_state(struct intel_pxp *pxp, u32 id, bool in_play)
++{
++	struct intel_gt *gt = pxp_to_gt(pxp);
++	intel_wakeref_t wakeref;
++	u32 mask = BIT(id);
++	int ret;
++
++	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
++		ret = intel_wait_for_register(gt->uncore,
++					      GEN12_KCR_SIP,
++					      mask,
++					      in_play ? mask : 0,
++					      100);
 +
 +	return ret;
 +}
 +
- static struct i915_gem_proto_context *
- proto_context_create(struct drm_i915_private *i915, unsigned int flags)
- {
-@@ -269,7 +301,7 @@ proto_context_create(struct drm_i915_private *i915, unsigned int flags)
- 	return pc;
- 
- proto_close:
--	proto_context_close(pc);
-+	proto_context_close(i915, pc);
- 	return err;
- }
- 
-@@ -693,6 +725,8 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
- 			ret = -EPERM;
- 		else if (args->value)
- 			pc->user_flags |= BIT(UCONTEXT_BANNABLE);
-+		else if (pc->uses_protected_content)
-+			ret = -EPERM;
- 		else
- 			pc->user_flags &= ~BIT(UCONTEXT_BANNABLE);
- 		break;
-@@ -700,10 +734,12 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
- 	case I915_CONTEXT_PARAM_RECOVERABLE:
- 		if (args->size)
- 			ret = -EINVAL;
--		else if (args->value)
--			pc->user_flags |= BIT(UCONTEXT_RECOVERABLE);
--		else
-+		else if (!args->value)
- 			pc->user_flags &= ~BIT(UCONTEXT_RECOVERABLE);
-+		else if (pc->uses_protected_content)
-+			ret = -EPERM;
-+		else
-+			pc->user_flags |= BIT(UCONTEXT_RECOVERABLE);
- 		break;
- 
- 	case I915_CONTEXT_PARAM_PRIORITY:
-@@ -731,6 +767,11 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
- 						    args->value);
- 		break;
- 
-+	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-+		ret = proto_context_set_protected(fpriv->dev_priv, pc,
-+						  args->value);
-+		break;
++int intel_pxp_create_arb_session(struct intel_pxp *pxp)
++{
++	struct intel_gt *gt = pxp_to_gt(pxp);
++	int ret;
 +
- 	case I915_CONTEXT_PARAM_NO_ZEROMAP:
- 	case I915_CONTEXT_PARAM_BAN_PERIOD:
- 	case I915_CONTEXT_PARAM_RINGSIZE:
-@@ -955,6 +996,8 @@ static void i915_gem_context_release_work(struct work_struct *work)
- 	vm = ctx->vm;
- 	if (vm)
- 		i915_vm_put(vm);
-+	if (ctx->pxp_wakeref)
-+		intel_runtime_pm_put(&ctx->i915->runtime_pm, ctx->pxp_wakeref);
- 
- 	mutex_destroy(&ctx->engines_mutex);
- 	mutex_destroy(&ctx->lut_mutex);
-@@ -1338,6 +1381,11 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 			goto err_engines;
- 	}
- 
-+	if (pc->uses_protected_content) {
-+		ctx->pxp_wakeref = intel_runtime_pm_get(&i915->runtime_pm);
-+		ctx->uses_protected_content = true;
++	pxp->arb_is_valid = false;
++
++	if (intel_pxp_session_is_in_play(pxp, ARB_SESSION)) {
++		drm_err(&gt->i915->drm, "arb session already in play at creation time\n");
++		return -EEXIST;
 +	}
 +
- 	trace_i915_context_create(ctx);
- 
- 	return ctx;
-@@ -1409,7 +1457,7 @@ int i915_gem_context_open(struct drm_i915_private *i915,
- 	}
- 
- 	ctx = i915_gem_create_context(i915, pc);
--	proto_context_close(pc);
-+	proto_context_close(i915, pc);
- 	if (IS_ERR(ctx)) {
- 		err = PTR_ERR(ctx);
- 		goto err;
-@@ -1436,7 +1484,7 @@ void i915_gem_context_close(struct drm_file *file)
- 	unsigned long idx;
- 
- 	xa_for_each(&file_priv->proto_context_xa, idx, pc)
--		proto_context_close(pc);
-+		proto_context_close(file_priv->dev_priv, pc);
- 	xa_destroy(&file_priv->proto_context_xa);
- 	mutex_destroy(&file_priv->proto_context_lock);
- 
-@@ -1731,6 +1779,15 @@ static int set_priority(struct i915_gem_context *ctx,
- 	return 0;
- }
- 
-+static int get_protected(struct i915_gem_context *ctx,
-+			 struct drm_i915_gem_context_param *args)
-+{
-+	args->size = 0;
-+	args->value = i915_gem_context_uses_protected_content(ctx);
++	ret = intel_pxp_tee_cmd_create_arb_session(pxp, ARB_SESSION);
++	if (ret) {
++		drm_err(&gt->i915->drm, "tee cmd for arb session creation failed\n");
++		return ret;
++	}
++
++	ret = pxp_wait_for_session_state(pxp, ARB_SESSION, true);
++	if (ret) {
++		drm_err(&gt->i915->drm, "arb session failed to go in play\n");
++		return ret;
++	}
++
++	pxp->arb_is_valid = true;
 +
 +	return 0;
 +}
-+
- static int ctx_setparam(struct drm_i915_file_private *fpriv,
- 			struct i915_gem_context *ctx,
- 			struct drm_i915_gem_context_param *args)
-@@ -1754,6 +1811,8 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
- 			ret = -EPERM;
- 		else if (args->value)
- 			i915_gem_context_set_bannable(ctx);
-+		else if (i915_gem_context_uses_protected_content(ctx))
-+			ret = -EPERM; /* can't clear this for protected contexts */
- 		else
- 			i915_gem_context_clear_bannable(ctx);
- 		break;
-@@ -1761,10 +1820,12 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
- 	case I915_CONTEXT_PARAM_RECOVERABLE:
- 		if (args->size)
- 			ret = -EINVAL;
--		else if (args->value)
--			i915_gem_context_set_recoverable(ctx);
--		else
-+		else if (!args->value)
- 			i915_gem_context_clear_recoverable(ctx);
-+		else if (i915_gem_context_uses_protected_content(ctx))
-+			ret = -EPERM; /* can't set this for protected contexts */
-+		else
-+			i915_gem_context_set_recoverable(ctx);
- 		break;
- 
- 	case I915_CONTEXT_PARAM_PRIORITY:
-@@ -1779,6 +1840,7 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
- 		ret = set_persistence(ctx, args);
- 		break;
- 
-+	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:
- 	case I915_CONTEXT_PARAM_NO_ZEROMAP:
- 	case I915_CONTEXT_PARAM_BAN_PERIOD:
- 	case I915_CONTEXT_PARAM_RINGSIZE:
-@@ -1857,7 +1919,7 @@ finalize_create_context_locked(struct drm_i915_file_private *file_priv,
- 
- 	old = xa_erase(&file_priv->proto_context_xa, id);
- 	GEM_BUG_ON(old != pc);
--	proto_context_close(pc);
-+	proto_context_close(file_priv->dev_priv, pc);
- 
- 	/* One for the xarray and one for the caller */
- 	return i915_gem_context_get(ctx);
-@@ -1943,7 +2005,7 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
- 			goto err_pc;
- 		}
- 
--		proto_context_close(ext_data.pc);
-+		proto_context_close(i915, ext_data.pc);
- 		gem_context_register(ctx, ext_data.fpriv, id);
- 	} else {
- 		ret = proto_context_register(ext_data.fpriv, ext_data.pc, &id);
-@@ -1957,7 +2019,7 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
- 	return 0;
- 
- err_pc:
--	proto_context_close(ext_data.pc);
-+	proto_context_close(i915, ext_data.pc);
- 	return ret;
- }
- 
-@@ -1988,7 +2050,7 @@ int i915_gem_context_destroy_ioctl(struct drm_device *dev, void *data,
- 	GEM_WARN_ON(ctx && pc);
- 
- 	if (pc)
--		proto_context_close(pc);
-+		proto_context_close(file_priv->dev_priv, pc);
- 
- 	if (ctx)
- 		context_close(ctx);
-@@ -2106,6 +2168,10 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
- 		args->value = i915_gem_context_is_persistent(ctx);
- 		break;
- 
-+	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-+		ret = get_protected(ctx, args);
-+		break;
-+
- 	case I915_CONTEXT_PARAM_NO_ZEROMAP:
- 	case I915_CONTEXT_PARAM_BAN_PERIOD:
- 	case I915_CONTEXT_PARAM_ENGINES:
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-index d3279086a5e7..babfecb17ad1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-@@ -108,6 +108,12 @@ i915_gem_context_clear_user_engines(struct i915_gem_context *ctx)
- 	clear_bit(CONTEXT_USER_ENGINES, &ctx->flags);
- }
- 
-+static inline bool
-+i915_gem_context_uses_protected_content(const struct i915_gem_context *ctx)
-+{
-+	return ctx->uses_protected_content;
-+}
-+
- /* i915_gem_context.c */
- void i915_gem_init__contexts(struct drm_i915_private *i915);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index c4617e4d9fa9..a627b09c4680 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -198,6 +198,12 @@ struct i915_gem_proto_context {
- 
- 	/** @single_timeline: See See &i915_gem_context.syncobj */
- 	bool single_timeline;
-+
-+	/** @uses_protected_content: See &i915_gem_context.uses_protected_content */
-+	bool uses_protected_content;
-+
-+	/** @pxp_wakeref: See &i915_gem_context.pxp_wakeref */
-+	intel_wakeref_t pxp_wakeref;
- };
- 
- /**
-@@ -321,6 +327,28 @@ struct i915_gem_context {
- #define CONTEXT_CLOSED			0
- #define CONTEXT_USER_ENGINES		1
- 
-+	/**
-+	 * @uses_protected_content: context uses PXP-encrypted objects.
-+	 *
-+	 * This flag can only be set at ctx creation time and it's immutable for
-+	 * the lifetime of the context. See I915_CONTEXT_PARAM_PROTECTED_CONTENT
-+	 * in uapi/drm/i915_drm.h for more info on setting restrictions and
-+	 * expected behaviour of marked contexts.
-+	 */
-+	bool uses_protected_content;
-+
-+	/**
-+	 * @pxp_wakeref: wakeref to keep the device awake when PXP is in use
-+	 *
-+	 * PXP sessions are invalidated when the device is suspended, which in
-+	 * turns invalidates all contexts and objects using it. To keep the
-+	 * flow simple, we keep the device awake when contexts using PXP objects
-+	 * are in use. It is expected that the userspace application only uses
-+	 * PXP when the display is on, so taking a wakeref here shouldn't worsen
-+	 * our power metrics.
-+	 */
-+	intel_wakeref_t pxp_wakeref;
-+
- 	/** @mutex: guards everything that isn't engines or handles_vma */
- 	struct mutex mutex;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-index 1d341b8c47c0..8955d6abcef1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-@@ -6,6 +6,7 @@
- #include "gem/i915_gem_ioctls.h"
- #include "gem/i915_gem_lmem.h"
- #include "gem/i915_gem_region.h"
-+#include "pxp/intel_pxp.h"
- 
- #include "i915_drv.h"
- #include "i915_trace.h"
-@@ -82,21 +83,11 @@ static int i915_gem_publish(struct drm_i915_gem_object *obj,
- 	return 0;
- }
- 
--/**
-- * Creates a new object using the same path as DRM_I915_GEM_CREATE_EXT
-- * @i915: i915 private
-- * @size: size of the buffer, in bytes
-- * @placements: possible placement regions, in priority order
-- * @n_placements: number of possible placement regions
-- *
-- * This function is exposed primarily for selftests and does very little
-- * error checking.  It is assumed that the set of placement regions has
-- * already been verified to be valid.
-- */
--struct drm_i915_gem_object *
--__i915_gem_object_create_user(struct drm_i915_private *i915, u64 size,
--			      struct intel_memory_region **placements,
--			      unsigned int n_placements)
-+static struct drm_i915_gem_object *
-+__i915_gem_object_create_user_ext(struct drm_i915_private *i915, u64 size,
-+				  struct intel_memory_region **placements,
-+				  unsigned int n_placements,
-+				  unsigned int ext_flags)
- {
- 	struct intel_memory_region *mr = placements[0];
- 	struct drm_i915_gem_object *obj;
-@@ -135,6 +126,9 @@ __i915_gem_object_create_user(struct drm_i915_private *i915, u64 size,
- 
- 	GEM_BUG_ON(size != obj->base.size);
- 
-+	/* Add any flag set by create_ext options */
-+	obj->flags |= ext_flags;
-+
- 	trace_i915_gem_object_create(obj);
- 	return obj;
- 
-@@ -145,6 +139,26 @@ __i915_gem_object_create_user(struct drm_i915_private *i915, u64 size,
- 	return ERR_PTR(ret);
- }
- 
-+/**
-+ * Creates a new object using the same path as DRM_I915_GEM_CREATE_EXT
-+ * @i915: i915 private
-+ * @size: size of the buffer, in bytes
-+ * @placements: possible placement regions, in priority order
-+ * @n_placements: number of possible placement regions
-+ *
-+ * This function is exposed primarily for selftests and does very little
-+ * error checking.  It is assumed that the set of placement regions has
-+ * already been verified to be valid.
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+new file mode 100644
+index 000000000000..316c3bebed9c
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright(c) 2020, Intel Corporation. All rights reserved.
 + */
-+struct drm_i915_gem_object *
-+__i915_gem_object_create_user(struct drm_i915_private *i915, u64 size,
-+			      struct intel_memory_region **placements,
-+			      unsigned int n_placements)
-+{
-+	return __i915_gem_object_create_user_ext(i915, size, placements,
-+						 n_placements, 0);
-+}
 +
- int
- i915_gem_dumb_create(struct drm_file *file,
- 		     struct drm_device *dev,
-@@ -224,6 +238,7 @@ struct create_ext {
- 	struct drm_i915_private *i915;
- 	struct intel_memory_region *placements[INTEL_REGION_UNKNOWN];
- 	unsigned int n_placements;
-+	unsigned long flags;
- };
- 
- static void repr_placements(char *buf, size_t size,
-@@ -353,8 +368,28 @@ static int ext_set_placements(struct i915_user_extension __user *base,
- 	return set_placements(&ext, data);
- }
- 
-+static int ext_set_protected(struct i915_user_extension __user *base, void *data)
-+{
-+	struct drm_i915_gem_create_ext_protected_content ext;
-+	struct create_ext *ext_data = data;
++#ifndef __INTEL_PXP_SESSION_H__
++#define __INTEL_PXP_SESSION_H__
 +
-+	if (copy_from_user(&ext, base, sizeof(ext)))
-+		return -EFAULT;
++#include <linux/types.h>
 +
-+	if (ext.flags)
-+		return -EINVAL;
++struct intel_pxp;
 +
-+	if (!intel_pxp_is_enabled(&ext_data->i915->gt.pxp))
-+		return -ENODEV;
++int intel_pxp_create_arb_session(struct intel_pxp *pxp);
 +
-+	ext_data->flags |= I915_BO_PROTECTED;
-+
-+	return 0;
-+}
-+
- static const i915_user_extension_fn create_extensions[] = {
- 	[I915_GEM_CREATE_EXT_MEMORY_REGIONS] = ext_set_placements,
-+	[I915_GEM_CREATE_EXT_PROTECTED_CONTENT] = ext_set_protected,
- };
- 
- /**
-@@ -389,9 +424,10 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
- 		ext_data.n_placements = 1;
- 	}
- 
--	obj = __i915_gem_object_create_user(i915, args->size,
--					    ext_data.placements,
--					    ext_data.n_placements);
-+	obj = __i915_gem_object_create_user_ext(i915, args->size,
-+						ext_data.placements,
-+						ext_data.n_placements,
-+						ext_data.flags);
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 2f2434b52317..d129a9f951da 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -21,6 +21,8 @@
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_ring.h"
- 
-+#include "pxp/intel_pxp.h"
-+
++#endif /* __INTEL_PXP_SESSION_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 0c0c7946e6a0..accbbf9aa6d1 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -8,13 +8,63 @@
+ #include "drm/i915_component.h"
  #include "i915_drv.h"
- #include "i915_gem_clflush.h"
- #include "i915_gem_context.h"
-@@ -821,6 +823,22 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
- 		if (unlikely(!obj))
- 			return ERR_PTR(-ENOENT);
- 
-+		/*
-+		 * If the user has opted-in for protected-object tracking, make
-+		 * sure the object encryption can be used.
-+		 * We only need to do this when the object is first used with
-+		 * this context, because the context itself will be banned when
-+		 * the protected objects become invalid.
-+		 */
-+		if (i915_gem_context_uses_protected_content(eb->gem_context) &&
-+		    i915_gem_object_is_protected(obj)) {
-+			err = intel_pxp_key_check(&vm->gt->pxp, obj);
-+			if (err) {
-+				i915_gem_object_put(obj);
-+				return ERR_PTR(err);
-+			}
-+		}
-+
- 		vma = i915_vma_instance(obj, vm, NULL);
- 		if (IS_ERR(vma)) {
- 			i915_gem_object_put(obj);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 6fb9afb65034..e85f2d9fddee 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -25,6 +25,7 @@
- #include <linux/sched/mm.h>
- 
- #include "display/intel_frontbuffer.h"
-+#include "pxp/intel_pxp.h"
- #include "i915_drv.h"
- #include "i915_gem_clflush.h"
- #include "i915_gem_context.h"
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 48112b9d76df..ed171daf49a7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -269,6 +269,12 @@ i915_gem_object_clear_tiling_quirk(struct drm_i915_gem_object *obj)
- 	clear_bit(I915_TILING_QUIRK_BIT, &obj->flags);
- }
- 
-+static inline bool
-+i915_gem_object_is_protected(const struct drm_i915_gem_object *obj)
-+{
-+	return obj->flags & I915_BO_PROTECTED;
-+}
-+
- static inline bool
- i915_gem_object_type_has(const struct drm_i915_gem_object *obj,
- 			 unsigned long flags)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 2471f36aaff3..7d7e9c77f199 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -298,6 +298,7 @@ struct drm_i915_gem_object {
- 			     I915_BO_ALLOC_USER)
- #define I915_BO_READONLY         BIT(4)
- #define I915_TILING_QUIRK_BIT    5 /* unknown swizzling; do not release! */
-+#define I915_BO_PROTECTED        BIT(6)
- 
- 	/**
- 	 * @mem_flags - Mutable placement-related flags
-@@ -537,6 +538,13 @@ struct drm_i915_gem_object {
- 		bool created:1;
- 	} ttm;
- 
-+	/*
-+	 * Record which PXP key instance this object was created against (if
-+	 * any), so we can use it to determine if the encryption is valid by
-+	 * comparing against the current key instance.
-+	 */
-+	u32 pxp_key_instance;
-+
- 	/** Record of address bit 17 of each page at last unbind. */
- 	unsigned long *bit_17;
- 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.c b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-index 067d68a6fe4c..c0a8ef368044 100644
---- a/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-@@ -88,7 +88,7 @@ live_context(struct drm_i915_private *i915, struct file *file)
- 		return ERR_CAST(pc);
- 
- 	ctx = i915_gem_create_context(i915, pc);
--	proto_context_close(pc);
-+	proto_context_close(i915, pc);
- 	if (IS_ERR(ctx))
- 		return ctx;
- 
-@@ -163,7 +163,7 @@ kernel_context(struct drm_i915_private *i915,
- 	}
- 
- 	ctx = i915_gem_create_context(i915, pc);
--	proto_context_close(pc);
-+	proto_context_close(i915, pc);
- 	if (IS_ERR(ctx))
- 		return ctx;
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 95593e84d40f..82f250d15e1e 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -7,6 +7,7 @@
- #include "intel_pxp_irq.h"
- #include "intel_pxp_session.h"
+ #include "intel_pxp.h"
++#include "intel_pxp_session.h"
  #include "intel_pxp_tee.h"
-+#include "gem/i915_gem_context.h"
- #include "gt/intel_context.h"
- #include "i915_drv.h"
++#include "intel_pxp_tee_interface.h"
  
-@@ -177,3 +178,80 @@ void intel_pxp_fini_hw(struct intel_pxp *pxp)
- 
- 	intel_pxp_irq_disable(pxp);
+ static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
+ {
+ 	return &kdev_to_i915(i915_kdev)->gt.pxp;
  }
-+
-+int intel_pxp_key_check(struct intel_pxp *pxp, struct drm_i915_gem_object *obj)
-+{
-+	if (!intel_pxp_is_active(pxp))
-+		return -ENODEV;
-+
-+	if (!i915_gem_object_is_protected(obj))
-+		return -EINVAL;
-+
-+	GEM_BUG_ON(!pxp->key_instance);
-+
-+	/*
-+	 * If this is the first time we're using this object, it's not
-+	 * encrypted yet; it will be encrypted with the current key, so mark it
-+	 * as such. If the object is already encrypted, check instead if the
-+	 * used key is still valid.
-+	 */
-+	if (!obj->pxp_key_instance)
-+		obj->pxp_key_instance = pxp->key_instance;
-+	else if (obj->pxp_key_instance != pxp->key_instance)
-+		return -ENOEXEC;
-+
-+	return 0;
-+}
-+
-+void intel_pxp_invalidate(struct intel_pxp *pxp)
+ 
++static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
++				    void *msg_in, u32 msg_in_size,
++				    void *msg_out, u32 msg_out_max_size,
++				    u32 *msg_out_rcv_size)
 +{
 +	struct drm_i915_private *i915 = pxp_to_gt(pxp)->i915;
-+	struct i915_gem_context *ctx, *cn;
++	struct i915_pxp_component *pxp_component = pxp->pxp_component;
++	int ret = 0;
 +
-+	/* ban all contexts marked as protected */
-+	spin_lock_irq(&i915->gem.contexts.lock);
-+	list_for_each_entry_safe(ctx, cn, &i915->gem.contexts.list, link) {
-+		struct i915_gem_engines_iter it;
-+		struct intel_context *ce;
++	mutex_lock(&pxp->tee_mutex);
 +
-+		if (!kref_get_unless_zero(&ctx->ref))
-+			continue;
-+
-+		if (likely(!i915_gem_context_uses_protected_content(ctx))) {
-+			i915_gem_context_put(ctx);
-+			continue;
-+		}
-+
-+		spin_unlock_irq(&i915->gem.contexts.lock);
-+
-+		/*
-+		 * By the time we get here we are either going to suspend with
-+		 * quiesced execution or the HW keys are already long gone and
-+		 * in this case it is worthless to attempt to close the context
-+		 * and wait for its execution. It will hang the GPU if it has
-+		 * not already. So, as a fast mitigation, we can ban the
-+		 * context as quick as we can. That might race with the
-+		 * execbuffer, but currently this is the best that can be done.
-+		 */
-+		for_each_gem_engine(ce, i915_gem_context_lock_engines(ctx), it)
-+			intel_context_ban(ce, NULL);
-+		i915_gem_context_unlock_engines(ctx);
-+
-+		/*
-+		 * The context has been banned, no need to keep the wakeref.
-+		 * This is safe from races because the only other place this
-+		 * is touched is context_release and we're holding a ctx ref
-+		 */
-+		if (ctx->pxp_wakeref) {
-+			intel_runtime_pm_put(&i915->runtime_pm,
-+					     ctx->pxp_wakeref);
-+			ctx->pxp_wakeref = 0;
-+		}
-+
-+		spin_lock_irq(&i915->gem.contexts.lock);
-+		list_safe_reset_next(ctx, cn, link);
-+		i915_gem_context_put(ctx);
++	/*
++	 * The binding of the component is asynchronous from i915 probe, so we
++	 * can't be sure it has happened.
++	 */
++	if (!pxp_component) {
++		ret = -ENODEV;
++		goto unlock;
 +	}
-+	spin_unlock_irq(&i915->gem.contexts.lock);
++
++	ret = pxp_component->ops->send(pxp_component->tee_dev, msg_in, msg_in_size);
++	if (ret) {
++		drm_err(&i915->drm, "Failed to send PXP TEE message\n");
++		goto unlock;
++	}
++
++	ret = pxp_component->ops->recv(pxp_component->tee_dev, msg_out, msg_out_max_size);
++	if (ret < 0) {
++		drm_err(&i915->drm, "Failed to receive PXP TEE message\n");
++		goto unlock;
++	}
++
++	if (ret > msg_out_max_size) {
++		drm_err(&i915->drm,
++			"Failed to receive PXP TEE message due to unexpected output size\n");
++		ret = -ENOSPC;
++		goto unlock;
++	}
++
++	if (msg_out_rcv_size)
++		*msg_out_rcv_size = ret;
++
++	ret = 0;
++unlock:
++	mutex_unlock(&pxp->tee_mutex);
++	return ret;
 +}
 +
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 54b268280379..430f01ea9860 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -8,6 +8,8 @@
- 
- #include "intel_pxp_types.h"
- 
-+struct drm_i915_gem_object;
-+
- static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
+ /**
+  * i915_pxp_tee_component_bind - bind function to pass the function pointers to pxp_tee
+  * @i915_kdev: pointer to i915 kernel device
+@@ -28,14 +78,24 @@ static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
+ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ 				       struct device *tee_kdev, void *data)
  {
- 	return pxp->ce;
-@@ -25,6 +27,10 @@ void intel_pxp_fini_hw(struct intel_pxp *pxp);
++	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
+ 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
  
- void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
- int intel_pxp_wait_for_arb_start(struct intel_pxp *pxp);
++	mutex_lock(&pxp->tee_mutex);
+ 	pxp->pxp_component = data;
+ 	pxp->pxp_component->tee_dev = tee_kdev;
++	mutex_unlock(&pxp->tee_mutex);
+ 
+ 	/* the component is required to fully start the PXP HW */
+ 	intel_pxp_init_hw(pxp);
+ 
++	if (!pxp->arb_is_valid) {
++		drm_err(&i915->drm, "Failed to create arb session during bind\n");
++		intel_pxp_fini_hw(pxp);
++		pxp->pxp_component = NULL;
++		return -EIO;
++	}
 +
-+int intel_pxp_key_check(struct intel_pxp *pxp, struct drm_i915_gem_object *obj);
-+
-+void intel_pxp_invalidate(struct intel_pxp *pxp);
- #else
- static inline void intel_pxp_init(struct intel_pxp *pxp)
- {
-@@ -38,6 +44,12 @@ static inline int intel_pxp_wait_for_arb_start(struct intel_pxp *pxp)
- {
- 	return -ENODEV;
+ 	return 0;
+ }
+ 
+@@ -46,7 +106,9 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
+ 
+ 	intel_pxp_fini_hw(pxp);
+ 
++	mutex_lock(&pxp->tee_mutex);
+ 	pxp->pxp_component = NULL;
++	mutex_unlock(&pxp->tee_mutex);
+ }
+ 
+ static const struct component_ops i915_pxp_tee_component_ops = {
+@@ -82,3 +144,28 @@ void intel_pxp_tee_component_fini(struct intel_pxp *pxp)
+ 	component_del(i915->drm.dev, &i915_pxp_tee_component_ops);
+ 	pxp->pxp_component_added = false;
  }
 +
-+static inline int intel_pxp_key_check(struct intel_pxp *pxp,
-+				      struct drm_i915_gem_object *obj)
++int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
++					 int arb_session_id)
 +{
-+	return -ENODEV;
++	struct drm_i915_private *i915 = pxp_to_gt(pxp)->i915;
++	struct pxp_tee_create_arb_in msg_in = {0};
++	struct pxp_tee_create_arb_out msg_out = {0};
++	int ret;
++
++	msg_in.header.api_version = PXP_TEE_APIVER;
++	msg_in.header.command_id = PXP_TEE_ARB_CMDID;
++	msg_in.header.buffer_len = sizeof(msg_in) - sizeof(msg_in.header);
++	msg_in.protection_mode = PXP_TEE_ARB_PROTECTION_MODE;
++	msg_in.session_id = arb_session_id;
++
++	ret = intel_pxp_tee_io_message(pxp,
++				       &msg_in, sizeof(msg_in),
++				       &msg_out, sizeof(msg_out),
++				       NULL);
++
++	if (ret)
++		drm_err(&i915->drm, "Failed to send tee msg ret=[%d]\n", ret);
++
++	return ret;
 +}
- #endif
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+index 23d050a5d3e7..c136053ce340 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+@@ -11,4 +11,7 @@
+ int intel_pxp_tee_component_init(struct intel_pxp *pxp);
+ void intel_pxp_tee_component_fini(struct intel_pxp *pxp);
  
- #endif /* __INTEL_PXP_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 67c30e534d50..c6a5e4197e40 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -72,6 +72,9 @@ static int pxp_create_arb_session(struct intel_pxp *pxp)
- 		return ret;
- 	}
- 
-+	if (!++pxp->key_instance)
-+		++pxp->key_instance;
++int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
++					 int arb_session_id);
 +
- 	pxp->arb_is_valid = true;
- 
- 	return 0;
-@@ -85,6 +88,9 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
- 	/* must mark termination in progress calling this function */
- 	GEM_WARN_ON(pxp->arb_is_valid);
- 
-+	/* invalidate protected objects */
-+	intel_pxp_invalidate(pxp);
+ #endif /* __INTEL_PXP_TEE_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
+new file mode 100644
+index 000000000000..36e9b0868f5c
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ */
 +
- 	/* terminate the hw sessions */
- 	ret = intel_pxp_terminate_session(pxp, ARB_SESSION);
- 	if (ret) {
++#ifndef __INTEL_PXP_TEE_INTERFACE_H__
++#define __INTEL_PXP_TEE_INTERFACE_H__
++
++#include <linux/types.h>
++
++#define PXP_TEE_APIVER 0x40002
++#define PXP_TEE_ARB_CMDID 0x1e
++#define PXP_TEE_ARB_PROTECTION_MODE 0x2
++
++/* PXP TEE message header */
++struct pxp_tee_cmd_header {
++	u32 api_version;
++	u32 command_id;
++	u32 status;
++	/* Length of the message (excluding the header) */
++	u32 buffer_len;
++} __packed;
++
++/* PXP TEE message input to create a arbitrary session */
++struct pxp_tee_create_arb_in {
++	struct pxp_tee_cmd_header header;
++	u32 protection_mode;
++	u32 session_id;
++} __packed;
++
++/* PXP TEE message output to create a arbitrary session */
++struct pxp_tee_create_arb_out {
++	struct pxp_tee_cmd_header header;
++} __packed;
++
++#endif /* __INTEL_PXP_TEE_INTERFACE_H__ */
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index 5a170e43c959..c394ab2e452b 100644
+index 3a8e17e591bd..d393e46a7d98 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -7,7 +7,9 @@
+@@ -6,6 +6,7 @@
+ #ifndef __INTEL_PXP_TYPES_H__
  #define __INTEL_PXP_TYPES_H__
  
- #include <linux/completion.h>
-+#include <linux/list.h>
- #include <linux/mutex.h>
-+#include <linux/spinlock.h>
++#include <linux/mutex.h>
  #include <linux/types.h>
- #include <linux/workqueue.h>
  
-@@ -27,6 +29,13 @@ struct intel_pxp {
- 	 */
- 	bool arb_is_valid;
+ struct intel_context;
+@@ -16,6 +17,15 @@ struct intel_pxp {
+ 	bool pxp_component_added;
  
-+	/*
-+	 * Keep track of which key instance we're on, so we can use it to
-+	 * determine if an object was created using the current key or a
-+	 * previous one.
-+	 */
-+	u32 key_instance;
+ 	struct intel_context *ce;
 +
- 	struct mutex tee_mutex; /* protects the tee channel binding */
++	/*
++	 * After a teardown, the arb session can still be in play on the HW
++	 * even if the keys are gone, so we can't rely on the HW state of the
++	 * session to know if it's valid and need to track the status in SW.
++	 */
++	bool arb_is_valid;
++
++	struct mutex tee_mutex; /* protects the tee channel binding */
+ };
  
- 	/*
+ #endif /* __INTEL_PXP_TYPES_H__ */
 diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 920e9e852e5a..3fab202ca754 100644
+index bde5860b3686..920e9e852e5a 100644
 --- a/include/uapi/drm/i915_drm.h
 +++ b/include/uapi/drm/i915_drm.h
-@@ -1846,12 +1846,61 @@ struct drm_i915_gem_context_param {
-  * attempted to use it, never re-use this context param number.
-  */
- #define I915_CONTEXT_PARAM_RINGSIZE	0xc
-+
-+/*
-+ * I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-+ *
-+ * Mark that the context makes use of protected content, which will result
-+ * in the context being invalidated when the protected content session is.
-+ * Given that the protected content session is killed on suspend, the device
-+ * is kept awake for the lifetime of a protected context, so the user should
-+ * make sure to dispose of them once done.
-+ * This flag can only be set at context creation time and, when set to true,
-+ * must be preceded by an explicit setting of I915_CONTEXT_PARAM_RECOVERABLE
-+ * to false. This flag can't be set to true in conjunction with setting the
-+ * I915_CONTEXT_PARAM_BANNABLE flag to false. Creation example:
-+ *
-+ * .. code-block:: C
-+ *
-+ *	struct drm_i915_gem_context_create_ext_setparam p_protected = {
-+ *		.base = {
-+ *			.name = I915_CONTEXT_CREATE_EXT_SETPARAM,
-+ *		},
-+ *		.param = {
-+ *			.param = I915_CONTEXT_PARAM_PROTECTED_CONTENT,
-+ *			.value = 1,
-+ *		}
-+ *	};
-+ *	struct drm_i915_gem_context_create_ext_setparam p_norecover = {
-+ *		.base = {
-+ *			.name = I915_CONTEXT_CREATE_EXT_SETPARAM,
-+ *			.next_extension = to_user_pointer(&p_protected),
-+ *		},
-+ *		.param = {
-+ *			.param = I915_CONTEXT_PARAM_RECOVERABLE,
-+ *			.value = 0,
-+ *		}
-+ *	};
-+ *	struct drm_i915_gem_context_create_ext create = {
-+ *		.flags = I915_CONTEXT_CREATE_FLAGS_USE_EXTENSIONS,
-+ *		.extensions = to_user_pointer(&p_norecover);
-+ *	};
-+ *
-+ *	ctx_id = gem_context_create_ext(drm_fd, &create);
-+ *
-+ * In addition to the normal failure cases, setting this flag during context
-+ * creation can result in the following errors:
-+ *
-+ * -ENODEV: feature not available
-+ * -EPERM: trying to mark a recoverable or not bannable context as protected
-+ */
-+#define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
- /* Must be kept compact -- no holes and well documented */
- 
- 	__u64 value;
- };
- 
--/*
-+/**
-  * Context SSEU programming
-  *
-  * It may be necessary for either functional or performance reason to configure
-@@ -2979,8 +3028,12 @@ struct drm_i915_gem_create_ext {
- 	 *
- 	 * For I915_GEM_CREATE_EXT_MEMORY_REGIONS usage see
- 	 * struct drm_i915_gem_create_ext_memory_regions.
-+	 *
-+	 * For I915_GEM_CREATE_EXT_PROTECTED_CONTENT usage see
-+	 * struct drm_i915_gem_create_ext_protected_content.
- 	 */
- #define I915_GEM_CREATE_EXT_MEMORY_REGIONS 0
-+#define I915_GEM_CREATE_EXT_PROTECTED_CONTENT 1
- 	__u64 extensions;
- };
- 
-@@ -3038,6 +3091,47 @@ struct drm_i915_gem_create_ext_memory_regions {
+@@ -3038,6 +3038,9 @@ struct drm_i915_gem_create_ext_memory_regions {
  	__u64 regions;
  };
  
-+/**
-+ * struct drm_i915_gem_create_ext_protected_content - The
-+ * I915_OBJECT_PARAM_PROTECTED_CONTENT extension.
-+ *
-+ * If this extension is provided, buffer contents are expected to be protected
-+ * by PXP encryption and require decryption for scan out and processing. This
-+ * is only possible on platforms that have PXP enabled, on all other scenarios
-+ * using this extension will cause the ioctl to fail and return -ENODEV. The
-+ * flags parameter is reserved for future expansion and must currently be set
-+ * to zero.
-+ *
-+ * The buffer contents are considered invalid after a PXP session teardown.
-+ *
-+ * The encryption is guaranteed to be processed correctly only if the object
-+ * is submitted with a context created using the
-+ * I915_CONTEXT_PARAM_PROTECTED_CONTENT flag. This will also enable extra checks
-+ * at submission time on the validity of the objects involved.
-+ *
-+ * Below is an example on how to create a protected object:
-+ *
-+ * .. code-block:: C
-+ *
-+ *      struct drm_i915_gem_create_ext_protected_content protected_ext = {
-+ *              .base = { .name = I915_GEM_CREATE_EXT_PROTECTED_CONTENT },
-+ *              .flags = 0,
-+ *      };
-+ *      struct drm_i915_gem_create_ext create_ext = {
-+ *              .size = PAGE_SIZE,
-+ *              .extensions = (uintptr_t)&protected_ext,
-+ *      };
-+ *
-+ *      int err = ioctl(fd, DRM_IOCTL_I915_GEM_CREATE_EXT, &create_ext);
-+ *      if (err) ...
-+ */
-+struct drm_i915_gem_create_ext_protected_content {
-+	/** @base: Extension link. See struct i915_user_extension. */
-+	struct i915_user_extension base;
-+	/** @flags: reserved for future usage, currently MBZ */
-+	__u32 flags;
-+};
++/* ID of the protected content session managed by i915 when PXP is active */
++#define I915_PROTECTED_CONTENT_DEFAULT_SESSION 0xf
 +
- /* ID of the protected content session managed by i915 when PXP is active */
- #define I915_PROTECTED_CONTENT_DEFAULT_SESSION 0xf
- 
+ #if defined(__cplusplus)
+ }
+ #endif
 -- 
 2.25.1
 
