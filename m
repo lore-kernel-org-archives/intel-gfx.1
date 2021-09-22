@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DE54C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 06:26:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EFE0C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 06:26:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 508FC611B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 06:26:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 508FC611B0
+	by mail.kernel.org (Postfix) with ESMTPS id 3DC67611B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 06:26:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3DC67611B0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F476EA56;
-	Wed, 22 Sep 2021 06:25:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE9F6EA6F;
+	Wed, 22 Sep 2021 06:25:54 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 455E66EA5D;
- Wed, 22 Sep 2021 06:25:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="309079332"
-X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="309079332"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22D816EA46;
+ Wed, 22 Sep 2021 06:25:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="309079313"
+X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="309079313"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 23:25:52 -0700
-X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="474402584"
+ 21 Sep 2021 23:25:45 -0700
+X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="474402560"
 Received: from vkubarev-mobl1.ccr.corp.intel.com (HELO
  thellstr-mobl1.intel.com) ([10.249.254.165])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 23:25:49 -0700
+ 21 Sep 2021 23:25:43 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Imre Deak <imre.deak@intel.com>, Russell King <rmk+kernel@armlinux.org.uk>
-Date: Wed, 22 Sep 2021 08:25:26 +0200
-Message-Id: <20210922062527.865433-9-thomas.hellstrom@linux.intel.com>
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Brost Matthew <matthew.brost@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Wed, 22 Sep 2021 08:25:23 +0200
+Message-Id: <20210922062527.865433-6-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210922062527.865433-1-thomas.hellstrom@linux.intel.com>
 References: <20210922062527.865433-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 8/9] HAX: component: do not leave master
- devres group open after bind
+Subject: [Intel-gfx] [PATCH v6 5/9] drm/i915/gt: Register the migrate
+ contexts with their engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,92 +66,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Pinned contexts, like the migrate contexts need reset after resume
+since their context image may have been lost. Also the GuC needs to
+register pinned contexts.
 
-In current code, the devres group for aggregate master is left open
-after call to component_master_add_*(). This leads to problems when the
-master does further managed allocations on its own. When any
-participating driver calls component_del(), this leads to immediate
-release of resources.
+Add a list to struct intel_engine_cs where we add all pinned contexts on
+creation, and traverse that list at resume time to reset the pinned
+contexts.
 
-This came up when investigating a page fault occurring with i915 DRM
-driver unbind with 5.15-rc1 kernel. The following sequence occurs:
+This fixes the kms_pipe_crc_basic@suspend-read-crc-pipe-a selftest for now,
+but proper LMEM backup / restore is needed for full suspend functionality.
+However, note that even with full LMEM backup / restore it may be
+desirable to keep the reset since backing up the migrate context images
+must happen using memcpy() after the migrate context has become inactive,
+and for performance- and other reasons we want to avoid memcpy() from
+LMEM.
 
- i915_pci_remove()
-   -> intel_display_driver_unregister()
-     -> i915_audio_component_cleanup()
-       -> component_del()
-         -> component.c:take_down_master()
-           -> hdac_component_master_unbind() [via master->ops->unbind()]
-           -> devres_release_group(master->parent, NULL)
+Also traverse the list at guc_init_lrc_mapping() calling
+guc_kernel_context_pin() for the pinned contexts, like is already done
+for the kernel context.
 
-With older kernels this has not caused issues, but with audio driver
-moving to use managed interfaces for more of its allocations, this no
-longer works. Devres log shows following to occur:
+v2:
+- Don't reset the contexts on each __engine_unpark() but rather at
+  resume time (Chris Wilson).
+v3:
+- Reset contexts in the engine sanitize callback. (Chris Wilson)
 
-component_master_add_with_match()
-[  126.886032] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000323ccdc5 devm_component_match_release (24 bytes)
-[  126.886045] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000865cdb29 grp< (0 bytes)
-[  126.886049] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 grp< (0 bytes)
-
-audio driver completes its PCI probe()
-[  126.892238] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 pcim_iomap_release (48 bytes)
-
-component_del() called() at DRM/i915 unbind()
-[  137.579422] i915 0000:00:02.0: DEVRES REL 00000000ef44c293 grp< (0 bytes)
-[  137.579445] snd_hda_intel 0000:00:1f.3: DEVRES REL 00000000865cdb29 grp< (0 bytes)
-[  137.579458] snd_hda_intel 0000:00:1f.3: DEVRES REL 000000001b480725 pcim_iomap_release (48 bytes)
-
-So the "devres_release_group(master->parent, NULL)" ends up freeing the
-pcim_iomap allocation. Upon next runtime resume, the audio driver will
-cause a page fault as the iomap alloc was released without the driver
-knowing about it.
-
-Fix this issue by using the "struct master" pointer as identifier for
-the devres group, and by closing the devres group after the master->ops->bind()
-call is done. This allows devres allocations done by the driver acting as
-master to be isolated from the binding state of the aggregate driver. This
-modifies the logic originally introduced in commit 9e1ccb4a7700
-("drivers/base: fix devres handling for master device").
-
-BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Acked-by: Imre Deak <imre.deak@intel.com>
-Acked-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Brost Matthew <matthew.brost@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/base/component.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  8 +++++++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     | 23 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     |  2 ++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  7 ++++++
+ .../drm/i915/gt/intel_execlists_submission.c  |  2 ++
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  3 +++
+ drivers/gpu/drm/i915/gt/mock_engine.c         |  2 ++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 12 +++++++---
+ 9 files changed, 60 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/base/component.c b/drivers/base/component.c
-index 5e79299f6c3f..870485cbbb87 100644
---- a/drivers/base/component.c
-+++ b/drivers/base/component.c
-@@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 930569a1a01f..12252c411159 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -153,6 +153,14 @@ struct intel_context {
+ 	/** sseu: Control eu/slice partitioning */
+ 	struct intel_sseu sseu;
+ 
++	/**
++	 * pinned_contexts_link: List link for the engine's pinned contexts.
++	 * This is only used if this is a perma-pinned kernel context and
++	 * the list is assumed to only be manipulated during driver load
++	 * or unload time so no mutex protection currently.
++	 */
++	struct list_head pinned_contexts_link;
++
+ 	u8 wa_bb_page; /* if set, page num reserved for context workarounds */
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 06dfe7f38953..2ae57e4656a3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -320,6 +320,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ 
+ 	BUILD_BUG_ON(BITS_PER_TYPE(engine->mask) < I915_NUM_ENGINES);
+ 
++	INIT_LIST_HEAD(&engine->pinned_contexts_list);
+ 	engine->id = id;
+ 	engine->legacy_idx = INVALID_ENGINE;
+ 	engine->mask = BIT(id);
+@@ -890,6 +891,8 @@ intel_engine_create_pinned_context(struct intel_engine_cs *engine,
+ 		return ERR_PTR(err);
  	}
  
--	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
-+	if (!devres_open_group(master->parent, master, GFP_KERNEL))
- 		return -ENOMEM;
++	list_add_tail(&ce->pinned_contexts_link, &engine->pinned_contexts_list);
++
+ 	/*
+ 	 * Give our perma-pinned kernel timelines a separate lockdep class,
+ 	 * so that we can use them from within the normal user timelines
+@@ -912,6 +915,7 @@ void intel_engine_destroy_pinned_context(struct intel_context *ce)
+ 	list_del(&ce->timeline->engine_link);
+ 	mutex_unlock(&hwsp->vm->mutex);
  
- 	/* Found all components */
-@@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return ret;
- 	}
- 
-+	devres_close_group(master->parent, NULL);
- 	master->bound = true;
- 	return 1;
++	list_del(&ce->pinned_contexts_link);
+ 	intel_context_unpin(ce);
+ 	intel_context_put(ce);
  }
-@@ -282,7 +283,7 @@ static void take_down_master(struct master *master)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index 1f07ac4e0672..dacd62773735 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -298,6 +298,29 @@ void intel_engine_init__pm(struct intel_engine_cs *engine)
+ 	intel_engine_init_heartbeat(engine);
+ }
+ 
++/**
++ * intel_engine_reset_pinned_contexts - Reset the pinned contexts of
++ * an engine.
++ * @engine: The engine whose pinned contexts we want to reset.
++ *
++ * Typically the pinned context LMEM images lose or get their content
++ * corrupted on suspend. This function resets their images.
++ */
++void intel_engine_reset_pinned_contexts(struct intel_engine_cs *engine)
++{
++	struct intel_context *ce;
++
++	list_for_each_entry(ce, &engine->pinned_contexts_list,
++			    pinned_contexts_link) {
++		/* kernel context gets reset at __engine_unpark() */
++		if (ce == engine->kernel_context)
++			continue;
++
++		dbg_poison_ce(ce);
++		ce->ops->reset(ce);
++	}
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_engine_pm.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+index 70ea46d6cfb0..8520c595f5e1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+@@ -69,4 +69,6 @@ intel_engine_create_kernel_request(struct intel_engine_cs *engine)
+ 
+ void intel_engine_init__pm(struct intel_engine_cs *engine);
+ 
++void intel_engine_reset_pinned_contexts(struct intel_engine_cs *engine);
++
+ #endif /* INTEL_ENGINE_PM_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index bfbfe53c23dd..5ae1207c363b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -307,6 +307,13 @@ struct intel_engine_cs {
+ 
+ 	struct intel_context *kernel_context; /* pinned */
+ 
++	/**
++	 * pinned_contexts_list: List of pinned contexts. This list is only
++	 * assumed to be manipulated during driver load- or unload time and
++	 * does therefore not have any additional protection.
++	 */
++	struct list_head pinned_contexts_list;
++
+ 	intel_engine_mask_t saturated; /* submitting semaphores too late? */
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 87c595e4efe2..7147fe80919e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2787,6 +2787,8 @@ static void execlists_sanitize(struct intel_engine_cs *engine)
+ 
+ 	/* And scrub the dirty cachelines for the HWSP */
+ 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
++
++	intel_engine_reset_pinned_contexts(engine);
+ }
+ 
+ static void enable_error_interrupt(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 3c65efcb7bed..593524195707 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -17,6 +17,7 @@
+ #include "intel_ring.h"
+ #include "shmem_utils.h"
+ #include "intel_engine_heartbeat.h"
++#include "intel_engine_pm.h"
+ 
+ /* Rough estimate of the typical request size, performing a flush,
+  * set-context and then emitting the batch.
+@@ -292,6 +293,8 @@ static void xcs_sanitize(struct intel_engine_cs *engine)
+ 
+ 	/* And scrub the dirty cachelines for the HWSP */
+ 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
++
++	intel_engine_reset_pinned_contexts(engine);
+ }
+ 
+ static void reset_prepare(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 2c1af030310c..8b89215afe46 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -376,6 +376,8 @@ int mock_engine_init(struct intel_engine_cs *engine)
  {
- 	if (master->bound) {
- 		master->ops->unbind(master->parent);
--		devres_release_group(master->parent, NULL);
-+		devres_release_group(master->parent, master);
- 		master->bound = false;
- 	}
+ 	struct intel_context *ce;
+ 
++	INIT_LIST_HEAD(&engine->pinned_contexts_list);
++
+ 	engine->sched_engine = i915_sched_engine_create(ENGINE_MOCK);
+ 	if (!engine->sched_engine)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index c7a41802b448..ba0de35f6323 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2477,6 +2477,8 @@ static void guc_sanitize(struct intel_engine_cs *engine)
+ 
+ 	/* And scrub the dirty cachelines for the HWSP */
+ 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
++
++	intel_engine_reset_pinned_contexts(engine);
  }
+ 
+ static void setup_hwsp(struct intel_engine_cs *engine)
+@@ -2552,9 +2554,13 @@ static inline void guc_init_lrc_mapping(struct intel_guc *guc)
+ 	 * and even it did this code would be run again.
+ 	 */
+ 
+-	for_each_engine(engine, gt, id)
+-		if (engine->kernel_context)
+-			guc_kernel_context_pin(guc, engine->kernel_context);
++	for_each_engine(engine, gt, id) {
++		struct intel_context *ce;
++
++		list_for_each_entry(ce, &engine->pinned_contexts_list,
++				    pinned_contexts_link)
++			guc_kernel_context_pin(guc, ce);
++	}
+ }
+ 
+ static void guc_release(struct intel_engine_cs *engine)
 -- 
 2.31.1
 
