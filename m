@@ -7,46 +7,48 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3EF3C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FC0CC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E0E860FC1
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:52:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E0E860FC1
+	by mail.kernel.org (Postfix) with ESMTPS id 1A7AD61090
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1A7AD61090
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB656EC27;
-	Wed, 22 Sep 2021 15:51:57 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E240589E69;
- Wed, 22 Sep 2021 15:51:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="284637723"
-X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="284637723"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 292746EC2D;
+	Wed, 22 Sep 2021 15:52:07 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8706A6EC2C;
+ Wed, 22 Sep 2021 15:52:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="210862762"
+X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="210862762"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 08:51:55 -0700
-X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="704068956"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2021 08:52:05 -0700
+X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="704069023"
 Received: from bbrowne-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.200.151])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 08:51:53 -0700
+ 22 Sep 2021 08:52:03 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Date: Wed, 22 Sep 2021 16:51:39 +0100
-Message-Id: <20210922155145.93174-2-tvrtko.ursulin@linux.intel.com>
+ David M Nieto <David.Nieto@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 22 Sep 2021 16:51:45 +0100
+Message-Id: <20210922155145.93174-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210922155145.93174-1-tvrtko.ursulin@linux.intel.com>
 References: <20210922155145.93174-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/7] drm/i915: Explicitly track DRM clients
+Subject: [Intel-gfx] [PATCH 7/7] drm/i915: Expose client engine utilisation
+ via fdinfo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,350 +66,209 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Tracking DRM clients more explicitly will allow later patches to
-accumulate past and current GPU usage in a centralised place and also
-consolidate access to owning task pid/name.
+Similar to AMD commit
+874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
+infrastructure added in previous patches, we add basic client info
+and GPU engine utilisation for i915.
 
-Unique client id is also assigned for the purpose of distinguishing/
-consolidating between multiple file descriptors owned by the same process.
+Example of the output:
+
+  pos:    0
+  flags:  0100002
+  mnt_id: 21
+  drm-driver: i915
+  drm-pdev:   0000:00:02.0
+  drm-client-id:      7
+  drm-engine-render:  9288864723 ns
+  drm-engine-copy:    2035071108 ns
+  drm-engine-video:   0 ns
+  drm-engine-video-enhance:   0 ns
 
 v2:
- Chris Wilson:
- * Enclose new members into dedicated structs.
- * Protect against failed sysfs registration.
+ * Update for removal of name and pid.
 
 v3:
- * sysfs_attr_init.
-
-v4:
- * Fix for internal clients.
-
-v5:
- * Use cyclic ida for client id. (Chris)
- * Do not leak pid reference. (Chris)
- * Tidy code with some locals.
-
-v6:
- * Use xa_alloc_cyclic to simplify locking. (Chris)
- * No need to unregister individial sysfs files. (Chris)
- * Rebase on top of fpriv kref.
- * Track client closed status and reflect in sysfs.
-
-v7:
- * Make drm_client more standalone concept.
-
-v8:
- * Simplify sysfs show. (Chris)
- * Always track name and pid.
-
-v9:
- * Fix cyclic id assignment.
-
-v10:
- * No need for a mutex around xa_alloc_cyclic.
- * Refactor sysfs into own function.
- * Unregister sysfs before freeing pid and name.
- * Move clients setup into own function.
-
-v11:
- * Call clients init directly from driver init. (Chris)
-
-v12:
- * Do not fail client add on id wrap. (Maciej)
-
-v13 (Lucas): Rebase.
-
-v14:
- * Dropped sysfs bits.
-
-v15:
- * Dropped tracking of pid/ and name.
- * Dropped RCU freeing of the client object.
+ * Use drm_driver.name.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk> # v11
-Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com> # v11
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: David M Nieto <David.Nieto@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Acked-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/i915/Makefile          |  5 +-
- drivers/gpu/drm/i915/i915_drm_client.c | 68 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_drm_client.h | 50 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_drv.c        |  6 +++
- drivers/gpu/drm/i915/i915_drv.h        |  5 ++
- drivers/gpu/drm/i915/i915_gem.c        | 21 ++++++--
- 6 files changed, 150 insertions(+), 5 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/i915_drm_client.c
- create mode 100644 drivers/gpu/drm/i915/i915_drm_client.h
+ Documentation/gpu/drm-usage-stats.rst  |  6 +++
+ Documentation/gpu/i915.rst             | 27 ++++++++++
+ drivers/gpu/drm/i915/i915_drm_client.c | 73 ++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_drm_client.h |  4 ++
+ drivers/gpu/drm/i915/i915_drv.c        |  3 ++
+ 5 files changed, 113 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 335a8c668848..8187c9e52a79 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -32,8 +32,9 @@ subdir-ccflags-y += -I$(srctree)/$(src)
- # Please keep these build lists sorted!
+diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+index c669026be244..6952f8389d07 100644
+--- a/Documentation/gpu/drm-usage-stats.rst
++++ b/Documentation/gpu/drm-usage-stats.rst
+@@ -95,3 +95,9 @@ object belong to this client, in the respective memory region.
  
- # core driver code
--i915-y += i915_drv.o \
--	  i915_config.o \
-+i915-y += i915_config.o \
-+	  i915_drm_client.o \
-+	  i915_drv.o \
- 	  i915_irq.o \
- 	  i915_getparam.o \
- 	  i915_mitigations.o \
+ Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+ indicating kibi- or mebi-bytes.
++
++===============================
++Driver specific implementations
++===============================
++
++:ref:`i915-usage-stats`
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 311e10400708..36cd6f74fb1b 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -700,3 +700,30 @@ The style guide for ``i915_reg.h``.
+ 
+ .. kernel-doc:: drivers/gpu/drm/i915/i915_reg.h
+    :doc: The i915 register macro definition style guide
++
++.. _i915-usage-stats:
++
++i915 DRM client usage stats implementation
++==========================================
++
++The drm/i915 driver implements the DRM client usage stats specification as
++documented in :ref:`drm-client-usage-stats`.
++
++Example of the output showing the implemented key value pairs and entirety of
++the currenly possible format options:
++
++::
++
++      pos:    0
++      flags:  0100002
++      mnt_id: 21
++      drm-driver: i915
++      drm-pdev:   0000:00:02.0
++      drm-client-id:      7
++      drm-engine-render:  9288864723 ns
++      drm-engine-copy:    2035071108 ns
++      drm-engine-video:   0 ns
++      drm-engine-video-enhance:   0 ns
++
++Possible `drm-engine-` key names are: `render`, `copy`, `video` and
++`video-enhance`.
 diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-new file mode 100644
-index 000000000000..e61e9ba15256
---- /dev/null
+index 91a8559bebf7..06dbd20ce763 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
 +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -0,0 +1,68 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
+@@ -7,6 +7,11 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ 
++#include <uapi/drm/i915_drm.h>
 +
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/types.h>
++#include <drm/drm_print.h>
 +
-+#include "i915_drm_client.h"
-+#include "i915_gem.h"
-+#include "i915_utils.h"
++#include "gem/i915_gem_context.h"
+ #include "i915_drm_client.h"
+ #include "i915_gem.h"
+ #include "i915_utils.h"
+@@ -68,3 +73,71 @@ void i915_drm_clients_fini(struct i915_drm_clients *clients)
+ 	GEM_BUG_ON(!xa_empty(&clients->xarray));
+ 	xa_destroy(&clients->xarray);
+ }
 +
-+void i915_drm_clients_init(struct i915_drm_clients *clients,
-+			   struct drm_i915_private *i915)
++#ifdef CONFIG_PROC_FS
++static const char * const uabi_class_names[] = {
++	[I915_ENGINE_CLASS_RENDER] = "render",
++	[I915_ENGINE_CLASS_COPY] = "copy",
++	[I915_ENGINE_CLASS_VIDEO] = "video",
++	[I915_ENGINE_CLASS_VIDEO_ENHANCE] = "video-enhance",
++};
++
++static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
 +{
-+	clients->i915 = i915;
-+	clients->next_id = 0;
++	struct i915_gem_engines_iter it;
++	struct intel_context *ce;
++	u64 total = 0;
 +
-+	xa_init_flags(&clients->xarray, XA_FLAGS_ALLOC | XA_FLAGS_LOCK_IRQ);
++	for_each_gem_engine(ce, rcu_dereference(ctx->engines), it) {
++		if (ce->engine->uabi_class != class)
++			continue;
++
++		total += intel_context_get_total_runtime_ns(ce);
++	}
++
++	return total;
 +}
 +
-+struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients)
++static void
++show_client_class(struct seq_file *m,
++		  struct i915_drm_client *client,
++		  unsigned int class)
 +{
-+	struct i915_drm_client *client;
-+	struct xarray *xa = &clients->xarray;
-+	int ret;
++	const struct list_head *list = &client->ctx_list;
++	u64 total = atomic64_read(&client->past_runtime[class]);
++	struct i915_gem_context *ctx;
 +
-+	client = kzalloc(sizeof(*client), GFP_KERNEL);
-+	if (!client)
-+		return ERR_PTR(-ENOMEM);
++	rcu_read_lock();
++	list_for_each_entry_rcu(ctx, list, client_link)
++		total += busy_add(ctx, class);
++	rcu_read_unlock();
 +
-+	xa_lock_irq(xa);
-+	ret = __xa_alloc_cyclic(xa, &client->id, client, xa_limit_32b,
-+				&clients->next_id, GFP_KERNEL);
-+	xa_unlock_irq(xa);
-+	if (ret < 0)
-+		goto err;
-+
-+	kref_init(&client->kref);
-+	client->clients = clients;
-+
-+	return client;
-+
-+err:
-+	kfree(client);
-+
-+	return ERR_PTR(ret);
++	return seq_printf(m, "drm-engine-%s:\t%llu ns\n",
++			  uabi_class_names[class], total);
 +}
 +
-+void __i915_drm_client_free(struct kref *kref)
++void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
 +{
-+	struct i915_drm_client *client =
-+		container_of(kref, typeof(*client), kref);
-+	struct xarray *xa = &client->clients->xarray;
-+	unsigned long flags;
++	struct drm_file *file = f->private_data;
++	struct drm_i915_file_private *file_priv = file->driver_priv;
++	struct drm_i915_private *i915 = file_priv->dev_priv;
++	struct i915_drm_client *client = file_priv->client;
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
++	unsigned int i;
 +
-+	xa_lock_irqsave(xa, flags);
-+	__xa_erase(xa, client->id);
-+	xa_unlock_irqrestore(xa, flags);
-+	kfree(client);
-+}
++	/*
++	 * ******************************************************************
++	 * For text output format description please see drm-usage-stats.rst!
++	 * ******************************************************************
++	 */
 +
-+void i915_drm_clients_fini(struct i915_drm_clients *clients)
-+{
-+	GEM_BUG_ON(!xa_empty(&clients->xarray));
-+	xa_destroy(&clients->xarray);
++	seq_printf(m, "drm-driver:\t%s\n", i915->drm.driver->name);
++	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n",
++		   pci_domain_nr(pdev->bus), pdev->bus->number,
++		   PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
++	seq_printf(m, "drm-client-id:\t%u\n", client->id);
++
++	for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++)
++		show_client_class(m, client, i);
 +}
++#endif
 diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
-new file mode 100644
-index 000000000000..e8986ad51176
---- /dev/null
+index 7416e18aa33c..d96d6a06302e 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
 +++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -0,0 +1,50 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
+@@ -57,6 +57,10 @@ static inline void i915_drm_client_put(struct i915_drm_client *client)
+ 
+ struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients);
+ 
++#ifdef CONFIG_PROC_FS
++void i915_drm_client_fdinfo(struct seq_file *m, struct file *f);
++#endif
 +
-+#ifndef __I915_DRM_CLIENT_H__
-+#define __I915_DRM_CLIENT_H__
-+
-+#include <linux/kref.h>
-+#include <linux/xarray.h>
-+
-+struct drm_i915_private;
-+
-+struct i915_drm_clients {
-+	struct drm_i915_private *i915;
-+
-+	struct xarray xarray;
-+	u32 next_id;
-+};
-+
-+struct i915_drm_client {
-+	struct kref kref;
-+
-+	unsigned int id;
-+
-+	struct i915_drm_clients *clients;
-+};
-+
-+void i915_drm_clients_init(struct i915_drm_clients *clients,
-+			   struct drm_i915_private *i915);
-+
-+static inline struct i915_drm_client *
-+i915_drm_client_get(struct i915_drm_client *client)
-+{
-+	kref_get(&client->kref);
-+	return client;
-+}
-+
-+void __i915_drm_client_free(struct kref *kref);
-+
-+static inline void i915_drm_client_put(struct i915_drm_client *client)
-+{
-+	kref_put(&client->kref, __i915_drm_client_free);
-+}
-+
-+struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients);
-+
-+void i915_drm_clients_fini(struct i915_drm_clients *clients);
-+
-+#endif /* !__I915_DRM_CLIENT_H__ */
+ void i915_drm_clients_fini(struct i915_drm_clients *clients);
+ 
+ #endif /* !__I915_DRM_CLIENT_H__ */
 diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 3cf61bead2f6..6418f3dbdad0 100644
+index 6418f3dbdad0..8ab0d49fd98a 100644
 --- a/drivers/gpu/drm/i915/i915_drv.c
 +++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -68,6 +68,7 @@
- #include "gt/intel_rc6.h"
- 
- #include "i915_debugfs.h"
-+#include "i915_drm_client.h"
- #include "i915_drv.h"
- #include "i915_ioc32.h"
- #include "i915_irq.h"
-@@ -344,6 +345,8 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
- 
- 	intel_gt_init_early(&dev_priv->gt, dev_priv);
- 
-+	i915_drm_clients_init(&dev_priv->clients, dev_priv);
-+
- 	i915_gem_init_early(dev_priv);
- 
- 	/* This must be called before any calls to HAS_PCH_* */
-@@ -363,6 +366,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
- 
- err_gem:
- 	i915_gem_cleanup_early(dev_priv);
-+	i915_drm_clients_fini(&dev_priv->clients);
- 	intel_gt_driver_late_release(&dev_priv->gt);
- 	intel_region_ttm_device_fini(dev_priv);
- err_ttm:
-@@ -382,6 +386,7 @@ static void i915_driver_late_release(struct drm_i915_private *dev_priv)
- 	intel_irq_fini(dev_priv);
- 	intel_power_domains_cleanup(dev_priv);
- 	i915_gem_cleanup_early(dev_priv);
-+	i915_drm_clients_fini(&dev_priv->clients);
- 	intel_gt_driver_late_release(&dev_priv->gt);
- 	intel_region_ttm_device_fini(dev_priv);
- 	vlv_suspend_cleanup(dev_priv);
-@@ -997,6 +1002,7 @@ static void i915_driver_postclose(struct drm_device *dev, struct drm_file *file)
- 	struct drm_i915_file_private *file_priv = file->driver_priv;
- 
- 	i915_gem_context_close(file);
-+	i915_drm_client_put(file_priv->client);
- 
- 	kfree_rcu(file_priv, rcu);
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index cc355aa05dbf..2078e4776cdc 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -96,6 +96,7 @@
- #include "intel_wakeref.h"
- #include "intel_wopcm.h"
- 
-+#include "i915_drm_client.h"
- #include "i915_gem.h"
- #include "i915_gem_gtt.h"
- #include "i915_gpu_error.h"
-@@ -284,6 +285,8 @@ struct drm_i915_file_private {
- 	/** ban_score: Accumulated score of all ctx bans and fast hangs. */
- 	atomic_t ban_score;
- 	unsigned long hang_timestamp;
-+
-+	struct i915_drm_client *client;
+@@ -1711,6 +1711,9 @@ static const struct file_operations i915_driver_fops = {
+ 	.read = drm_read,
+ 	.compat_ioctl = i915_ioc32_compat_ioctl,
+ 	.llseek = noop_llseek,
++#ifdef CONFIG_PROC_FS
++	.show_fdinfo = i915_drm_client_fdinfo,
++#endif
  };
  
- /* Interface history:
-@@ -1196,6 +1199,8 @@ struct drm_i915_private {
- 
- 	struct i915_pmu pmu;
- 
-+	struct i915_drm_clients clients;
-+
- 	struct i915_hdcp_comp_master *hdcp_master;
- 	bool hdcp_comp_added;
- 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 981e383d1a5d..3df78babe1a9 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1177,25 +1177,40 @@ void i915_gem_cleanup_early(struct drm_i915_private *dev_priv)
- int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file)
- {
- 	struct drm_i915_file_private *file_priv;
--	int ret;
-+	struct i915_drm_client *client;
-+	int ret = -ENOMEM;
- 
- 	DRM_DEBUG("\n");
- 
- 	file_priv = kzalloc(sizeof(*file_priv), GFP_KERNEL);
- 	if (!file_priv)
--		return -ENOMEM;
-+		goto err_alloc;
-+
-+	client = i915_drm_client_add(&i915->clients);
-+	if (IS_ERR(client)) {
-+		ret = PTR_ERR(client);
-+		goto err_client;
-+	}
- 
- 	file->driver_priv = file_priv;
- 	file_priv->dev_priv = i915;
- 	file_priv->file = file;
-+	file_priv->client = client;
- 
- 	file_priv->bsd_engine = -1;
- 	file_priv->hang_timestamp = jiffies;
- 
- 	ret = i915_gem_context_open(i915, file);
- 	if (ret)
--		kfree(file_priv);
-+		goto err_context;
-+
-+	return 0;
- 
-+err_context:
-+	i915_drm_client_put(client);
-+err_client:
-+	kfree(file_priv);
-+err_alloc:
- 	return ret;
- }
- 
+ static int
 -- 
 2.30.2
 
