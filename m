@@ -8,56 +8,56 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B42A2C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 866DFC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80BE261100
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 80BE261100
+	by mail.kernel.org (Postfix) with ESMTPS id 4FEE661100
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4FEE661100
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C88E06EB92;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E4B6EB8B;
 	Wed, 22 Sep 2021 12:44:58 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4676EB2C;
- Wed, 22 Sep 2021 09:10:55 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id t8so4715225wrq.4;
- Wed, 22 Sep 2021 02:10:55 -0700 (PDT)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49FB06EB27;
+ Wed, 22 Sep 2021 09:10:58 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id g16so4727180wrb.3;
+ Wed, 22 Sep 2021 02:10:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=RSipxlf8Rt1aqHkUOElk7qKJcjfTHCxexIhn6lnwGw0=;
- b=ZePG+/1vd1IThRDah7nHJcPUXQ93Anh10UUA4HX4u82Sn+rE+pACGJDmlxiqUFTYHp
- r5M+FeSXVpVfIDACWNCAgLEkJ7rKl3tUbqsy0GvGcdRD0/1jsouksS3ufmn7JQuxtt34
- FFqTgybS7bebTRgTNX2Yot19rhUmrB53cCoZq6Zfo5Trocz4lNqfcwKrdcf5tSJCOgd/
- bRZ0f017zLWNH9R2tXLGKyzIyxrczENdb1YfYppIhN919HhIEWAiEkO7LBLnmYzo0tT6
- BbQWcIllCGM8sf1x2iY3fwaMm/YEknjvL9GquztLB+jZHYX76Dyo8XUSk/TwsnCFzNEN
- qtfQ==
+ bh=Xs3urb+CfK37NrDBLos1427ZQKhaGuo6xOveDYDdwk4=;
+ b=p7WAnkjoVfQgL/EfL1Mpq6ylSS4qMkMDw2JPO+KstqU0ffx/A42eUDDzFGmiNAlLIy
+ gVW+NMxVbw6bF8yJAd5zyJaMmVJB5BTOcFGXjTPUb+2l58MD6RBnH9Kdyh5jEFPjskc8
+ 3uJGAofPN1C0JqlcOj84GzjouzUbk1alFl5/6sddInbjNHR/2T/JfpF5+1afxf2/wfoO
+ ln85lRvvxeWbb5npSV45JP2GeIgqU+/P/gZyVKjd4FYKWH9+2LsgEzMLOgx6JXRTeytM
+ +ufhBejDCzE2tSDA6vEkyEhVbiZ/7IuRb0+I/tVFVyRQRJlj1M8D85PbBmpwurrtd6dQ
+ Qvrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=RSipxlf8Rt1aqHkUOElk7qKJcjfTHCxexIhn6lnwGw0=;
- b=zgJ8egAUUxB8u93jvLQDeqdObmrepz1UTqa2H7OsMsFsu3Bt4sMcWu14wPxpmA38ci
- 6M4pfTJZCWajWTsPAYYP6KmtbUZu03HUHooaB8U9dKbUnY78EgyVUG4LZId86+i0L73u
- p3PH6p+0yoUo5PxakPefAeUBtPpEoS6UHCZvnETnIhPqsnD5fdTik7k8XPJtSqnfyl1R
- T9KLnr2Mjb77mko1eXO0gCVNgYf5jJRezqXD7z1f0yg1AKZRITvN/kIhmX8Pbds3r3G8
- dwsnRoYiBu1VOqwuQJu1Xl9nBTbNFY34ZHsel5ZL0qQw+7XjD/ZmogSAUcJbvDXpc2gY
- xnPw==
-X-Gm-Message-State: AOAM533ByIemchaEnfZ46sU559FG7XgA2sxQ7zEZeCH0FrHY8Vvl5NyP
- 1VXHKA7s8XvTBqUmGMDhyrk=
-X-Google-Smtp-Source: ABdhPJxPq6i7Q3c7lCY+x7H8Hymlc6kGWpNzBUmA2nIK9j/c174ZhU0tZSOYi2ReXcx3vCsnZConZA==
-X-Received: by 2002:a1c:210a:: with SMTP id h10mr9557710wmh.117.1632301854575; 
- Wed, 22 Sep 2021 02:10:54 -0700 (PDT)
+ bh=Xs3urb+CfK37NrDBLos1427ZQKhaGuo6xOveDYDdwk4=;
+ b=16n0GhX4WarzsgDi04pjFPDDkw49BaIEHhSegtx/ZDqw+nu6yQfxl03BWlR23L7RsP
+ +VI7skztL4WBNEsQOW0ol/qcwzv9egZ4GECqLr34O8GM5Bfw2Fs90YvXmJvKMgG43Gpe
+ qKAKoefpOyAkh+QBKSDPexa5gWJ2sU+BZ7PL+lnLRDC2W1QJILzYsgZqxQVjI6fRKAqx
+ 5Wh6cLm0tTQ9ZozwkGJWprLf4Xqk1Z9CeufkUvFfnvuMo6Xpwvm4Dt1jkmd4z2YBYghc
+ PQVYr6LYxkyFhdY050IhtSNVv2HeauX1Q6PN5glGELw7o5KX0xxmv6DkYehiC3BVWgdI
+ WRbg==
+X-Gm-Message-State: AOAM532pOVg3H4NpjY5biID5+D8+S30gFzOz/WA3h8xL8nuAlqfrvEV3
+ khMm+15Xe3yQGXQBj27EZFI=
+X-Google-Smtp-Source: ABdhPJyVxLiD0ZQqAZZuVAbIuyKWPspNQoHWqmjtviHpXw7fP8OkMR4fQWvYU2Zmsx5B1WRQGFyX8A==
+X-Received: by 2002:a1c:4e11:: with SMTP id g17mr8990009wmh.130.1632301856839; 
+ Wed, 22 Sep 2021 02:10:56 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- r25sm1535515wra.76.2021.09.22.02.10.53
+ r25sm1535515wra.76.2021.09.22.02.10.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Sep 2021 02:10:54 -0700 (PDT)
+ Wed, 22 Sep 2021 02:10:56 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -65,8 +65,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Wed, 22 Sep 2021 11:10:26 +0200
-Message-Id: <20210922091044.2612-9-christian.koenig@amd.com>
+Date: Wed, 22 Sep 2021 11:10:28 +0200
+Message-Id: <20210922091044.2612-11-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210922091044.2612-1-christian.koenig@amd.com>
 References: <20210922091044.2612-1-christian.koenig@amd.com>
@@ -74,8 +74,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 22 Sep 2021 12:44:58 +0000
-Subject: [Intel-gfx] [PATCH 08/26] drm/amdgpu: use the new iterator in
- amdgpu_sync_resv
+Subject: [Intel-gfx] [PATCH 10/26] drm/msm: use new iterator in
+ msm_gem_describe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,73 +91,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+Simplifying the code a bit. Also drop the RCU read side lock since the
+object is locked anyway.
+
+Untested since I can't get the driver to compile on !ARM.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 44 ++++++++----------------
- 1 file changed, 14 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c | 19 +++++--------------
+ 1 file changed, 5 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index 862eb3c1c4c5..f7d8487799b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -252,41 +252,25 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
- 		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
- 		     void *owner)
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 22308a1b66fc..14907622769f 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -880,7 +880,7 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
  {
--	struct dma_resv_list *flist;
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+ 	struct dma_resv *robj = obj->resv;
+-	struct dma_resv_list *fobj;
 +	struct dma_resv_iter cursor;
- 	struct dma_fence *f;
--	unsigned i;
--	int r = 0;
-+	int r;
- 
- 	if (resv == NULL)
- 		return -EINVAL;
- 
--	/* always sync to the exclusive fence */
--	f = dma_resv_excl_fence(resv);
--	dma_fence_chain_for_each(f, f) {
--		struct dma_fence_chain *chain = to_dma_fence_chain(f);
--
--		if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
--					   chain->fence : f)) {
--			r = amdgpu_sync_fence(sync, f);
--			dma_fence_put(f);
--			if (r)
--				return r;
--			break;
--		}
--	}
--
--	flist = dma_resv_shared_list(resv);
--	if (!flist)
--		return 0;
--
--	for (i = 0; i < flist->shared_count; ++i) {
--		f = rcu_dereference_protected(flist->shared[i],
--					      dma_resv_held(resv));
--
--		if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
--			r = amdgpu_sync_fence(sync, f);
--			if (r)
--				return r;
-+	dma_resv_for_each_fence(&cursor, resv, true, f) {
-+		dma_fence_chain_for_each(f, f) {
-+			struct dma_fence_chain *chain = to_dma_fence_chain(f);
-+
-+			if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
-+						   chain->fence : f)) {
-+				r = amdgpu_sync_fence(sync, f);
-+				dma_fence_put(f);
-+				if (r)
-+					return r;
-+				break;
-+			}
- 		}
+ 	struct dma_fence *fence;
+ 	struct msm_gem_vma *vma;
+ 	uint64_t off = drm_vma_node_start(&obj->vma_node);
+@@ -955,22 +955,13 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
+ 		seq_puts(m, "\n");
  	}
- 	return 0;
+ 
+-	rcu_read_lock();
+-	fobj = dma_resv_shared_list(robj);
+-	if (fobj) {
+-		unsigned int i, shared_count = fobj->shared_count;
+-
+-		for (i = 0; i < shared_count; i++) {
+-			fence = rcu_dereference(fobj->shared[i]);
++	dma_resv_for_each_fence(&cursor, robj, true, fence) {
++		if (dma_resv_iter_is_exclusive(&cursor))
++			describe_fence(fence, "Exclusive", m);
++		else
+ 			describe_fence(fence, "Shared", m);
+-		}
+ 	}
+ 
+-	fence = dma_resv_excl_fence(robj);
+-	if (fence)
+-		describe_fence(fence, "Exclusive", m);
+-	rcu_read_unlock();
+-
+ 	msm_gem_unlock(obj);
+ }
+ 
 -- 
 2.25.1
 
