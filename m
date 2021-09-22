@@ -2,87 +2,80 @@ Return-Path: <SRS0=at8c=OM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C24CC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B42A2C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31DE96115A
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 31DE96115A
+	by mail.kernel.org (Postfix) with ESMTPS id 80BE261100
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:45:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 80BE261100
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26CAF6EB94;
-	Wed, 22 Sep 2021 12:44:59 +0000 (UTC)
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA116EA52;
- Wed, 22 Sep 2021 06:48:29 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id t8so3740069wri.1;
- Tue, 21 Sep 2021 23:48:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88E06EB92;
+	Wed, 22 Sep 2021 12:44:58 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF4676EB2C;
+ Wed, 22 Sep 2021 09:10:55 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id t8so4715225wrq.4;
+ Wed, 22 Sep 2021 02:10:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=UVuG9PyyEke7kqa6mTkW5GbJagaxKZkGtdj11KXgU6U=;
- b=WoAFkIbXl6uVtT2Dnazq/WQeIHOiEo+q3m9BDgObRZsa9pVo9QmD69oOae2vWtkBu9
- g4z61j4X7psfEUplmODssPSd+zzWIfsn/0NhzvRIy5sDUy1mWTiCXuPlZFjEtN9bW8X3
- 2Eu0q1gm7pro7D/zCeOfP5MFla4VKOS/0GAeiwPRpF2BA7sqVUIJmZg5I17MeLjYcpGY
- acbqydsbviMZFsyP7Y2D+j25TQ6fDXnBMaYx8sgicCd1MftUXJS9ltZOageiJ7557grJ
- 8iTIft/5dnIxpdKx39mFWTcyNtaNJwicvmBCpUPDV2inqB2JTpxMyc2rlInp79maJ+Va
- JRhQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=RSipxlf8Rt1aqHkUOElk7qKJcjfTHCxexIhn6lnwGw0=;
+ b=ZePG+/1vd1IThRDah7nHJcPUXQ93Anh10UUA4HX4u82Sn+rE+pACGJDmlxiqUFTYHp
+ r5M+FeSXVpVfIDACWNCAgLEkJ7rKl3tUbqsy0GvGcdRD0/1jsouksS3ufmn7JQuxtt34
+ FFqTgybS7bebTRgTNX2Yot19rhUmrB53cCoZq6Zfo5Trocz4lNqfcwKrdcf5tSJCOgd/
+ bRZ0f017zLWNH9R2tXLGKyzIyxrczENdb1YfYppIhN919HhIEWAiEkO7LBLnmYzo0tT6
+ BbQWcIllCGM8sf1x2iY3fwaMm/YEknjvL9GquztLB+jZHYX76Dyo8XUSk/TwsnCFzNEN
+ qtfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=UVuG9PyyEke7kqa6mTkW5GbJagaxKZkGtdj11KXgU6U=;
- b=1lWL6bRxSKuZnuMKIFd0HDcN21S0F53NLxAT8p5RhNo4A+olHdSA3PgkYwQUCJU7ZV
- nkXKc2iC8lUUP2njh0pzc+qEmfzTnXG9CUE7ZdVxWpb3dKTvUDGC6LzFA+goFTmdq7qu
- x2yeYtkzsH/8z1TxPLUhhQNfS4o/A4UoVhtmxrvOZHXfDPTRrt9TqcIThMV86V8K2X5x
- TlFdPR7CskOwEIV14UV6NsI/tvopq59C4anFLqIwLl60zjimyeGyiwsXXrOlHlR7woDC
- Whqjd74rF1PYIuoRhUCYioUzDa/phjtzkOGkimVv0ueNvxPx1jxuLD6Ig+3oHW1+UEO6
- M3Vw==
-X-Gm-Message-State: AOAM530/oXoR0mKd2woUpclBsQo4sXtJnKTXILFXxj8OSooUaGteeenB
- WN31piineNWupjOSx/lVoLY=
-X-Google-Smtp-Source: ABdhPJzVOExKnxtnqzGyvHLB4FRCqqIZ28v6T1VWtPNmqDKIYNykYbFd8haMSDmcDXqcJKqBhjgXNg==
-X-Received: by 2002:a05:6000:2cd:: with SMTP id
- o13mr28880861wry.193.1632293308278; 
- Tue, 21 Sep 2021 23:48:28 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id g22sm4620213wmp.39.2021.09.21.23.48.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Sep 2021 23:48:27 -0700 (PDT)
-To: "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "matthew.auld@intel.com" <matthew.auld@intel.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20210920192110.221153-1-Arunpravin.PaneerSelvam@amd.com>
- <adf913fd-da60-70b5-2a83-608d8b8b9cba@amd.com>
- <MN2PR12MB4342C3996173DC4DB6B34FC9E4A19@MN2PR12MB4342.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <16c9b28c-9272-f841-2f68-f04d7c50b996@gmail.com>
-Date: Wed, 22 Sep 2021 08:48:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=RSipxlf8Rt1aqHkUOElk7qKJcjfTHCxexIhn6lnwGw0=;
+ b=zgJ8egAUUxB8u93jvLQDeqdObmrepz1UTqa2H7OsMsFsu3Bt4sMcWu14wPxpmA38ci
+ 6M4pfTJZCWajWTsPAYYP6KmtbUZu03HUHooaB8U9dKbUnY78EgyVUG4LZId86+i0L73u
+ p3PH6p+0yoUo5PxakPefAeUBtPpEoS6UHCZvnETnIhPqsnD5fdTik7k8XPJtSqnfyl1R
+ T9KLnr2Mjb77mko1eXO0gCVNgYf5jJRezqXD7z1f0yg1AKZRITvN/kIhmX8Pbds3r3G8
+ dwsnRoYiBu1VOqwuQJu1Xl9nBTbNFY34ZHsel5ZL0qQw+7XjD/ZmogSAUcJbvDXpc2gY
+ xnPw==
+X-Gm-Message-State: AOAM533ByIemchaEnfZ46sU559FG7XgA2sxQ7zEZeCH0FrHY8Vvl5NyP
+ 1VXHKA7s8XvTBqUmGMDhyrk=
+X-Google-Smtp-Source: ABdhPJxPq6i7Q3c7lCY+x7H8Hymlc6kGWpNzBUmA2nIK9j/c174ZhU0tZSOYi2ReXcx3vCsnZConZA==
+X-Received: by 2002:a1c:210a:: with SMTP id h10mr9557710wmh.117.1632301854575; 
+ Wed, 22 Sep 2021 02:10:54 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ r25sm1535515wra.76.2021.09.22.02.10.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Sep 2021 02:10:54 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Cc: daniel@ffwll.ch,
+	tvrtko.ursulin@linux.intel.com
+Date: Wed, 22 Sep 2021 11:10:26 +0200
+Message-Id: <20210922091044.2612-9-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210922091044.2612-1-christian.koenig@amd.com>
+References: <20210922091044.2612-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <MN2PR12MB4342C3996173DC4DB6B34FC9E4A19@MN2PR12MB4342.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Mailman-Approved-At: Wed, 22 Sep 2021 12:44:57 +0000
-Subject: Re: [Intel-gfx] [PATCH 2/2] Add drm buddy manager support to amdgpu
- driver
+X-Mailman-Approved-At: Wed, 22 Sep 2021 12:44:58 +0000
+Subject: [Intel-gfx] [PATCH 08/26] drm/amdgpu: use the new iterator in
+ amdgpu_sync_resv
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,143 +91,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 21.09.21 um 17:51 schrieb Paneer Selvam, Arunpravin:
-> [AMD Public Use]
->
-> Hi Christian,
-> Please find my comments.
+Simplifying the code a bit.
 
-A better mail client might be helpful for mailing list communication. I 
-use Thunderbird, but Outlook with appropriate setting should do as well.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 44 ++++++++----------------
+ 1 file changed, 14 insertions(+), 30 deletions(-)
 
->
-> Thanks,
-> Arun
-> -----Original Message-----
-> From: Koenig, Christian <Christian.Koenig@amd.com>
-> Sent: Tuesday, September 21, 2021 2:34 PM
-> To: Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>; dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; matthew.auld@intel.com; daniel@ffwll.ch; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH 2/2] Add drm buddy manager support to amdgpu driver
->
-> Am 20.09.21 um 21:21 schrieb Arunpravin:
-> [SNIP]
->> +	struct list_head blocks;
->> +};
->> +
->> +static inline struct amdgpu_vram_mgr_node *
->> +to_amdgpu_vram_mgr_node(struct ttm_resource *res) {
->> +	return container_of(container_of(res, struct ttm_range_mgr_node, base),
->> +			struct amdgpu_vram_mgr_node, tnode); }
->> +
-> Maybe stuff that in a separate amdgpu_vram_mgr.h file together with all the other defines for the vram manager.
->
-> Arun - I thought about it, will create a new header file for vram manager
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+index 862eb3c1c4c5..f7d8487799b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+@@ -252,41 +252,25 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+ 		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
+ 		     void *owner)
+ {
+-	struct dma_resv_list *flist;
++	struct dma_resv_iter cursor;
+ 	struct dma_fence *f;
+-	unsigned i;
+-	int r = 0;
++	int r;
+ 
+ 	if (resv == NULL)
+ 		return -EINVAL;
+ 
+-	/* always sync to the exclusive fence */
+-	f = dma_resv_excl_fence(resv);
+-	dma_fence_chain_for_each(f, f) {
+-		struct dma_fence_chain *chain = to_dma_fence_chain(f);
+-
+-		if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
+-					   chain->fence : f)) {
+-			r = amdgpu_sync_fence(sync, f);
+-			dma_fence_put(f);
+-			if (r)
+-				return r;
+-			break;
+-		}
+-	}
+-
+-	flist = dma_resv_shared_list(resv);
+-	if (!flist)
+-		return 0;
+-
+-	for (i = 0; i < flist->shared_count; ++i) {
+-		f = rcu_dereference_protected(flist->shared[i],
+-					      dma_resv_held(resv));
+-
+-		if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
+-			r = amdgpu_sync_fence(sync, f);
+-			if (r)
+-				return r;
++	dma_resv_for_each_fence(&cursor, resv, true, f) {
++		dma_fence_chain_for_each(f, f) {
++			struct dma_fence_chain *chain = to_dma_fence_chain(f);
++
++			if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
++						   chain->fence : f)) {
++				r = amdgpu_sync_fence(sync, f);
++				dma_fence_put(f);
++				if (r)
++					return r;
++				break;
++			}
+ 		}
+ 	}
+ 	return 0;
+-- 
+2.25.1
 
-Maybe make that a separate patch before this one here.
-
->> +	if (mode == DRM_BUDDY_ALLOC_RANGE) {
->> +		r = drm_buddy_alloc_range(mm, &vnode->blocks,
->> +				(uint64_t)place->fpfn << PAGE_SHIFT, pages << PAGE_SHIFT);
-> That handling won't work. It's possible that you need contiguous memory in a specific range.
->
-> Arun - the existing default backend range handler allocates contiguous nodes in power of 2 finding the MSB's of
-> the any given size. We get linked nodes (depends on the requested size) in continuous range of address.
-> Example, for the size 768 pages request, we get 512 + 256 range of continuous address in 2 nodes.
->
-> It works by passing the fpfn and the requested size, the backend handler calculates the lpfn by adding fpfn + size = lpfn.
-> The drawback here are we are not handling the specific lpfn value (as of now it is calculated using the fpfn + requested size)
-> and not following the pages_per_node rule.
->
-> Please let me know if this won't work for all specific fpfn / lpfn cases
-
- From your description that sounds like it won't work at all for any cases.
-
-See the fpfn/lpfn specifies the range of allocation. For the most common 
-case that's either 0..visible_vram or 0..start_of_some_hw_limitation.
-
-When you always try to allocate the range from 0 you will quickly find 
-that you clash with existing allocations.
-
-What you need to do in general is to have a drm_buddy_alloc() which is 
-able to limit the returned page to the desired range fpfn..lpfn.
-
->> +
->> +			do {
->> +				unsigned int order;
->> +
->> +				order = fls(n_pages) - 1;
->> +				BUG_ON(order > mm->max_order);
->> +
->> +				spin_lock(&mgr->lock);
->> +				block = drm_buddy_alloc(mm, order, bar_limit_enabled,
->> +									visible_pfn, mode);
-> That doesn't seem to make much sense either. The backend allocator should not care about the BAR size nor the visible_pfn.
->
-> Arun - we are sending the BAR limit enable information (in case of APU or large BAR, we take different approach) and visible_pfn
-> Information.
->
-> In case of bar_limit_enabled is true, I thought visible_pfn required for the backend allocator to compare with the block start address
-> and find the desired blocks for the TOP-DOWN and BOTTOM-UP approach (TOP-DOWN - return blocks higher than the visible_pfn limit,
-> BOTTOM-UP - return blocks lower than the visible_pfn limit).
->
-> In case of bar_limit_enabled is false, we just return the top ordered blocks and bottom most blocks for the TOP-DOWN and BOTTOM-UP
-> respectively (suitable for APU and Large BAR case).
->
-> Please let me know if we have other way to fix this problem
-
-That is the completely wrong approach. The backend must not care about 
-the BAR configuration and visibility of the VRAM.
-
-What it should do instead is to take the fpfn..lpfn range into account 
-and make sure that all allocated pages are in the desired range.
-
-BOTTOM-UP vs. TOP-DOWN then just optimizes the algorithm because we 
-insert all freed up TOP-DOWN pages at the end and all BOTTOM-UP pages at 
-the front and on new allocations walk the lest of free pages from the 
-front or back depending on the flag.
-
->
->> +				spin_unlock(&mgr->lock);
->>    
->> -		vis_usage += amdgpu_vram_mgr_vis_size(adev, &node->mm_nodes[i]);
->> -		amdgpu_vram_mgr_virt_start(&node->base, &node->mm_nodes[i]);
->> -		pages_left -= pages;
->> -		++i;
->> +				if (IS_ERR(block)) {
->> +					r = -ENOSPC;
->> +					goto error_free_blocks;
->> +				}
->>    
->> -		if (pages > pages_left)
->> -			pages = pages_left;
->> +				n_pages -= BIT(order);
->> +
->> +				list_add_tail(&block->link, &vnode->blocks);
->> +
->> +				if (!n_pages)
->> +					break;
->> +			} while (1);
->> +
->> +			pages_left -= pages;
->> +			++i;
->> +
->> +			if (pages > pages_left)
->> +				pages = pages_left;
->> +		}
->>    	}
->> +
->> +	spin_lock(&mgr->lock);
->> +	list_sort(NULL, &vnode->blocks, sort_blocks);
-> Why do you sort the list here?
->
-> Regards,
-> Christian.
->
-> Arun - It gave better GLmark2 score when we sort the blocks in ascending order,
-> Its not required, I will remove it
-
-Interesting.  Maybe add a TODO comment so that somebody could 
-investigate why that happens.
-
-Regards,
-Christian.
