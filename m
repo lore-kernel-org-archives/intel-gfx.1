@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 292AEC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10B5CC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:30:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE2A260F26
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:30:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DE2A260F26
+	by mail.kernel.org (Postfix) with ESMTPS id D09BA60F26
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D09BA60F26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 434916EBFF;
-	Wed, 22 Sep 2021 14:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 615B46EC00;
+	Wed, 22 Sep 2021 14:30:49 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2A86EC00
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 14:30:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220409758"
-X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="220409758"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D196EC00
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 14:30:47 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220409813"
+X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="220409813"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 07:30:28 -0700
-X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="484591055"
+ 22 Sep 2021 07:30:43 -0700
+X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="585387657"
 Received: from vidyaram-mobl1.gar.corp.intel.com (HELO localhost)
  ([10.251.218.73])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 07:30:25 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2021 07:30:41 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Dave Airlie <airlied@gmail.com>, Dave Airlie <airlied@redhat.com>,
  Jani Nikula <jani.nikula@intel.com>
-Date: Wed, 22 Sep 2021 17:29:30 +0300
-Message-Id: <d446b36574f1bc51fc605f8c8446c071669e6f2d.1632320821.git.jani.nikula@intel.com>
+Date: Wed, 22 Sep 2021 17:29:33 +0300
+Message-Id: <6ccc20868bf4e59d1adda810461d3132c8eaeffd.1632320821.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1632320821.git.jani.nikula@intel.com>
 References: <cover.1632320821.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/24] drm/i915/display: add
- intel_fdi_link_train wrapper.
+Subject: [Intel-gfx] [PATCH 09/24] drm/i915: split color functions from
+ display vtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,62 +64,199 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This wraps the fdi link training vfunc to make it clearer.
-
-Suggested by Jani.
+These are only used internally in the color module
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 2 +-
- drivers/gpu/drm/i915/display/intel_fdi.c     | 8 ++++++++
- drivers/gpu/drm/i915/display/intel_fdi.h     | 2 ++
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 64 +++++++++++-----------
+ drivers/gpu/drm/i915/i915_drv.h            | 39 +++++++------
+ 2 files changed, 54 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 5a02c9e1dca8..c32ac150212d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2156,7 +2156,7 @@ static void ilk_pch_enable(const struct intel_atomic_state *state,
- 	assert_pch_transcoder_disabled(dev_priv, pipe);
- 
- 	/* For PCH output, training FDI link */
--	dev_priv->display.fdi_link_train(crtc, crtc_state);
-+	intel_fdi_link_train(crtc, crtc_state);
- 
- 	/* We need to program the right clock selection before writing the pixel
- 	 * mutliplier into the DPLL. */
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index 96ff12ad0873..d20669e53663 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -10,6 +10,14 @@
- #include "intel_fdi.h"
- #include "intel_sideband.h"
- 
-+void intel_fdi_link_train(struct intel_crtc *crtc,
-+			  const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+
-+	dev_priv->display.fdi_link_train(crtc, crtc_state);
-+}
-+
- /* units of 100MHz */
- static int pipe_required_fdi_lanes(struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index afcb4bf3826c..ed79075158dd 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1137,14 +1137,14 @@ void intel_color_load_luts(const struct intel_crtc_state *crtc_state)
  {
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.h b/drivers/gpu/drm/i915/display/intel_fdi.h
-index 60acf2133145..61cb216a09f5 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.h
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.h
-@@ -26,4 +26,6 @@ void hsw_fdi_link_train(struct intel_encoder *encoder,
- void intel_fdi_pll_freq_update(struct drm_i915_private *i915);
- void lpt_fdi_program_mphy(struct drm_i915_private *i915);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
  
-+void intel_fdi_link_train(struct intel_crtc *crtc,
-+			  const struct intel_crtc_state *crtc_state);
- #endif
+-	dev_priv->display.load_luts(crtc_state);
++	dev_priv->color_funcs.load_luts(crtc_state);
+ }
+ 
+ void intel_color_commit(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	dev_priv->display.color_commit(crtc_state);
++	dev_priv->color_funcs.color_commit(crtc_state);
+ }
+ 
+ static bool intel_can_preload_luts(const struct intel_crtc_state *new_crtc_state)
+@@ -1200,15 +1200,15 @@ int intel_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	return dev_priv->display.color_check(crtc_state);
++	return dev_priv->color_funcs.color_check(crtc_state);
+ }
+ 
+ void intel_color_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	if (dev_priv->display.read_luts)
+-		dev_priv->display.read_luts(crtc_state);
++	if (dev_priv->color_funcs.read_luts)
++		dev_priv->color_funcs.read_luts(crtc_state);
+ }
+ 
+ static bool need_plane_update(struct intel_plane *plane,
+@@ -2101,51 +2101,51 @@ void intel_color_init(struct intel_crtc *crtc)
+ 
+ 	if (HAS_GMCH(dev_priv)) {
+ 		if (IS_CHERRYVIEW(dev_priv)) {
+-			dev_priv->display.color_check = chv_color_check;
+-			dev_priv->display.color_commit = i9xx_color_commit;
+-			dev_priv->display.load_luts = chv_load_luts;
+-			dev_priv->display.read_luts = chv_read_luts;
++			dev_priv->color_funcs.color_check = chv_color_check;
++			dev_priv->color_funcs.color_commit = i9xx_color_commit;
++			dev_priv->color_funcs.load_luts = chv_load_luts;
++			dev_priv->color_funcs.read_luts = chv_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 4) {
+-			dev_priv->display.color_check = i9xx_color_check;
+-			dev_priv->display.color_commit = i9xx_color_commit;
+-			dev_priv->display.load_luts = i965_load_luts;
+-			dev_priv->display.read_luts = i965_read_luts;
++			dev_priv->color_funcs.color_check = i9xx_color_check;
++			dev_priv->color_funcs.color_commit = i9xx_color_commit;
++			dev_priv->color_funcs.load_luts = i965_load_luts;
++			dev_priv->color_funcs.read_luts = i965_read_luts;
+ 		} else {
+-			dev_priv->display.color_check = i9xx_color_check;
+-			dev_priv->display.color_commit = i9xx_color_commit;
+-			dev_priv->display.load_luts = i9xx_load_luts;
+-			dev_priv->display.read_luts = i9xx_read_luts;
++			dev_priv->color_funcs.color_check = i9xx_color_check;
++			dev_priv->color_funcs.color_commit = i9xx_color_commit;
++			dev_priv->color_funcs.load_luts = i9xx_load_luts;
++			dev_priv->color_funcs.read_luts = i9xx_read_luts;
+ 		}
+ 	} else {
+ 		if (DISPLAY_VER(dev_priv) >= 11)
+-			dev_priv->display.color_check = icl_color_check;
++			dev_priv->color_funcs.color_check = icl_color_check;
+ 		else if (DISPLAY_VER(dev_priv) >= 10)
+-			dev_priv->display.color_check = glk_color_check;
++			dev_priv->color_funcs.color_check = glk_color_check;
+ 		else if (DISPLAY_VER(dev_priv) >= 7)
+-			dev_priv->display.color_check = ivb_color_check;
++			dev_priv->color_funcs.color_check = ivb_color_check;
+ 		else
+-			dev_priv->display.color_check = ilk_color_check;
++			dev_priv->color_funcs.color_check = ilk_color_check;
+ 
+ 		if (DISPLAY_VER(dev_priv) >= 9)
+-			dev_priv->display.color_commit = skl_color_commit;
++			dev_priv->color_funcs.color_commit = skl_color_commit;
+ 		else if (IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
+-			dev_priv->display.color_commit = hsw_color_commit;
++			dev_priv->color_funcs.color_commit = hsw_color_commit;
+ 		else
+-			dev_priv->display.color_commit = ilk_color_commit;
++			dev_priv->color_funcs.color_commit = ilk_color_commit;
+ 
+ 		if (DISPLAY_VER(dev_priv) >= 11) {
+-			dev_priv->display.load_luts = icl_load_luts;
+-			dev_priv->display.read_luts = icl_read_luts;
++			dev_priv->color_funcs.load_luts = icl_load_luts;
++			dev_priv->color_funcs.read_luts = icl_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) == 10) {
+-			dev_priv->display.load_luts = glk_load_luts;
+-			dev_priv->display.read_luts = glk_read_luts;
++			dev_priv->color_funcs.load_luts = glk_load_luts;
++			dev_priv->color_funcs.read_luts = glk_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 8) {
+-			dev_priv->display.load_luts = bdw_load_luts;
++			dev_priv->color_funcs.load_luts = bdw_load_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 7) {
+-			dev_priv->display.load_luts = ivb_load_luts;
++			dev_priv->color_funcs.load_luts = ivb_load_luts;
+ 		} else {
+-			dev_priv->display.load_luts = ilk_load_luts;
+-			dev_priv->display.read_luts = ilk_read_luts;
++			dev_priv->color_funcs.load_luts = ilk_load_luts;
++			dev_priv->color_funcs.read_luts = ilk_read_luts;
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index a095184df006..e35b721d1130 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -345,6 +345,25 @@ struct drm_i915_wm_disp_funcs {
+ 	int (*compute_global_watermarks)(struct intel_atomic_state *state);
+ };
+ 
++struct intel_color_funcs {
++	int (*color_check)(struct intel_crtc_state *crtc_state);
++	/*
++	 * Program double buffered color management registers during
++	 * vblank evasion. The registers should then latch during the
++	 * next vblank start, alongside any other double buffered registers
++	 * involved with the same commit.
++	 */
++	void (*color_commit)(const struct intel_crtc_state *crtc_state);
++	/*
++	 * Load LUTs (and other single buffered color management
++	 * registers). Will (hopefully) be called during the vblank
++	 * following the latching of any double buffered registers
++	 * involved with the same commit.
++	 */
++	void (*load_luts)(const struct intel_crtc_state *crtc_state);
++	void (*read_luts)(struct intel_crtc_state *crtc_state);
++};
++
+ struct drm_i915_display_funcs {
+ 	void (*get_cdclk)(struct drm_i915_private *dev_priv,
+ 			  struct intel_cdclk_config *cdclk_config);
+@@ -381,23 +400,6 @@ struct drm_i915_display_funcs {
+ 	/* render clock increase/decrease */
+ 	/* display clock increase/decrease */
+ 	/* pll clock increase/decrease */
+-
+-	int (*color_check)(struct intel_crtc_state *crtc_state);
+-	/*
+-	 * Program double buffered color management registers during
+-	 * vblank evasion. The registers should then latch during the
+-	 * next vblank start, alongside any other double buffered registers
+-	 * involved with the same commit.
+-	 */
+-	void (*color_commit)(const struct intel_crtc_state *crtc_state);
+-	/*
+-	 * Load LUTs (and other single buffered color management
+-	 * registers). Will (hopefully) be called during the vblank
+-	 * following the latching of any double buffered registers
+-	 * involved with the same commit.
+-	 */
+-	void (*load_luts)(const struct intel_crtc_state *crtc_state);
+-	void (*read_luts)(struct intel_crtc_state *crtc_state);
+ };
+ 
+ 
+@@ -972,6 +974,9 @@ struct drm_i915_private {
+ 	/* Display functions */
+ 	struct drm_i915_display_funcs display;
+ 
++	/* Display internal color functions */
++	struct intel_color_funcs color_funcs;
++
+ 	/* PCH chipset type */
+ 	enum intel_pch pch_type;
+ 	unsigned short pch_id;
 -- 
 2.30.2
 
