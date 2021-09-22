@@ -8,57 +8,56 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2189BC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:46:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9698C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5400600D4
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E5400600D4
+	by mail.kernel.org (Postfix) with ESMTPS id B880D611EE
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 12:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B880D611EE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2996EBED;
-	Wed, 22 Sep 2021 12:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 427B96EB7B;
+	Wed, 22 Sep 2021 12:47:09 +0000 (UTC)
 Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
  [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3896EB35;
- Wed, 22 Sep 2021 09:10:59 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id w29so4623699wra.8;
- Wed, 22 Sep 2021 02:10:59 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 048626EB26;
+ Wed, 22 Sep 2021 09:10:53 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id u15so4674013wru.6;
+ Wed, 22 Sep 2021 02:10:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=IkVWp2cRgm41mlWFdiuPcdEqOEMHJpLCxm3yFN2dD0Q=;
- b=NZTcio66H20o4+aUG46IMbNGw/gsR2MLvFXmQmrJ1OvckTnHYUtbx4r0nCCpJ9Y/dz
- 8BKfVinC47zlJHH6rS8n3bD9UN7mY7dVjy9mtZhsCbvB7pOdK+u5UVa6moyghTviVXty
- JKWpDYxOO97TlVUvPZ+JverRMrAH6NJVttL14cvQr0t4Ep3DnIzH9wWEx3WFkKtpikou
- qak0OwH3VMEabNYCOUN9WhPoCO4hzX9ziRvsBq9k/tc41rqmVm/wPn1FgKIKYV+Mr4Wj
- hdSTPEeOHlQy4LcT3krw4byAtBl0DBxq+7ZwIGKifvVu4P2T3fHDvO80to/Aa9HvoJho
- Tlfw==
+ bh=nO/bLBLjrktM/NZVu33qHZQ0BS1aAWyaIwRmpqxTaNI=;
+ b=k9E3WRQYA35tAgZUwEWvswKhhFbqftPIbtY+l3JqtbySP1GbiL2j19/lfYxLTI522g
+ bnfoWCm2s+zcUhfNOtrnJoh2xarwp0MLicFh+D+XlmXiU3SIRWWYSp4zGnz64Sadc5cX
+ Eq8BGB5cZvU6fG3QJUg8vtk8acscg9ErTGHRXsjodJ5y7HpV0pVhIbUXWDfqy8CsbPdr
+ m1LbCxJMpQa5ZD/cGyuuw+2tp16qRgTs/m4pV+PdChzUZQRUGFvJOmKLKyZaWP1dxx9S
+ asf7MPUXeMzRyYL4a1X+8EFouR1/+ewspwI65LEeSKBQP1lbQ7atr7g7ZLiWFBqhkOjC
+ pY5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=IkVWp2cRgm41mlWFdiuPcdEqOEMHJpLCxm3yFN2dD0Q=;
- b=wVfxuRQQWgj1XVy0mGz+9GkpXSoGRGLKa58VToML47QkLBhZEaaemdUlJhDVzO68rt
- Uso3XQOefT87Sq07PxiLi76SoDNz0E8WZQyN9632wTgmAW7iqhur6RpYzmFsvaJRpN9E
- l3k/X2mc9eas8Cd8jv+XJXI4bEVScJZmuY4OdcSpEDGe3ebEFwK3YpcsSxJtBInIfN55
- 6v2Bttiy5PgvGwM49vpAS496iGkBR6yR8fAynVXHu/OqLxJ3bWDbtyhjhZXNUJxj9Mhh
- fj4Mcg2rXmYGrUmKDftEqDB7uiGX2c1uQkQRz422yA18gXd/mVI8nR/wQFTGFr8YoIys
- xgqA==
-X-Gm-Message-State: AOAM533/opK6SjQ1HKp8lZ+W86roBmSCJhExS2sa+e7LA0fGrCgkl8n7
- 7ih5l0ieRB1t2c7EavCT0CU=
-X-Google-Smtp-Source: ABdhPJz88bvnw0jC1PGYz8LxLw5TlE7TvUYTgbj0Klim7fWgvO2htMt4CDF1oeNQCrfg3JzBmHIM4w==
-X-Received: by 2002:a05:600c:35d0:: with SMTP id
- r16mr9147612wmq.26.1632301858176; 
- Wed, 22 Sep 2021 02:10:58 -0700 (PDT)
+ bh=nO/bLBLjrktM/NZVu33qHZQ0BS1aAWyaIwRmpqxTaNI=;
+ b=nUsPrbCEHd6VuGBHFHIOqzeG4KZ2tDypl5sc3vxSfWlT8G1eTKOs5nGdL48/0C414h
+ aVTGC5IRoJ7gAifXbtKqQWure4LGFUKc9XGrKbBI7CXlVW/yeCGcE61lorY1jIxWz1Uu
+ QF3dP+rffTMSAYXzEp1EjEqVqd9tz6s5TDmWUiJ4LfZrUTvkbgtyC8EbAM8RP73b2t3b
+ 5WZ5F5wpPQS/980LrR/wOerXvSdv1IDFMiyn4Pg9FqS5PiBMLyjGTrkVtRq4nbQDaTnz
+ eTkGIWCs43B/eN5kCQqY/SRNjZH/3cdBRmkB2Qu2FMBCDGGX2dL19ge2EPEUbiN/FkBB
+ 9Jeg==
+X-Gm-Message-State: AOAM5311j6ejwLkzh81QD42gEvGhDwtUqxO6D5J9S56RAXX302nEzojo
+ v8dp/FT6QQKpsxKlhmfy2644JLTf7y4=
+X-Google-Smtp-Source: ABdhPJx8GPnPIEzmIo9ZINoy4ih4ncReRvH/RsgvmHgcZmtH9PeFnU63kn5toKEZqc+Jz/B9lXxMFQ==
+X-Received: by 2002:adf:f1c4:: with SMTP id z4mr40571586wro.418.1632301851597; 
+ Wed, 22 Sep 2021 02:10:51 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- r25sm1535515wra.76.2021.09.22.02.10.56
+ r25sm1535515wra.76.2021.09.22.02.10.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Sep 2021 02:10:57 -0700 (PDT)
+ Wed, 22 Sep 2021 02:10:51 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -66,8 +65,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Wed, 22 Sep 2021 11:10:29 +0200
-Message-Id: <20210922091044.2612-12-christian.koenig@amd.com>
+Date: Wed, 22 Sep 2021 11:10:23 +0200
+Message-Id: <20210922091044.2612-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210922091044.2612-1-christian.koenig@amd.com>
 References: <20210922091044.2612-1-christian.koenig@amd.com>
@@ -75,8 +74,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 22 Sep 2021 12:44:58 +0000
-Subject: [Intel-gfx] [PATCH 11/26] drm/radeon: use new iterator in
- radeon_sync_resv
+Subject: [Intel-gfx] [PATCH 05/26] dma-buf: use new iterator in
+ dma_resv_wait_timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,54 +91,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+This makes the function much simpler since the complex
+retry logic is now handled elsewhere.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/radeon/radeon_sync.c | 22 +++-------------------
- 1 file changed, 3 insertions(+), 19 deletions(-)
+ drivers/dma-buf/dma-resv.c | 69 +++++---------------------------------
+ 1 file changed, 8 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_sync.c b/drivers/gpu/drm/radeon/radeon_sync.c
-index 9257b60144c4..b991ba1bcd51 100644
---- a/drivers/gpu/drm/radeon/radeon_sync.c
-+++ b/drivers/gpu/drm/radeon/radeon_sync.c
-@@ -91,33 +91,17 @@ int radeon_sync_resv(struct radeon_device *rdev,
- 		     struct dma_resv *resv,
- 		     bool shared)
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index cde97e4e547f..d0e26cd13ecd 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -608,74 +608,21 @@ long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
+ 			   unsigned long timeout)
  {
--	struct dma_resv_list *flist;
--	struct dma_fence *f;
+ 	long ret = timeout ? timeout : 1;
+-	unsigned int seq, shared_count;
 +	struct dma_resv_iter cursor;
- 	struct radeon_fence *fence;
--	unsigned i;
-+	struct dma_fence *f;
- 	int r = 0;
+ 	struct dma_fence *fence;
+-	int i;
+-
+-retry:
+-	shared_count = 0;
+-	seq = read_seqcount_begin(&obj->seq);
+-	rcu_read_lock();
+-	i = -1;
+-
+-	fence = dma_resv_excl_fence(obj);
+-	if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-		if (!dma_fence_get_rcu(fence))
+-			goto unlock_retry;
+-
+-		if (dma_fence_is_signaled(fence)) {
+-			dma_fence_put(fence);
+-			fence = NULL;
+-		}
+-
+-	} else {
+-		fence = NULL;
+-	}
+-
+-	if (wait_all) {
+-		struct dma_resv_list *fobj = dma_resv_shared_list(obj);
+-
+-		if (fobj)
+-			shared_count = fobj->shared_count;
+-
+-		for (i = 0; !fence && i < shared_count; ++i) {
+-			struct dma_fence *lfence;
  
--	/* always sync to the exclusive fence */
--	f = dma_resv_excl_fence(resv);
--	fence = f ? to_radeon_fence(f) : NULL;
--	if (fence && fence->rdev == rdev)
--		radeon_sync_fence(sync, fence);
--	else if (f)
--		r = dma_fence_wait(f, true);
+-			lfence = rcu_dereference(fobj->shared[i]);
+-			if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+-				     &lfence->flags))
+-				continue;
 -
--	flist = dma_resv_shared_list(resv);
--	if (shared || !flist || r)
--		return r;
+-			if (!dma_fence_get_rcu(lfence))
+-				goto unlock_retry;
 -
--	for (i = 0; i < flist->shared_count; ++i) {
--		f = rcu_dereference_protected(flist->shared[i],
--					      dma_resv_held(resv));
-+	dma_resv_for_each_fence(&cursor, resv, shared, f) {
- 		fence = to_radeon_fence(f);
- 		if (fence && fence->rdev == rdev)
- 			radeon_sync_fence(sync, fence);
- 		else
- 			r = dma_fence_wait(f, true);
--
- 		if (r)
- 			break;
+-			if (dma_fence_is_signaled(lfence)) {
+-				dma_fence_put(lfence);
+-				continue;
+-			}
++	dma_resv_iter_begin(&cursor, obj, wait_all);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
+ 
+-			fence = lfence;
+-			break;
++		ret = dma_fence_wait_timeout(fence, intr, ret);
++		if (ret <= 0) {
++			dma_resv_iter_end(&cursor);
++			return ret;
+ 		}
  	}
++	dma_resv_iter_end(&cursor);
+ 
+-	rcu_read_unlock();
+-	if (fence) {
+-		if (read_seqcount_retry(&obj->seq, seq)) {
+-			dma_fence_put(fence);
+-			goto retry;
+-		}
+-
+-		ret = dma_fence_wait_timeout(fence, intr, ret);
+-		dma_fence_put(fence);
+-		if (ret > 0 && wait_all && (i + 1 < shared_count))
+-			goto retry;
+-	}
+ 	return ret;
+-
+-unlock_retry:
+-	rcu_read_unlock();
+-	goto retry;
+ }
+ EXPORT_SYMBOL_GPL(dma_resv_wait_timeout);
+ 
 -- 
 2.25.1
 
