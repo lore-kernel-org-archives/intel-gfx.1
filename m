@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59C5DC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BCDBC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 255D960EC0
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 255D960EC0
+	by mail.kernel.org (Postfix) with ESMTPS id 498CB60EC0
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 498CB60EC0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E77626ECF8;
-	Thu, 23 Sep 2021 07:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 484D86ED02;
+	Thu, 23 Sep 2021 07:35:02 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1CE6ECFB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 238496ECF7
  for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 07:34:59 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203282517"
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="203282517"
+X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203282511"
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="203282511"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Sep 2021 00:34:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="558167463"
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="558167440"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga002.fm.intel.com with ESMTP; 23 Sep 2021 00:34:58 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 23 Sep 2021 00:34:57 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Thu, 23 Sep 2021 00:35:23 -0700
-Message-Id: <20210923073529.1058204-12-alan.previn.teres.alexis@intel.com>
+	Huang@freedesktop.org, Sean Z <sean.z.huang@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Thu, 23 Sep 2021 00:35:18 -0700
+Message-Id: <20210923073529.1058204-7-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
 References: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 11/17] drm/i915/pxp: start the arb session
- on demand
+Subject: [Intel-gfx] [PATCH v12 06/17] drm/i915/pxp: set KCR reg init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,235 +62,106 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Now that we can handle destruction and re-creation of the arb session,
-we can postpone the start of the session to the first submission that
-requires it, to avoid keeping it running with no user.
+The setting is required by hardware to allow us doing further protection
+operation such as sending commands to GPU or TEE. The register needs to
+be re-programmed on resume, so for simplicitly we bundle the programming
+with the component binding, which is automatically called on resume.
 
-v10: increase timeout when waiting in intel_pxp_start as firmware
-     session startup is slower right after boot.
+Further HW set-up operations will be added in the same location in
+follow-up patches, so get ready for them by using a couple of
+init/fini_hw wrappers instead of calling the KCR funcs directly.
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+v3: move programming to component binding function, rework commit msg
+
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c  |  4 ++-
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 37 +++++++++++++-------
- drivers/gpu/drm/i915/pxp/intel_pxp.h         | 10 ++++--
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c     |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c |  6 ++--
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c     | 10 +-----
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h   |  2 ++
- 7 files changed, 42 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     | 26 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h     |  3 +++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c |  5 +++++
+ 3 files changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 3efbfbfed0b9..abe74088afe4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -267,7 +267,9 @@ static int proto_context_set_protected(struct drm_i915_private *i915,
- 		 * which in turn requires the device to be active.
- 		 */
- 		pc->pxp_wakeref = intel_runtime_pm_get(&i915->runtime_pm);
--		ret = intel_pxp_wait_for_arb_start(&i915->gt.pxp);
-+
-+		if (!intel_pxp_is_active(&i915->gt.pxp))
-+			ret = intel_pxp_start(&i915->gt.pxp);
- 	}
- 
- 	return ret;
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 82f250d15e1e..77f58641f6de 100644
+index 5e74b2af2647..ebbc6923c7ad 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -90,6 +90,7 @@ void intel_pxp_init(struct intel_pxp *pxp)
- 	init_completion(&pxp->termination);
- 	complete_all(&pxp->termination);
- 
-+	mutex_init(&pxp->arb_mutex);
- 	INIT_WORK(&pxp->session_work, intel_pxp_session_work);
- 
- 	ret = create_vcs_context(pxp);
-@@ -126,7 +127,7 @@ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp)
- 	reinit_completion(&pxp->termination);
+@@ -12,6 +12,23 @@ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
+ 	return container_of(pxp, struct intel_gt, pxp);
  }
  
--static void intel_pxp_queue_termination(struct intel_pxp *pxp)
-+static void pxp_queue_termination(struct intel_pxp *pxp)
- {
- 	struct intel_gt *gt = pxp_to_gt(pxp);
- 
-@@ -145,31 +146,41 @@ static void intel_pxp_queue_termination(struct intel_pxp *pxp)
-  * the arb session is restarted from the irq work when we receive the
-  * termination completion interrupt
-  */
--int intel_pxp_wait_for_arb_start(struct intel_pxp *pxp)
-+int intel_pxp_start(struct intel_pxp *pxp)
- {
-+	int ret = 0;
++/* KCR register definitions */
++#define KCR_INIT _MMIO(0x320f0)
++/* Setting KCR Init bit is required after system boot */
++#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES REG_BIT(14)
 +
- 	if (!intel_pxp_is_enabled(pxp))
--		return 0;
-+		return -ENODEV;
-+
-+	mutex_lock(&pxp->arb_mutex);
-+
-+	if (pxp->arb_is_valid)
-+		goto unlock;
-+
-+	pxp_queue_termination(pxp);
- 
- 	if (!wait_for_completion_timeout(&pxp->termination,
--					 msecs_to_jiffies(100)))
--		return -ETIMEDOUT;
-+					msecs_to_jiffies(200))) {
-+		ret = -ETIMEDOUT;
-+		goto unlock;
-+	}
-+
-+	/* make sure the compiler doesn't optimize the double access */
-+	barrier();
- 
- 	if (!pxp->arb_is_valid)
--		return -EIO;
-+		ret = -EIO;
- 
--	return 0;
-+unlock:
-+	mutex_unlock(&pxp->arb_mutex);
-+	return ret;
- }
- 
- void intel_pxp_init_hw(struct intel_pxp *pxp)
- {
- 	kcr_pxp_enable(pxp_to_gt(pxp));
- 	intel_pxp_irq_enable(pxp);
--
--	/*
--	 * the session could've been attacked while we weren't loaded, so
--	 * handle it as if it was and re-create it.
--	 */
--	intel_pxp_queue_termination(pxp);
- }
- 
- void intel_pxp_fini_hw(struct intel_pxp *pxp)
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 430f01ea9860..bce0014d9ff9 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -26,7 +26,8 @@ void intel_pxp_init_hw(struct intel_pxp *pxp);
- void intel_pxp_fini_hw(struct intel_pxp *pxp);
- 
- void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
--int intel_pxp_wait_for_arb_start(struct intel_pxp *pxp);
-+
-+int intel_pxp_start(struct intel_pxp *pxp);
- 
- int intel_pxp_key_check(struct intel_pxp *pxp, struct drm_i915_gem_object *obj);
- 
-@@ -40,11 +41,16 @@ static inline void intel_pxp_fini(struct intel_pxp *pxp)
- {
- }
- 
--static inline int intel_pxp_wait_for_arb_start(struct intel_pxp *pxp)
-+static inline int intel_pxp_start(struct intel_pxp *pxp)
- {
- 	return -ENODEV;
- }
- 
-+static inline bool intel_pxp_is_active(const struct intel_pxp *pxp)
++static void kcr_pxp_enable(struct intel_gt *gt)
 +{
-+	return false;
++	intel_uncore_write(gt->uncore, KCR_INIT,
++			   _MASKED_BIT_ENABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
 +}
 +
- static inline int intel_pxp_key_check(struct intel_pxp *pxp,
- 				      struct drm_i915_gem_object *obj)
- {
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-index 300cf2b96fda..7b25efa82b76 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-@@ -32,7 +32,7 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- 		   GEN12_DISPLAY_APP_TERMINATED_PER_FW_REQ_INTERRUPT)) {
- 		/* immediately mark PXP as inactive on termination */
- 		intel_pxp_mark_termination_in_progress(pxp);
--		pxp->session_events |= PXP_TERMINATION_REQUEST;
-+		pxp->session_events |= PXP_TERMINATION_REQUEST | PXP_INVAL_REQUIRED;
- 	}
- 
- 	if (iir & GEN12_DISPLAY_STATE_RESET_COMPLETE_INTERRUPT)
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index c6a5e4197e40..a95cc443a48d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -88,9 +88,6 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
- 	/* must mark termination in progress calling this function */
- 	GEM_WARN_ON(pxp->arb_is_valid);
- 
--	/* invalidate protected objects */
--	intel_pxp_invalidate(pxp);
--
- 	/* terminate the hw sessions */
- 	ret = intel_pxp_terminate_session(pxp, ARB_SESSION);
- 	if (ret) {
-@@ -147,6 +144,9 @@ void intel_pxp_session_work(struct work_struct *work)
- 	if (!events)
- 		return;
- 
-+	if (events & PXP_INVAL_REQUIRED)
-+		intel_pxp_invalidate(pxp);
++static void kcr_pxp_disable(struct intel_gt *gt)
++{
++	intel_uncore_write(gt->uncore, KCR_INIT,
++			   _MASKED_BIT_DISABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
++}
 +
- 	if (events & PXP_TERMINATION_REQUEST) {
- 		events &= ~PXP_TERMINATION_COMPLETE;
- 		pxp_terminate(pxp);
+ static int create_vcs_context(struct intel_pxp *pxp)
+ {
+ 	static struct lock_class_key pxp_lock;
+@@ -78,5 +95,14 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+ 	intel_pxp_tee_component_fini(pxp);
+ 
+ 	destroy_vcs_context(pxp);
++}
++
++void intel_pxp_init_hw(struct intel_pxp *pxp)
++{
++	kcr_pxp_enable(pxp_to_gt(pxp));
++}
+ 
++void intel_pxp_fini_hw(struct intel_pxp *pxp)
++{
++	kcr_pxp_disable(pxp_to_gt(pxp));
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 73acd879f2fb..cd6560b2605c 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -17,6 +17,9 @@ static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
+ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
++
++void intel_pxp_init_hw(struct intel_pxp *pxp);
++void intel_pxp_fini_hw(struct intel_pxp *pxp);
+ #else
+ static inline void intel_pxp_init(struct intel_pxp *pxp)
+ {
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 494bd6b48514..3fc3ddfd02b3 100644
+index f1d8de832653..0c0c7946e6a0 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -78,9 +78,7 @@ static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
- static int i915_pxp_tee_component_bind(struct device *i915_kdev,
- 				       struct device *tee_kdev, void *data)
- {
--	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
- 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
--	int ret;
- 
- 	mutex_lock(&pxp->tee_mutex);
+@@ -33,6 +33,9 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
  	pxp->pxp_component = data;
-@@ -89,14 +87,8 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ 	pxp->pxp_component->tee_dev = tee_kdev;
  
- 	/* the component is required to fully start the PXP HW */
- 	intel_pxp_init_hw(pxp);
--	ret = intel_pxp_wait_for_arb_start(pxp);
--	if (ret) {
--		drm_err(&i915->drm, "Failed to create arb session during bind\n");
--		intel_pxp_fini_hw(pxp);
--		pxp->pxp_component = NULL;
--	}
- 
--	return ret;
-+	return 0;
++	/* the component is required to fully start the PXP HW */
++	intel_pxp_init_hw(pxp);
++
+ 	return 0;
  }
  
- static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index c394ab2e452b..ae24064bb57e 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -27,6 +27,7 @@ struct intel_pxp {
- 	 * even if the keys are gone, so we can't rely on the HW state of the
- 	 * session to know if it's valid and need to track the status in SW.
- 	 */
-+	struct mutex arb_mutex; /* protects arb session start */
- 	bool arb_is_valid;
+@@ -41,6 +44,8 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
+ {
+ 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
  
- 	/*
-@@ -53,6 +54,7 @@ struct intel_pxp {
- 	u32 session_events; /* protected with gt->irq_lock */
- #define PXP_TERMINATION_REQUEST  BIT(0)
- #define PXP_TERMINATION_COMPLETE BIT(1)
-+#define PXP_INVAL_REQUIRED       BIT(2)
- };
++	intel_pxp_fini_hw(pxp);
++
+ 	pxp->pxp_component = NULL;
+ }
  
- #endif /* __INTEL_PXP_TYPES_H__ */
 -- 
 2.25.1
 
