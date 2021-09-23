@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 033A2C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 11:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE80C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 11:58:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C16F361107
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 11:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C16F361107
+	by mail.kernel.org (Postfix) with ESMTPS id 3423E60F56
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 11:58:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3423E60F56
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B1B6E0D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 241536ED08;
 	Thu, 23 Sep 2021 11:58:28 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3E36ECF6
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 07:56:18 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id u15so14534880wru.6
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 00:56:17 -0700 (PDT)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC7E6ECF8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 07:56:21 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id d21so14423279wra.12
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 00:56:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=RSipxlf8Rt1aqHkUOElk7qKJcjfTHCxexIhn6lnwGw0=;
- b=AaFuLZkw+OCDtTP+0vZWJq+jx2ct6CzKGdW2zI1OXuhmzekSpKEJn6pV6rS5U7ZMqD
- nLaZyYGDARNPqkLXaiQGccvCuoHcI5JeWRHoirc1OCueJWokXfun43PW7x96Ztwx5Ria
- +mi4lufzj9Rd6POb/QY7IzcgfOXfTrySM24mVkNp0YrDHSvPIehvmWAtLt8OwdFGHPcW
- YZUK87m/pbc0MherWaWQh9j7KMDJLC2kdXcdEqCEe/kTLNSRkrc94i1lThCKC9IIDObO
- K950vZeWcx4uRK59rl3Jil0+EDxMwktsPwPrtlBaCTl7wFVf70AkQ4dhpX8/V9Bzgk0p
- RW9A==
+ bh=IkVWp2cRgm41mlWFdiuPcdEqOEMHJpLCxm3yFN2dD0Q=;
+ b=ZCqzI2iGAiYMZ92MWXWTeKpcqad2DOXICsCA97M6kyoXWTKBzSYBnw6Ybuq3qBz2/m
+ aUFgr/eGu61FCuxACQd1So6I6QMyQPOmvRcW54LZXLnPTEqlDPSHNlOKCaHstJJJKhTc
+ n+n3AKFapt/X2y1vrG4FZqe+XHdvpc2Y29rGWkeLTDNrotPAAUbfisWqFOOpHBO/1Egc
+ oV3rnRd4aB487LRdQLe7LrUMJMpWHsKZdb6a0KSneTI36+wfXGupCPAla2dsLB2wmM+W
+ ll7pmK0W4cRb870lHomW3DjhzKahK6GqOiBIrHjZWsZCar3WsWl7cTzeu5QlGQMaI4Ij
+ r8YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=RSipxlf8Rt1aqHkUOElk7qKJcjfTHCxexIhn6lnwGw0=;
- b=xQdlwAjRV+TWaMAjY4ju7aWSvs3G6RxwcHIw59PuA5QfzWAvpkZ00MWsWzeYw9gEaj
- PWpNl+cOZcUDFbpPSC0FW0rcvLQUKOKCScsjNup8ghW8TWCtKlRPmKP9jF/ELXz066AA
- ZGwawv5oyZzByIZCO0xPpA07JFWzQ7cikD9LtIfUOQjtCFNRrHT1egK23nZWVl3VPyAf
- kn+0OKdVJE9/o5l37ooCBPKvpcliLnV46p2T9/L2KYnqo0JX7lu2/bjwyphLKMCgm3Sh
- daJN+V9FNGlUE+btYkO3U/pTLse6Mi1ugu0BqUSZkI7GuesVeL/NP9T4rjJ/EL8z0zBy
- 8r4A==
-X-Gm-Message-State: AOAM531LlFHv+vKcsrkjspAVegxFwk2teQevp2L2dePb9R1WUMM371EY
- n22URvtm+e9fHT7J+PECWGUObcvD5S4=
-X-Google-Smtp-Source: ABdhPJwOmsftrmLHpvUL5ek/bFPzij3YfDCLxbAuViNVdvZP6ADQgHjHxqjdqznUtB4NEufBxZGucg==
-X-Received: by 2002:adf:ee48:: with SMTP id w8mr3370198wro.263.1632383776654; 
- Thu, 23 Sep 2021 00:56:16 -0700 (PDT)
+ bh=IkVWp2cRgm41mlWFdiuPcdEqOEMHJpLCxm3yFN2dD0Q=;
+ b=z/J4NZIl335EqvffeK02RRJCMpSPoIpCfeFUqOJDUZa8MWxUB/VC4aFPtSChKN1bJG
+ dktW+6oPcK5abuVQyGM7cbXbFCGDgNosj3q7K6jv67hGSiFWChfWnb3kffetUrOsRAHP
+ ByF8wOAkHXPjcq8TMRakCvJe+Sz/Bg4UZgcKJeCZztKW25au+UJYIoc4hBzGzQIGevYy
+ 8w6X5iNGy/ElbUMt/kh3xDLo70vSGezxlhApjzxJMqLKedml2scLE7dgok9cPsB7X3IE
+ M4V6uX5SbnyseoyCJaRZmbyRx4g1+qdrj4cJPKV28gTe2FlFAidf9wKe0gXbEPKX8deD
+ A6Ng==
+X-Gm-Message-State: AOAM533IVaOf2wqlqYiO7PqDA4972rifeUvWaL3R2cNqLa2+k5dydcEm
+ W3MKkW7nr6GvxQuC+NpAynKNb2bucLg=
+X-Google-Smtp-Source: ABdhPJwIpSlbune9RS9q/9SQUhAw0PHqkJmoxUyYa84GRfmIl/ZlQKeA8mjLd377n8ZTrSgXNPxe+A==
+X-Received: by 2002:adf:f24a:: with SMTP id b10mr3472662wrp.281.1632383779757; 
+ Thu, 23 Sep 2021 00:56:19 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- k19sm4280704wmr.21.2021.09.23.00.56.15
+ k19sm4280704wmr.21.2021.09.23.00.56.19
  for <intel-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 00:56:16 -0700 (PDT)
+ Thu, 23 Sep 2021 00:56:19 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Sep 2021 09:55:51 +0200
-Message-Id: <20210923075608.2873-8-christian.koenig@amd.com>
+Date: Thu, 23 Sep 2021 09:55:55 +0200
+Message-Id: <20210923075608.2873-12-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210923075608.2873-1-christian.koenig@amd.com>
 References: <20210923075608.2873-1-christian.koenig@amd.com>
@@ -72,8 +72,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 Sep 2021 11:57:22 +0000
-Subject: [Intel-gfx] [PATCH 08/25] drm/amdgpu: use the new iterator in
- amdgpu_sync_resv
+Subject: [Intel-gfx] [PATCH 12/25] drm/radeon: use new iterator in
+ radeon_sync_resv
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,69 +93,50 @@ Simplifying the code a bit.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 44 ++++++++----------------
- 1 file changed, 14 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/radeon/radeon_sync.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index 862eb3c1c4c5..f7d8487799b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -252,41 +252,25 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
- 		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
- 		     void *owner)
+diff --git a/drivers/gpu/drm/radeon/radeon_sync.c b/drivers/gpu/drm/radeon/radeon_sync.c
+index 9257b60144c4..b991ba1bcd51 100644
+--- a/drivers/gpu/drm/radeon/radeon_sync.c
++++ b/drivers/gpu/drm/radeon/radeon_sync.c
+@@ -91,33 +91,17 @@ int radeon_sync_resv(struct radeon_device *rdev,
+ 		     struct dma_resv *resv,
+ 		     bool shared)
  {
 -	struct dma_resv_list *flist;
+-	struct dma_fence *f;
 +	struct dma_resv_iter cursor;
- 	struct dma_fence *f;
+ 	struct radeon_fence *fence;
 -	unsigned i;
--	int r = 0;
-+	int r;
- 
- 	if (resv == NULL)
- 		return -EINVAL;
++	struct dma_fence *f;
+ 	int r = 0;
  
 -	/* always sync to the exclusive fence */
 -	f = dma_resv_excl_fence(resv);
--	dma_fence_chain_for_each(f, f) {
--		struct dma_fence_chain *chain = to_dma_fence_chain(f);
--
--		if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
--					   chain->fence : f)) {
--			r = amdgpu_sync_fence(sync, f);
--			dma_fence_put(f);
--			if (r)
--				return r;
--			break;
--		}
--	}
+-	fence = f ? to_radeon_fence(f) : NULL;
+-	if (fence && fence->rdev == rdev)
+-		radeon_sync_fence(sync, fence);
+-	else if (f)
+-		r = dma_fence_wait(f, true);
 -
 -	flist = dma_resv_shared_list(resv);
--	if (!flist)
--		return 0;
+-	if (shared || !flist || r)
+-		return r;
 -
 -	for (i = 0; i < flist->shared_count; ++i) {
 -		f = rcu_dereference_protected(flist->shared[i],
 -					      dma_resv_held(resv));
++	dma_resv_for_each_fence(&cursor, resv, shared, f) {
+ 		fence = to_radeon_fence(f);
+ 		if (fence && fence->rdev == rdev)
+ 			radeon_sync_fence(sync, fence);
+ 		else
+ 			r = dma_fence_wait(f, true);
 -
--		if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
--			r = amdgpu_sync_fence(sync, f);
--			if (r)
--				return r;
-+	dma_resv_for_each_fence(&cursor, resv, true, f) {
-+		dma_fence_chain_for_each(f, f) {
-+			struct dma_fence_chain *chain = to_dma_fence_chain(f);
-+
-+			if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
-+						   chain->fence : f)) {
-+				r = amdgpu_sync_fence(sync, f);
-+				dma_fence_put(f);
-+				if (r)
-+					return r;
-+				break;
-+			}
- 		}
+ 		if (r)
+ 			break;
  	}
- 	return 0;
 -- 
 2.25.1
 
