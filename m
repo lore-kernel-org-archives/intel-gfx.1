@@ -2,50 +2,43 @@ Return-Path: <SRS0=HC+g=ON=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3D63C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26B93C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:29:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 734BE6109E
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:28:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 734BE6109E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BF76C6109E
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BF76C6109E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA9956ECA1;
-	Thu, 23 Sep 2021 02:28:37 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E34E06ECA1
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 02:28:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203903490"
-X-IronPort-AV: E=Sophos;i="5.85,315,1624345200"; d="scan'208";a="203903490"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 19:28:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,315,1624345200"; d="scan'208";a="474922097"
-Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by fmsmga007.fm.intel.com with ESMTP; 22 Sep 2021 19:28:35 -0700
-From: Lee Shawn C <shawn.c.lee@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Lee Shawn C <shawn.c.lee@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Cooper Chiou <cooper.chiou@intel.com>,
- William Tseng <william.tseng@intel.com>
-Date: Thu, 23 Sep 2021 10:33:16 +0800
-Message-Id: <20210923023316.17905-1-shawn.c.lee@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210916102118.17356-1-shawn.c.lee@intel.com>
-References: <20210916102118.17356-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [v4] drm/i915/dsi: do not register gmbus if it was
- reserved for MIPI display
+	by gabe.freedesktop.org (Postfix) with ESMTP id 255676ECA7;
+	Thu, 23 Sep 2021 02:29:25 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C0AA66ECA1;
+ Thu, 23 Sep 2021 02:29:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id BCEFFAA0EB;
+ Thu, 23 Sep 2021 02:29:23 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 23 Sep 2021 02:29:23 -0000
+Message-ID: <163236416377.31050.13570003169882894270@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210922001531.399533-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20210922001531.399533-1-alan.previn.teres.alexis@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Introduce_Intel_PXP_=28rev10=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,71 +51,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Gmbus driver would setup all Intel i2c GMBuses. But DDC bus
-may configured as gpio and reserved for MIPI driver to control
-panel power on/off sequence.
+== Series Details ==
 
-Using i2c tool to communicate to peripherals via i2c interface
-reversed for gmbus(DDC). There will be some high/low pulse
-appear on DDC SCL and SDA (might be host sent out i2c slave
-address). MIPI panel would be impacted due to unexpected signal
-then caused abnormal display or shut down issue.
+Series: drm/i915: Introduce Intel PXP (rev10)
+URL   : https://patchwork.freedesktop.org/series/90503/
+State : warning
 
-v2: gmbus driver should not add i2c adapter for DDC interface
-    if LFP display was configured to support MIPI panel.
-v3: fix sparse warning
-v4: before gmbus driver add/delete/access i2c adapter would
-    call intel_gmbus_is_valid_pin() to know target adapter
-    is available or not. Avoid to access unexisting adapter.
-    Driver should check DSI status and pin's availability in
-    intel_gmbus_is_valid_pin().
+== Summary ==
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Cc: Cooper Chiou <cooper.chiou@intel.com>
-Cc: William Tseng <william.tseng@intel.com>
-Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
----
- drivers/gpu/drm/i915/display/intel_gmbus.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_reset.c:1392:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/i915_perf.c:1442:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1496:15: warning: memset with byte count of 16777216
++./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
++./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
 
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index ceb1bf8a8c3c..852e499e2e8c 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -118,11 +118,29 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *dev_priv,
- 		return &gmbus_pins[pin];
- }
- 
-+static bool intel_gmbus_ddc_reserve_for_mipi_dsi(struct drm_i915_private *dev_priv,
-+					     unsigned int pin)
-+{
-+	if (intel_bios_is_dsi_present(dev_priv, NULL)) {
-+		if (DISPLAY_VER(dev_priv) >= 11) {
-+			if ((pin == GMBUS_PIN_2_BXT && dev_priv->vbt.dsi.config->dual_link) ||
-+			     pin == GMBUS_PIN_1_BXT) {
-+				return true;
-+			}
-+		}
-+	}
-+
-+	return false;
-+}
-+
- bool intel_gmbus_is_valid_pin(struct drm_i915_private *dev_priv,
- 			      unsigned int pin)
- {
- 	unsigned int size;
- 
-+	if (intel_gmbus_ddc_reserve_for_mipi_dsi(dev_priv, pin))
-+		return false;
-+
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		size = ARRAY_SIZE(gmbus_pins_dg1);
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
--- 
-2.17.1
 
