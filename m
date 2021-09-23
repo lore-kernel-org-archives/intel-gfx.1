@@ -2,49 +2,43 @@ Return-Path: <SRS0=HC+g=ON=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 017C6C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FE41C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:43:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6DA86058D
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C6DA86058D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 34D8A60EC0
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 34D8A60EC0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39DB36ED11;
-	Thu, 23 Sep 2021 07:35:05 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F08056ECF6
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 07:35:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="223816422"
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="223816422"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2021 00:35:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="558167570"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga002.fm.intel.com with ESMTP; 23 Sep 2021 00:34:59 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Thu, 23 Sep 2021 00:35:28 -0700
-Message-Id: <20210923073529.1058204-17-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
-References: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A62096E0F1;
+	Thu, 23 Sep 2021 07:43:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 93E5A6ECF3;
+ Thu, 23 Sep 2021 07:43:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8CCC5A8830;
+ Thu, 23 Sep 2021 07:43:26 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 16/17] drm/i915/pxp: add PXP documentation
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 23 Sep 2021 07:43:26 -0000
+Message-ID: <163238300657.31048.13546467354427408750@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Introduce_Intel_PXP_=28rev11=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,172 +51,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+== Series Details ==
 
-Now that all the pieces are in place we can add a description of how the
-feature works. Also modify the comments in struct intel_pxp into
-kerneldoc.
+Series: drm/i915: Introduce Intel PXP (rev11)
+URL   : https://patchwork.freedesktop.org/series/90503/
+State : warning
 
-v2: improve doc (Rodrigo)
+== Summary ==
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- Documentation/gpu/i915.rst                 |  8 ++++
- drivers/gpu/drm/i915/pxp/intel_pxp.c       | 29 ++++++++++++-
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h | 47 ++++++++++++++++------
- 3 files changed, 71 insertions(+), 13 deletions(-)
+$ dim checkpatch origin/drm-tip
+d573193f656b drm/i915/pxp: Define PXP component interface
+-:31: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#31: 
+new file mode 100644
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 311e10400708..b7d801993bfa 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -471,6 +471,14 @@ Object Tiling IOCTLs
- .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-    :doc: buffer object tiling
- 
-+Protected Objects
-+-----------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp.c
-+   :doc: PXP
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+
- Microcontrollers
- ================
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index cb254aeac4a7..5ff34836fd97 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -11,6 +11,34 @@
- #include "gt/intel_context.h"
- #include "i915_drv.h"
- 
-+/**
-+ * DOC: PXP
-+ *
-+ * PXP (Protected Xe Path) is a feature available in Gen12 and newer platforms.
-+ * It allows execution and flip to display of protected (i.e. encrypted)
-+ * objects. The SW support is enabled via the CONFIG_DRM_I915_PXP kconfig.
-+ *
-+ * Objects can opt-in to PXP encryption at creation time via the
-+ * I915_GEM_CREATE_EXT_PROTECTED_CONTENT create_ext flag. For objects to be
-+ * correctly protected they must be used in conjunction with a context created
-+ * with the I915_CONTEXT_PARAM_PROTECTED_CONTENT flag. See the documentation
-+ * of those two uapi flags for details and restrictions.
-+ *
-+ * Protected objects are tied to a pxp session; currently we only support one
-+ * session, which i915 manages and whose index is available in the uapi
-+ * (I915_PROTECTED_CONTENT_DEFAULT_SESSION) for use in instructions targeting
-+ * protected objects.
-+ * The session is invalidated by the HW when certain events occur (e.g.
-+ * suspend/resume). When this happens, all the objects that were used with the
-+ * session are marked as invalid and all contexts marked as using protected
-+ * content are banned. Any further attempt at using them in an execbuf call is
-+ * rejected, while flips are converted to black frames.
-+ *
-+ * Some of the PXP setup operations are performed by the Management Engine,
-+ * which is handled by the mei driver; communication between i915 and mei is
-+ * performed via the mei_pxp component module.
-+ */
-+
- struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
- {
- 	return container_of(pxp, struct intel_gt, pxp);
-@@ -268,4 +296,3 @@ void intel_pxp_invalidate(struct intel_pxp *pxp)
- 	}
- 	spin_unlock_irq(&i915->gem.contexts.lock);
- }
--
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index ae24064bb57e..73ef7d1754e1 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -16,42 +16,65 @@
- struct intel_context;
- struct i915_pxp_component;
- 
-+/**
-+ * struct intel_pxp - pxp state
-+ */
- struct intel_pxp {
-+	/**
-+	 * @pxp_component: i915_pxp_component struct of the bound mei_pxp
-+	 * module. Only set and cleared inside component bind/unbind functions,
-+	 * which are protected by &tee_mutex.
-+	 */
- 	struct i915_pxp_component *pxp_component;
-+	/**
-+	 * @pxp_component_added: track if the pxp component has been added.
-+	 * Set and cleared in tee init and fini functions respectively.
-+	 */
- 	bool pxp_component_added;
- 
-+	/** @ce: kernel-owned context used for PXP operations */
- 	struct intel_context *ce;
- 
--	/*
-+	/** @arb_mutex: protects arb session start */
-+	struct mutex arb_mutex;
-+	/**
-+	 * @arb_is_valid: tracks arb session status.
- 	 * After a teardown, the arb session can still be in play on the HW
- 	 * even if the keys are gone, so we can't rely on the HW state of the
- 	 * session to know if it's valid and need to track the status in SW.
- 	 */
--	struct mutex arb_mutex; /* protects arb session start */
- 	bool arb_is_valid;
- 
--	/*
--	 * Keep track of which key instance we're on, so we can use it to
--	 * determine if an object was created using the current key or a
-+	/**
-+	 * @key_instance: tracks which key instance we're on, so we can use it
-+	 * to determine if an object was created using the current key or a
- 	 * previous one.
- 	 */
- 	u32 key_instance;
- 
--	struct mutex tee_mutex; /* protects the tee channel binding */
-+	/** @tee_mutex: protects the tee channel binding and messaging. */
-+	struct mutex tee_mutex;
- 
--	/*
--	 * If the HW perceives an attack on the integrity of the encryption it
--	 * will invalidate the keys and expect SW to re-initialize the session.
--	 * We keep track of this state to make sure we only re-start the arb
--	 * session when required.
-+	/**
-+	 * @hw_state_invalidated: if the HW perceives an attack on the integrity
-+	 * of the encryption it will invalidate the keys and expect SW to
-+	 * re-initialize the session. We keep track of this state to make sure
-+	 * we only re-start the arb session when required.
- 	 */
- 	bool hw_state_invalidated;
- 
-+	/** @irq_enabled: tracks the status of the kcr irqs */
- 	bool irq_enabled;
-+	/**
-+	 * @termination: tracks the status of a pending termination. Only
-+	 * re-initialized under gt->irq_lock and completed in &session_work.
-+	 */
- 	struct completion termination;
- 
-+	/** @session_work: worker that manages session events. */
- 	struct work_struct session_work;
--	u32 session_events; /* protected with gt->irq_lock */
-+	/** @session_events: pending session events, protected with gt->irq_lock. */
-+	u32 session_events;
- #define PXP_TERMINATION_REQUEST  BIT(0)
- #define PXP_TERMINATION_COMPLETE BIT(1)
- #define PXP_INVAL_REQUIRED       BIT(2)
--- 
-2.25.1
+total: 0 errors, 1 warnings, 0 checks, 49 lines checked
+be0229d7c21c mei: pxp: export pavp client to me client bus
+-:36: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#36: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 276 lines checked
+d5f0364f8628 drm/i915/pxp: define PXP device flag and kconfig
+-:49: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#49: FILE: drivers/gpu/drm/i915/i915_drv.h:1686:
++#define HAS_PXP(dev_priv)  ((IS_ENABLED(CONFIG_DRM_I915_PXP) && \
++			    INTEL_INFO(dev_priv)->has_pxp) && \
++			    VDBOX_MASK(&dev_priv->gt))
+
+total: 0 errors, 0 warnings, 1 checks, 33 lines checked
+0135b76609df drm/i915/pxp: allocate a vcs context for pxp usage
+-:100: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#100: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 172 lines checked
+f0dc7d51c7fd drm/i915/pxp: Implement funcs to create the TEE channel
+-:79: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#79: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 145 lines checked
+9c77444f0c7a drm/i915/pxp: set KCR reg init
+7f9d4f4dbf82 drm/i915/pxp: Create the arbitrary session after boot
+-:107: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#107: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 344 lines checked
+c784be950ed9 drm/i915/pxp: Implement arb session teardown
+-:118: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#118: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 283 lines checked
+b9d1ab8e40fd drm/i915/pxp: Implement PXP irq handler
+-:213: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#213: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 424 lines checked
+8e6e843fb2fb drm/i915/pxp: interfaces for using protected objects
+0c9a75cd894c drm/i915/pxp: start the arb session on demand
+f229a02dbed6 drm/i915/pxp: Enable PXP power management
+-:122: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#122: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 239 lines checked
+11f5b485dd79 drm/i915/pxp: Add plane decryption support
+ba9bc18886f3 drm/i915/pxp: black pixels on pxp disabled
+-:169: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
+#169: FILE: drivers/gpu/drm/i915/i915_reg.h:11412:
++#define PLANE_CSC_COEFF(pipe, plane, index)	_MMIO_PLANE(plane, \
++							    _PLANE_CSC_RY_GY_1(pipe) +  (index) * 4, \
++							    _PLANE_CSC_RY_GY_2(pipe) + (index) * 4)
+
+-:169: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'index' - possible side-effects?
+#169: FILE: drivers/gpu/drm/i915/i915_reg.h:11412:
++#define PLANE_CSC_COEFF(pipe, plane, index)	_MMIO_PLANE(plane, \
++							    _PLANE_CSC_RY_GY_1(pipe) +  (index) * 4, \
++							    _PLANE_CSC_RY_GY_2(pipe) + (index) * 4)
+
+-:170: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#170: FILE: drivers/gpu/drm/i915/i915_reg.h:11413:
++							    _PLANE_CSC_RY_GY_1(pipe) +  (index) * 4, \
+
+-:183: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
+#183: FILE: drivers/gpu/drm/i915/i915_reg.h:11426:
++#define PLANE_CSC_PREOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_PREOFF_HI_1(pipe) + \
++							    (index) * 4, _PLANE_CSC_PREOFF_HI_2(pipe) + \
++							    (index) * 4)
+
+-:183: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'index' - possible side-effects?
+#183: FILE: drivers/gpu/drm/i915/i915_reg.h:11426:
++#define PLANE_CSC_PREOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_PREOFF_HI_1(pipe) + \
++							    (index) * 4, _PLANE_CSC_PREOFF_HI_2(pipe) + \
++							    (index) * 4)
+
+-:184: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#184: FILE: drivers/gpu/drm/i915/i915_reg.h:11427:
++							    (index) * 4, _PLANE_CSC_PREOFF_HI_2(pipe) + \
+
+-:197: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
+#197: FILE: drivers/gpu/drm/i915/i915_reg.h:11440:
++#define PLANE_CSC_POSTOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_POSTOFF_HI_1(pipe) + \
++							    (index) * 4, _PLANE_CSC_POSTOFF_HI_2(pipe) + \
++							    (index) * 4)
+
+-:197: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'index' - possible side-effects?
+#197: FILE: drivers/gpu/drm/i915/i915_reg.h:11440:
++#define PLANE_CSC_POSTOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_POSTOFF_HI_1(pipe) + \
++							    (index) * 4, _PLANE_CSC_POSTOFF_HI_2(pipe) + \
++							    (index) * 4)
+
+-:198: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#198: FILE: drivers/gpu/drm/i915/i915_reg.h:11441:
++							    (index) * 4, _PLANE_CSC_POSTOFF_HI_2(pipe) + \
+
+total: 0 errors, 3 warnings, 6 checks, 148 lines checked
+f6bbdd6e7086 drm/i915/pxp: add pxp debugfs
+-:51: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#51: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 120 lines checked
+7f1a7d78fdae drm/i915/pxp: add PXP documentation
+35a035fabcfb drm/i915/pxp: enable PXP for integrated Gen12
+
 
