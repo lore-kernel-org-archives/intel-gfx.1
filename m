@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64CF6C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC26AC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3109660EC0
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3109660EC0
+	by mail.kernel.org (Postfix) with ESMTPS id 7410B60EC0
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:35:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7410B60EC0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 807EA6ECFC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBB7A6ECFD;
 	Thu, 23 Sep 2021 07:34:59 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3EF26ECF3
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 07:34:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203282504"
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="203282504"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 280836ECF3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 07:34:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203282506"
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="203282506"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Sep 2021 00:34:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="558167387"
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="558167425"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by fmsmga002.fm.intel.com with ESMTP; 23 Sep 2021 00:34:57 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Thu, 23 Sep 2021 00:35:13 -0700
-Message-Id: <20210923073529.1058204-2-alan.previn.teres.alexis@intel.com>
+Date: Thu, 23 Sep 2021 00:35:15 -0700
+Message-Id: <20210923073529.1058204-4-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
 References: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 01/17] drm/i915/pxp: Define PXP component
- interface
+Subject: [Intel-gfx] [PATCH v12 03/17] drm/i915/pxp: define PXP device flag
+ and kconfig
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,83 +63,72 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-This will be used for communication between the i915 driver and the mei
-one. Defining it in a stand-alone patch to avoid circualr dependedencies
-between the patches modifying the 2 drivers.
+Ahead of the PXP implementation, define the relevant define flag and
+kconfig option.
 
-Split out from an original patch from  Huang, Sean Z
+v2: flip kconfig default to N. Some machines have IFWIs that do not
+support PXP, so we need it to be an opt-in until we add support to query
+the caps from the mei device.
 
-v2: rename the component struct (Rodrigo)
+v10: change comments from "Gen12+" to "Gen12 and newer"
 
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- include/drm/i915_component.h         |  1 +
- include/drm/i915_pxp_tee_interface.h | 42 ++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
- create mode 100644 include/drm/i915_pxp_tee_interface.h
+ drivers/gpu/drm/i915/Kconfig             | 11 +++++++++++
+ drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 3 files changed, 15 insertions(+)
 
-diff --git a/include/drm/i915_component.h b/include/drm/i915_component.h
-index 55c3b123581b..c1e2a43d2d1e 100644
---- a/include/drm/i915_component.h
-+++ b/include/drm/i915_component.h
-@@ -29,6 +29,7 @@
- enum i915_component_type {
- 	I915_COMPONENT_AUDIO = 1,
- 	I915_COMPONENT_HDCP,
-+	I915_COMPONENT_PXP
- };
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index f960f5d7664e..8859444943a0 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -131,6 +131,17 @@ config DRM_I915_GVT_KVMGT
+ 	  Choose this option if you want to enable KVMGT support for
+ 	  Intel GVT-g.
  
- /* MAX_PORT is the number of port
-diff --git a/include/drm/i915_pxp_tee_interface.h b/include/drm/i915_pxp_tee_interface.h
-new file mode 100644
-index 000000000000..af593ec64469
---- /dev/null
-+++ b/include/drm/i915_pxp_tee_interface.h
-@@ -0,0 +1,42 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
++config DRM_I915_PXP
++	bool "Enable Intel PXP support for Intel Gen12 and newer platform"
++	depends on DRM_I915
++	depends on INTEL_MEI && INTEL_MEI_PXP
++	default n
++	help
++	  PXP (Protected Xe Path) is an i915 component, available on GEN12 and
++	  newer GPUs, that helps to establish the hardware protected session and
++	  manage the status of the alive software session, as well as its life
++	  cycle.
 +
-+#ifndef _I915_PXP_TEE_INTERFACE_H_
-+#define _I915_PXP_TEE_INTERFACE_H_
-+
-+#include <linux/mutex.h>
-+#include <linux/device.h>
-+
-+/**
-+ * struct i915_pxp_component_ops - ops for PXP services.
-+ * @owner: Module providing the ops
-+ * @send: sends data to PXP
-+ * @receive: receives data from PXP
-+ */
-+struct i915_pxp_component_ops {
-+	/**
-+	 * @owner: owner of the module provding the ops
-+	 */
-+	struct module *owner;
-+
-+	int (*send)(struct device *dev, const void *message, size_t size);
-+	int (*recv)(struct device *dev, void *buffer, size_t size);
-+};
-+
-+/**
-+ * struct i915_pxp_component - Used for communication between i915 and TEE
-+ * drivers for the PXP services
-+ * @tee_dev: device that provide the PXP service from TEE Bus.
-+ * @pxp_ops: Ops implemented by TEE driver, used by i915 driver.
-+ */
-+struct i915_pxp_component {
-+	struct device *tee_dev;
-+	const struct i915_pxp_component_ops *ops;
-+
-+	/* To protect the above members. */
-+	struct mutex mutex;
-+};
-+
-+#endif /* _I915_TEE_PXP_INTERFACE_H_ */
+ menu "drm/i915 Debugging"
+ depends on DRM_I915
+ depends on EXPERT
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index cc355aa05dbf..ddeb16dacff4 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1683,6 +1683,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
+ 
++#define HAS_PXP(dev_priv)  ((IS_ENABLED(CONFIG_DRM_I915_PXP) && \
++			    INTEL_INFO(dev_priv)->has_pxp) && \
++			    VDBOX_MASK(&dev_priv->gt))
+ 
+ #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index d328bb95c49b..8e6f48d1eb7b 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -133,6 +133,7 @@ enum intel_ppgtt_type {
+ 	func(has_logical_ring_elsq); \
+ 	func(has_mslices); \
+ 	func(has_pooled_eu); \
++	func(has_pxp); \
+ 	func(has_rc6); \
+ 	func(has_rc6p); \
+ 	func(has_rps); \
 -- 
 2.25.1
 
