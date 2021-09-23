@@ -2,55 +2,60 @@ Return-Path: <SRS0=HC+g=ON=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB352C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 15:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF4BEC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 16:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E86E60E9B
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 15:54:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E86E60E9B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 84CA261050
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 16:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 84CA261050
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF17F6ED8A;
-	Thu, 23 Sep 2021 15:54:27 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD9986ED8A
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 15:54:26 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="203372327"
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="203372327"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2021 08:51:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; d="scan'208";a="435857906"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga006.jf.intel.com with SMTP; 23 Sep 2021 08:51:36 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 23 Sep 2021 18:51:35 +0300
-Date: Thu, 23 Sep 2021 18:51:35 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <YUyih3OsTjKtdgKT@intel.com>
-References: <20210514125751.17075-1-ville.syrjala@linux.intel.com>
- <20210514125751.17075-6-ville.syrjala@linux.intel.com>
- <20210917153422.GB1224@intel.com> <YUs4GKt3Uy4W94wI@intel.com>
- <20210923132421.GA11567@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 961656ED8E;
+	Thu, 23 Sep 2021 16:10:25 +0000 (UTC)
+X-Greylist: delayed 361 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Sep 2021 16:10:24 UTC
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70F546ED91;
+ Thu, 23 Sep 2021 16:10:24 +0000 (UTC)
+Message-ID: <20210923153339.808080761@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1632413071;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ references:references; bh=AUasnRadxctw2sB5UrBju7dW3LJOwPsCj4pLP6/jnbE=;
+ b=GiGpkkpyuxUHUsK3t4jX5+svnLLUcPeRcfJElJVpTOVFZvwjhYsOn9LeVwFFyIiYQtUijQ
+ FWqnBjyfobezE+Gz6YQFv3Z1yNDUX00ef7kIKE17GIsSoEGEW6oBWw3Cd/WbSlFKfQcO2k
+ /PGpF4h2me5alkLmoTU4qffDK+flKORkQMYaqFWXSnnsaHAiAtdv9w5hC+4ErLzB35mpn+
+ AtTyZLUp8bPv5CWccaeZG9zYYgonc58w10wyrKpd3HExr/9CFAunNncXUv0z+eEso+GWWv
+ L2JTLvj6HhKUIFiawEiTn8Ik0f7tWMwNI93JEzyH/Qa95JMYQ2uG8uakW+8gzg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1632413071;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ references:references; bh=AUasnRadxctw2sB5UrBju7dW3LJOwPsCj4pLP6/jnbE=;
+ b=HuivklyujFCi3vNFmJv/0xTD3In63M+RxbhmgKfRTaqrZkLudpz2XMLWK5lIDkxbKF9tN1
+ z5QFv7P3szOOpJDw==
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+References: <20210923153311.225307347@linutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210923132421.GA11567@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 05/14] drm/i915: Fix HPLL watermark readout
- for g4x
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 23 Sep 2021 18:04:30 +0200 (CEST)
+Subject: [Intel-gfx] [patch 07/11] drm/i915/pmu: Use hrtimer_forward_now()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,123 +71,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 23, 2021 at 04:24:21PM +0300, Lisovskiy, Stanislav wrote:
-> On Wed, Sep 22, 2021 at 05:05:12PM +0300, Ville Syrjälä wrote:
-> > On Fri, Sep 17, 2021 at 06:34:22PM +0300, Lisovskiy, Stanislav wrote:
-> > > On Fri, May 14, 2021 at 03:57:42PM +0300, Ville Syrjala wrote:
-> > > > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > > > 
-> > > > If HPLL watermarks are already enabled, let's not mark them as
-> > > > disabled by forgetting to bump 'level' before we call
-> > > > g4x_raw_plane_wm_set().
-> > > > 
-> > > > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > > > ---
-> > > >  drivers/gpu/drm/i915/intel_pm.c | 7 +++++--
-> > > >  1 file changed, 5 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> > > > index 661bc6fdf38c..990ee5a590d3 100644
-> > > > --- a/drivers/gpu/drm/i915/intel_pm.c
-> > > > +++ b/drivers/gpu/drm/i915/intel_pm.c
-> > > > @@ -6468,7 +6468,8 @@ void g4x_wm_get_hw_state(struct drm_i915_private *dev_priv)
-> > > >  		for_each_plane_id_on_crtc(crtc, plane_id)
-> > > >  			raw->plane[plane_id] = active->wm.plane[plane_id];
-> > > >  
-> > > > -		if (++level > max_level)
-> > > > +		level = G4X_WM_LEVEL_SR;
-> > > > +		if (level > max_level)
-> > > 
-> > > Do I understand correctly that its basically identical to what
-> > > was before, so this is done here just for it to look more explicit?
-> > > 
-> > > I.e we had for example max_level G4X_WM_LEVEL_SR and level G4X_WM_LEVEL_NORMAL
-> > > , after ++level it will anyway become G4X_WM_LEVEL_SR and same for next one.
-> > > 
-> > > 
-> > > >  			goto out;
-> > > >  
-> > > >  		raw = &crtc_state->wm.g4x.raw[level];
-> > > > @@ -6477,7 +6478,8 @@ void g4x_wm_get_hw_state(struct drm_i915_private *dev_priv)
-> > > >  		raw->plane[PLANE_SPRITE0] = 0;
-> > > >  		raw->fbc = active->sr.fbc;
-> > > >  
-> > > > -		if (++level > max_level)
-> > > > +		level = G4X_WM_LEVEL_HPLL;
-> > > > +		if (level > max_level)
-> > > >  			goto out;
-> > > >  
-> > > >  		raw = &crtc_state->wm.g4x.raw[level];
-> > > > @@ -6486,6 +6488,7 @@ void g4x_wm_get_hw_state(struct drm_i915_private *dev_priv)
-> > > >  		raw->plane[PLANE_SPRITE0] = 0;
-> > > >  		raw->fbc = active->hpll.fbc;
-> > > >  
-> > > > +		level++;
-> > > 
-> > > Hi Ville,
-> > > 
-> > > So if we reached here, it means level = G4X_WM_LEVEL_HPLL, which is 
-> > > the max wm level defined, why are we then incrementing it even more?
-> > > 
-> > > the g4x_raw_plane_wm_set will be using that value as a level:
-> > > 
-> > > for (; level < intel_wm_num_levels(dev_priv); level++) {
-> > > 	struct g4x_pipe_wm *raw = &crtc_state->wm.g4x.raw[level];
-> > > 
-> > > 	dirty |= raw->plane[plane_id] != value;
-> > > 	raw->plane[plane_id] = value;
-> > > }
-> > > 
-> > > however level then will be equal to NUM_G4X_WM_LEVELS, which is actually
-> > > an illegal value, or is that an expected behaviour?
-> > > 
-> > > Just trying to understand, whats happening here, before stamping an r-b :)
-> > > 
-> > > Stan
-> > > 
-> > > 
-> > > >  	out:
-> > > >  		for_each_plane_id_on_crtc(crtc, plane_id)
-> > > >  			g4x_raw_plane_wm_set(crtc_state, level,
-> > 
-> > Right, so the code is basically this:
-> > 
-> > level = G4X_WM_LEVEL_SR;
-> > if (level > max_level)
-> > 	goto out;
-> > level = G4X_WM_LEVEL_HPLL;
-> > if (level > max_level)
-> > 	goto out;
-> > level++ /* ie. level=NUM_G4X_WM_LEVELS */
-> > out:
-> > invalidate_raw_watermarks_starting_from_level(level);
-> > 
-> > So if we take the first goto we want to invalidate all
-> > watermarks starting from SR, second goto wants to invalidate
-> > all watermarks starting from HPLL, and if we didn't take either
-> > goto we don't want to invalidate any watermarks because we deemed
-> > everything up to and including HPLL is ok. So we can't just
-> > leave level==G4X_WM_LEVEL_HPLL or else the code would still invalidate
-> > the HPLL watermarks. Instead we level++ so that the invalidate call
-> > becomes a nop.
-> > 
-> > The other option I suppose would be to skip the invalidation stuff
-> > if we didn't take either of the gotos, but I'm thinking that would make
-> > the code more messy.
-> 
-> Ah ok, thought its setting wm levels, but if its actually invalidating,
-> makes sense. Probably that is why it uses USHRT_MAX as a value.
+hrtimer_forward() is about to be removed from the public
+interfaces. Replace it with hrtimer_forward_now() which provides the same
+functionality.
 
-Yes. I guess it wouldn't hurt to add a tiny raw_wm_invalidate()
-wrapper or something to make the code more self explanatory.
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/i915_pmu.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Thanks for the clarification.
-> 
-> Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -439,7 +439,7 @@ static enum hrtimer_restart i915_sample(
+ 	engines_sample(gt, period_ns);
+ 	frequency_sample(gt, period_ns);
+ 
+-	hrtimer_forward(hrtimer, now, ns_to_ktime(PERIOD));
++	hrtimer_forward_now(hrtimer, ns_to_ktime(PERIOD));
+ 
+ 	return HRTIMER_RESTART;
+ }
 
-Ta.
-
--- 
-Ville Syrjälä
-Intel
