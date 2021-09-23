@@ -2,43 +2,55 @@ Return-Path: <SRS0=HC+g=ON=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A11D9C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1BF1C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 655FD61019
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:48:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 655FD61019
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 706996109E
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 706996109E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE56C6ECF6;
-	Thu, 23 Sep 2021 07:48:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id AD2346ECF6;
- Thu, 23 Sep 2021 07:48:35 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A6505A47EA;
- Thu, 23 Sep 2021 07:48:35 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFA0B6ECF6;
+	Thu, 23 Sep 2021 08:01:07 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D51DB6ECF6;
+ Thu, 23 Sep 2021 08:01:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="246237859"
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; 
+ d="asc'?scan'208";a="246237859"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2021 01:01:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; 
+ d="asc'?scan'208";a="550748427"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
+ by FMSMGA003.fm.intel.com with ESMTP; 23 Sep 2021 01:01:03 -0700
+Date: Thu, 23 Sep 2021 15:36:59 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch
+Message-ID: <20210923073659.GZ14689@zhen-hp.sh.intel.com>
+References: <20210915163957.2949166-1-jim.cromie@gmail.com>
+ <20210915163957.2949166-11-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gupta, Anshuman" <anshuman.gupta@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Sep 2021 07:48:35 -0000
-Message-ID: <163238331567.31051.5024720060760836247@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
-In-Reply-To: <20210923073529.1058204-1-alan.previn.teres.alexis@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/i915=3A_Introduce_Intel_PXP_=28rev11=29?=
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="Bu8it7iiRSEf40bY"
+Content-Disposition: inline
+In-Reply-To: <20210915163957.2949166-11-jim.cromie@gmail.com>
+Subject: Re: [Intel-gfx] [PATCH v8 10/16] i915/gvt: remove spaces in
+ pr_debug "gvt: core:" etc prefixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,19 +63,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
 
-Series: drm/i915: Introduce Intel PXP (rev11)
-URL   : https://patchwork.freedesktop.org/series/90503/
-State : warning
+--Bu8it7iiRSEf40bY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-== Summary ==
+On 2021.09.15 10:39:51 -0600, Jim Cromie wrote:
+> Taking embedded spaces out of existing prefixes makes them better
+> class-prefixes; simplifying the extra quoting needed otherwise:
+>=20
+>   $> echo format "^gvt: core:" +p >control
+>=20
+> Dropping the internal spaces means any trailing space in a query will
+> more clearly terminate the prefix being searched for.
+>=20
+> Consider a generic drm-debug example:
+>=20
+>   # turn off ATOMIC reports
+>   echo format "^drm:atomic: " -p > control
+>=20
+>   # turn off all ATOMIC:* reports, including any sub-categories
+>   echo format "^drm:atomic:" -p > control
+>=20
+>   # turn on ATOMIC:FAIL: reports
+>   echo format "^drm:atomic:fail: " +p > control
+>=20
+> Removing embedded spaces in the class-prefixes simplifies the
+> corresponding match-prefix.  This means that "quoted" match-prefixes
+> are only needed when the trailing space is desired, in order to
+> exclude explicitly sub-categorized pr-debugs; in this example,
+> "drm:atomic:fail:".
+>=20
+> RFC: maybe the prefix catenation should paste in the " " class-prefix
+> terminator explicitly.  A pr_debug_() flavor could exclude the " ",
+> allowing ad-hoc sub-categorization by appending for example, "fail:"
+> to "drm:atomic:" without the default " " insertion.
+>=20
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> v8:
+> . fix patchwork CI warning
+> ---
+>  drivers/gpu/drm/i915/gvt/debug.h | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gvt/debug.h b/drivers/gpu/drm/i915/gvt/=
+debug.h
+> index c6027125c1ec..bbecc279e077 100644
+> --- a/drivers/gpu/drm/i915/gvt/debug.h
+> +++ b/drivers/gpu/drm/i915/gvt/debug.h
+> @@ -36,30 +36,30 @@ do {									\
+>  } while (0)
+> =20
+>  #define gvt_dbg_core(fmt, args...) \
+> -	pr_debug("gvt: core: "fmt, ##args)
+> +	pr_debug("gvt:core: " fmt, ##args)
+> =20
+>  #define gvt_dbg_irq(fmt, args...) \
+> -	pr_debug("gvt: irq: "fmt, ##args)
+> +	pr_debug("gvt:irq: " fmt, ##args)
+> =20
+>  #define gvt_dbg_mm(fmt, args...) \
+> -	pr_debug("gvt: mm: "fmt, ##args)
+> +	pr_debug("gvt:mm: " fmt, ##args)
+> =20
+>  #define gvt_dbg_mmio(fmt, args...) \
+> -	pr_debug("gvt: mmio: "fmt, ##args)
+> +	pr_debug("gvt:mmio: " fmt, ##args)
+> =20
+>  #define gvt_dbg_dpy(fmt, args...) \
+> -	pr_debug("gvt: dpy: "fmt, ##args)
+> +	pr_debug("gvt:dpy: " fmt, ##args)
+> =20
+>  #define gvt_dbg_el(fmt, args...) \
+> -	pr_debug("gvt: el: "fmt, ##args)
+> +	pr_debug("gvt:el: " fmt, ##args)
+> =20
+>  #define gvt_dbg_sched(fmt, args...) \
+> -	pr_debug("gvt: sched: "fmt, ##args)
+> +	pr_debug("gvt:sched: " fmt, ##args)
+> =20
+>  #define gvt_dbg_render(fmt, args...) \
+> -	pr_debug("gvt: render: "fmt, ##args)
+> +	pr_debug("gvt:render: " fmt, ##args)
+> =20
+>  #define gvt_dbg_cmd(fmt, args...) \
+> -	pr_debug("gvt: cmd: "fmt, ##args)
+> +	pr_debug("gvt:cmd: " fmt, ##args)
+> =20
+>  #endif
+> --=20
 
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./include/uapi/drm/i915_drm.h:1904: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+Looks good to me. Thanks!
 
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
 
+--Bu8it7iiRSEf40bY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYUwulgAKCRCxBBozTXgY
+J8qzAJ9cfZulZLyzqg5hhI9G1fLDqKMDlQCgi+YapDkpvZuzya6guQeaCyf+Nps=
+=+ZKA
+-----END PGP SIGNATURE-----
+
+--Bu8it7iiRSEf40bY--
