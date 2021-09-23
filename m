@@ -2,43 +2,50 @@ Return-Path: <SRS0=HC+g=ON=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CBDDDC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:27:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3D63C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:28:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 753B26105A
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:27:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 753B26105A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 734BE6109E
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 02:28:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 734BE6109E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A1C16ECA7;
-	Thu, 23 Sep 2021 02:27:54 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id B3A846ECA1;
- Thu, 23 Sep 2021 02:27:53 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id AA3CFAA0EB;
- Thu, 23 Sep 2021 02:27:53 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gupta, Anshuman" <anshuman.gupta@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Sep 2021 02:27:53 -0000
-Message-ID: <163236407366.31051.9292780328194657621@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210922001531.399533-1-alan.previn.teres.alexis@intel.com>
-In-Reply-To: <20210922001531.399533-1-alan.previn.teres.alexis@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Introduce_Intel_PXP_=28rev10=29?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA9956ECA1;
+	Thu, 23 Sep 2021 02:28:37 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E34E06ECA1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 02:28:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203903490"
+X-IronPort-AV: E=Sophos;i="5.85,315,1624345200"; d="scan'208";a="203903490"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2021 19:28:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,315,1624345200"; d="scan'208";a="474922097"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
+ by fmsmga007.fm.intel.com with ESMTP; 22 Sep 2021 19:28:35 -0700
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Lee Shawn C <shawn.c.lee@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Vandita Kulkarni <vandita.kulkarni@intel.com>,
+ Cooper Chiou <cooper.chiou@intel.com>,
+ William Tseng <william.tseng@intel.com>
+Date: Thu, 23 Sep 2021 10:33:16 +0800
+Message-Id: <20210923023316.17905-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210916102118.17356-1-shawn.c.lee@intel.com>
+References: <20210916102118.17356-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] [v4] drm/i915/dsi: do not register gmbus if it was
+ reserved for MIPI display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,136 +58,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Gmbus driver would setup all Intel i2c GMBuses. But DDC bus
+may configured as gpio and reserved for MIPI driver to control
+panel power on/off sequence.
 
-Series: drm/i915: Introduce Intel PXP (rev10)
-URL   : https://patchwork.freedesktop.org/series/90503/
-State : warning
+Using i2c tool to communicate to peripherals via i2c interface
+reversed for gmbus(DDC). There will be some high/low pulse
+appear on DDC SCL and SDA (might be host sent out i2c slave
+address). MIPI panel would be impacted due to unexpected signal
+then caused abnormal display or shut down issue.
 
-== Summary ==
+v2: gmbus driver should not add i2c adapter for DDC interface
+    if LFP display was configured to support MIPI panel.
+v3: fix sparse warning
+v4: before gmbus driver add/delete/access i2c adapter would
+    call intel_gmbus_is_valid_pin() to know target adapter
+    is available or not. Avoid to access unexisting adapter.
+    Driver should check DSI status and pin's availability in
+    intel_gmbus_is_valid_pin().
 
-$ dim checkpatch origin/drm-tip
-05e1ec3f284d drm/i915/pxp: Define PXP component interface
--:31: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#31: 
-new file mode 100644
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Cooper Chiou <cooper.chiou@intel.com>
+Cc: William Tseng <william.tseng@intel.com>
+Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-total: 0 errors, 1 warnings, 0 checks, 49 lines checked
-a6f0b119f74f mei: pxp: export pavp client to me client bus
--:36: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#36: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 276 lines checked
-9f5fd3d81cf3 drm/i915/pxp: define PXP device flag and kconfig
--:49: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
-#49: FILE: drivers/gpu/drm/i915/i915_drv.h:1686:
-+#define HAS_PXP(dev_priv)  ((IS_ENABLED(CONFIG_DRM_I915_PXP) && \
-+			    INTEL_INFO(dev_priv)->has_pxp) && \
-+			    VDBOX_MASK(&dev_priv->gt))
-
-total: 0 errors, 0 warnings, 1 checks, 33 lines checked
-1b5cc61a686b drm/i915/pxp: allocate a vcs context for pxp usage
--:100: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#100: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 172 lines checked
-8a35249b2073 drm/i915/pxp: Implement funcs to create the TEE channel
--:79: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#79: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 145 lines checked
-d242815536ca drm/i915/pxp: set KCR reg init
-d401356a6ad5 drm/i915/pxp: Create the arbitrary session after boot
--:107: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#107: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 344 lines checked
-1975d3f5fda6 drm/i915/pxp: Implement arb session teardown
--:117: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#117: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 283 lines checked
-2b49864b5bed drm/i915/pxp: Implement PXP irq handler
--:213: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#213: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 424 lines checked
-f6b4768e1fa2 drm/i915/pxp: interfaces for using protected objects
-c4ff99595b46 drm/i915/pxp: start the arb session on demand
-54fbc154318a drm/i915/pxp: Enable PXP power management
--:122: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#122: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 239 lines checked
-e58d9b52e0f0 drm/i915/pxp: Add plane decryption support
-6faffa9df265 drm/i915/pxp: black pixels on pxp disabled
--:169: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
-#169: FILE: drivers/gpu/drm/i915/i915_reg.h:11412:
-+#define PLANE_CSC_COEFF(pipe, plane, index)	_MMIO_PLANE(plane, \
-+							    _PLANE_CSC_RY_GY_1(pipe) +  (index) * 4, \
-+							    _PLANE_CSC_RY_GY_2(pipe) + (index) * 4)
-
--:169: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'index' - possible side-effects?
-#169: FILE: drivers/gpu/drm/i915/i915_reg.h:11412:
-+#define PLANE_CSC_COEFF(pipe, plane, index)	_MMIO_PLANE(plane, \
-+							    _PLANE_CSC_RY_GY_1(pipe) +  (index) * 4, \
-+							    _PLANE_CSC_RY_GY_2(pipe) + (index) * 4)
-
--:170: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
-#170: FILE: drivers/gpu/drm/i915/i915_reg.h:11413:
-+							    _PLANE_CSC_RY_GY_1(pipe) +  (index) * 4, \
-
--:183: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
-#183: FILE: drivers/gpu/drm/i915/i915_reg.h:11426:
-+#define PLANE_CSC_PREOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_PREOFF_HI_1(pipe) + \
-+							    (index) * 4, _PLANE_CSC_PREOFF_HI_2(pipe) + \
-+							    (index) * 4)
-
--:183: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'index' - possible side-effects?
-#183: FILE: drivers/gpu/drm/i915/i915_reg.h:11426:
-+#define PLANE_CSC_PREOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_PREOFF_HI_1(pipe) + \
-+							    (index) * 4, _PLANE_CSC_PREOFF_HI_2(pipe) + \
-+							    (index) * 4)
-
--:184: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
-#184: FILE: drivers/gpu/drm/i915/i915_reg.h:11427:
-+							    (index) * 4, _PLANE_CSC_PREOFF_HI_2(pipe) + \
-
--:197: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
-#197: FILE: drivers/gpu/drm/i915/i915_reg.h:11440:
-+#define PLANE_CSC_POSTOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_POSTOFF_HI_1(pipe) + \
-+							    (index) * 4, _PLANE_CSC_POSTOFF_HI_2(pipe) + \
-+							    (index) * 4)
-
--:197: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'index' - possible side-effects?
-#197: FILE: drivers/gpu/drm/i915/i915_reg.h:11440:
-+#define PLANE_CSC_POSTOFF(pipe, plane, index)	_MMIO_PLANE(plane, _PLANE_CSC_POSTOFF_HI_1(pipe) + \
-+							    (index) * 4, _PLANE_CSC_POSTOFF_HI_2(pipe) + \
-+							    (index) * 4)
-
--:198: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
-#198: FILE: drivers/gpu/drm/i915/i915_reg.h:11441:
-+							    (index) * 4, _PLANE_CSC_POSTOFF_HI_2(pipe) + \
-
-total: 0 errors, 3 warnings, 6 checks, 148 lines checked
-3c1965c6e3ef drm/i915/pxp: add pxp debugfs
--:48: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#48: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 120 lines checked
-0ff702586cf9 drm/i915/pxp: add PXP documentation
-4728e4ee5b2d drm/i915/pxp: enable PXP for integrated Gen12
-
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index ceb1bf8a8c3c..852e499e2e8c 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -118,11 +118,29 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *dev_priv,
+ 		return &gmbus_pins[pin];
+ }
+ 
++static bool intel_gmbus_ddc_reserve_for_mipi_dsi(struct drm_i915_private *dev_priv,
++					     unsigned int pin)
++{
++	if (intel_bios_is_dsi_present(dev_priv, NULL)) {
++		if (DISPLAY_VER(dev_priv) >= 11) {
++			if ((pin == GMBUS_PIN_2_BXT && dev_priv->vbt.dsi.config->dual_link) ||
++			     pin == GMBUS_PIN_1_BXT) {
++				return true;
++			}
++		}
++	}
++
++	return false;
++}
++
+ bool intel_gmbus_is_valid_pin(struct drm_i915_private *dev_priv,
+ 			      unsigned int pin)
+ {
+ 	unsigned int size;
+ 
++	if (intel_gmbus_ddc_reserve_for_mipi_dsi(dev_priv, pin))
++		return false;
++
+ 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
+ 		size = ARRAY_SIZE(gmbus_pins_dg1);
+ 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
+-- 
+2.17.1
 
