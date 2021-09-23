@@ -2,51 +2,52 @@ Return-Path: <SRS0=HC+g=ON=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF323C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 18:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33928C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 19:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 93FED610C8
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 18:16:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 93FED610C8
+	by mail.kernel.org (Postfix) with ESMTPS id EC02D61241
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 19:40:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EC02D61241
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3218A6ED9C;
-	Thu, 23 Sep 2021 18:16:04 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C286ED9B
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 18:16:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="211154261"
-X-IronPort-AV: E=Sophos;i="5.85,317,1624345200"; d="scan'208";a="211154261"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2021 11:16:01 -0700
-X-IronPort-AV: E=Sophos;i="5.85,317,1624345200"; d="scan'208";a="614130620"
-Received: from unknown (HELO intel.com) ([10.237.72.91])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2021 11:16:00 -0700
-Date: Thu, 23 Sep 2021 21:16:51 +0300
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210923181651.GA12747@intel.com>
-References: <20210514125751.17075-1-ville.syrjala@linux.intel.com>
- <20210514125751.17075-7-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B84B6E10B;
+	Thu, 23 Sep 2021 19:40:45 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5D6E6E10B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 19:40:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="223970610"
+X-IronPort-AV: E=Sophos;i="5.85,317,1624345200"; d="scan'208";a="223970610"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2021 12:40:43 -0700
+X-IronPort-AV: E=Sophos;i="5.85,317,1624345200"; d="scan'208";a="455236742"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2021 12:40:43 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Thu, 23 Sep 2021 12:46:12 -0700
+Message-Id: <20210923194617.69136-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210923194617.69136-1-jose.souza@intel.com>
+References: <20210923194617.69136-1-jose.souza@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210514125751.17075-7-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 06/14] drm/i915: Split g4x_compute_pipe_wm()
- into two
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/display: Handle frontbuffer
+ rendering when PSR2 selective fetch is enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,103 +63,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 14, 2021 at 03:57:43PM +0300, Ville Syrjala wrote:
-> From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> 
-> Split g4x_compute_pipe_wm() into two halves. The first half computes
-> the new raw watermarks, and the second half munges those up into real
-> watermarks for the particular pipe.
-> 
-> We can reuse the second half for watermark sanitation as well.
-> 
-> Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/intel_pm.c | 52 +++++++++++++++++++--------------
->  1 file changed, 30 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> index 990ee5a590d3..59a22e1ee5bf 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -1366,34 +1366,14 @@ static bool g4x_compute_fbc_en(const struct g4x_wm_state *wm_state,
->  	return true;
->  }
->  
-> -static int g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
-> +static int _g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> -	struct intel_atomic_state *state =
-> -		to_intel_atomic_state(crtc_state->uapi.state);
->  	struct g4x_wm_state *wm_state = &crtc_state->wm.g4x.optimal;
->  	u8 active_planes = crtc_state->active_planes & ~BIT(PLANE_CURSOR);
->  	const struct g4x_pipe_wm *raw;
-> -	const struct intel_plane_state *old_plane_state;
-> -	const struct intel_plane_state *new_plane_state;
-> -	struct intel_plane *plane;
->  	enum plane_id plane_id;
-> -	int i, level;
-> -	unsigned int dirty = 0;
-> -
-> -	for_each_oldnew_intel_plane_in_state(state, plane,
-> -					     old_plane_state,
-> -					     new_plane_state, i) {
-> -		if (new_plane_state->hw.crtc != &crtc->base &&
-> -		    old_plane_state->hw.crtc != &crtc->base)
-> -			continue;
-> -
-> -		if (g4x_raw_plane_wm_compute(crtc_state, new_plane_state))
-> -			dirty |= BIT(plane->id);
-> -	}
-> -
-> -	if (!dirty)
-> -		return 0;
-> +	int level;
->  
->  	level = G4X_WM_LEVEL_NORMAL;
->  	if (!g4x_raw_crtc_wm_is_valid(crtc_state, level))
-> @@ -1446,6 +1426,34 @@ static int g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
->  	return 0;
->  }
->  
-> +static int g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +	struct intel_atomic_state *state =
-> +		to_intel_atomic_state(crtc_state->uapi.state);
-> +	const struct intel_plane_state *old_plane_state;
-> +	const struct intel_plane_state *new_plane_state;
-> +	struct intel_plane *plane;
-> +	unsigned int dirty = 0;
-> +	int i;
-> +
-> +	for_each_oldnew_intel_plane_in_state(state, plane,
-> +					     old_plane_state,
-> +					     new_plane_state, i) {
-> +		if (new_plane_state->hw.crtc != &crtc->base &&
-> +		    old_plane_state->hw.crtc != &crtc->base)
-> +			continue;
-> +
-> +		if (g4x_raw_plane_wm_compute(crtc_state, new_plane_state))
-> +			dirty |= BIT(plane->id);
-> +	}
-> +
-> +	if (!dirty)
-> +		return 0;
-> +
-> +	return _g4x_compute_pipe_wm(crtc_state);
-> +}
-> +
+CURSURFLIVE writes has no affect when PSR2 selective fetch is enabled,
+the right thing to do here would be calculate the damaged area and
+program PSR2 selective fetch registers properly during vblank but
+we can't do that due to performance reasons.
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+So for now we can workaround and offer proper rendering by disabling
+PSR2 and enabling in the worker a few miliseconds later if there is
+no other frontbuffer rendering.
 
->  static int g4x_compute_intermediate_wm(struct intel_crtc_state *new_crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
-> -- 
-> 2.26.3
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+This approach will eat some of the PSR2 power savings when userspace
+makes use of frontbuffer rendering but that is the solution that we
+can offer to enable PSR2 selective fetch right now while we work in
+the proper solution for frontbuffer rendering and PSR2.
+
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+Signed-off-by: Jos√© Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index a2e4ef42be60a..ba2da689920f9 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1413,6 +1413,12 @@ static void psr_force_hw_tracking_exit(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 
++	/* CURSURFLIVE has no effect when Selective fetch is enabled */
++	if (intel_dp->psr.psr2_sel_fetch_enabled) {
++		intel_psr_exit(intel_dp);
++		return;
++	}
++
+ 	/*
+ 	 * Display WA #0884: skl+
+ 	 * This documented WA for bxt can be safely applied
+-- 
+2.33.0
+
