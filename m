@@ -2,55 +2,39 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56CF2C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 22:56:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68760C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 23:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 192EB60F6D
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 22:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 192EB60F6D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 12DF061100
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 23:19:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 12DF061100
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B79566EE95;
-	Fri, 24 Sep 2021 22:56:26 +0000 (UTC)
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 891D16EE93;
- Fri, 24 Sep 2021 22:56:25 +0000 (UTC)
-Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id C75A53F357; 
- Fri, 24 Sep 2021 22:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1632524183;
- bh=OarWx6xOy/KHU1UmciEyVQmDM6Ujt+aKXAOoZfMNx6Y=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
- b=ScxhRnmwaIAiTeeaPGZK5QhVHpE6R2iy9iSxeNlafTd80IpC9RIZbxxaHtyb9WXgL
- cM0Xl/9G/SSZuTJfc6+dlujXZXGd5wK28uqbwOYvACd/JfpbWig0sjZNJr7D6ltQgn
- 4rSqU71ZlgAO4Np8RQd5/uj4wa0BciaPgZB9OQfpEpPJ45jRjS6UbqmEIKQTde4291
- 7ipnMlIiGSo6qDJxzhdSRwnyLcTC8NcXo+vI01LqzazJZC1E4F77BEzJjq258wz2tE
- j1QVi7t/gVtQHM0W28nMNkNdg+lzcPQ0hzGYZItHszdhzbrBkr6AIe3qnLknbfVtXU
- 0VYor9CeXJ1YQ==
-From: Colin King <colin.king@canonical.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Date: Fri, 24 Sep 2021 23:56:23 +0100
-Message-Id: <20210924225623.143409-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.32.0
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 544F76E2A3;
+	Fri, 24 Sep 2021 23:19:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EEBCF6E2A3;
+ Fri, 24 Sep 2021 23:19:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E50A1AA3D8;
+ Fri, 24 Sep 2021 23:19:22 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/gvt: Fix spelling mistake "Unsupport"
- -> "Unsupported"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 24 Sep 2021 23:19:22 -0000
+Message-ID: <163252556290.20561.5397033710248125666@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210924223451.71316-1-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20210924223451.71316-1-umesh.nerlige.ramappa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/pmu=3A_Connect_engine_busyness_stats_from_GuC_to_pmu?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +47,19 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+== Series Details ==
 
-There is a spelling mistake in a gvt_vgpu_err error message. Fix it.
+Series: drm/i915/pmu: Connect engine busyness stats from GuC to pmu
+URL   : https://patchwork.freedesktop.org/series/95043/
+State : warning
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/i915/gvt/handlers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index cde0a477fb49..7ed7dba42c83 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -909,7 +909,7 @@ static int update_fdi_rx_iir_status(struct intel_vgpu *vgpu,
- 	else if (FDI_RX_IMR_TO_PIPE(offset) != INVALID_INDEX)
- 		index = FDI_RX_IMR_TO_PIPE(offset);
- 	else {
--		gvt_vgpu_err("Unsupport registers %x\n", offset);
-+		gvt_vgpu_err("Unsupported registers %x\n", offset);
- 		return -EINVAL;
- 	}
- 
--- 
-2.32.0
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/gt/uc/intel_guc.h:167: warning: Function parameter or member 'timestamp' not described in 'intel_guc'
+
 
