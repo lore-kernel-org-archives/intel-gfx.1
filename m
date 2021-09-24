@@ -2,56 +2,56 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CA0FC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D977C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3BE160E76
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F3BE160E76
+	by mail.kernel.org (Postfix) with ESMTPS id E232860E76
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E232860E76
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D0F6EE63;
-	Fri, 24 Sep 2021 16:21:48 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7673E88FF9;
- Fri, 24 Sep 2021 15:31:39 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id t7so28542693wrw.13;
- Fri, 24 Sep 2021 08:31:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23FA96EE72;
+	Fri, 24 Sep 2021 16:21:49 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAD46E1D7;
+ Fri, 24 Sep 2021 15:31:42 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id w17so28584886wrv.10;
+ Fri, 24 Sep 2021 08:31:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ETFFVmDbRxb5cxrXOen58gkxhSGsPJL2Y8O/7sOAJto=;
- b=Eqf0TsStDMRTsdGFJuWVnJf2v0hiU5Gee3VDgqFxAzZ4shiQx3J5v0f2tbpNl4fudu
- QxRSbr4FinII9L6a7uTnPsMcOD4Q7sr0QVgTVMlE0IQQ7UhgKNEdKBSbKw8dAaBHx0QO
- HhzVzmR5sssTD29ad7XRYJJM5oojlUuZEXL6Zpek3SMvs/GxmhfaMUB44UdSBa94IRpz
- X8iDf4MhkoUZgslH5G25e2hc7lC6G4WAVAP6Vc47lfyFwNdQUa3v0sSFf1LoN3K7lRC8
- e2j7Ij8aQLyPV+xNhlUM039IQ0xM8NMqbs7yLdau8szJe3EfJ9EDmylj0pzwlLX7VXz9
- 4o6w==
+ bh=/+r4v7UIazK0HaIgNf9t5Xden24q10DFKnoad4rknzc=;
+ b=Z9YgoSWQMi0swZmjtdlmJm9oQRufLdcZM/Fk+QKFTcWara2nRxH6ZMFLLIE1ojh9JW
+ qd+ITxakFpjTfC1yoC92bAHElJOaI8R0p+b79QFmgAhPYkJ9Y1757HhpBSBRiNQGsHeY
+ 1h3zAGM2YraR5hAj0XGyZxRjdSfk7+Xe7tG2d71RsgdUi3AgaqZ6X0vmALeIzqVK8Hjl
+ PAZlW7gjLCgVifRauC7krU+ad1grJuZXnV02Xi7aDLfTfioqsSefV06PoJVgBFVZqt4D
+ YxLzJzTgjV5SDZc1+Sj6PS+nel+/d+VXvWcTx4J87buVta4c2F3F1wiXJ+23MfR90BWe
+ 5QgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ETFFVmDbRxb5cxrXOen58gkxhSGsPJL2Y8O/7sOAJto=;
- b=zkJfoPmqvD4euhIP8zx0Kpdd59r0qeSi4cctotC8k5/5BJpuzqKtP7nZu8Va0b3B9K
- SXy+Hih/YYXq+Lf9MF+VhQlzTfUsu0AqsT+Pf7hFW/6gbZbWVaY6nuJ4edanOX/SPhdc
- luEhItaHBc7XRcbp59QllZ4rHPxFr0rEG+od8XIRVUvQ0F5IVHH0aAoyWqBZZfB/4Weu
- m/YBxlsBfv/AiY0LlDlQiJB9uBSA0JMbYydH57iPhOP+amSty8wEGnrdXKbiDTJxhczY
- Vs9iJw/j0mXW3dpJ9Q8Lfd24Y8kE4plMHCemKBxrfOm8ANMY7NLAx9EVlpH6oy/NW7Or
- QFsw==
-X-Gm-Message-State: AOAM532S4+3od+LGZSS72CigIugafXVEuBfclkoUI5DXd3L0ahuZXf9k
- p4LLGBy25h2mH0lFDJeDN0k=
-X-Google-Smtp-Source: ABdhPJyEIbwNagKQjRCKtbLDbhGeGif8L2hXwXVmEhLFr3BzHmPyroyuxSsJRkQX4iKyLiCBG6iiCA==
-X-Received: by 2002:a5d:6846:: with SMTP id o6mr12540258wrw.327.1632497498031; 
- Fri, 24 Sep 2021 08:31:38 -0700 (PDT)
+ bh=/+r4v7UIazK0HaIgNf9t5Xden24q10DFKnoad4rknzc=;
+ b=kceQwVm7UpUtCerllfGE89BMSFthWflzzQEUbsApQcNW4aRKoMvCpEZQGINI7XPA1v
+ 8njtrBlenER8XmD45MPmmYspjTKhcj7MrJx1sWe9Td7pQoKwaBLTrklHgUPqBpQIVATj
+ 0SrFsRqgZxoaovQTeIXo37ebgG5e932oj8e1jPPJwy8p0uJU/bhKq9cobpTo1Bu5YjuC
+ IHkwoildbNoIw+UI9vuEmC5ErHoSIn7U01JzE73pXLwAWxxfxFaWPZX8/xoGTX1TjFiS
+ rY5zeJeMDM6kb3PqC4lMfKLFG5CoGH4iZwN7V147x05jKJ9oeGtjcouuremJ5fccLkzE
+ h9BQ==
+X-Gm-Message-State: AOAM532ajPKtPyniNa3cUyY7V864hNpm13lTK7f1MN1OptWKoZohpoCD
+ Oq6IzzQU3Fa5enzSXgv7tLg=
+X-Google-Smtp-Source: ABdhPJyExBTORM3Xmjlq/oYuKANVHGlgS1MmSJcPgu3g82awnnlo3Aai1c/s1G1zWoB7O3vsEv2p1A==
+X-Received: by 2002:adf:9147:: with SMTP id j65mr12063286wrj.163.1632497500882; 
+ Fri, 24 Sep 2021 08:31:40 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- u25sm9902248wmm.5.2021.09.24.08.31.37
+ u25sm9902248wmm.5.2021.09.24.08.31.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Sep 2021 08:31:37 -0700 (PDT)
+ Fri, 24 Sep 2021 08:31:40 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -59,8 +59,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Fri, 24 Sep 2021 17:31:07 +0200
-Message-Id: <20210924153113.2159-21-christian.koenig@amd.com>
+Date: Fri, 24 Sep 2021 17:31:10 +0200
+Message-Id: <20210924153113.2159-24-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210924153113.2159-1-christian.koenig@amd.com>
 References: <20210924153113.2159-1-christian.koenig@amd.com>
@@ -68,8 +68,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Sep 2021 16:21:14 +0000
-Subject: [Intel-gfx] [PATCH 21/27] drm/i915: use new cursor in
- intel_prepare_plane_fb
+Subject: [Intel-gfx] [PATCH 24/27] drm/nouveau: use the new iterator in
+ nouveau_fence_sync
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,37 +89,93 @@ Simplifying the code a bit.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_fence.c | 48 +++++++------------------
+ 1 file changed, 12 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 134a6acbd8fb..d32137a84694 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -11290,6 +11290,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
- 	i915_gem_object_flush_frontbuffer(obj, ORIGIN_DIRTYFB);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
+index 05d0b3eb3690..26f9299df881 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_fence.c
++++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+@@ -339,14 +339,15 @@ nouveau_fence_wait(struct nouveau_fence *fence, bool lazy, bool intr)
+ }
  
- 	if (!new_plane_state->uapi.fence) { /* implicit fencing */
-+		struct dma_resv_iter cursor;
- 		struct dma_fence *fence;
+ int
+-nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool exclusive, bool intr)
++nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan,
++		   bool exclusive, bool intr)
+ {
+ 	struct nouveau_fence_chan *fctx = chan->fence;
+-	struct dma_fence *fence;
+ 	struct dma_resv *resv = nvbo->bo.base.resv;
+-	struct dma_resv_list *fobj;
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
+ 	struct nouveau_fence *f;
+-	int ret = 0, i;
++	int ret;
  
- 		ret = i915_sw_fence_await_reservation(&state->commit_ready,
-@@ -11300,12 +11301,12 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
- 		if (ret < 0)
- 			goto unpin_fb;
+ 	if (!exclusive) {
+ 		ret = dma_resv_reserve_shared(resv, 1);
+@@ -355,10 +356,7 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
+ 			return ret;
+ 	}
  
--		fence = dma_resv_get_excl_unlocked(obj->base.resv);
--		if (fence) {
-+		dma_resv_iter_begin(&cursor, obj->base.resv, false);
-+		dma_resv_for_each_fence_unlocked(&cursor, fence) {
- 			add_rps_boost_after_vblank(new_plane_state->hw.crtc,
- 						   fence);
--			dma_fence_put(fence);
+-	fobj = dma_resv_shared_list(resv);
+-	fence = dma_resv_excl_fence(resv);
+-
+-	if (fence) {
++	dma_resv_for_each_fence(&cursor, resv, exclusive, fence) {
+ 		struct nouveau_channel *prev = NULL;
+ 		bool must_wait = true;
+ 
+@@ -366,41 +364,19 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
+ 		if (f) {
+ 			rcu_read_lock();
+ 			prev = rcu_dereference(f->channel);
+-			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
++			if (prev && (prev == chan ||
++				     fctx->sync(f, prev, chan) == 0))
+ 				must_wait = false;
+ 			rcu_read_unlock();
  		}
-+		dma_resv_iter_end(&cursor);
- 	} else {
- 		add_rps_boost_after_vblank(new_plane_state->hw.crtc,
- 					   new_plane_state->uapi.fence);
+ 
+-		if (must_wait)
++		if (must_wait) {
+ 			ret = dma_fence_wait(fence, intr);
+-
+-		return ret;
+-	}
+-
+-	if (!exclusive || !fobj)
+-		return ret;
+-
+-	for (i = 0; i < fobj->shared_count && !ret; ++i) {
+-		struct nouveau_channel *prev = NULL;
+-		bool must_wait = true;
+-
+-		fence = rcu_dereference_protected(fobj->shared[i],
+-						dma_resv_held(resv));
+-
+-		f = nouveau_local_fence(fence, chan->drm);
+-		if (f) {
+-			rcu_read_lock();
+-			prev = rcu_dereference(f->channel);
+-			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
+-				must_wait = false;
+-			rcu_read_unlock();
++			if (ret)
++				return ret;
+ 		}
+-
+-		if (must_wait)
+-			ret = dma_fence_wait(fence, intr);
+ 	}
+-
+-	return ret;
++	return 0;
+ }
+ 
+ void
 -- 
 2.25.1
 
