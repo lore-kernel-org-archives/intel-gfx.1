@@ -2,46 +2,45 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B026C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 15:36:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3D7DC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 15:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A9EF60EE9
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 15:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A9EF60EE9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id C155C60FDC
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 15:41:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C155C60FDC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A50A88DA9;
-	Fri, 24 Sep 2021 15:36:04 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4842188DA9;
- Fri, 24 Sep 2021 15:36:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="224143568"
-X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="224143568"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF326E1EE;
+	Fri, 24 Sep 2021 15:41:42 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA70D6E1EC;
+ Fri, 24 Sep 2021 15:41:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="211174993"
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="211174993"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 08:36:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="559665040"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga002.fm.intel.com with SMTP; 24 Sep 2021 08:35:59 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 24 Sep 2021 18:35:58 +0300
-Date: Fri, 24 Sep 2021 18:35:58 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 08:41:40 -0700
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="559666844"
+Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
+ ([10.1.27.20])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 08:41:39 -0700
+Date: Fri, 24 Sep 2021 08:36:45 -0700
+From: Matthew Brost <matthew.brost@intel.com>
 To: Matthew Auld <matthew.auld@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>
-Message-ID: <YU3wXm6gy3iDeqgx@intel.com>
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Message-ID: <20210924153645.GA21697@jons-linux-dev-box>
 References: <20210924144646.4096402-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 In-Reply-To: <20210924144646.4096402-1-matthew.auld@intel.com>
-X-Patchwork-Hint: comment
+User-Agent: Mutt/1.9.4 (2018-02-28)
 Subject: Re: [Intel-gfx] [PATCH] drm/i915: remember to call
  i915_sw_fence_fini
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -69,14 +68,7 @@ On Fri, Sep 24, 2021 at 03:46:46PM +0100, Matthew Auld wrote:
 > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > Cc: Matthew Brost <matthew.brost@intel.com>
 
-Seems to help.
-Tested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Bonus points if someone can figure out how this getting past CI in its
-current state. I can trigger it very easily by pretty much running any
-igt. Though for some reason it doesn't always trigger on the first run
-of an igt after boot, sometimes takes a few runs. Dunno if the checks
-are  a bit lazy or something.
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
 > ---
 >  drivers/gpu/drm/i915/gt/intel_context.c | 1 +
@@ -96,7 +88,4 @@ are  a bit lazy or something.
 >  void i915_context_module_exit(void)
 > -- 
 > 2.26.3
-
--- 
-Ville Syrjälä
-Intel
+> 
