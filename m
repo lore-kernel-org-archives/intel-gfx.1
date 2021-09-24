@@ -2,47 +2,74 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3D7DC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 15:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E4F9C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C155C60FDC
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 15:41:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C155C60FDC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B56DA60F4C
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B56DA60F4C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF326E1EE;
-	Fri, 24 Sep 2021 15:41:42 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA70D6E1EC;
- Fri, 24 Sep 2021 15:41:40 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="211174993"
-X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="211174993"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 08:41:40 -0700
-X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="559666844"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 08:41:39 -0700
-Date: Fri, 24 Sep 2021 08:36:45 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Matthew Auld <matthew.auld@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20210924153645.GA21697@jons-linux-dev-box>
-References: <20210924144646.4096402-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADC926E1F1;
+	Fri, 24 Sep 2021 16:21:15 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7DBC6E1D7;
+ Fri, 24 Sep 2021 15:31:29 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id t8so28821108wri.1;
+ Fri, 24 Sep 2021 08:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=w7BNkgXvEij5lrUuBoEgmNvE08Hfx+8QGysrl5h5aK0=;
+ b=a4akh4ID5KuyrpALon1xoq8zr/R246FjYrieniK5ios7B0UV0Ai5dD8IlAkFIgcotS
+ CQxisOr7JpNwDrc7+ebqHN1zLQNaNWVCAPOMYv1/KVTUsL+LWfZcNUiP4vOTqdcJ13F0
+ 51PObG/lazWsxIUOc2VafqxP2JYM5of6F1MW5smH30LNbCYYeN0jErS9IJSw81LxkRKU
+ m27Vd/XtNf8ajn0sQj+YdbpPLMR2xMKH9/kshK06g/zmP6XCjfZn9DCJ1xw60903fqPb
+ ehWMFECagkjPjoMx8hesovqK4Orywl/g/By7IFg/UTQ1bNGN+rpHPnyUURw5Ng69Qeeg
+ EUvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=w7BNkgXvEij5lrUuBoEgmNvE08Hfx+8QGysrl5h5aK0=;
+ b=MPletnavjKg6B3WO/KDXr2/pCHDfREeof/Zdg0kdoBKRicr9c6TIpIjfpWECul0Rh9
+ xFXKalfbTJHnBD+fYKY007fyiDOhi6lzsYNMeGa8YNpL0u/MMP/LHofWPexAn58NXNnl
+ fsyTeFBO4w9BRqfMYrNBegmawtYfMqZ359bXfy/uxZS3LwORaunGsreeHQeGWcY/aw7U
+ dbUh7N4hDTG9bqaz/yxcQytlhHSSD4hXgPmlpECUxxeEkCcqAbCnMetqu1kf7XGmz3xX
+ jNXnlaEjY5B42EIGZawkDicGx+Btw6VTmTvhvaKD2Al9/W5nR59NNxx643sn1w0B5T5Z
+ rfqA==
+X-Gm-Message-State: AOAM532xpTt3qjUjoKRFfhZY10/YG53o8rCYSoaxOPud1hBbdcRr4Ph6
+ LRA/kQBo8QQcywewUTG+iT4=
+X-Google-Smtp-Source: ABdhPJx7+QBhgNXmmAEUe0jGUM1umwFutgTQGiyXVPu52SHAcwWcciqMjSgrBc9YWfE+rcEQvn8NsA==
+X-Received: by 2002:a1c:2289:: with SMTP id i131mr2718379wmi.179.1632497485903; 
+ Fri, 24 Sep 2021 08:31:25 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ u25sm9902248wmm.5.2021.09.24.08.31.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Sep 2021 08:31:25 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Cc: daniel@ffwll.ch,
+	tvrtko.ursulin@linux.intel.com
+Date: Fri, 24 Sep 2021 17:30:57 +0200
+Message-Id: <20210924153113.2159-11-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210924153113.2159-1-christian.koenig@amd.com>
+References: <20210924153113.2159-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210924144646.4096402-1-matthew.auld@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: remember to call
- i915_sw_fence_fini
+X-Mailman-Approved-At: Fri, 24 Sep 2021 16:21:14 +0000
+Subject: [Intel-gfx] [PATCH 11/27] drm/amdgpu: use new iterator in
+ amdgpu_ttm_bo_eviction_valuable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,34 +85,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 24, 2021 at 03:46:46PM +0100, Matthew Auld wrote:
-> Seems to fix some object-debug splat which appeared while debugging
-> something unrelated.
-> 
-> v2: s/guc_blocked/guc_state.blocked/
-> 
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
+Simplifying the code a bit.
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-> ---
->  drivers/gpu/drm/i915/gt/intel_context.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-> index ff637147b1a9..e9a0cad5c34d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_context.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-> @@ -419,6 +419,7 @@ void intel_context_fini(struct intel_context *ce)
->  
->  	mutex_destroy(&ce->pin_mutex);
->  	i915_active_fini(&ce->active);
-> +	i915_sw_fence_fini(&ce->guc_state.blocked);
->  }
->  
->  void i915_context_module_exit(void)
-> -- 
-> 2.26.3
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 1129e17e9f09..4511cd15c3a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1332,10 +1332,9 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 					    const struct ttm_place *place)
+ {
+ 	unsigned long num_pages = bo->resource->num_pages;
++	struct dma_resv_iter resv_cursor;
+ 	struct amdgpu_res_cursor cursor;
+-	struct dma_resv_list *flist;
+ 	struct dma_fence *f;
+-	int i;
+ 
+ 	/* Swapout? */
+ 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
+@@ -1349,14 +1348,9 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	 * If true, then return false as any KFD process needs all its BOs to
+ 	 * be resident to run successfully
+ 	 */
+-	flist = dma_resv_shared_list(bo->base.resv);
+-	if (flist) {
+-		for (i = 0; i < flist->shared_count; ++i) {
+-			f = rcu_dereference_protected(flist->shared[i],
+-				dma_resv_held(bo->base.resv));
+-			if (amdkfd_fence_check_mm(f, current->mm))
+-				return false;
+-		}
++	dma_resv_for_each_fence(&resv_cursor, bo->base.resv, true, f) {
++		if (amdkfd_fence_check_mm(f, current->mm))
++			return false;
+ 	}
+ 
+ 	switch (bo->resource->mem_type) {
+-- 
+2.25.1
+
