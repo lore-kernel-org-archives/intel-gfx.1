@@ -2,119 +2,52 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E48F0C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 12:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBE31C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 12:41:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7E0560EE3
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 12:32:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7E0560EE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6D14261164
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 12:41:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6D14261164
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8596EE33;
-	Fri, 24 Sep 2021 12:32:23 +0000 (UTC)
-X-Greylist: delayed 1421 seconds by postgrey-1.36 at gabe;
- Fri, 24 Sep 2021 03:17:29 UTC
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F410F6E17F;
- Fri, 24 Sep 2021 03:17:29 +0000 (UTC)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18O1dWP7018194; 
- Thu, 23 Sep 2021 22:53:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- mime-version : content-transfer-encoding; s=pp1;
- bh=wuouC2eqvPDvQ1Md7kHHpeWYjluxjEmJURkvCvdNlcs=;
- b=rNEIbh80Df3xj+oBlUfUz/ifiBmf2od1re3ZROT1t6M+X+3HgCobqOdlFHHTTS4GgR18
- NeaT56ACus5MT7Owl7H+Zed2qaTebaWE5S+sIJWEJ+FnDdZFrKtWmSRN+WX3tVOgSWZz
- wp2nWrWKM8/9bduQCQVSZFpCrey1DOQ+WPA0/TPFscmBouH+c1piVOlL/5GU4UU4LwCU
- Ys6t3wuMX1TaucjJc/VHU8xgR9uhnikRLGAlS/ADFbYQk0Ql1WwCcQUSdBegBPdODqoI
- k0zKNd5GKwvWGvQ0gSrmn7JyDmTarcaw2aniWqwTe7BiuncLSQiX9fP0ghupY6Nzi6sX Mw== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3b93suatwk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Sep 2021 22:53:44 -0400
-Received: from m0098420.ppops.net (m0098420.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 18O2mTFU017258;
- Thu, 23 Sep 2021 22:53:43 -0400
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3b93suatwc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Sep 2021 22:53:43 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18O2lXBH002397;
- Fri, 24 Sep 2021 02:53:42 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma03dal.us.ibm.com with ESMTP id 3b93g1u8j0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Sep 2021 02:53:42 +0000
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 18O2reqp39649698
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Sep 2021 02:53:41 GMT
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BE3CC136060;
- Fri, 24 Sep 2021 02:53:40 +0000 (GMT)
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D54D513605D;
- Fri, 24 Sep 2021 02:53:38 +0000 (GMT)
-Received: from farman-thinkpad-t470p (unknown [9.211.34.14])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Fri, 24 Sep 2021 02:53:38 +0000 (GMT)
-Message-ID: <144b3f129af82c0e928250342b71f2372cc67ea3.camel@linux.ibm.com>
-From: Eric Farman <farman@linux.ibm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, David Airlie <airlied@linux.ie>, Tony
- Krowiak <akrowiak@linux.ibm.com>, Alex Williamson
- <alex.williamson@redhat.com>, Christian Borntraeger
- <borntraeger@de.ibm.com>, Cornelia Huck <cohuck@redhat.com>, Daniel Vetter
- <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, Harald Freudenberger
- <freude@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Jason Herne <jjherne@linux.ibm.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org, Kirti
- Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org, Matthew
- Rosato <mjrosato@linux.ibm.com>, Peter Oberparleiter
- <oberpar@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Vineeth Vijayan <vneethv@linux.ibm.com>, Zhenyu
- Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Date: Thu, 23 Sep 2021 22:53:37 -0400
-In-Reply-To: <1-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
-References: <1-v2-7d3a384024cf+2060-ccw_mdev_jgg@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-16.el8) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: _r2Z3ezORzHmn3cXQji0mW9FA5OFlGWs
-X-Proofpoint-GUID: dAyJm55gTKyHAGMoz8sVyegi9l8Z5giQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-23_07,2021-09-23_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- lowpriorityscore=0 suspectscore=0 mlxlogscore=947 mlxscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2109230001 definitions=main-2109240011
-X-Mailman-Approved-At: Fri, 24 Sep 2021 12:32:21 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 1/9] vfio/ccw: Use functions for
- alloc/free of the vfio_ccw_private
+	by gabe.freedesktop.org (Postfix) with ESMTP id C83A46EE18;
+	Fri, 24 Sep 2021 12:41:27 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0616EE20
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 12:41:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="204220748"
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="204220748"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 05:41:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="559295907"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga002.fm.intel.com with SMTP; 24 Sep 2021 05:41:24 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 24 Sep 2021 15:41:23 +0300
+Date: Fri, 24 Sep 2021 15:41:23 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Message-ID: <YU3Hc2k7njIKsLEd@intel.com>
+References: <20210923200109.4459-1-ville.syrjala@linux.intel.com>
+ <20210923200109.4459-5-ville.syrjala@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210923200109.4459-5-ville.syrjala@linux.intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 4/6] drm/i915: Introduce
+ intel_panel_compute_config()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,16 +63,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2021-09-09 at 16:38 -0300, Jason Gunthorpe wrote:
-> Makes the code easier to understand what is memory lifecycle and what
-> is
-> other stuff.
+On Thu, Sep 23, 2021 at 11:01:07PM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> Let's introduce a compute_config() helper for fixed mode panels.
+> For now all it does is the fixed_mode->adjusted_mode copy.
+> 
+> Note that with sDVO we have to ask the external encoder chip
+> to spit out our actual display timings for us, so we won't
+> use intel_panel_compute_config() there.
+
+Hmm. Actually I think it would be fine to use it as is since we
+just overwrite adjusted_mode with the data from the encder, and 
+we don't use adjusted_mode for anything else before that. So
+overwriting it with the fixed_mode just prior to overwriting it
+with the mode returned by the encoder should be OK.
+
+That would avoid having to hand roll the refresh rate check for
+sdvo in the followup patch.
+
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > ---
->  drivers/s390/cio/vfio_ccw_drv.c | 137 ++++++++++++++++++----------
-> ----
->  1 file changed, 78 insertions(+), 59 deletions(-)
+>  drivers/gpu/drm/i915/display/icl_dsi.c     |  7 ++++---
+>  drivers/gpu/drm/i915/display/intel_dp.c    |  5 +++--
+>  drivers/gpu/drm/i915/display/intel_dvo.c   | 10 ++++++++--
+>  drivers/gpu/drm/i915/display/intel_lvds.c  |  5 +++--
+>  drivers/gpu/drm/i915/display/intel_panel.c | 11 +++++++++--
+>  drivers/gpu/drm/i915/display/intel_panel.h |  2 ++
+>  drivers/gpu/drm/i915/display/vlv_dsi.c     |  4 +++-
+>  7 files changed, 32 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+> index 060bc8fb0d30..a6edd5241b14 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -1666,14 +1666,15 @@ static int gen11_dsi_compute_config(struct intel_encoder *encoder,
+>  	struct intel_dsi *intel_dsi = container_of(encoder, struct intel_dsi,
+>  						   base);
+>  	struct intel_connector *intel_connector = intel_dsi->attached_connector;
+> -	const struct drm_display_mode *fixed_mode =
+> -		intel_connector->panel.fixed_mode;
+>  	struct drm_display_mode *adjusted_mode =
+>  		&pipe_config->hw.adjusted_mode;
+>  	int ret;
+>  
+>  	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+> -	intel_panel_fixed_mode(fixed_mode, adjusted_mode);
+> +
+> +	ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+> +	if (ret)
+> +		return ret;
+>  
+>  	ret = intel_panel_fitting(pipe_config, conn_state);
+>  	if (ret)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 2b8b495fc2a9..b5cd188ca520 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -1757,8 +1757,9 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+>  		pipe_config->has_audio = intel_conn_state->force_audio == HDMI_AUDIO_ON;
+>  
+>  	if (intel_dp_is_edp(intel_dp) && intel_connector->panel.fixed_mode) {
+> -		intel_panel_fixed_mode(intel_connector->panel.fixed_mode,
+> -				       adjusted_mode);
+> +		ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+> +		if (ret)
+> +			return ret;
+>  
+>  		ret = intel_panel_fitting(pipe_config, conn_state);
+>  		if (ret)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
+> index f8fdc0386fd4..2eeb209afc64 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dvo.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dvo.c
+> @@ -256,6 +256,7 @@ static int intel_dvo_compute_config(struct intel_encoder *encoder,
+>  				    struct drm_connector_state *conn_state)
+>  {
+>  	struct intel_dvo *intel_dvo = enc_to_dvo(encoder);
+> +	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+>  	const struct drm_display_mode *fixed_mode =
+>  		intel_dvo->attached_connector->panel.fixed_mode;
+>  	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
+> @@ -266,8 +267,13 @@ static int intel_dvo_compute_config(struct intel_encoder *encoder,
+>  	 * with the panel scaling set up to source from the H/VDisplay
+>  	 * of the original mode.
+>  	 */
+> -	if (fixed_mode)
+> -		intel_panel_fixed_mode(fixed_mode, adjusted_mode);
+> +	if (fixed_mode) {
+> +		int ret;
+> +
+> +		ret = intel_panel_compute_config(connector, adjusted_mode);
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+>  		return -EINVAL;
+> diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+> index 37e81bc71f7c..130e6ea61e11 100644
+> --- a/drivers/gpu/drm/i915/display/intel_lvds.c
+> +++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+> @@ -444,8 +444,9 @@ static int intel_lvds_compute_config(struct intel_encoder *intel_encoder,
+>  	 * with the panel scaling set up to source from the H/VDisplay
+>  	 * of the original mode.
+>  	 */
+> -	intel_panel_fixed_mode(intel_connector->panel.fixed_mode,
+> -			       adjusted_mode);
+> +	ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+> +	if (ret)
+> +		return ret;
+>  
+>  	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+>  		return -EINVAL;
+> diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+> index b2ad0f065218..77c1ca387de0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_panel.c
+> +++ b/drivers/gpu/drm/i915/display/intel_panel.c
+> @@ -45,12 +45,19 @@ bool intel_panel_use_ssc(struct drm_i915_private *i915)
+>  		&& !(i915->quirks & QUIRK_LVDS_SSC_DISABLE);
+>  }
+>  
+> -void intel_panel_fixed_mode(const struct drm_display_mode *fixed_mode,
+> -			    struct drm_display_mode *adjusted_mode)
+> +int intel_panel_compute_config(struct intel_connector *connector,
+> +			       struct drm_display_mode *adjusted_mode)
+>  {
+> +	const struct drm_display_mode *fixed_mode = connector->panel.fixed_mode;
+> +
+> +	if (!fixed_mode)
+> +		return 0;
+> +
+>  	drm_mode_copy(adjusted_mode, fixed_mode);
+>  
+>  	drm_mode_set_crtcinfo(adjusted_mode, 0);
+> +
+> +	return 0;
+>  }
+>  
+>  static bool is_downclock_mode(const struct drm_display_mode *downclock_mode,
+> diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+> index 71bad6d546fa..d50b3f7e9e58 100644
+> --- a/drivers/gpu/drm/i915/display/intel_panel.h
+> +++ b/drivers/gpu/drm/i915/display/intel_panel.h
+> @@ -31,6 +31,8 @@ intel_panel_mode_valid(struct intel_connector *connector,
+>  		       const struct drm_display_mode *mode);
+>  int intel_panel_fitting(struct intel_crtc_state *crtc_state,
+>  			const struct drm_connector_state *conn_state);
+> +int intel_panel_compute_config(struct intel_connector *connector,
+> +			       struct drm_display_mode *adjusted_mode);
+>  struct drm_display_mode *
+>  intel_panel_edid_downclock_mode(struct intel_connector *connector,
+>  				const struct drm_display_mode *fixed_mode);
+> diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+> index b0a2b6b96799..260e852245e9 100644
+> --- a/drivers/gpu/drm/i915/display/vlv_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+> @@ -279,7 +279,9 @@ static int intel_dsi_compute_config(struct intel_encoder *encoder,
+>  	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+>  
+>  	if (fixed_mode) {
+> -		intel_panel_fixed_mode(fixed_mode, adjusted_mode);
+> +		ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+> +		if (ret)
+> +			return ret;
+>  
+>  		ret = intel_panel_fitting(pipe_config, conn_state);
+>  		if (ret)
+> -- 
+> 2.32.0
 
-Reviewed-by: Eric Farman <farman@linux.ibm.com>
-
+-- 
+Ville Syrjälä
+Intel
