@@ -2,51 +2,50 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3443C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1863C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEBB0610F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BEBB0610F7
+	by mail.kernel.org (Postfix) with ESMTPS id 847426124F
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 847426124F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC396EE17;
-	Fri, 24 Sep 2021 11:49:07 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 651306EE17
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:49:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="287727066"
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="287727066"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:49:04 -0700
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="703498668"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB6A6EE0F;
+	Fri, 24 Sep 2021 11:49:11 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8D2A6EE0F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:49:09 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="246523734"
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="246523734"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:49:09 -0700
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="705124335"
 Received: from avanhout-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.37.153])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:49:02 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:49:07 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Fri, 24 Sep 2021 14:47:31 +0300
-Message-Id: <20210924114741.15940-14-jani.nikula@intel.com>
+Date: Fri, 24 Sep 2021 14:47:32 +0300
+Message-Id: <20210924114741.15940-15-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210924114741.15940-1-jani.nikula@intel.com>
 References: <20210924114741.15940-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 14/24] drm/i915: split the dpll clock compute out
- from display vtable.
+Subject: [Intel-gfx] [CI 15/24] drm/i915: constify fdi link training vtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,111 +63,73 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-this single function might be possible to merge later, but
-for now it's simple to just split it out.
+Put the vtable into ro memory.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  6 +++---
- drivers/gpu/drm/i915/display/intel_dpll.c    | 16 ++++++++--------
- drivers/gpu/drm/i915/i915_drv.h              |  8 +++++++-
- 3 files changed, 18 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fdi.c | 20 ++++++++++++++++----
+ drivers/gpu/drm/i915/i915_drv.h          |  2 +-
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index d1e269f734c7..f3a24a08a7eb 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6833,10 +6833,10 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
- 		crtc_state->update_wm_post = true;
- 
- 	if (mode_changed && crtc_state->hw.enable &&
--	    dev_priv->display.crtc_compute_clock &&
-+	    dev_priv->dpll_funcs.crtc_compute_clock &&
- 	    !crtc_state->bigjoiner_slave &&
- 	    !drm_WARN_ON(&dev_priv->drm, crtc_state->shared_dpll)) {
--		ret = dev_priv->display.crtc_compute_clock(crtc_state);
-+		ret = dev_priv->dpll_funcs.crtc_compute_clock(crtc_state);
- 		if (ret)
- 			return ret;
- 	}
-@@ -8863,7 +8863,7 @@ static void intel_modeset_clear_plls(struct intel_atomic_state *state)
- 	struct intel_crtc *crtc;
- 	int i;
- 
--	if (!dev_priv->display.crtc_compute_clock)
-+	if (!dev_priv->dpll_funcs.crtc_compute_clock)
- 		return;
- 
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 487d8721ecf8..7811f19acb6a 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1369,21 +1369,21 @@ void
- intel_dpll_init_clock_hook(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
+index f828bebe8962..af01d1fa761e 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.c
++++ b/drivers/gpu/drm/i915/display/intel_fdi.c
+@@ -15,7 +15,7 @@ void intel_fdi_link_train(struct intel_crtc *crtc,
  {
- 	if (DISPLAY_VER(dev_priv) >= 9 || HAS_DDI(dev_priv))
--		dev_priv->display.crtc_compute_clock = hsw_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = hsw_crtc_compute_clock;
- 	else if (HAS_PCH_SPLIT(dev_priv))
--		dev_priv->display.crtc_compute_clock = ilk_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = ilk_crtc_compute_clock;
- 	else if (IS_CHERRYVIEW(dev_priv))
--		dev_priv->display.crtc_compute_clock = chv_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = chv_crtc_compute_clock;
- 	else if (IS_VALLEYVIEW(dev_priv))
--		dev_priv->display.crtc_compute_clock = vlv_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = vlv_crtc_compute_clock;
- 	else if (IS_G4X(dev_priv))
--		dev_priv->display.crtc_compute_clock = g4x_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = g4x_crtc_compute_clock;
- 	else if (IS_PINEVIEW(dev_priv))
--		dev_priv->display.crtc_compute_clock = pnv_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = pnv_crtc_compute_clock;
- 	else if (DISPLAY_VER(dev_priv) != 2)
--		dev_priv->display.crtc_compute_clock = i9xx_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = i9xx_crtc_compute_clock;
- 	else
--		dev_priv->display.crtc_compute_clock = i8xx_crtc_compute_clock;
-+		dev_priv->dpll_funcs.crtc_compute_clock = i8xx_crtc_compute_clock;
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 
+-	dev_priv->fdi_funcs.fdi_link_train(crtc, crtc_state);
++	dev_priv->fdi_funcs->fdi_link_train(crtc, crtc_state);
  }
  
- static bool i9xx_has_pps(struct drm_i915_private *dev_priv)
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 62a7d67cbc2e..954b16ee857f 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -393,6 +393,10 @@ struct intel_fdi_funcs {
- 			       const struct intel_crtc_state *crtc_state);
- };
+ /* units of 100MHz */
+@@ -1013,15 +1013,27 @@ void lpt_fdi_program_mphy(struct drm_i915_private *dev_priv)
+ 	intel_sbi_write(dev_priv, 0x21EC, tmp, SBI_MPHY);
+ }
  
-+struct intel_dpll_funcs {
-+	int (*crtc_compute_clock)(struct intel_crtc_state *crtc_state);
++static const struct intel_fdi_funcs ilk_funcs = {
++	.fdi_link_train = ilk_fdi_link_train,
 +};
 +
- struct drm_i915_display_funcs {
- 	/* Returns the active state of the crtc, and if the crtc is active,
- 	 * fills out the pipe-config with the hw state. */
-@@ -400,7 +404,6 @@ struct drm_i915_display_funcs {
- 				struct intel_crtc_state *);
- 	void (*get_initial_plane_config)(struct intel_crtc *,
- 					 struct intel_initial_plane_config *);
--	int (*crtc_compute_clock)(struct intel_crtc_state *crtc_state);
- 	void (*crtc_enable)(struct intel_atomic_state *state,
- 			    struct intel_crtc *crtc);
- 	void (*crtc_disable)(struct intel_atomic_state *state,
-@@ -990,6 +993,9 @@ struct drm_i915_private {
- 	/* fdi display functions */
- 	struct intel_fdi_funcs fdi_funcs;
- 
-+	/* display pll funcs */
-+	struct intel_dpll_funcs dpll_funcs;
++static const struct intel_fdi_funcs gen6_funcs = {
++	.fdi_link_train = gen6_fdi_link_train,
++};
 +
- 	/* Display functions */
- 	struct drm_i915_display_funcs display;
++static const struct intel_fdi_funcs ivb_funcs = {
++	.fdi_link_train = ivb_manual_fdi_link_train,
++};
++
+ void
+ intel_fdi_init_hook(struct drm_i915_private *dev_priv)
+ {
+ 	if (IS_IRONLAKE(dev_priv)) {
+-		dev_priv->fdi_funcs.fdi_link_train = ilk_fdi_link_train;
++		dev_priv->fdi_funcs = &ilk_funcs;
+ 	} else if (IS_SANDYBRIDGE(dev_priv)) {
+-		dev_priv->fdi_funcs.fdi_link_train = gen6_fdi_link_train;
++		dev_priv->fdi_funcs = &gen6_funcs;
+ 	} else if (IS_IVYBRIDGE(dev_priv)) {
+ 		/* FIXME: detect B0+ stepping and use auto training */
+-		dev_priv->fdi_funcs.fdi_link_train = ivb_manual_fdi_link_train;
++		dev_priv->fdi_funcs = &ivb_funcs;
+ 	}
+ }
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 954b16ee857f..a31738dd6378 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -991,7 +991,7 @@ struct drm_i915_private {
+ 	struct intel_hotplug_funcs hotplug_funcs;
  
+ 	/* fdi display functions */
+-	struct intel_fdi_funcs fdi_funcs;
++	const struct intel_fdi_funcs *fdi_funcs;
+ 
+ 	/* display pll funcs */
+ 	struct intel_dpll_funcs dpll_funcs;
 -- 
 2.30.2
 
