@@ -2,86 +2,44 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05CDDC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D86EEC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 07:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB244610C7
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CB244610C7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 9DC7B610C7
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 07:04:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9DC7B610C7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FC06EE7B;
-	Fri, 24 Sep 2021 06:51:10 +0000 (UTC)
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2A86EE01;
- Fri, 24 Sep 2021 06:50:54 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 1698158106D;
- Fri, 24 Sep 2021 02:43:53 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Fri, 24 Sep 2021 02:43:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=o5bKC/lveiRjA
- d/NQvwiZM4j13eSxDb8YWz9skkQNGo=; b=I1e+wtT4DWyRr0MgOfqCrsaWxHnuA
- yCZuRRSEDw3JYNpLPe1le3IzwToP0g8mWi5lxRUGAZmyaTADyngGM5ZrJtrrwwLx
- tEm+xB1skkFVdSNhtnOrtyqmSHmAKUgO19KWa4dQ6GVC38yPYhu6+zuEnGsqg1h6
- n/S1IzFEDMzPpZ7X7ZVzOEOrdb5i13j5Q1HEZDxMRU6Fa4pYyfT/C2GT2u7RdLxI
- 0skv3CKjPNW29+S3mf8xL6rx80DX1SuwM7L71Hd7WpBVCPVh6INg7SXN9Jr4MSrP
- k+H6TdLNDqdUlaPWCRft4QNlOfxOBw6a57h8ghaM19mPmW7uAXUCvp0QA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=o5bKC/lveiRjAd/NQvwiZM4j13eSxDb8YWz9skkQNGo=; b=wqXMNlBy
- goAbA+kctdgQcHq8D4v+qcQPUZONDq2i7NGZABqg4jJysDgPoDOGOwGbLCTsBdPQ
- DoQ4/mlqaxwKkIfqLyWa37RLsaiRJzpnXKQiWfBb6xxh/MK4oR9JktMVT1+E356o
- CRV62E/XA4aNdOFw/0lIUKTVO+sBxNPHnRlEKFJdki+0dgcqxGTEJ+W+iV8uiakK
- QBKR1sbcKCnNX9lFvZzsvNzFGGwYL2OwAW1ZBObLJjbHXrkcmEE1jUXmJPPv8hOq
- V3rpdBHol177LVo7Go2ua5X4YGW1N7laV2tA56GjKnLfMnS0X1/kiZbq/MbLmqKf
- dMe4F4+XhOyg6Q==
-X-ME-Sender: <xms:qHNNYSdNQekglEyXgiA2_xB9NDr7tkb4IhLjyOu4SgIoICF6nn_HqQ>
- <xme:qHNNYcP_CDZxel4QlhwynULuMBdPfUQNdhWHZC4mEy46xPE1qorz0_hKpCkYwTs8m
- IYF5zB8bQX5z1usyQ>
-X-ME-Received: <xmr:qHNNYThwwvDdA0pChvOd0vVsd_Wjxm5Uk5AS8uXlf1NvPHzgVwIit-5tg18FKdyD_WQL>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejtddguddtkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
- ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedtnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:qHNNYf-DH3yDLDCZfjIiowDwKubfDxAM__V3B0Mcye98z561f4C8VQ>
- <xmx:qHNNYesRWjfa7rqg6M0llYUPjtkJ6IjQUt4DGNE22FcaymS0Us3GUg>
- <xmx:qHNNYWFf_UzFTwGtlCakABKA9aWHHh3lSLgZMPRmWmwJzUSw6emRhg>
- <xmx:qXNNYYKiqU92NyyTzZ9w8AyAKBN44vxFNK4l7-XaDvyPt2yXJwdbtA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 24 Sep 2021 02:43:50 -0400 (EDT)
-From: Fernando Ramos <greenfoo@u92.eu>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Date: Fri, 24 Sep 2021 08:43:14 +0200
-Message-Id: <20210924064324.229457-8-greenfoo@u92.eu>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210924064324.229457-1-greenfoo@u92.eu>
-References: <20210924064324.229457-1-greenfoo@u92.eu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 449876EDF3;
+	Fri, 24 Sep 2021 07:04:53 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B52C96E159;
+ Fri, 24 Sep 2021 07:04:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AB9B6AADD2;
+ Fri, 24 Sep 2021 07:04:51 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/17] drm/shmobile: cleanup:
- drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Fernando Ramos" <greenfoo@u92.eu>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 24 Sep 2021 07:04:51 -0000
+Message-ID: <163246709167.20560.3388795520357940181@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210924064324.229457-1-greenfoo@u92.eu>
+In-Reply-To: <20210924064324.229457-1-greenfoo@u92.eu>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm=3A_cleanup=3A_Use_DRM=5FMODESET=5FLOCK=5FALL=5F*_helpers_whe?=
+ =?utf-8?q?re_possible_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,38 +52,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As requested in Documentation/gpu/todo.rst, replace driver calls to
-drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
-DRM_MODESET_LOCK_ALL_END()
+== Series Details ==
 
-Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
-Reviewed-by: Sean Paul <sean@poorly.run>
----
- drivers/gpu/drm/shmobile/shmob_drm_drv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Series: drm: cleanup: Use DRM_MODESET_LOCK_ALL_* helpers where possible (rev2)
+URL   : https://patchwork.freedesktop.org/series/94786/
+State : failure
 
-diff --git a/drivers/gpu/drm/shmobile/shmob_drm_drv.c b/drivers/gpu/drm/shmobile/shmob_drm_drv.c
-index 7db01904d18d..8ee215ab614e 100644
---- a/drivers/gpu/drm/shmobile/shmob_drm_drv.c
-+++ b/drivers/gpu/drm/shmobile/shmob_drm_drv.c
-@@ -156,10 +156,12 @@ static int shmob_drm_pm_suspend(struct device *dev)
- static int shmob_drm_pm_resume(struct device *dev)
- {
- 	struct shmob_drm_device *sdev = dev_get_drvdata(dev);
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
- 
--	drm_modeset_lock_all(sdev->ddev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(sdev->ddev, ctx, 0, ret);
- 	shmob_drm_crtc_resume(&sdev->crtc);
--	drm_modeset_unlock_all(sdev->ddev);
-+	DRM_MODESET_LOCK_ALL_END(sdev->ddev, ctx, ret);
- 
- 	drm_kms_helper_poll_enable(sdev->ddev);
- 	return 0;
--- 
-2.33.0
+== Summary ==
+
+Applying: drm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/i915: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/msm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/vmwgfx: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/tegra: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/shmobile: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/radeon: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/omapdrm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/nouveau: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/msm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+Applying: drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_display.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0012 drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
 
