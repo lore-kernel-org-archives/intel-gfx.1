@@ -2,74 +2,42 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A706FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AA7AC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 542576105A
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 542576105A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id F0BE2610C9
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F0BE2610C9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB3136E1F1;
-	Fri, 24 Sep 2021 16:22:20 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7663A6E1D7;
- Fri, 24 Sep 2021 15:31:37 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id w29so28588972wra.8;
- Fri, 24 Sep 2021 08:31:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=QNte/ZxHyZbzH1TCe5eQqnVIdZH6R4S8//YNPJMBVTc=;
- b=YcayZl7Kc7T3Pj3XVmGGOuIjTxpVoAoI2od6lbwc9TSJwmi1zd2t7gVnV0cfgzyTig
- +v4iCwgn+C/amFzCz6IV5oMD3rhliK1MCiVloKsAwGJiE8yKBag0B88v64dyrnQlbJ3p
- N5qSv7jL72pGt6itiSaEbCXydbAN7OJSxmtqAoaRdgi4AJlduo3WFUSMDZ6R1mjKutmS
- vtGx9Uy43a9KEsMUOxZCwgD+iL1JYZZ1bIiBPnZzkvkXpdgp/+Jbg2WlXPL4Q85rlpmg
- xcl33SGH6IJWsFCEzL2oYC2aVlzRD4zUmvtv6U5jz91dAsMdPmExJuBtBf5lNZJKSxZZ
- Fa+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=QNte/ZxHyZbzH1TCe5eQqnVIdZH6R4S8//YNPJMBVTc=;
- b=eK3ztas8YM4Y5HcKjHUiXxYoKd3hjjiOvb18A1KfMc9CrtralIMeVluRPoim1Dd7Eq
- Dv081Ur9EgJEop2BSxAgFxdDEvH+oBDmHqVYSTkS14SJrOneHe2am7oe9EqqRIu14IUB
- DUYmgdrpkAyHNQomPulF0SBDTEsLhIDjNp5PPg3BGBy4BOY4V2AbQJJx+kWAhlPvZ21F
- //4knPDaWO7D8vQLxi9FFxSinXL7hgd7YC4/lQZWhg/xTe726c5/VdD3RiSqrmD2FMdL
- NzZRHmIXD3VQZFkuwg+jJzbqcojiMsdqwryrEIO+cES0hle1Y6kNTqRPSWsftxoixps9
- z1kQ==
-X-Gm-Message-State: AOAM532rgt7Po8umGzxSKB0bsWBZM59FkN0VayiKYeWmA144tnlltG69
- WfhlpPd1DXCvo0R8NW818+8=
-X-Google-Smtp-Source: ABdhPJyQdLXkMxahC1Tzbt4CRsN/npvnT2ZtzZDDhzFaKodNBkXw9jGP/wgMZdIO8YjjpySbz9jZuA==
-X-Received: by 2002:a5d:6292:: with SMTP id k18mr12305654wru.110.1632497496045; 
- Fri, 24 Sep 2021 08:31:36 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- u25sm9902248wmm.5.2021.09.24.08.31.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Sep 2021 08:31:35 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch,
-	tvrtko.ursulin@linux.intel.com
-Date: Fri, 24 Sep 2021 17:31:05 +0200
-Message-Id: <20210924153113.2159-19-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF7EE6E1EE;
+	Fri, 24 Sep 2021 16:38:47 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 468FC6E1ED;
+ Fri, 24 Sep 2021 16:38:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10117"; a="211354079"
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="211354079"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 09:38:45 -0700
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="516087633"
+Received: from jkrzyszt-mobl1.ger.corp.intel.com ([10.213.4.8])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 09:38:42 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Date: Fri, 24 Sep 2021 18:38:25 +0200
+Message-Id: <20210924163825.634606-1-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210924153113.2159-1-christian.koenig@amd.com>
-References: <20210924153113.2159-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 24 Sep 2021 16:21:14 +0000
-Subject: [Intel-gfx] [PATCH 19/27] drm/i915: use new iterator in
- i915_gem_object_wait_reservation
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Flush buffer pools on driver remove
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,82 +53,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+We currently do an explicit flush of the buffer pools within the call path
+of drm_driver.release(); this removes all buffers, regardless of their age,
+freeing the buffers' associated resources (objects, adress space areas).
+However there is other code that runs within the drm_driver.release() call
+chain that expects objects and their associated address space areas have
+already been flushed.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Since buffer pools auto-flush old buffers once per second in a worker
+thread, there's a small window where if we remove the driver while there
+are still objects in buffers with an age of less than one second, the
+assumptions of the other release code may be violated.
+
+By moving the flush to driver remove (which executes earlier via the
+pci_driver.remove() flow) we're ensuring that all buffers are flushed and
+their associated objects freed before some other code in
+pci_driver.remove() flushes those objects so they are released before
+_any_ code in drm_driver.release() that check completness of those
+flushes executes.
+
+v2: Reword commit descriptiom as suggested by Matt.
+
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 51 +++++-------------------
- 1 file changed, 9 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c             | 2 ++
+ drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c | 2 --
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index f909aaa09d9c..a13193db1dba 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -37,55 +37,22 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
- 				 unsigned int flags,
- 				 long timeout)
- {
--	struct dma_fence *excl;
--	bool prune_fences = false;
--
--	if (flags & I915_WAIT_ALL) {
--		struct dma_fence **shared;
--		unsigned int count, i;
--		int ret;
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 4037c3778225..5b3acf2b064e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -741,6 +741,8 @@ void intel_gt_driver_remove(struct intel_gt *gt)
+ 	intel_uc_driver_remove(&gt->uc);
  
--		ret = dma_resv_get_fences(resv, &excl, &count, &shared);
--		if (ret)
--			return ret;
--
--		for (i = 0; i < count; i++) {
--			timeout = i915_gem_object_wait_fence(shared[i],
--							     flags, timeout);
--			if (timeout < 0)
--				break;
--
--			dma_fence_put(shared[i]);
--		}
--
--		for (; i < count; i++)
--			dma_fence_put(shared[i]);
--		kfree(shared);
--
--		/*
--		 * If both shared fences and an exclusive fence exist,
--		 * then by construction the shared fences must be later
--		 * than the exclusive fence. If we successfully wait for
--		 * all the shared fences, we know that the exclusive fence
--		 * must all be signaled. If all the shared fences are
--		 * signaled, we can prune the array and recover the
--		 * floating references on the fences/requests.
--		 */
--		prune_fences = count && timeout >= 0;
--	} else {
--		excl = dma_resv_get_excl_unlocked(resv);
-+	dma_resv_iter_begin(&cursor, resv, flags & I915_WAIT_ALL);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		timeout = i915_gem_object_wait_fence(fence, flags, timeout);
-+		if (timeout < 0)
-+			break;
- 	}
--
--	if (excl && timeout >= 0)
--		timeout = i915_gem_object_wait_fence(excl, flags, timeout);
--
--	dma_fence_put(excl);
-+	dma_resv_iter_end(&cursor);
+ 	intel_engines_release(gt);
++
++	intel_gt_flush_buffer_pool(gt);
+ }
  
- 	/*
- 	 * Opportunistically prune the fences iff we know they have *all* been
- 	 * signaled.
- 	 */
--	if (prune_fences)
-+	if (timeout > 0)
- 		dma_resv_prune(resv);
+ void intel_gt_driver_unregister(struct intel_gt *gt)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+index aa0a59c5b614..acc49c56a9f3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+@@ -245,8 +245,6 @@ void intel_gt_fini_buffer_pool(struct intel_gt *gt)
+ 	struct intel_gt_buffer_pool *pool = &gt->buffer_pool;
+ 	int n;
  
- 	return timeout;
+-	intel_gt_flush_buffer_pool(gt);
+-
+ 	for (n = 0; n < ARRAY_SIZE(pool->cache_list); n++)
+ 		GEM_BUG_ON(!list_empty(&pool->cache_list[n]));
+ }
 -- 
 2.25.1
 
