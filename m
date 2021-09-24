@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD61FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:48:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7214C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:48:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 58DA26124D
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:48:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 58DA26124D
+	by mail.kernel.org (Postfix) with ESMTPS id A69DD6124D
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:48:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A69DD6124D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C51F86EE1E;
-	Fri, 24 Sep 2021 11:48:37 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3626EE1C
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:48:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="222169859"
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="222169859"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:48:27 -0700
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="535385632"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C1526EE0B;
+	Fri, 24 Sep 2021 11:48:43 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1446EE1C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:48:38 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="204213286"
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="204213286"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:48:37 -0700
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="614386323"
 Received: from avanhout-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.37.153])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:48:25 -0700
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:48:35 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Fri, 24 Sep 2021 14:47:24 +0300
-Message-Id: <20210924114741.15940-7-jani.nikula@intel.com>
+Date: Fri, 24 Sep 2021 14:47:26 +0300
+Message-Id: <20210924114741.15940-9-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210924114741.15940-1-jani.nikula@intel.com>
 References: <20210924114741.15940-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 07/24] drm/i915: split clock gating init from
- display vtable
+Subject: [Intel-gfx] [CI 09/24] drm/i915: split color functions from display
+ vtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,139 +64,199 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This function is only used inside intel_pm.c
+These are only used internally in the color module
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h |  9 ++++++-
- drivers/gpu/drm/i915/intel_pm.c | 48 ++++++++++++++++-----------------
- 2 files changed, 32 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 64 +++++++++++-----------
+ drivers/gpu/drm/i915/i915_drv.h            | 39 +++++++------
+ 2 files changed, 54 insertions(+), 49 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index afcb4bf3826c..ed79075158dd 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1137,14 +1137,14 @@ void intel_color_load_luts(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	dev_priv->display.load_luts(crtc_state);
++	dev_priv->color_funcs.load_luts(crtc_state);
+ }
+ 
+ void intel_color_commit(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	dev_priv->display.color_commit(crtc_state);
++	dev_priv->color_funcs.color_commit(crtc_state);
+ }
+ 
+ static bool intel_can_preload_luts(const struct intel_crtc_state *new_crtc_state)
+@@ -1200,15 +1200,15 @@ int intel_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	return dev_priv->display.color_check(crtc_state);
++	return dev_priv->color_funcs.color_check(crtc_state);
+ }
+ 
+ void intel_color_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	if (dev_priv->display.read_luts)
+-		dev_priv->display.read_luts(crtc_state);
++	if (dev_priv->color_funcs.read_luts)
++		dev_priv->color_funcs.read_luts(crtc_state);
+ }
+ 
+ static bool need_plane_update(struct intel_plane *plane,
+@@ -2101,51 +2101,51 @@ void intel_color_init(struct intel_crtc *crtc)
+ 
+ 	if (HAS_GMCH(dev_priv)) {
+ 		if (IS_CHERRYVIEW(dev_priv)) {
+-			dev_priv->display.color_check = chv_color_check;
+-			dev_priv->display.color_commit = i9xx_color_commit;
+-			dev_priv->display.load_luts = chv_load_luts;
+-			dev_priv->display.read_luts = chv_read_luts;
++			dev_priv->color_funcs.color_check = chv_color_check;
++			dev_priv->color_funcs.color_commit = i9xx_color_commit;
++			dev_priv->color_funcs.load_luts = chv_load_luts;
++			dev_priv->color_funcs.read_luts = chv_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 4) {
+-			dev_priv->display.color_check = i9xx_color_check;
+-			dev_priv->display.color_commit = i9xx_color_commit;
+-			dev_priv->display.load_luts = i965_load_luts;
+-			dev_priv->display.read_luts = i965_read_luts;
++			dev_priv->color_funcs.color_check = i9xx_color_check;
++			dev_priv->color_funcs.color_commit = i9xx_color_commit;
++			dev_priv->color_funcs.load_luts = i965_load_luts;
++			dev_priv->color_funcs.read_luts = i965_read_luts;
+ 		} else {
+-			dev_priv->display.color_check = i9xx_color_check;
+-			dev_priv->display.color_commit = i9xx_color_commit;
+-			dev_priv->display.load_luts = i9xx_load_luts;
+-			dev_priv->display.read_luts = i9xx_read_luts;
++			dev_priv->color_funcs.color_check = i9xx_color_check;
++			dev_priv->color_funcs.color_commit = i9xx_color_commit;
++			dev_priv->color_funcs.load_luts = i9xx_load_luts;
++			dev_priv->color_funcs.read_luts = i9xx_read_luts;
+ 		}
+ 	} else {
+ 		if (DISPLAY_VER(dev_priv) >= 11)
+-			dev_priv->display.color_check = icl_color_check;
++			dev_priv->color_funcs.color_check = icl_color_check;
+ 		else if (DISPLAY_VER(dev_priv) >= 10)
+-			dev_priv->display.color_check = glk_color_check;
++			dev_priv->color_funcs.color_check = glk_color_check;
+ 		else if (DISPLAY_VER(dev_priv) >= 7)
+-			dev_priv->display.color_check = ivb_color_check;
++			dev_priv->color_funcs.color_check = ivb_color_check;
+ 		else
+-			dev_priv->display.color_check = ilk_color_check;
++			dev_priv->color_funcs.color_check = ilk_color_check;
+ 
+ 		if (DISPLAY_VER(dev_priv) >= 9)
+-			dev_priv->display.color_commit = skl_color_commit;
++			dev_priv->color_funcs.color_commit = skl_color_commit;
+ 		else if (IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
+-			dev_priv->display.color_commit = hsw_color_commit;
++			dev_priv->color_funcs.color_commit = hsw_color_commit;
+ 		else
+-			dev_priv->display.color_commit = ilk_color_commit;
++			dev_priv->color_funcs.color_commit = ilk_color_commit;
+ 
+ 		if (DISPLAY_VER(dev_priv) >= 11) {
+-			dev_priv->display.load_luts = icl_load_luts;
+-			dev_priv->display.read_luts = icl_read_luts;
++			dev_priv->color_funcs.load_luts = icl_load_luts;
++			dev_priv->color_funcs.read_luts = icl_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) == 10) {
+-			dev_priv->display.load_luts = glk_load_luts;
+-			dev_priv->display.read_luts = glk_read_luts;
++			dev_priv->color_funcs.load_luts = glk_load_luts;
++			dev_priv->color_funcs.read_luts = glk_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 8) {
+-			dev_priv->display.load_luts = bdw_load_luts;
++			dev_priv->color_funcs.load_luts = bdw_load_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 7) {
+-			dev_priv->display.load_luts = ivb_load_luts;
++			dev_priv->color_funcs.load_luts = ivb_load_luts;
+ 		} else {
+-			dev_priv->display.load_luts = ilk_load_luts;
+-			dev_priv->display.read_luts = ilk_read_luts;
++			dev_priv->color_funcs.load_luts = ilk_load_luts;
++			dev_priv->color_funcs.read_luts = ilk_read_luts;
+ 		}
+ 	}
+ 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index a098a1bc83b1..497a466ed0cf 100644
+index a095184df006..e35b721d1130 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -323,6 +323,11 @@ struct intel_crtc;
- struct intel_limit;
- struct dpll;
+@@ -345,6 +345,25 @@ struct drm_i915_wm_disp_funcs {
+ 	int (*compute_global_watermarks)(struct intel_atomic_state *state);
+ };
  
-+/* functions used internal in intel_pm.c */
-+struct drm_i915_clock_gating_funcs {
-+	void (*init_clock_gating)(struct drm_i915_private *dev_priv);
++struct intel_color_funcs {
++	int (*color_check)(struct intel_crtc_state *crtc_state);
++	/*
++	 * Program double buffered color management registers during
++	 * vblank evasion. The registers should then latch during the
++	 * next vblank start, alongside any other double buffered registers
++	 * involved with the same commit.
++	 */
++	void (*color_commit)(const struct intel_crtc_state *crtc_state);
++	/*
++	 * Load LUTs (and other single buffered color management
++	 * registers). Will (hopefully) be called during the vblank
++	 * following the latching of any double buffered registers
++	 * involved with the same commit.
++	 */
++	void (*load_luts)(const struct intel_crtc_state *crtc_state);
++	void (*read_luts)(struct intel_crtc_state *crtc_state);
 +};
 +
  struct drm_i915_display_funcs {
  	void (*get_cdclk)(struct drm_i915_private *dev_priv,
  			  struct intel_cdclk_config *cdclk_config);
-@@ -365,7 +370,6 @@ struct drm_i915_display_funcs {
- 				    const struct drm_connector_state *old_conn_state);
- 	void (*fdi_link_train)(struct intel_crtc *crtc,
- 			       const struct intel_crtc_state *crtc_state);
--	void (*init_clock_gating)(struct drm_i915_private *dev_priv);
- 	void (*hpd_irq_setup)(struct drm_i915_private *dev_priv);
- 	/* clock updates for mode set */
- 	/* cursor updates */
-@@ -954,6 +958,9 @@ struct drm_i915_private {
- 	/* unbound hipri wq for page flips/plane updates */
- 	struct workqueue_struct *flip_wq;
+@@ -381,23 +400,6 @@ struct drm_i915_display_funcs {
+ 	/* render clock increase/decrease */
+ 	/* display clock increase/decrease */
+ 	/* pll clock increase/decrease */
+-
+-	int (*color_check)(struct intel_crtc_state *crtc_state);
+-	/*
+-	 * Program double buffered color management registers during
+-	 * vblank evasion. The registers should then latch during the
+-	 * next vblank start, alongside any other double buffered registers
+-	 * involved with the same commit.
+-	 */
+-	void (*color_commit)(const struct intel_crtc_state *crtc_state);
+-	/*
+-	 * Load LUTs (and other single buffered color management
+-	 * registers). Will (hopefully) be called during the vblank
+-	 * following the latching of any double buffered registers
+-	 * involved with the same commit.
+-	 */
+-	void (*load_luts)(const struct intel_crtc_state *crtc_state);
+-	void (*read_luts)(struct intel_crtc_state *crtc_state);
+ };
  
-+	/* pm private clock gating functions */
-+	struct drm_i915_clock_gating_funcs clock_gating_funcs;
-+
+ 
+@@ -972,6 +974,9 @@ struct drm_i915_private {
  	/* Display functions */
  	struct drm_i915_display_funcs display;
  
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 11c9df62391d..34d6faee8969 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -7869,7 +7869,7 @@ static void i830_init_clock_gating(struct drm_i915_private *dev_priv)
- 
- void intel_init_clock_gating(struct drm_i915_private *dev_priv)
- {
--	dev_priv->display.init_clock_gating(dev_priv);
-+	dev_priv->clock_gating_funcs.init_clock_gating(dev_priv);
- }
- 
- void intel_suspend_hw(struct drm_i915_private *dev_priv)
-@@ -7896,52 +7896,52 @@ static void nop_init_clock_gating(struct drm_i915_private *dev_priv)
- void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv)
- {
- 	if (IS_ALDERLAKE_P(dev_priv))
--		dev_priv->display.init_clock_gating = adlp_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = adlp_init_clock_gating;
- 	else if (IS_DG1(dev_priv))
--		dev_priv->display.init_clock_gating = dg1_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = dg1_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 12)
--		dev_priv->display.init_clock_gating = gen12lp_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = gen12lp_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 11)
--		dev_priv->display.init_clock_gating = icl_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = icl_init_clock_gating;
- 	else if (IS_COFFEELAKE(dev_priv) || IS_COMETLAKE(dev_priv))
--		dev_priv->display.init_clock_gating = cfl_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = cfl_init_clock_gating;
- 	else if (IS_SKYLAKE(dev_priv))
--		dev_priv->display.init_clock_gating = skl_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = skl_init_clock_gating;
- 	else if (IS_KABYLAKE(dev_priv))
--		dev_priv->display.init_clock_gating = kbl_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = kbl_init_clock_gating;
- 	else if (IS_BROXTON(dev_priv))
--		dev_priv->display.init_clock_gating = bxt_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = bxt_init_clock_gating;
- 	else if (IS_GEMINILAKE(dev_priv))
--		dev_priv->display.init_clock_gating = glk_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = glk_init_clock_gating;
- 	else if (IS_BROADWELL(dev_priv))
--		dev_priv->display.init_clock_gating = bdw_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = bdw_init_clock_gating;
- 	else if (IS_CHERRYVIEW(dev_priv))
--		dev_priv->display.init_clock_gating = chv_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = chv_init_clock_gating;
- 	else if (IS_HASWELL(dev_priv))
--		dev_priv->display.init_clock_gating = hsw_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = hsw_init_clock_gating;
- 	else if (IS_IVYBRIDGE(dev_priv))
--		dev_priv->display.init_clock_gating = ivb_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = ivb_init_clock_gating;
- 	else if (IS_VALLEYVIEW(dev_priv))
--		dev_priv->display.init_clock_gating = vlv_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = vlv_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 6)
--		dev_priv->display.init_clock_gating = gen6_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = gen6_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 5)
--		dev_priv->display.init_clock_gating = ilk_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = ilk_init_clock_gating;
- 	else if (IS_G4X(dev_priv))
--		dev_priv->display.init_clock_gating = g4x_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = g4x_init_clock_gating;
- 	else if (IS_I965GM(dev_priv))
--		dev_priv->display.init_clock_gating = i965gm_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = i965gm_init_clock_gating;
- 	else if (IS_I965G(dev_priv))
--		dev_priv->display.init_clock_gating = i965g_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = i965g_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 3)
--		dev_priv->display.init_clock_gating = gen3_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = gen3_init_clock_gating;
- 	else if (IS_I85X(dev_priv) || IS_I865G(dev_priv))
--		dev_priv->display.init_clock_gating = i85x_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = i85x_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 2)
--		dev_priv->display.init_clock_gating = i830_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = i830_init_clock_gating;
- 	else {
- 		MISSING_CASE(INTEL_DEVID(dev_priv));
--		dev_priv->display.init_clock_gating = nop_init_clock_gating;
-+		dev_priv->clock_gating_funcs.init_clock_gating = nop_init_clock_gating;
- 	}
- }
- 
++	/* Display internal color functions */
++	struct intel_color_funcs color_funcs;
++
+ 	/* PCH chipset type */
+ 	enum intel_pch pch_type;
+ 	unsigned short pch_id;
 -- 
 2.30.2
 
