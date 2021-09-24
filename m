@@ -2,51 +2,46 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47435C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A500FC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D77561250
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D77561250
+	by mail.kernel.org (Postfix) with ESMTPS id 64C5C61212
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64C5C61212
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6250A6E233;
-	Fri, 24 Sep 2021 19:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C57D56E247;
+	Fri, 24 Sep 2021 19:14:22 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C2196E235;
- Fri, 24 Sep 2021 19:14:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10117"; a="223789600"
-X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="223789600"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC176E235
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 19:14:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10117"; a="223789608"
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="223789608"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 Sep 2021 12:14:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="437094327"
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="437094346"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga003.jf.intel.com with ESMTP; 24 Sep 2021 12:14:18 -0700
+ by orsmga003.jf.intel.com with ESMTP; 24 Sep 2021 12:14:19 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Gaurav Kumar <kumar.gaurav@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Juston Li <juston.li@intel.com>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Jason Ekstrand <jason@jlekstrand.net>,
- Daniel Vetter <daniel.vetter@intel.com>
-Date: Fri, 24 Sep 2021 12:14:35 -0700
-Message-Id: <20210924191452.1539378-1-alan.previn.teres.alexis@intel.com>
+Cc: "Huang, Sean Z" <sean.z.huang@intel.com>, Huang@freedesktop.org,
+	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Fri, 24 Sep 2021 12:14:40 -0700
+Message-Id: <20210924191452.1539378-6-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210924191452.1539378-1-alan.previn.teres.alexis@intel.com>
+References: <20210924191452.1539378-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 00/17] drm/i915: Introduce Intel PXP
+Subject: [Intel-gfx] [PATCH v13 05/17] drm/i915/pxp: Implement funcs to
+ create the TEE channel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,130 +57,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PXP (Protected Xe Path) is an i915 component, available on
-GEN12 and newer platforms, that helps to establish the hardware
-protected session and manage the status of the alive software session,
-as well as its life cycle.
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
 
-changes from v12:
-- Patch #4: Fixed for loop pointer dereference (Vinay).
-- Patch #10: Rebasing required for latest drm-tim today.
-- Patch #11: Increase timeout again in intel_pxp_start to
-  cover accumulated underlying dependant operations.
-- Patch #12: Rebasing required for latest drm-tip today.
+Implement the funcs to create the TEE channel, so kernel can
+send the TEE commands directly to TEE for creating the arbitrary
+(default) session.
 
-Tested with: https://patchwork.freedesktop.org/series/87570/
+v2: fix locking, don't pollute dev_priv (Chris)
 
-Cc: Gaurav Kumar <kumar.gaurav@intel.com>
+v3: wait for mei PXP component to be bound.
+
+v4: drop the wait, as the component might be bound after i915 load
+completes. We'll instead check when sending a tee message.
+
+v5: fix an issue with mei_pxp module removal
+
+v6: don't use fetch_and_zero in fini (Rodrigo)
+
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Juston Li <juston.li@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
-Cc: Daniel Vetter <daniel.vetter@intel.com>
-
-Anshuman Gupta (2):
-  drm/i915/pxp: Add plane decryption support
-  drm/i915/pxp: black pixels on pxp disabled
-
-Daniele Ceraolo Spurio (9):
-  drm/i915/pxp: Define PXP component interface
-  drm/i915/pxp: define PXP device flag and kconfig
-  drm/i915/pxp: allocate a vcs context for pxp usage
-  drm/i915/pxp: set KCR reg init
-  drm/i915/pxp: interfaces for using protected objects
-  drm/i915/pxp: start the arb session on demand
-  drm/i915/pxp: add pxp debugfs
-  drm/i915/pxp: add PXP documentation
-  drm/i915/pxp: enable PXP for integrated Gen12
-
-Huang, Sean Z (5):
-  drm/i915/pxp: Implement funcs to create the TEE channel
-  drm/i915/pxp: Create the arbitrary session after boot
-  drm/i915/pxp: Implement arb session teardown
-  drm/i915/pxp: Implement PXP irq handler
-  drm/i915/pxp: Enable PXP power management
-
-Vitaly Lubart (1):
-  mei: pxp: export pavp client to me client bus
-
- Documentation/gpu/i915.rst                    |   8 +
- drivers/gpu/drm/i915/Kconfig                  |  11 +
- drivers/gpu/drm/i915/Makefile                 |  10 +
- drivers/gpu/drm/i915/display/intel_display.c  |  34 ++
- .../drm/i915/display/intel_display_types.h    |   6 +
- .../drm/i915/display/skl_universal_plane.c    |  49 ++-
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  97 +++++-
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |   6 +
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  28 ++
- drivers/gpu/drm/i915/gem/i915_gem_create.c    |  72 +++--
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  18 ++
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |   6 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |   9 +-
- .../gpu/drm/i915/gem/selftests/mock_context.c |   4 +-
- drivers/gpu/drm/i915/gt/intel_engine.h        |   2 +
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |  22 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            |   5 +
- drivers/gpu/drm/i915/gt/intel_gt_debugfs.c    |   2 +
- drivers/gpu/drm/i915/gt/intel_gt_irq.c        |   7 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  16 +-
- drivers/gpu/drm/i915/gt/intel_gt_types.h      |   3 +
- drivers/gpu/drm/i915/i915_drv.c               |   2 +
- drivers/gpu/drm/i915/i915_drv.h               |   3 +
- drivers/gpu/drm/i915/i915_pci.c               |   2 +
- drivers/gpu/drm/i915/i915_reg.h               |  48 +++
- drivers/gpu/drm/i915/intel_device_info.h      |   1 +
- drivers/gpu/drm/i915/pxp/intel_pxp.c          | 299 ++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h          |  64 ++++
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c      | 141 +++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h      |  15 +
- drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |  78 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.h  |  21 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c      | 101 ++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.h      |  32 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |  46 +++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h       |  24 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  | 175 ++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h  |  15 +
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 172 ++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.h      |  17 +
- .../drm/i915/pxp/intel_pxp_tee_interface.h    |  36 +++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  83 +++++
- drivers/misc/mei/Kconfig                      |   2 +
- drivers/misc/mei/Makefile                     |   1 +
- drivers/misc/mei/pxp/Kconfig                  |  13 +
- drivers/misc/mei/pxp/Makefile                 |   7 +
- drivers/misc/mei/pxp/mei_pxp.c                | 229 ++++++++++++++
- drivers/misc/mei/pxp/mei_pxp.h                |  18 ++
- include/drm/i915_component.h                  |   1 +
- include/drm/i915_pxp_tee_interface.h          |  42 +++
- include/uapi/drm/i915_drm.h                   |  97 ++++++
- 52 files changed, 2159 insertions(+), 42 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_session.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/Makefile              |  3 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp.c       | 13 ++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c   | 79 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h   | 14 ++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h |  4 ++
+ 5 files changed, 112 insertions(+), 1 deletion(-)
  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_types.h
- create mode 100644 drivers/misc/mei/pxp/Kconfig
- create mode 100644 drivers/misc/mei/pxp/Makefile
- create mode 100644 drivers/misc/mei/pxp/mei_pxp.c
- create mode 100644 drivers/misc/mei/pxp/mei_pxp.h
- create mode 100644 include/drm/i915_pxp_tee_interface.h
 
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 451801ea56a7..864ec9e2ac0e 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -283,7 +283,8 @@ i915-y += i915_perf.o
+ 
+ # Protected execution platform (PXP) support
+ i915-$(CONFIG_DRM_I915_PXP) += \
+-	pxp/intel_pxp.o
++	pxp/intel_pxp.o \
++	pxp/intel_pxp_tee.o
+ 
+ # Post-mortem debug and GPU hang state capture
+ i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 9258e0ddd0d5..14ab7c97800e 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -3,6 +3,7 @@
+  * Copyright(c) 2020 Intel Corporation.
+  */
+ #include "intel_pxp.h"
++#include "intel_pxp_tee.h"
+ #include "gt/intel_context.h"
+ #include "i915_drv.h"
+ 
+@@ -58,7 +59,16 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ 	if (ret)
+ 		return;
+ 
++	ret = intel_pxp_tee_component_init(pxp);
++	if (ret)
++		goto out_context;
++
+ 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
++
++	return;
++
++out_context:
++	destroy_vcs_context(pxp);
+ }
+ 
+ void intel_pxp_fini(struct intel_pxp *pxp)
+@@ -66,5 +76,8 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+ 	if (!intel_pxp_is_enabled(pxp))
+ 		return;
+ 
++	intel_pxp_tee_component_fini(pxp);
++
+ 	destroy_vcs_context(pxp);
++
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+new file mode 100644
+index 000000000000..f1d8de832653
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -0,0 +1,79 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright(c) 2020 Intel Corporation.
++ */
++
++#include <linux/component.h>
++#include "drm/i915_pxp_tee_interface.h"
++#include "drm/i915_component.h"
++#include "i915_drv.h"
++#include "intel_pxp.h"
++#include "intel_pxp_tee.h"
++
++static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
++{
++	return &kdev_to_i915(i915_kdev)->gt.pxp;
++}
++
++/**
++ * i915_pxp_tee_component_bind - bind function to pass the function pointers to pxp_tee
++ * @i915_kdev: pointer to i915 kernel device
++ * @tee_kdev: pointer to tee kernel device
++ * @data: pointer to pxp_tee_master containing the function pointers
++ *
++ * This bind function is called during the system boot or resume from system sleep.
++ *
++ * Return: return 0 if successful.
++ */
++static int i915_pxp_tee_component_bind(struct device *i915_kdev,
++				       struct device *tee_kdev, void *data)
++{
++	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
++
++	pxp->pxp_component = data;
++	pxp->pxp_component->tee_dev = tee_kdev;
++
++	return 0;
++}
++
++static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
++					  struct device *tee_kdev, void *data)
++{
++	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
++
++	pxp->pxp_component = NULL;
++}
++
++static const struct component_ops i915_pxp_tee_component_ops = {
++	.bind   = i915_pxp_tee_component_bind,
++	.unbind = i915_pxp_tee_component_unbind,
++};
++
++int intel_pxp_tee_component_init(struct intel_pxp *pxp)
++{
++	int ret;
++	struct intel_gt *gt = pxp_to_gt(pxp);
++	struct drm_i915_private *i915 = gt->i915;
++
++	ret = component_add_typed(i915->drm.dev, &i915_pxp_tee_component_ops,
++				  I915_COMPONENT_PXP);
++	if (ret < 0) {
++		drm_err(&i915->drm, "Failed to add PXP component (%d)\n", ret);
++		return ret;
++	}
++
++	pxp->pxp_component_added = true;
++
++	return 0;
++}
++
++void intel_pxp_tee_component_fini(struct intel_pxp *pxp)
++{
++	struct drm_i915_private *i915 = pxp_to_gt(pxp)->i915;
++
++	if (!pxp->pxp_component_added)
++		return;
++
++	component_del(i915->drm.dev, &i915_pxp_tee_component_ops);
++	pxp->pxp_component_added = false;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+new file mode 100644
+index 000000000000..23d050a5d3e7
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ */
++
++#ifndef __INTEL_PXP_TEE_H__
++#define __INTEL_PXP_TEE_H__
++
++#include "intel_pxp.h"
++
++int intel_pxp_tee_component_init(struct intel_pxp *pxp);
++void intel_pxp_tee_component_fini(struct intel_pxp *pxp);
++
++#endif /* __INTEL_PXP_TEE_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+index db98df723dbb..3a8e17e591bd 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+@@ -9,8 +9,12 @@
+ #include <linux/types.h>
+ 
+ struct intel_context;
++struct i915_pxp_component;
+ 
+ struct intel_pxp {
++	struct i915_pxp_component *pxp_component;
++	bool pxp_component_added;
++
+ 	struct intel_context *ce;
+ };
+ 
 -- 
 2.25.1
 
