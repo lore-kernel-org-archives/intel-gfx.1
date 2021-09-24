@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5C7AC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96391C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A7B561261
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7A7B561261
+	by mail.kernel.org (Postfix) with ESMTPS id 635446124F
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 635446124F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5856EE14;
-	Fri, 24 Sep 2021 11:49:48 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22FF16EE1D
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:49:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="203553565"
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="203553565"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:49:31 -0700
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="436134464"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F586EE0F;
+	Fri, 24 Sep 2021 11:49:55 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3386EE17
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:49:51 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="222170129"
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="222170129"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:49:51 -0700
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="475176039"
 Received: from avanhout-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.37.153])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:49:28 -0700
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:49:49 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Fri, 24 Sep 2021 14:47:36 +0300
-Message-Id: <20210924114741.15940-19-jani.nikula@intel.com>
+Date: Fri, 24 Sep 2021 14:47:40 +0300
+Message-Id: <20210924114741.15940-23-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210924114741.15940-1-jani.nikula@intel.com>
 References: <20210924114741.15940-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 19/24] drm/i915: constify the dpll clock vtable
+Subject: [Intel-gfx] [CI 23/24] drm/i915: constify clock gating init vtable.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,126 +63,155 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-Most the dpll vtable into read-only memory.
+I used a macro to avoid making any really silly mistakes here.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  6 +--
- drivers/gpu/drm/i915/display/intel_dpll.c    | 48 ++++++++++++++++----
- drivers/gpu/drm/i915/i915_drv.h              |  2 +-
- 3 files changed, 44 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h |  2 +-
+ drivers/gpu/drm/i915/intel_pm.c | 78 +++++++++++++++++++++++----------
+ 2 files changed, 55 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f3a24a08a7eb..4f89ef430129 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6833,10 +6833,10 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
- 		crtc_state->update_wm_post = true;
- 
- 	if (mode_changed && crtc_state->hw.enable &&
--	    dev_priv->dpll_funcs.crtc_compute_clock &&
-+	    dev_priv->dpll_funcs &&
- 	    !crtc_state->bigjoiner_slave &&
- 	    !drm_WARN_ON(&dev_priv->drm, crtc_state->shared_dpll)) {
--		ret = dev_priv->dpll_funcs.crtc_compute_clock(crtc_state);
-+		ret = dev_priv->dpll_funcs->crtc_compute_clock(crtc_state);
- 		if (ret)
- 			return ret;
- 	}
-@@ -8863,7 +8863,7 @@ static void intel_modeset_clear_plls(struct intel_atomic_state *state)
- 	struct intel_crtc *crtc;
- 	int i;
- 
--	if (!dev_priv->dpll_funcs.crtc_compute_clock)
-+	if (!dev_priv->dpll_funcs)
- 		return;
- 
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 7811f19acb6a..784e3ee658b5 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1365,25 +1365,57 @@ static int i8xx_crtc_compute_clock(struct intel_crtc_state *crtc_state)
- 	return 0;
- }
- 
-+static const struct intel_dpll_funcs hsw_dpll_funcs = {
-+	.crtc_compute_clock = hsw_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs ilk_dpll_funcs = {
-+	.crtc_compute_clock = ilk_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs chv_dpll_funcs = {
-+	.crtc_compute_clock = chv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs vlv_dpll_funcs = {
-+	.crtc_compute_clock = vlv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs g4x_dpll_funcs = {
-+	.crtc_compute_clock = g4x_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs pnv_dpll_funcs = {
-+	.crtc_compute_clock = pnv_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs i9xx_dpll_funcs = {
-+	.crtc_compute_clock = i9xx_crtc_compute_clock,
-+};
-+
-+static const struct intel_dpll_funcs i8xx_dpll_funcs = {
-+	.crtc_compute_clock = i8xx_crtc_compute_clock,
-+};
-+
- void
- intel_dpll_init_clock_hook(struct drm_i915_private *dev_priv)
- {
- 	if (DISPLAY_VER(dev_priv) >= 9 || HAS_DDI(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = hsw_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &hsw_dpll_funcs;
- 	else if (HAS_PCH_SPLIT(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = ilk_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &ilk_dpll_funcs;
- 	else if (IS_CHERRYVIEW(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = chv_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &chv_dpll_funcs;
- 	else if (IS_VALLEYVIEW(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = vlv_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &vlv_dpll_funcs;
- 	else if (IS_G4X(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = g4x_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &g4x_dpll_funcs;
- 	else if (IS_PINEVIEW(dev_priv))
--		dev_priv->dpll_funcs.crtc_compute_clock = pnv_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &pnv_dpll_funcs;
- 	else if (DISPLAY_VER(dev_priv) != 2)
--		dev_priv->dpll_funcs.crtc_compute_clock = i9xx_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &i9xx_dpll_funcs;
- 	else
--		dev_priv->dpll_funcs.crtc_compute_clock = i8xx_crtc_compute_clock;
-+		dev_priv->dpll_funcs = &i8xx_dpll_funcs;
- }
- 
- static bool i9xx_has_pps(struct drm_i915_private *dev_priv)
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 363afe0f58b7..5f63773deaa0 100644
+index 6a6d08219526..390091b898d5 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -994,7 +994,7 @@ struct drm_i915_private {
- 	const struct intel_fdi_funcs *fdi_funcs;
+@@ -975,7 +975,7 @@ struct drm_i915_private {
+ 	struct workqueue_struct *flip_wq;
  
- 	/* display pll funcs */
--	struct intel_dpll_funcs dpll_funcs;
-+	const struct intel_dpll_funcs *dpll_funcs;
+ 	/* pm private clock gating functions */
+-	struct drm_i915_clock_gating_funcs clock_gating_funcs;
++	const struct drm_i915_clock_gating_funcs *clock_gating_funcs;
  
- 	/* Display functions */
- 	struct drm_i915_display_funcs display;
+ 	/* pm display functions */
+ 	struct drm_i915_wm_disp_funcs wm_disp;
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index b37888781ec9..08e0195edeb7 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7869,7 +7869,7 @@ static void i830_init_clock_gating(struct drm_i915_private *dev_priv)
+ 
+ void intel_init_clock_gating(struct drm_i915_private *dev_priv)
+ {
+-	dev_priv->clock_gating_funcs.init_clock_gating(dev_priv);
++	dev_priv->clock_gating_funcs->init_clock_gating(dev_priv);
+ }
+ 
+ void intel_suspend_hw(struct drm_i915_private *dev_priv)
+@@ -7884,6 +7884,36 @@ static void nop_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		    "No clock gating settings or workarounds applied.\n");
+ }
+ 
++#define CG_FUNCS(platform)						\
++static const struct drm_i915_clock_gating_funcs platform##_clock_gating_funcs = { \
++	.init_clock_gating = platform##_init_clock_gating,		\
++}
++
++CG_FUNCS(adlp);
++CG_FUNCS(dg1);
++CG_FUNCS(gen12lp);
++CG_FUNCS(icl);
++CG_FUNCS(cfl);
++CG_FUNCS(skl);
++CG_FUNCS(kbl);
++CG_FUNCS(bxt);
++CG_FUNCS(glk);
++CG_FUNCS(bdw);
++CG_FUNCS(chv);
++CG_FUNCS(hsw);
++CG_FUNCS(ivb);
++CG_FUNCS(vlv);
++CG_FUNCS(gen6);
++CG_FUNCS(ilk);
++CG_FUNCS(g4x);
++CG_FUNCS(i965gm);
++CG_FUNCS(i965g);
++CG_FUNCS(gen3);
++CG_FUNCS(i85x);
++CG_FUNCS(i830);
++CG_FUNCS(nop);
++#undef CG_FUNCS
++
+ /**
+  * intel_init_clock_gating_hooks - setup the clock gating hooks
+  * @dev_priv: device private
+@@ -7896,52 +7926,52 @@ static void nop_init_clock_gating(struct drm_i915_private *dev_priv)
+ void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv)
+ {
+ 	if (IS_ALDERLAKE_P(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = adlp_init_clock_gating;
++		dev_priv->clock_gating_funcs = &adlp_clock_gating_funcs;
+ 	else if (IS_DG1(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = dg1_init_clock_gating;
++		dev_priv->clock_gating_funcs = &dg1_clock_gating_funcs;
+ 	else if (GRAPHICS_VER(dev_priv) == 12)
+-		dev_priv->clock_gating_funcs.init_clock_gating = gen12lp_init_clock_gating;
++		dev_priv->clock_gating_funcs = &gen12lp_clock_gating_funcs;
+ 	else if (GRAPHICS_VER(dev_priv) == 11)
+-		dev_priv->clock_gating_funcs.init_clock_gating = icl_init_clock_gating;
++		dev_priv->clock_gating_funcs = &icl_clock_gating_funcs;
+ 	else if (IS_COFFEELAKE(dev_priv) || IS_COMETLAKE(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = cfl_init_clock_gating;
++		dev_priv->clock_gating_funcs = &cfl_clock_gating_funcs;
+ 	else if (IS_SKYLAKE(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = skl_init_clock_gating;
++		dev_priv->clock_gating_funcs = &skl_clock_gating_funcs;
+ 	else if (IS_KABYLAKE(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = kbl_init_clock_gating;
++		dev_priv->clock_gating_funcs = &kbl_clock_gating_funcs;
+ 	else if (IS_BROXTON(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = bxt_init_clock_gating;
++		dev_priv->clock_gating_funcs = &bxt_clock_gating_funcs;
+ 	else if (IS_GEMINILAKE(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = glk_init_clock_gating;
++		dev_priv->clock_gating_funcs = &glk_clock_gating_funcs;
+ 	else if (IS_BROADWELL(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = bdw_init_clock_gating;
++		dev_priv->clock_gating_funcs = &bdw_clock_gating_funcs;
+ 	else if (IS_CHERRYVIEW(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = chv_init_clock_gating;
++		dev_priv->clock_gating_funcs = &chv_clock_gating_funcs;
+ 	else if (IS_HASWELL(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = hsw_init_clock_gating;
++		dev_priv->clock_gating_funcs = &hsw_clock_gating_funcs;
+ 	else if (IS_IVYBRIDGE(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = ivb_init_clock_gating;
++		dev_priv->clock_gating_funcs = &ivb_clock_gating_funcs;
+ 	else if (IS_VALLEYVIEW(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = vlv_init_clock_gating;
++		dev_priv->clock_gating_funcs = &vlv_clock_gating_funcs;
+ 	else if (GRAPHICS_VER(dev_priv) == 6)
+-		dev_priv->clock_gating_funcs.init_clock_gating = gen6_init_clock_gating;
++		dev_priv->clock_gating_funcs = &gen6_clock_gating_funcs;
+ 	else if (GRAPHICS_VER(dev_priv) == 5)
+-		dev_priv->clock_gating_funcs.init_clock_gating = ilk_init_clock_gating;
++		dev_priv->clock_gating_funcs = &ilk_clock_gating_funcs;
+ 	else if (IS_G4X(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = g4x_init_clock_gating;
++		dev_priv->clock_gating_funcs = &g4x_clock_gating_funcs;
+ 	else if (IS_I965GM(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = i965gm_init_clock_gating;
++		dev_priv->clock_gating_funcs = &i965gm_clock_gating_funcs;
+ 	else if (IS_I965G(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = i965g_init_clock_gating;
++		dev_priv->clock_gating_funcs = &i965g_clock_gating_funcs;
+ 	else if (GRAPHICS_VER(dev_priv) == 3)
+-		dev_priv->clock_gating_funcs.init_clock_gating = gen3_init_clock_gating;
++		dev_priv->clock_gating_funcs = &gen3_clock_gating_funcs;
+ 	else if (IS_I85X(dev_priv) || IS_I865G(dev_priv))
+-		dev_priv->clock_gating_funcs.init_clock_gating = i85x_init_clock_gating;
++		dev_priv->clock_gating_funcs = &i85x_clock_gating_funcs;
+ 	else if (GRAPHICS_VER(dev_priv) == 2)
+-		dev_priv->clock_gating_funcs.init_clock_gating = i830_init_clock_gating;
++		dev_priv->clock_gating_funcs = &i830_clock_gating_funcs;
+ 	else {
+ 		MISSING_CASE(INTEL_DEVID(dev_priv));
+-		dev_priv->clock_gating_funcs.init_clock_gating = nop_init_clock_gating;
++		dev_priv->clock_gating_funcs = &nop_clock_gating_funcs;
+ 	}
+ }
+ 
 -- 
 2.30.2
 
