@@ -2,57 +2,57 @@ Return-Path: <SRS0=Kzal=OO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6662EC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87460C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 360C460F4C
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 360C460F4C
+	by mail.kernel.org (Postfix) with ESMTPS id 53D9A60F4C
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 16:21:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 53D9A60F4C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 443E36E1F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E9FB6EE61;
 	Fri, 24 Sep 2021 16:21:47 +0000 (UTC)
 Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
  [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F01AC6E1D2;
- Fri, 24 Sep 2021 15:31:18 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id w17so28581115wrv.10;
- Fri, 24 Sep 2021 08:31:18 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5870B6E1D8;
+ Fri, 24 Sep 2021 15:31:43 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id d6so28550946wrc.11;
+ Fri, 24 Sep 2021 08:31:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8GcZUte1eKAW3KEA8b90CyEUqRj3RuvP1QuX3wuqstY=;
- b=C63CTnmyjqVSqMcN0rJ4kkZvs5ecdEU/Yj1kMn4gBkfFJRyHz25EhxsslTa14fnHN/
- Q+PBZAk6po5Tmtqv0gLEVwWW6UyZErLCM4Q7Xz+zis+vJi8upvO69e7R65BlytEIcPhH
- Pgu7CHhjW/XWlX2y6DZWlrF6tA/4Lc3fwPFzcr8kBEfFmqyfN0lEmHzAkHlay4/HzO30
- mOlqZSdd4A7eOJuR+tNJ8pITyaLP53VaLBkD570xULpylMyjoTnTha0oFgqb3hkoR07x
- PVP9MBtZgrfvQaPCWxNnzhj8d/wYjNiNynFAyjZHEAxsA/WRxuZe+DWsfyGBIrQrNyXV
- QGuw==
+ bh=KGewx1QiQQVkw015IvGnnogZeqnpnoxIhP9ykI50FyQ=;
+ b=hef6b05hQy+5lGerGWpcfLcr9CeyiiWOn1lDY3P3sgSPdAg6Nb+txTI3e7Ym276Coc
+ BUmcrvtRlg63/BmdOK5uhpfgtLSoyr/L6RUKzu/Ct7NAbo17Qhb8aR/3KwXoMnJFNDFp
+ RDbXA2+0Bnwyi7I47FHZUjyj1KN7amdrhZiCQJ406fGjD6o/vP5JydsEWwgtZpdTYvyB
+ wOFv/6F/YNr1LHOsUb8SbVNSQTRM/VUovKgc751PksR3+qI27eTUQmsaglPU7+crkhXG
+ gvXcPxVHpse/eyifuhbJrWCL22RzvujeHGxTcbVN3e/O6yi/0vd2LtfLGY01dJC2Yrks
+ Dxww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8GcZUte1eKAW3KEA8b90CyEUqRj3RuvP1QuX3wuqstY=;
- b=gGxRLPGXIhMbWABkjgLkiGs/xmYLTjxG5oF0b9NDH6pitRDlsAjX+VrfSo80/xg1t4
- vwzm/uPTCPnsPfwxbsf/PvsdPJm24uHT/LL7CUwj1N9m/xzwcOY0e+K5Bt3pE/EaWg9G
- zSlsvNTDgVu2EwDLZv3r1Ri9EtTC2+iW6xooM0o9gMkkux8ab9gCraUSRQ5hPPEEnhnu
- aewubN7LsQdPKkYjErV/k2h/VRgxPieBaVc9sHGKw0SZSlIFROuy2hjjyPNqLZSkaoos
- 3UdO5zsB3k+UAMws/gMQOd2tVXNFupB0of2EStgx4OSCazr3tDef611fQl5+A2YUNGGp
- sbOQ==
-X-Gm-Message-State: AOAM532XltuWTsaMSa8pWRyNWk6G+1SyrPz+EIxIQu0KqebRF4li/vHP
- KTbdn6ZmeTIIVDOiv9tIwXg=
-X-Google-Smtp-Source: ABdhPJz1VjL0gM2i5SpTpbnaY6wOWsW4rXQoKeFakTmbWY5/IYFUxV5lMreHayByU4QS8Oae/L38OA==
-X-Received: by 2002:a05:600c:4e86:: with SMTP id
- f6mr2898221wmq.52.1632497477404; 
- Fri, 24 Sep 2021 08:31:17 -0700 (PDT)
+ bh=KGewx1QiQQVkw015IvGnnogZeqnpnoxIhP9ykI50FyQ=;
+ b=DCrmPMbXsaKPR+cxhECWfUBLuWrTd6AqxQSUFuAIDvGB5zA4EsDLLJiCI7crmqotBU
+ WA6HipoP60Npgql5iFVjfTVtS1Y5Z/T3yLYiWe0IQh9vV82paW6WfQRuNWQgGGK0ED9q
+ jgjWhJHBk6bfZb+uGmH0U8uo+3Gxw6HZFKotMbkPyDwvDQ4M+gmpczWTHoZmE3o+G6UB
+ u8jx4H4UdUkY5bwFYbu5sGjW0rcaWh+mMqqHmxKp0v4T8oiiXBQEH+EI2UKxgH1zzxX9
+ P/H3U7gEhNMSSc8xwql8SD9WFJKJCHDKnQA3I5YGT/eGQWNavtfpDmht8O4dxAICnWvZ
+ oPLA==
+X-Gm-Message-State: AOAM533kXlu9G/wCalj+/tdNPlg8u+SlleOH5KrrO8w1fHr/pvEyOVKn
+ uWLx4Me8f2j/SWHgbz+vKAo=
+X-Google-Smtp-Source: ABdhPJwCQ50FiYFb6laK69EQMOH+0x7uDi595rBzL2mWBKY4VTN0iDpCqcFixhE+dNDw9UjaQDD1KQ==
+X-Received: by 2002:a05:6000:184e:: with SMTP id
+ c14mr12162487wri.242.1632497501846; 
+ Fri, 24 Sep 2021 08:31:41 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- u25sm9902248wmm.5.2021.09.24.08.31.16
+ u25sm9902248wmm.5.2021.09.24.08.31.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Sep 2021 08:31:17 -0700 (PDT)
+ Fri, 24 Sep 2021 08:31:41 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -60,8 +60,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Fri, 24 Sep 2021 17:30:48 +0200
-Message-Id: <20210924153113.2159-2-christian.koenig@amd.com>
+Date: Fri, 24 Sep 2021 17:31:11 +0200
+Message-Id: <20210924153113.2159-25-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210924153113.2159-1-christian.koenig@amd.com>
 References: <20210924153113.2159-1-christian.koenig@amd.com>
@@ -69,7 +69,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Sep 2021 16:21:14 +0000
-Subject: [Intel-gfx] [PATCH 02/27] dma-buf: add dma_resv_for_each_fence
+Subject: [Intel-gfx] [PATCH 25/27] drm/nouveau: use the new interator in
+ nv50_wndw_prepare_fb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,109 +86,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A simpler version of the iterator to be used when the dma_resv object is
-locked.
+Makes the handling a bit more complex, but avoids the use of
+dma_resv_get_excl_unlocked().
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/dma-buf/dma-resv.c | 46 ++++++++++++++++++++++++++++++++++++++
- include/linux/dma-resv.h   | 19 ++++++++++++++++
- 2 files changed, 65 insertions(+)
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 97af397304f3..98cb0050c615 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -421,6 +421,52 @@ struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter *cursor)
- }
- EXPORT_SYMBOL(dma_resv_iter_next_unlocked);
- 
-+/**
-+ * dma_resv_iter_first - first fence from a locked dma_resv object
-+ * @cursor: cursor to record the current position
-+ *
-+ * Return all the fences in the dma_resv object while holding the
-+ * &dma_resv.lock.
-+ */
-+struct dma_fence *dma_resv_iter_first(struct dma_resv_iter *cursor)
-+{
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+index 8d048bacd6f0..30712a681e2a 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+@@ -539,6 +539,8 @@ nv50_wndw_prepare_fb(struct drm_plane *plane, struct drm_plane_state *state)
+ 	struct nouveau_bo *nvbo;
+ 	struct nv50_head_atom *asyh;
+ 	struct nv50_wndw_ctxdma *ctxdma;
++	struct dma_resv_iter cursor;
 +	struct dma_fence *fence;
-+
-+	dma_resv_assert_held(cursor->obj);
-+
-+	cursor->index = -1;
-+	cursor->fences = dma_resv_shared_list(cursor->obj);
-+
-+	fence = dma_resv_excl_fence(cursor->obj);
-+	if (!fence)
-+		fence = dma_resv_iter_next(cursor);
-+
-+	cursor->is_restarted = true;
-+	return fence;
-+}
-+EXPORT_SYMBOL_GPL(dma_resv_iter_first);
-+
-+/**
-+ * dma_resv_iter_next - next fence from a locked dma_resv object
-+ * @cursor: cursor to record the current position
-+ *
-+ * Return all the fences in the dma_resv object while holding the
-+ * &dma_resv.lock.
-+ */
-+struct dma_fence *dma_resv_iter_next(struct dma_resv_iter *cursor)
-+{
-+	dma_resv_assert_held(cursor->obj);
-+
-+	cursor->is_restarted = false;
-+	if (!cursor->all_fences || !cursor->fences ||
-+	    ++cursor->index >= cursor->fences->shared_count)
-+		return NULL;
-+
-+	return rcu_dereference_protected(cursor->fences->shared[cursor->index],
-+					 dma_resv_held(cursor->obj));
-+}
-+EXPORT_SYMBOL_GPL(dma_resv_iter_next);
-+
- /**
-  * dma_resv_copy_fences - Copy all fences from src to dst.
-  * @dst: the destination reservation object
-diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
-index 5d7d28cb9008..d4b4cd43f0f1 100644
---- a/include/linux/dma-resv.h
-+++ b/include/linux/dma-resv.h
-@@ -179,6 +179,8 @@ struct dma_resv_iter {
+ 	int ret;
  
- struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter *cursor);
- struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter *cursor);
-+struct dma_fence *dma_resv_iter_first(struct dma_resv_iter *cursor);
-+struct dma_fence *dma_resv_iter_next(struct dma_resv_iter *cursor);
+ 	NV_ATOMIC(drm, "%s prepare: %p\n", plane->name, fb);
+@@ -561,7 +563,13 @@ nv50_wndw_prepare_fb(struct drm_plane *plane, struct drm_plane_state *state)
+ 			asyw->image.handle[0] = ctxdma->object.handle;
+ 	}
  
- /**
-  * dma_resv_iter_begin - initialize a dma_resv_iter object
-@@ -244,6 +246,23 @@ static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
- 	for (fence = dma_resv_iter_first_unlocked(cursor);		\
- 	     fence; fence = dma_resv_iter_next_unlocked(cursor))
+-	asyw->state.fence = dma_resv_get_excl_unlocked(nvbo->bo.base.resv);
++	dma_resv_iter_begin(&cursor, nvbo->bo.base.resv, false);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
++		/* TODO: We only use the first writer here */
++		asyw->state.fence = dma_fence_get(fence);
++		break;
++	}
++	dma_resv_iter_end(&cursor);
+ 	asyw->image.offset[0] = nvbo->offset;
  
-+/**
-+ * dma_resv_for_each_fence - fence iterator
-+ * @cursor: a struct dma_resv_iter pointer
-+ * @obj: a dma_resv object pointer
-+ * @all_fences: true if all fences should be returned
-+ * @fence: the current fence
-+ *
-+ * Iterate over the fences in a struct dma_resv object while holding the
-+ * &dma_resv.lock. @all_fences controls if the shared fences are returned as
-+ * well. The cursor initialisation is part of the iterator and the fence stays
-+ * valid as long as the lock is held.
-+ */
-+#define dma_resv_for_each_fence(cursor, obj, all_fences, fence)	\
-+	for (dma_resv_iter_begin(cursor, obj, all_fences),	\
-+	     fence = dma_resv_iter_first(cursor); fence;	\
-+	     fence = dma_resv_iter_next(cursor))
-+
- #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
- #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
- 
+ 	if (wndw->func->prepare) {
 -- 
 2.25.1
 
