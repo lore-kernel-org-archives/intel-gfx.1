@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C347C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A62E1C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A25B61265
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0A25B61265
+	by mail.kernel.org (Postfix) with ESMTPS id 76E1161260
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 11:49:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 76E1161260
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8BA6EE19;
-	Fri, 24 Sep 2021 11:49:16 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACE226EE19
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:49:15 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="309614405"
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="309614405"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:49:15 -0700
-X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="436973879"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82BF6EE0B;
+	Fri, 24 Sep 2021 11:49:26 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8FF36EE0B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 11:49:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10116"; a="287727149"
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="287727149"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:49:25 -0700
+X-IronPort-AV: E=Sophos;i="5.85,319,1624345200"; d="scan'208";a="654001247"
 Received: from avanhout-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.37.153])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2021 04:49:12 -0700
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 04:49:23 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Fri, 24 Sep 2021 14:47:33 +0300
-Message-Id: <20210924114741.15940-16-jani.nikula@intel.com>
+Date: Fri, 24 Sep 2021 14:47:35 +0300
+Message-Id: <20210924114741.15940-18-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210924114741.15940-1-jani.nikula@intel.com>
 References: <20210924114741.15940-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 16/24] drm/i915: constify hotplug function vtable.
+Subject: [Intel-gfx] [CI 18/24] drm/i915: constify the audio function vtable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,99 +63,107 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-Use a macro to avoid mistakes, this type of macro is only used
-in a couple of places.
+Move the functions into read-only tables.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hotplug.c |  4 +--
- drivers/gpu/drm/i915/i915_drv.h              |  2 +-
- drivers/gpu/drm/i915/i915_irq.c              | 28 +++++++++++++++-----
- 3 files changed, 24 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_audio.c | 43 ++++++++++++++--------
+ drivers/gpu/drm/i915/i915_drv.h            |  2 +-
+ 2 files changed, 28 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index 05f76aba4f8a..3c1cec953b42 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -215,8 +215,8 @@ intel_hpd_irq_storm_switch_to_polling(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index f539826c0424..0a6ad74d9173 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -848,10 +848,10 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
  
- static void intel_hpd_irq_setup(struct drm_i915_private *i915)
- {
--	if (i915->display_irqs_enabled && i915->hotplug_funcs.hpd_irq_setup)
--		i915->hotplug_funcs.hpd_irq_setup(i915);
-+	if (i915->display_irqs_enabled && i915->hotplug_funcs->hpd_irq_setup)
-+		i915->hotplug_funcs->hpd_irq_setup(i915);
+ 	connector->eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
+ 
+-	if (dev_priv->audio_funcs.audio_codec_enable)
+-		dev_priv->audio_funcs.audio_codec_enable(encoder,
+-						     crtc_state,
+-						     conn_state);
++	if (dev_priv->audio_funcs)
++		dev_priv->audio_funcs->audio_codec_enable(encoder,
++							  crtc_state,
++							  conn_state);
+ 
+ 	mutex_lock(&dev_priv->av_mutex);
+ 	encoder->audio_connector = connector;
+@@ -893,10 +893,10 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
+ 	enum port port = encoder->port;
+ 	enum pipe pipe = crtc->pipe;
+ 
+-	if (dev_priv->audio_funcs.audio_codec_disable)
+-		dev_priv->audio_funcs.audio_codec_disable(encoder,
+-						      old_crtc_state,
+-						      old_conn_state);
++	if (dev_priv->audio_funcs)
++		dev_priv->audio_funcs->audio_codec_disable(encoder,
++							   old_crtc_state,
++							   old_conn_state);
+ 
+ 	mutex_lock(&dev_priv->av_mutex);
+ 	encoder->audio_connector = NULL;
+@@ -915,6 +915,21 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
+ 	intel_lpe_audio_notify(dev_priv, pipe, port, NULL, 0, false);
  }
  
- static void intel_hpd_irq_storm_reenable_work(struct work_struct *work)
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index a31738dd6378..5f1eb471abd8 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -988,7 +988,7 @@ struct drm_i915_private {
- 	struct drm_i915_wm_disp_funcs wm_disp;
- 
- 	/* irq display functions */
--	struct intel_hotplug_funcs hotplug_funcs;
-+	const struct intel_hotplug_funcs *hotplug_funcs;
- 
- 	/* fdi display functions */
- 	const struct intel_fdi_funcs *fdi_funcs;
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index c35065f8f429..77680bca46ee 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -4345,6 +4345,20 @@ static irqreturn_t i965_irq_handler(int irq, void *arg)
- 	return ret;
- }
- 
-+#define HPD_FUNCS(platform)					 \
-+static const struct intel_hotplug_funcs platform##_hpd_funcs = { \
-+	.hpd_irq_setup = platform##_hpd_irq_setup,		 \
-+}
++static const struct intel_audio_funcs g4x_audio_funcs = {
++	.audio_codec_enable = g4x_audio_codec_enable,
++	.audio_codec_disable = g4x_audio_codec_disable,
++};
 +
-+HPD_FUNCS(i915);
-+HPD_FUNCS(dg1);
-+HPD_FUNCS(gen11);
-+HPD_FUNCS(bxt);
-+HPD_FUNCS(icp);
-+HPD_FUNCS(spt);
-+HPD_FUNCS(ilk);
-+#undef HPD_FUNCS
++static const struct intel_audio_funcs ilk_audio_funcs = {
++	.audio_codec_enable = ilk_audio_codec_enable,
++	.audio_codec_disable = ilk_audio_codec_disable,
++};
++
++static const struct intel_audio_funcs hsw_audio_funcs = {
++	.audio_codec_enable = hsw_audio_codec_enable,
++	.audio_codec_disable = hsw_audio_codec_disable,
++};
 +
  /**
-  * intel_irq_init - initializes irq support
-  * @dev_priv: i915 device instance
-@@ -4395,20 +4409,20 @@ void intel_irq_init(struct drm_i915_private *dev_priv)
- 
- 	if (HAS_GMCH(dev_priv)) {
- 		if (I915_HAS_HOTPLUG(dev_priv))
--			dev_priv->hotplug_funcs.hpd_irq_setup = i915_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &i915_hpd_funcs;
- 	} else {
- 		if (HAS_PCH_DG1(dev_priv))
--			dev_priv->hotplug_funcs.hpd_irq_setup = dg1_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &dg1_hpd_funcs;
- 		else if (DISPLAY_VER(dev_priv) >= 11)
--			dev_priv->hotplug_funcs.hpd_irq_setup = gen11_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &gen11_hpd_funcs;
- 		else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
--			dev_priv->hotplug_funcs.hpd_irq_setup = bxt_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &bxt_hpd_funcs;
- 		else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
--			dev_priv->hotplug_funcs.hpd_irq_setup = icp_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &icp_hpd_funcs;
- 		else if (INTEL_PCH_TYPE(dev_priv) >= PCH_SPT)
--			dev_priv->hotplug_funcs.hpd_irq_setup = spt_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &spt_hpd_funcs;
- 		else
--			dev_priv->hotplug_funcs.hpd_irq_setup = ilk_hpd_irq_setup;
-+			dev_priv->hotplug_funcs = &ilk_hpd_funcs;
+  * intel_init_audio_hooks - Set up chip specific audio hooks
+  * @dev_priv: device private
+@@ -922,17 +937,13 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
+ void intel_init_audio_hooks(struct drm_i915_private *dev_priv)
+ {
+ 	if (IS_G4X(dev_priv)) {
+-		dev_priv->audio_funcs.audio_codec_enable = g4x_audio_codec_enable;
+-		dev_priv->audio_funcs.audio_codec_disable = g4x_audio_codec_disable;
++		dev_priv->audio_funcs = &g4x_audio_funcs;
+ 	} else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
+-		dev_priv->audio_funcs.audio_codec_enable = ilk_audio_codec_enable;
+-		dev_priv->audio_funcs.audio_codec_disable = ilk_audio_codec_disable;
++		dev_priv->audio_funcs = &ilk_audio_funcs;
+ 	} else if (IS_HASWELL(dev_priv) || DISPLAY_VER(dev_priv) >= 8) {
+-		dev_priv->audio_funcs.audio_codec_enable = hsw_audio_codec_enable;
+-		dev_priv->audio_funcs.audio_codec_disable = hsw_audio_codec_disable;
++		dev_priv->audio_funcs = &hsw_audio_funcs;
+ 	} else if (HAS_PCH_SPLIT(dev_priv)) {
+-		dev_priv->audio_funcs.audio_codec_enable = ilk_audio_codec_enable;
+-		dev_priv->audio_funcs.audio_codec_disable = ilk_audio_codec_disable;
++		dev_priv->audio_funcs = &ilk_audio_funcs;
  	}
  }
  
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 3f20b9167019..363afe0f58b7 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1003,7 +1003,7 @@ struct drm_i915_private {
+ 	const struct intel_color_funcs *color_funcs;
+ 
+ 	/* Display internal audio functions */
+-	struct intel_audio_funcs audio_funcs;
++	const struct intel_audio_funcs *audio_funcs;
+ 
+ 	/* Display CDCLK functions */
+ 	struct intel_cdclk_funcs cdclk_funcs;
 -- 
 2.30.2
 
