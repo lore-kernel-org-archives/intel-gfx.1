@@ -7,65 +7,65 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B49D2C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0023BC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 818D6610C7
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 818D6610C7
+	by mail.kernel.org (Postfix) with ESMTPS id C68AD610CB
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C68AD610CB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFB16EE6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05EF6EE73;
 	Fri, 24 Sep 2021 06:51:08 +0000 (UTC)
 Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16CE6EDF4;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19BED6EDFE;
  Fri, 24 Sep 2021 06:50:54 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id 146B858105A;
- Fri, 24 Sep 2021 02:43:44 -0400 (EDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 34BF3581079;
+ Fri, 24 Sep 2021 02:44:11 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 24 Sep 2021 02:43:44 -0400
+ by compute4.internal (MEProxy); Fri, 24 Sep 2021 02:44:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=gI1USBF13b/WC
- 9GWwIX4Z1gzLGplb53rIeUu1Mo8b4o=; b=D0x7zw1JXwx7CoS+GIttUAVpXJNri
- 9RutguKJ5/bA5QBCVNooj+UJVmN8/SeycK8+eHBCl1MSWC54E+7JLRZ+v3stJl82
- bK37taAM5pTTmmMAkrXYP7WqqM8yUjz4QHTG1duJemcyNgyfbXwdMLA8bdjfjPo6
- bNsf/Y89r2ujS/IjkXLUmyq6rNU6gsCZLpdmQHpaifPjchyP8RnJDXEiIgCeRqz/
- OlWaIxsW6oCOgU62v4tkxBRGGwuZkCZSJIu6Yw5y/NXn9aCWiMQ1cjzNZr53Ggj2
- gqXpJUziJRZHzuq4SmUUDVXsnRZbRDTATyzsnlsaZ2rlIjrmbdvNLM56g==
+ :mime-version:content-transfer-encoding; s=fm3; bh=zEFMk0/3+W+TW
+ pGRDcGSN7JQyCbDlMqHTw1oH0NyBmo=; b=ubfdzZdv0AkYnrIUbTTyqE3wKzXNx
+ xjeG+w5IjpXaBHY3PWzdSJDD/pD/0dAvAAmeuUqdr4vvHSEw/7/xxQtlEoe8IHzi
+ A4+oD1jlyGHMv6BPr479DMIm/Ufdz5mZntUzx3hHIo4cdRjtzqD23rz4vpPGT+KT
+ 0exhNUfDzgnqE1Gk3hdgWqrkzyyXGoPvUKP1hYuItoa3nJej9tV3wg2GdBqOCUqy
+ sVBvS8ShNokNNeHmjQr9x5bpcxjc2mtKFcVnL0o2/exWSAsScFvZsnEhvOXVDt5Z
+ sUybN6/quNGgSe25Bs1JMD7q9jtYMwGHbcxkSdE2Vgz85PWi7MkXbzJ8g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=gI1USBF13b/WC9GWwIX4Z1gzLGplb53rIeUu1Mo8b4o=; b=VmgsT00D
- So6sLP/s7+MvXRtB/P4vks7IsiEO2ho4PmQ0XQaU8+KioM3Z4i1Q8lrUpDXiqLOq
- 7NXTv7Gm4C1FKDKjzY6fv2AfyhRelcUqrUXqBEqWXB3BKK5rcPVGJsxm3rVSs5xu
- 6Pg0rmMGnkPrsYD+dZp5IJxp9ClXUu27QyTkz4HKdt3iCSXMw998ugCbksxVaX1e
- k6xD//mlEcuJEzCjJf+s8Tp1HvbbxBDI5/cD3Nu0SyywxuSk/nEoDipF0jN9p2ky
- Ai2vIlTyEMK1bAlzZP9rGvhqMZddq8MbwGZxW6pzH8IYqCOIcUvdQEZuGl/eyErn
- Ay32K5QMcti87A==
-X-ME-Sender: <xms:n3NNYbZ6FEtneoYHQiJ2uaLteVBUXqCJSGy2tOzt4dc5ys7giiVANQ>
- <xme:n3NNYabftZnGlR8uNBDHDvpAW-17ombYn6aDcqfVAtxl60TExK9yfX225NzmXrVxv
- Rxof1Ks8_CXPHugQw>
-X-ME-Received: <xmr:n3NNYd-1x_HvXC18arMggXCD1187YE-tnQ7trC_bgNJIlXTHHHAZw6l9-Bks0qzv6TRy>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejtddguddtkecutefuodetggdotefrod
+ fm3; bh=zEFMk0/3+W+TWpGRDcGSN7JQyCbDlMqHTw1oH0NyBmo=; b=bxsGcpss
+ 9jp14NiVTh8ZWAANK0zbhloZwpZ69UdTjr06SECA9ziDCBLUntJl4zXV96JmIDTf
+ wE6lbIpl3nJEUrZiiHTlmpMurJIPIwdKNDqSASLfOn7km2kbLsu5vlrMDefz96t0
+ Ksbb6VurvIEv6KdjHqvbH9dTEqryF0p0bbgh7Jp7NiDK3obrMWLZoUjJ6kBuYNb4
+ 0660XtAmrEK8qJs+atKiHs4zqzsyMudUDjI+I7Rbg+gMciDysMM6yNvBmfsqY264
+ 8ShFH+FunoXTqVNw9ZbBmVtFXRDVYFAVWM43CthQhnje4cjOfr/FL8p+JUgY/vGY
+ maakgLfXxs3tcw==
+X-ME-Sender: <xms:u3NNYZJtruWJRZt07TngMNH5dFiIXMNc7oKWeisFKlCHx6qx7VuGdg>
+ <xme:u3NNYVLvQ2i7IJhHm2GKf_9FpcmWbrxG-Sl3tj9q5na-X3zL2HOGF3E0EVrYk5FFJ
+ VB2t-6WITehVhGkZQ>
+X-ME-Received: <xmr:u3NNYRvq6CCuSBwFnPtRaml7fNaHIRE7BEBBRoMLeRizqSsDa5xLctW2eNYIoQ8cPAyv>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejtddguddtlecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
  ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedunecu
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedtnecu
  rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:n3NNYRo25q8PdmT-EmsdL9yrEUZuydJt6kbg6_Iu47SDERpBfuRfyQ>
- <xmx:n3NNYWop3GGchQn5xl7zKLNZV13mzOiSGliI_Eb7tkRXALRXCg6Hlw>
- <xmx:n3NNYXR6kRLJnWccfsrbRIp9XkSKEYVQYYRFWqRLn38XDQxDGSpwdw>
- <xmx:oHNNYV0RvdbZ61w0BUpIWuRcZL-bmcnsa_3trz6UWp78MxtKTUasmw>
+X-ME-Proxy: <xmx:u3NNYaZbR8X1QFa2QMgjLA_O7Tn5DGsupQNDOwJQx-3BTSA7aUnqTg>
+ <xmx:u3NNYQbuBMkruHx0T31aTLmfnpGmLPEN5xJoC_t7c0ekZMx2PaHb1Q>
+ <xmx:u3NNYeBYYSePt2WU1gE8L7Nz49TKUKj6JKAjaOiioH4_VnQjHsgHaQ>
+ <xmx:u3NNYemxIorzDn8WTjBXOLdgDtX2F-Qz7avfxk2_hIestkOHCvh57A>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 24 Sep 2021 02:43:41 -0400 (EDT)
+ 24 Sep 2021 02:44:08 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -73,15 +73,15 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Date: Fri, 24 Sep 2021 08:43:11 +0200
-Message-Id: <20210924064324.229457-5-greenfoo@u92.eu>
+Date: Fri, 24 Sep 2021 08:43:20 +0200
+Message-Id: <20210924064324.229457-14-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210924064324.229457-1-greenfoo@u92.eu>
 References: <20210924064324.229457-1-greenfoo@u92.eu>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 04/17] drm: cleanup: drm_modeset_lock_all()
- --> DRM_MODESET_LOCK_ALL_BEGIN()
+Subject: [Intel-gfx] [PATCH v2 13/17] drm/i915: cleanup:
+ drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN() part 2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,180 +101,85 @@ As requested in Documentation/gpu/todo.rst, replace driver calls to
 drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
 DRM_MODESET_LOCK_ALL_END()
 
-Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
-Reviewed-by: Sean Paul <sean@poorly.run>
----
- drivers/gpu/drm/drm_client_modeset.c |  5 +++--
- drivers/gpu/drm/drm_crtc_helper.c    | 18 ++++++++++++------
- drivers/gpu/drm/drm_fb_helper.c      | 10 ++++++----
- drivers/gpu/drm/drm_framebuffer.c    |  6 ++++--
- 4 files changed, 25 insertions(+), 14 deletions(-)
+While the previous commit was a simple "search and replace", this time I
+had to do a bit of refactoring as only one call to
+DRM_MODESET_LOCK_ALL_BEGIN() is allowed inside one same function.
 
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 5f5184f071ed..43f772543d2a 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -1062,9 +1062,10 @@ static int drm_client_modeset_commit_legacy(struct drm_client_dev *client)
- 	struct drm_device *dev = client->dev;
- 	struct drm_mode_set *mode_set;
- 	struct drm_plane *plane;
+Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
+---
+ drivers/gpu/drm/i915/display/intel_overlay.c | 40 ++++++++++----------
+ 1 file changed, 19 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+index c0ee135e5499..c623738c59c8 100644
+--- a/drivers/gpu/drm/i915/display/intel_overlay.c
++++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+@@ -1105,6 +1105,7 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_crtc *drmmode_crtc;
+ 	struct intel_crtc *crtc;
+ 	struct drm_i915_gem_object *new_bo;
 +	struct drm_modeset_acquire_ctx ctx;
- 	int ret = 0;
+ 	int ret;
+ 
+ 	overlay = dev_priv->overlay;
+@@ -1113,24 +1114,24 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 		return -ENODEV;
+ 	}
+ 
+-	if (!(params->flags & I915_OVERLAY_ENABLE)) {
+-		drm_modeset_lock_all(dev);
+-		ret = intel_overlay_switch_off(overlay);
+-		drm_modeset_unlock_all(dev);
++	if (params->flags & I915_OVERLAY_ENABLE) {
+ 
+-		return ret;
+-	}
++		drmmode_crtc = drm_crtc_find(dev, file_priv, params->crtc_id);
++		if (!drmmode_crtc)
++			return -ENOENT;
++		crtc = to_intel_crtc(drmmode_crtc);
+ 
+-	drmmode_crtc = drm_crtc_find(dev, file_priv, params->crtc_id);
+-	if (!drmmode_crtc)
+-		return -ENOENT;
+-	crtc = to_intel_crtc(drmmode_crtc);
++		new_bo = i915_gem_object_lookup(file_priv, params->bo_handle);
++		if (!new_bo)
++			return -ENOENT;
++	}
+ 
+-	new_bo = i915_gem_object_lookup(file_priv, params->bo_handle);
+-	if (!new_bo)
+-		return -ENOENT;
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
  
 -	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	drm_for_each_plane(plane, dev) {
- 		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
- 			drm_plane_force_disable(plane);
-@@ -1093,7 +1094,7 @@ static int drm_client_modeset_commit_legacy(struct drm_client_dev *client)
- 			goto out;
- 	}
- out:
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++	if (!(params->flags & I915_OVERLAY_ENABLE)) {
++		ret = intel_overlay_switch_off(overlay);
++		goto out_unlock;
++	}
  
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index bff917531f33..f3ce073dff79 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -218,11 +218,14 @@ static void __drm_helper_disable_unused_functions(struct drm_device *dev)
-  */
- void drm_helper_disable_unused_functions(struct drm_device *dev)
- {
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
+ 	if (i915_gem_object_is_tiled(new_bo)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+@@ -1195,14 +1196,11 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 	if (ret != 0)
+ 		goto out_unlock;
+ 
+-	drm_modeset_unlock_all(dev);
+-	i915_gem_object_put(new_bo);
+-
+-	return 0;
+-
+ out_unlock:
+-	drm_modeset_unlock_all(dev);
+-	i915_gem_object_put(new_bo);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
 +
- 	WARN_ON(drm_drv_uses_atomic_modeset(dev));
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	__drm_helper_disable_unused_functions(dev);
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- }
- EXPORT_SYMBOL(drm_helper_disable_unused_functions);
- 
-@@ -942,12 +945,14 @@ void drm_helper_resume_force_mode(struct drm_device *dev)
- 	struct drm_crtc *crtc;
- 	struct drm_encoder *encoder;
- 	const struct drm_crtc_helper_funcs *crtc_funcs;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int encoder_dpms;
- 	bool ret;
-+	int err;
- 
- 	WARN_ON(drm_drv_uses_atomic_modeset(dev));
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, err);
- 	drm_for_each_crtc(crtc, dev) {
- 
- 		if (!crtc->enabled)
-@@ -982,7 +987,7 @@ void drm_helper_resume_force_mode(struct drm_device *dev)
- 
- 	/* disable the unused connectors while restoring the modesetting */
- 	__drm_helper_disable_unused_functions(dev);
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, err);
- }
- EXPORT_SYMBOL(drm_helper_resume_force_mode);
- 
-@@ -1002,9 +1007,10 @@ EXPORT_SYMBOL(drm_helper_resume_force_mode);
- int drm_helper_force_disable_all(struct drm_device *dev)
- {
- 	struct drm_crtc *crtc;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int ret = 0;
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	drm_for_each_crtc(crtc, dev)
- 		if (crtc->enabled) {
- 			struct drm_mode_set set = {
-@@ -1016,7 +1022,7 @@ int drm_helper_force_disable_all(struct drm_device *dev)
- 				goto out;
- 		}
- out:
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 	return ret;
- }
- EXPORT_SYMBOL(drm_helper_force_disable_all);
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 3ab078321045..6860223f0068 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -940,10 +940,11 @@ static int setcmap_legacy(struct fb_cmap *cmap, struct fb_info *info)
- 	struct drm_fb_helper *fb_helper = info->par;
- 	struct drm_mode_set *modeset;
- 	struct drm_crtc *crtc;
-+	struct drm_modeset_acquire_ctx ctx;
- 	u16 *r, *g, *b;
- 	int ret = 0;
- 
--	drm_modeset_lock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(fb_helper->dev, ctx, 0, ret);
- 	drm_client_for_each_modeset(modeset, &fb_helper->client) {
- 		crtc = modeset->crtc;
- 		if (!crtc->funcs->gamma_set || !crtc->gamma_size) {
-@@ -970,7 +971,7 @@ static int setcmap_legacy(struct fb_cmap *cmap, struct fb_info *info)
- 			goto out;
- 	}
- out:
--	drm_modeset_unlock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_END(fb_helper->dev, ctx, ret);
++	if (params->flags & I915_OVERLAY_ENABLE)
++		i915_gem_object_put(new_bo);
  
  	return ret;
  }
-@@ -1441,10 +1442,11 @@ static int pan_display_legacy(struct fb_var_screeninfo *var,
- 	struct drm_fb_helper *fb_helper = info->par;
- 	struct drm_client_dev *client = &fb_helper->client;
- 	struct drm_mode_set *modeset;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int ret = 0;
- 
- 	mutex_lock(&client->modeset_mutex);
--	drm_modeset_lock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(fb_helper->dev, ctx, 0, ret);
- 	drm_client_for_each_modeset(modeset, client) {
- 		modeset->x = var->xoffset;
- 		modeset->y = var->yoffset;
-@@ -1457,7 +1459,7 @@ static int pan_display_legacy(struct fb_var_screeninfo *var,
- 			}
- 		}
- 	}
--	drm_modeset_unlock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_END(fb_helper->dev, ctx, ret);
- 	mutex_unlock(&client->modeset_mutex);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 07f5abc875e9..205e9aa9a409 100644
---- a/drivers/gpu/drm/drm_framebuffer.c
-+++ b/drivers/gpu/drm/drm_framebuffer.c
-@@ -1059,8 +1059,10 @@ static void legacy_remove_fb(struct drm_framebuffer *fb)
- 	struct drm_device *dev = fb->dev;
- 	struct drm_crtc *crtc;
- 	struct drm_plane *plane;
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	/* remove from any CRTC */
- 	drm_for_each_crtc(crtc, dev) {
- 		if (crtc->primary->fb == fb) {
-@@ -1082,7 +1084,7 @@ static void legacy_remove_fb(struct drm_framebuffer *fb)
- 			drm_plane_force_disable(plane);
- 		}
- 	}
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- }
- 
- /**
 -- 
 2.33.0
 
