@@ -2,45 +2,44 @@ Return-Path: <SRS0=KOmL=OR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D89CCC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 18:25:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C423AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 18:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB30760F6D
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 18:25:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AB30760F6D
+	by mail.kernel.org (Postfix) with ESMTPS id 6C48460F6C
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 18:25:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6C48460F6C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C616E44D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0EB96E859;
 	Mon, 27 Sep 2021 18:25:28 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 660916E44C
- for <intel-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 18:25:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="224603036"
-X-IronPort-AV: E=Sophos;i="5.85,327,1624345200"; d="scan'208";a="224603036"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 116D66E03C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 18:25:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="224603049"
+X-IronPort-AV: E=Sophos;i="5.85,327,1624345200"; d="scan'208";a="224603049"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2021 11:25:13 -0700
+ 27 Sep 2021 11:25:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,327,1624345200"; d="scan'208";a="476019553"
+X-IronPort-AV: E=Sophos;i="5.85,327,1624345200"; d="scan'208";a="518689410"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga007.jf.intel.com with SMTP; 27 Sep 2021 11:25:11 -0700
+ by fmsmga008.fm.intel.com with SMTP; 27 Sep 2021 11:25:17 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 27 Sep 2021 21:25:11 +0300
+ Mon, 27 Sep 2021 21:25:16 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 27 Sep 2021 21:24:51 +0300
-Message-Id: <20210927182455.27119-6-ville.syrjala@linux.intel.com>
+Date: Mon, 27 Sep 2021 21:24:53 +0300
+Message-Id: <20210927182455.27119-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210927182455.27119-1-ville.syrjala@linux.intel.com>
 References: <20210927182455.27119-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/9] drm/i915: Hoover the level>=n_entries WARN
- into intel_ddi_level()
+Subject: [Intel-gfx] [PATCH 7/9] drm/i915: Pass the lane to intel_ddi_level()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,119 +57,139 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-All callers of intel_ddi_level() duplicate the check+WARN
-to make sure the returned level is actually present in the
-appropriate buf_trans table. Let's push that stuff into
-intel_ddi_level() so the callers don't have to worry about it.
+In order to have per-lane drive settings we need intel_ddi_level()
+to accept the lane as a parameter. That is, the eventual goal is to
+call intel_ddi_level() once for each lane. For now we just pass in
+a hardcoded 0 and use the same settings for every lane. Ie. no
+change in behaviour yet.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c      | 27 ++++++++++---------
- drivers/gpu/drm/i915/display/intel_dpio_phy.c |  2 --
- drivers/gpu/drm/i915/display/intel_snps_phy.c |  2 --
- 3 files changed, 15 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 19 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_ddi.h      |  3 ++-
+ drivers/gpu/drm/i915/display/intel_dpio_phy.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_snps_phy.c |  2 +-
+ 4 files changed, 14 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 970a796a4f52..0fd67d2487ad 100644
+index 05124bf4abac..e6256d4c5af8 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -141,8 +141,6 @@ static void hsw_prepare_hdmi_ddi_buffers(struct intel_encoder *encoder,
- 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 		return;
--	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
--		level = n_entries - 1;
- 
- 	/* If we're boosting the current, set bit 31 of trans1 */
- 	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv) &&
-@@ -977,8 +975,6 @@ static void skl_ddi_set_iboost(struct intel_encoder *encoder,
- 		trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 		if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 			return;
--		if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
--			level = n_entries - 1;
- 
- 		iboost = trans->entries[level].hsw.i_boost;
- 	}
-@@ -1037,8 +1033,6 @@ static void icl_ddi_combo_vswing_program(struct intel_encoder *encoder,
- 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 		return;
--	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
--		level = n_entries - 1;
- 
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
- 		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-@@ -1163,8 +1157,6 @@ static void icl_mg_phy_set_signal_levels(struct intel_encoder *encoder,
- 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 		return;
--	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
--		level = n_entries - 1;
- 
- 	/* Set MG_TX_LINK_PARAMS cri_use_fs32 to 0. */
- 	for (ln = 0; ln < 2; ln++) {
-@@ -1286,8 +1278,6 @@ static void tgl_dkl_phy_set_signal_levels(struct intel_encoder *encoder,
- 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 		return;
--	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
--		level = n_entries - 1;
- 
- 	dpcnt_mask = (DKL_TX_PRESHOOT_COEFF_MASK |
- 		      DKL_TX_DE_EMPAHSIS_COEFF_MASK |
-@@ -1357,10 +1347,23 @@ static int intel_ddi_dp_level(struct intel_dp *intel_dp)
- int intel_ddi_level(struct intel_encoder *encoder,
- 		    const struct intel_crtc_state *crtc_state)
+@@ -125,7 +125,7 @@ static void hsw_prepare_hdmi_ddi_buffers(struct intel_encoder *encoder,
+ 					 const struct intel_crtc_state *crtc_state)
  {
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	const struct intel_ddi_buf_trans *trans;
-+	int level, n_entries;
-+
-+	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
-+	if (drm_WARN_ON_ONCE(&i915->drm, !trans))
-+		return 0;
-+
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
--		return intel_ddi_hdmi_level(encoder, crtc_state);
-+		level = intel_ddi_hdmi_level(encoder, crtc_state);
- 	else
--		return intel_ddi_dp_level(enc_to_intel_dp(encoder));
-+		level = intel_ddi_dp_level(enc_to_intel_dp(encoder));
-+
-+	if (drm_WARN_ON_ONCE(&i915->drm, level >= n_entries))
-+		level = n_entries - 1;
-+
-+	return level;
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	u32 iboost_bit = 0;
+ 	int n_entries;
+ 	enum port port = encoder->port;
+@@ -1017,7 +1017,7 @@ static void icl_ddi_combo_vswing_program(struct intel_encoder *encoder,
+ 					 const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	const struct intel_ddi_buf_trans *trans;
+ 	enum phy phy = intel_port_to_phy(dev_priv, encoder->port);
+ 	int n_entries, ln;
+@@ -1139,7 +1139,7 @@ static void icl_mg_phy_set_signal_levels(struct intel_encoder *encoder,
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	enum tc_port tc_port = intel_port_to_tc(dev_priv, encoder->port);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	const struct intel_ddi_buf_trans *trans;
+ 	int n_entries, ln;
+ 	u32 val;
+@@ -1260,7 +1260,7 @@ static void tgl_dkl_phy_set_signal_levels(struct intel_encoder *encoder,
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	enum tc_port tc_port = intel_port_to_tc(dev_priv, encoder->port);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	const struct intel_ddi_buf_trans *trans;
+ 	u32 val, dpcnt_mask, dpcnt_val;
+ 	int n_entries, ln;
+@@ -1328,9 +1328,9 @@ static int translate_signal_level(struct intel_dp *intel_dp,
+ 	return 0;
  }
  
- static void
+-static int intel_ddi_dp_level(struct intel_dp *intel_dp)
++static int intel_ddi_dp_level(struct intel_dp *intel_dp, int lane)
+ {
+-	u8 train_set = intel_dp->train_set[0];
++	u8 train_set = intel_dp->train_set[lane];
+ 	u8 signal_levels = train_set & (DP_TRAIN_VOLTAGE_SWING_MASK |
+ 					DP_TRAIN_PRE_EMPHASIS_MASK);
+ 
+@@ -1338,7 +1338,8 @@ static int intel_ddi_dp_level(struct intel_dp *intel_dp)
+ }
+ 
+ int intel_ddi_level(struct intel_encoder *encoder,
+-		    const struct intel_crtc_state *crtc_state)
++		    const struct intel_crtc_state *crtc_state,
++		    int lane)
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	const struct intel_ddi_buf_trans *trans;
+@@ -1351,7 +1352,7 @@ int intel_ddi_level(struct intel_encoder *encoder,
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+ 		level = intel_ddi_hdmi_level(encoder, trans);
+ 	else
+-		level = intel_ddi_dp_level(enc_to_intel_dp(encoder));
++		level = intel_ddi_dp_level(enc_to_intel_dp(encoder), lane);
+ 
+ 	if (drm_WARN_ON_ONCE(&i915->drm, level >= n_entries))
+ 		level = n_entries - 1;
+@@ -1365,7 +1366,7 @@ hsw_set_signal_levels(struct intel_encoder *encoder,
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	enum port port = encoder->port;
+ 	u32 signal_levels;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
+index d6947c06a455..d6971717ef9c 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.h
++++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+@@ -64,6 +64,7 @@ int intel_ddi_toggle_hdcp_bits(struct intel_encoder *intel_encoder,
+ 			       bool enable, u32 hdcp_mask);
+ void intel_ddi_sanitize_encoder_pll_mapping(struct intel_encoder *encoder);
+ int intel_ddi_level(struct intel_encoder *encoder,
+-		    const struct intel_crtc_state *crtc_state);
++		    const struct intel_crtc_state *crtc_state,
++		    int lane);
+ 
+ #endif /* __INTEL_DDI_H__ */
 diff --git a/drivers/gpu/drm/i915/display/intel_dpio_phy.c b/drivers/gpu/drm/i915/display/intel_dpio_phy.c
-index 4d604e4cfa5d..96650369164d 100644
+index 96650369164d..5a2eccb12fe4 100644
 --- a/drivers/gpu/drm/i915/display/intel_dpio_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_dpio_phy.c
-@@ -282,8 +282,6 @@ void bxt_ddi_phy_set_signal_levels(struct intel_encoder *encoder,
- 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 		return;
--	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
--		level = n_entries - 1;
- 
- 	bxt_port_to_phy_channel(dev_priv, encoder->port, &phy, &ch);
- 
+@@ -272,7 +272,7 @@ void bxt_ddi_phy_set_signal_levels(struct intel_encoder *encoder,
+ 				   const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	const struct intel_ddi_buf_trans *trans;
+ 	enum dpio_channel ch;
+ 	enum dpio_phy phy;
 diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index f59cc320ce9c..7a9771dbb63f 100644
+index 7a9771dbb63f..b18f08c851dc 100644
 --- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -64,8 +64,6 @@ void intel_snps_phy_set_signal_levels(struct intel_encoder *encoder,
- 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
- 		return;
--	if (drm_WARN_ON_ONCE(&dev_priv->drm, level < 0 || level >= n_entries))
--		level = n_entries - 1;
+@@ -58,7 +58,7 @@ void intel_snps_phy_set_signal_levels(struct intel_encoder *encoder,
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	const struct intel_ddi_buf_trans *trans;
+ 	enum phy phy = intel_port_to_phy(dev_priv, encoder->port);
+-	int level = intel_ddi_level(encoder, crtc_state);
++	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	int n_entries, ln;
  
- 	for (ln = 0; ln < 4; ln++) {
- 		u32 val = 0;
+ 	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
 -- 
 2.32.0
 
