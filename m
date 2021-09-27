@@ -2,54 +2,47 @@ Return-Path: <SRS0=KOmL=OR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45B33C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 11:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3356BC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 11:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9634E60F4B
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 11:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9634E60F4B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=baidu.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0137560F58
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 11:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0137560F58
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24CD589FAC;
-	Mon, 27 Sep 2021 11:41:04 +0000 (UTC)
-X-Greylist: delayed 1858 seconds by postgrey-1.36 at gabe;
- Sat, 25 Sep 2021 13:33:15 UTC
-Received: from baidu.com (mx22.baidu.com [220.181.50.185])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7EAD96E25A;
- Sat, 25 Sep 2021 13:33:15 +0000 (UTC)
-Received: from BC-Mail-Ex12.internal.baidu.com (unknown [172.31.51.52])
- by Forcepoint Email with ESMTPS id 2ECBE2642B6E4D6F05C4;
- Sat, 25 Sep 2021 20:46:20 +0800 (CST)
-Received: from BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) by
- BC-Mail-Ex12.internal.baidu.com (172.31.51.52) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2242.12; Sat, 25 Sep 2021 20:46:20 +0800
-Received: from LAPTOP-UKSR4ENP.internal.baidu.com (172.31.63.8) by
- BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2308.14; Sat, 25 Sep 2021 20:46:19 +0800
-From: Cai Huoqing <caihuoqing@baidu.com>
-To: <caihuoqing@baidu.com>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Zhenyu Wang
- <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <intel-gvt-dev@lists.freedesktop.org>
-Date: Sat, 25 Sep 2021 20:46:12 +0800
-Message-ID: <20210925124613.144-1-caihuoqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACBE889EB1;
+	Mon, 27 Sep 2021 11:42:07 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65DF889EAE;
+ Mon, 27 Sep 2021 11:42:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="204610587"
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="204610587"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2021 04:42:04 -0700
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="553158973"
+Received: from ajhome-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.19.222])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2021 04:42:03 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Mon, 27 Sep 2021 12:41:03 +0100
+Message-Id: <20210927114114.152310-2-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20210927114114.152310-1-matthew.auld@intel.com>
+References: <20210927114114.152310-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.31.63.8]
-X-ClientProxiedBy: BJHW-Mail-Ex01.internal.baidu.com (10.127.64.11) To
- BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42)
-X-Mailman-Approved-At: Mon, 27 Sep 2021 11:41:03 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Use direction definition
- DMA_BIDIRECTIONAL instead of PCI_DMA_BIDIRECTIONAL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v5 02/13] drm/ttm: stop setting page->index for
+ the ttm_tt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,161 +58,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace direction definition PCI_DMA_BIDIRECTIONAL
-with DMA_BIDIRECTIONAL, because it helps to enhance readability
-and avoid possible inconsistency.
+In commit:
 
-Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
+commit 58aa6622d32af7d2c08d45085f44c54554a16ed7
+Author: Thomas Hellstrom <thellstrom@vmware.com>
+Date:   Fri Jan 3 11:47:23 2014 +0100
+
+    drm/ttm: Correctly set page mapping and -index members
+
+we started setting the page->mapping and page->index to point to the
+virtual address space, if the pages were faulted with TTM. Apparently
+this was needed for core-mm to able to reverse lookup the virtual
+address given the struct page, and potentially unmap it from the page
+tables. However as pointed out by Thomas, since we are now using
+PFN_MAP, instead of say PFN_MIXED, this should no longer be the case.
+
+There was also apparently some usecase in vmwgfx which needed this for
+dirty tracking, but that also doesn't appear to be the case anymore, as
+pointed out by Thomas.
+
+We still need keep the page->mapping for now, since that is still needed
+for different reasons, but we try to address that in the next patch.
+
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  4 ++--
- drivers/gpu/drm/i915/gvt/gtt.c              | 17 ++++++++---------
- drivers/gpu/drm/i915/gvt/kvmgt.c            |  4 ++--
- drivers/gpu/drm/i915/i915_gem_gtt.c         |  4 ++--
- 4 files changed, 14 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo_vm.c | 2 --
+ drivers/gpu/drm/ttm/ttm_tt.c    | 4 +---
+ 2 files changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index a74b72f50cc9..afb35d2e5c73 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -32,7 +32,7 @@ static int init_fake_lmem_bar(struct intel_memory_region *mem)
- 	mem->remap_addr = dma_map_resource(i915->drm.dev,
- 					   mem->region.start,
- 					   mem->fake_mappable.size,
--					   PCI_DMA_BIDIRECTIONAL,
-+					   DMA_BIDIRECTIONAL,
- 					   DMA_ATTR_FORCE_CONTIGUOUS);
- 	if (dma_mapping_error(i915->drm.dev, mem->remap_addr)) {
- 		drm_mm_remove_node(&mem->fake_mappable);
-@@ -62,7 +62,7 @@ static void release_fake_lmem_bar(struct intel_memory_region *mem)
- 	dma_unmap_resource(mem->i915->drm.dev,
- 			   mem->remap_addr,
- 			   mem->fake_mappable.size,
--			   PCI_DMA_BIDIRECTIONAL,
-+			   DMA_BIDIRECTIONAL,
- 			   DMA_ATTR_FORCE_CONTIGUOUS);
- }
- 
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index e5c2fdfc20e3..53d0cb327539 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -745,7 +745,7 @@ static void ppgtt_free_spt(struct intel_vgpu_ppgtt_spt *spt)
- 	trace_spt_free(spt->vgpu->id, spt, spt->guest_page.type);
- 
- 	dma_unmap_page(kdev, spt->shadow_page.mfn << I915_GTT_PAGE_SHIFT, 4096,
--		       PCI_DMA_BIDIRECTIONAL);
-+		       DMA_BIDIRECTIONAL);
- 
- 	radix_tree_delete(&spt->vgpu->gtt.spt_tree, spt->shadow_page.mfn);
- 
-@@ -849,7 +849,7 @@ static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt(
- 	 */
- 	spt->shadow_page.type = type;
- 	daddr = dma_map_page(kdev, spt->shadow_page.page,
--			     0, 4096, PCI_DMA_BIDIRECTIONAL);
-+			     0, 4096, DMA_BIDIRECTIONAL);
- 	if (dma_mapping_error(kdev, daddr)) {
- 		gvt_vgpu_err("fail to map dma addr\n");
- 		ret = -EINVAL;
-@@ -865,7 +865,7 @@ static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt(
- 	return spt;
- 
- err_unmap_dma:
--	dma_unmap_page(kdev, daddr, PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
-+	dma_unmap_page(kdev, daddr, PAGE_SIZE, DMA_BIDIRECTIONAL);
- err_free_spt:
- 	free_spt(spt);
- 	return ERR_PTR(ret);
-@@ -2409,8 +2409,7 @@ static int alloc_scratch_pages(struct intel_vgpu *vgpu,
- 		return -ENOMEM;
- 	}
- 
--	daddr = dma_map_page(dev, virt_to_page(scratch_pt), 0,
--			4096, PCI_DMA_BIDIRECTIONAL);
-+	daddr = dma_map_page(dev, virt_to_page(scratch_pt), 0, 4096, DMA_BIDIRECTIONAL);
- 	if (dma_mapping_error(dev, daddr)) {
- 		gvt_vgpu_err("fail to dmamap scratch_pt\n");
- 		__free_page(virt_to_page(scratch_pt));
-@@ -2461,7 +2460,7 @@ static int release_scratch_page_tree(struct intel_vgpu *vgpu)
- 		if (vgpu->gtt.scratch_pt[i].page != NULL) {
- 			daddr = (dma_addr_t)(vgpu->gtt.scratch_pt[i].page_mfn <<
- 					I915_GTT_PAGE_SHIFT);
--			dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
-+			dma_unmap_page(dev, daddr, 4096, DMA_BIDIRECTIONAL);
- 			__free_page(vgpu->gtt.scratch_pt[i].page);
- 			vgpu->gtt.scratch_pt[i].page = NULL;
- 			vgpu->gtt.scratch_pt[i].page_mfn = 0;
-@@ -2741,7 +2740,7 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
- 	}
- 
- 	daddr = dma_map_page(dev, virt_to_page(page), 0,
--			4096, PCI_DMA_BIDIRECTIONAL);
-+			4096, DMA_BIDIRECTIONAL);
- 	if (dma_mapping_error(dev, daddr)) {
- 		gvt_err("fail to dmamap scratch ggtt page\n");
- 		__free_page(virt_to_page(page));
-@@ -2755,7 +2754,7 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
- 		ret = setup_spt_oos(gvt);
- 		if (ret) {
- 			gvt_err("fail to initialize SPT oos\n");
--			dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
-+			dma_unmap_page(dev, daddr, 4096, DMA_BIDIRECTIONAL);
- 			__free_page(gvt->gtt.scratch_page);
- 			return ret;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+index 5b9b7fd01a69..9a2119fe4bdd 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+@@ -346,8 +346,6 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+ 			} else if (unlikely(!page)) {
+ 				break;
+ 			}
+-			page->index = drm_vma_node_start(&bo->base.vma_node) +
+-				page_offset;
+ 			pfn = page_to_pfn(page);
  		}
-@@ -2779,7 +2778,7 @@ void intel_gvt_clean_gtt(struct intel_gvt *gvt)
- 	dma_addr_t daddr = (dma_addr_t)(gvt->gtt.scratch_mfn <<
- 					I915_GTT_PAGE_SHIFT);
  
--	dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
-+	dma_unmap_page(dev, daddr, 4096, DMA_BIDIRECTIONAL);
+diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+index dae52433beeb..1cc04c224988 100644
+--- a/drivers/gpu/drm/ttm/ttm_tt.c
++++ b/drivers/gpu/drm/ttm/ttm_tt.c
+@@ -367,10 +367,8 @@ static void ttm_tt_clear_mapping(struct ttm_tt *ttm)
+ 	if (ttm->page_flags & TTM_PAGE_FLAG_SG)
+ 		return;
  
- 	__free_page(gvt->gtt.scratch_page);
- 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 7efa386449d1..20b82fb036f8 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -328,7 +328,7 @@ static int gvt_dma_map_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		return ret;
- 
- 	/* Setup DMA mapping. */
--	*dma_addr = dma_map_page(dev, page, 0, size, PCI_DMA_BIDIRECTIONAL);
-+	*dma_addr = dma_map_page(dev, page, 0, size, DMA_BIDIRECTIONAL);
- 	if (dma_mapping_error(dev, *dma_addr)) {
- 		gvt_vgpu_err("DMA mapping failed for pfn 0x%lx, ret %d\n",
- 			     page_to_pfn(page), ret);
-@@ -344,7 +344,7 @@ static void gvt_dma_unmap_page(struct intel_vgpu *vgpu, unsigned long gfn,
- {
- 	struct device *dev = vgpu->gvt->gt->i915->drm.dev;
- 
--	dma_unmap_page(dev, dma_addr, size, PCI_DMA_BIDIRECTIONAL);
-+	dma_unmap_page(dev, dma_addr, size, DMA_BIDIRECTIONAL);
- 	gvt_unpin_guest_page(vgpu, gfn, size);
+-	for (i = 0; i < ttm->num_pages; ++i) {
++	for (i = 0; i < ttm->num_pages; ++i)
+ 		(*page)->mapping = NULL;
+-		(*page++)->index = 0;
+-	}
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
-index 36489be4896b..cd5f2348a187 100644
---- a/drivers/gpu/drm/i915/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
-@@ -30,7 +30,7 @@ int i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
- 	do {
- 		if (dma_map_sg_attrs(obj->base.dev->dev,
- 				     pages->sgl, pages->nents,
--				     PCI_DMA_BIDIRECTIONAL,
-+				     DMA_BIDIRECTIONAL,
- 				     DMA_ATTR_SKIP_CPU_SYNC |
- 				     DMA_ATTR_NO_KERNEL_MAPPING |
- 				     DMA_ATTR_NO_WARN))
-@@ -64,7 +64,7 @@ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
- 		usleep_range(100, 250);
- 
- 	dma_unmap_sg(i915->drm.dev, pages->sgl, pages->nents,
--		     PCI_DMA_BIDIRECTIONAL);
-+		     DMA_BIDIRECTIONAL);
- }
- 
- /**
+ void ttm_tt_unpopulate(struct ttm_device *bdev, struct ttm_tt *ttm)
 -- 
-2.25.1
+2.26.3
 
