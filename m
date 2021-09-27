@@ -2,40 +2,68 @@ Return-Path: <SRS0=KOmL=OR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66B96C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 15:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 253D2C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 16:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 04B9160F94
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 15:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 04B9160F94
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id D393F60FD7
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 16:14:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D393F60FD7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52EA38933C;
-	Mon, 27 Sep 2021 15:51:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 026F78933C;
- Mon, 27 Sep 2021 15:51:43 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id ED084A8169;
- Mon, 27 Sep 2021 15:51:42 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2062363606885601050=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E4789F2A;
+	Mon, 27 Sep 2021 16:14:37 +0000 (UTC)
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD3E89F2A;
+ Mon, 27 Sep 2021 16:14:36 +0000 (UTC)
+Received: by mail-qv1-xf35.google.com with SMTP id a13so11475617qvo.9;
+ Mon, 27 Sep 2021 09:14:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=h64gNFlWIc42VGrS9XKwzi00cpHGNGVgYmjsS0AwF2A=;
+ b=ctkHMkrLSW7fwZSozOJuNfYI82G/MP5YZbxFoMR7J1u2tekrDy1/1NufP7KizFKJj7
+ unCwwDChR9lzh0XLA1O6yhs6BY+wXfaxbtRWNzMHfy2ae7p8X+p0/VXzVj/1rtmD7FVm
+ pjVCpf42Dn1/BslTFyG5+HK+8C6or5Mwaf1eDzCMZIfzXgxYGcDFKwTzULri796SNtf5
+ lh+YKWvLZ1awo2ghSwGPCQV/Aig7M9JYqp79pNwLJx+LqeE+swPfXT3Y0u7iUwfL3OiN
+ Jl8VwcTDAvBWj8A7a6iAB36A4ETowgQauuLdvSQY2hClcaYA5xBCjTQt2YRGOWvFu9I5
+ WXyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=h64gNFlWIc42VGrS9XKwzi00cpHGNGVgYmjsS0AwF2A=;
+ b=IjIOMByMtZmSoCNIX7KCLxCoSstDIC/YZbKsxXUxdCQYPRpHe6bhPKEGNaQ4gP3ipj
+ EOA7YYpzKGsjArOVvVYbOVQdGlZqNEfIfllava5ekrBBu7MhScLIAdacnAKSOip7dtDo
+ 9fXwJjvYNHy1vMbvjWOa14LxlUoxJOQiBY5rMxLNUaMqmTPc754/yk+ZWfnm8MhYdZ6I
+ on6XwNOdxS9wu7roajVNP1cRjtkFkcZaxMbY7hK5k9loz2CldOgrEaKkhO8BTg1wMU7L
+ PMJZzv1ZE+rbr8ucvdNYgYWIC16NuL1mHzrUIvnkLjdZNnH4LkZPyVW/Ssjh8TFo2J6/
+ CfNw==
+X-Gm-Message-State: AOAM533YwHHVpDrhfVLwfGj+LHljsEFf99Tw9sIQalwKymHARcEGs+Pu
+ QXamyZcWWCdClI/lgMrCDCXGCspXnjE3TlJ6CSg=
+X-Google-Smtp-Source: ABdhPJy/jb2s2DJZb7tgjR4PBEAYlr2a94Az5LuINlHFGNkWBWH3eDjktK+H13rHrsdyItZYFt3W5GUuS3pF9FdFEKw=
+X-Received: by 2002:a05:6214:153:: with SMTP id
+ x19mr670918qvs.18.1632759274761; 
+ Mon, 27 Sep 2021 09:14:34 -0700 (PDT)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Tejas Upadhyay" <tejaskumarx.surendrakumar.upadhyay@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 27 Sep 2021 15:51:42 -0000
-Message-ID: <163275790293.14084.11601447145340305063@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210927100240.2527555-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-In-Reply-To: <20210927100240.2527555-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/gen11=3A_Disable_cursor_clock_gating_in_HDR_mode_=28rev5?=
- =?utf-8?q?=29?=
+References: <20210927114114.152310-1-matthew.auld@intel.com>
+ <a0ff7b4a-2433-7ff4-a998-c2c286d3c497@amd.com>
+In-Reply-To: <a0ff7b4a-2433-7ff4-a998-c2c286d3c497@amd.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Mon, 27 Sep 2021 17:14:06 +0100
+Message-ID: <CAM0jSHMrYPM9Wb2WCw5ktLjhN=+0H-qD_1cQbrnPhQRg0_U2=Q@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>, 
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ ML dri-devel <dri-devel@lists.freedesktop.org>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v5 01/13] drm/ttm: stop calling tt_swapin in
+ vm_access
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,292 +76,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2062363606885601050==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, 27 Sept 2021 at 12:47, Christian K=C3=B6nig <christian.koenig@amd.c=
+om> wrote:
+>
+> Any objections that I just push patches 1-7 to drm-misc-next?
 
-== Series Details ==
+Please go ahead Christian. Thanks.
 
-Series: drm/i915/gen11: Disable cursor clock gating in HDR mode (rev5)
-URL   : https://patchwork.freedesktop.org/series/91674/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10648 -> Patchwork_21165
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21165 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@query-info:
-    - fi-bsw-kefka:       NOTRUN -> [SKIP][1] ([fdo#109271]) +32 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][2] ([i915#2190])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html
-    - fi-bxt-dsi:         NOTRUN -> [SKIP][3] ([fdo#109271] / [i915#2190])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@gem_huc_copy@huc-copy.html
-
-  * igt@i915_pm_backlight@basic-brightness:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][4] ([i915#1155])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-tgl-1115g4:      NOTRUN -> [INCOMPLETE][5] ([i915#4006] / [i915#4193])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
-
-  * igt@kms_addfb_basic@too-wide:
-    - fi-tgl-1115g4:      NOTRUN -> [DMESG-WARN][6] ([i915#4002]) +89 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_addfb_basic@too-wide.html
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-bxt-dsi:         NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@kms_chamelium@common-hpd-after-suspend.html
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][8] ([fdo#111827]) +8 similar issues
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_chamelium@hdmi-edid-read:
-    - fi-bsw-kefka:       NOTRUN -> [SKIP][9] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bsw-kefka/igt@kms_chamelium@hdmi-edid-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][10] ([i915#4103]) +1 similar issue
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - fi-bxt-dsi:         NOTRUN -> [SKIP][11] ([fdo#109271]) +30 similar issues
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@kms_force_connector_basic@force-load-detect.html
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][12] ([fdo#109285])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
-    - fi-bxt-dsi:         NOTRUN -> [SKIP][13] ([fdo#109271] / [i915#533])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
-
-  * igt@kms_psr@primary_mmap_gtt:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][14] ([i915#1072]) +3 similar issues
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][15] ([i915#3301])
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html
-
-  * igt@runner@aborted:
-    - fi-tgl-1115g4:      NOTRUN -> [FAIL][16] ([i915#2722])
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@runner@aborted.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2722]: https://gitlab.freedesktop.org/drm/intel/issues/2722
-  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
-  [i915#4002]: https://gitlab.freedesktop.org/drm/intel/issues/4002
-  [i915#4006]: https://gitlab.freedesktop.org/drm/intel/issues/4006
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4193]: https://gitlab.freedesktop.org/drm/intel/issues/4193
-  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
-
-
-Participating hosts (38 -> 34)
-------------------------------
-
-  Additional (2): fi-bsw-kefka fi-tgl-1115g4 
-  Missing    (6): fi-rkl-11600 bat-adls-5 fi-bsw-cyan bat-adlp-4 bat-jsl-2 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10648 -> Patchwork_21165
-
-  CI-20190529: 20190529
-  CI_DRM_10648: 73d93dcb0d48bb76af25ca3f7149598e4bc68098 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6219: 4b5644c9751b489c73c9bb174644c08b31533cc8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21165: 41d229b94d3c589b11c1411e26ba44d5c1814392 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-41d229b94d3c drm/i915/gen11: Disable cursor clock gating in HDR mode
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/index.html
-
---===============2062363606885601050==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gen11: Disable cursor clock gating in HDR mode (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/91674/">https://patchwork.freedesktop.org/series/91674/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10648 -&gt; Patchwork_21165</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21165 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@query-info:</p>
-<ul>
-<li>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +32 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>
-<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</p>
-</li>
-<li>
-<p>fi-bxt-dsi:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_backlight@basic-brightness:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1155">i915#1155</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4006">i915#4006</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4193">i915#4193</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@too-wide:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_addfb_basic@too-wide.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4002">i915#4002</a>) +89 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>
-<p>fi-bxt-dsi:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</p>
-</li>
-<li>
-<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-edid-read:</p>
-<ul>
-<li>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bsw-kefka/igt@kms_chamelium@hdmi-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4103">i915#4103</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>
-<p>fi-bxt-dsi:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +30 similar issues</p>
-</li>
-<li>
-<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
-<ul>
-<li>fi-bxt-dsi:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-bxt-dsi/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@primary_mmap_gtt:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21165/fi-tgl-1115g4/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2722">i915#2722</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (38 -&gt; 34)</h2>
-<p>Additional (2): fi-bsw-kefka fi-tgl-1115g4 <br />
-  Missing    (6): fi-rkl-11600 bat-adls-5 fi-bsw-cyan bat-adlp-4 bat-jsl-2 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10648 -&gt; Patchwork_21165</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10648: 73d93dcb0d48bb76af25ca3f7149598e4bc68098 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6219: 4b5644c9751b489c73c9bb174644c08b31533cc8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21165: 41d229b94d3c589b11c1411e26ba44d5c1814392 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>41d229b94d3c drm/i915/gen11: Disable cursor clock gating in HDR mode</p>
-
-</body>
-</html>
-
---===============2062363606885601050==--
+>
+> Christian.
+>
+> Am 27.09.21 um 13:41 schrieb Matthew Auld:
+> > In commit:
+> >
+> > commit 09ac4fcb3f255e9225967c75f5893325c116cdbe
+> > Author: Felix Kuehling <Felix.Kuehling@amd.com>
+> > Date:   Thu Jul 13 17:01:16 2017 -0400
+> >
+> >      drm/ttm: Implement vm_operations_struct.access v2
+> >
+> > we added the vm_access hook, where we also directly call tt_swapin for
+> > some reason. If something is swapped-out then the ttm_tt must also be
+> > unpopulated, and since access_kmap should also call tt_populate, if
+> > needed, then swapping-in will already be handled there.
+> >
+> > If anything, calling tt_swapin directly here would likely always fail
+> > since the tt->pages won't yet be populated, or worse since the tt->page=
+s
+> > array is never actually cleared in unpopulate this might lead to a nast=
+y
+> > uaf.
+> >
+> > Fixes: 09ac4fcb3f25 ("drm/ttm: Implement vm_operations_struct.access v2=
+")
+> > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> > Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> >   drivers/gpu/drm/ttm/ttm_bo_vm.c | 5 -----
+> >   1 file changed, 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_=
+bo_vm.c
+> > index f56be5bc0861..5b9b7fd01a69 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > @@ -519,11 +519,6 @@ int ttm_bo_vm_access(struct vm_area_struct *vma, u=
+nsigned long addr,
+> >
+> >       switch (bo->resource->mem_type) {
+> >       case TTM_PL_SYSTEM:
+> > -             if (unlikely(bo->ttm->page_flags & TTM_PAGE_FLAG_SWAPPED)=
+) {
+> > -                     ret =3D ttm_tt_swapin(bo->ttm);
+> > -                     if (unlikely(ret !=3D 0))
+> > -                             return ret;
+> > -             }
+> >               fallthrough;
+> >       case TTM_PL_TT:
+> >               ret =3D ttm_bo_vm_access_kmap(bo, offset, buf, len, write=
+);
+>
