@@ -2,39 +2,39 @@ Return-Path: <SRS0=KIcH=OS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 518ECC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 14:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99BDCC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 14:54:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18E3E611EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 14:24:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 18E3E611EF
+	by mail.kernel.org (Postfix) with ESMTPS id 4F68360F24
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 14:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4F68360F24
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB206E8A4;
-	Tue, 28 Sep 2021 14:24:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2B546E092;
+	Tue, 28 Sep 2021 14:54:14 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id AB27B6E8A1;
- Tue, 28 Sep 2021 14:24:54 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3AA4A6E092;
+ Tue, 28 Sep 2021 14:54:13 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A418DA0BCB;
- Tue, 28 Sep 2021 14:24:54 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3267AAA917;
+ Tue, 28 Sep 2021 14:54:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7744087772467177821=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Zhenyu Wang" <zhenyuw@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 28 Sep 2021 14:24:54 -0000
-Message-ID: <163283909465.3951.3717057671507039937@emeril.freedesktop.org>
+Date: Tue, 28 Sep 2021 14:54:13 -0000
+Message-ID: <163284085319.3949.14847558317158043319@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210803143058.GA1721383@nvidia.com>
 In-Reply-To: <20210803143058.GA1721383@nvidia.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_refactor_the_i915_GVT_support_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgcmVm?=
+ =?utf-8?q?actor_the_i915_GVT_support_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,27 +51,113 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============7744087772467177821==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
 Series: refactor the i915 GVT support (rev2)
 URL   : https://patchwork.freedesktop.org/series/93816/
-State : warning
+State : success
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
+CI Bug Log - changes from CI_DRM_10654 -> Patchwork_21176
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21176/index.html
+
+
+Changes
+-------
+
+  No changes found
+
+
+Participating hosts (45 -> 35)
+------------------------------
+
+  Missing    (10): fi-kbl-soraka fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 fi-tgl-y bat-jsl-2 bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10654 -> Patchwork_21176
+
+  CI-20190529: 20190529
+  CI_DRM_10654: 7006e15e0a109ce092026c4b576fe8a206e8b756 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6224: 2f4e6430a97f04284d1cafb1479e7c1b0b2d596a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21176: 6ed5d9205804044b34a03ffb8f235fa101689f17 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
 6ed5d9205804 refactor the i915 GVT support
--:48: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#48: 
-> request_module("kvmgt")->[modprobe]->init_module("kvmgt")->load_module()->simplify_symbols()->resolve_symbol_wait():
 
--:67: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'Commit 9bea7f23952d ("module: fix bne2 "gave up waiting for init of module libcrc32c"")'
-#67: 
-Commit 9bea7f23952d5 ("module: fix bne2 "gave up waiting for init of
-module libcrc32c") is worth reviewing. It dealt with a similar issue,
+== Logs ==
 
--:185: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21176/index.html
 
-total: 2 errors, 1 warnings, 0 checks, 8 lines checked
+--===============7744087772467177821==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>refactor the i915 GVT support (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93816/">https://patchwork.freedesktop.org/series/93816/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21176/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21176/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10654 -&gt; Patchwork_21176</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21176/index.html</p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Participating hosts (45 -&gt; 35)</h2>
+<p>Missing    (10): fi-kbl-soraka fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 fi-tgl-y bat-jsl-2 bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10654 -&gt; Patchwork_21176</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10654: 7006e15e0a109ce092026c4b576fe8a206e8b756 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6224: 2f4e6430a97f04284d1cafb1479e7c1b0b2d596a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21176: 6ed5d9205804044b34a03ffb8f235fa101689f17 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>6ed5d9205804 refactor the i915 GVT support</p>
+
+</body>
+</html>
+
+--===============7744087772467177821==--
