@@ -2,49 +2,44 @@ Return-Path: <SRS0=4MRd=OT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F717C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 06:56:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07F6AC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 06:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31B01613C8
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 06:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 31B01613C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B70D5611C0
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 06:59:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B70D5611C0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55096E17F;
-	Wed, 29 Sep 2021 06:56:15 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A74E6E17F;
- Wed, 29 Sep 2021 06:56:15 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10121"; a="285889832"
-X-IronPort-AV: E=Sophos;i="5.85,331,1624345200"; d="scan'208";a="285889832"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50CFB89CB2;
+	Wed, 29 Sep 2021 06:59:25 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D38E89CB2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 06:59:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10121"; a="288533472"
+X-IronPort-AV: E=Sophos;i="5.85,331,1624345200"; d="scan'208";a="288533472"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 23:56:14 -0700
-X-IronPort-AV: E=Sophos;i="5.85,331,1624345200"; d="scan'208";a="554513315"
-Received: from jmaugusx-mobl1.gar.corp.intel.com (HELO [10.249.254.159])
- ([10.249.254.159])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 23:59:23 -0700
+X-IronPort-AV: E=Sophos;i="5.85,331,1624345200"; d="scan'208";a="554513972"
+Received: from amelillo-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.251.221.121])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 23:56:12 -0700
-Message-ID: <49c80bdd-f5e5-8ec8-567b-9bbf45d5105d@linux.intel.com>
-Date: Wed, 29 Sep 2021 08:56:10 +0200
+ 28 Sep 2021 23:59:21 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Dave Airlie <airlied@gmail.com>
+In-Reply-To: <cover.1632869550.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1632869550.git.jani.nikula@intel.com>
+Date: Wed, 29 Sep 2021 09:59:18 +0300
+Message-ID: <87bl4bx3y1.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.0
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com
-References: <20210927151017.287414-1-thomas.hellstrom@linux.intel.com>
- <a3cdd992-6208-b0c9-72b1-191fd47c40a8@intel.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-In-Reply-To: <a3cdd992-6208-b0c9-72b1-191fd47c40a8@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/ttm: Rework object initialization
- slightly
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 00/24] i915/display: split and constify
+ vtable, again
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +55,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 9/28/21 12:30, Matthew Auld wrote:
-> On 27/09/2021 16:10, Thomas Hellström wrote:
->> We may end up in i915_ttm_bo_destroy() in an error path before the
->> object is fully initialized. In that case it's not correct to call
->> __i915_gem_free_object(), because that function
->> a) Assumes the gem object refcount is 0, which it isn't.
->> b) frees the placements which are owned by the caller until the
->> init_object() region ops returns successfully. Fix this by providing
->> a lightweight cleanup function i915_gem_object_fini() which is also
->> called by __i915_gem_free_object().
->>
->> While doing this, also make sure we call dma_resv_fini() as part of
->> ordinary object destruction and not from the RCU callback that frees
->> the object. This will help track down bugs where the object is 
->> incorrectly
->> locked from an RCU lookup.
->>
->> Finally, make sure the object isn't put on the region list until it's
->> either locked or fully initialized in order to block list processing of
->> partially initialized objects.
->>
->> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> ---
->>   drivers/gpu/drm/i915/gem/i915_gem_object.c | 18 ++++++++++--
->>   drivers/gpu/drm/i915/gem/i915_gem_object.h |  3 ++
->>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c    | 32 +++++++++++++---------
->>   3 files changed, 38 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c 
->> b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> index 6fb9afb65034..244e555f9bba 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> @@ -89,6 +89,20 @@ void i915_gem_object_init(struct 
->> drm_i915_gem_object *obj,
->>       mutex_init(&obj->mm.get_dma_page.lock);
->>   }
->>   +/**
->> + * i915_gem_object_fini - Clean up a GEM object initialization
->> + * @obj: The gem object cleanup
->> + *
->> + * This function cleans up gem object fields that are set up by
->> + * drm_gem_private_object_init() and i915_gem_object_init().
->> + */
->> +void i915_gem_object_fini(struct drm_i915_gem_object *obj)
->> +{
->> +    mutex_destroy(&obj->mm.get_page.lock);
->> +    mutex_destroy(&obj->mm.get_dma_page.lock);
->> +    dma_resv_fini(&obj->base._resv);
->> +}
->> +
->>   /**
->>    * Mark up the object's coherency levels for a given cache_level
->>    * @obj: #drm_i915_gem_object
->> @@ -174,7 +188,6 @@ void __i915_gem_free_object_rcu(struct rcu_head 
->> *head)
->>           container_of(head, typeof(*obj), rcu);
->>       struct drm_i915_private *i915 = to_i915(obj->base.dev);
->>   -    dma_resv_fini(&obj->base._resv);
->>       i915_gem_object_free(obj);
->>         GEM_BUG_ON(!atomic_read(&i915->mm.free_count));
->> @@ -223,7 +236,6 @@ void __i915_gem_free_object(struct 
->> drm_i915_gem_object *obj)
->>                                  obj_link))) {
->>               GEM_BUG_ON(vma->obj != obj);
->>               spin_unlock(&obj->vma.lock);
->> -
->>               __i915_vma_put(vma);
+On Wed, 29 Sep 2021, Jani Nikula <jani.nikula@intel.com> wrote:
+> I must have read the series several times over without spotting the
+> issue, but finally figured it out with the help of [1].
 >
-> Unrelated change?
+> Return value and check added to intel_compute_global_watermarks() in
+> patch 4, and a couple of patches rebased. Seems so obvious now...
 >
-> Not seeing any DG1 machines in CI currently, so assuming this was 
-> tested locally,
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> Fingers crossed.
 >
-Thanks for reviewing. Yes it was tested locally, but an additional 
-change reviewed another flaw from the moving of the callsite 
-__i915_gem_free_object() (we free the backing memory before unbinding, 
-unmapping and calling put_pages() on object destruction, so it needs an 
-additional fix).
+> BR,
+> Jani.
+>
+> [1] https://patchwork.freedesktop.org/patch/msgid/20210928223241.22149-1-jani.nikula@intel.com
 
-/Thomas
+Yay, finally pushed the lot, thanks for the patches and patience.
+
+The lock debug patch seems like a worthwhile thing to have.
+
+BR,
+Jani.
 
 
-
+-- 
+Jani Nikula, Intel Open Source Graphics Center
