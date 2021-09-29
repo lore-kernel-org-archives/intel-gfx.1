@@ -2,34 +2,34 @@ Return-Path: <SRS0=4MRd=OT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D354C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 21:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF955C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 21:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 525CE613A6
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 21:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 525CE613A6
+	by mail.kernel.org (Postfix) with ESMTPS id 74D88613A6
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 21:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 74D88613A6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBE96EADD;
-	Wed, 29 Sep 2021 21:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6AFE6EADE;
+	Wed, 29 Sep 2021 21:54:32 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id F148D6E28A;
- Wed, 29 Sep 2021 21:47:16 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A58726EADE;
+ Wed, 29 Sep 2021 21:54:31 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E8185A363C;
- Wed, 29 Sep 2021 21:47:16 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9B9A8A47EB;
+ Wed, 29 Sep 2021 21:54:31 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============7408291788554287535=="
+ boundary="===============1977656265102294848=="
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Imre Deak" <imre.deak@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Sep 2021 21:47:16 -0000
-Message-ID: <163295203690.27097.7281007157395158878@emeril.freedesktop.org>
+Date: Wed, 29 Sep 2021 21:54:31 -0000
+Message-ID: <163295247158.27097.8863015926034246961@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210921002313.1132357-1-imre.deak@intel.com>
 In-Reply-To: <20210921002313.1132357-1-imre.deak@intel.com>
@@ -51,7 +51,7 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7408291788554287535==
+--===============1977656265102294848==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -535,7 +535,7 @@ Known issues
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21189/index.html
 
---===============7408291788554287535==
+--===============1977656265102294848==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -1171,4 +1171,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============7408291788554287535==--
+--===============1977656265102294848==--
