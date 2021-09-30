@@ -2,43 +2,47 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C2CEC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:18:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A13AAC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC2DF61350
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:18:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC2DF61350
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6FEB461139
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:21:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6FEB461139
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3267F6EC06;
-	Thu, 30 Sep 2021 16:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B91B76EC06;
+	Thu, 30 Sep 2021 16:21:54 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29616EC06
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 16:18:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="247766103"
-X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="247766103"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFAA6EC06
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 16:21:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="247768301"
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="247768301"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 09:09:08 -0700
-X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="564262322"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 09:09:07 -0700
-Date: Thu, 30 Sep 2021 19:09:03 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
+ 30 Sep 2021 09:16:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="564266842"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga002.fm.intel.com with SMTP; 30 Sep 2021 09:16:11 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 30 Sep 2021 19:16:10 +0300
+Date: Thu, 30 Sep 2021 19:16:10 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210930160903.GE2418125@ideak-desk.fi.intel.com>
+Message-ID: <YVXiyl86FHr1eL/v@intel.com>
 References: <20210930134310.31669-1-ville.syrjala@linux.intel.com>
  <20210930134310.31669-3-ville.syrjala@linux.intel.com>
+ <20210930160903.GE2418125@ideak-desk.fi.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210930134310.31669-3-ville.syrjala@linux.intel.com>
+In-Reply-To: <20210930160903.GE2418125@ideak-desk.fi.intel.com>
+X-Patchwork-Hint: comment
 Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915: Remove DP_PORT_EN stuff from
  link training code
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -56,47 +60,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 30, 2021 at 04:43:09PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Thu, Sep 30, 2021 at 07:09:03PM +0300, Imre Deak wrote:
+> On Thu, Sep 30, 2021 at 04:43:09PM +0300, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > Setting DP_PORT_EN in intel_dp->DP is already handled by
+> > intel_dp_enable_port() so there is no point in setting it also
+> > from the link training code.
+> > 
+> > For DDI platforms a bit with that name doesn't even exist. The
+> > counterpart is DDI_BUF_CTL_ENABLE, which is already set up by
+> > intel_ddi_prepare_link_retrain(). Fortunately it is the same bit
+> > so there was no harm in doing this from the platform independent
+> > code as well. But it's just confusing when platform independent
+> > code sets platform specific bits in intel_dp->DP. Just get rid
+> > of it.
+> > 
+> > Cc: Imre Deak <imre.deak@intel.com>
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> Setting DP_PORT_EN in intel_dp->DP is already handled by
-> intel_dp_enable_port() so there is no point in setting it also
-> from the link training code.
+> Reviewed-by: Imre Deak <imre.deak.intel.com>
 > 
-> For DDI platforms a bit with that name doesn't even exist. The
-> counterpart is DDI_BUF_CTL_ENABLE, which is already set up by
-> intel_ddi_prepare_link_retrain(). Fortunately it is the same bit
-> so there was no harm in doing this from the platform independent
-> code as well. But it's just confusing when platform independent
-> code sets platform specific bits in intel_dp->DP. Just get rid
-> of it.
-> 
-> Cc: Imre Deak <imre.deak@intel.com>
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> On pre-DDI platforms intel_dp_enable_port() may not be called before
+> short HPD/link-retraining, but the init/resume time HW readout will
+> set DP_PORT_EN for that case.
 
-Reviewed-by: Imre Deak <imre.deak.intel.com>
+I actually wonder what happens on DDI platforms. We don't do the resume
+readout there AFAICS, so if link retraining happens before any modesets
+are we just screwed atm?
 
-On pre-DDI platforms intel_dp_enable_port() may not be called before
-short HPD/link-retraining, but the init/resume time HW readout will
-set DP_PORT_EN for that case.
+> 
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 --
+> >  1 file changed, 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > index 449499a5c4c1..053ed9302cda 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > @@ -499,8 +499,6 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
+> >  		DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
+> >  	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
+> >  
+> > -	intel_dp->DP |= DP_PORT_EN;
+> > -
+> >  	return true;
+> >  }
+> >  
+> > -- 
+> > 2.32.0
+> > 
 
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index 449499a5c4c1..053ed9302cda 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -499,8 +499,6 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
->  		DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
->  	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
->  
-> -	intel_dp->DP |= DP_PORT_EN;
-> -
->  	return true;
->  }
->  
-> -- 
-> 2.32.0
-> 
+-- 
+Ville Syrjälä
+Intel
