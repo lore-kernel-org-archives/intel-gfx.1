@@ -2,45 +2,45 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89896C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C2CEC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 539DA61350
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:18:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 539DA61350
+	by mail.kernel.org (Postfix) with ESMTPS id AC2DF61350
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 16:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC2DF61350
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD0B76EC05;
-	Thu, 30 Sep 2021 16:18:05 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFFB76EC05
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 16:18:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="204708833"
-X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="204708833"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 09:16:02 -0700
-X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="555833727"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3267F6EC06;
+	Thu, 30 Sep 2021 16:18:44 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F29616EC06
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 16:18:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="247766103"
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="247766103"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 09:09:08 -0700
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="564262322"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 09:16:00 -0700
-Date: Thu, 30 Sep 2021 19:15:51 +0300
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 09:09:07 -0700
+Date: Thu, 30 Sep 2021 19:09:03 +0300
 From: Imre Deak <imre.deak@intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210930161551.GF2418125@ideak-desk.fi.intel.com>
+Message-ID: <20210930160903.GE2418125@ideak-desk.fi.intel.com>
 References: <20210930134310.31669-1-ville.syrjala@linux.intel.com>
- <20210930134310.31669-4-ville.syrjala@linux.intel.com>
+ <20210930134310.31669-3-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210930134310.31669-4-ville.syrjala@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915: Nuke local copies/pointers of
- intel_dp->DP
+In-Reply-To: <20210930134310.31669-3-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915: Remove DP_PORT_EN stuff from
+ link training code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,136 +56,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 30, 2021 at 04:43:10PM +0300, Ville Syrjala wrote:
+On Thu, Sep 30, 2021 at 04:43:09PM +0300, Ville Syrjala wrote:
 > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> Get rid of the local copies and pointers of intel_dp->DP and
-> instead just poke at it directly. Makes it much easier to see
-> where it actually gets used/modified.
+> Setting DP_PORT_EN in intel_dp->DP is already handled by
+> intel_dp_enable_port() so there is no point in setting it also
+> from the link training code.
+> 
+> For DDI platforms a bit with that name doesn't even exist. The
+> counterpart is DDI_BUF_CTL_ENABLE, which is already set up by
+> intel_ddi_prepare_link_retrain(). Fortunately it is the same bit
+> so there was no harm in doing this from the platform independent
+> code as well. But it's just confusing when platform independent
+> code sets platform specific bits in intel_dp->DP. Just get rid
+> of it.
 > 
 > Cc: Imre Deak <imre.deak@intel.com>
 > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Reviewed-by: Imre Deak <imre.deak@intel.com>
+Reviewed-by: Imre Deak <imre.deak.intel.com>
+
+On pre-DDI platforms intel_dp_enable_port() may not be called before
+short HPD/link-retraining, but the init/resume time HW readout will
+set DP_PORT_EN for that case.
 
 > ---
->  drivers/gpu/drm/i915/display/g4x_dp.c | 45 ++++++++++++---------------
->  1 file changed, 20 insertions(+), 25 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 --
+>  1 file changed, 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
-> index 8e0620ae2ed1..69a2e5ad2317 100644
-> --- a/drivers/gpu/drm/i915/display/g4x_dp.c
-> +++ b/drivers/gpu/drm/i915/display/g4x_dp.c
-> @@ -426,7 +426,6 @@ intel_dp_link_down(struct intel_encoder *encoder,
->  	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
->  	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
->  	enum port port = encoder->port;
-> -	u32 DP = intel_dp->DP;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index 449499a5c4c1..053ed9302cda 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -499,8 +499,6 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
+>  		DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
+>  	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
 >  
->  	if (drm_WARN_ON(&dev_priv->drm,
->  			(intel_de_read(dev_priv, intel_dp->output_reg) &
-> @@ -437,17 +436,17 @@ intel_dp_link_down(struct intel_encoder *encoder,
->  
->  	if ((IS_IVYBRIDGE(dev_priv) && port == PORT_A) ||
->  	    (HAS_PCH_CPT(dev_priv) && port != PORT_A)) {
-> -		DP &= ~DP_LINK_TRAIN_MASK_CPT;
-> -		DP |= DP_LINK_TRAIN_PAT_IDLE_CPT;
-> +		intel_dp->DP &= ~DP_LINK_TRAIN_MASK_CPT;
-> +		intel_dp->DP |= DP_LINK_TRAIN_PAT_IDLE_CPT;
->  	} else {
-> -		DP &= ~DP_LINK_TRAIN_MASK;
-> -		DP |= DP_LINK_TRAIN_PAT_IDLE;
-> +		intel_dp->DP &= ~DP_LINK_TRAIN_MASK;
-> +		intel_dp->DP |= DP_LINK_TRAIN_PAT_IDLE;
->  	}
-> -	intel_de_write(dev_priv, intel_dp->output_reg, DP);
-> +	intel_de_write(dev_priv, intel_dp->output_reg, intel_dp->DP);
->  	intel_de_posting_read(dev_priv, intel_dp->output_reg);
->  
-> -	DP &= ~(DP_PORT_EN | DP_AUDIO_OUTPUT_ENABLE);
-> -	intel_de_write(dev_priv, intel_dp->output_reg, DP);
-> +	intel_dp->DP &= ~(DP_PORT_EN | DP_AUDIO_OUTPUT_ENABLE);
-> +	intel_de_write(dev_priv, intel_dp->output_reg, intel_dp->DP);
->  	intel_de_posting_read(dev_priv, intel_dp->output_reg);
->  
->  	/*
-> @@ -464,14 +463,14 @@ intel_dp_link_down(struct intel_encoder *encoder,
->  		intel_set_pch_fifo_underrun_reporting(dev_priv, PIPE_A, false);
->  
->  		/* always enable with pattern 1 (as per spec) */
-> -		DP &= ~(DP_PIPE_SEL_MASK | DP_LINK_TRAIN_MASK);
-> -		DP |= DP_PORT_EN | DP_PIPE_SEL(PIPE_A) |
-> +		intel_dp->DP &= ~(DP_PIPE_SEL_MASK | DP_LINK_TRAIN_MASK);
-> +		intel_dp->DP |= DP_PORT_EN | DP_PIPE_SEL(PIPE_A) |
->  			DP_LINK_TRAIN_PAT_1;
-> -		intel_de_write(dev_priv, intel_dp->output_reg, DP);
-> +		intel_de_write(dev_priv, intel_dp->output_reg, intel_dp->DP);
->  		intel_de_posting_read(dev_priv, intel_dp->output_reg);
->  
-> -		DP &= ~DP_PORT_EN;
-> -		intel_de_write(dev_priv, intel_dp->output_reg, DP);
-> +		intel_dp->DP &= ~DP_PORT_EN;
-> +		intel_de_write(dev_priv, intel_dp->output_reg, intel_dp->DP);
->  		intel_de_posting_read(dev_priv, intel_dp->output_reg);
->  
->  		intel_wait_for_vblank_if_active(dev_priv, PIPE_A);
-> @@ -481,8 +480,6 @@ intel_dp_link_down(struct intel_encoder *encoder,
->  
->  	msleep(intel_dp->pps.panel_power_down_delay);
->  
-> -	intel_dp->DP = DP;
+> -	intel_dp->DP |= DP_PORT_EN;
 > -
->  	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
->  		intel_wakeref_t wakeref;
+>  	return true;
+>  }
 >  
-> @@ -582,19 +579,18 @@ cpt_set_link_train(struct intel_dp *intel_dp,
->  		   u8 dp_train_pat)
->  {
->  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-> -	u32 *DP = &intel_dp->DP;
->  
-> -	*DP &= ~DP_LINK_TRAIN_MASK_CPT;
-> +	intel_dp->DP &= ~DP_LINK_TRAIN_MASK_CPT;
->  
->  	switch (intel_dp_training_pattern_symbol(dp_train_pat)) {
->  	case DP_TRAINING_PATTERN_DISABLE:
-> -		*DP |= DP_LINK_TRAIN_OFF_CPT;
-> +		intel_dp->DP |= DP_LINK_TRAIN_OFF_CPT;
->  		break;
->  	case DP_TRAINING_PATTERN_1:
-> -		*DP |= DP_LINK_TRAIN_PAT_1_CPT;
-> +		intel_dp->DP |= DP_LINK_TRAIN_PAT_1_CPT;
->  		break;
->  	case DP_TRAINING_PATTERN_2:
-> -		*DP |= DP_LINK_TRAIN_PAT_2_CPT;
-> +		intel_dp->DP |= DP_LINK_TRAIN_PAT_2_CPT;
->  		break;
->  	default:
->  		MISSING_CASE(intel_dp_training_pattern_symbol(dp_train_pat));
-> @@ -611,19 +607,18 @@ g4x_set_link_train(struct intel_dp *intel_dp,
->  		   u8 dp_train_pat)
->  {
->  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-> -	u32 *DP = &intel_dp->DP;
->  
-> -	*DP &= ~DP_LINK_TRAIN_MASK;
-> +	intel_dp->DP &= ~DP_LINK_TRAIN_MASK;
->  
->  	switch (intel_dp_training_pattern_symbol(dp_train_pat)) {
->  	case DP_TRAINING_PATTERN_DISABLE:
-> -		*DP |= DP_LINK_TRAIN_OFF;
-> +		intel_dp->DP |= DP_LINK_TRAIN_OFF;
->  		break;
->  	case DP_TRAINING_PATTERN_1:
-> -		*DP |= DP_LINK_TRAIN_PAT_1;
-> +		intel_dp->DP |= DP_LINK_TRAIN_PAT_1;
->  		break;
->  	case DP_TRAINING_PATTERN_2:
-> -		*DP |= DP_LINK_TRAIN_PAT_2;
-> +		intel_dp->DP |= DP_LINK_TRAIN_PAT_2;
->  		break;
->  	default:
->  		MISSING_CASE(intel_dp_training_pattern_symbol(dp_train_pat));
 > -- 
 > 2.32.0
 > 
