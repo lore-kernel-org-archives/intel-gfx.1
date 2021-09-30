@@ -2,28 +2,28 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1FF5C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 00:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0055EC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 00:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C004F611C0
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 00:08:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C004F611C0
+	by mail.kernel.org (Postfix) with ESMTPS id BE9E0611C0
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 00:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE9E0611C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2AF6EB0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81EC06EB10;
 	Thu, 30 Sep 2021 00:08:58 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69D1C6EB0B
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 00:08:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="212148102"
-X-IronPort-AV: E=Sophos;i="5.85,334,1624345200"; d="scan'208";a="212148102"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3ACA6E2B4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 00:08:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="212148098"
+X-IronPort-AV: E=Sophos;i="5.85,334,1624345200"; d="scan'208";a="212148098"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Sep 2021 17:08:30 -0700
-X-IronPort-AV: E=Sophos;i="5.85,334,1624345200"; d="scan'208";a="438658508"
+X-IronPort-AV: E=Sophos;i="5.85,334,1624345200"; d="scan'208";a="438658496"
 Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
  ([10.24.14.60])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -31,17 +31,18 @@ Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Wed, 29 Sep 2021 17:14:07 -0700
-Message-Id: <20210930001409.254817-7-jose.souza@intel.com>
+Date: Wed, 29 Sep 2021 17:14:04 -0700
+Message-Id: <20210930001409.254817-4-jose.souza@intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210930001409.254817-1-jose.souza@intel.com>
 References: <20210930001409.254817-1-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 7/9] drm/i915/display/adlp: Allow PSR2 to be
- enabled
+Subject: [Intel-gfx] [PATCH v2 4/9] drm/i915/display: Handle frontbuffer
+ rendering when PSR2 selective fetch is enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,40 +58,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With all the recent fixes PSR2 is properly working in Alderlake-P but
-due to some issues that don't have software workarounds it will not be
-supported in display steppings older than B0.
+When PSR2 selective fetch is enabled writes to CURSURFLIVE alone do
+not causes the panel to be updated when doing frontbuffer rendering.
 
-Even with this patch PSR2 will no be enabled by default in ADL-P, it
-still requires enable_psr2_sel_fetch to be set to true, what some
-of our tests does.
+From what I was able to figure from experiments the writes to
+CURSURFLIVE takes PSR2 from deep sleep but panel is not updated
+because PSR2_MAN_TRK_CTL has no start and end region set.
+
+As we don't have the dirt area from current flush and invalidate API
+and even if we did userspace could do several draws to frontbuffer and
+we would need a way to append all the damaged areas of all the draws
+that need to be part of next frame.
+
+So here only programing PSR2_MAN_TRK_CTL to do a single full frame
+fetch.
+
+It is a safe approach as if scanout is in the visible area
+the single full frame will only be visible for hardware in the next
+frame because of the double buffering, and if scanout is in vblank
+area it will be draw in the current frame.
+
+No need to disable PSR and wait a few miliseconds to enable it again.
 
 Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Reviewed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index b37f123fe0c97..06a96368b18f1 100644
+index 8534cbb0d5144..7185801d5deff 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -830,12 +830,8 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 		return false;
- 	}
+@@ -1397,10 +1397,22 @@ void intel_psr_resume(struct intel_dp *intel_dp)
+ 	mutex_unlock(&psr->lock);
+ }
  
--	/*
--	 * We are missing the implementation of some workarounds to enabled PSR2
--	 * in Alderlake_P, until ready PSR2 should be kept disabled.
--	 */
--	if (IS_ALDERLAKE_P(dev_priv)) {
--		drm_dbg_kms(&dev_priv->drm, "PSR2 is missing the implementation of workarounds\n");
-+	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0)) {
-+		drm_dbg_kms(&dev_priv->drm, "PSR2 not completely functional in this stepping\n");
- 		return false;
- 	}
++static inline u32 man_trk_ctl_single_full_frame_bit_get(struct drm_i915_private *dev_priv)
++{
++	return IS_ALDERLAKE_P(dev_priv) ?
++	       ADLP_PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME :
++	       PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME;
++}
++
+ static void psr_force_hw_tracking_exit(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
  
++	if (intel_dp->psr.psr2_sel_fetch_enabled)
++		intel_de_rmw(dev_priv,
++			     PSR2_MAN_TRK_CTL(intel_dp->psr.transcoder), 0,
++			     man_trk_ctl_single_full_frame_bit_get(dev_priv));
++
+ 	/*
+ 	 * Display WA #0884: skl+
+ 	 * This documented WA for bxt can be safely applied
 -- 
 2.33.0
 
