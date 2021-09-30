@@ -2,52 +2,46 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04E24C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68060C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE9BF611C7
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE9BF611C7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 2F7CC61211
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2F7CC61211
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32DB76EB93;
-	Thu, 30 Sep 2021 13:37:55 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F4C6EB93
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 13:37:54 +0000 (UTC)
-Date: Thu, 30 Sep 2021 15:37:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1633009072;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3VOnQCFEBMv/EIrcibNy4TfUctKwhmyDT6Flu7VJBlA=;
- b=vIDYEsCazl0FCUyF7KYkzhPYd7sDauHLD8KpXFXoo9Ng2mScnOjYyqbLwUdoyzp6KSDxVu
- Os5iIHCDNSZILNwlz+uSYGeTx6va/+DdbXwznhwzVtwI1mKiHP0Z2++fAsPfxhUYTUKnzy
- zz0VEXYwLFW2INxl/C99JrHzFb7AlXwLkt9kGtISwcVg3C4SDGyEJ+EjnPpaE4iCKiR3OK
- mBIC0luq6qGuLGpsv5Hv339JcouCcASr9WHKoobze2s+h+57Vsitsl2FSqARsPDrY5MnDn
- tUxaO0xVI/PG+Surfo/laidJSJYCVjfN1YS930s9W+Hb/c6IRvW4mpzvSc0u3w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1633009072;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3VOnQCFEBMv/EIrcibNy4TfUctKwhmyDT6Flu7VJBlA=;
- b=dQDKqJFg3pNEWytqMpFkJ8O0yFXmXNx/tMchr3ym/PjhRE8lXmdwNHcZ7vFO4wj4CC7c9y
- cBI769zASHOq1rAw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Anton Lundin <glance@acc.umu.se>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210930133751.pouqnfklay4etup2@linutronix.de>
-References: <20210929160659.GI108031@montezuma.acc.umu.se>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 854B06E405;
+	Thu, 30 Sep 2021 13:43:18 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB1266E405
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 13:43:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="223299326"
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="223299326"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 06:43:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="555783656"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by FMSMGA003.fm.intel.com with SMTP; 30 Sep 2021 06:43:14 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 30 Sep 2021 16:43:13 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Imre Deak <imre.deak@intel.com>
+Date: Thu, 30 Sep 2021 16:43:08 +0300
+Message-Id: <20210930134310.31669-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210930134310.31669-1-ville.syrjala@linux.intel.com>
+References: <20210930134310.31669-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20210929160659.GI108031@montezuma.acc.umu.se>
-Subject: Re: [Intel-gfx] Picture stutter on i915 Graphics P630]
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915: Call intel_ddi_init_dp_buf_reg()
+ earlier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,30 +57,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-09-29 18:07:00 [+0200], Anton Lundin wrote:
-> Hi.
-Hi,
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-> While I was chasing some other bugs I tested 5.15-rc3-rt5 and noted your
-> code e446c2038b58 ("drm/i915/gt: Use spin_lock_irq() instead of
-> local_irq_disable() + spin_lock()") and noted that this patch created a
-> lot of visual glitches, freeze-frames for about 0.5s every couple of
-> seconds.
-> 
-> The card identifies itself as: (if that matters)
-> Intel Corporation CoffeeLake-S GT2 [UHD Graphics P630] [8086:3e96]
-> 
-> Reverting that patch resolved quite a lot of the glitches but there are
-> still a couple of minor ones left, that I'm trying to chase down.
-> 
-> 
-> None of those glitches are there on the same workload on a regular
-> 5.15-rc3 kernel.
+I want intel_dp->DP to be fully populated by the time the
+initial vswing programming happens. To that end move the
+intel_ddi_init_dp_buf_reg() call to an earlier spot.
 
-You are talking about that commit and 5.15-rc3-rt5 with PREEMPT_RT
-enabled?
+Additionally we don't want intel_ddi_init_dp_buf_reg() to
+set DDI_BUF_CTL_ENABLE since the port should only get enabled
+at the start of link training (see intel_ddi_prepare_link_retrain()).
+So any earlier write to the register should not set the enable bit.
 
-> 
-> //Anton
+Cc: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c | 44 +++++++++++-------------
+ 1 file changed, 21 insertions(+), 23 deletions(-)
 
-Sebastian
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 51d07e9af9f3..65e59f16879d 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -282,9 +282,10 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	enum phy phy = intel_port_to_phy(i915, encoder->port);
+ 
++	/* DDI_BUF_CTL_ENABLE will be set by intel_ddi_prepare_link_retrain() later */
+ 	intel_dp->DP = dig_port->saved_port_bits |
+-		DDI_BUF_CTL_ENABLE | DDI_BUF_TRANS_SELECT(0);
+-	intel_dp->DP |= DDI_PORT_WIDTH(crtc_state->lane_count);
++		DDI_PORT_WIDTH(crtc_state->lane_count) |
++		DDI_BUF_TRANS_SELECT(0);
+ 
+ 	if (IS_ALDERLAKE_P(i915) && intel_phy_is_tc(i915, phy)) {
+ 		intel_dp->DP |= ddi_buf_phy_link_rate(crtc_state->port_clock);
+@@ -2360,6 +2361,12 @@ static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	intel_dp_set_link_params(intel_dp, crtc_state->port_clock,
+ 				 crtc_state->lane_count);
+ 
++	/*
++	 * We only configure what the register value will be here.  Actual
++	 * enabling happens during link training farther down.
++	 */
++	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
++
+ 	/*
+ 	 * 1. Enable Power Wells
+ 	 *
+@@ -2416,16 +2423,6 @@ static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	/* 5.e Configure voltage swing and related IO settings */
+ 	intel_snps_phy_ddi_vswing_sequence(encoder, crtc_state, level);
+ 
+-	/*
+-	 * 5.f Configure and enable DDI_BUF_CTL
+-	 * 5.g Wait for DDI_BUF_CTL DDI Idle Status = 0b (Not Idle), timeout
+-	 *     after 1200 us.
+-	 *
+-	 * We only configure what the register value will be here.  Actual
+-	 * enabling happens during link training farther down.
+-	 */
+-	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
+-
+ 	if (!is_mst)
+ 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+ 
+@@ -2473,6 +2470,12 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 				 crtc_state->port_clock,
+ 				 crtc_state->lane_count);
+ 
++	/*
++	 * We only configure what the register value will be here.  Actual
++	 * enabling happens during link training farther down.
++	 */
++	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
++
+ 	/*
+ 	 * 1. Enable Power Wells
+ 	 *
+@@ -2554,16 +2557,6 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 */
+ 	intel_ddi_mso_configure(crtc_state);
+ 
+-	/*
+-	 * 7.g Configure and enable DDI_BUF_CTL
+-	 * 7.h Wait for DDI_BUF_CTL DDI Idle Status = 0b (Not Idle), timeout
+-	 *     after 500 us.
+-	 *
+-	 * We only configure what the register value will be here.  Actual
+-	 * enabling happens during link training farther down.
+-	 */
+-	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
+-
+ 	if (!is_mst)
+ 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+ 
+@@ -2620,6 +2613,12 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 				 crtc_state->port_clock,
+ 				 crtc_state->lane_count);
+ 
++	/*
++	 * We only configure what the register value will be here.  Actual
++	 * enabling happens during link training farther down.
++	 */
++	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
++
+ 	intel_pps_on(intel_dp);
+ 
+ 	intel_ddi_enable_clock(encoder, crtc_state);
+@@ -2641,7 +2640,6 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 
+ 	intel_ddi_power_up_lanes(encoder, crtc_state);
+ 
+-	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
+ 	if (!is_mst)
+ 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+ 	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
+-- 
+2.32.0
+
