@@ -2,45 +2,46 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48AE2C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D29CC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0618261555
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0618261555
+	by mail.kernel.org (Postfix) with ESMTPS id CB6B6611C7
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:17:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CB6B6611C7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4961B6EC19;
-	Thu, 30 Sep 2021 17:16:32 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E702F6EC16;
- Thu, 30 Sep 2021 17:16:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="225321117"
-X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="225321117"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E926E89BA1;
+	Thu, 30 Sep 2021 17:17:08 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CAD89AB6;
+ Thu, 30 Sep 2021 17:17:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="247788934"
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="247788934"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 10:16:30 -0700
-X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="520489752"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 10:16:21 -0700
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="520489464"
 Received: from dboland-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.223.141])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 10:16:28 -0700
+ 30 Sep 2021 10:16:19 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Date: Thu, 30 Sep 2021 18:15:52 +0100
-Message-Id: <20210930171552.501553-7-tvrtko.ursulin@linux.intel.com>
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 30 Sep 2021 18:15:47 +0100
+Message-Id: <20210930171552.501553-2-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210930171552.501553-1-tvrtko.ursulin@linux.intel.com>
 References: <20210930171552.501553-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 6/6] drm/i915: Connect task and GPU scheduling
- priorities
+Subject: [Intel-gfx] [RFC 1/6] sched: Add nice value change notifier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,266 +59,101 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Introduce the concept of context nice value which exactly matches the
-process nice, and also make use of the task user nice notifier chain to be
-able to dynamically adjust GPU scheduling. Apart from runtime adjustments
-context also inherits the nice value when created.
+Implement a simple notifier chain via which interested parties can track
+when process nice value changes. Simple because it is global so each user
+would have to track which tasks it is interested in.
 
-Context nice is utilised secondary to context priority, only when the
-latter has been left at the default setting, in order to avoid disturbing
-any application made choices of low and high (batch processing and maybe
-latency sensitive compositing). In those cases nice value adjusts the
-effective priority in the narrow band of -19 to +20 around
-I915_CONTEXT_DEFAULT_PRIORITY.
+To use register_user_nice_notifier and unregister_user_nice_notifier
+functions are provided and new nice value and pointer to task_struct
+being modified passed to the callbacks.
 
 Opens:
- * The [-19, +20] range should work well with GuC scheduling since it
-   effectively translates to three available buckets there, but should
-   it perhaps be streched to cover the full [-1023, +1023] range?
- * Current implementation only has the nice apply to future submissions
-   against the context. Is it worth dealing with already submitted work?
-   I opted to avoid the complication since benefit seems marginal outside
-   of the endless compute workloads (which would probably start up with
-   the correct priority).
+ * Security. Would some sort of a  per process mechanism be better and
+   feasible?
+ * Put it all behind kconfig to be selected by interested drivers?
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  1 +
- .../drm/i915/gt/intel_execlists_submission.c  |  2 +-
- drivers/gpu/drm/i915/i915_drm_client.c        | 38 +++++++++++++++++--
- drivers/gpu/drm/i915/i915_drm_client.h        |  3 ++
- drivers/gpu/drm/i915/i915_request.c           |  2 +-
- drivers/gpu/drm/i915/i915_request.h           |  5 +++
- drivers/gpu/drm/i915/i915_scheduler.c         |  3 +-
- drivers/gpu/drm/i915/i915_scheduler.h         | 14 +++++++
- drivers/gpu/drm/i915/i915_scheduler_types.h   |  8 ++++
- 9 files changed, 69 insertions(+), 7 deletions(-)
+ include/linux/sched.h |  5 +++++
+ kernel/sched/core.c   | 37 ++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 41 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 8d4d687ab1d0..fed0733cb652 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -257,6 +257,7 @@ proto_context_create(struct drm_i915_private *i915, unsigned int flags)
- 	if (i915->params.enable_hangcheck)
- 		pc->user_flags |= BIT(UCONTEXT_PERSISTENCE);
- 	pc->sched.priority = I915_PRIORITY_NORMAL;
-+	pc->sched.nice = task_nice(current);
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 39039ce8ac4c..45ae9eca38c6 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -2309,4 +2309,9 @@ static inline void sched_core_free(struct task_struct *tsk) { }
+ static inline void sched_core_fork(struct task_struct *p) { }
+ #endif
  
- 	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE) {
- 		if (!HAS_EXECLISTS(i915)) {
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 7147fe80919e..13c41f1f8ba5 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -250,7 +250,7 @@ static struct i915_priolist *to_priolist(struct rb_node *rb)
- 
- static int rq_prio(const struct i915_request *rq)
- {
--	return READ_ONCE(rq->sched.attr.priority);
-+	return i915_request_priority(rq);
++struct notifier_block;
++
++extern int register_user_nice_notifier(struct notifier_block *);
++extern int unregister_user_nice_notifier(struct notifier_block *);
++
+ #endif
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1bba4128a3e6..26ff75d6fe00 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6864,10 +6864,42 @@ static inline int rt_effective_prio(struct task_struct *p, int prio)
  }
+ #endif
  
- static int effective_prio(const struct i915_request *rq)
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-index 82b9636482ef..13ac2311eb84 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.c
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -8,9 +8,33 @@
- #include <linux/types.h>
- 
- #include "i915_drm_client.h"
-+#include "gem/i915_gem_context.h"
- #include "i915_gem.h"
- #include "i915_utils.h"
- 
-+static int
-+clients_notify(struct notifier_block *nb, unsigned long val, void *ptr)
++ATOMIC_NOTIFIER_HEAD(user_nice_notifier_list);
++
++/**
++ * register_user_nice_notifier - Register function to be called when task nice changes
++ * @nb: Info about notifier function to be called
++ *
++ * Registers a function with the list of functions to be called when task nice
++ * value changes.
++ *
++ * Currently always returns zero, as atomic_notifier_chain_register()
++ * always returns zero.
++ */
++int register_user_nice_notifier(struct notifier_block *nb)
 +{
-+	struct i915_drm_clients *clients =
-+		container_of(nb, typeof(*clients), prio_notifier);
-+	struct i915_drm_client *client;
-+	unsigned long flags;
-+
-+	read_lock_irqsave(&clients->lock, flags);
-+	hash_for_each_possible(clients->tasks, client, node, (uintptr_t)ptr) {
-+		struct i915_gem_context *ctx;
-+
-+		if (client->owner != ptr)
-+			continue;
-+
-+		list_for_each_entry_rcu(ctx, &client->ctx_list, client_link)
-+			ctx->sched.nice = (int)val;
-+	}
-+	read_unlock_irqrestore(&clients->lock, flags);
-+
-+	return NOTIFY_DONE;
++	return atomic_notifier_chain_register(&user_nice_notifier_list, nb);
 +}
++EXPORT_SYMBOL(register_user_nice_notifier);
 +
- void i915_drm_clients_init(struct i915_drm_clients *clients,
- 			   struct drm_i915_private *i915)
- {
-@@ -21,6 +45,10 @@ void i915_drm_clients_init(struct i915_drm_clients *clients,
- 
- 	rwlock_init(&clients->lock);
- 	hash_init(clients->tasks);
-+
-+	memset(&clients->prio_notifier, 0, sizeof(clients->prio_notifier));
-+	clients->prio_notifier.notifier_call = clients_notify;
-+	register_user_nice_notifier(&clients->prio_notifier);
- }
- 
- struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients)
-@@ -63,9 +91,9 @@ void __i915_drm_client_free(struct kref *kref)
- 	struct xarray *xa = &clients->xarray;
- 	unsigned long flags;
- 
--	write_lock(&clients->lock);
-+	write_lock_irq(&clients->lock);
- 	hash_del(&client->node);
--	write_unlock(&clients->lock);
-+	write_unlock_irq(&clients->lock);
- 
- 	xa_lock_irqsave(xa, flags);
- 	__xa_erase(xa, client->id);
-@@ -75,6 +103,8 @@ void __i915_drm_client_free(struct kref *kref)
- 
- void i915_drm_clients_fini(struct i915_drm_clients *clients)
- {
-+	unregister_user_nice_notifier(&clients->prio_notifier);
-+
- 	GEM_BUG_ON(!xa_empty(&clients->xarray));
- 	xa_destroy(&clients->xarray);
- }
-@@ -88,12 +118,12 @@ void i915_drm_client_update_owner(struct i915_drm_client *client,
- 		return;
- 
- 	clients = client->clients;
--	write_lock(&clients->lock);
-+	write_lock_irq(&clients->lock);
- 	if (READ_ONCE(client->owner) != owner) {
- 		if (client->owner)
- 			hash_del(&client->node);
- 		client->owner = owner;
- 		hash_add(clients->tasks, &client->node, (uintptr_t)owner);
- 	}
--	write_unlock(&clients->lock);
-+	write_unlock_irq(&clients->lock);
- }
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
-index 42fd79f0558a..dda26aa42ac9 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.h
-+++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -9,6 +9,7 @@
- #include <linux/hashtable.h>
- #include <linux/kref.h>
- #include <linux/list.h>
-+#include <linux/notifier.h>
- #include <linux/rwlock.h>
- #include <linux/sched.h>
- #include <linux/spinlock.h>
-@@ -24,6 +25,8 @@ struct i915_drm_clients {
- 
- 	rwlock_t lock;
- 	DECLARE_HASHTABLE(tasks, 6);
-+
-+	struct notifier_block prio_notifier;
- };
- 
- struct i915_drm_client {
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 79da5eca60af..a8c6f3a64895 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1930,7 +1930,7 @@ static int print_sched_attr(const struct i915_sched_attr *attr,
- 		return x;
- 
- 	x += snprintf(buf + x, len - x,
--		      " prio=%d", attr->priority);
-+		      " prio=%d nice=%d", attr->priority, attr->nice);
- 
- 	return x;
- }
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 7bd9ed20623e..c2c4c344837e 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -399,6 +399,11 @@ long i915_request_wait(struct i915_request *rq,
- #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
- #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
- 
-+static inline int i915_request_priority(const struct i915_request *rq)
++/**
++ * unregister_user_nice_notifier - Unregister previously registered user nice notifier
++ * @nb: Hook to be unregistered
++ *
++ * Unregisters a previously registered user nice notifier function.
++ *
++ * Returns zero on success, or %-ENOENT on failure.
++ */
++int unregister_user_nice_notifier(struct notifier_block *nb)
 +{
-+	return i915_sched_attr_priority(&rq->sched.attr);
++	return atomic_notifier_chain_unregister(&user_nice_notifier_list, nb);
 +}
++EXPORT_SYMBOL(unregister_user_nice_notifier);
 +
- void i915_request_show(struct drm_printer *m,
- 		       const struct i915_request *rq,
- 		       const char *prefix,
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 762127dd56c5..3883511f90ea 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -155,7 +155,7 @@ lock_sched_engine(struct i915_sched_node *node,
- static void __i915_schedule(struct i915_sched_node *node,
- 			    const struct i915_sched_attr *attr)
+ void set_user_nice(struct task_struct *p, long nice)
  {
--	const int prio = max(attr->priority, node->attr.priority);
-+	const int prio = max(i915_sched_attr_priority(attr), node->attr.priority);
- 	struct i915_sched_engine *sched_engine;
- 	struct i915_dependency *dep, *p;
- 	struct i915_dependency stack;
-@@ -305,6 +305,7 @@ void i915_sched_node_init(struct i915_sched_node *node)
- void i915_sched_node_reinit(struct i915_sched_node *node)
- {
- 	node->attr.priority = I915_PRIORITY_INVALID;
-+	node->attr.nice = 0;
- 	node->semaphores = 0;
- 	node->flags = 0;
+ 	bool queued, running;
+-	int old_prio;
++	int old_prio, ret;
+ 	struct rq_flags rf;
+ 	struct rq *rq;
  
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 0b9b86af6c7f..75ccc9f55d14 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -38,6 +38,20 @@ void i915_sched_node_fini(struct i915_sched_node *node);
- void i915_schedule(struct i915_request *request,
- 		   const struct i915_sched_attr *attr);
- 
-+static inline int i915_sched_attr_priority(const struct i915_sched_attr *attr)
-+{
-+	int prio = attr->priority;
-+
-+	/*
-+	 * Only allow I915_CONTEXT_DEFAULT_PRIORITY to be affected by the
-+	 * nice setting.
-+	 */
-+	if (!prio)
-+		prio = -attr->nice;
-+
-+	return prio;
-+}
-+
- struct list_head *
- i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio);
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index b0a1b58c7893..34124cfc93e9 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -29,6 +29,14 @@ struct i915_sched_attr {
- 	 * The &drm_i915_private.kernel_context is assigned the lowest priority.
+@@ -6913,6 +6945,9 @@ void set_user_nice(struct task_struct *p, long nice)
  	 */
- 	int priority;
-+
-+	/**
-+	 * @nice: context nice level
-+	 *
-+	 * Nice level follows the CPU scheduler nice value as set for the
-+	 * process owning the GPU context.
-+	 */
-+	int nice;
- };
+ 	p->sched_class->prio_changed(rq, p, old_prio);
  
- /*
++	ret = atomic_notifier_call_chain(&user_nice_notifier_list, nice, p);
++	WARN_ON_ONCE(ret != NOTIFY_DONE);
++
+ out_unlock:
+ 	task_rq_unlock(rq, p, &rf);
+ }
 -- 
 2.30.2
 
