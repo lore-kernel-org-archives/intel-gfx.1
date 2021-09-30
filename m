@@ -2,50 +2,46 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C27BFC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 19:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EC21C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 19:09:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91949619F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 19:06:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 91949619F5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wanadoo.fr
+	by mail.kernel.org (Postfix) with ESMTPS id D08786109E
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 19:09:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D08786109E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3906F6EC4B;
-	Thu, 30 Sep 2021 19:06:17 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp08.smtpout.orange.fr
- [80.12.242.130])
- by gabe.freedesktop.org (Postfix) with ESMTP id CFF986EC4B
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 19:06:14 +0000 (UTC)
-Received: from [192.168.1.18] ([90.126.248.220]) by mwinf5d10 with ME
- id 0JyF260054m3Hzu03JyFua; Thu, 30 Sep 2021 20:58:42 +0200
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Thu, 30 Sep 2021 20:58:42 +0200
-X-ME-IP: 90.126.248.220
-To: Cai Huoqing <caihuoqing@baidu.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
-References: <20210925124613.144-1-caihuoqing@baidu.com>
- <YVXH87Uw3urD6q5x@phenom.ffwll.local>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Message-ID: <3a2ada00-fe4f-284c-46a5-c0f6676bcfe1@wanadoo.fr>
-Date: Thu, 30 Sep 2021 20:58:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 766066EC4A;
+	Thu, 30 Sep 2021 19:09:51 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D94B96EC4A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 19:09:50 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="247815130"
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="247815130"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 12:09:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,336,1624345200"; d="scan'208";a="564394760"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga002.fm.intel.com with SMTP; 30 Sep 2021 12:09:46 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 30 Sep 2021 22:09:46 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Karthik B S <karthik.b.s@intel.com>
+Date: Thu, 30 Sep 2021 22:09:43 +0300
+Message-Id: <20210930190943.17547-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210930190943.17547-1-ville.syrjala@linux.intel.com>
+References: <20210930190943.17547-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <YVXH87Uw3urD6q5x@phenom.ffwll.local>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: fr
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Use direction definition
- DMA_BIDIRECTIONAL instead of PCI_DMA_BIDIRECTIONAL
+Subject: [Intel-gfx] [PATCH 2/2] drm/i195: Make the async flip VT-d
+ workaround dynamic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,185 +57,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Le 30/09/2021 à 16:21, Daniel Vetter a écrit :
-> On Sat, Sep 25, 2021 at 08:46:12PM +0800, Cai Huoqing wrote:
->> Replace direction definition PCI_DMA_BIDIRECTIONAL
->> with DMA_BIDIRECTIONAL, because it helps to enhance readability
->> and avoid possible inconsistency.
->>
->> Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
-> 
-> Applied to drm-intel-gt-next, thanks for the patch.
-> -Daniel
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Hi,
-just in case, a similar patch received some (unrelated) comments a few 
-weeks ago. See [1].
+Since the VT-d vs. async flip issues are plaguing a wider range
+of supported hw let's try to minimize the impact on normal
+operation by flipping the relevant chicken bits on and off
+as needed. I presume there is some power/perf impact on since
+this is reducing some prefetching I think.
 
-Should it rings some bells to someone who know who knows what should be 
-done.
+Cc: Karthik B S <karthik.b.s@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 35 ++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_pm.c              | 26 ---------------
+ 2 files changed, 35 insertions(+), 26 deletions(-)
 
-Just my 2c.
-
-[1]: 
-https://lore.kernel.org/kernel-janitors/0cd61d5b-ac88-31e8-99ad-143af480416f@arm.com/
-
-CJ
-
-
-> 
->> ---
->>   drivers/gpu/drm/i915/gt/intel_region_lmem.c |  4 ++--
->>   drivers/gpu/drm/i915/gvt/gtt.c              | 17 ++++++++---------
->>   drivers/gpu/drm/i915/gvt/kvmgt.c            |  4 ++--
->>   drivers/gpu/drm/i915/i915_gem_gtt.c         |  4 ++--
->>   4 files changed, 14 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
->> index a74b72f50cc9..afb35d2e5c73 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
->> @@ -32,7 +32,7 @@ static int init_fake_lmem_bar(struct intel_memory_region *mem)
->>   	mem->remap_addr = dma_map_resource(i915->drm.dev,
->>   					   mem->region.start,
->>   					   mem->fake_mappable.size,
->> -					   PCI_DMA_BIDIRECTIONAL,
->> +					   DMA_BIDIRECTIONAL,
->>   					   DMA_ATTR_FORCE_CONTIGUOUS);
->>   	if (dma_mapping_error(i915->drm.dev, mem->remap_addr)) {
->>   		drm_mm_remove_node(&mem->fake_mappable);
->> @@ -62,7 +62,7 @@ static void release_fake_lmem_bar(struct intel_memory_region *mem)
->>   	dma_unmap_resource(mem->i915->drm.dev,
->>   			   mem->remap_addr,
->>   			   mem->fake_mappable.size,
->> -			   PCI_DMA_BIDIRECTIONAL,
->> +			   DMA_BIDIRECTIONAL,
->>   			   DMA_ATTR_FORCE_CONTIGUOUS);
->>   }
->>   
->> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
->> index e5c2fdfc20e3..53d0cb327539 100644
->> --- a/drivers/gpu/drm/i915/gvt/gtt.c
->> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
->> @@ -745,7 +745,7 @@ static void ppgtt_free_spt(struct intel_vgpu_ppgtt_spt *spt)
->>   	trace_spt_free(spt->vgpu->id, spt, spt->guest_page.type);
->>   
->>   	dma_unmap_page(kdev, spt->shadow_page.mfn << I915_GTT_PAGE_SHIFT, 4096,
->> -		       PCI_DMA_BIDIRECTIONAL);
->> +		       DMA_BIDIRECTIONAL);
->>   
->>   	radix_tree_delete(&spt->vgpu->gtt.spt_tree, spt->shadow_page.mfn);
->>   
->> @@ -849,7 +849,7 @@ static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt(
->>   	 */
->>   	spt->shadow_page.type = type;
->>   	daddr = dma_map_page(kdev, spt->shadow_page.page,
->> -			     0, 4096, PCI_DMA_BIDIRECTIONAL);
->> +			     0, 4096, DMA_BIDIRECTIONAL);
->>   	if (dma_mapping_error(kdev, daddr)) {
->>   		gvt_vgpu_err("fail to map dma addr\n");
->>   		ret = -EINVAL;
->> @@ -865,7 +865,7 @@ static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt(
->>   	return spt;
->>   
->>   err_unmap_dma:
->> -	dma_unmap_page(kdev, daddr, PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
->> +	dma_unmap_page(kdev, daddr, PAGE_SIZE, DMA_BIDIRECTIONAL);
->>   err_free_spt:
->>   	free_spt(spt);
->>   	return ERR_PTR(ret);
->> @@ -2409,8 +2409,7 @@ static int alloc_scratch_pages(struct intel_vgpu *vgpu,
->>   		return -ENOMEM;
->>   	}
->>   
->> -	daddr = dma_map_page(dev, virt_to_page(scratch_pt), 0,
->> -			4096, PCI_DMA_BIDIRECTIONAL);
->> +	daddr = dma_map_page(dev, virt_to_page(scratch_pt), 0, 4096, DMA_BIDIRECTIONAL);
->>   	if (dma_mapping_error(dev, daddr)) {
->>   		gvt_vgpu_err("fail to dmamap scratch_pt\n");
->>   		__free_page(virt_to_page(scratch_pt));
->> @@ -2461,7 +2460,7 @@ static int release_scratch_page_tree(struct intel_vgpu *vgpu)
->>   		if (vgpu->gtt.scratch_pt[i].page != NULL) {
->>   			daddr = (dma_addr_t)(vgpu->gtt.scratch_pt[i].page_mfn <<
->>   					I915_GTT_PAGE_SHIFT);
->> -			dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
->> +			dma_unmap_page(dev, daddr, 4096, DMA_BIDIRECTIONAL);
->>   			__free_page(vgpu->gtt.scratch_pt[i].page);
->>   			vgpu->gtt.scratch_pt[i].page = NULL;
->>   			vgpu->gtt.scratch_pt[i].page_mfn = 0;
->> @@ -2741,7 +2740,7 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
->>   	}
->>   
->>   	daddr = dma_map_page(dev, virt_to_page(page), 0,
->> -			4096, PCI_DMA_BIDIRECTIONAL);
->> +			4096, DMA_BIDIRECTIONAL);
->>   	if (dma_mapping_error(dev, daddr)) {
->>   		gvt_err("fail to dmamap scratch ggtt page\n");
->>   		__free_page(virt_to_page(page));
->> @@ -2755,7 +2754,7 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
->>   		ret = setup_spt_oos(gvt);
->>   		if (ret) {
->>   			gvt_err("fail to initialize SPT oos\n");
->> -			dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
->> +			dma_unmap_page(dev, daddr, 4096, DMA_BIDIRECTIONAL);
->>   			__free_page(gvt->gtt.scratch_page);
->>   			return ret;
->>   		}
->> @@ -2779,7 +2778,7 @@ void intel_gvt_clean_gtt(struct intel_gvt *gvt)
->>   	dma_addr_t daddr = (dma_addr_t)(gvt->gtt.scratch_mfn <<
->>   					I915_GTT_PAGE_SHIFT);
->>   
->> -	dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
->> +	dma_unmap_page(dev, daddr, 4096, DMA_BIDIRECTIONAL);
->>   
->>   	__free_page(gvt->gtt.scratch_page);
->>   
->> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
->> index 7efa386449d1..20b82fb036f8 100644
->> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
->> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
->> @@ -328,7 +328,7 @@ static int gvt_dma_map_page(struct intel_vgpu *vgpu, unsigned long gfn,
->>   		return ret;
->>   
->>   	/* Setup DMA mapping. */
->> -	*dma_addr = dma_map_page(dev, page, 0, size, PCI_DMA_BIDIRECTIONAL);
->> +	*dma_addr = dma_map_page(dev, page, 0, size, DMA_BIDIRECTIONAL);
->>   	if (dma_mapping_error(dev, *dma_addr)) {
->>   		gvt_vgpu_err("DMA mapping failed for pfn 0x%lx, ret %d\n",
->>   			     page_to_pfn(page), ret);
->> @@ -344,7 +344,7 @@ static void gvt_dma_unmap_page(struct intel_vgpu *vgpu, unsigned long gfn,
->>   {
->>   	struct device *dev = vgpu->gvt->gt->i915->drm.dev;
->>   
->> -	dma_unmap_page(dev, dma_addr, size, PCI_DMA_BIDIRECTIONAL);
->> +	dma_unmap_page(dev, dma_addr, size, DMA_BIDIRECTIONAL);
->>   	gvt_unpin_guest_page(vgpu, gfn, size);
->>   }
->>   
->> diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
->> index 36489be4896b..cd5f2348a187 100644
->> --- a/drivers/gpu/drm/i915/i915_gem_gtt.c
->> +++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
->> @@ -30,7 +30,7 @@ int i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
->>   	do {
->>   		if (dma_map_sg_attrs(obj->base.dev->dev,
->>   				     pages->sgl, pages->nents,
->> -				     PCI_DMA_BIDIRECTIONAL,
->> +				     DMA_BIDIRECTIONAL,
->>   				     DMA_ATTR_SKIP_CPU_SYNC |
->>   				     DMA_ATTR_NO_KERNEL_MAPPING |
->>   				     DMA_ATTR_NO_WARN))
->> @@ -64,7 +64,7 @@ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
->>   		usleep_range(100, 250);
->>   
->>   	dma_unmap_sg(i915->drm.dev, pages->sgl, pages->nents,
->> -		     PCI_DMA_BIDIRECTIONAL);
->> +		     DMA_BIDIRECTIONAL);
->>   }
->>   
->>   /**
->> -- 
->> 2.25.1
->>
-> 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index a4453dd1bb51..5407f53e770b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2473,6 +2473,33 @@ static bool needs_cursorclk_wa(const struct intel_crtc_state *crtc_state)
+ 	return false;
+ }
+ 
++static void intel_async_flip_vtd_wa(struct drm_i915_private *i915,
++				    enum pipe pipe, bool enable)
++{
++	if (DISPLAY_VER(i915) == 9) {
++		/*
++		 * "Plane N strech max must be programmed to 11b (x1)
++		 *  when Async flips are enabled on that plane."
++		 */
++		intel_de_rmw(i915, CHICKEN_PIPESL_1(pipe),
++			     SKL_PLANE1_STRETCH_MAX_MASK,
++			     enable ? SKL_PLANE1_STRETCH_MAX_X1 : SKL_PLANE1_STRETCH_MAX_X8);
++	} else {
++		/* Also needed on HSW/BDW albeit undocumented */
++		intel_de_rmw(i915, CHICKEN_PIPESL_1(pipe),
++			     HSW_PRI_STRETCH_MAX_MASK,
++			     enable ? HSW_PRI_STRETCH_MAX_X1 : HSW_PRI_STRETCH_MAX_X8);
++	}
++}
++
++static bool needs_async_flip_vtd_wa(const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++
++	return crtc_state->uapi.async_flip && intel_vtd_active() &&
++		(DISPLAY_VER(i915) == 9 || IS_BROADWELL(i915) || IS_HASWELL(i915));
++}
++
+ static bool planes_enabling(const struct intel_crtc_state *old_crtc_state,
+ 			    const struct intel_crtc_state *new_crtc_state)
+ {
+@@ -2508,6 +2535,10 @@ static void intel_post_plane_update(struct intel_atomic_state *state,
+ 	intel_fbc_post_update(state, crtc);
+ 	intel_drrs_page_flip(state, crtc);
+ 
++	if (needs_async_flip_vtd_wa(old_crtc_state) &&
++	    !needs_async_flip_vtd_wa(new_crtc_state))
++		intel_async_flip_vtd_wa(dev_priv, pipe, false);
++
+ 	if (needs_nv12_wa(old_crtc_state) &&
+ 	    !needs_nv12_wa(new_crtc_state))
+ 		skl_wa_827(dev_priv, pipe, false);
+@@ -2606,6 +2637,10 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+ 	if (intel_fbc_pre_update(state, crtc))
+ 		intel_wait_for_vblank(dev_priv, pipe);
+ 
++	if (!needs_async_flip_vtd_wa(old_crtc_state) &&
++	    needs_async_flip_vtd_wa(new_crtc_state))
++		intel_async_flip_vtd_wa(dev_priv, pipe, true);
++
+ 	/* Display WA 827 */
+ 	if (!needs_nv12_wa(old_crtc_state) &&
+ 	    needs_nv12_wa(new_crtc_state))
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 74d4620a4999..73178d0cf0c9 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -76,8 +76,6 @@ struct intel_wm_config {
+ 
+ static void gen9_init_clock_gating(struct drm_i915_private *dev_priv)
+ {
+-	enum pipe pipe;
+-
+ 	if (HAS_LLC(dev_priv)) {
+ 		/*
+ 		 * WaCompressedResourceDisplayNewHashMode:skl,kbl
+@@ -91,16 +89,6 @@ static void gen9_init_clock_gating(struct drm_i915_private *dev_priv)
+ 			   SKL_DE_COMPRESSED_HASH_MODE);
+ 	}
+ 
+-	for_each_pipe(dev_priv, pipe) {
+-		/*
+-		 * "Plane N strech max must be programmed to 11b (x1)
+-		 *  when Async flips are enabled on that plane."
+-		 */
+-		if (!IS_GEMINILAKE(dev_priv) && intel_vtd_active())
+-			intel_uncore_rmw(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe),
+-					 SKL_PLANE1_STRETCH_MAX_MASK, SKL_PLANE1_STRETCH_MAX_X1);
+-	}
+-
+ 	/* See Bspec note for PSR2_CTL bit 31, Wa#828:skl,bxt,kbl,cfl */
+ 	intel_uncore_write(&dev_priv->uncore, CHICKEN_PAR1_1,
+ 		   intel_uncore_read(&dev_priv->uncore, CHICKEN_PAR1_1) | SKL_EDP_PSR_FIX_RDWRAP);
+@@ -7599,11 +7587,6 @@ static void bdw_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		intel_uncore_write(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe),
+ 			   intel_uncore_read(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe)) |
+ 			   BDW_DPRS_MASK_VBLANK_SRD);
+-
+-		/* Undocumented but fixes async flip + VT-d corruption */
+-		if (intel_vtd_active())
+-			intel_uncore_rmw(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe),
+-					 HSW_PRI_STRETCH_MAX_MASK, HSW_PRI_STRETCH_MAX_X1);
+ 	}
+ 
+ 	/* WaVSRefCountFullforceMissDisable:bdw */
+@@ -7639,20 +7622,11 @@ static void bdw_init_clock_gating(struct drm_i915_private *dev_priv)
+ 
+ static void hsw_init_clock_gating(struct drm_i915_private *dev_priv)
+ {
+-	enum pipe pipe;
+-
+ 	/* WaFbcAsynchFlipDisableFbcQueue:hsw,bdw */
+ 	intel_uncore_write(&dev_priv->uncore, CHICKEN_PIPESL_1(PIPE_A),
+ 		   intel_uncore_read(&dev_priv->uncore, CHICKEN_PIPESL_1(PIPE_A)) |
+ 		   HSW_FBCQ_DIS);
+ 
+-	for_each_pipe(dev_priv, pipe) {
+-		/* Undocumented but fixes async flip + VT-d corruption */
+-		if (intel_vtd_active())
+-			intel_uncore_rmw(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe),
+-					 HSW_PRI_STRETCH_MAX_MASK, HSW_PRI_STRETCH_MAX_X1);
+-	}
+-
+ 	/* This is required by WaCatErrorRejectionIssue:hsw */
+ 	intel_uncore_write(&dev_priv->uncore, GEN7_SQ_CHICKEN_MBCUNIT_CONFIG,
+ 		   intel_uncore_read(&dev_priv->uncore, GEN7_SQ_CHICKEN_MBCUNIT_CONFIG) |
+-- 
+2.32.0
 
