@@ -2,45 +2,49 @@ Return-Path: <SRS0=5W5W=OU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5204BC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B69B5C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 225F1615E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 225F1615E2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 614846141B
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 614846141B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 710CB6E3D6;
-	Thu, 30 Sep 2021 10:00:12 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C903D6E3D2;
- Thu, 30 Sep 2021 10:00:10 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 03E24106F;
- Thu, 30 Sep 2021 03:00:10 -0700 (PDT)
-Received: from [10.1.36.24] (e122027.cambridge.arm.com [10.1.36.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A57EE3F793;
- Thu, 30 Sep 2021 03:00:08 -0700 (PDT)
-To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Daniel Vetter <daniel.vetter@intel.com>, dri-devel@lists.freedesktop.org, 
- Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
-References: <20210929183357.1490204-1-lucas.demarchi@intel.com>
- <20210929183357.1490204-3-lucas.demarchi@intel.com>
-From: Steven Price <steven.price@arm.com>
-Message-ID: <2dd723c8-6aed-857c-23f3-d0381fcb52c2@arm.com>
-Date: Thu, 30 Sep 2021 11:00:06 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B81890E9;
+	Thu, 30 Sep 2021 10:06:33 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA6F6EB55;
+ Thu, 30 Sep 2021 10:06:31 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="310697215"
+X-IronPort-AV: E=Sophos;i="5.85,335,1624345200"; d="scan'208";a="310697215"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 03:06:24 -0700
+X-IronPort-AV: E=Sophos;i="5.85,335,1624345200"; d="scan'208";a="479811607"
+Received: from rmuntslx-mobl1.ger.corp.intel.com (HELO [10.252.37.149])
+ ([10.252.37.149])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 03:06:19 -0700
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Message-ID: <f079a5d2-3095-1065-85c2-9d510260215b@linux.intel.com>
+Date: Thu, 30 Sep 2021 12:06:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20210929183357.1490204-3-lucas.demarchi@intel.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 2/3] drm/i915/utils: do not depend on
- config being defined
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,66 +60,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 29/09/2021 19:33, Lucas De Marchi wrote:
-> Like the IS_ENABLED() counterpart, we can make IS_CONFIG_NONZERO() to
-> return the right thing when the config is not defined rather than a
-> build error, with the limitation that it can't be used on preprocessor
-> context.
-> 
-> The trick here is that macro names can't start with a number or dash, so
-> we stringify the argument and check that the first char is a number != 0
-> (or starting with a dash to cover negative numbers). Except for -O0
-> builds the strings are all eliminated.
-> 
-> Taking CONFIG_DRM_I915_REQUEST_TIMEOUT in
-> drivers/gpu/drm/i915/gem/i915_gem_context.c as example, we have the
-> following output of the preprocessor:
-> 
-> old:
->  if (((20000) != 0) &&
-> new:
->  if (( ("20000"[0] > '0' && "20000"[0] < '9') || "20000"[0] == '-' ) &&
-> 
-> New one looks worse, but is also eliminated from the object:
-> 
-> $ size drivers/gpu/drm/i915/gem/i915_gem_context.o.*
->    text    data     bss     dec     hex filename
->   52021    1070     232   53323    d04b drivers/gpu/drm/i915/gem/i915_gem_context.o.new
->   52021    1070     232   53323    d04b drivers/gpu/drm/i915/gem/i915_gem_context.o.old
-> 
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  drivers/gpu/drm/i915/i915_utils.h | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-> index 02bbfa4d68d3..436ce612c46a 100644
-> --- a/drivers/gpu/drm/i915/i915_utils.h
-> +++ b/drivers/gpu/drm/i915/i915_utils.h
-> @@ -28,6 +28,7 @@
->  #include <linux/list.h>
->  #include <linux/overflow.h>
->  #include <linux/sched.h>
-> +#include <linux/stringify.h>
->  #include <linux/types.h>
->  #include <linux/workqueue.h>
->  
-> @@ -469,6 +470,9 @@ static inline bool timer_expired(const struct timer_list *t)
->   *
->   * Returns 0 if @config is 0, 1 if set to any value.
->   */
-> -#define IS_CONFIG_NONZERO(config) ((config) != 0)
-> +#define IS_CONFIG_NONZERO(config) (						\
-> +	(__stringify_1(config)[0] > '0' && __stringify_1(config)[0] < '9') ||	\
+drm-misc-fixes-2021-09-30:
+drm-misc-fixes for v5.15:
+- Not sure if drm-misc-fixes-2021-09-08 tag was pulled, assuming it is.
+- Power management fixes for vc4.
+- Compiler fix for vc4.
+- Cursor fix for nouveau.
+- Fix ttm buffer moves for ampere gpu's by adding minimal acceleration support.
+- Small rockchip fixes.
+- Fix DT bindings indent for ili9341.
+- Fix y030xx067a init sequence to not get a yellow tint.
+- Kconfig fix for fb_simple vs simpledrm.
+The following changes since commit 6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f:
 
-Shouldn't this be "<= '9'". Otherwise numbers starting with a 9 are not
-"non zero".
+  Linux 5.15-rc1 (2021-09-12 16:28:37 -0700)
 
-Steve
+are available in the Git repository at:
 
-> +	__stringify_1(config)[0] == '-'						\
-> +)
->  
->  #endif /* !__I915_UTILS_H */
-> 
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2021-09-30
 
+for you to fetch changes up to fd09961dbb9ca6558d8ad318a3967c1048bdb090:
+
+  fbdev: simplefb: fix Kconfig dependencies (2021-09-29 09:26:58 +0200)
+
+----------------------------------------------------------------
+drm-misc-fixes for v5.15:
+- Not sure if drm-misc-fixes-2021-09-08 tag was pulled, assuming it is.
+- Power management fixes for vc4.
+- Compiler fix for vc4.
+- Cursor fix for nouveau.
+- Fix ttm buffer moves for ampere gpu's by adding minimal acceleration support.
+- Small rockchip fixes.
+- Fix DT bindings indent for ili9341.
+- Fix y030xx067a init sequence to not get a yellow tint.
+- Kconfig fix for fb_simple vs simpledrm.
+
+----------------------------------------------------------------
+Arnd Bergmann (1):
+      fbdev: simplefb: fix Kconfig dependencies
+
+Ben Skeggs (3):
+      drm/nouveau/kms/tu102-: delay enabling cursor until after assign_windows
+      drm/nouveau/ga102-: support ttm buffer moves via copy engine
+      drm/nouveau/fifo/ga102: initialise chid on return from channel creation
+
+Chris Morgan (1):
+      drm/rockchip: Update crtc fixup to account for fractional clk change
+
+Christophe Branchereau (1):
+      drm/panel: abt-y030xx067a: yellow tint fix
+
+Edmund Dea (1):
+      drm/kmb: Enable alpha blended second plane
+
+Jernej Skrabec (1):
+      drm/sun4i: dw-hdmi: Fix HDMI PHY clock setup
+
+Krzysztof Kozlowski (1):
+      dt-bindings: panel: ili9341: correct indentation
+
+Maarten Lankhorst (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Maxime Ripard (7):
+      drm/vc4: select PM
+      drm/vc4: hdmi: Make sure the controller is powered up during bind
+      drm/vc4: hdmi: Rework the pre_crtc_configure error handling
+      drm/vc4: hdmi: Split the CEC disable / enable functions in two
+      drm/vc4: hdmi: Make sure the device is powered with CEC
+      drm/vc4: hdmi: Warn if we access the controller while disabled
+      drm/vc4: hdmi: Remove unused struct
+
+Palmer Dabbelt (1):
+      drm/rockchip: cdn-dp-core: Fix cdn_dp_resume unused warning
+
+xinhui pan (1):
+      drm/ttm: Fix a deadlock if the target BO is not idle during swap
+
+ .../bindings/display/panel/ilitek,ili9341.yaml     |   2 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                      |   8 +-
+ drivers/gpu/drm/kmb/kmb_drv.h                      |   5 +
+ drivers/gpu/drm/kmb/kmb_plane.c                    |  81 +++++-
+ drivers/gpu/drm/kmb/kmb_plane.h                    |   5 +-
+ drivers/gpu/drm/kmb/kmb_regs.h                     |   3 +
+ drivers/gpu/drm/nouveau/dispnv50/head.c            |   2 +-
+ drivers/gpu/drm/nouveau/include/nvif/class.h       |   2 +
+ drivers/gpu/drm/nouveau/include/nvkm/engine/fifo.h |   1 +
+ drivers/gpu/drm/nouveau/nouveau_bo.c               |   1 +
+ drivers/gpu/drm/nouveau/nouveau_chan.c             |   6 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c              |   4 +
+ drivers/gpu/drm/nouveau/nv84_fence.c               |   2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  |   3 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/Kbuild    |   1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/ga102.c   | 311 +++++++++++++++++++++
+ drivers/gpu/drm/nouveau/nvkm/subdev/top/ga100.c    |   7 +-
+ drivers/gpu/drm/panel/panel-abt-y030xx067a.c       |   4 +-
+ drivers/gpu/drm/rockchip/cdn-dp-core.c             |   2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  26 +-
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c              |   7 +-
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.h              |   4 +-
+ drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c             |  97 ++++---
+ drivers/gpu/drm/vc4/Kconfig                        |   1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     | 133 +++++----
+ drivers/gpu/drm/vc4/vc4_hdmi_regs.h                |   6 +
+ drivers/of/base.c                                  |   1 +
+ drivers/video/fbdev/Kconfig                        |   5 +-
+ 28 files changed, 591 insertions(+), 139 deletions(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/engine/fifo/ga102.c
