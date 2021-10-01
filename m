@@ -2,43 +2,53 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5749AC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 10:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64F93C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 10:32:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00D916134F
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 10:04:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00D916134F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0441261A05
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 10:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0441261A05
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BE86EDA6;
-	Fri,  1 Oct 2021 10:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF946ED22;
+	Fri,  1 Oct 2021 10:32:22 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB846EDA6
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 10:04:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="205542222"
-X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="205542222"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41E426ED22;
+ Fri,  1 Oct 2021 10:32:21 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="205550226"
+X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="205550226"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2021 03:02:53 -0700
-X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="618992638"
-Received: from kdoertel-mobl.ger.corp.intel.com (HELO localhost)
- ([10.251.222.34])
+ 01 Oct 2021 03:32:20 -0700
+X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="619005862"
+Received: from howells-mobl.ger.corp.intel.com (HELO [10.213.208.92])
+ ([10.213.208.92])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2021 03:02:51 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	ville.syrjala@linux.intel.com
-Date: Fri,  1 Oct 2021 13:02:47 +0300
-Message-Id: <20211001100247.26185-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
+ 01 Oct 2021 03:32:18 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+References: <20210930171552.501553-1-tvrtko.ursulin@linux.intel.com>
+ <20210930171552.501553-2-tvrtko.ursulin@linux.intel.com>
+ <20210930183316.GC4323@worktop.programming.kicks-ass.net>
+ <4aca656d-678f-4d61-38a4-d2e7a8fd89ab@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <5c71ec04-9148-0587-c495-11dbd8f77d67@linux.intel.com>
+Date: Fri, 1 Oct 2021 11:32:16 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <4aca656d-678f-4d61-38a4-d2e7a8fd89ab@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/dg2: update link training for 128b/132b
+Subject: Re: [Intel-gfx] [RFC 1/6] sched: Add nice value change notifier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,170 +64,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The 128b/132b channel coding link training uses more straightforward TX
-FFE preset values.
 
-v2: Fix UHBR rate checks, use intel_dp_is_uhbr() helper
+On 01/10/2021 10:04, Tvrtko Ursulin wrote:
+> 
+> Hi Peter,
+> 
+> On 30/09/2021 19:33, Peter Zijlstra wrote:
+>> On Thu, Sep 30, 2021 at 06:15:47PM +0100, Tvrtko Ursulin wrote:
+>>>   void set_user_nice(struct task_struct *p, long nice)
+>>>   {
+>>>       bool queued, running;
+>>> -    int old_prio;
+>>> +    int old_prio, ret;
+>>>       struct rq_flags rf;
+>>>       struct rq *rq;
+>>> @@ -6913,6 +6945,9 @@ void set_user_nice(struct task_struct *p, long 
+>>> nice)
+>>>        */
+>>>       p->sched_class->prio_changed(rq, p, old_prio);
+>>> +    ret = atomic_notifier_call_chain(&user_nice_notifier_list, nice, 
+>>> p);
+>>> +    WARN_ON_ONCE(ret != NOTIFY_DONE);
+>>> +
+>>>   out_unlock:
+>>>       task_rq_unlock(rq, p, &rf);
+>>>   }
+>>
+>> No, we're not going to call out to exported, and potentially unbounded,
+>> functions under scheduler locks.
+> 
+> Agreed, that's another good point why it is even more hairy, as I have 
+> generally alluded in the cover letter.
+> 
+> Do you have any immediate thoughts on possible alternatives?
+> 
+> Like for instance if I did a queue_work from set_user_nice and then ran 
+> a notifier chain async from a worker? I haven't looked at yet what 
+> repercussion would that have in terms of having to cancel the pending 
+> workers when tasks exit. I can try and prototype that and see how it 
+> would look.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c      | 13 ++-
- .../drm/i915/display/intel_dp_link_training.c | 86 +++++++++++++------
- 2 files changed, 70 insertions(+), 29 deletions(-)
+Hm or I simply move calling the notifier chain to after task_rq_unlock? 
+That would leave it run under the tasklist lock so probably still quite bad.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 51cd0420e00e..341fda4055ed 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -1398,11 +1398,16 @@ static int translate_signal_level(struct intel_dp *intel_dp,
- static int intel_ddi_dp_level(struct intel_dp *intel_dp,
- 			      const struct intel_crtc_state *crtc_state)
- {
--	u8 train_set = intel_dp->train_set[0];
--	u8 signal_levels = train_set & (DP_TRAIN_VOLTAGE_SWING_MASK |
--					DP_TRAIN_PRE_EMPHASIS_MASK);
-+	if (intel_dp_is_uhbr(crtc_state)) {
-+		/* FIXME: We'll want independent presets for each lane. */
-+		return intel_dp->train_set[0] & DP_TX_FFE_PRESET_VALUE_MASK;
-+	} else {
-+		u8 train_set = intel_dp->train_set[0];
-+		u8 signal_levels = train_set & (DP_TRAIN_VOLTAGE_SWING_MASK |
-+						DP_TRAIN_PRE_EMPHASIS_MASK);
- 
--	return translate_signal_level(intel_dp, signal_levels);
-+		return translate_signal_level(intel_dp, signal_levels);
-+	}
- }
- 
- static void
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 053ed9302cda..1dda3d31394e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -301,6 +301,24 @@ static u8 intel_dp_phy_preemph_max(struct intel_dp *intel_dp,
- 	return preemph_max;
- }
- 
-+static void intel_dp_128b132b_adjust_train(struct intel_dp *intel_dp,
-+					   const struct intel_crtc_state *crtc_state,
-+					   const u8 link_status[DP_LINK_STATUS_SIZE])
-+{
-+	int lane;
-+	u8 tx_ffe = 0;
-+
-+	/*
-+	 * FIXME: We'll want independent presets for each lane. See also
-+	 * intel_ddi_dp_level() and intel_snps_phy_ddi_vswing_sequence().
-+	 */
-+	for (lane = 0; lane < crtc_state->lane_count; lane++)
-+		tx_ffe = max(tx_ffe, drm_dp_get_adjust_tx_ffe_preset(link_status, lane));
-+
-+	for (lane = 0; lane < crtc_state->lane_count; lane++)
-+		intel_dp->train_set[lane] = tx_ffe;
-+}
-+
- void
- intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 			  const struct intel_crtc_state *crtc_state,
-@@ -313,6 +331,11 @@ intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 	u8 voltage_max;
- 	u8 preemph_max;
- 
-+	if (intel_dp_is_uhbr(crtc_state)) {
-+		intel_dp_128b132b_adjust_train(intel_dp, crtc_state, link_status);
-+		return;
-+	}
-+
- 	for (lane = 0; lane < crtc_state->lane_count; lane++) {
- 		v = max(v, drm_dp_get_adjust_request_voltage(link_status, lane));
- 		p = max(p, drm_dp_get_adjust_request_pre_emphasis(link_status, lane));
-@@ -402,14 +425,21 @@ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
- 	u8 train_set = intel_dp->train_set[0];
- 	char phy_name[10];
- 
--	drm_dbg_kms(&dev_priv->drm, "Using vswing level %d%s, pre-emphasis level %d%s, at %s\n",
--		    train_set & DP_TRAIN_VOLTAGE_SWING_MASK,
--		    train_set & DP_TRAIN_MAX_SWING_REACHED ? " (max)" : "",
--		    (train_set & DP_TRAIN_PRE_EMPHASIS_MASK) >>
--		    DP_TRAIN_PRE_EMPHASIS_SHIFT,
--		    train_set & DP_TRAIN_MAX_PRE_EMPHASIS_REACHED ?
--		    " (max)" : "",
--		    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)));
-+	if (intel_dp_is_uhbr(crtc_state)) {
-+		/* FIXME: We'll want independent presets for each lane. */
-+		drm_dbg_kms(&dev_priv->drm, "%s: Using 128b/132b TX FFE preset %u\n",
-+			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
-+			    train_set & DP_TX_FFE_PRESET_VALUE_MASK);
-+	} else {
-+		drm_dbg_kms(&dev_priv->drm, "%s: Using 8b/10b vswing level %d%s, pre-emphasis level %d%s\n",
-+			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
-+			    train_set & DP_TRAIN_VOLTAGE_SWING_MASK,
-+			    train_set & DP_TRAIN_MAX_SWING_REACHED ? " (max)" : "",
-+			    (train_set & DP_TRAIN_PRE_EMPHASIS_MASK) >>
-+			    DP_TRAIN_PRE_EMPHASIS_SHIFT,
-+			    train_set & DP_TRAIN_MAX_PRE_EMPHASIS_REACHED ?
-+			    " (max)" : "");
-+	}
- 
- 	if (intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
- 		intel_dp->set_signal_levels(intel_dp, crtc_state);
-@@ -563,18 +593,21 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 			return true;
- 		}
- 
--		if (voltage_tries == 5) {
--			drm_dbg_kms(&i915->drm,
--				    "Same voltage tried 5 times\n");
--			return false;
--		}
-+		/* FIXME: 128b/132b needs better abstractions here. */
-+		if (!intel_dp_is_uhbr(crtc_state)) {
-+			if (voltage_tries == 5) {
-+				drm_dbg_kms(&i915->drm,
-+					    "Same voltage tried 5 times\n");
-+				return false;
-+			}
- 
--		if (max_vswing_reached) {
--			drm_dbg_kms(&i915->drm, "Max Voltage Swing reached\n");
--			return false;
--		}
-+			if (max_vswing_reached) {
-+				drm_dbg_kms(&i915->drm, "Max Voltage Swing reached\n");
-+				return false;
-+			}
- 
--		voltage = intel_dp->train_set[0] & DP_TRAIN_VOLTAGE_SWING_MASK;
-+			voltage = intel_dp->train_set[0] & DP_TRAIN_VOLTAGE_SWING_MASK;
-+		}
- 
- 		/* Update training set as requested by target */
- 		intel_dp_get_adjust_train(intel_dp, crtc_state, dp_phy,
-@@ -585,14 +618,17 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 			return false;
- 		}
- 
--		if ((intel_dp->train_set[0] & DP_TRAIN_VOLTAGE_SWING_MASK) ==
--		    voltage)
--			++voltage_tries;
--		else
--			voltage_tries = 1;
-+		/* FIXME: 128b/132b needs better abstractions here. */
-+		if (!intel_dp_is_uhbr(crtc_state)) {
-+			if ((intel_dp->train_set[0] & DP_TRAIN_VOLTAGE_SWING_MASK) ==
-+			    voltage)
-+				++voltage_tries;
-+			else
-+				voltage_tries = 1;
- 
--		if (intel_dp_link_max_vswing_reached(intel_dp, crtc_state))
--			max_vswing_reached = true;
-+			if (intel_dp_link_max_vswing_reached(intel_dp, crtc_state))
-+				max_vswing_reached = true;
-+		}
- 
- 	}
- 	drm_err(&i915->drm,
--- 
-2.30.2
+Or another option - I stash aside the tasks on a private list (adding 
+new list_head to trask_struct), with elevated task ref count, and run 
+the notifier chain outside any locked sections, at the end of the 
+setpriority syscall. This way only the sycall caller pays the cost of 
+any misbehaving notifiers in the chain. Further improvement could be per 
+task notifiers but that would grow the task_struct more.
 
+Regards,
+
+Tvrtko
+
+> There is of course an example ioprio which solves the runtime 
+> adjustments via a dedicated system call. But I don't currently feel that 
+> a third one would be a good solution. At least I don't see a case for 
+> being able to decouple the priority of CPU and GPU and computations.
+> 
+> Have I opened a large can of worms? :)
+> 
+> Regards,
+> 
+> Tvrtko
