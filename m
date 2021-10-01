@@ -2,56 +2,56 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6223DC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F5E7C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 313D261A05
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 313D261A05
+	by mail.kernel.org (Postfix) with ESMTPS id 4538261A05
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4538261A05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B686ECB5;
-	Fri,  1 Oct 2021 12:10:23 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5665A6EDF7;
- Fri,  1 Oct 2021 10:06:38 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id z2so6810254wmc.3;
- Fri, 01 Oct 2021 03:06:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8EF76EE2C;
+	Fri,  1 Oct 2021 12:10:26 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBFB46EDAC;
+ Fri,  1 Oct 2021 10:06:17 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id d6so14549123wrc.11;
+ Fri, 01 Oct 2021 03:06:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=jIUir/k9ok0mhA9lZLcDk0nsv9skwzmV2ts7X5dBo9o=;
- b=WN6qInpAsn24+ftDpOyCYIkBgofW7UaWxMslwRXjLU3tyhh3Ca31+rUNhj+m9LztjU
- sWlGZD0XwTpt2tvUoPdlCD0YI/kuc5NjlzJM3AL8v//Od+x+O5S9Bx1fg2QpUDF5QPk1
- v2zv0mPo3/0J6rlyBUFGwQq3jLBGRNgXXFRDhJPUW+rSLH4e0pbxLaEWoRTavpYUXAu+
- w5Y1FWlBaSQL+7OURv5Er1N3tlBspNHHn8g2E23BT+BrottgnGEiJ8e6Km0kCfPFI4Az
- LjBlXpnYh0LjQHfhVPTCWNRFHPAoBtx2ZxOYXYlMEyBzq1Sf4TBz1KqRD1vafSvHIXhQ
- 2KdQ==
+ bh=lj2Yv/wWR6TC7dOizEI5QN7SBISIYTE1BHrEKqHlUyU=;
+ b=F1cew7aZEUucNVVNFZlNfSBSfXsZ8gbknKuLsr23knf9WXCaxF7SSM845G0YLqkIxP
+ TFPr0rb/+iezQtLlEYcm/bci1worOBdkAy7AmYGc0xhQJzZWgF9vQeIj1+sb3Qe/uFYp
+ pUhQYXiWK3CJneoQbRLveMWgZ5BlgudG604+Rl9I7IFeAbufJpa98KtU19i9dMNDoQfd
+ AAphbF++RL5oETTWkFDFTlpuO7+tmKU21/jcTpKyF9uEMu7nr7z/MIlsjhHHTGnyAqqS
+ VDzTF28/wAFWxRm58SHZSH+O5oYk2JFTnP6C2/JQzB9KEJ88IVwDLYlT4yc4PTpFORg9
+ CciA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=jIUir/k9ok0mhA9lZLcDk0nsv9skwzmV2ts7X5dBo9o=;
- b=ZzfGMOBR3mCkAmln/3aEvqYfrQc+HptS71BRO565dm6ng9d/SpCoptXvaFd+RBeWy8
- /pExqTWICiWpkyuDyrYTkGotvnzAzfC1VnZUCQNcr015Ts02OTAcr+FiPV3MSHkPhruC
- B7GQALk3nP/eFXLSnroBzC6FLJydYEjvkHc6l4KH7eH/uVIFojo6hohxG9c6IODKO/9j
- ZhbJtqTTHi7hbZ0WDOU7fEYeWhuPAJg7pkk2eMZiRM95MIHuLqaedWmqpwD+HL3QyiD2
- VJb/0xz96MxDnvbwODo+UF7dN9KX8VJS9Ze9sYdK+HIjvGg3cTBdeAs0AYMk3Kp1oyGy
- ag3A==
-X-Gm-Message-State: AOAM531TJu4fp/VpKLOqEnwswbkO4qf7HPO8Z1KQSZZQFymKfBLJ9ABu
- pgrae1TiThuadHa4zTiB0bM=
-X-Google-Smtp-Source: ABdhPJymDfL7NFE48Y02DYUiKpeGEfG6vmQwsVgnGjDCH8Rsk9Komv7T3/TkF1ZwvPureSAXTL/EgQ==
-X-Received: by 2002:a1c:44d7:: with SMTP id r206mr3584007wma.150.1633082796860; 
- Fri, 01 Oct 2021 03:06:36 -0700 (PDT)
+ bh=lj2Yv/wWR6TC7dOizEI5QN7SBISIYTE1BHrEKqHlUyU=;
+ b=6q83Afdt3YFVefU4Y9rLjwsc9VFDuHAUoE+qKw/UMqlw9JNS3AwLpX78xYDdayiI1r
+ vcmUWGsRyZXzBXGUXQel91bcXLleYqtYZ/8gAgXR8OdEBFYDblpPw4+WYkTQ3muX7Aa9
+ GeM8b7oE2giQA3/byTPrSOaK2J9GG5m5eWQ4/aL1PgzgqAX9CriDiUP3S93K80SXVToH
+ 4CO9iKeeWQZ1tuXKaS0nNFhB2KWe4DjPzyR2YcEbLjbA3kveVPfo55kZrBUhO3rh1hKD
+ w+5CfEBel+kGR33SYQabS8R4vsfoJtn4Ub9xkFSp2+QQgNXKWvbZpMXeC8KfFSFryEZ7
+ 7lyA==
+X-Gm-Message-State: AOAM530VfS329dAiNwA27h0hnZDGdpksW3y4VO+HyWOlJUz/fzRyIe58
+ qzzfLttTgjSOoiccdKVFD4Y=
+X-Google-Smtp-Source: ABdhPJwF4w8sP02fwa4GAQ5OjEFRtUPoYdMOh1BHF+3PWJhYQbxaJOfIm2jrfhL09Kz2OJkbgOazRA==
+X-Received: by 2002:adf:fec6:: with SMTP id q6mr11075927wrs.122.1633082776331; 
+ Fri, 01 Oct 2021 03:06:16 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- v17sm5746069wro.34.2021.10.01.03.06.36
+ v17sm5746069wro.34.2021.10.01.03.06.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 03:06:36 -0700 (PDT)
+ Fri, 01 Oct 2021 03:06:15 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -59,8 +59,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Fri,  1 Oct 2021 12:06:09 +0200
-Message-Id: <20211001100610.2899-28-christian.koenig@amd.com>
+Date: Fri,  1 Oct 2021 12:05:45 +0200
+Message-Id: <20211001100610.2899-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211001100610.2899-1-christian.koenig@amd.com>
 References: <20211001100610.2899-1-christian.koenig@amd.com>
@@ -68,8 +68,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Oct 2021 12:10:22 +0000
-Subject: [Intel-gfx] [PATCH 27/28] drm/etnaviv: use new iterator in
- etnaviv_gem_describe
+Subject: [Intel-gfx] [PATCH 03/28] dma-buf: add dma_resv selftest
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,70 +84,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of hand rolling the logic.
+Just exercising a very minor subset of the functionality, but already
+proven useful.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gem.c | 31 ++++++++++-----------------
- 1 file changed, 11 insertions(+), 20 deletions(-)
+ drivers/dma-buf/Makefile      |   3 +-
+ drivers/dma-buf/selftests.h   |   1 +
+ drivers/dma-buf/st-dma-resv.c | 164 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 167 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/dma-buf/st-dma-resv.c
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index 8f1b5af47dd6..0eeb33de2ff4 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -428,19 +428,17 @@ int etnaviv_gem_wait_bo(struct etnaviv_gpu *gpu, struct drm_gem_object *obj,
- static void etnaviv_gem_describe_fence(struct dma_fence *fence,
- 	const char *type, struct seq_file *m)
- {
--	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
--		seq_printf(m, "\t%9s: %s %s seq %llu\n",
--			   type,
--			   fence->ops->get_driver_name(fence),
--			   fence->ops->get_timeline_name(fence),
--			   fence->seqno);
-+	seq_printf(m, "\t%9s: %s %s seq %llu\n", type,
-+		   fence->ops->get_driver_name(fence),
-+		   fence->ops->get_timeline_name(fence),
-+		   fence->seqno);
- }
+diff --git a/drivers/dma-buf/Makefile b/drivers/dma-buf/Makefile
+index 1ef021273a06..511805dbeb75 100644
+--- a/drivers/dma-buf/Makefile
++++ b/drivers/dma-buf/Makefile
+@@ -11,6 +11,7 @@ obj-$(CONFIG_DMABUF_SYSFS_STATS) += dma-buf-sysfs-stats.o
+ dmabuf_selftests-y := \
+ 	selftest.o \
+ 	st-dma-fence.o \
+-	st-dma-fence-chain.o
++	st-dma-fence-chain.o \
++	st-dma-resv.o
  
- static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- {
- 	struct etnaviv_gem_object *etnaviv_obj = to_etnaviv_bo(obj);
- 	struct dma_resv *robj = obj->resv;
--	struct dma_resv_list *fobj;
+ obj-$(CONFIG_DMABUF_SELFTESTS)	+= dmabuf_selftests.o
+diff --git a/drivers/dma-buf/selftests.h b/drivers/dma-buf/selftests.h
+index bc8cea67bf1e..97d73aaa31da 100644
+--- a/drivers/dma-buf/selftests.h
++++ b/drivers/dma-buf/selftests.h
+@@ -12,3 +12,4 @@
+ selftest(sanitycheck, __sanitycheck__) /* keep first (igt selfcheck) */
+ selftest(dma_fence, dma_fence)
+ selftest(dma_fence_chain, dma_fence_chain)
++selftest(dma_resv, dma_resv)
+diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
+new file mode 100644
+index 000000000000..ea44769d058d
+--- /dev/null
++++ b/drivers/dma-buf/st-dma-resv.c
+@@ -0,0 +1,164 @@
++/* SPDX-License-Identifier: MIT */
++
++/*
++* Copyright © 2019 Intel Corporation
++*/
++
++//#include <linux/delay.h>
++//#include <linux/dma-fence.h>
++//#include <linux/kernel.h>
++//#include <linux/kthread.h>
++//#include <linux/sched/signal.h>
++
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/dma-resv.h>
++
++#include "selftest.h"
++
++static struct spinlock fence_lock;
++
++static const char *fence_name(struct dma_fence *f)
++{
++	return "selftest";
++}
++
++static const struct dma_fence_ops fence_ops = {
++	.get_driver_name = fence_name,
++	.get_timeline_name = fence_name,
++};
++
++static struct dma_fence *alloc_fence(void)
++{
++	struct dma_fence *f;
++
++	f = kmalloc(sizeof(*f), GFP_KERNEL);
++	if (!f)
++		return NULL;
++
++	dma_fence_init(f, &fence_ops, &fence_lock, 0, 0);
++	return f;
++}
++
++static int sanitycheck(void *arg)
++{
++	struct dma_fence *f;
++
++	f = alloc_fence();
++	if (!f)
++		return -ENOMEM;
++
++	dma_fence_signal(f);
++	dma_fence_put(f);
++	return 0;
++}
++
++static int test_excl_signaling(void *arg)
++{
++	struct dma_resv resv;
++	struct dma_fence *f;
++	int err = -EINVAL;
++
++	f = alloc_fence();
++	if (!f)
++		return -ENOMEM;
++
++	dma_resv_init(&resv);
++	dma_resv_add_excl_fence(&resv, f);
++	if (dma_resv_test_signaled(&resv, false)) {
++		pr_err("Resv unexpectedly signaled\n");
++		goto err_free;
++	}
++	dma_fence_signal(f);
++	if (!dma_resv_test_signaled(&resv, false)) {
++		pr_err("Resv not reporting signaled\n");
++		goto err_free;
++	}
++	err = 0;
++err_free:
++	dma_resv_fini(&resv);
++	dma_fence_put(f);
++	return err;
++}
++
++static int test_shared_signaling(void *arg)
++{
++	struct dma_resv resv;
++	struct dma_fence *f;
++	int err;
++
++	f = alloc_fence();
++	if (!f)
++		return -ENOMEM;
++
++	dma_resv_init(&resv);
++	err = dma_resv_reserve_shared(&resv, 1);
++	if (err) {
++		pr_err("Resv shared slot allocation failed\n");
++		goto err_free;
++	}
++
++	err = -EINVAL;
++	dma_resv_add_shared_fence(&resv, f);
++	if (dma_resv_test_signaled(&resv, true)) {
++		pr_err("Resv unexpectedly signaled\n");
++		goto err_free;
++	}
++	dma_fence_signal(f);
++	if (!dma_resv_test_signaled(&resv, true)) {
++		pr_err("Resv not reporting signaled\n");
++		goto err_free;
++	}
++	err = 0;
++err_free:
++	dma_resv_fini(&resv);
++	dma_fence_put(f);
++	return err;
++}
++
++static int test_excl_for_each(void *arg)
++{
 +	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
- 	unsigned long off = drm_vma_node_start(&obj->vma_node);
- 
-@@ -449,21 +447,14 @@ static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- 			obj->name, kref_read(&obj->refcount),
- 			off, etnaviv_obj->vaddr, obj->size);
- 
--	rcu_read_lock();
--	fobj = dma_resv_shared_list(robj);
--	if (fobj) {
--		unsigned int i, shared_count = fobj->shared_count;
--
--		for (i = 0; i < shared_count; i++) {
--			fence = rcu_dereference(fobj->shared[i]);
-+	dma_resv_iter_begin(&cursor, robj, true);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		if (dma_resv_iter_is_exclusive(&cursor))
-+			etnaviv_gem_describe_fence(fence, "Exclusive", m);
-+		else
- 			etnaviv_gem_describe_fence(fence, "Shared", m);
--		}
- 	}
--
--	fence = dma_resv_excl_fence(robj);
--	if (fence)
--		etnaviv_gem_describe_fence(fence, "Exclusive", m);
--	rcu_read_unlock();
-+	dma_resv_iter_end(&cursor);
- }
- 
- void etnaviv_gem_describe_objects(struct etnaviv_drm_private *priv,
++	struct dma_fence *f, *fence;
++	struct dma_resv resv;
++	int err;
++
++	f = alloc_fence();
++	if (!f)
++		return -ENOMEM;
++
++	dma_resv_init(&resv);
++	dma_resv_add_excl_fence(&resv, f);
++
++	err = -EINVAL;
++	dma_resv_for_each_fence(&cursor, &resv, false, fence) {
++		if (f != fence) {
++			pr_err("Unexpected fence\n");
++			goto err_free;
++		}
++		err = 0;
++	}
++	if (err) {
++		pr_err("No fence found\n");
++		goto err_free;
++	}
++	dma_fence_signal(f);
++	err = 0;
++err_free:
++	dma_resv_fini(&resv);
++	dma_fence_put(f);
++	return err;
++}
++
++int dma_resv(void)
++{
++	static const struct subtest tests[] = {
++		SUBTEST(sanitycheck),
++		SUBTEST(test_excl_signaling),
++		SUBTEST(test_shared_signaling),
++		SUBTEST(test_excl_for_each),
++	};
++
++	spin_lock_init(&fence_lock);
++	return subtests(tests, NULL);
++}
 -- 
 2.25.1
 
