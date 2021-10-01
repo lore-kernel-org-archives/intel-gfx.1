@@ -2,58 +2,56 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB272C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BC04C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9267D61AA4
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9267D61AA4
+	by mail.kernel.org (Postfix) with ESMTPS id 3F99D61A8B
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F99D61A8B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 226126EE37;
-	Fri,  1 Oct 2021 12:10:29 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934A96EDD4;
- Fri,  1 Oct 2021 10:06:25 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- z184-20020a1c7ec1000000b003065f0bc631so10833504wmc.0; 
- Fri, 01 Oct 2021 03:06:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A246EE35;
+	Fri,  1 Oct 2021 12:10:32 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7E16EDEE;
+ Fri,  1 Oct 2021 10:06:37 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id k7so14492950wrd.13;
+ Fri, 01 Oct 2021 03:06:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=yabWm1MzZV7BE4HotZc9CHXB10OboyyVoWyddM9btKw=;
- b=Qjc1wIHm7C7+FZ0zf0J37xwTtZPLvOO6ASxDvrf3+VcrFSzE2KmeNFyiQaE/Vl+Rlq
- Jx8kk1cYPA9lPwImZ1HbLMioQPlM2SjpvNPVxIxJBpkB8GUbwvvObtiKWmwMYipkoOub
- uT6mAfqw8T6viENClrMypA9d0xMDMZ+/yfHRCaWYevYJyI1Is/7lIqgbFJye0EzBZk+L
- 8ySgBLZ2PuMN1K4kXFltYLbBP9Y4Fhi1bIWjh6eoU2jvmPteWnEA7hb2fVoO2a0Lp1eX
- RDZu6OZZm8gVpIB8h+eQqnKJI4oKdq6bepcKhAJ4cXMWNn3gAJVsXB/hmshmn+ZWnSh0
- lPPQ==
+ bh=KGewx1QiQQVkw015IvGnnogZeqnpnoxIhP9ykI50FyQ=;
+ b=Cyh1S+VO3uhIzwT/x7r/+ke6Tw/sa5XVJuThgyu+evB5Z5y/CWutZVCiwpCfFHZegQ
+ 26g2VRhhPd9KX0OahtFF1IqXac+YyHgvNSG+BpcuOZhLk6rSPqls/sVfH9Wsl6pjbXUB
+ XsRKnopUjSmdmOFWLn/0SAswKVinKLLZIOOJ68Rji+ehsq9pT/XNSYhgJl3p4zqWjxdG
+ qRMNY3UTJrNN4+H9YzyNpl5HDZW6MDXbSwuFyS6RhLSt5i+dUEBzxA8h8vacLvnZfnK4
+ XkBWBukDRFSr/FdkYI1aumJo88N0+S3UmvOt/8HN1d6x0qt8I6r1t141kR5TM+/8VbRq
+ N11g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=yabWm1MzZV7BE4HotZc9CHXB10OboyyVoWyddM9btKw=;
- b=dbcL/5A6mdE/uEqSIu3TCmm4AtTfEJd2vFUmDkdBkfpY3wmda+m8zAyoeWnoQ31HTY
- mKDYLK4mBLz7yVxhfLfA/GObfj50fbENDukM/OyWsYXVY3m/G/Vfwv355ZgPrPamJGfe
- 2F77uN69FBcBM1+tLktnF5mh+9hK7ulj9Y5EKp8W9IX+AhMnTZrsv1fHgq3zlophjQGD
- e9vn7rHAIQvsx6qIDGbXxkVMN7koxsmXxCF2Xwq2CbXukBelyy3lwD382acic5tZpe14
- osxqyrjAnRMT2bDHE9K5/xvtLFBILKUdyJyawxzOcAmLrURZgVZ4lmUlmbNFnPhnQLUX
- mfTQ==
-X-Gm-Message-State: AOAM533BwZEQF6+T/Sh1ik98C0ZlXzRB+pbOgvMm+U6svFmubNfMilgN
- uC/Dcj84Fsz3zUASm5dhqik=
-X-Google-Smtp-Source: ABdhPJxdwp7ya/4uzZlQK5Pj4CHR/r3oHjNKAdXCi+hVDyDFWhNfKd+r+tsruJgQprqOmZaeu4PP9Q==
-X-Received: by 2002:a05:600c:190c:: with SMTP id
- j12mr3706058wmq.122.1633082784009; 
- Fri, 01 Oct 2021 03:06:24 -0700 (PDT)
+ bh=KGewx1QiQQVkw015IvGnnogZeqnpnoxIhP9ykI50FyQ=;
+ b=1SV5xAOIuCgLk1reartEK72ATx0bde5J+OMgqnAS26v4KpZglWBxAgt1K1rTxmZueh
+ 0XNHVdvcXsyw+4NrBf3PikUTMC+jF5H0kzRTb06m3Gc18Y6efFeIoeXQYajp/dkQJXMl
+ fpFwqd1vrk1KY0wkVC6xiC59lFjx1wDg6FAZ5WuufjJ48BGwagrlSzQgy8llGataiZfo
+ frUFMLc4av0KeWZMvO3kbFZymd04Rv3TN1abHNpx2tdWaLY/Oz7VWB1tf9RjqVRIu7YD
+ mvmIVphP9Ix62GX8Tm3EwGpVN4oJOuvqqCB4msTspg0nKoHw7SnBvYEN89Vn2r/UHF/v
+ IfkQ==
+X-Gm-Message-State: AOAM530ywV8pgvFVU4ldZVGSfXJf3GH+dklKK/vnCuKho7BS4lCo6kBW
+ UzYleBs0dwnwUB/XZRF0RIQ=
+X-Google-Smtp-Source: ABdhPJwhtgvOI7xyayup3oIPTfuGI4IkHPBzz6DTtAC78R48IvmCzllr7F2U4ngGqkW0ygDIrfd4qA==
+X-Received: by 2002:adf:dc0d:: with SMTP id t13mr11183115wri.158.1633082795955; 
+ Fri, 01 Oct 2021 03:06:35 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- v17sm5746069wro.34.2021.10.01.03.06.23
+ v17sm5746069wro.34.2021.10.01.03.06.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 03:06:23 -0700 (PDT)
+ Fri, 01 Oct 2021 03:06:35 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -61,8 +59,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Fri,  1 Oct 2021 12:05:54 +0200
-Message-Id: <20211001100610.2899-13-christian.koenig@amd.com>
+Date: Fri,  1 Oct 2021 12:06:08 +0200
+Message-Id: <20211001100610.2899-27-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211001100610.2899-1-christian.koenig@amd.com>
 References: <20211001100610.2899-1-christian.koenig@amd.com>
@@ -70,8 +68,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Oct 2021 12:10:22 +0000
-Subject: [Intel-gfx] [PATCH 12/28] drm/amdgpu: use new iterator in
- amdgpu_ttm_bo_eviction_valuable
+Subject: [Intel-gfx] [PATCH 26/28] drm/nouveau: use the new interator in
+ nv50_wndw_prepare_fb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,47 +85,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+Makes the handling a bit more complex, but avoids the use of
+dma_resv_get_excl_unlocked().
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index e8d70b6e6737..722e3c9e8882 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1345,10 +1345,9 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 					    const struct ttm_place *place)
- {
- 	unsigned long num_pages = bo->resource->num_pages;
-+	struct dma_resv_iter resv_cursor;
- 	struct amdgpu_res_cursor cursor;
--	struct dma_resv_list *flist;
- 	struct dma_fence *f;
--	int i;
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+index 8d048bacd6f0..30712a681e2a 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+@@ -539,6 +539,8 @@ nv50_wndw_prepare_fb(struct drm_plane *plane, struct drm_plane_state *state)
+ 	struct nouveau_bo *nvbo;
+ 	struct nv50_head_atom *asyh;
+ 	struct nv50_wndw_ctxdma *ctxdma;
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
+ 	int ret;
  
- 	/* Swapout? */
- 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
-@@ -1362,14 +1361,9 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 	 * If true, then return false as any KFD process needs all its BOs to
- 	 * be resident to run successfully
- 	 */
--	flist = dma_resv_shared_list(bo->base.resv);
--	if (flist) {
--		for (i = 0; i < flist->shared_count; ++i) {
--			f = rcu_dereference_protected(flist->shared[i],
--				dma_resv_held(bo->base.resv));
--			if (amdkfd_fence_check_mm(f, current->mm))
--				return false;
--		}
-+	dma_resv_for_each_fence(&resv_cursor, bo->base.resv, true, f) {
-+		if (amdkfd_fence_check_mm(f, current->mm))
-+			return false;
+ 	NV_ATOMIC(drm, "%s prepare: %p\n", plane->name, fb);
+@@ -561,7 +563,13 @@ nv50_wndw_prepare_fb(struct drm_plane *plane, struct drm_plane_state *state)
+ 			asyw->image.handle[0] = ctxdma->object.handle;
  	}
  
- 	switch (bo->resource->mem_type) {
+-	asyw->state.fence = dma_resv_get_excl_unlocked(nvbo->bo.base.resv);
++	dma_resv_iter_begin(&cursor, nvbo->bo.base.resv, false);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
++		/* TODO: We only use the first writer here */
++		asyw->state.fence = dma_fence_get(fence);
++		break;
++	}
++	dma_resv_iter_end(&cursor);
+ 	asyw->image.offset[0] = nvbo->offset;
+ 
+ 	if (wndw->func->prepare) {
 -- 
 2.25.1
 
