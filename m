@@ -2,57 +2,56 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 254E6C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B43F2C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D83F061A8F
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D83F061A8F
+	by mail.kernel.org (Postfix) with ESMTPS id 7E4D161A8F
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E4D161A8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 815B06ECF6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4856ECD8;
 	Fri,  1 Oct 2021 12:10:23 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3826E6EDBF;
- Fri,  1 Oct 2021 10:06:22 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- t16-20020a1c7710000000b003049690d882so10759278wmi.5; 
- Fri, 01 Oct 2021 03:06:22 -0700 (PDT)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAFED6EDDA;
+ Fri,  1 Oct 2021 10:06:29 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id k7so14492332wrd.13;
+ Fri, 01 Oct 2021 03:06:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=eXOyf2Axg9vbweqRF85gRFPRys7FD2K3wIzrdoghDjE=;
- b=f3SJa+yl39fdzfr+eQ3qogubPh4JXxTayU7uod7iR/pYu8GMn/ZDCtQh9mfnfghJLT
- x7A7wAf9WUq4lnrJqXfADeXcPC4YFI++CJH0O5Syf8nalDmKqztxZdeATm5d8V+FrgNp
- RMedTVN5vO47M1WzPxnccfphC7k7kG9EZ1ut90fsv0Lee9Vs1kkJLqUqoV//wA7CUQjz
- WW/jMrXIL7Si7LKXiYVgfgwFNvd7lMGZr9mQYHKcwvxsGdWBBSeT6BPZ/hc/j2bgb6Gd
- w1pX1v4UEiV04Ooy966Dq5pZNFVEEU9/SzYowqnmQH4mRE4F6J0Nl3Q22pQzhm2jAehL
- F/5A==
+ bh=9ue7puBcgohS+7D/zNLeUPSF3Sf1Ar8z9127abKsq3w=;
+ b=ZsjIr/vefBbHHiUwrD7XJy6MswdJEEhiBaLuWXQmIOhOiycUXnK4K0Mr6yl3X/ZLXN
+ 01ZHFiF7Bcchgp+oaYJ6GzVkisSKo6t3pZKQuA1E4988bGs6bEeuPLIDTWv6oWbmD5AC
+ YokBuiOn3ytUFAvyaZH6zfeVIRuI7sE0ZjbAEiT9tUi/VWmFAyYZIrIuUSCPNFwoSOk7
+ knnoQIZICNp7V1xeCANmtyScQ3pL9y0AdIHstGD1+yFaUjG/KmQ6mbWLKDNR95opqfMI
+ rVFjPTkPYXfVxv4pwgc96ORquSUQO2yvHhwsqn8AQQbBhT6+5PC6Nw9+Yki15qkSQDai
+ P+eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=eXOyf2Axg9vbweqRF85gRFPRys7FD2K3wIzrdoghDjE=;
- b=wGpEviumV7dt2DTCtON2xTSsg+ybHGGfSpyJQdZDbELVIJ0EyqDEjHObD1fKldpj0H
- Vjqeg13w9ERcJdSOaoOpzIkEh5rFSL//XpBy6lcM6m62HDjubd4sk1HGVchVEwlO/PO3
- kegBqTiX3QbiO+6fE/wkenLkBZKP7LYXb89M+TCegZjinotTm0qqgYwwZRlHudOJo7K3
- NDB9CMtyXaRQ8u+NuW7kYtg5DstD/66hg4suNV/TvkQX76j44qIBlLVu0DjAlNTAWXBG
- 13M6LjdiQ/Mj5pRLy2o4RvIzs1aTwe+s57IOMDXSfQxPYbu8B8x7GTz58qmdHpq36fsY
- ROOA==
-X-Gm-Message-State: AOAM532jQVVjlRfGBNXS7em1kxPI/F6D7VDrgHWaFepLvhineOgEDwPw
- 2JqxsJEtzbqz+SvDa5IF2BQ=
-X-Google-Smtp-Source: ABdhPJyyQVfysNmOcePFx27bxTFG1UOPzy4hO6DgLiIYp5NUkPq9miqXDk1ukzvUPvbwPA0/Rp3xvg==
-X-Received: by 2002:a1c:48c:: with SMTP id 134mr3536403wme.137.1633082780703; 
- Fri, 01 Oct 2021 03:06:20 -0700 (PDT)
+ bh=9ue7puBcgohS+7D/zNLeUPSF3Sf1Ar8z9127abKsq3w=;
+ b=VPvPQbc9OdDw7RlcJHCXjQm6NpnbJwlK3LE6VoLhHBmO6UqVRNjJh121Cg5lL2/ar1
+ iKm2aFbK0ujGHsUtRIWLGptj0Pwo+dI4vfoxfrMGrXDjoZsDliw4FdfvxT47gLL+XpNW
+ eNvAIVbKfuGzcsTQWCM6lcRdfUartVOSFFqyjshgVKwEoYGgguNb69lvtrwMlxZt/REN
+ DfV2rFB3noQnc61moSwywcmaJki7haNq/ZL3ec3yx7ql+OJc1uQ3VBKdX8D/ikjYcxdy
+ Xjr3ceN+T3vC6tgGR6W2SJwdG2Ixh5Nkoa3aXDG+jBbhPTABbA1CzMoiSXXD33SURC/k
+ zIYg==
+X-Gm-Message-State: AOAM5301DvkNYN7LTuk/Dd62nefeURlSgGYFv1RunUHH0rjx+8Eg1n60
+ GUi6yuW3Py+EBQPG342qUFs=
+X-Google-Smtp-Source: ABdhPJzm+9VExwWXqnVNs6G8xbrEIBMs86W03GOK95wzmAH6ZIKsuQCZRsC1otcFgzk6whqQoGRC0Q==
+X-Received: by 2002:adf:97d4:: with SMTP id t20mr4627990wrb.34.1633082788233; 
+ Fri, 01 Oct 2021 03:06:28 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- v17sm5746069wro.34.2021.10.01.03.06.19
+ v17sm5746069wro.34.2021.10.01.03.06.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 03:06:20 -0700 (PDT)
+ Fri, 01 Oct 2021 03:06:27 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -60,8 +59,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Fri,  1 Oct 2021 12:05:50 +0200
-Message-Id: <20211001100610.2899-9-christian.koenig@amd.com>
+Date: Fri,  1 Oct 2021 12:05:59 +0200
+Message-Id: <20211001100610.2899-18-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211001100610.2899-1-christian.koenig@amd.com>
 References: <20211001100610.2899-1-christian.koenig@amd.com>
@@ -69,8 +68,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Oct 2021 12:10:22 +0000
-Subject: [Intel-gfx] [PATCH 08/28] dma-buf: use the new iterator in
- dma_buf_debug_show
+Subject: [Intel-gfx] [PATCH 17/28] drm/i915: use the new iterator in
+ i915_gem_busy_ioctl v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,56 +85,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+This makes the function much simpler since the complex
+retry logic is now handled else where.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/dma-buf/dma-buf.c | 24 ++++++------------------
- 1 file changed, 6 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_busy.c | 35 ++++++++++--------------
+ 1 file changed, 14 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 61e20ae7b08b..8242b5d9baeb 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1356,10 +1356,9 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+index 6234e17259c1..dc72b36dae54 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+@@ -82,8 +82,8 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
  {
- 	struct dma_buf *buf_obj;
- 	struct dma_buf_attachment *attach_obj;
--	struct dma_resv *robj;
--	struct dma_resv_list *fobj;
+ 	struct drm_i915_gem_busy *args = data;
+ 	struct drm_i915_gem_object *obj;
+-	struct dma_resv_list *list;
+-	unsigned int seq;
 +	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
--	int count = 0, attach_count, shared_count, i;
-+	int count = 0, attach_count;
- 	size_t size = 0;
- 	int ret;
++	struct dma_fence *fence;
+ 	int err;
  
-@@ -1386,21 +1385,10 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
- 				file_inode(buf_obj->file)->i_ino,
- 				buf_obj->name ?: "");
- 
--		robj = buf_obj->resv;
--		fence = dma_resv_excl_fence(robj);
--		if (fence)
--			seq_printf(s, "\tExclusive fence: %s %s %ssignalled\n",
--				   fence->ops->get_driver_name(fence),
--				   fence->ops->get_timeline_name(fence),
--				   dma_fence_is_signaled(fence) ? "" : "un");
+ 	err = -ENOENT;
+@@ -109,27 +109,20 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
+ 	 * to report the overall busyness. This is what the wait-ioctl does.
+ 	 *
+ 	 */
+-retry:
+-	seq = raw_read_seqcount(&obj->base.resv->seq);
 -
--		fobj = rcu_dereference_protected(robj->fence,
--						 dma_resv_held(robj));
--		shared_count = fobj ? fobj->shared_count : 0;
--		for (i = 0; i < shared_count; i++) {
--			fence = rcu_dereference_protected(fobj->shared[i],
--							  dma_resv_held(robj));
--			seq_printf(s, "\tShared fence: %s %s %ssignalled\n",
-+		dma_resv_for_each_fence(&cursor, buf_obj->resv, true, fence) {
-+			seq_printf(s, "\t%s fence: %s %s %ssignalled\n",
-+				   dma_resv_iter_is_exclusive(&cursor) ?
-+					"Exclusive" : "Shared",
- 				   fence->ops->get_driver_name(fence),
- 				   fence->ops->get_timeline_name(fence),
- 				   dma_fence_is_signaled(fence) ? "" : "un");
+-	/* Translate the exclusive fence to the READ *and* WRITE engine */
+-	args->busy = busy_check_writer(dma_resv_excl_fence(obj->base.resv));
+-
+-	/* Translate shared fences to READ set of engines */
+-	list = dma_resv_shared_list(obj->base.resv);
+-	if (list) {
+-		unsigned int shared_count = list->shared_count, i;
+-
+-		for (i = 0; i < shared_count; ++i) {
+-			struct dma_fence *fence =
+-				rcu_dereference(list->shared[i]);
+-
++	args->busy = 0;
++	dma_resv_iter_begin(&cursor, obj->base.resv, true);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
++		if (dma_resv_iter_is_restarted(&cursor))
++			args->busy = 0;
++
++		if (dma_resv_iter_is_exclusive(&cursor))
++			/* Translate the exclusive fence to the READ *and* WRITE engine */
++			args->busy |= busy_check_writer(fence);
++		else
++			/* Translate shared fences to READ set of engines */
+ 			args->busy |= busy_check_reader(fence);
+-		}
+ 	}
+-
+-	if (args->busy && read_seqcount_retry(&obj->base.resv->seq, seq))
+-		goto retry;
++	dma_resv_iter_end(&cursor);
+ 
+ 	err = 0;
+ out:
 -- 
 2.25.1
 
