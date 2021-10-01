@@ -2,70 +2,45 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CB2FC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 22:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2867BC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 23:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F273761AAB
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 22:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F273761AAB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id E46D961A56
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 23:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E46D961A56
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F42006F41C;
-	Fri,  1 Oct 2021 22:54:34 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A12A6F41C
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 22:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1633128870;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9MjhvvJ3ct3n+zDaBudj36QFCMuRXsvG6sIADocKZZY=;
- b=OUzIz0TSSc/Mf0ARX2MKL/unl/g7M5dezKSgMe/z1dpRxRyQyCc3QuDFuFXU2UOtrwfy5b
- TtEbE7zYDRBKAiSRIs7t0RAyk10X5mZABveNmA2G2HM78z/VEORIJvuexBYrS8lEGhQlNn
- LZbdR6g1VlonZ5zWqBqbc3wiFFOsP/Q=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-429-mxBWZcGjPBq73fGh3RAuIA-1; Fri, 01 Oct 2021 18:54:26 -0400
-X-MC-Unique: mxBWZcGjPBq73fGh3RAuIA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D6FA1023F4D;
- Fri,  1 Oct 2021 22:54:23 +0000 (UTC)
-Received: from Ruby.redhat.com (unknown [10.22.17.71])
- by smtp.corp.redhat.com (Postfix) with ESMTP id BF1BE60BF1;
- Fri,  1 Oct 2021 22:54:21 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Cc: Rajeev Nandan <rajeevny@codeaurora.org>,
- Doug Anderson <dianders@chromium.org>,
- Satadru Pramanik <satadru@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <seanpaul@chromium.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- linux-kernel@vger.kernel.org (open list)
-Date: Fri,  1 Oct 2021 18:53:43 -0400
-Message-Id: <20211001225344.1752203-4-lyude@redhat.com>
-In-Reply-To: <20211001225344.1752203-1-lyude@redhat.com>
-References: <20211001225344.1752203-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA856E5AB;
+	Fri,  1 Oct 2021 23:12:28 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 525366E5AB
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 23:12:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10124"; a="311161260"
+X-IronPort-AV: E=Sophos;i="5.85,340,1624345200"; d="scan'208";a="311161260"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 16:12:25 -0700
+X-IronPort-AV: E=Sophos;i="5.85,340,1624345200"; d="scan'208";a="556621289"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 16:12:25 -0700
+Date: Fri, 1 Oct 2021 16:12:24 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <20211001231224.GH3389343@mdroper-desk1.amr.corp.intel.com>
+References: <20211001161626.18954-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Subject: [Intel-gfx] [PATCH v2 3/4] drm/dp,
- drm/i915: Add support for VESA backlights using PWM for brightness
- control
+In-Reply-To: <20211001161626.18954-1-radhakrishna.sripada@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v5] drm/i915: Update memory bandwidth
+ formulae
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,323 +56,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we've added support to i915 for controlling panel backlights that
-need PWM to be enabled/disabled, let's finalize this and add support for
-controlling brightness levels via PWM as well. This should hopefully put us
-towards the path of supporting _ALL_ backlights via VESA's DPCD interface
-which would allow us to finally start trusting the DPCD again.
+On Fri, Oct 01, 2021 at 09:16:26AM -0700, Radhakrishna Sripada wrote:
+> The formulae has been updated to include more variables. Make
+> sure the code carries the same.
+> 
+> Bspec: 64631
 
-Note however that we still don't enable using this by default on i915 when
-it's not needed, primarily because I haven't yet had a chance to confirm if
-it's safe to do this on the one machine in Intel's CI that had an issue
-with this: samus-fi-bdw. I have done basic testing of this on other
-machines though, by manually patching i915 to force it into PWM-only mode
-on some of my laptops.
+I notice .deburst should be set to 8 rather than 16 on RKL.
 
-v2:
-* Correct documentation (thanks Doug!)
-* Get rid of backlight caps
+> 
+> v2: Make GEN11 follow the default route and fix calculation of
+>     maxdebw(RK)
+> v3: Fix div by zero on default case
+>     Correct indent for fallthrough(Jani)
+> v4: Fix div by zero on gen11.
+> v5: Fix 0 max_numchannels case
+> 
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Suggested-by: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_bw.c | 80 ++++++++++++++++++++-----
+>  1 file changed, 65 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+> index 4b94256d7319..a3c0a282aaad 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> @@ -27,6 +27,9 @@ struct intel_qgv_info {
+>  	u8 num_points;
+>  	u8 num_psf_points;
+>  	u8 t_bl;
+> +	u8 max_numchannels;
+> +	u8 channel_width;
+> +	u8 deinterleave;
+>  };
+>  
+>  static int dg1_mchbar_read_qgv_point_info(struct drm_i915_private *dev_priv,
+> @@ -133,7 +136,8 @@ int icl_pcode_restrict_qgv_points(struct drm_i915_private *dev_priv,
+>  }
+>  
+>  static int icl_get_qgv_points(struct drm_i915_private *dev_priv,
+> -			      struct intel_qgv_info *qi)
+> +			      struct intel_qgv_info *qi,
+> +			      bool is_y_tile)
+>  {
+>  	const struct dram_info *dram_info = &dev_priv->dram_info;
+>  	int i, ret;
+> @@ -144,17 +148,41 @@ static int icl_get_qgv_points(struct drm_i915_private *dev_priv,
+>  	if (DISPLAY_VER(dev_priv) == 12)
+>  		switch (dram_info->type) {
+>  		case INTEL_DRAM_DDR4:
+> -			qi->t_bl = 4;
+> +			qi->t_bl = is_y_tile ? 8 : 4;
+> +			qi->max_numchannels = 2;
+> +			qi->channel_width = 64;
+> +			qi->deinterleave = is_y_tile ? 1 : 2;
+>  			break;
+>  		case INTEL_DRAM_DDR5:
+> -			qi->t_bl = 8;
+> +			qi->t_bl = is_y_tile ? 16 : 8;
+> +			qi->max_numchannels = 4;
+> +			qi->channel_width = 32;
+> +			qi->deinterleave = is_y_tile ? 1 : 2;
+> +			break;
+> +		case INTEL_DRAM_LPDDR4:
+> +			if (IS_ROCKETLAKE(dev_priv)) {
+> +				qi->t_bl = 8;
+> +				qi->max_numchannels = 4;
+> +				qi->channel_width = 32;
+> +				qi->deinterleave = 2;
+> +				break;
+> +			}
+> +			fallthrough;
+> +		case INTEL_DRAM_LPDDR5:
+> +			qi->t_bl = 16;
+> +			qi->max_numchannels = 8;
+> +			qi->channel_width = 16;
+> +			qi->deinterleave = is_y_tile ? 2 : 4;
+>  			break;
+>  		default:
+>  			qi->t_bl = 16;
+> +			qi->max_numchannels = 1;
+>  			break;
+>  		}
+> -	else if (DISPLAY_VER(dev_priv) == 11)
+> +	else if (DISPLAY_VER(dev_priv) == 11) {
+>  		qi->t_bl = dev_priv->dram_info.type == INTEL_DRAM_DDR4 ? 4 : 8;
+> +		qi->max_numchannels = 1;
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Rajeev Nandan <rajeevny@codeaurora.org>
-Cc: Doug Anderson <dianders@chromium.org>
-Cc: Satadru Pramanik <satadru@gmail.com>
----
- drivers/gpu/drm/drm_dp_helper.c               | 75 +++++++++++++------
- .../drm/i915/display/intel_dp_aux_backlight.c | 48 +++++++++---
- include/drm/drm_dp_helper.h                   |  7 +-
- 3 files changed, 93 insertions(+), 37 deletions(-)
+We don't have several of these new values for gen11, so that's going to
+cause problems in the calculations below.  E.g., if we leave
+channel_width as 0, that makes peakbw 0, which makes maxdebw 0.
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 4d0d1e8e51fa..f350e17a80e7 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -3173,6 +3173,10 @@ int drm_edp_backlight_set_level(struct drm_dp_aux *aux, const struct drm_edp_bac
- 	int ret;
- 	u8 buf[2] = { 0 };
- 
-+	/* The panel uses the PWM for controlling brightness levels */
-+	if (!bl->aux_set)
-+		return 0;
-+
- 	if (bl->lsb_reg_used) {
- 		buf[0] = (level & 0xff00) >> 8;
- 		buf[1] = (level & 0x00ff);
-@@ -3199,7 +3203,7 @@ drm_edp_backlight_set_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
- 	int ret;
- 	u8 buf;
- 
--	/* The panel uses something other then DPCD for enabling its backlight */
-+	/* This panel uses the EDP_BL_PWR GPIO for enablement */
- 	if (!bl->aux_enable)
- 		return 0;
- 
-@@ -3234,11 +3238,11 @@ drm_edp_backlight_set_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
-  * restoring any important backlight state such as the given backlight level, the brightness byte
-  * count, backlight frequency, etc.
-  *
-- * Note that certain panels, while supporting brightness level controls over DPCD, may not support
-- * having their backlights enabled via the standard %DP_EDP_DISPLAY_CONTROL_REGISTER. On such panels
-- * &drm_edp_backlight_info.aux_enable will be set to %false, this function will skip the step of
-- * programming the %DP_EDP_DISPLAY_CONTROL_REGISTER, and the driver must perform the required
-- * implementation specific step for enabling the backlight after calling this function.
-+ * Note that certain panels do not support being enabled or disabled via DPCD, but instead require
-+ * that the driver handle enabling/disabling the panel through implementation-specific means using
-+ * the EDP_BL_PWR GPIO. For such panels, &drm_edp_backlight_info.aux_enable will be set to %false,
-+ * this function becomes a no-op, and the driver is expected to handle powering the panel on using
-+ * the EDP_BL_PWR GPIO.
-  *
-  * Returns: %0 on success, negative error code on failure.
-  */
-@@ -3246,7 +3250,7 @@ int drm_edp_backlight_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
- 			     const u16 level)
- {
- 	int ret;
--	u8 dpcd_buf, new_dpcd_buf;
-+	u8 dpcd_buf, new_dpcd_buf, new_mode;
- 
- 	ret = drm_dp_dpcd_readb(aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER, &dpcd_buf);
- 	if (ret != 1) {
-@@ -3256,10 +3260,14 @@ int drm_edp_backlight_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
- 	}
- 
- 	new_dpcd_buf = dpcd_buf;
-+	if (bl->aux_set)
-+		new_mode = DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD;
-+	else
-+		new_mode = DP_EDP_BACKLIGHT_CONTROL_MODE_PWM;
- 
--	if ((dpcd_buf & DP_EDP_BACKLIGHT_CONTROL_MODE_MASK) != DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
-+	if ((dpcd_buf & DP_EDP_BACKLIGHT_CONTROL_MODE_MASK) != new_mode) {
- 		new_dpcd_buf &= ~DP_EDP_BACKLIGHT_CONTROL_MODE_MASK;
--		new_dpcd_buf |= DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD;
-+		new_dpcd_buf |= new_mode;
- 
- 		if (bl->pwmgen_bit_count) {
- 			ret = drm_dp_dpcd_writeb(aux, DP_EDP_PWMGEN_BIT_COUNT, bl->pwmgen_bit_count);
-@@ -3304,12 +3312,13 @@ EXPORT_SYMBOL(drm_edp_backlight_enable);
-  * @aux: The DP AUX channel to use
-  * @bl: Backlight capability info from drm_edp_backlight_init()
-  *
-- * This function handles disabling DPCD backlight controls on a panel over AUX. Note that some
-- * panels have backlights that are enabled/disabled by other means, despite having their brightness
-- * values controlled through DPCD. On such panels &drm_edp_backlight_info.aux_enable will be set to
-- * %false, this function will become a no-op (and we will skip updating
-- * %DP_EDP_DISPLAY_CONTROL_REGISTER), and the driver must take care to perform it's own
-- * implementation specific step for disabling the backlight.
-+ * This function handles disabling DPCD backlight controls on a panel over AUX.
-+ *
-+ * Note that certain panels do not support being enabled or disabled via DPCD, but instead require
-+ * that the driver handle enabling/disabling the panel through implementation-specific means using
-+ * the EDP_BL_PWR GPIO. For such panels, &drm_edp_backlight_info.aux_enable will be set to %false,
-+ * this function becomes a no-op, and the driver is expected to handle powering the panel off using
-+ * the EDP_BL_PWR GPIO.
-  *
-  * Returns: %0 on success or no-op, negative error code on failure.
-  */
-@@ -3333,6 +3342,9 @@ drm_edp_backlight_probe_max(struct drm_dp_aux *aux, struct drm_edp_backlight_inf
- 	int ret;
- 	u8 pn, pn_min, pn_max;
- 
-+	if (!bl->aux_set)
-+		return 0;
-+
- 	ret = drm_dp_dpcd_readb(aux, DP_EDP_PWMGEN_BIT_COUNT, &pn);
- 	if (ret != 1) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to read pwmgen bit count cap: %d\n",
-@@ -3418,7 +3430,7 @@ drm_edp_backlight_probe_max(struct drm_dp_aux *aux, struct drm_edp_backlight_inf
- }
- 
- static inline int
--drm_edp_backlight_probe_level(struct drm_dp_aux *aux, struct drm_edp_backlight_info *bl,
-+drm_edp_backlight_probe_state(struct drm_dp_aux *aux, struct drm_edp_backlight_info *bl,
- 			      u8 *current_mode)
- {
- 	int ret;
-@@ -3433,6 +3445,9 @@ drm_edp_backlight_probe_level(struct drm_dp_aux *aux, struct drm_edp_backlight_i
- 	}
- 
- 	*current_mode = (mode_reg & DP_EDP_BACKLIGHT_CONTROL_MODE_MASK);
-+	if (!bl->aux_set)
-+		return 0;
-+
- 	if (*current_mode == DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
- 		int size = 1 + bl->lsb_reg_used;
- 
-@@ -3463,7 +3478,7 @@ drm_edp_backlight_probe_level(struct drm_dp_aux *aux, struct drm_edp_backlight_i
-  * @bl: The &drm_edp_backlight_info struct to fill out with information on the backlight
-  * @driver_pwm_freq_hz: Optional PWM frequency from the driver in hz
-  * @edp_dpcd: A cached copy of the eDP DPCD
-- * @current_level: Where to store the probed brightness level
-+ * @current_level: Where to store the probed brightness level, if any
-  * @current_mode: Where to store the currently set backlight control mode
-  *
-  * Initializes a &drm_edp_backlight_info struct by probing @aux for it's backlight capabilities,
-@@ -3483,24 +3498,38 @@ drm_edp_backlight_init(struct drm_dp_aux *aux, struct drm_edp_backlight_info *bl
- 
- 	if (edp_dpcd[1] & DP_EDP_BACKLIGHT_AUX_ENABLE_CAP)
- 		bl->aux_enable = true;
-+	if (edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP)
-+		bl->aux_set = true;
- 	if (edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_BYTE_COUNT)
- 		bl->lsb_reg_used = true;
- 
-+	/* Sanity check caps */
-+	if (!bl->aux_set && !(edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP)) {
-+		drm_dbg_kms(aux->drm_dev,
-+			    "%s: Panel supports neither AUX or PWM brightness control? Aborting\n",
-+			    aux->name);
-+		return -EINVAL;
-+	}
-+
- 	ret = drm_edp_backlight_probe_max(aux, bl, driver_pwm_freq_hz, edp_dpcd);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = drm_edp_backlight_probe_level(aux, bl, current_mode);
-+	ret = drm_edp_backlight_probe_state(aux, bl, current_mode);
- 	if (ret < 0)
- 		return ret;
- 	*current_level = ret;
- 
- 	drm_dbg_kms(aux->drm_dev,
--		    "%s: Found backlight level=%d/%d pwm_freq_pre_divider=%d mode=%x\n",
--		    aux->name, *current_level, bl->max, bl->pwm_freq_pre_divider, *current_mode);
--	drm_dbg_kms(aux->drm_dev,
--		    "%s: Backlight caps: pwmgen_bit_count=%d lsb_reg_used=%d aux_enable=%d\n",
--		    aux->name, bl->pwmgen_bit_count, bl->lsb_reg_used, bl->aux_enable);
-+		    "%s: Found backlight: aux_set=%d aux_enable=%d mode=%d\n",
-+		    aux->name, bl->aux_set, bl->aux_enable, *current_mode);
-+	if (bl->aux_set) {
-+		drm_dbg_kms(aux->drm_dev,
-+			    "%s: Backlight caps: level=%d/%d pwm_freq_pre_divider=%d lsb_reg_used=%d\n",
-+			    aux->name, *current_level, bl->max, bl->pwm_freq_pre_divider,
-+			    bl->lsb_reg_used);
-+	}
-+
- 	return 0;
- }
- EXPORT_SYMBOL(drm_edp_backlight_init);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 594fdc7453ca..91daf9ab50e8 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -282,6 +282,12 @@ intel_dp_aux_vesa_set_backlight(const struct drm_connector_state *conn_state, u3
- 	struct intel_panel *panel = &connector->panel;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
- 
-+	if (!panel->backlight.edp.vesa.info.aux_set) {
-+		const u32 pwm_level = intel_backlight_level_to_pwm(connector, level);
-+
-+		intel_backlight_set_pwm_level(conn_state, pwm_level);
-+	}
-+
- 	drm_edp_backlight_set_level(&intel_dp->aux, &panel->backlight.edp.vesa.info, level);
- }
- 
-@@ -293,9 +299,16 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	struct intel_panel *panel = &connector->panel;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
- 
--	if (!panel->backlight.edp.vesa.info.aux_enable)
--		panel->backlight.pwm_funcs->enable(crtc_state, conn_state,
--						   panel->backlight.pwm_level_max);
-+	if (!panel->backlight.edp.vesa.info.aux_enable) {
-+		u32 pwm_level;
-+
-+		if (!panel->backlight.edp.vesa.info.aux_set)
-+			pwm_level = intel_backlight_level_to_pwm(connector, level);
-+		else
-+			pwm_level = panel->backlight.pwm_level_max;
-+
-+		panel->backlight.pwm_funcs->enable(crtc_state, conn_state, pwm_level);
-+	}
- 
- 	drm_edp_backlight_enable(&intel_dp->aux, &panel->backlight.edp.vesa.info, level);
- }
-@@ -329,7 +342,7 @@ static int intel_dp_aux_vesa_setup_backlight(struct intel_connector *connector,
- 	if (ret < 0)
- 		return ret;
- 
--	if (!panel->backlight.edp.vesa.info.aux_enable) {
-+	if (!panel->backlight.edp.vesa.info.aux_set || !panel->backlight.edp.vesa.info.aux_enable) {
- 		ret = panel->backlight.pwm_funcs->setup(connector, pipe);
- 		if (ret < 0) {
- 			drm_err(&i915->drm,
-@@ -338,14 +351,27 @@ static int intel_dp_aux_vesa_setup_backlight(struct intel_connector *connector,
- 			return ret;
- 		}
- 	}
--	panel->backlight.max = panel->backlight.edp.vesa.info.max;
--	panel->backlight.min = 0;
--	if (current_mode == DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
--		panel->backlight.level = current_level;
--		panel->backlight.enabled = panel->backlight.level != 0;
-+
-+	if (panel->backlight.edp.vesa.info.aux_set) {
-+		panel->backlight.max = panel->backlight.edp.vesa.info.max;
-+		panel->backlight.min = 0;
-+		if (current_mode == DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
-+			panel->backlight.level = current_level;
-+			panel->backlight.enabled = panel->backlight.level != 0;
-+		} else {
-+			panel->backlight.level = panel->backlight.max;
-+			panel->backlight.enabled = false;
-+		}
- 	} else {
--		panel->backlight.level = panel->backlight.max;
--		panel->backlight.enabled = false;
-+		panel->backlight.max = panel->backlight.pwm_level_max;
-+		panel->backlight.min = panel->backlight.pwm_level_min;
-+		if (current_mode == DP_EDP_BACKLIGHT_CONTROL_MODE_PWM) {
-+			panel->backlight.level = panel->backlight.pwm_funcs->get(connector, pipe);
-+			panel->backlight.enabled = panel->backlight.pwm_enabled;
-+		} else {
-+			panel->backlight.level = panel->backlight.max;
-+			panel->backlight.enabled = false;
-+		}
- 	}
- 
- 	return 0;
-diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index b52df4db3e8f..c8898a3a0c27 100644
---- a/include/drm/drm_dp_helper.h
-+++ b/include/drm/drm_dp_helper.h
-@@ -1851,7 +1851,7 @@ drm_dp_sink_can_do_video_without_timing_msa(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-  *
-  * Note that currently this function will return %false for panels which support various DPCD
-  * backlight features but which require the brightness be set through PWM, and don't support setting
-- * the brightness level via the DPCD. This is a TODO.
-+ * the brightness level via the DPCD.
-  *
-  * Returns: %True if @edp_dpcd indicates that VESA backlight controls are supported, %false
-  * otherwise
-@@ -1859,8 +1859,7 @@ drm_dp_sink_can_do_video_without_timing_msa(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- static inline bool
- drm_edp_backlight_supported(const u8 edp_dpcd[EDP_DISPLAY_CTL_CAP_SIZE])
- {
--	return (edp_dpcd[1] & DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP) &&
--		(edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP);
-+	return !!(edp_dpcd[1] & DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP);
- }
- 
- /*
-@@ -2221,6 +2220,7 @@ drm_dp_has_quirk(const struct drm_dp_desc *desc, enum drm_dp_quirk quirk)
-  * @max: The maximum backlight level that may be set
-  * @lsb_reg_used: Do we also write values to the DP_EDP_BACKLIGHT_BRIGHTNESS_LSB register?
-  * @aux_enable: Does the panel support the AUX enable cap?
-+ * @aux_set: Does the panel support setting the brightness through AUX?
-  *
-  * This structure contains various data about an eDP backlight, which can be populated by using
-  * drm_edp_backlight_init().
-@@ -2232,6 +2232,7 @@ struct drm_edp_backlight_info {
- 
- 	bool lsb_reg_used : 1;
- 	bool aux_enable : 1;
-+	bool aux_set : 1;
- };
- 
- int
+So we either need to backcalculate the proper values that will make the
+version 12 algorithm give the same values as the version 11 algorithm,
+or we need to implement the two algorithms separately.  Bspec 54023 vs
+bspec 64631 look a bit different, but I didn't inspect them carefully
+enough to see if 54023 just has some of these values implicitly baked
+into the calculations already.
+
+
+> +	}
+>  
+>  	if (drm_WARN_ON(&dev_priv->drm,
+>  			qi->num_points > ARRAY_SIZE(qi->points)))
+> @@ -263,37 +291,59 @@ static const struct intel_sa_info adlp_sa_info = {
+>  static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel_sa_info *sa)
+>  {
+>  	struct intel_qgv_info qi = {};
+> +	const struct dram_info *dram_info = &dev_priv->dram_info;
+>  	bool is_y_tile = true; /* assume y tile may be used */
+>  	int num_channels = max_t(u8, 1, dev_priv->dram_info.num_channels);
+> -	int deinterleave;
+>  	int ipqdepth, ipqdepthpch;
+>  	int dclk_max;
+> -	int maxdebw;
+> +	int maxdebw, peakbw;
+> +	int clperchgroup;
+> +	int num_groups = ARRAY_SIZE(dev_priv->max_bw);
+>  	int i, ret;
+>  
+> -	ret = icl_get_qgv_points(dev_priv, &qi);
+> +	ret = icl_get_qgv_points(dev_priv, &qi, is_y_tile);
+>  	if (ret) {
+>  		drm_dbg_kms(&dev_priv->drm,
+>  			    "Failed to get memory subsystem information, ignoring bandwidth limits");
+>  		return ret;
+>  	}
+>  
+> -	deinterleave = DIV_ROUND_UP(num_channels, is_y_tile ? 4 : 2);
+> -	dclk_max = icl_sagv_max_dclk(&qi);
+> +	if (dram_info->type == INTEL_DRAM_LPDDR4 || dram_info->type == INTEL_DRAM_LPDDR5)
+> +		num_channels *= 2;
+> +
+> +	qi.deinterleave = qi.deinterleave ? : DIV_ROUND_UP(num_channels, is_y_tile ? 4 : 2);
+> +
+> +	if (num_channels < qi.max_numchannels && DISPLAY_VER(dev_priv) >= 12)
+> +		qi.deinterleave = DIV_ROUND_UP(qi.deinterleave, 2);
+
+This becomes 0 for DDR4/DDR5 y-tile.  The bspec has another MAX()
+operation here to ensure that we end up with a value of at least 1.
+
+> +
+> +	if (qi.max_numchannels != 0)
+> +		num_channels = min_t(u8, num_channels, qi.max_numchannels);
+
+I don't see this in the bspec, but it makes sense.  Should we have some
+kind of debug message / WARN if the number of channels we think we have
+exceeds the maximum?
+
+> +
+> +	dclk_max = icl_calc_bw(icl_sagv_max_dclk(&qi), 16, 1);
+
+dclk_max in the old code was the maximum clock rate (and corresponds to
+"clk_max" in the updated algorithm).  But here we're modifying scaling
+it into different units (I'm not sure what they're supposed to
+represent).
+
+>  
+>  	ipqdepthpch = 16;
+>  
+> -	maxdebw = min(sa->deprogbwlimit * 1000,
+> -		      icl_calc_bw(dclk_max, 16, 1) * 6 / 10); /* 60% */
+> +	peakbw = num_channels * DIV_ROUND_UP(qi.deinterleave, 8) * dclk_max;
+
+qi.deinterleave here is supposed to be channel_width isn't it?
+deinterleave/8 would be 0 for all possible values of deinterleave I
+think.
+
+> +	maxdebw = min(sa->deprogbwlimit * 1000, peakbw * 6 / 10); /* 60% */
+>  	ipqdepth = min(ipqdepthpch, sa->displayrtids / num_channels);
+> +	/*
+> +	 * clperchgroup = 4kpagespermempage * clperchperblock,
+> +	 * clperchperblock = 8 / num_channels * interleave
+
+Based on the way this is written in the bspec, I wonder if they meant to
+have parentheses around (num_channels * deinterleave)?  Probably worth
+confirming.
+
+> +	 */
+> +	clperchgroup = 4 * DIV_ROUND_UP(8, num_channels) * qi.deinterleave;
+>  
+> -	for (i = 0; i < ARRAY_SIZE(dev_priv->max_bw); i++) {
+> +	for (i = 0; i < num_groups; i++) {
+>  		struct intel_bw_info *bi = &dev_priv->max_bw[i];
+>  		int clpchgroup;
+>  		int j;
+>  
+> -		clpchgroup = (sa->deburst * deinterleave / num_channels) << i;
+> -		bi->num_planes = (ipqdepth - clpchgroup) / clpchgroup + 1;
+> +		clpchgroup = (sa->deburst * qi.deinterleave / num_channels) << i;
+> +
+> +		if ((i < num_groups - 1 && clpchgroup < clperchgroup) ||
+> +		    DISPLAY_VER(dev_priv) == 11)
+> +			bi->num_planes = (ipqdepth - clpchgroup) / clpchgroup + 1;
+> +		else
+> +			bi->num_planes = 0;
+
+I think these are off by one.  num_planes[0] is supposed to be 0.  The
+loop in the bspec is assigning values for numplanes[i + 1].  The loop
+you have here is going to leave numplanes[num_groups - 1] as 0 instead.
+This does differ from the old version of the algorithm.
+
+>  
+>  		bi->num_qgv_points = qi.num_points;
+>  		bi->num_psf_gv_points = qi.num_psf_points;
+> @@ -339,7 +389,7 @@ static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel
+>  	 * SAGV point, but we can't send PCode commands to restrict it
+>  	 * as it will fail and pointless anyway.
+>  	 */
+> -	if (qi.num_points == 1)
+> +	if (qi.num_points >= 1)
+
+Was this change a mistake?  This is going to prevent us from using SAGV
+in the situations where it should be used (i.e., where the BIOS properly
+tells us about multiple QGV points we can switch between).
+
+
+Matt
+
+>  		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
+>  	else
+>  		dev_priv->sagv_status = I915_SAGV_ENABLED;
+> -- 
+> 2.20.1
+> 
+
 -- 
-2.31.1
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
