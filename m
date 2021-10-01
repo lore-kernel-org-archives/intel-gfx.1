@@ -2,43 +2,46 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A99AC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:01:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64375C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E87C60555
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2E87C60555
+	by mail.kernel.org (Postfix) with ESMTPS id 252A760555
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:02:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 252A760555
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969F36ECE4;
-	Fri,  1 Oct 2021 13:01:57 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C63E6E505
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 13:01:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="223525164"
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="223525164"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C364F6E4A2;
+	Fri,  1 Oct 2021 13:02:01 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2219C6E4A2
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 13:01:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="204910469"
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="204910469"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2021 06:01:10 -0700
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 06:01:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="480439093"
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="480439319"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga007.fm.intel.com with SMTP; 01 Oct 2021 06:01:08 -0700
+ by fmsmga007.fm.intel.com with SMTP; 01 Oct 2021 06:01:27 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 01 Oct 2021 16:01:07 +0300
+ Fri, 01 Oct 2021 16:01:26 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  1 Oct 2021 16:00:57 +0300
-Message-Id: <20211001130107.1746-1-ville.syrjala@linux.intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Date: Fri,  1 Oct 2021 16:01:02 +0300
+Message-Id: <20211001130107.1746-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211001130107.1746-1-ville.syrjala@linux.intel.com>
+References: <20211001130107.1746-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/10] drm/i915: DP per-lane drive settings
- prep work
+Subject: [Intel-gfx] [PATCH v2 05/10] drm/i915: De-wrapper
+ bxt_ddi_phy_set_signal_levels()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,38 +59,144 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Revised set after I fixed the DDI_BUF_CTL stuff Imre
-pointed out. Also pushed the first s/ddi_translation/trans/
-rename patch already.
+Convert bxt_ddi_phy_set_signal_levels() to act as the full
+.set_signal_levels() hook instead of going through a pointless wrapper.
 
-There are two new patches at the start of the series to
-refactor some platform checks into a more sensible form.
+Reviewed-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 24 +--------------
+ drivers/gpu/drm/i915/display/intel_dpio_phy.c | 30 +++++++++++++------
+ drivers/gpu/drm/i915/display/intel_dpio_phy.h |  5 ++--
+ 3 files changed, 24 insertions(+), 35 deletions(-)
 
-Ville Syrjälä (10):
-  drm/i915: Introduce has_iboost()
-  drm/i915: Introduce has_buf_trans_select()
-  drm/i915: Generalize .set_signal_levels()
-  drm/i915: Nuke useless .set_signal_levels() wrappers
-  drm/i915: De-wrapper bxt_ddi_phy_set_signal_levels()
-  drm/i915: Hoover the level>=n_entries WARN into intel_ddi_level()
-  drm/i915: Nuke intel_ddi_hdmi_num_entries()
-  drm/i915: Pass the lane to intel_ddi_level()
-  drm/i915: Prepare link training for per-lane drive settings
-  drm/i915: Allow per-lane drive settings with LTTPRs
-
- drivers/gpu/drm/i915/display/g4x_dp.c         |  33 +--
- drivers/gpu/drm/i915/display/intel_ddi.c      | 244 ++++++------------
- drivers/gpu/drm/i915/display/intel_ddi.h      |   7 +-
- .../drm/i915/display/intel_ddi_buf_trans.c    |  20 --
- .../drm/i915/display/intel_ddi_buf_trans.h    |   4 -
- .../drm/i915/display/intel_display_types.h    |   5 +-
- .../drm/i915/display/intel_dp_link_training.c |  83 ++++--
- drivers/gpu/drm/i915/display/intel_dpio_phy.c |  28 +-
- drivers/gpu/drm/i915/display/intel_dpio_phy.h |   5 +-
- drivers/gpu/drm/i915/display/intel_snps_phy.c |   9 +-
- drivers/gpu/drm/i915/display/intel_snps_phy.h |   5 +-
- 11 files changed, 196 insertions(+), 247 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index accdf456b1d0..e6dd8ca36e44 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -1005,28 +1005,6 @@ static void skl_ddi_set_iboost(struct intel_encoder *encoder,
+ 		_skl_ddi_set_iboost(dev_priv, PORT_E, iboost);
+ }
+ 
+-static void bxt_set_signal_levels(struct intel_encoder *encoder,
+-				  const struct intel_crtc_state *crtc_state)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	int level = intel_ddi_level(encoder, crtc_state);
+-	const struct intel_ddi_buf_trans *trans;
+-	enum port port = encoder->port;
+-	int n_entries;
+-
+-	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
+-	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
+-		return;
+-	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
+-		level = n_entries - 1;
+-
+-	bxt_ddi_phy_set_signal_level(dev_priv, port,
+-				     trans->entries[level].bxt.margin,
+-				     trans->entries[level].bxt.scale,
+-				     trans->entries[level].bxt.enable,
+-				     trans->entries[level].bxt.deemphasis);
+-}
+-
+ static u8 intel_ddi_dp_voltage_max(struct intel_dp *intel_dp,
+ 				   const struct intel_crtc_state *crtc_state)
+ {
+@@ -4580,7 +4558,7 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
+ 		else
+ 			encoder->set_signal_levels = icl_mg_phy_set_signal_levels;
+ 	} else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) {
+-		encoder->set_signal_levels = bxt_set_signal_levels;
++		encoder->set_signal_levels = bxt_ddi_phy_set_signal_levels;
+ 	} else {
+ 		encoder->set_signal_levels = hsw_set_signal_levels;
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dpio_phy.c b/drivers/gpu/drm/i915/display/intel_dpio_phy.c
+index 48507ed79950..4d604e4cfa5d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpio_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_dpio_phy.c
+@@ -23,6 +23,8 @@
+ 
+ #include "display/intel_dp.h"
+ 
++#include "intel_ddi.h"
++#include "intel_ddi_buf_trans.h"
+ #include "intel_de.h"
+ #include "intel_display_types.h"
+ #include "intel_dpio_phy.h"
+@@ -266,15 +268,24 @@ void bxt_port_to_phy_channel(struct drm_i915_private *dev_priv, enum port port,
+ 	*ch = DPIO_CH0;
+ }
+ 
+-void bxt_ddi_phy_set_signal_level(struct drm_i915_private *dev_priv,
+-				  enum port port, u32 margin, u32 scale,
+-				  u32 enable, u32 deemphasis)
++void bxt_ddi_phy_set_signal_levels(struct intel_encoder *encoder,
++				   const struct intel_crtc_state *crtc_state)
+ {
+-	u32 val;
+-	enum dpio_phy phy;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	int level = intel_ddi_level(encoder, crtc_state);
++	const struct intel_ddi_buf_trans *trans;
+ 	enum dpio_channel ch;
++	enum dpio_phy phy;
++	int n_entries;
++	u32 val;
+ 
+-	bxt_port_to_phy_channel(dev_priv, port, &phy, &ch);
++	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
++	if (drm_WARN_ON_ONCE(&dev_priv->drm, !trans))
++		return;
++	if (drm_WARN_ON_ONCE(&dev_priv->drm, level >= n_entries))
++		level = n_entries - 1;
++
++	bxt_port_to_phy_channel(dev_priv, encoder->port, &phy, &ch);
+ 
+ 	/*
+ 	 * While we write to the group register to program all lanes at once we
+@@ -286,12 +297,13 @@ void bxt_ddi_phy_set_signal_level(struct drm_i915_private *dev_priv,
+ 
+ 	val = intel_de_read(dev_priv, BXT_PORT_TX_DW2_LN0(phy, ch));
+ 	val &= ~(MARGIN_000 | UNIQ_TRANS_SCALE);
+-	val |= margin << MARGIN_000_SHIFT | scale << UNIQ_TRANS_SCALE_SHIFT;
++	val |= trans->entries[level].bxt.margin << MARGIN_000_SHIFT |
++		trans->entries[level].bxt.scale << UNIQ_TRANS_SCALE_SHIFT;
+ 	intel_de_write(dev_priv, BXT_PORT_TX_DW2_GRP(phy, ch), val);
+ 
+ 	val = intel_de_read(dev_priv, BXT_PORT_TX_DW3_LN0(phy, ch));
+ 	val &= ~SCALE_DCOMP_METHOD;
+-	if (enable)
++	if (trans->entries[level].bxt.enable)
+ 		val |= SCALE_DCOMP_METHOD;
+ 
+ 	if ((val & UNIQUE_TRANGE_EN_METHOD) && !(val & SCALE_DCOMP_METHOD))
+@@ -302,7 +314,7 @@ void bxt_ddi_phy_set_signal_level(struct drm_i915_private *dev_priv,
+ 
+ 	val = intel_de_read(dev_priv, BXT_PORT_TX_DW4_LN0(phy, ch));
+ 	val &= ~DE_EMPHASIS;
+-	val |= deemphasis << DEEMPH_SHIFT;
++	val |= trans->entries[level].bxt.deemphasis << DEEMPH_SHIFT;
+ 	intel_de_write(dev_priv, BXT_PORT_TX_DW4_GRP(phy, ch), val);
+ 
+ 	val = intel_de_read(dev_priv, BXT_PORT_PCS_DW10_LN01(phy, ch));
+diff --git a/drivers/gpu/drm/i915/display/intel_dpio_phy.h b/drivers/gpu/drm/i915/display/intel_dpio_phy.h
+index 6473440e7457..9c3d008e8e1a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpio_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_dpio_phy.h
+@@ -17,9 +17,8 @@ struct intel_encoder;
+ 
+ void bxt_port_to_phy_channel(struct drm_i915_private *dev_priv, enum port port,
+ 			     enum dpio_phy *phy, enum dpio_channel *ch);
+-void bxt_ddi_phy_set_signal_level(struct drm_i915_private *dev_priv,
+-				  enum port port, u32 margin, u32 scale,
+-				  u32 enable, u32 deemphasis);
++void bxt_ddi_phy_set_signal_levels(struct intel_encoder *encoder,
++				   const struct intel_crtc_state *crtc_state);
+ void bxt_ddi_phy_init(struct drm_i915_private *dev_priv, enum dpio_phy phy);
+ void bxt_ddi_phy_uninit(struct drm_i915_private *dev_priv, enum dpio_phy phy);
+ bool bxt_ddi_phy_is_enabled(struct drm_i915_private *dev_priv,
 -- 
 2.32.0
 
