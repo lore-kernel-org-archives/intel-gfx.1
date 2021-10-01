@@ -2,47 +2,44 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4248C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42247C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64BBB61A50
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:20:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64BBB61A50
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 076CF61A6F
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:21:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 076CF61A6F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E36CD6ECF4;
-	Fri,  1 Oct 2021 14:20:22 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2941B6ECF4
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 14:20:21 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="222246968"
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="222246968"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2021 07:20:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="521083536"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 01 Oct 2021 07:20:18 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 01 Oct 2021 17:20:17 +0300
-Date: Fri, 1 Oct 2021 17:20:17 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: imre.deak@intel.com, intel-gfx@lists.freedesktop.org
-Message-ID: <YVcZIYZLZaPhXvm6@intel.com>
-References: <20211001132535.GA7930@kili>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02D46ECF4;
+	Fri,  1 Oct 2021 14:21:18 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E416ECF4
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 14:21:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="248009293"
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="248009293"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 07:18:42 -0700
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="708639604"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 07:18:41 -0700
+Date: Fri, 1 Oct 2021 17:18:37 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <20211001141837.GC2553962@ideak-desk.fi.intel.com>
+References: <20211001130107.1746-1-ville.syrjala@linux.intel.com>
+ <20211001130107.1746-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211001132535.GA7930@kili>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [bug report] drm/i915/tc: Fix TypeC PHY
- connect/disconnect logic on ADL-P
+In-Reply-To: <20211001130107.1746-2-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 01/10] drm/i915: Introduce has_iboost()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,44 +55,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 01, 2021 at 04:25:35PM +0300, Dan Carpenter wrote:
-> Hello Imre Deak,
+On Fri, Oct 01, 2021 at 04:00:58PM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> This is a semi-automatic email about new static checker warnings.
+> Suck the "do we have iboost?" platform checks into a small helper.
 > 
-> The patch 3e0abc7661c8: "drm/i915/tc: Fix TypeC PHY 
-> connect/disconnect logic on ADL-P" from Sep 29, 2021, leads to the 
-> following Smatch complaint:
-> 
->     drivers/gpu/drm/i915/display/intel_ddi.c:4028 intel_ddi_encoder_destroy()
->     warn: variable dereferenced before check 'dig_port' (see line 4020)
-> 
-> drivers/gpu/drm/i915/display/intel_ddi.c
->   4019		struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
->   4020		enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
->                                                        ^^^^^^^^^^^^^^^^^^^
-> The patch adds a new unchecked dereference.
-> 
->   4021	
->   4022		intel_dp_encoder_flush_work(encoder);
->   4023		if (intel_phy_is_tc(i915, phy))
->   4024			intel_tc_port_flush_work(dig_port);
->   4025		intel_display_power_flush_work(i915);
->   4026	
->   4027		drm_encoder_cleanup(encoder);
->   4028		if (dig_port)
->                     ^^^^^^^^
-> But the existing code checked for NULL.
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-That check is nonsense. Feel free to nuke it.
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
 > 
->   4029			kfree(dig_port->hdcp_port_data.streams);
->   4030		kfree(dig_port);
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 51cd0420e00e..f6429114ce7c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -92,6 +92,11 @@ static int intel_ddi_hdmi_level(struct intel_encoder *encoder,
+>  	return level;
+>  }
+>  
+> +static bool has_iboost(struct drm_i915_private *i915)
+> +{
+> +	return DISPLAY_VER(i915) == 9 && !IS_BROXTON(i915);
+> +}
+> +
+>  /*
+>   * Starting with Haswell, DDI port buffers must be programmed with correct
+>   * values in advance. This function programs the correct values for
+> @@ -111,7 +116,7 @@ void hsw_prepare_dp_ddi_buffers(struct intel_encoder *encoder,
+>  		return;
+>  
+>  	/* If we're boosting the current, set bit 31 of trans1 */
+> -	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv) &&
+> +	if (has_iboost(dev_priv) &&
+>  	    intel_bios_encoder_dp_boost_level(encoder->devdata))
+>  		iboost_bit = DDI_BUF_BALANCE_LEG_ENABLE;
+>  
+> @@ -145,7 +150,7 @@ static void hsw_prepare_hdmi_ddi_buffers(struct intel_encoder *encoder,
+>  		level = n_entries - 1;
+>  
+>  	/* If we're boosting the current, set bit 31 of trans1 */
+> -	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv) &&
+> +	if (has_iboost(dev_priv) &&
+>  	    intel_bios_encoder_hdmi_boost_level(encoder->devdata))
+>  		iboost_bit = DDI_BUF_BALANCE_LEG_ENABLE;
+>  
+> @@ -1463,7 +1468,7 @@ hsw_set_signal_levels(struct intel_dp *intel_dp,
+>  	intel_dp->DP &= ~DDI_BUF_EMP_MASK;
+>  	intel_dp->DP |= signal_levels;
+>  
+> -	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv))
+> +	if (has_iboost(dev_priv))
+>  		skl_ddi_set_iboost(encoder, crtc_state, level);
+>  
+>  	intel_de_write(dev_priv, DDI_BUF_CTL(port), intel_dp->DP);
+> @@ -3084,7 +3089,7 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+>  	else
+>  		hsw_prepare_hdmi_ddi_buffers(encoder, crtc_state, level);
+>  
+> -	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv))
+> +	if (has_iboost(dev_priv))
+>  		skl_ddi_set_iboost(encoder, crtc_state, level);
+>  
+>  	/* Display WA #1143: skl,kbl,cfl */
+> -- 
+> 2.32.0
 > 
-> regards,
-> dan carpenter
-
--- 
-Ville Syrjälä
-Intel
