@@ -2,46 +2,46 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACD7CC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9ED3BC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:02:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 791836115A
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 791836115A
+	by mail.kernel.org (Postfix) with ESMTPS id 6E6866115A
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 13:02:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6E6866115A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1385B6E505;
-	Fri,  1 Oct 2021 13:02:30 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43AD76ECE5
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 13:02:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="223525273"
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="223525273"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2021 06:01:27 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11CA66ECE6;
+	Fri,  1 Oct 2021 13:02:32 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0D976ECE5
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 13:02:30 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="205581073"
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="205581073"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 06:01:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="521031166"
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="480439445"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 01 Oct 2021 06:01:14 -0700
+ by fmsmga007.fm.intel.com with SMTP; 01 Oct 2021 06:01:47 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 01 Oct 2021 16:01:13 +0300
+ Fri, 01 Oct 2021 16:01:46 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Imre Deak <imre.deak@intel.com>
-Date: Fri,  1 Oct 2021 16:00:59 +0300
-Message-Id: <20211001130107.1746-3-ville.syrjala@linux.intel.com>
+Date: Fri,  1 Oct 2021 16:01:07 +0300
+Message-Id: <20211001130107.1746-11-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211001130107.1746-1-ville.syrjala@linux.intel.com>
 References: <20211001130107.1746-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 02/10] drm/i915: Introduce
- has_buf_trans_select()
+Subject: [Intel-gfx] [PATCH v2 10/10] drm/i915: Allow per-lane drive
+ settings with LTTPRs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +59,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add a small helper to determine if DDI_BUF_CTL uses the
-DDI_BUF_TRANS_SELECT field, and whether we have the
-accompanying DDI_BUF_TRANS table in the hardware.
+LTTPRs should support per-lane drive settings I think, and even if
+they don't they should implement their own fallback logic to determine
+suitable common drive settings to use for all the lanes.
 
-Cc: Imre Deak <imre.deak@intel.com>
+v2: Actually check the correct thing
+
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index f6429114ce7c..dbcf4ddd0f3b 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -92,6 +92,11 @@ static int intel_ddi_hdmi_level(struct intel_encoder *encoder,
- 	return level;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 6e9232126788..e9e22f1b043b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -304,7 +304,7 @@ static u8 intel_dp_phy_preemph_max(struct intel_dp *intel_dp,
+ static bool has_per_lane_signal_levels(struct intel_dp *intel_dp,
+ 				       enum drm_dp_phy dp_phy)
+ {
+-	return false;
++	return !intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy);
  }
  
-+static bool has_buf_trans_select(struct drm_i915_private *i915)
-+{
-+	return DISPLAY_VER(i915) < 10 && !IS_BROXTON(i915);
-+}
-+
- static bool has_iboost(struct drm_i915_private *i915)
- {
- 	return DISPLAY_VER(i915) == 9 && !IS_BROXTON(i915);
-@@ -2640,7 +2645,8 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 		icl_ddi_vswing_sequence(encoder, crtc_state, level);
- 	else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		bxt_ddi_vswing_sequence(encoder, crtc_state, level);
--	else
-+
-+	if (has_buf_trans_select(dev_priv))
- 		hsw_prepare_dp_ddi_buffers(encoder, crtc_state);
- 
- 	intel_ddi_power_up_lanes(encoder, crtc_state);
-@@ -3086,7 +3092,8 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
- 		icl_ddi_vswing_sequence(encoder, crtc_state, level);
- 	else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		bxt_ddi_vswing_sequence(encoder, crtc_state, level);
--	else
-+
-+	if (has_buf_trans_select(dev_priv))
- 		hsw_prepare_hdmi_ddi_buffers(encoder, crtc_state, level);
- 
- 	if (has_iboost(dev_priv))
+ static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
 -- 
 2.32.0
 
