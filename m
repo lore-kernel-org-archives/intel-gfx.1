@@ -2,56 +2,56 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30649C4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE902C433EF
 	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00BCC61A8D
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00BCC61A8D
+	by mail.kernel.org (Postfix) with ESMTPS id C327D61A05
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 12:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C327D61A05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 702A16EE32;
-	Fri,  1 Oct 2021 12:10:27 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5E796EDA6;
- Fri,  1 Oct 2021 10:06:18 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id d6so14549206wrc.11;
- Fri, 01 Oct 2021 03:06:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 427236EE1E;
+	Fri,  1 Oct 2021 12:10:26 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA6B06EDE8;
+ Fri,  1 Oct 2021 10:06:36 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id z2so6810184wmc.3;
+ Fri, 01 Oct 2021 03:06:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=q1qIY7djP00ihPSVoWQA0SIOjmkVpQHX9FfVKyvwxz4=;
- b=mQVBB3YSod034fbpYGnsfEPIgxQOgKLtRNGVt2lW2ZbgOkrcO5ZsjWPYCJ4y/02GEa
- kdO0dBWYjw0w5QXU4T5Iz+zjQmU2d0g9FzrOE7Hf87YzwMFNKAMO4YNY0lcJWQ++VRWE
- cgC8kQHmSpiUoH1pud96q/mLQuyedWQE0iyqD+UCo7MGHW3YwDd+1urkKV6b6QpMKYti
- 9t0JR7T+dljAICh8K8OVyL27gWSIj1WFx3hhXCFyVrkO7V0bpzd77Lo8fA6XiJlG7sO8
- qssq9WT/lH03bESs33J3TcX0ckTFkYovUisgXJV9wC+lLJbNBfqOyt4ACVQBxo2/YsgE
- gTMw==
+ bh=/+r4v7UIazK0HaIgNf9t5Xden24q10DFKnoad4rknzc=;
+ b=GEIzzdUFcSKpvoIwIy/MzrJapJAKZntSukZ5p6roG1d5bVF3FTwA+A/81iLTZfDJm7
+ B14RDR0mktQK41PBvkpcUZEYZaPZ6hyZsZHjxZde46wLYQqRqlTECjtWvnAMkk9RlrL4
+ PlQRRB85sJS8tCJhNJhAljJg8zPFWdayIFN+7h/y+N1mXlaA5i8uxoUphxVnv25weZp2
+ z7EeR6gOksmOb2HpP8Nd21+iaqaQycJfOPfM7dJ7g2MRLIQxGhaSBQa1PhmHR4VMqIip
+ Fszd2ATa+I3mGa0kyJb6vrgPEoG/1mKQxtiPPz3rosU18N7AchmnH74E9obNFjBS3I3k
+ 6OdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=q1qIY7djP00ihPSVoWQA0SIOjmkVpQHX9FfVKyvwxz4=;
- b=yuJZBG9eC2w+OoP8Wa2FADzoAZGWp5TtQNxszfGvtnoUMfws600BFWNBM5T3Dxs4oI
- yj7TTyaHI4S/5atdBH+12vre6d5Q/1O42TZhofPPCA8do0HzLDWGP8x94wLo78iW0YVm
- c+1RgDrJc7nFIqL+E++1JZVpbBc3+HD8m+PREib9MTBMTxYbvwaQVP6h0LHTZ62UD24l
- ZeC6yy9NY3l8CzZqb/ow8spJVoCOBd9YTROMopgpKMVEk5P5aWm1ope6BOiTLUVU6c+X
- Bc2x8mDCW/JoAAydp9oH8Y8uYmyoifm/I0aAfxPmvi/79r8TPZL63b9LOlL68tnq3Etz
- RLTQ==
-X-Gm-Message-State: AOAM532WvoVfKrA4B2QxxhzakG70ckyfgMbCLAMjeis7WtM7SkKPb/sZ
- rgEy63dtWtfX/gMc6A/Y39L/wDH8iPw=
-X-Google-Smtp-Source: ABdhPJyqwaAqdUMdBcZACqFhSkKIuhcuAtbkCG8k2pKDV2/8jVkYYA7VIpWyeslTXeS4Hm5EYTzJ5Q==
-X-Received: by 2002:adf:aade:: with SMTP id i30mr7433371wrc.384.1633082777188; 
- Fri, 01 Oct 2021 03:06:17 -0700 (PDT)
+ bh=/+r4v7UIazK0HaIgNf9t5Xden24q10DFKnoad4rknzc=;
+ b=xog35oqmDaNOWUGtiifTeq1V/v+lSxQizAJ385Rzi8h1ybLQeTHh0EseaWGi2ftUpJ
+ 5GrreHGuZxDqPhBYifQrlMcAW6RCyCK5fk3RtTj+TI8flK2AAJhqgfL39OW+lHP8y65Z
+ uCwjmgKLU4x/RIucyk82aAzE0t3c92/H451jhtQBgB+RZBYs5wE8Y8WzwB6VnXUWAP0v
+ 5P/oz6vDqZP5Ev8YLfx58uwzDyOvuvSTX2URiqJWiVTYNMt9ehsTeXU6MMYABlySngOe
+ siEJx6mUCYsFPGeIp/RFtVmLgi28WFKwxTa5Ruotk6JcHMetnI3gmJjlcF8jR2qNAnas
+ 5SRg==
+X-Gm-Message-State: AOAM532j7l4nVYvyDFdgLoUZf2EDZgGZU3ihMUvFBaWYcQkR8ou03u1L
+ Jg0nmbsuxDjMLQUcAtoNR9E=
+X-Google-Smtp-Source: ABdhPJweZo3sMdXN2Yo33ydRmQ3ZjHih+i0AoWONKI3PwdRb0YyzMGRwcws91yM/HxU4EVObzQH2FA==
+X-Received: by 2002:a1c:48c:: with SMTP id 134mr3537527wme.137.1633082795149; 
+ Fri, 01 Oct 2021 03:06:35 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- v17sm5746069wro.34.2021.10.01.03.06.16
+ v17sm5746069wro.34.2021.10.01.03.06.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 03:06:16 -0700 (PDT)
+ Fri, 01 Oct 2021 03:06:34 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -59,8 +59,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Fri,  1 Oct 2021 12:05:46 +0200
-Message-Id: <20211001100610.2899-5-christian.koenig@amd.com>
+Date: Fri,  1 Oct 2021 12:06:07 +0200
+Message-Id: <20211001100610.2899-26-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211001100610.2899-1-christian.koenig@amd.com>
 References: <20211001100610.2899-1-christian.koenig@amd.com>
@@ -68,8 +68,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Oct 2021 12:10:22 +0000
-Subject: [Intel-gfx] [PATCH 04/28] dma-buf: use new iterator in
- dma_resv_copy_fences
+Subject: [Intel-gfx] [PATCH 25/28] drm/nouveau: use the new iterator in
+ nouveau_fence_sync
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,126 +85,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This makes the function much simpler since the complex
-retry logic is now handled else where.
+Simplifying the code a bit.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/dma-buf/dma-resv.c | 84 +++++++++++++++-----------------------
- 1 file changed, 32 insertions(+), 52 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_fence.c | 48 +++++++------------------
+ 1 file changed, 12 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index a104197d12b5..064972c6bde2 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -478,74 +478,54 @@ EXPORT_SYMBOL_GPL(dma_resv_iter_next);
-  */
- int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src)
- {
--	struct dma_resv_list *src_list, *dst_list;
--	struct dma_fence *old, *new;
--	unsigned int i;
-+	struct dma_resv_iter cursor;
-+	struct dma_resv_list *list;
-+	struct dma_fence *f, *excl;
- 
- 	dma_resv_assert_held(dst);
- 
--	rcu_read_lock();
--	src_list = dma_resv_shared_list(src);
-+	list = NULL;
-+	excl = NULL;
- 
--retry:
--	if (src_list) {
--		unsigned int shared_count = src_list->shared_count;
-+	dma_resv_iter_begin(&cursor, src, true);
-+	dma_resv_for_each_fence_unlocked(&cursor, f) {
- 
--		rcu_read_unlock();
-+		if (dma_resv_iter_is_restarted(&cursor)) {
-+			dma_resv_list_free(list);
-+			dma_fence_put(excl);
- 
--		dst_list = dma_resv_list_alloc(shared_count);
--		if (!dst_list)
--			return -ENOMEM;
-+			if (cursor.fences) {
-+				unsigned int cnt = cursor.fences->shared_count;
- 
--		rcu_read_lock();
--		src_list = dma_resv_shared_list(src);
--		if (!src_list || src_list->shared_count > shared_count) {
--			kfree(dst_list);
--			goto retry;
--		}
--
--		dst_list->shared_count = 0;
--		for (i = 0; i < src_list->shared_count; ++i) {
--			struct dma_fence __rcu **dst;
--			struct dma_fence *fence;
-+				list = dma_resv_list_alloc(cnt);
-+				if (!list) {
-+					dma_resv_iter_end(&cursor);
-+					return -ENOMEM;
-+				}
- 
--			fence = rcu_dereference(src_list->shared[i]);
--			if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
--				     &fence->flags))
--				continue;
-+				list->shared_count = 0;
- 
--			if (!dma_fence_get_rcu(fence)) {
--				dma_resv_list_free(dst_list);
--				src_list = dma_resv_shared_list(src);
--				goto retry;
-+			} else {
-+				list = NULL;
- 			}
--
--			if (dma_fence_is_signaled(fence)) {
--				dma_fence_put(fence);
--				continue;
--			}
--
--			dst = &dst_list->shared[dst_list->shared_count++];
--			rcu_assign_pointer(*dst, fence);
-+			excl = NULL;
- 		}
--	} else {
--		dst_list = NULL;
--	}
- 
--	new = dma_fence_get_rcu_safe(&src->fence_excl);
--	rcu_read_unlock();
--
--	src_list = dma_resv_shared_list(dst);
--	old = dma_resv_excl_fence(dst);
-+		dma_fence_get(f);
-+		if (dma_resv_iter_is_exclusive(&cursor))
-+			excl = f;
-+		else
-+			RCU_INIT_POINTER(list->shared[list->shared_count++], f);
-+	}
-+	dma_resv_iter_end(&cursor);
- 
- 	write_seqcount_begin(&dst->seq);
--	/* write_seqcount_begin provides the necessary memory barrier */
--	RCU_INIT_POINTER(dst->fence_excl, new);
--	RCU_INIT_POINTER(dst->fence, dst_list);
-+	excl = rcu_replace_pointer(dst->fence_excl, excl, dma_resv_held(dst));
-+	list = rcu_replace_pointer(dst->fence, list, dma_resv_held(dst));
- 	write_seqcount_end(&dst->seq);
- 
--	dma_resv_list_free(src_list);
--	dma_fence_put(old);
-+	dma_resv_list_free(list);
-+	dma_fence_put(excl);
- 
- 	return 0;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
+index 05d0b3eb3690..26f9299df881 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_fence.c
++++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+@@ -339,14 +339,15 @@ nouveau_fence_wait(struct nouveau_fence *fence, bool lazy, bool intr)
  }
+ 
+ int
+-nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool exclusive, bool intr)
++nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan,
++		   bool exclusive, bool intr)
+ {
+ 	struct nouveau_fence_chan *fctx = chan->fence;
+-	struct dma_fence *fence;
+ 	struct dma_resv *resv = nvbo->bo.base.resv;
+-	struct dma_resv_list *fobj;
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
+ 	struct nouveau_fence *f;
+-	int ret = 0, i;
++	int ret;
+ 
+ 	if (!exclusive) {
+ 		ret = dma_resv_reserve_shared(resv, 1);
+@@ -355,10 +356,7 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
+ 			return ret;
+ 	}
+ 
+-	fobj = dma_resv_shared_list(resv);
+-	fence = dma_resv_excl_fence(resv);
+-
+-	if (fence) {
++	dma_resv_for_each_fence(&cursor, resv, exclusive, fence) {
+ 		struct nouveau_channel *prev = NULL;
+ 		bool must_wait = true;
+ 
+@@ -366,41 +364,19 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
+ 		if (f) {
+ 			rcu_read_lock();
+ 			prev = rcu_dereference(f->channel);
+-			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
++			if (prev && (prev == chan ||
++				     fctx->sync(f, prev, chan) == 0))
+ 				must_wait = false;
+ 			rcu_read_unlock();
+ 		}
+ 
+-		if (must_wait)
++		if (must_wait) {
+ 			ret = dma_fence_wait(fence, intr);
+-
+-		return ret;
+-	}
+-
+-	if (!exclusive || !fobj)
+-		return ret;
+-
+-	for (i = 0; i < fobj->shared_count && !ret; ++i) {
+-		struct nouveau_channel *prev = NULL;
+-		bool must_wait = true;
+-
+-		fence = rcu_dereference_protected(fobj->shared[i],
+-						dma_resv_held(resv));
+-
+-		f = nouveau_local_fence(fence, chan->drm);
+-		if (f) {
+-			rcu_read_lock();
+-			prev = rcu_dereference(f->channel);
+-			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
+-				must_wait = false;
+-			rcu_read_unlock();
++			if (ret)
++				return ret;
+ 		}
+-
+-		if (must_wait)
+-			ret = dma_fence_wait(fence, intr);
+ 	}
+-
+-	return ret;
++	return 0;
+ }
+ 
+ void
 -- 
 2.25.1
 
