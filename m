@@ -2,68 +2,48 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8702FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 08:10:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5919EC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 08:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 468D961A57
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 08:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 468D961A57
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 11DAC613A7
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 08:33:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 11DAC613A7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C62CB6ED20;
-	Fri,  1 Oct 2021 08:10:45 +0000 (UTC)
-X-Greylist: delayed 45081 seconds by postgrey-1.36 at gabe;
- Fri, 01 Oct 2021 02:34:07 UTC
-Received: from conssluserg-05.nifty.com (conssluserg-05.nifty.com
- [210.131.2.90])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76FEF6E4C7;
- Fri,  1 Oct 2021 02:34:07 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42]) (authenticated)
- by conssluserg-05.nifty.com with ESMTP id 1912Xm2A011895;
- Fri, 1 Oct 2021 11:33:48 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-05.nifty.com 1912Xm2A011895
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1633055628;
- bh=jp1gszKRynAEW3NTt0Yi1MVdwVlsDuFC+9KQNXhPqUg=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=0NWwGmW/80rLewKIAKrRISoOF3ipenbsSiPuryilQs7WbS6UX4N7LiH7FsucfWKBn
- 9/K92fQnBsEHBq0E78l0Ivk1/M1tHgdErTGgxzO0x7bQ+5Q5PSGXUoKv7GiqtQqm++
- 0tpiMiRf8/TFwmOtfuIlXlOSxMeIQDj+xQCfHGB/87QSojkfFuStInTf25x+pkYaYE
- UE/hMSBWfwxmZaWwpzfzZSA1MZLsJy/IvNvI6vHpEpgzwDoHrtkM2jC+S7mZRigSTT
- XwyObv9dSXUfM7Cfe0Dx66A2bao/+81u5C+4uevCHGNOZwvcxuOvgBqm+f3S0ZjTvA
- /HZ5wQ4Tvg41g==
-X-Nifty-SrcIP: [209.85.216.42]
-Received: by mail-pj1-f42.google.com with SMTP id
- d4-20020a17090ad98400b0019ece228690so8168249pjv.5; 
- Thu, 30 Sep 2021 19:33:48 -0700 (PDT)
-X-Gm-Message-State: AOAM532UsWCzLwf5Trzan4mMjbmbGylnVR1ulVqgm8OxdLBQBcp53XVm
- vqKPB/Vu5TQxIjjnOx8qje9AjShKIko3OCsrvxI=
-X-Google-Smtp-Source: ABdhPJxw7rJlpmbKggWoGPJNqrd2QF0QIQpXR7QTtVnzshii0nSr40jcq6Groocde8upZQ/I0MW9jYypXseEMz7DWi4=
-X-Received: by 2002:a17:90b:1d0f:: with SMTP id
- on15mr8403278pjb.77.1633055627838; 
- Thu, 30 Sep 2021 19:33:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A68CF6E52E;
+	Fri,  1 Oct 2021 08:33:58 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1880D6E52E;
+ Fri,  1 Oct 2021 08:33:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="310917725"
+X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="310917725"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 01:33:56 -0700
+X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="520877842"
+Received: from bansiong-mobl.gar.corp.intel.com (HELO [10.215.255.6])
+ ([10.215.255.6])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 01:33:54 -0700
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com
+References: <20210930113236.583531-1-thomas.hellstrom@linux.intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <d93081f6-7f96-4a26-7423-c2c4048bb06f@intel.com>
+Date: Fri, 1 Oct 2021 09:33:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-References: <20210929183357.1490204-1-lucas.demarchi@intel.com>
- <20210929183357.1490204-4-lucas.demarchi@intel.com>
- <CAK7LNAQ765CBjg83Kpt8XdOjqPw8Xuv--_bcTvd3udZ=tsgMdA@mail.gmail.com>
- <20210930155547.rtz6pdae42gqvm6p@ldmartin-desk2>
-In-Reply-To: <20210930155547.rtz6pdae42gqvm6p@ldmartin-desk2>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Fri, 1 Oct 2021 11:33:11 +0900
-X-Gmail-Original-Message-ID: <CAK7LNAS7sa6BdSjOZYUrTT3FaL_krD7JN8Cn_w7iLPfLAudUJA@mail.gmail.com>
-Message-ID: <CAK7LNAS7sa6BdSjOZYUrTT3FaL_krD7JN8Cn_w7iLPfLAudUJA@mail.gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 01 Oct 2021 08:10:44 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 3/3] Move IS_CONFIG_NONZERO() to kconfig.h
+In-Reply-To: <20210930113236.583531-1-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/ttm: Rework object
+ initialization slightly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,87 +59,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 1, 2021 at 12:55 AM Lucas De Marchi
-<lucas.demarchi@intel.com> wrote:
->
-> On Thu, Sep 30, 2021 at 11:01:36PM +0900, Masahiro Yamada wrote:
-> >On Thu, Sep 30, 2021 at 3:34 AM Lucas De Marchi
-> ><lucas.demarchi@intel.com> wrote:
-> >>
-> >> The check for config value doesn't really belong to i915_utils.h - we
-> >> are trying to eliminate that utils helper and share them when possible
-> >> with other drivers and subsystems.
-> >>
-> >> Rationale for having such macro is in commit
-> >> babaab2f4738 ("drm/i915: Encapsulate kconfig constant values inside boolean predicates")
-> >> whereas later it is improved to not break the build if used with
-> >> undefined configs. The caveat is detailed in the documentation: unlike
-> >> IS_ENABLED(): it's not preprocessor-only logic so can't be used for
-> >> things like `#if IS_CONFIG_NONZERO(...)`
-> >>
-> >> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> >
-> >
-> >Hypothetical "it would be nice to have ..." is really unneeded.
-> >
-> >       if (context && CONFIG_DRM_I915_FENCE_TIMEOUT > 0)
-> >                     return
-> >msecs_to_jiffies_timeout(CONFIG_DRM_I915_FENCE_TIMEOUT);
-> >
-> >
-> >is enough, and much cleaner.
-> >
-> >
-> >
-> >This warning is shown only when a constant is used
-> >together with '&&'.
-> >
-> >Most of IS_ACTIVE can go away.
-> >
-> >Given that, there are not many places where the IS_ACTIVE macro
-> >is useful, even in the i915 driver.
-> >
-> >For a few sources of the warnings,
-> >replacing it with  != 0 or > 0 is just fine.
->
-> humn... maybe. Let me do a conversion in that direction and see what is
-> the outcome.
->
-> My original intention was to make IS_ENABLED() even uglier to cover the
-> int case, but after some tries it seems impossible to do on preprocessor
-> context, so I thought maybe it would be ok as a separate one.
->
-> >
-> >Of course, such an ugly macro is not worth being moved to <linux/kconfig.h>
->
-> if we don't handle the undefined case and only worry about encapsulating
-> it inside a boolean predicate, the macro would be very simple. Would
-> that be worth having in kconfig.h maybe?
+On 30/09/2021 12:32, Thomas Hellström wrote:
+> We may end up in i915_ttm_bo_destroy() in an error path before the
+> object is fully initialized. In that case it's not correct to call
+> __i915_gem_free_object(), because that function
+> a) Assumes the gem object refcount is 0, which it isn't.
+> b) frees the placements which are owned by the caller until the
+> init_object() region ops returns successfully. Fix this by providing
+> a lightweight cleanup function __i915_gem_object_fini() which is also
+> called by __i915_gem_free_object().
+> 
+> While doing this, also make sure we call dma_resv_fini() as part of
+> ordinary object destruction and not from the RCU callback that frees
+> the object. This will help track down bugs where the object is incorrectly
+> locked from an RCU lookup.
+> 
+> Finally, make sure the object isn't put on the region list until it's
+> either locked or fully initialized in order to block list processing of
+> partially initialized objects.
+> 
+> v2:
+> - The TTM object backend memory was freed before the gem pages were
+>    put. Separate this functionality into __i915_gem_object_pages_fini()
+>    and call it from the TTM delete_mem_notify() callback.
+> v3:
+> - Include i915_gem_object_free_mmaps() in __i915_gem_object_pages_fini()
+>    to make sure we don't inadvertedly introduce a race.
+> 
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com> #v1
 
+R-b still stands.
 
-I do not think so.
-
-#define IS_CONFIG_NONZERO(config) ((config) != 0)
-
-seems like a stupid macro.
-
-
-What is bad about writing the direct code?
-
-     if (x && CONFIG_FOO > 0)
-                   ....
-
-
-
-
-
->
->
-> thanks
-> Lucas De Marchi
-
-
-
--- 
-Best Regards
-Masahiro Yamada
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c | 43 +++++++++++++++++++---
+>   drivers/gpu/drm/i915/gem/i915_gem_object.h |  5 +++
+>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c    | 36 +++++++++++-------
+>   3 files changed, 64 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index 6fb9afb65034..b88b121e244a 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -89,6 +89,22 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
+>   	mutex_init(&obj->mm.get_dma_page.lock);
+>   }
+>   
+> +/**
+> + * i915_gem_object_fini - Clean up a GEM object initialization
+> + * @obj: The gem object to cleanup
+> + *
+> + * This function cleans up gem object fields that are set up by
+> + * drm_gem_private_object_init() and i915_gem_object_init().
+> + * It's primarily intended as a helper for backends that need to
+> + * clean up the gem object in separate steps.
+> + */
+> +void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
+> +{
+> +	mutex_destroy(&obj->mm.get_page.lock);
+> +	mutex_destroy(&obj->mm.get_dma_page.lock);
+> +	dma_resv_fini(&obj->base._resv);
+> +}
+> +
+>   /**
+>    * Mark up the object's coherency levels for a given cache_level
+>    * @obj: #drm_i915_gem_object
+> @@ -174,7 +190,6 @@ void __i915_gem_free_object_rcu(struct rcu_head *head)
+>   		container_of(head, typeof(*obj), rcu);
+>   	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+>   
+> -	dma_resv_fini(&obj->base._resv);
+>   	i915_gem_object_free(obj);
+>   
+>   	GEM_BUG_ON(!atomic_read(&i915->mm.free_count));
+> @@ -204,10 +219,17 @@ static void __i915_gem_object_free_mmaps(struct drm_i915_gem_object *obj)
+>   	}
+>   }
+>   
+> -void __i915_gem_free_object(struct drm_i915_gem_object *obj)
+> +/**
+> + * __i915_gem_object_pages_fini - Clean up pages use of a gem object
+> + * @obj: The gem object to clean up
+> + *
+> + * This function cleans up usage of the object mm.pages member. It
+> + * is intended for backends that need to clean up a gem object in
+> + * separate steps and needs to be called when the object is idle before
+> + * the object's backing memory is freed.
+> + */
+> +void __i915_gem_object_pages_fini(struct drm_i915_gem_object *obj)
+>   {
+> -	trace_i915_gem_object_destroy(obj);
+> -
+>   	if (!list_empty(&obj->vma.list)) {
+>   		struct i915_vma *vma;
+>   
+> @@ -233,11 +255,17 @@ void __i915_gem_free_object(struct drm_i915_gem_object *obj)
+>   
+>   	__i915_gem_object_free_mmaps(obj);
+>   
+> -	GEM_BUG_ON(!list_empty(&obj->lut_list));
+> -
+>   	atomic_set(&obj->mm.pages_pin_count, 0);
+>   	__i915_gem_object_put_pages(obj);
+>   	GEM_BUG_ON(i915_gem_object_has_pages(obj));
+> +}
+> +
+> +void __i915_gem_free_object(struct drm_i915_gem_object *obj)
+> +{
+> +	trace_i915_gem_object_destroy(obj);
+> +
+> +	GEM_BUG_ON(!list_empty(&obj->lut_list));
+> +
+>   	bitmap_free(obj->bit_17);
+>   
+>   	if (obj->base.import_attach)
+> @@ -253,6 +281,8 @@ void __i915_gem_free_object(struct drm_i915_gem_object *obj)
+>   
+>   	if (obj->shares_resv_from)
+>   		i915_vm_resv_put(obj->shares_resv_from);
+> +
+> +	__i915_gem_object_fini(obj);
+>   }
+>   
+>   static void __i915_gem_free_objects(struct drm_i915_private *i915,
+> @@ -266,6 +296,7 @@ static void __i915_gem_free_objects(struct drm_i915_private *i915,
+>   			obj->ops->delayed_free(obj);
+>   			continue;
+>   		}
+> +		__i915_gem_object_pages_fini(obj);
+>   		__i915_gem_free_object(obj);
+>   
+>   		/* But keep the pointer alive for RCU-protected lookups */
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index 3043fcbd31bd..7f9f2e5ba0ec 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -58,6 +58,9 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
+>   			  const struct drm_i915_gem_object_ops *ops,
+>   			  struct lock_class_key *key,
+>   			  unsigned alloc_flags);
+> +
+> +void __i915_gem_object_fini(struct drm_i915_gem_object *obj);
+> +
+>   struct drm_i915_gem_object *
+>   i915_gem_object_create_shmem(struct drm_i915_private *i915,
+>   			     resource_size_t size);
+> @@ -582,6 +585,8 @@ bool i915_gem_object_is_shmem(const struct drm_i915_gem_object *obj);
+>   
+>   void __i915_gem_free_object_rcu(struct rcu_head *head);
+>   
+> +void __i915_gem_object_pages_fini(struct drm_i915_gem_object *obj);
+> +
+>   void __i915_gem_free_object(struct drm_i915_gem_object *obj);
+>   
+>   bool i915_gem_object_evictable(struct drm_i915_gem_object *obj);
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index b94497989995..a0ab5c44627b 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -367,8 +367,10 @@ static void i915_ttm_delete_mem_notify(struct ttm_buffer_object *bo)
+>   {
+>   	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
+>   
+> -	if (likely(obj))
+> +	if (likely(obj)) {
+> +		__i915_gem_object_pages_fini(obj);
+>   		i915_ttm_free_cached_io_st(obj);
+> +	}
+>   }
+>   
+>   static struct intel_memory_region *
+> @@ -813,12 +815,9 @@ static void i915_ttm_adjust_lru(struct drm_i915_gem_object *obj)
+>    */
+>   static void i915_ttm_delayed_free(struct drm_i915_gem_object *obj)
+>   {
+> -	if (obj->ttm.created) {
+> -		ttm_bo_put(i915_gem_to_ttm(obj));
+> -	} else {
+> -		__i915_gem_free_object(obj);
+> -		call_rcu(&obj->rcu, __i915_gem_free_object_rcu);
+> -	}
+> +	GEM_BUG_ON(!obj->ttm.created);
+> +
+> +	ttm_bo_put(i915_gem_to_ttm(obj));
+>   }
+>   
+>   static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+> @@ -898,16 +897,19 @@ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
+>   {
+>   	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
+>   
+> -	i915_ttm_backup_free(obj);
+> -
+> -	/* This releases all gem object bindings to the backend. */
+> -	__i915_gem_free_object(obj);
+> -
+>   	i915_gem_object_release_memory_region(obj);
+>   	mutex_destroy(&obj->ttm.get_io_page.lock);
+>   
+> -	if (obj->ttm.created)
+> +	if (obj->ttm.created) {
+> +		i915_ttm_backup_free(obj);
+> +
+> +		/* This releases all gem object bindings to the backend. */
+> +		__i915_gem_free_object(obj);
+> +
+>   		call_rcu(&obj->rcu, __i915_gem_free_object_rcu);
+> +	} else {
+> +		__i915_gem_object_fini(obj);
+> +	}
+>   }
+>   
+>   /**
+> @@ -936,7 +938,11 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+>   
+>   	drm_gem_private_object_init(&i915->drm, &obj->base, size);
+>   	i915_gem_object_init(obj, &i915_gem_ttm_obj_ops, &lock_class, flags);
+> -	i915_gem_object_init_memory_region(obj, mem);
+> +
+> +	/* Don't put on a region list until we're either locked or fully initialized. */
+> +	obj->mm.region = intel_memory_region_get(mem);
+> +	INIT_LIST_HEAD(&obj->mm.region_link);
+> +
+>   	i915_gem_object_make_unshrinkable(obj);
+>   	INIT_RADIX_TREE(&obj->ttm.get_io_page.radix, GFP_KERNEL | __GFP_NOWARN);
+>   	mutex_init(&obj->ttm.get_io_page.lock);
+> @@ -963,6 +969,8 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+>   		return i915_ttm_err_to_gem(ret);
+>   
+>   	obj->ttm.created = true;
+> +	i915_gem_object_release_memory_region(obj);
+> +	i915_gem_object_init_memory_region(obj, mem);
+>   	i915_ttm_adjust_domains_after_move(obj);
+>   	i915_ttm_adjust_gem_after_move(obj);
+>   	i915_gem_object_unlock(obj);
+> 
