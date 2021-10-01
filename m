@@ -2,48 +2,137 @@ Return-Path: <SRS0=cmqZ=OV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04C14C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 17:45:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F311C43219
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 17:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA2B4619F8
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 17:45:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CA2B4619F8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2503A6115A
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 17:52:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2503A6115A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 604CE6EE79;
-	Fri,  1 Oct 2021 17:45:54 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3A556EE79
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 17:45:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10124"; a="205667218"
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="205667218"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2021 10:45:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="521250175"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 01 Oct 2021 10:45:50 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 01 Oct 2021 20:45:49 +0300
-Date: Fri, 1 Oct 2021 20:45:49 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Shankar, Uma" <uma.shankar@intel.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Message-ID: <YVdJTcAPlkujvqKT@intel.com>
-References: <20210928185105.3030-1-ville.syrjala@linux.intel.com>
- <20151cd02fcc48c4ae7182792ef7c7e9@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ACF66EE93;
+	Fri,  1 Oct 2021 17:52:57 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2059.outbound.protection.outlook.com [40.107.94.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 596C16EE8E;
+ Fri,  1 Oct 2021 17:52:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LX+HuVp/Qd/ivPr4rSYU/SjZS8gVMcpcrlU9fTy2iOYnpfsYH3mqyWn2UpgZEZNh20ZeNksBwvOof3MOrkJBCZSnTWO+BEjKvc+05L60T18twzm9tiX+FsAA/5Ur3nDtqm7JC/8ZXFna7QG7/owrRdV/C9fi3XcjKJpwjRfyrNFmzuM8+KMGFH+kq1bNgP3iRh/fKx2PKtvnA8bIuooM6DJlJ8F5jtWGkVR74giTUUaA7kvIB5HabyfP05L1Dh61Jd97oPPFgXJHJJ+GTWYzd4x0DFmeY9A+yPYsvkW85cttD9KffO/XHug34h8Qyy71sdHd1sGzqal3PEg/UPIm6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IYcXEm6RVhMLVup7gQaCrlAlylWOGFSxlS3RrQwdBjY=;
+ b=aLbX0zpvz5hfD/dKZHPUb/H3SX/QVl9JvaLoEPUI4CmDhQeeH6VrIxdWfVbITmkW6LUfe8qf9fefH3l66QYKphwbFN3mhbDBHnzuOG689YkSNHxpYEqMy2a5DuMNu08RHRKpy2u1KtHl5ln0XtU7KZ5Fs7BLhCXJ/HFHIWNSTCIRQl56gA+pGGiPHOeJRpCGeTNtPIR92Eoz89tL/+uqF+GrpBLT+w0Q/nAN6j7TJ/1NC4OvlfhsYCnh2+Po3VNymZZJyvZbnL9Ilo9J7U7mnkGvxCXD3ofLV7CTZvXLEi0mAk25tCEAyApPc2/1BtGbHvMiSsHXYUcYrUzsDFWJYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IYcXEm6RVhMLVup7gQaCrlAlylWOGFSxlS3RrQwdBjY=;
+ b=MCUAtE5zNZxAQDZ7JrWOfRRoiE8FFpbpgcGHoVDlYZNyl6NYnW6dmNjTdeRxDjIcKYvXidGT9uZQQU80asrEqE8J/n4Re2Tk0pdtL+7NpQAMOUlGxCPTb/WWaL3on/HuVG7XxbQC+oQSTZbhhukcTtERZJLSe1EQyYvIC1raGLpUfN4iE712oP6/JQkgcGuShgISyaDAjEaMesf+85WOjmB6tmBziDmuUobrRhMUgr37gh8GhWMGtutYCL1NruTBzSdqMqpvJAp2nx8IfYWzVPR82rzybI79+Ofpl8ttozg9qOp6TYXT7RBOB/BOHnZDrhOBuNTvNNOxsL8mvO3UDg==
+Authentication-Results: linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5207.namprd12.prod.outlook.com (2603:10b6:208:318::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Fri, 1 Oct
+ 2021 17:52:54 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::e8af:232:915e:2f95]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::e8af:232:915e:2f95%8]) with mapi id 15.20.4566.019; Fri, 1 Oct 2021
+ 17:52:54 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Eric Farman <farman@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	Christoph Hellwig <hch@lst.de>
+Date: Fri,  1 Oct 2021 14:52:44 -0300
+Message-Id: <3-v3-57c1502c62fd+2190-ccw_mdev_jgg@nvidia.com>
+In-Reply-To: <0-v3-57c1502c62fd+2190-ccw_mdev_jgg@nvidia.com>
+References: 
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20151cd02fcc48c4ae7182792ef7c7e9@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Stop force enabling pipe bottom
- color gammma/csc
+Content-Type: text/plain
+X-ClientProxiedBy: BL1PR13CA0399.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::14) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
+MIME-Version: 1.0
+Received: from mlx.ziepe.ca (142.162.113.129) by
+ BL1PR13CA0399.namprd13.prod.outlook.com (2603:10b6:208:2c2::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.9 via Frontend
+ Transport; Fri, 1 Oct 2021 17:52:52 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1mWMiK-009898-2K; Fri, 01 Oct 2021 14:52:52 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5710eaea-f8de-4be8-e471-08d985044aa5
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5207:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB520769A41C8B6B823D45C228C2AB9@BL1PR12MB5207.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7RFr9a7tSDQJu8zOr8nV8T+21vzPeiC84X/O187j3A8CWBMoV9V8i8Y4ZRhkkyKBVRpPyyFwXFYoDbaCeM7dkG11jS+oDBPEcrqLvzC/bk0i051hyuOSvgp+nHd9LgvqZZswtqoX34xikAIYHGOBrPk42s/mOL2XERsgCOqUg9FzXLpSNBzlygCtwHr65uzisI9+sZuS9XihllLb7u1fY86KlG5lC3Zy6H+lpxDyD6+4DcMaj4f3AlfU3VTGgUErywJAXi0U5cFzNVtGDMsOFJVKrcSuUV58v4bQp1FOEXRu0Xj7F8DrS3VrIsRn4YTFoiZcJPTgeDE8c3lc+QZVw5ltDNhoVpYrTgK6xz1GBujIV5kxFac+5MRAMtP4t2K6N61f0y+MRhTPeiKDa//pp8Tt2ui+JQol/Iwg33s3DUzlqbY3GHK/5yw7V/rZZNyWpLBjzqUCtH+RkzRuZQKJnm376NoV/8K7jGWb2UeNrn+x1SSjdilDN9/kUkARFxSi7XnhFmmx5v9Apb+Dw7qSoBl40Z9GrlBaDhCuXN6JU4Feo5tJf+HL4qJFDTfkbNfq2aGbEqI+I8bGjWM576T7i/aPHPOzz8L9ahpFoUcepBZc/Z9LzngTGeXNTnaqqOtJfNc0la26ZEd6AD/6QhMDMZ69PN/TYq8cFCB4nakPYcpaV2taTQKIwSMUwaVCwi8fER820ZLE4HutmZq/sT6VqHs5wmrO45M8GlA+K02X2GU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66946007)(2906002)(83380400001)(66556008)(8676002)(38100700002)(66476007)(5660300002)(2616005)(508600001)(426003)(9786002)(26005)(186003)(6666004)(9746002)(54906003)(36756003)(7416002)(4326008)(110136005)(86362001)(8936002)(921005)(316002)(4216001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?D1NUdkulg324xn3cS+L8y+ldfLvOwHTasKc7pBW8ki0d9BEIyNJcGj7xCCXh?=
+ =?us-ascii?Q?7VR7XNE1kJW4Q2pscYVQeIg4NTXscBuR4m0SIuIGhrH4oRUfU5GJG4Oq5R5e?=
+ =?us-ascii?Q?k8Kn8ic/XH1MRg19CoduoPMvPD0YGWa1BpmcU+bsP2iB4ySRpcbhOT8LLQ9E?=
+ =?us-ascii?Q?H1DPTawKY0p0Gn82XHIzzL0BFckYH9q7qZVBvlpAJ/wbjoSjdCMWnE6Z0uHm?=
+ =?us-ascii?Q?k9ZcZZCJ86plt3x50vIsHnt1OtooZkU3vSfXHpKXkHjI5EG+9biETemGvpWO?=
+ =?us-ascii?Q?1TXS7Ujd0mjlRhtFiOIX2ZEG87wAm3NcXkvaIWjUSB9CqtJiPbygkKRxX7wj?=
+ =?us-ascii?Q?qBBNrlRjLpPCbCPfosLTrw5QKbBwykZ2zMqQmzDfCix+lezVkyVLuqL8ULpQ?=
+ =?us-ascii?Q?Omd7iBSF8cNmPEs0PsyO6N9FWUTi/OGHosLnjCSGXr863tEe7yDGdDNBpFJt?=
+ =?us-ascii?Q?NjA7RFQXrD0899tJbNsR2gH1yLY/Ypbd0p5N/pVqZIX4V0XOUgR0sttHPF6W?=
+ =?us-ascii?Q?0RJAuQqcNHcTHgVK/QthY8OoFXsqOlt/Vj0wooIkbD9PcT0210h5yku2gQol?=
+ =?us-ascii?Q?Xlp8v0dfRHlEZgBn2Il4JlctDTz+A+Mbhx+KMgl/XPiD6DKTRG0YNJchovLu?=
+ =?us-ascii?Q?yi62ItsvSQHWS3eGYOjKyccK2UOHTHb+7yKmvJqjp31lsUPoGwerl3CSd0RU?=
+ =?us-ascii?Q?P8UcQZzQhkUil4IW/z5lM286YexWzLOzIoir+pPTHnSjIKeCA12oQD+OPaz6?=
+ =?us-ascii?Q?Y4nA/pyi5R2U5jrbBCV74UE2i83LVgRdY8dKsqo39ICAgJCJluszxZC4fi+Y?=
+ =?us-ascii?Q?JDGKPpM74jfnx9fklaE9njgMugXFMLUyo1ntxY8Glq9p+imyb2K/nLpluKAr?=
+ =?us-ascii?Q?8wJ7297UAkrAwGIx+wQvCItk1xwE9neD1cUd5f3r3GMoLJTu2UbIOIevGEFZ?=
+ =?us-ascii?Q?BJl01X0CLmjh0rcEN+6hSyiNAxtd3DzpMxQp872YGmaXbUElYOHcbCRF+Xq0?=
+ =?us-ascii?Q?whRcb+e2NsTN/E6A5K7pAu9bXZbdrLMzkEqiUwwW206WQyGohsODEhK7BeWv?=
+ =?us-ascii?Q?96Bis4YVvqGp7gfd3PllVYA/A0eNnINGHkz5JBe8oRuO1+5c5aLjfEMl5Az5?=
+ =?us-ascii?Q?vlcJYD6RjswXDbKqfbelcHsze3vp68RhIp3ayVwSI7t90U28HFFtt010+/Px?=
+ =?us-ascii?Q?BW04HoPStq27K2EG/U5YyzERsTu7V9Hv7xaxRILgHbaE6xyCwVTzJo1eF7q2?=
+ =?us-ascii?Q?WtBhfAUP1H6nzPVKlAJwULPEnQIzvliV5tlzlHZlNbr3XrB2dGi2JjhqUayV?=
+ =?us-ascii?Q?vswJBhphGpUWWnsd/tySmaip/9nLtU1+53l0pGzOMPB6dQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5710eaea-f8de-4be8-e471-08d985044aa5
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2021 17:52:53.0466 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UT2S9d3MkdhJkBZm3BDCPtqHH5MjGgVNyo8dhgbYGR/Y++P0z6NyQEpCBjJzCVId
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5207
+Subject: [Intel-gfx] [PATCH v3 03/10] vfio/ccw: Pass vfio_ccw_private not
+ mdev_device to various functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +148,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 01, 2021 at 05:12:03PM +0000, Shankar, Uma wrote:
-> 
-> 
-> > -----Original Message-----
-> > From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ville Syrjala
-> > Sent: Wednesday, September 29, 2021 12:21 AM
-> > To: intel-gfx@lists.freedesktop.org
-> > Subject: [Intel-gfx] [PATCH] drm/i915: Stop force enabling pipe bottom color
-> > gammma/csc
-> > 
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > While sanitizing the hardware state we're currently forcing the pipe bottom color
-> > legacy csc/gamma bits on. That is not a good idea as BIOSen are likely to leave
-> > gabage in the LUTs and so doing this causes ugly visual glitches if and when the
-> > planes covering the background get disabled. This was exactly the case on this Dell
-> > Precision 5560 tgl laptop.
-> > 
-> > On icl+ we don't normally even use these legacy bits anymore and instead use their
-> > GAMMA_MODE counterparts.
-> > On earlier platforms the bits are used, but we still shouldn't force them on without
-> > knowing what's in the LUT.
-> > 
-> > So two options, get rid of the whole thing, or do what
-> > intel_color_commit() does to make sure the bottom color state matches whatever
-> > out hardware readout produced. I chose the latter since it'll match what happens on
-> > older platforms when the primary plane gets turned off. In fact let's just call
-> > intel_color_commit(). It'll also do some CSC programming but since we don't have
-> > readout for that it'll actually just set to all zeros. So in the unlikely case of CSC
-> > actually being enabld by the BIOS we'll end up with all black until the first atomic
-> > commit happens.
-> > 
-> > Still not totally sure what we should do about color management features here in
-> > general. Probably the safest  thing would be to force everything off exactly at the
-> > same time when we disable the primary plane as there is no guarantees that
-> > whatever the LUTs/CSCs contain make any sense whatsoever without the specific
-> > pixel data in the BIOS fb. And if we preserve the primary plane then we should
-> > disable the color management features exactly when the primary plane fb contents
-> > first changes since the new content assumes more or less no transformations. But of
-> > course synchronizing front buffer rendering with anything else is a bit hard...
+mdev_device should only be used in functions assigned to ops callbacks,
+interior functions should use the struct vfio_ccw_private instead of
+repeatedly trying to get it from the mdev.
 
-After a second thought I think the safes option would be to:
-- add full readout for all color management stuff (but IIRC
-  the csc had some double buffering vs. readout problems on
-  some platforms, so this needs a bit of extra care)
-- disable all of it, and the primary plane, but only if any
-  color management stuff was enabled by the BIOS
-- make it all atomic so that no annoying colored blinky happens
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+Reviewed-by: Eric Farman <farman@linux.ibm.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ drivers/s390/cio/vfio_ccw_ops.c | 37 +++++++++++++--------------------
+ 1 file changed, 15 insertions(+), 22 deletions(-)
 
-That would guarantee that if any unknown color transformation
-are applied to the data in the BIOS fb we don't do any of those
-to whatever is the thing (fbcon or some userspace thing) that
-takes over afterwards.
-
-And if the BIOS is not using any transformations then we can
-let the full BIOS fb takeover happen as it does today.
-
-> > 
-> 
-> A nice catch.
-> 
-> Looks Good to me.
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-
-Ta.
-
-> 
-> > Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3534
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display.c | 9 ++-------
-> >  1 file changed, 2 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c
-> > b/drivers/gpu/drm/i915/display/intel_display.c
-> > index f27c294beb92..17ce51576ed2 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > @@ -11991,13 +11991,8 @@ static void intel_sanitize_crtc(struct intel_crtc *crtc,
-> >  				intel_plane_disable_noatomic(crtc, plane);
-> >  		}
-> > 
-> > -		/*
-> > -		 * Disable any background color set by the BIOS, but enable the
-> > -		 * gamma and CSC to match how we program our planes.
-> > -		 */
-> > -		if (DISPLAY_VER(dev_priv) >= 9)
-> > -			intel_de_write(dev_priv, SKL_BOTTOM_COLOR(crtc->pipe),
-> > -				       SKL_BOTTOM_COLOR_GAMMA_ENABLE |
-> > SKL_BOTTOM_COLOR_CSC_ENABLE);
-> > +		/* Disable any background color/etc. set by the BIOS */
-> > +		intel_color_commit(crtc_state);
-> >  	}
-> > 
-> >  	/* Adjust the state of the output pipe according to whether we
-> > --
-> > 2.32.0
-> 
-
+diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
+index 7f540ad0b568bc..1edbea9de0ec42 100644
+--- a/drivers/s390/cio/vfio_ccw_ops.c
++++ b/drivers/s390/cio/vfio_ccw_ops.c
+@@ -17,13 +17,11 @@
+ 
+ #include "vfio_ccw_private.h"
+ 
+-static int vfio_ccw_mdev_reset(struct mdev_device *mdev)
++static int vfio_ccw_mdev_reset(struct vfio_ccw_private *private)
+ {
+-	struct vfio_ccw_private *private;
+ 	struct subchannel *sch;
+ 	int ret;
+ 
+-	private = dev_get_drvdata(mdev_parent_dev(mdev));
+ 	sch = private->sch;
+ 	/*
+ 	 * TODO:
+@@ -61,7 +59,7 @@ static int vfio_ccw_mdev_notifier(struct notifier_block *nb,
+ 		if (!cp_iova_pinned(&private->cp, unmap->iova))
+ 			return NOTIFY_OK;
+ 
+-		if (vfio_ccw_mdev_reset(private->mdev))
++		if (vfio_ccw_mdev_reset(private))
+ 			return NOTIFY_BAD;
+ 
+ 		cp_free(&private->cp);
+@@ -201,7 +199,7 @@ static void vfio_ccw_mdev_close_device(struct mdev_device *mdev)
+ 
+ 	if ((private->state != VFIO_CCW_STATE_NOT_OPER) &&
+ 	    (private->state != VFIO_CCW_STATE_STANDBY)) {
+-		if (!vfio_ccw_mdev_reset(mdev))
++		if (!vfio_ccw_mdev_reset(private))
+ 			private->state = VFIO_CCW_STATE_STANDBY;
+ 		/* The state will be NOT_OPER on error. */
+ 	}
+@@ -311,12 +309,9 @@ static ssize_t vfio_ccw_mdev_write(struct mdev_device *mdev,
+ 	return -EINVAL;
+ }
+ 
+-static int vfio_ccw_mdev_get_device_info(struct vfio_device_info *info,
+-					 struct mdev_device *mdev)
++static int vfio_ccw_mdev_get_device_info(struct vfio_ccw_private *private,
++					 struct vfio_device_info *info)
+ {
+-	struct vfio_ccw_private *private;
+-
+-	private = dev_get_drvdata(mdev_parent_dev(mdev));
+ 	info->flags = VFIO_DEVICE_FLAGS_CCW | VFIO_DEVICE_FLAGS_RESET;
+ 	info->num_regions = VFIO_CCW_NUM_REGIONS + private->num_regions;
+ 	info->num_irqs = VFIO_CCW_NUM_IRQS;
+@@ -324,14 +319,12 @@ static int vfio_ccw_mdev_get_device_info(struct vfio_device_info *info,
+ 	return 0;
+ }
+ 
+-static int vfio_ccw_mdev_get_region_info(struct vfio_region_info *info,
+-					 struct mdev_device *mdev,
++static int vfio_ccw_mdev_get_region_info(struct vfio_ccw_private *private,
++					 struct vfio_region_info *info,
+ 					 unsigned long arg)
+ {
+-	struct vfio_ccw_private *private;
+ 	int i;
+ 
+-	private = dev_get_drvdata(mdev_parent_dev(mdev));
+ 	switch (info->index) {
+ 	case VFIO_CCW_CONFIG_REGION_INDEX:
+ 		info->offset = 0;
+@@ -406,19 +399,16 @@ static int vfio_ccw_mdev_get_irq_info(struct vfio_irq_info *info)
+ 	return 0;
+ }
+ 
+-static int vfio_ccw_mdev_set_irqs(struct mdev_device *mdev,
++static int vfio_ccw_mdev_set_irqs(struct vfio_ccw_private *private,
+ 				  uint32_t flags,
+ 				  uint32_t index,
+ 				  void __user *data)
+ {
+-	struct vfio_ccw_private *private;
+ 	struct eventfd_ctx **ctx;
+ 
+ 	if (!(flags & VFIO_IRQ_SET_ACTION_TRIGGER))
+ 		return -EINVAL;
+ 
+-	private = dev_get_drvdata(mdev_parent_dev(mdev));
+-
+ 	switch (index) {
+ 	case VFIO_CCW_IO_IRQ_INDEX:
+ 		ctx = &private->io_trigger;
+@@ -524,6 +514,8 @@ static ssize_t vfio_ccw_mdev_ioctl(struct mdev_device *mdev,
+ 				   unsigned int cmd,
+ 				   unsigned long arg)
+ {
++	struct vfio_ccw_private *private =
++		dev_get_drvdata(mdev_parent_dev(mdev));
+ 	int ret = 0;
+ 	unsigned long minsz;
+ 
+@@ -540,7 +532,7 @@ static ssize_t vfio_ccw_mdev_ioctl(struct mdev_device *mdev,
+ 		if (info.argsz < minsz)
+ 			return -EINVAL;
+ 
+-		ret = vfio_ccw_mdev_get_device_info(&info, mdev);
++		ret = vfio_ccw_mdev_get_device_info(private, &info);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -558,7 +550,7 @@ static ssize_t vfio_ccw_mdev_ioctl(struct mdev_device *mdev,
+ 		if (info.argsz < minsz)
+ 			return -EINVAL;
+ 
+-		ret = vfio_ccw_mdev_get_region_info(&info, mdev, arg);
++		ret = vfio_ccw_mdev_get_region_info(private, &info, arg);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -603,10 +595,11 @@ static ssize_t vfio_ccw_mdev_ioctl(struct mdev_device *mdev,
+ 			return ret;
+ 
+ 		data = (void __user *)(arg + minsz);
+-		return vfio_ccw_mdev_set_irqs(mdev, hdr.flags, hdr.index, data);
++		return vfio_ccw_mdev_set_irqs(private, hdr.flags, hdr.index,
++					      data);
+ 	}
+ 	case VFIO_DEVICE_RESET:
+-		return vfio_ccw_mdev_reset(mdev);
++		return vfio_ccw_mdev_reset(private);
+ 	default:
+ 		return -ENOTTY;
+ 	}
 -- 
-Ville Syrjälä
-Intel
+2.33.0
+
