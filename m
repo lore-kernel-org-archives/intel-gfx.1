@@ -2,74 +2,82 @@ Return-Path: <SRS0=81md=OW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0661CC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 16:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01DF2C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 16:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2687619E9
-	for <intel-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 16:38:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2687619E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id A7D4561B27
+	for <intel-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 16:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A7D4561B27
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9F76F4D0;
-	Sat,  2 Oct 2021 16:38:42 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 700266F4D2
- for <intel-gfx@lists.freedesktop.org>; Sat,  2 Oct 2021 16:38:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1633192719;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=b4ertXwdplp0ii/4EZ2opkSV9zpjx4R8JUIaQH5bRRw=;
- b=XXEGPmw0IHeMheoOV+BkkzLHWS6AqqbNAlN/O0djuOp9iJRw6bpjhOPjBbc7Mdseb+S0iK
- TuUG34MI1ZrmPrKk62ARDYJ7JchVF1/4TzsaHxfCCH16EoP12DqD6kPNKn2nFW2aPzCZY/
- KrwdeboDHyFSX9MtlF3YvrU12Rf4Os0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-49-agsZF5PqOdqnodLwdVC-og-1; Sat, 02 Oct 2021 12:36:52 -0400
-X-MC-Unique: agsZF5PqOdqnodLwdVC-og-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E3519362FB;
- Sat,  2 Oct 2021 16:36:49 +0000 (UTC)
-Received: from x1.localdomain (unknown [10.39.192.31])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0D5F2100763D;
- Sat,  2 Oct 2021 16:36:45 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rajat Jain <rajatja@google.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude <lyude@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@infradead.org>
-Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Mario Limonciello <mario.limonciello@outlook.com>,
- Mark Pearson <markpearson@lenovo.com>,
- Sebastien Bacher <seb128@ubuntu.com>,
- Marco Trevisan <marco.trevisan@canonical.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-Date: Sat,  2 Oct 2021 18:36:14 +0200
-Message-Id: <20211002163618.99175-7-hdegoede@redhat.com>
-In-Reply-To: <20211002163618.99175-1-hdegoede@redhat.com>
-References: <20211002163618.99175-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF9CD6F4F8;
+	Sat,  2 Oct 2021 16:50:04 +0000 (UTC)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E6276F4F6
+ for <intel-gfx@lists.freedesktop.org>; Sat,  2 Oct 2021 16:50:03 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id i25so51733222lfg.6
+ for <intel-gfx@lists.freedesktop.org>; Sat, 02 Oct 2021 09:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Csv37OXbbDiSxP1I27uaunb1tkkC28qGypuG9vbumlM=;
+ b=f7QX1paUZLa6LbxjYrSrbM9jlt9yPMwzqTWrBad1TWIoRDz21l7WZy5J5Le2KzRQYy
+ dg3j4YES0SMxOB8VBaDved+Q7R/c8muwjQwl638BnkC6zXtX+ZRK12dyoZgsWvzTnFhg
+ wXyg6GfRhS+egEE51QHkoI6kOutXpxzaZGuHE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Csv37OXbbDiSxP1I27uaunb1tkkC28qGypuG9vbumlM=;
+ b=BZ2YeAiLzTibuLikeknx+FIifMenj+HJTQC+ktk3Fmfn6BVfodVGJB2QTgr9OqFnOC
+ NcZjHJ/2bdlJE4jFAFpnYb6nMughHfa8z5hq+eh7bx8SctdZAPXMoJ3YNN0imgBe4L1y
+ GqKS1/BvLcPnjjJSFPIChneZuNLv8oedSHIJvhWWRbesSA83GGe84CMU70uaYr89um75
+ kyhmFxwVLzYDUH7dkNX3JkL4AF3OVa3eBt+hB59g1YDABZPYZ77HfUipE2ZEKSkY/PpH
+ 7LmFpqbZzI6l1YfQ9ig2cTu4xBAEqugo0hT9MQOjb6ezSIsrGPvMd5M8T9AbEdTZweOO
+ x5vA==
+X-Gm-Message-State: AOAM530n3lRdnS6lfgXmznBZOC5MJhTxq6qGrlLL0+tSVsc8TCEcKhBl
+ 12Z6jc2wikyoVb6u5EXU39UcF4HPyOG3CxpRH58=
+X-Google-Smtp-Source: ABdhPJzNtSyGbd7dddTMFMtRLtwZSJccYyqe91ZkCeqXhmeu7eCcZRaEz77Klf+dBrUMh1MCA8CxpA==
+X-Received: by 2002:a2e:85c2:: with SMTP id h2mr4738117ljj.367.1633193400980; 
+ Sat, 02 Oct 2021 09:50:00 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com.
+ [209.85.167.54])
+ by smtp.gmail.com with ESMTPSA id w24sm56760ljj.64.2021.10.02.09.49.57
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 02 Oct 2021 09:49:58 -0700 (PDT)
+Received: by mail-lf1-f54.google.com with SMTP id y23so16832731lfj.7
+ for <intel-gfx@lists.freedesktop.org>; Sat, 02 Oct 2021 09:49:57 -0700 (PDT)
+X-Received: by 2002:a05:6512:3d26:: with SMTP id
+ d38mr4500647lfv.474.1633193397167; 
+ Sat, 02 Oct 2021 09:49:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Subject: [Intel-gfx] [PATCH 06/10] platform/x86: thinkpad_acpi: Add
- hotkey_notify_extended_hotkey() helper
+References: <20211002020257.34a0e882@oasis.local.home>
+ <259ff554-76b8-8523-033-9e996f549c70@google.com>
+ <20211002081750.7eec92dd@oasis.local.home>
+In-Reply-To: <20211002081750.7eec92dd@oasis.local.home>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 2 Oct 2021 09:49:41 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whJsD3RaqpmAMv7yjpnQqrEuXvibXZZDY7f-nzO+PvULg@mail.gmail.com>
+Message-ID: <CAHk-=whJsD3RaqpmAMv7yjpnQqrEuXvibXZZDY7f-nzO+PvULg@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Hugh Dickins <hughd@google.com>, 
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
+ Caz Yokoyama <caz.yokoyama@intel.com>, LKML <linux-kernel@vger.kernel.org>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ intel-gfx <intel-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [BUG 5.15-rc3] kernel BUG at
+ drivers/gpu/drm/i915/i915_sw_fence.c:245!
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,68 +93,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor the extended hotkey handling out of hotkey_notify_hotkey() and
-into a new hotkey_notify_extended_hotkey() helper.
+On Sat, Oct 2, 2021 at 5:17 AM Steven Rostedt <rostedt@goodmis.org> wrote:
+>
+> On Sat, 2 Oct 2021 03:17:29 -0700 (PDT)
+> Hugh Dickins <hughd@google.com> wrote:
+>
+> > Yes (though bisection doesn't work right on this one): the fix
+>
+> Interesting, as it appeared to be very reliable. But I didn't do the
+> "try before / after" on the patch.
 
-This is a preparation patch for adding support the privacy-screen hotkey
-toggle (which needs some special handling, it should NOT send an evdev
-key-event to userspace...).
+Well, even the before/after might well have worked, since the problem
+depended on how that sw_fence_dummy_notify() function ended up
+aligned. So random unrelated changes could re-align it just by
+mistake.
 
-Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/platform/x86/thinkpad_acpi.c | 30 ++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
+Patch applied directly.
 
-diff --git a/drivers/platform/x86/thinkpad_acpi.c b/drivers/platform/x86/thinkpad_acpi.c
-index 50ff04c84650..83c88a8ebaf2 100644
---- a/drivers/platform/x86/thinkpad_acpi.c
-+++ b/drivers/platform/x86/thinkpad_acpi.c
-@@ -3885,6 +3885,24 @@ static bool adaptive_keyboard_hotkey_notify_hotkey(unsigned int scancode)
- 	}
- }
- 
-+static bool hotkey_notify_extended_hotkey(const u32 hkey)
-+{
-+	unsigned int scancode;
-+
-+	/* Extended keycodes start at 0x300 and our offset into the map
-+	 * TP_ACPI_HOTKEYSCAN_EXTENDED_START. The calculated scancode
-+	 * will be positive, but might not be in the correct range.
-+	 */
-+	scancode = (hkey & 0xfff) - (0x300 - TP_ACPI_HOTKEYSCAN_EXTENDED_START);
-+	if (scancode >= TP_ACPI_HOTKEYSCAN_EXTENDED_START &&
-+	    scancode < TPACPI_HOTKEY_MAP_LEN) {
-+		tpacpi_input_send_key(scancode);
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- static bool hotkey_notify_hotkey(const u32 hkey,
- 				 bool *send_acpi_ev,
- 				 bool *ignore_acpi_ev)
-@@ -3919,17 +3937,7 @@ static bool hotkey_notify_hotkey(const u32 hkey,
- 		return adaptive_keyboard_hotkey_notify_hotkey(scancode);
- 
- 	case 3:
--		/* Extended keycodes start at 0x300 and our offset into the map
--		 * TP_ACPI_HOTKEYSCAN_EXTENDED_START. The calculated scancode
--		 * will be positive, but might not be in the correct range.
--		 */
--		scancode -= (0x300 - TP_ACPI_HOTKEYSCAN_EXTENDED_START);
--		if (scancode >= TP_ACPI_HOTKEYSCAN_EXTENDED_START &&
--		    scancode < TPACPI_HOTKEY_MAP_LEN) {
--			tpacpi_input_send_key(scancode);
--			return true;
--		}
--		break;
-+		return hotkey_notify_extended_hotkey(hkey);
- 	}
- 
- 	return false;
--- 
-2.31.1
+I'd also like to point out how that BUG_ON() actually made things
+worse, and made this harder to debug. If it had been a WARN_ON_ONCE(),
+this would presumably not even have needed bisecting, it would have
+been obvious.
 
+BUG_ON() really is pretty much *always* the wrong thing to do. It
+onl;y results in problems being harder to see because you end up with
+a dead machine and the message is often hidden.
+
+                  Linus
