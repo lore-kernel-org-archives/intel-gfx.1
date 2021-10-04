@@ -2,47 +2,39 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54722C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:45:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0019C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23FC96139F
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:45:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 23FC96139F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B4CCA611C0
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:03:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B4CCA611C0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8802A6EA12;
-	Mon,  4 Oct 2021 14:45:23 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793896EA0C;
- Mon,  4 Oct 2021 14:45:21 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="248714013"
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="248714013"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 07:37:23 -0700
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="622303705"
-Received: from shearne-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
- ([10.213.208.122])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 07:37:19 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:36:48 +0100
-Message-Id: <20211004143650.699120-7-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
-References: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 579306EA0C;
+	Mon,  4 Oct 2021 15:03:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B24306EA0C;
+ Mon,  4 Oct 2021 15:03:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AA5E1A8169;
+ Mon,  4 Oct 2021 15:03:55 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 6/8] drm/i915: Make some recently added vfuncs use
- full scheduling attribute
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 04 Oct 2021 15:03:55 -0000
+Message-ID: <163335983569.1480.11439803718987161778@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211004112306.28544-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20211004112306.28544-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915=3A_Improve_DP_link_training_further?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,107 +47,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+== Series Details ==
 
-Code added in 71ed60112d5d ("drm/i915: Add kick_backend function to
-i915_sched_engine") and ee242ca704d3 ("drm/i915/guc: Implement GuC
-priority management") introduced some scheduling related vfuncs which
-take integer request priority as argument.
+Series: drm/i915: Improve DP link training further
+URL   : https://patchwork.freedesktop.org/series/95405/
+State : failure
 
-Make them instead take struct i915_sched_attr, which is the type
-encapsulating this information, so it probably aligns with the design
-better. It definitely enables extending the set of scheduling attributes.
+== Summary ==
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 +++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    | 3 ++-
- drivers/gpu/drm/i915/i915_scheduler.c                | 4 ++--
- drivers/gpu/drm/i915/i915_scheduler_types.h          | 4 ++--
- 4 files changed, 9 insertions(+), 6 deletions(-)
+Applying: drm/i915: Tweak the DP "max vswing reached?" condition
+Applying: drm/i915: Show LTTPR in the TPS debug print
+Applying: drm/i915: Print the DP vswing adjustment request
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_dp_link_training.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0003 drm/i915: Print the DP vswing adjustment request
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 7147fe80919e..e91d803a6453 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3216,11 +3216,13 @@ static bool can_preempt(struct intel_engine_cs *engine)
- 	return engine->class != RENDER_CLASS;
- }
- 
--static void kick_execlists(const struct i915_request *rq, int prio)
-+static void kick_execlists(const struct i915_request *rq,
-+			   const struct i915_sched_attr *attr)
- {
- 	struct intel_engine_cs *engine = rq->engine;
- 	struct i915_sched_engine *sched_engine = engine->sched_engine;
- 	const struct i915_request *inflight;
-+	const int prio = attr->priority;
- 
- 	/*
- 	 * We only need to kick the tasklet once for the high priority
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ba0de35f6323..b5883a4365ca 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2414,9 +2414,10 @@ static void guc_init_breadcrumbs(struct intel_engine_cs *engine)
- }
- 
- static void guc_bump_inflight_request_prio(struct i915_request *rq,
--					   int prio)
-+					   const struct i915_sched_attr *attr)
- {
- 	struct intel_context *ce = rq->context;
-+	const int prio = attr->priority;
- 	u8 new_guc_prio = map_i915_prio_to_guc_prio(prio);
- 
- 	/* Short circuit function */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 762127dd56c5..534bab99fcdc 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -255,7 +255,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 
- 		/* Must be called before changing the nodes priority */
- 		if (sched_engine->bump_inflight_request_prio)
--			sched_engine->bump_inflight_request_prio(from, prio);
-+			sched_engine->bump_inflight_request_prio(from, attr);
- 
- 		WRITE_ONCE(node->attr.priority, prio);
- 
-@@ -280,7 +280,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 
- 		/* Defer (tasklet) submission until after all of our updates. */
- 		if (sched_engine->kick_backend)
--			sched_engine->kick_backend(node_to_request(node), prio);
-+			sched_engine->kick_backend(node_to_request(node), attr);
- 	}
- 
- 	spin_unlock(&sched_engine->lock);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index b0a1b58c7893..24b9ac1c2ce2 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -177,13 +177,13 @@ struct i915_sched_engine {
- 	 * @kick_backend: kick backend after a request's priority has changed
- 	 */
- 	void	(*kick_backend)(const struct i915_request *rq,
--				int prio);
-+				const struct i915_sched_attr *attr);
- 
- 	/**
- 	 * @bump_inflight_request_prio: update priority of an inflight request
- 	 */
- 	void	(*bump_inflight_request_prio)(struct i915_request *rq,
--					      int prio);
-+					      const struct i915_sched_attr *attr);
- 
- 	/**
- 	 * @retire_inflight_request_prio: indicate request is retired to
--- 
-2.30.2
 
