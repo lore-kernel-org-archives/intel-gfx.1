@@ -2,74 +2,78 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69619C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B994C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FF7C617E1
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2FF7C617E1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 56D8F615E4
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 56D8F615E4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E34DF6F5DF;
-	Tue,  5 Oct 2021 12:35:16 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A58A6EB6A;
- Tue,  5 Oct 2021 11:38:09 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id r10so20306667wra.12;
- Tue, 05 Oct 2021 04:38:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/+r4v7UIazK0HaIgNf9t5Xden24q10DFKnoad4rknzc=;
- b=hBJOAL4dfMmkGwORlAx6thdAixCmACJcwxAh6lxA1dr/HFbJfPqIM8yhBHLoTZm5cX
- RabyEg9nbNetODRaRYA7Ofos5BqsIyXI/t5XzeavLaQ/jpVufxzMZrkKRaDvhifPxTz0
- gCc0pOd1Rjh1AdUO8l05w9s+OevbRe27fvFE/ltO3Q+SMHXmI9bBggiypVCiygDTZPj0
- 5eJ5OBJQo1yaklWP68+gjHRU6vRXVFRNO+wrIjNjuFuhJDyFWA4MlwfrC6nuiBQM6TOk
- iRNNStQAd1aJ/XDvJLbEkyaMhsTh6Jwn+vXSWUSirLP3zt0mYKGCceFZMZVYM656bH+5
- gvbA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D201B6F5DC;
+	Tue,  5 Oct 2021 12:35:15 +0000 (UTC)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 234AA6E226
+ for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 22:49:09 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id x27so77471791lfa.9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 04 Oct 2021 15:49:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=8tGetNrXALTlS0gY47hdtBEGpeMB4ZyPkCRNhwkRLtc=;
+ b=vabATdZ84U2C/CkW9T7Ar3+yZgL63YcHmEBJBib8OV+HYPjdjLp3UakcWr/vMcIh9h
+ xM10nmP/VgA7vSlM/y2UA3zcaXQxprsPyPbV477XMdge8jLj7Fn2Dnbzef6BBtc+pGdD
+ L47RD8GQtqi/uReHNxSWfGy6ivC7zFOty1oCLBa1a/1iIfVl32IBUJmYCg0ej1lbMszr
+ J4DmoXfK+/rg1CF/eEMDQ6Qa50ie/rcHjrH31/BBHkchTOdy8GvM1YI3WyDTfMsiYVAd
+ 7UDQOM9QcddcojhQ/g0lVlom3NyL7f1EYxpWJFlPfmbSme2CHLhBxQBSjXP1cyq3nui9
+ GutQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/+r4v7UIazK0HaIgNf9t5Xden24q10DFKnoad4rknzc=;
- b=MGtE55HExw/w7uY41mkifirbB8KCnV5L/hHrrNGLjjM5mQVtqZTYFlNY4uhI7gPpwV
- 5WR0DLoXKCu1QnN66CRrhS0VxvVgjInUPxi2OSMMrQmMDRY39kz7Nkdsm8Q2L1s2L+wC
- mYdSGawDMa0qvOg84jZ7HnW+xprQkJxONTsIv5UtUiefOSlySGYksVhCZWNvJnROoi1o
- 16wgHwsEo3pgRhwxeG7noZFSGqcNa+rqxUDwiS7vgNQU2P/OpO1PtVTeNdPe5OWld1Me
- Ef3TfL2plsUYrNV1WKFTSerP9brih8kvaOo9EzOQA/0sHP0/doeEUEUOjkJE5+L/AN4Y
- rRyA==
-X-Gm-Message-State: AOAM530A2tM5EWXKxaTmnLUahIjUK6emnXVM8E7XibAiqdlWBnGxaZKK
- sKbP5BpUpaqEgxWnf6O+aBU=
-X-Google-Smtp-Source: ABdhPJxApiqsSEFGK2w+UXcwh1se1qIjU71xvk48Y7rm34ZDOgO6bjuWg2yVUMXU3Lt4Y+/RxVGBrA==
-X-Received: by 2002:adf:aad7:: with SMTP id i23mr19790040wrc.209.1633433887720; 
- Tue, 05 Oct 2021 04:38:07 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- c5sm1739912wml.9.2021.10.05.04.38.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 04:38:07 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch,
-	tvrtko.ursulin@linux.intel.com
-Date: Tue,  5 Oct 2021 13:37:39 +0200
-Message-Id: <20211005113742.1101-26-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211005113742.1101-1-christian.koenig@amd.com>
-References: <20211005113742.1101-1-christian.koenig@amd.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=8tGetNrXALTlS0gY47hdtBEGpeMB4ZyPkCRNhwkRLtc=;
+ b=JLObsBw9lBifvnmMDwGbLukkNCWrRrbhZvdB5JuKJkaXVIi2AtFsVtOsG57Ln4wY2E
+ d+MT5Lj6wB41HwBlavNAmdqb6jw0JUSQtq1W67tBrktZpIS7XHft8G3B67ktDK3xy4UR
+ o409efJ6GeltOpKSg6OV+X6jhLmP2l/0XagxoHzx7zqlnvobrJP38FVCtAn71G1K1fbf
+ Cl3ysSewQTH7XVjaS/JPwewfKl0XIiWKq7GjDOsSF6edLxRtXnD0SVt7qMvoovasCA5+
+ VVgAYW8OKqG5Z3xGYo6cCadewSNqvz5jYAqlp5qNenwrrlYZxx2sLM4wZUVSAi777jjv
+ 0NcQ==
+X-Gm-Message-State: AOAM530fAIfr448n+qZYleSnKJ12owT3X6CIINU8GpHQ7++iZaqHiKuS
+ Mx2PVMOieGenxJJmUb21P1OARQ==
+X-Google-Smtp-Source: ABdhPJy+286dU+0v9d3W1xDxI2x6RfznBbPFqXMzp+FrGqO9VLlpm/Vz968b85aCsYJVKtYmxpaUtg==
+X-Received: by 2002:a05:6512:1581:: with SMTP id
+ bp1mr846072lfb.552.1633387747442; 
+ Mon, 04 Oct 2021 15:49:07 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id b26sm1782221ljo.123.2021.10.04.15.49.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Oct 2021 15:49:07 -0700 (PDT)
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: swboyd@chromium.org, jani.nikula@linux.intel.com,
+ Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
+References: <20211001151145.55916-1-sean@poorly.run>
+ <20211001151145.55916-10-sean@poorly.run>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <b87960ad-20ab-a51a-97ca-9ca081b67ccc@linaro.org>
+Date: Tue, 5 Oct 2021 01:49:06 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:14 +0000
-Subject: [Intel-gfx] [PATCH 25/28] drm/nouveau: use the new iterator in
- nouveau_fence_sync
+In-Reply-To: <20211001151145.55916-10-sean@poorly.run>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:13 +0000
+Subject: Re: [Intel-gfx] [PATCH v3 09/14] drm/msm/dpu: Remove useless checks
+ in dpu_encoder
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,97 +89,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+On 01/10/2021 18:11, Sean Paul wrote:
+> From: Sean Paul <seanpaul@chromium.org>
+> 
+> A couple more useless checks to remove in dpu_encoder.
+> 
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-10-sean@poorly.run #v1
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-10-sean@poorly.run #v2
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/nouveau/nouveau_fence.c | 48 +++++++------------------
- 1 file changed, 12 insertions(+), 36 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
-index 05d0b3eb3690..26f9299df881 100644
---- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-@@ -339,14 +339,15 @@ nouveau_fence_wait(struct nouveau_fence *fence, bool lazy, bool intr)
- }
- 
- int
--nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool exclusive, bool intr)
-+nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan,
-+		   bool exclusive, bool intr)
- {
- 	struct nouveau_fence_chan *fctx = chan->fence;
--	struct dma_fence *fence;
- 	struct dma_resv *resv = nvbo->bo.base.resv;
--	struct dma_resv_list *fobj;
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
- 	struct nouveau_fence *f;
--	int ret = 0, i;
-+	int ret;
- 
- 	if (!exclusive) {
- 		ret = dma_resv_reserve_shared(resv, 1);
-@@ -355,10 +356,7 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
- 			return ret;
- 	}
- 
--	fobj = dma_resv_shared_list(resv);
--	fence = dma_resv_excl_fence(resv);
--
--	if (fence) {
-+	dma_resv_for_each_fence(&cursor, resv, exclusive, fence) {
- 		struct nouveau_channel *prev = NULL;
- 		bool must_wait = true;
- 
-@@ -366,41 +364,19 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan, bool e
- 		if (f) {
- 			rcu_read_lock();
- 			prev = rcu_dereference(f->channel);
--			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
-+			if (prev && (prev == chan ||
-+				     fctx->sync(f, prev, chan) == 0))
- 				must_wait = false;
- 			rcu_read_unlock();
- 		}
- 
--		if (must_wait)
-+		if (must_wait) {
- 			ret = dma_fence_wait(fence, intr);
--
--		return ret;
--	}
--
--	if (!exclusive || !fobj)
--		return ret;
--
--	for (i = 0; i < fobj->shared_count && !ret; ++i) {
--		struct nouveau_channel *prev = NULL;
--		bool must_wait = true;
--
--		fence = rcu_dereference_protected(fobj->shared[i],
--						dma_resv_held(resv));
--
--		f = nouveau_local_fence(fence, chan->drm);
--		if (f) {
--			rcu_read_lock();
--			prev = rcu_dereference(f->channel);
--			if (prev && (prev == chan || fctx->sync(f, prev, chan) == 0))
--				must_wait = false;
--			rcu_read_unlock();
-+			if (ret)
-+				return ret;
- 		}
--
--		if (must_wait)
--			ret = dma_fence_wait(fence, intr);
- 	}
--
--	return ret;
-+	return 0;
- }
- 
- void
+> 
+> Changes in v2:
+> -None
+> Changes in v3:
+> -None
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ------------
+>   1 file changed, 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 0e9d3fa1544b..984f8a59cb73 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1153,10 +1153,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
+>   	struct msm_drm_private *priv;
+>   	struct drm_display_mode *cur_mode = NULL;
+>   
+> -	if (!drm_enc) {
+> -		DPU_ERROR("invalid encoder\n");
+> -		return;
+> -	}
+>   	dpu_enc = to_dpu_encoder_virt(drm_enc);
+>   
+>   	mutex_lock(&dpu_enc->enc_lock);
+> @@ -1203,14 +1199,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>   	struct msm_drm_private *priv;
+>   	int i = 0;
+>   
+> -	if (!drm_enc) {
+> -		DPU_ERROR("invalid encoder\n");
+> -		return;
+> -	} else if (!drm_enc->dev) {
+> -		DPU_ERROR("invalid dev\n");
+> -		return;
+> -	}
+> -
+>   	dpu_enc = to_dpu_encoder_virt(drm_enc);
+>   	DPU_DEBUG_ENC(dpu_enc, "\n");
+>   
+> 
+
+
 -- 
-2.25.1
-
+With best wishes
+Dmitry
