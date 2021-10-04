@@ -2,53 +2,52 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C42DC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 10:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9FF8C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 10:36:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 386956128A
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 10:34:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 386956128A
+	by mail.kernel.org (Postfix) with ESMTPS id 9CB81613B5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 10:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9CB81613B5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B37526E9B7;
-	Mon,  4 Oct 2021 10:34:08 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7120B6E9B3;
- Mon,  4 Oct 2021 10:34:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="224139379"
-X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="224139379"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 03:34:06 -0700
-X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="482885048"
-Received: from shearne-mobl.ger.corp.intel.com (HELO [10.213.208.122])
- ([10.213.208.122])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 03:34:03 -0700
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch
-References: <20211001100610.2899-1-christian.koenig@amd.com>
- <20211001100610.2899-2-christian.koenig@amd.com>
- <fa3a1755-21b2-ea0c-1553-df0297523e48@linux.intel.com>
- <b6da5c2f-8e2c-18d4-9b89-aac3171d841d@gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <022c63b6-7a40-3569-9b5e-f5b1ef64e574@linux.intel.com>
-Date: Mon, 4 Oct 2021 11:34:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE99C6E9B6;
+	Mon,  4 Oct 2021 10:36:30 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 668666E9B6;
+ Mon,  4 Oct 2021 10:36:29 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="248629914"
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="248629914"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 03:36:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="622059673"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga001.fm.intel.com with SMTP; 04 Oct 2021 03:36:26 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 04 Oct 2021 13:36:24 +0300
+Date: Mon, 4 Oct 2021 13:36:24 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <YVrZKEgBEPeNegx5@intel.com>
+References: <20210421153401.13847-1-ville.syrjala@linux.intel.com>
+ <20210421153401.13847-5-ville.syrjala@linux.intel.com>
+ <YIFGt+I8LMckYyVG@phenom.ffwll.local> <YIF1+mhbWO7UD/yN@intel.com>
+ <YIblm7BAj6fnQiq+@phenom.ffwll.local> <YIb178CssrxSSSk6@intel.com>
+ <YIfSH/PWf2ZnOnOr@phenom.ffwll.local>
 MIME-Version: 1.0
-In-Reply-To: <b6da5c2f-8e2c-18d4-9b89-aac3171d841d@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 01/28] dma-buf: add
- dma_resv_for_each_fence_unlocked v7
+In-Reply-To: <YIfSH/PWf2ZnOnOr@phenom.ffwll.local>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915: Rewrite CL/CTG L-shaped
+ memory detection
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,354 +63,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Apr 27, 2021 at 10:58:07AM +0200, Daniel Vetter wrote:
+> On Mon, Apr 26, 2021 at 08:18:39PM +0300, Ville Syrj�l� wrote:
+> > On Mon, Apr 26, 2021 at 06:08:59PM +0200, Daniel Vetter wrote:
+> > > On Thu, Apr 22, 2021 at 04:11:22PM +0300, Ville Syrj�l� wrote:
+> > > > On Thu, Apr 22, 2021 at 11:49:43AM +0200, Daniel Vetter wrote:
+> > > > > On Wed, Apr 21, 2021 at 06:34:01PM +0300, Ville Syrjala wrote:
+> > > > > > From: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+> > > > > > 
+> > > > > > Currently we try to detect a symmetric memory configurations
+> > > > > > using a magic DCC2_MODIFIED_ENHANCED_DISABLE bit. That bit is
+> > > > > > either only set on a very specific subset of machines or it
+> > > > > > just does not exist (it's not mentioned in any public chipset
+> > > > > > datasheets I've found). As it happens my CL/CTG machines never
+> > > > > > set said bit, even if I populate the channels with identical
+> > > > > > sticks.
+> > > > > > 
+> > > > > > So let's do the L-shaped memory detection the same way as the
+> > > > > > desktop variants, ie. just look at the DRAM rank boundary
+> > > > > > registers to see if both channels have an identical size.
+> > > > > > 
+> > > > > > With this my CL/CTG no longer claim L-shaped memory when I use
+> > > > > > identical sticks. Also tested with non-matching sticks just to
+> > > > > > make sure the L-shaped memory is still properly detected.
+> > > > > > 
+> > > > > > And for completeness let's update the debugfs code to dump
+> > > > > > the correct set of registers on each platform.
+> > > > > > 
+> > > > > > Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> > > > > > Signed-off-by: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+> > > > > 
+> > > > > Did you check this with the swapping igt? I have some vague memories of
+> > > > > bug reports where somehow the machine was acting like it's L-shaped memory
+> > > > > despite that banks were populated equally. I've iirc tried all kinds of
+> > > > > tricks to figure it out, all to absolutely no avail.
+> > > > 
+> > > > Did you have a specific test in mind? I ran a bunch of things
+> > > > that seemed swizzle related. All passed just fine.
+> > > 
+> > > gem_tiled_swapping should be the one. It tries to cycle your entire system
+> > > memory through tiled buffers into swap and out of it.
+> > 
+> > Passes with symmetric config, fails with L-shaped config (if I hack
+> > out the L-shape detection of course). So seems pretty solid.
+> > 
+> > A kernel based self test that looks at the physical address would
+> > still be nice I suppose. Though depending on the size of your RAM
+> > sticks figuring out where exactly the switchover from two channels
+> > to one channels happens probably requires a bit of work due to
+> > the PCI hole/etc.
+> > 
+> > Both my cl and ctg report this btw:
+> >  bit6 swizzle for X-tiling = bit9/bit10/bit11
+> >  bit6 swizzle for Y-tiling = bit9/bit11
+> > so unfortunately can't be sure the other swizzle modes would be
+> > correctly detected.
+> 
+> I think testing-wise this is as good as it gets.
 
-On 04/10/2021 10:53, Christian König wrote:
-> Am 04.10.21 um 11:29 schrieb Tvrtko Ursulin:
->>
->> On 01/10/2021 11:05, Christian König wrote:
->>> Abstract the complexity of iterating over all the fences
->>> in a dma_resv object.
->>>
->>> The new loop handles the whole RCU and retry dance and
->>> returns only fences where we can be sure we grabbed the
->>> right one.
->>>
->>> v2: fix accessing the shared fences while they might be freed,
->>>      improve kerneldoc, rename _cursor to _iter, add
->>>      dma_resv_iter_is_exclusive, add dma_resv_iter_begin/end
->>>
->>> v3: restructor the code, move rcu_read_lock()/unlock() into the
->>>      iterator, add dma_resv_iter_is_restarted()
->>>
->>> v4: fix NULL deref when no explicit fence exists, drop superflous
->>>      rcu_read_lock()/unlock() calls.
->>>
->>> v5: fix typos in the documentation
->>>
->>> v6: fix coding error when excl fence is NULL
->>>
->>> v7: one more logic fix
->>>
->>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>> ---
->>>   drivers/dma-buf/dma-resv.c | 100 +++++++++++++++++++++++++++++++++++++
->>>   include/linux/dma-resv.h   |  95 +++++++++++++++++++++++++++++++++++
->>>   2 files changed, 195 insertions(+)
->>>
->>> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
->>> index 84fbe60629e3..3cbcf66a137e 100644
->>> --- a/drivers/dma-buf/dma-resv.c
->>> +++ b/drivers/dma-buf/dma-resv.c
->>> @@ -323,6 +323,106 @@ void dma_resv_add_excl_fence(struct dma_resv 
->>> *obj, struct dma_fence *fence)
->>>   }
->>>   EXPORT_SYMBOL(dma_resv_add_excl_fence);
->>>   +/**
->>> + * dma_resv_iter_restart_unlocked - restart the unlocked iterator
->>> + * @cursor: The dma_resv_iter object to restart
->>> + *
->>> + * Restart the unlocked iteration by initializing the cursor object.
->>> + */
->>> +static void dma_resv_iter_restart_unlocked(struct dma_resv_iter 
->>> *cursor)
->>> +{
->>> +    cursor->seq = read_seqcount_begin(&cursor->obj->seq);
->>> +    cursor->index = -1;
->>> +    if (cursor->all_fences)
->>> +        cursor->fences = dma_resv_shared_list(cursor->obj);
->>> +    else
->>> +        cursor->fences = NULL;
->>> +    cursor->is_restarted = true;
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_walk_unlocked - walk over fences in a dma_resv obj
->>> + * @cursor: cursor to record the current position
->>> + *
->>> + * Return all the fences in the dma_resv object which are not yet 
->>> signaled.
->>> + * The returned fence has an extra local reference so will stay alive.
->>> + * If a concurrent modify is detected the whole iteration is started 
->>> over again.
->>> + */
->>> +static void dma_resv_iter_walk_unlocked(struct dma_resv_iter *cursor)
->>> +{
->>> +    struct dma_resv *obj = cursor->obj;
->>> +
->>> +    do {
->>> +        /* Drop the reference from the previous round */
->>> +        dma_fence_put(cursor->fence);
->>> +
->>> +        if (cursor->index == -1) {
->>> +            cursor->fence = dma_resv_excl_fence(obj);
->>> +            cursor->index++;
->>> +            if (!cursor->fence)
->>> +                continue;
->>> +
->>> +        } else if (!cursor->fences ||
->>> +               cursor->index >= cursor->fences->shared_count) {
->>> +            cursor->fence = NULL;
->>> +            break;
->>> +
->>> +        } else {
->>> +            struct dma_resv_list *fences = cursor->fences;
->>> +            unsigned int idx = cursor->index++;
->>> +
->>> +            cursor->fence = rcu_dereference(fences->shared[idx]);
->>> +        }
->>> +        cursor->fence = dma_fence_get_rcu(cursor->fence);
->>
->> Worth having an assert dma_fence_get_rcu does not fail here? Not sure 
->> that I have seen debug build only asserts though on the DRM core side.
-> 
-> That won't work. It's perfectly valid for dma_fence_get_rcu() to return 
-> NULL when we are racing here. Keep in mind that we don't hold any locks.
+So what do we think about putting this in? Currently this only works by
+sheer luck more or less. On my machines we have a false positive which
+is safe now that the pin quirk got fixed, but if some other machines
+have a false negative then things are not going to go so well.
 
-Ah yes.. No need to change anything then, sorry for the confusion. I did 
-not find any holes, the rest was just about how to maybe make the flow 
-more obvious. Let me know if you want r-b now or later.
-
-Regards,
-
-Tvrtko
-
-> What we could do is to return NULL and repeat with a new sequence 
-> immediately though.
-> 
->>
->> On the bike shedding front, would it be clearer if the continue 
->> condition on signaled fences was standalone, using the continue 
->> statement? I'd also possibly re-arrange the three if-else blocks so 
->> that the end of iteration is not sandwiched between blocks handling 
->> exclusive and shared, and flow tweaked a bit, like:
->>
->>   struct dma_fence *fence = cursor->fence;
->>   int index = cursor->index;
->>
->>   dma_fence_put(fence);
->>   fence = NULL;
->>
->> next:
->>   if (index == -1) {
->>     /* Try picking the exclusive fence. */
->>     index++;
->>     fence = dma_resv_excl_fence(obj);
->>     if (!fence)
->>         goto next;
->>   } else if (cursor->fences && index < cursor->fences->shared_count) {
->>       /* Try picking next shared fence. */
->>     struct dma_resv_list *fences = cursor->fences;
->>
->>     fence = rcu_dereference(fences->shared[index++]);
->>   }
->>
->>   if (fence) {
->>       if (dma_fence_is_signaled(fence))
->>         goto next; /* Skip signaled. */
->>
->>     fence = dma_fence_get_rcu(fence);
->>     WARN_ON(!fence);
->> }
->>
->>   cursor->fence = fence;
->>   cursor->index = index;
->>
->> (I started with a loop here but ended with goto based flow since it 
->> ended up more succinct.)
->>
->> At least if I don't have a handling flaw in there it looks like easier 
->> to follow flow to me. Plus picking a not signaled fence works without 
->> a reference FWIW.
-> 
-> I strongly don't think that this will work correctly. You need to grab a 
-> reference first when you want to call dma_fence_is_signaled(), that's 
-> why I used the testbit approach initially.
-> 
->> How does it look to you?
-> 
-> Mhm, let me try to reorder the loop once more.
-> 
-> Thanks,
-> Christian.
-> 
->>
->> Regards,
->>
->> Tvrtko
->>
->>> +        if (!cursor->fence || !dma_fence_is_signaled(cursor->fence))
->>> +            break;
->>> +    } while (true);
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_first_unlocked - first fence in an unlocked 
->>> dma_resv obj.
->>> + * @cursor: the cursor with the current position
->>> + *
->>> + * Returns the first fence from an unlocked dma_resv obj.
->>> + */
->>> +struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter 
->>> *cursor)
->>> +{
->>> +    rcu_read_lock();
->>> +    do {
->>> +        dma_resv_iter_restart_unlocked(cursor);
->>> +        dma_resv_iter_walk_unlocked(cursor);
->>> +    } while (read_seqcount_retry(&cursor->obj->seq, cursor->seq));
->>> +    rcu_read_unlock();
->>> +
->>> +    return cursor->fence;
->>> +}
->>> +EXPORT_SYMBOL(dma_resv_iter_first_unlocked);
->>> +
->>> +/**
->>> + * dma_resv_iter_next_unlocked - next fence in an unlocked dma_resv 
->>> obj.
->>> + * @cursor: the cursor with the current position
->>> + *
->>> + * Returns the next fence from an unlocked dma_resv obj.
->>> + */
->>> +struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter 
->>> *cursor)
->>> +{
->>> +    bool restart;
->>> +
->>> +    rcu_read_lock();
->>> +    cursor->is_restarted = false;
->>> +    restart = read_seqcount_retry(&cursor->obj->seq, cursor->seq);
->>> +    do {
->>> +        if (restart)
->>> +            dma_resv_iter_restart_unlocked(cursor);
->>> +        dma_resv_iter_walk_unlocked(cursor);
->>> +        restart = true;
->>> +    } while (read_seqcount_retry(&cursor->obj->seq, cursor->seq));
->>> +    rcu_read_unlock();
->>> +
->>> +    return cursor->fence;
->>> +}
->>> +EXPORT_SYMBOL(dma_resv_iter_next_unlocked);
->>> +
->>>   /**
->>>    * dma_resv_copy_fences - Copy all fences from src to dst.
->>>    * @dst: the destination reservation object
->>> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
->>> index 9100dd3dc21f..5d7d28cb9008 100644
->>> --- a/include/linux/dma-resv.h
->>> +++ b/include/linux/dma-resv.h
->>> @@ -149,6 +149,101 @@ struct dma_resv {
->>>       struct dma_resv_list __rcu *fence;
->>>   };
->>>   +/**
->>> + * struct dma_resv_iter - current position into the dma_resv fences
->>> + *
->>> + * Don't touch this directly in the driver, use the accessor 
->>> function instead.
->>> + */
->>> +struct dma_resv_iter {
->>> +    /** @obj: The dma_resv object we iterate over */
->>> +    struct dma_resv *obj;
->>> +
->>> +    /** @all_fences: If all fences should be returned */
->>> +    bool all_fences;
->>> +
->>> +    /** @fence: the currently handled fence */
->>> +    struct dma_fence *fence;
->>> +
->>> +    /** @seq: sequence number to check for modifications */
->>> +    unsigned int seq;
->>> +
->>> +    /** @index: index into the shared fences */
->>> +    unsigned int index;
->>> +
->>> +    /** @fences: the shared fences */
->>> +    struct dma_resv_list *fences;
->>> +
->>> +    /** @is_restarted: true if this is the first returned fence */
->>> +    bool is_restarted;
->>> +};
->>> +
->>> +struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter 
->>> *cursor);
->>> +struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter 
->>> *cursor);
->>> +
->>> +/**
->>> + * dma_resv_iter_begin - initialize a dma_resv_iter object
->>> + * @cursor: The dma_resv_iter object to initialize
->>> + * @obj: The dma_resv object which we want to iterate over
->>> + * @all_fences: If all fences should be returned or just the 
->>> exclusive one
->>> + */
->>> +static inline void dma_resv_iter_begin(struct dma_resv_iter *cursor,
->>> +                       struct dma_resv *obj,
->>> +                       bool all_fences)
->>> +{
->>> +    cursor->obj = obj;
->>> +    cursor->all_fences = all_fences;
->>> +    cursor->fence = NULL;
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_end - cleanup a dma_resv_iter object
->>> + * @cursor: the dma_resv_iter object which should be cleaned up
->>> + *
->>> + * Make sure that the reference to the fence in the cursor is properly
->>> + * dropped.
->>> + */
->>> +static inline void dma_resv_iter_end(struct dma_resv_iter *cursor)
->>> +{
->>> +    dma_fence_put(cursor->fence);
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_is_exclusive - test if the current fence is the 
->>> exclusive one
->>> + * @cursor: the cursor of the current position
->>> + *
->>> + * Returns true if the currently returned fence is the exclusive one.
->>> + */
->>> +static inline bool dma_resv_iter_is_exclusive(struct dma_resv_iter 
->>> *cursor)
->>> +{
->>> +    return cursor->index == -1;
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_iter_is_restarted - test if this is the first fence 
->>> after a restart
->>> + * @cursor: the cursor with the current position
->>> + *
->>> + * Return true if this is the first fence in an iteration after a 
->>> restart.
->>> + */
->>> +static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter 
->>> *cursor)
->>> +{
->>> +    return cursor->is_restarted;
->>> +}
->>> +
->>> +/**
->>> + * dma_resv_for_each_fence_unlocked - unlocked fence iterator
->>> + * @cursor: a struct dma_resv_iter pointer
->>> + * @fence: the current fence
->>> + *
->>> + * Iterate over the fences in a struct dma_resv object without 
->>> holding the
->>> + * &dma_resv.lock and using RCU instead. The cursor needs to be 
->>> initialized
->>> + * with dma_resv_iter_begin() and cleaned up with 
->>> dma_resv_iter_end(). Inside
->>> + * the iterator a reference to the dma_fence is held and the RCU 
->>> lock dropped.
->>> + * When the dma_resv is modified the iteration starts over again.
->>> + */
->>> +#define dma_resv_for_each_fence_unlocked(cursor, fence)            \
->>> +    for (fence = dma_resv_iter_first_unlocked(cursor);        \
->>> +         fence; fence = dma_resv_iter_next_unlocked(cursor))
->>> +
->>>   #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->>>   #define dma_resv_assert_held(obj) 
->>> lockdep_assert_held(&(obj)->lock.base)
->>>
-> 
+-- 
+Ville Syrj�l�
+Intel
