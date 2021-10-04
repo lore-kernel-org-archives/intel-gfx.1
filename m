@@ -2,42 +2,45 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF589C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 777DEC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:11:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 87B2C6136F
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:11:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 87B2C6136F
+	by mail.kernel.org (Postfix) with ESMTPS id 3B229611C0
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:11:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B229611C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 335996E220;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC1346E223;
 	Mon,  4 Oct 2021 22:11:32 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 170F16E21D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAFD36E21D;
  Mon,  4 Oct 2021 22:11:31 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854259"
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854259"
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854267"
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854267"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:29 -0700
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735446"
+ 04 Oct 2021 15:11:30 -0700
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735475"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:29 -0700
+ 04 Oct 2021 15:11:30 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:06:11 -0700
-Message-Id: <20211004220637.14746-1-matthew.brost@intel.com>
+Date: Mon,  4 Oct 2021 15:06:18 -0700
+Message-Id: <20211004220637.14746-8-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
+References: <20211004220637.14746-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/26] Parallel submission aka multi-bb execbuf
+Subject: [Intel-gfx] [PATCH 07/26] drm/i915/guc: Introduce context
+ parent-child relationship
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,105 +56,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As discussed in [1] we are introducing a new parallel submission uAPI
-for the i915 which allows more than 1 BB to be submitted in an execbuf
-IOCTL. This is the implemenation for both GuC and execlists.
+Introduce context parent-child relationship. Once this relationship is
+created all pinning / unpinning operations are directed to the parent
+context. The parent context is responsible for pinning all of its'
+children and itself.
 
-In addition to selftests in the series, an IGT is available implemented
-in the first 4 patches [2].
+This is a precursor to the full GuC multi-lrc implementation but aligns
+to how GuC mutli-lrc interface is defined - a single H2G is used
+register / deregister all of the contexts simultaneously.
 
-The execbuf IOCTL changes have been done in a single large patch (#21)
-as all the changes flow together and I believe a single patch will be
-better if some one has to lookup this change in the future. Can split in
-a series of smaller patches if desired.
+Subsequent patches in the series will implement the pinning / unpinning
+operations for parent / child contexts.
 
-This code is available in a public [3] repo for UMD teams to test there
-code on.
-
-v2: Drop complicated state machine to block in kernel if no guc_ids
-available, perma-pin parallel contexts, reworker execbuf IOCTL to be a
-series of loops inside the IOCTL rather than 1 large one on the outside,
-address Daniel Vetter's comments
-v3: Address John Harrison's comments, add a couple of patches which fix
-bugs found internally
+v2:
+ (Daniel Vetter)
+  - Add kernel doc, add wrapper to access parent to ensure safety
+v3:
+ (John Harrison)
+  - Fix comment explaing GEM_BUG_ON in to_parent()
+  - Make variable names generic (non-GuC specific)
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_context.c       | 29 +++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context.h       | 41 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 21 ++++++++++
+ 3 files changed, 91 insertions(+)
 
-[1] https://patchwork.freedesktop.org/series/92028/
-[2] https://patchwork.freedesktop.org/series/93071/
-[3] https://gitlab.freedesktop.org/mbrost/mbrost-drm-intel/-/tree/drm-intel-parallel
-
-Matthew Brost (26):
-  drm/i915/guc: Move GuC guc_id allocation under submission state
-    sub-struct
-  drm/i915/guc: Take GT PM ref when deregistering context
-  drm/i915/guc: Take engine PM when a context is pinned with GuC
-    submission
-  drm/i915/guc: Don't call switch_to_kernel_context with GuC submission
-  drm/i915: Add logical engine mapping
-  drm/i915: Expose logical engine instance to user
-  drm/i915/guc: Introduce context parent-child relationship
-  drm/i915/guc: Add multi-lrc context registration
-  drm/i915/guc: Ensure GuC schedule operations do not operate on child
-    contexts
-  drm/i915/guc: Assign contexts in parent-child relationship consecutive
-    guc_ids
-  drm/i915/guc: Implement parallel context pin / unpin functions
-  drm/i915/guc: Implement multi-lrc submission
-  drm/i915/guc: Insert submit fences between requests in parent-child
-    relationship
-  drm/i915/guc: Implement multi-lrc reset
-  drm/i915/guc: Update debugfs for GuC multi-lrc
-  drm/i915: Fix bug in user proto-context creation that leaked contexts
-  drm/i915/guc: Connect UAPI to GuC multi-lrc interface
-  drm/i915/doc: Update parallel submit doc to point to i915_drm.h
-  drm/i915/guc: Add basic GuC multi-lrc selftest
-  drm/i915/guc: Implement no mid batch preemption for multi-lrc
-  drm/i915: Multi-BB execbuf
-  drm/i915/guc: Handle errors in multi-lrc requests
-  drm/i915: Make request conflict tracking understand parallel submits
-  drm/i915: Update I915_GEM_BUSY IOCTL to understand composite fences
-  drm/i915: Enable multi-bb execbuf
-  drm/i915/execlists: Weak parallel submission support for execlists
-
- Documentation/gpu/rfc/i915_parallel_execbuf.h |  122 --
- Documentation/gpu/rfc/i915_scheduler.rst      |    4 +-
- drivers/gpu/drm/i915/gem/i915_gem_busy.c      |   60 +-
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  225 ++-
- .../gpu/drm/i915/gem/i915_gem_context_types.h |    6 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  796 ++++++---
- drivers/gpu/drm/i915/gt/intel_context.c       |   50 +-
- drivers/gpu/drm/i915/gt/intel_context.h       |   54 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h |   73 +-
- drivers/gpu/drm/i915/gt/intel_engine.h        |   12 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   66 +-
- drivers/gpu/drm/i915/gt/intel_engine_pm.c     |   13 +
- drivers/gpu/drm/i915/gt/intel_engine_pm.h     |   37 +
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |    7 +
- .../drm/i915/gt/intel_execlists_submission.c  |   63 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm.h         |   14 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           |    7 +
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   26 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   49 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |    2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   24 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   27 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 1456 ++++++++++++++---
- .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  179 ++
- drivers/gpu/drm/i915/i915_query.c             |    2 +
- drivers/gpu/drm/i915/i915_request.c           |  143 +-
- drivers/gpu/drm/i915/i915_request.h           |   23 +
- drivers/gpu/drm/i915/i915_vma.c               |   21 +-
- drivers/gpu/drm/i915/i915_vma.h               |   13 +-
- drivers/gpu/drm/i915/intel_wakeref.h          |   12 +
- .../drm/i915/selftests/i915_live_selftests.h  |    1 +
- include/uapi/drm/i915_drm.h                   |  139 +-
- 34 files changed, 3038 insertions(+), 701 deletions(-)
- delete mode 100644 Documentation/gpu/rfc/i915_parallel_execbuf.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index f601323b939f..c5bb7ccfb3f8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -403,6 +403,8 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 
+ 	INIT_LIST_HEAD(&ce->destroyed_link);
+ 
++	INIT_LIST_HEAD(&ce->parallel.child_list);
++
+ 	/*
+ 	 * Initialize fence to be complete as this is expected to be complete
+ 	 * unless there is a pending schedule disable outstanding.
+@@ -417,10 +419,17 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 
+ void intel_context_fini(struct intel_context *ce)
+ {
++	struct intel_context *child, *next;
++
+ 	if (ce->timeline)
+ 		intel_timeline_put(ce->timeline);
+ 	i915_vm_put(ce->vm);
+ 
++	/* Need to put the creation ref for the children */
++	if (intel_context_is_parent(ce))
++		for_each_child_safe(ce, child, next)
++			intel_context_put(child);
++
+ 	mutex_destroy(&ce->pin_mutex);
+ 	i915_active_fini(&ce->active);
+ 	i915_sw_fence_fini(&ce->guc_state.blocked);
+@@ -537,6 +546,26 @@ struct i915_request *intel_context_find_active_request(struct intel_context *ce)
+ 	return active;
+ }
+ 
++void intel_context_bind_parent_child(struct intel_context *parent,
++				     struct intel_context *child)
++{
++	/*
++	 * Callers responsibility to validate that this function is used
++	 * correctly but we use GEM_BUG_ON here ensure that they do.
++	 */
++	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
++	GEM_BUG_ON(intel_context_is_pinned(parent));
++	GEM_BUG_ON(intel_context_is_child(parent));
++	GEM_BUG_ON(intel_context_is_pinned(child));
++	GEM_BUG_ON(intel_context_is_child(child));
++	GEM_BUG_ON(intel_context_is_parent(child));
++
++	parent->parallel.number_children++;
++	list_add_tail(&child->parallel.child_link,
++		      &parent->parallel.child_list);
++	child->parallel.parent = parent;
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_context.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index c41098950746..b63c10a144af 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -44,6 +44,47 @@ void intel_context_free(struct intel_context *ce);
+ int intel_context_reconfigure_sseu(struct intel_context *ce,
+ 				   const struct intel_sseu sseu);
+ 
++static inline bool intel_context_is_child(struct intel_context *ce)
++{
++	return !!ce->parallel.parent;
++}
++
++static inline bool intel_context_is_parent(struct intel_context *ce)
++{
++	return !!ce->parallel.number_children;
++}
++
++static inline bool intel_context_is_pinned(struct intel_context *ce);
++
++static inline struct intel_context *
++intel_context_to_parent(struct intel_context *ce)
++{
++	if (intel_context_is_child(ce)) {
++		/*
++		 * The parent holds ref count to the child so it is always safe
++		 * for the parent to access the child, but the child has a
++		 * pointer to the parent without a ref. To ensure this is safe
++		 * the child should only access the parent pointer while the
++		 * parent is pinned.
++		 */
++		GEM_BUG_ON(!intel_context_is_pinned(ce->parallel.parent));
++
++		return ce->parallel.parent;
++	} else {
++		return ce;
++	}
++}
++
++void intel_context_bind_parent_child(struct intel_context *parent,
++				     struct intel_context *child);
++
++#define for_each_child(parent, ce)\
++	list_for_each_entry(ce, &(parent)->parallel.child_list,\
++			    parallel.child_link)
++#define for_each_child_safe(parent, ce, cn)\
++	list_for_each_entry_safe(ce, cn, &(parent)->parallel.child_list,\
++				 parallel.child_link)
++
+ /**
+  * intel_context_lock_pinned - Stablises the 'pinned' status of the HW context
+  * @ce - the context
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 4613d027cbc3..76dfca57cb45 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -220,6 +220,27 @@ struct intel_context {
+ 	 */
+ 	struct list_head destroyed_link;
+ 
++	/** @parallel: sub-structure for parallel submission members */
++	struct {
++		union {
++			/**
++			 * @child_list: parent's list of children
++			 * contexts, no protection as immutable after context
++			 * creation
++			 */
++			struct list_head child_list;
++			/**
++			 * @child_link: child's link into parent's list of
++			 * children
++			 */
++			struct list_head child_link;
++		};
++		/** @parent: pointer to parent if child */
++		struct intel_context *parent;
++		/** @number_children: number of children if parent */
++		u8 number_children;
++	} parallel;
++
+ #ifdef CONFIG_DRM_I915_SELFTEST
+ 	/**
+ 	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
 -- 
 2.32.0
 
