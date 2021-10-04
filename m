@@ -2,44 +2,45 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74311C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C6AB1C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 36564611C0
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:11:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 36564611C0
+	by mail.kernel.org (Postfix) with ESMTPS id 8AF4C611C0
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8AF4C611C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6D38862C;
-	Mon,  4 Oct 2021 22:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F6C891A1;
+	Mon,  4 Oct 2021 22:11:35 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1A6D6E220;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6B06E223;
  Mon,  4 Oct 2021 22:11:31 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854265"
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854265"
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854270"
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854270"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:30 -0700
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735464"
+ 04 Oct 2021 15:11:31 -0700
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735479"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:30 -0700
+ 04 Oct 2021 15:11:31 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:06:16 -0700
-Message-Id: <20211004220637.14746-6-matthew.brost@intel.com>
+Date: Mon,  4 Oct 2021 15:06:19 -0700
+Message-Id: <20211004220637.14746-9-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
 References: <20211004220637.14746-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/26] drm/i915: Add logical engine mapping
+Subject: [Intel-gfx] [PATCH 08/26] drm/i915/guc: Add multi-lrc context
+ registration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,215 +56,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add logical engine mapping. This is required for split-frame, as
-workloads need to be placed on engines in a logically contiguous manner.
+Add multi-lrc context registration H2G. In addition a workqueue and
+process descriptor are setup during multi-lrc context registration as
+these data structures are needed for multi-lrc submission.
 
 v2:
- (Daniel Vetter)
-  - Add kernel doc for new fields
-v3
- (Tvrtko)
-  - Update comment for new logical_mask field
+ (John Harrison)
+  - Move GuC specific fields into sub-struct
+  - Clean up WQ defines
+  - Add comment explaining math to derive WQ / PD address
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 60 ++++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |  7 +++
- .../drm/i915/gt/intel_execlists_submission.c  |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  2 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 21 +------
- 5 files changed, 62 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  12 ++
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |   5 +
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   2 -
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 114 +++++++++++++++++-
+ 5 files changed, 131 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 2ae57e4656a3..2eb798ad068b 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -290,7 +290,8 @@ static void nop_irq_handler(struct intel_engine_cs *engine, u16 iir)
- 	GEM_DEBUG_WARN_ON(iir);
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 76dfca57cb45..48decb5ee954 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -239,6 +239,18 @@ struct intel_context {
+ 		struct intel_context *parent;
+ 		/** @number_children: number of children if parent */
+ 		u8 number_children;
++		/** @guc: GuC specific members for parallel submission */
++		struct {
++			/** @wqi_head: head pointer in work queue */
++			u16 wqi_head;
++			/** @wqi_tail: tail pointer in work queue */
++			u16 wqi_tail;
++			/**
++			 * @parent_page: page in context state (ce->state) used
++			 * by parent for work queue, process descriptor
++			 */
++			u8 parent_page;
++		} guc;
+ 	} parallel;
  
--static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
-+static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
-+			      u8 logical_instance)
- {
- 	const struct engine_info *info = &intel_engines[id];
- 	struct drm_i915_private *i915 = gt->i915;
-@@ -335,6 +336,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ #ifdef CONFIG_DRM_I915_SELFTEST
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 3ef9eaf8c50e..57339d5c1fc8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -942,6 +942,11 @@ __lrc_alloc_state(struct intel_context *ce, struct intel_engine_cs *engine)
+ 		context_size += PAGE_SIZE;
+ 	}
  
- 	engine->class = info->class;
- 	engine->instance = info->instance;
-+	engine->logical_mask = BIT(logical_instance);
- 	__sprint_engine_name(engine);
- 
- 	engine->props.heartbeat_interval_ms =
-@@ -588,6 +590,37 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
- 	return info->engine_mask;
- }
- 
-+static void populate_logical_ids(struct intel_gt *gt, u8 *logical_ids,
-+				 u8 class, const u8 *map, u8 num_instances)
-+{
-+	int i, j;
-+	u8 current_logical_id = 0;
-+
-+	for (j = 0; j < num_instances; ++j) {
-+		for (i = 0; i < ARRAY_SIZE(intel_engines); ++i) {
-+			if (!HAS_ENGINE(gt, i) ||
-+			    intel_engines[i].class != class)
-+				continue;
-+
-+			if (intel_engines[i].instance == map[j]) {
-+				logical_ids[intel_engines[i].instance] =
-+					current_logical_id++;
-+				break;
-+			}
-+		}
++	if (intel_context_is_parent(ce) && intel_engine_uses_guc(engine)) {
++		ce->parallel.guc.parent_page = context_size / PAGE_SIZE;
++		context_size += PAGE_SIZE;
 +	}
-+}
 +
-+static void setup_logical_ids(struct intel_gt *gt, u8 *logical_ids, u8 class)
-+{
-+	int i;
-+	u8 map[MAX_ENGINE_INSTANCE + 1];
-+
-+	for (i = 0; i < MAX_ENGINE_INSTANCE + 1; ++i)
-+		map[i] = i;
-+	populate_logical_ids(gt, logical_ids, class, map, ARRAY_SIZE(map));
-+}
-+
- /**
-  * intel_engines_init_mmio() - allocate and prepare the Engine Command Streamers
-  * @gt: pointer to struct intel_gt
-@@ -599,7 +632,8 @@ int intel_engines_init_mmio(struct intel_gt *gt)
- 	struct drm_i915_private *i915 = gt->i915;
- 	const unsigned int engine_mask = init_engine_mask(gt);
- 	unsigned int mask = 0;
--	unsigned int i;
-+	unsigned int i, class;
-+	u8 logical_ids[MAX_ENGINE_INSTANCE + 1];
- 	int err;
+ 	obj = i915_gem_object_create_lmem(engine->i915, context_size,
+ 					  I915_BO_ALLOC_PM_VOLATILE);
+ 	if (IS_ERR(obj))
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 8ff582222aff..ba10bd374cee 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -142,6 +142,7 @@ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
+ 	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
+ 	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
++	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
+ 	INTEL_GUC_ACTION_RESET_CLIENT = 0x5507,
+ 	INTEL_GUC_ACTION_LIMIT
+ };
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index fa4be13c8854..0eeb2a9feeed 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -52,8 +52,6 @@
  
- 	drm_WARN_ON(&i915->drm, engine_mask == 0);
-@@ -609,15 +643,23 @@ int intel_engines_init_mmio(struct intel_gt *gt)
- 	if (i915_inject_probe_failure(i915))
- 		return -ENODEV;
+ #define GUC_DOORBELL_INVALID		256
  
--	for (i = 0; i < ARRAY_SIZE(intel_engines); i++) {
--		if (!HAS_ENGINE(gt, i))
--			continue;
-+	for (class = 0; class < MAX_ENGINE_CLASS + 1; ++class) {
-+		setup_logical_ids(gt, logical_ids, class);
- 
--		err = intel_engine_setup(gt, i);
--		if (err)
--			goto cleanup;
-+		for (i = 0; i < ARRAY_SIZE(intel_engines); ++i) {
-+			u8 instance = intel_engines[i].instance;
-+
-+			if (intel_engines[i].class != class ||
-+			    !HAS_ENGINE(gt, i))
-+				continue;
- 
--		mask |= BIT(i);
-+			err = intel_engine_setup(gt, i,
-+						 logical_ids[instance]);
-+			if (err)
-+				goto cleanup;
-+
-+			mask |= BIT(i);
-+		}
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 5ae1207c363b..68010da468a4 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -269,6 +269,13 @@ struct intel_engine_cs {
- 	unsigned int guc_id;
- 
- 	intel_engine_mask_t mask;
-+	/**
-+	 * @logical_mask: logical mask of engine, reported to user space via
-+	 * query IOCTL and used to communicate with the GuC in logical space.
-+	 * The logical instance of a physical engine can change based on product
-+	 * / fusing and defined in the bspec.
-+	 */
-+	intel_engine_mask_t logical_mask;
- 
- 	u8 class;
- 	u8 instance;
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 7147fe80919e..5ed1e222c308 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3877,6 +3877,7 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 
- 		ve->siblings[ve->num_siblings++] = sibling;
- 		ve->base.mask |= sibling->mask;
-+		ve->base.logical_mask |= sibling->logical_mask;
- 
- 		/*
- 		 * All physical engines must be compatible for their emission
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 2c6ea64af7ec..621c893a009f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -176,7 +176,7 @@ static void guc_mapping_table_init(struct intel_gt *gt,
- 	for_each_engine(engine, gt, id) {
- 		u8 guc_class = engine_class_to_guc_class(engine->class);
- 
--		system_info->mapping_table[guc_class][engine->instance] =
-+		system_info->mapping_table[guc_class][ilog2(engine->logical_mask)] =
- 			engine->instance;
- 	}
- }
+-#define GUC_WQ_SIZE			(PAGE_SIZE * 2)
+-
+ /* Work queue item header definitions */
+ #define WQ_STATUS_ACTIVE		1
+ #define WQ_STATUS_SUSPENDED		2
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 8b82da50c2bc..451d9ae861a6 100644
+index 451d9ae861a6..ab6d7fc1b0b1 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1423,23 +1423,6 @@ static int deregister_context(struct intel_context *ce, u32 guc_id)
- 	return __guc_action_deregister_context(guc, guc_id);
+@@ -344,6 +344,45 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
+ 	return rb_entry(rb, struct i915_priolist, node);
  }
  
--static intel_engine_mask_t adjust_engine_mask(u8 class, intel_engine_mask_t mask)
--{
--	switch (class) {
--	case RENDER_CLASS:
--		return mask >> RCS0;
--	case VIDEO_ENHANCEMENT_CLASS:
--		return mask >> VECS0;
--	case VIDEO_DECODE_CLASS:
--		return mask >> VCS0;
--	case COPY_ENGINE_CLASS:
--		return mask >> BCS0;
--	default:
--		MISSING_CASE(class);
--		return 0;
--	}
--}
--
- static void guc_context_policy_init(struct intel_engine_cs *engine,
- 				    struct guc_lrc_desc *desc)
++/*
++ * When using multi-lrc submission an extra page in the context state is
++ * reserved for the process descriptor and work queue.
++ *
++ * The layout of this page is below:
++ * 0						guc_process_desc
++ * ...						unused
++ * PAGE_SIZE / 2				work queue start
++ * ...						work queue
++ * PAGE_SIZE - 1				work queue end
++ */
++#define WQ_SIZE			(PAGE_SIZE / 2)
++#define WQ_OFFSET		(PAGE_SIZE - WQ_SIZE)
++static u32 __get_process_desc_offset(struct intel_context *ce)
++{
++	GEM_BUG_ON(!ce->parallel.guc.parent_page);
++
++	return ce->parallel.guc.parent_page * PAGE_SIZE;
++}
++
++static u32 __get_wq_offset(struct intel_context *ce)
++{
++	return __get_process_desc_offset(ce) + WQ_OFFSET;
++}
++
++static struct guc_process_desc *
++__get_process_desc(struct intel_context *ce)
++{
++	/*
++	 * Need to subtract LRC_STATE_OFFSET here as the
++	 * parallel.guc.parent_page is the offset into ce->state while
++	 * ce->lrc_reg_reg is ce->state + LRC_STATE_OFFSET.
++	 */
++	return (struct guc_process_desc *)
++		(ce->lrc_reg_state +
++		 ((__get_process_desc_offset(ce) -
++		   LRC_STATE_OFFSET) / sizeof(u32)));
++}
++
+ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
  {
-@@ -1481,8 +1464,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ 	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
+@@ -1365,6 +1404,30 @@ static void unpin_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ 	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
+ }
  
- 	desc = __get_lrc_desc(guc, desc_idx);
- 	desc->engine_class = engine_class_to_guc_class(engine->class);
--	desc->engine_submit_mask = adjust_engine_mask(engine->class,
--						      engine->mask);
-+	desc->engine_submit_mask = engine->logical_mask;
- 	desc->hw_context_desc = ce->lrc.lrca;
- 	desc->priority = ce->guc_state.prio;
++static int __guc_action_register_multi_lrc(struct intel_guc *guc,
++					   struct intel_context *ce,
++					   u32 guc_id,
++					   u32 offset,
++					   bool loop)
++{
++	struct intel_context *child;
++	u32 action[4 + MAX_ENGINE_INSTANCE];
++	int len = 0;
++
++	GEM_BUG_ON(ce->parallel.number_children > MAX_ENGINE_INSTANCE);
++
++	action[len++] = INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC;
++	action[len++] = guc_id;
++	action[len++] = ce->parallel.number_children + 1;
++	action[len++] = offset;
++	for_each_child(ce, child) {
++		offset += sizeof(struct guc_lrc_desc);
++		action[len++] = offset;
++	}
++
++	return guc_submission_send_busy_loop(guc, action, len, 0, loop);
++}
++
+ static int __guc_action_register_context(struct intel_guc *guc,
+ 					 u32 guc_id,
+ 					 u32 offset,
+@@ -1387,9 +1450,15 @@ static int register_context(struct intel_context *ce, bool loop)
+ 		ce->guc_id.id * sizeof(struct guc_lrc_desc);
+ 	int ret;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_register(ce);
+ 
+-	ret = __guc_action_register_context(guc, ce->guc_id.id, offset, loop);
++	if (intel_context_is_parent(ce))
++		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
++						      offset, loop);
++	else
++		ret = __guc_action_register_context(guc, ce->guc_id.id, offset,
++						    loop);
+ 	if (likely(!ret)) {
+ 		unsigned long flags;
+ 
+@@ -1418,6 +1487,7 @@ static int deregister_context(struct intel_context *ce, u32 guc_id)
+ {
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_deregister(ce);
+ 
+ 	return __guc_action_deregister_context(guc, guc_id);
+@@ -1445,6 +1515,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ 	struct guc_lrc_desc *desc;
+ 	bool context_registered;
+ 	intel_wakeref_t wakeref;
++	struct intel_context *child;
+ 	int ret = 0;
+ 
+ 	GEM_BUG_ON(!engine->mask);
+@@ -1470,6 +1541,41 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
  	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-@@ -3271,6 +3253,7 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 		}
+ 	guc_context_policy_init(engine, desc);
  
- 		ve->base.mask |= sibling->mask;
-+		ve->base.logical_mask |= sibling->logical_mask;
++	/*
++	 * Context is a parent, we need to register a process descriptor
++	 * describing a work queue and register all child contexts.
++	 */
++	if (intel_context_is_parent(ce)) {
++		struct guc_process_desc *pdesc;
++
++		ce->parallel.guc.wqi_tail = 0;
++		ce->parallel.guc.wqi_head = 0;
++
++		desc->process_desc = i915_ggtt_offset(ce->state) +
++			__get_process_desc_offset(ce);
++		desc->wq_addr = i915_ggtt_offset(ce->state) +
++			__get_wq_offset(ce);
++		desc->wq_size = WQ_SIZE;
++
++		pdesc = __get_process_desc(ce);
++		memset(pdesc, 0, sizeof(*(pdesc)));
++		pdesc->stage_id = ce->guc_id.id;
++		pdesc->wq_base_addr = desc->wq_addr;
++		pdesc->wq_size_bytes = desc->wq_size;
++		pdesc->wq_status = WQ_STATUS_ACTIVE;
++
++		for_each_child(ce, child) {
++			desc = __get_lrc_desc(guc, child->guc_id.id);
++
++			desc->engine_class =
++				engine_class_to_guc_class(engine->class);
++			desc->hw_context_desc = child->lrc.lrca;
++			desc->priority = ce->guc_state.prio;
++			desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
++			guc_context_policy_init(engine, desc);
++		}
++	}
++
+ 	/*
+ 	 * The context_lookup xarray is used to determine if the hardware
+ 	 * context is currently registered. There are two cases in which it
+@@ -2804,6 +2910,12 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
+ 		return NULL;
+ 	}
  
- 		if (n != 0 && ve->base.class != sibling->class) {
- 			DRM_DEBUG("invalid mixing of engine class, sibling %d, already %d\n",
++	if (unlikely(intel_context_is_child(ce))) {
++		drm_err(&guc_to_gt(guc)->i915->drm,
++			"Context is child, desc_idx %u", desc_idx);
++		return NULL;
++	}
++
+ 	return ce;
+ }
+ 
 -- 
 2.32.0
 
