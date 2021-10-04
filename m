@@ -2,45 +2,46 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE30C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BC73C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DACB6136F
+	by mail.kernel.org (Postfix) with ESMTPS id EF9F7614C8
 	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3DACB6136F
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EF9F7614C8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFF176E270;
-	Mon,  4 Oct 2021 22:11:45 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E82D3892B2;
- Mon,  4 Oct 2021 22:11:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="225498448"
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="225498448"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A01C6E24E;
+	Mon,  4 Oct 2021 22:11:44 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD268891D5;
+ Mon,  4 Oct 2021 22:11:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="212721056"
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="212721056"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:35 -0700
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735542"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 15:11:33 -0700
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735522"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:34 -0700
+ 04 Oct 2021 15:11:33 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:06:34 -0700
-Message-Id: <20211004220637.14746-24-matthew.brost@intel.com>
+Date: Mon,  4 Oct 2021 15:06:29 -0700
+Message-Id: <20211004220637.14746-19-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
 References: <20211004220637.14746-1-matthew.brost@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 23/26] drm/i915: Make request conflict tracking
- understand parallel submits
+Subject: [Intel-gfx] [PATCH 18/26] drm/i915/doc: Update parallel submit doc
+ to point to i915_drm.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,98 +57,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If an object in the excl or shared slot is a composite fence from a
-parallel submit and the current request in the conflict tracking is from
-the same parallel context there is no need to enforce ordering as the
-ordering already implicit. Make the request conflict tracking understand
-this by comparing the parents parallel fence values and skipping the
-conflict insertion if the values match.
+Update parallel submit doc to point to i915_drm.h
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/i915_request.c | 43 +++++++++++++++++++----------
- 1 file changed, 29 insertions(+), 14 deletions(-)
+ Documentation/gpu/rfc/i915_parallel_execbuf.h | 122 ------------------
+ Documentation/gpu/rfc/i915_scheduler.rst      |   4 +-
+ 2 files changed, 2 insertions(+), 124 deletions(-)
+ delete mode 100644 Documentation/gpu/rfc/i915_parallel_execbuf.h
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index e9bfa32f9270..cf89624020ad 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1325,6 +1325,25 @@ i915_request_await_external(struct i915_request *rq, struct dma_fence *fence)
- 	return err;
- }
- 
-+static inline bool is_parallel_rq(struct i915_request *rq)
-+{
-+	return intel_context_is_parallel(rq->context);
-+}
-+
-+static inline struct intel_context *request_to_parent(struct i915_request *rq)
-+{
-+	return intel_context_to_parent(rq->context);
-+}
-+
-+static bool is_same_parallel_context(struct i915_request *to,
-+				     struct i915_request *from)
-+{
-+	if (is_parallel_rq(to))
-+		return request_to_parent(to) == request_to_parent(from);
-+
-+	return false;
-+}
-+
- int
- i915_request_await_execution(struct i915_request *rq,
- 			     struct dma_fence *fence)
-@@ -1356,11 +1375,14 @@ i915_request_await_execution(struct i915_request *rq,
- 		 * want to run our callback in all cases.
- 		 */
- 
--		if (dma_fence_is_i915(fence))
-+		if (dma_fence_is_i915(fence)) {
-+			if (is_same_parallel_context(rq, to_request(fence)))
-+				continue;
- 			ret = __i915_request_await_execution(rq,
- 							     to_request(fence));
--		else
-+		} else {
- 			ret = i915_request_await_external(rq, fence);
-+		}
- 		if (ret < 0)
- 			return ret;
- 	} while (--nchild);
-@@ -1461,10 +1483,13 @@ i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
- 						 fence))
- 			continue;
- 
--		if (dma_fence_is_i915(fence))
-+		if (dma_fence_is_i915(fence)) {
-+			if (is_same_parallel_context(rq, to_request(fence)))
-+				continue;
- 			ret = i915_request_await_request(rq, to_request(fence));
--		else
-+		} else {
- 			ret = i915_request_await_external(rq, fence);
-+		}
- 		if (ret < 0)
- 			return ret;
- 
-@@ -1539,16 +1564,6 @@ i915_request_await_object(struct i915_request *to,
- 	return ret;
- }
- 
--static inline bool is_parallel_rq(struct i915_request *rq)
--{
--	return intel_context_is_parallel(rq->context);
--}
+diff --git a/Documentation/gpu/rfc/i915_parallel_execbuf.h b/Documentation/gpu/rfc/i915_parallel_execbuf.h
+deleted file mode 100644
+index 8cbe2c4e0172..000000000000
+--- a/Documentation/gpu/rfc/i915_parallel_execbuf.h
++++ /dev/null
+@@ -1,122 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright © 2021 Intel Corporation
+- */
 -
--static inline struct intel_context *request_to_parent(struct i915_request *rq)
--{
--	return intel_context_to_parent(rq->context);
--}
+-#define I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT 2 /* see i915_context_engines_parallel_submit */
 -
- static struct i915_request *
- __i915_request_ensure_parallel_ordering(struct i915_request *rq,
- 					struct intel_timeline *timeline)
+-/**
+- * struct drm_i915_context_engines_parallel_submit - Configure engine for
+- * parallel submission.
+- *
+- * Setup a slot in the context engine map to allow multiple BBs to be submitted
+- * in a single execbuf IOCTL. Those BBs will then be scheduled to run on the GPU
+- * in parallel. Multiple hardware contexts are created internally in the i915
+- * run these BBs. Once a slot is configured for N BBs only N BBs can be
+- * submitted in each execbuf IOCTL and this is implicit behavior e.g. The user
+- * doesn't tell the execbuf IOCTL there are N BBs, the execbuf IOCTL knows how
+- * many BBs there are based on the slot's configuration. The N BBs are the last
+- * N buffer objects or first N if I915_EXEC_BATCH_FIRST is set.
+- *
+- * The default placement behavior is to create implicit bonds between each
+- * context if each context maps to more than 1 physical engine (e.g. context is
+- * a virtual engine). Also we only allow contexts of same engine class and these
+- * contexts must be in logically contiguous order. Examples of the placement
+- * behavior described below. Lastly, the default is to not allow BBs to
+- * preempted mid BB rather insert coordinated preemption on all hardware
+- * contexts between each set of BBs. Flags may be added in the future to change
+- * both of these default behaviors.
+- *
+- * Returns -EINVAL if hardware context placement configuration is invalid or if
+- * the placement configuration isn't supported on the platform / submission
+- * interface.
+- * Returns -ENODEV if extension isn't supported on the platform / submission
+- * interface.
+- *
+- * .. code-block:: none
+- *
+- *	Example 1 pseudo code:
+- *	CS[X] = generic engine of same class, logical instance X
+- *	INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
+- *	set_engines(INVALID)
+- *	set_parallel(engine_index=0, width=2, num_siblings=1,
+- *		     engines=CS[0],CS[1])
+- *
+- *	Results in the following valid placement:
+- *	CS[0], CS[1]
+- *
+- *	Example 2 pseudo code:
+- *	CS[X] = generic engine of same class, logical instance X
+- *	INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
+- *	set_engines(INVALID)
+- *	set_parallel(engine_index=0, width=2, num_siblings=2,
+- *		     engines=CS[0],CS[2],CS[1],CS[3])
+- *
+- *	Results in the following valid placements:
+- *	CS[0], CS[1]
+- *	CS[2], CS[3]
+- *
+- *	This can also be thought of as 2 virtual engines described by 2-D array
+- *	in the engines the field with bonds placed between each index of the
+- *	virtual engines. e.g. CS[0] is bonded to CS[1], CS[2] is bonded to
+- *	CS[3].
+- *	VE[0] = CS[0], CS[2]
+- *	VE[1] = CS[1], CS[3]
+- *
+- *	Example 3 pseudo code:
+- *	CS[X] = generic engine of same class, logical instance X
+- *	INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
+- *	set_engines(INVALID)
+- *	set_parallel(engine_index=0, width=2, num_siblings=2,
+- *		     engines=CS[0],CS[1],CS[1],CS[3])
+- *
+- *	Results in the following valid and invalid placements:
+- *	CS[0], CS[1]
+- *	CS[1], CS[3] - Not logical contiguous, return -EINVAL
+- */
+-struct drm_i915_context_engines_parallel_submit {
+-	/**
+-	 * @base: base user extension.
+-	 */
+-	struct i915_user_extension base;
+-
+-	/**
+-	 * @engine_index: slot for parallel engine
+-	 */
+-	__u16 engine_index;
+-
+-	/**
+-	 * @width: number of contexts per parallel engine
+-	 */
+-	__u16 width;
+-
+-	/**
+-	 * @num_siblings: number of siblings per context
+-	 */
+-	__u16 num_siblings;
+-
+-	/**
+-	 * @mbz16: reserved for future use; must be zero
+-	 */
+-	__u16 mbz16;
+-
+-	/**
+-	 * @flags: all undefined flags must be zero, currently not defined flags
+-	 */
+-	__u64 flags;
+-
+-	/**
+-	 * @mbz64: reserved for future use; must be zero
+-	 */
+-	__u64 mbz64[3];
+-
+-	/**
+-	 * @engines: 2-d array of engine instances to configure parallel engine
+-	 *
+-	 * length = width (i) * num_siblings (j)
+-	 * index = j + i * num_siblings
+-	 */
+-	struct i915_engine_class_instance engines[0];
+-
+-} __packed;
+-
+diff --git a/Documentation/gpu/rfc/i915_scheduler.rst b/Documentation/gpu/rfc/i915_scheduler.rst
+index cbda75065dad..d630f15ab795 100644
+--- a/Documentation/gpu/rfc/i915_scheduler.rst
++++ b/Documentation/gpu/rfc/i915_scheduler.rst
+@@ -135,8 +135,8 @@ Add I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT and
+ drm_i915_context_engines_parallel_submit to the uAPI to implement this
+ extension.
+ 
+-.. kernel-doc:: Documentation/gpu/rfc/i915_parallel_execbuf.h
+-        :functions: drm_i915_context_engines_parallel_submit
++.. kernel-doc:: include/uapi/drm/i915_drm.h
++        :functions: i915_context_engines_parallel_submit
+ 
+ Extend execbuf2 IOCTL to support submitting N BBs in a single IOCTL
+ -------------------------------------------------------------------
 -- 
 2.32.0
 
