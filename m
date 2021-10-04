@@ -2,28 +2,28 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF33BC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24B81C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2F096139E
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2F096139E
+	by mail.kernel.org (Postfix) with ESMTPS id EA7C661458
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EA7C661458
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 208D78918E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022DF8921B;
 	Mon,  4 Oct 2021 22:11:35 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338436E221;
- Mon,  4 Oct 2021 22:11:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854274"
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854274"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F32CE6E226;
+ Mon,  4 Oct 2021 22:11:31 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854271"
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854271"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Oct 2021 15:11:31 -0700
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735488"
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735482"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Oct 2021 15:11:31 -0700
@@ -32,15 +32,15 @@ To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:06:22 -0700
-Message-Id: <20211004220637.14746-12-matthew.brost@intel.com>
+Date: Mon,  4 Oct 2021 15:06:20 -0700
+Message-Id: <20211004220637.14746-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
 References: <20211004220637.14746-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/26] drm/i915/guc: Implement parallel context
- pin / unpin functions
+Subject: [Intel-gfx] [PATCH 09/26] drm/i915/guc: Ensure GuC schedule
+ operations do not operate on child contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,102 +56,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Parallel contexts are perma-pinned by the upper layers which makes the
-backend implementation rather simple. The parent pins the guc_id and
-children increment the parent's pin count on pin to ensure all the
-contexts are unpinned before we disable scheduling with the GuC / or
-deregister the context.
-
-v2:
- (Daniel Vetter)
-  - Perma-pin parallel contexts
+In GuC parent-child contexts the parent context controls the scheduling,
+ensure only the parent does the scheduling operations.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 70 +++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 79e7732e83b2..031b1bf5ba91 100644
+index ab6d7fc1b0b1..1f2809187513 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2583,6 +2583,76 @@ static const struct intel_context_ops virtual_guc_context_ops = {
- 	.get_sibling = guc_virtual_get_sibling,
- };
+@@ -324,6 +324,12 @@ static inline void decr_context_committed_requests(struct intel_context *ce)
+ 	GEM_BUG_ON(ce->guc_state.number_committed_requests < 0);
+ }
  
-+/* Future patches will use this function */
-+__maybe_unused
-+static int guc_parent_context_pin(struct intel_context *ce, void *vaddr)
++static struct intel_context *
++request_to_scheduling_context(struct i915_request *rq)
 +{
-+	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-+	struct intel_guc *guc = ce_to_guc(ce);
-+	int ret;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	ret = pin_guc_id(guc, ce);
-+	if (unlikely(ret < 0))
-+		return ret;
-+
-+	return __guc_context_pin(ce, engine, vaddr);
++	return intel_context_to_parent(rq->context);
 +}
 +
-+/* Future patches will use this function */
-+__maybe_unused
-+static int guc_child_context_pin(struct intel_context *ce, void *vaddr)
-+{
-+	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-+
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	__intel_context_pin(ce->parallel.parent);
-+	return __guc_context_pin(ce, engine, vaddr);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static void guc_parent_context_unpin(struct intel_context *ce)
-+{
-+	struct intel_guc *guc = ce_to_guc(ce);
-+
-+	GEM_BUG_ON(context_enabled(ce));
-+	GEM_BUG_ON(intel_context_is_barrier(ce));
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	unpin_guc_id(guc, ce);
-+	lrc_unpin(ce);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static void guc_child_context_unpin(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(context_enabled(ce));
-+	GEM_BUG_ON(intel_context_is_barrier(ce));
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	lrc_unpin(ce);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static void guc_child_context_post_unpin(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+	GEM_BUG_ON(!intel_context_is_pinned(ce->parallel.parent));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	lrc_post_unpin(ce);
-+	intel_context_unpin(ce->parallel.parent);
-+}
-+
- static bool
- guc_irq_enable_breadcrumbs(struct intel_breadcrumbs *b)
+ static inline bool context_guc_id_invalid(struct intel_context *ce)
  {
+ 	return ce->guc_id.id == GUC_INVALID_LRC_ID;
+@@ -1710,6 +1716,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 
+ 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_sched_disable(ce);
+ 
+ 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
+@@ -1935,6 +1942,8 @@ static void guc_context_sched_disable(struct intel_context *ce)
+ 	intel_wakeref_t wakeref;
+ 	u16 guc_id;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 
+ 	/*
+@@ -2303,6 +2312,8 @@ static void guc_signal_context_fence(struct intel_context *ce)
+ {
+ 	unsigned long flags;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	clr_context_wait_for_deregister_to_register(ce);
+ 	__guc_signal_context_fence(ce);
+@@ -2333,7 +2344,7 @@ static void guc_context_init(struct intel_context *ce)
+ 
+ static int guc_request_alloc(struct i915_request *rq)
+ {
+-	struct intel_context *ce = rq->context;
++	struct intel_context *ce = request_to_scheduling_context(rq);
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 	unsigned long flags;
+ 	int ret;
 -- 
 2.32.0
 
