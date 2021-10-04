@@ -2,45 +2,44 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37F33C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED08DC4332F
 	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 091D36136F
+	by mail.kernel.org (Postfix) with ESMTPS id C03756136F
 	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 091D36136F
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C03756136F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59F2F897CD;
-	Mon,  4 Oct 2021 22:11:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1A789A32;
+	Mon,  4 Oct 2021 22:11:41 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6C06E221;
- Mon,  4 Oct 2021 22:11:31 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854262"
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854262"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE8D6E226;
+ Mon,  4 Oct 2021 22:11:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248854278"
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="248854278"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:29 -0700
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735454"
+ 04 Oct 2021 15:11:32 -0700
+X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735502"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:29 -0700
+ 04 Oct 2021 15:11:32 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>,
 	<daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:06:13 -0700
-Message-Id: <20211004220637.14746-3-matthew.brost@intel.com>
+Date: Mon,  4 Oct 2021 15:06:25 -0700
+Message-Id: <20211004220637.14746-15-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
 References: <20211004220637.14746-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/26] drm/i915/guc: Take GT PM ref when
- deregistering context
+Subject: [Intel-gfx] [PATCH 14/26] drm/i915/guc: Implement multi-lrc reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,361 +55,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Taking a PM reference to prevent intel_gt_wait_for_idle from short
-circuiting while a deregister context H2G is in flight. To do this must
-issue the deregister H2G from a worker as context can be destroyed from
-an atomic context and taking GT PM ref blows up. Previously we took a
-runtime PM from this atomic context which worked but will stop working
-once runtime pm autosuspend in enabled.
-
-So this patch is two fold, stop intel_gt_wait_for_idle from short
-circuting and fix runtime pm autosuspend.
+Update context and full GPU reset to work with multi-lrc. The idea is
+parent context tracks all the active requests inflight for itself and
+its' children. The parent context owns the reset replaying / canceling
+requests as needed.
 
 v2:
  (John Harrison)
-  - Split structure changes out in different patch
- (Tvrtko)
-  - Don't drop lock in deregister_destroyed_contexts
+  - Simply loop in find active request
+  - Add comments to find ative request / reset loop
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |   2 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |   7 +
- drivers/gpu/drm/i915/gt/intel_engine_pm.h     |   5 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.h         |   4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  11 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 146 +++++++++++-------
- 6 files changed, 121 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       | 15 +++-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 69 ++++++++++++++-----
+ 2 files changed, 63 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index e9a0cad5c34d..1076066f41e0 100644
+index c5bb7ccfb3f8..3b340eb59ada 100644
 --- a/drivers/gpu/drm/i915/gt/intel_context.c
 +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -399,6 +399,8 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 	ce->guc_id.id = GUC_INVALID_LRC_ID;
- 	INIT_LIST_HEAD(&ce->guc_id.link);
+@@ -528,20 +528,29 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
  
-+	INIT_LIST_HEAD(&ce->destroyed_link);
-+
- 	/*
- 	 * Initialize fence to be complete as this is expected to be complete
- 	 * unless there is a pending schedule disable outstanding.
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index e7e3984aab78..4613d027cbc3 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -213,6 +213,13 @@ struct intel_context {
- 		struct list_head link;
- 	} guc_id;
+ struct i915_request *intel_context_find_active_request(struct intel_context *ce)
+ {
++	struct intel_context *parent = intel_context_to_parent(ce);
+ 	struct i915_request *rq, *active = NULL;
+ 	unsigned long flags;
  
-+	/**
-+	 * @destroyed_link: link in guc->submission_state.destroyed_contexts, in
-+	 * list when context is pending to be destroyed (deregistered with the
-+	 * GuC), protected by guc->submission_state.lock
+ 	GEM_BUG_ON(!intel_engine_uses_guc(ce->engine));
+ 
+-	spin_lock_irqsave(&ce->guc_state.lock, flags);
+-	list_for_each_entry_reverse(rq, &ce->guc_state.requests,
++	/*
++	 * We search the parent list to find an active request on the submitted
++	 * context. The parent list contains the requests for all the contexts
++	 * in the relationship so we have to do a compare of each request's
++	 * context must be done.
 +	 */
-+	struct list_head destroyed_link;
-+
- #ifdef CONFIG_DRM_I915_SELFTEST
- 	/**
- 	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-index 8520c595f5e1..6fdeae668e6e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-@@ -16,6 +16,11 @@ intel_engine_pm_is_awake(const struct intel_engine_cs *engine)
- 	return intel_wakeref_is_active(&engine->wakeref);
++	spin_lock_irqsave(&parent->guc_state.lock, flags);
++	list_for_each_entry_reverse(rq, &parent->guc_state.requests,
+ 				    sched.link) {
++		if (rq->context != ce)
++			continue;
+ 		if (i915_request_completed(rq))
+ 			break;
+ 
+ 		active = rq;
+ 	}
+-	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++	spin_unlock_irqrestore(&parent->guc_state.lock, flags);
+ 
+ 	return active;
  }
- 
-+static inline void __intel_engine_pm_get(struct intel_engine_cs *engine)
-+{
-+	__intel_wakeref_get(&engine->wakeref);
-+}
-+
- static inline void intel_engine_pm_get(struct intel_engine_cs *engine)
- {
- 	intel_wakeref_get(&engine->wakeref);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index d0588d8aaa44..05de6c1af25b 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -41,6 +41,10 @@ static inline void intel_gt_pm_put_async(struct intel_gt *gt)
- 	intel_wakeref_put_async(&gt->wakeref);
- }
- 
-+#define with_intel_gt_pm(gt, tmp) \
-+	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
-+	     intel_gt_pm_put(gt), tmp = 0)
-+
- static inline int intel_gt_pm_wait_for_idle(struct intel_gt *gt)
- {
- 	return intel_wakeref_wait_for_idle(&gt->wakeref);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 65b5e8eeef96..25a598e2b6e8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -84,6 +84,17 @@ struct intel_guc {
- 		 * refs
- 		 */
- 		struct list_head guc_id_list;
-+		/**
-+		 * @destroyed_contexts: list of contexts waiting to be destroyed
-+		 * (deregistered with the GuC)
-+		 */
-+		struct list_head destroyed_contexts;
-+		/**
-+		 * @destroyed_worker: worker to deregister contexts, need as we
-+		 * need to take a GT PM reference and can't from destroy
-+		 * function as it might be in an atomic context (no sleeping)
-+		 */
-+		struct work_struct destroyed_worker;
- 	} submission_state;
- 
- 	/**
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ad5c18119d92..17da2fea1bff 100644
+index 6be7adf89e4f..d661a69ef4f7 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -90,8 +90,8 @@
-  * used for all of GuC submission but that could change in the future.
-  *
-  * guc->submission_state.lock
-- * Protects guc_id allocation for the given GuC, i.e. only one context can be
-- * doing guc_id allocation operations at a time for each GuC in the system.
-+ * Global lock for GuC submission state. Protects guc_ids and destroyed contexts
-+ * list.
-  *
-  * ce->guc_state.lock
-  * Protects everything under ce->guc_state. Ensures that a context is in the
-@@ -719,6 +719,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 			if (deregister)
- 				guc_signal_context_fence(ce);
- 			if (destroyed) {
-+				intel_gt_pm_put_async(guc_to_gt(guc));
- 				release_guc_id(guc, ce);
- 				__guc_context_destroy(ce);
- 			}
-@@ -797,6 +798,8 @@ static void guc_flush_submissions(struct intel_guc *guc)
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
+@@ -681,6 +681,11 @@ static inline int rq_prio(const struct i915_request *rq)
+ 	return rq->sched.attr.priority;
  }
  
-+static void guc_flush_destroyed_contexts(struct intel_guc *guc);
-+
- void intel_guc_submission_reset_prepare(struct intel_guc *guc)
- {
- 	int i;
-@@ -815,6 +818,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
- 	spin_unlock_irq(&guc_to_gt(guc)->irq_lock);
- 
- 	guc_flush_submissions(guc);
-+	guc_flush_destroyed_contexts(guc);
- 
- 	/*
- 	 * Handle any outstanding G2Hs before reset. Call IRQ handler directly
-@@ -1126,6 +1130,8 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
- 	intel_gt_unpark_heartbeats(guc_to_gt(guc));
- }
- 
-+static void destroyed_worker_func(struct work_struct *w);
-+
- /*
-  * Set up the memory resources to be shared with the GuC (via the GGTT)
-  * at firmware loading time.
-@@ -1151,6 +1157,9 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 	spin_lock_init(&guc->submission_state.lock);
- 	INIT_LIST_HEAD(&guc->submission_state.guc_id_list);
- 	ida_init(&guc->submission_state.guc_ids);
-+	INIT_LIST_HEAD(&guc->submission_state.destroyed_contexts);
-+	INIT_WORK(&guc->submission_state.destroyed_worker,
-+		  destroyed_worker_func);
- 
- 	return 0;
- }
-@@ -1161,6 +1170,7 @@ void intel_guc_submission_fini(struct intel_guc *guc)
- 		return;
- 
- 	guc_lrc_desc_pool_destroy(guc);
-+	guc_flush_destroyed_contexts(guc);
- 	i915_sched_engine_put(guc->sched_engine);
- }
- 
-@@ -1859,11 +1869,30 @@ static void guc_context_sched_disable(struct intel_context *ce)
- static inline void guc_lrc_desc_unpin(struct intel_context *ce)
- {
- 	struct intel_guc *guc = ce_to_guc(ce);
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	unsigned long flags;
-+	bool disabled;
- 
-+	GEM_BUG_ON(!intel_gt_pm_is_awake(gt));
- 	GEM_BUG_ON(!lrc_desc_registered(guc, ce->guc_id.id));
- 	GEM_BUG_ON(ce != __get_context(guc, ce->guc_id.id));
- 	GEM_BUG_ON(context_enabled(ce));
- 
-+	/* Seal race with Reset */
-+	spin_lock_irqsave(&ce->guc_state.lock, flags);
-+	disabled = submission_disabled(guc);
-+	if (likely(!disabled)) {
-+		__intel_gt_pm_get(gt);
-+		set_context_destroyed(ce);
-+		clr_context_registered(ce);
-+	}
-+	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+	if (unlikely(disabled)) {
-+		release_guc_id(guc, ce);
-+		__guc_context_destroy(ce);
-+		return;
-+	}
-+
- 	deregister_context(ce, ce->guc_id.id);
- }
- 
-@@ -1891,78 +1920,86 @@ static void __guc_context_destroy(struct intel_context *ce)
- 	}
- }
- 
-+static void guc_flush_destroyed_contexts(struct intel_guc *guc)
++static inline bool is_multi_lrc(struct intel_context *ce)
 +{
-+	struct intel_context *ce, *cn;
-+	unsigned long flags;
-+
-+	GEM_BUG_ON(!submission_disabled(guc) &&
-+		   guc_submission_initialized(guc));
-+
-+	spin_lock_irqsave(&guc->submission_state.lock, flags);
-+	list_for_each_entry_safe(ce, cn,
-+				 &guc->submission_state.destroyed_contexts,
-+				 destroyed_link) {
-+		list_del_init(&ce->destroyed_link);
-+		__release_guc_id(guc, ce);
-+		__guc_context_destroy(ce);
-+	}
-+	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
++	return intel_context_is_parallel(ce);
 +}
 +
-+static void deregister_destroyed_contexts(struct intel_guc *guc)
-+{
-+	struct intel_context *ce, *cn;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&guc->submission_state.lock, flags);
-+	list_for_each_entry_safe(ce, cn,
-+				 &guc->submission_state.destroyed_contexts,
-+				 destroyed_link) {
-+		list_del_init(&ce->destroyed_link);
-+		guc_lrc_desc_unpin(ce);
-+	}
-+	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
-+}
-+
-+static void destroyed_worker_func(struct work_struct *w)
-+{
-+	struct intel_guc *guc = container_of(w, struct intel_guc,
-+					     submission_state.destroyed_worker);
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	int tmp;
-+
-+	with_intel_gt_pm(gt, tmp)
-+		deregister_destroyed_contexts(guc);
-+}
-+
- static void guc_context_destroy(struct kref *kref)
+ static bool is_multi_lrc_rq(struct i915_request *rq)
  {
- 	struct intel_context *ce = container_of(kref, typeof(*ce), ref);
--	struct intel_runtime_pm *runtime_pm = ce->engine->uncore->rpm;
- 	struct intel_guc *guc = ce_to_guc(ce);
--	intel_wakeref_t wakeref;
+ 	return intel_context_is_parallel(rq->context);
+@@ -1214,10 +1219,15 @@ __unwind_incomplete_requests(struct intel_context *ce)
+ 
+ static void __guc_reset_context(struct intel_context *ce, bool stalled)
+ {
++	bool local_stalled;
+ 	struct i915_request *rq;
  	unsigned long flags;
--	bool disabled;
-+	bool destroy;
+ 	u32 head;
++	int i, number_children = ce->parallel.number_children;
+ 	bool skip = false;
++	struct intel_context *parent = ce;
++
++	GEM_BUG_ON(intel_context_is_child(ce));
  
- 	/*
- 	 * If the guc_id is invalid this context has been stolen and we can free
- 	 * it immediately. Also can be freed immediately if the context is not
- 	 * registered with the GuC or the GuC is in the middle of a reset.
- 	 */
--	if (context_guc_id_invalid(ce)) {
--		__guc_context_destroy(ce);
--		return;
--	} else if (submission_disabled(guc) ||
--		   !lrc_desc_registered(guc, ce->guc_id.id)) {
--		release_guc_id(guc, ce);
--		__guc_context_destroy(ce);
--		return;
--	}
--
--	/*
--	 * We have to acquire the context spinlock and check guc_id again, if it
--	 * is valid it hasn't been stolen and needs to be deregistered. We
--	 * delete this context from the list of unpinned guc_id available to
--	 * steal to seal a race with guc_lrc_desc_pin(). When the G2H CTB
--	 * returns indicating this context has been deregistered the guc_id is
--	 * returned to the pool of available guc_id.
--	 */
- 	spin_lock_irqsave(&guc->submission_state.lock, flags);
--	if (context_guc_id_invalid(ce)) {
--		spin_unlock_irqrestore(&guc->submission_state.lock, flags);
--		__guc_context_destroy(ce);
--		return;
-+	destroy = submission_disabled(guc) || context_guc_id_invalid(ce) ||
-+		!lrc_desc_registered(guc, ce->guc_id.id);
-+	if (likely(!destroy)) {
-+		if (!list_empty(&ce->guc_id.link))
-+			list_del_init(&ce->guc_id.link);
-+		list_add_tail(&ce->destroyed_link,
-+			      &guc->submission_state.destroyed_contexts);
-+	} else {
-+		__release_guc_id(guc, ce);
- 	}
--
--	if (!list_empty(&ce->guc_id.link))
--		list_del_init(&ce->guc_id.link);
- 	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
--
--	/* Seal race with Reset */
--	spin_lock_irqsave(&ce->guc_state.lock, flags);
--	disabled = submission_disabled(guc);
--	if (likely(!disabled)) {
--		set_context_destroyed(ce);
--		clr_context_registered(ce);
--	}
--	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
--	if (unlikely(disabled)) {
--		release_guc_id(guc, ce);
-+	if (unlikely(destroy)) {
- 		__guc_context_destroy(ce);
- 		return;
- 	}
+ 	intel_context_get(ce);
  
- 	/*
--	 * We defer GuC context deregistration until the context is destroyed
--	 * in order to save on CTBs. With this optimization ideally we only need
--	 * 1 CTB to register the context during the first pin and 1 CTB to
--	 * deregister the context when the context is destroyed. Without this
--	 * optimization, a CTB would be needed every pin & unpin.
--	 *
--	 * XXX: Need to acqiure the runtime wakeref as this can be triggered
--	 * from context_free_worker when runtime wakeref is not held.
--	 * guc_lrc_desc_unpin requires the runtime as a GuC register is written
--	 * in H2G CTB to deregister the context. A future patch may defer this
--	 * H2G CTB if the runtime wakeref is zero.
-+	 * We use a worker to issue the H2G to deregister the context as we can
-+	 * take the GT PM for the first time which isn't allowed from an atomic
-+	 * context.
- 	 */
--	with_intel_runtime_pm(runtime_pm, wakeref)
--		guc_lrc_desc_unpin(ce);
-+	queue_work(system_unbound_wq, &guc->submission_state.destroyed_worker);
+@@ -1243,25 +1253,38 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
+ 	if (unlikely(skip))
+ 		goto out_put;
+ 
+-	rq = intel_context_find_active_request(ce);
+-	if (!rq) {
+-		head = ce->ring->tail;
+-		stalled = false;
+-		goto out_replay;
+-	}
++	/*
++	 * For each context in the relationship find the hanging request
++	 * resetting each context / request as needed
++	 */
++	for (i = 0; i < number_children + 1; ++i) {
++		if (!intel_context_is_pinned(ce))
++			goto next_context;
++
++		local_stalled = false;
++		rq = intel_context_find_active_request(ce);
++		if (!rq) {
++			head = ce->ring->tail;
++			goto out_replay;
++		}
+ 
+-	if (!i915_request_started(rq))
+-		stalled = false;
++		GEM_BUG_ON(i915_active_is_idle(&ce->active));
++		head = intel_ring_wrap(ce->ring, rq->head);
+ 
+-	GEM_BUG_ON(i915_active_is_idle(&ce->active));
+-	head = intel_ring_wrap(ce->ring, rq->head);
+-	__i915_request_reset(rq, stalled);
++		if (i915_request_started(rq))
++			local_stalled = true;
+ 
++		__i915_request_reset(rq, local_stalled && stalled);
+ out_replay:
+-	guc_reset_state(ce, head, stalled);
+-	__unwind_incomplete_requests(ce);
++		guc_reset_state(ce, head, local_stalled && stalled);
++next_context:
++		if (i != number_children)
++			ce = list_next_entry(ce, parallel.child_link);
++	}
++
++	__unwind_incomplete_requests(parent);
+ out_put:
+-	intel_context_put(ce);
++	intel_context_put(parent);
  }
  
- static int guc_context_alloc(struct intel_context *ce)
-@@ -2798,6 +2835,7 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ void intel_guc_submission_reset(struct intel_guc *guc, bool stalled)
+@@ -1282,7 +1305,8 @@ void intel_guc_submission_reset(struct intel_guc *guc, bool stalled)
+ 
+ 		xa_unlock(&guc->context_lookup);
+ 
+-		if (intel_context_is_pinned(ce))
++		if (intel_context_is_pinned(ce) &&
++		    !intel_context_is_child(ce))
+ 			__guc_reset_context(ce, stalled);
+ 
  		intel_context_put(ce);
- 	} else if (context_destroyed(ce)) {
- 		/* Context has been destroyed */
-+		intel_gt_pm_put_async(guc_to_gt(guc));
- 		release_guc_id(guc, ce);
- 		__guc_context_destroy(ce);
+@@ -1374,7 +1398,8 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc)
+ 
+ 		xa_unlock(&guc->context_lookup);
+ 
+-		if (intel_context_is_pinned(ce))
++		if (intel_context_is_pinned(ce) &&
++		    !intel_context_is_child(ce))
+ 			guc_cancel_context_requests(ce);
+ 
+ 		intel_context_put(ce);
+@@ -2067,6 +2092,8 @@ static struct i915_sw_fence *guc_context_block(struct intel_context *ce)
+ 	u16 guc_id;
+ 	bool enabled;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 
+ 	incr_context_blocked(ce);
+@@ -2121,6 +2148,7 @@ static void guc_context_unblock(struct intel_context *ce)
+ 	bool enable;
+ 
+ 	GEM_BUG_ON(context_enabled(ce));
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 
+@@ -2147,11 +2175,14 @@ static void guc_context_unblock(struct intel_context *ce)
+ static void guc_context_cancel_request(struct intel_context *ce,
+ 				       struct i915_request *rq)
+ {
++	struct intel_context *block_context =
++		request_to_scheduling_context(rq);
++
+ 	if (i915_sw_fence_signaled(&rq->submit)) {
+ 		struct i915_sw_fence *fence;
+ 
+ 		intel_context_get(ce);
+-		fence = guc_context_block(ce);
++		fence = guc_context_block(block_context);
+ 		i915_sw_fence_wait(fence);
+ 		if (!i915_request_completed(rq)) {
+ 			__i915_request_skip(rq);
+@@ -2165,7 +2196,7 @@ static void guc_context_cancel_request(struct intel_context *ce,
+ 		 */
+ 		flush_work(&ce_to_guc(ce)->ct.requests.worker);
+ 
+-		guc_context_unblock(ce);
++		guc_context_unblock(block_context);
+ 		intel_context_put(ce);
  	}
+ }
+@@ -2191,6 +2222,8 @@ static void guc_context_ban(struct intel_context *ce, struct i915_request *rq)
+ 	intel_wakeref_t wakeref;
+ 	unsigned long flags;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	guc_flush_submissions(guc);
+ 
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
 -- 
 2.32.0
 
