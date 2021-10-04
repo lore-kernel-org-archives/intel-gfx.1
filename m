@@ -2,45 +2,45 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07781C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29FE5C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C1E4761222
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C1E4761222
+	by mail.kernel.org (Postfix) with ESMTPS id DCDCF61372
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DCDCF61372
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53DDE6E9D6;
-	Mon,  4 Oct 2021 14:37:29 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7250E6E9D6
- for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 14:37:27 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="311656950"
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="311656950"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9226E9D6;
+	Mon,  4 Oct 2021 14:39:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C806E6E9D3;
+ Mon,  4 Oct 2021 14:39:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="224221471"
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="224221471"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 07:34:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="622301477"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga001.fm.intel.com with SMTP; 04 Oct 2021 07:33:47 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 04 Oct 2021 17:33:47 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  4 Oct 2021 17:33:41 +0300
-Message-Id: <20211004143341.29673-3-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211004143341.29673-1-ville.syrjala@linux.intel.com>
-References: <20211004143341.29673-1-ville.syrjala@linux.intel.com>
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 07:37:24 -0700
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="622303735"
+Received: from shearne-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ ([10.213.208.122])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 07:37:23 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Date: Mon,  4 Oct 2021 15:36:50 +0100
+Message-Id: <20211004143650.699120-9-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
+References: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/fbc: Don't nuke manually around
- flips
+Subject: [Intel-gfx] [RFC 8/8] drm/i915: Connect with the process nice
+ change notifier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,49 +56,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Apparently we have discovered another way to hit the dreaded
-top of screen FBC corruption on GLK. Previously we thought it
-was limited to some combination of FBC nuke+disable+plane update
-during the same frame, for which we have the extra vblank wait
-as a workaround. But looks like it can somehow be hit even
-without the FBC disable.
+Connect i915 with the process nice change notifier so that our scheduling
+can react to runtime adjustments, on top of previously added nice value
+inheritance at context create time.
 
-Skipping the extra manual nuke immediately after page flips seems
-to cure this. The manual nuke shouldn't be needed anyway since the
-flip itself will already cause a nuke. I suppose this means it might
-still be possible to hit this if you mix page flips and frontbuffer
-rendering in clever ways, but at least it's a bit less likely now.
+To achieve this we use the previously added map of clients per owning
+tasks in combination with the list of GEM contexts per client.
 
-v2: Rebase
+To avoid possibly unnecessary complications the updated context nice value
+will only apply to future submissions against the context.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_drm_client.c | 31 ++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_drm_client.h |  3 +++
+ 2 files changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index ef2f1ece4a89..d909402bd151 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -458,11 +458,13 @@ static void intel_fbc_activate(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 82b9636482ef..e34c1228f65b 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -7,10 +7,35 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
  
- 	trace_intel_fbc_activate(fbc->crtc);
++#include "gem/i915_gem_context.h"
+ #include "i915_drm_client.h"
+ #include "i915_gem.h"
+ #include "i915_utils.h"
  
-+	intel_fbc_hw_activate(dev_priv);
++static int
++clients_notify(struct notifier_block *nb, unsigned long val, void *ptr)
++{
++	struct i915_drm_clients *clients =
++		container_of(nb, typeof(*clients), prio_notifier);
++	struct i915_drm_client *client;
 +
-+	if (!fbc->active)
-+		intel_fbc_recompress(dev_priv);
++	rcu_read_lock();
++	read_lock(&clients->lock);
++	hash_for_each_possible(clients->tasks, client, node, (uintptr_t)ptr) {
++		struct i915_gem_context *ctx;
 +
- 	fbc->active = true;
- 	fbc->activated = true;
--
--	intel_fbc_hw_activate(dev_priv);
--	intel_fbc_recompress(dev_priv);
++		if (client->owner != ptr)
++			continue;
++
++		list_for_each_entry_rcu(ctx, &client->ctx_list, client_link)
++			ctx->sched.nice = (int)val;
++	}
++	read_unlock(&clients->lock);
++	rcu_read_unlock();
++
++	return NOTIFY_DONE;
++}
++
+ void i915_drm_clients_init(struct i915_drm_clients *clients,
+ 			   struct drm_i915_private *i915)
+ {
+@@ -21,6 +46,10 @@ void i915_drm_clients_init(struct i915_drm_clients *clients,
+ 
+ 	rwlock_init(&clients->lock);
+ 	hash_init(clients->tasks);
++
++	memset(&clients->prio_notifier, 0, sizeof(clients->prio_notifier));
++	clients->prio_notifier.notifier_call = clients_notify;
++	register_user_nice_notifier(&clients->prio_notifier);
  }
  
- static void intel_fbc_deactivate(struct drm_i915_private *dev_priv,
+ struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients)
+@@ -75,6 +104,8 @@ void __i915_drm_client_free(struct kref *kref)
+ 
+ void i915_drm_clients_fini(struct i915_drm_clients *clients)
+ {
++	unregister_user_nice_notifier(&clients->prio_notifier);
++
+ 	GEM_BUG_ON(!xa_empty(&clients->xarray));
+ 	xa_destroy(&clients->xarray);
+ }
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 42fd79f0558a..dda26aa42ac9 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -9,6 +9,7 @@
+ #include <linux/hashtable.h>
+ #include <linux/kref.h>
+ #include <linux/list.h>
++#include <linux/notifier.h>
+ #include <linux/rwlock.h>
+ #include <linux/sched.h>
+ #include <linux/spinlock.h>
+@@ -24,6 +25,8 @@ struct i915_drm_clients {
+ 
+ 	rwlock_t lock;
+ 	DECLARE_HASHTABLE(tasks, 6);
++
++	struct notifier_block prio_notifier;
+ };
+ 
+ struct i915_drm_client {
 -- 
-2.32.0
+2.30.2
 
