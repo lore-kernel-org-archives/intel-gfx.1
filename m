@@ -2,39 +2,39 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0019C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 718D9C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4CCA611C0
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B4CCA611C0
+	by mail.kernel.org (Postfix) with ESMTPS id 3F29E60FC3
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:06:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F29E60FC3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 579306EA0C;
-	Mon,  4 Oct 2021 15:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D418F6EA19;
+	Mon,  4 Oct 2021 15:06:57 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id B24306EA0C;
- Mon,  4 Oct 2021 15:03:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 66A5C6EA13;
+ Mon,  4 Oct 2021 15:06:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id AA5E1A8169;
- Mon,  4 Oct 2021 15:03:55 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5CCF6A363C;
+ Mon,  4 Oct 2021 15:06:56 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+To: "Len Baker" <len.baker@gmx.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 04 Oct 2021 15:03:55 -0000
-Message-ID: <163335983569.1480.11439803718987161778@emeril.freedesktop.org>
+Date: Mon, 04 Oct 2021 15:06:56 -0000
+Message-ID: <163336001635.1480.8607663479789072755@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20211004112306.28544-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20211004112306.28544-1-ville.syrjala@linux.intel.com>
+References: <20211003104258.18550-1-len.baker@gmx.com>
+In-Reply-To: <20211003104258.18550-1-len.baker@gmx.com>
 Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915=3A_Improve_DP_link_training_further?=
+ =?utf-8?q?rm/i915=3A_Prefer_struct=5Fsize_over_open_coded_arithmetic?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,21 +53,168 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915: Improve DP link training further
-URL   : https://patchwork.freedesktop.org/series/95405/
+Series: drm/i915: Prefer struct_size over open coded arithmetic
+URL   : https://patchwork.freedesktop.org/series/95408/
 State : failure
 
 == Summary ==
 
-Applying: drm/i915: Tweak the DP "max vswing reached?" condition
-Applying: drm/i915: Show LTTPR in the TPS debug print
-Applying: drm/i915: Print the DP vswing adjustment request
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_dp_link_training.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0003 drm/i915: Print the DP vswing adjustment request
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+CALL    scripts/checksyscalls.sh
+  CALL    scripts/atomic/check-atomics.sh
+  DESCEND objtool
+  CHK     include/generated/compile.h
+  CC [M]  drivers/gpu/drm/i915/i915_syncmap.o
+drivers/gpu/drm/i915/i915_syncmap.c:86:3: error: expected specifier-qualifier-list before ‘DECLARE_FLEX_ARRAY’
+   DECLARE_FLEX_ARRAY(u32, seqno);
+   ^~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c: In function ‘__sync_seqno’:
+drivers/gpu/drm/i915/i915_syncmap.c:106:10: error: ‘struct i915_syncmap’ has no member named ‘seqno’
+  return p->seqno;
+          ^~
+drivers/gpu/drm/i915/i915_syncmap.c: In function ‘__sync_child’:
+drivers/gpu/drm/i915/i915_syncmap.c:112:10: error: ‘struct i915_syncmap’ has no member named ‘child’
+  return p->child;
+          ^~
+In file included from ./include/linux/slab.h:16,
+                 from drivers/gpu/drm/i915/i915_syncmap.c:25:
+drivers/gpu/drm/i915/i915_syncmap.c: In function ‘__sync_alloc_leaf’:
+./include/linux/overflow.h:194:18: error: ‘struct i915_syncmap’ has no member named ‘seqno’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                  ^~
+drivers/gpu/drm/i915/i915_syncmap.c:207:14: note: in expansion of macro ‘struct_size’
+  p = kmalloc(struct_size(p, seqno, KSYNCMAP), GFP_KERNEL);
+              ^~~~~~~~~~~
+In file included from ./include/linux/bits.h:22,
+                 from ./include/linux/ratelimit_types.h:5,
+                 from ./include/linux/printk.h:10,
+                 from ./include/asm-generic/bug.h:22,
+                 from ./arch/x86/include/asm/bug.h:84,
+                 from ./include/linux/bug.h:5,
+                 from ./include/linux/mmdebug.h:5,
+                 from ./include/linux/gfp.h:5,
+                 from ./include/linux/slab.h:15,
+                 from drivers/gpu/drm/i915/i915_syncmap.c:25:
+./include/linux/overflow.h:194:49: error: ‘struct i915_syncmap’ has no member named ‘seqno’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                                                 ^~
+./include/linux/build_bug.h:16:62: note: in definition of macro ‘BUILD_BUG_ON_ZERO’
+ #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+                                                              ^
+./include/linux/compiler.h:258:46: note: in expansion of macro ‘__same_type’
+ #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+                                              ^~~~~~~~~~~
+./include/linux/overflow.h:194:30: note: in expansion of macro ‘__must_be_array’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                              ^~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c:207:14: note: in expansion of macro ‘struct_size’
+  p = kmalloc(struct_size(p, seqno, KSYNCMAP), GFP_KERNEL);
+              ^~~~~~~~~~~
+./include/linux/overflow.h:194:49: error: ‘struct i915_syncmap’ has no member named ‘seqno’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                                                 ^~
+./include/linux/build_bug.h:16:62: note: in definition of macro ‘BUILD_BUG_ON_ZERO’
+ #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+                                                              ^
+./include/linux/compiler.h:258:46: note: in expansion of macro ‘__same_type’
+ #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+                                              ^~~~~~~~~~~
+./include/linux/overflow.h:194:30: note: in expansion of macro ‘__must_be_array’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                              ^~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c:207:14: note: in expansion of macro ‘struct_size’
+  p = kmalloc(struct_size(p, seqno, KSYNCMAP), GFP_KERNEL);
+              ^~~~~~~~~~~
+./include/linux/build_bug.h:16:51: error: bit-field ‘<anonymous>’ width not an integer constant
+ #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+                                                   ^
+./include/linux/compiler.h:258:28: note: in expansion of macro ‘BUILD_BUG_ON_ZERO’
+ #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+                            ^~~~~~~~~~~~~~~~~
+./include/linux/overflow.h:194:30: note: in expansion of macro ‘__must_be_array’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                              ^~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c:207:14: note: in expansion of macro ‘struct_size’
+  p = kmalloc(struct_size(p, seqno, KSYNCMAP), GFP_KERNEL);
+              ^~~~~~~~~~~
+In file included from ./include/linux/slab.h:16,
+                 from drivers/gpu/drm/i915/i915_syncmap.c:25:
+drivers/gpu/drm/i915/i915_syncmap.c: In function ‘__sync_set’:
+./include/linux/overflow.h:194:18: error: ‘struct i915_syncmap’ has no member named ‘child’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                  ^~
+drivers/gpu/drm/i915/i915_syncmap.c:289:19: note: in expansion of macro ‘struct_size’
+    next = kzalloc(struct_size(next, child, KSYNCMAP),
+                   ^~~~~~~~~~~
+In file included from ./include/linux/bits.h:22,
+                 from ./include/linux/ratelimit_types.h:5,
+                 from ./include/linux/printk.h:10,
+                 from ./include/asm-generic/bug.h:22,
+                 from ./arch/x86/include/asm/bug.h:84,
+                 from ./include/linux/bug.h:5,
+                 from ./include/linux/mmdebug.h:5,
+                 from ./include/linux/gfp.h:5,
+                 from ./include/linux/slab.h:15,
+                 from drivers/gpu/drm/i915/i915_syncmap.c:25:
+./include/linux/overflow.h:194:49: error: ‘struct i915_syncmap’ has no member named ‘child’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                                                 ^~
+./include/linux/build_bug.h:16:62: note: in definition of macro ‘BUILD_BUG_ON_ZERO’
+ #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+                                                              ^
+./include/linux/compiler.h:258:46: note: in expansion of macro ‘__same_type’
+ #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+                                              ^~~~~~~~~~~
+./include/linux/overflow.h:194:30: note: in expansion of macro ‘__must_be_array’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                              ^~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c:289:19: note: in expansion of macro ‘struct_size’
+    next = kzalloc(struct_size(next, child, KSYNCMAP),
+                   ^~~~~~~~~~~
+./include/linux/overflow.h:194:49: error: ‘struct i915_syncmap’ has no member named ‘child’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                                                 ^~
+./include/linux/build_bug.h:16:62: note: in definition of macro ‘BUILD_BUG_ON_ZERO’
+ #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+                                                              ^
+./include/linux/compiler.h:258:46: note: in expansion of macro ‘__same_type’
+ #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+                                              ^~~~~~~~~~~
+./include/linux/overflow.h:194:30: note: in expansion of macro ‘__must_be_array’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                              ^~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c:289:19: note: in expansion of macro ‘struct_size’
+    next = kzalloc(struct_size(next, child, KSYNCMAP),
+                   ^~~~~~~~~~~
+./include/linux/build_bug.h:16:51: error: bit-field ‘<anonymous>’ width not an integer constant
+ #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+                                                   ^
+./include/linux/compiler.h:258:28: note: in expansion of macro ‘BUILD_BUG_ON_ZERO’
+ #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+                            ^~~~~~~~~~~~~~~~~
+./include/linux/overflow.h:194:30: note: in expansion of macro ‘__must_be_array’
+       sizeof(*(p)->member) + __must_be_array((p)->member),\
+                              ^~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c:289:19: note: in expansion of macro ‘struct_size’
+    next = kzalloc(struct_size(next, child, KSYNCMAP),
+                   ^~~~~~~~~~~
+drivers/gpu/drm/i915/i915_syncmap.c: In function ‘__sync_child’:
+drivers/gpu/drm/i915/i915_syncmap.c:113:1: error: control reaches end of non-void function [-Werror=return-type]
+ }
+ ^
+drivers/gpu/drm/i915/i915_syncmap.c: In function ‘__sync_seqno’:
+drivers/gpu/drm/i915/i915_syncmap.c:107:1: error: control reaches end of non-void function [-Werror=return-type]
+ }
+ ^
+cc1: all warnings being treated as errors
+scripts/Makefile.build:277: recipe for target 'drivers/gpu/drm/i915/i915_syncmap.o' failed
+make[4]: *** [drivers/gpu/drm/i915/i915_syncmap.o] Error 1
+scripts/Makefile.build:540: recipe for target 'drivers/gpu/drm/i915' failed
+make[3]: *** [drivers/gpu/drm/i915] Error 2
+scripts/Makefile.build:540: recipe for target 'drivers/gpu/drm' failed
+make[2]: *** [drivers/gpu/drm] Error 2
+scripts/Makefile.build:540: recipe for target 'drivers/gpu' failed
+make[1]: *** [drivers/gpu] Error 2
+Makefile:1868: recipe for target 'drivers' failed
+make: *** [drivers] Error 2
 
 
