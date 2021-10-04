@@ -2,45 +2,48 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12DD6C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 17:11:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23592C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 17:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4C1F613CF
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 17:10:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C4C1F613CF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B6ECE61154
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 17:50:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B6ECE61154
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28CBB6EA5B;
-	Mon,  4 Oct 2021 17:10:59 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA28C6EA5B
- for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 17:10:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="212467725"
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="212467725"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 10:05:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="558622930"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by FMSMGA003.fm.intel.com with SMTP; 04 Oct 2021 10:05:45 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 04 Oct 2021 20:05:44 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  4 Oct 2021 20:05:33 +0300
-Message-Id: <20211004170535.4173-4-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211004170535.4173-1-ville.syrjala@linux.intel.com>
-References: <20211004170535.4173-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8586EA74;
+	Mon,  4 Oct 2021 17:50:14 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0936EA74
+ for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 17:50:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="222963137"
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="222963137"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 10:50:02 -0700
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="457750649"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 10:50:02 -0700
+Date: Mon, 4 Oct 2021 10:50:00 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ Karthik B S <karthik.b.s@intel.com>
+Message-ID: <20211004175000.GA366973@mdroper-desk1.amr.corp.intel.com>
+References: <20210930190943.17547-1-ville.syrjala@linux.intel.com>
+ <20211001210815.GG3389343@mdroper-desk1.amr.corp.intel.com>
+ <YVeFOzabpcWAbVFQ@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/5] drm/i915: Print the DP vswing adjustment
- request
+In-Reply-To: <YVeFOzabpcWAbVFQ@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Extend the async flip VT-d
+ w/a to skl/bxt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,62 +59,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+On Sat, Oct 02, 2021 at 01:01:31AM +0300, Ville Syrj‰l‰ wrote:
+> On Fri, Oct 01, 2021 at 02:08:15PM -0700, Matt Roper wrote:
+> > On Thu, Sep 30, 2021 at 10:09:42PM +0300, Ville Syrjala wrote:
+> > > From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> > > 
+> > > Looks like skl/bxt/derivatives also need the plane stride
+> > > stretch w/a when using async flips and VT-d is enabled, or
+> > > else we get corruption on screen. To my surprise this was
+> > > even documented in bspec, but only as a note on the
+> > > CHICHKEN_PIPESL register description rather than on the
+> > > w/a list.
+> > > 
+> > > So very much the same thing as on HSW/BDW, except the bits
+> > > moved yet again.
+> > 
+> > Bspec 7522 doesn't say anything about this requirement being tied to
+> > VT-d on these platforms.  Should we drop the intel_vtd_active()
+> > condition to be safe?
+> 
+> I think it's just an oversight in bspec. I read through the hsd and
+> IIRC it did specify that it's VT-d only. Also real life confirms
+> it. No problems whatsoever when VT-d is disabled.
 
-Print out each DP vswing adjustment request we got from the RX.
-Could help in diagnosing what's going on during link training.
+I notice there are additional bits that we should set to apply this
+workaround to planes 2, 3, and 4, but since i915 still artificially
+limits async flips to just the primary plane, only programming bits 1:0
+should be fine for now; we'll just need to remember to extend this
+workaround if we do start allowing async flips on other planes in the
+future.
 
-Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
----
- .../drm/i915/display/intel_dp_link_training.c | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 6bab097cafd2..5657be1461ec 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -343,14 +343,41 @@ static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
- 	return v | p;
- }
- 
-+#define TRAIN_REQ_FMT "%d/%d/%d/%d"
-+#define _TRAIN_REQ_VSWING_ARGS(link_status, lane) \
-+	(drm_dp_get_adjust_request_voltage((link_status), (lane)) >> DP_TRAIN_VOLTAGE_SWING_SHIFT)
-+#define TRAIN_REQ_VSWING_ARGS(link_status) \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 0), \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 1), \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 2), \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 3)
-+#define _TRAIN_REQ_PREEMPH_ARGS(link_status, lane) \
-+	(drm_dp_get_adjust_request_pre_emphasis((link_status), (lane)) >> DP_TRAIN_PRE_EMPHASIS_SHIFT)
-+#define TRAIN_REQ_PREEMPH_ARGS(link_status) \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 0), \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 1), \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 2), \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 3)
-+
- void
- intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 			  const struct intel_crtc_state *crtc_state,
- 			  enum drm_dp_phy dp_phy,
- 			  const u8 link_status[DP_LINK_STATUS_SIZE])
- {
-+	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
-+	char phy_name[10];
- 	int lane;
- 
-+	drm_dbg_kms(encoder->base.dev, "[ENCODER:%d:%s] lanes: %d, "
-+		    "vswing request: " TRAIN_REQ_FMT ", "
-+		    "pre-emphasis request: " TRAIN_REQ_FMT ", at %s\n",
-+		    encoder->base.base.id, encoder->base.name,
-+		    crtc_state->lane_count,
-+		    TRAIN_REQ_VSWING_ARGS(link_status),
-+		    TRAIN_REQ_PREEMPH_ARGS(link_status),
-+		    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)));
-+
- 	for (lane = 0; lane < 4; lane++)
- 		intel_dp->train_set[lane] =
- 			intel_dp_get_lane_adjust_train(intel_dp, crtc_state,
+> 
+> > 
+> > 
+> > Matt
+> > 
+> > > 
+> > > Cc: stable@vger.kernel.org
+> > > Cc: Karthik B S <karthik.b.s@intel.com>
+> > > Fixes: 55ea1cb178ef ("drm/i915: Enable async flips in i915")
+> > > Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> > > ---
+> > >  drivers/gpu/drm/i915/i915_reg.h |  5 +++++
+> > >  drivers/gpu/drm/i915/intel_pm.c | 12 ++++++++++++
+> > >  2 files changed, 17 insertions(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> > > index 3a20a55d2512..29f6bfc2002d 100644
+> > > --- a/drivers/gpu/drm/i915/i915_reg.h
+> > > +++ b/drivers/gpu/drm/i915/i915_reg.h
+> > > @@ -8222,6 +8222,11 @@ enum {
+> > >  #define  HSW_SPR_STRETCH_MAX_X1		REG_FIELD_PREP(HSW_SPR_STRETCH_MAX_MASK, 3)
+> > >  #define  HSW_FBCQ_DIS			(1 << 22)
+> > >  #define  BDW_DPRS_MASK_VBLANK_SRD	(1 << 0)
+> > > +#define  SKL_PLANE1_STRETCH_MAX_MASK	REG_GENMASK(1, 0)
+> > > +#define  SKL_PLANE1_STRETCH_MAX_X8	REG_FIELD_PREP(SKL_PLANE1_STRETCH_MAX_MASK, 0)
+> > > +#define  SKL_PLANE1_STRETCH_MAX_X4	REG_FIELD_PREP(SKL_PLANE1_STRETCH_MAX_MASK, 1)
+> > > +#define  SKL_PLANE1_STRETCH_MAX_X2	REG_FIELD_PREP(SKL_PLANE1_STRETCH_MAX_MASK, 2)
+> > > +#define  SKL_PLANE1_STRETCH_MAX_X1	REG_FIELD_PREP(SKL_PLANE1_STRETCH_MAX_MASK, 3)
+> > >  #define CHICKEN_PIPESL_1(pipe) _MMIO_PIPE(pipe, _CHICKEN_PIPESL_1_A, _CHICKEN_PIPESL_1_B)
+> > >  
+> > >  #define _CHICKEN_TRANS_A	0x420c0
+> > > diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+> > > index ef5f73934dab..74d4620a4999 100644
+> > > --- a/drivers/gpu/drm/i915/intel_pm.c
+> > > +++ b/drivers/gpu/drm/i915/intel_pm.c
+> > > @@ -76,6 +76,8 @@ struct intel_wm_config {
+> > >  
+> > >  static void gen9_init_clock_gating(struct drm_i915_private *dev_priv)
+> > >  {
+> > > +	enum pipe pipe;
+> > > +
+> > >  	if (HAS_LLC(dev_priv)) {
+> > >  		/*
+> > >  		 * WaCompressedResourceDisplayNewHashMode:skl,kbl
+> > > @@ -89,6 +91,16 @@ static void gen9_init_clock_gating(struct drm_i915_private *dev_priv)
+> > >  			   SKL_DE_COMPRESSED_HASH_MODE);
+> > >  	}
+> > >  
+> > > +	for_each_pipe(dev_priv, pipe) {
+> > > +		/*
+> > > +		 * "Plane N strech max must be programmed to 11b (x1)
+> > > +		 *  when Async flips are enabled on that plane."
+> > > +		 */
+> > > +		if (!IS_GEMINILAKE(dev_priv) && intel_vtd_active())
+> > > +			intel_uncore_rmw(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe),
+> > > +					 SKL_PLANE1_STRETCH_MAX_MASK, SKL_PLANE1_STRETCH_MAX_X1);
+> > > +	}
+> > > +
+> > >  	/* See Bspec note for PSR2_CTL bit 31, Wa#828:skl,bxt,kbl,cfl */
+> > >  	intel_uncore_write(&dev_priv->uncore, CHICKEN_PAR1_1,
+> > >  		   intel_uncore_read(&dev_priv->uncore, CHICKEN_PAR1_1) | SKL_EDP_PSR_FIX_RDWRAP);
+> > > -- 
+> > > 2.32.0
+> > > 
+> > 
+> > -- 
+> > Matt Roper
+> > Graphics Software Engineer
+> > VTT-OSGC Platform Enablement
+> > Intel Corporation
+> > (916) 356-2795
+> 
+> -- 
+> Ville Syrj‰l‰
+> Intel
+
 -- 
-2.32.0
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
