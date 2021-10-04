@@ -2,45 +2,45 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C279C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F077EC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AAB261207
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:23:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5AAB261207
+	by mail.kernel.org (Postfix) with ESMTPS id BD6E66136F
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BD6E66136F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1036E9D2;
-	Mon,  4 Oct 2021 11:23:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8CF6E9D3;
+	Mon,  4 Oct 2021 11:23:25 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 117C16E9D2
- for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 11:23:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="225705408"
-X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="225705408"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8453A6E9D2
+ for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 11:23:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="225705412"
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="225705412"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 04:23:21 -0700
+ 04 Oct 2021 04:23:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="567001527"
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="558376182"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga002.fm.intel.com with SMTP; 04 Oct 2021 04:23:15 -0700
+ by FMSMGA003.fm.intel.com with SMTP; 04 Oct 2021 04:23:21 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 04 Oct 2021 14:23:15 +0300
+ Mon, 04 Oct 2021 14:23:20 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  4 Oct 2021 14:23:04 +0300
-Message-Id: <20211004112306.28544-4-ville.syrjala@linux.intel.com>
+Date: Mon,  4 Oct 2021 14:23:06 +0300
+Message-Id: <20211004112306.28544-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211004112306.28544-1-ville.syrjala@linux.intel.com>
 References: <20211004112306.28544-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/5] drm/i915: Print the DP vswing adjustment
- request
+Subject: [Intel-gfx] [PATCH 5/5] drm/i915: Call intel_dp_dump_link_status()
+ for CR failures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,60 +58,60 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Print out each DP vswing adjustment request we got from the RX.
-Could help in diagnosing what's going on during link training.
+I suppose intel_dp_dump_link_status() might be useful for diagnosing
+link training failures. Hoever we only call from the channel EQ phase
+currently. Let's call it from the CR phase as well.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- .../drm/i915/display/intel_dp_link_training.c | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 6bab097cafd2..5657be1461ec 100644
+index 18f4b469766e..c92044710012 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -343,14 +343,41 @@ static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
- 	return v | p;
- }
+@@ -649,6 +649,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	u8 old_link_status[DP_LINK_STATUS_SIZE] = {};
+ 	int voltage_tries, cr_tries, max_cr_tries;
++	u8 link_status[DP_LINK_STATUS_SIZE];
+ 	bool max_vswing_reached = false;
+ 	char phy_name[10];
  
-+#define TRAIN_REQ_FMT "%d/%d/%d/%d"
-+#define _TRAIN_REQ_VSWING_ARGS(link_status, lane) \
-+	(drm_dp_get_adjust_request_voltage((link_status), (lane)) >> DP_TRAIN_VOLTAGE_SWING_SHIFT)
-+#define TRAIN_REQ_VSWING_ARGS(link_status) \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 0), \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 1), \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 2), \
-+	_TRAIN_REQ_VSWING_ARGS(link_status, 3)
-+#define _TRAIN_REQ_PREEMPH_ARGS(link_status, lane) \
-+	(drm_dp_get_adjust_request_pre_emphasis((link_status), (lane)) >> DP_TRAIN_PRE_EMPHASIS_SHIFT)
-+#define TRAIN_REQ_PREEMPH_ARGS(link_status) \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 0), \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 1), \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 2), \
-+	_TRAIN_REQ_PREEMPH_ARGS(link_status, 3)
-+
- void
- intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 			  const struct intel_crtc_state *crtc_state,
- 			  enum drm_dp_phy dp_phy,
- 			  const u8 link_status[DP_LINK_STATUS_SIZE])
- {
-+	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
-+	char phy_name[10];
- 	int lane;
+@@ -678,8 +679,6 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
  
-+	drm_dbg_kms(encoder->base.dev, "[ENCODER:%d:%s] lanes: %d, "
-+		    "vswing request: " TRAIN_REQ_FMT ", "
-+		    "pre-emphasis request: " TRAIN_REQ_FMT ", at %s\n",
-+		    encoder->base.base.id, encoder->base.name,
-+		    crtc_state->lane_count,
-+		    TRAIN_REQ_VSWING_ARGS(link_status),
-+		    TRAIN_REQ_PREEMPH_ARGS(link_status),
-+		    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)));
-+
- 	for (lane = 0; lane < 4; lane++)
- 		intel_dp->train_set[lane] =
- 			intel_dp_get_lane_adjust_train(intel_dp, crtc_state,
+ 	voltage_tries = 1;
+ 	for (cr_tries = 0; cr_tries < max_cr_tries; ++cr_tries) {
+-		u8 link_status[DP_LINK_STATUS_SIZE];
+-
+ 		intel_dp_link_training_clock_recovery_delay(intel_dp, dp_phy);
+ 
+ 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
+@@ -697,6 +696,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
+ 		}
+ 
+ 		if (voltage_tries == 5) {
++			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
+ 			drm_dbg_kms(&i915->drm,
+ 				    "[ENCODER:%d:%s][%s] Same voltage tried 5 times\n",
+ 				    encoder->base.base.id, encoder->base.name, phy_name);
+@@ -704,6 +704,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
+ 		}
+ 
+ 		if (max_vswing_reached) {
++			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
+ 			drm_dbg_kms(&i915->drm,
+ 				    "[ENCODER:%d:%s][%s] Max Voltage Swing reached\n",
+ 				    encoder->base.base.id, encoder->base.name, phy_name);
+@@ -732,6 +733,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
+ 			max_vswing_reached = true;
+ 	}
+ 
++	intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
+ 	drm_err(&i915->drm,
+ 		"[ENCODER:%d:%s][%s] Failed clock recovery %d times, giving up!\n",
+ 		encoder->base.base.id, encoder->base.name, phy_name, max_cr_tries);
 -- 
 2.32.0
 
