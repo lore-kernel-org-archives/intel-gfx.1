@@ -2,45 +2,39 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C736C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:13:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA4A5C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:21:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 594BE6136F
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:13:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 594BE6136F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 49D6D610A3
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 22:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 49D6D610A3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA72C897E3;
-	Mon,  4 Oct 2021 22:11:52 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C842289295;
- Mon,  4 Oct 2021 22:11:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="225498447"
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="225498447"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:34 -0700
-X-IronPort-AV: E=Sophos;i="5.85,347,1624345200"; d="scan'208";a="487735539"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 15:11:34 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Cc: <john.c.harrison@intel.com>,
-	<daniele.ceraolospurio@intel.com>
-Date: Mon,  4 Oct 2021 15:06:33 -0700
-Message-Id: <20211004220637.14746-23-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
-References: <20211004220637.14746-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8B0D898AA;
+	Mon,  4 Oct 2021 22:21:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 84373892EE;
+ Mon,  4 Oct 2021 22:21:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7C494A0003;
+ Mon,  4 Oct 2021 22:21:44 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 22/26] drm/i915/guc: Handle errors in multi-lrc
- requests
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 04 Oct 2021 22:21:44 -0000
+Message-ID: <163338610450.1480.1050244388708372471@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211004220637.14746-1-matthew.brost@intel.com>
+In-Reply-To: <20211004220637.14746-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Parallel_submission_aka_multi-bb_execbuf_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,130 +47,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If an error occurs in the front end when multi-lrc requests are getting
-generated we need to skip these in the backend but we still need to
-emit the breadcrumbs seqno. An issues arises because with multi-lrc
-breadcrumbs there is a handshake between the parent and children to make
-forward progress. If all the requests are not present this handshake
-doesn't work. To work around this, if multi-lrc request has an error we
-skip the handshake but still emit the breadcrumbs seqno.
+== Series Details ==
 
-v2:
- (John Harrison)
-  - Add comment explaining the skipping of the handshake logic
-  - Fix typos in the commit message
+Series: Parallel submission aka multi-bb execbuf (rev4)
+URL   : https://patchwork.freedesktop.org/series/92789/
+State : warning
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 71 ++++++++++++++++++-
- 1 file changed, 68 insertions(+), 3 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 83b0d2a114af..05e8b199e4ce 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4072,8 +4072,8 @@ static int emit_bb_start_child_no_preempt_mid_batch(struct i915_request *rq,
- }
+$ dim checkpatch origin/drm-tip
+e2a47a99bf9d drm/i915/guc: Move GuC guc_id allocation under submission state sub-struct
+f83d8f1539fa drm/i915/guc: Take GT PM ref when deregistering context
+-:79: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'gt' - possible side-effects?
+#79: FILE: drivers/gpu/drm/i915/gt/intel_gt_pm.h:44:
++#define with_intel_gt_pm(gt, tmp) \
++	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
++	     intel_gt_pm_put(gt), tmp = 0)
+
+-:79: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'tmp' - possible side-effects?
+#79: FILE: drivers/gpu/drm/i915/gt/intel_gt_pm.h:44:
++#define with_intel_gt_pm(gt, tmp) \
++	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
++	     intel_gt_pm_put(gt), tmp = 0)
+
+total: 0 errors, 0 warnings, 2 checks, 290 lines checked
+93e5284929b3 drm/i915/guc: Take engine PM when a context is pinned with GuC submission
+4dd6554d994d drm/i915/guc: Don't call switch_to_kernel_context with GuC submission
+8629b55f536c drm/i915: Add logical engine mapping
+8117ec0a1ca7 drm/i915: Expose logical engine instance to user
+aa8e1eb4dd4e drm/i915/guc: Introduce context parent-child relationship
+aaf50eacc2fd drm/i915/guc: Add multi-lrc context registration
+e5f6f50e66d1 drm/i915/guc: Ensure GuC schedule operations do not operate on child contexts
+adf21ba138f3 drm/i915/guc: Assign contexts in parent-child relationship consecutive guc_ids
+40ef33318b81 drm/i915/guc: Implement parallel context pin / unpin functions
+1ad560c70346 drm/i915/guc: Implement multi-lrc submission
+-:364: CHECK:SPACING: spaces preferred around that '*' (ctx:ExV)
+#364: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:771:
++		*wqi++ = child->ring->tail / sizeof(u64);
+ 		^
+
+total: 0 errors, 0 warnings, 1 checks, 570 lines checked
+466c01457dec drm/i915/guc: Insert submit fences between requests in parent-child relationship
+2ece815c1f18 drm/i915/guc: Implement multi-lrc reset
+7add5784199f drm/i915/guc: Update debugfs for GuC multi-lrc
+-:23: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#23: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3707:
  
- static u32 *
--emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
--						 u32 *cs)
-+__emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
-+						   u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
- 	u8 i;
-@@ -4101,6 +4101,46 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- 				  get_children_go_addr(ce),
- 				  0);
- 
-+	return cs;
-+}
 +
-+/*
-+ * If this true, a submission of multi-lrc requests had an error and the
-+ * requests need to be skipped. The front end (execuf IOCTL) should've called
-+ * i915_request_skip which squashes the BB but we still need to emit the fini
-+ * breadrcrumbs seqno write. At this point we don't know how many of the
-+ * requests in the multi-lrc submission were generated so we can't do the
-+ * handshake between the parent and children (e.g. if 4 requests should be
-+ * generated but 2nd hit an error only 1 would be seen by the GuC backend).
-+ * Simply skip the handshake, but still emit the breadcrumbd seqno, if an error
-+ * has occurred on any of the requests in submission / relationship.
-+ */
-+static inline bool skip_handshake(struct i915_request *rq)
-+{
-+	return test_bit(I915_FENCE_FLAG_SKIP_PARALLEL, &rq->fence.flags);
-+}
-+
-+static u32 *
-+emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
-+						 u32 *cs)
-+{
-+	struct intel_context *ce = rq->context;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	if (unlikely(skip_handshake(rq))) {
-+		/*
-+		 * NOP everything in
-+		 * __emit_fini_breadcrumb_parent_no_preempt_mid_batch, the -6
-+		 * comes of the length emission below.
-+		 */
-+		memset(cs, 0, sizeof(u32) *
-+		       (ce->engine->emit_fini_breadcrumb_dw - 6));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+	} else {
-+		cs = __emit_fini_breadcrumb_parent_no_preempt_mid_batch(rq, cs);
-+	}
-+
- 	/* Emit fini breadcrumb */
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
-@@ -4117,7 +4157,8 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- }
- 
- static u32 *
--emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs)
-+__emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
-+						  u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
- 	struct intel_context *parent = intel_context_to_parent(ce);
-@@ -4144,6 +4185,30 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs
- 	*cs++ = get_children_go_addr(parent);
- 	*cs++ = 0;
- 
-+	return cs;
-+}
-+
-+static u32 *
-+emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
-+						u32 *cs)
-+{
-+	struct intel_context *ce = rq->context;
-+
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+
-+	if (unlikely(skip_handshake(rq))) {
-+		/*
-+		 * NOP everything in
-+		 * __emit_fini_breadcrumb_child_no_preempt_mid_batch, the -6
-+		 * comes from the length the emission below.
-+		 */
-+		memset(cs, 0, sizeof(u32) *
-+		       (ce->engine->emit_fini_breadcrumb_dw - 6));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+	} else {
-+		cs = __emit_fini_breadcrumb_child_no_preempt_mid_batch(rq, cs);
-+	}
-+
- 	/* Emit fini breadcrumb */
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
--- 
-2.32.0
+
+total: 0 errors, 0 warnings, 1 checks, 67 lines checked
+966991d7bbed drm/i915: Fix bug in user proto-context creation that leaked contexts
+0eb3d3bf0c84 drm/i915/guc: Connect UAPI to GuC multi-lrc interface
+68c6596b649a drm/i915/doc: Update parallel submit doc to point to i915_drm.h
+-:13: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#13: 
+deleted file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 10 lines checked
+8290f5d15ca2 drm/i915/guc: Add basic GuC multi-lrc selftest
+-:22: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#22: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 190 lines checked
+ade3768c42d5 drm/i915/guc: Implement no mid batch preemption for multi-lrc
+57882939d788 drm/i915: Multi-BB execbuf
+-:369: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_i' - possible side-effects?
+#369: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1854:
++#define for_each_batch_create_order(_eb, _i) \
++	for (_i = 0; _i < (_eb)->num_batches; ++_i)
+
+-:371: ERROR:MULTISTATEMENT_MACRO_USE_DO_WHILE: Macros with multiple statements should be enclosed in a do - while loop
+#371: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1856:
++#define for_each_batch_add_order(_eb, _i) \
++	BUILD_BUG_ON(!typecheck(int, _i)); \
++	for (_i = (_eb)->num_batches - 1; _i >= 0; --_i)
+
+-:371: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_i' - possible side-effects?
+#371: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1856:
++#define for_each_batch_add_order(_eb, _i) \
++	BUILD_BUG_ON(!typecheck(int, _i)); \
++	for (_i = (_eb)->num_batches - 1; _i >= 0; --_i)
+
+total: 1 errors, 0 warnings, 2 checks, 1298 lines checked
+28b699ece289 drm/i915/guc: Handle errors in multi-lrc requests
+962e6b3dce59 drm/i915: Make request conflict tracking understand parallel submits
+368ab12f5205 drm/i915: Update I915_GEM_BUSY IOCTL to understand composite fences
+b52570f01859 drm/i915: Enable multi-bb execbuf
+8766155832d7 drm/i915/execlists: Weak parallel submission support for execlists
+
 
