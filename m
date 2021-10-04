@@ -2,77 +2,48 @@ Return-Path: <SRS0=BQGL=OY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2F60C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:46:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA0E0C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:47:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C56AC61213
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C56AC61213
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8C8E86136F
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 11:47:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C8E86136F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58A686E9D9;
-	Mon,  4 Oct 2021 11:46:35 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADBCF6E98C;
- Mon,  4 Oct 2021 09:53:24 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id s15so1519389wrv.11;
- Mon, 04 Oct 2021 02:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=/kVWuuyrXrC1HbOEIDyHsQVaIH9K037UnSfeiNI+fT4=;
- b=KxWZxkqjsDWk3knCFrrqwS5MCL32l2g7x/IL6IqqrSu8gOK5oSJah0pOYMzDcx6D/w
- nWWJQ0ymIvKfQNQH1L2AA4AflRiQevU3M9Q3ZFqRZi4PT9lIoywLv0t2ytE+wS/7r98W
- f2AnGazt21HrENONVi/LYGNOfg3m7sfhHWPq9XSbiE5snoQ/MI1BRHnBvhvj6dhSFfzQ
- Whols0GEyldbxEbZP6nNuezh+qnEoNN5XqSO9HsbSKAmV1fPvlGBIvZ0230rpzI2Bl8l
- o02MLp+JA3W0QJu/HvjcnFeOW3AaXx7eetRQzhRqg7xYz5U4wTXz8PEoI1LeWbIlpDhJ
- 0KYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=/kVWuuyrXrC1HbOEIDyHsQVaIH9K037UnSfeiNI+fT4=;
- b=Lc/i1vW7qWJ9nRM3Q+avVouvfO/70dHjElhEYxPAgX7RCp7sjQ4NUd3m9lx23jQU/c
- b/qyA/3/YKnkruFl7bYGoE5x2PllMsGytgHT/OmMYSq713mHi5tYKxsiuPoVeQwtcuHd
- apNz/X82VpYnnZG4BdffTQZsYc3zGWAmSf7CTVMLoLWcPFid/m+IYsRFwXAXfc+rCi0T
- b9M0035/UH4GNrSiG9wXSvB3t8oueRksA8OvCp8ZUN9KJjA4EGbh7Y08R/slefVYqKI5
- +4yAXiDRts/gjrfjk34r69rQWY988oyTUg8/Bcj6GJq18PfjoVWmRucHpK2oerzGkp2s
- ww7A==
-X-Gm-Message-State: AOAM532V1PWDXbTAwqYJwGpIxl1f96M2qe5JOvNeOAo119rxrLZzJ9l+
- eFrqE02GitxMCsWbuCMfyHY=
-X-Google-Smtp-Source: ABdhPJwWRn4/BAtZIyLCvIg5N7LijzHog3rlpZhfeYclsQsacDttlQkyJe6RbJzZbnWiIcjsAHM+dQ==
-X-Received: by 2002:a5d:58ec:: with SMTP id f12mr12932732wrd.24.1633341203129; 
- Mon, 04 Oct 2021 02:53:23 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id d7sm13960745wrh.13.2021.10.04.02.53.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Oct 2021 02:53:22 -0700 (PDT)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch
-References: <20211001100610.2899-1-christian.koenig@amd.com>
- <20211001100610.2899-2-christian.koenig@amd.com>
- <fa3a1755-21b2-ea0c-1553-df0297523e48@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <b6da5c2f-8e2c-18d4-9b89-aac3171d841d@gmail.com>
-Date: Mon, 4 Oct 2021 11:53:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF3186E1B1;
+	Mon,  4 Oct 2021 11:47:21 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 468766E1B1;
+ Mon,  4 Oct 2021 11:47:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="311596502"
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="311596502"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 04:47:19 -0700
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="711168218"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 04 Oct 2021 04:47:19 -0700
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Manasi Navare <manasi.d.navare@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.co.uk>,
+ Daniel Stone <daniels@collabora.com>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Date: Mon,  4 Oct 2021 04:59:13 -0700
+Message-Id: <20211004115913.23889-1-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
 MIME-Version: 1.0
-In-Reply-To: <fa3a1755-21b2-ea0c-1553-df0297523e48@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Mailman-Approved-At: Mon, 04 Oct 2021 11:46:31 +0000
-Subject: Re: [Intel-gfx] [PATCH 01/28] dma-buf: add
- dma_resv_for_each_fence_unlocked v7
+Subject: [Intel-gfx] [PATCH v3] drm/atomic: Add the crtc to affected crtc
+ only if uapi.enable = true
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,344 +59,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 04.10.21 um 11:29 schrieb Tvrtko Ursulin:
->
-> On 01/10/2021 11:05, Christian König wrote:
->> Abstract the complexity of iterating over all the fences
->> in a dma_resv object.
->>
->> The new loop handles the whole RCU and retry dance and
->> returns only fences where we can be sure we grabbed the
->> right one.
->>
->> v2: fix accessing the shared fences while they might be freed,
->>      improve kerneldoc, rename _cursor to _iter, add
->>      dma_resv_iter_is_exclusive, add dma_resv_iter_begin/end
->>
->> v3: restructor the code, move rcu_read_lock()/unlock() into the
->>      iterator, add dma_resv_iter_is_restarted()
->>
->> v4: fix NULL deref when no explicit fence exists, drop superflous
->>      rcu_read_lock()/unlock() calls.
->>
->> v5: fix typos in the documentation
->>
->> v6: fix coding error when excl fence is NULL
->>
->> v7: one more logic fix
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/dma-buf/dma-resv.c | 100 +++++++++++++++++++++++++++++++++++++
->>   include/linux/dma-resv.h   |  95 +++++++++++++++++++++++++++++++++++
->>   2 files changed, 195 insertions(+)
->>
->> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
->> index 84fbe60629e3..3cbcf66a137e 100644
->> --- a/drivers/dma-buf/dma-resv.c
->> +++ b/drivers/dma-buf/dma-resv.c
->> @@ -323,6 +323,106 @@ void dma_resv_add_excl_fence(struct dma_resv 
->> *obj, struct dma_fence *fence)
->>   }
->>   EXPORT_SYMBOL(dma_resv_add_excl_fence);
->>   +/**
->> + * dma_resv_iter_restart_unlocked - restart the unlocked iterator
->> + * @cursor: The dma_resv_iter object to restart
->> + *
->> + * Restart the unlocked iteration by initializing the cursor object.
->> + */
->> +static void dma_resv_iter_restart_unlocked(struct dma_resv_iter 
->> *cursor)
->> +{
->> +    cursor->seq = read_seqcount_begin(&cursor->obj->seq);
->> +    cursor->index = -1;
->> +    if (cursor->all_fences)
->> +        cursor->fences = dma_resv_shared_list(cursor->obj);
->> +    else
->> +        cursor->fences = NULL;
->> +    cursor->is_restarted = true;
->> +}
->> +
->> +/**
->> + * dma_resv_iter_walk_unlocked - walk over fences in a dma_resv obj
->> + * @cursor: cursor to record the current position
->> + *
->> + * Return all the fences in the dma_resv object which are not yet 
->> signaled.
->> + * The returned fence has an extra local reference so will stay alive.
->> + * If a concurrent modify is detected the whole iteration is started 
->> over again.
->> + */
->> +static void dma_resv_iter_walk_unlocked(struct dma_resv_iter *cursor)
->> +{
->> +    struct dma_resv *obj = cursor->obj;
->> +
->> +    do {
->> +        /* Drop the reference from the previous round */
->> +        dma_fence_put(cursor->fence);
->> +
->> +        if (cursor->index == -1) {
->> +            cursor->fence = dma_resv_excl_fence(obj);
->> +            cursor->index++;
->> +            if (!cursor->fence)
->> +                continue;
->> +
->> +        } else if (!cursor->fences ||
->> +               cursor->index >= cursor->fences->shared_count) {
->> +            cursor->fence = NULL;
->> +            break;
->> +
->> +        } else {
->> +            struct dma_resv_list *fences = cursor->fences;
->> +            unsigned int idx = cursor->index++;
->> +
->> +            cursor->fence = rcu_dereference(fences->shared[idx]);
->> +        }
->> +        cursor->fence = dma_fence_get_rcu(cursor->fence);
->
-> Worth having an assert dma_fence_get_rcu does not fail here? Not sure 
-> that I have seen debug build only asserts though on the DRM core side.
+In case of a modeset where a mode gets split across mutiple CRTCs
+in the driver specific implementation (bigjoiner in i915) we wrongly count
+the affected CRTCs based on the drm_crtc_mask and indicate the stolen CRTC as
+an affected CRTC in atomic_check_only().
+This triggers a warning since affected CRTCs doent match requested CRTC.
 
-That won't work. It's perfectly valid for dma_fence_get_rcu() to return 
-NULL when we are racing here. Keep in mind that we don't hold any locks.
+To fix this in such bigjoiner configurations, we should only
+increment affected crtcs if that CRTC is enabled in UAPI not
+if it is just used internally in the driver to split the mode.
 
-What we could do is to return NULL and repeat with a new sequence 
-immediately though.
+v3: Add the same uapi crtc_state->enable check in requested
+crtc calc (Ville)
 
->
-> On the bike shedding front, would it be clearer if the continue 
-> condition on signaled fences was standalone, using the continue 
-> statement? I'd also possibly re-arrange the three if-else blocks so 
-> that the end of iteration is not sandwiched between blocks handling 
-> exclusive and shared, and flow tweaked a bit, like:
->
->   struct dma_fence *fence = cursor->fence;
->   int index = cursor->index;
->
->   dma_fence_put(fence);
->   fence = NULL;
->
-> next:
->   if (index == -1) {
->     /* Try picking the exclusive fence. */
->     index++;
->     fence = dma_resv_excl_fence(obj);
->     if (!fence)
->         goto next;
->   } else if (cursor->fences && index < cursor->fences->shared_count) {
->       /* Try picking next shared fence. */
->     struct dma_resv_list *fences = cursor->fences;
->
->     fence = rcu_dereference(fences->shared[index++]);
->   }
->
->   if (fence) {
->       if (dma_fence_is_signaled(fence))
->         goto next; /* Skip signaled. */
->
->     fence = dma_fence_get_rcu(fence);
->     WARN_ON(!fence);
-> }
->
->   cursor->fence = fence;
->   cursor->index = index;
->
-> (I started with a loop here but ended with goto based flow since it 
-> ended up more succinct.)
->
-> At least if I don't have a handling flaw in there it looks like easier 
-> to follow flow to me. Plus picking a not signaled fence works without 
-> a reference FWIW.
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.co.uk>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Daniel Vetter <daniel.vetter@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ drivers/gpu/drm/drm_atomic.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-I strongly don't think that this will work correctly. You need to grab a 
-reference first when you want to call dma_fence_is_signaled(), that's 
-why I used the testbit approach initially.
-
-> How does it look to you?
-
-Mhm, let me try to reorder the loop once more.
-
-Thanks,
-Christian.
-
->
-> Regards,
->
-> Tvrtko
->
->> +        if (!cursor->fence || !dma_fence_is_signaled(cursor->fence))
->> +            break;
->> +    } while (true);
->> +}
->> +
->> +/**
->> + * dma_resv_iter_first_unlocked - first fence in an unlocked 
->> dma_resv obj.
->> + * @cursor: the cursor with the current position
->> + *
->> + * Returns the first fence from an unlocked dma_resv obj.
->> + */
->> +struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter 
->> *cursor)
->> +{
->> +    rcu_read_lock();
->> +    do {
->> +        dma_resv_iter_restart_unlocked(cursor);
->> +        dma_resv_iter_walk_unlocked(cursor);
->> +    } while (read_seqcount_retry(&cursor->obj->seq, cursor->seq));
->> +    rcu_read_unlock();
->> +
->> +    return cursor->fence;
->> +}
->> +EXPORT_SYMBOL(dma_resv_iter_first_unlocked);
->> +
->> +/**
->> + * dma_resv_iter_next_unlocked - next fence in an unlocked dma_resv 
->> obj.
->> + * @cursor: the cursor with the current position
->> + *
->> + * Returns the next fence from an unlocked dma_resv obj.
->> + */
->> +struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter 
->> *cursor)
->> +{
->> +    bool restart;
->> +
->> +    rcu_read_lock();
->> +    cursor->is_restarted = false;
->> +    restart = read_seqcount_retry(&cursor->obj->seq, cursor->seq);
->> +    do {
->> +        if (restart)
->> +            dma_resv_iter_restart_unlocked(cursor);
->> +        dma_resv_iter_walk_unlocked(cursor);
->> +        restart = true;
->> +    } while (read_seqcount_retry(&cursor->obj->seq, cursor->seq));
->> +    rcu_read_unlock();
->> +
->> +    return cursor->fence;
->> +}
->> +EXPORT_SYMBOL(dma_resv_iter_next_unlocked);
->> +
->>   /**
->>    * dma_resv_copy_fences - Copy all fences from src to dst.
->>    * @dst: the destination reservation object
->> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
->> index 9100dd3dc21f..5d7d28cb9008 100644
->> --- a/include/linux/dma-resv.h
->> +++ b/include/linux/dma-resv.h
->> @@ -149,6 +149,101 @@ struct dma_resv {
->>       struct dma_resv_list __rcu *fence;
->>   };
->>   +/**
->> + * struct dma_resv_iter - current position into the dma_resv fences
->> + *
->> + * Don't touch this directly in the driver, use the accessor 
->> function instead.
->> + */
->> +struct dma_resv_iter {
->> +    /** @obj: The dma_resv object we iterate over */
->> +    struct dma_resv *obj;
->> +
->> +    /** @all_fences: If all fences should be returned */
->> +    bool all_fences;
->> +
->> +    /** @fence: the currently handled fence */
->> +    struct dma_fence *fence;
->> +
->> +    /** @seq: sequence number to check for modifications */
->> +    unsigned int seq;
->> +
->> +    /** @index: index into the shared fences */
->> +    unsigned int index;
->> +
->> +    /** @fences: the shared fences */
->> +    struct dma_resv_list *fences;
->> +
->> +    /** @is_restarted: true if this is the first returned fence */
->> +    bool is_restarted;
->> +};
->> +
->> +struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter 
->> *cursor);
->> +struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter 
->> *cursor);
->> +
->> +/**
->> + * dma_resv_iter_begin - initialize a dma_resv_iter object
->> + * @cursor: The dma_resv_iter object to initialize
->> + * @obj: The dma_resv object which we want to iterate over
->> + * @all_fences: If all fences should be returned or just the 
->> exclusive one
->> + */
->> +static inline void dma_resv_iter_begin(struct dma_resv_iter *cursor,
->> +                       struct dma_resv *obj,
->> +                       bool all_fences)
->> +{
->> +    cursor->obj = obj;
->> +    cursor->all_fences = all_fences;
->> +    cursor->fence = NULL;
->> +}
->> +
->> +/**
->> + * dma_resv_iter_end - cleanup a dma_resv_iter object
->> + * @cursor: the dma_resv_iter object which should be cleaned up
->> + *
->> + * Make sure that the reference to the fence in the cursor is properly
->> + * dropped.
->> + */
->> +static inline void dma_resv_iter_end(struct dma_resv_iter *cursor)
->> +{
->> +    dma_fence_put(cursor->fence);
->> +}
->> +
->> +/**
->> + * dma_resv_iter_is_exclusive - test if the current fence is the 
->> exclusive one
->> + * @cursor: the cursor of the current position
->> + *
->> + * Returns true if the currently returned fence is the exclusive one.
->> + */
->> +static inline bool dma_resv_iter_is_exclusive(struct dma_resv_iter 
->> *cursor)
->> +{
->> +    return cursor->index == -1;
->> +}
->> +
->> +/**
->> + * dma_resv_iter_is_restarted - test if this is the first fence 
->> after a restart
->> + * @cursor: the cursor with the current position
->> + *
->> + * Return true if this is the first fence in an iteration after a 
->> restart.
->> + */
->> +static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter 
->> *cursor)
->> +{
->> +    return cursor->is_restarted;
->> +}
->> +
->> +/**
->> + * dma_resv_for_each_fence_unlocked - unlocked fence iterator
->> + * @cursor: a struct dma_resv_iter pointer
->> + * @fence: the current fence
->> + *
->> + * Iterate over the fences in a struct dma_resv object without 
->> holding the
->> + * &dma_resv.lock and using RCU instead. The cursor needs to be 
->> initialized
->> + * with dma_resv_iter_begin() and cleaned up with 
->> dma_resv_iter_end(). Inside
->> + * the iterator a reference to the dma_fence is held and the RCU 
->> lock dropped.
->> + * When the dma_resv is modified the iteration starts over again.
->> + */
->> +#define dma_resv_for_each_fence_unlocked(cursor, fence)            \
->> +    for (fence = dma_resv_iter_first_unlocked(cursor);        \
->> +         fence; fence = dma_resv_iter_next_unlocked(cursor))
->> +
->>   #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->>   #define dma_resv_assert_held(obj) 
->> lockdep_assert_held(&(obj)->lock.base)
->>
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index ff1416cd609a..a1e4c7905ebb 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1310,8 +1310,10 @@ int drm_atomic_check_only(struct drm_atomic_state *state)
+ 
+ 	DRM_DEBUG_ATOMIC("checking %p\n", state);
+ 
+-	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
+-		requested_crtc |= drm_crtc_mask(crtc);
++	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
++		if (new_crtc_state->enable)
++			requested_crtc |= drm_crtc_mask(crtc);
++	}
+ 
+ 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
+ 		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
+@@ -1360,8 +1362,10 @@ int drm_atomic_check_only(struct drm_atomic_state *state)
+ 		}
+ 	}
+ 
+-	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
+-		affected_crtc |= drm_crtc_mask(crtc);
++	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
++		if (new_crtc_state->enable)
++			affected_crtc |= drm_crtc_mask(crtc);
++	}
+ 
+ 	/*
+ 	 * For commits that allow modesets drivers can add other CRTCs to the
+-- 
+2.19.1
 
