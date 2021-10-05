@@ -2,78 +2,75 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 616BEC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88AC8C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30C55615E4
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 30C55615E4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id 58F24615E4
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 58F24615E4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C90A6F5DE;
-	Tue,  5 Oct 2021 12:35:16 +0000 (UTC)
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3626E249
- for <intel-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 22:52:31 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id y23so38770326lfb.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 04 Oct 2021 15:52:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=pDk/FVPOlxwV0pour3j7eAFM0fv3H6VSdZ22j28Ul7U=;
- b=LIv4rNlTW8FZGeFN9OkcGsftb922JtWUGHeoNCbgBi6EOkzrphtlaL86X0Hx7bs80t
- p7VXvOlZVNc7F5AQNYcglEw20Ah86By1tMy+7LoL0pQ7DRafzu+tN99UGZ2PlKx0IOIK
- aPWXsf7+wTAFck25sXUSAL58cQVuU6rzuOc9KXLu/HwXWpthKx9f8pyq9GQ6PMwqhDRr
- UjsFpM7bZYRaH/8eKjibPnwG+lfKVEgnAl1nxyUoN6IqWK5Ml/aRS7ZCq6rnVyXOnPTY
- cle+wYnhZFt7nWOkdiccozA7HSZ9Suk6A4+aEVP3fGjfMDOQevNReKtFdSy2h6CnMjNV
- xsZg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 179A16F5D5;
+	Tue,  5 Oct 2021 12:35:15 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0FF56EB51;
+ Tue,  5 Oct 2021 11:37:52 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id r18so9476702wrg.6;
+ Tue, 05 Oct 2021 04:37:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=AJ5wFCeJ74iADe7IPpi45lRFqxzlB4iYwmf3NxUu/pI=;
+ b=AsQ2oZuy3qM4YGBgiQnTyxqFUT/eo24eFuP2HCc9pcsQFCjQSHbNH0mboo0gshfhbx
+ DdH/hdLTpXFImXQskVyLE7Bj/MU0I0HPp0Mh0k6iyN9xtBeIsVRb0rxV9rPoO7zTlIuo
+ r4Xes1Iiu682xu6OzlK4PZD/9NhQJCipPHTHMlIW6d1PR/LkiWZ+RUyf+nghbCWQleKK
+ QBAZ8iVivU7IFUXB8wU0lyqtl+tDm7vkiHShD+6Fmmy1njkMB8I9bTGQesOQzBom17pZ
+ +OtxxXe+rFv4HwmJDva+WaQbND8ve1TgqGPYoOhACTSMDsxWyMbIBVcCTk2n5nfzIXmW
+ Oyzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=pDk/FVPOlxwV0pour3j7eAFM0fv3H6VSdZ22j28Ul7U=;
- b=rwxLt8R8Ss9EPMIJI60nRK9+JWWL5C/UhGq7Zfhoik/mxctJyOsAjnNKapnHJx11XW
- Cqm8TaG2C6UNOLB85GSpv7oBtdCwNnSxbXkeXczHlzAGn04zGDZQSl/66RhzW9aqESav
- Q0I4wVxgZF6t1gkIJdeD+fl13d5MED4x49jO3MvlxjygTWYn1I0eyxlFoqx3vZQGA+Rf
- 6b0gdKHH5EesWPOIdFEmqRFagTU5BuKl6vZppyjy4nE3r7ATS38SdZCF7OMBjW465w2X
- 51Xms/PIQ6xXmGO8KoeyTb1eL/Fb7tC5ySMJdkkd7xRxO/h3igrbGbvbP4u0L+VnoqO5
- 3k+Q==
-X-Gm-Message-State: AOAM532TUGWUCqA9B8ZOrL3OL5geP6FuopmlonDD44BPUmHdGeNa9elr
- 7uh6Vio/FfWLHVl2W9BfQOzwlw==
-X-Google-Smtp-Source: ABdhPJwHXTIoF58UEmE9I595+cUvc0Pa9iUt0YlUP6A5/oqTKG230Mc7tliM7eddZqoG3qUtMqgpUw==
-X-Received: by 2002:a05:651c:10a6:: with SMTP id
- k6mr7148355ljn.325.1633387949735; 
- Mon, 04 Oct 2021 15:52:29 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id s29sm1886275ljd.54.2021.10.04.15.52.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Oct 2021 15:52:29 -0700 (PDT)
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Cc: swboyd@chromium.org, jani.nikula@linux.intel.com,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org
-References: <20211001151145.55916-1-sean@poorly.run>
- <20211001151145.55916-12-sean@poorly.run>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <39d559a6-d656-7904-7f1c-ac891a386a7a@linaro.org>
-Date: Tue, 5 Oct 2021 01:52:28 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=AJ5wFCeJ74iADe7IPpi45lRFqxzlB4iYwmf3NxUu/pI=;
+ b=LcStshEyOv3cqBYD8r2ToCMA/D4DbyDHegB3bY3j4aSg3BVKEM2ZI+RBIs+co/ZQ9L
+ TRAzHpaCG3eNrEwZYxmzQTQG7M8qG+nJEQdsc+Mh1EVP3ZdC+JTsAbVSn+fnr6+b6Y3z
+ mYmZt8CUliZwh2dU0DWRzcZBRcPYfJ3iJ+Lt/3jNEf3f/UZnRtU5kds2SM4+0hnlken9
+ psScwRwBMz+2h+ZKTjFVGS/24wRMBrSJ+CWyQHNlXDeToEOpgaF3zcgEiEMj+XsjfjB0
+ WCWOqHjHffqC426MUleZ3Gy1wIp5BGIdvCp+IvK86lKlXjxVvrGo7q/riHuvTGJXNoM8
+ 15Nw==
+X-Gm-Message-State: AOAM530pHq7cmVnCiiS/m+13z+fOn9MfoW/D7o+2220DYLnbPLJijrwp
+ GoQS5NEkg4cHC4xOOhAQ4mI=
+X-Google-Smtp-Source: ABdhPJztr39unyHYn82kfLpklBr++cU4DCEL4qpw/oPU23p0ELK6XrOEQU+kdjE+e4dwY+3+ngqj+g==
+X-Received: by 2002:a05:6000:1889:: with SMTP id
+ a9mr21075821wri.300.1633433871242; 
+ Tue, 05 Oct 2021 04:37:51 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ c5sm1739912wml.9.2021.10.05.04.37.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Oct 2021 04:37:50 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Cc: daniel@ffwll.ch,
+	tvrtko.ursulin@linux.intel.com
+Date: Tue,  5 Oct 2021 13:37:21 +0200
+Message-Id: <20211005113742.1101-8-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211005113742.1101-1-christian.koenig@amd.com>
+References: <20211005113742.1101-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20211001151145.55916-12-sean@poorly.run>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:13 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 11/14] drm/msm/dp: Re-order dp_audio_put
- in deinit_sub_modules
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:14 +0000
+Subject: [Intel-gfx] [PATCH 07/28] dma-buf: use new iterator in
+ dma_resv_test_signaled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,45 +86,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 01/10/2021 18:11, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> Audio is initialized last, it should be de-initialized first to match
-> the order in dp_init_sub_modules().
-> 
-> Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-12-sean@poorly.run #v1
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-12-sean@poorly.run #v2
+This makes the function much simpler since the complex
+retry logic is now handled elsewhere.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+---
+ drivers/dma-buf/dma-resv.c | 57 +++++---------------------------------
+ 1 file changed, 7 insertions(+), 50 deletions(-)
 
-> 
-> Changes in v2:
-> -None
-> ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index fbe4c2cd52a3..19946024e235 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -714,9 +714,9 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
->   static void dp_display_deinit_sub_modules(struct dp_display_private *dp)
->   {
->   	dp_debug_put(dp->debug);
-> +	dp_audio_put(dp->audio);
->   	dp_panel_put(dp->panel);
->   	dp_aux_put(dp->aux);
-> -	dp_audio_put(dp->audio);
->   }
->   
->   static int dp_init_sub_modules(struct dp_display_private *dp)
-> 
-
-
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 220c40dc5c11..41c2e951213c 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -633,22 +633,6 @@ long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
+ EXPORT_SYMBOL_GPL(dma_resv_wait_timeout);
+ 
+ 
+-static inline int dma_resv_test_signaled_single(struct dma_fence *passed_fence)
+-{
+-	struct dma_fence *fence, *lfence = passed_fence;
+-	int ret = 1;
+-
+-	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &lfence->flags)) {
+-		fence = dma_fence_get_rcu(lfence);
+-		if (!fence)
+-			return -1;
+-
+-		ret = !!dma_fence_is_signaled(fence);
+-		dma_fence_put(fence);
+-	}
+-	return ret;
+-}
+-
+ /**
+  * dma_resv_test_signaled - Test if a reservation object's fences have been
+  * signaled.
+@@ -665,43 +649,16 @@ static inline int dma_resv_test_signaled_single(struct dma_fence *passed_fence)
+  */
+ bool dma_resv_test_signaled(struct dma_resv *obj, bool test_all)
+ {
++	struct dma_resv_iter cursor;
+ 	struct dma_fence *fence;
+-	unsigned int seq;
+-	int ret;
+-
+-	rcu_read_lock();
+-retry:
+-	ret = true;
+-	seq = read_seqcount_begin(&obj->seq);
+-
+-	if (test_all) {
+-		struct dma_resv_list *fobj = dma_resv_shared_list(obj);
+-		unsigned int i, shared_count;
+-
+-		shared_count = fobj ? fobj->shared_count : 0;
+-		for (i = 0; i < shared_count; ++i) {
+-			fence = rcu_dereference(fobj->shared[i]);
+-			ret = dma_resv_test_signaled_single(fence);
+-			if (ret < 0)
+-				goto retry;
+-			else if (!ret)
+-				break;
+-		}
+-	}
+-
+-	fence = dma_resv_excl_fence(obj);
+-	if (ret && fence) {
+-		ret = dma_resv_test_signaled_single(fence);
+-		if (ret < 0)
+-			goto retry;
+ 
++	dma_resv_iter_begin(&cursor, obj, test_all);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
++		dma_resv_iter_end(&cursor);
++		return false;
+ 	}
+-
+-	if (read_seqcount_retry(&obj->seq, seq))
+-		goto retry;
+-
+-	rcu_read_unlock();
+-	return ret;
++	dma_resv_iter_end(&cursor);
++	return true;
+ }
+ EXPORT_SYMBOL_GPL(dma_resv_test_signaled);
+ 
 -- 
-With best wishes
-Dmitry
+2.25.1
+
