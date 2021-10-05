@@ -2,40 +2,47 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1F6DC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 22:49:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBB6BC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 23:13:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92970611C5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 22:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 92970611C5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7D809611CA
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 23:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D809611CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DCF56EC90;
-	Tue,  5 Oct 2021 22:49:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 35EE76EC8D;
- Tue,  5 Oct 2021 22:49:04 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2E021AA917;
- Tue,  5 Oct 2021 22:49:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1823370356830492106=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 174306E488;
+	Tue,  5 Oct 2021 23:13:11 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5157B6E488
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 23:13:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="205999742"
+X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="205999742"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2021 16:13:09 -0700
+X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="483948640"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2021 16:13:09 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Tue,  5 Oct 2021 16:18:51 -0700
+Message-Id: <20211005231851.67698-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211001011218.276557-1-jose.souza@intel.com>
+References: <20211001011218.276557-1-jose.souza@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 05 Oct 2021 22:49:04 -0000
-Message-ID: <163347414415.19282.18446731645706554832@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211005174711.55618-1-umesh.nerlige.ramappa@intel.com>
-In-Reply-To: <20211005174711.55618-1-umesh.nerlige.ramappa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/pmu=3A_Connect_engine_busyness_stats_from_GuC_to_pmu_=28r?=
- =?utf-8?q?ev2=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3] drm/i915/display: Wait PSR2 get out of deep
+ sleep to update pipe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,172 +55,160 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1823370356830492106==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Alderlake-P was getting 'max time under evasion' messages when PSR2
+is enabled, this is due PIPE_SCANLINE/PIPEDSL returning 0 over a
+period of time longer than VBLANK_EVASION_TIME_US.
 
-== Series Details ==
+For PSR1 we had the same issue so intel_psr_wait_for_idle() was
+implemented to wait for PSR1 to get into idle state but nothing was
+done for PSR2.
 
-Series: drm/i915/pmu: Connect engine busyness stats from GuC to pmu (rev2)
-URL   : https://patchwork.freedesktop.org/series/95043/
-State : failure
+For PSR2 we can't only wait for idle state as PSR2 tends to keep
+into sleep state(ready to send selective updates).
+Waiting for any state below deep sleep proved to be effective in
+avoiding the evasion messages and also not wasted a lot of time.
 
-== Summary ==
+v2:
+- dropping the additional wait_for loops, only the _wait_for_atomic()
+is necessary
+- waiting for states below EDP_PSR2_STATUS_STATE_DEEP_SLEEP
 
-CI Bug Log - changes from CI_DRM_10685 -> Patchwork_21254
-====================================================
+v3:
+- dropping intel_wait_for_condition_atomic() function
 
-Summary
--------
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ .../drm/i915/display/intel_display_debugfs.c  |  3 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      | 52 +++++++++++--------
+ drivers/gpu/drm/i915/i915_reg.h               | 10 ++--
+ 3 files changed, 36 insertions(+), 29 deletions(-)
 
-  **FAILURE**
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 309d74fd86ce1..d7dd3a57c6170 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -303,8 +303,7 @@ psr_source_status(struct intel_dp *intel_dp, struct seq_file *m)
+ 		};
+ 		val = intel_de_read(dev_priv,
+ 				    EDP_PSR2_STATUS(intel_dp->psr.transcoder));
+-		status_val = (val & EDP_PSR2_STATUS_STATE_MASK) >>
+-			      EDP_PSR2_STATUS_STATE_SHIFT;
++		status_val = REG_FIELD_GET(EDP_PSR2_STATUS_STATE_MASK, val);
+ 		if (status_val < ARRAY_SIZE(live_status))
+ 			status = live_status[status_val];
+ 	} else {
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 7a205fd5023bb..ade514fc0a24d 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1809,15 +1809,21 @@ void intel_psr_post_plane_update(const struct intel_atomic_state *state)
+ 		_intel_psr_post_plane_update(state, crtc_state);
+ }
+ 
+-/**
+- * psr_wait_for_idle - wait for PSR1 to idle
+- * @intel_dp: Intel DP
+- * @out_value: PSR status in case of failure
+- *
+- * Returns: 0 on success or -ETIMEOUT if PSR status does not idle.
+- *
+- */
+-static int psr_wait_for_idle(struct intel_dp *intel_dp, u32 *out_value)
++static int _psr2_ready_for_pipe_update_locked(struct intel_dp *intel_dp)
++{
++	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
++
++	/*
++	 * Any state lower than EDP_PSR2_STATUS_STATE_DEEP_SLEEP is enough.
++	 * As all higher states has bit 4 of PSR2 state set we can just wait for
++	 * EDP_PSR2_STATUS_STATE_DEEP_SLEEP to be cleared.
++	 */
++	return intel_de_wait_for_clear(dev_priv,
++				       EDP_PSR2_STATUS(intel_dp->psr.transcoder),
++				       EDP_PSR2_STATUS_STATE_DEEP_SLEEP, 50);
++}
++
++static int _psr1_ready_for_pipe_update_locked(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 
+@@ -1827,15 +1833,13 @@ static int psr_wait_for_idle(struct intel_dp *intel_dp, u32 *out_value)
+ 	 * exit training time + 1.5 ms of aux channel handshake. 50 ms is
+ 	 * defensive enough to cover everything.
+ 	 */
+-	return __intel_wait_for_register(&dev_priv->uncore,
+-					 EDP_PSR_STATUS(intel_dp->psr.transcoder),
+-					 EDP_PSR_STATUS_STATE_MASK,
+-					 EDP_PSR_STATUS_STATE_IDLE, 2, 50,
+-					 out_value);
++	return intel_de_wait_for_clear(dev_priv,
++				       EDP_PSR_STATUS(intel_dp->psr.transcoder),
++				       EDP_PSR_STATUS_STATE_MASK, 50);
+ }
+ 
+ /**
+- * intel_psr_wait_for_idle - wait for PSR1 to idle
++ * intel_psr_wait_for_idle - wait for PSR be ready for a pipe update
+  * @new_crtc_state: new CRTC state
+  *
+  * This function is expected to be called from pipe_update_start() where it is
+@@ -1852,19 +1856,23 @@ void intel_psr_wait_for_idle(const struct intel_crtc_state *new_crtc_state)
+ 	for_each_intel_encoder_mask_with_psr(&dev_priv->drm, encoder,
+ 					     new_crtc_state->uapi.encoder_mask) {
+ 		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+-		u32 psr_status;
++		int ret;
+ 
+ 		mutex_lock(&intel_dp->psr.lock);
+-		if (!intel_dp->psr.enabled || intel_dp->psr.psr2_enabled) {
++
++		if (!intel_dp->psr.enabled) {
+ 			mutex_unlock(&intel_dp->psr.lock);
+ 			continue;
+ 		}
+ 
+-		/* when the PSR1 is enabled */
+-		if (psr_wait_for_idle(intel_dp, &psr_status))
+-			drm_err(&dev_priv->drm,
+-				"PSR idle timed out 0x%x, atomic update may fail\n",
+-				psr_status);
++		if (intel_dp->psr.psr2_enabled)
++			ret = _psr2_ready_for_pipe_update_locked(intel_dp);
++		else
++			ret = _psr1_ready_for_pipe_update_locked(intel_dp);
++
++		if (ret)
++			drm_err(&dev_priv->drm, "PSR wait timed out, atomic update may fail\n");
++
+ 		mutex_unlock(&intel_dp->psr.lock);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index a897f4abea0c3..e101579d3a4d8 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4700,11 +4700,11 @@ enum {
+ #define  PSR_EVENT_LPSP_MODE_EXIT		(1 << 1)
+ #define  PSR_EVENT_PSR_DISABLE			(1 << 0)
+ 
+-#define _PSR2_STATUS_A			0x60940
+-#define _PSR2_STATUS_EDP		0x6f940
+-#define EDP_PSR2_STATUS(tran)		_MMIO_TRANS2(tran, _PSR2_STATUS_A)
+-#define EDP_PSR2_STATUS_STATE_MASK     (0xf << 28)
+-#define EDP_PSR2_STATUS_STATE_SHIFT    28
++#define _PSR2_STATUS_A				0x60940
++#define _PSR2_STATUS_EDP			0x6f940
++#define EDP_PSR2_STATUS(tran)			_MMIO_TRANS2(tran, _PSR2_STATUS_A)
++#define EDP_PSR2_STATUS_STATE_MASK		REG_GENMASK(31, 28)
++#define EDP_PSR2_STATUS_STATE_DEEP_SLEEP	REG_FIELD_PREP(EDP_PSR2_STATUS_STATE_MASK, 0x8)
+ 
+ #define _PSR2_SU_STATUS_A		0x60914
+ #define _PSR2_SU_STATUS_EDP		0x6f914
+-- 
+2.33.0
 
-  Serious unknown changes coming with Patchwork_21254 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_21254, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_21254:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@gt_engines:
-    - fi-rkl-guc:         [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10685/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21254 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@runner@aborted:
-    - fi-rkl-guc:         NOTRUN -> [FAIL][3] ([i915#3928])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/fi-rkl-guc/igt@runner@aborted.html
-
-  
-  [i915#3928]: https://gitlab.freedesktop.org/drm/intel/issues/3928
-
-
-Participating hosts (41 -> 1)
-------------------------------
-
-  ERROR: It appears as if the changes made in Patchwork_21254 prevented too many machines from booting.
-
-  Missing    (40): fi-kbl-soraka fi-rkl-11600 bat-dg1-6 fi-bdw-gvtdvm fi-icl-u2 fi-apl-guc fi-snb-2520m fi-pnv-d510 fi-icl-y fi-skl-6600u fi-snb-2600 fi-cml-u2 fi-bxt-dsi fi-bdw-5557u fi-bsw-n3050 fi-tgl-u2 fi-glk-dsi fi-bwr-2160 fi-kbl-7500u fi-ctg-p8600 fi-hsw-4770 fi-ivb-3770 fi-elk-e7500 fi-bsw-nick fi-kbl-r fi-kbl-7567u fi-ilk-m540 fi-tgl-dsi fi-cfl-8700k fi-ehl-2 bat-jsl-1 fi-jsl-1 fi-hsw-4200u fi-tgl-1115g4 fi-bsw-cyan fi-cfl-guc bat-adlp-4 fi-cfl-8109u fi-kbl-8809g fi-bsw-kefka 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10685 -> Patchwork_21254
-
-  CI-20190529: 20190529
-  CI_DRM_10685: 36c3656c997b07f326d6b967efb1b75e01713773 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6232: effad6af5678be711a2c3e58e182319de784de54 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21254: 6044dafc24be45f573885716d0b7ac1b78133e3f @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-6044dafc24be drm/i915/pmu: Connect engine busyness stats from GuC to pmu
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/index.html
-
---===============1823370356830492106==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/pmu: Connect engine busyness stats from GuC to pmu (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95043/">https://patchwork.freedesktop.org/series/95043/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10685 -&gt; Patchwork_21254</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_21254 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_21254, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_21254:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_engines:<ul>
-<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10685/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21254 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@runner@aborted:<ul>
-<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21254/fi-rkl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (41 -&gt; 1)</h2>
-<p>ERROR: It appears as if the changes made in Patchwork_21254 prevented too many machines from booting.</p>
-<p>Missing    (40): fi-kbl-soraka fi-rkl-11600 bat-dg1-6 fi-bdw-gvtdvm fi-icl-u2 fi-apl-guc fi-snb-2520m fi-pnv-d510 fi-icl-y fi-skl-6600u fi-snb-2600 fi-cml-u2 fi-bxt-dsi fi-bdw-5557u fi-bsw-n3050 fi-tgl-u2 fi-glk-dsi fi-bwr-2160 fi-kbl-7500u fi-ctg-p8600 fi-hsw-4770 fi-ivb-3770 fi-elk-e7500 fi-bsw-nick fi-kbl-r fi-kbl-7567u fi-ilk-m540 fi-tgl-dsi fi-cfl-8700k fi-ehl-2 bat-jsl-1 fi-jsl-1 fi-hsw-4200u fi-tgl-1115g4 fi-bsw-cyan fi-cfl-guc bat-adlp-4 fi-cfl-8109u fi-kbl-8809g fi-bsw-kefka </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10685 -&gt; Patchwork_21254</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10685: 36c3656c997b07f326d6b967efb1b75e01713773 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6232: effad6af5678be711a2c3e58e182319de784de54 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21254: 6044dafc24be45f573885716d0b7ac1b78133e3f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>6044dafc24be drm/i915/pmu: Connect engine busyness stats from GuC to pmu</p>
-
-</body>
-</html>
-
---===============1823370356830492106==--
