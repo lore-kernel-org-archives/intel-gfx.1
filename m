@@ -2,52 +2,61 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87EC5C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 14:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E39B4C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5269D61354
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 14:55:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5269D61354
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B0B5861244
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B0B5861244
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 699956E41B;
-	Tue,  5 Oct 2021 14:55:40 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B87F6E416;
- Tue,  5 Oct 2021 14:55:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="226077344"
-X-IronPort-AV: E=Sophos;i="5.85,349,1624345200"; d="scan'208";a="226077344"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2021 07:55:38 -0700
-X-IronPort-AV: E=Sophos;i="5.85,349,1624345200"; d="scan'208";a="438726367"
-Received: from tbarret1-mobl.ger.corp.intel.com (HELO [10.213.238.194])
- ([10.213.238.194])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2021 07:55:36 -0700
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Tvrtko Ursulin
- <tvrtko.ursulin@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Matthew Auld <matthew.auld@intel.com>
-References: <20211005113135.768295-1-tvrtko.ursulin@linux.intel.com>
- <3aa70cb9-c28b-b85d-eac0-b3f5cca5bf73@linux.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <2e5d05dd-8497-1695-dc3f-9f68c00bd898@linux.intel.com>
-Date: Tue, 5 Oct 2021 15:55:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B646E422;
+	Tue,  5 Oct 2021 15:00:53 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821FC6E422;
+ Tue,  5 Oct 2021 15:00:52 +0000 (UTC)
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1633446051;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=swdtSGybUF+hM1+gEZyqBgLEE/zkwh1sMjOuuHLJsS8=;
+ b=eTs2qRmk+as86cx1BJfDhz6w2GT21pN93zvo+NZssZNI5z9ohZtcOm9xfDwoimldE7GUAp
+ PG6xmnoFJ2nRiIXlu5nCXz5mPMDnpDAmMzW68MU7ka9mMKwJ/wXpotKIUOB/l4nrIiWvyI
+ r8PuVl/XYsojH/QKCHdeJDAioomRcebu41hxl1vLWL4NjQEPxWVBkLPQl2pgmLtkjoHagl
+ RbfI/c6U2Xx9oOgZ0dyfZCth11oITufIIq7CXTrKgXY+i71nlsPut/r0oaQxaJdueExzqf
+ UiorMbqnQsbyrTEQ+wOMNG49JQEUsRNO5q8PXTZEDaZ2HluNy2eXj1l7zGr45g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1633446051;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=swdtSGybUF+hM1+gEZyqBgLEE/zkwh1sMjOuuHLJsS8=;
+ b=zjRvyW+eqBhuYuWg5IvituDSI6BgeNvIlBcn/49+QyZhbzaleC7fbudPIk7iUFiduRz9jL
+ yZropuobftY1j8Ag==
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Steven Rostedt <rostedt@goodmis.org>
+Date: Tue,  5 Oct 2021 17:00:42 +0200
+Message-Id: <20211005150046.1000285-5-bigeasy@linutronix.de>
+In-Reply-To: <20211005150046.1000285-1-bigeasy@linutronix.de>
+References: <20211005150046.1000285-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <3aa70cb9-c28b-b85d-eac0-b3f5cca5bf73@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Handle Intel igfx + Intel dgfx
- hybrid graphics setup
+Content-Transfer-Encoding: quoted-printable
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915: skip
+ DRM_I915_LOW_LEVEL_TRACEPOINTS with NOTRACE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,128 +72,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The order of the header files is important. If this header file is
+included after tracepoint.h was included then the NOTRACE here becomes a
+nop. Currently this happens for two .c files which use the tracepoitns
+behind DRM_I915_LOW_LEVEL_TRACEPOINTS.
 
-On 05/10/2021 14:05, Thomas Hellström wrote:
-> Hi, Tvrtko,
-> 
-> On 10/5/21 13:31, Tvrtko Ursulin wrote:
->> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>
->> In short this makes i915 work for hybrid setups (DRI_PRIME=1 with Mesa)
->> when rendering is done on Intel dgfx and scanout/composition on Intel
->> igfx.
->>
->> Before this patch the driver was not quite ready for that setup, mainly
->> because it was able to emit a semaphore wait between the two GPUs, which
->> results in deadlocks because semaphore target location in HWSP is neither
->> shared between the two, nor mapped in both GGTT spaces.
->>
->> To fix it the patch adds an additional check to a couple of relevant code
->> paths in order to prevent using semaphores for inter-engine
->> synchronisation when relevant objects are not in the same GGTT space.
->>
->> v2:
->>   * Avoid adding rq->i915. (Chris)
->>
->> v3:
->>   * Use GGTT which describes the limit more precisely.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> 
-> An IMO pretty important bugfix. I read up a bit on the previous 
-> discussion on this, and from what I understand the other two options were
-> 
-> 1) Ripping out the semaphore code,
-> 2) Consider dma-fences from other instances of the same driver as foreign.
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+---
+ drivers/gpu/drm/i915/i915_trace.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yes, with the caveat on the second point that there is a multi-tile 
-scenario, granted of limited consequence because it only applies is 
-someone tries to run that wo/ GuC, where the "same driver" check is not 
-enough. This patch handles that case as well. And of course it is 
-hypothetical someone would be able to create a inter-tile dependency 
-there. Probably nothing in the current code does it.
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_=
+trace.h
+index 773e7362c4442..5ff6c0a37fdfa 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -826,7 +826,7 @@ DEFINE_EVENT(i915_request, i915_request_add,
+ 	     TP_ARGS(rq)
+ );
+=20
+-#if defined(CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS)
++#if defined(CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS) && !defined(NOTRACE)
+ DEFINE_EVENT(i915_request, i915_request_guc_submit,
+ 	     TP_PROTO(struct i915_request *rq),
+ 	     TP_ARGS(rq)
+--=20
+2.33.0
 
-> For imported dma-bufs we do 2), but particularly with lmem and p2p 
-> that's a more straightforward decision.
-
-I am not immediately familiar with p2p considerations.
-
-> I don't think 1) is a reasonable approach to fix this bug, (but perhaps 
-> as a general cleanup?), and for 2) yes I guess we might end up doing 
-> that, unless we find some real benefits in treating 
-> same-driver-separate-device dma-fences as local, but for this particular 
-> bug, IMO this is a reasonable fix.
-
-On the option of removing the semaphore inter-optimisation I would not 
-call it cleanup since it had clear performance benefits. I personally 
-don't have those benchmarks results saved though. So I'd proceed with 
-caution there if the code can harmlessly remain in the confines of the 
-execlists backend.
-
-Second topic, the whole same driver fence upcast issue, I suppose can be 
-discussed along the lines of whether priority inheritance across drivers 
-is useful. Like for instance page flip prio boost, which currently does 
-safely work between i915 instances, and is relevant to hybrid graphics. 
-It was safe when I looked at it, courtesy of global scheduler lock. If 
-we wanted to keep that and formalise via an more explicit/generic cross 
-driver API is the question. So unless it is not safe after all, I 
-wouldn't rip it out before the discussion on the big picture happens.
-
-> So,
-> 
-> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-Thanks, I'll push it once again cleared by CI.
-
-Regards,
-
-Tvrtko
-
-> 
-> 
-> 
-> 
->> ---
->>   drivers/gpu/drm/i915/i915_request.c | 12 +++++++++++-
->>   1 file changed, 11 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/i915_request.c 
->> b/drivers/gpu/drm/i915/i915_request.c
->> index 79da5eca60af..4f189982f67e 100644
->> --- a/drivers/gpu/drm/i915/i915_request.c
->> +++ b/drivers/gpu/drm/i915/i915_request.c
->> @@ -1145,6 +1145,12 @@ __emit_semaphore_wait(struct i915_request *to,
->>       return 0;
->>   }
->> +static bool
->> +can_use_semaphore_wait(struct i915_request *to, struct i915_request 
->> *from)
->> +{
->> +    return to->engine->gt->ggtt == from->engine->gt->ggtt;
->> +}
->> +
->>   static int
->>   emit_semaphore_wait(struct i915_request *to,
->>               struct i915_request *from,
->> @@ -1153,6 +1159,9 @@ emit_semaphore_wait(struct i915_request *to,
->>       const intel_engine_mask_t mask = READ_ONCE(from->engine)->mask;
->>       struct i915_sw_fence *wait = &to->submit;
->> +    if (!can_use_semaphore_wait(to, from))
->> +        goto await_fence;
->> +
->>       if (!intel_context_use_semaphores(to->context))
->>           goto await_fence;
->> @@ -1256,7 +1265,8 @@ __i915_request_await_execution(struct 
->> i915_request *to,
->>        * immediate execution, and so we must wait until it reaches the
->>        * active slot.
->>        */
->> -    if (intel_engine_has_semaphores(to->engine) &&
->> +    if (can_use_semaphore_wait(to, from) &&
->> +        intel_engine_has_semaphores(to->engine) &&
->>           !i915_request_has_initial_breadcrumb(to)) {
->>           err = __emit_semaphore_wait(to, from, from->fence.seqno - 1);
->>           if (err < 0)
