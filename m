@@ -2,56 +2,57 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 156E5C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64D92C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB228615E4
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DB228615E4
+	by mail.kernel.org (Postfix) with ESMTPS id 3823C615E4
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3823C615E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA8626F5EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89EE46F5E8;
 	Tue,  5 Oct 2021 12:35:25 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80CBA6EB69;
- Tue,  5 Oct 2021 11:38:09 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id e12so16509002wra.4;
- Tue, 05 Oct 2021 04:38:09 -0700 (PDT)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2BB46EB55;
+ Tue,  5 Oct 2021 11:37:51 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ z184-20020a1c7ec1000000b003065f0bc631so2773705wmc.0; 
+ Tue, 05 Oct 2021 04:37:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HMzUm0lSAp/TufSF81gwSiHnNGVLq2ZvLYEQaLMOzyo=;
- b=hhHpVvwfMnnHwI+vQ3XITa1aQYsSBFoaZX0m247XUTVUdPyi95aZsOWAs7pWOTaUf3
- HyrNaZMY3shrmKT6IZaoAgBOlgpaLvyxlEKzD5Aa4co3S38LnrObkBVf26lJlSiiZ78E
- wPBaDXTyaPiWKt8NUSKjz8+S21sWA8WRXW4vHLXV1PNsmqbNmFIrAHO7AnmWQeWaQgI+
- /tNXHVnNmRPmFecmPczhHyy2ofUQjy2Cy6a2or4Hts3yJe0Jk7UBZ/XbJMB7RbHSFSJk
- lJ4l4nFr2v9xdRbe/N9A38ee3e85egb0XrEAsR97AAIyBe4Lqg67phZau19YDCuextaW
- nl+Q==
+ bh=7S4UZZ06lQFAt7cL4jRnJdIrOJP1lf3uq1O38fzKrOI=;
+ b=klCt2ie1iQoJNVuAJjBjxzmsYVle3nBQs+NUswgWm1tq1bbIrTXguLW0YPmuGZerZ4
+ Y04Hjirr6t9HEaqxlc0OrV4dBHt/1h1jPqUMjN+w7Ziy+hvoRpBj/buttX9ug0BXq8bd
+ 2B1Aoq6B1FO8E23fimNrICoLmWKjvMTuyFSq6FufCOvucdRklCVgx8lRyPeV3LRT7vBe
+ c7UMoCtjxfNkLQqDAvg+3mV5XiNmDsQF+6DyjadkQmjkBbVktRVg20vy4YkQkzhb7qOe
+ YUTRl11vSunqaG1SW+UIyNrF6O83xsR6U+oullpCn/Su16E/CEM5QApbIKdiN3zEPAKg
+ e95A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HMzUm0lSAp/TufSF81gwSiHnNGVLq2ZvLYEQaLMOzyo=;
- b=ruw0Y0fqiFhADzpYGM//+bqhAF1zCQAjL6VrIO8yzbQ15RHQqs1wuDnj4QQ+AUXvrz
- HgYm8IlYym5M7z1jKQZxA2b+5McH/AmTm2maMoGlqdAnjbyUDCqQRtNtHiDIeM/GilOT
- WWcPmqbxKMfE6XWHqhxF3ZlbSJqMCnk6/i6umHNfGQSYzB9Uv/06/17niP6EZ+iw+vln
- LAfLXhXzHnm1iDDskfCni6NaEk4UuThYToWYXvxYqlgX3u871sxyOzphUDChS2OhmpW2
- lphq5amB6EXXLvyPWSTZ+C0T/LK0Jn0Am1SxHpYHzQX3PrpFiia8n3cF+QKikGXOSS6H
- KXVA==
-X-Gm-Message-State: AOAM532pl1sqj3/sor8AE8Mhs6Guah9mU8935veo+/Yyf0f86FMuJs74
- OwhacW657lQ6xVvsnQDboMM=
-X-Google-Smtp-Source: ABdhPJyUGvcV1ZwGKRs9V2vqonO4HKIO8QTHt0jxiHgx2NA7aB6xjsD2Mr9jkJgmiZDsWbX6ey+rEA==
-X-Received: by 2002:a5d:500f:: with SMTP id e15mr6173258wrt.90.1633433886565; 
- Tue, 05 Oct 2021 04:38:06 -0700 (PDT)
+ bh=7S4UZZ06lQFAt7cL4jRnJdIrOJP1lf3uq1O38fzKrOI=;
+ b=ixTj2BBD06nY4Gb5nnM291ctApbUZkdfrXJXwtA0CdFyW/Onp8ilVEAwSLzxoUyBBJ
+ AHbFEVgU5siR5fmDfchKMC7qOkyKkwJQCjpMi2SXtnbwMwV13J8SZEsXVyeZeJjB2dXM
+ vE60gkeY1nGJUAmq+eNpJB3wGfOBJhZEpyMej9IP2gDRlhHnr95FgZgX3SUqn8/4kHTW
+ FLXBw/X5wZBpP0ba5OZUIqCrRTA0r3ywq+Qwabl9zW1KLlryToGer7Kw5Xm0aPiDKsLA
+ tTeoKLJMG9bQ3X+Dow75r0uG+HKlo3P402gkGw4tGPL5cx3MXgAoYOkoduTKzZ4O9K/6
+ QD5Q==
+X-Gm-Message-State: AOAM532FxuVJPUE4oKrLymDWODkXmEZSNCP7JNf0x9egu26hXbbcjEzD
+ HeOD1tAZdBl8nXM1bjS54r8=
+X-Google-Smtp-Source: ABdhPJxPfajocwVl7jmyxBmrImRcinblFXj7dZ49L53robce8asbmIjdgWRMcGcHAEEOmAOzYfXVLA==
+X-Received: by 2002:a1c:c905:: with SMTP id f5mr2855109wmb.148.1633433870365; 
+ Tue, 05 Oct 2021 04:37:50 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- c5sm1739912wml.9.2021.10.05.04.38.05
+ c5sm1739912wml.9.2021.10.05.04.37.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 04:38:06 -0700 (PDT)
+ Tue, 05 Oct 2021 04:37:50 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -59,8 +60,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Tue,  5 Oct 2021 13:37:38 +0200
-Message-Id: <20211005113742.1101-25-christian.koenig@amd.com>
+Date: Tue,  5 Oct 2021 13:37:20 +0200
+Message-Id: <20211005113742.1101-7-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211005113742.1101-1-christian.koenig@amd.com>
 References: <20211005113742.1101-1-christian.koenig@amd.com>
@@ -68,8 +69,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:14 +0000
-Subject: [Intel-gfx] [PATCH 24/28] drm: use new iterator in
- drm_gem_plane_helper_prepare_fb v2
+Subject: [Intel-gfx] [PATCH 06/28] dma-buf: use new iterator in
+ dma_resv_wait_timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,48 +86,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Makes the handling a bit more complex, but avoids the use of
-dma_resv_get_excl_unlocked().
-
-v2: improve coding and documentation
+This makes the function much simpler since the complex
+retry logic is now handled elsewhere.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/drm_gem_atomic_helper.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/dma-buf/dma-resv.c | 69 +++++---------------------------------
+ 1 file changed, 8 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
-index e570398abd78..8534f78d4d6d 100644
---- a/drivers/gpu/drm/drm_gem_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
-@@ -143,6 +143,7 @@
-  */
- int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane, struct drm_plane_state *state)
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 1a43bef03af3..220c40dc5c11 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -614,74 +614,21 @@ long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
+ 			   unsigned long timeout)
  {
+ 	long ret = timeout ? timeout : 1;
+-	unsigned int seq, shared_count;
 +	struct dma_resv_iter cursor;
- 	struct drm_gem_object *obj;
  	struct dma_fence *fence;
+-	int i;
+-
+-retry:
+-	shared_count = 0;
+-	seq = read_seqcount_begin(&obj->seq);
+-	rcu_read_lock();
+-	i = -1;
+-
+-	fence = dma_resv_excl_fence(obj);
+-	if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-		if (!dma_fence_get_rcu(fence))
+-			goto unlock_retry;
+-
+-		if (dma_fence_is_signaled(fence)) {
+-			dma_fence_put(fence);
+-			fence = NULL;
+-		}
+-
+-	} else {
+-		fence = NULL;
+-	}
+-
+-	if (wait_all) {
+-		struct dma_resv_list *fobj = dma_resv_shared_list(obj);
+-
+-		if (fobj)
+-			shared_count = fobj->shared_count;
+-
+-		for (i = 0; !fence && i < shared_count; ++i) {
+-			struct dma_fence *lfence;
+-
+-			lfence = rcu_dereference(fobj->shared[i]);
+-			if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+-				     &lfence->flags))
+-				continue;
  
-@@ -150,9 +151,17 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane, struct drm_plane_st
- 		return 0;
- 
- 	obj = drm_gem_fb_get_obj(state->fb, 0);
--	fence = dma_resv_get_excl_unlocked(obj->resv);
--	drm_atomic_set_fence_for_plane(state, fence);
-+	dma_resv_iter_begin(&cursor, obj->resv, false);
+-			if (!dma_fence_get_rcu(lfence))
+-				goto unlock_retry;
+-
+-			if (dma_fence_is_signaled(lfence)) {
+-				dma_fence_put(lfence);
+-				continue;
+-			}
++	dma_resv_iter_begin(&cursor, obj, wait_all);
 +	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		/* TODO: We only use the first write fence here and need to fix
-+		 * the drm_atomic_set_fence_for_plane() API to accept more than
-+		 * one. */
-+		dma_fence_get(fence);
-+		break;
-+	}
+ 
+-			fence = lfence;
+-			break;
++		ret = dma_fence_wait_timeout(fence, intr, ret);
++		if (ret <= 0) {
++			dma_resv_iter_end(&cursor);
++			return ret;
+ 		}
+ 	}
 +	dma_resv_iter_end(&cursor);
  
-+	drm_atomic_set_fence_for_plane(state, fence);
- 	return 0;
+-	rcu_read_unlock();
+-	if (fence) {
+-		if (read_seqcount_retry(&obj->seq, seq)) {
+-			dma_fence_put(fence);
+-			goto retry;
+-		}
+-
+-		ret = dma_fence_wait_timeout(fence, intr, ret);
+-		dma_fence_put(fence);
+-		if (ret > 0 && wait_all && (i + 1 < shared_count))
+-			goto retry;
+-	}
+ 	return ret;
+-
+-unlock_retry:
+-	rcu_read_unlock();
+-	goto retry;
  }
- EXPORT_SYMBOL_GPL(drm_gem_plane_helper_prepare_fb);
+ EXPORT_SYMBOL_GPL(dma_resv_wait_timeout);
+ 
 -- 
 2.25.1
 
