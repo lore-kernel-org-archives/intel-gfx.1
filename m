@@ -2,74 +2,78 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76A7FC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D15E5C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4707E615A6
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4707E615A6
+	by mail.kernel.org (Postfix) with ESMTPS id 9E5F2615A6
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E5F2615A6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F84B6F5DD;
-	Tue,  5 Oct 2021 12:35:16 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6AD06ED8E;
- Tue,  5 Oct 2021 11:38:10 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id v17so36746208wrv.9;
- Tue, 05 Oct 2021 04:38:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA5156F5DB;
+	Tue,  5 Oct 2021 12:35:15 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7306C6E3AE;
+ Tue,  5 Oct 2021 10:27:57 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id m42so5401643wms.2;
+ Tue, 05 Oct 2021 03:27:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=jIUir/k9ok0mhA9lZLcDk0nsv9skwzmV2ts7X5dBo9o=;
- b=AFfVS3EWatdXDmvJKODPj1SdKmMBygV+2zYjnLRZQm4t+YFtQDSrgbUnoeiH9a6g6X
- dwfOR6wkZyjnKeNPdc2BdrrO9p+BzhqCIBhwLchvosIffnY7GB+KWgcfZ2v6aNKyiIbd
- TZSOvmrcMR8UvL87/pPXVb3PS3j/TpMiB50HocpnnPcXh3+guH5zyU6KFEZQdxZZttvV
- 8qaNiT3MBBc4Vx5LsNo2HG/KOStQkWdObfMGxWeGmB74/MaPfRVHPBasKMc5252g9FmJ
- kxcD9i/J/Zk2E8mlWm23J1x69Wi8O/AaiPwzlEw0DouCNUewcPcqHTAUqTNajSCO/5IS
- P9kA==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=kho0a35tcTvwlWpi5rtKIMqf35HFHYFjgSKnZBnXZsw=;
+ b=T70aUK9jA4vKL40rXJdZt8UdxDE5rcJtolyMQHjgK2Xc0e+UYo2yuvRh/f35X9x/de
+ 90mNlB6c2BMXmufHRi/rySvgCZzt5Pc7aPNjP7UKLFuYJzSJr/FWO9MLbqV1xiZM+CPT
+ GtSQ4eKOMKLlH13uQJWFfC4rPyfxHuSW24pnAXWQpQ01R6zZbzSXN4DJCo1OEk+WAdtN
+ ujF4OekTH1TXkqNDf/amCQ0+PQqnGdgYkOP1qR/Av6S9Far6S/bl0xfHz2u8k6WzqLd1
+ JFn2pScqoEF5OvoGHWePftYwpNZW/ioWtojRpz0UIHoe+qK1H79fagxwHL9vC+uuHJ68
+ 98xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=jIUir/k9ok0mhA9lZLcDk0nsv9skwzmV2ts7X5dBo9o=;
- b=RbIIxAtuYoGJP9U3Xu9EeLBb6cJC4OU1bsIaNa5dMbF887OCUMveY1uETuAa4GDobt
- qzz4JjCgI24m4E0GXLodOVK/gf9otThS0Z3Z0izEp1P4glkDEp+V9A/VtkqIthEKcFKs
- oi/dqD1WZRtnRaQk+vatnDqe1yZOXIQqzsgkMApV5x13AUpUZvuXHh6xWtw0+/6Y2Gsa
- loNdkDH+Dv0WT3iBGoNKaDjylzP/VzxkwC7rczOVT9796GA7nBG48WQ32ufluWHbk78f
- OTDRxbxSnIwumVMsV6GfZRhWNZzmX36aYEkM/UZuUQDEBP7tRvfIh6gWZ1YHp8ZVRVmY
- M7pg==
-X-Gm-Message-State: AOAM531jC9RNNtuIQ0kCu8nSTVuatfVBjME2qelDfyndXKt8aKAGXWQu
- iVm4pLj1Bqp5hFiUSX4qbjY=
-X-Google-Smtp-Source: ABdhPJyQsKTgszTwklwG0r3ygsT3n1ok04hVt8J1DHvwjaVGb8x9pAazd6kfJucPcvgKD6pbZRW4SQ==
-X-Received: by 2002:adf:8bcf:: with SMTP id w15mr21725807wra.144.1633433889373; 
- Tue, 05 Oct 2021 04:38:09 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- c5sm1739912wml.9.2021.10.05.04.38.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 04:38:09 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=kho0a35tcTvwlWpi5rtKIMqf35HFHYFjgSKnZBnXZsw=;
+ b=AuHPYP+GNdz7ufrzR8kM0PmJUdjm4x57R7x5ivs88zFMHTd6W4z3zJ6XZQ8xoo4+8W
+ 6ytcQ8YFrCBOLD+sEllUF8IpEpeX/H96VnLbdGdinhoDwK7+bGu500kbOu8n0f1tTFS2
+ OuPSBW+Ccvio+fjLP6Sb5pCK9iikl/IjVb9M/nNCiiYaGTCUqLivY1gHKB+TEO3FtBS7
+ J11fZ8AzxCISny+138z3GesFeRWG4Pw3huM7lMQcAJP2Elv5JYV/Ayzn6yk5AkMD/dNG
+ 7CgOLPOMKsYDcP7s3v5MfsMkQRalt7WXFMZUlKPJ2uD3ZyCE0AxFbHJb8G21H00nQNse
+ nOJQ==
+X-Gm-Message-State: AOAM531NU6Ae08UtzvGMEWAuX6frehpEUoLbgG/YuPqrO1QcVnEMQM/g
+ MvQE7V+QIqqpCPx6O4FXCc4=
+X-Google-Smtp-Source: ABdhPJxfUh2w+bcIbJ9A2HD7U1SbcakoN0gg4Y1tCsPkyWfmc74pveYYb7fxwPzGvmatmwb+2YfI/g==
+X-Received: by 2002:a05:600c:230f:: with SMTP id
+ 15mr2546316wmo.19.1633429676019; 
+ Tue, 05 Oct 2021 03:27:56 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id m14sm1390738wmi.47.2021.10.05.03.27.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Oct 2021 03:27:55 -0700 (PDT)
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch,
-	tvrtko.ursulin@linux.intel.com
-Date: Tue,  5 Oct 2021 13:37:41 +0200
-Message-Id: <20211005113742.1101-28-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211005113742.1101-1-christian.koenig@amd.com>
-References: <20211005113742.1101-1-christian.koenig@amd.com>
+Cc: daniel@ffwll.ch
+References: <20211001100610.2899-1-christian.koenig@amd.com>
+ <20211001100610.2899-25-christian.koenig@amd.com>
+ <80bb132f-0e40-68a1-d034-2d4b17d321ad@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <4e94e263-fd20-4779-690a-b530c220b350@gmail.com>
+Date: Tue, 5 Oct 2021 12:27:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <80bb132f-0e40-68a1-d034-2d4b17d321ad@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:14 +0000
-Subject: [Intel-gfx] [PATCH 27/28] drm/etnaviv: use new iterator in
- etnaviv_gem_describe
+Subject: Re: [Intel-gfx] [PATCH 24/28] drm: use new iterator in
+ drm_gem_plane_helper_prepare_fb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,70 +89,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of hand rolling the logic.
+Am 05.10.21 um 09:53 schrieb Tvrtko Ursulin:
+>
+> On 01/10/2021 11:06, Christian König wrote:
+>> Makes the handling a bit more complex, but avoids the use of
+>> dma_resv_get_excl_unlocked().
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/drm_gem_atomic_helper.c | 13 +++++++++++--
+>>   1 file changed, 11 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c 
+>> b/drivers/gpu/drm/drm_gem_atomic_helper.c
+>> index e570398abd78..21ed930042b8 100644
+>> --- a/drivers/gpu/drm/drm_gem_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+>> @@ -143,6 +143,7 @@
+>>    */
+>>   int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane, struct 
+>> drm_plane_state *state)
+>>   {
+>> +    struct dma_resv_iter cursor;
+>>       struct drm_gem_object *obj;
+>>       struct dma_fence *fence;
+>>   @@ -150,9 +151,17 @@ int drm_gem_plane_helper_prepare_fb(struct 
+>> drm_plane *plane, struct drm_plane_st
+>>           return 0;
+>>         obj = drm_gem_fb_get_obj(state->fb, 0);
+>> -    fence = dma_resv_get_excl_unlocked(obj->resv);
+>> -    drm_atomic_set_fence_for_plane(state, fence);
+>> +    dma_resv_iter_begin(&cursor, obj->resv, false);
+>> +    dma_resv_for_each_fence_unlocked(&cursor, fence) {
+>> +        dma_fence_get(fence);
+>> +        dma_resv_iter_end(&cursor);
+>> +        /* TODO: We only use the first write fence here */
+>
+> What is the TODO? NB instead?
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_gem.c | 31 ++++++++++-----------------
- 1 file changed, 11 insertions(+), 20 deletions(-)
+The drm atomic API can unfortunately handle only one fence and we can 
+certainly have more than that.
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index 8f1b5af47dd6..0eeb33de2ff4 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -428,19 +428,17 @@ int etnaviv_gem_wait_bo(struct etnaviv_gpu *gpu, struct drm_gem_object *obj,
- static void etnaviv_gem_describe_fence(struct dma_fence *fence,
- 	const char *type, struct seq_file *m)
- {
--	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
--		seq_printf(m, "\t%9s: %s %s seq %llu\n",
--			   type,
--			   fence->ops->get_driver_name(fence),
--			   fence->ops->get_timeline_name(fence),
--			   fence->seqno);
-+	seq_printf(m, "\t%9s: %s %s seq %llu\n", type,
-+		   fence->ops->get_driver_name(fence),
-+		   fence->ops->get_timeline_name(fence),
-+		   fence->seqno);
- }
- 
- static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- {
- 	struct etnaviv_gem_object *etnaviv_obj = to_etnaviv_bo(obj);
- 	struct dma_resv *robj = obj->resv;
--	struct dma_resv_list *fobj;
-+	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
- 	unsigned long off = drm_vma_node_start(&obj->vma_node);
- 
-@@ -449,21 +447,14 @@ static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- 			obj->name, kref_read(&obj->refcount),
- 			off, etnaviv_obj->vaddr, obj->size);
- 
--	rcu_read_lock();
--	fobj = dma_resv_shared_list(robj);
--	if (fobj) {
--		unsigned int i, shared_count = fobj->shared_count;
--
--		for (i = 0; i < shared_count; i++) {
--			fence = rcu_dereference(fobj->shared[i]);
-+	dma_resv_iter_begin(&cursor, robj, true);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		if (dma_resv_iter_is_exclusive(&cursor))
-+			etnaviv_gem_describe_fence(fence, "Exclusive", m);
-+		else
- 			etnaviv_gem_describe_fence(fence, "Shared", m);
--		}
- 	}
--
--	fence = dma_resv_excl_fence(robj);
--	if (fence)
--		etnaviv_gem_describe_fence(fence, "Exclusive", m);
--	rcu_read_unlock();
-+	dma_resv_iter_end(&cursor);
- }
- 
- void etnaviv_gem_describe_objects(struct etnaviv_drm_private *priv,
--- 
-2.25.1
+>
+>> + drm_atomic_set_fence_for_plane(state, fence);
+>> +        return 0;
+>> +    }
+>> +    dma_resv_iter_end(&cursor);
+>>   +    drm_atomic_set_fence_for_plane(state, NULL);
+>
+>     dma_resv_iter_begin(&cursor, obj->resv, false);
+>     dma_resv_for_each_fence_unlocked(&cursor, fence) {
+>         dma_fence_get(fence);
+>         break;
+>     }
+>     dma_resv_iter_end(&cursor);
+>
+>     drm_atomic_set_fence_for_plane(state, fence);
+>
+> Does this work?
+
+Yeah that should work as well.
+
+>
+> But overall I am not sure this is nicer. Is the goal to remove 
+> dma_resv_get_excl_unlocked as API it just does not happen in this series?
+
+Yes, the only user left is the i915_gem_object_last_write_engine() 
+function and that one you already removed in i915.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>
+> Tvrtko
+>
+>>       return 0;
+>>   }
+>>   EXPORT_SYMBOL_GPL(drm_gem_plane_helper_prepare_fb);
+>>
 
