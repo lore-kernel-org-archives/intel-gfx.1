@@ -2,74 +2,79 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EAA5C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46752C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 400A8615A6
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 400A8615A6
+	by mail.kernel.org (Postfix) with ESMTPS id 15EDC615E3
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 15EDC615E3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80CF26F5F4;
-	Tue,  5 Oct 2021 12:35:52 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0206EB5F;
- Tue,  5 Oct 2021 11:38:05 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id t8so36889993wri.1;
- Tue, 05 Oct 2021 04:38:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94D556F5EE;
+	Tue,  5 Oct 2021 12:35:51 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 575256E321;
+ Tue,  5 Oct 2021 11:23:24 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id u18so36731646wrg.5;
+ Tue, 05 Oct 2021 04:23:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=sR69q70gSeg6sG3/QgjbBFqvIqYfytfoA0SgvZr7HAU=;
- b=LOkDrX5kmHlbm47kFr5l0RkVNK4shdMdXMUe+U3Svea0mwFo58mjd8xTPgXVfdc1ZX
- 2AYZjw8P+oSRc0bGJn/9sDrNJ7ZQgFl/F13iLjnOi4ncnuzkUP37mnK8FBcpZRxQuPGN
- mpg//UNV/5G4H9TWYyUljcJ1ML6hWeEnNVsvUrbucCH1+/cl1M3Rko6sByUUz5957pe4
- TtjoLJtoox7JFTX+UhXj/rhJihxU+MOPIwmQ4BkGmjrY2gEZQfqwSXo0QEVe/Fa6Pwxi
- I+zPizL+p1u3EcCMVAe8cO5TX9w13JrxntgzdlNE61PGOmm2ShYISCT+RJ4+x0FSvZaR
- qdtA==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=PWa0G8LLCncqq6J/n1Fr1FpsEkDA9qNPpQve05GZfrg=;
+ b=it6T8Kfbu+jcw1C0phj7AmEpqUFOh80NXnr2KQSpgiDFK0qmn6hZM+4nAns7XPmzQL
+ K0oWanDcdFZnHca9SMYuVOR61ZWh+l3HvmSo9prGIPTtR+SjPfWsVM4vBMhRBIU2Pbg1
+ 1um2Ei4G7oUIvu7mAiqQbkQhho0sYEIlFD7L3rMrBj7M5fnvrXuONKRlVOgoGBJKZzRn
+ 8O2IgiMHqddCsJn65fJjhO+zZUrfT8np2ZyVBUCW4dcpa6BBWLqWzI9E32+M1SdZMhsv
+ xtsLjdC+DeBH3UkISfOIaxqTL55G2J9/PJmZS4NLmy42xfnJfilHzRxTvNhKu2J6heVf
+ z8/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=sR69q70gSeg6sG3/QgjbBFqvIqYfytfoA0SgvZr7HAU=;
- b=bLHvzJkyKAJhbaPKBOOE1zZKME+c3A/spcheGdpSr4dBqpazqk+TiFWR1tK5VHyiE4
- e73L5APBkwhrdlwOGAfjcoKoCFFbB/0BKiBEGC5mL+GySXLZSslyZbG3WPZ1Ww0nPyDG
- 4ephl8+9ggA7UUPR9KlXM3xbK5cQHZLHBl3SlipGX2S/9jgG/8sTxQmA34aC4NfTRYqi
- aUBBmEJawazMxRA7DTs2IB2c2IEZ5VddErKxpARYCs1IszpV528GWl5bA/y0VBgqfVzo
- H8U8uqW+oG1a03ZH9cEBV8g4w6gS6xaMuGIJuNHDCO8B3j2ag55Z+iXoIDCwamrX6rMK
- EfgQ==
-X-Gm-Message-State: AOAM533SmMo/Kbb4asBrb8qGJQH1O8VWBZvq2WEre3DDOqS/D3hKdpea
- +EZoQ2+EZKGzHLF9sJW5sTQ=
-X-Google-Smtp-Source: ABdhPJxtTxnwjKovdU0Rjv3RbUzLJkRjACt0BpWwHhqBj/MwXIZsKIw7vGrNqBD7rqtyxYiTJkOO5g==
-X-Received: by 2002:a5d:6c6e:: with SMTP id r14mr21116706wrz.264.1633433883965; 
- Tue, 05 Oct 2021 04:38:03 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- c5sm1739912wml.9.2021.10.05.04.38.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 04:38:03 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=PWa0G8LLCncqq6J/n1Fr1FpsEkDA9qNPpQve05GZfrg=;
+ b=mObrr+OEiGyF261p71rlk8Dbg6tdrNUXjov/h9LGl+oZvnop6hDVSw2kLTUJtUaYFq
+ 6FAlQW4vl4VCsPt3yLoodZk90m/8ZzxM9m0noC2pOvnkaRlxFyg8Ns4fr18g4nXZe6c4
+ gKZetQD6zhhxdkHJUE1cKhGTlfvteuYTbeXseGTMCxAOdPfOa3Ef3r/F4dUp7nT1Oxeu
+ tLTdexX+SunW1GZiwX5599j15IK4TxBYi6SUPeQF+g9p326qccS822W0qRW8J0vlQLdi
+ HDVIP9Yw1U7zOIf834IKSExjuKgNHI0YMnbIu7xRrb/q6aPLvhZGexnng8PpREjzsgTp
+ lzBA==
+X-Gm-Message-State: AOAM532Pu5E2r6wJUbp2gPtTpuyaCRHfrONJj6F55LykvgBW0upKuUEG
+ qdzOV/YO5Bz/FS47hjKYf48=
+X-Google-Smtp-Source: ABdhPJzpxkpSlwzjrOFU/Ealgx1O7BSn1yO1wib6cKwvh5qjPa7VG/r5qzlgeOdH4OFek4yLJ2Cdrg==
+X-Received: by 2002:adf:959a:: with SMTP id p26mr853129wrp.342.1633433002913; 
+ Tue, 05 Oct 2021 04:23:22 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id g2sm17256112wrq.62.2021.10.05.04.23.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Oct 2021 04:23:22 -0700 (PDT)
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch,
-	tvrtko.ursulin@linux.intel.com
-Date: Tue,  5 Oct 2021 13:37:35 +0200
-Message-Id: <20211005113742.1101-22-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211005113742.1101-1-christian.koenig@amd.com>
-References: <20211005113742.1101-1-christian.koenig@amd.com>
+Cc: daniel@ffwll.ch
+References: <20211001100610.2899-1-christian.koenig@amd.com>
+ <20211001100610.2899-25-christian.koenig@amd.com>
+ <80bb132f-0e40-68a1-d034-2d4b17d321ad@linux.intel.com>
+ <4e94e263-fd20-4779-690a-b530c220b350@gmail.com>
+ <32d9b655-0b18-417a-eefc-cc1dc41fb554@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <71441139-707b-f47d-4edb-444ac665f6a6@gmail.com>
+Date: Tue, 5 Oct 2021 13:23:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <32d9b655-0b18-417a-eefc-cc1dc41fb554@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:14 +0000
-Subject: [Intel-gfx] [PATCH 21/28] drm/i915: use new iterator in
- i915_gem_object_wait_priority
+Subject: Re: [Intel-gfx] [PATCH 24/28] drm: use new iterator in
+ drm_gem_plane_helper_prepare_fb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,56 +90,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+Am 05.10.21 um 12:47 schrieb Tvrtko Ursulin:
+>
+> On 05/10/2021 11:27, Christian König wrote:
+>> Am 05.10.21 um 09:53 schrieb Tvrtko Ursulin:
+>>>
+>>> On 01/10/2021 11:06, Christian König wrote:
+>>>> Makes the handling a bit more complex, but avoids the use of
+>>>> dma_resv_get_excl_unlocked().
+>>>>
+>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_gem_atomic_helper.c | 13 +++++++++++--
+>>>>   1 file changed, 11 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c 
+>>>> b/drivers/gpu/drm/drm_gem_atomic_helper.c
+>>>> index e570398abd78..21ed930042b8 100644
+>>>> --- a/drivers/gpu/drm/drm_gem_atomic_helper.c
+>>>> +++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+>>>> @@ -143,6 +143,7 @@
+>>>>    */
+>>>>   int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane, 
+>>>> struct drm_plane_state *state)
+>>>>   {
+>>>> +    struct dma_resv_iter cursor;
+>>>>       struct drm_gem_object *obj;
+>>>>       struct dma_fence *fence;
+>>>>   @@ -150,9 +151,17 @@ int drm_gem_plane_helper_prepare_fb(struct 
+>>>> drm_plane *plane, struct drm_plane_st
+>>>>           return 0;
+>>>>         obj = drm_gem_fb_get_obj(state->fb, 0);
+>>>> -    fence = dma_resv_get_excl_unlocked(obj->resv);
+>>>> -    drm_atomic_set_fence_for_plane(state, fence);
+>>>> +    dma_resv_iter_begin(&cursor, obj->resv, false);
+>>>> +    dma_resv_for_each_fence_unlocked(&cursor, fence) {
+>>>> +        dma_fence_get(fence);
+>>>> +        dma_resv_iter_end(&cursor);
+>>>> +        /* TODO: We only use the first write fence here */
+>>>
+>>> What is the TODO? NB instead?
+>>
+>> The drm atomic API can unfortunately handle only one fence and we can 
+>> certainly have more than that.
+>>
+>>>
+>>>> + drm_atomic_set_fence_for_plane(state, fence);
+>>>> +        return 0;
+>>>> +    }
+>>>> +    dma_resv_iter_end(&cursor);
+>>>>   +    drm_atomic_set_fence_for_plane(state, NULL);
+>>>
+>>>     dma_resv_iter_begin(&cursor, obj->resv, false);
+>>>     dma_resv_for_each_fence_unlocked(&cursor, fence) {
+>>>         dma_fence_get(fence);
+>>>         break;
+>>>     }
+>>>     dma_resv_iter_end(&cursor);
+>>>
+>>>     drm_atomic_set_fence_for_plane(state, fence);
+>>>
+>>> Does this work?
+>>
+>> Yeah that should work as well.
+>>
+>>>
+>>> But overall I am not sure this is nicer. Is the goal to remove 
+>>> dma_resv_get_excl_unlocked as API it just does not happen in this 
+>>> series?
+>>
+>> Yes, the only user left is the i915_gem_object_last_write_engine() 
+>> function and that one you already removed in i915.
+>
+> To me the above feels clumsier than dma_resv_get_excl_unlocked and you 
+> can even view it as open coding that helper. So don't know, someone 
+> else can have a casting vote.
+>
+> I guess if support for more than one fence is coming soon(-ish) do drm 
+> atomic api then I could be convinced the iterator here makes sense today.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 31 +++++-------------------
- 1 file changed, 6 insertions(+), 25 deletions(-)
+Well Daniel noted that the drm atomic API needs some more work here 
+because we don't handle different fences for different planes correctly 
+either.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index a13193db1dba..569658c7859c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -118,32 +118,13 @@ i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 			      unsigned int flags,
- 			      const struct i915_sched_attr *attr)
- {
--	struct dma_fence *excl;
--
--	if (flags & I915_WAIT_ALL) {
--		struct dma_fence **shared;
--		unsigned int count, i;
--		int ret;
--
--		ret = dma_resv_get_fences(obj->base.resv, &excl, &count,
--					  &shared);
--		if (ret)
--			return ret;
--
--		for (i = 0; i < count; i++) {
--			i915_gem_fence_wait_priority(shared[i], attr);
--			dma_fence_put(shared[i]);
--		}
--
--		kfree(shared);
--	} else {
--		excl = dma_resv_get_excl_unlocked(obj->base.resv);
--	}
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
- 
--	if (excl) {
--		i915_gem_fence_wait_priority(excl, attr);
--		dma_fence_put(excl);
--	}
-+	dma_resv_iter_begin(&cursor, obj->base.resv, flags & I915_WAIT_ALL);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence)
-+		i915_gem_fence_wait_priority(fence, attr);
-+	dma_resv_iter_end(&cursor);
- 	return 0;
- }
- 
--- 
-2.25.1
+We could as well postpone this change and fix the atomic functions first.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>
+> Tvrtko
+>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Regards,
+>>>
+>>> Tvrtko
+>>>
+>>>>       return 0;
+>>>>   }
+>>>>   EXPORT_SYMBOL_GPL(drm_gem_plane_helper_prepare_fb);
+>>>>
+>>
 
