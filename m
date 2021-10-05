@@ -2,49 +2,46 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC468C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 18:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9306BC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 18:25:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8828860F6C
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 18:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8828860F6C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 57E87613AC
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 18:25:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 57E87613AC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F346E441;
-	Tue,  5 Oct 2021 18:06:47 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAEF66E441
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 18:06:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="289322081"
-X-IronPort-AV: E=Sophos;i="5.85,349,1624345200"; d="scan'208";a="289322081"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32BF86EC24;
+	Tue,  5 Oct 2021 18:25:29 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC4606EC21;
+ Tue,  5 Oct 2021 18:25:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="249086482"
+X-IronPort-AV: E=Sophos;i="5.85,349,1624345200"; d="scan'208";a="249086482"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2021 11:06:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,349,1624345200"; d="scan'208";a="438800861"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga006.jf.intel.com with SMTP; 05 Oct 2021 11:06:39 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 05 Oct 2021 21:06:38 +0300
-Date: Tue, 5 Oct 2021 21:06:38 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org,
- =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>,
- Uma Shankar <uma.shankar@intel.com>, Swati Sharma <swati2.sharma@intel.com>
-Message-ID: <YVyULvQxOEembOvq@intel.com>
-References: <20211005175636.24669-1-jani.nikula@intel.com>
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2021 11:25:15 -0700
+X-IronPort-AV: E=Sophos;i="5.85,349,1624345200"; d="scan'208";a="438805355"
+Received: from ashleylh-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.213.209.141])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2021 11:25:14 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Tue,  5 Oct 2021 19:24:01 +0100
+Message-Id: <20211005182405.915100-4-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20211005182405.915100-1-matthew.auld@intel.com>
+References: <20211005182405.915100-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211005175636.24669-1-jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/bios: gracefully disable dual eDP
- for now
+Subject: [Intel-gfx] [PATCH v6 4/8] drm/i915: drop unneeded
+ make_unshrinkable in free_object
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,99 +57,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 05, 2021 at 08:56:36PM +0300, Jani Nikula wrote:
-> For the time being, neither the power sequencer nor the backlight code
-> properly support two eDP panels simultaneously. While the software
-> states will be independent, the same sets of registers will be used for
-> both eDP panels, clobbering the hardware state and leading to errors.
-> 
-> Gracefully disable dual eDP until proper support has been added.
-> 
-> Cc: José Roberto de Souza <jose.souza@intel.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Swati Sharma <swati2.sharma@intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c | 47 +++++++++++++++++++++++
->  1 file changed, 47 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index f9776ca85de3..b99907c656bb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -1930,6 +1930,50 @@ static int _intel_bios_max_tmds_clock(const struct intel_bios_encoder_data *devd
->  	}
->  }
->  
-> +static enum port get_edp_port(struct drm_i915_private *i915)
-> +{
-> +	const struct intel_bios_encoder_data *devdata;
-> +	enum port port;
-> +
-> +	for_each_port(port) {
-> +		devdata = i915->vbt.ports[port];
-> +
-> +		if (devdata && intel_bios_encoder_supports_edp(devdata))
-> +			return port;
-> +	}
-> +
-> +	return PORT_NONE;
-> +}
-> +
-> +/*
-> + * FIXME: The power sequencer and backlight code currently do not support more
-> + * than one set registers, at least not on anything other than VLV/CHV. It will
-> + * clobber the registers. As a temporary workaround, gracefully prevent more
-> + * than one eDP from being registered.
-> + */
-> +static void sanitize_dual_edp(struct intel_bios_encoder_data *devdata,
-> +			      enum port port)
-> +{
-> +	struct drm_i915_private *i915 = devdata->i915;
-> +	struct child_device_config *child = &devdata->child;
-> +	enum port p;
-> +
-> +	/* CHV might not clobber PPS registers. */
-> +	if (IS_CHERRYVIEW(i915))
+The comment here is no longer accurate, since the current shrinker code
+requires a full ref before touching any objects. Also unset_pages()
+should already do the required make_unshrinkable() for us, if needed,
+which is also nicely balanced with set_pages().
 
-vlv and chv should both behave identically. At least I don't remember
-any single eDP assumptions in the code for either.
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas HellstrÃ¶m <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-Hmm. Quick glance suggest bxt/glk should handle this correctly
-as well? But the more recent platforms are certainly borked.
-Well, that's assuming the vbt related bits are correct for bxt/glk.
-
-> +		return;
-> +
-> +	p = get_edp_port(i915);
-> +	if (p == PORT_NONE)
-> +		return;
-> +
-> +	drm_dbg_kms(&i915->drm, "both ports %c and %c configured as eDP, "
-> +		    "disabling port %c eDP\n", port_name(p), port_name(port),
-> +		    port_name(port));
-> +
-> +	child->device_type &= ~DEVICE_TYPE_DISPLAYPORT_OUTPUT;
-> +	child->device_type &= ~DEVICE_TYPE_INTERNAL_CONNECTOR;
-> +}
-> +
->  static bool is_port_valid(struct drm_i915_private *i915, enum port port)
->  {
->  	/*
-> @@ -1987,6 +2031,9 @@ static void parse_ddi_port(struct drm_i915_private *i915,
->  		    supports_typec_usb, supports_tbt,
->  		    devdata->dsc != NULL);
->  
-> +	if (is_edp)
-> +		sanitize_dual_edp(devdata, port);
-> +
->  	if (is_dvi)
->  		sanitize_ddc_pin(devdata, port);
->  
-> -- 
-> 2.30.2
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 76ce6a1500bc..1dc3c1940c32 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -337,15 +337,6 @@ static void i915_gem_free_object(struct drm_gem_object *gem_obj)
+ 	 */
+ 	atomic_inc(&i915->mm.free_count);
+ 
+-	/*
+-	 * This serializes freeing with the shrinker. Since the free
+-	 * is delayed, first by RCU then by the workqueue, we want the
+-	 * shrinker to be able to free pages of unreferenced objects,
+-	 * or else we may oom whilst there are plenty of deferred
+-	 * freed objects.
+-	 */
+-	i915_gem_object_make_unshrinkable(obj);
+-
+ 	/*
+ 	 * Since we require blocking on struct_mutex to unbind the freed
+ 	 * object from the GPU before releasing resources back to the
 -- 
-Ville Syrjälä
-Intel
+2.26.3
+
