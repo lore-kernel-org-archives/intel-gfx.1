@@ -2,56 +2,57 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EEA2EC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2338C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3410615A6
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3410615A6
+	by mail.kernel.org (Postfix) with ESMTPS id 8398A615A6
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:35:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8398A615A6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 585646F5FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5476F5FA;
 	Tue,  5 Oct 2021 12:35:47 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA60F6EB53;
- Tue,  5 Oct 2021 11:38:01 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id r10so20306111wra.12;
- Tue, 05 Oct 2021 04:38:01 -0700 (PDT)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 407496EB5D;
+ Tue,  5 Oct 2021 11:37:57 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ m14-20020a05600c3b0e00b0030d4dffd04fso2644826wms.3; 
+ Tue, 05 Oct 2021 04:37:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9ue7puBcgohS+7D/zNLeUPSF3Sf1Ar8z9127abKsq3w=;
- b=BhCvxbF/dN5QcuY7bMsWHEUE32beuMSqtn2a9g3Q6axbLMJeHgrAWHIuAAutz5zBUv
- bQCXWMfTxkxH8cmb4WkH+HfL95bmN9CEHaTFGmqdK0xgphrApeBC4N74oueJahd7S1wk
- 6s4BTBFf5eBMRym+Z5xcnMQBJDnD2OSSZeUr/LVVPTPbBqGXX8xGPci/dS4RcEPxzjcj
- dX1hdVXm8aQGGABUqysg/WVIcSoIiyREhPSqQiZ/q/KOneWiCeFOA2NX5O5E7qYWYM6G
- UUgeVATr6mGtjXWRLma+ryjA2bRgLz/1D9500ARjSYjuCMfKDI5T3puuhZ9IGIUGxX0v
- iztg==
+ bh=yabWm1MzZV7BE4HotZc9CHXB10OboyyVoWyddM9btKw=;
+ b=TSeRJ+qkpA1eghV4lfrllybunGX8WejkpRoxqq543rLTeKa7DZHVn2wR1tASvGcF+2
+ YSnfrhiqlKVwwq3BwbMQ8DZBMrrqtJVajopWt5DmbRT2UhlzHcEPKYiydW11gfVTNyU6
+ 8itx/NTbG2pZpcn4uY+lOPwXhQohZpgaiKl5R1mKTyzcEUjPhQJOUF69bLIlyWrHZY3c
+ ITPm+xuWN/jJ/Prvdb4ygpwtdCHFOHsrYXNV5DDV7gR42jBubLvvLN3bk+cSkpQsDZhD
+ HqnnQjO/NQ7RIre8RhRO/fCRaTpelP0GJ5hg1J0rEHuydghCZvFou7sMwLraORdyoo45
+ 0J9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9ue7puBcgohS+7D/zNLeUPSF3Sf1Ar8z9127abKsq3w=;
- b=EyAOfjKBKeikTMteeNMGCv5Bi1S0BmvKYm1dIFP9MAMcIkaWDyeZqSSUt9tcYVoQKO
- SRb2Qyz9m/NPOwm7y/ia2gM+h9PHdRt9zKSAsrxpFaIRk2Uc47njhi1EbqG7d4Woi0dz
- gyP59dOJ0n7ujZNvoJ7oybKsV39PWnCx2WtMf1/tb+kpQInZ/CsPJ2Upc8uzTWveVngP
- OytWopJTWhuNqQU9qOgmRIM9kgqyxlpf8bIprSKon4oQLKAUw9WCu4sFjla11K4mGcAY
- hkpuwYFdGaE2mn7/klIiqmAVzSlRdS+bpJs8JW3f8Aa3j3unHaFEIOZJ+IdZLRyDhtOB
- QJIw==
-X-Gm-Message-State: AOAM531eVyyR6eQMOoja91HXT4FAhKedn+qS/x4brlw3zzxfRWnNbzKi
- BbJj6Yy4kJhqdDFCeI9kL1Q=
-X-Google-Smtp-Source: ABdhPJxo19rTUZH2OQEHe6oKuoDaSzFXOAK8r+4K35KgQiww0+NoRv1HD37aNfPvPn+EcyuSGOP3jA==
-X-Received: by 2002:adf:aad7:: with SMTP id i23mr19789341wrc.209.1633433880372; 
- Tue, 05 Oct 2021 04:38:00 -0700 (PDT)
+ bh=yabWm1MzZV7BE4HotZc9CHXB10OboyyVoWyddM9btKw=;
+ b=6NIYx5Q2I47iHd9OhnXjE4lISxPo5r+5dgb3D9gTvgVxDPSeuULoBomFBGDH0kwcyQ
+ x1USjt8id/8YcyomXfnlf5NpGktx5J8GDYFwc8BBKcMgDKXW/lHooMQjvu6/tfydVh2p
+ n3eoQyxoXJrzN5+HCwHrhnvc1Ku3h9rBLqoRIRp/w1WW/DWPIU73RfkL0XKanxKVnzca
+ kbJss6YU5VNOPcDWcrgfZbTE9Q7hiHCD99O0GjFz8SYpD93Nvk61O/qQ0x3S7yXvzZ+T
+ isDq2M6Hm5Jqgj4iyT3Uj1nJl9BP4lfieU254UhnkseOdVDFXiSvftDmwAfveKJe9TGs
+ Fg3g==
+X-Gm-Message-State: AOAM532OiBkgklMnSntf6alolkh87TozSuh1t1NSDQi3oufhpV2qXXEs
+ MYrgm79VkvyZLdxU9HudYi7R1GfwrMs=
+X-Google-Smtp-Source: ABdhPJxEKoCjAGY0f/BN1VErxnsB/ujyvHpiYNyMr6i4pPYMxemcnlX3MniDy/X3LY0S+x/nRkMabQ==
+X-Received: by 2002:a7b:c5d8:: with SMTP id n24mr2887218wmk.51.1633433875811; 
+ Tue, 05 Oct 2021 04:37:55 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- c5sm1739912wml.9.2021.10.05.04.37.59
+ c5sm1739912wml.9.2021.10.05.04.37.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 04:38:00 -0700 (PDT)
+ Tue, 05 Oct 2021 04:37:55 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -59,8 +60,8 @@ To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Cc: daniel@ffwll.ch,
 	tvrtko.ursulin@linux.intel.com
-Date: Tue,  5 Oct 2021 13:37:31 +0200
-Message-Id: <20211005113742.1101-18-christian.koenig@amd.com>
+Date: Tue,  5 Oct 2021 13:37:26 +0200
+Message-Id: <20211005113742.1101-13-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211005113742.1101-1-christian.koenig@amd.com>
 References: <20211005113742.1101-1-christian.koenig@amd.com>
@@ -68,8 +69,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 05 Oct 2021 12:35:14 +0000
-Subject: [Intel-gfx] [PATCH 17/28] drm/i915: use the new iterator in
- i915_gem_busy_ioctl v2
+Subject: [Intel-gfx] [PATCH 12/28] drm/amdgpu: use new iterator in
+ amdgpu_ttm_bo_eviction_valuable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,70 +86,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This makes the function much simpler since the complex
-retry logic is now handled else where.
+Simplifying the code a bit.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_busy.c | 35 ++++++++++--------------
- 1 file changed, 14 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-index 6234e17259c1..dc72b36dae54 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-@@ -82,8 +82,8 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index e8d70b6e6737..722e3c9e8882 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1345,10 +1345,9 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 					    const struct ttm_place *place)
  {
- 	struct drm_i915_gem_busy *args = data;
- 	struct drm_i915_gem_object *obj;
--	struct dma_resv_list *list;
--	unsigned int seq;
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
- 	int err;
+ 	unsigned long num_pages = bo->resource->num_pages;
++	struct dma_resv_iter resv_cursor;
+ 	struct amdgpu_res_cursor cursor;
+-	struct dma_resv_list *flist;
+ 	struct dma_fence *f;
+-	int i;
  
- 	err = -ENOENT;
-@@ -109,27 +109,20 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
- 	 * to report the overall busyness. This is what the wait-ioctl does.
- 	 *
+ 	/* Swapout? */
+ 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
+@@ -1362,14 +1361,9 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	 * If true, then return false as any KFD process needs all its BOs to
+ 	 * be resident to run successfully
  	 */
--retry:
--	seq = raw_read_seqcount(&obj->base.resv->seq);
--
--	/* Translate the exclusive fence to the READ *and* WRITE engine */
--	args->busy = busy_check_writer(dma_resv_excl_fence(obj->base.resv));
--
--	/* Translate shared fences to READ set of engines */
--	list = dma_resv_shared_list(obj->base.resv);
--	if (list) {
--		unsigned int shared_count = list->shared_count, i;
--
--		for (i = 0; i < shared_count; ++i) {
--			struct dma_fence *fence =
--				rcu_dereference(list->shared[i]);
--
-+	args->busy = 0;
-+	dma_resv_iter_begin(&cursor, obj->base.resv, true);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		if (dma_resv_iter_is_restarted(&cursor))
-+			args->busy = 0;
-+
-+		if (dma_resv_iter_is_exclusive(&cursor))
-+			/* Translate the exclusive fence to the READ *and* WRITE engine */
-+			args->busy |= busy_check_writer(fence);
-+		else
-+			/* Translate shared fences to READ set of engines */
- 			args->busy |= busy_check_reader(fence);
+-	flist = dma_resv_shared_list(bo->base.resv);
+-	if (flist) {
+-		for (i = 0; i < flist->shared_count; ++i) {
+-			f = rcu_dereference_protected(flist->shared[i],
+-				dma_resv_held(bo->base.resv));
+-			if (amdkfd_fence_check_mm(f, current->mm))
+-				return false;
 -		}
++	dma_resv_for_each_fence(&resv_cursor, bo->base.resv, true, f) {
++		if (amdkfd_fence_check_mm(f, current->mm))
++			return false;
  	}
--
--	if (args->busy && read_seqcount_retry(&obj->base.resv->seq, seq))
--		goto retry;
-+	dma_resv_iter_end(&cursor);
  
- 	err = 0;
- out:
+ 	switch (bo->resource->mem_type) {
 -- 
 2.25.1
 
