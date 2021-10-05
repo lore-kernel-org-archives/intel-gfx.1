@@ -2,21 +2,22 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B140C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 362AEC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:01:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E269061373
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E269061373
+	by mail.kernel.org (Postfix) with ESMTPS id 07FCB61244
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 07FCB61244
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8C56F5E2;
-	Tue,  5 Oct 2021 15:00:54 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E9A6E420;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C86D6F5E5;
+	Tue,  5 Oct 2021 15:00:55 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F926E41A;
  Tue,  5 Oct 2021 15:00:52 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
@@ -25,37 +26,38 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TMwVFAHyX10lj5UhM0o3xVoHq1BidWl+lrVSXNw9dK0=;
- b=UABoINfMGhlZPg+cbvtudB+iO4MwYA5eZQ8uP2IXOtJMZkAHcb4z2T+yUPR3b3jne7GHQ2
- LpnmMQXr2U934YJRVgXnXNtFL8oNqjZoRrc2E9puvZyOV12IBiJCxYUJJ7uvxqERUUEoME
- NOv7/Qq0EeC2jVrzc3ellfwqc6QQE/C7uWhtZBvwt0n4uHD/wmjL1WPH9PEB3cq+mtI2sM
- kLkOQc8x4Jq+ND7q8mDeW3ComY8kcB+o9JwZcjrtAI9MHPhYXmMvM0IJFgqogTKIuLs+sG
- F2wKFYhP5383KglM/TFaUUCDsX+l6QcE6UJxybdtPhuDkdLOq2kfr/YVWYcnLg==
+ bh=KGOHgEg6zOc+ktHgP1xCUtyqOQRBeXSFzpWKz5/h0P0=;
+ b=PVfRincpG2pgJfTsNzOv9bS50RWZIM3Tf/B3AoKOgstGS8e5odJFMCXln58pReuP03iRt+
+ 8hK3rNd4tqp1MWrdGdYH7w+STFNkEqH6ltKCCsEjw3jBh9MPHypCeqiUAvb3+ZmbbyHict
+ AsKhREdnhFWXfGdpYLBnjJH5u396N69+s16U55LXwOSad9tKAoBKMEIq1kE5vp6OFYKWvc
+ Cc6icxdCZLq/ZkPUSn+mREZ0UFFh6rEyBke6e9CiuTzebhAWSEcSgUe08FYY25yqPOdman
+ SqGS6tkRDUuVTcsvTrNrpW7sAzr9WpI3frFIHnEvzTGrYjUAOlaTDCS0O+MWWQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020e; t=1633446050;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TMwVFAHyX10lj5UhM0o3xVoHq1BidWl+lrVSXNw9dK0=;
- b=76m+LJ9vgge15bbksn0Qg4jrX4XViPk/kPjYaiI4NV+R90R46JvB6L0RsX+MbVrgKKYo1K
- VZxKSC1rf0N5bZCg==
+ bh=KGOHgEg6zOc+ktHgP1xCUtyqOQRBeXSFzpWKz5/h0P0=;
+ b=tdSW9qPSD4YuyfshaVt8t7PmyTgR4vOSGQMhEIhYuvTxBqaX6Do4SNteuap277CW7YBGP7
+ udZQPaU9Jhc5vCDg==
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Luca Abeni <lucabe72@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
-Date: Tue,  5 Oct 2021 17:00:41 +0200
-Message-Id: <20211005150046.1000285-4-bigeasy@linutronix.de>
+ Mike Galbraith <umgwanakikbuti@gmail.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Date: Tue,  5 Oct 2021 17:00:39 +0200
+Message-Id: <20211005150046.1000285-2-bigeasy@linutronix.de>
 In-Reply-To: <20211005150046.1000285-1-bigeasy@linutronix.de>
 References: <20211005150046.1000285-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Disable tracing points on
- PREEMPT_RT
+Subject: [Intel-gfx] [PATCH 1/8] drm/i915: Use preempt_disable/enable_rt()
+ where recommended
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,49 +73,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Luca Abeni reported this:
-| BUG: scheduling while atomic: kworker/u8:2/15203/0x00000003
-| CPU: 1 PID: 15203 Comm: kworker/u8:2 Not tainted 4.19.1-rt3 #10
-| Call Trace:
-|  rt_spin_lock+0x3f/0x50
-|  gen6_read32+0x45/0x1d0 [i915]
-|  g4x_get_vblank_counter+0x36/0x40 [i915]
-|  trace_event_raw_event_i915_pipe_update_start+0x7d/0xf0 [i915]
+From: Mike Galbraith <umgwanakikbuti@gmail.com>
 
-The tracing events use trace_i915_pipe_update_start() among other events
-use functions acquire spinlock_t locks which are transformed into
-sleeping locks on PREEMPT_RT. A few trace points use
-intel_get_crtc_scanline(), others use ->get_vblank_counter() wich also
-might acquire a sleeping locks on PREEMPT_RT.
-At the time the arguments are evaluated within trace point, preemption
-is disabled and so the locks must not be acquired on PREEMPT_RT.
+Mario Kleiner suggest in commit
+  ad3543ede630f ("drm/intel: Push get_scanout_position() timestamping into =
+kms driver.")
 
-Based on this I don't see any other way than disable trace points on
-PREMPT_RT.
+a spots where preemption should be disabled on PREEMPT_RT. The
+difference is that on PREEMPT_RT the intel_uncore::lock disables neither
+preemption nor interrupts and so region remains preemptible.
 
-Reported-by: Luca Abeni <lucabe72@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
+The area covers only register reads and writes. The part that worries me
+is:
+- __intel_get_crtc_scanline() the worst case is 100us if no match is
+  found.
+
+- intel_crtc_scanlines_since_frame_timestamp() not sure how long this
+  may take in the worst case.
+
+It was in the RT queue for a while and nobody complained.
+Disable preemption on PREEPMPT_RT during timestamping.
+
+[bigeasy: patch description.]
+
+Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
+Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/i915/i915_trace.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/i915_irq.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_=
-trace.h
-index 806ad688274bf..773e7362c4442 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -2,6 +2,10 @@
- #if !defined(_I915_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
- #define _I915_TRACE_H_
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_ir=
+q.c
+index 9bc4f4a8e12ec..547347241a47c 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -886,7 +886,8 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_=
+crtc,
+ 	 */
+ 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
 =20
-+#ifdef CONFIG_PREEMPT_RT
-+#define NOTRACE
-+#endif
-+
- #include <linux/stringify.h>
- #include <linux/types.h>
- #include <linux/tracepoint.h>
+-	/* preempt_disable_rt() should go right here in PREEMPT_RT patchset. */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		preempt_disable();
+=20
+ 	/* Get optional system timestamp before query. */
+ 	if (stime)
+@@ -950,7 +951,8 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_=
+crtc,
+ 	if (etime)
+ 		*etime =3D ktime_get();
+=20
+-	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		preempt_enable();
+=20
+ 	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+=20
 --=20
 2.33.0
 
