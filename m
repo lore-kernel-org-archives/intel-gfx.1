@@ -2,40 +2,39 @@ Return-Path: <SRS0=U9P+=OZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0C73C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 11:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63E00C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63313611CC
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 11:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 63313611CC
+	by mail.kernel.org (Postfix) with ESMTPS id 26F2E61166
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 12:10:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26F2E61166
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4186EB68;
-	Tue,  5 Oct 2021 11:44:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9BD36EB75;
+	Tue,  5 Oct 2021 12:10:15 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 05B646EB53;
- Tue,  5 Oct 2021 11:44:07 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E6B516EB75;
+ Tue,  5 Oct 2021 12:10:13 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F2ED4AA0EA;
- Tue,  5 Oct 2021 11:44:06 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1989213493579717145=="
+ by emeril.freedesktop.org (Postfix) with ESMTP id DEC0AA47DB;
+ Tue,  5 Oct 2021 12:10:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
+To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 05 Oct 2021 11:44:06 -0000
-Message-ID: <163343424699.19281.6539822372268334040@emeril.freedesktop.org>
+Date: Tue, 05 Oct 2021 12:10:13 -0000
+Message-ID: <163343581387.19280.15198507158985540220@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20211005081053.13729-1-jani.nikula@intel.com>
-In-Reply-To: <20211005081053.13729-1-jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/dp=3A_add_drm=5Fdp=5Fphy=5Fname?=
- =?utf-8?q?=28=29_for_getting_DP_PHY_name?=
+References: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBD?=
+ =?utf-8?q?PU_+_GPU_synchronised_priority_scheduling_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,199 +51,59 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1989213493579717145==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: series starting with [1/2] drm/dp: add drm_dp_phy_name() for getting DP PHY name
-URL   : https://patchwork.freedesktop.org/series/95447/
-State : success
+Series: CPU + GPU synchronised priority scheduling (rev3)
+URL   : https://patchwork.freedesktop.org/series/95294/
+State : failure
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_10683 -> Patchwork_21245
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21245 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@query-info:
-    - fi-bsw-kefka:       NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html
-
-  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
-    - fi-snb-2600:        NOTRUN -> [SKIP][2] ([fdo#109271]) +17 similar issues
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
-
-  * igt@gem_exec_suspend@basic-s0:
-    - fi-kbl-soraka:      [PASS][3] -> [INCOMPLETE][4] ([i915#155])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-kbl-soraka/igt@gem_exec_suspend@basic-s0.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-kbl-soraka/igt@gem_exec_suspend@basic-s0.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a:
-    - fi-bdw-samus:       [PASS][5] -> [INCOMPLETE][6] ([i915#146])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-bdw-samus/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-bdw-samus/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-kefka:       [INCOMPLETE][7] ([i915#2940]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [INCOMPLETE][9] ([i915#3921]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
-  [i915#155]: https://gitlab.freedesktop.org/drm/intel/issues/155
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+Applying: effective and consolidated user experience. In other words why user would not be
+error: drivers/gpu/drm/i915/i915_drm_client.c: already exists in index
+error: drivers/gpu/drm/i915/i915_drm_client.h: already exists in index
+error: patch failed: drivers/gpu/drm/i915/gem/i915_gem_context.c:956
+error: drivers/gpu/drm/i915/gem/i915_gem_context.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/gem/i915_gem_context_types.h:277
+error: drivers/gpu/drm/i915/gem/i915_gem_context_types.h: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/gem/i915_gem_context.c:1169
+error: drivers/gpu/drm/i915/gem/i915_gem_context.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/i915_drm_client.c:38
+error: drivers/gpu/drm/i915/i915_drm_client.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/i915_drm_client.h:7
+error: drivers/gpu/drm/i915/i915_drm_client.h: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/gem/i915_gem_context.c:1932
+error: drivers/gpu/drm/i915/gem/i915_gem_context.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/i915_drm_client.c:18
+error: drivers/gpu/drm/i915/i915_drm_client.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/i915_drm_client.h:6
+error: drivers/gpu/drm/i915/i915_drm_client.h: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/gt/intel_execlists_submission.c:3216
+error: drivers/gpu/drm/i915/gt/intel_execlists_submission.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2414
+error: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/i915_scheduler.c:255
+error: drivers/gpu/drm/i915/i915_scheduler.c: patch does not apply
+error: patch failed: drivers/gpu/drm/i915/i915_scheduler_types.h:177
+error: drivers/gpu/drm/i915/i915_scheduler_types.h: patch does not apply
+error: Did you hand edit your patch?
+It does not apply to blobs recorded in its index.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/Makefile
+M	drivers/gpu/drm/i915/gem/i915_gem_context.c
+M	drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+M	drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+M	drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+A	drivers/gpu/drm/i915/i915_drm_client.c
+A	drivers/gpu/drm/i915/i915_drm_client.h
+M	drivers/gpu/drm/i915/i915_drv.c
+M	drivers/gpu/drm/i915/i915_drv.h
+M	drivers/gpu/drm/i915/i915_scheduler.c
+M	drivers/gpu/drm/i915/i915_scheduler_types.h
+Patch failed at 0001 effective and consolidated user experience. In other words why user would not be
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
 
-Participating hosts (38 -> 33)
-------------------------------
-
-  Missing    (5): bat-dg1-6 fi-bsw-cyan bat-adlp-4 bat-jsl-2 bat-jsl-1 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10683 -> Patchwork_21245
-
-  CI-20190529: 20190529
-  CI_DRM_10683: 2db2331e0b19308750c3b921c2779c4c2da9b04b @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6230: a079f2e00693facf4cf6512f0ddb69b30826c80f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21245: 8d93706b4486b1af018fdb2804984124490183ca @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-8d93706b4486 drm/i915/dp: use drm_dp_phy_name() for logging
-ab7b2a81af3b drm/dp: add drm_dp_phy_name() for getting DP PHY name
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/index.html
-
---===============1989213493579717145==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/dp: add drm_dp_phy_name() for getting DP PHY name</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95447/">https://patchwork.freedesktop.org/series/95447/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10683 -&gt; Patchwork_21245</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21245 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@query-info:</p>
-<ul>
-<li>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
-<ul>
-<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s0:</p>
-<ul>
-<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-kbl-soraka/igt@gem_exec_suspend@basic-s0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-kbl-soraka/igt@gem_exec_suspend@basic-s0.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/155">i915#155</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a:</p>
-<ul>
-<li>fi-bdw-samus:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-bdw-samus/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-bdw-samus/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10683/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21245/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (38 -&gt; 33)</h2>
-<p>Missing    (5): bat-dg1-6 fi-bsw-cyan bat-adlp-4 bat-jsl-2 bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10683 -&gt; Patchwork_21245</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10683: 2db2331e0b19308750c3b921c2779c4c2da9b04b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6230: a079f2e00693facf4cf6512f0ddb69b30826c80f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21245: 8d93706b4486b1af018fdb2804984124490183ca @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>8d93706b4486 drm/i915/dp: use drm_dp_phy_name() for logging<br />
-ab7b2a81af3b drm/dp: add drm_dp_phy_name() for getting DP PHY name</p>
-
-</body>
-</html>
-
---===============1989213493579717145==--
