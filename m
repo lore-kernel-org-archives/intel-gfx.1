@@ -2,45 +2,49 @@ Return-Path: <SRS0=FGOe=O2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9CB6C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 388D0C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:52:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B95B9610A5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:50:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B95B9610A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E948360F11
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:52:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E948360F11
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2837C6EDB0;
-	Wed,  6 Oct 2021 15:50:42 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF606EDB0
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 15:50:40 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="289527439"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="289527439"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 08:50:34 -0700
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="458468113"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 08:50:33 -0700
-Date: Wed, 6 Oct 2021 18:50:28 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20211006155028.GC3025323@ideak-desk.fi.intel.com>
-References: <20211004170535.4173-1-ville.syrjala@linux.intel.com>
- <20211004170535.4173-4-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1AE6EDAA;
+	Wed,  6 Oct 2021 15:52:25 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 859836EDB3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 15:52:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="212966667"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="212966667"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 08:52:24 -0700
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="478163783"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 08:52:22 -0700
+Date: Wed, 6 Oct 2021 18:45:31 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: =?ISO-8859-15?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ intel-gfx@lists.freedesktop.org, uma.shankar@intel.com, 
+ jani.nikula@intel.com
+In-Reply-To: <YV2pbdFxdGfZkQ3B@intel.com>
+Message-ID: <alpine.DEB.2.22.394.2110061844070.3554566@eliteleevi.tm.intel.com>
+References: <20210913164004.3999218-1-kai.vehmanen@linux.intel.com>
+ <YV2pbdFxdGfZkQ3B@intel.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211004170535.4173-4-ville.syrjala@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 3/5] drm/i915: Print the DP vswing
- adjustment request
+Content-Type: multipart/mixed;
+ boundary="-318106570-1784624082-1633535136=:3554566"
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/display: program audio CDCLK-TS
+ for keepalives
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,66 +60,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 04, 2021 at 08:05:33PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Print out each DP vswing adjustment request we got from the RX.
-> Could help in diagnosing what's going on during link training.
-> 
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Imre Deak <imre.deak@intel.com>
+---318106570-1784624082-1633535136=:3554566
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8BIT
 
-> ---
->  .../drm/i915/display/intel_dp_link_training.c | 27 +++++++++++++++++++
->  1 file changed, 27 insertions(+)
+Hi,
+
+On Wed, 6 Oct 2021, Ville Syrjälä wrote:
+
+> On Mon, Sep 13, 2021 at 07:40:04PM +0300, Kai Vehmanen wrote:
+> > XE_LPD display adds support for display audio codec keepalive feature.
+> > This feature works also when display codec is in D3 state and the audio
+> > link is off (BCLK off). To enable this functionality, display driver
+> > must update the AUD_TS_CDCLK_M/N registers whenever CDCLK is changed.
+> > Actual timestamps are generated only when the audio codec driver
+> > specifically enables the KeepAlive (KAE) feature.
+[...]
+> > +	if (refclk == 24000)
+> > +		aud_ts->m = 12;
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index 6bab097cafd2..5657be1461ec 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -343,14 +343,41 @@ static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
->  	return v | p;
->  }
->  
-> +#define TRAIN_REQ_FMT "%d/%d/%d/%d"
-> +#define _TRAIN_REQ_VSWING_ARGS(link_status, lane) \
-> +	(drm_dp_get_adjust_request_voltage((link_status), (lane)) >> DP_TRAIN_VOLTAGE_SWING_SHIFT)
-> +#define TRAIN_REQ_VSWING_ARGS(link_status) \
-> +	_TRAIN_REQ_VSWING_ARGS(link_status, 0), \
-> +	_TRAIN_REQ_VSWING_ARGS(link_status, 1), \
-> +	_TRAIN_REQ_VSWING_ARGS(link_status, 2), \
-> +	_TRAIN_REQ_VSWING_ARGS(link_status, 3)
-> +#define _TRAIN_REQ_PREEMPH_ARGS(link_status, lane) \
-> +	(drm_dp_get_adjust_request_pre_emphasis((link_status), (lane)) >> DP_TRAIN_PRE_EMPHASIS_SHIFT)
-> +#define TRAIN_REQ_PREEMPH_ARGS(link_status) \
-> +	_TRAIN_REQ_PREEMPH_ARGS(link_status, 0), \
-> +	_TRAIN_REQ_PREEMPH_ARGS(link_status, 1), \
-> +	_TRAIN_REQ_PREEMPH_ARGS(link_status, 2), \
-> +	_TRAIN_REQ_PREEMPH_ARGS(link_status, 3)
-> +
->  void
->  intel_dp_get_adjust_train(struct intel_dp *intel_dp,
->  			  const struct intel_crtc_state *crtc_state,
->  			  enum drm_dp_phy dp_phy,
->  			  const u8 link_status[DP_LINK_STATUS_SIZE])
->  {
-> +	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
-> +	char phy_name[10];
->  	int lane;
->  
-> +	drm_dbg_kms(encoder->base.dev, "[ENCODER:%d:%s] lanes: %d, "
-> +		    "vswing request: " TRAIN_REQ_FMT ", "
-> +		    "pre-emphasis request: " TRAIN_REQ_FMT ", at %s\n",
-> +		    encoder->base.base.id, encoder->base.name,
-> +		    crtc_state->lane_count,
-> +		    TRAIN_REQ_VSWING_ARGS(link_status),
-> +		    TRAIN_REQ_PREEMPH_ARGS(link_status),
-> +		    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)));
-> +
->  	for (lane = 0; lane < 4; lane++)
->  		intel_dp->train_set[lane] =
->  			intel_dp_get_lane_adjust_train(intel_dp, crtc_state,
-> -- 
-> 2.32.0
-> 
+> Wasn't there a single exception to this rule? Ie. should this be 
+> if (refclk == 24000 && cdclk != something) ?
+
+ack. I had a discussion with hw folks on this and concluded we can go
+with the simple formula.
+
+Br, Kai
+---318106570-1784624082-1633535136=:3554566--
