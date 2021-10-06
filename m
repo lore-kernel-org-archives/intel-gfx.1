@@ -2,45 +2,45 @@ Return-Path: <SRS0=FGOe=O2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BB17C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 20:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 497E0C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 20:50:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 487B3610E5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 20:49:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 487B3610E5
+	by mail.kernel.org (Postfix) with ESMTPS id 1176761163
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 20:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1176761163
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF37B6EE81;
-	Wed,  6 Oct 2021 20:49:55 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 102156EE7C
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 20:49:54 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="226411743"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="226411743"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 13:49:53 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A1B6EE7C;
+	Wed,  6 Oct 2021 20:50:02 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCE06EE7C
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 20:50:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="206910815"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="206910815"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 13:50:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="484264400"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="488657136"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga007.fm.intel.com with SMTP; 06 Oct 2021 13:49:51 -0700
+ by orsmga008.jf.intel.com with SMTP; 06 Oct 2021 13:49:58 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 06 Oct 2021 23:49:51 +0300
+ Wed, 06 Oct 2021 23:49:57 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  6 Oct 2021 23:49:24 +0300
-Message-Id: <20211006204937.30774-4-ville.syrjala@linux.intel.com>
+Date: Wed,  6 Oct 2021 23:49:26 +0300
+Message-Id: <20211006204937.30774-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211006204937.30774-1-ville.syrjala@linux.intel.com>
 References: <20211006204937.30774-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/16] drm/i915: Use standard form terminating
- condition for lane for loops
+Subject: [Intel-gfx] [PATCH 05/16] drm/i915: Remove dead
+ DKL_TX_LOADGEN_SHARING_PMD_DISABLE stuff
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,36 +58,49 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use <4 instead of <=3 as the terminating condition for the
-loops over the 4 lanes.
+DKL_TX_LOADGEN_SHARING_PMD_DISABLE doesn't even seem to exist,
+also the spec says to skip all loadgen stuff.
+
+The code was dead anyway since it wasn't actually writing the value
+anywhere.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 8 --------
+ drivers/gpu/drm/i915/i915_reg.h          | 1 -
+ 2 files changed, 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index d85d731e37fb..b0bd50383d57 100644
+index 0c9ed705af47..b8ec53d9e3b0 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -1067,7 +1067,7 @@ static void icl_ddi_combo_vswing_program(struct intel_encoder *encoder,
+@@ -1309,14 +1309,6 @@ static void tgl_dkl_phy_set_signal_levels(struct intel_encoder *encoder,
+ 		val = intel_de_read(dev_priv, DKL_TX_DPCNTL2(tc_port));
+ 		val &= ~DKL_TX_DP20BITMODE;
+ 		intel_de_write(dev_priv, DKL_TX_DPCNTL2(tc_port), val);
+-
+-		if ((intel_crtc_has_dp_encoder(crtc_state) &&
+-		     crtc_state->port_clock == 162000) ||
+-		    (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI) &&
+-		     crtc_state->port_clock == 594000))
+-			val |= DKL_TX_LOADGEN_SHARING_PMD_DISABLE;
+-		else
+-			val &= ~DKL_TX_LOADGEN_SHARING_PMD_DISABLE;
+ 	}
+ }
  
- 	/* Program PORT_TX_DW4 */
- 	/* We cannot write to GRP. It would overwrite individual loadgen. */
--	for (ln = 0; ln <= 3; ln++) {
-+	for (ln = 0; ln < 4; ln++) {
- 		val = intel_de_read(dev_priv, ICL_PORT_TX_DW4_LN(ln, phy));
- 		val &= ~(POST_CURSOR_1_MASK | POST_CURSOR_2_MASK |
- 			 CURSOR_COEFF_MASK);
-@@ -1114,7 +1114,7 @@ static void icl_combo_phy_set_signal_levels(struct intel_encoder *encoder,
- 	 * <= 6 GHz and 1,2 lanes (LN0=0, LN1=1, LN2=1, LN3=0)
- 	 * > 6 GHz (LN0=0, LN1=0, LN2=0, LN3=0)
- 	 */
--	for (ln = 0; ln <= 3; ln++) {
-+	for (ln = 0; ln < 4; ln++) {
- 		val = intel_de_read(dev_priv, ICL_PORT_TX_DW4_LN(ln, phy));
- 		val &= ~LOADGEN_SELECT;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5e7a55e6ef50..8c8152de643f 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -11022,7 +11022,6 @@ enum skl_power_gate {
+ 						     _DKL_TX_DPCNTL1)
  
+ #define _DKL_TX_DPCNTL2				0x2C8
+-#define  DKL_TX_LOADGEN_SHARING_PMD_DISABLE            REG_BIT(12)
+ #define  DKL_TX_DP20BITMODE				(1 << 2)
+ #define DKL_TX_DPCNTL2(tc_port) _MMIO(_PORT(tc_port, \
+ 						     _DKL_PHY1_BASE, \
 -- 
 2.32.0
 
