@@ -2,45 +2,78 @@ Return-Path: <SRS0=FGOe=O2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 851FEC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 16:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AF5EC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 16:30:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 405FB60EDF
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 16:16:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 405FB60EDF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 127F460F6C
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 16:30:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 127F460F6C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905966EDBB;
-	Wed,  6 Oct 2021 16:16:37 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C216EDAE
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 16:16:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="223428329"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="223428329"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 09:12:29 -0700
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="560232219"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 09:12:27 -0700
-Date: Wed, 6 Oct 2021 19:12:23 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20211006161223.GE3025323@ideak-desk.fi.intel.com>
-References: <20211004170535.4173-1-ville.syrjala@linux.intel.com>
- <20211004170535.4173-6-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41F506EDBE;
+	Wed,  6 Oct 2021 16:30:25 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18E106EDBC
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 16:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1633537823;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ljugr8xYdJo7W0S7wZ1H4kpTYrrrY7cxZ+QUOs2N9UQ=;
+ b=PgE5eKoPP3a3BVlqnmSL4PtQ8x21TuE3MdBT/lXF0KrT0mIsfbOaJzmrUYLhg0UM+BB8sL
+ a6Fe3Xe3f9OLL/4xVCEVEFMDCjb3+VrAausXkf+okteh2tCW9H5t3/DFl22Xe/FMn3B9Cc
+ TLDSzSXcdOmaI4SIf9/cQRebW6dJqXU=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-184-5XGHrXvTOUOaTH5_idmjcw-1; Wed, 06 Oct 2021 12:30:20 -0400
+X-MC-Unique: 5XGHrXvTOUOaTH5_idmjcw-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ r16-20020adfbb10000000b00160958ed8acso2502599wrg.16
+ for <intel-gfx@lists.freedesktop.org>; Wed, 06 Oct 2021 09:30:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ljugr8xYdJo7W0S7wZ1H4kpTYrrrY7cxZ+QUOs2N9UQ=;
+ b=eI+ZSJf0KQgTKespx48dgebC7eXG/8dzbDCrgYauyviD4NZEVx0PqMZ2J8dRCp/DSM
+ unyFgz+1sQKk0nGanZA4P8tzMoLfaCnQZkRHAkl4BJIHhcBJKpINcRDaNfz9U2EdDXf6
+ qa9iWNxaJ3SphvFfRNwssvyehOj1b0MHuLuzvJwxGRRRrCc9mD+BPVehOw27GL+6mjUb
+ iezIvNPa2EvNNnWa/9sl2bblzT5LOcVfU1XbaZUa9YNfYvdjt4+R/Y5nr6f9cMsfDKv5
+ o4Bbfnq2PLCCzbHxvyH+vj1RqAB5mAk+9hO1/A2i48VFumWo/QBtOsRYBSb6gYvH74Ub
+ 4Sxw==
+X-Gm-Message-State: AOAM5335btJ+r0hvpkxX8tSRhPkiBTzgOG7tIcTGN+eye4aWgyRJUASL
+ u8/r3aiDZ380PL7T6xw7a9IYHDLx0zHL8WIY5Hee9JpeSVkHzNWZAxC3qOt5xMDGAO9JbIU5b/5
+ AgfOR1dZNBeuqtZSphCPnluBm0VlehZr2QKtU6VvUvofB
+X-Received: by 2002:adf:a48e:: with SMTP id g14mr26148176wrb.11.1633537818943; 
+ Wed, 06 Oct 2021 09:30:18 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwaown5rjXY7mQV5Hye51uwbkDUn6obL2IN464EW1FNLtOpErXXEji0g/kFgw0COlTE8icr8YVIyFdXOgO8M+U=
+X-Received: by 2002:adf:a48e:: with SMTP id g14mr26148135wrb.11.1633537818634; 
+ Wed, 06 Oct 2021 09:30:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211004170535.4173-6-ville.syrjala@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 5/5] drm/i915: Call
- intel_dp_dump_link_status() for CR failures
+References: <20211006024018.320394-1-lyude@redhat.com>
+ <20211006024018.320394-3-lyude@redhat.com>
+In-Reply-To: <20211006024018.320394-3-lyude@redhat.com>
+From: Karol Herbst <kherbst@redhat.com>
+Date: Wed, 6 Oct 2021 18:30:07 +0200
+Message-ID: <CACO55tuMWVgsd44s1sAvgrKDHFZT2Z3F+CSqAh34_XaekYWuHA@mail.gmail.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ nouveau <nouveau@lists.freedesktop.org>, 
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=kherbst@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [Nouveau] [PATCH v3 2/5] drm/nouveau/kms/nv50-:
+ Explicitly check DPCD backlights for aux enable/brightness
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,66 +89,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 04, 2021 at 08:05:35PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> I suppose intel_dp_dump_link_status() might be useful for diagnosing
-> link training failures. Hoever we only call from the channel EQ phase
-> currently. Let's call it from the CR phase as well.
-> 
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Reviewed-by: Imre Deak <imre.deak@intel.com>
-
+On Wed, Oct 6, 2021 at 4:41 AM Lyude Paul <lyude@redhat.com> wrote:
+>
+> Since we don't support hybrid AUX/PWM backlights in nouveau right now,
+> let's add some explicit checks so that we don't break nouveau once we
+> enable support for these backlights in other drivers.
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index 18f4b469766e..c92044710012 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -649,6 +649,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
->  	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
->  	u8 old_link_status[DP_LINK_STATUS_SIZE] = {};
->  	int voltage_tries, cr_tries, max_cr_tries;
-> +	u8 link_status[DP_LINK_STATUS_SIZE];
->  	bool max_vswing_reached = false;
->  	char phy_name[10];
->  
-> @@ -678,8 +679,6 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
->  
->  	voltage_tries = 1;
->  	for (cr_tries = 0; cr_tries < max_cr_tries; ++cr_tries) {
-> -		u8 link_status[DP_LINK_STATUS_SIZE];
-> -
->  		intel_dp_link_training_clock_recovery_delay(intel_dp, dp_phy);
->  
->  		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
-> @@ -697,6 +696,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
->  		}
->  
->  		if (voltage_tries == 5) {
-> +			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
->  			drm_dbg_kms(&i915->drm,
->  				    "[ENCODER:%d:%s][%s] Same voltage tried 5 times\n",
->  				    encoder->base.base.id, encoder->base.name, phy_name);
-> @@ -704,6 +704,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
->  		}
->  
->  		if (max_vswing_reached) {
-> +			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
->  			drm_dbg_kms(&i915->drm,
->  				    "[ENCODER:%d:%s][%s] Max Voltage Swing reached\n",
->  				    encoder->base.base.id, encoder->base.name, phy_name);
-> @@ -732,6 +733,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
->  			max_vswing_reached = true;
->  	}
->  
-> +	intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
->  	drm_err(&i915->drm,
->  		"[ENCODER:%d:%s][%s] Failed clock recovery %d times, giving up!\n",
->  		encoder->base.base.id, encoder->base.name, phy_name, max_cr_tries);
-> -- 
-> 2.32.0
-> 
+>  drivers/gpu/drm/nouveau/nouveau_backlight.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> index 1cbd71abc80a..ae2f2abc8f5a 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> @@ -308,7 +308,10 @@ nv50_backlight_init(struct nouveau_backlight *bl,
+>                 if (ret < 0)
+>                         return ret;
+>
+> -               if (drm_edp_backlight_supported(edp_dpcd)) {
+> +               /* TODO: Add support for hybrid PWM/DPCD panels */
+> +               if (drm_edp_backlight_supported(edp_dpcd) &&
+> +                   (edp_dpcd[1] & DP_EDP_BACKLIGHT_AUX_ENABLE_CAP) &&
+
+where does the DP_EDP_BACKLIGHT_AUX_ENABLE_CAP come from? afaik
+drm_edp_backlight_supported checks for
+DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP and
+DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP so wondering if this was
+intentional or a typo
+
+> +                   (edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP)) {
+>                         NV_DEBUG(drm, "DPCD backlight controls supported on %s\n",
+>                                  nv_conn->base.name);
+>
+> --
+> 2.31.1
+>
+
