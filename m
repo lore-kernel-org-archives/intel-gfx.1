@@ -2,45 +2,45 @@ Return-Path: <SRS0=FGOe=O2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C8E9C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFB0FC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ABCF3610A3
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:44:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ABCF3610A3
+	by mail.kernel.org (Postfix) with ESMTPS id BA61360F9D
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 15:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BA61360F9D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC396E527;
-	Wed,  6 Oct 2021 15:44:35 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90B3B6E527
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 15:44:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="206833993"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="206833993"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 08:44:34 -0700
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="522272758"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170EF6ED6B;
+	Wed,  6 Oct 2021 15:47:20 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7B36ED6B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 15:47:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="225916975"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="225916975"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 08:47:18 -0700
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="458467142"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 08:44:32 -0700
-Date: Wed, 6 Oct 2021 18:44:29 +0300
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 08:47:17 -0700
+Date: Wed, 6 Oct 2021 18:47:13 +0300
 From: Imre Deak <imre.deak@intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20211006154429.GA3025323@ideak-desk.fi.intel.com>
+Message-ID: <20211006154713.GB3025323@ideak-desk.fi.intel.com>
 References: <20211004170535.4173-1-ville.syrjala@linux.intel.com>
- <20211004170535.4173-2-ville.syrjala@linux.intel.com>
+ <20211004170535.4173-3-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211004170535.4173-2-ville.syrjala@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 1/5] drm/i915: Tweak the DP "max vswing
- reached?" condition
+In-Reply-To: <20211004170535.4173-3-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 2/5] drm/i915: Show LTTPR in the TPS
+ debug print
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,85 +56,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 04, 2021 at 08:05:31PM +0300, Ville Syrjala wrote:
+On Mon, Oct 04, 2021 at 08:05:32PM +0300, Ville Syrjala wrote:
 > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> Currently we consider the max vswing reached when we transmit a
-> the max voltage level, but we don't consider pre-emphasis at all.
-> This kinda matches older DP specs that only had some vague text
-> about transmitting the maximum voltage swing. Latest versions
-> now say something vague about consider the sum of the vswing
-> and pre-emphasis fields in the ADJUST_REQUEST_LANE registers.
-> Very vague, and super confusing especially the fact that it
-> talks about transmitted voltgage swing in the same sentence
-> as it say to look at the requested values.
-> 
-> Also glanced at the link CTS spec, and that one seems to have
-> tests that assume contradicting behaviour. Some say to consider
-> just the vswing level we transmit, others say to check for
-> sum of transmitted vswing+preemph being 3.
-> 
-> So let's try to take some kind of sane middle ground here.
-> I think what could make sense is only consider max vswing
-> reached if MAX_SWING_REACHED==1 _and_ vswing+preemph==3.
-> That will allow things to go all the way up to vswing 3 +
-> pre-emph 0 or vswing 2 + pre-emph 1, depending on what
-> the maximum supported vswing is. Only considering the sum
-> of vswing+pre-emph doesn't make much sense to me since
-> we could terminate too early if the sink requests eg.
-> vswing 0 + pre-emph 3. And if we'd stick to the current
-> code we could terminate too early of the sink asks for
-> vswing 2 + pre-emph 0 when vswing level 3 is not supported.
-> 
-> Side note: I don't really understand why any of this stuff is
-> "specified" at all. There is already a limit of 5 attempts at
-> the same vswing+pre-emph level, and a total limit of 10
-> attempts. So might as well stick to the same max 5 attempts
-> across the board IMO.
+> Indicate which LTTPR we're currently attempting to train when
+> we print which training pattern we're using.
 > 
 > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
 Reviewed-by: Imre Deak <imre.deak@intel.com>
 
 > ---
->  .../drm/i915/display/intel_dp_link_training.c | 22 ++++++++++++++++---
->  1 file changed, 19 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/i915/display/g4x_dp.c                 |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 11 +++++++----
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.h |  1 +
+>  3 files changed, 9 insertions(+), 5 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+> index 60ae2ba52006..85a09c3e09e8 100644
+> --- a/drivers/gpu/drm/i915/display/g4x_dp.c
+> +++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+> @@ -637,7 +637,7 @@ static void intel_dp_enable_port(struct intel_dp *intel_dp,
+>  	/* enable with pattern 1 (as per spec) */
+>  
+>  	intel_dp_program_link_training_pattern(intel_dp, crtc_state,
+> -					       DP_TRAINING_PATTERN_1);
+> +					       DP_PHY_DPRX, DP_TRAINING_PATTERN_1);
+>  
+>  	/*
+>  	 * Magic for VLV/CHV. We _must_ first set up the register
 > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index c052ce14894d..a45569b8c959 100644
+> index a45569b8c959..6bab097cafd2 100644
 > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
 > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -492,11 +492,27 @@ static bool intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
+> @@ -376,7 +376,7 @@ intel_dp_set_link_train(struct intel_dp *intel_dp,
+>  	int len;
+>  
+>  	intel_dp_program_link_training_pattern(intel_dp, crtc_state,
+> -					       dp_train_pat);
+> +					       dp_phy, dp_train_pat);
+>  
+>  	buf[0] = dp_train_pat;
+>  	/* DP_TRAINING_LANEx_SET follow DP_TRAINING_PATTERN_SET */
+> @@ -404,17 +404,20 @@ static char dp_training_pattern_name(u8 train_pat)
+>  void
+>  intel_dp_program_link_training_pattern(struct intel_dp *intel_dp,
+>  				       const struct intel_crtc_state *crtc_state,
+> +				       enum drm_dp_phy dp_phy,
+>  				       u8 dp_train_pat)
 >  {
->  	int lane;
+>  	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+>  	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+>  	u8 train_pat = intel_dp_training_pattern_symbol(dp_train_pat);
+> +	char phy_name[10];
 >  
-> -	for (lane = 0; lane < crtc_state->lane_count; lane++)
-> -		if ((intel_dp->train_set[lane] &
-> -		     DP_TRAIN_MAX_SWING_REACHED) == 0)
-> +	/*
-> +	 * FIXME: The DP spec is very confusing here, also the Link CTS
-> +	 * spec seems to have self contradicting tests around this area.
-> +	 *
-> +	 * In lieu of better ideas let's just stop when we've reached the
-> +	 * max supported vswing with its max pre-emphasis, which is either
-> +	 * 2+1 or 3+0 depending on whether vswing level 3 is supported or not.
-> +	 */
-> +	for (lane = 0; lane < crtc_state->lane_count; lane++) {
-> +		u8 v = (intel_dp->train_set[lane] & DP_TRAIN_VOLTAGE_SWING_MASK) >>
-> +			DP_TRAIN_VOLTAGE_SWING_SHIFT;
-> +		u8 p = (intel_dp->train_set[lane] & DP_TRAIN_PRE_EMPHASIS_MASK) >>
-> +			DP_TRAIN_PRE_EMPHASIS_SHIFT;
-> +
-> +		if ((intel_dp->train_set[lane] & DP_TRAIN_MAX_SWING_REACHED) == 0)
->  			return false;
+>  	if (train_pat != DP_TRAINING_PATTERN_DISABLE)
+>  		drm_dbg_kms(&dev_priv->drm,
+> -			    "[ENCODER:%d:%s] Using DP training pattern TPS%c\n",
+> +			    "[ENCODER:%d:%s] Using DP training pattern TPS%c, at %s\n",
+>  			    encoder->base.base.id, encoder->base.name,
+> -			    dp_training_pattern_name(train_pat));
+> +			    dp_training_pattern_name(train_pat),
+> +			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)));
 >  
-> +		if (v + p != 3)
-> +			return false;
-> +	}
-> +
->  	return true;
+>  	intel_dp->set_link_train(intel_dp, crtc_state, dp_train_pat);
+>  }
+> @@ -855,7 +858,7 @@ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
+>  	intel_dp->link_trained = true;
+>  
+>  	intel_dp_disable_dpcd_training_pattern(intel_dp, DP_PHY_DPRX);
+> -	intel_dp_program_link_training_pattern(intel_dp, crtc_state,
+> +	intel_dp_program_link_training_pattern(intel_dp, crtc_state, DP_PHY_DPRX,
+>  					       DP_TRAINING_PATTERN_DISABLE);
 >  }
 >  
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+> index 9d24d594368c..6a3a7b37349a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+> @@ -19,6 +19,7 @@ void intel_dp_get_adjust_train(struct intel_dp *intel_dp,
+>  			       const u8 link_status[DP_LINK_STATUS_SIZE]);
+>  void intel_dp_program_link_training_pattern(struct intel_dp *intel_dp,
+>  					    const struct intel_crtc_state *crtc_state,
+> +					    enum drm_dp_phy dp_phy,
+>  					    u8 dp_train_pat);
+>  void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
+>  				const struct intel_crtc_state *crtc_state,
 > -- 
 > 2.32.0
 > 
