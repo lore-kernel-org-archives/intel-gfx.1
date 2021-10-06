@@ -2,38 +2,38 @@ Return-Path: <SRS0=FGOe=O2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD47BC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 17:21:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 171D9C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 17:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73BDA61175
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 17:21:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 73BDA61175
+	by mail.kernel.org (Postfix) with ESMTPS id D45BB611C6
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 17:29:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D45BB611C6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2266EDCE;
-	Wed,  6 Oct 2021 17:21:03 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02D0B6EDCE;
- Wed,  6 Oct 2021 17:21:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="212996408"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="212996408"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1013D6EDDB;
+	Wed,  6 Oct 2021 17:29:42 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA8A6EDDA;
+ Wed,  6 Oct 2021 17:29:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="206175641"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="206175641"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 10:21:01 -0700
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="439197459"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 10:29:38 -0700
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="439199883"
 Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
  ([10.1.27.20])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 10:21:01 -0700
-Date: Wed, 6 Oct 2021 10:16:13 -0700
+ 06 Oct 2021 10:29:38 -0700
+Date: Wed, 6 Oct 2021 10:24:50 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Message-ID: <20211006171612.GA8084@jons-linux-dev-box>
+Message-ID: <20211006172450.GA8103@jons-linux-dev-box>
 References: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
  <20211004143650.699120-8-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
@@ -85,6 +85,27 @@ On Mon, Oct 04, 2021 at 03:36:49PM +0100, Tvrtko Ursulin wrote:
 > should the nice be a sub-range of GEM priorities, or stretched across the
 > whole, a moot one.
 > 
+
+Opps, sorry for the double reply to this patch - for some reason I
+thinking the below comment would be on the next patch.
+
+The GuC + DRM scheduler actually has 4 priorities with the highest
+reserved for the KMD, so 3 user levels which is what I think you mean.
+So how would this work with only 3 levels? 
+
+The nice value can move a normal priority value to either low or high,
+right?
+
+Normal to low seems fine but would moving to high be an issue?
+
+I thought a high level was reserved for elevated user processes (e.g. a
+root user or a compositor)?
+
+Would it be ok for a non-elevated user process to be the same priority
+as an elevated process?
+
+Matt
+
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 > ---
 >  drivers/gpu/drm/i915/gem/i915_gem_context.c        |  1 +
@@ -266,15 +287,6 @@ On Mon, Oct 04, 2021 at 03:36:49PM +0100, Tvrtko Ursulin wrote:
 > +	 * process owning the GPU context.
 > +	 */
 > +	int nice;
-
-Same comment as the previous patch, I'd avoid adding a field to this
-structure as I don't think this will play with the DRM scheduler very
-well. If anything I think we should drop i915_sched_attr completely and
-just store these values directly in the request and pass around the
-request rather than i915_sched_attr.
-
-Matt
-
 >  };
 >  
 >  /*
