@@ -2,73 +2,77 @@ Return-Path: <SRS0=q0LQ=O3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1AE0C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:30:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20A53C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:30:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B860F61042
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B860F61042
+	by mail.kernel.org (Postfix) with ESMTPS id DC8AA61042
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:30:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC8AA61042
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 666C76F461;
-	Thu,  7 Oct 2021 12:29:50 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05FF89024;
- Wed,  6 Oct 2021 12:36:13 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id r18so8402155wrg.6;
- Wed, 06 Oct 2021 05:36:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1BA66F46C;
+	Thu,  7 Oct 2021 12:29:52 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3E0A6F3D6
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 09:19:18 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id v17so16924829wrv.9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 07 Oct 2021 02:19:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=89OOgwIjAdHEsJJAQ88awEfVzr+pvOl73kjL6eCX7Ww=;
- b=qh84H34U5hLSCDUP73mzuGZ0fIEmj0EMWOyrmqZPfZpFuaBbuwm4HGTDuZ+J/aAyxN
- TmM68rbq2cGiZuCBAulHC/qv2Cems1obpGqeS4b8AiXCaWQOLCsp5l7XXQK6irbFf96B
- wSuLfLujm6L3zDv8bw/l3sMw31PwlHl4LlsFUAHKzDGIw9m2FjAq7aS79VgjyOPH5qxv
- wOnL6trGQMsigOMISYeThR/rnlezJccu9fpeM0OM/K0DEpzx19TZWTVUS9ITrsCwiH+D
- LLDy0/O/Td1qVPYC5socDBsIhmLRFdSM5FVM/P8AWVGVusT/ex6+csso6BRdk0xVrZsB
- qX5g==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=oO/NvW/L45yNIkS5G9nKwuYXqBe7ka+u/BUMOvud85I=;
+ b=SCi4kjXrBLUd0tG9AlrglC+XIfI69XRDmGMx76jvX9uyN1lMI78zpajJKiXPXAFuCl
+ qsJNeaoc8Mt6eql4pYLBGiZYRj0dG7zY6BaDHIxhAaMWCp5YlgnT6Dy6i0Sw5gycyOcb
+ IkZ/1OwIbXWeiy/m9DsCILa4SBz/cOpVdc9/Rha1S3mliG0ykRA8YN/UrrSThakDwR8i
+ LiyZ4e/f8ckXNxAuCrgVUAu37v9191xLgMbh832L+Wpe0rXolzQc9rQ7FXm/4xTnStsD
+ jNZtm6B7eeGqDmEkz0qoiYqUdF83MFDxGmsbDWcYAY4QGQPhIzCp/0ozaixHk6Gnr/Df
+ YjQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=89OOgwIjAdHEsJJAQ88awEfVzr+pvOl73kjL6eCX7Ww=;
- b=n+ziANIs+bxWoAq20QJ4zn/By7bdNJ49nogXY8WXW7yXrjL1S5SFrJhz6SCXVvrHwy
- 249DASRFje9vF4026lcsYjDl5TTShN+hr7sJfiZPsyoD2Ljm7FFJhW/kGNKnPW7M1ljS
- s3doecTUeeTMoV9zNZzkWZZ6XKTZSfIOA/gZ0TFhYKQd3v2KMxWTaeh9CiEcgiVtVJa7
- KIcQVbytR60Cu3AG+ZhuTmV+Zb1b+hf6OTroXpS/Em043ytc1pcEC1mwnQHXrC1vryuM
- NXIU3OK81r3z8jolRYlUdUkTbhKsK7DCa0aukOUFKUXZYDKXEjjA0/sMnDX/9YLyR66d
- skMg==
-X-Gm-Message-State: AOAM533dMd7rYUHOEQT0Le5QcVI1E8Q1uzgDiyO6oorS0Nw5epOel4fu
- moVONjAdDmfPy8DJabLCqqpOS2hQQ9I=
-X-Google-Smtp-Source: ABdhPJzSJnI5oyhF4GY/Mg9pp/fHbN3cI0NXNZ0vDmZgpFuyWCgu+twOsdBPRFrH3we+AaP5BJAYqg==
-X-Received: by 2002:a1c:ac03:: with SMTP id v3mr9951186wme.127.1633523772342; 
- Wed, 06 Oct 2021 05:36:12 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- l124sm5194770wml.8.2021.10.06.05.36.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 05:36:11 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch
-Cc: tvrtko.ursulin@linux.intel.com
-Date: Wed,  6 Oct 2021 14:36:09 +0200
-Message-Id: <20211006123609.2026-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211006123609.2026-1-christian.koenig@amd.com>
-References: <20211006123609.2026-1-christian.koenig@amd.com>
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=oO/NvW/L45yNIkS5G9nKwuYXqBe7ka+u/BUMOvud85I=;
+ b=492T02i87FtagScqulnt0aTUWshxI12ytLUVpKjsgp4QleY3cg7m0ds7yrirXp6+Dx
+ AcwZetK/vnugvMOcZClDnTP77uQFpe6WDbxGeF3LpG3bO7eCvq6Yr25QJmpm/BrfesXF
+ 3wwCHoZgHRK7aVwWl7Ea6BqrrGPt6EIvWbEPWj/beGrCRHvy7TYMWj7BIfH844rdtqYK
+ TpmZ2wvrQJ9+du2YPlc7dNzuGG40QsaKdcL4OSI9r1sZBt1owqn7nemnCON/O9fTFcZH
+ EZKdaQZu6ajP0TrFaermbQHnW6pCWOjghqxgXT61PEHpuisSn6RiazC4nt+UyyE/OdTp
+ LG+Q==
+X-Gm-Message-State: AOAM530TZtxuNqTX+N8/b8x4f0pPSw7ah53uCZiASJh1+s8uga19uM5W
+ lN7ZoLaTIo7CfE8B5+6lyRpMHTMwkAE=
+X-Google-Smtp-Source: ABdhPJw+2UYqYA/vFYRiY8ZjAWakHkiRUFLGLtWZcmhlLrdMpQU0l5Ml6AWa/9UY3bUMIiTs1xn5fA==
+X-Received: by 2002:a7b:c4cb:: with SMTP id g11mr1434868wmk.112.1633598357499; 
+ Thu, 07 Oct 2021 02:19:17 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id c17sm7485379wmr.15.2021.10.07.02.19.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Oct 2021 02:19:17 -0700 (PDT)
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20211006091614.970596-1-matthew.auld@intel.com>
+ <163353397200.5959.9158572900274841139@emeril.freedesktop.org>
+ <d50b2987-6343-fc87-e197-1cc8ac2c4f93@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <cb93ee61-9ac1-587e-0182-6c6ba6671d79@gmail.com>
+Date: Thu, 7 Oct 2021 11:19:15 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <d50b2987-6343-fc87-e197-1cc8ac2c4f93@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Thu, 07 Oct 2021 12:29:48 +0000
-Subject: [Intel-gfx] [PATCH 2/2] dma-buf: add dma_resv selftest v3
+Subject: Re: [Intel-gfx] 
+ =?utf-8?b?4pyXIEZpLkNJLklHVDogZmFpbHVyZSBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5Bv7=2C1/8=5D_drm/i915/gem=3A_Break_out_some?=
+ =?utf-8?q?_shmem_backend_utils?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,330 +88,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Just exercising a very minor subset of the functionality, but already
-proven useful.
+Am 07.10.21 um 11:15 schrieb Tvrtko Ursulin:
+> Hi,
+>
+> On 06/10/2021 16:26, Patchwork wrote:
+>> *Patch Details*
+>> *Series:*    series starting with [v7,1/8] drm/i915/gem: Break out 
+>> some shmem backend utils
+>> *URL:*    https://patchwork.freedesktop.org/series/95501/ 
+>> <https://patchwork.freedesktop.org/series/95501/>
+>> *State:*    failure
+>> *Details:* 
+>> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21264/index.html 
+>> <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21264/index.html>
+>>
+>>
+>>   CI Bug Log - changes from CI_DRM_10688_full -> Patchwork_21264_full
+>>
+>>
+>>     Summary
+>>
+>> *FAILURE*
+>>
+>> Serious unknown changes coming with Patchwork_21264_full absolutely 
+>> need to be
+>> verified manually.
+>>
+>> If you think the reported changes have nothing to do with the changes
+>> introduced in Patchwork_21264_full, please notify your bug team to 
+>> allow them
+>> to document this new failure mode, which will reduce false positives 
+>> in CI.
+>>
+>>
+>>     Possible new issues
+>>
+>> Here are the unknown changes that may have been introduced in 
+>> Patchwork_21264_full:
+>>
+>>
+>>       IGT changes
+>>
+>>
+>>         Possible regressions
+>>
+>>   *
+>>
+>>     igt@gem_sync@basic-many-each:
+>>
+>>       o shard-apl: NOTRUN -> INCOMPLETE
+>> <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21264/shard-apl7/igt@gem_sync@basic-many-each.html>
+> Something still fishy in the unlocked iterator? Or dma_resv_get_fences 
+> using it?
 
-v2: add missing locking
-v3: some more cleanup and consolidation, add unlocked test as well
+Probably the later. I'm going to take a look.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/dma-buf/Makefile      |   3 +-
- drivers/dma-buf/selftests.h   |   1 +
- drivers/dma-buf/st-dma-resv.c | 282 ++++++++++++++++++++++++++++++++++
- 3 files changed, 285 insertions(+), 1 deletion(-)
- create mode 100644 drivers/dma-buf/st-dma-resv.c
+Thanks for the notice,
+Christian.
 
-diff --git a/drivers/dma-buf/Makefile b/drivers/dma-buf/Makefile
-index 1ef021273a06..511805dbeb75 100644
---- a/drivers/dma-buf/Makefile
-+++ b/drivers/dma-buf/Makefile
-@@ -11,6 +11,7 @@ obj-$(CONFIG_DMABUF_SYSFS_STATS) += dma-buf-sysfs-stats.o
- dmabuf_selftests-y := \
- 	selftest.o \
- 	st-dma-fence.o \
--	st-dma-fence-chain.o
-+	st-dma-fence-chain.o \
-+	st-dma-resv.o
- 
- obj-$(CONFIG_DMABUF_SELFTESTS)	+= dmabuf_selftests.o
-diff --git a/drivers/dma-buf/selftests.h b/drivers/dma-buf/selftests.h
-index bc8cea67bf1e..97d73aaa31da 100644
---- a/drivers/dma-buf/selftests.h
-+++ b/drivers/dma-buf/selftests.h
-@@ -12,3 +12,4 @@
- selftest(sanitycheck, __sanitycheck__) /* keep first (igt selfcheck) */
- selftest(dma_fence, dma_fence)
- selftest(dma_fence_chain, dma_fence_chain)
-+selftest(dma_resv, dma_resv)
-diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
-new file mode 100644
-index 000000000000..50d3791ccb8c
---- /dev/null
-+++ b/drivers/dma-buf/st-dma-resv.c
-@@ -0,0 +1,282 @@
-+/* SPDX-License-Identifier: MIT */
-+
-+/*
-+* Copyright © 2019 Intel Corporation
-+* Copyright © 2021 Advanced Micro Devices, Inc.
-+*/
-+
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/dma-resv.h>
-+
-+#include "selftest.h"
-+
-+static struct spinlock fence_lock;
-+
-+static const char *fence_name(struct dma_fence *f)
-+{
-+	return "selftest";
-+}
-+
-+static const struct dma_fence_ops fence_ops = {
-+	.get_driver_name = fence_name,
-+	.get_timeline_name = fence_name,
-+};
-+
-+static struct dma_fence *alloc_fence(void)
-+{
-+	struct dma_fence *f;
-+
-+	f = kmalloc(sizeof(*f), GFP_KERNEL);
-+	if (!f)
-+		return NULL;
-+
-+	dma_fence_init(f, &fence_ops, &fence_lock, 0, 0);
-+	return f;
-+}
-+
-+static int sanitycheck(void *arg)
-+{
-+	struct dma_resv resv;
-+	struct dma_fence *f;
-+	int r;
-+
-+	f = alloc_fence();
-+	if (!f)
-+		return -ENOMEM;
-+
-+	dma_fence_signal(f);
-+	dma_fence_put(f);
-+
-+	dma_resv_init(&resv);
-+	r = dma_resv_lock(&resv, NULL);
-+	if (r)
-+		pr_err("Resv locking failed\n");
-+	else
-+		dma_resv_unlock(&resv);
-+	dma_resv_fini(&resv);
-+	return r;
-+}
-+
-+static int test_signaling(void *arg, bool shared)
-+{
-+	struct dma_resv resv;
-+	struct dma_fence *f;
-+	int r;
-+
-+	f = alloc_fence();
-+	if (!f)
-+		return -ENOMEM;
-+
-+	dma_resv_init(&resv);
-+	r = dma_resv_lock(&resv, NULL);
-+	if (r) {
-+		pr_err("Resv locking failed\n");
-+		goto err_free;
-+	}
-+
-+	if (shared) {
-+		r = dma_resv_reserve_shared(&resv, 1);
-+		if (r) {
-+			pr_err("Resv shared slot allocation failed\n");
-+			goto err_unlock;
-+		}
-+
-+		dma_resv_add_shared_fence(&resv, f);
-+	} else {
-+		dma_resv_add_excl_fence(&resv, f);
-+	}
-+
-+	if (dma_resv_test_signaled(&resv, shared)) {
-+		pr_err("Resv unexpectedly signaled\n");
-+		r = -EINVAL;
-+		goto err_unlock;
-+	}
-+	dma_fence_signal(f);
-+	if (!dma_resv_test_signaled(&resv, shared)) {
-+		pr_err("Resv not reporting signaled\n");
-+		r = -EINVAL;
-+		goto err_unlock;
-+	}
-+err_unlock:
-+	dma_resv_unlock(&resv);
-+err_free:
-+	dma_resv_fini(&resv);
-+	dma_fence_put(f);
-+	return r;
-+}
-+
-+static int test_excl_signaling(void *arg)
-+{
-+	return test_signaling(arg, false);
-+}
-+
-+static int test_shared_signaling(void *arg)
-+{
-+	return test_signaling(arg, true);
-+}
-+
-+static int test_for_each(void *arg, bool shared)
-+{
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *f, *fence;
-+	struct dma_resv resv;
-+	int r;
-+
-+	f = alloc_fence();
-+	if (!f)
-+		return -ENOMEM;
-+
-+	dma_resv_init(&resv);
-+	r = dma_resv_lock(&resv, NULL);
-+	if (r) {
-+		pr_err("Resv locking failed\n");
-+		goto err_free;
-+	}
-+
-+	if (shared) {
-+		r = dma_resv_reserve_shared(&resv, 1);
-+		if (r) {
-+			pr_err("Resv shared slot allocation failed\n");
-+			goto err_unlock;
-+		}
-+
-+		dma_resv_add_shared_fence(&resv, f);
-+	} else {
-+		dma_resv_add_excl_fence(&resv, f);
-+	}
-+
-+	r = -ENOENT;
-+	dma_resv_for_each_fence(&cursor, &resv, shared, fence) {
-+		if (!r) {
-+			pr_err("More than one fence found\n");
-+			r = -EINVAL;
-+			goto err_unlock;
-+		}
-+		if (f != fence) {
-+			pr_err("Unexpected fence\n");
-+			r = -EINVAL;
-+			goto err_unlock;
-+		}
-+		if (dma_resv_iter_is_exclusive(&cursor) != !shared) {
-+			pr_err("Unexpected fence usage\n");
-+			r = -EINVAL;
-+			goto err_unlock;
-+		}
-+		r = 0;
-+	}
-+	if (r) {
-+		pr_err("No fence found\n");
-+		goto err_unlock;
-+	}
-+	dma_fence_signal(f);
-+err_unlock:
-+	dma_resv_unlock(&resv);
-+err_free:
-+	dma_resv_fini(&resv);
-+	dma_fence_put(f);
-+	return r;
-+}
-+
-+static int test_excl_for_each(void *arg)
-+{
-+	return test_for_each(arg, false);
-+}
-+
-+static int test_shared_for_each(void *arg)
-+{
-+	return test_for_each(arg, false);
-+}
-+
-+static int test_for_each_unlocked(void *arg, bool shared)
-+{
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *f, *fence;
-+	struct dma_resv resv;
-+	int r;
-+
-+	f = alloc_fence();
-+	if (!f)
-+		return -ENOMEM;
-+
-+	dma_resv_init(&resv);
-+	r = dma_resv_lock(&resv, NULL);
-+	if (r) {
-+		pr_err("Resv locking failed\n");
-+		goto err_free;
-+	}
-+
-+	if (shared) {
-+		r = dma_resv_reserve_shared(&resv, 1);
-+		if (r) {
-+			pr_err("Resv shared slot allocation failed\n");
-+			dma_resv_unlock(&resv);
-+			goto err_free;
-+		}
-+
-+		dma_resv_add_shared_fence(&resv, f);
-+	} else {
-+		dma_resv_add_excl_fence(&resv, f);
-+	}
-+	dma_resv_unlock(&resv);
-+
-+	r = -ENOENT;
-+	dma_resv_iter_begin(&cursor, &resv, shared);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		if (!r) {
-+			dma_resv_iter_end(&cursor);
-+			pr_err("More than one fence found\n");
-+			r = -EINVAL;
-+			goto err_free;
-+		}
-+		if (f != fence) {
-+			dma_resv_iter_end(&cursor);
-+			pr_err("Unexpected fence\n");
-+			r = -EINVAL;
-+			goto err_free;
-+		}
-+		if (dma_resv_iter_is_exclusive(&cursor) != !shared) {
-+			dma_resv_iter_end(&cursor);
-+			pr_err("Unexpected fence usage\n");
-+			r = -EINVAL;
-+			goto err_free;
-+		}
-+		r = 0;
-+	}
-+	dma_resv_iter_end(&cursor);
-+	if (r) {
-+		pr_err("No fence found\n");
-+		goto err_free;
-+	}
-+	dma_fence_signal(f);
-+err_free:
-+	dma_resv_fini(&resv);
-+	dma_fence_put(f);
-+	return r;
-+}
-+
-+static int test_excl_for_each_unlocked(void *arg)
-+{
-+	return test_for_each_unlocked(arg, false);
-+}
-+
-+static int test_shared_for_each_unlocked(void *arg)
-+{
-+	return test_for_each_unlocked(arg, true);
-+}
-+
-+int dma_resv(void)
-+{
-+	static const struct subtest tests[] = {
-+		SUBTEST(sanitycheck),
-+		SUBTEST(test_excl_signaling),
-+		SUBTEST(test_shared_signaling),
-+		SUBTEST(test_excl_for_each),
-+		SUBTEST(test_shared_for_each),
-+		SUBTEST(test_excl_for_each_unlocked),
-+		SUBTEST(test_shared_for_each_unlocked),
-+	};
-+
-+	spin_lock_init(&fence_lock);
-+	return subtests(tests, NULL);
-+}
--- 
-2.25.1
+>
+> <6> [187.551235] [IGT] gem_sync: starting subtest basic-many-each
+> <1> [188.935462] BUG: kernel NULL pointer dereference, address: 
+> 0000000000000010
+> <1> [188.935485] #PF: supervisor write access in kernel mode
+> <1> [188.935495] #PF: error_code(0x0002) - not-present page
+> <6> [188.935504] PGD 0 P4D 0
+> <4> [188.935512] Oops: 0002 [#1] PREEMPT SMP NOPTI
+> <4> [188.935521] CPU: 2 PID: 1467 Comm: gem_sync Not tainted 
+> 5.15.0-rc4-CI-Patchwork_21264+ #1
+> <4> [188.935535] Hardware name:  /NUC6CAYB, BIOS 
+> AYAPLCEL.86A.0049.2018.0508.1356 05/08/2018
+> <4> [188.935546] RIP: 0010:dma_resv_get_fences+0x116/0x2d0
+> <4> [188.935560] Code: 10 85 c0 7f c9 be 03 00 00 00 e8 15 8b df ff eb 
+> bd e8 8e c6 ff ff eb b6 41 8b 04 24 49 8b 55 00 48 89 e7 8d 48 01 41 
+> 89 0c 24 <4c> 89 34 c2 e8 41 f2 ff ff 49 89 c6 48 85 c0 75 8c 48 8b 44 
+> 24 10
+> <4> [188.935583] RSP: 0018:ffffc900011dbcc8 EFLAGS: 00010202
+> <4> [188.935593] RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 
+> 0000000000000001
+> <4> [188.935603] RDX: 0000000000000010 RSI: ffffffff822e343c RDI: 
+> ffffc900011dbcc8
+> <4> [188.935613] RBP: ffffc900011dbd48 R08: ffff88812d255bb8 R09: 
+> 00000000fffffffe
+> <4> [188.935623] R10: 0000000000000001 R11: 0000000000000000 R12: 
+> ffffc900011dbd44
+> <4> [188.935633] R13: ffffc900011dbd50 R14: ffff888113d29cc0 R15: 
+> 0000000000000000
+> <4> [188.935643] FS:  00007f68d17e9700(0000) GS:ffff888277900000(0000) 
+> knlGS:0000000000000000
+> <4> [188.935655] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4> [188.935665] CR2: 0000000000000010 CR3: 000000012d0a4000 CR4: 
+> 00000000003506e0
+> <4> [188.935676] Call Trace:
+> <4> [188.935685]  i915_gem_object_wait+0x1ff/0x410 [i915]
+> <4> [188.935988]  i915_gem_wait_ioctl+0xf2/0x2a0 [i915]
+> <4> [188.936272]  ? i915_gem_object_wait+0x410/0x410 [i915]
+> <4> [188.936533]  drm_ioctl_kernel+0xae/0x140
+> <4> [188.936546]  drm_ioctl+0x201/0x3d0
+> <4> [188.936555]  ? i915_gem_object_wait+0x410/0x410 [i915]
+> <4> [188.936820]  ? __fget_files+0xc2/0x1c0
+> <4> [188.936830]  ? __fget_files+0xda/0x1c0
+> <4> [188.936839]  __x64_sys_ioctl+0x6d/0xa0
+> <4> [188.936848]  do_syscall_64+0x3a/0xb0
+> <4> [188.936859]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+>
+> Regards,
+>
+> Tvrtko
 
