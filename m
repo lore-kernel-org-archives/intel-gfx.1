@@ -2,72 +2,82 @@ Return-Path: <SRS0=q0LQ=O3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56752C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92A59C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1836661042
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1836661042
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 58A9661042
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 58A9661042
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B12576F45E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F17AB6F45B;
 	Thu,  7 Oct 2021 12:29:49 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E879689024;
- Wed,  6 Oct 2021 12:36:12 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id e12so8394264wra.4;
- Wed, 06 Oct 2021 05:36:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BC8JYdK1Qu0/aQcZikfhJVKjP/atFAZpc20Z0L0BuCA=;
- b=abKRjK7veYtiBHtIGNTmHlg0nL2qqVYcjboGWEWZ/NNgRilFnZgevTmqEpM7Wi9sHi
- f/ROK0TD31VEY2vWDIT8j9yiFFJ/ZKtGCuMqI8xV7dUgYcqYcC6L52Q/Us8XksdQR9qG
- arEL0T4xpsgheI2llrN3+Dir/E3JfV+UHtl3tOUsPfTO3wOidjdIy9vD4AHNJEI344bB
- L/x2Er0EDxAfmYFT6VSldsbQIR09EFAdtBIyDT20RKFcYWBuYbHAbePAitCY3aomJ8bg
- j0GE9A4+gEZ4HYaEMYVupceMd1tGUiVIjhbg3YubuaIYjndZsREgRHAUbghLH42u8UBr
- vhZw==
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C736F404
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 11:01:59 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id v17so17786040wrv.9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 07 Oct 2021 04:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=NJgOSqoCCgXqOknLz7AdQYpr89OwA0jzXUySVyR80Xs=;
+ b=M7iUMKBa9OdQuivKHhVb7u/+Q7iX2KCFCBHWKvWjQ40ubCMP3Fqw/TEwd+sRZ8pZw5
+ C44lLGOhyw6JXYdO0nULsRQFxS7qPtDTX1C8Q0G8Q9HcH5Kli5EMS1wScn0mA899ja5h
+ QewOHemIzJmWooZX9DaYRBVCNW5wxn0Ds1FM9CsvfyOPbyKF9xtjjN9QqqYketJ3WeHj
+ P7LAJuiw0Y72L7p3Gl0K+elu1PHzC11Dz45zjpkh9XO9k1i3Wzzg7JbayVbvMCbGDQiq
+ bnEoYoRy5+b30rOA+1/3aAjuYLH6mIy23leaFq2ckQCUoY+hc3Ke9GuU/Jfh14THLIk3
+ N0Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BC8JYdK1Qu0/aQcZikfhJVKjP/atFAZpc20Z0L0BuCA=;
- b=dvofP17rRM0JYt4xywj5iT+q9ZSmZZKZC2BqDmG7+DfCOCcXbIqYBGrXYMCzIAdyFQ
- zhokvmXivzTeAlNbe0+7a4HkQ0OCwMNuKa76fDkPNiDgKsfy7vntnSPXjQlB30qQcB0R
- YDz2985hy/bqIyk8IMv0IXF14UB2g+nCqIbgX+wCU9o62ZmSa0WnuoVM8dQ1WCUmLCKX
- iNO2ja91rv+/6vd3chbevj5UPmLNfTD867B4SiUzh0e+VAVZld+ZA4Kl+cNFjNppiP7k
- C7cBPsmeB7BRM0bkyi7CS3AAuGG5W8VnZ2O4hBvSNeNwd5cQepY65hyXiRkPG7hNu2K4
- hezw==
-X-Gm-Message-State: AOAM531roDLIml8T5HyARrM0Fhd02hMk4byBdS6BMbao2czcOZB4XGyV
- CYdzMnGsGRg59Zt1deGw1kg=
-X-Google-Smtp-Source: ABdhPJwVwv3VWEYd7jtzwhszVYTIIG0IDAE548fEEOyXsiE+H0dJetJEqy1Pew5FbBmXaLP1Wz1J4A==
-X-Received: by 2002:a05:600c:4f16:: with SMTP id
- l22mr5838560wmq.152.1633523771376; 
- Wed, 06 Oct 2021 05:36:11 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- l124sm5194770wml.8.2021.10.06.05.36.10
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=NJgOSqoCCgXqOknLz7AdQYpr89OwA0jzXUySVyR80Xs=;
+ b=jksRubMvprJh0gqqq+J+Ufv8wz/J2EOKjmsapxbCXCMnOb8GMn25fV2QbFdvUiG5gy
+ SfemJ03eXCs9Zhjcw8V9DBplK4dQHJ2bye8DRJXUsLelzgwEM53c5SI9QMVmKLaVu+6v
+ 4IKbMdh+JBbBxSFEsQ91TKuTANQYRAfu9iL6MyfLy9cVJBILHRapMEm/Qrw4f74QJ9Ek
+ df76Dm/Zv9q0zcOKXtbxOgxH9r6+JOv9/N/Vybj/Z3ZBLlBJy1HfWlxMzDtYPOrxl3wr
+ w0srEKDqjNKA4a+xb4N4SUiNOVJDHq1PaJEQNZag3nVCOWC6WbNtHCPiX14DZA+I264v
+ QxLQ==
+X-Gm-Message-State: AOAM530KGqxCmZ0+Xs85e6DpQPCme6fu+Cj/h73+9edPGK6gV7+qhN3n
+ 5rxNiffLze1FtWmlz4jae8Pu4nFS7syz4w==
+X-Google-Smtp-Source: ABdhPJxNZ3GZnwKRx3cEfL0sobv2ozaQ3OzXMKIBQI9jkD1YsD2fOajFBkhLkC09EyiLBtdLx1KUIg==
+X-Received: by 2002:a7b:c5d8:: with SMTP id n24mr3990455wmk.51.1633604517859; 
+ Thu, 07 Oct 2021 04:01:57 -0700 (PDT)
+Received: from elver.google.com ([2a00:79e0:15:13:aedf:c006:6996:1a79])
+ by smtp.gmail.com with ESMTPSA id c185sm8441412wma.8.2021.10.07.04.01.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 05:36:10 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch
-Cc: tvrtko.ursulin@linux.intel.com
-Date: Wed,  6 Oct 2021 14:36:08 +0200
-Message-Id: <20211006123609.2026-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
+ Thu, 07 Oct 2021 04:01:56 -0700 (PDT)
+Date: Thu, 7 Oct 2021 13:01:51 +0200
+From: Marco Elver <elver@google.com>
+To: Vlastimil Babka <vbabka@suse.cz>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, kasan-dev@googlegroups.com,
+ Vijayanand Jitta <vjitta@codeaurora.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>,
+ Dmitry Vyukov <dvyukov@google.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Oliver Glitta <glittao@gmail.com>, Imran Khan <imran.f.khan@oracle.com>
+Message-ID: <YV7TnygBLdHJjmRW@elver.google.com>
+References: <20211007095815.3563-1-vbabka@suse.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211007095815.3563-1-vbabka@suse.cz>
+User-Agent: Mutt/2.0.5 (2021-01-21)
 X-Mailman-Approved-At: Thu, 07 Oct 2021 12:29:48 +0000
-Subject: [Intel-gfx] [PATCH 1/2] dma-buf: add dma_resv_for_each_fence v3
+Subject: Re: [Intel-gfx] [PATCH] lib/stackdepot: allow optional init and
+ stack_table allocation by kvmalloc()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,118 +93,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A simpler version of the iterator to be used when the dma_resv object is
-locked.
+On Thu, Oct 07, 2021 at 11:58AM +0200, Vlastimil Babka wrote:
+[...] 
+> - Add a CONFIG_STACKDEPOT_ALWAYS_INIT flag to keep using the current
+>   well-defined point of allocation as part of mem_init(). Make CONFIG_KASAN
+>   select this flag.
+> - Other users have to call stack_depot_init() as part of their own init when
+>   it's determined that stack depot will actually be used. This may depend on
+>   both config and runtime conditions. Convert current users which are
+>   page_owner and several in the DRM subsystem. Same will be done for SLUB
+>   later.
+> - Because the init might now be called after the boot-time memblock allocation
+>   has given all memory to the buddy allocator, change stack_depot_init() to
+>   allocate stack_table with kvmalloc() when memblock is no longer available.
+>   Also handle allocation failure by disabling stackdepot (could have
+>   theoretically happened even with memblock allocation previously), and don't
+>   unnecessarily align the memblock allocation to its own size anymore.
+...
+> Hi, I'd appreciate review of the DRM parts - namely that I've got correctly
+> that stack_depot_init() is called from the proper init functions and iff
+> stack_depot_save() is going to be used later. Thanks!
 
-v2: fix index check here as well
-v3: minor coding improvement, some documentation cleanup
+For ease of review between stackdepot and DRM changes, I thought it'd be
+nice to split into 2 patches, but not sure it'll work, because you're
+changing the semantics of the normal STACKDEPOT.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/dma-buf/dma-resv.c | 51 ++++++++++++++++++++++++++++++++++++++
- include/linux/dma-resv.h   | 20 +++++++++++++++
- 2 files changed, 71 insertions(+)
+One option would be to flip it around, and instead have
+STACKDEPOT_LAZY_INIT, but that seems counter-intuitive if the majority
+of STACKDEPOT users are LAZY_INIT users.
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index a480af9581bd..2f98caa68ae5 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -423,6 +423,57 @@ struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter *cursor)
- }
- EXPORT_SYMBOL(dma_resv_iter_next_unlocked);
- 
-+/**
-+ * dma_resv_iter_first - first fence from a locked dma_resv object
-+ * @cursor: cursor to record the current position
-+ *
-+ * Return the first fence in the dma_resv object while holding the
-+ * &dma_resv.lock.
-+ */
-+struct dma_fence *dma_resv_iter_first(struct dma_resv_iter *cursor)
-+{
-+	struct dma_fence *fence;
-+
-+	dma_resv_assert_held(cursor->obj);
-+
-+	cursor->index = 0;
-+	if (cursor->all_fences)
-+		cursor->fences = dma_resv_shared_list(cursor->obj);
-+	else
-+		cursor->fences = NULL;
-+
-+	fence = dma_resv_excl_fence(cursor->obj);
-+	if (!fence)
-+		fence = dma_resv_iter_next(cursor);
-+
-+	cursor->is_restarted = true;
-+	return fence;
-+}
-+EXPORT_SYMBOL_GPL(dma_resv_iter_first);
-+
-+/**
-+ * dma_resv_iter_next - next fence from a locked dma_resv object
-+ * @cursor: cursor to record the current position
-+ *
-+ * Return the next fences from the dma_resv object while holding the
-+ * &dma_resv.lock.
-+ */
-+struct dma_fence *dma_resv_iter_next(struct dma_resv_iter *cursor)
-+{
-+	unsigned int idx;
-+
-+	dma_resv_assert_held(cursor->obj);
-+
-+	cursor->is_restarted = false;
-+	if (!cursor->fences || cursor->index >= cursor->fences->shared_count)
-+		return NULL;
-+
-+	idx = cursor->index++;
-+	return rcu_dereference_protected(cursor->fences->shared[idx],
-+					 dma_resv_held(cursor->obj));
-+}
-+EXPORT_SYMBOL_GPL(dma_resv_iter_next);
-+
- /**
-  * dma_resv_copy_fences - Copy all fences from src to dst.
-  * @dst: the destination reservation object
-diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
-index 764138ad8583..491359cea54c 100644
---- a/include/linux/dma-resv.h
-+++ b/include/linux/dma-resv.h
-@@ -179,6 +179,8 @@ struct dma_resv_iter {
- 
- struct dma_fence *dma_resv_iter_first_unlocked(struct dma_resv_iter *cursor);
- struct dma_fence *dma_resv_iter_next_unlocked(struct dma_resv_iter *cursor);
-+struct dma_fence *dma_resv_iter_first(struct dma_resv_iter *cursor);
-+struct dma_fence *dma_resv_iter_next(struct dma_resv_iter *cursor);
- 
- /**
-  * dma_resv_iter_begin - initialize a dma_resv_iter object
-@@ -244,6 +246,24 @@ static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
- 	for (fence = dma_resv_iter_first_unlocked(cursor);		\
- 	     fence; fence = dma_resv_iter_next_unlocked(cursor))
- 
-+/**
-+ * dma_resv_for_each_fence - fence iterator
-+ * @cursor: a struct dma_resv_iter pointer
-+ * @obj: a dma_resv object pointer
-+ * @all_fences: true if all fences should be returned
-+ * @fence: the current fence
-+ *
-+ * Iterate over the fences in a struct dma_resv object while holding the
-+ * &dma_resv.lock. @all_fences controls if the shared fences are returned as
-+ * well. The cursor initialisation is part of the iterator and the fence stays
-+ * valid as long as the lock is held and so no extra reference to the fence is
-+ * taken.
-+ */
-+#define dma_resv_for_each_fence(cursor, obj, all_fences, fence)	\
-+	for (dma_resv_iter_begin(cursor, obj, all_fences),	\
-+	     fence = dma_resv_iter_first(cursor); fence;	\
-+	     fence = dma_resv_iter_next(cursor))
-+
- #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
- #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
- 
--- 
-2.25.1
+On the other hand, the lazy initialization mode you're introducing
+requires an explicit stack_depot_init() call somewhere and isn't as
+straightforward as before.
 
+Not sure what is best. My intuition tells me STACKDEPOT_LAZY_INIT would
+be safer as it's a deliberate opt-in to the lazy initialization
+behaviour.
+
+Preferences?
+
+[...]
+> --- a/drivers/gpu/drm/drm_mm.c
+> +++ b/drivers/gpu/drm/drm_mm.c
+> @@ -980,6 +980,10 @@ void drm_mm_init(struct drm_mm *mm, u64 start, u64 size)
+>  	add_hole(&mm->head_node);
+>  
+>  	mm->scan_active = 0;
+> +
+> +#ifdef CONFIG_DRM_DEBUG_MM
+> +	stack_depot_init();
+> +#endif
+
+DRM_DEBUG_MM implies STACKDEPOT. Not sure what is more readable to drm
+maintainers, but perhaps it'd be nicer to avoid the #ifdef here, and
+instead just keep the no-op version of stack_depot_init() in
+<linux/stackdepot.h>. I don't have a strong preference.
+
+>  }
+>  EXPORT_SYMBOL(drm_mm_init);
+>  
+> diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+> index 0d85f3c5c526..806c32ab410b 100644
+> --- a/drivers/gpu/drm/i915/intel_runtime_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+> @@ -68,6 +68,9 @@ static noinline depot_stack_handle_t __save_depot_stack(void)
+>  static void init_intel_runtime_pm_wakeref(struct intel_runtime_pm *rpm)
+>  {
+>  	spin_lock_init(&rpm->debug.lock);
+> +
+> +	if (rpm->available)
+> +		stack_depot_init();
+>  }
+>  
+>  static noinline depot_stack_handle_t
+> diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+> index c34b55a6e554..60ba99a43745 100644
+> --- a/include/linux/stackdepot.h
+> +++ b/include/linux/stackdepot.h
+> @@ -15,6 +15,16 @@
+>  
+>  typedef u32 depot_stack_handle_t;
+>  
+> +/*
+> + * Every user of stack depot has to call this during its own init when it's
+> + * decided that it will be calling stack_depot_save() later.
+> + *
+> + * The alternative is to select STACKDEPOT_ALWAYS_INIT to have stack depot
+> + * enabled as part of mm_init(), for subsystems where it's known at compile time
+> + * that stack depot will be used.
+> + */
+> +int stack_depot_init(void);
+> +
+>  depot_stack_handle_t __stack_depot_save(unsigned long *entries,
+>  					unsigned int nr_entries,
+>  					gfp_t gfp_flags, bool can_alloc);
+> @@ -30,13 +40,4 @@ int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
+>  
+>  void stack_depot_print(depot_stack_handle_t stack);
+>  
+> -#ifdef CONFIG_STACKDEPOT
+> -int stack_depot_init(void);
+> -#else
+> -static inline int stack_depot_init(void)
+> -{
+> -	return 0;
+> -}
+> -#endif	/* CONFIG_STACKDEPOT */
+> -
+
+Could we avoid the IS_ENABLED() in init/main.c by adding a wrapper here:
+
++#ifdef CONFIG_STACKDEPOT_ALWAYS_INIT
++static inline int stack_depot_early_init(void)	{ return stack_depot_init(); }
++#else
++static inline int stack_depot_early_init(void)	{ return 0; }
++#endif	/* CONFIG_STACKDEPOT_ALWAYS_INIT */
+
+>  #endif
+> diff --git a/init/main.c b/init/main.c
+> index ee4d3e1b3eb9..b6a5833d98f5 100644
+> --- a/init/main.c
+> +++ b/init/main.c
+> @@ -844,7 +844,8 @@ static void __init mm_init(void)
+>  	init_mem_debugging_and_hardening();
+>  	kfence_alloc_pool();
+>  	report_meminit();
+> -	stack_depot_init();
+> +	if (IS_ENABLED(CONFIG_STACKDEPOT_ALWAYS_INIT))
+> +		stack_depot_init();
+
+I'd push the decision of when to call this into <linux/stackdepot.h> via
+wrapper stack_depot_early_init().
+
+>  	mem_init();
+>  	mem_init_print_info();
+>  	/* page_owner must be initialized after buddy is ready */
+> diff --git a/lib/Kconfig b/lib/Kconfig
+> index 5e7165e6a346..df6bcf0a4cc3 100644
+> --- a/lib/Kconfig
+> +++ b/lib/Kconfig
+> @@ -671,6 +671,9 @@ config STACKDEPOT
+>  	bool
+>  	select STACKTRACE
+>  
+> +config STACKDEPOT_ALWAYS_INIT
+> +	bool
+
+It looks like every users of STACKDEPOT_ALWAYS_INIT will also select
+STACKDEPOT, so we could just make this:
+
++config STACKDEPOT_ALWAYS_INIT
++	bool
++	select STACKDEPOT
+
+And remove the redundant 'select STACKDEPOT' in Kconfig.kasan.
+
+>  config STACK_HASH_ORDER
+>  	int "stack depot hash size (12 => 4KB, 20 => 1024KB)"
+>  	range 12 20
+> diff --git a/lib/Kconfig.kasan b/lib/Kconfig.kasan
+> index cdc842d090db..695deb603c66 100644
+> --- a/lib/Kconfig.kasan
+> +++ b/lib/Kconfig.kasan
+> @@ -39,6 +39,7 @@ menuconfig KASAN
+>  		   HAVE_ARCH_KASAN_HW_TAGS
+>  	depends on (SLUB && SYSFS) || (SLAB && !DEBUG_SLAB)
+>  	select STACKDEPOT
+> +	select STACKDEPOT_ALWAYS_INIT
+
+[...]
+>  
+> -int __init stack_depot_init(void)
+> +/*
+> + * __ref because of memblock_alloc(), which will not be actually called after
+> + * the __init code is gone
+
+The reason is that after __init code is gone, slab_is_available() will
+be true (might be worth adding to the comment).
+
+> + */
+> +__ref int stack_depot_init(void)
+>  {
+> -	if (!stack_depot_disable) {
+> +	mutex_lock(&stack_depot_init_mutex);
+> +	if (!stack_depot_disable && stack_table == NULL) {
+>  		size_t size = (STACK_HASH_SIZE * sizeof(struct stack_record *));
+
+Thanks,
+-- Marco
