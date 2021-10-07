@@ -2,72 +2,58 @@ Return-Path: <SRS0=q0LQ=O3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA52BC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BD07C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8BD2F61075
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8BD2F61075
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9690961038
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 12:29:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9690961038
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14C126F45A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A53396F45D;
 	Thu,  7 Oct 2021 12:29:49 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BAB96EE65;
- Wed,  6 Oct 2021 20:22:06 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id g8so14339283edt.7;
- Wed, 06 Oct 2021 13:22:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=eDub8eH+T0FGGXCo6yfeGfJ6YqWnTRGI/yA4UgLkRz8=;
- b=kzpaV5LuhHsG8wpdKws61cbnBXVnLeSVOdVO+kinpV9VcvNbKc1kr224zlvq9LVQj+
- Sx6cBexDIALtWv+0V2OAFlQCA+Mn9T0lOWa75wNlioAtOn7t3tsBKseu9nTnM2up1OmR
- qhXpgwFTCtYaEqXEGlMT4UOYnwOb4MGXcGniqrWo+5E8I0MNShqTovYZYTsuba14eT1/
- N+4EbUjRY1Z3r17bRRBgOvF15jqWG1a2yQfsnIxfBmedfdBKBh+qCU8uJkc1tra/lwqX
- NzS+wiOcu0awQdrHJbdc2JAuKJqmiJjoW9QNdafUX1JNVh6oTJl0EQ/+KBEaTcTX3LlG
- aOPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=eDub8eH+T0FGGXCo6yfeGfJ6YqWnTRGI/yA4UgLkRz8=;
- b=rCRZ8wvd0EMHfkSuXJANs89bQjDwNjQjFLQrAYB0aZqiLEAcxweNeya7wNFe0jX50w
- SBePsJB4C/97MA8UXOktgutKWPWDz99Rmgy7Vk+b4tJwSppA6aTtarxu8EH8LKhNnWQk
- wOIfA5Va/uZm/0TSi0FaSCuu/fKy/CE7pUOshAQVIyFwPZXeAHUoqZf3HXnc2lJsoHqq
- knXxJ7FMmS+yZejkDxkTkAMIL4dD8S078Z8Ycza1tH1Keu4URhUR12Kg86BA1PUCGq51
- hJM4GsyRsNaMADjYxnaXOi78Zvo/FhqY1o1bADVgty7NLGMa+n9fUjj4PoQ6wutdJ+TB
- AsjA==
-X-Gm-Message-State: AOAM533W8sKRvqDMgtzAN6u8S0w6dLfDjzNqoreiLdENKsOs8pjDWa2o
- EKDQCgvwN/08NBGIvKSuQyishDhMbFg0vLxNlQQ=
-X-Google-Smtp-Source: ABdhPJxgPXZl9MwohSbQf1ii3BbLP5RORN2+VhjeZXA3IwsjTiPAzL7sGdva5j0+lrnyga/D7BnEgxYJx6AefoCmDVk=
-X-Received: by 2002:a17:906:713:: with SMTP id
- y19mr374790ejb.506.1633551725020; 
- Wed, 06 Oct 2021 13:22:05 -0700 (PDT)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C6F6F3E2;
+ Thu,  7 Oct 2021 09:21:23 +0000 (UTC)
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4HQ5Pf4n9xz1DHR5;
+ Thu,  7 Oct 2021 17:19:50 +0800 (CST)
+Received: from dggema764-chm.china.huawei.com (10.1.198.206) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2308.8; Thu, 7 Oct 2021 17:21:20 +0800
+Received: from [10.174.185.179] (10.174.185.179) by
+ dggema764-chm.china.huawei.com (10.1.198.206) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.8; Thu, 7 Oct 2021 17:21:18 +0800
+To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+CC: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <ville.syrjala@linux.intel.com>, <tiwai@suse.de>,
+ <wanghaibin.wang@huawei.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ <linux-acpi@vger.kernel.org>
+References: <20210906033541.862-1-yuzenghui@huawei.com>
+From: Zenghui Yu <yuzenghui@huawei.com>
+Message-ID: <3ae85963-beab-17d2-05f1-5a490cee1296@huawei.com>
+Date: Thu, 7 Oct 2021 17:21:18 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-References: <20211004143650.699120-1-tvrtko.ursulin@linux.intel.com>
- <20211004143650.699120-2-tvrtko.ursulin@linux.intel.com>
- <562d45e1-4a27-3252-f615-3ab1ef531f2b@huawei.com>
- <CAGsJ_4w5Y4=v93YmTrXJ6hDgjKshxiAZ-ox-Nz_7uRwe4ECtdw@mail.gmail.com>
- <8381e87d-ef7f-4759-569b-f6dabeb02939@linux.intel.com>
-In-Reply-To: <8381e87d-ef7f-4759-569b-f6dabeb02939@linux.intel.com>
-From: Barry Song <21cnbao@gmail.com>
-Date: Thu, 7 Oct 2021 09:21:53 +1300
-Message-ID: <CAGsJ_4wF1SmDL6eoEXRB-NwGLALkwhj9wLC5JKaQJpaQx1=5ZA@mail.gmail.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: "Wanghui (John)" <john.wanghui@huawei.com>, Intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, 
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20210906033541.862-1-yuzenghui@huawei.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.174.185.179]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggema764-chm.china.huawei.com (10.1.198.206)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 07 Oct 2021 12:29:48 +0000
-Subject: Re: [Intel-gfx] [RFC 1/8] sched: Add nice value change notifier
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Free the returned object of
+ acpi_evaluate_dsm()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,127 +69,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 7, 2021 at 2:44 AM Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
->
->
-> Hi,
->
-> On 06/10/2021 08:58, Barry Song wrote:
-> > On Wed, Oct 6, 2021 at 5:15 PM Wanghui (John) <john.wanghui@huawei.com>=
- wrote:
-> >>
-> >> HI Tvrtko
-> >>
-> >> On 2021/10/4 22:36, Tvrtko Ursulin wrote:
-> >>>    void set_user_nice(struct task_struct *p, long nice)
-> >>>    {
-> >>>        bool queued, running;
-> >>> -     int old_prio;
-> >>> +     int old_prio, ret;
-> >>>        struct rq_flags rf;
-> >>>        struct rq *rq;
-> >>>
-> >>> @@ -6915,6 +6947,9 @@ void set_user_nice(struct task_struct *p, long =
-nice)
-> >>>
-> >>>    out_unlock:
-> >>>        task_rq_unlock(rq, p, &rf);
-> >>> +
-> >>> +     ret =3D atomic_notifier_call_chain(&user_nice_notifier_list, ni=
-ce, p);
-> >>> +     WARN_ON_ONCE(ret !=3D NOTIFY_DONE);
-> >>>    }
-> >> How about adding a new "io_nice" to task_struct=EF=BC=8Cand move the c=
-all chain to
-> >> sched_setattr/getattr, there are two benefits:
-> >
-> > We already have an ionice for block io scheduler. hardly can this new i=
-o_nice
-> > be generic to all I/O. it seems the patchset is trying to link
-> > process' nice with
-> > GPU's scheduler, to some extent, it makes more senses than having a
-> > common ionice because we have a lot of IO devices in the systems, we do=
-n't
-> > know which I/O the ionice of task_struct should be applied to.
-> >
-> > Maybe we could have an ionice dedicated for GPU just like ionice for CF=
-Q
-> > of bio/request scheduler.
->
-> Thought crossed my mind but I couldn't see the practicality of a 3rd
-> nice concept. I mean even to start with I struggle a bit with the
-> usefulness of existing ionice vs nice. Like coming up with practical
-> examples of usecases where it makes sense to decouple the two priorities.
->
->  From a different angle I did think inheriting CPU nice makes sense for
-> GPU workloads. This is because today, and more so in the future,
-> computations on a same data set do flow from one to the other.
->
-> Like maybe a simple example of batch image processing where CPU decodes,
-> GPU does a transform and then CPU encodes. Or a different mix, doesn't
-> really matter, since the main point it is one computing pipeline from
-> users point of view.
->
+[+linux-acpi]
 
-I am on it. but I am also seeing two problems here:
-1. nice is not global in linux. For example, if you have two cgroups, cgrou=
-p A
-has more quota then cgroup B. Tasks in B won't win even if it has a lower n=
-ice.
-cgroups will run proportional-weight time-based division of CPU.
+ping
 
-2. Historically, we had dynamic nice which was adjusted based on the averag=
-e
-sleep/running time; right now, we don't have dynamic nice, but virtual time
-still make tasks which sleep more preempt other tasks with the same nice
-or even lower nice.
-virtual time +=3D physical time/weight by nice
-so, static nice number doesn't always make sense to decide preemption.
-
-So it seems your patch only works under some simple situation for example
-no cgroups, tasks have similar sleep/running time.
-
-> In this example perhaps everything could be handled in userspace so
-> that's another argument to be had. Userspace could query the current
-> scheduling attributes before submitting work to the processing pipeline
-> and adjust using respective uapi.
->
-> Downside would be inability to react to changes after the work is
-> already running which may not be too serious limitation outside the
-> world of multi-minute compute workloads. And latter are probably special
-> case enough that would be configured explicitly.
->
-> >>
-> >> 1. Decoupled with fair scheduelr. In our use case, high priority tasks=
- often
-> >>      use rt scheduler.
-> >
-> > Is it possible to tell GPU RT as we are telling them CFS nice?
->
-> Yes of course. We could create a common notification "data packet" which
-> would be sent from both entry points and provide more data than just the
-> nice value. Consumers (of the notifier chain) could then decide for
-> themselves what they want to do with the data.
-
-RT should have the same problem with CFS once we have cgroups.
-
->
-> Regards,
->
-> Tvrtko
->
-> >
-> >> 2. The range of value don't need to be bound to -20~19 or 0~139
-> >>
-> >
-> > could build a mapping between the priorities of process and GPU. It see=
-ms
-> > not a big deal.
-> >
-> > Thanks
-> > barry
-> >
-
-Thanks
-barry
+On 2021/9/6 11:35, Zenghui Yu wrote:
+> As per the comment on top of acpi_evaluate_dsm():
+> 
+> | * Evaluate device's _DSM method with specified GUID, revision id and
+> | * function number. Caller needs to free the returned object.
+> 
+> We should free the returned object of acpi_evaluate_dsm() to avoid memory
+> leakage. Otherwise the kmemleak splat will be triggered at boot time (if we
+> compile kernel with CONFIG_DEBUG_TEST_DRIVER_REMOVE=y).
+> 
+> Fixes: 8e55f99c510f ("drm/i915: Invoke another _DSM to enable MUX on HP Workstation laptops")
+> Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_acpi.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
+> index 7cfe91fc05f2..68abeaf2d7d4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_acpi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_acpi.c
+> @@ -186,13 +186,16 @@ void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915)
+>  {
+>  	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+>  	acpi_handle dhandle;
+> +	union acpi_object *obj;
+>  
+>  	dhandle = ACPI_HANDLE(&pdev->dev);
+>  	if (!dhandle)
+>  		return;
+>  
+> -	acpi_evaluate_dsm(dhandle, &intel_dsm_guid2, INTEL_DSM_REVISION_ID,
+> -			  INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED, NULL);
+> +	obj = acpi_evaluate_dsm(dhandle, &intel_dsm_guid2, INTEL_DSM_REVISION_ID,
+> +				INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED, NULL);
+> +	if (obj)
+> +		ACPI_FREE(obj);
+>  }
+>  
+>  /*
+> 
