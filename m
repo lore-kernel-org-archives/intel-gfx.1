@@ -2,48 +2,55 @@ Return-Path: <SRS0=3Vrl=O4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F666C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 01:36:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFED0C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 01:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5572061073
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 01:36:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5572061073
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 758E161073
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 01:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 758E161073
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C57016E071;
-	Fri,  8 Oct 2021 01:35:58 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D944C6E04A;
- Fri,  8 Oct 2021 01:35:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="226311907"
-X-IronPort-AV: E=Sophos;i="5.85,356,1624345200"; d="scan'208";a="226311907"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 18:35:55 -0700
-X-IronPort-AV: E=Sophos;i="5.85,356,1624345200"; d="scan'208";a="484850733"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 18:35:55 -0700
-Date: Thu, 7 Oct 2021 18:31:09 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniele.ceraolospurio@intel.com
-Message-ID: <20211008013109.GA854@jons-linux-dev-box>
-References: <20211004220637.14746-1-matthew.brost@intel.com>
- <20211004220637.14746-9-matthew.brost@intel.com>
- <f03536a0-2ffe-ed40-041e-0f277960a60d@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8FA6E864;
+	Fri,  8 Oct 2021 01:39:13 +0000 (UTC)
+X-Greylist: delayed 4200 seconds by postgrey-1.36 at gabe;
+ Fri, 08 Oct 2021 01:39:10 UTC
+Received: from 1.mo560.mail-out.ovh.net (1.mo560.mail-out.ovh.net
+ [46.105.63.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB3D6E071
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Oct 2021 01:39:10 +0000 (UTC)
+Received: from player711.ha.ovh.net (unknown [10.110.115.29])
+ by mo560.mail-out.ovh.net (Postfix) with ESMTP id 341132204C
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 23:09:24 +0000 (UTC)
+Received: from etezian.org (unknown [31.22.59.2])
+ (Authenticated sender: andi@etezian.org)
+ by player711.ha.ovh.net (Postfix) with ESMTPSA id 4176B22D33013;
+ Thu,  7 Oct 2021 23:09:16 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-105G006f2aba140-9aaa-469e-badb-23d328ce0857,
+ 8790DCEDFF6AD8C831A06EBEA49B55E03DAFB6BE) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 31.22.59.2
+From: Andi Shyti <andi@etezian.org>
+To: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ DRI Devel <dri-devel@lists.freedesktop.org>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Andi Shyti <andi.shyti@intel.com>, Andi Shyti <andi@etezian.org>
+Date: Fri,  8 Oct 2021 01:09:03 +0200
+Message-Id: <20211007230903.4084-1-andi@etezian.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f03536a0-2ffe-ed40-041e-0f277960a60d@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 08/26] drm/i915/guc: Add multi-lrc context
- registration
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 9089108474615958026
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrudelledgudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvufffkffogggtgfesthekredtredtjeenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpeeulefhheeiuddvvdetleevleduuefgteekfedugedutdelvdegkefgheetvddtudenucfkpheptddrtddrtddrtddpfedurddvvddrheelrddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeduuddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+Subject: [Intel-gfx] [PATCH v2] drm/i915/gt: move remaining debugfs
+ interfaces into gt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,261 +66,422 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 07, 2021 at 12:50:28PM -0700, John Harrison wrote:
-> On 10/4/2021 15:06, Matthew Brost wrote:
-> > Add multi-lrc context registration H2G. In addition a workqueue and
-> > process descriptor are setup during multi-lrc context registration as
-> > these data structures are needed for multi-lrc submission.
-> > 
-> > v2:
-> >   (John Harrison)
-> >    - Move GuC specific fields into sub-struct
-> >    - Clean up WQ defines
-> >    - Add comment explaining math to derive WQ / PD address
-> > 
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/gt/intel_context_types.h |  12 ++
-> >   drivers/gpu/drm/i915/gt/intel_lrc.c           |   5 +
-> >   .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   1 +
-> >   drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   2 -
-> >   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 114 +++++++++++++++++-
-> >   5 files changed, 131 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > index 76dfca57cb45..48decb5ee954 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > @@ -239,6 +239,18 @@ struct intel_context {
-> >   		struct intel_context *parent;
-> >   		/** @number_children: number of children if parent */
-> >   		u8 number_children;
-> > +		/** @guc: GuC specific members for parallel submission */
-> > +		struct {
-> > +			/** @wqi_head: head pointer in work queue */
-> > +			u16 wqi_head;
-> > +			/** @wqi_tail: tail pointer in work queue */
-> > +			u16 wqi_tail;
-> > +			/**
-> > +			 * @parent_page: page in context state (ce->state) used
-> > +			 * by parent for work queue, process descriptor
-> > +			 */
-> > +			u8 parent_page;
-> > +		} guc;
-> >   	} parallel;
-> >   #ifdef CONFIG_DRM_I915_SELFTEST
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > index 3ef9eaf8c50e..57339d5c1fc8 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > @@ -942,6 +942,11 @@ __lrc_alloc_state(struct intel_context *ce, struct intel_engine_cs *engine)
-> >   		context_size += PAGE_SIZE;
-> >   	}
-> > +	if (intel_context_is_parent(ce) && intel_engine_uses_guc(engine)) {
-> > +		ce->parallel.guc.parent_page = context_size / PAGE_SIZE;
-> > +		context_size += PAGE_SIZE;
-> > +	}
-> > +
-> >   	obj = i915_gem_object_create_lmem(engine->i915, context_size,
-> >   					  I915_BO_ALLOC_PM_VOLATILE);
-> >   	if (IS_ERR(obj))
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > index 8ff582222aff..ba10bd374cee 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > +++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > @@ -142,6 +142,7 @@ enum intel_guc_action {
-> >   	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
-> >   	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
-> >   	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
-> > +	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
-> >   	INTEL_GUC_ACTION_RESET_CLIENT = 0x5507,
-> >   	INTEL_GUC_ACTION_LIMIT
-> >   };
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > index fa4be13c8854..0eeb2a9feeed 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > @@ -52,8 +52,6 @@
-> >   #define GUC_DOORBELL_INVALID		256
-> > -#define GUC_WQ_SIZE			(PAGE_SIZE * 2)
-> > -
-> >   /* Work queue item header definitions */
-> >   #define WQ_STATUS_ACTIVE		1
-> >   #define WQ_STATUS_SUSPENDED		2
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > index 451d9ae861a6..ab6d7fc1b0b1 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > @@ -344,6 +344,45 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
-> >   	return rb_entry(rb, struct i915_priolist, node);
-> >   }
-> > +/*
-> > + * When using multi-lrc submission an extra page in the context state is
-> > + * reserved for the process descriptor and work queue.
-> > + *
-> > + * The layout of this page is below:
-> > + * 0						guc_process_desc
-> > + * ...						unused
-> > + * PAGE_SIZE / 2				work queue start
-> > + * ...						work queue
-> > + * PAGE_SIZE - 1				work queue end
-> > + */
-> > +#define WQ_SIZE			(PAGE_SIZE / 2)
-> > +#define WQ_OFFSET		(PAGE_SIZE - WQ_SIZE)
-> I thought you were going with '#define PARENT_SCRATCH SIZE PAGE_SIZE' and
-> then using that everywhere else? Unless there is a fundamental reason why
-> the above must be exactly a page in size then I think the size should be
-> defined once and re-used rather than assumed in multiple places (including
-> in the description comment).
-> 
+From: Andi Shyti <andi.shyti@intel.com>
 
-Right, forgot about that. Will fix.
+The following interfaces:
 
-> > +static u32 __get_process_desc_offset(struct intel_context *ce)
-> > +{
-> > +	GEM_BUG_ON(!ce->parallel.guc.parent_page);
-> > +
-> > +	return ce->parallel.guc.parent_page * PAGE_SIZE;
-> > +}
-> > +
-> > +static u32 __get_wq_offset(struct intel_context *ce)
-> > +{
-> > +	return __get_process_desc_offset(ce) + WQ_OFFSET;
-> > +}
-> > +
-> > +static struct guc_process_desc *
-> > +__get_process_desc(struct intel_context *ce)
-> > +{
-> > +	/*
-> > +	 * Need to subtract LRC_STATE_OFFSET here as the
-> > +	 * parallel.guc.parent_page is the offset into ce->state while
-> > +	 * ce->lrc_reg_reg is ce->state + LRC_STATE_OFFSET.
-> > +	 */
-> > +	return (struct guc_process_desc *)
-> > +		(ce->lrc_reg_state +
-> > +		 ((__get_process_desc_offset(ce) -
-> > +		   LRC_STATE_OFFSET) / sizeof(u32)));
-> > +}
-> > +
-> >   static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
-> >   {
-> >   	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
-> > @@ -1365,6 +1404,30 @@ static void unpin_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> >   	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
-> >   }
-> > +static int __guc_action_register_multi_lrc(struct intel_guc *guc,
-> > +					   struct intel_context *ce,
-> > +					   u32 guc_id,
-> > +					   u32 offset,
-> > +					   bool loop)
-> > +{
-> > +	struct intel_context *child;
-> > +	u32 action[4 + MAX_ENGINE_INSTANCE];
-> > +	int len = 0;
-> > +
-> > +	GEM_BUG_ON(ce->parallel.number_children > MAX_ENGINE_INSTANCE);
-> > +
-> > +	action[len++] = INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC;
-> > +	action[len++] = guc_id;
-> > +	action[len++] = ce->parallel.number_children + 1;
-> > +	action[len++] = offset;
-> > +	for_each_child(ce, child) {
-> > +		offset += sizeof(struct guc_lrc_desc);
-> > +		action[len++] = offset;
-> > +	}
-> > +
-> > +	return guc_submission_send_busy_loop(guc, action, len, 0, loop);
-> > +}
-> > +
-> >   static int __guc_action_register_context(struct intel_guc *guc,
-> >   					 u32 guc_id,
-> >   					 u32 offset,
-> > @@ -1387,9 +1450,15 @@ static int register_context(struct intel_context *ce, bool loop)
-> >   		ce->guc_id.id * sizeof(struct guc_lrc_desc);
-> >   	int ret;
-> > +	GEM_BUG_ON(intel_context_is_child(ce));
-> >   	trace_intel_context_register(ce);
-> > -	ret = __guc_action_register_context(guc, ce->guc_id.id, offset, loop);
-> > +	if (intel_context_is_parent(ce))
-> > +		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
-> > +						      offset, loop);
-> > +	else
-> > +		ret = __guc_action_register_context(guc, ce->guc_id.id, offset,
-> > +						    loop);
-> >   	if (likely(!ret)) {
-> >   		unsigned long flags;
-> > @@ -1418,6 +1487,7 @@ static int deregister_context(struct intel_context *ce, u32 guc_id)
-> >   {
-> >   	struct intel_guc *guc = ce_to_guc(ce);
-> > +	GEM_BUG_ON(intel_context_is_child(ce));
-> >   	trace_intel_context_deregister(ce);
-> >   	return __guc_action_deregister_context(guc, guc_id);
-> > @@ -1445,6 +1515,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
-> >   	struct guc_lrc_desc *desc;
-> >   	bool context_registered;
-> >   	intel_wakeref_t wakeref;
-> > +	struct intel_context *child;
-> >   	int ret = 0;
-> >   	GEM_BUG_ON(!engine->mask);
-> > @@ -1470,6 +1541,41 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
-> >   	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-> >   	guc_context_policy_init(engine, desc);
-> > +	/*
-> > +	 * Context is a parent, we need to register a process descriptor
-> > +	 * describing a work queue and register all child contexts.
-> > +	 */
-> This was now meant to say 'If the context is a parent...'?
-> 
+  i915_wedged
+  i915_forcewake_user
+  i915_gem_interrupt
 
-Yep, that is what it should say. Will fix.
+are dependent on gt values. Put them inside gt/ and drop the
+"i915_" prefix name. This would be the new structure:
 
-Matt
+  dri/0/gt
+  |
+  +-- forcewake_user
+  |
+  +-- interrupt_info
+  |
+  \-- reset
 
-> John.
-> 
-> > +	if (intel_context_is_parent(ce)) {
-> > +		struct guc_process_desc *pdesc;
-> > +
-> > +		ce->parallel.guc.wqi_tail = 0;
-> > +		ce->parallel.guc.wqi_head = 0;
-> > +
-> > +		desc->process_desc = i915_ggtt_offset(ce->state) +
-> > +			__get_process_desc_offset(ce);
-> > +		desc->wq_addr = i915_ggtt_offset(ce->state) +
-> > +			__get_wq_offset(ce);
-> > +		desc->wq_size = WQ_SIZE;
-> > +
-> > +		pdesc = __get_process_desc(ce);
-> > +		memset(pdesc, 0, sizeof(*(pdesc)));
-> > +		pdesc->stage_id = ce->guc_id.id;
-> > +		pdesc->wq_base_addr = desc->wq_addr;
-> > +		pdesc->wq_size_bytes = desc->wq_size;
-> > +		pdesc->wq_status = WQ_STATUS_ACTIVE;
-> > +
-> > +		for_each_child(ce, child) {
-> > +			desc = __get_lrc_desc(guc, child->guc_id.id);
-> > +
-> > +			desc->engine_class =
-> > +				engine_class_to_guc_class(engine->class);
-> > +			desc->hw_context_desc = child->lrc.lrca;
-> > +			desc->priority = ce->guc_state.prio;
-> > +			desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-> > +			guc_context_policy_init(engine, desc);
-> > +		}
-> > +	}
-> > +
-> >   	/*
-> >   	 * The context_lookup xarray is used to determine if the hardware
-> >   	 * context is currently registered. There are two cases in which it
-> > @@ -2804,6 +2910,12 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
-> >   		return NULL;
-> >   	}
-> > +	if (unlikely(intel_context_is_child(ce))) {
-> > +		drm_err(&guc_to_gt(guc)->i915->drm,
-> > +			"Context is child, desc_idx %u", desc_idx);
-> > +		return NULL;
-> > +	}
-> > +
-> >   	return ce;
-> >   }
-> 
+For backwards compatibility with existing igt (and the slight
+semantic difference between operating on the i915 abi entry
+points and the deep gt info):
+
+  dri/0
+  |
+  +-- i915_wedged
+  |
+  \-- i915_forcewake_user
+
+remain at the top level.
+
+Signed-off-by: Andi Shyti <andi.shyti@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+---
+Hi,
+
+I am reproposing this patch exactly as it was proposed initially
+where the original interfaces are kept where they have been
+originally placed. It might generate some duplicated code but,
+well, it's debugfs and I don't see any issue. In the future we
+can transform the upper interfaces to act upon all the GTs and
+provide information from all the GTs. This is, for example, how
+the sysfs interfaces will act.
+
+The reason I removed them in V1 is because igt as only user is
+not a strong reason to keep duplicated code, but as Chris
+suggested offline:
+
+"It's debugfs, igt is the primary consumer. CI has to be bridged over
+changes to the interfaces it is using in any case, as you want
+comparable results before/after the patches land.
+
+For i915_forcewake_user, it's not just igt testing, but part of the
+tools/ packaged up by distro. That makes it a very strong candidate to be
+moved out of debugfs into sysfs/gt."
+
+I, therefore, repropose this patch with the idea of improving the
+behavior of the upper level interfaces as described above.
+
+Thanks,
+Andi
+
+Changelog:
+----------
+v1 -> v2:
+ * keep the original interfaces intact (thanks Chris).
+
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/gt/intel_gt_debugfs.c    |  47 ++++-
+ .../gpu/drm/i915/gt/intel_gt_irq_debugfs.c    | 178 ++++++++++++++++++
+ .../gpu/drm/i915/gt/intel_gt_irq_debugfs.h    |  15 ++
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |  31 +++
+ 5 files changed, 271 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.c
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.h
+
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index cdc244bbbfc1..e92984954ba8 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -98,6 +98,7 @@ gt-y += \
+ 	gt/intel_gt_debugfs.o \
+ 	gt/intel_gt_engines_debugfs.o \
+ 	gt/intel_gt_irq.o \
++	gt/intel_gt_irq_debugfs.o \
+ 	gt/intel_gt_pm.o \
+ 	gt/intel_gt_pm_debugfs.o \
+ 	gt/intel_gt_pm_irq.o \
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
+index 1fe19ccd2794..d3075c138585 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
+@@ -8,11 +8,54 @@
+ #include "i915_drv.h"
+ #include "intel_gt_debugfs.h"
+ #include "intel_gt_engines_debugfs.h"
++#include "intel_gt_irq_debugfs.h"
++#include "intel_gt_pm.h"
+ #include "intel_gt_pm_debugfs.h"
++#include "intel_gt_requests.h"
+ #include "intel_sseu_debugfs.h"
+ #include "pxp/intel_pxp_debugfs.h"
+ #include "uc/intel_uc_debugfs.h"
+ 
++static int reset_show(void *data, u64 *val)
++{
++	struct intel_gt *gt = data;
++	int ret = intel_gt_terminally_wedged(gt);
++
++	switch (ret) {
++	case -EIO:
++		*val = 1;
++		return 0;
++	case 0:
++		*val = 0;
++		return 0;
++	default:
++		return ret;
++	}
++}
++
++static int reset_store(void *data, u64 val)
++{
++	struct intel_gt *gt = data;
++
++	/* Flush any previous reset before applying for a new one */
++	wait_event(gt->reset.queue,
++		   !test_bit(I915_RESET_BACKOFF, &gt->reset.flags));
++
++	intel_gt_handle_error(gt, val, I915_ERROR_CAPTURE,
++			      "Manually reset engine mask to %llx", val);
++	return 0;
++}
++DEFINE_SIMPLE_ATTRIBUTE(reset_fops, reset_show, reset_store, "%llu\n");
++
++static void gt_debugfs_register(struct intel_gt *gt, struct dentry *root)
++{
++	static const struct intel_gt_debugfs_file files[] = {
++		{ "reset", &reset_fops, NULL },
++	};
++
++	intel_gt_debugfs_register_files(root, files, ARRAY_SIZE(files), gt);
++}
++
+ void intel_gt_debugfs_register(struct intel_gt *gt)
+ {
+ 	struct dentry *root;
+@@ -24,10 +67,12 @@ void intel_gt_debugfs_register(struct intel_gt *gt)
+ 	if (IS_ERR(root))
+ 		return;
+ 
++	gt_debugfs_register(gt, root);
++
+ 	intel_gt_engines_debugfs_register(gt, root);
+ 	intel_gt_pm_debugfs_register(gt, root);
++	intel_gt_irq_debugfs_register(gt, root);
+ 	intel_sseu_debugfs_register(gt, root);
+-
+ 	intel_uc_debugfs_register(&gt->uc, root);
+ 	intel_pxp_debugfs_register(&gt->pxp, root);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.c
+new file mode 100644
+index 000000000000..3cf9ae8437e5
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.c
+@@ -0,0 +1,178 @@
++// SPDX-License-Identifier: MIT
++
++/*
++ * Copyright © 2020 Intel Corporation
++ */
++
++#include "i915_drv.h"
++#include "intel_gt_debugfs.h"
++#include "intel_gt_irq_debugfs.h"
++
++static int interrupt_info_show(struct seq_file *m, void *data)
++{
++	struct intel_gt *gt = m->private;
++	struct drm_i915_private *i915 = gt->i915;
++	struct intel_uncore *uncore = gt->uncore;
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
++	intel_wakeref_t wakeref;
++	int i;
++
++	wakeref = intel_runtime_pm_get(uncore->rpm);
++
++	if (IS_CHERRYVIEW(i915)) {
++		seq_printf(m, "Master Interrupt Control:\t%08x\n",
++			   intel_uncore_read(uncore, GEN8_MASTER_IRQ));
++
++		for (i = 0; i < 4; i++) {
++			seq_printf(m, "GT Interrupt IMR %d:\t%08x\n",
++				   i, intel_uncore_read(uncore,
++							GEN8_GT_IMR(i)));
++			seq_printf(m, "GT Interrupt IIR %d:\t%08x\n",
++				   i, intel_uncore_read(uncore,
++							GEN8_GT_IIR(i)));
++			seq_printf(m, "GT Interrupt IER %d:\t%08x\n",
++				   i, intel_uncore_read(uncore,
++							GEN8_GT_IER(i)));
++		}
++
++	} else if (GRAPHICS_VER(i915) >= 11) {
++		seq_printf(m, "Master Interrupt Control:  %08x\n",
++			   intel_uncore_read(uncore, GEN11_GFX_MSTR_IRQ));
++
++		seq_printf(m, "Render/Copy Intr Enable:   %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_RENDER_COPY_INTR_ENABLE));
++		seq_printf(m, "VCS/VECS Intr Enable:      %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_VCS_VECS_INTR_ENABLE));
++		seq_printf(m, "GUC/SG Intr Enable:\t   %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_GUC_SG_INTR_ENABLE));
++		seq_printf(m, "GPM/WGBOXPERF Intr Enable: %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_GPM_WGBOXPERF_INTR_ENABLE));
++		seq_printf(m, "Crypto Intr Enable:\t   %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_CRYPTO_RSVD_INTR_ENABLE));
++		seq_printf(m, "GUnit/CSME Intr Enable:\t   %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_GUNIT_CSME_INTR_ENABLE));
++
++	} else if (GRAPHICS_VER(i915) >= 8) {
++		seq_printf(m, "Master Interrupt Control:\t%08x\n",
++			   intel_uncore_read(uncore, GEN8_MASTER_IRQ));
++
++		for (i = 0; i < 4; i++) {
++			seq_printf(m, "GT Interrupt IMR %d:\t%08x\n",
++				   i, intel_uncore_read(uncore,
++							GEN8_GT_IMR(i)));
++			seq_printf(m, "GT Interrupt IIR %d:\t%08x\n",
++				   i, intel_uncore_read(uncore,
++							GEN8_GT_IIR(i)));
++			seq_printf(m, "GT Interrupt IER %d:\t%08x\n",
++				   i, intel_uncore_read(uncore,
++							GEN8_GT_IER(i)));
++		}
++
++	} else if (IS_VALLEYVIEW(i915)) {
++		seq_printf(m, "Master IER:\t%08x\n",
++			   intel_uncore_read(uncore, VLV_MASTER_IER));
++
++		seq_printf(m, "Render IER:\t%08x\n",
++			   intel_uncore_read(uncore, GTIER));
++		seq_printf(m, "Render IIR:\t%08x\n",
++			   intel_uncore_read(uncore, GTIIR));
++		seq_printf(m, "Render IMR:\t%08x\n",
++			   intel_uncore_read(uncore, GTIMR));
++
++		seq_printf(m, "PM IER:\t\t%08x\n",
++			   intel_uncore_read(uncore, GEN6_PMIER));
++		seq_printf(m, "PM IIR:\t\t%08x\n",
++			   intel_uncore_read(uncore, GEN6_PMIIR));
++		seq_printf(m, "PM IMR:\t\t%08x\n",
++			   intel_uncore_read(uncore, GEN6_PMIMR));
++
++	} else if (!HAS_PCH_SPLIT(i915)) {
++		seq_printf(m, "Interrupt enable:    %08x\n",
++			   intel_uncore_read(uncore, GEN2_IER));
++		seq_printf(m, "Interrupt identity:  %08x\n",
++			   intel_uncore_read(uncore, GEN2_IIR));
++		seq_printf(m, "Interrupt mask:      %08x\n",
++			   intel_uncore_read(uncore, GEN2_IMR));
++	} else {
++		seq_printf(m, "Graphics Interrupt enable:		%08x\n",
++			   intel_uncore_read(uncore, GTIER));
++		seq_printf(m, "Graphics Interrupt identity:		%08x\n",
++			   intel_uncore_read(uncore, GTIIR));
++		seq_printf(m, "Graphics Interrupt mask:		%08x\n",
++			   intel_uncore_read(uncore, GTIMR));
++	}
++
++	if (GRAPHICS_VER(i915) >= 11) {
++		seq_printf(m, "RCS Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_RCS0_RSVD_INTR_MASK));
++		seq_printf(m, "BCS Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_BCS_RSVD_INTR_MASK));
++		seq_printf(m, "VCS0/VCS1 Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_VCS0_VCS1_INTR_MASK));
++		seq_printf(m, "VCS2/VCS3 Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_VCS2_VCS3_INTR_MASK));
++
++		if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
++			seq_printf(m, "VCS4/VCS5 Intr Mask:\t %08x\n",
++				   intel_uncore_read(uncore,
++						GEN12_VCS4_VCS5_INTR_MASK));
++		if (HAS_ENGINE(gt, VCS6) || HAS_ENGINE(gt, VCS7))
++			seq_printf(m, "VCS6/VCS7 Intr Mask:\t %08x\n",
++				   intel_uncore_read(uncore,
++						GEN12_VCS6_VCS7_INTR_MASK));
++
++		seq_printf(m, "VECS0/VECS1 Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_VECS0_VECS1_INTR_MASK));
++
++		if (HAS_ENGINE(gt, VECS2) || HAS_ENGINE(gt, VECS3))
++			seq_printf(m, "VECS2/VECS3 Intr Mask:\t %08x\n",
++				   intel_uncore_read(uncore,
++						GEN12_VECS2_VECS3_INTR_MASK));
++
++		seq_printf(m, "GUC/SG Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_GUC_SG_INTR_MASK));
++		seq_printf(m, "GPM/WGBOXPERF Intr Mask: %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_GPM_WGBOXPERF_INTR_MASK));
++		seq_printf(m, "Crypto Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_CRYPTO_RSVD_INTR_MASK));
++		seq_printf(m, "Gunit/CSME Intr Mask:\t %08x\n",
++			   intel_uncore_read(uncore,
++					     GEN11_GUNIT_CSME_INTR_MASK));
++
++	} else if (GRAPHICS_VER(i915) >= 6) {
++		for_each_engine(engine, gt, id) {
++			seq_printf(m,
++				   "Graphics Interrupt mask (%s):	%08x\n",
++				   engine->name, ENGINE_READ(engine, RING_IMR));
++		}
++	}
++
++	intel_runtime_pm_put(uncore->rpm, wakeref);
++
++	return 0;
++}
++DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(interrupt_info);
++
++void intel_gt_irq_debugfs_register(struct intel_gt *gt, struct dentry *root)
++{
++	static const struct intel_gt_debugfs_file files[] = {
++		{ "interrupt_info", &interrupt_info_fops, NULL },
++	};
++
++	intel_gt_debugfs_register_files(root, files, ARRAY_SIZE(files), gt);
++}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.h b/drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.h
+new file mode 100644
+index 000000000000..95e519705001
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq_debugfs.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: MIT */
++
++/*
++ * Copyright © 2020 Intel Corporation
++ */
++
++#ifndef INTEL_GT_IRQ_DEBUGFS_H
++#define INTEL_GT_IRQ_DEBUGFS_H
++
++struct intel_gt;
++struct dentry;
++
++void intel_gt_irq_debugfs_register(struct intel_gt *gt, struct dentry *root);
++
++#endif /* INTEL_GT_IRQ_DEBUGFS_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index 5f84ad602642..c75af6f97e7e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -19,6 +19,36 @@
+ #include "intel_sideband.h"
+ #include "intel_uncore.h"
+ 
++static int forcewake_user_open(struct inode *inode, struct file *file)
++{
++	struct intel_gt *gt = inode->i_private;
++
++	atomic_inc(&gt->user_wakeref);
++	intel_gt_pm_get(gt);
++	if (GRAPHICS_VER(gt->i915) >= 6)
++		intel_uncore_forcewake_user_get(gt->uncore);
++
++	return 0;
++}
++
++static int forcewake_user_release(struct inode *inode, struct file *file)
++{
++	struct intel_gt *gt = inode->i_private;
++
++	if (GRAPHICS_VER(gt->i915) >= 6)
++		intel_uncore_forcewake_user_put(gt->uncore);
++	intel_gt_pm_put(gt);
++	atomic_dec(&gt->user_wakeref);
++
++	return 0;
++}
++
++static const struct file_operations forcewake_user_fops = {
++	.owner = THIS_MODULE,
++	.open = forcewake_user_open,
++	.release = forcewake_user_release,
++};
++
+ static int fw_domains_show(struct seq_file *m, void *data)
+ {
+ 	struct intel_gt *gt = m->private;
+@@ -627,6 +657,7 @@ void intel_gt_pm_debugfs_register(struct intel_gt *gt, struct dentry *root)
+ 		{ "drpc", &drpc_fops, NULL },
+ 		{ "frequency", &frequency_fops, NULL },
+ 		{ "forcewake", &fw_domains_fops, NULL },
++		{ "forcewake_user", &forcewake_user_fops, NULL},
+ 		{ "llc", &llc_fops, llc_eval },
+ 		{ "rps_boost", &rps_boost_fops, rps_eval },
+ 	};
+-- 
+2.27.0
+
