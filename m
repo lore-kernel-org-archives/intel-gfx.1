@@ -2,40 +2,42 @@ Return-Path: <SRS0=q0LQ=O3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D65D8C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 23:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EFAAC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 23:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 86CDB6135E
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 23:29:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 86CDB6135E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1341161076
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 23:32:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1341161076
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 018236E44D;
-	Thu,  7 Oct 2021 23:29:59 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D31346E044;
- Thu,  7 Oct 2021 23:29:57 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id CA6C2A47DF;
- Thu,  7 Oct 2021 23:29:57 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFFB96E513;
+	Thu,  7 Oct 2021 23:32:27 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47F396E044
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 23:32:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="312589893"
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="312589893"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 16:32:22 -0700
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="624439138"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 16:32:22 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  7 Oct 2021 16:32:11 -0700
+Message-Id: <20211007233212.3896460-3-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211007233212.3896460-1-lucas.demarchi@intel.com>
+References: <20211007233212.3896460-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 07 Oct 2021 23:29:57 -0000
-Message-ID: <163364939778.5186.17957848708740316194@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211007225547.30997-1-umesh.nerlige.ramappa@intel.com>
-In-Reply-To: <20211007225547.30997-1-umesh.nerlige.ramappa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
- =?utf-8?q?ries_starting_with_=5B1/2=5D_drm/i915/pmu=3A_Add_a_name_to_the_?=
- =?utf-8?q?execlists_stats?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/gt: add asm/cacheflush.h for use
+ of clflush()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,19 +50,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Let's include what we use instead of relying on other indirect includes.
 
-Series: series starting with [1/2] drm/i915/pmu: Add a name to the execlists stats
-URL   : https://patchwork.freedesktop.org/series/95586/
-State : warning
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-== Summary ==
-
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/gt/uc/intel_guc.h:167: warning: Function parameter or member 'timestamp' not described in 'intel_guc'
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 452248884ef1..d5ac49c0691e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -2,6 +2,7 @@
+ #ifndef _INTEL_RINGBUFFER_H_
+ #define _INTEL_RINGBUFFER_H_
+ 
++#include <asm/cacheflush.h>
+ #include <drm/drm_util.h>
+ 
+ #include <linux/hashtable.h>
+-- 
+2.33.0
 
