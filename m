@@ -2,66 +2,48 @@ Return-Path: <SRS0=q0LQ=O3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D829C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 029D2C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 618BD60F4C
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 618BD60F4C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id C2BD361039
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2BD361039
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02C426F402;
-	Thu,  7 Oct 2021 18:24:10 +0000 (UTC)
-Received: from conssluserg-06.nifty.com (conssluserg-06.nifty.com
- [210.131.2.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A36216E84E;
- Thu,  7 Oct 2021 15:50:49 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48]) (authenticated)
- by conssluserg-06.nifty.com with ESMTP id 197FoMK3025660;
- Fri, 8 Oct 2021 00:50:23 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-06.nifty.com 197FoMK3025660
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1633621823;
- bh=2ictrqXAcs0/Jf+501IU2xn9Ag6+SYGQ2GB1JSMdfsk=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=XMZHChvUbi0/x64LrjBMjBDD8xRAZzR0gb9nQmJ4eBWHB+eJXeRdTWOM7lOGE2Pbk
- o+ybVG6MvojCUYxmsOrO94dutpJ4TF5r27EIaAkutr5R3xWYp8zutrKW4eVr2BHbXe
- mP5ktpD991UXujzbHoZ6Ra21/WrPvbgBxukVk2oyt8XoQSh9g2pKYyi0DJlsJzuGHt
- 0bxzEgLKc3uBh/UYnUCmgBcQm6nt585LAM+9mMvnvVTghIR6ziEIvqTz3mtKrKI0ZI
- LW/ME6rITE8b9ySgQKetVBIGyjHa14nmpY4LAdpDrwxkCxPfJDynCs04O1B6pkhPsD
- qxfwCnglWwjSQ==
-X-Nifty-SrcIP: [209.85.216.48]
-Received: by mail-pj1-f48.google.com with SMTP id
- g13-20020a17090a3c8d00b00196286963b9so7206685pjc.3; 
- Thu, 07 Oct 2021 08:50:23 -0700 (PDT)
-X-Gm-Message-State: AOAM532SHH6TSsRbvbYfjIeO3+yPt/FkZGr4fT/OVOaX/yG3zCHMeEHS
- wPo90swcJ+KBFXTg4QN2SJRb9saahaFQ/e6Jbcc=
-X-Google-Smtp-Source: ABdhPJzGjr0g3OMZKs7rwCvM6PfYXgPw2KXHF9cvejM0rXE06zKWYrhO1bS2++snMAc8G6LVr00CozT0DNarzLxE4sk=
-X-Received: by 2002:a17:90a:4414:: with SMTP id
- s20mr5636167pjg.144.1633621822196; 
- Thu, 07 Oct 2021 08:50:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4047F6E58E;
+	Thu,  7 Oct 2021 18:36:54 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEF086E58E
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 18:36:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="226618561"
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="226618561"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 11:36:52 -0700
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="478676021"
+Received: from jbkilula-mobl1.amr.corp.intel.com (HELO intel.com)
+ ([10.251.137.40])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 11:36:50 -0700
+Date: Thu, 7 Oct 2021 14:36:47 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Anshuman Gupta <anshuman.gupta@intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Juston Li <juston.li@intel.com>, Uma Shankar <uma.shankar@intel.com>
+Message-ID: <YV8+P2TOWhD4nukJ@intel.com>
+References: <20211006235704.28894-1-ville.syrjala@linux.intel.com>
+ <20211006235704.28894-3-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-References: <20211005171728.3147094-1-lucas.demarchi@intel.com>
-In-Reply-To: <20211005171728.3147094-1-lucas.demarchi@intel.com>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Fri, 8 Oct 2021 00:49:44 +0900
-X-Gmail-Original-Message-ID: <CAK7LNARbNQHPxHHp4=oLOsJLpaCv0c3NRHGSs6hAKnP3N4DHKQ@mail.gmail.com>
-Message-ID: <CAK7LNARbNQHPxHHp4=oLOsJLpaCv0c3NRHGSs6hAKnP3N4DHKQ@mail.gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Steven Price <steven.price@arm.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Andrzej Hajda <a.hajda@samsung.com>, Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 07 Oct 2021 18:24:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915: remove IS_ACTIVE
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211006235704.28894-3-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915: Fix up skl_program_plane()
+ pxp stuff
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,42 +59,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 6, 2021 at 2:21 AM Lucas De Marchi <lucas.demarchi@intel.com> wrote:
->
-> When trying to bring IS_ACTIVE to linux/kconfig.h I thought it wouldn't
-> provide much value just encapsulating it in a boolean context. So I also
-> added the support for handling undefined macros as the IS_ENABLED()
-> counterpart. However the feedback received from Masahiro Yamada was that
-> it is too ugly, not providing much value. And just wrapping in a boolean
-> context is too dumb - we could simply open code it.
->
-> As detailed in commit babaab2f4738 ("drm/i915: Encapsulate kconfig
-> constant values inside boolean predicates"), the IS_ACTIVE macro was
-> added to workaround a compilation warning. However after checking again
-> our current uses of IS_ACTIVE it turned out there is only
-> 1 case in which it triggers a warning in clang (due
-> -Wconstant-logical-operand) and 2 in smatch. All the others
-> can simply use the shorter version, without wrapping it in any macro.
->
-> So here I'm dialing all the way back to simply removing the macro. That
-> single case hit by clang can be changed to make the constant come first,
-> so it doesn't think it's mask:
->
->         -       if (context && CONFIG_DRM_I915_FENCE_TIMEOUT)
->         +       if (CONFIG_DRM_I915_FENCE_TIMEOUT && context)
->
-> As talked with Dan Carpenter, that logic will be added in smatch as
-> well, so it will also stop warning about it.
->
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
+On Thu, Oct 07, 2021 at 02:57:02AM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> There's lots of expensive stuff inserted between the PLANE_CTL
+> and  PLANE_SURF writes even though the comment before the PLANE_CTL
+> write says not to put stuff there. Move it all to a more apporiate
+> place.
 
-Reviewed-by: Masahiro Yamada <masahiroy@kernel.org>
+Yeap, the comment was ignored by all, including me during reviews. Sorry.
 
+I'm wondering now if this entire block deserves a separated function
+with more emphasis on the "do not put anything between plane_ctl and
+plane_srf...
 
+> 
+> There's also a weird PLANE_COLOR_CTL RMW in there. I guess because
+> force_black was computed way too late originally, but that is now
+> sorted.
 
+I would be hesitant in removing that, but since Juston confirmed that
+everything works well for him with these patches, it is fine by me.
 
+Great clean-up.
 
--- 
-Best Regards
-Masahiro Yamada
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+Thanks for this and all the other patches.
+
+> 
+> Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  .../drm/i915/display/skl_universal_plane.c    | 30 +++++++++----------
+>  1 file changed, 14 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index 1fcb41942c7e..55dae8c8fcad 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -985,6 +985,9 @@ static u32 glk_plane_color_ctl(const struct intel_crtc_state *crtc_state,
+>  			plane_color_ctl |= PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
+>  	}
+>  
+> +	if (plane_state->force_black)
+> +		plane_color_ctl |= PLANE_COLOR_PLANE_CSC_ENABLE;
+> +
+>  	return plane_color_ctl;
+>  }
+>  
+> @@ -1090,8 +1093,19 @@ skl_program_plane(struct intel_plane *plane,
+>  			aux_dist |= skl_plane_stride(plane_state, aux_plane);
+>  	}
+>  
+> +	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
+> +	if (plane_state->decrypt)
+> +		plane_surf |= PLANE_SURF_DECRYPT;
+> +
+>  	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+>  
+> +	/*
+> +	 * FIXME: pxp session invalidation can hit any time even at time of commit
+> +	 * or after the commit, display content will be garbage.
+> +	 */
+> +	if (plane_state->force_black)
+> +		intel_load_plane_csc_black(plane);
+> +
+>  	intel_de_write_fw(dev_priv, PLANE_STRIDE(pipe, plane_id), stride);
+>  	intel_de_write_fw(dev_priv, PLANE_POS(pipe, plane_id),
+>  			  (crtc_y << 16) | crtc_x);
+> @@ -1146,22 +1160,6 @@ skl_program_plane(struct intel_plane *plane,
+>  	 * the control register just before the surface register.
+>  	 */
+>  	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
+> -	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
+> -	plane_color_ctl = intel_de_read_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id));
+> -
+> -	/*
+> -	 * FIXME: pxp session invalidation can hit any time even at time of commit
+> -	 * or after the commit, display content will be garbage.
+> -	 */
+> -	if (plane_state->decrypt) {
+> -		plane_surf |= PLANE_SURF_DECRYPT;
+> -	} else if (plane_state->force_black) {
+> -		intel_load_plane_csc_black(plane);
+> -		plane_color_ctl |= PLANE_COLOR_PLANE_CSC_ENABLE;
+> -	}
+> -
+> -	intel_de_write_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id),
+> -			  plane_color_ctl);
+>  	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id), plane_surf);
+>  
+>  	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+> -- 
+> 2.32.0
+> 
