@@ -2,50 +2,153 @@ Return-Path: <SRS0=3Vrl=O4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F69CC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 17:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83EBEC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 17:39:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EBCD560C4B
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 17:34:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EBCD560C4B
+	by mail.kernel.org (Postfix) with ESMTPS id 5040560F51
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 17:39:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5040560F51
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 264666E0F5;
-	Fri,  8 Oct 2021 17:34:16 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04D546F519;
- Fri,  8 Oct 2021 17:34:14 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10131"; a="223963678"
-X-IronPort-AV: E=Sophos;i="5.85,358,1624345200"; d="scan'208";a="223963678"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2021 10:34:09 -0700
-X-IronPort-AV: E=Sophos;i="5.85,358,1624345200"; d="scan'208";a="523053696"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2021 10:34:08 -0700
-Date: Fri, 8 Oct 2021 10:29:21 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniele.ceraolospurio@intel.com
-Message-ID: <20211008172921.GA429@jons-linux-dev-box>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E0F16F51C;
+	Fri,  8 Oct 2021 17:39:44 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 535256F519;
+ Fri,  8 Oct 2021 17:39:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10131"; a="213504214"
+X-IronPort-AV: E=Sophos;i="5.85,358,1624345200"; d="scan'208";a="213504214"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2021 10:39:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,358,1624345200"; d="scan'208";a="459245563"
+Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
+ by orsmga002.jf.intel.com with ESMTP; 08 Oct 2021 10:39:41 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Fri, 8 Oct 2021 10:39:41 -0700
+Received: from orsmsx604.amr.corp.intel.com (10.22.229.17) by
+ ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Fri, 8 Oct 2021 10:39:40 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12 via Frontend Transport; Fri, 8 Oct 2021 10:39:40 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.175)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2242.12; Fri, 8 Oct 2021 10:39:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RJozQWlViCPRTj/xEoDPOmYOwhTVKDZLTvoBaLcwZ0xWmbfCskoimj8cKOZahW+4loUjoODfZz3RvUy35OtwA5XLCoztFK3rh/pEcgahIYu6fsSvC5h6Pjojv7HDwgn6fZhWEZB/vA9tIot9Uau6pMK8v7AOBu2TEDeWegsVNsNXYQ88LsbrpPIEExUumU7D3OnSoaKbfRP6wJNWF6tUYi92aKVb0ZEhAV1Te1uv/1IfNhvqvmvkHeMz7WtMi8QgfA5ZFbC2IqGheqLSG3SB04TYWIx/yss3yH+aCYaCpzjYWZcAtR1FvQiVQ6eQhI8iMkdmfSQKpdagvR9zToN1HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gmHXBD0ewV9k4iGFLAGQO4qtno4PxCTA+WBRINfgyIs=;
+ b=KyyzKiOCqT0p8tb6Q/25EQnkCWo5WiDEddOzchEaAzlFYNr7Jc0P0/nsKFTHUfmYNX0dqd+wLbC+sDf50mkeT5zbGMLYM5ZvKDUrVjld/VVezBSAAu89c9qNs1hramkH2/VoYa4PjNJ5LrwO6+64ZMv482UmV35f3Hs04uYxmdSxgc8mxjWM1lT9aFFrcGS5Of4yMYnv1iN9SXLkcrxgh5TUTtKYqe1ht2Mrgf1Rz5xsDk3aRG9936U8FGGXYiW33zgjJAgxzLjK8/Wzt8D+gJvxJfwKPHM/37gXrV1VNvKs9oqYaa8UJ90ZrYo7pPZotAhrZbp1E9ViocDH7nwJ9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gmHXBD0ewV9k4iGFLAGQO4qtno4PxCTA+WBRINfgyIs=;
+ b=qHHPa+OMKuFo6QfDzfMDgf0Mk6FDRuH/Tba57GG2gvNOhUAmWtBRF7unnpPgbEnFyhPTpfXMjHeKsN2Odf7bo31wZVzAinJB6g7/TUbtfiySe1PpyJcrQecfQiXQytUTeIY6aBVSmbHfJsktuiQWWto5FAUSC2hl0KnQX6es5XE=
+Authentication-Results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB5642.namprd11.prod.outlook.com (2603:10b6:510:e5::13)
+ by PH0PR11MB5593.namprd11.prod.outlook.com (2603:10b6:510:e0::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Fri, 8 Oct
+ 2021 17:39:39 +0000
+Received: from PH0PR11MB5642.namprd11.prod.outlook.com
+ ([fe80::880d:1a54:ca07:738a]) by PH0PR11MB5642.namprd11.prod.outlook.com
+ ([fe80::880d:1a54:ca07:738a%8]) with mapi id 15.20.4587.020; Fri, 8 Oct 2021
+ 17:39:39 +0000
+To: Matthew Brost <matthew.brost@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <daniele.ceraolospurio@intel.com>
 References: <20211004220637.14746-1-matthew.brost@intel.com>
- <20211004220637.14746-9-matthew.brost@intel.com>
- <f03536a0-2ffe-ed40-041e-0f277960a60d@intel.com>
- <0042b6c3-137d-83cf-dd48-eeffff61046a@intel.com>
+ <20211004220637.14746-15-matthew.brost@intel.com>
+From: John Harrison <john.c.harrison@intel.com>
+Message-ID: <2d816209-7c88-8059-ff04-0cb7559f2c2f@intel.com>
+Date: Fri, 8 Oct 2021 10:39:35 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
+In-Reply-To: <20211004220637.14746-15-matthew.brost@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: MW4PR04CA0291.namprd04.prod.outlook.com
+ (2603:10b6:303:89::26) To PH0PR11MB5642.namprd11.prod.outlook.com
+ (2603:10b6:510:e5::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0042b6c3-137d-83cf-dd48-eeffff61046a@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 08/26] drm/i915/guc: Add multi-lrc context
- registration
+Received: from [192.168.1.106] (73.157.192.58) by
+ MW4PR04CA0291.namprd04.prod.outlook.com (2603:10b6:303:89::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.18 via Frontend Transport; Fri, 8 Oct 2021 17:39:38 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: dc2d0c27-a8f3-47aa-d5e4-08d98a829a44
+X-MS-TrafficTypeDiagnostic: PH0PR11MB5593:
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <PH0PR11MB5593D8E551D5A2C28F49676ABDB29@PH0PR11MB5593.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +IMWWLgIjHZfxN+D0imcNqoHbqN6FTgkPqWXW7j/Uz3G1wmnfeXFG4EFkOgG6+OLU+CctOI+Rb/WFiAYVqHzYxgFgMKypALnt8hWtB48RZE96bIQjA2G/6zI5YT+O/rhuTlD3Qkb1l2iM3bgt9FF+SdhHrVcfsOlRdeb1UZpmhGVfhwWRMR/yGNktgyTqg6wGsg594oQVAnr+ZEfpc/MBH/6uJPL/j5LhLf/TXwK1XjdUeX0IwyfGYcwT9l5eZ5pOhLNnBzJ7FoawAm9NKfnNhqhZ+RYsad14L6rxjsJSszPX98oWCVrjikg13hMRnJGNBl4RHIoEjTZmBb7u+jJMBrj5Mj0mP1fMVzVZfPrf/6OkocZJoMJLevtry8i95An6qL/+A7VilWCzykoOM6XwtirP6J0RmUkFxJ5xa5CDPZUvqbYkzhs4n4N5AGG1TIwhQs/JUsfYgHbJwJDO/LFR5QxcUJ3I1YMvBMqdRIRuqLOnzkY6HQyuhov7d1vFSWSCOjs5XCTxBo9t4adQ+SlHocv91XVJubXUPGhFRJ4FgJiFX7Vw7fb8ei8ta+LDVDgoLcl2cr+1fYDIhP5zidqWFDoSZXmjHFws7kpFPz4Xujko8u2Wuf745cDe1g6MFX6l3CC18onTe11aeTfBAXn59DCQL2t7Oj+tVzT4YM8ftElLA3/9OEZ1y32oFqRmnw6rniJf6Nd3jmRjDwFDRj82FceJYufIzsGt83oloBBwhypSKwHXcji+OsLB8uY+oWv
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB5642.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(53546011)(26005)(107886003)(6666004)(6486002)(8676002)(38100700002)(956004)(2616005)(31696002)(36756003)(4326008)(8936002)(508600001)(450100002)(2906002)(86362001)(66946007)(83380400001)(31686004)(66556008)(66476007)(316002)(16576012)(5660300002)(186003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFhxVGs0ZnF0YTlCNzJFSzRGOFgwV0hlOG5lZEZjSFpxQm9yUVRkVEZ5emtr?=
+ =?utf-8?B?TkpWQ3hkMWx5MFdXbUhUTlhTVFZyS0V1eFZMN1I2S2E4azhXdUpITFFiZ3dG?=
+ =?utf-8?B?Ym5LUHd4UTZJSUxLUEJIOE9LTVFZZ2YxVWRkS29GanpaUGVteGt0WkNyNS9R?=
+ =?utf-8?B?K1BJbSt2bVNYMkRuZDU3MkdHTlBSSGU5MWU1SmhVVDczTktLRWNWdlg5cTFG?=
+ =?utf-8?B?S2VReG1xR2JwbWVlNVBWcitQdVpDWUpxL2NGSXdOZG1aUC9sL2JPSVFuSmZo?=
+ =?utf-8?B?TUR3QUFEWFMzRDdGaUoxYnFuNEJCQ2RLWks2VnhTcHlDaDUwTSs1SGtPTklq?=
+ =?utf-8?B?STF1MDBsSmplalNvaDZIZS8xUGJHWFM2dmkvbVNtaFNKSVF1aDhuRHQ4QjFQ?=
+ =?utf-8?B?b2N3Z2o0SXA4R2hWTGlLM09pZUZwUDdGSzhwYjJHamxqQWlwVUsvMmxZbjVG?=
+ =?utf-8?B?bE5TRTE5VEorSkQ1SU8yWkRDck5scFZoVW5NSlcyUTdDc1c2ZEpzUDY1OUlW?=
+ =?utf-8?B?UG1tTmtEcXNBY3FJRW9LM055RWhSaEhLN0Z6RjN4UlpyUEZDMEthVjRtbytL?=
+ =?utf-8?B?UW9lSHJUa1RVbTNhVWcyZEQ0dmJuTUt0c2tRK1NZcCtsSFlNZGRTdUdzQjBr?=
+ =?utf-8?B?SDdLRkY3T05WZk1GeDFDSHA3WWFjYXRGUVZGYWp0ZThNMzhuam5MeEluNVpq?=
+ =?utf-8?B?cW0xS09oallySFBoTWZKSDN1OElrS3doOUM1Mi9oTE9BRy9FMFQrSG9EU2Rp?=
+ =?utf-8?B?eGtyd1dTWlZ4T1Z1T1BiWHEwV3RuOEUyNVh1Y3lST1A5ZmFLVFd2THE5ZG5N?=
+ =?utf-8?B?c0dKaTU1UHU0OXZoZTJ1MS9ObXAzQ21nNU9STGJTWmF0aXZDZ1lNWUM3MFp1?=
+ =?utf-8?B?bE5SNXJ2NTBocUFsd1lmOHdlMVozbFJTZ09uQyt5azFvRmVuajBHdWN1QkJI?=
+ =?utf-8?B?U3F6c1NSR0xyZkt5YVpGamswMFRGMDF6M3hJcHBRdktCNnFMekpRN2IvamZJ?=
+ =?utf-8?B?MkZSdWJ6WFhORzcyaHI0dGlMaXpqN3AxU0VFcnNkZHJvcHVuVmFmcGExdzl2?=
+ =?utf-8?B?d0tOQ09NNXR3SUUzSXNYN1k2SFFJWUR3ZlNRQ0RLNEMxcGFlNFF1azJLRnJm?=
+ =?utf-8?B?VFdMU3VkYUNCNWJXY2t1THFqMU9YZzZqZTNReTh2WnU1TXhxRFVWd0lkaWZQ?=
+ =?utf-8?B?OEdZeWlEQWtnZGhwWTc1S3Q5Q2hYYWtrVE1ieGVhTFJQcUJUNFYxOEJyTXFG?=
+ =?utf-8?B?MUMxNUJVU0NSK2lhUzFROGVNOExlYVc3NzdjOG9GeHpNaE1LY0tsbXlsZlIv?=
+ =?utf-8?B?dlhLeUZtWmRyUFQzR2RscmQzQzdDcWIzTVg5Zm1nN004QmdNbVg0Y0dQRDE0?=
+ =?utf-8?B?cTAydk5jM3kwb0VQRHpXRHE5aUNTelY2bWxFVGE0RW1UUUEva2ZSZkxxcFJn?=
+ =?utf-8?B?R1p4SWhaZlpBOGh6Mml3S0w4OFNPRkZicEhUZ0FrTHUxTHp0dzdxSEl4Nlgv?=
+ =?utf-8?B?cjcrUnZUc1RBM3hLYzV4UDRFVjdMc2ZYU3lENU9zbXd3VUNEVGZ4MUV4Njh0?=
+ =?utf-8?B?bmNnV3QwTkt4cjBraDB2dTZZYStYeGs2V0xDOUxaS0tkNWFnQVd5cVBMVHBL?=
+ =?utf-8?B?VllFell1YVp1bmZJWnU0YWIvek84VnZzWVRJRzJ3TTFQMDFBdThxQmh2WmZU?=
+ =?utf-8?B?ODB0RjFaNkNzTS9vcXZiRGhhZk9SeHl0LzJVMVBjL0xFV055Rk14RmQ5YVh0?=
+ =?utf-8?Q?hFn+B4TYdhDM1hc006vHijoC0Yxu2ZYzgfG804P?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc2d0c27-a8f3-47aa-d5e4-08d98a829a44
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5642.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2021 17:39:38.9882 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y5/G1SQz+l8BQWf4VenpStkNBV0joQHqzMOtxfKe7Mdxvum7OF6qsSvGl4n3Mt3R1xxWF1v/IKe99A6gpnA3j6euWYCl9KEtF+92i6vvYhY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5593
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 14/26] drm/i915/guc: Implement multi-lrc
+ reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,289 +164,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 08, 2021 at 10:20:16AM -0700, John Harrison wrote:
-> On 10/7/2021 12:50, John Harrison wrote:
-> > On 10/4/2021 15:06, Matthew Brost wrote:
-> > > Add multi-lrc context registration H2G. In addition a workqueue and
-> > > process descriptor are setup during multi-lrc context registration as
-> > > these data structures are needed for multi-lrc submission.
-> > > 
-> > > v2:
-> > >   (John Harrison)
-> > >    - Move GuC specific fields into sub-struct
-> > >    - Clean up WQ defines
-> > >    - Add comment explaining math to derive WQ / PD address
-> > > 
-> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > ---
-> > >   drivers/gpu/drm/i915/gt/intel_context_types.h |  12 ++
-> > >   drivers/gpu/drm/i915/gt/intel_lrc.c           |   5 +
-> > >   .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   1 +
-> > >   drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   2 -
-> > >   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 114 +++++++++++++++++-
-> > >   5 files changed, 131 insertions(+), 3 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > index 76dfca57cb45..48decb5ee954 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> > > @@ -239,6 +239,18 @@ struct intel_context {
-> > >           struct intel_context *parent;
-> > >           /** @number_children: number of children if parent */
-> > >           u8 number_children;
-> > > +        /** @guc: GuC specific members for parallel submission */
-> > > +        struct {
-> > > +            /** @wqi_head: head pointer in work queue */
-> > > +            u16 wqi_head;
-> > > +            /** @wqi_tail: tail pointer in work queue */
-> > > +            u16 wqi_tail;
-> PS: As per comments on previous rev, something somewhere needs to explicitly
-> state what WQI means. One suggestion was to do that here, ideally with maybe
-> a brief description of what the queue is, how it is used, etc. Although
-> probably it would be better kept in a GuC specific file. E.g. added to
-> guc_fwif.h in patch #12.
-> 
+On 10/4/2021 15:06, Matthew Brost wrote:
+> Update context and full GPU reset to work with multi-lrc. The idea is
+> parent context tracks all the active requests inflight for itself and
+> its' children. The parent context owns the reset replaying / canceling
+Still its' should be its.
 
-I think this should just be in the main GuC kernel doc. I can include an
-update to the kernel DoC in a patch at the end of the next rev of the
-series. That patch doesn't necessarily have to included in the initial
-merge of parallel submission if it takes a bit more time to review.
+> requests as needed.
+>
+> v2:
+>   (John Harrison)
+>    - Simply loop in find active request
+>    - Add comments to find ative request / reset loop
+>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_context.c       | 15 +++-
+>   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 69 ++++++++++++++-----
+>   2 files changed, 63 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+> index c5bb7ccfb3f8..3b340eb59ada 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_context.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
+> @@ -528,20 +528,29 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
+>   
+>   struct i915_request *intel_context_find_active_request(struct intel_context *ce)
+>   {
+> +	struct intel_context *parent = intel_context_to_parent(ce);
+>   	struct i915_request *rq, *active = NULL;
+>   	unsigned long flags;
+>   
+>   	GEM_BUG_ON(!intel_engine_uses_guc(ce->engine));
+>   
+> -	spin_lock_irqsave(&ce->guc_state.lock, flags);
+> -	list_for_each_entry_reverse(rq, &ce->guc_state.requests,
+> +	/*
+> +	 * We search the parent list to find an active request on the submitted
+> +	 * context. The parent list contains the requests for all the contexts
+> +	 * in the relationship so we have to do a compare of each request's
+> +	 * context must be done.
+"have to do ... must be done" - no need for both.
 
-Matt 
+> +	 */
+> +	spin_lock_irqsave(&parent->guc_state.lock, flags);
+> +	list_for_each_entry_reverse(rq, &parent->guc_state.requests,
+>   				    sched.link) {
+> +		if (rq->context != ce)
+> +			continue;
+>   		if (i915_request_completed(rq))
+>   			break;
+>   
+>   		active = rq;
+>   	}
+> -	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+> +	spin_unlock_irqrestore(&parent->guc_state.lock, flags);
+>   
+>   	return active;
+>   }
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index 6be7adf89e4f..d661a69ef4f7 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -681,6 +681,11 @@ static inline int rq_prio(const struct i915_request *rq)
+>   	return rq->sched.attr.priority;
+>   }
+>   
+> +static inline bool is_multi_lrc(struct intel_context *ce)
+> +{
+> +	return intel_context_is_parallel(ce);
+> +}
+> +
+>   static bool is_multi_lrc_rq(struct i915_request *rq)
+>   {
+>   	return intel_context_is_parallel(rq->context);
+> @@ -1214,10 +1219,15 @@ __unwind_incomplete_requests(struct intel_context *ce)
+>   
+>   static void __guc_reset_context(struct intel_context *ce, bool stalled)
+>   {
+> +	bool local_stalled;
+>   	struct i915_request *rq;
+>   	unsigned long flags;
+>   	u32 head;
+> +	int i, number_children = ce->parallel.number_children;
+>   	bool skip = false;
+> +	struct intel_context *parent = ce;
+> +
+> +	GEM_BUG_ON(intel_context_is_child(ce));
+>   
+>   	intel_context_get(ce);
+>   
+> @@ -1243,25 +1253,38 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
+>   	if (unlikely(skip))
+>   		goto out_put;
+>   
+> -	rq = intel_context_find_active_request(ce);
+> -	if (!rq) {
+> -		head = ce->ring->tail;
+> -		stalled = false;
+> -		goto out_replay;
+> -	}
+> +	/*
+> +	 * For each context in the relationship find the hanging request
+> +	 * resetting each context / request as needed
+> +	 */
+> +	for (i = 0; i < number_children + 1; ++i) {
+> +		if (!intel_context_is_pinned(ce))
+> +			goto next_context;
+> +
+> +		local_stalled = false;
+> +		rq = intel_context_find_active_request(ce);
+> +		if (!rq) {
+> +			head = ce->ring->tail;
+> +			goto out_replay;
+> +		}
+>   
+> -	if (!i915_request_started(rq))
+> -		stalled = false;
+> +		GEM_BUG_ON(i915_active_is_idle(&ce->active));
+> +		head = intel_ring_wrap(ce->ring, rq->head);
+>   
+> -	GEM_BUG_ON(i915_active_is_idle(&ce->active));
+> -	head = intel_ring_wrap(ce->ring, rq->head);
+> -	__i915_request_reset(rq, stalled);
+> +		if (i915_request_started(rq))
+I didn't see an answer as to why the started test and the wrap call need 
+to be reversed?
 
-> John.
-> 
-> > > +            /**
-> > > +             * @parent_page: page in context state (ce->state) used
-> > > +             * by parent for work queue, process descriptor
-> > > +             */
-> > > +            u8 parent_page;
-> > > +        } guc;
-> > >       } parallel;
-> > >     #ifdef CONFIG_DRM_I915_SELFTEST
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > index 3ef9eaf8c50e..57339d5c1fc8 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > @@ -942,6 +942,11 @@ __lrc_alloc_state(struct intel_context *ce,
-> > > struct intel_engine_cs *engine)
-> > >           context_size += PAGE_SIZE;
-> > >       }
-> > >   +    if (intel_context_is_parent(ce) &&
-> > > intel_engine_uses_guc(engine)) {
-> > > +        ce->parallel.guc.parent_page = context_size / PAGE_SIZE;
-> > > +        context_size += PAGE_SIZE;
-> > > +    }
-> > > +
-> > >       obj = i915_gem_object_create_lmem(engine->i915, context_size,
-> > >                         I915_BO_ALLOC_PM_VOLATILE);
-> > >       if (IS_ERR(obj))
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > > b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > > index 8ff582222aff..ba10bd374cee 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> > > @@ -142,6 +142,7 @@ enum intel_guc_action {
-> > >       INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
-> > >       INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
-> > >       INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
-> > > +    INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
-> > >       INTEL_GUC_ACTION_RESET_CLIENT = 0x5507,
-> > >       INTEL_GUC_ACTION_LIMIT
-> > >   };
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > index fa4be13c8854..0eeb2a9feeed 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> > > @@ -52,8 +52,6 @@
-> > >     #define GUC_DOORBELL_INVALID        256
-> > >   -#define GUC_WQ_SIZE            (PAGE_SIZE * 2)
-> > > -
-> > >   /* Work queue item header definitions */
-> > >   #define WQ_STATUS_ACTIVE        1
-> > >   #define WQ_STATUS_SUSPENDED        2
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > index 451d9ae861a6..ab6d7fc1b0b1 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > @@ -344,6 +344,45 @@ static inline struct i915_priolist
-> > > *to_priolist(struct rb_node *rb)
-> > >       return rb_entry(rb, struct i915_priolist, node);
-> > >   }
-> > >   +/*
-> > > + * When using multi-lrc submission an extra page in the context
-> > > state is
-> > > + * reserved for the process descriptor and work queue.
-> > > + *
-> > > + * The layout of this page is below:
-> > > + * 0                        guc_process_desc
-> > > + * ...                        unused
-> > > + * PAGE_SIZE / 2                work queue start
-> > > + * ...                        work queue
-> > > + * PAGE_SIZE - 1                work queue end
-> > > + */
-> > > +#define WQ_SIZE            (PAGE_SIZE / 2)
-> > > +#define WQ_OFFSET        (PAGE_SIZE - WQ_SIZE)
-> > I thought you were going with '#define PARENT_SCRATCH SIZE PAGE_SIZE'
-> > and then using that everywhere else? Unless there is a fundamental
-> > reason why the above must be exactly a page in size then I think the
-> > size should be defined once and re-used rather than assumed in multiple
-> > places (including in the description comment).
-> > 
-> > > +static u32 __get_process_desc_offset(struct intel_context *ce)
-> > > +{
-> > > +    GEM_BUG_ON(!ce->parallel.guc.parent_page);
-> > > +
-> > > +    return ce->parallel.guc.parent_page * PAGE_SIZE;
-> > > +}
-> > > +
-> > > +static u32 __get_wq_offset(struct intel_context *ce)
-> > > +{
-> > > +    return __get_process_desc_offset(ce) + WQ_OFFSET;
-> > > +}
-> > > +
-> > > +static struct guc_process_desc *
-> > > +__get_process_desc(struct intel_context *ce)
-> > > +{
-> > > +    /*
-> > > +     * Need to subtract LRC_STATE_OFFSET here as the
-> > > +     * parallel.guc.parent_page is the offset into ce->state while
-> > > +     * ce->lrc_reg_reg is ce->state + LRC_STATE_OFFSET.
-> > > +     */
-> > > +    return (struct guc_process_desc *)
-> > > +        (ce->lrc_reg_state +
-> > > +         ((__get_process_desc_offset(ce) -
-> > > +           LRC_STATE_OFFSET) / sizeof(u32)));
-> > > +}
-> > > +
-> > >   static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc,
-> > > u32 index)
-> > >   {
-> > >       struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
-> > > @@ -1365,6 +1404,30 @@ static void unpin_guc_id(struct intel_guc
-> > > *guc, struct intel_context *ce)
-> > >       spin_unlock_irqrestore(&guc->submission_state.lock, flags);
-> > >   }
-> > >   +static int __guc_action_register_multi_lrc(struct intel_guc *guc,
-> > > +                       struct intel_context *ce,
-> > > +                       u32 guc_id,
-> > > +                       u32 offset,
-> > > +                       bool loop)
-> > > +{
-> > > +    struct intel_context *child;
-> > > +    u32 action[4 + MAX_ENGINE_INSTANCE];
-> > > +    int len = 0;
-> > > +
-> > > +    GEM_BUG_ON(ce->parallel.number_children > MAX_ENGINE_INSTANCE);
-> > > +
-> > > +    action[len++] = INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC;
-> > > +    action[len++] = guc_id;
-> > > +    action[len++] = ce->parallel.number_children + 1;
-> > > +    action[len++] = offset;
-> > > +    for_each_child(ce, child) {
-> > > +        offset += sizeof(struct guc_lrc_desc);
-> > > +        action[len++] = offset;
-> > > +    }
-> > > +
-> > > +    return guc_submission_send_busy_loop(guc, action, len, 0, loop);
-> > > +}
-> > > +
-> > >   static int __guc_action_register_context(struct intel_guc *guc,
-> > >                        u32 guc_id,
-> > >                        u32 offset,
-> > > @@ -1387,9 +1450,15 @@ static int register_context(struct
-> > > intel_context *ce, bool loop)
-> > >           ce->guc_id.id * sizeof(struct guc_lrc_desc);
-> > >       int ret;
-> > >   +    GEM_BUG_ON(intel_context_is_child(ce));
-> > >       trace_intel_context_register(ce);
-> > >   -    ret = __guc_action_register_context(guc, ce->guc_id.id,
-> > > offset, loop);
-> > > +    if (intel_context_is_parent(ce))
-> > > +        ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
-> > > +                              offset, loop);
-> > > +    else
-> > > +        ret = __guc_action_register_context(guc, ce->guc_id.id, offset,
-> > > +                            loop);
-> > >       if (likely(!ret)) {
-> > >           unsigned long flags;
-> > >   @@ -1418,6 +1487,7 @@ static int deregister_context(struct
-> > > intel_context *ce, u32 guc_id)
-> > >   {
-> > >       struct intel_guc *guc = ce_to_guc(ce);
-> > >   +    GEM_BUG_ON(intel_context_is_child(ce));
-> > >       trace_intel_context_deregister(ce);
-> > >         return __guc_action_deregister_context(guc, guc_id);
-> > > @@ -1445,6 +1515,7 @@ static int guc_lrc_desc_pin(struct
-> > > intel_context *ce, bool loop)
-> > >       struct guc_lrc_desc *desc;
-> > >       bool context_registered;
-> > >       intel_wakeref_t wakeref;
-> > > +    struct intel_context *child;
-> > >       int ret = 0;
-> > >         GEM_BUG_ON(!engine->mask);
-> > > @@ -1470,6 +1541,41 @@ static int guc_lrc_desc_pin(struct
-> > > intel_context *ce, bool loop)
-> > >       desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-> > >       guc_context_policy_init(engine, desc);
-> > >   +    /*
-> > > +     * Context is a parent, we need to register a process descriptor
-> > > +     * describing a work queue and register all child contexts.
-> > > +     */
-> > This was now meant to say 'If the context is a parent...'?
-> > 
-> > John.
-> > 
-> > > +    if (intel_context_is_parent(ce)) {
-> > > +        struct guc_process_desc *pdesc;
-> > > +
-> > > +        ce->parallel.guc.wqi_tail = 0;
-> > > +        ce->parallel.guc.wqi_head = 0;
-> > > +
-> > > +        desc->process_desc = i915_ggtt_offset(ce->state) +
-> > > +            __get_process_desc_offset(ce);
-> > > +        desc->wq_addr = i915_ggtt_offset(ce->state) +
-> > > +            __get_wq_offset(ce);
-> > > +        desc->wq_size = WQ_SIZE;
-> > > +
-> > > +        pdesc = __get_process_desc(ce);
-> > > +        memset(pdesc, 0, sizeof(*(pdesc)));
-> > > +        pdesc->stage_id = ce->guc_id.id;
-> > > +        pdesc->wq_base_addr = desc->wq_addr;
-> > > +        pdesc->wq_size_bytes = desc->wq_size;
-> > > +        pdesc->wq_status = WQ_STATUS_ACTIVE;
-> > > +
-> > > +        for_each_child(ce, child) {
-> > > +            desc = __get_lrc_desc(guc, child->guc_id.id);
-> > > +
-> > > +            desc->engine_class =
-> > > +                engine_class_to_guc_class(engine->class);
-> > > +            desc->hw_context_desc = child->lrc.lrca;
-> > > +            desc->priority = ce->guc_state.prio;
-> > > +            desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-> > > +            guc_context_policy_init(engine, desc);
-> > > +        }
-> > > +    }
-> > > +
-> > >       /*
-> > >        * The context_lookup xarray is used to determine if the hardware
-> > >        * context is currently registered. There are two cases in
-> > > which it
-> > > @@ -2804,6 +2910,12 @@ g2h_context_lookup(struct intel_guc *guc, u32
-> > > desc_idx)
-> > >           return NULL;
-> > >       }
-> > >   +    if (unlikely(intel_context_is_child(ce))) {
-> > > +        drm_err(&guc_to_gt(guc)->i915->drm,
-> > > +            "Context is child, desc_idx %u", desc_idx);
-> > > +        return NULL;
-> > > +    }
-> > > +
-> > >       return ce;
-> > >   }
-> > 
-> 
+John.
+
+> +			local_stalled = true;
+>   
+> +		__i915_request_reset(rq, local_stalled && stalled);
+>   out_replay:
+> -	guc_reset_state(ce, head, stalled);
+> -	__unwind_incomplete_requests(ce);
+> +		guc_reset_state(ce, head, local_stalled && stalled);
+> +next_context:
+> +		if (i != number_children)
+> +			ce = list_next_entry(ce, parallel.child_link);
+> +	}
+> +
+> +	__unwind_incomplete_requests(parent);
+>   out_put:
+> -	intel_context_put(ce);
+> +	intel_context_put(parent);
+>   }
+>   
+>   void intel_guc_submission_reset(struct intel_guc *guc, bool stalled)
+> @@ -1282,7 +1305,8 @@ void intel_guc_submission_reset(struct intel_guc *guc, bool stalled)
+>   
+>   		xa_unlock(&guc->context_lookup);
+>   
+> -		if (intel_context_is_pinned(ce))
+> +		if (intel_context_is_pinned(ce) &&
+> +		    !intel_context_is_child(ce))
+>   			__guc_reset_context(ce, stalled);
+>   
+>   		intel_context_put(ce);
+> @@ -1374,7 +1398,8 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc)
+>   
+>   		xa_unlock(&guc->context_lookup);
+>   
+> -		if (intel_context_is_pinned(ce))
+> +		if (intel_context_is_pinned(ce) &&
+> +		    !intel_context_is_child(ce))
+>   			guc_cancel_context_requests(ce);
+>   
+>   		intel_context_put(ce);
+> @@ -2067,6 +2092,8 @@ static struct i915_sw_fence *guc_context_block(struct intel_context *ce)
+>   	u16 guc_id;
+>   	bool enabled;
+>   
+> +	GEM_BUG_ON(intel_context_is_child(ce));
+> +
+>   	spin_lock_irqsave(&ce->guc_state.lock, flags);
+>   
+>   	incr_context_blocked(ce);
+> @@ -2121,6 +2148,7 @@ static void guc_context_unblock(struct intel_context *ce)
+>   	bool enable;
+>   
+>   	GEM_BUG_ON(context_enabled(ce));
+> +	GEM_BUG_ON(intel_context_is_child(ce));
+>   
+>   	spin_lock_irqsave(&ce->guc_state.lock, flags);
+>   
+> @@ -2147,11 +2175,14 @@ static void guc_context_unblock(struct intel_context *ce)
+>   static void guc_context_cancel_request(struct intel_context *ce,
+>   				       struct i915_request *rq)
+>   {
+> +	struct intel_context *block_context =
+> +		request_to_scheduling_context(rq);
+> +
+>   	if (i915_sw_fence_signaled(&rq->submit)) {
+>   		struct i915_sw_fence *fence;
+>   
+>   		intel_context_get(ce);
+> -		fence = guc_context_block(ce);
+> +		fence = guc_context_block(block_context);
+>   		i915_sw_fence_wait(fence);
+>   		if (!i915_request_completed(rq)) {
+>   			__i915_request_skip(rq);
+> @@ -2165,7 +2196,7 @@ static void guc_context_cancel_request(struct intel_context *ce,
+>   		 */
+>   		flush_work(&ce_to_guc(ce)->ct.requests.worker);
+>   
+> -		guc_context_unblock(ce);
+> +		guc_context_unblock(block_context);
+>   		intel_context_put(ce);
+>   	}
+>   }
+> @@ -2191,6 +2222,8 @@ static void guc_context_ban(struct intel_context *ce, struct i915_request *rq)
+>   	intel_wakeref_t wakeref;
+>   	unsigned long flags;
+>   
+> +	GEM_BUG_ON(intel_context_is_child(ce));
+> +
+>   	guc_flush_submissions(guc);
+>   
+>   	spin_lock_irqsave(&ce->guc_state.lock, flags);
+
