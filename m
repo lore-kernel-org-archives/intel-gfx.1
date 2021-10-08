@@ -2,42 +2,42 @@ Return-Path: <SRS0=3Vrl=O4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BBAAC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 00:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FAB5C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 00:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 219D161090
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 00:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 219D161090
+	by mail.kernel.org (Postfix) with ESMTPS id 2024B61090
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Oct 2021 00:19:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2024B61090
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51C16E060;
-	Fri,  8 Oct 2021 00:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E64FC6E860;
+	Fri,  8 Oct 2021 00:19:43 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8712A6E05C
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Oct 2021 00:19:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="226301636"
-X-IronPort-AV: E=Sophos;i="5.85,356,1624345200"; d="scan'208";a="226301636"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFFC6E06E
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Oct 2021 00:19:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="226301668"
+X-IronPort-AV: E=Sophos;i="5.85,356,1624345200"; d="scan'208";a="226301668"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 17:19:21 -0700
-X-IronPort-AV: E=Sophos;i="5.85,356,1624345200"; d="scan'208";a="489235291"
+ 07 Oct 2021 17:19:26 -0700
+X-IronPort-AV: E=Sophos;i="5.85,356,1624345200"; d="scan'208";a="489235330"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 17:19:20 -0700
+ 07 Oct 2021 17:19:26 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  8 Oct 2021 03:19:10 +0300
-Message-Id: <20211008001915.3508011-3-imre.deak@intel.com>
+Date: Fri,  8 Oct 2021 03:19:15 +0300
+Message-Id: <20211008001915.3508011-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20211007203517.3364336-4-imre.deak@intel.com>
-References: <20211007203517.3364336-4-imre.deak@intel.com>
+In-Reply-To: <20211007203517.3364336-12-imre.deak@intel.com>
+References: <20211007203517.3364336-12-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 03/11] drm/i915: Add tiling attribute to the
- modifier descriptor
+Subject: [Intel-gfx] [PATCH v2 11/11] drm/i915: Add functions to check for
+ RC CCS CC and MC CCS modifiers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,91 +53,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a tiling atttribute to the modifier descriptor, which let's us
-get the tiling without listing the modifiers twice.
+Instead of open-coding the checks add functions for this, simplifying
+the handling of CCS modifiers on future platforms.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fb.c       | 24 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_fb.h       |  2 ++
+ .../drm/i915/display/skl_universal_plane.c    |  4 ++--
+ 3 files changed, 28 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 920de857ffa28..c15d17d2983d4 100644
+index cf84b1ce6a485..da8cc5e47aa1b 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.c
 +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -116,6 +116,7 @@ const struct intel_modifier_desc {
- 	const struct drm_format_info *formats;
- 	int format_count;
- 	u8 is_linear:1;
-+	u8 tiling;
- 
- 	struct {
- #define INTEL_CCS_RC		BIT(0)
-@@ -134,10 +135,12 @@ const struct intel_modifier_desc {
- 	{
- 		.id = I915_FORMAT_MOD_X_TILED,
- 		.display_versions = DISPLAY_VER_MASK_ALL,
-+		.tiling = I915_TILING_X,
- 	},
- 	{
- 		.id = I915_FORMAT_MOD_Y_TILED,
- 		.display_versions = DISPLAY_VER_MASK(9, 13),
-+		.tiling = I915_TILING_Y,
- 	},
- 	{
- 		.id = I915_FORMAT_MOD_Yf_TILED,
-@@ -146,6 +149,7 @@ const struct intel_modifier_desc {
- 	{
- 		.id = I915_FORMAT_MOD_Y_TILED_CCS,
- 		.display_versions = DISPLAY_VER_MASK(9, 11),
-+		.tiling = I915_TILING_Y,
- 
- 		.ccs.type = INTEL_CCS_RC,
- 
-@@ -162,6 +166,7 @@ const struct intel_modifier_desc {
- 	{
- 		.id = I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS,
- 		.display_versions = DISPLAY_VER_MASK(12, 13),
-+		.tiling = I915_TILING_Y,
- 
- 		.ccs.type = INTEL_CCS_RC,
- 
-@@ -170,6 +175,7 @@ const struct intel_modifier_desc {
- 	{
- 		.id = I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC,
- 		.display_versions = DISPLAY_VER_MASK(12, 13),
-+		.tiling = I915_TILING_Y,
- 
- 		.ccs.type = INTEL_CCS_RC_CC,
- 
-@@ -178,6 +184,7 @@ const struct intel_modifier_desc {
- 	{
- 		.id = I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS,
- 		.display_versions = DISPLAY_VER_MASK(12, 13),
-+		.tiling = I915_TILING_Y,
- 
- 		.ccs.type = INTEL_CCS_MC,
- 
-@@ -529,18 +536,7 @@ intel_fb_align_height(const struct drm_framebuffer *fb,
- 
- static unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
- {
--	switch (fb_modifier) {
--	case I915_FORMAT_MOD_X_TILED:
--		return I915_TILING_X;
--	case I915_FORMAT_MOD_Y_TILED:
--	case I915_FORMAT_MOD_Y_TILED_CCS:
--	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS:
--	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC:
--	case I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS:
--		return I915_TILING_Y;
--	default:
--		return I915_TILING_NONE;
--	}
-+	return lookup_modifier(fb_modifier)->tiling;
+@@ -274,6 +274,30 @@ bool intel_fb_is_ccs_modifier(u64 modifier)
+ 	return is_ccs_type_modifier(lookup_modifier(modifier), INTEL_CCS_ANY);
  }
  
- unsigned int intel_cursor_alignment(const struct drm_i915_private *i915)
++/**
++ * intel_fb_is_rc_ccs_cc_modifier: Check if a modifier is an RC CCS CC modifier type
++ * @modifier: Modifier to check
++ *
++ * Returns:
++ * Returns %true if @modifier is a render with color clear modifier.
++ */
++bool intel_fb_is_rc_ccs_cc_modifier(u64 modifier)
++{
++	return is_ccs_type_modifier(lookup_modifier(modifier), INTEL_CCS_RC_CC);
++}
++
++/**
++ * intel_fb_is_mc_ccs_modifier: Check if a modifier is an MC CCS modifier type
++ * @modifier: Modifier to check
++ *
++ * Returns:
++ * Returns %true if @modifier is a media compression modifier.
++ */
++bool intel_fb_is_mc_ccs_modifier(u64 modifier)
++{
++	return is_ccs_type_modifier(lookup_modifier(modifier), INTEL_CCS_MC);
++}
++
+ static bool plane_has_modifier(struct drm_i915_private *i915,
+ 			       enum intel_plane_caps plane_caps,
+ 			       const struct intel_modifier_desc *md)
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
+index b05c3f64b6f0c..c39bf840edb2c 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.h
++++ b/drivers/gpu/drm/i915/display/intel_fb.h
+@@ -31,6 +31,8 @@ enum intel_plane_caps {
+ };
+ 
+ bool intel_fb_is_ccs_modifier(u64 modifier);
++bool intel_fb_is_rc_ccs_cc_modifier(u64 modifier);
++bool intel_fb_is_mc_ccs_modifier(u64 modifier);
+ 
+ bool intel_fb_is_ccs_ctrl_plane(const struct drm_framebuffer *fb, int plane);
+ int intel_fb_rc_ccs_cc_plane(const struct drm_framebuffer *fb);
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 82dd3c0cc49ea..e3346da4884d1 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1067,7 +1067,7 @@ skl_program_plane(struct intel_plane *plane,
+ 	if (fb->format->is_yuv && icl_is_hdr_plane(dev_priv, plane_id))
+ 		icl_program_input_csc(plane, crtc_state, plane_state);
+ 
+-	if (fb->modifier == I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC)
++	if (intel_fb_is_rc_ccs_cc_modifier(fb->modifier))
+ 		intel_uncore_write64_fw(&dev_priv->uncore,
+ 					PLANE_CC_VAL(pipe, plane_id), plane_state->ccval);
+ 
+@@ -1899,7 +1899,7 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+ 	case DRM_FORMAT_P010:
+ 	case DRM_FORMAT_P012:
+ 	case DRM_FORMAT_P016:
+-		if (modifier == I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS)
++		if (intel_fb_is_mc_ccs_modifier(modifier))
+ 			return true;
+ 		fallthrough;
+ 	case DRM_FORMAT_RGB565:
 -- 
 2.27.0
 
