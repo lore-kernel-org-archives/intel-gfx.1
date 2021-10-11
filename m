@@ -2,44 +2,46 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 069B3C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD1E4C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:01:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDE1D60EE2
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:01:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BDE1D60EE2
+	by mail.kernel.org (Postfix) with ESMTPS id 9234360EE2
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:01:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9234360EE2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96EA36E500;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D88916E503;
 	Mon, 11 Oct 2021 15:01:20 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BAA06E4A2;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC57B89FCC;
  Mon, 11 Oct 2021 15:01:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="227179407"
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="227179407"
+X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="227179438"
+X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="227179438"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 07:56:43 -0700
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="569984412"
+ 11 Oct 2021 07:56:56 -0700
+X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="569984469"
 Received: from phutoant-mobl3.ccr.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.213.44.196])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 07:56:41 -0700
+ 11 Oct 2021 07:56:53 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 11 Oct 2021 15:56:12 +0100
-Message-Id: <20211011145619.1397733-1-matthew.auld@intel.com>
+Date: Mon, 11 Oct 2021 15:56:16 +0100
+Message-Id: <20211011145619.1397733-5-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20211011145619.1397733-1-matthew.auld@intel.com>
+References: <20211011145619.1397733-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 1/8] drm/i915/gem: Break out some shmem
- backend utils
+Subject: [Intel-gfx] [PATCH v8 5/8] drm/i915: add some kernel-doc for
+ shrink_pin and friends
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,335 +57,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Attempt to document shrink_pin and the other relevant interfaces that
+interact with it, before we start messing with it.
 
-Break out some shmem backend utils for future reuse by the TTM backend:
-shmem_alloc_st(), shmem_free_st() and __shmem_writeback() which we can
-use to provide a shmem-backed TTM page pool for cached-only TTM
-buffer objects.
-
-Main functional change here is that we now compute the page sizes using
-the dma segments rather than using the physical page address segments.
-
-v2(Reported-by: kernel test robot <lkp@intel.com>)
-    - Make sure we initialise the mapping on the error path in
-      shmem_get_pages()
-
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 181 +++++++++++++---------
- 1 file changed, 106 insertions(+), 75 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 24 +++++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  | 31 +++++++++++++++++++
+ 2 files changed, 54 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 11f072193f3b..36b711ae9e28 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -25,46 +25,61 @@ static void check_release_pagevec(struct pagevec *pvec)
- 	cond_resched();
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 7dd5f804aab3..f4233c4e8d2e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -461,6 +461,28 @@ struct drm_i915_gem_object {
+ 		 * instead go through the pin/unpin interfaces.
+ 		 */
+ 		atomic_t pages_pin_count;
++
++		/**
++		 * @shrink_pin: Prevents the pages from being made visible to
++		 * the shrinker, while the shrink_pin is non-zero. Most users
++		 * should pretty much never have to care about this, outside of
++		 * some special use cases.
++		 *
++		 * By default most objects will start out as visible to the
++		 * shrinker(if I915_GEM_OBJECT_IS_SHRINKABLE) as soon as the
++		 * backing pages are attached to the object, like in
++		 * __i915_gem_object_set_pages(). They will then be removed the
++		 * shrinker list once the pages are released.
++		 *
++		 * The @shrink_pin is incremented by calling
++		 * i915_gem_object_make_unshrinkable(), which will also remove
++		 * the object from the shrinker list, if the pin count was zero.
++		 *
++		 * Callers will then typically call
++		 * i915_gem_object_make_shrinkable() or
++		 * i915_gem_object_make_purgeable() to decrement the pin count,
++		 * and make the pages visible again.
++		 */
+ 		atomic_t shrink_pin;
  
--static int shmem_get_pages(struct drm_i915_gem_object *obj)
-+static void shmem_free_st(struct sg_table *st, struct address_space *mapping,
-+			  bool dirty, bool backup)
+ 		/**
+@@ -522,7 +544,7 @@ struct drm_i915_gem_object {
+ 		struct i915_gem_object_page_iter get_dma_page;
+ 
+ 		/**
+-		 * Element within i915->mm.unbound_list or i915->mm.bound_list,
++		 * Element within i915->mm.shrink_list or i915->mm.purge_list,
+ 		 * locked by i915->mm.obj_lock.
+ 		 */
+ 		struct list_head link;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+index ae2a8d54b7a4..66121fedc655 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -463,6 +463,16 @@ void i915_gem_shrinker_taints_mutex(struct drm_i915_private *i915,
+ 
+ #define obj_to_i915(obj__) to_i915((obj__)->base.dev)
+ 
++/**
++ * i915_gem_object_make_unshrinkable - Hide the object from the shrinker. By
++ * default all object types that support shrinking(see IS_SHRINKABLE), will also
++ * make the object visible to the shrinker after allocating the system memory
++ * pages.
++ * @obj: The GEM object.
++ *
++ * This is typically used for special kernel internal objects that can't be
++ * easily processed by the shrinker, like if they are perma-pinned.
++ */
+ void i915_gem_object_make_unshrinkable(struct drm_i915_gem_object *obj)
  {
--	struct drm_i915_private *i915 = to_i915(obj->base.dev);
--	struct intel_memory_region *mem = obj->mm.region;
--	const unsigned long page_count = obj->base.size / PAGE_SIZE;
-+	struct sgt_iter sgt_iter;
-+	struct pagevec pvec;
-+	struct page *page;
-+
-+	mapping_clear_unevictable(mapping);
-+
-+	pagevec_init(&pvec);
-+	for_each_sgt_page(page, sgt_iter, st) {
-+		if (dirty)
-+			set_page_dirty(page);
-+
-+		if (backup)
-+			mark_page_accessed(page);
-+
-+		if (!pagevec_add(&pvec, page))
-+			check_release_pagevec(&pvec);
-+	}
-+	if (pagevec_count(&pvec))
-+		check_release_pagevec(&pvec);
-+
-+	sg_free_table(st);
-+	kfree(st);
-+}
-+
-+static struct sg_table *shmem_alloc_st(struct drm_i915_private *i915,
-+				       size_t size, struct intel_memory_region *mr,
-+				       struct address_space *mapping,
-+				       unsigned int max_segment)
-+{
-+	const unsigned long page_count = size / PAGE_SIZE;
- 	unsigned long i;
--	struct address_space *mapping;
- 	struct sg_table *st;
- 	struct scatterlist *sg;
--	struct sgt_iter sgt_iter;
- 	struct page *page;
- 	unsigned long last_pfn = 0;	/* suppress gcc warning */
--	unsigned int max_segment = i915_sg_segment_size();
--	unsigned int sg_page_sizes;
- 	gfp_t noreclaim;
- 	int ret;
- 
--	/*
--	 * Assert that the object is not currently in any GPU domain. As it
--	 * wasn't in the GTT, there shouldn't be any way it could have been in
--	 * a GPU cache
--	 */
--	GEM_BUG_ON(obj->read_domains & I915_GEM_GPU_DOMAINS);
--	GEM_BUG_ON(obj->write_domain & I915_GEM_GPU_DOMAINS);
--
- 	/*
- 	 * If there's no chance of allocating enough pages for the whole
- 	 * object, bail early.
- 	 */
--	if (obj->base.size > resource_size(&mem->region))
--		return -ENOMEM;
-+	if (size > resource_size(&mr->region))
-+		return ERR_PTR(-ENOMEM);
- 
- 	st = kmalloc(sizeof(*st), GFP_KERNEL);
- 	if (!st)
--		return -ENOMEM;
-+		return ERR_PTR(-ENOMEM);
- 
--rebuild_st:
- 	if (sg_alloc_table(st, page_count, GFP_KERNEL)) {
- 		kfree(st);
--		return -ENOMEM;
-+		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	/*
-@@ -73,14 +88,12 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	 *
- 	 * Fail silently without starting the shrinker
- 	 */
--	mapping = obj->base.filp->f_mapping;
- 	mapping_set_unevictable(mapping);
- 	noreclaim = mapping_gfp_constraint(mapping, ~__GFP_RECLAIM);
- 	noreclaim |= __GFP_NORETRY | __GFP_NOWARN;
- 
- 	sg = st->sgl;
- 	st->nents = 0;
--	sg_page_sizes = 0;
- 	for (i = 0; i < page_count; i++) {
- 		const unsigned int shrink[] = {
- 			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-@@ -135,10 +148,9 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 		if (!i ||
- 		    sg->length >= max_segment ||
- 		    page_to_pfn(page) != last_pfn + 1) {
--			if (i) {
--				sg_page_sizes |= sg->length;
-+			if (i)
- 				sg = sg_next(sg);
--			}
-+
- 			st->nents++;
- 			sg_set_page(sg, page, PAGE_SIZE, 0);
- 		} else {
-@@ -149,14 +161,65 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 		/* Check that the i965g/gm workaround works. */
- 		GEM_BUG_ON(gfp & __GFP_DMA32 && last_pfn >= 0x00100000UL);
- 	}
--	if (sg) { /* loop terminated early; short sg table */
--		sg_page_sizes |= sg->length;
-+	if (sg) /* loop terminated early; short sg table */
- 		sg_mark_end(sg);
--	}
- 
- 	/* Trim unused sg entries to avoid wasting memory. */
- 	i915_sg_trim(st);
- 
-+	return st;
-+err_sg:
-+	sg_mark_end(sg);
-+	if (sg != st->sgl) {
-+		shmem_free_st(st, mapping, false, false);
-+	} else {
-+		mapping_clear_unevictable(mapping);
-+		sg_free_table(st);
-+		kfree(st);
-+	}
-+
-+	/*
-+	 * shmemfs first checks if there is enough memory to allocate the page
-+	 * and reports ENOSPC should there be insufficient, along with the usual
-+	 * ENOMEM for a genuine allocation failure.
-+	 *
-+	 * We use ENOSPC in our driver to mean that we have run out of aperture
-+	 * space and so want to translate the error from shmemfs back to our
-+	 * usual understanding of ENOMEM.
-+	 */
-+	if (ret == -ENOSPC)
-+		ret = -ENOMEM;
-+
-+	return ERR_PTR(ret);
-+}
-+
-+static int shmem_get_pages(struct drm_i915_gem_object *obj)
-+{
-+	struct drm_i915_private *i915 = to_i915(obj->base.dev);
-+	struct intel_memory_region *mem = obj->mm.region;
-+	struct address_space *mapping = obj->base.filp->f_mapping;
-+	const unsigned long page_count = obj->base.size / PAGE_SIZE;
-+	unsigned int max_segment = i915_sg_segment_size();
-+	struct sg_table *st;
-+	struct sgt_iter sgt_iter;
-+	struct page *page;
-+	int ret;
-+
-+	/*
-+	 * Assert that the object is not currently in any GPU domain. As it
-+	 * wasn't in the GTT, there shouldn't be any way it could have been in
-+	 * a GPU cache
-+	 */
-+	GEM_BUG_ON(obj->read_domains & I915_GEM_GPU_DOMAINS);
-+	GEM_BUG_ON(obj->write_domain & I915_GEM_GPU_DOMAINS);
-+
-+rebuild_st:
-+	st = shmem_alloc_st(i915, obj->base.size, mem, mapping, max_segment);
-+	if (IS_ERR(st)) {
-+		ret = PTR_ERR(st);
-+		goto err_st;
-+	}
-+
- 	ret = i915_gem_gtt_prepare_pages(obj, st);
- 	if (ret) {
- 		/*
-@@ -168,6 +231,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 			for_each_sgt_page(page, sgt_iter, st)
- 				put_page(page);
- 			sg_free_table(st);
-+			kfree(st);
- 
- 			max_segment = PAGE_SIZE;
- 			goto rebuild_st;
-@@ -200,28 +264,12 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	if (IS_JSL_EHL(i915) && obj->flags & I915_BO_ALLOC_USER)
- 		obj->cache_dirty = true;
- 
--	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, st, i915_sg_dma_sizes(st->sgl));
- 
- 	return 0;
- 
--err_sg:
--	sg_mark_end(sg);
- err_pages:
--	mapping_clear_unevictable(mapping);
--	if (sg != st->sgl) {
--		struct pagevec pvec;
--
--		pagevec_init(&pvec);
--		for_each_sgt_page(page, sgt_iter, st) {
--			if (!pagevec_add(&pvec, page))
--				check_release_pagevec(&pvec);
--		}
--		if (pagevec_count(&pvec))
--			check_release_pagevec(&pvec);
--	}
--	sg_free_table(st);
--	kfree(st);
--
-+	shmem_free_st(st, mapping, false, false);
- 	/*
- 	 * shmemfs first checks if there is enough memory to allocate the page
- 	 * and reports ENOSPC should there be insufficient, along with the usual
-@@ -231,6 +279,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	 * space and so want to translate the error from shmemfs back to our
- 	 * usual understanding of ENOMEM.
- 	 */
-+err_st:
- 	if (ret == -ENOSPC)
- 		ret = -ENOMEM;
- 
-@@ -251,10 +300,8 @@ shmem_truncate(struct drm_i915_gem_object *obj)
- 	obj->mm.pages = ERR_PTR(-EFAULT);
+ 	struct drm_i915_private *i915 = obj_to_i915(obj);
+@@ -513,12 +523,33 @@ static void __i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj,
+ 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
  }
  
--static void
--shmem_writeback(struct drm_i915_gem_object *obj)
-+static void __shmem_writeback(size_t size, struct address_space *mapping)
++/**
++ * i915_gem_object_make_shrinkable - Move the object to the tail of the
++ * shrinkable list. Objects on this list might be swapped out. Used with
++ * WILLNEED objects.
++ * @obj: The GEM object.
++ *
++ * MUST only be called on objects which have backing pages.
++ *
++ * MUST be balanced with previous call to i915_gem_object_make_unshrinkable().
++ */
+ void i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj)
  {
--	struct address_space *mapping;
- 	struct writeback_control wbc = {
- 		.sync_mode = WB_SYNC_NONE,
- 		.nr_to_write = SWAP_CLUSTER_MAX,
-@@ -270,10 +317,9 @@ shmem_writeback(struct drm_i915_gem_object *obj)
- 	 * instead of invoking writeback so they are aged and paged out
- 	 * as normal.
- 	 */
--	mapping = obj->base.filp->f_mapping;
- 
- 	/* Begin writeback on each dirty page */
--	for (i = 0; i < obj->base.size >> PAGE_SHIFT; i++) {
-+	for (i = 0; i < size >> PAGE_SHIFT; i++) {
- 		struct page *page;
- 
- 		page = find_lock_page(mapping, i);
-@@ -296,6 +342,12 @@ shmem_writeback(struct drm_i915_gem_object *obj)
- 	}
+ 	__i915_gem_object_make_shrinkable(obj,
+ 					  &obj_to_i915(obj)->mm.shrink_list);
  }
  
-+static void
-+shmem_writeback(struct drm_i915_gem_object *obj)
-+{
-+	__shmem_writeback(obj->base.size, obj->base.filp->f_mapping);
-+}
-+
- void
- __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
- 				struct sg_table *pages,
-@@ -316,11 +368,6 @@ __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
- 
- void i915_gem_object_put_pages_shmem(struct drm_i915_gem_object *obj, struct sg_table *pages)
++/**
++ * i915_gem_object_make_purgeable - Move the object to the tail of the purgeable
++ * list. Used with DONTNEED objects. Unlike with shrinkable objects, the
++ * shrinker will attempt to discard the backing pages, instead of trying to swap
++ * them out.
++ * @obj: The GEM object.
++ *
++ * MUST only be called on objects which have backing pages.
++ *
++ * MUST be balanced with previous call to i915_gem_object_make_unshrinkable().
++ */
+ void i915_gem_object_make_purgeable(struct drm_i915_gem_object *obj)
  {
--	struct sgt_iter sgt_iter;
--	struct pagevec pvec;
--	struct page *page;
--
--	GEM_WARN_ON(IS_DGFX(to_i915(obj->base.dev)));
- 	__i915_gem_object_release_shmem(obj, pages, true);
- 
- 	i915_gem_gtt_finish_pages(obj, pages);
-@@ -328,25 +375,9 @@ void i915_gem_object_put_pages_shmem(struct drm_i915_gem_object *obj, struct sg_
- 	if (i915_gem_object_needs_bit17_swizzle(obj))
- 		i915_gem_object_save_bit_17_swizzle(obj, pages);
- 
--	mapping_clear_unevictable(file_inode(obj->base.filp)->i_mapping);
--
--	pagevec_init(&pvec);
--	for_each_sgt_page(page, sgt_iter, pages) {
--		if (obj->mm.dirty)
--			set_page_dirty(page);
--
--		if (obj->mm.madv == I915_MADV_WILLNEED)
--			mark_page_accessed(page);
--
--		if (!pagevec_add(&pvec, page))
--			check_release_pagevec(&pvec);
--	}
--	if (pagevec_count(&pvec))
--		check_release_pagevec(&pvec);
-+	shmem_free_st(pages, file_inode(obj->base.filp)->i_mapping,
-+		      obj->mm.dirty, obj->mm.madv == I915_MADV_WILLNEED);
- 	obj->mm.dirty = false;
--
--	sg_free_table(pages);
--	kfree(pages);
- }
- 
- static void
+ 	__i915_gem_object_make_shrinkable(obj,
 -- 
 2.26.3
 
