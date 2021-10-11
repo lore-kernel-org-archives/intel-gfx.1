@@ -2,47 +2,46 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDEE5C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5315AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9219F60F23
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9219F60F23
+	by mail.kernel.org (Postfix) with ESMTPS id 1D39B60E90
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1D39B60E90
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841936E91A;
-	Mon, 11 Oct 2021 18:18:28 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF9189EB7;
- Mon, 11 Oct 2021 18:18:27 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="227224139"
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="227224139"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 11:18:26 -0700
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="440896443"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 11:18:25 -0700
-Date: Mon, 11 Oct 2021 11:13:40 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Thanneeru Srinivasulu <thanneeru.srinivasulu@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- michal.wajdeczko@intel.com
-Message-ID: <20211011181340.GA9450@jons-linux-dev-box>
-References: <20211011152106.3424810-1-thanneeru.srinivasulu@intel.com>
- <20211011152106.3424810-3-thanneeru.srinivasulu@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8269B6E920;
+	Mon, 11 Oct 2021 18:22:01 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D14F66E920
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 18:22:00 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="226896626"
+X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="226896626"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 11:22:00 -0700
+X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="490579423"
+Received: from veckl-mobl.ger.corp.intel.com (HELO localhost) ([10.249.41.161])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 11:21:56 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Date: Mon, 11 Oct 2021 21:21:44 +0300
+Message-Id: <20211011182144.22074-2-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211011182144.22074-1-jani.nikula@intel.com>
+References: <20211011182144.22074-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211011152106.3424810-3-thanneeru.srinivasulu@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915/huc: Use i915_probe_error to
- report early HuC failures
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/dg2: update link training for
+ 128b/132b
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +57,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 11, 2021 at 08:51:04PM +0530, Thanneeru Srinivasulu wrote:
-> Replace DRM_ERROR with i915_probe_error to report early HuC failures.
-> 
-> Signed-off-by: Thanneeru Srinivasulu <thanneeru.srinivasulu@intel.com>
+The 128b/132b channel coding link training uses more straightforward TX
+FFE preset values. Reuse voltage tries and max vswing for retry logic.
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+The delays for 128b/132b are still all wrong, but this is regardless a
+step forward.
 
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_huc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-> index ff4b6869b80b..ff0f5b9130c9 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-> @@ -179,7 +179,7 @@ int intel_huc_auth(struct intel_huc *huc)
->  	ret = intel_guc_auth_huc(guc,
->  				 intel_guc_ggtt_offset(guc, huc->rsa_data));
->  	if (ret) {
-> -		DRM_ERROR("HuC: GuC did not ack Auth request %d\n", ret);
-> +		i915_probe_error(gt->i915, "HuC: GuC did not ack Auth request %d\n", ret);
->  		goto fail;
->  	}
->  
-> @@ -190,7 +190,7 @@ int intel_huc_auth(struct intel_huc *huc)
->  					huc->status.value,
->  					2, 50, NULL);
->  	if (ret) {
-> -		DRM_ERROR("HuC: Firmware not verified %d\n", ret);
-> +		i915_probe_error(gt->i915, "HuC: Firmware not verified %d\n", ret);
->  		goto fail;
->  	}
->  
-> -- 
-> 2.25.1
-> 
+v2: Fix UHBR rate checks, use intel_dp_is_uhbr() helper
+
+v3:
+- Rebase
+- Modify intel_dp_adjust_request_changed() and
+  intel_dp_link_max_vswing_reached() to take 128b/132b into
+  account. (Ville)
+
+v4:
+- Train request printing for TX FFE (Ville)
+- Log 8b/10b vs. 128b/132b (Ville)
+- Add helper for per-lane max vswing / tx ffe (Ville)
+- Name functions with tx_ffe/vswing instead of 128b132b/8b10b
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  18 ++-
+ .../drm/i915/display/intel_dp_link_training.c | 152 ++++++++++++++----
+ 2 files changed, 134 insertions(+), 36 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 3f7bbeb3e3cd..59428ce4f8c1 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -1338,13 +1338,20 @@ static int translate_signal_level(struct intel_dp *intel_dp,
+ 	return 0;
+ }
+ 
+-static int intel_ddi_dp_level(struct intel_dp *intel_dp, int lane)
++static int intel_ddi_dp_level(struct intel_dp *intel_dp,
++			      const struct intel_crtc_state *crtc_state,
++			      int lane)
+ {
+ 	u8 train_set = intel_dp->train_set[lane];
+-	u8 signal_levels = train_set & (DP_TRAIN_VOLTAGE_SWING_MASK |
+-					DP_TRAIN_PRE_EMPHASIS_MASK);
+ 
+-	return translate_signal_level(intel_dp, signal_levels);
++	if (intel_dp_is_uhbr(crtc_state)) {
++		return train_set & DP_TX_FFE_PRESET_VALUE_MASK;
++	} else {
++		u8 signal_levels = train_set & (DP_TRAIN_VOLTAGE_SWING_MASK |
++						DP_TRAIN_PRE_EMPHASIS_MASK);
++
++		return translate_signal_level(intel_dp, signal_levels);
++	}
+ }
+ 
+ int intel_ddi_level(struct intel_encoder *encoder,
+@@ -1362,7 +1369,8 @@ int intel_ddi_level(struct intel_encoder *encoder,
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+ 		level = intel_ddi_hdmi_level(encoder, trans);
+ 	else
+-		level = intel_ddi_dp_level(enc_to_intel_dp(encoder), lane);
++		level = intel_ddi_dp_level(enc_to_intel_dp(encoder), crtc_state,
++					   lane);
+ 
+ 	if (drm_WARN_ON_ONCE(&i915->drm, level >= n_entries))
+ 		level = n_entries - 1;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 1d4bcb91cd3b..fda9f15ea7e9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -304,11 +304,33 @@ static bool has_per_lane_signal_levels(struct intel_dp *intel_dp,
+ 	return !intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy);
+ }
+ 
+-static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
+-					 const struct intel_crtc_state *crtc_state,
+-					 enum drm_dp_phy dp_phy,
+-					 const u8 link_status[DP_LINK_STATUS_SIZE],
+-					 int lane)
++
++/* 128b/132b */
++static u8 intel_dp_get_lane_adjust_tx_ffe_preset(struct intel_dp *intel_dp,
++						 const struct intel_crtc_state *crtc_state,
++						 enum drm_dp_phy dp_phy,
++						 const u8 link_status[DP_LINK_STATUS_SIZE],
++						 int lane)
++{
++	u8 tx_ffe = 0;
++
++	if (has_per_lane_signal_levels(intel_dp, dp_phy)) {
++		lane = min(lane, crtc_state->lane_count - 1);
++		tx_ffe = drm_dp_get_adjust_tx_ffe_preset(link_status, lane);
++	} else {
++		for (lane = 0; lane < crtc_state->lane_count; lane++)
++			tx_ffe = max(tx_ffe, drm_dp_get_adjust_tx_ffe_preset(link_status, lane));
++	}
++
++	return tx_ffe;
++}
++
++/* 8b/10b */
++static u8 intel_dp_get_lane_adjust_vswing_preemph(struct intel_dp *intel_dp,
++						  const struct intel_crtc_state *crtc_state,
++						  enum drm_dp_phy dp_phy,
++						  const u8 link_status[DP_LINK_STATUS_SIZE],
++						  int lane)
+ {
+ 	u8 v = 0;
+ 	u8 p = 0;
+@@ -340,6 +362,20 @@ static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
+ 	return v | p;
+ }
+ 
++static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
++					 const struct intel_crtc_state *crtc_state,
++					 enum drm_dp_phy dp_phy,
++					 const u8 link_status[DP_LINK_STATUS_SIZE],
++					 int lane)
++{
++	if (intel_dp_is_uhbr(crtc_state))
++		return intel_dp_get_lane_adjust_tx_ffe_preset(intel_dp, crtc_state,
++							      dp_phy, link_status, lane);
++	else
++		return intel_dp_get_lane_adjust_vswing_preemph(intel_dp, crtc_state,
++							       dp_phy, link_status, lane);
++}
++
+ #define TRAIN_REQ_FMT "%d/%d/%d/%d"
+ #define _TRAIN_REQ_VSWING_ARGS(link_status, lane) \
+ 	(drm_dp_get_adjust_request_voltage((link_status), (lane)) >> DP_TRAIN_VOLTAGE_SWING_SHIFT)
+@@ -355,6 +391,13 @@ static u8 intel_dp_get_lane_adjust_train(struct intel_dp *intel_dp,
+ 	_TRAIN_REQ_PREEMPH_ARGS(link_status, 1), \
+ 	_TRAIN_REQ_PREEMPH_ARGS(link_status, 2), \
+ 	_TRAIN_REQ_PREEMPH_ARGS(link_status, 3)
++#define _TRAIN_REQ_TX_FFE_ARGS(link_status, lane) \
++	drm_dp_get_adjust_tx_ffe_preset((link_status), (lane))
++#define TRAIN_REQ_TX_FFE_ARGS(link_status) \
++	_TRAIN_REQ_TX_FFE_ARGS(link_status, 0), \
++	_TRAIN_REQ_TX_FFE_ARGS(link_status, 1), \
++	_TRAIN_REQ_TX_FFE_ARGS(link_status, 2), \
++	_TRAIN_REQ_TX_FFE_ARGS(link_status, 3)
+ 
+ void
+ intel_dp_get_adjust_train(struct intel_dp *intel_dp,
+@@ -367,14 +410,23 @@ intel_dp_get_adjust_train(struct intel_dp *intel_dp,
+ 	char phy_name[10];
+ 	int lane;
+ 
+-	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] lanes: %d, "
+-		    "vswing request: " TRAIN_REQ_FMT ", "
+-		    "pre-emphasis request: " TRAIN_REQ_FMT "\n",
+-		    encoder->base.base.id, encoder->base.name,
+-		    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
+-		    crtc_state->lane_count,
+-		    TRAIN_REQ_VSWING_ARGS(link_status),
+-		    TRAIN_REQ_PREEMPH_ARGS(link_status));
++	if (intel_dp_is_uhbr(crtc_state)) {
++		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 128b/132b, lanes: %d, "
++			    "TX FFE request: " TRAIN_REQ_FMT "\n",
++			    encoder->base.base.id, encoder->base.name,
++			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
++			    crtc_state->lane_count,
++			    TRAIN_REQ_TX_FFE_ARGS(link_status));
++	} else {
++		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 8b/10b, lanes: %d, "
++			    "vswing request: " TRAIN_REQ_FMT ", "
++			    "pre-emphasis request: " TRAIN_REQ_FMT "\n",
++			    encoder->base.base.id, encoder->base.name,
++			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
++			    crtc_state->lane_count,
++			    TRAIN_REQ_VSWING_ARGS(link_status),
++			    TRAIN_REQ_PREEMPH_ARGS(link_status));
++	}
+ 
+ 	for (lane = 0; lane < 4; lane++)
+ 		intel_dp->train_set[lane] =
+@@ -464,6 +516,13 @@ intel_dp_program_link_training_pattern(struct intel_dp *intel_dp,
+ 	_TRAIN_SET_PREEMPH_ARGS((train_set)[1]), \
+ 	_TRAIN_SET_PREEMPH_ARGS((train_set)[2]), \
+ 	_TRAIN_SET_PREEMPH_ARGS((train_set)[3])
++#define _TRAIN_SET_TX_FFE_ARGS(train_set) \
++	((train_set) & DP_TX_FFE_PRESET_VALUE_MASK), ""
++#define TRAIN_SET_TX_FFE_ARGS(train_set) \
++	_TRAIN_SET_TX_FFE_ARGS((train_set)[0]), \
++	_TRAIN_SET_TX_FFE_ARGS((train_set)[1]), \
++	_TRAIN_SET_TX_FFE_ARGS((train_set)[2]), \
++	_TRAIN_SET_TX_FFE_ARGS((train_set)[3])
+ 
+ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
+ 				const struct intel_crtc_state *crtc_state,
+@@ -473,14 +532,23 @@ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	char phy_name[10];
+ 
+-	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] lanes: %d, "
+-		    "vswing levels: " TRAIN_SET_FMT ", "
+-		    "pre-emphasis levels: " TRAIN_SET_FMT "\n",
+-		    encoder->base.base.id, encoder->base.name,
+-		    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
+-		    crtc_state->lane_count,
+-		    TRAIN_SET_VSWING_ARGS(intel_dp->train_set),
+-		    TRAIN_SET_PREEMPH_ARGS(intel_dp->train_set));
++	if (intel_dp_is_uhbr(crtc_state)) {
++		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 128b/132b, lanes: %d, "
++			    "TX FFE presets: " TRAIN_SET_FMT "\n",
++			    encoder->base.base.id, encoder->base.name,
++			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
++			    crtc_state->lane_count,
++			    TRAIN_SET_TX_FFE_ARGS(intel_dp->train_set));
++	} else {
++		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 8b/10b, lanes: %d, "
++			    "vswing levels: " TRAIN_SET_FMT ", "
++			    "pre-emphasis levels: " TRAIN_SET_FMT "\n",
++			    encoder->base.base.id, encoder->base.name,
++			    intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name)),
++			    crtc_state->lane_count,
++			    TRAIN_SET_VSWING_ARGS(intel_dp->train_set),
++			    TRAIN_SET_PREEMPH_ARGS(intel_dp->train_set));
++	}
+ 
+ 	if (intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
+ 		encoder->set_signal_levels(encoder, crtc_state);
+@@ -515,7 +583,16 @@ intel_dp_update_link_train(struct intel_dp *intel_dp,
+ 	return ret == crtc_state->lane_count;
+ }
+ 
++/* 128b/132b */
++static bool intel_dp_lane_max_tx_ffe_reached(u8 train_set_lane)
++{
++	return (train_set_lane & DP_TX_FFE_PRESET_VALUE_MASK) ==
++		DP_TX_FFE_PRESET_VALUE_MASK;
++}
++
+ /*
++ * 8b/10b
++ *
+  * FIXME: The DP spec is very confusing here, also the Link CTS spec seems to
+  * have self contradicting tests around this area.
+  *
+@@ -545,8 +622,15 @@ static bool intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
+ 	int lane;
+ 
+ 	for (lane = 0; lane < crtc_state->lane_count; lane++) {
+-		if (!intel_dp_lane_max_vswing_reached(intel_dp->train_set[lane]))
+-			return false;
++		u8 train_set_lane = intel_dp->train_set[lane];
++
++		if (intel_dp_is_uhbr(crtc_state)) {
++			if (!intel_dp_lane_max_tx_ffe_reached(train_set_lane))
++				return false;
++		} else {
++			if (!intel_dp_lane_max_vswing_reached(train_set_lane))
++				return false;
++		}
+ 	}
+ 
+ 	return true;
+@@ -609,17 +693,24 @@ static void intel_dp_link_training_clock_recovery_delay(struct intel_dp *intel_d
+ 		drm_dp_lttpr_link_train_clock_recovery_delay();
+ }
+ 
+-static bool intel_dp_adjust_request_changed(int lane_count,
++static bool intel_dp_adjust_request_changed(const struct intel_crtc_state *crtc_state,
+ 					    const u8 old_link_status[DP_LINK_STATUS_SIZE],
+ 					    const u8 new_link_status[DP_LINK_STATUS_SIZE])
+ {
+ 	int lane;
+ 
+-	for (lane = 0; lane < lane_count; lane++) {
+-		u8 old = drm_dp_get_adjust_request_voltage(old_link_status, lane) |
+-			drm_dp_get_adjust_request_pre_emphasis(old_link_status, lane);
+-		u8 new = drm_dp_get_adjust_request_voltage(new_link_status, lane) |
+-			drm_dp_get_adjust_request_pre_emphasis(new_link_status, lane);
++	for (lane = 0; lane < crtc_state->lane_count; lane++) {
++		u8 old, new;
++
++		if (intel_dp_is_uhbr(crtc_state)) {
++			old = drm_dp_get_adjust_tx_ffe_preset(old_link_status, lane);
++			new = drm_dp_get_adjust_tx_ffe_preset(new_link_status, lane);
++		} else {
++			old = drm_dp_get_adjust_request_voltage(old_link_status, lane) |
++				drm_dp_get_adjust_request_pre_emphasis(old_link_status, lane);
++			new = drm_dp_get_adjust_request_voltage(new_link_status, lane) |
++				drm_dp_get_adjust_request_pre_emphasis(new_link_status, lane);
++		}
+ 
+ 		if (old != new)
+ 			return true;
+@@ -729,8 +820,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
+ 			return false;
+ 		}
+ 
+-		if (!intel_dp_adjust_request_changed(crtc_state->lane_count,
+-						     old_link_status, link_status))
++		if (!intel_dp_adjust_request_changed(crtc_state, old_link_status, link_status))
+ 			++voltage_tries;
+ 		else
+ 			voltage_tries = 1;
+-- 
+2.30.2
+
