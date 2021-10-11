@@ -2,55 +2,74 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D2FBC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 12:32:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BC84C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 12:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ABE0E60F3A
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 12:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ABE0E60F3A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F15C260D43
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 12:48:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F15C260D43
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0496E3F7;
-	Mon, 11 Oct 2021 12:32:13 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDED66E3F7;
- Mon, 11 Oct 2021 12:32:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10133"; a="213808656"
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="213808656"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 05:32:11 -0700
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="485882647"
-Received: from aquine-mobl.ger.corp.intel.com (HELO [10.213.251.140])
- ([10.213.251.140])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 05:32:08 -0700
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Tvrtko Ursulin
- <tvrtko.ursulin@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20211008095007.972693-1-tvrtko.ursulin@linux.intel.com>
- <9eca89ab-f954-8b2a-7af5-b4a63b90eed0@amd.com>
- <67f413c4-b654-c7ea-bc4f-6b42418c7486@linux.intel.com>
- <85489b72-6001-98d8-d66a-395e05cd3d01@amd.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <8f93439a-739d-835d-95e9-59ffb7380a27@linux.intel.com>
-Date: Mon, 11 Oct 2021 13:32:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E02A6E3F7;
+	Mon, 11 Oct 2021 12:48:32 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95C596E455;
+ Mon, 11 Oct 2021 09:23:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1633944198;
+ bh=U/shT+7l0cuBfb2Az0GVIwtLNaXjsil9vuzWuDDckSw=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=K9M2dP3MxUpy0IuJATs8fpi7G9QGf6dQeRmBUNbHODjDk1RMp1wzwh8684aqyDF/R
+ aI0KML94b4Ufpm3eHZnNvRHiYi3J1xqb66v+fgtVJJga630bEZHf+NHYRSAAkDxaLt
+ /7yTTDxdgX+9RIRyKbBv1ml7DLAjQas07JJP+MPg=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from titan ([79.150.72.99]) by mail.gmx.net (mrgmx004
+ [212.227.17.184]) with ESMTPSA (Nemesis) id 1Mv2xO-1mrfQT3jTU-00r1qI; Mon, 11
+ Oct 2021 11:23:18 +0200
+Date: Mon, 11 Oct 2021 11:23:04 +0200
+From: Len Baker <len.baker@gmx.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Len Baker <len.baker@gmx.com>, Kees Cook <keescook@chromium.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <20211011092304.GA5790@titan>
+References: <20211003104258.18550-1-len.baker@gmx.com>
 MIME-Version: 1.0
-In-Reply-To: <85489b72-6001-98d8-d66a-395e05cd3d01@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH] dma-resv: Fix dma_resv_get_fences and
- dma_resv_copy_fences after conversion
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211003104258.18550-1-len.baker@gmx.com>
+X-Provags-ID: V03:K1:qB41EdUOsFZuYV3ml4IEx+V8zljlxj5AcR10VQSG2G0KC4NSufx
+ EVfLMr72fxNHAetLb+CjeNmh06lR3j1ygkpmj1aTeYajVmigaqqfQltDT5BaFLKoBDMpBkF
+ JkVP6qrlxNpxqISrXWVUCRyOc2+2T3MydQsryZsJJHftgl/WMPyuxw7oUYeKOTPH07v1U3z
+ ppEUK8veKOEhshP0mNV3A==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:n3aBajBwyFg=:fbkv52sPN3R+NBkzOIhfgr
+ wKEwFGA+6tvS1hf9vux674WdWdYDAUdl/1rHjB+Q3OfpROOE/BafCD+y0BETdU0D8iXICXU85
+ 8ZaO4LayBVas4vHXWp3YxXlTb0C4/PhdTY4NRO6ZCJFdmgHpx7yTgTUlFvHqxdiFWc3r4akDy
+ eUdV7BiRjFPDohB/Q4C1u4VKKr4tq9kPnv4w7E45aQcKA95SjI/PNjJWYAIKPpO9iTZ+K7BKd
+ as8hVxGJXU+ROIHr1qz/hI+zjojMolVdB27WEegacTpvlpwps+1nJswDPOGc35X339Gd58sKy
+ YJozSBdrfx+6EQB4xYsix4FHBZBfYmR0ceedUvF1Wr/pm2FN9yPGeRIxxrpHRRvJ8+G/tChvy
+ USDxwYAviP+3qJM5eYQRZSKPVNvNd6MQgnXA3Jy0QShI31w7DYxkV9zpjbUeQ4oyFCBkMagEJ
+ ZMdd0u4CZFJKhyCE2hpkC9ZUHQei6bk+i8QQ3NsRJMD/ky7EnTk8EOCHt+oWqkcjytC5DNxG7
+ qpNRxcZGA1/JIOXWiDXYklMRlDRuy02xEelNr6AK0S6x7sBm3q/iWiC1eQ2fbpfMge9Tl+18a
+ hwXzLn3QuIfnnvSaVFpOlVddExlSBmw6XPs2kLAzvGFcGB+V7BvJ4LBsn3A8+5B0WviTOtdzV
+ oy07G7iikBpdKa1FQNle1oGMafnx94W/ypputXs81QDfHekgewbqdFXr09t4UmXsCAGk4txYo
+ WTa8YJ3krCbYEhMxLxn0Eb7z0xva4AxZT3nqfDBbsHVsE0uFjmYZP/sQ3P4hUP3A1lXNYToLK
+ 0Ou7riL5Hlv4owvXK5x9wTy4mp7fLW18bwHZIunu2Sbl1K3YxpNEAEGjttc9YOjCe3f2FvVnl
+ BS4Car48IJSpKE0kFKxYTOKdfnt6pXDavJsPOHzTzF6k3RiiHCjbrjNb4xen2NGVbCUaySI2z
+ YCyynUtfm3vQrSW/l9CZ7GSkTi+yxrcmr+3SOPJcLTayvUCPS2T8+JBBpnH6i2CqJZsn+ZTnX
+ 0GIcOY64olYND3VFEmo4IgyLqvjFe6VDdL9UniVCw5/EqrAfM0IgMyRGAvwjXwaZq/Ki6uzY3
+ 3a5B7XNOU3vJWg=
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 11 Oct 2021 12:48:31 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Prefer struct_size over open
+ coded arithmetic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,119 +85,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 08/10/2021 13:19, Christian König wrote:
-> Am 08.10.21 um 12:49 schrieb Tvrtko Ursulin:
->>
->> On 08/10/2021 11:21, Christian König wrote:
->>> Am 08.10.21 um 11:50 schrieb Tvrtko Ursulin:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>>>
->>>> Cache the count of shared fences in the iterator to avoid dereferencing
->>>> the dma_resv_object outside the RCU protection. Otherwise iterator 
->>>> and its
->>>> users can observe an incosistent state which makes it impossible to use
->>>> safely.
->>>
->>> Ah, of course! I've been staring at the code the whole morning and 
->>> couldn't see it.
->>>
->>> Going to write a testcase to cover that.
->>>
->>>> Such as:
->>>>
->>>> <6> [187.517041] [IGT] gem_sync: executing
->>>> <7> [187.536343] i915 0000:00:02.0: 
->>>> [drm:i915_gem_context_create_ioctl [i915]] HW context 1 created
->>>> <7> [187.536793] i915 0000:00:02.0: 
->>>> [drm:i915_gem_context_create_ioctl [i915]] HW context 1 created
->>>> <6> [187.551235] [IGT] gem_sync: starting subtest basic-many-each
->>>> <1> [188.935462] BUG: kernel NULL pointer dereference, address: 
->>>> 0000000000000010
->>>> <1> [188.935485] #PF: supervisor write access in kernel mode
->>>> <1> [188.935495] #PF: error_code(0x0002) - not-present page
->>>> <6> [188.935504] PGD 0 P4D 0
->>>> <4> [188.935512] Oops: 0002 [#1] PREEMPT SMP NOPTI
->>>> <4> [188.935521] CPU: 2 PID: 1467 Comm: gem_sync Not tainted 
->>>> 5.15.0-rc4-CI-Patchwork_21264+ #1
->>>> <4> [188.935535] Hardware name:  /NUC6CAYB, BIOS 
->>>> AYAPLCEL.86A.0049.2018.0508.1356 05/08/2018
->>>> <4> [188.935546] RIP: 0010:dma_resv_get_fences+0x116/0x2d0
->>>> <4> [188.935560] Code: 10 85 c0 7f c9 be 03 00 00 00 e8 15 8b df ff 
->>>> eb bd e8 8e c6 ff ff eb b6 41 8b 04 24 49 8b 55 00 48 89 e7 8d 48 01 
->>>> 41 89 0c 24 <4c> 89 34 c2 e8 41 f2 ff ff 49 89 c6 48 85 c0 75 8c 48 
->>>> 8b 44 24 10
->>>> <4> [188.935583] RSP: 0018:ffffc900011dbcc8 EFLAGS: 00010202
->>>> <4> [188.935593] RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 
->>>> 0000000000000001
->>>> <4> [188.935603] RDX: 0000000000000010 RSI: ffffffff822e343c RDI: 
->>>> ffffc900011dbcc8
->>>> <4> [188.935613] RBP: ffffc900011dbd48 R08: ffff88812d255bb8 R09: 
->>>> 00000000fffffffe
->>>> <4> [188.935623] R10: 0000000000000001 R11: 0000000000000000 R12: 
->>>> ffffc900011dbd44
->>>> <4> [188.935633] R13: ffffc900011dbd50 R14: ffff888113d29cc0 R15: 
->>>> 0000000000000000
->>>> <4> [188.935643] FS:  00007f68d17e9700(0000) 
->>>> GS:ffff888277900000(0000) knlGS:0000000000000000
->>>> <4> [188.935655] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>> <4> [188.935665] CR2: 0000000000000010 CR3: 000000012d0a4000 CR4: 
->>>> 00000000003506e0
->>>> <4> [188.935676] Call Trace:
->>>> <4> [188.935685]  i915_gem_object_wait+0x1ff/0x410 [i915]
->>>> <4> [188.935988]  i915_gem_wait_ioctl+0xf2/0x2a0 [i915]
->>>> <4> [188.936272]  ? i915_gem_object_wait+0x410/0x410 [i915]
->>>> <4> [188.936533]  drm_ioctl_kernel+0xae/0x140
->>>> <4> [188.936546]  drm_ioctl+0x201/0x3d0
->>>> <4> [188.936555]  ? i915_gem_object_wait+0x410/0x410 [i915]
->>>> <4> [188.936820]  ? __fget_files+0xc2/0x1c0
->>>> <4> [188.936830]  ? __fget_files+0xda/0x1c0
->>>> <4> [188.936839]  __x64_sys_ioctl+0x6d/0xa0
->>>> <4> [188.936848]  do_syscall_64+0x3a/0xb0
->>>> <4> [188.936859] entry_SYSCALL_64_after_hwframe+0x44/0xae
->>>>
->>>> If the shared object has changed during the RCU unlocked period
->>>> callers will correctly handle the restart on the next iteration.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>>> Fixes: 96601e8a4755 ("dma-buf: use new iterator in 
->>>> dma_resv_copy_fences")
->>>> Fixes: d3c80698c9f5 ("dma-buf: use new iterator in 
->>>> dma_resv_get_fences v3")
->>>> Closes: 
->>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Fintel%2F-%2Fissues%2F4274&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7Cc22feea06a3f4285cdac08d98a495984%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637692870805160909%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=6oPR30sWnJe04I4GlhhvJWX3QvwKFIOMW1uOIyWZFOE%3D&amp;reserved=0 
->>>>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
->>>> Cc: Sumit Semwal <sumit.semwal@linaro.org>
->>>> Cc: linux-media@vger.kernel.org
->>>> Cc: dri-devel@lists.freedesktop.org
->>>> Cc: linaro-mm-sig@lists.linaro.org
->>>
->>> Maybe we should remove cursor->fences altogether, but either way the 
->>> patch is Reviewed-by: Christian König <christian.koenig@amd.com>
->>>
->>> Please push to drm-misc-next ASAP.
->>
->> Not sure I can or if my push permissions are limited to Intel 
->> branches. I can try once CI gives a green light.
-> 
-> If it doesn't work just ping me and I will push it.
+On Sun, Oct 03, 2021 at 12:42:58PM +0200, Len Baker wrote:
+> As noted in the "Deprecated Interfaces, Language Features, Attributes,
+> and Conventions" documentation [1], size calculations (especially
+> multiplication) should not be performed in memory allocator (or similar)
+> function arguments due to the risk of them overflowing. This could lead
+> to values wrapping around and a smaller allocation being made than the
+> caller was expecting. Using those allocations could lead to linear
+> overflows of heap memory and other misbehaviors.
+>
+> In this case these are not actually dynamic sizes: all the operands
+> involved in the calculation are constant values. However it is better to
+> refactor them anyway, just to keep the open-coded math idiom out of
+> code.
+>
+> So, add at the end of the struct i915_syncmap a union with two flexible
+> array members (these arrays share the same memory layout). This is
+> possible using the new DECLARE_FLEX_ARRAY macro. And then, use the
+> struct_size() helper to do the arithmetic instead of the argument
+> "size + count * size" in the kmalloc and kzalloc() functions.
+>
+> Also, take the opportunity to refactor the __sync_seqno and __sync_child
+> making them more readable.
+>
+> This code was detected with the help of Coccinelle and audited and fixed
+> manually.
+>
+> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html#open-=
+coded-arithmetic-in-allocator-arguments
+>
+> Signed-off-by: Len Baker <len.baker@gmx.com>
+> ---
+>  drivers/gpu/drm/i915/i915_syncmap.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
 
-It finally passed CI but it looks like you'll need to push it:
+I received a mail telling that this patch doesn't build:
 
-tursulin@tursulin-mobl2:~/wc/dim/src$ dim push-branch drm-misc-next
-Enumerating objects: 15, done.
-Counting objects: 100% (15/15), done.
-Delta compression using up to 8 threads
-Compressing objects: 100% (8/8), done.
-Writing objects: 100% (8/8), 2.32 KiB | 593.00 KiB/s, done.
-Total 8 (delta 7), reused 0 (delta 0), pack-reused 0
-error: remote unpack failed: unable to create temporary object directory
-To ssh://git.freedesktop.org/git/drm/drm-misc
-  ! [remote rejected]           drm-misc-next -> drm-misc-next (unpacker error)
-error: failed to push some refs to 'ssh://git.freedesktop.org/git/drm/drm-misc'
+=3D=3D Series Details =3D=3D
+
+Series: drm/i915: Prefer struct_size over open coded arithmetic
+URL   : https://patchwork.freedesktop.org/series/95408/
+State : failure
+
+But it builds without error against linux-next (tag next-20211001). Agains=
+t
+which tree and branch do I need to build?
 
 Regards,
-
-Tvrtko
+Len
