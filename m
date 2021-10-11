@@ -2,45 +2,47 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58D51C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:01:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99090C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:19:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25E6F60EE5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 25E6F60EE5
+	by mail.kernel.org (Postfix) with ESMTPS id 526BC60E98
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:19:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 526BC60E98
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86E706E50D;
-	Mon, 11 Oct 2021 15:01:32 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567036E507;
- Mon, 11 Oct 2021 15:01:31 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="227179474"
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="227179474"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 07:57:04 -0700
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="569984486"
-Received: from phutoant-mobl3.ccr.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.213.44.196])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 07:57:02 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 11 Oct 2021 15:56:19 +0100
-Message-Id: <20211011145619.1397733-8-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20211011145619.1397733-1-matthew.auld@intel.com>
-References: <20211011145619.1397733-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 200ED6E52F;
+	Mon, 11 Oct 2021 15:19:48 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F056E51B;
+ Mon, 11 Oct 2021 15:19:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="214044428"
+X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="214044428"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 08:19:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="716427179"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by fmsmga005.fm.intel.com with ESMTP; 11 Oct 2021 08:19:43 -0700
+Received: from intel.com (srinivasulu-X299-AORUS-Gaming-7.iind.intel.com
+ [10.145.162.218])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 19BFJcaI019164; Mon, 11 Oct 2021 16:19:42 +0100
+From: Thanneeru Srinivasulu <thanneeru.srinivasulu@intel.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: michal.wajdeczko@intel.com, thanneeru.srinivasulu@intel.com
+Date: Mon, 11 Oct 2021 20:51:04 +0530
+Message-Id: <20211011152106.3424810-3-thanneeru.srinivasulu@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211011152106.3424810-1-thanneeru.srinivasulu@intel.com>
+References: <20211011152106.3424810-1-thanneeru.srinivasulu@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 8/8] drm/i915/ttm: enable shmem tt backend
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915/huc: Use i915_probe_error to
+ report early HuC failures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,29 +58,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Turn on the shmem tt backend, and enable shrinking.
+Replace DRM_ERROR with i915_probe_error to report early HuC failures.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Thanneeru Srinivasulu <thanneeru.srinivasulu@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index dfbce5607ddc..99e993caa3d4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -1116,7 +1116,8 @@ static u64 i915_ttm_mmap_offset(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index ff4b6869b80b..ff0f5b9130c9 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -179,7 +179,7 @@ int intel_huc_auth(struct intel_huc *huc)
+ 	ret = intel_guc_auth_huc(guc,
+ 				 intel_guc_ggtt_offset(guc, huc->rsa_data));
+ 	if (ret) {
+-		DRM_ERROR("HuC: GuC did not ack Auth request %d\n", ret);
++		i915_probe_error(gt->i915, "HuC: GuC did not ack Auth request %d\n", ret);
+ 		goto fail;
+ 	}
  
- static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
- 	.name = "i915_gem_object_ttm",
--	.flags = I915_GEM_OBJECT_SELF_MANAGED_SHRINK_LIST,
-+	.flags = I915_GEM_OBJECT_IS_SHRINKABLE |
-+		 I915_GEM_OBJECT_SELF_MANAGED_SHRINK_LIST,
+@@ -190,7 +190,7 @@ int intel_huc_auth(struct intel_huc *huc)
+ 					huc->status.value,
+ 					2, 50, NULL);
+ 	if (ret) {
+-		DRM_ERROR("HuC: Firmware not verified %d\n", ret);
++		i915_probe_error(gt->i915, "HuC: Firmware not verified %d\n", ret);
+ 		goto fail;
+ 	}
  
- 	.get_pages = i915_ttm_get_pages,
- 	.put_pages = i915_ttm_put_pages,
 -- 
-2.26.3
+2.25.1
 
