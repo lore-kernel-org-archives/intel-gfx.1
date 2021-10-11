@@ -2,47 +2,39 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09F78C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77B2FC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6D7C60F0F
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:05:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C6D7C60F0F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3F7E660E94
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:06:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F7E660E94
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23C986E915;
-	Mon, 11 Oct 2021 18:05:38 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC766E914;
- Mon, 11 Oct 2021 18:05:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="224348516"
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="224348516"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 11:05:35 -0700
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="526090756"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 11:05:35 -0700
-Date: Mon, 11 Oct 2021 11:00:50 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Thanneeru Srinivasulu <thanneeru.srinivasulu@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- michal.wajdeczko@intel.com
-Message-ID: <20211011180050.GA29821@jons-linux-dev-box>
-References: <20211011152106.3424810-1-thanneeru.srinivasulu@intel.com>
- <20211011152106.3424810-5-thanneeru.srinivasulu@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1BDD6E916;
+	Mon, 11 Oct 2021 18:06:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7B5436E916;
+ Mon, 11 Oct 2021 18:06:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 781BBA47DF;
+ Mon, 11 Oct 2021 18:06:46 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211011152106.3424810-5-thanneeru.srinivasulu@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915/guc: Inject probe errors for
- CT send
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ramalingam C" <ramalingam.c@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 11 Oct 2021 18:06:46 -0000
+Message-ID: <163397560648.22681.11175272605698575273@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211011161155.6397-1-ramalingam.c@intel.com>
+In-Reply-To: <20211011161155.6397-1-ramalingam.c@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/dg2=3A_Enabling_64k_page_size_and_flat_ccs?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,43 +47,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 11, 2021 at 08:51:06PM +0530, Thanneeru Srinivasulu wrote:
-> Inject probe errors -ENXIO, -EBUSY for CT send.
-> 
-> Signed-off-by: Thanneeru Srinivasulu <thanneeru.srinivasulu@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> index 83764db0fd6d..8ffef3abd3da 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> @@ -765,6 +765,14 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
->  	u32 status = ~0; /* undefined */
->  	int ret;
->  
-> +	ret = i915_inject_probe_error(ct_to_i915(ct), -ENXIO);
-> +	if (ret)
-> +		return ret;
-> +
+== Series Details ==
 
-I don't see where -ENXIO is returned during an error that we handle
-unless I am missing something. If we don't return -ENXIO anywhere else I
-don't think we need to inject this error.
+Series: drm/i915/dg2: Enabling 64k page size and flat ccs
+URL   : https://patchwork.freedesktop.org/series/95686/
+State : warning
 
-Matt 
+== Summary ==
 
-> +	ret = i915_inject_probe_error(ct_to_i915(ct), -EBUSY);
-> +	if (ret)
-> +		return ret;
-> +
->  	if (unlikely(!ct->enabled)) {
->  		struct intel_guc *guc = ct_to_guc(ct);
->  		struct intel_uc *uc = container_of(guc, struct intel_uc, guc);
-> -- 
-> 2.25.1
-> 
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_reset.c:1392:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/i915_perf.c:1442:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1496:15: warning: memset with byte count of 16777216
++./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
++./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
+
+
