@@ -2,42 +2,39 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1686C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0A21C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71FA660C41
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 71FA660C41
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5123960E94
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5123960E94
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53CBB6E911;
-	Mon, 11 Oct 2021 18:01:57 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA846E52A;
- Mon, 11 Oct 2021 18:01:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="207049640"
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="207049640"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 11:01:53 -0700
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="485980770"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 11:01:52 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Cc: <thomas.hellstrom@linux.intel.com>
-Date: Mon, 11 Oct 2021 10:57:04 -0700
-Message-Id: <20211011175704.28509-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82E36E913;
+	Mon, 11 Oct 2021 18:05:19 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 171E26E913;
+ Mon, 11 Oct 2021 18:05:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0FB97A47DF;
+ Mon, 11 Oct 2021 18:05:18 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Increase timeout in
- requests perf selftest
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ramalingam C" <ramalingam.c@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 11 Oct 2021 18:05:18 -0000
+Message-ID: <163397551803.22682.38295841300294607@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211011161155.6397-1-ramalingam.c@intel.com>
+In-Reply-To: <20211011161155.6397-1-ramalingam.c@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/dg2=3A_Enabling_64k_page_size_and_flat_ccs?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,55 +47,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-perf_parallel_engines is micro benchmark to test i915 request
-scheduling. The test creates a thread per physical engine and submits
-NOP requests and waits the requests to complete in a loop. In execlists
-mode this works perfectly fine as powerful CPU has enough cores to feed
-each engine and process the CSBs. With GuC submission the uC gets
-overwhelmed as all threads feed into a single CTB channel and the GuC
-gets bombarded with CSBs as contexts are immediately switched in and out
-on the engines due to the zero runtime of the requests. When the GuC is
-overwhelmed scheduling of contexts is unfair due to the nature of the
-GuC scheduling algorithm. This behavior is understood and deemed
-acceptable as this micro benchmark isn't close to real world use case.
-Increasing the timeout of wait period for requests to complete. This
-makes the test understand that is ok for contexts to get starved in this
-scenario.
+== Series Details ==
 
-A future patch / cleanup may just delete these micro benchmark tests as
-they basically mean nothing. We care about real workloads not made up
-ones.
+Series: drm/i915/dg2: Enabling 64k page size and flat ccs
+URL   : https://patchwork.freedesktop.org/series/95686/
+State : warning
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/selftests/i915_request.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index d67710d10615..6496671a113c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -2805,7 +2805,7 @@ static int p_sync0(void *arg)
- 		i915_request_add(rq);
- 
- 		err = 0;
--		if (i915_request_wait(rq, 0, HZ / 5) < 0)
-+		if (i915_request_wait(rq, 0, HZ) < 0)
- 			err = -ETIME;
- 		i915_request_put(rq);
- 		if (err)
-@@ -2876,7 +2876,7 @@ static int p_sync1(void *arg)
- 		i915_request_add(rq);
- 
- 		err = 0;
--		if (prev && i915_request_wait(prev, 0, HZ / 5) < 0)
-+		if (prev && i915_request_wait(prev, 0, HZ) < 0)
- 			err = -ETIME;
- 		i915_request_put(prev);
- 		prev = rq;
--- 
-2.32.0
+$ dim checkpatch origin/drm-tip
+5bf9ba0e1d7d drm/i915: Add has_64k_pages flag
+70d612d1a872 drm/i915/xehpsdv: set min page-size to 64K
+b2c0a0a180c4 drm/i915/xehpsdv: enforce min GTT alignment
+ead605ff4376 drm/i915: enforce min page size for scratch
+6f36d1ed51b4 drm/i915/gtt/xehpsdv: move scratch page to system memory
+a1536f2e5783 drm/i915/xehpsdv: support 64K GTT pages
+b4c9e5a8a623 drm/i915: Add vm min alignment support
+147ff265df2f drm/i915/selftests: account for min_alignment in GTT selftests
+-:108: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#108: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:456:
++						if (offset < hole_start + aligned_size)
+
+-:120: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#120: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:480:
++						if (offset + aligned_size > hole_end)
+
+-:138: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#138: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:496:
++						if (offset < hole_start + aligned_size)
+
+-:150: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#150: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:519:
++						if (offset + aligned_size > hole_end)
+
+-:168: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#168: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:535:
++						if (offset < hole_start + aligned_size)
+
+-:180: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#180: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:559:
++						if (offset + aligned_size > hole_end)
+
+-:198: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#198: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:575:
++						if (offset < hole_start + aligned_size)
+
+-:210: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#210: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:598:
++						if (offset + aligned_size > hole_end)
+
+total: 0 errors, 8 warnings, 0 checks, 297 lines checked
+7062763f0800 drm/i915/xehpsdv: implement memory coloring
+79dc6a059d71 drm/i915/xehpsdv: Add has_flat_ccs to device info
+4a8a8a8bebf2 drm/i915/lmem: Enable lmem for platforms with Flat CCS
+fcae6b137d64 drm/i915/gt: Clear compress metadata for Gen12.5 >= platforms
+749ff0849c0e drm/i915/uapi: document behaviour for DG2 64K support
+2b517348c6fb Doc/gpu/rfc/i915: i915 DG2 uAPI
+-:14: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#14: 
+new file mode 100644
+
+-:19: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#19: FILE: Documentation/gpu/rfc/i915_dg2.rst:1:
++====================
+
+total: 0 errors, 2 warnings, 0 checks, 56 lines checked
+
 
