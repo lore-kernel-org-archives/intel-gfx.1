@@ -2,68 +2,42 @@ Return-Path: <SRS0=Rlc6=O7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 484A9C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 17:08:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1686C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14C7F60F23
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 17:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 14C7F60F23
+	by mail.kernel.org (Postfix) with ESMTPS id 71FA660C41
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 18:02:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 71FA660C41
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918486E901;
-	Mon, 11 Oct 2021 17:08:31 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE8766E901;
- Mon, 11 Oct 2021 17:08:29 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="313118535"
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="313118535"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 10:08:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="526065135"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by fmsmga008.fm.intel.com with ESMTP; 11 Oct 2021 10:08:28 -0700
-Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 11 Oct 2021 10:08:27 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- BGSMSX604.gar.corp.intel.com (10.67.234.6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 11 Oct 2021 22:38:23 +0530
-Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
- fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.012;
- Mon, 11 Oct 2021 10:08:22 -0700
-From: "Tang, CQ" <cq.tang@intel.com>
-To: "C, Ramalingam" <ramalingam.c@intel.com>, dri-devel
- <dri-devel@lists.freedesktop.org>, intel-gfx
- <intel-gfx@lists.freedesktop.org>
-CC: Daniel Vetter <daniel@ffwll.ch>, "Auld, Matthew" <matthew.auld@intel.com>, 
- "Hellstrom, Thomas" <thomas.hellstrom@intel.com>, Daniel Vetter
- <daniel.vetter@ffwll.ch>
-Thread-Topic: [PATCH 14/14] Doc/gpu/rfc/i915: i915 DG2 uAPI
-Thread-Index: AQHXvrputm43rCifYESyi86XFy9daKvN/vpQ
-Date: Mon, 11 Oct 2021 17:08:21 +0000
-Message-ID: <5e402f44acc1452a95ab4f44d06ace00@intel.com>
-References: <20211011161155.6397-1-ramalingam.c@intel.com>
- <20211011161155.6397-15-ramalingam.c@intel.com>
-In-Reply-To: <20211011161155.6397-15-ramalingam.c@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.6.200.16
-x-originating-ip: [10.22.254.132]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53CBB6E911;
+	Mon, 11 Oct 2021 18:01:57 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA846E52A;
+ Mon, 11 Oct 2021 18:01:55 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="207049640"
+X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="207049640"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 11:01:53 -0700
+X-IronPort-AV: E=Sophos;i="5.85,365,1624345200"; d="scan'208";a="485980770"
+Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 11:01:52 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Cc: <thomas.hellstrom@linux.intel.com>
+Date: Mon, 11 Oct 2021 10:57:04 -0700
+Message-Id: <20211011175704.28509-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 14/14] Doc/gpu/rfc/i915: i915 DG2 uAPI
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Increase timeout in
+ requests perf selftest
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,139 +53,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+perf_parallel_engines is micro benchmark to test i915 request
+scheduling. The test creates a thread per physical engine and submits
+NOP requests and waits the requests to complete in a loop. In execlists
+mode this works perfectly fine as powerful CPU has enough cores to feed
+each engine and process the CSBs. With GuC submission the uC gets
+overwhelmed as all threads feed into a single CTB channel and the GuC
+gets bombarded with CSBs as contexts are immediately switched in and out
+on the engines due to the zero runtime of the requests. When the GuC is
+overwhelmed scheduling of contexts is unfair due to the nature of the
+GuC scheduling algorithm. This behavior is understood and deemed
+acceptable as this micro benchmark isn't close to real world use case.
+Increasing the timeout of wait period for requests to complete. This
+makes the test understand that is ok for contexts to get starved in this
+scenario.
 
+A future patch / cleanup may just delete these micro benchmark tests as
+they basically mean nothing. We care about real workloads not made up
+ones.
 
-> -----Original Message-----
-> From: C, Ramalingam <ramalingam.c@intel.com>
-> Sent: Monday, October 11, 2021 9:12 AM
-> To: dri-devel <dri-devel@lists.freedesktop.org>; intel-gfx <intel-
-> gfx@lists.freedesktop.org>
-> Cc: Daniel Vetter <daniel@ffwll.ch>; Auld, Matthew
-> <matthew.auld@intel.com>; Tang, CQ <cq.tang@intel.com>; Hellstrom,
-> Thomas <thomas.hellstrom@intel.com>; C, Ramalingam
-> <ramalingam.c@intel.com>; Daniel Vetter <daniel.vetter@ffwll.ch>
-> Subject: [PATCH 14/14] Doc/gpu/rfc/i915: i915 DG2 uAPI
->=20
-> Details of the new features getting added as part of DG2 enabling and the=
-ir
-> implicit impact on the uAPI.
->=20
-> Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-> cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> cc: Matthew Auld <matthew.auld@intel.com>
-> ---
->  Documentation/gpu/rfc/i915_dg2.rst | 47
-> ++++++++++++++++++++++++++++++
->  Documentation/gpu/rfc/index.rst    |  3 ++
->  2 files changed, 50 insertions(+)
->  create mode 100644 Documentation/gpu/rfc/i915_dg2.rst
->=20
-> diff --git a/Documentation/gpu/rfc/i915_dg2.rst
-> b/Documentation/gpu/rfc/i915_dg2.rst
-> new file mode 100644
-> index 000000000000..a83ca26cd758
-> --- /dev/null
-> +++ b/Documentation/gpu/rfc/i915_dg2.rst
-> @@ -0,0 +1,47 @@
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +I915 DG2 RFC Section
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Upstream plan
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +Plan to upstream the DG2 enabling is:
-> +
-> +* Merge basic HW enabling for DG2(Still without pciid)
-> +* Merge the 64k support for lmem
-> +* Merge the flat CCS enabling patches
-> +* Add the pciid for DG2 and enable the DG2 in CI
-> +
-> +
-> +64K page support for lmem
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> +On DG2 hw, local-memory supports minimum GTT page size of 64k only. 4k
-> is not supported anymore.
-> +
-> +DG2 hw dont support the 64k(lmem) and 4k(smem) pages in the same
-> ppgtt
-> +Page table. Refer the struct drm_i915_gem_create_ext for the implication
-> of handling the 64k page size.
-> +
-> +.. kernel-doc:: include/uapi/drm/i915_drm.h
-> +        :functions: drm_i915_gem_create_ext
-> +
-> +
-> +flat CCS support for lmem
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> +Gen 12+ devices support 3D surfaces compression and compression
-> +formats. This is accomplished by an additional compression control state
-> (CCS) stored for each surface.
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/selftests/i915_request.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-General introduction, OK.
-
-> +
-> +Gen 12 devices(TGL and DG1) stores compression state in a separate regio=
-n
-> of memory.
-> +It is managed by userspace and has an associated set of userspace
-> +managed page tables used by hardware for address translation.
-
-I don't know the purpose of this paragraph, do we need to mention TGL/DG1? =
-This is "Gen 12", not "Gen 12+" in first paragraph.
-
-> +
-> +In Gen 12.5 devices(XEXPSDV and DG2) Flat CCS is introduced to replace
-> +the userspace managed AUX pagetable with the flat indexed region of
-> +device memory for storing the compression state
-
-Because this is DG2 document, do we need to mention XeHP SDV?
-
-
-> +
-> +GOP Driver steals a chunk of memory for the CCS surface corresponding
-> +to the entire range of local memory. The memory required for the CCS of
-> +the entire local memory is
-> +1/256 of the main local memory. The Gop driver will also program a
-> +secure register (XEHPSDV_FLAT_CCS_BASE_ADDR 0x4910) with this address
-> value.
-
-I think it is not necessary to say the CCS base register. This is internal =
-detail.
-
-> +
-> +So the Total local memory available for driver allocation is Total lmem
-> +size - CCS data size
-
-Well, we need to minus the GTT, lmem stolen (DG2 only), and WOPCM.  Maybe j=
-ust say, total local memory available is smaller because of other reserved =
-regions.
-
-> +
-> +Flat CCS data needs to be cleared when a lmem object is allocated. And
-> +CCS data can be copied in and out of CCS region through
-> XY_CTRL_SURF_COPY_BLT.
-
-OK.
-
---CQ
-
-> diff --git a/Documentation/gpu/rfc/index.rst
-> b/Documentation/gpu/rfc/index.rst index 91e93a705230..afb320ed4028
-> 100644
-> --- a/Documentation/gpu/rfc/index.rst
-> +++ b/Documentation/gpu/rfc/index.rst
-> @@ -20,6 +20,9 @@ host such documentation:
->=20
->      i915_gem_lmem.rst
->=20
-> +.. toctree::
-> +    i915_dg2.rst
-> +
->  .. toctree::
->=20
->      i915_scheduler.rst
-> --
-> 2.20.1
+diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+index d67710d10615..6496671a113c 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_request.c
++++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+@@ -2805,7 +2805,7 @@ static int p_sync0(void *arg)
+ 		i915_request_add(rq);
+ 
+ 		err = 0;
+-		if (i915_request_wait(rq, 0, HZ / 5) < 0)
++		if (i915_request_wait(rq, 0, HZ) < 0)
+ 			err = -ETIME;
+ 		i915_request_put(rq);
+ 		if (err)
+@@ -2876,7 +2876,7 @@ static int p_sync1(void *arg)
+ 		i915_request_add(rq);
+ 
+ 		err = 0;
+-		if (prev && i915_request_wait(prev, 0, HZ / 5) < 0)
++		if (prev && i915_request_wait(prev, 0, HZ) < 0)
+ 			err = -ETIME;
+ 		i915_request_put(prev);
+ 		prev = rq;
+-- 
+2.32.0
 
