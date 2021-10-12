@@ -2,52 +2,39 @@ Return-Path: <SRS0=VXUO=PA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98320C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 06:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71084C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 06:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D42A61040
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 06:56:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D42A61040
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+	by mail.kernel.org (Postfix) with ESMTPS id 2F31160D07
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 06:57:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2F31160D07
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DE06E5C5;
-	Tue, 12 Oct 2021 06:56:02 +0000 (UTC)
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Tue, 12 Oct 2021 06:55:59 UTC
-Received: from bmailout3.hostsharing.net (bmailout3.hostsharing.net
- [IPv6:2a01:4f8:150:2161:1:b009:f23e:0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D01D56E5C1;
- Tue, 12 Oct 2021 06:55:59 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net
- [IPv6:2a01:37:1000::53df:5f1c:0])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "*.hostsharing.net",
- Issuer "RapidSSL TLS DV RSA Mixed SHA256 2020 CA-1" (verified OK))
- by bmailout3.hostsharing.net (Postfix) with ESMTPS id 834B1100D9411;
- Tue, 12 Oct 2021 08:48:45 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 608AC5B88; Tue, 12 Oct 2021 08:48:45 +0200 (CEST)
-Date: Tue, 12 Oct 2021 08:48:45 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Nirmoy Das <nirmoy.das@amd.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20211012064845.GA10480@wunner.de>
-References: <20211011190607.104618-1-nirmoy.das@amd.com>
- <20211011190607.104618-4-nirmoy.das@amd.com>
- <20211011202429.GC14357@wunner.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADDD989CE3;
+	Tue, 12 Oct 2021 06:57:19 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F02BE89CE3;
+ Tue, 12 Oct 2021 06:57:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E6DD8A66C8;
+ Tue, 12 Oct 2021 06:57:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211011202429.GC14357@wunner.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH 4/4] vgaswitcheroo: do not check for NULL
- debugfs dentry
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 12 Oct 2021 06:57:17 -0000
+Message-ID: <163402183794.14286.7752056139810035925@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211007233212.3896460-1-lucas.demarchi@intel.com>
+In-Reply-To: <20211007233212.3896460-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Fixup_header_includes_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,44 +47,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 11, 2021 at 10:24:29PM +0200, Lukas Wunner wrote:
-> On Mon, Oct 11, 2021 at 09:06:07PM +0200, Nirmoy Das wrote:
-> > Debugfs APIs returns encoded error on failure so use
-> > debugfs_lookup() instead of checking for NULL.
-> [...]
-> > --- a/drivers/gpu/vga/vga_switcheroo.c
-> > +++ b/drivers/gpu/vga/vga_switcheroo.c
-> > @@ -914,7 +914,7 @@ static void vga_switcheroo_debugfs_fini(struct vgasr_priv *priv)
-> >  static void vga_switcheroo_debugfs_init(struct vgasr_priv *priv)
-> >  {
-> >  	/* already initialised */
-> > -	if (priv->debugfs_root)
-> > +	if (debugfs_lookup("vgaswitcheroo", NULL))
-> >  		return;
-> > 
-> >  	priv->debugfs_root = debugfs_create_dir("vgaswitcheroo", NULL);
-> 
-> If debugfs_create_dir() returns an error code, it does make sense to
-> retry the call when another vga_switcheroo client registers later.
-> I like that.
-> 
-> However I'd prefer simply changing this to explicitly check for NULL, i.e.:
-> 
-> -	if (priv->debugfs_root)
-> +	if (priv->debugfs_root == NULL)
+== Series Details ==
 
-Apologies, I meant:
+Series: Fixup header includes (rev4)
+URL   : https://patchwork.freedesktop.org/series/95587/
+State : warning
 
--	if (priv->debugfs_root)
-+	if (priv->debugfs_root && !IS_ERR(priv->debugfs_root))
+== Summary ==
 
-Thanks,
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_reset.c:1392:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/i915_perf.c:1442:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1496:15: warning: memset with byte count of 16777216
++./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
++./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
 
-Lukas
 
-> It's just as clear as calling debugfs_lookup() and it has way less
-> overhead.  Granted, this isn't a hot path, but it's called on boot,
-> and the less code we execute, the faster the machine boots.
