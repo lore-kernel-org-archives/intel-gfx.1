@@ -2,81 +2,48 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57E43C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:50:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB72FC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2BF406113D
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:50:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2BF406113D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 98BC561139
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:53:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 98BC561139
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB8E16EB68;
-	Wed, 13 Oct 2021 20:49:56 +0000 (UTC)
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16A456EB57;
- Wed, 13 Oct 2021 20:49:53 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 848C558117C;
- Wed, 13 Oct 2021 16:49:52 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 13 Oct 2021 16:49:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=JGdyj4Z1k00E3
- EhPZP8xNXDzAW/iLqk7RYYsaxdxC2o=; b=KPyTnTKaEsZhOEudKbTkuUljaIWgO
- O0Oa7fj8+ywr6UaGaemCQ2WG+4qvmID+see8zbU7B+DpPIp1JYueUaY/G3u4Oxw/
- XC2t3RxCoEyCggNXgTy0dJaWOSyVlrfViTwIcP+KewBAVQTTxOTdZZ2FTMFrShEn
- 8HjtO43NRDxq63+Z9Fp2Aw1DQrVEytvKWuAAZ28XoxRTPXuPHsn98TPkA565E1JY
- s/d+B3XRMrrd68IMM4fy5ZztTGyqs+9SYvyWKfJeWS6tehFJIA6WPIjillwi27UM
- 3tl8I/lPjXZCOI1pn3vVgzuVGNLtSV2sXyGZqphaNprcf0ixkWxXzySzA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=JGdyj4Z1k00E3EhPZP8xNXDzAW/iLqk7RYYsaxdxC2o=; b=YRfILJKC
- LDWnMXe/4TWYmCm9/M0y22ljaVUTMTiCiNUvQyjK8JIPRKnNsaoSHTC++1N1uVCL
- qwrCA/Lz+TML+vY3LrkPSVfSnE6RxAPSkW9xZSHgoKxX1r6bCvnYvbpulct6xLWz
- RRkzNO8TYZtbrBbdsb9HqfDK0hU7+61U2/I2kvfDajXo043XJhSBIkgbHwmqEGVT
- GOikMq+d9/sdYQhdQVnMduASmTvDuZtYpAsx/NwRz55MuxaE3mm4CrbHedK8Uo08
- iWsaJTqcCzhEvcm1NhQTbsYpT2PtfjlT+xmCPmI1Ix0s6wJDflB6fKCumENhPgy/
- cAbVPSUNtlyTDQ==
-X-ME-Sender: <xms:cEZnYR166C4MQSmAee2PA1YjygVvJjL6d_aN_obPV62asFyx17i2Eg>
- <xme:cEZnYYEoZNe8M_sdSedOrNENN-BIH5UuWKuvRZg76En-4WUWRkyScA5ukZon5ZvFa
- 2psQp114SzdQq7ueQ>
-X-ME-Received: <xmr:cEZnYR59Vd6hWXOlt9NoJvlACJ0gXvHyoiOF4gW8QHCQSwbLTOcqcfMi60MJEY-njYtW>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddutddgudehvdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
- ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpeefnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:cEZnYe2lWhmq3IeFM27MzHEdXmJtPLMuakjjxCQL-YEJRjIjv1G-3A>
- <xmx:cEZnYUFYa_V__LJt_aN0kmR2ugY7hNnq1pnKAIcTG6rcxsrPf2bOHA>
- <xmx:cEZnYf-V0SrtyQvuJknidImeO97gMyRQianffFDYJIsbtXPtZ3eKyg>
- <xmx:cEZnYfAbyVH5EYiFEXKlBHx7-qqCUzIykJXZDiQg46iJ6vXLPRX6Qw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 13 Oct 2021 16:49:49 -0400 (EDT)
-From: Fernando Ramos <greenfoo@u92.eu>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Date: Wed, 13 Oct 2021 22:48:46 +0200
-Message-Id: <20211013204846.90026-21-greenfoo@u92.eu>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211013204846.90026-1-greenfoo@u92.eu>
-References: <20211013204846.90026-1-greenfoo@u92.eu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE0D6EB5F;
+	Wed, 13 Oct 2021 20:53:54 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04B9C6EB5F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 20:53:51 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="291023941"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="291023941"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 13:40:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="460924332"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga002.jf.intel.com with SMTP; 13 Oct 2021 13:40:12 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 13 Oct 2021 23:40:11 +0300
+Date: Wed, 13 Oct 2021 23:40:11 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <YWdEK+dlwCJehkw0@intel.com>
+References: <20211007203517.3364336-2-imre.deak@intel.com>
+ <20211008001915.3508011-1-imre.deak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 20/20] drm: cleanup: remove acquire_ctx from
- drm_mode_config
+In-Reply-To: <20211008001915.3508011-1-imre.deak@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v2 01/11] drm/i915: Add a table with a
+ descriptor for all i915 modifiers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,35 +59,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The previous patch removed drm_modeset_{lock,unlock}_all, which were the
-only users of this field inside the drm_mode_config structure.
+On Fri, Oct 08, 2021 at 03:19:08AM +0300, Imre Deak wrote:
+>  bool is_ccs_plane(const struct drm_framebuffer *fb, int plane);
+>  bool is_gen12_ccs_plane(const struct drm_framebuffer *fb, int plane);
+>  bool is_gen12_ccs_cc_plane(const struct drm_framebuffer *fb, int plane);
 
-Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
----
- include/drm/drm_mode_config.h | 10 ----------
- 1 file changed, 10 deletions(-)
+Side note: 
+We have quite a few of these 'int plane' things still around. I'd 
+like to see them all renamed to 'color_plane' so that we don't get
+confused between diffrent kinds of planes.
 
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 48b7de80daf5..b214b07157f2 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -383,16 +383,6 @@ struct drm_mode_config {
- 	 */
- 	struct drm_modeset_lock connection_mutex;
- 
--	/**
--	 * @acquire_ctx:
--	 *
--	 * Global implicit acquire context used by atomic drivers for legacy
--	 * IOCTLs. Deprecated, since implicit locking contexts make it
--	 * impossible to use driver-private &struct drm_modeset_lock. Users of
--	 * this must hold @mutex.
--	 */
--	struct drm_modeset_acquire_ctx *acquire_ctx;
--
- 	/**
- 	 * @idr_mutex:
- 	 *
+The rules that I've been going for everywhere:
+- int color_plane == plane of a planar/compressed framebuffer
+- struct intel_plane *plane == representation of the piece of
+  hardware that does the scanout
+- enum plane plane_id == standalone version of plane->id
+- enum i9xx_plane_id i9xx_plane == standalone version of plane->i9xx_plane
+
 -- 
-2.33.0
-
+Ville Syrjälä
+Intel
