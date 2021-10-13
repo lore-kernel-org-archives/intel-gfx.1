@@ -2,48 +2,48 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C3DBC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:36:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 705C1C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:36:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27C9961056
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 27C9961056
+	by mail.kernel.org (Postfix) with ESMTPS id 36B7560F21
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 36B7560F21
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6058F6E10C;
-	Wed, 13 Oct 2021 18:36:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7EE6E10F;
+	Wed, 13 Oct 2021 18:36:22 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0EF6E0FB;
- Wed, 13 Oct 2021 18:36:17 +0000 (UTC)
+ (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFD66EA59;
+ Wed, 13 Oct 2021 18:36:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f23LQTfpBbzBHupLxdMPoBGay1akJ0GVfY+2s0l1sEePfFkjx/Y0jmjjKjlWn0cjoR1YueVfc0yfPHKyGHRK5Ky+X4ErGGWgG2qxsc/0gAPC1cQYOeVCMQPyaHbJ1fNSpSIy6ZK5Fo6JSpTymqnx7qjjG3/BAhnfisUC0+b2V/5n8Uw5vXM0fcVsOJPxvz+jATt/BwMdC5yUYA7oxBDqH3GGZaN9mfRbOGHvwS83lIwABoh6iVtlGk4UUf2Aa95SQQS1f8+2GpudSBhgR8/3/cBQiZz0ifvECOtMr/E7lwLAEqYSejVBLd8aVre900Lr5SLo3TdgoKhMhULYeDvfzg==
+ b=iSpmrdOjRe1JCHIPUWknFO0tSNNSkh5a+v48ZMqmknF/c1Sl8BZLeNHEKGUateb2K+vhEeI8ZvNw/ZOi/3X41thV5dBIQW8P5DQDvdJjPmackVj1XU9RuLb0c2ej6obH1p7XSx36TY+wngvt9qRACU0BLUufi2QyPz1NKdrJN78RMoRC9DaJ7z/gfCaYeUQ3kmxWCJk8UDDSbFjX7lI5vuQgbqvW9Ql0tmreQmFQYesMDCy4WoYRwmYLMPeyLnMEJoJj6EPMwdpHimLBe6upRLcpQ8d7nHmKambUq6sWAm71GfuerFTXzQn2SQORZbNWZrpg83NnkEaSfo6xzzh0MQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3wh335hn16jS+pIuCfapAk8ZuR4DgGjARl9vabxRbf0=;
- b=eKGzfiYtwuCBnClP6yyyjfcEeoOhzgXE9XRwN93l1+WtEw+aG6t95moXs8dnEZv718Jn+z3A+r8TR4AMEhqrwUVhFGXiLJIgjrXCiMKljU0NxzBcvjpSOFJcNFUzGazuUedcpBcMW1WNGr0LbfYrhv8vZJIx5/31bHpEeBqvhPVHyiZaROmf9e1y4N0gjYSjUQ9Qo9D5z93vCa1MZkIGFIu/pC3DhLL99Aj/Tx9kKvEUDj1HMsqPhYiyZqwmZwhphBmEv+qyKEIabH6pEEljxhyoT9LNN0SCUmPFloOHSTIKtpWPrX8z+H3BHspzQkyTVxyt0tPA1oJCsPY26Vvn/A==
+ bh=94Hsy9uxVpjI7NE9tvsVTZAOa7AiXgnaKaKUuYzDA94=;
+ b=kxxovHiNs5TDlURrrtZiz4E8oZiBAW62A+Et6WcmMd8JU1yQeojen9a73fkM6wdb9qy9LkF6kRWUnNLRBxA/+JD43w0/rjlJN+EHmkJX6MmV8kIAxpAAhY8aOk8nk4kCKb9K9SXuRtmNLid13tZVVzJkUfq1rUJED/zBEyLOdoki6Jb7r4OE0sSMyKvaels7b9S9zRkkQr0KH2fCTWaEU4eQ8jd5SHgJ28CGmOn33wDrHTM7+6/zQQkITFBfVyOohVBGcRQVDQOnNEh7Dr9r6drxF/z3+TEKzo92Chy4JKInCDvmgl+U4q4dbhITfsIrWOBC6LLXoi6uFOkLBUFrrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3wh335hn16jS+pIuCfapAk8ZuR4DgGjARl9vabxRbf0=;
- b=MCyryF7eE2MYA5E6g+fVdh62MxNOVvoQJRwzNALruqaaKi4xBkJaVvrizHO2yzPxEA9f1ZBm11+tFbszIvJ58pdNbQ2//99cBbvKnQdrer/+zqljiACk8+fWMgbe+SDcjkkM7v17w+9XCU6ibUqi3if6aJmvvZseW8m94rQifsY=
-Received: from DM5PR20CA0031.namprd20.prod.outlook.com (2603:10b6:3:13d::17)
- by DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
+ bh=94Hsy9uxVpjI7NE9tvsVTZAOa7AiXgnaKaKUuYzDA94=;
+ b=y5nPxKr4CctjuttyZy8EUDe6V03QdHMlEmYFaiwRDBJIf4OWEshguZsux8WFNllbxNI1qenIQbi1AJ2FuuRsZHhXL+6Wea8tCqwt0S8Zh/sDd6NUsRW+p7Gqv6SOCB+rP+wg053kVwEcrKL2G4vb2LGbGkv/ZNw0I12qt3q0O0g=
+Received: from DS7PR05CA0004.namprd05.prod.outlook.com (2603:10b6:5:3b9::9) by
+ BN6PR12MB1857.namprd12.prod.outlook.com (2603:10b6:404:102::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Wed, 13 Oct
- 2021 18:36:15 +0000
-Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13d:cafe::69) by DM5PR20CA0031.outlook.office365.com
- (2603:10b6:3:13d::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Wed, 13 Oct 2021 18:36:15 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.20; Wed, 13 Oct
+ 2021 18:36:17 +0000
+Received: from DM6NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b9:cafe::cf) by DS7PR05CA0004.outlook.office365.com
+ (2603:10b6:5:3b9::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.14 via Frontend
+ Transport; Wed, 13 Oct 2021 18:36:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,22 +52,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
+ DM6NAM11FT035.mail.protection.outlook.com (10.13.172.100) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Wed, 13 Oct 2021 18:36:14 +0000
+ 15.20.4608.15 via Frontend Transport; Wed, 13 Oct 2021 18:36:17 +0000
 Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 13 Oct
- 2021 13:36:12 -0500
+ 2021 13:36:15 -0500
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: <dri-devel@lists.freedesktop.org>
-CC: <intel-gfx@lists.freedesktop.org>, Nirmoy Das <nirmoy.das@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 13 Oct 2021 20:35:58 +0200
-Message-ID: <20211013183601.16514-1-nirmoy.das@amd.com>
+CC: <intel-gfx@lists.freedesktop.org>, Nirmoy Das <nirmoy.das@amd.com>, "Jani
+ Nikula" <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 13 Oct 2021 20:36:00 +0200
+Message-ID: <20211013183601.16514-3-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211013183601.16514-1-nirmoy.das@amd.com>
+References: <20211013183601.16514-1-nirmoy.das@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -76,29 +78,30 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 77aea556-b540-4ad6-5ab4-08d98e78566e
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2988:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2988CB90EC7EA854E6A8DF4C8BB79@DM6PR12MB2988.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: 88ba0d73-cf36-4d14-429e-08d98e78580f
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1857:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB185776D90C6F978B4FEA5E0C8BB79@BN6PR12MB1857.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:862;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iUqySQ2WvaJ9B3PcykWMF6Ao1o1z/QlU0GoN/yCM5URSSPMKQc2Dd5OPM19EAfNVkQr9wNLZFUABFAzKpbIpOOQnlNm/UmqRdMiulGm5TXl3P3o/wkZklgXMxmxT0jZQwKXHRz7PxB76HzRtHknjg2HkJzd2CnMgL7lPbtPuEho4cdfPzfZnXSf/kbSQPvk+e1JSegfV5QXnviG6ihWoI179sF+Pd9okwObJaTsKllb9eTLnRuDKUzPMZX4yYwVfU7gSYHWwraO1nxB1Z5CV3slV172F+T0rUaEKZHa0QnkqomSezljORh3rvNHbiGWJB1Z4Mrs3A1BzxQqsYnlyhSPdI7K03BquHi/GU/hfhIV6Ot4IMj2vpqHz+eGaI67mcZpPz60LO36Spf5gcSfequxBkEFEw5dc1Y3QjZ5IiF68wIMbef7vMefDINlCAgq/AbgQMryjC4W2kWV9xR62RD2j5VYC9Vq0qxb7ZYYtTjOgBSKqC9Fp3wKOZbU69u36kYU8K+pw1gqoF9/zMtjtxMY/12/rgrgLzrQRl8iI+tEAzmN/Ah8a0UVBvWlu6ohEBsvKOtO+ZldwVSimojadXM3HGKG94Z/QgNICRzRH1SEe0r/0BPAdQ5QWLjKfjBVEs0F09uXbz6nRvAAVdOnmyDuCbMER22pYHzpnFmg3lZsDKoDG10sOZrS2ttkcBVvOOcz6xLP7B4jAQ4UdSTupbvQfalheDlfPjC+8hSQvELo=
+X-Microsoft-Antispam-Message-Info: w/93BHFQhDwkDHnNEkpur6DNVcImBZch4qtofeo31K/u1X57y8vDpeTP4gTPb6h2w0IQ4MEWQyPX0v8v/0bEi+7aOPr+qZbcR//2H/hYfJbVZ6ngqUjQP4kZpRWfYcAAo6RoO5+ElArNLPvY/V89MsghU1f5GC3mon1PDllDHuEOAj+V5vTfN6jKORGJjt2RPEaEzRWMUU8JDO9BqweDiBCXaFdR40rkTAx6wzJ2pcdIyrsZU1tbA3DpWZB8HlO1eS/N8Y77L3h436RbxOLNGE8ndNix0PcA1f8CKXUEbywh0t/vs35/t3eaK1fbjZp5q4rEdSZCoNs/XNkTFO5P8a55R2AOWv7nTq1uU7XKX4A15PFsxPvFBSDkZnAUkpQ+qjueAFZY9VhX6TXDTy79Q7YUr9rs+iA8CTnZsGqdtDKrMrL5sr+8j30hNy0NmGeTTfhGYUGh2nZf3KZeDoCBxaU6OSGY8b0sGemcQwVxdgqvFdoxj1yRNEdebVr+O8efSyWpKz9oy3bBm3L5HgSA0WKnzMvuDGfIfFqlYh5B0Y19TNxLsDQvX3h2iTEXFCFAoOTZNbn32dmcVmhVT1fQvZkN02+fPqufaO2SzCsfh5mDHvMafBrR93J4bE9V03VuYI5tMqzn99NvICl6hGdj7Qk+GfTkjSKEiWRw+8GhPLx55wzibuAXDlqoabQFRBbi02LeSc3X3hExM3S9EfAo63BzX/tynf9t6PkEIWL4PHw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(70586007)(47076005)(44832011)(7696005)(5660300002)(6666004)(1076003)(8676002)(186003)(86362001)(356005)(508600001)(336012)(83380400001)(4326008)(16526019)(82310400003)(36756003)(2616005)(8936002)(70206006)(36860700001)(6916009)(26005)(54906003)(2906002)(316002)(426003)(81166007)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(81166007)(26005)(356005)(47076005)(186003)(508600001)(44832011)(86362001)(8676002)(5660300002)(7696005)(36756003)(83380400001)(70206006)(70586007)(54906003)(36860700001)(82310400003)(8936002)(6916009)(316002)(6666004)(426003)(336012)(2616005)(2906002)(4744005)(4326008)(1076003)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2021 18:36:14.6168 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77aea556-b540-4ad6-5ab4-08d98e78566e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2021 18:36:17.3411 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88ba0d73-cf36-4d14-429e-08d98e78580f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
-Subject: [Intel-gfx] [PATCH v2 1/4] dri: do not check for NULL debugfs dentry
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1857
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gt: do not check for NULL debugfs
+ dentry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,119 +117,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Debugfs APIs returns encoded error on failure instead of NULL
-and for drm primary/minor debugfs directories, we save the
-returned value in the dentry pointer and pass it on to drm
-drivers to further create debugfs files/directories. Error
-conditions are handled by debugfs APIs, so no need to check
-for NULL, as saved dentry pointers will either contain a
-valid pointer or an error code.
+Do not check for NULL value as drm.primary->debugfs_root
+will either contain a valid pointer or an encoded error
+instead of NULL.
 
-Also document this for future reference.
-
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-CC: Maxime Ripard <mripard@kernel.org>
-CC: Thomas Zimmermann <tzimmermann@suse.de>
+CC: Jani Nikula <jani.nikula@linux.intel.com>
+CC: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
 CC: David Airlie <airlied@linux.ie>
 CC: Daniel Vetter <daniel@ffwll.ch>
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/drm_debugfs.c |  9 ---------
- drivers/gpu/drm/drm_drv.c     |  1 +
- include/drm/drm_file.h        | 28 ++++++++++++++++++++++++----
- 3 files changed, 25 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/debugfs_gt.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index b0a826489488..0073854a4383 100644
---- a/drivers/gpu/drm/drm_debugfs.c
-+++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -272,9 +272,6 @@ static void drm_debugfs_remove_all_files(struct drm_minor *minor)
-
- void drm_debugfs_cleanup(struct drm_minor *minor)
+diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt.c b/drivers/gpu/drm/i915/gt/debugfs_gt.c
+index 591eb60785db..95ca1b3ad320 100644
+--- a/drivers/gpu/drm/i915/gt/debugfs_gt.c
++++ b/drivers/gpu/drm/i915/gt/debugfs_gt.c
+@@ -16,9 +16,6 @@ void debugfs_gt_register(struct intel_gt *gt)
  {
--	if (!minor->debugfs_root)
--		return;
--
- 	drm_debugfs_remove_all_files(minor);
-
- 	debugfs_remove_recursive(minor->debugfs_root);
-@@ -419,9 +416,6 @@ void drm_debugfs_connector_add(struct drm_connector *connector)
- 	struct drm_minor *minor = connector->dev->primary;
  	struct dentry *root;
-
--	if (!minor->debugfs_root)
+ 
+-	if (!gt->i915->drm.primary->debugfs_root)
 -		return;
 -
- 	root = debugfs_create_dir(connector->name, minor->debugfs_root);
- 	connector->debugfs_entry = root;
-
-@@ -440,9 +434,6 @@ void drm_debugfs_connector_add(struct drm_connector *connector)
-
- void drm_debugfs_connector_remove(struct drm_connector *connector)
- {
--	if (!connector->debugfs_entry)
--		return;
--
- 	debugfs_remove_recursive(connector->debugfs_entry);
-
- 	connector->debugfs_entry = NULL;
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 7a5097467ba5..918f302d9c43 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -64,6 +64,7 @@ static struct idr drm_minors_idr;
-  */
- static bool drm_core_init_complete;
-
-+/* Do not deference this pointer as it will contain ERR_PTR on error. */
- static struct dentry *drm_debugfs_root;
-
- DEFINE_STATIC_SRCU(drm_unplug_srcu);
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index a3acb7ac3550..3a30fc4d8905 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -69,15 +69,35 @@ enum drm_minor_type {
-  */
- struct drm_minor {
- 	/* private: */
--	int index;			/* Minor device number */
--	int type;                       /* Control or render */
--	struct device *kdev;		/* Linux device */
-+	/** @index: minor device number. */
-+	int index;
-+
-+	/** @type: minor device type: primary, control, render. */
-+	int type;
-+
-+	/** @kdev: Linux device pointer. */
-+	struct device *kdev;
-+
-+	/** @dev: drm device pointer. */
- 	struct drm_device *dev;
-
-+
-+	/** @debugfs_root:
-+	 *
-+	 * Dentry for /sys/kernel/debug/dri/@index debugfs dir. Do not
-+	 * deference this pointer as it will contain ERR_PTR on error.
-+	 */
- 	struct dentry *debugfs_root;
-
-+	/** @debugfs_list:
-+	 *
-+	 * A list to keep track of debugfs dentries created using
-+	 * drm_debugfs_create_files() by drm drivers.
-+	 */
- 	struct list_head debugfs_list;
--	struct mutex debugfs_lock; /* Protects debugfs_list. */
-+
-+	/** @debugfs_lock: Protects debugfs_list. */
-+	struct mutex debugfs_lock;
- };
-
- /**
---
+ 	root = debugfs_create_dir("gt", gt->i915->drm.primary->debugfs_root);
+ 	if (IS_ERR(root))
+ 		return;
+-- 
 2.32.0
 
