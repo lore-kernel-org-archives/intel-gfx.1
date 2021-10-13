@@ -2,72 +2,104 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F5A5C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 13:51:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14E5CC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 13:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0750B60C4B
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 13:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0750B60C4B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id D2BB661053
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 13:52:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D2BB661053
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7386E087;
-	Wed, 13 Oct 2021 13:51:43 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C94F26E087
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 13:51:42 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id y3so8756327wrl.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 06:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=RDjh7ljebRSt38zFWBMEBzk5yXKZ4FYMY85BFRMwWgQ=;
- b=MNifXt3mF3okNpsiEssZ27hMg61rLsCJUBbauwDiDcM6C0PnEaI7r+zy8SkpiycBgz
- /tynbL50JG6vWlyExoTOk9+dpyobfFqgdcsP60R6E2gUWVCEAssLoPNo7MkM6HdfGIXf
- 5QeouRrJ3M2wTACOSdclhaeFDVZEGdGt+nfEw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=RDjh7ljebRSt38zFWBMEBzk5yXKZ4FYMY85BFRMwWgQ=;
- b=pimuVohrm7/mmU28Ih8O9JYbM1l0m/ZTHDmugTaJCRxmt8J6vnwiWgMVnTntF+XAHQ
- 8T2DEEadXfrHCHf4Gg3f+LqyqQDglYCHST/nml0MrTOZDJkQ7D3sL/nZv1+1EKzAg/Oa
- AWk56G4Apfx2Tw6ZPRmkUQt27kToo8ca8Gtm3IJrBhevqBdfw3/brYrK0OB3Qy7zpNVz
- YWEcwIx0Ts479WVNcDXklqJ/pNLO8Rr5XtA1+QqgZbnfn/9ypVYa3MgkhSF8Dt4NeMEG
- tZjMT6nRHxl+uh/1zqRW61UWpHPnqZhc8BHR+vythzsSt8ltjqFqhNg38TXjtjG4CsB9
- ul0A==
-X-Gm-Message-State: AOAM531tQJGnD4tizi0BD/BGL0sjw5f6ctU+UYuAP+bcFwtCkRsmjUpa
- tNUV0+q+nrbNr4HR0/dCSZlr3A==
-X-Google-Smtp-Source: ABdhPJxchLMfKiKcOWyofoSE2tFtausnvyMlP7w1Aspp2zYoZh3XqYq6O0VJiGoBl52SnyPeogcoTQ==
-X-Received: by 2002:a05:600c:4f53:: with SMTP id
- m19mr13170826wmq.118.1634133101327; 
- Wed, 13 Oct 2021 06:51:41 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w8sm10829707wrr.47.2021.10.13.06.51.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Oct 2021 06:51:40 -0700 (PDT)
-Date: Wed, 13 Oct 2021 15:51:39 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Ramalingam C <ramalingam.c@intel.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Matthew Auld <matthew.auld@intel.com>, CQ Tang <cq.tang@intel.com>,
- Hellstrom Thomas <thomas.hellstrom@intel.com>
-Message-ID: <YWbka8GGdYZvdlvu@phenom.ffwll.local>
-References: <20211011161155.6397-1-ramalingam.c@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63F66E0A5;
+	Wed, 13 Oct 2021 13:52:55 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2047.outbound.protection.outlook.com [40.107.244.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65DA36E861;
+ Wed, 13 Oct 2021 13:39:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qz/8r8UUXKeFfkq4uujrR1/xJizo9Ru4zlDG5nZRiGMuPDTUV0n9nTCpdghcVL3Ah/G20WncxA0XZmAxiblljqN/dtZpxDqxB60oAk7mS2O2reDLWANAMoxh8iudUphmdsVTcTa8yH3JqYwQ1WmT1NNVvU1irYSQyC0j09fTKN0dlfVFFGZcaqsXNuwCvUBzqbOGcWmk0bipCwr2ssrKcUYqNMCcrw3R6nmlUCdQk5up8Mnzxhejk64VI8iNyXZsd7YDXPtW82Y5Dn9cQtihV7swLQTphAQHx1NZe4NrbwdnDAntSgd8ANrfADPrhEo89qX7q/N2kvJ8BLZDDjRheQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N/bXC7Ju/eejN5OPQAJhpb1Y2cvllZ4q6iNZMQw1dWc=;
+ b=BVpZK4UdmMbjndJbHd0E/DCA3CQM7Vb4vLFYzmhRN6W3JPr2GgIMpggOejhfUHZnn+0FhxO1wk9WbX3jcgEmOrZaSn0HKF4nSz7rfZk3lqcHih+zh68qMSm0Dplfj9fpNRf1+MRJZTYn99AIonY+EBeqESyZcgLRbjOMSuEj5G774F38MopPu3nraScBaqUYJH4IEyV2T4rjbuDGRSnP1YD3taXN6kA/2m4YFIGwpYh9mS0obkF2mDx2MQ0ZaN0Xbk/alRRMhpHtv6/Nkqw9g6tNUnoQyKjYARXDPUs2IngiIcZFsnoiUulHcvoI3M6NsXtsNDrqghljJzLwNPu+uQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N/bXC7Ju/eejN5OPQAJhpb1Y2cvllZ4q6iNZMQw1dWc=;
+ b=05vNzIj/M5RlaEvC91tgmYkMptmlt4o5RWLxqFLHk4W7rz9/sSgWPlSCozm0AOJRC/KTKAtjlLkot40JdNGu5Z6MQDq2ZulMY+JIMi8lNqFts6PfnAbsTB8y43GPGk0pm1WUFFcHdUVMkE0fh+72tiD98XKb0Sl3k7HYPdVoefc=
+Received: from BN9PR03CA0321.namprd03.prod.outlook.com (2603:10b6:408:112::26)
+ by CH2PR12MB3845.namprd12.prod.outlook.com (2603:10b6:610:29::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Wed, 13 Oct
+ 2021 13:39:06 +0000
+Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::52) by BN9PR03CA0321.outlook.office365.com
+ (2603:10b6:408:112::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
+ Transport; Wed, 13 Oct 2021 13:39:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Wed, 13 Oct 2021 13:39:06 +0000
+Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 13 Oct
+ 2021 08:39:04 -0500
+From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>, Arunpravin
+ <Arunpravin.PaneerSelvam@amd.com>
+Date: Wed, 13 Oct 2021 19:08:37 +0530
+Message-ID: <20211013133837.143101-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211011161155.6397-1-ramalingam.c@intel.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [PATCH 00/14] drm/i915/dg2: Enabling 64k page size
- and flat ccs
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4ad8e696-94a8-4fa7-276a-08d98e4ed406
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3845:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3845034AB85518D347F5C8C3E4B79@CH2PR12MB3845.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: U+aw/pQ0XjBMuJZWAtoeutN/VHL9jthkfi3uvIEpmGjrRoPRXV9oZte/I0Qqs1T06c94K4sLmlCOL7rq15J6A934aMoFt9ESdyleeP1QlFM3EsjrP0ryLRHiufpTe2wwnf7V9lRrhJ7zIB6JHqvx42efmHa3cfYaMPNmZZ5t32zI1bQtmzpucskuOr8mOZ9ba31r9joYRMHTq3oqCAR5FCwV9/SJ8KgRhWeMdcrGMC/yGsGz/m6ekpJwkflOMWBNYFV8w1cyTPP5Yf9ClE2HOYpHLSmNa/tZt3VncULEj0QGA8TIr6Vfd3wnCrkCnn8t8HNTz6quxwiPES5BGeuj+IItjYZIuJibWmqcJFA21jWTjSH/v6soqtizt0XvJAQTHjEDx0MPN4Sn094a2v+oV1NykfyEEprSJIV00hjsKFEB3Zj75Tv6JeH7LBIrKSrphoCK6r2n74fIDY1WYBszxQxV7z6fxytL/4wgGj6zIs+oKKrTXAGikBkKaR3/uERfzCj1r153+ZsIgr3ni8YNHf6DCnzTFK/QjpUL7lKFIztX/ZFjlfyUvVqWJbW2lNupazW4bnJ0L6PlzI5NZMYmo9eoLdeltw6akNWebpBWpGxnesRNyl21RkcxIfDEATvhEpyVkTkL5rpB88reEmU8Z/TmKxvNmKSQopLENkQS1ShiNL8PhLIRDflTbwQdpQLtLigkrHHYDYdgwSHW+aL0grck3Av0Eu3D5O+KdFRvxps=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(2616005)(1076003)(36860700001)(81166007)(2906002)(450100002)(336012)(83380400001)(5660300002)(508600001)(86362001)(47076005)(6666004)(426003)(36756003)(4326008)(16526019)(110136005)(54906003)(8936002)(26005)(186003)(70206006)(70586007)(356005)(8676002)(7696005)(316002)(82310400003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2021 13:39:06.4302 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ad8e696-94a8-4fa7-276a-08d98e4ed406
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3845
+X-Mailman-Approved-At: Wed, 13 Oct 2021 13:52:54 +0000
+Subject: [Intel-gfx] [PATCH 2/3] drm/amdgpu:move vram manager defines into a
+ header file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,158 +115,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 11, 2021 at 09:41:41PM +0530, Ramalingam C wrote:
-> This series introduces the enabling patches for new flat ccs feature and
-> 64k page support for i915 local memory, along with documentation on the
-> uAPI impact.
-> 
-> 64k page support
-> ================
-> 
-> On discrete platforms, starting from DG2, we have to contend with GTT
-> page size restrictions when dealing with I915_MEMORY_CLASS_DEVICE
-> objects. Specifically the hardware only supports 64K or larger GTT page
-> sizes for such memory. The kernel will already ensure that all
-> I915_MEMORY_CLASS_DEVICE memory is allocated using 64K or larger page
-> sizes underneath.
-> 
-> Note that the returned size here will always reflect any required
-> rounding up done by the kernel, i.e 4K will now become 64K on devices
-> such as DG2. The GTT alignment will also need be at least 64K for such
-> objects.
-> 
-> Note that due to how the hardware implements 64K GTT page support, we
-> have some further complications:
-> 
-> 1.) The entire PDE(which covers a 2M virtual address range), must
-> contain only 64K PTEs, i.e mixing 4K and 64K PTEs in the same PDE is
-> forbidden by the hardware.
-> 
-> 2.) We still need to support 4K PTEs for I915_MEMORY_CLASS_SYSTEM
-> objects.
-> 
-> To handle the above the kernel implements a memory coloring scheme to
-> prevent userspace from mixing I915_MEMORY_CLASS_DEVICE and
-> I915_MEMORY_CLASS_SYSTEM objects in the same PDE. If the kernel is ever
-> unable to evict the required pages for the given PDE(different color)
-> when inserting the object into the GTT then it will simply fail the
-> request.
-> 
-> Since userspace needs to manage the GTT address space themselves,
-> special care is needed to ensure this doesn’t happen. The simplest
-> scheme is to simply align and round up all I915_MEMORY_CLASS_DEVICE
-> objects to 2M, which avoids any issues here. At the very least this is
-> likely needed for objects that can be placed in both
-> I915_MEMORY_CLASS_DEVICE and I915_MEMORY_CLASS_SYSTEM, to avoid
-> potential issues when the kernel needs to migrate the object behind the
-> scenes, since that might also involve evicting other objects.
-> 
-> To summarise the GTT rules, on platforms like DG2:
-> 
-> 1.) All objects that can be placed in I915_MEMORY_CLASS_DEVICE must have
-> 64K alignment. The kernel will reject this otherwise.
-> 
-> 2.) All I915_MEMORY_CLASS_DEVICE objects must never be placed in the
-> same PDE with other I915_MEMORY_CLASS_SYSTEM objects. The kernel will
-> reject this otherwise.
-> 
-> 3.) Objects that can be placed in both I915_MEMORY_CLASS_DEVICE and
-> I915_MEMORY_CLASS_SYSTEM should probably be aligned and padded out to
-> 2M.
-> 
-> Flat CCS:
-> =========
-> Gen 12+ devices support 3D surfaces compression and compression formats.
-> This is accomplished by an additional compression control state (CCS)
-> stored for each surface.
-> 
-> Gen 12 devices(TGL and DG1) stores compression state in a separate
-> region of memory. It is managed by userspace and has an associated set
-> of userspace managed page tables used by hardware for address
-> translation.
-> 
-> In Gen 12.5 devices(XEXPSDV and DG2) Flat CCS is introduced to replace
-> the userspace managed AUX pagetable with the flat indexed region of
-> device memory for storing the compression state
-> 
-> GOP Driver steals a chunk of memory for the CCS surface corresponding to
-> the entire range of local memory. The memory required for the CCS of the
-> entire local memory is 1/256 of the main local memory. The Gop driver
-> will also program a secure register (XEHPSDV_FLAT_CCS_BASE_ADDR 0x4910)
-> with this address value.
-> 
-> TODO: add patches for the flatccs modifiers and kdoc for them.
+Move vram related defines and inline functions into
+a separate header file
 
-Ah it's here too :-)
+Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 72 ++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
 
-Since this is uapi we also need link to igts (or at least where the tests
-are), and to mesa MR (if that hasn't all landed yet).
--Daniel
-
-> 
-> *** BLURB HERE ***
-> 
-> Abdiel Janulgue (1):
->   drm/i915/lmem: Enable lmem for platforms with Flat CCS
-> 
-> Ayaz A Siddiqui (1):
->   drm/i915/gt: Clear compress metadata for Gen12.5 >= platforms
-> 
-> Bommu Krishnaiah (1):
->   drm/i915: Add vm min alignment support
-> 
-> CQ Tang (1):
->   drm/i915/xehpsdv: Add has_flat_ccs to device info
-> 
-> Matthew Auld (8):
->   drm/i915/xehpsdv: set min page-size to 64K
->   drm/i915/xehpsdv: enforce min GTT alignment
->   drm/i915: enforce min page size for scratch
->   drm/i915/gtt/xehpsdv: move scratch page to system memory
->   drm/i915/xehpsdv: support 64K GTT pages
->   drm/i915/selftests: account for min_alignment in GTT selftests
->   drm/i915/xehpsdv: implement memory coloring
->   drm/i915/uapi: document behaviour for DG2 64K support
-> 
-> Ramalingam C (1):
->   Doc/gpu/rfc/i915: i915 DG2 uAPI
-> 
-> Stuart Summers (1):
->   drm/i915: Add has_64k_pages flag
-> 
->  Documentation/gpu/rfc/i915_dg2.rst            |  47 ++++++
->  Documentation/gpu/rfc/index.rst               |   3 +
->  drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |   6 +-
->  .../gpu/drm/i915/gem/selftests/huge_pages.c   |  61 ++++++++
->  .../i915/gem/selftests/i915_gem_client_blt.c  |  23 ++-
->  drivers/gpu/drm/i915/gt/gen6_ppgtt.c          |   1 +
->  drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 145 +++++++++++++++++-
->  drivers/gpu/drm/i915/gt/intel_ggtt.c          |   2 +
->  drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |  14 ++
->  drivers/gpu/drm/i915/gt/intel_gt.c            |  19 +++
->  drivers/gpu/drm/i915/gt/intel_gt.h            |   1 +
->  drivers/gpu/drm/i915/gt/intel_gtt.c           |  23 ++-
->  drivers/gpu/drm/i915/gt/intel_gtt.h           |  20 +++
->  drivers/gpu/drm/i915/gt/intel_migrate.c       | 120 ++++++++++++++-
->  drivers/gpu/drm/i915/gt/intel_ppgtt.c         |   1 +
->  drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  27 +++-
->  drivers/gpu/drm/i915/i915_drv.h               |   4 +
->  drivers/gpu/drm/i915/i915_gem_evict.c         |  17 ++
->  drivers/gpu/drm/i915/i915_pci.c               |   3 +
->  drivers/gpu/drm/i915/i915_reg.h               |   3 +
->  drivers/gpu/drm/i915/i915_vma.c               |  55 +++++--
->  drivers/gpu/drm/i915/intel_device_info.h      |   2 +
->  drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  96 ++++++++----
->  drivers/gpu/drm/i915/selftests/mock_gtt.c     |   2 +
->  include/uapi/drm/i915_drm.h                   |  61 +++++++-
->  25 files changed, 681 insertions(+), 75 deletions(-)
->  create mode 100644 Documentation/gpu/rfc/i915_dg2.rst
-> 
-> -- 
-> 2.20.1
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+new file mode 100644
+index 000000000000..fcab6475ccbb
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+@@ -0,0 +1,72 @@
++/* SPDX-License-Identifier: MIT
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __AMDGPU_VRAM_MGR_H__
++#define __AMDGPU_VRAM_MGR_H__
++
++#include <drm/drm_buddy.h>
++
++struct amdgpu_vram_mgr_node {
++	struct ttm_resource base;
++	struct list_head blocks;
++	unsigned long flags;
++};
++
++struct amdgpu_vram_reservation {
++	uint64_t start;
++	uint64_t size;
++	uint64_t min_size;
++	unsigned long flags;
++	struct list_head block;
++	struct list_head node;
++};
++
++static inline uint64_t node_start(struct drm_buddy_block *block)
++{
++	return drm_buddy_block_offset(block);
++}
++
++static inline uint64_t node_size(struct drm_buddy_block *block)
++{
++	return PAGE_SIZE << drm_buddy_block_order(block);
++}
++
++static inline struct amdgpu_vram_mgr_node *
++to_amdgpu_vram_mgr_node(struct ttm_resource *res)
++{
++	return container_of(res, struct amdgpu_vram_mgr_node, base);
++}
++
++static inline struct amdgpu_vram_mgr *
++to_vram_mgr(struct ttm_resource_manager *man)
++{
++	return container_of(man, struct amdgpu_vram_mgr, manager);
++}
++
++static inline struct amdgpu_device *
++to_amdgpu_device(struct amdgpu_vram_mgr *mgr)
++{
++	return container_of(mgr, struct amdgpu_device, mman.vram_mgr);
++}
++
++#endif
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.1
+
