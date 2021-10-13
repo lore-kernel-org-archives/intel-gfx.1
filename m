@@ -2,46 +2,50 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2F5AC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 12:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADC3BC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 13:09:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EF4B610E8
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 12:59:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7EF4B610E8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 73824610FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 13:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 73824610FE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B14996EA5D;
-	Wed, 13 Oct 2021 12:59:19 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7DF06EA5B;
- Wed, 13 Oct 2021 12:59:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="208217501"
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="208217501"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 05:59:18 -0700
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="480779432"
-Received: from araghuw-mobl.gar.corp.intel.com (HELO localhost)
- ([10.251.208.234])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 05:59:00 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>, Dave
- Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-In-Reply-To: <20211001091444.8177-1-jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210928223241.22149-1-jani.nikula@intel.com>
- <20211001091444.8177-1-jani.nikula@intel.com>
-Date: Wed, 13 Oct 2021 15:58:57 +0300
-Message-ID: <878ryxxer2.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D07C56EA60;
+	Wed, 13 Oct 2021 13:09:54 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 155B66EA56;
+ Wed, 13 Oct 2021 13:09:53 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 636A1610FC;
+ Wed, 13 Oct 2021 13:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1634130592;
+ bh=7m7EfH/zUZP99e4EZpqOWzO8X2MkRjqzezczEyYF0zI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Wx7I7ej+sxeJQCf9x4/LREq2NXMV01Tq8P+tnbeia7QrIxq0cY7L8deG75Z3DXX37
+ oNOecuKpLP5egwHkQcgDxvJeu8hEwRzPaWa/k4RFSCKRtiNWfjE71HkGAm9ES6Vyr2
+ LJhtwm15yKqYxG/rcAoEIXiE/8bw0Ss9OmlXjktQ=
+Date: Wed, 13 Oct 2021 15:09:50 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org, jani.nikula@intel.com,
+ Imre Deak <imre.deak@intel.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Russell King <rmk+kernel@armlinux.org.uk>
+Message-ID: <YWbangk7KAxZFoq3@kroah.com>
+References: <20210922085432.2776886-1-kai.vehmanen@linux.intel.com>
+ <YVxiyzNrKG8S1GDb@kroah.com>
+ <alpine.DEB.2.22.394.2110061613520.3554566@eliteleevi.tm.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2] drm/locking: add backtrace for locking
- contended locks without backoff
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2110061613520.3554566@eliteleevi.tm.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2] component: do not leave master devres
+ group open after bind
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,201 +61,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 01 Oct 2021, Jani Nikula <jani.nikula@intel.com> wrote:
-> If drm_modeset_lock() returns -EDEADLK, the caller is supposed to drop
-> all currently held locks using drm_modeset_backoff(). Failing to do so
-> will result in warnings and backtraces on the paths trying to lock a
-> contended lock. Add support for optionally printing the backtrace on the
-> path that hit the deadlock and didn't gracefully handle the situation.
->
-> For example, the patch [1] inadvertently dropped the return value check
-> and error return on replacing calc_watermark_data() with
-> intel_compute_global_watermarks(). The backtraces on the subsequent
-> locking paths hitting WARN_ON(ctx->contended) were unhelpful, but adding
-> the backtrace to the deadlock path produced this helpful printout:
->
-> <7> [98.002465] drm_modeset_lock attempting to lock a contended lock without backoff:
->    drm_modeset_lock+0x107/0x130
->    drm_atomic_get_plane_state+0x76/0x150
->    skl_compute_wm+0x251d/0x2b20 [i915]
->    intel_atomic_check+0x1942/0x29e0 [i915]
->    drm_atomic_check_only+0x554/0x910
->    drm_atomic_nonblocking_commit+0xe/0x50
->    drm_mode_atomic_ioctl+0x8c2/0xab0
->    drm_ioctl_kernel+0xac/0x140
->
-> Add new CONFIG_DRM_DEBUG_MODESET_LOCK to enable modeset lock debugging
-> with stack depot and trace.
->
-> [1] https://lore.kernel.org/r/20210924114741.15940-4-jani.nikula@intel.com
->
-> v2:
-> - default y if DEBUG_WW_MUTEX_SLOWPATH (Daniel)
-> - depends on DEBUG_KERNEL
->
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Dave Airlie <airlied@gmail.com>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Wed, Oct 06, 2021 at 04:47:57PM +0300, Kai Vehmanen wrote:
+> Hi,
+> 
+> On Tue, 5 Oct 2021, Greg KH wrote:
+> 
+> > On Wed, Sep 22, 2021 at 11:54:32AM +0300, Kai Vehmanen wrote:
+> > > In current code, the devres group for aggregate master is left open
+> > > after call to component_master_add_*(). This leads to problems when the
+> > > master does further managed allocations on its own. When any
+> > > participating driver calls component_del(), this leads to immediate
+> > > release of resources.
+> [...]
+> > > the devres group, and by closing the devres group after
+> > > the master->ops->bind() call is done. This allows devres allocations
+> > > done by the driver acting as master to be isolated from the binding state
+> > > of the aggregate driver. This modifies the logic originally introduced in
+> > > commit 9e1ccb4a7700 ("drivers/base: fix devres handling for master device")
+> > > 
+> > > BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
+> > > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> > > Acked-by: Imre Deak <imre.deak@intel.com>
+> > > Acked-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > 
+> > What commit does this "fix:"?  And does it need to go to stable
+> > kernel(s)?
+> 
+> I didn't put a "Fixes" on the original commit 9e1ccb4a7700 
+> ("drivers/base: fix devres handling for master device") as it alone
+> didn't cause problems. It did open the door for possible devres issues
+> for anybody calling component_master_add_().
+> 
+> On audio side, this surfaced with the more recent commit 3fcaf24e5dce 
+> ("ALSA: hda: Allocate resources with device-managed APIs"). In theory one 
+> could have hit issues already before, but this made it very easy to hit
+> on actual systems.
+> 
+> If I'd have to pick one, it would be 9e1ccb4a7700 ("drivers/base: fix 
+> devres handling for master device"). And yes, given comments on this 
+> thread, I'd say this needs to go to stable kernels.
 
-Pushed to drm-misc-next, thanks for the review.
+Then please add a fixes: line and a cc: stable line and resend.
 
-BR,
-Jani.
+thanks,
 
-> ---
->  drivers/gpu/drm/Kconfig            | 15 +++++++++
->  drivers/gpu/drm/drm_modeset_lock.c | 49 ++++++++++++++++++++++++++++--
->  include/drm/drm_modeset_lock.h     |  8 +++++
->  3 files changed, 70 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 2a926d0de423..a4c020a9a0eb 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -100,6 +100,21 @@ config DRM_DEBUG_DP_MST_TOPOLOGY_REFS
->            This has the potential to use a lot of memory and print some very
->            large kernel messages. If in doubt, say "N".
->  
-> +config DRM_DEBUG_MODESET_LOCK
-> +	bool "Enable backtrace history for lock contention"
-> +	depends on STACKTRACE_SUPPORT
-> +	depends on DEBUG_KERNEL
-> +	depends on EXPERT
-> +	select STACKDEPOT
-> +	default y if DEBUG_WW_MUTEX_SLOWPATH
-> +	help
-> +	  Enable debug tracing of failures to gracefully handle drm modeset lock
-> +	  contention. A history of each drm modeset lock path hitting -EDEADLK
-> +	  will be saved until gracefully handled, and the backtrace will be
-> +	  printed when attempting to lock a contended lock.
-> +
-> +	  If in doubt, say "N".
-> +
->  config DRM_FBDEV_EMULATION
->  	bool "Enable legacy fbdev support for your modesetting driver"
->  	depends on DRM
-> diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
-> index bf8a6e823a15..4d32b61fa1fd 100644
-> --- a/drivers/gpu/drm/drm_modeset_lock.c
-> +++ b/drivers/gpu/drm/drm_modeset_lock.c
-> @@ -25,6 +25,7 @@
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_device.h>
->  #include <drm/drm_modeset_lock.h>
-> +#include <drm/drm_print.h>
->  
->  /**
->   * DOC: kms locking
-> @@ -77,6 +78,45 @@
->  
->  static DEFINE_WW_CLASS(crtc_ww_class);
->  
-> +#if IS_ENABLED(CONFIG_DRM_DEBUG_MODESET_LOCK)
-> +static noinline depot_stack_handle_t __stack_depot_save(void)
-> +{
-> +	unsigned long entries[8];
-> +	unsigned int n;
-> +
-> +	n = stack_trace_save(entries, ARRAY_SIZE(entries), 1);
-> +
-> +	return stack_depot_save(entries, n, GFP_NOWAIT | __GFP_NOWARN);
-> +}
-> +
-> +static void __stack_depot_print(depot_stack_handle_t stack_depot)
-> +{
-> +	struct drm_printer p = drm_debug_printer("drm_modeset_lock");
-> +	unsigned long *entries;
-> +	unsigned int nr_entries;
-> +	char *buf;
-> +
-> +	buf = kmalloc(PAGE_SIZE, GFP_NOWAIT | __GFP_NOWARN);
-> +	if (!buf)
-> +		return;
-> +
-> +	nr_entries = stack_depot_fetch(stack_depot, &entries);
-> +	stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 2);
-> +
-> +	drm_printf(&p, "attempting to lock a contended lock without backoff:\n%s", buf);
-> +
-> +	kfree(buf);
-> +}
-> +#else /* CONFIG_DRM_DEBUG_MODESET_LOCK */
-> +static depot_stack_handle_t __stack_depot_save(void)
-> +{
-> +	return 0;
-> +}
-> +static void __stack_depot_print(depot_stack_handle_t stack_depot)
-> +{
-> +}
-> +#endif /* CONFIG_DRM_DEBUG_MODESET_LOCK */
-> +
->  /**
->   * drm_modeset_lock_all - take all modeset locks
->   * @dev: DRM device
-> @@ -225,7 +265,9 @@ EXPORT_SYMBOL(drm_modeset_acquire_fini);
->   */
->  void drm_modeset_drop_locks(struct drm_modeset_acquire_ctx *ctx)
->  {
-> -	WARN_ON(ctx->contended);
-> +	if (WARN_ON(ctx->contended))
-> +		__stack_depot_print(ctx->stack_depot);
-> +
->  	while (!list_empty(&ctx->locked)) {
->  		struct drm_modeset_lock *lock;
->  
-> @@ -243,7 +285,8 @@ static inline int modeset_lock(struct drm_modeset_lock *lock,
->  {
->  	int ret;
->  
-> -	WARN_ON(ctx->contended);
-> +	if (WARN_ON(ctx->contended))
-> +		__stack_depot_print(ctx->stack_depot);
->  
->  	if (ctx->trylock_only) {
->  		lockdep_assert_held(&ctx->ww_ctx);
-> @@ -274,6 +317,7 @@ static inline int modeset_lock(struct drm_modeset_lock *lock,
->  		ret = 0;
->  	} else if (ret == -EDEADLK) {
->  		ctx->contended = lock;
-> +		ctx->stack_depot = __stack_depot_save();
->  	}
->  
->  	return ret;
-> @@ -296,6 +340,7 @@ int drm_modeset_backoff(struct drm_modeset_acquire_ctx *ctx)
->  	struct drm_modeset_lock *contended = ctx->contended;
->  
->  	ctx->contended = NULL;
-> +	ctx->stack_depot = 0;
->  
->  	if (WARN_ON(!contended))
->  		return 0;
-> diff --git a/include/drm/drm_modeset_lock.h b/include/drm/drm_modeset_lock.h
-> index aafd07388eb7..b84693fbd2b5 100644
-> --- a/include/drm/drm_modeset_lock.h
-> +++ b/include/drm/drm_modeset_lock.h
-> @@ -24,6 +24,8 @@
->  #ifndef DRM_MODESET_LOCK_H_
->  #define DRM_MODESET_LOCK_H_
->  
-> +#include <linux/types.h> /* stackdepot.h is not self-contained */
-> +#include <linux/stackdepot.h>
->  #include <linux/ww_mutex.h>
->  
->  struct drm_modeset_lock;
-> @@ -51,6 +53,12 @@ struct drm_modeset_acquire_ctx {
->  	 */
->  	struct drm_modeset_lock *contended;
->  
-> +	/*
-> +	 * Stack depot for debugging when a contended lock was not backed off
-> +	 * from.
-> +	 */
-> +	depot_stack_handle_t stack_depot;
-> +
->  	/*
->  	 * list of held locks (drm_modeset_lock)
->  	 */
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+greg k-h
