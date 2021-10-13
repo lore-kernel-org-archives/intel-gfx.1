@@ -2,73 +2,71 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 202C8C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 11:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 232AAC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 11:59:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8C6260273
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 11:58:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C8C6260273
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id D1DB660F94
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 11:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D1DB660F94
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8743E6EA2E;
-	Wed, 13 Oct 2021 11:58:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBDAE6E86B;
- Wed, 13 Oct 2021 10:55:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B0370610C9;
- Wed, 13 Oct 2021 10:55:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634122504;
- bh=cHJwlE/4hKjsg8N9PIPkUgBxfg4CYIeT2a/7mtQ0gV4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Gvd6nNUOzZ1UK/F83pyQaR5TauDo53BnYMnJejta47hA700Gc4nEjGIFnHwmjOADo
- AKNy+aONpGH/0IsqLm0Dcpm6wjEJavnew940SDLuN/5a6FYUw3ELyYcU0A3Q/NRQek
- QfoThQlCQv7p+iOVnXWOAHkCznwBtAwOy+ujza96o7WAaFxFjrC8XZ1wckA/fZVTbk
- VwI4mJWJKdlfyh1Lt6ftM0G3FhFyxA8FUoE+m7e14+8RRL2PlJvv9hf7Oz7NJ/FAwC
- wgr7gidywOLH4DV+TxM46MeGP/by3gM7M3FjX3pF1U7UjvwkkKAPLPGpJwUDxBDIsM
- sv3E+u1PeyN3A==
-Received: by mail-wr1-f50.google.com with SMTP id r10so6803147wra.12;
- Wed, 13 Oct 2021 03:55:04 -0700 (PDT)
-X-Gm-Message-State: AOAM530KfVMYNbT0I3mgSvnjuKMHKvpcL0uZ9gBkGjX/v35fLfi3J6JQ
- IRPxLOq5Lt7b0lt91XDoXju/fKJ6Tge1VTT2IIo=
-X-Google-Smtp-Source: ABdhPJzW6QwF+fpri3xax3BToB6ExyXZ9H+Kw/HXMbby5km4lbFfKsXJq/EA3ZMCLu9RmweZx7YA8FnfMM0PPRf9Pg4=
-X-Received: by 2002:a05:600c:4f42:: with SMTP id
- m2mr9273874wmq.82.1634122503094; 
- Wed, 13 Oct 2021 03:55:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDA06EA31;
+	Wed, 13 Oct 2021 11:59:52 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B62986EA31
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 11:59:51 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id o20so7546227wro.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 04:59:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=3IUGSdWJ6vLHJQRdzYPGx8RtOylR2G7gzR1KKlt9a84=;
+ b=G9pyQeh9ISQDJjza6hDSI10j+KKDHtX9C/zjxhgy92n9Rt+puCZDvAS3Dxx9ICeTNO
+ J30nPRDXPTbevmgwPStGUqvKmSyMNUI/oefzS9xMgUmTeAGtvomVyYKb9oBJonh9PZKs
+ YOas+1WQDaJPHhJpZ+Pm45Fbs0p47gqchHm84=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=3IUGSdWJ6vLHJQRdzYPGx8RtOylR2G7gzR1KKlt9a84=;
+ b=ovK741CiAvEEs43s6mbGs5r92l46Yn4MZoeFoF3PUBj+p9B59P92icy1o5qpxTc/JI
+ HrUEZpcIVpxgT+47QO/r2y6wfOjLvBAJ00NykGJxMD2mA5wjDBKvr7NlpyZNem9CzFb7
+ 6KwUv6wushA/KH0e74tnnIByPbI8elNQjv5GtEmyHoYo4h1ENAT/PynwwoUw9clJ3bLr
+ o5NX9fj9uTtn1sv4K9DMZ+8M9FU2yL71YKdlgN/gdcmE3rDqBNCVDPEMiT9i3YBNMold
+ ZU4WseQQWu98GumiGcbOyKtMx+ycZpkgqAszTXTtBLPajJCD//qQhJNYVzuz2TV0jZCF
+ yzSg==
+X-Gm-Message-State: AOAM531GReAAfnuIKv4tvKssit99dWIWMj2A+/siMSInIoz+F59pDoqk
+ YYQ/b539ixU8/ILP5x0FUTXsfA==
+X-Google-Smtp-Source: ABdhPJwzMG33cfkBfmlq580SuLouqXqAhhzMeDiY2KmFBB8XTLxuN9qeRBOvUQcJpsh79x4JfOfYmw==
+X-Received: by 2002:a5d:64ee:: with SMTP id g14mr17007579wri.376.1634126390103; 
+ Wed, 13 Oct 2021 04:59:50 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id 36sm12993377wrc.92.2021.10.13.04.59.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Oct 2021 04:59:49 -0700 (PDT)
+Date: Wed, 13 Oct 2021 13:59:47 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>,
+ Fernando Ramos <greenfoo@u92.eu>
+Message-ID: <YWbKM9Fo5OHGafAY@phenom.ffwll.local>
+References: <20210715184954.7794-1-ville.syrjala@linux.intel.com>
+ <20210715184954.7794-2-ville.syrjala@linux.intel.com>
+ <YPbTUf9KfiZ5GnFz@phenom.ffwll.local> <YVriZxCeipBUgc8O@intel.com>
 MIME-Version: 1.0
-References: <20211006025350.a5PczFZP4%akpm@linux-foundation.org>
- <58fbf2ff-b367-2137-aa77-fcde6c46bbb7@infradead.org>
- <20211006182052.6ecc17cf@canb.auug.org.au>
- <f877a1c9-1898-23f3-bba3-3442dc1f3979@amd.com>
- <CAMuHMdV3eMchpgUasU6BBHrDQyjCc2TrqJ+zJgFhgAySpqVGfw@mail.gmail.com>
-In-Reply-To: <CAMuHMdV3eMchpgUasU6BBHrDQyjCc2TrqJ+zJgFhgAySpqVGfw@mail.gmail.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Wed, 13 Oct 2021 12:54:47 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a1LLABstZ2rPYpsXRTxMdbSTrh0y753vrfGbRovv9fS8A@mail.gmail.com>
-Message-ID: <CAK8P3a1LLABstZ2rPYpsXRTxMdbSTrh0y753vrfGbRovv9fS8A@mail.gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Stephen Rothwell <sfr@canb.auug.org.au>, Randy Dunlap <rdunlap@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>, 
- Linux FS Devel <linux-fsdevel@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux MM <linux-mm@kvack.org>, 
- Linux-Next <linux-next@vger.kernel.org>, Michal Hocko <mhocko@suse.cz>,
- mm-commits@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>, 
- DRI <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 13 Oct 2021 11:58:09 +0000
-Subject: Re: [Intel-gfx] mmotm 2021-10-05-19-53 uploaded
- (drivers/gpu/drm/msm/hdmi/hdmi_phy.o)
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YVriZxCeipBUgc8O@intel.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Intel-gfx] [PATCH 1/4] drm: Introduce
+ drm_modeset_lock_ctx_retry()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,58 +82,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 7, 2021 at 11:51 AM Geert Uytterhoeven <geert@linux-m68k.org> w=
-rote:
-> On Wed, Oct 6, 2021 at 9:28 AM Christian K=C3=B6nig <christian.koenig@amd=
-.com> wrote:
-> > Am 06.10.21 um 09:20 schrieb Stephen Rothwell:
-> > > On Tue, 5 Oct 2021 22:48:03 -0700 Randy Dunlap <rdunlap@infradead.org=
-> wrote:
-> > >> on i386:
-> > >>
-> > >> ld: drivers/gpu/drm/msm/hdmi/hdmi_phy.o:(.rodata+0x3f0): undefined r=
-eference to `msm_hdmi_phy_8996_cfg'
+On Mon, Oct 04, 2021 at 02:15:51PM +0300, Ville Syrjälä wrote:
+> On Tue, Jul 20, 2021 at 03:44:49PM +0200, Daniel Vetter wrote:
+> > On Thu, Jul 15, 2021 at 09:49:51PM +0300, Ville Syrjala wrote:
+> > > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > > 
+> > > Quite a few places are hand rolling the modeset lock backoff dance.
+> > > Let's suck that into a helper macro that is easier to use without
+> > > forgetting some steps.
+> > > 
+> > > The main downside is probably that the implementation of
+> > > drm_with_modeset_lock_ctx() is a bit harder to read than a hand
+> > > rolled version on account of being split across three functions,
+> > > but the actual code using it ends up being much simpler.
+> > > 
+> > > Cc: Sean Paul <seanpaul@chromium.org>
+> > > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > > ---
+> > >  drivers/gpu/drm/drm_modeset_lock.c | 44 ++++++++++++++++++++++++++++++
+> > >  include/drm/drm_modeset_lock.h     | 20 ++++++++++++++
+> > >  2 files changed, 64 insertions(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
+> > > index fcfe1a03c4a1..083df96632e8 100644
+> > > --- a/drivers/gpu/drm/drm_modeset_lock.c
+> > > +++ b/drivers/gpu/drm/drm_modeset_lock.c
+> > > @@ -425,3 +425,47 @@ int drm_modeset_lock_all_ctx(struct drm_device *dev,
+> > >  	return 0;
+> > >  }
+> > >  EXPORT_SYMBOL(drm_modeset_lock_all_ctx);
+> > > +
+> > > +void _drm_modeset_lock_begin(struct drm_modeset_acquire_ctx *ctx,
+> > > +			     struct drm_atomic_state *state,
+> > > +			     unsigned int flags, int *ret)
+> > > +{
+> > > +	drm_modeset_acquire_init(ctx, flags);
+> > > +
+> > > +	if (state)
+> > > +		state->acquire_ctx = ctx;
+> > > +
+> > > +	*ret = -EDEADLK;
+> > > +}
+> > > +EXPORT_SYMBOL(_drm_modeset_lock_begin);
+> > > +
+> > > +bool _drm_modeset_lock_loop(int *ret)
+> > > +{
+> > > +	if (*ret == -EDEADLK) {
+> > > +		*ret = 0;
+> > > +		return true;
+> > > +	}
+> > > +
+> > > +	return false;
+> > > +}
+> > > +EXPORT_SYMBOL(_drm_modeset_lock_loop);
+> > > +
+> > > +void _drm_modeset_lock_end(struct drm_modeset_acquire_ctx *ctx,
+> > > +			   struct drm_atomic_state *state,
+> > > +			   int *ret)
+> > > +{
+> > > +	if (*ret == -EDEADLK) {
+> > > +		if (state)
+> > > +			drm_atomic_state_clear(state);
+> > > +
+> > > +		*ret = drm_modeset_backoff(ctx);
+> > > +		if (*ret == 0) {
+> > > +			*ret = -EDEADLK;
+> > > +			return;
+> > > +		}
+> > > +	}
+> > > +
+> > > +	drm_modeset_drop_locks(ctx);
+> > > +	drm_modeset_acquire_fini(ctx);
+> > > +}
+> > > +EXPORT_SYMBOL(_drm_modeset_lock_end);
+> > > diff --git a/include/drm/drm_modeset_lock.h b/include/drm/drm_modeset_lock.h
+> > > index aafd07388eb7..5eaad2533de5 100644
+> > > --- a/include/drm/drm_modeset_lock.h
+> > > +++ b/include/drm/drm_modeset_lock.h
+> > > @@ -26,6 +26,7 @@
+> > >  
+> > >  #include <linux/ww_mutex.h>
+> > >  
+> > > +struct drm_atomic_state;
+> > >  struct drm_modeset_lock;
+> > >  
+> > >  /**
+> > > @@ -203,4 +204,23 @@ modeset_lock_fail:							\
+> > >  	if (!drm_drv_uses_atomic_modeset(dev))				\
+> > >  		mutex_unlock(&dev->mode_config.mutex);
+> > >  
+> > > +void _drm_modeset_lock_begin(struct drm_modeset_acquire_ctx *ctx,
+> > > +			     struct drm_atomic_state *state,
+> > > +			     unsigned int flags,
+> > > +			     int *ret);
+> > > +bool _drm_modeset_lock_loop(int *ret);
+> > > +void _drm_modeset_lock_end(struct drm_modeset_acquire_ctx *ctx,
+> > > +			   struct drm_atomic_state *state,
+> > > +			   int *ret);
+> > > +
+> > > +/*
+> > > + * Note that one must always use "continue" rather than
+> > > + * "break" or "return" to handle errors within the
+> > > + * drm_modeset_lock_ctx_retry() block.
+> > 
+> > I'm not sold on loop macros with these kind of restrictions, C just isn't
+> > a great language for these. That's why e.g. drm_connector_iter doesn't
+> > give you a macro, but only the begin/next/end function calls explicitly.
+> 
+> We already use this pattern extensively in i915. Gem ww ctx has one,
+> power domains/pps/etc. use a similar things. It makes the code pretty nice,
+> with the slight caveat that an accidental 'break' can ruin your day. But
+> so can an accidental return with other constructs (and we even had that
+> happen a few times with the connector iterators), so not a dealbreaker
+> IMO.
+> 
+> So if we don't want this drm wide I guess I can propose this just for
+> i915 since it fits in perfectly there.
 
-I ran into the same thing now as well.
-E_TEST) && COMMON_CLK
->
-> I'd make that:
->
->     -        depends on DRM
->     +       depends on COMMON_CLK && DRM && IOMMU_SUPPORT
->             depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->     -        depends on IOMMU_SUPPORT
->     -       depends on (OF && COMMON_CLK) || COMPILE_TEST
->     +       depends on OF || COMPILE_TEST
->
-> to keep a better separation between hard and soft dependencies.
->
-> Note that the "depends on OF || COMPILE_TEST" can even be
-> deleted, as the dependency on ARCH_QCOM || SOC_IMX5 implies OF.
+Well I don't like them for i915 either.
 
-Looks good to me, I would also drop that last line in this case, and maybe
-add this change as building without COMMON_CLK is no longer possible:
+And yes C is dangerous, but also C is verbose. I think one lesson from igt
+is that too many magic block constructs are bad, it's just not how C
+works. Definitely not in the kernel, where "oops I got it wrong because it
+was too clever" is bad.
 
-diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index 904535eda0c4..a5d87e03812f 100644
---- a/drivers/gpu/drm/msm/Makefile
-+++ b/drivers/gpu/drm/msm/Makefile
-@@ -116,10 +116,10 @@ msm-$(CONFIG_DRM_MSM_DP)+=3D dp/dp_aux.o \
-  dp/dp_power.o \
-  dp/dp_audio.o
+> > Yes the macro we have is also not nice, but at least it's a screaming
+> > macro since it's all uppercase, so options are all a bit sucky. Which
+> > leads me to think we have a bit a https://xkcd.com/927/ situation going
+> > on.
+> > 
+> > I think minimally we should have one way to do this.
+> 
+> Well, there is no one way atm. All you can do is hand roll all the
+> boilerplate (and likely get it slightly wrong) if you don't want
+> lock_all.
+> 
+> The current macros only help with lock_all, and IMO the hidden gotos
+> are even uglier than a hidden for loop. Fernando already hit a case
+> where he couldn't use the macros twice due to conflicting goto
+> labels. With this for loop thing I think it would have just worked(tm).
 
--msm-$(CONFIG_DRM_FBDEV_EMULATION) +=3D msm_fbdev.o
--msm-$(CONFIG_COMMON_CLK) +=3D disp/mdp4/mdp4_lvds_pll.o
--msm-$(CONFIG_COMMON_CLK) +=3D hdmi/hdmi_pll_8960.o
--msm-$(CONFIG_COMMON_CLK) +=3D hdmi/hdmi_phy_8996.o
-+msm-$(CONFIG_DRM_FBDEV_EMULATION) +=3D msm_fbdev.o \
-+ disp/mdp4/mdp4_lvds_pll.o \
-+ hdmi/hdmi_pll_8960.o \
-+ hdmi/hdmi_phy_8996.o
-
- msm-$(CONFIG_DRM_MSM_HDMI_HDCP) +=3D hdmi/hdmi_hdcp.o
-
-Has anyone submitted a patch already, or should I send the version
-that I am using locally now?
-
-        Arnd
+I'm totally ok with repainting the shed, I just don't want some 80s
+multicolor flash show.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
