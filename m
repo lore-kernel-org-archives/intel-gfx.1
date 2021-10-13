@@ -2,73 +2,49 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 799CBC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 12:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE7E4C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 12:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DC42610E7
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 12:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0DC42610E7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 84E47610CB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 12:59:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 84E47610CB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83D4D6EA53;
-	Wed, 13 Oct 2021 12:57:38 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1544E6EA57
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 12:57:38 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id o20so8139954wro.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 05:57:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=RWBP2jgmVQOo/w/Jd//diXQQ2mjmTY+QBARYu4zYJQQ=;
- b=ClNw+mg+s3JKHQZTJJ9lJOI6V21fPoC4xQgddTIdQ5KDZXKpy0RQMSKJex+wFP9sBP
- MsJETo/DID5r5rlOhWZvXAMi9hRf54+YHWCiBLM08JBtYvLy0EOu7j/4cPkvhFQNQVNq
- EPSeCYNLvqpdFuT6lIIqBxydX1S/A8G3XPIR4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=RWBP2jgmVQOo/w/Jd//diXQQ2mjmTY+QBARYu4zYJQQ=;
- b=El8fQllL0NXfAQWlYEUSWuCwTLf8vY6iqXgFcD528cIy1gPkKKhTq9yS41FIW3z4LB
- iNOnffF/9/JXggyZo94ITVndJtXlpvPpbjJuAPdrlYT0ouCP7RIl6ZW03EinuelPhKJq
- izDSwCgpE4f0zBtE3V3lJeinN/cnOuLNXV6O794MHrzUC3rOErgndZxktEwCo4+4ms4C
- j3a0EVnA6f0y3bY4CkqUBqpdiBkJPLdyBfmtUQDDwG4bx5Nw4djnN4niPAAhm1UZvfEi
- oZ8dWSTolyhM0tVfG7bFtyRFKpQH31eTnJ8+UPVdq83tgy0HYJ3BNu/vT/W02A9AETNk
- WwJw==
-X-Gm-Message-State: AOAM533wtf7r8qjSEp9E7+bmyt7pfbVwugLyhshr1jF+BfZG8pEQMVqL
- hDssmH3dra/uptt/cpRjLcIH0w==
-X-Google-Smtp-Source: ABdhPJx9amzBZXM9r/xTcN0J3jhnwMOLwtcfR4mBWMjQsxcVaLGS5yeuyhe1byr5XMzQJLkw+vT6Kg==
-X-Received: by 2002:a5d:5889:: with SMTP id n9mr40902772wrf.248.1634129856575; 
- Wed, 13 Oct 2021 05:57:36 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w26sm5372558wmk.34.2021.10.13.05.57.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Oct 2021 05:57:36 -0700 (PDT)
-Date: Wed, 13 Oct 2021 14:57:34 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <YWbXvvTzMF1EZ5c7@phenom.ffwll.local>
-References: <20211005065151.828922-1-bigeasy@linutronix.de>
- <YWbK8wSxNjVu9OLm@phenom.ffwll.local>
- <20211013123525.5nijgyx5ivnuujes@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0036E0C8;
+	Wed, 13 Oct 2021 12:59:09 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915786E0C8;
+ Wed, 13 Oct 2021 12:59:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="288290112"
+X-IronPort-AV: E=Sophos;i="5.85,370,1624345200"; d="scan'208";a="288290112"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 05:59:06 -0700
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524616950"
+Received: from lapeders-mobl.ger.corp.intel.com (HELO [10.249.254.46])
+ ([10.249.254.46])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 05:59:05 -0700
+Message-ID: <66283a71-e423-3d5e-ec6f-c095620ef5ad@linux.intel.com>
+Date: Wed, 13 Oct 2021 14:59:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211013123525.5nijgyx5ivnuujes@linutronix.de>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [RFC PATCH] drm: Increase DRM_OBJECT_MAX_PROPERTY
- by 18.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Content-Language: en-US
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, matthew.auld@intel.com
+References: <20211008133530.664509-1-thomas.hellstrom@linux.intel.com>
+ <20211008133530.664509-2-thomas.hellstrom@linux.intel.com>
+ <YWbT/hqoc5fJo17z@phenom.ffwll.local>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
+In-Reply-To: <YWbT/hqoc5fJo17z@phenom.ffwll.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH 1/6] drm/i915: Update dma_fence_work
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,55 +60,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 13, 2021 at 02:35:25PM +0200, Sebastian Andrzej Siewior wrote:
-> On 2021-10-13 14:02:59 [+0200], Daniel Vetter wrote:
-> > On Tue, Oct 05, 2021 at 08:51:51AM +0200, Sebastian Andrzej Siewior wrote:
-> > > The warning poped up, it says it increase it by the number of occurrence.
-> > > I saw it 18 times so here it is.
-> > > It started to up since commit
-> > >    2f425cf5242a0 ("drm: Fix oops in damage self-tests by mocking damage property")
-> > > 
-> > > Increase DRM_OBJECT_MAX_PROPERTY by 18.
-> > > 
-> > > Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> > 
-> > Which driver where? Whomever added that into upstream should also have
-> > realized this (things will just not work) and include it in there. So if
-> > things are tested correctly this should be part of a larger series to add
-> > these 18 props somewhere.
-> 
-> This is on i915 with full debug. If I remember correctly, it wasn't
-> there before commit
->    c7fcbf2513973 ("drm/plane: check that fb_damage is set up when used")
-> 
-> With that commit the box crashed until commit 
->    2f425cf5242a0 ("drm: Fix oops in damage self-tests by mocking damage property")
-> 
-> where I then observed this.
 
-Hm there's a pile of commits there, and nothing immediately jumps to
-light. The thing is, 18 is likely way too much, since if e.g. we have a
-single new property on a plane and that pushes over the limit on all of
-them, you get iirc 3x4 already simply because we have that many planes.
+On 10/13/21 14:41, Daniel Vetter wrote:
+> On Fri, Oct 08, 2021 at 03:35:25PM +0200, Thomas Hellström wrote:
+>> Move the release callback to after fence signaling to align with
+>> what's done for upcoming VM_BIND user-fence signaling.
+>>
+>> Finally call the work callback regardless of whether we have a fence
+>> error or not and update the existing callbacks accordingly. We will
+>> need this to intercept the error for failsafe migration.
+>>
+>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> I think before we make this thing more complex we really should either
+> move this into dma-buf/ as a proper thing, or just open-code.
+>
+> Minimally at least any new async dma_fence worker needs to have
+> dma_fence_begin/end_signalling annotations, or we're just digging a grave
+> here.
+>
+> I'm also not seeing the point in building everything on top of this, for
+> many cases just an open-coded work_struct should be a lot simpler. It's
+> just more to clean up later on, that part is for sure.
+> -Daniel
 
-So would be good to know the actual culprit.
+Yes, I mentioned to Matthew, I'm going to respin this based on our 
+previous discussions.
 
-Can you pls try to bisect the above range, applying the patch as a fixup
-locally (without commit, that will confuse git bisect a bit I think), so
-we know what/where went wrong?
+Forgot to mention on the ML.
 
-I'm still confused why this isn't showing up anywhere in our intel ci ...
+/Thomas
 
-Thanks, Daniel
 
-> 
-> > Also maybe we should just dynamically allocate this array if people have
-> > this many properties on their objects.
-> > -Daniel
-> 
-> Sebastian
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+>> ---
+>>   drivers/gpu/drm/i915/gem/i915_gem_clflush.c |  5 +++
+>>   drivers/gpu/drm/i915/i915_sw_fence_work.c   | 36 ++++++++++-----------
+>>   drivers/gpu/drm/i915/i915_sw_fence_work.h   |  1 +
+>>   drivers/gpu/drm/i915/i915_vma.c             | 12 +++++--
+>>   4 files changed, 33 insertions(+), 21 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+>> index f0435c6feb68..2143ebaf5b6f 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+>> @@ -28,6 +28,11 @@ static void clflush_work(struct dma_fence_work *base)
+>>   {
+>>   	struct clflush *clflush = container_of(base, typeof(*clflush), base);
+>>   
+>> +	if (base->error) {
+>> +		dma_fence_set_error(&base->dma, base->error);
+>> +		return;
+>> +	}
+>> +
+>>   	__do_clflush(clflush->obj);
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.c b/drivers/gpu/drm/i915/i915_sw_fence_work.c
+>> index 5b33ef23d54c..5b55cddafc9b 100644
+>> --- a/drivers/gpu/drm/i915/i915_sw_fence_work.c
+>> +++ b/drivers/gpu/drm/i915/i915_sw_fence_work.c
+>> @@ -6,21 +6,24 @@
+>>   
+>>   #include "i915_sw_fence_work.h"
+>>   
+>> -static void fence_complete(struct dma_fence_work *f)
+>> +static void dma_fence_work_complete(struct dma_fence_work *f)
+>>   {
+>> +	dma_fence_signal(&f->dma);
+>> +
+>>   	if (f->ops->release)
+>>   		f->ops->release(f);
+>> -	dma_fence_signal(&f->dma);
+>> +
+>> +	dma_fence_put(&f->dma);
+>>   }
+>>   
+>> -static void fence_work(struct work_struct *work)
+>> +static void dma_fence_work_work(struct work_struct *work)
+>>   {
+>>   	struct dma_fence_work *f = container_of(work, typeof(*f), work);
+>>   
+>> -	f->ops->work(f);
+>> +	if (f->ops->work)
+>> +		f->ops->work(f);
+>>   
+>> -	fence_complete(f);
+>> -	dma_fence_put(&f->dma);
+>> +	dma_fence_work_complete(f);
+>>   }
+>>   
+>>   static int __i915_sw_fence_call
+>> @@ -31,17 +34,13 @@ fence_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
+>>   	switch (state) {
+>>   	case FENCE_COMPLETE:
+>>   		if (fence->error)
+>> -			dma_fence_set_error(&f->dma, fence->error);
+>> -
+>> -		if (!f->dma.error) {
+>> -			dma_fence_get(&f->dma);
+>> -			if (test_bit(DMA_FENCE_WORK_IMM, &f->dma.flags))
+>> -				fence_work(&f->work);
+>> -			else
+>> -				queue_work(system_unbound_wq, &f->work);
+>> -		} else {
+>> -			fence_complete(f);
+>> -		}
+>> +			cmpxchg(&f->error, 0, fence->error);
+>> +
+>> +		dma_fence_get(&f->dma);
+>> +		if (test_bit(DMA_FENCE_WORK_IMM, &f->dma.flags))
+>> +			dma_fence_work_work(&f->work);
+>> +		else
+>> +			queue_work(system_unbound_wq, &f->work);
+>>   		break;
+>>   
+>>   	case FENCE_FREE:
+>> @@ -84,10 +83,11 @@ void dma_fence_work_init(struct dma_fence_work *f,
+>>   			 const struct dma_fence_work_ops *ops)
+>>   {
+>>   	f->ops = ops;
+>> +	f->error = 0;
+>>   	spin_lock_init(&f->lock);
+>>   	dma_fence_init(&f->dma, &fence_ops, &f->lock, 0, 0);
+>>   	i915_sw_fence_init(&f->chain, fence_notify);
+>> -	INIT_WORK(&f->work, fence_work);
+>> +	INIT_WORK(&f->work, dma_fence_work_work);
+>>   }
+>>   
+>>   int dma_fence_work_chain(struct dma_fence_work *f, struct dma_fence *signal)
+>> diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.h b/drivers/gpu/drm/i915/i915_sw_fence_work.h
+>> index d56806918d13..caa59fb5252b 100644
+>> --- a/drivers/gpu/drm/i915/i915_sw_fence_work.h
+>> +++ b/drivers/gpu/drm/i915/i915_sw_fence_work.h
+>> @@ -24,6 +24,7 @@ struct dma_fence_work_ops {
+>>   struct dma_fence_work {
+>>   	struct dma_fence dma;
+>>   	spinlock_t lock;
+>> +	int error;
+>>   
+>>   	struct i915_sw_fence chain;
+>>   	struct i915_sw_dma_fence_cb cb;
+>> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+>> index 4b7fc4647e46..5123ac28ad9a 100644
+>> --- a/drivers/gpu/drm/i915/i915_vma.c
+>> +++ b/drivers/gpu/drm/i915/i915_vma.c
+>> @@ -301,6 +301,11 @@ static void __vma_bind(struct dma_fence_work *work)
+>>   	struct i915_vma_work *vw = container_of(work, typeof(*vw), base);
+>>   	struct i915_vma *vma = vw->vma;
+>>   
+>> +	if (work->error) {
+>> +		dma_fence_set_error(&work->dma, work->error);
+>> +		return;
+>> +	}
+>> +
+>>   	vma->ops->bind_vma(vw->vm, &vw->stash,
+>>   			   vma, vw->cache_level, vw->flags);
+>>   }
+>> @@ -333,7 +338,7 @@ struct i915_vma_work *i915_vma_work(void)
+>>   		return NULL;
+>>   
+>>   	dma_fence_work_init(&vw->base, &bind_ops);
+>> -	vw->base.dma.error = -EAGAIN; /* disable the worker by default */
+>> +	vw->base.error = -EAGAIN; /* disable the worker by default */
+>>   
+>>   	return vw;
+>>   }
+>> @@ -416,6 +421,9 @@ int i915_vma_bind(struct i915_vma *vma,
+>>   		 * part of the obj->resv->excl_fence as it only affects
+>>   		 * execution and not content or object's backing store lifetime.
+>>   		 */
+>> +
+>> +		work->base.error = 0; /* enable the queue_work() */
+>> +
+>>   		prev = i915_active_set_exclusive(&vma->active, &work->base.dma);
+>>   		if (prev) {
+>>   			__i915_sw_fence_await_dma_fence(&work->base.chain,
+>> @@ -424,8 +432,6 @@ int i915_vma_bind(struct i915_vma *vma,
+>>   			dma_fence_put(prev);
+>>   		}
+>>   
+>> -		work->base.dma.error = 0; /* enable the queue_work() */
+>> -
+>>   		if (vma->obj) {
+>>   			__i915_gem_object_pin_pages(vma->obj);
+>>   			work->pinned = i915_gem_object_get(vma->obj);
+>> -- 
+>> 2.31.1
+>>
