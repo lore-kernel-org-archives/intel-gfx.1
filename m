@@ -2,44 +2,49 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76D6FC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5988EC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C0196101D
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C0196101D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 29EE561130
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 29EE561130
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D3CB6EB87;
-	Wed, 13 Oct 2021 20:56:16 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A67B6EB73;
- Wed, 13 Oct 2021 20:56:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="214690401"
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="214690401"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 13:47:23 -0700
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524782789"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 13:47:22 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Cc: <john.c.harrison@intel.com>
-Date: Wed, 13 Oct 2021 13:42:27 -0700
-Message-Id: <20211013204231.19287-22-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211013204231.19287-1-matthew.brost@intel.com>
-References: <20211013204231.19287-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D05A36EB9A;
+	Wed, 13 Oct 2021 20:56:19 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D2C6EBA2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 20:56:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="224982508"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="224982508"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 13:45:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="563242039"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by FMSMGA003.fm.intel.com with SMTP; 13 Oct 2021 13:45:34 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 13 Oct 2021 23:45:33 +0300
+Date: Wed, 13 Oct 2021 23:45:33 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <YWdFbXzbqHCPK4uK@intel.com>
+References: <20211007203517.3364336-1-imre.deak@intel.com>
+ <20211007203517.3364336-10-imre.deak@intel.com>
+ <YWdBFg9i85wzXUfz@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 21/25] drm/i915/guc: Handle errors in multi-lrc
- requests
+In-Reply-To: <YWdBFg9i85wzXUfz@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 09/11] drm/i915: Add a platform independent
+ way to check for CCS control planes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,128 +60,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If an error occurs in the front end when multi-lrc requests are getting
-generated we need to skip these in the backend but we still need to
-emit the breadcrumbs seqno. An issues arises because with multi-lrc
-breadcrumbs there is a handshake between the parent and children to make
-forward progress. If all the requests are not present this handshake
-doesn't work. To work around this, if multi-lrc request has an error we
-skip the handshake but still emit the breadcrumbs seqno.
+On Wed, Oct 13, 2021 at 11:27:02PM +0300, Ville Syrjälä wrote:
+> On Thu, Oct 07, 2021 at 11:35:15PM +0300, Imre Deak wrote:
+> > Future platforms change the location of CCS control planes in CCS
+> > framebuffers, so add intel_fb_is_rc_ccs_ctrl_plane() to query for these
+> 
+> Don't we use the term 'ccs_plane' everywhere else?
+> 
+> > planes independently of the platform. This function can be used
+> > everywhere instead of is_ccs_plane() (or is_ccs_plane() && !cc_plane()),
+> > since all the callers are only interested in control planes (and not CCS
+> > color-clear planes).
 
-v2:
- (John Harrison)
-  - Add comment explaining the skipping of the handshake logic
-  - Fix typos in the commit message
-v3:
- (John Harrison)
-  - Fix up some comments about the math to NOP the ring
+Hmm. I guess you're changing the terminology across the board?
+If it's used consistently then no objections from me.
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 69 ++++++++++++++++++-
- 1 file changed, 66 insertions(+), 3 deletions(-)
+> > 
+> > Add the corresponding intel_fb_is_gen12_ccs_ctrl_plane(), which can be
+> > used everywhere instead of is_gen12_ccs_plane(), based on the above
+> > explanation.
+> > 
+> > This change also unexports the is_gen12_ccs_modifier(),
+> > is_gen12_ccs_plane(), is_gen12_ccs_cc_plane() functions as they are only
+> > used in intel_fb.c
+> > 
+> > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > ---
+> >  .../drm/i915/display/intel_display_types.h    |  7 --
+> >  drivers/gpu/drm/i915/display/intel_fb.c       | 73 ++++++++++++++-----
+> >  drivers/gpu/drm/i915/display/intel_fb.h       |  5 +-
+> >  .../drm/i915/display/skl_universal_plane.c    |  3 +-
+> >  4 files changed, 56 insertions(+), 32 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > index bb53b01f07aee..b4b6a31caf4e3 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > @@ -2050,11 +2050,4 @@ static inline bool is_ccs_modifier(u64 modifier)
+> >  	       modifier == I915_FORMAT_MOD_Yf_TILED_CCS;
+> >  }
+> >  
+> > -static inline bool is_gen12_ccs_modifier(u64 modifier)
+> > -{
+> > -	return modifier == I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS ||
+> > -	       modifier == I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC ||
+> > -	       modifier == I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS;
+> > -}
+> > -
+> >  #endif /*  __INTEL_DISPLAY_TYPES_H__ */
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> > index e8fe198b1b6a1..392f89e659eb6 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> > @@ -125,6 +125,8 @@ const struct intel_modifier_desc {
+> >  #define INTEL_CCS_ANY		(INTEL_CCS_RC | INTEL_CCS_RC_CC | INTEL_CCS_MC)
+> >  		u8 type:3;
+> >  		u8 cc_planes:3;
+> > +		u8 packed_ctrl_planes:4;
+> > +		u8 planar_ctrl_planes:4;
+> >  	} ccs;
+> >  } intel_modifiers[] = {
+> >  	{
+> > @@ -151,6 +153,7 @@ const struct intel_modifier_desc {
+> >  		.tiling = I915_TILING_Y,
+> >  
+> >  		.ccs.type = INTEL_CCS_RC,
+> > +		.ccs.packed_ctrl_planes = BIT(1),
+> >  
+> >  		FORMAT_OVERRIDE(skl_ccs_formats),
+> >  	},
+> > @@ -159,6 +162,7 @@ const struct intel_modifier_desc {
+> >  		.display_versions = DISPLAY_VER_MASK(9, 11),
+> >  
+> >  		.ccs.type = INTEL_CCS_RC,
+> > +		.ccs.packed_ctrl_planes = BIT(1),
+> >  
+> >  		FORMAT_OVERRIDE(skl_ccs_formats),
+> >  	},
+> > @@ -168,6 +172,7 @@ const struct intel_modifier_desc {
+> >  		.tiling = I915_TILING_Y,
+> >  
+> >  		.ccs.type = INTEL_CCS_RC,
+> > +		.ccs.packed_ctrl_planes = BIT(1),
+> >  
+> >  		FORMAT_OVERRIDE(gen12_ccs_formats),
+> >  	},
+> > @@ -177,6 +182,7 @@ const struct intel_modifier_desc {
+> >  		.tiling = I915_TILING_Y,
+> >  
+> >  		.ccs.type = INTEL_CCS_RC_CC,
+> > +		.ccs.packed_ctrl_planes = BIT(1),
+> >  		.ccs.cc_planes = BIT(2),
+> >  
+> >  		FORMAT_OVERRIDE(gen12_ccs_cc_formats),
+> > @@ -187,6 +193,8 @@ const struct intel_modifier_desc {
+> >  		.tiling = I915_TILING_Y,
+> >  
+> >  		.ccs.type = INTEL_CCS_MC,
+> > +		.ccs.packed_ctrl_planes = BIT(1),
+> > +		.ccs.planar_ctrl_planes = BIT(2) | BIT(3),
+> >  
+> >  		FORMAT_OVERRIDE(gen12_ccs_formats),
+> >  	},
+> > @@ -385,17 +393,44 @@ bool intel_format_info_is_yuv_semiplanar(const struct drm_format_info *info,
+> >  	return format_is_yuv_semiplanar(lookup_modifier(modifier), info);
+> >  }
+> >  
+> > -bool is_ccs_plane(const struct drm_framebuffer *fb, int plane)
+> > +static u8 ccs_ctrl_plane_mask(const struct intel_modifier_desc *md,
+> > +			      const struct drm_format_info *format)
+> >  {
+> > -	if (!is_ccs_modifier(fb->modifier))
+> > -		return false;
+> > +	if (format_is_yuv_semiplanar(md, format))
+> > +		return md->ccs.planar_ctrl_planes;
+> > +	else
+> > +		return md->ccs.packed_ctrl_planes;
+> > +}
+> > +
+> > +/**
+> > + * intel_fb_is_ccs_ctrl_plane: Check if a framebuffer color plane is a CCS control plane
+> > + * @fb: Framebuffer
+> > + * @plane: color plane index to check
+> > + *
+> > + * Returns:
+> > + * Returns %true if @fb's color plane at index @plane is a CCS control plane.
+> > + */
+> > +bool intel_fb_is_ccs_ctrl_plane(const struct drm_framebuffer *fb, int plane)
+> > +{
+> > +	const struct intel_modifier_desc *md = lookup_modifier(fb->modifier);
+> >  
+> > -	return plane >= fb->format->num_planes / 2;
+> > +	return ccs_ctrl_plane_mask(md, fb->format) & BIT(plane);
+> >  }
+> >  
+> > -bool is_gen12_ccs_plane(const struct drm_framebuffer *fb, int plane)
+> > +/**
+> > + * intel_fb_is_gen12_ccs_ctrl_plane: Check if a framebuffer color plane is a GEN12 CCS control plane
+> > + * @fb: Framebuffer
+> > + * @plane: color plane index to check
+> > + *
+> > + * Returns:
+> > + * Returns %true if @fb's color plane at index @plane is a GEN12 CCS control plane.
+> > + */
+> > +static bool intel_fb_is_gen12_ccs_ctrl_plane(const struct drm_framebuffer *fb, int plane)
+> >  {
+> > -	return is_gen12_ccs_modifier(fb->modifier) && is_ccs_plane(fb, plane);
+> > +	const struct intel_modifier_desc *md = lookup_modifier(fb->modifier);
+> > +
+> > +	return md->display_versions & (DISPLAY_VER_MASK(12, 13)) &&
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index bfafe996e2d2..80d8ce68ff59 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4076,8 +4076,8 @@ static int emit_bb_start_child_no_preempt_mid_batch(struct i915_request *rq,
- }
- 
- static u32 *
--emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
--						 u32 *cs)
-+__emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
-+						   u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
- 	u8 i;
-@@ -4105,6 +4105,45 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- 				  get_children_go_addr(ce),
- 				  0);
- 
-+	return cs;
-+}
-+
-+/*
-+ * If this true, a submission of multi-lrc requests had an error and the
-+ * requests need to be skipped. The front end (execuf IOCTL) should've called
-+ * i915_request_skip which squashes the BB but we still need to emit the fini
-+ * breadrcrumbs seqno write. At this point we don't know how many of the
-+ * requests in the multi-lrc submission were generated so we can't do the
-+ * handshake between the parent and children (e.g. if 4 requests should be
-+ * generated but 2nd hit an error only 1 would be seen by the GuC backend).
-+ * Simply skip the handshake, but still emit the breadcrumbd seqno, if an error
-+ * has occurred on any of the requests in submission / relationship.
-+ */
-+static inline bool skip_handshake(struct i915_request *rq)
-+{
-+	return test_bit(I915_FENCE_FLAG_SKIP_PARALLEL, &rq->fence.flags);
-+}
-+
-+static u32 *
-+emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
-+						 u32 *cs)
-+{
-+	struct intel_context *ce = rq->context;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	if (unlikely(skip_handshake(rq))) {
-+		/*
-+		 * NOP everything in __emit_fini_breadcrumb_parent_no_preempt_mid_batch,
-+		 * the -6 comes from the length of the emits below.
-+		 */
-+		memset(cs, 0, sizeof(u32) *
-+		       (ce->engine->emit_fini_breadcrumb_dw - 6));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+	} else {
-+		cs = __emit_fini_breadcrumb_parent_no_preempt_mid_batch(rq, cs);
-+	}
-+
- 	/* Emit fini breadcrumb */
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
-@@ -4121,7 +4160,8 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- }
- 
- static u32 *
--emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs)
-+__emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
-+						  u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
- 	struct intel_context *parent = intel_context_to_parent(ce);
-@@ -4148,6 +4188,29 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs
- 	*cs++ = get_children_go_addr(parent);
- 	*cs++ = 0;
- 
-+	return cs;
-+}
-+
-+static u32 *
-+emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
-+						u32 *cs)
-+{
-+	struct intel_context *ce = rq->context;
-+
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+
-+	if (unlikely(skip_handshake(rq))) {
-+		/*
-+		 * NOP everything in __emit_fini_breadcrumb_child_no_preempt_mid_batch,
-+		 * the -6 comes from the length of the emits below.
-+		 */
-+		memset(cs, 0, sizeof(u32) *
-+		       (ce->engine->emit_fini_breadcrumb_dw - 6));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+	} else {
-+		cs = __emit_fini_breadcrumb_child_no_preempt_mid_batch(rq, cs);
-+	}
-+
- 	/* Emit fini breadcrumb */
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
+Aha! No RPN here ;)
+
 -- 
-2.32.0
-
+Ville Syrjälä
+Intel
