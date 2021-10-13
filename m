@@ -2,44 +2,44 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15825C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DCF4C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D892261152
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D892261152
+	by mail.kernel.org (Postfix) with ESMTPS id 0EF3761154
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0EF3761154
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB466EB7C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF906EB75;
 	Wed, 13 Oct 2021 20:56:00 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 666066EB6C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD7C86EB71;
  Wed, 13 Oct 2021 20:55:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="214690378"
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="214690378"
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="214690383"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="214690383"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Oct 2021 13:47:20 -0700
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524782705"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524782717"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 13:47:19 -0700
+ 13 Oct 2021 13:47:20 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>
-Date: Wed, 13 Oct 2021 13:42:12 -0700
-Message-Id: <20211013204231.19287-7-matthew.brost@intel.com>
+Date: Wed, 13 Oct 2021 13:42:15 -0700
+Message-Id: <20211013204231.19287-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211013204231.19287-1-matthew.brost@intel.com>
 References: <20211013204231.19287-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/25] drm/i915: Expose logical engine instance
- to user
+Subject: [Intel-gfx] [PATCH 09/25] drm/i915/guc: Ensure GuC schedule
+ operations do not operate on child contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +55,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose logical engine instance to user via query engine info IOCTL. This
-is required for split-frame workloads as these needs to be placed on
-engines in a logically contiguous order. The logical mapping can change
-based on fusing. Rather than having user have knowledge of the fusing we
-simply just expose the logical mapping with the existing query engine
-info IOCTL.
+In GuC parent-child contexts the parent context controls the scheduling,
+ensure only the parent does the scheduling operations.
 
-IGT: https://patchwork.freedesktop.org/patch/445637/?series=92854&rev=1
-media UMD: https://github.com/intel/media-driver/pull/1252
-
-v2:
- (Daniel Vetter)
-  - Add IGT link, placeholder for media UMD
-
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/i915_query.c | 2 ++
- include/uapi/drm/i915_drm.h       | 8 +++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
-index 5e2b909827f4..51b368be0fc4 100644
---- a/drivers/gpu/drm/i915/i915_query.c
-+++ b/drivers/gpu/drm/i915/i915_query.c
-@@ -124,7 +124,9 @@ query_engine_info(struct drm_i915_private *i915,
- 	for_each_uabi_engine(engine, i915) {
- 		info.engine.engine_class = engine->uabi_class;
- 		info.engine.engine_instance = engine->uabi_instance;
-+		info.flags = I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE;
- 		info.capabilities = engine->uabi_capabilities;
-+		info.logical_instance = ilog2(engine->logical_mask);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 58a6f494be8f..abf867f4f659 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -324,6 +324,12 @@ static inline void decr_context_committed_requests(struct intel_context *ce)
+ 	GEM_BUG_ON(ce->guc_state.number_committed_requests < 0);
+ }
  
- 		if (copy_to_user(info_ptr, &info, sizeof(info)))
- 			return -EFAULT;
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index aa2a7eccfb94..0179f92e0916 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2775,14 +2775,20 @@ struct drm_i915_engine_info {
- 
- 	/** @flags: Engine flags. */
- 	__u64 flags;
-+#define I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE		(1 << 0)
- 
- 	/** @capabilities: Capabilities of this engine. */
- 	__u64 capabilities;
- #define I915_VIDEO_CLASS_CAPABILITY_HEVC		(1 << 0)
- #define I915_VIDEO_AND_ENHANCE_CLASS_CAPABILITY_SFC	(1 << 1)
- 
-+	/** @logical_instance: Logical instance of engine */
-+	__u16 logical_instance;
++static struct intel_context *
++request_to_scheduling_context(struct i915_request *rq)
++{
++	return intel_context_to_parent(rq->context);
++}
 +
- 	/** @rsvd1: Reserved fields. */
--	__u64 rsvd1[4];
-+	__u16 rsvd1[3];
-+	/** @rsvd2: Reserved fields. */
-+	__u64 rsvd2[3];
- };
+ static inline bool context_guc_id_invalid(struct intel_context *ce)
+ {
+ 	return ce->guc_id.id == GUC_INVALID_LRC_ID;
+@@ -1712,6 +1718,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
  
- /**
+ 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_sched_disable(ce);
+ 
+ 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
+@@ -1937,6 +1944,8 @@ static void guc_context_sched_disable(struct intel_context *ce)
+ 	intel_wakeref_t wakeref;
+ 	u16 guc_id;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 
+ 	/*
+@@ -2305,6 +2314,8 @@ static void guc_signal_context_fence(struct intel_context *ce)
+ {
+ 	unsigned long flags;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	clr_context_wait_for_deregister_to_register(ce);
+ 	__guc_signal_context_fence(ce);
+@@ -2335,7 +2346,7 @@ static void guc_context_init(struct intel_context *ce)
+ 
+ static int guc_request_alloc(struct i915_request *rq)
+ {
+-	struct intel_context *ce = rq->context;
++	struct intel_context *ce = request_to_scheduling_context(rq);
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 	unsigned long flags;
+ 	int ret;
 -- 
 2.32.0
 
