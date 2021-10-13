@@ -2,48 +2,40 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCAEDC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 00:38:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35276C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 00:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FB3060EDF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 00:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6FB3060EDF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E874C60E78
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 00:40:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E874C60E78
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D99D06E062;
-	Wed, 13 Oct 2021 00:38:14 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3A56E9F8;
- Wed, 13 Oct 2021 00:38:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="224744537"
-X-IronPort-AV: E=Sophos;i="5.85,369,1624345200"; d="scan'208";a="224744537"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 17:37:32 -0700
-X-IronPort-AV: E=Sophos;i="5.85,369,1624345200"; d="scan'208";a="547656173"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 17:37:32 -0700
-Date: Tue, 12 Oct 2021 17:32:48 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniele.ceraolospurio@intel.com
-Message-ID: <20211013003248.GA4795@jons-linux-dev-box>
-References: <20211004220637.14746-1-matthew.brost@intel.com>
- <20211004220637.14746-24-matthew.brost@intel.com>
- <03661707-0416-93cd-94b5-1624f1a5e073@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709266E9FF;
+	Wed, 13 Oct 2021 00:40:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 21A356E9FE;
+ Wed, 13 Oct 2021 00:40:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EFE7EA00C9;
+ Wed, 13 Oct 2021 00:40:20 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0802761168941410751=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <03661707-0416-93cd-94b5-1624f1a5e073@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 23/26] drm/i915: Make request conflict
- tracking understand parallel submits
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Andi Shyti" <andi@etezian.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 13 Oct 2021 00:40:20 -0000
+Message-ID: <163408562094.10251.1271045867514493682@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211012221738.16029-1-andi@etezian.org>
+In-Reply-To: <20211012221738.16029-1-andi@etezian.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/gt=3A_move_remaining_debugfs_interfaces_into_gt_=28rev12?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,145 +48,182 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 12, 2021 at 03:08:05PM -0700, John Harrison wrote:
-> On 10/4/2021 15:06, Matthew Brost wrote:
-> > If an object in the excl or shared slot is a composite fence from a
-> > parallel submit and the current request in the conflict tracking is from
-> > the same parallel context there is no need to enforce ordering as the
-> > ordering already implicit. Make the request conflict tracking understand
-> ordering already -> ordering is already
-> 
+--===============0802761168941410751==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Yep.
+== Series Details ==
 
-> > this by comparing the parents parallel fence values and skipping the
-> parents -> parent's
->
+Series: drm/i915/gt: move remaining debugfs interfaces into gt (rev12)
+URL   : https://patchwork.freedesktop.org/series/75333/
+State : success
 
-Yep.
+== Summary ==
 
-> > conflict insertion if the values match.
-> Presumably, this is to cope with the fact that the parallel submit fences do
-> not look like regular submission fences. And hence the existing code that
-> says 'new fence belongs to same context as old fence, so safe to ignore'
-> does not work with parallel submission. However, this change does not appear
+CI Bug Log - changes from CI_DRM_10728 -> Patchwork_21322
+====================================================
 
-Yes. The check for 'if (fence->context == rq->fence.context)' doesn't
-work with parallel submission as each rq->fence.context corresponds to a
-timeline. With parallel submission each intel_context in the parallel
-submit has its own timeline (seqno) so the compare fails for different
-intel_context within the same parallel submit. This is the reason for
-the additional compare on parallel submits parents, if they have the
-same parent it is the same parallel submission and there is no need to
-enforce additional ordering.
+Summary
+-------
 
-> to be adding parallel submit support to an existing 'same context' check. It
-> seems to be a brand new check that does not exist for single submission.
-> What makes parallel submit different? If we aren't skipping same context
-> fences for single submits, why do we need it for parallel? Conversely, if we
-> need it for parallel then why don't we need it for single?
->
+  **SUCCESS**
 
-I'm confused by what you are asking here. The existing same context
-check is fine for parallel submits - it will just return true when we
-compare requests with the same intel_context and new additional check
-only true parallel submissions with the same parent.
+  No regressions found.
 
-> And if the single submission version is simply somewhere else in the code,
-> why do the parallel version here instead of at the same place?
->
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/index.html
 
-Again I'm confused by what you are asking. We might just need to sync on
-a quick call.
+Known issues
+------------
 
-Matt
- 
-> John.
-> 
-> > 
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/i915_request.c | 43 +++++++++++++++++++----------
-> >   1 file changed, 29 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-> > index e9bfa32f9270..cf89624020ad 100644
-> > --- a/drivers/gpu/drm/i915/i915_request.c
-> > +++ b/drivers/gpu/drm/i915/i915_request.c
-> > @@ -1325,6 +1325,25 @@ i915_request_await_external(struct i915_request *rq, struct dma_fence *fence)
-> >   	return err;
-> >   }
-> > +static inline bool is_parallel_rq(struct i915_request *rq)
-> > +{
-> > +	return intel_context_is_parallel(rq->context);
-> > +}
-> > +
-> > +static inline struct intel_context *request_to_parent(struct i915_request *rq)
-> > +{
-> > +	return intel_context_to_parent(rq->context);
-> > +}
-> > +
-> > +static bool is_same_parallel_context(struct i915_request *to,
-> > +				     struct i915_request *from)
-> > +{
-> > +	if (is_parallel_rq(to))
-> Should this not say '&& is_parallel_rq(from)'?
-> 
-> > +		return request_to_parent(to) == request_to_parent(from);
-> > +
-> > +	return false;
-> > +}
-> > +
-> >   int
-> >   i915_request_await_execution(struct i915_request *rq,
-> >   			     struct dma_fence *fence)
-> > @@ -1356,11 +1375,14 @@ i915_request_await_execution(struct i915_request *rq,
-> >   		 * want to run our callback in all cases.
-> >   		 */
-> > -		if (dma_fence_is_i915(fence))
-> > +		if (dma_fence_is_i915(fence)) {
-> > +			if (is_same_parallel_context(rq, to_request(fence)))
-> > +				continue;
-> >   			ret = __i915_request_await_execution(rq,
-> >   							     to_request(fence));
-> > -		else
-> > +		} else {
-> >   			ret = i915_request_await_external(rq, fence);
-> > +		}
-> >   		if (ret < 0)
-> >   			return ret;
-> >   	} while (--nchild);
-> > @@ -1461,10 +1483,13 @@ i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
-> >   						 fence))
-> >   			continue;
-> > -		if (dma_fence_is_i915(fence))
-> > +		if (dma_fence_is_i915(fence)) {
-> > +			if (is_same_parallel_context(rq, to_request(fence)))
-> > +				continue;
-> >   			ret = i915_request_await_request(rq, to_request(fence));
-> > -		else
-> > +		} else {
-> >   			ret = i915_request_await_external(rq, fence);
-> > +		}
-> >   		if (ret < 0)
-> >   			return ret;
-> > @@ -1539,16 +1564,6 @@ i915_request_await_object(struct i915_request *to,
-> >   	return ret;
-> >   }
-> > -static inline bool is_parallel_rq(struct i915_request *rq)
-> > -{
-> > -	return intel_context_is_parallel(rq->context);
-> > -}
-> > -
-> > -static inline struct intel_context *request_to_parent(struct i915_request *rq)
-> > -{
-> > -	return intel_context_to_parent(rq->context);
-> > -}
-> > -
-> >   static struct i915_request *
-> >   __i915_request_ensure_parallel_ordering(struct i915_request *rq,
-> >   					struct intel_timeline *timeline)
-> 
+  Here are the changes found in Patchwork_21322 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - fi-cml-u2:          [PASS][1] -> [DMESG-WARN][2] ([i915#4269])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
+    - fi-cfl-8109u:       [PASS][3] -> [FAIL][4] ([i915#2546])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - {fi-hsw-gt1}:       [DMESG-WARN][5] ([i915#3303]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@perf:
+    - {fi-tgl-dsi}:       [DMESG-WARN][7] ([i915#2867]) -> [PASS][8] +9 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-tgl-dsi/igt@i915_selftest@live@perf.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-tgl-dsi/igt@i915_selftest@live@perf.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#2546]: https://gitlab.freedesktop.org/drm/intel/issues/2546
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#4269]: https://gitlab.freedesktop.org/drm/intel/issues/4269
+
+
+Participating hosts (41 -> 37)
+------------------------------
+
+  Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bsw-cyan fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10728 -> Patchwork_21322
+
+  CI-20190529: 20190529
+  CI_DRM_10728: 82a9f298afec66c882e710078138891826ce5e22 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6242: 721fd85ee95225ed5df322f7182bdfa9b86a3e68 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21322: 2d8fe0d5ae991894e924613b34d8e9212d2bd889 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+2d8fe0d5ae99 drm/i915/gt: move remaining debugfs interfaces into gt
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/index.html
+
+--===============0802761168941410751==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: move remaining debugfs interfaces into gt (rev12)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/75333/">https://patchwork.freedesktop.org/series/75333/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10728 -&gt; Patchwork_21322</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21322 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>
+<p>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4269">i915#4269</a>)</p>
+</li>
+<li>
+<p>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2546">i915#2546</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@perf:</p>
+<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10728/fi-tgl-dsi/igt@i915_selftest@live@perf.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21322/fi-tgl-dsi/igt@i915_selftest@live@perf.html">PASS</a> +9 similar issues</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (41 -&gt; 37)</h2>
+<p>Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bsw-cyan fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10728 -&gt; Patchwork_21322</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10728: 82a9f298afec66c882e710078138891826ce5e22 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6242: 721fd85ee95225ed5df322f7182bdfa9b86a3e68 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21322: 2d8fe0d5ae991894e924613b34d8e9212d2bd889 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>2d8fe0d5ae99 drm/i915/gt: move remaining debugfs interfaces into gt</p>
+
+</body>
+</html>
+
+--===============0802761168941410751==--
