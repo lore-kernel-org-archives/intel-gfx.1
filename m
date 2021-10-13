@@ -2,44 +2,44 @@ Return-Path: <SRS0=fYpC=PB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14415C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFBFEC433EF
 	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEBFB61139
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DEBFB61139
+	by mail.kernel.org (Postfix) with ESMTPS id AF50461139
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:56:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AF50461139
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4B6D6EBA4;
-	Wed, 13 Oct 2021 20:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6E36EBC4;
+	Wed, 13 Oct 2021 20:56:09 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0C16EB6C;
- Wed, 13 Oct 2021 20:56:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="214690408"
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="214690408"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D43B26EB6B;
+ Wed, 13 Oct 2021 20:55:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="214690384"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="214690384"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 13:47:23 -0700
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524782807"
+ 13 Oct 2021 13:47:20 -0700
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524782723"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 13:47:23 -0700
+ 13 Oct 2021 13:47:20 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>
-Date: Wed, 13 Oct 2021 13:42:31 -0700
-Message-Id: <20211013204231.19287-26-matthew.brost@intel.com>
+Date: Wed, 13 Oct 2021 13:42:16 -0700
+Message-Id: <20211013204231.19287-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211013204231.19287-1-matthew.brost@intel.com>
 References: <20211013204231.19287-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 25/25] drm/i915/execlists: Weak parallel
- submission support for execlists
+Subject: [Intel-gfx] [PATCH 10/25] drm/i915/guc: Assign contexts in
+ parent-child relationship consecutive guc_ids
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,180 +55,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A weak implementation of parallel submission (multi-bb execbuf IOCTL) for
-execlists. Doing as little as possible to support this interface for
-execlists - basically just passing submit fences between each request
-generated and virtual engines are not allowed. This is on par with what
-is there for the existing (hopefully soon deprecated) bonding interface.
+Assign contexts in parent-child relationship consecutive guc_ids. This
+is accomplished by partitioning guc_id space between ones that need to
+be consecutive (1/16 available guc_ids) and ones that do not (15/16 of
+available guc_ids). The consecutive search is implemented via the bitmap
+API.
 
-We perma-pin these execlists contexts to align with GuC implementation.
+This is a precursor to the full GuC multi-lrc implementation but aligns
+to how GuC mutli-lrc interface is defined - guc_ids must be consecutive
+when using the GuC multi-lrc interface.
+
+v2:
+ (Daniel Vetter)
+  - Explicitly state why we assign consecutive guc_ids
+v3:
+ (John Harrison)
+  - Bring back in spin lock
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 10 ++--
- drivers/gpu/drm/i915/gt/intel_context.c       |  4 +-
- .../drm/i915/gt/intel_execlists_submission.c  | 56 ++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_lrc.c           |  2 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 -
- 5 files changed, 64 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   6 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 104 ++++++++++++++----
+ 2 files changed, 86 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 66c7f3c0d08b..c1436f21b271 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -570,10 +570,6 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
- 	struct intel_engine_cs **siblings = NULL;
- 	intel_engine_mask_t prev_mask;
- 
--	/* FIXME: This is NIY for execlists */
--	if (!(intel_uc_uses_guc_submission(&i915->gt.uc)))
--		return -ENODEV;
--
- 	if (get_user(slot, &ext->engine_index))
- 		return -EFAULT;
- 
-@@ -583,6 +579,12 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
- 	if (get_user(num_siblings, &ext->num_siblings))
- 		return -EFAULT;
- 
-+	if (!intel_uc_uses_guc_submission(&i915->gt.uc) && num_siblings != 1) {
-+		drm_dbg(&i915->drm, "Only 1 sibling (%d) supported in non-GuC mode\n",
-+			num_siblings);
-+		return -EINVAL;
-+	}
-+
- 	if (slot >= set->num_engines) {
- 		drm_dbg(&i915->drm, "Invalid placement value, %d >= %d\n",
- 			slot, set->num_engines);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 5634d14052bc..1bec92e1d8e6 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -79,7 +79,8 @@ static int intel_context_active_acquire(struct intel_context *ce)
- 
- 	__i915_active_acquire(&ce->active);
- 
--	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
-+	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine) ||
-+	    intel_context_is_parallel(ce))
- 		return 0;
- 
- 	/* Preallocate tracking nodes */
-@@ -563,7 +564,6 @@ void intel_context_bind_parent_child(struct intel_context *parent,
- 	 * Callers responsibility to validate that this function is used
- 	 * correctly but we use GEM_BUG_ON here ensure that they do.
- 	 */
--	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
- 	GEM_BUG_ON(intel_context_is_pinned(parent));
- 	GEM_BUG_ON(intel_context_is_child(parent));
- 	GEM_BUG_ON(intel_context_is_pinned(child));
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index bedb80057046..8cd986bdf26c 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -927,8 +927,7 @@ static void execlists_submit_ports(struct intel_engine_cs *engine)
- 
- static bool ctx_single_port_submission(const struct intel_context *ce)
- {
--	return (IS_ENABLED(CONFIG_DRM_I915_GVT) &&
--		intel_context_force_single_submission(ce));
-+	return intel_context_force_single_submission(ce);
- }
- 
- static bool can_merge_ctx(const struct intel_context *prev,
-@@ -2598,6 +2597,58 @@ static void execlists_context_cancel_request(struct intel_context *ce,
- 				      current->comm);
- }
- 
-+static struct intel_context *
-+execlists_create_parallel(struct intel_engine_cs **engines,
-+			  unsigned int num_siblings,
-+			  unsigned int width)
-+{
-+	struct intel_engine_cs **siblings = NULL;
-+	struct intel_context *parent = NULL, *ce, *err;
-+	int i, j;
-+
-+	GEM_BUG_ON(num_siblings != 1);
-+
-+	siblings = kmalloc_array(num_siblings,
-+				 sizeof(*siblings),
-+				 GFP_KERNEL);
-+	if (!siblings)
-+		return ERR_PTR(-ENOMEM);
-+
-+	for (i = 0; i < width; ++i) {
-+		for (j = 0; j < num_siblings; ++j)
-+			siblings[j] = engines[i * num_siblings + j];
-+
-+		ce = intel_context_create(siblings[0]);
-+		if (!ce) {
-+			err = ERR_PTR(-ENOMEM);
-+			goto unwind;
-+		}
-+
-+		if (i == 0)
-+			parent = ce;
-+		else
-+			intel_context_bind_parent_child(parent, ce);
-+	}
-+
-+	parent->parallel.fence_context = dma_fence_context_alloc(1);
-+
-+	intel_context_set_nopreempt(parent);
-+	intel_context_set_single_submission(parent);
-+	for_each_child(parent, ce) {
-+		intel_context_set_nopreempt(ce);
-+		intel_context_set_single_submission(ce);
-+	}
-+
-+	kfree(siblings);
-+	return parent;
-+
-+unwind:
-+	if (parent)
-+		intel_context_put(parent);
-+	kfree(siblings);
-+	return err;
-+}
-+
- static const struct intel_context_ops execlists_context_ops = {
- 	.flags = COPS_HAS_INFLIGHT,
- 
-@@ -2616,6 +2667,7 @@ static const struct intel_context_ops execlists_context_ops = {
- 	.reset = lrc_reset,
- 	.destroy = lrc_destroy,
- 
-+	.create_parallel = execlists_create_parallel,
- 	.create_virtual = execlists_create_virtual,
- };
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 57339d5c1fc8..8137d0aabf99 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1065,6 +1065,8 @@ lrc_pin(struct intel_context *ce,
- 
- void lrc_unpin(struct intel_context *ce)
- {
-+	if (unlikely(ce->parallel.last_rq))
-+		i915_request_put(ce->parallel.last_rq);
- 	check_redzone((void *)ce->lrc_reg_state - LRC_STATE_OFFSET,
- 		      ce->engine);
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 74f071a0b6d5..4ca197f400ba 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -82,9 +82,13 @@ struct intel_guc {
+ 		 */
+ 		spinlock_t lock;
+ 		/**
+-		 * @guc_ids: used to allocate new guc_ids
++		 * @guc_ids: used to allocate new guc_ids, single-lrc
+ 		 */
+ 		struct ida guc_ids;
++		/**
++		 * @guc_ids_bitmap: used to allocate new guc_ids, multi-lrc
++		 */
++		unsigned long *guc_ids_bitmap;
+ 		/**
+ 		 * @guc_id_list: list of intel_context with valid guc_ids but no
+ 		 * refs
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 80d8ce68ff59..c4f735863e95 100644
+index abf867f4f659..c4d7a5c3b558 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2966,8 +2966,6 @@ static void guc_parent_context_unpin(struct intel_context *ce)
- 	GEM_BUG_ON(!intel_context_is_parent(ce));
- 	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
+@@ -128,6 +128,16 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count);
  
--	if (ce->parallel.last_rq)
--		i915_request_put(ce->parallel.last_rq);
- 	unpin_guc_id(guc, ce);
- 	lrc_unpin(ce);
+ #define GUC_REQUEST_SIZE 64 /* bytes */
+ 
++/*
++ * We reserve 1/16 of the guc_ids for multi-lrc as these need to be contiguous
++ * per the GuC submission interface. A different allocation algorithm is used
++ * (bitmap vs. ida) between multi-lrc and single-lrc hence the reason to
++ * partition the guc_id space. We believe the number of multi-lrc contexts in
++ * use should be low and 1/16 should be sufficient. Minimum of 32 guc_ids for
++ * multi-lrc.
++ */
++#define NUMBER_MULTI_LRC_GUC_ID		(GUC_MAX_LRC_DESCRIPTORS / 16)
++
+ /*
+  * Below is a set of functions which control the GuC scheduling state which
+  * require a lock.
+@@ -1208,6 +1218,11 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 	INIT_WORK(&guc->submission_state.destroyed_worker,
+ 		  destroyed_worker_func);
+ 
++	guc->submission_state.guc_ids_bitmap =
++		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID, GFP_KERNEL);
++	if (!guc->submission_state.guc_ids_bitmap)
++		return -ENOMEM;
++
+ 	return 0;
  }
+ 
+@@ -1219,6 +1234,7 @@ void intel_guc_submission_fini(struct intel_guc *guc)
+ 	guc_flush_destroyed_contexts(guc);
+ 	guc_lrc_desc_pool_destroy(guc);
+ 	i915_sched_engine_put(guc->sched_engine);
++	bitmap_free(guc->submission_state.guc_ids_bitmap);
+ }
+ 
+ static inline void queue_request(struct i915_sched_engine *sched_engine,
+@@ -1270,18 +1286,43 @@ static void guc_submit_request(struct i915_request *rq)
+ 	spin_unlock_irqrestore(&sched_engine->lock, flags);
+ }
+ 
+-static int new_guc_id(struct intel_guc *guc)
++static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ {
+-	return ida_simple_get(&guc->submission_state.guc_ids, 0,
+-			      GUC_MAX_LRC_DESCRIPTORS, GFP_KERNEL |
+-			      __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
++	int ret;
++
++	GEM_BUG_ON(intel_context_is_child(ce));
++
++	if (intel_context_is_parent(ce))
++		ret = bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
++					      NUMBER_MULTI_LRC_GUC_ID,
++					      order_base_2(ce->parallel.number_children
++							   + 1));
++	else
++		ret = ida_simple_get(&guc->submission_state.guc_ids,
++				     NUMBER_MULTI_LRC_GUC_ID,
++				     GUC_MAX_LRC_DESCRIPTORS,
++				     GFP_KERNEL | __GFP_RETRY_MAYFAIL |
++				     __GFP_NOWARN);
++	if (unlikely(ret < 0))
++		return ret;
++
++	ce->guc_id.id = ret;
++	return 0;
+ }
+ 
+ static void __release_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ {
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	if (!context_guc_id_invalid(ce)) {
+-		ida_simple_remove(&guc->submission_state.guc_ids,
+-				  ce->guc_id.id);
++		if (intel_context_is_parent(ce))
++			bitmap_release_region(guc->submission_state.guc_ids_bitmap,
++					      ce->guc_id.id,
++					      order_base_2(ce->parallel.number_children
++							   + 1));
++		else
++			ida_simple_remove(&guc->submission_state.guc_ids,
++					  ce->guc_id.id);
+ 		reset_lrc_desc(guc, ce->guc_id.id);
+ 		set_context_guc_id_invalid(ce);
+ 	}
+@@ -1298,49 +1339,64 @@ static void release_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ 	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
+ }
+ 
+-static int steal_guc_id(struct intel_guc *guc)
++static int steal_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ {
+-	struct intel_context *ce;
+-	int guc_id;
++	struct intel_context *cn;
+ 
+ 	lockdep_assert_held(&guc->submission_state.lock);
++	GEM_BUG_ON(intel_context_is_child(ce));
++	GEM_BUG_ON(intel_context_is_parent(ce));
+ 
+ 	if (!list_empty(&guc->submission_state.guc_id_list)) {
+-		ce = list_first_entry(&guc->submission_state.guc_id_list,
++		cn = list_first_entry(&guc->submission_state.guc_id_list,
+ 				      struct intel_context,
+ 				      guc_id.link);
+ 
+-		GEM_BUG_ON(atomic_read(&ce->guc_id.ref));
+-		GEM_BUG_ON(context_guc_id_invalid(ce));
++		GEM_BUG_ON(atomic_read(&cn->guc_id.ref));
++		GEM_BUG_ON(context_guc_id_invalid(cn));
++		GEM_BUG_ON(intel_context_is_child(cn));
++		GEM_BUG_ON(intel_context_is_parent(cn));
+ 
+-		list_del_init(&ce->guc_id.link);
+-		guc_id = ce->guc_id.id;
++		list_del_init(&cn->guc_id.link);
++		ce->guc_id = cn->guc_id;
+ 
+ 		spin_lock(&ce->guc_state.lock);
+-		clr_context_registered(ce);
++		clr_context_registered(cn);
+ 		spin_unlock(&ce->guc_state.lock);
+ 
+-		set_context_guc_id_invalid(ce);
+-		return guc_id;
++		set_context_guc_id_invalid(cn);
++
++		return 0;
+ 	} else {
+ 		return -EAGAIN;
+ 	}
+ }
+ 
+-static int assign_guc_id(struct intel_guc *guc, u16 *out)
++static int assign_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ {
+ 	int ret;
+ 
+ 	lockdep_assert_held(&guc->submission_state.lock);
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 
+-	ret = new_guc_id(guc);
++	ret = new_guc_id(guc, ce);
+ 	if (unlikely(ret < 0)) {
+-		ret = steal_guc_id(guc);
++		if (intel_context_is_parent(ce))
++			return -ENOSPC;
++
++		ret = steal_guc_id(guc, ce);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
+ 
+-	*out = ret;
++	if (intel_context_is_parent(ce)) {
++		struct intel_context *child;
++		int i = 1;
++
++		for_each_child(ce, child)
++			child->guc_id.id = ce->guc_id.id + i++;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -1358,7 +1414,7 @@ static int pin_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ 	might_lock(&ce->guc_state.lock);
+ 
+ 	if (context_guc_id_invalid(ce)) {
+-		ret = assign_guc_id(guc, &ce->guc_id.id);
++		ret = assign_guc_id(guc, ce);
+ 		if (ret)
+ 			goto out_unlock;
+ 		ret = 1;	/* Indidcates newly assigned guc_id */
+@@ -1400,8 +1456,10 @@ static void unpin_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ 	unsigned long flags;
+ 
+ 	GEM_BUG_ON(atomic_read(&ce->guc_id.ref) < 0);
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 
+-	if (unlikely(context_guc_id_invalid(ce)))
++	if (unlikely(context_guc_id_invalid(ce) ||
++		     intel_context_is_parent(ce)))
+ 		return;
+ 
+ 	spin_lock_irqsave(&guc->submission_state.lock, flags);
 -- 
 2.32.0
 
