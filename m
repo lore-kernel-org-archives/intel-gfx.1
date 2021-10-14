@@ -2,45 +2,43 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32A88C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF5DBC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F36A6610A0
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F36A6610A0
+	by mail.kernel.org (Postfix) with ESMTPS id B8B1A6109E
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B8B1A6109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F366EC65;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC5BE6EC88;
 	Thu, 14 Oct 2021 22:09:44 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E2A6E8D7
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 22:09:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="227754437"
-X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="227754437"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36BD36E8DF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 22:09:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="227754447"
+X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="227754447"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 15:09:28 -0700
-X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="492211764"
+ 14 Oct 2021 15:09:33 -0700
+X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="492211782"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 15:09:27 -0700
+ 14 Oct 2021 15:09:32 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Date: Fri, 15 Oct 2021 01:09:12 +0300
-Message-Id: <20211014220921.683870-3-imre.deak@intel.com>
+Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+Date: Fri, 15 Oct 2021 01:09:15 +0300
+Message-Id: <20211014220921.683870-6-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211014220921.683870-1-imre.deak@intel.com>
 References: <20211014220921.683870-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 02/11] drm/i915: Move intel_get_format_info()
- to intel_fb.c
+Subject: [Intel-gfx] [PATCH v3 05/11] drm/i915: Unexport
+ is_semiplanar_uv_plane()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,395 +54,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the function retrieving the format override information for a given
-format/modifier to intel_fb.c. We can store a pointer to the format list
-in each modifier's descriptor instead of the corresponding switch/case
-logic, avoiding the listing of the modifiers twice.
-
-v1: Unchanged.
-v2: Handle invalid modifiers in intel_fb_get_format_info() passed from
-    userspace. (CI/igt_kms_addfb_basic/addfb25-bad-modifier)
-v3: Move lookup_modifier() to the next patch, where it's first used.
+This function is only used by intel_fb.c, so unexport it.
 
 Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 132 +---------------
- drivers/gpu/drm/i915/display/intel_fb.c      | 153 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_fb.h      |   3 +
- 3 files changed, 157 insertions(+), 131 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_fb.h | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ff598b6cd9530..0f42beef2551e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -897,136 +897,6 @@ void intel_add_fb_offsets(int *x, int *y,
- 	*y += state->view.color_plane[color_plane].y;
- }
- 
--/*
-- * From the Sky Lake PRM:
-- * "The Color Control Surface (CCS) contains the compression status of
-- *  the cache-line pairs. The compression state of the cache-line pair
-- *  is specified by 2 bits in the CCS. Each CCS cache-line represents
-- *  an area on the main surface of 16 x16 sets of 128 byte Y-tiled
-- *  cache-line-pairs. CCS is always Y tiled."
-- *
-- * Since cache line pairs refers to horizontally adjacent cache lines,
-- * each cache line in the CCS corresponds to an area of 32x16 cache
-- * lines on the main surface. Since each pixel is 4 bytes, this gives
-- * us a ratio of one byte in the CCS for each 8x16 pixels in the
-- * main surface.
-- */
--static const struct drm_format_info skl_ccs_formats[] = {
--	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 2,
--	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, },
--	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 2,
--	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, },
--	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 2,
--	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, .has_alpha = true, },
--	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 2,
--	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, .has_alpha = true, },
--};
--
--/*
-- * Gen-12 compression uses 4 bits of CCS data for each cache line pair in the
-- * main surface. And each 64B CCS cache line represents an area of 4x1 Y-tiles
-- * in the main surface. With 4 byte pixels and each Y-tile having dimensions of
-- * 32x32 pixels, the ratio turns out to 1B in the CCS for every 2x32 pixels in
-- * the main surface.
-- */
--static const struct drm_format_info gen12_ccs_formats[] = {
--	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 2,
--	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 1, .vsub = 1, },
--	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 2,
--	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 1, .vsub = 1, },
--	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 2,
--	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 1, .vsub = 1, .has_alpha = true },
--	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 2,
--	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 1, .vsub = 1, .has_alpha = true },
--	{ .format = DRM_FORMAT_YUYV, .num_planes = 2,
--	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 2, .vsub = 1, .is_yuv = true },
--	{ .format = DRM_FORMAT_YVYU, .num_planes = 2,
--	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 2, .vsub = 1, .is_yuv = true },
--	{ .format = DRM_FORMAT_UYVY, .num_planes = 2,
--	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 2, .vsub = 1, .is_yuv = true },
--	{ .format = DRM_FORMAT_VYUY, .num_planes = 2,
--	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 2, .vsub = 1, .is_yuv = true },
--	{ .format = DRM_FORMAT_XYUV8888, .num_planes = 2,
--	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
--	  .hsub = 1, .vsub = 1, .is_yuv = true },
--	{ .format = DRM_FORMAT_NV12, .num_planes = 4,
--	  .char_per_block = { 1, 2, 1, 1 }, .block_w = { 1, 1, 4, 4 }, .block_h = { 1, 1, 1, 1 },
--	  .hsub = 2, .vsub = 2, .is_yuv = true },
--	{ .format = DRM_FORMAT_P010, .num_planes = 4,
--	  .char_per_block = { 2, 4, 1, 1 }, .block_w = { 1, 1, 2, 2 }, .block_h = { 1, 1, 1, 1 },
--	  .hsub = 2, .vsub = 2, .is_yuv = true },
--	{ .format = DRM_FORMAT_P012, .num_planes = 4,
--	  .char_per_block = { 2, 4, 1, 1 }, .block_w = { 1, 1, 2, 2 }, .block_h = { 1, 1, 1, 1 },
--	  .hsub = 2, .vsub = 2, .is_yuv = true },
--	{ .format = DRM_FORMAT_P016, .num_planes = 4,
--	  .char_per_block = { 2, 4, 1, 1 }, .block_w = { 1, 1, 2, 2 }, .block_h = { 1, 1, 1, 1 },
--	  .hsub = 2, .vsub = 2, .is_yuv = true },
--};
--
--/*
-- * Same as gen12_ccs_formats[] above, but with additional surface used
-- * to pass Clear Color information in plane 2 with 64 bits of data.
-- */
--static const struct drm_format_info gen12_ccs_cc_formats[] = {
--	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 3,
--	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
--	  .hsub = 1, .vsub = 1, },
--	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 3,
--	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
--	  .hsub = 1, .vsub = 1, },
--	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 3,
--	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
--	  .hsub = 1, .vsub = 1, .has_alpha = true },
--	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 3,
--	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
--	  .hsub = 1, .vsub = 1, .has_alpha = true },
--};
--
--static const struct drm_format_info *
--lookup_format_info(const struct drm_format_info formats[],
--		   int num_formats, u32 format)
--{
--	int i;
--
--	for (i = 0; i < num_formats; i++) {
--		if (formats[i].format == format)
--			return &formats[i];
--	}
--
--	return NULL;
--}
--
--static const struct drm_format_info *
--intel_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
--{
--	switch (cmd->modifier[0]) {
--	case I915_FORMAT_MOD_Y_TILED_CCS:
--	case I915_FORMAT_MOD_Yf_TILED_CCS:
--		return lookup_format_info(skl_ccs_formats,
--					  ARRAY_SIZE(skl_ccs_formats),
--					  cmd->pixel_format);
--	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS:
--	case I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS:
--		return lookup_format_info(gen12_ccs_formats,
--					  ARRAY_SIZE(gen12_ccs_formats),
--					  cmd->pixel_format);
--	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC:
--		return lookup_format_info(gen12_ccs_cc_formats,
--					  ARRAY_SIZE(gen12_ccs_cc_formats),
--					  cmd->pixel_format);
--	default:
--		return NULL;
--	}
--}
--
- u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
- 			      u32 pixel_format, u64 modifier)
- {
-@@ -10573,7 +10443,7 @@ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
- 
- static const struct drm_mode_config_funcs intel_mode_funcs = {
- 	.fb_create = intel_user_framebuffer_create,
--	.get_format_info = intel_get_format_info,
-+	.get_format_info = intel_fb_get_format_info,
- 	.output_poll_changed = intel_fbdev_output_poll_changed,
- 	.mode_valid = intel_mode_valid,
- 	.atomic_check = intel_atomic_check,
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 015d0655e65e3..772a68a9f65b0 100644
+index 06697379a9917..6f618ca01ba01 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.c
 +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -13,6 +13,99 @@
+@@ -364,7 +364,7 @@ bool is_gen12_ccs_cc_plane(const struct drm_framebuffer *fb, int plane)
+ 	       plane == 2;
+ }
  
- #define check_array_bounds(i915, a, i) drm_WARN_ON(&(i915)->drm, (i) >= ARRAY_SIZE(a))
- 
-+/*
-+ * From the Sky Lake PRM:
-+ * "The Color Control Surface (CCS) contains the compression status of
-+ *  the cache-line pairs. The compression state of the cache-line pair
-+ *  is specified by 2 bits in the CCS. Each CCS cache-line represents
-+ *  an area on the main surface of 16 x16 sets of 128 byte Y-tiled
-+ *  cache-line-pairs. CCS is always Y tiled."
-+ *
-+ * Since cache line pairs refers to horizontally adjacent cache lines,
-+ * each cache line in the CCS corresponds to an area of 32x16 cache
-+ * lines on the main surface. Since each pixel is 4 bytes, this gives
-+ * us a ratio of one byte in the CCS for each 8x16 pixels in the
-+ * main surface.
-+ */
-+static const struct drm_format_info skl_ccs_formats[] = {
-+	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 2,
-+	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, },
-+	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 2,
-+	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, },
-+	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 2,
-+	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, .has_alpha = true, },
-+	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 2,
-+	  .cpp = { 4, 1, }, .hsub = 8, .vsub = 16, .has_alpha = true, },
-+};
-+
-+/*
-+ * Gen-12 compression uses 4 bits of CCS data for each cache line pair in the
-+ * main surface. And each 64B CCS cache line represents an area of 4x1 Y-tiles
-+ * in the main surface. With 4 byte pixels and each Y-tile having dimensions of
-+ * 32x32 pixels, the ratio turns out to 1B in the CCS for every 2x32 pixels in
-+ * the main surface.
-+ */
-+static const struct drm_format_info gen12_ccs_formats[] = {
-+	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 2,
-+	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 1, .vsub = 1, },
-+	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 2,
-+	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 1, .vsub = 1, },
-+	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 2,
-+	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 1, .vsub = 1, .has_alpha = true },
-+	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 2,
-+	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 1, .vsub = 1, .has_alpha = true },
-+	{ .format = DRM_FORMAT_YUYV, .num_planes = 2,
-+	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 2, .vsub = 1, .is_yuv = true },
-+	{ .format = DRM_FORMAT_YVYU, .num_planes = 2,
-+	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 2, .vsub = 1, .is_yuv = true },
-+	{ .format = DRM_FORMAT_UYVY, .num_planes = 2,
-+	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 2, .vsub = 1, .is_yuv = true },
-+	{ .format = DRM_FORMAT_VYUY, .num_planes = 2,
-+	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 2, .vsub = 1, .is_yuv = true },
-+	{ .format = DRM_FORMAT_XYUV8888, .num_planes = 2,
-+	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-+	  .hsub = 1, .vsub = 1, .is_yuv = true },
-+	{ .format = DRM_FORMAT_NV12, .num_planes = 4,
-+	  .char_per_block = { 1, 2, 1, 1 }, .block_w = { 1, 1, 4, 4 }, .block_h = { 1, 1, 1, 1 },
-+	  .hsub = 2, .vsub = 2, .is_yuv = true },
-+	{ .format = DRM_FORMAT_P010, .num_planes = 4,
-+	  .char_per_block = { 2, 4, 1, 1 }, .block_w = { 1, 1, 2, 2 }, .block_h = { 1, 1, 1, 1 },
-+	  .hsub = 2, .vsub = 2, .is_yuv = true },
-+	{ .format = DRM_FORMAT_P012, .num_planes = 4,
-+	  .char_per_block = { 2, 4, 1, 1 }, .block_w = { 1, 1, 2, 2 }, .block_h = { 1, 1, 1, 1 },
-+	  .hsub = 2, .vsub = 2, .is_yuv = true },
-+	{ .format = DRM_FORMAT_P016, .num_planes = 4,
-+	  .char_per_block = { 2, 4, 1, 1 }, .block_w = { 1, 1, 2, 2 }, .block_h = { 1, 1, 1, 1 },
-+	  .hsub = 2, .vsub = 2, .is_yuv = true },
-+};
-+
-+/*
-+ * Same as gen12_ccs_formats[] above, but with additional surface used
-+ * to pass Clear Color information in plane 2 with 64 bits of data.
-+ */
-+static const struct drm_format_info gen12_ccs_cc_formats[] = {
-+	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 3,
-+	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
-+	  .hsub = 1, .vsub = 1, },
-+	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 3,
-+	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
-+	  .hsub = 1, .vsub = 1, },
-+	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 3,
-+	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
-+	  .hsub = 1, .vsub = 1, .has_alpha = true },
-+	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 3,
-+	  .char_per_block = { 4, 1, 0 }, .block_w = { 1, 2, 2 }, .block_h = { 1, 1, 1 },
-+	  .hsub = 1, .vsub = 1, .has_alpha = true },
-+};
-+
- struct intel_modifier_desc {
- 	u64 modifier;
- 	struct {
-@@ -21,6 +114,12 @@ struct intel_modifier_desc {
- 	} display_ver;
- #define DISPLAY_VER_ALL		{ 0, -1 }
- 
-+	const struct drm_format_info *formats;
-+	int format_count;
-+#define FORMAT_OVERRIDE(format_list) \
-+	.formats = format_list, \
-+	.format_count = ARRAY_SIZE(format_list)
-+
- 	u8 is_linear:1;
- 
- 	struct {
-@@ -57,33 +156,87 @@ static const struct intel_modifier_desc intel_modifiers[] = {
- 		.display_ver = { 9, 11 },
- 
- 		.ccs.type = INTEL_CCS_RC,
-+
-+		FORMAT_OVERRIDE(skl_ccs_formats),
- 	},
- 	{
- 		.modifier = I915_FORMAT_MOD_Yf_TILED_CCS,
- 		.display_ver = { 9, 11 },
- 
- 		.ccs.type = INTEL_CCS_RC,
-+
-+		FORMAT_OVERRIDE(skl_ccs_formats),
- 	},
- 	{
- 		.modifier = I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS,
- 		.display_ver = { 12, 13 },
- 
- 		.ccs.type = INTEL_CCS_RC,
-+
-+		FORMAT_OVERRIDE(gen12_ccs_formats),
- 	},
- 	{
- 		.modifier = I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC,
- 		.display_ver = { 12, 13 },
- 
- 		.ccs.type = INTEL_CCS_RC_CC,
-+
-+		FORMAT_OVERRIDE(gen12_ccs_cc_formats),
- 	},
- 	{
- 		.modifier = I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS,
- 		.display_ver = { 12, 13 },
- 
- 		.ccs.type = INTEL_CCS_MC,
-+
-+		FORMAT_OVERRIDE(gen12_ccs_formats),
- 	},
- };
- 
-+static const struct intel_modifier_desc *lookup_modifier_or_null(u64 modifier)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(intel_modifiers); i++)
-+		if (intel_modifiers[i].modifier == modifier)
-+			return &intel_modifiers[i];
-+
-+	return NULL;
-+}
-+
-+static const struct drm_format_info *
-+lookup_format_info(const struct drm_format_info formats[],
-+		   int num_formats, u32 format)
-+{
-+	int i;
-+
-+	for (i = 0; i < num_formats; i++) {
-+		if (formats[i].format == format)
-+			return &formats[i];
-+	}
-+
-+	return NULL;
-+}
-+
-+/**
-+ * intel_fb_get_format_info: Get a modifier specific format information
-+ * @cmd: FB add command structure
-+ *
-+ * Returns:
-+ * Returns the format information for @cmd->pixel_format specific to @cmd->modifier[0],
-+ * or %NULL if the modifier doesn't override the format.
-+ */
-+const struct drm_format_info *
-+intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
-+{
-+	const struct intel_modifier_desc *md = lookup_modifier_or_null(cmd->modifier[0]);
-+
-+	if (!md || !md->formats)
-+		return NULL;
-+
-+	return lookup_format_info(md->formats, md->format_count, cmd->pixel_format);
-+}
-+
- static bool is_ccs_type_modifier(const struct intel_modifier_desc *md, u8 ccs_type)
+-bool is_semiplanar_uv_plane(const struct drm_framebuffer *fb, int color_plane)
++static bool is_semiplanar_uv_plane(const struct drm_framebuffer *fb, int color_plane)
  {
- 	return md->ccs.type & ccs_type;
+ 	return intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier) &&
+ 		color_plane == 1;
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
-index 0f77e81e69d29..97b31c3a29825 100644
+index 97b31c3a29825..c331df575490d 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.h
 +++ b/drivers/gpu/drm/i915/display/intel_fb.h
-@@ -36,6 +36,9 @@ u64 *intel_fb_plane_get_modifiers(struct drm_i915_private *i915,
+@@ -30,7 +30,6 @@ enum intel_plane_caps {
+ bool is_ccs_plane(const struct drm_framebuffer *fb, int plane);
+ bool is_gen12_ccs_plane(const struct drm_framebuffer *fb, int plane);
+ bool is_gen12_ccs_cc_plane(const struct drm_framebuffer *fb, int plane);
+-bool is_semiplanar_uv_plane(const struct drm_framebuffer *fb, int color_plane);
+ 
+ u64 *intel_fb_plane_get_modifiers(struct drm_i915_private *i915,
  				  enum intel_plane_caps plane_caps);
- bool intel_fb_plane_supports_modifier(struct intel_plane *plane, u64 modifier);
- 
-+const struct drm_format_info *
-+intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
-+
- bool is_surface_linear(const struct drm_framebuffer *fb, int color_plane);
- 
- int main_to_ccs_plane(const struct drm_framebuffer *fb, int main_plane);
 -- 
 2.27.0
 
