@@ -2,44 +2,43 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C90D6C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A4B4C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 977B1604DC
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 977B1604DC
+	by mail.kernel.org (Postfix) with ESMTPS id 14092604DC
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 14092604DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BAD06E880;
-	Thu, 14 Oct 2021 17:47:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB9E6EA82;
+	Thu, 14 Oct 2021 17:47:51 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6928F6E817;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5F116E811;
  Thu, 14 Oct 2021 17:47:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="291231650"
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="291231650"
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="291231653"
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="291231653"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2021 10:25:04 -0700
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360479"
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360495"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 10:25:01 -0700
+ 14 Oct 2021 10:25:02 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>
-Date: Thu, 14 Oct 2021 10:20:01 -0700
-Message-Id: <20211014172005.27155-22-matthew.brost@intel.com>
+Date: Thu, 14 Oct 2021 10:20:04 -0700
+Message-Id: <20211014172005.27155-25-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211014172005.27155-1-matthew.brost@intel.com>
 References: <20211014172005.27155-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 21/25] drm/i915/guc: Handle errors in multi-lrc
- requests
+Subject: [Intel-gfx] [PATCH 24/25] drm/i915: Enable multi-bb execbuf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,129 +54,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If an error occurs in the front end when multi-lrc requests are getting
-generated we need to skip these in the backend but we still need to
-emit the breadcrumbs seqno. An issues arises because with multi-lrc
-breadcrumbs there is a handshake between the parent and children to make
-forward progress. If all the requests are not present this handshake
-doesn't work. To work around this, if multi-lrc request has an error we
-skip the handshake but still emit the breadcrumbs seqno.
-
-v2:
- (John Harrison)
-  - Add comment explaining the skipping of the handshake logic
-  - Fix typos in the commit message
-v3:
- (John Harrison)
-  - Fix up some comments about the math to NOP the ring
+Enable multi-bb execbuf by enabling the set_parallel extension.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 69 ++++++++++++++++++-
- 1 file changed, 66 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 361fab2cae99..d7710debcd47 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4070,8 +4070,8 @@ static int emit_bb_start_child_no_preempt_mid_batch(struct i915_request *rq,
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 9a00f11fef46..fb33d0322960 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -570,9 +570,6 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 	struct intel_engine_cs **siblings = NULL;
+ 	intel_engine_mask_t prev_mask;
  
- static u32 *
--emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
--						 u32 *cs)
-+__emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
-+						   u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
- 	u8 i;
-@@ -4099,6 +4099,45 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- 				  get_children_go_addr(ce),
- 				  0);
- 
-+	return cs;
-+}
-+
-+/*
-+ * If this true, a submission of multi-lrc requests had an error and the
-+ * requests need to be skipped. The front end (execuf IOCTL) should've called
-+ * i915_request_skip which squashes the BB but we still need to emit the fini
-+ * breadrcrumbs seqno write. At this point we don't know how many of the
-+ * requests in the multi-lrc submission were generated so we can't do the
-+ * handshake between the parent and children (e.g. if 4 requests should be
-+ * generated but 2nd hit an error only 1 would be seen by the GuC backend).
-+ * Simply skip the handshake, but still emit the breadcrumbd seqno, if an error
-+ * has occurred on any of the requests in submission / relationship.
-+ */
-+static inline bool skip_handshake(struct i915_request *rq)
-+{
-+	return test_bit(I915_FENCE_FLAG_SKIP_PARALLEL, &rq->fence.flags);
-+}
-+
-+static u32 *
-+emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
-+						 u32 *cs)
-+{
-+	struct intel_context *ce = rq->context;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	if (unlikely(skip_handshake(rq))) {
-+		/*
-+		 * NOP everything in __emit_fini_breadcrumb_parent_no_preempt_mid_batch,
-+		 * the -6 comes from the length of the emits below.
-+		 */
-+		memset(cs, 0, sizeof(u32) *
-+		       (ce->engine->emit_fini_breadcrumb_dw - 6));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+	} else {
-+		cs = __emit_fini_breadcrumb_parent_no_preempt_mid_batch(rq, cs);
-+	}
-+
- 	/* Emit fini breadcrumb */
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
-@@ -4115,7 +4154,8 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- }
- 
- static u32 *
--emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs)
-+__emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
-+						  u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
- 	struct intel_context *parent = intel_context_to_parent(ce);
-@@ -4142,6 +4182,29 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs
- 	*cs++ = get_children_go_addr(parent);
- 	*cs++ = 0;
- 
-+	return cs;
-+}
-+
-+static u32 *
-+emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
-+						u32 *cs)
-+{
-+	struct intel_context *ce = rq->context;
-+
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+
-+	if (unlikely(skip_handshake(rq))) {
-+		/*
-+		 * NOP everything in __emit_fini_breadcrumb_child_no_preempt_mid_batch,
-+		 * the -6 comes from the length of the emits below.
-+		 */
-+		memset(cs, 0, sizeof(u32) *
-+		       (ce->engine->emit_fini_breadcrumb_dw - 6));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+	} else {
-+		cs = __emit_fini_breadcrumb_child_no_preempt_mid_batch(rq, cs);
-+	}
-+
- 	/* Emit fini breadcrumb */
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
+-	/* Disabling for now */
+-	return -ENODEV;
+-
+ 	/* FIXME: This is NIY for execlists */
+ 	if (!(intel_uc_uses_guc_submission(&i915->gt.uc)))
+ 		return -ENODEV;
 -- 
 2.32.0
 
