@@ -2,28 +2,28 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92CA7C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB6B2C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FC9861056
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5FC9861056
+	by mail.kernel.org (Postfix) with ESMTPS id B86316105A
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:49:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B86316105A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA316E89B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E67C6E89C;
 	Thu, 14 Oct 2021 17:49:07 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A825A6E811;
- Thu, 14 Oct 2021 17:49:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="225208227"
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="225208227"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A4F6E811;
+ Thu, 14 Oct 2021 17:49:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="225208225"
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="225208225"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 10:25:02 -0700
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360411"
+ 14 Oct 2021 10:25:01 -0700
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360401"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2021 10:24:59 -0700
@@ -31,15 +31,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>
-Date: Thu, 14 Oct 2021 10:19:46 -0700
-Message-Id: <20211014172005.27155-7-matthew.brost@intel.com>
+Date: Thu, 14 Oct 2021 10:19:44 -0700
+Message-Id: <20211014172005.27155-5-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211014172005.27155-1-matthew.brost@intel.com>
 References: <20211014172005.27155-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/25] drm/i915: Expose logical engine instance
- to user
+Subject: [Intel-gfx] [PATCH 04/25] drm/i915/guc: Don't call
+ switch_to_kernel_context with GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +55,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose logical engine instance to user via query engine info IOCTL. This
-is required for split-frame workloads as these needs to be placed on
-engines in a logically contiguous order. The logical mapping can change
-based on fusing. Rather than having user have knowledge of the fusing we
-simply just expose the logical mapping with the existing query engine
-info IOCTL.
-
-IGT: https://patchwork.freedesktop.org/patch/445637/?series=92854&rev=1
-media UMD: https://github.com/intel/media-driver/pull/1252
+Calling switch_to_kernel_context isn't needed if the engine PM reference
+is taken while all user contexts are pinned as if don't have PM ref that
+guarantees that all user contexts scheduling is disabled. By not calling
+switch_to_kernel_context we save on issuing a request to the engine.
 
 v2:
  (Daniel Vetter)
-  - Add IGT link, placeholder for media UMD
+  - Add FIXME comment about pushing switch_to_kernel_context to backend
+v3:
+ (John Harrison)
+  - Update commit message
+  - Fix workding comment
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/i915_query.c | 2 ++
- include/uapi/drm/i915_drm.h       | 8 +++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
-index 5e2b909827f4..51b368be0fc4 100644
---- a/drivers/gpu/drm/i915/i915_query.c
-+++ b/drivers/gpu/drm/i915/i915_query.c
-@@ -124,7 +124,9 @@ query_engine_info(struct drm_i915_private *i915,
- 	for_each_uabi_engine(engine, i915) {
- 		info.engine.engine_class = engine->uabi_class;
- 		info.engine.engine_instance = engine->uabi_instance;
-+		info.flags = I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE;
- 		info.capabilities = engine->uabi_capabilities;
-+		info.logical_instance = ilog2(engine->logical_mask);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index dacd62773735..a1334b48dde7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -162,6 +162,19 @@ static bool switch_to_kernel_context(struct intel_engine_cs *engine)
+ 	unsigned long flags;
+ 	bool result = true;
  
- 		if (copy_to_user(info_ptr, &info, sizeof(info)))
- 			return -EFAULT;
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index aa2a7eccfb94..0179f92e0916 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2775,14 +2775,20 @@ struct drm_i915_engine_info {
- 
- 	/** @flags: Engine flags. */
- 	__u64 flags;
-+#define I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE		(1 << 0)
- 
- 	/** @capabilities: Capabilities of this engine. */
- 	__u64 capabilities;
- #define I915_VIDEO_CLASS_CAPABILITY_HEVC		(1 << 0)
- #define I915_VIDEO_AND_ENHANCE_CLASS_CAPABILITY_SFC	(1 << 1)
- 
-+	/** @logical_instance: Logical instance of engine */
-+	__u16 logical_instance;
++	/*
++	 * This is execlist specific behaviour intended to ensure the GPU is
++	 * idle by switching to a known 'safe' context. With GuC submission, the
++	 * same idle guarantee is achieved by other means (disabling
++	 * scheduling). Further, switching to a 'safe' context has no effect
++	 * with GuC submission as the scheduler can just switch back again.
++	 *
++	 * FIXME: Move this backend scheduler specific behaviour into the
++	 * scheduler backend.
++	 */
++	if (intel_engine_uses_guc(engine))
++		return true;
 +
- 	/** @rsvd1: Reserved fields. */
--	__u64 rsvd1[4];
-+	__u16 rsvd1[3];
-+	/** @rsvd2: Reserved fields. */
-+	__u64 rsvd2[3];
- };
- 
- /**
+ 	/* GPU is pointing to the void, as good as in the kernel context. */
+ 	if (intel_gt_is_wedged(engine->gt))
+ 		return true;
 -- 
 2.32.0
 
