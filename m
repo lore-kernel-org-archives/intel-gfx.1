@@ -2,47 +2,46 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00329C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2FCFC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B31D96120C
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B31D96120C
+	by mail.kernel.org (Postfix) with ESMTPS id 7CD9261267
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:01:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7CD9261267
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49EA16EB3C;
-	Thu, 14 Oct 2021 15:01:24 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E68D36EB3C;
- Thu, 14 Oct 2021 15:01:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="227650978"
-X-IronPort-AV: E=Sophos;i="5.85,372,1624345200"; d="scan'208";a="227650978"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 08:01:21 -0700
-X-IronPort-AV: E=Sophos;i="5.85,372,1624345200"; d="scan'208";a="492032991"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A31D6EB52;
+	Thu, 14 Oct 2021 15:01:30 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2214C6EB52;
+ Thu, 14 Oct 2021 15:01:28 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="207807072"
+X-IronPort-AV: E=Sophos;i="5.85,372,1624345200"; d="scan'208";a="207807072"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2021 08:01:25 -0700
+X-IronPort-AV: E=Sophos;i="5.85,372,1624345200"; d="scan'208";a="481287784"
 Received: from rwambsga-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.251.210.16])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 08:01:18 -0700
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2021 08:01:10 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com
-Date: Thu, 14 Oct 2021 18:00:59 +0300
-Message-Id: <20211014150059.28957-3-jani.nikula@intel.com>
+Date: Thu, 14 Oct 2021 18:00:58 +0300
+Message-Id: <20211014150059.28957-2-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211014150059.28957-1-jani.nikula@intel.com>
 References: <20211014150059.28957-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/dp: use new link training delay
- helpers
+Subject: [Intel-gfx] [PATCH 2/3] drm/dp: reuse the 8b/10b link training
+ delay helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,105 +57,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the new link training delay helpers, fixing the delays for
-128b/132b.
+Reuse the 8b/10b link training delay helpers. Functionally this skips
+the check for invalid values for DPCD 1.4 and later at clock recovery
+delay (as it's a fixed delay and bypasses the rd_interval) but the same
+value will be checked and invalid values reported at channel
+equalization.
 
-For existing 8b/10b functionality, this will cause additional 1-byte
-DPCD reads for LTTPR delays instead of using the cached values. It's
-just too complicated to combine generic helpers with local caching in a
-sensible way.
-
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../drm/i915/display/intel_dp_link_training.c | 38 +++++++------------
- 1 file changed, 13 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/drm_dp_helper.c | 30 ++++++++++--------------------
+ 1 file changed, 10 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 85676c953e0a..a72f2dc93718 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -683,15 +683,6 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
- 	return true;
- }
+diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
+index f7ebf5974fa7..ada0a1ff262d 100644
+--- a/drivers/gpu/drm/drm_dp_helper.c
++++ b/drivers/gpu/drm/drm_dp_helper.c
+@@ -284,35 +284,25 @@ EXPORT_SYMBOL(drm_dp_read_channel_eq_delay);
+ void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
+ 					    const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ {
+-	unsigned long rd_interval = dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
+-					 DP_TRAINING_AUX_RD_MASK;
++	u8 rd_interval = dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
++		DP_TRAINING_AUX_RD_MASK;
++	int delay_us;
  
--static void intel_dp_link_training_clock_recovery_delay(struct intel_dp *intel_dp,
--							enum drm_dp_phy dp_phy)
--{
--	if (dp_phy == DP_PHY_DPRX)
--		drm_dp_link_train_clock_recovery_delay(&intel_dp->aux, intel_dp->dpcd);
+-	if (rd_interval > 4)
+-		drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
+-			    aux->name, rd_interval);
+-
+-	if (rd_interval == 0 || dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14)
+-		rd_interval = 100;
++	if (dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14)
++		delay_us = 100;
+ 	else
+-		rd_interval *= 4 * USEC_PER_MSEC;
++		delay_us = __8b10b_clock_recovery_delay_us(aux, rd_interval);
+ 
+-	usleep_range(rd_interval, rd_interval * 2);
++	usleep_range(delay_us, delay_us * 2);
+ }
+ EXPORT_SYMBOL(drm_dp_link_train_clock_recovery_delay);
+ 
+ static void __drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
+-						 unsigned long rd_interval)
++						 u8 rd_interval)
+ {
+-	if (rd_interval > 4)
+-		drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
+-			    aux->name, rd_interval);
+-
+-	if (rd_interval == 0)
+-		rd_interval = 400;
 -	else
--		drm_dp_lttpr_link_train_clock_recovery_delay();
--}
--
- static bool intel_dp_adjust_request_changed(const struct intel_crtc_state *crtc_state,
- 					    const u8 old_link_status[DP_LINK_STATUS_SIZE],
- 					    const u8 new_link_status[DP_LINK_STATUS_SIZE])
-@@ -750,6 +741,11 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 	bool max_vswing_reached = false;
- 	char phy_name[10];
-+	int delay_us;
-+
-+	delay_us = drm_dp_read_clock_recovery_delay(&intel_dp->aux,
-+						    intel_dp->dpcd, dp_phy,
-+						    intel_dp_is_uhbr(crtc_state));
+-		rd_interval *= 4 * USEC_PER_MSEC;
++	int delay_us = __8b10b_channel_eq_delay_us(aux, rd_interval);
  
- 	intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name));
- 
-@@ -777,7 +773,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 
- 	voltage_tries = 1;
- 	for (cr_tries = 0; cr_tries < max_cr_tries; ++cr_tries) {
--		intel_dp_link_training_clock_recovery_delay(intel_dp, dp_phy);
-+		usleep_range(delay_us, 2 * delay_us);
- 
- 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
- 						     link_status) < 0) {
-@@ -895,19 +891,6 @@ static u32 intel_dp_training_pattern(struct intel_dp *intel_dp,
- 	return DP_TRAINING_PATTERN_2;
+-	usleep_range(rd_interval, rd_interval * 2);
++	usleep_range(delay_us, delay_us * 2);
  }
  
--static void
--intel_dp_link_training_channel_equalization_delay(struct intel_dp *intel_dp,
--						  enum drm_dp_phy dp_phy)
--{
--	if (dp_phy == DP_PHY_DPRX) {
--		drm_dp_link_train_channel_eq_delay(&intel_dp->aux, intel_dp->dpcd);
--	} else {
--		const u8 *phy_caps = intel_dp_lttpr_phy_caps(intel_dp, dp_phy);
--
--		drm_dp_lttpr_link_train_channel_eq_delay(&intel_dp->aux, phy_caps);
--	}
--}
--
- /*
-  * Perform the link training channel equalization phase on the given DP PHY
-  * using one of training pattern 2, 3 or 4 depending on the source and
-@@ -925,6 +908,11 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 	bool channel_eq = false;
- 	char phy_name[10];
-+	int delay_us;
-+
-+	delay_us = drm_dp_read_channel_eq_delay(&intel_dp->aux,
-+						intel_dp->dpcd, dp_phy,
-+						intel_dp_is_uhbr(crtc_state));
- 
- 	intel_dp_phy_name(dp_phy, phy_name, sizeof(phy_name));
- 
-@@ -944,8 +932,8 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 	}
- 
- 	for (tries = 0; tries < 5; tries++) {
--		intel_dp_link_training_channel_equalization_delay(intel_dp,
--								  dp_phy);
-+		usleep_range(delay_us, 2 * delay_us);
-+
- 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
- 						     link_status) < 0) {
- 			drm_err(&i915->drm,
+ void drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
 -- 
 2.30.2
 
