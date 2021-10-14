@@ -2,44 +2,44 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3365C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 940E4C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FA33601FF
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FA33601FF
+	by mail.kernel.org (Postfix) with ESMTPS id 5936D601FF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:46:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5936D601FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5D06E595;
-	Thu, 14 Oct 2021 17:44:49 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF9B6E1E6;
- Thu, 14 Oct 2021 17:44:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="214682696"
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="214682696"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E30B6E817;
+	Thu, 14 Oct 2021 17:46:16 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C98886E1B6;
+ Thu, 14 Oct 2021 17:46:14 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="228030819"
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="228030819"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 10:24:59 -0700
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360395"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2021 10:25:03 -0700
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360418"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 10:24:58 -0700
+ 14 Oct 2021 10:24:59 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>
-Date: Thu, 14 Oct 2021 10:19:43 -0700
-Message-Id: <20211014172005.27155-4-matthew.brost@intel.com>
+Date: Thu, 14 Oct 2021 10:19:47 -0700
+Message-Id: <20211014172005.27155-8-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211014172005.27155-1-matthew.brost@intel.com>
 References: <20211014172005.27155-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/25] drm/i915/guc: Take engine PM when a
- context is pinned with GuC submission
+Subject: [Intel-gfx] [PATCH 07/25] drm/i915/guc: Introduce context
+ parent-child relationship
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,234 +55,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Taking a PM reference to prevent intel_gt_wait_for_idle from short
-circuiting while any user context has scheduling enabled. Returning GT
-idle when it is not can cause all sorts of issues throughout the stack.
+Introduce context parent-child relationship. Once this relationship is
+created all pinning / unpinning operations are directed to the parent
+context. The parent context is responsible for pinning all of its
+children and itself.
+
+This is a precursor to the full GuC multi-lrc implementation but aligns
+to how GuC mutli-lrc interface is defined - a single H2G is used
+register / deregister all of the contexts simultaneously.
+
+Subsequent patches in the series will implement the pinning / unpinning
+operations for parent / child contexts.
 
 v2:
  (Daniel Vetter)
-  - Add might_lock annotations to pin / unpin function
+  - Add kernel doc, add wrapper to access parent to ensure safety
 v3:
- (CI)
-  - Drop intel_engine_pm_might_put from unpin path as an async put is
-    used
+ (John Harrison)
+  - Fix comment explaing GEM_BUG_ON in to_parent()
+  - Make variable names generic (non-GuC specific)
 v4:
  (John Harrison)
-  - Make intel_engine_pm_might_get/put work with GuC virtual engines
-  - Update commit message
-v5:
-  - Update commit message again
+  - s/its'/its/g
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |  2 ++
- drivers/gpu/drm/i915/gt/intel_engine_pm.h     | 32 +++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_pm.h         | 10 ++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 36 +++++++++++++++++--
- drivers/gpu/drm/i915/intel_wakeref.h          | 12 +++++++
- 5 files changed, 89 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       | 29 +++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context.h       | 41 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 21 ++++++++++
+ 3 files changed, 91 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index d008ef8623ce..f98c9f470ba1 100644
+index f98c9f470ba1..79f321c6c008 100644
 --- a/drivers/gpu/drm/i915/gt/intel_context.c
 +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -240,6 +240,8 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
- 	if (err)
- 		goto err_post_unpin;
+@@ -404,6 +404,8 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
  
-+	intel_engine_pm_might_get(ce->engine);
+ 	INIT_LIST_HEAD(&ce->destroyed_link);
+ 
++	INIT_LIST_HEAD(&ce->parallel.child_list);
 +
- 	if (unlikely(intel_context_is_closed(ce))) {
- 		err = -ENOENT;
- 		goto err_unlock;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-index 6fdeae668e6e..d68675925b79 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
-@@ -6,9 +6,11 @@
- #ifndef INTEL_ENGINE_PM_H
- #define INTEL_ENGINE_PM_H
+ 	/*
+ 	 * Initialize fence to be complete as this is expected to be complete
+ 	 * unless there is a pending schedule disable outstanding.
+@@ -418,10 +420,17 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
  
-+#include "i915_drv.h"
- #include "i915_request.h"
- #include "intel_engine_types.h"
- #include "intel_wakeref.h"
-+#include "intel_gt_pm.h"
+ void intel_context_fini(struct intel_context *ce)
+ {
++	struct intel_context *child, *next;
++
+ 	if (ce->timeline)
+ 		intel_timeline_put(ce->timeline);
+ 	i915_vm_put(ce->vm);
  
- static inline bool
- intel_engine_pm_is_awake(const struct intel_engine_cs *engine)
-@@ -31,6 +33,21 @@ static inline bool intel_engine_pm_get_if_awake(struct intel_engine_cs *engine)
- 	return intel_wakeref_get_if_active(&engine->wakeref);
++	/* Need to put the creation ref for the children */
++	if (intel_context_is_parent(ce))
++		for_each_child_safe(ce, child, next)
++			intel_context_put(child);
++
+ 	mutex_destroy(&ce->pin_mutex);
+ 	i915_active_fini(&ce->active);
+ 	i915_sw_fence_fini(&ce->guc_state.blocked);
+@@ -538,6 +547,26 @@ struct i915_request *intel_context_find_active_request(struct intel_context *ce)
+ 	return active;
  }
  
-+static inline void intel_engine_pm_might_get(struct intel_engine_cs *engine)
++void intel_context_bind_parent_child(struct intel_context *parent,
++				     struct intel_context *child)
 +{
-+	if (!intel_engine_is_virtual(engine)) {
-+		intel_wakeref_might_get(&engine->wakeref);
++	/*
++	 * Callers responsibility to validate that this function is used
++	 * correctly but we use GEM_BUG_ON here ensure that they do.
++	 */
++	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
++	GEM_BUG_ON(intel_context_is_pinned(parent));
++	GEM_BUG_ON(intel_context_is_child(parent));
++	GEM_BUG_ON(intel_context_is_pinned(child));
++	GEM_BUG_ON(intel_context_is_child(child));
++	GEM_BUG_ON(intel_context_is_parent(child));
++
++	parent->parallel.number_children++;
++	list_add_tail(&child->parallel.child_link,
++		      &parent->parallel.child_list);
++	child->parallel.parent = parent;
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_context.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index c41098950746..b63c10a144af 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -44,6 +44,47 @@ void intel_context_free(struct intel_context *ce);
+ int intel_context_reconfigure_sseu(struct intel_context *ce,
+ 				   const struct intel_sseu sseu);
+ 
++static inline bool intel_context_is_child(struct intel_context *ce)
++{
++	return !!ce->parallel.parent;
++}
++
++static inline bool intel_context_is_parent(struct intel_context *ce)
++{
++	return !!ce->parallel.number_children;
++}
++
++static inline bool intel_context_is_pinned(struct intel_context *ce);
++
++static inline struct intel_context *
++intel_context_to_parent(struct intel_context *ce)
++{
++	if (intel_context_is_child(ce)) {
++		/*
++		 * The parent holds ref count to the child so it is always safe
++		 * for the parent to access the child, but the child has a
++		 * pointer to the parent without a ref. To ensure this is safe
++		 * the child should only access the parent pointer while the
++		 * parent is pinned.
++		 */
++		GEM_BUG_ON(!intel_context_is_pinned(ce->parallel.parent));
++
++		return ce->parallel.parent;
 +	} else {
-+		struct intel_gt *gt = engine->gt;
-+		struct intel_engine_cs *tengine;
-+		intel_engine_mask_t tmp, mask = engine->mask;
-+
-+		for_each_engine_masked(tengine, gt, mask, tmp)
-+			intel_wakeref_might_get(&tengine->wakeref);
++		return ce;
 +	}
-+	intel_gt_pm_might_get(engine->gt);
 +}
 +
- static inline void intel_engine_pm_put(struct intel_engine_cs *engine)
- {
- 	intel_wakeref_put(&engine->wakeref);
-@@ -52,6 +69,21 @@ static inline void intel_engine_pm_flush(struct intel_engine_cs *engine)
- 	intel_wakeref_unlock_wait(&engine->wakeref);
- }
- 
-+static inline void intel_engine_pm_might_put(struct intel_engine_cs *engine)
-+{
-+	if (!intel_engine_is_virtual(engine)) {
-+		intel_wakeref_might_put(&engine->wakeref);
-+	} else {
-+		struct intel_gt *gt = engine->gt;
-+		struct intel_engine_cs *tengine;
-+		intel_engine_mask_t tmp, mask = engine->mask;
++void intel_context_bind_parent_child(struct intel_context *parent,
++				     struct intel_context *child);
 +
-+		for_each_engine_masked(tengine, gt, mask, tmp)
-+			intel_wakeref_might_put(&tengine->wakeref);
-+	}
-+	intel_gt_pm_might_put(engine->gt);
-+}
-+
- static inline struct i915_request *
- intel_engine_create_kernel_request(struct intel_engine_cs *engine)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index 05de6c1af25b..bc898df7a48c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -31,6 +31,11 @@ static inline bool intel_gt_pm_get_if_awake(struct intel_gt *gt)
- 	return intel_wakeref_get_if_active(&gt->wakeref);
- }
- 
-+static inline void intel_gt_pm_might_get(struct intel_gt *gt)
-+{
-+	intel_wakeref_might_get(&gt->wakeref);
-+}
-+
- static inline void intel_gt_pm_put(struct intel_gt *gt)
- {
- 	intel_wakeref_put(&gt->wakeref);
-@@ -41,6 +46,11 @@ static inline void intel_gt_pm_put_async(struct intel_gt *gt)
- 	intel_wakeref_put_async(&gt->wakeref);
- }
- 
-+static inline void intel_gt_pm_might_put(struct intel_gt *gt)
-+{
-+	intel_wakeref_might_put(&gt->wakeref);
-+}
-+
- #define with_intel_gt_pm(gt, tmp) \
- 	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
- 	     intel_gt_pm_put(gt), tmp = 0)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 5c53428032b5..795cc071d05d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1571,7 +1571,12 @@ static int guc_context_pre_pin(struct intel_context *ce,
- 
- static int guc_context_pin(struct intel_context *ce, void *vaddr)
- {
--	return __guc_context_pin(ce, ce->engine, vaddr);
-+	int ret = __guc_context_pin(ce, ce->engine, vaddr);
-+
-+	if (likely(!ret && !intel_context_is_barrier(ce)))
-+		intel_engine_pm_get(ce->engine);
-+
-+	return ret;
- }
- 
- static void guc_context_unpin(struct intel_context *ce)
-@@ -1580,6 +1585,9 @@ static void guc_context_unpin(struct intel_context *ce)
- 
- 	unpin_guc_id(guc, ce);
- 	lrc_unpin(ce);
-+
-+	if (likely(!intel_context_is_barrier(ce)))
-+		intel_engine_pm_put_async(ce->engine);
- }
- 
- static void guc_context_post_unpin(struct intel_context *ce)
-@@ -2341,8 +2349,30 @@ static int guc_virtual_context_pre_pin(struct intel_context *ce,
- static int guc_virtual_context_pin(struct intel_context *ce, void *vaddr)
- {
- 	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-+	int ret = __guc_context_pin(ce, engine, vaddr);
-+	intel_engine_mask_t tmp, mask = ce->engine->mask;
-+
-+	if (likely(!ret))
-+		for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
-+			intel_engine_pm_get(engine);
- 
--	return __guc_context_pin(ce, engine, vaddr);
-+	return ret;
-+}
-+
-+static void guc_virtual_context_unpin(struct intel_context *ce)
-+{
-+	intel_engine_mask_t tmp, mask = ce->engine->mask;
-+	struct intel_engine_cs *engine;
-+	struct intel_guc *guc = ce_to_guc(ce);
-+
-+	GEM_BUG_ON(context_enabled(ce));
-+	GEM_BUG_ON(intel_context_is_barrier(ce));
-+
-+	unpin_guc_id(guc, ce);
-+	lrc_unpin(ce);
-+
-+	for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
-+		intel_engine_pm_put_async(engine);
- }
- 
- static void guc_virtual_context_enter(struct intel_context *ce)
-@@ -2379,7 +2409,7 @@ static const struct intel_context_ops virtual_guc_context_ops = {
- 
- 	.pre_pin = guc_virtual_context_pre_pin,
- 	.pin = guc_virtual_context_pin,
--	.unpin = guc_context_unpin,
-+	.unpin = guc_virtual_context_unpin,
- 	.post_unpin = guc_context_post_unpin,
- 
- 	.ban = guc_context_ban,
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
-index 545c8f277c46..4f4c2e15e736 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.h
-+++ b/drivers/gpu/drm/i915/intel_wakeref.h
-@@ -123,6 +123,12 @@ enum {
- 	__INTEL_WAKEREF_PUT_LAST_BIT__
- };
- 
-+static inline void
-+intel_wakeref_might_get(struct intel_wakeref *wf)
-+{
-+	might_lock(&wf->mutex);
-+}
++#define for_each_child(parent, ce)\
++	list_for_each_entry(ce, &(parent)->parallel.child_list,\
++			    parallel.child_link)
++#define for_each_child_safe(parent, ce, cn)\
++	list_for_each_entry_safe(ce, cn, &(parent)->parallel.child_list,\
++				 parallel.child_link)
 +
  /**
-  * intel_wakeref_put_flags: Release the wakeref
-  * @wf: the wakeref
-@@ -170,6 +176,12 @@ intel_wakeref_put_delay(struct intel_wakeref *wf, unsigned long delay)
- 			    FIELD_PREP(INTEL_WAKEREF_PUT_DELAY, delay));
- }
+  * intel_context_lock_pinned - Stablises the 'pinned' status of the HW context
+  * @ce - the context
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 4613d027cbc3..76dfca57cb45 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -220,6 +220,27 @@ struct intel_context {
+ 	 */
+ 	struct list_head destroyed_link;
  
-+static inline void
-+intel_wakeref_might_put(struct intel_wakeref *wf)
-+{
-+	might_lock(&wf->mutex);
-+}
++	/** @parallel: sub-structure for parallel submission members */
++	struct {
++		union {
++			/**
++			 * @child_list: parent's list of children
++			 * contexts, no protection as immutable after context
++			 * creation
++			 */
++			struct list_head child_list;
++			/**
++			 * @child_link: child's link into parent's list of
++			 * children
++			 */
++			struct list_head child_link;
++		};
++		/** @parent: pointer to parent if child */
++		struct intel_context *parent;
++		/** @number_children: number of children if parent */
++		u8 number_children;
++	} parallel;
 +
- /**
-  * intel_wakeref_lock: Lock the wakeref (mutex)
-  * @wf: the wakeref
+ #ifdef CONFIG_DRM_I915_SELFTEST
+ 	/**
+ 	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
 -- 
 2.32.0
 
