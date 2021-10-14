@@ -2,49 +2,52 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82395C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 12:05:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EC1DC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 12:13:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 507A660E96
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 12:05:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 507A660E96
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2F25561029
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 12:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2F25561029
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7A946E0D4;
-	Thu, 14 Oct 2021 12:05:14 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 381746E0D4;
- Thu, 14 Oct 2021 12:05:14 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="214823909"
-X-IronPort-AV: E=Sophos;i="5.85,372,1624345200"; d="scan'208";a="214823909"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 05:05:13 -0700
-X-IronPort-AV: E=Sophos;i="5.85,372,1624345200"; d="scan'208";a="481235759"
-Received: from thanners-mobl.ger.corp.intel.com (HELO [10.252.62.140])
- ([10.252.62.140])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 05:05:12 -0700
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20211013104123.1877827-1-maarten.lankhorst@linux.intel.com>
- <8625e3ca-57f8-e387-1742-808e3599786f@linux.intel.com>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Message-ID: <c3888f2f-8f30-68f6-2c69-961035c7573a@linux.intel.com>
-Date: Thu, 14 Oct 2021 14:05:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <8625e3ca-57f8-e387-1742-808e3599786f@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Use dma_resv_iter for waiting in
- i915_gem_object_wait_reservation.
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B9B6E11E;
+	Thu, 14 Oct 2021 12:13:50 +0000 (UTC)
+X-Greylist: delayed 971 seconds by postgrey-1.36 at gabe;
+ Thu, 14 Oct 2021 03:19:00 UTC
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.217.80.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F59F6E06B;
+ Thu, 14 Oct 2021 03:19:00 +0000 (UTC)
+Received: from mse-fl2.zte.com.cn (unknown [10.30.14.239])
+ by Forcepoint Email with ESMTPS id 6587413936FE2D11075C;
+ Thu, 14 Oct 2021 11:02:47 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.40.50])
+ by mse-fl2.zte.com.cn with SMTP id 19E32aWZ071795;
+ Thu, 14 Oct 2021 11:02:36 +0800 (GMT-8)
+ (envelope-from luo.penghao@zte.com.cn)
+Received: from mapi (xaxapp02[null]) by mapi (Zmail) with MAPI id mid31;
+ Thu, 14 Oct 2021 11:02:36 +0800 (CST)
+Date: Thu, 14 Oct 2021 11:02:36 +0800 (CST)
+X-Zmail-TransId: 2afa61679dcc0ad1360d
+X-Mailer: Zmail v1.0
+Message-ID: <202110141102364478237@zte.com.cn>
+In-Reply-To: <20211012131836.4e17a031@canb.auug.org.au>
+References: 20211012131836.4e17a031@canb.auug.org.au
+Mime-Version: 1.0
+From: <luo.penghao@zte.com.cn>
+To: <sfr@canb.auug.org.au>
+Cc: <daniel.vetter@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <kherbst@redhat.com>,
+ <linux-kernel@vger.kernel.org>, <linux-next@vger.kernel.org>
+Content-Type: multipart/mixed;
+	boundary="=====_001_next====="
+X-MAIL: mse-fl2.zte.com.cn 19E32aWZ071795
+X-Mailman-Approved-At: Thu, 14 Oct 2021 12:13:49 +0000
+Subject: Re: [Intel-gfx] 
+ =?utf-8?q?linux-next=3A_build_failure_after_merge_of?=
+ =?utf-8?q?_the_drm-misc_tree?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +63,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Op 14-10-2021 om 10:37 schreef Tvrtko Ursulin:
->
-> On 13/10/2021 11:41, Maarten Lankhorst wrote:
->> No memory should be allocated when calling i915_gem_object_wait,
->> because it may be called to idle a BO when evicting memory.
->>
->> Fix this by using dma_resv_iter helpers to call
->> i915_gem_object_wait_fence() on each fence, which cleans up the code a lot.
->> Also remove dma_resv_prune, it's questionably.
->>
->> This will result in the following lockdep splat.
->
-> <snip>
->
->> @@ -37,56 +36,17 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
->>                    unsigned int flags,
->>                    long timeout)
->>   {
->> -    struct dma_fence *excl;
->> -    bool prune_fences = false;
->> -
->> -    if (flags & I915_WAIT_ALL) {
->> -        struct dma_fence **shared;
->> -        unsigned int count, i;
->> -        int ret;
->> +    struct dma_resv_iter cursor;
->> +    struct dma_fence *fence;
->>   -        ret = dma_resv_get_fences(resv, &excl, &count, &shared);
->> -        if (ret)
->> -            return ret;
->> -
->> -        for (i = 0; i < count; i++) {
->> -            timeout = i915_gem_object_wait_fence(shared[i],
->> -                                 flags, timeout);
->> -            if (timeout < 0)
->> -                break;
->> +    dma_resv_iter_begin(&cursor, resv, flags & I915_WAIT_ALL);
->> +    dma_resv_for_each_fence_unlocked(&cursor, fence) {
->>   -            dma_fence_put(shared[i]);
->> -        }
->> -
->> -        for (; i < count; i++)
->> -            dma_fence_put(shared[i]);
->> -        kfree(shared);
->> -
->> -        /*
->> -         * If both shared fences and an exclusive fence exist,
->> -         * then by construction the shared fences must be later
->> -         * than the exclusive fence. If we successfully wait for
->> -         * all the shared fences, we know that the exclusive fence
->> -         * must all be signaled. If all the shared fences are
->> -         * signaled, we can prune the array and recover the
->> -         * floating references on the fences/requests.
->> -         */
->> -        prune_fences = count && timeout >= 0;
->> -    } else {
->> -        excl = dma_resv_get_excl_unlocked(resv);
->> +        timeout = i915_gem_object_wait_fence(fence, flags, timeout);
->> +        if (timeout <= 0)
->> +            break;
->
-> You have another change in behaviour here, well a bug really. When userspace passes in zero timeout you fail to report activity in other than the first fence. 
 
-Hmm, not necessarily, passing 0 to i915_gem_object_wait_fence timeout = 0 is a special case and means test only. It will return 1 on success.
 
-Of course it is still broken, I sent a reply to könig about it, hope it will get fixed and respun. :)
+--=====_001_next=====
+Content-Type: multipart/related;
+	boundary="=====_002_next====="
 
-~Maarten
+
+--=====_002_next=====
+Content-Type: multipart/alternative;
+	boundary="=====_003_next====="
+
+
+--=====_003_next=====
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64 
+
+SGksDQoNCg0KDQpJIHJldmlldyB0aGUgY29kZS4NCg0KDQpJdCBzZWVtcyBJIGZvcmdldCB0byBk
+ZWxldGUgdGhlIGRlZmluaXRpb24gb2YgdGhlIHZhcmlhYmxlICJpbnN0IixJJ20gc3J5IGZvciB0
+aGF0LjogKA0KDQoNCkknbGwgc3VibWl0IGFub3RoZXIgcGF0Y2ggc29vbi4NCg0KDQoNCg0KDQoN
+Cj4gSGkgYWxsLD4gPiBBZnRlciBtZXJnaW5nIHRoZSBkcm0tbWlzYyB0cmVlLCB0b2RheSdzIGxp
+bnV4LW5leHQgYnVpbGQgKHg4Nl82ND4gYWxsbW9kY29uZmlnKSBmYWlsZWQgbGlrZSB0aGlzOj4g
+PiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9udmttL3N1YmRldi9tbXUvdm1tZ3AxMDAuYzogSW4g
+ZnVuY3Rpb24gJ2dwMTAwX3ZtbV9mYXVsdF9jYW5jZWwnOj4gZHJpdmVycy9ncHUvZHJtL25vdXZl
+YXUvbnZrbS9zdWJkZXYvbW11L3ZtbWdwMTAwLmM6NDkxOjY6IGVycm9yOiB1bnVzZWQgdmFyaWFi
+bGUgJ2luc3QnIFstV2Vycm9yPXVudXNlZC12YXJpYWJsZV0+ICAgNDkxIHwgIHUzMiBpbnN0LCBh
+cGVyOz4gICAgICAgfCAgICAgIF5+fn4+IGNjMTogYWxsIHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQg
+YXMgZXJyb3JzPiA+IENhdXNlZCBieSBjb21taXQ+ID4gICA0MDQwNDZjZjQ4MDUgKCJkcm0vbm91
+dmVhdS9tbXUvZ3AxMDAtOiBkcm9wIHVubmVlZGVkIGFzc2lnbm1lbnQgaW4gdGhlIGlmIGNvbmRp
+dGlvbi4iKT4+IEkgaGF2ZSB1c2VkIHRoZSBkcm0tbWlzYyB0cmVlIGZyb20gbmV4dC0yMDIxMTAx
+MSBmb3IgdG9kYXkuPiA+IC0tID4gQ2hlZXJzLD4gU3RlcGhlbiBSb3Rod2VsbA==
+
+
+--=====_003_next=====
+Content-Type: text/html ;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+PGRpdiBjbGFzcz0iemNvbnRlbnRSb3ciPjxwIHN0eWxlPSJmb250LXNpemU6MTRweDtmb250LWZh
+bWlseTrlvq7ova/pm4Xpu5EsTWljcm9zb2Z0IFlhSGVpOyI+PHNwYW4gc3R5bGU9ImJhY2tncm91
+bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsgZm9udC1mYW1pbHk6IEFyaWFsLCBIZWx2ZXRp
+Y2EsICZxdW90O01pY3Jvc29mdCBZYWhlaSZxdW90Oywgc2Fucy1zZXJpZjsiPkhpLDwvc3Bhbj48
+YnI+PC9wPjxwIHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBvdXRsaW5lOiAwcHg7IGZv
+bnQtZmFtaWx5OiBBcmlhbCwgSGVsdmV0aWNhLCAmcXVvdDtNaWNyb3NvZnQgWWFoZWkmcXVvdDss
+IHNhbnMtc2VyaWY7IG1hcmdpbi10b3A6IDBweDsgbWFyZ2luLWJvdHRvbTogMHB4OyBwYWRkaW5n
+OiAwcHg7IHdoaXRlLXNwYWNlOiBub3JtYWw7IG1pbi1oZWlnaHQ6IDE0cHg7IGJhY2tncm91bmQt
+Y29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsgbGluZS1oZWlnaHQ6IG5vcm1hbDsiPkkgcmV2aWV3
+IHRoZSBjb2RlLjwvcD48cCBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgb3V0bGluZTog
+MHB4OyBmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgJnF1b3Q7TWljcm9zb2Z0IFlhaGVp
+JnF1b3Q7LCBzYW5zLXNlcmlmOyBtYXJnaW4tdG9wOiAwcHg7IG1hcmdpbi1ib3R0b206IDBweDsg
+cGFkZGluZzogMHB4OyB3aGl0ZS1zcGFjZTogbm9ybWFsOyBtaW4taGVpZ2h0OiAxNHB4OyBiYWNr
+Z3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGxpbmUtaGVpZ2h0OiBub3JtYWw7Ij5J
+dCBzZWVtcyBJIGZvcmdldCB0byBkZWxldGUgdGhlIGRlZmluaXRpb24gb2YgdGhlIHZhcmlhYmxl
+ICJpbnN0IixJJ20gc3J5IGZvciB0aGF0LjogKDwvcD48cCBzdHlsZT0iYm94LXNpemluZzogYm9y
+ZGVyLWJveDsgb3V0bGluZTogMHB4OyBmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgJnF1
+b3Q7TWljcm9zb2Z0IFlhaGVpJnF1b3Q7LCBzYW5zLXNlcmlmOyBtYXJnaW4tdG9wOiAwcHg7IG1h
+cmdpbi1ib3R0b206IDBweDsgcGFkZGluZzogMHB4OyB3aGl0ZS1zcGFjZTogbm9ybWFsOyBtaW4t
+aGVpZ2h0OiAxNHB4OyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGxpbmUt
+aGVpZ2h0OiBub3JtYWw7Ij5JJ2xsIHN1Ym1pdCBhbm90aGVyIHBhdGNoIHNvb24uPC9wPjxwIHN0
+eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBvdXRsaW5lOiAwcHg7IGZvbnQtZmFtaWx5OiBB
+cmlhbCwgSGVsdmV0aWNhLCAmcXVvdDtNaWNyb3NvZnQgWWFoZWkmcXVvdDssIHNhbnMtc2VyaWY7
+IG1hcmdpbi10b3A6IDBweDsgbWFyZ2luLWJvdHRvbTogMHB4OyBwYWRkaW5nOiAwcHg7IHdoaXRl
+LXNwYWNlOiBub3JtYWw7IG1pbi1oZWlnaHQ6IDE0cHg7IGJhY2tncm91bmQtY29sb3I6IHJnYigy
+NTUsIDI1NSwgMjU1KTsgbGluZS1oZWlnaHQ6IG5vcm1hbDsiPjxicj48L3A+PHAgc3R5bGU9ImZv
+bnQtc2l6ZToxNHB4O2ZvbnQtZmFtaWx5OuW+rui9r+mbhem7kSxNaWNyb3NvZnQgWWFIZWk7Ij4m
+Z3Q7IEhpJm5ic3A7YWxsLDxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsmbmJz
+cDs8YnIgc3R5bGU9IndoaXRlLXNwYWNlOiBub3JtYWw7Ij4mZ3Q7IEFmdGVyJm5ic3A7bWVyZ2lu
+ZyZuYnNwO3RoZSZuYnNwO2RybS1taXNjJm5ic3A7dHJlZSwmbmJzcDt0b2RheSdzJm5ic3A7bGlu
+dXgtbmV4dCZuYnNwO2J1aWxkJm5ic3A7KHg4Nl82NDxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5v
+cm1hbDsiPiZndDsgYWxsbW9kY29uZmlnKSZuYnNwO2ZhaWxlZCZuYnNwO2xpa2UmbmJzcDt0aGlz
+OjxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsmbmJzcDs8YnIgc3R5bGU9Indo
+aXRlLXNwYWNlOiBub3JtYWw7Ij4mZ3Q7IGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L252a20vc3Vi
+ZGV2L21tdS92bW1ncDEwMC5jOiZuYnNwO0luJm5ic3A7ZnVuY3Rpb24mbmJzcDsnZ3AxMDBfdm1t
+X2ZhdWx0X2NhbmNlbCc6PGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyBkcml2
+ZXJzL2dwdS9kcm0vbm91dmVhdS9udmttL3N1YmRldi9tbXUvdm1tZ3AxMDAuYzo0OTE6NjombmJz
+cDtlcnJvcjombmJzcDt1bnVzZWQmbmJzcDt2YXJpYWJsZSZuYnNwOydpbnN0JyZuYnNwO1stV2Vy
+cm9yPXVudXNlZC12YXJpYWJsZV08YnIgc3R5bGU9IndoaXRlLXNwYWNlOiBub3JtYWw7Ij4mZ3Q7
+Jm5ic3A7ICZuYnNwOzQ5MSZuYnNwO3wmbmJzcDsmbmJzcDt1MzImbmJzcDtpbnN0LCZuYnNwO2Fw
+ZXI7PGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwO3wmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDtefn5+PGJyIHN0
+eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyBjYzE6Jm5ic3A7YWxsJm5ic3A7d2Fybmlu
+Z3MmbmJzcDtiZWluZyZuYnNwO3RyZWF0ZWQmbmJzcDthcyZuYnNwO2Vycm9yczxiciBzdHlsZT0i
+d2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsmbmJzcDs8YnIgc3R5bGU9IndoaXRlLXNwYWNlOiBu
+b3JtYWw7Ij4mZ3Q7IENhdXNlZCZuYnNwO2J5Jm5ic3A7Y29tbWl0PGJyIHN0eWxlPSJ3aGl0ZS1z
+cGFjZTogbm9ybWFsOyI+Jmd0OyZuYnNwOzxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsi
+PiZndDsmbmJzcDsgJm5ic3A7NDA0MDQ2Y2Y0ODA1Jm5ic3A7KCJkcm0vbm91dmVhdS9tbXUvZ3Ax
+MDAtOiZuYnNwO2Ryb3AmbmJzcDt1bm5lZWRlZCZuYnNwO2Fzc2lnbm1lbnQmbmJzcDtpbiZuYnNw
+O3RoZSZuYnNwO2lmJm5ic3A7Y29uZGl0aW9uLiIpPGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9y
+bWFsOyI+Jmd0OzxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgSSZuYnNwO2hh
+dmUmbmJzcDt1c2VkJm5ic3A7dGhlJm5ic3A7ZHJtLW1pc2MmbmJzcDt0cmVlJm5ic3A7ZnJvbSZu
+YnNwO25leHQtMjAyMTEwMTEmbmJzcDtmb3ImbmJzcDt0b2RheS48YnIgc3R5bGU9IndoaXRlLXNw
+YWNlOiBub3JtYWw7Ij4mZ3Q7Jm5ic3A7PGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+
+Jmd0OyAtLSZuYnNwOzxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgQ2hlZXJz
+LDxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgU3RlcGhlbiZuYnNwO1JvdGh3
+ZWxsPC9wPjwvZGl2Pg==
+
+
+--=====_003_next=====--
+
+--=====_002_next=====--
+
+--=====_001_next=====--
 
