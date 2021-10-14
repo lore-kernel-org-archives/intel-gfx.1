@@ -2,57 +2,149 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F7B5C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 00:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA0D1C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 00:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD78861154
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 00:18:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD78861154
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7EE4861154
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 00:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7EE4861154
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 658766EC06;
-	Thu, 14 Oct 2021 00:18:56 +0000 (UTC)
-X-Greylist: delayed 547 seconds by postgrey-1.36 at gabe;
- Thu, 14 Oct 2021 00:18:55 UTC
-Received: from 2.mo575.mail-out.ovh.net (2.mo575.mail-out.ovh.net
- [46.105.52.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7869C6EC06
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 00:18:55 +0000 (UTC)
-Received: from player688.ha.ovh.net (unknown [10.110.171.30])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 1C6F321E16
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 00:09:45 +0000 (UTC)
-Received: from etezian.org (unknown [31.22.55.47])
- (Authenticated sender: andi@etezian.org)
- by player688.ha.ovh.net (Postfix) with ESMTPSA id 7F00C231A4832;
- Thu, 14 Oct 2021 00:09:35 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-97G002f321100f-d6cb-4b5c-83e8-d9d90e851922,
- 0685F10E99BEAEC1A9B0636734304D640F31DFDA) smtp.auth=andi@etezian.org
-X-OVh-ClientIp: 31.22.55.47
-From: Andi Shyti <andi@etezian.org>
-To: Intel GFX <intel-gfx@lists.freedesktop.org>,
- DRI Devel <dri-devel@lists.freedesktop.org>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi@etezian.org>
-Date: Thu, 14 Oct 2021 02:08:17 +0200
-Message-Id: <20211014000817.39227-1-andi@etezian.org>
-X-Mailer: git-send-email 2.33.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1ADE6E110;
+	Thu, 14 Oct 2021 00:26:00 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB54389A34;
+ Thu, 14 Oct 2021 00:25:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="226339534"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="226339534"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 17:25:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="487141983"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by fmsmga007.fm.intel.com with ESMTP; 13 Oct 2021 17:25:59 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Wed, 13 Oct 2021 17:25:58 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12 via Frontend Transport; Wed, 13 Oct 2021 17:25:58 -0700
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.42) by
+ edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2242.12; Wed, 13 Oct 2021 17:25:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JawI6dsPsDMcpUQSg4PF7AW84ZtiUJOvcgvMyheTMYygH/G+K6J0fqxnsKG+GGpgQIze//Cnqa96wsq0Vy7d7JXQjNvhO+paAOrpwBGPh9jCLoA6aHT0QsY2FYCw7B3mUFGH8PDAILeIVP+DRN+R+dxh4eXr8UMHZwEGg/zFUfgc/VkiCJlouviP/KzLrY8PNmlmIMw/se4Q8JKfWNEYEsn2F0UEK+ZOHBE6kWBFIZ0RO2zM5FDct5UkDnNU6V/0zRzbN1vbMdWzbPRvnG1bupzXcsOHoHmhBJnnhRGDaKsaQufy0+/Law5c+bNlVfHcH2Q/CKtYXt8Imq9ntEiVXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5HlPOvB43abGTqEA5DGnGqHA/jVPBVhGvrKQQgLK17A=;
+ b=VHkgYPDLgLAWyu2I0aJ2j56e5E/0SbR8pYtd+XdWLApSvi3iFzHw7/BnhLWBaygIpro5qIbMwiuWNhAfzCfWQAsS/qUNkO7jlc0uaiz4dedlx/gkvIObUEfZCewqP2sppr+SO9eJtDjWYHx5c/QGtz0wOtFlpnTCdBpMokkZk6+xZC8F9xml1KtkHTc+/yMjQtX6COGAl84OCQaR0OA+y5BAA5vbvyXIT0Ubxk7uzdOpNkhICjsintEBScuxDPtLrJ9SJv18vdcY6sc6RLxsW2XZvImEjpq/ad0PKxfMlOsIkTLWtCCc3+O6NX/z5OZ6vomZO1I/Npm06BkYfECkhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5HlPOvB43abGTqEA5DGnGqHA/jVPBVhGvrKQQgLK17A=;
+ b=PV/f8RAm4ZQTPiu+WpSw2khnjKAoZxtFb0mWggF49heUdEyEUiBQvvBEgOr0a2aCHT1INGgXoIcTieWRw9QQlp9JfWkCE36MHd5DpatEhf24OTH9ceQo8u+K3/YBRQl8qr3VwuZQzslldJw3a08h7iSYExFcfDU4MsR2Li/Efc4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB5642.namprd11.prod.outlook.com (2603:10b6:510:e5::13)
+ by PH0PR11MB5596.namprd11.prod.outlook.com (2603:10b6:510:eb::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Thu, 14 Oct
+ 2021 00:25:52 +0000
+Received: from PH0PR11MB5642.namprd11.prod.outlook.com
+ ([fe80::880d:1a54:ca07:738a]) by PH0PR11MB5642.namprd11.prod.outlook.com
+ ([fe80::880d:1a54:ca07:738a%8]) with mapi id 15.20.4587.026; Thu, 14 Oct 2021
+ 00:25:52 +0000
+To: Matthew Brost <matthew.brost@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+References: <20211013204231.19287-1-matthew.brost@intel.com>
+ <20211013204231.19287-13-matthew.brost@intel.com>
+From: John Harrison <john.c.harrison@intel.com>
+Message-ID: <5d5e1707-8db5-0353-ac23-6f29115f797b@intel.com>
+Date: Wed, 13 Oct 2021 17:25:50 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
+In-Reply-To: <20211013204231.19287-13-matthew.brost@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: MW4PR03CA0296.namprd03.prod.outlook.com
+ (2603:10b6:303:b5::31) To PH0PR11MB5642.namprd11.prod.outlook.com
+ (2603:10b6:510:e5::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 8451286178646592010
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrvdduuddgvdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvufffkffogggtgfesthekredtredtjeenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpefghfffffejuefggeeujeevfeejueegudekgfduudeihfekvddtveelfefgkeevffenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucfkpheptddrtddrtddrtddpfedurddvvddrheehrdegjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrheikeekrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheprghnughisegvthgviihirghnrdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrgh
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: make a gt sysfs group and move
- power management files
+Received: from [192.168.1.106] (73.157.192.58) by
+ MW4PR03CA0296.namprd03.prod.outlook.com (2603:10b6:303:b5::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.15 via Frontend Transport; Thu, 14 Oct 2021 00:25:52 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 413eb272-0328-4809-4d7b-08d98ea92e26
+X-MS-TrafficTypeDiagnostic: PH0PR11MB5596:
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <PH0PR11MB559688BC738F2C11D4B088B4BDB89@PH0PR11MB5596.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MI7nurBdxzQRqXfJh/NuYO3S6hZyUubX6JJLRtjuolIC1HCe8wFb28V2s+b5eglbSOWG1xAJcFcNc6qhrxIvCouVfme8EJmzkwT1gWe3lq2Z0LQloBmdp5GOz9ZSJP0zxbMTihvuVczgmz+d8KFNZTYmq5c0/PRLIRqbO++W2l++tYp/Zs+H9wcZXw8ns45fEGcwZgxtv/lhRWYJr17psaaKsXDmFFk5LxKA+rzL2njGkSdWWq0vA28SNQFy+mEh5+1lE5x9jVbqYnzcotdfvFzz7sEQ269UNxboGM1zixuxP/K1l+YVpDjComzQL0PDPno+JM0eb3KgmcX0GZxJluEygFi6Tb7sAvnOOIk20bZtAQmmKrCMEitkHde7g4eBJ2J8wD0y+PSLbaTVSb3eygzl6xWRdtnZNgs0SK/eEGglxw+tER7jNxgQQc4z9TSGsAtf68qCa7ZU0Zn7qqdFReW4awxFteHJglYkBfh1tqVaaOS2nj0vq8+VblG4LWMneZF/Bk+h70EbG0Ip1Wb9se7Z7iccyV+txgpziAUYklIDlaHZHksBdnCBfK+vwQtAR0hguDrsriyZFLKpXl7+RF8lPRLmJJOGtMm4bazs9P1h27G1DcnGzDPBMRUNEWprm+wb8ys8ImG7oYw7a+5h2Qi9yXFMdMqjOwB/27Gn6f2r1axQLn5dMpWgZ9iD8xqyAlR7XHmM/xwdL5vplqKQvPMJC2amYJDAHs3UyxcGPyDFN/wK3dvIe1cMhJrxmtOU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB5642.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(2906002)(16576012)(30864003)(316002)(38100700002)(508600001)(53546011)(31686004)(66946007)(66556008)(66476007)(83380400001)(82960400001)(6486002)(26005)(8936002)(8676002)(186003)(956004)(2616005)(86362001)(31696002)(450100002)(5660300002)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTEyOUN4OGNoem9xL0NGbGxIT2xMRU1iRDllZXNEYlJGT2hjQTlJMlA3T2Mz?=
+ =?utf-8?B?RVdDbDUxNDMxVi9tWTdSSXhORFhIVVIxQUc3L0RUYWtocTJ0MkU0a0J2YnB6?=
+ =?utf-8?B?TFV5NU5CWlN4LzA5V3hsR204TEkrMU5zUnNVbUhZSXFNdyswS29FcjFWM1hZ?=
+ =?utf-8?B?YVNWZTNIOEJNNEZIMDh1cm5KZ0l3akpuOEczV0txeS95T2o1dWJqUEN3c2U3?=
+ =?utf-8?B?YjRqVTREcnJ1Z0RYV240VmRJUEV6UWxSM0RCVFZJc1RjRHJtckhiUVp2L1dp?=
+ =?utf-8?B?NEVIOExpVUdYQXVId0xQNnIzdGdvVGI2c2JJbXVyZU5xWUYrYkRUK2JYSk9T?=
+ =?utf-8?B?K3ZNMkVYT0hKV3Z3cjVsd25mbk1XZjFacXRqbFVxN2doUWNQb0J6YTJVUnJx?=
+ =?utf-8?B?STFjYXYwMjVLZGVoYnkxdWZhdXdNOGJBZjRRM1JsSDloMDlyY2JBR25nVlEw?=
+ =?utf-8?B?eWd1bFZzdkFEV1JtMnd6TlJ3TlF2dTdKdFdlTDdsM3JzWnMraU12Z3VMTStl?=
+ =?utf-8?B?R1Nkb2FqSzVxREl5eTNSVFp3VDR2Z1lLOFFPTGMwQTN3M3lvdUR6aEVJRzVB?=
+ =?utf-8?B?OWowY3RXYmtWTlFmSEtlVGVMVldaNmRmTmxhWEtzaVBkKzNYbXhGMFdGZUhB?=
+ =?utf-8?B?ckpFWHQwdkZYZ3FwcnR1MW1TOWdialZFekVqTnpobkc4dkxUSVMyQTduMXJ5?=
+ =?utf-8?B?ZG1ka1BESUUzT1ZQbHRJREgxZStiYUtjbFNzNG5BYXhPM1gxMklTNWV5cHRS?=
+ =?utf-8?B?UWx5S0RyY1FReTJxMURoTjk4OVVpMEsrOXZyczlZY2tuZk1ZMWdrWEVTYmhZ?=
+ =?utf-8?B?Q3NvdEc4U2tkNlJPRTN3Z2ttYjZxUlVaSHpmVFdwdTNDeWJuTEZ5Q3h3RUha?=
+ =?utf-8?B?dHhvVWRIL0Q2bFN1WFFRS3BPaVVtdlMvdXBiN3YzQkZURDdoTnhhZUZwVkVH?=
+ =?utf-8?B?dU42a3pRODBqdXJHUGhJTk10RUliZDh5VHBvNEhISmpFZEd0TnN0QUlOenJq?=
+ =?utf-8?B?cUdoMkZRdkd3Ym1WNXdET2dJSzJmZ1RVM3JCUDRXYWJIbnRzSlJZY3RvMWFN?=
+ =?utf-8?B?RHNQZGF3Yll6UDJVQ21XV0RyZG05VlNrZGJTWjZ6V1RzUnNXelE2TXRIbzZN?=
+ =?utf-8?B?NGkxdlA1T21aeGwrNE9iNWZtSFFRZGxjaTZEdGpuWFBkV2ZLQVlVdDA0N1Y0?=
+ =?utf-8?B?cWZITjR6ajluKzBySVZjbEp0Mnl0MGUyd2ZGTUFPUmc5UHc3VUhPZzFzczFP?=
+ =?utf-8?B?TFpoRzYrckp6Yks0aFFiTFk5Tk1BaW5WalllMEM4RmJMMGNjZ0ZqZzQxUzFS?=
+ =?utf-8?B?cWgwQ3lhcWpzRSthaWVGdFBOMDZlait6K3FJRzdZaDFNbHo1T1JCMk11V1l5?=
+ =?utf-8?B?c2F5RFd6UXZHZlpDRWhaWmlNT0x2ZmdzbjBJRjZWTGF0QW94R0lUZnpoWndV?=
+ =?utf-8?B?K0E3SVo3ZDRWWVhTMU53V0RyUEY1RFN4U0xLV2lwNXFXS0VNRWtLSFBjd2dC?=
+ =?utf-8?B?OXY3MDFzQ2lGcUpUanVEQnZ4UjRZNkNDcHJHa1VCeGg2YzQ4NnBoQWhiVDlk?=
+ =?utf-8?B?Uk1nOXN0VjB2RHhjOWxReTVtMHg1RmQ5RzRKSnZFRWRIODhkOVEyK2Y2NkFK?=
+ =?utf-8?B?bERiY29nMnNIczdNTEpkU0pwQ0dIRFoyQXZBZVZiRGpFSEVaVlJIS1BYbTJo?=
+ =?utf-8?B?L2dJdVFlRUswajdNTEswNTZJa2w4Rjk1d3VmcHYxQk1MeTJ2NnRvOEp5NXBC?=
+ =?utf-8?Q?R3acSXTHBPN9iAo9ITrTJFxHph5ZC576Lv1vIIy?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 413eb272-0328-4809-4d7b-08d98ea92e26
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5642.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 00:25:52.5998 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 97/aZTe3dlZzce98Atk2p9hqxoOF6asRmguG3k5yWt4SAIxFRBE/bxezErcX+QznZpCLIJMvkLrFP3wC2C9A2U79umvgOInXhKjO4H6K0uQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5596
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 12/25] drm/i915/guc: Implement multi-lrc
+ submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,1168 +160,690 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Andi Shyti <andi.shyti@linux.intel.com>
+On 10/13/2021 13:42, Matthew Brost wrote:
+> Implement multi-lrc submission via a single workqueue entry and single
+> H2G. The workqueue entry contains an updated tail value for each
+> request, of all the contexts in the multi-lrc submission, and updates
+> these values simultaneously. As such, the tasklet and bypass path have
+> been updated to coalesce requests into a single submission.
+>
+> v2:
+>   (John Harrison)
+>    - s/wqe/wqi
+>    - Use FIELD_PREP macros
+>    - Add GEM_BUG_ONs ensures length fits within field
+>    - Add comment / white space to intel_guc_write_barrier
+>   (Kernel test robot)
+>    - Make need_tasklet a static function
+> v3:
+>   (Docs)
+>    - A comment for submission_stall_reason
+> v4:
+>   (Kernel test robot)
+>    - Initialize return value in bypass tasklt submit function
+>   (John Harrison)
+>    - Add comment near work queue defs
+>    - Add BUILD_BUG_ON to ensure WQ_SIZE is a power of 2
+>    - Update write_barrier comment to talk about work queue
+>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  29 ++
+>   drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  11 +
+>   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  24 +-
+>   drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  30 +-
+>   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 323 +++++++++++++++---
+>   drivers/gpu/drm/i915/i915_request.h           |   8 +
+>   6 files changed, 350 insertions(+), 75 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+> index 8f8182bf7c11..6e228343e8cb 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+> @@ -756,3 +756,32 @@ void intel_guc_load_status(struct intel_guc *guc, struct drm_printer *p)
+>   		}
+>   	}
+>   }
+> +
+> +void intel_guc_write_barrier(struct intel_guc *guc)
+> +{
+> +	struct intel_gt *gt = guc_to_gt(guc);
+> +
+> +	if (i915_gem_object_is_lmem(guc->ct.vma->obj)) {
+> +		/*
+> +		 * Ensure intel_uncore_write_fw can be used rather than
+> +		 * intel_uncore_write.
+> +		 */
+> +		GEM_BUG_ON(guc->send_regs.fw_domains);
+> +
+> +		/*
+> +		 * This register is used by the i915 and GuC for MMIO based
+> +		 * communication. Once we are in this code CTBs are the only
+> +		 * method the i915 uses to communicate with the GuC so it is
+> +		 * safe to write to this register (a value of 0 is NOP for MMIO
+> +		 * communication). If we ever start mixing CTBs and MMIOs a new
+> +		 * register will have to be chosen. This function is also used
+> +		 * to enforce ordering of a work queue item write and an update
+> +		 * to the process descriptor. When a work queue is being used,
+> +		 * CTBs are also the only mechanism of communication.
+> +		 */
+> +		intel_uncore_write_fw(gt->uncore, GEN11_SOFT_SCRATCH(0), 0);
+> +	} else {
+> +		/* wmb() sufficient for a barrier if in smem */
+> +		wmb();
+> +	}
+> +}
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> index 4ca197f400ba..31cf9fb48c7e 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> @@ -46,6 +46,15 @@ struct intel_guc {
+>   	 * submitted until the stalled request is processed.
+>   	 */
+>   	struct i915_request *stalled_request;
+> +	/**
+> +	 * @submission_stall_reason: reason why submission is stalled
+> +	 */
+> +	enum {
+> +		STALL_NONE,
+> +		STALL_REGISTER_CONTEXT,
+> +		STALL_MOVE_LRC_TAIL,
+> +		STALL_ADD_REQUEST,
+> +	} submission_stall_reason;
+>   
+>   	/* intel_guc_recv interrupt related state */
+>   	/** @irq_lock: protects GuC irq state */
+> @@ -367,4 +376,6 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc);
+>   
+>   void intel_guc_load_status(struct intel_guc *guc, struct drm_printer *p);
+>   
+> +void intel_guc_write_barrier(struct intel_guc *guc);
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> index 0a3504bc0b61..a0cc34be7b56 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -383,28 +383,6 @@ static u32 ct_get_next_fence(struct intel_guc_ct *ct)
+>   	return ++ct->requests.last_fence;
+>   }
+>   
+> -static void write_barrier(struct intel_guc_ct *ct)
+> -{
+> -	struct intel_guc *guc = ct_to_guc(ct);
+> -	struct intel_gt *gt = guc_to_gt(guc);
+> -
+> -	if (i915_gem_object_is_lmem(guc->ct.vma->obj)) {
+> -		GEM_BUG_ON(guc->send_regs.fw_domains);
+> -		/*
+> -		 * This register is used by the i915 and GuC for MMIO based
+> -		 * communication. Once we are in this code CTBs are the only
+> -		 * method the i915 uses to communicate with the GuC so it is
+> -		 * safe to write to this register (a value of 0 is NOP for MMIO
+> -		 * communication). If we ever start mixing CTBs and MMIOs a new
+> -		 * register will have to be chosen.
+> -		 */
+> -		intel_uncore_write_fw(gt->uncore, GEN11_SOFT_SCRATCH(0), 0);
+> -	} else {
+> -		/* wmb() sufficient for a barrier if in smem */
+> -		wmb();
+> -	}
+> -}
+> -
+>   static int ct_write(struct intel_guc_ct *ct,
+>   		    const u32 *action,
+>   		    u32 len /* in dwords */,
+> @@ -474,7 +452,7 @@ static int ct_write(struct intel_guc_ct *ct,
+>   	 * make sure H2G buffer update and LRC tail update (if this triggering a
+>   	 * submission) are visible before updating the descriptor tail
+>   	 */
+> -	write_barrier(ct);
+> +	intel_guc_write_barrier(ct_to_guc(ct));
+>   
+>   	/* update local copies */
+>   	ctb->tail = tail;
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+> index 0eeb2a9feeed..c14fc15dd3a8 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+> @@ -52,25 +52,27 @@
+>   
+>   #define GUC_DOORBELL_INVALID		256
+>   
+> -/* Work queue item header definitions */
+> +/*
+> + * Work queue item header definitions
+> + *
+> + * Work queue is circular buffer used to submit complex (multi-lrc) submissions
+> + * to the GuC. A work queue item is entry in the circular buffer.
+is entry -> is an entry
 
-The GT has its own properties and in sysfs they should be grouped
-in the 'gt/' directory.
+With that fixed:
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 
-Create a 'gt/' directory in sysfs which will contain gt0...gtN
-directories related to each tile configured in the GPU. Move the
-power management files inside those directories.
 
-The previous power management files are kept in their original
-root directory to avoid breaking the ABI. They point to the tile
-'0' and a warning message is printed whenever accessed to. The
-deprecated interface needs for the CONFIG_SYSFS_DEPRECATED_V2
-flag in order to be generated.
-
-The new sysfs structure will have a similar layout for the 4 tile
-case:
-
-/sys/.../card0
-         ├── gt
-         │   ├── gt0
-         │   │   ├── id
-         │   │   ├── rc6_enable
-         │   │   ├── rc6_residency_ms
-         │   │   ├── rps_act_freq_mhz
-         │   │   ├── rps_boost_freq_mhz
-         │   │   ├── rps_cur_freq_mhz
-         │   │   ├── rps_max_freq_mhz
-         │   │   ├── rps_min_freq_mhz
-         │   │   ├── rps_RP0_freq_mhz
-         │   │   ├── rps_RP1_freq_mhz
-         │   │   └── rps_RPn_freq_mhz
-	 .   .
-	 .   .
-	 .   .
-         │   └── gt3
-         │       ├── id
-         │       ├── rc6_enable
-         │       ├── rc6_residency_ms
-         │       ├── rps_act_freq_mhz
-         │       ├── rps_boost_freq_mhz
-         │       ├── rps_cur_freq_mhz
-         │       ├── rps_max_freq_mhz
-         │       ├── rps_min_freq_mhz
-         │       ├── rps_RP0_freq_mhz
-         │       ├── rps_RP1_freq_mhz
-         │       └── rps_RPn_freq_mhz
-         ├── gt_act_freq_mhz   -+
-         ├── gt_boost_freq_mhz  |
-         ├── gt_cur_freq_mhz    |    Original interface
-         ├── gt_max_freq_mhz    +─-> kept as existing ABI;
-         ├── gt_min_freq_mhz    |    it points to gt0/
-         ├── gt_RP0_freq_mhz    |
-         └── gt_RP1_freq_mhz    |
-         └── gt_RPn_freq_mhz   -+
-
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
-Hi,
-
-this patch needs to go on top of Matt Roper's multitile series:
-
-	https://patchwork.freedesktop.org/series/95631/
-
-because it requires multitile support.
-
-Matt if you want and it's not much hassle for you, you can take
-this patch along with your series.
-
-Thanks,
-Andi
-
- drivers/gpu/drm/i915/Makefile         |   4 +-
- drivers/gpu/drm/i915/gt/intel_gt.c    |   3 +
- drivers/gpu/drm/i915/gt/sysfs_gt.c    | 130 +++++++++
- drivers/gpu/drm/i915/gt/sysfs_gt.h    |  45 +++
- drivers/gpu/drm/i915/gt/sysfs_gt_pm.c | 394 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/sysfs_gt_pm.h |  16 ++
- drivers/gpu/drm/i915/i915_drv.h       |   2 +
- drivers/gpu/drm/i915/i915_reg.h       |   1 +
- drivers/gpu/drm/i915/i915_sysfs.c     | 328 +--------------------
- drivers/gpu/drm/i915/i915_sysfs.h     |   3 +
- 10 files changed, 607 insertions(+), 319 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/sysfs_gt.c
- create mode 100644 drivers/gpu/drm/i915/gt/sysfs_gt.h
- create mode 100644 drivers/gpu/drm/i915/gt/sysfs_gt_pm.c
- create mode 100644 drivers/gpu/drm/i915/gt/sysfs_gt_pm.h
-
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 21b05ed0e4e8c..f39e00a0d584f 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -120,7 +120,9 @@ gt-y += \
- 	gt/intel_timeline.o \
- 	gt/intel_workarounds.o \
- 	gt/shmem_utils.o \
--	gt/sysfs_engines.o
-+	gt/sysfs_engines.o \
-+	gt/sysfs_gt.o \
-+	gt/sysfs_gt_pm.o
- # autogenerated null render state
- gt-y += \
- 	gt/gen6_renderstate.o \
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 0879e30ace7cc..748a21ab717d2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -21,6 +21,7 @@
- #include "intel_rps.h"
- #include "intel_uncore.h"
- #include "shmem_utils.h"
-+#include "sysfs_gt.h"
- #include "pxp/intel_pxp.h"
- 
- static void
-@@ -448,6 +449,7 @@ void intel_gt_driver_register(struct intel_gt *gt)
- 	intel_rps_driver_register(&gt->rps);
- 
- 	intel_gt_debugfs_register(gt);
-+	intel_gt_sysfs_register(gt);
- }
- 
- static int intel_gt_init_scratch(struct intel_gt *gt, unsigned int size)
-@@ -764,6 +766,7 @@ void intel_gt_driver_unregister(struct intel_gt *gt)
- {
- 	intel_wakeref_t wakeref;
- 
-+	intel_gt_sysfs_unregister(gt);
- 	intel_rps_driver_unregister(&gt->rps);
- 
- 	intel_pxp_fini(&gt->pxp);
-diff --git a/drivers/gpu/drm/i915/gt/sysfs_gt.c b/drivers/gpu/drm/i915/gt/sysfs_gt.c
-new file mode 100644
-index 0000000000000..0d1398b2d61ce
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/sysfs_gt.c
-@@ -0,0 +1,130 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
-+
-+#include <drm/drm_device.h>
-+#include <linux/device.h>
-+#include <linux/kobject.h>
-+#include <linux/printk.h>
-+#include <linux/sysfs.h>
-+
-+#include "i915_drv.h"
-+#include "i915_sysfs.h"
-+#include "intel_gt.h"
-+#include "intel_gt_types.h"
-+#include "intel_rc6.h"
-+
-+#include "sysfs_gt.h"
-+#include "sysfs_gt_pm.h"
-+
-+struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
-+					    const char *name)
-+{
-+	struct kobject *kobj = &dev->kobj;
-+
-+	/*
-+	 * We are interested at knowing from where the interface
-+	 * has been called, whether it's called from gt/ or from
-+	 * the parent directory.
-+	 * From the interface position it depends also the value of
-+	 * the private data.
-+	 * If the interface is called from gt/ then private data is
-+	 * of the "struct intel_gt *" type, otherwise it's * a
-+	 * "struct drm_i915_private *" type.
-+	 */
-+	if (!is_object_gt(kobj)) {
-+		struct drm_i915_private *i915 = kdev_minor_to_i915(dev);
-+
-+		pr_devel_ratelimited(DEPRECATED
-+			"%s (pid %d) is trying to access deprecated %s "
-+			"sysfs control, please use gt/gt<n>/%s instead\n",
-+			current->comm, task_pid_nr(current), name, name);
-+		return &i915->gt;
-+	}
-+
-+	return kobj_to_gt(kobj);
-+}
-+
-+static struct kobject *gt_get_parent_obj(struct intel_gt *gt)
-+{
-+	return &gt->i915->drm.primary->kdev->kobj;
-+}
-+
-+static ssize_t id_show(struct device *dev,
-+		       struct device_attribute *attr,
-+		       char *buf)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+
-+	return sysfs_emit(buf, "%u\n", gt->info.id);
-+}
-+
-+static DEVICE_ATTR_RO(id);
-+
-+static void kobj_gt_release(struct kobject *kobj)
-+{
-+	kfree(kobj);
-+}
-+
-+static struct kobj_type kobj_gt_type = {
-+	.release = kobj_gt_release,
-+	.sysfs_ops = &kobj_sysfs_ops
-+};
-+
-+struct kobject *
-+intel_gt_create_kobj(struct intel_gt *gt, struct kobject *dir, const char *name)
-+{
-+	struct kobj_gt *kg;
-+
-+	kg = kzalloc(sizeof(*kg), GFP_KERNEL);
-+	if (!kg)
-+		return NULL;
-+
-+	kobject_init(&kg->base, &kobj_gt_type);
-+	kg->gt = gt;
-+
-+	/* xfer ownership to sysfs tree */
-+	if (kobject_add(&kg->base, dir, "%s", name)) {
-+		kobject_put(&kg->base);
-+		return NULL;
-+	}
-+
-+	return &kg->base; /* borrowed ref */
-+}
-+
-+void intel_gt_sysfs_register(struct intel_gt *gt)
-+{
-+	struct kobject *dir;
-+	char name[80];
-+
-+	/*
-+	 * We need to make things right with the
-+	 * ABI compatibility. The files were originally
-+	 * generated under the parent directory.
-+	 *
-+	 * We generate the files only for gt 0
-+	 * to avoid duplicates.
-+	 */
-+	if (!gt->info.id)
-+		intel_gt_sysfs_pm_init(gt, gt_get_parent_obj(gt));
-+
-+	snprintf(name, sizeof(name), "gt%d", gt->info.id);
-+
-+	dir = intel_gt_create_kobj(gt, gt->i915->sysfs_gt, name);
-+	if (!dir) {
-+		drm_err(&gt->i915->drm,
-+			"failed to initialize %s sysfs root\n", name);
-+		return;
-+	}
-+
-+	if (sysfs_create_file(dir, &dev_attr_id.attr))
-+		drm_err(&gt->i915->drm,
-+			"failed to create sysfs %s info files\n", name);
-+
-+	intel_gt_sysfs_pm_init(gt, dir);
-+}
-+
-+void intel_gt_sysfs_unregister(struct intel_gt *gt)
-+{
-+}
-diff --git a/drivers/gpu/drm/i915/gt/sysfs_gt.h b/drivers/gpu/drm/i915/gt/sysfs_gt.h
-new file mode 100644
-index 0000000000000..89b5eeea79c62
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/sysfs_gt.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
-+
-+#ifndef __SYSFS_GT_H__
-+#define __SYSFS_GT_H__
-+
-+#include <linux/ctype.h>
-+#include <linux/kobject.h>
-+
-+#include "i915_gem.h" /* GEM_BUG_ON() */
-+
-+struct intel_gt;
-+
-+struct kobj_gt {
-+	struct kobject base;
-+	struct intel_gt *gt;
-+};
-+
-+static inline bool is_object_gt(struct kobject *kobj)
-+{
-+	bool b = !strncmp(kobj->name, "gt", 2);
-+
-+	GEM_BUG_ON(b && !isdigit(kobj->name[2]));
-+
-+	return b;
-+}
-+
-+struct kobject *
-+intel_gt_create_kobj(struct intel_gt *gt,
-+		     struct kobject *dir,
-+		     const char *name);
-+
-+static inline struct intel_gt *kobj_to_gt(struct kobject *kobj)
-+{
-+	return container_of(kobj, struct kobj_gt, base)->gt;
-+}
-+
-+void intel_gt_sysfs_register(struct intel_gt *gt);
-+void intel_gt_sysfs_unregister(struct intel_gt *gt);
-+struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
-+					    const char *name);
-+
-+#endif /* SYSFS_GT_H */
-diff --git a/drivers/gpu/drm/i915/gt/sysfs_gt_pm.c b/drivers/gpu/drm/i915/gt/sysfs_gt_pm.c
-new file mode 100644
-index 0000000000000..b7712de3b9c45
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/sysfs_gt_pm.c
-@@ -0,0 +1,394 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
-+
-+#include <drm/drm_device.h>
-+#include <linux/sysfs.h>
-+#include <linux/printk.h>
-+
-+#include "i915_drv.h"
-+#include "intel_gt.h"
-+#include "intel_rc6.h"
-+#include "intel_rps.h"
-+#include "sysfs_gt.h"
-+#include "sysfs_gt_pm.h"
-+
-+#ifdef CONFIG_PM
-+static u32 get_residency(struct intel_gt *gt, i915_reg_t reg)
-+{
-+	intel_wakeref_t wakeref;
-+	u64 res = 0;
-+
-+	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+		res = intel_rc6_residency_us(&gt->rc6, reg);
-+
-+	return DIV_ROUND_CLOSEST_ULL(res, 1000);
-+}
-+
-+static ssize_t rc6_enable_show(struct device *dev,
-+			       struct device_attribute *attr,
-+			       char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	u8 mask = 0;
-+
-+	if (HAS_RC6(gt->i915))
-+		mask |= BIT(0);
-+	if (HAS_RC6p(gt->i915))
-+		mask |= BIT(1);
-+	if (HAS_RC6pp(gt->i915))
-+		mask |= BIT(2);
-+
-+	return scnprintf(buff, PAGE_SIZE, "%x\n", mask);
-+}
-+
-+static ssize_t rc6_residency_ms_show(struct device *dev,
-+				     struct device_attribute *attr,
-+				     char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	u32 rc6_residency = get_residency(gt, GEN6_GT_GFX_RC6);
-+
-+	return scnprintf(buff, PAGE_SIZE, "%u\n", rc6_residency);
-+}
-+
-+static ssize_t rc6p_residency_ms_show(struct device *dev,
-+				      struct device_attribute *attr,
-+				      char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	u32 rc6p_residency = get_residency(gt, GEN6_GT_GFX_RC6p);
-+
-+	return scnprintf(buff, PAGE_SIZE, "%u\n", rc6p_residency);
-+}
-+
-+static ssize_t rc6pp_residency_ms_show(struct device *dev,
-+				       struct device_attribute *attr,
-+				       char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	u32 rc6pp_residency = get_residency(gt, GEN6_GT_GFX_RC6pp);
-+
-+	return scnprintf(buff, PAGE_SIZE, "%u\n", rc6pp_residency);
-+}
-+
-+static ssize_t media_rc6_residency_ms_show(struct device *dev,
-+					   struct device_attribute *attr,
-+					   char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	u32 rc6_residency = get_residency(gt, VLV_GT_MEDIA_RC6);
-+
-+	return scnprintf(buff, PAGE_SIZE, "%u\n", rc6_residency);
-+}
-+
-+static DEVICE_ATTR_RO(rc6_enable);
-+static DEVICE_ATTR_RO(rc6_residency_ms);
-+static DEVICE_ATTR_RO(rc6p_residency_ms);
-+static DEVICE_ATTR_RO(rc6pp_residency_ms);
-+static DEVICE_ATTR_RO(media_rc6_residency_ms);
-+
-+static struct attribute *rc6_attrs[] = {
-+	&dev_attr_rc6_enable.attr,
-+	&dev_attr_rc6_residency_ms.attr,
-+	NULL
-+};
-+
-+static struct attribute *rc6p_attrs[] = {
-+	&dev_attr_rc6p_residency_ms.attr,
-+	&dev_attr_rc6pp_residency_ms.attr,
-+	NULL
-+};
-+
-+static struct attribute *media_rc6_attrs[] = {
-+	&dev_attr_media_rc6_residency_ms.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group rc6_attr_group[] = {
-+	{ .name = power_group_name, .attrs = rc6_attrs },
-+	{ .attrs = rc6_attrs }
-+};
-+
-+static const struct attribute_group rc6p_attr_group[] = {
-+	{ .name = power_group_name, .attrs = rc6p_attrs },
-+	{ .attrs = rc6p_attrs }
-+};
-+
-+static const struct attribute_group media_rc6_attr_group[] = {
-+	{ .name = power_group_name, .attrs = media_rc6_attrs },
-+	{ .attrs = media_rc6_attrs }
-+};
-+
-+static int __intel_gt_sysfs_create_group(struct kobject *kobj,
-+					 const struct attribute_group *grp)
-+{
-+	int i = is_object_gt(kobj);
-+
-+	return i ? sysfs_create_group(kobj, &grp[i]) :
-+		   sysfs_merge_group(kobj, &grp[i]);
-+}
-+
-+static void intel_sysfs_rc6_init(struct intel_gt *gt, struct kobject *kobj)
-+{
-+	int ret;
-+
-+	if (!HAS_RC6(gt->i915))
-+		return;
-+
-+	ret = __intel_gt_sysfs_create_group(kobj, rc6_attr_group);
-+	if (ret)
-+		drm_err(&gt->i915->drm,
-+			"failed to create gt%u RC6 sysfs files\n", gt->info.id);
-+
-+	if (HAS_RC6p(gt->i915)) {
-+		ret = __intel_gt_sysfs_create_group(kobj, rc6p_attr_group);
-+		if (ret)
-+			drm_err(&gt->i915->drm,
-+				"failed to create gt%u RC6p sysfs files\n",
-+				gt->info.id);
-+	}
-+
-+	if (IS_VALLEYVIEW(gt->i915) || IS_CHERRYVIEW(gt->i915)) {
-+		ret = __intel_gt_sysfs_create_group(kobj, media_rc6_attr_group);
-+		if (ret)
-+			drm_err(&gt->i915->drm,
-+				"failed to create media %u RC6 sysfs files\n",
-+				gt->info.id);
-+	}
-+}
-+#else
-+static void intel_sysfs_rc6_init(struct intel_gt *gt, struct kobject *kobj)
-+{
-+}
-+#endif /* CONFIG_PM */
-+
-+static ssize_t act_freq_mhz_show(struct device *dev,
-+				     struct device_attribute *attr, char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+
-+	return scnprintf(buff, PAGE_SIZE, "%d\n",
-+			intel_rps_read_actual_frequency(&gt->rps));
-+}
-+
-+static ssize_t cur_freq_mhz_show(struct device *dev,
-+				 struct device_attribute *attr, char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return scnprintf(buff, PAGE_SIZE, "%d\n",
-+			 intel_rps_get_requested_frequency(rps));
-+}
-+
-+static ssize_t boost_freq_mhz_show(struct device *dev,
-+				   struct device_attribute *attr,
-+				   char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return scnprintf(buff, PAGE_SIZE, "%d\n",
-+			intel_gpu_freq(rps, rps->boost_freq));
-+}
-+
-+static ssize_t boost_freq_mhz_store(struct device *dev,
-+				    struct device_attribute *attr,
-+				    const char *buff, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	bool boost = false;
-+	ssize_t ret;
-+	u32 val;
-+
-+	ret = kstrtou32(buff, 0, &val);
-+	if (ret)
-+		return ret;
-+
-+	/* Validate against (static) hardware limits */
-+	val = intel_freq_opcode(rps, val);
-+	if (val < rps->min_freq || val > rps->max_freq)
-+		return -EINVAL;
-+
-+	mutex_lock(&rps->lock);
-+	if (val != rps->boost_freq) {
-+		rps->boost_freq = val;
-+		boost = atomic_read(&rps->num_waiters);
-+	}
-+	mutex_unlock(&rps->lock);
-+	if (boost)
-+		schedule_work(&rps->work);
-+
-+	return count;
-+}
-+
-+static ssize_t vlv_rpe_freq_mhz_show(struct device *dev,
-+				     struct device_attribute *attr, char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return scnprintf(buff, PAGE_SIZE, "%d\n",
-+			intel_gpu_freq(rps, rps->efficient_freq));
-+}
-+
-+static ssize_t max_freq_mhz_show(struct device *dev,
-+				 struct device_attribute *attr,
-+				 char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return sysfs_emit(buff, "%d\n", intel_rps_get_max_frequency(rps));
-+}
-+
-+static ssize_t max_freq_mhz_store(struct device *dev,
-+				  struct device_attribute *attr,
-+				  const char *buff, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	ssize_t ret;
-+	u32 val;
-+
-+	ret = kstrtou32(buff, 0, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret = intel_rps_set_max_frequency(rps, val);
-+
-+	return ret ?: count;
-+}
-+
-+static ssize_t min_freq_mhz_show(struct device *dev,
-+				 struct device_attribute *attr,
-+				 char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return sysfs_emit(buff, "%d\n", intel_rps_get_min_frequency(rps));
-+}
-+
-+static ssize_t min_freq_mhz_store(struct device *dev,
-+				  struct device_attribute *attr,
-+				  const char *buff, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	ssize_t ret;
-+	u32 val;
-+
-+	ret = kstrtou32(buff, 0, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret = intel_rps_set_min_frequency(rps, val);
-+
-+	return ret ?: count;
-+}
-+
-+#define INTEL_GT_RPS_SYSFS_ATTR(_name, _mode, _show, _store) \
-+	struct device_attribute dev_attr_gt_##_name = __ATTR(gt_##_name, _mode, _show, _store); \
-+	struct device_attribute dev_attr_rps_##_name = __ATTR(rps_##_name, _mode, _show, _store)
-+
-+#define INTEL_GT_RPS_SYSFS_ATTR_RO(_name)				\
-+		INTEL_GT_RPS_SYSFS_ATTR(_name, 0444, _name##_show, NULL)
-+#define INTEL_GT_RPS_SYSFS_ATTR_RW(_name)				\
-+		INTEL_GT_RPS_SYSFS_ATTR(_name, 0644, _name##_show, _name##_store)
-+
-+static INTEL_GT_RPS_SYSFS_ATTR_RO(act_freq_mhz);
-+static INTEL_GT_RPS_SYSFS_ATTR_RO(cur_freq_mhz);
-+static INTEL_GT_RPS_SYSFS_ATTR_RW(boost_freq_mhz);
-+static INTEL_GT_RPS_SYSFS_ATTR_RW(max_freq_mhz);
-+static INTEL_GT_RPS_SYSFS_ATTR_RW(min_freq_mhz);
-+
-+static DEVICE_ATTR_RO(vlv_rpe_freq_mhz);
-+
-+static ssize_t rps_rp_mhz_show(struct device *dev,
-+			       struct device_attribute *attr,
-+			       char *buff);
-+
-+static INTEL_GT_RPS_SYSFS_ATTR(RP0_freq_mhz, 0444, rps_rp_mhz_show, NULL);
-+static INTEL_GT_RPS_SYSFS_ATTR(RP1_freq_mhz, 0444, rps_rp_mhz_show, NULL);
-+static INTEL_GT_RPS_SYSFS_ATTR(RPn_freq_mhz, 0444, rps_rp_mhz_show, NULL);
-+
-+
-+#define GEN6_ATTR(s) { \
-+		&dev_attr_##s##_act_freq_mhz.attr, \
-+		&dev_attr_##s##_cur_freq_mhz.attr, \
-+		&dev_attr_##s##_boost_freq_mhz.attr, \
-+		&dev_attr_##s##_max_freq_mhz.attr, \
-+		&dev_attr_##s##_min_freq_mhz.attr, \
-+		&dev_attr_##s##_RP0_freq_mhz.attr, \
-+		&dev_attr_##s##_RP1_freq_mhz.attr, \
-+		&dev_attr_##s##_RPn_freq_mhz.attr, \
-+		NULL, \
-+	}
-+
-+#define GEN6_RPS_ATTR GEN6_ATTR(rps)
-+#define GEN6_GT_ATTR  GEN6_ATTR(gt)
-+
-+/* For now we have a static number of RP states */
-+static ssize_t rps_rp_mhz_show(struct device *dev,
-+			       struct device_attribute *attr,
-+			       char *buff)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	u32 val;
-+
-+	if (attr == &dev_attr_gt_RP0_freq_mhz ||
-+	    attr == &dev_attr_rps_RP0_freq_mhz) {
-+		val = intel_gpu_freq(rps, rps->rp0_freq);
-+	} else if (attr == &dev_attr_gt_RP1_freq_mhz ||
-+		   attr == &dev_attr_rps_RP1_freq_mhz) {
-+		   val = intel_gpu_freq(rps, rps->rp1_freq);
-+	} else if (attr == &dev_attr_gt_RPn_freq_mhz ||
-+		   attr == &dev_attr_rps_RPn_freq_mhz) {
-+		   val = intel_gpu_freq(rps, rps->min_freq);
-+	} else {
-+		GEM_WARN_ON(1);
-+		return -ENODEV;
-+	}
-+
-+	return scnprintf(buff, PAGE_SIZE, "%d\n", val);
-+}
-+
-+static const struct attribute * const gen6_rps_attrs[] = GEN6_RPS_ATTR;
-+static const struct attribute * const gen6_gt_attrs[]  = GEN6_GT_ATTR;
-+
-+static int intel_sysfs_rps_init(struct intel_gt *gt, struct kobject *kobj,
-+				const struct attribute * const *attrs)
-+{
-+	int ret;
-+
-+	if (GRAPHICS_VER(gt->i915) < 6)
-+		return 0;
-+
-+	ret = sysfs_create_files(kobj, attrs);
-+	if (ret)
-+		return ret;
-+
-+	if (IS_VALLEYVIEW(gt->i915) || IS_CHERRYVIEW(gt->i915))
-+		ret = sysfs_create_file(kobj, &dev_attr_vlv_rpe_freq_mhz.attr);
-+
-+	return ret;
-+}
-+
-+void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
-+{
-+	int ret;
-+
-+	intel_sysfs_rc6_init(gt, kobj);
-+
-+	ret = is_object_gt(kobj) ?
-+	      intel_sysfs_rps_init(gt, kobj, gen6_rps_attrs) :
-+	      intel_sysfs_rps_init(gt, kobj, gen6_gt_attrs);
-+	if (ret)
-+		drm_err(&gt->i915->drm,
-+			"failed to create gt%u RPS sysfs files", gt->info.id);
-+}
-diff --git a/drivers/gpu/drm/i915/gt/sysfs_gt_pm.h b/drivers/gpu/drm/i915/gt/sysfs_gt_pm.h
-new file mode 100644
-index 0000000000000..18c60d929e6d6
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/sysfs_gt_pm.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ */
-+
-+#ifndef __SYSFS_GT_PM_H__
-+#define __SYSFS_GT_PM_H__
-+
-+#include <linux/kobject.h>
-+
-+#include "intel_gt_types.h"
-+
-+void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj);
-+void intel_gt_sysfs_pm_remove(struct intel_gt *gt, struct kobject *kobj);
-+
-+#endif /* SYSFS_RC6_H */
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 97920340b5e08..4b54275207d8f 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1201,6 +1201,8 @@ struct drm_i915_private {
- #define I915_MAX_GTS 4
- 	struct intel_gt *gts[I915_MAX_GTS];
- 
-+	struct kobject *sysfs_gt;
-+
- 	struct {
- 		struct i915_gem_contexts {
- 			spinlock_t lock; /* locks list */
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 5d13c19e14aaa..94df33ceeb1c4 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -9304,6 +9304,7 @@ enum {
- #define   GEN6_OFFSET(x)			((x) << 19)
- #define   GEN6_AGGRESSIVE_TURBO			(0 << 15)
- #define   GEN9_SW_REQ_UNSLICE_RATIO_SHIFT	23
-+#define   GEN12_SW_REQ_UNSLICE_RATIO_SHIFT	23
- 
- #define GEN6_RC_VIDEO_FREQ			_MMIO(0xA00C)
- #define GEN6_RC_CONTROL				_MMIO(0xA090)
-diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
-index cdf0e9c6fd73e..6beae8a39e2d3 100644
---- a/drivers/gpu/drm/i915/i915_sysfs.c
-+++ b/drivers/gpu/drm/i915/i915_sysfs.c
-@@ -39,113 +39,12 @@
- #include "intel_pm.h"
- #include "intel_sideband.h"
- 
--static inline struct drm_i915_private *kdev_minor_to_i915(struct device *kdev)
-+struct drm_i915_private *kdev_minor_to_i915(struct device *kdev)
- {
- 	struct drm_minor *minor = dev_get_drvdata(kdev);
- 	return to_i915(minor->dev);
- }
- 
--#ifdef CONFIG_PM
--static u32 calc_residency(struct drm_i915_private *dev_priv,
--			  i915_reg_t reg)
--{
--	intel_wakeref_t wakeref;
--	u64 res = 0;
--
--	with_intel_runtime_pm(&dev_priv->runtime_pm, wakeref)
--		res = intel_rc6_residency_us(&dev_priv->gt.rc6, reg);
--
--	return DIV_ROUND_CLOSEST_ULL(res, 1000);
--}
--
--static ssize_t rc6_enable_show(struct device *kdev,
--			       struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	unsigned int mask;
--
--	mask = 0;
--	if (HAS_RC6(dev_priv))
--		mask |= BIT(0);
--	if (HAS_RC6p(dev_priv))
--		mask |= BIT(1);
--	if (HAS_RC6pp(dev_priv))
--		mask |= BIT(2);
--
--	return sysfs_emit(buf, "%x\n", mask);
--}
--
--static ssize_t rc6_residency_ms_show(struct device *kdev,
--				     struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	u32 rc6_residency = calc_residency(dev_priv, GEN6_GT_GFX_RC6);
--	return sysfs_emit(buf, "%u\n", rc6_residency);
--}
--
--static ssize_t rc6p_residency_ms_show(struct device *kdev,
--				      struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	u32 rc6p_residency = calc_residency(dev_priv, GEN6_GT_GFX_RC6p);
--	return sysfs_emit(buf, "%u\n", rc6p_residency);
--}
--
--static ssize_t rc6pp_residency_ms_show(struct device *kdev,
--				       struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	u32 rc6pp_residency = calc_residency(dev_priv, GEN6_GT_GFX_RC6pp);
--	return sysfs_emit(buf, "%u\n", rc6pp_residency);
--}
--
--static ssize_t media_rc6_residency_ms_show(struct device *kdev,
--					   struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	u32 rc6_residency = calc_residency(dev_priv, VLV_GT_MEDIA_RC6);
--	return sysfs_emit(buf, "%u\n", rc6_residency);
--}
--
--static DEVICE_ATTR_RO(rc6_enable);
--static DEVICE_ATTR_RO(rc6_residency_ms);
--static DEVICE_ATTR_RO(rc6p_residency_ms);
--static DEVICE_ATTR_RO(rc6pp_residency_ms);
--static DEVICE_ATTR_RO(media_rc6_residency_ms);
--
--static struct attribute *rc6_attrs[] = {
--	&dev_attr_rc6_enable.attr,
--	&dev_attr_rc6_residency_ms.attr,
--	NULL
--};
--
--static const struct attribute_group rc6_attr_group = {
--	.name = power_group_name,
--	.attrs =  rc6_attrs
--};
--
--static struct attribute *rc6p_attrs[] = {
--	&dev_attr_rc6p_residency_ms.attr,
--	&dev_attr_rc6pp_residency_ms.attr,
--	NULL
--};
--
--static const struct attribute_group rc6p_attr_group = {
--	.name = power_group_name,
--	.attrs =  rc6p_attrs
--};
--
--static struct attribute *media_rc6_attrs[] = {
--	&dev_attr_media_rc6_residency_ms.attr,
--	NULL
--};
--
--static const struct attribute_group media_rc6_attr_group = {
--	.name = power_group_name,
--	.attrs =  media_rc6_attrs
--};
--#endif
--
- static int l3_access_valid(struct drm_i915_private *i915, loff_t offset)
- {
- 	if (!HAS_L3_DPF(i915))
-@@ -257,184 +156,6 @@ static const struct bin_attribute dpf_attrs_1 = {
- 	.private = (void *)1
- };
- 
--static ssize_t gt_act_freq_mhz_show(struct device *kdev,
--				    struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &i915->gt.rps;
--
--	return sysfs_emit(buf, "%d\n", intel_rps_read_actual_frequency(rps));
--}
--
--static ssize_t gt_cur_freq_mhz_show(struct device *kdev,
--				    struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &i915->gt.rps;
--
--	return sysfs_emit(buf, "%d\n", intel_rps_get_requested_frequency(rps));
--}
--
--static ssize_t gt_boost_freq_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &i915->gt.rps;
--
--	return sysfs_emit(buf, "%d\n", intel_gpu_freq(rps, rps->boost_freq));
--}
--
--static ssize_t gt_boost_freq_mhz_store(struct device *kdev,
--				       struct device_attribute *attr,
--				       const char *buf, size_t count)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &dev_priv->gt.rps;
--	bool boost = false;
--	ssize_t ret;
--	u32 val;
--
--	ret = kstrtou32(buf, 0, &val);
--	if (ret)
--		return ret;
--
--	/* Validate against (static) hardware limits */
--	val = intel_freq_opcode(rps, val);
--	if (val < rps->min_freq || val > rps->max_freq)
--		return -EINVAL;
--
--	mutex_lock(&rps->lock);
--	if (val != rps->boost_freq) {
--		rps->boost_freq = val;
--		boost = atomic_read(&rps->num_waiters);
--	}
--	mutex_unlock(&rps->lock);
--	if (boost)
--		schedule_work(&rps->work);
--
--	return count;
--}
--
--static ssize_t vlv_rpe_freq_mhz_show(struct device *kdev,
--				     struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &dev_priv->gt.rps;
--
--	return sysfs_emit(buf, "%d\n", intel_gpu_freq(rps, rps->efficient_freq));
--}
--
--static ssize_t gt_max_freq_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	struct intel_gt *gt = &dev_priv->gt;
--	struct intel_rps *rps = &gt->rps;
--
--	return sysfs_emit(buf, "%d\n", intel_rps_get_max_frequency(rps));
--}
--
--static ssize_t gt_max_freq_mhz_store(struct device *kdev,
--				     struct device_attribute *attr,
--				     const char *buf, size_t count)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	struct intel_gt *gt = &dev_priv->gt;
--	struct intel_rps *rps = &gt->rps;
--	ssize_t ret;
--	u32 val;
--
--	ret = kstrtou32(buf, 0, &val);
--	if (ret)
--		return ret;
--
--	ret = intel_rps_set_max_frequency(rps, val);
--
--	return ret ?: count;
--}
--
--static ssize_t gt_min_freq_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
--	struct intel_gt *gt = &i915->gt;
--	struct intel_rps *rps = &gt->rps;
--
--	return sysfs_emit(buf, "%d\n", intel_rps_get_min_frequency(rps));
--}
--
--static ssize_t gt_min_freq_mhz_store(struct device *kdev,
--				     struct device_attribute *attr,
--				     const char *buf, size_t count)
--{
--	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &i915->gt.rps;
--	ssize_t ret;
--	u32 val;
--
--	ret = kstrtou32(buf, 0, &val);
--	if (ret)
--		return ret;
--
--	ret = intel_rps_set_min_frequency(rps, val);
--
--	return ret ?: count;
--}
--
--static DEVICE_ATTR_RO(gt_act_freq_mhz);
--static DEVICE_ATTR_RO(gt_cur_freq_mhz);
--static DEVICE_ATTR_RW(gt_boost_freq_mhz);
--static DEVICE_ATTR_RW(gt_max_freq_mhz);
--static DEVICE_ATTR_RW(gt_min_freq_mhz);
--
--static DEVICE_ATTR_RO(vlv_rpe_freq_mhz);
--
--static ssize_t gt_rp_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf);
--static DEVICE_ATTR(gt_RP0_freq_mhz, S_IRUGO, gt_rp_mhz_show, NULL);
--static DEVICE_ATTR(gt_RP1_freq_mhz, S_IRUGO, gt_rp_mhz_show, NULL);
--static DEVICE_ATTR(gt_RPn_freq_mhz, S_IRUGO, gt_rp_mhz_show, NULL);
--
--/* For now we have a static number of RP states */
--static ssize_t gt_rp_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
--{
--	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
--	struct intel_rps *rps = &dev_priv->gt.rps;
--	u32 val;
--
--	if (attr == &dev_attr_gt_RP0_freq_mhz)
--		val = intel_rps_get_rp0_frequency(rps);
--	else if (attr == &dev_attr_gt_RP1_freq_mhz)
--		val = intel_rps_get_rp1_frequency(rps);
--	else if (attr == &dev_attr_gt_RPn_freq_mhz)
--		val = intel_rps_get_rpn_frequency(rps);
--	else
--		BUG();
--
--	return sysfs_emit(buf, "%d\n", val);
--}
--
--static const struct attribute * const gen6_attrs[] = {
--	&dev_attr_gt_act_freq_mhz.attr,
--	&dev_attr_gt_cur_freq_mhz.attr,
--	&dev_attr_gt_boost_freq_mhz.attr,
--	&dev_attr_gt_max_freq_mhz.attr,
--	&dev_attr_gt_min_freq_mhz.attr,
--	&dev_attr_gt_RP0_freq_mhz.attr,
--	&dev_attr_gt_RP1_freq_mhz.attr,
--	&dev_attr_gt_RPn_freq_mhz.attr,
--	NULL,
--};
--
--static const struct attribute * const vlv_attrs[] = {
--	&dev_attr_gt_act_freq_mhz.attr,
--	&dev_attr_gt_cur_freq_mhz.attr,
--	&dev_attr_gt_boost_freq_mhz.attr,
--	&dev_attr_gt_max_freq_mhz.attr,
--	&dev_attr_gt_min_freq_mhz.attr,
--	&dev_attr_gt_RP0_freq_mhz.attr,
--	&dev_attr_gt_RP1_freq_mhz.attr,
--	&dev_attr_gt_RPn_freq_mhz.attr,
--	&dev_attr_vlv_rpe_freq_mhz.attr,
--	NULL,
--};
--
- #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
- 
- static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
-@@ -500,34 +221,16 @@ static void i915_setup_error_capture(struct device *kdev) {}
- static void i915_teardown_error_capture(struct device *kdev) {}
- #endif
- 
-+static struct kobject *i915_setup_gt_sysfs(struct kobject *parent)
-+{
-+	return kobject_create_and_add("gt", parent);
-+}
-+
- void i915_setup_sysfs(struct drm_i915_private *dev_priv)
- {
- 	struct device *kdev = dev_priv->drm.primary->kdev;
- 	int ret;
- 
--#ifdef CONFIG_PM
--	if (HAS_RC6(dev_priv)) {
--		ret = sysfs_merge_group(&kdev->kobj,
--					&rc6_attr_group);
--		if (ret)
--			drm_err(&dev_priv->drm,
--				"RC6 residency sysfs setup failed\n");
--	}
--	if (HAS_RC6p(dev_priv)) {
--		ret = sysfs_merge_group(&kdev->kobj,
--					&rc6p_attr_group);
--		if (ret)
--			drm_err(&dev_priv->drm,
--				"RC6p residency sysfs setup failed\n");
--	}
--	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
--		ret = sysfs_merge_group(&kdev->kobj,
--					&media_rc6_attr_group);
--		if (ret)
--			drm_err(&dev_priv->drm,
--				"Media RC6 residency sysfs setup failed\n");
--	}
--#endif
- 	if (HAS_L3_DPF(dev_priv)) {
- 		ret = device_create_bin_file(kdev, &dpf_attrs);
- 		if (ret)
-@@ -543,13 +246,10 @@ void i915_setup_sysfs(struct drm_i915_private *dev_priv)
- 		}
- 	}
- 
--	ret = 0;
--	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
--		ret = sysfs_create_files(&kdev->kobj, vlv_attrs);
--	else if (GRAPHICS_VER(dev_priv) >= 6)
--		ret = sysfs_create_files(&kdev->kobj, gen6_attrs);
--	if (ret)
--		drm_err(&dev_priv->drm, "RPS sysfs setup failed\n");
-+	dev_priv->sysfs_gt = i915_setup_gt_sysfs(&kdev->kobj);
-+	if (!dev_priv->sysfs_gt)
-+		drm_err(&dev_priv->drm,
-+			"failed to register GT sysfs directory\n");
- 
- 	i915_setup_error_capture(kdev);
- 
-@@ -562,14 +262,6 @@ void i915_teardown_sysfs(struct drm_i915_private *dev_priv)
- 
- 	i915_teardown_error_capture(kdev);
- 
--	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
--		sysfs_remove_files(&kdev->kobj, vlv_attrs);
--	else
--		sysfs_remove_files(&kdev->kobj, gen6_attrs);
- 	device_remove_bin_file(kdev,  &dpf_attrs_1);
- 	device_remove_bin_file(kdev,  &dpf_attrs);
--#ifdef CONFIG_PM
--	sysfs_unmerge_group(&kdev->kobj, &rc6_attr_group);
--	sysfs_unmerge_group(&kdev->kobj, &rc6p_attr_group);
--#endif
- }
-diff --git a/drivers/gpu/drm/i915/i915_sysfs.h b/drivers/gpu/drm/i915/i915_sysfs.h
-index 41afd4366416a..243a17741e3f1 100644
---- a/drivers/gpu/drm/i915/i915_sysfs.h
-+++ b/drivers/gpu/drm/i915/i915_sysfs.h
-@@ -6,8 +6,11 @@
- #ifndef __I915_SYSFS_H__
- #define __I915_SYSFS_H__
- 
-+struct device;
- struct drm_i915_private;
- 
-+struct drm_i915_private *kdev_minor_to_i915(struct device *kdev);
-+
- void i915_setup_sysfs(struct drm_i915_private *i915);
- void i915_teardown_sysfs(struct drm_i915_private *i915);
- 
--- 
-2.33.0
+> + */
+>   #define WQ_STATUS_ACTIVE		1
+>   #define WQ_STATUS_SUSPENDED		2
+>   #define WQ_STATUS_CMD_ERROR		3
+>   #define WQ_STATUS_ENGINE_ID_NOT_USED	4
+>   #define WQ_STATUS_SUSPENDED_FROM_RESET	5
+> -#define WQ_TYPE_SHIFT			0
+> -#define   WQ_TYPE_BATCH_BUF		(0x1 << WQ_TYPE_SHIFT)
+> -#define   WQ_TYPE_PSEUDO		(0x2 << WQ_TYPE_SHIFT)
+> -#define   WQ_TYPE_INORDER		(0x3 << WQ_TYPE_SHIFT)
+> -#define   WQ_TYPE_NOOP			(0x4 << WQ_TYPE_SHIFT)
+> -#define WQ_TARGET_SHIFT			10
+> -#define WQ_LEN_SHIFT			16
+> -#define WQ_NO_WCFLUSH_WAIT		(1 << 27)
+> -#define WQ_PRESENT_WORKLOAD		(1 << 28)
+> -
+> -#define WQ_RING_TAIL_SHIFT		20
+> -#define WQ_RING_TAIL_MAX		0x7FF	/* 2^11 QWords */
+> -#define WQ_RING_TAIL_MASK		(WQ_RING_TAIL_MAX << WQ_RING_TAIL_SHIFT)
+> +#define WQ_TYPE_BATCH_BUF		0x1
+> +#define WQ_TYPE_PSEUDO			0x2
+> +#define WQ_TYPE_INORDER			0x3
+> +#define WQ_TYPE_NOOP			0x4
+> +#define WQ_TYPE_MULTI_LRC		0x5
+> +#define WQ_TYPE_MASK			GENMASK(7, 0)
+> +#define WQ_LEN_MASK			GENMASK(26, 16)
+> +
+> +#define WQ_GUC_ID_MASK			GENMASK(15, 0)
+> +#define WQ_RING_TAIL_MASK		GENMASK(28, 18)
+>   
+>   #define GUC_STAGE_DESC_ATTR_ACTIVE	BIT(0)
+>   #define GUC_STAGE_DESC_ATTR_PENDING_DB	BIT(1)
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index 9fc40e3c1794..77591e764195 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -401,6 +401,29 @@ __get_process_desc(struct intel_context *ce)
+>   		   LRC_STATE_OFFSET) / sizeof(u32)));
+>   }
+>   
+> +static u32 *get_wq_pointer(struct guc_process_desc *desc,
+> +			   struct intel_context *ce,
+> +			   u32 wqi_size)
+> +{
+> +	/*
+> +	 * Check for space in work queue. Caching a value of head pointer in
+> +	 * intel_context structure in order reduce the number accesses to shared
+> +	 * GPU memory which may be across a PCIe bus.
+> +	 */
+> +#define AVAILABLE_SPACE	\
+> +	CIRC_SPACE(ce->parallel.guc.wqi_tail, ce->parallel.guc.wqi_head, WQ_SIZE)
+> +	if (wqi_size > AVAILABLE_SPACE) {
+> +		ce->parallel.guc.wqi_head = READ_ONCE(desc->head);
+> +
+> +		if (wqi_size > AVAILABLE_SPACE)
+> +			return NULL;
+> +	}
+> +#undef AVAILABLE_SPACE
+> +
+> +	return ((u32 *)__get_process_desc(ce)) +
+> +		((WQ_OFFSET + ce->parallel.guc.wqi_tail) / sizeof(u32));
+> +}
+> +
+>   static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
+>   {
+>   	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
+> @@ -560,10 +583,10 @@ int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout)
+>   
+>   static int guc_lrc_desc_pin(struct intel_context *ce, bool loop);
+>   
+> -static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+> +static int __guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+>   {
+>   	int err = 0;
+> -	struct intel_context *ce = rq->context;
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+>   	u32 action[3];
+>   	int len = 0;
+>   	u32 g2h_len_dw = 0;
+> @@ -584,26 +607,17 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+>   	GEM_BUG_ON(!atomic_read(&ce->guc_id.ref));
+>   	GEM_BUG_ON(context_guc_id_invalid(ce));
+>   
+> -	/*
+> -	 * Corner case where the GuC firmware was blown away and reloaded while
+> -	 * this context was pinned.
+> -	 */
+> -	if (unlikely(!lrc_desc_registered(guc, ce->guc_id.id))) {
+> -		err = guc_lrc_desc_pin(ce, false);
+> -		if (unlikely(err))
+> -			return err;
+> -	}
+> -
+>   	spin_lock(&ce->guc_state.lock);
+>   
+>   	/*
+>   	 * The request / context will be run on the hardware when scheduling
+> -	 * gets enabled in the unblock.
+> +	 * gets enabled in the unblock. For multi-lrc we still submit the
+> +	 * context to move the LRC tails.
+>   	 */
+> -	if (unlikely(context_blocked(ce)))
+> +	if (unlikely(context_blocked(ce) && !intel_context_is_parent(ce)))
+>   		goto out;
+>   
+> -	enabled = context_enabled(ce);
+> +	enabled = context_enabled(ce) || context_blocked(ce);
+>   
+>   	if (!enabled) {
+>   		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET;
+> @@ -622,6 +636,18 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+>   		trace_intel_context_sched_enable(ce);
+>   		atomic_inc(&guc->outstanding_submission_g2h);
+>   		set_context_enabled(ce);
+> +
+> +		/*
+> +		 * Without multi-lrc KMD does the submission step (moving the
+> +		 * lrc tail) so enabling scheduling is sufficient to submit the
+> +		 * context. This isn't the case in multi-lrc submission as the
+> +		 * GuC needs to move the tails, hence the need for another H2G
+> +		 * to submit a multi-lrc context after enabling scheduling.
+> +		 */
+> +		if (intel_context_is_parent(ce)) {
+> +			action[0] = INTEL_GUC_ACTION_SCHED_CONTEXT;
+> +			err = intel_guc_send_nb(guc, action, len - 1, 0);
+> +		}
+>   	} else if (!enabled) {
+>   		clr_context_pending_enable(ce);
+>   		intel_context_put(ce);
+> @@ -634,6 +660,18 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+>   	return err;
+>   }
+>   
+> +static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+> +{
+> +	int ret = __guc_add_request(guc, rq);
+> +
+> +	if (unlikely(ret == -EBUSY)) {
+> +		guc->stalled_request = rq;
+> +		guc->submission_stall_reason = STALL_ADD_REQUEST;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   static inline void guc_set_lrc_tail(struct i915_request *rq)
+>   {
+>   	rq->context->lrc_reg_state[CTX_RING_TAIL] =
+> @@ -645,6 +683,136 @@ static inline int rq_prio(const struct i915_request *rq)
+>   	return rq->sched.attr.priority;
+>   }
+>   
+> +static bool is_multi_lrc_rq(struct i915_request *rq)
+> +{
+> +	return intel_context_is_child(rq->context) ||
+> +		intel_context_is_parent(rq->context);
+> +}
+> +
+> +static bool can_merge_rq(struct i915_request *rq,
+> +			 struct i915_request *last)
+> +{
+> +	return request_to_scheduling_context(rq) ==
+> +		request_to_scheduling_context(last);
+> +}
+> +
+> +static u32 wq_space_until_wrap(struct intel_context *ce)
+> +{
+> +	return (WQ_SIZE - ce->parallel.guc.wqi_tail);
+> +}
+> +
+> +static void write_wqi(struct guc_process_desc *desc,
+> +		      struct intel_context *ce,
+> +		      u32 wqi_size)
+> +{
+> +	BUILD_BUG_ON(!is_power_of_2(WQ_SIZE));
+> +
+> +	/*
+> +	 * Ensure WQI are visible before updating tail
+> +	 */
+> +	intel_guc_write_barrier(ce_to_guc(ce));
+> +
+> +	ce->parallel.guc.wqi_tail = (ce->parallel.guc.wqi_tail + wqi_size) &
+> +		(WQ_SIZE - 1);
+> +	WRITE_ONCE(desc->tail, ce->parallel.guc.wqi_tail);
+> +}
+> +
+> +static int guc_wq_noop_append(struct intel_context *ce)
+> +{
+> +	struct guc_process_desc *desc = __get_process_desc(ce);
+> +	u32 *wqi = get_wq_pointer(desc, ce, wq_space_until_wrap(ce));
+> +	u32 len_dw = wq_space_until_wrap(ce) / sizeof(u32) - 1;
+> +
+> +	if (!wqi)
+> +		return -EBUSY;
+> +
+> +	GEM_BUG_ON(!FIELD_FIT(WQ_LEN_MASK, len_dw));
+> +
+> +	*wqi = FIELD_PREP(WQ_TYPE_MASK, WQ_TYPE_NOOP) |
+> +		FIELD_PREP(WQ_LEN_MASK, len_dw);
+> +	ce->parallel.guc.wqi_tail = 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static int __guc_wq_item_append(struct i915_request *rq)
+> +{
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+> +	struct intel_context *child;
+> +	struct guc_process_desc *desc = __get_process_desc(ce);
+> +	unsigned int wqi_size = (ce->parallel.number_children + 4) *
+> +		sizeof(u32);
+> +	u32 *wqi;
+> +	u32 len_dw = (wqi_size / sizeof(u32)) - 1;
+> +	int ret;
+> +
+> +	/* Ensure context is in correct state updating work queue */
+> +	GEM_BUG_ON(!atomic_read(&ce->guc_id.ref));
+> +	GEM_BUG_ON(context_guc_id_invalid(ce));
+> +	GEM_BUG_ON(context_wait_for_deregister_to_register(ce));
+> +	GEM_BUG_ON(!lrc_desc_registered(ce_to_guc(ce), ce->guc_id.id));
+> +
+> +	/* Insert NOOP if this work queue item will wrap the tail pointer. */
+> +	if (wqi_size > wq_space_until_wrap(ce)) {
+> +		ret = guc_wq_noop_append(ce);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	wqi = get_wq_pointer(desc, ce, wqi_size);
+> +	if (!wqi)
+> +		return -EBUSY;
+> +
+> +	GEM_BUG_ON(!FIELD_FIT(WQ_LEN_MASK, len_dw));
+> +
+> +	*wqi++ = FIELD_PREP(WQ_TYPE_MASK, WQ_TYPE_MULTI_LRC) |
+> +		FIELD_PREP(WQ_LEN_MASK, len_dw);
+> +	*wqi++ = ce->lrc.lrca;
+> +	*wqi++ = FIELD_PREP(WQ_GUC_ID_MASK, ce->guc_id.id) |
+> +	       FIELD_PREP(WQ_RING_TAIL_MASK, ce->ring->tail / sizeof(u64));
+> +	*wqi++ = 0;	/* fence_id */
+> +	for_each_child(ce, child)
+> +		*wqi++ = child->ring->tail / sizeof(u64);
+> +
+> +	write_wqi(desc, ce, wqi_size);
+> +
+> +	return 0;
+> +}
+> +
+> +static int guc_wq_item_append(struct intel_guc *guc,
+> +			      struct i915_request *rq)
+> +{
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+> +	int ret = 0;
+> +
+> +	if (likely(!intel_context_is_banned(ce))) {
+> +		ret = __guc_wq_item_append(rq);
+> +
+> +		if (unlikely(ret == -EBUSY)) {
+> +			guc->stalled_request = rq;
+> +			guc->submission_stall_reason = STALL_MOVE_LRC_TAIL;
+> +		}
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static bool multi_lrc_submit(struct i915_request *rq)
+> +{
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+> +
+> +	intel_ring_set_tail(rq->ring, rq->tail);
+> +
+> +	/*
+> +	 * We expect the front end (execbuf IOCTL) to set this flag on the last
+> +	 * request generated from a multi-BB submission. This indicates to the
+> +	 * backend (GuC interface) that we should submit this context thus
+> +	 * submitting all the requests generated in parallel.
+> +	 */
+> +	return test_bit(I915_FENCE_FLAG_SUBMIT_PARALLEL, &rq->fence.flags) ||
+> +		intel_context_is_banned(ce);
+> +}
+> +
+>   static int guc_dequeue_one_context(struct intel_guc *guc)
+>   {
+>   	struct i915_sched_engine * const sched_engine = guc->sched_engine;
+> @@ -658,7 +826,17 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+>   	if (guc->stalled_request) {
+>   		submit = true;
+>   		last = guc->stalled_request;
+> -		goto resubmit;
+> +
+> +		switch (guc->submission_stall_reason) {
+> +		case STALL_REGISTER_CONTEXT:
+> +			goto register_context;
+> +		case STALL_MOVE_LRC_TAIL:
+> +			goto move_lrc_tail;
+> +		case STALL_ADD_REQUEST:
+> +			goto add_request;
+> +		default:
+> +			MISSING_CASE(guc->submission_stall_reason);
+> +		}
+>   	}
+>   
+>   	while ((rb = rb_first_cached(&sched_engine->queue))) {
+> @@ -666,8 +844,8 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+>   		struct i915_request *rq, *rn;
+>   
+>   		priolist_for_each_request_consume(rq, rn, p) {
+> -			if (last && rq->context != last->context)
+> -				goto done;
+> +			if (last && !can_merge_rq(rq, last))
+> +				goto register_context;
+>   
+>   			list_del_init(&rq->sched.link);
+>   
+> @@ -675,33 +853,84 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+>   
+>   			trace_i915_request_in(rq, 0);
+>   			last = rq;
+> -			submit = true;
+> +
+> +			if (is_multi_lrc_rq(rq)) {
+> +				/*
+> +				 * We need to coalesce all multi-lrc requests in
+> +				 * a relationship into a single H2G. We are
+> +				 * guaranteed that all of these requests will be
+> +				 * submitted sequentially.
+> +				 */
+> +				if (multi_lrc_submit(rq)) {
+> +					submit = true;
+> +					goto register_context;
+> +				}
+> +			} else {
+> +				submit = true;
+> +			}
+>   		}
+>   
+>   		rb_erase_cached(&p->node, &sched_engine->queue);
+>   		i915_priolist_free(p);
+>   	}
+> -done:
+> +
+> +register_context:
+>   	if (submit) {
+> -		guc_set_lrc_tail(last);
+> -resubmit:
+> +		struct intel_context *ce = request_to_scheduling_context(last);
+> +
+> +		if (unlikely(!lrc_desc_registered(guc, ce->guc_id.id) &&
+> +			     !intel_context_is_banned(ce))) {
+> +			ret = guc_lrc_desc_pin(ce, false);
+> +			if (unlikely(ret == -EPIPE)) {
+> +				goto deadlk;
+> +			} else if (ret == -EBUSY) {
+> +				guc->stalled_request = last;
+> +				guc->submission_stall_reason =
+> +					STALL_REGISTER_CONTEXT;
+> +				goto schedule_tasklet;
+> +			} else if (ret != 0) {
+> +				GEM_WARN_ON(ret);	/* Unexpected */
+> +				goto deadlk;
+> +			}
+> +		}
+> +
+> +move_lrc_tail:
+> +		if (is_multi_lrc_rq(last)) {
+> +			ret = guc_wq_item_append(guc, last);
+> +			if (ret == -EBUSY) {
+> +				goto schedule_tasklet;
+> +			} else if (ret != 0) {
+> +				GEM_WARN_ON(ret);	/* Unexpected */
+> +				goto deadlk;
+> +			}
+> +		} else {
+> +			guc_set_lrc_tail(last);
+> +		}
+> +
+> +add_request:
+>   		ret = guc_add_request(guc, last);
+> -		if (unlikely(ret == -EPIPE))
+> +		if (unlikely(ret == -EPIPE)) {
+> +			goto deadlk;
+> +		} else if (ret == -EBUSY) {
+> +			goto schedule_tasklet;
+> +		} else if (ret != 0) {
+> +			GEM_WARN_ON(ret);	/* Unexpected */
+>   			goto deadlk;
+> -		else if (ret == -EBUSY) {
+> -			tasklet_schedule(&sched_engine->tasklet);
+> -			guc->stalled_request = last;
+> -			return false;
+>   		}
+>   	}
+>   
+>   	guc->stalled_request = NULL;
+> +	guc->submission_stall_reason = STALL_NONE;
+>   	return submit;
+>   
+>   deadlk:
+>   	sched_engine->tasklet.callback = NULL;
+>   	tasklet_disable_nosync(&sched_engine->tasklet);
+>   	return false;
+> +
+> +schedule_tasklet:
+> +	tasklet_schedule(&sched_engine->tasklet);
+> +	return false;
+>   }
+>   
+>   static void guc_submission_tasklet(struct tasklet_struct *t)
+> @@ -1251,16 +1480,22 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
+>   static int guc_bypass_tasklet_submit(struct intel_guc *guc,
+>   				     struct i915_request *rq)
+>   {
+> -	int ret;
+> +	int ret = 0;
+>   
+>   	__i915_request_submit(rq);
+>   
+>   	trace_i915_request_in(rq, 0);
+>   
+> -	guc_set_lrc_tail(rq);
+> -	ret = guc_add_request(guc, rq);
+> -	if (ret == -EBUSY)
+> -		guc->stalled_request = rq;
+> +	if (is_multi_lrc_rq(rq)) {
+> +		if (multi_lrc_submit(rq)) {
+> +			ret = guc_wq_item_append(guc, rq);
+> +			if (!ret)
+> +				ret = guc_add_request(guc, rq);
+> +		}
+> +	} else {
+> +		guc_set_lrc_tail(rq);
+> +		ret = guc_add_request(guc, rq);
+> +	}
+>   
+>   	if (unlikely(ret == -EPIPE))
+>   		disable_submission(guc);
+> @@ -1268,6 +1503,16 @@ static int guc_bypass_tasklet_submit(struct intel_guc *guc,
+>   	return ret;
+>   }
+>   
+> +static bool need_tasklet(struct intel_guc *guc, struct i915_request *rq)
+> +{
+> +	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+> +
+> +	return submission_disabled(guc) || guc->stalled_request ||
+> +		!i915_sched_engine_is_empty(sched_engine) ||
+> +		!lrc_desc_registered(guc, ce->guc_id.id);
+> +}
+> +
+>   static void guc_submit_request(struct i915_request *rq)
+>   {
+>   	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
+> @@ -1277,8 +1522,7 @@ static void guc_submit_request(struct i915_request *rq)
+>   	/* Will be called from irq-context when using foreign fences. */
+>   	spin_lock_irqsave(&sched_engine->lock, flags);
+>   
+> -	if (submission_disabled(guc) || guc->stalled_request ||
+> -	    !i915_sched_engine_is_empty(sched_engine))
+> +	if (need_tasklet(guc, rq))
+>   		queue_request(sched_engine, rq, rq_prio(rq));
+>   	else if (guc_bypass_tasklet_submit(guc, rq) == -EBUSY)
+>   		tasklet_hi_schedule(&sched_engine->tasklet);
+> @@ -2260,9 +2504,10 @@ static inline bool new_guc_prio_higher(u8 old_guc_prio, u8 new_guc_prio)
+>   
+>   static void add_to_context(struct i915_request *rq)
+>   {
+> -	struct intel_context *ce = rq->context;
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+>   	u8 new_guc_prio = map_i915_prio_to_guc_prio(rq_prio(rq));
+>   
+> +	GEM_BUG_ON(intel_context_is_child(ce));
+>   	GEM_BUG_ON(rq->guc_prio == GUC_PRIO_FINI);
+>   
+>   	spin_lock(&ce->guc_state.lock);
+> @@ -2295,7 +2540,9 @@ static void guc_prio_fini(struct i915_request *rq, struct intel_context *ce)
+>   
+>   static void remove_from_context(struct i915_request *rq)
+>   {
+> -	struct intel_context *ce = rq->context;
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+> +
+> +	GEM_BUG_ON(intel_context_is_child(ce));
+>   
+>   	spin_lock_irq(&ce->guc_state.lock);
+>   
+> @@ -2714,7 +2961,7 @@ static void guc_init_breadcrumbs(struct intel_engine_cs *engine)
+>   static void guc_bump_inflight_request_prio(struct i915_request *rq,
+>   					   int prio)
+>   {
+> -	struct intel_context *ce = rq->context;
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+>   	u8 new_guc_prio = map_i915_prio_to_guc_prio(prio);
+>   
+>   	/* Short circuit function */
+> @@ -2737,7 +2984,7 @@ static void guc_bump_inflight_request_prio(struct i915_request *rq,
+>   
+>   static void guc_retire_inflight_request_prio(struct i915_request *rq)
+>   {
+> -	struct intel_context *ce = rq->context;
+> +	struct intel_context *ce = request_to_scheduling_context(rq);
+>   
+>   	spin_lock(&ce->guc_state.lock);
+>   	guc_prio_fini(rq, ce);
+> diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+> index 7bd9ed20623e..8950785e55d6 100644
+> --- a/drivers/gpu/drm/i915/i915_request.h
+> +++ b/drivers/gpu/drm/i915/i915_request.h
+> @@ -139,6 +139,14 @@ enum {
+>   	 * the GPU. Here we track such boost requests on a per-request basis.
+>   	 */
+>   	I915_FENCE_FLAG_BOOST,
+> +
+> +	/*
+> +	 * I915_FENCE_FLAG_SUBMIT_PARALLEL - request with a context in a
+> +	 * parent-child relationship (parallel submission, multi-lrc) should
+> +	 * trigger a submission to the GuC rather than just moving the context
+> +	 * tail.
+> +	 */
+> +	I915_FENCE_FLAG_SUBMIT_PARALLEL,
+>   };
+>   
+>   /**
 
