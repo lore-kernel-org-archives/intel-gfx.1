@@ -2,51 +2,44 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE176C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F477C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9F657610A0
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9F657610A0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2EFC3610A0
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 22:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2EFC3610A0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0FC46E8D6;
-	Thu, 14 Oct 2021 22:09:20 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D260A6E199;
- Thu, 14 Oct 2021 21:19:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CB81661040;
- Thu, 14 Oct 2021 21:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634246364;
- bh=MpJNT0WyCGwBQXF7gN/2cyrmmi7LfgmPgWDBNXOdBzA=;
- h=From:To:Cc:Subject:Date:From;
- b=TO7YOhD53c/vD2A/0vTHTqITac7DLVFZVpBXIJEIBJ2aOjsZ9ukxQ0dvUGUcc2l9S
- IiZ7kH0NgxgYhvHHT6ATO0xw70dOH+gXkRAYLFmx45rqVDd3QKr21aRMlXDRzwBqQI
- lcocduH089hv9pPpY5Iu3Hj5u73c8ezOaWhHnTfD+sQQDwyIQlvIQQ8uQfKdDN+/z7
- SJCN5AH8SrTv2/dV0wpjDpDXXp03W9EkczqXiF97Ssp5mHEVPWKKkOGOgDiflXRYZk
- TgBvKav8hmAeW8iegRlhm0dnSLIx9GRPHwfvbBhcSua1EDDs7qrrODnKecwGNNLCLg
- 5khe1wGP3fE+Q==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 14 Oct 2021 14:19:16 -0700
-Message-Id: <20211014211916.3550122-1-nathan@kernel.org>
-X-Mailer: git-send-email 2.33.1.637.gf443b226ca
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929586E8DC;
+	Thu, 14 Oct 2021 22:09:26 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 092A36E8DC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 22:09:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="227754428"
+X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="227754428"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2021 15:09:25 -0700
+X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="492211751"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2021 15:09:24 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Date: Fri, 15 Oct 2021 01:09:10 +0300
+Message-Id: <20211014220921.683870-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 14 Oct 2021 22:09:20 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Avoid bitwise vs logical OR warning
- in snb_wm_latency_quirk()
+Subject: [Intel-gfx] [PATCH v3 00/11] drm/i915: Simplify handling of
+ modifiers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +55,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A new warning in clang points out a place in this file where a bitwise
-OR is being used with boolean types:
+This is v3 of [1] addressing review comments and adding r-b lines.
 
-drivers/gpu/drm/i915/intel_pm.c:3066:12: warning: use of bitwise '|' with boolean operands [-Wbitwise-instead-of-logical]
-        changed = ilk_increase_wm_latency(dev_priv, dev_priv->wm.pri_latency, 12) |
-                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[1] https://patchwork.freedesktop.org/series/95579/
 
-This construct is intentional, as it allows every one of the calls to
-ilk_increase_wm_latency() to occur (instead of short circuiting with
-logical OR) while still caring about the result of each call.
+Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
 
-To make this clearer to the compiler, use the '|=' operator to assign
-the result of each ilk_increase_wm_latency() call to changed, which
-keeps the meaning of the code the same but makes it obvious that every
-one of these calls is expected to happen.
+Imre Deak (11):
+  drm/i915: Add a table with a descriptor for all i915 modifiers
+  drm/i915: Move intel_get_format_info() to intel_fb.c
+  drm/i915: Add tiling attribute to the modifier descriptor
+  drm/i915: Simplify the modifier check for interlaced scanout support
+  drm/i915: Unexport is_semiplanar_uv_plane()
+  drm/i915: Move intel_format_info_is_yuv_semiplanar() to intel_fb.c
+  drm/i915: Add a platform independent way to get the RC CCS CC plane
+  drm/i915: Handle CCS CC planes separately from CCS AUX planes
+  drm/i915: Add a platform independent way to check for CCS AUX planes
+  drm/i915: Move is_ccs_modifier() to intel_fb.c
+  drm/i915: Add functions to check for RC CCS CC and MC CCS modifiers
 
-Link: https://github.com/ClangBuiltLinux/linux/issues/1473
-Reported-by: Nick Desaulniers <ndesaulniers@google.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- drivers/gpu/drm/i915/intel_pm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_plane.c     |  30 +-
+ .../gpu/drm/i915/display/intel_atomic_plane.c |   1 +
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  19 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 150 +----
+ drivers/gpu/drm/i915/display/intel_display.h  |   3 -
+ .../drm/i915/display/intel_display_types.h    |  17 -
+ drivers/gpu/drm/i915/display/intel_fb.c       | 535 ++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_fb.h       |  30 +-
+ drivers/gpu/drm/i915/display/intel_sprite.c   |  35 +-
+ drivers/gpu/drm/i915/display/skl_scaler.c     |   1 +
+ .../drm/i915/display/skl_universal_plane.c    | 206 ++-----
+ drivers/gpu/drm/i915/intel_pm.c               |   1 +
+ 12 files changed, 621 insertions(+), 407 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index f90fe39cf8ca..aaa3a0998e4c 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -3050,9 +3050,9 @@ static void snb_wm_latency_quirk(struct drm_i915_private *dev_priv)
- 	 * The BIOS provided WM memory latency values are often
- 	 * inadequate for high resolution displays. Adjust them.
- 	 */
--	changed = ilk_increase_wm_latency(dev_priv, dev_priv->wm.pri_latency, 12) |
--		ilk_increase_wm_latency(dev_priv, dev_priv->wm.spr_latency, 12) |
--		ilk_increase_wm_latency(dev_priv, dev_priv->wm.cur_latency, 12);
-+	changed = ilk_increase_wm_latency(dev_priv, dev_priv->wm.pri_latency, 12);
-+	changed |= ilk_increase_wm_latency(dev_priv, dev_priv->wm.spr_latency, 12);
-+	changed |= ilk_increase_wm_latency(dev_priv, dev_priv->wm.cur_latency, 12);
- 
- 	if (!changed)
- 		return;
-
-base-commit: d73b17465d6da0a94bc0fcc86b150e1e923e8f71
 -- 
-2.33.1.637.gf443b226ca
+2.27.0
 
