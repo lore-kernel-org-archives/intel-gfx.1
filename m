@@ -2,28 +2,28 @@ Return-Path: <SRS0=d1l9=PC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 474EDC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 900E0C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14F40604DC
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 14F40604DC
+	by mail.kernel.org (Postfix) with ESMTPS id 5E840604DC
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:47:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E840604DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4486E811;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 557646E845;
 	Thu, 14 Oct 2021 17:47:46 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A9826E845;
- Thu, 14 Oct 2021 17:47:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="291231652"
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="291231652"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 497096E880;
+ Thu, 14 Oct 2021 17:47:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="291231654"
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="291231654"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2021 10:25:04 -0700
-X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360490"
+X-IronPort-AV: E=Sophos;i="5.85,373,1624345200"; d="scan'208";a="481360501"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2021 10:25:02 -0700
@@ -31,16 +31,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <john.c.harrison@intel.com>
-Date: Thu, 14 Oct 2021 10:20:03 -0700
-Message-Id: <20211014172005.27155-24-matthew.brost@intel.com>
+Date: Thu, 14 Oct 2021 10:20:05 -0700
+Message-Id: <20211014172005.27155-26-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211014172005.27155-1-matthew.brost@intel.com>
 References: <20211014172005.27155-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 23/25] drm/i915: Update I915_GEM_BUSY IOCTL to
- understand composite fences
+Subject: [Intel-gfx] [PATCH 25/25] drm/i915/execlists: Weak parallel
+ submission support for execlists
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,152 +55,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Parallel submission create composite fences (dma_fence_array) for excl /
-shared slots in objects. The I915_GEM_BUSY IOCTL checks these slots to
-determine the busyness of the object. Prior to patch it only check if
-the fence in the slot was a i915_request. Update the check to understand
-composite fences and correctly report the busyness.
+A weak implementation of parallel submission (multi-bb execbuf IOCTL) for
+execlists. Doing as little as possible to support this interface for
+execlists - basically just passing submit fences between each request
+generated and virtual engines are not allowed. This is on par with what
+is there for the existing (hopefully soon deprecated) bonding interface.
 
-v2:
- (Tvrtko)
-  - Remove duplicate BUILD_BUG_ON
+We perma-pin these execlists contexts to align with GuC implementation.
 
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_busy.c      | 57 +++++++++++++++----
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  5 +-
- drivers/gpu/drm/i915/i915_request.h           |  6 ++
- 3 files changed, 55 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 10 ++--
+ drivers/gpu/drm/i915/gt/intel_context.c       |  4 +-
+ .../drm/i915/gt/intel_execlists_submission.c  | 56 ++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |  2 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 -
+ 5 files changed, 64 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-index 6234e17259c1..7358bebef15c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-@@ -4,6 +4,8 @@
-  * Copyright © 2014-2016 Intel Corporation
-  */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index fb33d0322960..35e87a7d0ea9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -570,10 +570,6 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 	struct intel_engine_cs **siblings = NULL;
+ 	intel_engine_mask_t prev_mask;
  
-+#include <linux/dma-fence-array.h>
-+
- #include "gt/intel_engine.h"
+-	/* FIXME: This is NIY for execlists */
+-	if (!(intel_uc_uses_guc_submission(&i915->gt.uc)))
+-		return -ENODEV;
+-
+ 	if (get_user(slot, &ext->engine_index))
+ 		return -EFAULT;
  
- #include "i915_gem_ioctls.h"
-@@ -36,7 +38,7 @@ static __always_inline u32 __busy_write_id(u16 id)
- }
+@@ -583,6 +579,12 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 	if (get_user(num_siblings, &ext->num_siblings))
+ 		return -EFAULT;
  
- static __always_inline unsigned int
--__busy_set_if_active(const struct dma_fence *fence, u32 (*flag)(u16 id))
-+__busy_set_if_active(struct dma_fence *fence, u32 (*flag)(u16 id))
- {
- 	const struct i915_request *rq;
- 
-@@ -46,29 +48,60 @@ __busy_set_if_active(const struct dma_fence *fence, u32 (*flag)(u16 id))
- 	 * to eventually flush us, but to minimise latency just ask the
- 	 * hardware.
- 	 *
--	 * Note we only report on the status of native fences.
-+	 * Note we only report on the status of native fences and we currently
-+	 * have two native fences:
-+	 *
-+	 * 1. A composite fence (dma_fence_array) constructed of i915 requests
-+	 * created during a parallel submission. In this case we deconstruct the
-+	 * composite fence into individual i915 requests and check the status of
-+	 * each request.
-+	 *
-+	 * 2. A single i915 request.
- 	 */
--	if (!dma_fence_is_i915(fence))
-+	if (dma_fence_is_array(fence)) {
-+		struct dma_fence_array *array = to_dma_fence_array(fence);
-+		struct dma_fence **child = array->fences;
-+		unsigned int nchild = array->num_fences;
-+
-+		do {
-+			struct dma_fence *current_fence = *child++;
-+
-+			/* Not an i915 fence, can't be busy per above */
-+			if (!dma_fence_is_i915(current_fence) ||
-+			    !test_bit(I915_FENCE_FLAG_COMPOSITE,
-+				      &current_fence->flags)) {
-+				return 0;
-+			}
-+
-+			rq = to_request(current_fence);
-+			if (!i915_request_completed(rq))
-+				return flag(rq->engine->uabi_class);
-+		} while (--nchild);
-+
-+		/* All requests in array complete, not busy */
- 		return 0;
-+	} else {
-+		if (!dma_fence_is_i915(fence))
-+			return 0;
- 
--	/* opencode to_request() in order to avoid const warnings */
--	rq = container_of(fence, const struct i915_request, fence);
--	if (i915_request_completed(rq))
--		return 0;
-+		rq = to_request(fence);
-+		if (i915_request_completed(rq))
-+			return 0;
- 
--	/* Beware type-expansion follies! */
--	BUILD_BUG_ON(!typecheck(u16, rq->engine->uabi_class));
--	return flag(rq->engine->uabi_class);
-+		/* Beware type-expansion follies! */
-+		BUILD_BUG_ON(!typecheck(u16, rq->engine->uabi_class));
-+		return flag(rq->engine->uabi_class);
++	if (!intel_uc_uses_guc_submission(&i915->gt.uc) && num_siblings != 1) {
++		drm_dbg(&i915->drm, "Only 1 sibling (%d) supported in non-GuC mode\n",
++			num_siblings);
++		return -EINVAL;
 +	}
- }
- 
- static __always_inline unsigned int
--busy_check_reader(const struct dma_fence *fence)
-+busy_check_reader(struct dma_fence *fence)
- {
- 	return __busy_set_if_active(fence, __busy_read_flag);
- }
- 
- static __always_inline unsigned int
--busy_check_writer(const struct dma_fence *fence)
-+busy_check_writer(struct dma_fence *fence)
- {
- 	if (!fence)
- 		return 0;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index fc30856e81fa..1231224728e4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -3008,8 +3008,11 @@ eb_composite_fence_create(struct i915_execbuffer *eb, int out_fence_fd)
- 	if (!fences)
- 		return ERR_PTR(-ENOMEM);
- 
--	for_each_batch_create_order(eb, i)
-+	for_each_batch_create_order(eb, i) {
- 		fences[i] = &eb->requests[i]->fence;
-+		__set_bit(I915_FENCE_FLAG_COMPOSITE,
-+			  &eb->requests[i]->fence.flags);
-+	}
- 
- 	fence_array = dma_fence_array_create(eb->num_batches,
- 					     fences,
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 24db8459376b..dc359242d1ae 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -156,6 +156,12 @@ enum {
- 	 * submission / relationship encoutered an error.
- 	 */
- 	I915_FENCE_FLAG_SKIP_PARALLEL,
 +
-+	/*
-+	 * I915_FENCE_FLAG_COMPOSITE - Indicates fence is part of a composite
-+	 * fence (dma_fence_array) and i915 generated for parallel submission.
-+	 */
-+	I915_FENCE_FLAG_COMPOSITE,
+ 	if (slot >= set->num_engines) {
+ 		drm_dbg(&i915->drm, "Invalid placement value, %d >= %d\n",
+ 			slot, set->num_engines);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 5634d14052bc..1bec92e1d8e6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -79,7 +79,8 @@ static int intel_context_active_acquire(struct intel_context *ce)
+ 
+ 	__i915_active_acquire(&ce->active);
+ 
+-	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
++	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine) ||
++	    intel_context_is_parallel(ce))
+ 		return 0;
+ 
+ 	/* Preallocate tracking nodes */
+@@ -563,7 +564,6 @@ void intel_context_bind_parent_child(struct intel_context *parent,
+ 	 * Callers responsibility to validate that this function is used
+ 	 * correctly but we use GEM_BUG_ON here ensure that they do.
+ 	 */
+-	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
+ 	GEM_BUG_ON(intel_context_is_pinned(parent));
+ 	GEM_BUG_ON(intel_context_is_child(parent));
+ 	GEM_BUG_ON(intel_context_is_pinned(child));
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index bedb80057046..8cd986bdf26c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -927,8 +927,7 @@ static void execlists_submit_ports(struct intel_engine_cs *engine)
+ 
+ static bool ctx_single_port_submission(const struct intel_context *ce)
+ {
+-	return (IS_ENABLED(CONFIG_DRM_I915_GVT) &&
+-		intel_context_force_single_submission(ce));
++	return intel_context_force_single_submission(ce);
+ }
+ 
+ static bool can_merge_ctx(const struct intel_context *prev,
+@@ -2598,6 +2597,58 @@ static void execlists_context_cancel_request(struct intel_context *ce,
+ 				      current->comm);
+ }
+ 
++static struct intel_context *
++execlists_create_parallel(struct intel_engine_cs **engines,
++			  unsigned int num_siblings,
++			  unsigned int width)
++{
++	struct intel_engine_cs **siblings = NULL;
++	struct intel_context *parent = NULL, *ce, *err;
++	int i, j;
++
++	GEM_BUG_ON(num_siblings != 1);
++
++	siblings = kmalloc_array(num_siblings,
++				 sizeof(*siblings),
++				 GFP_KERNEL);
++	if (!siblings)
++		return ERR_PTR(-ENOMEM);
++
++	for (i = 0; i < width; ++i) {
++		for (j = 0; j < num_siblings; ++j)
++			siblings[j] = engines[i * num_siblings + j];
++
++		ce = intel_context_create(siblings[0]);
++		if (!ce) {
++			err = ERR_PTR(-ENOMEM);
++			goto unwind;
++		}
++
++		if (i == 0)
++			parent = ce;
++		else
++			intel_context_bind_parent_child(parent, ce);
++	}
++
++	parent->parallel.fence_context = dma_fence_context_alloc(1);
++
++	intel_context_set_nopreempt(parent);
++	intel_context_set_single_submission(parent);
++	for_each_child(parent, ce) {
++		intel_context_set_nopreempt(ce);
++		intel_context_set_single_submission(ce);
++	}
++
++	kfree(siblings);
++	return parent;
++
++unwind:
++	if (parent)
++		intel_context_put(parent);
++	kfree(siblings);
++	return err;
++}
++
+ static const struct intel_context_ops execlists_context_ops = {
+ 	.flags = COPS_HAS_INFLIGHT,
+ 
+@@ -2616,6 +2667,7 @@ static const struct intel_context_ops execlists_context_ops = {
+ 	.reset = lrc_reset,
+ 	.destroy = lrc_destroy,
+ 
++	.create_parallel = execlists_create_parallel,
+ 	.create_virtual = execlists_create_virtual,
  };
  
- /**
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 56156cf18c41..70f4b309522d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1065,6 +1065,8 @@ lrc_pin(struct intel_context *ce,
+ 
+ void lrc_unpin(struct intel_context *ce)
+ {
++	if (unlikely(ce->parallel.last_rq))
++		i915_request_put(ce->parallel.last_rq);
+ 	check_redzone((void *)ce->lrc_reg_state - LRC_STATE_OFFSET,
+ 		      ce->engine);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index d7710debcd47..145ffe265305 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2960,8 +2960,6 @@ static void guc_parent_context_unpin(struct intel_context *ce)
+ 	GEM_BUG_ON(!intel_context_is_parent(ce));
+ 	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
+ 
+-	if (ce->parallel.last_rq)
+-		i915_request_put(ce->parallel.last_rq);
+ 	unpin_guc_id(guc, ce);
+ 	lrc_unpin(ce);
+ }
 -- 
 2.32.0
 
