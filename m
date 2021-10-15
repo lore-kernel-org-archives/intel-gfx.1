@@ -2,44 +2,45 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07C7CC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 13:40:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A090EC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 13:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C89D561151
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 13:40:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C89D561151
+	by mail.kernel.org (Postfix) with ESMTPS id 6F7C5611CE
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 13:40:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6F7C5611CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074816EDB3;
-	Fri, 15 Oct 2021 13:40:04 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B4C86EDAB
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 13:39:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="227867677"
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="227867677"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 06:39:56 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC49A6EDAE;
+	Fri, 15 Oct 2021 13:40:07 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFD8B6EDAE
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 13:40:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="291396491"
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="291396491"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 06:40:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="488433874"
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="481692800"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga007.fm.intel.com with SMTP; 15 Oct 2021 06:39:54 -0700
+ by orsmga007.jf.intel.com with SMTP; 15 Oct 2021 06:40:03 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Oct 2021 16:39:54 +0300
+ Fri, 15 Oct 2021 16:40:02 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Oct 2021 16:39:12 +0300
-Message-Id: <20211015133921.4609-12-ville.syrjala@linux.intel.com>
+Date: Fri, 15 Oct 2021 16:39:15 +0300
+Message-Id: <20211015133921.4609-15-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211015133921.4609-1-ville.syrjala@linux.intel.com>
 References: <20211015133921.4609-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/20] drm/i915/dp: Extract intel_dp_has_audio()
+Subject: [Intel-gfx] [PATCH 14/20] drm/i915/dp: Pass around intel_connector
+ rather than drm_connector
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,73 +58,129 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Declutter intel_dp_compute_config() a bit by moving the
-has_audio computation into a helper. HDMI already does the same thing.
+Prefer to use intel_connector over drm_connector. Also clean
+up the related variable names a bit.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 30 ++++++++++++++++---------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 38 ++++++++++++-------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 84270f9573ba..145f0e4a8a4b 100644
+index de2b3d33a726..d378aeee3287 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1731,6 +1731,24 @@ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
- 		intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA);
+@@ -711,13 +711,13 @@ static u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
  }
  
-+static bool intel_dp_has_audio(struct intel_encoder *encoder,
-+			       const struct intel_crtc_state *crtc_state,
-+			       const struct drm_connector_state *conn_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	const struct intel_digital_connector_state *intel_conn_state =
-+		to_intel_digital_connector_state(conn_state);
-+
-+	if (!intel_dp_port_has_audio(i915, encoder->port))
-+		return false;
-+
-+	if (intel_conn_state->force_audio == HDMI_AUDIO_AUTO)
-+		return intel_dp->has_audio;
-+	else
-+		return intel_conn_state->force_audio == HDMI_AUDIO_ON;
-+}
-+
- int
- intel_dp_compute_config(struct intel_encoder *encoder,
- 			struct intel_crtc_state *pipe_config,
-@@ -1739,14 +1757,11 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ static enum intel_output_format
+-intel_dp_output_format(struct drm_connector *connector,
++intel_dp_output_format(struct intel_connector *connector,
+ 		       const struct drm_display_mode *mode)
+ {
+-	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
+-	const struct drm_display_info *info = &connector->display_info;
++	struct intel_dp *intel_dp = intel_attached_dp(connector);
++	const struct drm_display_info *info = &connector->base.display_info;
+ 
+-	if (!connector->ycbcr_420_allowed ||
++	if (!connector->base.ycbcr_420_allowed ||
+ 	    !drm_mode_is_420_only(info, mode))
+ 		return INTEL_OUTPUT_FORMAT_RGB;
+ 
+@@ -753,7 +753,7 @@ static int intel_dp_output_bpp(enum intel_output_format output_format, int bpp)
+ }
+ 
+ static int
+-intel_dp_mode_min_output_bpp(struct drm_connector *connector,
++intel_dp_mode_min_output_bpp(struct intel_connector *connector,
+ 			     const struct drm_display_mode *mode)
+ {
+ 	enum intel_output_format output_format =
+@@ -826,7 +826,7 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
+ 	if (intel_dp->dfp.pcon_max_frl_bw) {
+ 		int target_bw;
+ 		int max_frl_bw;
+-		int bpp = intel_dp_mode_min_output_bpp(&connector->base, mode);
++		int bpp = intel_dp_mode_min_output_bpp(connector, mode);
+ 
+ 		target_bw = bpp * target_clock;
+ 
+@@ -862,13 +862,13 @@ static bool intel_dp_need_bigjoiner(struct intel_dp *intel_dp,
+ }
+ 
+ static enum drm_mode_status
+-intel_dp_mode_valid(struct drm_connector *connector,
++intel_dp_mode_valid(struct drm_connector *_connector,
+ 		    struct drm_display_mode *mode)
+ {
+-	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
+-	struct drm_display_mode *fixed_mode = intel_connector->panel.fixed_mode;
+-	struct drm_i915_private *dev_priv = to_i915(connector->dev);
++	struct intel_connector *connector = to_intel_connector(_connector);
++	struct intel_dp *intel_dp = intel_attached_dp(connector);
++	struct drm_display_mode *fixed_mode = connector->panel.fixed_mode;
++	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	int target_clock = mode->clock;
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+ 	int max_dotclk = dev_priv->max_dotclk_freq;
+@@ -884,7 +884,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 		return MODE_H_ILLEGAL;
+ 
+ 	if (intel_dp_is_edp(intel_dp) && fixed_mode) {
+-		status = intel_panel_mode_valid(intel_connector, mode);
++		status = intel_panel_mode_valid(connector, mode);
+ 		if (status != MODE_OK)
+ 			return status;
+ 
+@@ -958,8 +958,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	if (mode_rate > max_rate && !dsc)
+ 		return MODE_CLOCK_HIGH;
+ 
+-	status = intel_dp_mode_valid_downstream(intel_connector,
+-						mode, target_clock);
++	status = intel_dp_mode_valid_downstream(connector, mode, target_clock);
+ 	if (status != MODE_OK)
+ 		return status;
+ 
+@@ -1757,7 +1756,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
  	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
  	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
  	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
--	enum port port = encoder->port;
- 	struct intel_connector *intel_connector = intel_dp->attached_connector;
--	struct intel_digital_connector_state *intel_conn_state =
--		to_intel_digital_connector_state(conn_state);
+-	struct intel_connector *intel_connector = intel_dp->attached_connector;
++	struct intel_connector *connector = intel_dp->attached_connector;
  	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
  	int ret = 0, output_bpp;
  
--	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && port != PORT_A)
-+	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && encoder->port != PORT_A)
- 		pipe_config->has_pch_encoder = true;
+@@ -1766,8 +1765,8 @@ intel_dp_compute_config(struct intel_encoder *encoder,
  
- 	pipe_config->output_format = intel_dp_output_format(&intel_connector->base,
-@@ -1758,12 +1773,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	pipe_config->has_audio = intel_dp_has_audio(encoder, pipe_config, conn_state);
+ 
+-	if (intel_dp_is_edp(intel_dp) && intel_connector->panel.fixed_mode) {
+-		ret = intel_panel_compute_config(intel_connector, adjusted_mode);
++	if (intel_dp_is_edp(intel_dp) && connector->panel.fixed_mode) {
++		ret = intel_panel_compute_config(connector, adjusted_mode);
+ 		if (ret)
  			return ret;
  	}
+@@ -1785,14 +1784,13 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	if (intel_dp_hdisplay_bad(dev_priv, adjusted_mode->crtc_hdisplay))
+ 		return -EINVAL;
  
--	if (!intel_dp_port_has_audio(dev_priv, port))
--		pipe_config->has_audio = false;
--	else if (intel_conn_state->force_audio == HDMI_AUDIO_AUTO)
--		pipe_config->has_audio = intel_dp->has_audio;
--	else
--		pipe_config->has_audio = intel_conn_state->force_audio == HDMI_AUDIO_ON;
-+	pipe_config->has_audio = intel_dp_has_audio(encoder, pipe_config, conn_state);
+-	pipe_config->output_format = intel_dp_output_format(&intel_connector->base,
+-							    adjusted_mode);
++	pipe_config->output_format = intel_dp_output_format(connector, adjusted_mode);
  
- 	if (intel_dp_is_edp(intel_dp) && intel_connector->panel.fixed_mode) {
- 		ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+ 	ret = intel_dp_compute_link_config(encoder, pipe_config, conn_state);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if ((intel_dp_is_edp(intel_dp) && intel_connector->panel.fixed_mode) ||
++	if ((intel_dp_is_edp(intel_dp) && connector->panel.fixed_mode) ||
+ 	    pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+ 		ret = intel_panel_fitting(pipe_config, conn_state);
+ 		if (ret)
 -- 
 2.32.0
 
