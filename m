@@ -2,43 +2,40 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59616C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 01:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 55CFCC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 03:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24ED061139
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 01:18:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 24ED061139
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DBB3B6108B
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 03:04:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DBB3B6108B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 329E56E217;
-	Fri, 15 Oct 2021 01:18:44 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E44836E0AC;
- Fri, 15 Oct 2021 01:18:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="214761947"
-X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="214761947"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 18:18:38 -0700
-X-IronPort-AV: E=Sophos;i="5.85,374,1624345200"; d="scan'208";a="717917628"
-Received: from orsosgc001.jf.intel.com ([10.165.21.154])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2021 18:18:38 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: john.c.harrison@intel.com, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- daniel.vetter@ffwll.ch, Matthew Brost <matthew.brost@intel.com>
-Date: Thu, 14 Oct 2021 18:18:32 -0700
-Message-Id: <20211015011833.59054-1-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A6996ECC4;
+	Fri, 15 Oct 2021 03:04:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id ADE9D6ECC4;
+ Fri, 15 Oct 2021 03:04:48 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id A4071A7525;
+ Fri, 15 Oct 2021 03:04:48 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/pmu: Add a name to the execlists
- stats
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nathan Chancellor" <nathan@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 15 Oct 2021 03:04:48 -0000
+Message-ID: <163426708863.29320.17416944811075753178@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211014211916.3550122-1-nathan@kernel.org>
+In-Reply-To: <20211014211916.3550122-1-nathan@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Avoid_bitwise_vs_logical_OR_warning_in_snb=5Fwm?=
+ =?utf-8?q?=5Flatency=5Fquirk=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,206 +48,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In preparation for GuC pmu stats, add a name to the execlists stats
-structure so that it can be differentiated from the GuC stats.
+== Series Details ==
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 14 +++---
- drivers/gpu/drm/i915/gt/intel_engine_stats.h | 33 +++++++------
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 52 +++++++++++---------
- 3 files changed, 53 insertions(+), 46 deletions(-)
+Series: drm/i915: Avoid bitwise vs logical OR warning in snb_wm_latency_quirk()
+URL   : https://patchwork.freedesktop.org/series/95848/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 2ae57e4656a3..38436f4b5706 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -361,7 +361,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 		DRIVER_CAPS(i915)->has_logical_contexts = true;
- 
- 	ewma__engine_latency_init(&engine->latency);
--	seqcount_init(&engine->stats.lock);
-+	seqcount_init(&engine->stats.execlists.lock);
- 
- 	ATOMIC_INIT_NOTIFIER_HEAD(&engine->context_status_notifier);
- 
-@@ -1876,15 +1876,16 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- static ktime_t __intel_engine_get_busy_time(struct intel_engine_cs *engine,
- 					    ktime_t *now)
- {
--	ktime_t total = engine->stats.total;
-+	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
-+	ktime_t total = stats->total;
- 
- 	/*
- 	 * If the engine is executing something at the moment
- 	 * add it to the total.
- 	 */
- 	*now = ktime_get();
--	if (READ_ONCE(engine->stats.active))
--		total = ktime_add(total, ktime_sub(*now, engine->stats.start));
-+	if (READ_ONCE(stats->active))
-+		total = ktime_add(total, ktime_sub(*now, stats->start));
- 
- 	return total;
- }
-@@ -1898,13 +1899,14 @@ static ktime_t __intel_engine_get_busy_time(struct intel_engine_cs *engine,
-  */
- ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
- {
-+	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
- 	unsigned int seq;
- 	ktime_t total;
- 
- 	do {
--		seq = read_seqcount_begin(&engine->stats.lock);
-+		seq = read_seqcount_begin(&stats->lock);
- 		total = __intel_engine_get_busy_time(engine, now);
--	} while (read_seqcount_retry(&engine->stats.lock, seq));
-+	} while (read_seqcount_retry(&stats->lock, seq));
- 
- 	return total;
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_stats.h b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-index 24fbdd94351a..8e762d683e50 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-@@ -15,45 +15,46 @@
- 
- static inline void intel_engine_context_in(struct intel_engine_cs *engine)
- {
-+	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
- 	unsigned long flags;
- 
--	if (engine->stats.active) {
--		engine->stats.active++;
-+	if (stats->active) {
-+		stats->active++;
- 		return;
- 	}
- 
- 	/* The writer is serialised; but the pmu reader may be from hardirq */
- 	local_irq_save(flags);
--	write_seqcount_begin(&engine->stats.lock);
-+	write_seqcount_begin(&stats->lock);
- 
--	engine->stats.start = ktime_get();
--	engine->stats.active++;
-+	stats->start = ktime_get();
-+	stats->active++;
- 
--	write_seqcount_end(&engine->stats.lock);
-+	write_seqcount_end(&stats->lock);
- 	local_irq_restore(flags);
- 
--	GEM_BUG_ON(!engine->stats.active);
-+	GEM_BUG_ON(!stats->active);
- }
- 
- static inline void intel_engine_context_out(struct intel_engine_cs *engine)
- {
-+	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
- 	unsigned long flags;
- 
--	GEM_BUG_ON(!engine->stats.active);
--	if (engine->stats.active > 1) {
--		engine->stats.active--;
-+	GEM_BUG_ON(!stats->active);
-+	if (stats->active > 1) {
-+		stats->active--;
- 		return;
- 	}
- 
- 	local_irq_save(flags);
--	write_seqcount_begin(&engine->stats.lock);
-+	write_seqcount_begin(&stats->lock);
- 
--	engine->stats.active--;
--	engine->stats.total =
--		ktime_add(engine->stats.total,
--			  ktime_sub(ktime_get(), engine->stats.start));
-+	stats->active--;
-+	stats->total = ktime_add(stats->total,
-+				 ktime_sub(ktime_get(), stats->start));
- 
--	write_seqcount_end(&engine->stats.lock);
-+	write_seqcount_end(&stats->lock);
- 	local_irq_restore(flags);
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 9167ce52487c..b820a2c1124e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -257,6 +257,33 @@ struct intel_engine_execlists {
- 
- #define INTEL_ENGINE_CS_MAX_NAME 8
- 
-+struct intel_engine_execlists_stats {
-+	/**
-+	 * @active: Number of contexts currently scheduled in.
-+	 */
-+	unsigned int active;
-+
-+	/**
-+	 * @lock: Lock protecting the below fields.
-+	 */
-+	seqcount_t lock;
-+
-+	/**
-+	 * @total: Total time this engine was busy.
-+	 *
-+	 * Accumulated time not counting the most recent block in cases where
-+	 * engine is currently busy (active > 0).
-+	 */
-+	ktime_t total;
-+
-+	/**
-+	 * @start: Timestamp of the last idle to active transition.
-+	 *
-+	 * Idle is defined as active == 0, active is active > 0.
-+	 */
-+	ktime_t start;
-+};
-+
- struct intel_engine_cs {
- 	struct drm_i915_private *i915;
- 	struct intel_gt *gt;
-@@ -481,30 +508,7 @@ struct intel_engine_cs {
- 	u32 (*get_cmd_length_mask)(u32 cmd_header);
- 
- 	struct {
--		/**
--		 * @active: Number of contexts currently scheduled in.
--		 */
--		unsigned int active;
--
--		/**
--		 * @lock: Lock protecting the below fields.
--		 */
--		seqcount_t lock;
--
--		/**
--		 * @total: Total time this engine was busy.
--		 *
--		 * Accumulated time not counting the most recent block in cases
--		 * where engine is currently busy (active > 0).
--		 */
--		ktime_t total;
--
--		/**
--		 * @start: Timestamp of the last idle to active transition.
--		 *
--		 * Idle is defined as active == 0, active is active > 0.
--		 */
--		ktime_t start;
-+		struct intel_engine_execlists_stats execlists;
- 
- 		/**
- 		 * @rps: Utilisation at last RPS sampling.
--- 
-2.20.1
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+5ab9722a74fe drm/i915: Avoid bitwise vs logical OR warning in snb_wm_latency_quirk()
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+        changed = ilk_increase_wm_latency(dev_priv, dev_priv->wm.pri_latency, 12) |
+
+total: 0 errors, 1 warnings, 0 checks, 12 lines checked
+
 
