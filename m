@@ -2,73 +2,59 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EDA9C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3DDAC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3CCBE60FDA
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3CCBE60FDA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C130C60F11
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C130C60F11
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=rothwell.id.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0789E6EA1A;
-	Mon, 18 Oct 2021 12:19:39 +0000 (UTC)
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F8E6E995;
- Mon, 18 Oct 2021 08:43:37 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id np13so11698339pjb.4;
- Mon, 18 Oct 2021 01:43:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/sIT4umqcrgezmo7NeKDo4pD3l7TGx1ShKleFi4zvMg=;
- b=lXrjdjy9g+sP6tVwh3R0LbFpvRMw0iCGBp/+3otwIDwVuLTV1rO74j9MnDfjuh5M3Q
- fNPJe3SkENcfuVJExXQfsOZwhFHvJvz4mbANfzRXJl2MpB3Kn3mzEIwEPrHXIPEazqXL
- Ex3O9KwPrnrWvwHVCa2PLdrQZaqLPXHKNs0Sbeq8DN3AXirhwYKRwU98oP0L1kKgoBAi
- pN7UJX4sdSu4a4iM/pMveiGmf2u/yxkYBhIBnFOvvatcBxvu53AVXtWkuMH085L0WA2g
- qiTDZ5WFGShMbsmqo+GPO98HKItWZexk9yIeyPi/lp2mVDVXIMk2M07vkTqTa4sb1TV7
- 2fUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/sIT4umqcrgezmo7NeKDo4pD3l7TGx1ShKleFi4zvMg=;
- b=KoGvDMU+8e42njJx0gCWf0dwUj60671Dkg4s5IQ/yCJiN2JMutL1OiyDHVCfMPjoPi
- WripjPYsAzOLBuSombn/acKohatGfYZ0rEolt4YhuRUkp/vz3Tjrhmw3g52GBUcD+IHc
- ujn08J150j14FP5aLm3tqskICHsmu69xXgoz10ZocLfUm3BRd+vRQhKwKDcdrkd3ighP
- d9NKSKrw4HN7NDEVXY2WC+PgCu1j2mG13fSuwPuONRWt6a26UukrBP1JOSfCFS0u+kFH
- 1KpDosNe/Ex2v5X5STjd/oapEV6q+uWJCtuQTcgzMooKVqMqo50aDnIPR0B4D0gXA02Y
- rdUg==
-X-Gm-Message-State: AOAM530pdJ/zvZoWhACAyEU9Fs0ezy3SlTKovevyPG/fXK7/fhjWR9WV
- KyMTEHMVNcPq7745B8Io2XGDYOfo0a8=
-X-Google-Smtp-Source: ABdhPJyXe3WVogvoDfLeXoKli08zF7MOl0pG+v3UNaG4cNfHsYezHxB8MJjkOAYchUOyIYllZuWSlQ==
-X-Received: by 2002:a17:902:ed8c:b0:13f:136f:efb1 with SMTP id
- e12-20020a170902ed8c00b0013f136fefb1mr25827200plj.56.1634546617391; 
- Mon, 18 Oct 2021 01:43:37 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id s14sm12356974pfg.50.2021.10.18.01.43.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 01:43:36 -0700 (PDT)
-From: luo penghao <cgel.zte@gmail.com>
-X-Google-Original-From: luo penghao <luo.penghao@zte.com.cn>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Rothwell <sfr@canb.auug.org.au>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, luo penghao <luo.penghao@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>
-Date: Mon, 18 Oct 2021 08:43:31 +0000
-Message-Id: <20211018084331.851975-1-luo.penghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFFA56EA17;
+	Mon, 18 Oct 2021 12:19:38 +0000 (UTC)
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Fri, 15 Oct 2021 10:31:14 UTC
+Received: from gimli.rothwell.id.au (gimli.rothwell.id.au [103.230.158.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500226E249;
+ Fri, 15 Oct 2021 10:31:14 +0000 (UTC)
+Received: from authenticated.rothwell.id.au (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.rothwell.id.au (Postfix) with ESMTPSA id 4HW2S13FD3z101M;
+ Fri, 15 Oct 2021 21:24:01 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rothwell.id.au;
+ s=201702; t=1634293443;
+ bh=tepJe4AXXxss/DiAoGZR08QB5qtGDqWnkQk6fLoZ39o=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=UzXkr8yt/ZzXjeAilE9mwRB87eXjfTUhvt6kRbgUvMg1YWSg8Llkt88gdbMLEOs2U
+ y9LLxjqP5hHrBAi24C/ME2pTa9LUEIlEDCt4mL6YY/uluom1/jwPQBrBqgx8L2OurL
+ OD7QsJXUXNXVyTt8n5P9jrf+KAWBXesq//YhO8QIZl7m5eA3BBaCQDqXtW3Aq0Gpos
+ /i314NHc1lXIQiZdDsAMxso4F9hxeLT5GF9yOV5EaWcM+wIGU9MqHlVeGppPZi42oS
+ oIWWxoqnCOjZFJyMRpCWS9QxGgddIInlSYqGXOzgH5CyCLYBCjX6xSflsVgMEPod63
+ cD93pKWVrPwhA==
+Date: Fri, 15 Oct 2021 21:23:59 +1100
+From: Stephen Rothwell <sfr@rothwell.id.au>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Daniel Vetter
+ <daniel.vetter@ffwll.ch>, Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>
+Message-ID: <20211015212359.30e2fb01@elm.ozlabs.ibm.com>
+In-Reply-To: <87h7divcet.fsf@intel.com>
+References: <20211015202648.258445ef@canb.auug.org.au>
+ <87h7divcet.fsf@intel.com>
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/9bo9n8X6MVEuaY_0YZ+30wy";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Mon, 18 Oct 2021 12:19:37 +0000
-Subject: [Intel-gfx] [PATCH linux-next] drm/i915/display: Remove unused
- variable and its assignment.
+Subject: Re: [Intel-gfx] linux-next: build failure after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,42 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Variable is not used in functions, and its assignment is redundant too.
-So it should be deleted.
+--Sig_/9bo9n8X6MVEuaY_0YZ+30wy
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-The clang_analyzer complains as follows:
+Hi Jani,
 
-drivers/gpu/drm/i915/display/intel_dpll.c:1653:2 warning:
-Value stored to 'bestm1' is never read.
+On Fri, 15 Oct 2021 12:56:58 +0300 Jani Nikula <jani.nikula@intel.com> wrot=
+e:
+>
+> The fix looks good, but I'd rename __stack_depot_print too added in the
+> same commit. Do you want to respin or shall I take it from here?
 
-drivers/gpu/drm/i915/display/intel_dpll.c:1651:2 warning:
-Value stored to 'bestn' is never read.
+If you are happy to take it on, then thanks.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: luo penghao <luo.penghao@zte.com.cn>
----
- drivers/gpu/drm/i915/display/intel_dpll.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+--=20
+Cheers,
+Stephen Rothwell
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index b84ed4a..28b1616 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1644,13 +1644,11 @@ static void chv_prepare_pll(const struct intel_crtc_state *crtc_state)
- 	enum pipe pipe = crtc->pipe;
- 	enum dpio_channel port = vlv_pipe_to_channel(pipe);
- 	u32 loopfilter, tribuf_calcntr;
--	u32 bestn, bestm1, bestm2, bestp1, bestp2, bestm2_frac;
-+	u32 bestm2, bestp1, bestp2, bestm2_frac;
- 	u32 dpio_val;
- 	int vco;
- 
--	bestn = crtc_state->dpll.n;
- 	bestm2_frac = crtc_state->dpll.m2 & 0x3fffff;
--	bestm1 = crtc_state->dpll.m1;
- 	bestm2 = crtc_state->dpll.m2 >> 22;
- 	bestp1 = crtc_state->dpll.p1;
- 	bestp2 = crtc_state->dpll.p2;
--- 
-2.15.2
+--Sig_/9bo9n8X6MVEuaY_0YZ+30wy
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmFpVr8ACgkQAVBC80lX
+0GwUcgf/c+KVcX32awGERmuiAMlIyuV579fRV+2X98LX/oqdTTurqeHrABVDPZii
+g+1XP5IQ/l0buN7ELXLWQQqVK2p9VJHBii9/F/Qth1g69JqaTPbo9qBbrzaxWtnc
+c+NFNr15G3/t9DGH286JE1W6q0EeQ17j/X47D4UWwpXVRryCrCfjAHgBpykThswA
+gAZ0YplO+TsLanJ12oFxEATntf5zaO1ZCzbqYvsbUxcVcfr59OD21HzaOjKlY+Uo
+37c9JVzpOWnvHv1A9N96ipw492H8EEjRAr/TLh7vjJDNJN/JkGXBlDQj7RxcHUNW
+EnmZ3aoYZJXncCm44D8cgtmxLRnQKQ==
+=RJqB
+-----END PGP SIGNATURE-----
+
+--Sig_/9bo9n8X6MVEuaY_0YZ+30wy--
