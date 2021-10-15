@@ -2,40 +2,35 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D222C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 11:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F050C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 11:57:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38B7C60D07
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 11:57:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 38B7C60D07
+	by mail.kernel.org (Postfix) with ESMTPS id D46B960524
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 11:57:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D46B960524
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3174C6ECE5;
-	Fri, 15 Oct 2021 11:57:28 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD6C6E450;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20CB56ED0B;
+	Fri, 15 Oct 2021 11:57:29 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 594EC6E47B;
  Fri, 15 Oct 2021 11:57:26 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 15 Oct 2021 13:57:19 +0200
-Message-Id: <20211015115720.79958-2-maarten.lankhorst@linux.intel.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Date: Fri, 15 Oct 2021 13:57:18 +0200
+Message-Id: <20211015115720.79958-1-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211015115720.79958-1-maarten.lankhorst@linux.intel.com>
-References: <20211015115720.79958-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] dma-buf: Fix dma_resv_wait_timeout handling
- of timeout = 0.
+Subject: [Intel-gfx] [PATCH 0/2] dma-buf: Fix breakages from dma_resv_iter
+ conversion.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,48 +46,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit ada5c48b11a3 ("dma-buf: use new iterator in dma_resv_wait_timeout")
-accidentally started mishandling timeout = 0, by forcing a blocking wait
-with timeout = 1 passed to fences. This is not intended, as timeout = 0
-may be used for peeking, similar to test_signaled.
+Urgent fixes!
 
-Fixes: ada5c48b11a3 ("dma-buf: use new iterator in dma_resv_wait_timeout")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
----
- drivers/dma-buf/dma-resv.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+dma_resv_test_signaled is completely broken, dma_resv_wait_timeout kind of broken.
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 9eb2baa387d4..70a8082660c5 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -617,18 +617,18 @@ EXPORT_SYMBOL_GPL(dma_resv_get_fences);
- long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
- 			   unsigned long timeout)
- {
--	long ret = timeout ? timeout : 1;
-+	long ret = timeout ?: 1;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
- 
- 	dma_resv_iter_begin(&cursor, obj, wait_all);
- 	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		ret = dma_fence_wait_timeout(fence, intr, timeout);
-+		if (ret <= 0)
-+			break;
- 
--		ret = dma_fence_wait_timeout(fence, intr, ret);
--		if (ret <= 0) {
--			dma_resv_iter_end(&cursor);
--			return ret;
--		}
-+		if (timeout)
-+			timeout = ret;
- 	}
- 	dma_resv_iter_end(&cursor);
- 
+Maarten Lankhorst (2):
+  dma-buf: Fix dma_resv_wait_timeout handling of timeout = 0.
+  dma-buf: Fix dma_resv_test_signaled.
+
+ drivers/dma-buf/dma-resv.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
 -- 
 2.33.0
 
