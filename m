@@ -2,47 +2,46 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D9BEC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:17:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DDE48C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6BA9A6044F
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6BA9A6044F
+	by mail.kernel.org (Postfix) with ESMTPS id A139F60EDF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:17:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A139F60EDF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A10206ECEA;
-	Fri, 15 Oct 2021 07:16:59 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A346ECE7
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 07:16:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="291350751"
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="291350751"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 00:16:50 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA096ECEB;
+	Fri, 15 Oct 2021 07:17:08 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 594716ECEB
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 07:17:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="215029807"
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="215029807"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 00:16:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="571675400"
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="492357204"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga002.fm.intel.com with SMTP; 15 Oct 2021 00:16:46 -0700
+ by orsmga008.jf.intel.com with SMTP; 15 Oct 2021 00:16:56 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Oct 2021 10:16:45 +0300
+ Fri, 15 Oct 2021 10:16:55 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Dave Airlie <airlied@redhat.com>,
 	Jani Nikula <jani.nikula@intel.com>
-Date: Fri, 15 Oct 2021 10:16:22 +0300
-Message-Id: <20211015071625.593-7-ville.syrjala@linux.intel.com>
+Date: Fri, 15 Oct 2021 10:16:25 +0300
+Message-Id: <20211015071625.593-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211015071625.593-1-ville.syrjala@linux.intel.com>
 References: <20211015071625.593-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/9] drm/i915: Move iCLKIP readout to the pch
- code
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915: Introduce lpt_pch_disable()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,77 +59,100 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Move the lpt_get_iclkip() call from hsw_crt_get_config()
-since that's where we have the lpt_program_iclkip() call
-as well.
+Let's add lpt_pch_disable() as the counterpart to
+lpt_pch_enable().
 
-Tehcnically this isn't perhaps quite right since iCLKIP
-is providing the CRT dotclock. So one can argue all of
-it should be directly in intel_crt.c. But since the CRT
-port is the only one on the PCH sticking it all into the
-PCH code seems OK.
+Note that unlike the ilk+ code the fdi_link_train()
+and fdi_disable() calls are still left directly in
+intel_crt.c. If we wanted to move those we'd need to
+add lpt_pch_pre_enable(). But the two fdi direct fdi
+calls are pretry symmetric so it doesn't seem too bad
+to just keep them as is.
 
 Cc: Dave Airlie <airlied@redhat.com>
 Cc: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c         | 4 ----
- drivers/gpu/drm/i915/display/intel_ddi.c         | 7 ++++---
- drivers/gpu/drm/i915/display/intel_pch_display.c | 2 ++
- 3 files changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crt.c         |  5 ++---
+ drivers/gpu/drm/i915/display/intel_pch_display.c | 10 ++++++++++
+ drivers/gpu/drm/i915/display/intel_pch_display.h |  4 ++--
+ 3 files changed, 14 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 03cfae46f92f..fe807c8e793d 100644
+index db27ae2a8406..f0f28572dfdc 100644
 --- a/drivers/gpu/drm/i915/display/intel_crt.c
 +++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -145,8 +145,6 @@ static void intel_crt_get_config(struct intel_encoder *encoder,
- static void hsw_crt_get_config(struct intel_encoder *encoder,
- 			       struct intel_crtc_state *pipe_config)
+@@ -46,7 +46,6 @@
+ #include "intel_gmbus.h"
+ #include "intel_hotplug.h"
+ #include "intel_pch_display.h"
+-#include "intel_pch_refclk.h"
+ 
+ /* Here's the desired hotplug mode */
+ #define ADPA_HOTPLUG_BITS (ADPA_CRT_HOTPLUG_PERIOD_128 |		\
+@@ -247,6 +246,7 @@ static void hsw_post_disable_crt(struct intel_atomic_state *state,
+ 				 const struct intel_crtc_state *old_crtc_state,
+ 				 const struct drm_connector_state *old_conn_state)
  {
--	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
--
- 	lpt_pch_get_config(pipe_config);
++	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
  
- 	hsw_ddi_get_config(encoder, pipe_config);
-@@ -156,8 +154,6 @@ static void hsw_crt_get_config(struct intel_encoder *encoder,
- 					      DRM_MODE_FLAG_PVSYNC |
- 					      DRM_MODE_FLAG_NVSYNC);
- 	pipe_config->hw.adjusted_mode.flags |= intel_crt_get_flags(encoder);
--
--	pipe_config->hw.adjusted_mode.crtc_clock = lpt_get_iclkip(dev_priv);
- }
+ 	intel_crtc_vblank_off(old_crtc_state);
+@@ -261,8 +261,7 @@ static void hsw_post_disable_crt(struct intel_atomic_state *state,
  
- /* Note: The caller is required to filter out dpms modes not supported by the
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 1dcfe31e6c6f..8bbbeec01607 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -321,10 +321,11 @@ static void ddi_dotclock_get(struct intel_crtc_state *pipe_config)
- {
- 	int dotclock;
+ 	pch_post_disable_crt(state, encoder, old_crtc_state, old_conn_state);
  
-+	/* CRT dotclock is determined via other means */
- 	if (pipe_config->has_pch_encoder)
--		dotclock = intel_dotclock_calculate(pipe_config->port_clock,
--						    &pipe_config->fdi_m_n);
--	else if (intel_crtc_has_dp_encoder(pipe_config))
-+		return;
-+
-+	if (intel_crtc_has_dp_encoder(pipe_config))
- 		dotclock = intel_dotclock_calculate(pipe_config->port_clock,
- 						    &pipe_config->dp_m_n);
- 	else if (pipe_config->has_hdmi_sink && pipe_config->pipe_bpp > 24)
+-	lpt_disable_pch_transcoder(dev_priv);
+-	lpt_disable_iclkip(dev_priv);
++	lpt_pch_disable(state, crtc);
+ 
+ 	hsw_fdi_disable(encoder);
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.c b/drivers/gpu/drm/i915/display/intel_pch_display.c
-index f3edabdd0a4c..07ec43f8a7fa 100644
+index f40bdb387a68..32f2319021f3 100644
 --- a/drivers/gpu/drm/i915/display/intel_pch_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_pch_display.c
-@@ -451,4 +451,6 @@ void lpt_pch_get_config(struct intel_crtc_state *crtc_state)
- 				 FDI_DP_PORT_WIDTH_SHIFT) + 1;
- 
- 	ilk_get_fdi_m_n_config(crtc, crtc_state);
-+
-+	crtc_state->hw.adjusted_mode.crtc_clock = lpt_get_iclkip(dev_priv);
+@@ -470,6 +470,16 @@ void lpt_pch_enable(struct intel_atomic_state *state,
+ 	lpt_enable_pch_transcoder(dev_priv, cpu_transcoder);
  }
+ 
++void lpt_pch_disable(struct intel_atomic_state *state,
++		     struct intel_crtc *crtc)
++{
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++
++	lpt_disable_pch_transcoder(dev_priv);
++
++	lpt_disable_iclkip(dev_priv);
++}
++
+ void lpt_pch_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.h b/drivers/gpu/drm/i915/display/intel_pch_display.h
+index a983f4d5a3b6..2c387fe3a467 100644
+--- a/drivers/gpu/drm/i915/display/intel_pch_display.h
++++ b/drivers/gpu/drm/i915/display/intel_pch_display.h
+@@ -6,7 +6,6 @@
+ #ifndef _INTEL_PCH_DISPLAY_H_
+ #define _INTEL_PCH_DISPLAY_H_
+ 
+-struct drm_i915_private;
+ struct intel_atomic_state;
+ struct intel_crtc;
+ struct intel_crtc_state;
+@@ -19,9 +18,10 @@ void ilk_pch_post_disable(struct intel_atomic_state *state,
+ 			  struct intel_crtc *crtc);
+ void ilk_pch_get_config(struct intel_crtc_state *crtc_state);
+ 
+-void lpt_disable_pch_transcoder(struct drm_i915_private *dev_priv);
+ void lpt_pch_enable(struct intel_atomic_state *state,
+ 		    struct intel_crtc *crtc);
++void lpt_pch_disable(struct intel_atomic_state *state,
++		     struct intel_crtc *crtc);
+ void lpt_pch_get_config(struct intel_crtc_state *crtc_state);
+ 
+ #endif
 -- 
 2.32.0
 
