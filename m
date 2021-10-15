@@ -2,44 +2,65 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 064FCC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:16:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A27AEC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC92660EE2
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC92660EE2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 640CC6101D
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 640CC6101D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D010C6E237;
-	Fri, 15 Oct 2021 09:16:56 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3AFD6E237
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 09:16:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="227774555"
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="227774555"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 02:16:55 -0700
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="525379999"
-Received: from rboyadji-mobl.amr.corp.intel.com (HELO rdvivi-mobl4.intel.com)
- ([10.213.161.67])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 02:16:54 -0700
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Date: Fri, 15 Oct 2021 05:16:50 -0400
-Message-Id: <20211015091650.87270-1-rodrigo.vivi@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEC06ED06;
+	Fri, 15 Oct 2021 09:26:11 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29AC26ED01;
+ Fri, 15 Oct 2021 08:56:11 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BAD2E61053;
+ Fri, 15 Oct 2021 08:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634288170;
+ bh=Q7ariDqv81ESrlC2dW0PuAyGJAandYcqDaiSNHfbxQQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uHWFxjgN0j6uy54kk+PuKWsQXZAravsfZY8pZKixqTo8/t9859egP1Fzz/r/UFP3j
+ pKRuamEiuY/Dwc/+QpnfWTf/sWNNfhMwZbVWxVfub1kH4CRYdWRn5CQYjdbgLCac9o
+ sh7ORqtEfm9q5AKGtzFZlP/kLNO/R2oFHLN3PRlxsXtO7/HYTzofgjq4C072XXT9lh
+ KbGmTC7vqWacVxEn3eNhUgZ/EA7McQ1YvxSRGhlsTVouHPeADKh3UBp0IaceH36bIf
+ Y9c+6PGwmjdmSCJ0ZadDxaYmKgTuJ65zPH3wNm8vQE6+zKn5B8ls+d97XXK85PZn9u
+ zx39wdy59p99g==
+Date: Fri, 15 Oct 2021 11:55:58 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Vlastimil Babka <vbabka@suse.cz>
+Cc: kernel test robot <oliver.sang@intel.com>, 0day robot <lkp@intel.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>,
+ Vijayanand Jitta <vjitta@codeaurora.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Oliver Glitta <glittao@gmail.com>, Imran Khan <imran.f.khan@oracle.com>,
+ LKML <linux-kernel@vger.kernel.org>, lkp@lists.01.org,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ kasan-dev@googlegroups.com
+Message-ID: <YWlCHtDOLAzDTU67@kernel.org>
+References: <20211014085450.GC18719@xsang-OptiPlex-9020>
+ <4d99add1-5cf7-c608-a131-18959b85e5dc@suse.cz>
+ <YWgDkjqtJO4e3DM6@kernel.org>
+ <137e4211-266f-bdb3-6830-e101c27c3be4@suse.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Don't propagate the gen split
- confusion further
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <137e4211-266f-bdb3-6830-e101c27c3be4@suse.cz>
+X-Mailman-Approved-At: Fri, 15 Oct 2021 09:26:09 +0000
+Subject: Re: [Intel-gfx] [lib/stackdepot] 1cd8ce52c5:
+ BUG:unable_to_handle_page_fault_for_address
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,30 +76,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's no such thing as gen13. It is either display 13
-or graphics 13. Don't propagate the gen12 confusion
-further.
+On Fri, Oct 15, 2021 at 10:27:17AM +0200, Vlastimil Babka wrote:
+> On 10/14/21 12:16, Mike Rapoport wrote:
+> > On Thu, Oct 14, 2021 at 11:33:03AM +0200, Vlastimil Babka wrote:
+> >> On 10/14/21 10:54, kernel test robot wrote:
+> >> 
+> >> In my local testing of the patch, when stackdepot was initialized through
+> >> page owner init, it was using kvmalloc() so slab_is_available() was true.
+> >> Looks like the exact order of slab vs page_owner alloc is non-deterministic,
+> >> could be arch-dependent or just random ordering of init calls. A wrong order
+> >> will exploit the apparent fact that slab_is_available() is not a good
+> >> indicator of using memblock vs page allocator, and we would need a better one.
+> >> Thoughts?
+> > 
+> > The order of slab vs page_owner is deterministic, but it is different for
+> > FLATMEM and SPARSEMEM. And page_ext_init_flatmem_late() that initializes
+> > page_ext for FLATMEM is called exactly between buddy and slab setup:
+> 
+> Oh, so it was due to FLATMEM, thanks for figuring that out!
+> 
+> > static void __init mm_init(void)
+> > {
+> > 	...
+> > 
+> > 	mem_init();
+> > 	mem_init_print_info();
+> > 	/* page_owner must be initialized after buddy is ready */
+> > 	page_ext_init_flatmem_late();
+> > 	kmem_cache_init();
+> > 
+> > 	...
+> > }
+> > 
+> > I've stared for a while at page_ext init and it seems that the
+> > page_ext_init_flatmem_late() can be simply dropped because there is anyway
+> > a call to invoke_init_callbacks() in page_ext_init() that is called much
+> > later in the boot process.
+> 
+> Yeah, but page_ext_init() only does something for SPARSEMEM, and is empty on
+> FLATMEM. Otherwise it would be duplicating all the work. So I'll just move
+> page_ext_init_flatmem_late() below kmem_cache_init() in mm_init().
 
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/i915_reg.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I hope at some point we'll have cleaner mm_init(), but for now simply
+moving page_ext_init_flatmem_late() should work.
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index da9055c3ebf0..1e221fbe37fd 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -8263,7 +8263,7 @@ enum {
+> Thanks again!
+
+Welcome :)
  
- /*
-  * The below are numbered starting from "S1" on gen11/gen12, but starting
-- * with gen13 display, the bspec switches to a 0-based numbering scheme
-+ * with display 13, the bspec switches to a 0-based numbering scheme
-  * (although the addresses stay the same so new S0 = old S1, new S1 = old S2).
-  * We'll just use the 0-based numbering here for all platforms since it's the
-  * way things will be named by the hardware team going forward, plus it's more
--- 
-2.31.1
 
+-- 
+Sincerely yours,
+Mike.
