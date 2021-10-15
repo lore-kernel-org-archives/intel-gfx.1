@@ -2,77 +2,79 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE09CC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0A9CC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 890FF60FC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 890FF60FC3
+	by mail.kernel.org (Postfix) with ESMTPS id B2CD261077
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B2CD261077
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0C5D6EA1C;
-	Mon, 18 Oct 2021 12:19:40 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E66A6E0D1;
- Mon, 18 Oct 2021 11:21:01 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id m22so40883074wrb.0;
- Mon, 18 Oct 2021 04:21:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DD66EA1F;
+	Mon, 18 Oct 2021 12:19:41 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2BC06E30D;
+ Fri, 15 Oct 2021 12:57:03 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id e3so26130660wrc.11;
+ Fri, 15 Oct 2021 05:57:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=QbH/Fqw/UOsr06hrqcKDzrGD6snva7obhtkW4dGOEG0=;
- b=gEP6Zsv4iTEQfqQhQ6PSUkK5LmnQxup7arS8BiN/NhzvZ3EM5wwC/BXjBTgT1mGrYS
- uyrhjnhoBhJILyXAIrNza/EY3Tyeirz4iCE6PzeePdAj8V0HiRUqTCDNGcLnpJfsGCJ2
- rqI2kUOdtMX2EmHHupUodvJ2Mrr8Mg27IXWzRj2yMRsHXniEjSVNB5t3MVyDl3YLIKh0
- 197iOLVWVf3rpC8CkXmk9V79Rw3ArnA7ZGS5hBJNdRZrxCHkZDB5lkSibX/+XdpNiy0b
- U2kGFQIreHLKiUkBLpv+bzXCr6HNbEhF1DR69HWoIWxaXHFIiJWFr4fe3rFxzw0vQH/B
- AEJw==
+ bh=K7gsPVJQCeXWBCpGF1GEldNyINPbSWQ/6+B1Ys661c0=;
+ b=OQSqAFiO1RiBCo88BhlVSFgFriYtTV8A8ce2Y/2Qi4T2reSk69E8oMuIdy2aRraIoG
+ ZeBtE3v4/0DXAQ6wMRifwwM1usHHRD9DcqG3nmq7ffyQpX5eCXZcj+8yHYzv7r9aSwok
+ 69VXp2VyL5TiT6VILFZfy7lZ63MtE8yQK8CdKI0ksf8CWgWLRk9I/s5jh+GMJFP0DYrm
+ xxSb/xaJqB9rXDC3kObrNN9xZezArb34+l4DB51VJbMvlNBABGTIsA9wked1Yb6TjYaf
+ yjpdntpvp1y2nPMPn/zX4mqIalekeT6rqeFL2NaBCCJySioU3l2OUClL/zAxPYtTU6Jz
+ Hb7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=QbH/Fqw/UOsr06hrqcKDzrGD6snva7obhtkW4dGOEG0=;
- b=Vyy8GB31HvggXV44Sjc4pO8Etw8xcA/z3WRgEJp3GNKqMZGiOh2AkOK9NKQn0SRC8Z
- HmLcP+QTjGb6zAxidEBdeFkQszpjkijqElX/Zkma9WCLh/OgypwUQe72rEsZkQkDmwVp
- MF0X3eqZ1+hyFb3thqImo6WUsPH3jr+CzD4MQxv7T9ZKCzZSEKDgTdSfsDoxdIVNnF06
- 30kR1UAeGa7nF7uNYr2uqv/WwfUsD9f0bMILoP27N+wLRziFU+m/shoHw5VQue9zOs5x
- NpwyF6D+ReEjuaSHswEdAbTadwZIlG8056smEZMYxMowsaCWNIQFXSZnak0dBx7Q2pV/
- qexw==
-X-Gm-Message-State: AOAM533EDKWUlgn7ZvfA1Wqhg1ge8i5q/1VPO74UE1KZr96Cs580tVli
- ShIBjy6E9gV16oUL8YQ9quQ=
-X-Google-Smtp-Source: ABdhPJzst1hKKHknD8c8eC2/0lOgPCnCZXcKGJyLN1b2VHU1SOjdDLkI1QP4E3tOvy7v8o6mXSZZGQ==
-X-Received: by 2002:adf:a48f:: with SMTP id g15mr33539327wrb.259.1634556059919; 
- Mon, 18 Oct 2021 04:20:59 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:c473:1c84:fac2:c272?
- ([2a02:908:1252:fb60:c473:1c84:fac2:c272])
- by smtp.gmail.com with ESMTPSA id p12sm9449645wrr.67.2021.10.18.04.20.59
+ bh=K7gsPVJQCeXWBCpGF1GEldNyINPbSWQ/6+B1Ys661c0=;
+ b=XxBIBGJ5/EbzHLtXy/cmdX76hu4fO/RoEXIBigzhf30V3eT/foRmhUvaPetx3WGnq2
+ hrilt+DgYW6MYXmSipWEfwJi0QzyUTYwe+XDiGuluo0/qroEoN0rsfuSqJj6zxiAXHRl
+ 20SbLomhNjDvgzialqELiHZE7VPehn6iS8+i+8hAi4Jl1ou9spa229Hvj48QZddKqb5t
+ 00XV5oCeFD5RONdfI9lzY4gNEdlz/GRbgLppwml0wVRMmgH68AzR5gbWBo+OvrbcvYUb
+ OUHhOb9WCUNIR2ySb/DIY/OvjjcgbyQWsXM29CiPdlVTEJLyLzvH1frhG5yzcwRI/NMw
+ 1u0w==
+X-Gm-Message-State: AOAM530VWxmF+lAeJ3WQlTz32kmd9yJTc8OjKZFWWZghOUMz49p2ppRp
+ OKCj1AeGoaAlsIExbtncscr8NxEvC9Q=
+X-Google-Smtp-Source: ABdhPJwgXwn4QWqlTUa6s1tP3zFbUDUMWqnUk/1eYpk4nau0DzaixRIZbgKH9ZBimALoiJg5ZK+kWg==
+X-Received: by 2002:a5d:59ae:: with SMTP id p14mr14312983wrr.76.1634302622203; 
+ Fri, 15 Oct 2021 05:57:02 -0700 (PDT)
+Received: from ?IPv6:2a02:8109:333f:edd8:ffec:a915:d03e:f264?
+ ([2a02:8109:333f:edd8:ffec:a915:d03e:f264])
+ by smtp.gmail.com with ESMTPSA id w5sm4767366wra.87.2021.10.15.05.57.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Oct 2021 04:20:59 -0700 (PDT)
+ Fri, 15 Oct 2021 05:57:01 -0700 (PDT)
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: linaro-mm-sig@lists.linaro.org, intel-gfx@lists.freedesktop.org,
  linux-media@vger.kernel.org
 References: <20211015115720.79958-1-maarten.lankhorst@linux.intel.com>
- <20211015115720.79958-2-maarten.lankhorst@linux.intel.com>
+ <20211015115720.79958-3-maarten.lankhorst@linux.intel.com>
+ <ebf0714c-2f49-a0ad-1861-16394ade468d@amd.com>
+ <9b7e43bb-e175-0aff-2cc1-cc10236fe8e5@linux.intel.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ff661be5-3a7a-3868-a67f-c3c80d91f385@gmail.com>
-Date: Mon, 18 Oct 2021 13:20:58 +0200
+Message-ID: <06fa85f5-3664-4da4-bde8-6d7d2f199251@gmail.com>
+Date: Fri, 15 Oct 2021 14:56:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20211015115720.79958-2-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <9b7e43bb-e175-0aff-2cc1-cc10236fe8e5@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 X-Mailman-Approved-At: Mon, 18 Oct 2021 12:19:37 +0000
-Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH 1/2] dma-buf: Fix
- dma_resv_wait_timeout handling of timeout = 0.
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH 2/2] dma-buf: Fix
+ dma_resv_test_signaled.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,60 +90,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 15.10.21 um 13:57 schrieb Maarten Lankhorst:
-> Commit ada5c48b11a3 ("dma-buf: use new iterator in dma_resv_wait_timeout")
-> accidentally started mishandling timeout = 0, by forcing a blocking wait
-> with timeout = 1 passed to fences. This is not intended, as timeout = 0
-> may be used for peeking, similar to test_signaled.
+
+
+Am 15.10.21 um 14:52 schrieb Maarten Lankhorst:
+> Op 15-10-2021 om 14:07 schreef Christian König:
+>> Am 15.10.21 um 13:57 schrieb Maarten Lankhorst:
+>>> Commit 7fa828cb9265 ("dma-buf: use new iterator in dma_resv_test_signaled")
+>>> accidentally forgot to test whether the dma-buf is actually signaled, breaking
+>>> pretty much everything depending on it.
+>> NAK, the dma_resv_for_each_fence_unlocked() returns only unsignaled fences. So the code is correct as it is.
+> That seems like it might cause some unexpected behavior when that function is called with one of the fence locks held, if it calls dma_fence_signal().
 >
-> Fixes: ada5c48b11a3 ("dma-buf: use new iterator in dma_resv_wait_timeout")
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Could it be changed to only test the signaled bit, in which case this patch would still be useful?
 
-Sorry for the delay, back from sick leave just today.
+That's exactly what I suggested as well, but Daniel was against that 
+because of concerns around barriers.
 
-Good catch, but when I read the old code correctly that was also broken 
-before by passing in 1 to dma_fence_wait_timeout() for a timeout of 0.
+> Or at least add some lockdep annotations, that fence->lock might be taken. So any hangs would at least be easy to spot with lockdep.
 
-> ---
->   drivers/dma-buf/dma-resv.c | 12 ++++++------
->   1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-> index 9eb2baa387d4..70a8082660c5 100644
-> --- a/drivers/dma-buf/dma-resv.c
-> +++ b/drivers/dma-buf/dma-resv.c
-> @@ -617,18 +617,18 @@ EXPORT_SYMBOL_GPL(dma_resv_get_fences);
->   long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
->   			   unsigned long timeout)
->   {
-> -	long ret = timeout ? timeout : 1;
-> +	long ret = timeout ?: 1;
-
-Please don't change the coding style here.
-
-Apart from that looks good to me.
+That should be trivial doable.
 
 Christian.
 
->   	struct dma_resv_iter cursor;
->   	struct dma_fence *fence;
->   
->   	dma_resv_iter_begin(&cursor, obj, wait_all);
->   	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-> +		ret = dma_fence_wait_timeout(fence, intr, timeout);
-> +		if (ret <= 0)
-> +			break;
->   
-> -		ret = dma_fence_wait_timeout(fence, intr, ret);
-> -		if (ret <= 0) {
-> -			dma_resv_iter_end(&cursor);
-> -			return ret;
-> -		}
-> +		if (timeout)
-> +			timeout = ret;
->   	}
->   	dma_resv_iter_end(&cursor);
->   
+>
+> ~Maarten
+>
+> _______________________________________________
+> Linaro-mm-sig mailing list
+> Linaro-mm-sig@lists.linaro.org
+> https://lists.linaro.org/mailman/listinfo/linaro-mm-sig
 
