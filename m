@@ -2,65 +2,51 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A27AEC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:26:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 016D4C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:27:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 640CC6101D
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:26:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 640CC6101D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 9830561027
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 09:27:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9830561027
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEC06ED06;
-	Fri, 15 Oct 2021 09:26:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29AC26ED01;
- Fri, 15 Oct 2021 08:56:11 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BAD2E61053;
- Fri, 15 Oct 2021 08:56:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634288170;
- bh=Q7ariDqv81ESrlC2dW0PuAyGJAandYcqDaiSNHfbxQQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uHWFxjgN0j6uy54kk+PuKWsQXZAravsfZY8pZKixqTo8/t9859egP1Fzz/r/UFP3j
- pKRuamEiuY/Dwc/+QpnfWTf/sWNNfhMwZbVWxVfub1kH4CRYdWRn5CQYjdbgLCac9o
- sh7ORqtEfm9q5AKGtzFZlP/kLNO/R2oFHLN3PRlxsXtO7/HYTzofgjq4C072XXT9lh
- KbGmTC7vqWacVxEn3eNhUgZ/EA7McQ1YvxSRGhlsTVouHPeADKh3UBp0IaceH36bIf
- Y9c+6PGwmjdmSCJ0ZadDxaYmKgTuJ65zPH3wNm8vQE6+zKn5B8ls+d97XXK85PZn9u
- zx39wdy59p99g==
-Date: Fri, 15 Oct 2021 11:55:58 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Vlastimil Babka <vbabka@suse.cz>
-Cc: kernel test robot <oliver.sang@intel.com>, 0day robot <lkp@intel.com>,
- Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>,
- Vijayanand Jitta <vjitta@codeaurora.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Oliver Glitta <glittao@gmail.com>, Imran Khan <imran.f.khan@oracle.com>,
- LKML <linux-kernel@vger.kernel.org>, lkp@lists.01.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- kasan-dev@googlegroups.com
-Message-ID: <YWlCHtDOLAzDTU67@kernel.org>
-References: <20211014085450.GC18719@xsang-OptiPlex-9020>
- <4d99add1-5cf7-c608-a131-18959b85e5dc@suse.cz>
- <YWgDkjqtJO4e3DM6@kernel.org>
- <137e4211-266f-bdb3-6830-e101c27c3be4@suse.cz>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 142CC6ED0E;
+	Fri, 15 Oct 2021 09:27:00 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E93E6ED06
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 09:26:59 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4HW1B30QRsz4xR9;
+ Fri, 15 Oct 2021 20:26:49 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+ s=201702; t=1634290012;
+ bh=xl0h0ehAPbQXQoQuuUp7RGzzyhb5d9ztn2d3GE74Wjs=;
+ h=Date:From:To:Cc:Subject:From;
+ b=bA+KmpzGZSqV/9vXYWF8PRZvTIbOFj4L6qXMHG1rQ5ERg1ajrO8ea3ymi9CLpSbaG
+ faBpHJfomvbbxG1Nwd6TTQyvJd3NRgisKlUsGpDnTUOEIMHc+RVccSf4Tek+kOkZEa
+ vz/juFVpep+LoYcqp8ctuQP37UAx0yD822EbTt3MSTmiwsBR/xnIGSWSpxEd/6S8aO
+ UZ2niUXbeHg4zpaQ9RlNZycTdWCaB2z/K4qrRHOSKf7l+fMgsrxd8K6wQKHrFtkCHr
+ 2WqtsCpeT2mjlBWW3W0OlW/yQBSc+rTq7qG0Zg9KBfzX1foXM7jfGn5p4Flu4FMQP2
+ x99eI359eH9QA==
+Date: Fri, 15 Oct 2021 20:26:48 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Jani Nikula <jani.nikula@intel.com>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>
+Message-ID: <20211015202648.258445ef@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <137e4211-266f-bdb3-6830-e101c27c3be4@suse.cz>
-X-Mailman-Approved-At: Fri, 15 Oct 2021 09:26:09 +0000
-Subject: Re: [Intel-gfx] [lib/stackdepot] 1cd8ce52c5:
- BUG:unable_to_handle_page_fault_for_address
+Content-Type: multipart/signed; boundary="Sig_/tYZFJ6chdxiLHwqx9EJihw_";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: [Intel-gfx] linux-next: build failure after merge of the drm-misc
+ tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,55 +62,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 15, 2021 at 10:27:17AM +0200, Vlastimil Babka wrote:
-> On 10/14/21 12:16, Mike Rapoport wrote:
-> > On Thu, Oct 14, 2021 at 11:33:03AM +0200, Vlastimil Babka wrote:
-> >> On 10/14/21 10:54, kernel test robot wrote:
-> >> 
-> >> In my local testing of the patch, when stackdepot was initialized through
-> >> page owner init, it was using kvmalloc() so slab_is_available() was true.
-> >> Looks like the exact order of slab vs page_owner alloc is non-deterministic,
-> >> could be arch-dependent or just random ordering of init calls. A wrong order
-> >> will exploit the apparent fact that slab_is_available() is not a good
-> >> indicator of using memblock vs page allocator, and we would need a better one.
-> >> Thoughts?
-> > 
-> > The order of slab vs page_owner is deterministic, but it is different for
-> > FLATMEM and SPARSEMEM. And page_ext_init_flatmem_late() that initializes
-> > page_ext for FLATMEM is called exactly between buddy and slab setup:
-> 
-> Oh, so it was due to FLATMEM, thanks for figuring that out!
-> 
-> > static void __init mm_init(void)
-> > {
-> > 	...
-> > 
-> > 	mem_init();
-> > 	mem_init_print_info();
-> > 	/* page_owner must be initialized after buddy is ready */
-> > 	page_ext_init_flatmem_late();
-> > 	kmem_cache_init();
-> > 
-> > 	...
-> > }
-> > 
-> > I've stared for a while at page_ext init and it seems that the
-> > page_ext_init_flatmem_late() can be simply dropped because there is anyway
-> > a call to invoke_init_callbacks() in page_ext_init() that is called much
-> > later in the boot process.
-> 
-> Yeah, but page_ext_init() only does something for SPARSEMEM, and is empty on
-> FLATMEM. Otherwise it would be duplicating all the work. So I'll just move
-> page_ext_init_flatmem_late() below kmem_cache_init() in mm_init().
+--Sig_/tYZFJ6chdxiLHwqx9EJihw_
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-I hope at some point we'll have cleaner mm_init(), but for now simply
-moving page_ext_init_flatmem_late() should work.
+Hi all,
 
-> Thanks again!
+After merging the drm-misc tree, today's linux-next build (arm
+multi_v7_defconfig) failed like this:
 
-Welcome :)
- 
+drivers/gpu/drm/drm_modeset_lock.c:111:29: error: conflicting types for '__=
+stack_depot_save'
+  111 | static depot_stack_handle_t __stack_depot_save(void)
+      |                             ^~~~~~~~~~~~~~~~~~
+In file included from include/linux/page_ext.h:7,
+                 from include/linux/mm.h:25,
+                 from include/linux/kallsyms.h:13,
+                 from include/linux/bpf.h:20,
+                 from include/linux/bpf-cgroup.h:5,
+                 from include/linux/cgroup-defs.h:22,
+                 from include/linux/cgroup.h:28,
+                 from include/linux/memcontrol.h:13,
+                 from include/linux/swap.h:9,
+                 from include/linux/suspend.h:5,
+                 from include/linux/regulator/consumer.h:35,
+                 from include/linux/i2c.h:18,
+                 from include/drm/drm_crtc.h:28,
+                 from include/drm/drm_atomic.h:31,
+                 from drivers/gpu/drm/drm_modeset_lock.c:24:
+include/linux/stackdepot.h:18:22: note: previous declaration of '__stack_de=
+pot_save' was here
+   18 | depot_stack_handle_t __stack_depot_save(unsigned long *entries,
+      |                      ^~~~~~~~~~~~~~~~~~
 
--- 
-Sincerely yours,
-Mike.
+Caused by commit
+
+  cd06ab2fd48f ("drm/locking: add backtrace for locking contended locks wit=
+hout backoff")
+
+This may only have been revealed because of another fix I have had to
+apply today.
+
+I have applied the following patch for today.
+
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+Date: Fri, 15 Oct 2021 20:17:52 +1100
+Subject: [PATCH] drm/locking: fix for name conflict
+
+Fixes: cd06ab2fd48f ("drm/locking: add backtrace for locking contended lock=
+s without backoff")
+Signed-off-by: Stephen Rothwell <sfr@canb.auug.org.au>
+---
+ drivers/gpu/drm/drm_modeset_lock.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modes=
+et_lock.c
+index 4d32b61fa1fd..ee36dd20900d 100644
+--- a/drivers/gpu/drm/drm_modeset_lock.c
++++ b/drivers/gpu/drm/drm_modeset_lock.c
+@@ -79,7 +79,7 @@
+ static DEFINE_WW_CLASS(crtc_ww_class);
+=20
+ #if IS_ENABLED(CONFIG_DRM_DEBUG_MODESET_LOCK)
+-static noinline depot_stack_handle_t __stack_depot_save(void)
++static noinline depot_stack_handle_t __drm_stack_depot_save(void)
+ {
+ 	unsigned long entries[8];
+ 	unsigned int n;
+@@ -108,7 +108,7 @@ static void __stack_depot_print(depot_stack_handle_t st=
+ack_depot)
+ 	kfree(buf);
+ }
+ #else /* CONFIG_DRM_DEBUG_MODESET_LOCK */
+-static depot_stack_handle_t __stack_depot_save(void)
++static depot_stack_handle_t __drm_stack_depot_save(void)
+ {
+ 	return 0;
+ }
+@@ -317,7 +317,7 @@ static inline int modeset_lock(struct drm_modeset_lock =
+*lock,
+ 		ret =3D 0;
+ 	} else if (ret =3D=3D -EDEADLK) {
+ 		ctx->contended =3D lock;
+-		ctx->stack_depot =3D __stack_depot_save();
++		ctx->stack_depot =3D __drm_stack_depot_save();
+ 	}
+=20
+ 	return ret;
+--=20
+2.33.0
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/tYZFJ6chdxiLHwqx9EJihw_
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmFpSVgACgkQAVBC80lX
+0Gw7Kgf/ZuKzlxTQSDLKFDfn6/O5S38xFR4DSOjqJwWETTSS1gTN1tdS/1TxVI/G
+y6+7Y5jDRBuMaxCVAFETuImKwexIXsoh6um+iVJaXW90a7PDK737ldIACmqMurmr
+Q+BeiAjZ8+NA1amrOv/nhiMOPWL+cW2v8OHj4t4MWZYB9HspgtkRia6qlLBQcttZ
+pA33MK0v3gZFZ/KCfIFqFe6AD01LDvhepOrMuOC0mnBw6a2dktAEh/wuMN+KqExf
+k2M/wUEwgyQjB8Y9OH0aJDmmHnTbPIJ+WZZ030zyX1oMPhN2dqq9jw8E29HqryjI
+Y8+MtBPX2O2Df9cT9zQdLlKmDFx2Vg==
+=4IfR
+-----END PGP SIGNATURE-----
+
+--Sig_/tYZFJ6chdxiLHwqx9EJihw_--
