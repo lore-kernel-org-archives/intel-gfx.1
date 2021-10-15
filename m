@@ -2,51 +2,39 @@ Return-Path: <SRS0=ZLzJ=PD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CE3FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 14:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3258EC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 15:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 027A760D42
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 14:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 027A760D42
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DE9E461056
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 15:00:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DE9E461056
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 231F96EDC7;
-	Fri, 15 Oct 2021 14:52:53 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 258636EDC5;
- Fri, 15 Oct 2021 14:52:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="291407877"
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="291407877"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 07:52:49 -0700
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="492587236"
-Received: from konradle-mobl.ger.corp.intel.com (HELO [10.213.253.155])
- ([10.213.253.155])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 07:52:47 -0700
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- John Harrison <John.C.Harrison@Intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20210922015039.26411-1-matthew.brost@intel.com>
- <YU3Bq+XLVeRTIS4c@intel.com> <87pmsl2qdk.fsf@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <96f4f4e3-e5ac-fca8-44ed-bee0a6fe67e7@linux.intel.com>
-Date: Fri, 15 Oct 2021 15:52:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32F686EDCA;
+	Fri, 15 Oct 2021 15:00:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 16BDB6EDCA;
+ Fri, 15 Oct 2021 15:00:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0E87DAA0EA;
+ Fri, 15 Oct 2021 15:00:26 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1974854228431824765=="
 MIME-Version: 1.0
-In-Reply-To: <87pmsl2qdk.fsf@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: fix blank screen booting crashes
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 15 Oct 2021 15:00:26 -0000
+Message-ID: <163431002602.29319.10695159407218459099@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211015133921.4609-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20211015133921.4609-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Fix_up_DP_DFP_4=3A2=3A0_handling_more?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,382 +47,256 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============1974854228431824765==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915: Fix up DP DFP 4:2:0 handling more
+URL   : https://patchwork.freedesktop.org/series/95881/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10743 -> Patchwork_21355
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21355 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [PASS][1] -> [INCOMPLETE][2] ([i915#3921])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][3] ([fdo#109271]) +48 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-pnv-d510/igt@prime_vgem@basic-userptr.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_parallel@engines@userptr:
+    - fi-pnv-d510:        [INCOMPLETE][4] ([i915#299]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html
+
+  * igt@kms_flip@basic-flip-vs-modeset@c-dp1:
+    - fi-cfl-8109u:       [FAIL][6] ([i915#4165]) -> [PASS][7] +1 similar issue
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html
+
+  * igt@kms_flip@basic-plain-flip@c-dp2:
+    - fi-cfl-8109u:       [DMESG-WARN][8] ([i915#295]) -> [PASS][9] +2 similar issues
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - fi-cml-u2:          [DMESG-WARN][10] ([i915#4269]) -> [PASS][11]
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
+
+  
+#### Warnings ####
+
+  * igt@kms_flip@basic-plain-flip@c-dp1:
+    - fi-cfl-8109u:       [DMESG-WARN][12] ([i915#295]) -> [FAIL][13] ([i915#4165])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp1.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp1.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
+  [i915#299]: https://gitlab.freedesktop.org/drm/intel/issues/299
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+  [i915#4165]: https://gitlab.freedesktop.org/drm/intel/issues/4165
+  [i915#4269]: https://gitlab.freedesktop.org/drm/intel/issues/4269
 
 
-On 04/10/2021 08:36, Jani Nikula wrote:
-> On Fri, 24 Sep 2021, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
->> On Tue, Sep 21, 2021 at 06:50:39PM -0700, Matthew Brost wrote:
->>> From: Hugh Dickins <hughd@google.com>
->>>
->>> 5.15-rc1 crashes with blank screen when booting up on two ThinkPads
->>> using i915.  Bisections converge convincingly, but arrive at different
->>> and surprising "culprits", none of them the actual culprit.
->>>
->>> netconsole (with init_netconsole() hacked to call i915_init() when
->>> logging has started, instead of by module_init()) tells the story:
->>>
->>> kernel BUG at drivers/gpu/drm/i915/i915_sw_fence.c:245!
->>> with RSI: ffffffff814d408b pointing to sw_fence_dummy_notify().
->>> I've been building with CONFIG_CC_OPTIMIZE_FOR_SIZE=y, and that
->>> function needs to be 4-byte aligned.
->>>
->>> v2:
->>>   (Jani Nikula)
->>>    - Change BUG_ON to WARN_ON
->>> v3:
->>>   (Jani / Tvrtko)
->>>    - Short circuit __i915_sw_fence_init on WARN_ON
->>> v4:
->>>   (Lucas)
->>>    - Break WARN_ON changes out in a different patch
->>>
->>> Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
->>> Signed-off-by: Hugh Dickins <hughd@google.com>
->>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
->>> ---
->>>   drivers/gpu/drm/i915/gt/intel_context.c | 4 ++--
->>>   1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
->>> index ff637147b1a9..e7f78bc7ebfc 100644
->>> --- a/drivers/gpu/drm/i915/gt/intel_context.c
->>> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
->>> @@ -362,8 +362,8 @@ static int __intel_context_active(struct i915_active *active)
->>>   	return 0;
->>>   }
->>>   
->>> -static int sw_fence_dummy_notify(struct i915_sw_fence *sf,
->>> -				 enum i915_sw_fence_notify state)
->>> +static int __i915_sw_fence_call
->>> +sw_fence_dummy_notify(struct i915_sw_fence *sf, enum i915_sw_fence_notify state)
->>>   {
->>>   	return NOTIFY_DONE;
->>>   }
->>
->> This thing seems broken beyond just this alignment stuff. I'm getting
->> this spew from DEBUG_OBJECTS all the time on a glk here:
-> 
-> Nobody followed through with this, so:
-> 
-> https://lore.kernel.org/r/20211002020257.34a0e882@oasis.local.home
-> 
-> and
-> 
-> cdc1e6e225e3 ("drm/i915: fix blank screen booting crashes")
+Participating hosts (39 -> 34)
+------------------------------
 
-John you pushed this yesterday? Will this cause a problem now if we have 
-two commits for the same bug:
-
-commit b0179f0d18dd7e6fb6b1c52c49ac21365257e97e
-Author:     Hugh Dickins <hughd@google.com>
-AuthorDate: Tue Sep 21 18:50:39 2021 -0700
-Commit:     John Harrison <John.C.Harrison@Intel.com>
-CommitDate: Thu Oct 14 18:29:01 2021 -0700
-
-     drm/i915: fix blank screen booting crashes
+  Missing    (5): fi-jsl-1 fi-bdw-5557u bat-dg1-6 fi-hsw-4200u fi-bsw-cyan 
 
 
+Build changes
+-------------
 
-commit cdc1e6e225e3256d56dc6648411630e71d7c776b
-Author:     Hugh Dickins <hughd@google.com>
-AuthorDate: Sat Oct 2 03:17:29 2021 -0700
-Commit:     Linus Torvalds <torvalds@linux-foundation.org>
-CommitDate: Sat Oct 2 09:39:15 2021 -0700
+  * Linux: CI_DRM_10743 -> Patchwork_21355
 
-     drm/i915: fix blank screen booting crashes
+  CI-20190529: 20190529
+  CI_DRM_10743: 12c88a23f431212268d7d4d16d313f1d8661c7e5 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6250: 3c2ac88757f0d0ac9450487d314fcaceebc8bc26 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21355: 87eef2b6e776be70f6074713edc4f492afa4bb38 @ git://anongit.freedesktop.org/gfx-ci/linux
 
-Regards,
 
-Tvrtko
+== Linux commits ==
 
-> 
-> 
-> BR,
-> Jani.
-> 
-> 
->>
->> [   48.122629] ------------[ cut here ]------------
->> [   48.122640] ODEBUG: init destroyed (active state 0) object type: i915_sw_fence hint: sw_fence_dummy_notify+0x0/0x10 [i915]
->> [   48.122963] WARNING: CPU: 0 PID: 815 at lib/debugobjects.c:505 debug_print_object+0x6e/0x90
->> [   48.122976] Modules linked in: i915 i2c_algo_bit ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops prime_numbers intel_gtt agpgart fuse nls_iso8859_1 nls_cp437 vfat fat intel_rapl_msr wmi_bmof intel_rapl_common x86_pkg_temp_thermal r8169 realtek mdio_devres coretemp libphy efi_pstore evdev sdhci_pci cqhci sdhci mei_me mmc_core i2c_i801 intel_pmc_core mei led_class wmi i2c_smbus sch_fq_codel drm ip_tables x_tables ipv6 autofs4
->> [   48.123119] CPU: 0 PID: 815 Comm: kms_async_flips Not tainted 5.15.0-rc2-hsw+ #131
->> [   48.123125] Hardware name: Intel Corporation NUC7CJYH/NUC7JYB, BIOS JYGLKCPX.86A.0027.2018.0125.1347 01/25/2018
->> [   48.123129] RIP: 0010:debug_print_object+0x6e/0x90
->> [   48.123137] Code: 07 08 02 83 c0 01 8b 4b 14 4c 8b 45 00 48 c7 c7 a0 19 0a 82 89 05 66 07 08 02 8b 43 10 48 8b 14 c5 c0 0d e4 81 e8 d7 2e 3c 00 <0f> 0b 83 05 c5 c0 0c 01 01 48 83 c4 08 5b 5d c3 83 05 b7 c0 0c 01
->> [   48.123142] RSP: 0018:ffffc90000dabae0 EFLAGS: 00010282
->> [   48.123150] RAX: 0000000000000000 RBX: ffff88810004f848 RCX: 0000000000000000
->> [   48.123154] RDX: 0000000080000001 RSI: ffffffff8112673f RDI: ffffffff8112673f
->> [   48.123159] RBP: ffffffffa0577480 R08: ffff88827fbfcfe8 R09: 000000000009fffb
->> [   48.123163] R10: 00000000fffe0000 R11: 3fffffffffffffff R12: ffff88810a04d100
->> [   48.123167] R13: ffff88810a07d308 R14: ffff888109990800 R15: ffff88810997b800
->> [   48.123171] FS:  00007ffff624b9c0(0000) GS:ffff888276e00000(0000) knlGS:0000000000000000
->> [   48.123176] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [   48.123181] CR2: 00007ffff7f93bf0 CR3: 0000000108e56000 CR4: 0000000000350ef0
->> [   48.123185] Call Trace:
->> [   48.123190]  i915_sw_fence_reinit+0x15/0x40 [i915]
->> [   48.123341]  intel_context_init+0x16b/0x1d0 [i915]
->> [   48.123492]  intel_context_create+0x33/0x100 [i915]
->> [   48.123642]  default_engines+0x9d/0x120 [i915]
->> [   48.123806]  i915_gem_create_context+0x465/0x630 [i915]
->> [   48.125964]  ? trace_kmalloc+0x29/0xd0
->> [   48.125976]  ? kmem_cache_alloc_trace+0x121/0x620
->> [   48.125984]  i915_gem_context_open+0x145/0x1d0 [i915]
->> [   48.126172]  i915_gem_open+0x75/0xb0 [i915]
->> [   48.126364]  drm_file_alloc+0x1b1/0x280 [drm]
->> [   48.126427]  drm_open+0xde/0x250 [drm]
->> [   48.126482]  drm_stub_open+0xa8/0x130 [drm]
->> [   48.126538]  chrdev_open+0xbf/0x240
->> [   48.126547]  ? cdev_device_add+0x90/0x90
->> [   48.126553]  do_dentry_open+0x151/0x3a0
->> [   48.126560]  path_openat+0x76f/0xa10
->> [   48.126568]  do_filp_open+0xa9/0x150
->> [   48.126575]  ? preempt_count_sub+0x9b/0xd0
->> [   48.126584]  ? _raw_spin_unlock+0x29/0x40
->> [   48.126593]  do_sys_openat2+0x97/0x160
->> [   48.126600]  __x64_sys_openat+0x54/0x90
->> [   48.126607]  do_syscall_64+0x38/0x90
->> [   48.126614]  entry_SYSCALL_64_after_hwframe+0x44/0xae
->> [   48.126622] RIP: 0033:0x7ffff7cdca5b
->> [   48.126630] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
->> [   48.126636] RSP: 002b:00007fffffffda20 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
->> [   48.126645] RAX: ffffffffffffffda RBX: 00007fffffffdb60 RCX: 00007ffff7cdca5b
->> [   48.126649] RDX: 0000000000000002 RSI: 00007fffffffdb60 RDI: 00000000ffffff9c
->> [   48.126654] RBP: 00007fffffffdb60 R08: 0000000000000001 R09: 000000000000000e
->> [   48.126658] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
->> [   48.126663] R13: 00007ffff7f9406a R14: 0000000000000000 R15: 00000000fffffffb
->> [   48.126669] irq event stamp: 29565
->> [   48.126673] hardirqs last  enabled at (29571): [<ffffffff81126357>] __up_console_sem+0x67/0x70
->> [   48.126682] hardirqs last disabled at (29576): [<ffffffff8112633c>] __up_console_sem+0x4c/0x70
->> [   48.126689] softirqs last  enabled at (29394): [<ffffffff81c0032c>] __do_softirq+0x32c/0x499
->> [   48.126696] softirqs last disabled at (29371): [<ffffffff810ba2ed>] irq_exit_rcu+0xdd/0x130
->> [   48.126704] ---[ end trace 4978f2ce56481e4b ]---
->> [   48.126711] ------------[ cut here ]------------
->> [   48.126714] ODEBUG: activate destroyed (active state 0) object type: i915_sw_fence hint: sw_fence_dummy_notify+0x0/0x10 [i915]
->> [   48.127053] WARNING: CPU: 1 PID: 815 at lib/debugobjects.c:505 debug_print_object+0x6e/0x90
->> [   48.127062] Modules linked in: i915 i2c_algo_bit ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops prime_numbers intel_gtt agpgart fuse nls_iso8859_1 nls_cp437 vfat fat intel_rapl_msr wmi_bmof intel_rapl_common x86_pkg_temp_thermal r8169 realtek mdio_devres coretemp libphy efi_pstore evdev sdhci_pci cqhci sdhci mei_me mmc_core i2c_i801 intel_pmc_core mei led_class wmi i2c_smbus sch_fq_codel drm ip_tables x_tables ipv6 autofs4
->> [   48.127216] CPU: 1 PID: 815 Comm: kms_async_flips Tainted: G        W         5.15.0-rc2-hsw+ #131
->> [   48.127221] Hardware name: Intel Corporation NUC7CJYH/NUC7JYB, BIOS JYGLKCPX.86A.0027.2018.0125.1347 01/25/2018
->> [   48.127226] RIP: 0010:debug_print_object+0x6e/0x90
->> [   48.127232] Code: 07 08 02 83 c0 01 8b 4b 14 4c 8b 45 00 48 c7 c7 a0 19 0a 82 89 05 66 07 08 02 8b 43 10 48 8b 14 c5 c0 0d e4 81 e8 d7 2e 3c 00 <0f> 0b 83 05 c5 c0 0c 01 01 48 83 c4 08 5b 5d c3 83 05 b7 c0 0c 01
->> [   48.127238] RSP: 0018:ffffc90000daba88 EFLAGS: 00010282
->> [   48.127245] RAX: 0000000000000000 RBX: ffff88810004f848 RCX: 0000000000000000
->> [   48.127250] RDX: 0000000080000001 RSI: ffffffff8112673f RDI: ffffffff8112673f
->> [   48.127254] RBP: ffffffffa0577480 R08: ffff88827fbfcfe8 R09: 000000000009fffb
->> [   48.127259] R10: 00000000fffe0000 R11: 3fffffffffffffff R12: ffff88810a04d468
->> [   48.127263] R13: ffffffffa0577480 R14: ffffffff835ce0b8 R15: ffff88810997b800
->> [   48.127268] FS:  00007ffff624b9c0(0000) GS:ffff888276e80000(0000) knlGS:0000000000000000
->> [   48.127273] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [   48.127277] CR2: 000055555556f5e8 CR3: 0000000108e56000 CR4: 0000000000350ee0
->> [   48.127282] Call Trace:
->> [   48.127287]  debug_object_activate+0x174/0x200
->> [   48.127296]  i915_sw_fence_commit+0x15/0x20 [i915]
->> [   48.127461]  intel_context_init+0x173/0x1d0 [i915]
->> [   48.127627]  intel_context_create+0x33/0x100 [i915]
->> [   48.127792]  default_engines+0x9d/0x120 [i915]
->> [   48.127971]  i915_gem_create_context+0x465/0x630 [i915]
->> [   48.128195]  ? trace_kmalloc+0x29/0xd0
->> [   48.128203]  ? kmem_cache_alloc_trace+0x121/0x620
->> [   48.128211]  i915_gem_context_open+0x145/0x1d0 [i915]
->> [   48.128389]  i915_gem_open+0x75/0xb0 [i915]
->> [   48.128577]  drm_file_alloc+0x1b1/0x280 [drm]
->> [   48.128632]  drm_open+0xde/0x250 [drm]
->> [   48.128687]  drm_stub_open+0xa8/0x130 [drm]
->> [   48.128742]  chrdev_open+0xbf/0x240
->> [   48.128749]  ? cdev_device_add+0x90/0x90
->> [   48.128754]  do_dentry_open+0x151/0x3a0
->> [   48.128761]  path_openat+0x76f/0xa10
->> [   48.128768]  do_filp_open+0xa9/0x150
->> [   48.128775]  ? preempt_count_sub+0x9b/0xd0
->> [   48.128782]  ? _raw_spin_unlock+0x29/0x40
->> [   48.128789]  do_sys_openat2+0x97/0x160
->> [   48.128795]  __x64_sys_openat+0x54/0x90
->> [   48.128802]  do_syscall_64+0x38/0x90
->> [   48.128808]  entry_SYSCALL_64_after_hwframe+0x44/0xae
->> [   48.128815] RIP: 0033:0x7ffff7cdca5b
->> [   48.128821] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
->> [   48.128826] RSP: 002b:00007fffffffda20 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
->> [   48.128835] RAX: ffffffffffffffda RBX: 00007fffffffdb60 RCX: 00007ffff7cdca5b
->> [   48.128839] RDX: 0000000000000002 RSI: 00007fffffffdb60 RDI: 00000000ffffff9c
->> [   48.128844] RBP: 00007fffffffdb60 R08: 0000000000000001 R09: 000000000000000e
->> [   48.128848] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
->> [   48.128852] R13: 00007ffff7f9406a R14: 0000000000000000 R15: 00000000fffffffb
->> [   48.128859] irq event stamp: 30217
->> [   48.128862] hardirqs last  enabled at (30223): [<ffffffff81126357>] __up_console_sem+0x67/0x70
->> [   48.128869] hardirqs last disabled at (30228): [<ffffffff8112633c>] __up_console_sem+0x4c/0x70
->> [   48.128875] softirqs last  enabled at (30050): [<ffffffff81c0032c>] __do_softirq+0x32c/0x499
->> [   48.128881] softirqs last disabled at (30035): [<ffffffff810ba2ed>] irq_exit_rcu+0xdd/0x130
->> [   48.128888] ---[ end trace 4978f2ce56481e4c ]---
->> [   48.128895] ------------[ cut here ]------------
->> [   48.128899] ODEBUG: active_state destroyed (active state 0) object type: i915_sw_fence hint: sw_fence_dummy_notify+0x0/0x10 [i915]
->> [   48.129179] WARNING: CPU: 1 PID: 815 at lib/debugobjects.c:505 debug_print_object+0x6e/0x90
->> [   48.129187] Modules linked in: i915 i2c_algo_bit ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops prime_numbers intel_gtt agpgart fuse nls_iso8859_1 nls_cp437 vfat fat intel_rapl_msr wmi_bmof intel_rapl_common x86_pkg_temp_thermal r8169 realtek mdio_devres coretemp libphy efi_pstore evdev sdhci_pci cqhci sdhci mei_me mmc_core i2c_i801 intel_pmc_core mei led_class wmi i2c_smbus sch_fq_codel drm ip_tables x_tables ipv6 autofs4
->> [   48.129328] CPU: 1 PID: 815 Comm: kms_async_flips Tainted: G        W         5.15.0-rc2-hsw+ #131
->> [   48.129334] Hardware name: Intel Corporation NUC7CJYH/NUC7JYB, BIOS JYGLKCPX.86A.0027.2018.0125.1347 01/25/2018
->> [   48.129338] RIP: 0010:debug_print_object+0x6e/0x90
->> [   48.129344] Code: 07 08 02 83 c0 01 8b 4b 14 4c 8b 45 00 48 c7 c7 a0 19 0a 82 89 05 66 07 08 02 8b 43 10 48 8b 14 c5 c0 0d e4 81 e8 d7 2e 3c 00 <0f> 0b 83 05 c5 c0 0c 01 01 48 83 c4 08 5b 5d c3 83 05 b7 c0 0c 01
->> [   48.129350] RSP: 0018:ffffc90000dabaa8 EFLAGS: 00010286
->> [   48.129357] RAX: 0000000000000000 RBX: ffff88810004f848 RCX: 0000000000000000
->> [   48.129362] RDX: 0000000080000001 RSI: ffffffff8112673f RDI: ffffffff8112673f
->> [   48.129366] RBP: ffffffffa0577480 R08: ffff88827fbfcfe8 R09: 000000000009fffb
->> [   48.129371] R10: 00000000fffe0000 R11: 3fffffffffffffff R12: ffff88810a04d100
->> [   48.129375] R13: ffff88810a07d308 R14: 0000000000000000 R15: ffff88810997b800
->> [   48.129379] FS:  00007ffff624b9c0(0000) GS:ffff888276e80000(0000) knlGS:0000000000000000
->> [   48.129384] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [   48.129389] CR2: 000055555556f5e8 CR3: 0000000108e56000 CR4: 0000000000350ee0
->> [   48.129393] Call Trace:
->> [   48.129398]  __i915_sw_fence_complete+0x70/0x240 [i915]
->> [   48.129564]  ? preempt_count_sub+0x9b/0xd0
->> [   48.129572]  intel_context_init+0x173/0x1d0 [i915]
->> [   48.129738]  intel_context_create+0x33/0x100 [i915]
->> [   48.129902]  default_engines+0x9d/0x120 [i915]
->> [   48.130080]  i915_gem_create_context+0x465/0x630 [i915]
->> [   48.130258]  ? trace_kmalloc+0x29/0xd0
->> [   48.130264]  ? kmem_cache_alloc_trace+0x121/0x620
->> [   48.130271]  i915_gem_context_open+0x145/0x1d0 [i915]
->> [   48.130449]  i915_gem_open+0x75/0xb0 [i915]
->> [   48.130635]  drm_file_alloc+0x1b1/0x280 [drm]
->> [   48.130689]  drm_open+0xde/0x250 [drm]
->> [   48.130744]  drm_stub_open+0xa8/0x130 [drm]
->> [   48.130801]  chrdev_open+0xbf/0x240
->> [   48.130807]  ? cdev_device_add+0x90/0x90
->> [   48.130813]  do_dentry_open+0x151/0x3a0
->> [   48.130819]  path_openat+0x76f/0xa10
->> [   48.130826]  do_filp_open+0xa9/0x150
->> [   48.130833]  ? preempt_count_sub+0x9b/0xd0
->> [   48.130839]  ? _raw_spin_unlock+0x29/0x40
->> [   48.130847]  do_sys_openat2+0x97/0x160
->> [   48.130853]  __x64_sys_openat+0x54/0x90
->> [   48.130860]  do_syscall_64+0x38/0x90
->> [   48.130866]  entry_SYSCALL_64_after_hwframe+0x44/0xae
->> [   48.130873] RIP: 0033:0x7ffff7cdca5b
->> [   48.130878] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
->> [   48.130883] RSP: 002b:00007fffffffda20 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
->> [   48.130892] RAX: ffffffffffffffda RBX: 00007fffffffdb60 RCX: 00007ffff7cdca5b
->> [   48.130896] RDX: 0000000000000002 RSI: 00007fffffffdb60 RDI: 00000000ffffff9c
->> [   48.130901] RBP: 00007fffffffdb60 R08: 0000000000000001 R09: 000000000000000e
->> [   48.130905] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
->> [   48.130909] R13: 00007ffff7f9406a R14: 0000000000000000 R15: 00000000fffffffb
->> [   48.130916] irq event stamp: 30843
->> [   48.130919] hardirqs last  enabled at (30849): [<ffffffff81126357>] __up_console_sem+0x67/0x70
->> [   48.130926] hardirqs last disabled at (30854): [<ffffffff8112633c>] __up_console_sem+0x4c/0x70
->> [   48.130932] softirqs last  enabled at (30050): [<ffffffff81c0032c>] __do_softirq+0x32c/0x499
->> [   48.130938] softirqs last disabled at (30035): [<ffffffff810ba2ed>] irq_exit_rcu+0xdd/0x130
->> [   48.130944] ---[ end trace 4978f2ce56481e4d ]---
->> [   48.130950] ------------[ cut here ]------------
->> [   48.130954] ODEBUG: active_state destroyed (active state 0) object type: i915_sw_fence hint: sw_fence_dummy_notify+0x0/0x10 [i915]
->> [   48.131232] WARNING: CPU: 1 PID: 815 at lib/debugobjects.c:505 debug_print_object+0x6e/0x90
->> [   48.131240] Modules linked in: i915 i2c_algo_bit ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops prime_numbers intel_gtt agpgart fuse nls_iso8859_1 nls_cp437 vfat fat intel_rapl_msr wmi_bmof intel_rapl_common x86_pkg_temp_thermal r8169 realtek mdio_devres coretemp libphy efi_pstore evdev sdhci_pci cqhci sdhci mei_me mmc_core i2c_i801 intel_pmc_core mei led_class wmi i2c_smbus sch_fq_codel drm ip_tables x_tables ipv6 autofs4
->> [   48.131381] CPU: 1 PID: 815 Comm: kms_async_flips Tainted: G        W         5.15.0-rc2-hsw+ #131
->> [   48.131387] Hardware name: Intel Corporation NUC7CJYH/NUC7JYB, BIOS JYGLKCPX.86A.0027.2018.0125.1347 01/25/2018
->> [   48.131391] RIP: 0010:debug_print_object+0x6e/0x90
->> [   48.131397] Code: 07 08 02 83 c0 01 8b 4b 14 4c 8b 45 00 48 c7 c7 a0 19 0a 82 89 05 66 07 08 02 8b 43 10 48 8b 14 c5 c0 0d e4 81 e8 d7 2e 3c 00 <0f> 0b 83 05 c5 c0 0c 01 01 48 83 c4 08 5b 5d c3 83 05 b7 c0 0c 01
->> [   48.131402] RSP: 0018:ffffc90000dabaa8 EFLAGS: 00010286
->> [   48.131410] RAX: 0000000000000000 RBX: ffff88810004f848 RCX: 0000000000000000
->> [   48.131414] RDX: 0000000080000001 RSI: ffffffff8112673f RDI: ffffffff8112673f
->> [   48.131419] RBP: ffffffffa0577480 R08: ffff88827fbfcfe8 R09: 000000000009fffb
->> [   48.131423] R10: 00000000fffe0000 R11: 3fffffffffffffff R12: ffff88810a04d100
->> [   48.131427] R13: ffff88810a07d308 R14: 0000000000000000 R15: ffff88810997b800
->> [   48.131432] FS:  00007ffff624b9c0(0000) GS:ffff888276e80000(0000) knlGS:0000000000000000
->> [   48.131437] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [   48.131441] CR2: 000055555556f5e8 CR3: 0000000108e56000 CR4: 0000000000350ee0
->> [   48.131446] Call Trace:
->> [   48.131450]  __i915_sw_fence_complete+0x9c/0x240 [i915]
->> [   48.131614]  ? preempt_count_sub+0x9b/0xd0
->> [   48.131622]  intel_context_init+0x173/0x1d0 [i915]
->> [   48.131787]  intel_context_create+0x33/0x100 [i915]
->> [   48.131951]  default_engines+0x9d/0x120 [i915]
->> [   48.132129]  i915_gem_create_context+0x465/0x630 [i915]
->> [   48.132306]  ? trace_kmalloc+0x29/0xd0
->> [   48.132313]  ? kmem_cache_alloc_trace+0x121/0x620
->> [   48.132320]  i915_gem_context_open+0x145/0x1d0 [i915]
->> [   48.132498]  i915_gem_open+0x75/0xb0 [i915]
->> [   48.132685]  drm_file_alloc+0x1b1/0x280 [drm]
->> [   48.132739]  drm_open+0xde/0x250 [drm]
->> [   48.132793]  drm_stub_open+0xa8/0x130 [drm]
->> [   48.132849]  chrdev_open+0xbf/0x240
->> [   48.132855]  ? cdev_device_add+0x90/0x90
->> [   48.132861]  do_dentry_open+0x151/0x3a0
->> [   48.132867]  path_openat+0x76f/0xa10
->> [   48.132874]  do_filp_open+0xa9/0x150
->> [   48.132881]  ? preempt_count_sub+0x9b/0xd0
->> [   48.132887]  ? _raw_spin_unlock+0x29/0x40
->> [   48.132895]  do_sys_openat2+0x97/0x160
->> [   48.132901]  __x64_sys_openat+0x54/0x90
->> [   48.132907]  do_syscall_64+0x38/0x90
->> [   48.132914]  entry_SYSCALL_64_after_hwframe+0x44/0xae
->> [   48.132921] RIP: 0033:0x7ffff7cdca5b
->> [   48.132926] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
->> [   48.132931] RSP: 002b:00007fffffffda20 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
->> [   48.132939] RAX: ffffffffffffffda RBX: 00007fffffffdb60 RCX: 00007ffff7cdca5b
->> [   48.132944] RDX: 0000000000000002 RSI: 00007fffffffdb60 RDI: 00000000ffffff9c
->> [   48.132948] RBP: 00007fffffffdb60 R08: 0000000000000001 R09: 000000000000000e
->> [   48.132952] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
->> [   48.132956] R13: 00007ffff7f9406a R14: 0000000000000000 R15: 00000000fffffffb
->> [   48.132963] irq event stamp: 31465
->> [   48.132966] hardirqs last  enabled at (31471): [<ffffffff81126357>] __up_console_sem+0x67/0x70
->> [   48.132973] hardirqs last disabled at (31476): [<ffffffff8112633c>] __up_console_sem+0x4c/0x70
->> [   48.132979] softirqs last  enabled at (30050): [<ffffffff81c0032c>] __do_softirq+0x32c/0x499
->> [   48.132984] softirqs last disabled at (30035): [<ffffffff810ba2ed>] irq_exit_rcu+0xdd/0x130
->> [   48.132991] ---[ end trace 4978f2ce56481e4e ]---
->> [   48.132996] ------------[ cut here ]------------
->> [   48.133000] ODEBUG: deactivate destroyed (active state 0) object type: i915_sw_fence hint: sw_fence_dummy_notify+0x0/0x10 [i915]
->> [   48.133277] WARNING: CPU: 1 PID: 815 at lib/debugobjects.c:505 debug_print_object+0x6e/0x90
->> [   48.133284] Modules linked in: i915 i2c_algo_bit ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops prime_numbers intel_gtt agpgart fuse nls_iso8859_1 nls_cp437 vfat fat intel_rapl_msr wmi_bmof intel_rapl_common x86_pkg_temp_thermal r8169 realtek mdio_devres coretemp libphy efi_pstore evdev sdhci_pci cqhci sdhci mei_me mmc_core i2c_i801 intel_pmc_core mei led_class wmi i2c_smbus sch_fq_codel drm ip_tables x_tables ipv6 autofs4
->> [   48.133425] CPU: 1 PID: 815 Comm: kms_async_flips Tainted: G        W         5.15.0-rc2-hsw+ #131
->> [   48.133430] Hardware name: Intel Corporation NUC7CJYH/NUC7JYB, BIOS JYGLKCPX.86A.0027.2018.0125.1347 01/25/2018
->> [   48.133434] RIP: 0010:debug_print_object+0x6e/0x90
->> [   48.133440] Code: 07 08 02 83 c0 01 8b 4b 14 4c 8b 45 00 48 c7 c7 a0 19 0a 82 89 05 66 07 08 02 8b 43 10 48 8b 14 c5 c0 0d e4 81 e8 d7 2e 3c 00 <0f> 0b 83 05 c5 c0 0c 01 01 48 83 c4 08 5b 5d c3 83 05 b7 c0 0c 01
->> [   48.133445] RSP: 0018:ffffc90000dabaa8 EFLAGS: 00010286
->> [   48.133453] RAX: 0000000000000000 RBX: ffff88810004f848 RCX: 0000000000000000
->> [   48.133458] RDX: 0000000080000001 RSI: ffffffff8112673f RDI: ffffffff8112673f
->> [   48.133462] RBP: ffffffffa0577480 R08: ffff88827fbfcfe8 R09: 000000000009fffb
->> [   48.133468] R10: 00000000fffe0000 R11: 3fffffffffffffff R12: ffff88810a04d100
->> [   48.133472] R13: ffff88810a07d308 R14: 0000000000000000 R15: ffff88810997b800
->> [   48.133476] FS:  00007ffff624b9c0(0000) GS:ffff888276e80000(0000) knlGS:0000000000000000
->> [   48.133481] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [   48.133486] CR2: 000055555556f5e8 CR3: 0000000108e56000 CR4: 0000000000350ee0
->> [   48.133490] Call Trace:
->> [   48.133495]  __i915_sw_fence_complete+0xab/0x240 [i915]
->> [   48.133658]  ? preempt_count_sub+0x9b/0xd0
->> [   48.133666]  intel_context_init+0x173/0x1d0 [i915]
->> [   48.133830]  intel_context_create+0x33/0x100 [i915]
->> [   48.142705]  default_engines+0x9d/0x120 [i915]
->> [   48.142861]  i915_gem_create_context+0x465/0x630 [i915]
->> [   48.142996]  ? trace_kmalloc+0x29/0xd0
->> [   48.143003]  ? kmem_cache_alloc_trace+0x121/0x620
->> [   48.143009]  i915_gem_context_open+0x145/0x1d0 [i915]
->> [   48.143141]  i915_gem_open+0x75/0xb0 [i915]
->> [   48.143438]  drm_file_alloc+0x1b1/0x280 [drm]
->> [   48.143516]  drm_open+0xde/0x250 [drm]
->> [   48.143557]  drm_stub_open+0xa8/0x130 [drm]
->> [   48.143598]  chrdev_open+0xbf/0x240
->> [   48.143604]  ? cdev_device_add+0x90/0x90
->> [   48.143608]  do_dentry_open+0x151/0x3a0
->> [   48.143614]  path_openat+0x76f/0xa10
->> [   48.143619]  do_filp_open+0xa9/0x150
->> [   48.143625]  ? preempt_count_sub+0x9b/0xd0
->> [   48.143631]  ? _raw_spin_unlock+0x29/0x40
->> [   48.143638]  do_sys_openat2+0x97/0x160
->> [   48.143644]  __x64_sys_openat+0x54/0x90
->> [   48.143648]  do_syscall_64+0x38/0x90
->> [   48.143654]  entry_SYSCALL_64_after_hwframe+0x44/0xae
->> [   48.143660] RIP: 0033:0x7ffff7cdca5b
->> [   48.143664] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
->> [   48.143668] RSP: 002b:00007fffffffda20 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
->> [   48.143675] RAX: ffffffffffffffda RBX: 00007fffffffdb60 RCX: 00007ffff7cdca5b
->> [   48.143679] RDX: 0000000000000002 RSI: 00007fffffffdb60 RDI: 00000000ffffff9c
->> [   48.143682] RBP: 00007fffffffdb60 R08: 0000000000000001 R09: 000000000000000e
->> [   48.143685] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
->> [   48.143688] R13: 00007ffff7f9406a R14: 0000000000000000 R15: 00000000fffffffb
->> [   48.143693] irq event stamp: 32275
->> [   48.143696] hardirqs last  enabled at (32281): [<ffffffff81126357>] __up_console_sem+0x67/0x70
->> [   48.143701] hardirqs last disabled at (32286): [<ffffffff8112633c>] __up_console_sem+0x4c/0x70
->> [   48.143706] softirqs last  enabled at (32138): [<ffffffff81c0032c>] __do_softirq+0x32c/0x499
->> [   48.143710] softirqs last disabled at (32125): [<ffffffff810ba2ed>] irq_exit_rcu+0xdd/0x130
->> [   48.143716] ---[ end trace 4978f2ce56481e4f ]---
-> 
+87eef2b6e776 drm/i915/dp: Disable DFP RGB->YCbCr conversion for now
+5cb79817652f drm/i915/dp: Fix DFP rgb->ycbcr conversion matrix
+691f4682d81c drm/i915/dp: Duplicate native HDMI TMDS clock limit handling for DP HDMI DFPs
+4fa9d8219ec9 drm/i915/dp: Add support for "4:2:0 also" modes for DP
+ec45d7b88657 drm/i915/dp: Rework HDMI DFP TMDS clock handling
+86076600d89d drm/i915/dp: Make intel_dp_output_format() usable for "4:2:0 also" modes
+d1f3604570ee drm/i915/dp: Pass around intel_connector rather than drm_connector
+77d2c530f843 drm/i915/dp: Reorder intel_dp_compute_config() a bit
+759fa68f70a0 drm/i915/dp: s/intel_dp_hdmi_ycbcr420/intel_dp_is_ycbcr420/
+04ab0ef5104e drm/i915/dp: Extract intel_dp_has_audio()
+3c125fcf5842 drm/i915/dp: Respect the sink's max TMDS clock when dealing with DP->HDMI DFPs
+b20dd4ac5782 drm/i915/dp: Extract intel_dp_tmds_clock_valid()
+a2ebf755d8ec drm/i915/dp: Reuse intel_hdmi_tmds_clock()
+c1aab421454c drm/i915/hdmi: Simplify intel_hdmi_mode_clock_valid()
+5300f80e58b7 drm/i915/hdmi: Clean up TMDS clock limit exceeding user mode handling
+cfdd62a9b76f drm/i915/hdmi: Extract intel_hdmi_output_format()
+2f30c6c7e076 drm/i915/hdmi: Unify "4:2:0 also" logic between .mode_valid() and .compute_config()
+7d2c8095b108 drm/i915/hdmi: Introduce intel_hdmi_tmds_clock()
+070dfafd959a drm/i915/hdmi: Introduce intel_hdmi_is_ycbr420()
+da10a92856b4 drm/i915/hdmi: Split intel_hdmi_bpc_possible() to source vs. sink pair
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/index.html
+
+--===============1974854228431824765==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Fix up DP DFP 4:2:0 handling more</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95881/">https://patchwork.freedesktop.org/series/95881/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10743 -&gt; Patchwork_21355</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21355 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-pnv-d510/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +48 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_parallel@engines@userptr:</p>
+<ul>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/299">i915#299</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-flip-vs-modeset@c-dp1:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4165">i915#4165</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cfl-8109u/igt@kms_flip@basic-flip-vs-modeset@c-dp1.html">PASS</a> +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-plain-flip@c-dp2:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html">PASS</a> +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4269">i915#4269</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@kms_flip@basic-plain-flip@c-dp1:<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10743/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21355/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4165">i915#4165</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (39 -&gt; 34)</h2>
+<p>Missing    (5): fi-jsl-1 fi-bdw-5557u bat-dg1-6 fi-hsw-4200u fi-bsw-cyan </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10743 -&gt; Patchwork_21355</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10743: 12c88a23f431212268d7d4d16d313f1d8661c7e5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6250: 3c2ac88757f0d0ac9450487d314fcaceebc8bc26 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21355: 87eef2b6e776be70f6074713edc4f492afa4bb38 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>87eef2b6e776 drm/i915/dp: Disable DFP RGB-&gt;YCbCr conversion for now<br />
+5cb79817652f drm/i915/dp: Fix DFP rgb-&gt;ycbcr conversion matrix<br />
+691f4682d81c drm/i915/dp: Duplicate native HDMI TMDS clock limit handling for DP HDMI DFPs<br />
+4fa9d8219ec9 drm/i915/dp: Add support for "4:2:0 also" modes for DP<br />
+ec45d7b88657 drm/i915/dp: Rework HDMI DFP TMDS clock handling<br />
+86076600d89d drm/i915/dp: Make intel_dp_output_format() usable for "4:2:0 also" modes<br />
+d1f3604570ee drm/i915/dp: Pass around intel_connector rather than drm_connector<br />
+77d2c530f843 drm/i915/dp: Reorder intel_dp_compute_config() a bit<br />
+759fa68f70a0 drm/i915/dp: s/intel_dp_hdmi_ycbcr420/intel_dp_is_ycbcr420/<br />
+04ab0ef5104e drm/i915/dp: Extract intel_dp_has_audio()<br />
+3c125fcf5842 drm/i915/dp: Respect the sink's max TMDS clock when dealing with DP-&gt;HDMI DFPs<br />
+b20dd4ac5782 drm/i915/dp: Extract intel_dp_tmds_clock_valid()<br />
+a2ebf755d8ec drm/i915/dp: Reuse intel_hdmi_tmds_clock()<br />
+c1aab421454c drm/i915/hdmi: Simplify intel_hdmi_mode_clock_valid()<br />
+5300f80e58b7 drm/i915/hdmi: Clean up TMDS clock limit exceeding user mode handling<br />
+cfdd62a9b76f drm/i915/hdmi: Extract intel_hdmi_output_format()<br />
+2f30c6c7e076 drm/i915/hdmi: Unify "4:2:0 also" logic between .mode_valid() and .compute_config()<br />
+7d2c8095b108 drm/i915/hdmi: Introduce intel_hdmi_tmds_clock()<br />
+070dfafd959a drm/i915/hdmi: Introduce intel_hdmi_is_ycbr420()<br />
+da10a92856b4 drm/i915/hdmi: Split intel_hdmi_bpc_possible() to source vs. sink pair</p>
+
+</body>
+</html>
+
+--===============1974854228431824765==--
