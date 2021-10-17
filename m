@@ -2,52 +2,70 @@ Return-Path: <SRS0=ZH9c=PF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B090C433EF
-	for <intel-gfx@archiver.kernel.org>; Sun, 17 Oct 2021 23:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76679C433F5
+	for <intel-gfx@archiver.kernel.org>; Sun, 17 Oct 2021 23:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F472603E9
-	for <intel-gfx@archiver.kernel.org>; Sun, 17 Oct 2021 23:41:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F472603E9
+	by mail.kernel.org (Postfix) with ESMTPS id 301D860F70
+	for <intel-gfx@archiver.kernel.org>; Sun, 17 Oct 2021 23:55:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 301D860F70
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9FD66E840;
-	Sun, 17 Oct 2021 23:41:29 +0000 (UTC)
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB36C6E83C
- for <intel-gfx@lists.freedesktop.org>; Sun, 17 Oct 2021 23:41:20 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-574-TjVfyS4qNNmT2x82kHc2Yw-1; Sun, 17 Oct 2021 19:41:16 -0400
-X-MC-Unique: TjVfyS4qNNmT2x82kHc2Yw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B8BFF10A8E01;
- Sun, 17 Oct 2021 23:41:15 +0000 (UTC)
-Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9A23B5D6D5;
- Sun, 17 Oct 2021 23:41:14 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Dave Airlie <airlied@redhat.com>
-Date: Mon, 18 Oct 2021 09:41:05 +1000
-Message-Id: <20211017234106.2412994-4-airlied@gmail.com>
-In-Reply-To: <20211017234106.2412994-1-airlied@gmail.com>
-References: <20211017234106.2412994-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7593A6E842;
+	Sun, 17 Oct 2021 23:55:13 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2D36E83F;
+ Sun, 17 Oct 2021 23:55:12 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id g10so63802014edj.1;
+ Sun, 17 Oct 2021 16:55:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=HGDF7aSpsCnbOIzpLibSSZ6HrZjSv7khmiYdmZc/2A4=;
+ b=A0MXQEOSx4c0AtCl5ANQrkVYaRx7MHjAifn6OA4Jl4YEI6mSwBr1yU9Y5Noe6r0bzF
+ g0ECFLGqKYCpyr20BW115nNXWTFCCK4yUwU7WjWdC/DV5ytUDyhGs6nsPZbzSQ1giMpf
+ f0Cpyro5ZCaaBkLrVWMhyNtaPmrVwsJACI4JxsYK/uq9KOQxRJ99Qob6BYrt4dCONvnf
+ ZE06c7bq7v+ePcKhiNugEEWeiOmzW50w1KHWjOe3nl4u4Dyk2QQxS5YT80qWNUQVaARt
+ EaWRFTAqPID5P0hL5o+cJ3EmoLbLNyUohTRNY5yTaGI/VAZ0zcwjONJx3l+XnIBa3NYE
+ sFsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=HGDF7aSpsCnbOIzpLibSSZ6HrZjSv7khmiYdmZc/2A4=;
+ b=jNCc0neDNgwacnd9owlIIZjspw+TxdoHTBU8gdM174ysydoeXUdG/vmCVUmK/6R0xp
+ vHxI2B28E8mIxXOqnJ4ckXvs6t3qOy/2+/bbiSW9Ysgp6iWLVU+PJQL1ZlzPR3fIdVIv
+ NvVXa9VlgyOaErjA89xq+Bo3rw1uisPZ0LUqneGHj87axKKohqSZZzKnhXWzRxbk0qgV
+ 6oOHL00oUmvcxCIkW7rJ+s+ZWsUqt4ZdBAoYrt+BWK0nL3cpUKsBEFWVwNnnUpqdv2r7
+ zvAymZh4lo/Qg2Lv7S2me3RNxybo35EvmQbtdvQ1FnTUgBNfkhZgqysgx47TcQTIKRnw
+ sQUg==
+X-Gm-Message-State: AOAM5333b+pGeoBfuhecYvcEbW/jYND5B6YwTbdDBkOXxqWJIEKGpTI+
+ WBZPVMO+vWAHsNUnkZsvevzuVSQ1ekTC9c58fjY=
+X-Google-Smtp-Source: ABdhPJy9QAKnaO/msGpoqzjiDLmbnVnZZg4fTGCAbq16TkXnLwpQdr8CfKq8kKtNPrZvnkV2s+gTgWd6/jAHciFVi9g=
+X-Received: by 2002:a05:6402:5209:: with SMTP id
+ s9mr38873024edd.250.1634514910528; 
+ Sun, 17 Oct 2021 16:55:10 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
+References: <20211014090941.12159-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20211014090941.12159-1-ville.syrjala@linux.intel.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Mon, 18 Oct 2021 09:54:59 +1000
+Message-ID: <CAPM=9twtQFKU_oFyEoKg3j-OgVNDrODN180eYM+ASvFYyWjm3w@mail.gmail.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, Dave Airlie <airlied@redhat.com>, 
+ Jani Nikula <jani.nikula@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/display: drop unused parameter to
- dpt pin
+Subject: Re: [Intel-gfx] [PATCH 0/4] drm/i915: Make the driver not oops on
+ load on old machines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +81,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
+On Thu, 14 Oct 2021 at 19:09, Ville Syrjala
+<ville.syrjala@linux.intel.com> wrote:
+>
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Fix a pile of regression on older machines which just oops the driver
+> on load.
+>
 
-The uses_fence isn't used.
+For all 4:
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/drm/i915/display/intel_fb_pin.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Reviewed-by: Dave Airlie <airlied@redhat.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/=
-i915/display/intel_fb_pin.c
-index 0beb0aa33337..721a1477e8b1 100644
---- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-@@ -18,7 +18,6 @@
- static struct i915_vma *
- intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
- =09=09     const struct i915_ggtt_view *view,
--=09=09     bool uses_fence,
- =09=09     unsigned long *out_flags,
- =09=09     struct i915_address_space *vm)
- {
-@@ -236,7 +235,7 @@ int intel_plane_pin_fb(struct intel_plane_state *plane_=
-state)
-=20
- =09=09plane_state->ggtt_vma =3D vma;
-=20
--=09=09vma =3D intel_pin_fb_obj_dpt(fb, &plane_state->view.gtt, false,
-+=09=09vma =3D intel_pin_fb_obj_dpt(fb, &plane_state->view.gtt,
- =09=09=09=09=09   &plane_state->flags, intel_fb->dpt_vm);
- =09=09if (IS_ERR(vma)) {
- =09=09=09intel_dpt_unpin(intel_fb->dpt_vm);
---=20
-2.25.4
+though it would be nice if the clflushes has more justifications on
+initial patch submission/review, maybe something for gt team to keep
+an eye for patches coming out from internal.
 
+Dave.
