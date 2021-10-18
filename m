@@ -2,40 +2,46 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F40BC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 11:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D70CBC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:07:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB4F76101B
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 11:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DB4F76101B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 90B1B610C7
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:07:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90B1B610C7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B7C16E873;
-	Mon, 18 Oct 2021 11:58:46 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4DBFB6E873;
- Mon, 18 Oct 2021 11:58:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4A508A7525;
- Mon, 18 Oct 2021 11:58:45 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Auld" <matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CBBA6E9F4;
+	Mon, 18 Oct 2021 12:07:41 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0397D6E9F7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Oct 2021 12:07:39 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10140"; a="291703178"
+X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="291703178"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2021 05:07:15 -0700
+X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="443385710"
+Received: from unknown (HELO intel.com) ([10.237.72.167])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2021 05:07:14 -0700
+Date: Mon, 18 Oct 2021 15:06:34 +0300
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 18 Oct 2021 11:58:45 -0000
-Message-ID: <163455832530.27088.13392926861938826318@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211018091055.1998191-1-matthew.auld@intel.com>
-In-Reply-To: <20211018091055.1998191-1-matthew.auld@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?series_starting_with_=5Bv9=2C1/8=5D_drm/i915/gem=3A_Break_out_s?=
- =?utf-8?q?ome_shmem_backend_utils?=
+Message-ID: <20211018120634.GA16624@intel.com>
+References: <20211018115030.3547-1-ville.syrjala@linux.intel.com>
+ <20211018115030.3547-6-ville.syrjala@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211018115030.3547-6-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 5/9] drm/i915: Split skl+ plane update into
+ noarm+arm pair
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,46 +54,300 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Mon, Oct 18, 2021 at 02:50:26PM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Chop skl_program_plane() into two halves. Fist half becomes
+> the _noarm() variant, second part the _arm() variant.
+> 
+> Fortunately I have already previously grouped the register
+> writes into roughtly the correct order, so the split looks
+> surprisingly clean.
+> 
+> A few notable oddities I did not realize were self arming
+> are AUX_DIST and COLOR_CTL.
+> 
+> i915_update_info doesn't look too terrible on my cfl running
+> kms_atomic_transition --r plane-all-transition --extended:
+> w/o patch                           w/ patch
+> Updates: 2178                       Updates: 2018
+>        |                                   |
+>    1us |                               1us |
+>        |                                   |
+>    4us |                               4us |*****
+>        |*********                          |**********
+>   16us |**********                    16us |*******
+>        |***                                |
+>   66us |                              66us |
+>        |                                   |
+>  262us |                             262us |
+>        |                                   |
+>    1ms |                               1ms |
+>        |                                   |
+>    4ms |                               4ms |
+>        |                                   |
+>   17ms |                              17ms |
+>        |                                   |
+> Min update: 8332ns                  Min update: 6164ns
+> Max update: 48758ns                 Max update: 31808ns
+> Average update: 19959ns             Average update: 13159ns
+> Overruns > 100us: 0                 Overruns > 100us: 0
+> 
+> And with lockdep enabled:
+> w/o patch                           w/ patch
+> Updates: 2177			    Updates: 2172
+>        |			    	   |
+>    1us |			       1us |
+>        |			    	   |
+>    4us |			       4us |
+>        |*******			    	   |*********
+>   16us |**********		      16us |**********
+>        |*******			    	   |*
+>   66us |			      66us |
+>        |			    	   |
+>  262us |			     262us |
+>        |			    	   |
+>    1ms |			       1ms |
+>        |			    	   |
+>    4ms |			       4ms |
+>        |			    	   |
+>   17ms |			      17ms |
+>        |			    	   |
+> Min update: 12645ns		    Min update: 9980ns
+> Max update: 50153ns		    Max update: 33533ns
+> Average update: 25337ns		    Average update: 18245ns
+> Overruns > 250us: 0		    Overruns > 250us: 0
+> 
+> TODO: On icl+ everything seems to be armed by PLANE_SURF, so we
+>       can optimize this even further on modern platforms. But I
+>       think there's a bit of refactoring to be done first to
+>       figure out the best way to go about it (eg. just reusing
+>       the current skl+ functions, or doing a lower level split).
+> 
+> TODO: Split scaler programming as well, but IIRC the scaler
+>       has some oddball double buffering behaviour on some
+>       platforms, so needs proper reverse engineering
+> 
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Series: series starting with [v9,1/8] drm/i915/gem: Break out some shmem backend utils
-URL   : https://patchwork.freedesktop.org/series/95942/
-State : warning
+Should I use that one as a base for further splitting, i.e for DG2?
+Which refactoring has to be done first, as I understand should be
+pretty safe to leave only PLANE_SURF update in arm section, and 
+of course scaler is a different thing.
 
-== Summary ==
-
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
--
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_reset.c:1392:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
-+drivers/gpu/drm/i915/i915_perf.c:1442:15: warning: memset with byte count of 16777216
-+drivers/gpu/drm/i915/i915_perf.c:1496:15: warning: memset with byte count of 16777216
-+./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
-+./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:418:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
+Stan
 
 
+> ---
+>  .../drm/i915/display/skl_universal_plane.c    | 113 +++++++++++-------
+>  1 file changed, 72 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index 74f3870d39b1..2a822e1e465e 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -1050,60 +1050,32 @@ static void icl_plane_csc_load_black(struct intel_plane *plane)
+>  }
+>  
+>  static void
+> -skl_program_plane(struct intel_plane *plane,
+> -		  const struct intel_crtc_state *crtc_state,
+> -		  const struct intel_plane_state *plane_state,
+> -		  int color_plane)
+> +skl_program_plane_noarm(struct intel_plane *plane,
+> +			const struct intel_crtc_state *crtc_state,
+> +			const struct intel_plane_state *plane_state,
+> +			int color_plane)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+>  	enum plane_id plane_id = plane->id;
+>  	enum pipe pipe = plane->pipe;
+> -	const struct drm_intel_sprite_colorkey *key = &plane_state->ckey;
+>  	u32 stride = skl_plane_stride(plane_state, color_plane);
+>  	const struct drm_framebuffer *fb = plane_state->hw.fb;
+> -	int aux_plane = skl_main_to_aux_plane(fb, color_plane);
+>  	int crtc_x = plane_state->uapi.dst.x1;
+>  	int crtc_y = plane_state->uapi.dst.y1;
+> -	u32 x = plane_state->view.color_plane[color_plane].x;
+> -	u32 y = plane_state->view.color_plane[color_plane].y;
+>  	u32 src_w = drm_rect_width(&plane_state->uapi.src) >> 16;
+>  	u32 src_h = drm_rect_height(&plane_state->uapi.src) >> 16;
+> -	u8 alpha = plane_state->hw.alpha >> 8;
+> -	u32 plane_color_ctl = 0, aux_dist = 0;
+>  	unsigned long irqflags;
+> -	u32 keymsk, keymax;
+> -	u32 plane_ctl = plane_state->ctl;
+> -
+> -	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+> -
+> -	if (DISPLAY_VER(dev_priv) >= 10)
+> -		plane_color_ctl = plane_state->color_ctl |
+> -			glk_plane_color_ctl_crtc(crtc_state);
+>  
+>  	/* Sizes are 0 based */
+>  	src_w--;
+>  	src_h--;
+>  
+> -	keymax = (key->max_value & 0xffffff) | PLANE_KEYMAX_ALPHA(alpha);
+> -
+> -	keymsk = key->channel_mask & 0x7ffffff;
+> -	if (alpha < 0xff)
+> -		keymsk |= PLANE_KEYMSK_ALPHA_ENABLE;
+> -
+>  	/* The scaler will handle the output position */
+>  	if (plane_state->scaler_id >= 0) {
+>  		crtc_x = 0;
+>  		crtc_y = 0;
+>  	}
+>  
+> -	if (aux_plane) {
+> -		aux_dist = skl_surf_address(plane_state, aux_plane) -
+> -			skl_surf_address(plane_state, color_plane);
+> -
+> -		if (DISPLAY_VER(dev_priv) < 12)
+> -			aux_dist |= skl_plane_stride(plane_state, aux_plane);
+> -	}
+> -
+>  	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+>  
+>  	/*
+> @@ -1119,16 +1091,10 @@ skl_program_plane(struct intel_plane *plane,
+>  	intel_de_write_fw(dev_priv, PLANE_SIZE(pipe, plane_id),
+>  			  (src_h << 16) | src_w);
+>  
+> -	intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id), aux_dist);
+> -
+>  	if (icl_is_hdr_plane(dev_priv, plane_id))
+>  		intel_de_write_fw(dev_priv, PLANE_CUS_CTL(pipe, plane_id),
+>  				  plane_state->cus_ctl);
+>  
+> -	if (DISPLAY_VER(dev_priv) >= 10)
+> -		intel_de_write_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id),
+> -				  plane_color_ctl);
+> -
+>  	if (fb->format->is_yuv && icl_is_hdr_plane(dev_priv, plane_id))
+>  		icl_program_input_csc(plane, crtc_state, plane_state);
+>  
+> @@ -1138,6 +1104,52 @@ skl_program_plane(struct intel_plane *plane,
+>  
+>  	skl_write_plane_wm(plane, crtc_state);
+>  
+> +	intel_psr2_program_plane_sel_fetch(plane, crtc_state, plane_state, color_plane);
+> +
+> +	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+> +}
+> +
+> +static void
+> +skl_program_plane_arm(struct intel_plane *plane,
+> +		      const struct intel_crtc_state *crtc_state,
+> +		      const struct intel_plane_state *plane_state,
+> +		      int color_plane)
+> +{
+> +	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+> +	enum plane_id plane_id = plane->id;
+> +	enum pipe pipe = plane->pipe;
+> +	const struct drm_intel_sprite_colorkey *key = &plane_state->ckey;
+> +	const struct drm_framebuffer *fb = plane_state->hw.fb;
+> +	int aux_plane = skl_main_to_aux_plane(fb, color_plane);
+> +	u32 x = plane_state->view.color_plane[color_plane].x;
+> +	u32 y = plane_state->view.color_plane[color_plane].y;
+> +	u32 keymsk, keymax, aux_dist = 0, plane_color_ctl = 0;
+> +	u8 alpha = plane_state->hw.alpha >> 8;
+> +	u32 plane_ctl = plane_state->ctl;
+> +	unsigned long irqflags;
+> +
+> +	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+> +
+> +	if (DISPLAY_VER(dev_priv) >= 10)
+> +		plane_color_ctl = plane_state->color_ctl |
+> +			glk_plane_color_ctl_crtc(crtc_state);
+> +
+> +	keymax = (key->max_value & 0xffffff) | PLANE_KEYMAX_ALPHA(alpha);
+> +
+> +	keymsk = key->channel_mask & 0x7ffffff;
+> +	if (alpha < 0xff)
+> +		keymsk |= PLANE_KEYMSK_ALPHA_ENABLE;
+> +
+> +	if (aux_plane) {
+> +		aux_dist = skl_surf_address(plane_state, aux_plane) -
+> +			skl_surf_address(plane_state, color_plane);
+> +
+> +		if (DISPLAY_VER(dev_priv) < 12)
+> +			aux_dist |= skl_plane_stride(plane_state, aux_plane);
+> +	}
+> +
+> +	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+> +
+>  	intel_de_write_fw(dev_priv, PLANE_KEYVAL(pipe, plane_id),
+>  			  key->min_value);
+>  	intel_de_write_fw(dev_priv, PLANE_KEYMSK(pipe, plane_id), keymsk);
+> @@ -1146,17 +1158,22 @@ skl_program_plane(struct intel_plane *plane,
+>  	intel_de_write_fw(dev_priv, PLANE_OFFSET(pipe, plane_id),
+>  			  (y << 16) | x);
+>  
+> +	intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id), aux_dist);
+> +
+>  	if (DISPLAY_VER(dev_priv) < 11)
+>  		intel_de_write_fw(dev_priv, PLANE_AUX_OFFSET(pipe, plane_id),
+>  				  (plane_state->view.color_plane[1].y << 16) |
+>  				   plane_state->view.color_plane[1].x);
+>  
+> -	intel_psr2_program_plane_sel_fetch(plane, crtc_state, plane_state, color_plane);
+> +	if (DISPLAY_VER(dev_priv) >= 10)
+> +		intel_de_write_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id), plane_color_ctl);
+>  
+>  	/*
+>  	 * Enable the scaler before the plane so that we don't
+>  	 * get a catastrophic underrun even if the two operations
+>  	 * end up happening in two different frames.
+> +	 *
+> +	 * TODO: split into noarm+arm pair
+>  	 */
+>  	if (plane_state->scaler_id >= 0)
+>  		skl_program_plane_scaler(plane, crtc_state, plane_state);
+> @@ -1199,7 +1216,20 @@ skl_plane_async_flip(struct intel_plane *plane,
+>  	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+>  }
+>  
+> -/* TODO: split into noarm+arm pair */
+> +static void
+> +skl_plane_update_noarm(struct intel_plane *plane,
+> +		       const struct intel_crtc_state *crtc_state,
+> +		       const struct intel_plane_state *plane_state)
+> +{
+> +	int color_plane = 0;
+> +
+> +	if (plane_state->planar_linked_plane && !plane_state->planar_slave)
+> +		/* Program the UV plane on planar master */
+> +		color_plane = 1;
+> +
+> +	skl_program_plane_noarm(plane, crtc_state, plane_state, color_plane);
+> +}
+> +
+>  static void
+>  skl_plane_update_arm(struct intel_plane *plane,
+>  		     const struct intel_crtc_state *crtc_state,
+> @@ -1211,7 +1241,7 @@ skl_plane_update_arm(struct intel_plane *plane,
+>  		/* Program the UV plane on planar master */
+>  		color_plane = 1;
+>  
+> -	skl_program_plane(plane, crtc_state, plane_state, color_plane);
+> +	skl_program_plane_arm(plane, crtc_state, plane_state, color_plane);
+>  }
+>  
+>  static bool intel_format_is_p01x(u32 format)
+> @@ -2159,6 +2189,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+>  	}
+>  
+>  	plane->max_stride = skl_plane_max_stride;
+> +	plane->update_noarm = skl_plane_update_noarm;
+>  	plane->update_arm = skl_plane_update_arm;
+>  	plane->disable_arm = skl_plane_disable_arm;
+>  	plane->get_hw_state = skl_plane_get_hw_state;
+> -- 
+> 2.32.0
+> 
