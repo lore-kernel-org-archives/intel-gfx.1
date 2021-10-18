@@ -2,76 +2,73 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14CDFC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EDA9C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D740B60F11
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D740B60F11
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3CCBE60FDA
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3CCBE60FDA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A65516EA16;
-	Mon, 18 Oct 2021 12:19:38 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8E789F55;
- Sat, 16 Oct 2021 11:16:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1634382974;
- bh=Mhw02uk6pyAcd09twynYEmpbbHs67NvOvVZTeh65TQ4=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
- b=gZKhnmBON9Gg/8BxGCv+oJ0/ws3frGh32IR7U1a57EisAnv8FCzFeeJTFTx3MWZM/
- 2sH7hqesKMUlxkAcOudVEHnoPMis1JirRIEzbJV3Q8mBb7FYtKKz4ffG7UdhZ7MAza
- +hbJES3Y107oPh93XQzE9fpAcLZMaVIjaWJAPt/w=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from titan ([79.150.72.99]) by mail.gmx.net (mrgmx004
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1M59C2-1mcnbF3JzA-001B53; Sat, 16
- Oct 2021 13:16:14 +0200
-Date: Sat, 16 Oct 2021 13:16:02 +0200
-From: Len Baker <len.baker@gmx.com>
-To: Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Len Baker <len.baker@gmx.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@linux.ie>, Kees Cook <keescook@chromium.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0789E6EA1A;
+	Mon, 18 Oct 2021 12:19:39 +0000 (UTC)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8F8E6E995;
+ Mon, 18 Oct 2021 08:43:37 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id np13so11698339pjb.4;
+ Mon, 18 Oct 2021 01:43:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/sIT4umqcrgezmo7NeKDo4pD3l7TGx1ShKleFi4zvMg=;
+ b=lXrjdjy9g+sP6tVwh3R0LbFpvRMw0iCGBp/+3otwIDwVuLTV1rO74j9MnDfjuh5M3Q
+ fNPJe3SkENcfuVJExXQfsOZwhFHvJvz4mbANfzRXJl2MpB3Kn3mzEIwEPrHXIPEazqXL
+ Ex3O9KwPrnrWvwHVCa2PLdrQZaqLPXHKNs0Sbeq8DN3AXirhwYKRwU98oP0L1kKgoBAi
+ pN7UJX4sdSu4a4iM/pMveiGmf2u/yxkYBhIBnFOvvatcBxvu53AVXtWkuMH085L0WA2g
+ qiTDZ5WFGShMbsmqo+GPO98HKItWZexk9yIeyPi/lp2mVDVXIMk2M07vkTqTa4sb1TV7
+ 2fUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/sIT4umqcrgezmo7NeKDo4pD3l7TGx1ShKleFi4zvMg=;
+ b=KoGvDMU+8e42njJx0gCWf0dwUj60671Dkg4s5IQ/yCJiN2JMutL1OiyDHVCfMPjoPi
+ WripjPYsAzOLBuSombn/acKohatGfYZ0rEolt4YhuRUkp/vz3Tjrhmw3g52GBUcD+IHc
+ ujn08J150j14FP5aLm3tqskICHsmu69xXgoz10ZocLfUm3BRd+vRQhKwKDcdrkd3ighP
+ d9NKSKrw4HN7NDEVXY2WC+PgCu1j2mG13fSuwPuONRWt6a26UukrBP1JOSfCFS0u+kFH
+ 1KpDosNe/Ex2v5X5STjd/oapEV6q+uWJCtuQTcgzMooKVqMqo50aDnIPR0B4D0gXA02Y
+ rdUg==
+X-Gm-Message-State: AOAM530pdJ/zvZoWhACAyEU9Fs0ezy3SlTKovevyPG/fXK7/fhjWR9WV
+ KyMTEHMVNcPq7745B8Io2XGDYOfo0a8=
+X-Google-Smtp-Source: ABdhPJyXe3WVogvoDfLeXoKli08zF7MOl0pG+v3UNaG4cNfHsYezHxB8MJjkOAYchUOyIYllZuWSlQ==
+X-Received: by 2002:a17:902:ed8c:b0:13f:136f:efb1 with SMTP id
+ e12-20020a170902ed8c00b0013f136fefb1mr25827200plj.56.1634546617391; 
+ Mon, 18 Oct 2021 01:43:37 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id s14sm12356974pfg.50.2021.10.18.01.43.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Oct 2021 01:43:36 -0700 (PDT)
+From: luo penghao <cgel.zte@gmail.com>
+X-Google-Original-From: luo penghao <luo.penghao@zte.com.cn>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Rothwell <sfr@canb.auug.org.au>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <20211016111602.GA1996@titan>
-References: <20211003104258.18550-1-len.baker@gmx.com>
- <20211011092304.GA5790@titan> <87k0ihxj56.fsf@intel.com>
- <YWbIQmD1TGikpRm2@phenom.ffwll.local>
+ linux-kernel@vger.kernel.org, luo penghao <luo.penghao@zte.com.cn>,
+ Zeal Robot <zealci@zte.com.cn>
+Date: Mon, 18 Oct 2021 08:43:31 +0000
+Message-Id: <20211018084331.851975-1-luo.penghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YWbIQmD1TGikpRm2@phenom.ffwll.local>
-X-Provags-ID: V03:K1:1BclTLkTU4amNua8fYN+IZPFm5F/GQXpWS5ysQ60YisVJ8xWdDC
- /wVNME45XYCO+L/RtZkhQg+PaCqrNbdrnQk4MkAVhNTVKSgB5ks64M+aOQgyg6YJn8xsTzx
- JPiLFzk4L4VDgWJj5ALAUEwzp9ZEFhM7SuKklT5w+M0uQztnaqPmNSb/sOJdVJGGvGv3JJg
- m0Vmj7TgIZV0yRFK77RsQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:LRQAcnKjBVU=:CUIE1tkUtt8DmHc2DvoXn6
- CfLCNr20xEgnmwtw/fouwwD9ZLjaaJ4wI5EmfE09iOZ/JrfiNmIOw4uHDWU4vQ9Dxj0ypcI32
- f2hdSYmXl+i7l824ntWiRLjoFDXR5dot5yqquTPykvH/vJcpSZAmrh0MDsaRHqD6YPd52qJVN
- izixixj4LjseACXWnd63uhDkIH0sqEqwr4/YII0+J9iBy6RehHRuEwLNTBSh1k7uyCpWKFrBP
- aZ+pVc3/biTOFiabHA4a80KFCFFPukHPRN6n4KdJXhhVpuASYVDQ1UYKX7pAjJcwR2I7t7THu
- GLyqdKYrX+q6MZMfQFPwHxqxQBRXkMOhIa9gVxThhWD8A8jY56q5mIjidg45soCI69P1hverj
- RzQSRVlrCbJpcEvgtDTh4c5B0/ihZp66scW2EkFWcGU+IV7q/MuoQNfrA1GDazKcP7tJ4+ket
- ZVDM74wwlBNIvyX+xr2sYlV8b08X7dmV64J7fPCm19qk37ak2k5AOA1/fX2wOOWZIcAk5CqrV
- UGWwFLH2G8vHYFY83YD8goXQJQy6uGM5jCJncxaVSDNEwfd7my6QWLPxM092RSsKZWH+n97Zs
- aThhPzumI/2XtV5zMqkUER3AU4W9NoQc5YlZ5LAfENHyUXDQGwUPFdKFDT63plQHQUe0xghd2
- gKYivo+p1wzDtKggurJbRN79ZfzfKH0f2QS/aY2KOn8DJ3u60ONFt8pMg0Xp++Bsfz8qQ35j5
- x+A3DBhXI9l979SF46JtLVczOih6ojMF+RRzNc3txb/bihWfy8Kk4UPJIeN0aEt7TowXfVckL
- jW0AxF7EJXTtd5v/rFCVq9f3SOpTS6G10G0c49WiEqVmEn6ELYR78ohT+DYriDQ++SI99dBNM
- 0Q067/K0q0FFLPwtfiBUPk8tfcgjkNHSjnQ66K2BcAX9QMboYyEyKCJJHehdu6qGHecghJuJG
- xYVrSymPAVB+xZ5tfS7y6pOBB2U9zQNPp5IYmSvbj5IX+r+u/tfzNpOen9LOqf10avjZDZesv
- 1JHQneqHXsgZbBLIoAdkpRzuEYOncjmzTxdTl22TnAUBBkzhJXcH5JS0Z0lzA+aZ4m/4ZESkK
- 1+MBTEdSQVCW1k=
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 18 Oct 2021 12:19:37 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Prefer struct_size over open
- coded arithmetic
+Subject: [Intel-gfx] [PATCH linux-next] drm/i915/display: Remove unused
+ variable and its assignment.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,100 +84,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel and Jani,
+Variable is not used in functions, and its assignment is redundant too.
+So it should be deleted.
 
-On Wed, Oct 13, 2021 at 01:51:30PM +0200, Daniel Vetter wrote:
-> On Wed, Oct 13, 2021 at 02:24:05PM +0300, Jani Nikula wrote:
-> > On Mon, 11 Oct 2021, Len Baker <len.baker@gmx.com> wrote:
-> > > Hi,
-> > >
-> > > On Sun, Oct 03, 2021 at 12:42:58PM +0200, Len Baker wrote:
-> > >> As noted in the "Deprecated Interfaces, Language Features, Attribut=
-es,
-> > >> and Conventions" documentation [1], size calculations (especially
-> > >> multiplication) should not be performed in memory allocator (or sim=
-ilar)
-> > >> function arguments due to the risk of them overflowing. This could =
-lead
-> > >> to values wrapping around and a smaller allocation being made than =
-the
-> > >> caller was expecting. Using those allocations could lead to linear
-> > >> overflows of heap memory and other misbehaviors.
-> > >>
-> > >> In this case these are not actually dynamic sizes: all the operands
-> > >> involved in the calculation are constant values. However it is bett=
-er to
-> > >> refactor them anyway, just to keep the open-coded math idiom out of
-> > >> code.
-> > >>
-> > >> So, add at the end of the struct i915_syncmap a union with two flex=
-ible
-> > >> array members (these arrays share the same memory layout). This is
-> > >> possible using the new DECLARE_FLEX_ARRAY macro. And then, use the
-> > >> struct_size() helper to do the arithmetic instead of the argument
-> > >> "size + count * size" in the kmalloc and kzalloc() functions.
-> > >>
-> > >> Also, take the opportunity to refactor the __sync_seqno and __sync_=
-child
-> > >> making them more readable.
-> > >>
-> > >> This code was detected with the help of Coccinelle and audited and =
-fixed
-> > >> manually.
-> > >>
-> > >> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html#=
-open-coded-arithmetic-in-allocator-arguments
-> > >>
-> > >> Signed-off-by: Len Baker <len.baker@gmx.com>
-> > >> ---
-> > >>  drivers/gpu/drm/i915/i915_syncmap.c | 12 ++++++++----
-> > >>  1 file changed, 8 insertions(+), 4 deletions(-)
-> > >
-> > > I received a mail telling that this patch doesn't build:
-> > >
-> > > =3D=3D Series Details =3D=3D
-> > >
-> > > Series: drm/i915: Prefer struct_size over open coded arithmetic
-> > > URL   : https://patchwork.freedesktop.org/series/95408/
-> > > State : failure
-> > >
-> > > But it builds without error against linux-next (tag next-20211001). =
-Against
-> > > which tree and branch do I need to build?
-> >
-> > drm-tip [1]. It's a sort of linux-next for graphics. I think there are
-> > still some branches that don't feed to linux-next.
->
-> Yeah we need to get gt-next in linux-next asap. Joonas promised to send
-> out his patch to make that happen in dim.
-> -Daniel
+The clang_analyzer complains as follows:
 
-Is there a possibility that you give an "Acked-by" tag? And then this patc=
-h
-goes to the mainline through the Kees' tree or Gustavo's tree?
+drivers/gpu/drm/i915/display/intel_dpll.c:1653:2 warning:
+Value stored to 'bestm1' is never read.
 
-Or is it better to wait for drm-tip to update?
+drivers/gpu/drm/i915/display/intel_dpll.c:1651:2 warning:
+Value stored to 'bestn' is never read.
 
-Regards,
-Len
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: luo penghao <luo.penghao@zte.com.cn>
+---
+ drivers/gpu/drm/i915/display/intel_dpll.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
->
-> >
-> > BR,
-> > Jani.
-> >
-> >
-> > [1] https://cgit.freedesktop.org/drm/drm-tip
-> >
-> >
-> > >
-> > > Regards,
-> > > Len
-> >
-> > --
-> > Jani Nikula, Intel Open Source Graphics Center
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
+index b84ed4a..28b1616 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -1644,13 +1644,11 @@ static void chv_prepare_pll(const struct intel_crtc_state *crtc_state)
+ 	enum pipe pipe = crtc->pipe;
+ 	enum dpio_channel port = vlv_pipe_to_channel(pipe);
+ 	u32 loopfilter, tribuf_calcntr;
+-	u32 bestn, bestm1, bestm2, bestp1, bestp2, bestm2_frac;
++	u32 bestm2, bestp1, bestp2, bestm2_frac;
+ 	u32 dpio_val;
+ 	int vco;
+ 
+-	bestn = crtc_state->dpll.n;
+ 	bestm2_frac = crtc_state->dpll.m2 & 0x3fffff;
+-	bestm1 = crtc_state->dpll.m1;
+ 	bestm2 = crtc_state->dpll.m2 >> 22;
+ 	bestp1 = crtc_state->dpll.p1;
+ 	bestp2 = crtc_state->dpll.p2;
+-- 
+2.15.2
+
