@@ -2,49 +2,46 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4D06C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7929C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:12:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A88616101B
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:12:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A88616101B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 76E586101B
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 76E586101B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B23C66E9C5;
-	Mon, 18 Oct 2021 09:12:16 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B60336E9B4;
- Mon, 18 Oct 2021 09:12:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10140"; a="215135688"
-X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="215135688"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 02:12:06 -0700
-X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="493509143"
-Received: from foboril-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.249.44.188])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 02:12:01 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: luo penghao <cgel.zte@gmail.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Rothwell <sfr@canb.auug.org.au>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, luo penghao <luo.penghao@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>, "Deak\, Imre" <imre.deak@intel.com>
-In-Reply-To: <20211018084449.852251-1-luo.penghao@zte.com.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211018084449.852251-1-luo.penghao@zte.com.cn>
-Date: Mon, 18 Oct 2021 12:11:58 +0300
-Message-ID: <87k0iau275.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 070E46E9BD;
+	Mon, 18 Oct 2021 09:12:17 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 208496E9B3;
+ Mon, 18 Oct 2021 09:12:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10140"; a="209001425"
+X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="209001425"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2021 02:11:59 -0700
+X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="443330278"
+Received: from cscleary-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.13.221])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2021 02:11:58 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Mon, 18 Oct 2021 10:10:54 +0100
+Message-Id: <20211018091055.1998191-7-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20211018091055.1998191-1-matthew.auld@intel.com>
+References: <20211018091055.1998191-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH linux-next] drm/i915/display: Remove unused
- variable in the for loop.
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 7/8] drm/i915/ttm: use cached system pages
+ when evicting lmem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +57,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 18 Oct 2021, luo penghao <cgel.zte@gmail.com> wrote:
-> Variable is not used in the loop, and its assignment is redundant too.
-> So it should be deleted.
->
-> The clang_analyzer complains as follows:
->
-> drivers/gpu/drm/i915/display/intel_fb.c:1018:3 warning:
->
-> Value stored to 'cpp' is never read.
->
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: luo penghao <luo.penghao@zte.com.cn>
-> ---
->  drivers/gpu/drm/i915/display/intel_fb.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-> index fa1f375..b9b6a7a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-> @@ -998,7 +998,7 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
->  	for (i = 0; i < num_planes; i++) {
->  		struct fb_plane_view_dims view_dims;
->  		unsigned int width, height;
-> -		unsigned int cpp, size;
-> +		unsigned int size;
->  		u32 offset;
->  		int x, y;
->  		int ret;
-> @@ -1015,7 +1015,7 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
->  				return -EINVAL;
->  		}
->  
-> -		cpp = fb->base.format->cpp[i];
-> +		fb->base.format->cpp[i];
+This should let us do an accelerated copy directly to the shmem pages
+when temporarily moving lmem-only objects, where the i915-gem shrinker
+can later kick in to swap out the pages, if needed.
 
-Thanks for the report. However, this "fix" isn't any better than having
-the unused variable. It's obviously wrong.
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-It would be useful to dig into the history of the function, and figure
-out when and why the variable became unused, and whether that caused an
-actual bug or whether this was just leftovers from some refactoring.
-
-So that's what I did. Some git blame and git log -p revealed commit
-d3c5e10b6059 ("drm/i915/intel_fb: Factor out
-convert_plane_offset_to_xy()") that moved the check that used the cpp
-variable to a separate function, and the local variable and the line
-above became unused and useless.
-
-That's the actually helpful part. It's easy to see and verify that the
-right fix is to just remove the line completely.
-
-BR,
-Jani.
-
-
->  		intel_fb_plane_dims(fb, i, &width, &height);
->  
->  		ret = convert_plane_offset_to_xy(fb, i, width, &x, &y);
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 8de1031a2c6e..d37581d9194c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -134,11 +134,11 @@ static enum ttm_caching
+ i915_ttm_select_tt_caching(const struct drm_i915_gem_object *obj)
+ {
+ 	/*
+-	 * Objects only allowed in system get cached cpu-mappings.
+-	 * Other objects get WC mapping for now. Even if in system.
++	 * Objects only allowed in system get cached cpu-mappings, or when
++	 * evicting lmem-only buffers to system for swapping. Other objects get
++	 * WC mapping for now. Even if in system.
+ 	 */
+-	if (obj->mm.region->type == INTEL_MEMORY_SYSTEM &&
+-	    obj->mm.n_placements <= 1)
++	if (obj->mm.n_placements <= 1)
+ 		return ttm_cached;
+ 
+ 	return ttm_write_combined;
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.26.3
+
