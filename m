@@ -2,46 +2,40 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2BF4C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D408C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A12DC6128E
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:06:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A12DC6128E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3BE596115A
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3BE596115A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6B76EA95;
-	Mon, 18 Oct 2021 18:06:19 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B51B96EA66;
- Mon, 18 Oct 2021 18:06:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="251786690"
-X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="251786690"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 10:49:29 -0700
-X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="526358849"
-Received: from cscleary-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.13.221])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 10:49:24 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 18 Oct 2021 18:45:08 +0100
-Message-Id: <20211018174508.2137279-9-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20211018174508.2137279-1-matthew.auld@intel.com>
-References: <20211018174508.2137279-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370556EA64;
+	Mon, 18 Oct 2021 18:31:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DB2BC6E0EF;
+ Mon, 18 Oct 2021 18:31:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D5363AA0ED;
+ Mon, 18 Oct 2021 18:31:22 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6118573927185172470=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 9/9] drm/i915/selftests: mark up hugepages
- object with start_cpu_write
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 18 Oct 2021 18:31:22 -0000
+Message-ID: <163458188285.27086.13546776604988836279@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211018094154.1407705-1-imre.deak@intel.com>
+In-Reply-To: <20211018094154.1407705-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/dp=3A_Fix_link_parameter_use_in_lack_of_a_valid_DPCD_=28r?=
+ =?utf-8?q?ev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,51 +48,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Just like we do for internal objects. Also just use
-i915_gem_object_set_cache_coherency() here. No need for over-flushing on
-LLC platforms.
+--===============6118573927185172470==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index 41d0680f3bd7..b2003133deaf 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -136,6 +136,8 @@ static void put_huge_pages(struct drm_i915_gem_object *obj,
- 	huge_pages_free_pages(pages);
- 
- 	obj->mm.dirty = false;
-+
-+	__start_cpu_write(obj);
- }
- 
- static const struct drm_i915_gem_object_ops huge_page_ops = {
-@@ -152,6 +154,7 @@ huge_pages_object(struct drm_i915_private *i915,
- {
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_gem_object *obj;
-+	unsigned int cache_level;
- 
- 	GEM_BUG_ON(!size);
- 	GEM_BUG_ON(!IS_ALIGNED(size, BIT(__ffs(page_mask))));
-@@ -173,7 +176,9 @@ huge_pages_object(struct drm_i915_private *i915,
- 
- 	obj->write_domain = I915_GEM_DOMAIN_CPU;
- 	obj->read_domains = I915_GEM_DOMAIN_CPU;
--	obj->cache_level = I915_CACHE_NONE;
-+
-+	cache_level = HAS_LLC(i915) ? I915_CACHE_LLC : I915_CACHE_NONE;
-+	i915_gem_object_set_cache_coherency(obj, cache_level);
- 
- 	obj->mm.page_mask = page_mask;
- 
--- 
-2.26.3
+Series: drm/i915/dp: Fix link parameter use in lack of a valid DPCD (rev2)
+URL   : https://patchwork.freedesktop.org/series/95948/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10753 -> Patchwork_21374
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21374 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
+    - fi-snb-2600:        NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-tgl-1115g4:      [PASS][2] -> [FAIL][3] ([i915#1888])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10753/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [INCOMPLETE][4] ([i915#3921]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10753/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): fi-bsw-cyan bat-dg1-6 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10753 -> Patchwork_21374
+
+  CI-20190529: 20190529
+  CI_DRM_10753: 57c1bcf63565db8d65783364c632a04a44bbd616 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6254: 51792e987da03ba2a6faf5857c12f1d173c87def @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21374: d94f0647dd7812e0f536f8199860568c6a0d2cf9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+d94f0647dd78 drm/i915/dp: Sanitize link common rate array lookups
+f2bd5e3e941b drm/i915/dp: Sanitize sink rate DPCD register values
+66b542816538 drm/i915/dp: Ensure sink/link max lane count values are always valid
+ef437e0c551b drm/i915/dp: Ensure max link params are always valid
+4de2ca096081 drm/i915/dp: Ensure sink rate values are always valid
+8f1a6421dfe5 drm/i915/dp: Skip the HW readout of DPCD on disabled encoders
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/index.html
+
+--===============6118573927185172470==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: Fix link parameter use in lack of a valid DPCD (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95948/">https://patchwork.freedesktop.org/series/95948/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10753 -&gt; Patchwork_21374</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21374 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
+<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s0:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10753/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10753/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21374/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): fi-bsw-cyan bat-dg1-6 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10753 -&gt; Patchwork_21374</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10753: 57c1bcf63565db8d65783364c632a04a44bbd616 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6254: 51792e987da03ba2a6faf5857c12f1d173c87def @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21374: d94f0647dd7812e0f536f8199860568c6a0d2cf9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>d94f0647dd78 drm/i915/dp: Sanitize link common rate array lookups<br />
+f2bd5e3e941b drm/i915/dp: Sanitize sink rate DPCD register values<br />
+66b542816538 drm/i915/dp: Ensure sink/link max lane count values are always valid<br />
+ef437e0c551b drm/i915/dp: Ensure max link params are always valid<br />
+4de2ca096081 drm/i915/dp: Ensure sink rate values are always valid<br />
+8f1a6421dfe5 drm/i915/dp: Skip the HW readout of DPCD on disabled encoders</p>
+
+</body>
+</html>
+
+--===============6118573927185172470==--
