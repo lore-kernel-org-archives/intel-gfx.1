@@ -2,47 +2,46 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4A29C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2BF4C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:06:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 948B860F24
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:06:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 948B860F24
+	by mail.kernel.org (Postfix) with ESMTPS id A12DC6128E
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 18:06:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A12DC6128E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 684726EA66;
-	Mon, 18 Oct 2021 18:06:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6B76EA95;
+	Mon, 18 Oct 2021 18:06:19 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE156EA6A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B51B96EA66;
  Mon, 18 Oct 2021 18:06:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="251786676"
-X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="251786676"
+X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="251786690"
+X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="251786690"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 10:49:27 -0700
-X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="526358767"
+ 18 Oct 2021 10:49:29 -0700
+X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="526358849"
 Received: from cscleary-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.13.221])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 10:49:21 -0700
+ 18 Oct 2021 10:49:24 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 18 Oct 2021 18:45:06 +0100
-Message-Id: <20211018174508.2137279-7-matthew.auld@intel.com>
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Mon, 18 Oct 2021 18:45:08 +0100
+Message-Id: <20211018174508.2137279-9-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20211018174508.2137279-1-matthew.auld@intel.com>
 References: <20211018174508.2137279-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/9] drm/i915: expand on the kernel-doc for
- cache_dirty
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/selftests: mark up hugepages
+ object with start_cpu_write
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,76 +57,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some details around non-LLC platforms and cflushing, when dealing
-with the flush-on-acquire, which is potentially security sensitive.
+Just like we do for internal objects. Also just use
+i915_gem_object_set_cache_coherency() here. No need for over-flushing on
+LLC platforms.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 11 ++++++++
- .../gpu/drm/i915/gem/i915_gem_object_types.h  | 27 +++++++++++++++++++
- 2 files changed, 38 insertions(+)
+ drivers/gpu/drm/i915/gem/selftests/huge_pages.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 1231224728e4..9c323666bd7c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1933,6 +1933,17 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
- 		 *   !(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ)
- 		 * but gcc's optimiser doesn't handle that as well and emits
- 		 * two jumps instead of one. Maybe one day...
-+		 *
-+		 * FIXME: There is also sync flushing in set_pages(), which
-+		 * serves a different purpose(some of the time at least).
-+		 *
-+		 * We should consider:
-+		 *
-+		 *   1. Rip out the async flush code.
-+		 *
-+		 *   2. Or make the sync flushing use the async clflush path
-+		 *   using mandatory fences underneath. Currently the below
-+		 *   async flush happens after we bind the object.
- 		 */
- 		if (unlikely(obj->cache_dirty & ~obj->cache_coherent)) {
- 			if (i915_gem_clflush_object(obj, 0))
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 7c3da4e3e737..da85169006d4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -427,6 +427,33 @@ struct drm_i915_gem_object {
- 	 * can freely bypass the CPU cache when touching the pages with the GPU,
- 	 * where the kernel is completely unaware. On such platform we need
- 	 * apply the sledgehammer-on-acquire regardless of the @cache_coherent.
-+	 *
-+	 * Special care is taken on non-LLC platforms, to prevent potential
-+	 * information leak. The driver currently ensures:
-+	 *
-+	 *   1. All userspace objects, by default, have @cache_level set as
-+	 *   I915_CACHE_NONE. The only exception is userptr objects, where we
-+	 *   instead force I915_CACHE_LLC, but we also don't allow userspace to
-+	 *   ever change the @cache_level for such objects. Another special case
-+	 *   is dma-buf, which doesn't rely on @cache_dirty,  but there we
-+	 *   always do a forced flush when acquiring the pages, if there is a
-+	 *   chance that the pages can be read directly from main memory with
-+	 *   the GPU.
-+	 *
-+	 *   2. All I915_CACHE_NONE objects have @cache_dirty initially true.
-+	 *
-+	 *   3. All swapped-out objects(i.e shmem) have @cache_dirty set to
-+	 *   true.
-+	 *
-+	 *   4. The @cache_dirty is never freely reset before the initial
-+	 *   flush, even if userspace adjusts the @cache_level through the
-+	 *   i915_gem_set_caching_ioctl.
-+	 *
-+	 *   5. All @cache_dirty objects(including swapped-in) are initially
-+	 *   flushed with a synchronous call to drm_clflush_sg in
-+	 *   __i915_gem_object_set_pages. The @cache_dirty can be freely reset
-+	 *   at this point. All further asynchronous clfushes are never security
-+	 *   critical, i.e userspace is free to race against itself.
- 	 */
- 	unsigned int cache_dirty:1;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index 41d0680f3bd7..b2003133deaf 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -136,6 +136,8 @@ static void put_huge_pages(struct drm_i915_gem_object *obj,
+ 	huge_pages_free_pages(pages);
+ 
+ 	obj->mm.dirty = false;
++
++	__start_cpu_write(obj);
+ }
+ 
+ static const struct drm_i915_gem_object_ops huge_page_ops = {
+@@ -152,6 +154,7 @@ huge_pages_object(struct drm_i915_private *i915,
+ {
+ 	static struct lock_class_key lock_class;
+ 	struct drm_i915_gem_object *obj;
++	unsigned int cache_level;
+ 
+ 	GEM_BUG_ON(!size);
+ 	GEM_BUG_ON(!IS_ALIGNED(size, BIT(__ffs(page_mask))));
+@@ -173,7 +176,9 @@ huge_pages_object(struct drm_i915_private *i915,
+ 
+ 	obj->write_domain = I915_GEM_DOMAIN_CPU;
+ 	obj->read_domains = I915_GEM_DOMAIN_CPU;
+-	obj->cache_level = I915_CACHE_NONE;
++
++	cache_level = HAS_LLC(i915) ? I915_CACHE_LLC : I915_CACHE_NONE;
++	i915_gem_object_set_cache_coherency(obj, cache_level);
+ 
+ 	obj->mm.page_mask = page_mask;
  
 -- 
 2.26.3
