@@ -2,44 +2,44 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4A2FC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:42:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69662C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7605A60EB4
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7605A60EB4
+	by mail.kernel.org (Postfix) with ESMTPS id 316A060FDA
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 09:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 316A060FDA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 549B96E9C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45F656E9C1;
 	Mon, 18 Oct 2021 09:42:06 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6386E9C1
- for <intel-gfx@lists.freedesktop.org>; Mon, 18 Oct 2021 09:42:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10140"; a="228092158"
-X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="228092158"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D5796E9C1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Oct 2021 09:42:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10140"; a="228092153"
+X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="228092153"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 02:42:03 -0700
-X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="493516730"
+ 18 Oct 2021 02:42:01 -0700
+X-IronPort-AV: E=Sophos;i="5.85,381,1624345200"; d="scan'208";a="493516713"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2021 02:42:02 -0700
+ 18 Oct 2021 02:42:00 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  stable@vger.kernel.org
-Date: Mon, 18 Oct 2021 12:41:51 +0300
-Message-Id: <20211018094154.1407705-4-imre.deak@intel.com>
+Date: Mon, 18 Oct 2021 12:41:50 +0300
+Message-Id: <20211018094154.1407705-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211018094154.1407705-1-imre.deak@intel.com>
 References: <20211018094154.1407705-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/6] drm/i915/dp: Ensure max link params are
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915/dp: Ensure sink rate values are
  always valid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,79 +56,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Atm until the DPCD for a connector is read the max link rate and lane
-count params are invalid. If the connector is modeset, in
-intel_dp_compute_config(), intel_dp_common_len_rate_limit(max_link_rate)
-will return 0, leading to a intel_dp->common_rates[-1] access.
+Atm, there are no sink rate values set for DP (vs. eDP) sinks until the
+DPCD capabilities are successfully read from the sink. During this time
+intel_dp->num_common_rates is 0 which can lead to a
 
-Fix the above by making sure the max link params are always valid.
+intel_dp->common_rates[-1]    (*)
 
-The above access leads to an undefined behaviour by definition, though
-not causing a user visible problem to my best knowledge, see the previous
-patch why. Nevertheless it is an undefined behaviour and it triggers a
-BUG() in CONFIG_UBSAN builds, hence CC:stable.
+access, which is an undefined behaviour, in the following cases:
 
+- In intel_dp_sync_state(), if the encoder is enabled without a sink
+  connected to the encoder's connector (BIOS enabled a monitor, but the
+  user unplugged the monitor until the driver loaded).
+- In intel_dp_sync_state() if the encoder is enabled with a sink
+  connected, but for some reason the DPCD read has failed.
+- In intel_dp_compute_link_config() if modesetting a connector without
+  a sink connected on it.
+- In intel_dp_compute_link_config() if modesetting a connector with a
+  a sink connected on it, but before probing the connector first.
+
+To avoid the (*) access in all the above cases, make sure that the sink
+rate table - and hence the common rate table - is always valid, by
+setting a default minimum sink rate when registering the connector
+before anything could use it.
+
+I also considered setting all the DP link rates by default, so that
+modesetting with higher resolution modes also succeeds in the last two
+cases above. However in case a sink is not connected that would stop
+working after the first modeset, due to the LT fallback logic. So this
+would need more work, beyond the scope of this fix.
+
+As I mentioned in the previous patch, I don't think the issue this patch
+fixes is user visible, however it is an undefined behaviour by
+definition and triggers a BUG() in CONFIG_UBSAN builds, hence CC:stable.
+
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4297
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/4298
+Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 153ae944a354b..1935eb49f9574 100644
+index 23de500d56b52..153ae944a354b 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1864,6 +1864,12 @@ void intel_dp_set_link_params(struct intel_dp *intel_dp,
- 	intel_dp->lane_count = lane_count;
+@@ -120,6 +120,12 @@ bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
+ 	return crtc_state->port_clock >= 1000000;
  }
  
-+static void intel_dp_reset_max_link_params(struct intel_dp *intel_dp)
++static void intel_dp_set_default_sink_rates(struct intel_dp *intel_dp)
 +{
-+	intel_dp->max_link_lane_count = intel_dp_max_common_lane_count(intel_dp);
-+	intel_dp->max_link_rate = intel_dp_max_common_rate(intel_dp);
++	intel_dp->sink_rates[0] = 162000;
++	intel_dp->num_sink_rates = 1;
 +}
 +
- /* Enable backlight PWM and backlight PP control. */
- void intel_edp_backlight_on(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state)
-@@ -2023,8 +2029,7 @@ void intel_dp_sync_state(struct intel_encoder *encoder,
- 	if (intel_dp->dpcd[DP_DPCD_REV] == 0)
- 		intel_dp_get_dpcd(intel_dp);
- 
--	intel_dp->max_link_lane_count = intel_dp_max_common_lane_count(intel_dp);
--	intel_dp->max_link_rate = intel_dp_max_common_rate(intel_dp);
-+	intel_dp_reset_max_link_params(intel_dp);
- }
- 
- bool intel_dp_initial_fastset_check(struct intel_encoder *encoder,
-@@ -2597,6 +2602,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
- 		intel_dp_set_sink_rates(intel_dp);
- 
- 	intel_dp_set_common_rates(intel_dp);
-+	intel_dp_reset_max_link_params(intel_dp);
- 
- 	/* Read the eDP DSC DPCD registers */
- 	if (DISPLAY_VER(dev_priv) >= 10)
-@@ -4338,12 +4344,7 @@ intel_dp_detect(struct drm_connector *connector,
- 	 * supports link training fallback params.
- 	 */
- 	if (intel_dp->reset_link_params || intel_dp->is_mst) {
--		/* Initial max link lane count */
--		intel_dp->max_link_lane_count = intel_dp_max_common_lane_count(intel_dp);
--
--		/* Initial max link rate */
--		intel_dp->max_link_rate = intel_dp_max_common_rate(intel_dp);
--
-+		intel_dp_reset_max_link_params(intel_dp);
- 		intel_dp->reset_link_params = false;
+ /* update sink rates from dpcd */
+ static void intel_dp_set_sink_rates(struct intel_dp *intel_dp)
+ {
+@@ -5003,6 +5009,8 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
  	}
  
-@@ -5011,6 +5012,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
  	intel_dp_set_source_rates(intel_dp);
- 	intel_dp_set_default_sink_rates(intel_dp);
- 	intel_dp_set_common_rates(intel_dp);
-+	intel_dp_reset_max_link_params(intel_dp);
++	intel_dp_set_default_sink_rates(intel_dp);
++	intel_dp_set_common_rates(intel_dp);
  
  	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
  		intel_dp->pps.active_pipe = vlv_active_pipe(intel_dp);
