@@ -2,55 +2,57 @@ Return-Path: <SRS0=La7M=PG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07D9CC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E278DC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C63D560FC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C63D560FC3
+	by mail.kernel.org (Postfix) with ESMTPS id B19E160FC3
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Oct 2021 12:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B19E160FC3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 100A46EA0E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F58A6EA10;
 	Mon, 18 Oct 2021 12:19:38 +0000 (UTC)
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07A706E9A3;
- Mon, 18 Oct 2021 09:10:02 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id f5so15447057pgc.12;
- Mon, 18 Oct 2021 02:10:02 -0700 (PDT)
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 638EC6E98E;
+ Mon, 18 Oct 2021 08:41:46 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ ls14-20020a17090b350e00b001a00e2251c8so11976470pjb.4; 
+ Mon, 18 Oct 2021 01:41:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=xioT+koXIxebA9dspAm78A75nR8cRoqI0SF6RXcJ5RI=;
- b=ndajlqSWHaZlQB94T2zSV/2oF/POlNDLh4sHSMX1VYoaQK/DcxxIWZFMkEaPEihcRu
- a4sKtBIXRAyK0ThUKX4iC6iMspSo0DiGCa+PzyeLeALzknBHQCrPXFTfhs9BYRgZ8VyS
- OCk2W4IvZjSYg8PDOmUAnKFRcuz1D2vzBl25x9gxB2+YrpZDkoYINcoq0KMwNv1B7Ol/
- 0A3KGhemmwPlt1eAKIwW/fF0aeIDpIIucf5b51XGIJ0HaZnva7LeaYs9NuLJYW06KswI
- gqbhPm7/QEqP+NB0lU4WWjY5e3g77FWwN0Jtk6HoY/70jjZk/+j76z6DZzH0b3qKGTCr
- y4fw==
+ bh=Wk6+rEeyV7eHbPWMKJo+Qpq+GwDxADSGhPjQYfKUne4=;
+ b=jNiTi0cZOC9M6uQg94kZkSGn3OrAQrSu6r8SRssg//sn5P432teZU28/v9RIqdlD5O
+ FDWwyESEa70tNVGhVeOGe1F5ZAIPJMKiX3P8jEiAbSyNM54IpSQyb9dk/vAcEJfMnrXj
+ zNBHvhXgy/rMAPIBLXv/ABA4B+bVuAeA++cRSW1P7RugxMH24Vge6lJz1VOLhc25s/ls
+ VIhydhuQ9C6tIKMxlUDIXZlJS9KBy1EfKYZ4K+ty6vz1zM3zC2/vlB6YVxPLlFVR9BvY
+ h9NoAYponSEiN1Y8aUWWDEsWN+dvWZ48Asm2fHwd/sSG6AwymDCbgiQEDz9h6JfhgJtQ
+ irfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=xioT+koXIxebA9dspAm78A75nR8cRoqI0SF6RXcJ5RI=;
- b=6J6N4ytYiG7MzxfPb5Wpe0/+NOgffLoRlHEOi01e7Qm09Yjv3GfR2xKYx2f70CwApr
- hPeaI4dYKHtrB1n2PhSpH/NOchFtZcY+B/U2pr+4qQiiaFU4FjofGqpRZZng6NRHDmD0
- lDywLwOPktIi0bimyOD/5C4lBj1vpz/oFQvpjdKzOrS3q4Skdz2RGcrXalBA82AxLf0k
- 7J7A3E5YVmE2XcvbNMqIf2O053QuFCjrSpRHB3exVfCDzxK5uZTp/DSq3O9botFFDu9G
- F8eKY4jrdSIKA2TOY0GJmQhb8PrdkMyjn85QrIezOxzG0zua2mjviBjusNys/wx1y1l5
- PvCQ==
-X-Gm-Message-State: AOAM5315RaPoMHMNfWivYAVOpQts2LbABDXHYANtMwilR/9HzsM3HWQQ
- hDLlMDBuYVr5fJyrc9NHeBWjGGqLYto=
-X-Google-Smtp-Source: ABdhPJzPhb9/VAhFuUK1JCWy5DyAO3aciKsybxFH6aVt3H8C6TeL3QHPzDv/I7RJYRUD3IewBK+1uw==
-X-Received: by 2002:a63:e516:: with SMTP id r22mr22994185pgh.197.1634548201705; 
- Mon, 18 Oct 2021 02:10:01 -0700 (PDT)
+ bh=Wk6+rEeyV7eHbPWMKJo+Qpq+GwDxADSGhPjQYfKUne4=;
+ b=TXbOwVeafBkDZp8a07qS5g92QX2vlFzduBrm0dUqTmJIdJgF0D43azZoIPCIvhq516
+ szVGB8Kv2rmxXDJ5rIXZv8UCdzho8O1U72dMVvL/BcGka6UiUCvd6SSOiNTor5CnAR8K
+ IGXXGwLODyEtD4cmSpz7v+gqI5n3RhQYGQCURzIBQI1eNCStKwpau9wzMi5BdmGSZwMu
+ 7730JXpvmIK7r6qCV0tCqinLKQxmk/Gkq36sTczoQrMqtb+sGXI8aWsmvncWEPNZMFKn
+ ybO/CuRcSON2VCUb2m5RBPUKIvzN5cqdqv3YDg30gRw+Ngu0239qhT628jam/GmFVJLJ
+ k/ew==
+X-Gm-Message-State: AOAM533rj6Y/mC1wCyJtA54s5Leup7cuIHT3vQZV8qRM6N146HRabeAS
+ vMTWGpC/PMk8QTvbDo+8DpQ=
+X-Google-Smtp-Source: ABdhPJxXMPda9FOWVgG87Ibowe+I2Ff21yuG8uqATHh+NbcQaB8zGsEBOfKggffCbibaCL4IiPlIdQ==
+X-Received: by 2002:a17:90a:b117:: with SMTP id
+ z23mr46490695pjq.74.1634546506085; 
+ Mon, 18 Oct 2021 01:41:46 -0700 (PDT)
 Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id j198sm12264705pgc.4.2021.10.18.02.09.59
+ by smtp.gmail.com with ESMTPSA id il17sm12642508pjb.52.2021.10.18.01.41.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 02:10:01 -0700 (PDT)
+ Mon, 18 Oct 2021 01:41:45 -0700 (PDT)
 From: luo penghao <cgel.zte@gmail.com>
 X-Google-Original-From: luo penghao <luo.penghao@zte.com.cn>
 To: Jani Nikula <jani.nikula@linux.intel.com>
@@ -58,17 +60,16 @@ Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Stephen Rothwell <sfr@canb.auug.org.au>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, penghao luo <luo.penghao@zte.com.cn>,
+ linux-kernel@vger.kernel.org, luo penghao <luo.penghao@zte.com.cn>,
  Zeal Robot <zealci@zte.com.cn>
-Date: Mon, 18 Oct 2021 09:09:55 +0000
-Message-Id: <20211018090955.857276-1-luo.penghao@zte.com.cn>
+Date: Mon, 18 Oct 2021 08:41:40 +0000
+Message-Id: <20211018084140.851583-1-luo.penghao@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 18 Oct 2021 12:19:37 +0000
-Subject: [Intel-gfx] [PATCH linux-next] drm/i915: Remove redundant
- assignments
+Subject: [Intel-gfx] [PATCH linux-next] drm/i915/display: Remove unused
+ variable and corresponding assignment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,38 +85,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: penghao luo <luo.penghao@zte.com.cn>
-
-The assignment of variables will be overwritten later, so the
-assignment here is meaningless.
+Variable is not used in functions, and its assignment is redundant too.
+So it should be deleted.
 
 The clang_analyzer complains as follows:
 
-drivers/gpu/drm/i915/gem/i915_gem_userptr.c:291: warning:
+drivers/gpu/drm/i915/display/vlv_dsi.c:143:2 warning:
 
-Although the value stored to 'ret' is used in the enclosing expression,
-the value is never actually read from 'retâ€™.
+Value stored to 'data' is never read.
 
 Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: penghao luo <luo.penghao@zte.com.cn>
+Signed-off-by: luo penghao <luo.penghao@zte.com.cn>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/vlv_dsi.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 8ea0fa6..f6f944d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -288,7 +288,7 @@ int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj)
- 	if (!i915_gem_object_is_readonly(obj))
- 		gup_flags |= FOLL_WRITE;
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 081b772..634de91 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -131,7 +131,7 @@ static ssize_t intel_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	enum port port = intel_dsi_host->port;
+ 	struct mipi_dsi_packet packet;
+ 	ssize_t ret;
+-	const u8 *header, *data;
++	const u8 *header;
+ 	i915_reg_t data_reg, ctrl_reg;
+ 	u32 data_mask, ctrl_mask;
  
--	pinned = ret = 0;
-+	pinned = 0;
- 	while (pinned < num_pages) {
- 		ret = pin_user_pages_fast(obj->userptr.ptr + pinned * PAGE_SIZE,
- 					  num_pages - pinned, gup_flags,
+@@ -140,7 +140,6 @@ static ssize_t intel_dsi_host_transfer(struct mipi_dsi_host *host,
+ 		return ret;
+ 
+ 	header = packet.header;
+-	data = packet.payload;
+ 
+ 	if (msg->flags & MIPI_DSI_MSG_USE_LPM) {
+ 		data_reg = MIPI_LP_GEN_DATA(port);
 -- 
 2.15.2
-
-
