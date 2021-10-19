@@ -2,66 +2,86 @@ Return-Path: <SRS0=c+lk=PH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53A0EC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 13:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEF4DC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 13:47:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1D92D61372
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 13:14:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1D92D61372
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 21CE061052
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 13:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 21CE061052
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C2A6E117;
-	Tue, 19 Oct 2021 13:14:30 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52B1A6E0F5;
- Tue, 19 Oct 2021 13:14:29 +0000 (UTC)
-Date: Tue, 19 Oct 2021 15:14:24 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1634649266;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aUwJnRlQIydP6O6GVfSH+3WoGr2kIJwC1oiJFgiHODw=;
- b=EhgM6eYXFwC6NvEBasBiEOix6PVjwKhCBZxMczMzbOUCcSn89O7nNyYurnJWGrUWlKnASD
- Fe5RufL6n5Pt+MZfHBKfSeQUEIKhJ1FFy7GO4/BjRNVon+IM2AoQ8hBBcVeltX2oCEMDDN
- aLtsIGnzpbMF5u8DiWtq21+E4sSkuZQ39p/UPJUw6L9X49YfjuURLY8MzwDeqgXW4VWu4t
- pHFEvzfwFfRiJHT5Aq3rP5k3Iv9MZ9j3dICKuYozeFWkX2wlw1fNV0fZw7ab1zj/Hm13aI
- /9ObEogdhB28D7xfsMEgi8bOBM9kIrB8rskg0/Tx3BF+LCWanPZkHFEE6qzzgg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1634649266;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aUwJnRlQIydP6O6GVfSH+3WoGr2kIJwC1oiJFgiHODw=;
- b=LB3eRL6h0UBYPckGkO/uTNkKsIS6ExMCv4kO8ja+5JP+3ywgtSFvCEXtMNwBuS5edYexCF
- GdkX7eygQEgE4DDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE656E2C7;
+	Tue, 19 Oct 2021 13:47:58 +0000 (UTC)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B137D6E16D;
+ Tue, 19 Oct 2021 13:47:56 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id E084C580A2F;
+ Tue, 19 Oct 2021 09:47:52 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Tue, 19 Oct 2021 09:47:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=1CqiKRK7ixf1hZLZuR94f9GfY2d
+ mSrTwONDsODObvOk=; b=bgRFaT5gzDBxJ8t3Tnn7Sf76prcDJckbpDV7++TpN6R
+ 5OUz8/ZoTDqjrgZMRCI741wp3FozEMfSjVL9TQ2oTlSTsOBESLrZ/eR6rzLetjWj
+ NANZPAt6eL8BWOTR6sHmVDwjEY/uW04jvCbziklujB3GhHHNAVgD7OpKmpfNK597
+ 33/9xJ8xy2sRybC9k1MlkdHP68dVZG5N1VeQ4ySRLJWodTD652ajthTWSQiIvJOV
+ 6/i658FTli/Sb1UyiUma4awtRZcNiYbFI92U3tagJcAk0uHOUKZXoquyzvhj9FlX
+ bpbqnxIoBlmhSK80ZZAv1Xk+04XFvkt89GwWN7Asoew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=1CqiKR
+ K7ixf1hZLZuR94f9GfY2dmSrTwONDsODObvOk=; b=D2sSlzoUeHmNJ2ehromBqV
+ K719qIg1ZoyRhgOeIvimlEKzwNMMcmiRhIFZZmgtH0xUoqU5z9gptQ4h1b2bgapp
+ Xwu6GxbiW3j399P8Mw0Sq+y4Au7VOrhgMmMGxWHSvMPVPp/xA0hDjVjgsaLrDpI5
+ bNhNablZUEARpGarWzWlER36PpIHYFc3mJGA53fHEZrvtRddCT4IO1bUKJKEhOhB
+ sQpHEZIe/95YVqqyMJXTIRR9x8Demx8pJTXZ4m5CvMr5tqIMFPAcoWCH6Z4itqUB
+ Mh48Cwkr0l3Og8aE12yp3oK9UDjcsDHkSdJ3rxpiG4Ps/kiDaSqvRyGpIXb8D5PQ
+ ==
+X-ME-Sender: <xms:iMxuYVcczd4KAJThwz-fSYxr9TJvS7L4ccyOSFefA-hW5cZrCVinBg>
+ <xme:iMxuYTNX9f780oZq5ea-dQjwI7Wx6U_NYfnKBrCmVC5i_7WDo1OH5NwO1RVo7A_Af
+ Jn6xUsYeBTG7B5LTM8>
+X-ME-Received: <xmr:iMxuYehKMo8n1BaBNFkc5qDWBr3-7-eEeSNxUof8UgL3yJIs6iAmB5SBMk2ZkB83jICgRC3tKJjnWE47yFODahJpar-oLquhk2CI3vLN>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddvvddgieefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
+ gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:iMxuYe_AeaovKA-EjuX-_OmyfNXGTzSatwMBdL3Zw0U9b49CzBETPQ>
+ <xmx:iMxuYRukxVPGa-nQTbqTWOPXdK8Zz1LscgexlP8soYllPGcm1c5FcA>
+ <xmx:iMxuYdG9YXA6qH2NN8lXzK820nTOwB4BNVBdL8UAGxFcWDgnGFyPKg>
+ <xmx:iMxuYXL7zGUUCMuBo370vksRhqLfjq5rAQeaaJctZqvvQf-MjX96JQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 19 Oct 2021 09:47:51 -0400 (EDT)
+Date: Tue, 19 Oct 2021 15:47:49 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20211019131424.k5hn467ut3g6fh4z@linutronix.de>
-References: <20211005065151.828922-1-bigeasy@linutronix.de>
- <YWbK8wSxNjVu9OLm@phenom.ffwll.local>
- <20211013123525.5nijgyx5ivnuujes@linutronix.de>
- <YWbXvvTzMF1EZ5c7@phenom.ffwll.local>
- <20211013173548.nldcwheo4t52dgvp@linutronix.de>
- <YWgu0v5iPDFViHXS@phenom.ffwll.local>
- <20211014134731.4a5vgdklj3sjyfks@linutronix.de>
- <YW64/Y8RgU63BYY2@phenom.ffwll.local>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org, Dave Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20211019134749.xjyydm6xdcfe6hkm@gilmour>
+References: <878ryps5b6.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="7niyo5rqdpeforqc"
 Content-Disposition: inline
-In-Reply-To: <YW64/Y8RgU63BYY2@phenom.ffwll.local>
-Subject: Re: [Intel-gfx] [RFC PATCH] drm: Increase DRM_OBJECT_MAX_PROPERTY
- by 18.
+In-Reply-To: <878ryps5b6.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PULL] topic/drm-dp-training-delay-helpers for
+ drm-misc-next and drm-intel-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,17 +97,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-10-19 14:24:29 [+0200], Daniel Vetter wrote:
-> 
-> Ah dmesg help me understand what's going on. Does the below patch help? If
-> it's this one that would also explain why intel CI hasn't hit it - it's a
-> leak between tests and we run them all individually instead of once at
-> boot-up.
 
-Yes, it does. Thank you.
+--7niyo5rqdpeforqc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+On Tue, Oct 19, 2021 at 12:59:57PM +0300, Jani Nikula wrote:
+>=20
+> Hi all -
+>=20
+> These are the drm dp helpers for figuring out link training delays, to
+> be pulled to both drm-misc-next and drm-intel-next.
+>=20
+>=20
+> topic/drm-dp-training-delay-helpers-2021-10-19:
+> Core Changes:
+> - drm dp helpers for figuring out link training delays
 
-> Cheers, Daniel
+Merged into drm-misc-next, thanks!
+Maxime
 
-Sebastian
+--7niyo5rqdpeforqc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYW7MhQAKCRDj7w1vZxhR
+xdpRAQCcaIzSi+Z73NtOUYhgEHF7u5ScRF/fK9rwxGDsC97W9AEA7ZRi7wo1Dgxh
+AC+3UWVlJh5NWIw4SUrJWp/JFYLsBQU=
+=0dOT
+-----END PGP SIGNATURE-----
+
+--7niyo5rqdpeforqc--
