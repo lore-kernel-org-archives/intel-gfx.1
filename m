@@ -2,49 +2,51 @@ Return-Path: <SRS0=c+lk=PH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36093C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 09:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D4E3C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 09:26:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8DCA60FED
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 09:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E8DCA60FED
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5763F6138F
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 09:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5763F6138F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CD56EB63;
-	Tue, 19 Oct 2021 09:15:22 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 599B56EB63
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 09:15:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="314665535"
-X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="314665535"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 02:15:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="566853826"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by FMSMGA003.fm.intel.com with SMTP; 19 Oct 2021 02:15:13 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 19 Oct 2021 12:15:13 +0300
-Date: Tue, 19 Oct 2021 12:15:13 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
- Dave Airlie <airlied@redhat.com>
-Message-ID: <YW6MoRm2bpAJUwCi@intel.com>
-References: <20211017234106.2412994-1-airlied@gmail.com>
- <20211017234106.2412994-3-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 100426E138;
+	Tue, 19 Oct 2021 09:26:44 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCFE86E138;
+ Tue, 19 Oct 2021 09:26:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="209263213"
+X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="209263213"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 02:26:42 -0700
+X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="574104083"
+Received: from cdonoghx-mobl1.ger.corp.intel.com (HELO [10.213.194.99])
+ ([10.213.194.99])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 02:26:39 -0700
+To: cgel.zte@gmail.com, jani.nikula@linux.intel.com
+Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ airlied@linux.ie, daniel@ffwll.ch, thomas.hellstrom@linux.intel.com,
+ chris@chris-wilson.co.uk, maarten.lankhorst@linux.intel.com,
+ ran.jianping@zte.com.cn, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Zeal Robot <zealci@zte.com.cn>
+References: <20211019090205.1003458-1-ran.jianping@zte.com.cn>
+From: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <130dcbfd-ee6d-0d9a-602f-1aaca1229099@intel.com>
+Date: Tue, 19 Oct 2021 10:26:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211017234106.2412994-3-airlied@gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915/display: move fbdev pin code
- into fb_pin
+In-Reply-To: <20211019090205.1003458-1-ran.jianping@zte.com.cn>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] remove duplicate include in mock_region.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,167 +62,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 18, 2021 at 09:41:04AM +1000, Dave Airlie wrote:
-> From: Dave Airlie <airlied@redhat.com>
+On 19/10/2021 10:02, cgel.zte@gmail.com wrote:
+> From: Ran Jianping <ran.jianping@zte.com.cn>
 > 
-> This moves the fbdev pin code over and moves the internal
-> interfaces to static.
+> 'drm/ttm/ttm_placement.h' included in
+> 'drivers/gpu/drm/i915/selftests/mock_region.c' is duplicated.
+> It is also included on the 9 line.
 > 
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Ran Jianping <ran.jianping@zte.com.cn>
+
+Commit tile should ideally be prefixed with 'drm/i915:'.
+
+Can fix up when pushing though. Thanks,
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
 > ---
->  drivers/gpu/drm/i915/display/intel_fb_pin.c | 37 +++++++++++++++++++--
->  drivers/gpu/drm/i915/display/intel_fb_pin.h | 15 ++++-----
->  drivers/gpu/drm/i915/display/intel_fbdev.c  | 32 ------------------
->  3 files changed, 41 insertions(+), 43 deletions(-)
+>   drivers/gpu/drm/i915/selftests/mock_region.c | 2 --
+>   1 file changed, 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> index 3f77f3013584..0beb0aa33337 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> @@ -71,7 +71,7 @@ intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
->  	return vma;
->  }
->  
-> -struct i915_vma *
-> +static struct i915_vma *
->  intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
->  			   bool phys_cursor,
->  			   const struct i915_ggtt_view *view,
-> @@ -199,7 +199,8 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
->  	return vma;
->  }
->  
-> -void intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags)
-> +static void
-> +intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags)
->  {
->  	if (flags & PLANE_HAS_FENCE)
->  		i915_vma_unpin_fence(vma);
-> @@ -272,3 +273,35 @@ void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
->  			intel_dpt_unpin(intel_fb->dpt_vm);
->  	}
->  }
-> +
-> +void intel_fbdev_unpin(struct intel_fbdev *ifbdev)
-> +{
-> +	if (ifbdev->vma)
-> +		intel_unpin_fb_vma(ifbdev->vma, ifbdev->vma_flags);
-> +	ifbdev->vma = NULL;
-> +	ifbdev->vma_flags = 0;
-> +}
-> +
-> +int intel_fbdev_pin_and_fence(struct drm_i915_private *dev_priv,
-> +			      struct intel_fbdev *ifbdev,
-> +			      void **vaddr)
-> +{
-> +	const struct i915_ggtt_view view = {
-> +		.type = I915_GGTT_VIEW_NORMAL,
-> +	};
-> +	ifbdev->vma = intel_pin_and_fence_fb_obj(&ifbdev->fb->base, false,
-> +						 &view, false, &ifbdev->vma_flags);
-> +
-> +	if (IS_ERR(ifbdev->vma)) {
-> +		return PTR_ERR(ifbdev->vma);
-> +	}
-
-I suppose easiest to just regenrate this one after fixing the
-sparse/checkpatch issues in the previous patch.
-
-Also the fbdev code still has to root around inside the vma/etc.
-so the abstraction is pretty weak. So not sure how much this
-buys us.
-
-But I guess no real harm in it either.
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-> +
-> +	*vaddr = i915_vma_pin_iomap(ifbdev->vma);
-> +	if (IS_ERR(*vaddr)) {
-> +		intel_fbdev_unpin(ifbdev);
-> +		drm_err(&dev_priv->drm,
-> +			"Failed to remap framebuffer into virtual memory\n");
-> +		return PTR_ERR(vaddr);
-> +	}
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.h b/drivers/gpu/drm/i915/display/intel_fb_pin.h
-> index e4fcd0218d9d..88d736264348 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb_pin.h
-> +++ b/drivers/gpu/drm/i915/display/intel_fb_pin.h
-> @@ -8,21 +8,18 @@
->  
->  #include <linux/types.h>
->  
-> +struct drm_i915_private;
->  struct drm_framebuffer;
-> +struct intel_fbdev;
->  struct i915_vma;
->  struct intel_plane_state;
->  struct i915_ggtt_view;
->  
-> -struct i915_vma *
-> -intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
-> -			   bool phys_cursor,
-> -			   const struct i915_ggtt_view *view,
-> -			   bool uses_fence,
-> -			   unsigned long *out_flags);
+> diff --git a/drivers/gpu/drm/i915/selftests/mock_region.c b/drivers/gpu/drm/i915/selftests/mock_region.c
+> index efa86dffe3c6..75793008c4ef 100644
+> --- a/drivers/gpu/drm/i915/selftests/mock_region.c
+> +++ b/drivers/gpu/drm/i915/selftests/mock_region.c
+> @@ -6,8 +6,6 @@
+>   #include <drm/ttm/ttm_placement.h>
+>   #include <linux/scatterlist.h>
+>   
+> -#include <drm/ttm/ttm_placement.h>
 > -
-> -void intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags);
-> -
->  int intel_plane_pin_fb(struct intel_plane_state *plane_state);
->  void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state);
->  
-> +int intel_fbdev_pin_and_fence(struct drm_i915_private *dev_priv,
-> +			      struct intel_fbdev *ifbdev,
-> +			      void **vaddr);
-> +void intel_fbdev_unpin(struct intel_fbdev *ifbdev);
->  #endif
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> index c3ea9639a4ed..cee85fcc2085 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> @@ -171,38 +171,6 @@ static int intelfb_alloc(struct drm_fb_helper *helper,
->  	return 0;
->  }
->  
-> -static void intel_fbdev_unpin(struct intel_fbdev *ifbdev)
-> -{
-> -	if (ifbdev->vma)
-> -		intel_unpin_fb_vma(ifbdev->vma, ifbdev->vma_flags);
-> -	ifbdev->vma = NULL;
-> -	ifbdev->vma_flags = 0;
-> -}
-> -
-> -static int intel_fbdev_pin_and_fence(struct drm_i915_private *dev_priv,
-> -				     struct intel_fbdev *ifbdev,
-> -				     void **vaddr)
-> -{
-> -	const struct i915_ggtt_view view = {
-> -		.type = I915_GGTT_VIEW_NORMAL,
-> -	};
-> -	ifbdev->vma = intel_pin_and_fence_fb_obj(&ifbdev->fb->base, false,
-> -						 &view, false, &ifbdev->vma_flags);
-> -
-> -	if (IS_ERR(ifbdev->vma)) {
-> -		return PTR_ERR(ifbdev->vma);
-> -	}
-> -
-> -	*vaddr = i915_vma_pin_iomap(ifbdev->vma);
-> -	if (IS_ERR(*vaddr)) {
-> -		intel_fbdev_unpin(ifbdev);
-> -		drm_err(&dev_priv->drm,
-> -			"Failed to remap framebuffer into virtual memory\n");
-> -		return PTR_ERR(vaddr);
-> -	}
-> -	return 0;
-> -}
-> -
->  static int intelfb_create(struct drm_fb_helper *helper,
->  			  struct drm_fb_helper_surface_size *sizes)
->  {
-> -- 
-> 2.25.4
-
--- 
-Ville Syrjälä
-Intel
+>   #include "gem/i915_gem_region.h"
+>   #include "intel_memory_region.h"
+>   #include "intel_region_ttm.h"
+> 
