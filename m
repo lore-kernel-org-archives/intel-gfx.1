@@ -2,53 +2,78 @@ Return-Path: <SRS0=c+lk=PH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01B23C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58183C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:40:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9AFAE61212
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:40:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9AFAE61212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=zte.com.cn
+	by mail.kernel.org (Postfix) with ESMTPS id 2AAEB61212
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:40:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2AAEB61212
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB1A16EC1A;
-	Tue, 19 Oct 2021 12:40:07 +0000 (UTC)
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.217.80.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 411146E11F;
- Tue, 19 Oct 2021 02:22:42 +0000 (UTC)
-Received: from mse-fl2.zte.com.cn (unknown [10.30.14.239])
- by Forcepoint Email with ESMTPS id 78C0D433ED3CE2A3A3D5;
- Tue, 19 Oct 2021 10:22:35 +0800 (CST)
-Received: from xaxapp03.zte.com.cn ([10.88.40.52])
- by mse-fl2.zte.com.cn with SMTP id 19J2M90o016267;
- Tue, 19 Oct 2021 10:22:09 +0800 (GMT-8)
- (envelope-from luo.penghao@zte.com.cn)
-Received: from mapi (xaxapp02[null]) by mapi (Zmail) with MAPI id mid31;
- Tue, 19 Oct 2021 10:22:09 +0800 (CST)
-Date: Tue, 19 Oct 2021 10:22:09 +0800 (CST)
-X-Zmail-TransId: 2afa616e2bd189b391f0
-X-Mailer: Zmail v1.0
-Message-ID: <202110191022090370609@zte.com.cn>
-In-Reply-To: <YW024pwrV7fLgV/2@intel.com>
-References: 20211018084331.851975-1-luo.penghao@zte.com.cn,
- YW024pwrV7fLgV/2@intel.com
-Mime-Version: 1.0
-From: <luo.penghao@zte.com.cn>
-To: <ville.syrjala@linux.intel.com>
-Cc: <cgel.zte@gmail.com>, <jani.nikula@linux.intel.com>,
- <joonas.lahtinen@linux.intel.com>, <rodrigo.vivi@intel.com>,
- <airlied@linux.ie>, <daniel@ffwll.ch>, <sfr@canb.auug.org.au>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <zealci@zte.com.cn>
-Content-Type: multipart/mixed;
-	boundary="=====_001_next====="
-X-MAIL: mse-fl2.zte.com.cn 19J2M90o016267
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C616EC14;
+	Tue, 19 Oct 2021 12:40:10 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6EA6E0FE;
+ Tue, 19 Oct 2021 11:49:10 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id v127so11613785wme.5;
+ Tue, 19 Oct 2021 04:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=egDcJzLzf/Uxj848Ty7/5BUuy3wZZ0YFuTvjxwcidJg=;
+ b=K7mF4Ax5bWuDd0p6uv/wHlHOVoQSEMRCzONmjR/o+WxERYIScG9mhePG9bMfay2nwa
+ ARVpJsXLoaJ66xrGmSHd7EFFGapPdLdy/HMS6xnrbnCCvGXXHrNMONVuKWa8SLVPJlb4
+ 1TmEIRHm6JFqXxgOyqffMcsnOBPskflIV/mbuu/AnKSdTIy9wl1VgCbXXdiXfY29HGQW
+ zv1mXdWq810MjhVw15AZ9CwqY6AX2635RzkXLG8I8p+nACvX8ZKKu2FPQqg2XX1ROvfz
+ T3XOgcs0jBiIaEHVB7sAu29WUYkvGya6Sq86+tILgdbopVFixVCKm98UiMQomhMSO8+E
+ 55fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=egDcJzLzf/Uxj848Ty7/5BUuy3wZZ0YFuTvjxwcidJg=;
+ b=R1tFjWlhvxthBanc8No7WFSxlq2Xgt4gE6dkaaITyH5fvUUwJMi6Xy2ytrGAvEcUrr
+ 6nuCdeIcXMiKfpWxk3elcfxP0zaRne722VcNb+BKAQBLhjGt6RyE76QjJBCKm3kbx1nx
+ hi5qd4bhGNXHIeAn5adYbp1REM/zjGK0dKDpbF9PG1QCP63iExhoNeuWCbA40XFZieb9
+ BiUEJN9N/X2JqTV626K8RxDNIL0UbRymJ3h2NedLHWcJbUbflZd1CF+XXl5w72lpiNhi
+ 1TYdxAAYJbch03gBWTMGcbyXtRMpVp4qy5WnTjxsr2gW8N8fY8/psMtUJaNn/G8FONOq
+ gXCw==
+X-Gm-Message-State: AOAM533WmVAa6qM3CypXGFqNC2dZKj0lh7XS/uyHzzP638xbd7GjQJQL
+ 3AsgP6MoP6KbR8+9jZzqK3l9gESoZOk=
+X-Google-Smtp-Source: ABdhPJy+IdMIzL2VFAVUXSkXWGgmJQypeQj8T16niNgUpDzi2GSZ+eSOF1fnyhlmfHh4rbR9QfeFbw==
+X-Received: by 2002:a05:600c:a0b:: with SMTP id
+ z11mr5704474wmp.147.1634644149444; 
+ Tue, 19 Oct 2021 04:49:09 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:f344:748e:38f7:c50?
+ ([2a02:908:1252:fb60:f344:748e:38f7:c50])
+ by smtp.gmail.com with ESMTPSA id a2sm15169311wru.82.2021.10.19.04.49.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Oct 2021 04:49:09 -0700 (PDT)
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ tvrtko.ursulin@linux.intel.com
+References: <20211005113742.1101-1-christian.koenig@amd.com>
+ <20211005113742.1101-15-christian.koenig@amd.com>
+ <YWbp1PoezuLqHpKZ@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <9fff1e2b-b4f1-9c36-b621-4c896bf58c01@gmail.com>
+Date: Tue, 19 Oct 2021 13:49:08 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <YWbp1PoezuLqHpKZ@phenom.ffwll.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Tue, 19 Oct 2021 12:40:07 +0000
-Subject: Re: [Intel-gfx] 
- =?utf-8?q?=5BPATCH_linux-next=5D_drm/i915/display=3A?=
- =?utf-8?q?_Remove_unused_variable_and_its_assignment=2E?=
+Subject: Re: [Intel-gfx] [PATCH 14/28] drm/msm: use new iterator in
+ msm_gem_describe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,101 +89,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Am 13.10.21 um 16:14 schrieb Daniel Vetter:
+> On Tue, Oct 05, 2021 at 01:37:28PM +0200, Christian König wrote:
+>> Simplifying the code a bit. Also drop the RCU read side lock since the
+>> object is locked anyway.
+>>
+>> Untested since I can't get the driver to compile on !ARM.
+> Cross-compiler install is pretty easy and you should have that for pushing
+> drm changes to drm-misc :-)
+
+I do have cross compile setups for some architectures, but I seriously 
+can't do that for every single driver.
+
+With only a bit of work we allowed MSM to be compile tested on other 
+architectures as well now. That even yielded a couple of missing 
+includes and dependencies in MSM which just don't matter on ARM.
+
+>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Assuming this compiles, it looks correct.
+
+Yes it does.
+
+>
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
 
---=====_001_next=====
-Content-Type: multipart/related;
-	boundary="=====_002_next====="
+Thanks,
+Christian.
 
-
---=====_002_next=====
-Content-Type: multipart/alternative;
-	boundary="=====_003_next====="
-
-
---=====_003_next=====
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: base64 
-
-PiBUaGlzIG9uZSB3ZSBjb3VsZCB1c2UuIEZvciBzb21lIHJlYXNvbiB3ZSBoYXJkY29kZSBpdCB0
-bw0KDQoNCg0KPiAxIG5vdywgd2hpY2ggaXMgY29ycmVjdCBmb3Igb3VyIHVzZSBjYXNlcyBidXQg
-SSBkb24ndCByZWFsbHk+IHNlZSBhIHJlYXNvbiB0byBoYXJkY29kZSBpdCBoZXJlLiBXZSBhcmUg
-c3VwcG9zZWQgdG8gY2FsY3VsYXRlPiBpdCBjb3JyZWN0bHkgYWZ0ZXIgYWxsLCBhbmQgY2h2X2Ny
-dGNfY2xvY2tfZ2V0KCkgYWxzbyBqdXN0IGJsaW5kbHk+IHJlYWRzIGl0IG91dC4+ID4gPiAgICAg
-IGJlc3RtMl9mcmFjID0gY3J0Y19zdGF0ZS0+ZHBsbC5tMiAmIDB4M2ZmZmZmOz4gPiAtICAgIGJl
-c3RtMSA9IGNydGNfc3RhdGUtPmRwbGwubTE7PiA+IFRoaXMgb25lIGlzIGEgYml0IHRyaWNraWVy
-IHNpbmNlIEkgZG9uJ3QgdGhpbmsgdGhlIHNwZWMgZXZlbj4gZ2l2ZXMgdXMgb3RoZXIgdmFsdWVz
-LiBCdXQgd2UgY291bGQgYXNzZXJ0IHRoYXQgaXQncyBjb3JyZWN0Lj4gPiBTb21lIHNvbWV0aGlu
-ZyBhbG9uZyB0aGVzZSBsaW5lcyBJIHRoaW5rIHdvdWxkIGJlIGJlc3Q6PiArIGRybV9XQVJOX09O
-KCZkZXZfcHJpdi0+ZHJtLCBiZXN0bTEgIT0gMik7PiAgIHZsdl9kcGlvX3dyaXRlKGRldl9wcml2
-LCBwaXBlLCBDSFZfUExMX0RXMShwb3J0KSw+ICAgICAgICAgICAgICAgICAgRFBJT19DSFZfTTFf
-RElWX0JZXzIgfD4gLSAgICAgICAgICAxIDw8IERQSU9fQ0hWX05fRElWX1NISUZUKTs+ICsgICAg
-ICAgICAgYmVzdG4gPDwgRFBJT19DSFZfTl9ESVZfU0hJRlQpOw0KDQoNCg0KDQoNCg0KVGhhbmtz
-IGZvciB5b3VyIGtpbmQgcmVzcG9uc2UgISBEb2VzIHRoYXQgbWVhbnMgdGhlIHZhcmlhYmxlIHdp
-bGwgYmUNCg0KDQp1c2VkIGJ5IHRoZSBoYXJkd2FyZe+8n2lmIHNvIGFzIGZhciBhcyBJIHNlZSBp
-dCwgSSBkb24ndCBzZWVtIHRvIHNlZSB0aGUNCg0KDQpyZWxldmFudCBpbnRlcmZhY2Uu
-
-
---=====_003_next=====
-Content-Type: text/html ;
-	charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-PGRpdiBjbGFzcz0iemNvbnRlbnRSb3ciPjxwIHN0eWxlPSJmb250LXNpemU6MTRweDtmb250LWZh
-bWlseTrlvq7ova/pm4Xpu5EsTWljcm9zb2Z0IFlhSGVpOyI+Jmd0OyBUaGlzJm5ic3A7b25lJm5i
-c3A7d2UmbmJzcDtjb3VsZCZuYnNwO3VzZS4mbmJzcDtGb3ImbmJzcDtzb21lJm5ic3A7cmVhc29u
-Jm5ic3A7d2UmbmJzcDtoYXJkY29kZSZuYnNwO2l0Jm5ic3A7dG88YnI+PC9wPjxwIHN0eWxlPSJm
-b250LXNpemU6MTRweDtmb250LWZhbWlseTrlvq7ova/pm4Xpu5EsTWljcm9zb2Z0IFlhSGVpOyI+
-Jmd0OyAxJm5ic3A7bm93LCZuYnNwO3doaWNoJm5ic3A7aXMmbmJzcDtjb3JyZWN0Jm5ic3A7Zm9y
-Jm5ic3A7b3VyJm5ic3A7dXNlJm5ic3A7Y2FzZXMmbmJzcDtidXQmbmJzcDtJJm5ic3A7ZG9uJ3Qm
-bmJzcDtyZWFsbHk8YnIgc3R5bGU9IndoaXRlLXNwYWNlOiBub3JtYWw7Ij4mZ3Q7IHNlZSZuYnNw
-O2EmbmJzcDtyZWFzb24mbmJzcDt0byZuYnNwO2hhcmRjb2RlJm5ic3A7aXQmbmJzcDtoZXJlLiZu
-YnNwO1dlJm5ic3A7YXJlJm5ic3A7c3VwcG9zZWQmbmJzcDt0byZuYnNwO2NhbGN1bGF0ZTxiciBz
-dHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgaXQmbmJzcDtjb3JyZWN0bHkmbmJzcDth
-ZnRlciZuYnNwO2FsbCwmbmJzcDthbmQmbmJzcDtjaHZfY3J0Y19jbG9ja19nZXQoKSZuYnNwO2Fs
-c28mbmJzcDtqdXN0Jm5ic3A7YmxpbmRseTxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsi
-PiZndDsgcmVhZHMmbmJzcDtpdCZuYnNwO291dC48YnIgc3R5bGU9IndoaXRlLXNwYWNlOiBub3Jt
-YWw7Ij4mZ3Q7Jm5ic3A7PGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyAmZ3Q7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7YmVzdG0yX2ZyYWMmbmJzcDs9Jm5i
-c3A7Y3J0Y19zdGF0ZS0mZ3Q7ZHBsbC5tMiZuYnNwOyZhbXA7Jm5ic3A7MHgzZmZmZmY7PGJyIHN0
-eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyAmZ3Q7Jm5ic3A7LSZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwO2Jlc3RtMSZuYnNwOz0mbmJzcDtjcnRjX3N0YXRlLSZndDtkcGxsLm0xOzxiciBz
-dHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsmbmJzcDs8YnIgc3R5bGU9IndoaXRlLXNw
-YWNlOiBub3JtYWw7Ij4mZ3Q7IFRoaXMmbmJzcDtvbmUmbmJzcDtpcyZuYnNwO2EmbmJzcDtiaXQm
-bmJzcDt0cmlja2llciZuYnNwO3NpbmNlJm5ic3A7SSZuYnNwO2Rvbid0Jm5ic3A7dGhpbmsmbmJz
-cDt0aGUmbmJzcDtzcGVjJm5ic3A7ZXZlbjxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsi
-PiZndDsgZ2l2ZXMmbmJzcDt1cyZuYnNwO290aGVyJm5ic3A7dmFsdWVzLiZuYnNwO0J1dCZuYnNw
-O3dlJm5ic3A7Y291bGQmbmJzcDthc3NlcnQmbmJzcDt0aGF0Jm5ic3A7aXQncyZuYnNwO2NvcnJl
-Y3QuPGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyZuYnNwOzxiciBzdHlsZT0i
-d2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgU29tZSZuYnNwO3NvbWV0aGluZyZuYnNwO2Fsb25n
-Jm5ic3A7dGhlc2UmbmJzcDtsaW5lcyZuYnNwO0kmbmJzcDt0aGluayZuYnNwO3dvdWxkJm5ic3A7
-YmUmbmJzcDtiZXN0OjxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgKyZuYnNw
-O2RybV9XQVJOX09OKCZhbXA7ZGV2X3ByaXYtJmd0O2RybSwmbmJzcDtiZXN0bTEmbmJzcDshPSZu
-YnNwOzIpOzxiciBzdHlsZT0id2hpdGUtc3BhY2U6IG5vcm1hbDsiPiZndDsmbmJzcDsgJm5ic3A7
-dmx2X2RwaW9fd3JpdGUoZGV2X3ByaXYsJm5ic3A7cGlwZSwmbmJzcDtDSFZfUExMX0RXMShwb3J0
-KSw8YnIgc3R5bGU9IndoaXRlLXNwYWNlOiBub3JtYWw7Ij4mZ3Q7Jm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgRFBJT19DSFZfTTFf
-RElWX0JZXzImbmJzcDt8PGJyIHN0eWxlPSJ3aGl0ZS1zcGFjZTogbm9ybWFsOyI+Jmd0OyAtJm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-MSZuYnNwOyZsdDsmbHQ7Jm5ic3A7RFBJT19DSFZfTl9ESVZfU0hJRlQpOzxiciBzdHlsZT0id2hp
-dGUtc3BhY2U6IG5vcm1hbDsiPiZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwO2Jlc3RuJm5ic3A7Jmx0OyZsdDsmbmJzcDtEUElP
-X0NIVl9OX0RJVl9TSElGVCk7PC9wPjxwIHN0eWxlPSJmb250LXNpemU6MTRweDtmb250LWZhbWls
-eTrlvq7ova/pm4Xpu5EsTWljcm9zb2Z0IFlhSGVpOyI+PGJyPjwvcD48cCBzdHlsZT0iZm9udC1z
-aXplOjE0cHg7Zm9udC1mYW1pbHk65b6u6L2v6ZuF6buRLE1pY3Jvc29mdCBZYUhlaTsiPlRoYW5r
-cyBmb3IgeW91ciBraW5kIHJlc3BvbnNlICEgRG9lcyB0aGF0IG1lYW5zIHRoZSB2YXJpYWJsZSB3
-aWxsIGJlPC9wPjxwIHN0eWxlPSJmb250LXNpemU6MTRweDtmb250LWZhbWlseTrlvq7ova/pm4Xp
-u5EsTWljcm9zb2Z0IFlhSGVpOyI+dXNlZCBieSB0aGUgaGFyZHdhcmXvvJ9pZiBzbyBhcyBmYXIg
-YXMgSSBzZWUgaXQsIEkgZG9uJ3Qgc2VlbSB0byBzZWUgdGhlPC9wPjxwIHN0eWxlPSJmb250LXNp
-emU6MTRweDtmb250LWZhbWlseTrlvq7ova/pm4Xpu5EsTWljcm9zb2Z0IFlhSGVpOyI+cmVsZXZh
-bnQgaW50ZXJmYWNlLjwvcD48cCBzdHlsZT0iZm9udC1zaXplOjE0cHg7Zm9udC1mYW1pbHk65b6u
-6L2v6ZuF6buRLE1pY3Jvc29mdCBZYUhlaTsiPjxicj48L3A+PC9kaXY+
-
-
---=====_003_next=====--
-
---=====_002_next=====--
-
---=====_001_next=====--
+>
+>> ---
+>>   drivers/gpu/drm/msm/msm_gem.c | 19 +++++--------------
+>>   1 file changed, 5 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+>> index 40a9863f5951..5bd511f07c07 100644
+>> --- a/drivers/gpu/drm/msm/msm_gem.c
+>> +++ b/drivers/gpu/drm/msm/msm_gem.c
+>> @@ -880,7 +880,7 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
+>>   {
+>>   	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+>>   	struct dma_resv *robj = obj->resv;
+>> -	struct dma_resv_list *fobj;
+>> +	struct dma_resv_iter cursor;
+>>   	struct dma_fence *fence;
+>>   	struct msm_gem_vma *vma;
+>>   	uint64_t off = drm_vma_node_start(&obj->vma_node);
+>> @@ -955,22 +955,13 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
+>>   		seq_puts(m, "\n");
+>>   	}
+>>   
+>> -	rcu_read_lock();
+>> -	fobj = dma_resv_shared_list(robj);
+>> -	if (fobj) {
+>> -		unsigned int i, shared_count = fobj->shared_count;
+>> -
+>> -		for (i = 0; i < shared_count; i++) {
+>> -			fence = rcu_dereference(fobj->shared[i]);
+>> +	dma_resv_for_each_fence(&cursor, robj, true, fence) {
+>> +		if (dma_resv_iter_is_exclusive(&cursor))
+>> +			describe_fence(fence, "Exclusive", m);
+>> +		else
+>>   			describe_fence(fence, "Shared", m);
+>> -		}
+>>   	}
+>>   
+>> -	fence = dma_resv_excl_fence(robj);
+>> -	if (fence)
+>> -		describe_fence(fence, "Exclusive", m);
+>> -	rcu_read_unlock();
+>> -
+>>   	msm_gem_unlock(obj);
+>>   }
+>>   
+>> -- 
+>> 2.25.1
+>>
 
