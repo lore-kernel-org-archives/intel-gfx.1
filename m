@@ -2,48 +2,48 @@ Return-Path: <SRS0=m2z4=PI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6131CC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E247EC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27B1261355
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 27B1261355
+	by mail.kernel.org (Postfix) with ESMTPS id A3BEA61371
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A3BEA61371
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C8166E981;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C798D6E9A1;
 	Wed, 20 Oct 2021 12:59:17 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53FA96E1AA;
- Tue, 19 Oct 2021 22:55:33 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 032CD6E10A;
+ Tue, 19 Oct 2021 22:55:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l+ZrAEa43vTQrcvkD9xM2cSTq7O2XGDXw+e92DfUsr7O+/jGhd4vOh0zOEgHr2SmLo1CLYgjeqgaaU9+0W4/bJOOEy2PizIT+8uV0Ve0x8v2gLBAG1L/vMPLb1iLx4Bkx1ZYT5BVQHNIqJK4cEnJEkBb2nvLC1cg5W8UjnyMquv6I7D1vJuRswruR26PUSXeaRZLVhs99JQr0fZ04PtGvDBC11aGrBwm6KxtJ/rvZCosvsMc38y63l6fEpz8B5FemWk2xTh9TY5cuxbHZHl7JZpEv3jpnAWEYAqkK/m2NlCsXtX3c57axLs/Ja32vKC+bJdYoHyt8nqnkDGQyS1GUw==
+ b=BfkK0T0M3JT2lEyxSZXYb23LYUboEAu1D6a7xfEu1nl851jJqaHY24DslIIyXRbkJNsecRw60f/MClBiNv5/PpcbDcoTT0CIpIGvQUghsAAk+AIxXJaTNrcKNXTomZ5LKLJKg7Bc2hTHnUV8onWPsHkNDOmMctaGRpy6+ecsfT8HSz98lo2iDzkhH0OE7MgQFn6c+RQKDgb3dcIQOnbOW21LA5kQxq7zZrqUiJc7Dt8O95pSGOk/NS1h5T7jzLqqJGWUe9omW9GgXjeSjRhBcoClAMoYaZIAMj5RA+lrAIec6MwPpx88sUYDgMF9GiVjg+PipH3ew0zh/WvkO0OMEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VVeYy56eCb+iGsN7YRkXl8dOk6j0635e/MV7AHIFjmg=;
- b=oUnwo2qLD1pYhni2ywkYaw7pNCLmXFESOnKJFqxSjtwYvCExUj745zHX/vt1Ydoh49xRe7cELr9R2UWMzB9AzZY3LwjpoeEF6XJMwaSNDpVaTbEIOW4sUd94K78TOoZDCUZ9MKCLwnIsE2CgLFlYIxiTJk1k2FC3n65WwWKLplb5IK//7zNMB5NGnGkb3mLkPj5qWPDp4q5I1ZkzW19aIKSyVvStwwsM0gOVdx4/aPhwqiVq3WLhWfiuW4bw+F36Zg0WlX2gGFgXn1hx1UACe2OLnjVNWD4w4w/9/ILkTKD2lncyki9PtW7IqcUlT90cPf7byh54eLxu5iC7gDyTHw==
+ bh=BucEtWHJwRDivMuyuuPCQ0BV8dtBKBNIOnoWevGJC34=;
+ b=Ha7NYGG8GNMe4phohaAqd6ZP42WFzfjL5SLfN+KE7JvyDyNgjWYFZFrI1DiDYfNq/MShipeyAhpURVkOeiIqHoAABZI3tkpbmNSb+A+4lZQabEH/mtFfMkX18+hoy5Y3oOlgeZc4tMpTP0o3iXD4bLHSOol9LtQgAV2Jv5i6MSgb1IBczwnpjupK8TybA58hgSpc8Z63NPPKOD1YX+f+Qf8yoKrtb+P3d/bP9EanpY+zlrk7RgYHBuiZOuWdPBEI/QozSE9lYijhFHKgefYh4luv8gOVVMMDBnxuuKe+66dFjiu1QDP0pHefGMp1RhcyTljHcSO/dtmX7cSINhuqRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VVeYy56eCb+iGsN7YRkXl8dOk6j0635e/MV7AHIFjmg=;
- b=ctworVyZ9Zz3ALgBHGJLs1sLBszMhkHWyvpyCiSn9WTNMI59M3el3oga8OAaADF8kkVelyxlE/tkQ/+HF53UKrPnKppIskswkJmTEApyJviWK4MfZv3iHMujpaeirsqnI8cWgvn1LJGo8tHUL/Tw+ibT52FShZSNLgquigI7+Ac=
-Received: from MW3PR06CA0001.namprd06.prod.outlook.com (2603:10b6:303:2a::6)
- by BN6PR1201MB0226.namprd12.prod.outlook.com (2603:10b6:405:56::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15; Tue, 19 Oct
- 2021 22:55:30 +0000
+ bh=BucEtWHJwRDivMuyuuPCQ0BV8dtBKBNIOnoWevGJC34=;
+ b=oZ9k7q49fVbkEneoyBzb57FTmZgbcDGJgBvPFFRoGYCNHUNRcwvuMH86JyR8yeKOG/6bjr15dVNCJdLT5raiCS0G2e54P53CjBseFbE4R419/xfhKRjTYpMpt10kpktWfhGggImwnY/eTRI1Uqc4+aEr7WQTO5UK1jZi8CCBmXw=
+Received: from MW3PR06CA0024.namprd06.prod.outlook.com (2603:10b6:303:2a::29)
+ by BN8PR12MB4787.namprd12.prod.outlook.com (2603:10b6:408:a1::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Tue, 19 Oct
+ 2021 22:55:12 +0000
 Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2a:cafe::cc) by MW3PR06CA0001.outlook.office365.com
- (2603:10b6:303:2a::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15 via Frontend
- Transport; Tue, 19 Oct 2021 22:55:30 +0000
+ (2603:10b6:303:2a:cafe::c4) by MW3PR06CA0024.outlook.office365.com
+ (2603:10b6:303:2a::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17 via Frontend
+ Transport; Tue, 19 Oct 2021 22:55:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,18 +54,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 22:55:30 +0000
+ 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 22:55:12 +0000
 Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Tue, 19 Oct
- 2021 17:55:26 -0500
+ 2021 17:55:09 -0500
 From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
  <amd-gfx@lists.freedesktop.org>
 CC: <christian.koenig@amd.com>, <daniel@ffwll.ch>, <matthew.auld@intel.com>,
  <alexander.deucher@amd.com>, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-Date: Wed, 20 Oct 2021 04:24:06 +0530
-Message-ID: <20211019225409.569355-11-Arunpravin.PaneerSelvam@amd.com>
+Date: Wed, 20 Oct 2021 04:24:00 +0530
+Message-ID: <20211019225409.569355-5-Arunpravin.PaneerSelvam@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
 References: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
@@ -77,31 +77,30 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1878d3d-72cf-4bb9-54b8-08d993538cbd
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0226:
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB022604B7824387FEEAA95E73E4BD9@BN6PR1201MB0226.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:529;
+X-MS-Office365-Filtering-Correlation-Id: b8a91b13-a04f-4ff8-e00d-08d993538230
+X-MS-TrafficTypeDiagnostic: BN8PR12MB4787:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB47872AA8309CB6C0E8C1FDC3E4BD9@BN8PR12MB4787.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:117;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1vV6iKxblt4h2hqpy2ZaR8auB3HcMCDdjJnncyR8kC0gqzNyHD9d3xRXRUPVQkIwfh3MuEoggLMuutPAP9oeHAj/iSpoV3JAtLTJQ2emiAFMfBsGL9OiT9OjZiq4yeY3FZh36gm7m4QuadJc2/WIK8rD1EE5BHV/GhjXu4BpvUQVgurpMqT+7y+vK3MrNFVonVhvPmrR1/Yqvu56gdga4dggph36uyBNeClX6jAQh4DCOAdO+UbHT2kSLnwdQpX2uD4/CqNECjHqYDRB+QDknjMUDPNf83brSmVBzHtveZZ7oLIbq9sOp21jrvonMhS4ER5A7UAie5Ls4oSLHYnk/1p9OQ07NuADgYoMYFefuQgH2kd2EOc/zcOi5wLoCcg3CBHmaD4VKdhgh8MAEMijiZcikcLsSZmGFDzE2Y4A/CWqjcybrgwkP5l8zwjCjNRLRItV33oNoShEZArEe1c5A3ZpOigx5/I3ShUuCgU2zSayD9qFXBLUkTSiJcFDRNMf2RuLpgZGGoYPyQedhXOuZ4Ar0yMXOcbMyK2LwaY0CfQM2uZzyd6AE4v5P9B6QRwmuo0cY1/2d0MuX+USndpo1nK7g3AZZZNDmiD0HDvxpJlchRDogg7g98WgS4ZiHhxUXhp4gm7PAqGWxzvJdN5iRaVmzU/OyvEa55+2l07TsI5JGxAKf19zOaQaUUakdMQ0JhK/KA8P0u6gVaGcfpb3zHKF4CO/nxZuteGZlFFhJbA=
+X-Microsoft-Antispam-Message-Info: clOSVbMlG1EdfWTW0Y62WKIO5ZfMG5uYkRd0Z37c6bZB6dNOxfeM69bRY+eZ6CblIC0Jtfxy//+KBgWAYA781+pvBCcsHHkj+lzLS5qj9wM10+jbB4KiUZLUC9yXzh/IgZHyZ4rECnG/1y8TFbAL4ftwCEyGHFCPdbJsWWU3RIHWXK8eTG6pan5U1ribNJvPlitdA3g1S0NWab91z+5seAWdcMT0It7XWbAT8VZo4Lv6nSGKDmg2iHfI1faKa6Shpc59Czcg8ODPW2JRE9bzlliSwA4zTCjkHEm/5aipdbYoacIzinhyspUqQgvfSxdsTRbFpqiNiICX5VLdwajYOsE8uypgxItzpYmD+D+2wX+rV3y7btZmIeeg8jk9yUXV6HlY1K7ESuFw3UrSFKS1DlgJmYcgeWwdDuwyKl2FM1ymMhRJYKb5moMXjpa7YrocCVQOKyJ5nmhDRuQ6NALPNjRnFr7rduRJ0Bo7xJeIrlw2GVnxP/FlGaV+MHQl6/VuUqVXaI99GoVre3Ay3REfRBDQhVEV0IwMmvXo6g6M7npAGhMFZwuFI0Ym9eUNfRhdWWFgLp4AL6UGm/gwE2p+Godj8p5tyDgkMqkrQoK6bh2kkIOaxRRXRXsLbkBC7nZPNksk8lgAYPdSzuKEhtBwpLfkcdi33EZR5nteflNKjJItFW/iJGYfAM9AZ0CcG4XBPNcYJNtbUQXLqDBYHdaunHz8ozuMNi2XUDtkwM13tRo=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(2906002)(86362001)(4326008)(36756003)(6666004)(1076003)(82310400003)(8936002)(8676002)(5660300002)(70586007)(70206006)(83380400001)(186003)(16526019)(356005)(110136005)(2616005)(47076005)(508600001)(336012)(36860700001)(81166007)(426003)(316002)(7696005)(54906003)(26005)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(16526019)(186003)(4326008)(1076003)(70206006)(82310400003)(70586007)(81166007)(356005)(47076005)(8676002)(336012)(26005)(5660300002)(8936002)(83380400001)(36756003)(36860700001)(508600001)(2616005)(110136005)(86362001)(54906003)(7696005)(426003)(6666004)(316002)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 22:55:30.0803 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1878d3d-72cf-4bb9-54b8-08d993538cbd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 22:55:12.3846 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8a91b13-a04f-4ff8-e00d-08d993538230
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0226
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB4787
 X-Mailman-Approved-At: Wed, 20 Oct 2021 12:59:17 +0000
-Subject: [Intel-gfx] [PATCH 10/13] drm/i915: cleanup i915 buddy and apply
- DRM buddy
+Subject: [Intel-gfx] [PATCH 04/13] drm: make drm_buddy_alloc a commonplace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,311 +116,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove i915 buddy references and add DRM buddy
-functions
+- Make drm_buddy_alloc a single function to handle
+  range allocation and non-range allocation demands.
+
+- Implemented a new function alloc_range() which allocates
+  the requested order (in bytes) comply with range limitations
+
+- Moved memory alignment logic from i915 driver
 
 Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |  1 -
- drivers/gpu/drm/i915/i915_module.c            |  3 -
- drivers/gpu/drm/i915/i915_scatterlist.c       | 11 +--
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 91 +++++++++----------
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |  5 +-
- 5 files changed, 53 insertions(+), 58 deletions(-)
+ drivers/gpu/drm/drm_buddy.c | 208 +++++++++++++++++++++++++++++++-----
+ include/drm/drm_buddy.h     |  18 +++-
+ 2 files changed, 194 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 467872cca027..fc5ca8c4ccb2 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -161,7 +161,6 @@ gem-y += \
- i915-y += \
- 	  $(gem-y) \
- 	  i915_active.o \
--	  i915_buddy.o \
- 	  i915_cmd_parser.o \
- 	  i915_gem_evict.o \
- 	  i915_gem_gtt.o \
-diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i915_module.c
-index ab2295dd4500..121b4178c5ca 100644
---- a/drivers/gpu/drm/i915/i915_module.c
-+++ b/drivers/gpu/drm/i915/i915_module.c
-@@ -9,7 +9,6 @@
- #include "gem/i915_gem_context.h"
- #include "gem/i915_gem_object.h"
- #include "i915_active.h"
--#include "i915_buddy.h"
- #include "i915_params.h"
- #include "i915_pci.h"
- #include "i915_perf.h"
-@@ -50,8 +49,6 @@ static const struct {
- 	{ .init = i915_check_nomodeset },
- 	{ .init = i915_active_module_init,
- 	  .exit = i915_active_module_exit },
--	{ .init = i915_buddy_module_init,
--	  .exit = i915_buddy_module_exit },
- 	{ .init = i915_context_module_init,
- 	  .exit = i915_context_module_exit },
- 	{ .init = i915_gem_context_module_init,
-diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
-index 4a6712dca838..84d622aa32d2 100644
---- a/drivers/gpu/drm/i915/i915_scatterlist.c
-+++ b/drivers/gpu/drm/i915/i915_scatterlist.c
-@@ -5,10 +5,9 @@
-  */
- 
- #include "i915_scatterlist.h"
--
--#include "i915_buddy.h"
- #include "i915_ttm_buddy_manager.h"
- 
-+#include <drm/drm_buddy.h>
- #include <drm/drm_mm.h>
- 
- #include <linux/slab.h>
-@@ -126,9 +125,9 @@ struct sg_table *i915_sg_from_buddy_resource(struct ttm_resource *res,
- 	struct i915_ttm_buddy_resource *bman_res = to_ttm_buddy_resource(res);
- 	const u64 size = res->num_pages << PAGE_SHIFT;
- 	const u64 max_segment = rounddown(UINT_MAX, PAGE_SIZE);
--	struct i915_buddy_mm *mm = bman_res->mm;
-+	struct drm_buddy_mm *mm = bman_res->mm;
- 	struct list_head *blocks = &bman_res->blocks;
--	struct i915_buddy_block *block;
-+	struct drm_buddy_block *block;
- 	struct scatterlist *sg;
- 	struct sg_table *st;
- 	resource_size_t prev_end;
-@@ -151,8 +150,8 @@ struct sg_table *i915_sg_from_buddy_resource(struct ttm_resource *res,
- 	list_for_each_entry(block, blocks, link) {
- 		u64 block_size, offset;
- 
--		block_size = min_t(u64, size, i915_buddy_block_size(mm, block));
--		offset = i915_buddy_block_offset(block);
-+		block_size = min_t(u64, size, drm_buddy_block_size(mm, block));
-+		offset = drm_buddy_block_offset(block);
- 
- 		while (block_size) {
- 			u64 len;
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index d59fbb019032..d09ea6c83a27 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -7,15 +7,15 @@
- 
- #include <drm/ttm/ttm_bo_driver.h>
- #include <drm/ttm/ttm_placement.h>
-+#include <drm/drm_buddy.h>
- 
- #include "i915_ttm_buddy_manager.h"
- 
--#include "i915_buddy.h"
- #include "i915_gem.h"
- 
- struct i915_ttm_buddy_manager {
- 	struct ttm_resource_manager manager;
--	struct i915_buddy_mm mm;
-+	struct drm_buddy_mm mm;
- 	struct list_head reserved;
- 	struct mutex lock;
- 	u64 default_page_size;
-@@ -34,15 +34,12 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- {
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
- 	struct i915_ttm_buddy_resource *bman_res;
--	struct i915_buddy_mm *mm = &bman->mm;
-+	struct drm_buddy_mm *mm = &bman->mm;
- 	unsigned long n_pages;
--	unsigned int min_order;
- 	u64 min_page_size;
- 	u64 size;
- 	int err;
- 
--	GEM_BUG_ON(place->fpfn || place->lpfn);
--
- 	bman_res = kzalloc(sizeof(*bman_res), GFP_KERNEL);
- 	if (!bman_res)
- 		return -ENOMEM;
-@@ -59,11 +56,12 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 		min_page_size = bo->page_alignment << PAGE_SHIFT;
- 
- 	GEM_BUG_ON(min_page_size < mm->chunk_size);
--	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
--	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-+
-+	if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
- 		size = roundup_pow_of_two(size);
--		min_order = ilog2(size) - ilog2(mm->chunk_size);
--	}
-+
-+	if (place->fpfn || place->lpfn)
-+		bman_res->flags |= DRM_BUDDY_RANGE_ALLOCATION;
- 
- 	if (size > mm->size) {
- 		err = -E2BIG;
-@@ -72,41 +70,34 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 
- 	n_pages = size >> ilog2(mm->chunk_size);
- 
--	do {
--		struct i915_buddy_block *block;
--		unsigned int order;
--
--		order = fls(n_pages) - 1;
--		GEM_BUG_ON(order > mm->max_order);
--		GEM_BUG_ON(order < min_order);
--
--		do {
--			mutex_lock(&bman->lock);
--			block = i915_buddy_alloc(mm, order);
--			mutex_unlock(&bman->lock);
--			if (!IS_ERR(block))
--				break;
--
--			if (order-- == min_order) {
--				err = -ENOSPC;
--				goto err_free_blocks;
--			}
--		} while (1);
-+	mutex_lock(&bman->lock);
-+	err = drm_buddy_alloc(mm, (uint64_t)place->fpfn << PAGE_SHIFT,
-+				  (uint64_t)place->lpfn << PAGE_SHIFT,
-+				  (uint64_t)n_pages << PAGE_SHIFT,
-+				   min_page_size,
-+				   &bman_res->blocks,
-+				   bman_res->flags);
-+	mutex_unlock(&bman->lock);
- 
--		n_pages -= BIT(order);
-+	if (unlikely(err))
-+		goto err_free_blocks;
- 
--		list_add_tail(&block->link, &bman_res->blocks);
-+#if 0
-+	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-+		err = drm_buddy_free_unused_pages(mm, (uint64_t)n_pages << PAGE_SHIFT,
-+						       &bman_res->blocks);
- 
--		if (!n_pages)
--			break;
--	} while (1);
-+		if (unlikely(err))
-+			goto err_free_blocks;
-+	}
-+#endif
- 
- 	*res = &bman_res->base;
- 	return 0;
- 
- err_free_blocks:
- 	mutex_lock(&bman->lock);
--	i915_buddy_free_list(mm, &bman_res->blocks);
-+	drm_buddy_free_list(mm, &bman_res->blocks);
- 	mutex_unlock(&bman->lock);
- err_free_res:
- 	kfree(bman_res);
-@@ -120,7 +111,7 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
- 
- 	mutex_lock(&bman->lock);
--	i915_buddy_free_list(&bman->mm, &bman_res->blocks);
-+	drm_buddy_free_list(&bman->mm, &bman_res->blocks);
- 	mutex_unlock(&bman->lock);
- 
- 	kfree(bman_res);
-@@ -130,17 +121,17 @@ static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
- 				     struct drm_printer *printer)
- {
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
--	struct i915_buddy_block *block;
-+	struct drm_buddy_block *block;
- 
- 	mutex_lock(&bman->lock);
- 	drm_printf(printer, "default_page_size: %lluKiB\n",
- 		   bman->default_page_size >> 10);
- 
--	i915_buddy_print(&bman->mm, printer);
-+	drm_buddy_print(&bman->mm, printer);
- 
- 	drm_printf(printer, "reserved:\n");
- 	list_for_each_entry(block, &bman->reserved, link)
--		i915_buddy_block_print(&bman->mm, block, printer);
-+		drm_buddy_block_print(&bman->mm, block, printer);
- 	mutex_unlock(&bman->lock);
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 0398706cb7ae..f5f299dd9131 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -246,27 +246,112 @@ void drm_buddy_free_list(struct drm_buddy_mm *mm, struct list_head *objects)
+ 	INIT_LIST_HEAD(objects);
  }
  
-@@ -190,7 +181,7 @@ int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 	if (!bman)
- 		return -ENOMEM;
- 
--	err = i915_buddy_init(&bman->mm, size, chunk_size);
-+	err = drm_buddy_init(&bman->mm, size, chunk_size);
- 	if (err)
- 		goto err_free_bman;
- 
-@@ -228,7 +219,7 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
- {
- 	struct ttm_resource_manager *man = ttm_manager_type(bdev, type);
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
--	struct i915_buddy_mm *mm = &bman->mm;
-+	struct drm_buddy_mm *mm = &bman->mm;
- 	int ret;
- 
- 	ttm_resource_manager_set_used(man, false);
-@@ -240,8 +231,8 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
- 	ttm_set_driver_manager(bdev, type, NULL);
- 
- 	mutex_lock(&bman->lock);
--	i915_buddy_free_list(mm, &bman->reserved);
--	i915_buddy_fini(mm);
-+	drm_buddy_free_list(mm, &bman->reserved);
-+	drm_buddy_fini(mm);
- 	mutex_unlock(&bman->lock);
- 
- 	ttm_resource_manager_cleanup(man);
-@@ -264,11 +255,19 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- 			       u64 start, u64 size)
- {
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
--	struct i915_buddy_mm *mm = &bman->mm;
-+	struct drm_buddy_mm *mm = &bman->mm;
-+	unsigned long flags = 0;
-+	u64 min_size;
- 	int ret;
- 
-+	min_size = size;
-+	flags |= DRM_BUDDY_RANGE_ALLOCATION;
+-/*
+- * Allocate power-of-two block. The order value here translates to:
+- *
+- *   0 = 2^0 * mm->chunk_size
+- *   1 = 2^1 * mm->chunk_size
+- *   2 = 2^2 * mm->chunk_size
+- *   ...
+- */
+-struct drm_buddy_block *
+-drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order)
++static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
++{
++	return s1 <= e2 && e1 >= s2;
++}
 +
- 	mutex_lock(&bman->lock);
--	ret = i915_buddy_alloc_range(mm, &bman->reserved, start, size);
-+	ret = drm_buddy_alloc(mm, start, start + size,
-+				  size, min_size,
-+				  &bman->reserved,
-+				  flags);
- 	mutex_unlock(&bman->lock);
++static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
++{
++	return s1 <= s2 && e1 >= e2;
++}
++
++static struct drm_buddy_block *
++alloc_range(struct drm_buddy_mm *mm,
++	    u64 start, u64 end,
++	    unsigned int order)
++{
++	struct drm_buddy_block *block;
++	struct drm_buddy_block *buddy;
++	LIST_HEAD(dfs);
++	int err;
++	int i;
++
++	end = end - 1;
++
++	for (i = 0; i < mm->n_roots; ++i)
++		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
++
++	do {
++		u64 block_start;
++		u64 block_end;
++
++		block = list_first_entry_or_null(&dfs,
++						 struct drm_buddy_block,
++						 tmp_link);
++
++		if (!block)
++			break;
++
++		list_del(&block->tmp_link);
++
++		if (drm_buddy_block_order(block) < order)
++			continue;
++
++		block_start = drm_buddy_block_offset(block);
++		block_end = block_start + drm_buddy_block_size(mm, block) - 1;
++
++		if (!overlaps(start, end, block_start, block_end))
++			continue;
++
++		if (drm_buddy_block_is_allocated(block))
++			continue;
++
++		if (contains(start, end, block_start, block_end)
++				&& order == drm_buddy_block_order(block)) {
++			/*
++			 * Find the free block within the range.
++			 */
++			if (drm_buddy_block_is_free(block))
++				return block;
++
++			continue;
++		}
++
++		if (!drm_buddy_block_is_split(block)) {
++			err = split_block(mm, block);
++			if (unlikely(err))
++				goto err_undo;
++		}
++
++		list_add(&block->left->tmp_link, &dfs);
++		list_add(&block->right->tmp_link, &dfs);
++	} while (1);
++
++	return ERR_PTR(-ENOSPC);
++
++err_undo:
++	/*
++	 * We really don't want to leave around a bunch of split blocks, since
++	 * bigger is better, so make sure we merge everything back before we
++	 * free the allocated blocks.
++	 */
++	buddy = get_buddy(block);
++	if (buddy &&
++	    (drm_buddy_block_is_free(block) &&
++	     drm_buddy_block_is_free(buddy)))
++		__drm_buddy_free(mm, block);
++	return ERR_PTR(err);
++}
++
++static struct drm_buddy_block *
++alloc_from_freelist(struct drm_buddy_mm *mm,
++		    unsigned int order,
++		    unsigned long flags)
+ {
+ 	struct drm_buddy_block *block = NULL;
+ 	unsigned int i;
+ 	int err;
  
- 	return ret;
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-index 0722d33f3e14..c8c0dea1cdca 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-@@ -13,7 +13,7 @@
+ 	for (i = order; i <= mm->max_order; ++i) {
+-		block = list_first_entry_or_null(&mm->free_list[i],
+-						 struct drm_buddy_block,
+-						 link);
+-		if (block)
+-			break;
++		if (!list_empty(&mm->free_list[i])) {
++			block = list_first_entry_or_null(&mm->free_list[i],
++							 struct drm_buddy_block,
++							 link);
++
++			if (block)
++				break;
++		}
+ 	}
  
- struct ttm_device;
- struct ttm_resource_manager;
--struct i915_buddy_mm;
-+struct drm_buddy_mm;
+ 	if (!block)
+@@ -276,33 +361,100 @@ drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order)
  
- /**
-  * struct i915_ttm_buddy_resource
-@@ -28,7 +28,8 @@ struct i915_buddy_mm;
- struct i915_ttm_buddy_resource {
- 	struct ttm_resource base;
- 	struct list_head blocks;
--	struct i915_buddy_mm *mm;
-+	unsigned long flags;
-+	struct drm_buddy_mm *mm;
- };
+ 	while (i != order) {
+ 		err = split_block(mm, block);
++
+ 		if (unlikely(err))
+-			goto out_free;
++			goto err_undo;
  
- /**
+-		/* Go low */
+-		block = block->left;
++		block = block->right;
+ 		i--;
+ 	}
+ 
+-	mark_allocated(block);
+-	mm->avail -= drm_buddy_block_size(mm, block);
+-	kmemleak_update_trace(block);
+ 	return block;
+ 
+-out_free:
++err_undo:
+ 	if (i != order)
+ 		__drm_buddy_free(mm, block);
+ 	return ERR_PTR(err);
+ }
+ 
+-static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
++/*
++ * Allocate power-of-two block. The order value here translates to:
++ *
++ *   0 = 2^0 * mm->chunk_size
++ *   1 = 2^1 * mm->chunk_size
++ *   2 = 2^2 * mm->chunk_size
++ *   ...
++ */
++int drm_buddy_alloc(struct drm_buddy_mm *mm,
++		    u64 start, u64 end, u64 size,
++		    u64 min_page_size,
++		    struct list_head *blocks,
++		    unsigned long flags)
+ {
+-	return s1 <= e2 && e1 >= s2;
+-}
++	struct drm_buddy_block *block = NULL;
++	unsigned int min_order, order;
++	unsigned long pages;
++	LIST_HEAD(allocated);
++	int err;
+ 
+-static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+-{
+-	return s1 <= s2 && e1 >= e2;
++	if (size < mm->chunk_size)
++		return -EINVAL;
++
++	if (!IS_ALIGNED(start, mm->chunk_size))
++		return -EINVAL;
++
++	if (!IS_ALIGNED(end, mm->chunk_size))
++		return -EINVAL;
++
++	if (!IS_ALIGNED(size, mm->chunk_size))
++		return -EINVAL;
++
++	if (check_range_overflow(start, end, size, mm->size))
++		return -EINVAL;
++
++	pages = size >> ilog2(mm->chunk_size);
++	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
++
++	do {
++		order = fls(pages) - 1;
++		BUG_ON(order > mm->max_order);
++		BUG_ON(order < min_order);
++
++		do {
++			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
++				/* Allocate traversing within the range */
++				block = alloc_range(mm, start, end, order);
++			else
++				/* Allocate from freelist */
++				block = alloc_from_freelist(mm, order, flags);
++
++			if (!IS_ERR(block))
++				break;
++
++			if (order-- == min_order) {
++				err = -ENOSPC;
++				goto err_free;
++			}
++		} while (1);
++
++		mark_allocated(block);
++		mm->avail -= drm_buddy_block_size(mm, block);
++		kmemleak_update_trace(block);
++
++		list_add_tail(&block->link, &allocated);
++
++		pages -= BIT(order);
++
++		if (!pages)
++			break;
++	} while (1);
++
++	list_splice_tail(&allocated, blocks);
++	return 0;
++
++err_free:
++	drm_buddy_free_list(mm, &allocated);
++	return err;
+ }
+ 
+ /*
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 390b133fe342..c64fd4062cb6 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -13,15 +13,22 @@
+ 
+ #include <drm/drm_print.h>
+ 
+-#define range_overflows(start, size, max) ({ \
++#define check_range_overflow(start, end, size, max) ({ \
+ 	typeof(start) start__ = (start); \
++	typeof(end) end__ = (end);\
+ 	typeof(size) size__ = (size); \
+ 	typeof(max) max__ = (max); \
+ 	(void)(&start__ == &size__); \
+ 	(void)(&start__ == &max__); \
+-	start__ >= max__ || size__ > max__ - start__; \
++	(void)(&start__ == &end__); \
++	(void)(&end__ == &size__); \
++	(void)(&end__ == &max__); \
++	start__ >= max__ || end__ > max__ \
++		|| size__ > end__ - start__; \
+ })
+ 
++#define DRM_BUDDY_RANGE_ALLOCATION (1 << 1)
++
+ struct drm_buddy_block {
+ #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+ #define DRM_BUDDY_HEADER_STATE  GENMASK_ULL(11, 10)
+@@ -131,8 +138,11 @@ int drm_buddy_init(struct drm_buddy_mm *mm, u64 size, u64 chunk_size);
+ 
+ void drm_buddy_fini(struct drm_buddy_mm *mm);
+ 
+-struct drm_buddy_block *
+-drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order);
++int drm_buddy_alloc(struct drm_buddy_mm *mm,
++		    u64 start, u64 end, u64 size,
++		    u64 min_page_size,
++		    struct list_head *blocks,
++		    unsigned long flags);
+ 
+ int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
+ 			   struct list_head *blocks,
 -- 
 2.25.1
 
