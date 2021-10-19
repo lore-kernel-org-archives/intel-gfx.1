@@ -2,49 +2,46 @@ Return-Path: <SRS0=c+lk=PH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AEEDC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA19CC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D3AD610E7
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:01:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D3AD610E7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 81D4860FD8
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 12:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81D4860FD8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65FF66EB98;
-	Tue, 19 Oct 2021 12:01:20 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 823866EB98
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 12:01:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="227257590"
-X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="227257590"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 05:01:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="574136371"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga002.fm.intel.com with SMTP; 19 Oct 2021 05:01:16 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 19 Oct 2021 15:01:15 +0300
-Date: Tue, 19 Oct 2021 15:01:15 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>,
- intel-gfx@lists.freedesktop.org, "Deak, Imre" <imre.deak@intel.com>
-Message-ID: <YW6zi+fooHa+IG4r@intel.com>
-References: <20210719235927.283173-1-khaled.almahallawy@intel.com>
- <87bl3lqljk.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 226166EB9D;
+	Tue, 19 Oct 2021 12:09:06 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC51D6EB9D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 12:09:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="215415149"
+X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="215415149"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 05:09:04 -0700
+X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="483194951"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 05:09:03 -0700
+Date: Tue, 19 Oct 2021 15:08:59 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>,
+ intel-gfx@lists.freedesktop.org, matthew.d.roper@intel.com
+Message-ID: <20211019120859.GA1598321@ideak-desk.fi.intel.com>
+References: <20211018065207.30587-1-vandita.kulkarni@intel.com>
+ <20211018065207.30587-4-vandita.kulkarni@intel.com>
+ <87v91tqpl8.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87bl3lqljk.fsf@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dp: Add missing TPS4 programming
- bits
+In-Reply-To: <87v91tqpl8.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915/dsi/xelpd: Disable DC states
+ in Video mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,71 +57,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 19, 2021 at 02:52:15PM +0300, Jani Nikula wrote:
-> On Mon, 19 Jul 2021, Khaled Almahallawy <khaled.almahallawy@intel.com> wrote:
-> > Bits 20:19 are used to set CP2520 Patterns 1/2/3 (refer to Specs:50484).
-> > TPS4 is CP2520 Pattern 3 (refer to DP2.0 spaces Table 3-11, DPCD 00248h
-> > LINK_QUAL_PATTERN_SELECT, and DP PHY 1.4 CTS - Appendix A - Compliance
-> > EYE Pattern(CP2520; Normative))
-> >
-> > For TPS4, setting bits 20:19 to value != 00b, leads to a non-TPS4 pattern.
-> > This is confirmed using DP Scope running DP1.4 PHY CTS.
-> >
-> > To avoid any accidental wrong setting of bits 20:19, set it correctly for
-> > TPS4 LT pattern selection. This programming sequence is the same used by EV.
+On Tue, Oct 19, 2021 at 01:24:51PM +0300, Jani Nikula wrote:
+> On Mon, 18 Oct 2021, Vandita Kulkarni <vandita.kulkarni@intel.com> wrote:
+> > MIPI DSI transcoder cannot be in video mode to support any of the
+> > display C states.
 > 
-> Do we need this?
+> Imre, could you review this one please?
+> 
+> The added confusion is that POWER_DOMAIN_TRANSCODER_DSI_A and
+> POWER_DOMAIN_TRANSCODER_DSI_C are never used anywhere and
+> POWER_DOMAIN_TRANSCODER() does not take DSI transcoders into account.
 
-I think what we need is some place to initialize DP_TP_CTL fully.
-Right now it seems to be just all RMW.
+<tl;dr>
+You mean they are not listed in the power_domain->power_well mappings.
+Those power domains don't use any power wells above PW#1. PW#0/1 is
+handled "automatically" by DMC, so we don't have to toggle the power for
+those manually. However they still need a runtime PM reference, since
+whatever HW domain you want to use, the PCI device must be in the runtime
+resumed state. This is ensured by the always-on power well, which every
+domain has a dependency on.
+<tl;dr>
 
+The transcoder power domains are acquired in get_crtc_power_domains(),
+doesn't the DSI encoder using the DSI_A/C transcoders?
+
+Yes, POWER_DOMAIN_TRANSCODER is now broken wrt. DSI due to
+POWER_DOMAIN_TRANSCODER_VDSC_PW2. So that would need to be moved after
+the TRANSCODER_DSI_C. And the POWER_DOMAIN_TRANSCODER macro could be
+also simplified afaics.
+
+Otherwise this patch looks ok to me, just the bspec links would be good
+to have here too.
+
+> 
+> > Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display_power.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> > index 709569211c85..8406db5e573e 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> > @@ -3105,7 +3105,8 @@ intel_display_power_put_mask_in_set(struct drm_i915_private *i915,
+> >  	BIT_ULL(POWER_DOMAIN_MODESET) |			\
+> >  	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+> >  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+> > -	BIT_ULL(POWER_DOMAIN_INIT))
+> > +	BIT_ULL(POWER_DOMAIN_INIT)) |			\
+> > +	BIT_ULL(POWER_DOMAIN_PORT_DSI)
+> 
+> Everywhere else POWER_DOMAIN_INIT is last in the list.
 > 
 > BR,
 > Jani.
 > 
-> >
-> > Cc: Manasi Navare <manasi.d.navare@intel.com>
-> > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > CC: José Roberto de Souza <jose.souza@intel.com>
-> > Cc: Imre Deak <imre.deak@intel.com>
-> > Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_ddi.c | 2 ++
-> >  drivers/gpu/drm/i915/i915_reg.h          | 4 ++++
-> >  2 files changed, 6 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > index 26a3aa73fcc4..54b4b28fdc74 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > @@ -3412,6 +3412,8 @@ static void intel_ddi_set_link_train(struct intel_dp *intel_dp,
-> >  		break;
-> >  	case DP_TRAINING_PATTERN_4:
-> >  		temp |= DP_TP_CTL_LINK_TRAIN_PAT4;
-> > +		temp &= ~DP_TP_CTL_TRAIN_PAT4_SEL_MASK;
-> > +		temp |= DP_TP_CTL_TRAIN_PAT4_SEL_TP4a;
-> >  		break;
-> >  	}
 > >  
-> > diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> > index 943fe485c662..a65998df9994 100644
-> > --- a/drivers/gpu/drm/i915/i915_reg.h
-> > +++ b/drivers/gpu/drm/i915/i915_reg.h
-> > @@ -10176,6 +10176,10 @@ enum skl_power_gate {
-> >  #define  DP_TP_CTL_MODE_SST			(0 << 27)
-> >  #define  DP_TP_CTL_MODE_MST			(1 << 27)
-> >  #define  DP_TP_CTL_FORCE_ACT			(1 << 25)
-> > +#define  DP_TP_CTL_TRAIN_PAT4_SEL_MASK		(3 << 19)
-> > +#define  DP_TP_CTL_TRAIN_PAT4_SEL_TP4a		(0 << 19)
-> > +#define  DP_TP_CTL_TRAIN_PAT4_SEL_TP4b		(1 << 19)
-> > +#define  DP_TP_CTL_TRAIN_PAT4_SEL_TP4c		(2 << 19)
-> >  #define  DP_TP_CTL_ENHANCED_FRAME_ENABLE	(1 << 18)
-> >  #define  DP_TP_CTL_FDI_AUTOTRAIN		(1 << 15)
-> >  #define  DP_TP_CTL_LINK_TRAIN_MASK		(7 << 8)
+> >  #define XELPD_AUX_IO_D_XELPD_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_AUX_D_XELPD)
+> >  #define XELPD_AUX_IO_E_XELPD_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_AUX_E_XELPD)
 > 
 > -- 
 > Jani Nikula, Intel Open Source Graphics Center
-
--- 
-Ville Syrjälä
-Intel
