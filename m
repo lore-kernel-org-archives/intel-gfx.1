@@ -2,48 +2,48 @@ Return-Path: <SRS0=m2z4=PI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBCC0C4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D66EC433F5
 	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC46D6136F
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC46D6136F
+	by mail.kernel.org (Postfix) with ESMTPS id DCBCE6136F
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 12:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DCBCE6136F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1DA6E9C4;
-	Wed, 20 Oct 2021 12:59:39 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 926B46E0F6;
- Tue, 19 Oct 2021 22:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C73786E9C1;
+	Wed, 20 Oct 2021 12:59:38 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 800236E10F;
+ Tue, 19 Oct 2021 22:55:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UxfgI07yODex9MAC6jPk13+7bhHIaewD7Xu01Iuvc3gNuYt+X4FTkC0P2JWAu/427Kzn0hXbuTfZBslXlfSglmntoALNzFgud8SZnImM8RXnrd0rCp3ch6IjF8qD8KNsb2A8PTWsy2hR2idLevm3NsuSoVj+F4n3e8amM2SAylF7oJjq8qHUGSzi/+8FvnLL9DRC26rUJ314/yOp02lRsJoekQwqBaIrIvvW1Mi4yUniRPKpSN8Zb1GV6Y1oCoNYuTO1vfdXSPGr/u/i9xCdF+Uv9sB/eaAov4SgJd51/idUurpun9hbYsN6W/7Y+kPY/kYW4Fkc65StsWcQOajNeg==
+ b=FpQPUUFAqZ9QX1W8d/W9FF3wxWQ0dNAyuOH1HmcJTZ67WQ3DxuIaTMy/qhYKLcocKj2LkVPifmKfKhAL7e+xat+C3shJGkcAZFGYvBSgMaJhWlLBNHi8hrt3QeMkCODndQZFLFom1uRjR6e2c+s6eO2OMjapQnsyerDWAiqOdgWiSKJDyKmzITy8/IsyXLZeMlZkOP/vhTFd2uWO44yMYOaR3FyRAVirOW7E7JoGj9aPty+5pTPfuk3VMeTZZ2wOcEgdmSIbDQQzZtFlH69xydqNTVlik+lD2cFdsGZk8/k2JnszcFf7T+/B1iG6jlbkXzuMIlOUfkfXAtyxnVr8GQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PR1hi6cbAgcHWhJM/cwXFQ66oufHsToJdCJ1J7zr14k=;
- b=Zi1WoN/rlGyAj64AOHsZc7CM1LaVhJbHXmUa6DBM0RgVfby71U1tEGyummISoFCbwMJIoWxE/yC0Kf7pQWruqCHMf88QaLncsbJTH+3yb9lfWajH8ce9bouSCBFtVnXHFLFl6lNkkYfzASWxJCGvl02AiYj0Cg/5KtJul1dnKAuTwF72xqwQnDbQ7MyWKpnyxNsKJ1nHxpzSqkWgsLyIi9/O4IUsE2OnnOs2671yaIAsYTwfYdFWQfpL7NQuFOTkg6KxSrS4iQWXAU1bXF1/o48CZcTDKrIyXH69ipzH93OaBHeUk5BscVPkU9ExpgE32KBYSpWw8E9e8dox6y75DQ==
+ bh=MQBxOKpU7l/Tsjl3JpfxDHXDll0N3U7MesOsKmCfOSE=;
+ b=PthQtVZtQY5gV6AqMWZz5QHOHRlK7wTlou2dqdgc0f3dXJO+pDffWwGMhAD/47nOU+mOzEJgOQMz9UEiGHRSi5tnlNjkLYo+JMeYT6rwed7ikDsl6UieuELsI88Vhe6FjK6BVkNXqgVamPAgmeVW8M7nDFbCuWoT7FOd3zWQg8m2AQpy7RQ6ibUiKgUQD43guhqo8hi2nLU8fItRGrf78gyht6LeL7zqWJ2bgPo6Dw+9uoFlP0ZpvQKgBS1fTr4s2HWcm7lsvFI6mYdkrK+UMUfBxVZ1kaS1vc1NF2j46bDVts+0O0qNMVpvwaKs8zYqHaJn7Eyu7n/jBxZLndZZbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PR1hi6cbAgcHWhJM/cwXFQ66oufHsToJdCJ1J7zr14k=;
- b=LYbhAxng1fgsHvIQ9veHYvWP/xBB/nmsjyYf7etIzPlBbLZfiiK8myP9s+TIA9Vx3JYOR6IQzyhwG2xpziSI8n+hz9z34pOl+ooqtOQPWSzVFp7YQiueFPyu//cPMJ+qEi+Vl1LGuJc/AAhq0h9XPdJX8uZc5ksqc+qdtPGR24o=
-Received: from MW3PR06CA0020.namprd06.prod.outlook.com (2603:10b6:303:2a::25)
- by MN2PR12MB3421.namprd12.prod.outlook.com (2603:10b6:208:cd::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Tue, 19 Oct
- 2021 22:55:10 +0000
+ bh=MQBxOKpU7l/Tsjl3JpfxDHXDll0N3U7MesOsKmCfOSE=;
+ b=0zSN8DRbQaIrbM6hDY447bt3SxLiYe/qGS8mgqpWWeiisnd31fTREyOjOqdVJ6x8/Uhj43ZXXtGvpfY945nDZqUv9o+si1dYpinsIFR4Uc2XLW5ldadTIXyGe11JDAPpfSgPCwgk3UglhEQlydY0M19KDLhT36Xe0Rm2SCH90cg=
+Received: from MW3PR06CA0001.namprd06.prod.outlook.com (2603:10b6:303:2a::6)
+ by BN6PR12MB1219.namprd12.prod.outlook.com (2603:10b6:404:1c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Tue, 19 Oct
+ 2021 22:55:21 +0000
 Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2a:cafe::b0) by MW3PR06CA0020.outlook.office365.com
- (2603:10b6:303:2a::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17 via Frontend
- Transport; Tue, 19 Oct 2021 22:55:09 +0000
+ (2603:10b6:303:2a:cafe::dc) by MW3PR06CA0001.outlook.office365.com
+ (2603:10b6:303:2a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15 via Frontend
+ Transport; Tue, 19 Oct 2021 22:55:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,18 +54,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 22:55:09 +0000
+ 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 22:55:20 +0000
 Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Tue, 19 Oct
- 2021 17:55:06 -0500
+ 2021 17:55:18 -0500
 From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
  <amd-gfx@lists.freedesktop.org>
 CC: <christian.koenig@amd.com>, <daniel@ffwll.ch>, <matthew.auld@intel.com>,
  <alexander.deucher@amd.com>, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-Date: Wed, 20 Oct 2021 04:23:59 +0530
-Message-ID: <20211019225409.569355-4-Arunpravin.PaneerSelvam@amd.com>
+Date: Wed, 20 Oct 2021 04:24:03 +0530
+Message-ID: <20211019225409.569355-8-Arunpravin.PaneerSelvam@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
 References: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
@@ -77,30 +77,30 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 41271499-0fb1-41df-dc3a-08d993538087
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3421:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB342161DEF0B49B44291FB0EFE4BD9@MN2PR12MB3421.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:103;
+X-MS-Office365-Filtering-Correlation-Id: cf5a7105-5c4e-44d8-cc4f-08d993538739
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1219:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB121983D769A50AC36F4D5907E4BD9@BN6PR12MB1219.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:765;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: C5s7H3mXx/2x7O1YWyxZ13i4i8hqXguZBLR+yJR231ufv3M22M2vm7Jq4rSzX1+pVj+0rVy0Qvh/gjob12I8R/M+lCvaZjepyJpMHczOT2miSSgfHx80RMyKxCsK/xg41QATKo7cBe6UIqetnAponM6nn8/02X26L5RcgXVueLoIjnOaQXeXaVpsR5OjsFcxcq1nWBWb5c5L2EkDdgnJakNUb4qC8W89hTGSSeZTCWodYT8EXH+7w1DnpwZZA4CRKdfB2oAJY9AGDoiw8XYwcxtSUDtrWCt05+MpzOwMfazr+Ox0dZ/heNuxH3TXiIYvXTEVtl+uTD6TP2TALHy9djz8IwYcytqBlTSt8HW5Topx++o6cMOxsPBBRtrUEUQO+5kJUHS0SFoC9b6RDC3E5cGXk+ozxr0Sg+smVBc7nvPChSuVJ7BxinTeG2Vd+e19FlIBlk4cxfmvOHKBySuJs+RCK704PD/vXcdMxrWkJ5Pq+xBP3yhkpNJ6t1KXQsCpvHNXNS5Uot6fEAKOwgXR3SiL6Hxn+M2cT1gXXEDuV2f4u3P9HHZI4Rz/Jfs2l+J+BjaeoB09WtJDAnNMggLpdWnxb2fEd268nV3ccX0lFRdAi8xhp6uFGI4NX7unahSbN+algGALHPaTPUSInKO+XgmXbH7qbKstcO+ape6cLh3+rHftGBUG8U599sUo9XfVMHD/d5HYTQrjKcrrNoZhNVpXCXGAvVa+eEMfjRxmEtI=
+X-Microsoft-Antispam-Message-Info: iwQS/NVJYsJlVXU12VGucMgmJcttxuPt09p+UPmloqlUIvECrX1wlp1mI5g1eE0ZlnvCV6lNLfvZ8qOp3VkRPSBYjItImVoDn2hFwXNBPx62tG/a6Q7nVaCJfXFR8QTBmrtDiCMP7Y9xYs+7p/OQ+yNX1fv8JZR8spfsl7GkYN9UpDZV5i3VwQkHdr3Y1nIcwY/fQZa/rWTM52JX6xOBYUQp4quO4AJGT4TNroxzdWwQMUCAsgfkeXfyrfycv/FczYMZO/hGFJJowCb8Em2gilIYYnnYswVLIo93/tfNc6JhN1teKI6rawFez/Dz7TeZFW3YvX2bshiaYg1V8s9TauQTvy7q0fY+zOF74SYwindLZ32NPg0oiIRTPqpCkIFonsI0HrfpigpbPYTJsTJfQqW2rfICV81CsyS0X4+qgU/XhlMe+pobwqAEK70zQj6HqgHbXsezxQBR+c0mDkEvLFgkit/Oy/kY2d9ND7atosnCzqeszhedpbnH//XXU3ZPcVTI1/nWh0eoC650Y6oqAtL7N2vMf5xvWwZyzY4lFNLs6/kA3c/tYi2rxSAUWY2AFPeNHAXJUZlz5X5g5o6IPAh1N3BNDbsfsVi2o+6olRglh15VEdMhdvbGobHNqQ3q20mCwnO0fkUzEbs5nWCrzgqn1n1x8FS8mzD/1Tb/yDV2Pe1grSNWJxewNwsXiD1Bj7xRMWSbHVFI/N7tkvPbqmg+Hs5QJ2XufbnEd8zs9Zw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(2906002)(1076003)(8936002)(6666004)(16526019)(54906003)(81166007)(8676002)(7696005)(82310400003)(26005)(5660300002)(186003)(508600001)(47076005)(70586007)(356005)(336012)(83380400001)(426003)(4326008)(316002)(70206006)(36860700001)(2616005)(110136005)(86362001)(36756003)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(426003)(70586007)(86362001)(16526019)(81166007)(186003)(5660300002)(8676002)(4326008)(83380400001)(47076005)(356005)(36860700001)(336012)(316002)(2906002)(7696005)(110136005)(508600001)(8936002)(26005)(6666004)(82310400003)(36756003)(2616005)(70206006)(54906003)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 22:55:09.5982 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41271499-0fb1-41df-dc3a-08d993538087
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 22:55:20.8307 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf5a7105-5c4e-44d8-cc4f-08d993538739
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3421
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1219
 X-Mailman-Approved-At: Wed, 20 Oct 2021 12:59:17 +0000
-Subject: [Intel-gfx] [PATCH 03/13] drm: add Makefile support for drm buddy
+Subject: [Intel-gfx] [PATCH 07/13] drm: Implement method to free unused pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,57 +116,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-- Include drm buddy to DRM root Makefile
-- Add drm buddy init and exit function calls
-  to drm core
+On contiguous allocation, we round up the size
+to the nearest power of 2, implement a function
+to free unused pages.
 
 Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/drm/Makefile  | 2 +-
- drivers/gpu/drm/drm_drv.c | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_buddy.c | 87 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_buddy.h     |  4 ++
+ 2 files changed, 91 insertions(+)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 0dff40bb863c..dc61e91a3154 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -18,7 +18,7 @@ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
- 		drm_dumb_buffers.o drm_mode_config.o drm_vblank.o \
- 		drm_syncobj.o drm_lease.o drm_writeback.o drm_client.o \
- 		drm_client_modeset.o drm_atomic_uapi.o drm_hdcp.o \
--		drm_managed.o drm_vblank_work.o
-+		drm_managed.o drm_vblank_work.o drm_buddy.o
- 
- drm-$(CONFIG_DRM_LEGACY) += drm_agpsupport.o drm_bufs.o drm_context.o drm_dma.o \
- 			    drm_legacy_misc.o drm_lock.o drm_memory.o drm_scatter.o \
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 7a5097467ba5..6707eec21bef 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -43,6 +43,7 @@
- #include <drm/drm_managed.h>
- #include <drm/drm_mode_object.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_buddy.h>
- 
- #include "drm_crtc_internal.h"
- #include "drm_internal.h"
-@@ -1034,6 +1035,7 @@ static void drm_core_exit(void)
- 	drm_sysfs_destroy();
- 	idr_destroy(&drm_minors_idr);
- 	drm_connector_ida_destroy();
-+	drm_buddy_module_exit();
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 42ce4f8f4e0e..3e3303dd6658 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -256,6 +256,93 @@ static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+ 	return s1 <= s2 && e1 >= e2;
  }
  
- static int __init drm_core_init(void)
-@@ -1043,6 +1045,7 @@ static int __init drm_core_init(void)
- 	drm_connector_ida_init();
- 	idr_init(&drm_minors_idr);
- 	drm_memcpy_init_early();
-+	drm_buddy_module_init();
++int drm_buddy_free_unused_pages(struct drm_buddy_mm *mm,
++				u64 actual_size,
++				struct list_head *blocks)
++{
++	struct drm_buddy_block *block;
++	struct drm_buddy_block *buddy;
++	u64 actual_start;
++	u64 actual_end;
++	LIST_HEAD(dfs);
++	u64 count = 0;
++	int err;
++
++	if (!list_is_singular(blocks))
++		return -EINVAL;
++
++	block = list_first_entry_or_null(blocks,
++					 struct drm_buddy_block,
++					 link);
++
++	if (!block)
++		return -EINVAL;
++
++	if (actual_size > drm_buddy_block_size(mm, block))
++		return -EINVAL;
++
++	if (actual_size == drm_buddy_block_size(mm, block))
++		return 0;
++
++	list_del(&block->link);
++
++	actual_start = drm_buddy_block_offset(block);
++	actual_end = actual_start + actual_size - 1;
++
++	if (drm_buddy_block_is_allocated(block))
++		mark_free(mm, block);
++
++	list_add(&block->tmp_link, &dfs);
++
++	while (1) {
++		block = list_first_entry_or_null(&dfs,
++						 struct drm_buddy_block,
++						 tmp_link);
++
++		if (!block)
++			break;
++
++		list_del(&block->tmp_link);
++
++		if (count == actual_size)
++			return 0;
++
++		if (contains(actual_start, actual_end, drm_buddy_block_offset(block),
++			(drm_buddy_block_offset(block) + drm_buddy_block_size(mm, block) - 1))) {
++			BUG_ON(!drm_buddy_block_is_free(block));
++			/* Allocate only required blocks */
++			mark_allocated(block);
++			mm->avail -= drm_buddy_block_size(mm, block);
++			list_add_tail(&block->link, blocks);
++			count += drm_buddy_block_size(mm, block);
++			continue;
++		}
++
++		if (drm_buddy_block_order(block) == 0)
++			continue;
++
++		if (!drm_buddy_block_is_split(block)) {
++			err = split_block(mm, block);
++
++			if (unlikely(err))
++				goto err_undo;
++		}
++
++		list_add(&block->right->tmp_link, &dfs);
++		list_add(&block->left->tmp_link, &dfs);
++	}
++
++	return -ENOSPC;
++
++err_undo:
++	buddy = get_buddy(block);
++	if (buddy &&
++	    (drm_buddy_block_is_free(block) &&
++	     drm_buddy_block_is_free(buddy)))
++		__drm_buddy_free(mm, block);
++	return err;
++}
++
+ static struct drm_buddy_block *
+ alloc_range(struct drm_buddy_mm *mm,
+ 	    u64 start, u64 end,
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 19c7e298613e..993312841140 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -145,6 +145,10 @@ int drm_buddy_alloc(struct drm_buddy_mm *mm,
+ 		    struct list_head *blocks,
+ 		    unsigned long flags);
  
- 	ret = drm_sysfs_init();
- 	if (ret < 0) {
++int drm_buddy_free_unused_pages(struct drm_buddy_mm *mm,
++				u64 actual_size,
++				struct list_head *blocks);
++
+ void drm_buddy_free(struct drm_buddy_mm *mm, struct drm_buddy_block *block);
+ 
+ void drm_buddy_free_list(struct drm_buddy_mm *mm, struct list_head *objects);
 -- 
 2.25.1
 
