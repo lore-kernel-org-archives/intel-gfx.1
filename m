@@ -2,46 +2,44 @@ Return-Path: <SRS0=m2z4=PI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A8D2C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8E45C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3738761074
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3738761074
+	by mail.kernel.org (Postfix) with ESMTPS id 998B861074
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 998B861074
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B7F6E093;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60BE589D9B;
 	Wed, 20 Oct 2021 00:17:53 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C7E89D49
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 00:17:48 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="292121656"
-X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="292121656"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B69C89D4D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 00:17:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="292121654"
+X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="292121654"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Oct 2021 17:17:48 -0700
-X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="462967151"
+X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="462967146"
 Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
  ([10.24.14.60])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 17:17:48 -0700
+ 19 Oct 2021 17:17:47 -0700
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Matt Atwood <matthew.s.atwood@intel.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Matt Atwood <matthew.s.atwood@intel.com>,
  =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Tue, 19 Oct 2021 17:23:53 -0700
-Message-Id: <20211020002353.193893-3-jose.souza@intel.com>
+Date: Tue, 19 Oct 2021 17:23:51 -0700
+Message-Id: <20211020002353.193893-1-jose.souza@intel.com>
 X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211020002353.193893-1-jose.souza@intel.com>
-References: <20211020002353.193893-1-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Rename GT_STEP to GRAPHICS_STEP
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Add struct to hold IP version
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,394 +55,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As now graphics and media can have different steppings this patch is
-renaming all _GT_STEP macros to _GRAPHICS_STEP.
+Adding a structure to standardize access to IP versioning as future
+platforms will have this information populated at runtime.
 
-Future platforms will properly choose between _MEDIA_STEP and
-_GRAPHICS_STEP for each new workaround.
+The constant platform display version is not using this new struct but
+the runtime variant will definitely use it.
 
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c    |  2 +-
- drivers/gpu/drm/i915/gt/intel_mocs.c        |  2 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  2 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 31 +++++++-------
- drivers/gpu/drm/i915/i915_drv.h             | 46 ++++++++++-----------
- drivers/gpu/drm/i915/intel_pm.c             |  6 +--
- drivers/gpu/drm/i915/intel_step.c           | 12 +++---
- drivers/gpu/drm/i915/intel_step.h           |  2 +-
- 8 files changed, 51 insertions(+), 52 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.c               |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h               | 12 ++++++------
+ drivers/gpu/drm/i915/i915_pci.c               | 18 +++++++++---------
+ drivers/gpu/drm/i915/intel_device_info.c      | 19 ++++++++++++-------
+ drivers/gpu/drm/i915/intel_device_info.h      | 12 ++++++++----
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  2 +-
+ 6 files changed, 37 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 461844dffd7ed..e320610dd0b81 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -42,7 +42,7 @@ int gen8_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 			vf_flush_wa = true;
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 1e5b75ae99329..bdf85d202c55c 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -808,7 +808,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		return PTR_ERR(i915);
  
- 		/* WaForGAMHang:kbl */
--		if (IS_KBL_GT_STEP(rq->engine->i915, 0, STEP_C0))
-+		if (IS_KBL_GRAPHICS_STEP(rq->engine->i915, 0, STEP_C0))
- 			dc_flush_wa = true;
- 	}
+ 	/* Disable nuclear pageflip by default on pre-ILK */
+-	if (!i915->params.nuclear_pageflip && match_info->graphics_ver < 5)
++	if (!i915->params.nuclear_pageflip && match_info->graphics.ver < 5)
+ 		i915->drm.driver_features &= ~DRIVER_ATOMIC;
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 15f9ada28a7ab..9c253ba593c65 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -424,7 +424,7 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
- 
- 	table->unused_entries_index = I915_MOCS_PTE;
- 	if (IS_DG2(i915)) {
--		if (IS_DG2_GT_STEP(i915, G10, STEP_A0, STEP_B0)) {
-+		if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_A0, STEP_B0)) {
- 			table->size = ARRAY_SIZE(dg2_mocs_table_g10_ax);
- 			table->table = dg2_mocs_table_g10_ax;
- 		} else {
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index afb35d2e5c734..aec838ecb2ef2 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -158,7 +158,7 @@ intel_gt_setup_fake_lmem(struct intel_gt *gt)
- static bool get_legacy_lowmem_region(struct intel_uncore *uncore,
- 				     u64 *start, u32 *size)
- {
--	if (!IS_DG1_GT_STEP(uncore->i915, STEP_A0, STEP_C0))
-+	if (!IS_DG1_GRAPHICS_STEP(uncore->i915, STEP_A0, STEP_C0))
- 		return false;
- 
- 	*start = 0;
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index e1f3625308891..37bec83e4750c 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -482,7 +482,7 @@ static void kbl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 	gen9_ctx_workarounds_init(engine, wal);
- 
- 	/* WaToEnableHwFixForPushConstHWBug:kbl */
--	if (IS_KBL_GT_STEP(i915, STEP_C0, STEP_FOREVER))
-+	if (IS_KBL_GRAPHICS_STEP(i915, STEP_C0, STEP_FOREVER))
- 		wa_masked_en(wal, COMMON_SLICE_CHICKEN2,
- 			     GEN8_SBE_DISABLE_REPLAY_BUF_OPTIMIZATION);
- 
-@@ -916,7 +916,7 @@ skl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 		    GEN8_EU_GAUNIT_CLOCK_GATE_DISABLE);
- 
- 	/* WaInPlaceDecompressionHang:skl */
--	if (IS_SKL_GT_STEP(gt->i915, STEP_A0, STEP_H0))
-+	if (IS_SKL_GRAPHICS_STEP(gt->i915, STEP_A0, STEP_H0))
- 		wa_write_or(wal,
- 			    GEN9_GAMT_ECO_REG_RW_IA,
- 			    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
-@@ -928,7 +928,7 @@ kbl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	gen9_gt_workarounds_init(gt, wal);
- 
- 	/* WaDisableDynamicCreditSharing:kbl */
--	if (IS_KBL_GT_STEP(gt->i915, 0, STEP_C0))
-+	if (IS_KBL_GRAPHICS_STEP(gt->i915, 0, STEP_C0))
- 		wa_write_or(wal,
- 			    GAMT_CHKN_BIT_REG,
- 			    GAMT_CHKN_DISABLE_DYNAMIC_CREDIT_SHARING);
-@@ -1136,7 +1136,7 @@ icl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 
- 	/* Wa_1607087056:icl,ehl,jsl */
- 	if (IS_ICELAKE(i915) ||
--	    IS_JSL_EHL_GT_STEP(i915, STEP_A0, STEP_B0))
-+	    IS_JSL_EHL_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal,
- 			    SLICE_UNIT_LEVEL_CLKGATE,
- 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
-@@ -1190,19 +1190,19 @@ tgl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	gen12_gt_workarounds_init(gt, wal);
- 
- 	/* Wa_1409420604:tgl */
--	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
-+	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal,
- 			    SUBSLICE_UNIT_LEVEL_CLKGATE2,
- 			    CPSSUNIT_CLKGATE_DIS);
- 
- 	/* Wa_1607087056:tgl also know as BUG:1409180338 */
--	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
-+	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal,
- 			    SLICE_UNIT_LEVEL_CLKGATE,
- 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
- 
- 	/* Wa_1408615072:tgl[a0] */
--	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
-+	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE2,
- 			    VSUNIT_CLKGATE_DIS_TGL);
- }
-@@ -1215,7 +1215,7 @@ dg1_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	gen12_gt_workarounds_init(gt, wal);
- 
- 	/* Wa_1607087056:dg1 */
--	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0))
-+	if (IS_DG1_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal,
- 			    SLICE_UNIT_LEVEL_CLKGATE,
- 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
-@@ -1623,7 +1623,7 @@ static void dg1_whitelist_build(struct intel_engine_cs *engine)
- 	tgl_whitelist_build(engine);
- 
- 	/* GEN:BUG:1409280441:dg1 */
--	if (IS_DG1_GT_STEP(engine->i915, STEP_A0, STEP_B0) &&
-+	if (IS_DG1_GRAPHICS_STEP(engine->i915, STEP_A0, STEP_B0) &&
- 	    (engine->class == RENDER_CLASS ||
- 	     engine->class == COPY_ENGINE_CLASS))
- 		whitelist_reg_ext(w, RING_ID(engine->mmio_base),
-@@ -1716,8 +1716,8 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- {
- 	struct drm_i915_private *i915 = engine->i915;
- 
--	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0) ||
--	    IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0)) {
-+	if (IS_DG1_GRAPHICS_STEP(i915, STEP_A0, STEP_B0) ||
-+	    IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0)) {
- 		/*
- 		 * Wa_1607138336:tgl[a0],dg1[a0]
- 		 * Wa_1607063988:tgl[a0],dg1[a0]
-@@ -1727,7 +1727,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 			    GEN12_DISABLE_POSH_BUSY_FF_DOP_CG);
- 	}
- 
--	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0)) {
-+	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0)) {
- 		/*
- 		 * Wa_1606679103:tgl
- 		 * (see also Wa_1606682166:icl)
-@@ -1762,7 +1762,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 	}
- 
- 	if (IS_ALDERLAKE_P(i915) || IS_ALDERLAKE_S(i915) ||
--	    IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0) ||
-+	    IS_DG1_GRAPHICS_STEP(i915, STEP_A0, STEP_B0) ||
- 	    IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
- 		/* Wa_1409804808:tgl,rkl,dg1[a0],adl-s,adl-p */
- 		wa_masked_en(wal, GEN7_ROW_CHICKEN2,
-@@ -1775,8 +1775,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 		wa_masked_en(wal, GEN9_ROW_CHICKEN4, GEN12_DISABLE_TDL_PUSH);
- 	}
- 
--
--	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0) ||
-+	if (IS_DG1_GRAPHICS_STEP(i915, STEP_A0, STEP_B0) ||
- 	    IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
- 		/*
- 		 * Wa_1607030317:tgl
-@@ -2138,7 +2137,7 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 	struct drm_i915_private *i915 = engine->i915;
- 
- 	/* WaKBLVECSSemaphoreWaitPoll:kbl */
--	if (IS_KBL_GT_STEP(i915, STEP_A0, STEP_F0)) {
-+	if (IS_KBL_GRAPHICS_STEP(i915, STEP_A0, STEP_F0)) {
- 		wa_write(wal,
- 			 RING_SEMA_WAIT_POLL(engine->mmio_base),
- 			 1);
+ 	/*
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 9559cda7382f2..73cd66064f014 100644
+index 12256218634f4..26b6e2b8bb5e8 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1348,16 +1348,16 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
- #define HAS_DSB(dev_priv)	(INTEL_INFO(dev_priv)->display.has_dsb)
+@@ -1327,15 +1327,15 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
  
- #define INTEL_DISPLAY_STEP(__i915) (RUNTIME_INFO(__i915)->step.display_step)
--#define INTEL_GT_STEP(__i915) (RUNTIME_INFO(__i915)->step.gt_step)
-+#define INTEL_GRAPHICS_STEP(__i915) (RUNTIME_INFO(__i915)->step.graphics_step)
- #define INTEL_MEDIA_STEP(__i915) (RUNTIME_INFO(__i915)->step.media_step)
+ #define IP_VER(ver, rel)		((ver) << 8 | (rel))
  
- #define IS_DISPLAY_STEP(__i915, since, until) \
- 	(drm_WARN_ON(&(__i915)->drm, INTEL_DISPLAY_STEP(__i915) == STEP_NONE), \
- 	 INTEL_DISPLAY_STEP(__i915) >= (since) && INTEL_DISPLAY_STEP(__i915) < (until))
+-#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics_ver)
+-#define GRAPHICS_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->graphics_ver, \
+-					       INTEL_INFO(i915)->graphics_rel)
++#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics.ver)
++#define GRAPHICS_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->graphics.ver, \
++					       INTEL_INFO(i915)->graphics.rel)
+ #define IS_GRAPHICS_VER(i915, from, until) \
+ 	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
  
--#define IS_GT_STEP(__i915, since, until) \
--	(drm_WARN_ON(&(__i915)->drm, INTEL_GT_STEP(__i915) == STEP_NONE), \
--	 INTEL_GT_STEP(__i915) >= (since) && INTEL_GT_STEP(__i915) < (until))
-+#define IS_GRAPHICS_STEP(__i915, since, until) \
-+	(drm_WARN_ON(&(__i915)->drm, INTEL_GRAPHICS_STEP(__i915) == STEP_NONE), \
-+	 INTEL_GRAPHICS_STEP(__i915) >= (since) && INTEL_GRAPHICS_STEP(__i915) < (until))
+-#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media_ver)
+-#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media_ver, \
+-					       INTEL_INFO(i915)->media_rel)
++#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media.ver)
++#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media.arch, \
++					       INTEL_INFO(i915)->media.rel)
+ #define IS_MEDIA_VER(i915, from, until) \
+ 	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
  
- #define IS_MEDIA_STEP(__i915, since, until) \
- 	(drm_WARN_ON(&(__i915)->drm, INTEL_MEDIA_STEP(__i915) == STEP_NONE), \
-@@ -1535,15 +1535,15 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_TGL_Y(dev_priv) \
- 	IS_SUBPLATFORM(dev_priv, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_ULX)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 169837de395d3..5e6795853dc31 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -32,8 +32,8 @@
  
--#define IS_SKL_GT_STEP(p, since, until) (IS_SKYLAKE(p) && IS_GT_STEP(p, since, until))
-+#define IS_SKL_GRAPHICS_STEP(p, since, until) (IS_SKYLAKE(p) && IS_GRAPHICS_STEP(p, since, until))
+ #define PLATFORM(x) .platform = (x)
+ #define GEN(x) \
+-	.graphics_ver = (x), \
+-	.media_ver = (x), \
++	.graphics.ver = (x), \
++	.media.ver = (x), \
+ 	.display.ver = (x)
  
--#define IS_KBL_GT_STEP(dev_priv, since, until) \
--	(IS_KABYLAKE(dev_priv) && IS_GT_STEP(dev_priv, since, until))
-+#define IS_KBL_GRAPHICS_STEP(dev_priv, since, until) \
-+	(IS_KABYLAKE(dev_priv) && IS_GRAPHICS_STEP(dev_priv, since, until))
- #define IS_KBL_DISPLAY_STEP(dev_priv, since, until) \
- 	(IS_KABYLAKE(dev_priv) && IS_DISPLAY_STEP(dev_priv, since, until))
+ #define I845_PIPE_OFFSETS \
+@@ -899,7 +899,7 @@ static const struct intel_device_info rkl_info = {
+ static const struct intel_device_info dg1_info = {
+ 	GEN12_FEATURES,
+ 	DGFX_FEATURES,
+-	.graphics_rel = 10,
++	.graphics.rel = 10,
+ 	PLATFORM(INTEL_DG1),
+ 	.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
+ 	.require_force_probe = 1,
+@@ -986,8 +986,8 @@ static const struct intel_device_info adl_p_info = {
+ 		      I915_GTT_PAGE_SIZE_2M
  
--#define IS_JSL_EHL_GT_STEP(p, since, until) \
--	(IS_JSL_EHL(p) && IS_GT_STEP(p, since, until))
-+#define IS_JSL_EHL_GRAPHICS_STEP(p, since, until) \
-+	(IS_JSL_EHL(p) && IS_GRAPHICS_STEP(p, since, until))
- #define IS_JSL_EHL_DISPLAY_STEP(p, since, until) \
- 	(IS_JSL_EHL(p) && IS_DISPLAY_STEP(p, since, until))
+ #define XE_HP_FEATURES \
+-	.graphics_ver = 12, \
+-	.graphics_rel = 50, \
++	.graphics.ver = 12, \
++	.graphics.rel = 50, \
+ 	XE_HP_PAGE_SIZES, \
+ 	.dma_mask_size = 46, \
+ 	.has_64bit_reloc = 1, \
+@@ -1005,8 +1005,8 @@ static const struct intel_device_info adl_p_info = {
+ 	.ppgtt_type = INTEL_PPGTT_FULL
  
-@@ -1551,19 +1551,19 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	(IS_TIGERLAKE(__i915) && \
- 	 IS_DISPLAY_STEP(__i915, since, until))
+ #define XE_HPM_FEATURES \
+-	.media_ver = 12, \
+-	.media_rel = 50
++	.media.ver = 12, \
++	.media.rel = 50
  
--#define IS_TGL_UY_GT_STEP(__i915, since, until) \
-+#define IS_TGL_UY_GRAPHICS_STEP(__i915, since, until) \
- 	((IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
--	 IS_GT_STEP(__i915, since, until))
-+	 IS_GRAPHICS_STEP(__i915, since, until))
+ __maybe_unused
+ static const struct intel_device_info xehpsdv_info = {
+@@ -1030,8 +1030,8 @@ static const struct intel_device_info dg2_info = {
+ 	XE_HPM_FEATURES,
+ 	XE_LPD_FEATURES,
+ 	DGFX_FEATURES,
+-	.graphics_rel = 55,
+-	.media_rel = 55,
++	.graphics.rel = 55,
++	.media.rel = 55,
+ 	PLATFORM(INTEL_DG2),
+ 	.platform_engine_mask =
+ 		BIT(RCS0) | BIT(BCS0) |
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 305facedd2841..6e6b317bc33ce 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -97,17 +97,22 @@ static const char *iommu_name(void)
+ void intel_device_info_print_static(const struct intel_device_info *info,
+ 				    struct drm_printer *p)
+ {
+-	if (info->graphics_rel)
+-		drm_printf(p, "graphics version: %u.%02u\n", info->graphics_ver, info->graphics_rel);
++	if (info->graphics.rel)
++		drm_printf(p, "graphics version: %u.%02u\n", info->graphics.ver,
++			   info->graphics.rel);
+ 	else
+-		drm_printf(p, "graphics version: %u\n", info->graphics_ver);
++		drm_printf(p, "graphics version: %u\n", info->graphics.ver);
  
--#define IS_TGL_GT_STEP(__i915, since, until) \
-+#define IS_TGL_GRAPHICS_STEP(__i915, since, until) \
- 	(IS_TIGERLAKE(__i915) && !(IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
--	 IS_GT_STEP(__i915, since, until))
-+	 IS_GRAPHICS_STEP(__i915, since, until))
+-	if (info->media_rel)
+-		drm_printf(p, "media version: %u.%02u\n", info->media_ver, info->media_rel);
++	if (info->media.rel)
++		drm_printf(p, "media version: %u.%02u\n", info->media.ver, info->media.rel);
+ 	else
+-		drm_printf(p, "media version: %u\n", info->media_ver);
++		drm_printf(p, "media version: %u\n", info->media.ver);
++
++	if (info->display.rel)
++		drm_printf(p, "display version: %u.%02u\n", info->display.ver, info->display.rel);
++	else
++		drm_printf(p, "display version: %u\n", info->display.ver);
  
- #define IS_RKL_DISPLAY_STEP(p, since, until) \
- 	(IS_ROCKETLAKE(p) && IS_DISPLAY_STEP(p, since, until))
+-	drm_printf(p, "display version: %u\n", info->display.ver);
+ 	drm_printf(p, "gt: %d\n", info->gt);
+ 	drm_printf(p, "iommu: %s\n", iommu_name());
+ 	drm_printf(p, "memory-regions: %x\n", info->memory_regions);
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 8e6f48d1eb7bc..669f0d26c3c38 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -166,11 +166,14 @@ enum intel_ppgtt_type {
+ 	func(overlay_needs_physical); \
+ 	func(supports_tv);
  
--#define IS_DG1_GT_STEP(p, since, until) \
--	(IS_DG1(p) && IS_GT_STEP(p, since, until))
-+#define IS_DG1_GRAPHICS_STEP(p, since, until) \
-+	(IS_DG1(p) && IS_GRAPHICS_STEP(p, since, until))
- #define IS_DG1_DISPLAY_STEP(p, since, until) \
- 	(IS_DG1(p) && IS_DISPLAY_STEP(p, since, until))
++struct ip_version {
++	u8 ver;
++	u8 rel;
++};
++
+ struct intel_device_info {
+-	u8 graphics_ver;
+-	u8 graphics_rel;
+-	u8 media_ver;
+-	u8 media_rel;
++	struct ip_version graphics;
++	struct ip_version media;
  
-@@ -1571,20 +1571,20 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	(IS_ALDERLAKE_S(__i915) && \
- 	 IS_DISPLAY_STEP(__i915, since, until))
+ 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
  
--#define IS_ADLS_GT_STEP(__i915, since, until) \
-+#define IS_ADLS_GRAPHICS_STEP(__i915, since, until) \
- 	(IS_ALDERLAKE_S(__i915) && \
--	 IS_GT_STEP(__i915, since, until))
-+	 IS_GRAPHICS_STEP(__i915, since, until))
+@@ -200,6 +203,7 @@ struct intel_device_info {
  
- #define IS_ADLP_DISPLAY_STEP(__i915, since, until) \
- 	(IS_ALDERLAKE_P(__i915) && \
- 	 IS_DISPLAY_STEP(__i915, since, until))
+ 	struct {
+ 		u8 ver;
++		u8 rel;
  
--#define IS_ADLP_GT_STEP(__i915, since, until) \
-+#define IS_ADLP_GRAPHICS_STEP(__i915, since, until) \
- 	(IS_ALDERLAKE_P(__i915) && \
--	 IS_GT_STEP(__i915, since, until))
-+	 IS_GRAPHICS_STEP(__i915, since, until))
+ #define DEFINE_FLAG(name) u8 name:1
+ 		DEV_INFO_DISPLAY_FOR_EACH_FLAG(DEFINE_FLAG);
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+index 4f81801468881..9ab3f284d1dd9 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+@@ -165,7 +165,7 @@ struct drm_i915_private *mock_gem_device(void)
+ 	/* Using the global GTT may ask questions about KMS users, so prepare */
+ 	drm_mode_config_init(&i915->drm);
  
--#define IS_XEHPSDV_GT_STEP(__i915, since, until) \
--	(IS_XEHPSDV(__i915) && IS_GT_STEP(__i915, since, until))
-+#define IS_XEHPSDV_GRAPHICS_STEP(__i915, since, until) \
-+	(IS_XEHPSDV(__i915) && IS_GRAPHICS_STEP(__i915, since, until))
+-	mkwrite_device_info(i915)->graphics_ver = -1;
++	mkwrite_device_info(i915)->graphics.ver = -1;
  
- /*
-  * DG2 hardware steppings are a bit unusual.  The hardware design was forked
-@@ -1600,9 +1600,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
-  * and stepping-specific logic will be applied with a general DG2-wide stepping
-  * number.
-  */
--#define IS_DG2_GT_STEP(__i915, variant, since, until) \
-+#define IS_DG2_GRAPHICS_STEP(__i915, variant, since, until) \
- 	(IS_SUBPLATFORM(__i915, INTEL_DG2, INTEL_SUBPLATFORM_##variant) && \
--	 IS_GT_STEP(__i915, since, until))
-+	 IS_GRAPHICS_STEP(__i915, since, until))
- 
- #define IS_DG2_DISP_STEP(__i915, since, until) \
- 	(IS_DG2(__i915) && \
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 201477ca408a5..fcc25f0fefc7a 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -7473,7 +7473,7 @@ static void dg1_init_clock_gating(struct drm_i915_private *dev_priv)
- 	gen12lp_init_clock_gating(dev_priv);
- 
- 	/* Wa_1409836686:dg1[a0] */
--	if (IS_DG1_GT_STEP(dev_priv, STEP_A0, STEP_B0))
-+	if (IS_DG1_GRAPHICS_STEP(dev_priv, STEP_A0, STEP_B0))
- 		intel_uncore_write(&dev_priv->uncore, GEN9_CLKGATE_DIS_3, intel_uncore_read(&dev_priv->uncore, GEN9_CLKGATE_DIS_3) |
- 			   DPT_GATING_DIS);
- }
-@@ -7521,12 +7521,12 @@ static void kbl_init_clock_gating(struct drm_i915_private *dev_priv)
- 		   FBC_LLC_FULLY_OPEN);
- 
- 	/* WaDisableSDEUnitClockGating:kbl */
--	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_C0))
-+	if (IS_KBL_GRAPHICS_STEP(dev_priv, 0, STEP_C0))
- 		intel_uncore_write(&dev_priv->uncore, GEN8_UCGCTL6, intel_uncore_read(&dev_priv->uncore, GEN8_UCGCTL6) |
- 			   GEN8_SDEUNIT_CLOCK_GATE_DISABLE);
- 
- 	/* WaDisableGamClockGating:kbl */
--	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_C0))
-+	if (IS_KBL_GRAPHICS_STEP(dev_priv, 0, STEP_C0))
- 		intel_uncore_write(&dev_priv->uncore, GEN6_UCGCTL1, intel_uncore_read(&dev_priv->uncore, GEN6_UCGCTL1) |
- 			   GEN6_GAMUNIT_CLOCK_GATE_DISABLE);
- 
-diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-index 1cf8f0bb0b5e5..a4b16b9e2e55d 100644
---- a/drivers/gpu/drm/i915/intel_step.c
-+++ b/drivers/gpu/drm/i915/intel_step.c
-@@ -23,8 +23,8 @@
-  * use a macro to define these to make it easier to identify the platforms
-  * where the two steppings can deviate.
-  */
--#define COMMON_STEP(x)  .gt_step = STEP_##x, .display_step = STEP_##x, .media_step = STEP_##x
--#define COMMON_GT_MEDIA_STEP(x)  .gt_step = STEP_##x, .media_step = STEP_##x
-+#define COMMON_STEP(x)  .graphics_step = STEP_##x, .display_step = STEP_##x, .media_step = STEP_##x
-+#define COMMON_GT_MEDIA_STEP(x)  .graphics_step = STEP_##x, .media_step = STEP_##x
- 
- static const struct intel_step_info skl_revids[] = {
- 	[0x6] = { COMMON_STEP(G0) },
-@@ -180,7 +180,7 @@ void intel_step_init(struct drm_i915_private *i915)
- 	if (!revids)
- 		return;
- 
--	if (revid < size && revids[revid].gt_step != STEP_NONE) {
-+	if (revid < size && revids[revid].graphics_step != STEP_NONE) {
- 		step = revids[revid];
- 	} else {
- 		drm_warn(&i915->drm, "Unknown revid 0x%02x\n", revid);
-@@ -193,7 +193,7 @@ void intel_step_init(struct drm_i915_private *i915)
- 		 * steppings in the array are not monotonically increasing, but
- 		 * it's better than defaulting to 0.
- 		 */
--		while (revid < size && revids[revid].gt_step == STEP_NONE)
-+		while (revid < size && revids[revid].graphics_step == STEP_NONE)
- 			revid++;
- 
- 		if (revid < size) {
-@@ -202,12 +202,12 @@ void intel_step_init(struct drm_i915_private *i915)
- 			step = revids[revid];
- 		} else {
- 			drm_dbg(&i915->drm, "Using future steppings\n");
--			step.gt_step = STEP_FUTURE;
-+			step.graphics_step = STEP_FUTURE;
- 			step.display_step = STEP_FUTURE;
- 		}
- 	}
- 
--	if (drm_WARN_ON(&i915->drm, step.gt_step == STEP_NONE))
-+	if (drm_WARN_ON(&i915->drm, step.graphics_step == STEP_NONE))
- 		return;
- 
- 	RUNTIME_INFO(i915)->step = step;
-diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
-index b6ff41b7bcf59..d71a99bd51793 100644
---- a/drivers/gpu/drm/i915/intel_step.h
-+++ b/drivers/gpu/drm/i915/intel_step.h
-@@ -11,7 +11,7 @@
- struct drm_i915_private;
- 
- struct intel_step_info {
--	u8 gt_step;
-+	u8 graphics_step;
- 	u8 display_step;
- 	u8 media_step;
- };
+ 	mkwrite_device_info(i915)->page_sizes =
+ 		I915_GTT_PAGE_SIZE_4K |
 -- 
 2.33.1
 
