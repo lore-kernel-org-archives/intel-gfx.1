@@ -1,41 +1,48 @@
-Return-Path: <SRS0=c+lk=PH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=m2z4=PI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5EF3C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 23:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BC29C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B5A460C40
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 23:46:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B5A460C40
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id DB7836103D
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DB7836103D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7346E88C;
-	Tue, 19 Oct 2021 23:46:23 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 955896E847;
- Tue, 19 Oct 2021 23:46:22 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 82369A73C9;
- Tue, 19 Oct 2021 23:46:22 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7954725972030425692=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D20889D49;
+	Wed, 20 Oct 2021 00:17:50 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64BF089D49
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 00:17:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="292121655"
+X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="292121655"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 17:17:48 -0700
+X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="462967149"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 17:17:48 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Matt Atwood <matthew.s.atwood@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Tue, 19 Oct 2021 17:23:52 -0700
+Message-Id: <20211020002353.193893-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20211020002353.193893-1-jose.souza@intel.com>
+References: <20211020002353.193893-1-jose.souza@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Claudio Suarez" <cssk@net-c.es>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Oct 2021 23:46:22 -0000
-Message-ID: <163468718249.5187.4960805473253750635@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211016184226.3862-1-cssk@net-c.es>
-In-Reply-To: <20211016184226.3862-1-cssk@net-c.es>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgcmVw?=
- =?utf-8?q?lace_drm=5Fdetect=5Fhdmi=5Fmonitor=28=29_with_drm=5Fdisplay=5Fi?=
- =?utf-8?b?bmZvLmlzX2hkbWkgKHJldjUp?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Track media IP stepping separated
+ from GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,298 +55,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7954725972030425692==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Graphics and media IPs can have different stepping so a new field is
+needed in intel_step_info.
 
-== Series Details ==
+The next patch will take care of rename gt_step to graphics_step.
 
-Series: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi (rev5)
-URL   : https://patchwork.freedesktop.org/series/95880/
-State : success
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h   |  5 +++
+ drivers/gpu/drm/i915/intel_step.c | 69 ++++++++++++++++---------------
+ drivers/gpu/drm/i915/intel_step.h |  1 +
+ 3 files changed, 41 insertions(+), 34 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 26b6e2b8bb5e8..9559cda7382f2 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1349,6 +1349,7 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+ 
+ #define INTEL_DISPLAY_STEP(__i915) (RUNTIME_INFO(__i915)->step.display_step)
+ #define INTEL_GT_STEP(__i915) (RUNTIME_INFO(__i915)->step.gt_step)
++#define INTEL_MEDIA_STEP(__i915) (RUNTIME_INFO(__i915)->step.media_step)
+ 
+ #define IS_DISPLAY_STEP(__i915, since, until) \
+ 	(drm_WARN_ON(&(__i915)->drm, INTEL_DISPLAY_STEP(__i915) == STEP_NONE), \
+@@ -1358,6 +1359,10 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+ 	(drm_WARN_ON(&(__i915)->drm, INTEL_GT_STEP(__i915) == STEP_NONE), \
+ 	 INTEL_GT_STEP(__i915) >= (since) && INTEL_GT_STEP(__i915) < (until))
+ 
++#define IS_MEDIA_STEP(__i915, since, until) \
++	(drm_WARN_ON(&(__i915)->drm, INTEL_MEDIA_STEP(__i915) == STEP_NONE), \
++	 INTEL_MEDIA_STEP(__i915) >= (since) && INTEL_MEDIA_STEP(__i915) < (until))
++
+ static __always_inline unsigned int
+ __platform_mask_index(const struct intel_runtime_info *info,
+ 		      enum intel_platform p)
+diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+index 6cf9676313959..1cf8f0bb0b5e5 100644
+--- a/drivers/gpu/drm/i915/intel_step.c
++++ b/drivers/gpu/drm/i915/intel_step.c
+@@ -23,7 +23,8 @@
+  * use a macro to define these to make it easier to identify the platforms
+  * where the two steppings can deviate.
+  */
+-#define COMMON_STEP(x)  .gt_step = STEP_##x, .display_step = STEP_##x
++#define COMMON_STEP(x)  .gt_step = STEP_##x, .display_step = STEP_##x, .media_step = STEP_##x
++#define COMMON_GT_MEDIA_STEP(x)  .gt_step = STEP_##x, .media_step = STEP_##x
+ 
+ static const struct intel_step_info skl_revids[] = {
+ 	[0x6] = { COMMON_STEP(G0) },
+@@ -33,13 +34,13 @@ static const struct intel_step_info skl_revids[] = {
+ };
+ 
+ static const struct intel_step_info kbl_revids[] = {
+-	[1] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+-	[2] = { .gt_step = STEP_C0, .display_step = STEP_B0 },
+-	[3] = { .gt_step = STEP_D0, .display_step = STEP_B0 },
+-	[4] = { .gt_step = STEP_F0, .display_step = STEP_C0 },
+-	[5] = { .gt_step = STEP_C0, .display_step = STEP_B1 },
+-	[6] = { .gt_step = STEP_D1, .display_step = STEP_B1 },
+-	[7] = { .gt_step = STEP_G0, .display_step = STEP_C0 },
++	[1] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_B0 },
++	[2] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_B0 },
++	[3] = { COMMON_GT_MEDIA_STEP(D0), .display_step = STEP_B0 },
++	[4] = { COMMON_GT_MEDIA_STEP(F0), .display_step = STEP_C0 },
++	[5] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_B1 },
++	[6] = { COMMON_GT_MEDIA_STEP(D1), .display_step = STEP_B1 },
++	[7] = { COMMON_GT_MEDIA_STEP(G0), .display_step = STEP_C0 },
+ };
+ 
+ static const struct intel_step_info bxt_revids[] = {
+@@ -63,16 +64,16 @@ static const struct intel_step_info jsl_ehl_revids[] = {
+ };
+ 
+ static const struct intel_step_info tgl_uy_revids[] = {
+-	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+-	[1] = { .gt_step = STEP_B0, .display_step = STEP_C0 },
+-	[2] = { .gt_step = STEP_B1, .display_step = STEP_C0 },
+-	[3] = { .gt_step = STEP_C0, .display_step = STEP_D0 },
++	[0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_A0 },
++	[1] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_C0 },
++	[2] = { COMMON_GT_MEDIA_STEP(B1), .display_step = STEP_C0 },
++	[3] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_D0 },
+ };
+ 
+ /* Same GT stepping between tgl_uy_revids and tgl_revids don't mean the same HW */
+ static const struct intel_step_info tgl_revids[] = {
+-	[0] = { .gt_step = STEP_A0, .display_step = STEP_B0 },
+-	[1] = { .gt_step = STEP_B0, .display_step = STEP_D0 },
++	[0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_B0 },
++	[1] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_D0 },
+ };
+ 
+ static const struct intel_step_info rkl_revids[] = {
+@@ -87,38 +88,38 @@ static const struct intel_step_info dg1_revids[] = {
+ };
+ 
+ static const struct intel_step_info adls_revids[] = {
+-	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+-	[0x1] = { .gt_step = STEP_A0, .display_step = STEP_A2 },
+-	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+-	[0x8] = { .gt_step = STEP_C0, .display_step = STEP_B0 },
+-	[0xC] = { .gt_step = STEP_D0, .display_step = STEP_C0 },
++	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_A0 },
++	[0x1] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_A2 },
++	[0x4] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_B0 },
++	[0x8] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_B0 },
++	[0xC] = { COMMON_GT_MEDIA_STEP(D0), .display_step = STEP_C0 },
+ };
+ 
+ static const struct intel_step_info adlp_revids[] = {
+-	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+-	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+-	[0x8] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
+-	[0xC] = { .gt_step = STEP_C0, .display_step = STEP_D0 },
++	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_A0 },
++	[0x4] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_B0 },
++	[0x8] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_C0 },
++	[0xC] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_D0 },
+ };
+ 
+ static const struct intel_step_info xehpsdv_revids[] = {
+-	[0x0] = { .gt_step = STEP_A0 },
+-	[0x1] = { .gt_step = STEP_A1 },
+-	[0x4] = { .gt_step = STEP_B0 },
+-	[0x8] = { .gt_step = STEP_C0 },
++	[0x0] = { COMMON_GT_MEDIA_STEP(A0) },
++	[0x1] = { COMMON_GT_MEDIA_STEP(A1) },
++	[0x4] = { COMMON_GT_MEDIA_STEP(B0) },
++	[0x8] = { COMMON_GT_MEDIA_STEP(C0) },
+ };
+ 
+ static const struct intel_step_info dg2_g10_revid_step_tbl[] = {
+-	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+-	[0x1] = { .gt_step = STEP_A1, .display_step = STEP_A0 },
+-	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+-	[0x8] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
++	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_A0 },
++	[0x1] = { COMMON_GT_MEDIA_STEP(A1), .display_step = STEP_A0 },
++	[0x4] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_B0 },
++	[0x8] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_C0 },
+ };
+ 
+ static const struct intel_step_info dg2_g11_revid_step_tbl[] = {
+-	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_B0 },
+-	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_C0 },
+-	[0x5] = { .gt_step = STEP_B1, .display_step = STEP_C0 },
++	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_B0 },
++	[0x4] = { COMMON_GT_MEDIA_STEP(B0), .display_step = STEP_C0 },
++	[0x5] = { COMMON_GT_MEDIA_STEP(B1), .display_step = STEP_C0 },
+ };
+ 
+ void intel_step_init(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
+index f6641e2a3c776..b6ff41b7bcf59 100644
+--- a/drivers/gpu/drm/i915/intel_step.h
++++ b/drivers/gpu/drm/i915/intel_step.h
+@@ -13,6 +13,7 @@ struct drm_i915_private;
+ struct intel_step_info {
+ 	u8 gt_step;
+ 	u8 display_step;
++	u8 media_step;
+ };
+ 
+ #define STEP_ENUM_VAL(name)  STEP_##name,
+-- 
+2.33.1
 
-CI Bug Log - changes from CI_DRM_10762 -> Patchwork_21384
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21384 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@query-info:
-    - fi-ilk-650:         NOTRUN -> [SKIP][1] ([fdo#109271]) +35 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-ilk-650/igt@amdgpu/amd_basic@query-info.html
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][2] ([fdo#109315])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@amdgpu/amd_basic@query-info.html
-
-  * igt@amdgpu/amd_cs_nop@nop-gfx0:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][3] ([fdo#109315] / [i915#2575]) +16 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@amdgpu/amd_cs_nop@nop-gfx0.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][4] ([i915#2190])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html
-
-  * igt@i915_pm_backlight@basic-brightness:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][5] ([i915#1155])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [PASS][6] -> [INCOMPLETE][7] ([i915#3921])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10762/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][8] ([fdo#111827]) +8 similar issues
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_chamelium@dp-hpd-fast:
-    - fi-ilk-650:         NOTRUN -> [SKIP][9] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-ilk-650/igt@kms_chamelium@dp-hpd-fast.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][10] ([i915#4103]) +1 similar issue
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][11] ([fdo#109285])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_psr@primary_mmap_gtt:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][12] ([i915#1072]) +3 similar issues
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-tgl-1115g4:      NOTRUN -> [SKIP][13] ([i915#3301])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html
-
-  
-#### Warnings ####
-
-  * igt@runner@aborted:
-    - fi-icl-u2:          [FAIL][14] ([i915#3363]) -> [FAIL][15] ([i915#3363] / [i915#4312])
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10762/fi-icl-u2/igt@runner@aborted.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-icl-u2/igt@runner@aborted.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
-  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
-  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
-  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-
-
-Participating hosts (36 -> 35)
-------------------------------
-
-  Additional (2): fi-tgl-1115g4 fi-ilk-650 
-  Missing    (3): fi-kbl-soraka fi-bsw-cyan bat-dg1-6 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10762 -> Patchwork_21384
-
-  CI-20190529: 20190529
-  CI_DRM_10762: 448b23374caeafa59d2a057fdc1a7c069b934960 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6255: 9b0881254557edeaf273b2196309fc4e22ea0312 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21384: 415fad5a7f91890c0da0e797faa5b928c1a44da2 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-415fad5a7f91 drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-69ae884f14bd drm/nouveau: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-5f65b0c735df drm/bridge: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-7c1d51956f94 drm/rockchip: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-199244a0b398 drm/sti: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-045c9182b766 drm/sun4i: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-a43989d686a3 drm/msm: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-d343d69908cd drm/exynos: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-4e2489b2ac97 drm/gma500: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-4f4be9d8da74 drm/tegra: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-6467b8c22e2e drm/radeon: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-1180ca83baa8 drm/vc4: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-34716383fea8 gpu/drm: make drm_add_edid_modes() consistent when updating connector->display_info
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/index.html
-
---===============7954725972030425692==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95880/">https://patchwork.freedesktop.org/series/95880/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10762 -&gt; Patchwork_21384</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21384 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@query-info:</p>
-<ul>
-<li>
-<p>fi-ilk-650:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-ilk-650/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +35 similar issues</p>
-</li>
-<li>
-<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@amdgpu/amd_cs_nop@nop-gfx0:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@amdgpu/amd_cs_nop@nop-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>) +16 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_backlight@basic-brightness:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1155">i915#1155</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10762/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-hpd-fast:</p>
-<ul>
-<li>fi-ilk-650:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-ilk-650/igt@kms_chamelium@dp-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4103">i915#4103</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@primary_mmap_gtt:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Warnings</h4>
-<ul>
-<li>igt@runner@aborted:<ul>
-<li>fi-icl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10762/fi-icl-u2/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21384/fi-icl-u2/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (36 -&gt; 35)</h2>
-<p>Additional (2): fi-tgl-1115g4 fi-ilk-650 <br />
-  Missing    (3): fi-kbl-soraka fi-bsw-cyan bat-dg1-6 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10762 -&gt; Patchwork_21384</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10762: 448b23374caeafa59d2a057fdc1a7c069b934960 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6255: 9b0881254557edeaf273b2196309fc4e22ea0312 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21384: 415fad5a7f91890c0da0e797faa5b928c1a44da2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>415fad5a7f91 drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-69ae884f14bd drm/nouveau: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-5f65b0c735df drm/bridge: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-7c1d51956f94 drm/rockchip: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-199244a0b398 drm/sti: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-045c9182b766 drm/sun4i: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-a43989d686a3 drm/msm: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-d343d69908cd drm/exynos: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-4e2489b2ac97 drm/gma500: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-4f4be9d8da74 drm/tegra: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-6467b8c22e2e drm/radeon: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-1180ca83baa8 drm/vc4: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
-34716383fea8 gpu/drm: make drm_add_edid_modes() consistent when updating connector-&gt;display_info</p>
-
-</body>
-</html>
-
---===============7954725972030425692==--
