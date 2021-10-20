@@ -2,44 +2,45 @@ Return-Path: <SRS0=m2z4=PI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8E45C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14EA8C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 998B861074
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:17:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 998B861074
+	by mail.kernel.org (Postfix) with ESMTPS id C5D03610F8
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 00:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C5D03610F8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60BE589D9B;
-	Wed, 20 Oct 2021 00:17:53 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B69C89D4D
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 00:17:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="292121654"
-X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="292121654"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 17:17:48 -0700
-X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="462967146"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA676E20E;
+	Wed, 20 Oct 2021 00:29:51 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 614E66E20E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 00:29:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="228534865"
+X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="228534865"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 17:29:48 -0700
+X-IronPort-AV: E=Sophos;i="5.87,165,1631602800"; d="scan'208";a="532441056"
 Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
  ([10.24.14.60])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 17:17:47 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 17:29:48 -0700
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Matt Atwood <matthew.s.atwood@intel.com>,
+ Imre Deak <imre.deak@intel.com>,
  =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Tue, 19 Oct 2021 17:23:51 -0700
-Message-Id: <20211020002353.193893-1-jose.souza@intel.com>
+Date: Tue, 19 Oct 2021 17:35:57 -0700
+Message-Id: <20211020003558.222198-1-jose.souza@intel.com>
 X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Add struct to hold IP version
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/display: Rename
+ POWER_DOMAIN_DPLL_DC_OFF to POWER_DOMAIN_DC_OFF
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,198 +56,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding a structure to standardize access to IP versioning as future
-platforms will have this information populated at runtime.
-
-The constant platform display version is not using this new struct but
-the runtime variant will definitely use it.
+This power domain to disable DC states will be used in places outside
+of DPLL, so making the name more generic.
 
 Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.c               |  2 +-
- drivers/gpu/drm/i915/i915_drv.h               | 12 ++++++------
- drivers/gpu/drm/i915/i915_pci.c               | 18 +++++++++---------
- drivers/gpu/drm/i915/intel_device_info.c      | 19 ++++++++++++-------
- drivers/gpu/drm/i915/intel_device_info.h      | 12 ++++++++----
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  2 +-
- 6 files changed, 37 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 6 +++---
+ drivers/gpu/drm/i915/display/intel_display_power.h | 2 +-
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c      | 6 +++---
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 1e5b75ae99329..bdf85d202c55c 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -808,7 +808,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		return PTR_ERR(i915);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index d88da0d0f05ac..6637760d24e0c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -155,8 +155,8 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
+ 		return "MODESET";
+ 	case POWER_DOMAIN_GT_IRQ:
+ 		return "GT_IRQ";
+-	case POWER_DOMAIN_DPLL_DC_OFF:
+-		return "DPLL_DC_OFF";
++	case POWER_DOMAIN_DC_OFF:
++		return "DC_OFF";
+ 	case POWER_DOMAIN_TC_COLD_OFF:
+ 		return "TC_COLD_OFF";
+ 	default:
+@@ -2803,7 +2803,7 @@ intel_display_power_put_mask_in_set(struct drm_i915_private *i915,
+ 	ICL_PW_2_POWER_DOMAINS |			\
+ 	BIT_ULL(POWER_DOMAIN_MODESET) |			\
+ 	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+-	BIT_ULL(POWER_DOMAIN_DPLL_DC_OFF) |			\
++	BIT_ULL(POWER_DOMAIN_DC_OFF) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
  
- 	/* Disable nuclear pageflip by default on pre-ILK */
--	if (!i915->params.nuclear_pageflip && match_info->graphics_ver < 5)
-+	if (!i915->params.nuclear_pageflip && match_info->graphics.ver < 5)
- 		i915->drm.driver_features &= ~DRIVER_ATOMIC;
+ #define ICL_DDI_IO_A_POWER_DOMAINS (			\
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+index 0612e4b6e3c81..d54b7574ed373 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+@@ -117,7 +117,7 @@ enum intel_display_power_domain {
+ 	POWER_DOMAIN_GMBUS,
+ 	POWER_DOMAIN_MODESET,
+ 	POWER_DOMAIN_GT_IRQ,
+-	POWER_DOMAIN_DPLL_DC_OFF,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_TC_COLD_OFF,
+ 	POWER_DOMAIN_INIT,
  
- 	/*
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 12256218634f4..26b6e2b8bb5e8 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1327,15 +1327,15 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index ca69b67bbc231..fc8fda77483ab 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -3741,7 +3741,7 @@ static void combo_pll_enable(struct drm_i915_private *dev_priv,
+ 		 * domain.
+ 		 */
+ 		pll->wakeref = intel_display_power_get(dev_priv,
+-						       POWER_DOMAIN_DPLL_DC_OFF);
++						       POWER_DOMAIN_DC_OFF);
+ 	}
  
- #define IP_VER(ver, rel)		((ver) << 8 | (rel))
+ 	icl_pll_power_enable(dev_priv, pll, enable_reg);
+@@ -3848,7 +3848,7 @@ static void combo_pll_disable(struct drm_i915_private *dev_priv,
  
--#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics_ver)
--#define GRAPHICS_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->graphics_ver, \
--					       INTEL_INFO(i915)->graphics_rel)
-+#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics.ver)
-+#define GRAPHICS_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->graphics.ver, \
-+					       INTEL_INFO(i915)->graphics.rel)
- #define IS_GRAPHICS_VER(i915, from, until) \
- 	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
+ 	if (IS_JSL_EHL(dev_priv) &&
+ 	    pll->info->id == DPLL_ID_EHL_DPLL4)
+-		intel_display_power_put(dev_priv, POWER_DOMAIN_DPLL_DC_OFF,
++		intel_display_power_put(dev_priv, POWER_DOMAIN_DC_OFF,
+ 					pll->wakeref);
+ }
  
--#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media_ver)
--#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media_ver, \
--					       INTEL_INFO(i915)->media_rel)
-+#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media.ver)
-+#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media.arch, \
-+					       INTEL_INFO(i915)->media.rel)
- #define IS_MEDIA_VER(i915, from, until) \
- 	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
+@@ -4232,7 +4232,7 @@ static void readout_dpll_hw_state(struct drm_i915_private *i915,
+ 	if (IS_JSL_EHL(i915) && pll->on &&
+ 	    pll->info->id == DPLL_ID_EHL_DPLL4) {
+ 		pll->wakeref = intel_display_power_get(i915,
+-						       POWER_DOMAIN_DPLL_DC_OFF);
++						       POWER_DOMAIN_DC_OFF);
+ 	}
  
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 169837de395d3..5e6795853dc31 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -32,8 +32,8 @@
- 
- #define PLATFORM(x) .platform = (x)
- #define GEN(x) \
--	.graphics_ver = (x), \
--	.media_ver = (x), \
-+	.graphics.ver = (x), \
-+	.media.ver = (x), \
- 	.display.ver = (x)
- 
- #define I845_PIPE_OFFSETS \
-@@ -899,7 +899,7 @@ static const struct intel_device_info rkl_info = {
- static const struct intel_device_info dg1_info = {
- 	GEN12_FEATURES,
- 	DGFX_FEATURES,
--	.graphics_rel = 10,
-+	.graphics.rel = 10,
- 	PLATFORM(INTEL_DG1),
- 	.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
- 	.require_force_probe = 1,
-@@ -986,8 +986,8 @@ static const struct intel_device_info adl_p_info = {
- 		      I915_GTT_PAGE_SIZE_2M
- 
- #define XE_HP_FEATURES \
--	.graphics_ver = 12, \
--	.graphics_rel = 50, \
-+	.graphics.ver = 12, \
-+	.graphics.rel = 50, \
- 	XE_HP_PAGE_SIZES, \
- 	.dma_mask_size = 46, \
- 	.has_64bit_reloc = 1, \
-@@ -1005,8 +1005,8 @@ static const struct intel_device_info adl_p_info = {
- 	.ppgtt_type = INTEL_PPGTT_FULL
- 
- #define XE_HPM_FEATURES \
--	.media_ver = 12, \
--	.media_rel = 50
-+	.media.ver = 12, \
-+	.media.rel = 50
- 
- __maybe_unused
- static const struct intel_device_info xehpsdv_info = {
-@@ -1030,8 +1030,8 @@ static const struct intel_device_info dg2_info = {
- 	XE_HPM_FEATURES,
- 	XE_LPD_FEATURES,
- 	DGFX_FEATURES,
--	.graphics_rel = 55,
--	.media_rel = 55,
-+	.graphics.rel = 55,
-+	.media.rel = 55,
- 	PLATFORM(INTEL_DG2),
- 	.platform_engine_mask =
- 		BIT(RCS0) | BIT(BCS0) |
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 305facedd2841..6e6b317bc33ce 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -97,17 +97,22 @@ static const char *iommu_name(void)
- void intel_device_info_print_static(const struct intel_device_info *info,
- 				    struct drm_printer *p)
- {
--	if (info->graphics_rel)
--		drm_printf(p, "graphics version: %u.%02u\n", info->graphics_ver, info->graphics_rel);
-+	if (info->graphics.rel)
-+		drm_printf(p, "graphics version: %u.%02u\n", info->graphics.ver,
-+			   info->graphics.rel);
- 	else
--		drm_printf(p, "graphics version: %u\n", info->graphics_ver);
-+		drm_printf(p, "graphics version: %u\n", info->graphics.ver);
- 
--	if (info->media_rel)
--		drm_printf(p, "media version: %u.%02u\n", info->media_ver, info->media_rel);
-+	if (info->media.rel)
-+		drm_printf(p, "media version: %u.%02u\n", info->media.ver, info->media.rel);
- 	else
--		drm_printf(p, "media version: %u\n", info->media_ver);
-+		drm_printf(p, "media version: %u\n", info->media.ver);
-+
-+	if (info->display.rel)
-+		drm_printf(p, "display version: %u.%02u\n", info->display.ver, info->display.rel);
-+	else
-+		drm_printf(p, "display version: %u\n", info->display.ver);
- 
--	drm_printf(p, "display version: %u\n", info->display.ver);
- 	drm_printf(p, "gt: %d\n", info->gt);
- 	drm_printf(p, "iommu: %s\n", iommu_name());
- 	drm_printf(p, "memory-regions: %x\n", info->memory_regions);
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 8e6f48d1eb7bc..669f0d26c3c38 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -166,11 +166,14 @@ enum intel_ppgtt_type {
- 	func(overlay_needs_physical); \
- 	func(supports_tv);
- 
-+struct ip_version {
-+	u8 ver;
-+	u8 rel;
-+};
-+
- struct intel_device_info {
--	u8 graphics_ver;
--	u8 graphics_rel;
--	u8 media_ver;
--	u8 media_rel;
-+	struct ip_version graphics;
-+	struct ip_version media;
- 
- 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
- 
-@@ -200,6 +203,7 @@ struct intel_device_info {
- 
- 	struct {
- 		u8 ver;
-+		u8 rel;
- 
- #define DEFINE_FLAG(name) u8 name:1
- 		DEV_INFO_DISPLAY_FOR_EACH_FLAG(DEFINE_FLAG);
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 4f81801468881..9ab3f284d1dd9 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -165,7 +165,7 @@ struct drm_i915_private *mock_gem_device(void)
- 	/* Using the global GTT may ask questions about KMS users, so prepare */
- 	drm_mode_config_init(&i915->drm);
- 
--	mkwrite_device_info(i915)->graphics_ver = -1;
-+	mkwrite_device_info(i915)->graphics.ver = -1;
- 
- 	mkwrite_device_info(i915)->page_sizes =
- 		I915_GTT_PAGE_SIZE_4K |
+ 	pll->state.pipe_mask = 0;
 -- 
 2.33.1
 
