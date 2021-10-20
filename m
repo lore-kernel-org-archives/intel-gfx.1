@@ -2,46 +2,39 @@ Return-Path: <SRS0=m2z4=PI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 63A45C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 22:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0367BC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 22:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D77D6115B
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 22:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D77D6115B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BDD0561212
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 22:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BDD0561212
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94EA36EA13;
-	Wed, 20 Oct 2021 22:34:01 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30ABA6EA13
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 22:33:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="215815178"
-X-IronPort-AV: E=Sophos;i="5.87,168,1631602800"; d="scan'208";a="215815178"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2021 15:33:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,168,1631602800"; d="scan'208";a="568081346"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by FMSMGA003.fm.intel.com with SMTP; 20 Oct 2021 15:33:49 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 21 Oct 2021 01:33:48 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Lyude Paul <lyude@redhat.com>
-Date: Thu, 21 Oct 2021 01:33:38 +0300
-Message-Id: <20211020223339.669-4-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211020223339.669-1-ville.syrjala@linux.intel.com>
-References: <20211020223339.669-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8056E415;
+	Wed, 20 Oct 2021 22:34:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D52356E415;
+ Wed, 20 Oct 2021 22:34:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CEE01AA0EA;
+ Wed, 20 Oct 2021 22:34:57 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5300100019856959062=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Use vblank workers for gamma
- updates
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vinay Belgaumkar" <vinay.belgaumkar@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 20 Oct 2021 22:34:57 -0000
+Message-ID: <163476929784.27359.17173071602196165734@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211020195216.36173-1-vinay.belgaumkar@intel.com>
+In-Reply-To: <20211020195216.36173-1-vinay.belgaumkar@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/guc/slpc=3A_Implement_waitboost_for_SLPC?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,339 +47,300 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============5300100019856959062==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The pipe gamma registers are single buffered so they should only
-be updated during the vblank to avoid screen tearing. In fact they
-really should only be updated between start of vblank and frame
-start because that is the only time the pipe is guaranteed to be
-empty. Already at frame start the pipe begins to fill up with
-data for the next frame.
+== Series Details ==
 
-Unfortunately frame start happens ~1 scanline after the start
-of vblank which in practice doesn't always leave us enough time to
-finish the gamma update in time (gamma LUTs can be several KiB of
-data we have to bash into the registers). However we must try our
-best and so we'll add a vblank work for each pipe from where we
-can do the gamma update. Additionally we could consider pushing
-frame start forward to the max of ~4 scanlines after start of
-vblank. But not sure that's exactly a validated configuration.
-As it stands the ~100 first pixels tend to make it through with
-the old gamma values.
+Series: drm/i915/guc/slpc: Implement waitboost for SLPC
+URL   : https://patchwork.freedesktop.org/series/96082/
+State : failure
 
-Even though the vblank worker is running on a high prority thread
-we still have to contend with C-states. If the CPU happens be in
-a deep C-state when the vblank interrupt arrives even the irq
-handler gets delayed massively (I've observed dozens of scanlines
-worth of latency). To avoid that problem we'll use the qos mechanism
-to keep the CPU awake while the vblank work is scheduled.
+== Summary ==
 
-With all this hooked up we can finally enjoy near atomic gamma
-updates. It even works across several pipes from the same atomic
-commit which previously was a total fail because we did the
-gamma updates for each pipe serially after waiting for all
-pipes to have latched the double buffered registers.
+CI Bug Log - changes from CI_DRM_10766 -> Patchwork_21394
+====================================================
 
-In the future the DSB should take over this responsibility
-which will hopefully avoid some of these issues.
+Summary
+-------
 
-Kudos to Lyude for finishing the actual vblank workers.
-Works like the proverbial train toilet.
+  **FAILURE**
 
-v2: Add missing intel_atomic_state fwd declaration
-v3: Clean up properly when not scheduling the worker
-v4: Clean up the rest and add tracepoints
+  Serious unknown changes coming with Patchwork_21394 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_21394, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-CC: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_crtc.c     | 76 ++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_crtc.h     |  4 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  9 +--
- .../drm/i915/display/intel_display_types.h    |  8 ++
- drivers/gpu/drm/i915/i915_trace.h             | 42 ++++++++++
- 5 files changed, 129 insertions(+), 10 deletions(-)
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/index.html
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 0f8b48b6911c..4758c61adae8 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -3,12 +3,14 @@
-  * Copyright © 2020 Intel Corporation
-  */
- #include <linux/kernel.h>
-+#include <linux/pm_qos.h>
- #include <linux/slab.h>
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_plane_helper.h>
-+#include <drm/drm_vblank_work.h>
- 
- #include "i915_trace.h"
- #include "i915_vgpu.h"
-@@ -167,6 +169,8 @@ static void intel_crtc_destroy(struct drm_crtc *_crtc)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(_crtc);
- 
-+	cpu_latency_qos_remove_request(&crtc->vblank_pm_qos);
-+
- 	drm_crtc_cleanup(&crtc->base);
- 	kfree(crtc);
- }
-@@ -344,6 +348,8 @@ int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
- 
- 	intel_crtc_crc_init(crtc);
- 
-+	cpu_latency_qos_add_request(&crtc->vblank_pm_qos, PM_QOS_DEFAULT_VALUE);
-+
- 	drm_WARN_ON(&dev_priv->drm, drm_crtc_index(&crtc->base) != crtc->pipe);
- 
- 	return 0;
-@@ -354,6 +360,65 @@ int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
- 	return ret;
- }
- 
-+static bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
-+{
-+	return crtc_state->hw.active &&
-+		!intel_crtc_needs_modeset(crtc_state) &&
-+		!crtc_state->preload_luts &&
-+		(crtc_state->uapi.color_mgmt_changed ||
-+		 crtc_state->update_pipe);
-+}
-+
-+static void intel_crtc_vblank_work(struct kthread_work *base)
-+{
-+	struct drm_vblank_work *work = to_drm_vblank_work(base);
-+	struct intel_crtc_state *crtc_state =
-+		container_of(work, typeof(*crtc_state), vblank_work);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	trace_intel_crtc_vblank_work_start(crtc);
-+
-+	intel_color_load_luts(crtc_state);
-+
-+	if (crtc_state->uapi.event) {
-+		spin_lock_irq(&crtc->base.dev->event_lock);
-+		drm_crtc_send_vblank_event(&crtc->base, crtc_state->uapi.event);
-+		crtc_state->uapi.event = NULL;
-+		spin_unlock_irq(&crtc->base.dev->event_lock);
-+	}
-+
-+	trace_intel_crtc_vblank_work_end(crtc);
-+}
-+
-+static void intel_crtc_vblank_work_init(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	drm_vblank_work_init(&crtc_state->vblank_work, &crtc->base,
-+			     intel_crtc_vblank_work);
-+	/*
-+	 * Interrupt latency is critical for getting the vblank
-+	 * work executed as early as possible during the vblank.
-+	 */
-+	cpu_latency_qos_update_request(&crtc->vblank_pm_qos, 0);
-+}
-+
-+void intel_wait_for_vblank_works(struct intel_atomic_state *state)
-+{
-+	struct intel_crtc_state *crtc_state;
-+	struct intel_crtc *crtc;
-+	int i;
-+
-+	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
-+		if (!intel_crtc_needs_vblank_work(crtc_state))
-+			continue;
-+
-+		drm_vblank_work_flush(&crtc_state->vblank_work);
-+		cpu_latency_qos_update_request(&crtc->vblank_pm_qos,
-+					       PM_QOS_DEFAULT_VALUE);
-+	}
-+}
-+
- int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
- 			     int usecs)
- {
-@@ -387,7 +452,7 @@ static int intel_mode_vblank_start(const struct drm_display_mode *mode)
-  * until a subsequent call to intel_pipe_update_end(). That is done to
-  * avoid random delays.
-  */
--void intel_pipe_update_start(const struct intel_crtc_state *new_crtc_state)
-+void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-@@ -402,6 +467,9 @@ void intel_pipe_update_start(const struct intel_crtc_state *new_crtc_state)
- 	if (new_crtc_state->uapi.async_flip)
- 		return;
- 
-+	if (intel_crtc_needs_vblank_work(new_crtc_state))
-+		intel_crtc_vblank_work_init(new_crtc_state);
-+
- 	if (new_crtc_state->vrr.enable)
- 		vblank_start = intel_vrr_vmax_vblank_start(new_crtc_state);
- 	else
-@@ -557,7 +625,11 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
- 	 * Would be slightly nice to just grab the vblank count and arm the
- 	 * event outside of the critical section - the spinlock might spin for a
- 	 * while ... */
--	if (new_crtc_state->uapi.event) {
-+	if (intel_crtc_needs_vblank_work(new_crtc_state)) {
-+		drm_vblank_work_schedule(&new_crtc_state->vblank_work,
-+					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
-+					 false);
-+	} else if (new_crtc_state->uapi.event) {
- 		drm_WARN_ON(&dev_priv->drm,
- 			    drm_crtc_vblank_get(&crtc->base) != 0);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
-index 22363fbbc925..25eb58bce0dd 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.h
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.h
-@@ -11,6 +11,7 @@
- enum pipe;
- struct drm_display_mode;
- struct drm_i915_private;
-+struct intel_atomic_state;
- struct intel_crtc;
- struct intel_crtc_state;
- 
-@@ -24,7 +25,8 @@ void intel_crtc_state_reset(struct intel_crtc_state *crtc_state,
- u32 intel_crtc_get_vblank_counter(struct intel_crtc *crtc);
- void intel_crtc_vblank_on(const struct intel_crtc_state *crtc_state);
- void intel_crtc_vblank_off(const struct intel_crtc_state *crtc_state);
--void intel_pipe_update_start(const struct intel_crtc_state *new_crtc_state);
-+void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state);
- void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state);
-+void intel_wait_for_vblank_works(struct intel_atomic_state *state);
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 79a7552af7b5..1375d963c0a8 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8818,6 +8818,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 		intel_set_cdclk_post_plane_update(state);
- 	}
- 
-+	intel_wait_for_vblank_works(state);
-+
- 	/* FIXME: We should call drm_atomic_helper_commit_hw_done() here
- 	 * already, but still need the state for the delayed optimization. To
- 	 * fix this:
-@@ -8832,13 +8834,6 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
- 		if (new_crtc_state->uapi.async_flip)
- 			intel_crtc_disable_flip_done(state, crtc);
--
--		if (new_crtc_state->hw.active &&
--		    !intel_crtc_needs_modeset(new_crtc_state) &&
--		    !new_crtc_state->preload_luts &&
--		    (new_crtc_state->uapi.color_mgmt_changed ||
--		     new_crtc_state->update_pipe))
--			intel_color_load_luts(new_crtc_state);
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 1e42bf901263..8bb9264022f5 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -28,6 +28,7 @@
- 
- #include <linux/async.h>
- #include <linux/i2c.h>
-+#include <linux/pm_qos.h>
- #include <linux/pwm.h>
- #include <linux/sched/clock.h>
- 
-@@ -41,6 +42,7 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_rect.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_vblank_work.h>
- #include <drm/i915_mei_hdcp_interface.h>
- #include <media/cec-notifier.h>
- 
-@@ -1241,6 +1243,9 @@ struct intel_crtc_state {
- 		u8 link_count;
- 		u8 pixel_overlap;
- 	} splitter;
-+
-+	/* for loading single buffered registers during vblank */
-+	struct drm_vblank_work vblank_work;
- };
- 
- enum intel_pipe_crc_source {
-@@ -1325,6 +1330,9 @@ struct intel_crtc {
- 	/* scalers available on this crtc */
- 	int num_scalers;
- 
-+	/* for loading single buffered registers during vblank */
-+	struct pm_qos_request vblank_pm_qos;
-+
- #ifdef CONFIG_DEBUG_FS
- 	struct intel_pipe_crc pipe_crc;
- #endif
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index 9795f456cccf..fc48a16d7a4f 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -404,6 +404,48 @@ TRACE_EVENT(intel_fbc_nuke,
- 
- /* pipe updates */
- 
-+TRACE_EVENT(intel_crtc_vblank_work_start,
-+	    TP_PROTO(struct intel_crtc *crtc),
-+	    TP_ARGS(crtc),
-+
-+	    TP_STRUCT__entry(
-+			     __field(enum pipe, pipe)
-+			     __field(u32, frame)
-+			     __field(u32, scanline)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __entry->pipe = crtc->pipe;
-+			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
-+			   __entry->scanline = intel_get_crtc_scanline(crtc);
-+			   ),
-+
-+	    TP_printk("pipe %c, frame=%u, scanline=%u",
-+		      pipe_name(__entry->pipe), __entry->frame,
-+		       __entry->scanline)
-+);
-+
-+TRACE_EVENT(intel_crtc_vblank_work_end,
-+	    TP_PROTO(struct intel_crtc *crtc),
-+	    TP_ARGS(crtc),
-+
-+	    TP_STRUCT__entry(
-+			     __field(enum pipe, pipe)
-+			     __field(u32, frame)
-+			     __field(u32, scanline)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __entry->pipe = crtc->pipe;
-+			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
-+			   __entry->scanline = intel_get_crtc_scanline(crtc);
-+			   ),
-+
-+	    TP_printk("pipe %c, frame=%u, scanline=%u",
-+		      pipe_name(__entry->pipe), __entry->frame,
-+		       __entry->scanline)
-+);
-+
- TRACE_EVENT(intel_pipe_update_start,
- 	    TP_PROTO(struct intel_crtc *crtc),
- 	    TP_ARGS(crtc),
--- 
-2.32.0
+Possible new issues
+-------------------
 
+  Here are the unknown changes that may have been introduced in Patchwork_21394:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@kms_busy@basic@flip:
+    - fi-rkl-guc:         [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10766/fi-rkl-guc/igt@kms_busy@basic@flip.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-rkl-guc/igt@kms_busy@basic@flip.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21394 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@query-info:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][3] ([fdo#109315])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@amdgpu/amd_basic@query-info.html
+
+  * igt@amdgpu/amd_cs_nop@nop-gfx0:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][4] ([fdo#109315] / [i915#2575]) +16 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@amdgpu/amd_cs_nop@nop-gfx0.html
+
+  * igt@gem_exec_parallel@engines@userptr:
+    - fi-pnv-d510:        [PASS][5] -> [INCOMPLETE][6] ([i915#299])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10766/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-tgl-1115g4:      NOTRUN -> [FAIL][7] ([i915#1888])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][8] ([i915#2190])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html
+
+  * igt@i915_pm_backlight@basic-brightness:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][9] ([i915#1155])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][10] ([fdo#111827]) +8 similar issues
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][11] ([i915#4103]) +1 similar issue
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][12] ([fdo#109285])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_psr@primary_mmap_gtt:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][13] ([i915#1072]) +3 similar issues
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][14] ([i915#3301])
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html
+
+  * igt@runner@aborted:
+    - fi-pnv-d510:        NOTRUN -> [FAIL][15] ([i915#2403] / [i915#4312])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-pnv-d510/igt@runner@aborted.html
+
+  
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2403]: https://gitlab.freedesktop.org/drm/intel/issues/2403
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#299]: https://gitlab.freedesktop.org/drm/intel/issues/299
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+
+
+Participating hosts (40 -> 37)
+------------------------------
+
+  Additional (1): fi-tgl-1115g4 
+  Missing    (4): fi-ctg-p8600 fi-bsw-cyan bat-dg1-6 fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10766 -> Patchwork_21394
+
+  CI-20190529: 20190529
+  CI_DRM_10766: ec5a16c84280673a3a09a67c445b0df3d205c30b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6258: 4c80c71d7dec29b6376846ae96bd04dc0b6e34d9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21394: d2be325e7ae0d35177155991c9d752d3c168bafc @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+d2be325e7ae0 drm/i915/guc/slpc: Update boost sysfs hooks for SLPC
+cda3c12346d8 drm/i915/guc/slpc: Add waitboost functionality for SLPC
+0eb920836a06 drm/i915/guc/slpc: Define and initialize boost frequency
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/index.html
+
+--===============5300100019856959062==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/guc/slpc: Implement waitboost for SLPC</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/96082/">https://patchwork.freedesktop.org/series/96082/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10766 -&gt; Patchwork_21394</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_21394 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_21394, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_21394:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@kms_busy@basic@flip:<ul>
+<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10766/fi-rkl-guc/igt@kms_busy@basic@flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-rkl-guc/igt@kms_busy@basic@flip.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21394 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@query-info:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@nop-gfx0:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@amdgpu/amd_cs_nop@nop-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>) +16 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_parallel@engines@userptr:</p>
+<ul>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10766/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/299">i915#299</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_backlight@basic-brightness:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1155">i915#1155</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4103">i915#4103</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_mmap_gtt:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21394/fi-pnv-d510/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2403">i915#2403</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (40 -&gt; 37)</h2>
+<p>Additional (1): fi-tgl-1115g4 <br />
+  Missing    (4): fi-ctg-p8600 fi-bsw-cyan bat-dg1-6 fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10766 -&gt; Patchwork_21394</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10766: ec5a16c84280673a3a09a67c445b0df3d205c30b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6258: 4c80c71d7dec29b6376846ae96bd04dc0b6e34d9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21394: d2be325e7ae0d35177155991c9d752d3c168bafc @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>d2be325e7ae0 drm/i915/guc/slpc: Update boost sysfs hooks for SLPC<br />
+cda3c12346d8 drm/i915/guc/slpc: Add waitboost functionality for SLPC<br />
+0eb920836a06 drm/i915/guc/slpc: Define and initialize boost frequency</p>
+
+</body>
+</html>
+
+--===============5300100019856959062==--
