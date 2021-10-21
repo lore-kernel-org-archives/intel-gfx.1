@@ -2,48 +2,49 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3728C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90E68C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3E936120F
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B3E936120F
+	by mail.kernel.org (Postfix) with ESMTPS id 5F9DD6121E
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F9DD6121E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17DCC6EC9B;
-	Thu, 21 Oct 2021 14:24:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 496936ECA3;
+	Thu, 21 Oct 2021 14:24:30 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E08C6EC9B;
- Thu, 21 Oct 2021 14:24:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="216212209"
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="216212209"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5816EC96;
+ Thu, 21 Oct 2021 14:24:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="216212242"
+X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="216212242"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 07:24:12 -0700
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="495170509"
+ 21 Oct 2021 07:24:19 -0700
+X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="495170572"
 Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 07:24:09 -0700
+ 21 Oct 2021 07:24:16 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
 Cc: Daniel Vetter <daniel@ffwll.ch>, CQ Tang <cq.tang@intel.com>,
  Matthew Auld <matthew.auld@intel.com>, lucas.demarchi@intel.com,
  <rodrigo.vivi@intel.com>, Hellstrom Thomas <thomas.hellstrom@intel.com>,
- Ramalingam C <ramalingam.c@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Date: Thu, 21 Oct 2021 19:56:19 +0530
-Message-Id: <20211021142627.31058-10-ramalingam.c@intel.com>
+ Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+ Ramalingam C <ramalingam.c@intel.com>
+Date: Thu, 21 Oct 2021 19:56:21 +0530
+Message-Id: <20211021142627.31058-12-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211021142627.31058-1-ramalingam.c@intel.com>
 References: <20211021142627.31058-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/17] drm/i915/xehpsdv: implement memory
- coloring
+Subject: [Intel-gfx] [PATCH v2 11/17] drm/i915/lmem: Enable lmem for
+ platforms with Flat CCS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,184 +60,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Auld <matthew.auld@intel.com>
+From: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
 
-The basic idea is that each 2M block(page-table) has a color, depending
-on if the page-table is occupied by LMEM objects(64K) or SMEM
-objects(4K), where our goal is to prevent mixing 64K and 4K GTT pages in
-the page-table, which is not supported by the HW.
+A portion of device memory is reserved for Flat CCS so usable
+device memory will be reduced by size of Flat CCS. Size of
+Flat CCS is specified in “XEHPSDV_FLAT_CCS_BASE_ADDR”.
+So to get effective device memory we need to subtract
+total device memory by Flat CCS memory size.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c  | 16 ++++++++++
- drivers/gpu/drm/i915/gt/intel_gtt.h   |  6 ++++
- drivers/gpu/drm/i915/i915_gem_evict.c | 17 ++++++++++
- drivers/gpu/drm/i915/i915_vma.c       | 46 +++++++++++++++++++--------
- 4 files changed, 71 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c          | 19 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt.h          |  1 +
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 22 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_reg.h             |  3 +++
+ 4 files changed, 43 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index fec0f20f1b93..666745adbe93 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -464,6 +464,19 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
- 	return idx;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 1cb1948ac959..fd82ebee8724 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -900,6 +900,25 @@ u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg)
+ 	return intel_uncore_read_fw(gt->uncore, reg);
  }
  
-+static void xehpsdv_ppgtt_color_adjust(const struct drm_mm_node *node,
-+				       unsigned long color,
-+				       u64 *start,
-+				       u64 *end)
++u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg)
 +{
-+	if (i915_node_color_differs(node, color))
-+		*start = round_up(*start, SZ_2M);
++	int type;
++	u8 sliceid, subsliceid;
 +
-+	node = list_next_entry(node, node_list);
-+	if (i915_node_color_differs(node, color))
-+		*end = round_down(*end, SZ_2M);
-+}
-+
- static void
- xehpsdv_ppgtt_insert_huge(struct i915_vma *vma,
- 			  struct sgt_dma *iter,
-@@ -901,6 +914,9 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
- 		ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
- 	}
- 
-+	if (HAS_64K_PAGES(gt->i915))
-+		ppgtt->vm.mm.color_adjust = xehpsdv_ppgtt_color_adjust;
-+
- 	err = gen8_init_scratch(&ppgtt->vm);
- 	if (err)
- 		goto err_free;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 20101eef4c95..34696acde342 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -397,6 +397,12 @@ i915_vm_has_cache_coloring(struct i915_address_space *vm)
- 	return i915_is_ggtt(vm) && vm->mm.color_adjust;
- }
- 
-+static inline bool
-+i915_vm_has_memory_coloring(struct i915_address_space *vm)
-+{
-+	return !i915_is_ggtt(vm) && vm->mm.color_adjust;
-+}
-+
- static inline struct i915_ggtt *
- i915_vm_to_ggtt(struct i915_address_space *vm)
- {
-diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-index 2b73ddb11c66..006bf4924c24 100644
---- a/drivers/gpu/drm/i915/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-@@ -292,6 +292,13 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
- 
- 		/* Always look at the page afterwards to avoid the end-of-GTT */
- 		end += I915_GTT_PAGE_SIZE;
-+	} else if (i915_vm_has_memory_coloring(vm)) {
-+		/*
-+		 * Expand the search the cover the page-table boundries, in
-+		 * case we need to flip the color of the page-table(s).
-+		 */
-+		start = round_down(start, SZ_2M);
-+		end = round_up(end, SZ_2M);
- 	}
- 	GEM_BUG_ON(start >= end);
- 
-@@ -321,6 +328,16 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
- 				if (node->color == target->color)
- 					continue;
- 			}
-+		} else if (i915_vm_has_memory_coloring(vm)) {
-+			if (node->start + node->size <= target->start) {
-+				if (node->color == target->color)
-+					continue;
-+			}
-+
-+			if (node->start >= target->start + target->size) {
-+				if (node->color == target->color)
-+					continue;
-+			}
- 		}
- 
- 		if (i915_vma_is_pinned(vma)) {
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index c31b4bc8af16..92b124ecc38c 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -585,6 +585,10 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
- 	struct drm_mm_node *node = &vma->node;
- 	struct drm_mm_node *other;
- 
-+	/* Only valid to be called on an already inserted vma */
-+	GEM_BUG_ON(!drm_mm_node_allocated(node));
-+	GEM_BUG_ON(list_empty(&node->node_list));
-+
- 	/*
- 	 * On some machines we have to be careful when putting differing types
- 	 * of snoopable memory together to avoid the prefetcher crossing memory
-@@ -592,22 +596,34 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
- 	 * these constraints apply and set the drm_mm.color_adjust
- 	 * appropriately.
- 	 */
--	if (!i915_vm_has_cache_coloring(vma->vm))
--		return true;
--
--	/* Only valid to be called on an already inserted vma */
--	GEM_BUG_ON(!drm_mm_node_allocated(node));
--	GEM_BUG_ON(list_empty(&node->node_list));
-+	if (i915_vm_has_cache_coloring(vma->vm)) {
-+		other = list_prev_entry(node, node_list);
-+		if (i915_node_color_differs(other, color) &&
-+		    !drm_mm_hole_follows(other))
-+			return false;
- 
--	other = list_prev_entry(node, node_list);
--	if (i915_node_color_differs(other, color) &&
--	    !drm_mm_hole_follows(other))
--		return false;
-+		other = list_next_entry(node, node_list);
-+		if (i915_node_color_differs(other, color) &&
-+		    !drm_mm_hole_follows(node))
-+			return false;
-+	/*
-+	 * On XEHPSDV we need to make sure we are not mixing LMEM and SMEM objects
-+	 * in the same page-table, i.e mixing 64K and 4K gtt pages in the same
-+	 * page-table.
-+	 */
-+	} else if (i915_vm_has_memory_coloring(vma->vm)) {
-+		other = list_prev_entry(node, node_list);
-+		if (i915_node_color_differs(other, color) &&
-+		    !drm_mm_hole_follows(other) &&
-+		    !IS_ALIGNED(other->start + other->size, SZ_2M))
-+			return false;
- 
--	other = list_next_entry(node, node_list);
--	if (i915_node_color_differs(other, color) &&
--	    !drm_mm_hole_follows(node))
--		return false;
-+		other = list_next_entry(node, node_list);
-+		if (i915_node_color_differs(other, color) &&
-+		    !drm_mm_hole_follows(node) &&
-+		    !IS_ALIGNED(other->start, SZ_2M))
-+			return false;
++	for (type = 0; type < NUM_STEERING_TYPES; type++) {
++		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
++			intel_gt_get_valid_steering(gt, type, &sliceid,
++						    &subsliceid);
++			return intel_uncore_read_with_mcr_steering(gt->uncore,
++								   reg,
++								   sliceid,
++								   subsliceid);
++		}
 +	}
- 
- 	return true;
++
++	return intel_uncore_read(gt->uncore, reg);
++}
++
+ void intel_gt_info_print(const struct intel_gt_info *info,
+ 			 struct drm_printer *p)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 74e771871a9b..24b78398a587 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -84,6 +84,7 @@ static inline bool intel_gt_needs_read_steering(struct intel_gt *gt,
  }
-@@ -676,6 +692,8 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
  
- 		if (i915_vm_has_cache_coloring(vma->vm))
- 			color = vma->obj->cache_level;
-+		else if (i915_vm_has_memory_coloring(vma->vm))
-+			color = i915_gem_object_is_lmem(vma->obj);
- 	}
+ u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg);
++u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg);
  
- 	if (flags & PIN_OFFSET_FIXED) {
+ void intel_gt_info_print(const struct intel_gt_info *info,
+ 			 struct drm_printer *p);
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index 073d28d96669..d1f88beb26fe 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -201,8 +201,26 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
+ 	if (!IS_DGFX(i915))
+ 		return ERR_PTR(-ENODEV);
+ 
+-	/* Stolen starts from GSMBASE on DG1 */
+-	lmem_size = intel_uncore_read64(uncore, GEN12_GSMBASE);
++	if (HAS_FLAT_CCS(i915)) {
++		u64 tile_stolen, flat_ccs_base_addr_reg, flat_ccs_base;
++
++		lmem_size = pci_resource_len(pdev, 2);
++		flat_ccs_base_addr_reg = intel_gt_read_register(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
++		flat_ccs_base = (flat_ccs_base_addr_reg >> XEHPSDV_CCS_BASE_SHIFT) * SZ_64K;
++		tile_stolen = lmem_size - flat_ccs_base;
++
++		/* If the FLAT_CCS_BASE_ADDR register is not populated, flag an error */
++		if (tile_stolen == lmem_size)
++			DRM_ERROR("CCS_BASE_ADDR register did not have expected value\n");
++
++		lmem_size -= tile_stolen;
++	} else {
++		/* Stolen starts from GSMBASE without CCS */
++		lmem_size = intel_uncore_read64(&i915->uncore, GEN12_GSMBASE);
++		if (GEM_WARN_ON(lmem_size > pci_resource_len(pdev, 2)))
++			return ERR_PTR(-ENODEV);
++	}
++
+ 
+ 	io_start = pci_resource_start(pdev, 2);
+ 	if (GEM_WARN_ON(lmem_size > pci_resource_len(pdev, 2)))
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 1e221fbe37fd..3693eb03f5aa 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -12469,6 +12469,9 @@ enum skl_power_gate {
+ #define GEN12_GSMBASE			_MMIO(0x108100)
+ #define GEN12_DSMBASE			_MMIO(0x1080C0)
+ 
++#define XEHPSDV_FLAT_CCS_BASE_ADDR             _MMIO(0x4910)
++#define   XEHPSDV_CCS_BASE_SHIFT               8
++
+ /* gamt regs */
+ #define GEN8_L3_LRA_1_GPGPU _MMIO(0x4dd4)
+ #define   GEN8_L3_LRA_1_GPGPU_DEFAULT_VALUE_BDW  0x67F1427F /* max/min for LRA1/2 */
 -- 
 2.20.1
 
