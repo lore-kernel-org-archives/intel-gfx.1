@@ -2,36 +2,36 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72018C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B57EC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DDF160E05
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3DDF160E05
+	by mail.kernel.org (Postfix) with ESMTPS id 4AF9261205
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4AF9261205
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 657506EC56;
-	Thu, 21 Oct 2021 10:36:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB986EC57;
+	Thu, 21 Oct 2021 10:36:17 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 118A56E42A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 154E06E42C;
  Thu, 21 Oct 2021 10:36:11 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>
-Date: Thu, 21 Oct 2021 12:35:43 +0200
-Message-Id: <20211021103605.735002-6-maarten.lankhorst@linux.intel.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:45 +0200
+Message-Id: <20211021103605.735002-8-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/28] drm/i915: Remove gen6_ppgtt_unpin_all
+Subject: [Intel-gfx] [PATCH 08/28] drm/i915: Create a full object for
+ mock_ring, v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,49 +47,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-gen6_ppgtt_unpin_all is unused, kill it.
+This allows us to finally get rid of all the assumptions that vma->obj is NULL.
+
+Changes since v1:
+- Ensure the mock_ring vma is pinned to prevent a fault.
+- Pin it high to avoid failure in evict_for_vma selftest.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 11 -----------
- drivers/gpu/drm/i915/gt/gen6_ppgtt.h |  1 -
- 2 files changed, 12 deletions(-)
+ drivers/gpu/drm/i915/gt/mock_engine.c | 38 ++++++++++++++++++++-------
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 890191f286e3..9fdbd9d3372b 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -405,17 +405,6 @@ void gen6_ppgtt_unpin(struct i915_ppgtt *base)
- 		i915_vma_unpin(ppgtt->vma);
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 8b89215afe46..bb99fc03f503 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -35,9 +35,31 @@ static void mock_timeline_unpin(struct intel_timeline *tl)
+ 	atomic_dec(&tl->pin_count);
  }
  
--void gen6_ppgtt_unpin_all(struct i915_ppgtt *base)
--{
--	struct gen6_ppgtt *ppgtt = to_gen6_ppgtt(base);
--
--	if (!atomic_read(&ppgtt->pin_count))
--		return;
--
--	i915_vma_unpin(ppgtt->vma);
--	atomic_set(&ppgtt->pin_count, 0);
--}
--
- struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
++static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
++{
++	struct i915_address_space *vm = &ggtt->vm;
++	struct drm_i915_private *i915 = vm->i915;
++	struct drm_i915_gem_object *obj;
++	struct i915_vma *vma;
++
++	obj = i915_gem_object_create_internal(i915, size);
++	if (IS_ERR(obj))
++		return ERR_CAST(obj);
++
++	vma = i915_vma_instance(obj, vm, NULL);
++	if (IS_ERR(vma))
++		goto err;
++
++	return vma;
++
++err:
++	i915_gem_object_put(obj);
++	return vma;
++}
++
+ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
  {
- 	struct i915_ggtt * const ggtt = gt->ggtt;
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.h b/drivers/gpu/drm/i915/gt/gen6_ppgtt.h
-index 6a61a5c3a85a..ab0eecb086dd 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.h
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.h
-@@ -71,7 +71,6 @@ static inline struct gen6_ppgtt *to_gen6_ppgtt(struct i915_ppgtt *base)
+-	const unsigned long sz = PAGE_SIZE / 2;
++	const unsigned long sz = PAGE_SIZE;
+ 	struct intel_ring *ring;
  
- int gen6_ppgtt_pin(struct i915_ppgtt *base, struct i915_gem_ww_ctx *ww);
- void gen6_ppgtt_unpin(struct i915_ppgtt *base);
--void gen6_ppgtt_unpin_all(struct i915_ppgtt *base);
- void gen6_ppgtt_enable(struct intel_gt *gt);
- void gen7_ppgtt_enable(struct intel_gt *gt);
- struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt);
+ 	ring = kzalloc(sizeof(*ring) + sz, GFP_KERNEL);
+@@ -50,15 +72,11 @@ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
+ 	ring->vaddr = (void *)(ring + 1);
+ 	atomic_set(&ring->pin_count, 1);
+ 
+-	ring->vma = i915_vma_alloc();
+-	if (!ring->vma) {
++	ring->vma = create_ring_vma(engine->gt->ggtt, PAGE_SIZE);
++	if (IS_ERR(ring->vma)) {
+ 		kfree(ring);
+ 		return NULL;
+ 	}
+-	i915_active_init(&ring->vma->active, NULL, NULL, 0);
+-	__set_bit(I915_VMA_GGTT_BIT, __i915_vma_flags(ring->vma));
+-	__set_bit(DRM_MM_NODE_ALLOCATED_BIT, &ring->vma->node.flags);
+-	ring->vma->node.size = sz;
+ 
+ 	intel_ring_update_space(ring);
+ 
+@@ -67,8 +85,7 @@ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
+ 
+ static void mock_ring_free(struct intel_ring *ring)
+ {
+-	i915_active_fini(&ring->vma->active);
+-	i915_vma_free(ring->vma);
++	i915_vma_put(ring->vma);
+ 
+ 	kfree(ring);
+ }
+@@ -125,6 +142,7 @@ static void mock_context_unpin(struct intel_context *ce)
+ 
+ static void mock_context_post_unpin(struct intel_context *ce)
+ {
++	i915_vma_unpin(ce->ring->vma);
+ }
+ 
+ static void mock_context_destroy(struct kref *ref)
+@@ -169,7 +187,7 @@ static int mock_context_alloc(struct intel_context *ce)
+ static int mock_context_pre_pin(struct intel_context *ce,
+ 				struct i915_gem_ww_ctx *ww, void **unused)
+ {
+-	return 0;
++	return i915_vma_pin_ww(ce->ring->vma, ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
+ }
+ 
+ static int mock_context_pin(struct intel_context *ce, void *unused)
 -- 
 2.33.0
 
