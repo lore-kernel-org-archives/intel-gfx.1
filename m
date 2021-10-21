@@ -2,65 +2,74 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83E58C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 11:51:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8ABDAC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 12:08:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0FC7A60FC1
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 11:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0FC7A60FC1
+	by mail.kernel.org (Postfix) with ESMTPS id 337B86120C
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 12:08:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 337B86120C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB5F6EB34;
-	Thu, 21 Oct 2021 11:51:08 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8818B6EB34
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 11:51:07 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id o24so425404wms.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 04:51:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F086EC4F;
+	Thu, 21 Oct 2021 12:08:26 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 424C16EC4D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 12:08:25 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id d3so703860wrh.8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 05:08:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=vsbdXFkgwC3aPqeNa0ZYigIeOn2MLKgQXeMFSvcdSsE=;
- b=jpM+gyqTsAiWKAvkXe0a70TY+VDREr8jNs1AQ2mdgqof7A2DdFkB4XlzdmlaNESko2
- ZLx15zVgGF1LlHJh1CS9Uaa6YBWWwgn3vqy8m0q0TYoG9RWyCC4UyBMC6BY+Oq17Suz4
- HUHLU7hobSuhcuzmSVY+qA7byr1PJXkDU+9kQ=
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=djJOEt6biCNzIxqdTk62h+b491lKskY6U3yacyivLEw=;
+ b=c5tSrGe3CHMZl7DvRDR4efrUSRgSfTbn1NK8z9SBLd2TeMvrHf674NXN87YTkG7zxV
+ tsOHF3eTlZjBz7DKbYflzdjTdn0rT3RXAvFdmrwAkFPoH1tLHYp7sx1pDRAsTusXRq1a
+ 4ndd2MIqdHYVqputO76fGvZJPD3oVqZopuOOw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=vsbdXFkgwC3aPqeNa0ZYigIeOn2MLKgQXeMFSvcdSsE=;
- b=Sfz/mYq+EVogUMJkVshxmabtlOqL2g4ko1gn9x52pu5d60TOyl53fWNM7032kJKrUB
- tulutEY4M138kN8iVRo8x9FfO4NwwRsuM+yAemvAQF28KhiFQJlJR7am+KeuOBDIaLws
- LHphkpenL99dC4vkIZS58DEaiQVq2tUiWikHXJNkU6vu1qnRdSF+POK9TS90gsO4nHWv
- ceiWSajy4UzgHZZvyZBkHM6VrKSCgnV/RU7gRsAQ8XeFFRF1Ix0eNGBliKfXN+YOTDy5
- RFbpyVT98IDo15QJrTpE9Vqo3wZkrWB2euVgOmh7tM3GL0USp/N7kh/IGstbW1ypanfV
- jm+Q==
-X-Gm-Message-State: AOAM531KojUD9+cfpNOEGw3E8Lb7B/hRW3bnABMbqSE8wCW49Psi4XkA
- 6TfXkNrXxWRyE4DGNXr/l9RW5A==
-X-Google-Smtp-Source: ABdhPJz0JNnYfcNq+4EhddRo2SIdnOTeCmvEpzukKTjLMvZJFhMXPAidJruU7Lr49f5/21WdrByEJA==
-X-Received: by 2002:a1c:f213:: with SMTP id s19mr20569098wmc.169.1634817066110; 
- Thu, 21 Oct 2021 04:51:06 -0700 (PDT)
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=djJOEt6biCNzIxqdTk62h+b491lKskY6U3yacyivLEw=;
+ b=YgizdSsXxEa0sZIbpHDEaPsiVK29Wc3ZA8YEJOmlMAbdJw5DiJ90r05NUBR+k9oHke
+ uXmbWZiIMvqL4tmG/CCRjJXd/yvLZ07/KEaNlgniSkYsPRqCfwHKRADPb+WYpg3oLENU
+ 30Whai2C2v+R7mqB+Uvat+wJEzxc2MY8Ilfkah6ItL9NsMz1TnOgZPGzJj0W8hu8zL70
+ wEGI8R2R15LjstzTjknCigEv3qXEhAerVq+FhIvkjjPE3RvV4G4WL06SyUe4p6JcrsPF
+ uXJod9fLowGxO8ej15ItgeOhsq4pwQXpaPP607NglnFzfLxIEQh+zsXuLOTOf3S8zRAn
+ Vq9w==
+X-Gm-Message-State: AOAM531KXZVuyD9w6dRtUm/Yvgx67c6BPN1LAx2PEnacw6dfsP2xuc58
+ vL/wEvjcCRAfzhDdaO/tYuijIw==
+X-Google-Smtp-Source: ABdhPJwk2ijMk01v1uJB5E7SqZ7tASKWbjKG/5T1dTuTmqKek02XQ4pRXTflPK6lzGUhXJQWb663yg==
+X-Received: by 2002:a5d:64c5:: with SMTP id f5mr6635604wri.321.1634818102689; 
+ Thu, 21 Oct 2021 05:08:22 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id x7sm4632673wrq.69.2021.10.21.04.51.05
+ by smtp.gmail.com with ESMTPSA id g33sm4267021wmp.45.2021.10.21.05.08.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Oct 2021 04:51:05 -0700 (PDT)
-Date: Thu, 21 Oct 2021 13:51:03 +0200
+ Thu, 21 Oct 2021 05:08:21 -0700 (PDT)
+Date: Thu, 21 Oct 2021 14:08:19 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Chris Wilson <chris@chris-wilson.co.uk>, dri-devel@lists.freedesktop.org
-Message-ID: <YXFUJ0jbr4iD9JAD@phenom.ffwll.local>
-References: <20211020090625.1037517-1-lucas.demarchi@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org
+Message-ID: <YXFYM/15tbTF2bi2@phenom.ffwll.local>
+References: <20211015115720.79958-1-maarten.lankhorst@linux.intel.com>
+ <20211015115720.79958-3-maarten.lankhorst@linux.intel.com>
+ <ebf0714c-2f49-a0ad-1861-16394ade468d@amd.com>
+ <9b7e43bb-e175-0aff-2cc1-cc10236fe8e5@linux.intel.com>
+ <06fa85f5-3664-4da4-bde8-6d7d2f199251@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20211020090625.1037517-1-lucas.demarchi@intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <06fa85f5-3664-4da4-bde8-6d7d2f199251@gmail.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: stop using PAGE_KERNEL_IO
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH 2/2] dma-buf: Fix
+ dma_resv_test_signaled.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,72 +85,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 20, 2021 at 02:06:25AM -0700, Lucas De Marchi wrote:
-> PAGE_KERNEL_IO is only defined for x86 and is the same as PAGE_KERNEL.
-> Use the latter since that is also available on other archs, which should
-> help us getting i915 there.
+On Fri, Oct 15, 2021 at 02:56:59PM +0200, Christian König wrote:
 > 
-> This is the same that was done done in commit 80c33624e472 ("io-mapping:
-> Fixup for different names of writecombine"). Later the commit
-> 80c33624e472 ("io-mapping: Fixup for different names of writecombine")
-> added a "Fixes" tag to the first one, but that is actually fixing a
-> separate issue:  the different names for pgprot_writecombine().
 > 
-> Fast-forward today, it seems the only 2 archs that define
-> pgprot_noncached_wc() are microblaze and powerpc. Microblaze has the
-> same definition for pgprot_writecombine() since commit
-> 97ccedd793ac ("microblaze: Provide pgprot_device/writecombine macros for
-> nommu"). Powerpc has 3 variants and all of them have the same behavior
-> for pgprot_writecombine() and pgprot_noncached_wc(). From the commit message
-> and linked issue, the fallback was needed for arm, but apparently today
-> all the variants there also have pgprot_writecombine().
+> Am 15.10.21 um 14:52 schrieb Maarten Lankhorst:
+> > Op 15-10-2021 om 14:07 schreef Christian König:
+> > > Am 15.10.21 um 13:57 schrieb Maarten Lankhorst:
+> > > > Commit 7fa828cb9265 ("dma-buf: use new iterator in dma_resv_test_signaled")
+> > > > accidentally forgot to test whether the dma-buf is actually signaled, breaking
+> > > > pretty much everything depending on it.
+> > > NAK, the dma_resv_for_each_fence_unlocked() returns only unsignaled fences. So the code is correct as it is.
+> > That seems like it might cause some unexpected behavior when that function is called with one of the fence locks held, if it calls dma_fence_signal().
+> > 
+> > Could it be changed to only test the signaled bit, in which case this patch would still be useful?
 > 
-> So, just use PAGE_KERNEL, and just use pgprot_writecombine().
-> 
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> That's exactly what I suggested as well, but Daniel was against that because
+> of concerns around barriers.
 
-I think a bit more history on PAGE_KERNEL_IO is useful to add. It was
-added in be43d72835ba ("x86: add _PAGE_IOMAP pte flag for IO mappings").
-The one and only user was lost in f955371ca9d3 ("x86: remove the
-Xen-specific _PAGE_IOMAP PTE flag"), therefore it's safe to do this.
+I don't want open-coded bitmask tests, because the current code we have in
+dma-fence.c is missing barriers, and that doesn't get better if we spread
+that all around. But if you want this then wrap it in some static inline
+in dma-fence.h or so, that's fine. Just not open-coded outside of these
+files, like i915-gem code does a lot (which imo is just plain a disaster).
 
-With that added Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > Or at least add some lockdep annotations, that fence->lock might be taken. So any hangs would at least be easy to spot with lockdep.
+> 
+> That should be trivial doable.
 
-Also if you're motivated, maybe delete PAGE_KERNEL_IO across the tree and
-get x86 maintainers to merge the entire series?
+might_lock is trivial to add, but it's more complicated. The spinlock is
+provided by the fence code, which means there's lots of different lockdep
+classes. A might_lock on fence->lock is better than nothing, but maybe not
+good enough.
+
+What we might need are a few more pieces:
+- a fake dma-fence spinlock lockdep key, maybe call it dma_fence_lock_key
+  or so.
+- in dma_fence_init we lock dma_fence_lock_key, and then might_lock the
+  actual spinlock passed as an argument. This establishes dependencies
+  from that fake lock to all real fence spinlocks
+- anywhere we need a might lock we take dma_fence_lock_key instead
+
+The potential issue here is that this might result in lockdep splats in
+cases where fences somehow naturally nest (maybe drm/sched job fence vs hw
+fence). So perhaps too much.
 -Daniel
-
-
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_pages.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> index 8eb1c3a6fc9c..68fe1837ef54 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> @@ -289,7 +289,7 @@ static void *i915_gem_object_map_page(struct drm_i915_gem_object *obj,
->  		pgprot = PAGE_KERNEL;
->  		break;
->  	case I915_MAP_WC:
-> -		pgprot = pgprot_writecombine(PAGE_KERNEL_IO);
-> +		pgprot = pgprot_writecombine(PAGE_KERNEL);
->  		break;
->  	}
->  
-> @@ -333,7 +333,7 @@ static void *i915_gem_object_map_pfn(struct drm_i915_gem_object *obj,
->  	i = 0;
->  	for_each_sgt_daddr(addr, iter, obj->mm.pages)
->  		pfns[i++] = (iomap + addr) >> PAGE_SHIFT;
-> -	vaddr = vmap_pfn(pfns, n_pfn, pgprot_writecombine(PAGE_KERNEL_IO));
-> +	vaddr = vmap_pfn(pfns, n_pfn, pgprot_writecombine(PAGE_KERNEL));
->  	if (pfns != stack)
->  		kvfree(pfns);
->  
-> -- 
-> 2.33.1
-> 
-
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
