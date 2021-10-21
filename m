@@ -2,48 +2,47 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50D36C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB933C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 249A36121F
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 249A36121F
+	by mail.kernel.org (Postfix) with ESMTPS id A71826120F
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A71826120F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E330B6EC8C;
-	Thu, 21 Oct 2021 14:23:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58AD86EC8E;
+	Thu, 21 Oct 2021 14:24:00 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6AE76EC88;
- Thu, 21 Oct 2021 14:23:48 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="216212078"
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="216212078"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E02FD6EC8E;
+ Thu, 21 Oct 2021 14:23:55 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="216212104"
+X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="216212104"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 07:23:48 -0700
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="495170309"
+ 21 Oct 2021 07:23:55 -0700
+X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="495170339"
 Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 07:23:45 -0700
+ 21 Oct 2021 07:23:52 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
 Cc: Daniel Vetter <daniel@ffwll.ch>, CQ Tang <cq.tang@intel.com>,
  Matthew Auld <matthew.auld@intel.com>, lucas.demarchi@intel.com,
  <rodrigo.vivi@intel.com>, Hellstrom Thomas <thomas.hellstrom@intel.com>,
- Ramalingam C <ramalingam.c@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Date: Thu, 21 Oct 2021 19:56:12 +0530
-Message-Id: <20211021142627.31058-3-ramalingam.c@intel.com>
+ Ramalingam C <ramalingam.c@intel.com>
+Date: Thu, 21 Oct 2021 19:56:14 +0530
+Message-Id: <20211021142627.31058-5-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211021142627.31058-1-ramalingam.c@intel.com>
 References: <20211021142627.31058-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 02/17] drm/i915/xehpsdv: set min page-size to
- 64K
+Subject: [Intel-gfx] [PATCH v2 04/17] drm/i915: enforce min page size for
+ scratch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,70 +60,42 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Auld <matthew.auld@intel.com>
 
-LMEM should be allocated at 64K granularity, since 4K page support will
-eventually be dropped for LMEM when using the PPGTT.
+If the device needs 64K minimum GTT pages for device local-memory,
+like on XEHPSDV, then we need to fail the allocation if we can't
+meet it, instead of falling back to 4K pages, otherwise we can't
+safely support the insertion of device local-memory pages for
+this vm, since the HW expects the correct physical alignment and
+size for every PTE, if we mark the page-table as 64K GTT mode.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c  | 6 +++++-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c | 5 ++++-
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gtt.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index ddd37ccb1362..f52a06f05fc7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -778,6 +778,7 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
- 	struct intel_uncore *uncore = &i915->uncore;
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	struct intel_memory_region *mem;
-+	resource_size_t min_page_size;
- 	resource_size_t io_start;
- 	resource_size_t lmem_size;
- 	u64 lmem_base;
-@@ -789,8 +790,11 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
- 	lmem_size = pci_resource_len(pdev, 2) - lmem_base;
- 	io_start = pci_resource_start(pdev, 2) + lmem_base;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+index 67d14afa6623..2a6eec5f0d58 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+@@ -334,6 +334,18 @@ int setup_scratch_page(struct i915_address_space *vm)
+ 		if (size == I915_GTT_PAGE_SIZE_4K)
+ 			return -ENOMEM;
  
-+	min_page_size = HAS_64K_PAGES(i915) ? I915_GTT_PAGE_SIZE_64K :
-+						I915_GTT_PAGE_SIZE_4K;
++		/*
++		 * If we need 64K minimum GTT pages for device local-memory,
++		 * like on XEHPSDV, then we need to fail the allocation here,
++		 * otherwise we can't safely support the insertion of
++		 * local-memory pages for this vm, since the HW expects the
++		 * correct physical alignment and size when the page-table is
++		 * operating in 64K GTT mode, which includes any scratch PTEs,
++		 * since userpsace can still touch them.
++		 */
++		if (HAS_64K_PAGES(vm->i915))
++			return -ENOMEM;
 +
- 	mem = intel_memory_region_create(i915, lmem_base, lmem_size,
--					 I915_GTT_PAGE_SIZE_4K, io_start,
-+					 min_page_size, io_start,
- 					 type, instance,
- 					 &i915_region_stolen_lmem_ops);
- 	if (IS_ERR(mem))
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index afb35d2e5c73..073d28d96669 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -193,6 +193,7 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
- 	struct intel_uncore *uncore = gt->uncore;
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	struct intel_memory_region *mem;
-+	resource_size_t min_page_size;
- 	resource_size_t io_start;
- 	resource_size_t lmem_size;
- 	int err;
-@@ -207,10 +208,12 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
- 	if (GEM_WARN_ON(lmem_size > pci_resource_len(pdev, 2)))
- 		return ERR_PTR(-ENODEV);
- 
-+	min_page_size = HAS_64K_PAGES(i915) ? I915_GTT_PAGE_SIZE_64K :
-+						I915_GTT_PAGE_SIZE_4K;
- 	mem = intel_memory_region_create(i915,
- 					 0,
- 					 lmem_size,
--					 I915_GTT_PAGE_SIZE_4K,
-+					 min_page_size,
- 					 io_start,
- 					 INTEL_MEMORY_LOCAL,
- 					 0,
+ 		size = I915_GTT_PAGE_SIZE_4K;
+ 	} while (1);
+ }
 -- 
 2.20.1
 
