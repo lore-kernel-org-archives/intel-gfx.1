@@ -2,36 +2,33 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B57EC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7988DC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AF9261205
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4AF9261205
+	by mail.kernel.org (Postfix) with ESMTPS id 40F1760E05
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40F1760E05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB986EC57;
-	Thu, 21 Oct 2021 10:36:17 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 154E06E42C;
- Thu, 21 Oct 2021 10:36:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5124B6EC4D;
+	Thu, 21 Oct 2021 10:36:14 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67496E42A;
+ Thu, 21 Oct 2021 10:36:09 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 21 Oct 2021 12:35:45 +0200
-Message-Id: <20211021103605.735002-8-maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:38 +0200
+Message-Id: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
-References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/28] drm/i915: Create a full object for
- mock_ring, v2.
+Subject: [Intel-gfx] [PATCH 01/28] drm/i915: Fix i915_request fence wait
+ semantics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,99 +44,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This allows us to finally get rid of all the assumptions that vma->obj is NULL.
+The i915_request fence wait behaves differently for timeout = 0
+compared to expected dma-fence behavior.
 
-Changes since v1:
-- Ensure the mock_ring vma is pinned to prevent a fault.
-- Pin it high to avoid failure in evict_for_vma selftest.
+i915 behavior:
+- Unsignaled: -ETIME
+- Signaled: 0 (= timeout)
+
+Expected:
+- Unsignaled: 0
+- Signaled: 1
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/mock_engine.c | 38 ++++++++++++++++++++-------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 57 ++++++++++++++++++++++++-----
+ drivers/gpu/drm/i915/i915_request.h |  5 +++
+ 2 files changed, 52 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index 8b89215afe46..bb99fc03f503 100644
---- a/drivers/gpu/drm/i915/gt/mock_engine.c
-+++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -35,9 +35,31 @@ static void mock_timeline_unpin(struct intel_timeline *tl)
- 	atomic_dec(&tl->pin_count);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 820a1f38b271..42cd17357771 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -96,9 +96,9 @@ static signed long i915_fence_wait(struct dma_fence *fence,
+ 				   bool interruptible,
+ 				   signed long timeout)
+ {
+-	return i915_request_wait(to_request(fence),
+-				 interruptible | I915_WAIT_PRIORITY,
+-				 timeout);
++	return i915_request_wait_timeout(to_request(fence),
++					 interruptible | I915_WAIT_PRIORITY,
++					 timeout);
  }
  
-+static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
+ struct kmem_cache *i915_request_slab_cache(void)
+@@ -1857,23 +1857,27 @@ static void request_wait_wake(struct dma_fence *fence, struct dma_fence_cb *cb)
+ }
+ 
+ /**
+- * i915_request_wait - wait until execution of request has finished
++ * i915_request_wait_timeout - wait until execution of request has finished
+  * @rq: the request to wait upon
+  * @flags: how to wait
+  * @timeout: how long to wait in jiffies
+  *
+- * i915_request_wait() waits for the request to be completed, for a
++ * i915_request_wait_timeout() waits for the request to be completed, for a
+  * maximum of @timeout jiffies (with MAX_SCHEDULE_TIMEOUT implying an
+  * unbounded wait).
+  *
+  * Returns the remaining time (in jiffies) if the request completed, which may
+- * be zero or -ETIME if the request is unfinished after the timeout expires.
++ * be zero if the request is unfinished after the timeout expires.
++ * If the timeout is 0, it will return 1 if the fence is signaled.
++ *
+  * May return -EINTR is called with I915_WAIT_INTERRUPTIBLE and a signal is
+  * pending before the request completes.
++ *
++ * NOTE: This function has the same wait semantics as dma-fence.
+  */
+-long i915_request_wait(struct i915_request *rq,
+-		       unsigned int flags,
+-		       long timeout)
++long i915_request_wait_timeout(struct i915_request *rq,
++			       unsigned int flags,
++			       long timeout)
+ {
+ 	const int state = flags & I915_WAIT_INTERRUPTIBLE ?
+ 		TASK_INTERRUPTIBLE : TASK_UNINTERRUPTIBLE;
+@@ -1883,7 +1887,7 @@ long i915_request_wait(struct i915_request *rq,
+ 	GEM_BUG_ON(timeout < 0);
+ 
+ 	if (dma_fence_is_signaled(&rq->fence))
+-		return timeout;
++		return timeout ?: 1;
+ 
+ 	if (!timeout)
+ 		return -ETIME;
+@@ -1992,6 +1996,39 @@ long i915_request_wait(struct i915_request *rq,
+ 	return timeout;
+ }
+ 
++/**
++ * i915_request_wait - wait until execution of request has finished
++ * @rq: the request to wait upon
++ * @flags: how to wait
++ * @timeout: how long to wait in jiffies
++ *
++ * i915_request_wait() waits for the request to be completed, for a
++ * maximum of @timeout jiffies (with MAX_SCHEDULE_TIMEOUT implying an
++ * unbounded wait).
++ *
++ * Returns the remaining time (in jiffies) if the request completed, which may
++ * be zero or -ETIME if the request is unfinished after the timeout expires.
++ * May return -EINTR is called with I915_WAIT_INTERRUPTIBLE and a signal is
++ * pending before the request completes.
++ *
++ * NOTE: This function behaves differently from dma-fence wait semantics for
++ * timeout = 0. It returns 0 on success, and -ETIME if not signaled.
++ */
++long i915_request_wait(struct i915_request *rq,
++		       unsigned int flags,
++		       long timeout)
 +{
-+	struct i915_address_space *vm = &ggtt->vm;
-+	struct drm_i915_private *i915 = vm->i915;
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
++	long ret = i915_request_wait_timeout(rq, flags, timeout);
 +
-+	obj = i915_gem_object_create_internal(i915, size);
-+	if (IS_ERR(obj))
-+		return ERR_CAST(obj);
++	if (!ret)
++		return -ETIME;
 +
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma))
-+		goto err;
++	if (ret > 0 && !timeout)
++		return 0;
 +
-+	return vma;
-+
-+err:
-+	i915_gem_object_put(obj);
-+	return vma;
++	return ret;
 +}
 +
- static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
+ static int print_sched_attr(const struct i915_sched_attr *attr,
+ 			    char *buf, int x, int len)
  {
--	const unsigned long sz = PAGE_SIZE / 2;
-+	const unsigned long sz = PAGE_SIZE;
- 	struct intel_ring *ring;
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index dc359242d1ae..3c6e8acd1457 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -414,6 +414,11 @@ void i915_request_unsubmit(struct i915_request *request);
  
- 	ring = kzalloc(sizeof(*ring) + sz, GFP_KERNEL);
-@@ -50,15 +72,11 @@ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
- 	ring->vaddr = (void *)(ring + 1);
- 	atomic_set(&ring->pin_count, 1);
+ void i915_request_cancel(struct i915_request *rq, int error);
  
--	ring->vma = i915_vma_alloc();
--	if (!ring->vma) {
-+	ring->vma = create_ring_vma(engine->gt->ggtt, PAGE_SIZE);
-+	if (IS_ERR(ring->vma)) {
- 		kfree(ring);
- 		return NULL;
- 	}
--	i915_active_init(&ring->vma->active, NULL, NULL, 0);
--	__set_bit(I915_VMA_GGTT_BIT, __i915_vma_flags(ring->vma));
--	__set_bit(DRM_MM_NODE_ALLOCATED_BIT, &ring->vma->node.flags);
--	ring->vma->node.size = sz;
- 
- 	intel_ring_update_space(ring);
- 
-@@ -67,8 +85,7 @@ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
- 
- static void mock_ring_free(struct intel_ring *ring)
- {
--	i915_active_fini(&ring->vma->active);
--	i915_vma_free(ring->vma);
-+	i915_vma_put(ring->vma);
- 
- 	kfree(ring);
- }
-@@ -125,6 +142,7 @@ static void mock_context_unpin(struct intel_context *ce)
- 
- static void mock_context_post_unpin(struct intel_context *ce)
- {
-+	i915_vma_unpin(ce->ring->vma);
- }
- 
- static void mock_context_destroy(struct kref *ref)
-@@ -169,7 +187,7 @@ static int mock_context_alloc(struct intel_context *ce)
- static int mock_context_pre_pin(struct intel_context *ce,
- 				struct i915_gem_ww_ctx *ww, void **unused)
- {
--	return 0;
-+	return i915_vma_pin_ww(ce->ring->vma, ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
- }
- 
- static int mock_context_pin(struct intel_context *ce, void *unused)
++long i915_request_wait_timeout(struct i915_request *rq,
++			       unsigned int flags,
++			       long timeout)
++	__attribute__((nonnull(1)));
++
+ long i915_request_wait(struct i915_request *rq,
+ 		       unsigned int flags,
+ 		       long timeout)
 -- 
 2.33.0
 
