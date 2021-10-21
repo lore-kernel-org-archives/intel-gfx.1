@@ -2,35 +2,36 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B3DEC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DFB2C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FC3B60F6E
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5FC3B60F6E
+	by mail.kernel.org (Postfix) with ESMTPS id 3654C60F6E
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3654C60F6E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7186EC70;
-	Thu, 21 Oct 2021 10:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D10A6EC77;
+	Thu, 21 Oct 2021 10:36:34 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 413206EC44;
- Thu, 21 Oct 2021 10:36:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD446EC3A;
+ Thu, 21 Oct 2021 10:36:12 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 21 Oct 2021 12:36:03 +0200
-Message-Id: <20211021103605.735002-26-maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:58 +0200
+Message-Id: <20211021103605.735002-21-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 26/28] drm/i915: Remove assert_object_held_shared
+Subject: [Intel-gfx] [PATCH 21/28] drm/i915: Drain the ttm delayed workqueue
+ too
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,168 +47,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This duck tape workaround is no longer required, unbind and destroy are
-fixed to take the obj->resv mutex before destroying and obj->mm.lock has
-been removed, always requiring obj->resv as well.
+Be thorough..
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c  |  4 ++--
- drivers/gpu/drm/i915/gem/i915_gem_object.h  | 14 --------------
- drivers/gpu/drm/i915/gem/i915_gem_pages.c   | 12 ++++++------
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c |  2 +-
- drivers/gpu/drm/i915/i915_vma.c             |  6 +++---
- 5 files changed, 12 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index d549f34829d0..a4fb76b7841d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -548,7 +548,7 @@ bool i915_gem_object_has_struct_page(const struct drm_i915_gem_object *obj)
- #ifdef CONFIG_LOCKDEP
- 	if (IS_DGFX(to_i915(obj->base.dev)) &&
- 	    i915_gem_object_evictable((void __force *)obj))
--		assert_object_held_shared(obj);
-+		assert_object_held(obj);
- #endif
- 	return obj->mem_flags & I915_BO_FLAG_STRUCT_PAGE;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 22c891720c6d..7c5ed5957fe2 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1819,6 +1819,7 @@ static inline void i915_gem_drain_freed_objects(struct drm_i915_private *i915)
+ 	 */
+ 	while (atomic_read(&i915->mm.free_count)) {
+ 		flush_work(&i915->mm.free_work);
++		flush_delayed_work(&i915->bdev.wq);
+ 		rcu_barrier();
+ 	}
  }
-@@ -567,7 +567,7 @@ bool i915_gem_object_has_iomem(const struct drm_i915_gem_object *obj)
- #ifdef CONFIG_LOCKDEP
- 	if (IS_DGFX(to_i915(obj->base.dev)) &&
- 	    i915_gem_object_evictable((void __force *)obj))
--		assert_object_held_shared(obj);
-+		assert_object_held(obj);
- #endif
- 	return obj->mem_flags & I915_BO_FLAG_IOMEM;
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index accd8fad0ed7..ef4f2568d46a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -158,20 +158,6 @@ i915_gem_object_put(struct drm_i915_gem_object *obj)
- 
- #define assert_object_held(obj) dma_resv_assert_held((obj)->base.resv)
- 
--/*
-- * If more than one potential simultaneous locker, assert held.
-- */
--static inline void assert_object_held_shared(const struct drm_i915_gem_object *obj)
--{
--	/*
--	 * Note mm list lookup is protected by
--	 * kref_get_unless_zero().
--	 */
--	if (IS_ENABLED(CONFIG_LOCKDEP) &&
--	    kref_read(&obj->base.refcount) > 0)
--		assert_object_held(obj);
--}
--
- static inline int __i915_gem_object_lock(struct drm_i915_gem_object *obj,
- 					 struct i915_gem_ww_ctx *ww,
- 					 bool intr)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 8eb1c3a6fc9c..dbd226b0ea49 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -19,7 +19,7 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
- 	bool shrinkable;
- 	int i;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (i915_gem_object_is_volatile(obj))
- 		obj->mm.madv = I915_MADV_DONTNEED;
-@@ -94,7 +94,7 @@ int ____i915_gem_object_get_pages(struct drm_i915_gem_object *obj)
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	int err;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (unlikely(obj->mm.madv != I915_MADV_WILLNEED)) {
- 		drm_dbg(&i915->drm,
-@@ -121,7 +121,7 @@ int __i915_gem_object_get_pages(struct drm_i915_gem_object *obj)
- 
- 	assert_object_held(obj);
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (unlikely(!i915_gem_object_has_pages(obj))) {
- 		GEM_BUG_ON(i915_gem_object_has_pinned_pages(obj));
-@@ -168,7 +168,7 @@ void i915_gem_object_truncate(struct drm_i915_gem_object *obj)
- /* Try to discard unwanted pages */
- void i915_gem_object_writeback(struct drm_i915_gem_object *obj)
- {
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 	GEM_BUG_ON(i915_gem_object_has_pages(obj));
- 
- 	if (obj->ops->writeback)
-@@ -199,7 +199,7 @@ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj)
- {
- 	struct sg_table *pages;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	pages = fetch_and_zero(&obj->mm.pages);
- 	if (IS_ERR_OR_NULL(pages))
-@@ -229,7 +229,7 @@ int __i915_gem_object_put_pages(struct drm_i915_gem_object *obj)
- 		return -EBUSY;
- 
- 	/* May be called by shrinker from within get_pages() (on another bo) */
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	i915_gem_object_release_mmap_offset(obj);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 3173c9f9a040..a315c010f635 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -109,7 +109,7 @@ static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object *obj)
- {
- 	struct page **pvec = NULL;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (!--obj->userptr.page_ref) {
- 		pvec = obj->userptr.pvec;
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 982bb8b739d3..8131dbf89048 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1633,7 +1633,7 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
- void __i915_vma_evict(struct i915_vma *vma)
- {
- 	GEM_BUG_ON(i915_vma_is_pinned(vma));
--	assert_object_held_shared(vma->obj);
-+	assert_object_held(vma->obj);
- 
- 	if (i915_vma_is_map_and_fenceable(vma)) {
- 		/* Force a pagefault for domain tracking on next user access */
-@@ -1679,7 +1679,7 @@ int __i915_vma_unbind(struct i915_vma *vma)
- 	int ret;
- 
- 	lockdep_assert_held(&vma->vm->mutex);
--	assert_object_held_shared(vma->obj);
-+	assert_object_held(vma->obj);
- 
- 	if (!drm_mm_node_allocated(&vma->node))
- 		return 0;
-@@ -1711,7 +1711,7 @@ int i915_vma_unbind(struct i915_vma *vma)
- 	intel_wakeref_t wakeref = 0;
- 	int err;
- 
--	assert_object_held_shared(vma->obj);
-+	assert_object_held(vma->obj);
- 
- 	/* Optimistic wait before taking the mutex */
- 	err = i915_vma_sync(vma);
 -- 
 2.33.0
 
