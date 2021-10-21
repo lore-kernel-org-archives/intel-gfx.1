@@ -2,36 +2,35 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFE8FC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FBB1C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4DE760E05
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C4DE760E05
+	by mail.kernel.org (Postfix) with ESMTPS id 5BF0361205
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5BF0361205
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074976EC54;
-	Thu, 21 Oct 2021 10:36:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C59336EC5C;
+	Thu, 21 Oct 2021 10:36:17 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B782A6E42C;
- Thu, 21 Oct 2021 10:36:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5098A6EC32;
+ Thu, 21 Oct 2021 10:36:11 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Date: Thu, 21 Oct 2021 12:35:42 +0200
-Message-Id: <20211021103605.735002-5-maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:49 +0200
+Message-Id: <20211021103605.735002-12-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/28] drm/i915: Slightly rework
- EXEC_OBJECT_CAPTURE handling, v2.
+Subject: [Intel-gfx] [PATCH 12/28] drm/i915: Remove resv from i915_vma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,170 +46,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use a single null-terminated array for simplicity instead of a linked
-list. This might slightly speed up execbuf when many vma's may be marked
-as capture, but definitely removes an allocation from a signaling path.
-
-We are not allowed to allocate memory in eb_move_to_gpu, but we can't
-enforce it yet through annotations.
-
-Changes since v1:
-- Rebase on top of multi-batchbuffer changes.
+It's just an alias to vma->obj->base.resv, no need to duplicate it.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com> #v1
+Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 29 ++++++++++++-------
- drivers/gpu/drm/i915/i915_gpu_error.c         |  9 +++---
- drivers/gpu/drm/i915/i915_request.c           |  9 ++----
- drivers/gpu/drm/i915/i915_request.h           |  7 +----
- 4 files changed, 26 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 4 ++--
+ drivers/gpu/drm/i915/i915_vma.c                | 9 ++++-----
+ drivers/gpu/drm/i915/i915_vma.h                | 6 +++---
+ drivers/gpu/drm/i915/i915_vma_types.h          | 1 -
+ 4 files changed, 9 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 9c323666bd7c..eaacadd2d2e5 100644
+index eaacadd2d2e5..e614591ca510 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -265,6 +265,9 @@ struct i915_execbuffer {
- 	/* number of batches in execbuf IOCTL */
- 	unsigned int num_batches;
- 
-+	/* Number of objects with EXEC_OBJECT_CAPTURE set */
-+	unsigned int capture_count;
-+
- 	/** list of vma not yet bound during reservation phase */
- 	struct list_head unbound;
- 
-@@ -909,6 +912,9 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
- 			goto err;
+@@ -1007,7 +1007,7 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
  		}
  
-+		if (eb->exec[i].flags & EXEC_OBJECT_CAPTURE)
-+			eb->capture_count++;
-+
- 		err = eb_validate_vma(eb, &eb->exec[i], vma);
- 		if (unlikely(err)) {
- 			i915_vma_put(vma);
-@@ -1906,19 +1912,11 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
- 		assert_vma_held(vma);
+ 		if (!(ev->flags & EXEC_OBJECT_WRITE)) {
+-			err = dma_resv_reserve_shared(vma->resv, 1);
++			err = dma_resv_reserve_shared(vma->obj->base.resv, 1);
+ 			if (err)
+ 				return err;
+ 		}
+@@ -2173,7 +2173,7 @@ static int eb_parse(struct i915_execbuffer *eb)
+ 		goto err_trampoline;
+ 	}
  
- 		if (flags & EXEC_OBJECT_CAPTURE) {
--			struct i915_capture_list *capture;
-+			eb->capture_count--;
+-	err = dma_resv_reserve_shared(shadow->resv, 1);
++	err = dma_resv_reserve_shared(shadow->obj->base.resv, 1);
+ 	if (err)
+ 		goto err_trampoline;
  
- 			for_each_batch_create_order(eb, j) {
--				if (!eb->requests[j])
--					break;
--
--				capture = kmalloc(sizeof(*capture), GFP_KERNEL);
--				if (capture) {
--					capture->next =
--						eb->requests[j]->capture_list;
--					capture->vma = vma;
--					eb->requests[j]->capture_list = capture;
--				}
-+				if (eb->requests[j]->capture_list)
-+					eb->requests[j]->capture_list[eb->capture_count] = vma;
- 			}
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index aebfc232b58b..ac09b685678a 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -116,7 +116,6 @@ vma_create(struct drm_i915_gem_object *obj,
+ 	vma->vm = i915_vm_get(vm);
+ 	vma->ops = &vm->vma_ops;
+ 	vma->obj = obj;
+-	vma->resv = obj->base.resv;
+ 	vma->size = obj->base.size;
+ 	vma->display_alignment = I915_GTT_MIN_ALIGNMENT;
+ 
+@@ -1032,7 +1031,7 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
+ 
+ #ifdef CONFIG_LOCKDEP
+-	WARN_ON(!ww && dma_resv_held(vma->resv));
++	WARN_ON(!ww && dma_resv_held(vma->obj->base.resv));
+ #endif
+ 
+ 	do {
+@@ -1251,19 +1250,19 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
  		}
  
-@@ -3130,6 +3128,14 @@ eb_requests_create(struct i915_execbuffer *eb, struct dma_fence *in_fence,
- 			return out_fence;
+ 		if (fence) {
+-			dma_resv_add_excl_fence(vma->resv, fence);
++			dma_resv_add_excl_fence(vma->obj->base.resv, fence);
+ 			obj->write_domain = I915_GEM_DOMAIN_RENDER;
+ 			obj->read_domains = 0;
+ 		}
+ 	} else {
+ 		if (!(flags & __EXEC_OBJECT_NO_RESERVE)) {
+-			err = dma_resv_reserve_shared(vma->resv, 1);
++			err = dma_resv_reserve_shared(vma->obj->base.resv, 1);
+ 			if (unlikely(err))
+ 				return err;
  		}
  
-+		if (eb->capture_count) {
-+			eb->requests[i]->capture_list =
-+				kvcalloc(eb->capture_count + 1,
-+					sizeof(*eb->requests[i]->capture_list),
-+					GFP_KERNEL | __GFP_NOWARN);
-+		}
-+
-+
- 		/*
- 		 * Only the first request added (committed to backend) has to
- 		 * take the in fences into account as all subsequent requests
-@@ -3197,6 +3203,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 
- 	eb.fences = NULL;
- 	eb.num_fences = 0;
-+	eb.capture_count = 0;
- 
- 	memset(eb.requests, 0, sizeof(struct i915_request *) *
- 	       ARRAY_SIZE(eb.requests));
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 2a2d7643b551..45104bb12a98 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1356,10 +1356,10 @@ capture_user(struct intel_engine_capture_vma *capture,
- 	     const struct i915_request *rq,
- 	     gfp_t gfp)
- {
--	struct i915_capture_list *c;
-+	int i;
- 
--	for (c = rq->capture_list; c; c = c->next)
--		capture = capture_vma(capture, c->vma, "user", gfp);
-+	for (i = 0; rq->capture_list[i]; i++)
-+		capture = capture_vma(capture, rq->capture_list[i], "user", gfp);
- 
- 	return capture;
- }
-@@ -1407,7 +1407,8 @@ intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
- 	 * by userspace.
- 	 */
- 	vma = capture_vma(vma, rq->batch, "batch", gfp);
--	vma = capture_user(vma, rq, gfp);
-+	if (rq->capture_list)
-+		vma = capture_user(vma, rq, gfp);
- 	vma = capture_vma(vma, rq->ring->vma, "ring", gfp);
- 	vma = capture_vma(vma, rq->context->state, "HW context", gfp);
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 42cd17357771..9b28e6f97c4b 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -188,15 +188,10 @@ void i915_request_notify_execute_cb_imm(struct i915_request *rq)
- 
- static void free_capture_list(struct i915_request *request)
- {
--	struct i915_capture_list *capture;
-+	struct i915_vma **capture;
- 
- 	capture = fetch_and_zero(&request->capture_list);
--	while (capture) {
--		struct i915_capture_list *next = capture->next;
--
--		kfree(capture);
--		capture = next;
--	}
-+	kvfree(capture);
+ 		if (fence) {
+-			dma_resv_add_shared_fence(vma->resv, fence);
++			dma_resv_add_shared_fence(vma->obj->base.resv, fence);
+ 			obj->write_domain = 0;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 423e0df81c87..9a931ecb09e5 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -232,16 +232,16 @@ static inline void __i915_vma_put(struct i915_vma *vma)
+ 	kref_put(&vma->ref, i915_vma_release);
  }
  
- static void __i915_request_fill(struct i915_request *rq, u8 val)
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 3c6e8acd1457..2d04b25dca36 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -48,11 +48,6 @@ struct drm_i915_gem_object;
- struct drm_printer;
- struct i915_request;
+-#define assert_vma_held(vma) dma_resv_assert_held((vma)->resv)
++#define assert_vma_held(vma) dma_resv_assert_held((vma)->obj->base.resv)
  
--struct i915_capture_list {
--	struct i915_capture_list *next;
--	struct i915_vma *vma;
--};
--
- #define RQ_TRACE(rq, fmt, ...) do {					\
- 	const struct i915_request *rq__ = (rq);				\
- 	ENGINE_TRACE(rq__->engine, "fence %llx:%lld, current %d " fmt,	\
-@@ -299,7 +294,7 @@ struct i915_request {
- 	 * active reference - all objects on this list must also be
- 	 * on the active_list (of their final request).
- 	 */
--	struct i915_capture_list *capture_list;
-+	struct i915_vma **capture_list;
+ static inline void i915_vma_lock(struct i915_vma *vma)
+ {
+-	dma_resv_lock(vma->resv, NULL);
++	dma_resv_lock(vma->obj->base.resv, NULL);
+ }
  
- 	/** Time at which this request was emitted, in jiffies. */
- 	unsigned long emitted_jiffies;
+ static inline void i915_vma_unlock(struct i915_vma *vma)
+ {
+-	dma_resv_unlock(vma->resv);
++	dma_resv_unlock(vma->obj->base.resv);
+ }
+ 
+ int __must_check
+diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
+index 80e93bf00f2e..8a0decb19bcc 100644
+--- a/drivers/gpu/drm/i915/i915_vma_types.h
++++ b/drivers/gpu/drm/i915/i915_vma_types.h
+@@ -178,7 +178,6 @@ struct i915_vma {
+ 	const struct i915_vma_ops *ops;
+ 
+ 	struct drm_i915_gem_object *obj;
+-	struct dma_resv *resv; /** Alias of obj->resv */
+ 
+ 	struct sg_table *pages;
+ 	void __iomem *iomap;
 -- 
 2.33.0
 
