@@ -2,36 +2,36 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F0F8C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15BEAC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F60F60E05
+	by mail.kernel.org (Postfix) with ESMTPS id DA2FE61205
 	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1F60F60E05
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DA2FE61205
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 094486EC4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 094E96EC4C;
 	Thu, 21 Oct 2021 10:36:14 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA356E3EC;
- Thu, 21 Oct 2021 10:36:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180836EA22;
+ Thu, 21 Oct 2021 10:36:11 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 21 Oct 2021 12:35:40 +0200
-Message-Id: <20211021103605.735002-3-maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:44 +0200
+Message-Id: <20211021103605.735002-7-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/28] drm/i915: Remove dma_resv_prune
+Subject: [Intel-gfx] [PATCH 07/28] drm/i915: Create a dummy object for gen6
+ ppgtt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,120 +47,306 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The signaled bit is already used for quick testing if a fence is signaled.
+We currently have to special case vma->obj being NULL because
+of gen6 ppgtt and mock_engine. Fix gen6 ppgtt, so we may soon
+be able to remove a few checks. As the object only exists as
+a fake object pointing to ggtt, we have no backing storage,
+so no real object is created. It just has to look real enough.
+
+Also kill pin_mutex, it's not compatible with ww locking,
+and we can use the vm lock instead.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                |  1 -
- drivers/gpu/drm/i915/dma_resv_utils.c        | 17 -----------------
- drivers/gpu/drm/i915/dma_resv_utils.h        | 13 -------------
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c |  3 ---
- drivers/gpu/drm/i915/gem/i915_gem_wait.c     |  8 --------
- 5 files changed, 42 deletions(-)
- delete mode 100644 drivers/gpu/drm/i915/dma_resv_utils.c
- delete mode 100644 drivers/gpu/drm/i915/dma_resv_utils.h
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c |  44 ++++---
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c         | 122 +++++++++++--------
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.h         |   1 -
+ drivers/gpu/drm/i915/i915_drv.h              |   4 +
+ 4 files changed, 99 insertions(+), 72 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 467872cca027..b87e3ed10d86 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -60,7 +60,6 @@ i915-y += i915_drv.o \
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+index a57a6b7013c2..c5150a1ee3d2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+@@ -145,24 +145,10 @@ static const struct drm_i915_gem_object_ops i915_gem_object_internal_ops = {
+ 	.put_pages = i915_gem_object_put_pages_internal,
+ };
  
- # core library code
- i915-y += \
--	dma_resv_utils.o \
- 	i915_memcpy.o \
- 	i915_mm.o \
- 	i915_sw_fence.o \
-diff --git a/drivers/gpu/drm/i915/dma_resv_utils.c b/drivers/gpu/drm/i915/dma_resv_utils.c
-deleted file mode 100644
-index 7df91b7e4ca8..000000000000
---- a/drivers/gpu/drm/i915/dma_resv_utils.c
-+++ /dev/null
-@@ -1,17 +0,0 @@
--// SPDX-License-Identifier: MIT
--/*
-- * Copyright © 2020 Intel Corporation
+-/**
+- * i915_gem_object_create_internal: create an object with volatile pages
+- * @i915: the i915 device
+- * @size: the size in bytes of backing storage to allocate for the object
+- *
+- * Creates a new object that wraps some internal memory for private use.
+- * This object is not backed by swappable storage, and as such its contents
+- * are volatile and only valid whilst pinned. If the object is reaped by the
+- * shrinker, its pages and data will be discarded. Equally, it is not a full
+- * GEM object and so not valid for access from userspace. This makes it useful
+- * for hardware interfaces like ringbuffers (which are pinned from the time
+- * the request is written to the time the hardware stops accessing it), but
+- * not for contexts (which need to be preserved when not active for later
+- * reuse). Note that it is not cleared upon allocation.
 - */
+ struct drm_i915_gem_object *
+-i915_gem_object_create_internal(struct drm_i915_private *i915,
+-				phys_addr_t size)
++__i915_gem_object_create_internal(struct drm_i915_private *i915,
++				  const struct drm_i915_gem_object_ops *ops,
++				  phys_addr_t size)
+ {
+ 	static struct lock_class_key lock_class;
+ 	struct drm_i915_gem_object *obj;
+@@ -179,7 +165,7 @@ i915_gem_object_create_internal(struct drm_i915_private *i915,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	drm_gem_private_object_init(&i915->drm, &obj->base, size);
+-	i915_gem_object_init(obj, &i915_gem_object_internal_ops, &lock_class, 0);
++	i915_gem_object_init(obj, ops, &lock_class, 0);
+ 	obj->mem_flags |= I915_BO_FLAG_STRUCT_PAGE;
+ 
+ 	/*
+@@ -199,3 +185,25 @@ i915_gem_object_create_internal(struct drm_i915_private *i915,
+ 
+ 	return obj;
+ }
++
++/**
++ * i915_gem_object_create_internal: create an object with volatile pages
++ * @i915: the i915 device
++ * @size: the size in bytes of backing storage to allocate for the object
++ *
++ * Creates a new object that wraps some internal memory for private use.
++ * This object is not backed by swappable storage, and as such its contents
++ * are volatile and only valid whilst pinned. If the object is reaped by the
++ * shrinker, its pages and data will be discarded. Equally, it is not a full
++ * GEM object and so not valid for access from userspace. This makes it useful
++ * for hardware interfaces like ringbuffers (which are pinned from the time
++ * the request is written to the time the hardware stops accessing it), but
++ * not for contexts (which need to be preserved when not active for later
++ * reuse). Note that it is not cleared upon allocation.
++ */
++struct drm_i915_gem_object *
++i915_gem_object_create_internal(struct drm_i915_private *i915,
++				phys_addr_t size)
++{
++	return __i915_gem_object_create_internal(i915, &i915_gem_object_internal_ops, size);
++}
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index 9fdbd9d3372b..5caa1703716e 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -262,13 +262,10 @@ static void gen6_ppgtt_cleanup(struct i915_address_space *vm)
+ {
+ 	struct gen6_ppgtt *ppgtt = to_gen6_ppgtt(i915_vm_to_ppgtt(vm));
+ 
+-	__i915_vma_put(ppgtt->vma);
 -
--#include <linux/dma-resv.h>
--
--#include "dma_resv_utils.h"
--
--void dma_resv_prune(struct dma_resv *resv)
+ 	gen6_ppgtt_free_pd(ppgtt);
+ 	free_scratch(vm);
+ 
+ 	mutex_destroy(&ppgtt->flush);
+-	mutex_destroy(&ppgtt->pin_mutex);
+ 
+ 	free_pd(&ppgtt->base.vm, ppgtt->base.pd);
+ }
+@@ -331,37 +328,6 @@ static const struct i915_vma_ops pd_vma_ops = {
+ 	.unbind_vma = pd_vma_unbind,
+ };
+ 
+-static struct i915_vma *pd_vma_create(struct gen6_ppgtt *ppgtt, int size)
 -{
--	if (dma_resv_trylock(resv)) {
--		if (dma_resv_test_signaled(resv, true))
--			dma_resv_add_excl_fence(resv, NULL);
--		dma_resv_unlock(resv);
--	}
+-	struct i915_ggtt *ggtt = ppgtt->base.vm.gt->ggtt;
+-	struct i915_vma *vma;
+-
+-	GEM_BUG_ON(!IS_ALIGNED(size, I915_GTT_PAGE_SIZE));
+-	GEM_BUG_ON(size > ggtt->vm.total);
+-
+-	vma = i915_vma_alloc();
+-	if (!vma)
+-		return ERR_PTR(-ENOMEM);
+-
+-	i915_active_init(&vma->active, NULL, NULL, 0);
+-
+-	kref_init(&vma->ref);
+-	mutex_init(&vma->pages_mutex);
+-	vma->vm = i915_vm_get(&ggtt->vm);
+-	vma->ops = &pd_vma_ops;
+-	vma->private = ppgtt;
+-
+-	vma->size = size;
+-	vma->fence_size = size;
+-	atomic_set(&vma->flags, I915_VMA_GGTT);
+-	vma->ggtt_view.type = I915_GGTT_VIEW_ROTATED; /* prevent fencing */
+-
+-	INIT_LIST_HEAD(&vma->obj_link);
+-	INIT_LIST_HEAD(&vma->closed_link);
+-
+-	return vma;
 -}
-diff --git a/drivers/gpu/drm/i915/dma_resv_utils.h b/drivers/gpu/drm/i915/dma_resv_utils.h
-deleted file mode 100644
-index b9d8fb5f8367..000000000000
---- a/drivers/gpu/drm/i915/dma_resv_utils.h
-+++ /dev/null
-@@ -1,13 +0,0 @@
--/* SPDX-License-Identifier: MIT */
--/*
-- * Copyright © 2020 Intel Corporation
-- */
 -
--#ifndef DMA_RESV_UTILS_H
--#define DMA_RESV_UTILS_H
--
--struct dma_resv;
--
--void dma_resv_prune(struct dma_resv *resv);
--
--#endif /* DMA_RESV_UTILS_H */
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index 5ab136ffdeb2..af3eb7fd951d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -15,7 +15,6 @@
+ int gen6_ppgtt_pin(struct i915_ppgtt *base, struct i915_gem_ww_ctx *ww)
+ {
+ 	struct gen6_ppgtt *ppgtt = to_gen6_ppgtt(base);
+@@ -378,24 +344,84 @@ int gen6_ppgtt_pin(struct i915_ppgtt *base, struct i915_gem_ww_ctx *ww)
+ 	if (atomic_add_unless(&ppgtt->pin_count, 1, 0))
+ 		return 0;
  
- #include "gt/intel_gt_requests.h"
+-	if (mutex_lock_interruptible(&ppgtt->pin_mutex))
+-		return -EINTR;
++	/* grab the ppgtt resv to pin the object */
++	err = i915_vm_lock_objects(&ppgtt->base.vm, ww);
++	if (err)
++		return err;
  
--#include "dma_resv_utils.h"
- #include "i915_trace.h"
+ 	/*
+ 	 * PPGTT PDEs reside in the GGTT and consists of 512 entries. The
+ 	 * allocator works in address space sizes, so it's multiplied by page
+ 	 * size. We allocate at the top of the GTT to avoid fragmentation.
+ 	 */
+-	err = 0;
+-	if (!atomic_read(&ppgtt->pin_count))
++	if (!atomic_read(&ppgtt->pin_count)) {
+ 		err = i915_ggtt_pin(ppgtt->vma, ww, GEN6_PD_ALIGN, PIN_HIGH);
++
++		GEM_BUG_ON(ppgtt->vma->fence);
++		clear_bit(I915_VMA_CAN_FENCE_BIT, __i915_vma_flags(ppgtt->vma));
++	}
+ 	if (!err)
+ 		atomic_inc(&ppgtt->pin_count);
+-	mutex_unlock(&ppgtt->pin_mutex);
  
- static bool swap_available(void)
-@@ -229,8 +228,6 @@ i915_gem_shrink(struct i915_gem_ww_ctx *ww,
- 					i915_gem_object_unlock(obj);
- 			}
- 
--			dma_resv_prune(obj->base.resv);
--
- 			scanned += obj->base.size >> PAGE_SHIFT;
- skip:
- 			i915_gem_object_put(obj);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index 840c13706999..1592d95c3ead 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -10,7 +10,6 @@
- 
- #include "gt/intel_engine.h"
- 
--#include "dma_resv_utils.h"
- #include "i915_gem_ioctls.h"
- #include "i915_gem_object.h"
- 
-@@ -52,13 +51,6 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
- 	}
- 	dma_resv_iter_end(&cursor);
- 
--	/*
--	 * Opportunistically prune the fences iff we know they have *all* been
--	 * signaled.
--	 */
--	if (timeout > 0)
--		dma_resv_prune(resv);
--
- 	return ret;
+ 	return err;
  }
  
++static int pd_dummy_obj_get_pages(struct drm_i915_gem_object *obj)
++{
++	obj->mm.pages = ZERO_SIZE_PTR;
++	return 0;
++}
++
++static void pd_dummy_obj_put_pages(struct drm_i915_gem_object *obj,
++				     struct sg_table *pages)
++{
++}
++
++static const struct drm_i915_gem_object_ops pd_dummy_obj_ops = {
++	.name = "pd_dummy_obj",
++	.flags = I915_GEM_OBJECT_IS_SHRINKABLE,
++	.get_pages = pd_dummy_obj_get_pages,
++	.put_pages = pd_dummy_obj_put_pages,
++};
++
++static struct i915_page_directory *
++gen6_alloc_top_pd(struct gen6_ppgtt *ppgtt)
++{
++	struct i915_ggtt * const ggtt = ppgtt->base.vm.gt->ggtt;
++	struct i915_page_directory *pd;
++	int err;
++
++	pd = __alloc_pd(I915_PDES);
++	if (unlikely(!pd))
++		return ERR_PTR(-ENOMEM);
++
++	pd->pt.base = __i915_gem_object_create_internal(ppgtt->base.vm.gt->i915, &pd_dummy_obj_ops, I915_PDES * SZ_4K);
++	if (IS_ERR(pd->pt.base)) {
++		err = PTR_ERR(pd->pt.base);
++		pd->pt.base = NULL;
++		goto err_pd;
++	}
++
++	pd->pt.base->base.resv = i915_vm_resv_get(&ppgtt->base.vm);
++	pd->pt.base->shares_resv_from = &ppgtt->base.vm;
++
++	ppgtt->vma = i915_vma_instance(pd->pt.base, &ggtt->vm, NULL);
++	if (IS_ERR(ppgtt->vma)) {
++		err = PTR_ERR(ppgtt->vma);
++		ppgtt->vma = NULL;
++		goto err_pd;
++	}
++
++	/* The dummy object we create is special, override ops.. */
++	ppgtt->vma->ops = &pd_vma_ops;
++	ppgtt->vma->private = ppgtt;
++	return pd;
++
++err_pd:
++	free_pd(&ppgtt->base.vm, pd);
++	return ERR_PTR(err);
++}
++
+ void gen6_ppgtt_unpin(struct i915_ppgtt *base)
+ {
+ 	struct gen6_ppgtt *ppgtt = to_gen6_ppgtt(base);
+@@ -416,7 +442,6 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	mutex_init(&ppgtt->flush);
+-	mutex_init(&ppgtt->pin_mutex);
+ 
+ 	ppgtt_init(&ppgtt->base, gt, 0);
+ 	ppgtt->base.vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen6_pte_t));
+@@ -431,19 +456,13 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
+ 	ppgtt->base.vm.alloc_pt_dma = alloc_pt_dma;
+ 	ppgtt->base.vm.pte_encode = ggtt->vm.pte_encode;
+ 
+-	ppgtt->base.pd = __alloc_pd(I915_PDES);
+-	if (!ppgtt->base.pd) {
+-		err = -ENOMEM;
+-		goto err_free;
+-	}
+-
+ 	err = gen6_ppgtt_init_scratch(ppgtt);
+ 	if (err)
+-		goto err_pd;
++		goto err_free;
+ 
+-	ppgtt->vma = pd_vma_create(ppgtt, GEN6_PD_SIZE);
+-	if (IS_ERR(ppgtt->vma)) {
+-		err = PTR_ERR(ppgtt->vma);
++	ppgtt->base.pd = gen6_alloc_top_pd(ppgtt);
++	if (IS_ERR(ppgtt->base.pd)) {
++		err = PTR_ERR(ppgtt->base.pd);
+ 		goto err_scratch;
+ 	}
+ 
+@@ -451,10 +470,7 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
+ 
+ err_scratch:
+ 	free_scratch(&ppgtt->base.vm);
+-err_pd:
+-	free_pd(&ppgtt->base.vm, ppgtt->base.pd);
+ err_free:
+-	mutex_destroy(&ppgtt->pin_mutex);
+ 	kfree(ppgtt);
+ 	return ERR_PTR(err);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.h b/drivers/gpu/drm/i915/gt/gen6_ppgtt.h
+index ab0eecb086dd..5e5cf2ec3309 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.h
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.h
+@@ -19,7 +19,6 @@ struct gen6_ppgtt {
+ 	u32 pp_dir;
+ 
+ 	atomic_t pin_count;
+-	struct mutex pin_mutex;
+ 
+ 	bool scan_for_unused_pt;
+ };
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 12256218634f..a8d733a7e1d9 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1933,6 +1933,10 @@ int i915_gem_evict_vm(struct i915_address_space *vm);
+ struct drm_i915_gem_object *
+ i915_gem_object_create_internal(struct drm_i915_private *dev_priv,
+ 				phys_addr_t size);
++struct drm_i915_gem_object *
++__i915_gem_object_create_internal(struct drm_i915_private *dev_priv,
++				  const struct drm_i915_gem_object_ops *ops,
++				  phys_addr_t size);
+ 
+ /* i915_gem_tiling.c */
+ static inline bool i915_gem_object_needs_bit17_swizzle(struct drm_i915_gem_object *obj)
 -- 
 2.33.0
 
