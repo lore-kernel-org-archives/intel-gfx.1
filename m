@@ -2,35 +2,35 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFAD5C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CBE9C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7AE1E60E05
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7AE1E60E05
+	by mail.kernel.org (Postfix) with ESMTPS id 37F0460EBB
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 37F0460EBB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE906E42A;
-	Thu, 21 Oct 2021 10:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12B4F6EC3E;
+	Thu, 21 Oct 2021 10:36:23 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793536EC3B;
- Thu, 21 Oct 2021 10:36:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC086EB36;
+ Thu, 21 Oct 2021 10:36:11 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 21 Oct 2021 12:35:53 +0200
-Message-Id: <20211021103605.735002-16-maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:46 +0200
+Message-Id: <20211021103605.735002-9-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/28] drm/i915: Rework context handling in
- hugepages selftests
+Subject: [Intel-gfx] [PATCH 09/28] drm/i915: vma is always backed by an
+ object.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,298 +46,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the next commit, we don't evict when refcount = 0, so we need to
-call drain freed objects, because we want to pin new bo's in the same
-place, causing a test failure.
-
-Furthermore, since each subtest is separated, it's a lot better to use
-i915_live_selftests, so each subtest starts with a clean slate, and a
-clean address space.
+vma->obj and vma->resv are now never NULL, and some checks can be removed.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/selftests/huge_pages.c   | 127 +++++++++++-------
- 1 file changed, 79 insertions(+), 48 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       |  2 +-
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  2 +-
+ drivers/gpu/drm/i915/i915_vma.c               | 48 ++++++++-----------
+ drivers/gpu/drm/i915/i915_vma.h               |  3 --
+ 4 files changed, 22 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index b2003133deaf..493509f90b35 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -22,6 +22,21 @@
- #include "selftests/mock_region.h"
- #include "selftests/i915_random.h"
- 
-+struct i915_gem_context *hugepage_ctx(struct drm_i915_private *i915, struct file *file)
-+{
-+	struct i915_gem_context *ctx = live_context(i915, file);
-+	struct i915_address_space *vm;
-+
-+	if (IS_ERR(ctx))
-+		return ctx;
-+
-+	vm = ctx->vm;
-+	if (vm)
-+		WRITE_ONCE(vm->scrub_64K, true);
-+
-+	return ctx;
-+}
-+
- static const unsigned int page_sizes[] = {
- 	I915_GTT_PAGE_SIZE_2M,
- 	I915_GTT_PAGE_SIZE_64K,
-@@ -959,6 +974,8 @@ static int igt_mock_ppgtt_64K(void *arg)
- 			__i915_gem_object_put_pages(obj);
- 			i915_gem_object_unlock(obj);
- 			i915_gem_object_put(obj);
-+
-+			i915_gem_drain_freed_objects(i915);
- 		}
- 	}
- 
-@@ -1080,10 +1097,6 @@ static int __igt_write_huge(struct intel_context *ce,
- 	if (IS_ERR(vma))
- 		return PTR_ERR(vma);
- 
--	err = i915_vma_unbind(vma);
--	if (err)
--		return err;
--
- 	err = i915_vma_pin(vma, size, 0, flags | offset);
- 	if (err) {
- 		/*
-@@ -1117,7 +1130,7 @@ static int __igt_write_huge(struct intel_context *ce,
- 	return err;
- }
- 
--static int igt_write_huge(struct i915_gem_context *ctx,
-+static int igt_write_huge(struct drm_i915_private *i915,
- 			  struct drm_i915_gem_object *obj)
- {
- 	struct i915_gem_engines *engines;
-@@ -1127,6 +1140,8 @@ static int igt_write_huge(struct i915_gem_context *ctx,
- 	IGT_TIMEOUT(end_time);
- 	unsigned int max_page_size;
- 	unsigned int count;
-+	struct i915_gem_context *ctx;
-+	struct file *file;
- 	u64 max;
- 	u64 num;
- 	u64 size;
-@@ -1134,6 +1149,16 @@ static int igt_write_huge(struct i915_gem_context *ctx,
- 	int i, n;
- 	int err = 0;
- 
-+	file = mock_file(i915);
-+	if (IS_ERR(file))
-+		return PTR_ERR(file);
-+
-+	ctx = hugepage_ctx(i915, file);
-+	if (IS_ERR(ctx)) {
-+		err = PTR_ERR(ctx);
-+		goto out;
-+	}
-+
- 	GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
- 
- 	size = obj->base.size;
-@@ -1153,7 +1178,7 @@ static int igt_write_huge(struct i915_gem_context *ctx,
- 	}
- 	i915_gem_context_unlock_engines(ctx);
- 	if (!n)
--		return 0;
-+		goto out;
- 
- 	/*
- 	 * To keep things interesting when alternating between engines in our
-@@ -1215,6 +1240,8 @@ static int igt_write_huge(struct i915_gem_context *ctx,
- 
- 	kfree(order);
- 
-+out:
-+	fput(file);
- 	return err;
- }
- 
-@@ -1277,8 +1304,7 @@ static u32 igt_random_size(struct rnd_state *prng,
- 
- static int igt_ppgtt_smoke_huge(void *arg)
- {
--	struct i915_gem_context *ctx = arg;
--	struct drm_i915_private *i915 = ctx->i915;
-+	struct drm_i915_private *i915 = arg;
- 	struct drm_i915_gem_object *obj;
- 	I915_RND_STATE(prng);
- 	struct {
-@@ -1302,6 +1328,7 @@ static int igt_ppgtt_smoke_huge(void *arg)
- 		u32 min = backends[i].min;
- 		u32 max = backends[i].max;
- 		u32 size = max;
-+
- try_again:
- 		size = igt_random_size(&prng, min, rounddown_pow_of_two(size));
- 
-@@ -1336,7 +1363,7 @@ static int igt_ppgtt_smoke_huge(void *arg)
- 			goto out_unpin;
- 		}
- 
--		err = igt_write_huge(ctx, obj);
-+		err = igt_write_huge(i915, obj);
- 		if (err) {
- 			pr_err("%s write-huge failed with size=%u, i=%d\n",
- 			       __func__, size, i);
-@@ -1363,8 +1390,7 @@ static int igt_ppgtt_smoke_huge(void *arg)
- 
- static int igt_ppgtt_sanity_check(void *arg)
- {
--	struct i915_gem_context *ctx = arg;
--	struct drm_i915_private *i915 = ctx->i915;
-+	struct drm_i915_private *i915 = arg;
- 	unsigned int supported = INTEL_INFO(i915)->page_sizes;
- 	struct {
- 		igt_create_fn fn;
-@@ -1431,7 +1457,7 @@ static int igt_ppgtt_sanity_check(void *arg)
- 			if (pages)
- 				obj->mm.page_sizes.sg = pages;
- 
--			err = igt_write_huge(ctx, obj);
-+			err = igt_write_huge(i915, obj);
- 
- 			i915_gem_object_lock(obj, NULL);
- 			i915_gem_object_unpin_pages(obj);
-@@ -1458,15 +1484,27 @@ static int igt_ppgtt_sanity_check(void *arg)
- 
- static int igt_tmpfs_fallback(void *arg)
- {
--	struct i915_gem_context *ctx = arg;
--	struct drm_i915_private *i915 = ctx->i915;
-+	struct drm_i915_private *i915 = arg;
-+	struct i915_address_space *vm;
-+	struct i915_gem_context *ctx;
- 	struct vfsmount *gemfs = i915->mm.gemfs;
--	struct i915_address_space *vm = i915_gem_context_get_eb_vm(ctx);
- 	struct drm_i915_gem_object *obj;
- 	struct i915_vma *vma;
-+	struct file *file;
- 	u32 *vaddr;
- 	int err = 0;
- 
-+	file = mock_file(i915);
-+	if (IS_ERR(file))
-+		return PTR_ERR(file);
-+
-+	ctx = hugepage_ctx(i915, file);
-+	if (IS_ERR(ctx)) {
-+		err = PTR_ERR(ctx);
-+		goto out;
-+	}
-+	vm = i915_gem_context_get_eb_vm(ctx);
-+
- 	/*
- 	 * Make sure that we don't burst into a ball of flames upon falling back
- 	 * to tmpfs, which we rely on if on the off-chance we encouter a failure
-@@ -1510,33 +1548,47 @@ static int igt_tmpfs_fallback(void *arg)
- 	i915->mm.gemfs = gemfs;
- 
- 	i915_vm_put(vm);
-+out:
-+	fput(file);
- 	return err;
- }
- 
- static int igt_shrink_thp(void *arg)
- {
--	struct i915_gem_context *ctx = arg;
--	struct drm_i915_private *i915 = ctx->i915;
--	struct i915_address_space *vm = i915_gem_context_get_eb_vm(ctx);
-+	struct drm_i915_private *i915 = arg;
-+	struct i915_address_space *vm;
-+	struct i915_gem_context *ctx;
- 	struct drm_i915_gem_object *obj;
- 	struct i915_gem_engines_iter it;
- 	struct intel_context *ce;
- 	struct i915_vma *vma;
-+	struct file *file;
- 	unsigned int flags = PIN_USER;
- 	unsigned int n;
- 	bool should_swap;
--	int err = 0;
-+	int err;
-+
-+	if (!igt_can_allocate_thp(i915)) {
-+		pr_info("missing THP support, skipping\n");
-+		return 0;
-+	}
-+
-+	file = mock_file(i915);
-+	if (IS_ERR(file))
-+		return PTR_ERR(file);
-+
-+	ctx = hugepage_ctx(i915, file);
-+	if (IS_ERR(ctx)) {
-+		err = PTR_ERR(ctx);
-+		goto out;
-+	}
-+	vm = i915_gem_context_get_eb_vm(ctx);
- 
- 	/*
- 	 * Sanity check shrinking huge-paged object -- make sure nothing blows
- 	 * up.
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 5634d14052bc..e0220ac0e9b6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -219,7 +219,7 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
  	 */
  
--	if (!igt_can_allocate_thp(i915)) {
--		pr_info("missing THP support, skipping\n");
--		goto out_vm;
--	}
--
- 	obj = i915_gem_object_create_shmem(i915, SZ_2M);
- 	if (IS_ERR(obj)) {
- 		err = PTR_ERR(obj);
-@@ -1626,7 +1678,8 @@ static int igt_shrink_thp(void *arg)
- 	i915_gem_object_put(obj);
- out_vm:
- 	i915_vm_put(vm);
--
-+out:
-+	fput(file);
- 	return err;
+ 	err = i915_gem_object_lock(ce->timeline->hwsp_ggtt->obj, ww);
+-	if (!err && ce->ring->vma->obj)
++	if (!err)
+ 		err = i915_gem_object_lock(ce->ring->vma->obj, ww);
+ 	if (!err && ce->state)
+ 		err = i915_gem_object_lock(ce->state->obj, ww);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 586dca1731ce..3e6fac0340ef 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -1357,7 +1357,7 @@ int intel_ring_submission_setup(struct intel_engine_cs *engine)
+ 	err = i915_gem_object_lock(timeline->hwsp_ggtt->obj, &ww);
+ 	if (!err && gen7_wa_vma)
+ 		err = i915_gem_object_lock(gen7_wa_vma->obj, &ww);
+-	if (!err && engine->legacy.ring->vma->obj)
++	if (!err)
+ 		err = i915_gem_object_lock(engine->legacy.ring->vma->obj, &ww);
+ 	if (!err)
+ 		err = intel_timeline_pin(timeline, &ww);
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 1187f1956c20..aebfc232b58b 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -40,12 +40,12 @@
+ 
+ static struct kmem_cache *slab_vmas;
+ 
+-struct i915_vma *i915_vma_alloc(void)
++static struct i915_vma *i915_vma_alloc(void)
+ {
+ 	return kmem_cache_zalloc(slab_vmas, GFP_KERNEL);
  }
  
-@@ -1687,10 +1740,6 @@ int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ppgtt_smoke_huge),
- 		SUBTEST(igt_ppgtt_sanity_check),
- 	};
--	struct i915_gem_context *ctx;
--	struct i915_address_space *vm;
--	struct file *file;
--	int err;
+-void i915_vma_free(struct i915_vma *vma)
++static void i915_vma_free(struct i915_vma *vma)
+ {
+ 	return kmem_cache_free(slab_vmas, vma);
+ }
+@@ -426,10 +426,8 @@ int i915_vma_bind(struct i915_vma *vma,
  
- 	if (!HAS_PPGTT(i915)) {
- 		pr_info("PPGTT not supported, skipping live-selftests\n");
-@@ -1700,23 +1749,5 @@ int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
- 	if (intel_gt_is_wedged(&i915->gt))
+ 		work->base.dma.error = 0; /* enable the queue_work() */
+ 
+-		if (vma->obj) {
+-			__i915_gem_object_pin_pages(vma->obj);
+-			work->pinned = i915_gem_object_get(vma->obj);
+-		}
++		__i915_gem_object_pin_pages(vma->obj);
++		work->pinned = i915_gem_object_get(vma->obj);
+ 	} else {
+ 		vma->ops->bind_vma(vma->vm, NULL, vma, cache_level, bind_flags);
+ 	}
+@@ -670,7 +668,7 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
+ 	}
+ 
+ 	color = 0;
+-	if (vma->obj && i915_vm_has_cache_coloring(vma->vm))
++	if (i915_vm_has_cache_coloring(vma->vm))
+ 		color = vma->obj->cache_level;
+ 
+ 	if (flags & PIN_OFFSET_FIXED) {
+@@ -795,17 +793,14 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
+ static int vma_get_pages(struct i915_vma *vma)
+ {
+ 	int err = 0;
+-	bool pinned_pages = false;
++	bool pinned_pages = true;
+ 
+ 	if (atomic_add_unless(&vma->pages_count, 1, 0))
  		return 0;
  
--	file = mock_file(i915);
--	if (IS_ERR(file))
--		return PTR_ERR(file);
--
--	ctx = live_context(i915, file);
--	if (IS_ERR(ctx)) {
--		err = PTR_ERR(ctx);
--		goto out_file;
+-	if (vma->obj) {
+-		err = i915_gem_object_pin_pages(vma->obj);
+-		if (err)
+-			return err;
+-		pinned_pages = true;
 -	}
--
--	vm = ctx->vm;
--	if (vm)
--		WRITE_ONCE(vm->scrub_64K, true);
--
--	err = i915_subtests(tests, ctx);
--
--out_file:
--	fput(file);
--	return err;
-+	return i915_live_subtests(tests, i915);
++	err = i915_gem_object_pin_pages(vma->obj);
++	if (err)
++		return err;
+ 
+ 	/* Allocations ahoy! */
+ 	if (mutex_lock_interruptible(&vma->pages_mutex)) {
+@@ -838,8 +833,8 @@ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
+ 	if (atomic_sub_return(count, &vma->pages_count) == 0) {
+ 		vma->ops->clear_pages(vma);
+ 		GEM_BUG_ON(vma->pages);
+-		if (vma->obj)
+-			i915_gem_object_unpin_pages(vma->obj);
++
++		i915_gem_object_unpin_pages(vma->obj);
+ 	}
+ 	mutex_unlock(&vma->pages_mutex);
  }
+@@ -875,7 +870,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	int err;
+ 
+ #ifdef CONFIG_PROVE_LOCKING
+-	if (debug_locks && !WARN_ON(!ww) && vma->resv)
++	if (debug_locks && !WARN_ON(!ww))
+ 		assert_vma_held(vma);
+ #endif
+ 
+@@ -983,7 +978,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 
+ 	GEM_BUG_ON(!vma->pages);
+ 	err = i915_vma_bind(vma,
+-			    vma->obj ? vma->obj->cache_level : 0,
++			    vma->obj->cache_level,
+ 			    flags, work);
+ 	if (err)
+ 		goto err_remove;
+@@ -1037,7 +1032,7 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
+ 
+ #ifdef CONFIG_LOCKDEP
+-	WARN_ON(!ww && vma->resv && dma_resv_held(vma->resv));
++	WARN_ON(!ww && dma_resv_held(vma->resv));
+ #endif
+ 
+ 	do {
+@@ -1116,6 +1111,7 @@ void i915_vma_reopen(struct i915_vma *vma)
+ void i915_vma_release(struct kref *ref)
+ {
+ 	struct i915_vma *vma = container_of(ref, typeof(*vma), ref);
++	struct drm_i915_gem_object *obj = vma->obj;
+ 
+ 	if (drm_mm_node_allocated(&vma->node)) {
+ 		mutex_lock(&vma->vm->mutex);
+@@ -1126,15 +1122,11 @@ void i915_vma_release(struct kref *ref)
+ 	}
+ 	GEM_BUG_ON(i915_vma_is_active(vma));
+ 
+-	if (vma->obj) {
+-		struct drm_i915_gem_object *obj = vma->obj;
+-
+-		spin_lock(&obj->vma.lock);
+-		list_del(&vma->obj_link);
+-		if (!RB_EMPTY_NODE(&vma->obj_node))
+-			rb_erase(&vma->obj_node, &obj->vma.tree);
+-		spin_unlock(&obj->vma.lock);
+-	}
++	spin_lock(&obj->vma.lock);
++	list_del(&vma->obj_link);
++	if (!RB_EMPTY_NODE(&vma->obj_node))
++		rb_erase(&vma->obj_node, &obj->vma.tree);
++	spin_unlock(&obj->vma.lock);
+ 
+ 	__i915_vma_remove_closed(vma);
+ 	i915_vm_put(vma->vm);
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index b882fd7b5f99..423e0df81c87 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -416,9 +416,6 @@ static inline void i915_vma_clear_scanout(struct i915_vma *vma)
+ 	list_for_each_entry(V, &(OBJ)->vma.list, obj_link)		\
+ 		for_each_until(!i915_vma_is_ggtt(V))
+ 
+-struct i915_vma *i915_vma_alloc(void);
+-void i915_vma_free(struct i915_vma *vma);
+-
+ struct i915_vma *i915_vma_make_unshrinkable(struct i915_vma *vma);
+ void i915_vma_make_shrinkable(struct i915_vma *vma);
+ void i915_vma_make_purgeable(struct i915_vma *vma);
 -- 
 2.33.0
 
