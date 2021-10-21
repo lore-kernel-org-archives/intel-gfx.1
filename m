@@ -2,47 +2,48 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DF4CC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33535C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 630F56121E
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 630F56121E
+	by mail.kernel.org (Postfix) with ESMTPS id E38716120F
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:24:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E38716120F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97D966EC93;
-	Thu, 21 Oct 2021 14:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C42896EC8F;
+	Thu, 21 Oct 2021 14:24:11 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E566EC90;
- Thu, 21 Oct 2021 14:23:59 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="216212137"
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="216212137"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 601076EC97;
+ Thu, 21 Oct 2021 14:24:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="216212172"
+X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="216212172"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 07:23:58 -0700
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="495170370"
+ 21 Oct 2021 07:24:06 -0700
+X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="495170447"
 Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 07:23:55 -0700
+ 21 Oct 2021 07:24:02 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
 Cc: Daniel Vetter <daniel@ffwll.ch>, CQ Tang <cq.tang@intel.com>,
  Matthew Auld <matthew.auld@intel.com>, lucas.demarchi@intel.com,
  <rodrigo.vivi@intel.com>, Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
+ Wilson Chris P <chris.p.wilson@intel.com>,
  Ramalingam C <ramalingam.c@intel.com>
-Date: Thu, 21 Oct 2021 19:56:15 +0530
-Message-Id: <20211021142627.31058-6-ramalingam.c@intel.com>
+Date: Thu, 21 Oct 2021 19:56:17 +0530
+Message-Id: <20211021142627.31058-8-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211021142627.31058-1-ramalingam.c@intel.com>
 References: <20211021142627.31058-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 05/17] drm/i915/gtt/xehpsdv: move scratch
- page to system memory
+Subject: [Intel-gfx] [PATCH v2 07/17] drm/i915: Add vm min alignment support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,143 +59,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Auld <matthew.auld@intel.com>
+From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 
-On some platforms the hw has dropped support for 4K GTT pages when
-dealing with LMEM, and due to the design of 64K GTT pages in the hw, we
-can only mark the *entire* page-table as operating in 64K GTT mode,
-since the enable bit is still on the pde, and not the pte. And since we
-we still need to allow 4K GTT pages for SMEM objects, we can't have a
-"normal" 4K page-table with scratch pointing to LMEM, since that's
-undefined from the hw pov. The simplest solution is to just move the 64K
-scratch page to SMEM on such platforms and call it a day, since that
-should work for all configurations.
+Replace the hard coded 4K alignment value with vm->min_alignment.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Wilson Chris P <chris.p.wilson@intel.com>
+Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c      |  1 +
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c      | 23 +++++++++++++++++++++--
- drivers/gpu/drm/i915/gt/intel_ggtt.c      |  2 ++
- drivers/gpu/drm/i915/gt/intel_gtt.c       |  2 +-
- drivers/gpu/drm/i915/gt/intel_gtt.h       |  2 ++
- drivers/gpu/drm/i915/selftests/mock_gtt.c |  2 ++
- 6 files changed, 29 insertions(+), 3 deletions(-)
+ .../i915/gem/selftests/i915_gem_client_blt.c  | 23 ++++++++++++-------
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |  9 ++++++++
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |  9 ++++++++
+ 3 files changed, 33 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 890191f286e3..49e7651d764a 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -440,6 +440,7 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- 	ppgtt->base.vm.cleanup = gen6_ppgtt_cleanup;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+index 8402ed925a69..6b9b861e43e5 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+@@ -39,6 +39,7 @@ struct tiled_blits {
+ 	struct blit_buffer scratch;
+ 	struct i915_vma *batch;
+ 	u64 hole;
++	u64 align;
+ 	u32 width;
+ 	u32 height;
+ };
+@@ -410,14 +411,21 @@ tiled_blits_create(struct intel_engine_cs *engine, struct rnd_state *prng)
+ 		goto err_free;
+ 	}
  
- 	ppgtt->base.vm.alloc_pt_dma = alloc_pt_dma;
-+	ppgtt->base.vm.alloc_scratch_dma = alloc_pt_dma;
- 	ppgtt->base.vm.pte_encode = ggtt->vm.pte_encode;
- 
- 	ppgtt->base.pd = __alloc_pd(I915_PDES);
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 037a9a6e4889..6bff6bf1a450 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -777,10 +777,29 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
- 	 */
- 	ppgtt->vm.has_read_only = !IS_GRAPHICS_VER(gt->i915, 11, 12);
- 
--	if (HAS_LMEM(gt->i915))
-+	if (HAS_LMEM(gt->i915)) {
- 		ppgtt->vm.alloc_pt_dma = alloc_pt_lmem;
--	else
+-	hole_size = 2 * PAGE_ALIGN(WIDTH * HEIGHT * 4);
++	t->align = I915_GTT_PAGE_SIZE_2M; /* XXX worst case, derive from vm! */
++	t->align = max(t->align,
++		       i915_vm_min_alignment(t->ce->vm, INTEL_MEMORY_LOCAL));
++	t->align = max(t->align,
++		       i915_vm_min_alignment(t->ce->vm, INTEL_MEMORY_SYSTEM));
 +
-+		/*
-+		 * On some platforms the hw has dropped support for 4K GTT pages
-+		 * when dealing with LMEM, and due to the design of 64K GTT
-+		 * pages in the hw, we can only mark the *entire* page-table as
-+		 * operating in 64K GTT mode, since the enable bit is still on
-+		 * the pde, and not the pte. And since we still need to allow
-+		 * 4K GTT pages for SMEM objects, we can't have a "normal" 4K
-+		 * page-table with scratch pointing to LMEM, since that's
-+		 * undefined from the hw pov. The simplest solution is to just
-+		 * move the 64K scratch page to SMEM on such platforms and call
-+		 * it a day, since that should work for all configurations.
-+		 */
-+		if (HAS_64K_PAGES(gt->i915))
-+			ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
-+		else
-+			ppgtt->vm.alloc_scratch_dma = alloc_pt_lmem;
-+	} else {
- 		ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
-+		ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
-+	}
++	hole_size = 2 * round_up(WIDTH * HEIGHT * 4, t->align);
+ 	hole_size *= 2; /* room to maneuver */
+-	hole_size += 2 * I915_GTT_MIN_ALIGNMENT;
++	hole_size += 2 * t->align; /* padding on either side */
  
- 	err = gen8_init_scratch(&ppgtt->vm);
+ 	mutex_lock(&t->ce->vm->mutex);
+ 	memset(&hole, 0, sizeof(hole));
+ 	err = drm_mm_insert_node_in_range(&t->ce->vm->mm, &hole,
+-					  hole_size, 0, I915_COLOR_UNEVICTABLE,
++					  hole_size, t->align,
++					  I915_COLOR_UNEVICTABLE,
+ 					  0, U64_MAX,
+ 					  DRM_MM_INSERT_BEST);
+ 	if (!err)
+@@ -428,7 +436,7 @@ tiled_blits_create(struct intel_engine_cs *engine, struct rnd_state *prng)
+ 		goto err_put;
+ 	}
+ 
+-	t->hole = hole.start + I915_GTT_MIN_ALIGNMENT;
++	t->hole = hole.start + t->align;
+ 	pr_info("Using hole at %llx\n", t->hole);
+ 
+ 	err = tiled_blits_create_buffers(t, WIDTH, HEIGHT, prng);
+@@ -455,7 +463,7 @@ static void tiled_blits_destroy(struct tiled_blits *t)
+ static int tiled_blits_prepare(struct tiled_blits *t,
+ 			       struct rnd_state *prng)
+ {
+-	u64 offset = PAGE_ALIGN(t->width * t->height * 4);
++	u64 offset = round_up(t->width * t->height * 4, t->align);
+ 	u32 *map;
+ 	int err;
+ 	int i;
+@@ -486,8 +494,7 @@ static int tiled_blits_prepare(struct tiled_blits *t,
+ 
+ static int tiled_blits_bounce(struct tiled_blits *t, struct rnd_state *prng)
+ {
+-	u64 offset =
+-		round_up(t->width * t->height * 4, 2 * I915_GTT_MIN_ALIGNMENT);
++	u64 offset = round_up(t->width * t->height * 4, 2 * t->align);
+ 	int err;
+ 
+ 	/* We want to check position invariant tiling across GTT eviction */
+@@ -500,7 +507,7 @@ static int tiled_blits_bounce(struct tiled_blits *t, struct rnd_state *prng)
+ 
+ 	/* Reposition so that we overlap the old addresses, and slightly off */
+ 	err = tiled_blit(t,
+-			 &t->buffers[2], t->hole + I915_GTT_MIN_ALIGNMENT,
++			 &t->buffers[2], t->hole + t->align,
+ 			 &t->buffers[1], t->hole + 3 * offset / 2);
  	if (err)
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index f17383e76eb7..289316007029 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -1077,6 +1077,7 @@ static int gen6_gmch_probe(struct i915_ggtt *ggtt)
- 	ggtt->vm.total = (size / sizeof(gen6_pte_t)) * I915_GTT_PAGE_SIZE;
- 
- 	ggtt->vm.alloc_pt_dma = alloc_pt_dma;
-+	ggtt->vm.alloc_scratch_dma = alloc_pt_dma;
- 
- 	ggtt->vm.clear_range = nop_clear_range;
- 	if (!HAS_FULL_PPGTT(i915) || intel_scanout_needs_vtd_wa(i915))
-@@ -1129,6 +1130,7 @@ static int i915_gmch_probe(struct i915_ggtt *ggtt)
- 		(struct resource)DEFINE_RES_MEM(gmadr_base, ggtt->mappable_end);
- 
- 	ggtt->vm.alloc_pt_dma = alloc_pt_dma;
-+	ggtt->vm.alloc_scratch_dma = alloc_pt_dma;
- 
- 	if (needs_idle_maps(i915)) {
- 		drm_notice(&i915->drm,
+ 		return err;
 diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 2a6eec5f0d58..56fbd37a6b54 100644
+index 56fbd37a6b54..4743921b7638 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -298,7 +298,7 @@ int setup_scratch_page(struct i915_address_space *vm)
- 	do {
- 		struct drm_i915_gem_object *obj;
+@@ -216,6 +216,15 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
  
--		obj = vm->alloc_pt_dma(vm, size);
-+		obj = vm->alloc_scratch_dma(vm, size);
- 		if (IS_ERR(obj))
- 			goto skip;
+ 	GEM_BUG_ON(!vm->total);
+ 	drm_mm_init(&vm->mm, 0, vm->total);
++
++	memset64(vm->min_alignment, I915_GTT_MIN_ALIGNMENT,
++		 ARRAY_SIZE(vm->min_alignment));
++
++	if (HAS_64K_PAGES(vm->i915)) {
++		vm->min_alignment[INTEL_MEMORY_LOCAL] = I915_GTT_PAGE_SIZE_64K;
++		vm->min_alignment[INTEL_MEMORY_STOLEN_LOCAL] = I915_GTT_PAGE_SIZE_64K;
++	}
++
+ 	vm->mm.head_node.color = I915_COLOR_UNEVICTABLE;
  
+ 	INIT_LIST_HEAD(&vm->bound_list);
 diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index bc6750263359..6d13f4ab4d4a 100644
+index 6d0233ffae17..20101eef4c95 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gtt.h
 +++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -265,6 +265,8 @@ struct i915_address_space {
+@@ -28,6 +28,8 @@
+ #include "gt/intel_reset.h"
+ #include "i915_selftest.h"
+ #include "i915_vma_types.h"
++#include "i915_params.h"
++#include "intel_memory_region.h"
  
- 	struct drm_i915_gem_object *
- 		(*alloc_pt_dma)(struct i915_address_space *vm, int sz);
-+	struct drm_i915_gem_object *
-+		(*alloc_scratch_dma)(struct i915_address_space *vm, int sz);
+ #define I915_GFP_ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
  
- 	u64 (*pte_encode)(dma_addr_t addr,
- 			  enum i915_cache_level level,
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
-index cc047ec594f9..32ca8962d0ab 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
-@@ -78,6 +78,7 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
- 	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
+@@ -224,6 +226,7 @@ struct i915_address_space {
+ 	struct device *dma;
+ 	u64 total;		/* size addr space maps (ex. 2GB for ggtt) */
+ 	u64 reserved;		/* size addr space reserved */
++	u64 min_alignment[INTEL_MEMORY_STOLEN_LOCAL + 1];
  
- 	ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
-+	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
+ 	unsigned int bind_async_flags;
  
- 	ppgtt->vm.clear_range = mock_clear_range;
- 	ppgtt->vm.insert_page = mock_insert_page;
-@@ -118,6 +119,7 @@ void mock_init_ggtt(struct drm_i915_private *i915, struct i915_ggtt *ggtt)
- 	ggtt->vm.total = 4096 * PAGE_SIZE;
+@@ -382,6 +385,12 @@ i915_vm_has_scratch_64K(struct i915_address_space *vm)
+ 	return vm->scratch_order == get_order(I915_GTT_PAGE_SIZE_64K);
+ }
  
- 	ggtt->vm.alloc_pt_dma = alloc_pt_dma;
-+	ggtt->vm.alloc_scratch_dma = alloc_pt_dma;
- 
- 	ggtt->vm.clear_range = mock_clear_range;
- 	ggtt->vm.insert_page = mock_insert_page;
++static inline u64 i915_vm_min_alignment(struct i915_address_space *vm,
++					enum intel_memory_type type)
++{
++	return vm->min_alignment[type];
++}
++
+ static inline bool
+ i915_vm_has_cache_coloring(struct i915_address_space *vm)
+ {
 -- 
 2.20.1
 
