@@ -2,33 +2,36 @@ Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7988DC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F0F8C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40F1760E05
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40F1760E05
+	by mail.kernel.org (Postfix) with ESMTPS id 1F60F60E05
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 10:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1F60F60E05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5124B6EC4D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 094486EC4A;
 	Thu, 21 Oct 2021 10:36:14 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B67496E42A;
+Received: from mblankhorst.nl (mblankhorst.nl
+ [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFA356E3EC;
  Thu, 21 Oct 2021 10:36:09 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 21 Oct 2021 12:35:38 +0200
-Message-Id: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
+Date: Thu, 21 Oct 2021 12:35:40 +0200
+Message-Id: <20211021103605.735002-3-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
+References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/28] drm/i915: Fix i915_request fence wait
- semantics
+Subject: [Intel-gfx] [PATCH 03/28] drm/i915: Remove dma_resv_prune
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,139 +47,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The i915_request fence wait behaves differently for timeout = 0
-compared to expected dma-fence behavior.
-
-i915 behavior:
-- Unsignaled: -ETIME
-- Signaled: 0 (= timeout)
-
-Expected:
-- Unsignaled: 0
-- Signaled: 1
+The signaled bit is already used for quick testing if a fence is signaled.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_request.c | 57 ++++++++++++++++++++++++-----
- drivers/gpu/drm/i915/i915_request.h |  5 +++
- 2 files changed, 52 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/Makefile                |  1 -
+ drivers/gpu/drm/i915/dma_resv_utils.c        | 17 -----------------
+ drivers/gpu/drm/i915/dma_resv_utils.h        | 13 -------------
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c |  3 ---
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c     |  8 --------
+ 5 files changed, 42 deletions(-)
+ delete mode 100644 drivers/gpu/drm/i915/dma_resv_utils.c
+ delete mode 100644 drivers/gpu/drm/i915/dma_resv_utils.h
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 820a1f38b271..42cd17357771 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -96,9 +96,9 @@ static signed long i915_fence_wait(struct dma_fence *fence,
- 				   bool interruptible,
- 				   signed long timeout)
- {
--	return i915_request_wait(to_request(fence),
--				 interruptible | I915_WAIT_PRIORITY,
--				 timeout);
-+	return i915_request_wait_timeout(to_request(fence),
-+					 interruptible | I915_WAIT_PRIORITY,
-+					 timeout);
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 467872cca027..b87e3ed10d86 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -60,7 +60,6 @@ i915-y += i915_drv.o \
+ 
+ # core library code
+ i915-y += \
+-	dma_resv_utils.o \
+ 	i915_memcpy.o \
+ 	i915_mm.o \
+ 	i915_sw_fence.o \
+diff --git a/drivers/gpu/drm/i915/dma_resv_utils.c b/drivers/gpu/drm/i915/dma_resv_utils.c
+deleted file mode 100644
+index 7df91b7e4ca8..000000000000
+--- a/drivers/gpu/drm/i915/dma_resv_utils.c
++++ /dev/null
+@@ -1,17 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-/*
+- * Copyright © 2020 Intel Corporation
+- */
+-
+-#include <linux/dma-resv.h>
+-
+-#include "dma_resv_utils.h"
+-
+-void dma_resv_prune(struct dma_resv *resv)
+-{
+-	if (dma_resv_trylock(resv)) {
+-		if (dma_resv_test_signaled(resv, true))
+-			dma_resv_add_excl_fence(resv, NULL);
+-		dma_resv_unlock(resv);
+-	}
+-}
+diff --git a/drivers/gpu/drm/i915/dma_resv_utils.h b/drivers/gpu/drm/i915/dma_resv_utils.h
+deleted file mode 100644
+index b9d8fb5f8367..000000000000
+--- a/drivers/gpu/drm/i915/dma_resv_utils.h
++++ /dev/null
+@@ -1,13 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright © 2020 Intel Corporation
+- */
+-
+-#ifndef DMA_RESV_UTILS_H
+-#define DMA_RESV_UTILS_H
+-
+-struct dma_resv;
+-
+-void dma_resv_prune(struct dma_resv *resv);
+-
+-#endif /* DMA_RESV_UTILS_H */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+index 5ab136ffdeb2..af3eb7fd951d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -15,7 +15,6 @@
+ 
+ #include "gt/intel_gt_requests.h"
+ 
+-#include "dma_resv_utils.h"
+ #include "i915_trace.h"
+ 
+ static bool swap_available(void)
+@@ -229,8 +228,6 @@ i915_gem_shrink(struct i915_gem_ww_ctx *ww,
+ 					i915_gem_object_unlock(obj);
+ 			}
+ 
+-			dma_resv_prune(obj->base.resv);
+-
+ 			scanned += obj->base.size >> PAGE_SHIFT;
+ skip:
+ 			i915_gem_object_put(obj);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+index 840c13706999..1592d95c3ead 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+@@ -10,7 +10,6 @@
+ 
+ #include "gt/intel_engine.h"
+ 
+-#include "dma_resv_utils.h"
+ #include "i915_gem_ioctls.h"
+ #include "i915_gem_object.h"
+ 
+@@ -52,13 +51,6 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
+ 	}
+ 	dma_resv_iter_end(&cursor);
+ 
+-	/*
+-	 * Opportunistically prune the fences iff we know they have *all* been
+-	 * signaled.
+-	 */
+-	if (timeout > 0)
+-		dma_resv_prune(resv);
+-
+ 	return ret;
  }
  
- struct kmem_cache *i915_request_slab_cache(void)
-@@ -1857,23 +1857,27 @@ static void request_wait_wake(struct dma_fence *fence, struct dma_fence_cb *cb)
- }
- 
- /**
-- * i915_request_wait - wait until execution of request has finished
-+ * i915_request_wait_timeout - wait until execution of request has finished
-  * @rq: the request to wait upon
-  * @flags: how to wait
-  * @timeout: how long to wait in jiffies
-  *
-- * i915_request_wait() waits for the request to be completed, for a
-+ * i915_request_wait_timeout() waits for the request to be completed, for a
-  * maximum of @timeout jiffies (with MAX_SCHEDULE_TIMEOUT implying an
-  * unbounded wait).
-  *
-  * Returns the remaining time (in jiffies) if the request completed, which may
-- * be zero or -ETIME if the request is unfinished after the timeout expires.
-+ * be zero if the request is unfinished after the timeout expires.
-+ * If the timeout is 0, it will return 1 if the fence is signaled.
-+ *
-  * May return -EINTR is called with I915_WAIT_INTERRUPTIBLE and a signal is
-  * pending before the request completes.
-+ *
-+ * NOTE: This function has the same wait semantics as dma-fence.
-  */
--long i915_request_wait(struct i915_request *rq,
--		       unsigned int flags,
--		       long timeout)
-+long i915_request_wait_timeout(struct i915_request *rq,
-+			       unsigned int flags,
-+			       long timeout)
- {
- 	const int state = flags & I915_WAIT_INTERRUPTIBLE ?
- 		TASK_INTERRUPTIBLE : TASK_UNINTERRUPTIBLE;
-@@ -1883,7 +1887,7 @@ long i915_request_wait(struct i915_request *rq,
- 	GEM_BUG_ON(timeout < 0);
- 
- 	if (dma_fence_is_signaled(&rq->fence))
--		return timeout;
-+		return timeout ?: 1;
- 
- 	if (!timeout)
- 		return -ETIME;
-@@ -1992,6 +1996,39 @@ long i915_request_wait(struct i915_request *rq,
- 	return timeout;
- }
- 
-+/**
-+ * i915_request_wait - wait until execution of request has finished
-+ * @rq: the request to wait upon
-+ * @flags: how to wait
-+ * @timeout: how long to wait in jiffies
-+ *
-+ * i915_request_wait() waits for the request to be completed, for a
-+ * maximum of @timeout jiffies (with MAX_SCHEDULE_TIMEOUT implying an
-+ * unbounded wait).
-+ *
-+ * Returns the remaining time (in jiffies) if the request completed, which may
-+ * be zero or -ETIME if the request is unfinished after the timeout expires.
-+ * May return -EINTR is called with I915_WAIT_INTERRUPTIBLE and a signal is
-+ * pending before the request completes.
-+ *
-+ * NOTE: This function behaves differently from dma-fence wait semantics for
-+ * timeout = 0. It returns 0 on success, and -ETIME if not signaled.
-+ */
-+long i915_request_wait(struct i915_request *rq,
-+		       unsigned int flags,
-+		       long timeout)
-+{
-+	long ret = i915_request_wait_timeout(rq, flags, timeout);
-+
-+	if (!ret)
-+		return -ETIME;
-+
-+	if (ret > 0 && !timeout)
-+		return 0;
-+
-+	return ret;
-+}
-+
- static int print_sched_attr(const struct i915_sched_attr *attr,
- 			    char *buf, int x, int len)
- {
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index dc359242d1ae..3c6e8acd1457 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -414,6 +414,11 @@ void i915_request_unsubmit(struct i915_request *request);
- 
- void i915_request_cancel(struct i915_request *rq, int error);
- 
-+long i915_request_wait_timeout(struct i915_request *rq,
-+			       unsigned int flags,
-+			       long timeout)
-+	__attribute__((nonnull(1)));
-+
- long i915_request_wait(struct i915_request *rq,
- 		       unsigned int flags,
- 		       long timeout)
 -- 
 2.33.0
 
