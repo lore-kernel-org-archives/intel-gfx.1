@@ -2,50 +2,48 @@ Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F185AC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 08:52:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE4B2C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 09:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C97E610A8
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 08:52:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C97E610A8
+	by mail.kernel.org (Postfix) with ESMTPS id 7119D60F8F
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 09:03:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7119D60F8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6456F6E908;
-	Fri, 22 Oct 2021 08:52:35 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 142E66E904;
- Fri, 22 Oct 2021 08:52:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="210050500"
-X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="210050500"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 01:52:17 -0700
-X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="484600568"
-Received: from dkarner-mobl.ger.corp.intel.com (HELO [10.252.48.154])
- ([10.252.48.154])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 01:52:16 -0700
-To: Matthew Auld <matthew.william.auld@gmail.com>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
-References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
- <20211021103605.735002-19-maarten.lankhorst@linux.intel.com>
- <CAM0jSHO1qugMmDtgJLsQaPvOnynPZaAb9xNNdZV87Nd2SsS11w@mail.gmail.com>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Message-ID: <8c528a04-5a7c-75b6-e713-69aa3457504b@linux.intel.com>
-Date: Fri, 22 Oct 2021 10:52:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF1CB6E90B;
+	Fri, 22 Oct 2021 09:03:02 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDFF66E90B;
+ Fri, 22 Oct 2021 09:03:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="226717213"
+X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="226717213"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2021 02:03:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="534675696"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga008.fm.intel.com with SMTP; 22 Oct 2021 02:02:56 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 22 Oct 2021 12:02:55 +0300
+Date: Fri, 22 Oct 2021 12:02:55 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <YXJ+PwVjT8Xbfb32@intel.com>
+References: <20211021181847.1543341-1-lucas.demarchi@intel.com>
+ <YXG6BGEtId+5oXFH@intel.com>
+ <20211021213213.rl7dyux3sfaczyit@ldmartin-desk2>
 MIME-Version: 1.0
-In-Reply-To: <CAM0jSHO1qugMmDtgJLsQaPvOnynPZaAb9xNNdZV87Nd2SsS11w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 19/28] drm/i915: Pass trylock context to
- callers
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211021213213.rl7dyux3sfaczyit@ldmartin-desk2>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: remove CNL leftover
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,17 +59,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Op 21-10-2021 om 20:03 schreef Matthew Auld:
-> On Thu, 21 Oct 2021 at 11:37, Maarten Lankhorst
-> <maarten.lankhorst@linux.intel.com> wrote:
->> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Needs a proper commit message.
+On Thu, Oct 21, 2021 at 02:32:13PM -0700, Lucas De Marchi wrote:
+> On Thu, Oct 21, 2021 at 10:05:40PM +0300, Ville Syrjälä wrote:
+> >On Thu, Oct 21, 2021 at 11:18:47AM -0700, Lucas De Marchi wrote:
+> >> We left the definition IS_CANNONLAKE() macro while removing it from the
+> >> tree due to having to merge the changes in different branches. Now that
+> >> everything is back in sync and nobody is using IS_CANNONLAKE(), we can
+> >> safely ditch it.
+> >>
+> >> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> >
+> >Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> >
+> >I found another leftover somewhere else, but now I forgot where
+> >it was. I guess it'll come back to me eventually.
+> 
+> drivers/gpu/drm/i915/intel_pch.c, which I suspect is what you're talking
+> about due to your recent patches. But that one is correct as we still
+> have Cannon Lake Point (and I never remember if P in CNP is for PCH or
+> Point) 
+> 
+> there is another one in a comment in drivers/gpu/drm/i915/gt/intel_gt.c,
+> too.
 
-What about this?
+Sleeping on it helped, I now remember that it's the SAGV block time.
 
-drm/i915: Pass trylock context to callers
-
-We are moving away from short term pinning, and need a way to evict objects locked by the current context. Pass the ww context to all eviction functions, so that they can evict objects that are already locked by the current ww context.
-
-On top of that, this slightly improves ww handling because the locked objects are marked as locked by the correct ww.
-
+-- 
+Ville Syrjälä
+Intel
