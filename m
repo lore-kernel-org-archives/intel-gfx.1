@@ -2,28 +2,28 @@ Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 152E1C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 02:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09534C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 02:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA0C661205
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 02:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CA0C661205
+	by mail.kernel.org (Postfix) with ESMTPS id C007461205
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 02:40:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C007461205
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A59D76E536;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB346E52F;
 	Fri, 22 Oct 2021 02:40:24 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E01A6E52D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC036E527;
  Fri, 22 Oct 2021 02:40:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="252707256"
-X-IronPort-AV: E=Sophos;i="5.87,171,1631602800"; d="scan'208";a="252707256"
+X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="252707255"
+X-IronPort-AV: E=Sophos;i="5.87,171,1631602800"; d="scan'208";a="252707255"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Oct 2021 19:40:21 -0700
-X-IronPort-AV: E=Sophos;i="5.87,171,1631602800"; d="scan'208";a="527768607"
+X-IronPort-AV: E=Sophos;i="5.87,171,1631602800"; d="scan'208";a="527768604"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Oct 2021 19:40:21 -0700
@@ -32,15 +32,12 @@ To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>, <daniele.ceraolospurio@intel.com>,
  <john.c.harrison@intel.com>
-Date: Thu, 21 Oct 2021 19:35:37 -0700
-Message-Id: <20211022023538.20908-2-matthew.brost@intel.com>
+Date: Thu, 21 Oct 2021 19:35:36 -0700
+Message-Id: <20211022023538.20908-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211022023538.20908-1-matthew.brost@intel.com>
-References: <20211022023538.20908-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/selftests: Use correct selfest
- calls for live tests
+Subject: [Intel-gfx] [PATCH 0/2] Delay disabling scheduling on a context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,113 +53,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This will help in an upcoming patch where the live selftest wrappers
-are extended to do more.
+Add delay before disabling scheduling on a context. 2nd patch should
+explain it quite well. 
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c    | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c      | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c    | 2 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c           | 2 +-
- drivers/gpu/drm/i915/selftests/i915_perf.c              | 2 +-
- drivers/gpu/drm/i915/selftests/i915_request.c           | 2 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c               | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-index 13b088cc787e..a666d7e610f5 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-@@ -434,5 +434,5 @@ int i915_gem_coherency_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_gem_coherency),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 4a6bb64c3a35..9f410941ce63 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -475,5 +475,5 @@ int i915_gem_dmabuf_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_dmabuf_import_same_driver_lmem_smem),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 6d30cdfa80f3..ebac007c01c9 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -1430,5 +1430,5 @@ int i915_gem_mman_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_mmap_gpu),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-index 740ee8086a27..ae1361c7c4cf 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-@@ -95,5 +95,5 @@ int i915_gem_object_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_gem_huge),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 46f4236039a9..9ed01b538b05 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -2112,5 +2112,5 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 
- 	GEM_BUG_ON(offset_in_page(i915->ggtt.vm.total));
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
-index 9e9a6cb1d9e5..86bad00cca95 100644
---- a/drivers/gpu/drm/i915/selftests/i915_perf.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
-@@ -431,7 +431,7 @@ int i915_perf_live_selftests(struct drm_i915_private *i915)
- 	if (err)
- 		return err;
- 
--	err = i915_subtests(tests, i915);
-+	err = i915_live_subtests(tests, i915);
- 
- 	destroy_empty_config(&i915->perf);
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index d67710d10615..afbf88865a8b 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -1693,7 +1693,7 @@ int i915_request_live_selftests(struct drm_i915_private *i915)
- 	if (intel_gt_is_wedged(&i915->gt))
- 		return 0;
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
- 
- static int switch_to_kernel_sync(struct intel_context *ce, int err)
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 1f10fe36619b..5f0f4f872049 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -1085,5 +1085,5 @@ int i915_vma_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_vma_remapped_gtt),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
+Matthew Brost (2):
+  drm/i915/selftests: Use correct selfest calls for live tests
+  drm/i915/guc: Add delay to disable scheduling after pin count goes to
+    zero
+
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |   2 +-
+ .../i915/gem/selftests/i915_gem_coherency.c   |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_object.c  |   2 +-
+ drivers/gpu/drm/i915/gt/intel_context.h       |   9 ++
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   7 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  10 ++
+ .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |  28 ++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 127 ++++++++++++++----
+ drivers/gpu/drm/i915/i915_selftest.h          |   2 +
+ drivers/gpu/drm/i915/i915_trace.h             |  10 ++
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |   2 +-
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |   2 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c |   2 +-
+ drivers/gpu/drm/i915/selftests/i915_vma.c     |   2 +-
+ 16 files changed, 178 insertions(+), 33 deletions(-)
+
 -- 
 2.32.0
 
