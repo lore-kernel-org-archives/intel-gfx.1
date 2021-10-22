@@ -1,46 +1,53 @@
-Return-Path: <SRS0=NhnI=PJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A4E7C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 23:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBE94C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 00:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F5B561208
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 23:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2F5B561208
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7CEFA6135E
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 00:53:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7CEFA6135E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 623436E527;
-	Thu, 21 Oct 2021 23:40:52 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7EE6E503;
- Thu, 21 Oct 2021 23:40:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="292644806"
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="292644806"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2021 16:40:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,170,1631602800"; d="scan'208";a="484446173"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga007.jf.intel.com with ESMTP; 21 Oct 2021 16:40:44 -0700
-From: John.C.Harrison@Intel.com
-To: IGT-Dev@Lists.FreeDesktop.Org
-Cc: Intel-GFX@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>
-Date: Thu, 21 Oct 2021 16:40:43 -0700
-Message-Id: <20211021234044.3071069-8-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211021234044.3071069-1-John.C.Harrison@Intel.com>
-References: <20211021234044.3071069-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C046E50B;
+	Fri, 22 Oct 2021 00:53:47 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6744D6E50B;
+ Fri, 22 Oct 2021 00:53:46 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4Hb5Sf3L14z4xfH;
+ Fri, 22 Oct 2021 11:53:37 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+ s=201702; t=1634864021;
+ bh=d6ItCl+Efl1Nk/5Rb/6mxbH0xgfWmTzJa5UQ5hcJI44=;
+ h=Date:From:To:Cc:Subject:From;
+ b=I7VGwtVF4rpm9XyA+1CHWDHQgD42WZWwLp9vQDO4xcYhgWdqkhiqZ7hDLEz6zQuw7
+ 1PSIvn6OpB+vNWAZzxpt2mTJntN7g97Ow6pef2HgWUbkG6GV2+loZaWvnA+Mao0w75
+ dPY9dl+XKJAf5cqqbJEfOEtpC19n6LP8cQ2OgGr3vIlZ6/43YM6MBB5JPm2l1fFtU7
+ 17ZlM71G1MtxC4OAerNqdhgTLov9UVo+ny7FsdObSIOcnd3SvSTLRAUwtuXi0ZAss9
+ nBFGTNjMBJ7+oD9aUk2bwdXFxkbCPggEgUqNKFCj6aGX1Ark4JAviqCM25oItPwQWm
+ LcfA+KEEvb8Ew==
+Date: Fri, 22 Oct 2021 11:53:36 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
+ <dri-devel@lists.freedesktop.org>
+Cc: Bryant Mairs <bryant@mai.rs>, Hans de Goede <hdegoede@redhat.com>, Linux
+ Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>, Sam Ravnborg <sam@ravnborg.org>
+Message-ID: <20211022115336.28e41185@canb.auug.org.au>
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 7/8] lib/igt_gt: Allow per engine reset
- testing
+Content-Type: multipart/signed; boundary="Sig_/QAgoVkw4C2wHzZH=MYSvvXG";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: [Intel-gfx] linux-next: manual merge of the drm tree with the
+ drm-misc-fixes tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,110 +63,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+--Sig_/QAgoVkw4C2wHzZH=MYSvvXG
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-With GuC submission, engine resets are handled entirely within GuC
-rather than within i915. Traditionally, IGT has disallowed engine
-based resets becuase they don't send the uevent which IGT uses to
-check for unexpected resets. However, it is important to be able to
-test all reset mechanisms that can be used, so allow engine based
-resets to be enabled.
+Hi all,
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- lib/igt_gt.c | 44 +++++++++++++++++++++++++++++---------------
- lib/igt_gt.h |  1 +
- 2 files changed, 30 insertions(+), 15 deletions(-)
+Today's linux-next merge of the drm tree got a conflict in:
 
-diff --git a/lib/igt_gt.c b/lib/igt_gt.c
-index a0ba04cc1..7c7df95ee 100644
---- a/lib/igt_gt.c
-+++ b/lib/igt_gt.c
-@@ -56,23 +56,28 @@
-  * engines.
-  */
- 
-+static int reset_query_once = -1;
-+
- static bool has_gpu_reset(int fd)
- {
--	static int once = -1;
--	if (once < 0) {
--		struct drm_i915_getparam gp;
--		int val = 0;
--
--		memset(&gp, 0, sizeof(gp));
--		gp.param = 35; /* HAS_GPU_RESET */
--		gp.value = &val;
--
--		if (ioctl(fd, DRM_IOCTL_I915_GETPARAM, &gp))
--			once = intel_gen(intel_get_drm_devid(fd)) >= 5;
--		else
--			once = val > 0;
-+	if (reset_query_once < 0) {
-+		reset_query_once = gem_gpu_reset_type(fd);
-+
-+		/* Very old kernels did not support the query */
-+		if (reset_query_once == -1)
-+			reset_query_once =
-+			      (intel_gen(intel_get_drm_devid(fd)) >= 5) ? 1 : 0;
- 	}
--	return once;
-+
-+	return reset_query_once > 0;
-+}
-+
-+static bool has_engine_reset(int fd)
-+{
-+	if (reset_query_once < 0)
-+		has_gpu_reset(fd);
-+
-+	return reset_query_once > 1;
- }
- 
- static void eat_error_state(int dev)
-@@ -176,7 +181,11 @@ igt_hang_t igt_allow_hang(int fd, unsigned ctx, unsigned flags)
- 		igt_skip("hang injection disabled by user [IGT_HANG=0]\n");
- 	gem_context_require_bannable(fd);
- 
--	allow_reset = 1;
-+	if (flags & HANG_WANT_ENGINE_RESET)
-+		allow_reset = 2;
-+	else
-+		allow_reset = 1;
-+
- 	if ((flags & HANG_ALLOW_CAPTURE) == 0) {
- 		param.param = I915_CONTEXT_PARAM_NO_ERROR_CAPTURE;
- 		param.value = 1;
-@@ -187,11 +196,16 @@ igt_hang_t igt_allow_hang(int fd, unsigned ctx, unsigned flags)
- 		__gem_context_set_param(fd, &param);
- 		allow_reset = INT_MAX; /* any reset method */
- 	}
-+
- 	igt_require(igt_params_set(fd, "reset", "%d", allow_reset));
-+	reset_query_once = -1;  /* Re-query after changing param */
- 
- 	if (!igt_check_boolean_env_var("IGT_HANG_WITHOUT_RESET", false))
- 		igt_require(has_gpu_reset(fd));
- 
-+	if (flags & HANG_WANT_ENGINE_RESET)
-+		igt_require(has_engine_reset(fd));
-+
- 	ban = context_get_ban(fd, ctx);
- 	if ((flags & HANG_ALLOW_BAN) == 0)
- 		context_set_ban(fd, ctx, 0);
-diff --git a/lib/igt_gt.h b/lib/igt_gt.h
-index ceb044b86..c5059817b 100644
---- a/lib/igt_gt.h
-+++ b/lib/igt_gt.h
-@@ -51,6 +51,7 @@ igt_hang_t igt_hang_ctx_with_ahnd(int fd, uint64_t ahnd, uint32_t ctx, int ring,
- 
- #define HANG_ALLOW_BAN 1
- #define HANG_ALLOW_CAPTURE 2
-+#define HANG_WANT_ENGINE_RESET 4
- 
- igt_hang_t igt_hang_ring(int fd, int ring);
- igt_hang_t igt_hang_ring_with_ahnd(int fd, int ring, uint64_t ahnd);
--- 
-2.25.1
+  drivers/gpu/drm/drm_panel_orientation_quirks.c
 
+between commit:
+
+  def0c3697287 ("drm: panel-orientation-quirks: Add quirk for Aya Neo 2021")
+
+from the drm-misc-fixes tree and commits:
+
+  072e70d52372 ("drm: panel-orientation-quirks: Add quirk for the Chuwi Hi1=
+0 Pro")
+  63a4881572d7 ("drm: panel-orientation-quirks: Add quirk for the Chuwi HiB=
+ook")
+
+from the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+--=20
+Cheers,
+Stephen Rothwell
+
+diff --cc drivers/gpu/drm/drm_panel_orientation_quirks.c
+index 30c17a76f49a,62e8ccc7ab9c..000000000000
+--- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
++++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+@@@ -134,12 -140,20 +140,26 @@@ static const struct dmi_system_id orien
+  		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T103HAF"),
+  		},
+  		.driver_data =3D (void *)&lcd800x1280_rightside_up,
+ +	}, {	/* AYA NEO 2021 */
+ +		.matches =3D {
+ +		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "AYADEVICE"),
+ +		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "AYA NEO 2021"),
+ +		},
+ +		.driver_data =3D (void *)&lcd800x1280_rightside_up,
++ 	}, {	/* Chuwi HiBook (CWI514) */
++ 		.matches =3D {
++ 			DMI_MATCH(DMI_BOARD_VENDOR, "Hampoo"),
++ 			DMI_MATCH(DMI_BOARD_NAME, "Cherry Trail CR"),
++ 			/* Above matches are too generic, add bios-date match */
++ 			DMI_MATCH(DMI_BIOS_DATE, "05/07/2016"),
++ 		},
++ 		.driver_data =3D (void *)&lcd1200x1920_rightside_up,
++ 	}, {	/* Chuwi Hi10 Pro (CWI529) */
++ 		.matches =3D {
++ 		  DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Hampoo"),
++ 		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Hi10 pro tablet"),
++ 		},
++ 		.driver_data =3D (void *)&lcd1200x1920_rightside_up,
+  	}, {	/* GPD MicroPC (generic strings, also match on bios date) */
+  		.matches =3D {
+  		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Default string"),
+
+--Sig_/QAgoVkw4C2wHzZH=MYSvvXG
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmFyC5AACgkQAVBC80lX
+0Gwwlgf/YzLzI7xb2reXJgvWAk/JLKFVEQOBWx5cYdRpFA/w00uo87yKWUQqkdFv
+lR2dIpDjd5fsc4EFRkblAZikNZiazEVj43NWlfd2eRQdlrsgYNWiu5j82bDqinTh
+QcIDAmZp8WNSh4AUTCCk/Su/nJGKKj/4bpdRoIeQS9fsQEKUEKUQ2tqgraUkLdeR
+EEP36LkbPTlrHmOVyFD1sjrz+f1G5/p+rY46yE/4QZTauvAOrhx1+e9ubsYg5Max
+YKD4wiGIMasfF3dHm2O8ZJ86wPoqgx0CrISFQr3H+R15GVLgdSkavfe5moJGmavr
+zs3JA1680M2oqshbADaN03MaGyEOPg==
+=Njwx
+-----END PGP SIGNATURE-----
+
+--Sig_/QAgoVkw4C2wHzZH=MYSvvXG--
