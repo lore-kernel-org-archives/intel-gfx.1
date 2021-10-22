@@ -2,50 +2,39 @@ Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEA54C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 17:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B365C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 17:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 88801611CB
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 17:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 88801611CB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 09D2860C4A
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 17:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 09D2860C4A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE75D6ED9E;
-	Fri, 22 Oct 2021 17:08:39 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F546E7FA;
- Fri, 22 Oct 2021 17:08:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10145"; a="226798111"
-X-IronPort-AV: E=Sophos;i="5.87,173,1631602800"; d="scan'208";a="226798111"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 10:08:37 -0700
-X-IronPort-AV: E=Sophos;i="5.87,173,1631602800"; d="scan'208";a="528003490"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 10:08:37 -0700
-Date: Fri, 22 Oct 2021 10:03:58 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- john.c.harrison@intel.com
-Message-ID: <20211022170356.GA23182@jons-linux-dev-box>
-References: <20211011234705.30853-1-matthew.brost@intel.com>
- <f8f1ae021e8cabc2c6d76996b5e74912cb0913db.camel@linux.intel.com>
- <20211021203747.GA27209@jons-linux-dev-box>
- <ee989711-779e-874f-6737-ab9288557d1a@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF696EDBC;
+	Fri, 22 Oct 2021 17:09:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5C1FC6ED9E;
+ Fri, 22 Oct 2021 17:09:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 54C7EA47EB;
+ Fri, 22 Oct 2021 17:09:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4201195284410757076=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ee989711-779e-874f-6737-ab9288557d1a@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Allow engine reset
- failure to do a GT reset in hangcheck selftest
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Tejas Upadhyay" <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 22 Oct 2021 17:09:38 -0000
+Message-ID: <163492257833.14706.17651513727872422745@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211022094336.3384885-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+In-Reply-To: <20211022094336.3384885-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/pxp=3A_run_CI_with_PXP_and_MEI=5FPXP_enabled=2E?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,161 +47,278 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 22, 2021 at 08:23:55AM +0200, Thomas Hellström wrote:
-> 
-> On 10/21/21 22:37, Matthew Brost wrote:
-> > On Thu, Oct 21, 2021 at 08:15:49AM +0200, Thomas Hellström wrote:
-> > > Hi, Matthew,
-> > > 
-> > > On Mon, 2021-10-11 at 16:47 -0700, Matthew Brost wrote:
-> > > > The hangcheck selftest blocks per engine resets by setting magic bits
-> > > > in
-> > > > the reset flags. This is incorrect for GuC submission because if the
-> > > > GuC
-> > > > fails to reset an engine we would like to do a full GT reset. Do no
-> > > > set
-> > > > these magic bits when using GuC submission.
-> > > > 
-> > > > Side note this lockless algorithm with magic bits to block resets
-> > > > really
-> > > > should be ripped out.
-> > > > 
-> > > Lockless algorithm aside, from a quick look at the code in
-> > > intel_reset.c it appears to me like the interface that falls back to a
-> > > full GT reset is intel_gt_handle_error() whereas intel_engine_reset()
-> > > is explicitly intended to not do that, so is there a discrepancy
-> > > between GuC and non-GuC here?
-> > > 
-> > With GuC submission when an engine reset fails, we get an engine reset
-> > failure notification which triggers a full GT reset
-> > (intel_guc_engine_failure_process_msg in intel_guc_submission.c). That
-> > reset is blocking by setting these magic bits. Clearing the bits in this
-> > function doesn't seem to unblock that reset either, the driver tries to
-> > unload with a worker blocked, and results in the blow up. Something with
-> > this lockless algorithm could be wrong as clear of the bit should
-> > unlblock the reset but it is doesn't. We can look into that but in the
-> > meantime we need to fix this test to be able to fail gracefully and not
-> > crash CI.
-> 
-> Yeah, for that lockless algorithm if needed, we might want to use a ww_mutex
-> per engine or something,
+--===============4201195284410757076==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Do ww_mutex sleep? From what I can tell this lockless algorithm was
-added because even though resets are protected by mutex, there are some
-places in the IRQ context where we need to prevent resets from
-happening, hence the lockless protection + the mutex - what a mess. Long
-term this needs to rethought. 
+== Series Details ==
 
-> but point was that AFAICT at least one of the tests that set those flags
-> explicitly tested the functionality that no other engines than the intended
-> one was reset when the intel_engine_reset() function was used, and then if
-> GuC submission doesn't honor that, wouldn't a better approach be to make a
+Series: drm/i915/pxp: run CI with PXP and MEI_PXP enabled.
+URL   : https://patchwork.freedesktop.org/series/96181/
+State : failure
 
-No. In execlists this test explictly calls the engine reset function and
-explictly prevents other parts of the i915 from calling the engine reset
-function - this is why it sets that bit.
+== Summary ==
 
-In GuC submission the i915 can't do engine resets, the GuC does. In this
-case the engine reset fails which triggers a G2H message which tells the
-i915 to do a GT reset. If this bit is set the worker blocks on this bit
-in the GT reset and the driver blows up on unload as this worker isn't
-complete (believe it has a PM ref or something).
+CI Bug Log - changes from CI_DRM_10780 -> Patchwork_21420
+====================================================
 
-> code comment around intel_engine_reset() to explain the differences and
+Summary
+-------
 
-intel_engine_reset() return -ENODEV in GuC submission as the i915 isn't
-allowed to engine resets.
+  **FAILURE**
 
-> disable that particular test for GuC?. Also wouldn't we for example we see a
-> duplicated full GT reset with GuC if intel_engine_reset() fails as part of
-> the intel_gt_handle_error() function?
->
+  Serious unknown changes coming with Patchwork_21420 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_21420, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-Yes, but the GT reset in this test is done after clearing the bits by
-the test. In the case of the GuC the GT reset is async operation done by
-a worker that receives the G2H message saying the engine reset failed.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/index.html
 
-> I guess we could live with the hangcheck test being disabled for guc
-> submission until this is sorted out?
->
+Participating hosts (37 -> 33)
+------------------------------
 
-Wouldn't help. See above this an async operation from G2H message. We
-can't disable the async G2H handler as without other G2H messages the
-world breaks. The only other possible fix would be add an IGT only
-variable that if set skips the handling this G2H only.
+  Additional (1): fi-skl-6600u 
+  Missing    (5): fi-kbl-soraka fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-pnv-d510 
 
-I can assure with this patch, if the test fails, it fails gracefully
-which is what we want.
+Possible new issues
+-------------------
 
-Matt
+  Here are the unknown changes that may have been introduced in Patchwork_21420:
 
-> /Thomas
-> 
-> 
-> > 
-> > Matt
-> > 
-> > > /Thomas
-> > > 
-> > > 
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > ---
-> > > >   drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 12 ++++++++----
-> > > >   1 file changed, 8 insertions(+), 4 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> > > > b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> > > > index 7e2d99dd012d..90a03c60c80c 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> > > > @@ -734,7 +734,8 @@ static int __igt_reset_engine(struct intel_gt
-> > > > *gt, bool active)
-> > > >                  reset_engine_count = i915_reset_engine_count(global,
-> > > > engine);
-> > > >                  st_engine_heartbeat_disable(engine);
-> > > > -               set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-> > > > +               if (!using_guc)
-> > > > +                       set_bit(I915_RESET_ENGINE + id, &gt-
-> > > > > reset.flags);
-> > > >                  count = 0;
-> > > >                  do {
-> > > >                          struct i915_request *rq = NULL;
-> > > > @@ -824,7 +825,8 @@ static int __igt_reset_engine(struct intel_gt
-> > > > *gt, bool active)
-> > > >                          if (err)
-> > > >                                  break;
-> > > >                  } while (time_before(jiffies, end_time));
-> > > > -               clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-> > > > +               if (!using_guc)
-> > > > +                       clear_bit(I915_RESET_ENGINE + id, &gt-
-> > > > > reset.flags);
-> > > >                  st_engine_heartbeat_enable(engine);
-> > > >                  pr_info("%s: Completed %lu %s resets\n",
-> > > >                          engine->name, count, active ? "active" :
-> > > > "idle");
-> > > > @@ -1042,7 +1044,8 @@ static int __igt_reset_engines(struct intel_gt
-> > > > *gt,
-> > > >                  yield(); /* start all threads before we begin */
-> > > >                  st_engine_heartbeat_disable_no_pm(engine);
-> > > > -               set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-> > > > +               if (!using_guc)
-> > > > +                       set_bit(I915_RESET_ENGINE + id, &gt-
-> > > > > reset.flags);
-> > > >                  do {
-> > > >                          struct i915_request *rq = NULL;
-> > > >                          struct intel_selftest_saved_policy saved;
-> > > > @@ -1165,7 +1168,8 @@ static int __igt_reset_engines(struct intel_gt
-> > > > *gt,
-> > > >                          if (err)
-> > > >                                  break;
-> > > >                  } while (time_before(jiffies, end_time));
-> > > > -               clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-> > > > +               if (!using_guc)
-> > > > +                       clear_bit(I915_RESET_ENGINE + id, &gt-
-> > > > > reset.flags);
-> > > >                  st_engine_heartbeat_enable_no_pm(engine);
-> > > >                  pr_info("i915_reset_engine(%s:%s): %lu resets\n",
-> > > 
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-rkl-11600:       [PASS][1] -> [DMESG-FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-rkl-11600/igt@i915_selftest@live@gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-rkl-11600/igt@i915_selftest@live@gt_pm.html
+    - fi-rkl-guc:         [PASS][3] -> [INCOMPLETE][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-rkl-guc/igt@i915_selftest@live@gt_pm.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-rkl-guc/igt@i915_selftest@live@gt_pm.html
+    - fi-tgl-1115g4:      [PASS][5] -> [INCOMPLETE][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21420 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@sync-fork-gfx0:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][7] ([fdo#109271]) +23 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@amdgpu/amd_cs_nop@sync-fork-gfx0.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][8] ([fdo#109271] / [i915#2190])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html
+
+  * igt@kms_chamelium@vga-edid-read:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][9] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@kms_chamelium@vga-edid-read.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][10] ([fdo#109271] / [i915#533])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@runner@aborted:
+    - fi-rkl-11600:       NOTRUN -> [FAIL][11] ([i915#3928] / [i915#4312])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-rkl-11600/igt@runner@aborted.html
+    - fi-tgl-1115g4:      NOTRUN -> [FAIL][12] ([i915#1436] / [i915#2966] / [i915#4312])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-tgl-1115g4/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - {fi-hsw-gt1}:       [DMESG-WARN][13] -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:
+    - {fi-tgl-dsi}:       [DMESG-WARN][15] ([i915#1982]) -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-tgl-dsi/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-tgl-dsi/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2927]: https://gitlab.freedesktop.org/drm/intel/issues/2927
+  [i915#2966]: https://gitlab.freedesktop.org/drm/intel/issues/2966
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#3928]: https://gitlab.freedesktop.org/drm/intel/issues/3928
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10780 -> Patchwork_21420
+
+  CI-20190529: 20190529
+  CI_DRM_10780: 2865f9182b99699fabab014ba66d2196e5c6e999 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6259: 89629f64da9f12b144f913865b08d2c9efcd10d7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21420: cd383b13f4fa724ad411b31e6c4ca8a478b7470c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+cd383b13f4fa drm/i915/pxp: run CI with PXP and MEI_PXP enabled.
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/index.html
+
+--===============4201195284410757076==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pxp: run CI with PXP and MEI_PXP enabled.</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/96181/">https://patchwork.freedesktop.org/series/96181/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10780 -&gt; Patchwork_21420</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_21420 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_21420, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/index.html</p>
+<h2>Participating hosts (37 -&gt; 33)</h2>
+<p>Additional (1): fi-skl-6600u <br />
+  Missing    (5): fi-kbl-soraka fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-pnv-d510 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_21420:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>
+<p>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-rkl-11600/igt@i915_selftest@live@gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-rkl-11600/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a></p>
+</li>
+<li>
+<p>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-rkl-guc/igt@i915_selftest@live@gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-rkl-guc/igt@i915_selftest@live@gt_pm.html">INCOMPLETE</a></p>
+</li>
+<li>
+<p>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html">INCOMPLETE</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21420 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_cs_nop@sync-fork-gfx0:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@amdgpu/amd_cs_nop@sync-fork-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +23 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@vga-edid-read:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@kms_chamelium@vga-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-rkl-11600/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
+</li>
+<li>
+<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-tgl-1115g4/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2966">i915#2966</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:</p>
+<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10780/fi-tgl-dsi/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21420/fi-tgl-dsi/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10780 -&gt; Patchwork_21420</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10780: 2865f9182b99699fabab014ba66d2196e5c6e999 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6259: 89629f64da9f12b144f913865b08d2c9efcd10d7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21420: cd383b13f4fa724ad411b31e6c4ca8a478b7470c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>cd383b13f4fa drm/i915/pxp: run CI with PXP and MEI_PXP enabled.</p>
+
+</body>
+</html>
+
+--===============4201195284410757076==--
