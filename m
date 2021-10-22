@@ -2,51 +2,53 @@ Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E0BFC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E9B0C433F5
 	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 13:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 464C8610A4
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 13:08:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 464C8610A4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8162A61073
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 13:08:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8162A61073
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=inspur.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFAD36ED8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A17C46ED8A;
 	Fri, 22 Oct 2021 13:08:54 +0000 (UTC)
-X-Greylist: delayed 1084 seconds by postgrey-1.36 at gabe;
- Fri, 22 Oct 2021 02:38:56 UTC
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 106BE6E527
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Oct 2021 02:38:55 +0000 (UTC)
-Received: from dggeme758-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Hb7M92s31z1DHfJ;
- Fri, 22 Oct 2021 10:19:01 +0800 (CST)
-Received: from huawei.com (10.67.174.47) by dggeme758-chm.china.huawei.com
- (10.3.19.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.15; Fri, 22
- Oct 2021 10:20:49 +0800
-From: He Ying <heying24@huawei.com>
+X-Greylist: delayed 367 seconds by postgrey-1.36 at gabe;
+ Fri, 22 Oct 2021 12:13:16 UTC
+Received: from unicom146.biz-email.net (unicom146.biz-email.net
+ [210.51.26.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 615B86E7DC;
+ Fri, 22 Oct 2021 12:13:16 +0000 (UTC)
+Received: from ([60.208.111.195])
+ by unicom146.biz-email.net ((LNX1044)) with ASMTP (SSL) id QOD00159;
+ Fri, 22 Oct 2021 20:06:59 +0800
+Received: from localhost.localdomain (10.200.104.119) by
+ jtjnmail201604.home.langchao.com (10.100.2.4) with Microsoft SMTP Server id
+ 15.1.2308.14; Fri, 22 Oct 2021 20:07:00 +0800
+From: Kai Song <songkai01@inspur.com>
 To: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <lyude@redhat.com>, <ville.syrjala@linux.intel.com>,
- <anshuman.gupta@intel.com>, <matthew.d.roper@intel.com>,
- <nikola.cornij@amd.com>, <jose.souza@intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Date: Thu, 21 Oct 2021 22:22:43 -0400
-Message-ID: <20211022022243.138860-1-heying24@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ <rodrigo.vivi@intel.com>
+CC: <airlied@linux.ie>, <daniel@ffwll.ch>, <jason@jlekstrand.net>,
+ <thomas.hellstrom@linux.intel.com>, <matthew.auld@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Kai Song <songkai01@inspur.com>
+Date: Fri, 22 Oct 2021 20:06:55 +0800
+Message-ID: <20211022120655.22173-1-songkai01@inspur.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.67.174.47]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggeme758-chm.china.huawei.com (10.3.19.104)
-X-CFilter-Loop: Reflected
+X-Originating-IP: [10.200.104.119]
+tUid: 2021102220065935d306d5aee3ec50df61f00ae9b372c3
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 X-Mailman-Approved-At: Fri, 22 Oct 2021 13:08:40 +0000
-Subject: [Intel-gfx] [PATCH -next] drm: Small optimization to
- intel_dp_mst_atomic_master_trans_check
+Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Fix inconsistent IS_ERR and
+ PTR_ERR
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,75 +64,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If we want to return from for_each_intel_connector_iter(), one
-way is calling drm_connector_list_iter_end() before returning
-to avoid memleak. The other way is just breaking from the bracket
-and then returning after the outside drm_connector_list_iter_end().
-Obviously, the second way makes code smaller and more clear.
-Apply it to the function intel_dp_mst_atomic_master_trans_check().
+Fix inconsistent IS_ERR and PTR_ERR in i915_gem_dmabuf.c
 
-Signed-off-by: He Ying <heying24@huawei.com>
+Signed-off-by: Kai Song <songkai01@inspur.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 8d13d7b26a25..bbecbbbcb10d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -231,6 +231,7 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
- 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
- 	struct drm_connector_list_iter connector_list_iter;
- 	struct intel_connector *connector_iter;
-+	int ret = 0;
- 
- 	if (DISPLAY_VER(dev_priv) < 12)
- 		return  0;
-@@ -243,7 +244,6 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
- 		struct intel_digital_connector_state *conn_iter_state;
- 		struct intel_crtc_state *crtc_state;
- 		struct intel_crtc *crtc;
--		int ret;
- 
- 		if (connector_iter->mst_port != connector->mst_port ||
- 		    connector_iter == connector)
-@@ -252,8 +252,8 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
- 		conn_iter_state = intel_atomic_get_digital_connector_state(state,
- 									   connector_iter);
- 		if (IS_ERR(conn_iter_state)) {
--			drm_connector_list_iter_end(&connector_list_iter);
--			return PTR_ERR(conn_iter_state);
-+			ret = PTR_ERR(conn_iter_state);
-+			break;
- 		}
- 
- 		if (!conn_iter_state->base.crtc)
-@@ -262,20 +262,18 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
- 		crtc = to_intel_crtc(conn_iter_state->base.crtc);
- 		crtc_state = intel_atomic_get_crtc_state(&state->base, crtc);
- 		if (IS_ERR(crtc_state)) {
--			drm_connector_list_iter_end(&connector_list_iter);
--			return PTR_ERR(crtc_state);
-+			ret = PTR_ERR(crtc_state);
-+			break;
- 		}
- 
- 		ret = drm_atomic_add_affected_planes(&state->base, &crtc->base);
--		if (ret) {
--			drm_connector_list_iter_end(&connector_list_iter);
--			return ret;
--		}
-+		if (ret)
-+			break;
- 		crtc_state->uapi.mode_changed = true;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+index 4a6bb64c3a35..3cc74b0fed06 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+@@ -102,7 +102,7 @@ static int igt_dmabuf_import_same_driver_lmem(void *arg)
+ 	obj = __i915_gem_object_create_user(i915, PAGE_SIZE, &lmem, 1);
+ 	if (IS_ERR(obj)) {
+ 		pr_err("__i915_gem_object_create_user failed with err=%ld\n",
+-		       PTR_ERR(dmabuf));
++		       PTR_ERR(obj));
+ 		err = PTR_ERR(obj);
+ 		goto out_ret;
  	}
- 	drm_connector_list_iter_end(&connector_list_iter);
- 
--	return 0;
-+	return ret;
- }
- 
- static int
+@@ -158,7 +158,7 @@ static int igt_dmabuf_import_same_driver(struct drm_i915_private *i915,
+ 					    regions, num_regions);
+ 	if (IS_ERR(obj)) {
+ 		pr_err("__i915_gem_object_create_user failed with err=%ld\n",
+-		       PTR_ERR(dmabuf));
++		       PTR_ERR(obj));
+ 		err = PTR_ERR(obj);
+ 		goto out_ret;
+ 	}
 -- 
-2.17.1
+2.27.0
 
