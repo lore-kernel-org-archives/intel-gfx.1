@@ -2,46 +2,46 @@ Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C981BC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 10:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 41012C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 10:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 787BF611CB
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 10:33:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 787BF611CB
+	by mail.kernel.org (Postfix) with ESMTPS id 0F46B61213
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 10:33:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0F46B61213
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F99A6ED06;
-	Fri, 22 Oct 2021 10:33:27 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A2836ED06
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Oct 2021 10:33:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="210066662"
-X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="210066662"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 03:33:24 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3AD6ED00;
+	Fri, 22 Oct 2021 10:33:34 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 960576ED08
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Oct 2021 10:33:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10144"; a="209379950"
+X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="209379950"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2021 03:33:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="569011830"
+X-IronPort-AV: E=Sophos;i="5.87,172,1631602800"; d="scan'208";a="576615987"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by FMSMGA003.fm.intel.com with SMTP; 22 Oct 2021 03:33:21 -0700
+ by fmsmga002.fm.intel.com with SMTP; 22 Oct 2021 03:33:30 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 22 Oct 2021 13:33:20 +0300
+ Fri, 22 Oct 2021 13:33:29 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Manasi Navare <manasi.d.navare@intel.com>
-Date: Fri, 22 Oct 2021 13:33:00 +0300
-Message-Id: <20211022103304.24164-6-ville.syrjala@linux.intel.com>
+Date: Fri, 22 Oct 2021 13:33:02 +0300
+Message-Id: <20211022103304.24164-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211022103304.24164-1-ville.syrjala@linux.intel.com>
 References: <20211022103304.24164-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/9] drm/i915: Simplify
- intel_crtc_copy_uapi_to_hw_state_nomodeset()
+Subject: [Intel-gfx] [PATCH v2 7/9] drm/i915: Perform correct cpu_transcoder
+ readout for bigjoiner
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,45 +59,109 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Rewrite intel_crtc_copy_uapi_to_hw_state_nomodeset() in a
-slightly more straightforward manner.
+Read out cpu_transcoder correctly for the bigjoiner slave pipes.
 
 Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 66 ++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 640d87a00e15..e745eb4650e4 100644
+index 6a8da98ad60a..753f443e74bd 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5762,18 +5762,15 @@ static void
- intel_crtc_copy_uapi_to_hw_state_nomodeset(struct intel_atomic_state *state,
- 					   struct intel_crtc_state *crtc_state)
- {
--	const struct intel_crtc_state *from_crtc_state = crtc_state;
-+	const struct intel_crtc_state *master_crtc_state;
-+	struct intel_crtc *master_crtc;
- 
--	if (crtc_state->bigjoiner_slave) {
--		from_crtc_state = intel_atomic_get_new_crtc_state(state,
--								  crtc_state->bigjoiner_linked_crtc);
-+	master_crtc = intel_master_crtc(crtc_state);
-+	master_crtc_state = intel_atomic_get_new_crtc_state(state, master_crtc);
- 
--		/* No need to copy state if the master state is unchanged */
--		if (!from_crtc_state)
--			return;
--	}
--
--	intel_crtc_copy_color_blobs(crtc_state, from_crtc_state);
-+	/* No need to copy state if the master state is unchanged */
-+	if (master_crtc_state)
-+		intel_crtc_copy_color_blobs(crtc_state, master_crtc_state);
+@@ -4064,6 +4064,16 @@ static bool ilk_get_pipe_config(struct intel_crtc *crtc,
+ 	return ret;
  }
  
- static void
++static u8 bigjoiner_pipes(struct drm_i915_private *i915)
++{
++	if (DISPLAY_VER(i915) >= 12)
++		return BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D);
++	else if (DISPLAY_VER(i915) >= 11)
++		return BIT(PIPE_B) | BIT(PIPE_C);
++	else
++		return 0;
++}
++
+ static bool transcoder_ddi_func_is_enabled(struct drm_i915_private *dev_priv,
+ 					   enum transcoder cpu_transcoder)
+ {
+@@ -4079,6 +4089,54 @@ static bool transcoder_ddi_func_is_enabled(struct drm_i915_private *dev_priv,
+ 	return tmp & TRANS_DDI_FUNC_ENABLE;
+ }
+ 
++static u8 enabled_bigjoiner_pipes(struct drm_i915_private *dev_priv)
++{
++	u8 master_pipes = 0, slave_pipes = 0;
++	struct intel_crtc *crtc;
++
++	for_each_intel_crtc(&dev_priv->drm, crtc) {
++		enum intel_display_power_domain power_domain;
++		enum pipe pipe = crtc->pipe;
++		intel_wakeref_t wakeref;
++
++		if ((bigjoiner_pipes(dev_priv) & BIT(pipe)) == 0)
++			continue;
++
++		power_domain = intel_dsc_power_domain(crtc, (enum transcoder) pipe);
++		with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref) {
++			u32 tmp = intel_de_read(dev_priv, ICL_PIPE_DSS_CTL1(pipe));
++
++			if (!(tmp & BIG_JOINER_ENABLE))
++				continue;
++
++			if (tmp & MASTER_BIG_JOINER_ENABLE)
++				master_pipes |= BIT(pipe);
++			else
++				slave_pipes |= BIT(pipe);
++		}
++
++		if (DISPLAY_VER(dev_priv) < 13)
++			continue;
++
++		power_domain = POWER_DOMAIN_PIPE(pipe);
++		with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref) {
++			u32 tmp = intel_de_read(dev_priv, ICL_PIPE_DSS_CTL1(pipe));
++
++			if (tmp & UNCOMPRESSED_JOINER_MASTER)
++				master_pipes |= BIT(pipe);
++			if (tmp & UNCOMPRESSED_JOINER_SLAVE)
++				slave_pipes |= BIT(pipe);
++		}
++	}
++
++	/* Bigjoiner pipes should always be consecutive master and slave */
++	drm_WARN(&dev_priv->drm, slave_pipes != master_pipes << 1,
++		 "Bigjoiner misconfigured (master pipes 0x%x, slave pipes 0x%x)\n",
++		 master_pipes, slave_pipes);
++
++	return slave_pipes;
++}
++
+ static u8 hsw_panel_transcoders(struct drm_i915_private *i915)
+ {
+ 	u8 panel_transcoder_mask = BIT(TRANSCODER_EDP);
+@@ -4140,10 +4198,18 @@ static u8 hsw_enabled_transcoders(struct intel_crtc *crtc)
+ 			enabled_transcoders |= BIT(cpu_transcoder);
+ 	}
+ 
++	/* single pipe or bigjoiner master */
+ 	cpu_transcoder = (enum transcoder) crtc->pipe;
+ 	if (transcoder_ddi_func_is_enabled(dev_priv, cpu_transcoder))
+ 		enabled_transcoders |= BIT(cpu_transcoder);
+ 
++	/* bigjoiner slave -> consider the master pipe's transcoder as well */
++	if (enabled_bigjoiner_pipes(dev_priv) & BIT(crtc->pipe)) {
++		cpu_transcoder = (enum transcoder) crtc->pipe - 1;
++		if (transcoder_ddi_func_is_enabled(dev_priv, cpu_transcoder))
++			enabled_transcoders |= BIT(cpu_transcoder);
++	}
++
+ 	return enabled_transcoders;
+ }
+ 
 -- 
 2.32.0
 
