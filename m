@@ -2,46 +2,49 @@ Return-Path: <SRS0=Sdza=PK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85783C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 16:47:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED328C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 16:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B5F36101D
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 16:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4B5F36101D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A012161163
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 16:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A012161163
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BCC6E5D4;
-	Fri, 22 Oct 2021 16:47:00 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 666B26E5D4;
- Fri, 22 Oct 2021 16:46:59 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10145"; a="229206469"
-X-IronPort-AV: E=Sophos;i="5.87,173,1631602800"; d="scan'208";a="229206469"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 09:46:58 -0700
-X-IronPort-AV: E=Sophos;i="5.87,173,1631602800"; d="scan'208";a="569275720"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2021 09:46:58 -0700
-Date: Fri, 22 Oct 2021 09:42:19 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniele.ceraolospurio@intel.com, john.c.harrison@intel.com
-Message-ID: <20211022164219.GA23160@jons-linux-dev-box>
-References: <20210624070516.21893-1-matthew.brost@intel.com>
- <163489530491.10153.576017085715728906@jlahtine-mobl.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23D236E7D1;
+	Fri, 22 Oct 2021 16:49:00 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5CEB6EDAD
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Oct 2021 16:48:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10145"; a="252844198"
+X-IronPort-AV: E=Sophos;i="5.87,173,1631602800"; d="scan'208";a="252844198"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2021 09:48:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,173,1631602800"; d="scan'208";a="484745670"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga007.jf.intel.com with SMTP; 22 Oct 2021 09:48:30 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 22 Oct 2021 19:48:29 +0300
+Date: Fri, 22 Oct 2021 19:48:29 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, airlied@gmail.com, daniel@ffwll.ch,
+ lucas.demarchi@intel.com, Dave Airlie <airlied@redhat.com>
+Message-ID: <YXLrXQR23uCHOIpb@intel.com>
+References: <cover.1634918767.git.jani.nikula@intel.com>
+ <0ab63181bce3bf6a2ef2a04cb738bf5002029edd.1634918767.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <163489530491.10153.576017085715728906@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 00/47] GuC submission support
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0ab63181bce3bf6a2ef2a04cb738bf5002029edd.1634918767.git.jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915/audio: move intel_audio_funcs
+ internal to intel_audio.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,166 +60,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 22, 2021 at 12:35:04PM +0300, Joonas Lahtinen wrote:
-> Hi Matt & John,
+On Fri, Oct 22, 2021 at 07:27:58PM +0300, Jani Nikula wrote:
+> It's all internal to intel_audio.c.
 > 
-> Can you please queue patches with the right Fixes: references to convert
-> all the GuC tracepoints to be protected by the LOW_LEVEL_TRACEPOINTS
-> protection for now. Please do so before next Wednesday so we get it
-> queued in drm-intel-next-fixes.
-> 
+> Cc: Dave Airlie <airlied@redhat.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Don't we already do that? I checked i915_trace.h and every tracepoint I
-added (intel_context class, i915_request_guc_submit) is protected by
-LOW_LEVEL_TRACEPOINTS.
+I've toyed around with similar stuff myself before
+(moving bunch of .av_foo/.audio_foo to .audio.foo) just
+never bothered sending it out. So very much like the idea.
 
-The only thing I changed outside of that protection is adding the guc_id
-field to existing i915_request class tracepoints. Without the guc_id in
-those tracepoints these are basically useless with GuC submission. We
-could revert that if it is a huge deal but as I said then they are
-useless...
+Series is
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Matt
+> ---
+>  drivers/gpu/drm/i915/display/intel_audio.c |  9 +++++++++
+>  drivers/gpu/drm/i915/i915_drv.h            | 10 +---------
+>  2 files changed, 10 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+> index b46f6539b9ab..39246f64fb39 100644
+> --- a/drivers/gpu/drm/i915/display/intel_audio.c
+> +++ b/drivers/gpu/drm/i915/display/intel_audio.c
+> @@ -62,6 +62,15 @@
+>   * struct &i915_audio_component_audio_ops @audio_ops is called from i915 driver.
+>   */
+>  
+> +struct intel_audio_funcs {
+> +	void (*audio_codec_enable)(struct intel_encoder *encoder,
+> +				   const struct intel_crtc_state *crtc_state,
+> +				   const struct drm_connector_state *conn_state);
+> +	void (*audio_codec_disable)(struct intel_encoder *encoder,
+> +				    const struct intel_crtc_state *old_crtc_state,
+> +				    const struct drm_connector_state *old_conn_state);
+> +};
+> +
+>  /* DP N/M table */
+>  #define LC_810M	810000
+>  #define LC_540M	540000
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index ed86633a587b..bb023b909e86 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -364,15 +364,6 @@ struct intel_color_funcs {
+>  	void (*read_luts)(struct intel_crtc_state *crtc_state);
+>  };
+>  
+> -struct intel_audio_funcs {
+> -	void (*audio_codec_enable)(struct intel_encoder *encoder,
+> -				   const struct intel_crtc_state *crtc_state,
+> -				   const struct drm_connector_state *conn_state);
+> -	void (*audio_codec_disable)(struct intel_encoder *encoder,
+> -				    const struct intel_crtc_state *old_crtc_state,
+> -				    const struct drm_connector_state *old_conn_state);
+> -};
+> -
+>  struct intel_cdclk_funcs {
+>  	void (*get_cdclk)(struct drm_i915_private *dev_priv,
+>  			  struct intel_cdclk_config *cdclk_config);
+> @@ -829,6 +820,7 @@ struct i915_selftest_stash {
+>  };
+>  
+>  /* intel_audio.c private */
+> +struct intel_audio_funcs;
+>  struct intel_audio_private {
+>  	/* Display internal audio functions */
+>  	const struct intel_audio_funcs *funcs;
+> -- 
+> 2.30.2
 
-> There's the orthogonal track to discuss what would be the stable set of
-> tracepoints we could expose. However, before that discussion is closed,
-> let's keep a rather strict line to avoid potential maintenance burned.
-> 
-> We can then relax in the future as needed.
-> 
-> Regards, Joonas
-> 
-> Quoting Matthew Brost (2021-06-24 10:04:29)
-> > As discussed in [1], [2] we are enabling GuC submission support in the
-> > i915. This is a subset of the patches in step 5 described in [1],
-> > basically it is absolute to enable CI with GuC submission on gen11+
-> > platforms.
-> > 
-> > This series itself will likely be broken down into smaller patch sets to
-> > merge. Likely into CTBs changes, basic submission, virtual engines, and
-> > resets.
-> > 
-> > A following series will address the missing patches remaining from [1].
-> > 
-> > Locally tested on TGL machine and basic tests seem to be passing.
-> > 
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > 
-> > [1] https://patchwork.freedesktop.org/series/89844/
-> > [2] https://patchwork.freedesktop.org/series/91417/
-> > 
-> > Daniele Ceraolo Spurio (1):
-> >   drm/i915/guc: Unblock GuC submission on Gen11+
-> > 
-> > John Harrison (10):
-> >   drm/i915/guc: Module load failure test for CT buffer creation
-> >   drm/i915: Track 'serial' counts for virtual engines
-> >   drm/i915/guc: Provide mmio list to be saved/restored on engine reset
-> >   drm/i915/guc: Don't complain about reset races
-> >   drm/i915/guc: Enable GuC engine reset
-> >   drm/i915/guc: Fix for error capture after full GPU reset with GuC
-> >   drm/i915/guc: Hook GuC scheduling policies up
-> >   drm/i915/guc: Connect reset modparam updates to GuC policy flags
-> >   drm/i915/guc: Include scheduling policies in the debugfs state dump
-> >   drm/i915/guc: Add golden context to GuC ADS
-> > 
-> > Matthew Brost (36):
-> >   drm/i915/guc: Relax CTB response timeout
-> >   drm/i915/guc: Improve error message for unsolicited CT response
-> >   drm/i915/guc: Increase size of CTB buffers
-> >   drm/i915/guc: Add non blocking CTB send function
-> >   drm/i915/guc: Add stall timer to non blocking CTB send function
-> >   drm/i915/guc: Optimize CTB writes and reads
-> >   drm/i915/guc: Add new GuC interface defines and structures
-> >   drm/i915/guc: Remove GuC stage descriptor, add lrc descriptor
-> >   drm/i915/guc: Add lrc descriptor context lookup array
-> >   drm/i915/guc: Implement GuC submission tasklet
-> >   drm/i915/guc: Add bypass tasklet submission path to GuC
-> >   drm/i915/guc: Implement GuC context operations for new inteface
-> >   drm/i915/guc: Insert fence on context when deregistering
-> >   drm/i915/guc: Defer context unpin until scheduling is disabled
-> >   drm/i915/guc: Disable engine barriers with GuC during unpin
-> >   drm/i915/guc: Extend deregistration fence to schedule disable
-> >   drm/i915: Disable preempt busywait when using GuC scheduling
-> >   drm/i915/guc: Ensure request ordering via completion fences
-> >   drm/i915/guc: Disable semaphores when using GuC scheduling
-> >   drm/i915/guc: Ensure G2H response has space in buffer
-> >   drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC
-> >   drm/i915/guc: Update GuC debugfs to support new GuC
-> >   drm/i915/guc: Add several request trace points
-> >   drm/i915: Add intel_context tracing
-> >   drm/i915/guc: GuC virtual engines
-> >   drm/i915: Hold reference to intel_context over life of i915_request
-> >   drm/i915/guc: Disable bonding extension with GuC submission
-> >   drm/i915/guc: Direct all breadcrumbs for a class to single breadcrumbs
-> >   drm/i915/guc: Reset implementation for new GuC interface
-> >   drm/i915: Reset GPU immediately if submission is disabled
-> >   drm/i915/guc: Add disable interrupts to guc sanitize
-> >   drm/i915/guc: Suspend/resume implementation for new interface
-> >   drm/i915/guc: Handle context reset notification
-> >   drm/i915/guc: Handle engine reset failure notification
-> >   drm/i915/guc: Enable the timer expired interrupt for GuC
-> >   drm/i915/guc: Capture error state on context reset
-> > 
-> >  drivers/gpu/drm/i915/gem/i915_gem_context.c   |   30 +-
-> >  drivers/gpu/drm/i915/gem/i915_gem_context.h   |    1 +
-> >  drivers/gpu/drm/i915/gem/i915_gem_mman.c      |    3 +-
-> >  drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |    6 +-
-> >  drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   41 +-
-> >  drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   |   14 +-
-> >  .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |    7 +
-> >  drivers/gpu/drm/i915/gt/intel_context.c       |   41 +-
-> >  drivers/gpu/drm/i915/gt/intel_context.h       |   31 +-
-> >  drivers/gpu/drm/i915/gt/intel_context_types.h |   49 +
-> >  drivers/gpu/drm/i915/gt/intel_engine.h        |   72 +-
-> >  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  182 +-
-> >  .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   71 +-
-> >  .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |    4 +
-> >  drivers/gpu/drm/i915/gt/intel_engine_types.h  |   12 +-
-> >  .../drm/i915/gt/intel_execlists_submission.c  |  234 +-
-> >  .../drm/i915/gt/intel_execlists_submission.h  |   11 -
-> >  drivers/gpu/drm/i915/gt/intel_gt.c            |   21 +
-> >  drivers/gpu/drm/i915/gt/intel_gt.h            |    2 +
-> >  drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    6 +-
-> >  drivers/gpu/drm/i915/gt/intel_gt_requests.c   |   22 +-
-> >  drivers/gpu/drm/i915/gt/intel_gt_requests.h   |    9 +-
-> >  drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |    1 -
-> >  drivers/gpu/drm/i915/gt/intel_reset.c         |   20 +-
-> >  .../gpu/drm/i915/gt/intel_ring_submission.c   |   28 +
-> >  drivers/gpu/drm/i915/gt/intel_rps.c           |    4 +
-> >  drivers/gpu/drm/i915/gt/intel_workarounds.c   |   46 +-
-> >  .../gpu/drm/i915/gt/intel_workarounds_types.h |    1 +
-> >  drivers/gpu/drm/i915/gt/mock_engine.c         |   41 +-
-> >  drivers/gpu/drm/i915/gt/selftest_context.c    |   10 +
-> >  drivers/gpu/drm/i915/gt/selftest_execlists.c  |   20 +-
-> >  .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   15 +
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   82 +-
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  106 +-
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  460 +++-
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |    3 +
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  318 ++-
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   22 +-
-> >  .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   25 +-
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   88 +-
-> >  .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 2197 +++++++++++++++--
-> >  .../gpu/drm/i915/gt/uc/intel_guc_submission.h |   17 +-
-> >  drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  102 +-
-> >  drivers/gpu/drm/i915/gt/uc/intel_uc.h         |   11 +
-> >  drivers/gpu/drm/i915/i915_debugfs.c           |    2 +
-> >  drivers/gpu/drm/i915/i915_debugfs_params.c    |   31 +
-> >  drivers/gpu/drm/i915/i915_gem_evict.c         |    1 +
-> >  drivers/gpu/drm/i915/i915_gpu_error.c         |   25 +-
-> >  drivers/gpu/drm/i915/i915_reg.h               |    2 +
-> >  drivers/gpu/drm/i915/i915_request.c           |  159 +-
-> >  drivers/gpu/drm/i915/i915_request.h           |   21 +
-> >  drivers/gpu/drm/i915/i915_scheduler.c         |    6 +
-> >  drivers/gpu/drm/i915/i915_scheduler.h         |    6 +
-> >  drivers/gpu/drm/i915/i915_scheduler_types.h   |    5 +
-> >  drivers/gpu/drm/i915/i915_trace.h             |  197 +-
-> >  .../gpu/drm/i915/selftests/igt_live_test.c    |    2 +-
-> >  .../gpu/drm/i915/selftests/mock_gem_device.c  |    3 +-
-> >  57 files changed, 4159 insertions(+), 787 deletions(-)
-> > 
-> > -- 
-> > 2.28.0
-> > 
+-- 
+Ville Syrjälä
+Intel
