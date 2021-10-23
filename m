@@ -2,45 +2,45 @@ Return-Path: <SRS0=hSYZ=PL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2961AC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat, 23 Oct 2021 18:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 376AFC433FE
+	for <intel-gfx@archiver.kernel.org>; Sat, 23 Oct 2021 18:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC38F60ED5
-	for <intel-gfx@archiver.kernel.org>; Sat, 23 Oct 2021 18:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EC38F60ED5
+	by mail.kernel.org (Postfix) with ESMTPS id 0200060E9C
+	for <intel-gfx@archiver.kernel.org>; Sat, 23 Oct 2021 18:10:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0200060E9C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FEF76E83D;
-	Sat, 23 Oct 2021 18:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 663F76E84D;
+	Sat, 23 Oct 2021 18:09:55 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D00989FAD;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F041589FAD;
  Sat, 23 Oct 2021 18:09:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10146"; a="209566138"
-X-IronPort-AV: E=Sophos;i="5.87,175,1631602800"; d="scan'208";a="209566138"
+X-IronPort-AV: E=McAfee;i="6200,9189,10146"; a="209566140"
+X-IronPort-AV: E=Sophos;i="5.87,175,1631602800"; d="scan'208";a="209566140"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Oct 2021 11:09:52 -0700
-X-IronPort-AV: E=Sophos;i="5.87,175,1631602800"; d="scan'208";a="528262359"
+X-IronPort-AV: E=Sophos;i="5.87,175,1631602800"; d="scan'208";a="528262365"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2021 11:09:51 -0700
+ 23 Oct 2021 11:09:52 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniele.ceraolospurio@intel.com>,
 	<john.c.harrison@intel.com>
-Date: Sat, 23 Oct 2021 11:05:08 -0700
-Message-Id: <20211023180510.35152-2-matthew.brost@intel.com>
+Date: Sat, 23 Oct 2021 11:05:10 -0700
+Message-Id: <20211023180510.35152-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211023180510.35152-1-matthew.brost@intel.com>
 References: <20211023180510.35152-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/guc: Do error capture
- asynchronously
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/guc: Refcount context during error
+ capture
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,285 +56,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-An error capture allocates memory, memory allocations depend on resets,
-and resets need to flush the G2H handlers to seal several races. If the
-error capture is done from the G2H handler this creates a circular
-dependency. To work around this, do a error capture in a work queue
-asynchronously from the G2H handler. This should be fine as (eventually)
-all register state is put into a buffer by the GuC so it is safe to
-restart the context before the error capture is complete. At worst, a
-full GT reset clobbers an error capture and some information is lost.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Example of lockdep splat below:
+When i915 receives a context reset notification from GuC, it triggers
+an error capture before resetting any outstanding requsts of that
+context. Unfortunately, the error capture is not a time bound
+operation. In certain situations it can take a long time, particularly
+when multiple large LMEM buffers must be read back and eoncoded. If
+this delay is longer than other timeouts (heartbeat, test recovery,
+etc.) then a full GT reset can be triggered in the middle.
 
-[  154.625989] ======================================================
-[  154.632195] WARNING: possible circular locking dependency detected
-[  154.638393] 5.14.0-rc5-guc+ #50 Tainted: G     U
-[  154.643991] ------------------------------------------------------
-[  154.650196] i915_selftest/1673 is trying to acquire lock:
-[  154.655621] ffff8881079cb918 ((work_completion)(&ct->requests.worker)){+.+.}-{0:0}, at: __flush_work+0x350/0x4d0 [  154.665826]
-               but task is already holding lock:
-[  154.671682] ffff8881079cbfb8 (&gt->reset.mutex){+.+.}-{3:3}, at: intel_gt_reset+0xf0/0x300 [i915] [  154.680659]
-               which lock already depends on the new lock.
+That can result in the context being reset by GuC actually being
+destroyed before the error capture completes and the GuC submission
+code resumes. Thus, the GuC side can start dereferencing stale
+pointers and Bad Things ensue.
 
-[  154.688857]
-               the existing dependency chain (in reverse order) is:
-[  154.696365]
-               -> #2 (&gt->reset.mutex){+.+.}-{3:3}:
-[  154.702571]        lock_acquire+0xd2/0x300
-[  154.706695]        i915_gem_shrinker_taints_mutex+0x2d/0x50 [i915]
-[  154.712959]        intel_gt_init_reset+0x61/0x80 [i915]
-[  154.718258]        intel_gt_init_early+0xe6/0x120 [i915]
-[  154.723648]        i915_driver_probe+0x592/0xdc0 [i915]
-[  154.728942]        i915_pci_probe+0x43/0x1c0 [i915]
-[  154.733891]        pci_device_probe+0x9b/0x110
-[  154.738362]        really_probe+0x1a6/0x3a0
-[  154.742568]        __driver_probe_device+0xf9/0x170
-[  154.747468]        driver_probe_device+0x19/0x90
-[  154.752114]        __driver_attach+0x99/0x170
-[  154.756492]        bus_for_each_dev+0x73/0xc0
-[  154.760870]        bus_add_driver+0x14b/0x1f0
-[  154.765248]        driver_register+0x67/0xb0
-[  154.769542]        i915_init+0x18/0x8c [i915]
-[  154.773964]        do_one_initcall+0x53/0x2e0
-[  154.778343]        do_init_module+0x56/0x210
-[  154.782639]        load_module+0x25fc/0x29f0
-[  154.786934]        __do_sys_finit_module+0xae/0x110
-[  154.791835]        do_syscall_64+0x38/0xc0
-[  154.795958]        entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  154.801558]
-               -> #1 (fs_reclaim){+.+.}-{0:0}:
-[  154.807241]        lock_acquire+0xd2/0x300
-[  154.811361]        fs_reclaim_acquire+0x9e/0xd0
-[  154.815914]        kmem_cache_alloc_trace+0x30/0x790
-[  154.820899]        i915_gpu_coredump_alloc+0x53/0x1a0 [i915]
-[  154.826649]        i915_gpu_coredump+0x39/0x560 [i915]
-[  154.831866]        i915_capture_error_state+0xa/0x70 [i915]
-[  154.837513]        intel_guc_context_reset_process_msg+0x174/0x1f0 [i915]
-[  154.844383]        ct_incoming_request_worker_func+0x130/0x1b0 [i915]
-[  154.850898]        process_one_work+0x264/0x590
-[  154.855451]        worker_thread+0x4b/0x3a0
-[  154.859655]        kthread+0x147/0x170
-[  154.863428]        ret_from_fork+0x1f/0x30
-[  154.867548]
-               -> #0 ((work_completion)(&ct->requests.worker)){+.+.}-{0:0}:
-[  154.875747]        check_prev_add+0x90/0xc30
-[  154.880042]        __lock_acquire+0x1643/0x2110
-[  154.884595]        lock_acquire+0xd2/0x300
-[  154.888715]        __flush_work+0x373/0x4d0
-[  154.892920]        intel_guc_submission_reset_prepare+0xf3/0x340 [i915]
-[  154.899606]        intel_uc_reset_prepare+0x40/0x50 [i915]
-[  154.905166]        reset_prepare+0x55/0x60 [i915]
-[  154.909946]        intel_gt_reset+0x11c/0x300 [i915]
-[  154.914984]        do_device_reset+0x13/0x20 [i915]
-[  154.919936]        check_whitelist_across_reset+0x166/0x250 [i915]
-[  154.926212]        live_reset_whitelist.cold+0x6a/0x7a [i915]
-[  154.932037]        __i915_subtests.cold+0x20/0x74 [i915]
-[  154.937428]        __run_selftests.cold+0x96/0xee [i915]
-[  154.942816]        i915_live_selftests+0x2c/0x60 [i915]
-[  154.948125]        i915_pci_probe+0x93/0x1c0 [i915]
-[  154.953076]        pci_device_probe+0x9b/0x110
-[  154.957545]        really_probe+0x1a6/0x3a0
-[  154.961749]        __driver_probe_device+0xf9/0x170
-[  154.966653]        driver_probe_device+0x19/0x90
-[  154.971290]        __driver_attach+0x99/0x170
-[  154.975671]        bus_for_each_dev+0x73/0xc0
-[  154.980053]        bus_add_driver+0x14b/0x1f0
-[  154.984431]        driver_register+0x67/0xb0
-[  154.988725]        i915_init+0x18/0x8c [i915]
-[  154.993149]        do_one_initcall+0x53/0x2e0
-[  154.997527]        do_init_module+0x56/0x210
-[  155.001822]        load_module+0x25fc/0x29f0
-[  155.006118]        __do_sys_finit_module+0xae/0x110
-[  155.011019]        do_syscall_64+0x38/0xc0
-[  155.015139]        entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  155.020729]
-               other info that might help us debug this:
-
-[  155.028752] Chain exists of:
-                 (work_completion)(&ct->requests.worker) --> fs_reclaim --> &gt->reset.mutex
-
-[  155.041294]  Possible unsafe locking scenario:
-
-[  155.047240]        CPU0                    CPU1
-[  155.051791]        ----                    ----
-[  155.056344]   lock(&gt->reset.mutex);
-[  155.060026]                                lock(fs_reclaim);
-[  155.065706]                                lock(&gt->reset.mutex);
-[  155.071912]   lock((work_completion)(&ct->requests.worker));
-[  155.077595]
-                *** DEADLOCK ***
+So add a refcount get of the context during the entire reset
+operation. That way, the context can't be destroyed part way through
+no matter what other resets or user interactions occur.
 
 v2:
-  - Resolve ce within lock, requeue workqueue if list not empty
-v3:
- (CI)
-  - Only add ce to capture list if empty
+ (Matthew Brost)
+  - Update patch to work with async error capture
 
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |  2 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |  7 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        | 10 +++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 65 +++++++++++++++++--
- 4 files changed, 78 insertions(+), 6 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 24 +++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 5634d14052bc..c8990d7c030a 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -406,6 +406,8 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 
- 	INIT_LIST_HEAD(&ce->parallel.child_list);
- 
-+	INIT_LIST_HEAD(&ce->guc_capture_link);
-+
- 	/*
- 	 * Initialize fence to be complete as this is expected to be complete
- 	 * unless there is a pending schedule disable outstanding.
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 9e0177dc5484..ca714c866512 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -276,6 +276,13 @@ struct intel_context {
- 		} guc;
- 	} parallel;
- 
-+	/**
-+	 * @guc_capture_link: in guc->submission_state.capture_list when an
-+	 * error capture is pending on this context, protected by
-+	 * guc->submission_state.lock
-+	 */
-+	struct list_head guc_capture_link;
-+
- #ifdef CONFIG_DRM_I915_SELFTEST
- 	/**
- 	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 31cf9fb48c7e..540a567268ef 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -114,6 +114,16 @@ struct intel_guc {
- 		 * function as it might be in an atomic context (no sleeping)
- 		 */
- 		struct work_struct destroyed_worker;
-+		/**
-+		 * @capture_list: list of intel_context that need to capture
-+		 * error state
-+		 */
-+		struct list_head capture_list;
-+		/**
-+		 * @capture_worker: worker to do error capture when the GuC
-+		 * signals a context has been reset
-+		 */
-+		struct work_struct capture_worker;
- 	} submission_state;
- 
- 	/**
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index d7710debcd47..9a5aeba033e0 100644
+index 5f584283631b..846c3dfcf146 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -91,8 +91,8 @@
-  * used for all of GuC submission but that could change in the future.
-  *
-  * guc->submission_state.lock
-- * Global lock for GuC submission state. Protects guc_ids and destroyed contexts
-- * list.
-+ * Global lock for GuC submission state. Protects guc_ids, destroyed contexts
-+ * list, and capture list.
-  *
-  * ce->guc_state.lock
-  * Protects everything under ce->guc_state. Ensures that a context is in the
-@@ -1478,6 +1478,8 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+@@ -3662,6 +3662,8 @@ static void capture_worker_func(struct work_struct *w)
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
+ 		i915_capture_error_state(gt, ce->engine->mask);
  
- static void destroyed_worker_func(struct work_struct *w);
- 
-+static void capture_worker_func(struct work_struct *w);
++	intel_context_put(ce);
 +
- /*
-  * Set up the memory resources to be shared with the GuC (via the GGTT)
-  * at firmware loading time.
-@@ -1506,6 +1508,8 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 	INIT_LIST_HEAD(&guc->submission_state.destroyed_contexts);
- 	INIT_WORK(&guc->submission_state.destroyed_worker,
- 		  destroyed_worker_func);
-+	INIT_LIST_HEAD(&guc->submission_state.capture_list);
-+	INIT_WORK(&guc->submission_state.capture_worker, capture_worker_func);
+ 	if (!list_empty(&guc->submission_state.capture_list))
+ 		queue_work(system_unbound_wq,
+ 			   &guc->submission_state.capture_worker);
+@@ -3711,7 +3713,7 @@ static void guc_context_replay(struct intel_context *ce)
+ 	tasklet_hi_schedule(&sched_engine->tasklet);
+ }
  
- 	guc->submission_state.guc_ids_bitmap =
- 		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID, GFP_KERNEL);
-@@ -3652,17 +3656,66 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
+-static void guc_handle_context_reset(struct intel_guc *guc,
++static bool guc_handle_context_reset(struct intel_guc *guc,
+ 				     struct intel_context *ce)
+ {
+ 	trace_intel_context_reset(ce);
+@@ -3724,7 +3726,11 @@ static void guc_handle_context_reset(struct intel_guc *guc,
+ 		   !context_blocked(ce))) {
+ 		capture_error_state(guc, ce);
+ 		guc_context_replay(ce);
++
++		return false;
+ 	}
++
++	return true;
+ }
+ 
+ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
+@@ -3732,6 +3738,7 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
+ {
+ 	struct intel_context *ce;
+ 	int desc_idx;
++	unsigned long flags;
+ 
+ 	if (unlikely(len != 1)) {
+ 		drm_err(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
+@@ -3739,11 +3746,24 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
+ 	}
+ 
+ 	desc_idx = msg[0];
++
++	/*
++	 * The context lookup uses the xarray but lookups only require an RCU lock
++	 * not the full spinlock. So take the lock explicitly and keep it until the
++	 * context has been reference count locked to ensure it can't be destroyed
++	 * asynchronously until the reset is done.
++	 */
++	xa_lock_irqsave(&guc->context_lookup, flags);
+ 	ce = g2h_context_lookup(guc, desc_idx);
++	if (ce)
++		intel_context_get(ce);
++	xa_unlock_irqrestore(&guc->context_lookup, flags);
++
+ 	if (unlikely(!ce))
+ 		return -EPROTO;
+ 
+-	guc_handle_context_reset(guc, ce);
++	if (guc_handle_context_reset(guc, ce))
++		intel_context_put(ce);
+ 
  	return 0;
  }
- 
--static void capture_error_state(struct intel_guc *guc,
--				struct intel_context *ce)
-+static void capture_worker_func(struct work_struct *w)
- {
-+	struct intel_guc *guc = container_of(w, struct intel_guc,
-+					     submission_state.capture_worker);
- 	struct intel_gt *gt = guc_to_gt(guc);
- 	struct drm_i915_private *i915 = gt->i915;
--	struct intel_engine_cs *engine = __context_to_physical_engine(ce);
-+	struct intel_engine_cs *engine;
-+	struct intel_context *ce;
-+	unsigned long flags;
- 	intel_wakeref_t wakeref;
- 
-+	spin_lock_irqsave(&guc->submission_state.lock, flags);
-+	ce = list_first_entry(&guc->submission_state.capture_list,
-+			      struct intel_context, guc_capture_link);
-+	list_del_init(&ce->guc_capture_link);
-+	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
-+
-+	engine = __context_to_physical_engine(ce);
- 	intel_engine_set_hung_context(engine, ce);
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
--		i915_capture_error_state(gt, engine->mask);
-+		i915_capture_error_state(gt, ce->engine->mask);
-+
-+	if (!list_empty(&guc->submission_state.capture_list))
-+		queue_work(system_unbound_wq,
-+			   &guc->submission_state.capture_worker);
-+}
-+
-+static void capture_error_state(struct intel_guc *guc,
-+				struct intel_context *ce)
-+{
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct intel_engine_cs *engine = __context_to_physical_engine(ce);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&guc->submission_state.lock, flags);
-+	/*
-+	 * Corner case where if resets happen faster than the error captures
-+	 * (selftests, igts that intentionally cause hangs), suppress 2nd the
-+	 * error capture.
-+	 */
-+	if (list_empty(&ce->guc_capture_link))
-+		list_add_tail(&guc->submission_state.capture_list,
-+			      &ce->guc_capture_link);
-+	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
-+
-+	/*
-+	 * We do the error capture async as an error capture can allocate
-+	 * memory, the reset path must flush the G2H handler in order to seal
-+	 * several races, and the memory allocations depend on the reset path
-+	 * (circular dependecy if error capture done here in the G2H handler).
-+	 * Doing the error capture async should be ok, as (eventually) all
-+	 * register state is captured in buffer by the GuC (i.e. it is ok to
-+	 * restart the context before the error capture is complete).
-+	 *
-+	 * FIXME: Long term, fix the error capture to be able to allocate memory
-+	 * in a no sleep context 1 page at time so we can do the error capture
-+	 * immediately.
-+	 */
-+	queue_work(system_unbound_wq, &guc->submission_state.capture_worker);
- 	atomic_inc(&i915->gpu_error.reset_engine_count[engine->uabi_class]);
- }
- 
 -- 
 2.32.0
 
