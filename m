@@ -2,106 +2,77 @@ Return-Path: <SRS0=eaB6=PN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75344C43219
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:05:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B105C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 407C460F0F
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:05:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 407C460F0F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0544960F0F
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0544960F0F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F018489FCC;
-	Mon, 25 Oct 2021 13:05:08 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB1C989B62;
- Mon, 25 Oct 2021 13:01:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DLmZd4XLyGOrTNwfipM+QvM/BG8aOKtJHDhQvoouWkNlu3xE0Y83xEk9z83AD1iWNyBJgwDSg5t1+/8wlg+U0vvDxF3EwjkymCv2CyliTFm83IP9aUZKh+qBd8Imx5odBC1T756BPQURj3YzULXOBN5/vm9L2JToZRAIzMYns6eANx8DKyXtxR6uUI8+PilnOmvGItR28nbBx8C4onjHuGLkPz+8j1CkBAKtZudbKr8tBEMNJ1Fi4k0TwjQhqr9ehC9tq0NneWwMhACGXZvct8/akke+JQjVIOU6OES0O1CAx68MHICN28suoCY19UtOVKfzPCE6/87QZfRaQnERpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ooDZGDNLkVMjaONUkWxDKi0n1m9IvyPqSNV+7h1B0Ds=;
- b=Aci3ePQE2BGsgIUeLFELDbzcqx2ZvwQ+1rBsj5U+5fYBXM40mXhbIV6YFRQwtAgGAZEpUdam2OCES3PJteCZEWop5CT6xg+w7SzJYD9qkJTqmRebpQNXr473JFchlYj2dsb9BQE1IjNnsAkzAdoIVxvFsweEZN+B6WOPF61cU5E3Nhk02OnjpsBoxzaepuNmmVKMQ3Lo0fBJbl/XbBQxtqTj+ZPjrjQaWW92gIJjdxjhymjO1dBeDK+yRBIfmFrtRLPWFRJPzfM6+mte0AVKBt+F+YaWflrUex+dId9a89xKLi+02n9wiEjoAbmCqhCkCRbiG8cWdHH+yWGIDaEYbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ooDZGDNLkVMjaONUkWxDKi0n1m9IvyPqSNV+7h1B0Ds=;
- b=P0L7hkqRhFK4THG0bjesKl4E6Z+57DP8CMC0YCyDSmNatrR3V8G7Giu1KziI9N9+j8Bw1MiUzuCVZ7IO8SN6LFbHSrTdLZVCoNCKzK16S9voOY2/y8kLg5Jn6CQrXk9+meMnBvVgDmHPLaF0NfpovyDnHc/gP6Tw7JHMory5c30=
-Received: from CO2PR04CA0192.namprd04.prod.outlook.com (2603:10b6:104:5::22)
- by SN1PR12MB2416.namprd12.prod.outlook.com (2603:10b6:802:2f::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
- 2021 13:01:05 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:5:cafe::93) by CO2PR04CA0192.outlook.office365.com
- (2603:10b6:104:5::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15 via Frontend
- Transport; Mon, 25 Oct 2021 13:01:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4628.16 via Frontend Transport; Mon, 25 Oct 2021 13:01:04 +0000
-Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 25 Oct
- 2021 08:01:01 -0500
-From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>
-CC: <daniel@ffwll.ch>, <christian.koenig@amd.com>,
- <alexander.deucher@amd.com>, <matthew.auld@intel.com>, <tzimmermann@suse.de>, 
- <jani.nikula@linux.intel.com>, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-Date: Mon, 25 Oct 2021 18:30:28 +0530
-Message-ID: <20211025130033.1547667-3-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211025130033.1547667-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20211025130033.1547667-1-Arunpravin.PaneerSelvam@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB7189FF7;
+	Mon, 25 Oct 2021 13:05:15 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77EAF6E0D1
+ for <intel-gfx@lists.freedesktop.org>; Sat, 23 Oct 2021 11:55:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1634990147;
+ bh=res/3O0GMTeGCKjSyb2Qg5uN2cFU/AY8siZQg1mF5QQ=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Hai1Y+9YJ1yZYvYx5ERrvoQeLSQO1j7MIFG7DMtdJBLrm+o5146kTmPfds7UKTgbO
+ H3+O3aVMIfWOn4zICDvIZHIqazAO63GwlgLTSgkqmcAJvRkEp4MLO54kQjx/5a3T9T
+ YCaTaT05ZXo0xiLE/rPcCtvDUE2/o26InHAkthPc=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from titan ([79.150.72.99]) by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1N0oBx-1ms2va1SUf-00wns9; Sat, 23
+ Oct 2021 13:50:23 +0200
+Date: Sat, 23 Oct 2021 13:50:20 +0200
+From: Len Baker <len.baker@gmx.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Len Baker <len.baker@gmx.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>, Kees Cook <keescook@chromium.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <20211023115020.GC4145@titan>
+References: <20211003104258.18550-1-len.baker@gmx.com>
+ <20211011092304.GA5790@titan> <87k0ihxj56.fsf@intel.com>
+ <YWbIQmD1TGikpRm2@phenom.ffwll.local> <20211016111602.GA1996@titan>
+ <877deatzz2.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a21b3c99-8929-4c19-9c78-08d997b7811b
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2416:
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2416C4F55FD9367E35A8B867E4839@SN1PR12MB2416.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1169;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Iawzv+Oa07irpDTlyILTJRaU9gLV1tm1eKZjtb/DKeewrkwF4Lfat7cFDu06PY5J65I8v1CMbbenjRros+yRy10RAjUQIYVYti3veabs7Hp00v/JM14yZ+Z11fPpJbz3MH87y+gvRWGMEnGYGRFUBB4M8g7elGnqpAqbdf5vHpIFxuAG+v6z/dHNabMAQYmBwW4dhg2wkTj8Qx7OX2Ofc5bn6eCy93gwZeJ3ZNWWMmYPB47P+ymqckQ0AvciEeM2xy92PbqE+AsgPz1sEbKSembBV3bTHbfgWZGRl74nTbvD5Jte/t2t615wsuWb+d5cqxSQs11DAt655R8xkU6NHobyb3Gbxov4o7nnGj9DYPDMkvrV28GR6wAwk2WBa9ZJZl6L4s/HudMhVT8T+u5h4RTt/EaRRfdU7jkFVfSyffc57Il6mdSYFHcD0kdYH798XPHp5ej0Qr5scZWgLTd1Exu0hC0IKqsa6tz7TTn7PW7zv4JJeLo5/GeickvvIly61bWcpuhbydaDuAkeFQC3V7cc03wEV8yDjxjJWAlRDwpOzrwI69H2TDW6AB4oAkWmOM8+JaKtwbMryLKSObjQDgvuSz0MQk3YmsHqxu2Mxm/uLl7DoqVpFiiREi/M/8v3ceY4HOvXP9JD8cXNPV0Poc8WHI6BUeoRcOZQUdfrEVQJsIwlPCDb5alLXNfD6f8nP3r4fmi6zgrB1kxvPvunHaAam3cNb3ZntqfF1GedTeE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(8936002)(316002)(26005)(47076005)(8676002)(6666004)(36860700001)(70586007)(336012)(82310400003)(508600001)(110136005)(186003)(54906003)(7696005)(5660300002)(2906002)(83380400001)(4326008)(426003)(81166007)(16526019)(2616005)(356005)(36756003)(86362001)(1076003)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 13:01:04.8976 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a21b3c99-8929-4c19-9c78-08d997b7811b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2416
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <877deatzz2.fsf@intel.com>
+X-Provags-ID: V03:K1:47ElEXUKpxCUG+/3Do1LJlXYFn+geMLaJzbVA+TEePVM4KbZGhd
+ PNuBPLjLqHG8+cxLvUPBNryyPZh1IBWya1y/lJzRLek5XpAvsdvUkHLdW+qax3tvcIH9Rym
+ bk4edEh4T3RLaV+XAzrxnlCeHzM55j+WsesU11BI0etWs9lO0xVCJH2m/O/T1vE5hlsDaYM
+ snyP7NNMTHUb0ZNV94WoQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:zrT+ioz3v1A=:YhLvpY6xYcgHysyYPiijQo
+ w4iakYywaYBiZS4M8snEibLEZd3V+3gTEirECOBRSc8/wG/7eN45KMNTBQhN1JgVxhH8BwGEF
+ rkDenxGLpnGcQ/pEH9DEdGeDdNX0CN17Q1G3ir4uhM/blRpX9/Y1IQKCk009ngMWiV83ZtnyO
+ c2VLVQQFHgi1wMf/PMUzGfs8eK6f1P2YNOtND0EfKMP9OBug+gcE5hPG6b6Rpbcn6TbB2gken
+ GPFhnrDJmK4Ov8iTWTnacstovrOg13pyDHG03P6tZqOrHZ6lU6QCJLakcSJ+YbRBem1PS0/rM
+ CMmwvJwKJ/if6Mawg3/bWbdOePVOufTOhfUKI7VaFciUGQCHiHQ2/ZLmLx+/oZVDEFfoQymaO
+ W3OQBACct7hpKTa1H/uW+HloKCwVkP7W0SiEMhA54WnpANNauPme9WFQluqrqv/eD0W3j7t00
+ CENFnGAeVbJFUWY5JZZSWP+6ItsZrOHOvhg1w70xAsjApCZ7TgW9CpIJ3wQ4Bz87OlRc8hqSd
+ db8Ry4fT/K41PrTtg3EIMMg3OXGa+Vx/Msu53eKsd8Uqk/dUapGCkp+Ol66jinxfNnKfo8LZK
+ zZO+/9ZnGFsZnh+dyy2pM2i9RdKmnzW+aD4PNNuouE8NIhZW1WzYfQ+w4zkZP9a9cB5jxpfDM
+ q76pby5wc4AimRrPbMk4KYU8482RmHJOzAdDSjTLYWptf2IACCq2xRFY8r7CqJzFnVdVaqn98
+ ShClXr7eWAdUsC/mnjzlRYKcxG9U05XvPICoyiECs8hztNm9WmwilzRcbNxgSyEVEZVZOBeq7
+ nM2wWkTDqekweAHZ0xbuAKROxnl7XjjTAeD4pxf9a2FoMiVmF3TtHyYrDUglz+bWKF8t06eG3
+ Q1hcVMxPJx+7p7rlO/QhyR2WM9bMWwHweM2TVkaCJR1kIAM5mcKn+mNjngoSsmCQ7srcKaJtq
+ iYFsVES1rn+OdSEXAYeNswEix1YIDreSPlTiAGoqKrcwd+OTqXevw6CYSYVbr9THCKkxrFjW9
+ JhLOm0AeTZxbz0SjS9F5/VH/8KTwpi1IZ4X+wjnfSxXPHOAba0W0Jiw4F1CWr31383xC6pbP2
+ oEuXScSigxZwQs=
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 25 Oct 2021 13:04:53 +0000
-Subject: [Intel-gfx] [PATCH 5/8] drm: Implement method to free unused pages
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Prefer struct_size over open
+ coded arithmetic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,145 +88,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On contiguous allocation, we round up the size
-to the *next* power of 2, implement a function
-to free the unused pages after the newly allocate block.
+Hi Jani,
 
-Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/drm_buddy.c | 103 ++++++++++++++++++++++++++++++++++++
- include/drm/drm_buddy.h     |   4 ++
- 2 files changed, 107 insertions(+)
+On Mon, Oct 18, 2021 at 01:00:01PM +0300, Jani Nikula wrote:
+> On Sat, 16 Oct 2021, Len Baker <len.baker@gmx.com> wrote:
+> > Hi Daniel and Jani,
+> >
+> > On Wed, Oct 13, 2021 at 01:51:30PM +0200, Daniel Vetter wrote:
+> >> On Wed, Oct 13, 2021 at 02:24:05PM +0300, Jani Nikula wrote:
+> >> > On Mon, 11 Oct 2021, Len Baker <len.baker@gmx.com> wrote:
+> >> > > Hi,
+> >> > >
+> >> > > On Sun, Oct 03, 2021 at 12:42:58PM +0200, Len Baker wrote:
+> >> > >> As noted in the "Deprecated Interfaces, Language Features, Attri=
+butes,
+> >> > >> and Conventions" documentation [1], size calculations (especiall=
+y
+> >> > >> multiplication) should not be performed in memory allocator (or =
+similar)
+> >> > >> function arguments due to the risk of them overflowing. This cou=
+ld lead
+> >> > >> to values wrapping around and a smaller allocation being made th=
+an the
+> >> > >> caller was expecting. Using those allocations could lead to line=
+ar
+> >> > >> overflows of heap memory and other misbehaviors.
+> >> > >>
+> >> > >> In this case these are not actually dynamic sizes: all the opera=
+nds
+> >> > >> involved in the calculation are constant values. However it is b=
+etter to
+> >> > >> refactor them anyway, just to keep the open-coded math idiom out=
+ of
+> >> > >> code.
+> >> > >>
+> >> > >> So, add at the end of the struct i915_syncmap a union with two f=
+lexible
+> >> > >> array members (these arrays share the same memory layout). This =
+is
+> >> > >> possible using the new DECLARE_FLEX_ARRAY macro. And then, use t=
+he
+> >> > >> struct_size() helper to do the arithmetic instead of the argumen=
+t
+> >> > >> "size + count * size" in the kmalloc and kzalloc() functions.
+> >> > >>
+> >> > >> Also, take the opportunity to refactor the __sync_seqno and __sy=
+nc_child
+> >> > >> making them more readable.
+> >> > >>
+> >> > >> This code was detected with the help of Coccinelle and audited a=
+nd fixed
+> >> > >> manually.
+> >> > >>
+> >> > >> [1] https://www.kernel.org/doc/html/latest/process/deprecated.ht=
+ml#open-coded-arithmetic-in-allocator-arguments
+> >> > >>
+> >> > >> Signed-off-by: Len Baker <len.baker@gmx.com>
+> >> > >> ---
+> >> > >>  drivers/gpu/drm/i915/i915_syncmap.c | 12 ++++++++----
+> >> > >>  1 file changed, 8 insertions(+), 4 deletions(-)
+> >> > >
+> >> > > I received a mail telling that this patch doesn't build:
+> >> > >
+> >> > > =3D=3D Series Details =3D=3D
+> >> > >
+> >> > > Series: drm/i915: Prefer struct_size over open coded arithmetic
+> >> > > URL   : https://patchwork.freedesktop.org/series/95408/
+> >> > > State : failure
+> >> > >
+> >> > > But it builds without error against linux-next (tag next-20211001=
+). Against
+> >> > > which tree and branch do I need to build?
+> >> >
+> >> > drm-tip [1]. It's a sort of linux-next for graphics. I think there =
+are
+> >> > still some branches that don't feed to linux-next.
+> >>
+> >> Yeah we need to get gt-next in linux-next asap. Joonas promised to se=
+nd
+> >> out his patch to make that happen in dim.
+> >> -Daniel
+> >
+> > Is there a possibility that you give an "Acked-by" tag? And then this =
+patch
+> > goes to the mainline through the Kees' tree or Gustavo's tree?
+>
+> If this does not apply to drm-intel-gt-next (or drm-tip), applying it to
+> some other branch will just cause unnecessary conflicts later on. It's
+> unnecessary extra work. It's not an urgent fix or anything, there is no
+> reason to do that. So that's a NAK.
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index 9d3547bcc5da..0da8510736eb 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -284,6 +284,109 @@ static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
- 	return s1 <= s2 && e1 >= e2;
- }
- 
-+/**
-+ * drm_buddy_free_unused_pages - free unused pages
-+ *
-+ * @mm: DRM buddy manager
-+ * @actual_size: original size requested
-+ * @blocks: output list head to add allocated blocks
-+ *
-+ * For contiguous allocation, we round up the size to the nearest
-+ * power of two value, drivers consume *actual* size, so remaining
-+ * portions are unused and it can be freed.
-+ *
-+ * Returns:
-+ * 0 on success, error code on failure.
-+ */
-+int drm_buddy_free_unused_pages(struct drm_buddy_mm *mm,
-+				u64 actual_size,
-+				struct list_head *blocks)
-+{
-+	struct drm_buddy_block *block;
-+	struct drm_buddy_block *buddy;
-+	u64 actual_start;
-+	u64 actual_end;
-+	LIST_HEAD(dfs);
-+	u64 count = 0;
-+	int err;
-+
-+	if (!list_is_singular(blocks))
-+		return -EINVAL;
-+
-+	block = list_first_entry_or_null(blocks,
-+					 struct drm_buddy_block,
-+					 link);
-+
-+	if (!block)
-+		return -EINVAL;
-+
-+	if (actual_size > drm_buddy_block_size(mm, block))
-+		return -EINVAL;
-+
-+	if (actual_size == drm_buddy_block_size(mm, block))
-+		return 0;
-+
-+	list_del(&block->link);
-+
-+	actual_start = drm_buddy_block_offset(block);
-+	actual_end = actual_start + actual_size - 1;
-+
-+	if (drm_buddy_block_is_allocated(block))
-+		mark_free(mm, block);
-+
-+	list_add(&block->tmp_link, &dfs);
-+
-+	while (1) {
-+		block = list_first_entry_or_null(&dfs,
-+						 struct drm_buddy_block,
-+						 tmp_link);
-+
-+		if (!block)
-+			break;
-+
-+		list_del(&block->tmp_link);
-+
-+		if (count == actual_size)
-+			return 0;
-+
-+		if (contains(actual_start, actual_end, drm_buddy_block_offset(block),
-+			(drm_buddy_block_offset(block) + drm_buddy_block_size(mm, block) - 1))) {
-+			BUG_ON(!drm_buddy_block_is_free(block));
-+
-+			/* Allocate only required blocks */
-+			mark_allocated(block);
-+			mm->avail -= drm_buddy_block_size(mm, block);
-+			list_add_tail(&block->link, blocks);
-+			count += drm_buddy_block_size(mm, block);
-+			continue;
-+		}
-+
-+		if (drm_buddy_block_order(block) == 0)
-+			continue;
-+
-+		if (!drm_buddy_block_is_split(block)) {
-+			err = split_block(mm, block);
-+
-+			if (unlikely(err))
-+				goto err_undo;
-+		}
-+
-+		list_add(&block->right->tmp_link, &dfs);
-+		list_add(&block->left->tmp_link, &dfs);
-+	}
-+
-+	return -ENOSPC;
-+
-+err_undo:
-+	buddy = get_buddy(block);
-+	if (buddy &&
-+	    (drm_buddy_block_is_free(block) &&
-+	     drm_buddy_block_is_free(buddy)))
-+		__drm_buddy_free(mm, block);
-+	return err;
-+}
-+EXPORT_SYMBOL(drm_buddy_free_unused_pages);
-+
- static struct drm_buddy_block *
- alloc_range(struct drm_buddy_mm *mm,
- 	    u64 start, u64 end,
-diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-index cd8021d2d6e7..1dfc80c88e1f 100644
---- a/include/drm/drm_buddy.h
-+++ b/include/drm/drm_buddy.h
-@@ -145,6 +145,10 @@ int drm_buddy_alloc(struct drm_buddy_mm *mm,
- 		    struct list_head *blocks,
- 		    unsigned long flags);
- 
-+int drm_buddy_free_unused_pages(struct drm_buddy_mm *mm,
-+				u64 actual_size,
-+				struct list_head *blocks);
-+
- void drm_buddy_free(struct drm_buddy_mm *mm, struct drm_buddy_block *block);
- 
- void drm_buddy_free_list(struct drm_buddy_mm *mm, struct list_head *objects);
--- 
-2.25.1
+Ok. Understood.
 
+> > Or is it better to wait for drm-tip to update?
+>
+> drm-tip is up to date, it's just that one of the branches that feed to
+> it is (was?) not feeding to linux-next.
+
+Sorry, but I'm missing something here. In linux-next this is the commit
+history of include/linux/stddef.h file:
+
+3080ea5553cc stddef: Introduce DECLARE_FLEX_ARRAY() helper
+50d7bd38c3aa stddef: Introduce struct_group() helper macro
+e7f18c22e6be stddef: Fix kerndoc for sizeof_field() and offsetofend()
+4229a470175b stddef.h: Introduce sizeof_field()
+...
+
+But in drm-tip this is the commit history:
+
+4229a470175b stddef.h: Introduce sizeof_field()
+...
+
+For this patch the DECLARE_FLEX_ARRAY() helper is needed. But the build
+fails due to the last tree commits for stddef.h file are not present.
+So, if I understand correctly, drm-tip is not up to date with linux-next.
+
+Regards,
+Len
+
+>
+> If you're contributing to drm, please consider basing your patches on
+> top of drm-tip.
+>
+>
+> BR,
+> Jani.
+>
+>
+> >
+> > Regards,
+> > Len
+> >
+> >>
+> >> >
+> >> > BR,
+> >> > Jani.
+> >> >
+> >> >
+> >> > [1] https://cgit.freedesktop.org/drm/drm-tip
+> >> >
+> >> >
+> >> > >
+> >> > > Regards,
+> >> > > Len
+> >> >
+> >> > --
+> >> > Jani Nikula, Intel Open Source Graphics Center
+> >>
+> >> --
+> >> Daniel Vetter
+> >> Software Engineer, Intel Corporation
+> >> http://blog.ffwll.ch
+>
+> --
+> Jani Nikula, Intel Open Source Graphics Center
