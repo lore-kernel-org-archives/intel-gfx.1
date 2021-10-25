@@ -2,42 +2,50 @@ Return-Path: <SRS0=eaB6=PN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD930C4321E
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 07:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0760AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 08:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7436D60724
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 07:19:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7436D60724
+	by mail.kernel.org (Postfix) with ESMTPS id C734A60FD7
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 08:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C734A60FD7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C56C189DA7;
-	Mon, 25 Oct 2021 07:19:47 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A00989D8A
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 07:19:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10147"; a="227037253"
-X-IronPort-AV: E=Sophos;i="5.87,179,1631602800"; d="scan'208";a="227037253"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2021 00:19:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,179,1631602800"; d="scan'208";a="496659727"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by orsmga008.jf.intel.com with ESMTP; 25 Oct 2021 00:19:43 -0700
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Oct 2021 12:43:16 +0530
-Message-Id: <20211025071317.3393329-2-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211025071317.3393329-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-References: <20211025071317.3393329-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A4EB89E0D;
+	Mon, 25 Oct 2021 08:01:19 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16AC589E0D;
+ Mon, 25 Oct 2021 08:01:18 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10147"; a="293057229"
+X-IronPort-AV: E=Sophos;i="5.87,179,1631602800"; d="scan'208";a="293057229"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2021 01:01:17 -0700
+X-IronPort-AV: E=Sophos;i="5.87,179,1631602800"; d="scan'208";a="446531190"
+Received: from dscaswel-mobl2.ger.corp.intel.com (HELO [10.213.242.254])
+ ([10.213.242.254])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2021 01:01:14 -0700
+To: Kai Song <songkai01@inspur.com>, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
+Cc: airlied@linux.ie, daniel@ffwll.ch, jason@jlekstrand.net,
+ thomas.hellstrom@linux.intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20211022120655.22173-1-songkai01@inspur.com>
+From: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <f0f66cb7-ce70-b968-2fa2-64c39a87e98c@intel.com>
+Date: Mon, 25 Oct 2021 09:01:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V2 1/2] drm/i915/pxp: run CI with PXP and
- MEI_PXP enabled.
+In-Reply-To: <20211022120655.22173-1-songkai01@inspur.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Fix inconsistent IS_ERR
+ and PTR_ERR
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,26 +61,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By default it will be off in normal builds.
+On 22/10/2021 13:06, Kai Song wrote:
+> Fix inconsistent IS_ERR and PTR_ERR in i915_gem_dmabuf.c
+> 
+> Signed-off-by: Kai Song <songkai01@inspur.com>
 
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
----
- drivers/gpu/drm/i915/Kconfig.debug | 2 ++
- 1 file changed, 2 insertions(+)
+Pushed to drm-intel-gt-next. Thanks.
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index e7fd3e76f8a2..fa181693184b 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -48,6 +48,8 @@ config DRM_I915_DEBUG
- 	select DRM_I915_DEBUG_RUNTIME_PM
- 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
- 	select DRM_I915_SELFTEST
-+	select INTEL_MEI_PXP # used by igt/gem_pxp
-+	select DRM_I915_PXP # used by igt/gem_pxp
- 	select BROKEN # for prototype uAPI
- 	default n
- 	help
--- 
-2.31.1
-
+> ---
+>   drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+> index 4a6bb64c3a35..3cc74b0fed06 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+> @@ -102,7 +102,7 @@ static int igt_dmabuf_import_same_driver_lmem(void *arg)
+>   	obj = __i915_gem_object_create_user(i915, PAGE_SIZE, &lmem, 1);
+>   	if (IS_ERR(obj)) {
+>   		pr_err("__i915_gem_object_create_user failed with err=%ld\n",
+> -		       PTR_ERR(dmabuf));
+> +		       PTR_ERR(obj));
+>   		err = PTR_ERR(obj);
+>   		goto out_ret;
+>   	}
+> @@ -158,7 +158,7 @@ static int igt_dmabuf_import_same_driver(struct drm_i915_private *i915,
+>   					    regions, num_regions);
+>   	if (IS_ERR(obj)) {
+>   		pr_err("__i915_gem_object_create_user failed with err=%ld\n",
+> -		       PTR_ERR(dmabuf));
+> +		       PTR_ERR(obj));
+>   		err = PTR_ERR(obj);
+>   		goto out_ret;
+>   	}
+> 
