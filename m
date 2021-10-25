@@ -2,69 +2,39 @@ Return-Path: <SRS0=eaB6=PN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 673D4C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 06:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0CEDC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 07:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3675F60C4A
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 06:23:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3675F60C4A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
+	by mail.kernel.org (Postfix) with ESMTPS id 7CCDD60724
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 07:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7CCDD60724
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C8389DBD;
-	Mon, 25 Oct 2021 06:23:05 +0000 (UTC)
-Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4F389D9A;
- Mon, 25 Oct 2021 06:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1635113882; bh=uw6jUOdznN5Fu1cmQxsbGLSaS5P2w7SplYgPex568YQ=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To;
- b=kpn3YOQUKeK9qDpnf0StFTwdc4WJreIl9JR8oi4rUbw2RZC0IEtUV7NQk5CjR3JWj
- AEBLg5lA/FkJuQmNxIv/k09YqvRAHZmzYfR2B2Hv/gSnP/O9JktEiJjGBVqLmzKzGR
- /BmdwJXbj2xTfAUE0fjrTjyaO9MnP/V/8Ufrnq/A=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Mon, 25 Oct 2021 00:17:45 +0200 (CEST)
-X-EA-Auth: tM23DGE6RIEgIBepFFyFZ3U+VcDqeb1NZ+9uNCAhSimMRHbJIRvea/6qSymDwthzabP0gvaNwIR0mJ56UkO3tKDYzFIv2ik3
-Date: Mon, 25 Oct 2021 00:17:37 +0200
-From: Claudio Suarez <cssk@net-c.es>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
-Message-ID: <YXXbgWNHts9CMJXD@gineta.localdomain>
-References: <20211016184226.3862-1-cssk@net-c.es>
- <20211016184226.3862-14-cssk@net-c.es> <YW8QYsmkm3ZrBAx3@intel.com>
- <YW9L6d7e+RO29VJu@gineta.localdomain> <YXFwB7rN4bvR0Z+m@intel.com>
- <YXKRnUHWuboQKBF1@zorro.micasa> <YXKoMEF/gU98cL9n@intel.com>
- <YXKtIUDk+f2Bnn++@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B09DA89C69;
+	Mon, 25 Oct 2021 07:19:46 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD1189C69
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 07:19:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10147"; a="227037239"
+X-IronPort-AV: E=Sophos;i="5.87,179,1631602800"; d="scan'208";a="227037239"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2021 00:19:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,179,1631602800"; d="scan'208";a="496659714"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by orsmga008.jf.intel.com with ESMTP; 25 Oct 2021 00:19:41 -0700
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 25 Oct 2021 12:43:15 +0530
+Message-Id: <20211025071317.3393329-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <YXKtIUDk+f2Bnn++@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v3 13/13] drm/i915: replace
- drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+Subject: [Intel-gfx] [PATCH V2 0/2] Enable PXP support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,108 +50,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 22, 2021 at 03:22:57PM +0300, Ville Syrjälä wrote:
-> On Fri, Oct 22, 2021 at 03:01:52PM +0300, Ville Syrjälä wrote:
-> > On Fri, Oct 22, 2021 at 12:25:33PM +0200, Claudio Suarez wrote:
-> > > On Thu, Oct 21, 2021 at 04:49:59PM +0300, Ville Syrjälä wrote:
-> > > > On Wed, Oct 20, 2021 at 12:51:21AM +0200, Claudio Suarez wrote:
-> > > > > drm_get_edid() internally calls to drm_connector_update_edid_property()
-> > > > > and then drm_add_display_info(), which parses the EDID.
-> > > > > This happens in the function intel_hdmi_set_edid() and
-> > > > > intel_sdvo_tmds_sink_detect() (via intel_sdvo_get_edid()).
-> > > > > 
-> > > > > Once EDID is parsed, the monitor HDMI support information is available
-> > > > > through drm_display_info.is_hdmi. Retriving the same information with
-> > > > > drm_detect_hdmi_monitor() is less efficient. Change to
-> > > > > drm_display_info.is_hdmi
-> > > > 
-> > > > I meant we need to examine all call chains that can lead to
-> > > > .detect() to make sure all of them do in fact update the
-> > > > display_info beforehand.
-> > > 
-> > > Well, I studied it carefully and, yes, all call chains that can lead to
-> > > drm_display_info.is_hdmi / drm_detect_hdmi_monitor() update display_info
-> > > beforehand. In the case that this doesn't happen, the code is unchanged.
-> > > 
-> > > Do you want I explain the changes in the code here again ? Or do you want
-> > > to me change the commit message to be more clear ? In the first case, I can
-> > > write here a detailed explanation. In the second case I can make a longer commit
-> > > message.
-> > > 
-> > > Or both?
-> > 
-> > I want all those call chains explained in the commit message,
-> > otherwise I have no easy way to confirm whether the change
-> > is correct or not.
-> 
-> Hmm. OK, so I had a bit of a dig around and seems that what we do now
-> .detect()->drm_get_edid()->drm_connector_update_edid_property()->drm_add_display_info()
+There are recent tests added in IGT which tests PXP.
+As PXP not enabled by default CI is skipping the tests.
 
-Yes. I said before that I felt something was wrong when I read the
-documentation and then the code. To be more explicit now, I expected that
-drm_connector_update_edid_property() will be done in the
-fill_modes/get_modes phase instead of when reading the edid.
-The documentation suggests that but the code reads the edid in the
-detect phase.
-Now, since drm_connector_update_edid_property() is called in the detect
-phase, it is not necessary to keep the edid data in the private connector
-struct. It is in struct drm_connector from the beginning.
-But this is topic for another patch.
+This patch series :
+1. Enables PXP
+2. Fixes the crash occures(RPM wakelock not acquired) 
+after enabling PXP
 
-> Now the question is when did that start happening? Looks like it was
-> commit 4b4df570b41d ("drm: Update edid-derived drm_display_info fields
-> at edid property set [v2]") that started to call drm_add_display_info()
-> from drm_connector_update_edid_property(), and then commit 5186421cbfe2
-> ("drm: Introduce epoch counter to drm_connector") started to call
-> drm_connector_update_edid_property() from drm_get_edid(). Before both
-> of those commits were in place display_info would still contain
-> some stale garbage during .detect().
->
-> That is the story I think we want in these commit messages since it
-> a) explains why the old code was directly parsing the edid instead
-> b) why it's now safe to change this
+Tejas Upadhyay (2):
+  drm/i915/pxp: run CI with PXP and MEI_PXP enabled.
+  drm/i915/gt: Hold RPM wakelock during PXP suspend
 
-------------------commit-message?--------------------
+ drivers/gpu/drm/i915/Kconfig.debug    | 2 ++
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c | 6 +++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-
-Commit a92d083d08b0 created the new flag is_hdmi in drm_display_info
-which is set when sink compliant with CEA-861 (EDID) shall be treated
-as an HDMI sink.
-
-From that day, this value can be used in some cases instead of
-calling drm_detect_hdmi_monitor() and a second parse is avoided
-because drm_detect_hdmi_monitor() parses. A TODO task was
-registered in Documentation/gpu/todo.rst to perform that task in
-the future.
-
-The flag drm_display_info.is_hdmi is set in the function
-drm_add_display_info(), which is called from
-drm_connector_update_edid_property(). Since commit 5186421cbfe2,
-drm_get_edid() calls drm_connector_update_edid_property() when
-reading the edid data from an i2c adapter. Therefore, in these
-cases drm_display_info.is_hdmi is updated to its correct
-value when returning from drm_get_edid().
-
-Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-in the cases when drm_detect_hdmi_monitor() is called after a
-read from an i2c adapter using drm_get_edid() in the i915 driver.
------------------------------------------------
-
-> 
-> PS. connector->force handling in drm_get_edid() looks a bit busted
-> since it doesn't call drm_connector_update_edid_property() at all
-> in some cases. I think there might be some path that leads there
-> anywya if/when we change connector->force, but we should fix
-> drm_get_edid() to do the right thing regarless.
-
-In those cases, the edid isn't read and NULL is returned by drm_get_edid().
-No problem because display_info.is_hdmi is inside an if (edid != NULL).
-
-BTW, struct intel_connector is allocated with kzalloc, so the initial
-value of is_hdmi is zero. The connector isn't HDMI by default.
-
-BR.
-Claudio Suarez.
-
+-- 
+2.31.1
 
