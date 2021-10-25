@@ -2,40 +2,107 @@ Return-Path: <SRS0=eaB6=PN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7B61C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 12:46:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0140DC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C6B860EE9
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 12:46:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C6B860EE9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C0C4660F0F
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C0C4660F0F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF5CF89F3C;
-	Mon, 25 Oct 2021 12:46:06 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 51E0F89F3C;
- Mon, 25 Oct 2021 12:46:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 489AFAA01E;
- Mon, 25 Oct 2021 12:46:05 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0901810048155975243=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B21489FD7;
+	Mon, 25 Oct 2021 13:04:54 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D4BF89FA5;
+ Mon, 25 Oct 2021 13:01:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eA9Yo6lELHdVVu6GymuYn3Mc/9gkl9yV3ItKEhFR5G1hLUpY4Ca5CajdM7r5a1RR1SuRY6t6tDUvjfViE6/99QhJsnMil3aBUOS76bqVGEoQvC4qsK07u9wL2ZeZ20rDy2OwtopKQsVKW0r+RdGcySidp6n5IjUP+Pp4CokFXJ4anb5KqKu+nR1NbFE12vEhcF+cfNw9RDqvi8McXLjR42sqy9JueQ+YnqNsDC/7eMoL07Mb5iYM8JA7g2AXosJ1vPZJGXk5tfG3vOsaEnoxycnOJ77zdT3Cp3UTpzwX0EXCk792m7Viu3rUOtnc/HEpyOh+arXiKTQNzsEphyB+HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Upa47IQxGMdOxtXkoqtF/jrYO06ZAMVag+E9dURRfxg=;
+ b=CqOGcI+QO85+NR95oX526MbynJAk4JN5k9d9FgXng69H2vpogDYTsYU2qOVixRXXpAyNwqwILLkVEKJqbd+cztiYqcjR3bjwZM8/XJJU8UsORbTRWME8kgTGpneMVGta9qA7U20I+GFlAJ7Ja1DKXyHgFirt3DZ3QcKZZZEIoLnnKOBbD7M6Ml/fjCJ95983WbprjTHYjCT0XPxXZvMgCPd7sOAxefUNnMSo369Pq6i0QLgZuIdx+6bd34fC3/9odoJtpmEWhhM6mnl0jew+ftgFb6V4itb3yxQp/r1jeh1Mox81HpfI4yvdqKHKCMC2BPsrv/0KYtPu/0iZaW6Bfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Upa47IQxGMdOxtXkoqtF/jrYO06ZAMVag+E9dURRfxg=;
+ b=eggU0XEivPJoP/XRhn3s2M55uErniGRgMu2xBhVy/oMSBukPgLLZCjBz1t9Ax3f2Hx7YUlJ7dQGZ1oOTiBGGqD14Z3XJEzWio8Bh175vunb+mPtiqxvlatil9z3/CWqtO0ypRWYOc4KQhL5rVzMAICNKEDZH6ik/lfpPtj/gJxM=
+Received: from MW4PR04CA0119.namprd04.prod.outlook.com (2603:10b6:303:83::34)
+ by CO6PR12MB5395.namprd12.prod.outlook.com (2603:10b6:303:13a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
+ 2021 13:01:18 +0000
+Received: from CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::8c) by MW4PR04CA0119.outlook.office365.com
+ (2603:10b6:303:83::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.22 via Frontend
+ Transport; Mon, 25 Oct 2021 13:01:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT047.mail.protection.outlook.com (10.13.174.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4628.16 via Frontend Transport; Mon, 25 Oct 2021 13:01:18 +0000
+Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 25 Oct
+ 2021 08:01:14 -0500
+From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <daniel@ffwll.ch>, <christian.koenig@amd.com>,
+ <alexander.deucher@amd.com>, <matthew.auld@intel.com>, <tzimmermann@suse.de>, 
+ <jani.nikula@linux.intel.com>, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Date: Mon, 25 Oct 2021 18:30:32 +0530
+Message-ID: <20211025130033.1547667-7-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211025130033.1547667-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20211025130033.1547667-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Cooper Chiou" <cooper.chiou@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Oct 2021 12:46:05 -0000
-Message-ID: <163516596526.17089.5120981826345029679@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200916180745.627-1-cooper.chiou@intel.com>
-In-Reply-To: <20200916180745.627-1-cooper.chiou@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Enable_WaProgramMgsrForCorrectSliceSpecificMmioReads_f?=
- =?utf-8?q?or_Gen9_=28rev11=29?=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ce16062-e19c-4add-cddd-08d997b78937
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5395:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5395FCC547BD35E6EB7E56EBE4839@CO6PR12MB5395.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:316;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: r5h/2s7DowNZP7bkwHSy9wd3aYlaVxtjNROKNJSdq83bvAsvOay8o37sKbdbyY4m7jNJHQgAJbGZDnbf5pXnjlhDA9pXTBUyKBNieeEmyRXAaXjDh8csdmtzr38R2SeMmL8UumWQjI08A4cSvYhXwSMCIHCKjNQ+jTOBlveCOHf7e6q2uD75n8+Se/TrsookaqUHm7FmuSvTyChwp3/LJCPvALbhRt0cSVLbGCPVh28ybyrKtzyaZc2wRiu3lYqU/QZriQ6S78NyUYvssKHGS+obvdKwdpCApEUA085MMMsURrYJQn/66uKM10Nm18mJ9h0wOTtMZIMpqwMCkPFyxN934/uvJUv43BONucMEDheCv6g8ws7pb6oEouHpycyyZw005ShB/f5yrtqszukSvrt81Gy82XzHWwGsxyXiddtiNCOf1IrUrclKeTiLwyT4tEuEtETPu3Ps67VtkjHK8JG7B0lcchH3+RDwGQHVPifYDeYBEW+yodSLmorj4ZuAQ8r8iQprCK2CLjI0PlF9JlxMZ0dj7Eem/lHP7Kkz9wluB0KyDkkLVmtZNxEIioF+BrbFtn34taPltC8K80YL/7uumUAlr5Oocamcw56sML92FXV4gCJPCKqlrIphkOaiNca3hNcNUjdJu/zQHSBh6dDRX/T4OVi/+HWQykalBOFlh6cH4tHFndqocNTkmiU2mE0thz/SNIf9x1skUJMX6/6IZGxx6ZHdLctqiLvwkvErTchN2QzeSRw/cBGoh6vT
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(186003)(5660300002)(70586007)(83380400001)(26005)(316002)(54906003)(2906002)(110136005)(6666004)(356005)(7696005)(36756003)(4326008)(47076005)(86362001)(70206006)(30864003)(36860700001)(81166007)(426003)(1076003)(508600001)(8936002)(2616005)(82310400003)(336012)(8676002)(16526019)(134034003)(36900700001)(579004);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 13:01:18.5071 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ce16062-e19c-4add-cddd-08d997b78937
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5395
+X-Mailman-Approved-At: Mon, 25 Oct 2021 13:04:53 +0000
+Subject: [Intel-gfx] [PATCH v2 1/8] drm: move the buddy allocator from i915
+ into common drm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,1250 +115,1621 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0901810048155975243==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Move the base i915 buddy allocator code into drm
+- Move i915_buddy.h to include/drm
+- Move i915_buddy.c to drm root folder
+- Rename "i915" string with "drm" string wherever applicable
+- Rename "I915" string with "DRM" string wherever applicable
+- Fix header file dependencies
+- Fix alignment issues
+- add Makefile support for drm buddy
+- export functions and write kerneldoc description
+- Remove i915 selftest config check condition as buddy selftest
+  will be moved to drm selftest folder
+
+cleanup i915 buddy references in i915 driver module
+and replace with drm buddy
+
+V2:
+- include header file in alphabetical order (Thomas)
+- merged changes listed in the body section into a single patch
+  to keep the build intact (Christian, Jani)
+
+Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/Makefile                      |   2 +-
+ drivers/gpu/drm/drm_buddy.c                   | 521 ++++++++++++++++++
+ drivers/gpu/drm/drm_drv.c                     |   3 +
+ drivers/gpu/drm/i915/Makefile                 |   1 -
+ drivers/gpu/drm/i915/i915_buddy.c             | 466 ----------------
+ drivers/gpu/drm/i915/i915_buddy.h             | 143 -----
+ drivers/gpu/drm/i915/i915_module.c            |   3 -
+ drivers/gpu/drm/i915/i915_scatterlist.c       |  11 +-
+ drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |  33 +-
+ drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |   4 +-
+ include/drm/drm_buddy.h                       | 153 +++++
+ 11 files changed, 702 insertions(+), 638 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_buddy.c
+ delete mode 100644 drivers/gpu/drm/i915/i915_buddy.c
+ delete mode 100644 drivers/gpu/drm/i915/i915_buddy.h
+ create mode 100644 include/drm/drm_buddy.h
+
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 0dff40bb863c..dc61e91a3154 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -18,7 +18,7 @@ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
+ 		drm_dumb_buffers.o drm_mode_config.o drm_vblank.o \
+ 		drm_syncobj.o drm_lease.o drm_writeback.o drm_client.o \
+ 		drm_client_modeset.o drm_atomic_uapi.o drm_hdcp.o \
+-		drm_managed.o drm_vblank_work.o
++		drm_managed.o drm_vblank_work.o drm_buddy.o
+ 
+ drm-$(CONFIG_DRM_LEGACY) += drm_agpsupport.o drm_bufs.o drm_context.o drm_dma.o \
+ 			    drm_legacy_misc.o drm_lock.o drm_memory.o drm_scatter.o \
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+new file mode 100644
+index 000000000000..39eb1d224bec
+--- /dev/null
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -0,0 +1,521 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++
++#include <linux/kmemleak.h>
++#include <linux/sizes.h>
++
++#include <drm/drm_buddy.h>
++
++static struct kmem_cache *slab_blocks;
++
++static struct drm_buddy_block *drm_block_alloc(struct drm_buddy_mm *mm,
++					       struct drm_buddy_block *parent,
++					       unsigned int order,
++					       u64 offset)
++{
++	struct drm_buddy_block *block;
++
++	BUG_ON(order > DRM_BUDDY_MAX_ORDER);
++
++	block = kmem_cache_zalloc(slab_blocks, GFP_KERNEL);
++	if (!block)
++		return NULL;
++
++	block->header = offset;
++	block->header |= order;
++	block->parent = parent;
++
++	BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
++	return block;
++}
++
++static void drm_block_free(struct drm_buddy_mm *mm,
++			   struct drm_buddy_block *block)
++{
++	kmem_cache_free(slab_blocks, block);
++}
++
++static void mark_allocated(struct drm_buddy_block *block)
++{
++	block->header &= ~DRM_BUDDY_HEADER_STATE;
++	block->header |= DRM_BUDDY_ALLOCATED;
++
++	list_del(&block->link);
++}
++
++static void mark_free(struct drm_buddy_mm *mm,
++		      struct drm_buddy_block *block)
++{
++	block->header &= ~DRM_BUDDY_HEADER_STATE;
++	block->header |= DRM_BUDDY_FREE;
++
++	list_add(&block->link,
++		 &mm->free_list[drm_buddy_block_order(block)]);
++}
++
++static void mark_split(struct drm_buddy_block *block)
++{
++	block->header &= ~DRM_BUDDY_HEADER_STATE;
++	block->header |= DRM_BUDDY_SPLIT;
++
++	list_del(&block->link);
++}
++
++/**
++ * drm_buddy_init - init memory manager
++ *
++ * @mm: DRM buddy manager to initialize
++ * @size: size in bytes to manage
++ * @chunk_size: minimum page size in bytes for our allocations
++ *
++ * Initializes the memory manager and its resources.
++ *
++ * Returns:
++ * 0 on success, error code on failure.
++ */
++int drm_buddy_init(struct drm_buddy_mm *mm, u64 size, u64 chunk_size)
++{
++	unsigned int i;
++	u64 offset;
++
++	if (size < chunk_size)
++		return -EINVAL;
++
++	if (chunk_size < PAGE_SIZE)
++		return -EINVAL;
++
++	if (!is_power_of_2(chunk_size))
++		return -EINVAL;
++
++	size = round_down(size, chunk_size);
++
++	mm->size = size;
++	mm->avail = size;
++	mm->chunk_size = chunk_size;
++	mm->max_order = ilog2(size) - ilog2(chunk_size);
++
++	BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
++
++	mm->free_list = kmalloc_array(mm->max_order + 1,
++				      sizeof(struct list_head),
++				      GFP_KERNEL);
++	if (!mm->free_list)
++		return -ENOMEM;
++
++	for (i = 0; i <= mm->max_order; ++i)
++		INIT_LIST_HEAD(&mm->free_list[i]);
++
++	mm->n_roots = hweight64(size);
++
++	mm->roots = kmalloc_array(mm->n_roots,
++				  sizeof(struct drm_buddy_block *),
++				  GFP_KERNEL);
++	if (!mm->roots)
++		goto out_free_list;
++
++	offset = 0;
++	i = 0;
++
++	/*
++	 * Split into power-of-two blocks, in case we are given a size that is
++	 * not itself a power-of-two.
++	 */
++	do {
++		struct drm_buddy_block *root;
++		unsigned int order;
++		u64 root_size;
++
++		root_size = rounddown_pow_of_two(size);
++		order = ilog2(root_size) - ilog2(chunk_size);
++
++		root = drm_block_alloc(mm, NULL, order, offset);
++		if (!root)
++			goto out_free_roots;
++
++		mark_free(mm, root);
++
++		BUG_ON(i > mm->max_order);
++		BUG_ON(drm_buddy_block_size(mm, root) < chunk_size);
++
++		mm->roots[i] = root;
++
++		offset += root_size;
++		size -= root_size;
++		i++;
++	} while (size);
++
++	return 0;
++
++out_free_roots:
++	while (i--)
++		drm_block_free(mm, mm->roots[i]);
++	kfree(mm->roots);
++out_free_list:
++	kfree(mm->free_list);
++	return -ENOMEM;
++}
++EXPORT_SYMBOL(drm_buddy_init);
++
++/**
++ * drm_buddy_fini - tear down the memory manager
++ *
++ * @mm: DRM buddy manager to free
++ *
++ * Cleanup memory manager resources and the freelist
++ */
++void drm_buddy_fini(struct drm_buddy_mm *mm)
++{
++	int i;
++
++	for (i = 0; i < mm->n_roots; ++i) {
++		WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
++		drm_block_free(mm, mm->roots[i]);
++	}
++
++	WARN_ON(mm->avail != mm->size);
++
++	kfree(mm->roots);
++	kfree(mm->free_list);
++}
++EXPORT_SYMBOL(drm_buddy_fini);
++
++static int split_block(struct drm_buddy_mm *mm,
++		       struct drm_buddy_block *block)
++{
++	unsigned int block_order = drm_buddy_block_order(block) - 1;
++	u64 offset = drm_buddy_block_offset(block);
++
++	BUG_ON(!drm_buddy_block_is_free(block));
++	BUG_ON(!drm_buddy_block_order(block));
++
++	block->left = drm_block_alloc(mm, block, block_order, offset);
++	if (!block->left)
++		return -ENOMEM;
++
++	block->right = drm_block_alloc(mm, block, block_order,
++					offset + (mm->chunk_size << block_order));
++	if (!block->right) {
++		drm_block_free(mm, block->left);
++		return -ENOMEM;
++	}
++
++	mark_free(mm, block->left);
++	mark_free(mm, block->right);
++
++	mark_split(block);
++
++	return 0;
++}
++
++static struct drm_buddy_block *
++get_buddy(struct drm_buddy_block *block)
++{
++	struct drm_buddy_block *parent;
++
++	parent = block->parent;
++	if (!parent)
++		return NULL;
++
++	if (parent->left == block)
++		return parent->right;
++
++	return parent->left;
++}
++
++static void __drm_buddy_free(struct drm_buddy_mm *mm,
++			     struct drm_buddy_block *block)
++{
++	struct drm_buddy_block *parent;
++
++	while ((parent = block->parent)) {
++		struct drm_buddy_block *buddy;
++
++		buddy = get_buddy(block);
++
++		if (!drm_buddy_block_is_free(buddy))
++			break;
++
++		list_del(&buddy->link);
++
++		drm_block_free(mm, block);
++		drm_block_free(mm, buddy);
++
++		block = parent;
++	}
++
++	mark_free(mm, block);
++}
++
++void drm_buddy_free(struct drm_buddy_mm *mm,
++		    struct drm_buddy_block *block)
++{
++	BUG_ON(!drm_buddy_block_is_allocated(block));
++	mm->avail += drm_buddy_block_size(mm, block);
++	__drm_buddy_free(mm, block);
++}
++
++/**
++ * drm_buddy_free_list - free blocks
++ *
++ * @mm: DRM buddy manager
++ * @objects: input list head to free blocks
++ */
++void drm_buddy_free_list(struct drm_buddy_mm *mm, struct list_head *objects)
++{
++	struct drm_buddy_block *block, *on;
++
++	list_for_each_entry_safe(block, on, objects, link) {
++		drm_buddy_free(mm, block);
++		cond_resched();
++	}
++	INIT_LIST_HEAD(objects);
++}
++EXPORT_SYMBOL(drm_buddy_free_list);
++
++/**
++ * drm_buddy_alloc - allocate power-of-two blocks
++ *
++ * @mm: DRM buddy manager to allocate from
++ * @order: size of the allocation
++ *
++ * The order value here translates to:
++ *
++ * 0 = 2^0 * mm->chunk_size
++ * 1 = 2^1 * mm->chunk_size
++ * 2 = 2^2 * mm->chunk_size
++ *
++ * Returns:
++ * allocated ptr to the &drm_buddy_block on success
++ */
++struct drm_buddy_block *
++drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order)
++{
++	struct drm_buddy_block *block = NULL;
++	unsigned int i;
++	int err;
++
++	for (i = order; i <= mm->max_order; ++i) {
++		block = list_first_entry_or_null(&mm->free_list[i],
++						 struct drm_buddy_block,
++						 link);
++		if (block)
++			break;
++	}
++
++	if (!block)
++		return ERR_PTR(-ENOSPC);
++
++	BUG_ON(!drm_buddy_block_is_free(block));
++
++	while (i != order) {
++		err = split_block(mm, block);
++		if (unlikely(err))
++			goto out_free;
++
++		/* Go low */
++		block = block->left;
++		i--;
++	}
++
++	mark_allocated(block);
++	mm->avail -= drm_buddy_block_size(mm, block);
++	kmemleak_update_trace(block);
++	return block;
++
++out_free:
++	if (i != order)
++		__drm_buddy_free(mm, block);
++	return ERR_PTR(err);
++}
++EXPORT_SYMBOL(drm_buddy_alloc);
++
++static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
++{
++	return s1 <= e2 && e1 >= s2;
++}
++
++static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
++{
++	return s1 <= s2 && e1 >= e2;
++}
++
++/**
++ * drm_buddy_alloc_range - allocate range
++ *
++ * @mm: DRM buddy manager to allocate from
++ * @blocks: output list head to add allocated blocks
++ * @start: start of the allowed range for this block
++ * @size: size of the allocation
++ *
++ * Intended for pre-allocating portions of the address space, for example to
++ * reserve a block for the initial framebuffer or similar, hence the expectation
++ * here is that drm_buddy_alloc() is still the main vehicle for
++ * allocations, so if that's not the case then the drm_mm range allocator is
++ * probably a much better fit, and so you should probably go use that instead.
++ *
++ * Note that it's safe to chain together multiple alloc_ranges
++ * with the same blocks list
++ *
++ * Returns:
++ * 0 on success, error code on failure.
++ */
++int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
++			  struct list_head *blocks,
++			  u64 start, u64 size)
++{
++	struct drm_buddy_block *block;
++	struct drm_buddy_block *buddy;
++	LIST_HEAD(allocated);
++	LIST_HEAD(dfs);
++	u64 end;
++	int err;
++	int i;
++
++	if (size < mm->chunk_size)
++		return -EINVAL;
++
++	if (!IS_ALIGNED(size | start, mm->chunk_size))
++		return -EINVAL;
++
++	if (range_overflows(start, size, mm->size))
++		return -EINVAL;
++
++	for (i = 0; i < mm->n_roots; ++i)
++		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
++
++	end = start + size - 1;
++
++	do {
++		u64 block_start;
++		u64 block_end;
++
++		block = list_first_entry_or_null(&dfs,
++						 struct drm_buddy_block,
++						 tmp_link);
++		if (!block)
++			break;
++
++		list_del(&block->tmp_link);
++
++		block_start = drm_buddy_block_offset(block);
++		block_end = block_start + drm_buddy_block_size(mm, block) - 1;
++
++		if (!overlaps(start, end, block_start, block_end))
++			continue;
++
++		if (drm_buddy_block_is_allocated(block)) {
++			err = -ENOSPC;
++			goto err_free;
++		}
++
++		if (contains(start, end, block_start, block_end)) {
++			if (!drm_buddy_block_is_free(block)) {
++				err = -ENOSPC;
++				goto err_free;
++			}
++
++			mark_allocated(block);
++			mm->avail -= drm_buddy_block_size(mm, block);
++			list_add_tail(&block->link, &allocated);
++			continue;
++		}
++
++		if (!drm_buddy_block_is_split(block)) {
++			err = split_block(mm, block);
++			if (unlikely(err))
++				goto err_undo;
++		}
++
++		list_add(&block->right->tmp_link, &dfs);
++		list_add(&block->left->tmp_link, &dfs);
++	} while (1);
++
++	list_splice_tail(&allocated, blocks);
++	return 0;
++
++err_undo:
++	/*
++	 * We really don't want to leave around a bunch of split blocks, since
++	 * bigger is better, so make sure we merge everything back before we
++	 * free the allocated blocks.
++	 */
++	buddy = get_buddy(block);
++	if (buddy &&
++	    (drm_buddy_block_is_free(block) &&
++	     drm_buddy_block_is_free(buddy)))
++		__drm_buddy_free(mm, block);
++
++err_free:
++	drm_buddy_free_list(mm, &allocated);
++	return err;
++}
++EXPORT_SYMBOL(drm_buddy_alloc_range);
++
++/**
++ * drm_buddy_block_print - print block information
++ *
++ * @mm: DRM buddy manager
++ * @block: DRM buddy block
++ * @p: DRM printer to use
++ */
++void drm_buddy_block_print(struct drm_buddy_mm *mm,
++			   struct drm_buddy_block *block,
++			   struct drm_printer *p)
++{
++	u64 start = drm_buddy_block_offset(block);
++	u64 size = drm_buddy_block_size(mm, block);
++
++	drm_printf(p, "%#018llx-%#018llx: %llu\n", start, start + size, size);
++}
++EXPORT_SYMBOL(drm_buddy_block_print);
++
++/**
++ * drm_buddy_print - print allocator state
++ *
++ * @mm: DRM buddy manager
++ * @p: DRM printer to use
++ */
++void drm_buddy_print(struct drm_buddy_mm *mm, struct drm_printer *p)
++{
++	int order;
++
++	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB\n",
++		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20);
++
++	for (order = mm->max_order; order >= 0; order--) {
++		struct drm_buddy_block *block;
++		u64 count = 0, free;
++
++		list_for_each_entry(block, &mm->free_list[order], link) {
++			BUG_ON(!drm_buddy_block_is_free(block));
++			count++;
++		}
++
++		drm_printf(p, "order-%d ", order);
++
++		free = count * (mm->chunk_size << order);
++		if (free < SZ_1M)
++			drm_printf(p, "free: %lluKiB", free >> 10);
++		else
++			drm_printf(p, "free: %lluMiB", free >> 20);
++
++		drm_printf(p, ", pages: %llu\n", count);
++	}
++}
++EXPORT_SYMBOL(drm_buddy_print);
++
++void drm_buddy_module_exit(void)
++{
++	kmem_cache_destroy(slab_blocks);
++}
++
++int __init drm_buddy_module_init(void)
++{
++	slab_blocks = KMEM_CACHE(drm_buddy_block, 0);
++	if (!slab_blocks)
++		return -ENOMEM;
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 7a5097467ba5..5d5e46e60586 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -35,6 +35,7 @@
+ #include <linux/slab.h>
+ #include <linux/srcu.h>
+ 
++#include <drm/drm_buddy.h>
+ #include <drm/drm_cache.h>
+ #include <drm/drm_client.h>
+ #include <drm/drm_color_mgmt.h>
+@@ -1034,6 +1035,7 @@ static void drm_core_exit(void)
+ 	drm_sysfs_destroy();
+ 	idr_destroy(&drm_minors_idr);
+ 	drm_connector_ida_destroy();
++	drm_buddy_module_exit();
+ }
+ 
+ static int __init drm_core_init(void)
+@@ -1043,6 +1045,7 @@ static int __init drm_core_init(void)
+ 	drm_connector_ida_init();
+ 	idr_init(&drm_minors_idr);
+ 	drm_memcpy_init_early();
++	drm_buddy_module_init();
+ 
+ 	ret = drm_sysfs_init();
+ 	if (ret < 0) {
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 467872cca027..fc5ca8c4ccb2 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -161,7 +161,6 @@ gem-y += \
+ i915-y += \
+ 	  $(gem-y) \
+ 	  i915_active.o \
+-	  i915_buddy.o \
+ 	  i915_cmd_parser.o \
+ 	  i915_gem_evict.o \
+ 	  i915_gem_gtt.o \
+diff --git a/drivers/gpu/drm/i915/i915_buddy.c b/drivers/gpu/drm/i915/i915_buddy.c
+deleted file mode 100644
+index 6e2ad68f8f3f..000000000000
+--- a/drivers/gpu/drm/i915/i915_buddy.c
++++ /dev/null
+@@ -1,466 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-/*
+- * Copyright © 2021 Intel Corporation
+- */
+-
+-#include <linux/kmemleak.h>
+-#include <linux/sizes.h>
+-
+-#include "i915_buddy.h"
+-
+-#include "i915_gem.h"
+-#include "i915_utils.h"
+-
+-static struct kmem_cache *slab_blocks;
+-
+-static struct i915_buddy_block *i915_block_alloc(struct i915_buddy_mm *mm,
+-						 struct i915_buddy_block *parent,
+-						 unsigned int order,
+-						 u64 offset)
+-{
+-	struct i915_buddy_block *block;
+-
+-	GEM_BUG_ON(order > I915_BUDDY_MAX_ORDER);
+-
+-	block = kmem_cache_zalloc(slab_blocks, GFP_KERNEL);
+-	if (!block)
+-		return NULL;
+-
+-	block->header = offset;
+-	block->header |= order;
+-	block->parent = parent;
+-
+-	GEM_BUG_ON(block->header & I915_BUDDY_HEADER_UNUSED);
+-	return block;
+-}
+-
+-static void i915_block_free(struct i915_buddy_mm *mm,
+-			    struct i915_buddy_block *block)
+-{
+-	kmem_cache_free(slab_blocks, block);
+-}
+-
+-static void mark_allocated(struct i915_buddy_block *block)
+-{
+-	block->header &= ~I915_BUDDY_HEADER_STATE;
+-	block->header |= I915_BUDDY_ALLOCATED;
+-
+-	list_del(&block->link);
+-}
+-
+-static void mark_free(struct i915_buddy_mm *mm,
+-		      struct i915_buddy_block *block)
+-{
+-	block->header &= ~I915_BUDDY_HEADER_STATE;
+-	block->header |= I915_BUDDY_FREE;
+-
+-	list_add(&block->link,
+-		 &mm->free_list[i915_buddy_block_order(block)]);
+-}
+-
+-static void mark_split(struct i915_buddy_block *block)
+-{
+-	block->header &= ~I915_BUDDY_HEADER_STATE;
+-	block->header |= I915_BUDDY_SPLIT;
+-
+-	list_del(&block->link);
+-}
+-
+-int i915_buddy_init(struct i915_buddy_mm *mm, u64 size, u64 chunk_size)
+-{
+-	unsigned int i;
+-	u64 offset;
+-
+-	if (size < chunk_size)
+-		return -EINVAL;
+-
+-	if (chunk_size < PAGE_SIZE)
+-		return -EINVAL;
+-
+-	if (!is_power_of_2(chunk_size))
+-		return -EINVAL;
+-
+-	size = round_down(size, chunk_size);
+-
+-	mm->size = size;
+-	mm->avail = size;
+-	mm->chunk_size = chunk_size;
+-	mm->max_order = ilog2(size) - ilog2(chunk_size);
+-
+-	GEM_BUG_ON(mm->max_order > I915_BUDDY_MAX_ORDER);
+-
+-	mm->free_list = kmalloc_array(mm->max_order + 1,
+-				      sizeof(struct list_head),
+-				      GFP_KERNEL);
+-	if (!mm->free_list)
+-		return -ENOMEM;
+-
+-	for (i = 0; i <= mm->max_order; ++i)
+-		INIT_LIST_HEAD(&mm->free_list[i]);
+-
+-	mm->n_roots = hweight64(size);
+-
+-	mm->roots = kmalloc_array(mm->n_roots,
+-				  sizeof(struct i915_buddy_block *),
+-				  GFP_KERNEL);
+-	if (!mm->roots)
+-		goto out_free_list;
+-
+-	offset = 0;
+-	i = 0;
+-
+-	/*
+-	 * Split into power-of-two blocks, in case we are given a size that is
+-	 * not itself a power-of-two.
+-	 */
+-	do {
+-		struct i915_buddy_block *root;
+-		unsigned int order;
+-		u64 root_size;
+-
+-		root_size = rounddown_pow_of_two(size);
+-		order = ilog2(root_size) - ilog2(chunk_size);
+-
+-		root = i915_block_alloc(mm, NULL, order, offset);
+-		if (!root)
+-			goto out_free_roots;
+-
+-		mark_free(mm, root);
+-
+-		GEM_BUG_ON(i > mm->max_order);
+-		GEM_BUG_ON(i915_buddy_block_size(mm, root) < chunk_size);
+-
+-		mm->roots[i] = root;
+-
+-		offset += root_size;
+-		size -= root_size;
+-		i++;
+-	} while (size);
+-
+-	return 0;
+-
+-out_free_roots:
+-	while (i--)
+-		i915_block_free(mm, mm->roots[i]);
+-	kfree(mm->roots);
+-out_free_list:
+-	kfree(mm->free_list);
+-	return -ENOMEM;
+-}
+-
+-void i915_buddy_fini(struct i915_buddy_mm *mm)
+-{
+-	int i;
+-
+-	for (i = 0; i < mm->n_roots; ++i) {
+-		GEM_WARN_ON(!i915_buddy_block_is_free(mm->roots[i]));
+-		i915_block_free(mm, mm->roots[i]);
+-	}
+-
+-	GEM_WARN_ON(mm->avail != mm->size);
+-
+-	kfree(mm->roots);
+-	kfree(mm->free_list);
+-}
+-
+-static int split_block(struct i915_buddy_mm *mm,
+-		       struct i915_buddy_block *block)
+-{
+-	unsigned int block_order = i915_buddy_block_order(block) - 1;
+-	u64 offset = i915_buddy_block_offset(block);
+-
+-	GEM_BUG_ON(!i915_buddy_block_is_free(block));
+-	GEM_BUG_ON(!i915_buddy_block_order(block));
+-
+-	block->left = i915_block_alloc(mm, block, block_order, offset);
+-	if (!block->left)
+-		return -ENOMEM;
+-
+-	block->right = i915_block_alloc(mm, block, block_order,
+-					offset + (mm->chunk_size << block_order));
+-	if (!block->right) {
+-		i915_block_free(mm, block->left);
+-		return -ENOMEM;
+-	}
+-
+-	mark_free(mm, block->left);
+-	mark_free(mm, block->right);
+-
+-	mark_split(block);
+-
+-	return 0;
+-}
+-
+-static struct i915_buddy_block *
+-get_buddy(struct i915_buddy_block *block)
+-{
+-	struct i915_buddy_block *parent;
+-
+-	parent = block->parent;
+-	if (!parent)
+-		return NULL;
+-
+-	if (parent->left == block)
+-		return parent->right;
+-
+-	return parent->left;
+-}
+-
+-static void __i915_buddy_free(struct i915_buddy_mm *mm,
+-			      struct i915_buddy_block *block)
+-{
+-	struct i915_buddy_block *parent;
+-
+-	while ((parent = block->parent)) {
+-		struct i915_buddy_block *buddy;
+-
+-		buddy = get_buddy(block);
+-
+-		if (!i915_buddy_block_is_free(buddy))
+-			break;
+-
+-		list_del(&buddy->link);
+-
+-		i915_block_free(mm, block);
+-		i915_block_free(mm, buddy);
+-
+-		block = parent;
+-	}
+-
+-	mark_free(mm, block);
+-}
+-
+-void i915_buddy_free(struct i915_buddy_mm *mm,
+-		     struct i915_buddy_block *block)
+-{
+-	GEM_BUG_ON(!i915_buddy_block_is_allocated(block));
+-	mm->avail += i915_buddy_block_size(mm, block);
+-	__i915_buddy_free(mm, block);
+-}
+-
+-void i915_buddy_free_list(struct i915_buddy_mm *mm, struct list_head *objects)
+-{
+-	struct i915_buddy_block *block, *on;
+-
+-	list_for_each_entry_safe(block, on, objects, link) {
+-		i915_buddy_free(mm, block);
+-		cond_resched();
+-	}
+-	INIT_LIST_HEAD(objects);
+-}
+-
+-/*
+- * Allocate power-of-two block. The order value here translates to:
+- *
+- *   0 = 2^0 * mm->chunk_size
+- *   1 = 2^1 * mm->chunk_size
+- *   2 = 2^2 * mm->chunk_size
+- *   ...
+- */
+-struct i915_buddy_block *
+-i915_buddy_alloc(struct i915_buddy_mm *mm, unsigned int order)
+-{
+-	struct i915_buddy_block *block = NULL;
+-	unsigned int i;
+-	int err;
+-
+-	for (i = order; i <= mm->max_order; ++i) {
+-		block = list_first_entry_or_null(&mm->free_list[i],
+-						 struct i915_buddy_block,
+-						 link);
+-		if (block)
+-			break;
+-	}
+-
+-	if (!block)
+-		return ERR_PTR(-ENOSPC);
+-
+-	GEM_BUG_ON(!i915_buddy_block_is_free(block));
+-
+-	while (i != order) {
+-		err = split_block(mm, block);
+-		if (unlikely(err))
+-			goto out_free;
+-
+-		/* Go low */
+-		block = block->left;
+-		i--;
+-	}
+-
+-	mark_allocated(block);
+-	mm->avail -= i915_buddy_block_size(mm, block);
+-	kmemleak_update_trace(block);
+-	return block;
+-
+-out_free:
+-	if (i != order)
+-		__i915_buddy_free(mm, block);
+-	return ERR_PTR(err);
+-}
+-
+-static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+-{
+-	return s1 <= e2 && e1 >= s2;
+-}
+-
+-static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+-{
+-	return s1 <= s2 && e1 >= e2;
+-}
+-
+-/*
+- * Allocate range. Note that it's safe to chain together multiple alloc_ranges
+- * with the same blocks list.
+- *
+- * Intended for pre-allocating portions of the address space, for example to
+- * reserve a block for the initial framebuffer or similar, hence the expectation
+- * here is that i915_buddy_alloc() is still the main vehicle for
+- * allocations, so if that's not the case then the drm_mm range allocator is
+- * probably a much better fit, and so you should probably go use that instead.
+- */
+-int i915_buddy_alloc_range(struct i915_buddy_mm *mm,
+-			   struct list_head *blocks,
+-			   u64 start, u64 size)
+-{
+-	struct i915_buddy_block *block;
+-	struct i915_buddy_block *buddy;
+-	LIST_HEAD(allocated);
+-	LIST_HEAD(dfs);
+-	u64 end;
+-	int err;
+-	int i;
+-
+-	if (size < mm->chunk_size)
+-		return -EINVAL;
+-
+-	if (!IS_ALIGNED(size | start, mm->chunk_size))
+-		return -EINVAL;
+-
+-	if (range_overflows(start, size, mm->size))
+-		return -EINVAL;
+-
+-	for (i = 0; i < mm->n_roots; ++i)
+-		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+-
+-	end = start + size - 1;
+-
+-	do {
+-		u64 block_start;
+-		u64 block_end;
+-
+-		block = list_first_entry_or_null(&dfs,
+-						 struct i915_buddy_block,
+-						 tmp_link);
+-		if (!block)
+-			break;
+-
+-		list_del(&block->tmp_link);
+-
+-		block_start = i915_buddy_block_offset(block);
+-		block_end = block_start + i915_buddy_block_size(mm, block) - 1;
+-
+-		if (!overlaps(start, end, block_start, block_end))
+-			continue;
+-
+-		if (i915_buddy_block_is_allocated(block)) {
+-			err = -ENOSPC;
+-			goto err_free;
+-		}
+-
+-		if (contains(start, end, block_start, block_end)) {
+-			if (!i915_buddy_block_is_free(block)) {
+-				err = -ENOSPC;
+-				goto err_free;
+-			}
+-
+-			mark_allocated(block);
+-			mm->avail -= i915_buddy_block_size(mm, block);
+-			list_add_tail(&block->link, &allocated);
+-			continue;
+-		}
+-
+-		if (!i915_buddy_block_is_split(block)) {
+-			err = split_block(mm, block);
+-			if (unlikely(err))
+-				goto err_undo;
+-		}
+-
+-		list_add(&block->right->tmp_link, &dfs);
+-		list_add(&block->left->tmp_link, &dfs);
+-	} while (1);
+-
+-	list_splice_tail(&allocated, blocks);
+-	return 0;
+-
+-err_undo:
+-	/*
+-	 * We really don't want to leave around a bunch of split blocks, since
+-	 * bigger is better, so make sure we merge everything back before we
+-	 * free the allocated blocks.
+-	 */
+-	buddy = get_buddy(block);
+-	if (buddy &&
+-	    (i915_buddy_block_is_free(block) &&
+-	     i915_buddy_block_is_free(buddy)))
+-		__i915_buddy_free(mm, block);
+-
+-err_free:
+-	i915_buddy_free_list(mm, &allocated);
+-	return err;
+-}
+-
+-void i915_buddy_block_print(struct i915_buddy_mm *mm,
+-			    struct i915_buddy_block *block,
+-			    struct drm_printer *p)
+-{
+-	u64 start = i915_buddy_block_offset(block);
+-	u64 size = i915_buddy_block_size(mm, block);
+-
+-	drm_printf(p, "%#018llx-%#018llx: %llu\n", start, start + size, size);
+-}
+-
+-void i915_buddy_print(struct i915_buddy_mm *mm, struct drm_printer *p)
+-{
+-	int order;
+-
+-	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB\n",
+-		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20);
+-
+-	for (order = mm->max_order; order >= 0; order--) {
+-		struct i915_buddy_block *block;
+-		u64 count = 0, free;
+-
+-		list_for_each_entry(block, &mm->free_list[order], link) {
+-			GEM_BUG_ON(!i915_buddy_block_is_free(block));
+-			count++;
+-		}
+-
+-		drm_printf(p, "order-%d ", order);
+-
+-		free = count * (mm->chunk_size << order);
+-		if (free < SZ_1M)
+-			drm_printf(p, "free: %lluKiB", free >> 10);
+-		else
+-			drm_printf(p, "free: %lluMiB", free >> 20);
+-
+-		drm_printf(p, ", pages: %llu\n", count);
+-	}
+-}
+-
+-#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+-#include "selftests/i915_buddy.c"
+-#endif
+-
+-void i915_buddy_module_exit(void)
+-{
+-	kmem_cache_destroy(slab_blocks);
+-}
+-
+-int __init i915_buddy_module_init(void)
+-{
+-	slab_blocks = KMEM_CACHE(i915_buddy_block, 0);
+-	if (!slab_blocks)
+-		return -ENOMEM;
+-
+-	return 0;
+-}
+diff --git a/drivers/gpu/drm/i915/i915_buddy.h b/drivers/gpu/drm/i915/i915_buddy.h
+deleted file mode 100644
+index 7077742112ac..000000000000
+--- a/drivers/gpu/drm/i915/i915_buddy.h
++++ /dev/null
+@@ -1,143 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright © 2021 Intel Corporation
+- */
+-
+-#ifndef __I915_BUDDY_H__
+-#define __I915_BUDDY_H__
+-
+-#include <linux/bitops.h>
+-#include <linux/list.h>
+-#include <linux/slab.h>
+-
+-#include <drm/drm_print.h>
+-
+-struct i915_buddy_block {
+-#define I915_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+-#define I915_BUDDY_HEADER_STATE  GENMASK_ULL(11, 10)
+-#define   I915_BUDDY_ALLOCATED	   (1 << 10)
+-#define   I915_BUDDY_FREE	   (2 << 10)
+-#define   I915_BUDDY_SPLIT	   (3 << 10)
+-/* Free to be used, if needed in the future */
+-#define I915_BUDDY_HEADER_UNUSED GENMASK_ULL(9, 6)
+-#define I915_BUDDY_HEADER_ORDER  GENMASK_ULL(5, 0)
+-	u64 header;
+-
+-	struct i915_buddy_block *left;
+-	struct i915_buddy_block *right;
+-	struct i915_buddy_block *parent;
+-
+-	void *private; /* owned by creator */
+-
+-	/*
+-	 * While the block is allocated by the user through i915_buddy_alloc*,
+-	 * the user has ownership of the link, for example to maintain within
+-	 * a list, if so desired. As soon as the block is freed with
+-	 * i915_buddy_free* ownership is given back to the mm.
+-	 */
+-	struct list_head link;
+-	struct list_head tmp_link;
+-};
+-
+-/* Order-zero must be at least PAGE_SIZE */
+-#define I915_BUDDY_MAX_ORDER (63 - PAGE_SHIFT)
+-
+-/*
+- * Binary Buddy System.
+- *
+- * Locking should be handled by the user, a simple mutex around
+- * i915_buddy_alloc* and i915_buddy_free* should suffice.
+- */
+-struct i915_buddy_mm {
+-	/* Maintain a free list for each order. */
+-	struct list_head *free_list;
+-
+-	/*
+-	 * Maintain explicit binary tree(s) to track the allocation of the
+-	 * address space. This gives us a simple way of finding a buddy block
+-	 * and performing the potentially recursive merge step when freeing a
+-	 * block.  Nodes are either allocated or free, in which case they will
+-	 * also exist on the respective free list.
+-	 */
+-	struct i915_buddy_block **roots;
+-
+-	/*
+-	 * Anything from here is public, and remains static for the lifetime of
+-	 * the mm. Everything above is considered do-not-touch.
+-	 */
+-	unsigned int n_roots;
+-	unsigned int max_order;
+-
+-	/* Must be at least PAGE_SIZE */
+-	u64 chunk_size;
+-	u64 size;
+-	u64 avail;
+-};
+-
+-static inline u64
+-i915_buddy_block_offset(struct i915_buddy_block *block)
+-{
+-	return block->header & I915_BUDDY_HEADER_OFFSET;
+-}
+-
+-static inline unsigned int
+-i915_buddy_block_order(struct i915_buddy_block *block)
+-{
+-	return block->header & I915_BUDDY_HEADER_ORDER;
+-}
+-
+-static inline unsigned int
+-i915_buddy_block_state(struct i915_buddy_block *block)
+-{
+-	return block->header & I915_BUDDY_HEADER_STATE;
+-}
+-
+-static inline bool
+-i915_buddy_block_is_allocated(struct i915_buddy_block *block)
+-{
+-	return i915_buddy_block_state(block) == I915_BUDDY_ALLOCATED;
+-}
+-
+-static inline bool
+-i915_buddy_block_is_free(struct i915_buddy_block *block)
+-{
+-	return i915_buddy_block_state(block) == I915_BUDDY_FREE;
+-}
+-
+-static inline bool
+-i915_buddy_block_is_split(struct i915_buddy_block *block)
+-{
+-	return i915_buddy_block_state(block) == I915_BUDDY_SPLIT;
+-}
+-
+-static inline u64
+-i915_buddy_block_size(struct i915_buddy_mm *mm,
+-		      struct i915_buddy_block *block)
+-{
+-	return mm->chunk_size << i915_buddy_block_order(block);
+-}
+-
+-int i915_buddy_init(struct i915_buddy_mm *mm, u64 size, u64 chunk_size);
+-
+-void i915_buddy_fini(struct i915_buddy_mm *mm);
+-
+-struct i915_buddy_block *
+-i915_buddy_alloc(struct i915_buddy_mm *mm, unsigned int order);
+-
+-int i915_buddy_alloc_range(struct i915_buddy_mm *mm,
+-			   struct list_head *blocks,
+-			   u64 start, u64 size);
+-
+-void i915_buddy_free(struct i915_buddy_mm *mm, struct i915_buddy_block *block);
+-
+-void i915_buddy_free_list(struct i915_buddy_mm *mm, struct list_head *objects);
+-
+-void i915_buddy_print(struct i915_buddy_mm *mm, struct drm_printer *p);
+-void i915_buddy_block_print(struct i915_buddy_mm *mm,
+-			    struct i915_buddy_block *block,
+-			    struct drm_printer *p);
+-
+-void i915_buddy_module_exit(void);
+-int i915_buddy_module_init(void);
+-
+-#endif
+diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i915_module.c
+index ab2295dd4500..121b4178c5ca 100644
+--- a/drivers/gpu/drm/i915/i915_module.c
++++ b/drivers/gpu/drm/i915/i915_module.c
+@@ -9,7 +9,6 @@
+ #include "gem/i915_gem_context.h"
+ #include "gem/i915_gem_object.h"
+ #include "i915_active.h"
+-#include "i915_buddy.h"
+ #include "i915_params.h"
+ #include "i915_pci.h"
+ #include "i915_perf.h"
+@@ -50,8 +49,6 @@ static const struct {
+ 	{ .init = i915_check_nomodeset },
+ 	{ .init = i915_active_module_init,
+ 	  .exit = i915_active_module_exit },
+-	{ .init = i915_buddy_module_init,
+-	  .exit = i915_buddy_module_exit },
+ 	{ .init = i915_context_module_init,
+ 	  .exit = i915_context_module_exit },
+ 	{ .init = i915_gem_context_module_init,
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
+index 4a6712dca838..84d622aa32d2 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.c
++++ b/drivers/gpu/drm/i915/i915_scatterlist.c
+@@ -5,10 +5,9 @@
+  */
+ 
+ #include "i915_scatterlist.h"
+-
+-#include "i915_buddy.h"
+ #include "i915_ttm_buddy_manager.h"
+ 
++#include <drm/drm_buddy.h>
+ #include <drm/drm_mm.h>
+ 
+ #include <linux/slab.h>
+@@ -126,9 +125,9 @@ struct sg_table *i915_sg_from_buddy_resource(struct ttm_resource *res,
+ 	struct i915_ttm_buddy_resource *bman_res = to_ttm_buddy_resource(res);
+ 	const u64 size = res->num_pages << PAGE_SHIFT;
+ 	const u64 max_segment = rounddown(UINT_MAX, PAGE_SIZE);
+-	struct i915_buddy_mm *mm = bman_res->mm;
++	struct drm_buddy_mm *mm = bman_res->mm;
+ 	struct list_head *blocks = &bman_res->blocks;
+-	struct i915_buddy_block *block;
++	struct drm_buddy_block *block;
+ 	struct scatterlist *sg;
+ 	struct sg_table *st;
+ 	resource_size_t prev_end;
+@@ -151,8 +150,8 @@ struct sg_table *i915_sg_from_buddy_resource(struct ttm_resource *res,
+ 	list_for_each_entry(block, blocks, link) {
+ 		u64 block_size, offset;
+ 
+-		block_size = min_t(u64, size, i915_buddy_block_size(mm, block));
+-		offset = i915_buddy_block_offset(block);
++		block_size = min_t(u64, size, drm_buddy_block_size(mm, block));
++		offset = drm_buddy_block_offset(block);
+ 
+ 		while (block_size) {
+ 			u64 len;
+diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+index d59fbb019032..c4b70cb8c248 100644
+--- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
++++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+@@ -8,14 +8,15 @@
+ #include <drm/ttm/ttm_bo_driver.h>
+ #include <drm/ttm/ttm_placement.h>
+ 
++#include <drm/drm_buddy.h>
++
+ #include "i915_ttm_buddy_manager.h"
+ 
+-#include "i915_buddy.h"
+ #include "i915_gem.h"
+ 
+ struct i915_ttm_buddy_manager {
+ 	struct ttm_resource_manager manager;
+-	struct i915_buddy_mm mm;
++	struct drm_buddy_mm mm;
+ 	struct list_head reserved;
+ 	struct mutex lock;
+ 	u64 default_page_size;
+@@ -34,7 +35,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+ {
+ 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+ 	struct i915_ttm_buddy_resource *bman_res;
+-	struct i915_buddy_mm *mm = &bman->mm;
++	struct drm_buddy_mm *mm = &bman->mm;
+ 	unsigned long n_pages;
+ 	unsigned int min_order;
+ 	u64 min_page_size;
+@@ -73,7 +74,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+ 	n_pages = size >> ilog2(mm->chunk_size);
+ 
+ 	do {
+-		struct i915_buddy_block *block;
++		struct drm_buddy_block *block;
+ 		unsigned int order;
+ 
+ 		order = fls(n_pages) - 1;
+@@ -82,7 +83,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+ 
+ 		do {
+ 			mutex_lock(&bman->lock);
+-			block = i915_buddy_alloc(mm, order);
++			block = drm_buddy_alloc(mm, order);
+ 			mutex_unlock(&bman->lock);
+ 			if (!IS_ERR(block))
+ 				break;
+@@ -106,7 +107,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+ 
+ err_free_blocks:
+ 	mutex_lock(&bman->lock);
+-	i915_buddy_free_list(mm, &bman_res->blocks);
++	drm_buddy_free_list(mm, &bman_res->blocks);
+ 	mutex_unlock(&bman->lock);
+ err_free_res:
+ 	kfree(bman_res);
+@@ -120,7 +121,7 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
+ 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+ 
+ 	mutex_lock(&bman->lock);
+-	i915_buddy_free_list(&bman->mm, &bman_res->blocks);
++	drm_buddy_free_list(&bman->mm, &bman_res->blocks);
+ 	mutex_unlock(&bman->lock);
+ 
+ 	kfree(bman_res);
+@@ -130,17 +131,17 @@ static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
+ 				     struct drm_printer *printer)
+ {
+ 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+-	struct i915_buddy_block *block;
++	struct drm_buddy_block *block;
+ 
+ 	mutex_lock(&bman->lock);
+ 	drm_printf(printer, "default_page_size: %lluKiB\n",
+ 		   bman->default_page_size >> 10);
+ 
+-	i915_buddy_print(&bman->mm, printer);
++	drm_buddy_print(&bman->mm, printer);
+ 
+ 	drm_printf(printer, "reserved:\n");
+ 	list_for_each_entry(block, &bman->reserved, link)
+-		i915_buddy_block_print(&bman->mm, block, printer);
++		drm_buddy_block_print(&bman->mm, block, printer);
+ 	mutex_unlock(&bman->lock);
+ }
+ 
+@@ -190,7 +191,7 @@ int i915_ttm_buddy_man_init(struct ttm_device *bdev,
+ 	if (!bman)
+ 		return -ENOMEM;
+ 
+-	err = i915_buddy_init(&bman->mm, size, chunk_size);
++	err = drm_buddy_init(&bman->mm, size, chunk_size);
+ 	if (err)
+ 		goto err_free_bman;
+ 
+@@ -228,7 +229,7 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
+ {
+ 	struct ttm_resource_manager *man = ttm_manager_type(bdev, type);
+ 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+-	struct i915_buddy_mm *mm = &bman->mm;
++	struct drm_buddy_mm *mm = &bman->mm;
+ 	int ret;
+ 
+ 	ttm_resource_manager_set_used(man, false);
+@@ -240,8 +241,8 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
+ 	ttm_set_driver_manager(bdev, type, NULL);
+ 
+ 	mutex_lock(&bman->lock);
+-	i915_buddy_free_list(mm, &bman->reserved);
+-	i915_buddy_fini(mm);
++	drm_buddy_free_list(mm, &bman->reserved);
++	drm_buddy_fini(mm);
+ 	mutex_unlock(&bman->lock);
+ 
+ 	ttm_resource_manager_cleanup(man);
+@@ -264,11 +265,11 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
+ 			       u64 start, u64 size)
+ {
+ 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+-	struct i915_buddy_mm *mm = &bman->mm;
++	struct drm_buddy_mm *mm = &bman->mm;
+ 	int ret;
+ 
+ 	mutex_lock(&bman->lock);
+-	ret = i915_buddy_alloc_range(mm, &bman->reserved, start, size);
++	ret = drm_buddy_alloc_range(mm, &bman->reserved, start, size);
+ 	mutex_unlock(&bman->lock);
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+index 0722d33f3e14..fa644b512c2e 100644
+--- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
++++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+@@ -13,7 +13,7 @@
+ 
+ struct ttm_device;
+ struct ttm_resource_manager;
+-struct i915_buddy_mm;
++struct drm_buddy_mm;
+ 
+ /**
+  * struct i915_ttm_buddy_resource
+@@ -28,7 +28,7 @@ struct i915_buddy_mm;
+ struct i915_ttm_buddy_resource {
+ 	struct ttm_resource base;
+ 	struct list_head blocks;
+-	struct i915_buddy_mm *mm;
++	struct drm_buddy_mm *mm;
+ };
+ 
+ /**
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+new file mode 100644
+index 000000000000..5ce3fc702f80
+--- /dev/null
++++ b/include/drm/drm_buddy.h
+@@ -0,0 +1,153 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++
++#ifndef __DRM_BUDDY_H__
++#define __DRM_BUDDY_H__
++
++#include <linux/bitops.h>
++#include <linux/list.h>
++#include <linux/slab.h>
++#include <linux/sched.h>
++
++#include <drm/drm_print.h>
++
++#define range_overflows(start, size, max) ({ \
++	typeof(start) start__ = (start); \
++	typeof(size) size__ = (size); \
++	typeof(max) max__ = (max); \
++	(void)(&start__ == &size__); \
++	(void)(&start__ == &max__); \
++	start__ >= max__ || size__ > max__ - start__; \
++})
++
++struct drm_buddy_block {
++#define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
++#define DRM_BUDDY_HEADER_STATE  GENMASK_ULL(11, 10)
++#define   DRM_BUDDY_ALLOCATED	   (1 << 10)
++#define   DRM_BUDDY_FREE	   (2 << 10)
++#define   DRM_BUDDY_SPLIT	   (3 << 10)
++/* Free to be used, if needed in the future */
++#define DRM_BUDDY_HEADER_UNUSED GENMASK_ULL(9, 6)
++#define DRM_BUDDY_HEADER_ORDER  GENMASK_ULL(5, 0)
++	u64 header;
++
++	struct drm_buddy_block *left;
++	struct drm_buddy_block *right;
++	struct drm_buddy_block *parent;
++
++	void *private; /* owned by creator */
++
++	/*
++	 * While the block is allocated by the user through drm_buddy_alloc*,
++	 * the user has ownership of the link, for example to maintain within
++	 * a list, if so desired. As soon as the block is freed with
++	 * drm_buddy_free* ownership is given back to the mm.
++	 */
++	struct list_head link;
++	struct list_head tmp_link;
++};
++
++/* Order-zero must be at least PAGE_SIZE */
++#define DRM_BUDDY_MAX_ORDER (63 - PAGE_SHIFT)
++
++/*
++ * Binary Buddy System.
++ *
++ * Locking should be handled by the user, a simple mutex around
++ * drm_buddy_alloc* and drm_buddy_free* should suffice.
++ */
++struct drm_buddy_mm {
++	/* Maintain a free list for each order. */
++	struct list_head *free_list;
++
++	/*
++	 * Maintain explicit binary tree(s) to track the allocation of the
++	 * address space. This gives us a simple way of finding a buddy block
++	 * and performing the potentially recursive merge step when freeing a
++	 * block.  Nodes are either allocated or free, in which case they will
++	 * also exist on the respective free list.
++	 */
++	struct drm_buddy_block **roots;
++
++	/*
++	 * Anything from here is public, and remains static for the lifetime of
++	 * the mm. Everything above is considered do-not-touch.
++	 */
++	unsigned int n_roots;
++	unsigned int max_order;
++
++	/* Must be at least PAGE_SIZE */
++	u64 chunk_size;
++	u64 size;
++	u64 avail;
++};
++
++static inline u64
++drm_buddy_block_offset(struct drm_buddy_block *block)
++{
++	return block->header & DRM_BUDDY_HEADER_OFFSET;
++}
++
++static inline unsigned int
++drm_buddy_block_order(struct drm_buddy_block *block)
++{
++	return block->header & DRM_BUDDY_HEADER_ORDER;
++}
++
++static inline unsigned int
++drm_buddy_block_state(struct drm_buddy_block *block)
++{
++	return block->header & DRM_BUDDY_HEADER_STATE;
++}
++
++static inline bool
++drm_buddy_block_is_allocated(struct drm_buddy_block *block)
++{
++	return drm_buddy_block_state(block) == DRM_BUDDY_ALLOCATED;
++}
++
++static inline bool
++drm_buddy_block_is_free(struct drm_buddy_block *block)
++{
++	return drm_buddy_block_state(block) == DRM_BUDDY_FREE;
++}
++
++static inline bool
++drm_buddy_block_is_split(struct drm_buddy_block *block)
++{
++	return drm_buddy_block_state(block) == DRM_BUDDY_SPLIT;
++}
++
++static inline u64
++drm_buddy_block_size(struct drm_buddy_mm *mm,
++		     struct drm_buddy_block *block)
++{
++	return mm->chunk_size << drm_buddy_block_order(block);
++}
++
++int drm_buddy_init(struct drm_buddy_mm *mm, u64 size, u64 chunk_size);
++
++void drm_buddy_fini(struct drm_buddy_mm *mm);
++
++struct drm_buddy_block *
++drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order);
++
++int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
++			  struct list_head *blocks,
++			  u64 start, u64 size);
++
++void drm_buddy_free(struct drm_buddy_mm *mm, struct drm_buddy_block *block);
++
++void drm_buddy_free_list(struct drm_buddy_mm *mm, struct list_head *objects);
++
++void drm_buddy_print(struct drm_buddy_mm *mm, struct drm_printer *p);
++void drm_buddy_block_print(struct drm_buddy_mm *mm,
++			   struct drm_buddy_block *block,
++			   struct drm_printer *p);
++
++void drm_buddy_module_exit(void);
++int drm_buddy_module_init(void);
++
++#endif
+-- 
+2.25.1
 
-== Series Details ==
-
-Series: drm/i915: Enable WaProgramMgsrForCorrectSliceSpecificMmioReads for Gen9 (rev11)
-URL   : https://patchwork.freedesktop.org/series/81764/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10783_full -> Patchwork_21435_full
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  
-
-Participating hosts (10 -> 10)
-------------------------------
-
-  No changes in participating hosts
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21435_full that come from known issues:
-
-### CI changes ###
-
-#### Issues hit ####
-
-  * boot:
-    - shard-snb:          ([PASS][1], [PASS][2], [PASS][3], [PASS][4], [PASS][5], [PASS][6], [PASS][7], [PASS][8], [PASS][9], [PASS][10], [PASS][11], [PASS][12], [PASS][13], [PASS][14], [PASS][15], [PASS][16], [PASS][17], [PASS][18], [PASS][19], [PASS][20], [PASS][21], [PASS][22], [PASS][23], [PASS][24], [PASS][25]) -> ([PASS][26], [PASS][27], [PASS][28], [PASS][29], [PASS][30], [PASS][31], [PASS][32], [PASS][33], [PASS][34], [PASS][35], [PASS][36], [PASS][37], [PASS][38], [FAIL][39], [PASS][40], [PASS][41], [PASS][42], [PASS][43], [PASS][44], [PASS][45], [PASS][46], [PASS][47], [PASS][48], [PASS][49], [PASS][50]) ([i915#4338])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb4/boot.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb4/boot.html
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb4/boot.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb4/boot.html
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html
-   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html
-   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html
-   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html
-   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html
-   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html
-   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html
-   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb6/boot.html
-   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb6/boot.html
-   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb6/boot.html
-   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb6/boot.html
-   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb5/boot.html
-   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb5/boot.html
-   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb5/boot.html
-   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb5/boot.html
-   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb5/boot.html
-   [41]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb4/boot.html
-   [42]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb4/boot.html
-   [43]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb4/boot.html
-   [44]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb4/boot.html
-   [45]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html
-   [46]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html
-   [47]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html
-   [48]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html
-   [49]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html
-   [50]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html
-
-  
-#### Possible fixes ####
-
-  * boot:
-    - shard-apl:          ([PASS][51], [PASS][52], [PASS][53], [PASS][54], [PASS][55], [PASS][56], [PASS][57], [PASS][58], [PASS][59], [PASS][60], [PASS][61], [PASS][62], [PASS][63], [PASS][64], [PASS][65], [PASS][66], [PASS][67], [PASS][68], [PASS][69], [PASS][70], [PASS][71], [PASS][72], [PASS][73], [FAIL][74], [PASS][75]) -> ([PASS][76], [PASS][77], [PASS][78], [PASS][79], [PASS][80], [PASS][81], [PASS][82], [PASS][83], [PASS][84], [PASS][85], [PASS][86], [PASS][87], [PASS][88], [PASS][89], [PASS][90], [PASS][91], [PASS][92], [PASS][93], [PASS][94], [PASS][95], [PASS][96], [PASS][97], [PASS][98], [PASS][99], [PASS][100])
-   [51]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl7/boot.html
-   [52]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl7/boot.html
-   [53]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl7/boot.html
-   [54]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl7/boot.html
-   [55]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html
-   [56]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html
-   [57]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html
-   [58]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html
-   [59]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html
-   [60]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html
-   [61]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl4/boot.html
-   [62]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl4/boot.html
-   [63]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl4/boot.html
-   [64]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl4/boot.html
-   [65]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl3/boot.html
-   [66]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl3/boot.html
-   [67]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl3/boot.html
-   [68]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl2/boot.html
-   [69]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl2/boot.html
-   [70]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl2/boot.html
-   [71]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl2/boot.html
-   [72]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl1/boot.html
-   [73]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl1/boot.html
-   [74]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl1/boot.html
-   [75]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl1/boot.html
-   [76]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html
-   [77]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl1/boot.html
-   [78]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl1/boot.html
-   [79]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl1/boot.html
-   [80]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl1/boot.html
-   [81]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html
-   [82]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html
-   [83]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html
-   [84]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html
-   [85]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html
-   [86]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl3/boot.html
-   [87]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl3/boot.html
-   [88]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl3/boot.html
-   [89]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl4/boot.html
-   [90]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl4/boot.html
-   [91]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl4/boot.html
-   [92]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl4/boot.html
-   [93]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl6/boot.html
-   [94]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html
-   [95]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html
-   [96]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html
-   [97]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl6/boot.html
-   [98]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl6/boot.html
-   [99]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl6/boot.html
-   [100]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html
-
-  
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@feature_discovery@display-3x:
-    - shard-tglb:         NOTRUN -> [SKIP][101] ([i915#1839])
-   [101]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@feature_discovery@display-3x.html
-
-  * igt@gem_exec_fair@basic-deadline:
-    - shard-kbl:          [PASS][102] -> [FAIL][103] ([i915#2846])
-   [102]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-kbl2/igt@gem_exec_fair@basic-deadline.html
-   [103]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl3/igt@gem_exec_fair@basic-deadline.html
-
-  * igt@gem_exec_fair@basic-none-share@rcs0:
-    - shard-iclb:         [PASS][104] -> [FAIL][105] ([i915#2842])
-   [104]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-iclb4/igt@gem_exec_fair@basic-none-share@rcs0.html
-   [105]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-iclb4/igt@gem_exec_fair@basic-none-share@rcs0.html
-    - shard-apl:          [PASS][106] -> [SKIP][107] ([fdo#109271])
-   [106]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl4/igt@gem_exec_fair@basic-none-share@rcs0.html
-   [107]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl1/igt@gem_exec_fair@basic-none-share@rcs0.html
-
-  * igt@gem_exec_fair@basic-none-vip@rcs0:
-    - shard-tglb:         NOTRUN -> [FAIL][108] ([i915#2842])
-   [108]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@gem_exec_fair@basic-none-vip@rcs0.html
-
-  * igt@gem_exec_fair@basic-none@rcs0:
-    - shard-glk:          [PASS][109] -> [FAIL][110] ([i915#2842])
-   [109]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-glk5/igt@gem_exec_fair@basic-none@rcs0.html
-   [110]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk2/igt@gem_exec_fair@basic-none@rcs0.html
-
-  * igt@gem_exec_fair@basic-pace@vecs0:
-    - shard-tglb:         [PASS][111] -> [FAIL][112] ([i915#2842])
-   [111]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-tglb3/igt@gem_exec_fair@basic-pace@vecs0.html
-   [112]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb6/igt@gem_exec_fair@basic-pace@vecs0.html
-
-  * igt@gem_pxp@verify-pxp-stale-ctx-execution:
-    - shard-tglb:         NOTRUN -> [SKIP][113] ([i915#4270])
-   [113]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@gem_pxp@verify-pxp-stale-ctx-execution.html
-
-  * igt@gem_userptr_blits@access-control:
-    - shard-tglb:         NOTRUN -> [SKIP][114] ([i915#3297])
-   [114]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@gem_userptr_blits@access-control.html
-
-  * igt@gen3_render_linear_blits:
-    - shard-tglb:         NOTRUN -> [SKIP][115] ([fdo#109289]) +1 similar issue
-   [115]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@gen3_render_linear_blits.html
-
-  * igt@i915_pm_dc@dc6-psr:
-    - shard-iclb:         [PASS][116] -> [FAIL][117] ([i915#454])
-   [116]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-iclb8/igt@i915_pm_dc@dc6-psr.html
-   [117]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-iclb3/igt@i915_pm_dc@dc6-psr.html
-
-  * igt@i915_pm_lpsp@kms-lpsp@kms-lpsp-dp:
-    - shard-kbl:          NOTRUN -> [SKIP][118] ([fdo#109271] / [i915#1937])
-   [118]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl6/igt@i915_pm_lpsp@kms-lpsp@kms-lpsp-dp.html
-
-  * igt@kms_addfb_basic@invalid-smem-bo-on-discrete:
-    - shard-tglb:         NOTRUN -> [SKIP][119] ([i915#3826])
-   [119]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_addfb_basic@invalid-smem-bo-on-discrete.html
-
-  * igt@kms_atomic@plane-primary-overlay-mutable-zpos:
-    - shard-tglb:         NOTRUN -> [SKIP][120] ([i915#404])
-   [120]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_atomic@plane-primary-overlay-mutable-zpos.html
-
-  * igt@kms_big_fb@linear-32bpp-rotate-270:
-    - shard-tglb:         NOTRUN -> [SKIP][121] ([fdo#111614])
-   [121]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_big_fb@linear-32bpp-rotate-270.html
-
-  * igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-hflip:
-    - shard-kbl:          NOTRUN -> [SKIP][122] ([fdo#109271] / [i915#3777])
-   [122]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl1/igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-hflip.html
-
-  * igt@kms_big_fb@y-tiled-max-hw-stride-32bpp-rotate-0-hflip:
-    - shard-apl:          NOTRUN -> [SKIP][123] ([fdo#109271] / [i915#3777])
-   [123]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_big_fb@y-tiled-max-hw-stride-32bpp-rotate-0-hflip.html
-
-  * igt@kms_big_fb@y-tiled-max-hw-stride-64bpp-rotate-0-hflip:
-    - shard-glk:          NOTRUN -> [SKIP][124] ([fdo#109271] / [i915#3777])
-   [124]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_big_fb@y-tiled-max-hw-stride-64bpp-rotate-0-hflip.html
-
-  * igt@kms_big_fb@yf-tiled-8bpp-rotate-90:
-    - shard-tglb:         NOTRUN -> [SKIP][125] ([fdo#111615]) +5 similar issues
-   [125]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_big_fb@yf-tiled-8bpp-rotate-90.html
-
-  * igt@kms_big_joiner@invalid-modeset:
-    - shard-tglb:         NOTRUN -> [SKIP][126] ([i915#2705])
-   [126]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_big_joiner@invalid-modeset.html
-
-  * igt@kms_ccs@pipe-a-bad-rotation-90-y_tiled_gen12_mc_ccs:
-    - shard-skl:          NOTRUN -> [SKIP][127] ([fdo#109271] / [i915#3886]) +2 similar issues
-   [127]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl9/igt@kms_ccs@pipe-a-bad-rotation-90-y_tiled_gen12_mc_ccs.html
-
-  * igt@kms_ccs@pipe-a-crc-primary-rotation-180-y_tiled_gen12_rc_ccs_cc:
-    - shard-kbl:          NOTRUN -> [SKIP][128] ([fdo#109271] / [i915#3886]) +4 similar issues
-   [128]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl6/igt@kms_ccs@pipe-a-crc-primary-rotation-180-y_tiled_gen12_rc_ccs_cc.html
-
-  * igt@kms_ccs@pipe-c-bad-pixel-format-y_tiled_gen12_rc_ccs_cc:
-    - shard-apl:          NOTRUN -> [SKIP][129] ([fdo#109271] / [i915#3886]) +4 similar issues
-   [129]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_ccs@pipe-c-bad-pixel-format-y_tiled_gen12_rc_ccs_cc.html
-
-  * igt@kms_ccs@pipe-c-missing-ccs-buffer-y_tiled_ccs:
-    - shard-glk:          NOTRUN -> [SKIP][130] ([fdo#109271]) +40 similar issues
-   [130]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_ccs@pipe-c-missing-ccs-buffer-y_tiled_ccs.html
-
-  * igt@kms_ccs@pipe-c-missing-ccs-buffer-y_tiled_gen12_mc_ccs:
-    - shard-tglb:         NOTRUN -> [SKIP][131] ([i915#3689] / [i915#3886]) +1 similar issue
-   [131]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_ccs@pipe-c-missing-ccs-buffer-y_tiled_gen12_mc_ccs.html
-
-  * igt@kms_ccs@pipe-c-missing-ccs-buffer-yf_tiled_ccs:
-    - shard-tglb:         NOTRUN -> [SKIP][132] ([i915#3689]) +2 similar issues
-   [132]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_ccs@pipe-c-missing-ccs-buffer-yf_tiled_ccs.html
-
-  * igt@kms_chamelium@hdmi-hpd:
-    - shard-skl:          NOTRUN -> [SKIP][133] ([fdo#109271] / [fdo#111827]) +1 similar issue
-   [133]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_chamelium@hdmi-hpd.html
-
-  * igt@kms_color_chamelium@pipe-a-ctm-negative:
-    - shard-kbl:          NOTRUN -> [SKIP][134] ([fdo#109271] / [fdo#111827]) +7 similar issues
-   [134]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_color_chamelium@pipe-a-ctm-negative.html
-
-  * igt@kms_color_chamelium@pipe-b-ctm-0-5:
-    - shard-tglb:         NOTRUN -> [SKIP][135] ([fdo#109284] / [fdo#111827]) +4 similar issues
-   [135]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_color_chamelium@pipe-b-ctm-0-5.html
-
-  * igt@kms_color_chamelium@pipe-c-ctm-blue-to-red:
-    - shard-apl:          NOTRUN -> [SKIP][136] ([fdo#109271] / [fdo#111827]) +3 similar issues
-   [136]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_color_chamelium@pipe-c-ctm-blue-to-red.html
-
-  * igt@kms_color_chamelium@pipe-d-ctm-max:
-    - shard-glk:          NOTRUN -> [SKIP][137] ([fdo#109271] / [fdo#111827]) +1 similar issue
-   [137]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_color_chamelium@pipe-d-ctm-max.html
-
-  * igt@kms_content_protection@type1:
-    - shard-tglb:         NOTRUN -> [SKIP][138] ([fdo#111828])
-   [138]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_content_protection@type1.html
-
-  * igt@kms_cursor_crc@pipe-b-cursor-32x10-random:
-    - shard-tglb:         NOTRUN -> [SKIP][139] ([i915#3359]) +3 similar issues
-   [139]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_cursor_crc@pipe-b-cursor-32x10-random.html
-
-  * igt@kms_cursor_crc@pipe-b-cursor-32x32-rapid-movement:
-    - shard-tglb:         NOTRUN -> [SKIP][140] ([i915#3319])
-   [140]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_cursor_crc@pipe-b-cursor-32x32-rapid-movement.html
-
-  * igt@kms_cursor_crc@pipe-c-cursor-suspend:
-    - shard-apl:          [PASS][141] -> [DMESG-WARN][142] ([i915#180]) +3 similar issues
-   [141]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl3/igt@kms_cursor_crc@pipe-c-cursor-suspend.html
-   [142]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl6/igt@kms_cursor_crc@pipe-c-cursor-suspend.html
-
-  * igt@kms_cursor_crc@pipe-d-cursor-512x512-offscreen:
-    - shard-tglb:         NOTRUN -> [SKIP][143] ([fdo#109279] / [i915#3359]) +3 similar issues
-   [143]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_cursor_crc@pipe-d-cursor-512x512-offscreen.html
-
-  * igt@kms_flip@flip-vs-expired-vblank-interruptible@a-edp1:
-    - shard-skl:          [PASS][144] -> [FAIL][145] ([i915#2122])
-   [144]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-skl9/igt@kms_flip@flip-vs-expired-vblank-interruptible@a-edp1.html
-   [145]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl6/igt@kms_flip@flip-vs-expired-vblank-interruptible@a-edp1.html
-
-  * igt@kms_flip@flip-vs-expired-vblank@c-hdmi-a2:
-    - shard-glk:          [PASS][146] -> [FAIL][147] ([i915#79])
-   [146]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-glk1/igt@kms_flip@flip-vs-expired-vblank@c-hdmi-a2.html
-   [147]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_flip@flip-vs-expired-vblank@c-hdmi-a2.html
-
-  * igt@kms_flip_scaled_crc@flip-32bpp-ytile-to-32bpp-ytilegen12rcccs:
-    - shard-kbl:          NOTRUN -> [SKIP][148] ([fdo#109271] / [i915#2672])
-   [148]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl4/igt@kms_flip_scaled_crc@flip-32bpp-ytile-to-32bpp-ytilegen12rcccs.html
-
-  * igt@kms_frontbuffer_tracking@fbc-2p-primscrn-shrfb-plflip-blt:
-    - shard-skl:          NOTRUN -> [SKIP][149] ([fdo#109271]) +36 similar issues
-   [149]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_frontbuffer_tracking@fbc-2p-primscrn-shrfb-plflip-blt.html
-
-  * igt@kms_frontbuffer_tracking@fbc-suspend:
-    - shard-kbl:          [PASS][150] -> [DMESG-WARN][151] ([i915#180]) +5 similar issues
-   [150]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-kbl1/igt@kms_frontbuffer_tracking@fbc-suspend.html
-   [151]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_frontbuffer_tracking@fbc-suspend.html
-    - shard-tglb:         [PASS][152] -> [INCOMPLETE][153] ([i915#2411] / [i915#2828] / [i915#456])
-   [152]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-tglb1/igt@kms_frontbuffer_tracking@fbc-suspend.html
-   [153]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb7/igt@kms_frontbuffer_tracking@fbc-suspend.html
-
-  * igt@kms_frontbuffer_tracking@fbcpsr-1p-pri-indfb-multidraw:
-    - shard-tglb:         [PASS][154] -> [INCOMPLETE][155] ([i915#750])
-   [154]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-tglb2/igt@kms_frontbuffer_tracking@fbcpsr-1p-pri-indfb-multidraw.html
-   [155]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb7/igt@kms_frontbuffer_tracking@fbcpsr-1p-pri-indfb-multidraw.html
-
-  * igt@kms_frontbuffer_tracking@fbcpsr-2p-scndscrn-pri-indfb-draw-render:
-    - shard-kbl:          NOTRUN -> [SKIP][156] ([fdo#109271]) +95 similar issues
-   [156]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl4/igt@kms_frontbuffer_tracking@fbcpsr-2p-scndscrn-pri-indfb-draw-render.html
-
-  * igt@kms_frontbuffer_tracking@psr-1p-primscrn-indfb-pgflip-blt:
-    - shard-skl:          [PASS][157] -> [DMESG-WARN][158] ([i915#1982])
-   [157]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-skl9/igt@kms_frontbuffer_tracking@psr-1p-primscrn-indfb-pgflip-blt.html
-   [158]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl2/igt@kms_frontbuffer_tracking@psr-1p-primscrn-indfb-pgflip-blt.html
-
-  * igt@kms_frontbuffer_tracking@psr-2p-scndscrn-spr-indfb-draw-pwrite:
-    - shard-tglb:         NOTRUN -> [SKIP][159] ([fdo#111825]) +13 similar issues
-   [159]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_frontbuffer_tracking@psr-2p-scndscrn-spr-indfb-draw-pwrite.html
-
-  * igt@kms_pipe_crc_basic@read-crc-pipe-d-frame-sequence:
-    - shard-glk:          NOTRUN -> [SKIP][160] ([fdo#109271] / [i915#533])
-   [160]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_pipe_crc_basic@read-crc-pipe-d-frame-sequence.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc-pipe-c:
-    - shard-kbl:          NOTRUN -> [DMESG-WARN][161] ([i915#180])
-   [161]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-c.html
-
-  * igt@kms_plane_alpha_blend@pipe-b-alpha-7efc:
-    - shard-kbl:          NOTRUN -> [FAIL][162] ([fdo#108145] / [i915#265])
-   [162]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_plane_alpha_blend@pipe-b-alpha-7efc.html
-
-  * igt@kms_plane_alpha_blend@pipe-b-alpha-transparent-fb:
-    - shard-kbl:          NOTRUN -> [FAIL][163] ([i915#265])
-   [163]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl6/igt@kms_plane_alpha_blend@pipe-b-alpha-transparent-fb.html
-
-  * igt@kms_plane_alpha_blend@pipe-c-constant-alpha-min:
-    - shard-skl:          NOTRUN -> [FAIL][164] ([fdo#108145] / [i915#265]) +1 similar issue
-   [164]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_plane_alpha_blend@pipe-c-constant-alpha-min.html
-
-  * igt@kms_plane_alpha_blend@pipe-c-coverage-7efc:
-    - shard-skl:          [PASS][165] -> [FAIL][166] ([fdo#108145] / [i915#265])
-   [165]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-skl8/igt@kms_plane_alpha_blend@pipe-c-coverage-7efc.html
-   [166]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl1/igt@kms_plane_alpha_blend@pipe-c-coverage-7efc.html
-
-  * igt@kms_psr2_sf@overlay-plane-update-sf-dmg-area-3:
-    - shard-kbl:          NOTRUN -> [SKIP][167] ([fdo#109271] / [i915#658]) +3 similar issues
-   [167]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_psr2_sf@overlay-plane-update-sf-dmg-area-3.html
-
-  * igt@kms_psr2_sf@overlay-primary-update-sf-dmg-area-4:
-    - shard-tglb:         NOTRUN -> [SKIP][168] ([i915#2920])
-   [168]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_psr2_sf@overlay-primary-update-sf-dmg-area-4.html
-
-  * igt@kms_psr2_sf@plane-move-sf-dmg-area-3:
-    - shard-apl:          NOTRUN -> [SKIP][169] ([fdo#109271] / [i915#658])
-   [169]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_psr2_sf@plane-move-sf-dmg-area-3.html
-
-  * igt@kms_psr2_su@frontbuffer:
-    - shard-skl:          NOTRUN -> [SKIP][170] ([fdo#109271] / [i915#658]) +2 similar issues
-   [170]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_psr2_su@frontbuffer.html
-
-  * igt@kms_psr@psr2_cursor_blt:
-    - shard-iclb:         [PASS][171] -> [SKIP][172] ([fdo#109441])
-   [171]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-iclb2/igt@kms_psr@psr2_cursor_blt.html
-   [172]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-iclb1/igt@kms_psr@psr2_cursor_blt.html
-
-  * igt@kms_setmode@basic:
-    - shard-glk:          [PASS][173] -> [FAIL][174] ([i915#31])
-   [173]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-glk7/igt@kms_setmode@basic.html
-   [174]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk3/igt@kms_setmode@basic.html
-
-  * igt@kms_vblank@pipe-d-ts-continuation-dpms-suspend:
-    - shard-tglb:         [PASS][175] -> [INCOMPLETE][176] ([i915#456])
-   [175]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-tglb1/igt@kms_vblank@pipe-d-ts-continuation-dpms-suspend.html
-   [176]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb7/igt@kms_vblank@pipe-d-ts-continuation-dpms-suspend.html
-
-  * igt@kms_vblank@pipe-d-ts-continuation-idle:
-    - shard-apl:          NOTRUN -> [SKIP][177] ([fdo#109271]) +53 similar issues
-   [177]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_vblank@pipe-d-ts-continuation-idle.html
-
-  * igt@nouveau_crc@pipe-c-source-outp-inactive:
-    - shard-tglb:         NOTRUN -> [SKIP][178] ([i915#2530])
-   [178]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@nouveau_crc@pipe-c-source-outp-inactive.html
-
-  * igt@perf@polling-parameterized:
-    - shard-skl:          [PASS][179] -> [FAIL][180] ([i915#1542])
-   [179]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-skl9/igt@perf@polling-parameterized.html
-   [180]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl6/igt@perf@polling-parameterized.html
-
-  * igt@perf@polling-small-buf:
-    - shard-skl:          [PASS][181] -> [FAIL][182] ([i915#1722])
-   [181]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-skl10/igt@perf@polling-small-buf.html
-   [182]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl2/igt@perf@polling-small-buf.html
-
-  * igt@perf@short-reads:
-    - shard-skl:          NOTRUN -> [FAIL][183] ([i915#51])
-   [183]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-skl3/igt@perf@short-reads.html
-
-  * igt@prime_nv_test@i915_import_cpu_mmap:
-    - shard-tglb:         NOTRUN -> [SKIP][184] ([fdo#109291]) +2 similar issues
-   [184]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@prime_nv_test@i915_import_cpu_mmap.html
-
-  * igt@prime_vgem@basic-userptr:
-    - shard-tglb:         NOTRUN -> [SKIP][185] ([i915#3301])
-   [185]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@prime_vgem@basic-userptr.html
-
-  * igt@sysfs_clients@sema-25:
-    - shard-glk:          NOTRUN -> [SKIP][186] ([fdo#109271] / [i915#2994])
-   [186]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk1/igt@sysfs_clients@sema-25.html
-
-  * igt@sysfs_clients@sema-50:
-    - shard-tglb:         NOTRUN -> [SKIP][187] ([i915#2994])
-   [187]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@sysfs_clients@sema-50.html
-
-  * igt@sysfs_clients@split-50:
-    - shard-kbl:          NOTRUN -> [SKIP][188] ([fdo#109271] / [i915#2994]) +1 similar issue
-   [188]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-kbl1/
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/index.html
-
---===============0901810048155975243==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-
-<!DOCTYPE html>
-<html xmlns=3D"http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id=3D"css-table-select" type=3D"text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Enable WaProgramMgsrForCorrectSlic=
-eSpecificMmioReads for Gen9 (rev11)</td></tr>
-<tr><td><b>URL:</b></td><td><a href=3D"https://patchwork.freedesktop.org/se=
-ries/81764/">https://patchwork.freedesktop.org/series/81764/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href=3D"https://intel-gfx-ci.01.org/=
-tree/drm-tip/Patchwork_21435/index.html">https://intel-gfx-ci.01.org/tree/d=
-rm-tip/Patchwork_21435/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10783_full -&gt; Patchwork_21435_f=
-ull</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<h2>Participating hosts (10 -&gt; 10)</h2>
-<p>No changes in participating hosts</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21435_full that come from known =
-issues:</p>
-<h3>CI changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>boot:<ul>
-<li>shard-snb:          (<a href=3D"https://intel-gfx-ci.01.org/tree/drm-ti=
-p/CI_DRM_10783/shard-snb7/boot.html">PASS</a>, <a href=3D"https://intel-gfx=
--ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html">PASS</a>, <a hre=
-f=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.=
-html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_=
-10783/shard-snb7/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.or=
-g/tree/drm-tip/CI_DRM_10783/shard-snb7/boot.html">PASS</a>, <a href=3D"http=
-s://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/sha=
-rd-snb6/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/dr=
-m-tip/CI_DRM_10783/shard-snb6/boot.html">PASS</a>, <a href=3D"https://intel=
--gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/boot.html">PASS</a>, <a=
- href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb6/b=
-oot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_=
-DRM_10783/shard-snb5/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.0=
-1.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html">PASS</a>, <a href=3D"=
-https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html"=
->PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783=
-/shard-snb5/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tre=
-e/drm-tip/CI_DRM_10783/shard-snb5/boot.html">PASS</a>, <a href=3D"https://i=
-ntel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb5/boot.html">PASS</a>=
-, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-sn=
-b4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-snb4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-=
-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb4/boot.html">PASS</a>, <a href=
-=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb4/boot.h=
-tml">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_1=
-0783/shard-snb2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html">PASS</a>, <a href=3D"https=
-://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-snb2/boot.html">PASS=
-</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shar=
-d-snb2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm=
--tip/CI_DRM_10783/shard-snb2/boot.html">PASS</a>) -&gt; (<a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb7/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb7/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb7/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb7/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb7/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb6/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb6/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb6/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb6/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb5/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb5/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb5/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb5/boot.html">FAIL</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb5/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb4/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb4/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb4/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb2/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-snb2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-snb2/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-snb2/boot.html">PAS=
-S</a>) ([i915#4338])</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>boot:<ul>
-<li>shard-apl:          (<a href=3D"https://intel-gfx-ci.01.org/tree/drm-ti=
-p/CI_DRM_10783/shard-apl7/boot.html">PASS</a>, <a href=3D"https://intel-gfx=
--ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl7/boot.html">PASS</a>, <a hre=
-f=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl7/boot.=
-html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_=
-10783/shard-apl7/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.or=
-g/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html">PASS</a>, <a href=3D"http=
-s://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/sha=
-rd-apl6/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/dr=
-m-tip/CI_DRM_10783/shard-apl6/boot.html">PASS</a>, <a href=3D"https://intel=
--gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/boot.html">PASS</a>, <a=
- href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl6/b=
-oot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_=
-DRM_10783/shard-apl4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.0=
-1.org/tree/drm-tip/CI_DRM_10783/shard-apl4/boot.html">PASS</a>, <a href=3D"=
-https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl4/boot.html"=
->PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783=
-/shard-apl4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tre=
-e/drm-tip/CI_DRM_10783/shard-apl3/boot.html">PASS</a>, <a href=3D"https://i=
-ntel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl3/boot.html">PASS</a>=
-, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-ap=
-l3/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-apl2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-=
-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl2/boot.html">PASS</a>, <a href=
-=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl2/boot.h=
-tml">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_1=
-0783/shard-apl2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/CI_DRM_10783/shard-apl1/boot.html">PASS</a>, <a href=3D"https=
-://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shard-apl1/boot.html">PASS=
-</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10783/shar=
-d-apl1/boot.html">FAIL</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm=
--tip/CI_DRM_10783/shard-apl1/boot.html">PASS</a>) -&gt; (<a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl1/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl1/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl1/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl1/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl2/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl2/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl2/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl2/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl3/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl3/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl3/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl4/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl4/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl4/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl6/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl7/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl7/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl6/boot.html">PAS=
-S</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-apl6/boot.html">PASS</a>, <a href=3D"https://intel-gfx-ci.01.org/tree=
-/drm-tip/Patchwork_21435/shard-apl6/boot.html">PASS</a>, <a href=3D"https:/=
-/intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-apl7/boot.html">PAS=
-S</a>)</li>
-</ul>
-</li>
-</ul>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@feature_discovery@display-3x:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@feature_discovery@display-3x.=
-html">SKIP</a> ([i915#1839])</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fair@basic-deadline:</p>
-<ul>
-<li>shard-kbl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-kbl2/igt@gem_exec_fair@basic-deadline.html">PASS</a> -&=
-gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/sha=
-rd-kbl3/igt@gem_exec_fair@basic-deadline.html">FAIL</a> ([i915#2846])</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fair@basic-none-share@rcs0:</p>
-<ul>
-<li>
-<p>shard-iclb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/=
-CI_DRM_10783/shard-iclb4/igt@gem_exec_fair@basic-none-share@rcs0.html">PASS=
-</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21=
-435/shard-iclb4/igt@gem_exec_fair@basic-none-share@rcs0.html">FAIL</a> ([i9=
-15#2842])</p>
-</li>
-<li>
-<p>shard-apl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/=
-CI_DRM_10783/shard-apl4/igt@gem_exec_fair@basic-none-share@rcs0.html">PASS<=
-/a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_214=
-35/shard-apl1/igt@gem_exec_fair@basic-none-share@rcs0.html">SKIP</a> ([fdo#=
-109271])</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fair@basic-none-vip@rcs0:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@gem_exec_fair@basic-none-vip@=
-rcs0.html">FAIL</a> ([i915#2842])</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fair@basic-none@rcs0:</p>
-<ul>
-<li>shard-glk:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-glk5/igt@gem_exec_fair@basic-none@rcs0.html">PASS</a> -=
-&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/sh=
-ard-glk2/igt@gem_exec_fair@basic-none@rcs0.html">FAIL</a> ([i915#2842])</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fair@basic-pace@vecs0:</p>
-<ul>
-<li>shard-tglb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-tglb3/igt@gem_exec_fair@basic-pace@vecs0.html">PASS</a>=
- -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/=
-shard-tglb6/igt@gem_exec_fair@basic-pace@vecs0.html">FAIL</a> ([i915#2842])=
-</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_pxp@verify-pxp-stale-ctx-execution:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@gem_pxp@verify-pxp-stale-ctx-=
-execution.html">SKIP</a> ([i915#4270])</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_userptr_blits@access-control:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@gem_userptr_blits@access-cont=
-rol.html">SKIP</a> ([i915#3297])</li>
-</ul>
-</li>
-<li>
-<p>igt@gen3_render_linear_blits:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@gen3_render_linear_blits.html=
-">SKIP</a> ([fdo#109289]) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_dc@dc6-psr:</p>
-<ul>
-<li>shard-iclb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-iclb8/igt@i915_pm_dc@dc6-psr.html">PASS</a> -&gt; <a hr=
-ef=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-iclb3/=
-igt@i915_pm_dc@dc6-psr.html">FAIL</a> ([i915#454])</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_lpsp@kms-lpsp@kms-lpsp-dp:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl6/igt@i915_pm_lpsp@kms-lpsp@kms-lpsp=
--dp.html">SKIP</a> ([fdo#109271] / [i915#1937])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@invalid-smem-bo-on-discrete:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_addfb_basic@invalid-smem-=
-bo-on-discrete.html">SKIP</a> ([i915#3826])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_atomic@plane-primary-overlay-mutable-zpos:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_atomic@plane-primary-over=
-lay-mutable-zpos.html">SKIP</a> ([i915#404])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_fb@linear-32bpp-rotate-270:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_big_fb@linear-32bpp-rotat=
-e-270.html">SKIP</a> ([fdo#111614])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-hflip:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl1/igt@kms_big_fb@x-tiled-max-hw-stri=
-de-32bpp-rotate-180-hflip.html">SKIP</a> ([fdo#109271] / [i915#3777])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_fb@y-tiled-max-hw-stride-32bpp-rotate-0-hflip:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_big_fb@y-tiled-max-hw-stri=
-de-32bpp-rotate-0-hflip.html">SKIP</a> ([fdo#109271] / [i915#3777])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_fb@y-tiled-max-hw-stride-64bpp-rotate-0-hflip:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_big_fb@y-tiled-max-hw-stri=
-de-64bpp-rotate-0-hflip.html">SKIP</a> ([fdo#109271] / [i915#3777])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_fb@yf-tiled-8bpp-rotate-90:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_big_fb@yf-tiled-8bpp-rota=
-te-90.html">SKIP</a> ([fdo#111615]) +5 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_joiner@invalid-modeset:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_big_joiner@invalid-modese=
-t.html">SKIP</a> ([i915#2705])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_ccs@pipe-a-bad-rotation-90-y_tiled_gen12_mc_ccs:</p>
-<ul>
-<li>shard-skl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-skl9/igt@kms_ccs@pipe-a-bad-rotation-90=
--y_tiled_gen12_mc_ccs.html">SKIP</a> ([fdo#109271] / [i915#3886]) +2 simila=
-r issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_ccs@pipe-a-crc-primary-rotation-180-y_tiled_gen12_rc_ccs_cc:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl6/igt@kms_ccs@pipe-a-crc-primary-rot=
-ation-180-y_tiled_gen12_rc_ccs_cc.html">SKIP</a> ([fdo#109271] / [i915#3886=
-]) +4 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_ccs@pipe-c-bad-pixel-format-y_tiled_gen12_rc_ccs_cc:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_ccs@pipe-c-bad-pixel-forma=
-t-y_tiled_gen12_rc_ccs_cc.html">SKIP</a> ([fdo#109271] / [i915#3886]) +4 si=
-milar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_ccs@pipe-c-missing-ccs-buffer-y_tiled_ccs:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_ccs@pipe-c-missing-ccs-buf=
-fer-y_tiled_ccs.html">SKIP</a> ([fdo#109271]) +40 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_ccs@pipe-c-missing-ccs-buffer-y_tiled_gen12_mc_ccs:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_ccs@pipe-c-missing-ccs-bu=
-ffer-y_tiled_gen12_mc_ccs.html">SKIP</a> ([i915#3689] / [i915#3886]) +1 sim=
-ilar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_ccs@pipe-c-missing-ccs-buffer-yf_tiled_ccs:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_ccs@pipe-c-missing-ccs-bu=
-ffer-yf_tiled_ccs.html">SKIP</a> ([i915#3689]) +2 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-hpd:</p>
-<ul>
-<li>shard-skl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_chamelium@hdmi-hpd.html">S=
-KIP</a> ([fdo#109271] / [fdo#111827]) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_color_chamelium@pipe-a-ctm-negative:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_color_chamelium@pipe-a-ctm=
--negative.html">SKIP</a> ([fdo#109271] / [fdo#111827]) +7 similar issues</l=
-i>
-</ul>
-</li>
-<li>
-<p>igt@kms_color_chamelium@pipe-b-ctm-0-5:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_color_chamelium@pipe-b-ct=
-m-0-5.html">SKIP</a> ([fdo#109284] / [fdo#111827]) +4 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_color_chamelium@pipe-c-ctm-blue-to-red:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_color_chamelium@pipe-c-ctm=
--blue-to-red.html">SKIP</a> ([fdo#109271] / [fdo#111827]) +3 similar issues=
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_color_chamelium@pipe-d-ctm-max:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_color_chamelium@pipe-d-ctm=
--max.html">SKIP</a> ([fdo#109271] / [fdo#111827]) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_content_protection@type1:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_content_protection@type1.=
-html">SKIP</a> ([fdo#111828])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_crc@pipe-b-cursor-32x10-random:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_cursor_crc@pipe-b-cursor-=
-32x10-random.html">SKIP</a> ([i915#3359]) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_crc@pipe-b-cursor-32x32-rapid-movement:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_cursor_crc@pipe-b-cursor-=
-32x32-rapid-movement.html">SKIP</a> ([i915#3319])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_crc@pipe-c-cursor-suspend:</p>
-<ul>
-<li>shard-apl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-apl3/igt@kms_cursor_crc@pipe-c-cursor-suspend.html">PAS=
-S</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_2=
-1435/shard-apl6/igt@kms_cursor_crc@pipe-c-cursor-suspend.html">DMESG-WARN</=
-a> ([i915#180]) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_crc@pipe-d-cursor-512x512-offscreen:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@kms_cursor_crc@pipe-d-cursor-=
-512x512-offscreen.html">SKIP</a> ([fdo#109279] / [i915#3359]) +3 similar is=
-sues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@flip-vs-expired-vblank-interruptible@a-edp1:</p>
-<ul>
-<li>shard-skl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-skl9/igt@kms_flip@flip-vs-expired-vblank-interruptible@=
-a-edp1.html">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm=
--tip/Patchwork_21435/shard-skl6/igt@kms_flip@flip-vs-expired-vblank-interru=
-ptible@a-edp1.html">FAIL</a> ([i915#2122])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@flip-vs-expired-vblank@c-hdmi-a2:</p>
-<ul>
-<li>shard-glk:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-glk1/igt@kms_flip@flip-vs-expired-vblank@c-hdmi-a2.html=
-">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchw=
-ork_21435/shard-glk1/igt@kms_flip@flip-vs-expired-vblank@c-hdmi-a2.html">FA=
-IL</a> ([i915#79])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip_scaled_crc@flip-32bpp-ytile-to-32bpp-ytilegen12rcccs:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl4/igt@kms_flip_scaled_crc@flip-32bpp=
--ytile-to-32bpp-ytilegen12rcccs.html">SKIP</a> ([fdo#109271] / [i915#2672])=
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@fbc-2p-primscrn-shrfb-plflip-blt:</p>
-<ul>
-<li>shard-skl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_frontbuffer_tracking@fbc-2=
-p-primscrn-shrfb-plflip-blt.html">SKIP</a> ([fdo#109271]) +36 similar issue=
-s</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@fbc-suspend:</p>
-<ul>
-<li>
-<p>shard-kbl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/=
-CI_DRM_10783/shard-kbl1/igt@kms_frontbuffer_tracking@fbc-suspend.html">PASS=
-</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21=
-435/shard-kbl7/igt@kms_frontbuffer_tracking@fbc-suspend.html">DMESG-WARN</a=
-> ([i915#180]) +5 similar issues</p>
-</li>
-<li>
-<p>shard-tglb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/=
-CI_DRM_10783/shard-tglb1/igt@kms_frontbuffer_tracking@fbc-suspend.html">PAS=
-S</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_2=
-1435/shard-tglb7/igt@kms_frontbuffer_tracking@fbc-suspend.html">INCOMPLETE<=
-/a> ([i915#2411] / [i915#2828] / [i915#456])</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@fbcpsr-1p-pri-indfb-multidraw:</p>
-<ul>
-<li>shard-tglb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-tglb2/igt@kms_frontbuffer_tracking@fbcpsr-1p-pri-indfb-=
-multidraw.html">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/=
-drm-tip/Patchwork_21435/shard-tglb7/igt@kms_frontbuffer_tracking@fbcpsr-1p-=
-pri-indfb-multidraw.html">INCOMPLETE</a> ([i915#750])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@fbcpsr-2p-scndscrn-pri-indfb-draw-render:</=
-p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl4/igt@kms_frontbuffer_tracking@fbcps=
-r-2p-scndscrn-pri-indfb-draw-render.html">SKIP</a> ([fdo#109271]) +95 simil=
-ar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@psr-1p-primscrn-indfb-pgflip-blt:</p>
-<ul>
-<li>shard-skl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-skl9/igt@kms_frontbuffer_tracking@psr-1p-primscrn-indfb=
--pgflip-blt.html">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tre=
-e/drm-tip/Patchwork_21435/shard-skl2/igt@kms_frontbuffer_tracking@psr-1p-pr=
-imscrn-indfb-pgflip-blt.html">DMESG-WARN</a> ([i915#1982])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@psr-2p-scndscrn-spr-indfb-draw-pwrite:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_frontbuffer_tracking@psr-=
-2p-scndscrn-spr-indfb-draw-pwrite.html">SKIP</a> ([fdo#111825]) +13 similar=
- issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc-pipe-d-frame-sequence:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-glk1/igt@kms_pipe_crc_basic@read-crc-pi=
-pe-d-frame-sequence.html">SKIP</a> ([fdo#109271] / [i915#533])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc-pipe-c:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_pipe_crc_basic@suspend-rea=
-d-crc-pipe-c.html">DMESG-WARN</a> ([i915#180])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_plane_alpha_blend@pipe-b-alpha-7efc:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_plane_alpha_blend@pipe-b-a=
-lpha-7efc.html">FAIL</a> ([fdo#108145] / [i915#265])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_plane_alpha_blend@pipe-b-alpha-transparent-fb:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl6/igt@kms_plane_alpha_blend@pipe-b-a=
-lpha-transparent-fb.html">FAIL</a> ([i915#265])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_plane_alpha_blend@pipe-c-constant-alpha-min:</p>
-<ul>
-<li>shard-skl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_plane_alpha_blend@pipe-c-c=
-onstant-alpha-min.html">FAIL</a> ([fdo#108145] / [i915#265]) +1 similar iss=
-ue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_plane_alpha_blend@pipe-c-coverage-7efc:</p>
-<ul>
-<li>shard-skl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-skl8/igt@kms_plane_alpha_blend@pipe-c-coverage-7efc.htm=
-l">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patch=
-work_21435/shard-skl1/igt@kms_plane_alpha_blend@pipe-c-coverage-7efc.html">=
-FAIL</a> ([fdo#108145] / [i915#265])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr2_sf@overlay-plane-update-sf-dmg-area-3:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl7/igt@kms_psr2_sf@overlay-plane-upda=
-te-sf-dmg-area-3.html">SKIP</a> ([fdo#109271] / [i915#658]) +3 similar issu=
-es</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr2_sf@overlay-primary-update-sf-dmg-area-4:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@kms_psr2_sf@overlay-primary-u=
-pdate-sf-dmg-area-4.html">SKIP</a> ([i915#2920])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr2_sf@plane-move-sf-dmg-area-3:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_psr2_sf@plane-move-sf-dmg-=
-area-3.html">SKIP</a> ([fdo#109271] / [i915#658])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr2_su@frontbuffer:</p>
-<ul>
-<li>shard-skl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-skl3/igt@kms_psr2_su@frontbuffer.html">=
-SKIP</a> ([fdo#109271] / [i915#658]) +2 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr2_cursor_blt:</p>
-<ul>
-<li>shard-iclb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-iclb2/igt@kms_psr@psr2_cursor_blt.html">PASS</a> -&gt; =
-<a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-i=
-clb1/igt@kms_psr@psr2_cursor_blt.html">SKIP</a> ([fdo#109441])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic:</p>
-<ul>
-<li>shard-glk:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-glk7/igt@kms_setmode@basic.html">PASS</a> -&gt; <a href=
-=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-glk3/igt=
-@kms_setmode@basic.html">FAIL</a> ([i915#31])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_vblank@pipe-d-ts-continuation-dpms-suspend:</p>
-<ul>
-<li>shard-tglb:         <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-tglb1/igt@kms_vblank@pipe-d-ts-continuation-dpms-suspen=
-d.html">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/=
-Patchwork_21435/shard-tglb7/igt@kms_vblank@pipe-d-ts-continuation-dpms-susp=
-end.html">INCOMPLETE</a> ([i915#456])</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_vblank@pipe-d-ts-continuation-idle:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-apl2/igt@kms_vblank@pipe-d-ts-continuat=
-ion-idle.html">SKIP</a> ([fdo#109271]) +53 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@nouveau_crc@pipe-c-source-outp-inactive:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@nouveau_crc@pipe-c-source-out=
-p-inactive.html">SKIP</a> ([i915#2530])</li>
-</ul>
-</li>
-<li>
-<p>igt@perf@polling-parameterized:</p>
-<ul>
-<li>shard-skl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-skl9/igt@perf@polling-parameterized.html">PASS</a> -&gt=
-; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard=
--skl6/igt@perf@polling-parameterized.html">FAIL</a> ([i915#1542])</li>
-</ul>
-</li>
-<li>
-<p>igt@perf@polling-small-buf:</p>
-<ul>
-<li>shard-skl:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10783/shard-skl10/igt@perf@polling-small-buf.html">PASS</a> -&gt; <=
-a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21435/shard-sk=
-l2/igt@perf@polling-small-buf.html">FAIL</a> ([i915#1722])</li>
-</ul>
-</li>
-<li>
-<p>igt@perf@short-reads:</p>
-<ul>
-<li>shard-skl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-skl3/igt@perf@short-reads.html">FAIL</a=
-> ([i915#51])</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_nv_test@i915_import_cpu_mmap:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb1/igt@prime_nv_test@i915_import_cpu=
-_mmap.html">SKIP</a> ([fdo#109291]) +2 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@prime_vgem@basic-userptr.html=
-">SKIP</a> ([i915#3301])</li>
-</ul>
-</li>
-<li>
-<p>igt@sysfs_clients@sema-25:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-glk1/igt@sysfs_clients@sema-25.html">SK=
-IP</a> ([fdo#109271] / [i915#2994])</li>
-</ul>
-</li>
-<li>
-<p>igt@sysfs_clients@sema-50:</p>
-<ul>
-<li>shard-tglb:         NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-tglb3/igt@sysfs_clients@sema-50.html">S=
-KIP</a> ([i915#2994])</li>
-</ul>
-</li>
-<li>
-<p>igt@sysfs_clients@split-50:</p>
-<ul>
-<li>shard-kbl:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21435/shard-kbl1/">SKIP</a> ([fdo#109271] / [i915#2=
-994]) +1 similar issue</li>
-</ul>
-</li>
-</ul>
-
-</body>
-</html>
-
---===============0901810048155975243==--
