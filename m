@@ -2,79 +2,47 @@ Return-Path: <SRS0=eaB6=PN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0E58C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 11:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A568AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 12:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B218460F46
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 11:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B218460F46
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6B9A560EE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 12:23:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B9A560EE9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B277C89E11;
-	Mon, 25 Oct 2021 11:20:17 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A10189E0E;
- Mon, 25 Oct 2021 11:20:16 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id a26so17162200edy.11;
- Mon, 25 Oct 2021 04:20:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=zAWkQGbOaZKbHWppqd+rLJs80WGOQG4H53gr2sV0vAQ=;
- b=ID59gtr8f5xxJGnGvueDL1ILVtTOzGCrTqfDtDUPaDjfeCMKykIHmSCoT4bFRbtmu5
- wpFOaCdtv65eLNkjdDy9eu4C4l39ZxEeRfU/WxrePOWUCeg86EfSas5In+rWFGu4CW9e
- cZ+0KmssTd6fjcBjmc4QdcUniFpY5uhhGUQINIjzlHI69gxK2rRYk7fFnyE/AY59MEA4
- WnahY4Ilpm6fnr9PaqnK/u5JrnV3odFsEojxOZjXGiZKmrHoujlEmZV3gt6xg/o0beqH
- MxjJI5y4VYDHheC47EWctklA1WMnQIlEdKtYIhbxg1Btv1XOtkENHCFs6UW7tT5LAg2c
- t39w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=zAWkQGbOaZKbHWppqd+rLJs80WGOQG4H53gr2sV0vAQ=;
- b=bPYaxRX1U3CbQqbY9FqBAfOq7ORwk5osp4by4+qT0onQcIi3jdVHnJf1+lG4w73oik
- VUxmeQ4LPjpvSH5itlxEfyq3z2E+yxAJ/MUcHP5zswgKeI0kvm9C1MhQFXJfJ/6CB7dZ
- pgF0oAgZ97GB/ArhZG5/33TtOxrsa/EDSr5QauC2QGDm9kQvuMz4r1yPPveYtjsjbYHf
- lc9rLW9hMlnBcWIh3drRl3wpDhLDCCB+8rur31M7xE74tHbBWcuf57C5KGtnJKlbjMQb
- Daac50tTnkvEI4WYF9lT49dfUl4z9kP+X9XfyG7s+IAl15wJLT+utYdMoQ0oGqWTV7Da
- Pb4g==
-X-Gm-Message-State: AOAM531D8F6760THpsP/X6LiRTW14/2LJEmT5w8EkQz3QPbk5i9tUSfu
- 9FEuRX7dXbjDEmQT4r4reGg=
-X-Google-Smtp-Source: ABdhPJyWolZaNeYs6hLCgbIy8OFyS2r8sI+XXWlxCE7+b7RQkIICzRZWDbBkkYUk6wDyHxsA5dNUkQ==
-X-Received: by 2002:aa7:d556:: with SMTP id u22mr25631139edr.226.1635160814573; 
- Mon, 25 Oct 2021 04:20:14 -0700 (PDT)
-Received: from [0.0.0.0] ([134.134.137.89])
- by smtp.googlemail.com with ESMTPSA id n8sm771738edy.59.2021.10.25.04.20.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Oct 2021 04:20:13 -0700 (PDT)
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Ramalingam C <ramalingam.c@intel.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, Daniel Vetter
- <daniel@ffwll.ch>, CQ Tang <cq.tang@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, Hellstrom Thomas <thomas.hellstrom@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <ppaalanen@gmail.com>
-References: <20211021142627.31058-1-ramalingam.c@intel.com>
- <20211021142627.31058-15-ramalingam.c@intel.com> <YXF6tItZLX4Cn6Aw@intel.com>
-From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Message-ID: <4b263070-a30e-85fb-d3d7-6983b05ec323@gmail.com>
-Date: Mon, 25 Oct 2021 14:20:02 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC25589ECB;
+	Mon, 25 Oct 2021 12:23:06 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6F189ECB;
+ Mon, 25 Oct 2021 12:23:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10147"; a="210417037"
+X-IronPort-AV: E=Sophos;i="5.87,180,1631602800"; d="scan'208";a="210417037"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2021 05:23:05 -0700
+X-IronPort-AV: E=Sophos;i="5.87,180,1631602800"; d="scan'208";a="446208051"
+Received: from vadimmik-mobl.ccr.corp.intel.com (HELO localhost)
+ ([10.249.254.123])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2021 05:23:02 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <YXF6tItZLX4Cn6Aw@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2 14/17] uapi/drm/dg2: Format modifier for
- DG2 unified compression and clear color
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <a2d6a96b3f360991511e6e4969de83cea2f5a97a.camel@linux.intel.com>
+References: <20211020192147.8048-1-matthew.brost@intel.com>
+ <a2d6a96b3f360991511e6e4969de83cea2f5a97a.camel@linux.intel.com>
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: daniele.ceraolospurio@intel.com, john.c.harrison@intel.com
+To: Thomas Hellström <thomas.hellstrom@linux.intel.com>, Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID: <163516458029.3804.14322548249266136569@jlahtine-mobl.ger.corp.intel.com>
+User-Agent: alot/0.8.1
+Date: Mon, 25 Oct 2021 15:23:00 +0300
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/guc: Fix recursive lock in GuC
+ submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,61 +55,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: juhapekka.heikkila@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 21.10.2021 17.35, Ville Syrjälä wrote:
-> On Thu, Oct 21, 2021 at 07:56:24PM +0530, Ramalingam C wrote:
->> From: Matt Roper <matthew.d.roper@intel.com>
->>
->> DG2 unifies render compression and media compression into a single
->> format for the first time.  The programming and buffer layout is
->> supposed to match compression on older gen12 platforms, but the
->> actual compression algorithm is different from any previous platform; as
->> such, we need a new framebuffer modifier to represent buffers in this
->> format, but otherwise we can re-use the existing gen12 compression driver
->> logic.
->>
->> DG2 clear color render compression uses Tile4 layout. Therefore, we need
->> to define a new format modifier for uAPI to support clear color rendering.
->>
->> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
->> Signed-off-by: Mika Kahola <mika.kahola@intel.com> (v2)
->> Signed-off-by: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
->> Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
->> cc: Simon Ser <contact@emersion.fr>
->> Cc: Pekka Paalanen <ppaalanen@gmail.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_display.c  |  3 ++
->>   .../drm/i915/display/intel_display_types.h    | 10 +++-
->>   drivers/gpu/drm/i915/display/intel_fb.c       |  7 +++
->>   .../drm/i915/display/skl_universal_plane.c    | 49 +++++++++++++++++--
->>   include/uapi/drm/drm_fourcc.h                 | 30 ++++++++++++
->>   5 files changed, 94 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
->> index 9b678839bf2b..2949fe9f5b9f 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display.c
->> +++ b/drivers/gpu/drm/i915/display/intel_display.c
->> @@ -1013,6 +1013,9 @@ intel_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
->>   					  cmd->pixel_format);
->>   	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS:
->>   	case I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS:
->> +	case I915_FORMAT_MOD_F_TILED_DG2_RC_CCS:
->> +	case I915_FORMAT_MOD_F_TILED_DG2_MC_CCS:
->> +	case I915_FORMAT_MOD_F_TILED_DG2_RC_CCS_CC:
->>   		return lookup_format_info(gen12_ccs_formats,
->>   					  ARRAY_SIZE(gen12_ccs_formats),
->>   					  cmd->pixel_format);
-> 
-> That seems not right. Flat CCS is invisible to the user so the format
-> info should not include a CCS plane.
-> 
+Quoting Thomas Hellstr=C3=B6m (2021-10-21 08:39:48)
+> On Wed, 2021-10-20 at 12:21 -0700, Matthew Brost wrote:
 
-I had cleaned out those rc and mc ccs from here long time ago, I wonder 
-where did they come back from? On my development tree they're not there. 
-Also I915_FORMAT_MOD_F_TILED_DG2_RC_CCS_CC is here in totally wrong 
-place, it should have its own gen12_flat_ccs_cc_formats table.
+<SNIP>
 
-/Juha-Pekka
+> > Fixes: 1a52faed31311 ("drm/i915/guc: Take engine PM when a context is
+> > pinned with GuC submission")
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > Cc: stable@vger.kernel.org
+
+This Cc: stable annotation is unnecessary.
+
+Please always use "dim fixes 1a52faed31311" for helping to decide which
+Cc's are needed. In this case stable is not needed. If it was, there
+would be an indication of kernel version. In this case this is fine to
+be picked up by in drm-intel-next-fixes PR.
+
+Let's pay attention to the right Fixes: annotation while submitting and
+reviewing patches.
+
+Regards, Joonas
