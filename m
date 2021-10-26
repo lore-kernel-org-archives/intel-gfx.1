@@ -2,45 +2,42 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C84EC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75AB5C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2777A610A6
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2777A610A6
+	by mail.kernel.org (Postfix) with ESMTPS id 3402F60F70
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3402F60F70
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4D96E4CD;
-	Tue, 26 Oct 2021 22:51:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 554616E4CB;
+	Tue, 26 Oct 2021 22:51:19 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73AC36E4CA
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 22:51:10 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="217203161"
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="217203161"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 553D76E4CB
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 22:51:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="217203172"
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="217203172"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 15:51:09 -0700
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="497574319"
+ 26 Oct 2021 15:51:13 -0700
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="497574336"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 15:51:08 -0700
+ 26 Oct 2021 15:51:12 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Nanley G Chery <nanley.g.chery@intel.com>,
- Sameer Lattannavar <sameer.lattannavar@intel.com>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Date: Wed, 27 Oct 2021 01:50:58 +0300
-Message-Id: <20211026225105.2783797-1-imre.deak@intel.com>
+Date: Wed, 27 Oct 2021 01:51:01 +0300
+Message-Id: <20211026225105.2783797-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20211026225105.2783797-1-imre.deak@intel.com>
+References: <20211026225105.2783797-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/7] drm/i915/adlp/fb: Remove CCS FB stride
- restrictions
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/fb: Factor out functions to remap
+ contiguous FB obj pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,45 +53,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset removes the CCS FB stride restrictions on ADLP. This makes
-the uAPI for these FBs (via CCS modifiers) match the TGL one.
+Factor out functions needed to map contiguous FB obj pages to a GTT/DPT
+VMA view in the next patch.
 
-It also fixes a few issues I noticed during testing.
+No functional changes.
 
-I tested the patchset along with [1] (required due to the ADLP uAPI
-change) on SKL/TGL/ADLP.
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_ggtt.c | 110 +++++++++++++++------------
+ 1 file changed, 60 insertions(+), 50 deletions(-)
 
-[1] https://patchwork.freedesktop.org/series/96316/
-
-Test-with: 20211026212620.2718277-1-imre.deak@intel.com
-
-Cc: Nanley G Chery <nanley.g.chery@intel.com>
-Cc: Sameer Lattannavar <sameer.lattannavar@intel.com>
-Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Imre Deak (7):
-  drm/i915/fb: Fix rounding error in subsampled plane size calculation
-  drm/i915/adlp/fb: Prevent the mapping of redundant trailing padding
-    NULL pages
-  drm/i915/fb: Factor out functions to remap contiguous FB obj pages
-  drm/i915/adlp/fb: Fix remapping of linear CCS AUX surfaces
-  drm/i915/fb: Rename i915_color_plane_view::stride to mapping_stride
-  drm/i915/adlp/fb: Remove restriction on semiplanar UV plane offset
-  drm/i915/adlp/fb: Remove restriction on CCS AUX plane strides
-
- drivers/gpu/drm/i915/display/i9xx_plane.c     |   4 +-
- drivers/gpu/drm/i915/display/intel_cursor.c   |   6 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  19 +-
- .../drm/i915/display/intel_display_types.h    |   3 +-
- drivers/gpu/drm/i915/display/intel_fb.c       | 196 +++++++------
- drivers/gpu/drm/i915/display/intel_fbc.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_sprite.c   |   8 +-
- .../drm/i915/display/skl_universal_plane.c    |   4 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          | 272 +++++++++++-------
- drivers/gpu/drm/i915/i915_vma_types.h         |  19 +-
- 10 files changed, 324 insertions(+), 209 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index 57c97554393b9..a30366d4965b6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -1387,6 +1387,25 @@ intel_rotate_pages(struct intel_rotation_info *rot_info,
+ 	return ERR_PTR(ret);
+ }
+ 
++static struct scatterlist *
++add_padding_pages(unsigned int count,
++		  struct sg_table *st, struct scatterlist *sg)
++{
++	st->nents++;
++
++	/*
++	 * The DE ignores the PTEs for the padding tiles, the sg entry
++	 * here is just a convenience to indicate how many padding PTEs
++	 * to insert at this spot.
++	 */
++	sg_set_page(sg, NULL, count * 4096, 0);
++	sg_dma_address(sg) = 0;
++	sg_dma_len(sg) = count * 4096;
++	sg = sg_next(sg);
++
++	return sg;
++}
++
+ static struct scatterlist *
+ remap_pages(struct drm_i915_gem_object *obj,
+ 	    unsigned int offset, unsigned int alignment_pad,
+@@ -1399,19 +1418,8 @@ remap_pages(struct drm_i915_gem_object *obj,
+ 	if (!width || !height)
+ 		return sg;
+ 
+-	if (alignment_pad) {
+-		st->nents++;
+-
+-		/*
+-		 * The DE ignores the PTEs for the padding tiles, the sg entry
+-		 * here is just a convenience to indicate how many padding PTEs
+-		 * to insert at this spot.
+-		 */
+-		sg_set_page(sg, NULL, alignment_pad * 4096, 0);
+-		sg_dma_address(sg) = 0;
+-		sg_dma_len(sg) = alignment_pad * 4096;
+-		sg = sg_next(sg);
+-	}
++	if (alignment_pad)
++		sg = add_padding_pages(alignment_pad, st, sg);
+ 
+ 	for (row = 0; row < height; row++) {
+ 		unsigned int left = width * I915_GTT_PAGE_SIZE;
+@@ -1448,22 +1456,45 @@ remap_pages(struct drm_i915_gem_object *obj,
+ 		if (!left)
+ 			continue;
+ 
+-		st->nents++;
+-
+-		/*
+-		 * The DE ignores the PTEs for the padding tiles, the sg entry
+-		 * here is just a conenience to indicate how many padding PTEs
+-		 * to insert at this spot.
+-		 */
+-		sg_set_page(sg, NULL, left, 0);
+-		sg_dma_address(sg) = 0;
+-		sg_dma_len(sg) = left;
+-		sg = sg_next(sg);
++		sg = add_padding_pages(left >> PAGE_SHIFT, st, sg);
+ 	}
+ 
+ 	return sg;
+ }
+ 
++static struct scatterlist *
++remap_contiguous_pages(struct drm_i915_gem_object *obj,
++		       unsigned int obj_offset,
++		       unsigned int count,
++		       struct sg_table *st, struct scatterlist *sg)
++{
++	struct scatterlist *iter;
++	unsigned int offset;
++
++	iter = i915_gem_object_get_sg_dma(obj, obj_offset, &offset);
++	GEM_BUG_ON(!iter);
++
++	do {
++		unsigned int len;
++
++		len = min(sg_dma_len(iter) - (offset << PAGE_SHIFT),
++			  count << PAGE_SHIFT);
++		sg_set_page(sg, NULL, len, 0);
++		sg_dma_address(sg) =
++			sg_dma_address(iter) + (offset << PAGE_SHIFT);
++		sg_dma_len(sg) = len;
++
++		st->nents++;
++		count -= len >> PAGE_SHIFT;
++		if (count == 0)
++			return sg;
++
++		sg = __sg_next(sg);
++		iter = __sg_next(iter);
++		offset = 0;
++	} while (1);
++}
++
+ static noinline struct sg_table *
+ intel_remap_pages(struct intel_remapped_info *rem_info,
+ 		  struct drm_i915_gem_object *obj)
+@@ -1524,9 +1555,8 @@ intel_partial_pages(const struct i915_ggtt_view *view,
+ 		    struct drm_i915_gem_object *obj)
+ {
+ 	struct sg_table *st;
+-	struct scatterlist *sg, *iter;
++	struct scatterlist *sg;
+ 	unsigned int count = view->partial.size;
+-	unsigned int offset;
+ 	int ret = -ENOMEM;
+ 
+ 	st = kmalloc(sizeof(*st), GFP_KERNEL);
+@@ -1537,34 +1567,14 @@ intel_partial_pages(const struct i915_ggtt_view *view,
+ 	if (ret)
+ 		goto err_sg_alloc;
+ 
+-	iter = i915_gem_object_get_sg_dma(obj, view->partial.offset, &offset);
+-	GEM_BUG_ON(!iter);
+-
+-	sg = st->sgl;
+ 	st->nents = 0;
+-	do {
+-		unsigned int len;
+ 
+-		len = min(sg_dma_len(iter) - (offset << PAGE_SHIFT),
+-			  count << PAGE_SHIFT);
+-		sg_set_page(sg, NULL, len, 0);
+-		sg_dma_address(sg) =
+-			sg_dma_address(iter) + (offset << PAGE_SHIFT);
+-		sg_dma_len(sg) = len;
++	sg = remap_contiguous_pages(obj, view->partial.offset, count, st, st->sgl);
+ 
+-		st->nents++;
+-		count -= len >> PAGE_SHIFT;
+-		if (count == 0) {
+-			sg_mark_end(sg);
+-			i915_sg_trim(st); /* Drop any unused tail entries. */
++	sg_mark_end(sg);
++	i915_sg_trim(st); /* Drop any unused tail entries. */
+ 
+-			return st;
+-		}
+-
+-		sg = __sg_next(sg);
+-		iter = __sg_next(iter);
+-		offset = 0;
+-	} while (1);
++	return st;
+ 
+ err_sg_alloc:
+ 	kfree(st);
 -- 
 2.27.0
 
