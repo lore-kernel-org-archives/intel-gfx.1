@@ -2,22 +2,22 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01F49C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD3B1C4332F
 	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C681C60C4B
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C681C60C4B
+	by mail.kernel.org (Postfix) with ESMTPS id 7E3BA60C4B
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E3BA60C4B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 229396E83E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9BF6E843;
 	Tue, 26 Oct 2021 11:41:16 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6565B6E7F1;
- Tue, 26 Oct 2021 11:41:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF08B6E591;
+ Tue, 26 Oct 2021 11:41:08 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020; t=1635248467;
@@ -25,21 +25,21 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y0BDbkEvTlFmSl4TUN0PxqBgLs5k8YcT8UtsLCypScQ=;
- b=woUX+zgzXsEnqu+9el5eRAgAGGDOyRem7bfk+wAfxu/8O12UNr99dMo9BHEpyOjXmetQuN
- VtwCr+FmRHjbM2FGAocYjCbQl968KplVoSZtKkmlGHGczjBo1nUMs6A+8mExUG6Gspqbp/
- auMhJCfitgwSJe30XeWvgupCkaYPs2DY01O1uoCeSrf5fWSuXdW8ZATrZsbkUpTpeQlfMp
- TB7MF/SMUpEwTd/0Ec/omt180lDCALLm8mo3QkHpoYSvy8556FBSD3yjdYKlQ4A5Yyy+da
- 1YBRYd2gdcD4Y/HtjhmtnLxd5xy8Cn7Mj/0pyXCDA2Ft8pfe9TWtrRytTmactg==
+ bh=bGU76EoGi2ewbnKMuWsfLWneyPGRohqlZWfqo14IkxM=;
+ b=hYSzVy09LzDR7lSFZEhrfOTs/78vM2cHshQSO5xUu6tEPhOv14VkslaYhkz7MesvLpQkyF
+ 8lBLN2VjZNwYx1GdlQFhjEnD19rLbC/l7v4lr7PSfkjqVwmQ0v0rdbxb97jA8i5HttVDmN
+ CY5JBVfz8nUVWGk++WsGnhZtHaIuOIn/92/2Bf6pQO77XUu8jDaL/grYz5gBOP3ldzpTnK
+ /MpLkV5+xO4GllHtDJLgGlwZhNDhj6qbfdyrSYg7+RONZeK9VfhmyrIlxdNMvR03sCPv9y
+ hvlIlfa5CQvfg29P6yCzgVy+4mJJ73Pp5u1V+5cIOYH14MS9KB2cG9UNvHSwxg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020e; t=1635248467;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y0BDbkEvTlFmSl4TUN0PxqBgLs5k8YcT8UtsLCypScQ=;
- b=t7IrzG8sjK72fySip2L1BScAR2ymt1ADdrY4c0ZYaodyEIv3aIit4bXoQH6exVqW6qI14i
- 8zGl6TvSjzU22lBA==
+ bh=bGU76EoGi2ewbnKMuWsfLWneyPGRohqlZWfqo14IkxM=;
+ b=utDtNsegQp9wxCmpLVDXuarMNAtigXHCuU6RKrn6KDRdh8OZBpZmGR5jo5wohwIC9C5lsJ
+ IqPzJcCTTz3aiYDg==
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -47,16 +47,16 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
  Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Luca Abeni <lucabe72@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
-Date: Tue, 26 Oct 2021 13:40:59 +0200
-Message-Id: <20211026114100.2593433-9-bigeasy@linutronix.de>
+ Mike Galbraith <umgwanakikbuti@gmail.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Date: Tue, 26 Oct 2021 13:40:57 +0200
+Message-Id: <20211026114100.2593433-7-bigeasy@linutronix.de>
 In-Reply-To: <20211026114100.2593433-1-bigeasy@linutronix.de>
 References: <20211026114100.2593433-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 8/9] drm/i915: Disable tracing points on
- PREEMPT_RT
+Subject: [Intel-gfx] [PATCH 6/9] drm/i915: Don't disable interrupts on
+ PREEMPT_RT during atomic updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,49 +72,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Luca Abeni reported this:
-| BUG: scheduling while atomic: kworker/u8:2/15203/0x00000003
-| CPU: 1 PID: 15203 Comm: kworker/u8:2 Not tainted 4.19.1-rt3 #10
-| Call Trace:
-|  rt_spin_lock+0x3f/0x50
-|  gen6_read32+0x45/0x1d0 [i915]
-|  g4x_get_vblank_counter+0x36/0x40 [i915]
-|  trace_event_raw_event_i915_pipe_update_start+0x7d/0xf0 [i915]
+From: Mike Galbraith <umgwanakikbuti@gmail.com>
 
-The tracing events use trace_i915_pipe_update_start() among other events
-use functions acquire spinlock_t locks which are transformed into
-sleeping locks on PREEMPT_RT. A few trace points use
-intel_get_crtc_scanline(), others use ->get_vblank_counter() wich also
-might acquire a sleeping locks on PREEMPT_RT.
-At the time the arguments are evaluated within trace point, preemption
-is disabled and so the locks must not be acquired on PREEMPT_RT.
+Commit
+   8d7849db3eab7 ("drm/i915: Make sprite updates atomic")
 
-Based on this I don't see any other way than disable trace points on
-PREMPT_RT.
+started disabling interrupts across atomic updates. This breaks on PREEMPT_=
+RT
+because within this section the code attempt to acquire spinlock_t locks wh=
+ich
+are sleeping locks on PREEMPT_RT.
 
-Reported-by: Luca Abeni <lucabe72@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
+According to the comment the interrupts are disabled to avoid random delays=
+ and
+not required for protection or synchronisation.
+If this needs to happen with disabled interrupts on PREEMPT_RT, and the
+whole section is restricted to register access then all sleeping locks
+need to be acquired before interrupts are disabled and some function
+maybe moved after enabling interrupts again.
+This includes:
+- prepare_to_wait() + finish_wait() due its wake queue.
+- drm_crtc_vblank_put() -> vblank_disable_fn() drm_device::vbl_lock.
+- skl_pfit_enable(), intel_update_plane(), vlv_atomic_update_fifo() and
+  maybe others due to intel_uncore::lock
+- drm_crtc_arm_vblank_event() due to drm_device::event_lock and
+  drm_device::vblank_time_lock.
+
+Don't disable interrupts on PREEMPT_RT during atomic updates.
+
+[bigeasy: drop local locks, commit message]
+
+Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/i915/i915_trace.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/display/intel_crtc.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_=
-trace.h
-index 9795f456cccfc..0f8341ca67385 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -2,6 +2,10 @@
- #if !defined(_I915_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
- #define _I915_TRACE_H_
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i9=
+15/display/intel_crtc.c
+index 254e67141a776..7a39029b083f4 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -425,7 +425,8 @@ void intel_pipe_update_start(const struct intel_crtc_st=
+ate *new_crtc_state)
+ 	 */
+ 	intel_psr_wait_for_idle(new_crtc_state);
 =20
-+#ifdef CONFIG_PREEMPT_RT
-+#define NOTRACE
-+#endif
-+
- #include <linux/stringify.h>
- #include <linux/types.h>
- #include <linux/tracepoint.h>
+-	local_irq_disable();
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		local_irq_disable();
+=20
+ 	crtc->debug.min_vbl =3D min;
+ 	crtc->debug.max_vbl =3D max;
+@@ -450,11 +451,13 @@ void intel_pipe_update_start(const struct intel_crtc_=
+state *new_crtc_state)
+ 			break;
+ 		}
+=20
+-		local_irq_enable();
++		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++			local_irq_enable();
+=20
+ 		timeout =3D schedule_timeout(timeout);
+=20
+-		local_irq_disable();
++		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++			local_irq_disable();
+ 	}
+=20
+ 	finish_wait(wq, &wait);
+@@ -487,7 +490,8 @@ void intel_pipe_update_start(const struct intel_crtc_st=
+ate *new_crtc_state)
+ 	return;
+=20
+ irq_disable:
+-	local_irq_disable();
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		local_irq_disable();
+ }
+=20
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
+@@ -566,7 +570,8 @@ void intel_pipe_update_end(struct intel_crtc_state *new=
+_crtc_state)
+ 		new_crtc_state->uapi.event =3D NULL;
+ 	}
+=20
+-	local_irq_enable();
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		local_irq_enable();
+=20
+ 	/* Send VRR Push to terminate Vblank */
+ 	intel_vrr_send_push(new_crtc_state);
 --=20
 2.33.1
 
