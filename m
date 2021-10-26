@@ -2,47 +2,42 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC3C1C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 422F3C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A1EF660F70
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A1EF660F70
+	by mail.kernel.org (Postfix) with ESMTPS id 0ED42610A6
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0ED42610A6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E90356E4D2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D44166E4D0;
 	Tue, 26 Oct 2021 22:51:19 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09DA36E4CB
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 22:51:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="217203184"
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="217203184"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15C2B6E4CB
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 22:51:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="217203180"
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="217203180"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 15:51:18 -0700
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="497574366"
+ 26 Oct 2021 15:51:15 -0700
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="497574348"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 15:51:17 -0700
+ 26 Oct 2021 15:51:15 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- Nanley G Chery <nanley.g.chery@intel.com>,
- Sameer Lattannavar <sameer.lattannavar@intel.com>
-Date: Wed, 27 Oct 2021 01:51:05 +0300
-Message-Id: <20211026225105.2783797-8-imre.deak@intel.com>
+Date: Wed, 27 Oct 2021 01:51:03 +0300
+Message-Id: <20211026225105.2783797-6-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211026225105.2783797-1-imre.deak@intel.com>
 References: <20211026225105.2783797-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/7] drm/i915/adlp/fb: Remove restriction on CCS
- AUX plane strides
+Subject: [Intel-gfx] [PATCH 5/7] drm/i915/fb: Rename
+ i915_color_plane_view::stride to mapping_stride
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,206 +53,316 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As opposed to other GEN12 platforms ADLP provides a way to program the
-stride of CCS surfaces independently of the main surface stride (within
-the corresponding limit of the preceding and succeeding power-of-two
-values of the main surface stride). Using this HW feature we can remove
-the POT stride restriction on CCS surfaces, making the ADLP CCS FB uAPI
-(FB modifiers) identical to that of TGL.
+The next patch needs to distinguish between a view's mapping and scanout
+stride. Rename the current stride parameter to mapping_stride with the
+script below. mapping_stride will keep the same meaning as stride had
+on all platforms so far, while the meaning of it will change on ADLP.
 
-The HW makes the CCS stride flexible programming possible by deriving
-the stride from the value programmed to the PLANE_STRIDE register. After
-that the HW rounds up this value to the next power-of-two value and uses
-this for walking the pages of the main surface mapped to GTT/DPT.
+No functional changes.
 
-To align with the above scheme, introduce a scanout_stride view
-parameter which will be programmed to the PLANE_STRIDE register and use
-the mapping_stride view param to store the POT aligned value of the
-same. By requiring userspace to pass in FBs with a CCS stride that
-aligns with the main surface stride (matching the requirement of all
-GEN12 platforms), the scanout_stride will be the userspace main surface
-stride and the mapping_stride will be the POT rounded value of the same.
+@@
+identifier intel_fb_view;
+identifier i915_color_plane_view;
+identifier color_plane;
+expression e;
+type T;
+@@
+struct intel_fb_view {
+...
+struct i915_color_plane_view {
+...
+- T stride;
++ T mapping_stride;
+...
+} color_plane[e];
+...
+};
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Cc: Nanley G Chery <nanley.g.chery@intel.com>
-Cc: Sameer Lattannavar <sameer.lattannavar@intel.com>
+@@
+struct i915_color_plane_view pv;
+@@
+  pv.
+-    stride
++    mapping_stride
+
+@@
+struct i915_color_plane_view *pvp;
+@@
+  pvp->
+-     stride
++     mapping_stride
+
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_fb.c       | 67 +++++++------------
- .../drm/i915/display/skl_universal_plane.c    |  2 +-
- 3 files changed, 26 insertions(+), 44 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_plane.c     |  4 +--
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  6 ++---
+ drivers/gpu/drm/i915/display/intel_display.c  |  6 ++---
+ .../drm/i915/display/intel_display_types.h    |  2 +-
+ drivers/gpu/drm/i915/display/intel_fb.c       | 25 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_sprite.c   |  8 +++---
+ .../drm/i915/display/skl_universal_plane.c    |  4 +--
+ 8 files changed, 29 insertions(+), 28 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
+index a939accff7ee2..e1b52b27cb7c5 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane.c
++++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
+@@ -256,7 +256,7 @@ int i9xx_check_plane_surface(struct intel_plane_state *plane_state)
+ 		u32 alignment = intel_surf_alignment(fb, 0);
+ 		int cpp = fb->format->cpp[0];
+ 
+-		while ((src_x + src_w) * cpp > plane_state->view.color_plane[0].stride) {
++		while ((src_x + src_w) * cpp > plane_state->view.color_plane[0].mapping_stride) {
+ 			if (offset == 0) {
+ 				drm_dbg_kms(&dev_priv->drm,
+ 					    "Unable to find suitable display surface offset due to X-tiling\n");
+@@ -431,7 +431,7 @@ static void i9xx_update_plane(struct intel_plane *plane,
+ 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+ 
+ 	intel_de_write_fw(dev_priv, DSPSTRIDE(i9xx_plane),
+-			  plane_state->view.color_plane[0].stride);
++			  plane_state->view.color_plane[0].mapping_stride);
+ 
+ 	if (DISPLAY_VER(dev_priv) < 4) {
+ 		/*
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 6b08d8bca5cd4..5ab716398f444 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -190,7 +190,7 @@ static u32 i845_cursor_ctl(const struct intel_crtc_state *crtc_state,
+ {
+ 	return CURSOR_ENABLE |
+ 		CURSOR_FORMAT_ARGB |
+-		CURSOR_STRIDE(plane_state->view.color_plane[0].stride);
++		CURSOR_STRIDE(plane_state->view.color_plane[0].mapping_stride);
+ }
+ 
+ static bool i845_cursor_size_ok(const struct intel_plane_state *plane_state)
+@@ -229,7 +229,7 @@ static int i845_check_cursor(struct intel_crtc_state *crtc_state,
+ 	}
+ 
+ 	drm_WARN_ON(&i915->drm, plane_state->uapi.visible &&
+-		    plane_state->view.color_plane[0].stride != fb->pitches[0]);
++		    plane_state->view.color_plane[0].mapping_stride != fb->pitches[0]);
+ 
+ 	switch (fb->pitches[0]) {
+ 	case 256:
+@@ -450,7 +450,7 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+ 	}
+ 
+ 	drm_WARN_ON(&dev_priv->drm, plane_state->uapi.visible &&
+-		    plane_state->view.color_plane[0].stride != fb->pitches[0]);
++		    plane_state->view.color_plane[0].mapping_stride != fb->pitches[0]);
+ 
+ 	if (fb->pitches[0] !=
+ 	    drm_rect_width(&plane_state->uapi.dst) * fb->format->cpp[0]) {
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 8200969c9a046..b7718f2f63977 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -653,7 +653,7 @@ u32 intel_fb_xy_to_linear(int x, int y,
+ {
+ 	const struct drm_framebuffer *fb = state->hw.fb;
+ 	unsigned int cpp = fb->format->cpp[color_plane];
+-	unsigned int pitch = state->view.color_plane[color_plane].stride;
++	unsigned int pitch = state->view.color_plane[color_plane].mapping_stride;
+ 
+ 	return y * pitch + x * cpp;
+ }
+@@ -7751,8 +7751,8 @@ static int intel_atomic_check_async(struct intel_atomic_state *state)
+ 			return -EINVAL;
+ 		}
+ 
+-		if (old_plane_state->view.color_plane[0].stride !=
+-		    new_plane_state->view.color_plane[0].stride) {
++		if (old_plane_state->view.color_plane[0].mapping_stride !=
++		    new_plane_state->view.color_plane[0].mapping_stride) {
+ 			drm_dbg_kms(&i915->drm, "Stride cannot be changed in async flip\n");
+ 			return -EINVAL;
+ 		}
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index cd8790617b417..c344e7771a092 100644
+index 85cb55034bb02..cd8790617b417 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -116,6 +116,7 @@ struct intel_fb_view {
+@@ -115,7 +115,7 @@ struct intel_fb_view {
+ 		 *   bytes for 0/180 degree rotation
  		 *   pixels for 90/270 degree rotation
  		 */
- 		unsigned int mapping_stride;
-+		unsigned int scanout_stride;
+-		unsigned int stride;
++		unsigned int mapping_stride;
  	} color_plane[4];
  };
  
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index cc350e20cbfe6..6da29231be72b 100644
+index dde408902239f..b0900376b984d 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.c
 +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -511,35 +511,12 @@ int skl_ccs_to_main_plane(const struct drm_framebuffer *fb, int ccs_plane)
- 	return ccs_plane - fb->format->num_planes / 2;
- }
- 
--static unsigned int gen12_aligned_scanout_stride(const struct intel_framebuffer *fb,
--						 int color_plane)
--{
--	struct drm_i915_private *i915 = to_i915(fb->base.dev);
--	unsigned int stride = fb->base.pitches[color_plane];
--
--	if (IS_ALDERLAKE_P(i915))
--		return roundup_pow_of_two(max(stride,
--					      8u * intel_tile_width_bytes(&fb->base, color_plane)));
--
--	return stride;
--}
--
- static unsigned int gen12_ccs_aux_stride(struct intel_framebuffer *fb, int ccs_plane)
+@@ -909,7 +909,7 @@ u32 intel_plane_adjust_aligned_offset(int *x, int *y,
  {
--	struct drm_i915_private *i915 = to_i915(fb->base.dev);
- 	int main_plane = skl_ccs_to_main_plane(&fb->base, ccs_plane);
- 	unsigned int main_stride = fb->base.pitches[main_plane];
- 	unsigned int main_tile_width = intel_tile_width_bytes(&fb->base, main_plane);
- 
--	/*
--	 * On ADL-P the AUX stride must align with a power-of-two aligned main
--	 * surface stride. The stride of the allocated main surface object can
--	 * be less than this POT stride, which is then autopadded to the POT
--	 * size.
--	 */
--	if (IS_ALDERLAKE_P(i915))
--		main_stride = gen12_aligned_scanout_stride(fb, main_plane);
--
- 	return DIV_ROUND_UP(main_stride, 4 * main_tile_width) * 64;
+ 	return intel_adjust_aligned_offset(x, y, state->hw.fb, color_plane,
+ 					   state->hw.rotation,
+-					   state->view.color_plane[color_plane].stride,
++					   state->view.color_plane[color_plane].mapping_stride,
+ 					   old_offset, new_offset);
  }
  
-@@ -795,7 +772,6 @@ void intel_fb_plane_get_subsampling(int *hsub, int *vsub,
+@@ -990,7 +990,7 @@ u32 intel_plane_compute_aligned_offset(int *x, int *y,
+ 	struct drm_i915_private *i915 = to_i915(intel_plane->base.dev);
+ 	const struct drm_framebuffer *fb = state->hw.fb;
+ 	unsigned int rotation = state->hw.rotation;
+-	int pitch = state->view.color_plane[color_plane].stride;
++	int pitch = state->view.color_plane[color_plane].mapping_stride;
+ 	u32 alignment;
  
- static void intel_fb_plane_dims(const struct intel_framebuffer *fb, int color_plane, int *w, int *h)
+ 	if (intel_plane->id == PLANE_CURSOR)
+@@ -1149,11 +1149,11 @@ bool intel_fb_needs_pot_stride_remap(const struct intel_framebuffer *fb)
+ static int intel_fb_pitch(const struct intel_framebuffer *fb, int color_plane, unsigned int rotation)
  {
--	struct drm_i915_private *i915 = to_i915(fb->base.dev);
- 	int main_plane = intel_fb_is_ccs_aux_plane(&fb->base, color_plane) ?
- 			 skl_ccs_to_main_plane(&fb->base, color_plane) : 0;
- 	unsigned int main_width = fb->base.width;
-@@ -803,16 +779,6 @@ static void intel_fb_plane_dims(const struct intel_framebuffer *fb, int color_pl
- 	int main_hsub, main_vsub;
- 	int hsub, vsub;
- 
--	/*
--	 * On ADL-P the CCS AUX surface layout always aligns with the
--	 * power-of-two aligned main surface stride. The main surface
--	 * stride in the allocated FB object may not be power-of-two
--	 * sized, in which case it is auto-padded to the POT size.
--	 */
--	if (IS_ALDERLAKE_P(i915) && intel_fb_is_ccs_aux_plane(&fb->base, color_plane))
--		main_width = gen12_aligned_scanout_stride(fb, 0) /
--			     fb->base.format->cpp[0];
--
- 	intel_fb_plane_get_subsampling(&main_hsub, &main_vsub, &fb->base, main_plane);
- 	intel_fb_plane_get_subsampling(&hsub, &vsub, &fb->base, color_plane);
- 
-@@ -1275,6 +1241,21 @@ plane_view_dst_stride_tiles(const struct intel_framebuffer *fb, int color_plane,
- 	}
+ 	if (drm_rotation_90_or_270(rotation))
+-		return fb->rotated_view.color_plane[color_plane].stride;
++		return fb->rotated_view.color_plane[color_plane].mapping_stride;
+ 	else if (intel_fb_needs_pot_stride_remap(fb))
+-		return fb->remapped_view.color_plane[color_plane].stride;
++		return fb->remapped_view.color_plane[color_plane].mapping_stride;
+ 	else
+-		return fb->normal_view.color_plane[color_plane].stride;
++		return fb->normal_view.color_plane[color_plane].mapping_stride;
  }
  
-+static unsigned int
-+plane_view_scanout_stride(const struct intel_framebuffer *fb, int color_plane,
-+			  unsigned int tile_width,
-+			  unsigned int src_stride_tiles, unsigned int dst_stride_tiles)
-+{
-+	unsigned int stride_tiles;
-+
-+	if (IS_ALDERLAKE_P(to_i915(fb->base.dev)))
-+		stride_tiles = src_stride_tiles;
-+	else
-+		stride_tiles = dst_stride_tiles;
-+
-+	return stride_tiles * tile_width * fb->base.format->cpp[color_plane];
-+}
-+
- static unsigned int
- plane_view_width_tiles(const struct intel_framebuffer *fb, int color_plane,
- 		       const struct fb_plane_view_dims *dims,
-@@ -1366,6 +1347,7 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
+ static bool intel_plane_needs_remap(const struct intel_plane_state *plane_state)
+@@ -1364,7 +1364,7 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
+ 		color_plane_info->x = r.x1;
  		color_plane_info->y = r.y1;
  
- 		color_plane_info->mapping_stride = remap_info->dst_stride * tile_height;
-+		color_plane_info->scanout_stride = color_plane_info->mapping_stride;
+-		color_plane_info->stride = remap_info->dst_stride * tile_height;
++		color_plane_info->mapping_stride = remap_info->dst_stride * tile_height;
  
  		size += remap_info->dst_stride * remap_info->width;
  
-@@ -1389,6 +1371,7 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
+@@ -1387,7 +1387,7 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
+ 		color_plane_info->y = y;
  
  		if (remap_info->linear) {
- 			color_plane_info->mapping_stride = fb->base.pitches[color_plane];
-+			color_plane_info->scanout_stride = color_plane_info->mapping_stride;
+-			color_plane_info->stride = fb->base.pitches[color_plane];
++			color_plane_info->mapping_stride = fb->base.pitches[color_plane];
  
  			size += remap_info->size;
  		} else {
-@@ -1399,6 +1382,10 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
- 			color_plane_info->mapping_stride = dst_stride *
- 							   tile_width *
- 							   fb->base.format->cpp[color_plane];
-+			color_plane_info->scanout_stride =
-+				plane_view_scanout_stride(fb, color_plane, tile_width,
-+							  remap_info->src_stride,
-+							  dst_stride);
+@@ -1395,8 +1395,9 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
+ 									      remap_info->width);
+ 
+ 			assign_chk_ovf(i915, remap_info->dst_stride, dst_stride);
+-			color_plane_info->stride = dst_stride *
+-						   tile_width * fb->base.format->cpp[color_plane];
++			color_plane_info->mapping_stride = dst_stride *
++							   tile_width *
++							   fb->base.format->cpp[color_plane];
  
  			size += dst_stride * remap_info->height;
  		}
-@@ -1524,6 +1511,8 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
+@@ -1410,7 +1411,7 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
+ 	if (remap_info->linear)
+ 		intel_adjust_linear_offset(&color_plane_info->x, &color_plane_info->y,
+ 					   fb->base.format->cpp[color_plane],
+-					   color_plane_info->stride,
++					   color_plane_info->mapping_stride,
+ 					   gtt_offset * tile_size, 0);
+ 	else
+ 		intel_adjust_tile_offset(&color_plane_info->x, &color_plane_info->y,
+@@ -1521,7 +1522,7 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
+ 		 */
  		fb->normal_view.color_plane[i].x = x;
  		fb->normal_view.color_plane[i].y = y;
- 		fb->normal_view.color_plane[i].mapping_stride = fb->base.pitches[i];
-+		fb->normal_view.color_plane[i].scanout_stride =
-+			fb->normal_view.color_plane[i].mapping_stride;
+-		fb->normal_view.color_plane[i].stride = fb->base.pitches[i];
++		fb->normal_view.color_plane[i].mapping_stride = fb->base.pitches[i];
  
  		offset = calc_plane_aligned_offset(fb, i, &x, &y);
  
-@@ -1669,19 +1658,11 @@ intel_fb_stride_alignment(const struct drm_framebuffer *fb, int color_plane)
+@@ -1715,7 +1716,7 @@ static int intel_plane_check_stride(const struct intel_plane_state *plane_state)
+ 		return 0;
  
- 	tile_width = intel_tile_width_bytes(fb, color_plane);
- 	if (intel_fb_is_ccs_modifier(fb->modifier)) {
--		/*
--		 * On ADL-P the stride must be either 8 tiles or a stride
--		 * that is aligned to 16 tiles, required by the 16 tiles =
--		 * 64 kbyte CCS AUX PTE granularity, allowing CCS FBs to be
--		 * remapped.
--		 */
--		if (IS_ALDERLAKE_P(dev_priv))
--			tile_width *= fb->pitches[0] <= tile_width * 8 ? 8 : 16;
- 		/*
- 		 * On TGL the surface stride must be 4 tile aligned, mapped by
- 		 * one 64 byte cacheline on the CCS AUX surface.
- 		 */
--		else if (DISPLAY_VER(dev_priv) >= 12)
-+		if (DISPLAY_VER(dev_priv) >= 12)
- 			tile_width *= 4;
- 		/*
- 		 * Display WA #0531: skl,bxt,kbl,glk
+ 	/* FIXME other color planes? */
+-	stride = plane_state->view.color_plane[0].stride;
++	stride = plane_state->view.color_plane[0].mapping_stride;
+ 	max_stride = plane->max_stride(plane, fb->format->format,
+ 				       fb->modifier, rotation);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index 1f66de77a6b1e..834eb4cc7c105 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -68,7 +68,7 @@ static unsigned int intel_fbc_plane_stride(const struct intel_plane_state *plane
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
+ 	unsigned int stride;
+ 
+-	stride = plane_state->view.color_plane[0].stride;
++	stride = plane_state->view.color_plane[0].mapping_stride;
+ 	if (!drm_rotation_90_or_270(plane_state->hw.rotation))
+ 		stride /= fb->format->cpp[0];
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index 2f4f47ab9da03..a22a23447da54 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -448,7 +448,7 @@ vlv_update_plane(struct intel_plane *plane,
+ 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+ 
+ 	intel_de_write_fw(dev_priv, SPSTRIDE(pipe, plane_id),
+-			  plane_state->view.color_plane[0].stride);
++			  plane_state->view.color_plane[0].mapping_stride);
+ 	intel_de_write_fw(dev_priv, SPPOS(pipe, plane_id),
+ 			  (crtc_y << 16) | crtc_x);
+ 	intel_de_write_fw(dev_priv, SPSIZE(pipe, plane_id),
+@@ -872,7 +872,7 @@ ivb_update_plane(struct intel_plane *plane,
+ 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+ 
+ 	intel_de_write_fw(dev_priv, SPRSTRIDE(pipe),
+-			  plane_state->view.color_plane[0].stride);
++			  plane_state->view.color_plane[0].mapping_stride);
+ 	intel_de_write_fw(dev_priv, SPRPOS(pipe), (crtc_y << 16) | crtc_x);
+ 	intel_de_write_fw(dev_priv, SPRSIZE(pipe), (crtc_h << 16) | crtc_w);
+ 	if (IS_IVYBRIDGE(dev_priv))
+@@ -1200,7 +1200,7 @@ g4x_update_plane(struct intel_plane *plane,
+ 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+ 
+ 	intel_de_write_fw(dev_priv, DVSSTRIDE(pipe),
+-			  plane_state->view.color_plane[0].stride);
++			  plane_state->view.color_plane[0].mapping_stride);
+ 	intel_de_write_fw(dev_priv, DVSPOS(pipe), (crtc_y << 16) | crtc_x);
+ 	intel_de_write_fw(dev_priv, DVSSIZE(pipe), (crtc_h << 16) | crtc_w);
+ 	intel_de_write_fw(dev_priv, DVSSCALE(pipe), dvsscale);
+@@ -1300,7 +1300,7 @@ g4x_sprite_check_scaling(struct intel_crtc_state *crtc_state,
+ 	int src_x, src_w, src_h, crtc_w, crtc_h;
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+-	unsigned int stride = plane_state->view.color_plane[0].stride;
++	unsigned int stride = plane_state->view.color_plane[0].mapping_stride;
+ 	unsigned int cpp = fb->format->cpp[0];
+ 	unsigned int width_bytes;
+ 	int min_width, min_height;
 diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 10568dd6cb9f1..3feaf22b308b6 100644
+index 69fd56de83a7a..10568dd6cb9f1 100644
 --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
 +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
 @@ -589,7 +589,7 @@ static u32 skl_plane_stride(const struct intel_plane_state *plane_state,
  {
  	const struct drm_framebuffer *fb = plane_state->hw.fb;
  	unsigned int rotation = plane_state->hw.rotation;
--	u32 stride = plane_state->view.color_plane[color_plane].mapping_stride;
-+	u32 stride = plane_state->view.color_plane[color_plane].scanout_stride;
+-	u32 stride = plane_state->view.color_plane[color_plane].stride;
++	u32 stride = plane_state->view.color_plane[color_plane].mapping_stride;
  
  	if (color_plane >= fb->format->num_planes)
  		return 0;
+@@ -1433,7 +1433,7 @@ int skl_calc_main_surface_offset(const struct intel_plane_state *plane_state,
+ 	if (fb->modifier == I915_FORMAT_MOD_X_TILED) {
+ 		int cpp = fb->format->cpp[0];
+ 
+-		while ((*x + w) * cpp > plane_state->view.color_plane[0].stride) {
++		while ((*x + w) * cpp > plane_state->view.color_plane[0].mapping_stride) {
+ 			if (*offset == 0) {
+ 				drm_dbg_kms(&dev_priv->drm,
+ 					    "Unable to find suitable display surface offset due to X-tiling\n");
 -- 
 2.27.0
 
