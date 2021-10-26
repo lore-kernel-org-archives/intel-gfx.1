@@ -2,38 +2,38 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4591CC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB628C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1823A60EFE
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1823A60EFE
+	by mail.kernel.org (Postfix) with ESMTPS id A2FC9610A0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:55:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2FC9610A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F06506E448;
-	Tue, 26 Oct 2021 15:49:37 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90BFD6E439;
- Tue, 26 Oct 2021 15:49:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="217115016"
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="217115016"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 08:47:41 -0700
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="596977809"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C73189DD2;
+	Tue, 26 Oct 2021 15:55:56 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A4289C29;
+ Tue, 26 Oct 2021 15:55:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="290782168"
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="290782168"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2021 08:55:54 -0700
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="664602890"
 Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
  ([10.1.27.20])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 08:47:40 -0700
-Date: Tue, 26 Oct 2021 08:43:03 -0700
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2021 08:55:53 -0700
+Date: Tue, 26 Oct 2021 08:51:17 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  daniele.ceraolospurio@intel.com, john.c.harrison@intel.com
-Message-ID: <20211026154303.GA12465@jons-linux-dev-box>
+Message-ID: <20211026155116.GA12563@jons-linux-dev-box>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
  <163489530491.10153.576017085715728906@jlahtine-mobl.ger.corp.intel.com>
  <20211022164219.GA23160@jons-linux-dev-box>
@@ -103,13 +103,6 @@ On Tue, Oct 26, 2021 at 11:59:35AM +0300, Joonas Lahtinen wrote:
 > result is that tracepoints are effectively in limbo, not ABI unless some
 > application uses them like ABI.
 > 
-
-Not trying to start or fight a holy war. If the current rules are don't
-change tracepoints, we won't. Patch posted, let's stay focused, get an
-RB, and move on.
-
-Matt
-
 > Feel free to search the intel-gfx/lkml for "tracepoints" keyword and look
 > for threads with many replies. It's not that I would not agree, it's more
 > that I'm not in the mood for repeating that discussion over and over again
@@ -141,6 +134,17 @@ Matt
 > 
 > I only noticed a patch that mutates the tracepoints, can you
 > double-check sending the first patch?
+
+Sorry for the double reply - missed this one in the first.
+
+I changed my plans / mind after I send the original email. I only sent a
+patch which includes guc_id when LOW_LEVEL_TRACEPOINTS is enabled. That
+is the bear minimum I live with. Without it any time there is a problem
+results in hacking the kernel. I can't do that. This is a good
+compromise.
+
+Matt
+
 > 
 > Regards, Joonas
 > 
