@@ -2,60 +2,40 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66ED5C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F9A8C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38CD060C4B
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 38CD060C4B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 1E10860F21
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1E10860F21
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDEC16E838;
-	Tue, 26 Oct 2021 11:41:17 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B936E5A4;
- Tue, 26 Oct 2021 11:41:08 +0000 (UTC)
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1635248467;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=16LhI+4TK6S3ciJa1zXFgSSoRr47T7KSWkrj5hZ8Xv4=;
- b=xY0vT4oX9+I02HcPeO3vpxNvalYG+rYh+7HUF+p7c424m+6mPLSXvQs16qhFLMZ80HSGaq
- fC1mBrBjsQ9JnYTN71Utspu0JIw2KJ32Doz8dLOdFKSrIDrQAgEgeXq0tGm+2d/Q0p4i7u
- YbHuBf1tqd/fYGWYyyCyAxYFCe3yLyFEQ/vO6E/NpowiTAj9yloIeZPNCYehI1xpSNDCWj
- n7S7J+zojzU0jcqRbL1g1ar1h8A1X74OzvXW73nBv9uqEyEHsUZsoD8bvS8/Dwpo0aQXnF
- B1ex/g8D/bpeJvDbbPhjbyq3swfELvuusu6n/K0enUMMC0FOtvvLZW0l6zopEg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1635248467;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=16LhI+4TK6S3ciJa1zXFgSSoRr47T7KSWkrj5hZ8Xv4=;
- b=R6RBOHFHD5OMxLBU4KxK9ocjzGzGYr+85zREXZtFcV3i9ulBOCss/7KG33eq8+/9wf30PY
- 27xYGVRz0cVTnCDg==
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
- Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Date: Tue, 26 Oct 2021 13:40:58 +0200
-Message-Id: <20211026114100.2593433-8-bigeasy@linutronix.de>
-In-Reply-To: <20211026114100.2593433-1-bigeasy@linutronix.de>
-References: <20211026114100.2593433-1-bigeasy@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7816F6E429;
+	Tue, 26 Oct 2021 11:53:09 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 732816E429;
+ Tue, 26 Oct 2021 11:53:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 69EE4A0169;
+ Tue, 26 Oct 2021 11:53:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 7/9] drm/i915: Don't check for atomic context on
- PREEMPT_RT
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 26 Oct 2021 11:53:08 -0000
+Message-ID: <163524918842.9776.15208602666964016778@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211026084208.2574-1-jani.nikula@intel.com>
+In-Reply-To: <20211026084208.2574-1-jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/dp=3A_fix_integer_overflow_in_128b/132b_data_rate_?=
+ =?utf-8?q?calculation_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,42 +48,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The !in_atomic() check in _wait_for_atomic() triggers on PREEMPT_RT
-because the uncore::lock is a spinlock_t and does not disable
-preemption or interrupts.
+== Series Details ==
 
-Changing the uncore:lock to a raw_spinlock_t doubles the worst case
-latency on an otherwise idle testbox during testing. Therefore I'm
-currently unsure about changing this.
+Series: drm/i915/dp: fix integer overflow in 128b/132b data rate calculation (rev3)
+URL   : https://patchwork.freedesktop.org/series/96289/
+State : warning
 
-Link: https://lore.kernel.org/all/20211006164628.s2mtsdd2jdbfyf7g@linutroni=
-x.de/
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- drivers/gpu/drm/i915/i915_utils.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_=
-utils.h
-index 7a5925072466a..b7b56fb1e2fc7 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -344,7 +344,7 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_=
-jiffies, int to_wait_ms)
- #define wait_for(COND, MS)		_wait_for((COND), (MS) * 1000, 10, 1000)
-=20
- /* If CONFIG_PREEMPT_COUNT is disabled, in_atomic() always reports false. =
-*/
--#if defined(CONFIG_DRM_I915_DEBUG) && defined(CONFIG_PREEMPT_COUNT)
-+#if defined(CONFIG_DRM_I915_DEBUG) && defined(CONFIG_PREEMPT_COUNT) && !de=
-fined(CONFIG_PREEMPT_RT)
- # define _WAIT_FOR_ATOMIC_CHECK(ATOMIC) WARN_ON_ONCE((ATOMIC) && !in_atomi=
-c())
- #else
- # define _WAIT_FOR_ATOMIC_CHECK(ATOMIC) do { } while (0)
---=20
-2.33.1
+$ dim checkpatch origin/drm-tip
+4759ea7118a7 drm/i915/dp: fix integer overflow in 128b/132b data rate calculation
+-:15: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#15: 
+[drm:intel_dp_compute_config [i915]] DP link rate required 3657063 available -580783288
+
+-:34: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#34: FILE: drivers/gpu/drm/i915/display/intel_dp.c:355:
++		max_link_rate_kbps = DIV_ROUND_CLOSEST_ULL(mul_u32_u32(max_link_rate_kbps, 9671), 10000);
+
+total: 0 errors, 2 warnings, 0 checks, 8 lines checked
+
 
