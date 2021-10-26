@@ -2,44 +2,44 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8345FC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADC73C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5177860C4B
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5177860C4B
+	by mail.kernel.org (Postfix) with ESMTPS id 7968D60C4B
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7968D60C4B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C51836E593;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E89A96E598;
 	Tue, 26 Oct 2021 11:41:08 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B254A6E41B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 216596E41B;
  Tue, 26 Oct 2021 11:41:07 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1635248466;
+ s=2020; t=1635248465;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iJiIfR6mr75TRNVvBVBFQnoSa1tOGFCvEnhQ+nKMAzk=;
- b=wkIBTuZ7EkUJIDzu+4RwXR6Kad69hJ02RpNvooXYYHt4OnWDHEtMcCNLYbCLWBK6HtWl+0
- TK5BgKkfEkRzTB3rEbySVM4OiH98HERlvCpcm1CcQlMN1fc0FNvy18Qr1iU1rsNEHT07VX
- ilhbUO3rCm1Zd5Mawma5lZAH8ZhHRC3xx2p70pEk9SSSer2gMqoNk7Q5SIwtgd9HWD0ojZ
- mAOia1XV9/f8squt2dwGGy1Q9G1QTesMo7Xl+rDJxFeUtDh4cStOXWNXLjX9s9ZB4fD+Uw
- W2mLIu7W2ZQst5AmD/vYdWRU/RxYa6sq2iqTk52bIQkJzi5Kz+XUcGhEP/+uVQ==
+ bh=Zc8jV67fS29/WT6CmOPXJHgsxOFvKbPDijWo4CPtDEU=;
+ b=hbyQUDGkLldJxlu4+9I8wYMFyVMDQpuxHfmAdb6A5f1IEp44LItyaJssTR9pUXJrALdNME
+ I6ZdYw4E1SHev2c5SX0ajbkFpwOP/uSg0+xck5h4W248inS7Lbcs2zDT5um5jwGUVWrU0U
+ G0w0ykpjYkh9H91Fvodt4pf3C3/qFfLrj3rUJ34dbEHqjfosyBkgaiD5Tpix0cyMtfiTPd
+ aCs27QVDd7alHsUam2XHlJzBu37QyPix7mDY02bCfVyH/o091U8rwHvtyEDxMzTZ8SXoJh
+ 2hXhSsQeK/jvs0Rg/9PoAGVnjCXJnnnJA4bP8ftpv3/796Iynl0Q02YBUJqLIw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1635248466;
+ s=2020e; t=1635248465;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iJiIfR6mr75TRNVvBVBFQnoSa1tOGFCvEnhQ+nKMAzk=;
- b=U+7H7faKnuyHInO+ImDN8ii6xGclTJr/i5tDs32PfgIqGTZasm+EZByjR9Hin4lmTx5PrR
- Whj/Jqw5Vw6lKJAQ==
+ bh=Zc8jV67fS29/WT6CmOPXJHgsxOFvKbPDijWo4CPtDEU=;
+ b=YDsUdJeRFNyeY3qTMYziI95tpczPNh+0dgB+ylAIMMkbBlXOWH1TvnK6HSgO3/ZMwORNPX
+ ilUbNKCu9p9DOCBA==
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -47,17 +47,15 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
  Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <williams@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Tue, 26 Oct 2021 13:40:54 +0200
-Message-Id: <20211026114100.2593433-4-bigeasy@linutronix.de>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Date: Tue, 26 Oct 2021 13:40:52 +0200
+Message-Id: <20211026114100.2593433-2-bigeasy@linutronix.de>
 In-Reply-To: <20211026114100.2593433-1-bigeasy@linutronix.de>
 References: <20211026114100.2593433-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 3/9] drm/i915/gt: Use spin_lock_irq() instead of
- local_irq_disable() + spin_lock()
+Subject: [Intel-gfx] [PATCH 1/9] drm/i915: Don't disable interrupts and
+ pretend a lock as been acquired in __timeline_mark_lock().
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,98 +71,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-execlists_dequeue() is invoked from a function which uses
-local_irq_disable() to disable interrupts so the spin_lock() behaves
-like spin_lock_irq().
-This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
-the same as spin_lock_irq().
+This is a revert of commits
+   d67739268cf0e ("drm/i915/gt: Mark up the nested engine-pm timeline lock =
+as irqsafe")
+   6c69a45445af9 ("drm/i915/gt: Mark context->active_count as protected by =
+timeline->mutex")
 
-execlists_dequeue_irq() and execlists_dequeue() has each one caller
-only. If intel_engine_cs::active::lock is acquired and released with the
-_irq suffix then it behaves almost as if execlists_dequeue() would be
-invoked with disabled interrupts. The difference is the last part of the
-function which is then invoked with enabled interrupts.
-I can't tell if this makes a difference. From looking at it, it might
-work to move the last unlock at the end of the function as I didn't find
-anything that would acquire the lock again.
+The existing code leads to a different behaviour depending on whether
+lockdep is enabled or not. Any following lock that is acquired without
+disabling interrupts (but needs to) will not be noticed by lockdep.
 
-Reported-by: Clark Williams <williams@redhat.com>
+This it not just a lockdep annotation but is used but an actual mutex_t
+that is properly used as a lock but in case of __timeline_mark_lock()
+lockdep is only told that it is acquired but no lock has been acquired.
+
+It appears that its purpose is just satisfy the lockdep_assert_held()
+check in intel_context_mark_active(). The other problem with disabling
+interrupts is that on PREEMPT_RT interrupts are also disabled which
+leads to problems for instance later during memory allocation.
+
+Add a CONTEXT_IS_PARKED bit to intel_engine_cs and set_bit/clear_bit it
+instead of mutex_acquire/mutex_release. Use test_bit in the two
+identified spots which relied on the lockdep annotation.
+
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Suggested--by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.h       |  3 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     | 38 +------------------
+ drivers/gpu/drm/i915/i915_request.h           |  3 +-
+ 4 files changed, 7 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers=
-/gpu/drm/i915/gt/intel_execlists_submission.c
-index bedb80057046a..1dbcac05f44eb 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1284,7 +1284,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
- 	 * and context switches) submission.
- 	 */
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915=
+/gt/intel_context.h
+index 246c37d72cd73..8a575629ef1b6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -211,7 +211,8 @@ static inline void intel_context_enter(struct intel_con=
+text *ce)
 =20
--	spin_lock(&sched_engine->lock);
-+	spin_lock_irq(&sched_engine->lock);
-=20
- 	/*
- 	 * If the queue is higher priority than the last
-@@ -1384,7 +1384,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
- 				 * Even if ELSP[1] is occupied and not worthy
- 				 * of timeslices, our queue might be.
- 				 */
--				spin_unlock(&sched_engine->lock);
-+				spin_unlock_irq(&sched_engine->lock);
- 				return;
- 			}
- 		}
-@@ -1410,7 +1410,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
-=20
- 		if (last && !can_merge_rq(last, rq)) {
- 			spin_unlock(&ve->base.sched_engine->lock);
--			spin_unlock(&engine->sched_engine->lock);
-+			spin_unlock_irq(&engine->sched_engine->lock);
- 			return; /* leave this for another sibling */
- 		}
-=20
-@@ -1572,7 +1572,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
- 	 */
- 	sched_engine->queue_priority_hint =3D queue_prio(sched_engine);
- 	i915_sched_engine_reset_on_empty(sched_engine);
--	spin_unlock(&sched_engine->lock);
-+	spin_unlock_irq(&sched_engine->lock);
-=20
- 	/*
- 	 * We can skip poking the HW if we ended up with exactly the same set
-@@ -1598,13 +1598,6 @@ static void execlists_dequeue(struct intel_engine_cs=
- *engine)
- 	}
+ static inline void intel_context_mark_active(struct intel_context *ce)
+ {
+-	lockdep_assert_held(&ce->timeline->mutex);
++	lockdep_assert(lockdep_is_held(&ce->timeline->mutex) ||
++		       test_bit(CONTEXT_IS_PARKED, &ce->flags));
+ 	++ce->active_count;
  }
 =20
--static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/dr=
+m/i915/gt/intel_context_types.h
+index 9e0177dc5484e..329f470d125f2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -118,6 +118,7 @@ struct intel_context {
+ #define CONTEXT_LRCA_DIRTY		9
+ #define CONTEXT_GUC_INIT		10
+ #define CONTEXT_PERMA_PIN		11
++#define CONTEXT_IS_PARKED		12
+=20
+ 	struct {
+ 		u64 timeout_us;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i9=
+15/gt/intel_engine_pm.c
+index a1334b48dde7b..456f1f5d0c04e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -80,39 +80,6 @@ static int __engine_unpark(struct intel_wakeref *wf)
+ 	return 0;
+ }
+=20
+-#if IS_ENABLED(CONFIG_LOCKDEP)
+-
+-static unsigned long __timeline_mark_lock(struct intel_context *ce)
 -{
--	local_irq_disable(); /* Suspend interrupts across request submission */
--	execlists_dequeue(engine);
--	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-	unsigned long flags;
+-
+-	local_irq_save(flags);
+-	mutex_acquire(&ce->timeline->mutex.dep_map, 2, 0, _THIS_IP_);
+-
+-	return flags;
 -}
 -
- static void clear_ports(struct i915_request **ports, int count)
+-static void __timeline_mark_unlock(struct intel_context *ce,
+-				   unsigned long flags)
+-{
+-	mutex_release(&ce->timeline->mutex.dep_map, _THIS_IP_);
+-	local_irq_restore(flags);
+-}
+-
+-#else
+-
+-static unsigned long __timeline_mark_lock(struct intel_context *ce)
+-{
+-	return 0;
+-}
+-
+-static void __timeline_mark_unlock(struct intel_context *ce,
+-				   unsigned long flags)
+-{
+-}
+-
+-#endif /* !IS_ENABLED(CONFIG_LOCKDEP) */
+-
+ static void duration(struct dma_fence *fence, struct dma_fence_cb *cb)
  {
- 	memset_p((void **)ports, NULL, count);
-@@ -2424,7 +2417,7 @@ static void execlists_submission_tasklet(struct taskl=
-et_struct *t)
- 	}
+ 	struct i915_request *rq =3D to_request(fence);
+@@ -159,7 +126,6 @@ static bool switch_to_kernel_context(struct intel_engin=
+e_cs *engine)
+ {
+ 	struct intel_context *ce =3D engine->kernel_context;
+ 	struct i915_request *rq;
+-	unsigned long flags;
+ 	bool result =3D true;
 =20
- 	if (!engine->execlists.pending[0]) {
--		execlists_dequeue_irq(engine);
-+		execlists_dequeue(engine);
- 		start_timeslice(engine);
- 	}
+ 	/*
+@@ -214,7 +180,7 @@ static bool switch_to_kernel_context(struct intel_engin=
+e_cs *engine)
+ 	 * engine->wakeref.count, we may see the request completion and retire
+ 	 * it causing an underflow of the engine->wakeref.
+ 	 */
+-	flags =3D __timeline_mark_lock(ce);
++	set_bit(CONTEXT_IS_PARKED, &ce->flags);
+ 	GEM_BUG_ON(atomic_read(&ce->timeline->active_count) < 0);
 =20
+ 	rq =3D __i915_request_create(ce, GFP_NOWAIT);
+@@ -246,7 +212,7 @@ static bool switch_to_kernel_context(struct intel_engin=
+e_cs *engine)
+=20
+ 	result =3D false;
+ out_unlock:
+-	__timeline_mark_unlock(ce, flags);
++	clear_bit(CONTEXT_IS_PARKED, &ce->flags);
+ 	return result;
+ }
+=20
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i91=
+5_request.h
+index dc359242d1aec..c5898882bb27a 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -642,7 +642,8 @@ i915_request_timeline(const struct i915_request *rq)
+ {
+ 	/* Valid only while the request is being constructed (or retired). */
+ 	return rcu_dereference_protected(rq->timeline,
+-					 lockdep_is_held(&rcu_access_pointer(rq->timeline)->mutex));
++					 lockdep_is_held(&rcu_access_pointer(rq->timeline)->mutex) ||
++					 test_bit(CONTEXT_IS_PARKED, &rq->context->flags));
+ }
+=20
+ static inline struct i915_gem_context *
 --=20
 2.33.1
 
