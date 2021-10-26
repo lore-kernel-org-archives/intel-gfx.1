@@ -2,140 +2,145 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40649C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E8C9C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D81EA604AC
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D81EA604AC
+	by mail.kernel.org (Postfix) with ESMTPS id CB2B260200
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CB2B260200
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D72589911;
-	Tue, 26 Oct 2021 15:02:40 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2066.outbound.protection.outlook.com [40.107.94.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A2889911;
- Tue, 26 Oct 2021 15:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 580CA89B7D;
+	Tue, 26 Oct 2021 15:12:00 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B23A89B7D;
+ Tue, 26 Oct 2021 15:11:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dbs5uIXr3GvvNfNeUM9KCgK2sX6mPam+287pQ/Q6R+JiWqzZg3LfuV3hZ2KQ8Fx4aBX0hodYrnk5T8D5q6PwG6TUP7rNK9D3FQvkQpbCVFfKGrqGDmHpVRs03pdpvwrYyknpDQctrKglYYwZuvHxvUyKczcklZ6o+pmoUPG5+fZW39zkFTAsa5mO2cD4p9U+qLe9WmoUqcW8pL0Ea/hIYqBO3/UKIKbCZ4EGgIKwk+5tiCHrx/hecqgB52Ou7jRw7j8pIwovayUQzldmkS4HxM1BGT2ZiBmsm1E7Ip5Qj4gD9f5c2D5H10NXc6w05gQxZ1e8wJ0ANLJOb3PfJnmUnQ==
+ b=YZrKO5rQ/S3t+alAqFBFSLymnNauWbUp/DOCW6agbOYuygnE2A68AoZmGZkQV08peq3oSxt859zeMHRhocjJcnPPQe5CguQwAWVrdW6EUl/YuUFLFIsQ8J1Z9s5BqH7hPp3nAfPI/yeErKolQonSHRKYjMAPoqDAtbuhkdl2QPXCROCwEqPieYw/yPNe13w3mtg9ZRqSSFK126nG1IF/yd9bkauEPPc6Ae/fLw76p1FcYFvT+h+zrOrZ8ODYMegQryPujUv5ZF5uNplh9kBG10Wg9xMOPVbsQB1PcOd8R9Dd85B0iFmvoih47zNG4I7Ad9c/GLovM+4sfYtcweHqqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E7GUNXkvOWCP3eBLpyzZUVL99jn1n9xZehWHibFjmNM=;
- b=bG6v+ekL0tLIkxekXz2HL7/wBAfMeo/3NeHQjyG4KxUIfLx7d+ll86Vh6Sw2qNsfoR7D92+BElHe+QA2CuDGG3gIX8j2tdWKD2qiMZYsfHVJF1qXfLPuVkrO53aUeNakwpirywcXy0L+r9QqQz/dotRWnqUjgMoCuQjH/h8o9MYv8Tzu3wvy+Tx4urqsMRCTw+ss4FSBMhTeTDkYdef0F1jocWPWevenM0BYPWgsieW7fx9XvP89d3cKrTLeUFggGcUh+nzgAysyr+Otq4f9gQ10CNoP6Ntf6hMJbb9MW7K17VDdM/KHvCHkkLrsHLlZKLhqfoqKVH5iFieRL07PKg==
+ bh=aVIY1XzuBT28gqfcdEGqVILrDYk/SqY2Wx+DVuRYv+E=;
+ b=ccuXvoT7AJ5pAZroIGjUbDw9Agkvj8yA4ohzmh0cc0XGMTdwvIlin2AWIjTHBgco81r52GTUPvKBWceAE/jSSV1t+8vOS8IHBFFoU7qL8lddtzxhT3yLPQhL+GC70JDUPwBK+MV6sK5d62OkFyomiiWgm55y7kmzpd5b45HbhoIGfKFcwnTwKEExEOZpMn8gaZHQTLHa1IiRwOClePzF7dgMzjxTU0Fy9TL2By6IA2TUp8NxMF+B7A7vHQ3lefHojGlSEIkfiMGoLaOriC94Rm0rbTse2HxI5pYz3PbVEIziaoFfCWglSdQ3tw+8T1h5vysmqR2tLIrjHcsfnkkSeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7GUNXkvOWCP3eBLpyzZUVL99jn1n9xZehWHibFjmNM=;
- b=l2PGth37plyCAqtuOrp7EHjRHFKfZVf8RAAVDyk2cyDkIqLLJmQN02QkcMUWUqVu7zJ6PA3CuvlpfCC5k7gQBXH7eZKTJof2T843naq+kLo39hgqkBN3caNJQWPsTB1ebcUdBBC7XmDGMUTw3dcIRgooXWflFjEGMCAqdPb36cc=
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
+ bh=aVIY1XzuBT28gqfcdEGqVILrDYk/SqY2Wx+DVuRYv+E=;
+ b=mXwqOcQ63+OlXHJZmlT9faAiFfadiHshXTzCI6/kDCGd1+O6QO06/0i0zJuWKNvtJWGluSeWxzSJs14I1RLb3Ewzl7oj2zeZFls5w1bBYb103/otNgiQiHKJxFHFjzjYezmNhvEqa56nRjG/xMf39mhvW4OM3pYs895FZzX9A0c=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13) with
+ by CO6PR12MB5396.namprd12.prod.outlook.com (2603:10b6:303:139::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Tue, 26 Oct
- 2021 15:02:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Tue, 26 Oct
+ 2021 15:11:57 +0000
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::d095:131a:b99a:9975]) by CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::d095:131a:b99a:9975%3]) with mapi id 15.20.4649.014; Tue, 26 Oct 2021
- 15:02:36 +0000
-Message-ID: <24c8bf32-2eea-8f32-33b1-0628701c22bd@amd.com>
-Date: Tue, 26 Oct 2021 11:02:31 -0400
+ 15:11:57 +0000
+Message-ID: <d4093c6f-29a5-e84e-7bc3-f0638e97f205@amd.com>
+Date: Tue, 26 Oct 2021 11:11:52 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.2.0
 Content-Language: en-US
-To: "Shankar, Uma" <uma.shankar@intel.com>,
- Pekka Paalanen <ppaalanen@gmail.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+To: Pekka Paalanen <ppaalanen@gmail.com>, "Shankar, Uma"
+ <uma.shankar@intel.com>
+Cc: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
  "brian.starkey@arm.com" <brian.starkey@arm.com>,
  "sebastian@sebastianwick.net" <sebastian@sebastianwick.net>,
  "Shashank.Sharma@amd.com" <Shashank.Sharma@amd.com>,
- "Cyr, Aric" <Aric.Cyr@amd.com>, Vitaly Prosyak <Vitaly.Prosyak@amd.com>
+ "Cyr, Aric" <Aric.Cyr@amd.com>
 References: <20210906213904.27918-1-uma.shankar@intel.com>
- <20211012145529.687dfdee@eldfell>
- <1260585655bd41ebb734056dd1f42740@intel.com>
+ <20210906213904.27918-2-uma.shankar@intel.com>
+ <20211006155559.606521de@eldfell>
+ <92af78eb53c04d67ac66b77f8b098cc0@intel.com>
+ <20211013113046.7ace2dbd@eldfell>
+ <8c1d39bf5d034595aafd8937df259547@intel.com>
+ <20211015104237.10e39a90@eldfell>
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <1260585655bd41ebb734056dd1f42740@intel.com>
+In-Reply-To: <20211015104237.10e39a90@eldfell>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::28)
- To CO6PR12MB5427.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0232.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::13) To CO6PR12MB5427.namprd12.prod.outlook.com
  (2603:10b6:5:358::13)
 MIME-Version: 1.0
 Received: from [192.168.50.4] (198.200.67.104) by
- YQBPR01CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4649.14 via Frontend Transport; Tue, 26 Oct 2021 15:02:34 +0000
+ YQBPR0101CA0232.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:66::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
+ Transport; Tue, 26 Oct 2021 15:11:55 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 139b6c37-f392-4ef8-3ce3-08d99891a56f
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5427C606E9836C18CE076A748C849@CO6PR12MB5427.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 1e2bcbc7-031e-41ea-6542-08d99892f383
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5396:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5396A100345F2635E9D422C78C849@CO6PR12MB5396.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +HaMuO09xm1RalYhA4DV2r1Eumnci9ncOvtsd/lxC2QssgVUMcM12kTE4vFwYw1jeuwQ1GpZgvsFquMTVpQ5VTYoMdP4KS8v6Z7USTH7sA+q+6gRMVwZwm60YfL6/39v+YAVNBiyI2nOmpVxl6J+/LdMnhZzg6UUm4Z7zMIf3aeTfbZE8PwWk1i6Kn5umgaf009ml3ouvjimtiV7TfzGkbClPthV3FBm4TNjZpVKywMY/CZjRPD/zPQM6uAB1Rl4u/vYTpRPkd6iK/Z8g1Qhgi0njRAWXjHqWap3xPdybdyWasQGC7SWuh5C3xocplkAfFuleHWnXbEohD9WGwAOxB7XtDIH3wBJzDiiwqKOcwi6hAJHQhUKoyeRv1w+vHZB3EectoQ0ConYRAF0foNuh+grXVG3GVZelkUYaOTvsJzQ1AlHdhk5nIr3As7bNWYPO0OohpO0fn17vRsYu8YWipmGANjz6OFw5mFzgpqwdgrC+jtemz8nTMrei6doAbd/kBL/WHTfFHM+VKacq6fHJv0j76N5Nf95pg/IzJ7yrWToVrEbjAtIQk0zvYuUKwg9sWcmodG8Jwe45NJW67yBE3q99cNxGKwqG9KzQfsGOLc3rxRYKw4589EhWFSRZX0QXR8Vojt1uG+uy4UjzqYKOYHnZ218GE+EMVEWbmWgUNoREhtNpLy82SmD5VMnpeci9vNHqIhmQYdOhuhJV8RNhgNTVgRyRu8/4PwqUCD8EKgoAgI20EIrmZgzwl6BhIeo
+X-Microsoft-Antispam-Message-Info: wSwYnUqpu897txwjajqHlFIfnNaitwIsCct6XUMAzsvsMVhyFhdFkqZijEEvhoUSx7tYkftlRSaazbh22iRiLL+1pibYDwvRhw8E2u0Mi1TIkMkTOxgCOihgyQWf52IrQIoeMAJBYJ1Gg2ORsQSheDOsyAGcAHFq9pNi+jYAghEuKJFZO7V82ca5nrohnQqcT7T0BRR0JirWV8UTosZKGfN8nwXXcJJsU+X4M1RlT3ruIki7UtJk+gxb4Ml4zVNWVv/Pdy/eyqi0C2lw0hfh3VieYvr97MHmHHMEulKMqgBa/vNP4NUMScRqNmizgnN3tzYZqKsH7xVf9YfnQeK8DaGo3CMNmVR+h2fvy0BCcjeovXYdm38I3Yp++6jK5hFJHAEugprPebtcGxchUasIfSGM14lh4oBOx9+oG+Na7pUnTRLaIZRjAEvNO0Bdz0APN13PRrEfpUmebJKTjpY69Kkc/bb0cwWKjzw6oRogvzZMAGO9fFyy+gc8n17W8L6puzao7cXJWMPwAECHoccsvxJ0nyNXzkW4uUdpdxggLRhJx/XwVQqZ1dArUmgdPw1XQ+LtkGcs7xo2wbW+D0RjqVkiIZH6dFIM6d7AjQgsXX1oAPi7uC+0M1MKXgGZjesx2CAG5ziepoeaxWb5UI+6rgftNxkf3xL5AQxo2sRWUIcD/VXLw8lhu0GqDb9TPE/uDmJ10qkgJlO8B2Fa3uB7nCSlPrXO+56kkOVYM8ZQvHT+DZhY9EGym3L6WI87dvdL
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(16576012)(66946007)(66476007)(66556008)(316002)(31686004)(186003)(966005)(5660300002)(6486002)(8676002)(110136005)(54906003)(508600001)(38100700002)(4326008)(8936002)(956004)(26005)(53546011)(2906002)(6666004)(36756003)(83380400001)(86362001)(31696002)(44832011)(2616005)(4001150100001)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(66476007)(83380400001)(36756003)(8676002)(53546011)(8936002)(31696002)(4326008)(316002)(66946007)(66574015)(956004)(16576012)(44832011)(186003)(38100700002)(31686004)(86362001)(6486002)(66556008)(4001150100001)(508600001)(54906003)(26005)(110136005)(5660300002)(2906002)(6666004)(2616005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T3RvdGVpWUhVRVZKeStTRDRhaUhlQnprSEMySGJrTkR1NWU2K3B6cXFRZlFO?=
- =?utf-8?B?MzJyTHlQK3VSMGdLeDF2dUxTSDljQXNjaElIZzVxVE5ya2NHdzFDMXBtRVpy?=
- =?utf-8?B?dVVESGxmQmcyQ2diV3dobGpERTF6d004T3Rsa3ZmMWRjaEQ1NXJHU0Z0UWlu?=
- =?utf-8?B?VU12YlBZN3FqWEd1ZU5Yd1orUzFFN1VDeU1VcnhpZEdpa2pVTHo2dTdaaDNx?=
- =?utf-8?B?QlMyZDBiYWlzV0IrTm5HQ0lyVStXVUVNYmdsa1NKYkFubUNKcVJyZjVMY2gx?=
- =?utf-8?B?aVN4UzFRZGNjNmNPYUxoeklZM0x4MEhFMEFIdGpFRFF5b1NEdlBUejB2ampH?=
- =?utf-8?B?RFdUY0xwTkVzSk9rWklYWW4xblp0RVlwS2d0TWN6TWJsYVpqQlhNSSs0TXVO?=
- =?utf-8?B?WGpLS1Z3MlZ3MUZwc1NGS1NzdkFEbmVSbDFMRDFLTG9iWG9rcFZiNFVsS3J3?=
- =?utf-8?B?M2pQeCtJRzJLdUlBTGRUNkFkZWEyVFdFemRtRmdlODZzNG1VcUFiUnduTVpj?=
- =?utf-8?B?alFmRm82My9LTkI0UjhkaWdqTHA5eDJiVEJsdWJ3YVh2WFp1TU9ONDJlaVVT?=
- =?utf-8?B?RHZ1OVR1YUhiMU0rM29HUkhnVGE0TW1RMDVja1RmOEtvLzkzZnpBaXZaYXJJ?=
- =?utf-8?B?dU4rSTZPUFN1RkxGZEM0dHRmVHlOMmJuVkl6N1JPVXNwY2RDelB5bm5wUThN?=
- =?utf-8?B?TFF4WTVTc0x3R1EzSzd0eFJkMGlsWExWcjZmendvc1dkRFY0UUltNDAzTTR3?=
- =?utf-8?B?ZVBQdkhFelpBWFdQQTVYenFHQ3M5V1VzWE5MdjgzWFgvU2xnQzN4b0JNd2F2?=
- =?utf-8?B?bTBsUjNadmRZcDEyME1WblNLMXRkanVCN1hpNExrWlRDSEJJY0Z6Wmx1QVIv?=
- =?utf-8?B?b2R1dWRwQ1JxODI2UkxxdDBUdFh0bGMwV2F4Lys5KzRSeWJaVXZ5R2ptZVZu?=
- =?utf-8?B?N2ZSYUcvVUw0d3RkS0xqK0YwV1ZXRjFYTHlGT1hEQjJuSXVrdUp2NVMvZ2Ur?=
- =?utf-8?B?dWFDWEthaTJuWEdGOXV4RlVXVy9FV3dpaTdaRW5GTktZUUFuc0NidEpjNFl1?=
- =?utf-8?B?SU9UZnRpNTFqWmJGZWtBTlg1RXdVN1luYmo3cytEM0lFQVZXbHFpVS9qalQw?=
- =?utf-8?B?RHZpZUU1L0ZFZWFyRGFOeXdmS0V5MnZ1UjBSSFozNlcwQWZud0NxTTBSVy9l?=
- =?utf-8?B?VmNDQnRoM01OVk5HUTdGWjA2dWE1Y2lsUVREZjU1SGx0U1lDNTZUbFowbDlK?=
- =?utf-8?B?TDh0VVBtcGF3dlRHdDZKU1ZSZzFKVkx4ZmN5bjJiWmhpdHRNd1BldUJHTmJZ?=
- =?utf-8?B?aDVXTktMbDgxVStqaUk5Q0wvWmxVZEw3bFI4cHhqWVVzTWlLVDljYUpiclcw?=
- =?utf-8?B?S1NBai84dzBVYm54YTBpejltNHZvWWg0RTFNTCt6WGVJcHh2RUpObldGdFAv?=
- =?utf-8?B?MHg4WjY1bE5CVjUwWFFPTUY4YldMa2lYZnFxOVE4UWJ0TEl6d1VONlNuWHQx?=
- =?utf-8?B?TDh4NTV6Y2JqWGQ3N2hqT2c1RG9Yc3FEMDdpU2Nkc29VUVQwNC9neU1kUmJl?=
- =?utf-8?B?S0RMMzY3TTRIdW81MVpPVHlnSjAxdWVYNGFzYkJBaEQ1L2h5N3dRNnE3aHlr?=
- =?utf-8?B?eUNuT21DazJ0WFNsNWhmZ1ZLcmVWVVh6by9UZXphTXdKazdOYkRHVzRFL0VJ?=
- =?utf-8?B?THNsWHB3SFZkVU5MRkFCQ01wUnNxYlBCZy92dkZIeUZPak5SOFdHeFJVYVlZ?=
- =?utf-8?B?TEVJK3hhSG5YR3FqU1hXQUZVRm9YR0dmZXF2ZkczMmUvNW9TVXNpSGxLSjlH?=
- =?utf-8?B?SUtCOFJmaE9FOW0xczM0djhNTnhrNHBobFJ5RUVSemFwWjUyM0d6V1ZGNS9j?=
- =?utf-8?B?SVE5UnlNRWJMZHIwdWZrZ3B1YzMxbXl6WEE5Zy94ckc1NlN3Rk8yLzNzajdj?=
- =?utf-8?B?RkRCaG5UZjJRUWhaV3dsN0ozQkc0Mzc4dHVxUmJkR2ZrU2J3d3h6dWc5SmVi?=
- =?utf-8?B?RVlHT05vbVB1SnVuak4xU3RVK2NLYnMrYnRRRDZ3cGY0Z2tWc0xLL2ZValho?=
- =?utf-8?B?ZG12eVA3SFlneVRrOERIMjFWM0gxTE5qY3JaWTFPM0NjYXZNaVNNdlBSbWJE?=
- =?utf-8?B?dktwM2NHOEFOc2Z5NXVJOXlyWk5zUXNieUNpcFlzZCtzQVhoNzVybENEaUh1?=
- =?utf-8?Q?6Od1Cx+iuI82Fi0nouhABrk=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEZzTXNpSWk0VndlL1piK3paRkVaTVVuRVVmaTBxZTZUemxlQ3dXMzErQUpi?=
+ =?utf-8?B?QjZpOXlZWm5TQ1FITDBkdnNQTDFvWkViTiszNkZkY3dqd3BMY29MdTV4TWRo?=
+ =?utf-8?B?SjdzaGNXQTh1TVJNcDlhOGYrYnl1UUlkUEpsbFZla2VoTFRqanJSN1I3RnVM?=
+ =?utf-8?B?RVN1NWplWlZrZ3VwSFJ6Zlg1MkVBN1FJZkZqdlFWaklKYStMOTVOeml1OVJW?=
+ =?utf-8?B?b0V0alVTeHlxSE1ycXEyVE5lRmVwSFE0MU0wK1RjOG9hMGVMQlo3Z0dhRy95?=
+ =?utf-8?B?UXJIeFJKVlhpZUpTUHFPZTdwWEFpejdsUzFZRGl0OThXVEVPRm80TE4zejlC?=
+ =?utf-8?B?dTh1ZDg5L1N2UzlCaEptSTlIMCtFck1taUNyWGR3WlpWYm5tQ3FWUnRMUEgx?=
+ =?utf-8?B?UVZXUDZSRDc4V0ZmYW80cDZ0SzVONFVKS1ZjTDhGUmlBWlVuaC9pSllGT2FP?=
+ =?utf-8?B?YWlmdy9FZ1RXQk85WFJmMktGRUh6aXl1a2Z6QlR5bUhYbnJwLzIwK293Z0Jo?=
+ =?utf-8?B?UzdjMnBHcnkrdXJ5OVp0MUNMRWdtcHlvVDd1TGhGc3UxUHAyTHRPZEV6c2V1?=
+ =?utf-8?B?R1JQd3p6V1h1a2dZeDJkR3ovYlJia280ZGtQM1NZaE5jcitRcnQ0ck4yeTh4?=
+ =?utf-8?B?V1MyaWtsY09yOEVJenJQcHdhZjZ4YzZrZit0Q0lGa2U4YXNNRDByRU9SV1VD?=
+ =?utf-8?B?MDlkaEpKd0I2bzhlVzd2R0ovRVRDVEJMMjdhNHArbTlHMENDNEhLblN6SXlp?=
+ =?utf-8?B?UGMwdUUrRWxEb0wzSmI3ZDBTWXdzdU5wcUpscHFONWl4amlYTlgzOVN6RnVo?=
+ =?utf-8?B?S3JhNHpRNjhrM0ZwU0ZNNHBYaElib1VWd0Q5Ly8yTGkwUlVrTHF2K1JPd1Zj?=
+ =?utf-8?B?SDdKa2JPSjZQeXNFT0VXRzQ4c2U0VFMxL3dLKzkvQUdmdkE1R0hkYVB4eksz?=
+ =?utf-8?B?QStYOUtGdlpvTTZpME5tdlZqMzVtUXhMSmN5M0VPak9xT09mRXlGU2hIenh5?=
+ =?utf-8?B?cURXeWNITHZKRUxZVkxlaWZTbXd0YTV6SGdYRHpXaHhwWnQ4OEJ0WXBMWTdP?=
+ =?utf-8?B?d3RhOXFNb2F5aUV1Ymo5SThVMEhVU0VtSmlvMzM0bVFjQXRnZ3NLU0xTOVp0?=
+ =?utf-8?B?elI0UXowRWNScllPUGpwVlBNc1htc1hIMUEra2dVTGVyM1VBeHZyNGxmYjMz?=
+ =?utf-8?B?TVRjcUt3QWN6VUVyaUFPU2JHL1NtRmhOUTlsZjdqSllXV2Q2RmxIaWlDd05s?=
+ =?utf-8?B?dFFiUUNxMU4zdy84VzBYYmNiNFBkeDE5eDFvSUQvQ0xIUWJLaWJHcFRHRTFC?=
+ =?utf-8?B?NXRueVdadlNsZWhycjhQOHZiUWV3bWxBZHh1YUZWK0ZYY25uMHZRY0xBYXBQ?=
+ =?utf-8?B?VjBQOGNrZzNyd25Gb01Qc0J2RHdPaG51d0JrZE0vV3MzNG01ZTNZekxoVmZq?=
+ =?utf-8?B?bzB4c1BBZkJZNW9nY05TNUgrNWhPL0RSMHFSK0RjK3VRMk1YU3V0RXZsSUZM?=
+ =?utf-8?B?aXZDdTZsVDM4aUp5SW5EdDhpRDY1Z0lUVTdhTTgwdVhxU3F0bm1BRFpzNzM3?=
+ =?utf-8?B?OVV6VmJGSkUweXBQOGVLdDMybkx1amRxUXNmY2R3R2VaVFFqU2E5MG9VTzBP?=
+ =?utf-8?B?YkdlYmRVTU53Y2kzMFBrdndmclFNK3ppZjAvU3I0YjVTN0dwUHRkNWdpbUZq?=
+ =?utf-8?B?Q0NhbU84dUM1S1BQbUl2RHlMUWt6UEZsNWJkUW43ZUcrak04MmlzdUtCSk9y?=
+ =?utf-8?B?OG1ydlBBWFExQXBhSisyMXBCRVpzRlArWVVpZnVna0Z4WlgxSTNZbFM5V3Jt?=
+ =?utf-8?B?aDk0NzJ5cng0R3pYdnozTGR0cFdJNUZMZVJtMlVmWnBLcFc3QWtRRlRYTXpL?=
+ =?utf-8?B?blpIYTArMktMRVdoNkNuSVVKRUVYUDQrdGtmLzRXanhoSGpWY2VHbzFSUENO?=
+ =?utf-8?B?anNzWkZKRzd4dDNISEZmRTlXZm5KSHRPd0dUajV3ZmVaSkJjdERSOVBEZ0RH?=
+ =?utf-8?B?S05VZVhWaTFhSUNVOXRZZVcxQTFnNlFlZENDR21jQ2VVdEJMZDAweFY2UVpF?=
+ =?utf-8?B?QVpPQ3JUNGxUT1dFRWpmQng3WmtPU1hVMWEvQzQrWjNYL0pIS0o4LzBIcnVn?=
+ =?utf-8?B?V1VsTG5XYmF0OUZCanJsZEJBNXV4aVk2MU9SVU9NT2JRTWxJaUFVZnpHbjVY?=
+ =?utf-8?Q?GffzeWbxrFCgBaHfE8ZEHVA=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 139b6c37-f392-4ef8-3ce3-08d99891a56f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e2bcbc7-031e-41ea-6542-08d99892f383
 X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 15:02:36.5146 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 15:11:56.9828 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FeLY9eC/GL+S60taHlWwTRkPcThc0k6WaK7UDtUe8HL/YodNPGjjCvZEemCnVTtZGdOJv+pU8U7IAcr/9gjN0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5427
-Subject: Re: [Intel-gfx] [RFC v2 00/22] Add Support for Plane Color Lut and
- CSC features
+X-MS-Exchange-CrossTenant-UserPrincipalName: sOhTxorexe3XEVFUpE20mok8rri+4QOaYesCOcJtbB8EBC+ZS+2D6ukmK/h0x00Vk8FPv3kD1h0TyaN4fJDJXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5396
+Subject: Re: [Intel-gfx] [RFC v2 01/22] drm: RFC for Plane Color Hardware
+ Pipeline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,218 +156,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Thanks, Uma, for the updated patches. I'm finally finding
+time to go through them.
 
-
-On 2021-10-12 17:01, Shankar, Uma wrote:
+On 2021-10-15 03:42, Pekka Paalanen wrote:
+> On Thu, 14 Oct 2021 19:44:25 +0000
+> "Shankar, Uma" <uma.shankar@intel.com> wrote:
 > 
+>>> -----Original Message-----
+>>> From: Pekka Paalanen <ppaalanen@gmail.com>
+>>> Sent: Wednesday, October 13, 2021 2:01 PM
+>>> To: Shankar, Uma <uma.shankar@intel.com>
+>>> Cc: harry.wentland@amd.com; ville.syrjala@linux.intel.com; intel- 
+>>> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; 
+>>> brian.starkey@arm.com; sebastian@sebastianwick.net; 
+>>> Shashank.Sharma@amd.com
+>>> Subject: Re: [RFC v2 01/22] drm: RFC for Plane Color Hardware Pipeline
+>>>
+>>> On Tue, 12 Oct 2021 20:58:27 +0000
+>>> "Shankar, Uma" <uma.shankar@intel.com> wrote:
+>>>   
+>>>>> -----Original Message-----
+>>>>> From: Pekka Paalanen <ppaalanen@gmail.com>
+>>>>> Sent: Tuesday, October 12, 2021 4:01 PM
+>>>>> To: Shankar, Uma <uma.shankar@intel.com>
+>>>>> Cc: intel-gfx@lists.freedesktop.org; 
+>>>>> dri-devel@lists.freedesktop.org; harry.wentland@amd.com; 
+>>>>> ville.syrjala@linux.intel.com; brian.starkey@arm.com; 
+>>>>> sebastian@sebastianwick.net; Shashank.Sharma@amd.com
+>>>>> Subject: Re: [RFC v2 01/22] drm: RFC for Plane Color Hardware 
+>>>>> Pipeline
+>>>>>
+>>>>> On Tue,  7 Sep 2021 03:08:43 +0530 Uma Shankar 
+>>>>> <uma.shankar@intel.com> wrote:
+>>>>>  
+>>>>>> This is a RFC proposal for plane color hardware blocks.
+>>>>>> It exposes the property interface to userspace and calls out the 
+>>>>>> details or interfaces created and the intended purpose.
+>>>>>>
+>>>>>> Credits: Ville Syrjälä <ville.syrjala@linux.intel.com>
+>>>>>> Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+>>>>>> ---
+>>>>>>  Documentation/gpu/rfc/drm_color_pipeline.rst | 167
+>>>>>> +++++++++++++++++++
+>>>>>>  1 file changed, 167 insertions(+)  create mode 100644 
+>>>>>> Documentation/gpu/rfc/drm_color_pipeline.rst
+>>>>>>
+>>>>>> diff --git a/Documentation/gpu/rfc/drm_color_pipeline.rst
+>>>>>> b/Documentation/gpu/rfc/drm_color_pipeline.rst
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..0d1ca858783b
+>>>>>> --- /dev/null
+>>>>>> +++ b/Documentation/gpu/rfc/drm_color_pipeline.rst
+>>>>>> @@ -0,0 +1,167 @@
+>>>>>> +==================================================
+>>>>>> +Display Color Pipeline: Proposed DRM Properties  
 > 
->> -----Original Message-----
->> From: Pekka Paalanen <ppaalanen@gmail.com>
->> Sent: Tuesday, October 12, 2021 5:25 PM
->> To: Shankar, Uma <uma.shankar@intel.com>
->> Cc: intel-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org;
->> harry.wentland@amd.com; ville.syrjala@linux.intel.com; brian.starkey@arm.com;
->> sebastian@sebastianwick.net; Shashank.Sharma@amd.com
->> Subject: Re: [RFC v2 00/22] Add Support for Plane Color Lut and CSC features
+> ...
+> 
+>>> cf. BT.2100 Annex 1, "The relationship between the OETF, the EOTF and 
+>>> the OOTF", although I find those diagrams somewhat confusing still. It 
+>>> does not seem to clearly account for transmission non-linear encoding being different from the display EOTF.
+>>>
+>>> Different documents use OOTF to refer to different things. Then there 
+>>> is also the fundamental difference between PQ and HLG systems, where 
+>>> OOTF is by definition in different places of the camera-transmission-display pipeline.  
 >>
->> On Tue,  7 Sep 2021 03:08:42 +0530
->> Uma Shankar <uma.shankar@intel.com> wrote:
+>> Agree this is a bit confusing, I admit I was much more confused than what you were for sure.
+>> Will do some research to get my understanding in place. Thanks for all the inputs.
+> 
+> I'm sure I was at least equally confused or even more at the start. I
+> have just had a year of casual reading, discussions, and a W3C workshop
+> attendance to improve my understanding. :-)
+> 
+> Now I know enough to be dangerous.
+> 
+> ...
+> 
+>>>>>> +
+>>>>>> +UAPI Name: PLANE_DEGAMMA_MODE
+>>>>>> +Description: Enum property with values as blob_id's which 
+>>>>>> +advertizes
+>>>>>> the  
+>>>>>
+>>>>> Is enum with blob id values even a thing?  
+>>>>
+>>>> Yeah we could have. This is a dynamic enum created with blobs. Each 
+>>>> entry contains the data structure to extract the full color 
+>>>> capabilities of the hardware. It’s a very interesting play with 
+>>>> blobs (@ville.syrjala@linux.intel.com brainchild)  
+>>>
+>>> Yes, I think I can imagine how that works. The blobs are created 
+>>> immutable, unable to change once the plane has been advertised to 
+>>> userspace, because their IDs are used as enum values. But that is ok, 
+>>> because the blob describes capabilities that cannot change during the 
+>>> device's lifetime... or can they? What if you would want to extend the 
+>>> blob format, do you need a KMS client cap to change the format which 
+>>> would be impossible because you can't change an enum definition after it has been installed so you cannot swap the blob to a new one?
+>>>
+>>> This also relies on enums being identified by their string names, 
+>>> because the numerical value is not a constant but a blob ID and gets 
+>>> determined when the immutable blob is created.
+>>>
+>>> Did I understand correctly?  
 >>
->>> This is how a typical display color hardware pipeline looks like:
->>>  +-------------------------------------------+
->>>  |                RAM                        |
->>>  |  +------+    +---------+    +---------+   |
->>>  |  | FB 1 |    |  FB 2   |    | FB N    |   |
->>>  |  +------+    +---------+    +---------+   |
->>>  +-------------------------------------------+
->>>        |  Plane Color Hardware Block |
->>> +--------------------------------------------+
->>>  | +---v-----+   +---v-------+   +---v------+ |
->>>  | | Plane A |   | Plane B   |   | Plane N  | |
->>>  | | DeGamma |   | Degamma   |   | Degamma  | |
->>>  | +---+-----+   +---+-------+   +---+------+ |
->>>  |     |             |               |        |
->>>  | +---v-----+   +---v-------+   +---v------+ |
->>>  | |Plane A  |   | Plane B   |   | Plane N  | |
->>>  | |CSC/CTM  |   | CSC/CTM   |   | CSC/CTM  | |
->>>  | +---+-----+   +----+------+   +----+-----+ |
->>>  |     |              |               |       |
->>>  | +---v-----+   +----v------+   +----v-----+ |
->>>  | | Plane A |   | Plane B   |   | Plane N  | |
->>>  | | Gamma   |   | Gamma     |   | Gamma    | |
->>>  | +---+-----+   +----+------+   +----+-----+ |
->>>  |     |              |               |       |
->>>  +--------------------------------------------+
->>> +------v--------------v---------------v-------|
->>> ||                                           ||
->>> ||           Pipe Blender                    ||
->>> +--------------------+------------------------+
->>> |                    |                        |
->>> |        +-----------v----------+             |
->>> |        |  Pipe DeGamma        |             |
->>> |        |                      |             |
->>> |        +-----------+----------+             |
->>> |                    |            Pipe Color  |
->>> |        +-----------v----------+ Hardware    |
->>> |        |  Pipe CSC/CTM        |             |
->>> |        |                      |             |
->>> |        +-----------+----------+             |
->>> |                    |                        |
->>> |        +-----------v----------+             |
->>> |        |  Pipe Gamma          |             |
->>> |        |                      |             |
->>> |        +-----------+----------+             |
->>> |                    |                        |
->>> +---------------------------------------------+
->>>                      |
->>>                      v
->>>                Pipe Output
->>>
->>> This patch series adds properties for plane color features. It adds
->>> properties for degamma used to linearize data and CSC used for gamut
->>> conversion. It also includes Gamma support used to again non-linearize
->>> data as per panel supported color space. These can be utilize by user
->>> space to convert planes from one format to another, one color space to
->>> another etc.
->>>
->>> Userspace can take smart blending decisions and utilize these hardware
->>> supported plane color features to get accurate color profile. The same
->>> can help in consistent color quality from source to panel taking
->>> advantage of advanced color features in hardware.
->>>
->>> These patches add the property interfaces and enable helper functions.
->>> This series adds Intel's XE_LPD hw specific plane gamma feature. We
->>> can build up and add other platform/hardware specific implementation
->>> on top of this series.
->>>
->>> Credits: Special mention and credits to Ville Syrjala for coming up
->>> with a design for this feature and inputs. This series is based on his
->>> original design and idea.
->>>
->>> Note: Userspace support for this new UAPI will be done on Chrome in
->>> alignment with weston and general opensource community.
->>> Discussion ongoing with Harry Wentland, Pekka and community on color
->>> pipeline and UAPI design. Harry's RFC below:
->>> https://patchwork.freedesktop.org/series/89506/>>>> We need to converge on a common UAPI interface which caters to all the
->>> modern color hardware pipelines.
->>>
->>> ToDo: State readout for this feature will be added next.
->>>
->>> v2: Added UAPI description and added change in the rfc section of
->>> kernel Documentation folder
+>> Yes that’s right. We are not expecting these structures to change as
+>> they represent the platforms capabilities.
+> 
+> Until there comes a new platform whose capabilities you cannot quite
+> describe with the existing structure. What's the plan to deal with that?
+> A new enum value, like LUT2 instead of LUT? I suppose that works.
+> 
+
+See my comment on the coverletter. It would be great if we could come
+up with a PWL definition that's generic enough to work on all HW
+that uses PWL and not require compositors to learn a new LUT2
+type in the future.
+
 >>
->> Hi,
+>>> As a userspace developer, I can totally work with that.
+>>>   
+>>>>>> +	    possible degamma modes and lut ranges supported by the platform.
+>>>>>> +	    This  allows userspace to query and get the plane degamma color
+>>>>>> +	    caps and choose the appropriate degamma mode and create lut values
+>>>>>> +	    accordingly.  
+>>>>>
+>>>>> I agree that some sort of "mode" switch is necessary, and 
+>>>>> advertisement of capabilities as well.
+>>>>>  
+>>>>
+>>>> This enum with blob id's is an interesting way to advertise segmented lut tables.
+>>>>  
+>>>>>> +
+>>>>>> +UAPI Name: PLANE_DEGAMMA_LUT
+>>>>>> +Description: Blob property which allows a userspace to provide LUT values
+>>>>>> +	     to apply degamma curve using the h/w plane degamma processing
+>>>>>> +	     engine, thereby making the content as linear for further color
+>>>>>> +	     processing. Userspace gets the size of LUT and precision etc
+>>>>>> +	     from PLANE_DEGAMA_MODE_PROPERTY  
+>>>>>
+>>>>> So all degamma modes will always be some kind of LUT? That may be 
+>>>>> a bit restrictive, as I understand AMD may have predefined or 
+>>>>> parameterised curves that are not LUTs. So there should be room 
+>>>>> for an arbitrary structure of parameters, which can be passed in 
+>>>>> as a blob id, and the contents defined by the degamma mode.  
+>>>>
+>>>> For Intel's hardware these are luts but yeah AMD hardware seems to 
+>>>> have these as fixed function units. We should think of a way to have 
+>>>> this option as well in the UAPI. We could extend the DEGAMMA_MODE 
+>>>> property to have all the info, and DEGAMMA_LUT_PROPERTY may not be 
+>>>> needed based on some of the attributes passed via DEGAMMA_MODE. This 
+>>>> can be  
+>>> one way to have room for both.  
+>>>> @harry.wentland@amd.com thoughts ?  
+>>>
+>>> Yeah, though I don't think you can use DEGAMMA_MODE property to pass 
+>>> parameters to fixed-function curves. The parameters need another 
+>>> property. Would be natural to use the other property for LUT data when mode it set to LUT.
+>>>
+>>> A trivial and made-up example of a parameterised fixed-function curve 
+>>> is pow(x, gamma), where gamma is the parameter.  
 >>
->> thank you for this. I do believe the KMS UAPI should expose what hardware can do
->> (prescribed operations) rather than how they would be often used (to realize a
->> conversion from one space description to another). This proposal fits quite nicely
->> with what I have envisioned for Weston.
-> 
 
-It's taken me a while but I am starting to agree with the prescriptive approach to
-expose HW functionality. One thing we'll want to be careful of is to make sure
-this isn't tied to specific HW more than it needs to be. I'll comment in other
-places of this patchset to elaborate.
+It's a bit HW dependent. Some of AMD HW has some pre-defined EOTF
+ROMs who allowing us to program a RAM LUT in the same block. Other
+HW split those into two independent, consecutive blocks, a pre-defined
+EOTF ROM first, followed by a Gamma Correction RAM LUT.
 
-What's making me come around, i.e. change from a prescriptive (these are the
-input/output/blending spaces/formats) to a descriptive (these are the LUTs and
-CTMs) approach?
-
-1) The prescriptive way has no good way of dealing with gamut and tone mapping.
-   To do so we would need explicit OOTFs and CTMs or 3D LUTs anyways.
-
-2) The prescriptive way provides no semblance of guarantee that transforms
-   are equivalent when the compositor uses shaders transforms and composition
-   vs when the compositor uses KMS transforms and composition.
-
-3) Policy about treatment of surfaces/planes and blending is best left with
-   the compositor (for the above reasons).
-
->> I mainly went over the big picture by commenting in detail on the proposal
->> document, and not looking too carefully at the other documentation or UAPI details
->> at this time.
-> 
-> Thanks Pekka for the feedback.
-> 
->> Unfortunately I was unable to decipher how userspace is supposed to use the
->> XE_LPD special gamma features.
-> 
-> I will include the details on how userspace should actually get this through a sample
-> IGT reference, that should help make this clear.
-> 
-
-It looks like with your current definitions each userspace compositor (Weston, kwin,
-mutter, wlroots, Chrome's compositor, Android's compositor, etc.) would need to learn
-how to program the XE_LPD LUTs as well as AMD LUTs. Would these definitions change
-in future Intel HW generations? Would this mean all compositors would need to learn
-again how to program the future LUT format?
-
-Other options would be to give userspace a generic LUT with 4k FP16 entries and then
-re-map that to the HW LUT in the kernel driver.
-
-I might be missing some of the nuances of the XE_LPD LUT but it seems to me that the
-main difference between different PWL implementations is the distribution of the
-points used to define the LUT. Maybe a more generic PWL implementation could have
-a kernel driver report one (or more) PWL point distributions. We could encode these
-as enums and pre-defined arrays in a UAPI header. That way the compositor could have
-a single, generic implementation of programming PWL in FP16 and the kernel driver
-would only need to remap the FP16 to the HW-internal format, which is a trivial
-conversion. Using this approach compositors would implement PWL support once and won't
-have to touch it again in the future. Is there anything that would make this approach
-a bad idea for Intel HW (or other HW)? (Credit for this idea goes to Vitaly)
+These can probably both be supported the the proposed PLANE_DEGAMMA_LUT
+with enum values for the predefined (sRGB, BT2020, etc.) EOTFs, as
+well as an option for a programmable LUT.
 
 Harry
 
-> Regards,
-> Uma Shankar
+>> We can maybe have a parallel property as well with proper
+>> documentation if this helps with flexibility for varying hardware
+>> vendors. UAPI document will list what to use and when. May be
+>> platform will not even list the other one which may make things less
+>> complicated to userspace.
 > 
->>
->> Thanks,
->> pq
->>
->>>
->>> Uma Shankar (22):
->>>   drm: RFC for Plane Color Hardware Pipeline
->>>   drm: Add Enhanced Gamma and color lut range attributes
->>>   drm: Add Plane Degamma Mode property
->>>   drm: Add Plane Degamma Lut property
->>>   drm/i915/xelpd: Define Degamma Lut range struct for HDR planes
->>>   drm/i915/xelpd: Add register definitions for Plane Degamma
->>>   drm/i915/xelpd: Enable plane color features
->>>   drm/i915/xelpd: Add color capabilities of SDR planes
->>>   drm/i915/xelpd: Program Plane Degamma Registers
->>>   drm/i915/xelpd: Add plane color check to glk_plane_color_ctl
->>>   drm/i915/xelpd: Initialize plane color features
->>>   drm/i915/xelpd: Load plane color luts from atomic flip
->>>   drm: Add Plane CTM property
->>>   drm: Add helper to attach Plane ctm property
->>>   drm/i915/xelpd: Define Plane CSC Registers
->>>   drm/i915/xelpd: Enable Plane CSC
->>>   drm: Add Plane Gamma Mode property
->>>   drm: Add Plane Gamma Lut property
->>>   drm/i915/xelpd: Define and Initialize Plane Gamma Lut range
->>>   drm/i915/xelpd: Add register definitions for Plane Gamma
->>>   drm/i915/xelpd: Program Plane Gamma Registers
->>>   drm/i915/xelpd: Enable plane gamma
->>>
->>>  Documentation/gpu/drm-kms.rst                 |  90 +++
->>>  Documentation/gpu/rfc/drm_color_pipeline.rst  | 167 ++++++
->>>  drivers/gpu/drm/drm_atomic.c                  |   1 +
->>>  drivers/gpu/drm/drm_atomic_state_helper.c     |  12 +
->>>  drivers/gpu/drm/drm_atomic_uapi.c             |  38 ++
->>>  drivers/gpu/drm/drm_color_mgmt.c              | 177 +++++-
->>>  .../gpu/drm/i915/display/intel_atomic_plane.c |   6 +
->>>  .../gpu/drm/i915/display/intel_atomic_plane.h |   2 +
->>>  drivers/gpu/drm/i915/display/intel_color.c    | 513 ++++++++++++++++++
->>>  drivers/gpu/drm/i915/display/intel_color.h    |   2 +
->>>  .../drm/i915/display/skl_universal_plane.c    |  15 +-
->>>  drivers/gpu/drm/i915/i915_drv.h               |   3 +
->>>  drivers/gpu/drm/i915/i915_reg.h               | 176 +++++-
->>>  include/drm/drm_mode_object.h                 |   2 +-
->>>  include/drm/drm_plane.h                       |  81 +++
->>>  include/uapi/drm/drm_mode.h                   |  58 ++
->>>  16 files changed, 1337 insertions(+), 6 deletions(-)  create mode
->>> 100644 Documentation/gpu/rfc/drm_color_pipeline.rst
->>>
+> I'm not sure I got what you're thinking. My idea is that the
+> interpretation of the blob contents depends on the value of the mode
+> enum. Obviously the two will always need to be set together by
+> userspace to ensure they match, otherwise DRM needs to reject the
+> commit.
+> 
+> 
+> The rest of your comments I agree with.
+> 
+> 
+> Thanks,
+> pq
 > 
 
