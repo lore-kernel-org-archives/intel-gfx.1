@@ -2,50 +2,53 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB628C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F447C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2FC9610A0
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2FC9610A0
+	by mail.kernel.org (Postfix) with ESMTPS id D365A603E9
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 15:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D365A603E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C73189DD2;
-	Tue, 26 Oct 2021 15:55:56 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A4289C29;
- Tue, 26 Oct 2021 15:55:54 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="290782168"
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="290782168"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 08:55:54 -0700
-X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="664602890"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2021 08:55:53 -0700
-Date: Tue, 26 Oct 2021 08:51:17 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniele.ceraolospurio@intel.com, john.c.harrison@intel.com
-Message-ID: <20211026155116.GA12563@jons-linux-dev-box>
-References: <20210624070516.21893-1-matthew.brost@intel.com>
- <163489530491.10153.576017085715728906@jlahtine-mobl.ger.corp.intel.com>
- <20211022164219.GA23160@jons-linux-dev-box>
- <163515462275.3804.10893210486918669519@jlahtine-mobl.ger.corp.intel.com>
- <20211025151506.GA10182@jons-linux-dev-box>
- <163523877564.3841.4449806608079864803@jlahtine-mobl.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF3FC6E591;
+	Tue, 26 Oct 2021 15:58:01 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1566E591;
+ Tue, 26 Oct 2021 15:58:00 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="230209863"
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="230209863"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2021 08:05:33 -0700
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="497376679"
+Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.205])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2021 08:05:27 -0700
+Date: Tue, 26 Oct 2021 20:38:17 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, CQ Tang <cq.tang@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, lucas.demarchi@intel.com,
+ rodrigo.vivi@intel.com, Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Imre Deak <imre.deak@intel.com>, Matt Roper <matthew.d.roper@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Message-ID: <20211026150817.GA31457@intel.com>
+References: <20211021142627.31058-1-ramalingam.c@intel.com>
+ <20211021142627.31058-14-ramalingam.c@intel.com>
+ <20211021142708.GA15836@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <163523877564.3841.4449806608079864803@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 00/47] GuC submission support
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211021142708.GA15836@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v2 13/17] drm/i915/dg2: Tile 4 plane format
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,256 +64,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 26, 2021 at 11:59:35AM +0300, Joonas Lahtinen wrote:
-> Quoting Matthew Brost (2021-10-25 18:15:09)
-> > On Mon, Oct 25, 2021 at 12:37:02PM +0300, Joonas Lahtinen wrote:
-> > > Quoting Matthew Brost (2021-10-22 19:42:19)
-> > > > On Fri, Oct 22, 2021 at 12:35:04PM +0300, Joonas Lahtinen wrote:
-> > > > > Hi Matt & John,
-> > > > > 
-> > > > > Can you please queue patches with the right Fixes: references to convert
-> > > > > all the GuC tracepoints to be protected by the LOW_LEVEL_TRACEPOINTS
-> > > > > protection for now. Please do so before next Wednesday so we get it
-> > > > > queued in drm-intel-next-fixes.
-> > > > > 
-> > > > 
-> > > > Don't we already do that? I checked i915_trace.h and every tracepoint I
-> > > > added (intel_context class, i915_request_guc_submit) is protected by
-> > > > LOW_LEVEL_TRACEPOINTS.
-> > > > 
-> > > > The only thing I changed outside of that protection is adding the guc_id
-> > > > field to existing i915_request class tracepoints.
-> > > 
-> > > It's the first search hit for "guc" inside the i915_trace.h file :)
-> > > 
-> > > > Without the guc_id in
-> > > > those tracepoints these are basically useless with GuC submission. We
-> > > > could revert that if it is a huge deal but as I said then they are
-> > > > useless...
-> > > 
-> > > Let's eliminate it for now and restore the tracepoint exactly as it was.
-> > > 
+On 2021-10-21 at 17:27:08 +0300, Lisovskiy, Stanislav wrote:
+> On Thu, Oct 21, 2021 at 07:56:23PM +0530, Ramalingam C wrote:
+> > From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 > > 
-> > Don't really agree - let's render tracepoints to be useless? Are
-> > tracepoints ABI? I googled this and couldn't really find a definie
-> > answer. If tracepoints are ABI, then OK I can revert this change but
-> > still this is a poor technical decision (tracepoints should not be ABI).
-> 
-> Thats a very heated discussion in general. But the fact is that if
-> tracepoint changes have caused regressions to applications, they have
-> been forced to be remain untouched. You are free to raise the discussion
-> with Linus/LKML if you feel that should not be the case. So the end
-> result is that tracepoints are effectively in limbo, not ABI unless some
-> application uses them like ABI.
-> 
-> Feel free to search the intel-gfx/lkml for "tracepoints" keyword and look
-> for threads with many replies. It's not that I would not agree, it's more
-> that I'm not in the mood for repeating that discussion over and over again
-> and always land in the same spot.
-> 
-> So for now, we don't add anything new to tracepoints we can't guarantee
-> to always be there untouched. Similarly, we don't guarantee any of them
-> to remain stable. So we try to be compatible with the limbo.
-> 
-> I'm long overdue waiting for some stable consumer to step up for the
-> tracepoints, so we can then start discussion what would actually be the
-> best way of getting that information out for them. In ~5 years that has
-> not happened.
-> 
-> > > If there is an immediate need, we should instead have an auxilary tracepoint
-> > > which is enabled only through LOW_LEVEL_TRACEPOINTS and that amends the
-> > > information of the basic tracepoint.
-> > > 
+> > TileF(Tile4 in bspec) format is 4K tile organized into
+> > 64B subtiles with same basic shape as for legacy TileY
+> > which will be supported by Display13.
 > > 
-> > Regardless of what I said above, I'll post 2 patches. The 1st just
-> > remove the GuC, the 2nd modify the tracepoint to include guc_id if
-> > LOW_LEVEL_TRACEPOINTS is defined.
+> > v2: - Fixed wrong case condition(Jani Nikula)
+> >     - Increased I915_FORMAT_MOD_F_TILED up to 12(Imre Deak)
+> > 
+> > v3: - s/I915_TILING_F/TILING_4/g
+> >     - s/I915_FORMAT_MOD_F_TILED/I915_FORMAT_MOD_4_TILED/g
+> >     - Removed unneeded fencing code
+> > 
+> > Cc: Imre Deak <imre.deak@intel.com>
+> > Cc: Matt Roper <matthew.d.roper@intel.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> > Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> > Signed-off-by: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c  |  1 +
+> >  drivers/gpu/drm/i915/display/intel_fb.c       |  7 ++++
+> >  drivers/gpu/drm/i915/display/intel_fbc.c      |  1 +
+> >  .../drm/i915/display/intel_plane_initial.c    |  1 +
+> >  .../drm/i915/display/skl_universal_plane.c    | 36 ++++++++++++++-----
+> >  drivers/gpu/drm/i915/i915_drv.h               |  1 +
+> >  drivers/gpu/drm/i915/i915_pci.c               |  1 +
+> >  drivers/gpu/drm/i915/i915_reg.h               |  1 +
+> >  drivers/gpu/drm/i915/intel_device_info.h      |  1 +
+> >  drivers/gpu/drm/i915/intel_pm.c               |  1 +
+> >  include/uapi/drm/drm_fourcc.h                 |  8 +++++
+> >  11 files changed, 50 insertions(+), 9 deletions(-)
 > 
-> Thanks. Let's get a patch merged which simply drops the guc_id for now
-> to unblock things.
-> 
-> For the second, an auxilary tracepoint will be preferred instead of
-> mutating the existing one (regardless of the LOW_LEVEL_TRACEPOINTS).
-> 
-> I only noticed a patch that mutates the tracepoints, can you
-> double-check sending the first patch?
+> Was I supposed to change TILE_F/TILE_4 everywhere first,
+> as per your comment?
+Stan, if you think that is the right think to do, please go ahead!
 
-Sorry for the double reply - missed this one in the first.
-
-I changed my plans / mind after I send the original email. I only sent a
-patch which includes guc_id when LOW_LEVEL_TRACEPOINTS is enabled. That
-is the bear minimum I live with. Without it any time there is a problem
-results in hacking the kernel. I can't do that. This is a good
-compromise.
-
-Matt
-
+Ram
 > 
-> Regards, Joonas
+> Stan
 > 
 > > 
-> > > For the longer term solution we should align towards the dma fence
-> > > tracepoints. When those are combined with the OA information, one should
-> > > be able to get a good understanding of both the software and hardware
-> > > scheduling decisions.
-> > > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> > index ce5d6633029a..9b678839bf2b 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -8877,6 +8877,7 @@ static int intel_atomic_check_async(struct intel_atomic_state *state)
+> >  		case I915_FORMAT_MOD_X_TILED:
+> >  		case I915_FORMAT_MOD_Y_TILED:
+> >  		case I915_FORMAT_MOD_Yf_TILED:
+> > +		case I915_FORMAT_MOD_4_TILED:
+> >  			break;
+> >  		default:
+> >  			drm_dbg_kms(&i915->drm,
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> > index fa1f375e696b..e19739fef825 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> > @@ -127,6 +127,12 @@ intel_tile_width_bytes(const struct drm_framebuffer *fb, int color_plane)
+> >  			return 128;
+> >  		else
+> >  			return 512;
+> > +	case I915_FORMAT_MOD_4_TILED:
+> > +		/*
+> > +		 * Each 4K tile consists of 64B(8*8) subtiles, with
+> > +		 * same shape as Y Tile(i.e 4*16B OWords)
+> > +		 */
+> > +		return 128;
+> >  	case I915_FORMAT_MOD_Y_TILED_CCS:
+> >  		if (is_ccs_plane(fb, color_plane))
+> >  			return 128;
+> > @@ -305,6 +311,7 @@ unsigned int intel_surf_alignment(const struct drm_framebuffer *fb,
+> >  	case I915_FORMAT_MOD_Y_TILED_CCS:
+> >  	case I915_FORMAT_MOD_Yf_TILED_CCS:
+> >  	case I915_FORMAT_MOD_Y_TILED:
+> > +	case I915_FORMAT_MOD_4_TILED:
+> >  	case I915_FORMAT_MOD_Yf_TILED:
+> >  		return 1 * 1024 * 1024;
+> >  	default:
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+> > index 1f66de77a6b1..f079a771f802 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fbc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+> > @@ -747,6 +747,7 @@ static bool tiling_is_valid(struct drm_i915_private *dev_priv,
+> >  	case DRM_FORMAT_MOD_LINEAR:
+> >  	case I915_FORMAT_MOD_Y_TILED:
+> >  	case I915_FORMAT_MOD_Yf_TILED:
+> > +	case I915_FORMAT_MOD_4_TILED:
+> >  		return DISPLAY_VER(dev_priv) >= 9;
+> >  	case I915_FORMAT_MOD_X_TILED:
+> >  		return true;
+> > diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> > index dcd698a02da2..d80855ee9b96 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> > @@ -125,6 +125,7 @@ intel_alloc_initial_plane_obj(struct intel_crtc *crtc,
+> >  	case DRM_FORMAT_MOD_LINEAR:
+> >  	case I915_FORMAT_MOD_X_TILED:
+> >  	case I915_FORMAT_MOD_Y_TILED:
+> > +	case I915_FORMAT_MOD_4_TILED:
+> >  		break;
+> >  	default:
+> >  		drm_dbg(&dev_priv->drm,
+> > diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> > index 7444b88829ea..0eb4509f7f7a 100644
+> > --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> > +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> > @@ -207,6 +207,13 @@ static const u64 adlp_step_a_plane_format_modifiers[] = {
+> >  	DRM_FORMAT_MOD_INVALID
+> >  };
+> >  
+> > +static const u64 dg2_plane_format_modifiers[] = {
+> > +	I915_FORMAT_MOD_X_TILED,
+> > +	I915_FORMAT_MOD_4_TILED,
+> > +	DRM_FORMAT_MOD_LINEAR,
+> > +	DRM_FORMAT_MOD_INVALID
+> > +};
+> > +
+> >  int skl_format_to_fourcc(int format, bool rgb_order, bool alpha)
+> >  {
+> >  	switch (format) {
+> > @@ -795,6 +802,8 @@ static u32 skl_plane_ctl_tiling(u64 fb_modifier)
+> >  		return PLANE_CTL_TILED_X;
+> >  	case I915_FORMAT_MOD_Y_TILED:
+> >  		return PLANE_CTL_TILED_Y;
+> > +	case I915_FORMAT_MOD_4_TILED:
+> > +		return PLANE_CTL_TILED_F;
+> >  	case I915_FORMAT_MOD_Y_TILED_CCS:
+> >  	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC:
+> >  		return PLANE_CTL_TILED_Y | PLANE_CTL_RENDER_DECOMPRESSION_ENABLE;
+> > @@ -1283,6 +1292,7 @@ static int skl_plane_check_fb(const struct intel_crtc_state *crtc_state,
+> >  	     fb->modifier == I915_FORMAT_MOD_Yf_TILED ||
+> >  	     fb->modifier == I915_FORMAT_MOD_Y_TILED_CCS ||
+> >  	     fb->modifier == I915_FORMAT_MOD_Yf_TILED_CCS ||
+> > +	     fb->modifier == I915_FORMAT_MOD_4_TILED ||
+> >  	     fb->modifier == I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS ||
+> >  	     fb->modifier == I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS ||
+> >  	     fb->modifier == I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC)) {
+> > @@ -2001,6 +2011,10 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+> >  		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+> >  			return false;
+> >  		break;
+> > +	case I915_FORMAT_MOD_4_TILED:
+> > +		if (!HAS_FTILE(dev_priv))
+> > +			return false;
+> > +		break;
+> >  	default:
+> >  		return false;
+> >  	}
+> > @@ -2041,9 +2055,7 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+> >  	case DRM_FORMAT_Y216:
+> >  	case DRM_FORMAT_XVYU12_16161616:
+> >  	case DRM_FORMAT_XVYU16161616:
+> > -		if (modifier == DRM_FORMAT_MOD_LINEAR ||
+> > -		    modifier == I915_FORMAT_MOD_X_TILED ||
+> > -		    modifier == I915_FORMAT_MOD_Y_TILED)
+> > +		if (!is_ccs_modifier(modifier))
+> >  			return true;
+> >  		fallthrough;
+> >  	default:
+> > @@ -2054,8 +2066,10 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+> >  static const u64 *gen12_get_plane_modifiers(struct drm_i915_private *dev_priv,
+> >  					    enum plane_id plane_id)
+> >  {
+> > +	if (HAS_FTILE(dev_priv))
+> > +		return dg2_plane_format_modifiers;
+> >  	/* Wa_22011186057 */
+> > -	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+> > +	else if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+> >  		return adlp_step_a_plane_format_modifiers;
+> >  	else if (gen12_plane_supports_mc_ccs(dev_priv, plane_id))
+> >  		return gen12_plane_format_modifiers_mc_ccs;
+> > @@ -2325,11 +2339,15 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
+> >  		else
+> >  			fb->modifier = I915_FORMAT_MOD_Y_TILED;
+> >  		break;
+> > -	case PLANE_CTL_TILED_YF:
+> > -		if (val & PLANE_CTL_RENDER_DECOMPRESSION_ENABLE)
+> > -			fb->modifier = I915_FORMAT_MOD_Yf_TILED_CCS;
+> > -		else
+> > -			fb->modifier = I915_FORMAT_MOD_Yf_TILED;
+> > +	case PLANE_CTL_TILED_YF: /* aka PLANE_CTL_TILED_F on XE_LPD+ */
+> > +		if (DISPLAY_VER(dev_priv) >= 13) {
+> > +			fb->modifier = I915_FORMAT_MOD_4_TILED;
+> > +		} else {
+> > +			if (val & PLANE_CTL_RENDER_DECOMPRESSION_ENABLE)
+> > +				fb->modifier = I915_FORMAT_MOD_Yf_TILED_CCS;
+> > +			else
+> > +				fb->modifier = I915_FORMAT_MOD_Yf_TILED;
+> > +		}
+> >  		break;
+> >  	default:
+> >  		MISSING_CASE(tiling);
+> > diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> > index 57948e0ee48b..fdd8ddb0cdf6 100644
+> > --- a/drivers/gpu/drm/i915/i915_drv.h
+> > +++ b/drivers/gpu/drm/i915/i915_drv.h
+> > @@ -1628,6 +1628,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+> >  #define CMDPARSER_USES_GGTT(dev_priv) (GRAPHICS_VER(dev_priv) == 7)
+> >  
+> >  #define HAS_LLC(dev_priv)	(INTEL_INFO(dev_priv)->has_llc)
+> > +#define HAS_FTILE(dev_priv)    (INTEL_INFO(dev_priv)->has_ftile)
+> >  #define HAS_SNOOP(dev_priv)	(INTEL_INFO(dev_priv)->has_snoop)
+> >  #define HAS_EDRAM(dev_priv)	((dev_priv)->edram_size_mb)
+> >  #define HAS_SECURE_BATCHES(dev_priv) (GRAPHICS_VER(dev_priv) < 6)
+> > diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> > index 68367b505dc4..0d7d88ee43ca 100644
+> > --- a/drivers/gpu/drm/i915/i915_pci.c
+> > +++ b/drivers/gpu/drm/i915/i915_pci.c
+> > @@ -972,6 +972,7 @@ static const struct intel_device_info adl_p_info = {
+> >  	.display.has_cdclk_crawl = 1,
+> >  	.display.has_modular_fia = 1,
+> >  	.display.has_psr_hw_tracking = 0,
+> > +	.has_ftile = 1, \
+> >  	.platform_engine_mask =
+> >  		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
+> >  	.ppgtt_size = 48,
+> > diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> > index 3693eb03f5aa..0fe8e8e6cc31 100644
+> > --- a/drivers/gpu/drm/i915/i915_reg.h
+> > +++ b/drivers/gpu/drm/i915/i915_reg.h
+> > @@ -7195,6 +7195,7 @@ enum {
+> >  #define   PLANE_CTL_TILED_X			(1 << 10)
+> >  #define   PLANE_CTL_TILED_Y			(4 << 10)
+> >  #define   PLANE_CTL_TILED_YF			(5 << 10)
+> > +#define   PLANE_CTL_TILED_F			(5 << 10)
+> >  #define   PLANE_CTL_ASYNC_FLIP			(1 << 9)
+> >  #define   PLANE_CTL_FLIP_HORIZONTAL		(1 << 8)
+> >  #define   PLANE_CTL_MEDIA_DECOMPRESSION_ENABLE	(1 << 4) /* TGL+ */
+> > diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+> > index 87ee1d86d2ac..f95d4a939e10 100644
+> > --- a/drivers/gpu/drm/i915/intel_device_info.h
+> > +++ b/drivers/gpu/drm/i915/intel_device_info.h
+> > @@ -126,6 +126,7 @@ enum intel_ppgtt_type {
+> >  	func(has_64k_pages); \
+> >  	func(gpu_reset_clobbers_display); \
+> >  	func(has_reset_engine); \
+> > +	func(has_ftile); \
+> >  	func(has_flat_ccs); \
+> >  	func(has_global_mocs); \
+> >  	func(has_gt_uc); \
+> > diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+> > index 201477ca408a..0db5f32adfd5 100644
+> > --- a/drivers/gpu/drm/i915/intel_pm.c
+> > +++ b/drivers/gpu/drm/i915/intel_pm.c
+> > @@ -5377,6 +5377,7 @@ skl_compute_wm_params(const struct intel_crtc_state *crtc_state,
+> >  	}
+> >  
+> >  	wp->y_tiled = modifier == I915_FORMAT_MOD_Y_TILED ||
+> > +		      modifier == I915_FORMAT_MOD_4_TILED ||
+> >  		      modifier == I915_FORMAT_MOD_Yf_TILED ||
+> >  		      modifier == I915_FORMAT_MOD_Y_TILED_CCS ||
+> >  		      modifier == I915_FORMAT_MOD_Yf_TILED_CCS;
+> > diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+> > index 45a914850be0..982b0a9fa78b 100644
+> > --- a/include/uapi/drm/drm_fourcc.h
+> > +++ b/include/uapi/drm/drm_fourcc.h
+> > @@ -558,6 +558,14 @@ extern "C" {
+> >   * pitch is required to be a multiple of 4 tile widths.
+> >   */
+> >  #define I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC fourcc_mod_code(INTEL, 8)
+> > +/*
+> > + * Intel F-tiling(aka Tile4) layout
+> > + *
+> > + * This is a tiled layout using 4Kb tiles in row-major layout.
+> > + * Within the tile pixels are laid out in 64 byte units / sub-tiles in OWORD
+> > + * (16 bytes) chunks column-major..
+> > + */
+> > +#define I915_FORMAT_MOD_4_TILED         fourcc_mod_code(INTEL, 12)
+> >  
+> >  /*
+> >   * Tiled, NV12MT, grouped in 64 (pixels) x 32 (lines) -sized macroblocks
+> > -- 
+> > 2.20.1
 > > 
-> > Not sure about this either. I use these tracepoins to correlate things
-> > to the GuC log. Between the 2, if you know what you are doing you
-> > basically can figure out everything that is happening. Fields in the
-> > trace translate directly to fields in the GuC log. Some of these fields
-> > are backend specific, not sure how these could be pushed the dma fence
-> > tracepoints. For what it is worth, without these tracepoints we'd likely
-> > still have a bunch of bugs in the GuC firmware. I understand these
-> > points, several other i915 developers do, and several of the GuC
-> > firmware developers do too.
-> > 
-> > Matt
-> > 
-> > > Regards, Joonas
-> > > 
-> > > > 
-> > > > Matt
-> > > > 
-> > > > > There's the orthogonal track to discuss what would be the stable set of
-> > > > > tracepoints we could expose. However, before that discussion is closed,
-> > > > > let's keep a rather strict line to avoid potential maintenance burned.
-> > > > > 
-> > > > > We can then relax in the future as needed.
-> > > > > 
-> > > > > Regards, Joonas
-> > > > > 
-> > > > > Quoting Matthew Brost (2021-06-24 10:04:29)
-> > > > > > As discussed in [1], [2] we are enabling GuC submission support in the
-> > > > > > i915. This is a subset of the patches in step 5 described in [1],
-> > > > > > basically it is absolute to enable CI with GuC submission on gen11+
-> > > > > > platforms.
-> > > > > > 
-> > > > > > This series itself will likely be broken down into smaller patch sets to
-> > > > > > merge. Likely into CTBs changes, basic submission, virtual engines, and
-> > > > > > resets.
-> > > > > > 
-> > > > > > A following series will address the missing patches remaining from [1].
-> > > > > > 
-> > > > > > Locally tested on TGL machine and basic tests seem to be passing.
-> > > > > > 
-> > > > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > > > 
-> > > > > > [1] https://patchwork.freedesktop.org/series/89844/
-> > > > > > [2] https://patchwork.freedesktop.org/series/91417/
-> > > > > > 
-> > > > > > Daniele Ceraolo Spurio (1):
-> > > > > >   drm/i915/guc: Unblock GuC submission on Gen11+
-> > > > > > 
-> > > > > > John Harrison (10):
-> > > > > >   drm/i915/guc: Module load failure test for CT buffer creation
-> > > > > >   drm/i915: Track 'serial' counts for virtual engines
-> > > > > >   drm/i915/guc: Provide mmio list to be saved/restored on engine reset
-> > > > > >   drm/i915/guc: Don't complain about reset races
-> > > > > >   drm/i915/guc: Enable GuC engine reset
-> > > > > >   drm/i915/guc: Fix for error capture after full GPU reset with GuC
-> > > > > >   drm/i915/guc: Hook GuC scheduling policies up
-> > > > > >   drm/i915/guc: Connect reset modparam updates to GuC policy flags
-> > > > > >   drm/i915/guc: Include scheduling policies in the debugfs state dump
-> > > > > >   drm/i915/guc: Add golden context to GuC ADS
-> > > > > > 
-> > > > > > Matthew Brost (36):
-> > > > > >   drm/i915/guc: Relax CTB response timeout
-> > > > > >   drm/i915/guc: Improve error message for unsolicited CT response
-> > > > > >   drm/i915/guc: Increase size of CTB buffers
-> > > > > >   drm/i915/guc: Add non blocking CTB send function
-> > > > > >   drm/i915/guc: Add stall timer to non blocking CTB send function
-> > > > > >   drm/i915/guc: Optimize CTB writes and reads
-> > > > > >   drm/i915/guc: Add new GuC interface defines and structures
-> > > > > >   drm/i915/guc: Remove GuC stage descriptor, add lrc descriptor
-> > > > > >   drm/i915/guc: Add lrc descriptor context lookup array
-> > > > > >   drm/i915/guc: Implement GuC submission tasklet
-> > > > > >   drm/i915/guc: Add bypass tasklet submission path to GuC
-> > > > > >   drm/i915/guc: Implement GuC context operations for new inteface
-> > > > > >   drm/i915/guc: Insert fence on context when deregistering
-> > > > > >   drm/i915/guc: Defer context unpin until scheduling is disabled
-> > > > > >   drm/i915/guc: Disable engine barriers with GuC during unpin
-> > > > > >   drm/i915/guc: Extend deregistration fence to schedule disable
-> > > > > >   drm/i915: Disable preempt busywait when using GuC scheduling
-> > > > > >   drm/i915/guc: Ensure request ordering via completion fences
-> > > > > >   drm/i915/guc: Disable semaphores when using GuC scheduling
-> > > > > >   drm/i915/guc: Ensure G2H response has space in buffer
-> > > > > >   drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC
-> > > > > >   drm/i915/guc: Update GuC debugfs to support new GuC
-> > > > > >   drm/i915/guc: Add several request trace points
-> > > > > >   drm/i915: Add intel_context tracing
-> > > > > >   drm/i915/guc: GuC virtual engines
-> > > > > >   drm/i915: Hold reference to intel_context over life of i915_request
-> > > > > >   drm/i915/guc: Disable bonding extension with GuC submission
-> > > > > >   drm/i915/guc: Direct all breadcrumbs for a class to single breadcrumbs
-> > > > > >   drm/i915/guc: Reset implementation for new GuC interface
-> > > > > >   drm/i915: Reset GPU immediately if submission is disabled
-> > > > > >   drm/i915/guc: Add disable interrupts to guc sanitize
-> > > > > >   drm/i915/guc: Suspend/resume implementation for new interface
-> > > > > >   drm/i915/guc: Handle context reset notification
-> > > > > >   drm/i915/guc: Handle engine reset failure notification
-> > > > > >   drm/i915/guc: Enable the timer expired interrupt for GuC
-> > > > > >   drm/i915/guc: Capture error state on context reset
-> > > > > > 
-> > > > > >  drivers/gpu/drm/i915/gem/i915_gem_context.c   |   30 +-
-> > > > > >  drivers/gpu/drm/i915/gem/i915_gem_context.h   |    1 +
-> > > > > >  drivers/gpu/drm/i915/gem/i915_gem_mman.c      |    3 +-
-> > > > > >  drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |    6 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   41 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   |   14 +-
-> > > > > >  .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |    7 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_context.c       |   41 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_context.h       |   31 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_context_types.h |   49 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_engine.h        |   72 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  182 +-
-> > > > > >  .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   71 +-
-> > > > > >  .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |    4 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_engine_types.h  |   12 +-
-> > > > > >  .../drm/i915/gt/intel_execlists_submission.c  |  234 +-
-> > > > > >  .../drm/i915/gt/intel_execlists_submission.h  |   11 -
-> > > > > >  drivers/gpu/drm/i915/gt/intel_gt.c            |   21 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_gt.h            |    2 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    6 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_gt_requests.c   |   22 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_gt_requests.h   |    9 +-
-> > > > > >  drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |    1 -
-> > > > > >  drivers/gpu/drm/i915/gt/intel_reset.c         |   20 +-
-> > > > > >  .../gpu/drm/i915/gt/intel_ring_submission.c   |   28 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_rps.c           |    4 +
-> > > > > >  drivers/gpu/drm/i915/gt/intel_workarounds.c   |   46 +-
-> > > > > >  .../gpu/drm/i915/gt/intel_workarounds_types.h |    1 +
-> > > > > >  drivers/gpu/drm/i915/gt/mock_engine.c         |   41 +-
-> > > > > >  drivers/gpu/drm/i915/gt/selftest_context.c    |   10 +
-> > > > > >  drivers/gpu/drm/i915/gt/selftest_execlists.c  |   20 +-
-> > > > > >  .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   15 +
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   82 +-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  106 +-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  460 +++-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |    3 +
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  318 ++-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   22 +-
-> > > > > >  .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   25 +-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   88 +-
-> > > > > >  .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 2197 +++++++++++++++--
-> > > > > >  .../gpu/drm/i915/gt/uc/intel_guc_submission.h |   17 +-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  102 +-
-> > > > > >  drivers/gpu/drm/i915/gt/uc/intel_uc.h         |   11 +
-> > > > > >  drivers/gpu/drm/i915/i915_debugfs.c           |    2 +
-> > > > > >  drivers/gpu/drm/i915/i915_debugfs_params.c    |   31 +
-> > > > > >  drivers/gpu/drm/i915/i915_gem_evict.c         |    1 +
-> > > > > >  drivers/gpu/drm/i915/i915_gpu_error.c         |   25 +-
-> > > > > >  drivers/gpu/drm/i915/i915_reg.h               |    2 +
-> > > > > >  drivers/gpu/drm/i915/i915_request.c           |  159 +-
-> > > > > >  drivers/gpu/drm/i915/i915_request.h           |   21 +
-> > > > > >  drivers/gpu/drm/i915/i915_scheduler.c         |    6 +
-> > > > > >  drivers/gpu/drm/i915/i915_scheduler.h         |    6 +
-> > > > > >  drivers/gpu/drm/i915/i915_scheduler_types.h   |    5 +
-> > > > > >  drivers/gpu/drm/i915/i915_trace.h             |  197 +-
-> > > > > >  .../gpu/drm/i915/selftests/igt_live_test.c    |    2 +-
-> > > > > >  .../gpu/drm/i915/selftests/mock_gem_device.c  |    3 +-
-> > > > > >  57 files changed, 4159 insertions(+), 787 deletions(-)
-> > > > > > 
-> > > > > > -- 
-> > > > > > 2.28.0
-> > > > > > 
