@@ -2,44 +2,45 @@ Return-Path: <SRS0=bGS0=PO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ADC73C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6782EC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7968D60C4B
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7968D60C4B
+	by mail.kernel.org (Postfix) with ESMTPS id 2A59260C4B
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 11:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2A59260C4B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E89A96E598;
-	Tue, 26 Oct 2021 11:41:08 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 216596E41B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4628F6E7D3;
+	Tue, 26 Oct 2021 11:41:09 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33286E591;
  Tue, 26 Oct 2021 11:41:07 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1635248465;
+ s=2020; t=1635248466;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Zc8jV67fS29/WT6CmOPXJHgsxOFvKbPDijWo4CPtDEU=;
- b=hbyQUDGkLldJxlu4+9I8wYMFyVMDQpuxHfmAdb6A5f1IEp44LItyaJssTR9pUXJrALdNME
- I6ZdYw4E1SHev2c5SX0ajbkFpwOP/uSg0+xck5h4W248inS7Lbcs2zDT5um5jwGUVWrU0U
- G0w0ykpjYkh9H91Fvodt4pf3C3/qFfLrj3rUJ34dbEHqjfosyBkgaiD5Tpix0cyMtfiTPd
- aCs27QVDd7alHsUam2XHlJzBu37QyPix7mDY02bCfVyH/o091U8rwHvtyEDxMzTZ8SXoJh
- 2hXhSsQeK/jvs0Rg/9PoAGVnjCXJnnnJA4bP8ftpv3/796Iynl0Q02YBUJqLIw==
+ bh=91wFMvmS+H5j0sZQltNeaYmJvSEdrnPH6twt/4t68J8=;
+ b=y0TBOErSUszGvof3+1YF5pv2xRLnZkzkrzE2GD3rv0MelTXCNzlhvtKLbU+0pHRvBHPVKl
+ Lae0lNQ/L1SmEsheOrG3P0rP9yjY/6pqeYM+QvFWcovR0+QrVarkfN9dWOqsO4k6DZBugA
+ /nTRNoUIAUyNogldIg2xulXve/mHBUKijw0Sz9KIbeIGXkuzcWLdcgq+jeJ3LaPgPw0TmZ
+ 7/RzhVkaizq32cg22C6OBAVL4u2DEpFu0L7I15uY6s7kt4fxEAtMPpsbLHV6kGlhBO/nJt
+ ADk/bnQfc49S5yeC3UmBM0q2Kjlblr2tKgB92ykjLdw7KaDDvQS+PlIbttZIvQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1635248465;
+ s=2020e; t=1635248466;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Zc8jV67fS29/WT6CmOPXJHgsxOFvKbPDijWo4CPtDEU=;
- b=YDsUdJeRFNyeY3qTMYziI95tpczPNh+0dgB+ylAIMMkbBlXOWH1TvnK6HSgO3/ZMwORNPX
- ilUbNKCu9p9DOCBA==
+ bh=91wFMvmS+H5j0sZQltNeaYmJvSEdrnPH6twt/4t68J8=;
+ b=j5h0SiLdUHx6/j4f0wuDS6IXRt3HRNuPK9Sl3vSqy6J22ElOVtzhbwUypvnH191IF6oi3E
+ ME9CsU7fmrSFxBDQ==
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -47,15 +48,15 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
  Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Date: Tue, 26 Oct 2021 13:40:52 +0200
-Message-Id: <20211026114100.2593433-2-bigeasy@linutronix.de>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Date: Tue, 26 Oct 2021 13:40:55 +0200
+Message-Id: <20211026114100.2593433-5-bigeasy@linutronix.de>
 In-Reply-To: <20211026114100.2593433-1-bigeasy@linutronix.de>
 References: <20211026114100.2593433-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 1/9] drm/i915: Don't disable interrupts and
- pretend a lock as been acquired in __timeline_mark_lock().
+Subject: [Intel-gfx] [PATCH 4/9] drm/i915: Drop the irqs_disabled() check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,157 +72,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a revert of commits
-   d67739268cf0e ("drm/i915/gt: Mark up the nested engine-pm timeline lock =
-as irqsafe")
-   6c69a45445af9 ("drm/i915/gt: Mark context->active_count as protected by =
-timeline->mutex")
+The !irqs_disabled() check triggers on PREEMPT_RT even with
+i915_sched_engine::lock acquired. The reason is the lock is transformed
+into a sleeping lock on PREEMPT_RT and does not disable interrupts.
 
-The existing code leads to a different behaviour depending on whether
-lockdep is enabled or not. Any following lock that is acquired without
-disabling interrupts (but needs to) will not be noticed by lockdep.
+There is no need to check for disabled interrupts. The lockdep
+annotation below already check if the lock has been acquired by the
+caller and will yell if the interrupts are not disabled.
 
-This it not just a lockdep annotation but is used but an actual mutex_t
-that is properly used as a lock but in case of __timeline_mark_lock()
-lockdep is only told that it is acquired but no lock has been acquired.
+Remove the !irqs_disabled() check.
 
-It appears that its purpose is just satisfy the lockdep_assert_held()
-check in intel_context_mark_active(). The other problem with disabling
-interrupts is that on PREEMPT_RT interrupts are also disabled which
-leads to problems for instance later during memory allocation.
-
-Add a CONTEXT_IS_PARKED bit to intel_engine_cs and set_bit/clear_bit it
-instead of mutex_acquire/mutex_release. Use test_bit in the two
-identified spots which relied on the lockdep annotation.
-
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Suggested--by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/i915/gt/intel_context.h       |  3 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
- drivers/gpu/drm/i915/gt/intel_engine_pm.c     | 38 +------------------
- drivers/gpu/drm/i915/i915_request.h           |  3 +-
- 4 files changed, 7 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915=
-/gt/intel_context.h
-index 246c37d72cd73..8a575629ef1b6 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context.h
-@@ -211,7 +211,8 @@ static inline void intel_context_enter(struct intel_con=
-text *ce)
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i91=
+5_request.c
+index 820a1f38b271e..3bbe34ff3b15a 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -559,7 +559,6 @@ bool __i915_request_submit(struct i915_request *request)
 =20
- static inline void intel_context_mark_active(struct intel_context *ce)
- {
--	lockdep_assert_held(&ce->timeline->mutex);
-+	lockdep_assert(lockdep_is_held(&ce->timeline->mutex) ||
-+		       test_bit(CONTEXT_IS_PARKED, &ce->flags));
- 	++ce->active_count;
- }
+ 	RQ_TRACE(request, "\n");
 =20
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/dr=
-m/i915/gt/intel_context_types.h
-index 9e0177dc5484e..329f470d125f2 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -118,6 +118,7 @@ struct intel_context {
- #define CONTEXT_LRCA_DIRTY		9
- #define CONTEXT_GUC_INIT		10
- #define CONTEXT_PERMA_PIN		11
-+#define CONTEXT_IS_PARKED		12
-=20
- 	struct {
- 		u64 timeout_us;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i9=
-15/gt/intel_engine_pm.c
-index a1334b48dde7b..456f1f5d0c04e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-@@ -80,39 +80,6 @@ static int __engine_unpark(struct intel_wakeref *wf)
- 	return 0;
- }
-=20
--#if IS_ENABLED(CONFIG_LOCKDEP)
--
--static unsigned long __timeline_mark_lock(struct intel_context *ce)
--{
--	unsigned long flags;
--
--	local_irq_save(flags);
--	mutex_acquire(&ce->timeline->mutex.dep_map, 2, 0, _THIS_IP_);
--
--	return flags;
--}
--
--static void __timeline_mark_unlock(struct intel_context *ce,
--				   unsigned long flags)
--{
--	mutex_release(&ce->timeline->mutex.dep_map, _THIS_IP_);
--	local_irq_restore(flags);
--}
--
--#else
--
--static unsigned long __timeline_mark_lock(struct intel_context *ce)
--{
--	return 0;
--}
--
--static void __timeline_mark_unlock(struct intel_context *ce,
--				   unsigned long flags)
--{
--}
--
--#endif /* !IS_ENABLED(CONFIG_LOCKDEP) */
--
- static void duration(struct dma_fence *fence, struct dma_fence_cb *cb)
- {
- 	struct i915_request *rq =3D to_request(fence);
-@@ -159,7 +126,6 @@ static bool switch_to_kernel_context(struct intel_engin=
-e_cs *engine)
- {
- 	struct intel_context *ce =3D engine->kernel_context;
- 	struct i915_request *rq;
--	unsigned long flags;
- 	bool result =3D true;
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
 =20
  	/*
-@@ -214,7 +180,7 @@ static bool switch_to_kernel_context(struct intel_engin=
-e_cs *engine)
- 	 * engine->wakeref.count, we may see the request completion and retire
- 	 * it causing an underflow of the engine->wakeref.
+@@ -668,7 +667,6 @@ void __i915_request_unsubmit(struct i915_request *reque=
+st)
  	 */
--	flags =3D __timeline_mark_lock(ce);
-+	set_bit(CONTEXT_IS_PARKED, &ce->flags);
- 	GEM_BUG_ON(atomic_read(&ce->timeline->active_count) < 0);
+ 	RQ_TRACE(request, "\n");
 =20
- 	rq =3D __i915_request_create(ce, GFP_NOWAIT);
-@@ -246,7 +212,7 @@ static bool switch_to_kernel_context(struct intel_engin=
-e_cs *engine)
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
 =20
- 	result =3D false;
- out_unlock:
--	__timeline_mark_unlock(ce, flags);
-+	clear_bit(CONTEXT_IS_PARKED, &ce->flags);
- 	return result;
- }
-=20
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i91=
-5_request.h
-index dc359242d1aec..c5898882bb27a 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -642,7 +642,8 @@ i915_request_timeline(const struct i915_request *rq)
- {
- 	/* Valid only while the request is being constructed (or retired). */
- 	return rcu_dereference_protected(rq->timeline,
--					 lockdep_is_held(&rcu_access_pointer(rq->timeline)->mutex));
-+					 lockdep_is_held(&rcu_access_pointer(rq->timeline)->mutex) ||
-+					 test_bit(CONTEXT_IS_PARKED, &rq->context->flags));
- }
-=20
- static inline struct i915_gem_context *
+ 	/*
 --=20
 2.33.1
 
