@@ -2,49 +2,47 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 809E9C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BCBDC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5490B610F8
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5490B610F8
+	by mail.kernel.org (Postfix) with ESMTPS id 68413610CB
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 68413610CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA04E6E918;
-	Wed, 27 Oct 2021 21:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 253536E922;
+	Wed, 27 Oct 2021 21:21:29 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6EE26E90B;
- Wed, 27 Oct 2021 21:21:16 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="229020874"
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="229020874"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F8846E91A;
+ Wed, 27 Oct 2021 21:21:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="229020888"
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="229020888"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 14:21:16 -0700
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="665154189"
+ 27 Oct 2021 14:21:23 -0700
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="665154243"
 Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 14:21:13 -0700
+ 27 Oct 2021 14:21:20 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
 Cc: Daniel Vetter <daniel@ffwll.ch>, Matthew Auld <matthew.auld@intel.com>,
  Hellstrom Thomas <thomas.hellstrom@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
  Ramalingam C <ramalingam.c@intel.com>
-Date: Thu, 28 Oct 2021 02:53:31 +0530
-Message-Id: <20211027212339.29259-10-ramalingam.c@intel.com>
+Date: Thu, 28 Oct 2021 02:53:33 +0530
+Message-Id: <20211027212339.29259-12-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211027212339.29259-1-ramalingam.c@intel.com>
 References: <20211027212339.29259-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 09/17] drm/i915/lmem: Enable lmem for
- platforms with Flat CCS
+Subject: [Intel-gfx] [PATCH v3 11/17] drm/i915/dg2: Prune the Y Tiling
+ modifiers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,113 +58,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+Remove the Y Tiling modifiers for DG2.
 
-A portion of device memory is reserved for Flat CCS so usable
-device memory will be reduced by size of Flat CCS. Size of
-Flat CCS is specified in “XEHPSDV_FLAT_CCS_BASE_ADDR”.
-So to get effective device memory we need to subtract
-total device memory by Flat CCS memory size.
-
-Cc: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Juha-Pekka Heikkila <juha-pekka.heikkila@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c          | 19 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt.h          |  1 +
- drivers/gpu/drm/i915/gt/intel_region_lmem.c | 22 +++++++++++++++++++--
- drivers/gpu/drm/i915/i915_reg.h             |  3 +++
- 4 files changed, 43 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fb.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 1cb1948ac959..fd82ebee8724 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -900,6 +900,25 @@ u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg)
- 	return intel_uncore_read_fw(gt->uncore, reg);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 9ce1d273dc7e..9ff52dde1683 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -315,6 +315,9 @@ static bool plane_has_modifier(struct drm_i915_private *i915,
+ 	if (!IS_DISPLAY_VER(i915, md->display_ver.from, md->display_ver.until))
+ 		return false;
  
-+u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg)
-+{
-+	int type;
-+	u8 sliceid, subsliceid;
++	if (IS_DG2(i915) && md->tiling == I915_TILING_Y)
++		return false;
 +
-+	for (type = 0; type < NUM_STEERING_TYPES; type++) {
-+		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
-+			intel_gt_get_valid_steering(gt, type, &sliceid,
-+						    &subsliceid);
-+			return intel_uncore_read_with_mcr_steering(gt->uncore,
-+								   reg,
-+								   sliceid,
-+								   subsliceid);
-+		}
-+	}
-+
-+	return intel_uncore_read(gt->uncore, reg);
-+}
-+
- void intel_gt_info_print(const struct intel_gt_info *info,
- 			 struct drm_printer *p)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-index 74e771871a9b..24b78398a587 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-@@ -84,6 +84,7 @@ static inline bool intel_gt_needs_read_steering(struct intel_gt *gt,
- }
- 
- u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg);
-+u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg);
- 
- void intel_gt_info_print(const struct intel_gt_info *info,
- 			 struct drm_printer *p);
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index 073d28d96669..d1f88beb26fe 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -201,8 +201,26 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
- 	if (!IS_DGFX(i915))
- 		return ERR_PTR(-ENODEV);
- 
--	/* Stolen starts from GSMBASE on DG1 */
--	lmem_size = intel_uncore_read64(uncore, GEN12_GSMBASE);
-+	if (HAS_FLAT_CCS(i915)) {
-+		u64 tile_stolen, flat_ccs_base_addr_reg, flat_ccs_base;
-+
-+		lmem_size = pci_resource_len(pdev, 2);
-+		flat_ccs_base_addr_reg = intel_gt_read_register(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
-+		flat_ccs_base = (flat_ccs_base_addr_reg >> XEHPSDV_CCS_BASE_SHIFT) * SZ_64K;
-+		tile_stolen = lmem_size - flat_ccs_base;
-+
-+		/* If the FLAT_CCS_BASE_ADDR register is not populated, flag an error */
-+		if (tile_stolen == lmem_size)
-+			DRM_ERROR("CCS_BASE_ADDR register did not have expected value\n");
-+
-+		lmem_size -= tile_stolen;
-+	} else {
-+		/* Stolen starts from GSMBASE without CCS */
-+		lmem_size = intel_uncore_read64(&i915->uncore, GEN12_GSMBASE);
-+		if (GEM_WARN_ON(lmem_size > pci_resource_len(pdev, 2)))
-+			return ERR_PTR(-ENODEV);
-+	}
-+
- 
- 	io_start = pci_resource_start(pdev, 2);
- 	if (GEM_WARN_ON(lmem_size > pci_resource_len(pdev, 2)))
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 7c97bc352497..5a415345b8e5 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -12467,6 +12467,9 @@ enum skl_power_gate {
- #define GEN12_GSMBASE			_MMIO(0x108100)
- #define GEN12_DSMBASE			_MMIO(0x1080C0)
- 
-+#define XEHPSDV_FLAT_CCS_BASE_ADDR             _MMIO(0x4910)
-+#define   XEHPSDV_CCS_BASE_SHIFT               8
-+
- /* gamt regs */
- #define GEN8_L3_LRA_1_GPGPU _MMIO(0x4dd4)
- #define   GEN8_L3_LRA_1_GPGPU_DEFAULT_VALUE_BDW  0x67F1427F /* max/min for LRA1/2 */
+ 	if (!md->is_linear &&
+ 	    !(plane_caps & PLANE_HAS_TILING))
+ 		return false;
 -- 
 2.20.1
 
