@@ -2,48 +2,48 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EF20C43217
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82089C4321E
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6DB0861100
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6DB0861100
+	by mail.kernel.org (Postfix) with ESMTPS id 585C2610EA
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 21:21:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 585C2610EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871636E924;
-	Wed, 27 Oct 2021 21:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0BA96E91F;
+	Wed, 27 Oct 2021 21:21:26 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 975B46E912;
- Wed, 27 Oct 2021 21:21:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="229020882"
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="229020882"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F32CA6E90F;
+ Wed, 27 Oct 2021 21:21:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="229020865"
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="229020865"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 14:21:20 -0700
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="665154232"
+ 27 Oct 2021 14:21:10 -0700
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="665154154"
 Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 14:21:16 -0700
+ 27 Oct 2021 14:21:08 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
 Cc: Daniel Vetter <daniel@ffwll.ch>, Matthew Auld <matthew.auld@intel.com>,
  Hellstrom Thomas <thomas.hellstrom@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Ayaz A Siddiqui <ayaz.siddiqui@intel.com>, CQ Tang <cq.tang@intel.com>,
- Ramalingam C <ramalingam.c@intel.com>
-Date: Thu, 28 Oct 2021 02:53:32 +0530
-Message-Id: <20211027212339.29259-11-ramalingam.c@intel.com>
+ Ramalingam C <ramalingam.c@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Thu, 28 Oct 2021 02:53:29 +0530
+Message-Id: <20211027212339.29259-8-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211027212339.29259-1-ramalingam.c@intel.com>
 References: <20211027212339.29259-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 10/17] drm/i915/gt: Clear compress metadata
- for Xe_HP platforms
+Subject: [Intel-gfx] [PATCH v3 07/17] drm/i915/xehpsdv: implement memory
+ coloring
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,211 +59,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
 
-Xe-hp and latest devices support Flat CCS which reserved a portion of
-the device memory to store compression metadata, during the clearing of
-device memory buffer object we also need to clear the associated CCS buffer.
+The basic idea is that each 2M block(page-table) has a color, depending
+on if the page-table is occupied by LMEM objects(64K) or SMEM
+objects(4K), where our goal is to prevent mixing 64K and 4K GTT pages in
+the page-table, which is not supported by the HW.
 
-Flat CCS memory can not be directly accessed by S/W.
-Address of CCS buffer associated main BO is automatically calculated
-by device itself. KMD/UMD can only access this buffer indirectly using
-XY_CTRL_SURF_COPY_BLT cmd via the address of device memory buffer.
-
-v2: Fixed issues with platform naming [Lucas]
-
-Cc: CQ Tang <cq.tang@intel.com>
-Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Stuart Summers <stuart.summers@intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  14 +++
- drivers/gpu/drm/i915/gt/intel_migrate.c      | 120 ++++++++++++++++++-
- 2 files changed, 131 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c  | 16 ++++++++++
+ drivers/gpu/drm/i915/gt/intel_gtt.h   |  6 ++++
+ drivers/gpu/drm/i915/i915_gem_evict.c | 17 ++++++++++
+ drivers/gpu/drm/i915/i915_vma.c       | 46 +++++++++++++++++++--------
+ 4 files changed, 71 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index f8253012d166..07bf5a1753bd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -203,6 +203,20 @@
- #define GFX_OP_DRAWRECT_INFO     ((0x3<<29)|(0x1d<<24)|(0x80<<16)|(0x3))
- #define GFX_OP_DRAWRECT_INFO_I965  ((0x7900<<16)|0x2)
- 
-+#define XY_CTRL_SURF_INSTR_SIZE	5
-+#define MI_FLUSH_DW_SIZE		3
-+#define XY_CTRL_SURF_COPY_BLT		((2 << 29) | (0x48 << 22) | 3)
-+#define   SRC_ACCESS_TYPE_SHIFT	21
-+#define   DST_ACCESS_TYPE_SHIFT	20
-+#define   CCS_SIZE_SHIFT		8
-+#define   XY_CTRL_SURF_MOCS_SHIFT	25
-+#define   NUM_CCS_BYTES_PER_BLOCK	256
-+#define   NUM_CCS_BLKS_PER_XFER	1024
-+#define   INDIRECT_ACCESS		0
-+#define   DIRECT_ACCESS		1
-+#define  MI_FLUSH_LLC			BIT(9)
-+#define  MI_FLUSH_CCS			BIT(16)
-+
- #define COLOR_BLT_CMD			(2 << 29 | 0x40 << 22 | (5 - 2))
- #define XY_COLOR_BLT_CMD		(2 << 29 | 0x50 << 22)
- #define SRC_COPY_BLT_CMD		(2 << 29 | 0x43 << 22)
-diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-index afb1cce9a352..0bed01750884 100644
---- a/drivers/gpu/drm/i915/gt/intel_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-@@ -17,6 +17,7 @@ struct insert_pte_data {
- };
- 
- #define CHUNK_SZ SZ_8M /* ~1ms at 8GiB/s preemption delay */
-+#define GET_CCS_SIZE(i915, size)	(HAS_FLAT_CCS(i915) ? (size) >> 8 : 0)
- 
- static bool engine_supports_migration(struct intel_engine_cs *engine)
- {
-@@ -490,15 +491,104 @@ intel_context_migrate_copy(struct intel_context *ce,
- 	return err;
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 6b39b1ea0627..c931f3068804 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -463,6 +463,19 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
+ 	return idx;
  }
  
--static int emit_clear(struct i915_request *rq, int size, u32 value)
-+static inline u32 *i915_flush_dw(u32 *cmd, u64 dst, u32 flags)
++static void xehpsdv_ppgtt_color_adjust(const struct drm_mm_node *node,
++				       unsigned long color,
++				       u64 *start,
++				       u64 *end)
 +{
-+	/* Mask the 3 LSB to use the PPGTT address space */
-+	*cmd++ = MI_FLUSH_DW | flags;
-+	*cmd++ = lower_32_bits(dst);
-+	*cmd++ = upper_32_bits(dst);
++	if (i915_node_color_differs(node, color))
++		*start = round_up(*start, SZ_2M);
 +
-+	return cmd;
++	node = list_next_entry(node, node_list);
++	if (i915_node_color_differs(node, color))
++		*end = round_down(*end, SZ_2M);
 +}
 +
-+static u32 calc_ctrl_surf_instr_size(struct drm_i915_private *i915, int size)
-+{
-+	u32 num_cmds, num_blks, total_size;
-+
-+	if (!GET_CCS_SIZE(i915, size))
-+		return 0;
-+
-+	/*
-+	 * XY_CTRL_SURF_COPY_BLT transfers CCS in 256 byte
-+	 * blocks. one XY_CTRL_SURF_COPY_BLT command can
-+	 * trnasfer upto 1024 blocks.
-+	 */
-+	num_blks = (GET_CCS_SIZE(i915, size) +
-+			   (NUM_CCS_BYTES_PER_BLOCK - 1)) >> 8;
-+	num_cmds = (num_blks + (NUM_CCS_BLKS_PER_XFER - 1)) >> 10;
-+	total_size = (XY_CTRL_SURF_INSTR_SIZE) * num_cmds;
-+
-+	/*
-+	 * We need to add a flush before and after
-+	 * XY_CTRL_SURF_COPY_BLT
-+	 */
-+	total_size += 2 * MI_FLUSH_DW_SIZE;
-+	return total_size;
-+}
-+
-+static u32 *_i915_ctrl_surf_copy_blt(u32 *cmd, u64 src_addr, u64 dst_addr,
-+				     u8 src_mem_access, u8 dst_mem_access,
-+				     int src_mocs, int dst_mocs,
-+				     u16 num_ccs_blocks)
-+{
-+	int i = num_ccs_blocks;
-+
-+	/*
-+	 * The XY_CTRL_SURF_COPY_BLT instruction is used to copy the CCS
-+	 * data in and out of the CCS region.
-+	 *
-+	 * We can copy at most 1024 blocks of 256 bytes using one
-+	 * XY_CTRL_SURF_COPY_BLT instruction.
-+	 *
-+	 * In case we need to copy more than 1024 blocks, we need to add
-+	 * another instruction to the same batch buffer.
-+	 *
-+	 * 1024 blocks of 256 bytes of CCS represent a total 256KB of CCS.
-+	 *
-+	 * 256 KB of CCS represents 256 * 256 KB = 64 MB of LMEM.
-+	 */
-+	do {
-+		/*
-+		 * We use logical AND with 1023 since the size field
-+		 * takes values which is in the range of 0 - 1023
-+		 */
-+		*cmd++ = ((XY_CTRL_SURF_COPY_BLT) |
-+			  (src_mem_access << SRC_ACCESS_TYPE_SHIFT) |
-+			  (dst_mem_access << DST_ACCESS_TYPE_SHIFT) |
-+			  (((i - 1) & 1023) << CCS_SIZE_SHIFT));
-+		*cmd++ = lower_32_bits(src_addr);
-+		*cmd++ = ((upper_32_bits(src_addr) & 0xFFFF) |
-+			  (src_mocs << XY_CTRL_SURF_MOCS_SHIFT));
-+		*cmd++ = lower_32_bits(dst_addr);
-+		*cmd++ = ((upper_32_bits(dst_addr) & 0xFFFF) |
-+			  (dst_mocs << XY_CTRL_SURF_MOCS_SHIFT));
-+		src_addr += SZ_64M;
-+		dst_addr += SZ_64M;
-+		i -= NUM_CCS_BLKS_PER_XFER;
-+	} while (i > 0);
-+
-+	return cmd;
-+}
-+
-+static int emit_clear(struct i915_request *rq,
-+		      int size,
-+		      u32 value,
-+		      bool is_lmem)
- {
- 	const int ver = GRAPHICS_VER(rq->engine->i915);
- 	u32 instance = rq->engine->instance;
- 	u32 *cs;
-+	struct drm_i915_private *i915 = rq->engine->i915;
-+	u32 num_ccs_blks, ccs_ring_size;
- 
- 	GEM_BUG_ON(size >> PAGE_SHIFT > S16_MAX);
- 
--	cs = intel_ring_begin(rq, ver >= 8 ? 8 : 6);
-+	/* Clear flat css only when value is 0 */
-+	ccs_ring_size = (is_lmem && !value) ?
-+			 calc_ctrl_surf_instr_size(i915, size)
-+			 : 0;
-+
-+	cs = intel_ring_begin(rq, ver >= 8 ? 8 + ccs_ring_size : 6);
- 	if (IS_ERR(cs))
- 		return PTR_ERR(cs);
- 
-@@ -521,6 +611,30 @@ static int emit_clear(struct i915_request *rq, int size, u32 value)
- 		*cs++ = value;
+ static void
+ xehpsdv_ppgtt_insert_huge(struct i915_vma *vma,
+ 			  struct sgt_dma *iter,
+@@ -900,6 +913,9 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 		ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
  	}
  
-+	if (is_lmem && HAS_FLAT_CCS(i915) && !value) {
-+		num_ccs_blks = (GET_CCS_SIZE(i915, size) +
-+				NUM_CCS_BYTES_PER_BLOCK - 1) >> 8;
-+		/*
-+		 * Flat CCS surface can only be accessed via
-+		 * XY_CTRL_SURF_COPY_BLT CMD and using indirect
-+		 * mapping of associated LMEM.
-+		 * We can clear ccs surface by writing all 0s,
-+		 * so we will flush the previously cleared buffer
-+		 * and use it as a source.
-+		 */
++	if (HAS_64K_PAGES(gt->i915))
++		ppgtt->vm.mm.color_adjust = xehpsdv_ppgtt_color_adjust;
 +
-+		cs = i915_flush_dw(cs, (u64)instance << 32,
-+				   MI_FLUSH_LLC | MI_FLUSH_CCS);
-+		cs = _i915_ctrl_surf_copy_blt(cs,
-+					      (u64)instance << 32,
-+					      (u64)instance << 32,
-+					      DIRECT_ACCESS,
-+					      INDIRECT_ACCESS,
-+					      1, 1,
-+					      num_ccs_blks);
-+		cs = i915_flush_dw(cs, (u64)instance << 32,
-+				   MI_FLUSH_LLC | MI_FLUSH_CCS);
-+	}
- 	intel_ring_advance(rq, cs);
- 	return 0;
+ 	err = gen8_init_scratch(&ppgtt->vm);
+ 	if (err)
+ 		goto err_free;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 20101eef4c95..34696acde342 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -397,6 +397,12 @@ i915_vm_has_cache_coloring(struct i915_address_space *vm)
+ 	return i915_is_ggtt(vm) && vm->mm.color_adjust;
  }
-@@ -581,7 +695,7 @@ intel_context_migrate_clear(struct intel_context *ce,
- 		if (err)
- 			goto out_rq;
  
--		err = emit_clear(rq, len, value);
-+		err = emit_clear(rq, len, value, is_lmem);
++static inline bool
++i915_vm_has_memory_coloring(struct i915_address_space *vm)
++{
++	return !i915_is_ggtt(vm) && vm->mm.color_adjust;
++}
++
+ static inline struct i915_ggtt *
+ i915_vm_to_ggtt(struct i915_address_space *vm)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index 2b73ddb11c66..006bf4924c24 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -292,6 +292,13 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
  
- 		/* Arbitration is re-enabled between requests. */
- out_rq:
+ 		/* Always look at the page afterwards to avoid the end-of-GTT */
+ 		end += I915_GTT_PAGE_SIZE;
++	} else if (i915_vm_has_memory_coloring(vm)) {
++		/*
++		 * Expand the search the cover the page-table boundries, in
++		 * case we need to flip the color of the page-table(s).
++		 */
++		start = round_down(start, SZ_2M);
++		end = round_up(end, SZ_2M);
+ 	}
+ 	GEM_BUG_ON(start >= end);
+ 
+@@ -321,6 +328,16 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
+ 				if (node->color == target->color)
+ 					continue;
+ 			}
++		} else if (i915_vm_has_memory_coloring(vm)) {
++			if (node->start + node->size <= target->start) {
++				if (node->color == target->color)
++					continue;
++			}
++
++			if (node->start >= target->start + target->size) {
++				if (node->color == target->color)
++					continue;
++			}
+ 		}
+ 
+ 		if (i915_vma_is_pinned(vma)) {
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index c31b4bc8af16..92b124ecc38c 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -585,6 +585,10 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
+ 	struct drm_mm_node *node = &vma->node;
+ 	struct drm_mm_node *other;
+ 
++	/* Only valid to be called on an already inserted vma */
++	GEM_BUG_ON(!drm_mm_node_allocated(node));
++	GEM_BUG_ON(list_empty(&node->node_list));
++
+ 	/*
+ 	 * On some machines we have to be careful when putting differing types
+ 	 * of snoopable memory together to avoid the prefetcher crossing memory
+@@ -592,22 +596,34 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
+ 	 * these constraints apply and set the drm_mm.color_adjust
+ 	 * appropriately.
+ 	 */
+-	if (!i915_vm_has_cache_coloring(vma->vm))
+-		return true;
+-
+-	/* Only valid to be called on an already inserted vma */
+-	GEM_BUG_ON(!drm_mm_node_allocated(node));
+-	GEM_BUG_ON(list_empty(&node->node_list));
++	if (i915_vm_has_cache_coloring(vma->vm)) {
++		other = list_prev_entry(node, node_list);
++		if (i915_node_color_differs(other, color) &&
++		    !drm_mm_hole_follows(other))
++			return false;
+ 
+-	other = list_prev_entry(node, node_list);
+-	if (i915_node_color_differs(other, color) &&
+-	    !drm_mm_hole_follows(other))
+-		return false;
++		other = list_next_entry(node, node_list);
++		if (i915_node_color_differs(other, color) &&
++		    !drm_mm_hole_follows(node))
++			return false;
++	/*
++	 * On XEHPSDV we need to make sure we are not mixing LMEM and SMEM objects
++	 * in the same page-table, i.e mixing 64K and 4K gtt pages in the same
++	 * page-table.
++	 */
++	} else if (i915_vm_has_memory_coloring(vma->vm)) {
++		other = list_prev_entry(node, node_list);
++		if (i915_node_color_differs(other, color) &&
++		    !drm_mm_hole_follows(other) &&
++		    !IS_ALIGNED(other->start + other->size, SZ_2M))
++			return false;
+ 
+-	other = list_next_entry(node, node_list);
+-	if (i915_node_color_differs(other, color) &&
+-	    !drm_mm_hole_follows(node))
+-		return false;
++		other = list_next_entry(node, node_list);
++		if (i915_node_color_differs(other, color) &&
++		    !drm_mm_hole_follows(node) &&
++		    !IS_ALIGNED(other->start, SZ_2M))
++			return false;
++	}
+ 
+ 	return true;
+ }
+@@ -676,6 +692,8 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
+ 
+ 		if (i915_vm_has_cache_coloring(vma->vm))
+ 			color = vma->obj->cache_level;
++		else if (i915_vm_has_memory_coloring(vma->vm))
++			color = i915_gem_object_is_lmem(vma->obj);
+ 	}
+ 
+ 	if (flags & PIN_OFFSET_FIXED) {
 -- 
 2.20.1
 
