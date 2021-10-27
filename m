@@ -2,45 +2,46 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9850CC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 17:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DCEAC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 18:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5EC1560ED4
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 17:59:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5EC1560ED4
+	by mail.kernel.org (Postfix) with ESMTPS id 01DF260ED4
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 18:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 01DF260ED4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC8306E5D5;
-	Wed, 27 Oct 2021 17:59:31 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C68D6E5D5
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 17:59:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="316431999"
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="316431999"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 10:59:30 -0700
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="497985806"
-Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
- ([10.24.14.60])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 10:59:29 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Mika Kahola <mika.kahola@intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Wed, 27 Oct 2021 11:05:45 -0700
-Message-Id: <20211027180545.55660-1-jose.souza@intel.com>
-X-Mailer: git-send-email 2.33.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 772826E7EA;
+	Wed, 27 Oct 2021 18:00:57 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECD36E5D5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 18:00:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="210992118"
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="210992118"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 10:12:12 -0700
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="447302045"
+Received: from unknown (HELO intel.com) ([10.237.72.167])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 10:12:11 -0700
+Date: Wed, 27 Oct 2021 20:11:37 +0300
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Message-ID: <20211027171137.GA6185@intel.com>
+References: <20211018115030.3547-1-ville.syrjala@linux.intel.com>
+ <20211018115030.3547-6-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/adlp: Extend PSR2 support in
- transcoder B
+In-Reply-To: <20211018115030.3547-6-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 5/9] drm/i915: Split skl+ plane update into
+ noarm+arm pair
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,36 +57,296 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PSR2 is supported in transcoder A and B on Alderlake-P.
+On Mon, Oct 18, 2021 at 02:50:26PM +0300, Ville Syrjala wrote:
+> From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> 
+> Chop skl_program_plane() into two halves. Fist half becomes
+> the _noarm() variant, second part the _arm() variant.
+> 
+> Fortunately I have already previously grouped the register
+> writes into roughtly the correct order, so the split looks
+> surprisingly clean.
+> 
+> A few notable oddities I did not realize were self arming
+> are AUX_DIST and COLOR_CTL.
+> 
+> i915_update_info doesn't look too terrible on my cfl running
+> kms_atomic_transition --r plane-all-transition --extended:
+> w/o patch                           w/ patch
+> Updates: 2178                       Updates: 2018
+>        |                                   |
+>    1us |                               1us |
+>        |                                   |
+>    4us |                               4us |*****
+>        |*********                          |**********
+>   16us |**********                    16us |*******
+>        |***                                |
+>   66us |                              66us |
+>        |                                   |
+>  262us |                             262us |
+>        |                                   |
+>    1ms |                               1ms |
+>        |                                   |
+>    4ms |                               4ms |
+>        |                                   |
+>   17ms |                              17ms |
+>        |                                   |
+> Min update: 8332ns                  Min update: 6164ns
+> Max update: 48758ns                 Max update: 31808ns
+> Average update: 19959ns             Average update: 13159ns
+> Overruns > 100us: 0                 Overruns > 100us: 0
+> 
+> And with lockdep enabled:
+> w/o patch                           w/ patch
+> Updates: 2177			    Updates: 2172
+>        |			    	   |
+>    1us |			       1us |
+>        |			    	   |
+>    4us |			       4us |
+>        |*******			    	   |*********
+>   16us |**********		      16us |**********
+>        |*******			    	   |*
+>   66us |			      66us |
+>        |			    	   |
+>  262us |			     262us |
+>        |			    	   |
+>    1ms |			       1ms |
+>        |			    	   |
+>    4ms |			       4ms |
+>        |			    	   |
+>   17ms |			      17ms |
+>        |			    	   |
+> Min update: 12645ns		    Min update: 9980ns
+> Max update: 50153ns		    Max update: 33533ns
+> Average update: 25337ns		    Average update: 18245ns
+> Overruns > 250us: 0		    Overruns > 250us: 0
+> 
+> TODO: On icl+ everything seems to be armed by PLANE_SURF, so we
+>       can optimize this even further on modern platforms. But I
+>       think there's a bit of refactoring to be done first to
+>       figure out the best way to go about it (eg. just reusing
+>       the current skl+ functions, or doing a lower level split).
+> 
+> TODO: Split scaler programming as well, but IIRC the scaler
+>       has some oddball double buffering behaviour on some
+>       platforms, so needs proper reverse engineering
+> 
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> ---
+>  .../drm/i915/display/skl_universal_plane.c    | 113 +++++++++++-------
+>  1 file changed, 72 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index 74f3870d39b1..2a822e1e465e 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -1050,60 +1050,32 @@ static void icl_plane_csc_load_black(struct intel_plane *plane)
+>  }
+>  
+>  static void
+> -skl_program_plane(struct intel_plane *plane,
+> -		  const struct intel_crtc_state *crtc_state,
+> -		  const struct intel_plane_state *plane_state,
+> -		  int color_plane)
+> +skl_program_plane_noarm(struct intel_plane *plane,
+> +			const struct intel_crtc_state *crtc_state,
+> +			const struct intel_plane_state *plane_state,
+> +			int color_plane)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+>  	enum plane_id plane_id = plane->id;
+>  	enum pipe pipe = plane->pipe;
+> -	const struct drm_intel_sprite_colorkey *key = &plane_state->ckey;
+>  	u32 stride = skl_plane_stride(plane_state, color_plane);
+>  	const struct drm_framebuffer *fb = plane_state->hw.fb;
+> -	int aux_plane = skl_main_to_aux_plane(fb, color_plane);
+>  	int crtc_x = plane_state->uapi.dst.x1;
+>  	int crtc_y = plane_state->uapi.dst.y1;
+> -	u32 x = plane_state->view.color_plane[color_plane].x;
+> -	u32 y = plane_state->view.color_plane[color_plane].y;
+>  	u32 src_w = drm_rect_width(&plane_state->uapi.src) >> 16;
+>  	u32 src_h = drm_rect_height(&plane_state->uapi.src) >> 16;
+> -	u8 alpha = plane_state->hw.alpha >> 8;
+> -	u32 plane_color_ctl = 0, aux_dist = 0;
+>  	unsigned long irqflags;
+> -	u32 keymsk, keymax;
+> -	u32 plane_ctl = plane_state->ctl;
+> -
+> -	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+> -
+> -	if (DISPLAY_VER(dev_priv) >= 10)
+> -		plane_color_ctl = plane_state->color_ctl |
+> -			glk_plane_color_ctl_crtc(crtc_state);
+>  
+>  	/* Sizes are 0 based */
+>  	src_w--;
+>  	src_h--;
+>  
+> -	keymax = (key->max_value & 0xffffff) | PLANE_KEYMAX_ALPHA(alpha);
+> -
+> -	keymsk = key->channel_mask & 0x7ffffff;
+> -	if (alpha < 0xff)
+> -		keymsk |= PLANE_KEYMSK_ALPHA_ENABLE;
+> -
+>  	/* The scaler will handle the output position */
+>  	if (plane_state->scaler_id >= 0) {
+>  		crtc_x = 0;
+>  		crtc_y = 0;
+>  	}
+>  
+> -	if (aux_plane) {
+> -		aux_dist = skl_surf_address(plane_state, aux_plane) -
+> -			skl_surf_address(plane_state, color_plane);
+> -
+> -		if (DISPLAY_VER(dev_priv) < 12)
+> -			aux_dist |= skl_plane_stride(plane_state, aux_plane);
+> -	}
+> -
+>  	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+>  
+>  	/*
+> @@ -1119,16 +1091,10 @@ skl_program_plane(struct intel_plane *plane,
+>  	intel_de_write_fw(dev_priv, PLANE_SIZE(pipe, plane_id),
+>  			  (src_h << 16) | src_w);
+>  
+> -	intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id), aux_dist);
+> -
+>  	if (icl_is_hdr_plane(dev_priv, plane_id))
+>  		intel_de_write_fw(dev_priv, PLANE_CUS_CTL(pipe, plane_id),
+>  				  plane_state->cus_ctl);
+>  
+> -	if (DISPLAY_VER(dev_priv) >= 10)
+> -		intel_de_write_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id),
+> -				  plane_color_ctl);
+> -
+>  	if (fb->format->is_yuv && icl_is_hdr_plane(dev_priv, plane_id))
+>  		icl_program_input_csc(plane, crtc_state, plane_state);
+>  
+> @@ -1138,6 +1104,52 @@ skl_program_plane(struct intel_plane *plane,
+>  
+>  	skl_write_plane_wm(plane, crtc_state);
+>  
+> +	intel_psr2_program_plane_sel_fetch(plane, crtc_state, plane_state, color_plane);
+> +
+> +	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+> +}
+> +
+> +static void
+> +skl_program_plane_arm(struct intel_plane *plane,
+> +		      const struct intel_crtc_state *crtc_state,
+> +		      const struct intel_plane_state *plane_state,
+> +		      int color_plane)
+> +{
+> +	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+> +	enum plane_id plane_id = plane->id;
+> +	enum pipe pipe = plane->pipe;
+> +	const struct drm_intel_sprite_colorkey *key = &plane_state->ckey;
+> +	const struct drm_framebuffer *fb = plane_state->hw.fb;
+> +	int aux_plane = skl_main_to_aux_plane(fb, color_plane);
+> +	u32 x = plane_state->view.color_plane[color_plane].x;
+> +	u32 y = plane_state->view.color_plane[color_plane].y;
+> +	u32 keymsk, keymax, aux_dist = 0, plane_color_ctl = 0;
+> +	u8 alpha = plane_state->hw.alpha >> 8;
+> +	u32 plane_ctl = plane_state->ctl;
+> +	unsigned long irqflags;
+> +
+> +	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+> +
+> +	if (DISPLAY_VER(dev_priv) >= 10)
+> +		plane_color_ctl = plane_state->color_ctl |
+> +			glk_plane_color_ctl_crtc(crtc_state);
+> +
+> +	keymax = (key->max_value & 0xffffff) | PLANE_KEYMAX_ALPHA(alpha);
+> +
+> +	keymsk = key->channel_mask & 0x7ffffff;
+> +	if (alpha < 0xff)
+> +		keymsk |= PLANE_KEYMSK_ALPHA_ENABLE;
+> +
+> +	if (aux_plane) {
+> +		aux_dist = skl_surf_address(plane_state, aux_plane) -
+> +			skl_surf_address(plane_state, color_plane);
+> +
+> +		if (DISPLAY_VER(dev_priv) < 12)
+> +			aux_dist |= skl_plane_stride(plane_state, aux_plane);
+> +	}
+> +
+> +	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+> +
+>  	intel_de_write_fw(dev_priv, PLANE_KEYVAL(pipe, plane_id),
+>  			  key->min_value);
+>  	intel_de_write_fw(dev_priv, PLANE_KEYMSK(pipe, plane_id), keymsk);
+> @@ -1146,17 +1158,22 @@ skl_program_plane(struct intel_plane *plane,
+>  	intel_de_write_fw(dev_priv, PLANE_OFFSET(pipe, plane_id),
+>  			  (y << 16) | x);
 
-v2:
-- explicity checking for transcoder A and B to avoid invalid transcoder
+Wondering, if we could also move PLANE_OFFSET register to non-arming
+section. BSpec states, that it is not arming and being armed by
+writing PLANE_SURF. I think we even agreed to check  if that was true,
+so I made some tests with DG2, I think and writes to PLANE_OFFSET
+didn't anyhow affect the hw until PLANE_SURF was written(was checking
+it by reading the crcs...)
 
-BSpec: 49185
-Reviewed-by: Jouni H√∂gander <jouni.hogander@intel.com> # v1
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Mika Kahola <mika.kahola@intel.com>
-Cc: Jouni Hogander <jouni.hogander@intel.com>
-Signed-off-by: Jos√© Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 8d08e3cf08c1f..33b50646b9c97 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -588,7 +588,9 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- static bool
- transcoder_has_psr2(struct drm_i915_private *dev_priv, enum transcoder trans)
- {
--	if (DISPLAY_VER(dev_priv) >= 12)
-+	if (IS_ALDERLAKE_P(dev_priv))
-+		return trans == TRANSCODER_A || trans == TRANSCODER_B;
-+	else if (DISPLAY_VER(dev_priv) >= 12)
- 		return trans == TRANSCODER_A;
- 	else
- 		return trans == TRANSCODER_EDP;
--- 
-2.33.1
-
+>  
+> +	intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id), aux_dist);
+> +
+>  	if (DISPLAY_VER(dev_priv) < 11)
+>  		intel_de_write_fw(dev_priv, PLANE_AUX_OFFSET(pipe, plane_id),
+>  				  (plane_state->view.color_plane[1].y << 16) |
+>  				   plane_state->view.color_plane[1].x);
+>  
+> -	intel_psr2_program_plane_sel_fetch(plane, crtc_state, plane_state, color_plane);
+> +	if (DISPLAY_VER(dev_priv) >= 10)
+> +		intel_de_write_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id), plane_color_ctl);
+>  
+>  	/*
+>  	 * Enable the scaler before the plane so that we don't
+>  	 * get a catastrophic underrun even if the two operations
+>  	 * end up happening in two different frames.
+> +	 *
+> +	 * TODO: split into noarm+arm pair
+>  	 */
+>  	if (plane_state->scaler_id >= 0)
+>  		skl_program_plane_scaler(plane, crtc_state, plane_state);
+> @@ -1199,7 +1216,20 @@ skl_plane_async_flip(struct intel_plane *plane,
+>  	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+>  }
+>  
+> -/* TODO: split into noarm+arm pair */
+> +static void
+> +skl_plane_update_noarm(struct intel_plane *plane,
+> +		       const struct intel_crtc_state *crtc_state,
+> +		       const struct intel_plane_state *plane_state)
+> +{
+> +	int color_plane = 0;
+> +
+> +	if (plane_state->planar_linked_plane && !plane_state->planar_slave)
+> +		/* Program the UV plane on planar master */
+> +		color_plane = 1;
+> +
+> +	skl_program_plane_noarm(plane, crtc_state, plane_state, color_plane);
+> +}
+> +
+>  static void
+>  skl_plane_update_arm(struct intel_plane *plane,
+>  		     const struct intel_crtc_state *crtc_state,
+> @@ -1211,7 +1241,7 @@ skl_plane_update_arm(struct intel_plane *plane,
+>  		/* Program the UV plane on planar master */
+>  		color_plane = 1;
+>  
+> -	skl_program_plane(plane, crtc_state, plane_state, color_plane);
+> +	skl_program_plane_arm(plane, crtc_state, plane_state, color_plane);
+>  }
+>  
+>  static bool intel_format_is_p01x(u32 format)
+> @@ -2159,6 +2189,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+>  	}
+>  
+>  	plane->max_stride = skl_plane_max_stride;
+> +	plane->update_noarm = skl_plane_update_noarm;
+>  	plane->update_arm = skl_plane_update_arm;
+>  	plane->disable_arm = skl_plane_disable_arm;
+>  	plane->get_hw_state = skl_plane_get_hw_state;
+> -- 
+> 2.32.0
+> 
