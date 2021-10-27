@@ -2,60 +2,43 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44A36C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:48:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4DF0C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1054760E73
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:48:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1054760E73
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 851CF60F02
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 851CF60F02
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D284C892D5;
-	Wed, 27 Oct 2021 13:48:33 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77C2889FCC;
- Wed, 27 Oct 2021 13:28:12 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D0A3F60E54;
- Wed, 27 Oct 2021 13:28:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635341292;
- bh=EubQhcLZiFFhLvGY743JDlU2CsiFAofCWoI/Tq6daTc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YcopuqY/86PHp0diMOIqnqlv92hsF7zYHZF2pg23bhC5uktYbu6+Z5N5MsTM0HlAh
- QhZbyhKfgmFZ2jOl13wsl8n7bifDk0IH2n/qxiOLbtOnRu6e6bgwEF9RQMefKgF07I
- AmEGcPxHukeePYS+bHLyilD1YPaftFzy41fF6L5Rs4sqJf3f+9qSpDBXH0AvaQ4Cpo
- RuFpm5pqlGB7tFY6o0NyDPKiGa1iSHSeIkrnFn8Y1qze55y3dX+/APv51wOJo50HNN
- DQzC3Y0fWuauHQ5YFWDzNpMr2ADL3BX6TybX7GANMfB26gw1jLRT5fG/xky3Y2/lR/
- v3dRifrKOTiRQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Miguel Ojeda <ojeda@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Frederich <jfrederich@gmail.com>,
- Jon Nettleton <jon.nettleton@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Lars Poeschel <poeschel@lemonage.de>,
- Robin van der Gracht <robin@protonic.nl>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Randy Dunlap <rdunlap@infradead.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-staging@lists.linux.dev
-Date: Wed, 27 Oct 2021 15:27:13 +0200
-Message-Id: <20211027132732.3993279-2-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20211027132732.3993279-1-arnd@kernel.org>
-References: <20211027132732.3993279-1-arnd@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D575A6E89D;
+	Wed, 27 Oct 2021 13:59:07 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6483A6E89D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 13:59:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="210943887"
+X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="210943887"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 06:59:05 -0700
+X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="497877015"
+Received: from smaharan-mobl.gar.corp.intel.com (HELO localhost)
+ ([10.251.214.195])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 06:59:04 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Date: Wed, 27 Oct 2021 16:59:00 +0300
+Message-Id: <20211027135900.6329-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 27 Oct 2021 13:48:32 +0000
-Subject: [Intel-gfx] [PATCH 2/3] fbdev: rework backlight dependencies
+Subject: [Intel-gfx] [PATCH] drm/i915/dcs: demote noisy drm_info() to
+ drm_kms_dbg()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,173 +54,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+The PPS, RC_RANGE_PARAM, and RC_BUF_THRESH logging are clearly for
+debugging, and should not be info level messages.
 
-Rather than having CONFIG_FB_BACKLIGHT select CONFIG_BACKLIGHT_CLASS_DEVICE,
-make any driver that needs it have a dependency on the class device
-being available, to prevent circular dependencies.
-
-This is the same way that the backlight is already treated for the DRM
-subsystem.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/auxdisplay/Kconfig        |  1 +
- drivers/macintosh/Kconfig         |  1 +
- drivers/staging/fbtft/Kconfig     |  1 +
- drivers/staging/olpc_dcon/Kconfig |  2 +-
- drivers/video/fbdev/Kconfig       | 14 +++++++++++---
- 5 files changed, 15 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 32 +++++++++++------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/auxdisplay/Kconfig b/drivers/auxdisplay/Kconfig
-index 64012cda4d12..356afb6a569d 100644
---- a/drivers/auxdisplay/Kconfig
-+++ b/drivers/auxdisplay/Kconfig
-@@ -170,6 +170,7 @@ config IMG_ASCII_LCD
- config HT16K33
- 	tristate "Holtek Ht16K33 LED controller with keyscan"
- 	depends on FB && I2C && INPUT
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_SYS_FOPS
- 	select FB_SYS_FILLRECT
- 	select FB_SYS_COPYAREA
-diff --git a/drivers/macintosh/Kconfig b/drivers/macintosh/Kconfig
-index 5cdc361da37c..cb0fbdf8ff7f 100644
---- a/drivers/macintosh/Kconfig
-+++ b/drivers/macintosh/Kconfig
-@@ -113,6 +113,7 @@ config PMAC_MEDIABAY
- config PMAC_BACKLIGHT
- 	bool "Backlight control for LCD screens"
- 	depends on PPC_PMAC && ADB_PMU && FB = y && (BROKEN || !PPC64)
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_BACKLIGHT
- 	help
- 	  Say Y here to enable Macintosh specific extensions of the generic
-diff --git a/drivers/staging/fbtft/Kconfig b/drivers/staging/fbtft/Kconfig
-index dad1ddcd7b0c..c4f2f01cd798 100644
---- a/drivers/staging/fbtft/Kconfig
-+++ b/drivers/staging/fbtft/Kconfig
-@@ -3,6 +3,7 @@ menuconfig FB_TFT
- 	tristate "Support for small TFT LCD display modules"
- 	depends on FB && SPI
- 	depends on GPIOLIB || COMPILE_TEST
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_SYS_FILLRECT
- 	select FB_SYS_COPYAREA
- 	select FB_SYS_IMAGEBLIT
-diff --git a/drivers/staging/olpc_dcon/Kconfig b/drivers/staging/olpc_dcon/Kconfig
-index d1a0dea09ef0..a9f36538d7ab 100644
---- a/drivers/staging/olpc_dcon/Kconfig
-+++ b/drivers/staging/olpc_dcon/Kconfig
-@@ -4,7 +4,7 @@ config FB_OLPC_DCON
- 	depends on OLPC && FB
- 	depends on I2C
- 	depends on GPIO_CS5535 && ACPI
--	select BACKLIGHT_CLASS_DEVICE
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	help
- 	  In order to support very low power operation, the XO laptop uses a
- 	  secondary Display CONtroller, or DCON.  This secondary controller
-diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-index c187a93c9a16..3ad499433726 100644
---- a/drivers/video/fbdev/Kconfig
-+++ b/drivers/video/fbdev/Kconfig
-@@ -186,7 +186,7 @@ config FB_MACMODES
- config FB_BACKLIGHT
- 	tristate
- 	depends on FB
--	select BACKLIGHT_CLASS_DEVICE
-+	depends on BACKLIGHT_CLASS_DEVICE
- 
- config FB_MODE_HELPERS
- 	bool "Enable Video Mode Handling Helpers"
-@@ -275,12 +275,12 @@ config FB_ARMCLCD
- 	tristate "ARM PrimeCell PL110 support"
- 	depends on ARM || ARM64 || COMPILE_TEST
- 	depends on FB && ARM_AMBA && HAS_IOMEM
-+	depends on BACKLIGHT_CLASS_DEVICE || !OF
- 	select FB_CFB_FILLRECT
- 	select FB_CFB_COPYAREA
- 	select FB_CFB_IMAGEBLIT
- 	select FB_MODE_HELPERS if OF
- 	select VIDEOMODE_HELPERS if OF
--	select BACKLIGHT_CLASS_DEVICE if OF
- 	help
- 	  This framebuffer device driver is for the ARM PrimeCell PL110
- 	  Colour LCD controller.  ARM PrimeCells provide the building
-@@ -863,6 +863,7 @@ config FB_ATMEL
- 	tristate "AT91 LCD Controller support"
- 	depends on FB && OF && HAVE_CLK && HAS_IOMEM
- 	depends on HAVE_FB_ATMEL || COMPILE_TEST
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_BACKLIGHT
- 	select FB_CFB_FILLRECT
- 	select FB_CFB_COPYAREA
-@@ -916,6 +917,7 @@ config FB_NVIDIA_DEBUG
- config FB_NVIDIA_BACKLIGHT
- 	bool "Support for backlight control"
- 	depends on FB_NVIDIA
-+	depends on BACKLIGHT_CLASS_DEVICE=y || BACKLIGHT_CLASS_DEVICE=FB_NVIDIA
- 	default y
- 	help
- 	  Say Y here if you want to control the backlight of your display.
-@@ -963,6 +965,7 @@ config FB_RIVA_DEBUG
- config FB_RIVA_BACKLIGHT
- 	bool "Support for backlight control"
- 	depends on FB_RIVA
-+	depends on BACKLIGHT_CLASS_DEVICE=y || BACKLIGHT_CLASS_DEVICE=FB_RIVA
- 	default y
- 	help
- 	  Say Y here if you want to control the backlight of your display.
-@@ -1234,6 +1237,7 @@ config FB_RADEON_I2C
- config FB_RADEON_BACKLIGHT
- 	bool "Support for backlight control"
- 	depends on FB_RADEON
-+	depends on BACKLIGHT_CLASS_DEVICE=y || BACKLIGHT_CLASS_DEVICE=FB_RADEON
- 	default y
- 	help
- 	  Say Y here if you want to control the backlight of your display.
-@@ -1265,6 +1269,7 @@ config FB_ATY128
- config FB_ATY128_BACKLIGHT
- 	bool "Support for backlight control"
- 	depends on FB_ATY128
-+	depends on BACKLIGHT_CLASS_DEVICE=y || BACKLIGHT_CLASS_DEVICE=FB_ATY128
- 	default y
- 	help
- 	  Say Y here if you want to control the backlight of your display.
-@@ -1314,6 +1319,7 @@ config FB_ATY_GX
- 
- config FB_ATY_BACKLIGHT
- 	bool "Support for backlight control"
-+	depends on BACKLIGHT_CLASS_DEVICE=y || BACKLIGHT_CLASS_DEVICE=FB_ATY
- 	depends on FB_ATY
- 	default y
- 	help
-@@ -1838,6 +1844,7 @@ config FB_SH_MOBILE_LCDC
- 	tristate "SuperH Mobile LCDC framebuffer support"
- 	depends on FB && HAVE_CLK && HAS_IOMEM
- 	depends on SUPERH || ARCH_RENESAS || COMPILE_TEST
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_SYS_FILLRECT
- 	select FB_SYS_COPYAREA
- 	select FB_SYS_IMAGEBLIT
-@@ -2166,7 +2173,7 @@ config FB_PRE_INIT_FB
- config FB_MX3
- 	tristate "MX3 Framebuffer support"
- 	depends on FB && MX3_IPU
--	select BACKLIGHT_CLASS_DEVICE
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_CFB_FILLRECT
- 	select FB_CFB_COPYAREA
- 	select FB_CFB_IMAGEBLIT
-@@ -2222,6 +2229,7 @@ config FB_SSD1307
- 	tristate "Solomon SSD1307 framebuffer support"
- 	depends on FB && I2C
- 	depends on GPIOLIB || COMPILE_TEST
-+	depends on BACKLIGHT_CLASS_DEVICE
- 	select FB_SYS_FOPS
- 	select FB_SYS_FILLRECT
- 	select FB_SYS_COPYAREA
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index fa84be609d5d..bf8d3c7ca2d9 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -598,7 +598,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 		pps_val |= DSC_422_ENABLE;
+ 	if (vdsc_cfg->vbr_enable)
+ 		pps_val |= DSC_VBR_ENABLE;
+-	drm_info(&dev_priv->drm, "PPS0 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS0 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_0,
+ 			       pps_val);
+@@ -622,7 +622,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	/* Populate PICTURE_PARAMETER_SET_1 registers */
+ 	pps_val = 0;
+ 	pps_val |= DSC_BPP(vdsc_cfg->bits_per_pixel);
+-	drm_info(&dev_priv->drm, "PPS1 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS1 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_1,
+ 			       pps_val);
+@@ -647,7 +647,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_PIC_HEIGHT(vdsc_cfg->pic_height) |
+ 		DSC_PIC_WIDTH(vdsc_cfg->pic_width / num_vdsc_instances);
+-	drm_info(&dev_priv->drm, "PPS2 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS2 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_2,
+ 			       pps_val);
+@@ -672,7 +672,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_SLICE_HEIGHT(vdsc_cfg->slice_height) |
+ 		DSC_SLICE_WIDTH(vdsc_cfg->slice_width);
+-	drm_info(&dev_priv->drm, "PPS3 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS3 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_3,
+ 			       pps_val);
+@@ -697,7 +697,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_INITIAL_XMIT_DELAY(vdsc_cfg->initial_xmit_delay) |
+ 		DSC_INITIAL_DEC_DELAY(vdsc_cfg->initial_dec_delay);
+-	drm_info(&dev_priv->drm, "PPS4 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS4 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_4,
+ 			       pps_val);
+@@ -722,7 +722,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_SCALE_INC_INT(vdsc_cfg->scale_increment_interval) |
+ 		DSC_SCALE_DEC_INT(vdsc_cfg->scale_decrement_interval);
+-	drm_info(&dev_priv->drm, "PPS5 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS5 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_5,
+ 			       pps_val);
+@@ -749,7 +749,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 		DSC_FIRST_LINE_BPG_OFFSET(vdsc_cfg->first_line_bpg_offset) |
+ 		DSC_FLATNESS_MIN_QP(vdsc_cfg->flatness_min_qp) |
+ 		DSC_FLATNESS_MAX_QP(vdsc_cfg->flatness_max_qp);
+-	drm_info(&dev_priv->drm, "PPS6 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS6 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_6,
+ 			       pps_val);
+@@ -774,7 +774,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_SLICE_BPG_OFFSET(vdsc_cfg->slice_bpg_offset) |
+ 		DSC_NFL_BPG_OFFSET(vdsc_cfg->nfl_bpg_offset);
+-	drm_info(&dev_priv->drm, "PPS7 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS7 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_7,
+ 			       pps_val);
+@@ -799,7 +799,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_FINAL_OFFSET(vdsc_cfg->final_offset) |
+ 		DSC_INITIAL_OFFSET(vdsc_cfg->initial_offset);
+-	drm_info(&dev_priv->drm, "PPS8 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS8 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_8,
+ 			       pps_val);
+@@ -824,7 +824,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	pps_val = 0;
+ 	pps_val |= DSC_RC_MODEL_SIZE(vdsc_cfg->rc_model_size) |
+ 		DSC_RC_EDGE_FACTOR(DSC_RC_EDGE_FACTOR_CONST);
+-	drm_info(&dev_priv->drm, "PPS9 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS9 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_9,
+ 			       pps_val);
+@@ -851,7 +851,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 		DSC_RC_QUANT_INC_LIMIT1(vdsc_cfg->rc_quant_incr_limit1) |
+ 		DSC_RC_TARGET_OFF_HIGH(DSC_RC_TGT_OFFSET_HI_CONST) |
+ 		DSC_RC_TARGET_OFF_LOW(DSC_RC_TGT_OFFSET_LO_CONST);
+-	drm_info(&dev_priv->drm, "PPS10 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS10 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_10,
+ 			       pps_val);
+@@ -879,7 +879,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 				   vdsc_cfg->slice_width) |
+ 		DSC_SLICE_ROW_PER_FRAME(vdsc_cfg->pic_height /
+ 					vdsc_cfg->slice_height);
+-	drm_info(&dev_priv->drm, "PPS16 = 0x%08x\n", pps_val);
++	drm_dbg_kms(&dev_priv->drm, "PPS16 = 0x%08x\n", pps_val);
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_16,
+ 			       pps_val);
+@@ -906,8 +906,8 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 		rc_buf_thresh_dword[i / 4] |=
+ 			(u32)(vdsc_cfg->rc_buf_thresh[i] <<
+ 			      BITS_PER_BYTE * (i % 4));
+-		drm_info(&dev_priv->drm, " RC_BUF_THRESH%d = 0x%08x\n", i,
+-			 rc_buf_thresh_dword[i / 4]);
++		drm_dbg_kms(&dev_priv->drm, "RC_BUF_THRESH_%d = 0x%08x\n", i,
++			    rc_buf_thresh_dword[i / 4]);
+ 	}
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0,
+@@ -963,8 +963,8 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 				RC_MAX_QP_SHIFT) |
+ 			       (vdsc_cfg->rc_range_params[i].range_min_qp <<
+ 				RC_MIN_QP_SHIFT)) << 16 * (i % 2));
+-		drm_info(&dev_priv->drm, " RC_RANGE_PARAM_%d = 0x%08x\n", i,
+-			 rc_range_params_dword[i / 2]);
++		drm_dbg_kms(&dev_priv->drm, "RC_RANGE_PARAM_%d = 0x%08x\n", i,
++			    rc_range_params_dword[i / 2]);
+ 	}
+ 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0,
 -- 
-2.29.2
+2.30.2
 
