@@ -2,51 +2,48 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BD28C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D5B1C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30EC460F56
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:40:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 30EC460F56
+	by mail.kernel.org (Postfix) with ESMTPS id 0E71360F21
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E71360F21
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C72C46E8B2;
-	Wed, 27 Oct 2021 14:40:53 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB8A36E8B2;
- Wed, 27 Oct 2021 14:40:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="227630639"
-X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="227630639"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 07:40:52 -0700
-X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="465749065"
-Received: from smile.fi.intel.com ([10.237.72.184])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 07:40:49 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1mfk6P-001Ti4-3p; Wed, 27 Oct 2021 17:40:29 +0300
-Date: Wed, 27 Oct 2021 17:40:28 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Arnd Bergmann <arnd@arndb.de>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Message-ID: <YXlk3N4n5BeYl6yO@smile.fi.intel.com>
-References: <20211027132732.3993279-1-arnd@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211027132732.3993279-1-arnd@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53CFF6E8AF;
+	Wed, 27 Oct 2021 14:42:56 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 912016E8AF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 14:42:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="293635741"
+X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="293635741"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 07:42:54 -0700
+X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="497896000"
+Received: from smaharan-mobl.gar.corp.intel.com (HELO localhost)
+ ([10.251.214.195])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 07:42:51 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Hogander\, Jouni" <jouni.hogander@intel.com>,
+ "intel-gfx\@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Souza\,
+ Jose" <jose.souza@intel.com>
+Cc: "Kahola\, Mika" <mika.kahola@intel.com>
+In-Reply-To: <a36cf418169109b18845eac552d450dadee1e6ca.camel@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Subject: Re: [Intel-gfx] [PATCH 1/3] fbdev: rework FB_DDC dependencies
+References: <20211026223329.116104-1-jose.souza@intel.com>
+ <a36cf418169109b18845eac552d450dadee1e6ca.camel@intel.com>
+Date: Wed, 27 Oct 2021 17:42:48 +0300
+Message-ID: <87k0hyh6l3.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/adlp: Extend PSR2 support in
+ transcoder B
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,142 +59,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 27, 2021 at 03:27:12PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Selecting FB_DDC currently turns on CONFIG_I2C implicitly,
-> which is often not desired and can lead to circular dependencies.
-> 
-> Change this to a 'depends on' and change all drivers that
-> rely on FB_DDC to have an appropriate I2C dependency as well.
+On Wed, 27 Oct 2021, "Hogander, Jouni" <jouni.hogander@intel.com> wrote:
+> On Tue, 2021-10-26 at 15:33 -0700, Jos=C3=A9 Roberto de Souza wrote:
+>> PSR2 is supported in transcoder A and B on Alderlake-P.
+>>=20
+>> BSpec: 49185
+>> Cc: Mika Kahola <mika.kahola@intel.com>
+>> Cc: Jouni Hogander <jouni.hogander@intel.com>
+>> Signed-off-by: Jos=C3=A9 Roberto de Souza <jose.souza@intel.com>
+>
+> LGTM
+>
+> Reviewed-by: Jouni H=C3=B6gander <jouni.hogander@intel.com>
 
-No objections from me.
-Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Since INVALID_TRANSCODER is a thing, I'd actually prefer:
 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/video/fbdev/Kconfig | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-> index 6ed5e608dd04..c187a93c9a16 100644
-> --- a/drivers/video/fbdev/Kconfig
-> +++ b/drivers/video/fbdev/Kconfig
-> @@ -62,9 +62,8 @@ config FIRMWARE_EDID
->  
->  config FB_DDC
->  	tristate
-> -	depends on FB
-> +	depends on FB && I2C
->  	select I2C_ALGOBIT
-> -	select I2C
->  
->  config FB_BOOT_VESA_SUPPORT
->  	bool
-> @@ -356,6 +355,7 @@ config FB_CYBER2000
->  config FB_CYBER2000_DDC
->  	bool "DDC for CyberPro support"
->  	depends on FB_CYBER2000
-> +	depends on I2C=y || I2C=FB_CYBER2000
->  	select FB_DDC
->  	default y
->  	help
-> @@ -894,6 +894,7 @@ config FB_NVIDIA
->  config FB_NVIDIA_I2C
->  	bool "Enable DDC Support"
->  	depends on FB_NVIDIA
-> +	depends on I2C=y || I2C=FB_NVIDIA
->  	select FB_DDC
->  	help
->  	  This enables I2C support for nVidia Chipsets.  This is used
-> @@ -940,6 +941,7 @@ config FB_RIVA
->  config FB_RIVA_I2C
->  	bool "Enable DDC Support"
->  	depends on FB_RIVA
-> +	depends on I2C=y || I2C=FB_RIVA
->  	select FB_DDC
->  	help
->  	  This enables I2C support for nVidia Chipsets.  This is used
-> @@ -967,7 +969,7 @@ config FB_RIVA_BACKLIGHT
->  
->  config FB_I740
->  	tristate "Intel740 support"
-> -	depends on FB && PCI
-> +	depends on FB && PCI && I2C
->  	select FB_MODE_HELPERS
->  	select FB_CFB_FILLRECT
->  	select FB_CFB_COPYAREA
-> @@ -1021,6 +1023,7 @@ config FB_I810_GTF
->  config FB_I810_I2C
->  	bool "Enable DDC Support"
->  	depends on FB_I810 && FB_I810_GTF
-> +	depends on I2C=y || I2C=FB_I810
->  	select FB_DDC
->  	help
->  	  Add DDC/I2C support for i810fb.  This will allow the driver to get
-> @@ -1076,6 +1079,7 @@ config FB_INTEL_DEBUG
->  config FB_INTEL_I2C
->  	bool "DDC/I2C for Intel framebuffer support"
->  	depends on FB_INTEL
-> +	depends on I2C=y || I2C=FB_INTEL
->  	select FB_DDC
->  	default y
->  	help
-> @@ -1155,6 +1159,7 @@ config FB_MATROX_G
->  config FB_MATROX_I2C
->  	tristate "Matrox I2C support"
->  	depends on FB_MATROX
-> +	depends on I2C=y || I2C=FB_MATROX
->  	select FB_DDC
->  	help
->  	  This drivers creates I2C buses which are needed for accessing the
-> @@ -1220,6 +1225,7 @@ config FB_RADEON
->  config FB_RADEON_I2C
->  	bool "DDC/I2C for ATI Radeon support"
->  	depends on FB_RADEON
-> +	depends on I2C=y || I2C=FB_RADEON
->  	select FB_DDC
->  	default y
->  	help
-> @@ -1329,6 +1335,7 @@ config FB_S3
->  config FB_S3_DDC
->  	bool "DDC for S3 support"
->  	depends on FB_S3
-> +	depends on I2C=y || I2C=FB_S3
->  	select FB_DDC
->  	default y
->  	help
-> @@ -1354,6 +1361,7 @@ config FB_SAVAGE
->  config FB_SAVAGE_I2C
->  	bool "Enable DDC2 Support"
->  	depends on FB_SAVAGE
-> +	depends on I2C=y || I2C=FB_SAVAGE
->  	select FB_DDC
->  	help
->  	  This enables I2C support for S3 Savage Chipsets.  This is used
-> @@ -1493,6 +1501,7 @@ config FB_3DFX_ACCEL
->  config FB_3DFX_I2C
->  	bool "Enable DDC/I2C support"
->  	depends on FB_3DFX
-> +	depends on I2C=y || I2C=FB_3DFX
->  	select FB_DDC
->  	default y
->  	help
-> @@ -1532,7 +1541,7 @@ config FB_VT8623
->  
->  config FB_TRIDENT
->  	tristate "Trident/CyberXXX/CyberBlade support"
-> -	depends on FB && PCI
-> +	depends on FB && PCI && I2C
->  	select FB_CFB_FILLRECT
->  	select FB_CFB_COPYAREA
->  	select FB_CFB_IMAGEBLIT
-> -- 
-> 2.29.2
-> 
+	trans =3D=3D TRANSCODER_A || trans =3D=3D TRANSCODER_B
 
--- 
-With Best Regards,
-Andy Shevchenko
+It's not likely INVALID_TRANSCODER will ever end up here, but I tried to
+look and it's actually not trivial to say this will never happen. I
+prefer the defensive approach.
+
+BR,
+Jani.
 
 
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_psr.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c
+>> b/drivers/gpu/drm/i915/display/intel_psr.c
+>> index d35db50ef967a..710b911b065b9 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+>> @@ -588,7 +588,9 @@ static void hsw_activate_psr2(struct intel_dp
+>> *intel_dp)
+>>  static bool
+>>  transcoder_has_psr2(struct drm_i915_private *dev_priv, enum
+>> transcoder trans)
+>>  {
+>> -	if (DISPLAY_VER(dev_priv) >=3D 12)
+>> +	if (IS_ALDERLAKE_P(dev_priv))
+>> +		return trans <=3D TRANSCODER_B;
+>> +	else if (DISPLAY_VER(dev_priv) >=3D 12)
+>>  		return trans =3D=3D TRANSCODER_A;
+>>  	else
+>>  		return trans =3D=3D TRANSCODER_EDP;
+>
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
