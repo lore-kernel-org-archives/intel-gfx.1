@@ -2,47 +2,45 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D04F1C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 19:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5857BC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 19:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9BB3860F22
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 19:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9BB3860F22
+	by mail.kernel.org (Postfix) with ESMTPS id 229776044F
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 19:07:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 229776044F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 731796E104;
-	Wed, 27 Oct 2021 19:01:06 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4120D6E0DE;
- Wed, 27 Oct 2021 19:01:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="230190178"
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="230190178"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 12:01:03 -0700
-X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="725281599"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 12:01:03 -0700
-Date: Wed, 27 Oct 2021 11:56:26 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- john.c.harrison@intel.com, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- daniel.vetter@ffwll.ch
-Message-ID: <20211027185626.GA16049@jons-linux-dev-box>
-References: <20211027004821.66097-1-umesh.nerlige.ramappa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B704C6E530;
+	Wed, 27 Oct 2021 19:07:56 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22A906E530
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 19:07:55 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="253794166"
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="253794166"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 11:42:39 -0700
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="494937119"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 11:42:38 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Mika Kahola <mika.kahola@intel.com>,
+ Jouni Hogander <jouni.hogander@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Wed, 27 Oct 2021 11:48:55 -0700
+Message-Id: <20211027184855.108731-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211027004821.66097-1-umesh.nerlige.ramappa@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/pmu: Add a name to the
- execlists stats
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/psr2: Do full fetches when doing async
+ flips
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,242 +56,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 26, 2021 at 05:48:20PM -0700, Umesh Nerlige Ramappa wrote:
-> In preparation for GuC pmu stats, add a name to the execlists stats
-> structure so that it can be differentiated from the GuC stats.
-> 
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 14 +++---
->  drivers/gpu/drm/i915/gt/intel_engine_stats.h | 33 +++++++------
->  drivers/gpu/drm/i915/gt/intel_engine_types.h | 52 +++++++++++---------
->  3 files changed, 53 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> index ff6753ccb129..2de396e34d83 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> @@ -363,7 +363,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
->  		DRIVER_CAPS(i915)->has_logical_contexts = true;
->  
->  	ewma__engine_latency_init(&engine->latency);
-> -	seqcount_init(&engine->stats.lock);
-> +	seqcount_init(&engine->stats.execlists.lock);
->  
->  	ATOMIC_INIT_NOTIFIER_HEAD(&engine->context_status_notifier);
->  
-> @@ -1918,15 +1918,16 @@ void intel_engine_dump(struct intel_engine_cs *engine,
->  static ktime_t __intel_engine_get_busy_time(struct intel_engine_cs *engine,
->  					    ktime_t *now)
->  {
-> -	ktime_t total = engine->stats.total;
-> +	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
-> +	ktime_t total = stats->total;
->  
->  	/*
->  	 * If the engine is executing something at the moment
->  	 * add it to the total.
->  	 */
->  	*now = ktime_get();
-> -	if (READ_ONCE(engine->stats.active))
-> -		total = ktime_add(total, ktime_sub(*now, engine->stats.start));
-> +	if (READ_ONCE(stats->active))
-> +		total = ktime_add(total, ktime_sub(*now, stats->start));
->  
->  	return total;
->  }
-> @@ -1940,13 +1941,14 @@ static ktime_t __intel_engine_get_busy_time(struct intel_engine_cs *engine,
->   */
->  ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
->  {
-> +	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
->  	unsigned int seq;
->  	ktime_t total;
->  
->  	do {
-> -		seq = read_seqcount_begin(&engine->stats.lock);
-> +		seq = read_seqcount_begin(&stats->lock);
->  		total = __intel_engine_get_busy_time(engine, now);
-> -	} while (read_seqcount_retry(&engine->stats.lock, seq));
-> +	} while (read_seqcount_retry(&stats->lock, seq));
->  
->  	return total;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_stats.h b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-> index 24fbdd94351a..8e762d683e50 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-> @@ -15,45 +15,46 @@
->  
->  static inline void intel_engine_context_in(struct intel_engine_cs *engine)
->  {
-> +	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
->  	unsigned long flags;
->  
-> -	if (engine->stats.active) {
-> -		engine->stats.active++;
-> +	if (stats->active) {
-> +		stats->active++;
->  		return;
->  	}
->  
->  	/* The writer is serialised; but the pmu reader may be from hardirq */
->  	local_irq_save(flags);
-> -	write_seqcount_begin(&engine->stats.lock);
-> +	write_seqcount_begin(&stats->lock);
->  
-> -	engine->stats.start = ktime_get();
-> -	engine->stats.active++;
-> +	stats->start = ktime_get();
-> +	stats->active++;
->  
-> -	write_seqcount_end(&engine->stats.lock);
-> +	write_seqcount_end(&stats->lock);
->  	local_irq_restore(flags);
->  
-> -	GEM_BUG_ON(!engine->stats.active);
-> +	GEM_BUG_ON(!stats->active);
->  }
->  
->  static inline void intel_engine_context_out(struct intel_engine_cs *engine)
->  {
-> +	struct intel_engine_execlists_stats *stats = &engine->stats.execlists;
->  	unsigned long flags;
->  
-> -	GEM_BUG_ON(!engine->stats.active);
-> -	if (engine->stats.active > 1) {
-> -		engine->stats.active--;
-> +	GEM_BUG_ON(!stats->active);
-> +	if (stats->active > 1) {
-> +		stats->active--;
->  		return;
->  	}
->  
->  	local_irq_save(flags);
-> -	write_seqcount_begin(&engine->stats.lock);
-> +	write_seqcount_begin(&stats->lock);
->  
-> -	engine->stats.active--;
-> -	engine->stats.total =
-> -		ktime_add(engine->stats.total,
-> -			  ktime_sub(ktime_get(), engine->stats.start));
-> +	stats->active--;
-> +	stats->total = ktime_add(stats->total,
-> +				 ktime_sub(ktime_get(), stats->start));
->  
-> -	write_seqcount_end(&engine->stats.lock);
-> +	write_seqcount_end(&stats->lock);
->  	local_irq_restore(flags);
->  }
->  
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> index e0f773585c29..24fa7fb0e7de 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> @@ -257,6 +257,33 @@ struct intel_engine_execlists {
->  
->  #define INTEL_ENGINE_CS_MAX_NAME 8
->  
-> +struct intel_engine_execlists_stats {
-> +	/**
-> +	 * @active: Number of contexts currently scheduled in.
-> +	 */
-> +	unsigned int active;
-> +
-> +	/**
-> +	 * @lock: Lock protecting the below fields.
-> +	 */
-> +	seqcount_t lock;
-> +
-> +	/**
-> +	 * @total: Total time this engine was busy.
-> +	 *
-> +	 * Accumulated time not counting the most recent block in cases where
-> +	 * engine is currently busy (active > 0).
-> +	 */
-> +	ktime_t total;
-> +
-> +	/**
-> +	 * @start: Timestamp of the last idle to active transition.
-> +	 *
-> +	 * Idle is defined as active == 0, active is active > 0.
-> +	 */
-> +	ktime_t start;
-> +};
-> +
->  struct intel_engine_cs {
->  	struct drm_i915_private *i915;
->  	struct intel_gt *gt;
-> @@ -488,30 +515,7 @@ struct intel_engine_cs {
->  	u32 (*get_cmd_length_mask)(u32 cmd_header);
->  
->  	struct {
-> -		/**
-> -		 * @active: Number of contexts currently scheduled in.
-> -		 */
-> -		unsigned int active;
-> -
-> -		/**
-> -		 * @lock: Lock protecting the below fields.
-> -		 */
-> -		seqcount_t lock;
-> -
-> -		/**
-> -		 * @total: Total time this engine was busy.
-> -		 *
-> -		 * Accumulated time not counting the most recent block in cases
-> -		 * where engine is currently busy (active > 0).
-> -		 */
-> -		ktime_t total;
-> -
-> -		/**
-> -		 * @start: Timestamp of the last idle to active transition.
-> -		 *
-> -		 * Idle is defined as active == 0, active is active > 0.
-> -		 */
-> -		ktime_t start;
-> +		struct intel_engine_execlists_stats execlists;
+Async flips are not supported by selective fetch and we had a check
+for that but that check was only executed when doing modesets.
+So moving this check to the page flip path, so it can be properly
+handled.
 
-I'd probably just define this sub-structure inline rather defining it
-above. e.g.
+This fix a failure in kms_async_flips@test-cursor.
 
-struct {
-	struct {
-		fields...
-	} execlists;
-} stats;
+Cc: Mika Kahola <mika.kahola@intel.com>
+Cc: Jouni Hogander <jouni.hogander@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-Then the follow up patch:
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 8d08e3cf08c1f..ce6850ed72c60 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -729,12 +729,6 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
+ 		return false;
+ 	}
+ 
+-	if (crtc_state->uapi.async_flip) {
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "PSR2 sel fetch not enabled, async flip enabled\n");
+-		return false;
+-	}
+-
+ 	/* Wa_14010254185 Wa_14010103792 */
+ 	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+@@ -1592,6 +1586,8 @@ static bool psr2_sel_fetch_pipe_state_supported(const struct intel_crtc_state *c
+ {
+ 	if (crtc_state->scaler_state.scaler_id >= 0)
+ 		return false;
++	if (crtc_state->uapi.async_flip)
++		return false;
+ 
+ 	return true;
+ }
+-- 
+2.33.1
 
-union {
-	struct {
-		fields...
-	} execlists;
-	struct {
-		fields...
-	} guc;
-} stats;
-
-Or if there is common fields:
-
-struct {
-	common fields...
-	struct {
-		fields...
-	} execlists;
-	struct {
-		fields...
-	} guc;
-} stats;
-
-That being said, if you prefer to leave it as is, that's fine too.
-
-With that:
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-
->  
->  		/**
->  		 * @rps: Utilisation at last RPS sampling.
-> -- 
-> 2.20.1
-> 
