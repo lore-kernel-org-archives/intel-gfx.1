@@ -2,40 +2,44 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CB4EC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 16:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E857DC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 16:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56AB260F92
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 16:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 56AB260F92
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id AC59460E76
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 16:19:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC59460E76
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEFDA6E5A9;
-	Wed, 27 Oct 2021 16:18:30 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6455C6E5A9;
- Wed, 27 Oct 2021 16:18:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5C199A0096;
- Wed, 27 Oct 2021 16:18:29 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5A5A6E5A9;
+	Wed, 27 Oct 2021 16:19:51 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8606E5A9;
+ Wed, 27 Oct 2021 16:19:50 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="291038180"
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="291038180"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 09:19:47 -0700
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="597417902"
+Received: from shetherx-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.213.218.37])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 09:19:45 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Wed, 27 Oct 2021 17:18:10 +0100
+Message-Id: <20211027161813.3094681-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arnd Bergmann" <arnd@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Oct 2021 16:18:29 -0000
-Message-ID: <163535150934.4641.14503951152696147697@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211027132732.3993279-1-arnd@kernel.org>
-In-Reply-To: <20211027132732.3993279-1-arnd@kernel.org>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
- =?utf-8?q?eries_starting_with_=5B1/3=5D_fbdev=3A_rework_FB=5FDDC_dependen?=
- =?utf-8?q?cies?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915/clflush: fixup handling of
+ cache_dirty
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,26 +52,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+In theory if clflush_work_create() somehow fails here, and we don't yet
+have mm.pages populated then we end up resetting cache_dirty, which is
+likely wrong, since that will potentially skip the flush-on-acquire, if
+it was needed.
 
-Series: series starting with [1/3] fbdev: rework FB_DDC dependencies
-URL   : https://patchwork.freedesktop.org/series/96343/
-State : failure
+It looks like intel_user_framebuffer_dirty() can arrive here before the
+pages are populated.
 
-== Summary ==
+v2(Thomas):
+  - Move setting cache_dirty out of the async portion, also add a
+    comment for why that should still be safe.
 
-Applying: fbdev: rework FB_DDC dependencies
-Applying: fbdev: rework backlight dependencies
-error: sha1 information is lacking or useless (drivers/auxdisplay/Kconfig).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0002 fbdev: rework backlight dependencies
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_clflush.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+index f0435c6feb68..47586a8a1b73 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+@@ -109,12 +109,20 @@ bool i915_gem_clflush_object(struct drm_i915_gem_object *obj,
+ 						I915_FENCE_GFP);
+ 		dma_resv_add_excl_fence(obj->base.resv, &clflush->base.dma);
+ 		dma_fence_work_commit(&clflush->base);
++		/*
++		 * We must have successfully populated the pages(since we are
++		 * holding a pin on the pages as per the flush worker) to reach
++		 * this point, which must mean we have already done the required
++		 * flush-on-acquire, hence resetting cache_dirty here should be
++		 * safe.
++		 */
++		obj->cache_dirty = false;
+ 	} else if (obj->mm.pages) {
+ 		__do_clflush(obj);
++		obj->cache_dirty = false;
+ 	} else {
+ 		GEM_BUG_ON(obj->write_domain != I915_GEM_DOMAIN_CPU);
+ 	}
+ 
+-	obj->cache_dirty = false;
+ 	return true;
+ }
+-- 
+2.26.3
 
