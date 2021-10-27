@@ -2,56 +2,56 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DAE43C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27E21C43217
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 919B7610A0
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 919B7610A0
+	by mail.kernel.org (Postfix) with ESMTPS id EB89B610A0
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB89B610A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F1C6E511;
-	Wed, 27 Oct 2021 04:37:18 +0000 (UTC)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C026E511;
- Wed, 27 Oct 2021 04:37:17 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id v65so2107228ioe.5;
- Tue, 26 Oct 2021 21:37:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B45D8918A;
+	Wed, 27 Oct 2021 04:37:23 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1D548911D;
+ Wed, 27 Oct 2021 04:37:22 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id d63so2112589iof.4;
+ Tue, 26 Oct 2021 21:37:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Mf6lETji8wRbFfL3yOTy5bMwinsDXPmqL9mcZuNkVB0=;
- b=BAw66o90BBGtTaY9aOpx0FDTJCot/dtAjS8AB4Vc1ATEb4iIO9NEdygjth5D1xUI92
- 6CiqOEQVLpuMEkJWkyJCkhoyZQuWTx8rqMe1eBdgoqPvlE7dSPDBMZYkWfD1sA545jZ5
- KxGT9g2gRPD9Z+SL4NfQBptYf9nE5lB5maa8/KvRWqF7kCuFHsWpk/OChccaxlbnIceO
- 8vcSleh0ymPOARma7mfqhFE1zJuxWyxWkOWuIBOpMYrF4jJAygtPspTmb85LEznVlQzj
- pVAi12MLEdiq5jH+Y3OV+Xn9+Nh5busSXLIqu6FWA+p7Fo2XZW0ZJ7ogLINS2mZy6l8r
- tMXw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=KTjPwmyEBDA02pYjzS52Ng2KLEEXB6xVb20R+Q4xkso=;
+ b=oEgwprXWHlgD+HK8HYagY0h+ZLXfFM042go+IjfKy+XWxWgaVtKJHZCUD/vCVb5i/s
+ qLbm0A7vZLuPlH2lVgYG7W4Oa8kCBQewYb8jTuhbGz9PqfeB4W2ty0BQXOg6sBGjuSZE
+ 8zzzcx1FYupfJn7qNJnm18QluydqENoSfjq3gQ21tqn2ExdbsJojZrCpxqEsVXCXSKkq
+ 0fev0HUHDHRwXgfeO2B4H/9JwYhL/u925NwbPv2Chjswz8Gh6QT9y39MaUAKWaISc1Zs
+ Cv8NevjmO5uQlIkgD99cG42HjKvfyEET+zkfzoSul7ym9YFooZ3hMgjYWM4PiEQ5IRVX
+ 8Uvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Mf6lETji8wRbFfL3yOTy5bMwinsDXPmqL9mcZuNkVB0=;
- b=6SVWU2X2wnQwf3MHAwxsxLKq99Tic8uRGy3A1w+3HvpAiTB/skoUKC34A4M29rTVKK
- rbVtgB1aCPKXAGJwzmjP4MRMRew66d1Xfm+2+DjVAukFp3wy1y3tlbi6JQYahczJ0pK3
- mM9zjqwsflNF0oM6ak4wZSJj2XjPX3Y6gUcoX5sDQDu6nq/qtICPShxwJ2VU2HX2eTvH
- CwYR7OwwHs8VbE+eD8ZUV6R8S7Ep3AmYKPJIUmso7WzIWSKAdmdU69VnFbeV37BK34HP
- NVBns7JHU3VPKN0zKg+Pe3nG8lxtPcl45xXCdsr5zq5EYvM5ZzVg3Zgg5L3r8jMUZk0D
- TEkA==
-X-Gm-Message-State: AOAM530RNF4YmKYAU/c+UQdorgx7tiiMo6w+jzULRzjp7+wrv/f/lv6+
- o9pc99QE21SJO+IZsfJGooA=
-X-Google-Smtp-Source: ABdhPJwpsfgxu5gQsE7OVueH37qwBxt0RRxcxdgdCZco5RbEcYJ4iPjbrkvKCX5QN5o5gWvh0uGI/A==
-X-Received: by 2002:a05:6638:25ce:: with SMTP id
- u14mr509799jat.28.1635309436239; 
- Tue, 26 Oct 2021 21:37:16 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=KTjPwmyEBDA02pYjzS52Ng2KLEEXB6xVb20R+Q4xkso=;
+ b=vt+/D4/hHUvPs2qlFSyhr+54J6hSd2RjNY652+W4s4BMjK9w9docPFB9B79K0n8Rle
+ KepdwE91Rd9qQjq+e5y0jATeB33VBSOhz+5SmUG53fpSrPW2EBVosC8g12hVvDwvC+Qv
+ DvYy7FvCZ0izFJzDM7cDpBxJ+D2VgOpWY1UeJP/tsXFAqW2Kyqg6dZsqu+Iej1eNlfCq
+ qgl5YI/wuYO0B7Qqu5pRxWP1waN+EQxV50TTpnXugl7gclg5xRmTWiY5/dYdHHMfSlMI
+ u+v6b2bmt4xPWg3iGKjZVnrH+zEzmxyNya9NrYtez/jYhmd2oNLF/CeEJWxg298Sz8TC
+ ck9w==
+X-Gm-Message-State: AOAM533ty4NqYgfuEDTRa31FubFRSfggIcyvf+t7n5CjH1TexCjU23TT
+ WMcHkVgsp7iRKolHNwpNzug=
+X-Google-Smtp-Source: ABdhPJyA9UJpZHU3+9vlpcCwM3603b2gx+HQKti7AVP908D+jG4YTlduIdgVV7qe09OFCOTviYg44g==
+X-Received: by 2002:a05:6602:2d14:: with SMTP id
+ c20mr17390975iow.95.1635309441933; 
+ Tue, 26 Oct 2021 21:37:21 -0700 (PDT)
 Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id a15sm2030404ilj.81.2021.10.26.21.37.15
+ by smtp.googlemail.com with ESMTPSA id a15sm2030404ilj.81.2021.10.26.21.37.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Oct 2021 21:37:15 -0700 (PDT)
+ Tue, 26 Oct 2021 21:37:21 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, linux@rasmusvillemoes.dk,
@@ -59,13 +59,15 @@ To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 26 Oct 2021 22:36:35 -0600
-Message-Id: <20211027043645.153133-1-jim.cromie@gmail.com>
+Date: Tue, 26 Oct 2021 22:36:40 -0600
+Message-Id: <20211027043645.153133-6-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20211027043645.153133-1-jim.cromie@gmail.com>
+References: <20211027043645.153133-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 00/10] use DYNAMIC_DEBUG to implement
- DRM.debug & DRM.trace
+Subject: [Intel-gfx] [PATCH v9 05/10] i915/gvt: use dyndbg.CATEGORIES for
+ existing pr_debugs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,158 +83,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset has 3 separate but related parts:
+The gvt component of this driver has ~120 pr_debugs, in 9 categories
+quite similar to those in DRM.  Following the interface model of
+drm.debug, add a parameter to map bits to these categorizations.
 
-1. DEFINE_DYNAMIC_DEBUG_CATEGORIES [patch 1/10]
+DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
+	"dyndbg bitmap desc",
+	[0] = { "gvt:cmd:" },
+	[1] = { "gvt:core:" },
+	[2] = { "gvt:dpy:" },
+	[3] = { "gvt:el:" },
+	[4] = { "gvt:irq:" },
+	[5] = { "gvt:mm:" },
+	[6] = { "gvt:mmio:" },
+	[7] = { "gvt:render:" },
+	[8] = { "gvt:sched:" });
 
-   Declares DRM.debug style bitmap, bits control pr_debugs by matching formats
-   Adds callback to translate bits to $cmd > dynamic_debug/control
-   This could obsolete EXPORT(dynamic_debug_exec_queries) not included.
+If CONFIG_DYNAMIC_DEBUG_CORE=y, then gvt/Makefile adds
+-DDYNAMIC_DEBUG_MODULE to cflags, which CONFIG_DYNAMIC_DEBUG=n
+(CORE-only) builds need.  This is redone more comprehensively soon.
 
-   anticipated_usage:
-   DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug, __drm_debug,
-				" bits control drm.debug categories ",
-				[0] = { DRM_DBG_CAT_CORE },
-				[1] = { DRM_DBG_CAT_DRIVER },
-				[2] = { DRM_DBG_CAT_KMS },
-				[3] = { DRM_DBG_CAT_PRIME }, ...);
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+v5:
+. static decl of vector of bit->class descriptors - Emil.V
+. relocate gvt-makefile chunk from elsewhere
 
-2. use (1) to reimplement drm.debug [patches 3-7]::
+v7:
+. move ccflags addition up to i915/Makefile from i915/gvt
 
-   1st in amdgpu & i915 to control existing pr_debugs by their formats
-   then in drm-print, for all drm.debug API users
-   avoids drm_debug_enabled(), gives NOOP savings & new flexibility.
-   changes drm.debug categories from enum to format-prefix-string
-   alters log format to include the format-prefix-string
-   Daniel Vetter liked this at -v3
-   https://lore.kernel.org/lkml/YPbPvm%2FxcBlTK1wq@phenom.ffwll.local/
-   Im sure Ive missed stuff.
-   
-3. separately, Sean Paul proposed drm.trace to mirror drm.debug to tracefs
-   https://patchwork.freedesktop.org/series/78133/ ::
+v8:
+. relocate DDD_CAT decl code into intel_gvt.c - Tvrtko
+  cflags back to i915/Makefile
+. add -DDYNAMIC_DEBUG_MODULE to support DYNAMIC_DEBUG_CORE-only builds
 
-   He argues::
-     tracefs is fast/lightweight compared to syslog
-     independent selection means tailored traffic for both
+heres unchanged? footprint:
 
-ISTM he's correct. So it follows that its also good for dyndbg, where
-its then available for all pr_debug users (if CONFIG_TRACING).
+bash-5.1# for m in i915 amdgpu nouveau; do modprobe $m; done
+dyndbg:   1 debug prints in module drm
+dyndbg:   2 debug prints in module ttm
+dyndbg:   8 debug prints in module video
+dyndbg: 167 debug prints in module i915
+dyndbg: 2339 debug prints in module amdgpu
+[drm] amdgpu kernel modesetting enabled.
+amdgpu: CRAT table disabled by module option
+amdgpu: Virtual CRAT table created for CPU
+amdgpu: Topology: Add CPU node
+dyndbg:   3 debug prints in module wmi
+dyndbg:   3 debug prints in module nouveau
+---
+ drivers/gpu/drm/i915/Makefile    |  2 ++
+ drivers/gpu/drm/i915/intel_gvt.c | 34 ++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
 
-So basically, I borg'd his::
-   [patch 14/14] drm/print: Add tracefs support to the drm logging helpers
-   
-Then I added a T flag, so anyone can enable it::
-
-   # turn on all drm's pr_debug --> tracefs
-   echo module drm +T > /proc/dynamic_debug/control
-
-It appears to just work: (RFC)
-
-The instance name is purposely crappy, to force a revisit later, maybe
-"pr_debugs" (plural).  Per-module subdirs kinda fits the tracefs
-pattern, but ./dyndbg-tracefs/$module/$file/$function/$line seems a
-little like overkill.  RFC.
-
-[root@gandalf dyndbg-tracefs]# pwd
-/sys/kernel/tracing/instances/dyndbg-tracefs
-[root@gandalf dyndbg-tracefs]# echo 1 > /sys/module/drm/parameters/trace
-[root@gandalf dyndbg-tracefs]# head -n16 trace | sed -e 's/^#//'
- tracer: nop
-
- entries-in-buffer/entries-written: 405/405   #P:24
-
-                                _-----=> irqs-off
-                               / _----=> need-resched
-                              | / _---=> hardirq/softirq
-                              || / _--=> preempt-depth
-                              ||| / _-=> migrate-disable
-                              |||| /     delay
-           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
-              | |         |   |||||     |         |
-           <...>-2254    [000] .....  7040.894352: __dynamic_pr_debug: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
-           <...>-2207    [015] .....  7040.894654: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
-           <...>-2207    [015] .....  7040.995403: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
-           <...>-2207    [015] .....  7040.995413: __dynamic_pr_debug: drm:core: OBJ ID: 121 (2)
-
-This is the pr-debug doing most of that logging: (from dynamic_debug/control)
-
-  drivers/gpu/drm/drm_ioctl.c:866 [drm]drm_ioctl =T "drm:core: comm=\042%s\042 pid=%d, dev=0x%lx, auth=%d, %s\012"
-
-Turning on decoration flags changes the trace:
-
-  echo module drm format drm:core: +mflt > /proc/dynamic_debug/control 
-
-           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
-              | |         |   |||||     |         |
-           <...>-2254    [003] ..... 15980.936660: __dynamic_pr_debug: [2254] drm:drm_ioctl:866: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
-           <...>-2207    [015] ..... 15980.936966: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
-           <...>-2207    [015] ..... 15981.037727: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
-           <...>-2207    [015] ..... 15981.037739: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (2)
-           <...>-2207    [015] ..... 15981.037742: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (1)
-
-The FUNCTION could stand tweaking (to match the callsite in the
-control file, cited above), or perhaps replaced by the 'mfl'
-decorations; the 't' flag is redundant for trace. Meh.
-
-SELFTEST
-
-A previous version of this patchset added test_dynamic_debug.ko, but
-it relied upon code I ripped out when I made tracefs available by
-default (without modules registering 1st).  So it fails 10/29 tests,
-which counted +T sites executed, via side effect.
-
-TODO: userspace selftest
-
-  # to set expected tracing activity
-  echo module test_dynamic_debug function do_debugging +T > control
-
-  # run do_debugging function (todo: add sysfs knob) 
-  echo 2 > /sys/module/test-dynamic-debug/parameters/do_debugging
-
-If thats wrapped in the right trace_on, trace_pipe, etc incantations,
-the +T enabled pr_debugs in do_debugging() can be counted, compared
-against expectations, and passed or failed.
-
-v8 is here:
-https://patchwork.freedesktop.org/series/93914/
-https://lore.kernel.org/lkml/20210915163957.2949166-1-jim.cromie@gmail.com/
-
-The major change since v8 is that +T now works for all users, if
-CONFIG_TRACING=y, otherwise it complains/errors.
-
-
-Jim Cromie (10):
-  dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES macro and callbacks
-  drm: fix doc grammar
-  amdgpu: use dyndbg.CATEGORIES to control existing pr_dbgs
-  i915/gvt: trim spaces from pr_debug "gvt: core:" prefixes
-  i915/gvt: use dyndbg.CATEGORIES for existing pr_debugs
-  drm_print: add choice to use dynamic debug in drm-debug
-  drm_print: instrument drm_debug_enabled
-  dyndbg: add print-to-tracefs, selftest with it - RFC
-  dyndbg: create DEFINE_DYNAMIC_DEBUG_TRACE_CATEGORIES
-  drm: use DEFINE_DYNAMIC_DEBUG_TRACE_CATEGORIES bitmap to tracefs
-
- .../admin-guide/dynamic-debug-howto.rst       |   7 +-
- MAINTAINERS                                   |   1 +
- drivers/gpu/drm/Kconfig                       |  26 ++
- drivers/gpu/drm/Makefile                      |   3 +
- drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
- .../gpu/drm/amd/display/dc/core/dc_debug.c    |  44 +++-
- drivers/gpu/drm/drm_print.c                   |  72 ++++--
- drivers/gpu/drm/i915/Makefile                 |   2 +
- drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
- drivers/gpu/drm/i915/intel_gvt.c              |  34 +++
- include/drm/drm_drv.h                         |   2 +-
- include/drm/drm_print.h                       | 184 ++++++++++++---
- include/linux/dynamic_debug.h                 |  72 +++++-
- lib/Kconfig.debug                             |  11 +
- lib/Makefile                                  |   1 +
- lib/dynamic_debug.c                           | 203 ++++++++++++++--
- lib/test_dynamic_debug.c                      | 222 ++++++++++++++++++
- 17 files changed, 815 insertions(+), 89 deletions(-)
- create mode 100644 lib/test_dynamic_debug.c
-
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 335ba9f43d8f..a313e8a539f6 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -301,6 +301,8 @@ i915-y += intel_gvt.o
+ include $(src)/gvt/Makefile
+ endif
+ 
++ccflags-$(CONFIG_DYNAMIC_DEBUG_CORE) += -DDYNAMIC_DEBUG_MODULE
++
+ obj-$(CONFIG_DRM_I915) += i915.o
+ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += gvt/kvmgt.o
+ 
+diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
+index 4e70c1a9ef2e..e53b41fa15e0 100644
+--- a/drivers/gpu/drm/i915/intel_gvt.c
++++ b/drivers/gpu/drm/i915/intel_gvt.c
+@@ -162,3 +162,37 @@ void intel_gvt_resume(struct drm_i915_private *dev_priv)
+ 	if (intel_gvt_active(dev_priv))
+ 		intel_gvt_pm_resume(dev_priv->gvt);
+ }
++
++#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++
++unsigned long __gvt_debug;
++EXPORT_SYMBOL(__gvt_debug);
++
++#define help_(_N, _cat)	"\t  Bit-" #_N ":\t" _cat "\n"
++
++#define I915_GVT_CATEGORIES(name) \
++	" Enable debug output via /sys/module/i915/parameters/" #name	\
++	", where each bit enables a debug category.\n"			\
++	help_(0, "gvt:cmd:")						\
++	help_(1, "gvt:core:")						\
++	help_(2, "gvt:dpy:")						\
++	help_(3, "gvt:el:")						\
++	help_(4, "gvt:irq:")						\
++	help_(5, "gvt:mm:")						\
++	help_(6, "gvt:mmio:")						\
++	help_(7, "gvt:render:")						\
++	help_(8, "gvt:sched:")
++
++DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
++				I915_GVT_CATEGORIES(debug_gvt),
++				[0] = { "gvt:cmd:" },
++				[1] = { "gvt:core:" },
++				[2] = { "gvt:dpy:" },
++				[3] = { "gvt:el:" },
++				[4] = { "gvt:irq:" },
++				[5] = { "gvt:mm:" },
++				[6] = { "gvt:mmio:" },
++				[7] = { "gvt:render:" },
++				[8] = { "gvt:sched:" });
++
++#endif
 -- 
 2.31.1
 
