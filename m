@@ -2,55 +2,50 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97768C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:48:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FE8AC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5928260E76
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:48:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5928260E76
+	by mail.kernel.org (Postfix) with ESMTPS id 3ED0A60E73
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 13:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3ED0A60E73
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA9E89107;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4940A8919B;
 	Wed, 27 Oct 2021 13:48:33 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56BF6E897;
- Wed, 27 Oct 2021 13:28:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1A41A60462;
- Wed, 27 Oct 2021 13:28:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC0D189EA6;
+ Wed, 27 Oct 2021 13:27:38 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AF32260E8B;
+ Wed, 27 Oct 2021 13:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635341301;
- bh=PGO1sKMkFxhSgafCfuIdDyaWHOAra0sduE/qroUyhJA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Gh6LrMhVRb+w8cc6fASkt85HSUDcujVbPOdJf+kYKM4c10OkGaWKz0tej4i/v3gqL
- gqIpguIZ+CYCEkX8TMK1GyLQbICCXX8D3hVYu84Wn0s8UH3S16wO6eRz+4zepH+vZ+
- yjfArY3xgIAwyH8kYC5jkIQ28ZeLXvkParFkxkxSzroPleW5KcOAvnt/V+vK6xwsrO
- 4k5WYVVKieMsJfrOe+vNpBAnsNhu7nEztCQqf/Q9FCiTcppHLm6f/7/iPdD4feBbeU
- m6EmfbImK972UruDY/qXwXB7qC9tmGF3gPJu4JWrykH2pXYQ4LAYB3ovC7PgfBauuc
- mL315UjXldK2g==
+ s=k20201202; t=1635341258;
+ bh=qGGtvga8O1y2g6sWEld8AJp0sUrc5VDqNDJOBbnVFRA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=tx4BDkkYm1SRvdcDon9KgichU1wvJJaXGNP3U7ewpBTsSMFErXR32NiRSIovtbqmo
+ iUdK02QhRwrxWR7gImHML3L8nJ3Hu3DmGLx2Tp0CGZXfZP8oulQwxznvmmSZWLv053
+ s8yspSHvgs2T0bryjeX1TUt6hHbeZE2OFLuM3Hu8P5jsRpe9WzAutzBnODMUFZUl88
+ JlLaatbU8csbbXYqQpraLQYEqRtXyxgV7bjxROkkdz0ixS95td5p8zNTTy3cBHcxKb
+ vS2nkdJoQlyIL2gdYgYeuqzld55B7kU7LZCjF3lolqJf5h6mmkDDo7YVZZbBUwQmPw
+ kxSUhjiP5weAQ==
 From: Arnd Bergmann <arnd@kernel.org>
-To: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
+To: dri-devel@lists.freedesktop.org
 Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Arnd Bergmann <arnd@arndb.de>, Matthew Auld <matthew.auld@intel.com>,
- Zhenyu Wang <zhenyuw@linux.intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- linux-kernel@vger.kernel.org
-Date: Wed, 27 Oct 2021 15:27:14 +0200
-Message-Id: <20211027132732.3993279-3-arnd@kernel.org>
+ Jani Nikula <jani.nikula@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Date: Wed, 27 Oct 2021 15:27:12 +0200
+Message-Id: <20211027132732.3993279-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20211027132732.3993279-1-arnd@kernel.org>
-References: <20211027132732.3993279-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 27 Oct 2021 13:48:32 +0000
-Subject: [Intel-gfx] [PATCH 3/3] [v2] i915: fix backlight configuration issue
+Subject: [Intel-gfx] [PATCH 1/3] fbdev: rework FB_DDC dependencies
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,54 +63,130 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-The i915 driver can use the backlight subsystem as an option, and usually
-selects it when CONFIG_ACPI is set. However it is possible to configure
-a kernel with modular backlight classdev support and a built-in i915
-driver, which leads to a linker error:
+Selecting FB_DDC currently turns on CONFIG_I2C implicitly,
+which is often not desired and can lead to circular dependencies.
 
-drivers/gpu/drm/i915/display/intel_panel.o: In function `intel_backlight_device_register':
-intel_panel.c:(.text+0x2f58): undefined reference to `backlight_device_register'
-drivers/gpu/drm/i915/display/intel_panel.o: In function `intel_backlight_device_unregister':
-intel_panel.c:(.text+0x2fe4): undefined reference to `backlight_device_unregister'
+Change this to a 'depends on' and change all drivers that
+rely on FB_DDC to have an appropriate I2C dependency as well.
 
-Change i915 to just 'depends on' for both BACKLIGHT_CLASS_DEVICE
-and ACPI_VIDEO, which avoids a lot of the problems.
-
-Link: https://lore.kernel.org/all/20200108140227.3976563-1-arnd@arndb.de/
-Link: https://lore.kernel.org/all/20200417155553.675905-1-arnd@arndb.de/
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-This change depends on cleaning up drivers/video/fbdev to no longer
-'select' I2C and BACKLIGHT_CLASS_DEVICE, otherwise it causes
-dependency loops.
----
- drivers/gpu/drm/i915/Kconfig | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/video/fbdev/Kconfig | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 84b6fc70cbf5..f427e6d50d9b 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -3,6 +3,8 @@ config DRM_I915
- 	tristate "Intel 8xx/9xx/G3x/G4x/HD Graphics"
- 	depends on DRM
- 	depends on X86 && PCI
-+	depends on ACPI_VIDEO || !ACPI
-+	depends on BACKLIGHT_CLASS_DEVICE || !BACKLIGHT_CLASS_DEVICE
- 	select INTEL_GTT
- 	select INTERVAL_TREE
- 	# we need shmfs for the swappable backing store, and in particular
-@@ -16,10 +18,6 @@ config DRM_I915
- 	select IRQ_WORK
- 	# i915 depends on ACPI_VIDEO when ACPI is enabled
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
--	select BACKLIGHT_CLASS_DEVICE if ACPI
--	select INPUT if ACPI
--	select ACPI_VIDEO if ACPI
--	select ACPI_BUTTON if ACPI
- 	select SYNC_FILE
- 	select IOSF_MBI
- 	select CRC32
+diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+index 6ed5e608dd04..c187a93c9a16 100644
+--- a/drivers/video/fbdev/Kconfig
++++ b/drivers/video/fbdev/Kconfig
+@@ -62,9 +62,8 @@ config FIRMWARE_EDID
+ 
+ config FB_DDC
+ 	tristate
+-	depends on FB
++	depends on FB && I2C
+ 	select I2C_ALGOBIT
+-	select I2C
+ 
+ config FB_BOOT_VESA_SUPPORT
+ 	bool
+@@ -356,6 +355,7 @@ config FB_CYBER2000
+ config FB_CYBER2000_DDC
+ 	bool "DDC for CyberPro support"
+ 	depends on FB_CYBER2000
++	depends on I2C=y || I2C=FB_CYBER2000
+ 	select FB_DDC
+ 	default y
+ 	help
+@@ -894,6 +894,7 @@ config FB_NVIDIA
+ config FB_NVIDIA_I2C
+ 	bool "Enable DDC Support"
+ 	depends on FB_NVIDIA
++	depends on I2C=y || I2C=FB_NVIDIA
+ 	select FB_DDC
+ 	help
+ 	  This enables I2C support for nVidia Chipsets.  This is used
+@@ -940,6 +941,7 @@ config FB_RIVA
+ config FB_RIVA_I2C
+ 	bool "Enable DDC Support"
+ 	depends on FB_RIVA
++	depends on I2C=y || I2C=FB_RIVA
+ 	select FB_DDC
+ 	help
+ 	  This enables I2C support for nVidia Chipsets.  This is used
+@@ -967,7 +969,7 @@ config FB_RIVA_BACKLIGHT
+ 
+ config FB_I740
+ 	tristate "Intel740 support"
+-	depends on FB && PCI
++	depends on FB && PCI && I2C
+ 	select FB_MODE_HELPERS
+ 	select FB_CFB_FILLRECT
+ 	select FB_CFB_COPYAREA
+@@ -1021,6 +1023,7 @@ config FB_I810_GTF
+ config FB_I810_I2C
+ 	bool "Enable DDC Support"
+ 	depends on FB_I810 && FB_I810_GTF
++	depends on I2C=y || I2C=FB_I810
+ 	select FB_DDC
+ 	help
+ 	  Add DDC/I2C support for i810fb.  This will allow the driver to get
+@@ -1076,6 +1079,7 @@ config FB_INTEL_DEBUG
+ config FB_INTEL_I2C
+ 	bool "DDC/I2C for Intel framebuffer support"
+ 	depends on FB_INTEL
++	depends on I2C=y || I2C=FB_INTEL
+ 	select FB_DDC
+ 	default y
+ 	help
+@@ -1155,6 +1159,7 @@ config FB_MATROX_G
+ config FB_MATROX_I2C
+ 	tristate "Matrox I2C support"
+ 	depends on FB_MATROX
++	depends on I2C=y || I2C=FB_MATROX
+ 	select FB_DDC
+ 	help
+ 	  This drivers creates I2C buses which are needed for accessing the
+@@ -1220,6 +1225,7 @@ config FB_RADEON
+ config FB_RADEON_I2C
+ 	bool "DDC/I2C for ATI Radeon support"
+ 	depends on FB_RADEON
++	depends on I2C=y || I2C=FB_RADEON
+ 	select FB_DDC
+ 	default y
+ 	help
+@@ -1329,6 +1335,7 @@ config FB_S3
+ config FB_S3_DDC
+ 	bool "DDC for S3 support"
+ 	depends on FB_S3
++	depends on I2C=y || I2C=FB_S3
+ 	select FB_DDC
+ 	default y
+ 	help
+@@ -1354,6 +1361,7 @@ config FB_SAVAGE
+ config FB_SAVAGE_I2C
+ 	bool "Enable DDC2 Support"
+ 	depends on FB_SAVAGE
++	depends on I2C=y || I2C=FB_SAVAGE
+ 	select FB_DDC
+ 	help
+ 	  This enables I2C support for S3 Savage Chipsets.  This is used
+@@ -1493,6 +1501,7 @@ config FB_3DFX_ACCEL
+ config FB_3DFX_I2C
+ 	bool "Enable DDC/I2C support"
+ 	depends on FB_3DFX
++	depends on I2C=y || I2C=FB_3DFX
+ 	select FB_DDC
+ 	default y
+ 	help
+@@ -1532,7 +1541,7 @@ config FB_VT8623
+ 
+ config FB_TRIDENT
+ 	tristate "Trident/CyberXXX/CyberBlade support"
+-	depends on FB && PCI
++	depends on FB && PCI && I2C
+ 	select FB_CFB_FILLRECT
+ 	select FB_CFB_COPYAREA
+ 	select FB_CFB_IMAGEBLIT
 -- 
 2.29.2
 
