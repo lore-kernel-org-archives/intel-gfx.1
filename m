@@ -2,40 +2,53 @@ Return-Path: <SRS0=h8SK=PP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD6C1C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 16:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5715BC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 17:16:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9550B60F21
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 16:58:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9550B60F21
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1508A60F56
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 17:16:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1508A60F56
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21B0B6E8D3;
-	Wed, 27 Oct 2021 16:58:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 64A3F6E8CF;
- Wed, 27 Oct 2021 16:58:19 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5C3EBAADD6;
- Wed, 27 Oct 2021 16:58:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0899507454465006504=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 925DE6E8D6;
+	Wed, 27 Oct 2021 17:16:39 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05E5F6E8D2;
+ Wed, 27 Oct 2021 17:16:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="217127000"
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="217127000"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 10:16:37 -0700
+X-IronPort-AV: E=Sophos;i="5.87,187,1631602800"; d="scan'208";a="555456684"
+Received: from nsundare-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.255.84.29])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 10:16:36 -0700
+Date: Wed, 27 Oct 2021 10:16:34 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Matthew Auld <matthew.william.auld@gmail.com>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ kernel test robot <lkp@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <20211027171634.5appoo2aclwssvpz@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20211021125332.2455288-1-matthew.auld@intel.com>
+ <CAM0jSHNig=n9cw0CCNhWHnLn5hLPYFFQR4D9OgZ-QavgyJGJpg@mail.gmail.com>
+ <20211027145414.mrpikqvdmg7qsb7g@ldmartin-desk2>
+ <CAM0jSHMcnRCbXRud3K5wJERcww8urk7g1EDpMOEw7RW4LYPqMw@mail.gmail.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Oct 2021 16:58:19 -0000
-Message-ID: <163535389937.4640.13826602384616502268@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211027135900.6329-1-jani.nikula@intel.com>
-In-Reply-To: <20211027135900.6329-1-jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/dcs=3A_demote_noisy_drm=5Finfo=28=29_to_drm=5Fkms=5Fdbg?=
- =?utf-8?b?KCk=?=
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAM0jSHMcnRCbXRud3K5wJERcww8urk7g1EDpMOEw7RW4LYPqMw@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/dmabuf: fix broken build
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,173 +61,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0899507454465006504==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, Oct 27, 2021 at 05:23:59PM +0100, Matthew Auld wrote:
+>On Wed, 27 Oct 2021 at 15:54, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+>>
+>> On Wed, Oct 27, 2021 at 08:57:48AM +0100, Matthew Auld wrote:
+>> >On Thu, 21 Oct 2021 at 13:54, Matthew Auld <matthew.auld@intel.com> wrote:
+>> >>
+>> >> wbinvd_on_all_cpus() is only defined on x86 it seems, plus we need to
+>> >> include asm/smp.h here.
+>> >>
+>> >> Reported-by: kernel test robot <lkp@intel.com>
+>> >> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>> >> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>> >
+>> >Jani, would it make sense to cherry-pick this to -fixes? The offending
+>> >commit is in drm-next, and there have been a few reports around this.
+>> >
+>> >Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
+>> >
+>> >
+>> >> ---
+>> >>  drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 7 +++++++
+>> >>  1 file changed, 7 insertions(+)
+>> >>
+>> >> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+>> >> index 1adcd8e02d29..a45d0ec2c5b6 100644
+>> >> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+>> >> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+>> >> @@ -12,6 +12,13 @@
+>> >>  #include "i915_gem_object.h"
+>> >>  #include "i915_scatterlist.h"
+>> >>
+>> >> +#if defined(CONFIG_X86)
+>> >> +#include <asm/smp.h>
+>> >> +#else
+>> >> +#define wbinvd_on_all_cpus() \
+>> >> +       pr_warn(DRIVER_NAME ": Missing cache flush in %s\n", __func__)
+>>
+>>
+>> not sure I understand why this is a fix. Sure, it's true, but right now
+>> this file can't be built on any other arch.
+>>
+>> For clflush, wbind, etc, I'd rather change the code to use things from
+>> drm_cache rather than ifdef it out locally. This is
+>> "Reported-by: kernel test robot <lkp@intel.com>", but what's the error?
+>
+>I guess it depends on the kernel config, but it reported:
+>error: implicit declaration of function 'wbinvd_on_all_cpus'
 
-== Series Details ==
+oh, ok. The commit message was not very clear. Just checked and this also matches what is done
+in gem/i915_gem_pm.c  (although gt/intel_ggtt.c just includes it
+unconditionally)
 
-Series: drm/i915/dcs: demote noisy drm_info() to drm_kms_dbg()
-URL   : https://patchwork.freedesktop.org/series/96344/
-State : success
+>
+>AFAIK it's the missing <asm/smp.h>, the CONFIG_X86 thing is just for
+>good measure.
+>
+>I didn't spot anything in drm_cache which just offers a simple wrapper
+>for wbinvd?
 
-== Summary ==
+there isn't yet, but it's something we are adding as we add suppport for
+other archs.
 
-CI Bug Log - changes from CI_DRM_10797 -> Patchwork_21463
-====================================================
+thanks
+Lucas De Marchi
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/index.html
-
-Participating hosts (38 -> 33)
-------------------------------
-
-  Missing    (5): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-pnv-d510 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21463 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@query-info:
-    - fi-bsw-kefka:       NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html
-
-  * igt@gem_exec_suspend@basic-s3:
-    - fi-bdw-5557u:       [PASS][2] -> [INCOMPLETE][3] ([i915#146])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10797/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html
-    - fi-tgl-1115g4:      [PASS][4] -> [FAIL][5] ([i915#1888])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10797/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-kefka:       [INCOMPLETE][6] ([i915#2940]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10797/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10797 -> Patchwork_21463
-
-  CI-20190529: 20190529
-  CI_DRM_10797: 048d1b5b865500e0aad21924985e32a48920b75a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6262: d1c793b26e31cc6ae3f9fa3239805a9bbcc749fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21463: 1250a9fe273933ed81535f419da65ef0c1171119 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-1250a9fe2739 drm/i915/dcs: demote noisy drm_info() to drm_kms_dbg()
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/index.html
-
---===============0899507454465006504==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dcs: demote noisy drm_info() to drm_kms_dbg()</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/96344/">https://patchwork.freedesktop.org/series/96344/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10797 -&gt; Patchwork_21463</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/index.html</p>
-<h2>Participating hosts (38 -&gt; 33)</h2>
-<p>Missing    (5): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-pnv-d510 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21463 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@query-info:</p>
-<ul>
-<li>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s3:</p>
-<ul>
-<li>
-<p>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10797/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>)</p>
-</li>
-<li>
-<p>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10797/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@execlists:<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10797/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21463/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10797 -&gt; Patchwork_21463</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10797: 048d1b5b865500e0aad21924985e32a48920b75a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6262: d1c793b26e31cc6ae3f9fa3239805a9bbcc749fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21463: 1250a9fe273933ed81535f419da65ef0c1171119 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>1250a9fe2739 drm/i915/dcs: demote noisy drm_info() to drm_kms_dbg()</p>
-
-</body>
-</html>
-
---===============0899507454465006504==--
+>
+>>
+>> Lucas De Marchi
+>>
+>> >> +#endif
+>> >> +
+>> >>  I915_SELFTEST_DECLARE(static bool force_different_devices;)
+>> >>
+>> >>  static struct drm_i915_gem_object *dma_buf_to_obj(struct dma_buf *buf)
+>> >> --
+>> >> 2.26.3
+>> >>
