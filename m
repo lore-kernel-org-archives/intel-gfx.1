@@ -2,76 +2,57 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 722B1C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 15:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1C4AC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 15:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3999060D43
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 15:30:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3999060D43
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 7050A610C8
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 15:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7050A610C8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E63C96E999;
-	Thu, 28 Oct 2021 15:30:14 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 410756E998
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 15:30:13 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- 67-20020a1c1946000000b0030d4c90fa87so5412945wmz.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 08:30:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=WRSGeIT8RFy0N8rav4fjh71T7nm35XkgF3E7gPLp/xA=;
- b=XriBFYemP/sj1fPrf6T0rtazEbAZlQi0or0mwF6XsS5558IMWt0X0eN2zLm1RhVl7W
- AAO5ZEH6vn4T1zqmMXsWtJkd/96ZgKWi+zChmXB+pbZw/NzERI2nt71Q2yB2EITArUq8
- 5KCB+WhFmrs9orbvTTMytx0ZSbpK2i700vgb8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=WRSGeIT8RFy0N8rav4fjh71T7nm35XkgF3E7gPLp/xA=;
- b=6yJqJCAC+doLkfz9oxnJ/P3ffjFTk4zDSJyPhzRAUH4m9agUD+cwOKQRv3eKcA+Sj2
- axUlL+cFcug6DP/KYFqvzy9rSjynqMARCWwY6KaXRZtaIBp+SRntc7NnAtPEKfkgPilL
- Gq7GMyhKxmp+15N7QkwGYpX+o5xZ0nrstrIaNjccyWqltvhfmAKc5YxS6pbj+iLIpNRs
- T0CtjPY7irBfbMZjhvRnPyISYnqdevPYwz9rRumTpmd8diTxn2WWg2HNKr9RyavAJe/o
- odnc1/+0qhmPPw8GE6MQ8FvzRjLEUh5GeLDl+yA1SSRG6Rwj1Ysx6/1SdkUYXuxGnTou
- oNFg==
-X-Gm-Message-State: AOAM5314w4ww5tIVxrXYbZzo9NZ5NtIerq+oWfP99IDJ8gnq0zHhwBxn
- 1RbRxbRxHwIFZ/3JoBV4x5l30A==
-X-Google-Smtp-Source: ABdhPJyzbYtht486G9NvSCd+7tgya6KSCFeca6KwrieZl2tPJXi4w3huwJLdvq7+0oiyPBJu7QGuhQ==
-X-Received: by 2002:a7b:c005:: with SMTP id c5mr13100927wmb.155.1635435011608; 
- Thu, 28 Oct 2021 08:30:11 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p1sm6663142wmq.23.2021.10.28.08.30.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Oct 2021 08:30:11 -0700 (PDT)
-Date: Thu, 28 Oct 2021 17:30:09 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <YXrCAaGhLVtduUfa@phenom.ffwll.local>
-References: <20211021103605.735002-1-maarten.lankhorst@linux.intel.com>
- <20211021103605.735002-2-maarten.lankhorst@linux.intel.com>
- <022f8ecb-37c0-3d67-563f-012f0a3651df@amd.com>
- <c7c82fa5-6fe5-33e2-e224-c5433020100c@linux.intel.com>
- <007050d3-0207-5226-0cbe-7a3d8679811c@linux.intel.com>
- <810de535-0902-04ef-be13-35c978fd80bc@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9CA36E99A;
+	Thu, 28 Oct 2021 15:31:46 +0000 (UTC)
+X-Greylist: delayed 2397 seconds by postgrey-1.36 at gabe;
+ Thu, 28 Oct 2021 15:31:45 UTC
+Received: from 2.mo581.mail-out.ovh.net (2.mo581.mail-out.ovh.net
+ [87.98.143.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7EB36E99A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 15:31:45 +0000 (UTC)
+Received: from player737.ha.ovh.net (unknown [10.110.171.50])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 3CECF24385
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 14:14:04 +0000 (UTC)
+Received: from etezian.org (unknown [31.22.57.166])
+ (Authenticated sender: andi@etezian.org)
+ by player737.ha.ovh.net (Postfix) with ESMTPSA id 1D1EF1A41984F;
+ Thu, 28 Oct 2021 14:13:53 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-96R001f5f4b79e-0f83-4210-9c38-36dee9fee6bd,
+ 525B1D08A26901CC0984473A0927D9CF1F2D8319) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 31.22.57.166
+Date: Thu, 28 Oct 2021 16:13:52 +0200
+From: Andi Shyti <andi@etezian.org>
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Paulo Zanoni <paulo.r.zanoni@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi@etezian.org>
+Message-ID: <YXqwIKn0UQ//w6z+@jack.zhora.eu>
+References: <20211008215635.2026385-1-matthew.d.roper@intel.com>
+ <20211008215635.2026385-2-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <810de535-0902-04ef-be13-35c978fd80bc@amd.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [PATCH 02/28] drm/i915: use new iterator in
- i915_gem_object_wait_reservation
+In-Reply-To: <20211008215635.2026385-2-matthew.d.roper@intel.com>
+X-Ovh-Tracer-Id: 12694239975881247242
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegvddgjedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeetnhguihcuufhhhihtihcuoegrnhguihesvghtvgiiihgrnhdrohhrgheqnecuggftrfgrthhtvghrnheptdfgudduhfefueeujeefieehtdeftefggeevhefgueellefhudetgeeikeduieefnecukfhppedtrddtrddtrddtpdefuddrvddvrdehjedrudeiieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrjeefjedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+Subject: Re: [Intel-gfx] [PATCH 01/11] drm/i915: rework some irq functions
+ to take intel_gt as argument
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,55 +68,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 28, 2021 at 10:41:38AM +0200, Christian König wrote:
-> Am 21.10.21 um 13:13 schrieb Tvrtko Ursulin:
-> > 
-> > On 21/10/2021 12:06, Maarten Lankhorst wrote:
-> > > Op 21-10-2021 om 12:38 schreef Christian König:
-> > > > Am 21.10.21 um 12:35 schrieb Maarten Lankhorst:
-> > > > > From: Christian König <christian.koenig@amd.com>
-> > > > > 
-> > > > > Simplifying the code a bit.
-> > > > > 
-> > > > > Signed-off-by: Christian König <christian.koenig@amd.com>
-> > > > > [mlankhorst: Handle timeout = 0 correctly, use new
-> > > > > i915_request_wait_timeout.]
-> > > > > Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > > 
-> > > > LGTM, do you want to push it or should I pick it up into drm-misc-next?
-> > > 
-> > > I think it can be applied to drm-intel-gt-next, after a backmerge.
-> > > It needs patch 1 too, which fixes
-> > > 
-> > > i915_request_wait semantics when used in dma-fence. It exports a
-> > > dma-fence compatible i915_request_wait_timeout function, used in
-> > > this patch.
+Hi Paulo and Matt,
+
+> From: Paulo Zanoni <paulo.r.zanoni@intel.com>
 > 
-> What about the other i915 patches? I guess you then want to merge them
-> through drm-intel-gt-next as well.
+> We'll be adding multi-tile support soon; on multi-tile platforms
+> interrupts are per-tile and every tile has the full set of
+> interrupt registers.
 > 
-> > I don't think my open has been resolved, at least I haven't seen a reply
-> > from Daniel on the topic of potential for infinite waits with untrusted
-> > clients after this change. +Daniel
+> In this commit we start passing intel_gt instead of dev_priv for the
+> functions that are related to Xe_HP irq handling. Right now we're still
+> passing tile 0 everywhere, but in later patches we'll start actually
+> passing the correct tile.
 > 
-> Please resolve that internally and let me know the result. I'm fine to use
-> any of the possible approaches, I just need to know which one.
+> Signed-off-by: Paulo Zanoni <paulo.r.zanoni@intel.com>
+> Co-authored-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 
-I thought I explained this in the patch set from Maarten. This isn't an
-issue, since the exact same thing can happen if you get interrupts and
-stuff.
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-The only proper fix for bounding the waits is a) compositor grabs a stable
-set of dma_fence from the dma-buf through the proposed fence export ioctl
-b) compositor waits on that fence (or drm_syncobj).
-
-Everything else is cargo-culted nonsense, and very much includes that igt
-patch that's floating around internally.
-
-I can also whack this into drm-next if this is stuck in this silly
-bikeshed.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Andi
