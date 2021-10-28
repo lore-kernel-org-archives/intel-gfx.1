@@ -2,39 +2,56 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0100CC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 14:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88011C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 15:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2C2E60FC0
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 14:49:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2C2E60FC0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1BA1A61040
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 15:01:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1BA1A61040
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2A86E986;
-	Thu, 28 Oct 2021 14:49:56 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 03A716E986;
- Thu, 28 Oct 2021 14:49:55 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F13F2A47EB;
- Thu, 28 Oct 2021 14:49:54 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71B846E82A;
+	Thu, 28 Oct 2021 15:01:51 +0000 (UTC)
+X-Greylist: delayed 2121 seconds by postgrey-1.36 at gabe;
+ Thu, 28 Oct 2021 15:01:49 UTC
+Received: from 4.mo581.mail-out.ovh.net (4.mo581.mail-out.ovh.net
+ [178.32.122.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D55036E82A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 15:01:49 +0000 (UTC)
+Received: from player750.ha.ovh.net (unknown [10.108.4.4])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 8F86324333
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 14:26:26 +0000 (UTC)
+Received: from etezian.org (unknown [31.22.57.166])
+ (Authenticated sender: andi@etezian.org)
+ by player750.ha.ovh.net (Postfix) with ESMTPSA id 3424323A54006;
+ Thu, 28 Oct 2021 14:26:19 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-99G0034c0c6515-9f08-41d5-8798-fdd96c89b8e3,
+ 19738AB094897BD963DB89D239EF437C7015E8F6) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 31.22.57.166
+Date: Thu, 28 Oct 2021 16:26:18 +0200
+From: Andi Shyti <andi@etezian.org>
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi@etezian.org>
+Message-ID: <YXqzCkHPwlMoLKpl@jack.zhora.eu>
+References: <20211008215635.2026385-1-matthew.d.roper@intel.com>
+ <20211008215635.2026385-5-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Oct 2021 14:49:54 -0000
-Message-ID: <163543259496.4339.13717313139904734106@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211028120128.13490-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20211028120128.13490-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Prepare_error_capture_for_asynchronous_migration_=28rev3=29?=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211008215635.2026385-5-matthew.d.roper@intel.com>
+X-Ovh-Tracer-Id: 12903375885699910154
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegvddgjeefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtugfgjgesthekrodttddtjeenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpeelfeegueejvdelledtueefudeljedvhedvgeehledtfedtkeeukeekvefgvddthfenucfkpheptddrtddrtddrtddpfedurddvvddrheejrdduieeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehplhgrhigvrhejhedtrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheprghnughisegvthgviihirghnrdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrgh
+Subject: Re: [Intel-gfx] [PATCH 04/11] drm/i915: Store backpointer to GT in
+ uncore
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,26 +64,19 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Hi Matt and Michal,
 
-Series: Prepare error capture for asynchronous migration (rev3)
-URL   : https://patchwork.freedesktop.org/series/96281/
-State : warning
+> From: Michał Winiarski <michal.winiarski@intel.com>
+> 
+> We now support a per-gt uncore, yet we're not able to infer which GT
+> we're operating upon.  Let's store a backpointer for now.
+> 
+> Signed-off-by: Michał Winiarski <michal.winiarski@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 
-== Summary ==
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-$ dim checkpatch origin/drm-tip
-3ed5872716e5 drm/i915: Introduce refcounted sg-tables
-8fb7f2296aa8 drm/i915: Update error capture code to avoid using the current vma state
--:803: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#803: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 958 lines checked
-7fe9954e3a73 drm/i915: Initial introduction of vma resources
-
-
+Andi
