@@ -2,65 +2,51 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CED3EC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 635D9C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FED560F9C
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:17:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FED560F9C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2B80760F9D
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2B80760F9D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCE746E835;
-	Thu, 28 Oct 2021 12:17:24 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94AC6899E6;
- Wed, 27 Oct 2021 13:49:16 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6611660D43;
- Wed, 27 Oct 2021 13:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635342556;
- bh=fYZWrsKGlOp7lc/xKrJeyNzK/8u8cgiGUJ+/2sKfEe4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=U77fnHxIIXJm4+qiC90pNvz1GrZM8catxUQG7co8cVjv+UYRYVBKwCeKgPPwHViuj
- xoJ27M5dFmNBhFvyMPli6fYHsUydemysyTGE9Ebf0eWT8F2Ulk9F04sK1UnFnlhiJF
- 0vm6HcrSv3i8ETCP2piQNWl+EDlH3FTJ1cAzruc0ybYXacPFwluwmr2EdnzUyJ+Iep
- +SOUOC4U5ZF59ELZ475X7m09U5PLF/OnvDVfcHidoo8TzjjHp+FUfWWfgMQ007IbRo
- b5gi4tQFssHjeeHLKRHrH2Yns7c+HmBmUHKYMHTx4ccmilVI/ycU+QmygFQ9Kvxseo
- FxFxqsIBUdY9A==
-Received: by mail-wr1-f53.google.com with SMTP id d10so4352608wrb.1;
- Wed, 27 Oct 2021 06:49:16 -0700 (PDT)
-X-Gm-Message-State: AOAM530yXlueA8L5xb3BCgfjGYvpyza8pXcxgxKj0P4KU6+T/aIMMnVp
- mmYCF815j0JO0Dqj8R3QOd/bZf6BCQvzTpMTqgU=
-X-Google-Smtp-Source: ABdhPJwyFrogSswX9aFMchaesz3OloZkKeoRK58xGE8J8a1euHLGUsdWENXaWPhRgbPktw6Hq/mkQOMklICoHioJnp4=
-X-Received: by 2002:a5d:4692:: with SMTP id u18mr210674wrq.428.1635342554955; 
- Wed, 27 Oct 2021 06:49:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1386E0D1;
+	Thu, 28 Oct 2021 12:53:16 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4A096E0D1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 12:53:15 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="217309994"
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="217309994"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 05:53:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="530002884"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga001.jf.intel.com with SMTP; 28 Oct 2021 05:53:12 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 28 Oct 2021 15:53:11 +0300
+Date: Thu, 28 Oct 2021 15:53:11 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Manasi Navare <manasi.d.navare@intel.com>
+Message-ID: <YXqdNxrTCGS40jNZ@intel.com>
+References: <YXkNaOxG2r+y3dzj@intel.com>
+ <20211028080423.1469763-1-vivek.kasireddy@intel.com>
 MIME-Version: 1.0
-References: <20211027132732.3993279-1-arnd@kernel.org>
- <20211027132732.3993279-3-arnd@kernel.org>
- <87r1c6h9ek.fsf@intel.com>
-In-Reply-To: <87r1c6h9ek.fsf@intel.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Wed, 27 Oct 2021 15:48:59 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a0Lcwb4mROKt-sZHYFfCF2ji-dAbpWyy5_f7v6SHnzpjQ@mail.gmail.com>
-Message-ID: <CAK8P3a0Lcwb4mROKt-sZHYFfCF2ji-dAbpWyy5_f7v6SHnzpjQ@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
- Linux Fbdev development list <linux-fbdev@vger.kernel.org>, 
- Intel Graphics <intel-gfx@lists.freedesktop.org>, Arnd Bergmann <arnd@arndb.de>,
- Matthew Auld <matthew.auld@intel.com>, Zhenyu Wang <zhenyuw@linux.intel.com>, 
- Alex Williamson <alex.williamson@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 28 Oct 2021 12:17:23 +0000
-Subject: Re: [Intel-gfx] [PATCH 3/3] [v2] i915: fix backlight configuration
- issue
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211028080423.1469763-1-vivek.kasireddy@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Don't try to map and fence
+ large scanout buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,22 +62,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 27, 2021 at 3:41 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> > @@ -16,10 +18,6 @@ config DRM_I915
-> >       select IRQ_WORK
-> >       # i915 depends on ACPI_VIDEO when ACPI is enabled
-> >       # but for select to work, need to select ACPI_VIDEO's dependencies, ick
->
-> The comment needs updating as well.
+On Thu, Oct 28, 2021 at 01:04:23AM -0700, Vivek Kasireddy wrote:
+> On platforms capable of allowing 8K (7680 x 4320) modes, pinning 2 or
+> more framebuffers/scanout buffers results in only one that is mappable/
+> fenceable. Therefore, pageflipping between these 2 FBs where only one
+> is mappable/fenceable creates latencies large enough to miss alternate
+> vblanks thereby producing less optimal framerate.
+> 
+> This mainly happens because when i915_gem_object_pin_to_display_plane()
+> is called to pin one of the FB objs, the associated vma is identified
+> as misplaced and therefore i915_vma_unbind() is called which unbinds and
+> evicts it. This misplaced vma gets subseqently pinned only when
+> i915_gem_object_ggtt_pin_ww() is called without the mappable flag. This
+> results in a latency of ~10ms and happens every other vblank/repaint cycle.
+> 
+> Testcase:
+> Running Weston and weston-simple-egl on an Alderlake_S (ADLS) platform
+> with a 8K@60 mode results in only ~40 FPS. Since upstream Weston submits
+> a frame ~7ms before the next vblank, the latencies seen between atomic
+> commit and flip event are 7, 24 (7 + 16.66), 7, 24..... suggesting that
+> it misses the vblank every other frame.
+> 
+> Here is the ftrace snippet that shows the source of the ~10ms latency:
+>               i915_gem_object_pin_to_display_plane() {
+> 0.102 us   |    i915_gem_object_set_cache_level();
+>                 i915_gem_object_ggtt_pin_ww() {
+> 0.390 us   |      i915_vma_instance();
+> 0.178 us   |      i915_vma_misplaced();
+>                   i915_vma_unbind() {
+>                   __i915_active_wait() {
+> 0.082 us   |        i915_active_acquire_if_busy();
+> 0.475 us   |      }
+>                   intel_runtime_pm_get() {
+> 0.087 us   |        intel_runtime_pm_acquire();
+> 0.259 us   |      }
+>                   __i915_active_wait() {
+> 0.085 us   |        i915_active_acquire_if_busy();
+> 0.240 us   |      }
+>                   __i915_vma_evict() {
+>                     ggtt_unbind_vma() {
+>                       gen8_ggtt_clear_range() {
+> 10507.255 us |        }
+> 10507.689 us |      }
+> 10508.516 us |   }
+> 
+> v2: Instead of using bigjoiner checks, determine whether a scanout
+>     buffer is too big by checking to see if it is possible to map
+>     two of them into the ggtt.
+> 
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: Manasi Navare <manasi.d.navare@intel.com>
+> Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_gem.c | 48 ++++++++++++++++++++++++++-------
+>  drivers/gpu/drm/i915/i915_vma.c |  2 +-
+>  2 files changed, 40 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+> index 981e383d1a5d..0050c7e4bb51 100644
+> --- a/drivers/gpu/drm/i915/i915_gem.c
+> +++ b/drivers/gpu/drm/i915/i915_gem.c
+> @@ -866,6 +866,44 @@ static void discard_ggtt_vma(struct i915_vma *vma)
+>  	spin_unlock(&obj->vma.lock);
+>  }
+>  
+> +static bool i915_gem_obj_too_big(struct drm_i915_gem_object *obj)
+> +{
+> +	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+> +	struct i915_ggtt *ggtt = &i915->ggtt;
+> +	struct drm_mm_node *hole;
+> +	u64 hole_start, hole_end;
+> +	u64 fence_size;
+> +
+> +	/*
+> +	 * If the required space is larger than the available
+> +	 * aperture, we will not able to find a slot for the
+> +	 * object and unbinding the object now will be in
+> +	 * vain. Worse, doing so may cause us to ping-pong
+> +	 * the object in and out of the Global GTT and
+> +	 * waste a lot of cycles under the mutex.
+> +	 */
+> +	if (obj->base.size > ggtt->mappable_end)
+> +		return true;
+> +
+> +	fence_size = i915_gem_fence_size(i915, obj->base.size,
+> +					 i915_gem_object_get_tiling(obj),
+> +					 i915_gem_object_get_stride(obj));
+> +
+> +	/*
+> +	 * Assuming this object is a large scanout buffer, we try to find
+> +	 * out if there is room to map at-least two of them. There could
+> +	 * be space available to map one but to be consistent, we try to
+> +	 * avoid mapping/fencing any of them.
+> +	 */
+> +	drm_mm_for_each_hole(hole, &ggtt->vm.mm, hole_start, hole_end) {
+> +		if (hole_end - hole_start > 2 * fence_size &&
+> +		    hole_start + 2 * fence_size < ggtt->mappable_end)
+> +			return false;
+> +	}
 
-Right, I've removed that comment now.
+Looking for a hole twice the size seems a bit weird. Would make more sense
+to check how many of these vmas could we fit in to any of the holes.
+This also doesn't seem to handle any alignment constraints.
 
-> Other than that,
->
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
->
-> on the series.
+> +
+> +	return true;
+> +}
+> +
+>  struct i915_vma *
+>  i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+>  			    struct i915_gem_ww_ctx *ww,
+> @@ -879,15 +917,7 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+>  
+>  	if (flags & PIN_MAPPABLE &&
+>  	    (!view || view->type == I915_GGTT_VIEW_NORMAL)) {
+> -		/*
+> -		 * If the required space is larger than the available
+> -		 * aperture, we will not able to find a slot for the
+> -		 * object and unbinding the object now will be in
+> -		 * vain. Worse, doing so may cause us to ping-pong
+> -		 * the object in and out of the Global GTT and
+> -		 * waste a lot of cycles under the mutex.
+> -		 */
+> -		if (obj->base.size > ggtt->mappable_end)
+> +		if (i915_gem_obj_too_big(obj))
 
-Thanks!
+Doing this uncoditionally seems wrong. Some platforms always use
+PIN_MAPPABLE.
 
-         Arnd
+>  			return ERR_PTR(-E2BIG);
+>  
+>  		/*
+
+There is already code around these parts that tries to limit this
+ping-pong:
+                /*                                                                                             
+                 * If NONBLOCK is set the caller is optimistically                                             
+                 * trying to cache the full object within the mappable                                         
+                 * aperture, and *must* have a fallback in place for                                           
+                 * situations where we cannot bind the object. We                                              
+                 * can be a little more lax here and use the fallback                                          
+                 * more often to avoid costly migrations of ourselves                                          
+                 * and other objects within the aperture.                                                      
+                 *                                                                                             
+                 * Half-the-aperture is used as a simple heuristic.                                            
+                 * More interesting would to do search for a free                                              
+                 * block prior to making the commitment to unbind.                                             
+                 * That caters for the self-harm case, and with a                                              
+                 * little more heuristics (e.g. NOFAULT, NOEVICT)                                              
+                 * we could try to minimise harm to others.                                                    
+                 */
+	        if (flags & PIN_NONBLOCK &&
+                    obj->base.size > ggtt->mappable_end / 2)
+	                return ERR_PTR(-ENOSPC);
+
+Looks like you're pretty much trying to implement what tha comment says.
+
+> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+> index 90546fa58fc1..551644dbfa8a 100644
+> --- a/drivers/gpu/drm/i915/i915_vma.c
+> +++ b/drivers/gpu/drm/i915/i915_vma.c
+> @@ -977,7 +977,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+>  		if (err)
+>  			goto err_active;
+>  
+> -		if (i915_is_ggtt(vma->vm))
+> +		if (i915_is_ggtt(vma->vm) && flags & PIN_MAPPABLE)
+>  			__i915_vma_set_map_and_fenceable(vma);
+>  	}
+>  
+> -- 
+> 2.31.1
+
+-- 
+Ville Syrjälä
+Intel
