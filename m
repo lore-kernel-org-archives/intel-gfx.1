@@ -2,45 +2,39 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D500C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90FAFC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E80C61130
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:01:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E80C61130
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3A8FF610F8
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A8FF610F8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 516676E953;
-	Thu, 28 Oct 2021 12:01:47 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9F06E950;
- Thu, 28 Oct 2021 12:01:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="230243785"
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="230243785"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 05:01:45 -0700
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="498371740"
-Received: from jxu13-mobl.amr.corp.intel.com (HELO thellstr-mobl1.intel.com)
- ([10.249.254.218])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 05:01:43 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Thu, 28 Oct 2021 14:01:25 +0200
-Message-Id: <20211028120128.13490-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C67FC6E821;
+	Thu, 28 Oct 2021 12:03:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0D68A6E2A3;
+ Thu, 28 Oct 2021 12:03:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 06F5AA0169;
+ Thu, 28 Oct 2021 12:03:45 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8397532980365177080=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/3] Prepare error capture for asynchronous
- migration
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kulkarni, Vandita" <vandita.kulkarni@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 28 Oct 2021 12:03:45 -0000
+Message-ID: <163542262502.4339.8850491529300273544@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211019151435.20477-1-vandita.kulkarni@intel.com>
+In-Reply-To: <20211019151435.20477-1-vandita.kulkarni@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRW5h?=
+ =?utf-8?q?ble_MIPI_DSI_video_mode_on_ADLP_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,75 +47,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series prepares error capture for asynchronous migration,
-where the vma pages may not reflect the pages the GPU is currently
-executing from but may be several migrations ahead.
+--===============8397532980365177080==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The first patch deals with refcounting sg-list so that they don't
-disappear under the capture code, which typically otherwise happens at
-put_pages() time.
+== Series Details ==
 
-The second patch introduces vma state snapshots that record the vma state
-at request submission time. It also updates the memory allocation mode to
-reflect that error capture may and will happen in the dma-fence signalling
-critical path, and finally takes additional measures to make sure that
-the capture list and request is not disappearing from under us while
-capturing. The latter may otherwise happen if a heartbeat triggered parallel
-capture is running during a manual reset which retires the request.
+Series: Enable MIPI DSI video mode on ADLP (rev3)
+URL   : https://patchwork.freedesktop.org/series/95928/
+State : success
 
-Finally the last patch is more of a POC patch and not strictly needed yet,
-but will be (or at least something very similar) soon for async unbinding.
-It will make sure that unbinding doesn't complete or signal completion
-before capture is done. Async reuse of memory can't happen until unbinding
-signals complete and without waiting for capture done, we might capture
-contents of reused memory.
-Before the last patch the vma active is instead still keeping the vma alive,
-but that will not work with async unbinding anymore, and also it is still
-not clear how we guarantee keeping the vma alive long enough to even
-grab an active reference during capture.
+== Summary ==
 
-v2:
-- Mostly Fixes for selftests and rebinding. See patch 3. 
-v3:
-- Honor the unbind fence also when evicting for suspend on gen6.
-- Cleanups on patch 1
-- Minor cleanups on patch 3.
+CI Bug Log - changes from CI_DRM_10806 -> Patchwork_21472
+====================================================
 
-Thomas Hellström (3):
-  drm/i915: Introduce refcounted sg-tables
-  drm/i915: Update error capture code to avoid using the current vma
-    state
-  drm/i915: Initial introduction of vma resources
+Summary
+-------
 
- drivers/gpu/drm/i915/Makefile                 |   1 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 137 ++++++++++--
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  12 +-
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |   3 +-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  49 ++---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 186 +++++++++-------
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   8 +-
- .../drm/i915/gt/intel_execlists_submission.c  |   2 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         | 180 ++++++++++-----
- drivers/gpu/drm/i915/i915_request.c           |  63 ++++--
- drivers/gpu/drm/i915/i915_request.h           |  18 +-
- drivers/gpu/drm/i915/i915_scatterlist.c       |  62 ++++--
- drivers/gpu/drm/i915/i915_scatterlist.h       |  76 ++++++-
- drivers/gpu/drm/i915/i915_vma.c               | 206 +++++++++++++++++-
- drivers/gpu/drm/i915/i915_vma.h               |  20 +-
- drivers/gpu/drm/i915/i915_vma_snapshot.c      | 131 +++++++++++
- drivers/gpu/drm/i915/i915_vma_snapshot.h      | 112 ++++++++++
- drivers/gpu/drm/i915/i915_vma_types.h         |   5 +
- drivers/gpu/drm/i915/intel_region_ttm.c       |  15 +-
- drivers/gpu/drm/i915/intel_region_ttm.h       |   5 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  98 +++++----
- drivers/gpu/drm/i915/selftests/mock_region.c  |  12 +-
- 22 files changed, 1111 insertions(+), 290 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/i915_vma_snapshot.c
- create mode 100644 drivers/gpu/drm/i915/i915_vma_snapshot.h
+  **SUCCESS**
 
--- 
-2.31.1
+  No regressions found.
 
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/index.html
+
+Participating hosts (35 -> 31)
+------------------------------
+
+  Missing    (4): fi-icl-u2 bat-adlp-4 bat-dg1-6 bat-dg1-5 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21472 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
+    - fi-snb-2600:        NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [INCOMPLETE][2] ([i915#3921]) -> [PASS][3]
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10806/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10806 -> Patchwork_21472
+
+  CI-20190529: 20190529
+  CI_DRM_10806: c5b79188b859e8ba29efe0637a3897f7cccd4f99 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6262: d1c793b26e31cc6ae3f9fa3239805a9bbcc749fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21472: be594d558a3eef5553b8df0f4bef61e626bc9707 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+be594d558a3e drm/i915/dsi: Ungate clock before enabling the phy
+5227d715ebc1 drm/i915/dsi/xelpd: Disable DC states in Video mode
+e11445c08b71 drm/i915/dsi/xelpd: Add DSI transcoder support
+573e6d84f122 drm/i915/dsi/xelpd: Fix the bit mask for wakeup GB
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/index.html
+
+--===============8397532980365177080==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Enable MIPI DSI video mode on ADLP (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95928/">https://patchwork.freedesktop.org/series/95928/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10806 -&gt; Patchwork_21472</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/index.html</p>
+<h2>Participating hosts (35 -&gt; 31)</h2>
+<p>Missing    (4): fi-icl-u2 bat-adlp-4 bat-dg1-6 bat-dg1-5 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21472 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@amdgpu/amd_cs_nop@sync-fork-compute0:<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10806/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21472/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10806 -&gt; Patchwork_21472</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10806: c5b79188b859e8ba29efe0637a3897f7cccd4f99 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6262: d1c793b26e31cc6ae3f9fa3239805a9bbcc749fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21472: be594d558a3eef5553b8df0f4bef61e626bc9707 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>be594d558a3e drm/i915/dsi: Ungate clock before enabling the phy<br />
+5227d715ebc1 drm/i915/dsi/xelpd: Disable DC states in Video mode<br />
+e11445c08b71 drm/i915/dsi/xelpd: Add DSI transcoder support<br />
+573e6d84f122 drm/i915/dsi/xelpd: Fix the bit mask for wakeup GB</p>
+
+</body>
+</html>
+
+--===============8397532980365177080==--
