@@ -2,39 +2,42 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FF32C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 22:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38991C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 22:59:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 444F36103B
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 22:55:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 444F36103B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id DD91E610CA
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 22:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD91E610CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBA76E83D;
-	Thu, 28 Oct 2021 22:55:18 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id DB6446E83D;
- Thu, 28 Oct 2021 22:55:16 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C5C97AA01E;
- Thu, 28 Oct 2021 22:55:16 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2558723294768278623=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 224746E849;
+	Thu, 28 Oct 2021 22:59:10 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCB46E849
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 22:59:08 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230397973"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230397973"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 15:58:37 -0700
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="495540948"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.60])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 15:58:36 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Thu, 28 Oct 2021 16:04:49 -0700
+Message-Id: <20211028230449.115832-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Oct 2021 22:55:16 -0000
-Message-ID: <163546171677.4342.448055366473807745@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211028120128.13490-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20211028120128.13490-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgUHJl?=
- =?utf-8?q?pare_error_capture_for_asynchronous_migration_=28rev4=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/adlp: Implement workaround 16013190616
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,161 +50,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2558723294768278623==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+New workaround added to specification, requiring bit 15 of
+GEN8_CHICKEN_DCPR_1 to be programed before power well 1 is enabled.
 
-== Series Details ==
+BSpec: 54369
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_power.c | 5 +++++
+ drivers/gpu/drm/i915/i915_reg.h                    | 7 ++++---
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-Series: Prepare error capture for asynchronous migration (rev4)
-URL   : https://patchwork.freedesktop.org/series/96281/
-State : success
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 6637760d24e0c..344e3d6967020 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -435,6 +435,11 @@ static void hsw_power_well_enable(struct drm_i915_private *dev_priv,
+ 
+ 		pg = DISPLAY_VER(dev_priv) >= 11 ? ICL_PW_CTL_IDX_TO_PG(pw_idx) :
+ 						 SKL_PW_CTL_IDX_TO_PG(pw_idx);
++
++		/* Wa_16013190616:adlp */
++		if (IS_ALDERLAKE_P(dev_priv) && pg == SKL_PG1)
++			intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1, 0, DISABLE_FLR_SRC);
++
+ 		/*
+ 		 * For PW1 we have to wait both for the PW0/PG0 fuse state
+ 		 * before enabling the power well and PW1/PG1's own fuse
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index fd58757e846a6..541c16aee90da 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -8310,9 +8310,10 @@ enum {
+ #define  RESET_PCH_HANDSHAKE_ENABLE	(1 << 4)
+ 
+ #define GEN8_CHICKEN_DCPR_1		_MMIO(0x46430)
+-#define   SKL_SELECT_ALTERNATE_DC_EXIT	(1 << 30)
+-#define   ICL_DELAY_PMRSP		(1 << 22)
+-#define   MASK_WAKEMEM			(1 << 13)
++#define   SKL_SELECT_ALTERNATE_DC_EXIT	REG_BIT(30)
++#define   ICL_DELAY_PMRSP		REG_BIT(22)
++#define   DISABLE_FLR_SRC		REG_BIT(15)
++#define   MASK_WAKEMEM			REG_BIT(13)
+ 
+ #define GEN11_CHICKEN_DCPR_2			_MMIO(0x46434)
+ #define   DCPR_MASK_MAXLATENCY_MEMUP_CLR	REG_BIT(27)
+-- 
+2.33.1
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10809 -> Patchwork_21481
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/index.html
-
-Participating hosts (36 -> 32)
-------------------------------
-
-  Missing    (4): fi-icl-u2 bat-adlp-4 bat-dg1-6 bat-dg1-5 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21481 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@debugfs_test@read_all_entries:
-    - fi-apl-guc:         [PASS][1] -> [DMESG-WARN][2] ([i915#1610])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10809/fi-apl-guc/igt@debugfs_test@read_all_entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/fi-apl-guc/igt@debugfs_test@read_all_entries.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s3:
-    - fi-tgl-1115g4:      [FAIL][3] ([i915#1888]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10809/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1610]: https://gitlab.freedesktop.org/drm/intel/issues/1610
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10809 -> Patchwork_21481
-
-  CI-20190529: 20190529
-  CI_DRM_10809: 9959c5de92d04f2336d749a5a331799aa41cfb1f @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6264: 3458490c14afe3cb8aa873fa9e520e1c815ea068 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21481: 32300fce7d6b6388ea0fd0a10fcb690a73da84be @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-32300fce7d6b drm/i915: Initial introduction of vma resources
-d3a3c169f330 drm/i915: Update error capture code to avoid using the current vma state
-9ddf9655f463 drm/i915: Introduce refcounted sg-tables
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/index.html
-
---===============2558723294768278623==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Prepare error capture for asynchronous migration (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/96281/">https://patchwork.freedesktop.org/series/96281/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10809 -&gt; Patchwork_21481</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/index.html</p>
-<h2>Participating hosts (36 -&gt; 32)</h2>
-<p>Missing    (4): fi-icl-u2 bat-adlp-4 bat-dg1-6 bat-dg1-5 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21481 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@debugfs_test@read_all_entries:<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10809/fi-apl-guc/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/fi-apl-guc/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1610">i915#1610</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_exec_suspend@basic-s3:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10809/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21481/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10809 -&gt; Patchwork_21481</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10809: 9959c5de92d04f2336d749a5a331799aa41cfb1f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6264: 3458490c14afe3cb8aa873fa9e520e1c815ea068 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21481: 32300fce7d6b6388ea0fd0a10fcb690a73da84be @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>32300fce7d6b drm/i915: Initial introduction of vma resources<br />
-d3a3c169f330 drm/i915: Update error capture code to avoid using the current vma state<br />
-9ddf9655f463 drm/i915: Introduce refcounted sg-tables</p>
-
-</body>
-</html>
-
---===============2558723294768278623==--
