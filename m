@@ -2,45 +2,46 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D1B5C433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3AD8C433F5
 	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8A1661130
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:14:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E8A1661130
+	by mail.kernel.org (Postfix) with ESMTPS id AC4C961130
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC4C961130
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A956E96C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22FE26E971;
 	Thu, 28 Oct 2021 13:13:57 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4837E6E84E;
- Thu, 28 Oct 2021 13:13:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="227852776"
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="227852776"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 132726E826;
+ Thu, 28 Oct 2021 13:13:50 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="227852738"
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="227852738"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 06:01:14 -0700
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="665406512"
+ 28 Oct 2021 06:01:09 -0700
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="665406494"
 Received: from malloyd-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.16.73])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 06:01:12 -0700
+ 28 Oct 2021 06:01:07 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 28 Oct 2021 13:58:49 +0100
-Message-Id: <20211028125855.3281674-5-matthew.auld@intel.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Date: Thu, 28 Oct 2021 13:58:46 +0100
+Message-Id: <20211028125855.3281674-2-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20211028125855.3281674-1-matthew.auld@intel.com>
 References: <20211028125855.3281674-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/11] drm/i915: Create a full object for
- mock_ring, v2.
+Subject: [Intel-gfx] [PATCH 02/11] drm/i915: Slightly rework
+ EXEC_OBJECT_CAPTURE handling, v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,102 +59,173 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-This allows us to finally get rid of all the assumptions that vma->obj
-is NULL.
+Use a single null-terminated array for simplicity instead of a linked
+list. This might slightly speed up execbuf when many vma's may be marked
+as capture, but definitely removes an allocation from a signaling path.
+
+We are not allowed to allocate memory in eb_move_to_gpu, but we can't
+enforce it yet through annotations.
 
 Changes since v1:
-- Ensure the mock_ring vma is pinned to prevent a fault.
-- Pin it high to avoid failure in evict_for_vma selftest.
+- Rebase on top of multi-batchbuffer changes.
+
+v2:
+  - Fix up checkpatch warnings
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com> #v1
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gt/mock_engine.c | 38 ++++++++++++++++++++-------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 28 +++++++++++--------
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  9 +++---
+ drivers/gpu/drm/i915/i915_request.c           |  9 ++----
+ drivers/gpu/drm/i915/i915_request.h           |  7 +----
+ 4 files changed, 25 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index 8b89215afe46..bb99fc03f503 100644
---- a/drivers/gpu/drm/i915/gt/mock_engine.c
-+++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -35,9 +35,31 @@ static void mock_timeline_unpin(struct intel_timeline *tl)
- 	atomic_dec(&tl->pin_count);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index ea5b7b2a4d70..37b9f7ddc409 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -265,6 +265,9 @@ struct i915_execbuffer {
+ 	/* number of batches in execbuf IOCTL */
+ 	unsigned int num_batches;
+ 
++	/* Number of objects with EXEC_OBJECT_CAPTURE set */
++	unsigned int capture_count;
++
+ 	/** list of vma not yet bound during reservation phase */
+ 	struct list_head unbound;
+ 
+@@ -909,6 +912,9 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ 			goto err;
+ 		}
+ 
++		if (eb->exec[i].flags & EXEC_OBJECT_CAPTURE)
++			eb->capture_count++;
++
+ 		err = eb_validate_vma(eb, &eb->exec[i], vma);
+ 		if (unlikely(err)) {
+ 			i915_vma_put(vma);
+@@ -1906,19 +1912,11 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
+ 		assert_vma_held(vma);
+ 
+ 		if (flags & EXEC_OBJECT_CAPTURE) {
+-			struct i915_capture_list *capture;
++			eb->capture_count--;
+ 
+ 			for_each_batch_create_order(eb, j) {
+-				if (!eb->requests[j])
+-					break;
+-
+-				capture = kmalloc(sizeof(*capture), GFP_KERNEL);
+-				if (capture) {
+-					capture->next =
+-						eb->requests[j]->capture_list;
+-					capture->vma = vma;
+-					eb->requests[j]->capture_list = capture;
+-				}
++				if (eb->requests[j]->capture_list)
++					eb->requests[j]->capture_list[eb->capture_count] = vma;
+ 			}
+ 		}
+ 
+@@ -3130,6 +3128,13 @@ eb_requests_create(struct i915_execbuffer *eb, struct dma_fence *in_fence,
+ 			return out_fence;
+ 		}
+ 
++		if (eb->capture_count) {
++			eb->requests[i]->capture_list =
++				kvcalloc(eb->capture_count + 1,
++					 sizeof(*eb->requests[i]->capture_list),
++					 GFP_KERNEL | __GFP_NOWARN);
++		}
++
+ 		/*
+ 		 * Only the first request added (committed to backend) has to
+ 		 * take the in fences into account as all subsequent requests
+@@ -3197,6 +3202,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 
+ 	eb.fences = NULL;
+ 	eb.num_fences = 0;
++	eb.capture_count = 0;
+ 
+ 	memset(eb.requests, 0, sizeof(struct i915_request *) *
+ 	       ARRAY_SIZE(eb.requests));
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 2a2d7643b551..45104bb12a98 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1356,10 +1356,10 @@ capture_user(struct intel_engine_capture_vma *capture,
+ 	     const struct i915_request *rq,
+ 	     gfp_t gfp)
+ {
+-	struct i915_capture_list *c;
++	int i;
+ 
+-	for (c = rq->capture_list; c; c = c->next)
+-		capture = capture_vma(capture, c->vma, "user", gfp);
++	for (i = 0; rq->capture_list[i]; i++)
++		capture = capture_vma(capture, rq->capture_list[i], "user", gfp);
+ 
+ 	return capture;
+ }
+@@ -1407,7 +1407,8 @@ intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
+ 	 * by userspace.
+ 	 */
+ 	vma = capture_vma(vma, rq->batch, "batch", gfp);
+-	vma = capture_user(vma, rq, gfp);
++	if (rq->capture_list)
++		vma = capture_user(vma, rq, gfp);
+ 	vma = capture_vma(vma, rq->ring->vma, "ring", gfp);
+ 	vma = capture_vma(vma, rq->context->state, "HW context", gfp);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 820a1f38b271..808632337832 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -188,15 +188,10 @@ void i915_request_notify_execute_cb_imm(struct i915_request *rq)
+ 
+ static void free_capture_list(struct i915_request *request)
+ {
+-	struct i915_capture_list *capture;
++	struct i915_vma **capture;
+ 
+ 	capture = fetch_and_zero(&request->capture_list);
+-	while (capture) {
+-		struct i915_capture_list *next = capture->next;
+-
+-		kfree(capture);
+-		capture = next;
+-	}
++	kvfree(capture);
  }
  
-+static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
-+{
-+	struct i915_address_space *vm = &ggtt->vm;
-+	struct drm_i915_private *i915 = vm->i915;
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+
-+	obj = i915_gem_object_create_internal(i915, size);
-+	if (IS_ERR(obj))
-+		return ERR_CAST(obj);
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma))
-+		goto err;
-+
-+	return vma;
-+
-+err:
-+	i915_gem_object_put(obj);
-+	return vma;
-+}
-+
- static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
- {
--	const unsigned long sz = PAGE_SIZE / 2;
-+	const unsigned long sz = PAGE_SIZE;
- 	struct intel_ring *ring;
+ static void __i915_request_fill(struct i915_request *rq, u8 val)
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index dc359242d1ae..49c87b160a6a 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -48,11 +48,6 @@ struct drm_i915_gem_object;
+ struct drm_printer;
+ struct i915_request;
  
- 	ring = kzalloc(sizeof(*ring) + sz, GFP_KERNEL);
-@@ -50,15 +72,11 @@ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
- 	ring->vaddr = (void *)(ring + 1);
- 	atomic_set(&ring->pin_count, 1);
+-struct i915_capture_list {
+-	struct i915_capture_list *next;
+-	struct i915_vma *vma;
+-};
+-
+ #define RQ_TRACE(rq, fmt, ...) do {					\
+ 	const struct i915_request *rq__ = (rq);				\
+ 	ENGINE_TRACE(rq__->engine, "fence %llx:%lld, current %d " fmt,	\
+@@ -299,7 +294,7 @@ struct i915_request {
+ 	 * active reference - all objects on this list must also be
+ 	 * on the active_list (of their final request).
+ 	 */
+-	struct i915_capture_list *capture_list;
++	struct i915_vma **capture_list;
  
--	ring->vma = i915_vma_alloc();
--	if (!ring->vma) {
-+	ring->vma = create_ring_vma(engine->gt->ggtt, PAGE_SIZE);
-+	if (IS_ERR(ring->vma)) {
- 		kfree(ring);
- 		return NULL;
- 	}
--	i915_active_init(&ring->vma->active, NULL, NULL, 0);
--	__set_bit(I915_VMA_GGTT_BIT, __i915_vma_flags(ring->vma));
--	__set_bit(DRM_MM_NODE_ALLOCATED_BIT, &ring->vma->node.flags);
--	ring->vma->node.size = sz;
- 
- 	intel_ring_update_space(ring);
- 
-@@ -67,8 +85,7 @@ static struct intel_ring *mock_ring(struct intel_engine_cs *engine)
- 
- static void mock_ring_free(struct intel_ring *ring)
- {
--	i915_active_fini(&ring->vma->active);
--	i915_vma_free(ring->vma);
-+	i915_vma_put(ring->vma);
- 
- 	kfree(ring);
- }
-@@ -125,6 +142,7 @@ static void mock_context_unpin(struct intel_context *ce)
- 
- static void mock_context_post_unpin(struct intel_context *ce)
- {
-+	i915_vma_unpin(ce->ring->vma);
- }
- 
- static void mock_context_destroy(struct kref *ref)
-@@ -169,7 +187,7 @@ static int mock_context_alloc(struct intel_context *ce)
- static int mock_context_pre_pin(struct intel_context *ce,
- 				struct i915_gem_ww_ctx *ww, void **unused)
- {
--	return 0;
-+	return i915_vma_pin_ww(ce->ring->vma, ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
- }
- 
- static int mock_context_pin(struct intel_context *ce, void *unused)
+ 	/** Time at which this request was emitted, in jiffies. */
+ 	unsigned long emitted_jiffies;
 -- 
 2.26.3
 
