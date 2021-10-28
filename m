@@ -2,53 +2,44 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ACE3C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:08:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 109CDC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:13:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 257D060F56
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:08:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 257D060F56
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id C5EAB61130
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C5EAB61130
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A05D46E090;
-	Thu, 28 Oct 2021 13:08:22 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA2426E090;
- Thu, 28 Oct 2021 13:08:21 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="211171693"
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="211171693"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 06:08:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="498390859"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga008.jf.intel.com with SMTP; 28 Oct 2021 06:08:17 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 28 Oct 2021 16:08:16 +0300
-Date: Thu, 28 Oct 2021 16:08:16 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hans de Goede <hdegoede@redhat.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, Tsuchiya Yuto <kitakar@gmail.com>
-Message-ID: <YXqgwOA53rUB3vYJ@intel.com>
-References: <20211024155010.126275-1-hdegoede@redhat.com>
- <YXlWVtnaTUEJ6yQs@intel.com>
- <7e74d851-b575-0f7b-34be-b389bd6323ca@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E77F36E090;
+	Thu, 28 Oct 2021 13:13:50 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D016E090;
+ Thu, 28 Oct 2021 13:13:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="227852724"
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="227852724"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 06:01:07 -0700
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="665406470"
+Received: from malloyd-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.16.73])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 06:01:06 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Date: Thu, 28 Oct 2021 13:58:45 +0100
+Message-Id: <20211028125855.3281674-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e74d851-b575-0f7b-34be-b389bd6323ca@redhat.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add
- NO_VLV_DISP_PW_DPIO_CMN_BC_INIT quirk
+Subject: [Intel-gfx] [PATCH 01/11] drm/i915: Remove unused bits of
+ i915_vma/active api
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,79 +55,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 27, 2021 at 08:39:57PM +0200, Hans de Goede wrote:
-> Hi,
-> 
-> On 10/27/21 15:38, Ville Syrjälä wrote:
-> > On Sun, Oct 24, 2021 at 05:50:10PM +0200, Hans de Goede wrote:
-> >> Add a NO_VLV_DISP_PW_DPIO_CMN_BC_INIT quirk to fix i915 not working on
-> >> the Xiaomi Mi Pad 2 (with CHT x5-Z8500 SoC).
-> >>
-> >> The Xiaomi Mi Pad 2 uses quite an unusual hardware-design for a Cherry
-> >> Trail tablet. It deviates from the typical reference design based tablets
-> >> in many ways.
-> >>
-> >> The Mi Pad 2 does not have any DisplayPort or HDMI outouts. I suspect that
-> >> as part of its unusual design it also has some supply rail which is only
-> >> used for DisplayPort or HDMI not connected.
-> > 
-> > Do we have the VBT somewhere (preferable attached to a bug report)?
-> > Maybe we can avoid an ugly quirk.
-> 
-> I agree that solving this in a way where we can avoid the quirk would be great.
-> 
-> I've filed an issue for this here now:
-> 
-> https://gitlab.freedesktop.org/drm/intel/-/issues/4385
-> 
-> This has a dump of /sys/kernel/debug/dri/0/i915_vbt as well as
-> dmesg output from a boot with drm.debug=0x1e attached (from a boot
-> with this patch, since otherwise the system hangs).
-> 
-> >>
-> >> Force-enabling the dpio-common-bc powerwell as the i915 normal does at boot
-> >> appears to cause the P-Unit to hang. When booting with a serial-usb console
-> >> the following errors are logged before the system freezes:
-> >>
-> >>  i915 0000:00:02.0: [drm] *ERROR* timeout setting power well state 00000000 (fffff3ff)
-> >>  i915 0000:00:02.0: [drm] *ERROR* Display PHY 0 is not power up
-> > 
-> > Hmm. I wonder if we're missing a clock or something...
-> > 
-> > Either of these do anything different?
-> > 
-> > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > @@ -1419,6 +1419,10 @@ static void vlv_display_power_well_init(struct drm_i915_private *dev_priv)
-> >  	for_each_pipe(dev_priv, pipe) {
-> >  		u32 val = intel_de_read(dev_priv, DPLL(pipe));
-> >  
-> > +		val |= DPLL_SSC_REF_CLK_CHV;
-> > 		or
-> > +		val &= ~DPLL_SSC_REF_CLK_CHV;
-> > 
-> >  		val |= DPLL_REF_CLK_ENABLE_VLV | DPLL_VGA_MODE_DIS;
-> >  		if (pipe != PIPE_A)
-> >  			val |= DPLL_INTEGRATED_CRI_CLK_VLV;
-> > 
-> 
-> The hang gets triggered from chv_dpio_cmn_power_well_enable() which does not
-> call vlv_display_power_well_init() at all, it directly calls vlv_set_power_well()
-> without first calling vlv_display_power_well_init() .
-> 
-> Note the same goes for vlv_dpio_cmn_power_well_enable(). Only the
-> vlv_display_power_well_enable() / chv_pipe_power_well_enable() call
-> vlv_display_power_well_init().
-> 
-> Note I can still give the suggested change a try if you want,
-> the "display" powerwell is listed first and has DOMAIN_INIT set,
-> so assuming for_each_power_domain_well() goes through the domains in
-> the order they are listed, then vlv_display_power_well_init() will
-> still run first. But it would seem to be wrong if enabling one domain
-> depends on things setup by another domain ?
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-The power wells are hierarchical. Also power wells != power domains.
+When reworking the code to move the eviction fence to the object,
+the best code is removed code.
 
+Remove some functions that are unused, and change the function definition
+if it's only used in 1 place.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/i915/i915_active.c | 28 +++-------------------------
+ drivers/gpu/drm/i915/i915_active.h | 17 +----------------
+ drivers/gpu/drm/i915/i915_vma.c    |  2 +-
+ drivers/gpu/drm/i915/i915_vma.h    |  2 --
+ 4 files changed, 5 insertions(+), 44 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
+index 3103c1e1fd14..ee2b3a375362 100644
+--- a/drivers/gpu/drm/i915/i915_active.c
++++ b/drivers/gpu/drm/i915/i915_active.c
+@@ -426,8 +426,9 @@ replace_barrier(struct i915_active *ref, struct i915_active_fence *active)
+ 	return true;
+ }
+ 
+-int i915_active_ref(struct i915_active *ref, u64 idx, struct dma_fence *fence)
++int i915_active_add_request(struct i915_active *ref, struct i915_request *rq)
+ {
++	struct dma_fence *fence = &rq->fence;
+ 	struct i915_active_fence *active;
+ 	int err;
+ 
+@@ -436,7 +437,7 @@ int i915_active_ref(struct i915_active *ref, u64 idx, struct dma_fence *fence)
+ 	if (err)
+ 		return err;
+ 
+-	active = active_instance(ref, idx);
++	active = active_instance(ref, i915_request_timeline(rq)->fence_context);
+ 	if (!active) {
+ 		err = -ENOMEM;
+ 		goto out;
+@@ -477,29 +478,6 @@ __i915_active_set_fence(struct i915_active *ref,
+ 	return prev;
+ }
+ 
+-static struct i915_active_fence *
+-__active_fence(struct i915_active *ref, u64 idx)
+-{
+-	struct active_node *it;
+-
+-	it = __active_lookup(ref, idx);
+-	if (unlikely(!it)) { /* Contention with parallel tree builders! */
+-		spin_lock_irq(&ref->tree_lock);
+-		it = __active_lookup(ref, idx);
+-		spin_unlock_irq(&ref->tree_lock);
+-	}
+-	GEM_BUG_ON(!it); /* slot must be preallocated */
+-
+-	return &it->base;
+-}
+-
+-struct dma_fence *
+-__i915_active_ref(struct i915_active *ref, u64 idx, struct dma_fence *fence)
+-{
+-	/* Only valid while active, see i915_active_acquire_for_context() */
+-	return __i915_active_set_fence(ref, __active_fence(ref, idx), fence);
+-}
+-
+ struct dma_fence *
+ i915_active_set_exclusive(struct i915_active *ref, struct dma_fence *f)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
+index 5fcdb0e2bc9e..7eb44132183a 100644
+--- a/drivers/gpu/drm/i915/i915_active.h
++++ b/drivers/gpu/drm/i915/i915_active.h
+@@ -164,26 +164,11 @@ void __i915_active_init(struct i915_active *ref,
+ 	__i915_active_init(ref, active, retire, flags, &__mkey, &__wkey);	\
+ } while (0)
+ 
+-struct dma_fence *
+-__i915_active_ref(struct i915_active *ref, u64 idx, struct dma_fence *fence);
+-int i915_active_ref(struct i915_active *ref, u64 idx, struct dma_fence *fence);
+-
+-static inline int
+-i915_active_add_request(struct i915_active *ref, struct i915_request *rq)
+-{
+-	return i915_active_ref(ref,
+-			       i915_request_timeline(rq)->fence_context,
+-			       &rq->fence);
+-}
++int i915_active_add_request(struct i915_active *ref, struct i915_request *rq);
+ 
+ struct dma_fence *
+ i915_active_set_exclusive(struct i915_active *ref, struct dma_fence *f);
+ 
+-static inline bool i915_active_has_exclusive(struct i915_active *ref)
+-{
+-	return rcu_access_pointer(ref->excl.fence);
+-}
+-
+ int __i915_active_wait(struct i915_active *ref, int state);
+ static inline int i915_active_wait(struct i915_active *ref)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 90546fa58fc1..1187f1956c20 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1220,7 +1220,7 @@ __i915_request_await_bind(struct i915_request *rq, struct i915_vma *vma)
+ 	return __i915_request_await_exclusive(rq, &vma->active);
+ }
+ 
+-int __i915_vma_move_to_active(struct i915_vma *vma, struct i915_request *rq)
++static int __i915_vma_move_to_active(struct i915_vma *vma, struct i915_request *rq)
+ {
+ 	int err;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 648dbe744c96..b882fd7b5f99 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -55,8 +55,6 @@ static inline bool i915_vma_is_active(const struct i915_vma *vma)
+ /* do not reserve memory to prevent deadlocks */
+ #define __EXEC_OBJECT_NO_RESERVE BIT(31)
+ 
+-int __must_check __i915_vma_move_to_active(struct i915_vma *vma,
+-					   struct i915_request *rq);
+ int __must_check _i915_vma_move_to_active(struct i915_vma *vma,
+ 					  struct i915_request *rq,
+ 					  struct dma_fence *fence,
 -- 
-Ville Syrjälä
-Intel
+2.26.3
+
