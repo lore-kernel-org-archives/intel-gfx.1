@@ -2,69 +2,53 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11427C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:58:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ACE3C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCE6360FC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 12:58:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CCE6360FC4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 257D060F56
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 257D060F56
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E126E84E;
-	Thu, 28 Oct 2021 12:58:16 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 783046E84E
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 12:58:15 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="253967901"
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="253967901"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 05:58:14 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05D46E090;
+	Thu, 28 Oct 2021 13:08:22 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2426E090;
+ Thu, 28 Oct 2021 13:08:21 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="211171693"
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="211171693"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 06:08:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="597785725"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga004.jf.intel.com with ESMTP; 28 Oct 2021 05:58:14 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Thu, 28 Oct 2021 05:58:14 -0700
-Received: from bgsmsx602.gar.corp.intel.com (10.109.78.81) by
- ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Thu, 28 Oct 2021 05:58:12 -0700
-Received: from bgsmsx602.gar.corp.intel.com ([10.109.78.81]) by
- BGSMSX602.gar.corp.intel.com ([10.109.78.81]) with mapi id 15.01.2242.012;
- Thu, 28 Oct 2021 18:28:10 +0530
-From: "Kulkarni, Vandita" <vandita.kulkarni@intel.com>
-To: "Nikula, Jani" <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-CC: "Deak, Imre" <imre.deak@intel.com>, "Roper, Matthew D"
- <matthew.d.roper@intel.com>, "ville.syrjala@linux.intel.com"
- <ville.syrjala@linux.intel.com>
-Thread-Topic: [V2 4/4] drm/i915/dsi: Ungate clock before enabling the phy
-Thread-Index: AQHXxPwAQUMpbbYG1Uik7LX3npT2nqvn+8gAgABvkRA=
-Date: Thu, 28 Oct 2021 12:58:10 +0000
-Message-ID: <122a37fb754049608841b35115f6f594@intel.com>
-References: <20211019151435.20477-1-vandita.kulkarni@intel.com>
- <20211019151435.20477-5-vandita.kulkarni@intel.com>
- <87zgqtfk8j.fsf@intel.com>
-In-Reply-To: <87zgqtfk8j.fsf@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.6.200.16
-x-originating-ip: [10.223.10.1]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="498390859"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga008.jf.intel.com with SMTP; 28 Oct 2021 06:08:17 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 28 Oct 2021 16:08:16 +0300
+Date: Thu, 28 Oct 2021 16:08:16 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, Tsuchiya Yuto <kitakar@gmail.com>
+Message-ID: <YXqgwOA53rUB3vYJ@intel.com>
+References: <20211024155010.126275-1-hdegoede@redhat.com>
+ <YXlWVtnaTUEJ6yQs@intel.com>
+ <7e74d851-b575-0f7b-34be-b389bd6323ca@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [V2 4/4] drm/i915/dsi: Ungate clock before enabling
- the phy
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7e74d851-b575-0f7b-34be-b389bd6323ca@redhat.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add
+ NO_VLV_DISP_PW_DPIO_CMN_BC_INIT quirk
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,93 +64,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Oct 27, 2021 at 08:39:57PM +0200, Hans de Goede wrote:
+> Hi,
+> 
+> On 10/27/21 15:38, Ville Syrjälä wrote:
+> > On Sun, Oct 24, 2021 at 05:50:10PM +0200, Hans de Goede wrote:
+> >> Add a NO_VLV_DISP_PW_DPIO_CMN_BC_INIT quirk to fix i915 not working on
+> >> the Xiaomi Mi Pad 2 (with CHT x5-Z8500 SoC).
+> >>
+> >> The Xiaomi Mi Pad 2 uses quite an unusual hardware-design for a Cherry
+> >> Trail tablet. It deviates from the typical reference design based tablets
+> >> in many ways.
+> >>
+> >> The Mi Pad 2 does not have any DisplayPort or HDMI outouts. I suspect that
+> >> as part of its unusual design it also has some supply rail which is only
+> >> used for DisplayPort or HDMI not connected.
+> > 
+> > Do we have the VBT somewhere (preferable attached to a bug report)?
+> > Maybe we can avoid an ugly quirk.
+> 
+> I agree that solving this in a way where we can avoid the quirk would be great.
+> 
+> I've filed an issue for this here now:
+> 
+> https://gitlab.freedesktop.org/drm/intel/-/issues/4385
+> 
+> This has a dump of /sys/kernel/debug/dri/0/i915_vbt as well as
+> dmesg output from a boot with drm.debug=0x1e attached (from a boot
+> with this patch, since otherwise the system hangs).
+> 
+> >>
+> >> Force-enabling the dpio-common-bc powerwell as the i915 normal does at boot
+> >> appears to cause the P-Unit to hang. When booting with a serial-usb console
+> >> the following errors are logged before the system freezes:
+> >>
+> >>  i915 0000:00:02.0: [drm] *ERROR* timeout setting power well state 00000000 (fffff3ff)
+> >>  i915 0000:00:02.0: [drm] *ERROR* Display PHY 0 is not power up
+> > 
+> > Hmm. I wonder if we're missing a clock or something...
+> > 
+> > Either of these do anything different?
+> > 
+> > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> > @@ -1419,6 +1419,10 @@ static void vlv_display_power_well_init(struct drm_i915_private *dev_priv)
+> >  	for_each_pipe(dev_priv, pipe) {
+> >  		u32 val = intel_de_read(dev_priv, DPLL(pipe));
+> >  
+> > +		val |= DPLL_SSC_REF_CLK_CHV;
+> > 		or
+> > +		val &= ~DPLL_SSC_REF_CLK_CHV;
+> > 
+> >  		val |= DPLL_REF_CLK_ENABLE_VLV | DPLL_VGA_MODE_DIS;
+> >  		if (pipe != PIPE_A)
+> >  			val |= DPLL_INTEGRATED_CRI_CLK_VLV;
+> > 
+> 
+> The hang gets triggered from chv_dpio_cmn_power_well_enable() which does not
+> call vlv_display_power_well_init() at all, it directly calls vlv_set_power_well()
+> without first calling vlv_display_power_well_init() .
+> 
+> Note the same goes for vlv_dpio_cmn_power_well_enable(). Only the
+> vlv_display_power_well_enable() / chv_pipe_power_well_enable() call
+> vlv_display_power_well_init().
+> 
+> Note I can still give the suggested change a try if you want,
+> the "display" powerwell is listed first and has DOMAIN_INIT set,
+> so assuming for_each_power_domain_well() goes through the domains in
+> the order they are listed, then vlv_display_power_well_init() will
+> still run first. But it would seem to be wrong if enabling one domain
+> depends on things setup by another domain ?
 
+The power wells are hierarchical. Also power wells != power domains.
 
-> -----Original Message-----
-> From: Nikula, Jani <jani.nikula@intel.com>
-> Sent: Thursday, October 28, 2021 5:13 PM
-> To: Kulkarni, Vandita <vandita.kulkarni@intel.com>; intel-
-> gfx@lists.freedesktop.org
-> Cc: Deak, Imre <imre.deak@intel.com>; Roper, Matthew D
-> <matthew.d.roper@intel.com>; ville.syrjala@linux.intel.com; Kulkarni,
-> Vandita <vandita.kulkarni@intel.com>
-> Subject: Re: [V2 4/4] drm/i915/dsi: Ungate clock before enabling the phy
->=20
-> On Tue, 19 Oct 2021, Vandita Kulkarni <vandita.kulkarni@intel.com> wrote:
-> > For the PHY enable/disable signalling to propagate between Dispaly and
-> > PHY, DDI clocks need to be running when enabling the PHY.
-> >
-> > Bspec: 49188 says gate the clocks after enabling the
-> >        DDI Buffer.
-> >        We also have a commit 991d9557b0c4 ("drm/i915/tgl/dsi: Gate the =
-ddi
-> >        clocks after pll mapping") which gates the clocks much before,
-> >        as per the older spec. This commit nullifies its effect and make=
-s
-> >        sure that the clocks are not gated while we enable the DDI
-> >        buffer.
-> > v2: Bspec ref, add a comment wrt earlier clock gating sequence (Jani)
-> >
-> > Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/icl_dsi.c | 8 +++-----
-> >  1 file changed, 3 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c
-> > b/drivers/gpu/drm/i915/display/icl_dsi.c
-> > index 63dd75c6448a..e5ef5c4a32d7 100644
-> > --- a/drivers/gpu/drm/i915/display/icl_dsi.c
-> > +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-> > @@ -1135,8 +1135,6 @@ static void
-> >  gen11_dsi_enable_port_and_phy(struct intel_encoder *encoder,
-> >  			      const struct intel_crtc_state *crtc_state)  {
-> > -	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
-> > -
-> >  	/* step 4a: power up all lanes of the DDI used by DSI */
-> >  	gen11_dsi_power_up_lanes(encoder);
-> >
-> > @@ -1146,6 +1144,8 @@ gen11_dsi_enable_port_and_phy(struct
-> intel_encoder *encoder,
-> >  	/* step 4c: configure voltage swing and skew */
-> >  	gen11_dsi_voltage_swing_program_seq(encoder);
-> >
-> > +	gen11_dsi_ungate_clocks(encoder);
-> > +
->=20
-> What about the changes to gen11_dsi_map_pll() in commit 991d9557b0c4
-> ("drm/i915/tgl/dsi: Gate the ddi clocks after pll mapping")? It starts of=
-f with
-> clocks gated for gen12+, ungated otherwise.
-
-Now the same spec is updated with the gate step after ddi buffer enable.
-And the one before is marked with remove tag.
-That makes all gen12+ align with gen 11.
-You suggested to update the same in the commit message on v1.
-Should I still consider just reverting that commit?
-
-Thanks,
-Vandita
-
->=20
-> BR,
-> Jani.
->=20
->=20
-> >  	/* enable DDI buffer */
-> >  	gen11_dsi_enable_ddi_buffer(encoder);
-> >
-> > @@ -1161,9 +1161,7 @@ gen11_dsi_enable_port_and_phy(struct
-> intel_encoder *encoder,
-> >  	/* Step (4h, 4i, 4j, 4k): Configure transcoder */
-> >  	gen11_dsi_configure_transcoder(encoder, crtc_state);
-> >
-> > -	/* Step 4l: Gate DDI clocks */
-> > -	if (DISPLAY_VER(dev_priv) =3D=3D 11)
-> > -		gen11_dsi_gate_clocks(encoder);
-> > +	gen11_dsi_gate_clocks(encoder);
-> >  }
-> >
-> >  static void gen11_dsi_powerup_panel(struct intel_encoder *encoder)
->=20
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+-- 
+Ville Syrjälä
+Intel
