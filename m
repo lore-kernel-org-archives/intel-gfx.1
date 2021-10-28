@@ -2,45 +2,44 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFD32C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 06:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7547C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 07:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D1EE60F9D
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 06:59:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5D1EE60F9D
+	by mail.kernel.org (Postfix) with ESMTPS id A594B60FF2
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 07:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A594B60FF2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A172F6E7DD;
-	Thu, 28 Oct 2021 06:59:29 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6290189C37
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 06:59:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="293797783"
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="293797783"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 23:59:27 -0700
-X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="597687138"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06CEA6E06D;
+	Thu, 28 Oct 2021 07:03:26 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696CB6E06D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 07:03:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10150"; a="230194408"
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="230194408"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 00:03:24 -0700
+X-IronPort-AV: E=Sophos;i="5.87,189,1631602800"; d="scan'208";a="665295986"
 Received: from unknown (HELO intel.com) ([10.237.72.167])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 23:59:25 -0700
-Date: Thu, 28 Oct 2021 09:58:52 +0300
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 00:03:23 -0700
+Date: Thu, 28 Oct 2021 10:02:54 +0300
 From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Imre Deak <imre.deak@intel.com>
+To: Ramalingam C <ramalingam.c@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, jani.saarinen@intel.com,
- matthew.d.roper@intel.com, ramalingam.c@intel.com,
- ville.syrjala@linux.intel.com
-Message-ID: <20211028065852.GA8320@intel.com>
+ matthew.d.roper@intel.com, ville.syrjala@linux.intel.com
+Message-ID: <20211028070254.GB8320@intel.com>
 References: <20211027154653.5899-1-stanislav.lisovskiy@intel.com>
- <20211027165625.GA3045392@ideak-desk.fi.intel.com>
+ <20211027203349.GA29802@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211027165625.GA3045392@ideak-desk.fi.intel.com>
+In-Reply-To: <20211027203349.GA29802@intel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Subject: Re: [Intel-gfx] [PATCH] drm/i915/dg2: Tile 4 plane format support
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -58,21 +57,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 27, 2021 at 07:56:25PM +0300, Imre Deak wrote:
-> On Wed, Oct 27, 2021 at 06:46:53PM +0300, Stanislav Lisovskiy wrote:
+On Thu, Oct 28, 2021 at 02:03:49AM +0530, Ramalingam C wrote:
+> On 2021-10-27 at 18:46:53 +0300, Stanislav Lisovskiy wrote:
 > > TileF(Tile4 in bspec) format is 4K tile organized into
 > > 64B subtiles with same basic shape as for legacy TileY
 > > which will be supported by Display13.
-> 
-> Is it supported on all D13 or only on DG2? Could you point to the bspec
-> page describing this?
-
-Yes, it is supported on all D13 to my undertanding.
-Check with BSpec 44917
-
-Stan
-
-> 
 > > 
 > > v2: - Fixed wrong case condition(Jani Nikula)
 > >     - Increased I915_FORMAT_MOD_F_TILED up to 12(Imre Deak)
@@ -128,9 +117,6 @@ Stan
 > > +	}, {
 > > +		.modifier = I915_FORMAT_MOD_4_TILED,
 > > +		.display_ver = { 12, 13 },
-> 
-> From display_ver 13.
-> 
 > > +		.tiling = I915_TILING_NONE,
 > >  	}, {
 > >  		.modifier = I915_FORMAT_MOD_Y_TILED,
@@ -246,9 +232,15 @@ Stan
 > >  	.display.has_modular_fia = 1,
 > >  	.display.has_psr_hw_tracking = 0,
 > > +	.has_4tile = 1, \
+> This is applied in wrong place. fixed as part of the series i am preparing.
 > 
-> If it's only on DG2 then it should be added there.
-> 
+> Ram
+
+I think the structure is still adl_p_info in your patch, do you mean it should be inserted
+in other place?
+
+Stan
+
 > >  	.platform_engine_mask =
 > >  		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
 > >  	.ppgtt_size = 48,
