@@ -2,46 +2,56 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8446C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99EEBC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 500AD60C40
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 500AD60C40
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2CFB660232
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:56:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2CFB660232
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDA916E077;
-	Thu, 28 Oct 2021 18:39:13 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A516E077
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 18:39:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="229219806"
-X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="229219806"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 10:35:27 -0700
-X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="498499536"
-Received: from ralfseng-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.214.156])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 10:35:24 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, Dave Airlie <airlied@redhat.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-Date: Thu, 28 Oct 2021 20:35:13 +0300
-Message-Id: <20211028173518.9107-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77D226E077;
+	Thu, 28 Oct 2021 18:55:59 +0000 (UTC)
+X-Greylist: delayed 4200 seconds by postgrey-1.36 at gabe;
+ Thu, 28 Oct 2021 18:55:57 UTC
+Received: from 11.mo561.mail-out.ovh.net (11.mo561.mail-out.ovh.net
+ [87.98.184.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C398A6E077
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 18:55:57 +0000 (UTC)
+Received: from player693.ha.ovh.net (unknown [10.110.103.225])
+ by mo561.mail-out.ovh.net (Postfix) with ESMTP id DA62523ACF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 16:30:19 +0000 (UTC)
+Received: from etezian.org (unknown [31.22.57.166])
+ (Authenticated sender: andi@etezian.org)
+ by player693.ha.ovh.net (Postfix) with ESMTPSA id C39CB23AF9E34;
+ Thu, 28 Oct 2021 16:30:10 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-98R002e4ba0109-9c7f-4c7c-abe6-b28c21dd06aa,
+ 525B1D08A26901CC0984473A0927D9CF1F2D8319) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 31.22.57.166
+Date: Thu, 28 Oct 2021 18:30:09 +0200
+From: Andi Shyti <andi@etezian.org>
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Paulo Zanoni <paulo.r.zanoni@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi@etezian.org>
+Message-ID: <YXrQEb1Isc+n9dAO@jack.zhora.eu>
+References: <20211008215635.2026385-1-matthew.d.roper@intel.com>
+ <20211008215635.2026385-9-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915/audio: group audio under
- anonymous struct in drm_i915_private
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211008215635.2026385-9-matthew.d.roper@intel.com>
+X-Ovh-Tracer-Id: 14995579386921028106
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegfedgudeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeetnhguihcuufhhhihtihcuoegrnhguihesvghtvgiiihgrnhdrohhrgheqnecuggftrfgrthhtvghrnheptdfgudduhfefueeujeefieehtdeftefggeevhefgueellefhudetgeeikeduieefnecukfhppedtrddtrddtrddtpdefuddrvddvrdehjedrudeiieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrieelfedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+Subject: Re: [Intel-gfx] [PATCH 08/11] drm/i915/xehp: Make IRQ reset and
+ postinstall multi-tile aware
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,87 +67,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With an anonymous struct, this can be pure hierarchical organization
-without code changes. We'll follow up with adding a name to the
-sub-struct separately.
+Hi Paulo and Matt,
 
-Cc: Dave Airlie <airlied@redhat.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h | 43 +++++++++++++++++----------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+[...]
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 19e6700a4315..ee210e12648a 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -995,9 +995,6 @@ struct drm_i915_private {
- 	/* Display internal color functions */
- 	const struct intel_color_funcs *color_funcs;
- 
--	/* Display internal audio functions */
--	const struct intel_audio_funcs *audio_funcs;
--
- 	/* Display CDCLK functions */
- 	const struct intel_cdclk_funcs *cdclk_funcs;
- 
-@@ -1084,17 +1081,6 @@ struct drm_i915_private {
- 	struct drm_property *broadcast_rgb_property;
- 	struct drm_property *force_audio_property;
- 
--	/* hda/i915 audio component */
--	struct i915_audio_component *audio_component;
--	bool audio_component_registered;
--	/**
--	 * av_mutex - mutex for audio/video sync
--	 *
--	 */
--	struct mutex av_mutex;
--	int audio_power_refcount;
--	u32 audio_freq_cntrl;
--
- 	u32 fdi_rx_config;
- 
- 	/* Shadow for DISPLAY_PHY_CONTROL which can't be safely read */
-@@ -1227,14 +1213,29 @@ struct drm_i915_private {
- 
- 	bool ipc_enabled;
- 
--	/* Used to save the pipe-to-encoder mapping for audio */
--	struct intel_encoder *av_enc_map[I915_MAX_PIPES];
--
--	/* necessary resource sharing with HDMI LPE audio driver. */
- 	struct {
--		struct platform_device *platdev;
--		int	irq;
--	} lpe_audio;
-+		/* Display internal audio functions */
-+		const struct intel_audio_funcs *audio_funcs;
-+
-+		/* hda/i915 audio component */
-+		struct i915_audio_component *audio_component;
-+		bool audio_component_registered;
-+		/**
-+		 * av_mutex - mutex for audio/video sync
-+		 */
-+		struct mutex av_mutex;
-+		int audio_power_refcount;
-+		u32 audio_freq_cntrl;
-+
-+		/* Used to save the pipe-to-encoder mapping for audio */
-+		struct intel_encoder *av_enc_map[I915_MAX_PIPES];
-+
-+		/* necessary resource sharing with HDMI LPE audio driver. */
-+		struct {
-+			struct platform_device *platdev;
-+			int irq;
-+		} lpe_audio;
-+	};
- 
- 	struct i915_pmu pmu;
- 
--- 
-2.30.2
+> @@ -3190,14 +3190,19 @@ static void dg1_irq_reset(struct drm_i915_private *dev_priv)
 
+mmmhhh... bad naming :/
+
+[...]
+
+> -	dg1_master_intr_enable(uncore->regs);
+> -	intel_uncore_posting_read(uncore, DG1_MSTR_TILE_INTR);
+> +	dg1_master_intr_enable(dev_priv->gt.uncore->regs);
+> +	intel_uncore_posting_read(dev_priv->gt.uncore, DG1_MSTR_TILE_INTR);
+
+I guess this should also go under a for_each_gt()
+
+Andi
