@@ -2,80 +2,46 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0403BC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8446C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:39:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEBEC610E5
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BEBEC610E5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 500AD60C40
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 18:39:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 500AD60C40
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D14A26E849;
-	Thu, 28 Oct 2021 18:27:17 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8478F6E849
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 18:27:16 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id w10so7889791ilc.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 11:27:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+G6CdJ3zT0nfkzpCxbjyGyIXPvxmC0KG1xFQgJK82Go=;
- b=gej7DeSlFNmwR+cz6LTfAGp06TY2sDf6NZOIOME9jn3HgYQhzy9SFGbRebGw8lfvGI
- oxjFP3vHtgrPiLdUZgPnJiNk6N8URKVTiHRioJhz7pLc/+R9kAOtqHO8VKUG/2jVvrf3
- POI2t4wjgtRL0WeCYTQwN0KmnspDjRtMrsScU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+G6CdJ3zT0nfkzpCxbjyGyIXPvxmC0KG1xFQgJK82Go=;
- b=2WZgGQaa6pTbHbCb1XshBMJeZ51fLSq3UgciLR1uu1SqMUFzemz7KuH4sp2cHvdayT
- joaJHfSSwWHGii5GmEGFDDzB2jL+SUWDQBraX8wdY67xFRCsRHzG62TVhoISXROC8uF8
- gb1mC5gtAmiEHBQAFlEESHAB8xqcFFuVjkOlPUwX0sLMOb7sQ72/N+PdOHGJYnNabMuI
- p/KJF/dyzPsQc7q8IdURALwNuH+SNYCSv80GS4+SUv8owUFrN8J75mLoJQgmIx6te4jn
- rqWLm5nAeEPSWPkCn7sPZx0xgZU8J+zjFGywMsiViAk8V2rAph8yJu9lf0D1dpwAG+CE
- iGwg==
-X-Gm-Message-State: AOAM531OrUVVZmoHQ+3WdpXEyUVPJa9vW9DDiFSgg2xy2YPLgSMJRbDY
- sMRtUB2sHVYkenQ3pt+f53rWD3tZQracQw==
-X-Google-Smtp-Source: ABdhPJwBgB20xsjf69cQIZPqx19E4g90KmVqA8ChFBTgk/ig9D3aQMyKmpQWV9JAHa0d9hQ7FxGAZA==
-X-Received: by 2002:a05:6e02:1d13:: with SMTP id
- i19mr4349763ila.182.1635445635075; 
- Thu, 28 Oct 2021 11:27:15 -0700 (PDT)
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com.
- [209.85.166.182])
- by smtp.gmail.com with ESMTPSA id d14sm2069927ilv.37.2021.10.28.11.27.13
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Oct 2021 11:27:14 -0700 (PDT)
-Received: by mail-il1-f182.google.com with SMTP id l13so7977289ilh.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 11:27:13 -0700 (PDT)
-X-Received: by 2002:a05:6e02:1b09:: with SMTP id
- i9mr4114797ilv.142.1635445633346; 
- Thu, 28 Oct 2021 11:27:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA916E077;
+	Thu, 28 Oct 2021 18:39:13 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A516E077
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 18:39:12 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="229219806"
+X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="229219806"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 10:35:27 -0700
+X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="498499536"
+Received: from ralfseng-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.251.214.156])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2021 10:35:24 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, Dave Airlie <airlied@redhat.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+Date: Thu, 28 Oct 2021 20:35:13 +0300
+Message-Id: <20211028173518.9107-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20211026220848.439530-1-lyude@redhat.com>
- <20211026220848.439530-4-lyude@redhat.com>
-In-Reply-To: <20211026220848.439530-4-lyude@redhat.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 28 Oct 2021 11:27:00 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VXJA0DoCBOG+fzqv-5rYP4mWQE-HPxH9DxCVWgnuS4Dw@mail.gmail.com>
-Message-ID: <CAD=FV=VXJA0DoCBOG+fzqv-5rYP4mWQE-HPxH9DxCVWgnuS4Dw@mail.gmail.com>
-To: Lyude Paul <lyude@redhat.com>
-Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Satadru Pramanik <satadru@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH v4 3/5] drm/dp: Disable unsupported features
- in DP_EDP_BACKLIGHT_MODE_SET_REGISTER
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915/audio: group audio under
+ anonymous struct in drm_i915_private
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,62 +57,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+With an anonymous struct, this can be pure hierarchical organization
+without code changes. We'll follow up with adding a name to the
+sub-struct separately.
 
-On Tue, Oct 26, 2021 at 3:09 PM Lyude Paul <lyude@redhat.com> wrote:
->
-> As it turns out, apparently some machines will actually leave additional
-> backlight functionality like dynamic backlight control on before the OS
-> loads. Currently we don't take care to disable unsupported features when
-> writing back the backlight mode, which can lead to some rather strange
-> looking behavior when adjusting the backlight.
->
-> So, let's fix this by ensuring we only keep supported features enabled for
-> panel backlights - which should fix some of the issues we were seeing from
-> this on fi-bdw-samus.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Fixes: 867cf9cd73c3 ("drm/dp: Extract i915's eDP backlight code into DRM helpers")
-> ---
->  drivers/gpu/drm/drm_dp_helper.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-> index ada0a1ff262d..8f2032a955cf 100644
-> --- a/drivers/gpu/drm/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/drm_dp_helper.c
-> @@ -3372,7 +3372,9 @@ int drm_edp_backlight_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
->                 return ret < 0 ? ret : -EIO;
->         }
->
-> -       new_dpcd_buf = dpcd_buf;
-> +       /* Disable any backlight functionality we don't support that might be on */
-> +       new_dpcd_buf = dpcd_buf & (DP_EDP_BACKLIGHT_CONTROL_MODE_MASK |
-> +                                  DP_EDP_BACKLIGHT_FREQ_AUX_SET_ENABLE);
+Cc: Dave Airlie <airlied@redhat.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h | 43 +++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-My first thought when reading the above was: if we're masking so much
-stuff out, why do we bother reading the old value back out at all?
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 19e6700a4315..ee210e12648a 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -995,9 +995,6 @@ struct drm_i915_private {
+ 	/* Display internal color functions */
+ 	const struct intel_color_funcs *color_funcs;
+ 
+-	/* Display internal audio functions */
+-	const struct intel_audio_funcs *audio_funcs;
+-
+ 	/* Display CDCLK functions */
+ 	const struct intel_cdclk_funcs *cdclk_funcs;
+ 
+@@ -1084,17 +1081,6 @@ struct drm_i915_private {
+ 	struct drm_property *broadcast_rgb_property;
+ 	struct drm_property *force_audio_property;
+ 
+-	/* hda/i915 audio component */
+-	struct i915_audio_component *audio_component;
+-	bool audio_component_registered;
+-	/**
+-	 * av_mutex - mutex for audio/video sync
+-	 *
+-	 */
+-	struct mutex av_mutex;
+-	int audio_power_refcount;
+-	u32 audio_freq_cntrl;
+-
+ 	u32 fdi_rx_config;
+ 
+ 	/* Shadow for DISPLAY_PHY_CONTROL which can't be safely read */
+@@ -1227,14 +1213,29 @@ struct drm_i915_private {
+ 
+ 	bool ipc_enabled;
+ 
+-	/* Used to save the pipe-to-encoder mapping for audio */
+-	struct intel_encoder *av_enc_map[I915_MAX_PIPES];
+-
+-	/* necessary resource sharing with HDMI LPE audio driver. */
+ 	struct {
+-		struct platform_device *platdev;
+-		int	irq;
+-	} lpe_audio;
++		/* Display internal audio functions */
++		const struct intel_audio_funcs *audio_funcs;
++
++		/* hda/i915 audio component */
++		struct i915_audio_component *audio_component;
++		bool audio_component_registered;
++		/**
++		 * av_mutex - mutex for audio/video sync
++		 */
++		struct mutex av_mutex;
++		int audio_power_refcount;
++		u32 audio_freq_cntrl;
++
++		/* Used to save the pipe-to-encoder mapping for audio */
++		struct intel_encoder *av_enc_map[I915_MAX_PIPES];
++
++		/* necessary resource sharing with HDMI LPE audio driver. */
++		struct {
++			struct platform_device *platdev;
++			int irq;
++		} lpe_audio;
++	};
+ 
+ 	struct i915_pmu pmu;
+ 
+-- 
+2.30.2
 
-I guess the two places you use the old value for are:
-
-1. You avoid setting the "DP_EDP_PWMGEN_BIT_COUNT" if the backlight
-was already configured for DPCD mode.
-
-2. You avoid writing the register if you didn't change it.
-
-I would actually argue that use #1 is probably a bug. If you're
-worried about the firmware leaving the backlight configured in a
-strange way, it could very well have left the backlight configured in
-DPCD mode but set a different "bit count" than you want, right? Maybe
-you should just always set the bit count?
-
-Use #2 is fine, but does it buy you anything? Are writes to the DCPD
-bus somehow more expensive than reads? ...or maybe you're expecting
-that a display will glitch / act badly if you write the same value
-that's already there?
-
-
-So I guess my instinct here is that you should avoid reading all
-together and just program the value you want.
-
--Doug
