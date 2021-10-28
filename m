@@ -2,53 +2,56 @@ Return-Path: <SRS0=5qC0=PQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57ED2C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 17:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F288C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 17:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DEC060F38
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 17:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0DEC060F38
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1FB9560C4B
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 17:51:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1FB9560C4B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA90F6E99F;
-	Thu, 28 Oct 2021 17:46:49 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA9666E99F
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 17:46:48 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="217649704"
-X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="217649704"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 10:46:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="466213974"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga002.jf.intel.com with SMTP; 28 Oct 2021 10:46:45 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 28 Oct 2021 20:46:45 +0300
-Date: Thu, 28 Oct 2021 20:46:45 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Souza, Jose" <jose.souza@intel.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Kahola, Mika" <mika.kahola@intel.com>,
- "Hogander, Jouni" <jouni.hogander@intel.com>
-Message-ID: <YXriBYJxFXJ0KUqn@intel.com>
-References: <20211027184855.108731-1-jose.souza@intel.com>
- <YXqmfPPnSr3j/mDe@intel.com>
- <ff05e4fa04fe0ebcc79c9b86e249bd5ab5392529.camel@intel.com>
- <YXrgCBB53Zj86a4C@intel.com>
- <bfd7f8ca64b41e4c49d341a5cbcbe761dc471af6.camel@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7778E6E99E;
+	Thu, 28 Oct 2021 17:51:12 +0000 (UTC)
+X-Greylist: delayed 4512 seconds by postgrey-1.36 at gabe;
+ Thu, 28 Oct 2021 17:51:10 UTC
+Received: from 4.mo584.mail-out.ovh.net (4.mo584.mail-out.ovh.net
+ [178.32.98.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8C66E99E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 17:51:10 +0000 (UTC)
+Received: from player787.ha.ovh.net (unknown [10.108.1.93])
+ by mo584.mail-out.ovh.net (Postfix) with ESMTP id 77E8422050
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 16:33:22 +0000 (UTC)
+Received: from etezian.org (unknown [31.22.57.166])
+ (Authenticated sender: andi@etezian.org)
+ by player787.ha.ovh.net (Postfix) with ESMTPSA id 34FBB23ED280B;
+ Thu, 28 Oct 2021 16:33:14 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-103G005a037f3d6-d91c-491d-be00-dfefa369bff3,
+ 19738AB094897BD963DB89D239EF437C7015E8F6) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 31.22.57.166
+Date: Thu, 28 Oct 2021 18:33:13 +0200
+From: Andi Shyti <andi@etezian.org>
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi@etezian.org>
+Message-ID: <YXrQyaDnNEtOqJ2K@jack.zhora.eu>
+References: <20211008215635.2026385-1-matthew.d.roper@intel.com>
+ <20211008215635.2026385-11-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bfd7f8ca64b41e4c49d341a5cbcbe761dc471af6.camel@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/psr2: Do full fetches when doing
- async flips
+In-Reply-To: <20211008215635.2026385-11-matthew.d.roper@intel.com>
+X-Ovh-Tracer-Id: 15047089305654004234
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegfedgudejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeetnhguihcuufhhhihtihcuoegrnhguihesvghtvgiiihgrnhdrohhrgheqnecuggftrfgrthhtvghrnheptdfgudduhfefueeujeefieehtdeftefggeevhefgueellefhudetgeeikeduieefnecukfhppedtrddtrddtrddtpdefuddrvddvrdehjedrudeiieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrjeekjedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+Subject: Re: [Intel-gfx] [PATCH 10/11] drm/i915: Release per-gt resources
+ allocated
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,71 +67,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 28, 2021 at 05:43:51PM +0000, Souza, Jose wrote:
-> On Thu, 2021-10-28 at 20:38 +0300, Ville Syrjälä wrote:
-> > On Thu, Oct 28, 2021 at 05:02:41PM +0000, Souza, Jose wrote:
-> > > On Thu, 2021-10-28 at 16:32 +0300, Ville Syrjälä wrote:
-> > > > On Wed, Oct 27, 2021 at 11:48:55AM -0700, José Roberto de Souza wrote:
-> > > > > Async flips are not supported by selective fetch and we had a check
-> > > > > for that but that check was only executed when doing modesets.
-> > > > > So moving this check to the page flip path, so it can be properly
-> > > > > handled.
-> > > > > 
-> > > > > This fix a failure in kms_async_flips@test-cursor.
-> > > > > 
-> > > > > Cc: Mika Kahola <mika.kahola@intel.com>
-> > > > > Cc: Jouni Hogander <jouni.hogander@intel.com>
-> > > > > Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/i915/display/intel_psr.c | 8 ++------
-> > > > >  1 file changed, 2 insertions(+), 6 deletions(-)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> > > > > index 8d08e3cf08c1f..ce6850ed72c60 100644
-> > > > > --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> > > > > +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> > > > > @@ -729,12 +729,6 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
-> > > > >  		return false;
-> > > > >  	}
-> > > > >  
-> > > > > -	if (crtc_state->uapi.async_flip) {
-> > > > > -		drm_dbg_kms(&dev_priv->drm,
-> > > > > -			    "PSR2 sel fetch not enabled, async flip enabled\n");
-> > > > > -		return false;
-> > > > > -	}
-> > > > > -
-> > > > >  	/* Wa_14010254185 Wa_14010103792 */
-> > > > >  	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
-> > > > >  		drm_dbg_kms(&dev_priv->drm,
-> > > > > @@ -1592,6 +1586,8 @@ static bool psr2_sel_fetch_pipe_state_supported(const struct intel_crtc_state *c
-> > > > >  {
-> > > > >  	if (crtc_state->scaler_state.scaler_id >= 0)
-> > > > >  		return false;
-> > > > > +	if (crtc_state->uapi.async_flip)
-> > > > > +		return false;
-> > > > 
-> > > > This looks dodgy. Pretty sure we can't turn off this thing during
-> > > > an async flip. So I think the correct short term fix is to not do
-> > > > async flips with psr2 enabled. The longer term fix would involve
-> > > > using the same approach Stan is preparing for the async flip
-> > > > watermark tweaking, which is to convert the first async flip into
-> > > > a sync flip.
-> > > > 
-> > > 
-> > > It is not turning PSR2 off, it is telling hardware to fetch the whole memory of all planes and send the whole screen to panel instead of fetching and
-> > > sending a smaller area for this frame, we also do that when a plane is moved to a negative coordinate.
-> > 
-> > Doesn't matter. Whatever register is rsponsible for this is presumably latched
-> > at the next vblank which is after the async flip already happened.
-> > 
-> 
-> That is exactly what BSpec 55229 asks us to do:
-> 
-> Not supported with async flips. The plane size and position cannot be changed with async flips, so selective fetch cannot be used. Software must
-> output a full frame for async flips.
+Hi Matt and Venkata,
 
-It doesn't tell us to do it wrong.
+On Fri, Oct 08, 2021 at 02:56:34PM -0700, Matt Roper wrote:
+> From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+> 
+> Iterate for_each_gt during release to support multi-tile
+> devices.
+> 
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 
--- 
-Ville Syrjälä
-Intel
+This patches are quite similar, we could even think of squashing
+them.
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+
+Andi
