@@ -2,28 +2,28 @@ Return-Path: <SRS0=3Rq4=PR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46577C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30172C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:28:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F35AE60FC1
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:28:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F35AE60FC1
+	by mail.kernel.org (Postfix) with ESMTPS id F159660FC4
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F159660FC4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 888F66E9BF;
-	Fri, 29 Oct 2021 03:28:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF8EE6E9B9;
+	Fri, 29 Oct 2021 03:28:38 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043646E9BA;
- Fri, 29 Oct 2021 03:28:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230438543"
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230438543"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF51E6E9BC;
+ Fri, 29 Oct 2021 03:28:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230438549"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230438549"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 20:28:35 -0700
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="538557465"
+ 28 Oct 2021 20:28:36 -0700
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="538557530"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2021 20:28:35 -0700
@@ -31,20 +31,19 @@ From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, andi.shyti@intel.com,
  Paulo Zanoni <paulo.r.zanoni@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
+ Stuart Summers <stuart.summers@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Date: Thu, 28 Oct 2021 20:28:08 -0700
-Message-Id: <20211029032817.3747750-2-matthew.d.roper@intel.com>
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
+Date: Thu, 28 Oct 2021 20:28:14 -0700
+Message-Id: <20211029032817.3747750-8-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211029032817.3747750-1-matthew.d.roper@intel.com>
 References: <20211029032817.3747750-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 01/10] drm/i915: rework some irq functions to
- take intel_gt as argument
+Subject: [Intel-gfx] [PATCH v3 07/10] drm/i915/xehp: Determine which tile
+ raised an interrupt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,111 +61,97 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Paulo Zanoni <paulo.r.zanoni@intel.com>
 
-We'll be adding multi-tile support soon; on multi-tile platforms
-interrupts are per-tile and every tile has the full set of
-interrupt registers.
+The first step of interrupt handling is to read a tile0 register that
+tells us in which tile the interrupt happened; we can then read the
+usual interrupt registers from the appropriate tile.
 
-In this commit we start passing intel_gt instead of dev_priv for the
-functions that are related to Xe_HP irq handling. Right now we're still
-passing tile 0 everywhere, but in later patches we'll start actually
-passing the correct tile.
+Note that this is just the first step of handling interrupts properly on
+multi-tile platforms.  Subsequent patches will convert other parts of
+the interrupt handling flow.
 
+v2:
+ - Simplify init of t0_regs.  (Lucas)
+ - Fix handling of display and GSE interrupts.  Although we only expect
+   to receive these on tile 0, we should still process them inside the
+   gt loop to ensure the proper tile's master_ctl value is used.
+
+Cc: Stuart Summers <stuart.summers@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Paulo Zanoni <paulo.r.zanoni@intel.com>
-Co-authored-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/i915_irq.c | 41 ++++++++++++++++++---------------
+ 1 file changed, 23 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 77680bca46ee..038a9ec563c1 100644
+index 038a9ec563c1..57a58151eaae 100644
 --- a/drivers/gpu/drm/i915/i915_irq.c
 +++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2772,7 +2772,7 @@ static irqreturn_t dg1_irq_handler(int irq, void *arg)
+@@ -2771,40 +2771,45 @@ static inline void dg1_master_intr_enable(void __iomem * const regs)
+ static irqreturn_t dg1_irq_handler(int irq, void *arg)
  {
  	struct drm_i915_private * const i915 = arg;
++	void __iomem * const t0_regs = i915->gt.uncore->regs;
  	struct intel_gt *gt = &i915->gt;
--	void __iomem * const regs = i915->uncore.regs;
-+	void __iomem * const regs = gt->uncore->regs;
+-	void __iomem * const regs = gt->uncore->regs;
  	u32 master_tile_ctl, master_ctl;
- 	u32 gu_misc_iir;
+-	u32 gu_misc_iir;
++	u32 gu_misc_iir = 0;
++	unsigned int i;
  
-@@ -3173,11 +3173,12 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
+ 	if (!intel_irqs_enabled(i915))
+ 		return IRQ_NONE;
  
- static void gen11_irq_reset(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_gt *gt = &dev_priv->gt;
-+	struct intel_uncore *uncore = gt->uncore;
- 
- 	gen11_master_intr_disable(dev_priv->uncore.regs);
- 
--	gen11_gt_irq_reset(&dev_priv->gt);
-+	gen11_gt_irq_reset(gt);
- 	gen11_display_irq_reset(dev_priv);
- 
- 	GEN3_IRQ_RESET(uncore, GEN11_GU_MISC_);
-@@ -3186,11 +3187,12 @@ static void gen11_irq_reset(struct drm_i915_private *dev_priv)
- 
- static void dg1_irq_reset(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_gt *gt = &dev_priv->gt;
-+	struct intel_uncore *uncore = gt->uncore;
- 
- 	dg1_master_intr_disable(dev_priv->uncore.regs);
- 
--	gen11_gt_irq_reset(&dev_priv->gt);
-+	gen11_gt_irq_reset(gt);
- 	gen11_display_irq_reset(dev_priv);
- 
- 	GEN3_IRQ_RESET(uncore, GEN11_GU_MISC_);
-@@ -3869,13 +3871,14 @@ static void gen11_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 
- static void gen11_irq_postinstall(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_gt *gt = &dev_priv->gt;
-+	struct intel_uncore *uncore = gt->uncore;
- 	u32 gu_misc_masked = GEN11_GU_MISC_GSE;
- 
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		icp_irq_postinstall(dev_priv);
- 
--	gen11_gt_irq_postinstall(&dev_priv->gt);
-+	gen11_gt_irq_postinstall(gt);
- 	gen11_de_irq_postinstall(dev_priv);
- 
- 	GEN3_IRQ_INIT(uncore, GEN11_GU_MISC_, ~gu_misc_masked, gu_misc_masked);
-@@ -3886,10 +3889,11 @@ static void gen11_irq_postinstall(struct drm_i915_private *dev_priv)
- 
- static void dg1_irq_postinstall(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_gt *gt = &dev_priv->gt;
-+	struct intel_uncore *uncore = gt->uncore;
- 	u32 gu_misc_masked = GEN11_GU_MISC_GSE;
- 
--	gen11_gt_irq_postinstall(&dev_priv->gt);
-+	gen11_gt_irq_postinstall(gt);
- 
- 	GEN3_IRQ_INIT(uncore, GEN11_GU_MISC_, ~gu_misc_masked, gu_misc_masked);
- 
-@@ -3900,8 +3904,8 @@ static void dg1_irq_postinstall(struct drm_i915_private *dev_priv)
- 				   GEN11_DISPLAY_IRQ_ENABLE);
+-	master_tile_ctl = dg1_master_intr_disable(regs);
++	master_tile_ctl = dg1_master_intr_disable(t0_regs);
+ 	if (!master_tile_ctl) {
+-		dg1_master_intr_enable(regs);
++		dg1_master_intr_enable(t0_regs);
+ 		return IRQ_NONE;
  	}
  
--	dg1_master_intr_enable(dev_priv->uncore.regs);
--	intel_uncore_posting_read(&dev_priv->uncore, DG1_MSTR_TILE_INTR);
-+	dg1_master_intr_enable(uncore->regs);
-+	intel_uncore_posting_read(uncore, DG1_MSTR_TILE_INTR);
- }
+-	/* FIXME: we only support tile 0 for now. */
+-	if (master_tile_ctl & DG1_MSTR_TILE(0)) {
++	for_each_gt(i915, i, gt) {
++		void __iomem *const regs = gt->uncore->regs;
++
++		if ((master_tile_ctl & DG1_MSTR_TILE(i)) == 0)
++			continue;
++
+ 		master_ctl = raw_reg_read(regs, GEN11_GFX_MSTR_IRQ);
+ 		raw_reg_write(regs, GEN11_GFX_MSTR_IRQ, master_ctl);
+-	} else {
+-		DRM_ERROR("Tile not supported: 0x%08x\n", master_tile_ctl);
+-		dg1_master_intr_enable(regs);
+-		return IRQ_NONE;
+-	}
  
- static void cherryview_irq_postinstall(struct drm_i915_private *dev_priv)
+-	gen11_gt_irq_handler(gt, master_ctl);
++		gen11_gt_irq_handler(gt, master_ctl);
+ 
+-	if (master_ctl & GEN11_DISPLAY_IRQ)
+-		gen11_display_irq_handler(i915);
+-
+-	gu_misc_iir = gen11_gu_misc_irq_ack(gt, master_ctl);
++		/*
++		 * In practice we'll only get display and gu_misc interrupts
++		 * for the GSE on tile0, but it's still simplest to process
++		 * them inside the loop.
++		 */
++		if (master_ctl & GEN11_DISPLAY_IRQ)
++			gen11_display_irq_handler(i915);
+ 
+-	dg1_master_intr_enable(regs);
++		gu_misc_iir = gen11_gu_misc_irq_ack(gt, master_ctl);
++		gen11_gu_misc_irq_handler(gt, gu_misc_iir);
++	}
+ 
+-	gen11_gu_misc_irq_handler(gt, gu_misc_iir);
++	dg1_master_intr_enable(t0_regs);
+ 
+ 	pmu_irq_stats(i915, IRQ_HANDLED);
+ 
 -- 
 2.33.0
 
