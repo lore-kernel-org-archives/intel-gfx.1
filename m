@@ -2,47 +2,42 @@ Return-Path: <SRS0=3Rq4=PR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C42BAC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 188FBC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96A0460FC4
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 96A0460FC4
+	by mail.kernel.org (Postfix) with ESMTPS id D594160FC4
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D594160FC4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1513B6E9C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF8D6E9C1;
 	Fri, 29 Oct 2021 03:28:40 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D086E9BA;
- Fri, 29 Oct 2021 03:28:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230438545"
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230438545"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C39F66E9B9;
+ Fri, 29 Oct 2021 03:28:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230438542"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230438542"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2021 20:28:35 -0700
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="538557477"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="538557445"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 20:28:35 -0700
+ 28 Oct 2021 20:28:34 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, andi.shyti@intel.com,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Date: Thu, 28 Oct 2021 20:28:09 -0700
-Message-Id: <20211029032817.3747750-3-matthew.d.roper@intel.com>
+ Matt Roper <matthew.d.roper@intel.com>
+Date: Thu, 28 Oct 2021 20:28:07 -0700
+Message-Id: <20211029032817.3747750-1-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211029032817.3747750-1-matthew.d.roper@intel.com>
-References: <20211029032817.3747750-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 02/10] drm/i915: split general MMIO setup
- from per-GT uncore init
+Subject: [Intel-gfx] [PATCH v3 00/10] i915: Initial multi-tile support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,139 +53,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Some of our upcoming platforms, including the Xe_HP SDV, support a
+"multi-tile" design.  A multi-tile platform is effectively a platform
+with multiple GT instances and local memory regions, all behind a single
+PCI device.  From an i915 perspective, this translates to multiple
+intel_gt structures per drm_i915_private.  This series provides the
+initial refactoring to support multiple independent GTs per card, but
+further work (especially related to local memory) will be required to
+fully enable a multi-tile platform.
 
-In coming patches we'll be doing the actual tile initialization between
-these two uncore init phases.
+Note that the presence of multiple GTs is largely transparent to
+userspace.  A multi-tile platform will advertise a larger list of
+engines to userspace, but the concept of "tile" is not something
+userspace has to worry about directly.  There will be some uapi
+implications later due to the devices having multiple local memory
+regions, but that aspect of multi-tile is not covered by this patch
+series and will show up in future work.
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/i915_drv.c     |  9 ++++++++-
- drivers/gpu/drm/i915/intel_uncore.c | 17 +++--------------
- drivers/gpu/drm/i915/intel_uncore.h |  2 ++
- 3 files changed, 13 insertions(+), 15 deletions(-)
+v2:
+ - Include some additional tile setup refactoring that got missed in v1.
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 1e5b75ae9932..b9fed62806f8 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -416,10 +416,14 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = intel_uncore_init_mmio(&dev_priv->uncore);
-+	ret = intel_uncore_setup_mmio(&dev_priv->uncore);
- 	if (ret < 0)
- 		goto err_bridge;
- 
-+	ret = intel_uncore_init_mmio(&dev_priv->uncore);
-+	if (ret)
-+		goto err_mmio;
-+
- 	/* Try to make sure MCHBAR is enabled before poking at it */
- 	intel_setup_mchbar(dev_priv);
- 	intel_device_info_runtime_init(dev_priv);
-@@ -436,6 +440,8 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
- err_uncore:
- 	intel_teardown_mchbar(dev_priv);
- 	intel_uncore_fini_mmio(&dev_priv->uncore);
-+err_mmio:
-+	intel_uncore_cleanup_mmio(&dev_priv->uncore);
- err_bridge:
- 	pci_dev_put(dev_priv->bridge_dev);
- 
-@@ -450,6 +456,7 @@ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
- {
- 	intel_teardown_mchbar(dev_priv);
- 	intel_uncore_fini_mmio(&dev_priv->uncore);
-+	intel_uncore_cleanup_mmio(&dev_priv->uncore);
- 	pci_dev_put(dev_priv->bridge_dev);
- }
- 
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 722910d02b5f..abdac78d3976 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -2020,7 +2020,7 @@ static int i915_pmic_bus_access_notifier(struct notifier_block *nb,
- 	return NOTIFY_OK;
- }
- 
--static int uncore_mmio_setup(struct intel_uncore *uncore)
-+int intel_uncore_setup_mmio(struct intel_uncore *uncore)
- {
- 	struct drm_i915_private *i915 = uncore->i915;
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-@@ -2053,7 +2053,7 @@ static int uncore_mmio_setup(struct intel_uncore *uncore)
- 	return 0;
- }
- 
--static void uncore_mmio_cleanup(struct intel_uncore *uncore)
-+void intel_uncore_cleanup_mmio(struct intel_uncore *uncore)
- {
- 	struct pci_dev *pdev = to_pci_dev(uncore->i915->drm.dev);
- 
-@@ -2146,10 +2146,6 @@ int intel_uncore_init_mmio(struct intel_uncore *uncore)
- 	struct drm_i915_private *i915 = uncore->i915;
- 	int ret;
- 
--	ret = uncore_mmio_setup(uncore);
--	if (ret)
--		return ret;
--
- 	/*
- 	 * The boot firmware initializes local memory and assesses its health.
- 	 * If memory training fails, the punit will have been instructed to
-@@ -2170,7 +2166,7 @@ int intel_uncore_init_mmio(struct intel_uncore *uncore)
- 	} else {
- 		ret = uncore_forcewake_init(uncore);
- 		if (ret)
--			goto out_mmio_cleanup;
-+			return ret;
- 	}
- 
- 	/* make sure fw funcs are set if and only if we have fw*/
-@@ -2192,11 +2188,6 @@ int intel_uncore_init_mmio(struct intel_uncore *uncore)
- 		drm_dbg(&i915->drm, "unclaimed mmio detected on uncore init, clearing\n");
- 
- 	return 0;
--
--out_mmio_cleanup:
--	uncore_mmio_cleanup(uncore);
--
--	return ret;
- }
- 
- /*
-@@ -2261,8 +2252,6 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
- 		intel_uncore_fw_domains_fini(uncore);
- 		iosf_mbi_punit_release();
- 	}
--
--	uncore_mmio_cleanup(uncore);
- }
- 
- static const struct reg_whitelist {
-diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index 3248e4e2c540..d1d17b04e29f 100644
---- a/drivers/gpu/drm/i915/intel_uncore.h
-+++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -218,11 +218,13 @@ void
- intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug);
- void intel_uncore_init_early(struct intel_uncore *uncore,
- 			     struct drm_i915_private *i915);
-+int intel_uncore_setup_mmio(struct intel_uncore *uncore);
- int intel_uncore_init_mmio(struct intel_uncore *uncore);
- void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
- 					  struct intel_gt *gt);
- bool intel_uncore_unclaimed_mmio(struct intel_uncore *uncore);
- bool intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore);
-+void intel_uncore_cleanup_mmio(struct intel_uncore *uncore);
- void intel_uncore_fini_mmio(struct intel_uncore *uncore);
- void intel_uncore_suspend(struct intel_uncore *uncore);
- void intel_uncore_resume_early(struct intel_uncore *uncore);
+v3:
+ - Fix GEM_BUG_ON() assertion on pre-gen9 platforms; the assertion was
+   only meant for multi-tile platforms and will always fail on old
+   platforms that have a BAR0 smaller than 16MB.
+ - Rename some of the gt/tile initialization functions.  (Lucas/Jani)
+ - Move top-level tile memory init to i915_drv.c since it isn't directly
+   related to the GT.  (Lucas)
+ - Squash per-gt cleanup into the patch that introduces the per-gt
+   setup.
+ - Fix handling of display and GSE interrupts (our current multi-tile
+   platforms don't have display, but we can't count on that being true
+   in the future).
+
+Daniele Ceraolo Spurio (2):
+  drm/i915: split general MMIO setup from per-GT uncore init
+  drm/i915: Initial support for per-tile uncore
+
+Matt Roper (1):
+  drm/i915: Restructure probe to handle multi-tile platforms
+
+Michal Wajdeczko (1):
+  drm/i915/guc: Update CT debug macro for multi-tile
+
+Michał Winiarski (1):
+  drm/i915: Store backpointer to GT in uncore
+
+Paulo Zanoni (3):
+  drm/i915: rework some irq functions to take intel_gt as argument
+  drm/i915/xehp: Determine which tile raised an interrupt
+  drm/i915/xehp: Make IRQ reset and postinstall multi-tile aware
+
+Tvrtko Ursulin (2):
+  drm/i915: Prepare for multiple gts
+  drm/i915/xehpsdv: Initialize multi-tiles
+
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 177 +++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  11 ++
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   9 +-
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |  10 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   6 +-
+ drivers/gpu/drm/i915/i915_debugfs.c           |   5 +-
+ drivers/gpu/drm/i915/i915_drv.c               | 102 ++++++++--
+ drivers/gpu/drm/i915/i915_drv.h               |   9 +
+ drivers/gpu/drm/i915/i915_irq.c               |  77 +++++---
+ drivers/gpu/drm/i915/i915_pci.c               |  40 +++-
+ drivers/gpu/drm/i915/i915_reg.h               |   4 +
+ drivers/gpu/drm/i915/intel_device_info.h      |  15 ++
+ drivers/gpu/drm/i915/intel_memory_region.h    |   3 +
+ drivers/gpu/drm/i915/intel_uncore.c           |  36 ++--
+ drivers/gpu/drm/i915/intel_uncore.h           |   6 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |   3 +-
+ drivers/gpu/drm/i915/selftests/mock_uncore.c  |   2 +-
+ 18 files changed, 423 insertions(+), 94 deletions(-)
+
 -- 
 2.33.0
 
