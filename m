@@ -2,41 +2,44 @@ Return-Path: <SRS0=3Rq4=PR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34DF0C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 06:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0CE8C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 06:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE8DB6108F
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 06:15:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE8DB6108F
+	by mail.kernel.org (Postfix) with ESMTPS id 6D2C16108F
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 06:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6D2C16108F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0E76E9EA;
-	Fri, 29 Oct 2021 06:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D5546E072;
+	Fri, 29 Oct 2021 06:15:55 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A6DD6E0D9
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 06:15:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230458917"
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230458917"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0FA6E9F4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 06:15:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230458925"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230458925"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 23:15:50 -0700
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="448264845"
+ 28 Oct 2021 23:15:54 -0700
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="448264876"
 Received: from linux-z370-aorus-gaming-5.iind.intel.com ([10.223.34.160])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 23:15:49 -0700
+ 28 Oct 2021 23:15:52 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: swati2.sharma@intel.com,
 	uma.shankar@intel.com
-Date: Fri, 29 Oct 2021 11:31:52 +0530
-Message-Id: <20211029060154.110038-1-ankit.k.nautiyal@intel.com>
+Date: Fri, 29 Oct 2021 11:31:54 +0530
+Message-Id: <20211029060154.110038-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211029060154.110038-1-ankit.k.nautiyal@intel.com>
+References: <20211029060154.110038-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Some fixes in HDMI2.1 PCON FRL configuration
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/dp: For PCON TMDS mode set only
+ the relavant bits in config DPCD
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,17 +55,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some optimizations in HDMI2.1 PCON configuration and avoiding
-resetting the config DPCD.
+Currently we reset the whole PCON linkConfig DPCD to set the TMDS mode.
+This also resets the Source control bit and HDMI link enable bit and
+goes to autonomous mode of operation, which is seen to spoil the PCONs
+internal state.
 
-Ankit Nautiyal (2):
-  drm/i915/dp: Optimize the FRL configuration for HDMI2.1 PCON
-  drm/i915/dp: For PCON TMDS mode set only the relavant bits in config
-    DPCD
+This patch avoids resetting the PCON link config register and sets only
+TMDS mode bit, Source control bit in the configuration DPCD.
+It then enables the HDMI Link Enable bit.
 
- drivers/gpu/drm/i915/display/intel_dp.c | 62 +++++++++++++++++++------
- 1 file changed, 47 insertions(+), 15 deletions(-)
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index f5fd106e555c..3df35079580a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2287,6 +2287,29 @@ static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp)
+ 	return false;
+ }
+ 
++static
++int intel_dp_pcon_set_tmds_mode(struct intel_dp *intel_dp)
++{
++	int ret;
++	u8 buf = 0;
++
++	/* Set PCON source control mode and TMDS */
++	buf |= DP_PCON_ENABLE_SOURCE_CTL_MODE;
++	buf &= ~DP_PCON_ENABLE_MAX_FRL_BW;
++
++	ret = drm_dp_dpcd_writeb(&intel_dp->aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
++	if (ret < 0)
++		return ret;
++
++	/* Set HDMI LINK ENABLE */
++	buf |= DP_PCON_ENABLE_HDMI_LINK;
++	ret = drm_dp_dpcd_writeb(&intel_dp->aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
+ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+@@ -2305,7 +2328,7 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
+ 		int ret, mode;
+ 
+ 		drm_dbg(&dev_priv->drm, "Couldn't set FRL mode, continuing with TMDS mode\n");
+-		ret = drm_dp_pcon_reset_frl_config(&intel_dp->aux);
++		ret = intel_dp_pcon_set_tmds_mode(intel_dp);
+ 		mode = drm_dp_pcon_hdmi_link_mode(&intel_dp->aux, NULL);
+ 
+ 		if (ret < 0 || mode != DP_PCON_HDMI_MODE_TMDS)
 -- 
 2.25.1
 
