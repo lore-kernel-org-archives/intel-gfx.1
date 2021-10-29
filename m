@@ -2,28 +2,28 @@ Return-Path: <SRS0=3Rq4=PR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D21CC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C42BAC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AF3F61051
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6AF3F61051
+	by mail.kernel.org (Postfix) with ESMTPS id 96A0460FC4
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 03:29:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 96A0460FC4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1937D6E9BB;
-	Fri, 29 Oct 2021 03:28:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1513B6E9C0;
+	Fri, 29 Oct 2021 03:28:40 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E007B6E9BA;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D086E9BA;
  Fri, 29 Oct 2021 03:28:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230438548"
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230438548"
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230438545"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="230438545"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2021 20:28:35 -0700
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="538557525"
+X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="538557477"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2021 20:28:35 -0700
@@ -31,18 +31,18 @@ From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, andi.shyti@intel.com,
  Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>
-Date: Thu, 28 Oct 2021 20:28:13 -0700
-Message-Id: <20211029032817.3747750-7-matthew.d.roper@intel.com>
+Date: Thu, 28 Oct 2021 20:28:09 -0700
+Message-Id: <20211029032817.3747750-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211029032817.3747750-1-matthew.d.roper@intel.com>
 References: <20211029032817.3747750-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 06/10] drm/i915: Initial support for per-tile
- uncore
+Subject: [Intel-gfx] [PATCH v3 02/10] drm/i915: split general MMIO setup
+ from per-GT uncore init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,226 +60,137 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Initialization and suspend/resume is replicated per-tile.
+In coming patches we'll be doing the actual tile initialization between
+these two uncore init phases.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c  |  1 +
- drivers/gpu/drm/i915/i915_debugfs.c |  5 ++-
- drivers/gpu/drm/i915/i915_drv.c     | 61 ++++++++++++++++++++++-------
- 3 files changed, 51 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.c     |  9 ++++++++-
+ drivers/gpu/drm/i915/intel_uncore.c | 17 +++--------------
+ drivers/gpu/drm/i915/intel_uncore.h |  2 ++
+ 3 files changed, 13 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index d02a09653033..ade698d47c34 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -994,6 +994,7 @@ void intel_gt_release_all(struct drm_i915_private *i915)
- void intel_gt_info_print(const struct intel_gt_info *info,
- 			 struct drm_printer *p)
- {
-+	drm_printf(p, "GT %u info:\n", info->id);
- 	drm_printf(p, "available engines: %x\n", info->engine_mask);
- 
- 	intel_sseu_dump(&info->sseu, p);
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index fe638b5da7c0..ac7e031b3b0a 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -60,12 +60,15 @@ static int i915_capabilities(struct seq_file *m, void *data)
- {
- 	struct drm_i915_private *i915 = node_to_i915(m->private);
- 	struct drm_printer p = drm_seq_file_printer(m);
-+	struct intel_gt *gt;
-+	unsigned int id;
- 
- 	seq_printf(m, "pch: %d\n", INTEL_PCH_TYPE(i915));
- 
- 	intel_device_info_print_static(INTEL_INFO(i915), &p);
- 	intel_device_info_print_runtime(RUNTIME_INFO(i915), &p);
--	intel_gt_info_print(&i915->gt.info, &p);
-+	for_each_gt(i915, id, gt)
-+		intel_gt_info_print(&gt->info, &p);
- 	intel_driver_caps_print(&i915->caps, &p);
- 
- 	kernel_param_lock(THIS_MODULE);
 diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index fde148d6777e..220d059ca50c 100644
+index 1e5b75ae9932..b9fed62806f8 100644
 --- a/drivers/gpu/drm/i915/i915_drv.c
 +++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -411,6 +411,8 @@ static void i915_driver_late_release(struct drm_i915_private *dev_priv)
-  */
- static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
- {
-+	struct intel_gt *gt;
-+	unsigned int i, j;
- 	int ret;
- 
- 	if (i915_inject_probe_failure(dev_priv))
-@@ -420,26 +422,35 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+@@ -416,10 +416,14 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
  	if (ret < 0)
  		return ret;
  
 -	ret = intel_uncore_init_mmio(&dev_priv->uncore);
--	if (ret)
--		return ret;
-+	for_each_gt(dev_priv, i, gt) {
-+		ret = intel_uncore_init_mmio(gt->uncore);
-+		if (ret)
-+			goto err_uncore;
-+	}
++	ret = intel_uncore_setup_mmio(&dev_priv->uncore);
+ 	if (ret < 0)
+ 		goto err_bridge;
  
++	ret = intel_uncore_init_mmio(&dev_priv->uncore);
++	if (ret)
++		goto err_mmio;
++
  	/* Try to make sure MCHBAR is enabled before poking at it */
  	intel_setup_mchbar(dev_priv);
  	intel_device_info_runtime_init(dev_priv);
- 
--	ret = intel_gt_init_mmio(&dev_priv->gt);
--	if (ret)
--		goto err_uncore;
-+	for_each_gt(dev_priv, j, gt) {
-+		ret = intel_gt_init_mmio(gt);
-+		if (ret)
-+			goto err_mchbar;
-+	}
- 
- 	/* As early as possible, scrub existing GPU state before clobbering */
- 	sanitize_gpu(dev_priv);
- 
- 	return 0;
- 
--err_uncore:
-+err_mchbar:
+@@ -436,6 +440,8 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ err_uncore:
  	intel_teardown_mchbar(dev_priv);
--	intel_uncore_fini_mmio(&dev_priv->uncore);
-+err_uncore:
-+	for_each_gt(dev_priv, j, gt) {
-+		if (j >= i)
-+			break;
-+		intel_uncore_fini_mmio(gt->uncore);
-+	}
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
++err_mmio:
++	intel_uncore_cleanup_mmio(&dev_priv->uncore);
+ err_bridge:
  	pci_dev_put(dev_priv->bridge_dev);
  
- 	return ret;
-@@ -451,8 +462,12 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
-  */
- static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
+@@ -450,6 +456,7 @@ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
  {
-+	struct intel_gt *gt;
-+	unsigned int i;
-+
  	intel_teardown_mchbar(dev_priv);
--	intel_uncore_fini_mmio(&dev_priv->uncore);
-+	for_each_gt(dev_priv, i, gt)
-+		intel_uncore_fini_mmio(gt->uncore);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
++	intel_uncore_cleanup_mmio(&dev_priv->uncore);
  	pci_dev_put(dev_priv->bridge_dev);
  }
  
-@@ -761,6 +776,8 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 722910d02b5f..abdac78d3976 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -2020,7 +2020,7 @@ static int i915_pmic_bus_access_notifier(struct notifier_block *nb,
+ 	return NOTIFY_OK;
+ }
+ 
+-static int uncore_mmio_setup(struct intel_uncore *uncore)
++int intel_uncore_setup_mmio(struct intel_uncore *uncore)
  {
- 	if (drm_debug_enabled(DRM_UT_DRIVER)) {
- 		struct drm_printer p = drm_debug_printer("i915 device info:");
-+		struct intel_gt *gt;
-+		unsigned int id;
+ 	struct drm_i915_private *i915 = uncore->i915;
+ 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+@@ -2053,7 +2053,7 @@ static int uncore_mmio_setup(struct intel_uncore *uncore)
+ 	return 0;
+ }
  
- 		drm_printf(&p, "pciid=0x%04x rev=0x%02x platform=%s (subplatform=0x%x) gen=%i\n",
- 			   INTEL_DEVID(dev_priv),
-@@ -772,7 +789,8 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+-static void uncore_mmio_cleanup(struct intel_uncore *uncore)
++void intel_uncore_cleanup_mmio(struct intel_uncore *uncore)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(uncore->i915->drm.dev);
  
- 		intel_device_info_print_static(INTEL_INFO(dev_priv), &p);
- 		intel_device_info_print_runtime(RUNTIME_INFO(dev_priv), &p);
--		intel_gt_info_print(&dev_priv->gt.info, &p);
-+		for_each_gt(dev_priv, id, gt)
-+			intel_gt_info_print(&gt->info, &p);
+@@ -2146,10 +2146,6 @@ int intel_uncore_init_mmio(struct intel_uncore *uncore)
+ 	struct drm_i915_private *i915 = uncore->i915;
+ 	int ret;
+ 
+-	ret = uncore_mmio_setup(uncore);
+-	if (ret)
+-		return ret;
+-
+ 	/*
+ 	 * The boot firmware initializes local memory and assesses its health.
+ 	 * If memory training fails, the punit will have been instructed to
+@@ -2170,7 +2166,7 @@ int intel_uncore_init_mmio(struct intel_uncore *uncore)
+ 	} else {
+ 		ret = uncore_forcewake_init(uncore);
+ 		if (ret)
+-			goto out_mmio_cleanup;
++			return ret;
  	}
  
- 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG))
-@@ -1194,13 +1212,16 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
- 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
-+	struct intel_gt *gt;
-+	unsigned int i;
- 	int ret;
+ 	/* make sure fw funcs are set if and only if we have fw*/
+@@ -2192,11 +2188,6 @@ int intel_uncore_init_mmio(struct intel_uncore *uncore)
+ 		drm_dbg(&i915->drm, "unclaimed mmio detected on uncore init, clearing\n");
  
- 	disable_rpm_wakeref_asserts(rpm);
+ 	return 0;
+-
+-out_mmio_cleanup:
+-	uncore_mmio_cleanup(uncore);
+-
+-	return ret;
+ }
  
- 	i915_gem_suspend_late(dev_priv);
+ /*
+@@ -2261,8 +2252,6 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
+ 		intel_uncore_fw_domains_fini(uncore);
+ 		iosf_mbi_punit_release();
+ 	}
+-
+-	uncore_mmio_cleanup(uncore);
+ }
  
--	intel_uncore_suspend(&dev_priv->uncore);
-+	for_each_gt(dev_priv, i, gt)
-+		intel_uncore_suspend(gt->uncore);
- 
- 	intel_power_domains_suspend(dev_priv,
- 				    get_suspend_mode(dev_priv, hibernation));
-@@ -1329,6 +1350,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
- {
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-+	struct intel_gt *gt;
-+	unsigned int i;
- 	int ret;
- 
- 	/*
-@@ -1383,7 +1406,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
- 		drm_err(&dev_priv->drm,
- 			"Resume prepare failed: %d, continuing anyway\n", ret);
- 
--	intel_uncore_resume_early(&dev_priv->uncore);
-+	for_each_gt(dev_priv, i, gt)
-+		intel_uncore_resume_early(gt->uncore);
- 
- 	intel_gt_check_and_clear_faults(&dev_priv->gt);
- 
-@@ -1552,6 +1576,8 @@ static int intel_runtime_suspend(struct device *kdev)
- {
- 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
- 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
-+	struct intel_gt *gt;
-+	unsigned int i;
- 	int ret;
- 
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
-@@ -1571,7 +1597,8 @@ static int intel_runtime_suspend(struct device *kdev)
- 
- 	intel_runtime_pm_disable_interrupts(dev_priv);
- 
--	intel_uncore_suspend(&dev_priv->uncore);
-+	for_each_gt(dev_priv, i, gt)
-+		intel_uncore_suspend(gt->uncore);
- 
- 	intel_display_power_suspend(dev_priv);
- 
-@@ -1579,7 +1606,8 @@ static int intel_runtime_suspend(struct device *kdev)
- 	if (ret) {
- 		drm_err(&dev_priv->drm,
- 			"Runtime suspend failed, disabling it (%d)\n", ret);
--		intel_uncore_runtime_resume(&dev_priv->uncore);
-+		for_each_gt(dev_priv, i, gt)
-+			intel_uncore_runtime_resume(gt->uncore);
- 
- 		intel_runtime_pm_enable_interrupts(dev_priv);
- 
-@@ -1635,6 +1663,8 @@ static int intel_runtime_resume(struct device *kdev)
- {
- 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
- 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
-+	struct intel_gt *gt;
-+	unsigned int i;
- 	int ret;
- 
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
-@@ -1655,7 +1685,8 @@ static int intel_runtime_resume(struct device *kdev)
- 
- 	ret = vlv_resume_prepare(dev_priv, true);
- 
--	intel_uncore_runtime_resume(&dev_priv->uncore);
-+	for_each_gt(dev_priv, i, gt)
-+		intel_uncore_runtime_resume(gt->uncore);
- 
- 	intel_runtime_pm_enable_interrupts(dev_priv);
- 
+ static const struct reg_whitelist {
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index 3248e4e2c540..d1d17b04e29f 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -218,11 +218,13 @@ void
+ intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug);
+ void intel_uncore_init_early(struct intel_uncore *uncore,
+ 			     struct drm_i915_private *i915);
++int intel_uncore_setup_mmio(struct intel_uncore *uncore);
+ int intel_uncore_init_mmio(struct intel_uncore *uncore);
+ void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
+ 					  struct intel_gt *gt);
+ bool intel_uncore_unclaimed_mmio(struct intel_uncore *uncore);
+ bool intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore);
++void intel_uncore_cleanup_mmio(struct intel_uncore *uncore);
+ void intel_uncore_fini_mmio(struct intel_uncore *uncore);
+ void intel_uncore_suspend(struct intel_uncore *uncore);
+ void intel_uncore_resume_early(struct intel_uncore *uncore);
 -- 
 2.33.0
 
