@@ -2,39 +2,88 @@ Return-Path: <SRS0=3Rq4=PR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C840C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 07:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C513C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 07:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 04AE061130
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 07:48:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 04AE061130
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1BCF9610A0
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 07:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1BCF9610A0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kroah.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793BA6EA06;
-	Fri, 29 Oct 2021 07:48:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2EAD86EA05;
- Fri, 29 Oct 2021 07:48:35 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2666AA47EB;
- Fri, 29 Oct 2021 07:48:35 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7829174377433897976=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8106EA1C;
+	Fri, 29 Oct 2021 07:56:24 +0000 (UTC)
+X-Greylist: delayed 636 seconds by postgrey-1.36 at gabe;
+ Fri, 29 Oct 2021 07:56:22 UTC
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 651336EA19;
+ Fri, 29 Oct 2021 07:56:22 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id A540158040D;
+ Fri, 29 Oct 2021 03:45:43 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Fri, 29 Oct 2021 03:45:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=2Qr7yp3VVFxWnNP0fkutA51R9FY
+ qy6LYwE1X+yQ1EW0=; b=tKwuYb/Wq0dgJ2YXW12P/sqAtQl/PBCZkonpsrUxp7H
+ Wm2yBGvFgMPEOO0AT+QjNvcylVqGy1hoFDE8uUX+lqdJit4FBWpWtVXSNF5n7y51
+ jAekYKlXIAYkuc+BAy+YZoAwpsrD2KfF2i1Ykb1+en3CJkudi6kNXxAN3Q3CqJan
+ 5uPI6UU/OY9YwNw6yuigw5KQC2aEjlDqFzWGh8gWql1SCdbN6ij5zSZcI2PpD5kq
+ 78IQfpMsEjzwCgmCUSHbKIxwrw0mtknZZrT9OZ8Vq1mYqyEfiIFGA3dtvF8e06ia
+ iA8DH/DUP16G3rWU5JiK+iTzvWAJoMSPoHyEAYsYdGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=2Qr7yp
+ 3VVFxWnNP0fkutA51R9FYqy6LYwE1X+yQ1EW0=; b=Lj6hdvJOKSLvMmQnSku3FE
+ t22vZTkube23+oegCpP03OcB+QevKkrrsBNT/rqk6xlMqhrt2khuOIcCNdAvQaj5
+ dcMWP0vK5sg9ATJ+XRaRlDIRAXzsaxa7PASj5MhfM8PMhN4+VxKYkq0fKtQwfpZo
+ 0MhLd/Ll3Gd8k98+3bH5KsCYFxDYZSv85KpwS2RGinyUL/lpUdOxprYCqIDyIZ2I
+ wh2OR1DdrSlylMJllP01oG54xRpOTiqwayZRnEUKCI6T02ZCA0c7oLVhUCxUi6b6
+ ZdWEXxs+IwI/NubGA7IXxBPYo2IXP64pPljh8nq3NgAHXjZDDy7wf+QNeBdphLtw
+ ==
+X-ME-Sender: <xms:pqZ7YQXi92jW380JZJh63OKDNrFAWXl7ZAcDlYO2_asZL5yy0u5Zxw>
+ <xme:pqZ7YUnWLWF86o-SWtc15aWM4Iolev2tg-Cp5EAu44b3twZ3-5ncqOHHd-HtMnXE2
+ GxdluszqNPOEA>
+X-ME-Received: <xmr:pqZ7YUYrtl9v1zrxsLcrpIARTYqQ1u943mMezwzv4O-Tb_kVgsHd4CqOFWrDe7hdECnhJB3UEYSki4Fx758BWlV5NTVkudGW>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdeggedguddulecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
+ ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepveeuhe
+ ejgfffgfeivddukedvkedtleelleeghfeljeeiueeggeevueduudekvdetnecuvehluhhs
+ thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
+ hhrdgtohhm
+X-ME-Proxy: <xmx:pqZ7YfW83EidWM-94C0OPFMqWKu9Dcdx9KyqddFR7Ezt4iFrOOEqcg>
+ <xmx:pqZ7YalW4Ds4QeO0Cl41yG4gd5AOa0Ar81mIXB3nz7dLavyOhgj5_A>
+ <xmx:pqZ7YUdYE_89SKS_M6R1sovAQXh7P5snpzkZHXCmXupgxjD9n141XQ>
+ <xmx:p6Z7YSEEpUeSCm1kmoQzZT6ywDBp9pqUBR0bGNMQt3FQxiFyxyXXRw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 29 Oct 2021 03:45:41 -0400 (EDT)
+Date: Fri, 29 Oct 2021 09:45:40 +0200
+From: Greg KH <greg@kroah.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: Arnd Bergmann <arnd@arndb.de>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Message-ID: <YXumpITANOVt3oaJ@kroah.com>
+References: <20211028182753.56b6a174@canb.auug.org.au>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Oct 2021 07:48:35 -0000
-Message-ID: <163549371515.1910.7387973105807432435@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211029060154.110038-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20211029060154.110038-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgU29t?=
- =?utf-8?q?e_fixes_in_HDMI2=2E1_PCON_FRL_configuration?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211028182753.56b6a174@canb.auug.org.au>
+Subject: Re: [Intel-gfx] linux-next: manual merge of the char-misc tree with
+ the drm-intel tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,219 +96,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7829174377433897976==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: Some fixes in HDMI2.1 PCON FRL configuration
-URL   : https://patchwork.freedesktop.org/series/96411/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10810 -> Patchwork_21486
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/index.html
-
-Participating hosts (36 -> 33)
-------------------------------
-
-  Additional (1): fi-pnv-d510 
-  Missing    (4): fi-icl-u2 bat-adlp-4 bat-dg1-6 bat-dg1-5 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21486 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@semaphore:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][1] ([fdo#109271]) +27 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
-
-  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
-    - fi-snb-2600:        NOTRUN -> [SKIP][2] ([fdo#109271]) +17 similar issues
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][3] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
-
-  * igt@kms_frontbuffer_tracking@basic:
-    - fi-cml-u2:          [PASS][4] -> [DMESG-WARN][5] ([i915#4269])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10810/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][6] ([fdo#109271]) +53 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-pnv-d510/igt@prime_vgem@basic-userptr.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s3:
-    - fi-tgl-1115g4:      [FAIL][7] ([i915#1888]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10810/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [INCOMPLETE][9] ([i915#3921]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10810/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
-  [i915#4269]: https://gitlab.freedesktop.org/drm/intel/issues/4269
-  [i915#4290]: https://gitlab.freedesktop.org/drm/intel/issues/4290
+On Thu, Oct 28, 2021 at 06:27:53PM +1100, Stephen Rothwell wrote:
+> Hi all,
+> 
+> Today's linux-next merge of the char-misc tree got a conflict in:
+> 
+>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> 
+> between commit:
+> 
+>   5740211ea442 ("drm/i915/dmabuf: fix broken build")
+> 
+> from the drm-intel tree and commit:
+> 
+>   16b0314aa746 ("dma-buf: move dma-buf symbols into the DMA_BUF module namespace")
+> 
+> from the char-misc tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+> 
+> -- 
+> Cheers,
+> Stephen Rothwell
+> 
+> diff --cc drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> index a45d0ec2c5b6,abb854281347..000000000000
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> @@@ -12,13 -13,8 +13,15 @@@
+>   #include "i915_gem_object.h"
+>   #include "i915_scatterlist.h"
+>   
+>  +#if defined(CONFIG_X86)
+>  +#include <asm/smp.h>
+>  +#else
+>  +#define wbinvd_on_all_cpus() \
+>  +	pr_warn(DRIVER_NAME ": Missing cache flush in %s\n", __func__)
+>  +#endif
+>  +
+> + MODULE_IMPORT_NS(DMA_BUF);
+> + 
+>   I915_SELFTEST_DECLARE(static bool force_different_devices;)
+>   
+>   static struct drm_i915_gem_object *dma_buf_to_obj(struct dma_buf *buf)
 
 
-Build changes
--------------
 
-  * Linux: CI_DRM_10810 -> Patchwork_21486
-
-  CI-20190529: 20190529
-  CI_DRM_10810: f457c83514a267bdc096c6fdd2a8895fa1ec405c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6264: 3458490c14afe3cb8aa873fa9e520e1c815ea068 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21486: 8fc3317933579e5aa5b1c17e163008c0f93846f9 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-8fc331793357 drm/i915/dp: For PCON TMDS mode set only the relavant bits in config DPCD
-d9eaad135f81 drm/i915/dp: Optimize the FRL configuration for HDMI2.1 PCON
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/index.html
-
---===============7829174377433897976==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Some fixes in HDMI2.1 PCON FRL configuration</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/96411/">https://patchwork.freedesktop.org/series/96411/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10810 -&gt; Patchwork_21486</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/index.html</p>
-<h2>Participating hosts (36 -&gt; 33)</h2>
-<p>Additional (1): fi-pnv-d510 <br />
-  Missing    (4): fi-icl-u2 bat-adlp-4 bat-dg1-6 bat-dg1-5 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21486 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@semaphore:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
-<ul>
-<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@basic:</p>
-<ul>
-<li>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10810/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4269">i915#4269</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-pnv-d510/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +53 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s3:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10810/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10810/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21486/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10810 -&gt; Patchwork_21486</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10810: f457c83514a267bdc096c6fdd2a8895fa1ec405c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6264: 3458490c14afe3cb8aa873fa9e520e1c815ea068 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21486: 8fc3317933579e5aa5b1c17e163008c0f93846f9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>8fc331793357 drm/i915/dp: For PCON TMDS mode set only the relavant bits in config DPCD<br />
-d9eaad135f81 drm/i915/dp: Optimize the FRL configuration for HDMI2.1 PCON</p>
-
-</body>
-</html>
-
---===============7829174377433897976==--
+Fix looks good, thanks!
