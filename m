@@ -2,48 +2,45 @@ Return-Path: <SRS0=3Rq4=PR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B09BC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 07:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA1F0C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 08:22:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E0A260E8B
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 07:57:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2E0A260E8B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A839F600CD
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 08:22:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A839F600CD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 851106EA1E;
-	Fri, 29 Oct 2021 07:57:35 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 521A26EA1D
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 07:57:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="291451070"
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="291451070"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2021 00:57:33 -0700
-X-IronPort-AV: E=Sophos;i="5.87,191,1631602800"; d="scan'208";a="580939992"
-Received: from vkasired-desk2.fm.intel.com ([10.105.128.127])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2021 00:57:31 -0700
-From: Vivek Kasireddy <vivek.kasireddy@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Manasi Navare <manasi.d.navare@intel.com>
-Date: Fri, 29 Oct 2021 00:43:03 -0700
-Message-Id: <20211029074303.1566344-1-vivek.kasireddy@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D8989C96;
+	Fri, 29 Oct 2021 08:22:24 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27F4088071;
+ Fri, 29 Oct 2021 08:22:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="230571119"
+X-IronPort-AV: E=Sophos;i="5.87,192,1631602800"; d="scan'208";a="230571119"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2021 01:22:06 -0700
+X-IronPort-AV: E=Sophos;i="5.87,192,1631602800"; d="scan'208";a="448038474"
+Received: from ekolpasx-mobl.ccr.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.219])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2021 01:22:05 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Fri, 29 Oct 2021 10:21:52 +0200
+Message-Id: <20211029082156.194003-1-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <YXqdNxrTCGS40jNZ@intel.com>
-References: <YXqdNxrTCGS40jNZ@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/gem: Don't try to map and fence large
- scanout buffers (v3)
+Subject: [Intel-gfx] [PATCH v4 0/4] Prepare error capture for asynchronous
+ migration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,165 +56,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On platforms capable of allowing 8K (7680 x 4320) modes, pinning 2 or
-more framebuffers/scanout buffers results in only one that is mappable/
-fenceable. Therefore, pageflipping between these 2 FBs where only one
-is mappable/fenceable creates latencies large enough to miss alternate
-vblanks thereby producing less optimal framerate.
+This patch series prepares error capture for asynchronous migration,
+where the vma pages may not reflect the pages the GPU is currently
+executing from but may be several migrations ahead.
 
-This mainly happens because when i915_gem_object_pin_to_display_plane()
-is called to pin one of the FB objs, the associated vma is identified
-as misplaced and therefore i915_vma_unbind() is called which unbinds and
-evicts it. This misplaced vma gets subseqently pinned only when
-i915_gem_object_ggtt_pin_ww() is called without the mappable flag. This
-results in a latency of ~10ms and happens every other vblank/repaint cycle.
+The first patch deals with refcounting sg-list so that they don't
+disappear under the capture code, which typically otherwise happens at
+put_pages() time.
 
-Testcase:
-Running Weston and weston-simple-egl on an Alderlake_S (ADLS) platform
-with a 8K@60 mode results in only ~40 FPS. Since upstream Weston submits
-a frame ~7ms before the next vblank, the latencies seen between atomic
-commit and flip event are 7, 24 (7 + 16.66), 7, 24..... suggesting that
-it misses the vblank every other frame.
+The second patch introduces vma state snapshots that record the vma state
+at request submission time.
+It also takes additional measures to make sure that
+the capture list and request is not disappearing from under us while
+capturing. The latter may otherwise happen if a heartbeat triggered parallel
+capture is running during a manual reset which retires the request.
 
-Here is the ftrace snippet that shows the source of the ~10ms latency:
-              i915_gem_object_pin_to_display_plane() {
-0.102 us   |    i915_gem_object_set_cache_level();
-                i915_gem_object_ggtt_pin_ww() {
-0.390 us   |      i915_vma_instance();
-0.178 us   |      i915_vma_misplaced();
-                  i915_vma_unbind() {
-                  __i915_active_wait() {
-0.082 us   |        i915_active_acquire_if_busy();
-0.475 us   |      }
-                  intel_runtime_pm_get() {
-0.087 us   |        intel_runtime_pm_acquire();
-0.259 us   |      }
-                  __i915_active_wait() {
-0.085 us   |        i915_active_acquire_if_busy();
-0.240 us   |      }
-                  __i915_vma_evict() {
-                    ggtt_unbind_vma() {
-                      gen8_ggtt_clear_range() {
-10507.255 us |        }
-10507.689 us |      }
-10508.516 us |   }
+The third patch changes the allocation mode during capture to reflect that
+capturing is typically done in the fence signalling critical path. More
+details on the patch itself.
 
-v2: Instead of using bigjoiner checks, determine whether a scanout
-    buffer is too big by checking to see if it is possible to map
-    two of them into the ggtt.
+Finally the last patch is more of a POC patch and not strictly needed yet,
+but will be (or at least something very similar) soon for async unbinding.
+It will make sure that unbinding doesn't complete or signal completion
+before capture is done. Async reuse of memory can't happen until unbinding
+signals complete and without waiting for capture done, we might capture
+contents of reused memory.
+Before the last patch the vma active is instead still keeping the vma alive,
+but that will not work with async unbinding anymore, and also it is still
+not clear how we guarantee keeping the vma alive long enough to even
+grab an active reference during capture.
 
-v3 (Ville):
-- Count how many fb objects can be fit into the available holes
-  instead of checking for a hole twice the object size.
-- Take alignment constraints into account.
-- Limit this large scanout buffer check to >= Gen 12 platforms.
+v2:
+- Mostly Fixes for selftests and rebinding. See patch 3. 
+v3:
+- Honor the unbind fence also when evicting for suspend on gen6.
+- Cleanups on patch 1
+- Minor cleanups on patch 3.
+v4:
+- Break out patch 3 from patch 2.
+- Move a fix from patch 4 to patch 1.
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
----
- drivers/gpu/drm/i915/i915_gem.c | 65 ++++++++++++++++++++++++++++-----
- drivers/gpu/drm/i915/i915_vma.c |  2 +-
- 2 files changed, 57 insertions(+), 10 deletions(-)
+Thomas Hellström (4):
+  drm/i915: Introduce refcounted sg-tables
+  drm/i915: Update error capture code to avoid using the current vma
+    state
+  drm/i915: Use GFP_NOWAIT in the capture code
+  drm/i915: Initial introduction of vma resources
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 981e383d1a5d..761dc385fbfc 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -866,6 +866,61 @@ static void discard_ggtt_vma(struct i915_vma *vma)
- 	spin_unlock(&obj->vma.lock);
- }
- 
-+static bool i915_gem_obj_too_big(struct drm_i915_gem_object *obj,
-+				 u64 alignment)
-+{
-+	struct drm_i915_private *i915 = to_i915(obj->base.dev);
-+	struct i915_ggtt *ggtt = &i915->ggtt;
-+	struct drm_mm_node *hole;
-+	u64 hole_start, hole_end, start, end;
-+	u64 fence_size, fence_alignment;
-+	unsigned int count = 0;
-+
-+	/*
-+	 * If the required space is larger than the available
-+	 * aperture, we will not able to find a slot for the
-+	 * object and unbinding the object now will be in
-+	 * vain. Worse, doing so may cause us to ping-pong
-+	 * the object in and out of the Global GTT and
-+	 * waste a lot of cycles under the mutex.
-+	 */
-+	if (obj->base.size > ggtt->mappable_end)
-+		return true;
-+
-+	if (HAS_GMCH(i915) || DISPLAY_VER(i915) < 11 ||
-+	    !i915_gem_object_is_framebuffer(obj))
-+		return false;
-+
-+	fence_size = i915_gem_fence_size(i915, obj->base.size,
-+					 i915_gem_object_get_tiling(obj),
-+					 i915_gem_object_get_stride(obj));
-+	fence_alignment = i915_gem_fence_alignment(i915, obj->base.size,
-+					 i915_gem_object_get_tiling(obj),
-+					 i915_gem_object_get_stride(obj));
-+	alignment = max_t(u64, alignment, fence_alignment);
-+
-+	/*
-+	 * Assuming this object is a large scanout buffer, we try to find
-+	 * out if there is room to map at-least two of them. There could
-+	 * be space available to map one but to be consistent, we try to
-+	 * avoid mapping/fencing any of them.
-+	 */
-+	drm_mm_for_each_hole(hole, &ggtt->vm.mm, hole_start, hole_end) {
-+		do {
-+			start = round_up(hole_start, alignment);
-+			end = min_t(u64, hole_end, ggtt->mappable_end);
-+
-+			if (range_overflows(start, fence_size, end))
-+				break;
-+
-+			count++;
-+			hole_start = start + fence_size;
-+		} while (1);
-+	}
-+
-+	return count < 2;
-+}
-+
- struct i915_vma *
- i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 			    struct i915_gem_ww_ctx *ww,
-@@ -879,15 +934,7 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 
- 	if (flags & PIN_MAPPABLE &&
- 	    (!view || view->type == I915_GGTT_VIEW_NORMAL)) {
--		/*
--		 * If the required space is larger than the available
--		 * aperture, we will not able to find a slot for the
--		 * object and unbinding the object now will be in
--		 * vain. Worse, doing so may cause us to ping-pong
--		 * the object in and out of the Global GTT and
--		 * waste a lot of cycles under the mutex.
--		 */
--		if (obj->base.size > ggtt->mappable_end)
-+		if (i915_gem_obj_too_big(obj, alignment))
- 			return ERR_PTR(-E2BIG);
- 
- 		/*
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 90546fa58fc1..551644dbfa8a 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -977,7 +977,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 		if (err)
- 			goto err_active;
- 
--		if (i915_is_ggtt(vma->vm))
-+		if (i915_is_ggtt(vma->vm) && flags & PIN_MAPPABLE)
- 			__i915_vma_set_map_and_fenceable(vma);
- 	}
- 
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 137 ++++++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  12 +-
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |   3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  49 ++---
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 186 +++++++++-------
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   8 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |   2 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         | 180 ++++++++++-----
+ drivers/gpu/drm/i915/i915_request.c           |  63 ++++--
+ drivers/gpu/drm/i915/i915_request.h           |  18 +-
+ drivers/gpu/drm/i915/i915_scatterlist.c       |  62 ++++--
+ drivers/gpu/drm/i915/i915_scatterlist.h       |  76 ++++++-
+ drivers/gpu/drm/i915/i915_vma.c               | 206 +++++++++++++++++-
+ drivers/gpu/drm/i915/i915_vma.h               |  20 +-
+ drivers/gpu/drm/i915/i915_vma_snapshot.c      | 131 +++++++++++
+ drivers/gpu/drm/i915/i915_vma_snapshot.h      | 112 ++++++++++
+ drivers/gpu/drm/i915/i915_vma_types.h         |   5 +
+ drivers/gpu/drm/i915/intel_region_ttm.c       |  15 +-
+ drivers/gpu/drm/i915/intel_region_ttm.h       |   5 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  98 +++++----
+ drivers/gpu/drm/i915/selftests/mock_region.c  |  12 +-
+ 22 files changed, 1111 insertions(+), 290 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/i915_vma_snapshot.c
+ create mode 100644 drivers/gpu/drm/i915/i915_vma_snapshot.h
+
 -- 
 2.31.1
 
