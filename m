@@ -2,65 +2,43 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9241EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 17:37:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0834C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 51E6060EBC
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 17:37:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 51E6060EBC
+	by mail.kernel.org (Postfix) with ESMTPS id B830960F42
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B830960F42
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0F0C6E084;
-	Mon,  1 Nov 2021 17:37:42 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4186E084
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 17:37:41 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="291906686"
-X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="291906686"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 10:36:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="500133754"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga008.jf.intel.com with ESMTP; 01 Nov 2021 10:36:27 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 1 Nov 2021 10:36:27 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 1 Nov 2021 10:36:26 -0700
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.012;
- Mon, 1 Nov 2021 10:36:26 -0700
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
-Thread-Topic: [Intel-gfx] [PATCH 08/16] drm/i915: Query the vswing levels
- per-lane for icl combo phy
-Thread-Index: AQHXuvPUQM/DEFMH+k64jqbYo4wWravrIQkAgAPwAYCAAH4zAA==
-Date: Mon, 1 Nov 2021 17:36:26 +0000
-Message-ID: <2ec52bd3d17d55542a0873d4fd240d4577a418fd.camel@intel.com>
-References: <20211006204937.30774-1-ville.syrjala@linux.intel.com>
- <20211006204937.30774-9-ville.syrjala@linux.intel.com>
- <8c9df8f4160f3b1edd325d6d0721261922988d72.camel@intel.com>
- <YX+9QfQty2vn6yoP@intel.com>
-In-Reply-To: <YX+9QfQty2vn6yoP@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.1.200.100]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4808FE240318E342A6C6054EC0656447@intel.com>
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53FDA6E24D;
+	Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67C16E24D
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 18:41:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="317288662"
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="317288662"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 11:35:57 -0700
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="599123393"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 11:35:55 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  1 Nov 2021 20:35:51 +0200
+Message-Id: <20211101183551.3580546-2-imre.deak@intel.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20211101183551.3580546-1-imre.deak@intel.com>
+References: <20211101183551.3580546-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 08/16] drm/i915: Query the vswing levels
- per-lane for icl combo phy
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Restore memory mapping for DPT
+ FBs across system suspend/resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,76 +51,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMDIxLTExLTAxIGF0IDEyOjExICswMjAwLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6
-DQo+IE9uIEZyaSwgT2N0IDI5LCAyMDIxIGF0IDA5OjU3OjAyUE0gKzAwMDAsIFNvdXphLCBKb3Nl
-IHdyb3RlOg0KPiA+IE9uIFdlZCwgMjAyMS0xMC0wNiBhdCAyMzo0OSArMDMwMCwgVmlsbGUgU3ly
-amFsYSB3cm90ZToNCj4gPiA+IEZyb206IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBs
-aW51eC5pbnRlbC5jb20+DQo+ID4gPiANCj4gPiA+IFByZXBhcmUgZm9yIHBlci1sYW5lIGRyaXZl
-IHNldHRpbmdzIGJ5IHF1ZXJ5aW5nIHRoZSBkZXNpcmVkIHZzd2luZw0KPiA+ID4gbGV2ZWwgcGVy
-LWxhbmUuDQo+ID4gPiANCj4gPiA+IFNpZ25lZC1vZmYtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmls
-bGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+DQo+ID4gPiAtLS0NCj4gPiA+ICBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jIHwgNyArKysrKystDQo+ID4gPiAgMSBmaWxl
-IGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiA+ID4gDQo+ID4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMNCj4gPiA+IGluZGV4IGFhNzg5
-Y2FiYzU1Yi4uNGM0MDBmMGU3MzQ3IDEwMDY0NA0KPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYw0KPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kZGkuYw0KPiA+ID4gQEAgLTEwMzksNyArMTAzOSw2IEBAIHN0YXRp
-YyB2b2lkIGljbF9kZGlfY29tYm9fdnN3aW5nX3Byb2dyYW0oc3RydWN0IGludGVsX2VuY29kZXIg
-KmVuY29kZXIsDQo+ID4gPiAgCQkJCQkgY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNy
-dGNfc3RhdGUpDQo+ID4gPiAgew0KPiA+ID4gIAlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2
-X3ByaXYgPSB0b19pOTE1KGVuY29kZXItPmJhc2UuZGV2KTsNCj4gPiA+IC0JaW50IGxldmVsID0g
-aW50ZWxfZGRpX2xldmVsKGVuY29kZXIsIGNydGNfc3RhdGUsIDApOw0KPiA+ID4gIAljb25zdCBz
-dHJ1Y3QgaW50ZWxfZGRpX2J1Zl90cmFucyAqdHJhbnM7DQo+ID4gPiAgCWVudW0gcGh5IHBoeSA9
-IGludGVsX3BvcnRfdG9fcGh5KGRldl9wcml2LCBlbmNvZGVyLT5wb3J0KTsNCj4gPiA+ICAJaW50
-IG5fZW50cmllcywgbG47DQo+ID4gPiBAQCAtMTA2OSw2ICsxMDY4LDggQEAgc3RhdGljIHZvaWQg
-aWNsX2RkaV9jb21ib192c3dpbmdfcHJvZ3JhbShzdHJ1Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2Rl
-ciwNCj4gPiA+ICANCj4gPiA+ICAJLyogUHJvZ3JhbSBQT1JUX1RYX0RXMiAqLw0KPiA+ID4gIAlm
-b3IgKGxuID0gMDsgbG4gPCA0OyBsbisrKSB7DQo+ID4gPiArCQlpbnQgbGV2ZWwgPSBpbnRlbF9k
-ZGlfbGV2ZWwoZW5jb2RlciwgY3J0Y19zdGF0ZSwgbG4pOw0KPiA+ID4gKw0KPiA+ID4gIAkJdmFs
-ID0gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgSUNMX1BPUlRfVFhfRFcyX0xOKGxuLCBwaHkpKTsN
-Cj4gPiA+ICAJCXZhbCAmPSB+KFNXSU5HX1NFTF9MT1dFUl9NQVNLIHwgU1dJTkdfU0VMX1VQUEVS
-X01BU0sgfA0KPiA+ID4gIAkJCSBSQ09NUF9TQ0FMQVJfTUFTSyk7DQo+ID4gPiBAQCAtMTA4Miw2
-ICsxMDgzLDggQEAgc3RhdGljIHZvaWQgaWNsX2RkaV9jb21ib192c3dpbmdfcHJvZ3JhbShzdHJ1
-Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2RlciwNCj4gPiA+ICAJLyogUHJvZ3JhbSBQT1JUX1RYX0RX
-NCAqLw0KPiA+ID4gIAkvKiBXZSBjYW5ub3Qgd3JpdGUgdG8gR1JQLiBJdCB3b3VsZCBvdmVyd3Jp
-dGUgaW5kaXZpZHVhbCBsb2FkZ2VuLiAqLw0KPiA+ID4gIAlmb3IgKGxuID0gMDsgbG4gPCA0OyBs
-bisrKSB7DQo+ID4gPiArCQlpbnQgbGV2ZWwgPSBpbnRlbF9kZGlfbGV2ZWwoZW5jb2RlciwgY3J0
-Y19zdGF0ZSwgbG4pOw0KPiA+ID4gKw0KPiA+ID4gIAkJdmFsID0gaW50ZWxfZGVfcmVhZChkZXZf
-cHJpdiwgSUNMX1BPUlRfVFhfRFc0X0xOKGxuLCBwaHkpKTsNCj4gPiA+ICAJCXZhbCAmPSB+KFBP
-U1RfQ1VSU09SXzFfTUFTSyB8IFBPU1RfQ1VSU09SXzJfTUFTSyB8DQo+ID4gPiAgCQkJIENVUlNP
-Ul9DT0VGRl9NQVNLKTsNCj4gPiA+IEBAIC0xMDkzLDYgKzEwOTYsOCBAQCBzdGF0aWMgdm9pZCBp
-Y2xfZGRpX2NvbWJvX3Zzd2luZ19wcm9ncmFtKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVy
-LA0KPiA+ID4gIA0KPiA+ID4gIAkvKiBQcm9ncmFtIFBPUlRfVFhfRFc3ICovDQo+ID4gPiAgCWZv
-ciAobG4gPSAwOyBsbiA8IDQ7IGxuKyspIHsNCj4gPiA+ICsJCWludCBsZXZlbCA9IGludGVsX2Rk
-aV9sZXZlbChlbmNvZGVyLCBjcnRjX3N0YXRlLCBsbik7DQo+ID4gPiArDQo+ID4gPiAgCQl2YWwg
-PSBpbnRlbF9kZV9yZWFkKGRldl9wcml2LCBJQ0xfUE9SVF9UWF9EVzdfTE4obG4sIHBoeSkpOw0K
-PiA+ID4gIAkJdmFsICY9IH5OX1NDQUxBUl9NQVNLOw0KPiA+ID4gIAkJdmFsIHw9IE5fU0NBTEFS
-KHRyYW5zLT5lbnRyaWVzW2xldmVsXS5pY2wuZHc3X25fc2NhbGFyKTsNCj4gPiANCj4gPiBUaGUg
-Y292ZXIgbGV0dGVyIG9yIG9uZSBvZiB0aGUgZWFybGllciBwYXRjaGVzIHNob3VsZCBoYXZlIHNv
-bWUgZXhwbGFuYXRpb24gYWJvdXQgdGhlIHJlYXNvbnMgb2YgdGhpcyB0aGUgZ3JvdXAgdG8gbGFu
-ZSBjb252ZXJzaW9uLg0KPiANCj4gVGhleSBkbyBzYXkgaXQncyBmb3IgcGVyLWxhbmUgZHJpdmUg
-c2V0aW5ncy4gTm90IHJhbGx5IHN1cmUgd2hhdCB0byBhZGQNCj4gdG8gdGhhdC4NCj4gDQo+ID4g
-UmVhZGluZyBvbmUgb2YgdGhlIGxhdGVyIHBhdGNoZXMgSSB1bmRlcnN0b29kIGlzIGJlY2F1c2Ug
-RFAgMi4wIGFsbG93cyBkaWZmZXJlbnQgbGV2ZWwgcGVyIGxhbmUgYnV0IHdvdWxkIGJlIG5pY2Ug
-dG8ga25vdyBmb3Igc3VyZSB0aGUgcmVhc29uLg0KPiANCj4gSXQgaGFzIGFsd2F5cyBiZWVuIGEg
-ZmVhdHVyZSBvZiBEUCwgd2UganVzdCBuZXZlciBpbXBsZW1lbnRlZCBpdCBmb3INCj4gd2hhdGV2
-ZXIgcmVhc29uLg0KPiANCj4gPiANCj4gPiBXaGF0IGlmIGl0IGlzIG9ubHkgdXNpbmcgMiBsYW5l
-cz8gUHJvZ3JhbW1pbmcgZGlzYWJsZWQgbGFuZXMgd2lsbCBjYXVzZSBhbnkgaXNzdWU/DQo+IA0K
-PiBEZXBlbmRzIG9uIHdoZXRoZXIgdGhlIHJlZ2lzdGVycyBhcmUgYXZhaWxhYmxlIG9yIG5vdC4g
-Rm9yIENIViBJIGtub3cNCj4gdGhlIHVudXNlZCBsYW5lcyB3aWxsIGJlIGZ1bGx5IHBvd2VyZWQg
-b2ZmIGFuZCB5b3UgY2FuJ3QgYWN0dWFsbHkgYWNjZXNzDQo+IHRoZSByZWdpc3RlcnMgKGFuZCB2
-bHZfZHBpb19yZWFkKCkgd2lsbCBhY3R1YWxseSBXQVJOIHdoZW4gaXQgc2VlcyB0aGUNCj4gfjAg
-dmFsdWUgZnJvbSBhbiBpbmFjY2Vzc2libGUgcmVnaXN0ZXIpLiBGb3IgbGF0ZXIgcGxhdGZvcm1z
-IEkgZG9uJ3QNCj4gYWN0dWFsbHkga25vdyB3aGF0IGhhcHBlbnMuIFdlIGRvbid0IGhhdmUgYW4g
-ZXF1aXZhbGVudCBvZiB0aGF0IENIViBXQVJODQo+IGJ1dCBJIHdvdWxkIGhvcGUgdGhhdCB3ZSdk
-IGdldCBhbiB1bmNsYWltZWQgcmVnIHdhcm5pbmcgaWYgdGhlIHJlZ2lzdGVyDQo+IGlzIGluYWNj
-ZXNzaWJsZS4NCj4gDQo+IEFsdGhvdWdoIEkgc3VwcG9zZSB0aGVyZSdzIGlzbid0IGFueSByZWFs
-IGhhcm0gaW4gcG9raW5nIGluYWNjc3NpYmxlDQo+IHJlZ2lzdGVycy4gVGhlIHJlYWRzIHNob3Vs
-ZCBqdXN0IHJldHVybiBhbGwgMHMgb3IgYWxsIDFzLCBhbmQgdGhlDQo+IHdyaXRlcyBnbyB0byAv
-ZGV2L251bGwuDQo+IA0KDQpGYWlyIGVub3VnaC4NCg0KUmV2aWV3ZWQtYnk6IEpvc8OpIFJvYmVy
-dG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPg0K
+At least during hibernation the DPT mappings are lost with all stolen
+memory content, so suspend/resume these mappings similarly to GGTT
+mappings.
+
+This fixes a problem where the restoring modeset during system resume fails
+with pipe faults if a tiled framebuffer was active before suspend.
+
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Vunny Sodhi <vunny.sodhi@intel.com>
+Reported-and-tested-by: Vunny Sodhi <vunny.sodhi@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dpt.c | 50 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dpt.h |  4 ++
+ drivers/gpu/drm/i915/i915_drv.c          |  5 +++
+ 3 files changed, 59 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
+index 8f7b1f7534a48..3a7f185746c89 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpt.c
++++ b/drivers/gpu/drm/i915/display/intel_dpt.c
+@@ -167,6 +167,56 @@ void intel_dpt_unpin(struct i915_address_space *vm)
+ 	i915_vma_put(dpt->vma);
+ }
+ 
++/**
++ * intel_dpt_resume - restore the memory mapping for all DPT FBs during system resume
++ * @i915: device instance
++ *
++ * Restore the memory mapping during system resume for all framebuffers which
++ * are mapped to HW via a GGTT->DPT page table.
++ *
++ * This function must be called after the mappings in GGTT have been restored calling
++ * i915_ggtt_resume().
++ */
++void intel_dpt_resume(struct drm_i915_private *i915)
++{
++	struct drm_framebuffer *drm_fb;
++
++	mutex_lock(&i915->drm.mode_config.fb_lock);
++	drm_for_each_fb(drm_fb, &i915->drm) {
++		struct intel_framebuffer *fb = to_intel_framebuffer(drm_fb);
++
++		if (fb->dpt_vm)
++			i915_ggtt_resume_vm(fb->dpt_vm);
++	}
++	mutex_unlock(&i915->drm.mode_config.fb_lock);
++}
++
++/**
++ * intel_dpt_suspend - suspend the memory mapping for all DPT FBs during system suspend
++ * @i915: device instance
++ *
++ * Suspend the memory mapping during system suspend for all framebuffers which
++ * are mapped to HW via a GGTT->DPT page table.
++ *
++ * This function must be called before the mappings in GGTT are suspended calling
++ * i915_ggtt_suspend().
++ */
++void intel_dpt_suspend(struct drm_i915_private *i915)
++{
++	struct drm_framebuffer *drm_fb;
++
++	mutex_lock(&i915->drm.mode_config.fb_lock);
++
++	drm_for_each_fb(drm_fb, &i915->drm) {
++		struct intel_framebuffer *fb = to_intel_framebuffer(drm_fb);
++
++		if (fb->dpt_vm)
++			i915_ggtt_suspend_vm(fb->dpt_vm);
++	}
++
++	mutex_unlock(&i915->drm.mode_config.fb_lock);
++}
++
+ struct i915_address_space *
+ intel_dpt_create(struct intel_framebuffer *fb)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_dpt.h b/drivers/gpu/drm/i915/display/intel_dpt.h
+index 45142b8f849f6..e18a9f767b112 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpt.h
++++ b/drivers/gpu/drm/i915/display/intel_dpt.h
+@@ -6,6 +6,8 @@
+ #ifndef __INTEL_DPT_H__
+ #define __INTEL_DPT_H__
+ 
++struct drm_i915_private;
++
+ struct i915_address_space;
+ struct i915_vma;
+ struct intel_framebuffer;
+@@ -13,6 +15,8 @@ struct intel_framebuffer;
+ void intel_dpt_destroy(struct i915_address_space *vm);
+ struct i915_vma *intel_dpt_pin(struct i915_address_space *vm);
+ void intel_dpt_unpin(struct i915_address_space *vm);
++void intel_dpt_suspend(struct drm_i915_private *i915);
++void intel_dpt_resume(struct drm_i915_private *i915);
+ struct i915_address_space *
+ intel_dpt_create(struct intel_framebuffer *fb);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 1e5b75ae99329..4a054aa1860b0 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -51,6 +51,7 @@
+ #include "display/intel_dmc.h"
+ #include "display/intel_display_types.h"
+ #include "display/intel_dp.h"
++#include "display/intel_dpt.h"
+ #include "display/intel_fbdev.h"
+ #include "display/intel_hotplug.h"
+ #include "display/intel_overlay.h"
+@@ -1128,6 +1129,8 @@ static int i915_drm_suspend(struct drm_device *dev)
+ 
+ 	intel_suspend_hw(dev_priv);
+ 
++	/* Must be called before GGTT is suspended. */
++	intel_dpt_suspend(dev_priv);
+ 	i915_ggtt_suspend(&dev_priv->ggtt);
+ 
+ 	i915_save_display(dev_priv);
+@@ -1244,6 +1247,8 @@ static int i915_drm_resume(struct drm_device *dev)
+ 		drm_err(&dev_priv->drm, "failed to re-enable GGTT\n");
+ 
+ 	i915_ggtt_resume(&dev_priv->ggtt);
++	/* Must be called after GGTT is resumed. */
++	intel_dpt_resume(dev_priv);
+ 
+ 	intel_dmc_ucode_resume(dev_priv);
+ 
+-- 
+2.27.0
+
