@@ -2,52 +2,47 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9273C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2062C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8274C60F56
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:35:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8274C60F56
+	by mail.kernel.org (Postfix) with ESMTPS id 758D760FE8
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:35:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 758D760FE8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6533489BB0;
-	Mon,  1 Nov 2021 10:35:15 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A49E989BAB;
- Mon,  1 Nov 2021 10:35:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="231252918"
-X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="231252918"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 03:35:13 -0700
-X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="499984499"
-Received: from lellis-mobl.ger.corp.intel.com (HELO [10.213.243.87])
- ([10.213.243.87])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 03:35:11 -0700
-To: Matthew Brost <matthew.brost@intel.com>,
- John Harrison <john.c.harrison@intel.com>
-References: <20211020214751.34602-1-matthew.brost@intel.com>
- <c9a1cd3e-dc3a-2b2b-ee37-73c0c50f3f60@intel.com>
- <20211027191732.GA16188@jons-linux-dev-box>
- <af017ae0-e826-7b6a-03d7-0e422030da02@intel.com>
- <20211027201001.GA16265@jons-linux-dev-box>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <a86e7ea7-3c70-2540-9538-44adc3d12e52@linux.intel.com>
-Date: Mon, 1 Nov 2021 10:35:09 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1190A89BAC;
+	Mon,  1 Nov 2021 10:35:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC97D89BAC
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 10:35:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="229715913"
+X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="229715913"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 03:21:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="531152928"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga001.jf.intel.com with SMTP; 01 Nov 2021 03:21:22 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 01 Nov 2021 12:21:21 +0200
+Date: Mon, 1 Nov 2021 12:21:21 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Message-ID: <YX+/oVeiLMbJF/hq@intel.com>
+References: <YXqdNxrTCGS40jNZ@intel.com>
+ <20211029074303.1566344-1-vivek.kasireddy@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20211027201001.GA16265@jons-linux-dev-box>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/execlists: Weak parallel
- submission support for execlists
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211029074303.1566344-1-vivek.kasireddy@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Don't try to map and fence
+ large scanout buffers (v3)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,216 +55,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 27/10/2021 21:10, Matthew Brost wrote:
-> On Wed, Oct 27, 2021 at 01:04:49PM -0700, John Harrison wrote:
->> On 10/27/2021 12:17, Matthew Brost wrote:
->>> On Tue, Oct 26, 2021 at 02:58:00PM -0700, John Harrison wrote:
->>>> On 10/20/2021 14:47, Matthew Brost wrote:
->>>>> A weak implementation of parallel submission (multi-bb execbuf IOCTL) for
->>>>> execlists. Doing as little as possible to support this interface for
->>>>> execlists - basically just passing submit fences between each request
->>>>> generated and virtual engines are not allowed. This is on par with what
->>>>> is there for the existing (hopefully soon deprecated) bonding interface.
->>>>>
->>>>> We perma-pin these execlists contexts to align with GuC implementation.
->>>>>
->>>>> v2:
->>>>>     (John Harrison)
->>>>>      - Drop siblings array as num_siblings must be 1
->>>>>
->>>>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->>>>> ---
->>>>>     drivers/gpu/drm/i915/gem/i915_gem_context.c   | 10 +++--
->>>>>     drivers/gpu/drm/i915/gt/intel_context.c       |  4 +-
->>>>>     .../drm/i915/gt/intel_execlists_submission.c  | 44 ++++++++++++++++++-
->>>>>     drivers/gpu/drm/i915/gt/intel_lrc.c           |  2 +
->>>>>     .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 -
->>>>>     5 files changed, 52 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
->>>>> index fb33d0322960..35e87a7d0ea9 100644
->>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
->>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
->>>>> @@ -570,10 +570,6 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
->>>>>     	struct intel_engine_cs **siblings = NULL;
->>>>>     	intel_engine_mask_t prev_mask;
->>>>> -	/* FIXME: This is NIY for execlists */
->>>>> -	if (!(intel_uc_uses_guc_submission(&i915->gt.uc)))
->>>>> -		return -ENODEV;
->>>>> -
->>>>>     	if (get_user(slot, &ext->engine_index))
->>>>>     		return -EFAULT;
->>>>> @@ -583,6 +579,12 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
->>>>>     	if (get_user(num_siblings, &ext->num_siblings))
->>>>>     		return -EFAULT;
->>>>> +	if (!intel_uc_uses_guc_submission(&i915->gt.uc) && num_siblings != 1) {
->>>>> +		drm_dbg(&i915->drm, "Only 1 sibling (%d) supported in non-GuC mode\n",
->>>>> +			num_siblings);
->>>>> +		return -EINVAL;
->>>>> +	}
->>>>> +
->>>>>     	if (slot >= set->num_engines) {
->>>>>     		drm_dbg(&i915->drm, "Invalid placement value, %d >= %d\n",
->>>>>     			slot, set->num_engines);
->>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
->>>>> index 5634d14052bc..1bec92e1d8e6 100644
->>>>> --- a/drivers/gpu/drm/i915/gt/intel_context.c
->>>>> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
->>>>> @@ -79,7 +79,8 @@ static int intel_context_active_acquire(struct intel_context *ce)
->>>>>     	__i915_active_acquire(&ce->active);
->>>>> -	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
->>>>> +	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine) ||
->>>>> +	    intel_context_is_parallel(ce))
->>>>>     		return 0;
->>>>>     	/* Preallocate tracking nodes */
->>>>> @@ -563,7 +564,6 @@ void intel_context_bind_parent_child(struct intel_context *parent,
->>>>>     	 * Callers responsibility to validate that this function is used
->>>>>     	 * correctly but we use GEM_BUG_ON here ensure that they do.
->>>>>     	 */
->>>>> -	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
->>>>>     	GEM_BUG_ON(intel_context_is_pinned(parent));
->>>>>     	GEM_BUG_ON(intel_context_is_child(parent));
->>>>>     	GEM_BUG_ON(intel_context_is_pinned(child));
->>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
->>>>> index bedb80057046..2865b422300d 100644
->>>>> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
->>>>> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
->>>>> @@ -927,8 +927,7 @@ static void execlists_submit_ports(struct intel_engine_cs *engine)
->>>>>     static bool ctx_single_port_submission(const struct intel_context *ce)
->>>>>     {
->>>>> -	return (IS_ENABLED(CONFIG_DRM_I915_GVT) &&
->>>>> -		intel_context_force_single_submission(ce));
->>>>> +	return intel_context_force_single_submission(ce);
->>>> I think this is actually going to break GVT.
->>>>
->>>> Not so much this change here but the whole use of single submission outside
->>>> of GVT. It looks like the GVT driver overloads the single submission flag to
->>>> tag requests that it owns. If we start using that flag elsewhere when GVT is
->>>> active, I think that will cause much confusion within the GVT code.
->>>>
->>>> The correct fix would be to create a new flag just for GVT usage alongside
->>>> the single submission one. GVT would then set both but only check for its
->>>> own private flag. The parallel code would obviously only set the existing
->>>> single submission flag.
->>>>
->>> Ok, see below.
->>>
->>>>>     }
->>>>>     static bool can_merge_ctx(const struct intel_context *prev,
->>>>> @@ -2598,6 +2597,46 @@ static void execlists_context_cancel_request(struct intel_context *ce,
->>>>>     				      current->comm);
->>>>>     }
->>>>> +static struct intel_context *
->>>>> +execlists_create_parallel(struct intel_engine_cs **engines,
->>>>> +			  unsigned int num_siblings,
->>>>> +			  unsigned int width)
->>>>> +{
->>>>> +	struct intel_context *parent = NULL, *ce, *err;
->>>>> +	int i;
->>>>> +
->>>>> +	GEM_BUG_ON(num_siblings != 1);
->>>>> +
->>>>> +	for (i = 0; i < width; ++i) {
->>>>> +		ce = intel_context_create(engines[i]);
->>>>> +		if (!ce) {
->>>>> +			err = ERR_PTR(-ENOMEM);
->>>>> +			goto unwind;
->>>>> +		}
->>>>> +
->>>>> +		if (i == 0)
->>>>> +			parent = ce;
->>>>> +		else
->>>>> +			intel_context_bind_parent_child(parent, ce);
->>>>> +	}
->>>>> +
->>>>> +	parent->parallel.fence_context = dma_fence_context_alloc(1);
->>>>> +
->>>>> +	intel_context_set_nopreempt(parent);
->>>>> +	intel_context_set_single_submission(parent);
->>>> Can you explain the need for setting single submission?
->>>>
->>> I think I can actually pull this out. This was needed when I tried to
->>> truely implement a guarante that all the parallel requests would be
->>> running simultaneously. Couldn't ever to get that working because of the
->>> mess that is the execlists scheduler - a simple wait at the head of
->>> queue until everyone joined just blew up for whatever reason. I don't
->>> believe this servers a purpose anymore, so I'll just drop it.
->>>
->>> Matt
->> Is that not going to be a problem? I thought concurrent execution was a
->> fundamental requirement?
->>
+On Fri, Oct 29, 2021 at 12:43:03AM -0700, Vivek Kasireddy wrote:
+> On platforms capable of allowing 8K (7680 x 4320) modes, pinning 2 or
+> more framebuffers/scanout buffers results in only one that is mappable/
+> fenceable. Therefore, pageflipping between these 2 FBs where only one
+> is mappable/fenceable creates latencies large enough to miss alternate
+> vblanks thereby producing less optimal framerate.
 > 
-> I don't think so. See the commit message. This implmementation is on par
-> with the bonding interface - there is no guarantee whatsoever that with
-> the bonding interface bonded requests actually run at the same time. It
-> says hopefully these submissions run together. That's what I do in this
-> patch too for execlists, hence the 'weak' clause in the commit message.
-
-With the new uapi definition implying a stricter guarantee - why not 
-have this patch use special bb semaphore pre/post-ambles so scheduling 
-behaviour is closer between the two backends?
-
-Regards,
-
-Tvrtko
-
+> This mainly happens because when i915_gem_object_pin_to_display_plane()
+> is called to pin one of the FB objs, the associated vma is identified
+> as misplaced and therefore i915_vma_unbind() is called which unbinds and
+> evicts it. This misplaced vma gets subseqently pinned only when
+> i915_gem_object_ggtt_pin_ww() is called without the mappable flag. This
+> results in a latency of ~10ms and happens every other vblank/repaint cycle.
 > 
-> Matt
+> Testcase:
+> Running Weston and weston-simple-egl on an Alderlake_S (ADLS) platform
+> with a 8K@60 mode results in only ~40 FPS. Since upstream Weston submits
+> a frame ~7ms before the next vblank, the latencies seen between atomic
+> commit and flip event are 7, 24 (7 + 16.66), 7, 24..... suggesting that
+> it misses the vblank every other frame.
 > 
->> John.
->>
->>>
->>>> John.
->>>>
->>>>> +	for_each_child(parent, ce) {
->>>>> +		intel_context_set_nopreempt(ce);
->>>>> +		intel_context_set_single_submission(ce);
->>>>> +	}
->>>>> +
->>>>> +	return parent;
->>>>> +
->>>>> +unwind:
->>>>> +	if (parent)
->>>>> +		intel_context_put(parent);
->>>>> +	return err;
->>>>> +}
->>>>> +
->>>>>     static const struct intel_context_ops execlists_context_ops = {
->>>>>     	.flags = COPS_HAS_INFLIGHT,
->>>>> @@ -2616,6 +2655,7 @@ static const struct intel_context_ops execlists_context_ops = {
->>>>>     	.reset = lrc_reset,
->>>>>     	.destroy = lrc_destroy,
->>>>> +	.create_parallel = execlists_create_parallel,
->>>>>     	.create_virtual = execlists_create_virtual,
->>>>>     };
->>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>> index 56156cf18c41..70f4b309522d 100644
->>>>> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>> @@ -1065,6 +1065,8 @@ lrc_pin(struct intel_context *ce,
->>>>>     void lrc_unpin(struct intel_context *ce)
->>>>>     {
->>>>> +	if (unlikely(ce->parallel.last_rq))
->>>>> +		i915_request_put(ce->parallel.last_rq);
->>>>>     	check_redzone((void *)ce->lrc_reg_state - LRC_STATE_OFFSET,
->>>>>     		      ce->engine);
->>>>>     }
->>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
->>>>> index 1341752dc70e..ddc9a97fcc8f 100644
->>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
->>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
->>>>> @@ -2961,8 +2961,6 @@ static void guc_parent_context_unpin(struct intel_context *ce)
->>>>>     	GEM_BUG_ON(!intel_context_is_parent(ce));
->>>>>     	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
->>>>> -	if (ce->parallel.last_rq)
->>>>> -		i915_request_put(ce->parallel.last_rq);
->>>>>     	unpin_guc_id(guc, ce);
->>>>>     	lrc_unpin(ce);
->>>>>     }
->>
+> Here is the ftrace snippet that shows the source of the ~10ms latency:
+>               i915_gem_object_pin_to_display_plane() {
+> 0.102 us   |    i915_gem_object_set_cache_level();
+>                 i915_gem_object_ggtt_pin_ww() {
+> 0.390 us   |      i915_vma_instance();
+> 0.178 us   |      i915_vma_misplaced();
+>                   i915_vma_unbind() {
+>                   __i915_active_wait() {
+> 0.082 us   |        i915_active_acquire_if_busy();
+> 0.475 us   |      }
+>                   intel_runtime_pm_get() {
+> 0.087 us   |        intel_runtime_pm_acquire();
+> 0.259 us   |      }
+>                   __i915_active_wait() {
+> 0.085 us   |        i915_active_acquire_if_busy();
+> 0.240 us   |      }
+>                   __i915_vma_evict() {
+>                     ggtt_unbind_vma() {
+>                       gen8_ggtt_clear_range() {
+> 10507.255 us |        }
+> 10507.689 us |      }
+> 10508.516 us |   }
+> 
+> v2: Instead of using bigjoiner checks, determine whether a scanout
+>     buffer is too big by checking to see if it is possible to map
+>     two of them into the ggtt.
+> 
+> v3 (Ville):
+> - Count how many fb objects can be fit into the available holes
+>   instead of checking for a hole twice the object size.
+> - Take alignment constraints into account.
+> - Limit this large scanout buffer check to >= Gen 12 platforms.
+> 
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: Manasi Navare <manasi.d.navare@intel.com>
+> Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_gem.c | 65 ++++++++++++++++++++++++++++-----
+>  drivers/gpu/drm/i915/i915_vma.c |  2 +-
+>  2 files changed, 57 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+> index 981e383d1a5d..761dc385fbfc 100644
+> --- a/drivers/gpu/drm/i915/i915_gem.c
+> +++ b/drivers/gpu/drm/i915/i915_gem.c
+> @@ -866,6 +866,61 @@ static void discard_ggtt_vma(struct i915_vma *vma)
+>  	spin_unlock(&obj->vma.lock);
+>  }
+>  
+> +static bool i915_gem_obj_too_big(struct drm_i915_gem_object *obj,
+> +				 u64 alignment)
+> +{
+> +	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+> +	struct i915_ggtt *ggtt = &i915->ggtt;
+> +	struct drm_mm_node *hole;
+> +	u64 hole_start, hole_end, start, end;
+> +	u64 fence_size, fence_alignment;
+> +	unsigned int count = 0;
+> +
+> +	/*
+> +	 * If the required space is larger than the available
+> +	 * aperture, we will not able to find a slot for the
+> +	 * object and unbinding the object now will be in
+> +	 * vain. Worse, doing so may cause us to ping-pong
+> +	 * the object in and out of the Global GTT and
+> +	 * waste a lot of cycles under the mutex.
+> +	 */
+> +	if (obj->base.size > ggtt->mappable_end)
+> +		return true;
+> +
+> +	if (HAS_GMCH(i915) || DISPLAY_VER(i915) < 11 ||
+> +	    !i915_gem_object_is_framebuffer(obj))
+> +		return false;
+> +
+> +	fence_size = i915_gem_fence_size(i915, obj->base.size,
+> +					 i915_gem_object_get_tiling(obj),
+> +					 i915_gem_object_get_stride(obj));
+> +	fence_alignment = i915_gem_fence_alignment(i915, obj->base.size,
+> +					 i915_gem_object_get_tiling(obj),
+> +					 i915_gem_object_get_stride(obj));
+> +	alignment = max_t(u64, alignment, fence_alignment);
+> +
+> +	/*
+> +	 * Assuming this object is a large scanout buffer, we try to find
+> +	 * out if there is room to map at-least two of them. There could
+> +	 * be space available to map one but to be consistent, we try to
+> +	 * avoid mapping/fencing any of them.
+> +	 */
+> +	drm_mm_for_each_hole(hole, &ggtt->vm.mm, hole_start, hole_end) {
+> +		do {
+> +			start = round_up(hole_start, alignment);
+> +			end = min_t(u64, hole_end, ggtt->mappable_end);
+> +
+> +			if (range_overflows(start, fence_size, end))
+> +				break;
+> +
+> +			count++;
+> +			hole_start = start + fence_size;
+> +		} while (1);
+> +	}
+> +
+> +	return count < 2;
+> +}
+> +
+>  struct i915_vma *
+>  i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+>  			    struct i915_gem_ww_ctx *ww,
+> @@ -879,15 +934,7 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+>  
+>  	if (flags & PIN_MAPPABLE &&
+>  	    (!view || view->type == I915_GGTT_VIEW_NORMAL)) {
+> -		/*
+> -		 * If the required space is larger than the available
+> -		 * aperture, we will not able to find a slot for the
+> -		 * object and unbinding the object now will be in
+> -		 * vain. Worse, doing so may cause us to ping-pong
+> -		 * the object in and out of the Global GTT and
+> -		 * waste a lot of cycles under the mutex.
+> -		 */
+> -		if (obj->base.size > ggtt->mappable_end)
+> +		if (i915_gem_obj_too_big(obj, alignment))
+>  			return ERR_PTR(-E2BIG);
+>  
+>  		/*
+
+As I pointed out we already have the current ping-pong heuristic
+right here. You should adjust that instead of adding yet another
+heuristic in parallel.
+
+> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+> index 90546fa58fc1..551644dbfa8a 100644
+> --- a/drivers/gpu/drm/i915/i915_vma.c
+> +++ b/drivers/gpu/drm/i915/i915_vma.c
+> @@ -977,7 +977,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+>  		if (err)
+>  			goto err_active;
+>  
+> -		if (i915_is_ggtt(vma->vm))
+> +		if (i915_is_ggtt(vma->vm) && flags & PIN_MAPPABLE)
+>  			__i915_vma_set_map_and_fenceable(vma);
+>  	}
+>  
+> -- 
+> 2.31.1
+
+-- 
+Ville Syrjälä
+Intel
