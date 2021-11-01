@@ -2,61 +2,42 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E043C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 20:56:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42FA9C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 21:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CEEAC6052B
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 20:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CEEAC6052B
+	by mail.kernel.org (Postfix) with ESMTPS id 05A23610FD
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 21:02:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 05A23610FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40DBD6E1A3;
-	Mon,  1 Nov 2021 20:56:34 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A28DC89CE2
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 20:56:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="294578229"
-X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="294578229"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 13:56:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="727639386"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
- by fmsmga005.fm.intel.com with ESMTP; 01 Nov 2021 13:56:31 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 1 Nov 2021 13:56:31 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Mon, 1 Nov 2021 13:56:30 -0700
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.012;
- Mon, 1 Nov 2021 13:56:30 -0700
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
-Thread-Topic: [Intel-gfx] [PATCH] drm/i915/display: Exit PSR when doing async
- flips
-Thread-Index: AQHXzSK2nNtbqT1vD02YOw8Z7KA8zavvm3oAgAAHSwA=
-Date: Mon, 1 Nov 2021 20:56:30 +0000
-Message-ID: <47c732153a994bb8bc778326f41a2a45c9c2c7cd.camel@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71E476E1A3;
+	Mon,  1 Nov 2021 21:02:07 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67FF689D4F
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 21:02:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="211169912"
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="211169912"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 13:36:54 -0700
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="500202884"
+Received: from mthooks-mobl.amr.corp.intel.com (HELO intel.com)
+ ([10.255.35.24])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 13:36:53 -0700
+Date: Mon, 1 Nov 2021 16:36:52 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>
+Message-ID: <YYBP5Al2nbUMLPFP@intel.com>
 References: <20211030001801.237548-1-jose.souza@intel.com>
- <YYBP5Al2nbUMLPFP@intel.com>
-In-Reply-To: <YYBP5Al2nbUMLPFP@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.1.200.100]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2FAA5DF51E36D2479897A9521A6875A8@intel.com>
-Content-Transfer-Encoding: base64
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211030001801.237548-1-jose.souza@intel.com>
 Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Exit PSR when doing async
  flips
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -71,47 +52,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMDIxLTExLTAxIGF0IDE2OjM2IC0wNDAwLCBSb2RyaWdvIFZpdmkgd3JvdGU6DQo+
-IE9uIEZyaSwgT2N0IDI5LCAyMDIxIGF0IDA1OjE4OjAxUE0gLTA3MDAsIEpvc8OpIFJvYmVydG8g
-ZGUgU291emEgd3JvdGU6DQo+ID4gQ2hhbmdpbmcgdGhlIGJ1ZmZlciBpbiB0aGUgbWlkZGxlIG9m
-IHRoZSBzY2Fub3V0IHRoZW4gZW50ZXJpbmcgYW4NCj4gPiBwZXJpb2Qgb2YgZmxpcCBpZGxlbmVz
-cyB3aWxsIGNhdXNlIHBhcnQgb2YgdGhlIHByZXZpb3VzIGJ1ZmZlciBiZWluZw0KPiA+IGRpcGxh
-eWVkIHRvIHVzZXIgd2hlbiBQU1IgaXMgZW5hYmxlZC4NCj4gPiANCj4gPiBTbyBoZXJlIGRpc2Fi
-bGluZyBhbmQgc2NoZWR1bGluZyBhY3RpdmF0aW9uIGFmdGVyIGEgZmV3IG1pbGxpc2Vjb25kcw0K
-PiA+IHdoZW4gYXN5bmMgZmxpcCBpcyBlbmFibGVkIGluIHRoZSBzdGF0ZS4NCj4gPiANCj4gPiBU
-aGUgYXN5bmMgZmxpcCBjaGVjayB0aGF0IHdlIGhhZCBpbiBQU1IgY29tcHV0ZSBpcyBub3QgZXhl
-Y3V0ZWQgYXQNCj4gPiBldmVyeSBmbGlwIHNvIGl0IHdhcyBub3QgZG9pbmcgYW55dGhpbmcgdXNl
-ZnVsIGFuZCBpcyBhbHNvIGJlaW5nDQo+ID4gZHJvcHBlZCBoZXJlLg0KPiA+IA0KPiA+IENjOiBL
-YXJ0aGlrIEIgUyA8a2FydGhpay5iLnNAaW50ZWwuY29tPg0KPiA+IENjOiBWYW5kaXRhIEt1bGth
-cm5pIDx2YW5kaXRhLmt1bGthcm5pQGludGVsLmNvbT4NCj4gPiBDYzogVmlsbGUgU3lyasOkbMOk
-IDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBKb3PD
-qSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4NCj4gPiAtLS0NCj4gPiAg
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYyB8IDExICsrKysrLS0tLS0t
-DQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQo+
-ID4gDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-cHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+ID4gaW5k
-ZXggOWQ1ODlkNDcxZTMzNS4uZDEzMDFlMjcyOTU1MyAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiA+IEBAIC03MzEsMTIgKzczMSw2IEBAIHN0
-YXRpYyBib29sIGludGVsX3BzcjJfc2VsX2ZldGNoX2NvbmZpZ192YWxpZChzdHJ1Y3QgaW50ZWxf
-ZHAgKmludGVsX2RwLA0KPiA+ICAJCXJldHVybiBmYWxzZTsNCj4gPiAgCX0NCj4gPiAgDQo+ID4g
-LQlpZiAoY3J0Y19zdGF0ZS0+dWFwaS5hc3luY19mbGlwKSB7DQo+ID4gLQkJZHJtX2RiZ19rbXMo
-JmRldl9wcml2LT5kcm0sDQo+ID4gLQkJCSAgICAiUFNSMiBzZWwgZmV0Y2ggbm90IGVuYWJsZWQs
-IGFzeW5jIGZsaXAgZW5hYmxlZFxuIik7DQo+ID4gLQkJcmV0dXJuIGZhbHNlOw0KPiA+IC0JfQ0K
-PiA+IC0NCj4gPiAgCS8qIFdhXzE0MDEwMjU0MTg1IFdhXzE0MDEwMTAzNzkyICovDQo+ID4gIAlp
-ZiAoSVNfVEdMX0RJU1BMQVlfU1RFUChkZXZfcHJpdiwgU1RFUF9BMCwgU1RFUF9DMCkpIHsNCj4g
-PiAgCQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwNCj4gPiBAQCAtMTc4MCw2ICsxNzc0LDEx
-IEBAIHZvaWQgaW50ZWxfcHNyX3ByZV9wbGFuZV91cGRhdGUoc3RydWN0IGludGVsX2F0b21pY19z
-dGF0ZSAqc3RhdGUsDQo+ID4gIAkJaWYgKHBzci0+ZW5hYmxlZCAmJiBuZWVkc190b19kaXNhYmxl
-KQ0KPiA+ICAJCQlpbnRlbF9wc3JfZGlzYWJsZV9sb2NrZWQoaW50ZWxfZHApOw0KPiA+ICANCj4g
-PiArCQlpZiAocHNyLT5lbmFibGVkICYmIGNydGNfc3RhdGUtPnVhcGkuYXN5bmNfZmxpcCkgew0K
-PiA+ICsJCQlpbnRlbF9wc3JfZXhpdChpbnRlbF9kcCk7DQo+ID4gKwkJCXNjaGVkdWxlX3dvcmso
-JmludGVsX2RwLT5wc3Iud29yayk7DQo+IA0KPiB3b3VsZG4ndCBpdCBiZSBiZXR0ZXIoc2FmZXI/
-KSB0byByZXNjaGVkdWxlIGl0IGJhY2sgaW4gYSBsYXRlciBzdGFnZT8NCg0KZ29vZCBpZGVhLCBk
-byB0aGF0IGluIGludGVsX3Bzcl9wb3N0X3BsYW5lX3VwZGF0ZSgpLg0KDQp0aGFua3MNCg0KPiAN
-Cj4gPiArCQl9DQo+ID4gKw0KPiA+ICAJCW11dGV4X3VubG9jaygmcHNyLT5sb2NrKTsNCj4gPiAg
-CX0NCj4gPiAgfQ0KPiA+IC0tIA0KPiA+IDIuMzMuMQ0KPiA+IA0KDQo=
+On Fri, Oct 29, 2021 at 05:18:01PM -0700, José Roberto de Souza wrote:
+> Changing the buffer in the middle of the scanout then entering an
+> period of flip idleness will cause part of the previous buffer being
+> diplayed to user when PSR is enabled.
+> 
+> So here disabling and scheduling activation after a few milliseconds
+> when async flip is enabled in the state.
+> 
+> The async flip check that we had in PSR compute is not executed at
+> every flip so it was not doing anything useful and is also being
+> dropped here.
+> 
+> Cc: Karthik B S <karthik.b.s@intel.com>
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_psr.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+> index 9d589d471e335..d1301e2729553 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -731,12 +731,6 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
+>  		return false;
+>  	}
+>  
+> -	if (crtc_state->uapi.async_flip) {
+> -		drm_dbg_kms(&dev_priv->drm,
+> -			    "PSR2 sel fetch not enabled, async flip enabled\n");
+> -		return false;
+> -	}
+> -
+>  	/* Wa_14010254185 Wa_14010103792 */
+>  	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
+>  		drm_dbg_kms(&dev_priv->drm,
+> @@ -1780,6 +1774,11 @@ void intel_psr_pre_plane_update(struct intel_atomic_state *state,
+>  		if (psr->enabled && needs_to_disable)
+>  			intel_psr_disable_locked(intel_dp);
+>  
+> +		if (psr->enabled && crtc_state->uapi.async_flip) {
+> +			intel_psr_exit(intel_dp);
+> +			schedule_work(&intel_dp->psr.work);
+
+wouldn't it be better(safer?) to reschedule it back in a later stage?
+
+> +		}
+> +
+>  		mutex_unlock(&psr->lock);
+>  	}
+>  }
+> -- 
+> 2.33.1
+> 
