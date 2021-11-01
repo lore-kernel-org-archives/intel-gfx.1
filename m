@@ -2,45 +2,51 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CA9BC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 08:37:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DDF32C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 08:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5BD96054F
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 08:37:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C5BD96054F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 93EDE60F36
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 08:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 93EDE60F36
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CEB36E084;
-	Mon,  1 Nov 2021 08:37:05 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CF326E084
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 08:37:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="317171400"
-X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="317171400"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 01:37:03 -0700
-X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="488548522"
-Received: from unknown (HELO intel.com) ([10.237.72.167])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 01:37:02 -0700
-Date: Mon, 1 Nov 2021 10:36:31 +0200
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20211101083631.GA8827@intel.com>
-References: <20211029191802.18448-1-ville.syrjala@linux.intel.com>
- <20211029191802.18448-2-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D187B89FD3;
+	Mon,  1 Nov 2021 08:42:32 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org
+ [IPv6:2404:9400:2:0:216:3eff:fee2:21ea])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F40F6E054;
+ Mon,  1 Nov 2021 08:42:31 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4HjRNx3Hdrz4xbC;
+ Mon,  1 Nov 2021 19:42:24 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+ s=201702; t=1635756147;
+ bh=zeBNRU97MSWpu1D2Ts3/Tp8r/3C233Ohd7glZC2TBJw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=c52KPRl251BVXF489gMOE2VQI7MZgyoDLzJR7/hJJw61N/sIcR+X2cZkA3e9+Od/q
+ 83luLwx7TN40+DeG5r6cy3xpqNlsdB7JEC8Haxg/ezWyt3B69aQPAujy1QGIKhnTB6
+ fmhTXJxaLsj5ytHwOIM8EnCDvfrBYzdDRTC+0bphfvdP9LM5bxlAOfOhgwEcZulc18
+ pZxc4s937mKthLXnaZXV/csQ+icDoiAPfVBEiTtiZFI1xAbqHvtKhCv7CABnS7SyAS
+ k79pQEW9a95T8fstx62jFvezS5/CbcdL/1rS0sc+5XA8GaHdBGrqxddI+s5w/4baWV
+ NI4GDm8Me8WbQ==
+Date: Mon, 1 Nov 2021 19:42:23 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
+Message-ID: <20211101194223.749197c5@canb.auug.org.au>
+In-Reply-To: <20211015202648.258445ef@canb.auug.org.au>
+References: <20211015202648.258445ef@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211029191802.18448-2-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/hdmi: Turn DP++ TMDS output
- buffers back on in encoder->shutdown()
+Content-Type: multipart/signed; boundary="Sig_/AvYxcYE9xVAnbawWvDaH9ME";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Intel-gfx] linux-next: build failure after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,130 +59,129 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 29, 2021 at 10:18:02PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Looks like our VBIOS/GOP generally fail to turn the DP dual mode adater
-> TMDS output buffers back on after a reboot. This leads to a black screen
-> after reboot if we turned the TMDS output buffers off prior to reboot.
-> And if i915 decides to do a fastboot the black screen will persist even
-> after i915 takes over.
-> 
-> Apparently this has been a problem ever since commit b2ccb822d376 ("drm/i915:
-> Enable/disable TMDS output buffers in DP++ adaptor as needed") if one
-> rebooted while the display was turned off. And things became worse with
-> commit fe0f1e3bfdfe ("drm/i915: Shut down displays gracefully on reboot")
-> since now we always turn the display off before a reboot.
-> 
-> This was reported on a RKL, but I confirmed the same behaviour on my
-> SNB as well. So looks pretty universal.
-> 
-> Let's fix this by explicitly turning the TMDS output buffers back on
-> in the encoder->shutdown() hook. Note that this gets called after irqs
-> have been disabled, so the i2c communication with the DP dual mode
-> adapter has to be performed via polling (which the gmbus code is
-> perfectly happy to do for us).
-> 
-> We also need a bit of care in handling DDI encoders which may or may
-> not be set up for HDMI output. Specifically ddc_pin will not be
-> populated for a DP only DDI encoder, in which case we don't want to
-> call intel_gmbus_get_adapter(). We can handle that by simply doing
-> the dual mode adapter type check before calling
-> intel_gmbus_get_adapter().
+--Sig_/AvYxcYE9xVAnbawWvDaH9ME
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Hi all,
 
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: b2ccb822d376 ("drm/i915: Enable/disable TMDS output buffers in DP++ adaptor as needed")
-> Fixes: fe0f1e3bfdfe ("drm/i915: Shut down displays gracefully on reboot")
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4371
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Fri, 15 Oct 2021 20:26:48 +1100 Stephen Rothwell <sfr@canb.auug.org.au> =
+wrote:
+>
+> After merging the drm-misc tree, today's linux-next build (arm
+> multi_v7_defconfig) failed like this:
+>=20
+> drivers/gpu/drm/drm_modeset_lock.c:111:29: error: conflicting types for '=
+__stack_depot_save'
+>   111 | static depot_stack_handle_t __stack_depot_save(void)
+>       |                             ^~~~~~~~~~~~~~~~~~
+> In file included from include/linux/page_ext.h:7,
+>                  from include/linux/mm.h:25,
+>                  from include/linux/kallsyms.h:13,
+>                  from include/linux/bpf.h:20,
+>                  from include/linux/bpf-cgroup.h:5,
+>                  from include/linux/cgroup-defs.h:22,
+>                  from include/linux/cgroup.h:28,
+>                  from include/linux/memcontrol.h:13,
+>                  from include/linux/swap.h:9,
+>                  from include/linux/suspend.h:5,
+>                  from include/linux/regulator/consumer.h:35,
+>                  from include/linux/i2c.h:18,
+>                  from include/drm/drm_crtc.h:28,
+>                  from include/drm/drm_atomic.h:31,
+>                  from drivers/gpu/drm/drm_modeset_lock.c:24:
+> include/linux/stackdepot.h:18:22: note: previous declaration of '__stack_=
+depot_save' was here
+>    18 | depot_stack_handle_t __stack_depot_save(unsigned long *entries,
+>       |                      ^~~~~~~~~~~~~~~~~~
+>=20
+> Caused by commit
+>=20
+>   cd06ab2fd48f ("drm/locking: add backtrace for locking contended locks w=
+ithout backoff")
+>=20
+> This may only have been revealed because of another fix I have had to
+> apply today.
+>=20
+> I have applied the following patch for today.
+>=20
+> From: Stephen Rothwell <sfr@canb.auug.org.au>
+> Date: Fri, 15 Oct 2021 20:17:52 +1100
+> Subject: [PATCH] drm/locking: fix for name conflict
+>=20
+> Fixes: cd06ab2fd48f ("drm/locking: add backtrace for locking contended lo=
+cks without backoff")
+> Signed-off-by: Stephen Rothwell <sfr@canb.auug.org.au>
 > ---
->  drivers/gpu/drm/i915/display/g4x_hdmi.c   |  1 +
->  drivers/gpu/drm/i915/display/intel_ddi.c  |  1 +
->  drivers/gpu/drm/i915/display/intel_hdmi.c | 16 ++++++++++++++--
->  drivers/gpu/drm/i915/display/intel_hdmi.h |  1 +
->  4 files changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/g4x_hdmi.c b/drivers/gpu/drm/i915/display/g4x_hdmi.c
-> index 88c427f3c346..f5b4dd5b4275 100644
-> --- a/drivers/gpu/drm/i915/display/g4x_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/g4x_hdmi.c
-> @@ -584,6 +584,7 @@ void g4x_hdmi_init(struct drm_i915_private *dev_priv,
->  		else
->  			intel_encoder->enable = g4x_enable_hdmi;
->  	}
-> +	intel_encoder->shutdown = intel_hdmi_encoder_shutdown;
->  
->  	intel_encoder->type = INTEL_OUTPUT_HDMI;
->  	intel_encoder->power_domain = intel_port_to_power_domain(port);
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index 9fb99b09fff8..5ef2882727e1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -4312,6 +4312,7 @@ static void intel_ddi_encoder_shutdown(struct intel_encoder *encoder)
->  	enum phy phy = intel_port_to_phy(i915, encoder->port);
->  
->  	intel_dp_encoder_shutdown(encoder);
-> +	intel_hdmi_encoder_shutdown(encoder);
->  
->  	if (!intel_phy_is_tc(i915, phy))
->  		return;
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> index 7e6af959bf83..3b5b9e7b05b7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -1246,12 +1246,13 @@ static void hsw_set_infoframes(struct intel_encoder *encoder,
->  void intel_dp_dual_mode_set_tmds_output(struct intel_hdmi *hdmi, bool enable)
+>  drivers/gpu/drm/drm_modeset_lock.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_mod=
+eset_lock.c
+> index 4d32b61fa1fd..ee36dd20900d 100644
+> --- a/drivers/gpu/drm/drm_modeset_lock.c
+> +++ b/drivers/gpu/drm/drm_modeset_lock.c
+> @@ -79,7 +79,7 @@
+>  static DEFINE_WW_CLASS(crtc_ww_class);
+> =20
+>  #if IS_ENABLED(CONFIG_DRM_DEBUG_MODESET_LOCK)
+> -static noinline depot_stack_handle_t __stack_depot_save(void)
+> +static noinline depot_stack_handle_t __drm_stack_depot_save(void)
 >  {
->  	struct drm_i915_private *dev_priv = intel_hdmi_to_i915(hdmi);
-> -	struct i2c_adapter *adapter =
-> -		intel_gmbus_get_adapter(dev_priv, hdmi->ddc_bus);
-> +	struct i2c_adapter *adapter;
->  
->  	if (hdmi->dp_dual_mode.type < DRM_DP_DUAL_MODE_TYPE2_DVI)
->  		return;
->  
-> +	adapter = intel_gmbus_get_adapter(dev_priv, hdmi->ddc_bus);
-> +
->  	drm_dbg_kms(&dev_priv->drm, "%s DP dual mode adaptor TMDS output\n",
->  		    enable ? "Enabling" : "Disabling");
->  
-> @@ -2285,6 +2286,17 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+>  	unsigned long entries[8];
+>  	unsigned int n;
+> @@ -108,7 +108,7 @@ static void __stack_depot_print(depot_stack_handle_t =
+stack_depot)
+>  	kfree(buf);
+>  }
+>  #else /* CONFIG_DRM_DEBUG_MODESET_LOCK */
+> -static depot_stack_handle_t __stack_depot_save(void)
+> +static depot_stack_handle_t __drm_stack_depot_save(void)
+>  {
 >  	return 0;
 >  }
->  
-> +void intel_hdmi_encoder_shutdown(struct intel_encoder *encoder)
-> +{
-> +	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
-> +
-> +	/*
-> +	 * Give a hand to buggy BIOSen which forget to turn
-> +	 * the TMDS output buffers back on after a reboot.
-> +	 */
-> +	intel_dp_dual_mode_set_tmds_output(intel_hdmi, true);
-> +}
-> +
->  static void
->  intel_hdmi_unset_edid(struct drm_connector *connector)
->  {
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-> index b43a180d007e..2bf440eb400a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-> @@ -28,6 +28,7 @@ void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
->  int intel_hdmi_compute_config(struct intel_encoder *encoder,
->  			      struct intel_crtc_state *pipe_config,
->  			      struct drm_connector_state *conn_state);
-> +void intel_hdmi_encoder_shutdown(struct intel_encoder *encoder);
->  bool intel_hdmi_handle_sink_scrambling(struct intel_encoder *encoder,
->  				       struct drm_connector *connector,
->  				       bool high_tmds_clock_ratio,
-> -- 
-> 2.32.0
-> 
+> @@ -317,7 +317,7 @@ static inline int modeset_lock(struct drm_modeset_loc=
+k *lock,
+>  		ret =3D 0;
+>  	} else if (ret =3D=3D -EDEADLK) {
+>  		ctx->contended =3D lock;
+> -		ctx->stack_depot =3D __stack_depot_save();
+> +		ctx->stack_depot =3D __drm_stack_depot_save();
+>  	}
+> =20
+>  	return ret;
+> --=20
+> 2.33.0
+
+This has reappeared today.  I don't know what happened to the drm-misc
+tree over the weeked :-(
+
+I have reapplied the above fix.
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/AvYxcYE9xVAnbawWvDaH9ME
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmF/qG8ACgkQAVBC80lX
+0GyNiAf+Ms39LuFBShnOv9eD0ADdpHrEZTj45+fbpivngOM/Ezt/r5mrf5QEI2VN
+DW6TpcExT8EnKmA6OmOVwJ8aoGfZagU6iyFOLd7JZ3rjxpJJTxTmzAPn8YQmBRAh
+4Vkgl2CHv73+J6ptIuu+cHeqB75mIRsUJJ3Ig7sjhhdWncF7OQrWWXhLMSE0M6Lm
+WQOzGOQm13QUKhGupADWHq1a5NoRiKpHR+dI6DnmgM0PTgM1PoVxqnfZ3UvGOQmi
+eXsyUZbaK4EHqo5cn/0+p8/K6MpjVCupcrIr+dlJ9JPntducoFS3OzDpIhzgTBJL
+kvN4/iz2JTwrvuMjVbDwdedpmJAi3w==
+=9avb
+-----END PGP SIGNATURE-----
+
+--Sig_/AvYxcYE9xVAnbawWvDaH9ME--
