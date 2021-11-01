@@ -2,43 +2,41 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0834C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C349C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 18:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B830960F42
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B830960F42
+	by mail.kernel.org (Postfix) with ESMTPS id F16DE60F42
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 18:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F16DE60F42
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53FDA6E24D;
-	Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 397476E288;
+	Mon,  1 Nov 2021 18:41:39 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B67C16E24D
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 18:41:37 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="317288662"
-X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="317288662"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86CD46E3AC
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 18:41:38 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="317288659"
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="317288659"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 11:35:57 -0700
-X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="599123393"
+ 01 Nov 2021 11:35:56 -0700
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="599123365"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 11:35:55 -0700
+ 01 Nov 2021 11:35:54 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Nov 2021 20:35:51 +0200
-Message-Id: <20211101183551.3580546-2-imre.deak@intel.com>
+Date: Mon,  1 Nov 2021 20:35:50 +0200
+Message-Id: <20211101183551.3580546-1-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20211101183551.3580546-1-imre.deak@intel.com>
-References: <20211101183551.3580546-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Restore memory mapping for DPT
- FBs across system suspend/resume
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915: Factor out
+ i915_ggtt_suspend_vm/i915_ggtt_resume_vm()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,136 +53,160 @@ Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At least during hibernation the DPT mappings are lost with all stolen
-memory content, so suspend/resume these mappings similarly to GGTT
-mappings.
+Factor out functions that are needed by the next patch to suspend/resume
+the memory mappings for DPT FBs.
 
-This fixes a problem where the restoring modeset during system resume fails
-with pipe faults if a tiled framebuffer was active before suspend.
+No functional change, except reordering during suspend the
+ggtt->invalidate(ggtt) call wrt. atomic_set(&ggtt->vm.open, open) and
+mutex_unlock(&ggtt->vm.mutex). This shouldn't matter due to the i915
+suspend sequence being single threaded.
 
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Vunny Sodhi <vunny.sodhi@intel.com>
-Reported-and-tested-by: Vunny Sodhi <vunny.sodhi@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpt.c | 50 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dpt.h |  4 ++
- drivers/gpu/drm/i915/i915_drv.c          |  5 +++
- 3 files changed, 59 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_ggtt.c | 71 +++++++++++++++++++++-------
+ drivers/gpu/drm/i915/gt/intel_gtt.h  |  2 +
+ 2 files changed, 56 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
-index 8f7b1f7534a48..3a7f185746c89 100644
---- a/drivers/gpu/drm/i915/display/intel_dpt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpt.c
-@@ -167,6 +167,56 @@ void intel_dpt_unpin(struct i915_address_space *vm)
- 	i915_vma_put(dpt->vma);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index f17383e76eb71..834dc1b6a0729 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -116,17 +116,26 @@ static bool needs_idle_maps(struct drm_i915_private *i915)
+ 	return false;
  }
  
+-void i915_ggtt_suspend(struct i915_ggtt *ggtt)
 +/**
-+ * intel_dpt_resume - restore the memory mapping for all DPT FBs during system resume
-+ * @i915: device instance
++ * i915_ggtt_suspend_vm - Suspend the memory mappings for a GGTT or DPT VM
++ * @vm: The VM to suspend the mappings for
 + *
-+ * Restore the memory mapping during system resume for all framebuffers which
-+ * are mapped to HW via a GGTT->DPT page table.
-+ *
-+ * This function must be called after the mappings in GGTT have been restored calling
-+ * i915_ggtt_resume().
++ * Suspend the memory mappings for all objects mapped to HW via the GGTT or a
++ * DPT page table.
 + */
-+void intel_dpt_resume(struct drm_i915_private *i915)
-+{
-+	struct drm_framebuffer *drm_fb;
-+
-+	mutex_lock(&i915->drm.mode_config.fb_lock);
-+	drm_for_each_fb(drm_fb, &i915->drm) {
-+		struct intel_framebuffer *fb = to_intel_framebuffer(drm_fb);
-+
-+		if (fb->dpt_vm)
-+			i915_ggtt_resume_vm(fb->dpt_vm);
-+	}
-+	mutex_unlock(&i915->drm.mode_config.fb_lock);
-+}
-+
-+/**
-+ * intel_dpt_suspend - suspend the memory mapping for all DPT FBs during system suspend
-+ * @i915: device instance
-+ *
-+ * Suspend the memory mapping during system suspend for all framebuffers which
-+ * are mapped to HW via a GGTT->DPT page table.
-+ *
-+ * This function must be called before the mappings in GGTT are suspended calling
-+ * i915_ggtt_suspend().
-+ */
-+void intel_dpt_suspend(struct drm_i915_private *i915)
-+{
-+	struct drm_framebuffer *drm_fb;
-+
-+	mutex_lock(&i915->drm.mode_config.fb_lock);
-+
-+	drm_for_each_fb(drm_fb, &i915->drm) {
-+		struct intel_framebuffer *fb = to_intel_framebuffer(drm_fb);
-+
-+		if (fb->dpt_vm)
-+			i915_ggtt_suspend_vm(fb->dpt_vm);
-+	}
-+
-+	mutex_unlock(&i915->drm.mode_config.fb_lock);
-+}
-+
- struct i915_address_space *
- intel_dpt_create(struct intel_framebuffer *fb)
++void i915_ggtt_suspend_vm(struct i915_address_space *vm)
  {
-diff --git a/drivers/gpu/drm/i915/display/intel_dpt.h b/drivers/gpu/drm/i915/display/intel_dpt.h
-index 45142b8f849f6..e18a9f767b112 100644
---- a/drivers/gpu/drm/i915/display/intel_dpt.h
-+++ b/drivers/gpu/drm/i915/display/intel_dpt.h
-@@ -6,6 +6,8 @@
- #ifndef __INTEL_DPT_H__
- #define __INTEL_DPT_H__
+ 	struct i915_vma *vma, *vn;
+ 	int open;
  
-+struct drm_i915_private;
+-	mutex_lock(&ggtt->vm.mutex);
++	drm_WARN_ON(&vm->i915->drm, !vm->is_ggtt && !vm->is_dpt);
 +
- struct i915_address_space;
- struct i915_vma;
- struct intel_framebuffer;
-@@ -13,6 +15,8 @@ struct intel_framebuffer;
- void intel_dpt_destroy(struct i915_address_space *vm);
- struct i915_vma *intel_dpt_pin(struct i915_address_space *vm);
- void intel_dpt_unpin(struct i915_address_space *vm);
-+void intel_dpt_suspend(struct drm_i915_private *i915);
-+void intel_dpt_resume(struct drm_i915_private *i915);
- struct i915_address_space *
- intel_dpt_create(struct intel_framebuffer *fb);
++	mutex_lock(&vm->mutex);
  
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 1e5b75ae99329..4a054aa1860b0 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -51,6 +51,7 @@
- #include "display/intel_dmc.h"
- #include "display/intel_display_types.h"
- #include "display/intel_dp.h"
-+#include "display/intel_dpt.h"
- #include "display/intel_fbdev.h"
- #include "display/intel_hotplug.h"
- #include "display/intel_overlay.h"
-@@ -1128,6 +1129,8 @@ static int i915_drm_suspend(struct drm_device *dev)
+ 	/* Skip rewriting PTE on VMA unbind. */
+-	open = atomic_xchg(&ggtt->vm.open, 0);
++	open = atomic_xchg(&vm->open, 0);
  
- 	intel_suspend_hw(dev_priv);
+-	list_for_each_entry_safe(vma, vn, &ggtt->vm.bound_list, vm_link) {
++	list_for_each_entry_safe(vma, vn, &vm->bound_list, vm_link) {
+ 		GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
+ 		i915_vma_wait_for_bind(vma);
  
-+	/* Must be called before GGTT is suspended. */
-+	intel_dpt_suspend(dev_priv);
- 	i915_ggtt_suspend(&dev_priv->ggtt);
+@@ -139,11 +148,17 @@ void i915_ggtt_suspend(struct i915_ggtt *ggtt)
+ 		}
+ 	}
  
- 	i915_save_display(dev_priv);
-@@ -1244,6 +1247,8 @@ static int i915_drm_resume(struct drm_device *dev)
- 		drm_err(&dev_priv->drm, "failed to re-enable GGTT\n");
+-	ggtt->vm.clear_range(&ggtt->vm, 0, ggtt->vm.total);
++	vm->clear_range(vm, 0, vm->total);
++
++	atomic_set(&vm->open, open);
++
++	mutex_unlock(&vm->mutex);
++}
++
++void i915_ggtt_suspend(struct i915_ggtt *ggtt)
++{
++	i915_ggtt_suspend_vm(&ggtt->vm);
+ 	ggtt->invalidate(ggtt);
+-	atomic_set(&ggtt->vm.open, open);
+-
+-	mutex_unlock(&ggtt->vm.mutex);
  
- 	i915_ggtt_resume(&dev_priv->ggtt);
-+	/* Must be called after GGTT is resumed. */
-+	intel_dpt_resume(dev_priv);
+ 	intel_gt_check_and_clear_faults(ggtt->vm.gt);
+ }
+@@ -1253,37 +1268,59 @@ void i915_ggtt_disable_guc(struct i915_ggtt *ggtt)
+ 	ggtt->invalidate(ggtt);
+ }
  
- 	intel_dmc_ucode_resume(dev_priv);
+-void i915_ggtt_resume(struct i915_ggtt *ggtt)
++/**
++ * i915_ggtt_resume_vm - Restore the memory mappings for a GGTT or DPT VM
++ * @vm: The VM to restore the mappings for
++ *
++ * Restore the memory mappings for all objects mapped to HW via the GGTT or a
++ * DPT page table.
++ *
++ * Returns %true if restoring the mapping for any object that was in a write
++ * domain before suspend.
++ */
++bool i915_ggtt_resume_vm(struct i915_address_space *vm)
+ {
+ 	struct i915_vma *vma;
+-	bool flush = false;
++	bool write_domain_objs = false;
+ 	int open;
+ 
+-	intel_gt_check_and_clear_faults(ggtt->vm.gt);
++	drm_WARN_ON(&vm->i915->drm, !vm->is_ggtt && !vm->is_dpt);
+ 
+ 	/* First fill our portion of the GTT with scratch pages */
+-	ggtt->vm.clear_range(&ggtt->vm, 0, ggtt->vm.total);
++	vm->clear_range(vm, 0, vm->total);
+ 
+ 	/* Skip rewriting PTE on VMA unbind. */
+-	open = atomic_xchg(&ggtt->vm.open, 0);
++	open = atomic_xchg(&vm->open, 0);
+ 
+ 	/* clflush objects bound into the GGTT and rebind them. */
+-	list_for_each_entry(vma, &ggtt->vm.bound_list, vm_link) {
++	list_for_each_entry(vma, &vm->bound_list, vm_link) {
+ 		struct drm_i915_gem_object *obj = vma->obj;
+ 		unsigned int was_bound =
+ 			atomic_read(&vma->flags) & I915_VMA_BIND_MASK;
+ 
+ 		GEM_BUG_ON(!was_bound);
+-		vma->ops->bind_vma(&ggtt->vm, NULL, vma,
++		vma->ops->bind_vma(vm, NULL, vma,
+ 				   obj ? obj->cache_level : 0,
+ 				   was_bound);
+ 		if (obj) { /* only used during resume => exclusive access */
+-			flush |= fetch_and_zero(&obj->write_domain);
++			write_domain_objs |= fetch_and_zero(&obj->write_domain);
+ 			obj->read_domains |= I915_GEM_DOMAIN_GTT;
+ 		}
+ 	}
+ 
+-	atomic_set(&ggtt->vm.open, open);
++	atomic_set(&vm->open, open);
++
++	return write_domain_objs;
++}
++
++void i915_ggtt_resume(struct i915_ggtt *ggtt)
++{
++	bool flush;
++
++	intel_gt_check_and_clear_faults(ggtt->vm.gt);
++
++	flush = i915_ggtt_resume_vm(&ggtt->vm);
++
+ 	ggtt->invalidate(ggtt);
+ 
+ 	if (flush)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index bc67502633599..dfeaef680aacd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -544,6 +544,8 @@ int i915_ppgtt_init_hw(struct intel_gt *gt);
+ struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt,
+ 				     unsigned long lmem_pt_obj_flags);
+ 
++void i915_ggtt_suspend_vm(struct i915_address_space *vm);
++bool i915_ggtt_resume_vm(struct i915_address_space *vm);
+ void i915_ggtt_suspend(struct i915_ggtt *gtt);
+ void i915_ggtt_resume(struct i915_ggtt *ggtt);
  
 -- 
 2.27.0
