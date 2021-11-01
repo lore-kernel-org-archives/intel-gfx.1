@@ -2,44 +2,50 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A77C3C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 08:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1362EC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 09:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71EA760F36
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 08:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 71EA760F36
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AFD3A61058
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 09:18:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AFD3A61058
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1067D6E176;
-	Mon,  1 Nov 2021 08:46:47 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 318C66E176
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 08:46:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="211027269"
-X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="211027269"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 01:46:45 -0700
-X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="499956695"
-Received: from unknown (HELO intel.com) ([10.237.72.167])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 01:46:44 -0700
-Date: Mon, 1 Nov 2021 10:41:58 +0200
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20211101084158.GA8858@intel.com>
-References: <20211029191802.18448-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3342C89BD5;
+	Mon,  1 Nov 2021 09:18:01 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D182489BD5;
+ Mon,  1 Nov 2021 09:17:59 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4HjS9v4w2Pz4xbM;
+ Mon,  1 Nov 2021 20:17:55 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+ s=201702; t=1635758276;
+ bh=3PZGj0sci0bcIw2HkwJH0u3E+keMCC3880sW+RDPpLA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Sz8NDmRJfupih7wwXJd+Z+oIWl/sTJIaYi4SfEV/BOmIogtNZiLSOL0OSX/cfTk4A
+ LcUra4B1MNgSrhpstI9NTJ074f+vZ5MN49AzZEIgZ5N/IK6nPq9fmBZareLVWZe888
+ i/lctwsHkNXVLVQSSQb0Pt6u2QojcRa1ucVykkpsOGvPJztdKS198eFFz7X+suQ0f5
+ grkcAPcNq3jvKtDMfecwfbb1y9FwlCBK8Fi2cec4GRUNv9CfPx3uKqMjsRxT0f8IlF
+ tzXMJAsJpoGipTQ9l5xgOIzjs9rBxUh176JQcM1mGhGHhbEhh3ZzpPmyGuGFwVa4ZK
+ Y3gIANeGopJ+w==
+Date: Mon, 1 Nov 2021 20:17:54 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
+Message-ID: <20211101201754.53c6c148@canb.auug.org.au>
+In-Reply-To: <20211005185940.382720e7@canb.auug.org.au>
+References: <20211005185940.382720e7@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211029191802.18448-1-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Don't request GMBUS to
- generate irqs when called while irqs are off
+Content-Type: multipart/signed; boundary="Sig_/pPtQHmT5cGItirLOVele=Cw";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Intel-gfx] linux-next: build warning after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,65 +58,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 29, 2021 at 10:18:01PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> We will need to do some i2c poking from the encoder->shutdown() hook.
-> Currently that gets called after irqs have been turned off. We still
-> poll the gmbus status bits even if the interrupt never arrives so
-> things will work just fine. But seems like asking gmbus to generate
-> interrupts we will never see is a bit pointless, so don't.
-> 
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--Sig_/pPtQHmT5cGItirLOVele=Cw
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Hi Stephen,
 
-> ---
->  drivers/gpu/drm/i915/display/intel_gmbus.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-> index ceb1bf8a8c3c..3b8b84177085 100644
-> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-> @@ -334,6 +334,15 @@ intel_gpio_setup(struct intel_gmbus *bus, unsigned int pin)
->  	algo->data = bus;
->  }
->  
-> +static bool has_gmbus_irq(struct drm_i915_private *i915)
-> +{
-> +	/*
-> +	 * encoder->shutdown() may want to use GMBUS
-> +	 * after irqs have already been disabled.
-> +	 */
-> +	return HAS_GMBUS_IRQ(i915) && intel_irqs_enabled(i915);
-> +}
-> +
->  static int gmbus_wait(struct drm_i915_private *dev_priv, u32 status, u32 irq_en)
->  {
->  	DEFINE_WAIT(wait);
-> @@ -344,7 +353,7 @@ static int gmbus_wait(struct drm_i915_private *dev_priv, u32 status, u32 irq_en)
->  	 * we also need to check for NAKs besides the hw ready/idle signal, we
->  	 * need to wake up periodically and check that ourselves.
->  	 */
-> -	if (!HAS_GMBUS_IRQ(dev_priv))
-> +	if (!has_gmbus_irq(dev_priv))
->  		irq_en = 0;
->  
->  	add_wait_queue(&dev_priv->gmbus_wait_queue, &wait);
-> @@ -375,7 +384,7 @@ gmbus_wait_idle(struct drm_i915_private *dev_priv)
->  
->  	/* Important: The hw handles only the first bit, so set only one! */
->  	irq_enable = 0;
-> -	if (HAS_GMBUS_IRQ(dev_priv))
-> +	if (has_gmbus_irq(dev_priv))
->  		irq_enable = GMBUS_IDLE_EN;
->  
->  	add_wait_queue(&dev_priv->gmbus_wait_queue, &wait);
-> -- 
-> 2.32.0
-> 
+On Tue, 5 Oct 2021 18:59:40 +1100 Stephen Rothwell <sfr@canb.auug.org.au> w=
+rote:
+>
+> Hi all,
+>=20
+> After merging the drm-misc tree, today's linux-next build (htmldocs)
+> produced this warning:
+>=20
+> include/linux/dma-buf.h:456: warning: Function parameter or member 'cb_in=
+' not described in 'dma_buf'
+> include/linux/dma-buf.h:456: warning: Function parameter or member 'cb_ou=
+t' not described in 'dma_buf'
+>=20
+> Introduced by commit
+>=20
+>   6b51b02a3a0a ("dma-buf: fix and rework dma_buf_poll v7")
+
+This is back again as well :-(
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/pPtQHmT5cGItirLOVele=Cw
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmF/sMIACgkQAVBC80lX
+0GzqjAgAoHMxsBNaMEZw8e0gYsvplWSyRZUsYI9du1Og34jxHCucN+9CRgFHjflb
+sBjS5ZJzVSGYeT+igTiHoq3m/kHtJP2IcxuRPDaUQCT/SVGowUwCLgL8nZAbWunc
+rlB922IvJU14KTCQ8CFhptddX4LE9RwP2mHoHlmd8E6QnZBvR1Im2qWBgCtb4lWr
+YdljQP8dYl/Uw1Kj/XexiLEhVX92yakc/tZuqiC4Fyy07k1IbPehqn4LG7jxfgBY
+FieVWxLHqyPtpcVwWZUPhqCpxYJ6VXZJZ021HYGIr05bYfSZFrRGtZCqBATQBB2X
+/Mzeq3fVoPI3L6NBsUqX/BQCEjh+qQ==
+=wLoe
+-----END PGP SIGNATURE-----
+
+--Sig_/pPtQHmT5cGItirLOVele=Cw--
