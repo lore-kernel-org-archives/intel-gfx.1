@@ -2,48 +2,45 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B93B0C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C859C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:25:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A67960EBB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:16:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5A67960EBB
+	by mail.kernel.org (Postfix) with ESMTPS id 5183C610CB
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5183C610CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF638984D;
-	Mon,  1 Nov 2021 10:16:47 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAA48984D
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 10:16:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="254593841"
-X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="254593841"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D15808999A;
+	Mon,  1 Nov 2021 10:25:55 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D91898999A
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 10:25:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="211755624"
+X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="211755624"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 03:15:23 -0700
-X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="499979945"
-Received: from lellis-mobl.ger.corp.intel.com (HELO [10.213.243.87])
- ([10.213.243.87])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 03:25:26 -0700
+X-IronPort-AV: E=Sophos;i="5.87,198,1631602800"; d="scan'208";a="499982288"
+Received: from mvtammin-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.251.214.228])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 03:15:20 -0700
-To: Cooper Chiou <cooper.chiou@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20200916180745.627-1-cooper.chiou@intel.com>
- <20211025042623.3876-1-cooper.chiou@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <42d4ab18-97b7-bb80-cef9-0d779007b9e2@linux.intel.com>
-Date: Mon, 1 Nov 2021 10:15:19 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ 01 Nov 2021 03:25:24 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Madhumitha Tolakanahalli Pradeep
+ <madhumitha.tolakanahalli.pradeep@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210628235054.694581-1-madhumitha.tolakanahalli.pradeep@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210628235054.694581-1-madhumitha.tolakanahalli.pradeep@intel.com>
+Date: Mon, 01 Nov 2021 12:25:21 +0200
+Message-ID: <87ilxcdvfy.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20211025042623.3876-1-cooper.chiou@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v8] drm/i915: Enable
- WaProgramMgsrForCorrectSliceSpecificMmioReads for Gen9
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/tgl: Implement
+ Wa_14013120569
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,118 +53,120 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: William Tseng <william.tseng@intel.com>,
- Pawel Wilma <pawel.wilma@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Mon, 28 Jun 2021, Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanah=
+alli.pradeep@intel.com> wrote:
+> PCH display HPD IRQ is not detected with default filter value.
+> So, PP_CONTROL is manually reprogrammed.
 
-On 25/10/2021 05:26, Cooper Chiou wrote:
-> This implements WaProgramMgsrForCorrectSliceSpecificMmioReads which
-> was omitted by mistake from Gen9 documentation, while it is actually
-> applicable to fused off parts.
-> 
-> Workaround consists of making sure MCR packet control register is
-> programmed to point to enabled slice/subslice pair before doing any
-> MMIO reads from the affected registers.
-> 
-> Failure do to this can result in complete system hangs when running
-> certain workloads. Two known cases which can cause system hangs are:
-> 
-> 1. "test_basic progvar_prog_scope_uninit" test which is part of
->      Khronos OpenCL conformance suite
->      (https://github.com/KhronosGroup/OpenCL-CTS) with the Intel
->      OpenCL driver (https://github.com/intel/compute-runtime).
-> 
-> 2. VP8 media hardware encoding using the full-feature build of the
->      Intel media-driver (https://github.com/intel/media-driver) and
->      ffmpeg.
-> 
-> For the former case patch was verified to fix the hard system hang
-> when executing the OCL test on Intel Pentium CPU 6405U which contains
-> fused off GT1 graphics.
-> 
-> Reference: HSD#1508045018,1405586840, BSID#0575
-> 
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: William Tseng <william.tseng@intel.com>
-> Cc: Shawn C Lee <shawn.c.lee@intel.com>
-> Cc: Pawel Wilma <pawel.wilma@intel.com>
-> Signed-off-by: Cooper Chiou <cooper.chiou@intel.com>
+Returning to this workaround.
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+You're not supposed to enable the workaround when there's eDP
+connected. This is also crucial in avoiding issues with eDP PPS.
 
-Regards,
+The workaround is specific to Tiger Lake PCH, so you need to check
+against the PCH, not the GPU.
 
-Tvrtko
+Also see comments inline.
 
-P.S. You could have preserved my r-b from an earlier version since it is 
-the same code, just different commit message.
-
+>
+> Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli=
+.pradeep@intel.com>
 > ---
->   drivers/gpu/drm/i915/gt/intel_workarounds.c | 41 +++++++++++++++++++++
->   1 file changed, 41 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> index e1f362530889..8ae24da601b0 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -877,11 +877,52 @@ hsw_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   	wa_write_clr(wal, GEN7_FF_THREAD_MODE, GEN7_FF_VS_REF_CNT_FFME);
->   }
->   
-> +static void
-> +gen9_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> +{
-> +	const struct sseu_dev_info *sseu = &i915->gt.info.sseu;
-> +	unsigned int slice, subslice;
-> +	u32 mcr, mcr_mask;
+>  .../gpu/drm/i915/display/intel_display_power.c   |  8 ++++++++
+>  drivers/gpu/drm/i915/display/intel_hotplug.c     | 16 ++++++++++++++++
+>  2 files changed, 24 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers=
+/gpu/drm/i915/display/intel_display_power.c
+> index 285380079aab..e44323cc76f5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -6385,8 +6385,16 @@ static void intel_power_domains_verify_state(struc=
+t drm_i915_private *i915)
+>=20=20
+>  void intel_display_power_suspend_late(struct drm_i915_private *i915)
+>  {
+> +    struct drm_i915_private *dev_priv =3D i915;
+> +    u32 val;
+>  	if (DISPLAY_VER(i915) >=3D 11 || IS_GEMINILAKE(i915) ||
+>  	    IS_BROXTON(i915)) {
+> +		val =3D intel_de_read(dev_priv, PP_CONTROL(0));
+> +		/* Wa_14013120569:tgl */
+> +		if (IS_TIGERLAKE(i915)) {
+> +			val &=3D ~PANEL_POWER_ON;
+> +			intel_de_write(dev_priv, PP_CONTROL(0), val);
+> +	}
+
+As Jos=C3=A9 said, how do you enable the workaround after resume if external
+displays are still connected?
+
+>  		bxt_enable_dc9(i915);
+>  		/* Tweaked Wa_14010685332:icp,jsp,mcc */
+>  		if (INTEL_PCH_TYPE(i915) >=3D PCH_ICP && INTEL_PCH_TYPE(i915) <=3D PCH=
+_MCC)
+> diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/d=
+rm/i915/display/intel_hotplug.c
+> index 47c85ac97c87..8e3f84100daf 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hotplug.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
+> @@ -26,6 +26,7 @@
+>  #include "i915_drv.h"
+>  #include "intel_display_types.h"
+>  #include "intel_hotplug.h"
+> +#include "intel_de.h"
+>=20=20
+>  /**
+>   * DOC: Hotplug
+> @@ -266,7 +267,9 @@ intel_encoder_hotplug(struct intel_encoder *encoder,
+>  		      struct intel_connector *connector)
+>  {
+>  	struct drm_device *dev =3D connector->base.dev;
+> +	struct drm_i915_private *dev_priv =3D to_i915(dev);
+>  	enum drm_connector_status old_status;
+> +	u32 val;
+>  	u64 old_epoch_counter;
+>  	bool ret =3D false;
+>=20=20
+> @@ -288,6 +291,19 @@ intel_encoder_hotplug(struct intel_encoder *encoder,
+>  			      drm_get_connector_status_name(connector->base.status),
+>  			      old_epoch_counter,
+>  			      connector->base.epoch_counter);
 > +
-> +	GEM_BUG_ON(GRAPHICS_VER(i915) != 9);
-> +
-> +	/*
-> +	 * WaProgramMgsrForCorrectSliceSpecificMmioReads:gen9,glk,kbl,cml
-> +	 * Before any MMIO read into slice/subslice specific registers, MCR
-> +	 * packet control register needs to be programmed to point to any
-> +	 * enabled s/ss pair. Otherwise, incorrect values will be returned.
-> +	 * This means each subsequent MMIO read will be forwarded to an
-> +	 * specific s/ss combination, but this is OK since these registers
-> +	 * are consistent across s/ss in almost all cases. In the rare
-> +	 * occasions, such as INSTDONE, where this value is dependent
-> +	 * on s/ss combo, the read should be done with read_subslice_reg.
-> +	 */
-> +	slice = ffs(sseu->slice_mask) - 1;
-> +	GEM_BUG_ON(slice >= ARRAY_SIZE(sseu->subslice_mask));
-> +	subslice = ffs(intel_sseu_get_subslices(sseu, slice));
-> +	GEM_BUG_ON(!subslice);
-> +	subslice--;
-> +
-> +	/*
-> +	 * We use GEN8_MCR..() macros to calculate the |mcr| value for
-> +	 * Gen9 to address WaProgramMgsrForCorrectSliceSpecificMmioReads
-> +	 */
-> +	mcr = GEN8_MCR_SLICE(slice) | GEN8_MCR_SUBSLICE(subslice);
-> +	mcr_mask = GEN8_MCR_SLICE_MASK | GEN8_MCR_SUBSLICE_MASK;
-> +
-> +	drm_dbg(&i915->drm, "MCR slice:%d/subslice:%d = %x\n", slice, subslice, mcr);
-> +
-> +	wa_write_clr_set(wal, GEN8_MCR_SELECTOR, mcr_mask, mcr);
-> +}
-> +
->   static void
->   gen9_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
->   {
->   	struct drm_i915_private *i915 = gt->i915;
->   
-> +	/* WaProgramMgsrForCorrectSliceSpecificMmioReads:glk,kbl,cml,gen9 */
-> +	gen9_wa_init_mcr(i915, wal);
-> +
->   	/* WaDisableKillLogic:bxt,skl,kbl */
->   	if (!IS_COFFEELAKE(i915) && !IS_COMETLAKE(i915))
->   		wa_write_or(wal,
-> 
+> +		/* Wa_14013120569:tgl */
+> +		if (IS_TIGERLAKE(dev_priv)) {
+> +			val =3D intel_de_read(dev_priv, PP_CONTROL(0));
+> +			if (connector->base.status =3D=3D connector_status_connected) {
+> +				val |=3D PANEL_POWER_ON;
+> +				intel_de_write(dev_priv, PP_CONTROL(0), val);
+> +			}
+> +			else if (connector->base.status =3D=3D connector_status_disconnected)=
+ {
+> +				val &=3D ~PANEL_POWER_ON;
+> +				intel_de_write(dev_priv, PP_CONTROL(0), val);
+> +			}
+> +		}
+
+First off, usually if you have a clean, generic, high level function,
+it's a hint you shouldn't stick low level register access there.
+
+If you plug in two external displays and then unplug one of them, you
+end up disabling the workaround, while it's supposed to remain enabled
+if there's an external display connected. This is likely the most
+annoying part about the workaround.
+
+This does not seem like a trivial workaround to implement.
+
+
+BR,
+Jani.
+
+
+>  		return INTEL_HOTPLUG_CHANGED;
+>  	}
+>  	return INTEL_HOTPLUG_UNCHANGED;
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
