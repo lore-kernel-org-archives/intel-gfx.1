@@ -2,51 +2,46 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69FF6C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85DF2C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 11:38:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26A3160F56
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 10:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26A3160F56
+	by mail.kernel.org (Postfix) with ESMTPS id 36879610A2
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 11:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 36879610A2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CF289971;
-	Mon,  1 Nov 2021 10:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A339D89FA0;
+	Mon,  1 Nov 2021 11:38:32 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4994D89971
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 10:49:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="294448918"
-X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="294448918"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE9789FA0
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 11:38:31 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="294454375"
+X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="294454375"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 03:49:34 -0700
-X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="499987594"
-Received: from lellis-mobl.ger.corp.intel.com (HELO [10.213.243.87])
- ([10.213.243.87])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 03:49:33 -0700
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Cooper Chiou <cooper.chiou@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20200916180745.627-1-cooper.chiou@intel.com>
- <20211025042623.3876-1-cooper.chiou@intel.com>
- <42d4ab18-97b7-bb80-cef9-0d779007b9e2@linux.intel.com>
- <163576323499.3344.4388287606987057365@jlahtine-mobl.ger.corp.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <a0e17b30-31a9-1bc8-7cda-6888b76bd4c0@linux.intel.com>
-Date: Mon, 1 Nov 2021 10:49:30 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ 01 Nov 2021 04:38:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="500001547"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga008.jf.intel.com with SMTP; 01 Nov 2021 04:38:28 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 01 Nov 2021 13:38:27 +0200
+Date: Mon, 1 Nov 2021 13:38:27 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>
+Message-ID: <YX/Rs64T4e4rpiEM@intel.com>
+References: <20211029202432.140745-1-jose.souza@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <163576323499.3344.4388287606987057365@jlahtine-mobl.ger.corp.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v8] drm/i915: Enable
- WaProgramMgsrForCorrectSliceSpecificMmioReads for Gen9
+In-Reply-To: <20211029202432.140745-1-jose.souza@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/display: Check async flip state
+ of every crtc and plane once
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +54,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- William Tseng <william.tseng@intel.com>, Pawel Wilma <pawel.wilma@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 01/11/2021 10:40, Joonas Lahtinen wrote:
-> Quoting Tvrtko Ursulin (2021-11-01 12:15:19)
->>
->> On 25/10/2021 05:26, Cooper Chiou wrote:
->>> This implements WaProgramMgsrForCorrectSliceSpecificMmioReads which
->>> was omitted by mistake from Gen9 documentation, while it is actually
->>> applicable to fused off parts.
->>>
->>> Workaround consists of making sure MCR packet control register is
->>> programmed to point to enabled slice/subslice pair before doing any
->>> MMIO reads from the affected registers.
->>>
->>> Failure do to this can result in complete system hangs when running
->>> certain workloads. Two known cases which can cause system hangs are:
->>>
->>> 1. "test_basic progvar_prog_scope_uninit" test which is part of
->>>       Khronos OpenCL conformance suite
->>>       (https://github.com/KhronosGroup/OpenCL-CTS) with the Intel
->>>       OpenCL driver (https://github.com/intel/compute-runtime).
->>>
->>> 2. VP8 media hardware encoding using the full-feature build of the
->>>       Intel media-driver (https://github.com/intel/media-driver) and
->>>       ffmpeg.
->>>
->>> For the former case patch was verified to fix the hard system hang
->>> when executing the OCL test on Intel Pentium CPU 6405U which contains
->>> fused off GT1 graphics.
->>>
->>> Reference: HSD#1508045018,1405586840, BSID#0575
->>>
->>> Cc: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
->>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>> Cc: Jani Nikula <jani.nikula@intel.com>
->>> Cc: Chris Wilson <chris@chris-wilson.co.uk>
->>> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
->>> Cc: William Tseng <william.tseng@intel.com>
->>> Cc: Shawn C Lee <shawn.c.lee@intel.com>
->>> Cc: Pawel Wilma <pawel.wilma@intel.com>
->>> Signed-off-by: Cooper Chiou <cooper.chiou@intel.com>
->>
->> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Fri, Oct 29, 2021 at 01:24:32PM -0700, JosÈ Roberto de Souza wrote:
+> For every crtc in state, intel_atomic_check_async() was checking all
+> the crtc and plane states again.
 > 
-> Thanks for following through with all the testing and validation for the
-> patch!
+> v2: comparing pipe ids instead of crtc pointers when iterating over
+> planes
 > 
-> Acked-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Karthik B S <karthik.b.s@intel.com>
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> Signed-off-by: JosÈ Roberto de Souza <jose.souza@intel.com>
 
-I've pushed it, thanks!
+Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
 
-Regards,
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 38 ++++++++++----------
+>  1 file changed, 20 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 79cd158503b37..e494028260621 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -7707,35 +7707,37 @@ static void kill_bigjoiner_slave(struct intel_atomic_state *state,
+>   * correspond to the last vblank and have no relation to the actual time when
+>   * the flip done event was sent.
+>   */
+> -static int intel_atomic_check_async(struct intel_atomic_state *state)
+> +static int intel_atomic_check_async(struct intel_atomic_state *state, struct intel_crtc *crtc)
+>  {
+>  	struct drm_i915_private *i915 = to_i915(state->base.dev);
+>  	const struct intel_crtc_state *old_crtc_state, *new_crtc_state;
+>  	const struct intel_plane_state *new_plane_state, *old_plane_state;
+> -	struct intel_crtc *crtc;
+>  	struct intel_plane *plane;
+>  	int i;
+>  
+> -	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
+> -					    new_crtc_state, i) {
+> -		if (intel_crtc_needs_modeset(new_crtc_state)) {
+> -			drm_dbg_kms(&i915->drm, "Modeset Required. Async flip not supported\n");
+> -			return -EINVAL;
+> -		}
+> +	old_crtc_state = intel_atomic_get_old_crtc_state(state, crtc);
+> +	new_crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
+>  
+> -		if (!new_crtc_state->hw.active) {
+> -			drm_dbg_kms(&i915->drm, "CRTC inactive\n");
+> -			return -EINVAL;
+> -		}
+> -		if (old_crtc_state->active_planes != new_crtc_state->active_planes) {
+> -			drm_dbg_kms(&i915->drm,
+> -				    "Active planes cannot be changed during async flip\n");
+> -			return -EINVAL;
+> -		}
+> +	if (intel_crtc_needs_modeset(new_crtc_state)) {
+> +		drm_dbg_kms(&i915->drm, "Modeset Required. Async flip not supported\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (!new_crtc_state->hw.active) {
+> +		drm_dbg_kms(&i915->drm, "CRTC inactive\n");
+> +		return -EINVAL;
+> +	}
+> +	if (old_crtc_state->active_planes != new_crtc_state->active_planes) {
+> +		drm_dbg_kms(&i915->drm,
+> +			    "Active planes cannot be changed during async flip\n");
+> +		return -EINVAL;
+>  	}
+>  
+>  	for_each_oldnew_intel_plane_in_state(state, plane, old_plane_state,
+>  					     new_plane_state, i) {
+> +		if (plane->pipe != crtc->pipe)
+> +			continue;
+> +
+>  		/*
+>  		 * TODO: Async flip is only supported through the page flip IOCTL
+>  		 * as of now. So support currently added for primary plane only.
+> @@ -8054,7 +8056,7 @@ static int intel_atomic_check(struct drm_device *dev,
+>  	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
+>  					    new_crtc_state, i) {
+>  		if (new_crtc_state->uapi.async_flip) {
+> -			ret = intel_atomic_check_async(state);
+> +			ret = intel_atomic_check_async(state, crtc);
+>  			if (ret)
+>  				goto fail;
+>  		}
+> -- 
+> 2.33.1
 
-Tvrtko
+-- 
+Ville Syrj‰l‰
+Intel
