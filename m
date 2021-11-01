@@ -2,49 +2,43 @@ Return-Path: <SRS0=JOrb=PU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B163C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 14:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E840BC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 15:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C945660F24
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 14:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C945660F24
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B1FE960F58
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 15:39:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B1FE960F58
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2210C6E1E8;
-	Mon,  1 Nov 2021 14:50:58 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5826E1BB;
- Mon,  1 Nov 2021 14:50:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="231291778"
-X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="231291778"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 07:50:49 -0700
-X-IronPort-AV: E=Sophos;i="5.87,199,1631602800"; d="scan'208";a="488678959"
-Received: from lellis-mobl.ger.corp.intel.com (HELO [10.213.243.87])
- ([10.213.243.87])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2021 07:50:47 -0700
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20211101122444.114607-1-thomas.hellstrom@linux.intel.com>
- <e36fb04f-d652-cbb0-893d-57c32d834168@linux.intel.com>
- <9c4527a077fe7c98858e6312e134e45c15aa17d0.camel@linux.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <03d35a4c-1702-8661-9c2c-e214ce75d3a8@linux.intel.com>
-Date: Mon, 1 Nov 2021 14:50:45 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 129446E426;
+	Mon,  1 Nov 2021 15:39:18 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36CEB6E0D5;
+ Mon,  1 Nov 2021 15:39:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="230893666"
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="230893666"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 08:39:15 -0700
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; d="scan'208";a="448988308"
+Received: from nielsjoh-mobl1.amr.corp.intel.com (HELO localhost)
+ ([10.212.248.225])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 08:39:15 -0700
+From: Jordan Justen <jordan.l.justen@intel.com>
+To: John.C.Harrison@Intel.com, Intel-GFX@Lists.FreeDesktop.Org
+In-Reply-To: <20210916184012.2642295-3-John.C.Harrison@Intel.com>
+References: <20210916184012.2642295-1-John.C.Harrison@Intel.com>
+ <20210916184012.2642295-3-John.C.Harrison@Intel.com>
+Date: Mon, 01 Nov 2021 08:39:14 -0700
+Message-ID: <877ddr51i5.fsf@jljusten-skl>
 MIME-Version: 1.0
-In-Reply-To: <9c4527a077fe7c98858e6312e134e45c15aa17d0.camel@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v5] drm/i915: Introduce refcounted sg-tables
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v2 2/2] drm/i915/uapi: Add query for
+ hwconfig table
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,68 +51,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.auld@intel.com
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>,
+ DRI-Devel@Lists.FreeDesktop.Org,
+ Slawomir Milczarek <slawomir.milczarek@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+<John.C.Harrison@Intel.com> writes:
 
-On 01/11/2021 13:51, Thomas Hellström wrote:
-> Hi, Tvrtko
-> 
-> On Mon, 2021-11-01 at 13:14 +0000, Tvrtko Ursulin wrote:
->>
->> On 01/11/2021 12:24, Thomas Hellström wrote:
->>> As we start to introduce asynchronous failsafe object migration,
->>> where we update the object state and then submit asynchronous
->>> commands we need to record what memory resources are actually used
->>> by various part of the command stream. Initially for three
->>> purposes:
->>>
->>> 1) Error capture.
->>> 2) Asynchronous migration error recovery.
->>> 3) Asynchronous vma bind.
->>
->> FWIW something like this may be interesting to me as well, although I
->> haven't looked much into details yet, for the purpose of allowing
->> delayed "put pages" via decoupling from the GEM bo.
->> Two questions after glancing over:
->>
->> 1)
->> I do wonder if abstracting "sgt" away from the name would make sense?
->> Like perhaps obj->mm.pages being the location of the new abstraction
->> so
->> naming it along the lines of i915_obj_pages or something.
-> 
-> Well it's not yet clear how this will end up. Really this should
-> develop into something along the lines of "struct i915_async_obj", on
+> From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>
+> GuC contains a consolidated table with a bunch of information about the
+> current device.
+>
+> Previously, this information was spread and hardcoded to all the components
+> including GuC, i915 and various UMDs. The goal here is to consolidate
+> the data into GuC in a way that all interested components can grab the
+> very latest and synchronized information using a simple query.
+>
+> As per most of the other queries, this one can be called twice.
+> Once with item.length=0 to determine the exact buffer size, then
+> allocate the user memory and call it again for to retrieve the
+> table data. For example:
+>   struct drm_i915_query_item item = {
+>     .query_id = DRM_I915_QUERY_HWCONCFIG_TABLE;
+>   };
+>   query.items_ptr = (int64_t) &item;
+>   query.num_items = 1;
+>
+>   ioctl(fd, DRM_IOCTL_I915_QUERY, query, sizeof(query));
+>
+>   if (item.length <= 0)
+>     return -ENOENT;
+>
+>   data = malloc(item.length);
+>   item.data_ptr = (int64_t) &data;
+>   ioctl(fd, DRM_IOCTL_I915_QUERY, query, sizeof(query));
+>
+>   // Parse the data as appropriate...
+>
+> The returned array is a simple and flexible KLV (Key/Length/Value)
+> formatted table. For example, it could be just:
+>   enum device_attr {
+>      ATTR_SOME_VALUE = 0,
+>      ATTR_SOME_MASK  = 1,
+>   };
+>
+>   static const u32 hwconfig[] = {
+>       ATTR_SOME_VALUE,
+>       1,             // Value Length in DWords
+>       8,             // Value
+>
+>       ATTR_SOME_MASK,
+>       3,
+>       0x00FFFFFFFF, 0xFFFFFFFF, 0xFF000000,
+>   };
 
-Whole gigantic object struct will be needed for async free or for 
-something more than that?
+Seems simple enough, so why doesn't i915 define the format of the
+returned hwconfig blob in i915_drm.h?
 
-> which the sg-list is a member only. Depending on how this turns out and
-> if it remains an sg-list I think your suggestion makes sense, but is it
-> something we can postpone for now?
+struct drm_i915_hwconfig {
+	uint32_t key;
+	uint32_t length;
+	uint32_t values[];
+};
 
-...
+It sounds like the kernel depends on the closed source guc being loaded
+to return this information. Is that right? Will i915 also become
+dependent on some of this data such that it won't be able to initialize
+without the firmware being loaded?
 
-> 
->>
->> 2)
->> And how come obj->mm.pages remains? Does it go away later in follow
->> up work?
-> 
-> For the non-ttm backends, it's not yet implemented, so once they are
-> either moved to TTM or updated, we can completely replace obj-
->> mm.pages.
+> The attribute ids are defined in a hardware spec.
 
-... sure, it's your project. I assume there is some time pressure then. 
-I was just asking since it looked a bit outside of the usual patterns on 
-a glance.
+Which spec?
 
-Oh one more question, how will it work for objects which migrate between 
-system and local memory? Depending on current placement either 
-obj->mm.pages or obj->mm.rsgt will be valid?
-
-Regards,
-
-Tvrtko
+-Jordan
