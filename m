@@ -2,41 +2,120 @@ Return-Path: <SRS0=WhEZ=PV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6902C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AED93C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9F70D60720
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:07:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9F70D60720
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7D0AA604DC
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:07:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D0AA604DC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8F2730E2;
-	Tue,  2 Nov 2021 16:07:19 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FEF5730DC;
- Tue,  2 Nov 2021 16:07:16 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10156"; a="231255209"
-X-IronPort-AV: E=Sophos;i="5.87,203,1631602800"; d="scan'208";a="231255209"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2021 08:51:39 -0700
-X-IronPort-AV: E=Sophos;i="5.87,203,1631602800"; d="scan'208";a="728396479"
-Received: from dccormac-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.3.196])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2021 08:51:38 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Nov 2021 15:50:55 +0000
-Message-Id: <20211102155055.100138-1-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B320C730E0;
+	Tue,  2 Nov 2021 16:07:28 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5742730DC;
+ Tue,  2 Nov 2021 16:07:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z0Gk4XI5ojzj303GuIjoABSchorsKmRyWqCgIOglzMP+ezcSgGKVd3/mw4WGA1ADJ34S1EjNuz5tFEoO146hIrSoayPAXWgwf3fh97+AjILAZS6B8JhVRVozbcfEJ6gvCDm6D6mdJ4jiAya8cBS8Ql0W5wClB6xI1ETeHliCLUmCU9WB20SU31HAgzzFPkXQ9cnitkgA9q3abzvHsrgDzb060lK0jg+KwEGm3gQKzWnAZSDMzcA5xKRoPMk6Uc8b5DwsaQWkjmsIIo4hdfMtfDh2KUL06kSIphcEADJMsurDcT8fQegBvjk3n8+wOj2UsbJxcbpfcCzIM7hwMwOVKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w5WwDkYqhjHjiOrVkpHX8z2tKqxiQD1GahnIKYZykrs=;
+ b=cEDnI5XkVxgr8KislFj1+cm3h+taMABmhPltMzSQC9OA7lSWykXODh7FpHeU3/1LKNQsceraCB3neAlnKb+qPFPzG4/vZ1ALSPkvA4FuKnt9gA02Szta0Pgp3mVc12bpDA7kWwTh4r7/OvFUl4mGgVW3D80joWIwgRgSYAXAUSNLTOBomP1Gtwb9IKjHPvVBmaQnByf9Cy4bh+Zzmbi/iCPXqtzYhxzW+mpqcLPsy8FT8CY0iClTYNGjTgh1q7/xmxhkY5YsZg/sUXFXV8FaHOlUKdgKNb2zh/bjExoiGA28qeei2vnyDzS/UWvGphQA76+mJnkdUxM2OPC0Lobi1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w5WwDkYqhjHjiOrVkpHX8z2tKqxiQD1GahnIKYZykrs=;
+ b=gRpzpkPkWjJi+ddZKZYCNijtLGol+VVCX0zn9r3RpsE2eUxCwxBOVEavphKhcIwcWbaGb1+8WJrFOj3NEo7iQtKGD/qRcTbtMp5wojhFjsCgpQ3wo9bD9NgI2xR8tcjepNHG5VoBeaiJ7NDoZIlfKRb8dqoQ1n2Aw5fYpX+8gjn4pGa7GUBFjRViEP9l6G9AcuQBP9ia/2D8F/iiYDokkw1YDGrTOILiPH6IpHwOu+fz8wSp8E801odYR7xnynf/SKUw8afaOFgjZuZfrCjBGiKY26d/U8xDC+0Nh6xJgA/l9xxLpf+iaTpF7W45lRvZmoIBdIJjy4HoZBybA5RrJg==
+Authentication-Results: lst.de; dkim=none (message not signed)
+ header.d=none;lst.de; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5110.namprd12.prod.outlook.com (2603:10b6:208:312::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Tue, 2 Nov
+ 2021 16:07:26 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::e8af:232:915e:2f95]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::e8af:232:915e:2f95%8]) with mapi id 15.20.4649.020; Tue, 2 Nov 2021
+ 16:07:26 +0000
+Date: Tue, 2 Nov 2021 13:07:24 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20211102160724.GR2744544@nvidia.com>
+References: <20211102070601.155501-1-hch@lst.de>
+ <20211102070601.155501-13-hch@lst.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211102070601.155501-13-hch@lst.de>
+X-ClientProxiedBy: MN2PR01CA0041.prod.exchangelabs.com (2603:10b6:208:23f::10)
+ To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: fixup dma_fence_wait usage
+Received: from mlx.ziepe.ca (142.162.113.129) by
+ MN2PR01CA0041.prod.exchangelabs.com (2603:10b6:208:23f::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.18 via Frontend Transport; Tue, 2 Nov 2021 16:07:25 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1mhwJo-005ALd-Rd; Tue, 02 Nov 2021 13:07:24 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5e715fe6-f436-46b6-9269-08d99e1adcb8
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5110:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5110F4740447EADD9AD7629FC28B9@BL1PR12MB5110.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:826;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bXBRTgiN9MZtZcYss7avH0ppzgyOldSbN9OXe8a4OFgwWhSsatlnSj3FoU2F3JEf2lCK1peh9ueheTfJ2UhmaBRsSqq+Q/TP/+L4hM8aVi7VIG1fsE2KVfHC0nGzOp724e40h7wS+SWnCmSJIKtLoCv3IIXnUO4H6+8q8/yDnlpyabDvNYm+ebMMIV7ey3jJ44yG2h1Ou1gYPhauqItEzxvx3okee54RzPxfadSKmzrfKoQgKMKRhNefkNknnV5Ndu7BwHKoHId6YIBhzu2DOoF7rrM4lhMxMLRAlb/4eEkrbnVPZuAszHWEVeTWUI3Hk4P5n+Sa6fmf7Y3Q81Q9DwSBaNCGTWJXlUTgZcqpwa+eJL/rsr0wfg1OhPsYj9ixbBEBB5PrIMpjmczkRY5s7cR8VilVtZVQtKm+W/LLwd0pCy5agiDqOtnZo0kfJtCibK+wbhz5YnnkCaib0UIpG11+N3kxYcvjO0fpHyJHIXdhhkRUignqwPWEXxxBqyO/XDyuDIvTVGOUisxL5F+PP6RhvX9H0m+BsexIw0qrHfCHuiQFnRh1iskeRUBD+FQK/0C9SIxhkGDCIOa3gzWzxCM+7rhO5lkcwbMU5Fht3yz+t7kziHzACEWHCVSQXf3qJw8wp3Bca8S0gW6CckGscg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(4326008)(9786002)(6916009)(426003)(2906002)(38100700002)(33656002)(7416002)(66556008)(66476007)(2616005)(8936002)(66946007)(9746002)(83380400001)(54906003)(5660300002)(186003)(86362001)(36756003)(8676002)(508600001)(26005)(4744005)(316002)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fu7K3kuH1bgl2Atnyhw3cAxdSsa9eWYtr7JsUdo2hqsghm0x3fIjxGhP/W7k?=
+ =?us-ascii?Q?Gt75qKWh13VXBx7ZNYGjyNWKroJnc4s4gDfFKg0NPAh0qOf9okShCRNH9fo4?=
+ =?us-ascii?Q?aYXrr+Mxhtctte4ofxBz/5yN7fiY0dM28rNamSo6mQcjInyp/aBCUc98T9mX?=
+ =?us-ascii?Q?cAUK2eXaIRI2SOHWjkNGY0QwGkHfC5RrTqe3uI1HhygsMBzmIcy6SfyXfdLM?=
+ =?us-ascii?Q?atiHnYpANHvWFdRdsJHlB0vsRaV+COTv/M1TrQWSo9XhhpOP7el5jAX2uoHb?=
+ =?us-ascii?Q?BXycU2MTF6RqeZtOjU3WGBvyDSjIlU7qlS/okYOHn6KeV1Ib9uM183NdhzMv?=
+ =?us-ascii?Q?fVoXRLarI8bSLnlHLRBXiOaJzQM4JAbLf1bVANCXyrVBYkbzDSOlKSPfwEhP?=
+ =?us-ascii?Q?Zlz5IyBjdPgBdlVpQxTRak5+Hy6CtD+MPFya2fAydDEVinc4zhG93SxNhmwN?=
+ =?us-ascii?Q?+GkfNqapM6jFafUpdtGyBOLRV8dPBbUGNEDlxsifusN7rpxrk4jkTgm1JdEY?=
+ =?us-ascii?Q?2G2330s4EkcO6RE1Qvs/VBF25lDZ7N3nyL7ko5hopIiLB7tL1EknoD1wz+BB?=
+ =?us-ascii?Q?0UGmtqzT0oPE1qNgj35Yr87OpkhFkwaibWiWLLEbMKE8ph2JTxcYkJcvXqOU?=
+ =?us-ascii?Q?Sf+fQYU4Ggprl0F8XFia0Vws3znBAAiwF3oRlg0yvG7mrW2QxmsjH+vBMAiI?=
+ =?us-ascii?Q?BSR/Phdj+0qUhNyBUbHG9rxRBZGWrAcBqibfZvYvs+eAPjdcQgcJXOmtxgWc?=
+ =?us-ascii?Q?vLQ7qWiCQtIOlYIjze3mojxYnAU/OYc5LA+BpR2SJVo4bkJZTLnlWCOUPgnJ?=
+ =?us-ascii?Q?Q0PGwNRMXaKfPIr88RPUplH0r2WdjWkBWdvDdODS85HUKq0BdCg5ZJVNc3Di?=
+ =?us-ascii?Q?crq4n0xsfKFukLrEymNNj2LdLWpvu5s9OJFeeq5oAUmpx+c0dMo0u2UYmLPk?=
+ =?us-ascii?Q?pRpxv6hSp0Flzp/C97RGe03J8QaKRVE5s5E5oaacFttBvgogztJeVyXU/y6P?=
+ =?us-ascii?Q?83p8sSe5sLsbfZML3G9eJk3Poy6x63WbWw3cWDjRVV1WRRDIDGW6ennfo4di?=
+ =?us-ascii?Q?zZ0mS5XGGSVVE+Z8kOrr6dSve/dxOHfR+Byc7o0ramDGDN0h+xqPqfcKj2Tk?=
+ =?us-ascii?Q?eOr2EPnQoRVt+DNVi78dfkGc2+7h1IdWW3DDJk4KuX0odtZHGCd8K6r6kX1z?=
+ =?us-ascii?Q?logGzBKuLc7ay5jWu8AoxHLhhDjo9WIyZYqtJ4s4qGErgAEty3wHcm+mvts3?=
+ =?us-ascii?Q?EimLBsj8bJoplOhbX9bSySoDj7+qYMUguj+xrrS1k+5bJ1YGpgjkaEp1zN1w?=
+ =?us-ascii?Q?t/MRk+1d5CldC7wtfHk66M6niwrZxKFXv/GmpAmb7mMjSDbK0duhpShBisJ0?=
+ =?us-ascii?Q?VPL8rLaqSqx0lK1PZGFoXsQH5pWN2aUDeppOWLxnjILJ5X+9Zi5hLca+4i5f?=
+ =?us-ascii?Q?a+uOhA/5mV3MYJZg2kx7wWwBB4kofNQd1ViYzQEN/YMiHhn+ZZCkj3P66Apg?=
+ =?us-ascii?Q?QKZKPrGaHWMctXduLc8PYS5PezxPKG6j+vuQDFU/JWcMGA9i+qyLqdV8PCMk?=
+ =?us-ascii?Q?1rWcgKXjhPATwBtlhRU=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e715fe6-f436-46b6-9269-08d99e1adcb8
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 16:07:26.0292 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JZLm7vF6JLwMkLiXL4lLVq/yFQSypSSPZiEYe3qlSDvmaEtM9Zhnqdm3wPmm0do0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5110
+Subject: Re: [Intel-gfx] [PATCH 12/29] drm/i915/gvt: remove vgpu->handle
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,33 +128,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dma_fence_wait expects a boolean for whether it should be interruptible,
-not a timeout value.
+On Tue, Nov 02, 2021 at 08:05:44AM +0100, Christoph Hellwig wrote:
+> Always pass the actual vgpu structure instead of encoding it as a
+> "handle" and add a bool flag to denote if a VGPU is attached.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/gpu/drm/i915/gvt/gvt.h       |   3 +-
+>  drivers/gpu/drm/i915/gvt/hypercall.h |  32 +++----
+>  drivers/gpu/drm/i915/gvt/kvmgt.c     | 126 +++++++++------------------
+>  drivers/gpu/drm/i915/gvt/mpt.h       |  20 ++---
+>  drivers/gpu/drm/i915/gvt/vgpu.c      |   6 +-
+>  5 files changed, 71 insertions(+), 116 deletions(-)
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/i915/i915_vma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 90546fa58fc1..8781c4f61952 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -349,7 +349,7 @@ int i915_vma_wait_for_bind(struct i915_vma *vma)
- 		fence = dma_fence_get_rcu_safe(&vma->active.excl.fence);
- 		rcu_read_unlock();
- 		if (fence) {
--			err = dma_fence_wait(fence, MAX_SCHEDULE_TIMEOUT);
-+			err = dma_fence_wait(fence, true);
- 			dma_fence_put(fence);
- 		}
- 	}
--- 
-2.31.1
-
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+ 
+Jason
