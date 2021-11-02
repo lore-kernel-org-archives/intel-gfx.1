@@ -2,122 +2,42 @@ Return-Path: <SRS0=WhEZ=PV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0F39C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F33FC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2D4160D42
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:37:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2D4160D42
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0712C60E90
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 16:39:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0712C60E90
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3F8731B7;
-	Tue,  2 Nov 2021 16:37:03 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2066.outbound.protection.outlook.com [40.107.100.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88C69731B7;
- Tue,  2 Nov 2021 16:37:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oLvaIjgYe4dhSI67yxYjQBVK6YK22UPYHEA6I8SuaZI5XIg0c9IS17kRK3EpwGxdaPCvRAX7+GykGqz3V4+xqYeylcgDbpWDjtnau5qnwPxKjWu0F/BpEkNj6eODe+MP56RXR4NQsmmkuCaRd2Vg2cx8HIFpueLbHDa0hSUDjJm/qKqrrRZyOe0u/We+9dOttMQcGzCgxkMG3Tt4NbkpaonGqvfbpknIkVlkjycF3ct/o4WRzYZ+fYJGzRAkEjATddZEvCVx6Frl5qEparWaRkiQCvroZLSPLFiNfP5BbsdTwMbrGL4/9Dv+mbcNtVEaK7GQA+TXdMCIqVLut1+HdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tf8Jhv1zDs8aaHpgyxt08mFpbdvgZwMVr0yHV8ae7GI=;
- b=lofiXhu3ifgeZqeTQJtf/aYUy6Qx5jg78ldq8RICj0c3vsUwAsT7Xg9qhWXqLMVuv3BHoe7TdELD8ho0ej7pZUzfmspDRQbw0+ccxLONIaAQAKu5QswMT11qNQ2vGs4aMh5VZC1V/NpNFMUQwm+IbZcb+GLTxaZD40SnYptk30bNuz011Z+4xxqPJPB+r4dO5f8ECxxdaY/pgO8hFV7Muug/ibf/EP9+lQ+3ZQMDrEYWPXtqYMiTFaOXsX0Ul1u8V41QYvFuWRd9HVvxlYBffxOTImS028s+9Q4bphhAbcMS8XadsxARAP9xKJVhrdENJ45P4fTd+7scqNTcLHulxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tf8Jhv1zDs8aaHpgyxt08mFpbdvgZwMVr0yHV8ae7GI=;
- b=Iqg3Ei0XF0vtws2bFQC80luHUtjpDvRwIWokSsdxam9cYvREoDjvgNjYADdG3WW8Ty6XYYuCQCSW+KQU0KpgmNtjmxsjOEDeJq18l993Ivz7BItCF2CDOgd7ENYiazEWCxWH3ho0rMP6VclKBmNRd+dgPeMLcrTs8GUznJE/p4ujo4qUjtVdjNaNKDuHQ0Y/zia8D6WW0e3ekjfP8ew2EHzYNeHaqLPlD1zvN+xUIHxV97GnTVR53WzmE0jmL+qRVXXbCW4dwoZZMtg8eyqJ6zGw+oyilz7jd8t4Pdsqoc6Qun6OdinMUkz79M+VDqJbxu0VceQKc3ne59tTEFNyEQ==
-Authentication-Results: lst.de; dkim=none (message not signed)
- header.d=none;lst.de; dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
- by BL1PR12MB5175.namprd12.prod.outlook.com (2603:10b6:208:318::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Tue, 2 Nov
- 2021 16:36:59 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::e8af:232:915e:2f95]) by BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::e8af:232:915e:2f95%8]) with mapi id 15.20.4649.020; Tue, 2 Nov 2021
- 16:36:59 +0000
-Date: Tue, 2 Nov 2021 13:36:57 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20211102163657.GH2744544@nvidia.com>
-References: <20211102070601.155501-1-hch@lst.de>
- <20211102070601.155501-28-hch@lst.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211102070601.155501-28-hch@lst.de>
-X-ClientProxiedBy: MN2PR10CA0028.namprd10.prod.outlook.com
- (2603:10b6:208:120::41) To BL0PR12MB5506.namprd12.prod.outlook.com
- (2603:10b6:208:1cb::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F3D1731E1;
+	Tue,  2 Nov 2021 16:39:22 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCBD5731DE;
+ Tue,  2 Nov 2021 16:39:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10156"; a="231267877"
+X-IronPort-AV: E=Sophos;i="5.87,203,1631602800"; d="scan'208";a="231267877"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2021 09:34:34 -0700
+X-IronPort-AV: E=Sophos;i="5.87,203,1631602800"; d="scan'208";a="531614861"
+Received: from vanderss-mobl.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.234])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2021 09:34:32 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Tue,  2 Nov 2021 17:34:23 +0100
+Message-Id: <20211102163425.505732-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Received: from mlx.ziepe.ca (142.162.113.129) by
- MN2PR10CA0028.namprd10.prod.outlook.com (2603:10b6:208:120::41) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15 via Frontend
- Transport; Tue, 2 Nov 2021 16:36:59 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1mhwmP-005Arh-T6; Tue, 02 Nov 2021 13:36:57 -0300
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 44c79e02-f53e-459f-089a-08d99e1efdb8
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5175:
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5175C08BC738481975FF630DC28B9@BL1PR12MB5175.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:260;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zH/pD9GCt3rlKIcq/EdZZjElpRa/v46wTWRLNyO5liH+yhaIJHDA1w4Ue1lE1Jn+D6RuVTTjVuP72D/gcSr/uFgoM9g0uqFHi6MKs1dWwqZqZkfLp7uPRur5koRlpCf5CpXa5BscQ6BuF+S8iMtSm9MvHFqOK3CMrwX9Zgk6BOmP0UNKHXy3NloLxtXWXKThqkcO6nLj++d4SGjYQgHS0yX96B+vgthxjKqKfH9vRvAVAg1yt9mWfP6eIb/YRWpsdJKRXl3b+QvUZa2oGZXCNKv5XEeIjyGdasSRKKCrPkH4w0h4LhJbhry/hmUUTjFgcFl3SlJ5e+YCHGuxjx47Y/4bwTZdHUGaxuy9egHaGrVgGbA48q7jHnAUyZnk8URKs2RgyzyfZvWkcrFxrYrdM4n0QvpqdGs6QuMdR+FaPm5wN1RmB3p2tnLRDtug72Z3C/43n699180H8wk2GZltjpxve0WJTH1CCserKjXhZahx8/jjX+yPY/7PhW0RMXvTzWLY+jWMcLlmOgGnqpY+ODNuNzxhJIv6+wkPuc7j/b58eg77vBaw0Cyc4zksjJecT6AkQx51CyXSpuMWFLvYmQMg4vDjWkub+mxhs8f0CKL7xcKVYtfKUWMaI7wSMEmP8i30wSRzPhmkjdR1hxuFFA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(2616005)(26005)(38100700002)(66556008)(6916009)(66476007)(54906003)(8936002)(8676002)(83380400001)(66946007)(5660300002)(33656002)(1076003)(508600001)(426003)(9786002)(9746002)(4326008)(36756003)(4744005)(186003)(86362001)(7416002)(2906002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2s6qJJjOP7FBTRcQG0o1Vj6d0O3rIon4lIvI6M4e47bzAnWKaq621fNewggB?=
- =?us-ascii?Q?Abx6MnP5/GEnd9v7Vl4DbY/6FktxcxDBvoXBniRk9LvzMT1M9e0yWGNBUkCK?=
- =?us-ascii?Q?hemP5Mhz3yJl9M3VkJSdIGea6Q5a8Y1eA4ESkxiWOF83OYcnDPCOFhDNGjnU?=
- =?us-ascii?Q?6fpV3XV4BY82L6uP2QGq2AufFl60xOutAY1WlaiV1vUBM0vYAjnOcpURcWJq?=
- =?us-ascii?Q?U9xQcgI1rNfTkwYW7EcBIaFF66GleWW9OReBmTcNhF92a+b6WJjvw0nn/apv?=
- =?us-ascii?Q?xs5GYc57Do7fU1t8AXmGJSLjSf6h8QWiN+iPjzlJV2u4N7Q73z+omXHmCm1L?=
- =?us-ascii?Q?ZE/Kx2Ba449t1OvsrNsSETZwZLUyXdATTdqAIvHNH7LTQfWb9KgEir18895u?=
- =?us-ascii?Q?F0gXdthQKcQMoPa5A5RtB5RtpWuz6f4w2IhowAuU5NBJjehAiol6xhMlXmJG?=
- =?us-ascii?Q?DX1mD7oCsgQzxc/2HnNFrRc7p7XChjaVfUkAJD4zRDhAJZMn8z13M899PHpX?=
- =?us-ascii?Q?munUuzaMbd2hpwlDngsP+y2L3z8mTPW9VSr2HJPwV4pVRIJRqutnNLgdx/FZ?=
- =?us-ascii?Q?ippZAQXKAiSW4Qt3Fwq5OKVD1vNX2m8ZmHo4qHt6BhGZKDLlfJrjLzMPLhhl?=
- =?us-ascii?Q?RH0AnPxct8s1XZcP+TX/URZqUd1LSuZKUGNoIBIrsdWpjYq55Q/L0p5kOH4Z?=
- =?us-ascii?Q?ice2C2+CloJg2CBHrUVXCjktwwzULgzhB9iu2/+Y3N6osOUm+eNrxrmTD5i6?=
- =?us-ascii?Q?bdZ0qOK+cl5vtNeA7XMEGp9X5jL9sgaOlOwMlqjiL7dkJDSPsGtwYPMyVRlG?=
- =?us-ascii?Q?C+8L+2PLCFBAxdudqz4X/QiEWmt5UT3VoEiFj6ixUgwDFe0AHvJfFBkJ1+1z?=
- =?us-ascii?Q?7gO+sRzfKDyPRiMVoamOIzmyr7pChPskx75ic94KL/OXE7O3CPP8Xcp/KZPL?=
- =?us-ascii?Q?/IVBSrrbLRc5dOi6FEYKUUgBkQO8B5Eh3qdCNH3obaUqHmhbcdtW0dkIAnDP?=
- =?us-ascii?Q?YeRFGr0mTIpMHwC1TZXc0LqwiQE0xhrkIAcflVRKPr90jepXqOCNGs09dRuh?=
- =?us-ascii?Q?O3NSK/LwvXKQBOdIGmNNIsSwhHze02ornHgQXmj4wEdOsep/jxJtl1Ncojp+?=
- =?us-ascii?Q?GXv1dCPsZpZgCN1ybFRNlAg72JPuMd9jZUJ2HQP/zaAQ7GeEeBQsQ0atNmlg?=
- =?us-ascii?Q?/bxrng7xVfci9zrpfKr/ISWRUKk7N7u+6Yq+sDDYXjDRwkSXR7VxPOaUwwUX?=
- =?us-ascii?Q?odUXGaada0W3wbzVgJDdYK6FjflP7vI03FbMqqAE2L75i8OhiPyt4L9MBW5m?=
- =?us-ascii?Q?chX04SimiTBpqZEjMLpVPPR+L8eYFywfvufJPYzXLMcNnv8oAvT7L71To1cy?=
- =?us-ascii?Q?q6WYvJcAOHqEUW4zdBuMF3NdUohW+LBNaV+j0LsNnSVZ+yoJuAyVUgmEa89d?=
- =?us-ascii?Q?KmEKkuR/mcqQEFZS44JkZ4C0oYEYA18t1kigBpEjvabxbsCseVeVMjt7P4m+?=
- =?us-ascii?Q?ufmiTqj/w2I1ut9ru/qJCQRh4DZ72/rdqN9OwgEbqwVRD+kchP9wwl7NHFAz?=
- =?us-ascii?Q?4uCADu0UH4OIKcTfSEA=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44c79e02-f53e-459f-089a-08d99e1efdb8
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 16:36:59.3993 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h94dWPYsCLrLBHoJW0nt1V8Tk/WL1gnhu97oeDQ8bcnfdIHkTYvvoiyDgm9fo7uj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5175
-Subject: Re: [Intel-gfx] [PATCH 27/29] drm/i915/gvt: remove
- kvmgt_guest_{init, exit}
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 0/2] drm/i915: Failsafe migration blits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,19 +50,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 02, 2021 at 08:05:59AM +0100, Christoph Hellwig wrote:
-> Merge these into their only callers.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/gpu/drm/i915/gvt/kvmgt.c | 129 ++++++++++++++-----------------
->  1 file changed, 60 insertions(+), 69 deletions(-)
+This patch series introduces failsafe migration blits.
+The reason for this seemingly strange concept is that if the initial
+clearing or readback of LMEM fails for some reason[1], and we then set up
+either GPU- or CPU ptes to the allocated LMEM, we can expose old
+contents from other clients.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+So after each migration blit to LMEM, attach a dma-fence callback that
+checks the migration fence error value and if it's an error,
+performs a memcpy blit, instead.
 
-Jason
+Patch 1 splits out the TTM move code into separate files
+Patch 2 implements the failsafe blits and related self-tests
+
+[1] There are at least two ways we could trigger exposure of uninitialized
+LMEM assuming the migration blits themselves never trigger a gpu hang.
+
+a) A gpu operation preceding a pipelined eviction blit resets and sets the
+error fence to -EIO, and the error is propagated across the TTM manager to
+the clear / swapin blit of a newly allocated TTM resource. It aborts and
+leaves the memory uninitialized.
+
+b) Something wedges the GT while a migration blit is submitted. It ends up
+never executed and TTM can fault user-space cpu-ptes into uninitialized
+memory.
+
+v3:
+- Style fixes in second patch (Matthew Auld)
+
+Thomas Hellström (2):
+  drm/i915/ttm: Reorganize the ttm move code
+  drm/i915/ttm: Failsafe migration blits
+
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 328 ++---------
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.h       |  35 ++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 520 ++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.h  |  43 ++
+ .../drm/i915/gem/selftests/i915_gem_migrate.c |  24 +-
+ 6 files changed, 670 insertions(+), 281 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+ create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_ttm_move.h
+
+-- 
+2.31.1
+
