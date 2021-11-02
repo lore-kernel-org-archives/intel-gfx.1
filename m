@@ -2,50 +2,39 @@ Return-Path: <SRS0=WhEZ=PV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64C7BC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 14:57:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5597CC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 14:57:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 158206023E
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 14:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 158206023E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 01FEA60174
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 14:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 01FEA60174
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67B136FF98;
-	Tue,  2 Nov 2021 14:57:03 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A7976FD1C
- for <intel-gfx@lists.freedesktop.org>; Tue,  2 Nov 2021 14:57:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="292112388"
-X-IronPort-AV: E=Sophos;i="5.87,203,1631602800"; d="scan'208";a="292112388"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2021 07:57:00 -0700
-X-IronPort-AV: E=Sophos;i="5.87,203,1631602800"; d="scan'208";a="577123971"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2021 07:57:00 -0700
-Date: Tue, 2 Nov 2021 08:09:51 -0700
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: "Kulkarni, Vandita" <vandita.kulkarni@intel.com>
-Message-ID: <20211102150946.GA17970@labuser-Z97X-UD5H>
-References: <20211027095316.9579-1-vandita.kulkarni@intel.com>
- <20211027192642.GA22973@labuser-Z97X-UD5H>
- <7d0b19226c71402199351b7e8514c041@intel.com>
- <20211029231251.GA1790@labuser-Z97X-UD5H>
- <b1ad2556bc3b442f9cb2ed1b47cb9d50@intel.com>
- <20211102044041.GA15244@labuser-Z97X-UD5H>
- <e7c3f25dc1374a7383bf554ee7a31cac@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6736C6FD1C;
+	Tue,  2 Nov 2021 14:57:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 34B196FF99;
+ Tue,  2 Nov 2021 14:57:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 25DA2AADDC;
+ Tue,  2 Nov 2021 14:57:04 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3850212096932125457=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7c3f25dc1374a7383bf554ee7a31cac@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dsc: Fix the usage of uncompressed
- bpp
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Claudio Suarez" <cssk@net-c.es>
+Date: Tue, 02 Nov 2021 14:57:04 -0000
+Message-ID: <163586502415.15504.11807712195168408221@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211016184226.3862-1-cssk@net-c.es>
+In-Reply-To: <20211016184226.3862-1-cssk@net-c.es>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgcmVw?=
+ =?utf-8?q?lace_drm=5Fdetect=5Fhdmi=5Fmonitor=28=29_with_drm=5Fdisplay=5Fi?=
+ =?utf-8?b?bmZvLmlzX2hkbWkgKHJldjYp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,270 +47,312 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Nikula, Jani" <jani.nikula@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 01, 2021 at 09:35:32PM -0700, Kulkarni, Vandita wrote:
-> > -----Original Message-----
-> > From: Navare, Manasi D <manasi.d.navare@intel.com>
-> > Sent: Tuesday, November 2, 2021 10:11 AM
-> > To: Kulkarni, Vandita <vandita.kulkarni@intel.com>
-> > Cc: intel-gfx@lists.freedesktop.org; Nikula, Jani <jani.nikula@intel.com>
-> > Subject: Re: [PATCH] drm/i915/dsc: Fix the usage of uncompressed bpp
-> > 
-> > On Mon, Nov 01, 2021 at 09:45:23AM -0700, Kulkarni, Vandita wrote:
-> > > > -----Original Message-----
-> > > > From: Navare, Manasi D <manasi.d.navare@intel.com>
-> > > > Sent: Saturday, October 30, 2021 4:43 AM
-> > > > To: Kulkarni, Vandita <vandita.kulkarni@intel.com>
-> > > > Cc: intel-gfx@lists.freedesktop.org; Nikula, Jani
-> > > > <jani.nikula@intel.com>
-> > > > Subject: Re: [PATCH] drm/i915/dsc: Fix the usage of uncompressed bpp
-> > > >
-> > > > On Wed, Oct 27, 2021 at 09:37:10PM -0700, Kulkarni, Vandita wrote:
-> > > > > > -----Original Message-----
-> > > > > > From: Navare, Manasi D <manasi.d.navare@intel.com>
-> > > > > > Sent: Thursday, October 28, 2021 12:57 AM
-> > > > > > To: Kulkarni, Vandita <vandita.kulkarni@intel.com>
-> > > > > > Cc: intel-gfx@lists.freedesktop.org; Nikula, Jani
-> > > > > > <jani.nikula@intel.com>
-> > > > > > Subject: Re: [PATCH] drm/i915/dsc: Fix the usage of uncompressed
-> > > > > > bpp
-> > > > > >
-> > > > > > On Wed, Oct 27, 2021 at 03:23:16PM +0530, Vandita Kulkarni wrote:
-> > > > > > > DP 1.4 spec limits max compression bpp to uncompressed bpp -1,
-> > > > > > > which is supported from XELPD onwards.
-> > > > > > > Instead of uncompressed bpp, max dsc input bpp was being used
-> > > > > > > to limit the max compression bpp.
-> > > > > >
-> > > > > > So the input Pipe BPP which is the uncompressed bpp is decided
-> > > > > > by the input bpc and when this was initially written, we had
-> > > > > > designed it to respect the max_req_bpc by the user.
-> > > > > > So that is what we use to decide the input bpc and hence the
-> > > > > > pipe_bpp This input pipe_bpp decides the compressed bpp that we
-> > > > > > calculate based on all the supported output bpps which are
-> > > > > > supported all the way upto uncompressed_output_bpp - 1.
-> > > > > >
-> > > > > > So I dont see the need to change the logic here. Moreover I dont
-> > > > > > see any change in the dsc_compute_bpp function So I dont
-> > > > > > understand the purpose of introducing the new max_dsc_pipe_bpp
-> > > > > > variable here
-> > > > >
-> > > > > Thanks for the comments, I had few more opens around this along
-> > > > > with
-> > > > this patch.
-> > > > >
-> > > > > AFAIU about max_requested_bpc it is to limit the max_bpc
-> > > > > "drm: Add connector property to limit max bpc"
-> > > > > And the driver is supposed to program the default bpc as per the
-> > > > > connector
-> > > > limitation.
-> > > > > Which is 12 as per the current driver implementation.
-> > > > >
-> > > > > I had few queries around this design:
-> > > > > So it means that max_dsc_input_bpp would be set to 36 if supported
-> > > > > by the
-> > > > sink and the platform.
-> > > > > And now we make this as our pipe_bpp, 1. Does this mean that we
-> > > > > are assuming 12bpc as i/p always?
-> > > > > 2. What happens to those with formats 8bpc, 10 bpc?
-> > > > >
-> > > >
-> > > > Yes so this driver policy was decided based on some feedback that I
-> > > > had got from the community as well as internal feedback from Ville
-> > > > that the decision of input_bpc should be based on max_bpc requested
-> > > > by the user through the connector property and max_bpc supported by
-> > the platform.
-> > > > Here we take the min of the two so that we dont violate either of
-> > > > the max constrains.
-> > > > This was primarily suggested by Ville since he said that we should
-> > > > always respect what user has set as the upper limit in the bpc
-> > > > because this could be for example driven by the fact that OEM's
-> > > > panel has a limitation or issues with higher bpcs or a display requirement
-> > for certain use case.
-> > > > Hence while we want to support as high bpc as supported by the
-> > > > platform and sink to have better display quality, it should not
-> > > > exceed the max limit set by the user through the property.
-> > > >
-> > > > 8 and 10bpc will be supported but we want to start with supporting
-> > > > the max we can, going down from there if needed.
-> > > > So for compression, we chose the maximum input bpc and determine the
-> > > > compressed bpp for that.
-> > > >
-> > > >
-> > > > > We do not consider the actual pipe_bpp while computing the
-> > > > > compression_bpp, We reverse calculate it from the link_rate,  and
-> > > > > small
-> > > > joiner bpp limits.
-> > > > > In cases of forcing dsc, we might have a situation where the link
-> > > > > can
-> > > > actually support the current bpp, or even more.
-> > > > > But we are forcing the dsc enable.
-> > > > > In such cases we might end up with a compression bpp which is
-> > > > > higher than
-> > > > the actual i/p bpp.
-> > > >
-> > > > Well the only time we force the dsc_enable is for IGT DSC tests and
-> > > > thats okay for compression bpp to be higher since there we are just
-> > > > validation the functionality and its not for actual user/use case.
-> > >
-> > > We are having these test cases as part of CI. We hit FIFO underrun in such
-> > cases and that's  treated as a fail.
-> > 
-> > >
-> > > >
-> > > > In the actual use case we will only enable DSC when the available
-> > > > max link rate/lane count does not support the minimum bpp of 18 (min
-> > > > bpc of 6 * 3) So then in that case we say that lets keep the
-> > > > pipe_bpp or input bpp as max_supported_input_bpc * 3
-> > > > >
-> > > > > Now, even if we take a min of  higher compression bpp against
-> > > > > max_requested_bpc *3 -1, we still have Compression bpp > actual
-> > > > > pipe_bpp
-> > > > >
-> > > > > As per the spec when they say uncompressed bpp, they actually mean
-> > > > > 3 * bpc If we go ahead with this approach of using
-> > > > > max_requested_bpc , which is 12 always we cannot adhere to the spec.
-> > > >
-> > > > So the Bspec says that if the input BPP is (8 * 3) = 24, then based
-> > > > on the engine's compression ratio capability it can support output
-> > > > compressed BPP
-> > > > of: 8 - 23 in the increments of 1 BPP And the maximum that we can
-> > > > pick between 8 - 23 will depend on the min(max bits_per_pixel that
-> > > > the max link rate, lane count can handle, max bits per pixel by small joiner
-> > RAM calc).
-> > >
-> > > In case of force dsc, as part of  the IGT tests, the link can actually
-> > > support more than 24bpp, since we are forcing have seen a case where it
-> > could support 28bpp.
-> > >
-> > 
-> > From IGT we are forcing DSC for all supported input BPCs right, so for bpc =
-> > 8, so input bpp = 24. So IMO in the kernel code, when we calculate pipe_bpp
-> > when force_dsc is set in that case we should use the bpc requested from IGT
-> > as inpput bpc and not care for max_connector_bpc So then input bpp = 24
-> > and the limits of compressed bpp would be 8 - 23
-> Right, had thought of this 
-> Adding a check on force_dsc_en before doing this
-> pipe_config->pipe_bpp = max_dsc_pipe_bpp;
-> 
-> but since you said that the design was to respect the max_requested_bpc from the user
-> should we use max_requested_bpc property in the igt  to say that set the max to 8bpc
-> since this test simulates a situation of testing 8bpc panel?
-> Similarly for 10bpc?
-> 
-> Thanks
-> Vandita
+--===============3850212096932125457==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Yes that would be a better way than adding a special force_dsc_en case
-in the kernel.
-We can set the max_requested_bpc to 8, 10, 12 then the pipe_bpp will get
-set to 8/10/12 respectively as per the current logic and the compressed bpp
-will get capped at pipe_bpp -1
-So I think here since we would still use max link rate/ max lane count
-we will still have much higher available link BW but we will just be 
-validating the functionality of 24 bpp to 23 bpp compression.
-This sounds like a good approach.
+== Series Details ==
 
-Manasi
+Series: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi (rev6)
+URL   : https://patchwork.freedesktop.org/series/95880/
+State : success
 
-> 
-> > 
-> > Ideally now the link rate and lane count should be lowered to use the least
-> > required to support that compressed bpp Then we wont see any underruns.
-> > 
-> > Manasi
-> > 
-> > > So min of (28,(36-1)) would be 28 and not as per the spec.
-> > >
-> > > Hence in either of the places, kernel or igt we need to honour the
-> > > limits Of bpc*3 as per the DP 1.4 spec.
-> > >
-> > > If you look at the IGT we have cases of 8bpc, 10 bpc We need to
-> > > address this either in the driver by getting the actual uncompressed
-> > > bpp limits Or in the user space by changing the max_requested_bpc for
-> > 8bpc and 10bpc cases.
-> > >
-> > > This patch is tested and resolves the FIFO underruns, in force dsc cases.
-> > > The problem is only when we are forcing DSC and the link rate can actually
-> > support higher bpp.
-> > > And we have multiple igts trying to use 8bpc and 10bpc.
-> > >
-> > > Thanks
-> > > Vandita
-> > >
-> > > >
-> > > > So we are good here in terms of how we calculate our compressed bpp.
-> > > > However what you should once double check is for XeLPD (>=13)
-> > > > platforms, you just pick min (bits_per_pixel, pipe_bpp - 1) But I
-> > > > remember seeing that the spec still says target bpp has to be 8 to
-> > > > 27 even when supported input bpc are 8/10/12 (please check if it
-> > > > actually goes all the way from 8 to 35)
-> > > >
-> > > > Manasi
-> > > >
-> > > > >
-> > > > > Thanks,
-> > > > > Vandita
-> > > > >
-> > > > > > Manasi
-> > > > > >
-> > > > > > >
-> > > > > > > Fixes: 831d5aa96c97 ("drm/i915/xelpd: Support DP1.4
-> > > > > > > compression
-> > > > > > > BPPs")
-> > > > > > > Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-> > > > > > > ---
-> > > > > > >  drivers/gpu/drm/i915/display/intel_dp.c | 7 ++++---
-> > > > > > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > > > > > >
-> > > > > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
-> > > > > > > b/drivers/gpu/drm/i915/display/intel_dp.c
-> > > > > > > index 9d8132dd4cc5..1f7e666ae490 100644
-> > > > > > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > > > > > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > > > > > > @@ -1322,7 +1322,7 @@ static int
-> > > > > > > intel_dp_dsc_compute_config(struct
-> > > > > > intel_dp *intel_dp,
-> > > > > > >  	struct drm_i915_private *dev_priv = to_i915(dig_port-
-> > > > > > >base.base.dev);
-> > > > > > >  	const struct drm_display_mode *adjusted_mode =
-> > > > > > >  		&pipe_config->hw.adjusted_mode;
-> > > > > > > -	int pipe_bpp;
-> > > > > > > +	int pipe_bpp, max_dsc_pipe_bpp;
-> > > > > > >  	int ret;
-> > > > > > >
-> > > > > > >  	pipe_config->fec_enable = !intel_dp_is_edp(intel_dp) &&
-> > @@ -
-> > > > > > 1331,7
-> > > > > > > +1331,8 @@ static int intel_dp_dsc_compute_config(struct
-> > > > > > > +intel_dp
-> > > > > > *intel_dp,
-> > > > > > >  	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
-> > > > > > >  		return -EINVAL;
-> > > > > > >
-> > > > > > > -	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state-
-> > > > > > >max_requested_bpc);
-> > > > > > > +	pipe_bpp = pipe_config->pipe_bpp;
-> > > > > > > +	max_dsc_pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp,
-> > > > > > > +conn_state->max_requested_bpc);
-> > > > > > >
-> > > > > > >  	/* Min Input BPC for ICL+ is 8 */
-> > > > > > >  	if (pipe_bpp < 8 * 3) {
-> > > > > > > @@ -1345,7 +1346,7 @@ static int
-> > > > > > > intel_dp_dsc_compute_config(struct
-> > > > > > intel_dp *intel_dp,
-> > > > > > >  	 * Optimize this later for the minimum possible link rate/lane
-> > count
-> > > > > > >  	 * with DSC enabled for the requested mode.
-> > > > > > >  	 */
-> > > > > > > -	pipe_config->pipe_bpp = pipe_bpp;
-> > > > > > > +	pipe_config->pipe_bpp = max_dsc_pipe_bpp;
-> > > > > > >  	pipe_config->port_clock = limits->max_rate;
-> > > > > > >  	pipe_config->lane_count = limits->max_lane_count;
-> > > > > > >
-> > > > > > > --
-> > > > > > > 2.32.0
-> > > > > > >
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10828 -> Patchwork_21504
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/index.html
+
+Participating hosts (37 -> 36)
+------------------------------
+
+  Additional (2): fi-kbl-soraka fi-pnv-d510 
+  Missing    (3): fi-bsw-cyan bat-dg1-6 bat-adlp-4 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21504 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
+    - fi-snb-2600:        NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
+
+  * igt@gem_exec_fence@basic-busy@bcs0:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271]) +8 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][3] ([fdo#109271] / [i915#2190])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][4] ([i915#1886] / [i915#2291])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][5] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][6] ([fdo#109271] / [i915#533])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][7] ([fdo#109271]) +53 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-pnv-d510/igt@prime_vgem@basic-userptr.html
+
+  * igt@runner@aborted:
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][8] ([i915#1602] / [i915#2426] / [i915#4312])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-bdw-5557u/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-tgl-1115g4:      [FAIL][9] ([i915#1888]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-bdw-5557u:       [INCOMPLETE][11] ([i915#146]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@i915_module_load@reload:
+    - {fi-tgl-dsi}:       [DMESG-WARN][13] ([i915#1982]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-tgl-dsi/igt@i915_module_load@reload.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-tgl-dsi/igt@i915_module_load@reload.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [INCOMPLETE][15] ([i915#3921]) -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - {fi-hsw-gt1}:       [DMESG-WARN][17] ([i915#4290]) -> [PASS][18]
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2291]: https://gitlab.freedesktop.org/drm/intel/issues/2291
+  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+  [i915#4290]: https://gitlab.freedesktop.org/drm/intel/issues/4290
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10828 -> Patchwork_21504
+
+  CI-20190529: 20190529
+  CI_DRM_10828: 7689dc2b255a118e7b60bfb188b54b314f70a3c4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6267: 5c3b8f7ad9a5cfe1f0e747d92da7910243cf287d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21504: aa8dfbaac97bb4d9bff5abe7fa56ff9be57e3fbc @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+aa8dfbaac97b drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+77cf5cf45f0c drm/nouveau: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+4c8140582eeb drm/bridge: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+3c336a5dca86 drm/rockchip: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+0a69a03128bc drm/sti: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+4a13b1f0c49c drm/sun4i: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+b86160a2fbe3 drm/msm: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+a020dbb5ce04 drm/exynos: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+43f3a7df7086 drm/gma500: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+c3a418e934c6 drm/tegra: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+94bf3778a86a drm/radeon: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+003659b18480 drm/vc4: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+eb299b5af8c2 gpu/drm: make drm_add_edid_modes() consistent when updating connector->display_info
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/index.html
+
+--===============3850212096932125457==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95880/">https://patchwork.freedesktop.org/series/95880/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10828 -&gt; Patchwork_21504</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/index.html</p>
+<h2>Participating hosts (37 -&gt; 36)</h2>
+<p>Additional (2): fi-kbl-soraka fi-pnv-d510 <br />
+  Missing    (3): fi-bsw-cyan bat-dg1-6 bat-adlp-4 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21504 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
+<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fence@basic-busy@bcs0:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2291">i915#2291</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-kbl-soraka/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-pnv-d510/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +53 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s0:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-tgl-dsi/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-tgl-dsi/igt@i915_module_load@reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10828/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4290">i915#4290</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21504/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10828 -&gt; Patchwork_21504</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10828: 7689dc2b255a118e7b60bfb188b54b314f70a3c4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6267: 5c3b8f7ad9a5cfe1f0e747d92da7910243cf287d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21504: aa8dfbaac97bb4d9bff5abe7fa56ff9be57e3fbc @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>aa8dfbaac97b drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+77cf5cf45f0c drm/nouveau: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+4c8140582eeb drm/bridge: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+3c336a5dca86 drm/rockchip: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+0a69a03128bc drm/sti: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+4a13b1f0c49c drm/sun4i: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+b86160a2fbe3 drm/msm: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+a020dbb5ce04 drm/exynos: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+43f3a7df7086 drm/gma500: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+c3a418e934c6 drm/tegra: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+94bf3778a86a drm/radeon: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+003659b18480 drm/vc4: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi<br />
+eb299b5af8c2 gpu/drm: make drm_add_edid_modes() consistent when updating connector-&gt;display_info</p>
+
+</body>
+</html>
+
+--===============3850212096932125457==--
