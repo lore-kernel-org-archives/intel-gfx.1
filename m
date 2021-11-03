@@ -2,48 +2,45 @@ Return-Path: <SRS0=D79Q=PW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75B12C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 18:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C45B2C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 18:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 433376112E
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 18:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 433376112E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8003C60E9B
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 18:39:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8003C60E9B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEC9E73DBD;
-	Wed,  3 Nov 2021 18:05:58 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA54473DC0;
- Wed,  3 Nov 2021 18:05:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="230281851"
-X-IronPort-AV: E=Sophos;i="5.87,206,1631602800"; d="scan'208";a="230281851"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE59873F8D;
+	Wed,  3 Nov 2021 18:39:53 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD0373F8C
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 18:39:51 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="292404159"
+X-IronPort-AV: E=Sophos;i="5.87,206,1631602800"; d="scan'208";a="292404159"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2021 11:05:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,206,1631602800"; d="scan'208";a="501192085"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga008.jf.intel.com with SMTP; 03 Nov 2021 11:05:17 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 03 Nov 2021 20:05:16 +0200
-Date: Wed, 3 Nov 2021 20:05:16 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YYLPXJoC7TZcwejb@intel.com>
-References: <20211102145944.259181-1-maxime@cerno.tech>
- <20211102145944.259181-2-maxime@cerno.tech>
- <YYJsM6/hZ43b1tm9@intel.com>
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2021 11:39:51 -0700
+X-IronPort-AV: E=Sophos;i="5.87,206,1631602800"; d="scan'208";a="501202383"
+Received: from unknown (HELO intel.com) ([10.237.72.167])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2021 11:39:48 -0700
+Date: Wed, 3 Nov 2021 20:39:20 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20211103183920.GA3101@intel.com>
+References: <20211018115030.3547-1-ville.syrjala@linux.intel.com>
+ <20211018115030.3547-3-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <YYJsM6/hZ43b1tm9@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 01/13] drm/connector: Add define for HDMI
- 1.4 Maximum Pixel Rate
+In-Reply-To: <20211018115030.3547-3-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 2/9] drm/i915: Fix async flip with
+ decryption and/or DPT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,69 +53,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Gover <tim.gover@raspberrypi.com>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
- amd-gfx@lists.freedesktop.org,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Emma Anholt <emma@anholt.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- intel-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 03, 2021 at 01:02:11PM +0200, Ville Syrjälä wrote:
-> On Tue, Nov 02, 2021 at 03:59:32PM +0100, Maxime Ripard wrote:
-> > --- a/drivers/gpu/drm/drm_edid.c
-> > +++ b/drivers/gpu/drm/drm_edid.c
-> > @@ -4966,7 +4966,7 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
-> >  		u32 max_tmds_clock = hf_vsdb[5] * 5000;
-> >  		struct drm_scdc *scdc = &hdmi->scdc;
-> >  
-> > -		if (max_tmds_clock > 340000) {
-> > +		if (max_tmds_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
-> >  			display->max_tmds_clock = max_tmds_clock;
-> >  			DRM_DEBUG_KMS("HF-VSDB: max TMDS clock %d kHz\n",
-> >  				display->max_tmds_clock);
-> > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > index d2e61f6c6e08..0666203d52b7 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > @@ -2226,7 +2226,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
-> >  		if (scdc->scrambling.low_rates)
-> >  			pipe_config->hdmi_scrambling = true;
-> >  
-> > -		if (pipe_config->port_clock > 340000) {
-> > +		if (pipe_config->port_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
-> >  			pipe_config->hdmi_scrambling = true;
-> >  			pipe_config->hdmi_high_tmds_clock_ratio = true;
-> >  		}
+On Mon, Oct 18, 2021 at 02:50:23PM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> All of that is HDMI 2.0 stuff. So this just makes it all super
-> confusing IMO. Nak.
+> We're currently forgetting to set the PLANE_SURF_DECRYPT
+> flag in the async flip path. So if the hardware were to
+> latch that bit despite this being an async flip we'd start
+> scanning out garbage. And if it doesn't latch it then I
+> guess we'd just end up with a weird register value that
+> doesn't actually match the hardware state, which isn't
+> great for anyone starting at register dumps.
+> 
+> Similarly the async flip path also forgets to call
+> skl_surf_address() which means the DPT address space to
+> GGTT address space downshift is not being applied to
+> the offset. Which means we are pointing PLANE_SURF
+> at some random location in GGTT instead of the correct
+> DPT page.
+> 
+> So let's fix two birds with one stone and extract the
+> PLANE_SURF calculation from skl_program_plane() into
+> a small helper and use it in the async flip path as well.
 
-So reading throgh HDMI 1.4 again it does specify 340 MHz as some kind
-of upper limit for the physical cable. But nowhere else is that number
-really mentioned AFAICS. HDMI 2.0 does talk quite a bit about the 340
-Mcsc limit in various places.
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-I wonder what people would think of a couple of helpers like:
-- drm_hdmi_{can,must}_use_scrambling()
-- drm_hdmi_is_high_tmds_clock_ratio()
-or something along those lines? At least with those the code would
-read decently and I wouldn't have to wonder what this HDMI 1.4 TMDS
-clock limit really is.
-
--- 
-Ville Syrjälä
-Intel
+> 
+> Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Karthik B S <karthik.b.s@intel.com>
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  .../drm/i915/display/skl_universal_plane.c    | 30 ++++++++++++-------
+>  1 file changed, 20 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index 7444b88829ea..e2f024449149 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -1011,6 +1011,20 @@ static u32 skl_surf_address(const struct intel_plane_state *plane_state,
+>  	}
+>  }
+>  
+> +static u32 skl_plane_surf(const struct intel_plane_state *plane_state,
+> +			  int color_plane)
+> +{
+> +	u32 plane_surf;
+> +
+> +	plane_surf = intel_plane_ggtt_offset(plane_state) +
+> +		skl_surf_address(plane_state, color_plane);
+> +
+> +	if (plane_state->decrypt)
+> +		plane_surf |= PLANE_SURF_DECRYPT;
+> +
+> +	return plane_surf;
+> +}
+> +
+>  static void icl_plane_csc_load_black(struct intel_plane *plane)
+>  {
+>  	struct drm_i915_private *i915 = to_i915(plane->base.dev);
+> @@ -1045,7 +1059,6 @@ skl_program_plane(struct intel_plane *plane,
+>  	enum plane_id plane_id = plane->id;
+>  	enum pipe pipe = plane->pipe;
+>  	const struct drm_intel_sprite_colorkey *key = &plane_state->ckey;
+> -	u32 surf_addr = skl_surf_address(plane_state, color_plane);
+>  	u32 stride = skl_plane_stride(plane_state, color_plane);
+>  	const struct drm_framebuffer *fb = plane_state->hw.fb;
+>  	int aux_plane = skl_main_to_aux_plane(fb, color_plane);
+> @@ -1058,7 +1071,7 @@ skl_program_plane(struct intel_plane *plane,
+>  	u8 alpha = plane_state->hw.alpha >> 8;
+>  	u32 plane_color_ctl = 0, aux_dist = 0;
+>  	unsigned long irqflags;
+> -	u32 keymsk, keymax, plane_surf;
+> +	u32 keymsk, keymax;
+>  	u32 plane_ctl = plane_state->ctl;
+>  
+>  	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+> @@ -1084,16 +1097,13 @@ skl_program_plane(struct intel_plane *plane,
+>  	}
+>  
+>  	if (aux_plane) {
+> -		aux_dist = skl_surf_address(plane_state, aux_plane) - surf_addr;
+> +		aux_dist = skl_surf_address(plane_state, aux_plane) -
+> +			skl_surf_address(plane_state, color_plane);
+>  
+>  		if (DISPLAY_VER(dev_priv) < 12)
+>  			aux_dist |= skl_plane_stride(plane_state, aux_plane);
+>  	}
+>  
+> -	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
+> -	if (plane_state->decrypt)
+> -		plane_surf |= PLANE_SURF_DECRYPT;
+> -
+>  	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+>  
+>  	/*
+> @@ -1157,7 +1167,8 @@ skl_program_plane(struct intel_plane *plane,
+>  	 * the control register just before the surface register.
+>  	 */
+>  	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
+> -	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id), plane_surf);
+> +	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
+> +			  skl_plane_surf(plane_state, color_plane));
+>  
+>  	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+>  }
+> @@ -1172,7 +1183,6 @@ skl_plane_async_flip(struct intel_plane *plane,
+>  	unsigned long irqflags;
+>  	enum plane_id plane_id = plane->id;
+>  	enum pipe pipe = plane->pipe;
+> -	u32 surf_addr = plane_state->view.color_plane[0].offset;
+>  	u32 plane_ctl = plane_state->ctl;
+>  
+>  	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+> @@ -1184,7 +1194,7 @@ skl_plane_async_flip(struct intel_plane *plane,
+>  
+>  	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
+>  	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
+> -			  intel_plane_ggtt_offset(plane_state) + surf_addr);
+> +			  skl_plane_surf(plane_state, 0));
+>  
+>  	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+>  }
+> -- 
+> 2.32.0
+> 
