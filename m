@@ -2,81 +2,38 @@ Return-Path: <SRS0=D79Q=PW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00129C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:35:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19972C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:40:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7C6661076
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:35:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7C6661076
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id C673761175
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C673761175
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05BA76E0FB;
-	Wed,  3 Nov 2021 12:35:10 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDEBC6E50E
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 12:35:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1635942907;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IGtf0E3LGL0ddyBRq7P24Qzj/B5Mx88heI+2/E3qIo0=;
- b=BKzPxNWfv6Iatda2QJUSMR1a7E91178+cDyyRaxc/cIF/KCKnKs0FMB4KssmUv2GQN++9X
- YUY3x89bxhhKvFB6FuSs7BX/yTJih4W75yLAWXFc6qBLl4if3zewzDTyLDzbopFml+0dO0
- tSL2L4/VGSVsmsaSlzqX5Egd05n0dfA=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-15-zbUTljW4N9SCxcrsGdHBGg-1; Wed, 03 Nov 2021 08:28:32 -0400
-X-MC-Unique: zbUTljW4N9SCxcrsGdHBGg-1
-Received: by mail-wr1-f70.google.com with SMTP id
- v13-20020adfe28d000000b00186c47ee9e3so398057wri.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 03 Nov 2021 05:28:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=IGtf0E3LGL0ddyBRq7P24Qzj/B5Mx88heI+2/E3qIo0=;
- b=yAQbiuBOoFyiK8mycKMlie8KJFnHiNJifA7QtHm5udbniRmwQLYC5vgcM6PGl2W9mC
- oEeXaiDdQ6iCsMk8fOoxiTWlssJzrG+e4OdS9o4ESKUnRtPV67EYHAK3JZIvQgaxwb34
- zFwK+J6v/BV6kEOJHTejRyGshg4DhFn454Xa6GK3WIyaLwht0yl8IHz4cpFn8uxB8p2s
- IM02B/y0CJM6vgQF3/HskWLBMEafIp3ITjWRB2QDN3I+Cchfly6Fr1529MvEKQr7AN/d
- F0ll3XLuHT232X3xZFHlQ3WFXWnVw0l6SlsN98bsEawITIBI92gsNKrlYYV7QX91WBWW
- sF1A==
-X-Gm-Message-State: AOAM530P6ZuVnZGiCcrStNURk3vbDlDi5oLvjpIkyHxkVcFxDLMB6pj1
- RaJxOtLLBsCH2Q2mc/ixmFmxSAmQJ+xFStz5p9J1HHit3zeRYLzG6zcRd25U6SvsE2F7i8vUpR9
- P2+Xm//HBe/GtWJb8Vfb/oyJhRDuq
-X-Received: by 2002:a05:600c:5125:: with SMTP id
- o37mr14376496wms.81.1635942511155; 
- Wed, 03 Nov 2021 05:28:31 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwjs5JKI/wtqONrBYkJewsdaPE9GmL4Yl44qkhfZkZKVdo972E/M33XlYygog+sYzTSATDMmg==
-X-Received: by 2002:a05:600c:5125:: with SMTP id
- o37mr14376449wms.81.1635942510920; 
- Wed, 03 Nov 2021 05:28:30 -0700 (PDT)
-Received: from minerva.home ([92.176.231.106])
- by smtp.gmail.com with ESMTPSA id w7sm1868400wru.51.2021.11.03.05.28.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Nov 2021 05:28:30 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Wed,  3 Nov 2021 13:28:06 +0100
-Message-Id: <20211103122809.1040754-3-javierm@redhat.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211103122809.1040754-1-javierm@redhat.com>
-References: <20211103122809.1040754-1-javierm@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB8B733F6;
+	Wed,  3 Nov 2021 12:40:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7880E733F6;
+ Wed,  3 Nov 2021 12:40:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 71BBBAA914;
+ Wed,  3 Nov 2021 12:40:22 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8237521809325250277=="
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RESEND PATCH 2/5] drm: Move nomodeset kernel parameter
- handler to the DRM subsystem
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Wed, 03 Nov 2021 12:40:22 -0000
+Message-ID: <163594322244.11278.974362223292250415@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211103111419.536191-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20211103111419.536191-1-thomas.hellstrom@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Failsafe_migration_blits_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,322 +46,334 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Peter Robinson <pbrobinson@gmail.com>, Neal Gompa <ngompa13@gmail.com>,
- Dave Airlie <airlied@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
- Ben Skeggs <bskeggs@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
- Maxime Ripard <mripard@kernel.org>, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, spice-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The "nomodeset" kernel cmdline parameter is handled by the vgacon driver
-but the exported vgacon_text_force() symbol is only used by DRM drivers.
+--===============8237521809325250277==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-It makes much more sense for the parameter logic to be in the subsystem
-of the drivers that are making use of it. Let's move that to DRM.
+== Series Details ==
 
-Suggested-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
----
+Series: drm/i915: Failsafe migration blits (rev5)
+URL   : https://patchwork.freedesktop.org/series/95617/
+State : success
 
- drivers/gpu/drm/Makefile                |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 +--
- drivers/gpu/drm/ast/ast_drv.c           |  1 -
- drivers/gpu/drm/drm_nomodeset.c         | 26 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_module.c      |  2 --
- drivers/gpu/drm/mgag200/mgag200_drv.c   |  1 -
- drivers/gpu/drm/nouveau/nouveau_drm.c   |  1 -
- drivers/gpu/drm/qxl/qxl_drv.c           |  1 -
- drivers/gpu/drm/radeon/radeon_drv.c     |  1 -
- drivers/gpu/drm/tiny/bochs.c            |  1 -
- drivers/gpu/drm/tiny/cirrus.c           |  1 -
- drivers/gpu/drm/vboxvideo/vbox_drv.c    |  1 -
- drivers/gpu/drm/virtio/virtgpu_drv.c    |  1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     |  1 -
- drivers/video/console/vgacon.c          | 21 --------------------
- include/drm/drm_mode_config.h           |  6 ++++++
- include/linux/console.h                 |  6 ------
- 17 files changed, 35 insertions(+), 41 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_nomodeset.c
+== Summary ==
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 1c41156deb5f..0e2d60ea93ca 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -33,6 +33,8 @@ drm-$(CONFIG_DRM_PRIVACY_SCREEN) += drm_privacy_screen.o drm_privacy_screen_x86.
- 
- obj-$(CONFIG_DRM_DP_AUX_BUS) += drm_dp_aux_bus.o
- 
-+obj-y += drm_nomodeset.o
-+
- drm_cma_helper-y := drm_gem_cma_helper.o
- obj-$(CONFIG_DRM_GEM_CMA_HELPER) += drm_cma_helper.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index c718fb5f3f8a..2680a2aaa877 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -31,7 +31,6 @@
- #include "amdgpu_drv.h"
- 
- #include <drm/drm_pciids.h>
--#include <linux/console.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/vga_switcheroo.h>
-@@ -2515,7 +2514,7 @@ static int __init amdgpu_init(void)
- 	int r;
- 
- 	if (vgacon_text_force()) {
--		DRM_ERROR("VGACON disables amdgpu kernel modesetting.\n");
-+		DRM_ERROR("amdgpu kernel modesetting disabled.\n");
- 		return -EINVAL;
- 	}
- 
-diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-index 86d5cd7b6318..048be607b182 100644
---- a/drivers/gpu/drm/ast/ast_drv.c
-+++ b/drivers/gpu/drm/ast/ast_drv.c
-@@ -26,7 +26,6 @@
-  * Authors: Dave Airlie <airlied@redhat.com>
-  */
- 
--#include <linux/console.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- 
-diff --git a/drivers/gpu/drm/drm_nomodeset.c b/drivers/gpu/drm/drm_nomodeset.c
-new file mode 100644
-index 000000000000..1ac9a8d5a8fe
---- /dev/null
-+++ b/drivers/gpu/drm/drm_nomodeset.c
-@@ -0,0 +1,26 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/module.h>
-+#include <linux/types.h>
-+
-+static bool vgacon_text_mode_force;
-+
-+bool vgacon_text_force(void)
-+{
-+	return vgacon_text_mode_force;
-+}
-+EXPORT_SYMBOL(vgacon_text_force);
-+
-+static int __init text_mode(char *str)
-+{
-+	vgacon_text_mode_force = true;
-+
-+	pr_warn("You have booted with nomodeset. This means your GPU drivers are DISABLED\n");
-+	pr_warn("Any video related functionality will be severely degraded, and you may not even be able to suspend the system properly\n");
-+	pr_warn("Unless you actually understand what nomodeset does, you should reboot without enabling it\n");
-+
-+	return 1;
-+}
-+
-+/* force text mode - used by kernel modesetting */
-+__setup("nomodeset", text_mode);
-diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i915_module.c
-index c7507266aa83..14a59226519d 100644
---- a/drivers/gpu/drm/i915/i915_module.c
-+++ b/drivers/gpu/drm/i915/i915_module.c
-@@ -4,8 +4,6 @@
-  * Copyright © 2021 Intel Corporation
-  */
- 
--#include <linux/console.h>
--
- #include "gem/i915_gem_context.h"
- #include "gem/i915_gem_object.h"
- #include "i915_active.h"
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index 6b9243713b3c..685e766db6a4 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -6,7 +6,6 @@
-  *          Dave Airlie
-  */
- 
--#include <linux/console.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/vmalloc.h>
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 1f828c9f691c..029997f50d1a 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -22,7 +22,6 @@
-  * Authors: Ben Skeggs
-  */
- 
--#include <linux/console.h>
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index fc47b0deb021..3cd6bd9f059d 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -29,7 +29,6 @@
- 
- #include "qxl_drv.h"
- 
--#include <linux/console.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/vgaarb.h>
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index b74cebca1f89..9b606c1b11ec 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -31,7 +31,6 @@
- 
- 
- #include <linux/compat.h>
--#include <linux/console.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/vga_switcheroo.h>
-diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-index 2ce3bd903b70..04333f78be55 100644
---- a/drivers/gpu/drm/tiny/bochs.c
-+++ b/drivers/gpu/drm/tiny/bochs.c
-@@ -1,6 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#include <linux/console.h>
- #include <linux/pci.h>
- 
- #include <drm/drm_aperture.h>
-diff --git a/drivers/gpu/drm/tiny/cirrus.c b/drivers/gpu/drm/tiny/cirrus.c
-index 4611ec408506..8bd674f0d682 100644
---- a/drivers/gpu/drm/tiny/cirrus.c
-+++ b/drivers/gpu/drm/tiny/cirrus.c
-@@ -16,7 +16,6 @@
-  * Copyright 1999-2001 Jeff Garzik <jgarzik@pobox.com>
-  */
- 
--#include <linux/console.h>
- #include <linux/dma-buf-map.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index a6c81af37345..e6d983121d0b 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -7,7 +7,6 @@
-  *          Michael Thayer <michael.thayer@oracle.com,
-  *          Hans de Goede <hdegoede@redhat.com>
-  */
--#include <linux/console.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/vt_kern.h>
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 749db18dcfa2..cd4c170236f1 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -27,7 +27,6 @@
-  */
- 
- #include <linux/module.h>
--#include <linux/console.h>
- #include <linux/pci.h>
- #include <linux/poll.h>
- #include <linux/wait.h>
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index ab9a1750e1df..fcc4b5a7f639 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -25,7 +25,6 @@
-  *
-  **************************************************************************/
- 
--#include <linux/console.h>
- #include <linux/dma-mapping.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgacon.c
-index ef9c57ce0906..d4320b147956 100644
---- a/drivers/video/console/vgacon.c
-+++ b/drivers/video/console/vgacon.c
-@@ -97,30 +97,9 @@ static int 		vga_video_font_height;
- static int 		vga_scan_lines		__read_mostly;
- static unsigned int 	vga_rolled_over; /* last vc_origin offset before wrap */
- 
--static bool vgacon_text_mode_force;
- static bool vga_hardscroll_enabled;
- static bool vga_hardscroll_user_enable = true;
- 
--bool vgacon_text_force(void)
--{
--	return vgacon_text_mode_force;
--}
--EXPORT_SYMBOL(vgacon_text_force);
--
--static int __init text_mode(char *str)
--{
--	vgacon_text_mode_force = true;
--
--	pr_warn("You have booted with nomodeset. This means your GPU drivers are DISABLED\n");
--	pr_warn("Any video related functionality will be severely degraded, and you may not even be able to suspend the system properly\n");
--	pr_warn("Unless you actually understand what nomodeset does, you should reboot without enabling it\n");
--
--	return 1;
--}
--
--/* force text mode - used by kernel modesetting */
--__setup("nomodeset", text_mode);
--
- static int __init no_scroll(char *str)
- {
- 	/*
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 48b7de80daf5..e1d2042a7b77 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -969,4 +969,10 @@ static inline int drm_mode_config_init(struct drm_device *dev)
- void drm_mode_config_reset(struct drm_device *dev);
- void drm_mode_config_cleanup(struct drm_device *dev);
- 
-+#ifdef CONFIG_VGA_CONSOLE
-+extern bool vgacon_text_force(void);
-+#else
-+static inline bool vgacon_text_force(void) { return false; }
-+#endif
-+
- #endif
-diff --git a/include/linux/console.h b/include/linux/console.h
-index 20874db50bc8..d4dd8384898b 100644
---- a/include/linux/console.h
-+++ b/include/linux/console.h
-@@ -217,12 +217,6 @@ extern atomic_t ignore_console_lock_warning;
- #define VESA_HSYNC_SUSPEND      2
- #define VESA_POWERDOWN          3
- 
--#ifdef CONFIG_VGA_CONSOLE
--extern bool vgacon_text_force(void);
--#else
--static inline bool vgacon_text_force(void) { return false; }
--#endif
--
- extern void console_init(void);
- 
- /* For deferred console takeover */
--- 
-2.33.1
+CI Bug Log - changes from CI_DRM_10832 -> Patchwork_21511
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/index.html
+
+Participating hosts (36 -> 36)
+------------------------------
+
+  Additional (3): fi-icl-u2 fi-elk-e7500 fi-tgl-u2 
+  Missing    (3): fi-bsw-cyan bat-dg1-6 bat-adlp-4 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21511 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@cs-compute:
+    - fi-elk-e7500:       NOTRUN -> [SKIP][1] ([fdo#109271]) +49 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-elk-e7500/igt@amdgpu/amd_basic@cs-compute.html
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][2] ([fdo#109271]) +27 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@amdgpu/amd_cs_nop@fork-gfx0:
+    - fi-icl-u2:          NOTRUN -> [SKIP][3] ([fdo#109315]) +17 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@amdgpu/amd_cs_nop@fork-gfx0.html
+
+  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
+    - fi-snb-2600:        NOTRUN -> [SKIP][4] ([fdo#109271]) +17 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][5] ([i915#2190])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@gem_huc_copy@huc-copy.html
+    - fi-icl-u2:          NOTRUN -> [SKIP][6] ([i915#2190])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@gem_huc_copy@huc-copy.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
+
+  * igt@kms_chamelium@dp-hpd-fast:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][8] ([fdo#109284] / [fdo#111827]) +8 similar issues
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@kms_chamelium@dp-hpd-fast.html
+
+  * igt@kms_chamelium@hdmi-hpd-fast:
+    - fi-icl-u2:          NOTRUN -> [SKIP][9] ([fdo#111827]) +8 similar issues
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][10] ([i915#4103]) +1 similar issue
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - fi-icl-u2:          NOTRUN -> [SKIP][11] ([fdo#109278]) +2 similar issues
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][12] ([fdo#109285])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@kms_force_connector_basic@force-load-detect.html
+    - fi-icl-u2:          NOTRUN -> [SKIP][13] ([fdo#109285])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-icl-u2:          NOTRUN -> [SKIP][14] ([i915#3301])
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@prime_vgem@basic-userptr.html
+    - fi-tgl-u2:          NOTRUN -> [SKIP][15] ([i915#3301])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@prime_vgem@basic-userptr.html
+
+  
+#### Possible fixes ####
+
+  * igt@debugfs_test@read_all_entries:
+    - fi-kbl-soraka:      [DMESG-WARN][16] ([i915#1982] / [i915#262]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-kbl-soraka/igt@debugfs_test@read_all_entries.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-kbl-soraka/igt@debugfs_test@read_all_entries.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-bdw-5557u:       [INCOMPLETE][18] ([i915#146]) -> [PASS][19]
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [INCOMPLETE][20] ([i915#3921]) -> [PASS][21]
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:
+    - fi-tgl-1115g4:      [FAIL][22] -> [PASS][23]
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109278]: https://bugs.freedesktop.org/show_bug.cgi?id=109278
+  [fdo#109284]: https://bugs.freedesktop.org/show_bug.cgi?id=109284
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#262]: https://gitlab.freedesktop.org/drm/intel/issues/262
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10832 -> Patchwork_21511
+
+  CI-20190529: 20190529
+  CI_DRM_10832: 01dc94036d6b73e745e7212f937350785b23b679 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6268: c712ecac599add7e877883a7c8e2857d3c19836f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21511: fec65a76f733d48dee6635eb6bbaf3db489b88b0 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+fec65a76f733 drm/i915/ttm: Failsafe migration blits
+b899c699aca8 drm/i915/ttm: Reorganize the ttm move code
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/index.html
+
+--===============8237521809325250277==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Failsafe migration blits (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95617/">https://patchwork.freedesktop.org/series/95617/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10832 -&gt; Patchwork_21511</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/index.html</p>
+<h2>Participating hosts (36 -&gt; 36)</h2>
+<p>Additional (3): fi-icl-u2 fi-elk-e7500 fi-tgl-u2 <br />
+  Missing    (3): fi-bsw-cyan bat-dg1-6 bat-adlp-4 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21511 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@cs-compute:</p>
+<ul>
+<li>fi-elk-e7500:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-elk-e7500/igt@amdgpu/amd_basic@cs-compute.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +49 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@fork-gfx0:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@amdgpu/amd_cs_nop@fork-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
+<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>
+<p>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</p>
+</li>
+<li>
+<p>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-hpd-fast:</p>
+<ul>
+<li>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@kms_chamelium@dp-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109284">fdo#109284</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@hdmi-hpd-fast:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
+<ul>
+<li>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4103">i915#4103</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109278">fdo#109278</a>) +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>
+<p>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</p>
+</li>
+<li>
+<p>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>
+<p>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-icl-u2/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</p>
+</li>
+<li>
+<p>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-u2/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@debugfs_test@read_all_entries:</p>
+<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-kbl-soraka/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/262">i915#262</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-kbl-soraka/igt@debugfs_test@read_all_entries.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10832/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21511/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10832 -&gt; Patchwork_21511</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10832: 01dc94036d6b73e745e7212f937350785b23b679 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6268: c712ecac599add7e877883a7c8e2857d3c19836f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21511: fec65a76f733d48dee6635eb6bbaf3db489b88b0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>fec65a76f733 drm/i915/ttm: Failsafe migration blits<br />
+b899c699aca8 drm/i915/ttm: Reorganize the ttm move code</p>
+
+</body>
+</html>
+
+--===============8237521809325250277==--
