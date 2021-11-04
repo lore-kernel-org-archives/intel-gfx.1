@@ -2,42 +2,45 @@ Return-Path: <SRS0=bagb=PX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD4E3C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 21:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB47C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 22:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E917604DC
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 21:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6E917604DC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 35F9E61269
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 22:04:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 35F9E61269
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFBE3738A2;
-	Thu,  4 Nov 2021 21:58:27 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC26738AA
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 21:58:26 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10158"; a="229265725"
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="229265725"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 14:58:25 -0700
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="450595845"
-Received: from fnygreen-mobl1.ger.corp.intel.com (HELO
- thellstr-mobl1.intel.com) ([10.249.254.164])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 14:58:24 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  4 Nov 2021 22:58:12 +0100
-Message-Id: <20211104215813.738524-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F384738A9;
+	Thu,  4 Nov 2021 22:04:17 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A54738A9
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 22:04:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10158"; a="292637605"
+X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="292637605"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2021 15:04:15 -0700
+X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="490122904"
+Received: from unerlige-ril-10.jf.intel.com (HELO unerlige-ril-10.165.21.208)
+ ([10.165.21.208])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2021 15:04:14 -0700
+Date: Thu, 4 Nov 2021 15:04:07 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20211104220407.GA23493@unerlige-ril-10.165.21.208>
+References: <20211103224708.1931-1-umesh.nerlige.ramappa@intel.com>
+ <68f76da9-6b70-fee4-6cc6-17e74c867bd2@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/selftests: Use
- clear_and_wake_up_bit() for the per-engine reset bitlocks
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+In-Reply-To: <68f76da9-6b70-fee4-6cc6-17e74c867bd2@linux.intel.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Fix synchronization of PMU
+ callback with reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,78 +53,137 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some selftests assume that nothing will attempt to grab these bitlocks
-while they are held by the selftests. With GuC, for example, that is
-not true because the hanging workloads may cause the GuC code to attempt
-to grab them for a global reset, and that may cause it to end up
-sleeping on the bit never waking up. Regardless whether that will be
-the final solution for GuC, use clear_and_wake_up_bit() pending a more
-thorough investigation on how this should be handled moving forward.
+On Thu, Nov 04, 2021 at 05:37:37PM +0000, Tvrtko Ursulin wrote:
+>
+>On 03/11/2021 22:47, Umesh Nerlige Ramappa wrote:
+>>Since the PMU callback runs in irq context, it synchronizes with gt
+>>reset using the reset count. We could run into a case where the PMU
+>>callback could read the reset count before it is updated. This has a
+>>potential of corrupting the busyness stats.
+>>
+>>In addition to the reset count, check if the reset bit is set before
+>>capturing busyness.
+>>
+>>In addition save the previous stats only if you intend to update them.
+>>
+>>Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>>---
+>>  drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 12 ++++++++----
+>>  1 file changed, 8 insertions(+), 4 deletions(-)
+>>
+>>diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>index 5cc49c0b3889..d83ade77ca07 100644
+>>--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>@@ -1183,6 +1183,7 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
+>>  	u64 total, gt_stamp_saved;
+>>  	unsigned long flags;
+>>  	u32 reset_count;
+>>+	bool in_reset;
+>>  	spin_lock_irqsave(&guc->timestamp.lock, flags);
+>>@@ -1191,7 +1192,9 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
+>>  	 * engine busyness from GuC, so we just use the driver stored
+>>  	 * copy of busyness. Synchronize with gt reset using reset_count.
+>>  	 */
+>>-	reset_count = i915_reset_count(gpu_error);
+>>+	rcu_read_lock();
+>>+	in_reset = test_bit(I915_RESET_BACKOFF, &gt->reset.flags);
+>>+	rcu_read_unlock();
+>
+>I don't really understand the point of rcu_read_lock over test_bit but 
+>I guess you copied it from the trylock loop.
 
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 8 ++++----
- drivers/gpu/drm/i915/selftests/igt_reset.c   | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+Yes, I don't see other parts of code using the lock though. I can drop 
+it.
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index 7e2d99dd012d..8590419be4c6 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -528,7 +528,7 @@ static int igt_reset_nop_engine(void *arg)
- 				break;
- 			}
- 		} while (time_before(jiffies, end_time));
--		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-+		clear_and_wake_up_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
- 		st_engine_heartbeat_enable(engine);
- 
- 		pr_info("%s(%s): %d resets\n", __func__, engine->name, count);
-@@ -679,7 +679,7 @@ static int igt_reset_fail_engine(void *arg)
- out:
- 		pr_info("%s(%s): %d resets\n", __func__, engine->name, count);
- skip:
--		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-+		clear_and_wake_up_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
- 		st_engine_heartbeat_enable(engine);
- 		intel_context_put(ce);
- 
-@@ -824,7 +824,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
- 			if (err)
- 				break;
- 		} while (time_before(jiffies, end_time));
--		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-+		clear_and_wake_up_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
- 		st_engine_heartbeat_enable(engine);
- 		pr_info("%s: Completed %lu %s resets\n",
- 			engine->name, count, active ? "active" : "idle");
-@@ -1165,7 +1165,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
- 			if (err)
- 				break;
- 		} while (time_before(jiffies, end_time));
--		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-+		clear_and_wake_up_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
- 		st_engine_heartbeat_enable_no_pm(engine);
- 
- 		pr_info("i915_reset_engine(%s:%s): %lu resets\n",
-diff --git a/drivers/gpu/drm/i915/selftests/igt_reset.c b/drivers/gpu/drm/i915/selftests/igt_reset.c
-index 9f8590b868a9..a2838c65f8a5 100644
---- a/drivers/gpu/drm/i915/selftests/igt_reset.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_reset.c
-@@ -36,7 +36,7 @@ void igt_global_reset_unlock(struct intel_gt *gt)
- 	enum intel_engine_id id;
- 
- 	for_each_engine(engine, gt, id)
--		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-+		clear_and_wake_up_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
- 
- 	clear_bit(I915_RESET_BACKOFF, &gt->reset.flags);
- 	wake_up_all(&gt->reset.queue);
--- 
-2.31.1
+>
+>>  	*now = ktime_get();
+>>@@ -1201,9 +1204,10 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
+>>  	 * start_gt_clk is derived from GuC state. To get a consistent
+>>  	 * view of activity, we query the GuC state only if gt is awake.
+>>  	 */
+>>-	stats_saved = *stats;
+>>-	gt_stamp_saved = guc->timestamp.gt_stamp;
+>>-	if (intel_gt_pm_get_if_awake(gt)) {
+>>+	if (intel_gt_pm_get_if_awake(gt) && !in_reset) {
+>
+>What is the point of looking at the old value of in_reset here?  Gut 
+>feeling says if there is a race this does not fix it.
+>
+>I did not figure out from the commit message what does "could read the 
+>reset count before it is updated" mean?
+>I thought the point of reading 
 
+>the reset count twice was that you are sure there was no reset while 
+>in here, in which case it is safe to update the software copy. I don't 
+>easily see what test_bit does on top.
+
+This is what I see in the reset flow
+---------------
+
+R1) test_and_set_bit(I915_RESET_BACKOFF, &gt->reset.flags)
+R2) atomic_inc(&gt->i915->gpu_error.reset_count)
+R3) reset prepare
+R4) do the HW reset
+
+The reset count is updated only once above and that's before an actual 
+HW reset happens.
+
+PMU callback flow before this patch
+---------------
+
+P1) read reset count
+P2) update stats
+P3) read reset count
+P4) if reset count changed, use old stats. if not use updated stats.
+
+I am concerned that the PMU flow could run after step (R2). Then we 
+wrongly conclude that the count stayed the same and no HW reset 
+happened.
+
+PMU callback flow with this patch
+---------------
+This would rely on the reset_count only if a reset is not in progress.
+
+P0) test_bit for I915_RESET_BACKOFF
+P1) read reset count if not in reset. if in reset, use old stats
+P2) update stats
+P3) read reset count
+P4) if reset count changed, use old stats. if not use updated stats.
+
+Now that I think about it more, I do see one sequence that still needs 
+fixing though - P0, R1, R2, P1 - P4. For that, I think I need to re-read 
+the BACKOFF bit after reading the reset_count for the first time. 
+
+Modified PMU callback sequence would be:
+----------
+
+M0) test_bit for I915_RESET_BACKOFF
+M1) read reset count if not in reset, if in reset, use old stats
+
+M1.1) test_bit for I915_RESET_BACKOFF. if set, use old stats. if not, 
+use reset_count to synchronize
+
+M2) update stats
+M3) read reset count
+M4) if reset count changed, use old stats. if not use updated stats.
+
+Thanks,
+Umesh
+
+>
+>Regards,
+>
+>Tvrtko
+>
+>>+		stats_saved = *stats;
+>>+		gt_stamp_saved = guc->timestamp.gt_stamp;
+>>+		reset_count = i915_reset_count(gpu_error);
+>>  		guc_update_engine_gt_clks(engine);
+>>  		guc_update_pm_timestamp(guc, engine, now);
+>>  		intel_gt_pm_put_async(gt);
+>>
