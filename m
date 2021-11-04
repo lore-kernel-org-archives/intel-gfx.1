@@ -2,48 +2,43 @@ Return-Path: <SRS0=bagb=PX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8108C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 17:37:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9BA2C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 17:52:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C6F661168
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 17:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6C6F661168
+	by mail.kernel.org (Postfix) with ESMTPS id 7446961186
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 17:52:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7446961186
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB8EF736B5;
-	Thu,  4 Nov 2021 17:37:46 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 019C4736B5
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 17:37:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10158"; a="255400762"
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="255400762"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 10:37:40 -0700
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="450302741"
-Received: from jrgrant-mobl.ger.corp.intel.com (HELO [10.213.221.26])
- ([10.213.221.26])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 10:37:39 -0700
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20211103224708.1931-1-umesh.nerlige.ramappa@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <68f76da9-6b70-fee4-6cc6-17e74c867bd2@linux.intel.com>
-Date: Thu, 4 Nov 2021 17:37:37 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 552DA6FA66;
+	Thu,  4 Nov 2021 17:52:28 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1D76F98E;
+ Thu,  4 Nov 2021 17:52:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10158"; a="231707784"
+X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="231707784"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2021 10:52:25 -0700
+X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="501632247"
+Received: from mihaelac-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.32.21])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2021 10:52:21 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mark Yacoub <markyacoub@chromium.org>
+In-Reply-To: <20211104165046.4115042-1-markyacoub@chromium.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211104165046.4115042-1-markyacoub@chromium.org>
+Date: Thu, 04 Nov 2021 19:52:18 +0200
+Message-ID: <87tugrajvx.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20211103224708.1931-1-umesh.nerlige.ramappa@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Fix synchronization of PMU
- callback with reset
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v4 1/3] drm: Move drm_color_lut_check
+ implementation internal to intel_color
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,79 +51,300 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: pmenzel@molgen.mpg.de, David Airlie <airlied@linux.ie>,
+ Mark Yacoub <markyacoub@chromium.org>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Mark Yacoub <markyacoub@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 03/11/2021 22:47, Umesh Nerlige Ramappa wrote:
-> Since the PMU callback runs in irq context, it synchronizes with gt
-> reset using the reset count. We could run into a case where the PMU
-> callback could read the reset count before it is updated. This has a
-> potential of corrupting the busyness stats.
-> 
-> In addition to the reset count, check if the reset bit is set before
-> capturing busyness.
-> 
-> In addition save the previous stats only if you intend to update them.
-> 
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+On Thu, 04 Nov 2021, Mark Yacoub <markyacoub@chromium.org> wrote:
+> From: Mark Yacoub <markyacoub@google.com>
+>
+> [Why]
+> The tests of LUT_EQUAL_CHANNELS and LUT_NON_DECREASING are currently
+> unique to i915 driver.
+> Freeing up the function name for the more generic LUT checks to folllow
+>
+> Tested on Eldrid ChromeOS (TGL).
+>
+> v1:
+> Stuff the test function from DRM to intel driver.
+>
+> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
 > ---
->   drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 12 ++++++++----
->   1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> index 5cc49c0b3889..d83ade77ca07 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> @@ -1183,6 +1183,7 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
->   	u64 total, gt_stamp_saved;
->   	unsigned long flags;
->   	u32 reset_count;
-> +	bool in_reset;
->   
->   	spin_lock_irqsave(&guc->timestamp.lock, flags);
->   
-> @@ -1191,7 +1192,9 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
->   	 * engine busyness from GuC, so we just use the driver stored
->   	 * copy of busyness. Synchronize with gt reset using reset_count.
->   	 */
-> -	reset_count = i915_reset_count(gpu_error);
-> +	rcu_read_lock();
-> +	in_reset = test_bit(I915_RESET_BACKOFF, &gt->reset.flags);
-> +	rcu_read_unlock();
+>  drivers/gpu/drm/drm_color_mgmt.c           | 43 ----------------------
+>  drivers/gpu/drm/i915/display/intel_color.c | 43 +++++++++++++++++++---
+>  drivers/gpu/drm/i915/display/intel_color.h | 27 ++++++++++++++
+>  drivers/gpu/drm/i915/i915_pci.c            | 27 ++++++++------
+>  include/drm/drm_color_mgmt.h               | 27 --------------
+>  5 files changed, 81 insertions(+), 86 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+> index bb14f488c8f6c..16a07f84948f3 100644
+> --- a/drivers/gpu/drm/drm_color_mgmt.c
+> +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> @@ -583,46 +583,3 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(drm_plane_create_color_properties);
+> -
+> -/**
+> - * drm_color_lut_check - check validity of lookup table
+> - * @lut: property blob containing LUT to check
+> - * @tests: bitmask of tests to run
+> - *
+> - * Helper to check whether a userspace-provided lookup table is valid and
+> - * satisfies hardware requirements.  Drivers pass a bitmask indicating which of
+> - * the tests in &drm_color_lut_tests should be performed.
+> - *
+> - * Returns 0 on success, -EINVAL on failure.
+> - */
+> -int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests)
+> -{
+> -	const struct drm_color_lut *entry;
+> -	int i;
+> -
+> -	if (!lut || !tests)
+> -		return 0;
+> -
+> -	entry = lut->data;
+> -	for (i = 0; i < drm_color_lut_size(lut); i++) {
+> -		if (tests & DRM_COLOR_LUT_EQUAL_CHANNELS) {
+> -			if (entry[i].red != entry[i].blue ||
+> -			    entry[i].red != entry[i].green) {
+> -				DRM_DEBUG_KMS("All LUT entries must have equal r/g/b\n");
+> -				return -EINVAL;
+> -			}
+> -		}
+> -
+> -		if (i > 0 && tests & DRM_COLOR_LUT_NON_DECREASING) {
+> -			if (entry[i].red < entry[i - 1].red ||
+> -			    entry[i].green < entry[i - 1].green ||
+> -			    entry[i].blue < entry[i - 1].blue) {
+> -				DRM_DEBUG_KMS("LUT entries must never decrease.\n");
+> -				return -EINVAL;
+> -			}
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -EXPORT_SYMBOL(drm_color_lut_check);
+> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+> index dab892d2251ba..bde98a155c9f3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color.c
+> +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> @@ -1279,13 +1279,46 @@ static int check_lut_size(const struct drm_property_blob *lut, int expected)
+>  	return 0;
+>  }
+>  
+> +static int test_luts(const struct drm_property_blob *lut, u32 tests)
+> +{
+> +	const struct drm_color_lut *entry;
+> +	int i;
+> +
+> +	if (!lut || !tests)
+> +		return 0;
+> +
+> +	entry = lut->data;
+> +	for (i = 0; i < drm_color_lut_size(lut); i++) {
+> +		if (tests & LUT_EQUAL_CHANNELS) {
+> +			if (entry[i].red != entry[i].blue ||
+> +			    entry[i].red != entry[i].green) {
+> +				DRM_DEBUG_KMS(
+> +					"All LUT entries must have equal r/g/b\n");
+> +				return -EINVAL;
+> +			}
+> +		}
+> +
+> +		if (i > 0 && tests & LUT_NON_DECREASING) {
+> +			if (entry[i].red < entry[i - 1].red ||
+> +			    entry[i].green < entry[i - 1].green ||
+> +			    entry[i].blue < entry[i - 1].blue) {
+> +				DRM_DEBUG_KMS(
+> +					"LUT entries must never decrease.\n");
+> +				return -EINVAL;
+> +			}
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int check_luts(const struct intel_crtc_state *crtc_state)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+>  	const struct drm_property_blob *gamma_lut = crtc_state->hw.gamma_lut;
+>  	const struct drm_property_blob *degamma_lut = crtc_state->hw.degamma_lut;
+>  	int gamma_length, degamma_length;
+> -	u32 gamma_tests, degamma_tests;
+> +	u32 gamma_channels_tests, degamma_channels_tests;
+>  
+>  	/* Always allow legacy gamma LUT with no further checking. */
+>  	if (crtc_state_is_legacy_gamma(crtc_state))
+> @@ -1300,15 +1333,15 @@ static int check_luts(const struct intel_crtc_state *crtc_state)
+>  
+>  	degamma_length = INTEL_INFO(dev_priv)->color.degamma_lut_size;
+>  	gamma_length = INTEL_INFO(dev_priv)->color.gamma_lut_size;
+> -	degamma_tests = INTEL_INFO(dev_priv)->color.degamma_lut_tests;
+> -	gamma_tests = INTEL_INFO(dev_priv)->color.gamma_lut_tests;
+> +	degamma_channels_tests = INTEL_INFO(dev_priv)->color.degamma_lut_tests;
+> +	gamma_channels_tests = INTEL_INFO(dev_priv)->color.gamma_lut_tests;
+>  
+>  	if (check_lut_size(degamma_lut, degamma_length) ||
+>  	    check_lut_size(gamma_lut, gamma_length))
+>  		return -EINVAL;
+>  
+> -	if (drm_color_lut_check(degamma_lut, degamma_tests) ||
+> -	    drm_color_lut_check(gamma_lut, gamma_tests))
+> +	if (test_luts(degamma_lut, degamma_channels_tests) ||
+> +	    test_luts(gamma_lut, gamma_channels_tests))
+>  		return -EINVAL;
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
+> index 173727aaa24d2..621f8f2c95467 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color.h
+> +++ b/drivers/gpu/drm/i915/display/intel_color.h
+> @@ -7,11 +7,38 @@
+>  #define __INTEL_COLOR_H__
+>  
+>  #include <linux/types.h>
+> +#include <linux/bits.h>
+>  
+>  struct intel_crtc_state;
+>  struct intel_crtc;
+>  struct drm_property_blob;
+>  
+> +/**
+> + * enum lut_channels_tests - hw-specific LUT tests to perform
+> + *
+> + * The test_luts() function takes a bitmask of the values here to
+> + * determine which tests to apply to a userspace-provided LUT.
+> + */
+> +enum lut_channels_tests {
+> +	/**
+> +	 * @LUT_EQUAL_CHANNELS:
+> +	 *
+> +	 * Checks whether the entries of a LUT all have equal values for the
+> +	 * red, green, and blue channels.  Intended for hardware that only
+> +	 * accepts a single value per LUT entry and assumes that value applies
+> +	 * to all three color components.
+> +	 */
+> +	LUT_EQUAL_CHANNELS = BIT(0),
+> +
+> +	/**
+> +	 * @LUT_NON_DECREASING:
+> +	 *
+> +	 * Checks whether the entries of a LUT are always flat or increasing
+> +	 * (never decreasing).
+> +	 */
+> +	LUT_NON_DECREASING = BIT(1),
+> +};
 
-I don't really understand the point of rcu_read_lock over test_bit but I 
-guess you copied it from the trylock loop.
+IMO using enums for defining bits is semantically wrong. These are not
+enumerations. The enum as a type is not used for anything. I'd just make
+these macros.
 
->   
->   	*now = ktime_get();
->   
-> @@ -1201,9 +1204,10 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
->   	 * start_gt_clk is derived from GuC state. To get a consistent
->   	 * view of activity, we query the GuC state only if gt is awake.
->   	 */
-> -	stats_saved = *stats;
-> -	gt_stamp_saved = guc->timestamp.gt_stamp;
-> -	if (intel_gt_pm_get_if_awake(gt)) {
-> +	if (intel_gt_pm_get_if_awake(gt) && !in_reset) {
+Everything defined here should be prefixed intel_color_ or INTEL_COLOR_.
 
-What is the point of looking at the old value of in_reset here?  Gut 
-feeling says if there is a race this does not fix it.
+BR,
+Jani.
 
-I did not figure out from the commit message what does "could read the 
-reset count before it is updated" mean? I thought the point of reading 
-the reset count twice was that you are sure there was no reset while in 
-here, in which case it is safe to update the software copy. I don't 
-easily see what test_bit does on top.
 
-Regards,
+> +
+>  void intel_color_init(struct intel_crtc *crtc);
+>  int intel_color_check(struct intel_crtc_state *crtc_state);
+>  void intel_color_commit(const struct intel_crtc_state *crtc_state);
+> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> index 5e8348f506b8d..17798cfc13eb4 100644
+> --- a/drivers/gpu/drm/i915/i915_pci.c
+> +++ b/drivers/gpu/drm/i915/i915_pci.c
+> @@ -29,6 +29,7 @@
+>  #include <drm/i915_pciids.h>
+>  
+>  #include "display/intel_fbdev.h"
+> +#include "display/intel_color.h"
+>  
+>  #include "i915_drv.h"
+>  #include "i915_perf.h"
+> @@ -132,23 +133,27 @@
+>  
+>  #define I9XX_COLORS \
+>  	.color = { .gamma_lut_size = 256 }
+> -#define I965_COLORS \
+> -	.color = { .gamma_lut_size = 129, \
+> -		   .gamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING, \
+> +#define I965_COLORS                                                            \
+> +	.color = {                                                             \
+> +		.gamma_lut_size = 129,                                         \
+> +		.gamma_lut_tests = LUT_NON_DECREASING,                         \
+>  	}
+>  #define ILK_COLORS \
+>  	.color = { .gamma_lut_size = 1024 }
+>  #define IVB_COLORS \
+>  	.color = { .degamma_lut_size = 1024, .gamma_lut_size = 1024 }
+> -#define CHV_COLORS \
+> -	.color = { .degamma_lut_size = 65, .gamma_lut_size = 257, \
+> -		   .degamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING, \
+> -		   .gamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING, \
+> +#define CHV_COLORS                                                             \
+> +	.color = {                                                             \
+> +		.degamma_lut_size = 65,                                        \
+> +		.gamma_lut_size = 257,                                         \
+> +		.degamma_lut_tests = LUT_NON_DECREASING,                       \
+> +		.gamma_lut_tests = LUT_NON_DECREASING,                         \
+>  	}
+> -#define GLK_COLORS \
+> -	.color = { .degamma_lut_size = 33, .gamma_lut_size = 1024, \
+> -		   .degamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING | \
+> -					DRM_COLOR_LUT_EQUAL_CHANNELS, \
+> +#define GLK_COLORS                                                             \
+> +	.color = {                                                             \
+> +		.degamma_lut_size = 33,                                        \
+> +		.gamma_lut_size = 1024,                                        \
+> +		.degamma_lut_tests = LUT_NON_DECREASING | LUT_EQUAL_CHANNELS,  \
+>  	}
+>  
+>  /* Keep in gen based order, and chronological order within a gen */
+> diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+> index 81c298488b0c8..3537f3eeb3872 100644
+> --- a/include/drm/drm_color_mgmt.h
+> +++ b/include/drm/drm_color_mgmt.h
+> @@ -93,31 +93,4 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+>  				      enum drm_color_encoding default_encoding,
+>  				      enum drm_color_range default_range);
+>  
+> -/**
+> - * enum drm_color_lut_tests - hw-specific LUT tests to perform
+> - *
+> - * The drm_color_lut_check() function takes a bitmask of the values here to
+> - * determine which tests to apply to a userspace-provided LUT.
+> - */
+> -enum drm_color_lut_tests {
+> -	/**
+> -	 * @DRM_COLOR_LUT_EQUAL_CHANNELS:
+> -	 *
+> -	 * Checks whether the entries of a LUT all have equal values for the
+> -	 * red, green, and blue channels.  Intended for hardware that only
+> -	 * accepts a single value per LUT entry and assumes that value applies
+> -	 * to all three color components.
+> -	 */
+> -	DRM_COLOR_LUT_EQUAL_CHANNELS = BIT(0),
+> -
+> -	/**
+> -	 * @DRM_COLOR_LUT_NON_DECREASING:
+> -	 *
+> -	 * Checks whether the entries of a LUT are always flat or increasing
+> -	 * (never decreasing).
+> -	 */
+> -	DRM_COLOR_LUT_NON_DECREASING = BIT(1),
+> -};
+> -
+> -int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests);
+>  #endif
 
-Tvrtko
-
-> +		stats_saved = *stats;
-> +		gt_stamp_saved = guc->timestamp.gt_stamp;
-> +		reset_count = i915_reset_count(gpu_error);
->   		guc_update_engine_gt_clks(engine);
->   		guc_update_pm_timestamp(guc, engine, now);
->   		intel_gt_pm_put_async(gt);
-> 
+-- 
+Jani Nikula, Intel Open Source Graphics Center
