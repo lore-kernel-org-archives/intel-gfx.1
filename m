@@ -2,49 +2,39 @@ Return-Path: <SRS0=bagb=PX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97262C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 15:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB431C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E98061212
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 15:41:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E98061212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5F9FE611C0
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F9FE611C0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F207D6EE0C;
-	Thu,  4 Nov 2021 15:41:24 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A56FB6EDFA;
- Thu,  4 Nov 2021 15:41:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="295175449"
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="295175449"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 08:41:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="450250513"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga006.jf.intel.com with SMTP; 04 Nov 2021 08:41:14 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 04 Nov 2021 17:41:13 +0200
-Date: Thu, 4 Nov 2021 17:41:13 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YYP/GWqbcvVFIrAj@intel.com>
-References: <20211102145944.259181-1-maxime@cerno.tech>
- <20211102145944.259181-2-maxime@cerno.tech>
- <YYJsM6/hZ43b1tm9@intel.com> <YYLPXJoC7TZcwejb@intel.com>
- <20211104084841.mjnennxgelacleaj@gilmour>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C22576F9EC;
+	Thu,  4 Nov 2021 16:00:06 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CCBAF6F9E5;
+ Thu,  4 Nov 2021 16:00:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C32D6A8830;
+ Thu,  4 Nov 2021 16:00:05 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8312461196903112838=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211104084841.mjnennxgelacleaj@gilmour>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 01/13] drm/connector: Add define for HDMI
- 1.4 Maximum Pixel Rate
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
+Date: Thu, 04 Nov 2021 16:00:05 -0000
+Message-ID: <163604160576.6352.14756278908303977334@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210907132044.157225-1-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20210907132044.157225-1-maarten.lankhorst@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Iga2Vy?=
+ =?utf-8?q?nel/locking=3A_Add_context_to_ww=5Fmutex=5Ftrylock=2E_=28rev5?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,85 +47,216 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Gover <tim.gover@raspberrypi.com>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
- amd-gfx@lists.freedesktop.org,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Emma Anholt <emma@anholt.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- intel-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 04, 2021 at 09:48:41AM +0100, Maxime Ripard wrote:
-> Hi Ville,
-> 
-> On Wed, Nov 03, 2021 at 08:05:16PM +0200, Ville Syrjälä wrote:
-> > On Wed, Nov 03, 2021 at 01:02:11PM +0200, Ville Syrjälä wrote:
-> > > On Tue, Nov 02, 2021 at 03:59:32PM +0100, Maxime Ripard wrote:
-> > > > --- a/drivers/gpu/drm/drm_edid.c
-> > > > +++ b/drivers/gpu/drm/drm_edid.c
-> > > > @@ -4966,7 +4966,7 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
-> > > >  		u32 max_tmds_clock = hf_vsdb[5] * 5000;
-> > > >  		struct drm_scdc *scdc = &hdmi->scdc;
-> > > >  
-> > > > -		if (max_tmds_clock > 340000) {
-> > > > +		if (max_tmds_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
-> > > >  			display->max_tmds_clock = max_tmds_clock;
-> > > >  			DRM_DEBUG_KMS("HF-VSDB: max TMDS clock %d kHz\n",
-> > > >  				display->max_tmds_clock);
-> > > > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > > > index d2e61f6c6e08..0666203d52b7 100644
-> > > > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > > > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > > > @@ -2226,7 +2226,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
-> > > >  		if (scdc->scrambling.low_rates)
-> > > >  			pipe_config->hdmi_scrambling = true;
-> > > >  
-> > > > -		if (pipe_config->port_clock > 340000) {
-> > > > +		if (pipe_config->port_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
-> > > >  			pipe_config->hdmi_scrambling = true;
-> > > >  			pipe_config->hdmi_high_tmds_clock_ratio = true;
-> > > >  		}
-> > > 
-> > > All of that is HDMI 2.0 stuff. So this just makes it all super
-> > > confusing IMO. Nak.
-> > 
-> > So reading throgh HDMI 1.4 again it does specify 340 MHz as some kind
-> > of upper limit for the physical cable. But nowhere else is that number
-> > really mentioned AFAICS. HDMI 2.0 does talk quite a bit about the 340
-> > Mcsc limit in various places.
-> > 
-> > I wonder what people would think of a couple of helpers like:
-> > - drm_hdmi_{can,must}_use_scrambling()
-> > - drm_hdmi_is_high_tmds_clock_ratio()
-> > or something along those lines? At least with those the code would
-> > read decently and I wouldn't have to wonder what this HDMI 1.4 TMDS
-> > clock limit really is.
-> 
-> Patch 2 introduces something along those lines.
-> 
-> It doesn't cover everything though, we're using this define in vc4 to
-> limit the available modes in mode_valid on HDMI controllers not
-> 4k-capable
+--===============8312461196903112838==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-I wouldn't want to use this kind of define for those kinds of checks
-anyway. If the hardware has specific limits in what kind of clocks it
-can generate (or what it was validated for) IMO you should spell
-those out explicitly instead of assuming they happen to match
-some standard defined max value.
+== Series Details ==
 
--- 
-Ville Syrjälä
-Intel
+Series: kernel/locking: Add context to ww_mutex_trylock. (rev5)
+URL   : https://patchwork.freedesktop.org/series/94437/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10840 -> Patchwork_21516
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/index.html
+
+Participating hosts (40 -> 35)
+------------------------------
+
+  Additional (1): fi-icl-u2 
+  Missing    (6): bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-bdw-samus 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21516 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@fork-gfx0:
+    - fi-icl-u2:          NOTRUN -> [SKIP][1] ([fdo#109315]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@amdgpu/amd_cs_nop@fork-gfx0.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-icl-u2:          NOTRUN -> [SKIP][2] ([i915#2190])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@gem_huc_copy@huc-copy.html
+
+  * igt@kms_chamelium@hdmi-hpd-fast:
+    - fi-icl-u2:          NOTRUN -> [SKIP][3] ([fdo#111827]) +8 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - fi-icl-u2:          NOTRUN -> [SKIP][4] ([fdo#109278]) +2 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-icl-u2:          NOTRUN -> [SKIP][5] ([fdo#109285])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-icl-u2:          NOTRUN -> [SKIP][6] ([i915#3301])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@prime_vgem@basic-userptr.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@basic-pci-d3-state:
+    - fi-skl-6600u:       [FAIL][7] ([i915#3239]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10840/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109278]: https://bugs.freedesktop.org/show_bug.cgi?id=109278
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#3239]: https://gitlab.freedesktop.org/drm/intel/issues/3239
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10840 -> Patchwork_21516
+
+  CI-20190529: 20190529
+  CI_DRM_10840: fd09f2e3683d7fa8894b24a15ab0356fdf922f6c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6273: 311a141910678cd981621d0c1beebb665137b49a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21516: 0525c745cec9e2339e8ea1fae2fb86d0f92b4cdc @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+0525c745cec9 kernel/locking: Use a pointer in ww_mutex_trylock().
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/index.html
+
+--===============8312461196903112838==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>kernel/locking: Add context to ww_mutex_trylock. (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94437/">https://patchwork.freedesktop.org/series/94437/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10840 -&gt; Patchwork_21516</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/index.html</p>
+<h2>Participating hosts (40 -&gt; 35)</h2>
+<p>Additional (1): fi-icl-u2 <br />
+  Missing    (6): bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-bdw-samus </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21516 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_cs_nop@fork-gfx0:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@amdgpu/amd_cs_nop@fork-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@hdmi-hpd-fast:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109278">fdo#109278</a>) +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-icl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-icl-u2/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_pm_rpm@basic-pci-d3-state:<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10840/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3239">i915#3239</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21516/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10840 -&gt; Patchwork_21516</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10840: fd09f2e3683d7fa8894b24a15ab0356fdf922f6c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6273: 311a141910678cd981621d0c1beebb665137b49a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21516: 0525c745cec9e2339e8ea1fae2fb86d0f92b4cdc @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>0525c745cec9 kernel/locking: Use a pointer in ww_mutex_trylock().</p>
+
+</body>
+</html>
+
+--===============8312461196903112838==--
