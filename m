@@ -2,43 +2,45 @@ Return-Path: <SRS0=bagb=PX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DE79C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 14:45:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69681C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 14:45:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D4CA1611C4
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 14:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D4CA1611C4
+	by mail.kernel.org (Postfix) with ESMTPS id 35F9C611EE
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 14:45:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 35F9C611EE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4661E6E424;
-	Thu,  4 Nov 2021 14:45:35 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2C186E424
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 14:45:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="231663905"
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="231663905"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 07:45:24 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id C02636E432;
+	Thu,  4 Nov 2021 14:45:36 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1D76E432
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 14:45:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="295162003"
+X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="295162003"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2021 07:45:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="585964812"
+X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="501566508"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga002.fm.intel.com with SMTP; 04 Nov 2021 07:45:21 -0700
+ by orsmga008.jf.intel.com with SMTP; 04 Nov 2021 07:45:30 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 04 Nov 2021 16:45:20 +0200
+ Thu, 04 Nov 2021 16:45:29 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  4 Nov 2021 16:45:03 +0200
-Message-Id: <20211104144520.22605-1-ville.syrjala@linux.intel.com>
+Date: Thu,  4 Nov 2021 16:45:06 +0200
+Message-Id: <20211104144520.22605-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211104144520.22605-1-ville.syrjala@linux.intel.com>
+References: <20211104144520.22605-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/17] drm/i915/fbc: Prep work for multiple FBC
- instances
+Subject: [Intel-gfx] [PATCH 03/17] drm/i915/fbc: Just use
+ params->fence_y_offset always
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,42 +58,37 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Bunch of refactoring and cleanups, mainly as prep work
-for introducing multiple FBC instances in the future.
+No need to tiptoe around programming DPFC_FENCE_YOFF with
+params->fence_y_offset vs. 0. If the fence is not enabled
+it doesn't even matter what we program here.
 
-Ville Syrjälä (17):
-  drm/i915/fbc: Exract snb_fbc_program_fence()
-  drm/i915/fbc: Extract {skl,glk}_fbc_program_cfb_stride()
-  drm/i915/fbc: Just use params->fence_y_offset always
-  drm/i915/fbc: Introduce intel_fbc_is_compressing()
-  drm/i915/fbc: Extract helpers to compute FBC control register values
-  drm/i915/fbc: Introduce intel_fbc_funcs
-  drm/i915/fbc: Introduce .nuke() vfunc
-  drm/i915/fbc: s/gen7/ivb/
-  drm/i915/fbc: Introduce .program_cfb() vfunc
-  drm/i915/fbc: Introduce intel_fbc_set_false_color()
-  drm/i915/fbc: Nuke BDW_FBC_COMP_SEG_MASK
-  drm/i915/fbc: Clean up all register defines
-  drm/i915/fbc: Finish polishing FBC1 registers
-  drm/i915: Relocate FBC_LLC_READ_CTRL
-  drm/i915/fbc: s/dev_priv/i915/
-  drm/i915/fbc: Start passing around intel_fbc
-  drm/1915/fbc: Replace plane->has_fbc with a pointer to the fbc
-    instance
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_fbc.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
- drivers/gpu/drm/i915/display/i9xx_plane.c     |  10 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   4 +-
- .../drm/i915/display/intel_display_debugfs.c  |  43 +-
- .../drm/i915/display/intel_display_types.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      | 996 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_fbc.h      |  11 +-
- .../drm/i915/display/intel_fifo_underrun.c    |   2 +-
- .../drm/i915/display/skl_universal_plane.c    |  10 +-
- drivers/gpu/drm/i915/i915_drv.h               |   4 +
- drivers/gpu/drm/i915/i915_reg.h               | 154 +--
- drivers/gpu/drm/i915/intel_pm.c               |  16 +-
- 11 files changed, 695 insertions(+), 559 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index c95a32f1985a..8f51af2b4ebc 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -235,13 +235,11 @@ static void g4x_fbc_activate(struct drm_i915_private *dev_priv)
+ 
+ 	dpfc_ctl |= g4x_dpfc_ctl_limit(dev_priv);
+ 
+-	if (params->fence_id >= 0) {
++	if (params->fence_id >= 0)
+ 		dpfc_ctl |= DPFC_CTL_FENCE_EN | params->fence_id;
+-		intel_de_write(dev_priv, DPFC_FENCE_YOFF,
+-			       params->fence_y_offset);
+-	} else {
+-		intel_de_write(dev_priv, DPFC_FENCE_YOFF, 0);
+-	}
++
++	intel_de_write(dev_priv, DPFC_FENCE_YOFF,
++		       params->fence_y_offset);
+ 
+ 	/* enable it... */
+ 	intel_de_write(dev_priv, DPFC_CONTROL, dpfc_ctl | DPFC_CTL_EN);
 -- 
 2.32.0
 
