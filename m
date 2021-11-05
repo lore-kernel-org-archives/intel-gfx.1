@@ -2,71 +2,39 @@ Return-Path: <SRS0=ZV5I=PY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 113D7C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8827DC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:31:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D439B6103B
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D439B6103B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 48E1E6103B
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 48E1E6103B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 853256EC96;
-	Fri,  5 Nov 2021 19:27:26 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAD756EA93;
- Fri,  5 Nov 2021 19:27:18 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id k1so10497441ilo.7;
- Fri, 05 Nov 2021 12:27:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Y1F8YnApdCMN4x/uS6JtL9yGPFccvC24U5Ww5vjLcGU=;
- b=DkG7uJ6OaX2DsHm86idVlHA+6uBaScXAJmTT91sAaBG3WyyH0uhEBS33rwVzsUUjDk
- TcTZ3AylVveNtNPXtGF5Kp+SXsAtVwTN4KATZNh1Kue/injyw+aoMQxzBac2yqdVZeoR
- py+zZVDWaY4lMTNYZefx+hy6U3G+9Ia/bsKC9+74FbOVzaGzmcPF0GCkF9hVJoCvROWA
- fpMra9tJib0lVIEGLOraRVM8kGfJ44XjzCNS5ELw6ADSfvgTO9pIAhTVr1cc63hGJks2
- pYN7/PdIFsKRPyrgmh7+KxWAOM+3/o04nRENZwVpfMcQTcY8U/Sd2G/ui9ykdx83tfoM
- FxCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Y1F8YnApdCMN4x/uS6JtL9yGPFccvC24U5Ww5vjLcGU=;
- b=gQ7b/c/DRvAIKy3ao9XkYIKybIAOK8LSLTe6N85Td+7Ovygk6l4dEvjM89L4tFYt9Q
- o9Fv8442cg3jNE08VLcNcfca7nDUDznO/husGv3B706LzwG6OBrGV0iALY82ecZceEPA
- QqicvryxD3KlBSIfIGSizuzHIWIm3JcFSTEvDZzcbSfUX6U62ZGe/mpCEQxozAgx+Fsl
- OkhNWXOsDYPZq7sR3WgPqYzNY2J1yCX45QukZ0Sy57KAjwzvfxTVceJdy3b+4ZvMHaWm
- XvUIHHrrp6jJs4r1Cz5NWoln7Apfsa3iV5ljJh2CXI9VZTnM3rabhaqcxUkgdWcBloKn
- 7dWA==
-X-Gm-Message-State: AOAM530orWS8H/1O9W0kFVLuawyNGXNTrT4JLKTTAvcM04E4wkbKmOPz
- Ewt5tJRBfGABDenFB1gErzw=
-X-Google-Smtp-Source: ABdhPJwc1YYIiJUwXhkmE4+/dKMPB/Ld0YLvVJTZYjIQ3O/vjBPn1F3y3i+altRP74cPhbiUEkTNTw==
-X-Received: by 2002:a05:6e02:148c:: with SMTP id
- n12mr16457301ilk.131.1636140436435; 
- Fri, 05 Nov 2021 12:27:16 -0700 (PDT)
-Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Nov 2021 12:27:16 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
- daniel.vetter@ffwll.ch, seanpaul@chromium.org, lyude@redhat.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Fri,  5 Nov 2021 13:26:36 -0600
-Message-Id: <20211105192637.2370737-10-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211105192637.2370737-1-jim.cromie@gmail.com>
-References: <20211105192637.2370737-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A734F6E3DA;
+	Fri,  5 Nov 2021 19:31:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4AE6F6E49F;
+ Fri,  5 Nov 2021 19:31:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 40EB5A66C9;
+ Fri,  5 Nov 2021 19:31:44 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6844724716711670269=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 09/10] dyndbg: create
- DEFINE_DYNAMIC_DEBUG_LOG|TRACE_GROUPS
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Fri, 05 Nov 2021 19:31:44 -0000
+Message-ID: <163614070423.30614.12527503605443362694@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211105183342.130810-1-lyude@redhat.com>
+In-Reply-To: <20211105183342.130810-1-lyude@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/dp=2C_drm/i915=3A_Finish_basic_PWM_support_for_VESA_backlight_?=
+ =?utf-8?q?helpers_=28rev11=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,130 +47,159 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the recent addition of pr_debug to tracefs via +T flag, we now
-want to add drm.trace; like its model: drm.debug, it maps bits to
-pr_debug categories, but this one enables/disables writing to tracefs
-(iff CONFIG_TRACING).
+--===============6844724716711670269==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Do this by:
+== Series Details ==
 
-1. add flags to dyndbg_bitmap_param, holds "p" or "T" to work for either.
+Series: drm/dp, drm/i915: Finish basic PWM support for VESA backlight helpers (rev11)
+URL   : https://patchwork.freedesktop.org/series/95127/
+State : success
 
-   add DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS to init .flags
-   DEFINE_DYNAMIC_DEBUG_BITGRPS gets "p" for compat.
-   use it from...
+== Summary ==
 
-2. DEFINE_DYNAMIC_DEBUG_LOG_GROUPS as (1) with "p" flags - print to syslog
-   DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS as (1) with "T" flags - trace to tracefs
-   add kdoc to these
+CI Bug Log - changes from CI_DRM_10850 -> Patchwork_21527
+====================================================
 
-NOTES
+Summary
+-------
 
-The flags args (1) is a string, not just a 'p' or 'T'.  This allows
-use of decorator flags ("mflt") too, in case the module author wants
-to insure those decorations are in the trace & log.
+  **SUCCESS**
 
-The LOG|TRACE (2) macros don't use any decorator flags, (and therefore
-don't toggle them), allowing users to control those themselves.
+  No regressions found.
 
-Decorator flags are shared for both LOG and TRACE consumers,
-coordination between users is expected.  ATM, theres no declarative
-way to preset decorator flags, but DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS
-can be used to explicitly toggle them.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/index.html
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- include/linux/dynamic_debug.h | 44 ++++++++++++++++++++++++++---------
- lib/dynamic_debug.c           |  4 ++--
- 2 files changed, 35 insertions(+), 13 deletions(-)
+Participating hosts (44 -> 37)
+------------------------------
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 792bcff0297e..918ac1a92358 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -255,30 +255,52 @@ struct dyndbg_bitdesc {
- 
- struct dyndbg_bitmap_param {
- 	unsigned long *bits;		/* ref to shared state */
-+	const char *flags;
- 	unsigned int maplen;
- 	struct dyndbg_bitdesc *map;	/* indexed by bitpos */
- };
- 
- #if defined(CONFIG_DYNAMIC_DEBUG) || \
- 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
-+
-+#define DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, _flags, desc, data) \
-+	MODULE_PARM_DESC(fsname, desc);					\
-+	static struct dyndbg_bitmap_param ddcats_##_var =		\
-+	{ .bits = &(_var), .flags = (_flags),				\
-+	  .map = data, .maplen = ARRAY_SIZE(data) };			\
-+	module_param_cb(fsname, &param_ops_dyndbg, &ddcats_##_var, 0644)
-+
-+#define DEFINE_DYNAMIC_DEBUG_BITGRPS(fsname, _var, desc, data) \
-+	DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, "p", desc, data)
-+
- /**
-- * DEFINE_DYNAMIC_DEBUG_BITGRPS() - bitmap control of pr_debugs, by format match
-+ * DEFINE_DYNAMIC_DEBUG_LOG_GROUPS() - bitmap control of grouped pr_debugs --> syslog
-+ *
-  * @fsname: parameter basename under /sys
-  * @_var:   C-identifier holding bitmap
-  * @desc:   string summarizing the controls provided
-  * @bitmap: C array of struct dyndbg_bitdescs
-  *
-- * Intended for modules with a systematic use of pr_debug prefixes in
-- * the format strings, this allows modules calling pr_debugs to
-- * control them in groups by matching against their formats, and map
-- * them to bits 0-N of a sysfs control point.
-+ * Intended for modules having pr_debugs with prefixed/categorized
-+ * formats; this lets you group them by substring match, map groups to
-+ * bits, and enable per group to write to syslog, via @fsname.
-  */
--#define DEFINE_DYNAMIC_DEBUG_BITGRPS(fsname, _var, desc, data)	\
--	MODULE_PARM_DESC(fsname, desc);					\
--	static struct dyndbg_bitmap_param ddcats_##_var =		\
--	{ .bits = &(_var), .map = data,					\
--	  .maplen = ARRAY_SIZE(data) };				\
--	module_param_cb(fsname, &param_ops_dyndbg, &ddcats_##_var, 0644)
-+#define DEFINE_DYNAMIC_DEBUG_LOG_GROUPS(fsname, _var, desc, data)	\
-+	DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, "p", desc, data)
-+
-+/**
-+ * DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS() - bitmap control of pr_debugs --> tracefs
-+ * @fsname: parameter basename under /sys
-+ * @_var:   C-identifier holding bitmap
-+ * @desc:   string summarizing the controls provided
-+ * @bitmap: C array of struct dyndbg_bitdescs
-+ *
-+ * Intended for modules having pr_debugs with prefixed/categorized
-+ * formats; this lets you group them by substring match, map groups to
-+ * bits, and enable per group to write to tracebuf, via @fsname.
-+ */
-+#define DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS(fsname, _var, desc, data)	\
-+	DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, "T", desc, data)
- 
- extern const struct kernel_param_ops param_ops_dyndbg;
- 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index d6e9c833f5d4..f55861dd76b2 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -629,8 +629,8 @@ int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
- 	for (i = 0; i < p->maplen && i < BITS_PER_LONG; map++, i++) {
- 		if (test_bit(i, &inbits) == test_bit(i, p->bits))
- 			continue;
--		snprintf(query, FMT_QUERY_SIZE, "format '%s' %cp", map->match,
--			 test_bit(i, &inbits) ? '+' : '-');
-+		snprintf(query, FMT_QUERY_SIZE, "format '%s' %c%s", map->match,
-+			 test_bit(i, &inbits) ? '+' : '-', p->flags);
- 
- 		matches = ddebug_exec_queries(query, KP_MOD_NAME);
- 
--- 
-2.31.1
+  Additional (1): fi-pnv-d510 
+  Missing    (8): bat-adls-5 bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-hsw-4200u fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 
 
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21527 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-tgl-1115g4:      [PASS][1] -> [FAIL][2] ([i915#1888])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10850/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][3] ([fdo#109271]) +53 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/fi-pnv-d510/igt@prime_vgem@basic-userptr.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10850 -> Patchwork_21527
+
+  CI-20190529: 20190529
+  CI_DRM_10850: 1bd94acfe948e741d49478b280055fd7b358c35c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6274: 569de51145fba197a8d93b2417348d47507bf485 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21527: a987c977562177d21b990db69fe069cf3257c2cf @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+a987c9775621 drm/i915: Clarify probing order in intel_dp_aux_init_backlight_funcs()
+4ac7457c762d drm/dp, drm/i915: Add support for VESA backlights using PWM for brightness control
+77a13fc4483a drm/dp: Don't read back backlight mode in drm_edp_backlight_enable()
+cb44ccb9b548 drm/nouveau/kms/nv50-: Explicitly check DPCD backlights for aux enable/brightness
+87f25e6e4d96 drm/i915: Add support for panels with VESA backlights with PWM enable/disable
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/index.html
+
+--===============6844724716711670269==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/dp, drm/i915: Finish basic PWM support for VESA backlight helpers (rev11)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/95127/">https://patchwork.freedesktop.org/series/95127/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10850 -&gt; Patchwork_21527</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/index.html</p>
+<h2>Participating hosts (44 -&gt; 37)</h2>
+<p>Additional (1): fi-pnv-d510 <br />
+  Missing    (8): bat-adls-5 bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-hsw-4200u fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21527 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10850/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21527/fi-pnv-d510/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +53 similar issues</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10850 -&gt; Patchwork_21527</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10850: 1bd94acfe948e741d49478b280055fd7b358c35c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6274: 569de51145fba197a8d93b2417348d47507bf485 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21527: a987c977562177d21b990db69fe069cf3257c2cf @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>a987c9775621 drm/i915: Clarify probing order in intel_dp_aux_init_backlight_funcs()<br />
+4ac7457c762d drm/dp, drm/i915: Add support for VESA backlights using PWM for brightness control<br />
+77a13fc4483a drm/dp: Don't read back backlight mode in drm_edp_backlight_enable()<br />
+cb44ccb9b548 drm/nouveau/kms/nv50-: Explicitly check DPCD backlights for aux enable/brightness<br />
+87f25e6e4d96 drm/i915: Add support for panels with VESA backlights with PWM enable/disable</p>
+
+</body>
+</html>
+
+--===============6844724716711670269==--
