@@ -2,70 +2,71 @@ Return-Path: <SRS0=ZV5I=PY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59808C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09901C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25DFB60E05
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 25DFB60E05
+	by mail.kernel.org (Postfix) with ESMTPS id CDB666056B
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CDB666056B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7919F6E7DA;
-	Fri,  5 Nov 2021 19:27:15 +0000 (UTC)
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 156CF6E49F;
- Fri,  5 Nov 2021 19:27:11 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id w15so10528681ill.2;
- Fri, 05 Nov 2021 12:27:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62ED06EC7A;
+	Fri,  5 Nov 2021 19:27:20 +0000 (UTC)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24F3B6E4E6;
+ Fri,  5 Nov 2021 19:27:15 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id s14so10501572ilv.10;
+ Fri, 05 Nov 2021 12:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=W/eb6uDj0ZcPussZNWTyXvX7+BhhrBBdZ4eRtPk3Njs=;
- b=fIfqGP52iMjTWJ3rJiWHeZApL+OE+qNoX8r4HqPqhUJsBNZBk06CuQTKr8jLitRKC2
- 89ldORPkk/VwhqpGKMIfFgwCsdnzOvDotuAbe1BEGzzhHF70zd0TnPQAjlakfTLpTazp
- +dlPwKK779zSg/PwgWsvuvoAGlTy9d0JLStrfkVARlKT+p9Hcc3/mMoq3nxpG3CI/1mc
- nhfd1S715+l8rmbG+V/8phkn4T52/qFF/rRFZe3W+ePU25y4miS/Ver+6oDKXjr/WhEH
- IdkiUkDHsic4l4UByJMEZn7GcFFPMHPYRPzcVap7vxJv4R6jiRbkSS6GSvLje3ZwYG7y
- oWXQ==
+ bh=J66KFihbece2lAcU0d7M95Qa/rbqjUiPkgLP3JGipo0=;
+ b=Zs7izjPdlXFjhHgcGVV/4D0TKcfPMJ6/bIu99IfZYafZ6L9xSfvMl0llVYUYvQoKvN
+ C+b5ytYureEUj/xGBFGDOLEC1nlkqp2EtUZqNh6SIqcEnIVKIEoxFDyLLPkAzsasJ1Ze
+ mW3mY2+YIs/6+Ad3/vtfXeaJf5dHuXPg9eRkgrGJsYq8qcYLPEPir1ozQ1EcyGPLDQsk
+ s/I+LRdEGwhoijCzPIajrPNdy+Jp1VhZxnKRjU9V/YFzrpvvY1+as+3J/Hp40iR3fY2w
+ xZumcT1EHtV6ANVvmoU1u4cgM5WTAxrE3VRMqTnHNWluDY0sE/hnimP2UECkG3p5wmhY
+ pj9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=W/eb6uDj0ZcPussZNWTyXvX7+BhhrBBdZ4eRtPk3Njs=;
- b=mGm1Rh6wCOMV/sRnq6865F3eW5/Lk1hW3+r9V9t4aN5aWFiPFh5B/Md/NW+7rjeJ8u
- T/pj0OvYzfVyKKDsKFMyw+j8PBjk7OHDeHedtr4xytKS+DnJIS3U0IOsnlTAV7+Mp9yJ
- 1Fyupz3dz4MjfduSCGfma+BVoq4ibMgijcGRP6teriSjlNBoXVho6NMSg6omtQNtE7qY
- c5bHdDpqyzfjxs3pDrBITTST7j/5x7i7itunASIWrPnDMx6m0l1KDE85tk9uHGvMooXn
- AxTZkvJDj79KyoMX/AR20Ff/MeWu165r7sufbhjfAywfdjpQZ6uRr3+B6iYewhKONudj
- ZCCQ==
-X-Gm-Message-State: AOAM530e9VBzOO9vm0c4c3WiKIVXK0m7tOHLhEAOLAp8vOeUwC6/SGtF
- FqXGgXgH/lsdJPrc6j0MQMg=
-X-Google-Smtp-Source: ABdhPJxel0Z7f8bD3NjrFD/j0wBPFyQfk151niEjAkFKLKmn/Dr7fv6lOMFJehAzWUYQyTtDdhcaEQ==
-X-Received: by 2002:a92:c74a:: with SMTP id y10mr34886664ilp.122.1636140430381; 
- Fri, 05 Nov 2021 12:27:10 -0700 (PDT)
+ bh=J66KFihbece2lAcU0d7M95Qa/rbqjUiPkgLP3JGipo0=;
+ b=eAZInv5CDY2lmM/Rersurc8xxB2BNHE1Z4pT0i37vG96FpEJkCDJsojNc2QHE5dwR7
+ d02m1G8U+ksM41nrObexpWVd+/vMmryDnUu2TtDjkOtiPgifex57NG7VYtiFZX2iQ8ta
+ eTJrHYG9TWQDw2B4b0yXed+bFW+ntyiTCmI9ni9Z2yWDdk96IuyF1yk39ZB/hkzCmigv
+ e6alMElLvcDEQskBgWv1baeqCqhdehzOIUn6qKetdcJUcXQVUHQAQ/p4sOv90UeG5ZKE
+ 7Z0ZCiS/ROtWUS8Vy89Mw0uU1qDRdlRXp2AvwLw4LrspRrjsXCg7Wq6c+LxmmD0W1mE6
+ 0KVw==
+X-Gm-Message-State: AOAM531l1YU1nV9t73+fBhCeSQEgDjgYB0wb1UIsp/SqUNou9/13sjXj
+ 08Y7HkI+dPVXSgNzEDOs83Q=
+X-Google-Smtp-Source: ABdhPJyEoWTSNVWY0q0qCy3OT4r68a3316psnOwgktU9XkgujPXDsJangaWjRIBrZ1zLNG8cEC0Hdg==
+X-Received: by 2002:a05:6e02:158c:: with SMTP id
+ m12mr42153254ilu.64.1636140434310; 
+ Fri, 05 Nov 2021 12:27:14 -0700 (PDT)
 Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.09
+ by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Nov 2021 12:27:10 -0700 (PDT)
+ Fri, 05 Nov 2021 12:27:14 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
  daniel.vetter@ffwll.ch, seanpaul@chromium.org, lyude@redhat.com,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Fri,  5 Nov 2021 13:26:30 -0600
-Message-Id: <20211105192637.2370737-4-jim.cromie@gmail.com>
+Date: Fri,  5 Nov 2021 13:26:34 -0600
+Message-Id: <20211105192637.2370737-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211105192637.2370737-1-jim.cromie@gmail.com>
 References: <20211105192637.2370737-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 03/10] amdgpu: use dyndbg.BITGRPS to control
- existing pr_debugs
+Subject: [Intel-gfx] [PATCH v10 07/10] drm_print: instrument
+ drm_debug_enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,96 +83,84 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-logger_types.h defines many DC_LOG_*() categorized debug wrappers.
-Most of these already use DRM debug API, so are controllable using
-drm.debug, but others use a bare pr_debug("$prefix: .."), with 1 of 13
-different class-prefixes matching [:uppercase:]
+Duplicate drm_debug_enabled() code into both "basic" and "dyndbg"
+ifdef branches.  Then add a pr_debug("todo: ...") into the "dyndbg"
+branch.
 
-Use DEFINE_DYNAMIC_DEBUG_BITGRPS to create a sysfs location which maps
-from bits to these 13 sets of categorized pr_debugs to en/disable.
+Then convert the "dyndbg" branch's code to a macro, so that the
+pr_debug() get its callsite info from the invoking function, instead
+of from drm_debug_enabled() itself.
 
-Makefile adds -DDYNAMIC_DEBUG_MODULE for CONFIG_DYNAMIC_DEBUG_CORE,
-otherwise BUILD_BUG_ON triggers (obvious errors on subtle misuse is
-better than mysterious ones).
+This gives us unique callsite info for the 8 remaining users of
+drm_debug_enabled(), and lets us enable them individually to see how
+much logging traffic they generate.  The oft-visited callsites can
+then be reviewed for runtime cost and possible optimizations.
+
+Heres what we get:
+
+bash-5.1# modprobe drm
+dyndbg: 384 debug prints in module drm
+bash-5.1# grep todo: /proc/dynamic_debug/control
+drivers/gpu/drm/drm_edid.c:1843 [drm]connector_bad_edid =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_print.c:309 [drm]___drm_dbg =p "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_print.c:286 [drm]__drm_dev_dbg =p "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_vblank.c:1491 [drm]drm_vblank_restore =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_vblank.c:787 [drm]drm_crtc_vblank_helper_get_vblank_timestamp_internal =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_vblank.c:410 [drm]drm_crtc_accurate_vblank_count =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_atomic_uapi.c:1457 [drm]drm_mode_atomic_ioctl =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_edid_load.c:178 [drm]edid_load =_ "todo: maybe avoid via dyndbg\012"
+
+At quick glance, edid won't qualify, drm_print might, drm_vblank is
+strongest chance, maybe atomic-ioctl too.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +
- .../gpu/drm/amd/display/dc/core/dc_debug.c    | 47 ++++++++++++++++++-
- 2 files changed, 48 insertions(+), 1 deletion(-)
+ include/drm/drm_print.h | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 653726588956..077342ca803f 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -38,6 +38,8 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
- 	-I$(FULL_AMD_DISPLAY_PATH)/amdgpu_dm \
- 	-I$(FULL_AMD_PATH)/amdkfd
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 392cff7cb95c..a902bd4d8c55 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -381,6 +381,11 @@ enum drm_debug_category {
+ #define DRM_DBG_CAT_DP		DRM_UT_DP
+ #define DRM_DBG_CAT_DRMRES	DRM_UT_DRMRES
  
-+ccflags-$(CONFIG_DYNAMIC_DEBUG_CORE) += -DYNAMIC_DEBUG_MODULE
++static inline bool drm_debug_enabled(enum drm_debug_category category)
++{
++	return unlikely(__drm_debug & category);
++}
 +
- amdgpu-y := amdgpu_drv.o
+ #else /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
  
- # add KMS driver
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-index 21be2a684393..e49a755c6a69 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-@@ -36,8 +36,53 @@
+ /* join prefix + format in cpp so dyndbg can see it */
+@@ -414,12 +419,13 @@ enum drm_debug_category {
+ #define DRM_DBG_CAT_DP		"drm:dp: "
+ #define DRM_DBG_CAT_DRMRES	"drm:res: "
  
- #include "resource.h"
+-#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
++#define drm_debug_enabled(category)			\
++	({						\
++	pr_debug("todo: maybe avoid via dyndbg\n");	\
++	unlikely(__drm_debug & (category));		\
++	})
  
--#define DC_LOGGER_INIT(logger)
-+#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-+#include <linux/dynamic_debug.h>
-+
-+unsigned long __debug_dc;
-+EXPORT_SYMBOL(__debug_dc);
-+
-+#define help_(_N, _cat)	"\t  Bit-" #_N "\t" _cat "\n"
-+
-+#define DC_DYNDBG_BITMAP_DESC(name)					\
-+	"Control pr_debugs via /sys/module/amdgpu/parameters/" #name	\
-+	", where each bit controls a debug category.\n"			\
-+	help_(0, "[SURFACE]:")						\
-+	help_(1, "[CURSOR]:")						\
-+	help_(2, "[PFLIP]:")						\
-+	help_(3, "[VBLANK]:")						\
-+	help_(4, "[HW_LINK_TRAINING]:")					\
-+	help_(5, "[HW_AUDIO]:")						\
-+	help_(6, "[SCALER]:")						\
-+	help_(7, "[BIOS]:")						\
-+	help_(8, "[BANDWIDTH_CALCS]:")					\
-+	help_(9, "[DML]:")						\
-+	help_(10, "[IF_TRACE]:")					\
-+	help_(11, "[GAMMA]:")						\
-+	help_(12, "[SMU_MSG]:")
-+
-+static struct dyndbg_bitdesc amdgpu_bitmap[] = {
-+	[0] = { "[CURSOR]:" },
-+	[1] = { "[PFLIP]:" },
-+	[2] = { "[VBLANK]:" },
-+	[3] = { "[HW_LINK_TRAINING]:" },
-+	[4] = { "[HW_AUDIO]:" },
-+	[5] = { "[SCALER]:" },
-+	[6] = { "[BIOS]:" },
-+	[7] = { "[BANDWIDTH_CALCS]:" },
-+	[8] = { "[DML]:" },
-+	[9] = { "[IF_TRACE]:" },
-+	[10] = { "[GAMMA]:" },
-+	[11] = { "[SMU_MSG]:" }
-+};
-+
-+DEFINE_DYNAMIC_DEBUG_LOG_GROUPS(debug_dc, __debug_dc,
-+				DC_DYNDBG_BITMAP_DESC(debug_dc),
-+				amdgpu_bitmap);
-+
-+#endif
+-static inline bool drm_debug_enabled(enum drm_debug_category category)
+-{
+-	return unlikely(__drm_debug & category);
+-}
++#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
  
-+#define DC_LOGGER_INIT(logger)
+ /*
+  * struct device based logging
+@@ -582,7 +588,6 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ #define drm_dbg_drmres(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_DRMRES, fmt, ##__VA_ARGS__)
  
- #define SURFACE_TRACE(...) do {\
- 		if (dc->debug.surface_trace) \
+-
+ /*
+  * printk based logging
+  *
 -- 
 2.31.1
 
