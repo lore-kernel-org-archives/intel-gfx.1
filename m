@@ -2,41 +2,38 @@ Return-Path: <SRS0=3waC=P3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3ED10C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 16:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C255BC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 17:36:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0AE566120A
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 16:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0AE566120A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 86B5761288
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 17:36:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 86B5761288
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 546396E1BA;
-	Mon,  8 Nov 2021 16:45:31 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3016E18E;
- Mon,  8 Nov 2021 16:45:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10162"; a="293093720"
-X-IronPort-AV: E=Sophos;i="5.87,218,1631602800"; d="scan'208";a="293093720"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2021 08:45:28 -0800
-X-IronPort-AV: E=Sophos;i="5.87,218,1631602800"; d="scan'208";a="469664523"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2021 08:45:28 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Mon,  8 Nov 2021 08:40:54 -0800
-Message-Id: <20211108164054.23588-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD2389E14;
+	Mon,  8 Nov 2021 17:36:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2EB8289E14;
+ Mon,  8 Nov 2021 17:36:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2982CA8169;
+ Mon,  8 Nov 2021 17:36:37 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8163106708996853108=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/guc: Refcount context during error
- capture
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "John Harrison" <john.c.harrison@intel.com>
+Date: Mon, 08 Nov 2021 17:36:37 -0000
+Message-ID: <163639299714.32036.9468872492777626017@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211108164054.23588-1-matthew.brost@intel.com>
+In-Reply-To: <20211108164054.23588-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/guc=3A_Refcount_context_during_error_capture_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,79 +46,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+--===============8163106708996853108==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-When i915 receives a context reset notification from GuC, it triggers
-an error capture before resetting any outstanding requsts of that
-context. Unfortunately, the error capture is not a time bound
-operation. In certain situations it can take a long time, particularly
-when multiple large LMEM buffers must be read back and eoncoded. If
-this delay is longer than other timeouts (heartbeat, test recovery,
-etc.) then a full GT reset can be triggered in the middle.
+== Series Details ==
 
-That can result in the context being reset by GuC actually being
-destroyed before the error capture completes and the GuC submission
-code resumes. Thus, the GuC side can start dereferencing stale
-pointers and Bad Things ensue.
+Series: drm/i915/guc: Refcount context during error capture (rev2)
+URL   : https://patchwork.freedesktop.org/series/94634/
+State : success
 
-So add a refcount get of the context during the entire reset
-operation. That way, the context can't be destroyed part way through
-no matter what other resets or user interactions occur.
+== Summary ==
 
-v2:
- (Matthew Brost)
-  - Update patch to work with async error capture
-v3:
- (Matthew Brost)
-  - Drop async capture support as that hasn't landed yet
+CI Bug Log - changes from CI_DRM_10854 -> Patchwork_21534
+====================================================
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Summary
+-------
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 5cc49c0b3889..d7e49f7c1dba 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3972,6 +3972,7 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
- 					const u32 *msg, u32 len)
- {
- 	struct intel_context *ce;
-+	unsigned long flags;
- 	int desc_idx;
- 
- 	if (unlikely(len != 1)) {
-@@ -3980,11 +3981,24 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
- 	}
- 
- 	desc_idx = msg[0];
-+
-+	/*
-+	 * The context lookup uses the xarray but lookups only require an RCU lock
-+	 * not the full spinlock. So take the lock explicitly and keep it until the
-+	 * context has been reference count locked to ensure it can't be destroyed
-+	 * asynchronously until the reset is done.
-+	 */
-+	xa_lock_irqsave(&guc->context_lookup, flags);
- 	ce = g2h_context_lookup(guc, desc_idx);
-+	if (ce)
-+		intel_context_get(ce);
-+	xa_unlock_irqrestore(&guc->context_lookup, flags);
-+
- 	if (unlikely(!ce))
- 		return -EPROTO;
- 
- 	guc_handle_context_reset(guc, ce);
-+	intel_context_put(ce);
- 
- 	return 0;
- }
--- 
-2.32.0
+  **SUCCESS**
 
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/index.html
+
+Participating hosts (40 -> 34)
+------------------------------
+
+  Missing    (6): fi-kbl-soraka bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 
+
+New tests
+---------
+
+  New tests have been introduced between CI_DRM_10854 and Patchwork_21534:
+
+### New IGT tests (1) ###
+
+  * igt@gem_exec_suspend@basic-s0:
+    - Statuses : 1 incomplete(s) 32 pass(s) 1 skip(s)
+    - Exec time: [0.0, 20.57] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_21534 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@basic-pci-d3-state:
+    - fi-skl-6600u:       [FAIL][1] ([i915#3239]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10854/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - {fi-hsw-gt1}:       [DMESG-WARN][3] ([i915#3303]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10854/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - {fi-hsw-gt1}:       [DMESG-WARN][5] ([i915#4290]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10854/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#3239]: https://gitlab.freedesktop.org/drm/intel/issues/3239
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#4290]: https://gitlab.freedesktop.org/drm/intel/issues/4290
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10854 -> Patchwork_21534
+
+  CI-20190529: 20190529
+  CI_DRM_10854: 895fb34d3265137c84fe3e9dd48fb9ad2e00fd36 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6274: 569de51145fba197a8d93b2417348d47507bf485 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_21534: 02e9bec284def423e7ac79b06982b1d36e9f162d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+02e9bec284de drm/i915/guc: Refcount context during error capture
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/index.html
+
+--===============8163106708996853108==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/guc: Refcount context during error capture (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94634/">https://patchwork.freedesktop.org/series/94634/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10854 -&gt; Patchwork_21534</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/index.html</p>
+<h2>Participating hosts (40 -&gt; 34)</h2>
+<p>Missing    (6): fi-kbl-soraka bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-ctg-p8600 </p>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_10854 and Patchwork_21534:</p>
+<h3>New IGT tests (1)</h3>
+<ul>
+<li>igt@gem_exec_suspend@basic-s0:<ul>
+<li>Statuses : 1 incomplete(s) 32 pass(s) 1 skip(s)</li>
+<li>Exec time: [0.0, 20.57] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_21534 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10854/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3239">i915#3239</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/fi-skl-6600u/igt@i915_pm_rpm@basic-pci-d3-state.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10854/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10854/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4290">i915#4290</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21534/fi-hsw-gt1/igt@kms_frontbuffer_tracking@basic.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10854 -&gt; Patchwork_21534</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10854: 895fb34d3265137c84fe3e9dd48fb9ad2e00fd36 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6274: 569de51145fba197a8d93b2417348d47507bf485 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_21534: 02e9bec284def423e7ac79b06982b1d36e9f162d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>02e9bec284de drm/i915/guc: Refcount context during error capture</p>
+
+</body>
+</html>
+
+--===============8163106708996853108==--
