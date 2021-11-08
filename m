@@ -2,70 +2,138 @@ Return-Path: <SRS0=SCM9=P4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8C9DC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 13:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AAB2C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 13:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADD616117A
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 13:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ADD616117A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 42F366117A
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 13:29:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 42F366117A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23FAD6E8B3;
-	Tue,  9 Nov 2021 13:29:27 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C67989E41;
- Mon,  8 Nov 2021 21:27:25 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id l22so12521396lfg.7;
- Mon, 08 Nov 2021 13:27:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=szzjjGu57F1UNGE99GMCdFzS2u7sEVVtyt9kYnjiTBc=;
- b=je3jIHscqh1oMlgYYnMqkd3p7nakiJzMBsjbL3FMk6yJmdxWnH+KVIooFnp/x1qrL4
- G70YO/w+6ur5ldwzfchwQy95JMJMtpxjQeHsunKn474pvKO/QOrajQVaILiMdqrn3cLz
- Kz1oDLrzCq/u1vcZtSpnZuZAMWYC3VInhfaDv1O2hb1y8CU2wBcCuO9lIUB0OO74YylL
- fCalrqjDxR44dmKD1ASDPVwHnn2jvU55V4yL6C+Ttk3hVgqHtys+rxTTvJ0TbOYtUmqd
- IjOCV8o/lPhdS/LJztPsxuPes+N1rW8eHZ3F58tqxu1jJghSmHuEjDaiUdFFgksg94yE
- lbCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=szzjjGu57F1UNGE99GMCdFzS2u7sEVVtyt9kYnjiTBc=;
- b=nRTNN90Fh0Y831HAzWA2Q/gMxzwlEFvGO1QRW6gpS+NqWHLseqt7IMxRCHWRKeodbS
- p+URx1ylc3W+ZMSsK+jjmnCF47PPvPaPCMz0egpbKpR6iC5kpJSKc+M0bpq4y7Shz+jl
- SWMjtJxoXEbhh+U8pnQ86O8nWzQZhFwaGO+ySlycNKaEUnG+S8zYB+nyNgNHjpReDGQZ
- XzP/UG8puvp+ueDgyJ6EF07QjIgXUJyeIU0mlyVy8jg4LqpJwLXAnhHGda0kDDnP4CZC
- eQmOZ/S5K5/B5ZLO591k2YVbdvJFBOsUYiMQa1TdjVLqhn2E9lOZjXSMfsQJ940X5UxK
- gYaA==
-X-Gm-Message-State: AOAM5321n1E7adXYujL4P1ImF5o3Hy7kVK6/jYwzis7N6BiYiuerAnzK
- MTmBaNdrLZ+4Zl7Zu/DoTm6V/XCQ05s=
-X-Google-Smtp-Source: ABdhPJx/ToKd4a6+WOfSeorR6LEm/MGsIroD/Jc8tEr9dguE45/BO3wnDlqPmabD9Rl4xp0t8Qnjwg==
-X-Received: by 2002:a19:7709:: with SMTP id s9mr2240852lfc.682.1636406843756; 
- Mon, 08 Nov 2021 13:27:23 -0800 (PST)
-Received: from zhiwang1-mobl.lan (88-115-161-74.elisa-laajakaista.fi.
- [88.115.161.74])
- by smtp.gmail.com with ESMTPSA id y11sm212671ljh.54.2021.11.08.13.27.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Nov 2021 13:27:23 -0800 (PST)
-From: Zhi Wang <zhi.wang.linux@gmail.com>
-X-Google-Original-From: Zhi Wang <zhi.a.wang@intel.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, zhenyuw@linux.intel.com, zhi.a.wang@intel.com,
- jgg@nvidia.com, intel-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, hch@lst.de
-Date: Mon,  8 Nov 2021 16:27:18 -0500
-Message-Id: <20211108212718.10576-3-zhi.a.wang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211108212718.10576-1-zhi.a.wang@intel.com>
-References: <20211108212718.10576-1-zhi.a.wang@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EAFB6E8BA;
+	Tue,  9 Nov 2021 13:29:33 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 274B76E402;
+ Mon,  8 Nov 2021 21:59:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=khH3CaqNjUQ8B77sor1ixYO3gHoGDg7OFMYiTUn9KGhCHGgA4hetq6icomu0WXnKHCyUdGqVPH+1kYz+G8QtC26FlR5y5vo+sjKTB4WkDygxTMTK50zoDi5LB3t0tl/YmNlBg4TxAVw+oe2uz84rd//FS6fEr0kY3GdsqNl1kATgEQMkUm8YzHYimFdAnzg44jJYMQ73YRXoytMOHVVkzBBgtoLbqfveBmUr77OZJvFSd0tdzCE4d9LnPxABGFfLtUSPDPbDQRon2ouaVGIGukUd3xo7/c3hJUc4B2R3dPPr9+W5/HvTOJEQedimUvtaFYIOqzA52f1XeKRx9qZr/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1pmwOa8wie0WQI4wGnq+QE9p0En2k8RTJlOukdK4zls=;
+ b=SgscUdGcRJSfKRrO1hDrhV0pUnsFKWVwgfZNarzllhBkqqd16tNNksPsqWHRGADqU8PlG/ONsPr9qxLPoMl7y2/6QfH9er31j89EZnM+apZd42hFbqR7BLCOfTX6ohdKTGoKPeZH8R7SHY3hueQhThnaX8FRAeushP0OzrQAiatG6Zg37iNFE0jkbT0tGomqW7pOOeMOXHd6OnsEkNoPn4xV6cySwJbTIrgHl4ATTXhr5rG41E5sOKca6G0+pAZWQrv4t+nj9/lFz5ZaHFbp5x5Q6IokfeXEiIBoTmQMAskMgvZtf7cgkny4EfJpBf+ev1p1UqxTvVuExfddOysvxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1pmwOa8wie0WQI4wGnq+QE9p0En2k8RTJlOukdK4zls=;
+ b=yQ0xeGUB5yWppW6GrDfPjyJCq+Zm/Jhlb5yM6b2Qvi/2wF7kR7TAjywv30I4hl7lBg96Nr2Ccrck9OKAp8hn5AgG7q2SkWEKN1viO83lF8AmpJPwbH/tWfD6k6/gIwzMmE06A7eCftwfq8yu26IYuExEbOzpeWXnqHv6VOhDC+M=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by MN2PR12MB3776.namprd12.prod.outlook.com (2603:10b6:208:167::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Mon, 8 Nov
+ 2021 21:59:30 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::6972:7084:df02:6dc3]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::6972:7084:df02:6dc3%9]) with mapi id 15.20.4669.016; Mon, 8 Nov 2021
+ 21:59:30 +0000
+Message-ID: <2b472af8-acb4-a204-1502-f4b5a9466a32@amd.com>
+Date: Tue, 9 Nov 2021 03:38:41 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20211025130033.1547667-1-Arunpravin.PaneerSelvam@amd.com>
+ <20211025130033.1547667-6-Arunpravin.PaneerSelvam@amd.com>
+ <55adb714-45f9-5af5-33df-ce4f4526a8c8@intel.com>
+ <3b5fb9bb-13a0-a7db-cea2-1515aec96742@amd.com>
+ <40e7dc08-9d5c-4ddb-3875-e018eb2791b9@intel.com>
+ <07390c37-e1ac-5343-c5b5-6e1da10f8d5b@amd.com>
+From: Arunpravin <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <07390c37-e1ac-5343-c5b5-6e1da10f8d5b@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BMXPR01CA0045.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:c::31) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
+MIME-Version: 1.0
+Received: from [10.138.142.32] (165.204.156.251) by
+ BMXPR01CA0045.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:c::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4669.10 via Frontend Transport; Mon, 8 Nov 2021 21:59:27 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ba0dd45f-6a1e-43ca-2adb-08d9a3030a76
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3776:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB377622941017ADCBED461A7BE4919@MN2PR12MB3776.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 72G+qcmCq8b6HkbcVOgjEETkVKvXaUfOUvaXl/vLozZoEQ0DI3KdLLg2PP7MAZ2UQiuZUWgLbB2Egf07Db3Obh7YseRZ7K8n457/wPYH39u0xs092g7DC/gxKohVvuzF3HCW7EhjbxZLAovlHLURRORoY60hpTnJmpnjcd2DVqTf1MGjiId1RJVkIGn7thxCojXy8tot+JnveYoE5egfG9TVZkD/L6l8Gu/tzYeSm1YIl47AHspZEgG+YGrOnpmUePbOxZuwGIB+bEC5PPCYNq+lb6KHuJZnzqK3DzcbjtKbuAzRCgSc1h7fQVrHBGIQUwcua8U4unXN8V3PsRnFbuJRDvF9oT+ldU3KH4aQ3WykPR31cLBN4qizbhJkP7d3t4sDeW00oMBMbCgkgTL7fuYI0ydaGqw15KcY1Ss4P4p8VP5DPjVb75/CnGLfPbr5/exqTYMk7zeicVZ+Pux1I4ErJAYUKFvQMDH9TdP8Aypi86LhQxTR7+B0ZLuNoMaBnFqaLbGpd9lTvGUE3OkfUfEcXf0FiV1OX69mhTbCesls8u7E8zf3N5K37Cw8s0UJX0EcABY11N/w3rru/i4pf8xR6honxg6+0xCoOAVIpAerw6xpDjRIn43QsAt0fVCLxQ0udvVVdO1+wBzO+4kFKGL6BnOXKxHyny16FH+hKnwbiHBlPBRHNYTeojv76t367YZKMMCqYgGk6+RGzAWsz5yGs7e2TqZH0jogz6dG21Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(26005)(53546011)(5660300002)(83380400001)(66476007)(110136005)(4326008)(8676002)(6666004)(66574015)(66556008)(6486002)(186003)(86362001)(2906002)(38100700002)(956004)(2616005)(316002)(31696002)(31686004)(8936002)(508600001)(36756003)(66946007)(16576012)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzJ1NE1EcGlWR1pkNk5WMjh5TUJHdGJxZHo3aXZ5d3dKZ2JGMUR6K0NjZUNG?=
+ =?utf-8?B?cXJMMEVRNGZBcGFvY05TVnB4TklLRmtBdERtZWxJTDBUSFQvSnpUbjRyVi90?=
+ =?utf-8?B?UTFPbjgvR2l4SmJVclI3Qmo4U0pCemFzelFwN0lqZjg2bzUvR2dxeEVjaEUw?=
+ =?utf-8?B?M3J2TDB1Um9mK1ZMQnZPVmtYQ0F2b0pnVjJpMGljY3F5TElKSVRQaWRYYnJi?=
+ =?utf-8?B?NGhhR3pWUW5yWUZ5N1pvcGFmRVBoQTM1Tk9MNzhWQmVVeUYrMUllUjI1Mytx?=
+ =?utf-8?B?YUlEbCtxK2ZSem5aUnVNVTlFd2UrUGFFekpvdkFUZXZjd0FNcHdyQ1RENWlL?=
+ =?utf-8?B?MXFqZXdFaUxKdElwbVQ1TnM4dGhwRHRIdjZDWXNYVUlxWU5RYUMvZWQxSjh6?=
+ =?utf-8?B?M1JSbFlpa3loYmkwMlhCYnJiRXQwM3kvUVdCRTNnRjBURHBUdUZFSlF4UTM5?=
+ =?utf-8?B?OU9jZjVUL3RFT1JBcTB6eGFDbjlBa3JSVGN6ZWc2UmIzTlJUa0NjdUt3d0tm?=
+ =?utf-8?B?a2lDL1M2QjdvYlR4NjIreDkxR3V4aTl3aENNNTlEMzhodC9qYjdOT3F5ZFcw?=
+ =?utf-8?B?bGIwTDR4eURaUEtqSW81QjdaQXVvTHhOd1FDdHB4WEdHTE1XYlBPaVNPaWFy?=
+ =?utf-8?B?VGhncmRIdUYwamJWNXFkN21TQVFOMlE0ZkVXVXV5TmFac0V2Rm0xbkkvbVJo?=
+ =?utf-8?B?RzFkY1YrNFpNYStTdVIrUjJwOWd6ZVR6NERvVi9uY2t0Um5tN01mMDdEeTJJ?=
+ =?utf-8?B?U0d2Y0d4MjFuOUlZcSszL0hMT29IcUxUenp2RlB1NVBNTlJBTTYyT1FOdGZu?=
+ =?utf-8?B?RjRES3A4S1ZmU216VXo5TUdDMkMwWDJ0STl2VWtnQ3gwQmhobWpaV0l1ck8x?=
+ =?utf-8?B?S0xQdlB4SE51TG9vdjhZNW9QVXFMdUdFakl2SUdncmtMSFVSKy8wdGV3cE53?=
+ =?utf-8?B?MUJpR1FhaS9HRzZEK1pvblo2aEdoTnc2SXhkcTlrc3cvQm9RNU50c2phOWtH?=
+ =?utf-8?B?cDIxb3JOVklKeEpsTjRyTzl3YkR4cnBMNzNsNWZLekVIQmtmNUxWbDZpTTVm?=
+ =?utf-8?B?aWRreUJWSTl3by9wa1BGZFEvV1pGZ3J1c0sxMXZtWFhtZThscGRQeGZxYVJn?=
+ =?utf-8?B?MVh0Q2FvMHpXbm5jMzNpdVZORFV5VmRBbTNxZ3BGQkRTQWJSN0FIcmhFeUIz?=
+ =?utf-8?B?ZnFBZE9nOXYyYnJJUkVXOUhNUzhYSDhVRElCYlpTdjl2VnZLd3FZWFhqOWNx?=
+ =?utf-8?B?Q0gwU3QrMmtiZ2xVaWgwWmhsUkUyWHEyM280QWtQS1pkV1NicE5zbEMrY0l1?=
+ =?utf-8?B?VUpjWXFBTFZ0RGYrdGJhUkorUVNQWTBFNnlqSGpFL0pDTG5icWRxU2xSL2Vi?=
+ =?utf-8?B?czEvVHJBUHpDb0xqcSt4ZTh3SjREcThOMnlDVnp3SkdqSDdidnM4UnVQZ3ZW?=
+ =?utf-8?B?eTFENnA1U1J5NEE1TmJOajkvV2dmNVZuZmpiYy8yMlpVTzhvQ08xL1dFQkdJ?=
+ =?utf-8?B?dmpudHQvai8yaEcxS0VrMmxCY2RsdHhTcG8zZzZQYU04anpGL095TEh5STlr?=
+ =?utf-8?B?NkJmYWNqUGdRRjRuOU8vTEFaUjNVQjVWUG94V09uMkVqNW83eXVVWnphdHhr?=
+ =?utf-8?B?WW5pNk1FQk1vTm12dGg1Mk5EYXpkbDJQTmpORGQ1TFAydnVjLzMyMWNNNWVL?=
+ =?utf-8?B?V2xUeHBydVVTZlQ3RXBnQ0tQT1VXUVIxZnYrY2s2Sm5wMkh5eVdCK1ErZW0y?=
+ =?utf-8?B?UExFM2dUeEpFeE1DdUNHalNWUHUzRkdTYldnYk5Cd0Jha2liQW1XdFNrdFJv?=
+ =?utf-8?B?YXo3N1NCVUJZbmtXUG9LY3h4cUR5TGJxMXd1YzRHWVJGT0VpMFRnQ0JFbWY1?=
+ =?utf-8?B?dkZBSkRoV3MxS3dWd3Z3NEVUUWUvK3hSQ1NhN1VOS1BWT3lDc2cwbVNUYkJt?=
+ =?utf-8?B?ZUNwS1pXYjRPU2ZTbjM3bFc3Z3ZlbmltRUFGQ3Rla2RGTXFqZjRLb3M0bzhE?=
+ =?utf-8?B?cEdEaFhIb3UvMzFVWTRlaWJCZ05SeWlNSmVKRVQxV2NpUEcwc2hpaHU5NmRF?=
+ =?utf-8?B?bGdqaW1KQVpGd3FlR1d3SW8wNkdZQTQzOEd4NDN5cHNST3c4S1hVYlVlTEpM?=
+ =?utf-8?B?bVBDcEo5d0t6N1dDTnQwZWhMSDdyU0NPZ0FJdkhwT2dVWlFZTGh6cjJpR1E2?=
+ =?utf-8?Q?vXdeNf7mkP3OBkmA0sfuxlw=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba0dd45f-6a1e-43ca-2adb-08d9a3030a76
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2021 21:59:30.8239 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jFSPLq5rwEqehJ36SdJvBof2G7Cg3VaajINafNn8PM89gKJ1ogNbmWyhIOsEjZUQVaicZhhyv2RFJYMu5xF3nA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3776
 X-Mailman-Approved-At: Tue, 09 Nov 2021 13:29:24 +0000
-Subject: [Intel-gfx] [PATCH 3/3] i915/gvt: Use the initial HW state snapshot
- saved in i915
+Subject: Re: [Intel-gfx] [PATCH 8/8] drm/amdgpu: add drm buddy support to
+ amdgpu
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,175 +146,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>
+Cc: alexander.deucher@amd.com, tzimmermann@suse.de
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Zhi Wang <zhi.wang.linux@gmail.com>
 
-The code of saving initial HW state snapshot has been moved into i915.
-Let the GVT-g core logic use that snapshot.
 
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Zhi Wang <zhi.a.wang@intel.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Zhi Wang <zhi.wang.linux@gmail.com>
----
- drivers/gpu/drm/i915/gvt/cfg_space.c |  2 +-
- drivers/gpu/drm/i915/gvt/firmware.c  | 45 ++++------------------------
- drivers/gpu/drm/i915/gvt/gvt.h       |  2 --
- drivers/gpu/drm/i915/gvt/mmio.c      |  2 +-
- 4 files changed, 7 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gvt/cfg_space.c b/drivers/gpu/drm/i915/gvt/cfg_space.c
-index b490e3db2e38..51588ca95113 100644
---- a/drivers/gpu/drm/i915/gvt/cfg_space.c
-+++ b/drivers/gpu/drm/i915/gvt/cfg_space.c
-@@ -379,7 +379,7 @@ void intel_vgpu_init_cfg_space(struct intel_vgpu *vgpu,
- 	u16 *gmch_ctl;
- 	u8 next;
- 
--	memcpy(vgpu_cfg_space(vgpu), gvt->firmware.cfg_space,
-+	memcpy(vgpu_cfg_space(vgpu), gvt->hw_state.cfg_space,
- 	       info->cfg_space_size);
- 
- 	if (!primary) {
-diff --git a/drivers/gpu/drm/i915/gvt/firmware.c b/drivers/gpu/drm/i915/gvt/firmware.c
-index 1a8274a3f4b1..a98af544abca 100644
---- a/drivers/gpu/drm/i915/gvt/firmware.c
-+++ b/drivers/gpu/drm/i915/gvt/firmware.c
-@@ -66,13 +66,6 @@ static struct bin_attribute firmware_attr = {
- 	.mmap = NULL,
- };
- 
--static int mmio_snapshot_handler(struct intel_gvt *gvt, u32 offset, void *data)
--{
--	*(u32 *)(data + offset) = intel_uncore_read_notrace(gvt->gt->uncore,
--							    _MMIO(offset));
--	return 0;
--}
--
- static int expose_firmware_sysfs(struct intel_gvt *gvt)
- {
- 	struct intel_gvt_device_info *info = &gvt->device_info;
-@@ -81,7 +74,7 @@ static int expose_firmware_sysfs(struct intel_gvt *gvt)
- 	void *firmware;
- 	void *p;
- 	unsigned long size, crc32_start;
--	int i, ret;
-+	int ret;
- 
- 	size = sizeof(*h) + info->mmio_size + info->cfg_space_size;
- 	firmware = vzalloc(size);
-@@ -99,17 +92,11 @@ static int expose_firmware_sysfs(struct intel_gvt *gvt)
- 
- 	p = firmware + h->cfg_space_offset;
- 
--	for (i = 0; i < h->cfg_space_size; i += 4)
--		pci_read_config_dword(pdev, i, p + i);
--
--	memcpy(gvt->firmware.cfg_space, p, info->cfg_space_size);
-+	memcpy(gvt->hw_state.cfg_space, p, info->cfg_space_size);
- 
- 	p = firmware + h->mmio_offset;
- 
--	/* Take a snapshot of hw mmio registers. */
--	intel_gvt_for_each_tracked_mmio(gvt, mmio_snapshot_handler, p);
--
--	memcpy(gvt->firmware.mmio, p, info->mmio_size);
-+	memcpy(gvt->hw_state.mmio, p, info->mmio_size);
- 
- 	crc32_start = offsetof(struct gvt_firmware_header, crc32) + 4;
- 	h->crc32 = crc32_le(0, firmware + crc32_start, size - crc32_start);
-@@ -142,9 +129,6 @@ void intel_gvt_free_firmware(struct intel_gvt *gvt)
- {
- 	if (!gvt->firmware.firmware_loaded)
- 		clean_firmware_sysfs(gvt);
--
--	kfree(gvt->firmware.cfg_space);
--	vfree(gvt->firmware.mmio);
- }
- 
- static int verify_firmware(struct intel_gvt *gvt,
-@@ -204,36 +188,17 @@ static int verify_firmware(struct intel_gvt *gvt,
-  */
- int intel_gvt_load_firmware(struct intel_gvt *gvt)
- {
--	struct intel_gvt_device_info *info = &gvt->device_info;
- 	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 	struct intel_gvt_firmware *firmware = &gvt->firmware;
- 	struct gvt_firmware_header *h;
- 	const struct firmware *fw;
- 	char *path;
--	void *mem;
- 	int ret;
- 
- 	path = kmalloc(PATH_MAX, GFP_KERNEL);
- 	if (!path)
- 		return -ENOMEM;
- 
--	mem = kmalloc(info->cfg_space_size, GFP_KERNEL);
--	if (!mem) {
--		kfree(path);
--		return -ENOMEM;
--	}
--
--	firmware->cfg_space = mem;
--
--	mem = vmalloc(info->mmio_size);
--	if (!mem) {
--		kfree(path);
--		kfree(firmware->cfg_space);
--		return -ENOMEM;
--	}
--
--	firmware->mmio = mem;
--
- 	sprintf(path, "%s/vid_0x%04x_did_0x%04x_rid_0x%02x.golden_hw_state",
- 		 GVT_FIRMWARE_PATH, pdev->vendor, pdev->device,
- 		 pdev->revision);
-@@ -256,9 +221,9 @@ int intel_gvt_load_firmware(struct intel_gvt *gvt)
- 
- 	h = (struct gvt_firmware_header *)fw->data;
- 
--	memcpy(firmware->cfg_space, fw->data + h->cfg_space_offset,
-+	memcpy(gvt->hw_state.cfg_space, fw->data + h->cfg_space_offset,
- 	       h->cfg_space_size);
--	memcpy(firmware->mmio, fw->data + h->mmio_offset,
-+	memcpy(gvt->hw_state.mmio, fw->data + h->mmio_offset,
- 	       h->mmio_size);
- 
- 	release_firmware(fw);
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index 1defee730cf3..4e2fd564abea 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.h
-+++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -280,8 +280,6 @@ struct intel_gvt_mmio {
- };
- 
- struct intel_gvt_firmware {
--	void *cfg_space;
--	void *mmio;
- 	bool firmware_loaded;
- };
- 
-diff --git a/drivers/gpu/drm/i915/gvt/mmio.c b/drivers/gpu/drm/i915/gvt/mmio.c
-index 24210b1eaec5..63f806113560 100644
---- a/drivers/gpu/drm/i915/gvt/mmio.c
-+++ b/drivers/gpu/drm/i915/gvt/mmio.c
-@@ -241,7 +241,7 @@ void intel_vgpu_reset_mmio(struct intel_vgpu *vgpu, bool dmlr)
- {
- 	struct intel_gvt *gvt = vgpu->gvt;
- 	const struct intel_gvt_device_info *info = &gvt->device_info;
--	void  *mmio = gvt->firmware.mmio;
-+	void  *mmio = gvt->hw_state.mmio;
- 
- 	if (dmlr) {
- 		memcpy(vgpu->mmio.vreg, mmio, info->mmio_size);
--- 
-2.25.1
-
+On 04/11/21 2:24 pm, Christian König wrote:
+> Am 04.11.21 um 09:49 schrieb Matthew Auld:
+>> On 04/11/2021 07:34, Christian König wrote:
+>>>
+>>>
+>>> Am 03.11.21 um 20:25 schrieb Matthew Auld:
+>>>> On 25/10/2021 14:00, Arunpravin wrote:
+>>>>> - Remove drm_mm references and replace with drm buddy functionalities
+>>>>> - Add res cursor support for drm buddy
+>>>>>
+>>>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>>>
+>>>> <snip>
+>>>>
+>>>>> +        spin_lock(&mgr->lock);
+>>>>> +        r = drm_buddy_alloc(mm, (uint64_t)place->fpfn << PAGE_SHIFT,
+>>>>> +                    (uint64_t)lpfn << PAGE_SHIFT,
+>>>>> +                    (uint64_t)n_pages << PAGE_SHIFT,
+>>>>> +                     min_page_size, &node->blocks,
+>>>>> +                     node->flags);
+>>>>
+>>>>
+>>>> Is spinlock + GFP_KERNEL allowed?
+>>>
+>>> Nope it isn't, but does that function really calls kmalloc()?
+>>
+>> It calls kmem_cache_zalloc(..., GFP_KERNEL)
+> 
+> Oh that's bad. In this case we either need a mutex here or some other 
+> approach to avoid the allocation.
+> 
+> Christian.
+[Arun] I will replace spinlock with mutex
+> 
+>>
+>>>
+>>> Christian.
+>>>
+>>>>
+>>>>> + spin_unlock(&mgr->lock);
+>>>>> +
+>>>>> +        if (unlikely(r))
+>>>>> +            goto error_free_blocks;
+>>>>> +
+>>>>>           pages_left -= pages;
+>>>>>           ++i;
+>>>>>             if (pages > pages_left)
+>>>>>               pages = pages_left;
+>>>>>       }
+>>>>> -    spin_unlock(&mgr->lock);
+>>>>> +
+>>>>> +    /* Free unused pages for contiguous allocation */
+>>>>> +    if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>>>> +        uint64_t actual_size = (uint64_t)node->base.num_pages << 
+>>>>> PAGE_SHIFT;
+>>>>> +
+>>>>> +        r = drm_buddy_free_unused_pages(mm,
+>>>>> +                        actual_size,
+>>>>> +                        &node->blocks);
+>>>>
+>>>> Needs some locking.
+[Arun] ok
+>>>
+> 
