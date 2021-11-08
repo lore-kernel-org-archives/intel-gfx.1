@@ -2,63 +2,48 @@ Return-Path: <SRS0=3waC=P3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 13FDBC2BB54
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:07:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DF8EC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D28DB610A5
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:07:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D28DB610A5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	by mail.kernel.org (Postfix) with ESMTPS id BE06C61101
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:21:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE06C61101
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6416E210;
-	Mon,  8 Nov 2021 14:07:17 +0000 (UTC)
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
- [209.85.222.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0DE86E20C;
- Mon,  8 Nov 2021 14:07:15 +0000 (UTC)
-Received: by mail-ua1-f46.google.com with SMTP id i6so31646080uae.6;
- Mon, 08 Nov 2021 06:07:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=srssYsTsVb5ivMDmTAt6Y7lXgP/lHHGiJX97jzZpFII=;
- b=wZghgfXMNcV2F07iTC2kRMiCWYwsLbwOQ7fK2uogw7yGFIunelPt4o/r4fr4f9M+CL
- IMMf9NwOdN2v0dmYls4sdZ595aSqKEVgvUISMFyDxedRtBQXG5UrULbPyWMqrJ5ZwiRL
- PQgcvT5zC7aelfVcRhp5vo97ywbP5r7t3c/XM4uuVrEfnSkEc0qy/ZKhbGAaYgBeKu10
- i0sX9siE/KV6JnimPF/20/C4XNw8fhQ1dh66B7eG0NqW9p+po0SE6vUbnrDEPKLz3E+y
- S/c34MrxqjIDgy8IMLJ5AY9OVWXfI5hPS51riBpOZCKO0USs8L0fo5ECZXGAWvQYXxND
- waCQ==
-X-Gm-Message-State: AOAM53227gi3W/SUu6ESyWgFJ1eL/YSR3iLN1uOYOVGsK8Yu22ub64p/
- n3xyGfGnuwlRRzB82BBbrCtCz2cou05xfw==
-X-Google-Smtp-Source: ABdhPJyZUVOvxMtkknc16YDC8TGHA73MsvnSiWXNe+qMLAHJcHa00kStfRSVeYKmLVK627Qiyb0lYw==
-X-Received: by 2002:a05:6102:3754:: with SMTP id
- u20mr196470vst.60.1636380434885; 
- Mon, 08 Nov 2021 06:07:14 -0800 (PST)
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com.
- [209.85.221.174])
- by smtp.gmail.com with ESMTPSA id f21sm2574809vke.39.2021.11.08.06.07.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Nov 2021 06:07:14 -0800 (PST)
-Received: by mail-vk1-f174.google.com with SMTP id p22so6555526vke.7;
- Mon, 08 Nov 2021 06:07:14 -0800 (PST)
-X-Received: by 2002:a05:6122:1350:: with SMTP id
- f16mr21288847vkp.26.1636380434409; 
- Mon, 08 Nov 2021 06:07:14 -0800 (PST)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C9706E9A2;
+	Mon,  8 Nov 2021 14:21:12 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90A526E9A0;
+ Mon,  8 Nov 2021 14:21:11 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f33110093973d8dfcf40fd9.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f33:1100:9397:3d8d:fcf4:fd9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D08561EC04E4;
+ Mon,  8 Nov 2021 15:21:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1636381269;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=oWsCJGhsvF17zUFafKKKz1XGvPrCUoTgLb0x72qzY0w=;
+ b=DvalVyPWlBMIVGIell7SDhnTX9Q86iHxoTdmXzPxorrW7sqlHpzQzwtFgZEI1KmHXq30Gs
+ yOE/y0FWs3djKZaj7cQDtIyWYYD5AKtdhjFE5l3EWLo8DNcP+YE1HL9C5d3kHwZrzRPHP8
+ xiS/nYCk2AFbtbv/wLq5RqiIdGlMN38=
+Date: Mon, 8 Nov 2021 15:21:04 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <YYkyUEqcsOwQMb1S@zn.tnic>
 References: <20211108101157.15189-1-bp@alien8.de>
  <20211108101157.15189-43-bp@alien8.de>
-In-Reply-To: <20211108101157.15189-43-bp@alien8.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 8 Nov 2021 15:07:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWH+txiSP_d7Jc4f_bU8Lf9iWpT4E3o5o7BJr-YdA6-VA@mail.gmail.com>
-Message-ID: <CAMuHMdWH+txiSP_d7Jc4f_bU8Lf9iWpT4E3o5o7BJr-YdA6-VA@mail.gmail.com>
-To: Borislav Petkov <bp@alien8.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CAMuHMdWH+txiSP_d7Jc4f_bU8Lf9iWpT4E3o5o7BJr-YdA6-VA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWH+txiSP_d7Jc4f_bU8Lf9iWpT4E3o5o7BJr-YdA6-VA@mail.gmail.com>
 Subject: Re: [Intel-gfx] [PATCH v0 42/42] notifier: Return an error when
  callback is already registered
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -106,80 +91,47 @@ Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Borislav,
+On Mon, Nov 08, 2021 at 03:07:03PM +0100, Geert Uytterhoeven wrote:
+> I think the addition of __must_check is overkill, leading to the
+> addition of useless error checks and message printing.
 
-On Mon, Nov 8, 2021 at 11:13 AM Borislav Petkov <bp@alien8.de> wrote:
-> From: Borislav Petkov <bp@suse.de>
->
-> The notifier registration routine doesn't return a proper error value
-> when a callback has already been registered, leading people to track
-> whether that registration has happened at the call site:
->
->   https://lore.kernel.org/amd-gfx/20210512013058.6827-1-mukul.joshi@amd.c=
-om/
->
-> Which is unnecessary.
->
-> Return -EEXIST to signal that case so that callers can act accordingly.
-> Enforce callers to check the return value, leading to loud screaming
-> during build:
->
->   arch/x86/kernel/cpu/mce/core.c: In function =E2=80=98mce_register_decod=
-e_chain=E2=80=99:
->   arch/x86/kernel/cpu/mce/core.c:167:2: error: ignoring return value of \
->    =E2=80=98blocking_notifier_chain_register=E2=80=99, declared with attr=
-ibute warn_unused_result [-Werror=3Dunused-result]
->     blocking_notifier_chain_register(&x86_mce_decoder_chain, nb);
->   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> Drop the WARN too, while at it.
->
-> Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-> Signed-off-by: Borislav Petkov <bp@suse.de>
+See the WARN in notifier_chain_register() - it will already do "message
+printing".
 
-Thanks for your patch!
+> Many callers call this where it cannot fail, and where nothing can
+> be done in the very unlikely event that the call would ever start to
+> fail.
 
-> --- a/include/linux/notifier.h
-> +++ b/include/linux/notifier.h
-> @@ -141,13 +141,13 @@ extern void srcu_init_notifier_head(struct srcu_not=
-ifier_head *nh);
->
->  #ifdef __KERNEL__
->
-> -extern int atomic_notifier_chain_register(struct atomic_notifier_head *n=
-h,
-> +extern int __must_check atomic_notifier_chain_register(struct atomic_not=
-ifier_head *nh,
->                 struct notifier_block *nb);
-> -extern int blocking_notifier_chain_register(struct blocking_notifier_hea=
-d *nh,
-> +extern int __must_check blocking_notifier_chain_register(struct blocking=
-_notifier_head *nh,
->                 struct notifier_block *nb);
-> -extern int raw_notifier_chain_register(struct raw_notifier_head *nh,
-> +extern int __must_check raw_notifier_chain_register(struct raw_notifier_=
-head *nh,
->                 struct notifier_block *nb);
-> -extern int srcu_notifier_chain_register(struct srcu_notifier_head *nh,
-> +extern int __must_check srcu_notifier_chain_register(struct srcu_notifie=
-r_head *nh,
->                 struct notifier_block *nb);
+This is an attempt to remove this WARN() hack in
+notifier_chain_register() and have the function return a proper error
+value instead of this "Currently always returns zero." which is bad
+design.
 
-I think the addition of __must_check is overkill, leading to the
-addition of useless error checks and message printing.  Many callers
-call this where it cannot fail, and where nothing can be done in the
-very unlikely event that the call would ever start to fail.
+Some of the registration functions around the tree check that retval and
+some don't. So if "it cannot fail" those registration either should not
+return a value or callers should check that return value - what we have
+now doesn't make a whole lot of sense.
 
-Gr{oetje,eeting}s,
+Oh, and then fixing this should avoid stuff like:
 
-                        Geert
++	if (notifier_registered == false) {
++		mce_register_decode_chain(&amdgpu_bad_page_nb);
++		notifier_registered = true;
++	}
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+from propagating in the code.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+The other idea I have is to add another indirection in
+notifier_chain_register() which will check the *proper* return value of
+a lower level __notifier_chain_register() and then issue that warning.
+That would definitely avoid touch so many call sites.
+
+Bottom line is: what we have now needs cleaning up.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
