@@ -2,36 +2,48 @@ Return-Path: <SRS0=3waC=P3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F6F4C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5511FC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:24:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 328CF610E9
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 328CF610E9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=rowland.harvard.edu
+	by mail.kernel.org (Postfix) with ESMTPS id 172F5610E9
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 14:24:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 172F5610E9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 991096E9D8;
-	Mon,  8 Nov 2021 14:23:45 +0000 (UTC)
-X-Greylist: delayed 400 seconds by postgrey-1.36 at gabe;
- Mon, 08 Nov 2021 14:23:44 UTC
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by gabe.freedesktop.org (Postfix) with SMTP id 7925E6E9D7
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Nov 2021 14:23:44 +0000 (UTC)
-Received: (qmail 1667203 invoked by uid 1000); 8 Nov 2021 09:17:03 -0500
-Date: Mon, 8 Nov 2021 09:17:03 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Borislav Petkov <bp@alien8.de>
-Message-ID: <20211108141703.GB1666297@rowland.harvard.edu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20A196E9EB;
+	Mon,  8 Nov 2021 14:24:44 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5674D6E9EA;
+ Mon,  8 Nov 2021 14:24:42 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f33110093973d8dfcf40fd9.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f33:1100:9397:3d8d:fcf4:fd9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D54F61EC04EE;
+ Mon,  8 Nov 2021 15:24:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1636381481;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=oQBbYlaqexu4t08cRZdDH3XaT2khXLTGUfDdhXY+o6w=;
+ b=BzFVBEJotdv+x1wk5r7BVthkB7IfDjFkcs3Qa23VnQgw6n7GoUvAnfTwnsI1XwsFUQ2pfc
+ wTEtmUg2zpiIKZgiV8GtlPXLXcMCnwwX7vbzvuM7Jd46qSvtVDp/eqlUHv6UrUSSdUIxSB
+ fTiz2Hj9eXxtQyoPpRyOqBuxOD7Awrk=
+Date: Mon, 8 Nov 2021 15:24:39 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Alan Stern <stern@rowland.harvard.edu>
+Message-ID: <YYkzJ3+faVga2Tl3@zn.tnic>
 References: <20211108101157.15189-1-bp@alien8.de>
  <20211108101924.15759-1-bp@alien8.de>
+ <20211108141703.GB1666297@rowland.harvard.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20211108101924.15759-1-bp@alien8.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20211108141703.GB1666297@rowland.harvard.edu>
 Subject: Re: [Intel-gfx] [PATCH v0 00/42] notifiers: Return an error when
  callback is already registered
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,51 +80,25 @@ Cc: alsa-devel@alsa-project.org, x86@kernel.org, linux-sh@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 08, 2021 at 11:19:24AM +0100, Borislav Petkov wrote:
-> From: Borislav Petkov <bp@suse.de>
+On Mon, Nov 08, 2021 at 09:17:03AM -0500, Alan Stern wrote:
+> What reason is there for moving the check into the callers?  It seems 
+> like pointless churn.  Why not add the error return code, change the 
+> WARN to pr_warn, and leave the callers as they are?  Wouldn't that end 
+> up having exactly the same effect?
 > 
-> Hi all,
-> 
-> this is a huge patchset for something which is really trivial - it
-> changes the notifier registration routines to return an error value
-> if a notifier callback is already present on the respective list of
-> callbacks. For more details scroll to the last patch.
-> 
-> Everything before it is converting the callers to check the return value
-> of the registration routines and issue a warning, instead of the WARN()
-> notifier_chain_register() does now.
+> For that matter, what sort of remedial action can a caller take if the 
+> return code is -EEXIST?  Is there any point in forcing callers to check 
+> the return code if they can't do anything about it?
 
-What reason is there for moving the check into the callers?  It seems 
-like pointless churn.  Why not add the error return code, change the 
-WARN to pr_warn, and leave the callers as they are?  Wouldn't that end 
-up having exactly the same effect?
+See my reply to Geert from just now:
 
-For that matter, what sort of remedial action can a caller take if the 
-return code is -EEXIST?  Is there any point in forcing callers to check 
-the return code if they can't do anything about it?
+https://lore.kernel.org/r/YYkyUEqcsOwQMb1S@zn.tnic
 
-> Before the last patch has been applied, though, that checking is a
-> NOP which would make the application of those patches trivial - every
-> maintainer can pick a patch at her/his discretion - only the last one
-> enables the build warnings and that one will be queued only after the
-> preceding patches have all been merged so that there are no build
-> warnings.
+I guess I can add another indirection to notifier_chain_register() and
+avoid touching all the call sites.
 
-Why should there be _any_ build warnings?  The real problem occurs when 
-a notifier callback is added twice, not when a caller fails to check the 
-return code.  Double-registration is not the sort of thing that can be 
-detected at build time.
+-- 
+Regards/Gruss,
+    Boris.
 
-Alan Stern
-
-> Due to the sheer volume of the patches, I have addressed the respective
-> patch and the last one, which enables the warning, with addressees for
-> each maintained area so as not to spam people unnecessarily.
-> 
-> If people prefer I carry some through tip, instead, I'll gladly do so -
-> your call.
-> 
-> And, if you think the warning messages need to be more precise, feel
-> free to adjust them before committing.
-> 
-> Thanks!
+https://people.kernel.org/tglx/notes-about-netiquette
