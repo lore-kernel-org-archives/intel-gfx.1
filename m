@@ -2,41 +2,56 @@ Return-Path: <SRS0=3waC=P3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1517C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 21:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D310CC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 21:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FAA7611C0
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 21:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7FAA7611C0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6044761052
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 21:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6044761052
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F20C16E8A4;
-	Mon,  8 Nov 2021 21:11:12 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6046E303;
- Mon,  8 Nov 2021 21:11:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10162"; a="255999727"
-X-IronPort-AV: E=Sophos;i="5.87,218,1631602800"; d="scan'208";a="255999727"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2021 13:11:02 -0800
-X-IronPort-AV: E=Sophos;i="5.87,218,1631602800"; d="scan'208";a="451627240"
-Received: from orsosgc001.jf.intel.com ([10.165.21.154])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2021 13:11:02 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Mon,  8 Nov 2021 13:10:57 -0800
-Message-Id: <20211108211057.68783-1-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D03386E970;
+	Mon,  8 Nov 2021 21:18:56 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94C5E6E95A;
+ Mon,  8 Nov 2021 21:18:54 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f3311007827e440708b1099.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f33:1100:7827:e440:708b:1099])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E3BE71EC051F;
+ Mon,  8 Nov 2021 22:18:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1636406333;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=AU7V4fSHGUK4yNvIX3QFWGgL2mpvsQwlJrzk1EYTZE4=;
+ b=HI4wHVqdPFUaTmLfTawRP0YuILjCSvy0XvR7UY6GhjpkLZ7Jcpensq3GPz/wKuSVQPh/ah
+ JjfisFcmsOLL77YybjTfUcF4SOtfsMptjoCY2iNpL/QAVX8IlmhT4tll2zqUciAF4fFC2q
+ GhOxoJIWWV9UKbtfg9ziQ2wDV7UERPU=
+Date: Mon, 8 Nov 2021 22:18:47 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Alan Stern <stern@rowland.harvard.edu>
+Message-ID: <YYmUN69Y7z9xITas@zn.tnic>
+References: <20211108101157.15189-1-bp@alien8.de>
+ <20211108101157.15189-43-bp@alien8.de>
+ <CAMuHMdWH+txiSP_d7Jc4f_bU8Lf9iWpT4E3o5o7BJr-YdA6-VA@mail.gmail.com>
+ <YYkyUEqcsOwQMb1S@zn.tnic>
+ <CAMuHMdXiBEQyEXJagSfpH44hxVA2t0sDH7B7YubLGHrb2MJLLA@mail.gmail.com>
+ <YYlJQYLiIrhjwOmT@zn.tnic>
+ <CAMuHMdXHikGrmUzuq0WG5JRHUUE=5zsaVCTF+e4TiHpM5tc5kA@mail.gmail.com>
+ <YYlOmd0AeA8DSluD@zn.tnic>
+ <20211108205926.GA1678880@rowland.harvard.edu>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/pmu: Fix synchronization of PMU
- callback with reset
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20211108205926.GA1678880@rowland.harvard.edu>
+Subject: Re: [Intel-gfx] [PATCH v0 42/42] notifier: Return an error when
+ callback is already registered
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,72 +64,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ Linux-sh list <linux-sh@vger.kernel.org>, linux-iio@vger.kernel.org,
+ "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+ <linux-remoteproc@vger.kernel.org>, linux-hyperv@vger.kernel.org,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ netdev <netdev@vger.kernel.org>, Ayush Sawal <ayush.sawal@chelsio.com>,
+ sparclinux <sparclinux@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
+ linux-leds <linux-leds@vger.kernel.org>,
+ linux-s390 <linux-s390@vger.kernel.org>, scsi <linux-scsi@vger.kernel.org>,
+ Rohit Maheshwari <rohitm@chelsio.com>, linux-staging@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ openipmi-developer@lists.sourceforge.net,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ "open list:TENSILICA XTENSA PORT \(xtensa\)" <linux-xtensa@linux-xtensa.org>,
+ Arnd Bergmann <arnd@arndb.de>, Linux PM list <linux-pm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Vinay Kumar Yadav <vinay.yadav@chelsio.com>,
+ linux-um <linux-um@lists.infradead.org>, Steven Rostedt <rostedt@goodmis.org>,
+ rcu@vger.kernel.org,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ xen-devel@lists.xenproject.org, linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, intel-gvt-dev@lists.freedesktop.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ Parisc List <linux-parisc@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ USB list <linux-usb@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ alpha <linux-alpha@vger.kernel.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the PMU callback runs in irq context, it synchronizes with gt
-reset using the reset count. We could run into a case where the PMU
-callback could read the reset count before it is updated. This has a
-potential of corrupting the busyness stats.
+On Mon, Nov 08, 2021 at 03:59:26PM -0500, Alan Stern wrote:
+> Is there really any reason for returning an error code?  For example, is 
+> it anticipated that at some point in the future these registration calls 
+> might fail?
+> 
+> Currently, the only reason for failing...
 
-In addition to the reset count, check if the reset bit is set before
-capturing busyness.
+Right, I believe with not making it return void we're leaving the door
+open for some, *hypothetical* future return values if we decide we need
+to return them too, at some point.
 
-In addition save the previous stats only if you intend to update them.
+Yes, I can't think of another fact to state besides that the callback
+was already registered or return success but who knows what we wanna do
+in the future...
 
-v2:
-- The 2 reset counts captured in the PMU callback can end up being the
-  same if they were captured right after the count is incremented in the
-  reset flow. This can lead to a bad busyness state. Ensure that reset
-  is not in progress when the initial reset count is captured.
+And so if we change them all to void now, I think it'll be a lot more
+churn to switch back to returning a non-void value and having the
+callers who choose to handle that value, do so again.
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+So, long story short, keeping the retval - albeit not very useful right
+now - is probably easier.
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 5cc49c0b3889..0dfc6032cd6b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1183,15 +1183,20 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
- 	u64 total, gt_stamp_saved;
- 	unsigned long flags;
- 	u32 reset_count;
-+	bool in_reset;
- 
- 	spin_lock_irqsave(&guc->timestamp.lock, flags);
- 
- 	/*
--	 * If a reset happened, we risk reading partially updated
--	 * engine busyness from GuC, so we just use the driver stored
--	 * copy of busyness. Synchronize with gt reset using reset_count.
-+	 * If a reset happened, we risk reading partially updated engine
-+	 * busyness from GuC, so we just use the driver stored copy of busyness.
-+	 * Synchronize with gt reset using reset_count and the
-+	 * I915_RESET_BACKOFF flag. Note that reset flow updates the reset_count
-+	 * after I915_RESET_BACKOFF flag, so ensure that the reset_count is
-+	 * usable by checking the flag afterwards.
- 	 */
- 	reset_count = i915_reset_count(gpu_error);
-+	in_reset = test_bit(I915_RESET_BACKOFF, &gt->reset.flags);
- 
- 	*now = ktime_get();
- 
-@@ -1201,9 +1206,9 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
- 	 * start_gt_clk is derived from GuC state. To get a consistent
- 	 * view of activity, we query the GuC state only if gt is awake.
- 	 */
--	stats_saved = *stats;
--	gt_stamp_saved = guc->timestamp.gt_stamp;
--	if (intel_gt_pm_get_if_awake(gt)) {
-+	if (intel_gt_pm_get_if_awake(gt) && !in_reset) {
-+		stats_saved = *stats;
-+		gt_stamp_saved = guc->timestamp.gt_stamp;
- 		guc_update_engine_gt_clks(engine);
- 		guc_update_pm_timestamp(guc, engine, now);
- 		intel_gt_pm_put_async(gt);
+I hope I'm making some sense here.
+
 -- 
-2.20.1
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
