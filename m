@@ -2,50 +2,40 @@ Return-Path: <SRS0=3waC=P3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70405C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 10:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68A22C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 11:02:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 36B4861181
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 10:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 36B4861181
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id 2B97860273
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 11:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2B97860273
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711FD6ECFD;
-	Mon,  8 Nov 2021 10:22:10 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 899876ECFC;
- Mon,  8 Nov 2021 10:22:09 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f33110088892b77bd117736.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f33:1100:8889:2b77:bd11:7736])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 97BC51EC0535;
- Mon,  8 Nov 2021 11:12:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1636366361;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZSl40zXDlt+0/rSkoDA+/axSBICuEw4xrW9t+JeAzRg=;
- b=O9utTH7kzvF0ogbSAjrVux8Q2NyGvuXt2DXX+lXMfGwQDD5NsnAlA7vS1HO+tdNI+F2ntn
- CZwfQStJuxv3i5Q66Ie7iUHTOBEhoA6pq6felnVAUxHBDq6LlMPMTRyA2hQo7p+FfRiqlX
- omkNlvF2ej63UhZNrO1CmPB0HckLABU=
-From: Borislav Petkov <bp@alien8.de>
-To: LKML <linux-kernel@vger.kernel.org>
-Date: Mon,  8 Nov 2021 11:11:57 +0100
-Message-Id: <20211108101157.15189-43-bp@alien8.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20211108101157.15189-1-bp@alien8.de>
-References: <20211108101157.15189-1-bp@alien8.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B87D6ED1E;
+	Mon,  8 Nov 2021 11:02:28 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF4E6ED1E
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Nov 2021 11:02:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10161"; a="229666729"
+X-IronPort-AV: E=Sophos;i="5.87,218,1631602800"; d="scan'208";a="229666729"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Nov 2021 03:02:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,218,1631602800"; d="scan'208";a="601374253"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by orsmga004.jf.intel.com with ESMTP; 08 Nov 2021 03:02:25 -0800
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  8 Nov 2021 16:26:17 +0530
+Message-Id: <20211108105617.3522809-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v0 42/42] notifier: Return an error when
- callback is already registered
+Subject: [Intel-gfx] [PATCH V2] drm/i915/gt: Hold RPM wakelock during PXP
+ suspend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,201 +48,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, x86@kernel.org, linux-sh@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, netdev@vger.kernel.org,
- Ayush Sawal <ayush.sawal@chelsio.com>, sparclinux@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- Rohit Maheshwari <rohitm@chelsio.com>, linux-staging@lists.linux.dev,
- bcm-kernel-feedback-list@broadcom.com,
- openipmi-developer@lists.sourceforge.net, xen-devel@lists.xenproject.org,
- linux-xtensa@linux-xtensa.org, Arnd Bergmann <arnd@arndb.de>,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Vinay Kumar Yadav <vinay.yadav@chelsio.com>, linux-um@lists.infradead.org,
- Steven Rostedt <rostedt@goodmis.org>, rcu@vger.kernel.org,
- linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-parisc@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Borislav Petkov <bp@suse.de>
+selftest --r live shows failure in suspend tests when
+RPM wakelock is not acquired during suspend.
 
-The notifier registration routine doesn't return a proper error value
-when a callback has already been registered, leading people to track
-whether that registration has happened at the call site:
+This changes addresses below error :
+<4> [154.177535] RPM wakelock ref not held during HW access
+<4> [154.177575] WARNING: CPU: 4 PID: 5772 at
+drivers/gpu/drm/i915/intel_runtime_pm.h:113
+fwtable_write32+0x240/0x320 [i915]
+<4> [154.177974] Modules linked in: i915(+) vgem drm_shmem_helper
+fuse snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic
+ledtrig_audio mei_hdcp mei_pxp x86_pkg_temp_thermal coretemp
+crct10dif_pclmul crc32_pclmul ghash_clmulni_intel snd_intel_dspcfg
+snd_hda_codec snd_hwdep igc snd_hda_core ttm mei_me ptp
+snd_pcm prime_numbers mei i2c_i801 pps_core i2c_smbus intel_lpss_pci
+btusb btrtl btbcm btintel bluetooth ecdh_generic ecc [last unloaded: i915]
+<4> [154.178143] CPU: 4 PID: 5772 Comm: i915_selftest Tainted: G
+U            5.15.0-rc6-CI-Patchwork_21432+ #1
+<4> [154.178154] Hardware name: ASUS System Product Name/TUF GAMING
+Z590-PLUS WIFI, BIOS 0811 04/06/2021
+<4> [154.178160] RIP: 0010:fwtable_write32+0x240/0x320 [i915]
+<4> [154.178604] Code: 15 7b e1 0f 0b e9 34 fe ff ff 80 3d a9 89 31
+00 00 0f 85 31 fe ff ff 48 c7 c7 88 9e 4f a0 c6 05 95 89 31 00 01 e8
+c0 15 7b e1 <0f> 0b e9 17 fe ff ff 8b 05 0f 83 58 e2 85 c0 0f 85 8d
+00 00 00 48
+<4> [154.178614] RSP: 0018:ffffc900016279f0 EFLAGS: 00010286
+<4> [154.178626] RAX: 0000000000000000 RBX: ffff888204fe0ee0
+RCX: 0000000000000001
+<4> [154.178634] RDX: 0000000080000001 RSI: ffffffff823142b5
+RDI: 00000000ffffffff
+<4> [154.178641] RBP: 00000000000320f0 R08: 0000000000000000
+R09: c0000000ffffcd5a
+<4> [154.178647] R10: 00000000000f8c90 R11: ffffc90001627808
+R12: 0000000000000000
+<4> [154.178654] R13: 0000000040000000 R14: ffffffffa04d12e0
+R15: 0000000000000000
+<4> [154.178660] FS:  00007f7390aa4c00(0000) GS:ffff88844f000000(0000)
+knlGS:0000000000000000
+<4> [154.178669] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4> [154.178675] CR2: 000055bc40595028 CR3: 0000000204474005
+CR4: 0000000000770ee0
+<4> [154.178682] PKRU: 55555554
+<4> [154.178687] Call Trace:
+<4> [154.178706]  intel_pxp_fini_hw+0x23/0x30 [i915]
+<4> [154.179284]  intel_pxp_suspend+0x1f/0x30 [i915]
+<4> [154.179807]  live_gt_resume+0x5b/0x90 [i915]
 
-  https://lore.kernel.org/amd-gfx/20210512013058.6827-1-mukul.joshi@amd.com/
+Changes since V1 :
+	- split the HW access parts in gt_suspend_late - Daniele
+	- Remove default PXP configs
 
-Which is unnecessary.
-
-Return -EEXIST to signal that case so that callers can act accordingly.
-Enforce callers to check the return value, leading to loud screaming
-during build:
-
-  arch/x86/kernel/cpu/mce/core.c: In function ‘mce_register_decode_chain’:
-  arch/x86/kernel/cpu/mce/core.c:167:2: error: ignoring return value of \
-   ‘blocking_notifier_chain_register’, declared with attribute warn_unused_result [-Werror=unused-result]
-    blocking_notifier_chain_register(&x86_mce_decoder_chain, nb);
-  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Drop the WARN too, while at it.
-
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Borislav Petkov <bp@suse.de>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Ayush Sawal <ayush.sawal@chelsio.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Rohit Maheshwari <rohitm@chelsio.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Vinay Kumar Yadav <vinay.yadav@chelsio.com>
-Cc: alsa-devel@alsa-project.org
-Cc: bcm-kernel-feedback-list@broadcom.com
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-gvt-dev@lists.freedesktop.org
-Cc: linux-alpha@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-clk@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: linux-hyperv@vger.kernel.org
-Cc: linux-iio@vger.kernel.org
-Cc: linux-leds@vger.kernel.org
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-pm@vger.kernel.org
-Cc: linuxppc-dev@lists.ozlabs.org
-Cc: linux-remoteproc@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
-Cc: linux-s390@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-sh@vger.kernel.org
-Cc: linux-staging@lists.linux.dev
-Cc: linux-tegra@vger.kernel.org
-Cc: linux-um@lists.infradead.org
-Cc: linux-usb@vger.kernel.org
-Cc: linux-xtensa@linux-xtensa.org
-Cc: netdev@vger.kernel.org
-Cc: openipmi-developer@lists.sourceforge.net
-Cc: rcu@vger.kernel.org
-Cc: sparclinux@vger.kernel.org
-Cc: x86@kernel.org
-Cc: xen-devel@lists.xenproject.org
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 ---
- include/linux/notifier.h |  8 ++++----
- kernel/notifier.c        | 36 +++++++++++++++++++-----------------
- 2 files changed, 23 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c   |  7 ++++---
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c | 15 ++++++++++++---
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.h | 18 ++++++++++++++++--
+ 3 files changed, 32 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/notifier.h b/include/linux/notifier.h
-index 87069b8459af..45cc5a8d0fd8 100644
---- a/include/linux/notifier.h
-+++ b/include/linux/notifier.h
-@@ -141,13 +141,13 @@ extern void srcu_init_notifier_head(struct srcu_notifier_head *nh);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+index b4a8594bc46c..d4029de1c80d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+@@ -303,7 +303,7 @@ void intel_gt_suspend_prepare(struct intel_gt *gt)
+ 	user_forcewake(gt, true);
+ 	wait_for_suspend(gt);
  
- #ifdef __KERNEL__
- 
--extern int atomic_notifier_chain_register(struct atomic_notifier_head *nh,
-+extern int __must_check atomic_notifier_chain_register(struct atomic_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int blocking_notifier_chain_register(struct blocking_notifier_head *nh,
-+extern int __must_check blocking_notifier_chain_register(struct blocking_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int raw_notifier_chain_register(struct raw_notifier_head *nh,
-+extern int __must_check raw_notifier_chain_register(struct raw_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int srcu_notifier_chain_register(struct srcu_notifier_head *nh,
-+extern int __must_check srcu_notifier_chain_register(struct srcu_notifier_head *nh,
- 		struct notifier_block *nb);
- 
- extern int atomic_notifier_chain_unregister(struct atomic_notifier_head *nh,
-diff --git a/kernel/notifier.c b/kernel/notifier.c
-index b8251dc0bc0f..451ef3f73ad2 100644
---- a/kernel/notifier.c
-+++ b/kernel/notifier.c
-@@ -20,13 +20,11 @@ BLOCKING_NOTIFIER_HEAD(reboot_notifier_list);
-  */
- 
- static int notifier_chain_register(struct notifier_block **nl,
--		struct notifier_block *n)
-+				   struct notifier_block *n)
- {
- 	while ((*nl) != NULL) {
--		if (unlikely((*nl) == n)) {
--			WARN(1, "double register detected");
--			return 0;
--		}
-+		if (unlikely((*nl) == n))
-+			return -EEXIST;
- 		if (n->priority > (*nl)->priority)
- 			break;
- 		nl = &((*nl)->next);
-@@ -134,10 +132,11 @@ static int notifier_call_chain_robust(struct notifier_block **nl,
-  *
-  *	Adds a notifier to an atomic notifier chain.
-  *
-- *	Currently always returns zero.
-+ *	Returns 0 on success, %-EEXIST on error.
-  */
--int atomic_notifier_chain_register(struct atomic_notifier_head *nh,
--		struct notifier_block *n)
-+int __must_check
-+atomic_notifier_chain_register(struct atomic_notifier_head *nh,
-+			       struct notifier_block *n)
- {
- 	unsigned long flags;
- 	int ret;
-@@ -216,10 +215,11 @@ NOKPROBE_SYMBOL(atomic_notifier_call_chain);
-  *	Adds a notifier to a blocking notifier chain.
-  *	Must be called in process context.
-  *
-- *	Currently always returns zero.
-+ *	Returns 0 on success, %-EEXIST on error.
-  */
--int blocking_notifier_chain_register(struct blocking_notifier_head *nh,
--		struct notifier_block *n)
-+int __must_check
-+blocking_notifier_chain_register(struct blocking_notifier_head *nh,
-+				 struct notifier_block *n)
- {
- 	int ret;
- 
-@@ -335,10 +335,11 @@ EXPORT_SYMBOL_GPL(blocking_notifier_call_chain);
-  *	Adds a notifier to a raw notifier chain.
-  *	All locking must be provided by the caller.
-  *
-- *	Currently always returns zero.
-+ *	Returns 0 on success, %-EEXIST on error.
-  */
--int raw_notifier_chain_register(struct raw_notifier_head *nh,
--		struct notifier_block *n)
-+int __must_check
-+raw_notifier_chain_register(struct raw_notifier_head *nh,
-+			    struct notifier_block *n)
- {
- 	return notifier_chain_register(&nh->head, n);
+-	intel_pxp_suspend(&gt->pxp, false);
++	intel_pxp_suspend_prepare(&gt->pxp, false);
  }
-@@ -406,10 +407,11 @@ EXPORT_SYMBOL_GPL(raw_notifier_call_chain);
-  *	Adds a notifier to an SRCU notifier chain.
-  *	Must be called in process context.
-  *
-- *	Currently always returns zero.
-+ *	Returns 0 on success, %-EEXIST on error.
-  */
--int srcu_notifier_chain_register(struct srcu_notifier_head *nh,
--		struct notifier_block *n)
-+int __must_check
-+srcu_notifier_chain_register(struct srcu_notifier_head *nh,
-+			     struct notifier_block *n)
- {
- 	int ret;
  
+ static suspend_state_t pm_suspend_target(void)
+@@ -328,6 +328,7 @@ void intel_gt_suspend_late(struct intel_gt *gt)
+ 	GEM_BUG_ON(gt->awake);
+ 
+ 	intel_uc_suspend(&gt->uc);
++	intel_pxp_suspend(&gt->pxp);
+ 
+ 	/*
+ 	 * On disabling the device, we want to turn off HW access to memory
+@@ -355,7 +356,7 @@ void intel_gt_suspend_late(struct intel_gt *gt)
+ 
+ void intel_gt_runtime_suspend(struct intel_gt *gt)
+ {
+-	intel_pxp_suspend(&gt->pxp, true);
++	intel_pxp_runtime_suspend(&gt->pxp);
+ 	intel_uc_runtime_suspend(&gt->uc);
+ 
+ 	GT_TRACE(gt, "\n");
+@@ -373,7 +374,7 @@ int intel_gt_runtime_resume(struct intel_gt *gt)
+ 	if (ret)
+ 		return ret;
+ 
+-	intel_pxp_resume(&gt->pxp);
++	intel_pxp_runtime_resume(&gt->pxp);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+index 23fd86de5a24..3f91996dc6be 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+@@ -7,8 +7,9 @@
+ #include "intel_pxp_irq.h"
+ #include "intel_pxp_pm.h"
+ #include "intel_pxp_session.h"
++#include "i915_drv.h"
+ 
+-void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
++void intel_pxp_suspend_prepare(struct intel_pxp *pxp, bool runtime)
+ {
+ 	if (!intel_pxp_is_enabled(pxp))
+ 		return;
+@@ -23,10 +24,18 @@ void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
+ 	 */
+ 	if (!runtime)
+ 		intel_pxp_invalidate(pxp);
++}
+ 
+-	intel_pxp_fini_hw(pxp);
++void intel_pxp_suspend(struct intel_pxp *pxp)
++{
++	intel_wakeref_t wakeref;
+ 
+-	pxp->hw_state_invalidated = false;
++	if (!intel_pxp_is_enabled(pxp))
++		return;
++	with_intel_runtime_pm(&pxp_to_gt(pxp)->i915->runtime_pm, wakeref) {
++		intel_pxp_fini_hw(pxp);
++		pxp->hw_state_invalidated = false;
++	}
+ }
+ 
+ void intel_pxp_resume(struct intel_pxp *pxp)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+index c89e97a0c3d0..f2cf3117ed93 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+@@ -9,10 +9,15 @@
+ #include "intel_pxp_types.h"
+ 
+ #ifdef CONFIG_DRM_I915_PXP
+-void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime);
++void intel_pxp_suspend_prepare(struct intel_pxp *pxp, bool runtime);
++void intel_pxp_suspend(struct intel_pxp *pxp);
+ void intel_pxp_resume(struct intel_pxp *pxp);
+ #else
+-static inline void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
++static inline void intel_pxp_suspend_prepare(struct intel_pxp *pxp, bool runtime)
++{
++}
++
++static inline void intel_pxp_suspend(struct intel_pxp *pxp)
+ {
+ }
+ 
+@@ -20,5 +25,14 @@ static inline void intel_pxp_resume(struct intel_pxp *pxp)
+ {
+ }
+ #endif
++static inline void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
++{
++	intel_pxp_suspend_prepare(pxp, true);
++	intel_pxp_suspend(pxp);
++}
+ 
++static inline void intel_pxp_runtime_resume(struct intel_pxp *pxp)
++{
++	intel_pxp_resume(pxp);
++}
+ #endif /* __INTEL_PXP_PM_H__ */
 -- 
-2.29.2
+2.31.1
 
