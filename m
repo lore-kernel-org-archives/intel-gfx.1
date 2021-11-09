@@ -2,39 +2,43 @@ Return-Path: <SRS0=SCM9=P4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F837C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 08:01:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B51D3C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 08:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9915610F8
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 08:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9915610F8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 7C9B9610F8
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 08:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7C9B9610F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6083F6E4BA;
-	Tue,  9 Nov 2021 08:01:43 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3D96E4BA;
- Tue,  9 Nov 2021 08:01:42 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id EA08867373; Tue,  9 Nov 2021 09:01:39 +0100 (CET)
-Date: Tue, 9 Nov 2021 09:01:39 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: "Wang, Zhi A" <zhi.a.wang@intel.com>
-Message-ID: <20211109080139.GD27339@lst.de>
-References: <20211102070601.155501-1-hch@lst.de>
- <163603075885.4807.880888219859400958@jlahtine-mobl.ger.corp.intel.com>
- <DM4PR11MB554905AC416FBD055251DE43CA8D9@DM4PR11MB5549.namprd11.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE12C6E527;
+	Tue,  9 Nov 2021 08:04:48 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 333F36E527
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Nov 2021 08:04:47 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10162"; a="213130676"
+X-IronPort-AV: E=Sophos;i="5.87,219,1631602800"; d="scan'208";a="213130676"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2021 00:04:40 -0800
+X-IronPort-AV: E=Sophos;i="5.87,219,1631602800"; d="scan'208";a="503406303"
+Received: from stkachen-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.251.216.106])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2021 00:04:37 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: William Tseng <william.tseng@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20211109034125.11291-1-william.tseng@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211109034125.11291-1-william.tseng@intel.com>
+Date: Tue, 09 Nov 2021 10:04:34 +0200
+Message-ID: <87wnlh69gt.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DM4PR11MB554905AC416FBD055251DE43CA8D9@DM4PR11MB5549.namprd11.prod.outlook.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] refactor the i915 GVT support and move to the
- modern mdev API v2
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dsi: disable lpdt if it is not
+ enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,17 +51,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- Christoph Hellwig <hch@lst.de>
+Cc: William Tseng <william.tseng@intel.com>,
+ Cooper Chiou <cooper.chiou@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 04, 2021 at 02:51:28PM +0000, Wang, Zhi A wrote:
-> Is it possible to separate the refactor part from the using new mdev API stuff? So that the design opens in the re-factor patches wouldn’t block the process of mdev API improvement?
+On Tue, 09 Nov 2021, William Tseng <william.tseng@intel.com> wrote:
+> Avoid setting LP_DATA_TRANSFER when enable_lpdt is false
+>
+> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Lee Shawn C <shawn.c.lee@intel.com>
+> Cc: Cooper Chiou <cooper.chiou@intel.com>
+> Signed-off-by: William Tseng <william.tseng@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/icl_dsi.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+> index 168c84a74d30..31cea17481b1 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -183,6 +183,8 @@ static int dsi_send_pkt_hdr(struct intel_dsi_host *host,
+>  
+>  	if (enable_lpdt)
+>  		tmp |= LP_DATA_TRANSFER;
+> +	else
+> +		tmp &= ~LP_DATA_TRANSFER;
+>  
+>  	tmp &= ~(PARAM_WC_MASK | VC_MASK | DT_MASK);
+>  	tmp |= ((packet->header[0] & VC_MASK) << VC_SHIFT);
 
-Jason had an early patch for it, but it looks so horrible that I'd much
-rather sort out the underlying issues first.
+The read-modify-write we do here is perhaps not the brightnest idea, but
+the patch at hand probably is the most sensible first fix.
+
+Thanks, pushed to drm-intel-next.
+
+BR,
+Jani.
+
+
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
