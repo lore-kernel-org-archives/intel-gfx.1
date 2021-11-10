@@ -2,44 +2,61 @@ Return-Path: <SRS0=lJ7G=P5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FED3C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DB26C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F33CC61027
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:45:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F33CC61027
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 686BA61077
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 686BA61077
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB586E904;
-	Wed, 10 Nov 2021 10:45:06 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6E0A6E904
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 10:45:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10163"; a="318847320"
-X-IronPort-AV: E=Sophos;i="5.87,223,1631602800"; d="scan'208";a="318847320"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2021 02:45:04 -0800
-X-IronPort-AV: E=Sophos;i="5.87,223,1631602800"; d="scan'208";a="503918065"
-Received: from rahuldut-mobl.amr.corp.intel.com (HELO localhost)
- ([10.249.33.152])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2021 02:45:01 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: William Tseng <william.tseng@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20211110010217.26759-1-william.tseng@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211109082458.13740-1-william.tseng@intel.com>
- <20211110010217.26759-1-william.tseng@intel.com>
-Date: Wed, 10 Nov 2021 12:44:58 +0200
-Message-ID: <87r1bo47dh.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A40086EE61;
+	Wed, 10 Nov 2021 10:48:50 +0000 (UTC)
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F6286EE49;
+ Wed, 10 Nov 2021 10:48:49 +0000 (UTC)
+Received: by mail-qt1-x82f.google.com with SMTP id l8so1678363qtk.6;
+ Wed, 10 Nov 2021 02:48:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nk2Suy6J3YiB0zzsECNTnASz9gapNF6qF2MzFjIeiJI=;
+ b=Eee4hv4Z4DBmibFUQLzPLHqyo9306QED/4FNETfu6p/G9npPXvQ+IhvGwHdkfhCKC6
+ 3+ugW/L3QF5I6SfrY+WZaigkIqLU6L0Hq+IhmNBZXkSzWRjxjUtlF96XShIU1J53ZW2z
+ q56cp1Q+d0DEk6+V8zrA1VVA9Mt6PnPnUYxXWch0r3MeFRtfQ6PqyBYtqcjqHyu6laB3
+ SM9I19kWbbmOIkfCQMK1zSKPsm5MmswnM30YPg9j12X7azzU7J4bonHNLMS/gs6uG5O1
+ RpuN1opbYn3HJCXBYPiogU/TVQ5T3przhJlRGrJ2wYT67WS1YvXJTGm22lMuFj2LyoI+
+ 7qeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nk2Suy6J3YiB0zzsECNTnASz9gapNF6qF2MzFjIeiJI=;
+ b=3niUu/5SUnsPlb+9qsjh6s4K2RjO9w5Lkon+0tlEYB+TSGnlahGaQ4kgU7TbpEh90F
+ tswv/t+D5bObjG+S/R9fIvmy9uCgyJ50y7PT+eOb43ZO/WAN4oBUMepVZB0KlokTBQuG
+ kjgSAvuYaMxfJ2M9CqTXiGlnKWHw5OEQkcERYfMcJjl9m5vgwMq5Th3mwZecn9qiAee/
+ CEY3ZFjB34b5wDPBv9g1hvvw+I+t8P5t/YV3ozjw774JaYcN+qdPX/kt3sHzE9CtMGlB
+ TyKT5DmnWtXuGayQgapAAMo10148JAOmqX/hHgvYJSF3RxE5M4fBobvVe7iI6PtNpV4d
+ /JPg==
+X-Gm-Message-State: AOAM533PqOnqfcGEK6blcseStByfX9zA2X6zMSpHwaCcvZKh4UjIItj/
+ h6Uaj68wRCOWDdyffPZnL3ppvxHSgvzdUI+OLmYb1xVJW88=
+X-Google-Smtp-Source: ABdhPJxDJ+BqeHH0XvqQ8TLhsnNiwHhU2UsFTgaT6VUWge6F3SdXuvUE4DmJceGgFkZVpHSzusxrmAoLlwX7qvftd8g=
+X-Received: by 2002:a05:622a:1209:: with SMTP id
+ y9mr16730883qtx.13.1636541328409; 
+ Wed, 10 Nov 2021 02:48:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/dsi: transmit brightness
- command in HS state
+References: <20211109122037.171128-1-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20211109122037.171128-1-tvrtko.ursulin@linux.intel.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Wed, 10 Nov 2021 10:48:21 +0000
+Message-ID: <CAM0jSHOyj3ydgn-bZwk69RfpZLcG03Td_kxowEoJ1fg5PO=W3A@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Skip error capture when wedged on
+ init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,64 +69,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: William Tseng <william.tseng@intel.com>,
- Cooper Chiou <cooper.chiou@intel.com>
+Cc: Intel Graphics Development <Intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 10 Nov 2021, William Tseng <william.tseng@intel.com> wrote:
-> In Video Mode, if DSI transcoder is set to transmit packets
-> in LP Escape mode, screen flickering would be obseved when
-> brightness commands are continuously and quickly transmitted
-> to a panel.
+On Tue, 9 Nov 2021 at 12:20, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
 >
-> The problem may be resolved by changing the mode to transmit
-> packets from Low Power to HS.
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 >
-> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-> Cc: Lee Shawn C <shawn.c.lee@intel.com>
-> Cc: Cooper Chiou <cooper.chiou@intel.com>
-> Signed-off-by: William Tseng <william.tseng@intel.com>
+> Trying to capture uninitialised engines when we wedged on init ends in
+> tears. Skip that together with uC capture, since failure to initialise the
+> latter can actually be one of the reasons for wedging on init.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+This fixes the issue with missing GuC wedging the GPU and then blowing
+up when trying to use the driver?
+
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
 > ---
->  drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/gpu/drm/i915/i915_gpu_error.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-> index f61ed82e8867..7d234429e71e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-> @@ -71,6 +71,7 @@ static void dcs_set_backlight(const struct drm_connector_state *conn_state, u32
->  	u8 data[2] = {};
->  	enum port port;
->  	size_t len = panel->backlight.max > U8_MAX ? 2 : 1;
-> +	unsigned long mode_flags;
->  
->  	if (len == 1) {
->  		data[0] = level;
-> @@ -81,8 +82,11 @@ static void dcs_set_backlight(const struct drm_connector_state *conn_state, u32
->  
->  	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
->  		dsi_device = intel_dsi->dsi_hosts[port]->device;
-> +		mode_flags = dsi_device->mode_flags;
-> +		dsi_device->mode_flags &= ~MIPI_DSI_MODE_LPM;
->  		mipi_dsi_dcs_write(dsi_device, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
->  				   &data, len);
-> +		dsi_device->mode_flags = mode_flags;
-
-I realize we don't really have a clear picture how to manage
-->mode_flags or MIPI_DSI_MODE_LPM in particular, but this seems like the
-safest option for now.
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-I'll push once CI results are in; had to request a re-run.
-
-
-
->  	}
->  }
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> index 2a2d7643b551..aa2b3aad9643 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> @@ -1866,10 +1866,14 @@ i915_gpu_coredump(struct intel_gt *gt, intel_engine_mask_t engine_mask)
+>                 }
+>
+>                 gt_record_info(error->gt);
+> -               gt_record_engines(error->gt, engine_mask, compress);
+>
+> -               if (INTEL_INFO(i915)->has_gt_uc)
+> -                       error->gt->uc = gt_record_uc(error->gt, compress);
+> +               if (!intel_gt_has_unrecoverable_error(gt)) {
+> +                       gt_record_engines(error->gt, engine_mask, compress);
+> +
+> +                       if (INTEL_INFO(i915)->has_gt_uc)
+> +                               error->gt->uc = gt_record_uc(error->gt,
+> +                                                            compress);
+> +               }
+>
+>                 i915_vma_capture_finish(error->gt, compress);
+>
+> --
+> 2.30.2
+>
