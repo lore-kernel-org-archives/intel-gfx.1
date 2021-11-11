@@ -2,40 +2,42 @@ Return-Path: <SRS0=C8BW=P6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E16EC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3759DC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:50:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3B3F6611C9
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:48:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B3F6611C9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id ED999611C9
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:50:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ED999611C9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99E436EA36;
-	Thu, 11 Nov 2021 12:48:26 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2EFF6E7DA
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 12:48:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="256608215"
-X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="256608215"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2021 04:48:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="452706442"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by orsmga006.jf.intel.com with ESMTP; 11 Nov 2021 04:48:12 -0800
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Nov 2021 18:12:08 +0530
-Message-Id: <20211111124208.3550952-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2876E9F2;
+	Thu, 11 Nov 2021 12:50:18 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 196B96E7DA;
+ Thu, 11 Nov 2021 12:50:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="232845914"
+X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="232845914"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2021 04:50:16 -0800
+X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="589915745"
+Received: from isyrjala-mobl.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.216])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2021 04:50:14 -0800
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu, 11 Nov 2021 13:49:57 +0100
+Message-Id: <20211111125003.178247-1-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V3] drm/i915/gt: Hold RPM wakelock during PXP
- suspend
+Subject: [Intel-gfx] [PATCH v2 0/6]  drm/i915/ttm: Async migration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,206 +50,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-selftest --r live shows failure in suspend tests when
-RPM wakelock is not acquired during suspend.
+This patch series deals with async migration and async vram management.
+It still leaves an important part out, which is async unbinding which
+will reduce latency further, at least when trying to migrate already active
+objects.
 
-This changes addresses below error :
-<4> [154.177535] RPM wakelock ref not held during HW access
-<4> [154.177575] WARNING: CPU: 4 PID: 5772 at
-drivers/gpu/drm/i915/intel_runtime_pm.h:113
-fwtable_write32+0x240/0x320 [i915]
-<4> [154.177974] Modules linked in: i915(+) vgem drm_shmem_helper
-fuse snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic
-ledtrig_audio mei_hdcp mei_pxp x86_pkg_temp_thermal coretemp
-crct10dif_pclmul crc32_pclmul ghash_clmulni_intel snd_intel_dspcfg
-snd_hda_codec snd_hwdep igc snd_hda_core ttm mei_me ptp
-snd_pcm prime_numbers mei i2c_i801 pps_core i2c_smbus intel_lpss_pci
-btusb btrtl btbcm btintel bluetooth ecdh_generic ecc [last unloaded: i915]
-<4> [154.178143] CPU: 4 PID: 5772 Comm: i915_selftest Tainted: G
-U            5.15.0-rc6-CI-Patchwork_21432+ #1
-<4> [154.178154] Hardware name: ASUS System Product Name/TUF GAMING
-Z590-PLUS WIFI, BIOS 0811 04/06/2021
-<4> [154.178160] RIP: 0010:fwtable_write32+0x240/0x320 [i915]
-<4> [154.178604] Code: 15 7b e1 0f 0b e9 34 fe ff ff 80 3d a9 89 31
-00 00 0f 85 31 fe ff ff 48 c7 c7 88 9e 4f a0 c6 05 95 89 31 00 01 e8
-c0 15 7b e1 <0f> 0b e9 17 fe ff ff 8b 05 0f 83 58 e2 85 c0 0f 85 8d
-00 00 00 48
-<4> [154.178614] RSP: 0018:ffffc900016279f0 EFLAGS: 00010286
-<4> [154.178626] RAX: 0000000000000000 RBX: ffff888204fe0ee0
-RCX: 0000000000000001
-<4> [154.178634] RDX: 0000000080000001 RSI: ffffffff823142b5
-RDI: 00000000ffffffff
-<4> [154.178641] RBP: 00000000000320f0 R08: 0000000000000000
-R09: c0000000ffffcd5a
-<4> [154.178647] R10: 00000000000f8c90 R11: ffffc90001627808
-R12: 0000000000000000
-<4> [154.178654] R13: 0000000040000000 R14: ffffffffa04d12e0
-R15: 0000000000000000
-<4> [154.178660] FS:  00007f7390aa4c00(0000) GS:ffff88844f000000(0000)
-knlGS:0000000000000000
-<4> [154.178669] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-<4> [154.178675] CR2: 000055bc40595028 CR3: 0000000204474005
-CR4: 0000000000770ee0
-<4> [154.178682] PKRU: 55555554
-<4> [154.178687] Call Trace:
-<4> [154.178706]  intel_pxp_fini_hw+0x23/0x30 [i915]
-<4> [154.179284]  intel_pxp_suspend+0x1f/0x30 [i915]
-<4> [154.179807]  live_gt_resume+0x5b/0x90 [i915]
+Patches 1/6 and 2/6 deal with accessing and waiting for the TTM moving
+fence from i915 GEM.
+Patch 3 is pure code reorganization, no functional change.
+Patch 4 breaks a refcounting loop involving the TTM moving fence.
+Patch 5 uses TTM to implement the ttm move() callback async, it also
+introduces a utility to collect dependencies and turn them into a
+single dma_fence, which is needed for the intel_migrate code.
+This also affects the gem object migrate code so.
+Patch 6 makes the object copy utility async as well, mainly for future
+users since the only current user, suspend backup and restore, typically
+will want to sync anyway.
 
-Changes since V2 :
-	- Open-code intel_pxp_runtime_suspend - Daniele
-	- Remove boolean in intel_pxp_runtime_preapre - Daniele
-Changes since V1 :
-	- split the HW access parts in gt_suspend_late - Daniele
-	- Remove default PXP configs
+v2:
+- Fix a couple of SPARSE warnings.
 
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_pm.c   |  7 +++--
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c | 37 +++++++++++++++++--------
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h | 19 +++++++++++--
- 3 files changed, 46 insertions(+), 17 deletions(-)
+Maarten Lankhorst (2):
+  drm/i915: Add functions to set/get moving fence
+  drm/i915: Add support for asynchronous moving fence waiting
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index b4a8594bc46c..c0fa41e4c803 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -303,7 +303,7 @@ void intel_gt_suspend_prepare(struct intel_gt *gt)
- 	user_forcewake(gt, true);
- 	wait_for_suspend(gt);
- 
--	intel_pxp_suspend(&gt->pxp, false);
-+	intel_pxp_suspend_prepare(&gt->pxp);
- }
- 
- static suspend_state_t pm_suspend_target(void)
-@@ -328,6 +328,7 @@ void intel_gt_suspend_late(struct intel_gt *gt)
- 	GEM_BUG_ON(gt->awake);
- 
- 	intel_uc_suspend(&gt->uc);
-+	intel_pxp_suspend(&gt->pxp);
- 
- 	/*
- 	 * On disabling the device, we want to turn off HW access to memory
-@@ -355,7 +356,7 @@ void intel_gt_suspend_late(struct intel_gt *gt)
- 
- void intel_gt_runtime_suspend(struct intel_gt *gt)
- {
--	intel_pxp_suspend(&gt->pxp, true);
-+	intel_pxp_runtime_suspend(&gt->pxp);
- 	intel_uc_runtime_suspend(&gt->uc);
- 
- 	GT_TRACE(gt, "\n");
-@@ -373,7 +374,7 @@ int intel_gt_runtime_resume(struct intel_gt *gt)
- 	if (ret)
- 		return ret;
- 
--	intel_pxp_resume(&gt->pxp);
-+	intel_pxp_runtime_resume(&gt->pxp);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-index 23fd86de5a24..6a7d4e2ee138 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -7,26 +7,29 @@
- #include "intel_pxp_irq.h"
- #include "intel_pxp_pm.h"
- #include "intel_pxp_session.h"
-+#include "i915_drv.h"
- 
--void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
-+void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
- {
- 	if (!intel_pxp_is_enabled(pxp))
- 		return;
- 
- 	pxp->arb_is_valid = false;
- 
--	/*
--	 * Contexts using protected objects keep a runtime PM reference, so we
--	 * can only runtime suspend when all of them have been either closed
--	 * or banned. Therefore, there is no need to invalidate in that
--	 * scenario.
--	 */
--	if (!runtime)
--		intel_pxp_invalidate(pxp);
-+	intel_pxp_invalidate(pxp);
-+}
- 
--	intel_pxp_fini_hw(pxp);
-+void intel_pxp_suspend(struct intel_pxp *pxp)
-+{
-+	intel_wakeref_t wakeref;
- 
--	pxp->hw_state_invalidated = false;
-+	if (!intel_pxp_is_enabled(pxp))
-+		return;
-+
-+	with_intel_runtime_pm(&pxp_to_gt(pxp)->i915->runtime_pm, wakeref) {
-+		intel_pxp_fini_hw(pxp);
-+		pxp->hw_state_invalidated = false;
-+	}
- }
- 
- void intel_pxp_resume(struct intel_pxp *pxp)
-@@ -44,3 +47,15 @@ void intel_pxp_resume(struct intel_pxp *pxp)
- 
- 	intel_pxp_init_hw(pxp);
- }
-+
-+void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
-+{
-+	if (!intel_pxp_is_enabled(pxp))
-+		return;
-+
-+	pxp->arb_is_valid = false;
-+
-+	intel_pxp_fini_hw(pxp);
-+
-+	pxp->hw_state_invalidated = false;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-index c89e97a0c3d0..c4e27f358a71 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-@@ -9,16 +9,29 @@
- #include "intel_pxp_types.h"
- 
- #ifdef CONFIG_DRM_I915_PXP
--void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime);
-+void intel_pxp_suspend_prepare(struct intel_pxp *pxp);
-+void intel_pxp_suspend(struct intel_pxp *pxp);
- void intel_pxp_resume(struct intel_pxp *pxp);
-+void intel_pxp_runtime_suspend(struct intel_pxp *pxp);
- #else
--static inline void intel_pxp_suspend(struct intel_pxp *pxp, bool runtime)
-+static inline void intel_pxp_suspend_prepare(struct intel_pxp *pxp, bool runtime)
-+{
-+}
-+
-+static inline void intel_pxp_suspend(struct intel_pxp *pxp)
- {
- }
- 
- static inline void intel_pxp_resume(struct intel_pxp *pxp)
- {
- }
--#endif
- 
-+static inline void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
-+{
-+}
-+#endif
-+static inline void intel_pxp_runtime_resume(struct intel_pxp *pxp)
-+{
-+	intel_pxp_resume(pxp);
-+}
- #endif /* __INTEL_PXP_PM_H__ */
+Thomas Hellström (4):
+  drm/i915/ttm: Move the i915_gem_obj_copy_ttm() function
+  drm/i915/ttm: Break refcounting loops at device region unref time
+  drm/i915/ttm: Implement asynchronous TTM moves
+  drm/i915/ttm: Update i915_gem_obj_copy_ttm() to be asynchronous
+
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |   7 +-
+ drivers/gpu/drm/i915/display/intel_overlay.c  |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  37 ++
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |   9 +
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |   6 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  58 +--
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.h       |   6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 396 ++++++++++++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.h  |  10 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c    |   3 +
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c      |   4 +-
+ .../i915/gem/selftests/i915_gem_coherency.c   |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  22 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c   |   1 +
+ drivers/gpu/drm/i915/i915_vma.c               |  39 +-
+ drivers/gpu/drm/i915/i915_vma.h               |   3 +
+ drivers/gpu/drm/i915/intel_memory_region.c    |   5 +-
+ drivers/gpu/drm/i915/intel_memory_region.h    |   1 +
+ drivers/gpu/drm/i915/intel_region_ttm.c       |  28 ++
+ drivers/gpu/drm/i915/intel_region_ttm.h       |   2 +
+ drivers/gpu/drm/i915/selftests/i915_vma.c     |   4 +-
+ 21 files changed, 538 insertions(+), 109 deletions(-)
+
 -- 
 2.31.1
 
