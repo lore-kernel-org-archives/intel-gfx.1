@@ -2,44 +2,45 @@ Return-Path: <SRS0=C8BW=P6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40D7CC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:50:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4D84C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:50:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 087F861107
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 087F861107
+	by mail.kernel.org (Postfix) with ESMTPS id A492B61208
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 12:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A492B61208
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B65556EA41;
-	Thu, 11 Nov 2021 12:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69DA16EA0D;
+	Thu, 11 Nov 2021 12:50:26 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA85E6E7DA;
- Thu, 11 Nov 2021 12:50:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="232845916"
-X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="232845916"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67C476EA39;
+ Thu, 11 Nov 2021 12:50:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="232845934"
+X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="232845934"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2021 04:50:17 -0800
-X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="589915765"
+ 11 Nov 2021 04:50:23 -0800
+X-IronPort-AV: E=Sophos;i="5.87,226,1631602800"; d="scan'208";a="589915810"
 Received: from isyrjala-mobl.ger.corp.intel.com (HELO
  thellstr-mobl1.intel.com) ([10.249.254.216])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2021 04:50:16 -0800
+ 11 Nov 2021 04:50:21 -0800
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 11 Nov 2021 13:49:58 +0100
-Message-Id: <20211111125003.178247-2-thomas.hellstrom@linux.intel.com>
+Date: Thu, 11 Nov 2021 13:50:01 +0100
+Message-Id: <20211111125003.178247-5-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211111125003.178247-1-thomas.hellstrom@linux.intel.com>
 References: <20211111125003.178247-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915: Add functions to set/get
- moving fence
+Subject: [Intel-gfx] [PATCH v2 4/6] drm/i915/ttm: Break refcounting loops at
+ device region unref time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,97 +53,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.auld@intel.com
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+There is an interesting refcounting loop:
+struct intel_memory_region has a struct ttm_resource_manager,
+ttm_resource_manager->move may hold a reference to i915_request,
+i915_request may hold a reference to intel_context,
+intel_context may hold a reference to drm_i915_gem_object,
+drm_i915_gem_object may hold a reference to intel_memory_region.
 
-We want to get rid of i915_vma tracking to simplify the code and
-lifetimes. Add a way to set/put the moving fence, in preparation for
-removing the tracking.
+Break this loop when we drop the device reference count on the
+region by putting the region move fence.
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Also hold dropping the device reference count until all objects of
+the region has been deleted, to avoid issues if proceeding with the
+device takedown while the region is still present.
+
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c | 37 ++++++++++++++++++++++
- drivers/gpu/drm/i915/gem/i915_gem_object.h |  9 ++++++
- 2 files changed, 46 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c     |  1 +
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c |  1 +
+ drivers/gpu/drm/i915/intel_memory_region.c  |  5 +++-
+ drivers/gpu/drm/i915/intel_memory_region.h  |  1 +
+ drivers/gpu/drm/i915/intel_region_ttm.c     | 28 +++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_region_ttm.h     |  2 ++
+ 6 files changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 591ee3cb7275..ec4313836597 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -33,6 +33,7 @@
- #include "i915_gem_object.h"
- #include "i915_memcpy.h"
- #include "i915_trace.h"
-+#include "i915_gem_ttm.h"
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 537a81445b90..a1df49378a0f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -1044,6 +1044,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
  
- static struct kmem_cache *slab_objects;
- 
-@@ -726,6 +727,42 @@ static const struct drm_gem_object_funcs i915_gem_object_funcs = {
- 	.export = i915_gem_prime_export,
+ static const struct intel_memory_region_ops ttm_system_region_ops = {
+ 	.init_object = __i915_gem_ttm_object_init,
++	.disable = intel_region_ttm_disable,
  };
  
-+struct dma_fence *
-+i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj)
-+{
-+	return dma_fence_get(i915_gem_to_ttm(obj)->moving);
-+}
-+
-+void i915_gem_object_set_moving_fence(struct drm_i915_gem_object *obj,
-+				      struct dma_fence *fence)
-+{
-+	dma_fence_put(i915_gem_to_ttm(obj)->moving);
-+
-+	i915_gem_to_ttm(obj)->moving = dma_fence_get(fence);
-+}
-+
-+int i915_gem_object_wait_moving_fence(struct drm_i915_gem_object *obj,
-+				      bool intr)
-+{
-+	struct dma_fence *fence = i915_gem_to_ttm(obj)->moving;
-+	int ret;
-+
-+	assert_object_held(obj);
-+	if (!fence)
-+		return 0;
-+
-+	ret = dma_fence_wait(fence, intr);
-+	if (ret)
-+		return ret;
-+
-+	if (fence->error)
-+		return fence->error;
-+
-+	i915_gem_to_ttm(obj)->moving = NULL;
-+	dma_fence_put(fence);
-+	return 0;
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftests/huge_gem_object.c"
- #include "selftests/huge_pages.c"
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 133963b46135..36bf3e2e602f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -517,6 +517,15 @@ i915_gem_object_finish_access(struct drm_i915_gem_object *obj)
- 	i915_gem_object_unpin_pages(obj);
+ struct intel_memory_region *
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index aec838ecb2ef..956916fd21f8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -108,6 +108,7 @@ region_lmem_init(struct intel_memory_region *mem)
+ static const struct intel_memory_region_ops intel_region_lmem_ops = {
+ 	.init = region_lmem_init,
+ 	.release = region_lmem_release,
++	.disable = intel_region_ttm_disable,
+ 	.init_object = __i915_gem_ttm_object_init,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
+index e7f7e6627750..1f67d2b68c24 100644
+--- a/drivers/gpu/drm/i915/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/intel_memory_region.c
+@@ -233,8 +233,11 @@ void intel_memory_regions_driver_release(struct drm_i915_private *i915)
+ 		struct intel_memory_region *region =
+ 			fetch_and_zero(&i915->mm.regions[i]);
+ 
+-		if (region)
++		if (region) {
++			if (region->ops->disable)
++				region->ops->disable(region);
+ 			intel_memory_region_put(region);
++		}
+ 	}
  }
  
-+struct dma_fence *
-+i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj);
+diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
+index 3feae3353d33..9bb77eacd206 100644
+--- a/drivers/gpu/drm/i915/intel_memory_region.h
++++ b/drivers/gpu/drm/i915/intel_memory_region.h
+@@ -52,6 +52,7 @@ struct intel_memory_region_ops {
+ 
+ 	int (*init)(struct intel_memory_region *mem);
+ 	void (*release)(struct intel_memory_region *mem);
++	void (*disable)(struct intel_memory_region *mem);
+ 
+ 	int (*init_object)(struct intel_memory_region *mem,
+ 			   struct drm_i915_gem_object *obj,
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index 2e901a27e259..4219d83a2b19 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -114,6 +114,34 @@ void intel_region_ttm_fini(struct intel_memory_region *mem)
+ 	mem->region_private = NULL;
+ }
+ 
++/**
++ * intel_region_ttm_disable - A TTM region disable callback helper
++ * @mem: The memory region.
++ *
++ * A helper that ensures that nothing any longer references a region at
++ * device takedown. Breaks refcounting loops and waits for objects in the
++ * region to be deleted.
++ */
++void intel_region_ttm_disable(struct intel_memory_region *mem)
++{
++	struct ttm_resource_manager *man = mem->region_private;
 +
-+void i915_gem_object_set_moving_fence(struct drm_i915_gem_object *obj,
-+				      struct dma_fence *fence);
++	/*
++	 * Put the region's move fences. This releases requests that
++	 * may hold on to contexts and vms that may hold on to buffer
++	 * objects that may have a refcount on the region. :/
++	 */
++	if (man)
++		ttm_resource_manager_cleanup(man);
 +
-+int i915_gem_object_wait_moving_fence(struct drm_i915_gem_object *obj,
-+				      bool intr);
++	/* Flush objects that may just have been freed */
++	i915_gem_flush_free_objects(mem->i915);
 +
- void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
- 					 unsigned int cache_level);
- bool i915_gem_object_can_bypass_llc(struct drm_i915_gem_object *obj);
++	/* Wait until the only region reference left is our own. */
++	while (kref_read(&mem->kref) > 1)
++		msleep(20);
++}
++
+ /**
+  * intel_region_ttm_resource_to_rsgt -
+  * Convert an opaque TTM resource manager resource to a refcounted sg_table.
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.h b/drivers/gpu/drm/i915/intel_region_ttm.h
+index 7bbe2b46b504..197a8c179370 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.h
++++ b/drivers/gpu/drm/i915/intel_region_ttm.h
+@@ -22,6 +22,8 @@ int intel_region_ttm_init(struct intel_memory_region *mem);
+ 
+ void intel_region_ttm_fini(struct intel_memory_region *mem);
+ 
++void intel_region_ttm_disable(struct intel_memory_region *mem);
++
+ struct i915_refct_sgt *
+ intel_region_ttm_resource_to_rsgt(struct intel_memory_region *mem,
+ 				  struct ttm_resource *res);
 -- 
 2.31.1
 
