@@ -2,44 +2,44 @@ Return-Path: <SRS0=C8BW=P6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2746AC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 10:13:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19D8FC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 10:13:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA28F61108
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 10:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EA28F61108
+	by mail.kernel.org (Postfix) with ESMTPS id D612661108
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 10:13:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D612661108
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08CC06EA5D;
-	Thu, 11 Nov 2021 10:13:20 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 105176EA5D
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 10:13:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="212921476"
-X-IronPort-AV: E=Sophos;i="5.87,225,1631602800"; d="scan'208";a="212921476"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2021 02:13:17 -0800
-X-IronPort-AV: E=Sophos;i="5.87,225,1631602800"; d="scan'208";a="492488458"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3476EA69;
+	Thu, 11 Nov 2021 10:13:22 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8823F6EA5D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 10:13:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="230349149"
+X-IronPort-AV: E=Sophos;i="5.87,225,1631602800"; d="scan'208";a="230349149"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2021 02:13:13 -0800
+X-IronPort-AV: E=Sophos;i="5.87,225,1631602800"; d="scan'208";a="504375672"
 Received: from pbohlinb-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.33.242])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2021 02:13:16 -0800
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2021 02:13:11 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Nov 2021 12:13:04 +0200
-Message-Id: <20211111101304.13094-3-jani.nikula@intel.com>
+Date: Thu, 11 Nov 2021 12:13:03 +0200
+Message-Id: <20211111101304.13094-2-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211111101304.13094-1-jani.nikula@intel.com>
 References: <20211111101304.13094-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/driver: add i915_driver_ prefix to
- functions
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/driver: rename driver to
+ i915_drm_driver
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,72 +56,45 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the i915_driver_ prefix to the switcheroo functions in
-i915_driver.[ch].
+As a name, "driver" is too generic and short to be easily located in a
+file this size. Rename it to i915_drm_driver.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c     | 5 +++--
- drivers/gpu/drm/i915/i915_driver.h     | 4 ++--
- drivers/gpu/drm/i915/i915_switcheroo.c | 4 ++--
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 20dd4b1bcc7d..8cb01e18a2b9 100644
+index 9111abafa44f..20dd4b1bcc7d 100644
 --- a/drivers/gpu/drm/i915/i915_driver.c
 +++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1219,7 +1219,8 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
- 	return ret;
- }
+@@ -92,7 +92,7 @@
+ #include "intel_region_ttm.h"
+ #include "vlv_suspend.h"
  
--int i915_suspend_switcheroo(struct drm_i915_private *i915, pm_message_t state)
-+int i915_driver_suspend_switcheroo(struct drm_i915_private *i915,
-+				   pm_message_t state)
+-static const struct drm_driver driver;
++static const struct drm_driver i915_drm_driver;
+ 
+ static int i915_get_bridge_dev(struct drm_i915_private *dev_priv)
  {
- 	int error;
+@@ -776,7 +776,7 @@ i915_driver_create(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	struct intel_device_info *device_info;
+ 	struct drm_i915_private *i915;
  
-@@ -1378,7 +1379,7 @@ static int i915_drm_resume_early(struct drm_device *dev)
- 	return ret;
- }
+-	i915 = devm_drm_dev_alloc(&pdev->dev, &driver,
++	i915 = devm_drm_dev_alloc(&pdev->dev, &i915_drm_driver,
+ 				  struct drm_i915_private, drm);
+ 	if (IS_ERR(i915))
+ 		return i915;
+@@ -1791,7 +1791,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
+ };
  
--int i915_resume_switcheroo(struct drm_i915_private *i915)
-+int i915_driver_resume_switcheroo(struct drm_i915_private *i915)
- {
- 	int ret;
- 
-diff --git a/drivers/gpu/drm/i915/i915_driver.h b/drivers/gpu/drm/i915/i915_driver.h
-index e99c00fb6312..9ef8db4aa0a6 100644
---- a/drivers/gpu/drm/i915/i915_driver.h
-+++ b/drivers/gpu/drm/i915/i915_driver.h
-@@ -18,7 +18,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
- void i915_driver_remove(struct drm_i915_private *i915);
- void i915_driver_shutdown(struct drm_i915_private *i915);
- 
--int i915_resume_switcheroo(struct drm_i915_private *i915);
--int i915_suspend_switcheroo(struct drm_i915_private *i915, pm_message_t state);
-+int i915_driver_resume_switcheroo(struct drm_i915_private *i915);
-+int i915_driver_suspend_switcheroo(struct drm_i915_private *i915, pm_message_t state);
- 
- #endif /* __I915_DRIVER_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_switcheroo.c b/drivers/gpu/drm/i915/i915_switcheroo.c
-index 7f06f5ad0749..23777d500cdf 100644
---- a/drivers/gpu/drm/i915/i915_switcheroo.c
-+++ b/drivers/gpu/drm/i915/i915_switcheroo.c
-@@ -25,12 +25,12 @@ static void i915_switcheroo_set_state(struct pci_dev *pdev,
- 		i915->drm.switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 		/* i915 resume handler doesn't set to D0 */
- 		pci_set_power_state(pdev, PCI_D0);
--		i915_resume_switcheroo(i915);
-+		i915_driver_resume_switcheroo(i915);
- 		i915->drm.switch_power_state = DRM_SWITCH_POWER_ON;
- 	} else {
- 		drm_info(&i915->drm, "switched off\n");
- 		i915->drm.switch_power_state = DRM_SWITCH_POWER_CHANGING;
--		i915_suspend_switcheroo(i915, pmm);
-+		i915_driver_suspend_switcheroo(i915, pmm);
- 		i915->drm.switch_power_state = DRM_SWITCH_POWER_OFF;
- 	}
- }
+-static const struct drm_driver driver = {
++static const struct drm_driver i915_drm_driver = {
+ 	/* Don't use MTRRs here; the Xserver or userspace app should
+ 	 * deal with them for Intel hardware.
+ 	 */
 -- 
 2.30.2
 
