@@ -2,42 +2,41 @@ Return-Path: <SRS0=wBbn=P7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE52CC43219
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2E60C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D9C061027
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8D9C061027
+	by mail.kernel.org (Postfix) with ESMTPS id 7F55560F70
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:34:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7F55560F70
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B2F6E0AD;
-	Fri, 12 Nov 2021 15:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DFE16ED0E;
+	Fri, 12 Nov 2021 15:34:28 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E26596E0BC;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 587186E0AD;
  Fri, 12 Nov 2021 15:34:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10165"; a="256867537"
-X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="256867537"
+X-IronPort-AV: E=McAfee;i="6200,9189,10165"; a="256867527"
+X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="256867527"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 07:34:20 -0800
-X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="493057618"
+ 12 Nov 2021 07:34:15 -0800
+X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="493057582"
 Received: from druttled-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.21.12])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 07:34:18 -0800
+ 12 Nov 2021 07:34:13 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 12 Nov 2021 15:32:14 +0000
-Message-Id: <20211112153216.630452-4-matthew.auld@intel.com>
+Date: Fri, 12 Nov 2021 15:32:11 +0000
+Message-Id: <20211112153216.630452-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211112153216.630452-1-matthew.auld@intel.com>
-References: <20211112153216.630452-1-matthew.auld@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915: vma is always backed by an object.
+Subject: [Intel-gfx] [PATCH 1/6] drm/i915: move the pre_pin earlier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,194 +49,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In intel_context_do_pin_ww, when calling into the pre_pin hook(which is
+passed the ww context) it could in theory return -EDEADLK(which is very
+likely with debug kernels), once we start adding more ww locking in there,
+like in the next patch. If so then we need to be mindful of having to
+restart the do_pin at this point.
 
-vma->obj and vma->resv are now never NULL, and some checks can be removed.
+If this is the kernel_context, or some other early in-kernel context
+where we have yet to setup the default_state, then we always inhibit the
+context restore, and instead rely on the delayed active_release to set
+the CONTEXT_VALID_BIT for us(if we even care), which should indicate
+that we have context switched away, and that our newly saved context
+state should now be valid. However, since we currently grab the active
+reference before the potential ww dance, we can end up setting the
+CONTEXT_VALID_BIT much too early, if we need to backoff, and then upon
+re-trying the do_pin, we could potentially cause the hardware to
+incorrectly load some garbage context state when later context switching
+to that context, but at the very least this will trigger the
+GEM_BUG_ON() in __engine_unpark. For now let's just move any ww dance
+stuff prior to arming the active reference.
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+For normal user contexts this shouldn't be a concern, since we should
+already have the default_state ready when initialising the lrc state,
+and so there should be no concern with active_release somehow
+prematurely setting the CONTEXT_VALID_BIT.
+
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |  2 +-
- .../gpu/drm/i915/gt/intel_ring_submission.c   |  2 +-
- drivers/gpu/drm/i915/i915_vma.c               | 48 ++++++++-----------
- drivers/gpu/drm/i915/i915_vma.h               |  3 --
- 4 files changed, 22 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index ad44860faaf3..e31669657dae 100644
+index 5634d14052bc..ad44860faaf3 100644
 --- a/drivers/gpu/drm/i915/gt/intel_context.c
 +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -219,7 +219,7 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
- 	 */
- 
- 	err = i915_gem_object_lock(ce->timeline->hwsp_ggtt->obj, ww);
--	if (!err && ce->ring->vma->obj)
-+	if (!err)
- 		err = i915_gem_object_lock(ce->ring->vma->obj, ww);
- 	if (!err && ce->state)
- 		err = i915_gem_object_lock(ce->state->obj, ww);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 586dca1731ce..3e6fac0340ef 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -1357,7 +1357,7 @@ int intel_ring_submission_setup(struct intel_engine_cs *engine)
- 	err = i915_gem_object_lock(timeline->hwsp_ggtt->obj, &ww);
- 	if (!err && gen7_wa_vma)
- 		err = i915_gem_object_lock(gen7_wa_vma->obj, &ww);
--	if (!err && engine->legacy.ring->vma->obj)
-+	if (!err)
- 		err = i915_gem_object_lock(engine->legacy.ring->vma->obj, &ww);
- 	if (!err)
- 		err = intel_timeline_pin(timeline, &ww);
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 8781c4f61952..fd7594e3e7e7 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -40,12 +40,12 @@
- 
- static struct kmem_cache *slab_vmas;
- 
--struct i915_vma *i915_vma_alloc(void)
-+static struct i915_vma *i915_vma_alloc(void)
- {
- 	return kmem_cache_zalloc(slab_vmas, GFP_KERNEL);
- }
- 
--void i915_vma_free(struct i915_vma *vma)
-+static void i915_vma_free(struct i915_vma *vma)
- {
- 	return kmem_cache_free(slab_vmas, vma);
- }
-@@ -426,10 +426,8 @@ int i915_vma_bind(struct i915_vma *vma,
- 
- 		work->base.dma.error = 0; /* enable the queue_work() */
- 
--		if (vma->obj) {
--			__i915_gem_object_pin_pages(vma->obj);
--			work->pinned = i915_gem_object_get(vma->obj);
--		}
-+		__i915_gem_object_pin_pages(vma->obj);
-+		work->pinned = i915_gem_object_get(vma->obj);
- 	} else {
- 		vma->ops->bind_vma(vma->vm, NULL, vma, cache_level, bind_flags);
- 	}
-@@ -670,7 +668,7 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
- 	}
- 
- 	color = 0;
--	if (vma->obj && i915_vm_has_cache_coloring(vma->vm))
-+	if (i915_vm_has_cache_coloring(vma->vm))
- 		color = vma->obj->cache_level;
- 
- 	if (flags & PIN_OFFSET_FIXED) {
-@@ -795,17 +793,14 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- static int vma_get_pages(struct i915_vma *vma)
- {
- 	int err = 0;
--	bool pinned_pages = false;
-+	bool pinned_pages = true;
- 
- 	if (atomic_add_unless(&vma->pages_count, 1, 0))
- 		return 0;
- 
--	if (vma->obj) {
--		err = i915_gem_object_pin_pages(vma->obj);
--		if (err)
--			return err;
--		pinned_pages = true;
--	}
-+	err = i915_gem_object_pin_pages(vma->obj);
-+	if (err)
-+		return err;
- 
- 	/* Allocations ahoy! */
- 	if (mutex_lock_interruptible(&vma->pages_mutex)) {
-@@ -838,8 +833,8 @@ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
- 	if (atomic_sub_return(count, &vma->pages_count) == 0) {
- 		vma->ops->clear_pages(vma);
- 		GEM_BUG_ON(vma->pages);
--		if (vma->obj)
--			i915_gem_object_unpin_pages(vma->obj);
-+
-+		i915_gem_object_unpin_pages(vma->obj);
- 	}
- 	mutex_unlock(&vma->pages_mutex);
- }
-@@ -875,7 +870,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	int err;
- 
- #ifdef CONFIG_PROVE_LOCKING
--	if (debug_locks && !WARN_ON(!ww) && vma->resv)
-+	if (debug_locks && !WARN_ON(!ww))
- 		assert_vma_held(vma);
- #endif
- 
-@@ -983,7 +978,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 
- 	GEM_BUG_ON(!vma->pages);
- 	err = i915_vma_bind(vma,
--			    vma->obj ? vma->obj->cache_level : 0,
-+			    vma->obj->cache_level,
- 			    flags, work);
+@@ -228,17 +228,17 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
  	if (err)
- 		goto err_remove;
-@@ -1037,7 +1032,7 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
+ 		return err;
  
- #ifdef CONFIG_LOCKDEP
--	WARN_ON(!ww && vma->resv && dma_resv_held(vma->resv));
-+	WARN_ON(!ww && dma_resv_held(vma->resv));
- #endif
+-	err = i915_active_acquire(&ce->active);
++	err = ce->ops->pre_pin(ce, ww, &vaddr);
+ 	if (err)
+ 		goto err_ctx_unpin;
  
- 	do {
-@@ -1116,6 +1111,7 @@ void i915_vma_reopen(struct i915_vma *vma)
- void i915_vma_release(struct kref *ref)
- {
- 	struct i915_vma *vma = container_of(ref, typeof(*vma), ref);
-+	struct drm_i915_gem_object *obj = vma->obj;
+-	err = ce->ops->pre_pin(ce, ww, &vaddr);
++	err = i915_active_acquire(&ce->active);
+ 	if (err)
+-		goto err_release;
++		goto err_post_unpin;
  
- 	if (drm_mm_node_allocated(&vma->node)) {
- 		mutex_lock(&vma->vm->mutex);
-@@ -1126,15 +1122,11 @@ void i915_vma_release(struct kref *ref)
- 	}
- 	GEM_BUG_ON(i915_vma_is_active(vma));
+ 	err = mutex_lock_interruptible(&ce->pin_mutex);
+ 	if (err)
+-		goto err_post_unpin;
++		goto err_release;
  
--	if (vma->obj) {
--		struct drm_i915_gem_object *obj = vma->obj;
--
--		spin_lock(&obj->vma.lock);
--		list_del(&vma->obj_link);
--		if (!RB_EMPTY_NODE(&vma->obj_node))
--			rb_erase(&vma->obj_node, &obj->vma.tree);
--		spin_unlock(&obj->vma.lock);
--	}
-+	spin_lock(&obj->vma.lock);
-+	list_del(&vma->obj_link);
-+	if (!RB_EMPTY_NODE(&vma->obj_node))
-+		rb_erase(&vma->obj_node, &obj->vma.tree);
-+	spin_unlock(&obj->vma.lock);
+ 	intel_engine_pm_might_get(ce->engine);
  
- 	__i915_vma_remove_closed(vma);
- 	i915_vm_put(vma->vm);
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 648dbe744c96..312933c06017 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -418,9 +418,6 @@ static inline void i915_vma_clear_scanout(struct i915_vma *vma)
- 	list_for_each_entry(V, &(OBJ)->vma.list, obj_link)		\
- 		for_each_until(!i915_vma_is_ggtt(V))
- 
--struct i915_vma *i915_vma_alloc(void);
--void i915_vma_free(struct i915_vma *vma);
--
- struct i915_vma *i915_vma_make_unshrinkable(struct i915_vma *vma);
- void i915_vma_make_shrinkable(struct i915_vma *vma);
- void i915_vma_make_purgeable(struct i915_vma *vma);
 -- 
 2.31.1
 
