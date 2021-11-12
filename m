@@ -2,90 +2,39 @@ Return-Path: <SRS0=wBbn=P7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A510C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 17:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1416C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 17:38:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 652F160232
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 17:37:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 652F160232
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=akamai.com
+	by mail.kernel.org (Postfix) with ESMTPS id AE96960FE3
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 17:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AE96960FE3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F6D6F39E;
-	Fri, 12 Nov 2021 17:37:16 +0000 (UTC)
-X-Greylist: delayed 2957 seconds by postgrey-1.36 at gabe;
- Fri, 12 Nov 2021 15:58:32 UTC
-Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
- [IPv6:2620:100:9005:57f::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E63FA6EB2E;
- Fri, 12 Nov 2021 15:58:32 +0000 (UTC)
-Received: from pps.filterd (m0122331.ppops.net [127.0.0.1])
- by mx0b-00190b01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1ACCV105004786;
- Fri, 12 Nov 2021 15:08:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=Tc1oqeLZzfNhAszq2bpTX2swrtLZAsuMR3FfV9S+7XQ=;
- b=greD1YrC0B++LQXw2t40C+Al8yoOF4w3jDAlVOkGmQQr/WSHw8hE7xbeRoNazshoypPL
- 5nEgSPPbrQ1Glm4HrH5thJPAvj8Vs8536O+/wM/1i0d/zKHaab12n1Ho10Pm/BjCDirl
- Nt4ML1KC8V3Gjh1s7w0MWIkECUMODFCP+Pvf9VdIzIqjnVgMqR7k4UtAzHBlYVOSJa+e
- 0CrTMzx0QRdmRNzfF07wcdcIy7k77/c8q/cUAv80+vfCY3WfB6gmm6H+Q+rjwYqiDZCS
- NaWBtC9h0tLa9xDjXpAJOuQhY+jZ8J+IUgT2eyYXiO+9QgvTf/hZFeyNVpuGH9pqMRWM Jw== 
-Received: from prod-mail-ppoint7
- (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
- forged))
- by mx0b-00190b01.pphosted.com (PPS) with ESMTPS id 3c9rbgaw4g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Nov 2021 15:08:44 +0000
-Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
- by prod-mail-ppoint7.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
- 1ACF45Mu022259; Fri, 12 Nov 2021 10:08:44 -0500
-Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
- by prod-mail-ppoint7.akamai.com with ESMTP id 3c7tffmun3-1;
- Fri, 12 Nov 2021 10:08:43 -0500
-Received: from [0.0.0.0] (unknown [172.27.119.138])
- by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id 24FAB57B;
- Fri, 12 Nov 2021 15:08:42 +0000 (GMT)
-To: Vincent Whitchurch <vincent.whitchurch@axis.com>,
- Jim Cromie <jim.cromie@gmail.com>
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
- <20211112114953.GA1381@axis.com>
-From: Jason Baron <jbaron@akamai.com>
-Message-ID: <f3914fa9-8b22-d54e-3f77-d998e74094b9@akamai.com>
-Date: Fri, 12 Nov 2021 10:08:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C5C6E85F;
+	Fri, 12 Nov 2021 17:38:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DBA2F6E8EC;
+ Fri, 12 Nov 2021 17:38:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D2581AA0EA;
+ Fri, 12 Nov 2021 17:38:37 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <20211112114953.GA1381@axis.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.790
- definitions=2021-11-12_05:2021-11-11,
- 2021-11-12 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- adultscore=0 spamscore=0 mlxlogscore=999 phishscore=0 bulkscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2111120086
-X-Proofpoint-GUID: uhHmDAKu5ii3jEYUIQwvrN1aMKrmTEYA
-X-Proofpoint-ORIG-GUID: uhHmDAKu5ii3jEYUIQwvrN1aMKrmTEYA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-12_05,2021-11-12_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- lowpriorityscore=0
- adultscore=0 impostorscore=0 bulkscore=0 mlxscore=0 malwarescore=0
- spamscore=0 priorityscore=1501 clxscore=1011 phishscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111120086
-X-Mailman-Approved-At: Fri, 12 Nov 2021 17:37:14 +0000
-Subject: Re: [Intel-gfx] [PATCH v10 08/10] dyndbg: add print-to-tracefs,
- selftest with it - RFC
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mullati Siva" <siva.mullati@intel.com>
+Date: Fri, 12 Nov 2021 17:38:37 -0000
+Message-ID: <163673871785.27230.13512696747974831363@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20211112171828.21770-1-siva.mullati@intel.com>
+In-Reply-To: <20211112171828.21770-1-siva.mullati@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915=3A_Skip_remap=5Fio=5Fmapping=28=29_for_non-x86_platforms?=
+ =?utf-8?q?_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,79 +47,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_saipraka@quicinc.com, catalin.marinas@arm.com,
- dri-devel@lists.freedesktop.org, will@kernel.org, maz@kernel.org,
- amd-gfx@lists.freedesktop.org, mingo@redhat.com, daniel.vetter@ffwll.ch,
- arnd@arndb.de, linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rostedt@goodmis.org, seanpaul@chromium.org,
- intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 11/12/21 6:49 AM, Vincent Whitchurch wrote:
-> On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:
->> Sean Paul proposed, in:
->> https://urldefense.com/v3/__https://patchwork.freedesktop.org/series/78133/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRA8Dki4A$ 
->> drm/trace: Mirror DRM debug logs to tracefs
->>
->> His patchset's objective is to be able to independently steer some of
->> the drm.debug stream to an alternate tracing destination, by splitting
->> drm_debug_enabled() into syslog & trace flavors, and enabling them
->> separately.  2 advantages were identified:
->>
->> 1- syslog is heavyweight, tracefs is much lighter
->> 2- separate selection of enabled categories means less traffic
->>
->> Dynamic-Debug can do 2nd exceedingly well:
->>
->> A- all work is behind jump-label's NOOP, zero off cost.
->> B- exact site selectivity, precisely the useful traffic.
->>    can tailor enabled set interactively, at shell.
->>
->> Since the tracefs interface is effective for drm (the threads suggest
->> so), adding that interface to dynamic-debug has real potential for
->> everyone including drm.
->>
->> if CONFIG_TRACING:
->>
->> Grab Sean's trace_init/cleanup code, use it to provide tracefs
->> available by default to all pr_debugs.  This will likely need some
->> further per-module treatment; perhaps something reflecting hierarchy
->> of module,file,function,line, maybe with a tuned flattening.
->>
->> endif CONFIG_TRACING
->>
->> Add a new +T flag to enable tracing, independent of +p, and add and
->> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
->> the flag checks.  Existing code treats T like other flags.
-> 
-> I posted a patchset a while ago to do something very similar, but that
-> got stalled for some reason and I unfortunately didn't follow it up:
-> 
->  https://urldefense.com/v3/__https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRGytKHPg$ 
-> 
-> A key difference between that patchset and this patch (besides that
-> small fact that I used +x instead of +T) was that my patchset allowed
-> the dyndbg trace to be emitted to the main buffer and did not force them
-> to be in an instance-specific buffer.
+== Series Details ==
 
-Yes, I agree I'd prefer that we print here to the 'main' buffer - it seems to keep things simpler and easier to combine the output from different
-sources as you mentioned.
+Series: drm/i915: Skip remap_io_mapping() for non-x86 platforms (rev2)
+URL   : https://patchwork.freedesktop.org/series/96855/
+State : warning
 
-Thanks,
+== Summary ==
 
--Jason
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/display/intel_fbc.c:635: warning: Excess function parameter 'i915' description in 'intel_fbc_is_active'
+./drivers/gpu/drm/i915/display/intel_fbc.c:1638: warning: Excess function parameter 'i915' description in 'intel_fbc_handle_fifo_underrun_irq'
+./drivers/gpu/drm/i915/display/intel_fbc.c:635: warning: Function parameter or member 'fbc' not described in 'intel_fbc_is_active'
+./drivers/gpu/drm/i915/display/intel_fbc.c:635: warning: Excess function parameter 'i915' description in 'intel_fbc_is_active'
+./drivers/gpu/drm/i915/display/intel_fbc.c:1638: warning: Function parameter or member 'fbc' not described in 'intel_fbc_handle_fifo_underrun_irq'
+./drivers/gpu/drm/i915/display/intel_fbc.c:1638: warning: Excess function parameter 'i915' description in 'intel_fbc_handle_fifo_underrun_irq'
 
-> 
-> That feature is quite important at least for my use case since I often
-> use dyndbg combined with function tracing, and the latter doesn't work
-> on non-main instances according to Documentation/trace/ftrace.rst.
-> 
-> For example, here's a random example of a bootargs from one of my recent
-> debugging sessions:
-> 
->  trace_event=printk:* ftrace_filter=_mmc*,mmc*,sd*,dw_mci*,mci*
->  ftrace=function trace_buf_size=20M dyndbg="file drivers/mmc/* +x"
-> 
+
