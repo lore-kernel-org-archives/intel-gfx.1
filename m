@@ -2,49 +2,51 @@ Return-Path: <SRS0=wBbn=P7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D164FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF766C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9482A60FBF
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:25:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9482A60FBF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=axis.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7C72261039
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:54:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7C72261039
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09EE16ECBE;
-	Fri, 12 Nov 2021 14:25:14 +0000 (UTC)
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Fri, 12 Nov 2021 11:57:09 UTC
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDF26ED9F;
- Fri, 12 Nov 2021 11:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1636718229;
- x=1668254229; h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=pKNzvHA+abG5/SB0rgSIMnr0AelDwIA74K7UU91Gfho=;
- b=krDLYRCh9mmz1cbv5/Y+yut07sDSuXqpKS5KIxJE6CGhU53rGnB2wSUS
- S/HZxvMX232pvyeFYMcihhMfY54fSu5iAsy4lhkQPtB4IFs+6Uv1Iyibi
- yF6AQ3iF5UemhTCc7G9ccwlDig/T8rKjscuzPhTN6UeOqkkwnyOpzB86d
- MrClvjWTuvRARyhaDbLov8IFJ3DvKrWXJJ7igqnGAGtTRLVABqM7bv5yT
- litYiMmweysBpuXw/RJcV9w4HDwoMjJ/nyzVRjQHjxzJ78MuLSWl3Q5oA
- 3faKB9aTcZX+3d38xyAS/yTI1bZv0ZfNf2OfmNP27sn3KVIfuD+spD8zX Q==;
-Date: Fri, 12 Nov 2021 12:49:54 +0100
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: Jim Cromie <jim.cromie@gmail.com>
-Message-ID: <20211112114953.GA1381@axis.com>
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F05DA6ED83;
+	Fri, 12 Nov 2021 14:54:40 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 351246ED83;
+ Fri, 12 Nov 2021 14:54:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10165"; a="296576949"
+X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="296576949"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2021 06:54:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="453170148"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga006.jf.intel.com with SMTP; 12 Nov 2021 06:54:35 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 12 Nov 2021 16:54:35 +0200
+Date: Fri, 12 Nov 2021 16:54:35 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Message-ID: <YY6AK/sTiWooE+rQ@intel.com>
+References: <20210906213904.27918-1-uma.shankar@intel.com>
+ <20210906213904.27918-6-uma.shankar@intel.com>
+ <52ce874c-64ae-d7a9-bc4e-255cfa49f410@amd.com>
+ <YY1H//+XISVMFZNL@intel.com>
+ <edc4b80279354ec7bcdb0a890dae7d79@intel.com>
+ <4a26ada6-feaa-76df-3ffe-d694e367d809@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20211111220206.121610-9-jim.cromie@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Fri, 12 Nov 2021 14:25:12 +0000
-Subject: Re: [Intel-gfx] [PATCH v10 08/10] dyndbg: add print-to-tracefs,
- selftest with it - RFC
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4a26ada6-feaa-76df-3ffe-d694e367d809@amd.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [RFC v2 05/22] drm/i915/xelpd: Define Degamma Lut
+ range struct for HDR planes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,70 +59,177 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_saipraka@quicinc.com, catalin.marinas@arm.com,
- dri-devel@lists.freedesktop.org, will@kernel.org, maz@kernel.org,
- amd-gfx@lists.freedesktop.org, mingo@redhat.com, daniel.vetter@ffwll.ch,
- arnd@arndb.de, linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rostedt@goodmis.org, jbaron@akamai.com, seanpaul@chromium.org,
- intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "ppaalanen@gmail.com" <ppaalanen@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "sebastian@sebastianwick.net" <sebastian@sebastianwick.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:
-> Sean Paul proposed, in:
-> https://patchwork.freedesktop.org/series/78133/
-> drm/trace: Mirror DRM debug logs to tracefs
+On Thu, Nov 11, 2021 at 04:10:41PM -0500, Harry Wentland wrote:
 > 
-> His patchset's objective is to be able to independently steer some of
-> the drm.debug stream to an alternate tracing destination, by splitting
-> drm_debug_enabled() into syslog & trace flavors, and enabling them
-> separately.  2 advantages were identified:
 > 
-> 1- syslog is heavyweight, tracefs is much lighter
-> 2- separate selection of enabled categories means less traffic
+> On 2021-11-11 15:42, Shankar, Uma wrote:
+> > 
+> > 
+> >> -----Original Message-----
+> >> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> >> Sent: Thursday, November 11, 2021 10:13 PM
+> >> To: Harry Wentland <harry.wentland@amd.com>
+> >> Cc: Shankar, Uma <uma.shankar@intel.com>; intel-gfx@lists.freedesktop.org; dri-
+> >> devel@lists.freedesktop.org; ppaalanen@gmail.com; brian.starkey@arm.com;
+> >> sebastian@sebastianwick.net; Shashank.Sharma@amd.com
+> >> Subject: Re: [RFC v2 05/22] drm/i915/xelpd: Define Degamma Lut range struct for
+> >> HDR planes
+> >>
+> >> On Thu, Nov 11, 2021 at 10:17:17AM -0500, Harry Wentland wrote:
+> >>>
+> >>>
+> >>> On 2021-09-06 17:38, Uma Shankar wrote:
+> >>>> Define the structure with XE_LPD degamma lut ranges. HDR and SDR
+> >>>> planes have different capabilities, implemented respective structure
+> >>>> for the HDR planes.
+> >>>>
+> >>>> Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+> >>>> ---
+> >>>>  drivers/gpu/drm/i915/display/intel_color.c | 52
+> >>>> ++++++++++++++++++++++
+> >>>>  1 file changed, 52 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/i915/display/intel_color.c
+> >>>> b/drivers/gpu/drm/i915/display/intel_color.c
+> >>>> index afcb4bf3826c..6403bd74324b 100644
+> >>>> --- a/drivers/gpu/drm/i915/display/intel_color.c
+> >>>> +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> >>>> @@ -2092,6 +2092,58 @@ static void icl_read_luts(struct intel_crtc_state
+> >> *crtc_state)
+> >>>>  	}
+> >>>>  }
+> >>>>
+> >>>> + /* FIXME input bpc? */
+> >>>> +__maybe_unused
+> >>>> +static const struct drm_color_lut_range d13_degamma_hdr[] = {
+> >>>> +	/* segment 1 */
+> >>>> +	{
+> >>>> +		.flags = (DRM_MODE_LUT_GAMMA |
+> >>>> +			  DRM_MODE_LUT_REFLECT_NEGATIVE |
+> >>>> +			  DRM_MODE_LUT_INTERPOLATE |
+> >>>> +			  DRM_MODE_LUT_NON_DECREASING),
+> >>>> +		.count = 128,
+> >>>> +		.input_bpc = 24, .output_bpc = 16,
+> >>>> +		.start = 0, .end = (1 << 24) - 1,
+> >>>> +		.min = 0, .max = (1 << 24) - 1,
+> >>>> +	},
+> >>>> +	/* segment 2 */
+> >>>> +	{
+> >>>> +		.flags = (DRM_MODE_LUT_GAMMA |
+> >>>> +			  DRM_MODE_LUT_REFLECT_NEGATIVE |
+> >>>> +			  DRM_MODE_LUT_INTERPOLATE |
+> >>>> +			  DRM_MODE_LUT_REUSE_LAST |
+> >>>> +			  DRM_MODE_LUT_NON_DECREASING),
+> >>>> +		.count = 1,
+> >>>> +		.input_bpc = 24, .output_bpc = 16,
+> >>>> +		.start = (1 << 24) - 1, .end = 1 << 24,
+> >>>> +		.min = 0, .max = (1 << 27) - 1,
+> >>>> +	},
+> >>>> +	/* Segment 3 */
+> >>>> +	{
+> >>>> +		.flags = (DRM_MODE_LUT_GAMMA |
+> >>>> +			  DRM_MODE_LUT_REFLECT_NEGATIVE |
+> >>>> +			  DRM_MODE_LUT_INTERPOLATE |
+> >>>> +			  DRM_MODE_LUT_REUSE_LAST |
+> >>>> +			  DRM_MODE_LUT_NON_DECREASING),
+> >>>> +		.count = 1,
+> >>>> +		.input_bpc = 24, .output_bpc = 16,
+> >>>> +		.start = 1 << 24, .end = 3 << 24,
+> >>>> +		.min = 0, .max = (1 << 27) - 1,
+> >>>> +	},
+> >>>> +	/* Segment 4 */
+> >>>> +	{
+> >>>> +		.flags = (DRM_MODE_LUT_GAMMA |
+> >>>> +			  DRM_MODE_LUT_REFLECT_NEGATIVE |
+> >>>> +			  DRM_MODE_LUT_INTERPOLATE |
+> >>>> +			  DRM_MODE_LUT_REUSE_LAST |
+> >>>> +			  DRM_MODE_LUT_NON_DECREASING),
+> >>>> +		.count = 1,
+> >>>> +		.input_bpc = 24, .output_bpc = 16,
+> >>>> +		.start = 3 << 24, .end = 7 << 24,
+> >>>> +		.min = 0, .max = (1 << 27) - 1,
+> >>>> +	},
+> >>>> +};
+> >>>
+> >>> If I understand this right, userspace would need this definition in
+> >>> order to populate the degamma blob. Should this sit in a UAPI header?
+> > 
+> > Hi Harry, Pekka and Ville,
+> > Sorry for being a bit late on the replies, got side tracked with various issues.
+> > I am back on this. Apologies for delay.
+> > 
+> >> My original idea (not sure it's fully realized in this series) is to have a new
+> >> GAMMA_MODE/etc. enum property on each crtc (or plane) for which each enum
+> >> value points to a kernel provided blob that contains one of these LUT descriptors.
+> >> Userspace can then query them dynamically and pick the best one for its current use
+> >> case.
+> > 
+> > We have this as part of the series Ville. Patch 3 of this series creates a DEGAMMA_MODE
+> > property just for this. With that userspace can just query the blob_id's and will get the
+> > various degamma mode possible and the respective segment and lut distributions.
+> > 
+> > This will be generic, so for userspace it should just be able to query this and parse and get
+> > the lut distribution and segment ranges.
+> > 
 > 
-> Dynamic-Debug can do 2nd exceedingly well:
+> Thanks for the explanation.
 > 
-> A- all work is behind jump-label's NOOP, zero off cost.
-> B- exact site selectivity, precisely the useful traffic.
->    can tailor enabled set interactively, at shell.
+> Uma, have you had a chance to sketch some of this out in IGT? I'm trying
+> to see how userspace would do this in practice and will try to sketch an
+> IGT test for this myself, but if you have it already we could share the
+> effort.
 > 
-> Since the tracefs interface is effective for drm (the threads suggest
-> so), adding that interface to dynamic-debug has real potential for
-> everyone including drm.
+> >> The algorithm for choosing the best one might be something like:
+> >> - prefer LUT with bpc >= FB bpc, but perhaps not needlessly high bpc
+> >> - prefer interpolated vs. direct lookup based on current needs (eg. X
+> >>   could prefer direct lookup to get directcolor visuals).
+> >> - prefer one with extended range values if needed
+> >> - for HDR prefer smaller step size in dark tones,
+> >>   for SDR perhaps prefer a more uniform step size
+> >>
+> >> Or maybe we should include some kind of usage hints as well?
+> > 
+> > I think the segment range and distribution of lut should be enough for a userspace
+> > to pick the right ones, but we can add some examples in UAPI descriptions as hints.
+> > 
 > 
-> if CONFIG_TRACING:
+> The range might be enough, but we're already parsing hints like "GAMMA"
+> or "DEGAMMA". I wonder if it would make sense to add a flag for "HDR" or
+> "SDR" as well.
 > 
-> Grab Sean's trace_init/cleanup code, use it to provide tracefs
-> available by default to all pr_debugs.  This will likely need some
-> further per-module treatment; perhaps something reflecting hierarchy
-> of module,file,function,line, maybe with a tuned flattening.
+> >> And I was thinking of even adding a new property type (eg.
+> >> ENUM_BLOB) just for this sort of usecase. That could let us have a bit more generic
+> >> code to do all the validation around the property values and whatnot.
+> >>
+> >> The one nagging concern I really have with GAMMA_MODE is how a mix of old and
+> >> new userspace would work. Though that is more of a generic issue with any new
+> >> property really.
+> > 
+> > For plane properties getting added newly, old userspace will not get it so I think this should be ok.
+> > Newer userspace will implement this and get the new functionality.
+> > Problem will be in extending this to crtc where we have a legacy baggage, the client caps approach
+> > may help us there. Have it as part of separate series just to not mix it with this new plane stuff, though
+> > the idea remains same based on your design. Series below for reference:
+> > https://patchwork.freedesktop.org/series/90821/>> 
 > 
-> endif CONFIG_TRACING
+> Could we just assume we do a uniform LUT if userspace doesn't
+> set a _MODE enum value for the respective gamma?
 > 
-> Add a new +T flag to enable tracing, independent of +p, and add and
-> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
-> the flag checks.  Existing code treats T like other flags.
+> Maybe the _MODE should have a default enum value that means
+> a uniform (legacy) LUT.
 
-I posted a patchset a while ago to do something very similar, but that
-got stalled for some reason and I unfortunately didn't follow it up:
+Yeah, it definitely needs a default like that. But the problem arises
+when new userspace sets it to something else and then hands the reins
+over to some old userspace that doesn't know how to reset it back to
+default.
 
- https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/
-
-A key difference between that patchset and this patch (besides that
-small fact that I used +x instead of +T) was that my patchset allowed
-the dyndbg trace to be emitted to the main buffer and did not force them
-to be in an instance-specific buffer.
-
-That feature is quite important at least for my use case since I often
-use dyndbg combined with function tracing, and the latter doesn't work
-on non-main instances according to Documentation/trace/ftrace.rst.
-
-For example, here's a random example of a bootargs from one of my recent
-debugging sessions:
-
- trace_event=printk:* ftrace_filter=_mmc*,mmc*,sd*,dw_mci*,mci*
- ftrace=function trace_buf_size=20M dyndbg="file drivers/mmc/* +x"
-
+-- 
+Ville Syrjälä
+Intel
