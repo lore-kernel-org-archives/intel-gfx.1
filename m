@@ -2,49 +2,41 @@ Return-Path: <SRS0=wBbn=P7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A7D5C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 21:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44593C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 21:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 269EA61078
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 21:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 269EA61078
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 0793A60724
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 21:10:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0793A60724
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 390156E0B9;
-	Fri, 12 Nov 2021 21:04:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E6B6E0B9;
- Fri, 12 Nov 2021 21:04:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E791961073;
- Fri, 12 Nov 2021 21:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636751087;
- bh=2qqkfvtrJGfj9ZmJlWd38i/WX7gF70C3dBf8RQ5wumo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nWKXnUDGWsUMLljZWwy6cLNXVB7K6pvM4TVC63shKrCJ5ntl7jiI7TyjgjN/DaUgG
- 1tszX3FTcILOCU+Nzwm1U1DTeeCfmc/WUEkmjj0f2OPtZuWxsclChON1UpBvydc0VV
- 4NhNTvosABJqwc7rr070zxyPklpS/MA+wM61TaEwbyFSLKlpKflfSgfjzebN7VrtDp
- Olj/uhTTwVazAwg4w2O8yXqbf3mnsbcd++WIU1H6g9zf7z2EhgQoVCfrBTIgSNHU4X
- Tzyg3w+4BNBZsfP4xd3pLcCvxFOtB5vPBNK2VyW4vLOnAv9iFTU+8bLAw0Zw0cp0A5
- kWvXSr6aG3QmA==
-Message-ID: <d7c27a98-a2da-17c8-22c3-e13fadbb9a8c@kernel.org>
-Date: Fri, 12 Nov 2021 13:04:46 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE8A6E15D;
+	Fri, 12 Nov 2021 21:10:37 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E7906E154
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Nov 2021 21:10:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10166"; a="220097587"
+X-IronPort-AV: E=Sophos;i="5.87,230,1631602800"; d="scan'208";a="220097587"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2021 13:10:34 -0800
+X-IronPort-AV: E=Sophos;i="5.87,230,1631602800"; d="scan'208";a="471276198"
+Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2021 13:10:34 -0800
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 12 Nov 2021 13:08:24 -0800
+Message-Id: <20211112210825.1489596-3-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211112210825.1489596-1-anusha.srivatsa@intel.com>
+References: <20211112210825.1489596-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Content-Language: en-US
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- x86@kernel.org
-References: <20211021181511.1533377-1-lucas.demarchi@intel.com>
-From: Andy Lutomirski <luto@kernel.org>
-In-Reply-To: <20211021181511.1533377-1-lucas.demarchi@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 0/2] Nuke PAGE_KERNEL_IO
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/rpl-s: Add PCH ID
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,32 +49,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@linutronix.de>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/21/21 11:15, Lucas De Marchi wrote:
-> Last user of PAGE_KERNEL_IO is the i915 driver. While removing it from
-> there as we seek to bring the driver to other architectures, Daniel
-> suggested that we could finish the cleanup and remove it altogether,
-> through the tip tree. So here I'm sending both commits needed for that.
-> 
-> Lucas De Marchi (2):
->    drm/i915/gem: stop using PAGE_KERNEL_IO
->    x86/mm: nuke PAGE_KERNEL_IO
-> 
->   arch/x86/include/asm/fixmap.h             | 2 +-
->   arch/x86/include/asm/pgtable_types.h      | 7 -------
->   arch/x86/mm/ioremap.c                     | 2 +-
->   arch/x86/xen/setup.c                      | 2 +-
->   drivers/gpu/drm/i915/gem/i915_gem_pages.c | 4 ++--
->   include/asm-generic/fixmap.h              | 2 +-
->   6 files changed, 6 insertions(+), 13 deletions(-)
-> 
+Add the PCH ID for the same.
 
-Acked-by: Andy Lutomirski <luto@kernel.org>
+Cc: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/intel_pch.c | 1 +
+ drivers/gpu/drm/i915/intel_pch.h | 1 +
+ include/drm/i915_pciids.h        | 5 ++++-
+ 3 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
+index d1d4b97b86f5..da8f82c2342f 100644
+--- a/drivers/gpu/drm/i915/intel_pch.c
++++ b/drivers/gpu/drm/i915/intel_pch.c
+@@ -129,6 +129,7 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		return PCH_JSP;
+ 	case INTEL_PCH_ADP_DEVICE_ID_TYPE:
+ 	case INTEL_PCH_ADP2_DEVICE_ID_TYPE:
++	case INTEL_PCH_ADP3_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found Alder Lake PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
+ 			    !IS_ALDERLAKE_P(dev_priv));
+diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
+index 7c0d83d292dc..6bff77521094 100644
+--- a/drivers/gpu/drm/i915/intel_pch.h
++++ b/drivers/gpu/drm/i915/intel_pch.h
+@@ -57,6 +57,7 @@ enum intel_pch {
+ #define INTEL_PCH_JSP2_DEVICE_ID_TYPE		0x3880
+ #define INTEL_PCH_ADP_DEVICE_ID_TYPE		0x7A80
+ #define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
++#define INTEL_PCH_ADP3_DEVICE_ID_TYPE		0x7A00
+ #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
+ #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
+ #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
+diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
+index 00deb011b74c..0e112f56a9a8 100644
+--- a/include/drm/i915_pciids.h
++++ b/include/drm/i915_pciids.h
+@@ -675,6 +675,9 @@
+ 	INTEL_VGA_DEVICE(0xA788, info), \
+ 	INTEL_VGA_DEVICE(0xA789, info), \
+ 	INTEL_VGA_DEVICE(0xA78A, info), \
+-	INTEL_VGA_DEVICE(0xA78B, info)
++	INTEL_VGA_DEVICE(0xA78B, info), \
++	INTEL_VGA_DEVICE(0x4690, info), \
++	INTEL_VGA_DEVICE(0x4692, info), \
++	INTEL_VGA_DEVICE(0x4693, info)
+ 
+ #endif /* _I915_PCIIDS_H */
+-- 
+2.25.1
+
