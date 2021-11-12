@@ -2,43 +2,61 @@ Return-Path: <SRS0=wBbn=P7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54239C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 09:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 546D7C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 10:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1455E60EE2
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 09:33:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1455E60EE2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1380460F5B
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 10:02:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1380460F5B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0849889B20;
-	Fri, 12 Nov 2021 09:33:07 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEAD589A86;
- Fri, 12 Nov 2021 09:33:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10165"; a="220315094"
-X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="220315094"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 01:33:05 -0800
-X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="504821187"
-Received: from sbacanu-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.217.145])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 01:33:03 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20211111215644.1123373-2-matthew.d.roper@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211111215644.1123373-1-matthew.d.roper@intel.com>
- <20211111215644.1123373-2-matthew.d.roper@intel.com>
-Date: Fri, 12 Nov 2021 11:33:00 +0200
-Message-ID: <87a6i94t2r.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915/dg2: Add Wa_14010547955
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EAAE6ECE4;
+	Fri, 12 Nov 2021 10:02:53 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E786ECDE
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Nov 2021 10:02:52 +0000 (UTC)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id BC6211FD57;
+ Fri, 12 Nov 2021 10:02:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636711370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cWzkli2lfSBzp860hbw8mwlVH98EHp3pwl8SKM4oUuQ=;
+ b=fVBJeOT++GVpVQSwulT95Zrd6ZIa3dYFM2EF87x2u0dPIFkT92aIvjE8+/MF1Vp94UBMbY
+ mRRhSNz/9VTPwhPdLUDVbbYUe8e7zYwkefZ94NidWGZT68q2Y9GtCs3smkaBE+MQubH4f6
+ t8ZtgdB96r17SVRgxaUr4z10bbq+JXw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636711370;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cWzkli2lfSBzp860hbw8mwlVH98EHp3pwl8SKM4oUuQ=;
+ b=41EgDQfZdC5K+0eD+WCE786Owf3fecLfQZtXn54VhuvyVr1jZqnZvy7Q3mtoOAjAF0TvQ2
+ zC/78mwy6sAw7+Dw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id ADF6CA3B81;
+ Fri, 12 Nov 2021 10:02:50 +0000 (UTC)
+Date: Fri, 12 Nov 2021 11:02:50 +0100
+Message-ID: <s5hczn53d4l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
+References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
+ <s5hzgqb65h0.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
+ <s5h1r3m6csi.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Subject: Re: [Intel-gfx] [PATCH] ALSA: hda: fix general protection fault in
+ azx_runtime_idle
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,61 +69,127 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 11 Nov 2021, Matt Roper <matthew.d.roper@intel.com> wrote:
-> This workaround is documented a bit strangely in the bspec; it's listed
-> as an A0 workaround, but the description clarifies that the workaround
-> is implicitly handled by the hardware and what the driver really needs
-> to do is program a chicken bit to reenable some internal behavior.
->
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 4 ++++
->  drivers/gpu/drm/i915/i915_reg.h              | 5 +++--
->  2 files changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 0ceee8ac6671..5d50d06f4eb7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -988,6 +988,10 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
->  	else if (DISPLAY_VER(dev_priv) >= 13)
->  		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
->  
-> +	/* Wa_14010547955:dg2 */
-> +	if (IS_DG2_DISP_STEP(dev_priv, STEP_B0, STEP_FOREVER))
+On Thu, 11 Nov 2021 18:39:36 +0100,
+Kai Vehmanen wrote:
+> 
+> Hi,
+> 
+> On Thu, 11 Nov 2021, Takashi Iwai wrote:
+> 
+> > A potential problem with the current code is that it doesn't disable
+> > the runtime PM at the release procedure.  Could you try the patch
+> > below?  You can put WARN_ON(!chip) at azx_runtime_idle(), too, for
+> > catching the invalid runtime call.
+> [...]
+> > --- a/sound/pci/hda/hda_intel.c
+> > +++ b/sound/pci/hda/hda_intel.c
+> > @@ -1347,8 +1347,13 @@ static void azx_free(struct azx *chip)
+> >  	if (hda->freed)
+> >  		return;
+> >  
+> > -	if (azx_has_pm_runtime(chip) && chip->running)
+> > +	if (azx_has_pm_runtime(chip) && chip->running) {
+> >  		pm_runtime_get_noresume(&pci->dev);
+> > +		pm_runtime_forbid(&pci->dev);
+> > +		pm_runtime_dont_use_autosuspend(&pci->dev);
+> > +		pm_runtime_disable(&pci->dev);
+> > +	}
+> > +
+> >  	chip->running = 0;
+> 
+> Tested with next-20211019 (first next tag where I've seen test failures) 
+> and your patch, and this seems to do the trick. I didn't have my drvdata 
+> patch included when I ran the test. No rpm_idle() calls 
+> anymore after azx_remove(), so the bug is not hit.
 
-How did we end up with _DISP_ for DG2 when everything else has
-_DISPLAY_?
+So far, so good...
 
-BR,
-Jani.
+> >  	azx_del_card_list(chip);
+> > @@ -2320,6 +2325,7 @@ static int azx_probe_continue(struct azx *chip)
+> >  	set_default_power_save(chip);
+> >  
+> >  	if (azx_has_pm_runtime(chip)) {
+> > +		pm_runtime_enable(&pci->dev);
+> >  		pm_runtime_use_autosuspend(&pci->dev);
+> 
+> This does generate warnings
+> [   13.495059] snd_hda_intel 0000:00:1f.3: Unbalanced pm_runtime_enable!
+> 
+> And later
+> [   54.770701] Enabling runtime PM for inactive device (0000:00:1f.3) with active children
+> [   54.770718] WARNING: CPU: 0 PID: 10 at drivers/base/power/runtime.c:1439 pm_runtime_enable+0x98/0xb0
+> 
+> Adding a "pm_runtime_set_active(&pci->dev)" to both azx_free() and 
+> azx_probe_continue() seems to help and fix still works.
+
+Ah yes, I was confused as if it were already called in hdac_device.c,
+but this was about the HD-audio bus controller, not the codec.
+
+Below is the revised one.
 
 
-> +		tmp |= DG2_RENDER_CCSTAG_4_3_EN;
-> +
->  	intel_de_write(dev_priv, PIPE_CHICKEN(pipe), tmp);
->  }
->  
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 07d6cf76c389..680ace373e00 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -8480,8 +8480,9 @@ enum {
->  							   _PIPEB_CHICKEN)
->  #define   UNDERRUN_RECOVERY_DISABLE_ADLP	REG_BIT(30)
->  #define   UNDERRUN_RECOVERY_ENABLE_DG2		REG_BIT(30)
-> -#define   PIXEL_ROUNDING_TRUNC_FB_PASSTHRU 	(1 << 15)
-> -#define   PER_PIXEL_ALPHA_BYPASS_EN		(1 << 7)
-> +#define   PIXEL_ROUNDING_TRUNC_FB_PASSTHRU	REG_BIT(15)
-> +#define   DG2_RENDER_CCSTAG_4_3_EN		REG_BIT(12)
-> +#define   PER_PIXEL_ALPHA_BYPASS_EN		REG_BIT(7)
->  
->  #define FF_MODE2			_MMIO(0x6604)
->  #define   FF_MODE2_GS_TIMER_MASK	REG_GENMASK(31, 24)
+Takashi
 
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: hda: intel: More comprehensive PM runtime setup for
+ controller driver
+
+Currently we haven't explicitly enable and allow/forbid the runtime PM
+at the probe and the remove phases of HD-audio controller driver, and
+this was the reason of a GPF mentioned in the commit e81478bbe7a1
+("ALSA: hda: fix general protection fault in azx_runtime_idle");
+namely, even after the resources are released, the runtime PM might be
+still invoked by the bound graphics driver during the remove of the
+controller driver.  Although we've fixed it by clearing the drvdata
+reference, it'd be also better to cover the runtime PM issue more
+properly.
+
+This patch adds a few more pm_runtime_*() calls at the probe and the
+remove time for setting and cleaning up the runtime PM.  Particularly,
+now more explicitly pm_runtime_enable() and _disable() get called as
+well as pm_runtime_forbid() call at the remove callback, so that a
+use-after-free should be avoided.
+
+Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_intel.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index fe51163f2d82..45e85180048c 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1347,8 +1347,14 @@ static void azx_free(struct azx *chip)
+ 	if (hda->freed)
+ 		return;
+ 
+-	if (azx_has_pm_runtime(chip) && chip->running)
++	if (azx_has_pm_runtime(chip) && chip->running) {
+ 		pm_runtime_get_noresume(&pci->dev);
++		pm_runtime_disable(&pci->dev);
++		pm_runtime_set_suspended(&pci->dev);
++		pm_runtime_forbid(&pci->dev);
++		pm_runtime_dont_use_autosuspend(&pci->dev);
++	}
++
+ 	chip->running = 0;
+ 
+ 	azx_del_card_list(chip);
+@@ -2322,6 +2328,8 @@ static int azx_probe_continue(struct azx *chip)
+ 	if (azx_has_pm_runtime(chip)) {
+ 		pm_runtime_use_autosuspend(&pci->dev);
+ 		pm_runtime_allow(&pci->dev);
++		pm_runtime_set_active(&pci->dev);
++		pm_runtime_enable(&pci->dev);
+ 		pm_runtime_put_autosuspend(&pci->dev);
+ 	}
+ 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.31.1
+
