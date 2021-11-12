@@ -2,40 +2,42 @@ Return-Path: <SRS0=wBbn=P7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15D72C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 19:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64113C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 19:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C78FE61054
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 19:09:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C78FE61054
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 22AFA60EE9
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 19:38:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22AFA60EE9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E28B56F418;
-	Fri, 12 Nov 2021 19:09:09 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 057846F413
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 Nov 2021 19:09:08 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10166"; a="233436078"
-X-IronPort-AV: E=Sophos;i="5.87,230,1631602800"; d="scan'208";a="233436078"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 11:09:08 -0800
-X-IronPort-AV: E=Sophos;i="5.87,230,1631602800"; d="scan'208";a="453157020"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 11:09:07 -0800
-From: Imre Deak <imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C72D6E957;
+	Fri, 12 Nov 2021 19:38:28 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5D916E288
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Nov 2021 19:38:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10166"; a="231916959"
+X-IronPort-AV: E=Sophos;i="5.87,230,1631602800"; d="scan'208";a="231916959"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2021 11:38:16 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,230,1631602800"; d="scan'208";a="471245615"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga002.jf.intel.com with SMTP; 12 Nov 2021 11:38:14 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 12 Nov 2021 21:38:13 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 12 Nov 2021 21:09:04 +0200
-Message-Id: <20211112190904.62920-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.27.0
+Date: Fri, 12 Nov 2021 21:38:04 +0200
+Message-Id: <20211112193813.8224-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Fix fastsets on TypeC ports following
- a non-blocking modeset
+Subject: [Intel-gfx] [PATCH 0/9] drm/i915: Register define cleanups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,92 +53,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After a non-blocking modeset on a TypeC port's CRTC - possibly blocked
-later in drm_atomic_helper_wait_for_dependencies() - a fastset on the
-same CRTC may copy the state of CRTC before this gets updated to reflect
-the up-to-date DP-alt vs. TBT-alt TypeC mode DPLL used for the CRTC. In
-this case after the first (non-blocking) commit completes enabling the
-DPLL required for the up-to-date TypeC mode the following fastset will
-update the CRTC state pointing to the wrong DPLL. A subsequent disabling
-modeset will try to disable the wrong PLL, triggering a state checker
-WARN (and leaving the DPLL which is actually used active for good).
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Fix the above race by copying the DPLL state for fastset CRTCs from the
-old CRTC state at the point where it's guaranteed to be up-to-date
-already. This could be handled in the encoder's update_prepare() hook as
-well, but that's a bigger change, which is better done as a follow-up.
+A bunch of REG_BIT() stuff a random collection of registers.
+Some of these are related to areas where I plan to do a bit of
+additional work on the code itself, and a few are just some easy
+ones I spotted in the vicinity.
 
-Testcase: igt/kms_busy/extended-modeset-hang-newfb-with-reset
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4308
-Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 25 ++++++++++++++++----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+Ville Syrjälä (9):
+  drm/i915: Bump DSL linemask to 20 bits
+  drm/i915: Clean up PIPEMISC register defines
+  drm/i915: Clean up SKL_BOTTOM_COLOR defines
+  drm/i915: Clean up PIPECONF bit defines
+  drm/i915: Clean up PCH_TRANSCONF/TRANS_DP_CTL bit defines
+  drm/i915: Clean up PIPESRC defines
+  drm/i915: Clean up CRC register defines
+  drm/i915: Clean up DPINVGTT/VLV_DPFLIPSTAT bits
+  drm/i915: Clean up FPGA_DBG/CLAIM_ER bits
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 0ceee8ac66717..76ebb3c91a75b 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1572,10 +1572,24 @@ intel_connector_primary_encoder(struct intel_connector *connector)
- 
- static void intel_encoders_update_prepare(struct intel_atomic_state *state)
- {
-+	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
-+	struct intel_crtc *crtc;
- 	struct drm_connector_state *new_conn_state;
- 	struct drm_connector *connector;
- 	int i;
- 
-+	/*
-+	 * Make sure the DPLL state is up-to-date for fastset TypeC ports after non-blocking commits.
-+	 * TODO: Update the DPLL state for all cases in the encoder->update_prepare() hook.
-+	 */
-+	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+		if (!intel_crtc_needs_modeset(new_crtc_state))
-+			new_crtc_state->shared_dpll = old_crtc_state->shared_dpll;
-+	}
-+
-+	if (!state->modeset)
-+		return;
-+
- 	for_each_new_connector_in_state(&state->base, connector, new_conn_state,
- 					i) {
- 		struct intel_connector *intel_connector;
-@@ -1602,6 +1616,9 @@ static void intel_encoders_update_complete(struct intel_atomic_state *state)
- 	struct drm_connector *connector;
- 	int i;
- 
-+	if (!state->modeset)
-+		return;
-+
- 	for_each_new_connector_in_state(&state->base, connector, new_conn_state,
- 					i) {
- 		struct intel_connector *intel_connector;
-@@ -8670,8 +8687,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 		}
- 	}
- 
--	if (state->modeset)
--		intel_encoders_update_prepare(state);
-+	intel_encoders_update_prepare(state);
- 
- 	intel_dbuf_pre_plane_update(state);
- 
-@@ -8683,11 +8699,10 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
- 	dev_priv->display->commit_modeset_enables(state);
- 
--	if (state->modeset) {
--		intel_encoders_update_complete(state);
-+	intel_encoders_update_complete(state);
- 
-+	if (state->modeset)
- 		intel_set_cdclk_post_plane_update(state);
--	}
- 
- 	intel_wait_for_vblank_workers(state);
- 
+ drivers/gpu/drm/i915/display/i9xx_plane.c     |   4 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  95 ++---
+ .../gpu/drm/i915/display/intel_pch_display.c  |  20 +-
+ drivers/gpu/drm/i915/gvt/display.c            |   4 +-
+ drivers/gpu/drm/i915/gvt/handlers.c           |   4 +-
+ drivers/gpu/drm/i915/i915_irq.c               |   9 +-
+ drivers/gpu/drm/i915/i915_reg.h               | 392 +++++++++---------
+ 8 files changed, 261 insertions(+), 271 deletions(-)
+
 -- 
-2.27.0
+2.32.0
 
