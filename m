@@ -2,39 +2,39 @@ Return-Path: <SRS0=QaN2=QC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 686AFC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 18:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7009AC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 18:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3575863447
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 18:28:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3575863447
+	by mail.kernel.org (Postfix) with ESMTPS id 3CAE96333D
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 18:32:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3CAE96333D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0BC26E247;
-	Mon, 15 Nov 2021 18:28:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B991E6E829;
+	Mon, 15 Nov 2021 18:32:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id BD9786E247;
- Mon, 15 Nov 2021 18:28:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 685F26E836;
+ Mon, 15 Nov 2021 18:32:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B7AD3A008A;
- Mon, 15 Nov 2021 18:28:36 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 60031A882E;
+ Mon, 15 Nov 2021 18:32:53 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Imre Deak" <imre.deak@intel.com>
-Date: Mon, 15 Nov 2021 18:28:36 -0000
-Message-ID: <163700091673.2947.3497679082854705679@emeril.freedesktop.org>
+Date: Mon, 15 Nov 2021 18:32:53 -0000
+Message-ID: <163700117336.2945.104022995007209152@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20211112190904.62920-1-imre.deak@intel.com>
 In-Reply-To: <20211112190904.62920-1-imre.deak@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Fix_fastsets_on_TypeC_ports_following_a_non-blo?=
- =?utf-8?q?cking_modeset_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915=3A_Fix_fastsets_on_TypeC_ports_following_a_non-blocking_?=
+ =?utf-8?q?modeset_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,16 +60,12 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-16eaaf636f97 drm/i915: Fix fastsets on TypeC ports following a non-blocking modeset
--:45: WARNING:LONG_LINE_COMMENT: line length of 101 exceeds 100 columns
-#45: FILE: drivers/gpu/drm/i915/display/intel_display.c:1583:
-+	 * Make sure the DPLL state is up-to-date for fastset TypeC ports after non-blocking commits.
-
--:49: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#49: FILE: drivers/gpu/drm/i915/display/intel_display.c:1587:
-+		for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-
-total: 0 errors, 2 warnings, 0 checks, 61 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/display/intel_fbc.c:635: warning: Excess function parameter 'i915' description in 'intel_fbc_is_active'
+./drivers/gpu/drm/i915/display/intel_fbc.c:1638: warning: Excess function parameter 'i915' description in 'intel_fbc_handle_fifo_underrun_irq'
+./drivers/gpu/drm/i915/display/intel_fbc.c:635: warning: Function parameter or member 'fbc' not described in 'intel_fbc_is_active'
+./drivers/gpu/drm/i915/display/intel_fbc.c:635: warning: Excess function parameter 'i915' description in 'intel_fbc_is_active'
+./drivers/gpu/drm/i915/display/intel_fbc.c:1638: warning: Function parameter or member 'fbc' not described in 'intel_fbc_handle_fifo_underrun_irq'
+./drivers/gpu/drm/i915/display/intel_fbc.c:1638: warning: Excess function parameter 'i915' description in 'intel_fbc_handle_fifo_underrun_irq'
 
 
