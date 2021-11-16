@@ -2,42 +2,71 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC584C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 13:58:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3E49C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 817F761B9F
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 13:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 817F761B9F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6713961B48
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6713961B48
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6DA36E7DA;
-	Tue, 16 Nov 2021 13:58:21 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82176E7DA
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 13:58:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10169"; a="297117304"
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="297117304"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 05:58:19 -0800
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="506440792"
-Received: from mramya-mobl1.gar.corp.intel.com (HELO localhost)
- ([10.251.219.100])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 05:58:18 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Nov 2021 15:58:13 +0200
-Message-Id: <20211116135813.19806-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6019A6EA04;
+	Tue, 16 Nov 2021 14:05:09 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27A3C6E1B5;
+ Tue, 16 Nov 2021 10:24:39 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id d24so36600502wra.0;
+ Tue, 16 Nov 2021 02:24:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=HEGpUo6vrxQTNQUpP+urhAJCyKmgX70ObR6Liot+zKA=;
+ b=YSlaiSgZu8R7FWJr5N+13V4kFoqOp5L5K53VTVGRRoh78jw5j9rPC3Pw61Ud2KEAW7
+ W+0GtNAjQWeodEOU9xqJnQYoKGKTi8QHbyYXs0ftEg0q+oWUsl78U0k4I0WYxevfutt0
+ mzGmFRlcbcW5Kd1B6sAceZfFfNTWlBIgk6hbT7naTlXRSPPjvt2XkhD7WU79AnZZEWpz
+ 6SjKqFYIoG5RBg2kjtofZmoqpvyUn8LtmaEaGYPmP7BBxzUSBrX6aHyXZTIMloOuToLM
+ vpYnUzR/p+cub6y7rogy1ygNR3jbQcXqNgh2ZhRzVgWvPZMmXeAyV2K8VQN652qYM+/M
+ T6Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=HEGpUo6vrxQTNQUpP+urhAJCyKmgX70ObR6Liot+zKA=;
+ b=d5yuujeScHMdQZ1/9EzOo6lMUx6+w8GSBPtAxBbF1xaEGE7iP0r5yiklnKAPCUvwO7
+ ty2lqAOHpsS7x77IWUGDqZJH14fOeBgjmaNhqBVSfYI7krveoR4HhLfV8gsVARBbkRcB
+ YGFQXcTH+wqG3uZ/ZuFOKbxdwAhdK2rzIJRv3zE7CPCPYedVKC9ffw+TIc4Czgl8IsCq
+ jeKN9epwBfuCg9RGnSrSOy99MDg5YwJpC4WmXhWYLb7neGzPXhqcPQmThBHwzlUUlEJ+
+ RTLbypPzbtgB/nS07rk9KcihvKzUMHHw5gMiKGdRd/RUZlz9tC/1a5dkFRH/4Xg2oNJp
+ OSaQ==
+X-Gm-Message-State: AOAM531hOjCtvg6wVq3CIApLprPFoT/fvW/0GwogivbmOJkGWZKWevWx
+ MMv5yuk+7Krz0OTJuN0MOCPljtoftbqfqw==
+X-Google-Smtp-Source: ABdhPJwDUe5nG1AD/KQ32GgR6sI90Gd9RMpELbglo1cLe9X+4QY5wD/vqMqT/vPQL+7xDO30J4g89w==
+X-Received: by 2002:a5d:518d:: with SMTP id k13mr7899747wrv.120.1637058277767; 
+ Tue, 16 Nov 2021 02:24:37 -0800 (PST)
+Received: from abel.fritz.box (p57b0b77b.dip0.t-ipconnect.de. [87.176.183.123])
+ by smtp.gmail.com with ESMTPSA id 4sm22119334wrz.90.2021.11.16.02.24.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Nov 2021 02:24:37 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Tue, 16 Nov 2021 11:24:28 +0100
+Message-Id: <20211116102431.198905-4-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211116102431.198905-1-christian.koenig@amd.com>
+References: <20211116102431.198905-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/pxp: fix includes for headers in
- include/drm
+X-Mailman-Approved-At: Tue, 16 Nov 2021 14:05:08 +0000
+Subject: [Intel-gfx] [PATCH 3/6] drm/i915: use the new iterator in
+ i915_sw_fence_await_reservation v3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,49 +79,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use <> not "" for including headers from include/drm.
+Simplifying the code a bit.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+v2: use dma_resv_for_each_fence instead, according to Tvrtko the lock is
+    held here anyway.
+v3: back to using dma_resv_for_each_fence_unlocked.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Acked-by: Daniel Vetter <daniel@ffwll.ch>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c | 3 ++-
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c     | 6 ++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_sw_fence.c | 53 ++++++----------------------
+ 1 file changed, 11 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index d02732f04757..598840b73dfa 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -3,7 +3,8 @@
-  * Copyright(c) 2020, Intel Corporation. All rights reserved.
-  */
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index c589a681da77..7ea0dbf81530 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -572,56 +572,25 @@ int i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
+ 				    unsigned long timeout,
+ 				    gfp_t gfp)
+ {
+-	struct dma_fence *excl;
++	struct dma_resv_iter cursor;
++	struct dma_fence *f;
+ 	int ret = 0, pending;
  
--#include "drm/i915_drm.h"
-+#include <drm/i915_drm.h>
-+
- #include "i915_drv.h"
+ 	debug_fence_assert(fence);
+ 	might_sleep_if(gfpflags_allow_blocking(gfp));
  
- #include "intel_pxp.h"
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 49508f31dcb7..5d169624ad60 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -4,8 +4,10 @@
-  */
+-	if (write) {
+-		struct dma_fence **shared;
+-		unsigned int count, i;
+-
+-		ret = dma_resv_get_fences(resv, &excl, &count, &shared);
+-		if (ret)
+-			return ret;
+-
+-		for (i = 0; i < count; i++) {
+-			if (shared[i]->ops == exclude)
+-				continue;
+-
+-			pending = i915_sw_fence_await_dma_fence(fence,
+-								shared[i],
+-								timeout,
+-								gfp);
+-			if (pending < 0) {
+-				ret = pending;
+-				break;
+-			}
+-
+-			ret |= pending;
+-		}
+-
+-		for (i = 0; i < count; i++)
+-			dma_fence_put(shared[i]);
+-		kfree(shared);
+-	} else {
+-		excl = dma_resv_get_excl_unlocked(resv);
+-	}
+-
+-	if (ret >= 0 && excl && excl->ops != exclude) {
+-		pending = i915_sw_fence_await_dma_fence(fence,
+-							excl,
+-							timeout,
++	dma_resv_iter_begin(&cursor, resv, write);
++	dma_resv_for_each_fence_unlocked(&cursor, f) {
++		pending = i915_sw_fence_await_dma_fence(fence, f, timeout,
+ 							gfp);
+-		if (pending < 0)
++		if (pending < 0) {
+ 			ret = pending;
+-		else
+-			ret |= pending;
+-	}
+-
+-	dma_fence_put(excl);
++			break;
++		}
  
- #include <linux/component.h>
--#include "drm/i915_pxp_tee_interface.h"
--#include "drm/i915_component.h"
-+
-+#include <drm/i915_pxp_tee_interface.h>
-+#include <drm/i915_component.h>
-+
- #include "i915_drv.h"
- #include "intel_pxp.h"
- #include "intel_pxp_session.h"
++		ret |= pending;
++	}
++	dma_resv_iter_end(&cursor);
+ 	return ret;
+ }
+ 
 -- 
-2.30.2
+2.25.1
 
