@@ -2,40 +2,42 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D8C1C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AFFE9C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68A36613A3
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 68A36613A3
+	by mail.kernel.org (Postfix) with ESMTPS id 79F5D61465
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 79F5D61465
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB37B6E162;
-	Tue, 16 Nov 2021 17:58:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 869BF6E10B;
+	Tue, 16 Nov 2021 17:58:27 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44D416E102;
- Tue, 16 Nov 2021 17:58:16 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="233606386"
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="233606386"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 359206E102;
+ Tue, 16 Nov 2021 17:58:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="233606401"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="233606401"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 09:48:27 -0800
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="672056345"
+ 16 Nov 2021 09:48:28 -0800
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="672056360"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 09:48:26 -0800
+ 16 Nov 2021 09:48:28 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Nov 2021 09:48:13 -0800
-Message-Id: <20211116174818.2128062-1-matthew.d.roper@intel.com>
+Date: Tue, 16 Nov 2021 09:48:18 -0800
+Message-Id: <20211116174818.2128062-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211116174818.2128062-1-matthew.d.roper@intel.com>
+References: <20211116174818.2128062-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/5] i915: Additional DG2 workarounds
+Subject: [Intel-gfx] [PATCH v3 5/5] drm/i915/dg2: extend Wa_1409120013 to DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,37 +54,33 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have a few more DG2 workarounds that weren't included in the initial
-batch.
+From: Matt Atwood <matthew.s.atwood@intel.com>
 
-v2:
- - Apply pipe control workaround to rcs indirect context rather than xcs
-   indirect context.
+Extend existing workaround 1409120013 to DG2.
 
-v3:
- - s/IS_DG2_DISP_STEP/IS_DG2_DISPLAY_STEPPING/ for consistency with
-   other platforms.
+Cc: José Roberto de Souza <jose.souza@intel.com>
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/intel_pm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-Matt Atwood (1):
-  drm/i915/dg2: extend Wa_1409120013 to DG2
-
-Matt Roper (3):
-  drm/i915/dg2: s/DISP_STEPPING/DISPLAY_STEPPING/
-  drm/i915/dg2: Add Wa_14010547955
-  drm/i915/dg2: Add Wa_16011777198
-
-Ramalingam C (1):
-  drm/i915/dg2: Add Wa_16013000631
-
- drivers/gpu/drm/i915/display/intel_display.c |  4 ++++
- drivers/gpu/drm/i915/gt/intel_lrc.c          |  5 +++++
- drivers/gpu/drm/i915/gt/intel_rc6.c          | 15 +++++++++++----
- drivers/gpu/drm/i915/i915_drv.h              |  2 +-
- drivers/gpu/drm/i915/i915_reg.h              |  5 +++--
- drivers/gpu/drm/i915/intel_pm.c              |  4 ++--
- 6 files changed, 26 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 89dc7f69baf3..e721c421cc58 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7444,9 +7444,9 @@ static void icl_init_clock_gating(struct drm_i915_private *dev_priv)
+ 
+ static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
+ {
+-	/* Wa_1409120013:tgl,rkl,adl-s,dg1 */
++	/* Wa_1409120013:tgl,rkl,adl-s,dg1,dg2 */
+ 	if (IS_TIGERLAKE(dev_priv) || IS_ROCKETLAKE(dev_priv) ||
+-	    IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv))
++	    IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv) || IS_DG2(dev_priv))
+ 		intel_uncore_write(&dev_priv->uncore, ILK_DPFC_CHICKEN,
+ 				   DPFC_CHICKEN_COMP_DUMMY_PIXEL);
+ 
 -- 
 2.33.0
 
