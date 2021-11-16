@@ -2,71 +2,60 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5202FC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37625C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BDA761B48
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1BDA761B48
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B381961B48
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B381961B48
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C09F6EA54;
-	Tue, 16 Nov 2021 14:05:10 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1106E3AA;
- Tue, 16 Nov 2021 10:24:41 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id 133so16462154wme.0;
- Tue, 16 Nov 2021 02:24:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=I/M6sTf7ATt/rzPF6URMkni7yX+VjLJUHjt0X/PXmv0=;
- b=ndZTe8Y9mlxRHD1/+xdtSC+e40sWXeMCSvdJBE/wZWd1iPQNL2mCLaVO2X02xni34g
- BFyog4vXPqQU6eshAPpGRbAETCP64JTuaqhtpjWB2/15fHa/gSwAG21xWns45cmWUvsc
- EL8x6wIxcyeBwbF0VgPBPiRRXyKufLTDiUX1PMclWY7frcVcOoe5Pad8jUxbae+VaMAk
- NneDHDX8LDSZGfCrEAeYWnDXUZoO4S2XDaIKieyPXktKsXUTHq671Uv8WE80btsx/TA9
- sxYMNsUQp0LD18i8n4Ps1xh8ewlvcs3raWp55sH3fe49WQgIQbpw13qh0Dd/GmKJEOsQ
- K28g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=I/M6sTf7ATt/rzPF6URMkni7yX+VjLJUHjt0X/PXmv0=;
- b=MVSdhg1tzmjUN5LCfiER9omDCMyD+tL3EcKhKG43L9LNI8YBPJ3xba5dj8Wgc6uxt5
- UIUdya1YyXqEWpokhKIu/D1Vj9pCXoq44KQTi4FtyNuYsSMwlK7tTRn0acGOexddoT9S
- 4jsA/UuUr/DFd2DImrR0OXZ3EgK5NbYnRW5/1kQ/qFqRIqq8Bv1/2kJF60pfdQpQYKmX
- 5ijs+sIAKqCGbeqre5UJY88Qq/IZZj2/77z52rAt/o5hTTCk7PKxvDyA6pARWBzoJprq
- uJ9u03pMm0mqOmqeFBizxN6aVeqwh5rPfDVEiqJWmJBaYXSwoIhNadOsZqd1S93SJ3BK
- HmlA==
-X-Gm-Message-State: AOAM531URECACvVd6Fx5pODaXEuzDVQGRpmO+N+9M40K44Pcu8ItQdWS
- neXJxjjPnB/7iVp240K1hrKfqDCerxpbtw==
-X-Google-Smtp-Source: ABdhPJyVjz3Wm6UD2lJOaHzrThq4QhzjSSQzJdbbe9KcUHIUpL+a0yNteV2Wyp/AmL4ZtAwD6gqw/A==
-X-Received: by 2002:a1c:cc09:: with SMTP id h9mr6658826wmb.191.1637058279891; 
- Tue, 16 Nov 2021 02:24:39 -0800 (PST)
-Received: from abel.fritz.box (p57b0b77b.dip0.t-ipconnect.de. [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id 4sm22119334wrz.90.2021.11.16.02.24.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Nov 2021 02:24:39 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue, 16 Nov 2021 11:24:31 +0100
-Message-Id: <20211116102431.198905-7-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211116102431.198905-1-christian.koenig@amd.com>
-References: <20211116102431.198905-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26EE66EA6F;
+	Tue, 16 Nov 2021 14:05:14 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F546F3A2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 07:57:01 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1mmtKr-0004aV-87; Tue, 16 Nov 2021 08:56:57 +0100
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1mmtKq-0004Qq-7w; Tue, 16 Nov 2021 08:56:56 +0100
+Date: Tue, 16 Nov 2021 08:56:56 +0100
+From: Sascha Hauer <sha@pengutronix.de>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <20211116075656.GD6556@pengutronix.de>
+References: <20210917123513.1106-1-christian.koenig@amd.com>
+ <20210917123513.1106-13-christian.koenig@amd.com>
+ <20211115140353.GC6556@pengutronix.de>
+ <YZJp8Uj4NpeP+zui@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <YZJp8Uj4NpeP+zui@phenom.ffwll.local>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 08:55:02 up 271 days, 11:18, 130 users,  load average: 0.29, 0.23,
+ 0.19
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: intel-gfx@lists.freedesktop.org
 X-Mailman-Approved-At: Tue, 16 Nov 2021 14:05:08 +0000
-Subject: [Intel-gfx] [PATCH 6/6] drm/i915: use new iterator in
- i915_gem_object_wait_reservation
+Subject: Re: [Intel-gfx] [PATCH 12/26] drm/scheduler: use new iterator in
+ drm_sched_job_add_implicit_dependencies v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,117 +68,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linaro-mm-sig@lists.linaro.org,
+ Christian =?iso-8859-15?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplifying the code a bit.
+On Mon, Nov 15, 2021 at 03:08:49PM +0100, Daniel Vetter wrote:
+> On Mon, Nov 15, 2021 at 03:03:53PM +0100, Sascha Hauer wrote:
+> > Hi,
+> > 
+> > On Fri, Sep 17, 2021 at 02:34:59PM +0200, Christian König wrote:
+> > > Simplifying the code a bit.
+> > > 
+> > > v2: use dma_resv_for_each_fence
+> > > 
+> > > Signed-off-by: Christian König <christian.koenig@amd.com>
+> > > ---
+> > >  drivers/gpu/drm/scheduler/sched_main.c | 26 ++++++--------------------
+> > >  1 file changed, 6 insertions(+), 20 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> > > index 042c16b5d54a..5bc5f775abe1 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -699,30 +699,16 @@ int drm_sched_job_add_implicit_dependencies(struct drm_sched_job *job,
+> > >  					    struct drm_gem_object *obj,
+> > >  					    bool write)
+> > >  {
+> > > +	struct dma_resv_iter cursor;
+> > > +	struct dma_fence *fence;
+> > >  	int ret;
+> > > -	struct dma_fence **fences;
+> > > -	unsigned int i, fence_count;
+> > > -
+> > > -	if (!write) {
+> > > -		struct dma_fence *fence = dma_resv_get_excl_unlocked(obj->resv);
+> > > -
+> > > -		return drm_sched_job_add_dependency(job, fence);
+> > > -	}
+> > > -
+> > > -	ret = dma_resv_get_fences(obj->resv, NULL, &fence_count, &fences);
+> > > -	if (ret || !fence_count)
+> > > -		return ret;
+> > >  
+> > > -	for (i = 0; i < fence_count; i++) {
+> > > -		ret = drm_sched_job_add_dependency(job, fences[i]);
+> > > +	dma_resv_for_each_fence(&cursor, obj->resv, write, fence) {
+> > > +		ret = drm_sched_job_add_dependency(job, fence);
+> > >  		if (ret)
+> > > -			break;
+> > > +			return ret;
+> > >  	}
+> > > -
+> > > -	for (; i < fence_count; i++)
+> > > -		dma_fence_put(fences[i]);
+> > > -	kfree(fences);
+> > > -	return ret;
+> > > +	return 0;
+> > >  }
+> > >  EXPORT_SYMBOL(drm_sched_job_add_implicit_dependencies);
+> > >  
+> > 
+> > This patch lets the panfrost driver explode on v5.16-rc1 with the
+> > following. I didn't bisect it, but it goes away when I revert this
+> > patch. I only started weston, nothing more.
+> > 
+> > Any idea what goes wrong here?
+> 
+> Should be fixed in 13e9e30cafea1, but Christian pushed it to the wrong
+> patch so it missed -rc1.
 
-Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
-[mlankhorst: Handle timeout = 0 correctly, use new i915_request_wait_timeout.]
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Acked-by: Daniel Vetter <daniel@ffwll.ch>
----
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 63 +++++++-----------------
- 1 file changed, 19 insertions(+), 44 deletions(-)
+I can confirm 13e9e30cafea1 fixes the issue, thanks
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index 34e46134326b..f11325484110 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -25,7 +25,7 @@ i915_gem_object_wait_fence(struct dma_fence *fence,
- 		return timeout;
- 
- 	if (dma_fence_is_i915(fence))
--		return i915_request_wait(to_request(fence), flags, timeout);
-+		return i915_request_wait_timeout(to_request(fence), flags, timeout);
- 
- 	return dma_fence_wait_timeout(fence,
- 				      flags & I915_WAIT_INTERRUPTIBLE,
-@@ -37,58 +37,29 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
- 				 unsigned int flags,
- 				 long timeout)
- {
--	struct dma_fence *excl;
--	bool prune_fences = false;
--
--	if (flags & I915_WAIT_ALL) {
--		struct dma_fence **shared;
--		unsigned int count, i;
--		int ret;
--
--		ret = dma_resv_get_fences(resv, &excl, &count, &shared);
--		if (ret)
--			return ret;
--
--		for (i = 0; i < count; i++) {
--			timeout = i915_gem_object_wait_fence(shared[i],
--							     flags, timeout);
--			if (timeout < 0)
--				break;
--
--			dma_fence_put(shared[i]);
--		}
-+	struct dma_resv_iter cursor;
-+	struct dma_fence *fence;
-+	long ret = timeout ?: 1;
- 
--		for (; i < count; i++)
--			dma_fence_put(shared[i]);
--		kfree(shared);
-+	dma_resv_iter_begin(&cursor, resv, flags & I915_WAIT_ALL);
-+	dma_resv_for_each_fence_unlocked(&cursor, fence) {
-+		ret = i915_gem_object_wait_fence(fence, flags, timeout);
-+		if (ret <= 0)
-+			break;
- 
--		/*
--		 * If both shared fences and an exclusive fence exist,
--		 * then by construction the shared fences must be later
--		 * than the exclusive fence. If we successfully wait for
--		 * all the shared fences, we know that the exclusive fence
--		 * must all be signaled. If all the shared fences are
--		 * signaled, we can prune the array and recover the
--		 * floating references on the fences/requests.
--		 */
--		prune_fences = count && timeout >= 0;
--	} else {
--		excl = dma_resv_get_excl_unlocked(resv);
-+		if (timeout)
-+			timeout = ret;
- 	}
--
--	if (excl && timeout >= 0)
--		timeout = i915_gem_object_wait_fence(excl, flags, timeout);
--
--	dma_fence_put(excl);
-+	dma_resv_iter_end(&cursor);
- 
- 	/*
- 	 * Opportunistically prune the fences iff we know they have *all* been
- 	 * signaled.
- 	 */
--	if (prune_fences)
-+	if (timeout > 0)
- 		dma_resv_prune(resv);
- 
--	return timeout;
-+	return ret;
- }
- 
- static void fence_set_priority(struct dma_fence *fence,
-@@ -177,7 +148,11 @@ i915_gem_object_wait(struct drm_i915_gem_object *obj,
- 
- 	timeout = i915_gem_object_wait_reservation(obj->base.resv,
- 						   flags, timeout);
--	return timeout < 0 ? timeout : 0;
-+
-+	if (timeout < 0)
-+		return timeout;
-+
-+	return !timeout ? -ETIME : 0;
- }
- 
- static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
+Sascha
+
+
 -- 
-2.25.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
