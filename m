@@ -2,41 +2,41 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6EF9C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC94DC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7492D613A3
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7492D613A3
+	by mail.kernel.org (Postfix) with ESMTPS id A5DD1613A3
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A5DD1613A3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82AE06E17A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DACBF6E0DF;
 	Tue, 16 Nov 2021 17:58:19 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB3A6E114;
- Tue, 16 Nov 2021 17:58:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="233606396"
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="233606396"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A0E6E102;
+ Tue, 16 Nov 2021 17:58:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="233606392"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="233606392"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Nov 2021 09:48:27 -0800
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="672056354"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="672056351"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Nov 2021 09:48:27 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Nov 2021 09:48:16 -0800
-Message-Id: <20211116174818.2128062-4-matthew.d.roper@intel.com>
+Date: Tue, 16 Nov 2021 09:48:15 -0800
+Message-Id: <20211116174818.2128062-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211116174818.2128062-1-matthew.d.roper@intel.com>
 References: <20211116174818.2128062-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 3/5] drm/i915/dg2: Add Wa_16011777198
+Subject: [Intel-gfx] [PATCH v3 2/5] drm/i915/dg2: Add Wa_14010547955
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,41 +53,48 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Coarse power gating for render should not be enabled on some DG2
-steppings.
+This workaround is documented a bit strangely in the bspec; it's listed
+as an A0 workaround, but the description clarifies that the workaround
+is implicitly handled by the hardware and what the driver really needs
+to do is program a chicken bit to reenable some internal behavior.
 
-Bspec: 52698
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rc6.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 4 ++++
+ drivers/gpu/drm/i915/i915_reg.h              | 5 +++--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index 43093dd2d0c9..c3155ee58689 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -117,10 +117,17 @@ static void gen11_rc6_enable(struct intel_rc6 *rc6)
- 			GEN6_RC_CTL_RC6_ENABLE |
- 			GEN6_RC_CTL_EI_MODE(1);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 0ceee8ac6671..1639bdbe2091 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -988,6 +988,10 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
+ 	else if (DISPLAY_VER(dev_priv) >= 13)
+ 		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
  
--	pg_enable =
--		GEN9_RENDER_PG_ENABLE |
--		GEN9_MEDIA_PG_ENABLE |
--		GEN11_MEDIA_SAMPLER_PG_ENABLE;
-+	/* Wa_16011777198 - Render powergating must remain disabled */
-+	if (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
-+	    IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0))
-+		pg_enable =
-+			GEN9_MEDIA_PG_ENABLE |
-+			GEN11_MEDIA_SAMPLER_PG_ENABLE;
-+	else
-+		pg_enable =
-+			GEN9_RENDER_PG_ENABLE |
-+			GEN9_MEDIA_PG_ENABLE |
-+			GEN11_MEDIA_SAMPLER_PG_ENABLE;
++	/* Wa_14010547955:dg2 */
++	if (IS_DG2_DISPLAY_STEP(dev_priv, STEP_B0, STEP_FOREVER))
++		tmp |= DG2_RENDER_CCSTAG_4_3_EN;
++
+ 	intel_de_write(dev_priv, PIPE_CHICKEN(pipe), tmp);
+ }
  
- 	if (GRAPHICS_VER(gt->i915) >= 12) {
- 		for (i = 0; i < I915_MAX_VCS; i++)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index f15ffc53e858..c187ec122fdb 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -8568,8 +8568,9 @@ enum {
+ 							   _PIPEB_CHICKEN)
+ #define   UNDERRUN_RECOVERY_DISABLE_ADLP	REG_BIT(30)
+ #define   UNDERRUN_RECOVERY_ENABLE_DG2		REG_BIT(30)
+-#define   PIXEL_ROUNDING_TRUNC_FB_PASSTHRU 	(1 << 15)
+-#define   PER_PIXEL_ALPHA_BYPASS_EN		(1 << 7)
++#define   PIXEL_ROUNDING_TRUNC_FB_PASSTHRU	REG_BIT(15)
++#define   DG2_RENDER_CCSTAG_4_3_EN		REG_BIT(12)
++#define   PER_PIXEL_ALPHA_BYPASS_EN		REG_BIT(7)
+ 
+ #define VFLSKPD				_MMIO(0x62a8)
+ #define   DIS_OVER_FETCH_CACHE		REG_BIT(1)
 -- 
 2.33.0
 
