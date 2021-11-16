@@ -2,42 +2,67 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFFE9C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13C6FC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 18:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79F5D61465
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 17:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 79F5D61465
+	by mail.kernel.org (Postfix) with ESMTPS id BCFDB61545
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 18:07:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BCFDB61545
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869BF6E10B;
-	Tue, 16 Nov 2021 17:58:27 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 359206E102;
- Tue, 16 Nov 2021 17:58:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="233606401"
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="233606401"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 09:48:28 -0800
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="672056360"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 09:48:28 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Nov 2021 09:48:18 -0800
-Message-Id: <20211116174818.2128062-6-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211116174818.2128062-1-matthew.d.roper@intel.com>
-References: <20211116174818.2128062-1-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D51789DBD;
+	Tue, 16 Nov 2021 18:07:21 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6CC889DBD
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 18:07:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="319992260"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="319992260"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 10:07:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="548759062"
+Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
+ by fmsmga008.fm.intel.com with ESMTP; 16 Nov 2021 10:07:08 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Tue, 16 Nov 2021 10:07:07 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Tue, 16 Nov 2021 10:07:07 -0800
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.012;
+ Tue, 16 Nov 2021 10:07:07 -0800
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH 3/3] drm/i915/rpl-s: Enable guc submission by
+ default
+Thread-Index: AQHX2Am+l+fmZJgDpkeMBSwzaui0qawFCXUAgAFv5LA=
+Date: Tue, 16 Nov 2021 18:07:07 +0000
+Message-ID: <a622941cc1a442d9af524f6612c8b2ea@intel.com>
+References: <20211112210825.1489596-1-anusha.srivatsa@intel.com>
+ <20211112210825.1489596-4-anusha.srivatsa@intel.com>
+ <87o86l1uxz.fsf@intel.com>
+In-Reply-To: <87o86l1uxz.fsf@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.6.200.16
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 5/5] drm/i915/dg2: extend Wa_1409120013 to DG2
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/rpl-s: Enable guc submission
+ by default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,37 +75,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Atwood <matthew.s.atwood@intel.com>
 
-Extend existing workaround 1409120013 to DG2.
 
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/intel_pm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> -----Original Message-----
+> From: Jani Nikula <jani.nikula@linux.intel.com>
+> Sent: Monday, November 15, 2021 4:10 AM
+> To: Srivatsa, Anusha <anusha.srivatsa@intel.com>; intel-
+> gfx@lists.freedesktop.org
+> Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/rpl-s: Enable guc submissio=
+n by
+> default
+>=20
+> On Fri, 12 Nov 2021, Anusha Srivatsa <anusha.srivatsa@intel.com> wrote:
+> > Though, RPL-S is defined as subplatform of ADL-S, unlike ADL-S, it has
+> > GuC submission by default.
+> >
+> > Cc: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+> > Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/gt/uc/intel_uc.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > index 2fef3b0bbe95..7088f5370e7f 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > @@ -35,7 +35,7 @@ static void uc_expand_default_options(struct intel_uc
+> *uc)
+> >  	}
+> >
+> >  	/* Intermediate platforms are HuC authentication only */
+> > -	if (IS_ALDERLAKE_S(i915)) {
+> > +	if ((IS_ALDERLAKE_S(i915) && !IS_RAPTORLAKE_S(i915))) {
+>=20
+> Excessive parenthesis.
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 89dc7f69baf3..e721c421cc58 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -7444,9 +7444,9 @@ static void icl_init_clock_gating(struct drm_i915_private *dev_priv)
- 
- static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
- {
--	/* Wa_1409120013:tgl,rkl,adl-s,dg1 */
-+	/* Wa_1409120013:tgl,rkl,adl-s,dg1,dg2 */
- 	if (IS_TIGERLAKE(dev_priv) || IS_ROCKETLAKE(dev_priv) ||
--	    IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv))
-+	    IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv) || IS_DG2(dev_priv))
- 		intel_uncore_write(&dev_priv->uncore, ILK_DPFC_CHICKEN,
- 				   DPFC_CHICKEN_COMP_DUMMY_PIXEL);
- 
--- 
-2.33.0
+Duly noted. Will make the changes,
 
+Thanks!
+Anusha
+> BR,
+> Jani.
+>=20
+> >  		i915->params.enable_guc =3D ENABLE_GUC_LOAD_HUC;
+> >  		return;
+> >  	}
+>=20
+> --
+> Jani Nikula, Intel Open Source Graphics Center
