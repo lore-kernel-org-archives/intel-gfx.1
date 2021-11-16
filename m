@@ -2,68 +2,44 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70ED3C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DFC8C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3793A60F9C
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3793A60F9C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2F2066139F
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2F2066139F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C98EF6EB0A;
-	Tue, 16 Nov 2021 14:05:21 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5D46E092;
- Tue, 16 Nov 2021 10:24:37 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id 133so16462036wme.0;
- Tue, 16 Nov 2021 02:24:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=XdmXnXmiT9YP45avjBU1fPKaGUCkER2/u8S4S7gQ/kQ=;
- b=HE/kI7xzEm914o6T8PhvdrIyxVON7enARn2gt/psWfR//iZ0cG4Y3j1YjMQPZX4ay0
- x6IT0/GJBooASVbTMjN+BvDGN8RDAkMNrX0J/84p73biDL4ISwRphVOxFIO0xWEqGuai
- Ff0NUEf/fEcV91UzKrf7tnGg3SroY+0f8CgZEmHcy4pT2d6/VkKBD/Zsr9ww62Vsl9Je
- dMwIXra2+u2BBMLllOk8GRoPmp8DP2aFTmIkmm/vmbVKaLg7MkjBzAuDDjWZp/vIwOU6
- SYQtGeH9GX7ojdBKa/TWfqHqq2A5vDEmvAJGimuxMmlQ3Au8L1YTt/p3H/wJhqvJiVdB
- zdng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=XdmXnXmiT9YP45avjBU1fPKaGUCkER2/u8S4S7gQ/kQ=;
- b=bsLd2LRqFAuNtno1ybeu2ObX7Jh0JfJdqwMLOxJpi+FeeNkAS84rgcwIp94+OKr5uB
- f250Nho6gA3jgpy+TWvuNYAZfPIrjRnueORPTKllDw1WD73NDWOIYMGFjBrNqTnmbKvj
- SFwn6AJBv1WhpvLYQb6niI5LWKlZT8D9qF7ODMv1oBvXWalwdUhE+mAulGED8WVwUrcE
- Un7ml3vdasz76KPY1citNUEDFDOfMwa8uBFPob6EH0jVrUfrpTQDPPpPO7XhCTAJA55x
- n9lTi67ZFTZ9JyoLgSdmK9vtag7pwurlp6mlkzUxS5OuHvli6D3ewsKgZU3o1F5Mc5hQ
- rtIw==
-X-Gm-Message-State: AOAM530B2cqJCyak2EPJF4XuskYAcfmjIQDSQOUfZPqzerkl+er3jdfM
- HsmCJAUD+Dz4OvevLk54LPRmAriQtKLGcg==
-X-Google-Smtp-Source: ABdhPJwOIVfdEYUDmLPTE8ztkjo+Jh2F3QzKqIDrshkGsBMjvhAr4iijizYPrs6YpsX3PP679d25SA==
-X-Received: by 2002:a1c:488:: with SMTP id 130mr6491357wme.157.1637058275525; 
- Tue, 16 Nov 2021 02:24:35 -0800 (PST)
-Received: from abel.fritz.box (p57b0b77b.dip0.t-ipconnect.de. [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id 4sm22119334wrz.90.2021.11.16.02.24.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Nov 2021 02:24:35 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue, 16 Nov 2021 11:24:25 +0100
-Message-Id: <20211116102431.198905-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 384406EB3D;
+	Tue, 16 Nov 2021 14:48:55 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF1A6EA6F;
+ Tue, 16 Nov 2021 14:48:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10169"; a="319918353"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="319918353"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 06:48:52 -0800
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="506460562"
+Received: from jprocter-mobl.amr.corp.intel.com (HELO intel.com)
+ ([10.255.39.135])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 06:48:51 -0800
+Date: Tue, 16 Nov 2021 09:48:49 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Tilak Tangudu <tilak.tangudu@intel.com>
+Message-ID: <YZPE0RAanOjyWCmK@intel.com>
+References: <20211115154054.3220476-1-tilak.tangudu@intel.com>
+ <YZKzBI6znwQwWBpI@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 16 Nov 2021 14:05:08 +0000
-Subject: [Intel-gfx] Remaining i915 iterator patches
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YZKzBI6znwQwWBpI@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Disable D3Cold in s2idle and
+ runtime pm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,14 +52,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi guys,
+On Mon, Nov 15, 2021 at 02:20:36PM -0500, Rodrigo Vivi wrote:
+> On Mon, Nov 15, 2021 at 09:10:54PM +0530, Tilak Tangudu wrote:
+> > s2idle and runtime pm puts the pci gfx device in D3Hot, ACPI runtime
+> > monitors the pci tree,if it sees complete tree as D3Hot,it transitions
+> > the device to D3Cold.But i915 do not have D3Cold support in S2idle or in
+> > runtime pm. so disabling D3cold in above flows and its FIXME.
+> > 
+> > Added pci D3Cold enable/disable in s2idle and runtime suspend/resume
+> > flows.
+> > 
+> > Signed-off-by: Tilak Tangudu <tilak.tangudu@intel.com>
+> 
+> Just for the clear record, I always preferred the unconditional disallow
+> of d3cold, but it looks some internal experiments for s3/s4 failed with that
+> and this approach here was the safest one, so let's move with this and
+> prevent the d3cold for now and then allow the runtime_pm autosuspend
+> enabled by default everywhere.
+> 
+> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-just sending that out once more to make sure CI is happy.
+and pushed, thanks for the patch.
 
-Regards,
-Christian.
-
-
+> 
+> > ---
+> >  drivers/gpu/drm/i915/i915_drv.c | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> > index 46bf3315f616..af6868f12ef0 100644
+> > --- a/drivers/gpu/drm/i915/i915_drv.c
+> > +++ b/drivers/gpu/drm/i915/i915_drv.c
+> > @@ -1194,6 +1194,14 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
+> >  		goto out;
+> >  	}
+> >  
+> > +	/*
+> > +	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
+> > +	 * This should be totally removed when we handle the pci states properly
+> > +	 * on runtime PM and on s2idle cases.
+> > +	 */
+> > +	if (suspend_to_idle(dev_priv))
+> > +		pci_d3cold_disable(pdev);
+> > +
+> >  	pci_disable_device(pdev);
+> >  	/*
+> >  	 * During hibernation on some platforms the BIOS may try to access
+> > @@ -1357,6 +1365,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
+> >  
+> >  	pci_set_master(pdev);
+> >  
+> > +	pci_d3cold_enable(pdev);
+> > +
+> >  	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+> >  
+> >  	ret = vlv_resume_prepare(dev_priv, false);
+> > @@ -1533,6 +1543,7 @@ static int intel_runtime_suspend(struct device *kdev)
+> >  {
+> >  	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+> >  	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+> > +	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+> >  	int ret;
+> >  
+> >  	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
+> > @@ -1578,6 +1589,12 @@ static int intel_runtime_suspend(struct device *kdev)
+> >  		drm_err(&dev_priv->drm,
+> >  			"Unclaimed access detected prior to suspending\n");
+> >  
+> > +	/*
+> > +	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
+> > +	 * This should be totally removed when we handle the pci states properly
+> > +	 * on runtime PM and on s2idle cases.
+> > +	 */
+> > +	pci_d3cold_disable(pdev);
+> >  	rpm->suspended = true;
+> >  
+> >  	/*
+> > @@ -1616,6 +1633,7 @@ static int intel_runtime_resume(struct device *kdev)
+> >  {
+> >  	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+> >  	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+> > +	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+> >  	int ret;
+> >  
+> >  	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
+> > @@ -1628,6 +1646,7 @@ static int intel_runtime_resume(struct device *kdev)
+> >  
+> >  	intel_opregion_notify_adapter(dev_priv, PCI_D0);
+> >  	rpm->suspended = false;
+> > +	pci_d3cold_enable(pdev);
+> >  	if (intel_uncore_unclaimed_mmio(&dev_priv->uncore))
+> >  		drm_dbg(&dev_priv->drm,
+> >  			"Unclaimed access during suspend, bios?\n");
+> > -- 
+> > 2.25.1
+> > 
