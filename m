@@ -2,43 +2,40 @@ Return-Path: <SRS0=oPCP=QD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8C6DC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 22:33:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D77BFC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 22:59:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0B6963215
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 22:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A0B6963215
+	by mail.kernel.org (Postfix) with ESMTPS id 828AB6139F
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 22:59:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 828AB6139F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 469AF88220;
-	Tue, 16 Nov 2021 22:32:57 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7990989F97
- for <Intel-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 22:32:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="213871063"
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="213871063"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 14:32:55 -0800
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="506646873"
-Received: from jprocter-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.255.39.135])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 14:32:54 -0800
-Date: Tue, 16 Nov 2021 17:32:52 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: clinton.a.taylor@intel.com
-Message-ID: <YZQxlF5B0kcqzJvO@intel.com>
-References: <20211115235345.32206-1-clinton.a.taylor@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07C7589286;
+	Tue, 16 Nov 2021 22:59:01 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBFBA89286
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 22:58:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="233787407"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="233787407"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 14:58:59 -0800
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="735841233"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 16 Nov 2021 14:58:58 -0800
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 16 Nov 2021 15:12:09 -0800
+Message-Id: <20211116231209.28621-1-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211115235345.32206-1-clinton.a.taylor@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/adlp: Remove require_force_probe
- protection
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/: Extend VRR platform support to Gen 11
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,53 +48,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 15, 2021 at 03:53:45PM -0800, clinton.a.taylor@intel.com wrote:
-> From: Clint Taylor <clinton.a.taylor@intel.com>
-> 
->     drm/i915/adlp: Remove require_force_probe protection
-> 
->     Removing force probe protection from ADL_P platform. Did
->     not observe warnings, errors, flickering or any visual
->     defects while doing ordinary tasks like browsing and
->     editing documents in a two monitor setup.
+VRR is supported on Gen 11 HW , hence extend the support
+in the driver to enable this for Gen 11.
 
-some strange alignment here... please remove the extra
-tabs here.
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
->     For more info drm-tip idle run results :
->     https://intel-gfx-ci.01.org/tree/drm-tip/drmtip.html?
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 94840af45750..3b00a8edbb1d 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1741,7 +1741,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_DISPLAY(dev_priv) (INTEL_INFO(dev_priv)->pipe_mask != 0)
+ 
+-#define HAS_VRR(i915)	(GRAPHICS_VER(i915) >= 12)
++#define HAS_VRR(i915)	(GRAPHICS_VER(i915) >= 11)
+ 
+ #define HAS_ASYNC_FLIPS(i915)		(DISPLAY_VER(i915) >= 5)
+ 
+-- 
+2.19.1
 
-hmm... I could swear that I had seen the ADL-P green there a few
-days ago as well... But right now I couldn't see ADL-P there...
-
-So that fails on having a *reliable* green CI picture...
-Any idea why that is down at this moment?
-
-> 
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> 
-> Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
-> ---
->  drivers/gpu/drm/i915/i915_pci.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 4c7fcc5f9a97..af9f4988bd88 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -970,7 +970,6 @@ static const struct intel_device_info adl_p_info = {
->  	GEN12_FEATURES,
->  	XE_LPD_FEATURES,
->  	PLATFORM(INTEL_ALDERLAKE_P),
-> -	.require_force_probe = 1,
->  	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
->  			       BIT(TRANSCODER_C) | BIT(TRANSCODER_D) |
->  			       BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1),
-> -- 
-> 2.33.1
-> 
