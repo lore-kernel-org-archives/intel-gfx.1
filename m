@@ -2,46 +2,48 @@ Return-Path: <SRS0=4n+h=QE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECCFAC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 21:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0D15C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 21:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B06D661B3F
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 21:01:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B06D661B3F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9343161BB6
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 21:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9343161BB6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9166E85B;
-	Wed, 17 Nov 2021 21:01:48 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEEA96E85B
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 21:01:46 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10171"; a="214773957"
-X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="214773957"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2021 13:01:43 -0800
-X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="495092112"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2021 13:01:42 -0800
-Date: Wed, 17 Nov 2021 13:15:01 -0800
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20211117211501.GA633@labuser-Z97X-UD5H>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A54F6E858;
+	Wed, 17 Nov 2021 21:04:21 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6C716E858
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 21:04:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10171"; a="234294839"
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="234294839"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2021 13:04:10 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="646184598"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga001.fm.intel.com with SMTP; 17 Nov 2021 13:04:06 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 17 Nov 2021 23:04:05 +0200
+Date: Wed, 17 Nov 2021 23:04:05 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Navare, Manasi" <manasi.d.navare@intel.com>
+Message-ID: <YZVuRQvAFT4xwC5M@intel.com>
 References: <20211117183103.27418-1-ville.syrjala@linux.intel.com>
- <20211117183103.27418-3-ville.syrjala@linux.intel.com>
+ <20211117183103.27418-2-ville.syrjala@linux.intel.com>
+ <20211117211006.GB593@labuser-Z97X-UD5H>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211117183103.27418-3-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915: Fix framestart_delay commens
- in VRR code
+In-Reply-To: <20211117211006.GB593@labuser-Z97X-UD5H>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: Do vblank evasion correctly
+ if vrr push has already been sent
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,53 +60,105 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 17, 2021 at 08:31:03PM +0200, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Wed, Nov 17, 2021 at 01:10:13PM -0800, Navare, Manasi wrote:
+> On Wed, Nov 17, 2021 at 08:31:02PM +0200, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > Let's adjust the vblank evasion to account for the case where
+> > a push has already been sent. In that case the vblank exit will start
+> > at vmin vblank start (as opposed to vmax vblank start when no push
+> > has been sent).
+> > 
+> > This should minimize the effects of the tiny race between sampling
+> > the frame counter vs. intel_vrr_send_push() during the previous frame.
+> > This will also be required if we want to do mailbox style updates with
+> > vrr since then we'd definitely do multiple commits per frame. Currently
+> > mailbox updates are only used by the legacy cursor, but we don't do
+> > vrr push for those.
+> > 
+> > Cc: Manasi Navare <manasi.d.navare@intel.com>
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++---
+> >  drivers/gpu/drm/i915/display/intel_vrr.c  | 12 ++++++++++++
+> >  drivers/gpu/drm/i915/display/intel_vrr.h  |  1 +
+> >  3 files changed, 20 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+> > index cf403be7736c..eb5444f90e77 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+> > @@ -470,10 +470,14 @@ void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state)
+> >  	if (intel_crtc_needs_vblank_work(new_crtc_state))
+> >  		intel_crtc_vblank_work_init(new_crtc_state);
+> >  
+> > -	if (new_crtc_state->vrr.enable)
+> > -		vblank_start = intel_vrr_vmax_vblank_start(new_crtc_state);
+> > -	else
+> > +	if (new_crtc_state->vrr.enable) {
+> > +		if (intel_vrr_is_push_sent(new_crtc_state))
+> > +			vblank_start = intel_vrr_vmin_vblank_start(new_crtc_state);
 > 
-> Since I originally wrote these comments we decided to change our
-> definition of framestart_delay from 0-3 to 1-4. Adjust the comments
-> to match that new convention. The actual code was adjusted already.
-> 
-> Cc: Manasi Navare <manasi.d.navare@intel.com>
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Actually if Push is sent then the vblank gets terminated at that point which falls between vmin and vmax so
+> not necessarily at Vmin but at anytime between vmin and vmax. Is it correct to calculate it based on vmin?
 
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+If you do a push between vmin and vmax then the vblank terminates
+immediately and the PUSH_SEND bit gets cleared. The only way the bit
+stays set is you set it after vmax/before vmin.
 
-Manasi
+> 
+> > +		else
+> > +			vblank_start = intel_vrr_vmax_vblank_start(new_crtc_state);
+> > +	} else {
+> >  		vblank_start = intel_mode_vblank_start(adjusted_mode);
+> > +	}
+> >  
+> >  	/* FIXME needs to be calibrated sensibly */
+> >  	min = vblank_start - intel_usecs_to_scanlines(adjusted_mode,
+> > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> > index c335b1dbafcf..db1c3902fc2d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> > @@ -193,6 +193,18 @@ void intel_vrr_send_push(const struct intel_crtc_state *crtc_state)
+> >  		       TRANS_PUSH_EN | TRANS_PUSH_SEND);
+> >  }
+> >  
+> > +bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state)
+> > +{
+> > +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+> > +	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+> > +	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+> > +
+> > +	if (!crtc_state->vrr.enable)
+> > +		return false;
+> > +
+> > +	return intel_de_read(dev_priv, TRANS_PUSH(cpu_transcoder)) & TRANS_PUSH_SEND;
+> 
+> But HW clears this bit after double buffer update. Is this a good inidcation to check the PUSH_SEND bit?
+> 
+> Manasi
+> 
+> > +}
+> > +
+> >  void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
+> >  {
+> >  	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+> > index 96f9c9c27ab9..1c2da572693d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_vrr.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+> > @@ -23,6 +23,7 @@ void intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+> >  void intel_vrr_enable(struct intel_encoder *encoder,
+> >  		      const struct intel_crtc_state *crtc_state);
+> >  void intel_vrr_send_push(const struct intel_crtc_state *crtc_state);
+> > +bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
+> >  void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
+> >  void intel_vrr_get_config(struct intel_crtc *crtc,
+> >  			  struct intel_crtc_state *crtc_state);
+> > -- 
+> > 2.32.0
+> > 
 
-> ---
->  drivers/gpu/drm/i915/display/intel_vrr.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-> index db1c3902fc2d..139e8936edc5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> @@ -60,7 +60,7 @@ intel_vrr_check_modeset(struct intel_atomic_state *state)
->   * Between those two points the vblank exit starts (and hence registers get
->   * latched) ASAP after a push is sent.
->   *
-> - * framestart_delay is programmable 0-3.
-> + * framestart_delay is programmable 1-4.
->   */
->  static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *crtc_state)
->  {
-> @@ -138,13 +138,13 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
->  			i915->window2_delay;
->  	else
->  		/*
-> -		 * FIXME: s/4/framestart_delay+1/ to get consistent
-> +		 * FIXME: s/4/framestart_delay/ to get consistent
->  		 * earliest/latest points for register latching regardless
->  		 * of the framestart_delay used?
->  		 *
->  		 * FIXME: this really needs the extra scanline to provide consistent
->  		 * behaviour for all framestart_delay values. Otherwise with
-> -		 * framestart_delay==3 we will end up extending the min vblank by
-> +		 * framestart_delay==4 we will end up extending the min vblank by
->  		 * one extra line.
->  		 */
->  		crtc_state->vrr.pipeline_full =
-> -- 
-> 2.32.0
-> 
+-- 
+Ville Syrjälä
+Intel
