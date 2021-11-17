@@ -2,47 +2,46 @@ Return-Path: <SRS0=4n+h=QE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DCBEC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FF91C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F162661BF5
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F162661BF5
+	by mail.kernel.org (Postfix) with ESMTPS id F1EEB613A9
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1EEB613A9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C1C6E973;
-	Wed, 17 Nov 2021 15:21:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B481898BC;
+	Wed, 17 Nov 2021 15:48:23 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4346E973
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 15:21:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="257733834"
-X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="257733834"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6245D898BC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 15:48:22 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="257739987"
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="257739987"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2021 07:21:46 -0800
+ 17 Nov 2021 07:48:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="645902160"
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="506972766"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga001.fm.intel.com with SMTP; 17 Nov 2021 07:21:44 -0800
+ by orsmga008.jf.intel.com with SMTP; 17 Nov 2021 07:48:07 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 17 Nov 2021 17:21:43 +0200
-Date: Wed, 17 Nov 2021 17:21:43 +0200
+ Wed, 17 Nov 2021 17:48:06 +0200
+Date: Wed, 17 Nov 2021 17:48:06 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <YZUeB01L6HBXxGTT@intel.com>
-References: <20211116154234.15696-1-jani.nikula@intel.com>
- <20211116154234.15696-2-jani.nikula@intel.com>
+To: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Message-ID: <YZUkNrAnTlRIFRA/@intel.com>
+References: <20211117134341.9889-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211116154234.15696-2-jani.nikula@intel.com>
+In-Reply-To: <20211117134341.9889-1-stanislav.lisovskiy@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/trace: split out display trace
- to a separate file
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dg2: Implement WM0 cursor WA for
+ DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +58,65 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 16, 2021 at 05:42:34PM +0200, Jani Nikula wrote:
-> Add display/intel_display_trace.[ch] for defining display
-> tracepoints. The main goal is to reduce cross-includes between gem and
-> display. It would be possible split up tracing even further, but that
-> would lead to more boilerplate.
+On Wed, Nov 17, 2021 at 03:43:41PM +0200, Stanislav Lisovskiy wrote:
+> Bug in the register unit which results in WM1 register
+> used when only WM0 is enabled on cursor.
+> Software workaround is when only WM0 enabled on cursor,
+> copy contents of CUR_WM_0[30:0] (exclude the enable bit)
+> into CUR_WM_1[30:0].
 > 
-> There should be no changes to tracepoints.
+> HSDES: 14012656716
 > 
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 > ---
->  drivers/gpu/drm/i915/Makefile                 |   1 +
->  .../gpu/drm/i915/display/intel_atomic_plane.c |   5 +-
->  drivers/gpu/drm/i915/display/intel_crtc.c     |   5 +-
->  .../drm/i915/display/intel_display_trace.c    |   9 +
->  .../drm/i915/display/intel_display_trace.h    | 588 ++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_fbc.c      |   2 +-
->  .../drm/i915/display/intel_fifo_underrun.c    |   2 +-
->  .../gpu/drm/i915/display/intel_frontbuffer.c  |   7 +-
->  drivers/gpu/drm/i915/display/intel_sprite.c   |   1 -
->  drivers/gpu/drm/i915/i915_debugfs.c           |   1 -
->  drivers/gpu/drm/i915/i915_drv.c               |   1 -
->  drivers/gpu/drm/i915/i915_irq.c               |   2 +-
->  drivers/gpu/drm/i915/i915_trace.h             | 567 -----------------
->  drivers/gpu/drm/i915/intel_pm.c               |   2 +-
->  14 files changed, 610 insertions(+), 583 deletions(-)
->  create mode 100644 drivers/gpu/drm/i915/display/intel_display_trace.c
->  create mode 100644 drivers/gpu/drm/i915/display/intel_display_trace.h
+>  drivers/gpu/drm/i915/intel_pm.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
 > 
-<snip>
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.c b/drivers/gpu/drm/i915/display/intel_display_trace.c
-> new file mode 100644
-> index 000000000000..737979ada869
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/display/intel_display_trace.c
-> @@ -0,0 +1,9 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright © 2021 Intel Corporation
-> + */
-> +
-> +#ifndef __CHECKER__
-> +#define CREATE_TRACE_POINTS
-> +#include "intel_display_trace.h"
-> +#endif
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers/gpu/drm/i915/display/intel_display_trace.h
-> new file mode 100644
-> index 000000000000..8608f5a6ff32
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
-> @@ -0,0 +1,588 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM i915
-> +
-> +#if !defined(__INTEL_DISPLAY_TRACE_H__) || defined(TRACE_HEADER_MULTI_READ)
-> +#define __INTEL_DISPLAY_TRACE_H__
-> +
-> +#include <linux/types.h>
-> +#include <linux/tracepoint.h>
-> +
-> +#include "i915_drv.h"
-> +#include "intel_crtc.h"
-> +#include "intel_display_types.h"
-> +
-> +/* watermark/fifo updates */
+> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+> index 89dc7f69baf3..4bc90196d0fb 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_pm.c
+> @@ -5095,6 +5095,18 @@ skl_check_nv12_wm_level(struct skl_wm_level *wm, struct skl_wm_level *uv_wm,
+>  	}
+>  }
+>  
+> +static bool icl_need_wm1_wa(struct drm_i915_private *dev_priv,
 
-That comment is a bit misplaced. I guess it already was like that in the
-old file. Maybe just nuke all these comments? I don't think they really
-serve any useful purpose.
+s/dev_priv/i915/
 
-Series is
+> +			    enum plane_id plane_id)
+> +{
+> +	/*
+> +	 * Wa_1408961008:icl, ehl
+> +	 * Wa_14012656716:tgl, adl
+> +	 * Underruns with WM1+ disabled
+> +	 */
+> +	return (DISPLAY_VER(dev_priv) == 11) ||
+> +	       (IS_DISPLAY_VER(dev_priv, 12, 13) && (plane_id == PLANE_CURSOR));
+
+Unnecessary parens in a few places there. With those removed this is
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+
+> +}
+> +
+>  static int
+>  skl_allocate_plane_ddb(struct intel_atomic_state *state,
+>  		       struct intel_crtc *crtc)
+> @@ -5265,11 +5277,7 @@ skl_allocate_plane_ddb(struct intel_atomic_state *state,
+>  			skl_check_nv12_wm_level(&wm->wm[level], &wm->uv_wm[level],
+>  						total[plane_id], uv_total[plane_id]);
+>  
+> -			/*
+> -			 * Wa_1408961008:icl, ehl
+> -			 * Underruns with WM1+ disabled
+> -			 */
+> -			if (DISPLAY_VER(dev_priv) == 11 &&
+> +			if (icl_need_wm1_wa(dev_priv, plane_id) &&
+>  			    level == 1 && wm->wm[0].enable) {
+>  				wm->wm[level].blocks = wm->wm[0].blocks;
+>  				wm->wm[level].lines = wm->wm[0].lines;
+> -- 
+> 2.24.1.485.gad05a3d8e5
 
 -- 
 Ville Syrjälä
