@@ -2,43 +2,42 @@ Return-Path: <SRS0=4n+h=QE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1569C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 14:32:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EE93C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 14:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AC4961B08
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 14:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6AC4961B08
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 56F4D6126A
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 14:33:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 56F4D6126A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3D66E483;
-	Wed, 17 Nov 2021 14:32:46 +0000 (UTC)
-X-Greylist: delayed 985 seconds by postgrey-1.36 at gabe;
- Wed, 17 Nov 2021 14:32:43 UTC
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829E76E483;
- Wed, 17 Nov 2021 14:32:43 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.69.177; 
-Received: from localhost (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 151790-1500050 for multiple; Wed, 17 Nov 2021 14:16:15 +0000
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B97BA6E47E;
+	Wed, 17 Nov 2021 14:33:49 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D05B89A1E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 14:33:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="220841612"
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="220841612"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2021 06:33:48 -0800
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="454882411"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2021 06:33:47 -0800
+Date: Wed, 17 Nov 2021 16:33:43 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Message-ID: <20211117143343.GA204593@ideak-desk.fi.intel.com>
+References: <20211117110100.8991-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20211117133456.688802-3-andi.shyti@linux.intel.com>
-References: <20211117133456.688802-1-andi.shyti@linux.intel.com>
- <20211117133456.688802-3-andi.shyti@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Andi Shyti <andi.shyti@linux.intel.com>,
- DRI Devel <dri-devel@lists.freedesktop.org>,
- Intel GFX <intel-gfx@lists.freedesktop.org>
-Date: Wed, 17 Nov 2021 14:16:13 +0000
-Message-ID: <163715857341.11567.6516227738264680366@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Rename gt to gt0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211117110100.8991-1-stanislav.lisovskiy@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dg2: Tile 4 plane format support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,138 +50,269 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, Micha≈Ç Winiarski <michal.winiarski@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Andi Shyti (2021-11-17 13:34:56)
-> diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/=
-gpu/drm/i915/display/intel_atomic_plane.c
-> index 089fb4658b216..0bbf8c0c42eac 100644
-> --- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-> @@ -817,7 +817,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
->          * maximum clocks following a vblank miss (see do_rps_boost()).
->          */
->         if (!state->rps_interactive) {
-> -               intel_rps_mark_interactive(&dev_priv->gt.rps, true);
-> +               intel_rps_mark_interactive(&dev_priv->gt0.rps, true);
-
-This should be across all gt, so probably wants a fresh interface that
-takes i915 and does for_each_gt in a later patch. (Since we could be
-rendering on a remote tile to present on a display.)
-
->                 state->rps_interactive =3D true;
->         }
-> =20
-> @@ -851,7 +851,7 @@ intel_cleanup_plane_fb(struct drm_plane *plane,
->                 return;
-> =20
->         if (state->rps_interactive) {
-> -               intel_rps_mark_interactive(&dev_priv->gt.rps, false);
-> +               intel_rps_mark_interactive(&dev_priv->gt0.rps, false);
->                 state->rps_interactive =3D false;
->         }
-> =20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index 0ceee8ac66717..d4fcd8f236476 100644
+On Wed, Nov 17, 2021 at 01:01:00PM +0200, Stanislav Lisovskiy wrote:
+> TileF(Tile4 in bspec) format is 4K tile organized into
+> 64B subtiles with same basic shape as for legacy TileY
+> which will be supported by Display13.
+> 
+> v2: - Fixed wrong case condition(Jani Nikula)
+>     - Increased I915_FORMAT_MOD_F_TILED up to 12(Imre Deak)
+> 
+> v3: - s/I915_TILING_F/TILING_4/g
+>     - s/I915_FORMAT_MOD_F_TILED/I915_FORMAT_MOD_4_TILED/g
+>     - Removed unneeded fencing code
+> 
+> v4: - Rebased, fixed merge conflict with new table-oriented
+>       format modifier checking(Stan)
+>     - Replaced the rest of "Tile F" mentions to "Tile 4"(Stan)
+> 
+> v5: - Still had to remove some Tile F mentionings
+>     - Moved has_4tile from adlp to DG2(Ramalingam)
+>     - Check specifically for DG2, but not the Display13(Imre)
+> 
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Juha-Pekka Heikkil‰ <juha-pekka.heikkila@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c  |  1 +
+>  drivers/gpu/drm/i915/display/intel_fb.c       | 10 ++++++++++
+>  drivers/gpu/drm/i915/display/intel_fbc.c      |  2 ++
+>  .../drm/i915/display/intel_plane_initial.c    |  1 +
+>  .../drm/i915/display/skl_universal_plane.c    | 20 +++++++++++--------
+>  drivers/gpu/drm/i915/i915_drv.h               |  1 +
+>  drivers/gpu/drm/i915/i915_pci.c               |  1 +
+>  drivers/gpu/drm/i915/i915_reg.h               |  1 +
+>  drivers/gpu/drm/i915/intel_device_info.h      |  1 +
+>  drivers/gpu/drm/i915/intel_pm.c               |  1 +
+>  include/uapi/drm/drm_fourcc.h                 |  8 ++++++++
+>  11 files changed, 39 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 0ceee8ac6671..eaea986dff99 100644
 > --- a/drivers/gpu/drm/i915/display/intel_display.c
 > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -838,7 +838,7 @@ __intel_display_resume(struct drm_device *dev,
->  static bool gpu_reset_clobbers_display(struct drm_i915_private *dev_priv)
->  {
->         return (INTEL_INFO(dev_priv)->gpu_reset_clobbers_display &&
-> -               intel_has_gpu_reset(&dev_priv->gt));
-> +               intel_has_gpu_reset(&dev_priv->gt0));
+> @@ -7743,6 +7743,7 @@ static int intel_atomic_check_async(struct intel_atomic_state *state, struct int
+>  		case I915_FORMAT_MOD_X_TILED:
+>  		case I915_FORMAT_MOD_Y_TILED:
+>  		case I915_FORMAT_MOD_Yf_TILED:
+> +		case I915_FORMAT_MOD_4_TILED:
+>  			break;
+>  		default:
+>  			drm_dbg_kms(&i915->drm,
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> index c4a743d0913f..a3d465e111d8 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> @@ -184,6 +184,9 @@ static const struct intel_modifier_desc intel_modifiers[] = {
+>  		.modifier = I915_FORMAT_MOD_Yf_TILED,
+>  		.display_ver = { 9, 11 },
+>  		.plane_caps = INTEL_PLANE_CAP_TILING_Yf,
+> +	}, {
+> +		.modifier = I915_FORMAT_MOD_4_TILED,
+> +		.display_ver = { 12, 13 },
 
-All these display consumers probably want to use
-dev_priv->ggtt->vm.gt, since the scanout capable GGTT would seem to be
-the defining feature.
+Starting from display version 13. The list is priority ordered so this
+needs to be the first item.
 
-to_scanout_gt(i915) ?
+>  	}, {
+>  		.modifier = I915_FORMAT_MOD_Y_TILED,
+>  		.display_ver = { 9, 13 },
+> @@ -544,6 +547,12 @@ intel_tile_width_bytes(const struct drm_framebuffer *fb, int color_plane)
+>  			return 128;
+>  		else
+>  			return 512;
+> +	case I915_FORMAT_MOD_4_TILED:
+> +		/*
+> +		 * Each 4K tile consists of 64B(8*8) subtiles, with
+> +		 * same shape as Y Tile(i.e 4*16B OWords)
+> +		 */
+> +		return 128;
+>  	case I915_FORMAT_MOD_Y_TILED_CCS:
+>  		if (intel_fb_is_ccs_aux_plane(fb, color_plane))
+>  			return 128;
+> @@ -726,6 +735,7 @@ unsigned int intel_surf_alignment(const struct drm_framebuffer *fb,
+>  	case I915_FORMAT_MOD_Y_TILED_CCS:
+>  	case I915_FORMAT_MOD_Yf_TILED_CCS:
+>  	case I915_FORMAT_MOD_Y_TILED:
+> +	case I915_FORMAT_MOD_4_TILED:
 
->  static bool pxp_is_borked(struct drm_i915_gem_object *obj)
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/dr=
-m/i915/gem/i915_gem_context.c
-> index ebd775cb1661c..c62253d0af044 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> @@ -237,7 +237,7 @@ static int proto_context_set_persistence(struct drm_i=
-915_private *i915,
->                  * colateral damage, and we should not pretend we can by
->                  * exposing the interface.
->                  */
-> -               if (!intel_has_reset_engine(&i915->gt))
-> +               if (!intel_has_reset_engine(&i915->gt0))
->                         return -ENODEV;
+The 4-tiled formats need to be mapped via DPT on all platforms, which is
+handled earlier in the func, so handling it here shouldn't be needed.
 
-Prep for all gt. A lot of these need an all-gt interface so we don't
-have for_each_gt spread all other the place.
+>  	case I915_FORMAT_MOD_Yf_TILED:
+>  		return 1 * 1024 * 1024;
+>  	default:
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+> index d0c34bc3af6c..5f2ad0f4bd81 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+> @@ -898,6 +898,8 @@ static bool tiling_is_valid(struct drm_i915_private *i915,
+>  	case I915_FORMAT_MOD_Y_TILED:
+>  	case I915_FORMAT_MOD_Yf_TILED:
+>  		return DISPLAY_VER(i915) >= 9;
+> +	case I915_FORMAT_MOD_4_TILED:
+> +		return HAS_4TILE(i915);
 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/d=
-rm/i915/gem/i915_gem_ttm_move.c
-> index ef22d4ed66ad6..69ad407eb15f3 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-> @@ -166,7 +166,7 @@ static struct dma_fence *i915_ttm_accel_move(struct t=
-tm_buffer_object *bo,
->         enum i915_cache_level src_level, dst_level;
->         int ret;
-> =20
-> -       if (!i915->gt.migrate.context || intel_gt_is_wedged(&i915->gt))
-> +       if (!i915->gt0.migrate.context || intel_gt_is_wedged(&i915->gt0))
+Could return true always, since only HAS_4TILE() platforms will use/pass
+to this func the modifier.
 
-This should already be looking at lmem->gt
+>  	case I915_FORMAT_MOD_X_TILED:
+>  		return true;
+>  	default:
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> index dcd698a02da2..d80855ee9b96 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> @@ -125,6 +125,7 @@ intel_alloc_initial_plane_obj(struct intel_crtc *crtc,
+>  	case DRM_FORMAT_MOD_LINEAR:
+>  	case I915_FORMAT_MOD_X_TILED:
+>  	case I915_FORMAT_MOD_Y_TILED:
+> +	case I915_FORMAT_MOD_4_TILED:
+>  		break;
+>  	default:
+>  		drm_dbg(&dev_priv->drm,
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index 28890876bdeb..000c99ae4042 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -751,6 +751,8 @@ static u32 skl_plane_ctl_tiling(u64 fb_modifier)
+>  		return PLANE_CTL_TILED_X;
+>  	case I915_FORMAT_MOD_Y_TILED:
+>  		return PLANE_CTL_TILED_Y;
+> +	case I915_FORMAT_MOD_4_TILED:
+> +		return PLANE_CTL_TILED_4;
+>  	case I915_FORMAT_MOD_Y_TILED_CCS:
+>  	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC:
+>  		return PLANE_CTL_TILED_Y | PLANE_CTL_RENDER_DECOMPRESSION_ENABLE;
+> @@ -1971,9 +1973,7 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+>  	case DRM_FORMAT_Y216:
+>  	case DRM_FORMAT_XVYU12_16161616:
+>  	case DRM_FORMAT_XVYU16161616:
+> -		if (modifier == DRM_FORMAT_MOD_LINEAR ||
+> -		    modifier == I915_FORMAT_MOD_X_TILED ||
+> -		    modifier == I915_FORMAT_MOD_Y_TILED)
+> +		if (!intel_fb_is_ccs_modifier(modifier))
+>  			return true;
+>  		fallthrough;
+>  	default:
+> @@ -2299,11 +2299,15 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
+>  		else
+>  			fb->modifier = I915_FORMAT_MOD_Y_TILED;
+>  		break;
+> -	case PLANE_CTL_TILED_YF:
+> -		if (val & PLANE_CTL_RENDER_DECOMPRESSION_ENABLE)
+> -			fb->modifier = I915_FORMAT_MOD_Yf_TILED_CCS;
+> -		else
+> -			fb->modifier = I915_FORMAT_MOD_Yf_TILED;
+> +	case PLANE_CTL_TILED_YF: /* aka PLANE_CTL_TILED_4 on XE_LPD+ */
+> +		if ((DISPLAY_VER(dev_priv) >= 13) && HAS_4TILE(dev_priv)) {
 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/dr=
-m/i915/gt/intel_engine_user.c
-> index 8f8bea08e734d..176ea5c7d422f 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-> @@ -116,7 +116,7 @@ static void set_scheduler_caps(struct drm_i915_privat=
-e *i915)
->                         disabled |=3D (I915_SCHEDULER_CAP_ENABLED |
->                                      I915_SCHEDULER_CAP_PRIORITY);
-> =20
-> -               if (intel_uc_uses_guc_submission(&i915->gt.uc))
-> +               if (intel_uc_uses_guc_submission(&i915->gt0.uc))
+Could be just HAS_4TILE().
 
-This shouldn't be looking at gt at all, but if it must, that information
-must be coming via engine->gt. Kind of renders the mapping moot
-currently.
-> diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/g=
-t/intel_rps.c
-> index 07ff7ba7b2b71..63089e671a242 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_rps.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-> @@ -2302,7 +2302,7 @@ unsigned long i915_read_mch_val(void)
->                 return 0;
-> =20
->         with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-> -               struct intel_ips *ips =3D &i915->gt.rps.ips;
-> +               struct intel_ips *ips =3D &i915->gt0.rps.ips;
+> +			fb->modifier = I915_FORMAT_MOD_4_TILED;
+> +		} else {
+> +			if (val & PLANE_CTL_RENDER_DECOMPRESSION_ENABLE)
+> +				fb->modifier = I915_FORMAT_MOD_Yf_TILED_CCS;
+> +			else
+> +				fb->modifier = I915_FORMAT_MOD_Yf_TILED;
+> +		}
+>  		break;
+>  	default:
+>  		MISSING_CASE(tiling);
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index 6f9f20a10c0c..d4be97419332 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -1627,6 +1627,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+>  #define CMDPARSER_USES_GGTT(dev_priv) (GRAPHICS_VER(dev_priv) == 7)
+>  
+>  #define HAS_LLC(dev_priv)	(INTEL_INFO(dev_priv)->has_llc)
+> +#define HAS_4TILE(dev_priv)    (INTEL_INFO(dev_priv)->has_4tile)
+>  #define HAS_SNOOP(dev_priv)	(INTEL_INFO(dev_priv)->has_snoop)
+>  #define HAS_EDRAM(dev_priv)	((dev_priv)->edram_size_mb)
+>  #define HAS_SECURE_BATCHES(dev_priv) (GRAPHICS_VER(dev_priv) < 6)
+> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> index 4c7fcc5f9a97..49da25d736af 100644
+> --- a/drivers/gpu/drm/i915/i915_pci.c
+> +++ b/drivers/gpu/drm/i915/i915_pci.c
+> @@ -1037,6 +1037,7 @@ static const struct intel_device_info dg2_info = {
+>  	DGFX_FEATURES,
+>  	.graphics.rel = 55,
+>  	.media.rel = 55,
+> +	.has_4tile = 1,
+>  	PLATFORM(INTEL_DG2),
+>  	.platform_engine_mask =
+>  		BIT(RCS0) | BIT(BCS0) |
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index f15ffc53e858..7813a56473e5 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -7279,6 +7279,7 @@ enum {
+>  #define   PLANE_CTL_TILED_X			(1 << 10)
+>  #define   PLANE_CTL_TILED_Y			(4 << 10)
+>  #define   PLANE_CTL_TILED_YF			(5 << 10)
+> +#define   PLANE_CTL_TILED_4			(5 << 10)
+>  #define   PLANE_CTL_ASYNC_FLIP			(1 << 9)
+>  #define   PLANE_CTL_FLIP_HORIZONTAL		(1 << 8)
+>  #define   PLANE_CTL_MEDIA_DECOMPRESSION_ENABLE	(1 << 4) /* TGL+ */
+> diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+> index 669f0d26c3c3..67177e18704a 100644
+> --- a/drivers/gpu/drm/i915/intel_device_info.h
+> +++ b/drivers/gpu/drm/i915/intel_device_info.h
+> @@ -125,6 +125,7 @@ enum intel_ppgtt_type {
+>  	func(has_64bit_reloc); \
+>  	func(gpu_reset_clobbers_display); \
+>  	func(has_reset_engine); \
+> +	func(has_4tile); \
+>  	func(has_global_mocs); \
+>  	func(has_gt_uc); \
+>  	func(has_l3_dpf); \
+> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+> index 89dc7f69baf3..310588354202 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_pm.c
+> @@ -5378,6 +5378,7 @@ skl_compute_wm_params(const struct intel_crtc_state *crtc_state,
+>  	}
+>  
+>  	wp->y_tiled = modifier == I915_FORMAT_MOD_Y_TILED ||
+> +		      modifier == I915_FORMAT_MOD_4_TILED ||
+>  		      modifier == I915_FORMAT_MOD_Yf_TILED ||
+>  		      modifier == I915_FORMAT_MOD_Y_TILED_CCS ||
+>  		      modifier == I915_FORMAT_MOD_Yf_TILED_CCS;
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+> index 7f652c96845b..cb64d810c15d 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -564,6 +564,14 @@ extern "C" {
+>   * pitch is required to be a multiple of 4 tile widths.
+>   */
+>  #define I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC fourcc_mod_code(INTEL, 8)
+> +/*
+> + * Intel F-tiling(aka Tile4) layout
+> + *
+> + * This is a tiled layout using 4Kb tiles in row-major layout.
+> + * Within the tile pixels are laid out in 64 byte units / sub-tiles in OWORD
+> + * (16 bytes) chunks column-major..
+> + */
+> +#define I915_FORMAT_MOD_4_TILED         fourcc_mod_code(INTEL, 12)
 
-Make mchdev_get() return the gt or rps, at the slight cost of making the
-drm_dev_put() more complicated (but can be pushed into a mchdev_put for
-symmetry).
+The encoding should be 9. I requested keeping this at 12 originally, but
+that request can be ignored, as there is no need to reserve the space
+for ADLP modifiers.
 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/dr=
-m/i915/gt/intel_workarounds.c
-> index a9727447c0379..4bfedc04f5c70 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -936,7 +936,7 @@ hsw_gt_workarounds_init(struct intel_gt *gt, struct i=
-915_wa_list *wal)
->  static void
->  gen9_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
->  {
-> -       const struct sseu_dev_info *sseu =3D &i915->gt.info.sseu;
-> +       const struct sseu_dev_info *sseu =3D &i915->gt0.info.sseu;
+With the above comments addressed the patch looks ok:
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 
-This feels like it should be pulling from uncore->gt, since the MCR is
-across an uncore.
-
-Overall though, rather than introduce bare &i915->gt0, how about pulling in
-the patch for to_gt(i915)?
--Chris
+>  
+>  /*
+>   * Tiled, NV12MT, grouped in 64 (pixels) x 32 (lines) -sized macroblocks
+> -- 
+> 2.24.1.485.gad05a3d8e5
+> 
