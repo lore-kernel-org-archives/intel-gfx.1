@@ -2,38 +2,47 @@ Return-Path: <SRS0=4n+h=QE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8128DC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DCBEC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:21:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DE9161BE1
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0DE9161BE1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id F162661BF5
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:21:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F162661BF5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51836E971;
-	Wed, 17 Nov 2021 15:21:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7D5966E971;
- Wed, 17 Nov 2021 15:21:48 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 75DBDAA01E;
- Wed, 17 Nov 2021 15:21:48 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86C1C6E973;
+	Wed, 17 Nov 2021 15:21:52 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4346E973
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 15:21:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="257733834"
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="257733834"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2021 07:21:46 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,241,1631602800"; d="scan'208";a="645902160"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga001.fm.intel.com with SMTP; 17 Nov 2021 07:21:44 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 17 Nov 2021 17:21:43 +0200
+Date: Wed, 17 Nov 2021 17:21:43 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <YZUeB01L6HBXxGTT@intel.com>
+References: <20211116154234.15696-1-jani.nikula@intel.com>
+ <20211116154234.15696-2-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
-Date: Wed, 17 Nov 2021 15:21:48 -0000
-Message-ID: <163716250847.18220.13118561344314937069@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211117110100.8991-1-stanislav.lisovskiy@intel.com>
-In-Reply-To: <20211117110100.8991-1-stanislav.lisovskiy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/dg2=3A_Tile_4_plane_format_support_=28rev3=29?=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211116154234.15696-2-jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/trace: split out display trace
+ to a separate file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,21 +55,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Tue, Nov 16, 2021 at 05:42:34PM +0200, Jani Nikula wrote:
+> Add display/intel_display_trace.[ch] for defining display
+> tracepoints. The main goal is to reduce cross-includes between gem and
+> display. It would be possible split up tracing even further, but that
+> would lead to more boilerplate.
+> 
+> There should be no changes to tracepoints.
+> 
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/Makefile                 |   1 +
+>  .../gpu/drm/i915/display/intel_atomic_plane.c |   5 +-
+>  drivers/gpu/drm/i915/display/intel_crtc.c     |   5 +-
+>  .../drm/i915/display/intel_display_trace.c    |   9 +
+>  .../drm/i915/display/intel_display_trace.h    | 588 ++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_fbc.c      |   2 +-
+>  .../drm/i915/display/intel_fifo_underrun.c    |   2 +-
+>  .../gpu/drm/i915/display/intel_frontbuffer.c  |   7 +-
+>  drivers/gpu/drm/i915/display/intel_sprite.c   |   1 -
+>  drivers/gpu/drm/i915/i915_debugfs.c           |   1 -
+>  drivers/gpu/drm/i915/i915_drv.c               |   1 -
+>  drivers/gpu/drm/i915/i915_irq.c               |   2 +-
+>  drivers/gpu/drm/i915/i915_trace.h             | 567 -----------------
+>  drivers/gpu/drm/i915/intel_pm.c               |   2 +-
+>  14 files changed, 610 insertions(+), 583 deletions(-)
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_display_trace.c
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_display_trace.h
+> 
+<snip>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.c b/drivers/gpu/drm/i915/display/intel_display_trace.c
+> new file mode 100644
+> index 000000000000..737979ada869
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/display/intel_display_trace.c
+> @@ -0,0 +1,9 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright © 2021 Intel Corporation
+> + */
+> +
+> +#ifndef __CHECKER__
+> +#define CREATE_TRACE_POINTS
+> +#include "intel_display_trace.h"
+> +#endif
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers/gpu/drm/i915/display/intel_display_trace.h
+> new file mode 100644
+> index 000000000000..8608f5a6ff32
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
+> @@ -0,0 +1,588 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#undef TRACE_SYSTEM
+> +#define TRACE_SYSTEM i915
+> +
+> +#if !defined(__INTEL_DISPLAY_TRACE_H__) || defined(TRACE_HEADER_MULTI_READ)
+> +#define __INTEL_DISPLAY_TRACE_H__
+> +
+> +#include <linux/types.h>
+> +#include <linux/tracepoint.h>
+> +
+> +#include "i915_drv.h"
+> +#include "intel_crtc.h"
+> +#include "intel_display_types.h"
+> +
+> +/* watermark/fifo updates */
 
-Series: drm/i915/dg2: Tile 4 plane format support (rev3)
-URL   : https://patchwork.freedesktop.org/series/95715/
-State : warning
+That comment is a bit misplaced. I guess it already was like that in the
+old file. Maybe just nuke all these comments? I don't think they really
+serve any useful purpose.
 
-== Summary ==
+Series is
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-
-
+-- 
+Ville Syrjälä
+Intel
