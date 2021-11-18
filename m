@@ -2,40 +2,45 @@ Return-Path: <SRS0=1k+4=QF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFF35C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D74EC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:34:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B03FF61A79
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:31:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B03FF61A79
+	by mail.kernel.org (Postfix) with ESMTPS id 150D461ABA
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:34:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 150D461ABA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0176E5A4;
-	Thu, 18 Nov 2021 22:31:33 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F32126E5A2;
- Thu, 18 Nov 2021 22:31:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="295122450"
-X-IronPort-AV: E=Sophos;i="5.87,246,1631602800"; d="scan'208";a="295122450"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2021 14:31:30 -0800
-X-IronPort-AV: E=Sophos;i="5.87,246,1631602800"; d="scan'208";a="495598180"
-Received: from marthapr-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.255.35.105])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2021 14:31:26 -0800
-Date: Thu, 18 Nov 2021 17:31:24 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <YZbUPIHpR1S3JZ2b@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEB06E4EC;
+	Thu, 18 Nov 2021 22:34:07 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6BD6E4EC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 22:34:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="234255741"
+X-IronPort-AV: E=Sophos;i="5.87,246,1631602800"; d="scan'208";a="234255741"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2021 14:34:04 -0800
+X-IronPort-AV: E=Sophos;i="5.87,246,1631602800"; d="scan'208";a="455523796"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2021 14:34:04 -0800
+Date: Thu, 18 Nov 2021 14:47:25 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Message-ID: <20211118224721.GA29932@labuser-Z97X-UD5H>
+References: <20211111230949.28590-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211111230949.28590-1-manasi.d.navare@intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/dsc: Clamp the max DSC
+ input BPP to connector's max bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,46 +53,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
+@Jani , @Ville, can you take a look at this, this was how the original DSC patches
+clamped the max bpp, but with latest DSC changes looks like this is not
+obeyed anymore and needs to be fixed.
 
-Here goes drm-intel-fixes-2021-11-18:
+Manasi
 
-One quick fix for return error handling, one fix for ADL-P display
-and one revert targeting stable 5.4, for TGL's DSI display clocks
-
-Thanks,
-Rodrigo.
-
-The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
-
-  Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-11-18
-
-for you to fetch changes up to 8b2abf777d8ea8d8db15af553454e0e976804225:
-
-  drm/i915/guc: fix NULL vs IS_ERR() checking (2021-11-17 08:46:55 -0500)
-
-----------------------------------------------------------------
-One quick fix for return error handling, one fix for ADL-P display
-and one revert targeting stable 5.4, for TGL's DSI display clocks
-
-----------------------------------------------------------------
-Dan Carpenter (1):
-      drm/i915/guc: fix NULL vs IS_ERR() checking
-
-Vandita Kulkarni (2):
-      Revert "drm/i915/tgl/dsi: Gate the ddi clocks after pll mapping"
-      drm/i915/dsi/xelpd: Fix the bit mask for wakeup GB
-
- drivers/gpu/drm/i915/display/icl_dsi.c            | 13 ++++---------
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c |  4 ++--
- drivers/gpu/drm/i915/i915_reg.h                   |  4 +++-
- 3 files changed, 9 insertions(+), 12 deletions(-)
+On Thu, Nov 11, 2021 at 03:09:49PM -0800, Manasi Navare wrote:
+> Pipe_bpp limits are decided by connectors max bpp as computed in
+> compute_sink_pipe_bpp() before computing link and DSC config.
+> Currently dsc_compute_config() sets the max input bpp only based
+> on DSC Input BPPs supported and max bpc requested for the connector
+> but does not clamp it based on connector's max bpp.
+> This patch fixes that.
+> 
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 45373c213d9e..82209d995969 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -1400,6 +1400,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+>  		return -EINVAL;
+>  
+>  	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
+> +	pipe_bpp = min(pipe_bpp, limits->max_bpp);
+>  
+>  	/* Min Input BPC for ICL+ is 8 */
+>  	if (pipe_bpp < 8 * 3) {
+> -- 
+> 2.19.1
+> 
