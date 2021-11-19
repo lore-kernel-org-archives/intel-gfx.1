@@ -2,44 +2,43 @@ Return-Path: <SRS0=Vy2F=QG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E095FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB03C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E8116102A
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:09:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E8116102A
+	by mail.kernel.org (Postfix) with ESMTPS id 5C50261057
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5C50261057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429996E0CB;
-	Fri, 19 Nov 2021 14:09:10 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A29026E270
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 14:09:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="234248902"
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="234248902"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 06:09:07 -0800
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="537111979"
-Received: from sjschmid-mobl1.amr.corp.intel.com (HELO
- josouza-mobl2.amr.corp.intel.com) ([10.212.22.100])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 06:09:06 -0800
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFE0F6E0CB;
+	Fri, 19 Nov 2021 14:11:25 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484616E270
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 14:11:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="320632706"
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="320632706"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 06:11:23 -0800
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="673223688"
+Received: from sgconnee-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.21.83])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 06:11:20 -0800
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 Nov 2021 06:09:31 -0800
-Message-Id: <20211119140931.32791-2-jose.souza@intel.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211119140931.32791-1-jose.souza@intel.com>
-References: <20211119140931.32791-1-jose.souza@intel.com>
+Date: Fri, 19 Nov 2021 16:11:08 +0200
+Message-Id: <20211119141109.644548-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Add workaround numbers to
- GEN7_COMMON_SLICE_CHICKEN1 whitelisting
+Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915/trace: clean up boilerplate
+ organization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,35 +51,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com, chris@chris-wilson.co.uk
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Those two workarounds needs to be implemented in UMD, KMD only needs
-to whitelist the registers, so here only adding the workaround number
-to facilitate future workaroud table checks.
+Follow the style that seems to be prevalent in kernel for undef and
+define of TRACE_SYSTEM, TRACE_INCLUDE_PATH, and TRACE_INCLUDE_FILE.
 
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+There should be no changes to tracepoints.
+
+v2: Keep TRACE_INCLUDE_PATH relative to define_trace.h (Chris)
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_trace.h | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index cd2935b9e7c81..c3211325c2d3e 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1869,7 +1869,11 @@ static void tgl_whitelist_build(struct intel_engine_cs *engine)
- 				  RING_FORCE_TO_NONPRIV_ACCESS_RD |
- 				  RING_FORCE_TO_NONPRIV_RANGE_4);
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+index 6b8fb6ffe8da..fa00c7a461d6 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -1,4 +1,8 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
++
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM i915
++
+ #if !defined(_I915_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
+ #define _I915_TRACE_H_
  
--		/* Wa_1808121037:tgl */
-+		/*
-+		 * Wa_1808121037:tgl
-+		 * Wa_14012131227:dg1
-+		 * Wa_1508744258:tgl,rkl,dg1,adl-s,adl-p
-+		 */
- 		whitelist_reg(w, GEN7_COMMON_SLICE_CHICKEN1);
+@@ -15,10 +19,6 @@
+ #include "i915_drv.h"
+ #include "i915_irq.h"
  
- 		/* Wa_1806527549:tgl */
+-#undef TRACE_SYSTEM
+-#define TRACE_SYSTEM i915
+-#define TRACE_INCLUDE_FILE i915_trace
+-
+ /* watermark/fifo updates */
+ 
+ TRACE_EVENT(intel_pipe_enable,
+@@ -1331,5 +1331,7 @@ DEFINE_EVENT(i915_context, i915_context_free,
+ 
+ /* This part must be outside protection */
+ #undef TRACE_INCLUDE_PATH
++#undef TRACE_INCLUDE_FILE
+ #define TRACE_INCLUDE_PATH ../../drivers/gpu/drm/i915
++#define TRACE_INCLUDE_FILE i915_trace
+ #include <trace/define_trace.h>
 -- 
-2.33.1
+2.30.2
 
