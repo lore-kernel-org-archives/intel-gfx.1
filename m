@@ -2,56 +2,64 @@ Return-Path: <SRS0=Vy2F=QG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68AC4C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81A40C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 15:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D97B615E2
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:58:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D97B615E2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 326ED61B1B
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 15:00:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 326ED61B1B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD2AE6E214;
-	Fri, 19 Nov 2021 14:58:38 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A976EA09
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 14:58:37 +0000 (UTC)
-Date: Fri, 19 Nov 2021 15:58:34 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1637333916;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=05S1EPoS2uCX2lmLqI0lPAWhqGCTzNdjavtXIoQ/TEk=;
- b=RvfRVk2nS+wgtRkmEnsBnoqdfzI5lU1hbXVq59T69+buDeuS/MGkwwbJBA0cQuRmz2b+fH
- ecotyNv309e/26bd4sXyQLy9qaa9SHsHrt/aWDnmSUg7bPkxwdN8UPgeO/4Y+cIWR0dnAx
- M6RMCepU0vuZiMUzBn7KUeTT0la+XY18nr/QmA/036MfCP9wrM4mWVG5oA16QbRPXTbT1q
- f/QNUyf4v7ZD2XMYAgWUYdwUN4oGRtG3lZj7kZ/4Jc+44j/4ELWAeZjP1hMC8RBAIyMW3M
- Bk9+YmG5g4hoVRJq/sbIMz+yc5BUAv04MD7xl9iSDgw9P9H0H77f/rKsv19dpw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1637333916;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=05S1EPoS2uCX2lmLqI0lPAWhqGCTzNdjavtXIoQ/TEk=;
- b=jugc2L0BBz+Yx/J6dauORXJUrsMcKoiZwIINxK52Hop8ihgrx6RxnTyHtfin/MCdnldzFQ
- 0pdez5f9/gs5HSAw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: intel-gfx@lists.freedesktop.org
-Message-ID: <20211119145834.dmdhs74dqr7dcdt7@linutronix.de>
-References: <20211118165914.pckik75emivsilek@linutronix.de>
- <163731167626.2300.15452635334943775421@emeril.freedesktop.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 944A36EB19;
+	Fri, 19 Nov 2021 15:00:50 +0000 (UTC)
+X-Greylist: delayed 761 seconds by postgrey-1.36 at gabe;
+ Fri, 19 Nov 2021 15:00:48 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 453DF6EB2A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 15:00:48 +0000 (UTC)
+Received: from mail-yb1-f175.google.com ([209.85.219.175]) by
+ mrelayeu.kundenserver.de (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MS4WT-1nFsnX3syZ-00TRGY for <intel-gfx@lists.freedesktop.org>; Fri, 19
+ Nov 2021 15:48:05 +0100
+Received: by mail-yb1-f175.google.com with SMTP id y68so29102049ybe.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 06:48:04 -0800 (PST)
+X-Gm-Message-State: AOAM530deF+yOa9CFpxiLmrzzdaqX7mnmZsmGEz1K5d3NeRLyEMg9ZCE
+ e6oU2g3nnSv8heTcz8Rw7kJ+RXQL44Z3LuOfdaI=
+X-Google-Smtp-Source: ABdhPJyEA9Cm9jWRHlNRoILV4HxXKS70yYn95cfqEWkgZ0erwiDK8IdJrB6FynNXAmz1W8+x37fIqweN9je4/+8NifA=
+X-Received: by 2002:a05:6830:453:: with SMTP id
+ d19mr5257576otc.72.1637333272785; 
+ Fri, 19 Nov 2021 06:47:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <163731167626.2300.15452635334943775421@emeril.freedesktop.org>
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLklHVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Don=27t_disable_interrupts_and_pretend_a_lock_as_been_?=
- =?utf-8?b?YWNxdWlyZWQgaW4gX190aW1lbGluZV9tYXJrX2xvY2soKS4=?=
+References: <20211119113644.1600-1-alx.manpages@gmail.com>
+In-Reply-To: <20211119113644.1600-1-alx.manpages@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 19 Nov 2021 15:47:35 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a0qT9tAxFkLN_vJYRcocDW2TcBq79WcYKZFyAG0udZx5Q@mail.gmail.com>
+Message-ID: <CAK8P3a0qT9tAxFkLN_vJYRcocDW2TcBq79WcYKZFyAG0udZx5Q@mail.gmail.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:d5jEk60uqwLj7IN+nanPXpAetVxsp2ocJsU32nTRKafx1cdRGCw
+ BwXrArM2mxT+uQYW9Eofcfk89qeUnEREf5fn6B690HjzyT+nT6agivu/XYiGFWPoy1M6EOA
+ NOdLamVlzrnC5sfH5CiGVC9WcYcfED6DQR+Fpb1B9tkWSGSDtTsQYYjzZgH5SqyzrmxGs5S
+ lAjHzsmtEC34MxkyXNakg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:auVyOa3j3wI=:Qv4r5l40pfd6kde2BX8X2+
+ Eq+ukZDyhG76jfh1RkuIUObLb0OBkuxFidFz0Os3N2I8pGBSBPXbCb0i6JW202vNLL9tzBTIG
+ nutpxhQ8OYW4XDaedYmDWZ5I2LptG/hQeRXI6ktxLbDw+xT0NrE8wJ2osDmT7317Vtih80vkt
+ pdHG0oDSzCK2VTuPup+6DrIiQq6DscgEAUlWvajeEXIKapoRSe4OlFsecHTq4vJDa3dqzFVfI
+ /uGkBTk4pSLHgDhCPP/UYh1vUEM3oZmsjo9oACYqzHamH2ktICNo2DYtRqjOoU2mWZabJHBZN
+ fJCpqiMz5OmmtutE64hKRyXcakqveDXuoac+U5zX/B/POOjbc9Xiuha554UYows39/Qw/AkYK
+ WLY/eKdD1d3d/Zcn6Y1ATy0I688KBSXtc7xbyAkYqTluqyTKb/KZSBUnqAi92jJ+LjRp4olOb
+ 0F9oMPXGk9+9AVNUTSdcFwqKCUeT9vMytWllEGewzHwpheZeYeWfZwFtwDY+r+Z2vkA+oUjsw
+ y0xpmdh3+uKU6vs3v72/oDu0B055DAL66I0ywOc37/vEhiCBoRBSIPrDTjiEysTKsp+csODFk
+ ohU7JgtGSerLnJHBQUs7rtmhGF9ZmexjR57tqbNtmxRgicZ+CQciSIEo2y/rmR/bdVnWi9Zxe
+ JdrVFkCGtcoi5EKgstOSmzDGmX/OpH60fqLT9l0ixzwsfHc5MHF+/On9RCMZ6RukIFhXQJZxS
+ 01YEsbHtnQ7r42oN4IQfTMhwckQSFTCymdRF4xyAlJSYSuggNgN+OsgMnyeWuxuRdnU/xzA4f
+ lRXt0z0G2xa4BDgQ3LGtxAHxZsuNvvespyo93SC2ocqtROZDl0=
+Subject: Re: [Intel-gfx] [PATCH 00/17] Add memberof(), split some headers,
+ and slightly simplify code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,48 +72,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tglx@linutronix.de
+Cc: Corey Minyard <cminyard@mvista.com>,
+ Ajit Khaparde <ajit.khaparde@broadcom.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Chris Mason <clm@fb.com>,
+ Christian Brauner <christian.brauner@ubuntu.com>,
+ Ketan Mukadam <ketan.mukadam@broadcom.com>,
+ Somnath Kotur <somnath.kotur@broadcom.com>, linux-scsi@vger.kernel.org,
+ Subbu Seetharaman <subbu.seetharaman@broadcom.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Mike Rapoport <rppt@linux.ibm.com>, linux-acpi@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, Borislav Petkov <bp@suse.de>,
+ virtualization@lists.linux-foundation.org, Len Brown <lenb@kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+ John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ Josef Bacik <josef@toxicpanda.com>,
+ Jitendra Bhivare <jitendra.bhivare@broadcom.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ David Sterba <dsterba@suse.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Sriharsha Basavapatna <sriharsha.basavapatna@broadcom.com>,
+ netdev@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ LKML <linux-kernel@vger.kernel.org>, "John S . Gruber" <JohnSGruber@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-11-19 08:47:56 [-0000], Patchwork wrote:
-> == Series Details ==
-> 
-> Series: drm/i915: Don't disable interrupts and pretend a lock as been acquired in __timeline_mark_lock().
-> URL   : https://patchwork.freedesktop.org/series/97082/
-> State : failure
-> 
-> == Summary ==
-> 
-> CI Bug Log - changes from CI_DRM_10900_full -> Patchwork_21633_full
-> ====================================================
-> 
-> Summary
-> -------
-> 
->   **FAILURE**
-> 
->   Serious unknown changes coming with Patchwork_21633_full absolutely need to be
->   verified manually.
->   
->   If you think the reported changes have nothing to do with the changes
->   introduced in Patchwork_21633_full, please notify your bug team to allow them
->   to document this new failure mode, which will reduce false positives in CI.
+On Fri, Nov 19, 2021 at 12:36 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Alejandro Colomar (17):
+>   linux/container_of.h: Add memberof(T, m)
+>   Use memberof(T, m) instead of explicit NULL dereference
+>   Replace some uses of memberof() by its wrappers
+>   linux/memberof.h: Move memberof() to separate header
+>   linux/typeof_member.h: Move typeof_member() to a separate header
+>   Simplify sizeof(typeof_member()) to sizeof_field()
+>   linux/NULL.h: Move NULL to a separate header
+>   linux/offsetof.h: Move offsetof(T, m) to a separate header
+>   linux/offsetof.h: Implement offsetof() in terms of memberof()
+>   linux/container_of.h: Implement container_of_safe() in terms of
+>     container_of()
+>   linux/container_of.h: Cosmetic
+>   linux/container_of.h: Remove unnecessary cast to (void *)
 
-My bug team?
+My feeling is that this takes the separation too far: by having this many header
+files that end up being included from practically every single .c file
+in the kernel,
+I think you end up making compile speed worse overall.
 
-> #### Possible regressions ####
-> 
->   * igt@kms_vblank@pipe-b-query-forked-hang:
->     - shard-tglb:         [PASS][1] -> [INCOMPLETE][2]
->    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10900/shard-tglb8/igt@kms_vblank@pipe-b-query-forked-hang.html
->    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21633/shard-tglb6/igt@kms_vblank@pipe-b-query-forked-hang.html
+If your goal is to avoid having to recompile as much of the kernel
+after touching
+a header, I think a better approach is to help untangle the dependencies, e.g.
+by splitting out type definitions from headers with inline functions (most
+indirect header dependencies are on type definitions) and by focusing on
+linux/fs.h, linux/sched.h, linux/mm.h and how they interact with the rest of the
+headers. At the moment, these are included in most .c files and they in turn
+include a ton of other headers.
 
-By comparing the two dmesg outputs I see that the INCOMPLETE ones stops,
-while the PASS one continues with
-|<7> [82.256394] heartbeat rcs0 heartbeat {seqno:5:7, prio:2147483646} not ticking
-
-I cloned igt-gpu-tools and run 'kms_vblank' on my box. I was a little
-surprised by the suspend part but the test passed here.
-
-Sebastian
+          Arnd
