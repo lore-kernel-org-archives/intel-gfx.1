@@ -2,89 +2,73 @@ Return-Path: <SRS0=Vy2F=QG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A20C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 15:16:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB1F5C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 15:16:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B855619BB
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 15:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0B855619BB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=akamai.com
+	by mail.kernel.org (Postfix) with ESMTPS id 934A5619BB
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 15:16:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 934A5619BB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA58E6EAE2;
-	Fri, 19 Nov 2021 15:16:47 +0000 (UTC)
-Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
- [IPv6:2620:100:9005:57f::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B75D6E96C;
- Thu, 18 Nov 2021 14:30:41 +0000 (UTC)
-Received: from pps.filterd (m0050096.ppops.net [127.0.0.1])
- by m0050096.ppops.net-00190b01. (8.16.1.2/8.16.1.2) with ESMTP id
- 1AIBKkIv005884; Thu, 18 Nov 2021 14:30:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=EEv+FO0y2LcqM6PtDCyOArBwCLcxVvnGTnV08q5cqI8=;
- b=Idci0ujFpG3jtuCOuphPhIyMPpDzd5jCyJYZOmtKJTGkLCERXkSH3wcbAMdk9gVmJm+H
- YDbEK+jUygH6ci5qP1UHTxs+AxWiIrRHPsHDGuYOqJvp+457GfAT7AZOFEIVIvanYWvZ
- cy/J+/X7EA5rFT8quo9FuATXp5KPGLhk7F6+C66o8jZb2RKBRgzmOidWTJfvfw5Vw23j
- ZWq2uaYUaAVOCPqPY1jM1krTTcTUl20PWIcGAdh+XCIfkjIGr8HYmIrK0xxPVpDxTyK0
- a6EOxiUmF1MrznpM4CZAj+iypwVjkAkumF4V9snAwT6Lulcrv1OvRFd8OGypNmyE+JfZ 9g== 
-Received: from prod-mail-ppoint8
- (a72-247-45-34.deploy.static.akamaitechnologies.com [72.247.45.34] (may be
- forged))
- by m0050096.ppops.net-00190b01. (PPS) with ESMTPS id 3cdnvjuq7y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Nov 2021 14:30:05 +0000
-Received: from pps.filterd (prod-mail-ppoint8.akamai.com [127.0.0.1])
- by prod-mail-ppoint8.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
- 1AIEK558022965; Thu, 18 Nov 2021 09:29:29 -0500
-Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
- by prod-mail-ppoint8.akamai.com with ESMTP id 3ccjst50g6-1;
- Thu, 18 Nov 2021 09:29:29 -0500
-Received: from [0.0.0.0] (unknown [172.27.119.138])
- by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id 2366F3DA;
- Thu, 18 Nov 2021 14:29:28 +0000 (GMT)
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
- <20211112114953.GA1381@axis.com>
- <f3914fa9-8b22-d54e-3f77-d998e74094b9@akamai.com>
- <20211116104631.195cbd0b@eldfell>
-From: Jason Baron <jbaron@akamai.com>
-Message-ID: <f87b7076-47e6-89b1-aaf9-b67aa6713e01@akamai.com>
-Date: Thu, 18 Nov 2021 09:29:27 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E77876EB87;
+	Fri, 19 Nov 2021 15:16:48 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B22786ECB8
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 15:06:33 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ d72-20020a1c1d4b000000b00331140f3dc8so7752385wmd.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 07:06:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=9LghidGzK5wVxoEesb/L8gTDRQW74I1XzqD+h7Ydxd8=;
+ b=ThJg3WF09aFCTuH2nUMR2RjPEiyZEHH/Ew5m2/uZZSMAXSP+tUthdSO1fmjo2qKWeU
+ 45Hn8Hgn91hV5q+U6rorUGLM2sMuPDHYa9LJlaaq4CGvWIdUAiWRzi7l32411ezoz7Ed
+ UfEhsgFqn/TYVjlTQ1x6OtTfh4ZgxcGVNdiY8dyFmAyRcy8suheoHZR/1Dey0LgdcvG+
+ mankWsi9N4kQ6WRh+ekZfYzxKW7qeB6RN1v8FkSZ+4tesaMcXM8Cgfdtx8KejMMX8Vg5
+ 5KEZ1IPldun0lw36a/VB9DNib6XHhQiudT9RMvJEyRiGROFsOfg9l4q11bv5IhtZMxc3
+ R0yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=9LghidGzK5wVxoEesb/L8gTDRQW74I1XzqD+h7Ydxd8=;
+ b=Bu0OgroVOCFLX3IKZ+oWvzwIlYnymdldr5Va1oyCrhH90cfvpc3rjKABp3et2jSp2j
+ cuZGrXS9+VMgYnMIlI3lC1jUSN5CX48iqEvuO3ardcnPGLCVykp5vfQNVik/9sW65esz
+ J9p0dgJcz7vXhcedRt6zXDKbaNXjQNYJ46nLwZ1D9/hy4Y585HHCY9zB+I6KZinx/yQi
+ k+3lEQF+kLh8bRwwCRLetl4ZQRhsgOgIeuQqtKvxNsX229rGF/JwftFp4geOPEWlU7qb
+ rkPOLmVcAZHK3NIGYeUIXBFOwUx9OwwMm4039CqIoRDIl4vykqONcrZ/8qvt6kST/VuE
+ AG6Q==
+X-Gm-Message-State: AOAM533/tsWU7RT/yU24B3vUFNPQPA9/NBAPyAAa79ormxKTQrsZvUXS
+ zkTR/7OW1R5n9Mt2143lUGI=
+X-Google-Smtp-Source: ABdhPJzu9ei/pAU2yn2kzxvlKTIuV+OQKa9BIy8XnEer1U+7uUmszt8b/HqJvarFM0xoXQ8IPgXm6g==
+X-Received: by 2002:a1c:6a0e:: with SMTP id f14mr409487wmc.58.1637334391087;
+ Fri, 19 Nov 2021 07:06:31 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+ by smtp.gmail.com with ESMTPSA id u23sm29930wru.21.2021.11.19.07.06.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 Nov 2021 07:06:30 -0800 (PST)
+Message-ID: <434296d3-8fe1-f1d2-ee9d-ea25d6c4e43e@gmail.com>
+Date: Fri, 19 Nov 2021 16:06:27 +0100
 MIME-Version: 1.0
-In-Reply-To: <20211116104631.195cbd0b@eldfell>
-Content-Type: text/plain; charset=windows-1252
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
 Content-Language: en-US
+To: Arnd Bergmann <arnd@arndb.de>
+References: <20211119113644.1600-1-alx.manpages@gmail.com>
+ <CAK8P3a0qT9tAxFkLN_vJYRcocDW2TcBq79WcYKZFyAG0udZx5Q@mail.gmail.com>
+From: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <CAK8P3a0qT9tAxFkLN_vJYRcocDW2TcBq79WcYKZFyAG0udZx5Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.790
- definitions=2021-11-18_12:2021-11-17,
- 2021-11-18 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- suspectscore=0 bulkscore=0
- spamscore=0 phishscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111180080
-X-Proofpoint-ORIG-GUID: PZH91yPu5Slhl0tBH1YNzfOEtC8OZPwU
-X-Proofpoint-GUID: PZH91yPu5Slhl0tBH1YNzfOEtC8OZPwU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-18_12,2021-11-17_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 suspectscore=0
- bulkscore=0 adultscore=0 mlxlogscore=999 spamscore=0 impostorscore=0
- mlxscore=0 phishscore=0 malwarescore=0 clxscore=1011 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111180081
 X-Mailman-Approved-At: Fri, 19 Nov 2021 15:16:46 +0000
-Subject: Re: [Intel-gfx] [PATCH v10 08/10] dyndbg: add print-to-tracefs,
- selftest with it - RFC
+Subject: Re: [Intel-gfx] [PATCH 00/17] Add memberof(), split some headers,
+ and slightly simplify code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,118 +81,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_saipraka@quicinc.com, catalin.marinas@arm.com,
- dri-devel@lists.freedesktop.org, will@kernel.org,
- intel-gvt-dev@lists.freedesktop.org,
- Vincent Whitchurch <vincent.whitchurch@axis.com>,
- amd-gfx@lists.freedesktop.org, mingo@redhat.com, daniel.vetter@ffwll.ch,
- arnd@arndb.de, linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
- linux-arm-kernel@lists.infradead.org, Jim Cromie <jim.cromie@gmail.com>,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- quic_psodagud@quicinc.com, maz@kernel.org, seanpaul@chromium.org
+Cc: Corey Minyard <cminyard@mvista.com>,
+ Ajit Khaparde <ajit.khaparde@broadcom.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Chris Mason <clm@fb.com>,
+ Christian Brauner <christian.brauner@ubuntu.com>,
+ Ketan Mukadam <ketan.mukadam@broadcom.com>,
+ Somnath Kotur <somnath.kotur@broadcom.com>, linux-scsi@vger.kernel.org,
+ Subbu Seetharaman <subbu.seetharaman@broadcom.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Mike Rapoport <rppt@linux.ibm.com>, linux-acpi@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, Borislav Petkov <bp@suse.de>,
+ virtualization@lists.linux-foundation.org, Len Brown <lenb@kernel.org>,
+ Kees Cook <keescook@chromium.org>, John Hubbard <jhubbard@nvidia.com>,
+ intel-gfx@lists.freedesktop.org, Josef Bacik <josef@toxicpanda.com>,
+ Jitendra Bhivare <jitendra.bhivare@broadcom.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ David Sterba <dsterba@suse.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Sriharsha Basavapatna <sriharsha.basavapatna@broadcom.com>,
+ netdev@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ LKML <linux-kernel@vger.kernel.org>, "John S . Gruber" <JohnSGruber@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Arnd,
 
-
-On 11/16/21 3:46 AM, Pekka Paalanen wrote:
-> On Fri, 12 Nov 2021 10:08:41 -0500
-> Jason Baron <jbaron@akamai.com> wrote:
-> 
->> On 11/12/21 6:49 AM, Vincent Whitchurch wrote:
->>> On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:  
->>>> Sean Paul proposed, in:
->>>> https://urldefense.com/v3/__https://patchwork.freedesktop.org/series/78133/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRA8Dki4A$ 
->>>> drm/trace: Mirror DRM debug logs to tracefs
->>>>
->>>> His patchset's objective is to be able to independently steer some of
->>>> the drm.debug stream to an alternate tracing destination, by splitting
->>>> drm_debug_enabled() into syslog & trace flavors, and enabling them
->>>> separately.  2 advantages were identified:
->>>>
->>>> 1- syslog is heavyweight, tracefs is much lighter
->>>> 2- separate selection of enabled categories means less traffic
->>>>
->>>> Dynamic-Debug can do 2nd exceedingly well:
->>>>
->>>> A- all work is behind jump-label's NOOP, zero off cost.
->>>> B- exact site selectivity, precisely the useful traffic.
->>>>    can tailor enabled set interactively, at shell.
->>>>
->>>> Since the tracefs interface is effective for drm (the threads suggest
->>>> so), adding that interface to dynamic-debug has real potential for
->>>> everyone including drm.
->>>>
->>>> if CONFIG_TRACING:
->>>>
->>>> Grab Sean's trace_init/cleanup code, use it to provide tracefs
->>>> available by default to all pr_debugs.  This will likely need some
->>>> further per-module treatment; perhaps something reflecting hierarchy
->>>> of module,file,function,line, maybe with a tuned flattening.
->>>>
->>>> endif CONFIG_TRACING
->>>>
->>>> Add a new +T flag to enable tracing, independent of +p, and add and
->>>> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
->>>> the flag checks.  Existing code treats T like other flags.  
->>>
->>> I posted a patchset a while ago to do something very similar, but that
->>> got stalled for some reason and I unfortunately didn't follow it up:
->>>
->>>  https://urldefense.com/v3/__https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRGytKHPg$ 
->>>
->>> A key difference between that patchset and this patch (besides that
->>> small fact that I used +x instead of +T) was that my patchset allowed
->>> the dyndbg trace to be emitted to the main buffer and did not force them
->>> to be in an instance-specific buffer.  
+On 11/19/21 15:47, Arnd Bergmann wrote:
+> On Fri, Nov 19, 2021 at 12:36 PM Alejandro Colomar
+> <alx.manpages@gmail.com> wrote:
 >>
->> Yes, I agree I'd prefer that we print here to the 'main' buffer - it
->> seems to keep things simpler and easier to combine the output from
->> different sources as you mentioned.
+>> Alejandro Colomar (17):
+>>   linux/container_of.h: Add memberof(T, m)
+>>   Use memberof(T, m) instead of explicit NULL dereference
+>>   Replace some uses of memberof() by its wrappers
+>>   linux/memberof.h: Move memberof() to separate header
+>>   linux/typeof_member.h: Move typeof_member() to a separate header
+>>   Simplify sizeof(typeof_member()) to sizeof_field()
+>>   linux/NULL.h: Move NULL to a separate header
+>>   linux/offsetof.h: Move offsetof(T, m) to a separate header
+>>   linux/offsetof.h: Implement offsetof() in terms of memberof()
+>>   linux/container_of.h: Implement container_of_safe() in terms of
+>>     container_of()
+>>   linux/container_of.h: Cosmetic
+>>   linux/container_of.h: Remove unnecessary cast to (void *)
 > 
-> Hi,
+> My feeling is that this takes the separation too far: by having this many header
+> files that end up being included from practically every single .c file
+> in the kernel,
+> I think you end up making compile speed worse overall.
 > 
-> I'm not quite sure I understand this discussion, but I would like to
-> remind you all of what Sean's original work is about:
-> 
-> Userspace configures DRM tracing into a flight recorder buffer (I guess
-> this is what you refer to "instance-specific buffer").
-> 
-> Userspace runs happily for months, and then hits a problem: a failure
-> in the DRM sub-system most likely, e.g. an ioctl that should never
-> fail, failed. Userspace handles that failure by dumping the flight
-> recorder buffer into a file and saving or sending a bug report. The
-> flight recorder contents give a log of all relevant DRM in-kernel
-> actions leading to the unexpected failure to help developers debug it.
-> 
-> I don't mind if one can additionally send the flight recorder stream to
-> the main buffer, but I do want the separate flight recorder buffer to
-> be an option so that a) unrelated things cannot flood the interesting
-> bits out of it, and b) the scope of collected information is relevant.
-> 
-> The very reason for this work is problems that are very difficult to
-> reproduce in practice, either because the problem itself is triggered
-> very rarely and randomly, or because the end users of the system have
-> either no knowledge or no access to reconfigure debug logging and then
-> reproduce the problem with good debug logs.
-> 
-> Thank you very much for pushing this work forward!
-> 
-> 
+> If your goal is to avoid having to recompile as much of the kernel
+> after touching
+> a header, I think a better approach is to help untangle the dependencies, e.g.
+> by splitting out type definitions from headers with inline functions (most
+> indirect header dependencies are on type definitions) and by focusing on
+> linux/fs.h, linux/sched.h, linux/mm.h and how they interact with the rest of the
+> headers. At the moment, these are included in most .c files and they in turn
+> include a ton of other headers.
 
-So I think Vincent (earlier in the thread) was saying that he finds it
-very helpful have dynamic debug output go to the 'main' trace buffer,
-while you seem to be saying you'd prefer it just go to dynamic debug
-specific trace buffer.
+Yes, I would like to untangle the dependencies.
 
-So we certainly can have dynamic output potentially go to both places -
-although I think this would mean two tracepoints? But I really wonder
-if we really need a separate tracing buffer for dynamic debug when
-what goes to the 'main' buffer can be controlled and filtered to avoid
-your concern around a 'flood'?
+The main reason I started doing this splitting
+is because I wouldn't be able to include
+<linux/stddef.h> in some headers,
+because it pulled too much stuff that broke unrelated things.
+
+So that's why I started from there.
+
+I for example would like to get NULL in memberof()
+without puling anything else,
+so <linux/NULL.h> makes sense for that.
+
+It's clear that every .c wants NULL,
+but it's not so clear that every .c wants
+everything that <linux/stddef.h> pulls indirectly.
+
+But I'll note that linux/fs.h, linux/sched.h, linux/mm.h are
+interesting headers for further splitting.
+
+
+BTW, I also have a longstanding doubt about
+how header files are organized in the kernel,
+and which headers can and cannot be included
+from which other files.
+
+For example I see that files in samples or scripts or tools,
+that redefine many things such as offsetof() or ARRAY_SIZE(),
+and I don't know if there's a good reason for that,
+or if I should simply remove all that stuff and
+include <linux/offsetof.h> everywhere I see offsetof() being used.
+
+
 
 Thanks,
+Alex
 
--Jason
-
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
