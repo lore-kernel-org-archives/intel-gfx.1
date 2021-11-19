@@ -2,47 +2,41 @@ Return-Path: <SRS0=Vy2F=QG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19C0AC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8146CC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:09:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3E3761547
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:54:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D3E3761547
+	by mail.kernel.org (Postfix) with ESMTPS id 4BCAA6102A
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 14:09:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4BCAA6102A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BE146E03B;
-	Fri, 19 Nov 2021 13:54:51 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 494D16E03B;
- Fri, 19 Nov 2021 13:54:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="221633401"
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="221633401"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 05:54:49 -0800
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="473546898"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.72.185])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 05:54:48 -0800
-Received: from platvala by thrakatuluk with local (Exim 4.94)
- (envelope-from <petri.latvala@intel.com>)
- id 1mo4Kp-0002hU-29; Fri, 19 Nov 2021 15:53:47 +0200
-Date: Fri, 19 Nov 2021 15:53:47 +0200
-From: Petri Latvala <petri.latvala@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <YZesawet06wfQ1SG@platvala-desk.ger.corp.intel.com>
-References: <20211119125945.55056-1-tvrtko.ursulin@linux.intel.com>
- <20211119125945.55056-3-tvrtko.ursulin@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B29806E49B;
+	Fri, 19 Nov 2021 14:09:07 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 749A16E270
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 14:09:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="234248900"
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="234248900"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 06:09:05 -0800
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="537111965"
+Received: from sjschmid-mobl1.amr.corp.intel.com (HELO
+ josouza-mobl2.amr.corp.intel.com) ([10.212.22.100])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 06:09:04 -0800
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 19 Nov 2021 06:09:30 -0800
+Message-Id: <20211119140931.32791-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211119125945.55056-3-tvrtko.ursulin@linux.intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH i-g-t 3/6] igt/core: Fix build warning
+Subject: [Intel-gfx] [PATCH 1/2] Revert "drm/i915: Implement Wa_1508744258"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,83 +49,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, Intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 19, 2021 at 12:59:42PM +0000, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> .../lib/igt_thread.c: In function ‘__igt_unique____igt_constructor_l66’:
-> .../lib/igt_thread.c:68:9: warning: ‘pthread_setspecific’ expecting 1 byte in a region of size 0 [-Wstringop-overread]
->    68 |         pthread_setspecific(__igt_is_main_thread, (void*) 0x1);
->       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: Petri Latvala <petri.latvala@intel.com>
-> ---
->  lib/igt_core.c   | 6 ++++--
->  lib/igt_thread.c | 4 +++-
->  2 files changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/lib/igt_core.c b/lib/igt_core.c
-> index ec05535cd56e..acb9743c4a24 100644
-> --- a/lib/igt_core.c
-> +++ b/lib/igt_core.c
-> @@ -2752,6 +2752,8 @@ void igt_vlog(const char *domain, enum igt_log_level level, const char *format,
->  	char *line, *formatted_line;
->  	char *thread_id;
->  	const char *program_name;
-> +	const uintptr_t false_key = 0;
-> +	const uintptr_t true_key = 1;
->  	const char *igt_log_level_str[] = {
->  		"DEBUG",
->  		"INFO",
-> @@ -2796,9 +2798,9 @@ void igt_vlog(const char *domain, enum igt_log_level level, const char *format,
->  	}
->  
->  	if (line[strlen(line) - 1] == '\n')
-> -		pthread_setspecific(__vlog_line_continuation, (void*) false);
-> +		pthread_setspecific(__vlog_line_continuation, &false_key);
->  	else
-> -		pthread_setspecific(__vlog_line_continuation, (void*) true);
-> +		pthread_setspecific(__vlog_line_continuation, &true_key);
+This workarounds are causing hangs, because I missed the fact that it
+needs to be enabled for all cases and disabled when doing a resolve
+pass.
 
-Quoting the usage of this:
-        if (pthread_getspecific(__vlog_line_continuation)) {
+So KMD only needs to whitelist it and UMD will be the one setting it
+on per case.
 
-That's going to give a non-null pointer in both cases.
+This reverts commit 28ec02c9cbebf3feeaf21a59df9dfbc02bda3362.
 
+Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/4145
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-
->  
->  	/* append log buffer */
->  	_igt_log_buffer_append(formatted_line);
-> diff --git a/lib/igt_thread.c b/lib/igt_thread.c
-> index 5bdda4102def..f5de2d57eaaa 100644
-> --- a/lib/igt_thread.c
-> +++ b/lib/igt_thread.c
-> @@ -64,6 +64,8 @@ bool igt_thread_is_main(void)
->  }
->  
->  igt_constructor {
-> +	const uintptr_t key = 1;
-> +
->  	pthread_key_create(&__igt_is_main_thread, NULL);
-> -	pthread_setspecific(__igt_is_main_thread, (void*) 0x1);
-> +	pthread_setspecific(__igt_is_main_thread, &key);
-
-This is fine, __igt_is_main_thread key will have non-null only on the
-main thread. But still a bit sus slapping the address of a
-function-local variable to setspecific, we might just be trading a
-compiler warning for a new future one.
-
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index a9727447c0379..cd2935b9e7c81 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -637,13 +637,6 @@ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	       FF_MODE2_GS_TIMER_MASK,
+ 	       FF_MODE2_GS_TIMER_224,
+ 	       0, false);
+-
+-	/*
+-	 * Wa_14012131227:dg1
+-	 * Wa_1508744258:tgl,rkl,dg1,adl-s,adl-p
+-	 */
+-	wa_masked_en(wal, GEN7_COMMON_SLICE_CHICKEN1,
+-		     GEN9_RHWO_OPTIMIZATION_DISABLE);
+ }
+ 
+ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
 -- 
-Petri Latvala
+2.33.1
 
-
->  }
-> -- 
-> 2.32.0
-> 
