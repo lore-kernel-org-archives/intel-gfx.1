@@ -2,42 +2,43 @@ Return-Path: <SRS0=Vy2F=QG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FF79C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9287CC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3070E61A58
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3070E61A58
+	by mail.kernel.org (Postfix) with ESMTPS id 60CD86120E
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 60CD86120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793016F456;
-	Fri, 19 Nov 2021 13:00:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 129D96F564;
+	Fri, 19 Nov 2021 13:00:17 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E3389BD5;
- Fri, 19 Nov 2021 13:00:09 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="295222732"
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="295222732"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DED096F563;
+ Fri, 19 Nov 2021 13:00:12 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="295222736"
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="295222736"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 05:00:09 -0800
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="455769556"
+ 19 Nov 2021 05:00:12 -0800
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="455769605"
 Received: from egedeon-mobl2.amr.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.209.179.224])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 05:00:07 -0800
+ 19 Nov 2021 05:00:10 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Fri, 19 Nov 2021 12:59:40 +0000
-Message-Id: <20211119125945.55056-1-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 19 Nov 2021 12:59:42 +0000
+Message-Id: <20211119125945.55056-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211119125945.55056-1-tvrtko.ursulin@linux.intel.com>
+References: <20211119125945.55056-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 1/6] tests/api_intel_allocator: Fix build
- warning
+Subject: [Intel-gfx] [PATCH i-g-t 3/6] igt/core: Fix build warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,30 +57,57 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-.../tests/i915/api_intel_allocator.c: In function ‘basic_alloc’:
-.../tests/i915/api_intel_allocator.c:158:25: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
-  158 |                         if (j == i)
-      |                         ^~
+.../lib/igt_thread.c: In function ‘__igt_unique____igt_constructor_l66’:
+.../lib/igt_thread.c:68:9: warning: ‘pthread_setspecific’ expecting 1 byte in a region of size 0 [-Wstringop-overread]
+   68 |         pthread_setspecific(__igt_is_main_thread, (void*) 0x1);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
+Cc: Petri Latvala <petri.latvala@intel.com>
 ---
- tests/i915/api_intel_allocator.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/igt_core.c   | 6 ++++--
+ lib/igt_thread.c | 4 +++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/tests/i915/api_intel_allocator.c b/tests/i915/api_intel_allocator.c
-index 4b74317ed3d0..6d7764ca3f51 100644
---- a/tests/i915/api_intel_allocator.c
-+++ b/tests/i915/api_intel_allocator.c
-@@ -157,7 +157,7 @@ static void basic_alloc(int fd, int cnt, uint8_t type)
- 		for (j = 0; j < cnt; j++) {
- 			if (j == i)
- 				continue;
--				igt_assert(!overlaps(&obj[i], &obj[j]));
-+			igt_assert(!overlaps(&obj[i], &obj[j]));
- 		}
+diff --git a/lib/igt_core.c b/lib/igt_core.c
+index ec05535cd56e..acb9743c4a24 100644
+--- a/lib/igt_core.c
++++ b/lib/igt_core.c
+@@ -2752,6 +2752,8 @@ void igt_vlog(const char *domain, enum igt_log_level level, const char *format,
+ 	char *line, *formatted_line;
+ 	char *thread_id;
+ 	const char *program_name;
++	const uintptr_t false_key = 0;
++	const uintptr_t true_key = 1;
+ 	const char *igt_log_level_str[] = {
+ 		"DEBUG",
+ 		"INFO",
+@@ -2796,9 +2798,9 @@ void igt_vlog(const char *domain, enum igt_log_level level, const char *format,
  	}
  
+ 	if (line[strlen(line) - 1] == '\n')
+-		pthread_setspecific(__vlog_line_continuation, (void*) false);
++		pthread_setspecific(__vlog_line_continuation, &false_key);
+ 	else
+-		pthread_setspecific(__vlog_line_continuation, (void*) true);
++		pthread_setspecific(__vlog_line_continuation, &true_key);
+ 
+ 	/* append log buffer */
+ 	_igt_log_buffer_append(formatted_line);
+diff --git a/lib/igt_thread.c b/lib/igt_thread.c
+index 5bdda4102def..f5de2d57eaaa 100644
+--- a/lib/igt_thread.c
++++ b/lib/igt_thread.c
+@@ -64,6 +64,8 @@ bool igt_thread_is_main(void)
+ }
+ 
+ igt_constructor {
++	const uintptr_t key = 1;
++
+ 	pthread_key_create(&__igt_is_main_thread, NULL);
+-	pthread_setspecific(__igt_is_main_thread, (void*) 0x1);
++	pthread_setspecific(__igt_is_main_thread, &key);
+ }
 -- 
 2.32.0
 
