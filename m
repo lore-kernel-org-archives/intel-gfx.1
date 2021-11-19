@@ -2,43 +2,43 @@ Return-Path: <SRS0=Vy2F=QG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD0ADC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 030CCC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF5E06120E
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AF5E06120E
+	by mail.kernel.org (Postfix) with ESMTPS id BDF9D6120E
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 13:00:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BDF9D6120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE5D6F569;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCBD6F568;
 	Fri, 19 Nov 2021 13:00:19 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9D86F565;
- Fri, 19 Nov 2021 13:00:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="295222738"
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="295222738"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A1E6F564;
+ Fri, 19 Nov 2021 13:00:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="295222751"
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="295222751"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 05:00:12 -0800
-X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="455769621"
+ 19 Nov 2021 05:00:16 -0800
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="455769643"
 Received: from egedeon-mobl2.amr.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.209.179.224])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 05:00:11 -0800
+ 19 Nov 2021 05:00:14 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Fri, 19 Nov 2021 12:59:43 +0000
-Message-Id: <20211119125945.55056-4-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 19 Nov 2021 12:59:45 +0000
+Message-Id: <20211119125945.55056-6-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211119125945.55056-1-tvrtko.ursulin@linux.intel.com>
 References: <20211119125945.55056-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 4/6] igt/drm_read: Fix build warning
+Subject: [Intel-gfx] [PATCH i-g-t 6/6] intel_gpu_top: Add a sanity check
+ discovered busy metric is per engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,40 +57,32 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-In function ‘read’,
-    inlined from ‘test_invalid_buffer’ at ../../home/tursulin/wc/intel-gpu-tools/tests/drm_read.c:113:2,
-    inlined from ‘__igt_unique____real_main258’ at ../../home/tursulin/wc/intel-gpu-tools/tests/drm_read.c:297:3:
-/usr/include/x86_64-linux-gnu/bits/unistd.h:47:10: warning: ‘__read_alias’ writing 4096 bytes into a region of size 0 overflows the destination [-Wstringop-overflow=]
-   47 |   return __read_alias (__fd, __buf, __nbytes);
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Adding a cross-check with ABI config name space and not just relying on
+sysfs names.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Petri Latvala <petri.latvala@intel.com>
+Cc: Dmitry Rogozhkin <dmitry.v.rogozhkin@intel.com>
 ---
- tests/drm_read.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ tools/intel_gpu_top.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/tests/drm_read.c b/tests/drm_read.c
-index 4a966a23b550..d422220d3c4a 100644
---- a/tests/drm_read.c
-+++ b/tests/drm_read.c
-@@ -289,8 +289,16 @@ igt_main
- 		igt_require(kmstest_get_vblank(fd, pipe, 0));
- 	}
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index 41c59a72c09d..81c724d1fe1c 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -376,6 +376,12 @@ static struct engines *discover_engines(char *device)
+ 			break;
+ 		}
  
-+/*
-+ * Has to be here and not in (or around) test_invalid_buffer() to work around
-+ * a gcc bug https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98512.
-+ */
-+#pragma GCC diagnostic push
-+#pragma GCC diagnostic ignored "-Wstringop-overflow"
-+#pragma GCC diagnostic ignored "-Wstringop-overflow="
- 	igt_subtest("invalid-buffer")
- 		test_invalid_buffer(fd);
-+#pragma GCC diagnostic pop
- 
- 	igt_subtest("fault-buffer")
- 		test_fault_buffer(fd, pipe);
++		/* Double check config is an engine config. */
++		if (engine->busy.config >= __I915_PMU_OTHER(0)) {
++			free((void *)engine->name);
++			continue;
++		}
++
+ 		engine->class = (engine->busy.config &
+ 				 (__I915_PMU_OTHER(0) - 1)) >>
+ 				I915_PMU_CLASS_SHIFT;
 -- 
 2.32.0
 
