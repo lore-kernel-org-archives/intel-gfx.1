@@ -4,60 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46A88C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 10:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E96C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 10:32:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C04D66EB72;
-	Mon, 22 Nov 2021 10:32:05 +0000 (UTC)
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B27BD6E933;
- Sun, 21 Nov 2021 10:13:23 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- y14-20020a17090a2b4e00b001a5824f4918so14444119pjc.4; 
- Sun, 21 Nov 2021 02:13:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jz7G1X3noj7SdKT0BssmGxJwd6YdQwKy8J5O5kFPx/A=;
- b=hPjd7zP2W3VwO1Z4CBoUY6mieF4iT+nIUjE7tgeP2gy8/frGuaHMkBG/+mKnA2bC+j
- +jfZ7DMeKU1bArdHF1OTamHF/fVBElYmgMq/vRR/ocLZxsQ+oK0/E5Wi1h42zpRZnwC6
- yUeWyfrvpxYJ2XmhK8gR2ud97z85681CWEJJ5J9Ij0sGpu7paI3tQ6pUN4xsUQ4sXp0u
- Xo5Z3uKQtYAf8hL5gxePQozs1DiazIfX1McQc/PO0FDiWe1pK8SH5faQe99UQa1xxroc
- Maqe3KXuXrvsxCk3vo8XPs0S5bMKVmZbmFOe5FNlFwqTPG/VHoL+e34oAvngej0zo3gz
- t/FQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09D7B6EB79;
+	Mon, 22 Nov 2021 10:32:07 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 221896EAB5;
+ Sat, 20 Nov 2021 04:47:55 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ j140-20020a1c2392000000b003399ae48f58so4137111wmj.5; 
+ Fri, 19 Nov 2021 20:47:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jz7G1X3noj7SdKT0BssmGxJwd6YdQwKy8J5O5kFPx/A=;
- b=f06zW1vqlV0592SC7UF3EODx/AK1HUQZBrJH5+p+6NI8HqjpbIerzH7FXX5M6D5IPa
- FqnrA5tba5v1h4gg+EYzhJB3SATOhea8Pxf784P0w8AgWIZBPZJwVlR4RuIqIV/80fQz
- j3m5YoxVd/vCi3JLb77KEQ4Mq6HYC8+6oLv6Mf0cghwyiptmGpXspNVdBdpjQbQ699OA
- Kns6TC8VVD6cblp8Jbzop1IUwhs0+7/fLpcPxxgW6Qn180dF3XBGMCzipzDCejA0sU33
- 5SAic9c1/lT4N9Mjml26y9sAfXaEx/atZ/7DvFuE/cL4lnsMjJKg+O49btdx2/MoNi4J
- z8nQ==
-X-Gm-Message-State: AOAM532+5g2hwt+zKO1rKnXVM7Z9d1TRpCSWpjtpcc8M6sLO2Y/BgzKf
- apIWnyF1aneZohIaRsOQmCY=
-X-Google-Smtp-Source: ABdhPJyQsqrMCoVLEZdQ+jQfLlJBDck3tb4ASoikt4GWJZqLMSci4BkU90KnfkyY3OtsEXKlj0LavQ==
-X-Received: by 2002:a17:902:ab47:b0:141:95b2:7eaf with SMTP id
- ij7-20020a170902ab4700b0014195b27eafmr95815169plb.40.1637489603356; 
- Sun, 21 Nov 2021 02:13:23 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id nl16sm16226182pjb.13.2021.11.21.02.13.21
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=aEc6h6UZDj3RJe5zAVD0JZ752OLm/zol4/Bf6vq8of0=;
+ b=RDnKynlfwkmTJH0eofR1L7t8GhtSAnX4QqNY0gIvp39V9CWDDDAzL1b8fpOhSZke1a
+ DPpwEZgHi0CdE5tRw87bMGPaE7nOwSWe2WcRF7dUkE5uom6hegVKCMkU6PunhD/9hLlX
+ kJrU6djzNdFQPHc+2tjCL7hyP3T6jmG7h7QDH/y+8hJn3VeGhy2WDDD0YSPY5Nb/ddSR
+ jHubBt2fzpLEM+EqIMRrtxxB8eD5kUfNgYyUaNXe14DaHenkz6E7e29tYAlaPTDl3rGG
+ UtBLea1Agk+svdwrc+7nvBsqVtDVtXRwSWyM7Z/HSswZXkZLvN5rzbbOVPP+QWtWiQxQ
+ /tmQ==
+X-Gm-Message-State: AOAM531COYNg1DMuYrlPvpkt7g8MV1uK/AHi5LQmscDHOYlr572V+OFc
+ IVPD/0Gb8pNe11cie8dEpE0=
+X-Google-Smtp-Source: ABdhPJwP2k7ucavsfoGlZJcK5To078c9aGO6heH2BJxEfkGEB243/CpxoDU2gn26fg/Nug2rn0s9+Q==
+X-Received: by 2002:a1c:4d0b:: with SMTP id o11mr6635748wmh.68.1637383673623; 
+ Fri, 19 Nov 2021 20:47:53 -0800 (PST)
+Received: from rocinante ([95.155.85.46])
+ by smtp.gmail.com with ESMTPSA id l16sm1722475wmq.46.2021.11.19.20.47.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Nov 2021 02:13:22 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: yong.yiran@zte.com.cn
-To: jani.nikula@linux.intel.com
-Date: Sun, 21 Nov 2021 10:13:09 +0000
-Message-Id: <20211121101309.23577-1-yong.yiran@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ Fri, 19 Nov 2021 20:47:53 -0800 (PST)
+Date: Sat, 20 Nov 2021 05:47:50 +0100
+From: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <YZh99tLi9sekmJ3T@rocinante>
+References: <20211120035253.72074-1-kuba@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211120035253.72074-1-kuba@kernel.org>
 X-Mailman-Approved-At: Mon, 22 Nov 2021 10:32:05 +0000
-Subject: [Intel-gfx] [PATCH linux-next] drm/i915/request: Remove unused
- variables
+Subject: Re: [Intel-gfx] [PATCH bpf] treewide: add missing includes masked
+ by cgroup -> bpf dependency
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,45 +62,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- yong yiran <yong.yiran@zte.com.cn>, Zeal Robot <zealci@zte.com.cn>
+Cc: songliubraving@fb.com, kafai@fb.com, airlied@linux.ie,
+ linux-pci@vger.kernel.org, ast@kernel.org, dri-devel@lists.freedesktop.org,
+ andrii@kernel.org, a-govindraju@ti.com, ray.huang@amd.com, sbhatta@marvell.com,
+ robh@kernel.org, lorenzo.pieralisi@arm.com, daniel@iogearbox.net,
+ krzysztof.kozlowski@canonical.com, john.fastabend@gmail.com,
+ geert@linux-m68k.org, matthew.auld@intel.com, yhs@fb.com, sgoutham@marvell.com,
+ thomas.hellstrom@linux.intel.com, pawell@cadence.com, tzimmermann@suse.de,
+ mani@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, mripard@kernel.org, kpsingh@kernel.org,
+ rogerq@kernel.org, linux-samsung-soc@vger.kernel.org, bhelgaas@google.com,
+ akpm@linux-foundation.org, linux-arm-kernel@lists.infradead.org,
+ axboe@kernel.dk, linux-block@vger.kernel.org, sj@kernel.org,
+ lima@lists.freedesktop.org, linux-mm@kvack.org, jingoohan1@gmail.com,
+ peter.chen@kernel.org, linux-usb@vger.kernel.org, christian.koenig@amd.com,
+ hkelam@marvell.com, yuq825@gmail.com, gregkh@linuxfoundation.org,
+ bpf@vger.kernel.org, colin.king@intel.com, freedreno@lists.freedesktop.org,
+ gakula@marvell.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: yong yiran <yong.yiran@zte.com.cn>
+Hi Jakub,
 
-The clang_analyzer complains as follows:
-drivers/gpu/drm/i915/i915_request.c:2119:2 warning:
-Value stored to 'x' is never read
+[...]
+>  drivers/pci/controller/dwc/pci-exynos.c               | 1 +
+>  drivers/pci/controller/dwc/pcie-qcom-ep.c             | 1 +
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: yong yiran <yong.yiran@zte.com.cn>
----
- drivers/gpu/drm/i915/i915_request.c | 3 ---
- 1 file changed, 3 deletions(-)
+Happy to give 
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 820a1f38b271..5e4420f461e9 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2047,7 +2047,6 @@ void i915_request_show(struct drm_printer *m,
- {
- 	const char *name = rq->fence.ops->get_timeline_name((struct dma_fence *)&rq->fence);
- 	char buf[80] = "";
--	int x = 0;
- 
- 	/*
- 	 * The prefix is used to show the queue status, for which we use
-@@ -2079,8 +2078,6 @@ void i915_request_show(struct drm_printer *m,
- 	 *      from the lists
- 	 */
- 
--	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
--
- 	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
- 		   prefix, indent, "                ",
- 		   queue_status(rq),
--- 
-2.25.1
+Acked-by: Krzysztof Wilczyński <kw@linux.com>
 
+for the the PCI drivers.  Thank you!
+
+	Krzysztof
