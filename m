@@ -4,30 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9FEBC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 16:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE01C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 16:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC8E89C61;
-	Mon, 22 Nov 2021 16:37:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B100A89B9E;
- Mon, 22 Nov 2021 16:37:04 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A90D4A9932;
- Mon, 22 Nov 2021 16:37:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7389339212312364096=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2008889B05;
+	Mon, 22 Nov 2021 16:47:08 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68AF789B05;
+ Mon, 22 Nov 2021 16:47:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10176"; a="258661455"
+X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="258661455"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2021 08:47:05 -0800
+X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="509028553"
+Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.205])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2021 08:47:04 -0800
+Date: Mon, 22 Nov 2021 22:20:12 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <20211122165012.GB13257@intel.com>
+References: <20211108174547.979714-1-thomas.hellstrom@linux.intel.com>
+ <20211108174547.979714-3-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 22 Nov 2021 16:37:04 -0000
-Message-ID: <163759902465.5694.15653432655173496465@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211122082252.223689-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20211122082252.223689-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/ttm=3A_Async_migration_=28rev7=29?=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211108174547.979714-3-thomas.hellstrom@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v6 2/4] drm/i915: Use __GFP_KSWAPD_RECLAIM
+ in the capture code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,242 +47,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7389339212312364096==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On 2021-11-08 at 18:45:45 +0100, Thomas Hellström wrote:
+> The capture code is typically run entirely in the fence signalling
+> critical path. We're about to add lockdep annotation in an upcoming patch
+> which reveals a lockdep splat similar to the below one.
+> 
+> Fix the associated potential deadlocks using __GFP_KSWAPD_RECLAIM
+> (which is the same as GFP_WAIT, but open-coded for clarity) rather than
+> GFP_KERNEL for memory allocation in the capture path. This has the
+> potential drawback that capture might fail in situations with memory
+> pressure.
+> 
+> [  234.842048] WARNING: possible circular locking dependency detected
+> [  234.842050] 5.15.0-rc7+ #20 Tainted: G     U  W
+> [  234.842052] ------------------------------------------------------
+> [  234.842054] gem_exec_captur/1180 is trying to acquire lock:
+> [  234.842056] ffffffffa3e51c00 (fs_reclaim){+.+.}-{0:0}, at: __kmalloc+0x4d/0x330
+> [  234.842063]
+>                but task is already holding lock:
+> [  234.842064] ffffffffa3f57620 (dma_fence_map){++++}-{0:0}, at: i915_vma_snapshot_resource_pin+0x27/0x30 [i915]
+> [  234.842138]
+>                which lock already depends on the new lock.
+> 
+> [  234.842140]
+>                the existing dependency chain (in reverse order) is:
+> [  234.842142]
+>                -> #2 (dma_fence_map){++++}-{0:0}:
+> [  234.842145]        __dma_fence_might_wait+0x41/0xa0
+> [  234.842149]        dma_resv_lockdep+0x1dc/0x28f
+> [  234.842151]        do_one_initcall+0x58/0x2d0
+> [  234.842154]        kernel_init_freeable+0x273/0x2bf
+> [  234.842157]        kernel_init+0x16/0x120
+> [  234.842160]        ret_from_fork+0x1f/0x30
+> [  234.842163]
+>                -> #1 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}:
+> [  234.842166]        fs_reclaim_acquire+0x6d/0xd0
+> [  234.842168]        __kmalloc_node+0x51/0x3a0
+> [  234.842171]        alloc_cpumask_var_node+0x1b/0x30
+> [  234.842174]        native_smp_prepare_cpus+0xc7/0x292
+> [  234.842177]        kernel_init_freeable+0x160/0x2bf
+> [  234.842179]        kernel_init+0x16/0x120
+> [  234.842181]        ret_from_fork+0x1f/0x30
+> [  234.842184]
+>                -> #0 (fs_reclaim){+.+.}-{0:0}:
+> [  234.842186]        __lock_acquire+0x1161/0x1dc0
+> [  234.842189]        lock_acquire+0xb5/0x2b0
+> [  234.842192]        fs_reclaim_acquire+0xa1/0xd0
+> [  234.842193]        __kmalloc+0x4d/0x330
+> [  234.842196]        i915_vma_coredump_create+0x78/0x5b0 [i915]
+> [  234.842253]        intel_engine_coredump_add_vma+0x36/0xe0 [i915]
+> [  234.842307]        __i915_gpu_coredump+0x290/0x5e0 [i915]
+> [  234.842365]        i915_capture_error_state+0x57/0xa0 [i915]
+> [  234.842415]        intel_gt_handle_error+0x348/0x3e0 [i915]
+> [  234.842462]        intel_gt_debugfs_reset_store+0x3c/0x90 [i915]
+> [  234.842504]        simple_attr_write+0xc1/0xe0
+> [  234.842507]        full_proxy_write+0x53/0x80
+> [  234.842509]        vfs_write+0xbc/0x350
+> [  234.842513]        ksys_write+0x58/0xd0
+> [  234.842514]        do_syscall_64+0x38/0x90
+> [  234.842516]        entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [  234.842519]
+>                other info that might help us debug this:
+> 
+> [  234.842521] Chain exists of:
+>                  fs_reclaim --> mmu_notifier_invalidate_range_start --> dma_fence_map
+> 
+> [  234.842526]  Possible unsafe locking scenario:
+> 
+> [  234.842528]        CPU0                    CPU1
+> [  234.842529]        ----                    ----
+> [  234.842531]   lock(dma_fence_map);
+> [  234.842532]                                lock(mmu_notifier_invalidate_range_start);
+> [  234.842535]                                lock(dma_fence_map);
+> [  234.842537]   lock(fs_reclaim);
+> [  234.842539]
+>                 *** DEADLOCK ***
+> 
+> [  234.842540] 4 locks held by gem_exec_captur/1180:
+> [  234.842543]  #0: ffff9007812d9460 (sb_writers#17){.+.+}-{0:0}, at: ksys_write+0x58/0xd0
+> [  234.842547]  #1: ffff900781d9ecb8 (&attr->mutex){+.+.}-{3:3}, at: simple_attr_write+0x3a/0xe0
+> [  234.842552]  #2: ffffffffc11913a8 (capture_mutex){+.+.}-{3:3}, at: i915_capture_error_state+0x1a/0xa0 [i915]
+> [  234.842602]  #3: ffffffffa3f57620 (dma_fence_map){++++}-{0:0}, at: i915_vma_snapshot_resource_pin+0x27/0x30 [i915]
+> [  234.842656]
+>                stack backtrace:
+> [  234.842658] CPU: 0 PID: 1180 Comm: gem_exec_captur Tainted: G     U  W         5.15.0-rc7+ #20
+> [  234.842661] Hardware name: ASUS System Product Name/PRIME B560M-A AC, BIOS 0403 01/26/2021
+> [  234.842664] Call Trace:
+> [  234.842666]  dump_stack_lvl+0x57/0x72
+> [  234.842669]  check_noncircular+0xde/0x100
+> [  234.842672]  ? __lock_acquire+0x3bf/0x1dc0
+> [  234.842675]  __lock_acquire+0x1161/0x1dc0
+> [  234.842678]  lock_acquire+0xb5/0x2b0
+> [  234.842680]  ? __kmalloc+0x4d/0x330
+> [  234.842683]  ? finish_task_switch.isra.0+0xf2/0x360
+> [  234.842686]  ? i915_vma_coredump_create+0x78/0x5b0 [i915]
+> [  234.842734]  fs_reclaim_acquire+0xa1/0xd0
+> [  234.842737]  ? __kmalloc+0x4d/0x330
+> [  234.842739]  __kmalloc+0x4d/0x330
+> [  234.842742]  i915_vma_coredump_create+0x78/0x5b0 [i915]
+> [  234.842793]  ? capture_vma+0xbe/0x110 [i915]
+> [  234.842844]  intel_engine_coredump_add_vma+0x36/0xe0 [i915]
+> [  234.842892]  __i915_gpu_coredump+0x290/0x5e0 [i915]
+> [  234.842939]  i915_capture_error_state+0x57/0xa0 [i915]
+> [  234.842985]  intel_gt_handle_error+0x348/0x3e0 [i915]
+> [  234.843032]  ? __mutex_lock+0x81/0x830
+> [  234.843035]  ? simple_attr_write+0x3a/0xe0
+> [  234.843038]  ? __lock_acquire+0x3bf/0x1dc0
+> [  234.843041]  intel_gt_debugfs_reset_store+0x3c/0x90 [i915]
+> [  234.843083]  ? _copy_from_user+0x45/0x80
+> [  234.843086]  simple_attr_write+0xc1/0xe0
+> [  234.843089]  full_proxy_write+0x53/0x80
+> [  234.843091]  vfs_write+0xbc/0x350
+> [  234.843094]  ksys_write+0x58/0xd0
+> [  234.843096]  do_syscall_64+0x38/0x90
+> [  234.843098]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [  234.843101] RIP: 0033:0x7fa467480877
+> [  234.843103] Code: 75 05 48 83 c4 58 c3 e8 37 4e ff ff 0f 1f 80 00 00 00 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 51 c3 48 83 ec 28 48 89 54 24 18 48 89 74 24
+> [  234.843108] RSP: 002b:00007ffd14d79b08 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+> [  234.843112] RAX: ffffffffffffffda RBX: 00007ffd14d79b60 RCX: 00007fa467480877
+> [  234.843114] RDX: 0000000000000014 RSI: 00007ffd14d79b60 RDI: 0000000000000007
+> [  234.843116] RBP: 0000000000000007 R08: 0000000000000000 R09: 00007ffd14d79ab0
+> [  234.843119] R10: ffffffffffffffff R11: 0000000000000246 R12: 0000000000000014
+> [  234.843121] R13: 0000000000000000 R14: 00007ffd14d79b60 R15: 0000000000000005
+> 
+> v5:
+> - Use __GFP_KSWAPD_RECLAIM rather than __GFP_NOWAIT for clarity.
+>   (Daniel Vetter)
+> v6:
+> - Include an instance in execlists_capture_work().
+> - Rework the commit message due to patch reordering.
+> 
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Looks good to me 
 
-== Series Details ==
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
 
-Series: drm/i915/ttm: Async migration (rev7)
-URL   : https://patchwork.freedesktop.org/series/96798/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10913 -> Patchwork_21651
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html
-
-Participating hosts (43 -> 34)
-------------------------------
-
-  Missing    (9): bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-icl-u2 fi-bsw-cyan bat-adlp-6 bat-adlp-4 bat-jsl-2 bat-jsl-1 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21651 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@semaphore:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][1] ([fdo#109271]) +31 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
-
-  * igt@gem_exec_suspend@basic-s0:
-    - fi-tgl-1115g4:      [PASS][2] -> [FAIL][3] ([i915#1888])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
-
-  * igt@gem_exec_suspend@basic-s3:
-    - fi-skl-6600u:       [PASS][4] -> [INCOMPLETE][5] ([i915#4547])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][6] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
-
-  * igt@runner@aborted:
-    - fi-skl-6600u:       NOTRUN -> [FAIL][7] ([i915#2722] / [i915#3363] / [i915#4312])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-skl-6600u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s0:
-    - fi-glk-dsi:         [DMESG-WARN][8] ([i915#2943]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-glk-dsi/igt@gem_exec_suspend@basic-s0.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-glk-dsi/igt@gem_exec_suspend@basic-s0.html
-
-  * igt@kms_frontbuffer_tracking@basic:
-    - fi-cfl-8109u:       [DMESG-FAIL][10] ([i915#295]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:
-    - fi-cfl-8109u:       [DMESG-WARN][12] ([i915#295]) -> [PASS][13] +10 similar issues
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#2722]: https://gitlab.freedesktop.org/drm/intel/issues/2722
-  [i915#2943]: https://gitlab.freedesktop.org/drm/intel/issues/2943
-  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
-  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4547]: https://gitlab.freedesktop.org/drm/intel/issues/4547
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10913 -> Patchwork_21651
-
-  CI-20190529: 20190529
-  CI_DRM_10913: 2350312b9d034c596a510f1eabff0f74de5f2ab7 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6286: cdcbf81f734fdb1d102e84490e49e9fec23760cd @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21651: 5259cbae353e9edd51ac80a7721d10624f04ae9c @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-5259cbae353e drm/i915/ttm: Update i915_gem_obj_copy_ttm() to be asynchronous
-e133b2236211 drm/i915/ttm: Implement asynchronous TTM moves
-0e5dbd15f6bf drm/i915/ttm: Correctly handle waiting for gpu when shrinking
-aa379114fb27 drm/i915/ttm: Drop region reference counting
-ae72d5add158 drm/i915/ttm: Move the i915_gem_obj_copy_ttm() function
-afc130e0c643 drm/i915: Add support for moving fence waiting
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html
-
---===============7389339212312364096==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/ttm: Async migration (rev7)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/96798/">https://patchwork.freedesktop.org/series/96798/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10913 -&gt; Patchwork_21651</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html</p>
-<h2>Participating hosts (43 -&gt; 34)</h2>
-<p>Missing    (9): bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-icl-u2 fi-bsw-cyan bat-adlp-6 bat-adlp-4 bat-jsl-2 bat-jsl-1 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21651 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@semaphore:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +31 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s0:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s3:</p>
-<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4547">i915#4547</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-skl-6600u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2722">i915#2722</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s0:</p>
-<ul>
-<li>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-glk-dsi/igt@gem_exec_suspend@basic-s0.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2943">i915#2943</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-glk-dsi/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@basic:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-cfl-8109u/igt@kms_frontbuffer_tracking@basic.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">PASS</a> +10 similar issues</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10913 -&gt; Patchwork_21651</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10913: 2350312b9d034c596a510f1eabff0f74de5f2ab7 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6286: cdcbf81f734fdb1d102e84490e49e9fec23760cd @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21651: 5259cbae353e9edd51ac80a7721d10624f04ae9c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>5259cbae353e drm/i915/ttm: Update i915_gem_obj_copy_ttm() to be asynchronous<br />
-e133b2236211 drm/i915/ttm: Implement asynchronous TTM moves<br />
-0e5dbd15f6bf drm/i915/ttm: Correctly handle waiting for gpu when shrinking<br />
-aa379114fb27 drm/i915/ttm: Drop region reference counting<br />
-ae72d5add158 drm/i915/ttm: Move the i915_gem_obj_copy_ttm() function<br />
-afc130e0c643 drm/i915: Add support for moving fence waiting</p>
-
-</body>
-</html>
-
---===============7389339212312364096==--
+> ---
+>  drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 3 ++-
+>  drivers/gpu/drm/i915/i915_gpu_error.c                | 2 +-
+>  2 files changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> index ca03880fa7e4..a69df5e9e77a 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> @@ -2186,7 +2186,8 @@ struct execlists_capture {
+>  static void execlists_capture_work(struct work_struct *work)
+>  {
+>  	struct execlists_capture *cap = container_of(work, typeof(*cap), work);
+> -	const gfp_t gfp = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
+> +	const gfp_t gfp = __GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL |
+> +		__GFP_NOWARN;
+>  	struct intel_engine_cs *engine = cap->rq->engine;
+>  	struct intel_gt_coredump *gt = cap->error->gt;
+>  	struct intel_engine_capture_vma *vma;
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> index 14de64282697..b1e4ce0f798f 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> @@ -49,7 +49,7 @@
+>  #include "i915_memcpy.h"
+>  #include "i915_scatterlist.h"
+>  
+> -#define ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+> +#define ALLOW_FAIL (__GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+>  #define ATOMIC_MAYFAIL (GFP_ATOMIC | __GFP_NOWARN)
+>  
+>  static void __sg_set_buf(struct scatterlist *sg,
+> -- 
+> 2.31.1
+> 
