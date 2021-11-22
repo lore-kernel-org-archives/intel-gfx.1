@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9F48C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 21:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A17C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 21:46:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 740CA89DD2;
-	Mon, 22 Nov 2021 21:46:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 764BB89DC9;
+	Mon, 22 Nov 2021 21:46:23 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD2D089B70;
- Mon, 22 Nov 2021 21:46:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10176"; a="258731336"
-X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="258731336"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA0BD89DC1;
+ Mon, 22 Nov 2021 21:46:21 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10176"; a="258731350"
+X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="258731350"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2021 13:46:17 -0800
-X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="509136680"
+ 22 Nov 2021 13:46:21 -0800
+X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="509136707"
 Received: from asparren-mobl2.ger.corp.intel.com (HELO
  thellstr-mobl1.intel.com) ([10.249.254.238])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2021 13:46:15 -0800
+ 22 Nov 2021 13:46:19 -0800
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 22 Nov 2021 22:45:52 +0100
-Message-Id: <20211122214554.371864-5-thomas.hellstrom@linux.intel.com>
+Date: Mon, 22 Nov 2021 22:45:54 +0100
+Message-Id: <20211122214554.371864-7-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211122214554.371864-1-thomas.hellstrom@linux.intel.com>
 References: <20211122214554.371864-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 4/6] drm/i915/ttm: Correctly handle waiting
- for gpu when shrinking
+Subject: [Intel-gfx] [PATCH v7 6/6] drm/i915/ttm: Update
+ i915_gem_obj_copy_ttm() to be asynchronous
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,80 +52,103 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With async migration, the shrinker may end up wanting to release the
-pages of an object while the migration blit is still running, since
-the GT migration code doesn't set up VMAs and the shrinker is thus
-oblivious to the fact that the GPU is still using the pages.
-
-Add waiting for gpu in the shrinker_release_pages() op and an
-argument to that function indicating whether the shrinker expects it
-to not wait for gpu. In the latter case the shrinker_release_pages()
-op will return -EBUSY if the object is not idle.
+Update the copy function i915_gem_obj_copy_ttm() to be asynchronous for
+future users and update the only current user to sync the objects
+as needed after this function.
 
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c     | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c          | 7 ++++++-
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 40 ++++++++++++++------
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c   |  2 +
+ 2 files changed, 30 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 604ed5ad77f5..f9f7e44099fe 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -59,6 +59,7 @@ struct drm_i915_gem_object_ops {
- 	int (*truncate)(struct drm_i915_gem_object *obj);
- 	void (*writeback)(struct drm_i915_gem_object *obj);
- 	int (*shrinker_release_pages)(struct drm_i915_gem_object *obj,
-+				      bool no_gpu_wait,
- 				      bool should_writeback);
- 
- 	int (*pread)(struct drm_i915_gem_object *obj,
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index dde0a5c232f8..8b4b5f3a432a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -60,6 +60,7 @@ static int try_to_writeback(struct drm_i915_gem_object *obj, unsigned int flags)
- {
- 	if (obj->ops->shrinker_release_pages)
- 		return obj->ops->shrinker_release_pages(obj,
-+							!(flags & I915_SHRINK_ACTIVE),
- 							flags & I915_SHRINK_WRITEBACK);
- 
- 	switch (obj->mm.madv) {
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 6d3d2a558d0f..4c3cae696cf0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -418,6 +418,7 @@ int i915_ttm_purge(struct drm_i915_gem_object *obj)
- }
- 
- static int i915_ttm_shrinker_release_pages(struct drm_i915_gem_object *obj,
-+					   bool no_wait_gpu,
- 					   bool should_writeback)
- {
- 	struct ttm_buffer_object *bo = i915_gem_to_ttm(obj);
-@@ -425,7 +426,7 @@ static int i915_ttm_shrinker_release_pages(struct drm_i915_gem_object *obj,
- 		container_of(bo->ttm, typeof(*i915_tt), ttm);
- 	struct ttm_operation_ctx ctx = {
- 		.interruptible = true,
--		.no_wait_gpu = false,
-+		.no_wait_gpu = no_wait_gpu,
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 43423d3976c3..80df9f592407 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -826,33 +826,49 @@ int i915_gem_obj_copy_ttm(struct drm_i915_gem_object *dst,
+ 		.interruptible = intr,
  	};
- 	struct ttm_placement place = {};
- 	int ret;
-@@ -438,6 +439,10 @@ static int i915_ttm_shrinker_release_pages(struct drm_i915_gem_object *obj,
- 	if (!i915_tt->filp)
- 		return 0;
+ 	struct i915_refct_sgt *dst_rsgt;
+-	struct dma_fence *copy_fence;
+-	int ret;
++	struct dma_fence *copy_fence, *dep_fence;
++	struct i915_deps deps;
++	int ret, shared_err;
  
-+	ret = ttm_bo_wait_ctx(bo, &ctx);
-+	if (ret)
-+		return ret;
+ 	assert_object_held(dst);
+ 	assert_object_held(src);
++	i915_deps_init(&deps, GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
+ 
+ 	/*
+-	 * Sync for now. This will change with async moves.
++	 * We plan to add a shared fence only for the source. If that
++	 * fails, we await all source fences before commencing
++	 * the copy instead of only the exclusive.
+ 	 */
+-	ret = ttm_bo_wait_ctx(dst_bo, &ctx);
++	shared_err = dma_resv_reserve_shared(src_bo->base.resv, 1);
++	ret = i915_deps_add_resv(&deps, dst_bo->base.resv, true, false, &ctx);
+ 	if (!ret)
+-		ret = ttm_bo_wait_ctx(src_bo, &ctx);
++		ret = i915_deps_add_resv(&deps, src_bo->base.resv,
++					 !!shared_err, false, &ctx);
+ 	if (ret)
+ 		return ret;
+ 
++	dep_fence = i915_deps_to_fence(&deps, &ctx);
++	if (IS_ERR(dep_fence))
++		return PTR_ERR(dep_fence);
 +
- 	switch (obj->mm.madv) {
- 	case I915_MADV_DONTNEED:
- 		return i915_ttm_purge(obj);
+ 	dst_rsgt = i915_ttm_resource_get_st(dst, dst_bo->resource);
+ 	copy_fence = __i915_ttm_move(src_bo, false, dst_bo->resource,
+-				     dst_bo->ttm, dst_rsgt, allow_accel, NULL);
++				     dst_bo->ttm, dst_rsgt, allow_accel,
++				     dep_fence);
+ 
+ 	i915_refct_sgt_put(dst_rsgt);
+-	if (IS_ERR(copy_fence))
+-		return PTR_ERR(copy_fence);
++	if (IS_ERR_OR_NULL(copy_fence))
++		return PTR_ERR_OR_ZERO(copy_fence);
+ 
+-	if (copy_fence) {
+-		dma_fence_wait(copy_fence, false);
+-		dma_fence_put(copy_fence);
+-	}
++	dma_resv_add_excl_fence(dst_bo->base.resv, copy_fence);
++
++	/* If we failed to reserve a shared slot, add an exclusive fence */
++	if (shared_err)
++		dma_resv_add_excl_fence(src_bo->base.resv, copy_fence);
++	else
++		dma_resv_add_shared_fence(src_bo->base.resv, copy_fence);
++
++	dma_fence_put(copy_fence);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+index 60d10ab55d1e..9aad84059d56 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+@@ -80,6 +80,7 @@ static int i915_ttm_backup(struct i915_gem_apply_to_region *apply,
+ 
+ 	err = i915_gem_obj_copy_ttm(backup, obj, pm_apply->allow_gpu, false);
+ 	GEM_WARN_ON(err);
++	ttm_bo_wait_ctx(backup_bo, &ctx);
+ 
+ 	obj->ttm.backup = backup;
+ 	return 0;
+@@ -170,6 +171,7 @@ static int i915_ttm_restore(struct i915_gem_apply_to_region *apply,
+ 		err = i915_gem_obj_copy_ttm(obj, backup, pm_apply->allow_gpu,
+ 					    false);
+ 		GEM_WARN_ON(err);
++		ttm_bo_wait_ctx(backup_bo, &ctx);
+ 
+ 		obj->ttm.backup = NULL;
+ 		err = 0;
 -- 
 2.31.1
 
