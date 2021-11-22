@@ -4,43 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E728C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 14:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E85CC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 15:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A653389EAE;
-	Mon, 22 Nov 2021 14:54:21 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6C289EAE
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 14:54:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10175"; a="222019202"
-X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; 
- d="scan'208,217";a="222019202"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2021 06:54:19 -0800
-X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; 
- d="scan'208,217";a="739230768"
-Received: from vanderss-mobl.ger.corp.intel.com (HELO [10.249.254.58])
- ([10.249.254.58])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2021 06:54:19 -0800
-Content-Type: multipart/alternative;
- boundary="------------KiwA38yCfKy00NrYfxZVQF0Z"
-Message-ID: <591c2917-43a0-0eb4-e923-b50096aa30e6@linux.intel.com>
-Date: Mon, 22 Nov 2021 15:54:16 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67B0289FD1;
+	Mon, 22 Nov 2021 15:06:25 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616EC89FC0;
+ Mon, 22 Nov 2021 15:06:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10175"; a="258622422"
+X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="258622422"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2021 07:04:55 -0800
+X-IronPort-AV: E=Sophos;i="5.87,255,1631602800"; d="scan'208";a="456665989"
+Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.205])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2021 07:04:53 -0800
+Date: Mon, 22 Nov 2021 20:38:01 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <20211122150801.GA13257@intel.com>
+References: <20211108174547.979714-1-thomas.hellstrom@linux.intel.com>
+ <20211108174547.979714-2-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Content-Language: en-US
-To: intel-gfx@lists.freedesktop.org,
- ", Lakshminarayana Vudum" <lakshminarayana.vudum@intel.com>
-References: <20211122082252.223689-1-thomas.hellstrom@linux.intel.com>
- <163758976063.5692.8038393009445053738@emeril.freedesktop.org>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-In-Reply-To: <163758976063.5692.8038393009445053738@emeril.freedesktop.org>
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/ttm=3A_Async_migration_=28rev7=29?=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211108174547.979714-2-thomas.hellstrom@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v6 1/4] drm/i915: Avoid allocating a page
+ array for the gpu coredump
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,161 +47,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------KiwA38yCfKy00NrYfxZVQF0Z
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On 2021-11-08 at 18:45:44 +0100, Thomas Hellström wrote:
+> The gpu coredump typically takes place in a dma_fence signalling
+> critical path, and hence can't use GFP_KERNEL allocations, as that
+> means we might hit deadlocks under memory pressure. However
+> changing to __GFP_KSWAPD_RECLAIM which will be done in an upcoming
+> patch will instead mean a lower chance of the allocation succeeding.
+> In particular large contigous allocations like the coredump page
+> vector.
+> Remove the page vector in favor of a linked list of single pages.
+> Use the page lru list head as the list link, as the page owner is
+> allowed to do that.
+> 
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
+Looks good to me
 
-On 11/22/21 15:02, Patchwork wrote:
-> Project List - Patchwork *Patch Details*
-> *Series:* 	drm/i915/ttm: Async migration (rev7)
-> *URL:* 	https://patchwork.freedesktop.org/series/96798/
-> *State:* 	failure
-> *Details:* 
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html
->
->
->   CI Bug Log - changes from CI_DRM_10913 -> Patchwork_21651
->
->
->     Summary
->
-> *FAILURE*
->
-> Serious unknown changes coming with Patchwork_21651 absolutely need to be
-> verified manually.
->
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_21651, please notify your bug team to allow them
-> to document this new failure mode, which will reduce false positives 
-> in CI.
->
-> External URL: 
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html
->
->
->     Participating hosts (43 -> 34)
->
-> Missing (9): bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-icl-u2 fi-bsw-cyan 
-> bat-adlp-6 bat-adlp-4 bat-jsl-2 bat-jsl-1
->
->
->     Possible new issues
->
-> Here are the unknown changes that may have been introduced in 
-> Patchwork_21651:
->
->
->       IGT changes
->
->
->         Possible regressions
->
->   * igt@gem_exec_suspend@basic-s3:
->       o fi-skl-6600u: PASS
->         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html>
->         -> INCOMPLETE
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html>
->
->
-Lakshmi,
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
 
-This failure is unrelated, and occurs on the same machine with a more or 
-less identical signature on CI_DRM_10901
-
-Thanks,
-Thomas
-
---------------KiwA38yCfKy00NrYfxZVQF0Z
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/22/21 15:02, Patchwork wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:163758976063.5692.8038393009445053738@emeril.freedesktop.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>Project List - Patchwork</title>
-      <style id="css-table-select" type="text/css">td { padding: 2pt; }</style>
-      <b>Patch Details</b>
-      <table>
-        <tbody>
-          <tr>
-            <td><b>Series:</b></td>
-            <td>drm/i915/ttm: Async migration (rev7)</td>
-          </tr>
-          <tr>
-            <td><b>URL:</b></td>
-            <td><a
-                href="https://patchwork.freedesktop.org/series/96798/"
-                moz-do-not-send="true" class="moz-txt-link-freetext">https://patchwork.freedesktop.org/series/96798/</a></td>
-          </tr>
-          <tr>
-            <td><b>State:</b></td>
-            <td>failure</td>
-          </tr>
-          <tr>
-            <td><b>Details:</b></td>
-            <td><a
-href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html"
-                moz-do-not-send="true" class="moz-txt-link-freetext">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html</a></td>
-          </tr>
-        </tbody>
-      </table>
-      <h1>CI Bug Log - changes from CI_DRM_10913 -&gt; Patchwork_21651</h1>
-      <h2>Summary</h2>
-      <p><strong>FAILURE</strong></p>
-      <p>Serious unknown changes coming with Patchwork_21651 absolutely
-        need to be<br>
-        verified manually.</p>
-      <p>If you think the reported changes have nothing to do with the
-        changes<br>
-        introduced in Patchwork_21651, please notify your bug team to
-        allow them<br>
-        to document this new failure mode, which will reduce false
-        positives in CI.</p>
-      <p>External URL:
-        <a class="moz-txt-link-freetext" href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/index.html</a></p>
-      <h2>Participating hosts (43 -&gt; 34)</h2>
-      <p>Missing (9): bat-dg1-6 fi-tgl-u2 bat-dg1-5 fi-icl-u2
-        fi-bsw-cyan bat-adlp-6 bat-adlp-4 bat-jsl-2 bat-jsl-1 </p>
-      <h2>Possible new issues</h2>
-      <p>Here are the unknown changes that may have been introduced in
-        Patchwork_21651:</p>
-      <h3>IGT changes</h3>
-      <h4>Possible regressions</h4>
-      <ul>
-        <li>igt@gem_exec_suspend@basic-s3:
-          <ul>
-            <li>fi-skl-6600u: <a
-href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10913/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html"
-                moz-do-not-send="true">PASS</a> -&gt; <a
-href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21651/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html"
-                moz-do-not-send="true">INCOMPLETE</a></li>
-          </ul>
-        </li>
-      </ul>
-      <br>
-    </blockquote>
-    <p>Lakshmi,</p>
-    <p>This failure is unrelated, and occurs on the same machine with a
-      more or less identical signature on CI_DRM_10901<br>
-    </p>
-    <p>Thanks,<br>
-      Thomas<br>
-    </p>
-  </body>
-</html>
---------------KiwA38yCfKy00NrYfxZVQF0Z--
-
+> ---
+>  drivers/gpu/drm/i915/i915_gpu_error.c | 50 +++++++++++++++------------
+>  drivers/gpu/drm/i915/i915_gpu_error.h |  4 +--
+>  2 files changed, 28 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> index 2a2d7643b551..14de64282697 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> @@ -275,16 +275,16 @@ static bool compress_start(struct i915_vma_compress *c)
+>  static void *compress_next_page(struct i915_vma_compress *c,
+>  				struct i915_vma_coredump *dst)
+>  {
+> -	void *page;
+> +	void *page_addr;
+> +	struct page *page;
+>  
+> -	if (dst->page_count >= dst->num_pages)
+> -		return ERR_PTR(-ENOSPC);
+> -
+> -	page = pool_alloc(&c->pool, ALLOW_FAIL);
+> -	if (!page)
+> +	page_addr = pool_alloc(&c->pool, ALLOW_FAIL);
+> +	if (!page_addr)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	return dst->pages[dst->page_count++] = page;
+> +	page = virt_to_page(page_addr);
+> +	list_add_tail(&page->lru, &dst->page_list);
+> +	return page_addr;
+>  }
+>  
+>  static int compress_page(struct i915_vma_compress *c,
+> @@ -397,7 +397,7 @@ static int compress_page(struct i915_vma_compress *c,
+>  
+>  	if (!(wc && i915_memcpy_from_wc(ptr, src, PAGE_SIZE)))
+>  		memcpy(ptr, src, PAGE_SIZE);
+> -	dst->pages[dst->page_count++] = ptr;
+> +	list_add_tail(&virt_to_page(ptr)->lru, &dst->page_list);
+>  	cond_resched();
+>  
+>  	return 0;
+> @@ -614,7 +614,7 @@ static void print_error_vma(struct drm_i915_error_state_buf *m,
+>  			    const struct i915_vma_coredump *vma)
+>  {
+>  	char out[ASCII85_BUFSZ];
+> -	int page;
+> +	struct page *page;
+>  
+>  	if (!vma)
+>  		return;
+> @@ -628,16 +628,17 @@ static void print_error_vma(struct drm_i915_error_state_buf *m,
+>  		err_printf(m, "gtt_page_sizes = 0x%08x\n", vma->gtt_page_sizes);
+>  
+>  	err_compression_marker(m);
+> -	for (page = 0; page < vma->page_count; page++) {
+> +	list_for_each_entry(page, &vma->page_list, lru) {
+>  		int i, len;
+> +		const u32 *addr = page_address(page);
+>  
+>  		len = PAGE_SIZE;
+> -		if (page == vma->page_count - 1)
+> +		if (page == list_last_entry(&vma->page_list, typeof(*page), lru))
+>  			len -= vma->unused;
+>  		len = ascii85_encode_len(len);
+>  
+>  		for (i = 0; i < len; i++)
+> -			err_puts(m, ascii85_encode(vma->pages[page][i], out));
+> +			err_puts(m, ascii85_encode(addr[i], out));
+>  	}
+>  	err_puts(m, "\n");
+>  }
+> @@ -946,10 +947,12 @@ static void i915_vma_coredump_free(struct i915_vma_coredump *vma)
+>  {
+>  	while (vma) {
+>  		struct i915_vma_coredump *next = vma->next;
+> -		int page;
+> +		struct page *page, *n;
+>  
+> -		for (page = 0; page < vma->page_count; page++)
+> -			free_page((unsigned long)vma->pages[page]);
+> +		list_for_each_entry_safe(page, n, &vma->page_list, lru) {
+> +			list_del_init(&page->lru);
+> +			__free_page(page);
+> +		}
+>  
+>  		kfree(vma);
+>  		vma = next;
+> @@ -1016,7 +1019,6 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>  	struct i915_ggtt *ggtt = gt->ggtt;
+>  	const u64 slot = ggtt->error_capture.start;
+>  	struct i915_vma_coredump *dst;
+> -	unsigned long num_pages;
+>  	struct sgt_iter iter;
+>  	int ret;
+>  
+> @@ -1025,9 +1027,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>  	if (!vma || !vma->pages || !compress)
+>  		return NULL;
+>  
+> -	num_pages = min_t(u64, vma->size, vma->obj->base.size) >> PAGE_SHIFT;
+> -	num_pages = DIV_ROUND_UP(10 * num_pages, 8); /* worstcase zlib growth */
+> -	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ALLOW_FAIL);
+> +	dst = kmalloc(sizeof(*dst), ALLOW_FAIL);
+>  	if (!dst)
+>  		return NULL;
+>  
+> @@ -1036,14 +1036,13 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>  		return NULL;
+>  	}
+>  
+> +	INIT_LIST_HEAD(&dst->page_list);
+>  	strcpy(dst->name, name);
+>  	dst->next = NULL;
+>  
+>  	dst->gtt_offset = vma->node.start;
+>  	dst->gtt_size = vma->node.size;
+>  	dst->gtt_page_sizes = vma->page_sizes.gtt;
+> -	dst->num_pages = num_pages;
+> -	dst->page_count = 0;
+>  	dst->unused = 0;
+>  
+>  	ret = -EINVAL;
+> @@ -1106,8 +1105,13 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>  	}
+>  
+>  	if (ret || compress_flush(compress, dst)) {
+> -		while (dst->page_count--)
+> -			pool_free(&compress->pool, dst->pages[dst->page_count]);
+> +		struct page *page, *n;
+> +
+> +		list_for_each_entry_safe_reverse(page, n, &dst->page_list, lru) {
+> +			list_del_init(&page->lru);
+> +			pool_free(&compress->pool, page_address(page));
+> +		}
+> +
+>  		kfree(dst);
+>  		dst = NULL;
+>  	}
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+> index b98d8cdbe4f2..5aedf5129814 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.h
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+> @@ -39,10 +39,8 @@ struct i915_vma_coredump {
+>  	u64 gtt_size;
+>  	u32 gtt_page_sizes;
+>  
+> -	int num_pages;
+> -	int page_count;
+>  	int unused;
+> -	u32 *pages[];
+> +	struct list_head page_list;
+>  };
+>  
+>  struct i915_request_coredump {
+> -- 
+> 2.31.1
+> 
