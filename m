@@ -4,56 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 747DBC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 09:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C96C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 09:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB766E528;
-	Tue, 23 Nov 2021 09:45:24 +0000 (UTC)
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [IPv6:2607:f8b0:4864:20::f34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96EFB6E558
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 09:45:23 +0000 (UTC)
-Received: by mail-qv1-xf34.google.com with SMTP id i13so14537906qvm.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 01:45:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gjAeDV4wQnUVbp8ZBRPFCC1X8HJ2+Ku3mN9IdmgP8Fg=;
- b=EdC8IKYlyCBTbYzhY6MaLygY0LVA1zWLubAUOVb9oMtQvUqnsy/kwanEfinLJKCJyI
- kttLUMikCLyhLNkKkTfIv/S/nEdWCJjV+Enm3ghGN31Y7pScxuSERaiiDix119045rzn
- c3sth02d2saMXW+bb0gPxE4XK1NGTzoLgs7MnvllLtzN3bizsMUADogTopUx57kQZNti
- QzoaDEBSax6MZFF5QhEZvpHMHsstX8QjtD+1ic95nbMTanPfZNhqg79bwcnO2bkhyTIg
- fHPxBYHllvi8Nhxttq2dOD0K5DvfK00ZHnNlzDTF2SXPd7AEbV0aVf9HE43MhsYiWeNC
- Y2jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gjAeDV4wQnUVbp8ZBRPFCC1X8HJ2+Ku3mN9IdmgP8Fg=;
- b=EyAGFQJElnjx8fftX1Rm0Lr7P19ANnA139a1DY57im3o1m5zpr8xQBKZeFmpDBTV5c
- 7n3RB3/cANrRtm8XMPbtGvi57aMii2JHV6+8OsYfTRmeFqNvabc6UCBD/z62xxi0JaPQ
- bT9E484U9Z4tYAXePv3EujL8JbVm/jl7sLukGY5aQczUavxx/MFc77XsfNyXgR85Vyfn
- evtGhYt7GnDeruKyvZLzsPWzr48FIFg+CGe9oe9B2g/CznlbJe2hHnysdqx7ph+1LJEK
- Svo9bjMvENR3/+RmWEQS5qIR1yqOHgMIdneBTYNPo8+osP68FEryQRPA21vclU6v6gzS
- y3AQ==
-X-Gm-Message-State: AOAM531WnikJmh6BpZsL16jX7anuUcKdLDlQWl+3vU4nWsH1LsvUTlRl
- D27n1QBonca79x7i7SudXQbQ8M++1LtqDk3IJaHQbPzyg0U=
-X-Google-Smtp-Source: ABdhPJxx+0PiPFc9zC4XZeCJVmWjrFN1IXhlPYnmqeJlfs9ZqH5HVyrimLl7q64pLjkNr3hz5NXUD6Tjx6OLgq9V2UI=
-X-Received: by 2002:a05:6214:4012:: with SMTP id
- kd18mr4680185qvb.1.1637660722426; 
- Tue, 23 Nov 2021 01:45:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C586E860;
+	Tue, 23 Nov 2021 09:49:08 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86D406E860
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 09:49:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10176"; a="234939129"
+X-IronPort-AV: E=Sophos;i="5.87,257,1631602800"; d="scan'208";a="234939129"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2021 01:49:06 -0800
+X-IronPort-AV: E=Sophos;i="5.87,257,1631602800"; d="scan'208";a="552910678"
+Received: from clei4-mobl.ccr.corp.intel.com (HELO [10.209.177.32])
+ ([10.209.177.32])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2021 01:49:05 -0800
+Message-ID: <82e3fcaf-d676-ea6e-3cc3-ef8ca5d9f176@linux.intel.com>
+Date: Tue, 23 Nov 2021 09:49:04 +0000
 MIME-Version: 1.0
-References: <20211123050928.20434-1-rdunlap@infradead.org>
- <163764698295.2116.7786772823121181213@emeril.freedesktop.org>
-In-Reply-To: <163764698295.2116.7786772823121181213@emeril.freedesktop.org>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Tue, 23 Nov 2021 09:44:56 +0000
-Message-ID: <CAM0jSHOcGhcEHJgbX4_K7udV6EnSGqq2V+ros3NqWS6jRL4iSQ@mail.gmail.com>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- lakshminarayana.vudum@intel.com
-Content-Type: multipart/alternative; boundary="0000000000009f75a505d171997b"
-Subject: Re: [Intel-gfx] 
-	=?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
-	=?utf-8?q?/i915/gem=3A_placate_scripts/kernel-doc?=
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Content-Language: en-US
+To: =?UTF-8?Q?Zbigniew_Kempczy=c5=84ski?= <zbigniew.kempczynski@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20211122191314.47254-1-zbigniew.kempczynski@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20211122191314.47254-1-zbigniew.kempczynski@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH 0/1] Ensure zero alignment on gens < 4
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,392 +49,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---0000000000009f75a505d171997b
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 23 Nov 2021 at 05:56, Patchwork <patchwork@emeril.freedesktop.org>
-wrote:
+On 22/11/2021 19:13, Zbigniew Kempczyński wrote:
+> In short - we want to enforce alignment == 0 for gen4+ GEM object
+> settings.
+> 
+> Before we merge this we need to inspect all UMD we expect can use
+> this. My investigation was narrowed to UMD code:
+> 
+> 1. IGT
+> 2. Mesa
+> 3. Media-Driver
+> 4. NEO
+> 5. libdrm
+> 6. xf86-intel-video
+> 
+> I would like to ask subsystem developers / maintainers to confirm
+> my analysis.
+> 
+> 1. IGT:
+>     We've already removed / fixed most of the code where alignment != 0.
+>     What left was few multi-card subtests I'm not able to rewrite due
+>     to lack of such hw (nv + intel on the board).
+> 
+> 2. Mesa:
+>     gallium/drivers/iris/iris_batch.c,iris_bufmgr.c - it uses softpinning
+>     only with alignment handled by allocator, so drm_i915_gem_exec_object2
+>     alignment field == 0.
+> 
+>     drivers/dri/i965/brw_batch.c,brw_screen.c - it uses relocations but
+>     it is supported by allocator, there're no direct alignment settings
+>     to value != 0.
+> 
+>     vulcan/anv_batch_chain.c: drm_i915_gem_exec_object2 objects are
+>     initialized within anv_execbuf_add_bo() and .alignment field
+>     is set to 0 there. There's no other place where I've found vulcan
+>     driver touches it both for softpinning / relocations.
+> 
+> 3. Media-Driver:
+>     It contains modified libdrm code and three functions which do
+>     allocations, all of them uses mos_gem_bo_alloc_internal():
+>     - mos_gem_bo_alloc() - internally uses alignment == 0, that's ok
+>     - mos_gem_bo_alloc_tiled() - same as mos_gem_bo_alloc()
+>     - mos_gem_bo_alloc_for_render() - this one passes alignment from
+>       the caller and it may be != 0. But I haven't found practical
+>       usage of this function externally (using mos_bo_alloc_for_render()
+>       wrapper).
+>     There's another userptr allocation function: mos_bo_alloc_userptr()
+>     but it doesn't use alignment.
+> 
+> 4. NEO:
+>     Uses softpinning only with alignment == 0:
+>     source/os_interface/linux/drm_buffer_object.cpp:
+>     void BufferObject::fillExecObject() has execObject.alignment = 0;
+> 
+> 5. libdrm:
+>     Corresponding functions to Media-Driver:
+>     drm_intel_bo_alloc(), drm_intel_bo_alloc_for_render(),
+>     drm_intel_bo_alloc_userptr() and drm_intel_bo_alloc_tiled().
+>     Alignment field is used in drm_intel_bo_alloc_for_render()
+>     so couple not rewritten IGTs may encounter issue here (alignment
+>     passed in IGTs which still uses libdrm == 4096).
+> 
+> 6. xf86-intel-video:
+>     src/sna/kgem.c: _kgem_submit() - alignment is set to 0 so this
+>     shouldn't be a problem.
 
-> *Patch Details*
-> *Series:* drm/i915/gem: placate scripts/kernel-doc
-> *URL:* https://patchwork.freedesktop.org/series/97190/
-> *State:* failure
-> *Details:*
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/index.html CI
-> Bug Log - changes from CI_DRM_10917 -> Patchwork_21664 Summary
->
-> *FAILURE*
->
-> Serious unknown changes coming with Patchwork_21664 absolutely need to be
-> verified manually.
->
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_21664, please notify your bug team to allow them
-> to document this new failure mode, which will reduce false positives in CI.
->
-> External URL:
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/index.html
-> Participating hosts (40 -> 34)
->
-> Additional (1): fi-kbl-soraka
-> Missing (7): bat-dg1-6 fi-tgl-u2 fi-bsw-cyan bat-adlp-6 bat-adlp-4
-> bat-jsl-2 bat-jsl-1
-> Possible new issues
->
-> Here are the unknown changes that may have been introduced in
-> Patchwork_21664:
-> IGT changes Possible regressions
->
->    - igt@gem_exec_suspend@basic-s3:
->       - fi-skl-6600u: PASS
->       <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10917/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html>
->       -> FAIL
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html>
->
->
-Lakshmi, another false positive it seems. The patch in question is only
-fixing kernel-doc. Pushed to drm-intel-gt-next. Thanks.
+You also need to figure out not only what codebase currently uses this, 
+but what maybe has an older version in the field which used to, right? 
+Otherwise kernel upgrade can break someones old userspace which is not 
+allowed. Just raising this for consideration if it isn't already on your 
+radar.
 
+Regards,
 
->    -
->
-> Known issues
->
-> Here are the changes found in Patchwork_21664 that come from known issues:
-> IGT changes Issues hit
->
->    -
->
->    igt@amdgpu/amd_basic@semaphore:
->    - fi-bdw-5557u: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271>)
->       +31 similar issues
->    -
->
->    igt@gem_exec_fence@basic-busy@bcs0:
->    - fi-kbl-soraka: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271>)
->       +2 similar issues
->    -
->
->    igt@gem_exec_suspend@basic-s0:
->    - fi-kbl-soraka: NOTRUN -> INCOMPLETE
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-soraka/igt@gem_exec_suspend@basic-s0.html>
->       (i915#4221 <https://gitlab.freedesktop.org/drm/intel/issues/4221>)
->    -
->
->    igt@gem_huc_copy@huc-copy:
->    - fi-kbl-8809g: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271> /
->       i915#2190 <https://gitlab.freedesktop.org/drm/intel/issues/2190>)
->    -
->
->    igt@i915_selftest@live@hangcheck:
->    - fi-snb-2600: PASS
->       <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10917/fi-snb-2600/igt@i915_selftest@live@hangcheck.html>
->       -> INCOMPLETE
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-snb-2600/igt@i915_selftest@live@hangcheck.html>
->       (i915#3921 <https://gitlab.freedesktop.org/drm/intel/issues/3921>)
->    -
->
->    igt@kms_chamelium@dp-crc-fast:
->    - fi-bdw-5557u: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271> /
->       fdo#111827 <https://bugs.freedesktop.org/show_bug.cgi?id=111827>)
->       +8 similar issues
->    -
->
->    igt@kms_chamelium@hdmi-edid-read:
->    - fi-kbl-8809g: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@kms_chamelium@hdmi-edid-read.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271> /
->       fdo#111827 <https://bugs.freedesktop.org/show_bug.cgi?id=111827>)
->       +8 similar issues
->    -
->
->    igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
->    - fi-kbl-8809g: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271> /
->       i915#533 <https://gitlab.freedesktop.org/drm/intel/issues/533>)
->    -
->
->    igt@kms_psr@cursor_plane_move:
->    - fi-kbl-8809g: NOTRUN -> SKIP
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@kms_psr@cursor_plane_move.html>
->       (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=109271>)
->       +41 similar issues
->
-> Possible fixes
->
->    - igt@core_auth@basic-auth:
->       - fi-kbl-8809g: FAIL
->       <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10917/fi-kbl-8809g/igt@core_auth@basic-auth.html>
->       -> PASS
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@core_auth@basic-auth.html>
->
-> Warnings
->
->    - igt@runner@aborted:
->       - fi-skl-6600u: FAIL
->       <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10917/fi-skl-6600u/igt@runner@aborted.html>
->       (i915#2722 <https://gitlab.freedesktop.org/drm/intel/issues/2722> /
->       i915#3363 <https://gitlab.freedesktop.org/drm/intel/issues/3363> /
->       i915#4312 <https://gitlab.freedesktop.org/drm/intel/issues/4312>)
->       -> FAIL
->       <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/fi-skl-6600u/igt@runner@aborted.html>
->       (i915#3363 <https://gitlab.freedesktop.org/drm/intel/issues/3363> /
->       i915#4312 <https://gitlab.freedesktop.org/drm/intel/issues/4312>)
->
-> Build changes
->
->    - Linux: CI_DRM_10917 -> Patchwork_21664
->
-> CI-20190529: 20190529
-> CI_DRM_10917: de9a03c2007f3c69c5fa86ef007841a4a9194aac @ git://
-> anongit.freedesktop.org/gfx-ci/linux
-> IGT_6286: cdcbf81f734fdb1d102e84490e49e9fec23760cd @
-> https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-> Patchwork_21664: 960cb066fb2369728d369f58fd4601e250486664 @ git://
-> anongit.freedesktop.org/gfx-ci/linux
->
-> == Linux commits ==
->
-> 960cb066fb23 drm/i915/gem: placate scripts/kernel-doc
->
+Tvrtko
 
---0000000000009f75a505d171997b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-family:monospace,monospace">On Tue, 23 Nov 2021 at 05:56, Patchwork &lt;<=
-a href=3D"mailto:patchwork@emeril.freedesktop.org" target=3D"_blank">patchw=
-ork@emeril.freedesktop.org</a>&gt; wrote:<br></div></div><div class=3D"gmai=
-l_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<u></u>
-
-=20
- =20
- =20
- =20
-
-<div>
-
-
-<b>Patch Details</b>
-<table>
-<tbody><tr><td><b>Series:</b></td><td>drm/i915/gem: placate scripts/kernel-=
-doc</td></tr>
-<tr><td><b>URL:</b></td><td><a href=3D"https://patchwork.freedesktop.org/se=
-ries/97190/" target=3D"_blank">https://patchwork.freedesktop.org/series/971=
-90/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href=3D"https://intel-gfx-ci.01.org/=
-tree/drm-tip/Patchwork_21664/index.html" target=3D"_blank">https://intel-gf=
-x-ci.01.org/tree/drm-tip/Patchwork_21664/index.html</a></td></tr>
-
-</tbody></table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10917 -&gt; Patchwork_21664</h1>
-<h2>Summary</h2>
-<p><b>FAILURE</b></p>
-<p>Serious unknown changes coming with Patchwork_21664 absolutely need to b=
-e<br>
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br=
->
-  introduced in Patchwork_21664, please notify your bug team to allow them<=
-br>
-  to document this new failure mode, which will reduce false positives in C=
-I.</p>
-<p>External URL: <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchw=
-ork_21664/index.html" target=3D"_blank">https://intel-gfx-ci.01.org/tree/dr=
-m-tip/Patchwork_21664/index.html</a></p>
-<h2>Participating hosts (40 -&gt; 34)</h2>
-<p>Additional (1): fi-kbl-soraka <br>
-  Missing    (7): bat-dg1-6 fi-tgl-u2 fi-bsw-cyan bat-adlp-6 bat-adlp-4 bat=
--jsl-2 bat-jsl-1 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_=
-21664:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@gem_exec_suspend@basic-s3:<ul>
-<li>fi-skl-6600u:       <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10917/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html" target=3D"_b=
-lank">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Pa=
-tchwork_21664/fi-skl-6600u/igt@gem_exec_suspend@basic-s3.html" target=3D"_b=
-lank">FAIL</a></li></ul></li></ul></div></blockquote><div><br></div><div><d=
-iv style=3D"font-family:monospace,monospace" class=3D"gmail_default">Lakshm=
-i, another false positive it seems. The patch in question is only fixing ke=
-rnel-doc. Pushed to drm-intel-gt-next. Thanks.</div><div style=3D"font-fami=
-ly:monospace,monospace" class=3D"gmail_default"><br></div></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex"><div><ul><li><ul>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21664 that come from known issue=
-s:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@semaphore:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.h=
-tml" target=3D"_blank">SKIP</a> (<a href=3D"https://bugs.freedesktop.org/sh=
-ow_bug.cgi?id=3D109271" target=3D"_blank">fdo#109271</a>) +31 similar issue=
-s</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fence@basic-busy@bcs0:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@b=
-cs0.html" target=3D"_blank">SKIP</a> (<a href=3D"https://bugs.freedesktop.o=
-rg/show_bug.cgi?id=3D109271" target=3D"_blank">fdo#109271</a>) +2 similar i=
-ssues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s0:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-kbl-soraka/igt@gem_exec_suspend@basic-s0.h=
-tml" target=3D"_blank">INCOMPLETE</a> (<a href=3D"https://gitlab.freedeskto=
-p.org/drm/intel/issues/4221" target=3D"_blank">i915#4221</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html" =
-target=3D"_blank">SKIP</a> (<a href=3D"https://bugs.freedesktop.org/show_bu=
-g.cgi?id=3D109271" target=3D"_blank">fdo#109271</a> / <a href=3D"https://gi=
-tlab.freedesktop.org/drm/intel/issues/2190" target=3D"_blank">i915#2190</a>=
-)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10917/fi-snb-2600/igt@i915_selftest@live@hangcheck.html" target=3D"=
-_blank">PASS</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/=
-Patchwork_21664/fi-snb-2600/igt@i915_selftest@live@hangcheck.html" target=
-=3D"_blank">INCOMPLETE</a> (<a href=3D"https://gitlab.freedesktop.org/drm/i=
-ntel/issues/3921" target=3D"_blank">i915#3921</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.ht=
-ml" target=3D"_blank">SKIP</a> (<a href=3D"https://bugs.freedesktop.org/sho=
-w_bug.cgi?id=3D109271" target=3D"_blank">fdo#109271</a> / <a href=3D"https:=
-//bugs.freedesktop.org/show_bug.cgi?id=3D111827" target=3D"_blank">fdo#1118=
-27</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-edid-read:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@kms_chamelium@hdmi-edid-read=
-.html" target=3D"_blank">SKIP</a> (<a href=3D"https://bugs.freedesktop.org/=
-show_bug.cgi?id=3D109271" target=3D"_blank">fdo#109271</a> / <a href=3D"htt=
-ps://bugs.freedesktop.org/show_bug.cgi?id=3D111827" target=3D"_blank">fdo#1=
-11827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@kms_pipe_crc_basic@compare-c=
-rc-sanitycheck-pipe-d.html" target=3D"_blank">SKIP</a> (<a href=3D"https://=
-bugs.freedesktop.org/show_bug.cgi?id=3D109271" target=3D"_blank">fdo#109271=
-</a> / <a href=3D"https://gitlab.freedesktop.org/drm/intel/issues/533" targ=
-et=3D"_blank">i915#533</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@cursor_plane_move:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_21664/fi-kbl-8809g/igt@kms_psr@cursor_plane_move.ht=
-ml" target=3D"_blank">SKIP</a> (<a href=3D"https://bugs.freedesktop.org/sho=
-w_bug.cgi?id=3D109271" target=3D"_blank">fdo#109271</a>) +41 similar issues=
-</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_auth@basic-auth:<ul>
-<li>fi-kbl-8809g:       <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10917/fi-kbl-8809g/igt@core_auth@basic-auth.html" target=3D"_blank"=
->FAIL</a> -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwo=
-rk_21664/fi-kbl-8809g/igt@core_auth@basic-auth.html" target=3D"_blank">PASS=
-</a></li>
-</ul>
-</li>
-</ul>
-<h4>Warnings</h4>
-<ul>
-<li>igt@runner@aborted:<ul>
-<li>fi-skl-6600u:       <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_10917/fi-skl-6600u/igt@runner@aborted.html" target=3D"_blank">FAIL<=
-/a> (<a href=3D"https://gitlab.freedesktop.org/drm/intel/issues/2722" targe=
-t=3D"_blank">i915#2722</a> / <a href=3D"https://gitlab.freedesktop.org/drm/=
-intel/issues/3363" target=3D"_blank">i915#3363</a> / <a href=3D"https://git=
-lab.freedesktop.org/drm/intel/issues/4312" target=3D"_blank">i915#4312</a>)=
- -&gt; <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21664/=
-fi-skl-6600u/igt@runner@aborted.html" target=3D"_blank">FAIL</a> (<a href=
-=3D"https://gitlab.freedesktop.org/drm/intel/issues/3363" target=3D"_blank"=
->i915#3363</a> / <a href=3D"https://gitlab.freedesktop.org/drm/intel/issues=
-/4312" target=3D"_blank">i915#4312</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10917 -&gt; Patchwork_21664</li>
-</ul>
-<p>CI-20190529: 20190529<br>
-  CI_DRM_10917: de9a03c2007f3c69c5fa86ef007841a4a9194aac @ git://<a href=3D=
-"http://anongit.freedesktop.org/gfx-ci/linux" target=3D"_blank">anongit.fre=
-edesktop.org/gfx-ci/linux</a><br>
-  IGT_6286: cdcbf81f734fdb1d102e84490e49e9fec23760cd @ <a href=3D"https://g=
-itlab.freedesktop.org/drm/igt-gpu-tools.git" target=3D"_blank">https://gitl=
-ab.freedesktop.org/drm/igt-gpu-tools.git</a><br>
-  Patchwork_21664: 960cb066fb2369728d369f58fd4601e250486664 @ git://<a href=
-=3D"http://anongit.freedesktop.org/gfx-ci/linux" target=3D"_blank">anongit.=
-freedesktop.org/gfx-ci/linux</a></p>
-<p>=3D=3D Linux commits =3D=3D</p>
-<p>960cb066fb23 drm/i915/gem: placate scripts/kernel-doc</p>
-
-</div>
-
-</blockquote></div></div>
-
---0000000000009f75a505d171997b--
+> 
+> 
+> Cc: Petri Latvala <petri.latvala@intel.com>
+> Cc: Jason Ekstrand <jason@jlekstrand.net>
+> Cc: Dmitry Rogozhkin <dmitry.v.rogozhkin@intel.com>
+> Cc: Michal Mrozek <michal.mrozek@intel.com>
+> Cc: José Roberto de Souza <jose.souza@intel.com>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> 
+> Zbigniew Kempczyński (1):
+>    i915/gem/i915_gem_execbuffer: Disallow passing alignment
+> 
+>   drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
