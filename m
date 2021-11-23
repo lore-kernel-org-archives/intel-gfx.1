@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 822DBC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 20:25:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E1CC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 20:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C95336E47A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBB936E49A;
 	Tue, 23 Nov 2021 20:25:00 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAAE56E15A;
- Tue, 23 Nov 2021 20:24:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E096E182;
+ Tue, 23 Nov 2021 20:24:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  Reply-To:Content-Type:Content-ID:Content-Description;
- bh=2Kv6Hoi+4rCR0xeNRjHAEL5W0WSj9wKutSwhTDgIue0=; b=Qi+WT89v/gxTJXFJzgrSOMN/j4
- 4rOnaodA9SoHPCBfgiqmeZiDb9Jip9L6gfN5zh0+xw5x4zfJ4tLm4LZ94MxfX4/cLHomKT0GwITKC
- 9JKt82tHX3MTqRxl7aN/V4975++ctv4fIwYEPkqZkHvAHJfopfoEHsRYRiFgmyCHxgftAKWfdMF2/
- SmnjX2hTOKP+Oxfb6PzrLZBzoPt4nF4yxh8DXwEjGSb01g4HHQZ1Hn0j2YOj9Nxm9GIXwnXNhSyHW
- jKIKQ0iWXm4zNAWEvO+0EJlgTdTI2EhA8Cvgg6jItc3zff4jfmPQAZ8GwgHNOUzyk/a//6tVVHsr4
- E+oWRjRw==;
+ bh=Gd9eQWajxy0iI68lppb+s86qgv/iD4JNro7LeJWzrnM=; b=MWKwDI+3iFgBOVtnVoAOyB5NFa
+ aKoQKCknzmOEv4+vlS0S9j9DlUv/3lDMKtskggo4N0ytRZVWdqxsiGfE/R9j0fTzs/V/4Smyy/+Fs
+ SjiXs641h9nvM0IaJHwc+yd6zjul9oQr9TOfPoBO/X7oDnXpy2EFnLNKIjFWL4xK2uRXnovoVDoUN
+ tpjGKNVARwRhTB2/900O1rfLDS/i6tckcPD4LS/Uxxf8vBTyiwHFOEXeh+eUN5ianyffwP3QOsxaZ
+ KF3KOhguswWFrAGP6E2xFK6QLLmTseeInhlJm0YX0ej0PSKoCh2g7cNhq82meHCXFtFl+qTmM6UUZ
+ 8YB/z9ZQ==;
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1mpcL1-003R5D-7B; Tue, 23 Nov 2021 20:24:23 +0000
+ (Red Hat Linux)) id 1mpcL1-003R5J-AW; Tue, 23 Nov 2021 20:24:23 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: akpm@linux-foundation.org, keescook@chromium.org,
 	yzaikin@google.com, nixiaoming@huawei.com, ebiederm@xmission.com,
@@ -35,15 +35,15 @@ To: akpm@linux-foundation.org, keescook@chromium.org,
 	benh@kernel.crashing.org, mark@fasheh.com, jlbec@evilplan.org,
 	joseph.qi@linux.alibaba.com, jack@suse.cz, amir73il@gmail.com,
 	phil@philpotter.co.uk, viro@zeniv.linux.org.uk, julia.lawall@inria.fr
-Date: Tue, 23 Nov 2021 12:24:15 -0800
-Message-Id: <20211123202422.819032-2-mcgrof@kernel.org>
+Date: Tue, 23 Nov 2021 12:24:18 -0800
+Message-Id: <20211123202422.819032-5-mcgrof@kernel.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211123202422.819032-1-mcgrof@kernel.org>
 References: <20211123202422.819032-1-mcgrof@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/8] hpet: simplify subdirectory registration
- with register_sysctl()
+Subject: [Intel-gfx] [PATCH v2 4/8] ocfs2: simplify subdirectory
+ registration with register_sysctl()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,7 +67,7 @@ There is no need to user boiler plate code to specify a set of base
 directories we're going to stuff sysctls under. Simplify this by using
 register_sysctl() and specifying the directory path directly.
 
-// pycocci sysctl-subdir-register-sysctl-simplify.cocci drivers/char/hpet.c
+// pycocci sysctl-subdir-register-sysctl-simplify.cocci PATH
 
 @c1@
 expression E1;
@@ -161,49 +161,54 @@ header =
 Generated-by: Coccinelle SmPL
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- drivers/char/hpet.c | 22 +---------------------
- 1 file changed, 1 insertion(+), 21 deletions(-)
+ fs/ocfs2/stackglue.c | 25 +------------------------
+ 1 file changed, 1 insertion(+), 24 deletions(-)
 
-diff --git a/drivers/char/hpet.c b/drivers/char/hpet.c
-index 4e5431f01450..563dfae3b8da 100644
---- a/drivers/char/hpet.c
-+++ b/drivers/char/hpet.c
-@@ -746,26 +746,6 @@ static struct ctl_table hpet_table[] = {
- 	{}
+diff --git a/fs/ocfs2/stackglue.c b/fs/ocfs2/stackglue.c
+index 16f1bfc407f2..731558a6f27d 100644
+--- a/fs/ocfs2/stackglue.c
++++ b/fs/ocfs2/stackglue.c
+@@ -672,31 +672,8 @@ static struct ctl_table ocfs2_mod_table[] = {
+ 	{ }
  };
  
--static struct ctl_table hpet_root[] = {
+-static struct ctl_table ocfs2_kern_table[] = {
 -	{
--	 .procname = "hpet",
--	 .maxlen = 0,
--	 .mode = 0555,
--	 .child = hpet_table,
--	 },
--	{}
+-		.procname	= "ocfs2",
+-		.data		= NULL,
+-		.maxlen		= 0,
+-		.mode		= 0555,
+-		.child		= ocfs2_mod_table
+-	},
+-	{ }
 -};
 -
--static struct ctl_table dev_root[] = {
+-static struct ctl_table ocfs2_root_table[] = {
 -	{
--	 .procname = "dev",
--	 .maxlen = 0,
--	 .mode = 0555,
--	 .child = hpet_root,
--	 },
--	{}
+-		.procname	= "fs",
+-		.data		= NULL,
+-		.maxlen		= 0,
+-		.mode		= 0555,
+-		.child		= ocfs2_kern_table
+-	},
+-	{ }
 -};
 -
- static struct ctl_table_header *sysctl_header;
+ static struct ctl_table_header *ocfs2_table_header;
  
+-
  /*
-@@ -1061,7 +1041,7 @@ static int __init hpet_init(void)
- 	if (result < 0)
- 		return -ENODEV;
+  * Initialization
+  */
+@@ -705,7 +682,7 @@ static int __init ocfs2_stack_glue_init(void)
+ {
+ 	strcpy(cluster_stack_name, OCFS2_STACK_PLUGIN_O2CB);
  
--	sysctl_header = register_sysctl_table(dev_root);
-+	sysctl_header = register_sysctl("dev/hpet", hpet_table);
- 
- 	result = acpi_bus_register_driver(&hpet_acpi_driver);
- 	if (result < 0) {
+-	ocfs2_table_header = register_sysctl_table(ocfs2_root_table);
++	ocfs2_table_header = register_sysctl("fs/ocfs2", ocfs2_mod_table);
+ 	if (!ocfs2_table_header) {
+ 		printk(KERN_ERR
+ 		       "ocfs2 stack glue: unable to register sysctl\n");
 -- 
 2.33.0
 
