@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D06AC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 20:25:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85CEFC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 21:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8FF96E433;
-	Tue, 23 Nov 2021 20:25:09 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69D386E413;
- Tue, 23 Nov 2021 20:24:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description;
- bh=aTZqVF2ar9gFRxcW4axREzxdcbuKKNtu2N0Y/kRNh2k=; b=yINnFu5kN49mKwI2VfcW4RrAJA
- e4pQ8MdM4ctUmswxgqNTa+JS+oEROqJglzh+ybGHkWwjsm3YnBlJBE8lUdBrUZfxn3LSF+VC5BowS
- qOKKdnglDSLqHJ3GljHgqvDLikTWppOcjBfqxR83wcO+iSfsqfpngZzaVya8+S/sfYl9DKcgE4/7+
- 3VMAkmZ2kfu18VmvYnoC5heHJNMIZgyBLKsalCe7/aVlEnRLfMsS4jbnkijqkKbNtpO6sMdJqSTIl
- rgRFt8etjFERFDV+zqaKQMejfrLcuVEIt3cgxrtttlZO8pq5+kZMC2WsXwMuoflAlBRbe+Js201ly
- fXglQltg==;
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1mpcL1-003R5F-8H; Tue, 23 Nov 2021 20:24:23 +0000
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: akpm@linux-foundation.org, keescook@chromium.org,
-	yzaikin@google.com, nixiaoming@huawei.com, ebiederm@xmission.com,
-	clemens@ladisch.de, arnd@arndb.de, gregkh@linuxfoundation.org,
-	jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com,
-	airlied@linux.ie, "daniel@ffwll.chairlied"@linux.ie,
-	benh@kernel.crashing.org, mark@fasheh.com, jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com, jack@suse.cz, amir73il@gmail.com,
-	phil@philpotter.co.uk, viro@zeniv.linux.org.uk, julia.lawall@inria.fr
-Date: Tue, 23 Nov 2021 12:24:16 -0800
-Message-Id: <20211123202422.819032-3-mcgrof@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211123202422.819032-1-mcgrof@kernel.org>
-References: <20211123202422.819032-1-mcgrof@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF5A2897B5;
+	Tue, 23 Nov 2021 21:13:02 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B64C895B5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 21:13:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10177"; a="215842223"
+X-IronPort-AV: E=Sophos;i="5.87,258,1631602800"; d="scan'208";a="215842223"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2021 13:13:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,258,1631602800"; d="scan'208";a="650202684"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by fmsmga001.fm.intel.com with ESMTP; 23 Nov 2021 13:12:59 -0800
+Received: from [10.249.159.246] (mwajdecz-MOBL.ger.corp.intel.com
+ [10.249.159.246])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 1ANLCwEh010886; Tue, 23 Nov 2021 21:12:59 GMT
+Message-ID: <8e7dbd9e-1947-aee4-9a28-4b66ad62b05b@intel.com>
+Date: Tue, 23 Nov 2021 22:12:58 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/8] i915: simplify subdirectory registration
- with register_sysctl()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.3.1
+Content-Language: en-US
+To: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20211122230402.2023576-1-alan.previn.teres.alexis@intel.com>
+ <20211122230402.2023576-2-alan.previn.teres.alexis@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+In-Reply-To: <20211122230402.2023576-2-alan.previn.teres.alexis@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [RFC 1/7] drm/i915/guc: Add basic support for error
+ capture lists
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,154 +53,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Luis Chamberlain <mcgrof@kernel.org>,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is no need to user boiler plate code to specify a set of base
-directories we're going to stuff sysctls under. Simplify this by using
-register_sysctl() and specifying the directory path directly.
 
-// pycocci sysctl-subdir-register-sysctl-simplify.cocci PATH
 
-@c1@
-expression E1;
-identifier subdir, sysctls;
-@@
+On 23.11.2021 00:03, Alan Previn wrote:
+> From: John Harrison <John.C.Harrison@Intel.com>
+...
 
-static struct ctl_table subdir[] = {
-	{
-		.procname = E1,
-		.maxlen = 0,
-		.mode = 0555,
-		.child = sysctls,
-	},
-	{ }
-};
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index 77fbcd8730ee..0bfc92b1b982 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -4003,6 +4003,24 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
+>  	return 0;
+>  }
+>  
+> +int intel_guc_error_capture_process_msg(struct intel_guc *guc,
+> +					 const u32 *msg, u32 len)
+> +{
+> +	int status;
 
-@c2@
-identifier c1.subdir;
+likely it should be "u32" as few lines below you're using msg[0];
 
-expression E2;
-identifier base;
-@@
+> +
+> +	if (unlikely(len != 1)) {
+> +		drm_dbg(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
 
-static struct ctl_table base[] = {
-	{
-		.procname = E2,
-		.maxlen = 0,
-		.mode = 0555,
-		.child = subdir,
-	},
-	{ }
-};
+any error returned by the CTB message handler will trigger full dump of
+unexpected message - do we really need this unlikely dbg message here ?
 
-@c3@
-identifier c2.base;
-identifier header;
-@@
+> +		return -EPROTO;
+> +	}
+> +
+> +	status = msg[0];
+> +	drm_info(&guc_to_gt(guc)->i915->drm, "Got error capture: status = %d", status);
 
-header = register_sysctl_table(base);
+IIRC all notification status are defined in GuC spec in hex, so maybe we
+should also print it as %#x ?
 
-@r1 depends on c1 && c2 && c3@
-expression c1.E1;
-identifier c1.subdir, c1.sysctls;
-@@
+-Michal
 
--static struct ctl_table subdir[] = {
--	{
--		.procname = E1,
--		.maxlen = 0,
--		.mode = 0555,
--		.child = sysctls,
--	},
--	{ }
--};
-
-@r2 depends on c1 && c2 && c3@
-identifier c1.subdir;
-
-expression c2.E2;
-identifier c2.base;
-@@
--static struct ctl_table base[] = {
--	{
--		.procname = E2,
--		.maxlen = 0,
--		.mode = 0555,
--		.child = subdir,
--	},
--	{ }
--};
-
-@initialize:python@
-@@
-
-def make_my_fresh_expression(s1, s2):
-  return '"' + s1.strip('"') + "/" + s2.strip('"') + '"'
-
-@r3 depends on c1 && c2 && c3@
-expression c1.E1;
-identifier c1.sysctls;
-expression c2.E2;
-identifier c2.base;
-identifier c3.header;
-fresh identifier E3 = script:python(E2, E1) { make_my_fresh_expression(E2, E1) };
-@@
-
-header =
--register_sysctl_table(base);
-+register_sysctl(E3, sysctls);
-
-Generated-by: Coccinelle SmPL
-Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
----
- drivers/gpu/drm/i915/i915_perf.c | 22 +---------------------
- 1 file changed, 1 insertion(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 2f01b8c0284c..5979e3258647 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4273,26 +4273,6 @@ static struct ctl_table oa_table[] = {
- 	{}
- };
- 
--static struct ctl_table i915_root[] = {
--	{
--	 .procname = "i915",
--	 .maxlen = 0,
--	 .mode = 0555,
--	 .child = oa_table,
--	 },
--	{}
--};
--
--static struct ctl_table dev_root[] = {
--	{
--	 .procname = "dev",
--	 .maxlen = 0,
--	 .mode = 0555,
--	 .child = i915_root,
--	 },
--	{}
--};
--
- static void oa_init_supported_formats(struct i915_perf *perf)
- {
- 	struct drm_i915_private *i915 = perf->i915;
-@@ -4488,7 +4468,7 @@ static int destroy_config(int id, void *p, void *data)
- 
- int i915_perf_sysctl_register(void)
- {
--	sysctl_header = register_sysctl_table(dev_root);
-+	sysctl_header = register_sysctl("dev/i915", oa_table);
- 	return 0;
- }
- 
--- 
-2.33.0
-
+> +
+> +	/* Add extraction of error capture dump */
+> +
+> +	return 0;
+> +}
+> +
+>  static struct intel_engine_cs *
+>  guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance)
+>  {
+> 
