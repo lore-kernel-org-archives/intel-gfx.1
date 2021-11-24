@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B35FC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 18:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F78FC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 18:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF7586E098;
-	Wed, 24 Nov 2021 18:48:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6C66E098;
+	Wed, 24 Nov 2021 18:55:30 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 092426E098;
- Wed, 24 Nov 2021 18:48:16 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EF4E86E098;
+ Wed, 24 Nov 2021 18:55:28 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 00AD9A00E8;
- Wed, 24 Nov 2021 18:48:15 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E8631AA914;
+ Wed, 24 Nov 2021 18:55:28 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============6516132552786056828=="
+ boundary="===============2662137290731393242=="
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Wed, 24 Nov 2021 18:48:15 -0000
-Message-ID: <163777969597.25294.3386877608597403068@emeril.freedesktop.org>
+Date: Wed, 24 Nov 2021 18:55:28 -0000
+Message-ID: <163778012892.25293.7670740693119308743@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20211122214554.371864-1-thomas.hellstrom@linux.intel.com>
 In-Reply-To: <20211122214554.371864-1-thomas.hellstrom@linux.intel.com>
@@ -45,7 +45,7 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6516132552786056828==
+--===============2662137290731393242==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -535,7 +535,7 @@ Known issues
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21672/index.html
 
---===============6516132552786056828==
+--===============2662137290731393242==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -1421,4 +1421,4 @@ SS</a></li>
 </body>
 </html>
 
---===============6516132552786056828==--
+--===============2662137290731393242==--
