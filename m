@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F3D2C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 11:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61671C43217
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 11:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93BAF6E856;
-	Wed, 24 Nov 2021 11:37:06 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A268E6E856
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 11:37:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10177"; a="298664781"
-X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="298664781"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2021 03:37:04 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 060896E857;
+	Wed, 24 Nov 2021 11:37:11 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07756E857
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 11:37:09 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10177"; a="235494926"
+X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="235494926"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2021 03:37:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="591542628"
+X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="597638760"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by FMSMGA003.fm.intel.com with SMTP; 24 Nov 2021 03:37:01 -0800
+ by fmsmga002.fm.intel.com with SMTP; 24 Nov 2021 03:37:07 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 24 Nov 2021 13:36:58 +0200
+ Wed, 24 Nov 2021 13:37:06 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Nov 2021 13:36:34 +0200
-Message-Id: <20211124113652.22090-3-ville.syrjala@linux.intel.com>
+Date: Wed, 24 Nov 2021 13:36:36 +0200
+Message-Id: <20211124113652.22090-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211124113652.22090-1-ville.syrjala@linux.intel.com>
 References: <20211124113652.22090-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/20] drm/i915/fbc: Pass whole plane state to
- intel_fbc_min_limit()
+Subject: [Intel-gfx] [PATCH 04/20] drm/i915/fbc: Relocate
+ intel_fbc_override_cfb_stride()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,41 +52,74 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-No reason to burden the caller with the details on how the minimum
-compression limit is calculated, so just pass in the whole plane
-state instead of just the cpp value.
+Move intel_fbc_override_cfb_stride() next to its cousins.
+Helps with later patches.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbc.c | 42 ++++++++++++------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index d0c34bc3af6c..083c0cab4847 100644
+index 8bde3681b96e..6368dddf977c 100644
 --- a/drivers/gpu/drm/i915/display/intel_fbc.c
 +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -679,8 +679,10 @@ static u64 intel_fbc_stolen_end(struct drm_i915_private *i915)
- 	return min(end, intel_fbc_cfb_base_max(i915));
+@@ -142,6 +142,27 @@ static unsigned int intel_fbc_cfb_size(struct intel_fbc *fbc,
+ 	return lines * intel_fbc_cfb_stride(fbc, cache);
  }
  
--static int intel_fbc_min_limit(int fb_cpp)
-+static int intel_fbc_min_limit(const struct intel_plane_state *plane_state)
- {
-+	int fb_cpp = plane_state->hw.fb ? plane_state->hw.fb->format->cpp[0] : 0;
++static u16 intel_fbc_override_cfb_stride(struct intel_fbc *fbc,
++					 const struct intel_fbc_state_cache *cache)
++{
++	unsigned int stride = _intel_fbc_cfb_stride(cache);
++	unsigned int stride_aligned = intel_fbc_cfb_stride(fbc, cache);
 +
- 	return fb_cpp == 2 ? 2 : 1;
++	/*
++	 * Override stride in 64 byte units per 4 line segment.
++	 *
++	 * Gen9 hw miscalculates cfb stride for linear as
++	 * PLANE_STRIDE*512 instead of PLANE_STRIDE*64, so
++	 * we always need to use the override there.
++	 */
++	if (stride != stride_aligned ||
++	    (DISPLAY_VER(fbc->i915) == 9 &&
++	     cache->fb.modifier == DRM_FORMAT_MOD_LINEAR))
++		return stride_aligned * 4 / 64;
++
++	return 0;
++}
++
+ static u32 i8xx_fbc_ctl(struct intel_fbc *fbc)
+ {
+ 	const struct intel_fbc_reg_params *params = &fbc->params;
+@@ -950,27 +971,6 @@ static bool intel_fbc_cfb_size_changed(struct intel_fbc *fbc)
+ 		fbc->compressed_fb.size * fbc->limit;
  }
  
-@@ -1466,8 +1468,7 @@ static void intel_fbc_enable(struct intel_atomic_state *state,
- 
- 	cache = &fbc->state_cache;
- 
--	min_limit = intel_fbc_min_limit(plane_state->hw.fb ?
--					plane_state->hw.fb->format->cpp[0] : 0);
-+	min_limit = intel_fbc_min_limit(plane_state);
- 
- 	mutex_lock(&fbc->lock);
- 
+-static u16 intel_fbc_override_cfb_stride(struct intel_fbc *fbc,
+-					 const struct intel_fbc_state_cache *cache)
+-{
+-	unsigned int stride = _intel_fbc_cfb_stride(cache);
+-	unsigned int stride_aligned = intel_fbc_cfb_stride(fbc, cache);
+-
+-	/*
+-	 * Override stride in 64 byte units per 4 line segment.
+-	 *
+-	 * Gen9 hw miscalculates cfb stride for linear as
+-	 * PLANE_STRIDE*512 instead of PLANE_STRIDE*64, so
+-	 * we always need to use the override there.
+-	 */
+-	if (stride != stride_aligned ||
+-	    (DISPLAY_VER(fbc->i915) == 9 &&
+-	     cache->fb.modifier == DRM_FORMAT_MOD_LINEAR))
+-		return stride_aligned * 4 / 64;
+-
+-	return 0;
+-}
+-
+ static bool intel_fbc_can_enable(struct intel_fbc *fbc)
+ {
+ 	struct drm_i915_private *i915 = fbc->i915;
 -- 
 2.32.0
 
