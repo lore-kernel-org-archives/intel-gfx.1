@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62893C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4924FC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE0456FCFD;
-	Mon, 29 Nov 2021 13:00:38 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A586E1BD;
- Mon, 29 Nov 2021 08:22:01 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id j3so34889720wrp.1;
- Mon, 29 Nov 2021 00:22:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Hq1bgqxxCdegLBVOo7l4Q7H1Xie6p+wm7vH0Y40mkwo=;
- b=CtNwvmW+uiYnu8xy64dsZh+j2/65YctzX6oqs2wOYwbMozt8JZF1cV5+4Y7H4uNO8h
- QCH7gI6Q72FTybeCnLQWb14URcpKiR7AndKkYpXOkC8Q9n7MUr+8wws4u3GY1irCXSD3
- vvmaAef8eAGIpyf5lsxsUWtqdVOo19QpajKqE8rOWNBwJYVukHD4HPX9lHgtTkFOc+Bj
- kp2PBi3Ox3w9cjOe46WQuh27R/m9Ya+lVOXzciZa0FsQ65iq4SRqzGYf25SSzOhvBjEZ
- VPCQJ0aSSAgZrfu8cgT0JsRs/Bpj9RKIWkh3GJoV+MufxqZdmQKVJkDzH3UoohTJRzHN
- TF1Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41F966FD02;
+	Mon, 29 Nov 2021 13:00:39 +0000 (UTC)
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8095C6E82D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 09:23:10 +0000 (UTC)
+Received: by mail-qk1-x730.google.com with SMTP id m186so10793798qkb.4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 01:23:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=philpotter-co-uk.20210112.gappssmtp.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=6cQ2VBT6GEq5IzxtMFOrkAmdfUkzXXUJICym+jfQClw=;
+ b=4mJ9AwSHB31PIpdJFgjtZiPI3O5U6l1D0qy0KW0UNf5MH6ozT0e6B86+3bb+ubsNsn
+ bM94zULnP3/Sn5TW2sU/aVPK6VkQM9qy7472OA32+vcwka6MF4HPtv3JEMMLnnF7wmI8
+ ICnVsm3JYbKZ1EmnKJc5Z6apqZ2RUZkPkq+9OUBvr5SxgxoGUUCPzzNRjS9cNIPRmf9W
+ FkRzAaXZcf5J4VFjOvxT6jDJIPAkJGMRS0lNjaglMXitLBGhfTqTjyAGLSVTx96zOYvc
+ geD85MYGed6A2vdWo2NGX8n2KXD9U2AGeoO0+MzV1KSKw8zpkUNflxlTE2C1KHr75DOI
+ PH4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Hq1bgqxxCdegLBVOo7l4Q7H1Xie6p+wm7vH0Y40mkwo=;
- b=suFezEQyw5sZNtSb3Blv3Rk/+yrXktdgnnZaZ5AwGSClKyIgT+HKWFPhNYH5pPyajp
- FsuMSsHssM1BBhe6DdzGSj+6F/2qQyCSVe8CHH96GS+r9zqputywegZhNA3VdZRcaDqQ
- zqY/1l0JSE7c7b3YoSsTJMOVKjinTTySTo2glDSj+j8G9d3fsKUsKXfXrkY51IcaUloU
- UNSVyLApewUZaSws/7CRx6Iq9gdedoRzI2KLMf3a0Se3erXUquTzbGmJkJLL1sT0Q2LX
- x4K4o5c5V4jIkj0EXdpYYKYeO+82xtNSFm2iSH+nz/mSugvXjkfsYf7AhntatTtZ1X2g
- FrfQ==
-X-Gm-Message-State: AOAM533kZgXx4GER/1lIj7LvDNIQ4UCVXUPR2cEQVBUYw250TOvlrc1S
- qCNaDOxiQx0T8DyNtHRakKk=
-X-Google-Smtp-Source: ABdhPJzM2sppvC4WxGqvhpvtbRdPMWvSKAbROEghlA2ucohzHDqrxrVpH61SK17Yl6Nfbz7PsOLtuA==
-X-Received: by 2002:adf:fbc5:: with SMTP id d5mr34606968wrs.291.1638174120446; 
- Mon, 29 Nov 2021 00:22:00 -0800 (PST)
-Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
- [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id az15sm13456982wmb.0.2021.11.29.00.21.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Nov 2021 00:22:00 -0800 (PST)
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20211129073533.414008-1-thomas.hellstrom@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <4fd0eee6-342f-fb31-717c-901440f38c35@gmail.com>
-Date: Mon, 29 Nov 2021 09:21:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=6cQ2VBT6GEq5IzxtMFOrkAmdfUkzXXUJICym+jfQClw=;
+ b=3n5CFreyaC4TErlR952Ce9Q7Yj0JirnO6AkNofj5R/W9nZOtoPRZe88HMX9dG0lBd0
+ sRkgtWlELHfqLdDu2ua6wFs+TYsiV0rOi9mTgGLsZwbUyEcUgOni0nHx5OzSHBvnZZ6R
+ mxs4nTnqnoDj6N2fP3qA3+kresj4r51e+3ivX9SbT9k3MR41rTxgQF7bbxRi23ZoqTMR
+ hKc1UVxQ6l+k7PFzpZQ8jn+92UBWp9I7TfqO29NesRz0HobUlIWSbZaDNxXzcOorzlam
+ DeIGW9vRbBPPLnWcIATPumcVx6ddpacUH9Xuo1F9hVpOjprMnohrWZn5LfpMmsu/Np+o
+ FHVg==
+X-Gm-Message-State: AOAM533EPOhCyJQVNbZVkAS2QQhEWBIybLwabW7NV2ZvL6Ase6onQ08u
+ ZdhRkZ8F1CjtNZSYvLpcTd7S0w==
+X-Google-Smtp-Source: ABdhPJwrHAepVsZs+KL0K+Dovd/v3IZvIaLP3c/YHUpcEAnEaPTq5AjU/2Qs0P+96c5OryJ5OBqRAA==
+X-Received: by 2002:a05:620a:f8b:: with SMTP id
+ b11mr13482119qkn.81.1637832189250; 
+ Thu, 25 Nov 2021 01:23:09 -0800 (PST)
+Received: from equinox
+ (2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.a.1.e.e.d.f.d.0.b.8.0.1.0.0.2.ip6.arpa.
+ [2001:8b0:dfde:e1a0::2])
+ by smtp.gmail.com with ESMTPSA id 16sm1314112qty.2.2021.11.25.01.23.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Nov 2021 01:23:08 -0800 (PST)
+Date: Thu, 25 Nov 2021 09:23:03 +0000
+From: Phillip Potter <phil@philpotter.co.uk>
+To: Luis Chamberlain <mcgrof@kernel.org>, axboe@kernel.dk
+Message-ID: <YZ9V9yxGapfPF4+g@equinox>
+References: <20211123202422.819032-1-mcgrof@kernel.org>
+ <20211123202422.819032-8-mcgrof@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20211129073533.414008-1-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211123202422.819032-8-mcgrof@kernel.org>
 X-Mailman-Approved-At: Mon, 29 Nov 2021 13:00:35 +0000
-Subject: Re: [Intel-gfx] [PATCH] dma_fence_array: Fix PENDING_ERROR leak in
- dma_fence_array_signaled()
+Subject: Re: [Intel-gfx] [PATCH v2 7/8] cdrom: simplify subdirectory
+ registration with register_sysctl()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,44 +74,174 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linaro-mm-sig@lists.linaro.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: jack@suse.cz, airlied@linux.ie, benh@kernel.crashing.org,
+ amir73il@gmail.com, clemens@ladisch.de, dri-devel@lists.freedesktop.org,
+ phil@philpotter.co.uk, joseph.qi@linux.alibaba.com, mark@fasheh.com,
+ yzaikin@google.com, keescook@chromium.org, arnd@arndb.de,
+ intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org,
+ viro@zeniv.linux.org.uk, nixiaoming@huawei.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, julia.lawall@inria.fr, ebiederm@xmission.com,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linuxppc-dev@lists.ozlabs.org, ocfs2-devel@oss.oracle.com, jlbec@evilplan.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 29.11.21 um 08:35 schrieb Thomas Hellström:
-> If a dma_fence_array is reported signaled by a call to
-> dma_fence_is_signaled(), it may leak the PENDING_ERROR status.
->
-> Fix this by clearing the PENDING_ERROR status if we return true in
-> dma_fence_array_signaled().
->
-> Fixes: 1f70b8b812f3 ("dma-fence: Propagate errors to dma-fence-array container")
-> Cc: linaro-mm-sig@lists.linaro.org
-> Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
+On Tue, Nov 23, 2021 at 12:24:21PM -0800, Luis Chamberlain wrote:
+> There is no need to user boiler plate code to specify a set of base
+> directories we're going to stuff sysctls under. Simplify this by using
+> register_sysctl() and specifying the directory path directly.
+> 
+> // pycocci sysctl-subdir-register-sysctl-simplify.cocci PATH
+> 
+> @c1@
+> expression E1;
+> identifier subdir, sysctls;
+> @@
+> 
+> static struct ctl_table subdir[] = {
+> 	{
+> 		.procname = E1,
+> 		.maxlen = 0,
+> 		.mode = 0555,
+> 		.child = sysctls,
+> 	},
+> 	{ }
+> };
+> 
+> @c2@
+> identifier c1.subdir;
+> 
+> expression E2;
+> identifier base;
+> @@
+> 
+> static struct ctl_table base[] = {
+> 	{
+> 		.procname = E2,
+> 		.maxlen = 0,
+> 		.mode = 0555,
+> 		.child = subdir,
+> 	},
+> 	{ }
+> };
+> 
+> @c3@
+> identifier c2.base;
+> identifier header;
+> @@
+> 
+> header = register_sysctl_table(base);
+> 
+> @r1 depends on c1 && c2 && c3@
+> expression c1.E1;
+> identifier c1.subdir, c1.sysctls;
+> @@
+> 
+> -static struct ctl_table subdir[] = {
+> -	{
+> -		.procname = E1,
+> -		.maxlen = 0,
+> -		.mode = 0555,
+> -		.child = sysctls,
+> -	},
+> -	{ }
+> -};
+> 
+> @r2 depends on c1 && c2 && c3@
+> identifier c1.subdir;
+> 
+> expression c2.E2;
+> identifier c2.base;
+> @@
+> -static struct ctl_table base[] = {
+> -	{
+> -		.procname = E2,
+> -		.maxlen = 0,
+> -		.mode = 0555,
+> -		.child = subdir,
+> -	},
+> -	{ }
+> -};
+> 
+> @initialize:python@
+> @@
+> 
+> def make_my_fresh_expression(s1, s2):
+>   return '"' + s1.strip('"') + "/" + s2.strip('"') + '"'
+> 
+> @r3 depends on c1 && c2 && c3@
+> expression c1.E1;
+> identifier c1.sysctls;
+> expression c2.E2;
+> identifier c2.base;
+> identifier c3.header;
+> fresh identifier E3 = script:python(E2, E1) { make_my_fresh_expression(E2, E1) };
+> @@
+> 
+> header =
+> -register_sysctl_table(base);
+> +register_sysctl(E3, sysctls);
+> 
+> Generated-by: Coccinelle SmPL
+> Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 > ---
->   drivers/dma-buf/dma-fence-array.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
-> index d3fbd950be94..3e07f961e2f3 100644
-> --- a/drivers/dma-buf/dma-fence-array.c
-> +++ b/drivers/dma-buf/dma-fence-array.c
-> @@ -104,7 +104,11 @@ static bool dma_fence_array_signaled(struct dma_fence *fence)
->   {
->   	struct dma_fence_array *array = to_dma_fence_array(fence);
->   
-> -	return atomic_read(&array->num_pending) <= 0;
-> +	if (atomic_read(&array->num_pending) > 0)
-> +		return false;
-> +
-> +	dma_fence_array_clear_pending_error(array);
-> +	return true;
->   }
->   
->   static void dma_fence_array_release(struct dma_fence *fence)
+>  drivers/cdrom/cdrom.c | 23 +----------------------
+>  1 file changed, 1 insertion(+), 22 deletions(-)
+> 
+> diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
+> index 9877e413fce3..1b57d4666e43 100644
+> --- a/drivers/cdrom/cdrom.c
+> +++ b/drivers/cdrom/cdrom.c
+> @@ -3691,27 +3691,6 @@ static struct ctl_table cdrom_table[] = {
+>  	},
+>  	{ }
+>  };
+> -
+> -static struct ctl_table cdrom_cdrom_table[] = {
+> -	{
+> -		.procname	= "cdrom",
+> -		.maxlen		= 0,
+> -		.mode		= 0555,
+> -		.child		= cdrom_table,
+> -	},
+> -	{ }
+> -};
+> -
+> -/* Make sure that /proc/sys/dev is there */
+> -static struct ctl_table cdrom_root_table[] = {
+> -	{
+> -		.procname	= "dev",
+> -		.maxlen		= 0,
+> -		.mode		= 0555,
+> -		.child		= cdrom_cdrom_table,
+> -	},
+> -	{ }
+> -};
+>  static struct ctl_table_header *cdrom_sysctl_header;
+>  
+>  static void cdrom_sysctl_register(void)
+> @@ -3721,7 +3700,7 @@ static void cdrom_sysctl_register(void)
+>  	if (!atomic_add_unless(&initialized, 1, 1))
+>  		return;
+>  
+> -	cdrom_sysctl_header = register_sysctl_table(cdrom_root_table);
+> +	cdrom_sysctl_header = register_sysctl("dev/cdrom", cdrom_table);
+>  
+>  	/* set the defaults */
+>  	cdrom_sysctl_settings.autoclose = autoclose;
+> -- 
+> 2.33.0
+> 
 
+Dear Luis,
+
+Thank you for the patch. Tested and working, looks good to me. As this
+has already been pulled into Andrew Morton's tree, I have added in Jens
+and the linux-block list so there is awareness that the patch will go
+via -mm then linux-next tree.
+
+For what it's worth (although guess it won't be in the commit now):
+Reviewed-by: Phillip Potter <phil@philpotter.co.uk>
+
+Regards,
+Phil
