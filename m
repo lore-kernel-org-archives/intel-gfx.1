@@ -4,31 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F86C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 12:56:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B39A4C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0362E6FCAF;
-	Mon, 29 Nov 2021 12:56:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7D4776FCB1;
- Mon, 29 Nov 2021 12:56:28 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 76568A363D;
- Mon, 29 Nov 2021 12:56:28 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F776FCF8;
+	Mon, 29 Nov 2021 13:00:36 +0000 (UTC)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 549A16EE17
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 13:26:55 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id l9so12523143ljq.5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 05:26:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=Gxl3XvhS3jy/Vg4tNUDSLVXMW/QY1KlnmAlTBNyzUmw=;
+ b=Z0idp8uhQ9AsUuYWi2RnXFNxiSFeD/SgsFtNGz10ZBJzP7SsQtNgnkZLl/0Yq6zw88
+ ZtfWmpPkursnohrG1+gdmVYyX+4ItJgd/a3eYJ8N668kcslwO1r1ZELpeljaLyoGtHT3
+ ONQcpMAQhkdGCAiAKUqSzvyYfmJqCUR8U2VdpKiSaK3DNepZx5z6BX2s2ozokIcJIZeR
+ 9zG5NwH6IbCEJ6xEGZrbe3YkP7d9J3sLxLtwUNLhKBX2vF21orTi+1TKC0oNNfK2T4K5
+ F+QSOhdkG7MyzKuaVEkIkoA83s5Na6NAXGf2NjKR90pY8sDx13MpmxC9g4RebyrmUKsy
+ 5moA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Gxl3XvhS3jy/Vg4tNUDSLVXMW/QY1KlnmAlTBNyzUmw=;
+ b=iIb1Shv2W2RLp6Ier2Tds064ZddtBHjAv5DQaIekjutFbun5XbL+zldg93oJL7JN3/
+ ev8bVn3R/+jT78Sxy0E5QG3XDkcUyJCNhyBR1Dy5PBXf4Y7eWdBkveSEKWEk9wzdvjoD
+ tpyOzJuIvREjO01PCaibhq4tYg9WqRpHUZwAk16FdQfbzDtzSAiB71yJwy4v+DTM8JMV
+ IEp7rZEMnYb2lGT3eXwS5FXfN4iDEROpZLVnB6OI1eqkon5RSGb339/wzZoei6HMYzCw
+ hec7Lk/HL1ypgHko1/WsqlItQHlRFRLwGJHHo50drtxK3TFJA5XYoMybgI2oCAxJWWxo
+ Eltw==
+X-Gm-Message-State: AOAM533IX1ofw0K6I/iXZ2bBUJotaBHX6y/KnYpWQOjhJZBlE9O3eyYc
+ uyM+v/g/z2gkyLT3HNmem0Xzqw==
+X-Google-Smtp-Source: ABdhPJzk0rkyZtS6FTgYDoC1LTJrxi0JVWAKHJVNqgGa3UJSxIleCmDGIlTtkxqSRMXBy9YzDuv34g==
+X-Received: by 2002:a2e:9a05:: with SMTP id o5mr24471640lji.488.1637846813476; 
+ Thu, 25 Nov 2021 05:26:53 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id k14sm229478ljk.57.2021.11.25.05.26.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Nov 2021 05:26:53 -0800 (PST)
+To: Claudio Suarez <cssk@net-c.es>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
+ Maxime Ripard <mripard@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
+ Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
+ nouveau@lists.freedesktop.org, ville.syrjala@linux.intel.com
+References: <20211016184226.3862-1-cssk@net-c.es>
+ <20211016184226.3862-8-cssk@net-c.es>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <32c14b83-c5ee-1690-525d-8cf3d02a2394@linaro.org>
+Date: Thu, 25 Nov 2021 16:26:51 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <20211016184226.3862-8-cssk@net-c.es>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Zhi Wang" <zhi.wang.linux@gmail.com>
-Date: Mon, 29 Nov 2021 12:56:28 -0000
-Message-ID: <163819058848.16118.6888376095866877343@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211129123832.105196-1-zhi.a.wang@intel.com>
-In-Reply-To: <20211129123832.105196-1-zhi.a.wang@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5Bv4=2C1/2=5D_i915/gvt=3A_Introduce_t?=
- =?utf-8?q?he_mmio=5Finfo=5Ftable=2Ec_to_support_VFIO_new_mdev_API?=
+X-Mailman-Approved-At: Mon, 29 Nov 2021 13:00:35 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 07/13] drm/msm: replace
+ drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,250 +93,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On 16/10/2021 21:42, Claudio Suarez wrote:
+> Once EDID is parsed, the monitor HDMI support information is available
+> through drm_display_info.is_hdmi. Retriving the same information with
+> drm_detect_hdmi_monitor() is less efficient. Change to
+> drm_display_info.is_hdmi
+> 
+> Signed-off-by: Claudio Suarez <cssk@net-c.es>
 
-Series: series starting with [v4,1/2] i915/gvt: Introduce the mmio_info_table.c to support VFIO new mdev API
-URL   : https://patchwork.freedesktop.org/series/97369/
-State : warning
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-20204614807c i915/gvt: Introduce the mmio_info_table.c to support VFIO new mdev API
--:219: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#219: FILE: drivers/gpu/drm/i915/gvt/handlers.c:57:
-+static int setup_mmio_handler(struct intel_gvt *gvt,
-+		u32 offset, u32 size, u32 device,
-
--:250: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#250: FILE: drivers/gpu/drm/i915/gvt/handlers.c:76:
-+			WARN(1, "assign a handler to a non-tracked mmio %x\n",
-+				i);
-
--:274: WARNING:MACRO_WITH_FLOW_CONTROL: Macros with flow control statements should be avoided
-#274: FILE: drivers/gpu/drm/i915/gvt/handlers.c:2072:
-+#define MMIO_F(reg, s, d, r, w) do { \
-+	ret = setup_mmio_handler(gvt, i915_mmio_reg_offset(reg), \
-+		s, d, r, w); \
- 	if (ret) \
- 		return ret; \
- } while (0)
-
--:306: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'prefix' - possible side-effects?
-#306: FILE: drivers/gpu/drm/i915/gvt/handlers.c:2082:
-+#define MMIO_RING_F(prefix, s, d, r, w) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, d, r, w); \
- 	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, d, r, w); \
- } while (0)
-
--:306: CHECK:MACRO_ARG_REUSE: Macro argument reuse 's' - possible side-effects?
-#306: FILE: drivers/gpu/drm/i915/gvt/handlers.c:2082:
-+#define MMIO_RING_F(prefix, s, d, r, w) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, d, r, w); \
- 	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, d, r, w); \
- } while (0)
-
--:306: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'd' - possible side-effects?
-#306: FILE: drivers/gpu/drm/i915/gvt/handlers.c:2082:
-+#define MMIO_RING_F(prefix, s, d, r, w) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, d, r, w); \
- 	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, d, r, w); \
- } while (0)
-
--:306: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'r' - possible side-effects?
-#306: FILE: drivers/gpu/drm/i915/gvt/handlers.c:2082:
-+#define MMIO_RING_F(prefix, s, d, r, w) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, d, r, w); \
- 	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, d, r, w); \
- } while (0)
-
--:306: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'w' - possible side-effects?
-#306: FILE: drivers/gpu/drm/i915/gvt/handlers.c:2082:
-+#define MMIO_RING_F(prefix, s, d, r, w) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, d, r, w); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, d, r, w); \
- 	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, d, r, w); \
- } while (0)
-
--:2095: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#2095: 
-new file mode 100644
-
--:2100: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
-#2100: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:1:
-+/*
-
--:2162: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#2162: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:63:
-+bool intel_gvt_match_device(struct intel_gvt *gvt,
-+		unsigned long device)
-
--:2179: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#2179: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:80:
-+struct intel_gvt_mmio_info *intel_gvt_find_mmio_info(struct intel_gvt *gvt,
-+						  unsigned int offset)
-
--:2191: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#2191: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:92:
-+static int new_mmio_info(struct intel_gvt *gvt,
-+		u32 offset, u16 flags, u32 size,
-
--:2215: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#2215: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:116:
-+			WARN(1, "dup mmio definition offset %x\n",
-+				info->offset);
-
--:2235: WARNING:MACRO_WITH_FLOW_CONTROL: Macros with flow control statements should be avoided
-#2235: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:136:
-+#define MMIO_F(reg, s, f, am, rm, d) do { \
-+	ret = new_mmio_info(gvt, i915_mmio_reg_offset(reg), \
-+		f, s, am, rm, d); \
-+	if (ret) \
-+		return ret; \
-+} while (0)
-
--:2251: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'f' may be better as '(f)' to avoid precedence issues
-#2251: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:152:
-+#define MMIO_RO(reg, d, f, rm) \
-+	MMIO_F(reg, 4, F_RO | f, 0, rm, d)
-
--:2254: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'prefix' - possible side-effects?
-#2254: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:155:
-+#define MMIO_RING_F(prefix, s, f, am, rm, d) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, f, am, rm, d); \
-+	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, f, am, rm, d); \
-+} while (0)
-
--:2254: CHECK:MACRO_ARG_REUSE: Macro argument reuse 's' - possible side-effects?
-#2254: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:155:
-+#define MMIO_RING_F(prefix, s, f, am, rm, d) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, f, am, rm, d); \
-+	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, f, am, rm, d); \
-+} while (0)
-
--:2254: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'f' - possible side-effects?
-#2254: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:155:
-+#define MMIO_RING_F(prefix, s, f, am, rm, d) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, f, am, rm, d); \
-+	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, f, am, rm, d); \
-+} while (0)
-
--:2254: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'am' - possible side-effects?
-#2254: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:155:
-+#define MMIO_RING_F(prefix, s, f, am, rm, d) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, f, am, rm, d); \
-+	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, f, am, rm, d); \
-+} while (0)
-
--:2254: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'rm' - possible side-effects?
-#2254: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:155:
-+#define MMIO_RING_F(prefix, s, f, am, rm, d) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, f, am, rm, d); \
-+	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, f, am, rm, d); \
-+} while (0)
-
--:2254: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'd' - possible side-effects?
-#2254: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:155:
-+#define MMIO_RING_F(prefix, s, f, am, rm, d) do { \
-+	MMIO_F(prefix(RENDER_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(BLT_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(GEN6_BSD_RING_BASE), s, f, am, rm, d); \
-+	MMIO_F(prefix(VEBOX_RING_BASE), s, f, am, rm, d); \
-+	if (HAS_ENGINE(gvt->gt, VCS1)) \
-+		MMIO_F(prefix(GEN8_BSD2_RING_BASE), s, f, am, rm, d); \
-+} while (0)
-
--:2275: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'f' may be better as '(f)' to avoid precedence issues
-#2275: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:176:
-+#define MMIO_RING_RO(prefix, d, f, rm) \
-+	MMIO_RING_F(prefix, 4, F_RO | f, 0, rm, d)
-
--:2319: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#2319: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:220:
-+	MMIO_RING_DF(RING_REG, D_ALL,
-+		F_MODE_MASK | F_CMD_ACCESS | F_CMD_WRITE_PATCH);
-
--:3018: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#3018: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:919:
-+	MMIO_RING_F(RING_REG, 4, F_RO, 0,
-+		~_MASKED_BIT_ENABLE(RESET_CTL_REQUEST_RESET), D_BDW_PLUS);
-
--:3083: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#3083: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:984:
-+	MMIO_F(_MMIO(0x24d0), 48, F_CMD_ACCESS | F_CMD_WRITE_PATCH, 0, 0,
-+		D_BDW_PLUS);
-
--:3567: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
-#3567: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.h:1:
-+/*
-
--:3663: CHECK:ALLOC_SIZEOF_STRUCT: Prefer kzalloc(sizeof(*gvt)...) over kzalloc(sizeof(struct intel_gvt)...)
-#3663: FILE: drivers/gpu/drm/i915/intel_gvt.c:136:
-+	gvt = kzalloc(sizeof(struct intel_gvt), GFP_KERNEL);
-
-total: 0 errors, 5 warnings, 23 checks, 3600 lines checked
-45c6c722d2fc i915/gvt: save the MMIO snapshot in the early init of GVT-g
--:195: ERROR:OPEN_BRACE: that open brace { should be on the previous line
-#195: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:1421:
-+int intel_gvt_for_each_tracked_mmio(struct intel_gvt *gvt,
-+	int (*handler)(struct intel_gvt *gvt, u32 offset, void *data),
-+	void *data)
-+{
-
--:196: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#196: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.c:1422:
-+int intel_gvt_for_each_tracked_mmio(struct intel_gvt *gvt,
-+	int (*handler)(struct intel_gvt *gvt, u32 offset, void *data),
-
--:274: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#274: FILE: drivers/gpu/drm/i915/gvt/mmio_info_table.h:33:
-+int intel_gvt_for_each_tracked_mmio(struct intel_gvt *gvt,
-+	int (*handler)(struct intel_gvt *gvt, u32 offset, void *data),
-
-total: 1 errors, 0 warnings, 2 checks, 229 lines checked
+> ---
+>   drivers/gpu/drm/msm/hdmi/hdmi_connector.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+> index 58707a1f3878..07585092f919 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+> @@ -364,8 +364,8 @@ static int msm_hdmi_connector_get_modes(struct drm_connector *connector)
+>   
+>   	hdmi_write(hdmi, REG_HDMI_CTRL, hdmi_ctrl);
+>   
+> -	hdmi->hdmi_mode = drm_detect_hdmi_monitor(edid);
+>   	drm_connector_update_edid_property(connector, edid);
+> +	hdmi->hdmi_mode = connector->display_info.is_hdmi;
+>   
+>   	if (edid) {
+>   		ret = drm_add_edid_modes(connector, edid);
+> 
 
 
+-- 
+With best wishes
+Dmitry
