@@ -4,26 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54769C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F17C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D46B46EE28;
-	Mon, 29 Nov 2021 13:57:29 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37FD16ECBC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F70D6EE2A;
+	Mon, 29 Nov 2021 13:57:30 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0786EB43;
  Mon, 29 Nov 2021 13:57:19 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Nov 2021 14:47:21 +0100
-Message-Id: <20211129134735.628712-3-maarten.lankhorst@linux.intel.com>
+Date: Mon, 29 Nov 2021 14:47:28 +0100
+Message-Id: <20211129134735.628712-10-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 02/16] drm/i915: Change shrink ordering to
- use locking around unbinding.
+Subject: [Intel-gfx] [PATCH v2 09/16] drm/i915: Ensure i915_vma tests do not
+ get -ENOSPC with the locking changes.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,77 +39,60 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call drop_pages with the gem object lock held, instead of the other
-way around. This will allow us to drop the vma bindings with the
-gem object lock held.
+Now that we require locking to evict, multiple vmas from the same object
+might not be evicted. This is expected and required, because execbuf will
+move to short-term pinning by using the lock only. This will cause these
+tests to fail, because they create a ton of vma's for the same object.
 
-We plan to require the object lock for unpinning in the future,
-and this is an easy target.
+Unbind manually to prevent spurious -ENOSPC in those mock tests.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c | 38 ++++++++++----------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_vma.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index 157a9765f483..eebff4735781 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -36,8 +36,8 @@ static bool can_release_pages(struct drm_i915_gem_object *obj)
- 	return swap_available() || obj->mm.madv == I915_MADV_DONTNEED;
- }
+diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
+index 1f10fe36619b..5c5809dfe9b2 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_vma.c
++++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
+@@ -691,7 +691,11 @@ static int igt_vma_rotate_remap(void *arg)
+ 					}
  
--static bool unsafe_drop_pages(struct drm_i915_gem_object *obj,
--			      unsigned long shrink, bool trylock_vm)
-+static int drop_pages(struct drm_i915_gem_object *obj,
-+		       unsigned long shrink, bool trylock_vm)
- {
- 	unsigned long flags;
- 
-@@ -214,26 +214,24 @@ i915_gem_shrink(struct i915_gem_ww_ctx *ww,
- 
- 			spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
- 
--			err = 0;
--			if (unsafe_drop_pages(obj, shrink, trylock_vm)) {
--				/* May arrive from get_pages on another bo */
--				if (!ww) {
--					if (!i915_gem_object_trylock(obj))
--						goto skip;
--				} else {
--					err = i915_gem_object_lock(obj, ww);
--					if (err)
--						goto skip;
--				}
+ 					i915_vma_unpin(vma);
 -
--				if (!__i915_gem_object_put_pages(obj)) {
--					if (!try_to_writeback(obj, shrink))
--						count += obj->base.size >> PAGE_SHIFT;
--				}
--				if (!ww)
--					i915_gem_object_unlock(obj);
-+			/* May arrive from get_pages on another bo */
-+			if (!ww) {
-+				if (!i915_gem_object_trylock(obj))
-+					goto skip;
-+			} else {
-+				err = i915_gem_object_lock(obj, ww);
-+				if (err)
-+					goto skip;
++					err = i915_vma_unbind(vma);
++					if (err) {
++						pr_err("Unbinding returned %i\n", err);
++						goto out_object;
++					}
+ 					cond_resched();
+ 				}
  			}
+@@ -848,6 +852,11 @@ static int igt_vma_partial(void *arg)
  
-+			if (drop_pages(obj, shrink, trylock_vm) &&
-+			    !__i915_gem_object_put_pages(obj) &&
-+			    !try_to_writeback(obj, shrink))
-+				count += obj->base.size >> PAGE_SHIFT;
+ 				i915_vma_unpin(vma);
+ 				nvma++;
++				err = i915_vma_unbind(vma);
++				if (err) {
++					pr_err("Unbinding returned %i\n", err);
++					goto out_object;
++				}
+ 
+ 				cond_resched();
+ 			}
+@@ -882,6 +891,12 @@ static int igt_vma_partial(void *arg)
+ 
+ 		i915_vma_unpin(vma);
+ 
++		err = i915_vma_unbind(vma);
++		if (err) {
++			pr_err("Unbinding returned %i\n", err);
++			goto out_object;
++		}
 +
-+			if (!ww)
-+				i915_gem_object_unlock(obj);
-+
- 			scanned += obj->base.size >> PAGE_SHIFT;
- skip:
- 			i915_gem_object_put(obj);
+ 		count = 0;
+ 		list_for_each_entry(vma, &obj->vma.list, obj_link)
+ 			count++;
 -- 
 2.34.0
 
