@@ -4,83 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B39A4C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E73C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43F776FCF8;
-	Mon, 29 Nov 2021 13:00:36 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549A16EE17
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 13:26:55 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id l9so12523143ljq.5
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 05:26:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=Gxl3XvhS3jy/Vg4tNUDSLVXMW/QY1KlnmAlTBNyzUmw=;
- b=Z0idp8uhQ9AsUuYWi2RnXFNxiSFeD/SgsFtNGz10ZBJzP7SsQtNgnkZLl/0Yq6zw88
- ZtfWmpPkursnohrG1+gdmVYyX+4ItJgd/a3eYJ8N668kcslwO1r1ZELpeljaLyoGtHT3
- ONQcpMAQhkdGCAiAKUqSzvyYfmJqCUR8U2VdpKiSaK3DNepZx5z6BX2s2ozokIcJIZeR
- 9zG5NwH6IbCEJ6xEGZrbe3YkP7d9J3sLxLtwUNLhKBX2vF21orTi+1TKC0oNNfK2T4K5
- F+QSOhdkG7MyzKuaVEkIkoA83s5Na6NAXGf2NjKR90pY8sDx13MpmxC9g4RebyrmUKsy
- 5moA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85A9B6FCFC;
+	Mon, 29 Nov 2021 13:00:38 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08D6F6FA3C;
+ Mon, 29 Nov 2021 12:33:54 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ az34-20020a05600c602200b0033bf8662572so12312419wmb.0; 
+ Mon, 29 Nov 2021 04:33:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=kaVxrwVEtTbeJnjXaUCkv6CWik1QhuxvLenwaFBoirs=;
+ b=MzOePiOjeO+9rFJW/L3ufzaJ7aKVgdNabJCBa6WE8ZEnnwH6f8+5Z78eXo0rpwV4Ad
+ GEvf2aPlvvv41C3hoczdLVz1AQSV1BOfwF037XOeV3b6NIlU+FBGCDlLjbuvPwVrWxnq
+ eJLVi7gEgz5LAAv8HzFFEowHs2Trev1dgRD6JNNHt32Rm40lyrlvMuKyNFIZYZXjwzoe
+ lL7NVJ2Kl03vdei7y9db0iQQFFo0C0YkyWkaBllxyq020DI214nux4gb5Tev3CBscfRL
+ flNvUi4wz6lD4uyJtbv2TE54ncvrztXiYz+AxlcKBP84Gc6OwolXBw5das0l4Yh911u0
+ xCCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Gxl3XvhS3jy/Vg4tNUDSLVXMW/QY1KlnmAlTBNyzUmw=;
- b=iIb1Shv2W2RLp6Ier2Tds064ZddtBHjAv5DQaIekjutFbun5XbL+zldg93oJL7JN3/
- ev8bVn3R/+jT78Sxy0E5QG3XDkcUyJCNhyBR1Dy5PBXf4Y7eWdBkveSEKWEk9wzdvjoD
- tpyOzJuIvREjO01PCaibhq4tYg9WqRpHUZwAk16FdQfbzDtzSAiB71yJwy4v+DTM8JMV
- IEp7rZEMnYb2lGT3eXwS5FXfN4iDEROpZLVnB6OI1eqkon5RSGb339/wzZoei6HMYzCw
- hec7Lk/HL1ypgHko1/WsqlItQHlRFRLwGJHHo50drtxK3TFJA5XYoMybgI2oCAxJWWxo
- Eltw==
-X-Gm-Message-State: AOAM533IX1ofw0K6I/iXZ2bBUJotaBHX6y/KnYpWQOjhJZBlE9O3eyYc
- uyM+v/g/z2gkyLT3HNmem0Xzqw==
-X-Google-Smtp-Source: ABdhPJzk0rkyZtS6FTgYDoC1LTJrxi0JVWAKHJVNqgGa3UJSxIleCmDGIlTtkxqSRMXBy9YzDuv34g==
-X-Received: by 2002:a2e:9a05:: with SMTP id o5mr24471640lji.488.1637846813476; 
- Thu, 25 Nov 2021 05:26:53 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id k14sm229478ljk.57.2021.11.25.05.26.52
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=kaVxrwVEtTbeJnjXaUCkv6CWik1QhuxvLenwaFBoirs=;
+ b=7ZzcLrVlso3yKHtBIOl172gPo6qwDnot/aWJkK6EAcsrcT166aOiBpPbtjO+EBw0zz
+ 7CBGyB/llrVuCRNdQ6fev5JiYSk37WK/2MXR9JZLu5PPNgCzhDVn+l7ZprSC+Btn4eXX
+ O15coqVnlcLemKFqnNfqW2vl3TwXRdFCxHYwux95AX3p8UmzYNv5PkSq0v0QOzfx8oia
+ JnYbq8+A5tLeeoISD4QgC1F5//++Ro7H79joDXZRWq5EQ30FkSnnZmWWP3kPD2BFJpBG
+ pNvU0Z5rIJ3loz+9D8G0/fROFH3hrgJMDH6obA+5Aq92bExN8XX8ZitDUtCCd6Jqu0qJ
+ tYxw==
+X-Gm-Message-State: AOAM531ozbLa/Y7GVaLO/W5OnTe1jX9B1w97CmLVQCKixp5BfOfXCm1B
+ 77o8TkZFLPDAW6s+Qb+MmQVIb/7TahU=
+X-Google-Smtp-Source: ABdhPJzwL5Z1wVujNmmTgEoXqYcxg5hOojSUWfwHYUFW9PF1AvtSDxZzvw3c/34O/ChA2rjQvZQaiQ==
+X-Received: by 2002:a7b:c0d5:: with SMTP id s21mr9595438wmh.115.1638189232627; 
+ Mon, 29 Nov 2021 04:33:52 -0800 (PST)
+Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
+ [87.176.183.123])
+ by smtp.gmail.com with ESMTPSA id bg34sm19068692wmb.47.2021.11.29.04.33.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 05:26:53 -0800 (PST)
-To: Claudio Suarez <cssk@net-c.es>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, ville.syrjala@linux.intel.com
-References: <20211016184226.3862-1-cssk@net-c.es>
- <20211016184226.3862-8-cssk@net-c.es>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <32c14b83-c5ee-1690-525d-8cf3d02a2394@linaro.org>
-Date: Thu, 25 Nov 2021 16:26:51 +0300
+ Mon, 29 Nov 2021 04:33:52 -0800 (PST)
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@intel.com>
+References: <20211129073533.414008-1-thomas.hellstrom@linux.intel.com>
+ <4fd0eee6-342f-fb31-717c-901440f38c35@gmail.com>
+ <58ca11648ab29d96b84640760d2acc3ac2d39d19.camel@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e4d8e272-8175-4298-f227-240febc0bda0@gmail.com>
+Date: Mon, 29 Nov 2021 13:33:51 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20211016184226.3862-8-cssk@net-c.es>
+In-Reply-To: <58ca11648ab29d96b84640760d2acc3ac2d39d19.camel@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 29 Nov 2021 13:00:35 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 07/13] drm/msm: replace
- drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+Subject: Re: [Intel-gfx] [PATCH] dma_fence_array: Fix PENDING_ERROR leak in
+ dma_fence_array_signaled()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,40 +79,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linaro-mm-sig@lists.linaro.org, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 16/10/2021 21:42, Claudio Suarez wrote:
-> Once EDID is parsed, the monitor HDMI support information is available
-> through drm_display_info.is_hdmi. Retriving the same information with
-> drm_detect_hdmi_monitor() is less efficient. Change to
-> drm_display_info.is_hdmi
-> 
-> Signed-off-by: Claudio Suarez <cssk@net-c.es>
+Am 29.11.21 um 13:23 schrieb Thomas Hellström:
+> Hi, Christian,
+>
+> On Mon, 2021-11-29 at 09:21 +0100, Christian König wrote:
+>> Am 29.11.21 um 08:35 schrieb Thomas Hellström:
+>>> If a dma_fence_array is reported signaled by a call to
+>>> dma_fence_is_signaled(), it may leak the PENDING_ERROR status.
+>>>
+>>> Fix this by clearing the PENDING_ERROR status if we return true in
+>>> dma_fence_array_signaled().
+>>>
+>>> Fixes: 1f70b8b812f3 ("dma-fence: Propagate errors to dma-fence-
+>>> array container")
+>>> Cc: linaro-mm-sig@lists.linaro.org
+>>> Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
+>>> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+>>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+> How are the dma-buf / dma-fence patches typically merged? If i915 is
+> the only fence->error user, could we take this through drm-intel to
+> avoid a backmerge for upcoming i915 work?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Well that one here looks like a bugfix to me, so either through 
+drm-misc-fixes ore some i915 -fixes branch sounds fine to me.
 
-> ---
->   drivers/gpu/drm/msm/hdmi/hdmi_connector.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
-> index 58707a1f3878..07585092f919 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
-> @@ -364,8 +364,8 @@ static int msm_hdmi_connector_get_modes(struct drm_connector *connector)
->   
->   	hdmi_write(hdmi, REG_HDMI_CTRL, hdmi_ctrl);
->   
-> -	hdmi->hdmi_mode = drm_detect_hdmi_monitor(edid);
->   	drm_connector_update_edid_property(connector, edid);
-> +	hdmi->hdmi_mode = connector->display_info.is_hdmi;
->   
->   	if (edid) {
->   		ret = drm_add_edid_modes(connector, edid);
-> 
+If you have any new development based on that a backmerge of the -fixes 
+into your -next branch is unavoidable anyway.
 
+Regards,
+Christian.
 
--- 
-With best wishes
-Dmitry
+>
+> /Thomas
+>
+>
+>>> ---
+>>>    drivers/dma-buf/dma-fence-array.c | 6 +++++-
+>>>    1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-
+>>> buf/dma-fence-array.c
+>>> index d3fbd950be94..3e07f961e2f3 100644
+>>> --- a/drivers/dma-buf/dma-fence-array.c
+>>> +++ b/drivers/dma-buf/dma-fence-array.c
+>>> @@ -104,7 +104,11 @@ static bool dma_fence_array_signaled(struct
+>>> dma_fence *fence)
+>>>    {
+>>>          struct dma_fence_array *array = to_dma_fence_array(fence);
+>>>    
+>>> -       return atomic_read(&array->num_pending) <= 0;
+>>> +       if (atomic_read(&array->num_pending) > 0)
+>>> +               return false;
+>>> +
+>>> +       dma_fence_array_clear_pending_error(array);
+>>> +       return true;
+>>>    }
+>>>    
+>>>    static void dma_fence_array_release(struct dma_fence *fence)
+>
+
