@@ -4,31 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E776C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 23:11:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68369C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 23:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBA6E6E03D;
-	Mon, 29 Nov 2021 23:11:15 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2673F6E03B;
- Mon, 29 Nov 2021 23:11:14 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1D648A0003;
- Mon, 29 Nov 2021 23:11:14 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8400923833050677596=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id A51EB6E12E;
+	Mon, 29 Nov 2021 23:34:05 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org
+ [IPv6:2404:9400:2:0:216:3eff:fee2:21ea])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11FBC6E0BC;
+ Mon, 29 Nov 2021 23:34:03 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4J31rj0pbcz4xPv;
+ Tue, 30 Nov 2021 10:33:56 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+ s=201702; t=1638228839;
+ bh=inXtXHv6yn3YtBnuAAzAq6r5aKIXNSazQdd6UUlmByM=;
+ h=Date:From:To:Cc:Subject:From;
+ b=EDPAUye/rs3pl+bys5hBqUCI8EXVGofnoVzZwrn+G+I3BBAhfiXMdXuMB5/HMp+rA
+ tlH6bgsUH5kj8IqhbRDL7uHwdqCQKBUgWM996G4tu6bv1alHUIs7zLLGDdmBj3Fn/H
+ Fjq9hkziUGIZokeFtSRmHdG1lqEWounM9Rd4V1E2aGIpt4r9NMk8SXo3kLF9Q+y+Tt
+ epcz2GoKtyw+uAt1yeeVflox666gYHKLoMYiezoKgvevzo0QkoloeopsY7GOKNaVMd
+ Mis7E9aVyEa7neh6ZrBSeHF0EZcED94sdRBtotjDDUexhChq4N1FKEQ0wSqAM6Tfjh
+ RhRsc1gp9rQoQ==
+Date: Tue, 30 Nov 2021 10:33:53 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
+ <dri-devel@lists.freedesktop.org>
+Message-ID: <20211130103353.0ab1a44f@canb.auug.org.au>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 29 Nov 2021 23:11:14 -0000
-Message-ID: <163822747408.16117.254721993592977379@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211129202245.472043-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20211129202245.472043-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Update_error_capture_code_to_avoid_using_the_current_v?=
- =?utf-8?q?ma_state?=
+Content-Type: multipart/signed; boundary="Sig_/SRktUQT/MnVNywL02YSYaaF";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: [Intel-gfx] linux-next: manual merge of the drm tree with the
+ drm-misc-fixes tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,261 +52,236 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <maxime@cerno.tech>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8400923833050677596==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+--Sig_/SRktUQT/MnVNywL02YSYaaF
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-== Series Details ==
+Hi all,
 
-Series: drm/i915: Update error capture code to avoid using the current vma state
-URL   : https://patchwork.freedesktop.org/series/97385/
-State : success
+Today's linux-next merge of the drm tree got a conflict in:
 
-== Summary ==
+  drivers/gpu/drm/vc4/vc4_kms.c
 
-CI Bug Log - changes from CI_DRM_10939 -> Patchwork_21696
-====================================================
+between commits:
 
-Summary
--------
+  f927767978d2 ("drm/vc4: kms: Fix return code check")
+  d354699e2292 ("drm/vc4: kms: Don't duplicate pending commit")
 
-  **SUCCESS**
+from the drm-misc-fixes tree and commit:
 
-  No regressions found.
+  16e101051f32 ("drm/vc4: Increase the core clock based on HVS load")
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/index.html
+from the drm tree.
 
-Participating hosts (40 -> 34)
-------------------------------
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-  Additional (1): fi-kbl-soraka 
-  Missing    (7): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-pnv-d510 bat-jsl-2 bat-jsl-1 
+--=20
+Cheers,
+Stephen Rothwell
 
-Known issues
-------------
+diff --cc drivers/gpu/drm/vc4/vc4_kms.c
+index b61792d2aa65,79d4d9dd1394..000000000000
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@@ -337,12 -340,21 +340,21 @@@ static void vc4_atomic_commit_tail(stru
+  	struct drm_device *dev =3D state->dev;
+  	struct vc4_dev *vc4 =3D to_vc4_dev(dev);
+  	struct vc4_hvs *hvs =3D vc4->hvs;
+ -	struct drm_crtc_state *old_crtc_state;
+  	struct drm_crtc_state *new_crtc_state;
++ 	struct vc4_hvs_state *new_hvs_state;
+  	struct drm_crtc *crtc;
+  	struct vc4_hvs_state *old_hvs_state;
+ +	unsigned int channel;
+  	int i;
+ =20
++ 	old_hvs_state =3D vc4_hvs_get_old_global_state(state);
+ -	if (WARN_ON(!old_hvs_state))
+++	if (WARN_ON(IS_ERR(old_hvs_state)))
++ 		return;
++=20
++ 	new_hvs_state =3D vc4_hvs_get_new_global_state(state);
+ -	if (WARN_ON(!new_hvs_state))
+++	if (WARN_ON(IS_ERR(new_hvs_state)))
++ 		return;
++=20
+  	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+  		struct vc4_crtc_state *vc4_crtc_state;
+ =20
+@@@ -353,32 -365,31 +365,36 @@@
+  		vc4_hvs_mask_underrun(dev, vc4_crtc_state->assigned_channel);
+  	}
+ =20
+- 	old_hvs_state =3D vc4_hvs_get_old_global_state(state);
+- 	if (IS_ERR(old_hvs_state))
+- 		return;
++ 	if (vc4->hvs->hvs5) {
++ 		unsigned long core_rate =3D max_t(unsigned long,
++ 						500000000,
++ 						new_hvs_state->core_clock_rate);
++=20
++ 		clk_set_min_rate(hvs->core_clk, core_rate);
++ 	}
+ =20
+ -	for_each_old_crtc_in_state(state, crtc, old_crtc_state, i) {
+ -		struct vc4_crtc_state *vc4_crtc_state =3D
+ -			to_vc4_crtc_state(old_crtc_state);
+ -		unsigned int channel =3D vc4_crtc_state->assigned_channel;
+ +	for (channel =3D 0; channel < HVS_NUM_CHANNELS; channel++) {
+ +		struct drm_crtc_commit *commit;
+  		int ret;
+ =20
+ -		if (channel =3D=3D VC4_HVS_CHANNEL_DISABLED)
+ +		if (!old_hvs_state->fifo_state[channel].in_use)
+  			continue;
+ =20
+ -		if (!old_hvs_state->fifo_state[channel].in_use)
+ +		commit =3D old_hvs_state->fifo_state[channel].pending_commit;
+ +		if (!commit)
+  			continue;
+ =20
+ -		ret =3D drm_crtc_commit_wait(old_hvs_state->fifo_state[channel].pending=
+_commit);
+ +		ret =3D drm_crtc_commit_wait(commit);
+  		if (ret)
+  			drm_err(dev, "Timed out waiting for commit\n");
+ +
+ +		drm_crtc_commit_put(commit);
+ +		old_hvs_state->fifo_state[channel].pending_commit =3D NULL;
+  	}
+ =20
+ +	if (vc4->hvs->hvs5)
+ +		clk_set_min_rate(hvs->core_clk, 500000000);
+ +
+  	drm_atomic_helper_commit_modeset_disables(dev, state);
+ =20
+  	vc4_ctm_commit(vc4, state);
+@@@ -667,11 -673,19 +678,13 @@@ vc4_hvs_channels_duplicate_state(struc
+ =20
+  	__drm_atomic_helper_private_obj_duplicate_state(obj, &state->base);
+ =20
+-=20
+  	for (i =3D 0; i < HVS_NUM_CHANNELS; i++) {
+  		state->fifo_state[i].in_use =3D old_state->fifo_state[i].in_use;
++ 		state->fifo_state[i].fifo_load =3D old_state->fifo_state[i].fifo_load;
+ -
+ -		if (!old_state->fifo_state[i].pending_commit)
+ -			continue;
+ -
+ -		state->fifo_state[i].pending_commit =3D
+ -			drm_crtc_commit_get(old_state->fifo_state[i].pending_commit);
+  	}
+ =20
++ 	state->core_clock_rate =3D old_state->core_clock_rate;
++=20
+  	return &state->base;
+  }
+ =20
+@@@ -826,6 -840,76 +839,76 @@@ static int vc4_pv_muxing_atomic_check(s
+  	return 0;
+  }
+ =20
++ static int
++ vc4_core_clock_atomic_check(struct drm_atomic_state *state)
++ {
++ 	struct vc4_dev *vc4 =3D to_vc4_dev(state->dev);
++ 	struct drm_private_state *priv_state;
++ 	struct vc4_hvs_state *hvs_new_state;
++ 	struct vc4_load_tracker_state *load_state;
++ 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
++ 	struct drm_crtc *crtc;
++ 	unsigned int num_outputs;
++ 	unsigned long pixel_rate;
++ 	unsigned long cob_rate;
++ 	unsigned int i;
++=20
++ 	priv_state =3D drm_atomic_get_private_obj_state(state,
++ 						      &vc4->load_tracker);
++ 	if (IS_ERR(priv_state))
++ 		return PTR_ERR(priv_state);
++=20
++ 	load_state =3D to_vc4_load_tracker_state(priv_state);
++=20
++ 	hvs_new_state =3D vc4_hvs_get_global_state(state);
+ -	if (!hvs_new_state)
+ -		return -EINVAL;
+++	if (IS_ERR(hvs_new_state))
+++		return PTR_ERR(hvs_new_state);
++=20
++ 	for_each_oldnew_crtc_in_state(state, crtc,
++ 				      old_crtc_state,
++ 				      new_crtc_state,
++ 				      i) {
++ 		if (old_crtc_state->active) {
++ 			struct vc4_crtc_state *old_vc4_state =3D
++ 				to_vc4_crtc_state(old_crtc_state);
++ 			unsigned int channel =3D old_vc4_state->assigned_channel;
++=20
++ 			hvs_new_state->fifo_state[channel].fifo_load =3D 0;
++ 		}
++=20
++ 		if (new_crtc_state->active) {
++ 			struct vc4_crtc_state *new_vc4_state =3D
++ 				to_vc4_crtc_state(new_crtc_state);
++ 			unsigned int channel =3D new_vc4_state->assigned_channel;
++=20
++ 			hvs_new_state->fifo_state[channel].fifo_load =3D
++ 				new_vc4_state->hvs_load;
++ 		}
++ 	}
++=20
++ 	cob_rate =3D 0;
++ 	num_outputs =3D 0;
++ 	for (i =3D 0; i < HVS_NUM_CHANNELS; i++) {
++ 		if (!hvs_new_state->fifo_state[i].in_use)
++ 			continue;
++=20
++ 		num_outputs++;
++ 		cob_rate +=3D hvs_new_state->fifo_state[i].fifo_load;
++ 	}
++=20
++ 	pixel_rate =3D load_state->hvs_load;
++ 	if (num_outputs > 1) {
++ 		pixel_rate =3D (pixel_rate * 40) / 100;
++ 	} else {
++ 		pixel_rate =3D (pixel_rate * 60) / 100;
++ 	}
++=20
++ 	hvs_new_state->core_clock_rate =3D max(cob_rate, pixel_rate);
++=20
++ 	return 0;
++ }
++=20
++=20
+  static int
+  vc4_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
+  {
 
-  Here are the changes found in Patchwork_21696 that come from known issues:
+--Sig_/SRktUQT/MnVNywL02YSYaaF
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-### IGT changes ###
+-----BEGIN PGP SIGNATURE-----
 
-#### Issues hit ####
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmGlY2EACgkQAVBC80lX
+0GxgDwf/Y2zmsDBVbJBKWov738mnjKysnZB7GVIAHJ0dLd3HQrFynMZoRGT6E8y3
++BKOFt/cAj4nPy7rYPzYmCzQEF9mtuzlCoVZmF9mWKCTKq2CPuVZYlkzkRNAFpR7
+s2LCcUw44Po1IL8o10pXCGrFeFfPH0yFQc5XX0i3OS1sPunsPJg+fAAzPdN++gzQ
+79+IYfcykH36wSiprGzhJXHqqBT4drIurU9odup7mmEsySvtFUKqGeiB7jRtHuFl
+51wFPPMMXG2N4PWX6kQvMWZAdBpMtdKOeTkkZQXm96kjcdEktGuTqZAirfo4pnoO
+BlJC3jD2TwVcRgzM2uFA2KTCLS6pZw==
+=gLo3
+-----END PGP SIGNATURE-----
 
-  * igt@gem_exec_fence@basic-busy@bcs0:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271]) +8 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#2190])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@basic:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][3] ([fdo#109271] / [i915#4613]) +3 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
-
-  * igt@i915_selftest@live@gt_engines:
-    - fi-rkl-guc:         [PASS][4] -> [INCOMPLETE][5] ([i915#4432])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10939/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][6] ([i915#1886] / [i915#2291])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_frontbuffer_tracking@basic:
-    - fi-cml-u2:          [PASS][8] -> [DMESG-WARN][9] ([i915#4269])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10939/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][10] ([fdo#109271] / [i915#533])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
-
-  * igt@runner@aborted:
-    - fi-bdw-5557u:       NOTRUN -> [FAIL][11] ([i915#1602] / [i915#2426] / [i915#4312])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-bdw-5557u/igt@runner@aborted.html
-    - fi-rkl-guc:         NOTRUN -> [FAIL][12] ([i915#3928] / [i915#4312])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-rkl-guc/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - {fi-tgl-dsi}:       [DMESG-FAIL][13] ([i915#541]) -> [PASS][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10939/fi-tgl-dsi/igt@i915_selftest@live@gt_heartbeat.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-tgl-dsi/igt@i915_selftest@live@gt_heartbeat.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
-  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2291]: https://gitlab.freedesktop.org/drm/intel/issues/2291
-  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
-  [i915#3928]: https://gitlab.freedesktop.org/drm/intel/issues/3928
-  [i915#4269]: https://gitlab.freedesktop.org/drm/intel/issues/4269
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4432]: https://gitlab.freedesktop.org/drm/intel/issues/4432
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
-  [i915#541]: https://gitlab.freedesktop.org/drm/intel/issues/541
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10939 -> Patchwork_21696
-
-  CI-20190529: 20190529
-  CI_DRM_10939: a45a9993b4633973f97a4b981ceeb23e4b0963f9 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6294: 5598666e8612fa98c6b4a92a824998f52135b0cc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21696: 1fc91c09d6c21d78c858032684a63c9bee082b24 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-1fc91c09d6c2 drm/i915: Update error capture code to avoid using the current vma state
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/index.html
-
---===============8400923833050677596==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Update error capture code to avoid using the current vma state</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/97385/">https://patchwork.freedesktop.org/series/97385/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10939 -&gt; Patchwork_21696</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/index.html</p>
-<h2>Participating hosts (40 -&gt; 34)</h2>
-<p>Additional (1): fi-kbl-soraka <br />
-  Missing    (7): bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 fi-pnv-d510 bat-jsl-2 bat-jsl-1 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21696 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_exec_fence@basic-busy@bcs0:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@basic:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_engines:</p>
-<ul>
-<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10939/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-rkl-guc/igt@i915_selftest@live@gt_engines.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4432">i915#4432</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_pm:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2291">i915#2291</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@basic:</p>
-<ul>
-<li>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10939/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4269">i915#4269</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-kbl-soraka/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>
-<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
-</li>
-<li>
-<p>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-rkl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_heartbeat:<ul>
-<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10939/fi-tgl-dsi/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/541">i915#541</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21696/fi-tgl-dsi/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10939 -&gt; Patchwork_21696</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10939: a45a9993b4633973f97a4b981ceeb23e4b0963f9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6294: 5598666e8612fa98c6b4a92a824998f52135b0cc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21696: 1fc91c09d6c21d78c858032684a63c9bee082b24 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>1fc91c09d6c2 drm/i915: Update error capture code to avoid using the current vma state</p>
-
-</body>
-</html>
-
---===============8400923833050677596==--
+--Sig_/SRktUQT/MnVNywL02YSYaaF--
