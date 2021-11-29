@@ -4,25 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE173C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00CB6C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:58:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C1A66EDB0;
-	Mon, 29 Nov 2021 13:57:24 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8904B6ECBC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E0BF6EE36;
+	Mon, 29 Nov 2021 13:57:30 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl
+ [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E07AF6EDA2;
  Mon, 29 Nov 2021 13:57:18 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Nov 2021 14:47:29 +0100
-Message-Id: <20211129134735.628712-11-maarten.lankhorst@linux.intel.com>
+Date: Mon, 29 Nov 2021 14:47:34 +0100
+Message-Id: <20211129134735.628712-16-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 10/16] drm/i915: Make i915_gem_evict_vm work
- correctly for already locked objects
+Subject: [Intel-gfx] [PATCH v2 15/16] drm/i915: Remove support for unlocked
+ i915_vma unbind
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,66 +40,97 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915_gem_execbuf will call i915_gem_evict_vm() after failing to pin
-all objects in the first round. We are about to remove those short-term
-pins, but even without those the objects are still locked. Add a special
-case to allow i915_gem_evict_vm to evict locked objects as well.
+Now that we require the object lock for all ops, some code handling
+race conditions can be removed.
 
-This might also allow multiple objects sharing the same resv to be evicted.
+This is required to not take short-term pins inside execbuf.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Acked-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- drivers/gpu/drm/i915/i915_gem_evict.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_vma.c | 40 +++++----------------------------
+ 1 file changed, 5 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-index 24f5e3345e43..f502a617b35c 100644
---- a/drivers/gpu/drm/i915/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-@@ -410,21 +410,42 @@ int i915_gem_evict_vm(struct i915_address_space *vm, struct i915_gem_ww_ctx *ww)
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 100739b3e084..3236cf1c1400 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -776,7 +776,6 @@ i915_vma_detach(struct i915_vma *vma)
+ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
+ {
+ 	unsigned int bound;
+-	bool pinned = true;
+ 
+ 	bound = atomic_read(&vma->flags);
  	do {
- 		struct i915_vma *vma, *vn;
- 		LIST_HEAD(eviction_list);
-+		LIST_HEAD(locked_eviction_list);
+@@ -786,34 +785,10 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
+ 		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR)))
+ 			return false;
  
- 		list_for_each_entry(vma, &vm->bound_list, vm_link) {
- 			if (i915_vma_is_pinned(vma))
- 				continue;
+-		if (!(bound & I915_VMA_PIN_MASK))
+-			goto unpinned;
+-
+ 		GEM_BUG_ON(((bound + 1) & I915_VMA_PIN_MASK) == 0);
+ 	} while (!atomic_try_cmpxchg(&vma->flags, &bound, bound + 1));
  
-+			/*
-+			 * If we already own the lock, trylock fails. In case the resv
-+			 * is shared among multiple objects, we still need the object ref.
-+			 */
-+			if (ww && (dma_resv_locking_ctx(vma->obj->base.resv) == &ww->ctx)) {
-+				__i915_vma_pin(vma);
-+				list_add(&vma->evict_link, &locked_eviction_list);
-+				continue;
-+			}
+ 	return true;
+-
+-unpinned:
+-	/*
+-	 * If pin_count==0, but we are bound, check under the lock to avoid
+-	 * racing with a concurrent i915_vma_unbind().
+-	 */
+-	mutex_lock(&vma->vm->mutex);
+-	do {
+-		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR))) {
+-			pinned = false;
+-			break;
+-		}
+-
+-		if (unlikely(flags & ~bound)) {
+-			pinned = false;
+-			break;
+-		}
+-	} while (!atomic_try_cmpxchg(&vma->flags, &bound, bound + 1));
+-	mutex_unlock(&vma->vm->mutex);
+-
+-	return pinned;
+ }
+ 
+ static struct scatterlist *
+@@ -1194,13 +1169,7 @@ __i915_vma_get_pages(struct i915_vma *vma)
+ 			vma->ggtt_view.type, ret);
+ 	}
+ 
+-	pages = xchg(&vma->pages, pages);
+-
+-	/* did we race against a put_pages? */
+-	if (pages && pages != vma->obj->mm.pages) {
+-		sg_free_table(vma->pages);
+-		kfree(vma->pages);
+-	}
++	vma->pages = pages;
+ 
+ 	return ret;
+ }
+@@ -1234,13 +1203,14 @@ I915_SELFTEST_EXPORT int i915_vma_get_pages(struct i915_vma *vma)
+ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
+ {
+ 	/* We allocate under vma_get_pages, so beware the shrinker */
+-	struct sg_table *pages = READ_ONCE(vma->pages);
++	struct sg_table *pages = vma->pages;
+ 
+ 	GEM_BUG_ON(atomic_read(&vma->pages_count) < count);
+ 
+ 	if (atomic_sub_return(count, &vma->pages_count) == 0) {
+-		if (pages == cmpxchg(&vma->pages, pages, NULL) &&
+-		    pages != vma->obj->mm.pages) {
++		vma->pages = NULL;
 +
- 			if (!i915_gem_object_trylock(vma->obj, ww))
- 				continue;
- 
- 			__i915_vma_pin(vma);
- 			list_add(&vma->evict_link, &eviction_list);
++		if (pages != vma->obj->mm.pages) {
+ 			sg_free_table(pages);
+ 			kfree(pages);
  		}
--		if (list_empty(&eviction_list))
-+		if (list_empty(&eviction_list) && list_empty(&locked_eviction_list))
- 			break;
- 
- 		ret = 0;
-+		/* Unbind locked objects first, before unlocking the eviction_list */
-+		list_for_each_entry_safe(vma, vn, &locked_eviction_list, evict_link) {
-+			__i915_vma_unpin(vma);
-+
-+			if (ret == 0)
-+				ret = __i915_vma_unbind(vma);
-+			if (ret != -EINTR) /* "Get me out of here!" */
-+				ret = 0;
-+		}
-+
- 		list_for_each_entry_safe(vma, vn, &eviction_list, evict_link) {
- 			__i915_vma_unpin(vma);
- 			if (ret == 0)
 -- 
 2.34.0
 
