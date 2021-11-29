@@ -4,26 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7AA9C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B845C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF776EE2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD3286EE3D;
 	Mon, 29 Nov 2021 13:57:30 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 059B26EDB0;
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172606EDBF;
  Mon, 29 Nov 2021 13:57:18 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Nov 2021 14:47:35 +0100
-Message-Id: <20211129134735.628712-17-maarten.lankhorst@linux.intel.com>
+Date: Mon, 29 Nov 2021 14:47:27 +0100
+Message-Id: <20211129134735.628712-9-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 16/16] drm/i915: Remove short-term pins from
- execbuf, v5.
+Subject: [Intel-gfx] [PATCH v2 08/16] drm/i915: Pass trylock context to
+ callers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,574 +39,606 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a flag PIN_VALIDATE, to indicate we don't need to pin and only
-protected by the object lock.
+We are moving away from short term pinning, and need a way to evict
+objects locked by the current context. Pass the ww context to all
+eviction functions, so that they can evict objects that are already
+locked by the current ww context.
 
-This removes the need to unpin, which is done by just releasing the
-lock.
-
-eb_reserve is slightly reworked for readability, but the same steps
-are still done:
-- First pass pins with NONBLOCK.
-- Second pass unbinds all objects first, then pins.
-- Third pass is only called when not all objects are softpinned, and
-  unbinds all objects, then calls i915_gem_evict_vm(), then pins.
-
-When evicting the entire vm in eb_reserve() we do temporarily pin objects
-that are marked with EXEC_OBJECT_PINNED. This is because they are already
-at their destination, and i915_gem_evict_vm() would otherwise unbind them.
-
-However, we reduce the visibility of those pins by limiting the pin
-to our call to i915_gem_evict_vm() only, and pin with vm->mutex held,
-instead of the entire duration of the execbuf.
-
-Not sure the latter matters, one can hope..
-In theory we could kill the pinning by adding an extra flag to the vma
-to temporarily prevent unbinding for gtt for i915_gem_evict_vm only, but
-I think that might be overkill. We're still holding the object lock, and
-we don't have blocking eviction yet. It's likely sufficient to simply
-enforce EXEC_OBJECT_PINNED for all objects on >= gen12.
-
-Changes since v1:
-- Split out eb_reserve() into separate functions for readability.
-Changes since v2:
-- Make batch buffer mappable on platforms where only GGTT is available,
-  to prevent moving the batch buffer during relocations.
-Changes since v3:
-- Preserve current behavior for batch buffer, instead be cautious when
-  calling i915_gem_object_ggtt_pin_ww, and re-use the current batch vma
-  if it's inside ggtt and map-and-fenceable.
-- Remove impossible condition check from eb_reserve. (Matt)
+On top of that, this slightly improves ww handling because the locked
+objects are marked as locked by the correct ww.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 250 ++++++++++--------
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |   1 -
- drivers/gpu/drm/i915/i915_gem_gtt.h           |   1 +
- drivers/gpu/drm/i915/i915_vma.c               |  24 +-
- 4 files changed, 158 insertions(+), 118 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  8 ++++--
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |  2 +-
+ drivers/gpu/drm/i915/gt/mock_engine.c         |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |  2 +-
+ drivers/gpu/drm/i915/gvt/aperture_gm.c        |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h               |  5 +++-
+ drivers/gpu/drm/i915/i915_gem_evict.c         | 15 ++++++-----
+ drivers/gpu/drm/i915/i915_gem_gtt.c           |  8 +++---
+ drivers/gpu/drm/i915/i915_gem_gtt.h           |  3 +++
+ drivers/gpu/drm/i915/i915_vgpu.c              |  2 +-
+ drivers/gpu/drm/i915/i915_vma.c               | 13 +++++----
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   | 27 ++++++++++++-------
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 14 +++++-----
+ 18 files changed, 70 insertions(+), 45 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 91ab43d67f47..b6a50631c21b 100644
+index 9f7c6ecadb90..91ab43d67f47 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -436,7 +436,7 @@ eb_pin_vma(struct i915_execbuffer *eb,
- 	else
- 		pin_flags = entry->offset & PIN_OFFSET_MASK;
- 
--	pin_flags |= PIN_USER | PIN_NOEVICT | PIN_OFFSET_FIXED;
-+	pin_flags |= PIN_USER | PIN_NOEVICT | PIN_OFFSET_FIXED | PIN_VALIDATE;
- 	if (unlikely(ev->flags & EXEC_OBJECT_NEEDS_GTT))
- 		pin_flags |= PIN_GLOBAL;
- 
-@@ -454,17 +454,15 @@ eb_pin_vma(struct i915_execbuffer *eb,
- 					     entry->pad_to_size,
- 					     entry->alignment,
- 					     eb_pin_flags(entry, ev->flags) |
--					     PIN_USER | PIN_NOEVICT);
-+					     PIN_USER | PIN_NOEVICT | PIN_VALIDATE);
- 		if (unlikely(err))
- 			return err;
- 	}
- 
- 	if (unlikely(ev->flags & EXEC_OBJECT_NEEDS_FENCE)) {
- 		err = i915_vma_pin_fence(vma);
--		if (unlikely(err)) {
--			i915_vma_unpin(vma);
-+		if (unlikely(err))
- 			return err;
--		}
- 
- 		if (vma->fence)
- 			ev->flags |= __EXEC_OBJECT_HAS_FENCE;
-@@ -480,13 +478,9 @@ eb_pin_vma(struct i915_execbuffer *eb,
- static inline void
- eb_unreserve_vma(struct eb_vma *ev)
- {
--	if (!(ev->flags & __EXEC_OBJECT_HAS_PIN))
--		return;
--
- 	if (unlikely(ev->flags & __EXEC_OBJECT_HAS_FENCE))
- 		__i915_vma_unpin_fence(ev->vma);
- 
--	__i915_vma_unpin(ev->vma);
- 	ev->flags &= ~__EXEC_OBJECT_RESERVED;
- }
- 
-@@ -679,10 +673,8 @@ static int eb_reserve_vma(struct i915_execbuffer *eb,
- 
- 	if (unlikely(ev->flags & EXEC_OBJECT_NEEDS_FENCE)) {
- 		err = i915_vma_pin_fence(vma);
--		if (unlikely(err)) {
--			i915_vma_unpin(vma);
-+		if (unlikely(err))
- 			return err;
--		}
- 
- 		if (vma->fence)
- 			ev->flags |= __EXEC_OBJECT_HAS_FENCE;
-@@ -694,85 +686,125 @@ static int eb_reserve_vma(struct i915_execbuffer *eb,
- 	return 0;
- }
- 
--static int eb_reserve(struct i915_execbuffer *eb)
-+static int eb_evict_vm(struct i915_execbuffer *eb)
- {
- 	const unsigned int count = eb->buffer_count;
--	unsigned int pin_flags = PIN_USER | PIN_NONBLOCK;
-+	unsigned int i;
-+	int err;
-+
-+	err = mutex_lock_interruptible(&eb->context->vm->mutex);
-+	if (err)
-+		return err;
-+
-+	/* pin to protect against i915_gem_evict_vm evicting below */
-+	for (i = 0; i < count; i++) {
-+		struct eb_vma *ev = &eb->vma[i];
-+
-+		if (ev->flags & __EXEC_OBJECT_HAS_PIN)
-+			__i915_vma_pin(ev->vma);
-+	}
-+
-+	/* Too fragmented, unbind everything and retry */
-+	err = i915_gem_evict_vm(eb->context->vm, &eb->ww);
-+
-+	/* unpin objects.. */
-+	for (i = 0; i < count; i++) {
-+		struct eb_vma *ev = &eb->vma[i];
-+
-+		if (ev->flags & __EXEC_OBJECT_HAS_PIN)
-+			i915_vma_unpin(ev->vma);
-+	}
-+
-+	mutex_unlock(&eb->context->vm->mutex);
-+
-+	return err;
-+}
-+
-+static bool eb_unbind(struct i915_execbuffer *eb)
-+{
-+	const unsigned int count = eb->buffer_count;
-+	unsigned int i;
- 	struct list_head last;
-+	bool unpinned = false;
-+
-+	/* Resort *all* the objects into priority order */
-+	INIT_LIST_HEAD(&eb->unbound);
-+	INIT_LIST_HEAD(&last);
-+
-+	for (i = 0; i < count; i++) {
-+		struct eb_vma *ev = &eb->vma[i];
-+		unsigned int flags = ev->flags;
-+
-+		if (flags & EXEC_OBJECT_PINNED &&
-+		    flags & __EXEC_OBJECT_HAS_PIN)
-+			continue;
-+
-+		unpinned = true;
-+		eb_unreserve_vma(ev);
-+
-+		if (flags & EXEC_OBJECT_PINNED)
-+			/* Pinned must have their slot */
-+			list_add(&ev->bind_link, &eb->unbound);
-+		else if (flags & __EXEC_OBJECT_NEEDS_MAP)
-+			/* Map require the lowest 256MiB (aperture) */
-+			list_add_tail(&ev->bind_link, &eb->unbound);
-+		else if (!(flags & EXEC_OBJECT_SUPPORTS_48B_ADDRESS))
-+			/* Prioritise 4GiB region for restricted bo */
-+			list_add(&ev->bind_link, &last);
-+		else
-+			list_add_tail(&ev->bind_link, &last);
-+	}
-+
-+	list_splice_tail(&last, &eb->unbound);
-+	return unpinned;
-+}
-+
-+static int eb_reserve(struct i915_execbuffer *eb)
-+{
- 	struct eb_vma *ev;
--	unsigned int i, pass;
-+	unsigned int pass;
- 	int err = 0;
-+	bool unpinned;
- 
- 	/*
- 	 * Attempt to pin all of the buffers into the GTT.
--	 * This is done in 3 phases:
-+	 * This is done in 2 phases:
- 	 *
--	 * 1a. Unbind all objects that do not match the GTT constraints for
--	 *     the execbuffer (fenceable, mappable, alignment etc).
--	 * 1b. Increment pin count for already bound objects.
--	 * 2.  Bind new objects.
--	 * 3.  Decrement pin count.
-+	 * 1. Unbind all objects that do not match the GTT constraints for
-+	 *    the execbuffer (fenceable, mappable, alignment etc).
-+	 * 2. Bind new objects.
- 	 *
- 	 * This avoid unnecessary unbinding of later objects in order to make
- 	 * room for the earlier objects *unless* we need to defragment.
-+	 *
-+	 * Defragmenting is skipped if all objects are pinned at a fixed location.
- 	 */
--	pass = 0;
--	do {
--		list_for_each_entry(ev, &eb->unbound, bind_link) {
--			err = eb_reserve_vma(eb, ev, pin_flags);
--			if (err)
--				break;
--		}
--		if (err != -ENOSPC)
--			return err;
-+	for (pass = 0; pass <= 2; pass++) {
-+		int pin_flags = PIN_USER | PIN_VALIDATE;
- 
--		/* Resort *all* the objects into priority order */
--		INIT_LIST_HEAD(&eb->unbound);
--		INIT_LIST_HEAD(&last);
--		for (i = 0; i < count; i++) {
--			unsigned int flags;
-+		if (pass == 0)
-+			pin_flags |= PIN_NONBLOCK;
- 
--			ev = &eb->vma[i];
--			flags = ev->flags;
--			if (flags & EXEC_OBJECT_PINNED &&
--			    flags & __EXEC_OBJECT_HAS_PIN)
--				continue;
-+		if (pass >= 1)
-+			unpinned = eb_unbind(eb);
- 
--			eb_unreserve_vma(ev);
--
--			if (flags & EXEC_OBJECT_PINNED)
--				/* Pinned must have their slot */
--				list_add(&ev->bind_link, &eb->unbound);
--			else if (flags & __EXEC_OBJECT_NEEDS_MAP)
--				/* Map require the lowest 256MiB (aperture) */
--				list_add_tail(&ev->bind_link, &eb->unbound);
--			else if (!(flags & EXEC_OBJECT_SUPPORTS_48B_ADDRESS))
--				/* Prioritise 4GiB region for restricted bo */
--				list_add(&ev->bind_link, &last);
--			else
--				list_add_tail(&ev->bind_link, &last);
--		}
--		list_splice_tail(&last, &eb->unbound);
--
--		switch (pass++) {
--		case 0:
--			break;
--
--		case 1:
--			/* Too fragmented, unbind everything and retry */
--			mutex_lock(&eb->context->vm->mutex);
--			err = i915_gem_evict_vm(eb->context->vm, &eb->ww);
--			mutex_unlock(&eb->context->vm->mutex);
-+		if (pass == 2) {
-+			err = eb_evict_vm(eb);
+@@ -761,7 +761,7 @@ static int eb_reserve(struct i915_execbuffer *eb)
+ 		case 1:
+ 			/* Too fragmented, unbind everything and retry */
+ 			mutex_lock(&eb->context->vm->mutex);
+-			err = i915_gem_evict_vm(eb->context->vm);
++			err = i915_gem_evict_vm(eb->context->vm, &eb->ww);
+ 			mutex_unlock(&eb->context->vm->mutex);
  			if (err)
  				return err;
--			break;
-+		}
- 
--		default:
--			return -ENOSPC;
-+		list_for_each_entry(ev, &eb->unbound, bind_link) {
-+			err = eb_reserve_vma(eb, ev, pin_flags);
-+			if (err)
-+				break;
- 		}
- 
--		pin_flags = PIN_USER;
--	} while (1);
-+		if (err != -ENOSPC)
-+			break;
-+	}
-+
-+	return err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 66f20b803b01..f66d46882ea7 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -210,9 +210,13 @@ static inline int i915_gem_object_lock_interruptible(struct drm_i915_gem_object
+ 	return __i915_gem_object_lock(obj, ww, true);
  }
  
- static int eb_select_context(struct i915_execbuffer *eb)
-@@ -1178,10 +1210,11 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
- 	return vaddr;
- }
- 
--static void *reloc_iomap(struct drm_i915_gem_object *obj,
-+static void *reloc_iomap(struct i915_vma *batch,
- 			 struct i915_execbuffer *eb,
- 			 unsigned long page)
+-static inline bool i915_gem_object_trylock(struct drm_i915_gem_object *obj)
++static inline bool i915_gem_object_trylock(struct drm_i915_gem_object *obj,
++					   struct i915_gem_ww_ctx *ww)
  {
-+	struct drm_i915_gem_object *obj = batch->obj;
- 	struct reloc_cache *cache = &eb->reloc_cache;
- 	struct i915_ggtt *ggtt = cache_to_ggtt(cache);
- 	unsigned long offset;
-@@ -1191,7 +1224,7 @@ static void *reloc_iomap(struct drm_i915_gem_object *obj,
- 		intel_gt_flush_ggtt_writes(ggtt->vm.gt);
- 		io_mapping_unmap_atomic((void __force __iomem *) unmask_page(cache->vaddr));
- 	} else {
--		struct i915_vma *vma;
-+		struct i915_vma *vma = ERR_PTR(-ENODEV);
- 		int err;
- 
- 		if (i915_gem_object_is_tiled(obj))
-@@ -1204,10 +1237,23 @@ static void *reloc_iomap(struct drm_i915_gem_object *obj,
- 		if (err)
- 			return ERR_PTR(err);
- 
--		vma = i915_gem_object_ggtt_pin_ww(obj, &eb->ww, NULL, 0, 0,
--						  PIN_MAPPABLE |
--						  PIN_NONBLOCK /* NOWARN */ |
--						  PIN_NOEVICT);
-+		/*
-+		 * i915_gem_object_ggtt_pin_ww may attempt to remove the batch
-+		 * VMA from the object list because we no longer pin.
-+		 *
-+		 * Only attempt to pin the batch buffer to ggtt if the current batch
-+		 * is not inside ggtt, or the batch buffer is not misplaced.
-+		 */
-+		if (!i915_is_ggtt(batch->vm)) {
-+			vma = i915_gem_object_ggtt_pin_ww(obj, &eb->ww, NULL, 0, 0,
-+							  PIN_MAPPABLE |
-+							  PIN_NONBLOCK /* NOWARN */ |
-+							  PIN_NOEVICT);
-+		} else if (i915_vma_is_map_and_fenceable(batch)) {
-+			__i915_vma_pin(batch);
-+			vma = batch;
-+		}
-+
- 		if (vma == ERR_PTR(-EDEADLK))
- 			return vma;
- 
-@@ -1245,7 +1291,7 @@ static void *reloc_iomap(struct drm_i915_gem_object *obj,
- 	return vaddr;
+-	return dma_resv_trylock(obj->base.resv);
++	if (!ww)
++		return dma_resv_trylock(obj->base.resv);
++	else
++		return ww_mutex_trylock(&obj->base.resv->lock, &ww->ctx);
  }
  
--static void *reloc_vaddr(struct drm_i915_gem_object *obj,
-+static void *reloc_vaddr(struct i915_vma *vma,
- 			 struct i915_execbuffer *eb,
- 			 unsigned long page)
- {
-@@ -1257,9 +1303,9 @@ static void *reloc_vaddr(struct drm_i915_gem_object *obj,
- 	} else {
- 		vaddr = NULL;
- 		if ((cache->vaddr & KMAP) == 0)
--			vaddr = reloc_iomap(obj, eb, page);
-+			vaddr = reloc_iomap(vma, eb, page);
- 		if (!vaddr)
--			vaddr = reloc_kmap(obj, cache, page);
-+			vaddr = reloc_kmap(vma->obj, cache, page);
- 	}
+ static inline void i915_gem_object_unlock(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+index ad2123369e0d..85ff182ddbc2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -216,7 +216,7 @@ i915_gem_shrink(struct i915_gem_ww_ctx *ww,
  
- 	return vaddr;
-@@ -1300,7 +1346,7 @@ relocate_entry(struct i915_vma *vma,
- 	void *vaddr;
+ 			/* May arrive from get_pages on another bo */
+ 			if (!ww) {
+-				if (!i915_gem_object_trylock(obj))
++				if (!i915_gem_object_trylock(obj, NULL))
+ 					goto skip;
+ 			} else {
+ 				err = i915_gem_object_lock(obj, ww);
+@@ -410,7 +410,7 @@ i915_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr
+ 		if (!vma->iomap || i915_vma_is_active(vma))
+ 			continue;
  
- repeat:
--	vaddr = reloc_vaddr(vma->obj, eb,
-+	vaddr = reloc_vaddr(vma, eb,
- 			    offset >> PAGE_SHIFT);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
-@@ -2076,7 +2122,7 @@ shadow_batch_pin(struct i915_execbuffer *eb,
- 	if (IS_ERR(vma))
- 		return vma;
+-		if (!i915_gem_object_trylock(obj))
++		if (!i915_gem_object_trylock(obj, NULL))
+ 			continue;
  
--	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, flags);
-+	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, flags | PIN_VALIDATE);
- 	if (err)
- 		return ERR_PTR(err);
+ 		if (__i915_vma_unbind(vma) == 0)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index 80680395bb3b..42b0b770929c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -653,7 +653,7 @@ static int __i915_gem_object_create_stolen(struct intel_memory_region *mem,
+ 	cache_level = HAS_LLC(mem->i915) ? I915_CACHE_LLC : I915_CACHE_NONE;
+ 	i915_gem_object_set_cache_coherency(obj, cache_level);
  
-@@ -2090,7 +2136,7 @@ static struct i915_vma *eb_dispatch_secure(struct i915_execbuffer *eb, struct i9
- 	 * batch" bit. Hence we need to pin secure batches into the global gtt.
- 	 * hsw should have this fixed, but bdw mucks it up again. */
- 	if (eb->batch_flags & I915_DISPATCH_SECURE)
--		return i915_gem_object_ggtt_pin_ww(vma->obj, &eb->ww, NULL, 0, 0, 0);
-+		return i915_gem_object_ggtt_pin_ww(vma->obj, &eb->ww, NULL, 0, 0, PIN_VALIDATE);
+-	if (WARN_ON(!i915_gem_object_trylock(obj)))
++	if (WARN_ON(!i915_gem_object_trylock(obj, NULL)))
+ 		return -EBUSY;
  
- 	return NULL;
- }
-@@ -2141,13 +2187,12 @@ static int eb_parse(struct i915_execbuffer *eb)
+ 	i915_gem_object_init_memory_region(obj, mem);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index a1334b48dde7..cd19f4afe823 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -26,7 +26,7 @@ static void dbg_poison_ce(struct intel_context *ce)
+ 		int type = i915_coherent_map_type(ce->engine->i915, obj, true);
+ 		void *map;
  
- 	err = i915_gem_object_lock(pool->obj, &eb->ww);
- 	if (err)
--		goto err;
-+		return err;
+-		if (!i915_gem_object_trylock(obj))
++		if (!i915_gem_object_trylock(obj, NULL))
+ 			return;
  
- 	shadow = shadow_batch_pin(eb, pool->obj, eb->context->vm, PIN_USER);
--	if (IS_ERR(shadow)) {
--		err = PTR_ERR(shadow);
--		goto err;
--	}
-+	if (IS_ERR(shadow))
-+		return PTR_ERR(shadow);
-+
- 	intel_gt_buffer_pool_mark_used(pool);
- 	i915_gem_object_set_readonly(shadow->obj);
- 	shadow->private = pool;
-@@ -2159,25 +2204,21 @@ static int eb_parse(struct i915_execbuffer *eb)
- 		shadow = shadow_batch_pin(eb, pool->obj,
- 					  &eb->gt->ggtt->vm,
- 					  PIN_GLOBAL);
--		if (IS_ERR(shadow)) {
--			err = PTR_ERR(shadow);
--			shadow = trampoline;
--			goto err_shadow;
--		}
-+		if (IS_ERR(shadow))
-+			return PTR_ERR(shadow);
-+
- 		shadow->private = pool;
+ 		map = i915_gem_object_pin_map(obj, type);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index d9596087df08..17e2e01b8d25 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -504,7 +504,7 @@ static int ggtt_reserve_guc_top(struct i915_ggtt *ggtt)
+ 	GEM_BUG_ON(ggtt->vm.total <= GUC_GGTT_TOP);
+ 	size = ggtt->vm.total - GUC_GGTT_TOP;
  
- 		eb->batch_flags |= I915_DISPATCH_SECURE;
- 	}
- 
- 	batch = eb_dispatch_secure(eb, shadow);
--	if (IS_ERR(batch)) {
--		err = PTR_ERR(batch);
--		goto err_trampoline;
--	}
-+	if (IS_ERR(batch))
-+		return PTR_ERR(batch);
- 
- 	err = dma_resv_reserve_shared(shadow->obj->base.resv, 1);
- 	if (err)
--		goto err_trampoline;
-+		return err;
- 
- 	err = intel_engine_cmd_parser(eb->context->engine,
- 				      eb->batches[0]->vma,
-@@ -2185,7 +2226,7 @@ static int eb_parse(struct i915_execbuffer *eb)
- 				      eb->batch_len[0],
- 				      shadow, trampoline);
- 	if (err)
--		goto err_unpin_batch;
-+		return err;
- 
- 	eb->batches[0] = &eb->vma[eb->buffer_count++];
- 	eb->batches[0]->vma = i915_vma_get(shadow);
-@@ -2204,17 +2245,6 @@ static int eb_parse(struct i915_execbuffer *eb)
- 		eb->batches[0]->vma = i915_vma_get(batch);
- 	}
- 	return 0;
--
--err_unpin_batch:
--	if (batch)
--		i915_vma_unpin(batch);
--err_trampoline:
--	if (trampoline)
--		i915_vma_unpin(trampoline);
--err_shadow:
--	i915_vma_unpin(shadow);
--err:
--	return err;
- }
- 
- static int eb_request_submit(struct i915_execbuffer *eb,
-@@ -3330,8 +3360,6 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 
- err_vma:
- 	eb_release_vmas(&eb, true);
--	if (eb.trampoline)
--		i915_vma_unpin(eb.trampoline);
- 	WARN_ON(err == -EDEADLK);
- 	i915_gem_ww_ctx_fini(&eb.ww);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-index f8948de72036..bbcd0522f68e 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-@@ -425,7 +425,6 @@ int i915_vma_pin_fence(struct i915_vma *vma)
- 	 * must keep the device awake whilst using the fence.
- 	 */
- 	assert_rpm_wakelock_held(vma->vm->gt->uncore->rpm);
--	GEM_BUG_ON(!i915_vma_is_pinned(vma));
- 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
- 
- 	err = mutex_lock_interruptible(&vma->vm->mutex);
-diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.h b/drivers/gpu/drm/i915/i915_gem_gtt.h
-index e4938aba3fe9..8c2f57eb5dda 100644
---- a/drivers/gpu/drm/i915/i915_gem_gtt.h
-+++ b/drivers/gpu/drm/i915/i915_gem_gtt.h
-@@ -44,6 +44,7 @@ int i915_gem_gtt_insert(struct i915_address_space *vm,
- #define PIN_HIGH		BIT_ULL(5)
- #define PIN_OFFSET_BIAS		BIT_ULL(6)
- #define PIN_OFFSET_FIXED	BIT_ULL(7)
-+#define PIN_VALIDATE		BIT_ULL(8) /* validate placement only, no need to call unpin() */
- 
- #define PIN_GLOBAL		BIT_ULL(10) /* I915_VMA_GLOBAL_BIND */
- #define PIN_USER		BIT_ULL(11) /* I915_VMA_LOCAL_BIND */
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 3236cf1c1400..c4b7c0b203df 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -778,6 +778,15 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- 	unsigned int bound;
- 
- 	bound = atomic_read(&vma->flags);
-+
-+	if (flags & PIN_VALIDATE) {
-+		flags &= I915_VMA_BIND_MASK;
-+
-+		return (flags & bound) == flags;
-+	}
-+
-+	/* with the lock mandatory for unbind, we don't race here */
-+	flags &= I915_VMA_BIND_MASK;
- 	do {
- 		if (unlikely(flags & ~bound))
- 			return false;
-@@ -1259,7 +1268,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	GEM_BUG_ON(!(flags & (PIN_USER | PIN_GLOBAL)));
- 
- 	/* First try and grab the pin without rebinding the vma */
--	if (try_qad_pin(vma, flags & I915_VMA_BIND_MASK))
-+	if (try_qad_pin(vma, flags))
- 		return 0;
- 
- 	err = i915_vma_get_pages(vma);
-@@ -1341,7 +1350,8 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	}
- 
- 	if (unlikely(!(flags & ~bound & I915_VMA_BIND_MASK))) {
--		__i915_vma_pin(vma);
-+		if (!(flags & PIN_VALIDATE))
-+			__i915_vma_pin(vma);
- 		goto err_unlock;
- 	}
- 
-@@ -1370,8 +1380,10 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	atomic_add(I915_VMA_PAGES_ACTIVE, &vma->pages_count);
- 	list_move_tail(&vma->vm_link, &vma->vm->bound_list);
- 
--	__i915_vma_pin(vma);
--	GEM_BUG_ON(!i915_vma_is_pinned(vma));
-+	if (!(flags & PIN_VALIDATE)) {
-+		__i915_vma_pin(vma);
-+		GEM_BUG_ON(!i915_vma_is_pinned(vma));
-+	}
- 	GEM_BUG_ON(!i915_vma_is_bound(vma, flags));
- 	GEM_BUG_ON(i915_vma_misplaced(vma, size, alignment, flags));
- 
-@@ -1628,8 +1640,6 @@ static int __i915_vma_move_to_active(struct i915_vma *vma, struct i915_request *
+-	ret = i915_gem_gtt_reserve(&ggtt->vm, &ggtt->uc_fw, size,
++	ret = i915_gem_gtt_reserve(&ggtt->vm, NULL, &ggtt->uc_fw, size,
+ 				   GUC_GGTT_TOP, I915_COLOR_UNEVICTABLE,
+ 				   PIN_NOEVICT);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index bb99fc03f503..240265354274 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -17,7 +17,7 @@ static int mock_timeline_pin(struct intel_timeline *tl)
  {
  	int err;
  
--	GEM_BUG_ON(!i915_vma_is_pinned(vma));
--
- 	/* Wait for the vma to be bound before we start! */
- 	err = __i915_request_await_bind(rq, vma);
- 	if (err)
-@@ -1648,6 +1658,8 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
+-	if (WARN_ON(!i915_gem_object_trylock(tl->hwsp_ggtt->obj)))
++	if (WARN_ON(!i915_gem_object_trylock(tl->hwsp_ggtt->obj, NULL)))
+ 		return -EBUSY;
  
- 	assert_object_held(obj);
+ 	err = intel_timeline_pin_map(tl);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index e5ad4d5a91c0..a3597a6bb805 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -1382,7 +1382,7 @@ static int evict_vma(void *data)
+ 	complete(&arg->completion);
  
-+	GEM_BUG_ON(!vma->pages);
-+
- 	err = __i915_vma_move_to_active(vma, rq);
- 	if (unlikely(err))
+ 	mutex_lock(&vm->mutex);
+-	err = i915_gem_evict_for_node(vm, &evict, 0);
++	err = i915_gem_evict_for_node(vm, NULL, &evict, 0);
+ 	mutex_unlock(&vm->mutex);
+ 
+ 	return err;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+index 12ef2837c89b..78993c760f12 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
++++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+@@ -464,7 +464,7 @@ create_init_lmem_internal(struct intel_gt *gt, size_t sz, bool try_lmem)
+ 			return obj;
+ 	}
+ 
+-	i915_gem_object_trylock(obj);
++	i915_gem_object_trylock(obj, NULL);
+ 	err = i915_gem_object_pin_pages(obj);
+ 	if (err) {
+ 		i915_gem_object_unlock(obj);
+diff --git a/drivers/gpu/drm/i915/gvt/aperture_gm.c b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+index 0d6d59871308..c08098a167e9 100644
+--- a/drivers/gpu/drm/i915/gvt/aperture_gm.c
++++ b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+@@ -63,7 +63,7 @@ static int alloc_gm(struct intel_vgpu *vgpu, bool high_gm)
+ 
+ 	mutex_lock(&gt->ggtt->vm.mutex);
+ 	mmio_hw_access_pre(gt);
+-	ret = i915_gem_gtt_insert(&gt->ggtt->vm, node,
++	ret = i915_gem_gtt_insert(&gt->ggtt->vm, NULL, node,
+ 				  size, I915_GTT_PAGE_SIZE,
+ 				  I915_COLOR_UNEVICTABLE,
+ 				  start, end, flags);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 8322abe194da..14aa66030836 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1908,14 +1908,17 @@ i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ 
+ /* i915_gem_evict.c */
+ int __must_check i915_gem_evict_something(struct i915_address_space *vm,
++					  struct i915_gem_ww_ctx *ww,
+ 					  u64 min_size, u64 alignment,
+ 					  unsigned long color,
+ 					  u64 start, u64 end,
+ 					  unsigned flags);
+ int __must_check i915_gem_evict_for_node(struct i915_address_space *vm,
++					 struct i915_gem_ww_ctx *ww,
+ 					 struct drm_mm_node *node,
+ 					 unsigned int flags);
+-int i915_gem_evict_vm(struct i915_address_space *vm);
++int i915_gem_evict_vm(struct i915_address_space *vm,
++		      struct i915_gem_ww_ctx *ww);
+ 
+ /* i915_gem_internal.c */
+ struct drm_i915_gem_object *
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index 286efa462eca..24f5e3345e43 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -51,6 +51,7 @@ static int ggtt_flush(struct intel_gt *gt)
+ 
+ static bool
+ mark_free(struct drm_mm_scan *scan,
++	  struct i915_gem_ww_ctx *ww,
+ 	  struct i915_vma *vma,
+ 	  unsigned int flags,
+ 	  struct list_head *unwind)
+@@ -58,7 +59,7 @@ mark_free(struct drm_mm_scan *scan,
+ 	if (i915_vma_is_pinned(vma))
+ 		return false;
+ 
+-	if (!i915_gem_object_trylock(vma->obj))
++	if (!i915_gem_object_trylock(vma->obj, ww))
+ 		return false;
+ 
+ 	list_add(&vma->evict_link, unwind);
+@@ -101,6 +102,7 @@ static bool defer_evict(struct i915_vma *vma)
+  */
+ int
+ i915_gem_evict_something(struct i915_address_space *vm,
++			 struct i915_gem_ww_ctx *ww,
+ 			 u64 min_size, u64 alignment,
+ 			 unsigned long color,
+ 			 u64 start, u64 end,
+@@ -173,7 +175,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
+ 			continue;
+ 		}
+ 
+-		if (mark_free(&scan, vma, flags, &eviction_list))
++		if (mark_free(&scan, ww, vma, flags, &eviction_list))
+ 			goto found;
+ 	}
+ 
+@@ -250,7 +252,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
+ 
+ 		/* If we find any non-objects (!vma), we cannot evict them */
+ 		if (vma->node.color != I915_COLOR_UNEVICTABLE &&
+-		    i915_gem_object_trylock(vma->obj)) {
++		    i915_gem_object_trylock(vma->obj, ww)) {
+ 			ret = __i915_vma_unbind(vma);
+ 			i915_gem_object_unlock(vma->obj);
+ 		} else {
+@@ -273,6 +275,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
+  * memory in e.g. the shrinker.
+  */
+ int i915_gem_evict_for_node(struct i915_address_space *vm,
++			    struct i915_gem_ww_ctx *ww,
+ 			    struct drm_mm_node *target,
+ 			    unsigned int flags)
+ {
+@@ -345,7 +348,7 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
+ 			break;
+ 		}
+ 
+-		if (!i915_gem_object_trylock(vma->obj)) {
++		if (!i915_gem_object_trylock(vma->obj, ww)) {
+ 			ret = -ENOSPC;
+ 			break;
+ 		}
+@@ -386,7 +389,7 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
+  * To clarify: This is for freeing up virtual address space, not for freeing
+  * memory in e.g. the shrinker.
+  */
+-int i915_gem_evict_vm(struct i915_address_space *vm)
++int i915_gem_evict_vm(struct i915_address_space *vm, struct i915_gem_ww_ctx *ww)
+ {
+ 	int ret = 0;
+ 
+@@ -412,7 +415,7 @@ int i915_gem_evict_vm(struct i915_address_space *vm)
+ 			if (i915_vma_is_pinned(vma))
+ 				continue;
+ 
+-			if (!i915_gem_object_trylock(vma->obj))
++			if (!i915_gem_object_trylock(vma->obj, ww))
+ 				continue;
+ 
+ 			__i915_vma_pin(vma);
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
+index cd5f2348a187..c810da476c2b 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
+@@ -93,6 +93,7 @@ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
+  * asked to wait for eviction and interrupted.
+  */
+ int i915_gem_gtt_reserve(struct i915_address_space *vm,
++			 struct i915_gem_ww_ctx *ww,
+ 			 struct drm_mm_node *node,
+ 			 u64 size, u64 offset, unsigned long color,
+ 			 unsigned int flags)
+@@ -117,7 +118,7 @@ int i915_gem_gtt_reserve(struct i915_address_space *vm,
+ 	if (flags & PIN_NOEVICT)
+ 		return -ENOSPC;
+ 
+-	err = i915_gem_evict_for_node(vm, node, flags);
++	err = i915_gem_evict_for_node(vm, ww, node, flags);
+ 	if (err == 0)
+ 		err = drm_mm_reserve_node(&vm->mm, node);
+ 
+@@ -184,6 +185,7 @@ static u64 random_offset(u64 start, u64 end, u64 len, u64 align)
+  * asked to wait for eviction and interrupted.
+  */
+ int i915_gem_gtt_insert(struct i915_address_space *vm,
++			struct i915_gem_ww_ctx *ww,
+ 			struct drm_mm_node *node,
+ 			u64 size, u64 alignment, unsigned long color,
+ 			u64 start, u64 end, unsigned int flags)
+@@ -269,7 +271,7 @@ int i915_gem_gtt_insert(struct i915_address_space *vm,
+ 	 */
+ 	offset = random_offset(start, end,
+ 			       size, alignment ?: I915_GTT_MIN_ALIGNMENT);
+-	err = i915_gem_gtt_reserve(vm, node, size, offset, color, flags);
++	err = i915_gem_gtt_reserve(vm, ww, node, size, offset, color, flags);
+ 	if (err != -ENOSPC)
  		return err;
+ 
+@@ -277,7 +279,7 @@ int i915_gem_gtt_insert(struct i915_address_space *vm,
+ 		return -ENOSPC;
+ 
+ 	/* Randomly selected placement is pinned, do a search */
+-	err = i915_gem_evict_something(vm, size, alignment, color,
++	err = i915_gem_evict_something(vm, ww, size, alignment, color,
+ 				       start, end, flags);
+ 	if (err)
+ 		return err;
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.h b/drivers/gpu/drm/i915/i915_gem_gtt.h
+index c9b0ee5e1d23..e4938aba3fe9 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.h
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.h
+@@ -16,6 +16,7 @@
+ 
+ struct drm_i915_gem_object;
+ struct i915_address_space;
++struct i915_gem_ww_ctx;
+ 
+ int __must_check i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
+ 					    struct sg_table *pages);
+@@ -23,11 +24,13 @@ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
+ 			       struct sg_table *pages);
+ 
+ int i915_gem_gtt_reserve(struct i915_address_space *vm,
++			 struct i915_gem_ww_ctx *ww,
+ 			 struct drm_mm_node *node,
+ 			 u64 size, u64 offset, unsigned long color,
+ 			 unsigned int flags);
+ 
+ int i915_gem_gtt_insert(struct i915_address_space *vm,
++			struct i915_gem_ww_ctx *ww,
+ 			struct drm_mm_node *node,
+ 			u64 size, u64 alignment, unsigned long color,
+ 			u64 start, u64 end, unsigned int flags);
+diff --git a/drivers/gpu/drm/i915/i915_vgpu.c b/drivers/gpu/drm/i915/i915_vgpu.c
+index 31a105bc1792..c97323973f9b 100644
+--- a/drivers/gpu/drm/i915/i915_vgpu.c
++++ b/drivers/gpu/drm/i915/i915_vgpu.c
+@@ -197,7 +197,7 @@ static int vgt_balloon_space(struct i915_ggtt *ggtt,
+ 	drm_info(&dev_priv->drm,
+ 		 "balloon space: range [ 0x%lx - 0x%lx ] %lu KiB.\n",
+ 		 start, end, size / 1024);
+-	ret = i915_gem_gtt_reserve(&ggtt->vm, node,
++	ret = i915_gem_gtt_reserve(&ggtt->vm, NULL, node,
+ 				   size, start, I915_COLOR_UNEVICTABLE,
+ 				   0);
+ 	if (!ret)
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index ecf97b3bf64f..74b88b130cd5 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -650,7 +650,8 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
+  * 0 on success, negative error code otherwise.
+  */
+ static int
+-i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
++i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
++		u64 size, u64 alignment, u64 flags)
+ {
+ 	unsigned long color;
+ 	u64 start, end;
+@@ -702,7 +703,7 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
+ 		    range_overflows(offset, size, end))
+ 			return -EINVAL;
+ 
+-		ret = i915_gem_gtt_reserve(vma->vm, &vma->node,
++		ret = i915_gem_gtt_reserve(vma->vm, ww, &vma->node,
+ 					   size, offset, color,
+ 					   flags);
+ 		if (ret)
+@@ -741,7 +742,7 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
+ 				size = round_up(size, I915_GTT_PAGE_SIZE_2M);
+ 		}
+ 
+-		ret = i915_gem_gtt_insert(vma->vm, &vma->node,
++		ret = i915_gem_gtt_insert(vma->vm, ww, &vma->node,
+ 					  size, alignment, color,
+ 					  start, end, flags);
+ 		if (ret)
+@@ -1379,7 +1380,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 		goto err_unlock;
+ 
+ 	if (!(bound & I915_VMA_BIND_MASK)) {
+-		err = i915_vma_insert(vma, size, alignment, flags);
++		err = i915_vma_insert(vma, ww, size, alignment, flags);
+ 		if (err)
+ 			goto err_active;
+ 
+@@ -1459,7 +1460,9 @@ static int __i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 		/* Unlike i915_vma_pin, we don't take no for an answer! */
+ 		flush_idle_contexts(vm->gt);
+ 		if (mutex_lock_interruptible(&vm->mutex) == 0) {
+-			i915_gem_evict_vm(vm);
++
++			/* We pass NULL ww here, as we don't want to unbind locked objects */
++			i915_gem_evict_vm(vm, NULL);
+ 			mutex_unlock(&vm->mutex);
+ 		}
+ 	} while (1);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+index 7e0658a77659..c80e1483d603 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+@@ -117,7 +117,7 @@ static int igt_evict_something(void *arg)
+ 
+ 	/* Everything is pinned, nothing should happen */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_something(&ggtt->vm,
++	err = i915_gem_evict_something(&ggtt->vm, NULL,
+ 				       I915_GTT_PAGE_SIZE, 0, 0,
+ 				       0, U64_MAX,
+ 				       0);
+@@ -132,11 +132,12 @@ static int igt_evict_something(void *arg)
+ 
+ 	/* Everything is unpinned, we should be able to evict something */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_something(&ggtt->vm,
++	err = i915_gem_evict_something(&ggtt->vm, NULL,
+ 				       I915_GTT_PAGE_SIZE, 0, 0,
+ 				       0, U64_MAX,
+ 				       0);
+ 	mutex_unlock(&ggtt->vm.mutex);
++
+ 	if (err) {
+ 		pr_err("i915_gem_evict_something failed on a full GGTT with err=%d\n",
+ 		       err);
+@@ -204,7 +205,7 @@ static int igt_evict_for_vma(void *arg)
+ 
+ 	/* Everything is pinned, nothing should happen */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_for_node(&ggtt->vm, &target, 0);
++	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (err != -ENOSPC) {
+ 		pr_err("i915_gem_evict_for_node on a full GGTT returned err=%d\n",
+@@ -216,7 +217,7 @@ static int igt_evict_for_vma(void *arg)
+ 
+ 	/* Everything is unpinned, we should be able to evict the node */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_for_node(&ggtt->vm, &target, 0);
++	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (err) {
+ 		pr_err("i915_gem_evict_for_node returned err=%d\n",
+@@ -297,7 +298,7 @@ static int igt_evict_for_cache_color(void *arg)
+ 
+ 	/* Remove just the second vma */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_for_node(&ggtt->vm, &target, 0);
++	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (err) {
+ 		pr_err("[0]i915_gem_evict_for_node returned err=%d\n", err);
+@@ -310,7 +311,7 @@ static int igt_evict_for_cache_color(void *arg)
+ 	target.color = I915_CACHE_L3_LLC;
+ 
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_for_node(&ggtt->vm, &target, 0);
++	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (!err) {
+ 		pr_err("[1]i915_gem_evict_for_node returned err=%d\n", err);
+@@ -331,6 +332,7 @@ static int igt_evict_vm(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	struct i915_ggtt *ggtt = gt->ggtt;
++	struct i915_gem_ww_ctx ww;
+ 	LIST_HEAD(objects);
+ 	int err;
+ 
+@@ -342,7 +344,7 @@ static int igt_evict_vm(void *arg)
+ 
+ 	/* Everything is pinned, nothing should happen */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_vm(&ggtt->vm);
++	err = i915_gem_evict_vm(&ggtt->vm, NULL);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (err) {
+ 		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
+@@ -352,9 +354,14 @@ static int igt_evict_vm(void *arg)
+ 
+ 	unpin_ggtt(ggtt);
+ 
++	i915_gem_ww_ctx_init(&ww, false);
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_vm(&ggtt->vm);
++	err = i915_gem_evict_vm(&ggtt->vm, &ww);
+ 	mutex_unlock(&ggtt->vm.mutex);
++
++	/* no -EDEADLK handling; can't happen with vm.mutex in place */
++	i915_gem_ww_ctx_fini(&ww);
++
+ 	if (err) {
+ 		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
+ 		       err);
+@@ -402,7 +409,7 @@ static int igt_evict_contexts(void *arg)
+ 	/* Reserve a block so that we know we have enough to fit a few rq */
+ 	memset(&hole, 0, sizeof(hole));
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_gtt_insert(&ggtt->vm, &hole,
++	err = i915_gem_gtt_insert(&ggtt->vm, NULL, &hole,
+ 				  PRETEND_GGTT_SIZE, 0, I915_COLOR_UNEVICTABLE,
+ 				  0, ggtt->vm.total,
+ 				  PIN_NOEVICT);
+@@ -422,7 +429,7 @@ static int igt_evict_contexts(void *arg)
+ 			goto out_locked;
+ 		}
+ 
+-		if (i915_gem_gtt_insert(&ggtt->vm, &r->node,
++		if (i915_gem_gtt_insert(&ggtt->vm, NULL, &r->node,
+ 					1ul << 20, 0, I915_COLOR_UNEVICTABLE,
+ 					0, ggtt->vm.total,
+ 					PIN_NOEVICT)) {
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 4574fb51b656..6b1db83119b3 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -1378,7 +1378,7 @@ static int igt_gtt_reserve(void *arg)
+ 		}
+ 
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_reserve(&ggtt->vm, &vma->node,
++		err = i915_gem_gtt_reserve(&ggtt->vm, NULL, &vma->node,
+ 					   obj->base.size,
+ 					   total,
+ 					   obj->cache_level,
+@@ -1430,7 +1430,7 @@ static int igt_gtt_reserve(void *arg)
+ 		}
+ 
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_reserve(&ggtt->vm, &vma->node,
++		err = i915_gem_gtt_reserve(&ggtt->vm, NULL, &vma->node,
+ 					   obj->base.size,
+ 					   total,
+ 					   obj->cache_level,
+@@ -1477,7 +1477,7 @@ static int igt_gtt_reserve(void *arg)
+ 					   I915_GTT_MIN_ALIGNMENT);
+ 
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_reserve(&ggtt->vm, &vma->node,
++		err = i915_gem_gtt_reserve(&ggtt->vm, NULL, &vma->node,
+ 					   obj->base.size,
+ 					   offset,
+ 					   obj->cache_level,
+@@ -1552,7 +1552,7 @@ static int igt_gtt_insert(void *arg)
+ 	/* Check a couple of obviously invalid requests */
+ 	for (ii = invalid_insert; ii->size; ii++) {
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_insert(&ggtt->vm, &tmp,
++		err = i915_gem_gtt_insert(&ggtt->vm, NULL, &tmp,
+ 					  ii->size, ii->alignment,
+ 					  I915_COLOR_UNEVICTABLE,
+ 					  ii->start, ii->end,
+@@ -1594,7 +1594,7 @@ static int igt_gtt_insert(void *arg)
+ 		}
+ 
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_insert(&ggtt->vm, &vma->node,
++		err = i915_gem_gtt_insert(&ggtt->vm, NULL, &vma->node,
+ 					  obj->base.size, 0, obj->cache_level,
+ 					  0, ggtt->vm.total,
+ 					  0);
+@@ -1654,7 +1654,7 @@ static int igt_gtt_insert(void *arg)
+ 		}
+ 
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_insert(&ggtt->vm, &vma->node,
++		err = i915_gem_gtt_insert(&ggtt->vm, NULL, &vma->node,
+ 					  obj->base.size, 0, obj->cache_level,
+ 					  0, ggtt->vm.total,
+ 					  0);
+@@ -1703,7 +1703,7 @@ static int igt_gtt_insert(void *arg)
+ 		}
+ 
+ 		mutex_lock(&ggtt->vm.mutex);
+-		err = i915_gem_gtt_insert(&ggtt->vm, &vma->node,
++		err = i915_gem_gtt_insert(&ggtt->vm, NULL, &vma->node,
+ 					  obj->base.size, 0, obj->cache_level,
+ 					  0, ggtt->vm.total,
+ 					  0);
 -- 
 2.34.0
 
