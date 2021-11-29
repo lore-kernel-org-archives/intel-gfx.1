@@ -4,35 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3B3C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86604C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC77D6FD03;
-	Mon, 29 Nov 2021 13:00:39 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7FD5A6EB14;
- Thu, 25 Nov 2021 11:47:44 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 928001042;
- Thu, 25 Nov 2021 03:47:43 -0800 (PST)
-Received: from [10.57.56.56] (unknown [10.57.56.56])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 811E43F66F;
- Thu, 25 Nov 2021 03:47:42 -0800 (PST)
-Message-ID: <a4d089ad-995c-7a6b-4446-46b03d373070@arm.com>
-Date: Thu, 25 Nov 2021 11:47:37 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFFB76FCFE;
+	Mon, 29 Nov 2021 13:00:51 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B33A6FC97;
+ Mon, 29 Nov 2021 12:55:41 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id c4so36551252wrd.9;
+ Mon, 29 Nov 2021 04:55:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=qemJ+8gCFACeuoFz3XOub8bUAT99hVqeSm4liTeFuFA=;
+ b=I/F77x50+M+Nop6Fa/FNQCSy6+GJZcKNJLPNhGWWnCoTR9DYLwIA88OaX1Uuw4ficS
+ Me6741i4bEcYSBFbWcvkDg6HelTLP2rllZRSqdpjtXHqD3jFJJa68g2o/u93GDi7nzR7
+ SVPR0lwmadbb0B+KDLnPfvSAJncw47lme5xdHc86Uf8qv8kVnMZFsvBZJHdpMC6D/A1c
+ lH0HrTAxBUUHsj1ttTyVeEHta0GeIQuplJGbpeTCuYP1/1ehxY/3OzKEDUvlM/we+uzM
+ OI9gMVmH3FCsMEaLC4Km49rxXnlT0JtrvbSrNwUedE8A5/1xnnYvgFBDVDCIEPNg7hp9
+ SO+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=qemJ+8gCFACeuoFz3XOub8bUAT99hVqeSm4liTeFuFA=;
+ b=TnzLxDfEVn3khF3h/HJr+vXQNw61JrGwpR7AKkXV4GkG9ZVffvrrOCYezg/1rF5ZbI
+ NIJK77LvGmfM5px3ftXR53hvsgqzHvTElKy4hNSGaAvW+E7Guu638c4QaBI64myJpNKE
+ aEOXMhREQYOdc7v2LENK4t7G3iJCNzZt9OcPHdUd4rcoVYHjq+S/r8GYyF0XXbRbEcS9
+ QMg82upr7lmfNWOII2+mF5p8cOzum+hMJz3uqI0BSP3p584m1Z5khIBK/3zET5Fe+6Mg
+ x3j+X3mAdF8LyxeOU9uTRhQHPzWixjESOqWOKrpifZuMW5Y06i+ih1DRDQEFzXK1WFb/
+ KpvQ==
+X-Gm-Message-State: AOAM530Jkn0d6sCnJXY19YhDNChdW1BSvPDKNXMFwPmOuxg3wM+B2BTq
+ pGe/wuTHHDU7M2LssccH7rE=
+X-Google-Smtp-Source: ABdhPJzGg/Imk8nPiQdBSpRopU01jLl1/Izo7h/H/YFv+lsjJUqhvYhGqJ+Xf5v0BgEWA2vHJYT/Og==
+X-Received: by 2002:adf:e391:: with SMTP id e17mr33628241wrm.613.1638190539198; 
+ Mon, 29 Nov 2021 04:55:39 -0800 (PST)
+Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
+ [87.176.183.123])
+ by smtp.gmail.com with ESMTPSA id h204sm15657736wmh.33.2021.11.29.04.55.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Nov 2021 04:55:38 -0800 (PST)
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@intel.com>
+References: <20211129073533.414008-1-thomas.hellstrom@linux.intel.com>
+ <4fd0eee6-342f-fb31-717c-901440f38c35@gmail.com>
+ <58ca11648ab29d96b84640760d2acc3ac2d39d19.camel@linux.intel.com>
+ <e4d8e272-8175-4298-f227-240febc0bda0@gmail.com>
+ <ee128e237dbc2b6b2341b49ab07661c1f1b65e0b.camel@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <180f069a-bf29-cf05-c9f9-5b1737ec5664@gmail.com>
+Date: Mon, 29 Nov 2021 13:55:37 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org
-References: <20211125104202.417171-1-tvrtko.ursulin@linux.intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <20211125104202.417171-1-tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <ee128e237dbc2b6b2341b49ab07661c1f1b65e0b.camel@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 29 Nov 2021 13:00:35 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Use per device iommu check
+Subject: Re: [Intel-gfx] [PATCH] dma_fence_array: Fix PENDING_ERROR leak in
+ dma_fence_array_signaled()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,315 +80,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lu Baolu <baolu.lu@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: linaro-mm-sig@lists.linaro.org, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-11-25 10:42, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> With both integrated and discrete Intel GPUs in a system, the current
-> global check of intel_iommu_gfx_mapped, as done from intel_vtd_active()
-> may not be completely accurate.
-> 
-> In this patch we add i915 parameter to intel_vtd_active() in order to
-> prepare it for multiple GPUs and we also change the check away from Intel
-> specific intel_iommu_gfx_mapped (global exported by the Intel IOMMU
-> driver) to probing the presence of IOMMU domain on a specific device
-> using iommu_get_domain_for_dev().
+Am 29.11.21 um 13:46 schrieb Thomas Hellström:
+> On Mon, 2021-11-29 at 13:33 +0100, Christian König wrote:
+>> Am 29.11.21 um 13:23 schrieb Thomas Hellström:
+>>> Hi, Christian,
+>>>
+>>> On Mon, 2021-11-29 at 09:21 +0100, Christian König wrote:
+>>>> Am 29.11.21 um 08:35 schrieb Thomas Hellström:
+>>>>> If a dma_fence_array is reported signaled by a call to
+>>>>> dma_fence_is_signaled(), it may leak the PENDING_ERROR status.
+>>>>>
+>>>>> Fix this by clearing the PENDING_ERROR status if we return true
+>>>>> in
+>>>>> dma_fence_array_signaled().
+>>>>>
+>>>>> Fixes: 1f70b8b812f3 ("dma-fence: Propagate errors to dma-fence-
+>>>>> array container")
+>>>>> Cc: linaro-mm-sig@lists.linaro.org
+>>>>> Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
+>>>>> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+>>>>> Signed-off-by: Thomas Hellström
+>>>>> <thomas.hellstrom@linux.intel.com>
+>>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>> How are the dma-buf / dma-fence patches typically merged? If i915
+>>> is
+>>> the only fence->error user, could we take this through drm-intel to
+>>> avoid a backmerge for upcoming i915 work?
+>> Well that one here looks like a bugfix to me, so either through
+>> drm-misc-fixes ore some i915 -fixes branch sounds fine to me.
+>>
+>> If you have any new development based on that a backmerge of the -
+>> fixes
+>> into your -next branch is unavoidable anyway.
+> Ok, I'll check with Joonas if I can take it through
+> drm-intel-gt-next, since fixes are cherry-picked from that one. Patch
+> will then appear in both the -fixes and the -next branch.
 
-FWIW the way you have it now is functionally equivalent to using 
-device_iommu_mapped(), which I think might be slightly clearer for the 
-current intent, but I don't have a significantly strong preference 
-(after all, this *was* the de-facto way of checking before 
-device_iommu_mapped() was introduced, and there are still other examples 
-of it around). So from the IOMMU perspective,
+Well exactly that's the stuff Daniel told me to avoid :)
 
-Acked-by: Robin Murphy <robin.murphy@arm.com>
+But maybe your i915 workflow is somehow better handling that than the 
+AMD workflow.
 
-Perhaps the AGP driver could also be tweaked and intel_iommu_gfx_mapped 
-cleaned away entirely, but I'll leave that for Baolu to think about :)
+Christian.
 
-Cheers,
-Robin.
+>
+> Thanks,
+> /Thomas
+>
+>
+>> Regards,
+>> Christian.
+>>
+>>> /Thomas
+>>>
+>>>
+>>>>> ---
+>>>>>     drivers/dma-buf/dma-fence-array.c | 6 +++++-
+>>>>>     1 file changed, 5 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-
+>>>>> buf/dma-fence-array.c
+>>>>> index d3fbd950be94..3e07f961e2f3 100644
+>>>>> --- a/drivers/dma-buf/dma-fence-array.c
+>>>>> +++ b/drivers/dma-buf/dma-fence-array.c
+>>>>> @@ -104,7 +104,11 @@ static bool
+>>>>> dma_fence_array_signaled(struct
+>>>>> dma_fence *fence)
+>>>>>     {
+>>>>>           struct dma_fence_array *array =
+>>>>> to_dma_fence_array(fence);
+>>>>>     
+>>>>> -       return atomic_read(&array->num_pending) <= 0;
+>>>>> +       if (atomic_read(&array->num_pending) > 0)
+>>>>> +               return false;
+>>>>> +
+>>>>> +       dma_fence_array_clear_pending_error(array);
+>>>>> +       return true;
+>>>>>     }
+>>>>>     
+>>>>>     static void dma_fence_array_release(struct dma_fence *fence)
+>
 
-> It was suggested to additionally check for __IOMMU_DOMAIN_PAGING bit
-> present in the returned iommu domain, however I opted not to do that at
-> this point.
-> 
-> Checking for this flag would detect whether IOMMU is in address
-> translation mode, with the assumption that is the only relevant question.
-> Downside to that is that in identity mapping (pass-through) mode IOMMU
-> hardware is still active, sitting on the communication path, just not
-> doing address translation.
-> 
-> My rationale was, that for the many intel_vtd_active() checks in our code
-> base, while some clearly are about performance impact of address
-> translation, some may be about working around functional issues when the
-> IOMMU hardware is simply being active. There also may be some performance
-> impact in pass-through mode, but I have not specifically attempted to
-> measure it.
-> 
-> Therefore the safest option feels to be to keep intel_vtd_active()
-> answering the question of "is the IOMMU hardware active" for this device.
-> If in the future we want to expand the set of questions to "is IOMMU
-> active and doing address translation" we can easily do that by adding a
-> new helper to be called from appropriate sites.
-> 
-> v2:
->    * Check for dmar translation specifically, not just iommu domain. (Baolu)
-> 
-> v3:
->   * Go back to plain "any domain" check for now, rewrite commit message.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: Lu Baolu <baolu.lu@linux.intel.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: Robin Murphy <robin.murphy@arm.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_bw.c      |  2 +-
->   drivers/gpu/drm/i915/display/intel_display.c |  2 +-
->   drivers/gpu/drm/i915/display/intel_fbc.c     |  2 +-
->   drivers/gpu/drm/i915/gem/i915_gem_stolen.c   |  2 +-
->   drivers/gpu/drm/i915/gem/i915_gemfs.c        |  2 +-
->   drivers/gpu/drm/i915/gt/intel_ggtt.c         |  4 ++--
->   drivers/gpu/drm/i915/i915_debugfs.c          |  1 +
->   drivers/gpu/drm/i915/i915_driver.c           |  7 +++++++
->   drivers/gpu/drm/i915/i915_drv.h              | 13 +++++++------
->   drivers/gpu/drm/i915/i915_gpu_error.c        |  5 +----
->   drivers/gpu/drm/i915/intel_device_info.c     | 14 +-------------
->   drivers/gpu/drm/i915/intel_pm.c              |  2 +-
->   12 files changed, 25 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-> index abec394f6869..2da4aacc956b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-> @@ -634,7 +634,7 @@ static unsigned int intel_bw_data_rate(struct drm_i915_private *dev_priv,
->   	for_each_pipe(dev_priv, pipe)
->   		data_rate += bw_state->data_rate[pipe];
->   
-> -	if (DISPLAY_VER(dev_priv) >= 13 && intel_vtd_active())
-> +	if (DISPLAY_VER(dev_priv) >= 13 && intel_vtd_active(dev_priv))
->   		data_rate = data_rate * 105 / 100;
->   
->   	return data_rate;
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index b2d51cd79d6c..1ef77ba7f645 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -1293,7 +1293,7 @@ static bool needs_async_flip_vtd_wa(const struct intel_crtc_state *crtc_state)
->   {
->   	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
->   
-> -	return crtc_state->uapi.async_flip && intel_vtd_active() &&
-> +	return crtc_state->uapi.async_flip && intel_vtd_active(i915) &&
->   		(DISPLAY_VER(i915) == 9 || IS_BROADWELL(i915) || IS_HASWELL(i915));
->   }
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-> index d0c34bc3af6c..614e8697c068 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-> @@ -1677,7 +1677,7 @@ static int intel_sanitize_fbc_option(struct drm_i915_private *i915)
->   static bool need_fbc_vtd_wa(struct drm_i915_private *i915)
->   {
->   	/* WaFbcTurnOffFbcWhenHyperVisorIsUsed:skl,bxt */
-> -	if (intel_vtd_active() &&
-> +	if (intel_vtd_active(i915) &&
->   	    (IS_SKYLAKE(i915) || IS_BROXTON(i915))) {
->   		drm_info(&i915->drm,
->   			 "Disabling framebuffer compression (FBC) to prevent screen flicker with VT-d enabled\n");
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> index ddd37ccb1362..cf100c0ea3b7 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> @@ -399,7 +399,7 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
->   		return 0;
->   	}
->   
-> -	if (intel_vtd_active() && GRAPHICS_VER(i915) < 8) {
-> +	if (intel_vtd_active(i915) && GRAPHICS_VER(i915) < 8) {
->   		drm_notice(&i915->drm,
->   			   "%s, disabling use of stolen memory\n",
->   			   "DMAR active");
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gemfs.c b/drivers/gpu/drm/i915/gem/i915_gemfs.c
-> index dbdbdc344d87..11cd66d183e6 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gemfs.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gemfs.c
-> @@ -31,7 +31,7 @@ int i915_gemfs_init(struct drm_i915_private *i915)
->   	 */
->   
->   	opts = NULL;
-> -	if (intel_vtd_active()) {
-> +	if (intel_vtd_active(i915)) {
->   		if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
->   			static char huge_opt[] = "huge=within_size"; /* r/w */
->   
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> index 555111c3bee5..110d3944f9a2 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> @@ -106,7 +106,7 @@ static bool needs_idle_maps(struct drm_i915_private *i915)
->   	 * Query intel_iommu to see if we need the workaround. Presumably that
->   	 * was loaded first.
->   	 */
-> -	if (!intel_vtd_active())
-> +	if (!intel_vtd_active(i915))
->   		return false;
->   
->   	if (GRAPHICS_VER(i915) == 5 && IS_MOBILE(i915))
-> @@ -1233,7 +1233,7 @@ int i915_ggtt_probe_hw(struct drm_i915_private *i915)
->   	if (ret)
->   		return ret;
->   
-> -	if (intel_vtd_active())
-> +	if (intel_vtd_active(i915))
->   		drm_info(&i915->drm, "VT-d active for gfx access\n");
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-> index fe638b5da7c0..390d541f64ea 100644
-> --- a/drivers/gpu/drm/i915/i915_debugfs.c
-> +++ b/drivers/gpu/drm/i915/i915_debugfs.c
-> @@ -65,6 +65,7 @@ static int i915_capabilities(struct seq_file *m, void *data)
->   
->   	intel_device_info_print_static(INTEL_INFO(i915), &p);
->   	intel_device_info_print_runtime(RUNTIME_INFO(i915), &p);
-> +	i915_print_iommu_status(i915, &p);
->   	intel_gt_info_print(&i915->gt.info, &p);
->   	intel_driver_caps_print(&i915->caps, &p);
->   
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-> index a13666627dad..bbc99fc5888f 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -741,6 +741,12 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
->   	i915_gem_driver_unregister(dev_priv);
->   }
->   
-> +void
-> +i915_print_iommu_status(struct drm_i915_private *i915, struct drm_printer *p)
-> +{
-> +	drm_printf(p, "iommu: %s\n", enableddisabled(intel_vtd_active(i915)));
-> +}
-> +
->   static void i915_welcome_messages(struct drm_i915_private *dev_priv)
->   {
->   	if (drm_debug_enabled(DRM_UT_DRIVER)) {
-> @@ -756,6 +762,7 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
->   
->   		intel_device_info_print_static(INTEL_INFO(dev_priv), &p);
->   		intel_device_info_print_runtime(RUNTIME_INFO(dev_priv), &p);
-> +		i915_print_iommu_status(dev_priv, &p);
->   		intel_gt_info_print(&dev_priv->gt.info, &p);
->   	}
->   
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 1bfadd9127fc..da3b32ae65e0 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -1760,26 +1760,27 @@ static inline bool run_as_guest(void)
->   #define HAS_D12_PLANE_MINIMIZATION(dev_priv) (IS_ROCKETLAKE(dev_priv) || \
->   					      IS_ALDERLAKE_S(dev_priv))
->   
-> -static inline bool intel_vtd_active(void)
-> +static inline bool intel_vtd_active(struct drm_i915_private *i915)
->   {
-> -#ifdef CONFIG_INTEL_IOMMU
-> -	if (intel_iommu_gfx_mapped)
-> +	if (iommu_get_domain_for_dev(i915->drm.dev))
->   		return true;
-> -#endif
->   
->   	/* Running as a guest, we assume the host is enforcing VT'd */
->   	return run_as_guest();
->   }
->   
-> +void
-> +i915_print_iommu_status(struct drm_i915_private *i915, struct drm_printer *p);
-> +
->   static inline bool intel_scanout_needs_vtd_wa(struct drm_i915_private *dev_priv)
->   {
-> -	return GRAPHICS_VER(dev_priv) >= 6 && intel_vtd_active();
-> +	return GRAPHICS_VER(dev_priv) >= 6 && intel_vtd_active(dev_priv);
->   }
->   
->   static inline bool
->   intel_ggtt_update_needs_vtd_wa(struct drm_i915_private *i915)
->   {
-> -	return IS_BROXTON(i915) && intel_vtd_active();
-> +	return IS_BROXTON(i915) && intel_vtd_active(i915);
->   }
->   
->   static inline bool
-> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-> index 2a2d7643b551..3f39d6641894 100644
-> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> @@ -1750,10 +1750,7 @@ static void capture_gen(struct i915_gpu_coredump *error)
->   	error->wakelock = atomic_read(&i915->runtime_pm.wakeref_count);
->   	error->suspended = i915->runtime_pm.suspended;
->   
-> -	error->iommu = -1;
-> -#ifdef CONFIG_INTEL_IOMMU
-> -	error->iommu = intel_iommu_gfx_mapped;
-> -#endif
-> +	error->iommu = intel_vtd_active(i915);
->   	error->reset_count = i915_reset_count(&i915->gpu_error);
->   	error->suspend_count = i915->suspend_count;
->   
-> diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-> index 6e6b317bc33c..e6605b5181a5 100644
-> --- a/drivers/gpu/drm/i915/intel_device_info.c
-> +++ b/drivers/gpu/drm/i915/intel_device_info.c
-> @@ -83,17 +83,6 @@ const char *intel_platform_name(enum intel_platform platform)
->   	return platform_names[platform];
->   }
->   
-> -static const char *iommu_name(void)
-> -{
-> -	const char *msg = "n/a";
-> -
-> -#ifdef CONFIG_INTEL_IOMMU
-> -	msg = enableddisabled(intel_iommu_gfx_mapped);
-> -#endif
-> -
-> -	return msg;
-> -}
-> -
->   void intel_device_info_print_static(const struct intel_device_info *info,
->   				    struct drm_printer *p)
->   {
-> @@ -114,7 +103,6 @@ void intel_device_info_print_static(const struct intel_device_info *info,
->   		drm_printf(p, "display version: %u\n", info->display.ver);
->   
->   	drm_printf(p, "gt: %d\n", info->gt);
-> -	drm_printf(p, "iommu: %s\n", iommu_name());
->   	drm_printf(p, "memory-regions: %x\n", info->memory_regions);
->   	drm_printf(p, "page-sizes: %x\n", info->page_sizes);
->   	drm_printf(p, "platform: %s\n", intel_platform_name(info->platform));
-> @@ -374,7 +362,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
->   			info->display.has_dsc = 0;
->   	}
->   
-> -	if (GRAPHICS_VER(dev_priv) == 6 && intel_vtd_active()) {
-> +	if (GRAPHICS_VER(dev_priv) == 6 && intel_vtd_active(dev_priv)) {
->   		drm_info(&dev_priv->drm,
->   			 "Disabling ppGTT for VT-d support\n");
->   		info->ppgtt_type = INTEL_PPGTT_NONE;
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> index 01fa3fac1b57..cff0f32bedc9 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -98,7 +98,7 @@ static void gen9_init_clock_gating(struct drm_i915_private *dev_priv)
->   		 * "Plane N strech max must be programmed to 11b (x1)
->   		 *  when Async flips are enabled on that plane."
->   		 */
-> -		if (!IS_GEMINILAKE(dev_priv) && intel_vtd_active())
-> +		if (!IS_GEMINILAKE(dev_priv) && intel_vtd_active(dev_priv))
->   			intel_uncore_rmw(&dev_priv->uncore, CHICKEN_PIPESL_1(pipe),
->   					 SKL_PLANE1_STRETCH_MAX_MASK, SKL_PLANE1_STRETCH_MAX_X1);
->   	}
-> 
