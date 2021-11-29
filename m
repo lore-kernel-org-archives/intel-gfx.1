@@ -4,63 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E73C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62893C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85A9B6FCFC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE0456FCFD;
 	Mon, 29 Nov 2021 13:00:38 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D6F6FA3C;
- Mon, 29 Nov 2021 12:33:54 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- az34-20020a05600c602200b0033bf8662572so12312419wmb.0; 
- Mon, 29 Nov 2021 04:33:53 -0800 (PST)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0A586E1BD;
+ Mon, 29 Nov 2021 08:22:01 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id j3so34889720wrp.1;
+ Mon, 29 Nov 2021 00:22:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=kaVxrwVEtTbeJnjXaUCkv6CWik1QhuxvLenwaFBoirs=;
- b=MzOePiOjeO+9rFJW/L3ufzaJ7aKVgdNabJCBa6WE8ZEnnwH6f8+5Z78eXo0rpwV4Ad
- GEvf2aPlvvv41C3hoczdLVz1AQSV1BOfwF037XOeV3b6NIlU+FBGCDlLjbuvPwVrWxnq
- eJLVi7gEgz5LAAv8HzFFEowHs2Trev1dgRD6JNNHt32Rm40lyrlvMuKyNFIZYZXjwzoe
- lL7NVJ2Kl03vdei7y9db0iQQFFo0C0YkyWkaBllxyq020DI214nux4gb5Tev3CBscfRL
- flNvUi4wz6lD4uyJtbv2TE54ncvrztXiYz+AxlcKBP84Gc6OwolXBw5das0l4Yh911u0
- xCCA==
+ bh=Hq1bgqxxCdegLBVOo7l4Q7H1Xie6p+wm7vH0Y40mkwo=;
+ b=CtNwvmW+uiYnu8xy64dsZh+j2/65YctzX6oqs2wOYwbMozt8JZF1cV5+4Y7H4uNO8h
+ QCH7gI6Q72FTybeCnLQWb14URcpKiR7AndKkYpXOkC8Q9n7MUr+8wws4u3GY1irCXSD3
+ vvmaAef8eAGIpyf5lsxsUWtqdVOo19QpajKqE8rOWNBwJYVukHD4HPX9lHgtTkFOc+Bj
+ kp2PBi3Ox3w9cjOe46WQuh27R/m9Ya+lVOXzciZa0FsQ65iq4SRqzGYf25SSzOhvBjEZ
+ VPCQJ0aSSAgZrfu8cgT0JsRs/Bpj9RKIWkh3GJoV+MufxqZdmQKVJkDzH3UoohTJRzHN
+ TF1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=kaVxrwVEtTbeJnjXaUCkv6CWik1QhuxvLenwaFBoirs=;
- b=7ZzcLrVlso3yKHtBIOl172gPo6qwDnot/aWJkK6EAcsrcT166aOiBpPbtjO+EBw0zz
- 7CBGyB/llrVuCRNdQ6fev5JiYSk37WK/2MXR9JZLu5PPNgCzhDVn+l7ZprSC+Btn4eXX
- O15coqVnlcLemKFqnNfqW2vl3TwXRdFCxHYwux95AX3p8UmzYNv5PkSq0v0QOzfx8oia
- JnYbq8+A5tLeeoISD4QgC1F5//++Ro7H79joDXZRWq5EQ30FkSnnZmWWP3kPD2BFJpBG
- pNvU0Z5rIJ3loz+9D8G0/fROFH3hrgJMDH6obA+5Aq92bExN8XX8ZitDUtCCd6Jqu0qJ
- tYxw==
-X-Gm-Message-State: AOAM531ozbLa/Y7GVaLO/W5OnTe1jX9B1w97CmLVQCKixp5BfOfXCm1B
- 77o8TkZFLPDAW6s+Qb+MmQVIb/7TahU=
-X-Google-Smtp-Source: ABdhPJzwL5Z1wVujNmmTgEoXqYcxg5hOojSUWfwHYUFW9PF1AvtSDxZzvw3c/34O/ChA2rjQvZQaiQ==
-X-Received: by 2002:a7b:c0d5:: with SMTP id s21mr9595438wmh.115.1638189232627; 
- Mon, 29 Nov 2021 04:33:52 -0800 (PST)
+ bh=Hq1bgqxxCdegLBVOo7l4Q7H1Xie6p+wm7vH0Y40mkwo=;
+ b=suFezEQyw5sZNtSb3Blv3Rk/+yrXktdgnnZaZ5AwGSClKyIgT+HKWFPhNYH5pPyajp
+ FsuMSsHssM1BBhe6DdzGSj+6F/2qQyCSVe8CHH96GS+r9zqputywegZhNA3VdZRcaDqQ
+ zqY/1l0JSE7c7b3YoSsTJMOVKjinTTySTo2glDSj+j8G9d3fsKUsKXfXrkY51IcaUloU
+ UNSVyLApewUZaSws/7CRx6Iq9gdedoRzI2KLMf3a0Se3erXUquTzbGmJkJLL1sT0Q2LX
+ x4K4o5c5V4jIkj0EXdpYYKYeO+82xtNSFm2iSH+nz/mSugvXjkfsYf7AhntatTtZ1X2g
+ FrfQ==
+X-Gm-Message-State: AOAM533kZgXx4GER/1lIj7LvDNIQ4UCVXUPR2cEQVBUYw250TOvlrc1S
+ qCNaDOxiQx0T8DyNtHRakKk=
+X-Google-Smtp-Source: ABdhPJzM2sppvC4WxGqvhpvtbRdPMWvSKAbROEghlA2ucohzHDqrxrVpH61SK17Yl6Nfbz7PsOLtuA==
+X-Received: by 2002:adf:fbc5:: with SMTP id d5mr34606968wrs.291.1638174120446; 
+ Mon, 29 Nov 2021 00:22:00 -0800 (PST)
 Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
  [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id bg34sm19068692wmb.47.2021.11.29.04.33.51
+ by smtp.gmail.com with ESMTPSA id az15sm13456982wmb.0.2021.11.29.00.21.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Nov 2021 04:33:52 -0800 (PST)
+ Mon, 29 Nov 2021 00:22:00 -0800 (PST)
 To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@intel.com>
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 References: <20211129073533.414008-1-thomas.hellstrom@linux.intel.com>
- <4fd0eee6-342f-fb31-717c-901440f38c35@gmail.com>
- <58ca11648ab29d96b84640760d2acc3ac2d39d19.camel@linux.intel.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <e4d8e272-8175-4298-f227-240febc0bda0@gmail.com>
-Date: Mon, 29 Nov 2021 13:33:51 +0100
+Message-ID: <4fd0eee6-342f-fb31-717c-901440f38c35@gmail.com>
+Date: Mon, 29 Nov 2021 09:21:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <58ca11648ab29d96b84640760d2acc3ac2d39d19.camel@linux.intel.com>
+In-Reply-To: <20211129073533.414008-1-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
@@ -83,63 +79,40 @@ Cc: linaro-mm-sig@lists.linaro.org, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 29.11.21 um 13:23 schrieb Thomas Hellström:
-> Hi, Christian,
+Am 29.11.21 um 08:35 schrieb Thomas Hellström:
+> If a dma_fence_array is reported signaled by a call to
+> dma_fence_is_signaled(), it may leak the PENDING_ERROR status.
 >
-> On Mon, 2021-11-29 at 09:21 +0100, Christian König wrote:
->> Am 29.11.21 um 08:35 schrieb Thomas Hellström:
->>> If a dma_fence_array is reported signaled by a call to
->>> dma_fence_is_signaled(), it may leak the PENDING_ERROR status.
->>>
->>> Fix this by clearing the PENDING_ERROR status if we return true in
->>> dma_fence_array_signaled().
->>>
->>> Fixes: 1f70b8b812f3 ("dma-fence: Propagate errors to dma-fence-
->>> array container")
->>> Cc: linaro-mm-sig@lists.linaro.org
->>> Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
->>> Cc: Chris Wilson <chris@chris-wilson.co.uk>
->>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
-> How are the dma-buf / dma-fence patches typically merged? If i915 is
-> the only fence->error user, could we take this through drm-intel to
-> avoid a backmerge for upcoming i915 work?
+> Fix this by clearing the PENDING_ERROR status if we return true in
+> dma_fence_array_signaled().
+>
+> Fixes: 1f70b8b812f3 ("dma-fence: Propagate errors to dma-fence-array container")
+> Cc: linaro-mm-sig@lists.linaro.org
+> Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Well that one here looks like a bugfix to me, so either through 
-drm-misc-fixes ore some i915 -fixes branch sounds fine to me.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-If you have any new development based on that a backmerge of the -fixes 
-into your -next branch is unavoidable anyway.
-
-Regards,
-Christian.
-
+> ---
+>   drivers/dma-buf/dma-fence-array.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> /Thomas
->
->
->>> ---
->>>    drivers/dma-buf/dma-fence-array.c | 6 +++++-
->>>    1 file changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-
->>> buf/dma-fence-array.c
->>> index d3fbd950be94..3e07f961e2f3 100644
->>> --- a/drivers/dma-buf/dma-fence-array.c
->>> +++ b/drivers/dma-buf/dma-fence-array.c
->>> @@ -104,7 +104,11 @@ static bool dma_fence_array_signaled(struct
->>> dma_fence *fence)
->>>    {
->>>          struct dma_fence_array *array = to_dma_fence_array(fence);
->>>    
->>> -       return atomic_read(&array->num_pending) <= 0;
->>> +       if (atomic_read(&array->num_pending) > 0)
->>> +               return false;
->>> +
->>> +       dma_fence_array_clear_pending_error(array);
->>> +       return true;
->>>    }
->>>    
->>>    static void dma_fence_array_release(struct dma_fence *fence)
->
+> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
+> index d3fbd950be94..3e07f961e2f3 100644
+> --- a/drivers/dma-buf/dma-fence-array.c
+> +++ b/drivers/dma-buf/dma-fence-array.c
+> @@ -104,7 +104,11 @@ static bool dma_fence_array_signaled(struct dma_fence *fence)
+>   {
+>   	struct dma_fence_array *array = to_dma_fence_array(fence);
+>   
+> -	return atomic_read(&array->num_pending) <= 0;
+> +	if (atomic_read(&array->num_pending) > 0)
+> +		return false;
+> +
+> +	dma_fence_array_clear_pending_error(array);
+> +	return true;
+>   }
+>   
+>   static void dma_fence_array_release(struct dma_fence *fence)
 
