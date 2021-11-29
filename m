@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8191BC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F8FEC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 13:57:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00D066EDF4;
-	Mon, 29 Nov 2021 13:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60CF66EDE0;
+	Mon, 29 Nov 2021 13:57:20 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D38E6EB2C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D9EB6EB43;
  Mon, 29 Nov 2021 13:57:18 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Nov 2021 14:47:24 +0100
-Message-Id: <20211129134735.628712-6-maarten.lankhorst@linux.intel.com>
+Date: Mon, 29 Nov 2021 14:47:32 +0100
+Message-Id: <20211129134735.628712-14-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 05/16] drm/i915: Force ww lock for
- i915_gem_object_ggtt_pin_ww
+Subject: [Intel-gfx] [PATCH v2 13/16] drm/i915: Require object lock when
+ freeing pages during destruction
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,90 +36,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We will need the lock to unbind the vma, and wait for bind to complete.
-Remove the special casing for the !ww path, and force ww locking for all.
+TTM already requires this, and we require it for delayed destroy.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h |  7 ++-----
- drivers/gpu/drm/i915/i915_gem.c | 26 ++++++++++++++++++++++----
- 2 files changed, 24 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1bfadd9127fc..8322abe194da 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1842,13 +1842,10 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 			    const struct i915_ggtt_view *view,
- 			    u64 size, u64 alignment, u64 flags);
- 
--static inline struct i915_vma * __must_check
-+struct i915_vma * __must_check
- i915_gem_object_ggtt_pin(struct drm_i915_gem_object *obj,
- 			 const struct i915_ggtt_view *view,
--			 u64 size, u64 alignment, u64 flags)
--{
--	return i915_gem_object_ggtt_pin_ww(obj, NULL, view, size, alignment, flags);
--}
-+			 u64 size, u64 alignment, u64 flags);
- 
- int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
- 			   unsigned long flags);
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 527228d4da7e..e83522953cde 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -877,6 +877,8 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 	struct i915_vma *vma;
- 	int ret;
- 
-+	GEM_WARN_ON(!ww);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 5fac9b560b73..39cd563544a5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -262,6 +262,8 @@ static void __i915_gem_object_free_mmaps(struct drm_i915_gem_object *obj)
+  */
+ void __i915_gem_object_pages_fini(struct drm_i915_gem_object *obj)
+ {
++	assert_object_held(obj);
 +
- 	if (flags & PIN_MAPPABLE &&
- 	    (!view || view->type == I915_GGTT_VIEW_NORMAL)) {
- 		/*
-@@ -936,10 +938,7 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 			return ERR_PTR(ret);
- 	}
+ 	if (!list_empty(&obj->vma.list)) {
+ 		struct i915_vma *vma;
  
--	if (ww)
--		ret = i915_vma_pin_ww(vma, ww, size, alignment, flags | PIN_GLOBAL);
--	else
--		ret = i915_vma_pin(vma, size, alignment, flags | PIN_GLOBAL);
-+	ret = i915_vma_pin_ww(vma, ww, size, alignment, flags | PIN_GLOBAL);
+@@ -328,7 +330,10 @@ static void __i915_gem_free_objects(struct drm_i915_private *i915,
+ 			obj->ops->delayed_free(obj);
+ 			continue;
+ 		}
++
++		i915_gem_object_lock(obj, NULL);
+ 		__i915_gem_object_pages_fini(obj);
++		i915_gem_object_unlock(obj);
+ 		__i915_gem_free_object(obj);
  
- 	if (ret)
- 		return ERR_PTR(ret);
-@@ -959,6 +958,25 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 	return vma;
- }
- 
-+struct i915_vma * __must_check
-+i915_gem_object_ggtt_pin(struct drm_i915_gem_object *obj,
-+			 const struct i915_ggtt_view *view,
-+			 u64 size, u64 alignment, u64 flags)
-+{
-+	struct i915_gem_ww_ctx ww;
-+	struct i915_vma *ret;
-+	int err;
-+
-+	for_i915_gem_ww(&ww, err, true) {
-+		err = i915_gem_object_lock(obj, &ww);
-+		if (!err)
-+			ret = i915_gem_object_ggtt_pin_ww(obj, &ww, view, size,
-+							  alignment, flags);
-+	}
-+
-+	return err ? ERR_PTR(err) : ret;
-+}
-+
- int
- i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
- 		       struct drm_file *file_priv)
+ 		/* But keep the pointer alive for RCU-protected lookups */
 -- 
 2.34.0
 
