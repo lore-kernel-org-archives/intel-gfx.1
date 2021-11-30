@@ -4,31 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28009C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 11:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1414AC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 11:17:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 828736E270;
-	Tue, 30 Nov 2021 11:11:52 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E38E6E270
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 11:11:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="233693819"
-X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="233693819"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 03:11:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="499728002"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by orsmga007.jf.intel.com with ESMTP; 30 Nov 2021 03:11:48 -0800
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 30 Nov 2021 16:36:07 +0530
-Message-Id: <20211130110607.3902085-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73C466E58B;
+	Tue, 30 Nov 2021 11:17:42 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9F06E58B;
+ Tue, 30 Nov 2021 11:17:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="236017784"
+X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="236017784"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2021 03:17:40 -0800
+X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="512136237"
+Received: from dcondura-mobl.ger.corp.intel.com (HELO [10.252.36.49])
+ ([10.252.36.49])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2021 03:17:39 -0800
+Message-ID: <b40c5455-7b60-7c97-9fcd-fba67ed71f6d@linux.intel.com>
+Date: Tue, 30 Nov 2021 12:17:37 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/adl-n: Enable ADL-N platform
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.3.2
+Content-Language: en-US
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
+ <f1202314-f42d-e37a-49a7-16148f5018be@linux.intel.com>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <f1202314-f42d-e37a-49a7-16148f5018be@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2 00/16] drm/i915: Remove short term pins
+ from execbuf.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,114 +50,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding PCI device ids and enabling ADL-N platform.
-ADL-N from i915 point of view is subplatform of ADL-P.
+On 30-11-2021 09:54, Tvrtko Ursulin wrote:
+>
+> Hi,
+>
+> On 29/11/2021 13:47, Maarten Lankhorst wrote:
+>> New version of the series, with feedback from previous series added.
+>
+> If there was a cover letter sent for this work in the past could you please keep attaching it? Or if there wasn't, could you please write one?
+>
+> I am worried about two things. First is that we need to have a high level overview of the rules/design changes documented so third party people have any hope of getting code right after this lands. (Where we are, where we are going, how we will get there, how far did we get and when we will get to the end.)
+>
+> Second is that when parts of the series land piecemeal (Which they have in this right, right?), it gets very hard to write up a maintainer level changelog.
 
-BSpec: 68397
+The preparation part is to ensure we always hold vma->obj->resv when unbinding.
 
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
----
- arch/x86/kernel/early-quirks.c           | 1 +
- drivers/gpu/drm/i915/i915_drv.h          | 2 ++
- drivers/gpu/drm/i915/i915_pci.c          | 1 +
- drivers/gpu/drm/i915/intel_device_info.c | 7 +++++++
- drivers/gpu/drm/i915/intel_device_info.h | 3 +++
- include/drm/i915_pciids.h                | 5 +++++
- 6 files changed, 19 insertions(+)
+The first preparation series ensured vma->obj always existed. This was not the case for mock gtt and gen6 aliasing gtt. This allowed us to remove all the special handling for those uncommon cases, and actually enforce we can always take that lock. This part is merged.
 
-diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
-index 391a4e2b8604..b9800d9f11b0 100644
---- a/arch/x86/kernel/early-quirks.c
-+++ b/arch/x86/kernel/early-quirks.c
-@@ -554,6 +554,7 @@ static const struct pci_device_id intel_early_ids[] __initconst = {
- 	INTEL_RKL_IDS(&gen11_early_ops),
- 	INTEL_ADLS_IDS(&gen11_early_ops),
- 	INTEL_ADLP_IDS(&gen11_early_ops),
-+	INTEL_ADLN_IDS(&gen11_early_ops),
- };
- 
- struct resource intel_graphics_stolen_res __ro_after_init = DEFINE_RES_MEM(0, 0);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1bfadd9127fc..e8fd98064692 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1463,6 +1463,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_DG1(dev_priv)        IS_PLATFORM(dev_priv, INTEL_DG1)
- #define IS_ALDERLAKE_S(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_S)
- #define IS_ALDERLAKE_P(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_P)
-+#define IS_ALDERLAKE_N(dev_priv) \
-+	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_N)
- #define IS_XEHPSDV(dev_priv) IS_PLATFORM(dev_priv, INTEL_XEHPSDV)
- #define IS_DG2(dev_priv)	IS_PLATFORM(dev_priv, INTEL_DG2)
- #define IS_DG2_G10(dev_priv) \
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index f01cba4ec283..9b816eddbcaf 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1130,6 +1130,7 @@ static const struct pci_device_id pciidlist[] = {
- 	INTEL_RKL_IDS(&rkl_info),
- 	INTEL_ADLS_IDS(&adl_s_info),
- 	INTEL_ADLP_IDS(&adl_p_info),
-+	INTEL_ADLN_IDS(&adl_p_info),
- 	INTEL_DG1_IDS(&dg1_info),
- 	{0, 0, 0}
- };
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 6e6b317bc33c..5d04dea5bd01 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -182,6 +182,10 @@ static const u16 subplatform_portf_ids[] = {
- 	INTEL_ICL_PORT_F_IDS(0),
- };
- 
-+static const u16 subplatform_n_ids[] = {
-+	INTEL_ADLN_IDS(0),
-+};
-+
- static bool find_devid(u16 id, const u16 *p, unsigned int num)
- {
- 	for (; num; num--, p++) {
-@@ -218,6 +222,9 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- 	} else if (find_devid(devid, subplatform_portf_ids,
- 			      ARRAY_SIZE(subplatform_portf_ids))) {
- 		mask = BIT(INTEL_SUBPLATFORM_PORTF);
-+	} else if (find_devid(devid, subplatform_n_ids,
-+			      ARRAY_SIZE(subplatform_n_ids))) {
-+		mask = BIT(INTEL_SUBPLATFORM_N);
- 	}
- 
- 	if (IS_TIGERLAKE(i915)) {
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 669f0d26c3c3..d4d2d230d04a 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -110,6 +110,9 @@ enum intel_platform {
- #define INTEL_SUBPLATFORM_G10	0
- #define INTEL_SUBPLATFORM_G11	1
- 
-+/* ADL */
-+#define INTEL_SUBPLATFORM_N	0
-+
- enum intel_ppgtt_type {
- 	INTEL_PPGTT_NONE = I915_GEM_PPGTT_NONE,
- 	INTEL_PPGTT_ALIASING = I915_GEM_PPGTT_ALIASING,
-diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
-index c00ac54692d7..5de540db8269 100644
---- a/include/drm/i915_pciids.h
-+++ b/include/drm/i915_pciids.h
-@@ -666,4 +666,9 @@
- 	INTEL_VGA_DEVICE(0x46C2, info), \
- 	INTEL_VGA_DEVICE(0x46C3, info)
- 
-+/* ADL-N */
-+#define INTEL_ADLN_IDS(info) \
-+	INTEL_VGA_DEVICE(0x46D0, info), \
-+	INTEL_VGA_DEVICE(0x46D1, info), \
-+	INTEL_VGA_DEVICE(0x46D2, info)
- #endif /* _I915_PCIIDS_H */
--- 
-2.31.1
+Patch 2-11 in this series adds the vma->obj->resv to eviction and shrinker. Those are the only parts where we don't take the lock yet.
+
+After that, we always hold the lock when required, and we can start requiring the obj-> resv lock when unbinding. This is completed in patch 15.
+
+With that fixed, removing short term pins can be done, because for unbind we now always take obj->resv, so holding obj->resv during execbuf submission is sufficient, and all short term pinning can be removed.
+
+We only pin temporarily when calling i915_gem_evict_vm in execbuf, which could also be handled in theory by just marking all objects as unpinned.
+
+As a bonus, using TTM for delayed eviction on all objects becomes easy, just need to get rid of i915_active in i915_vma, as it keeps the object refcount alive.
+
+Remainder is removing refcount to i915_vma, to make it a real
+
+> But in any case, even on the mundane process level, we need to have cover letters for any non trivial work was the conclusion since some time ago. 
+
+Here you go! I hope it explains the reasoning.
+
+~Maarten
 
