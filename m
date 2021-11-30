@@ -4,36 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D9FC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 10:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B431C43217
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 11:09:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3672B6E329;
-	Tue, 30 Nov 2021 10:37:03 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4060F6E30D;
- Tue, 30 Nov 2021 10:37:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="223070080"
-X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="223070080"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 02:37:00 -0800
-X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="477071284"
-Received: from dmeldon-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.12.174])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 02:36:54 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20211129233354.101347-1-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211129233354.101347-1-lyude@redhat.com>
-Date: Tue, 30 Nov 2021 12:36:42 +0200
-Message-ID: <871r2yj5fp.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0D26E140;
+	Tue, 30 Nov 2021 11:09:56 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 737866E140
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 11:09:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="322435639"
+X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="322435639"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2021 03:09:54 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="575798881"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga004.fm.intel.com with ESMTP; 30 Nov 2021 03:09:54 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Tue, 30 Nov 2021 03:09:53 -0800
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2308.020;
+ Tue, 30 Nov 2021 03:09:53 -0800
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Tvrtko
+ Ursulin" <tvrtko.ursulin@linux.intel.com>, "Syrjala, Ville"
+ <ville.syrjala@intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "Joonas
+ Lahtinen" <joonas.lahtinen@linux.intel.com>
+Thread-Topic: [v2 3/3] drm/i915/rpl-s: Enable guc submission by default
+Thread-Index: AQHX3aXingb3zzO9C0y4iO8YFfFmH6wP2agAgAwWnoA=
+Date: Tue, 30 Nov 2021 11:09:53 +0000
+Message-ID: <dcefb2694a0045dda5844893d401fe87@intel.com>
+References: <20211120002921.1939452-1-anusha.srivatsa@intel.com>
+ <20211120002921.1939452-4-anusha.srivatsa@intel.com>
+ <87czmso6l7.fsf@intel.com>
+In-Reply-To: <87czmso6l7.fsf@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.6.200.16
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.223.10.1]
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/dp: Perform 30ms delay after
- source OUI write
+MIME-Version: 1.0
+Subject: Re: [Intel-gfx] [v2 3/3] drm/i915/rpl-s: Enable guc submission by
+ default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,171 +67,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
- stable@vger.kernel.org, Dave Airlie <airlied@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 29 Nov 2021, Lyude Paul <lyude@redhat.com> wrote:
-> While working on supporting the Intel HDR backlight interface, I noticed
-> that there's a couple of laptops that will very rarely manage to boot up
-> without detecting Intel HDR backlight support - even though it's supported
-> on the system. One example of such a laptop is the Lenovo P17 1st
-> generation.
->
-> Following some investigation Ville Syrj=C3=A4l=C3=A4 did through the docs=
- they have
-> available to them, they discovered that there's actually supposed to be a
-> 30ms wait after writing the source OUI before we begin setting up the rest
-> of the backlight interface.
->
-> This seems to be correct, as adding this 30ms delay seems to have
-> completely fixed the probing issues I was previously seeing. So - let's
-> start performing a 30ms wait after writing the OUI, which we do in a mann=
-er
-> similar to how we keep track of PPS delays (e.g. record the timestamp of
-> the OUI write, and then wait for however many ms are left since that
-> timestamp right before we interact with the backlight) in order to avoid
-> waiting any longer then we need to. As well, this also avoids us performi=
-ng
-> this delay on systems where we don't end up using the HDR backlight
-> interface.
->
-> V2:
-> * Move panel delays into intel_pps
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Fixes: 4a8d79901d5b ("drm/i915/dp: Enable Intel's HDR backlight interface=
- (only SDR for now)")
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Cc: <stable@vger.kernel.org> # v5.12+
-> ---
->  drivers/gpu/drm/i915/display/intel_display_types.h    |  4 ++++
->  drivers/gpu/drm/i915/display/intel_dp.c               | 11 +++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.h               |  2 ++
->  drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c |  5 +++++
->  4 files changed, 22 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers=
-/gpu/drm/i915/display/intel_display_types.h
-> index ea1e8a6e10b0..ad64f9caa7ff 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1485,6 +1485,7 @@ struct intel_pps {
->  	bool want_panel_vdd;
->  	unsigned long last_power_on;
->  	unsigned long last_backlight_off;
-> +	unsigned long last_oui_write;
->  	ktime_t panel_power_off_time;
->  	intel_wakeref_t vdd_wakeref;
->=20=20
-> @@ -1653,6 +1654,9 @@ struct intel_dp {
->  	struct intel_dp_pcon_frl frl;
->=20=20
->  	struct intel_psr psr;
-> +
-> +	/* When we last wrote the OUI for eDP */
-> +	unsigned long last_oui_write;
-
-Now you're adding last_oui_write to both intel_pps and intel_dp, forgot
-to git add? ;)
-
-I guess I'd add this to intel_dp only, because it's not strictly about
-PPS. I just wanted the mechanism to be similar to that.
-
->  };
->=20=20
->  enum lspcon_vendor {
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 0a424bf69396..45318891ba07 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -29,6 +29,7 @@
->  #include <linux/i2c.h>
->  #include <linux/notifier.h>
->  #include <linux/slab.h>
-> +#include <linux/timekeeping.h>
->  #include <linux/types.h>
->=20=20
->  #include <asm/byteorder.h>
-> @@ -2010,6 +2011,16 @@ intel_edp_init_source_oui(struct intel_dp *intel_d=
-p, bool careful)
->=20=20
->  	if (drm_dp_dpcd_write(&intel_dp->aux, DP_SOURCE_OUI, oui, sizeof(oui)) =
-< 0)
->  		drm_err(&i915->drm, "Failed to write source OUI\n");
-> +
-> +	intel_dp->pps.last_oui_write =3D jiffies;
-
-Set to intel_dp->last_oui_write.
-
-With those fixes,
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 
-> +}
-> +
-> +void intel_dp_wait_source_oui(struct intel_dp *intel_dp)
-> +{
-> +	struct drm_i915_private *i915 =3D dp_to_i915(intel_dp);
-> +
-> +	drm_dbg_kms(&i915->drm, "Performing OUI wait\n");
-> +	wait_remaining_ms_from_jiffies(intel_dp->last_oui_write, 30);
->  }
->=20=20
->  /* If the device supports it, try to set the power state appropriately */
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i9=
-15/display/intel_dp.h
-> index ce229026dc91..b64145a3869a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
-> @@ -119,4 +119,6 @@ void intel_dp_pcon_dsc_configure(struct intel_dp *int=
-el_dp,
->  				 const struct intel_crtc_state *crtc_state);
->  void intel_dp_phy_test(struct intel_encoder *encoder);
->=20=20
-> +void intel_dp_wait_source_oui(struct intel_dp *intel_dp);
-> +
->  #endif /* __INTEL_DP_H__ */
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/driv=
-ers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> index 8b9c925c4c16..62c112daacf2 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> @@ -36,6 +36,7 @@
->=20=20
->  #include "intel_backlight.h"
->  #include "intel_display_types.h"
-> +#include "intel_dp.h"
->  #include "intel_dp_aux_backlight.h"
->=20=20
->  /* TODO:
-> @@ -106,6 +107,8 @@ intel_dp_aux_supports_hdr_backlight(struct intel_conn=
-ector *connector)
->  	int ret;
->  	u8 tcon_cap[4];
->=20=20
-> +	intel_dp_wait_source_oui(intel_dp);
-> +
->  	ret =3D drm_dp_dpcd_read(aux, INTEL_EDP_HDR_TCON_CAP0, tcon_cap, sizeof=
-(tcon_cap));
->  	if (ret !=3D sizeof(tcon_cap))
->  		return false;
-> @@ -204,6 +207,8 @@ intel_dp_aux_hdr_enable_backlight(const struct intel_=
-crtc_state *crtc_state,
->  	int ret;
->  	u8 old_ctrl, ctrl;
->=20=20
-> +	intel_dp_wait_source_oui(intel_dp);
-> +
->  	ret =3D drm_dp_dpcd_readb(&intel_dp->aux, INTEL_EDP_HDR_GETSET_CTRL_PAR=
-AMS, &old_ctrl);
->  	if (ret !=3D 1) {
->  		drm_err(&i915->drm, "Failed to read current backlight control mode: %d=
-\n", ret);
+> -----Original Message-----
+> From: Jani Nikula <jani.nikula@linux.intel.com>
+> Sent: Monday, November 22, 2021 3:28 PM
+> To: Srivatsa, Anusha <anusha.srivatsa@intel.com>; intel-
+> gfx@lists.freedesktop.org; Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com=
+>;
+> Syrjala, Ville <ville.syrjala@intel.com>; Vivi, Rodrigo
+> <rodrigo.vivi@intel.com>; Joonas Lahtinen
+> <joonas.lahtinen@linux.intel.com>
+> Cc: Srivatsa, Anusha <anusha.srivatsa@intel.com>; Dhanavanthri, Swathi
+> <swathi.dhanavanthri@intel.com>
+> Subject: Re: [v2 3/3] drm/i915/rpl-s: Enable guc submission by default
+>=20
+> On Fri, 19 Nov 2021, Anusha Srivatsa <anusha.srivatsa@intel.com> wrote:
+> > Though, RPL-S is defined as subplatform of ADL-S, unlike ADL-S, it has
+> > GuC submission by default.
+> >
+> > v2: Remove extra parenthesis (Jani)
+> >
+> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > Cc: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+> > Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/gt/uc/intel_uc.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > index 2fef3b0bbe95..6aa843a1c25f 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> > @@ -35,7 +35,7 @@ static void uc_expand_default_options(struct intel_uc
+> *uc)
+> >  	}
+> >
+> >  	/* Intermediate platforms are HuC authentication only */
+> > -	if (IS_ALDERLAKE_S(i915)) {
+> > +	if (IS_ALDERLAKE_S(i915) && !IS_RAPTORLAKE_S(i915)) {
+>=20
+> I know I looked through the previous version, but I only realized this no=
+w.
+> The above just feels wrong. Like, if it's ADL-S it obviously can't be RPL=
+-S, so
+> why the check.
+>=20
+> We've had this type of thing before when IS_VALLEYVIEW() used to mean
+> VLV || CHV, and you'd have these really confusing checks:
+>=20
+> 	if (IS_VALLEYVIEW() && !IS_CHERRYVIEW())
+>=20
+> We had to change that later on, and it was pretty annoying.
+>=20
+> I'm really sorry I didn't spot this before, but I firmly believe adding a=
+ platform
+> check macro IS_RAPTORLAKE_S() as a subplatform check is the wrong thing
+> to do.
+>=20
+> I think there are maybe three options:
+>=20
+> 1) Add RPL-S as a full blown platform of its own. Convert
+>    IS_ALDERLAKE_S() checks to IS_ALDERLAKE_S() || IS_RAPTORLAKE_S(). If
+>    we think there's going to be more differences than just the guc
+>    submission, this is the way to go.
 
---=20
-Jani Nikula, Intel Open Source Graphics Center
+No. there is nothing else different between the 2 platforms.
+
+> 2) Add RPL-S as a subplatform of ADL-S like here, but then don't add a
+>    platform macro IS_RAPTORLAKE_S(). Make the check something that
+>    conveys the subplatform idea. See all the users of IS_SUBPLATFORM()
+>    in i915_drv.h; for example IS_DG2_G10(). It's obvious it's a DG2 but
+>    subtype G10. So maybe IS_ADLS_RPLS(), I don't know.
+
+I am trying to understand what this will serve. The above check will change=
+ from=20
+(IS_ALDERLAKE_S(i915) && !IS_RAPTORLAKE_S(i915) to (IS_ALDERLAKE_S(i915) &&=
+ !IS_ADLS_RPLS(i915). Agreed it will make the fact that RPLS is subplatform=
+ of ADLS a lot clear. Is that what you are suggesting?
+
+
+Anusha
+> 3) Add RPL-S PCI IDs as ADL-S with separate device info, but add a
+>    feature flag for the guc submission default. Then RPL-S does not
+>    exist as a platform or subplatform in code, rather as ADL-S, but the
+>    difference is recorded via flags.
+>=20
+>=20
+> BR,
+> Jani.
+>=20
+>=20
+>=20
+>=20
+> >  		i915->params.enable_guc =3D ENABLE_GUC_LOAD_HUC;
+> >  		return;
+> >  	}
+>=20
+> --
+> Jani Nikula, Intel Open Source Graphics Center
