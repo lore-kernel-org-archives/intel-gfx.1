@@ -4,39 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B97C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 16:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DA1EC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 16:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B47E89DFA;
-	Tue, 30 Nov 2021 16:30:13 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F9589DFA
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 16:30:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="297056996"
-X-IronPort-AV: E=Sophos;i="5.87,276,1631602800"; d="scan'208";a="297056996"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 08:30:11 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,276,1631602800"; d="scan'208";a="477171701"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga002.jf.intel.com with SMTP; 30 Nov 2021 08:30:07 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 30 Nov 2021 18:30:06 +0200
-Date: Tue, 30 Nov 2021 18:30:06 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Vidya Srinivas <vidya.srinivas@intel.com>
-Message-ID: <YaZRjqK1YChsD4tN@intel.com>
-References: <20211118062516.22535-1-vidya.srinivas@intel.com>
- <20211130160534.7983-1-vidya.srinivas@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 423E389FD4;
+	Tue, 30 Nov 2021 16:33:15 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8643F89FD1;
+ Tue, 30 Nov 2021 16:33:13 +0000 (UTC)
+Date: Tue, 30 Nov 2021 17:33:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1638289991;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wlrkKRjry6Z/mnNwslRoD3PA5GVO9PCdB3soxYzHl44=;
+ b=guxNpgdFCv41mfy1V885JnPNSWaauWHhdptLxJ6ihKKXd3lKC/i0vSMEq2u75ZZuJwyTx9
+ kBMWt+6GhhzUyeXJdLvQz4OOqQt+1azAvOiH7BgYDL1iw3a3h6RCOAnKBC5GvcroelJWfi
+ 9oMQkYBT8ljwwPGC7mch8oqdTwKvRWNhpIzea79c3mDgO9rDKVz6IkQ+ZbK0TCjppHUC91
+ 4PxjLm1W4S013bIEn/6fIc0Z9eZkAoJvMWRZP0Un1/TjrAEQi+OfFprhs3WTrThyUUYW4W
+ C87BPGGPLfIS5kb8Ql/nRZ51mMILan9Vu24LykPUbK8C4vfL9/CEbjSrifhlVQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1638289991;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wlrkKRjry6Z/mnNwslRoD3PA5GVO9PCdB3soxYzHl44=;
+ b=0LDtgM7ReYFgj4MxjlFJuHuHED2P8IBCqrCDnPEv660hLbBQ82mJRNW7QHjWEpD1W5+mnN
+ 3BQ6Fg293TjdmPAw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <20211130163309.kvw6kbuzwurnqlt7@linutronix.de>
+References: <20211118165914.pckik75emivsilek@linutronix.de>
+ <YZfK8LDcGzQEchel@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211130160534.7983-1-vidya.srinivas@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add PLANE_CUS_CTL restriction in
- max_width
+In-Reply-To: <YZfK8LDcGzQEchel@phenom.ffwll.local>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Don't disable interrupts and
+ pretend a lock as been acquired in __timeline_mark_lock().
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,100 +56,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yashashvi Shantam <shantam.yashashvi@intel.com>,
- intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
+ Thomas Gleixner <tglx@linutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 30, 2021 at 09:35:34PM +0530, Vidya Srinivas wrote:
-> PLANE_CUS_CTL has a restriction of 4096 width even though
-> PLANE_SIZE and scaler size registers supports max 5120.
-> Take care of this restriction in max_width.
+On 2021-11-19 17:04:00 [+0100], Daniel Vetter wrote:
+> Yeah if we can simplify this with reverts then I'm all for this.
 > 
-> Without this patch, when 5k content is sent on HDR plane
-> with NV12 content, FIFO underrun is seen and screen blanks
-> out.
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 > 
-> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-> Signed-off-by: Yashashvi Shantam <shantam.yashashvi@intel.com>
-> Change-Id: If629c478ba044c8bde633de9f0fc638aa6c44233
-> ---
->  .../gpu/drm/i915/display/intel_display_types.h  |  3 ++-
->  .../gpu/drm/i915/display/skl_universal_plane.c  | 17 +++++++++++++----
->  2 files changed, 15 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index ea1e8a6e10b0..0455ea340329 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1358,7 +1358,8 @@ struct intel_plane {
->  	int (*min_width)(const struct drm_framebuffer *fb,
->  			 int color_plane,
->  			 unsigned int rotation);
-> -	int (*max_width)(const struct drm_framebuffer *fb,
-> +	int (*max_width)(struct intel_plane *plane,
-> +			 const struct drm_framebuffer *fb,
->  			 int color_plane,
->  			 unsigned int rotation);
->  	int (*max_height)(const struct drm_framebuffer *fb,
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> index 28890876bdeb..a49829c5a863 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -313,7 +313,8 @@ static int skl_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
->  	return DIV_ROUND_UP(pixel_rate * num, den);
->  }
->  
-> -static int skl_plane_max_width(const struct drm_framebuffer *fb,
-> +static int skl_plane_max_width(struct intel_plane *plane,
-> +				const struct drm_framebuffer *fb,
->  			       int color_plane,
->  			       unsigned int rotation)
->  {
-> @@ -352,7 +353,8 @@ static int skl_plane_max_width(const struct drm_framebuffer *fb,
->  	}
->  }
->  
-> -static int glk_plane_max_width(const struct drm_framebuffer *fb,
-> +static int glk_plane_max_width(struct intel_plane *plane,
-> +				const struct drm_framebuffer *fb,
->  			       int color_plane,
->  			       unsigned int rotation)
->  {
-> @@ -420,10 +422,17 @@ static int icl_plane_min_width(const struct drm_framebuffer *fb,
->  	}
->  }
->  
-> -static int icl_plane_max_width(const struct drm_framebuffer *fb,
-> +static int icl_plane_max_width(struct intel_plane *plane,
-> +				const struct drm_framebuffer *fb,
->  			       int color_plane,
->  			       unsigned int rotation)
->  {
-> +	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
-> +
-> +	if (icl_is_hdr_plane(dev_priv, plane->id) &&
+> I've asked drm/i915 maintainers to check&merge.
 
-We could just have separate functions for hdr and sdr planes instead.
+Thanks. Should I repost my queue (excluding this one) or should wait
+until this one has been taken care?
 
-> +	    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
-> +		return 4096;
-> +
->  	return 5120;
->  }
->  
-> @@ -1377,7 +1386,7 @@ static int intel_plane_max_width(struct intel_plane *plane,
->  				 unsigned int rotation)
->  {
->  	if (plane->max_width)
-> -		return plane->max_width(fb, color_plane, rotation);
-> +		return plane->max_width(plane, fb, color_plane, rotation);
->  	else
->  		return INT_MAX;
->  }
-> -- 
-> 2.33.0
+> -Daniel
 
--- 
-Ville Syrjälä
-Intel
+Sebastian
