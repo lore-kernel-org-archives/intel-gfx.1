@@ -4,36 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9204BC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 17:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20888C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 17:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F321C6E845;
-	Wed,  1 Dec 2021 17:03:44 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 088656E845
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 17:03:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="217193109"
-X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="217193109"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP; 01 Dec 2021 09:03:40 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 606866E542;
+	Wed,  1 Dec 2021 17:16:43 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A306E542
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 17:16:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="236448814"
+X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="236448814"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 09:14:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="560529776"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 01 Dec 2021 07:26:19 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 01 Dec 2021 17:26:19 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  1 Dec 2021 17:25:47 +0200
-Message-Id: <20211201152552.7821-10-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211201152552.7821-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="460103085"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
+ by orsmga006.jf.intel.com with ESMTP; 01 Dec 2021 09:14:40 -0800
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Wed, 1 Dec 2021 09:14:40 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Wed, 1 Dec 2021 09:14:39 -0800
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2308.020;
+ Wed, 1 Dec 2021 09:14:39 -0800
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH 02/14] drm/i915: Rename plane YUV order bits
+Thread-Index: AQHX5sfd8Lxy0ThNk0OfoAy04xVuxaweZqCA
+Date: Wed, 1 Dec 2021 17:14:39 +0000
+Message-ID: <e5d1f9751cc409c608b3b7aa833fbe4f6642fae1.camel@intel.com>
 References: <20211201152552.7821-1-ville.syrjala@linux.intel.com>
+ <20211201152552.7821-3-ville.syrjala@linux.intel.com>
+In-Reply-To: <20211201152552.7821-3-ville.syrjala@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <13FE6B13F2A2BC49A6A9F8A0319350C9@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/14] drm/i915: Clean up vlv/chv sprite plane
- registers
+Subject: Re: [Intel-gfx] [PATCH 02/14] drm/i915: Rename plane YUV order bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,198 +67,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Use REG_BIT() & co. to polish the vlv/chv sprite plane registers.
-
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_sprite.c |   9 +-
- drivers/gpu/drm/i915/i915_reg.h             | 103 ++++++++++++--------
- 2 files changed, 70 insertions(+), 42 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 70083d04a9fd..eb9ce96c030f 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -313,7 +313,7 @@ static u32 vlv_sprite_ctl_crtc(const struct intel_crtc_state *crtc_state)
- 	u32 sprctl = 0;
- 
- 	if (crtc_state->gamma_enable)
--		sprctl |= SP_GAMMA_ENABLE;
-+		sprctl |= SP_PIPE_GAMMA_ENABLE;
- 
- 	return sprctl;
- }
-@@ -436,9 +436,9 @@ vlv_sprite_update_noarm(struct intel_plane *plane,
- 	intel_de_write_fw(dev_priv, SPSTRIDE(pipe, plane_id),
- 			  plane_state->view.color_plane[0].mapping_stride);
- 	intel_de_write_fw(dev_priv, SPPOS(pipe, plane_id),
--			  (crtc_y << 16) | crtc_x);
-+			  SP_POS_Y(crtc_y) | SP_POS_X(crtc_x));
- 	intel_de_write_fw(dev_priv, SPSIZE(pipe, plane_id),
--			  ((crtc_h - 1) << 16) | (crtc_w - 1));
-+			  SP_HEIGHT(crtc_h - 1) | SP_WIDTH(crtc_w - 1));
- 
- 	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
- }
-@@ -479,7 +479,8 @@ vlv_sprite_update_arm(struct intel_plane *plane,
- 	intel_de_write_fw(dev_priv, SPCONSTALPHA(pipe, plane_id), 0);
- 
- 	intel_de_write_fw(dev_priv, SPLINOFF(pipe, plane_id), linear_offset);
--	intel_de_write_fw(dev_priv, SPTILEOFF(pipe, plane_id), (y << 16) | x);
-+	intel_de_write_fw(dev_priv, SPTILEOFF(pipe, plane_id),
-+			  SP_OFFSET_Y(y) | SP_OFFSET_X(x));
- 
- 	/*
- 	 * The control register self-arms if the plane was previously
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0bd47a929f5d..4d61e7f2ee7c 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7146,48 +7146,67 @@ enum {
- #define SPRSURFLIVE(pipe) _MMIO_PIPE(pipe, _SPRA_SURFLIVE, _SPRB_SURFLIVE)
- 
- #define _SPACNTR		(VLV_DISPLAY_BASE + 0x72180)
--#define   SP_ENABLE			(1 << 31)
--#define   SP_GAMMA_ENABLE		(1 << 30)
--#define   SP_PIXFORMAT_MASK		(0xf << 26)
--#define   SP_FORMAT_YUV422		(0x0 << 26)
--#define   SP_FORMAT_8BPP		(0x2 << 26)
--#define   SP_FORMAT_BGR565		(0x5 << 26)
--#define   SP_FORMAT_BGRX8888		(0x6 << 26)
--#define   SP_FORMAT_BGRA8888		(0x7 << 26)
--#define   SP_FORMAT_RGBX1010102		(0x8 << 26)
--#define   SP_FORMAT_RGBA1010102		(0x9 << 26)
--#define   SP_FORMAT_BGRX1010102		(0xa << 26) /* CHV pipe B */
--#define   SP_FORMAT_BGRA1010102		(0xb << 26) /* CHV pipe B */
--#define   SP_FORMAT_RGBX8888		(0xe << 26)
--#define   SP_FORMAT_RGBA8888		(0xf << 26)
--#define   SP_ALPHA_PREMULTIPLY		(1 << 23) /* CHV pipe B */
--#define   SP_SOURCE_KEY			(1 << 22)
--#define   SP_YUV_FORMAT_BT709		(1 << 18)
--#define   SP_YUV_ORDER_MASK		(3 << 16)
--#define   SP_YUV_ORDER_YUYV		(0 << 16)
--#define   SP_YUV_ORDER_UYVY		(1 << 16)
--#define   SP_YUV_ORDER_YVYU		(2 << 16)
--#define   SP_YUV_ORDER_VYUY		(3 << 16)
--#define   SP_ROTATE_180			(1 << 15)
--#define   SP_TILED			(1 << 10)
--#define   SP_MIRROR			(1 << 8) /* CHV pipe B */
-+#define   SP_ENABLE			REG_BIT(31)
-+#define   SP_PIPE_GAMMA_ENABLE		REG_BIT(30)
-+#define   SP_FORMAT_MASK		REG_GENMASK(29, 26)
-+#define   SP_FORMAT_YUV422		REG_FIELD_PREP(SP_FORMAT_MASK, 0)
-+#define   SP_FORMAT_8BPP		REG_FIELD_PREP(SP_FORMAT_MASK, 2)
-+#define   SP_FORMAT_BGR565		REG_FIELD_PREP(SP_FORMAT_MASK, 5)
-+#define   SP_FORMAT_BGRX8888		REG_FIELD_PREP(SP_FORMAT_MASK, 6)
-+#define   SP_FORMAT_BGRA8888		REG_FIELD_PREP(SP_FORMAT_MASK, 7)
-+#define   SP_FORMAT_RGBX1010102		REG_FIELD_PREP(SP_FORMAT_MASK, 8)
-+#define   SP_FORMAT_RGBA1010102		REG_FIELD_PREP(SP_FORMAT_MASK, 9)
-+#define   SP_FORMAT_BGRX1010102		REG_FIELD_PREP(SP_FORMAT_MASK, 10) /* CHV pipe B */
-+#define   SP_FORMAT_BGRA1010102		REG_FIELD_PREP(SP_FORMAT_MASK, 11) /* CHV pipe B */
-+#define   SP_FORMAT_RGBX8888		REG_FIELD_PREP(SP_FORMAT_MASK, 14)
-+#define   SP_FORMAT_RGBA8888		REG_FIELD_PREP(SP_FORMAT_MASK, 15)
-+#define   SP_ALPHA_PREMULTIPLY		REG_BIT(23) /* CHV pipe B */
-+#define   SP_SOURCE_KEY			REG_BIT(22)
-+#define   SP_YUV_FORMAT_BT709		REG_BIT(18)
-+#define   SP_YUV_ORDER_MASK		REG_GENMASK(17, 16)
-+#define   SP_YUV_ORDER_YUYV		REG_FIELD_PREP(SP_YUV_ORDER_MASK, 0)
-+#define   SP_YUV_ORDER_UYVY		REG_FIELD_PREP(SP_YUV_ORDER_MASK, 1)
-+#define   SP_YUV_ORDER_YVYU		REG_FIELD_PREP(SP_YUV_ORDER_MASK, 2)
-+#define   SP_YUV_ORDER_VYUY		REG_FIELD_PREP(SP_YUV_ORDER_MASK, 3)
-+#define   SP_ROTATE_180			REG_BIT(15)
-+#define   SP_TILED			REG_BIT(10)
-+#define   SP_MIRROR			REG_BIT(8) /* CHV pipe B */
- #define _SPALINOFF		(VLV_DISPLAY_BASE + 0x72184)
- #define _SPASTRIDE		(VLV_DISPLAY_BASE + 0x72188)
- #define _SPAPOS			(VLV_DISPLAY_BASE + 0x7218c)
-+#define   SP_POS_Y_MASK			REG_GENMASK(31, 16)
-+#define   SP_POS_Y(y)			REG_FIELD_PREP(SP_POS_Y_MASK, (y))
-+#define   SP_POS_X_MASK			REG_GENMASK(15, 0)
-+#define   SP_POS_X(x)			REG_FIELD_PREP(SP_POS_X_MASK, (x))
- #define _SPASIZE		(VLV_DISPLAY_BASE + 0x72190)
-+#define   SP_HEIGHT_MASK		REG_GENMASK(31, 16)
-+#define   SP_HEIGHT(h)			REG_FIELD_PREP(SP_HEIGHT_MASK, (h))
-+#define   SP_WIDTH_MASK			REG_GENMASK(15, 0)
-+#define   SP_WIDTH(w)			REG_FIELD_PREP(SP_WIDTH_MASK, (w))
- #define _SPAKEYMINVAL		(VLV_DISPLAY_BASE + 0x72194)
- #define _SPAKEYMSK		(VLV_DISPLAY_BASE + 0x72198)
- #define _SPASURF		(VLV_DISPLAY_BASE + 0x7219c)
-+#define   SP_ADDR_MASK			REG_GENMASK(31, 12)
- #define _SPAKEYMAXVAL		(VLV_DISPLAY_BASE + 0x721a0)
- #define _SPATILEOFF		(VLV_DISPLAY_BASE + 0x721a4)
-+#define   SP_OFFSET_Y_MASK		REG_GENMASK(31, 16)
-+#define   SP_OFFSET_Y(y)		REG_FIELD_PREP(SP_OFFSET_Y_MASK, (y))
-+#define   SP_OFFSET_X_MASK		REG_GENMASK(15, 0)
-+#define   SP_OFFSET_X(x)		REG_FIELD_PREP(SP_OFFSET_X_MASK, (x))
- #define _SPACONSTALPHA		(VLV_DISPLAY_BASE + 0x721a8)
--#define   SP_CONST_ALPHA_ENABLE		(1 << 31)
-+#define   SP_CONST_ALPHA_ENABLE		REG_BIT(31)
-+#define   SP_CONST_ALPHA_MASK		REG_GENMASK(7, 0)
-+#define   SP_CONST_ALPHA(alpha)		REG_FIELD_PREP(SP_CONST_ALPHA_MASK, (alpha))
- #define _SPACLRC0		(VLV_DISPLAY_BASE + 0x721d0)
--#define   SP_CONTRAST(x)		((x) << 18) /* u3.6 */
--#define   SP_BRIGHTNESS(x)		((x) & 0xff) /* s8 */
-+#define   SP_CONTRAST_MASK		REG_GENMASK(26, 18)
-+#define   SP_CONTRAST(x)		REG_FIELD_PREP(SP_CONTRAST_MASK, (x)) /* u3.6 */
-+#define   SP_BRIGHTNESS_MASK		REG_GENMASK(7, 0)
-+#define   SP_BRIGHTNESS(x)		REG_FIELD_PREP(SP_BRIGHTNESS_MASK, (x)) /* s8 */
- #define _SPACLRC1		(VLV_DISPLAY_BASE + 0x721d4)
--#define   SP_SH_SIN(x)			(((x) & 0x7ff) << 16) /* s4.7 */
--#define   SP_SH_COS(x)			(x) /* u3.7 */
-+#define   SP_SH_SIN_MASK		REG_GENMASK(26, 16)
-+#define   SP_SH_SIN(x)			REG_FIELD_PREP(SP_SH_SIN_MASK, (x)) /* s4.7 */
-+#define   SP_SH_COS_MASK		REG_GENMASK(9, 0)
-+#define   SP_SH_COS(x)			REG_FIELD_PREP(SP_SH_COS_MASK, (x)) /* u3.7 */
- #define _SPAGAMC		(VLV_DISPLAY_BASE + 0x721e0)
- 
- #define _SPBCNTR		(VLV_DISPLAY_BASE + 0x72280)
-@@ -7238,28 +7257,36 @@ enum {
- #define SPCSCYGOFF(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d900)
- #define SPCSCCBOFF(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d904)
- #define SPCSCCROFF(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d908)
--#define  SPCSC_OOFF(x)		(((x) & 0x7ff) << 16) /* s11 */
--#define  SPCSC_IOFF(x)		(((x) & 0x7ff) << 0) /* s11 */
-+#define  SPCSC_OOFF_MASK	REG_GENMASK(26, 16)
-+#define  SPCSC_OOFF(x)		REG_FIELD_PREP(SPCSC_OOFF_MASK, (x) & 0x7ff) /* s11 */
-+#define  SPCSC_IOFF_MASK	REG_GENMASK(10, 0)
-+#define  SPCSC_IOFF(x)		REG_FIELD_PREP(SPCSC_IOFF_MASK, (x) & 0x7ff) /* s11 */
- 
- #define SPCSCC01(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d90c)
- #define SPCSCC23(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d910)
- #define SPCSCC45(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d914)
- #define SPCSCC67(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d918)
- #define SPCSCC8(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d91c)
--#define  SPCSC_C1(x)		(((x) & 0x7fff) << 16) /* s3.12 */
--#define  SPCSC_C0(x)		(((x) & 0x7fff) << 0) /* s3.12 */
-+#define  SPCSC_C1_MASK		REG_GENMASK(30, 16)
-+#define  SPCSC_C1(x)		REG_FIELD_PREP(SPCSC_C1_MASK, (x) & 0x7fff) /* s3.12 */
-+#define  SPCSC_C0_MASK		REG_GENMASK(14, 0)
-+#define  SPCSC_C0(x)		REG_FIELD_PREP(SPCSC_C0_MASK, (x) & 0x7fff) /* s3.12 */
- 
- #define SPCSCYGICLAMP(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d920)
- #define SPCSCCBICLAMP(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d924)
- #define SPCSCCRICLAMP(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d928)
--#define  SPCSC_IMAX(x)		(((x) & 0x7ff) << 16) /* s11 */
--#define  SPCSC_IMIN(x)		(((x) & 0x7ff) << 0) /* s11 */
-+#define  SPCSC_IMAX_MASK	REG_GENMASK(26, 16)
-+#define  SPCSC_IMAX(x)		REG_FIELD_PREP(SPCSC_IMAX_MASK, (x) & 0x7ff) /* s11 */
-+#define  SPCSC_IMIN_MASK	REG_GENMASK(10, 0)
-+#define  SPCSC_IMIN(x)		REG_FIELD_PREP(SPCSC_IMIN_MASK, (x) & 0x7ff) /* s11 */
- 
- #define SPCSCYGOCLAMP(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d92c)
- #define SPCSCCBOCLAMP(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d930)
- #define SPCSCCROCLAMP(plane_id)	_MMIO_CHV_SPCSC(plane_id, 0x6d934)
--#define  SPCSC_OMAX(x)		((x) << 16) /* u10 */
--#define  SPCSC_OMIN(x)		((x) << 0) /* u10 */
-+#define  SPCSC_OMAX_MASK	REG_GENMASK(25, 16)
-+#define  SPCSC_OMAX(x)		REG_FIELD_PREP(SPCSC_OMAX_MASK, (x)) /* u10 */
-+#define  SPCSC_OMIN_MASK	REG_GENMASK(9, 0)
-+#define  SPCSC_OMIN(x)		REG_FIELD_PREP(SPCSC_OMIN_MASK, (x)) /* u10 */
- 
- /* Skylake plane registers */
- 
--- 
-2.32.0
-
+T24gV2VkLCAyMDIxLTEyLTAxIGF0IDE3OjI1ICswMjAwLCBWaWxsZSBTeXJqYWxhIHdyb3RlOg0K
+PiBGcm9tOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPg0K
+PiANCj4gUmVuYW1lIHRoZSBZVVYgYnl0ZSBvcmRlciBiaXRzIHRvIGJlIGEgYml0IG1vcmUgY29u
+c2lzdGVudC4NCg0KV2h5IHJlbmFtZSBiaXRzIG5vdCB1c2VkPyBXb3VsZCBiZSBiZXR0ZXIgYWxy
+ZWFkeSBudWtlIGl0Lg0KQW55d2F5cyB1cCB0byB5b3UuDQoNClJldmlld2VkLWJ5OiBKb3PDqSBS
+b2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4NCg0KPiANCj4gU2lnbmVkLW9m
+Zi1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4NCj4g
+LS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L3NrbF91bml2ZXJzYWxfcGxhbmUu
+YyB8ICA4ICsrKystLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oICAgICAg
+ICAgICAgICAgICAgICB8IDE0ICsrKysrKystLS0tLS0tDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEx
+IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvc2tsX3VuaXZlcnNhbF9wbGFuZS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMNCj4gaW5kZXggODQ1Yjk5
+ODQ0ZWM2Li45ZmYyNGEwZTc5YjQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvc2tsX3VuaXZlcnNhbF9wbGFuZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvc2tsX3VuaXZlcnNhbF9wbGFuZS5jDQo+IEBAIC02NzIsMTMgKzY3MiwxMyBA
+QCBzdGF0aWMgdTMyIHNrbF9wbGFuZV9jdGxfZm9ybWF0KHUzMiBwaXhlbF9mb3JtYXQpDQo+ICAJ
+Y2FzZSBEUk1fRk9STUFUX1hZVVY4ODg4Og0KPiAgCQlyZXR1cm4gUExBTkVfQ1RMX0ZPUk1BVF9Y
+WVVWOw0KPiAgCWNhc2UgRFJNX0ZPUk1BVF9ZVVlWOg0KPiAtCQlyZXR1cm4gUExBTkVfQ1RMX0ZP
+Uk1BVF9ZVVY0MjIgfCBQTEFORV9DVExfWVVWNDIyX1lVWVY7DQo+ICsJCXJldHVybiBQTEFORV9D
+VExfRk9STUFUX1lVVjQyMiB8IFBMQU5FX0NUTF9ZVVY0MjJfT1JERVJfWVVZVjsNCj4gIAljYXNl
+IERSTV9GT1JNQVRfWVZZVToNCj4gLQkJcmV0dXJuIFBMQU5FX0NUTF9GT1JNQVRfWVVWNDIyIHwg
+UExBTkVfQ1RMX1lVVjQyMl9ZVllVOw0KPiArCQlyZXR1cm4gUExBTkVfQ1RMX0ZPUk1BVF9ZVVY0
+MjIgfCBQTEFORV9DVExfWVVWNDIyX09SREVSX1lWWVU7DQo+ICAJY2FzZSBEUk1fRk9STUFUX1VZ
+Vlk6DQo+IC0JCXJldHVybiBQTEFORV9DVExfRk9STUFUX1lVVjQyMiB8IFBMQU5FX0NUTF9ZVVY0
+MjJfVVlWWTsNCj4gKwkJcmV0dXJuIFBMQU5FX0NUTF9GT1JNQVRfWVVWNDIyIHwgUExBTkVfQ1RM
+X1lVVjQyMl9PUkRFUl9VWVZZOw0KPiAgCWNhc2UgRFJNX0ZPUk1BVF9WWVVZOg0KPiAtCQlyZXR1
+cm4gUExBTkVfQ1RMX0ZPUk1BVF9ZVVY0MjIgfCBQTEFORV9DVExfWVVWNDIyX1ZZVVk7DQo+ICsJ
+CXJldHVybiBQTEFORV9DVExfRk9STUFUX1lVVjQyMiB8IFBMQU5FX0NUTF9ZVVY0MjJfT1JERVJf
+VllVWTsNCj4gIAljYXNlIERSTV9GT1JNQVRfTlYxMjoNCj4gIAkJcmV0dXJuIFBMQU5FX0NUTF9G
+T1JNQVRfTlYxMjsNCj4gIAljYXNlIERSTV9GT1JNQVRfUDAxMDoNCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
+X3JlZy5oDQo+IGluZGV4IDNjMDQ3MWYyMGU1My4uMDJkOGRiMDNjMGJmIDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2k5MTVfcmVnLmgNCj4gQEAgLTY5NjYsNyArNjk2Niw3IEBAIGVudW0gew0KPiAgI2Rl
+ZmluZSAgIERWU19TT1VSQ0VfS0VZCSgxIDw8IDIyKQ0KPiAgI2RlZmluZSAgIERWU19SR0JfT1JE
+RVJfWEJHUgkoMSA8PCAyMCkNCj4gICNkZWZpbmUgICBEVlNfWVVWX0ZPUk1BVF9CVDcwOQkoMSA8
+PCAxOCkNCj4gLSNkZWZpbmUgICBEVlNfWVVWX0JZVEVfT1JERVJfTUFTSyAoMyA8PCAxNikNCj4g
+KyNkZWZpbmUgICBEVlNfWVVWX09SREVSX01BU0sJKDMgPDwgMTYpDQo+ICAjZGVmaW5lICAgRFZT
+X1lVVl9PUkRFUl9ZVVlWCSgwIDw8IDE2KQ0KPiAgI2RlZmluZSAgIERWU19ZVVZfT1JERVJfVVlW
+WQkoMSA8PCAxNikNCj4gICNkZWZpbmUgICBEVlNfWVVWX09SREVSX1lWWVUJKDIgPDwgMTYpDQo+
+IEBAIC03MDQ1LDcgKzcwNDUsNyBAQCBlbnVtIHsNCj4gICNkZWZpbmUgICBTUFJJVEVfUkdCX09S
+REVSX1JHQlgJCSgxIDw8IDIwKSAvKiBvbmx5IGZvciA4ODggYW5kIDE2MTYxNiAqLw0KPiAgI2Rl
+ZmluZSAgIFNQUklURV9ZVVZfVE9fUkdCX0NTQ19ESVNBQkxFCSgxIDw8IDE5KQ0KPiAgI2RlZmlu
+ZSAgIFNQUklURV9ZVVZfVE9fUkdCX0NTQ19GT1JNQVRfQlQ3MDkJKDEgPDwgMTgpIC8qIDAgaXMg
+QlQ2MDEgKi8NCj4gLSNkZWZpbmUgICBTUFJJVEVfWVVWX0JZVEVfT1JERVJfTUFTSwkoMyA8PCAx
+NikNCj4gKyNkZWZpbmUgICBTUFJJVEVfWVVWX09SREVSX01BU0sJCSgzIDw8IDE2KQ0KPiAgI2Rl
+ZmluZSAgIFNQUklURV9ZVVZfT1JERVJfWVVZVgkJKDAgPDwgMTYpDQo+ICAjZGVmaW5lICAgU1BS
+SVRFX1lVVl9PUkRFUl9VWVZZCQkoMSA8PCAxNikNCj4gICNkZWZpbmUgICBTUFJJVEVfWVVWX09S
+REVSX1lWWVUJCSgyIDw8IDE2KQ0KPiBAQCAtNzEzMCw3ICs3MTMwLDcgQEAgZW51bSB7DQo+ICAj
+ZGVmaW5lICAgU1BfQUxQSEFfUFJFTVVMVElQTFkJCSgxIDw8IDIzKSAvKiBDSFYgcGlwZSBCICov
+DQo+ICAjZGVmaW5lICAgU1BfU09VUkNFX0tFWQkJCSgxIDw8IDIyKQ0KPiAgI2RlZmluZSAgIFNQ
+X1lVVl9GT1JNQVRfQlQ3MDkJCSgxIDw8IDE4KQ0KPiAtI2RlZmluZSAgIFNQX1lVVl9CWVRFX09S
+REVSX01BU0sJKDMgPDwgMTYpDQo+ICsjZGVmaW5lICAgU1BfWVVWX09SREVSX01BU0sJCSgzIDw8
+IDE2KQ0KPiAgI2RlZmluZSAgIFNQX1lVVl9PUkRFUl9ZVVlWCQkoMCA8PCAxNikNCj4gICNkZWZp
+bmUgICBTUF9ZVVZfT1JERVJfVVlWWQkJKDEgPDwgMTYpDQo+ICAjZGVmaW5lICAgU1BfWVVWX09S
+REVSX1lWWVUJCSgyIDw8IDE2KQ0KPiBAQCAtNzI3MSwxMCArNzI3MSwxMCBAQCBlbnVtIHsNCj4g
+ICNkZWZpbmUgICBQTEFORV9DVExfWVVWNDIwX1lfUExBTkUJCSgxIDw8IDE5KQ0KPiAgI2RlZmlu
+ZSAgIFBMQU5FX0NUTF9ZVVZfVE9fUkdCX0NTQ19GT1JNQVRfQlQ3MDkJKDEgPDwgMTgpDQo+ICAj
+ZGVmaW5lICAgUExBTkVfQ1RMX1lVVjQyMl9PUkRFUl9NQVNLCQkoMHgzIDw8IDE2KQ0KPiAtI2Rl
+ZmluZSAgIFBMQU5FX0NUTF9ZVVY0MjJfWVVZVgkJCSgwIDw8IDE2KQ0KPiAtI2RlZmluZSAgIFBM
+QU5FX0NUTF9ZVVY0MjJfVVlWWQkJCSgxIDw8IDE2KQ0KPiAtI2RlZmluZSAgIFBMQU5FX0NUTF9Z
+VVY0MjJfWVZZVQkJCSgyIDw8IDE2KQ0KPiAtI2RlZmluZSAgIFBMQU5FX0NUTF9ZVVY0MjJfVllV
+WQkJCSgzIDw8IDE2KQ0KPiArI2RlZmluZSAgIFBMQU5FX0NUTF9ZVVY0MjJfT1JERVJfWVVZVgkJ
+KDAgPDwgMTYpDQo+ICsjZGVmaW5lICAgUExBTkVfQ1RMX1lVVjQyMl9PUkRFUl9VWVZZCQkoMSA8
+PCAxNikNCj4gKyNkZWZpbmUgICBQTEFORV9DVExfWVVWNDIyX09SREVSX1lWWVUJCSgyIDw8IDE2
+KQ0KPiArI2RlZmluZSAgIFBMQU5FX0NUTF9ZVVY0MjJfT1JERVJfVllVWQkJKDMgPDwgMTYpDQo+
+ICAjZGVmaW5lICAgUExBTkVfQ1RMX1JFTkRFUl9ERUNPTVBSRVNTSU9OX0VOQUJMRQkoMSA8PCAx
+NSkNCj4gICNkZWZpbmUgICBQTEFORV9DVExfVFJJQ0tMRV9GRUVEX0RJU0FCTEUJKDEgPDwgMTQp
+DQo+ICAjZGVmaW5lICAgUExBTkVfQ1RMX0NMRUFSX0NPTE9SX0RJU0FCTEUJCSgxIDw8IDEzKSAv
+KiBUR0wrICovDQoNCg==
