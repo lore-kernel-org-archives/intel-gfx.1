@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2645DC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 23:20:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A630AC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 16:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5453C6E520;
-	Tue, 30 Nov 2021 23:20:06 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54D6D6E520
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 23:20:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="223566685"
-X-IronPort-AV: E=Sophos;i="5.87,277,1631602800"; d="scan'208";a="223566685"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 15:20:04 -0800
-X-IronPort-AV: E=Sophos;i="5.87,277,1631602800"; d="scan'208";a="459035074"
-Received: from antonioc-mobl1.amr.corp.intel.com (HELO msatwood-mobl)
- ([10.212.191.119])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 15:20:04 -0800
-Date: Tue, 30 Nov 2021 15:19:33 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 020326E80B;
+	Wed,  1 Dec 2021 16:56:35 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF306E80B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 16:56:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="236725441"
+X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="236725441"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 08:56:21 -0800
+X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="512110329"
+Received: from suchicha-mobl1.amr.corp.intel.com (HELO msatwood-mobl)
+ ([10.209.110.120])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 08:56:21 -0800
+Date: Wed, 1 Dec 2021 08:56:00 -0800
 From: Matt Atwood <matthew.s.atwood@intel.com>
-To: "Souza, Jose" <jose.souza@intel.com>;, intel-gfx@lists.freedesktop.org
-Message-ID: <20211130231933.GA3536@msatwood-mobl>
+To: =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>;,
+ intel-gfx@lists.freedesktop.org
+Message-ID: <20211201165600.GA11191@msatwood-mobl>
 References: <20211119140931.32791-1-jose.souza@intel.com>
- <a74ffeccb1ce87fff026ce40464022e280a80d9c.camel@intel.com>
+ <20211119140931.32791-2-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a74ffeccb1ce87fff026ce40464022e280a80d9c.camel@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 1/2] Revert "drm/i915: Implement
- Wa_1508744258"
+In-Reply-To: <20211119140931.32791-2-jose.souza@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Add workaround numbers to
+ GEN7_COMMON_SLICE_CHICKEN1 whitelisting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,47 +51,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 19, 2021 at 02:13:53PM +0000, Souza, Jose wrote:
-> On Fri, 2021-11-19 at 06:09 -0800, José Roberto de Souza wrote:
-> > This workarounds are causing hangs, because I missed the fact that it
-> > needs to be enabled for all cases and disabled when doing a resolve
-> > pass.
-> > 
-> > So KMD only needs to whitelist it and UMD will be the one setting it
-> > on per case.
-> > 
-> > This reverts commit 28ec02c9cbebf3feeaf21a59df9dfbc02bda3362.
+On Fri, Nov 19, 2021 at 06:09:31AM -0800, José Roberto de Souza wrote:
+> Those two workarounds needs to be implemented in UMD, KMD only needs
+> to whitelist the registers, so here only adding the workaround number
+> to facilitate future workaroud table checks.
 > 
-> Missed a:
-> 
-> Fixes: 28ec02c9cbeb ("drm/i915: Implement Wa_1508744258")
-> 
-> So this can be propagated to older kernels, will add while applying.
-> 
-> > 
-> > Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/4145
-> > Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+> Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/gt/intel_workarounds.c | 7 -------
-> >  1 file changed, 7 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> > index a9727447c0379..cd2935b9e7c81 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> > @@ -637,13 +637,6 @@ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
-> >  	       FF_MODE2_GS_TIMER_MASK,
-> >  	       FF_MODE2_GS_TIMER_224,
-> >  	       0, false);
-> > -
-> > -	/*
-> > -	 * Wa_14012131227:dg1
-> > -	 * Wa_1508744258:tgl,rkl,dg1,adl-s,adl-p
-> > -	 */
-> > -	wa_masked_en(wal, GEN7_COMMON_SLICE_CHICKEN1,
-> > -		     GEN9_RHWO_OPTIMIZATION_DISABLE);
-> >  }
-> >  
-> >  static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+> ---
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index cd2935b9e7c81..c3211325c2d3e 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -1869,7 +1869,11 @@ static void tgl_whitelist_build(struct intel_engine_cs *engine)
+>  				  RING_FORCE_TO_NONPRIV_ACCESS_RD |
+>  				  RING_FORCE_TO_NONPRIV_RANGE_4);
+>  
+> -		/* Wa_1808121037:tgl */
+> +		/*
+> +		 * Wa_1808121037:tgl
+> +		 * Wa_14012131227:dg1
+> +		 * Wa_1508744258:tgl,rkl,dg1,adl-s,adl-p
+> +		 */
+>  		whitelist_reg(w, GEN7_COMMON_SLICE_CHICKEN1);
+>  
+>  		/* Wa_1806527549:tgl */
+> -- 
+> 2.33.1
 > 
