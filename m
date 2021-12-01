@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DE1C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 16:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA442C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 17:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 420DA89A67;
-	Wed,  1 Dec 2021 16:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA146E5BE;
+	Wed,  1 Dec 2021 17:03:42 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E22989A67
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 16:59:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="322745688"
-X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="322745688"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6206E5BE
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 17:03:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="322746865"
+X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="322746865"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 08:59:33 -0800
+ 01 Dec 2021 09:02:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="560538208"
+X-IronPort-AV: E=Sophos;i="5.87,279,1631602800"; d="scan'208";a="560538351"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 01 Dec 2021 07:02:43 -0800
+ by fmsmga008.fm.intel.com with SMTP; 01 Dec 2021 07:21:03 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 01 Dec 2021 17:02:43 +0200
-Date: Wed, 1 Dec 2021 17:02:43 +0200
+ Wed, 01 Dec 2021 17:21:02 +0200
+Date: Wed, 1 Dec 2021 17:21:02 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Vidya Srinivas <vidya.srinivas@intel.com>
-Message-ID: <YaeOkxURq25NfLhy@intel.com>
-References: <20211130171220.8622-1-vidya.srinivas@intel.com>
- <20211201034727.1666-1-vidya.srinivas@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <YaeS3qI8a31BSVMP@intel.com>
+References: <cover.1638366969.git.jani.nikula@intel.com>
+ <ee740f494e416d875e057c2eda585f4e66d65500.1638366969.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211201034727.1666-1-vidya.srinivas@intel.com>
+In-Reply-To: <ee740f494e416d875e057c2eda585f4e66d65500.1638366969.git.jani.nikula@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add PLANE_CUS_CTL restriction in
- max_width
+Subject: Re: [Intel-gfx] [PATCH v2 10/10] drm/i915/display: stop including
+ i915_drv.h from intel_display_types.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,80 +49,173 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yashashvi Shantam <shantam.yashashvi@intel.com>,
- intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 01, 2021 at 09:17:27AM +0530, Vidya Srinivas wrote:
-> PLANE_CUS_CTL has a restriction of 4096 width even though
-> PLANE_SIZE and scaler size registers supports max 5120.
-> Take care of this restriction in max_width.
+On Wed, Dec 01, 2021 at 03:57:12PM +0200, Jani Nikula wrote:
+> Break the dependency on i915_drv.h.
 > 
-> Without this patch, when 5k content is sent on HDR plane
-> with NV12 content, FIFO underrun is seen and screen blanks
-> out.
-> 
-> v2: Addressed review comments from Ville. Added separate
-> functions for max_width - for HDR and SDR
-> 
-> v3: Addressed review comments from Ville. Changed names of
-> HDR and SDR max_width functions to icl_hdr_plane_max_width
-> and icl_sdr_plane_max_width
-> 
-> v4: Fixed paranthesis alignment. No code change
-> 
-> Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-> Signed-off-by: Yashashvi Shantam <shantam.yashashvi@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Hmm. What's this extra sob doing here?
+Looks reasonable.
+
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
 > ---
->  .../drm/i915/display/skl_universal_plane.c    | 21 +++++++++++++++----
->  1 file changed, 17 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_display_types.h    |  9 ++++++++-
+>  drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dsi.c              |  2 ++
+>  drivers/gpu/drm/i915/display/intel_fb.c               |  1 +
+>  drivers/gpu/drm/i915/display/intel_fb_pin.c           | 10 +++++-----
+>  drivers/gpu/drm/i915/display/intel_plane_initial.c    |  5 +++--
+>  drivers/gpu/drm/i915/display/intel_quirks.c           |  1 +
+>  8 files changed, 22 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> index 28890876bdeb..e717eb58b105 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -420,9 +420,19 @@ static int icl_plane_min_width(const struct drm_framebuffer *fb,
->  	}
->  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index f6e76b4d377d..974af6c01cca 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -36,6 +36,7 @@
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_dp_dual_mode_helper.h>
+>  #include <drm/drm_dp_mst_helper.h>
+> +#include <drm/drm_dsc.h>
+>  #include <drm/drm_encoder.h>
+>  #include <drm/drm_fb_helper.h>
+>  #include <drm/drm_fourcc.h>
+> @@ -46,13 +47,19 @@
+>  #include <drm/i915_mei_hdcp_interface.h>
+>  #include <media/cec-notifier.h>
 >  
-> -static int icl_plane_max_width(const struct drm_framebuffer *fb,
-> -			       int color_plane,
-> -			       unsigned int rotation)
-> +static int icl_hdr_plane_max_width(const struct drm_framebuffer *fb,
-> +				int color_plane,
-> +				unsigned int rotation)
-> +{
-> +	if (intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
-> +		return 4096;
-> +	else
-> +		return 5120;
-> +}
-> +
-> +static int icl_sdr_plane_max_width(const struct drm_framebuffer *fb,
-> +				int color_plane,
-> +				unsigned int rotation)
+> -#include "i915_drv.h"
+> +#include "i915_vma.h"
+> +#include "i915_vma_types.h"
+> +#include "intel_bios.h"
+> +#include "intel_display.h"
+> +#include "intel_display_power.h"
+> +#include "intel_dpll_mgr.h"
+>  #include "intel_pm_types.h"
+>  
+>  struct drm_printer;
+>  struct __intel_global_objs_state;
+>  struct intel_ddi_buf_trans;
+>  struct intel_fbc;
+> +struct intel_connector;
+>  
+>  /*
+>   * Display related stuff
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> index 62c112daacf2..97cf3cac0105 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> @@ -34,6 +34,7 @@
+>   * for some reason.
+>   */
+>  
+> +#include "i915_drv.h"
+>  #include "intel_backlight.h"
+>  #include "intel_display_types.h"
+>  #include "intel_dp.h"
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index e264467de8ed..9451f336f28f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -21,11 +21,11 @@
+>   * IN THE SOFTWARE.
+>   */
+>  
+> +#include "i915_drv.h"
+>  #include "intel_display_types.h"
+>  #include "intel_dp.h"
+>  #include "intel_dp_link_training.h"
+>  
+> -
+>  static void intel_dp_reset_lttpr_common_caps(struct intel_dp *intel_dp)
 >  {
->  	return 5120;
->  }
-> @@ -2108,7 +2118,10 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+>  	memset(intel_dp->lttpr_common_caps, 0, sizeof(intel_dp->lttpr_common_caps));
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsi.c b/drivers/gpu/drm/i915/display/intel_dsi.c
+> index 6b0301ba046e..a50422e03a7e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dsi.c
+> @@ -4,6 +4,8 @@
+>   */
 >  
->  	if (DISPLAY_VER(dev_priv) >= 11) {
->  		plane->min_width = icl_plane_min_width;
-> -		plane->max_width = icl_plane_max_width;
-> +		if (icl_is_hdr_plane(dev_priv, plane_id))
-> +			plane->max_width = icl_hdr_plane_max_width;
-> +		else
-> +			plane->max_width = icl_sdr_plane_max_width;
->  		plane->max_height = icl_plane_max_height;
->  		plane->min_cdclk = icl_plane_min_cdclk;
->  	} else if (DISPLAY_VER(dev_priv) >= 10) {
+>  #include <drm/drm_mipi_dsi.h>
+> +
+> +#include "i915_drv.h"
+>  #include "intel_dsi.h"
+>  #include "intel_panel.h"
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> index 99769132c35b..23cfe2e5ce2a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> @@ -6,6 +6,7 @@
+>  #include <drm/drm_framebuffer.h>
+>  #include <drm/drm_modeset_helper.h>
+>  
+> +#include "i915_drv.h"
+>  #include "intel_display.h"
+>  #include "intel_display_types.h"
+>  #include "intel_dpt.h"
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
+> index 3b20f69e0240..31c15e5fca95 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
+> @@ -7,13 +7,13 @@
+>   * DOC: display pinning helpers
+>   */
+>  
+> -#include "intel_display_types.h"
+> -#include "intel_fb_pin.h"
+> -#include "intel_fb.h"
+> +#include "gem/i915_gem_object.h"
+>  
+> +#include "i915_drv.h"
+> +#include "intel_display_types.h"
+>  #include "intel_dpt.h"
+> -
+> -#include "gem/i915_gem_object.h"
+> +#include "intel_fb.h"
+> +#include "intel_fb_pin.h"
+>  
+>  static struct i915_vma *
+>  intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> index dcd698a02da2..01ce1d72297f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> @@ -3,11 +3,12 @@
+>   * Copyright © 2021 Intel Corporation
+>   */
+>  
+> -#include "intel_display_types.h"
+> -#include "intel_plane_initial.h"
+> +#include "i915_drv.h"
+>  #include "intel_atomic_plane.h"
+>  #include "intel_display.h"
+> +#include "intel_display_types.h"
+>  #include "intel_fb.h"
+> +#include "intel_plane_initial.h"
+>  
+>  static bool
+>  intel_reuse_initial_plane_obj(struct drm_i915_private *i915,
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+> index 8a52b7a16774..c8488f5ebd04 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include <linux/dmi.h>
+>  
+> +#include "i915_drv.h"
+>  #include "intel_display_types.h"
+>  #include "intel_quirks.h"
+>  
 > -- 
-> 2.33.0
+> 2.30.2
 
 -- 
 Ville Syrjälä
