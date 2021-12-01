@@ -4,41 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D8F1C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 12:58:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D69F1C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 13:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A0F86FB6A;
-	Wed,  1 Dec 2021 12:58:56 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 806996FB64;
- Wed,  1 Dec 2021 12:58:54 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="217144618"
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="217144618"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 04:58:53 -0800
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="500243037"
-Received: from bagbokpo-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.252.53.172])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 04:58:51 -0800
-Date: Wed, 1 Dec 2021 14:58:48 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <YadxiCDyw270mR1Q@intel.intel>
-References: <20211128110926.2569-1-andi.shyti@linux.intel.com>
- <20211128110926.2569-3-andi.shyti@linux.intel.com>
- <20211130210730.wbuy3znor6jel3cc@ldmartin-desk2>
- <YaaohLkiuWsPSqWq@intel.intel>
- <20211201003808.isoxka2qpccetl5w@ldmartin-desk2>
- <2476fd01-b5a1-7958-45c9-2fa9a29fda9b@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D72AC6FBCF;
+	Wed,  1 Dec 2021 13:12:02 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB906FBAA;
+ Wed,  1 Dec 2021 13:12:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="260429136"
+X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="260429136"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 05:12:00 -0800
+X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="609546925"
+Received: from zma6-mobl1.amr.corp.intel.com (HELO [10.212.27.7])
+ ([10.212.27.7])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 05:11:59 -0800
+Message-ID: <e4087a66-8abd-7126-d642-f8e13914c03e@linux.intel.com>
+Date: Wed, 1 Dec 2021 13:11:57 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2476fd01-b5a1-7958-45c9-2fa9a29fda9b@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v4 2/2] drm/i915: Use to_root_gt() to refer
- to the root tile
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Content-Language: en-US
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
+ <f1202314-f42d-e37a-49a7-16148f5018be@linux.intel.com>
+ <b40c5455-7b60-7c97-9fcd-fba67ed71f6d@linux.intel.com>
+ <ea3869e7-a4f7-52a6-0ef9-7531655d5647@linux.intel.com>
+ <2a7b5eaa-0d0c-12ac-6d37-5146a4a44042@linux.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <2a7b5eaa-0d0c-12ac-6d37-5146a4a44042@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2 00/16] drm/i915: Remove short term pins
+ from execbuf.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,118 +54,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?utf-8?Q?Michal=C5=82?= Winiarski <michal.winiarski@intel.com>,
- Intel GFX <intel-gfx@lists.freedesktop.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- DRI Devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Michal,
 
-> >> fist of all thanks for taking a look at this, I was eagerly
-> >> waiting for reviewers.
-> >>
-> >> On Tue, Nov 30, 2021 at 01:07:30PM -0800, Lucas De Marchi wrote:
-> >>> On Sun, Nov 28, 2021 at 01:09:26PM +0200, Andi Shyti wrote:
-> >>> > Starting from a patch from Matt to_root_gt() returns the
-> >>> > reference to the root tile in order to abstract the root tile
-> >>> > from th callers.
-> >>> >
-> >>> > Being the root tile identified as tile '0', embed the id in the
-> >>> > name so that i915->gt becomes i915->gt0.
-> >>> >
-> >>> > The renaming has been mostly done with the following command and
-> >>> > some manual fixes.
-> >>> >
-> >>> > sed -i -e sed -i 's/\&i915\->gt\./\&to_root_gt(i915)\->/g' \
-> >>> >     -e sed -i 's/\&dev_priv\->gt\./\&to_root_gt(dev_priv)\->/g' \
-> >>> >     -e 's/\&dev_priv\->gt/to_root_gt(dev_priv)/g' \
-> >>> >     -e 's/\&i915\->gt/to_root_gt(i915)/g' \
-> >>> >     -e 's/dev_priv\->gt\./to_root_gt(dev_priv)\->/g' \
-> >>> >     -e 's/i915\->gt\./to_root_gt(i915)\->/g' \
-> >>> >     `find drivers/gpu/drm/i915/ -name *.[ch]`
-> >>> >
-> >>> > Two small changes have been added to this commit:
-> >>> >
-> >>> > 1. intel_reset_gpu() in intel_display.c retreives the gt from
-> >>> >    to_scanout_gt()
-> >>> > 2. in set_scheduler_caps() the gt is taken from the engine and
-> >>> >    not from i915.
-> >>>
-> >>> Ideally the non-automatic changes should be in separate patches, before
-> >>> the ones that can be done by automation. Because then it becomes easier
-> >>> to apply the final result without conflicts.
-> >>
-> >> OK
-> >>
-> >>> This is quite a big diff to merge in one go. Looking at the pending
-> >>> patches from Michal however I see he had similar changes, split in
-> >>> sensible chunks..  Could you split your version like that? at least
-> >>> gt/gem and display would be good to have separate. Or sync with Michal
-> >>> on how to proceed with these versions Here are his patches:
-> >>>
-> >>>     drm/i915: Remove i915->ggtt
-> >>>     drm/i915: Use to_gt() helper for GGTT accesses
-> >>>     drm/i915: Use to_gt() helper
-> >>>     drm/i915/gvt: Use to_gt() helper
-> >>>     drm/i915/gem: Use to_gt() helper
-> >>>     drm/i915/gt: Use to_gt() helper
-> >>>     drm/i915/display: Use to_gt() helper
-> >>>     drm/i915: Introduce to_gt() helper
-> >>
-> >> I understand... will follow this approach.
-> >>
-> >>> This first patch also removed the `struct intel_gt *gt = to_gt(pool)`,
-> >>> that would otherwise be a leftover in
-> >>> drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-> >>
-> >> One difference from Michal patch is that I am not using the
-> >> wrapper
-> >>
-> >>  to_gt(...)
-> >>
-> >> but
-> >>
-> >>  to_root_gt(...)
-> >>
-> >> which was introduced by Matt. To me sounds more meaningful as it
-> >> specifies that we are really looking for the root tile and not
-> >> any tile.
-> > 
-> > yes, I think it makes sense, too.  Michal, any comment?  I think you
-> > also had other plans to get the root gt by another helper... ?
+On 01/12/2021 11:15, Maarten Lankhorst wrote:
+> On 30-11-2021 19:38, Tvrtko Ursulin wrote:
+>>
+>> On 30/11/2021 11:17, Maarten Lankhorst wrote:
+>>> On 30-11-2021 09:54, Tvrtko Ursulin wrote:
+>>>>
+>>>> Hi,
+>>>>
+>>>> On 29/11/2021 13:47, Maarten Lankhorst wrote:
+>>>>> New version of the series, with feedback from previous series added.
+>>>>
+>>>> If there was a cover letter sent for this work in the past could you please keep attaching it? Or if there wasn't, could you please write one?
+>>>>
+>>>> I am worried about two things. First is that we need to have a high level overview of the rules/design changes documented so third party people have any hope of getting code right after this lands. (Where we are, where we are going, how we will get there, how far did we get and when we will get to the end.)
+>>>>
+>>>> Second is that when parts of the series land piecemeal (Which they have in this right, right?), it gets very hard to write up a maintainer level changelog.
+>>>
+>>> The preparation part is to ensure we always hold vma->obj->resv when unbinding.
+>>>
+>>> The first preparation series ensured vma->obj always existed. This was not the case for mock gtt and gen6 aliasing gtt. This allowed us to remove all the special handling for those uncommon cases, and actually enforce we can always take that lock. This part is merged.
+>>
+>> Sounds good. But also mention the high level motivation for why we always want to hold vma->obj->resv when unbinding in the introduction as well.
+>>
+>>>
+>>> Patch 2-11 in this series adds the vma->obj->resv to eviction and shrinker. Those are the only parts where we don't take the lock yet.
+>>>
+>>> After that, we always hold the lock when required, and we can start requiring the obj-> resv lock when unbinding. This is completed in patch 15.
+>>>
+>>> With that fixed, removing short term pins can be done, because for unbind we now always take obj->resv, so holding obj->resv during execbuf submission is sufficient, and all short term pinning can be removed.
+>>
+>> I'd also like the cover letter to contain a high level description on _why_ is removing short term pins needed or beneficial.
+>>
+>> What was the flow and object lifetimes so far, and what it will be going forward etc.
 > 
-> The main rationale to use generic "to_gt()" helper name in all existing
-> i915->gt cases in (other) Michal patches was that on some upcoming
-> configs we want to distinguish between "primary" and "root" tile and use
-> "to_root_gt()" helper only when referring to the root tile as described
-> in Bspec:52416.
+> Previously, short term pinning in execbuf was required because i915_vma was effectively independent from objects, and has its own refcount, locking, and lifetime rules and pinning.
+> This series removes the separate locking, by requiring vma->obj->resv to be held when pinning and unbinding. This will also be required for VM_BIND work.
+> With pinning required for pinning and unbinding, the lock is enough to prevent unbinding when trying to pin with the lock held, like in execbuf.
+> This makes binding/unbinding similar to ttm_bo_validate()'s use, which just cares that an object is in a certain place, without pinning it in place.
 > 
-> Note that since current code baseline is still "single" tile, you can't
-> tell whether all of these functions really expects special "root" tile
-> or just "any" tile.
+> Having it part of gem bo removes a lot of the vma refcounting, and makes i915_vma more a part of the bo, instead of its own floating object that just
+> happens to be part of a bo. This is also required to make it more compatible with TTM, and migration in general.
+> 
+> For future work, it makes things a lot simpler and clear. We want to end up with i915_vma just being a specific mapping of the BO, just like is the
+> case in other drivers. i915_vma->active removal is the next step there, and makes it when object is destroyed, the bindings are destroyed (after idle),
+> instead of object being destroyed when bindings are idle.
 
-this series is indeed preparatory for the multitile and making it
-to_gt() now it will require to replace it with to_root_gt()
-later.
+Excellent, that's exactly the level needed for the cover letter. So that 
+as intro, plus some text about the series details like which part of the 
+overall plan it implements and it will be good.
 
-The idea is that a GT is root even if it's alone. The next patch
-after this will be the actual multitile.[*]
+>>>
+>>> We only pin temporarily when calling i915_gem_evict_vm in execbuf, which could also be handled in theory by just marking all objects as unpinned.
+>>>
+>>> As a bonus, using TTM for delayed eviction on all objects becomes easy, just need to get rid of i915_active in i915_vma, as it keeps the object refcount alive.
+>>>
+>>> Remainder is removing refcount to i915_vma, to make it a real
+>>
+>> Sounds on the right track with maybe a bit more text so the readers can easily understand it on the higher level.
+> 
+> With the obj->resv being the master lock, pinning for execbuf becomes obsolete and can be removed.
 
-In this particular patch I am even renaming i915->gt to i915->gt0
-to underline the difference.
+Out of personal curiosity about the long term plans - what will be the 
+flow on request retirement in terms of unbinding?
 
-> Thus to avoid confusion or mistakes I would suggest to keep simple name
-> "to_gt()" as in most cases usages of this helper it will likely be
-> replaced with iterator from for_each_gt loop and any remaining usages
-> will just mean "primary" tile or replaced with explicit "to_root_gt()"
-> if really needed.
+Regards,
 
-Knowing what's about to come, I do not see this as a good reason
-to have to_gt() as a mid step. Right?
-
-Andi
-
-[*] https://patchwork.freedesktop.org/patch/464475/?series=97352&rev=1
+Tvrtko
