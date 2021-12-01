@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FB7C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 10:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC6E2C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 10:35:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D83356F97A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABFEA6F970;
 	Wed,  1 Dec 2021 10:34:59 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF4126F5CC
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 10:34:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="236251698"
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="236251698"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 961826F603
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 10:34:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="236251699"
+X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="236251699"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 02:34:56 -0800
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="677216972"
+ 01 Dec 2021 02:34:57 -0800
+X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="677216979"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 02:34:56 -0800
+ 01 Dec 2021 02:34:57 -0800
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  1 Dec 2021 02:33:19 -0800
-Message-Id: <20211201103320.2211867-3-anusha.srivatsa@intel.com>
+Date: Wed,  1 Dec 2021 02:33:20 -0800
+Message-Id: <20211201103320.2211867-4-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211201103320.2211867-1-anusha.srivatsa@intel.com>
 References: <20211201103320.2211867-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [v3 2/3] drm/i915/rpl-s: Add PCH Support for Raptor
- Lake S
+Subject: [Intel-gfx] [v3 3/3] drm/i915/rpl-s: Enable guc submission by
+ default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,42 +47,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the PCH ID for RPL-S.
+Though, RPL-S is defined as subplatform of ADL-S, unlike
+ADL-S, it has GuC submission by default.
 
-v2: Self contained commit message (Jani)
+v2: Remove extra parenthesis (Jani)
+v3: s/IS_RAPTORLAKE/IS_ADLS_RPLS (Jani)
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
 Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/intel_pch.c | 1 +
- drivers/gpu/drm/i915/intel_pch.h | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
-index d1d4b97b86f5..da8f82c2342f 100644
---- a/drivers/gpu/drm/i915/intel_pch.c
-+++ b/drivers/gpu/drm/i915/intel_pch.c
-@@ -129,6 +129,7 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
- 		return PCH_JSP;
- 	case INTEL_PCH_ADP_DEVICE_ID_TYPE:
- 	case INTEL_PCH_ADP2_DEVICE_ID_TYPE:
-+	case INTEL_PCH_ADP3_DEVICE_ID_TYPE:
- 		drm_dbg_kms(&dev_priv->drm, "Found Alder Lake PCH\n");
- 		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
- 			    !IS_ALDERLAKE_P(dev_priv));
-diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
-index 7c0d83d292dc..6bff77521094 100644
---- a/drivers/gpu/drm/i915/intel_pch.h
-+++ b/drivers/gpu/drm/i915/intel_pch.h
-@@ -57,6 +57,7 @@ enum intel_pch {
- #define INTEL_PCH_JSP2_DEVICE_ID_TYPE		0x3880
- #define INTEL_PCH_ADP_DEVICE_ID_TYPE		0x7A80
- #define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
-+#define INTEL_PCH_ADP3_DEVICE_ID_TYPE		0x7A00
- #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
- #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
- #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 2fef3b0bbe95..8f17005ce85f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -35,7 +35,7 @@ static void uc_expand_default_options(struct intel_uc *uc)
+ 	}
+ 
+ 	/* Intermediate platforms are HuC authentication only */
+-	if (IS_ALDERLAKE_S(i915)) {
++	if (IS_ALDERLAKE_S(i915) && !IS_ADLS_RPLS(i915)) {
+ 		i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
+ 		return;
+ 	}
 -- 
 2.25.1
 
