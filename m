@@ -4,47 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42817C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 20:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1397C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 20:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E628AF97;
-	Fri,  3 Dec 2021 20:34:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B47527B960;
- Fri,  3 Dec 2021 19:10:12 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E95E1B826A6;
- Fri,  3 Dec 2021 19:10:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9A3E2C53FCE;
- Fri,  3 Dec 2021 19:10:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638558609;
- bh=60mi6p08U2wbwvB97Xgf4RVXwcC9c+P0q4JsuFDiPOI=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=uQZ/0KBBwOlmv3heoNYQUyaiMcNeBzGSS7RGwLrUa1wvnnZZQ6T1aiotEpZc9+H1z
- suTSmGKxpgS0c6XVGVxaalBJmrlSSeOStYBqFjdMzEM6uEaV7mDiaiERaCljh6lClu
- y4ZeXl8bU86S0Tlh1qM71hMLRLoJ42fEBPac2QnYi8LwMmxeQwBlOG69sUpBZ0dwu6
- xIWcpHtOouVmuoukYE96Ve65pWnv8OAvBZnBZ7lis61qy71Izg3SQMHOwLTAYKOLk2
- iFIkS8YvN30sqDOF+sQImtsnqnMxvHc1VQ8rHRM/6ZRUBTOBloBH7A1DsAO4wP+3JL
- fMwQadF7d2iGQ==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 76F2C60A95;
- Fri,  3 Dec 2021 19:10:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2898B0CF;
+	Fri,  3 Dec 2021 20:49:29 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AD78B0CF
+ for <Intel-GFX@lists.freedesktop.org>; Fri,  3 Dec 2021 20:49:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="234561628"
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="234561628"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2021 12:49:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="478452521"
+Received: from sdutt-nuc10i5fnh.jf.intel.com ([10.165.21.151])
+ by orsmga002.jf.intel.com with ESMTP; 03 Dec 2021 12:49:26 -0800
+From: Jasmine Newsome <jasmine.newsome@intel.com>
+To: Intel-GFX@Lists.FreeDesktop.Org
+Date: Fri,  3 Dec 2021 12:47:53 -0800
+Message-Id: <20211203204753.1634865-1-jasmine.newsome@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163855860948.24022.9001786774413649159.git-patchwork-notify@kernel.org>
-Date: Fri, 03 Dec 2021 19:10:09 +0000
-References: <20211202203400.1208663-1-kuba@kernel.org>
-In-Reply-To: <20211202203400.1208663-1-kuba@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-X-Mailman-Approved-At: Fri, 03 Dec 2021 20:34:35 +0000
-Subject: Re: [Intel-gfx] [PATCH bpf v2] treewide: add missing includes
- masked by cgroup -> bpf dependency
+Subject: [Intel-gfx] [PATCH] drm/i915/gem: Use local pointer for
+ __i915_ttm_move
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +42,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kw@linux.com, songliubraving@fb.com, kafai@fb.com, airlied@linux.ie,
- linux-pci@vger.kernel.org, ast@kernel.org, dri-devel@lists.freedesktop.org,
- andrii@kernel.org, a-govindraju@ti.com, ray.huang@amd.com, sbhatta@marvell.com,
- robh@kernel.org, lorenzo.pieralisi@arm.com, daniel@iogearbox.net,
- krzysztof.kozlowski@canonical.com, john.fastabend@gmail.com,
- hkelam@marvell.com, geert@linux-m68k.org, matthew.auld@intel.com, yhs@fb.com,
- sgoutham@marvell.com, thomas.hellstrom@linux.intel.com, pawell@cadence.com,
- tzimmermann@suse.de, mani@kernel.org, jani.nikula@intel.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- mripard@kernel.org, kpsingh@kernel.org, rogerq@kernel.org,
- linux-samsung-soc@vger.kernel.org, bhelgaas@google.com,
- akpm@linux-foundation.org, linux-arm-kernel@lists.infradead.org,
- axboe@kernel.dk, linux-block@vger.kernel.org, sj@kernel.org,
- lima@lists.freedesktop.org, linux-mm@kvack.org, jingoohan1@gmail.com,
- peter.chen@kernel.org, linux-usb@vger.kernel.org, christian.koenig@amd.com,
- yuq825@gmail.com, gregkh@linuxfoundation.org, bpf@vger.kernel.org,
- colin.king@intel.com, freedreno@lists.freedesktop.org, gakula@marvell.com
+Cc: thomas.hellstrom@intel.com, jasmine.newsome@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello:
+Replace pointer bo->ttm with ttm in i915_ttm_move
+when passed as argument to __i915_ttm_move
+---
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This patch was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
-
-On Thu,  2 Dec 2021 12:34:00 -0800 you wrote:
-> cgroup.h (therefore swap.h, therefore half of the universe)
-> includes bpf.h which in turn includes module.h and slab.h.
-> Since we're about to get rid of that dependency we need
-> to clean things up.
-> 
-> v2: drop the cpu.h include from cacheinfo.h, it's not necessary
-> and it makes riscv sensitive to ordering of include files.
-> 
-> [...]
-
-Here is the summary with links:
-  - [bpf,v2] treewide: add missing includes masked by cgroup -> bpf dependency
-    https://git.kernel.org/bpf/bpf/c/8581fd402a0c
-
-You are awesome, thank you!
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 80df9f592407..56b6573b5c93 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -763,7 +763,7 @@ int i915_ttm_move(struct ttm_buffer_object *bo, bool evict,
+ 			return PTR_ERR(dep);
+ 		}
+ 
+-		migration_fence = __i915_ttm_move(bo, clear, dst_mem, bo->ttm,
++		migration_fence = __i915_ttm_move(bo, clear, dst_mem, ttm,
+ 						  dst_rsgt, true, dep);
+ 		dma_fence_put(dep);
+ 	}
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
