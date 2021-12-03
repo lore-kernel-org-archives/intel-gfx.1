@@ -4,31 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60171C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 06:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A746C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 06:37:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41AB3732D1;
-	Fri,  3 Dec 2021 06:37:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A498732D2;
+	Fri,  3 Dec 2021 06:37:31 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEC7E732A2;
- Fri,  3 Dec 2021 06:37:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10186"; a="323174332"
-X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="323174332"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2190E732CF;
+ Fri,  3 Dec 2021 06:37:27 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10186"; a="323174338"
+X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="323174338"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2021 22:37:24 -0800
-X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="478221022"
+ 02 Dec 2021 22:37:26 -0800
+X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="478221051"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2021 22:37:23 -0800
+ 02 Dec 2021 22:37:26 -0800
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  2 Dec 2021 22:35:42 -0800
-Message-Id: <20211203063545.2254380-1-anusha.srivatsa@intel.com>
+Date: Thu,  2 Dec 2021 22:35:44 -0800
+Message-Id: <20211203063545.2254380-3-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211203063545.2254380-1-anusha.srivatsa@intel.com>
+References: <20211203063545.2254380-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [v3 0/3] Introduce Raptor Lake S
+Subject: [Intel-gfx] [v3 2/3] drm/i915/rpl-s: Add PCH Support for Raptor
+ Lake S
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,50 +45,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, x86@kernel.org,
- dri-devel@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Raptor Lake S(RPL-S) is a version 12
-Display, Media and Render. For all i915
-purposes it is the same as Alder Lake S (ADL-S).
+Add the PCH ID for RPL-S.
 
-The series introduces it as a subplatform
-of ADL-S. The one difference is the GuC
-submission which is default on RPL-S but
-was not the case with ADL-S.
+v2: Self contained commit message (Jani)
 
-All patches are reviewed. Jani has acked the series.
-Looking for other acks in order to merge these to
-respective branches.
-
-Cc: x86@kernel.org
 Cc: dri-devel@lists.freedesktop.org
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/intel_pch.c | 1 +
+ drivers/gpu/drm/i915/intel_pch.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-Anusha Srivatsa (3):
-  drm/i915/rpl-s: Add PCI IDS for Raptor Lake S
-  drm/i915/rpl-s: Add PCH Support for Raptor Lake S
-  drm/i915/rpl-s: Enable guc submission by default
-
- arch/x86/kernel/early-quirks.c           | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c    | 2 +-
- drivers/gpu/drm/i915/i915_drv.h          | 2 ++
- drivers/gpu/drm/i915/i915_pci.c          | 1 +
- drivers/gpu/drm/i915/intel_device_info.c | 7 +++++++
- drivers/gpu/drm/i915/intel_device_info.h | 3 +++
- drivers/gpu/drm/i915/intel_pch.c         | 1 +
- drivers/gpu/drm/i915/intel_pch.h         | 1 +
- include/drm/i915_pciids.h                | 9 +++++++++
- 9 files changed, 26 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
+index d1d4b97b86f5..da8f82c2342f 100644
+--- a/drivers/gpu/drm/i915/intel_pch.c
++++ b/drivers/gpu/drm/i915/intel_pch.c
+@@ -129,6 +129,7 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		return PCH_JSP;
+ 	case INTEL_PCH_ADP_DEVICE_ID_TYPE:
+ 	case INTEL_PCH_ADP2_DEVICE_ID_TYPE:
++	case INTEL_PCH_ADP3_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found Alder Lake PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
+ 			    !IS_ALDERLAKE_P(dev_priv));
+diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
+index 7c0d83d292dc..6bff77521094 100644
+--- a/drivers/gpu/drm/i915/intel_pch.h
++++ b/drivers/gpu/drm/i915/intel_pch.h
+@@ -57,6 +57,7 @@ enum intel_pch {
+ #define INTEL_PCH_JSP2_DEVICE_ID_TYPE		0x3880
+ #define INTEL_PCH_ADP_DEVICE_ID_TYPE		0x7A80
+ #define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
++#define INTEL_PCH_ADP3_DEVICE_ID_TYPE		0x7A00
+ #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
+ #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
+ #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
 -- 
 2.25.1
 
