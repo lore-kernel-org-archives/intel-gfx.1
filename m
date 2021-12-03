@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16FB8C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 17:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB83EC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 17:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261E07388B;
-	Fri,  3 Dec 2021 17:33:41 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1630F7388B;
- Fri,  3 Dec 2021 17:33:40 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="235752996"
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="235752996"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB517B02F;
+	Fri,  3 Dec 2021 17:37:15 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01E797B02B;
+ Fri,  3 Dec 2021 17:37:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="217039842"
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="217039842"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 09:33:39 -0800
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="610481844"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2021 09:36:59 -0800
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="610483286"
 Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.205])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 09:33:37 -0800
-Date: Fri, 3 Dec 2021 23:06:52 +0530
+ 03 Dec 2021 09:36:56 -0800
+Date: Fri, 3 Dec 2021 23:10:12 +0530
 From: Ramalingam C <ramalingam.c@intel.com>
 To: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <20211203173652.GC27873@intel.com>
+Message-ID: <20211203174012.GD27873@intel.com>
 References: <20211203122426.2859679-1-matthew.auld@intel.com>
- <20211203122426.2859679-6-matthew.auld@intel.com>
+ <20211203122426.2859679-7-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211203122426.2859679-6-matthew.auld@intel.com>
+In-Reply-To: <20211203122426.2859679-7-matthew.auld@intel.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH v2 5/8] drm/i915/migrate: fix length
- calculation
+Subject: Re: [Intel-gfx] [PATCH v2 6/8] drm/i915/selftests: handle object
+ rounding
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,35 +53,32 @@ Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-12-03 at 12:24:23 +0000, Matthew Auld wrote:
-> No need to insert PTEs for the PTE window itself, also foreach expects a
-> length not an end offset, which could be gigantic here with a second
-> engine.
+On 2021-12-03 at 12:24:24 +0000, Matthew Auld wrote:
+> Ensure we account for any object rounding due to min_page_size
+> restrictions.
 > 
-Looks good to me
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 
 Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
 
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 > Cc: Ramalingam C <ramalingam.c@intel.com>
 > ---
->  drivers/gpu/drm/i915/gt/intel_migrate.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/gt/selftest_migrate.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-> index cb0bb3b94644..2076e24e0489 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_migrate.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-> @@ -136,7 +136,7 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
->  			goto err_vm;
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+> index 12ef2837c89b..e21787301bbd 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+> @@ -49,6 +49,7 @@ static int copy(struct intel_migrate *migrate,
+>  	if (IS_ERR(src))
+>  		return 0;
 >  
->  		/* Now allow the GPU to rewrite the PTE via its own ppGTT */
-> -		vm->vm.foreach(&vm->vm, base, base + sz, insert_pte, &d);
-> +		vm->vm.foreach(&vm->vm, base, d.offset - base, insert_pte, &d);
->  	}
->  
->  	return &vm->vm;
+> +	sz = src->base.size;
+>  	dst = i915_gem_object_create_internal(i915, sz);
+>  	if (IS_ERR(dst))
+>  		goto err_free_src;
 > -- 
 > 2.31.1
 > 
