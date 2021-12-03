@@ -4,33 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F15CC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 09:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74673C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 09:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5257354F;
-	Fri,  3 Dec 2021 09:43:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADCD673534;
+	Fri,  3 Dec 2021 09:43:41 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C819D72F50
- for <intel-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 09:43:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10186"; a="323200949"
-X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="323200949"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 606FD73534
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 09:43:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10186"; a="323200964"
+X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="323200964"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 01:40:52 -0800
+ 03 Dec 2021 01:40:53 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="501125161"
+X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; d="scan'208";a="501125184"
 Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
  ([10.237.72.167])
- by orsmga007.jf.intel.com with ESMTP; 03 Dec 2021 01:40:46 -0800
+ by orsmga007.jf.intel.com with ESMTP; 03 Dec 2021 01:40:51 -0800
 From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  3 Dec 2021 11:40:38 +0200
-Message-Id: <20211203094041.18399-1-stanislav.lisovskiy@intel.com>
+Date: Fri,  3 Dec 2021 11:40:40 +0200
+Message-Id: <20211203094041.18399-3-stanislav.lisovskiy@intel.com>
 X-Mailer: git-send-email 2.24.1.485.gad05a3d8e5
+In-Reply-To: <20211203094041.18399-1-stanislav.lisovskiy@intel.com>
+References: <20211203094041.18399-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Pass plane id to watermark
- calculation functions
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Use wm0 only during async flips
+ for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,104 +49,67 @@ Cc: jani.saarinen@intel.co
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometimes we might need to change the way we calculate
-watermarks, based on which particular plane it is calculated
-for. Thus it would be convenient to pass plane_id to those
-functions.
+This optimization allows to achieve higher perfomance
+during async flips.
+For the first async flip we have to still temporarily
+switch to sync flip, in order to reprogram plane
+watermarks, so this requires taking into account
+old plane state's do_async_flip flag.
 
 Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 13 ++++++++++++-
+ drivers/gpu/drm/i915/intel_pm.c              |  5 ++++-
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 2ff260117476..c5c1b6bef9a2 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -4274,6 +4274,7 @@ static int skl_compute_wm_params(const struct intel_crtc_state *crtc_state,
- 				 u32 plane_pixel_rate, struct skl_wm_params *wp,
- 				 int color_plane);
- static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
-+				 enum plane_id plane_id,
- 				 int level,
- 				 unsigned int latency,
- 				 const struct skl_wm_params *wp,
-@@ -4300,7 +4301,7 @@ skl_cursor_allocation(const struct intel_crtc_state *crtc_state,
- 	for (level = 0; level <= max_level; level++) {
- 		unsigned int latency = dev_priv->wm.skl_latency[level];
- 
--		skl_compute_plane_wm(crtc_state, level, latency, &wp, &wm, &wm);
-+		skl_compute_plane_wm(crtc_state, PLANE_CURSOR, level, latency, &wp, &wm, &wm);
- 		if (wm.min_ddb_alloc == U16_MAX)
- 			break;
- 
-@@ -5530,6 +5531,7 @@ static int skl_wm_max_lines(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index b8fe40050463..872bbb965992 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5439,6 +5439,16 @@ static bool needs_scaling(const struct intel_plane_state *state)
+ 	return (src_w != dst_w || src_h != dst_h);
  }
  
- static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
-+				 enum plane_id plane_id,
- 				 int level,
- 				 unsigned int latency,
- 				 const struct skl_wm_params *wp,
-@@ -5657,6 +5659,7 @@ static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
++static bool needs_async_flip_wm_override(struct intel_plane *plane,
++					 const struct intel_plane_state *new_plane_state,
++					 const struct intel_plane_state *old_plane_state)
++{
++	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
++
++	return (DISPLAY_VER(dev_priv) >= 13) && !old_plane_state->do_async_flip &&
++	       new_plane_state->do_async_flip;
++}
++
+ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_state,
+ 				    struct intel_crtc_state *new_crtc_state,
+ 				    const struct intel_plane_state *old_plane_state,
+@@ -5558,7 +5568,8 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
+ 			 needs_scaling(new_plane_state))))
+ 		new_crtc_state->disable_lp_wm = true;
  
- static void
- skl_compute_wm_levels(const struct intel_crtc_state *crtc_state,
-+		      enum plane_id plane_id,
- 		      const struct skl_wm_params *wm_params,
- 		      struct skl_wm_level *levels)
- {
-@@ -5668,7 +5671,7 @@ skl_compute_wm_levels(const struct intel_crtc_state *crtc_state,
- 		struct skl_wm_level *result = &levels[level];
- 		unsigned int latency = dev_priv->wm.skl_latency[level];
- 
--		skl_compute_plane_wm(crtc_state, level, latency,
-+		skl_compute_plane_wm(crtc_state, plane_id, level, latency,
- 				     wm_params, result_prev, result);
- 
- 		result_prev = result;
-@@ -5676,6 +5679,7 @@ skl_compute_wm_levels(const struct intel_crtc_state *crtc_state,
- }
- 
- static void tgl_compute_sagv_wm(const struct intel_crtc_state *crtc_state,
-+				enum plane_id plane_id,
- 				const struct skl_wm_params *wm_params,
- 				struct skl_plane_wm *plane_wm)
- {
-@@ -5684,7 +5688,7 @@ static void tgl_compute_sagv_wm(const struct intel_crtc_state *crtc_state,
- 	struct skl_wm_level *levels = plane_wm->wm;
- 	unsigned int latency = dev_priv->wm.skl_latency[0] + dev_priv->sagv_block_time_us;
- 
--	skl_compute_plane_wm(crtc_state, 0, latency,
-+	skl_compute_plane_wm(crtc_state, plane_id, 0, latency,
- 			     wm_params, &levels[0],
- 			     sagv_wm);
- }
-@@ -5767,13 +5771,13 @@ static int skl_build_plane_wm_single(struct intel_crtc_state *crtc_state,
- 	if (ret)
- 		return ret;
- 
--	skl_compute_wm_levels(crtc_state, &wm_params, wm->wm);
-+	skl_compute_wm_levels(crtc_state, plane_id, &wm_params, wm->wm);
- 
- 	skl_compute_transition_wm(dev_priv, &wm->trans_wm,
- 				  &wm->wm[0], &wm_params);
- 
- 	if (DISPLAY_VER(dev_priv) >= 12) {
--		tgl_compute_sagv_wm(crtc_state, &wm_params, wm);
-+		tgl_compute_sagv_wm(crtc_state, plane_id, &wm_params, wm);
- 
- 		skl_compute_transition_wm(dev_priv, &wm->sagv.trans_wm,
- 					  &wm->sagv.wm0, &wm_params);
-@@ -5798,7 +5802,7 @@ static int skl_build_plane_wm_uv(struct intel_crtc_state *crtc_state,
- 	if (ret)
- 		return ret;
- 
--	skl_compute_wm_levels(crtc_state, &wm_params, wm->uv_wm);
-+	skl_compute_wm_levels(crtc_state, plane_id, &wm_params, wm->uv_wm);
+-	if (new_crtc_state->uapi.async_flip && plane->async_flip)
++	if (new_crtc_state->uapi.async_flip && new_plane_state->do_async_flip &&
++	    !needs_async_flip_wm_override(plane, new_plane_state, old_plane_state))
+ 		new_plane_state->do_async_flip = true;
  
  	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index c5c1b6bef9a2..0b45d1d61d0f 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -5542,8 +5542,11 @@ static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
+ 	uint_fixed_16_16_t method1, method2;
+ 	uint_fixed_16_16_t selected_result;
+ 	u32 blocks, lines, min_ddb_alloc = 0;
++	bool dg2_async_flip_optimization = (DISPLAY_VER(dev_priv) >= 13) &&
++					   crtc_state->uapi.async_flip &&
++					   plane_id != PLANE_CURSOR;
+ 
+-	if (latency == 0) {
++	if (latency == 0 || (dg2_async_flip_optimization && (level > 0))) {
+ 		/* reject it */
+ 		result->min_ddb_alloc = U16_MAX;
+ 		return;
 -- 
 2.24.1.485.gad05a3d8e5
 
