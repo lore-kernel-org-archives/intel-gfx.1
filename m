@@ -4,33 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F465C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 18:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B46CC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 18:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 627A77B4F8;
-	Fri,  3 Dec 2021 18:33:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E78E57B4FD;
+	Fri,  3 Dec 2021 18:33:43 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C99CB7B4F7;
- Fri,  3 Dec 2021 18:33:40 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="234540246"
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="234540246"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 345FC7B4F7;
+ Fri,  3 Dec 2021 18:33:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="234540248"
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="234540248"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Dec 2021 10:33:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="577578513"
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="577578518"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga004.fm.intel.com with ESMTP; 03 Dec 2021 10:33:39 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 03 Dec 2021 10:33:40 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri,  3 Dec 2021 10:33:34 -0800
-Message-Id: <20211203183339.3276250-1-John.C.Harrison@Intel.com>
+Date: Fri,  3 Dec 2021 10:33:36 -0800
+Message-Id: <20211203183339.3276250-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211203183339.3276250-1-John.C.Harrison@Intel.com>
+References: <20211203183339.3276250-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/5] Update to GuC version 69.0.0
+Subject: [Intel-gfx] [PATCH 2/5] drm/i915/guc: Increase GuC log size for
+ CONFIG_DEBUG_GEM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,43 +52,36 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Update to the latest GuC version. This includes a suite of interface
-changes and new features with corresponding i915 side changes.
-
-Also, fix/improve a bunch of other things while at it.
+Lots of testing is done with the DEBUG_GEM config option enabled but
+not the DEBUG_GUC option. That means we only get teeny-tiny GuC logs
+which are not hugely useful. Enabling full DEBUG_GUC also spews lots
+of other detailed output that is not generally desired. However,
+bigger GuC logs are extremely useful for almost any regression debug.
+So enable bigger logs for DEBUG_GEM builds as well.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-
-
-John Harrison (5):
-  drm/i915/uc: Allow platforms to have GuC but not HuC
-  drm/i915/guc: Increase GuC log size for CONFIG_DEBUG_GEM
-  drm/i915/guc: Don't go bang in GuC log if no GuC
-  drm/i915/guc: Update to GuC version 69.0.0
-  drm/i915/guc: Improve GuC loading status check/error reports
-
- Documentation/gpu/i915.rst                    |   1 +
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  80 +++++-----
- .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   |  23 +++
- drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h |  82 ++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 126 +++++++++++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  45 +++++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 141 ++++++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c     |  17 +--
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  37 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  31 ++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |   8 +-
- .../drm/i915/gt/uc/intel_guc_log_debugfs.c    |   4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h    |   4 -
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  18 +++
- drivers/gpu/drm/i915/gt/uc/intel_huc.c        |   1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  31 ++--
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |  93 ++++++++----
- 18 files changed, 536 insertions(+), 210 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
+index ac1ee1d5ce10..fe6ab7550a14 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
+@@ -15,9 +15,12 @@
+ 
+ struct intel_guc;
+ 
+-#ifdef CONFIG_DRM_I915_DEBUG_GUC
++#if defined(CONFIG_DRM_I915_DEBUG_GUC)
+ #define CRASH_BUFFER_SIZE	SZ_2M
+ #define DEBUG_BUFFER_SIZE	SZ_16M
++#elif defined(CONFIG_DRM_I915_DEBUG_GEM)
++#define CRASH_BUFFER_SIZE	SZ_1M
++#define DEBUG_BUFFER_SIZE	SZ_2M
+ #else
+ #define CRASH_BUFFER_SIZE	SZ_8K
+ #define DEBUG_BUFFER_SIZE	SZ_64K
 -- 
 2.25.1
 
