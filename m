@@ -4,32 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D2D7C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 23:56:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0108DC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 23:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1B2AB620;
-	Fri,  3 Dec 2021 23:56:44 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF324AB620;
- Fri,  3 Dec 2021 23:56:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="237016981"
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="237016981"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F18EAB6C3;
+	Fri,  3 Dec 2021 23:59:26 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF95AB6B4
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 23:59:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="235811401"
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="235811401"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 15:56:43 -0800
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="678282784"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2021 15:59:23 -0800
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="678283221"
+Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
+ ([10.1.27.20])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 15:56:43 -0800
+ 03 Dec 2021 15:59:23 -0800
+Date: Fri, 3 Dec 2021 15:53:56 -0800
 From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-Date: Fri,  3 Dec 2021 15:51:12 -0800
-Message-Id: <20211203235112.3358-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.33.1
+To: Bruce Chang <yu.bruce.chang@intel.com>
+Message-ID: <20211203235356.GA3393@jons-linux-dev-box>
+References: <20211203233057.2854-1-yu.bruce.chang@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Rollback seqno when request creation
- fails
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211203233057.2854-1-yu.bruce.chang@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Follow up on increase
+ timeout in i915_gem_contexts selftests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,75 +46,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-gem_ctx_create.basic-files can slam on kernel contexts to the extent
-where request creation fails because the ring is full. When this happens
-seqno numbers are skipped which can result the below GEM_BUG_ON blowing
-in gt/intel_engine_pm.c:__engine_unpark:
+On Fri, Dec 03, 2021 at 03:30:57PM -0800, Bruce Chang wrote:
+> Follow up on patch https://patchwork.freedesktop.org/patch/446832/
+> 
+> Different platforms will take a bit longer while GuC is enabled, so
+> increase the timeout and also add some margin in i915_gem_context
+> selftest.
+> 
+> Signed-off-by: Bruce Chang <yu.bruce.chang@intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: John Harrison <John.C.Harrison@Intel.com>
+> ---
+>  drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+> index b32f7fed2d9c..ae33e8c705da 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+> @@ -88,7 +88,7 @@ static int live_nop_switch(void *arg)
+>  			rq = i915_request_get(this);
+>  			i915_request_add(this);
+>  		}
+> -		if (i915_request_wait(rq, 0, HZ) < 0) {
+> +		if (i915_request_wait(rq, 0, 10*HZ) < 0) {
 
-GEM_BUG_ON(ce->timeline->seqno !=
-           READ_ONCE(*ce->timeline->hwsp_seqno));
+s/10*HZ/10 * HZ/
 
-Fixup request creation code to roll back seqno when request creation
-fails.
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
 
-v2:
- (CI)
-  - Fix build error
+s/10*HZ/10 * HZ/
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_timeline.c | 8 ++++++++
- drivers/gpu/drm/i915/gt/intel_timeline.h | 1 +
- drivers/gpu/drm/i915/i915_request.c      | 1 +
- 3 files changed, 10 insertions(+)
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 438bbc7b8147..3785e5605549 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -301,6 +301,14 @@ static u32 timeline_advance(struct intel_timeline *tl)
- 	return tl->seqno += 1 + tl->has_initial_breadcrumb;
- }
- 
-+void intel_timeline_rollback_seqno(struct intel_timeline *tl)
-+{
-+	GEM_BUG_ON(!atomic_read(&tl->pin_count));
-+	GEM_BUG_ON(tl->seqno & tl->has_initial_breadcrumb);
-+
-+	tl->seqno -= 1 + tl->has_initial_breadcrumb;
-+}
-+
- static noinline int
- __intel_timeline_get_seqno(struct intel_timeline *tl,
- 			   u32 *seqno)
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index 57308c4d664a..a2f2e0ea186f 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -72,6 +72,7 @@ void intel_timeline_enter(struct intel_timeline *tl);
- int intel_timeline_get_seqno(struct intel_timeline *tl,
- 			     struct i915_request *rq,
- 			     u32 *seqno);
-+void intel_timeline_rollback_seqno(struct intel_timeline *tl);
- void intel_timeline_exit(struct intel_timeline *tl);
- void intel_timeline_unpin(struct intel_timeline *tl);
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index a72c8f0346a0..86f32ee082f7 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -966,6 +966,7 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
- 
- err_unwind:
- 	ce->ring->emit = rq->head;
-+	intel_timeline_rollback_seqno(tl);
- 
- 	/* Make sure we didn't add ourselves to external state before freeing */
- 	GEM_BUG_ON(!list_empty(&rq->sched.signalers_list));
--- 
-2.33.1
+s/10*HZ/10 * HZ/
 
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
+
+s/10*HZ/10 * HZ/
+
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
+
+s/10*HZ/10 * HZ/
+
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
+
+s/10*HZ/10 * HZ/
+
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
+
+s/10*HZ/10 * HZ/
+
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
+
+s/10*HZ/10 * HZ/
+
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com
+
+s/10*HZ/10 * HZ/
+
+With that and an agreed upon audit of selftests / IGTs:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+
+>  			pr_err("Failed to populated %d contexts\n", nctx);
+>  			intel_gt_set_wedged(&i915->gt);
+>  			i915_request_put(rq);
+> -- 
+> 2.21.3
+> 
