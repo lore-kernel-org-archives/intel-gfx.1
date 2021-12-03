@@ -4,56 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC9FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 19:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1AE4C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 19:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178657B923;
-	Fri,  3 Dec 2021 19:09:26 +0000 (UTC)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40EDA7B923;
- Fri,  3 Dec 2021 19:09:25 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id p18so2729944plf.13;
- Fri, 03 Dec 2021 11:09:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=IoBuVhCiR9BrSiQMh75XUsvklE4yOFaQXUkrNsUI+/Y=;
- b=o+MayrhIXhy6Tn8p5jFoe3c6UEGzOvhNMOZ3TtvQekj4JCNjdsawVl2u3l5SENbfof
- TNfIHy73jO38Cwwn82y0/O0BIKnFHjyLPXQJDzy7qycQOBmCsMlzDh1Q2DR/dDfUPV+T
- r18zoZXJa+kuffykx6WxpgSUqIrRhMh+5seYzmBeIdQgodapeD3BgFIao8z0z3xul5DI
- zzfBS7ojv+CsTNBmtiL+bcj2r2Be0KmQr05NMIrnRPld2usPWmwa7QKmH4TJixqKzBoT
- zvPWSf1nPvABpim+20Hg6l+G/t1o5CzzG1XTTa95NmXosfCoW+SB7in29LfUrsF96+Pj
- 5kKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=IoBuVhCiR9BrSiQMh75XUsvklE4yOFaQXUkrNsUI+/Y=;
- b=zfix/1jPHIPkjrmyrMRbfanjMQgwZf4HvJLFOEx8Crya8X9/IMYD+g1a9B7NUHZF8v
- 62RTLbXHqFTfbkaKBsRs69XILSGXDoN5F6Vjnkjg/I3FMb1UjGw5vpEeIugbcGYJUAQi
- jz2GyT5PTCSPKz9bKfFu+SNGXIvfS7l30aotQ07IKGKViDNb+He8gSYb9+iiiX3HqAf7
- a9axpZ9xH5xFot2WPuv20OsUeFlsw1Ws0M+aGOJ39GVbRBn5lHgV0pEs1dUJy96h8zoD
- 13fJRe7RTYXx+SeIbn4/1TcLDqQ9BZcSrs0svmmtf2kRUhUHZmXjM85a9EzcnwyQfa/G
- HC4g==
-X-Gm-Message-State: AOAM5300ayAwCIrqAYgsOgRVyknyIlywgfHV0uD2SdltkAQ30YcDESK0
- ebp9z5vshY16/bwfYeC9xzguzs46F8V/j8InZE8=
-X-Google-Smtp-Source: ABdhPJxZJvNEr3MwGMO10MxWXmKiW1dA8s8jvQruDvE9ccjiUSFfbFTenWOarBOh/3TPJbQ4+kPRDOmSReFhkMMc+GI=
-X-Received: by 2002:a17:90a:17a5:: with SMTP id
- q34mr15942710pja.122.1638558564703; 
- Fri, 03 Dec 2021 11:09:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2CB7BDF3;
+	Fri,  3 Dec 2021 19:43:55 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D586E7BDED;
+ Fri,  3 Dec 2021 19:43:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="297842920"
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="297842920"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2021 11:43:53 -0800
+X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="678208771"
+Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
+ ([10.1.27.20])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2021 11:43:53 -0800
+Date: Fri, 3 Dec 2021 11:38:26 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <20211203193826.GA31951@jons-linux-dev-box>
+References: <20211202044831.29583-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-References: <20211202203400.1208663-1-kuba@kernel.org>
- <YanDM7hD9KucIRq6@kroah.com>
-In-Reply-To: <YanDM7hD9KucIRq6@kroah.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Fri, 3 Dec 2021 11:09:13 -0800
-Message-ID: <CAADnVQJXSksytrk5aLGQzgzaoGB9xFWqXWSTj0AmkEWiEs2jWg@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH bpf v2] treewide: add missing includes
- masked by cgroup -> bpf dependency
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211202044831.29583-1-matthew.brost@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix error pointer dereference in
+ i915_gem_do_execbuffer()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +46,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
- Song Liu <songliubraving@fb.com>, Martin KaFai Lau <kafai@fb.com>,
- David Airlie <airlied@linux.ie>, Yonghong Song <yhs@fb.com>,
- Alexei Starovoitov <ast@kernel.org>, dri-devel@lists.freedesktop.org,
- Andrii Nakryiko <andrii@kernel.org>, a-govindraju@ti.com, ray.huang@amd.com,
- sbhatta@marvell.com, robh@kernel.org, lorenzo.pieralisi@arm.com,
- Daniel Borkmann <daniel@iogearbox.net>, krzysztof.kozlowski@canonical.com,
- John Fastabend <john.fastabend@gmail.com>, hkelam@marvell.com,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Matthew Auld <matthew.auld@intel.com>, linux-pci@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Sunil Goutham <sgoutham@marvell.com>,
- thomas.hellstrom@linux.intel.com, pawell@cadence.com, tzimmermann@suse.de,
- mani@kernel.org, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- mripard@kernel.org, KP Singh <kpsingh@kernel.org>, rogerq@kernel.org,
- linux-samsung-soc@vger.kernel.org, bhelgaas@google.com,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- SeongJae Park <sj@kernel.org>, lima@lists.freedesktop.org,
- linux-mm <linux-mm@kvack.org>, jingoohan1@gmail.com,
- Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
- christian.koenig@amd.com, yuq825@gmail.com, bpf <bpf@vger.kernel.org>,
- colin.king@intel.com, freedreno@lists.freedesktop.org, gakula@marvell.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 2, 2021 at 11:11 PM Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Dec 02, 2021 at 12:34:00PM -0800, Jakub Kicinski wrote:
-> > cgroup.h (therefore swap.h, therefore half of the universe)
-> > includes bpf.h which in turn includes module.h and slab.h.
-> > Since we're about to get rid of that dependency we need
-> > to clean things up.
-> >
-> > v2: drop the cpu.h include from cacheinfo.h, it's not necessary
-> > and it makes riscv sensitive to ordering of include files.
-> >
-> > Link: https://lore.kernel.org/all/20211120035253.72074-1-kuba@kernel.or=
-g/  # v1
-> > Link: https://lore.kernel.org/all/20211120165528.197359-1-kuba@kernel.o=
-rg/ # cacheinfo discussion
-> > Acked-by: Krzysztof Wilczy=C5=84ski <kw@linux.com>
-> > Acked-by: Peter Chen <peter.chen@kernel.org>
-> > Acked-by: SeongJae Park <sj@kernel.org>
-> > Acked-by: Jani Nikula <jani.nikula@intel.com>
-> > Signed-off-by: Jakub Kicinski <kuba@kernel.org>
->
-> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On Wed, Dec 01, 2021 at 08:48:31PM -0800, Matthew Brost wrote:
+> From: Dan Carpenter <dan.carpenter@oracle.com>
+> 
+> Originally "out_fence" was set using out_fence = sync_file_create() but
+> which returns NULL, but now it is set with out_fence = eb_requests_create()
+> which returns error pointers.  The error path needs to be modified to
+> avoid an Oops in the "goto err_request;" path.
+> 
+> Fixes: 544460c33821 ("drm/i915: Multi-BB execbuf")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-I'm not sure how to test that it helps to reduce build deps,
-but it builds and passes tests, so applied to bpf tree.
-Jakub, you'll soon get it back via bpf tree PR :)
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> index 9f7c6ecadb90..6db588b9a30e 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> @@ -3288,6 +3288,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+>  	out_fence = eb_requests_create(&eb, in_fence, out_fence_fd);
+>  	if (IS_ERR(out_fence)) {
+>  		err = PTR_ERR(out_fence);
+> +		out_fence = NULL;
+>  		if (eb.requests[0])
+>  			goto err_request;
+>  		else
+> -- 
+> 2.33.1
+> 
