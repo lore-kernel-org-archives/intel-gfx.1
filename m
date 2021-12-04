@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8CE2C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C521C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7D77AA78;
-	Mon,  6 Dec 2021 13:23:21 +0000 (UTC)
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79F606E8A0;
- Sat,  4 Dec 2021 10:55:37 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id d11so11142216ljg.8;
- Sat, 04 Dec 2021 02:55:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 220E37AA76;
+	Mon,  6 Dec 2021 13:23:25 +0000 (UTC)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD876E8A0;
+ Sat,  4 Dec 2021 10:55:40 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id z7so12770143lfi.11;
+ Sat, 04 Dec 2021 02:55:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=jMWhXajJiO5/ngjUzSyRmg7Q56WNQVKtCHyObQxH9Wg=;
- b=cIym/fh9aHVFDhGAj0hvUz+OG75vxQxF2mMByqcvJk603QAr9P5yDTOIY17tko55Dp
- 03rxl8fgbhQSebhWCp+fayAWUnbM3PSB/KhTnawZjO9msrffBLMcb8d6yQ328A5Ydl4F
- m+FpG3ce6TUa5a00X2v9BvqdPLZu1+Ng/tZ+rzs9gtbeWgwzkVsfgUB06dPqCN3y2eMH
- WKHIQzKFzQcL5GJ1UhDTzX7OJvhAaYlnfyFNZCDdQ2G53ohQCrSyqu7S+5LWWu4sQdHY
- y/eQbrMBgreF0AE/LfpVuUY4CtYEx3F/hP2Z/XlYbdUBNXaXkMPob/lhfi5R2E3YKRhV
- OTIA==
+ bh=J16kucgpxxFj0SceQv3cDVzmFp/VklNjZX1TRul+m8Y=;
+ b=KTxS8CAlcFPuXjGbMPumG7q97zGouOde1CcmY7L/uLuhADnM4BcoJMaeom0EXCX84t
+ pny52CZzamXSPOcEbdxdNpKGjGeanjhnAT56YOLMDbwy6NgskLRwtl29B+r7HOWTrSEP
+ 3YJbDPxh1P7Hxb5p/8UtPbREgpkKOXWnS/rZJVrSZ/agE9Ih+6o7nzIHAle49Mkth6fs
+ AniTatkRxe5vpY2hGkli8edWmJbyz34xDpWZPmbAPO1Di55UFktRXW0U+8XWCjtGh8YX
+ Y6FzqFJ8BC8YDfuJ4/r4TMHLD8Iqco18BRrI0hdg03pH44+5ngMJ9G/OpWhKkZFpjqx8
+ 65qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=jMWhXajJiO5/ngjUzSyRmg7Q56WNQVKtCHyObQxH9Wg=;
- b=2f8yc478RnCdeXieNloGs3PMkb7BK55Rwuo8Vkf9GNl3nc3vRfegr/QP/f2NSg5nDv
- qx/bJCdbdaQBO9kIcezukZ7a2zloK2Bkqcba+NTBSOaVG2NyervXShpisxP+D3XeuHNN
- OUWEmxouyaZ25Jd/B2zazJB9ecWNMjl2cqExY3jJsXAmYLPsFCVvWT4y9YsC2plgcK+g
- 0CyK1PIje1zVGqOg35YRMasCr9DMR8gFCarSc893nbKwxhJjEadM5ZuVU1LX4hf1IgVE
- vjJZ7+aFofdOv3LxOTMmKN8P7YmdsTlE0/jdlLAL9pDlU137jtuAoYO6/+NGHfqX7Jab
- fxFw==
-X-Gm-Message-State: AOAM531g3LD3ASAuLLxj6rd7PPbdDgLxpktJW9J6hTFvdDB+dGIzX9JF
- Z+5yBT5m3ze6nAH9tAV+crTbxOFo9v3c2A==
-X-Google-Smtp-Source: ABdhPJzAvK3lM4MuYvqgdryJD+si4iT6GqCmZFbOMDBg7ckgsqI2GdDZzUmpmowYddV/Bb34pDqc1Q==
-X-Received: by 2002:a2e:9bc9:: with SMTP id w9mr23107843ljj.27.1638615335817; 
- Sat, 04 Dec 2021 02:55:35 -0800 (PST)
+ bh=J16kucgpxxFj0SceQv3cDVzmFp/VklNjZX1TRul+m8Y=;
+ b=ilDdmsz2MSyfAS57RPeCqZ6JPWG2alIU72atjtK3fEtKGVlZ0yuIGcanBHued99G8T
+ 5zRTZgWqKI/QizRMcqSFC+o7pQVqD3cXCR1dlWLVGaWJERNGk+l20NrF9tUCjRdCrPEP
+ 3yb0T/tWHhAsxR+golhKNuv9d7GPRSlBRJgJ4+SReIHNWHbeUjfgRFXqyuIWusiNLSfI
+ qYRIi0f8OrdH+ehm13m0bUceMcRKHAk9xfMbmkD3d1japPRc0ArL/9gv3gJG7cG+Wi2l
+ pFuodSnS+i2t6/Q4ve+9pVdriL+PoT0NHogd0wDz9SamsT16IJQTnmHD65J5vYV/fl9E
+ rEPQ==
+X-Gm-Message-State: AOAM531LogKoUzpGsSaWeIpSuLE3m85VMV8ytBR4QxoxOa7id2sD0TuY
+ cT49LmXc5A7YbyroFuPbj34=
+X-Google-Smtp-Source: ABdhPJxnHBBiPnzp0Q9S5ostX7DrJZwnx/uVFjAfrciWbmhTvWDenGzboQjNhJgA/NdKbesvHKcvRQ==
+X-Received: by 2002:a05:6512:3ca4:: with SMTP id
+ h36mr23357327lfv.411.1638615338968; 
+ Sat, 04 Dec 2021 02:55:38 -0800 (PST)
 Received: from localhost.localdomain (h-155-4-221-129.NA.cust.bahnhof.se.
  [155.4.221.129])
- by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.34
+ by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Dec 2021 02:55:35 -0800 (PST)
+ Sat, 04 Dec 2021 02:55:38 -0800 (PST)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -53,15 +54,16 @@ To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  4 Dec 2021 11:55:19 +0100
-Message-Id: <20211204105527.15741-2-rikard.falkeborn@gmail.com>
+Date: Sat,  4 Dec 2021 11:55:22 +0100
+Message-Id: <20211204105527.15741-5-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 References: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Dec 2021 13:23:20 +0000
-Subject: [Intel-gfx] [PATCH 1/9] drm/i915/gvt: Constify intel_gvt_gtt_pte_ops
+Subject: [Intel-gfx] [PATCH 4/9] drm/i915/gvt: Constify
+ intel_gvt_sched_policy_ops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,45 +87,36 @@ put them in read-only memory.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- drivers/gpu/drm/i915/gvt/gtt.c | 4 ++--
- drivers/gpu/drm/i915/gvt/gtt.h | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gvt/sched_policy.c | 2 +-
+ drivers/gpu/drm/i915/gvt/scheduler.h    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index 53d0cb327539..6efa48727052 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -516,7 +516,7 @@ static struct intel_gvt_gtt_pte_ops gen8_gtt_pte_ops = {
- 	.set_pfn = gen8_gtt_set_pfn,
+diff --git a/drivers/gpu/drm/i915/gvt/sched_policy.c b/drivers/gpu/drm/i915/gvt/sched_policy.c
+index 036b74fe9298..c077fb4674f0 100644
+--- a/drivers/gpu/drm/i915/gvt/sched_policy.c
++++ b/drivers/gpu/drm/i915/gvt/sched_policy.c
+@@ -368,7 +368,7 @@ static void tbs_sched_stop_schedule(struct intel_vgpu *vgpu)
+ 	vgpu_data->active = false;
+ }
+ 
+-static struct intel_gvt_sched_policy_ops tbs_schedule_ops = {
++static const struct intel_gvt_sched_policy_ops tbs_schedule_ops = {
+ 	.init = tbs_sched_init,
+ 	.clean = tbs_sched_clean,
+ 	.init_vgpu = tbs_sched_init_vgpu,
+diff --git a/drivers/gpu/drm/i915/gvt/scheduler.h b/drivers/gpu/drm/i915/gvt/scheduler.h
+index 7c86984a842f..1f391b3da2cc 100644
+--- a/drivers/gpu/drm/i915/gvt/scheduler.h
++++ b/drivers/gpu/drm/i915/gvt/scheduler.h
+@@ -56,7 +56,7 @@ struct intel_gvt_workload_scheduler {
+ 	wait_queue_head_t waitq[I915_NUM_ENGINES];
+ 
+ 	void *sched_data;
+-	struct intel_gvt_sched_policy_ops *sched_ops;
++	const struct intel_gvt_sched_policy_ops *sched_ops;
  };
  
--static struct intel_gvt_gtt_gma_ops gen8_gtt_gma_ops = {
-+static const struct intel_gvt_gtt_gma_ops gen8_gtt_gma_ops = {
- 	.gma_to_ggtt_pte_index = gma_to_ggtt_pte_index,
- 	.gma_to_pte_index = gen8_gma_to_pte_index,
- 	.gma_to_pde_index = gen8_gma_to_pde_index,
-@@ -2097,7 +2097,7 @@ unsigned long intel_vgpu_gma_to_gpa(struct intel_vgpu_mm *mm, unsigned long gma)
- 	struct intel_vgpu *vgpu = mm->vgpu;
- 	struct intel_gvt *gvt = vgpu->gvt;
- 	struct intel_gvt_gtt_pte_ops *pte_ops = gvt->gtt.pte_ops;
--	struct intel_gvt_gtt_gma_ops *gma_ops = gvt->gtt.gma_ops;
-+	const struct intel_gvt_gtt_gma_ops *gma_ops = gvt->gtt.gma_ops;
- 	unsigned long gpa = INTEL_GVT_INVALID_ADDR;
- 	unsigned long gma_index[4];
- 	struct intel_gvt_gtt_entry e;
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.h b/drivers/gpu/drm/i915/gvt/gtt.h
-index 3bf45672ef98..d0d598322404 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.h
-+++ b/drivers/gpu/drm/i915/gvt/gtt.h
-@@ -92,7 +92,7 @@ struct intel_gvt_gtt_gma_ops {
- 
- struct intel_gvt_gtt {
- 	struct intel_gvt_gtt_pte_ops *pte_ops;
--	struct intel_gvt_gtt_gma_ops *gma_ops;
-+	const struct intel_gvt_gtt_gma_ops *gma_ops;
- 	int (*mm_alloc_page_table)(struct intel_vgpu_mm *mm);
- 	void (*mm_free_page_table)(struct intel_vgpu_mm *mm);
- 	struct list_head oos_page_use_list_head;
+ #define INDIRECT_CTX_ADDR_MASK 0xffffffc0
 -- 
 2.34.1
 
