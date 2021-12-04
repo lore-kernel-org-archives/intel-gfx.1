@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73545C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63005C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 292CB7AA84;
-	Mon,  6 Dec 2021 13:23:26 +0000 (UTC)
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B71B6E8A0;
- Sat,  4 Dec 2021 10:55:41 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id e11so11079700ljo.13;
- Sat, 04 Dec 2021 02:55:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 721C27AA81;
+	Mon,  6 Dec 2021 13:23:29 +0000 (UTC)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1FF6E8A0;
+ Sat,  4 Dec 2021 10:55:43 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id bu18so12973624lfb.0;
+ Sat, 04 Dec 2021 02:55:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ruXRve/GlUdLdEDYaUOifA1lUCUJXWdxTJEvuumUifQ=;
- b=MIJDV/2eWWclyWyD6qEyVllFzvqSaBiUOIOyQlKbG/3fqBQb5vAXWpp4ZoZEeSFs+W
- Xk+yE3Jgw8yvSn9ndrXnrAlq9CKep+C5cjraC+zzwf9Eus8GKi9N7mer8KF93E/aOej3
- IUu7ocsIcDYu5yqNOwt98008LSHrk8YeUmY6w5HG3zY6JD6R2vCkUVBPJquKZnoszsUX
- +sSrCMK5UEmUe0VajerYj0LtNMlqYq59TC5o0WtG1qXid1OyCIpVy/pUSJlgWCcdmQmo
- LdF+Rv2eUgR+ljhBHIYCBdKoqhXWB0h++GQTlLaHM0UfsQEUUwNxgbJMbEOlyUEtTXcQ
- D3KA==
+ bh=C0d0CUW1B7x3fzQqz6q8k32dtwb0GdQ9fNSXToABtcU=;
+ b=qpphbWrfpXnlbiEVlqmUTcigeUTFRQk5OfwQa4Ljt0drpgNZXGtP/7wYUQvB+P5wWo
+ 5OCIs84DZfeAm+D2tn+ER42zog8GCcuiMVv8vsHlaJor7SWsKcirDBGxW+7Nq8+0+nMc
+ FHKRnvdXJpAk8bow2fW7Q3o8xUX/TLvfBzPKI7p6rDn4F89plBLoYXZa3PpFpfr6Pq/f
+ IzfVIghLys9BlstnmC8Ku4Gy4QIXDDioPkKXtxzKMuMFS/VJ02U+ddaw0FBmKRY85TTQ
+ 2n7v9qziFq3ltljQQdm6S5HqmMT3rMoVOAz66h1rZDsrS9jEOUhY7cEjTOtJSjxanfrL
+ bCHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ruXRve/GlUdLdEDYaUOifA1lUCUJXWdxTJEvuumUifQ=;
- b=5h1w9HWBNroSydcU8zwWxWY/tzibbUZq9QwrwTc+wfg37ERxwgYzDWFsYmJOGXrvGr
- 2sdQaD0o3vzmPEFuPv7TWHbAOMFmgV4cHnzYo9TKtO9ALtQqOVO/hzegMfXsS3NbGQAx
- ZCLzFsOLb3/Mik3t8cSwyTv29vdsxzWIRPtKYG4Qg/5iMCjAfKIorp0usmt+39PmRZsh
- jeo5S1OE9z+121OWYutngoUxPHmO0wutfT4NKU3MmyN1b1gbti2+2Kr/TN49CjNXnHaL
- pplL9Fv5AfhHaDf00P8/VpktLc7i5n7Cx04R6gaBZciOaSn6V/sGGDXeiM6NoZJ7eoTb
- ghfA==
-X-Gm-Message-State: AOAM532ixGqIHB/zZ/wthzh7KnS0B6MInKVlxZo1xPjvYCXBQJ2S4dFL
- bnVoo+vkFPychNH+UVl20Dg=
-X-Google-Smtp-Source: ABdhPJy2El7rztlBv1liaSflPNwardluUjHPPvs5OMe3GdnrapbiU7s49r3lY3D5gJcm/qDK3WPveA==
-X-Received: by 2002:a05:651c:111:: with SMTP id
- a17mr24987306ljb.456.1638615339927; 
- Sat, 04 Dec 2021 02:55:39 -0800 (PST)
+ bh=C0d0CUW1B7x3fzQqz6q8k32dtwb0GdQ9fNSXToABtcU=;
+ b=2kl5CBsYdHss24qxe3DxqfQkWmOYStXBqRMwCY1/CT2FPyM0dfQNWS4lbGwCuCPaA/
+ t2cZTzzyjwdMm2D/pxQQAJSiF3Sqk9yfp0tpnDY/K8TAoTjG0E0SeC6BLLzZsXCD2Okk
+ +WZEzl9McUWMFK5/xQ8WlhFVcbjMxyjzRCx8pwp9YLrfJdHIUgJLqMl2/DZieOkkz3OR
+ CqfNcfEy8euf8ZMSCmN1h/2ZhbEH3xNyiWU94Kwm93OeI6hdAeQ01FtNHeJWInZgZwTv
+ Y7W3ZTB5Z2iINlzJ03KJDMgCaaZbud2YQXOz8grxaI3q+zdx2YiTc9MCB/s2EYIYYeg7
+ 5FlA==
+X-Gm-Message-State: AOAM5305/Uo5NkHmopS9wTQRVCy5MuJJPo1RyZh4kEph2FevVxlfviUs
+ izCBrJe/wessXvHwKDueVSx1kaWjwlttmA==
+X-Google-Smtp-Source: ABdhPJwpksWaueUjfxQN8EXKZ8uyMOdB4TxPhlVFPayupsVJ63romup+0geZhDZmninOVvoeqbkCTw==
+X-Received: by 2002:a19:5e59:: with SMTP id z25mr23826496lfi.686.1638615341727; 
+ Sat, 04 Dec 2021 02:55:41 -0800 (PST)
 Received: from localhost.localdomain (h-155-4-221-129.NA.cust.bahnhof.se.
  [155.4.221.129])
- by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.39
+ by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Dec 2021 02:55:39 -0800 (PST)
+ Sat, 04 Dec 2021 02:55:41 -0800 (PST)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -54,15 +53,15 @@ To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  4 Dec 2021 11:55:23 +0100
-Message-Id: <20211204105527.15741-6-rikard.falkeborn@gmail.com>
+Date: Sat,  4 Dec 2021 11:55:25 +0100
+Message-Id: <20211204105527.15741-8-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 References: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Dec 2021 13:23:20 +0000
-Subject: [Intel-gfx] [PATCH 5/9] drm/i915/gvt: Constify gvt_mmio_block
+Subject: [Intel-gfx] [PATCH 7/9] drm/i915/gvt: Constify formats
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,73 +81,74 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 These are never modified, so make them const to allow the compiler to
-put it in read-only memory.
+put them in read-only memory. WHile at it, make the description const
+char* since it is never modified.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- drivers/gpu/drm/i915/gvt/gvt.h      |  2 +-
- drivers/gpu/drm/i915/gvt/handlers.c | 12 ++++++------
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gvt/fb_decoder.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index 0c0615602343..0ebffc327528 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.h
-+++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -272,7 +272,7 @@ struct intel_gvt_mmio {
- /* Value of command write of this reg needs to be patched */
- #define F_CMD_WRITE_PATCH	(1 << 8)
+diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+index 11a8baba6822..3c8736ae8fed 100644
+--- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
++++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+@@ -40,12 +40,12 @@
  
--	struct gvt_mmio_block *mmio_block;
-+	const struct gvt_mmio_block *mmio_block;
- 	unsigned int num_mmio_block;
+ #define PRIMARY_FORMAT_NUM	16
+ struct pixel_format {
+-	int	drm_format;	/* Pixel format in DRM definition */
+-	int	bpp;		/* Bits per pixel, 0 indicates invalid */
+-	char	*desc;		/* The description */
++	int		drm_format;	/* Pixel format in DRM definition */
++	int		bpp;		/* Bits per pixel, 0 indicates invalid */
++	const char	*desc;		/* The description */
+ };
  
- 	DECLARE_HASHTABLE(mmio_info_table, INTEL_GVT_MMIO_HASH_BITS);
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index cde0a477fb49..5e85a77da257 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -3627,11 +3627,11 @@ static int init_bxt_mmio_info(struct intel_gvt *gvt)
- 	return 0;
- }
+-static struct pixel_format bdw_pixel_formats[] = {
++static const struct pixel_format bdw_pixel_formats[] = {
+ 	{DRM_FORMAT_C8, 8, "8-bit Indexed"},
+ 	{DRM_FORMAT_RGB565, 16, "16-bit BGRX (5:6:5 MSB-R:G:B)"},
+ 	{DRM_FORMAT_XRGB8888, 32, "32-bit BGRX (8:8:8:8 MSB-X:R:G:B)"},
+@@ -58,7 +58,7 @@ static struct pixel_format bdw_pixel_formats[] = {
+ 	{0, 0, NULL},
+ };
  
--static struct gvt_mmio_block *find_mmio_block(struct intel_gvt *gvt,
--					      unsigned int offset)
-+static const struct gvt_mmio_block *find_mmio_block(struct intel_gvt *gvt,
-+						    unsigned int offset)
- {
- 	unsigned long device = intel_gvt_get_device_type(gvt);
--	struct gvt_mmio_block *block = gvt->mmio.mmio_block;
-+	const struct gvt_mmio_block *block = gvt->mmio.mmio_block;
- 	int num = gvt->mmio.num_mmio_block;
- 	int i;
+-static struct pixel_format skl_pixel_formats[] = {
++static const struct pixel_format skl_pixel_formats[] = {
+ 	{DRM_FORMAT_YUYV, 16, "16-bit packed YUYV (8:8:8:8 MSB-V:Y2:U:Y1)"},
+ 	{DRM_FORMAT_UYVY, 16, "16-bit packed UYVY (8:8:8:8 MSB-Y2:V:Y1:U)"},
+ 	{DRM_FORMAT_YVYU, 16, "16-bit packed YVYU (8:8:8:8 MSB-U:Y2:V:Y1)"},
+@@ -278,14 +278,14 @@ int intel_vgpu_decode_primary_plane(struct intel_vgpu *vgpu,
  
-@@ -3670,7 +3670,7 @@ void intel_gvt_clean_mmio_info(struct intel_gvt *gvt)
-  * accessible (should have no F_CMD_ACCESS flag).
-  * otherwise, need to update cmd_reg_handler in cmd_parser.c
-  */
--static struct gvt_mmio_block mmio_blocks[] = {
-+static const struct gvt_mmio_block mmio_blocks[] = {
- 	{D_SKL_PLUS, _MMIO(DMC_MMIO_START_RANGE), 0x3000, NULL, NULL},
- 	{D_ALL, _MMIO(MCHBAR_MIRROR_BASE_SNB), 0x40000, NULL, NULL},
- 	{D_ALL, _MMIO(VGT_PVINFO_PAGE), VGT_PVINFO_SIZE,
-@@ -3753,7 +3753,7 @@ int intel_gvt_for_each_tracked_mmio(struct intel_gvt *gvt,
- 	int (*handler)(struct intel_gvt *gvt, u32 offset, void *data),
- 	void *data)
- {
--	struct gvt_mmio_block *block = gvt->mmio.mmio_block;
-+	const struct gvt_mmio_block *block = gvt->mmio.mmio_block;
- 	struct intel_gvt_mmio_info *e;
- 	int i, j, ret;
+ #define CURSOR_FORMAT_NUM	(1 << 6)
+ struct cursor_mode_format {
+-	int	drm_format;	/* Pixel format in DRM definition */
+-	u8	bpp;		/* Bits per pixel; 0 indicates invalid */
+-	u32	width;		/* In pixel */
+-	u32	height;		/* In lines */
+-	char	*desc;		/* The description */
++	int		drm_format;	/* Pixel format in DRM definition */
++	u8		bpp;		/* Bits per pixel; 0 indicates invalid */
++	u32		width;		/* In pixel */
++	u32		height;		/* In lines */
++	const char	*desc;		/* The description */
+ };
  
-@@ -3871,7 +3871,7 @@ int intel_vgpu_mmio_reg_rw(struct intel_vgpu *vgpu, unsigned int offset,
- 	struct drm_i915_private *i915 = vgpu->gvt->gt->i915;
- 	struct intel_gvt *gvt = vgpu->gvt;
- 	struct intel_gvt_mmio_info *mmio_info;
--	struct gvt_mmio_block *mmio_block;
-+	const struct gvt_mmio_block *mmio_block;
- 	gvt_mmio_func func;
- 	int ret;
+-static struct cursor_mode_format cursor_pixel_formats[] = {
++static const struct cursor_mode_format cursor_pixel_formats[] = {
+ 	{DRM_FORMAT_ARGB8888, 32, 128, 128, "128x128 32bpp ARGB"},
+ 	{DRM_FORMAT_ARGB8888, 32, 256, 256, "256x256 32bpp ARGB"},
+ 	{DRM_FORMAT_ARGB8888, 32, 64, 64, "64x64 32bpp ARGB"},
+@@ -391,7 +391,7 @@ int intel_vgpu_decode_cursor_plane(struct intel_vgpu *vgpu,
  
+ #define SPRITE_FORMAT_NUM	(1 << 3)
+ 
+-static struct pixel_format sprite_pixel_formats[SPRITE_FORMAT_NUM] = {
++static const struct pixel_format sprite_pixel_formats[SPRITE_FORMAT_NUM] = {
+ 	[0x0] = {DRM_FORMAT_YUV422, 16, "YUV 16-bit 4:2:2 packed"},
+ 	[0x1] = {DRM_FORMAT_XRGB2101010, 32, "RGB 32-bit 2:10:10:10"},
+ 	[0x2] = {DRM_FORMAT_XRGB8888, 32, "RGB 32-bit 8:8:8:8"},
 -- 
 2.34.1
 
