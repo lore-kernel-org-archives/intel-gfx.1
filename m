@@ -4,54 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6DB2C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:18:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 300A4C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBB27A551;
-	Mon,  6 Dec 2021 13:18:34 +0000 (UTC)
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [IPv6:2607:f8b0:4864:20::f30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3CC7A550;
- Mon,  6 Dec 2021 13:18:33 +0000 (UTC)
-Received: by mail-qv1-xf30.google.com with SMTP id p3so9765216qvj.9;
- Mon, 06 Dec 2021 05:18:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A57537AA72;
+	Mon,  6 Dec 2021 13:23:20 +0000 (UTC)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E9E56E8A0;
+ Sat,  4 Dec 2021 10:55:44 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id 13so11089697ljj.11;
+ Sat, 04 Dec 2021 02:55:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QfM6r7Wt9Tj5DOQylxIiCrnk8we9qJZjFbxTCRe5N8g=;
- b=pUc1gFPFaQFVbYToMurfMFG+PXLRppxmJtxwnME6/elUbZrgi5HawGgd48R4WjeGpi
- gTzclBPZHXOYRBOSuXpqQD+q+5IOR74fbKRoiqCGpH4DHp/WDoPeN2csmUiX1G3RNxye
- jkkb0SlixTmADjrnkMK1QFMZbOo7n1cPiVQ+RYCsHCekoaCvLG5XRkY8Q69cFV2dEo03
- 8cHwfYlvcR0kTZ1GN/ufNzdb1o8OH63qdXu4YYCdiQzuKBrxZANPi7Upw73C7svPXtC9
- ZYMQDrK70iW9vXz2mb3M9kt6lX4fkXtIaHSNaKOQdZbAFEHfjmfvpOvcNlQeDrJ084AX
- lOzg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=KpJG+dZIKMWfHUy9cRIbi/fWUlXgNegU2DlqIwxqCCg=;
+ b=XSuEd/aztjZTNFkVTdND9ThEpZC8tfRUibgQ0FbuO+Y9pTS9AIFhjcM59HnI1TMibt
+ pkLkC8Tu/km/G3bs+gRczOpS1fyIWVtvknfTft6mcrbTqn+17snNs+zzedOGKanu6wnS
+ oG0YyYqtaj5WYteewkMioSabHEek0sCxzA0OtKvE9YO1Xi8cmsYFpc/iR2uPiVxKJK/m
+ iQ8TQWTC7H8+R5ooTzd8OWTRMkR9/2PkwlqGI67c37kb9weU4u4HQCadsLDAVMKb2ro1
+ 2BK3mq8F/8bqRxwE1zLa4+Spy8m0VJ9VfYRfHs3wTu9QOC75X9Uojny3U3ytkV9LRWJh
+ Qlbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QfM6r7Wt9Tj5DOQylxIiCrnk8we9qJZjFbxTCRe5N8g=;
- b=nDijp//vSHQ/PrKbORVqmDyNh+9IaQ14hfYBWW64YLc/tsISNep/es84vaPgICZLWI
- EhEHIMe33lLLVSeQPpZxaNmlReFt8uCWwBG2p2WtQL1As4msWIy7zkjEDNs0ayVookIB
- X87AlO0R6m5CRBVWP4Kho/xmIXQOdL4ADp6WGaK+BIIVWFtJfoD9vEJJUe/muDw8xOoo
- 8mI+mDLjXcpRsTc+fIpu1X9h1fDzHMLyN4Ktt3GheUYYOGIla7gJoYA8RrCTPoHwYBiX
- X+SFCR0zBTArdVBMT4odaXpwZwdYccLzCuDOb4nmNeXYgK4d+HIWLbhE/hsCT1g21t0V
- c3TA==
-X-Gm-Message-State: AOAM533xRquqgUrgFv5te4zK045pwQ06f5yiLLorHvIPH1DFYA/HzBx2
- wxnpl7rfpD7dkUWZrjauXuUBveQr0irsg3NbSxtMPPaEZgY=
-X-Google-Smtp-Source: ABdhPJz7c7LEIVEFU57L2VkMAzwDatIU9ROvYwekbreTvUydYPInrMLkhy7Y5xvubjoM6QYeHg7kPeTb0wDwfhOh40E=
-X-Received: by 2002:a05:6214:18c7:: with SMTP id
- cy7mr36305584qvb.0.1638796710217; 
- Mon, 06 Dec 2021 05:18:30 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=KpJG+dZIKMWfHUy9cRIbi/fWUlXgNegU2DlqIwxqCCg=;
+ b=jq2hvK6YIe+Mm7GqXOnBJ9IBv/tJ29+95v3WdHzfA663YTz69jC7tIYIlkpGx9nt3l
+ S+JkFjQUDBGWwDada0TSvE1JBvYckeQmT6yIe21iaZY5qvguCWhK0Wd3DdQ6IrCcd2eJ
+ UNRAu8THdFLWir0BU1cUWnJJciGc2Y41Ky9G8xIGsVXoekmEr90BER91Z7we3NNcl2M4
+ DgpkefV041Lba2GjP8FL97xTLqQvWgli79JiCD8f9Mu3vyzv5dWI2tKif9omXtjA0pH6
+ K/D+HgFW48L43jAgH9BjxWHE5OaOAakbbz6eduMkfFlMDkmQUPpSkuul1sqIgOguGmWU
+ gyVA==
+X-Gm-Message-State: AOAM531ksI3alEArejxNvv9Q1udGm1SL4E/8uWxgtNU2aE8nw5ig61Pn
+ JF/bGmrzVFwFXpM+3mCRSGkbkoEK5HmOTQ==
+X-Google-Smtp-Source: ABdhPJwR00P/dErhD2wD/pyjqENrBh+9h5sjMb5T9+VNLzmG+b3L31NMSBiUlvXBCEk8Sxocwb3p+A==
+X-Received: by 2002:a2e:a482:: with SMTP id h2mr23375178lji.87.1638615342575; 
+ Sat, 04 Dec 2021 02:55:42 -0800 (PST)
+Received: from localhost.localdomain (h-155-4-221-129.NA.cust.bahnhof.se.
+ [155.4.221.129])
+ by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 Dec 2021 02:55:42 -0800 (PST)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Sat,  4 Dec 2021 11:55:26 +0100
+Message-Id: <20211204105527.15741-9-rikard.falkeborn@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
+References: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
-References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
- <20211129134735.628712-5-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20211129134735.628712-5-maarten.lankhorst@linux.intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Mon, 6 Dec 2021 13:18:04 +0000
-Message-ID: <CAM0jSHNf84JhZ3j2XawWbnv1Lmrvf0D+PG+U8n3QwZ6NFHozoA@mail.gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH v2 04/16] drm/i915: Take object lock in
- i915_ggtt_pin if ww is not set
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 06 Dec 2021 13:23:20 +0000
+Subject: [Intel-gfx] [PATCH 8/9] drm/i915/gvt: Constify gtt_type_table_entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,15 +74,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 29 Nov 2021 at 13:58, Maarten Lankhorst
-<maarten.lankhorst@linux.intel.com> wrote:
->
-> i915_vma_wait_for_bind needs the vma lock held, fix the caller.
->
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+It is never modified, so make it const to allow the compiler to put it
+in read-only memory.
+
+Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+---
+ drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index c8cd6bf28ea8..614156856f16 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -185,7 +185,7 @@ struct gtt_type_table_entry {
+ 		.pse_entry_type = pse_type, \
+ 	}
+ 
+-static struct gtt_type_table_entry gtt_type_table[] = {
++static const struct gtt_type_table_entry gtt_type_table[] = {
+ 	GTT_TYPE_TABLE_ENTRY(GTT_TYPE_PPGTT_ROOT_L4_ENTRY,
+ 			GTT_TYPE_PPGTT_ROOT_L4_ENTRY,
+ 			GTT_TYPE_INVALID,
+-- 
+2.34.1
+
