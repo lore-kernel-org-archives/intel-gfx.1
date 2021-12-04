@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C521C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B48C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220E37AA76;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84AF27AA7E;
 	Mon,  6 Dec 2021 13:23:25 +0000 (UTC)
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD876E8A0;
- Sat,  4 Dec 2021 10:55:40 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id z7so12770143lfi.11;
- Sat, 04 Dec 2021 02:55:40 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 162B76E8A0;
+ Sat,  4 Dec 2021 10:55:45 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id r26so12809125lfn.8;
+ Sat, 04 Dec 2021 02:55:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=J16kucgpxxFj0SceQv3cDVzmFp/VklNjZX1TRul+m8Y=;
- b=KTxS8CAlcFPuXjGbMPumG7q97zGouOde1CcmY7L/uLuhADnM4BcoJMaeom0EXCX84t
- pny52CZzamXSPOcEbdxdNpKGjGeanjhnAT56YOLMDbwy6NgskLRwtl29B+r7HOWTrSEP
- 3YJbDPxh1P7Hxb5p/8UtPbREgpkKOXWnS/rZJVrSZ/agE9Ih+6o7nzIHAle49Mkth6fs
- AniTatkRxe5vpY2hGkli8edWmJbyz34xDpWZPmbAPO1Di55UFktRXW0U+8XWCjtGh8YX
- Y6FzqFJ8BC8YDfuJ4/r4TMHLD8Iqco18BRrI0hdg03pH44+5ngMJ9G/OpWhKkZFpjqx8
- 65qQ==
+ bh=/ZsaCGjkX57VU37ZwPgn6ut1UEGl/i4rIkhwzK9YXBM=;
+ b=VbjZssCqahnEymdQXcugkZM7CINrIXO5t9jSAm+Eh1GBeOrM029IZ7lisGsN2PjAAr
+ GAtNyIdsfkAv3UL58N7abxCO+OfvpgnJ74wF4M/7t1xV1yFH3QfACbyE9A5Qy2bq8eX5
+ mnDtxBPIOKugY0cN7RXl9Of+xgZPnk9JtTOmBtqzGRvAPnkFmN/0GmOlQLhy5fQzeKhV
+ TviY0fd40sOg/8Np4s+rmVC2GVPDWvpjjRVkadRz27Eo6bWinsXoRCjSRyIZURsqbm3X
+ c6jPzBhz2S3o37CaQtbVCXcJy6bEIUyZvzJX3QMvVykNijnjBCfg3DW3Ao+Pz04+NlyG
+ K07A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=J16kucgpxxFj0SceQv3cDVzmFp/VklNjZX1TRul+m8Y=;
- b=ilDdmsz2MSyfAS57RPeCqZ6JPWG2alIU72atjtK3fEtKGVlZ0yuIGcanBHued99G8T
- 5zRTZgWqKI/QizRMcqSFC+o7pQVqD3cXCR1dlWLVGaWJERNGk+l20NrF9tUCjRdCrPEP
- 3yb0T/tWHhAsxR+golhKNuv9d7GPRSlBRJgJ4+SReIHNWHbeUjfgRFXqyuIWusiNLSfI
- qYRIi0f8OrdH+ehm13m0bUceMcRKHAk9xfMbmkD3d1japPRc0ArL/9gv3gJG7cG+Wi2l
- pFuodSnS+i2t6/Q4ve+9pVdriL+PoT0NHogd0wDz9SamsT16IJQTnmHD65J5vYV/fl9E
- rEPQ==
-X-Gm-Message-State: AOAM531LogKoUzpGsSaWeIpSuLE3m85VMV8ytBR4QxoxOa7id2sD0TuY
- cT49LmXc5A7YbyroFuPbj34=
-X-Google-Smtp-Source: ABdhPJxnHBBiPnzp0Q9S5ostX7DrJZwnx/uVFjAfrciWbmhTvWDenGzboQjNhJgA/NdKbesvHKcvRQ==
-X-Received: by 2002:a05:6512:3ca4:: with SMTP id
- h36mr23357327lfv.411.1638615338968; 
- Sat, 04 Dec 2021 02:55:38 -0800 (PST)
+ bh=/ZsaCGjkX57VU37ZwPgn6ut1UEGl/i4rIkhwzK9YXBM=;
+ b=19oBFNGvdmdtX+/omz8ekNzOoiKlyvTTpl+EfoBZ+LyCOotkzD1amSLMkOmSJLxl/6
+ A/0BQj59xRybTR0vFsHvlUvloSlS1jR08LIVy5LSF8C6tbKYjqkNomiRBM6IO5tNrrxB
+ DM0aoG8v/3Rr+Mt6HZnQvYkfGznWM/OpAH0uBDZLbhXd8O7sJQ/HGwHoV1ym7WFL/VTV
+ tfE22/j2L2QwOOaZrkgc72rZXcd7oZ0wxVCAA6nFCvreaZ/8j2ms8r/+fAI1uKY9F9ej
+ q5+pcehFYLYnuFgP2q5xULavi0q98DMK1wpJQDey4gA50tBHyRIFag6feXBKJE4YWQ5q
+ NPgA==
+X-Gm-Message-State: AOAM530P020bnJGFeZk4S/BT7WYO1q7Pw6uV+INgecyCTY7hyUgWPw2G
+ 56AoMTBvKTtPNda4BOsIkws=
+X-Google-Smtp-Source: ABdhPJzrSS7wNoxNyAhHl4z41bEtVkFVwiO6lKZhMVCjLQSo3N3FFW3/Lz5atIf67FXVDwU2xT4v+g==
+X-Received: by 2002:a05:6512:13aa:: with SMTP id
+ p42mr22646580lfa.474.1638615343479; 
+ Sat, 04 Dec 2021 02:55:43 -0800 (PST)
 Received: from localhost.localdomain (h-155-4-221-129.NA.cust.bahnhof.se.
  [155.4.221.129])
- by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.37
+ by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Dec 2021 02:55:38 -0800 (PST)
+ Sat, 04 Dec 2021 02:55:43 -0800 (PST)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -54,16 +54,15 @@ To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  4 Dec 2021 11:55:22 +0100
-Message-Id: <20211204105527.15741-5-rikard.falkeborn@gmail.com>
+Date: Sat,  4 Dec 2021 11:55:27 +0100
+Message-Id: <20211204105527.15741-10-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 References: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Dec 2021 13:23:20 +0000
-Subject: [Intel-gfx] [PATCH 4/9] drm/i915/gvt: Constify
- intel_gvt_sched_policy_ops
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/gvt: Constify vgpu_types
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,41 +81,36 @@ Cc: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These are never modified, so make them const to allow the compiler to
-put them in read-only memory.
+It is never modified, so make it const to allow the compiler to put it
+in read-only memory. While at it, make name a const char*.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- drivers/gpu/drm/i915/gvt/sched_policy.c | 2 +-
- drivers/gpu/drm/i915/gvt/scheduler.h    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gvt/vgpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/sched_policy.c b/drivers/gpu/drm/i915/gvt/sched_policy.c
-index 036b74fe9298..c077fb4674f0 100644
---- a/drivers/gpu/drm/i915/gvt/sched_policy.c
-+++ b/drivers/gpu/drm/i915/gvt/sched_policy.c
-@@ -368,7 +368,7 @@ static void tbs_sched_stop_schedule(struct intel_vgpu *vgpu)
- 	vgpu_data->active = false;
- }
+diff --git a/drivers/gpu/drm/i915/gvt/vgpu.c b/drivers/gpu/drm/i915/gvt/vgpu.c
+index fa6b92615799..8dddd0a940a1 100644
+--- a/drivers/gpu/drm/i915/gvt/vgpu.c
++++ b/drivers/gpu/drm/i915/gvt/vgpu.c
+@@ -77,7 +77,7 @@ void populate_pvinfo_page(struct intel_vgpu *vgpu)
+ #define VGPU_WEIGHT(vgpu_num)	\
+ 	(VGPU_MAX_WEIGHT / (vgpu_num))
  
--static struct intel_gvt_sched_policy_ops tbs_schedule_ops = {
-+static const struct intel_gvt_sched_policy_ops tbs_schedule_ops = {
- 	.init = tbs_sched_init,
- 	.clean = tbs_sched_clean,
- 	.init_vgpu = tbs_sched_init_vgpu,
-diff --git a/drivers/gpu/drm/i915/gvt/scheduler.h b/drivers/gpu/drm/i915/gvt/scheduler.h
-index 7c86984a842f..1f391b3da2cc 100644
---- a/drivers/gpu/drm/i915/gvt/scheduler.h
-+++ b/drivers/gpu/drm/i915/gvt/scheduler.h
-@@ -56,7 +56,7 @@ struct intel_gvt_workload_scheduler {
- 	wait_queue_head_t waitq[I915_NUM_ENGINES];
- 
- 	void *sched_data;
--	struct intel_gvt_sched_policy_ops *sched_ops;
-+	const struct intel_gvt_sched_policy_ops *sched_ops;
- };
- 
- #define INDIRECT_CTX_ADDR_MASK 0xffffffc0
+-static struct {
++static const struct {
+ 	unsigned int low_mm;
+ 	unsigned int high_mm;
+ 	unsigned int fence;
+@@ -88,7 +88,7 @@ static struct {
+ 	 */
+ 	unsigned int weight;
+ 	enum intel_vgpu_edid edid;
+-	char *name;
++	const char *name;
+ } vgpu_types[] = {
+ /* Fixed vGPU type table */
+ 	{ MB_TO_BYTES(64), MB_TO_BYTES(384), 4, VGPU_WEIGHT(8), GVT_EDID_1024_768, "8" },
 -- 
 2.34.1
 
