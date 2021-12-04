@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96ABDC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 709BCC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:23:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5D97AA75;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5EC67AA7B;
 	Mon,  6 Dec 2021 13:23:21 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79F196E8A0;
- Sat,  4 Dec 2021 10:55:36 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id bi37so12861991lfb.5;
- Sat, 04 Dec 2021 02:55:36 -0800 (PST)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73DED6E8A0;
+ Sat,  4 Dec 2021 10:55:42 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id z7so12770238lfi.11;
+ Sat, 04 Dec 2021 02:55:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FCkCzyCkQsr6lD8NR06VdRlHwx59JsbS+9tz0//jskM=;
- b=J8+qxK9EdGdyapFivPTb/MszsVmYUxohS5F9uvi1Ju40hDEsymJubYkiJcww+/2mXJ
- dFk4d52mcpjL8ZkkJQCOBnupJ8E3CUIVUtR3g8DLhn4mM0CnI1QA9CIvrxVbVbhEQ8X/
- URSzKnSKgbpl0bishq9Sz8qvcRDFeAsbgFZTjZygcoAxicVI5Tq1Vzch1OqbrDr7JwUO
- yKgcd7QVmtiZBsqFQGAv+YxYLAVyufoPz9Dw3+OwMndCcwdTjxXoJklJEm3kh+ZdNi3O
- xFQCFHwiSapg1zeKL8wPTCEzuXnD9N74jQlqfvqyVJaNIv8q0dB5NcMkHsq54OUo0N+1
- vavQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=lyygTkATiuRhrYAmCBZB5JL9b+QAE7KNyFgVnfdr4xw=;
+ b=J2kd6EO490vWFXaCl7LFrz/8P4u3qpQZpH4icbSfDlEUamdenfJwJSwk8sGUtbknNU
+ MLTEFM/WH7wO+lfql7YAzXRrRXzeaTlEkeVU/quW2jFMOQASudPRH0m0Fx6EJIksdY/N
+ Ds95sfVar2uzr2QXFuSYCzFMdbI2gfcT7ZUlD4LGLqf5RdIsdXTU5DhyONHPytVZr3Qs
+ 04MMOMAs9/y5MyggQ2hEBp5zlIbKblHt6OA7gU3NZYcslhUlajcw+akJ9/rf9eiesOd9
+ 9AurWHrFWDlaTD9xKWXsCbI4j9W0IFu0NdWapgtBgogA87bmW7KHmXQS0TYCXvhkas8t
+ HQuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FCkCzyCkQsr6lD8NR06VdRlHwx59JsbS+9tz0//jskM=;
- b=AOnbHnt+f+rE6TU3f5WsE7PLwepjA1Bi4or3vCtXlJSvMLnxgTwpM3zCPuyFGAfaVk
- 5kjVyi59U7N4na5g6QDwOOQQg0xRt2JmLNnT+6xwn9SMv305rg7LjsNjuhuWEos/1dNp
- mHW8QVrKqrjBWtjF8XZa00sqES6xpgpNFtRC7rXoZyw2fs6gmR+xvolgPobquJM6Cwrw
- FTwDhm1DgIE9lFQf3E+xlR3ALeFOX6Q9ylhiU+4zryKd1XPpuUNzudMqbKA3FGyfYKrG
- 59sHAp/robcKzP81xcOB+azx1GR9d4V+mAFk5qGuj5Jxww+RMVf2VHrwQImyBElc4XMj
- jwug==
-X-Gm-Message-State: AOAM531/7nDswZnYBcKaJL4jzv/U2IGOuekmweOd6RVA6xJYo7UypkIZ
- 7AdbS9OKuQ39z+zAeHR1oiA=
-X-Google-Smtp-Source: ABdhPJwnAJQyUH//9HfN3vFABTOSGXTkJU5rsHVw8lsbp9mJMIIesfzVjE0MCDKbHa3t2bmmeND6Wg==
-X-Received: by 2002:ac2:4e61:: with SMTP id y1mr24147055lfs.459.1638615334878; 
- Sat, 04 Dec 2021 02:55:34 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=lyygTkATiuRhrYAmCBZB5JL9b+QAE7KNyFgVnfdr4xw=;
+ b=l7DlWy5j13+BJ4q4QLD6injxhBm9cUuwRMlY9Qd6OTWzdTcXpCJJUN9g7mEJeWPjzn
+ UxU1coLe4BzoDZY5auHmF8Qm0qaHy9Kkx4doLDhTGUc1TTq6IPHtjkLh5ebWNRHA7uki
+ d4L4Qmq1LEwyCzw+7NvebRMcfB1hdjA5xqM/K0hjekF/eR1+jh3+b7v1H3urjxMyOjmZ
+ /qQzPNBEKCWlKDZI63OjqWVTt7Q3PAqiA12IpHLcVC3kkT6E5QEkrNV/22rNtMaXLPYn
+ KRSCdNcID0MiIKFqN/tyFmkKcFDksAVTqwWkO78UBehxptGGZ3DYRR1TF63+pZw3hKMp
+ fmvA==
+X-Gm-Message-State: AOAM533m/W/NkgA23cWQ1R6L5zt9TfWecWz8GhQTACw1ImY+biN7+Bea
+ 1yubpJlDXlnMHCd/8x+6qoo=
+X-Google-Smtp-Source: ABdhPJwhZ8OGJIequinMhO9B6h+dZNF751Hz6WheXeDJ4m/rXPlCuS/K6i21b3Ua8MdNSlwkxOjpRA==
+X-Received: by 2002:ac2:55ae:: with SMTP id y14mr23157543lfg.27.1638615340844; 
+ Sat, 04 Dec 2021 02:55:40 -0800 (PST)
 Received: from localhost.localdomain (h-155-4-221-129.NA.cust.bahnhof.se.
  [155.4.221.129])
- by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.33
+ by smtp.gmail.com with ESMTPSA id d23sm723918lfm.107.2021.12.04.02.55.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Dec 2021 02:55:34 -0800 (PST)
+ Sat, 04 Dec 2021 02:55:40 -0800 (PST)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -53,13 +53,15 @@ To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  4 Dec 2021 11:55:18 +0100
-Message-Id: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
+Date: Sat,  4 Dec 2021 11:55:24 +0100
+Message-Id: <20211204105527.15741-7-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
+References: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Dec 2021 13:23:20 +0000
-Subject: [Intel-gfx] [PATCH 0/9] drm/i915/gvt: Constify static structs
+Subject: [Intel-gfx] [PATCH 6/9] drm/i915/gvt: Constify cmd_interrupt_events
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,37 +80,27 @@ Cc: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Constify a number of static structs that are never modified to allow the
-compiler to put them in read-only memory. In order to do this, constify a
-number of local variables and pointers in structs.
+It is never modified, so make it const to allow the compiler to put it
+in read-only memory.
 
-This is most important for structs that contain function pointers, and
-the patches for those structs are placed first in the series.
+Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+---
+ drivers/gpu/drm/i915/gvt/cmd_parser.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Rikard Falkeborn (9):
-  drm/i915/gvt: Constify intel_gvt_gtt_pte_ops
-  drm/i915/gvt: Constify intel_gvt_gtt_pte_ops
-  drm/i915/gvt: Constify intel_gvt_irq_ops
-  drm/i915/gvt: Constify intel_gvt_sched_policy_ops
-  drm/i915/gvt: Constify gvt_mmio_block
-  drm/i915/gvt: Constify cmd_interrupt_events
-  drm/i915/gvt: Constify formats
-  drm/i915/gvt: Constify gtt_type_table_entry
-  drm/i915/gvt: Constify vgpu_types
-
- drivers/gpu/drm/i915/gvt/cmd_parser.c   |  2 +-
- drivers/gpu/drm/i915/gvt/fb_decoder.c   | 24 ++++-----
- drivers/gpu/drm/i915/gvt/gtt.c          | 68 ++++++++++++-------------
- drivers/gpu/drm/i915/gvt/gtt.h          |  4 +-
- drivers/gpu/drm/i915/gvt/gvt.h          |  2 +-
- drivers/gpu/drm/i915/gvt/handlers.c     | 12 ++---
- drivers/gpu/drm/i915/gvt/interrupt.c    | 10 ++--
- drivers/gpu/drm/i915/gvt/interrupt.h    |  2 +-
- drivers/gpu/drm/i915/gvt/sched_policy.c |  2 +-
- drivers/gpu/drm/i915/gvt/scheduler.h    |  2 +-
- drivers/gpu/drm/i915/gvt/vgpu.c         |  4 +-
- 11 files changed, 66 insertions(+), 66 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
+index c4118b808268..ce9307546e7f 100644
+--- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
++++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
+@@ -1144,7 +1144,7 @@ struct cmd_interrupt_event {
+ 	int mi_user_interrupt;
+ };
+ 
+-static struct cmd_interrupt_event cmd_interrupt_events[] = {
++static const struct cmd_interrupt_event cmd_interrupt_events[] = {
+ 	[RCS0] = {
+ 		.pipe_control_notify = RCS_PIPE_CONTROL,
+ 		.mi_flush_dw = INTEL_GVT_EVENT_RESERVED,
 -- 
 2.34.1
 
