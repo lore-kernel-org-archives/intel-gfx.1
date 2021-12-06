@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B5D1C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 10:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C117CC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 10:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB0D7B146;
-	Mon,  6 Dec 2021 10:21:38 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3FC36F56B;
- Mon,  6 Dec 2021 00:50:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="217908759"
-X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="217908759"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2021 16:50:19 -0800
-X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="599102461"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 780617A498;
+	Mon,  6 Dec 2021 10:21:48 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28CA6733CA;
+ Mon,  6 Dec 2021 00:50:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="237445351"
+X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="237445351"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2021 16:50:42 -0800
+X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="514692138"
 Received: from etrosmax-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.249.32.248])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2021 16:50:15 -0800
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2021 16:50:38 -0800
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Intel GFX <intel-gfx@lists.freedesktop.org>,
  DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Mon,  6 Dec 2021 02:48:58 +0200
-Message-Id: <20211206004901.69729-9-andi.shyti@linux.intel.com>
+Date: Mon,  6 Dec 2021 02:49:01 +0200
+Message-Id: <20211206004901.69729-12-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211206004901.69729-1-andi.shyti@linux.intel.com>
 References: <20211206004901.69729-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 08/11] drm/i915/pxp: Use to_gt() helper
+Subject: [Intel-gfx] [PATCH v5 11/11] drm/i915: Rename i915->gt to i915->gt0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,32 +51,41 @@ Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use to_gt() helper consistently throughout the codebase.
-Pure mechanical s/i915->gt/to_gt(i915). No functional changes.
+In preparation of the multitile support, highlight the root GT by
+calling it gt0 inside the drm i915 private data.
 
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 5d169624ad60..726c2b5a3fa3 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -14,9 +14,11 @@
- #include "intel_pxp_tee.h"
- #include "intel_pxp_tee_interface.h"
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 39a1b5ef64e8..4ab50a04e1fd 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1008,7 +1008,7 @@ struct drm_i915_private {
+ 	struct i915_perf perf;
  
--static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
-+static  struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
+ 	/* Abstract the submission mechanism (legacy ringbuffer or execlists) away */
+-	struct intel_gt gt;
++	struct intel_gt gt0;
+ 
+ 	struct {
+ 		struct i915_gem_contexts {
+@@ -1082,7 +1082,7 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+ 
+ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
  {
--	return &kdev_to_i915(i915_kdev)->gt.pxp;
-+	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
-+
-+	return &to_gt(i915)->pxp;
+-	return &i915->gt;
++	return &i915->gt0;
  }
  
- static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
+ /* Simple iterator over all initialised engines */
 -- 
 2.34.1
 
