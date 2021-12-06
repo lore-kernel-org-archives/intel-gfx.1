@@ -4,34 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88449C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 10:29:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B5D1C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 10:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 634257B144;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB0D7B146;
 	Mon,  6 Dec 2021 10:21:38 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6835B6E9F2;
- Mon,  6 Dec 2021 00:49:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="323475303"
-X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="323475303"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2021 16:49:16 -0800
-X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="514523183"
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3FC36F56B;
+ Mon,  6 Dec 2021 00:50:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="217908759"
+X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="217908759"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2021 16:50:19 -0800
+X-IronPort-AV: E=Sophos;i="5.87,290,1631602800"; d="scan'208";a="599102461"
 Received: from etrosmax-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.249.32.248])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2021 16:49:12 -0800
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2021 16:50:15 -0800
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Intel GFX <intel-gfx@lists.freedesktop.org>,
  DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Mon,  6 Dec 2021 02:48:50 +0200
-Message-Id: <20211206004901.69729-1-andi.shyti@linux.intel.com>
+Date: Mon,  6 Dec 2021 02:48:58 +0200
+Message-Id: <20211206004901.69729-9-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20211206004901.69729-1-andi.shyti@linux.intel.com>
+References: <20211206004901.69729-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 00/11] More preparation for multi gt patches
+Subject: [Intel-gfx] [PATCH v5 08/11] drm/i915/pxp: Use to_gt() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,152 +51,32 @@ Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Use to_gt() helper consistently throughout the codebase.
+Pure mechanical s/i915->gt/to_gt(i915). No functional changes.
 
-the first patch concludes the first stage of refactoring which
-makes the use of intel_gt on the different subsystem. It's taken
-from Matt's series and it has alread been reviewed. The patch has
-just been replaced before any multitile patches and I think it
-can be already pushed.
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Patch 2-10 are a simple abstraction of the i915->gt which now is
-under the to_gt() wrapper. This part is mostly taken from Michał.
-
-Patch 11 changes i915->gt to i915->gt0.
-
-Andi
-
-Changelog:
-==========
-Patchwork: https://patchwork.freedesktop.org/series/97020/
-
-v4 -> v5:
- - use to_gt() instead of to_root_gt() and use Michał work done
-   previously.
- - split the /i915->gt/to_gt()/ patch in smaller chunks in order
-   to make review easier. (Thanks Lucas)
-
-v3 -> v4:
- - the intel_gt_init_early() has been split as it was causing
-   some headaches for the order of the early initialization. The
-   split has been done keeping in mind the coming next patch in
-   the series that wil make this a static function.
-
-v2 -> v3:
- - sed -i ... took too much freedom and changed more than it was
-   supposed to.
- - fix a compile error which did not appear in my local build
-
-v1 -> v2:
- - patch 2: do not use anymore the reference i915->gt but use
-   to_root_gt(), coming from Matt Roper's patch.
- - fix some comments from Chris.
-
-Andi Shyti (3):
-  drm/i915/selftests: Use to_gt() helper
-  drm/i915/pxp: Use to_gt() helper
-  drm/i915: Rename i915->gt to i915->gt0
-
-Michał Winiarski (8):
-  drm/i915: Store backpointer to GT in uncore
-  drm/i915: Introduce to_gt() helper
-  drm/i915/display: Use to_gt() helper
-  drm/i915/gt: Use to_gt() helper
-  drm/i915/gem: Use to_gt() helper
-  drm/i915/gvt: Use to_gt() helper
-  drm/i915: Use to_gt() helper
-  drm/i915: Use to_gt() helper for GGTT accesses
-
- .../gpu/drm/i915/display/intel_atomic_plane.c |  4 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 18 +++---
- drivers/gpu/drm/i915/display/intel_dpt.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
- .../drm/i915/display/intel_plane_initial.c    |  2 +-
- .../drm/i915/display/skl_universal_plane.c    |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 22 ++++----
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_create.c    |  2 +-
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  6 +-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c      | 18 +++---
- drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  6 +-
- drivers/gpu/drm/i915/gem/i915_gem_pm.c        |  8 +--
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  8 +--
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_throttle.c  |  3 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 12 ++--
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |  2 +-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |  4 +-
- .../i915/gem/selftests/i915_gem_client_blt.c  |  4 +-
- .../drm/i915/gem/selftests/i915_gem_context.c | 12 ++--
- .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    | 42 +++++++-------
- .../drm/i915/gem/selftests/i915_gem_object.c  |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |  2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          | 14 ++---
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  6 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            | 11 ++--
- drivers/gpu/drm/i915/gt/intel_gt.h            |  1 +
- .../gpu/drm/i915/gt/intel_gt_buffer_pool.c    |  7 +--
- drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  4 +-
- drivers/gpu/drm/i915/gt/intel_rps.c           | 12 ++--
- drivers/gpu/drm/i915/gt/intel_workarounds.c   |  2 +-
- drivers/gpu/drm/i915/gt/mock_engine.c         | 10 ++--
- drivers/gpu/drm/i915/gt/selftest_context.c    |  2 +-
- drivers/gpu/drm/i915/gt/selftest_engine.c     |  2 +-
- drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  4 +-
- .../drm/i915/gt/selftest_engine_heartbeat.c   |  4 +-
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |  6 +-
- drivers/gpu/drm/i915/gt/selftest_gt_pm.c      |  8 +--
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
- drivers/gpu/drm/i915/gt/selftest_lrc.c        |  2 +-
- drivers/gpu/drm/i915/gt/selftest_migrate.c    |  4 +-
- drivers/gpu/drm/i915/gt/selftest_mocs.c       |  2 +-
- drivers/gpu/drm/i915/gt/selftest_reset.c      |  4 +-
- .../drm/i915/gt/selftest_ring_submission.c    |  4 +-
- drivers/gpu/drm/i915/gt/selftest_slpc.c       |  6 +-
- drivers/gpu/drm/i915/gt/selftest_timeline.c   |  6 +-
- .../gpu/drm/i915/gt/selftest_workarounds.c    |  4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  2 +-
- drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |  2 +-
- .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  2 +-
- drivers/gpu/drm/i915/gvt/gvt.c                |  2 +-
- drivers/gpu/drm/i915/gvt/scheduler.c          |  2 +-
- drivers/gpu/drm/i915/i915_debugfs.c           | 38 ++++++-------
- drivers/gpu/drm/i915/i915_debugfs_params.c    |  4 +-
- drivers/gpu/drm/i915/i915_driver.c            | 31 +++++-----
- drivers/gpu/drm/i915/i915_drv.h               | 11 +++-
- drivers/gpu/drm/i915/i915_gem.c               | 32 +++++------
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  6 +-
- drivers/gpu/drm/i915/i915_getparam.c          | 12 ++--
- drivers/gpu/drm/i915/i915_gpu_error.c         |  4 +-
- drivers/gpu/drm/i915/i915_irq.c               | 56 +++++++++----------
- drivers/gpu/drm/i915/i915_perf.c              |  6 +-
- drivers/gpu/drm/i915/i915_pmu.c               | 14 ++---
- drivers/gpu/drm/i915/i915_query.c             |  2 +-
- drivers/gpu/drm/i915/i915_sysfs.c             | 22 ++++----
- drivers/gpu/drm/i915/intel_gvt.c              |  2 +-
- drivers/gpu/drm/i915/intel_uncore.c           |  9 +--
- drivers/gpu/drm/i915/intel_uncore.h           |  3 +-
- drivers/gpu/drm/i915/intel_wopcm.c            |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      |  6 +-
- drivers/gpu/drm/i915/selftests/i915_active.c  |  2 +-
- drivers/gpu/drm/i915/selftests/i915_gem.c     | 10 ++--
- .../gpu/drm/i915/selftests/i915_gem_evict.c   |  6 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 10 ++--
- drivers/gpu/drm/i915/selftests/i915_perf.c    |  2 +-
- drivers/gpu/drm/i915/selftests/i915_request.c | 12 ++--
- .../gpu/drm/i915/selftests/i915_selftest.c    |  4 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c     |  2 +-
- .../gpu/drm/i915/selftests/igt_flush_test.c   |  2 +-
- .../gpu/drm/i915/selftests/igt_live_test.c    |  4 +-
- .../drm/i915/selftests/intel_memory_region.c  |  4 +-
- drivers/gpu/drm/i915/selftests/intel_uncore.c |  2 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  | 36 ++++++------
- drivers/gpu/drm/i915/selftests/mock_gtt.c     |  6 +-
- drivers/gpu/drm/i915/selftests/mock_uncore.c  |  2 +-
- 88 files changed, 353 insertions(+), 339 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 5d169624ad60..726c2b5a3fa3 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -14,9 +14,11 @@
+ #include "intel_pxp_tee.h"
+ #include "intel_pxp_tee_interface.h"
+ 
+-static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
++static  struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
+ {
+-	return &kdev_to_i915(i915_kdev)->gt.pxp;
++	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
++
++	return &to_gt(i915)->pxp;
+ }
+ 
+ static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
 -- 
 2.34.1
 
