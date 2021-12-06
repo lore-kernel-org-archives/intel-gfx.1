@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D544DC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 11:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36017C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 11:26:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 879FD73CBD;
-	Mon,  6 Dec 2021 11:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7BD73CC5;
+	Mon,  6 Dec 2021 11:26:23 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E94773CBA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6137C73CB8
  for <intel-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 11:26:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="224548856"
-X-IronPort-AV: E=Sophos;i="5.87,291,1631602800"; d="scan'208";a="224548856"
+X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="224548849"
+X-IronPort-AV: E=Sophos;i="5.87,291,1631602800"; d="scan'208";a="224548849"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2021 03:26:13 -0800
-X-IronPort-AV: E=Sophos;i="5.87,291,1631602800"; d="scan'208";a="678957298"
+ 06 Dec 2021 03:26:12 -0800
+X-IronPort-AV: E=Sophos;i="5.87,291,1631602800"; d="scan'208";a="678957277"
 Received: from bgodonne-mobl1.amr.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.17.226])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2021 03:26:12 -0800
+ 06 Dec 2021 03:26:08 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  6 Dec 2021 11:25:39 +0000
-Message-Id: <20211206112539.3149779-4-matthew.auld@intel.com>
+Date: Mon,  6 Dec 2021 11:25:36 +0000
+Message-Id: <20211206112539.3149779-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211206112539.3149779-1-matthew.auld@intel.com>
-References: <20211206112539.3149779-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/selftests: handle object rounding
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915/migrate: don't check the scratch
+ page
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,29 +48,47 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure we account for any object rounding due to min_page_size
-restrictions.
+The scratch page might not be allocated in LMEM(like on DG2), so instead
+of using that as the deciding factor for where the paging structures
+live, let's just query the pt before mapping it.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Ramalingam C <ramalingam.c@intel.com>
 Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_migrate.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-index 12ef2837c89b..e21787301bbd 100644
---- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-@@ -49,6 +49,7 @@ static int copy(struct intel_migrate *migrate,
- 	if (IS_ERR(src))
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index afb1cce9a352..0f94dedc1599 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -13,7 +13,6 @@
  
-+	sz = src->base.size;
- 	dst = i915_gem_object_create_internal(i915, sz);
- 	if (IS_ERR(dst))
- 		goto err_free_src;
+ struct insert_pte_data {
+ 	u64 offset;
+-	bool is_lmem;
+ };
+ 
+ #define CHUNK_SZ SZ_8M /* ~1ms at 8GiB/s preemption delay */
+@@ -40,7 +39,7 @@ static void insert_pte(struct i915_address_space *vm,
+ 	struct insert_pte_data *d = data;
+ 
+ 	vm->insert_page(vm, px_dma(pt), d->offset, I915_CACHE_NONE,
+-			d->is_lmem ? PTE_LM : 0);
++			i915_gem_object_is_lmem(pt->base) ? PTE_LM : 0);
+ 	d->offset += PAGE_SIZE;
+ }
+ 
+@@ -134,7 +133,6 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
+ 			goto err_vm;
+ 
+ 		/* Now allow the GPU to rewrite the PTE via its own ppGTT */
+-		d.is_lmem = i915_gem_object_is_lmem(vm->vm.scratch[0]);
+ 		vm->vm.foreach(&vm->vm, base, base + sz, insert_pte, &d);
+ 	}
+ 
 -- 
 2.31.1
 
