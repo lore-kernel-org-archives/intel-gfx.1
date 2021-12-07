@@ -4,30 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13D46C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 20:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E48CC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 20:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86ACC6EE74;
-	Tue,  7 Dec 2021 20:01:53 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B8FE56EE74;
- Tue,  7 Dec 2021 20:01:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id AFA96A0099;
- Tue,  7 Dec 2021 20:01:52 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B25A6FAAC;
+	Tue,  7 Dec 2021 20:26:32 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C67F16EB09
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 20:26:30 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="236418645"
+X-IronPort-AV: E=Sophos;i="5.87,295,1631602800"; d="scan'208";a="236418645"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2021 12:26:14 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,295,1631602800"; d="scan'208";a="502747336"
+Received: from lkp-server02.sh.intel.com (HELO 9e1e9f9b3bcb) ([10.239.97.151])
+ by orsmga007.jf.intel.com with ESMTP; 07 Dec 2021 12:26:13 -0800
+Received: from kbuild by 9e1e9f9b3bcb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1muh2S-000Mw0-Bt; Tue, 07 Dec 2021 20:26:12 +0000
+Date: Wed, 8 Dec 2021 04:25:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Message-ID: <202112080429.tD0wmi4B-lkp@intel.com>
+References: <20211207110721.30409-3-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ramalingam C" <ramalingam.c@intel.com>
-Date: Tue, 07 Dec 2021 20:01:52 -0000
-Message-ID: <163890731268.10819.6072691831560858959@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211207165156.31244-1-ramalingam.c@intel.com>
-In-Reply-To: <20211207165156.31244-1-ramalingam.c@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?Basic_enabling_of_64k_page_support?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211207110721.30409-3-stanislav.lisovskiy@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915: Use wm0 only during async
+ flips for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +49,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: kbuild-all@lists.01.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Hi Stanislav,
 
-Series: Basic enabling of 64k page support
-URL   : https://patchwork.freedesktop.org/series/97666/
-State : warning
+Thank you for the patch! Yet something to improve:
 
-== Summary ==
+[auto build test ERROR on drm-intel/for-linux-next]
+[also build test ERROR on drm-tip/drm-tip v5.16-rc4 next-20211207]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+url:    https://github.com/0day-ci/linux/commits/Stanislav-Lisovskiy/drm-i915-Pass-plane-to-watermark-calculation-functions/20211207-190910
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next
+config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20211208/202112080429.tD0wmi4B-lkp@intel.com/config)
+compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/0day-ci/linux/commit/8c7a53ddec5435d127040d03a1eb073ec71608dc
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Stanislav-Lisovskiy/drm-i915-Pass-plane-to-watermark-calculation-functions/20211207-190910
+        git checkout 8c7a53ddec5435d127040d03a1eb073ec71608dc
+        # save the config file to linux build tree
+        mkdir build_dir
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/i915/intel_pm.c:5500:6: error: no previous prototype for 'dg2_async_flip_optimization' [-Werror=missing-prototypes]
+    5500 | bool dg2_async_flip_optimization(struct drm_i915_private *i915,
+         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+   cc1: all warnings being treated as errors
 
 
+vim +/dg2_async_flip_optimization +5500 drivers/gpu/drm/i915/intel_pm.c
+
+  5499	
+> 5500	bool dg2_async_flip_optimization(struct drm_i915_private *i915,
+  5501					 const struct intel_crtc_state *crtc_state,
+  5502					 const struct intel_plane *plane)
+  5503	{
+  5504		return DISPLAY_VER(i915) >= 13 &&
+  5505		       crtc_state->uapi.async_flip &&
+  5506		       plane->async_flip;
+  5507	}
+  5508	
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
