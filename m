@@ -4,31 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B42DC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 21:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8404DC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 22:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11B016E041;
-	Wed,  8 Dec 2021 21:54:34 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 339F66E041
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 21:54:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="324217154"
-X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="324217154"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 13:33:28 -0800
-X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="752043366"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 13:33:28 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  8 Dec 2021 13:31:16 -0800
-Message-Id: <20211208213115.1919503-1-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.33.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 465636E1F7;
+	Wed,  8 Dec 2021 22:01:29 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 483956E08E;
+ Wed,  8 Dec 2021 22:01:28 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ n33-20020a05600c502100b0032fb900951eso5206348wmr.4; 
+ Wed, 08 Dec 2021 14:01:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=78Ifs23TtoxatfN7VFvq9AEVPiNcwkeZ+FD9JLKmw8c=;
+ b=eoOfS+6CmChrGqIET8UbG2Mcyt7PpnxNsqQBcTKKvvFva2oPLikaLax+o6UFRiitOo
+ F75w0TsDGEYb+iHtNj/MgluUFT8K+9sdMVBYHdnKn5GGTM4IuGFSYqfLbj6lKsZVw3cG
+ jkY6YDhnrUB/XZ8F7VksJaZbQUZWqAPSCh/CTY1a+j5/SNACoVhI16F5r8rjuQ+8b68t
+ RlDrDjlTixZBpkLzx/KRMVrwiNoSvRbJdoOr7k33A/FURILhHfRcEoENHTDBQoChozph
+ 8NGQBK13gFNv9z3teV47WwN0Voj2yeN7eK9RoFG8b2QlNdIn6hIX4dOGfm0uf5tiwJKZ
+ w2Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=78Ifs23TtoxatfN7VFvq9AEVPiNcwkeZ+FD9JLKmw8c=;
+ b=F9qSfnqUZYPCZkUrGtdLhhIB63LjwQqD1yFaBXuEg16YvzX+ZmJg6dn9fygNiz1TDx
+ xEoHlCbNgshE6Qa250claoqh2QVxKEUOyRIOJVGa70JSlYuuNg/OxyzwU/a1N+wReqn+
+ EIilM72RPqsZ6D23DcIRjLs2fJx9Bj3M5XHwQ2SeShXN/TVNVzM7+Hff0Zt1NDyLk3at
+ XAI6Ww5LuxY6K1hS63cUyUUAw+I4d5+oXHISB4iklGp4f87PBvKkj/y9Zm9hN4ONvRVn
+ e/Hw4mOkb4Xz3E/d9Dyp5wywhrvjk7GEKY46C3T/6auheyD7Jsgx8qgsP8hWmcsU5W+c
+ ftZA==
+X-Gm-Message-State: AOAM532cnl98UNITc/KTs1O1mhRPqlTpPp65niMiaN9po6CRYsTsZwwn
+ 5ImiAeeINa6T635g5yveTmIOJ7PVNKLbXqXRip8=
+X-Google-Smtp-Source: ABdhPJx4+51IKWNFMWdRf7kFk0fQGiVNH4ObQU0Pt5G58JOq7C+3hI5cdOhoebAHEgcFR4QJtJpoZ99D+N6A9Eu9azc=
+X-Received: by 2002:a05:600c:4f4b:: with SMTP id
+ m11mr1665243wmq.151.1639000886773; 
+ Wed, 08 Dec 2021 14:01:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI] drm/i915/dmc: Update DMC to v2.14 on ADL-P
+References: <20211105030434.2828845-1-sean@poorly.run>
+ <20211105030434.2828845-14-sean@poorly.run>
+In-Reply-To: <20211105030434.2828845-14-sean@poorly.run>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 8 Dec 2021 14:06:43 -0800
+Message-ID: <CAF6AEGv9ghHcd1zhWiBQ40pwx1uMeJ=Y_T5EVo2EV5gTRTtAew@mail.gmail.com>
+To: Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [Freedreno] [PATCH v4 13/14] arm64: dts: qcom:
+ sc7180: Add support for HDCP in dp-controller
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,50 +65,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Andy Gross <agross@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
+On Thu, Nov 4, 2021 at 8:05 PM Sean Paul <sean@poorly.run> wrote:
+>
+> From: Sean Paul <seanpaul@chromium.org>
+>
+> This patch adds the register ranges required for HDCP key injection and
+> HDCP TrustZone interaction as described in the dt-bindings for the
+> sc7180 dp controller. Now that these are supported, change the
+> compatible string to "dp-hdcp".
+>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
+> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-14-sean@poorly.run #v3
+>
+> Changes in v3:
+> -Split off into a new patch containing just the dts change (Stephen)
+> -Add hdcp compatible string (Stephen)
+> Changes in v4:
+> -Rebase on Bjorn's multi-dp patchset
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index c8921e2d6480..838270f70b62 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -3088,7 +3088,13 @@ mdss_dp: displayport-controller@ae90000 {
+>                                 compatible = "qcom,sc7180-dp";
+>                                 status = "disabled";
+>
+> -                               reg = <0 0x0ae90000 0 0x1400>;
+> +                               reg = <0 0x0ae90000 0 0x200>,
+> +                                     <0 0x0ae90200 0 0x200>,
+> +                                     <0 0x0ae90400 0 0xc00>,
+> +                                     <0 0x0ae91000 0 0x400>,
+> +                                     <0 0x0ae91400 0 0x400>,
+> +                                     <0 0x0aed1000 0 0x175>,
+> +                                     <0 0x0aee1000 0 0x2c>;
 
-Changes since v2.12:
-  - Release notes for v2.13:
-      1. Fix for simple flip queue with DC6v
-  - Release notes for v2.14:
-      1. Fix for flip queue roll over cases with DC6v
-      2. Enhancement for residency
-      3. Workaround for 3Dlut restore issue
+So one small issue, if someone tries to get linux running on a sc7180
+windows laptop (which uses qcom's tz instead of the CrOS tz), things
+will go BOOM!
 
-v2: Commit message update (Imre)
+We might want instead to move this somewhere chromebook specific,
+maybe sc7180-trogdor.dtsi?
 
-Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
+BR,
+-R
 
-Re-submitting this as it conflicted with the addition of GEN13_DMC_MAX_FW_SIZE.
-I'm also including A-b Rodrigo to merge this ahead of having the
-firmware in linux-firmware project - it's in drm-firmware and PR already
-submitted to linux-firmware so it should appear shortly there.
-
- drivers/gpu/drm/i915/display/intel_dmc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 0cab18f972d1..a085024c9cde 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -47,8 +47,8 @@
- 
- #define GEN13_DMC_MAX_FW_SIZE		0x20000
- 
--#define ADLP_DMC_PATH			DMC_PATH(adlp, 2, 12)
--#define ADLP_DMC_VERSION_REQUIRED	DMC_VERSION(2, 12)
-+#define ADLP_DMC_PATH			DMC_PATH(adlp, 2, 14)
-+#define ADLP_DMC_VERSION_REQUIRED	DMC_VERSION(2, 14)
- MODULE_FIRMWARE(ADLP_DMC_PATH);
- 
- #define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
--- 
-2.33.1
-
+>
+>                                 interrupt-parent = <&mdss>;
+>                                 interrupts = <12>;
+> --
+> Sean Paul, Software Engineer, Google / Chromium OS
+>
