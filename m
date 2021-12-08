@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05CB9C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 15:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DE50C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 15:20:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4676E49D;
-	Wed,  8 Dec 2021 15:19:05 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC7C56E49D;
- Wed,  8 Dec 2021 15:19:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="217872280"
-X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="217872280"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 07:19:03 -0800
-X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="515794819"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 779156F524;
+	Wed,  8 Dec 2021 15:20:48 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEBE6F524;
+ Wed,  8 Dec 2021 15:20:47 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="324106435"
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="324106435"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 07:20:46 -0800
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="503084391"
 Received: from faerberc-mobl2.ger.corp.intel.com (HELO intel.com)
  ([10.251.209.148])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 07:18:53 -0800
-Date: Wed, 8 Dec 2021 17:18:47 +0200
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 07:20:44 -0800
+Date: Wed, 8 Dec 2021 17:20:41 +0200
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Ramalingam C <ramalingam.c@intel.com>
-Message-ID: <YbDM15H10zZzFxyA@intel.intel>
+Message-ID: <YbDNSeTM894ml4i3@intel.intel>
 References: <20211208145800.27246-1-ramalingam.c@intel.com>
  <20211208145800.27246-2-ramalingam.c@intel.com>
 MIME-Version: 1.0
@@ -53,6 +53,8 @@ Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Ram,
+
 On Wed, Dec 08, 2021 at 08:27:58PM +0530, Ramalingam C wrote:
 > From: Chris Wilson <chris@chris-wilson.co.uk>
 > 
@@ -63,23 +65,8 @@ On Wed, Dec 08, 2021 at 08:27:58PM +0530, Ramalingam C wrote:
 > cc: Matthew Auld <matthew.auld@intel.com>
 > Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
 > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> index bce03d74a0b4..6ea3ca21cdf3 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> @@ -488,6 +488,9 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
->  		return 0;
->  	}
->  
-> +	/* Exclude the reserved region from driver use */
-> +	mem->region.end = reserved_base - 1;
-> +
->  	/* It is possible for the reserved area to end before the end of stolen
->  	 * memory, so just consider the start. */
->  	reserved_total = stolen_top - reserved_base;
-> -- 
-> 2.20.1
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+
+Thanks,
+Andi
