@@ -4,30 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E30A5C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 15:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E7BC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 15:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35D0F7392A;
-	Wed,  8 Dec 2021 15:34:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id AB7057392A;
- Wed,  8 Dec 2021 15:34:18 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A50F3A73C9;
- Wed,  8 Dec 2021 15:34:18 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A9373962;
+	Wed,  8 Dec 2021 15:34:37 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 792E77394A;
+ Wed,  8 Dec 2021 15:34:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="301234021"
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="301234021"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 07:34:24 -0800
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="679919197"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 07:34:21 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Date: Wed,  8 Dec 2021 21:04:01 +0530
+Message-Id: <20211208153404.27546-1-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ramalingam C" <ramalingam.c@intel.com>
-Date: Wed, 08 Dec 2021 15:34:18 -0000
-Message-ID: <163897765864.8231.7703457173609292325@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211208141613.7251-1-ramalingam.c@intel.com>
-In-Reply-To: <20211208141613.7251-1-ramalingam.c@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915=3A_Basic_enabling_of_64k_page_support?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 0/3] drm/i915: Sanity Check for device memory
+ region
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +43,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Changes for introducing the quick test on the device memory range and
+also a test of detailed validation for each addr of the range with read
+and write.
 
-Series: drm/i915: Basic enabling of 64k page support
-URL   : https://patchwork.freedesktop.org/series/97725/
-State : warning
+Detailed testing is optionally enabled with a modparam i915.memtest=1
 
-== Summary ==
+And third patch fixes the driver accessible stolen memory.
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+v2: Adding a wrapper for the memtest [Chris]
+v3: Handling a bisecting issue.
 
+Chris Wilson (3):
+  drm/i915: Exclude reserved stolen from driver use
+  drm/i915: Sanitycheck device iomem on probe
+  drm/i915: Test all device memory on probing
+
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c |   3 +
+ drivers/gpu/drm/i915/i915_params.c         |   3 +
+ drivers/gpu/drm/i915/i915_params.h         |   1 +
+ drivers/gpu/drm/i915/intel_memory_region.c | 128 +++++++++++++++++++++
+ 4 files changed, 135 insertions(+)
+
+-- 
+2.20.1
 
