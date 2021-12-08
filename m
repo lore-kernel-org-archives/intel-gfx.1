@@ -4,30 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D18D6C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 13:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E944C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 14:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC8C6F4FF;
-	Wed,  8 Dec 2021 13:49:06 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2CEC66F4FF;
- Wed,  8 Dec 2021 13:49:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 29B39A363D;
- Wed,  8 Dec 2021 13:49:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E593F6F4E1;
+	Wed,  8 Dec 2021 14:04:26 +0000 (UTC)
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3B3E6EC09;
+ Wed,  8 Dec 2021 07:46:28 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ fv9-20020a17090b0e8900b001a6a5ab1392so1453347pjb.1; 
+ Tue, 07 Dec 2021 23:46:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=NtweuKbs2MfZWpt5xIw7VULyGKHm7TbvXq2wNntSpHI=;
+ b=gdVTOE/ai17mTSNNToyDWKlCUDe3++Fiq5333dNqaAZWFllNV6wdTeIwHnGFpLcNt6
+ mo9untbxCaZANNouIWrm0+XYHyL7jbUDZbD7Z96FckR9nrlspVLyrQdmcYJvxcQyiz0t
+ xMbllJcj+WLCGpADoGyoXZLghlq/OFM5MI+CADL4EvoS0KI657CePJDMpuhVEsduyZIw
+ sIhM4sloq0D5x/XO7VRtzoe9bQ65XQ3UyOkr6/bZ8EUhjso6F6RDnDzJA6qANE0s/gCU
+ zrmoCq8PTAP4gxW6+kzQmoAsl/Za+ZMHvzw8ZtqGEGAmMUjXj0ZLaArx9A7Ga+VI3G/L
+ wXTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=NtweuKbs2MfZWpt5xIw7VULyGKHm7TbvXq2wNntSpHI=;
+ b=VDKUP2kleltevLDj8aE3N2mPU0768zPdqTzTpIV3z6zo8NFMmSP/asvfjX8tNuHalV
+ Tkx5+teHxcbipFLYmWFD7qf/NBGQcqLQXwBDhrNtSOI8t4DEK4tuNIVg6PH/7/E7Ihs8
+ 9reFu3MnArAAF87u8D23JRAKcT08xBDD6PynUpQynO0HmTYVgiZtt4tbdc70OLOHx1jO
+ kAC+XmPgGrW+sXBx6q/MD4FwirEEa8zBxCQrRKpTFxRT1m06FnkFTNARhJt/Wm2kBrh2
+ x9ZowVET0SSsD7old767C/garOcYuA4DOMklGOhTMt94TuAamJfUjVqGAM6bUWag/PU/
+ Hq3Q==
+X-Gm-Message-State: AOAM532xrDFd8Sj0L97sKRg15Nkt1IiFyw42qIseFTWnJPZviPvQ1Hob
+ cP0442wVBYdj2aPvVRHW2vg=
+X-Google-Smtp-Source: ABdhPJxLWUdY5+jg/o/MLuMbGm2XLR0ZC+WwijUBNG7QGGTXHMPXPQn3tyTHWqsMJ0cS3qdtZXeTXg==
+X-Received: by 2002:a17:90a:e016:: with SMTP id
+ u22mr5113888pjy.95.1638949588555; 
+ Tue, 07 Dec 2021 23:46:28 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id j16sm1673681pga.32.2021.12.07.23.46.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Dec 2021 23:46:28 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: luo.penghao@zte.com.cn
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Date: Wed,  8 Dec 2021 07:46:19 +0000
+Message-Id: <20211208074619.404138-1-luo.penghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Wed, 08 Dec 2021 13:49:05 -0000
-Message-ID: <163897134516.8231.2139867724390056180@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <cover.1638961423.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1638961423.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915=3A_trace_display_split?=
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 08 Dec 2021 14:04:26 +0000
+Subject: [Intel-gfx] [PATCH linux-next] drm/i915/display: Delete redundant
+ post_mask assignment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +70,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, luo penghao <luo.penghao@zte.com.cn>,
+ Zeal Robot <zealci@zte.com.cn>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: luo penghao <luo.penghao@zte.com.cn>
 
-Series: drm/i915: trace display split
-URL   : https://patchwork.freedesktop.org/series/97721/
-State : warning
+This value will be overwritten by the following if statement, even
+if the if is not executed, the value will not be used
 
-== Summary ==
+The clang_analyzer complains as follows:
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Value stored to 'port_mask' is never read
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: luo penghao <luo.penghao@zte.com.cn>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index bd18432..3aad0c3 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2011,7 +2011,6 @@ void intel_ddi_sanitize_encoder_pll_mapping(struct intel_encoder *encoder)
+ 			return;
+ 	}
+ 
+-	port_mask = BIT(encoder->port);
+ 	ddi_clk_needed = encoder->base.crtc;
+ 
+ 	if (encoder->type == INTEL_OUTPUT_DSI) {
+-- 
+2.15.2
 
 
