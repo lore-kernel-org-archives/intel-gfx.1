@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15775C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 15:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C043C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 15:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C206E8A9;
-	Wed,  8 Dec 2021 15:23:33 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8321F6E868;
- Wed,  8 Dec 2021 15:23:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="225107100"
-X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="225107100"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 07:23:32 -0800
-X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="679916734"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAA606F54F;
+	Wed,  8 Dec 2021 15:26:53 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 644986F54F;
+ Wed,  8 Dec 2021 15:26:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="261933536"
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="261933536"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 07:26:52 -0800
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="515796947"
 Received: from faerberc-mobl2.ger.corp.intel.com (HELO intel.com)
  ([10.251.209.148])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 07:23:30 -0800
-Date: Wed, 8 Dec 2021 17:23:26 +0200
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 07:26:50 -0800
+Date: Wed, 8 Dec 2021 17:26:46 +0200
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Ramalingam C <ramalingam.c@intel.com>
-Message-ID: <YbDN7pb6WUIWselA@intel.intel>
+Message-ID: <YbDOtmWE56RYl2o0@intel.intel>
 References: <20211208145800.27246-1-ramalingam.c@intel.com>
- <20211208145800.27246-3-ramalingam.c@intel.com>
+ <20211208145800.27246-4-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211208145800.27246-3-ramalingam.c@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: Sanitycheck device iomem on
- probe
+In-Reply-To: <20211208145800.27246-4-ramalingam.c@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915: Test all device memory on
+ probing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,24 +53,23 @@ Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ram,
+Hi Ram and Chris,
 
-> +static int intel_memory_region_memtest(struct intel_memory_region *mem,
-> +				       void *caller)
-> +{
-> +	struct drm_i915_private *i915 = mem->i915;
-> +	int err = 0;
-> +
-> +	if (!mem->io_start)
-> +		return 0;
-> +
-> +	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-> +		err = iomemtest(mem, caller);
+>  	param(char *, guc_firmware_path, NULL, 0400) \
+>  	param(char *, huc_firmware_path, NULL, 0400) \
+>  	param(char *, dmc_firmware_path, NULL, 0400) \
+> +	param(bool, memtest, false, 0400) \
 
-I don't understand the debugging part of the iomemtest, if memory
-is failing we wouldn't relise if DEBUG_GEM is not enabled.
+this partially answers my previous question...
 
-In any case,
+[...]
+
+> -	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+> -		err = iomemtest(mem, caller);
+> +	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM) || i915->params.memtest)
+> +		err = iomemtest(mem, i915->params.memtest, caller);
+
+... but still I am missing the debugging part.
 
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
