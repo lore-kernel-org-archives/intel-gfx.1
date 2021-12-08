@@ -4,36 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1160C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 18:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CE76C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 18:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1146F3D0;
-	Wed,  8 Dec 2021 18:25:09 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E51B6F3D0
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 18:25:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="224769108"
-X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="224769108"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 10:25:06 -0800
-X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="658459548"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 10:25:06 -0800
-Date: Wed, 8 Dec 2021 10:19:42 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Message-ID: <20211208181941.GA23255@jons-linux-dev-box>
-References: <20211208021512.72419-1-umesh.nerlige.ramappa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD50C6E063;
+	Wed,  8 Dec 2021 18:33:19 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CABB86E063
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 18:33:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="324158869"
+X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="324158869"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 10:33:17 -0800
+X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="600883983"
+Received: from orsosgc001.jf.intel.com ([10.165.21.154])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 10:33:17 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  8 Dec 2021 10:33:13 -0800
+Message-Id: <20211208183313.13126-1-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211208021512.72419-1-umesh.nerlige.ramappa@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Wait longer for busyness data
- to be available from GuC
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/pmu: Wait longer for busyness data to
+ be available from GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,41 +42,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 07, 2021 at 06:15:12PM -0800, Umesh Nerlige Ramappa wrote:
-> live_engine_busy_stats waits for busyness to start ticking before
-> sampling busyness for the test sample duration. The wait accesses an
-> MMIO register and the uncore call to read it takes up to 3 ms in the
-> worst case. This can result in the wait timing out since the MMIO read
-> itself comsumes up the timeout of 500us. Increase the timeout to a
-> larger value of 10ms to account for the MMIO read time.
-> 
-> Resolves: https://gitlab.freedesktop.org/drm/intel/-/issues/4536
+live_engine_busy_stats waits for busyness to start ticking before
+sampling busyness for the test sample duration. The wait accesses an
+MMIO register and the uncore call to read it takes up to 3 ms in the
+worst case. This can result in the wait timing out since the MMIO read
+itself consumes up the timeout of 500us. Increase the timeout to a
+larger value of 10ms to account for the MMIO read time.
 
-With 's/Resolves/Closes' per Jani's feedback:
-
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4536
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> index 75f6efc9882f..8af261831470 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> @@ -229,7 +229,7 @@ static int __spin_until_busier(struct intel_engine_cs *engine, ktime_t busyness)
->  	start = ktime_get();
->  	while (intel_engine_get_busy_time(engine, &unused) == busyness) {
->  		dt = ktime_get() - start;
-> -		if (dt > 500000) {
-> +		if (dt > 10000000) {
->  			pr_err("active wait timed out %lld\n", dt);
->  			ENGINE_TRACE(engine, "active wait time out %lld\n", dt);
->  			return -ETIME;
-> -- 
-> 2.20.1
-> 
+---
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 75f6efc9882f..8af261831470 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -229,7 +229,7 @@ static int __spin_until_busier(struct intel_engine_cs *engine, ktime_t busyness)
+ 	start = ktime_get();
+ 	while (intel_engine_get_busy_time(engine, &unused) == busyness) {
+ 		dt = ktime_get() - start;
+-		if (dt > 500000) {
++		if (dt > 10000000) {
+ 			pr_err("active wait timed out %lld\n", dt);
+ 			ENGINE_TRACE(engine, "active wait time out %lld\n", dt);
+ 			return -ETIME;
+-- 
+2.20.1
+
