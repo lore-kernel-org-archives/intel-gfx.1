@@ -4,31 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA3BBC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 14:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F08BC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 14:58:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3D3273747;
-	Wed,  8 Dec 2021 14:58:04 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0BE3873747;
- Wed,  8 Dec 2021 14:58:03 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0414DAA3D8;
- Wed,  8 Dec 2021 14:58:03 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD8F873751;
+	Wed,  8 Dec 2021 14:58:22 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C7873749;
+ Wed,  8 Dec 2021 14:58:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="324101040"
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="324101040"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 06:58:20 -0800
+X-IronPort-AV: E=Sophos;i="5.88,189,1635231600"; d="scan'208";a="462787998"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 06:58:18 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Date: Wed,  8 Dec 2021 20:27:57 +0530
+Message-Id: <20211208145800.27246-1-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: cgel.zte@gmail.com
-Date: Wed, 08 Dec 2021 14:58:02 -0000
-Message-ID: <163897548298.8234.1499265370053643751@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20211208074952.404381-1-luo.penghao@zte.com.cn>
-In-Reply-To: <20211208074952.404381-1-luo.penghao@zte.com.cn>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display=3A_Remove_the_useless_variable_offset_and_?=
- =?utf-8?q?its_assignment?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 0/3] drm/i915: Sanity Check for device memory
+ region
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,31 +43,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Changes for introducing the quick test on the device memory range and
+also a test of detailed validation for each addr of the range with read
+and write.
 
-Series: drm/i915/display: Remove the useless variable offset and its assignment
-URL   : https://patchwork.freedesktop.org/series/97724/
-State : warning
+Detailed testing is optionally enabled with a modparam i915.memtest=1
 
-== Summary ==
+And third patch fixes the driver accessible stolen memory.
 
-$ dim checkpatch origin/drm-tip
-4c9a41e79dcc drm/i915/display: Remove the useless variable offset and its assignment
--:40: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#40: FILE: drivers/gpu/drm/i915/display/i9xx_plane.c:1047:
-+			intel_de_read(dev_priv,
- 					       DSPTILEOFF(i9xx_plane));
+v2: Adding a wrapper for the memtest [Chris]
 
--:44: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#44: FILE: drivers/gpu/drm/i915/display/i9xx_plane.c:1050:
-+			intel_de_read(dev_priv,
- 					       DSPLINOFF(i9xx_plane));
+Chris Wilson (3):
+  drm/i915: Exclude reserved stolen from driver use
+  drm/i915: Sanitycheck device iomem on probe
+  drm/i915: Test all device memory on probing
 
-total: 0 errors, 0 warnings, 2 checks, 25 lines checked
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c |   3 +
+ drivers/gpu/drm/i915/i915_params.c         |   3 +
+ drivers/gpu/drm/i915/i915_params.h         |   1 +
+ drivers/gpu/drm/i915/intel_memory_region.c | 128 +++++++++++++++++++++
+ 4 files changed, 135 insertions(+)
 
+-- 
+2.20.1
 
