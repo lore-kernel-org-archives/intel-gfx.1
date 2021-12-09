@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49B4DC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD90FC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E5310EDE1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0766A10EDDD;
 	Thu,  9 Dec 2021 16:54:56 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A07E889E86
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:51:56 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C63E610E11E
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639068716; x=1670604716;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=tuSxJFiZtsOA3lNM2c1a+Mk+5EepZiLg6wZ+syu713g=;
- b=F7bAPGVPp7c8Zx+HPdQBJ9bnJ35I406MW5fp9wce5HQ7QY4+6IYaBkxk
- RL+rLI9xO76/9eolFB40co+KF5EDImYmfpI+kLPWEUswRCe95yYxalPSX
- rQrQGrNB5zHArTGieP/J7a3GNil7Y+P6dsQw3fhn8c8Ya4TonAmqIQ3Ej
- qe64dprPh27ncSxT95IKl7Xtoiq5xw8VtEEYt/JwdoT1wz3WZ0J126Nix
- A+TlQgoDr6dKE89QayafrCO2i4GvDa8y+uUnJ6OFQAix541oPb65Ie/Ps
- qfOJcN8fc+jXICnjmn2CzCODHqb+83FNQV4KNkOsIURBeMeIrWkgCHKBc Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="237953324"
-X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="237953324"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:51:32 -0800
-X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="463313491"
+ t=1639057893; x=1670593893;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=4G6w4sA7qGaN+EztHvR1KnkiiDqexosGse0CzeWsc3E=;
+ b=fKm6KJwGBQV+frzRL4+sI/hObiBbh1w+8i0HZu5u6O3mm/LXBnGt0vSB
+ WrEJRzZMrzVynFvNQFTjwKck/uFjpz3eZjRlow8Q1taZr682/Mbl8aS5X
+ HQYa6lze8oEipwJwl7gJdXCkj6Pa3QbeDAJVFwj9KeQ6WLmuafiIP/bYF
+ OPdJmXUu+WCgkEaf49SlZOe4uvycz6Imn27o5L6dapofZnRL/5T+aSgWe
+ KGMsP1WAPgyL3wJ3TRBtIHpXSCVBw/ri0eo02/RDFgoC6V2IsFx/WKyh6
+ Qw644N4n7GXxIUqmOkNRPL+aDO61jsCtruvidN/Op/dbf9TGCduSBO/2d A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="324359751"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="324359751"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:51:33 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="480341392"
 Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:51:30 -0800
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:51:31 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 18:51:21 +0200
-Message-Id: <cover.1639068649.git.jani.nikula@intel.com>
+Date: Thu,  9 Dec 2021 15:51:00 +0200
+Message-Id: <04f0ac36d56e3c1221c3c171c36d7617bb00c7c2.1639057801.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1639057801.git.jani.nikula@intel.com>
+References: <cover.1639057801.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/4] drm/i915/cdclk: improve abstractions
+Subject: [Intel-gfx] [PATCH 5/7] drm/i915/fb: reduce include dependencies
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,21 +60,26 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Clean up the cdclk header dependencies.
+We actually need i915_active_types.h, not i915_active.h.
 
-Jani Nikula (4):
-  drm/i915/cdclk: move intel_atomic_check_cdclk() to intel_cdclk.c
-  drm/i915/cdclk: un-inline intel_cdclk_state functions
-  drm/i915/cdclk: hide struct intel_cdclk_vals
-  drm/i915/cdclk: turn around i915_drv.h and intel_cdclk.h dependency
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_frontbuffer.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/i915/display/intel_atomic.c  |  1 +
- drivers/gpu/drm/i915/display/intel_cdclk.c   | 81 +++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_cdclk.h   | 26 +++----
- drivers/gpu/drm/i915/display/intel_display.c | 55 +------------
- drivers/gpu/drm/i915/i915_drv.h              |  6 +-
- 5 files changed, 96 insertions(+), 73 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.h b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
+index a88441edc8f9..ff0c37b079aa 100644
+--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.h
++++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
+@@ -28,7 +28,7 @@
+ #include <linux/kref.h>
+ 
+ #include "gem/i915_gem_object_types.h"
+-#include "i915_active.h"
++#include "i915_active_types.h"
+ 
+ struct drm_i915_private;
+ 
 -- 
 2.30.2
 
