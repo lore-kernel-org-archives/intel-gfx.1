@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADBACC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FAEDC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D26C10F574;
-	Thu,  9 Dec 2021 16:55:37 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 556AD10E116;
- Thu,  9 Dec 2021 16:29:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8752110E86C;
+	Thu,  9 Dec 2021 16:55:41 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F8B89E63
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639067347; x=1670603347;
+ t=1639068708; x=1670604708;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ku01Mbk+zewXE6P0LRCEOSQklgP4Gp21LPewXzb+n/U=;
- b=X5ZDdSJZ8j5VfIeFiz32xc9Mc/Nvfeq96fmkN34NuM6zNCMxu8JzuPbm
- GFUQS9SUZB2Rk3uLbFM/elp+Avz3NwptyaywcOerV39oadrDm4npJfEaS
- sMQUSa25WAAD27or1biOFvu+vizdw194Ogt9n8djjAxGJqfbRb2XfUBOq
- SkkQcWqU5jVIZOE+72CvL0T++wZ3vIp+9lNNLTvUBO9fTlmBYKUIgdQFo
- ybSskEUyu2PXKQa44lBOq0MIr5ZX4yQtlZa/s9TUjbzeuGu9XuhXVIdpw
- QtljQYsZRN7zqXgC3e03bOsGSBzLaHNh3gkvdz5oHLeOMBhN5zBb1x+fq g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="218164806"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="218164806"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:26:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="463301187"
-Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:26:37 -0800
-From: Ramalingam C <ramalingam.c@intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Date: Thu,  9 Dec 2021 21:56:20 +0530
-Message-Id: <20211209162620.5218-1-ramalingam.c@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211208153404.27546-3-ramalingam.c@intel.com>
-References: <20211208153404.27546-3-ramalingam.c@intel.com>
+ bh=5ykY+ZAu2UbYQmYG7LkMW7Nv4tzwIOHQMldlV6f146E=;
+ b=idN7bWjQtJ+6gwQv0nb+8lSNf3jC+3I+zKXKcqwkDsNQYTecSa6pl2zC
+ mWZynGUNl8buxZy54jJ36B/5cvkrRogv2AYYHAMGZ5b9D9OJaN9qtTuT7
+ RLshaQr50u7a3OrdRtKpGLQyQqUsf2PtoyvQ+SwSveaf7JTf4sreSOFap
+ l4S8xKfMviX/8uk0b8L93iwHUDBRMua6RBGrmk8/M0nVy9iiVymHrC6Rk
+ 6jr5Qw7ZmmfsumYrIv0z/h878tAYHoBQXTB3ygWogtrvJ8fDKV0qDcy8f
+ gGOaWtY7m5qTvmWpuMiZ345ZcFaJ5xXFJjQuD7iDW2t+t9M0wpWeCDH7u w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="324411217"
+X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="324411217"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 08:51:47 -0800
+X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="612572200"
+Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 08:51:45 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  9 Dec 2021 18:51:24 +0200
+Message-Id: <f7e7e7fb91eae2b49a0ab5d982a235cec34e3320.1639068649.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1639068649.git.jani.nikula@intel.com>
+References: <cover.1639068649.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 2/3] drm/i915: Sanitycheck device iomem on
- probe
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/cdclk: hide struct intel_cdclk_vals
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,183 +56,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Auld <matthew.auld@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
+The definition is not needed outside of intel_cdclk.c.
 
-As we setup the memory regions for the device, give each a quick test to
-verify that we can read and write to the full iomem range. This ensures
-that our physical addressing for the device's memory is correct, and
-some reassurance that the memory is functional.
-
-v2: wrapper for memtest [Chris]
-
-v3: Removed the unused ptr i915 [Chris]
-
-v4: used the %pa for the resource_size_t.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/intel_memory_region.c | 116 +++++++++++++++++++++
- 1 file changed, 116 insertions(+)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 8 ++++++++
+ drivers/gpu/drm/i915/display/intel_cdclk.h | 8 --------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index b43121609e25..7bfb6df02e72 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2019 Intel Corporation
-  */
- 
-+#include <linux/prandom.h>
-+
- #include "intel_memory_region.h"
- #include "i915_drv.h"
- #include "i915_ttm_buddy_manager.h"
-@@ -29,6 +31,99 @@ static const struct {
- 	},
- };
- 
-+static int __iopagetest(struct intel_memory_region *mem,
-+			u8 __iomem *va, int pagesize,
-+			u8 value, resource_size_t offset,
-+			const void *caller)
-+{
-+	int byte = prandom_u32_max(pagesize);
-+	u8 result[3];
-+
-+	memset_io(va, value, pagesize); /* or GPF! */
-+	wmb();
-+
-+	result[0] = ioread8(va);
-+	result[1] = ioread8(va + byte);
-+	result[2] = ioread8(va + pagesize - 1);
-+	if (memchr_inv(result, value, sizeof(result))) {
-+		dev_err(mem->i915->drm.dev,
-+			"Failed to read back from memory region:%pR at [%pa + %pa] for %ps; wrote %x, read (%x, %x, %x)\n",
-+			&mem->region, &mem->io_start, &offset, caller,
-+			value, result[0], result[1], result[2]);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int iopagetest(struct intel_memory_region *mem,
-+		      resource_size_t offset,
-+		      const void *caller)
-+{
-+	const u8 val[] = { 0x0, 0xa5, 0xc3, 0xf0 };
-+	void __iomem *va;
-+	int err;
-+	int i;
-+
-+	va = ioremap_wc(mem->io_start + offset, PAGE_SIZE);
-+	if (!va) {
-+		dev_err(mem->i915->drm.dev,
-+			"Failed to ioremap memory region [%pa + %pa] for %ps\n",
-+			&mem->io_start, &offset, caller);
-+		return -EFAULT;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(val); i++) {
-+		err = __iopagetest(mem, va, PAGE_SIZE, val[i], offset, caller);
-+		if (err)
-+			break;
-+
-+		err = __iopagetest(mem, va, PAGE_SIZE, ~val[i], offset, caller);
-+		if (err)
-+			break;
-+	}
-+
-+	iounmap(va);
-+	return err;
-+}
-+
-+static resource_size_t random_page(resource_size_t last)
-+{
-+	/* Limited to low 44b (16TiB), but should suffice for a spot check */
-+	return prandom_u32_max(last >> PAGE_SHIFT) << PAGE_SHIFT;
-+}
-+
-+static int iomemtest(struct intel_memory_region *mem, const void *caller)
-+{
-+	resource_size_t last = resource_size(&mem->region) - PAGE_SIZE;
-+	int err;
-+
-+	/*
-+	 * Quick test to check read/write access to the iomap (backing store).
-+	 *
-+	 * Write a byte, read it back. If the iomapping fails, we expect
-+	 * a GPF preventing further execution. If the backing store does not
-+	 * exist, the read back will return garbage. We check a couple of pages,
-+	 * the first and last of the specified region to confirm the backing
-+	 * store + iomap does cover the entire memory region; and we check
-+	 * a random offset within as a quick spot check for bad memory.
-+	 */
-+
-+	err = iopagetest(mem, 0, caller);
-+	if (err)
-+		return err;
-+
-+	err = iopagetest(mem, last, caller);
-+	if (err)
-+		return err;
-+
-+	err = iopagetest(mem, random_page(last), caller);
-+	if (err)
-+		return err;
-+
-+	return 0;
-+}
-+
- struct intel_memory_region *
- intel_memory_region_lookup(struct drm_i915_private *i915,
- 			   u16 class, u16 instance)
-@@ -90,6 +185,20 @@ void intel_memory_region_debug(struct intel_memory_region *mr,
- 			   &mr->total, &mr->avail);
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 84674a4f7226..56f40d9430b8 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1219,6 +1219,14 @@ static bool has_cdclk_squasher(struct drm_i915_private *i915)
+ 	return IS_DG2(i915);
  }
  
-+static int intel_memory_region_memtest(struct intel_memory_region *mem,
-+				       void *caller)
-+{
-+	int err = 0;
++struct intel_cdclk_vals {
++	u32 cdclk;
++	u16 refclk;
++	u16 waveform;
++	u8 divider;	/* CD2X divider * 2 */
++	u8 ratio;
++};
 +
-+	if (!mem->io_start)
-+		return 0;
-+
-+	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-+		err = iomemtest(mem, caller);
-+
-+	return err;
-+}
-+
- struct intel_memory_region *
- intel_memory_region_create(struct drm_i915_private *i915,
- 			   resource_size_t start,
-@@ -126,8 +235,15 @@ intel_memory_region_create(struct drm_i915_private *i915,
- 			goto err_free;
- 	}
+ static const struct intel_cdclk_vals bxt_cdclk_table[] = {
+ 	{ .refclk = 19200, .cdclk = 144000, .divider = 8, .ratio = 60 },
+ 	{ .refclk = 19200, .cdclk = 288000, .divider = 4, .ratio = 60 },
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
+index 77e8c8e1708f..50b93226517e 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.h
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
+@@ -16,14 +16,6 @@ struct drm_i915_private;
+ struct intel_atomic_state;
+ struct intel_crtc_state;
  
-+	err = intel_memory_region_memtest(mem, (void *)_RET_IP_);
-+	if (err)
-+		goto err_release;
-+
- 	return mem;
+-struct intel_cdclk_vals {
+-	u32 cdclk;
+-	u16 refclk;
+-	u16 waveform;
+-	u8 divider;	/* CD2X divider * 2 */
+-	u8 ratio;
+-};
+-
+ struct intel_cdclk_state {
+ 	struct intel_global_state base;
  
-+err_release:
-+	if (mem->ops->release)
-+		mem->ops->release(mem);
- err_free:
- 	kfree(mem);
- 	return ERR_PTR(err);
 -- 
-2.20.1
+2.30.2
 
