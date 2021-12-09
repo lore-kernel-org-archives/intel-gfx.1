@@ -4,47 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B9F3C4167E
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:58:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9F3C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:58:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE31F10E9F3;
-	Thu,  9 Dec 2021 16:53:53 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D62510E11E
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639057884; x=1670593884;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0Xm3Iu60+gsuOXbEPv2XYI/POJ0csSk32dQojjp8Mw0=;
- b=PdLZyhKS5aWupqlvvkaNxobOdUEOPQFaDi+dZpU9rdCfV/L8JuN1lVb/
- Ru6tW0xugVh6NUYkebm549xRtD68LCeRi+9EdA03EfXIjVbjDwI9oi+qU
- CJzPIJyRqh7AxN8yoV9L05BF9aiP93d+W8zqVmCmuXyhPWqAHa7P63rPc
- 8XCqjOMBMlDaEeUpGjWxT10IjNrKqKbXvopqan2N0bnS0Pas4T/AO3MV9
- BlpCCvfjtEPi35AErwh7C7Zt0GOW5wUrzzVmPZ69UyELbScFMMmbhAq87
- Sabodr00R67bI5XoWZbk/p0gps2kcE6Y70dPZtzcg4JAwSYhlQXAywS9U Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="225365232"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="225365232"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:51:24 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="612503218"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:51:22 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 15:50:58 +0200
-Message-Id: <392f82ff54722551063599d06eacb38281748026.1639057801.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1639057801.git.jani.nikula@intel.com>
-References: <cover.1639057801.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 148FB10E988;
+	Thu,  9 Dec 2021 16:53:56 +0000 (UTC)
+Received: from wnew1-smtp.messagingengine.com (wnew1-smtp.messagingengine.com
+ [64.147.123.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8982C89FFD;
+ Thu,  9 Dec 2021 12:43:13 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.west.internal (Postfix) with ESMTP id 6D0302B00913;
+ Thu,  9 Dec 2021 07:43:09 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 09 Dec 2021 07:43:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:mime-version:content-type; s=
+ fm1; bh=884Bb0L2UxeHM7GQ7BHdqVO/TwBmNZDRd897QB2pAEU=; b=jyVe0+rL
+ ziYFsIR+arLGCFvQC1Zd6krTS3t4D7xOLC39iq8Y4QnMa+ISomZ4QB3NRW3fqFfs
+ vMOn++jMx/QJrOeSq2uBn4rrwuDgpJxw8SsWIycGKQB/kghcQ2ImGS0mhpINI8A+
+ HhbLW6Sq9J4nYaIhK44bfCEOq9YtVhYbM4p1MhVimC7BQEbQSfYlOss9WYHqzJ9q
+ GcUvLfbo+yIFXBgWPWZis/ubm2K1vHnx/AiNW2rJn5dz5R8AXOb4Ds4SvUiCKhkY
+ 1w4yHPegviuNTyOAQ/NySOzM2oxT2eDTiSu5rUOrjcVCe8ulYpRIlhJwzlAudtN/
+ NMPZfwtGEzKzgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=884Bb0L2UxeHM7GQ7BHdqVO/TwBmN
+ ZDRd897QB2pAEU=; b=Ebk5AOXuvK8tfn18mJ39PhzwpI1oUWs1jVfH9ZB0bovaE
+ 5k8fJ7bsZ09kddVjH6c/QUMO28Rd9NuLtc/XoHbz9CF7QwcaQ7rkiL+1H2hZTY1E
+ u4P67zNn7VcAp0L/UlEk+XePydESLgORKXjUsiBJwebHAnqKJ0tZhWIdjr1MiJEZ
+ LIGWTXETKIpmhVaR/E38Kso0gcncG/FwfYSlA5EkIG340GeJ43GYv2fghSXn6jKp
+ rxLgUmOoUNXVP6Sqcxvo2N6cVFFfRGDL04yRcqDmjbsDDUKiuT2qKnriu4OEB9JR
+ iQPR9l49KFXvWCK+dNvr/AQX3BzoUl5mqr7PLj5fg==
+X-ME-Sender: <xms:2_mxYT3KetLJqq0HS5eufOThhkBcYtXaNa0cW1P_NPIBDlng532aSA>
+ <xme:2_mxYSEGLY5gms5PdnjLoU-QcE4MOpKs09xa8LvlZAoTslaQjUI_lCypTQjFg1Zwt
+ U7ce0Sy8VdEvaQA1gc>
+X-ME-Received: <xmr:2_mxYT6aeThr40drLgKOKYx59-8odZrh6Iw271gu-eOL9iS6D5CaYYGHImpQcd6xY5ekq4V2rKTSyyKXetuspjxbBkv3Jz7DATVbQXZVJfZjqw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrkedtgdegfecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkgggtugesghdtreertddtudenucfhrhhomhepofgrgihimhgvucft
+ ihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtthgvrh
+ hnpefhheetgfegkeetffeuieelkeefgeetteffgffgkeelheekffevvdegtdeitedvuden
+ ucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucevlhhushhtvghrufhiii
+ gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgv
+ tghh
+X-ME-Proxy: <xmx:2_mxYY3MZYazCEHgF-qQ6EPYZr0J-iGJSh9i-i685wL2BJeYPyW3mw>
+ <xmx:2_mxYWGKXsNwCkRci_k6_ri5Bq7M72mprMF3roeQ4trDfAUqQ35QmQ>
+ <xmx:2_mxYZ-t5k9uwv_qov2i3IJivdRl1p2x3QIxUivygy2y3WgntA52DA>
+ <xmx:3PmxYe92cPxxgpkcmz-cs_zMwRYmWF1uOipGhpXwoxrDDsRgO9n1EOSfTVI>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 9 Dec 2021 07:43:07 -0500 (EST)
+Date: Thu, 9 Dec 2021 13:43:05 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20211209124305.gxhid5zwf7m4oasn@houat>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/7] drm/i915/psr: avoid intel_frontbuffer.h
- include with declaration
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gtauogvx2mu3t3y3"
+Content-Disposition: inline
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,46 +77,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reduce include dependencies using forward declarations.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.h | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+--gtauogvx2mu3t3y3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
-index 3d9c0e13c329..f6526d9ccfdc 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.h
-+++ b/drivers/gpu/drm/i915/display/intel_psr.h
-@@ -6,18 +6,19 @@
- #ifndef __INTEL_PSR_H__
- #define __INTEL_PSR_H__
- 
--#include "intel_frontbuffer.h"
-+#include <linux/types.h>
- 
-+enum fb_op_origin;
- struct drm_connector;
- struct drm_connector_state;
- struct drm_i915_private;
-+struct intel_atomic_state;
-+struct intel_crtc;
- struct intel_crtc_state;
- struct intel_dp;
--struct intel_crtc;
--struct intel_atomic_state;
--struct intel_plane_state;
--struct intel_plane;
- struct intel_encoder;
-+struct intel_plane;
-+struct intel_plane_state;
- 
- void intel_psr_init_dpcd(struct intel_dp *intel_dp);
- void intel_psr_pre_plane_update(struct intel_atomic_state *state,
--- 
-2.30.2
+Hi Dave, Daniel,
 
+Here's this week drm-misc-fixes PR
+
+Maxime
+
+drm-misc-fixes-2021-12-09:
+A fix in syncobj to handle fence already signalled better, and a fix for
+a ttm_bo_swapout eviction check.
+The following changes since commit 679d94cd7d900871e5bc9cf780bd5b73af35ab42:
+
+  dma-buf: system_heap: Use 'for_each_sgtable_sg' in pages free flow (2021-=
+12-01 15:30:10 +0530)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2021-12-09
+
+for you to fetch changes up to b19926d4f3a660a8b76e5d989ffd1168e619a5c4:
+
+  drm/syncobj: Deal with signalled fences in drm_syncobj_find_fence. (2021-=
+12-08 17:19:48 +0100)
+
+----------------------------------------------------------------
+A fix in syncobj to handle fence already signalled better, and a fix for
+a ttm_bo_swapout eviction check.
+
+----------------------------------------------------------------
+Bas Nieuwenhuizen (1):
+      drm/syncobj: Deal with signalled fences in drm_syncobj_find_fence.
+
+Christian K=F6nig (1):
+      drm/ttm: fix ttm_bo_swapout
+
+ drivers/gpu/drm/drm_syncobj.c | 11 ++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo.c  |  3 ++-
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+--gtauogvx2mu3t3y3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYbH52AAKCRDj7w1vZxhR
+xXNgAP9I8uRsAQqaD/y56P3VwsSg+8CykghZE6lQleUQ7+vhrAD5AU1Mslo00rSM
+6cwXc71zrz/jv/ycEm0GNPfnpqyAoQo=
+=RH6L
+-----END PGP SIGNATURE-----
+
+--gtauogvx2mu3t3y3--
