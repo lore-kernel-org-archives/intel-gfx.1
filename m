@@ -4,54 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29BF7C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167BAC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96BE910E3E7;
-	Thu,  9 Dec 2021 16:55:40 +0000 (UTC)
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [IPv6:2607:f8b0:4864:20::f32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4128410E116;
- Thu,  9 Dec 2021 16:23:05 +0000 (UTC)
-Received: by mail-qv1-xf32.google.com with SMTP id u16so5560042qvk.4;
- Thu, 09 Dec 2021 08:23:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=H5gMk/Ll3lKHidyq5YhvRSlIyK9BJM0aB84Iyd3NPRA=;
- b=fHfqMwJ8P2ySuZkcCMm093Db0SEkQtUsCIJGANCsX7WewIsWR7lAFnc63d8RGtcSMa
- suVJnB64LChfjkmCE/Ntj5a56ePCBbu3XyEzugHT/0mO7Np17bqtwY5m0lq+QyhGE56S
- LezoCti1eKqfOO5bzutWNj30dy+ILf46yifkh/Tu6a7XDWJ724xNNelhVA8XQm4Xy7zP
- MxGM35UDEfjUYj3mj8oUVkW66F/0QgyN4aT6uDC0t3AGRp0jplENY87MWk/IqyfPW5+w
- P4Khsq4nxKee0LtUqsT45RrHy/phBIlutAlFktb8OMdDJEQHTtryDCxWcgJ2sn3HE1+7
- oPOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=H5gMk/Ll3lKHidyq5YhvRSlIyK9BJM0aB84Iyd3NPRA=;
- b=5+j5zeTLwyxhk14xhum7IEfbI8hhPboTELTcOWCvfUNz0DG1ZAicZMUxI45UHPvxuS
- YJl9HdzC8yNoPK+OVM6AZKg6ZwfJP59EZMMudKrjJbYfC0AYQfwfCK3rW+IjI1SjlwNE
- h1Wk/PRXj7VoJqOnXmB3rD0u9QRA1kSQGKyPS1SMylmIk0EJ1rObfUHMaBYatPeO5CE7
- omaDfY0EhHjhFdQQ4OqxPNgum85T4SHixPkJ8AcGAbTujHA4exKOBN/el13ruYXKO5qJ
- +65mWz6OH/Dgg3eFUx8GhWDAvRUDnBJ3A5HkhOWJxfCd7SPyq74Gs2+24I51uoABJleZ
- 7seA==
-X-Gm-Message-State: AOAM530DaaFg1M8i6D7g3c6IZb2cbALNvF7GZ5x4y2Uf0y6T0CXjU5vz
- Z3yHpRhCC2xqd7XA6cB/35jC+bmrhufQ1EHMJVI=
-X-Google-Smtp-Source: ABdhPJxYBIY4X70LxpObOx5KRVG+1Az603IzbMeJDMkmG+1kvPHX6Pd5coYnaDWUU+HK5CTioiLPM23A6BKU0k7/tFk=
-X-Received: by 2002:a05:6214:18c7:: with SMTP id
- cy7mr16521470qvb.0.1639066984303; 
- Thu, 09 Dec 2021 08:23:04 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40AA310F68D;
+	Thu,  9 Dec 2021 16:55:42 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C697B10E124;
+ Thu,  9 Dec 2021 15:46:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639064777; x=1670600777;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HVP39cYirHKNi3ThSXeTN7iysw6js4+X6/Z7AItPA+A=;
+ b=k6AK5n0mXfDOV0Rfk9yey8fuIfr920VbeW4gHFG2nXn2RT4sfxVctZ68
+ 4QdebBLUG2zLIqM4XyI3ZLV9wsSVX5szBoII+eKyL9gSP239JseMNtqn5
+ qO2fpJxvM87g1jC1Jai1WOpqEND2Dr85JKq0TM+t9oaFOfT8Y0agBmJlF
+ r1Trr1nN8efXZCa6cKc5JpimPXSXaDKyOpuETdazX4Y1jz7GZMi4GEt9u
+ JNsNuhF4C7qmSWpoE6u7wFx+lAkJakC+Bon7Ja14QvlrS+Jq8/3KqS8Lh
+ oncrCpaos3TsZvZkmN820GIjV1u1f80EntDigcWO0P1zgDkko9epO8/K9 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298916894"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298916894"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:03 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503535172"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:01 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 21:15:21 +0530
+Message-Id: <20211209154533.4084-5-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211209154533.4084-1-ramalingam.c@intel.com>
+References: <20211209154533.4084-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
-References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
- <20211129134735.628712-17-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20211129134735.628712-17-maarten.lankhorst@linux.intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Thu, 9 Dec 2021 16:22:38 +0000
-Message-ID: <CAM0jSHM2w81HASG2TWKWdQPyJr3=m9WBB5t_V8C6gJPwrF5ouw@mail.gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH v2 16/16] drm/i915: Remove short-term pins
- from execbuf, v5.
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 04/16] drm/i915/xehpsdv: Add has_flat_ccs to
+ device info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,52 +57,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
+Cc: CQ Tang <cq.tang@intel.com>, Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 29 Nov 2021 at 13:58, Maarten Lankhorst
-<maarten.lankhorst@linux.intel.com> wrote:
->
-> Add a flag PIN_VALIDATE, to indicate we don't need to pin and only
-> protected by the object lock.
->
-> This removes the need to unpin, which is done by just releasing the
-> lock.
->
-> eb_reserve is slightly reworked for readability, but the same steps
-> are still done:
-> - First pass pins with NONBLOCK.
-> - Second pass unbinds all objects first, then pins.
-> - Third pass is only called when not all objects are softpinned, and
->   unbinds all objects, then calls i915_gem_evict_vm(), then pins.
->
-> When evicting the entire vm in eb_reserve() we do temporarily pin objects
-> that are marked with EXEC_OBJECT_PINNED. This is because they are already
-> at their destination, and i915_gem_evict_vm() would otherwise unbind them.
->
-> However, we reduce the visibility of those pins by limiting the pin
-> to our call to i915_gem_evict_vm() only, and pin with vm->mutex held,
-> instead of the entire duration of the execbuf.
->
-> Not sure the latter matters, one can hope..
-> In theory we could kill the pinning by adding an extra flag to the vma
-> to temporarily prevent unbinding for gtt for i915_gem_evict_vm only, but
-> I think that might be overkill. We're still holding the object lock, and
-> we don't have blocking eviction yet. It's likely sufficient to simply
-> enforce EXEC_OBJECT_PINNED for all objects on >= gen12.
->
-> Changes since v1:
-> - Split out eb_reserve() into separate functions for readability.
-> Changes since v2:
-> - Make batch buffer mappable on platforms where only GGTT is available,
->   to prevent moving the batch buffer during relocations.
-> Changes since v3:
-> - Preserve current behavior for batch buffer, instead be cautious when
->   calling i915_gem_object_ggtt_pin_ww, and re-use the current batch vma
->   if it's inside ggtt and map-and-fenceable.
-> - Remove impossible condition check from eb_reserve. (Matt)
->
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+From: CQ Tang <cq.tang@intel.com>
+
+Platforms of XeHP and beyond support 3D surface (buffer) compression and
+various compression formats. This is accomplished by an additional
+compression control state (CCS) stored for each surface.
+
+Gen 12 devices(TGL family and DG1) stores compression states in a separate
+region of memory. It is managed by user-space and has an associated set of
+user-space managed page tables used by hardware for address translation.
+
+In Xe HP and beyond (XEHPSDV, DG2, etc), there is a new feature introduced
+i.e Flat CCS. It replaced AUX page tables with a flat indexed region of
+device memory for storing compression states.
+
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: CQ Tang <cq.tang@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h          | 2 ++
+ drivers/gpu/drm/i915/i915_pci.c          | 1 +
+ drivers/gpu/drm/i915/intel_device_info.h | 1 +
+ 3 files changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index aeafce112dcd..ad2dd18f7622 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1543,6 +1543,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_REGION(i915, i) (INTEL_INFO(i915)->memory_regions & (i))
+ #define HAS_LMEM(i915) HAS_REGION(i915, REGION_LMEM)
+ 
++#define HAS_FLAT_CCS(dev_priv)   (INTEL_INFO(dev_priv)->has_flat_ccs)
++
+ #define HAS_GT_UC(dev_priv)	(INTEL_INFO(dev_priv)->has_gt_uc)
+ 
+ #define HAS_POOLED_EU(dev_priv)	(INTEL_INFO(dev_priv)->has_pooled_eu)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index b523eb1ece5d..382e7278058a 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1005,6 +1005,7 @@ static const struct intel_device_info adl_p_info = {
+ 	XE_HP_PAGE_SIZES, \
+ 	.dma_mask_size = 46, \
+ 	.has_64bit_reloc = 1, \
++	.has_flat_ccs = 1, \
+ 	.has_global_mocs = 1, \
+ 	.has_gt_uc = 1, \
+ 	.has_llc = 1, \
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 213ae2c07126..cbbb40e8451f 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -129,6 +129,7 @@ enum intel_ppgtt_type {
+ 	func(has_64k_pages); \
+ 	func(gpu_reset_clobbers_display); \
+ 	func(has_reset_engine); \
++	func(has_flat_ccs); \
+ 	func(has_global_mocs); \
+ 	func(has_gt_uc); \
+ 	func(has_l3_dpf); \
+-- 
+2.20.1
+
