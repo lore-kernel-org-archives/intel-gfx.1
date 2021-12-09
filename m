@@ -4,38 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C3AC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA3BC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B359710F28B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B350310F28A;
 	Thu,  9 Dec 2021 16:55:25 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 648BF89F47
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:25:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="236832214"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="236832214"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:25:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="516294338"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:25:39 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Pallavi Mishra <pallavi.mishra@intel.com>
-In-Reply-To: <38d8d4458215227dcf2983f1cdc920c7771c9108.camel@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211203063257.52053-1-pallavi.mishra@intel.com>
- <Yan5RE4+T7hTHDI/@intel.com>
- <38d8d4458215227dcf2983f1cdc920c7771c9108.camel@linux.intel.com>
-Date: Thu, 09 Dec 2021 15:25:35 +0200
-Message-ID: <87wnkd3o6o.fsf@intel.com>
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1343891D4;
+ Thu,  9 Dec 2021 15:46:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639064803; x=1670600803;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=9OlL+gZZbnMSDuqtV81u4kMOiLsRp8FFYXagysWNZNo=;
+ b=HRIv6+dIwpzsuj9I1CwLxCqWE7dU5Co0Worj0R9N7l24BKULUwfPUwkj
+ 6qobDBeLhguBwwZFd/PzzImLXzYEcvLV80Z9e9TiIZQoe7cNHavMDsVNr
+ AvoO3CHgTZpvBWgP28vvRFVmDzkx+dMUrthBCXDoEC68qa6E0bNNFCPjC
+ XP3hpoNzWSyhc4h3k5PrZd8Ywry12/YMrUSMOw10v9zF4vEAQR8n4l8K1
+ oB3bPWZSYF/llcGwmVgwQLHBSvnPmimO1cIIlcSv6vtkT5BEZnHfM+mCR
+ 6FzzvqxteXTAc4BUB7+tCeR2MQwrfQQEgUDOdxBKslrYzJeyPLCFXasyt w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298917123"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298917123"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:27 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503535237"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:25 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 21:15:30 +0530
+Message-Id: <20211209154533.4084-14-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211209154533.4084-1-ramalingam.c@intel.com>
+References: <20211209154533.4084-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix possible null ptr dereferences
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 13/16] drm/i915/dg2: Flat CCS Support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,119 +57,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 03 Dec 2021, Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.co=
-m> wrote:
-> On Fri, 2021-12-03 at 13:02 +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
->> On Fri, Dec 03, 2021 at 12:02:57PM +0530, Pallavi Mishra wrote:
->> > add null ptr checks to prevent crash/exceptions.
->>=20
->> BUG_ON()s aren't going to fix anything.
->>=20
->> > Signed-off-by: Pallavi Mishra <pallavi.mishra@intel.com>
->
-> Pallavi,=20
->
-> The NULL pointer dereferences here are probably all false positives
-> from a static analyzer. However the GEM_BUG_ONs are fine to assert that
-> the assumption really holds and to clearly point out what's going wrong
-> if they are hit in CI tests.
+From: Anshuman Gupta <anshuman.gupta@intel.com>
 
-I think we're massively overusing GEM_BUG_ON() all over the place.
+DG2 onwards discrete gfx has support for new flat CCS mapping,
+which brings in display feature in to avoid Aux walk for compressed
+surface. This support build on top of Flat CCS support added in XEHPSDV.
+FLAT CCS surface base address should be 64k aligned,
+Compressed displayable surfaces must use tile4 format.
 
-BR,
-Jani.
+HAS: 1407880786
+B.Spec : 7655
+B.Spec : 53902
 
+Cc: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Signed-off-by: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c  |  4 ++-
+ drivers/gpu/drm/i915/display/intel_fb.c       | 32 +++++++++++++------
+ .../drm/i915/display/skl_universal_plane.c    | 14 +++++---
+ 3 files changed, 35 insertions(+), 15 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 83253c62b6d6..fd84ed0da41c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -8628,7 +8628,9 @@ static void intel_atomic_prepare_plane_clear_colors(struct intel_atomic_state *s
+ 
+ 		/*
+ 		 * The layout of the fast clear color value expected by HW
+-		 * (the DRM ABI requiring this value to be located in fb at offset 0 of plane#2):
++		 * (the DRM ABI requiring this value to be located in fb at
++		 * offset 0 of cc plane, plane #2 previous generations or
++		 * plane #1 for flat ccs):
+ 		 * - 4 x 4 bytes per-channel value
+ 		 *   (in surface type specific float/int format provided by the fb user)
+ 		 * - 8 bytes native color value used by the display
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index f10e77cb5b4a..72040f580911 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -107,6 +107,21 @@ static const struct drm_format_info gen12_ccs_cc_formats[] = {
+ 	  .hsub = 1, .vsub = 1, .has_alpha = true },
+ };
+ 
++static const struct drm_format_info gen12_flat_ccs_cc_formats[] = {
++	{ .format = DRM_FORMAT_XRGB8888, .depth = 24, .num_planes = 2,
++	  .char_per_block = { 4, 0 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
++	  .hsub = 1, .vsub = 1, },
++	{ .format = DRM_FORMAT_XBGR8888, .depth = 24, .num_planes = 2,
++	  .char_per_block = { 4, 0 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
++	  .hsub = 1, .vsub = 1, },
++	{ .format = DRM_FORMAT_ARGB8888, .depth = 32, .num_planes = 2,
++	  .char_per_block = { 4, 0 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
++	  .hsub = 1, .vsub = 1, .has_alpha = true },
++	{ .format = DRM_FORMAT_ABGR8888, .depth = 32, .num_planes = 2,
++	  .char_per_block = { 4, 0 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
++	  .hsub = 1, .vsub = 1, .has_alpha = true },
++};
++
+ struct intel_modifier_desc {
+ 	u64 modifier;
+ 	struct {
+@@ -150,6 +165,8 @@ static const struct intel_modifier_desc intel_modifiers[] = {
+ 		.plane_caps = INTEL_PLANE_CAP_TILING_4 | INTEL_PLANE_CAP_CCS_RC_CC,
+ 
+ 		.ccs.cc_planes = BIT(1),
++
++		FORMAT_OVERRIDE(gen12_flat_ccs_cc_formats),
+ 	}, {
+ 		.modifier = I915_FORMAT_MOD_4_TILED_DG2_RC_CCS,
+ 		.display_ver = { 13, 14 },
+@@ -399,17 +416,13 @@ bool intel_fb_plane_supports_modifier(struct intel_plane *plane, u64 modifier)
+ static bool format_is_yuv_semiplanar(const struct intel_modifier_desc *md,
+ 				     const struct drm_format_info *info)
+ {
+-	int yuv_planes;
+-
+ 	if (!info->is_yuv)
+ 		return false;
+ 
+-	if (plane_caps_contain_any(md->plane_caps, INTEL_PLANE_CAP_CCS_MASK))
+-		yuv_planes = 4;
++	if (hweight8(md->ccs.planar_aux_planes) == 2)
++		return info->num_planes == 4;
+ 	else
+-		yuv_planes = 2;
+-
+-	return info->num_planes == yuv_planes;
++		return info->num_planes == 2;
+ }
+ 
+ /**
+@@ -534,12 +547,13 @@ static unsigned int gen12_ccs_aux_stride(struct intel_framebuffer *fb, int ccs_p
+ 
+ int skl_main_to_aux_plane(const struct drm_framebuffer *fb, int main_plane)
+ {
++	const struct intel_modifier_desc *md = lookup_modifier(fb->modifier);
+ 	struct drm_i915_private *i915 = to_i915(fb->dev);
+ 
+-	if (intel_fb_is_ccs_modifier(fb->modifier))
++	if (md->ccs.packed_aux_planes | md->ccs.planar_aux_planes)
+ 		return main_to_ccs_plane(fb, main_plane);
+ 	else if (DISPLAY_VER(i915) < 11 &&
+-		 intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
++		 format_is_yuv_semiplanar(md, fb->format))
+ 		return 1;
+ 	else
+ 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 9a89df9c0243..ed2883409e91 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1136,7 +1136,9 @@ skl_program_plane_arm(struct intel_plane *plane,
+ 	intel_de_write_fw(dev_priv, PLANE_OFFSET(pipe, plane_id),
+ 			  (y << 16) | x);
+ 
+-	intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id), aux_dist);
++	/* FLAT CCS doesn't need to program AUX_DIST */
++	if (!HAS_FLAT_CCS(dev_priv))
++		intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id), aux_dist);
+ 
+ 	if (DISPLAY_VER(dev_priv) < 11)
+ 		intel_de_write_fw(dev_priv, PLANE_AUX_OFFSET(pipe, plane_id),
+@@ -1543,9 +1545,10 @@ static int skl_check_main_surface(struct intel_plane_state *plane_state)
+ 
+ 	/*
+ 	 * CCS AUX surface doesn't have its own x/y offsets, we must make sure
+-	 * they match with the main surface x/y offsets.
++	 * they match with the main surface x/y offsets. On DG2
++	 * there's no aux plane on fb so skip this checking.
+ 	 */
+-	if (intel_fb_is_ccs_modifier(fb->modifier)) {
++	if (intel_fb_is_ccs_modifier(fb->modifier) && aux_plane) {
+ 		while (!skl_check_main_ccs_coordinates(plane_state, x, y,
+ 						       offset, aux_plane)) {
+ 			if (offset == 0)
+@@ -1589,6 +1592,8 @@ static int skl_check_nv12_aux_surface(struct intel_plane_state *plane_state)
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
+ 	unsigned int rotation = plane_state->hw.rotation;
+ 	int uv_plane = 1;
++	int ccs_plane = intel_fb_is_ccs_modifier(fb->modifier) ?
++			skl_main_to_aux_plane(fb, uv_plane) : 0;
+ 	int max_width = intel_plane_max_width(plane, fb, uv_plane, rotation);
+ 	int max_height = intel_plane_max_height(plane, fb, uv_plane, rotation);
+ 	int x = plane_state->uapi.src.x1 >> 17;
+@@ -1609,8 +1614,7 @@ static int skl_check_nv12_aux_surface(struct intel_plane_state *plane_state)
+ 	offset = intel_plane_compute_aligned_offset(&x, &y,
+ 						    plane_state, uv_plane);
+ 
+-	if (intel_fb_is_ccs_modifier(fb->modifier)) {
+-		int ccs_plane = main_to_ccs_plane(fb, uv_plane);
++	if (ccs_plane) {
+ 		u32 aux_offset = plane_state->view.color_plane[ccs_plane].offset;
+ 		u32 alignment = intel_surf_alignment(fb, uv_plane);
+ 
+-- 
+2.20.1
 
->
-> But the commit message must reflect that.
->
-> /Thomas.
->
->
->> > ---
->> > =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 3 +++
->> > =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 3 ++-
->> > =C2=A02 files changed, 5 insertions(+), 1 deletion(-)
->> >=20
->> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> > b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> > index 218a9b3037c7..997fe73c205b 100644
->> > --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> > @@ -906,6 +906,8 @@ vm_access_ttm(struct vm_area_struct *area,
->> > unsigned long addr,
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct drm_i915_gem_ob=
-ject *obj =3D
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0i915_ttm_to_gem(area->vm_private_data);
->> > =C2=A0
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!obj);
->> > +
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (i915_gem_object_is=
-_readonly(obj) && write)
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0return -EACCES;
->> > =C2=A0
->> > @@ -966,6 +968,7 @@ static const struct drm_i915_gem_object_ops
->> > i915_gem_ttm_obj_ops =3D {
->> > =C2=A0void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
->> > =C2=A0{
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct drm_i915_gem_ob=
-ject *obj =3D i915_ttm_to_gem(bo);
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!obj);
->> > =C2=A0
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0i915_gem_object_releas=
-e_memory_region(obj);
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0mutex_destroy(&obj->tt=
-m.get_io_page.lock);
->> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
->> > b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
->> > index 80df9f592407..2b684903a9f5 100644
->> > --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
->> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
->> > @@ -371,6 +371,7 @@ int i915_ttm_move_notify(struct
->> > ttm_buffer_object *bo)
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct drm_i915_gem_ob=
-ject *obj =3D i915_ttm_to_gem(bo);
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int ret;
->> > =C2=A0
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!obj);
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ret =3D i915_gem_objec=
-t_unbind(obj,
->> > I915_GEM_OBJECT_UNBIND_ACTIVE);
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0return ret;
->> > @@ -506,7 +507,7 @@ static void i915_ttm_memcpy_init(struct
->> > i915_ttm_memcpy_arg *arg,
->> > =C2=A0
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0dst_reg =3D i915_ttm_r=
-egion(bo->bdev, dst_mem->mem_type);
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0src_reg =3D i915_ttm_r=
-egion(bo->bdev, bo->resource-
->> > >mem_type);
->> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!dst_reg || !src=
-_reg);
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!dst_reg || !src=
-_reg || !obj);
->> > =C2=A0
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0arg->dst_iter =3D !i91=
-5_ttm_cpu_maps_iomem(dst_mem) ?
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0ttm_kmap_iter_tt_init(&arg->_dst_iter.tt, dst_tt=
-m)
->> > :
->> > --=20
->> > 2.25.1
->>=20
->
->
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
