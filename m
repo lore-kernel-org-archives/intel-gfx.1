@@ -4,50 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8F14C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC64C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:59:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBBA10E9EC;
-	Thu,  9 Dec 2021 16:53:53 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63DA589F99
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 09:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639043548; x=1670579548;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=EO93YWv8ulvSFd4u8nhHPt+xIt0ohGEEQsagZtnGMJY=;
- b=Vk76WEQzgcHsJo4SpFMFJfg1o6Nl0SJ3TYWMw/ELkSjH+GRavZwDZedh
- 7LOXoboz8+TWnUc1rjTZq/lXo9wAY+OcwkbcmtX8WX6iAKiRhPSEolaHH
- W4gL7zX31RC5DCCxm/BsMElrneIcOCr6A6tvUdw3jlQHvXxdyqSTar6l7
- EwA276WlK/NgkBd9yGGOhmOMI0fiROqPsJWDepCdw8D7O5OrH9YZg+lwP
- JkMKtyYmLjSg3XHl/O8xaHJ2z4usoXXZ05d2I4GcjyyTE0b6zcUXfmrbg
- FrsKTiFVKUgdayWsdgW3P8Aalnc3LqSlZ+ztjuKYwscXP/K6bE3cx6eGL A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298852899"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298852899"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA96510E1EE;
+	Thu,  9 Dec 2021 16:53:57 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3561410E11D;
+ Thu,  9 Dec 2021 13:26:12 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="238036905"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="238036905"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 01:51:01 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="680269391"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:26:11 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="680325780"
+Received: from achlenov-mobl2.ccr.corp.intel.com (HELO intel.com)
+ ([10.252.52.59])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 01:50:58 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-In-Reply-To: <87bl1r3vac.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1638961423.git.jani.nikula@intel.com>
- <7862ad764fbd0748d903c76bc632d3d277874e5b.1638961423.git.jani.nikula@intel.com>
- <20211208160321.ihbm6lxz4dijo43l@ldmartin-desk2>
- <87bl1r3vac.fsf@intel.com>
-Date: Thu, 09 Dec 2021 11:50:54 +0200
-Message-ID: <878rwu3y4h.fsf@intel.com>
+ 09 Dec 2021 05:26:08 -0800
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ DRI Devel <dri-devel@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 15:25:08 +0200
+Message-Id: <20211209132512.47241-8-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20211209132512.47241-1-andi.shyti@linux.intel.com>
+References: <20211209132512.47241-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v3 2/2] drm/i915/trace: split out display
- trace to a separate file
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v6 07/11] drm/i915/selftests: Use to_gt() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,1664 +46,386 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 08 Dec 2021, Jani Nikula <jani.nikula@intel.com> wrote:
-> On Wed, 08 Dec 2021, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
->> On Wed, Dec 08, 2021 at 01:05:17PM +0200, Jani Nikula wrote:
->>>Add display/intel_display_trace.[ch] for defining display
->>>tracepoints. The main goal is to reduce cross-includes between gem and
->>>display. It would be possible split up tracing even further, but that
->>>would lead to more boilerplate.
->>>
->>>We end up having to include intel_crtc.h in a few places because it was
->>>pulled in implicitly via intel_de.h -> i915_trace.h -> intel_crtc.h, and
->>>that's no longer the case.
->>>
->>>There should be no changes to tracepoints.
->>>
->>>v3:
->>>- Rebase
->>>
->>>v2:
->>>- Define TRACE_INCLUDE_PATH relative to define_trace.h (Chris)
->>>- Remove useless comments (Ville)
->>>
->>>Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->>>Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->>>Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->>
->>
->> only thing I noticed in the code move is that we lost the comments about
->> grouping the tracepoints. Was this intentional? Example:
->
-> Yeah, specifically requested by Ville (see v2 changelog above).
+Use to_gt() helper consistently throughout the codebase.
+Pure mechanical s/i915->gt/to_gt(i915). No functional changes.
 
-And pushed, thanks for the reviews.
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Michał Winiarski <michal.winiarski@intel.com>
+---
+ drivers/gpu/drm/i915/selftests/i915_active.c  |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_gem.c     |  2 +-
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   |  6 ++--
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  4 +--
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c | 10 +++----
+ .../gpu/drm/i915/selftests/i915_selftest.c    |  4 +--
+ .../gpu/drm/i915/selftests/igt_flush_test.c   |  2 +-
+ .../gpu/drm/i915/selftests/igt_live_test.c    |  4 +--
+ .../drm/i915/selftests/intel_memory_region.c  |  4 +--
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |  2 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  | 30 +++++++++----------
+ drivers/gpu/drm/i915/selftests/mock_gtt.c     |  6 ++--
+ drivers/gpu/drm/i915/selftests/mock_uncore.c  |  2 +-
+ 14 files changed, 40 insertions(+), 40 deletions(-)
 
-BR,
-Jani.
+diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c b/drivers/gpu/drm/i915/selftests/i915_active.c
+index 61bf4560d8af..2dac9be1de58 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_active.c
++++ b/drivers/gpu/drm/i915/selftests/i915_active.c
+@@ -254,7 +254,7 @@ int i915_active_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(live_active_barrier),
+ 	};
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	return i915_subtests(tests, i915);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem.c b/drivers/gpu/drm/i915/selftests/i915_gem.c
+index 152d9ab135b1..b5576888cd78 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem.c
+@@ -248,7 +248,7 @@ int i915_gem_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_gem_ww_ctx),
+ 	};
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	return i915_live_subtests(tests, i915);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+index 7e0658a77659..75b709c26dd3 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+@@ -545,7 +545,7 @@ int i915_gem_evict_mock_selftests(void)
+ 		return -ENOMEM;
+ 
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
+-		err = i915_subtests(tests, &i915->gt);
++		err = i915_subtests(tests, to_gt(i915));
+ 
+ 	mock_destroy_device(i915);
+ 	return err;
+@@ -557,8 +557,8 @@ int i915_gem_evict_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_evict_contexts),
+ 	};
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+-	return intel_gt_live_subtests(tests, &i915->gt);
++	return intel_gt_live_subtests(tests, to_gt(i915));
+ }
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 46f4236039a9..48123c3e1ff0 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -155,7 +155,7 @@ static int igt_ppgtt_alloc(void *arg)
+ 	if (!HAS_PPGTT(dev_priv))
+ 		return 0;
+ 
+-	ppgtt = i915_ppgtt_create(&dev_priv->gt, 0);
++	ppgtt = i915_ppgtt_create(to_gt(dev_priv), 0);
+ 	if (IS_ERR(ppgtt))
+ 		return PTR_ERR(ppgtt);
+ 
+@@ -1053,7 +1053,7 @@ static int exercise_ppgtt(struct drm_i915_private *dev_priv,
+ 	if (IS_ERR(file))
+ 		return PTR_ERR(file);
+ 
+-	ppgtt = i915_ppgtt_create(&dev_priv->gt, 0);
++	ppgtt = i915_ppgtt_create(to_gt(dev_priv), 0);
+ 	if (IS_ERR(ppgtt)) {
+ 		err = PTR_ERR(ppgtt);
+ 		goto out_free;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
+index 9e9a6cb1d9e5..88db2e3d81d0 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_perf.c
++++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
+@@ -424,7 +424,7 @@ int i915_perf_live_selftests(struct drm_i915_private *i915)
+ 	if (!perf->metrics_kobj || !perf->ops.enable_metric_set)
+ 		return 0;
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	err = alloc_empty_config(&i915->perf);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+index 9979ef9197cd..92a859b34190 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_request.c
++++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+@@ -841,7 +841,7 @@ static struct i915_vma *empty_batch(struct drm_i915_private *i915)
+ 	__i915_gem_object_flush_map(obj, 0, 64);
+ 	i915_gem_object_unpin_map(obj);
+ 
+-	intel_gt_chipset_flush(&i915->gt);
++	intel_gt_chipset_flush(to_gt(i915));
+ 
+ 	vma = i915_vma_instance(obj, &i915->ggtt.vm, NULL);
+ 	if (IS_ERR(vma)) {
+@@ -982,7 +982,7 @@ static struct i915_vma *recursive_batch(struct drm_i915_private *i915)
+ 	if (IS_ERR(obj))
+ 		return ERR_CAST(obj);
+ 
+-	vma = i915_vma_instance(obj, i915->gt.vm, NULL);
++	vma = i915_vma_instance(obj, to_gt(i915)->vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		err = PTR_ERR(vma);
+ 		goto err;
+@@ -1014,7 +1014,7 @@ static struct i915_vma *recursive_batch(struct drm_i915_private *i915)
+ 	__i915_gem_object_flush_map(obj, 0, 64);
+ 	i915_gem_object_unpin_map(obj);
+ 
+-	intel_gt_chipset_flush(&i915->gt);
++	intel_gt_chipset_flush(to_gt(i915));
+ 
+ 	return vma;
+ 
+@@ -1700,7 +1700,7 @@ int i915_request_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(live_breadcrumbs_smoketest),
+ 	};
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	return i915_subtests(tests, i915);
+@@ -3091,7 +3091,7 @@ int i915_request_perf_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(perf_parallel_engines),
+ 	};
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	return i915_subtests(tests, i915);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_selftest.c b/drivers/gpu/drm/i915/selftests/i915_selftest.c
+index 484759c9409c..2d6d7bd13c3c 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_selftest.c
++++ b/drivers/gpu/drm/i915/selftests/i915_selftest.c
+@@ -298,10 +298,10 @@ int __i915_live_setup(void *data)
+ 	struct drm_i915_private *i915 = data;
+ 
+ 	/* The selftests expect an idle system */
+-	if (intel_gt_pm_wait_for_idle(&i915->gt))
++	if (intel_gt_pm_wait_for_idle(to_gt(i915)))
+ 		return -EIO;
+ 
+-	return intel_gt_terminally_wedged(&i915->gt);
++	return intel_gt_terminally_wedged(to_gt(i915));
+ }
+ 
+ int __i915_live_teardown(int err, void *data)
+diff --git a/drivers/gpu/drm/i915/selftests/igt_flush_test.c b/drivers/gpu/drm/i915/selftests/igt_flush_test.c
+index a6c71fca61aa..b84594601d30 100644
+--- a/drivers/gpu/drm/i915/selftests/igt_flush_test.c
++++ b/drivers/gpu/drm/i915/selftests/igt_flush_test.c
+@@ -14,7 +14,7 @@
+ 
+ int igt_flush_test(struct drm_i915_private *i915)
+ {
+-	struct intel_gt *gt = &i915->gt;
++	struct intel_gt *gt = to_gt(i915);
+ 	int ret = intel_gt_is_wedged(gt) ? -EIO : 0;
+ 
+ 	cond_resched();
+diff --git a/drivers/gpu/drm/i915/selftests/igt_live_test.c b/drivers/gpu/drm/i915/selftests/igt_live_test.c
+index 1c721542e277..72b58b66692a 100644
+--- a/drivers/gpu/drm/i915/selftests/igt_live_test.c
++++ b/drivers/gpu/drm/i915/selftests/igt_live_test.c
+@@ -16,7 +16,7 @@ int igt_live_test_begin(struct igt_live_test *t,
+ 			const char *func,
+ 			const char *name)
+ {
+-	struct intel_gt *gt = &i915->gt;
++	struct intel_gt *gt = to_gt(i915);
+ 	struct intel_engine_cs *engine;
+ 	enum intel_engine_id id;
+ 	int err;
+@@ -57,7 +57,7 @@ int igt_live_test_end(struct igt_live_test *t)
+ 		return -EIO;
+ 	}
+ 
+-	for_each_engine(engine, &i915->gt, id) {
++	for_each_engine(engine, to_gt(i915), id) {
+ 		if (t->reset_engine[id] ==
+ 		    i915_reset_engine_count(&i915->gpu_error, engine))
+ 			continue;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+index 0d5df0dc7212..8255561ff853 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+@@ -1217,7 +1217,7 @@ int intel_memory_region_live_selftests(struct drm_i915_private *i915)
+ 		return 0;
+ 	}
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	return i915_live_subtests(tests, i915);
+@@ -1229,7 +1229,7 @@ int intel_memory_region_perf_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(perf_memcpy),
+ 	};
+ 
+-	if (intel_gt_is_wedged(&i915->gt))
++	if (intel_gt_is_wedged(to_gt(i915)))
+ 		return 0;
+ 
+ 	return i915_live_subtests(tests, i915);
+diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+index bc8128170a99..cdd196783535 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
++++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+@@ -344,5 +344,5 @@ int intel_uncore_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(live_forcewake_domains),
+ 	};
+ 
+-	return intel_gt_live_subtests(tests, &i915->gt);
++	return intel_gt_live_subtests(tests, to_gt(i915));
+ }
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+index eeb632aac4a7..8aa7b1d33865 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+@@ -45,7 +45,7 @@
+ 
+ void mock_device_flush(struct drm_i915_private *i915)
+ {
+-	struct intel_gt *gt = &i915->gt;
++	struct intel_gt *gt = to_gt(i915);
+ 	struct intel_engine_cs *engine;
+ 	enum intel_engine_id id;
+ 
+@@ -64,7 +64,7 @@ static void mock_device_release(struct drm_device *dev)
+ 		goto out;
+ 
+ 	mock_device_flush(i915);
+-	intel_gt_driver_remove(&i915->gt);
++	intel_gt_driver_remove(to_gt(i915));
+ 
+ 	i915_gem_drain_workqueue(i915);
+ 	i915_gem_drain_freed_objects(i915);
+@@ -73,7 +73,7 @@ static void mock_device_release(struct drm_device *dev)
+ 	destroy_workqueue(i915->wq);
+ 
+ 	intel_region_ttm_device_fini(i915);
+-	intel_gt_driver_late_release(&i915->gt);
++	intel_gt_driver_late_release(to_gt(i915));
+ 	intel_memory_regions_driver_release(i915);
+ 
+ 	drm_mode_config_cleanup(&i915->drm);
+@@ -178,11 +178,11 @@ struct drm_i915_private *mock_gem_device(void)
+ 	spin_lock_init(&i915->gpu_error.lock);
+ 
+ 	i915_gem_init__mm(i915);
+-	intel_gt_init_early(&i915->gt, i915);
+-	__intel_gt_init_early(&i915->gt, i915);
++	intel_gt_init_early(to_gt(i915), i915);
++	__intel_gt_init_early(to_gt(i915), i915);
+ 	mock_uncore_init(&i915->uncore, i915);
+-	atomic_inc(&i915->gt.wakeref.count); /* disable; no hw support */
+-	i915->gt.awake = -ENODEV;
++	atomic_inc(&to_gt(i915)->wakeref.count); /* disable; no hw support */
++	to_gt(i915)->awake = -ENODEV;
+ 
+ 	ret = intel_region_ttm_device_init(i915);
+ 	if (ret)
+@@ -195,19 +195,19 @@ struct drm_i915_private *mock_gem_device(void)
+ 	mock_init_contexts(i915);
+ 
+ 	mock_init_ggtt(i915, &i915->ggtt);
+-	i915->gt.vm = i915_vm_get(&i915->ggtt.vm);
++	to_gt(i915)->vm = i915_vm_get(&i915->ggtt.vm);
+ 
+ 	mkwrite_device_info(i915)->platform_engine_mask = BIT(0);
+-	i915->gt.info.engine_mask = BIT(0);
++	to_gt(i915)->info.engine_mask = BIT(0);
+ 
+-	i915->gt.engine[RCS0] = mock_engine(i915, "mock", RCS0);
+-	if (!i915->gt.engine[RCS0])
++	to_gt(i915)->engine[RCS0] = mock_engine(i915, "mock", RCS0);
++	if (!to_gt(i915)->engine[RCS0])
+ 		goto err_unlock;
+ 
+-	if (mock_engine_init(i915->gt.engine[RCS0]))
++	if (mock_engine_init(to_gt(i915)->engine[RCS0]))
+ 		goto err_context;
+ 
+-	__clear_bit(I915_WEDGED, &i915->gt.reset.flags);
++	__clear_bit(I915_WEDGED, &to_gt(i915)->reset.flags);
+ 	intel_engines_driver_register(i915);
+ 
+ 	i915->do_release = true;
+@@ -216,13 +216,13 @@ struct drm_i915_private *mock_gem_device(void)
+ 	return i915;
+ 
+ err_context:
+-	intel_gt_driver_remove(&i915->gt);
++	intel_gt_driver_remove(to_gt(i915));
+ err_unlock:
+ 	destroy_workqueue(i915->wq);
+ err_drv:
+ 	intel_region_ttm_device_fini(i915);
+ err_ttm:
+-	intel_gt_driver_late_release(&i915->gt);
++	intel_gt_driver_late_release(to_gt(i915));
+ 	intel_memory_regions_driver_release(i915);
+ 	drm_mode_config_cleanup(&i915->drm);
+ 	mock_destroy_device(i915);
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+index cc047ec594f9..f0b87de0aca3 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+@@ -70,7 +70,7 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
+ 	if (!ppgtt)
+ 		return NULL;
+ 
+-	ppgtt->vm.gt = &i915->gt;
++	ppgtt->vm.gt = to_gt(i915);
+ 	ppgtt->vm.i915 = i915;
+ 	ppgtt->vm.total = round_down(U64_MAX, PAGE_SIZE);
+ 	ppgtt->vm.dma = i915->drm.dev;
+@@ -109,7 +109,7 @@ void mock_init_ggtt(struct drm_i915_private *i915, struct i915_ggtt *ggtt)
+ {
+ 	memset(ggtt, 0, sizeof(*ggtt));
+ 
+-	ggtt->vm.gt = &i915->gt;
++	ggtt->vm.gt = to_gt(i915);
+ 	ggtt->vm.i915 = i915;
+ 	ggtt->vm.is_ggtt = true;
+ 
+@@ -130,7 +130,7 @@ void mock_init_ggtt(struct drm_i915_private *i915, struct i915_ggtt *ggtt)
+ 	ggtt->vm.vma_ops.clear_pages = clear_pages;
+ 
+ 	i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
+-	i915->gt.ggtt = ggtt;
++	to_gt(i915)->ggtt = ggtt;
+ }
+ 
+ void mock_fini_ggtt(struct i915_ggtt *ggtt)
+diff --git a/drivers/gpu/drm/i915/selftests/mock_uncore.c b/drivers/gpu/drm/i915/selftests/mock_uncore.c
+index b3790ef137e4..f2d6be5e1230 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_uncore.c
++++ b/drivers/gpu/drm/i915/selftests/mock_uncore.c
+@@ -42,7 +42,7 @@ __nop_read(64)
+ void mock_uncore_init(struct intel_uncore *uncore,
+ 		      struct drm_i915_private *i915)
+ {
+-	intel_uncore_init_early(uncore, &i915->gt);
++	intel_uncore_init_early(uncore, to_gt(i915));
+ 
+ 	ASSIGN_RAW_WRITE_MMIO_VFUNCS(uncore, nop);
+ 	ASSIGN_RAW_READ_MMIO_VFUNCS(uncore, nop);
+-- 
+2.34.1
 
-
->
-> BR,
-> Jani.
->
->
->>
->> 	/* watermark/fifo updates */
->> 	...
->> 	/* plane updates */
->> 	...
->> 	etc
->>
->>
->> Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
->>
->> Lucas De Marchi
->>
->>
->>
->>
->>>---
->>> drivers/gpu/drm/i915/Makefile                 |   1 +
->>> drivers/gpu/drm/i915/display/g4x_dp.c         |   1 +
->>> drivers/gpu/drm/i915/display/g4x_hdmi.c       |   1 +
->>> .../gpu/drm/i915/display/intel_atomic_plane.c |   5 +-
->>> drivers/gpu/drm/i915/display/intel_audio.c    |   1 +
->>> drivers/gpu/drm/i915/display/intel_cdclk.c    |   1 +
->>> drivers/gpu/drm/i915/display/intel_crtc.c     |   4 +-
->>> .../drm/i915/display/intel_display_trace.c    |   9 +
->>> .../drm/i915/display/intel_display_trace.h    | 587 ++++++++++++++++++
->>> drivers/gpu/drm/i915/display/intel_dp.c       |   1 +
->>> drivers/gpu/drm/i915/display/intel_fbc.c      |   2 +-
->>> drivers/gpu/drm/i915/display/intel_fdi.c      |   1 +
->>> .../drm/i915/display/intel_fifo_underrun.c    |   2 +-
->>> .../gpu/drm/i915/display/intel_frontbuffer.c  |   7 +-
->>> drivers/gpu/drm/i915/display/intel_sprite.c   |   4 +-
->>> drivers/gpu/drm/i915/display/intel_tv.c       |   1 +
->>> drivers/gpu/drm/i915/display/intel_vdsc.c     |   4 +-
->>> drivers/gpu/drm/i915/i915_debugfs.c           |   1 -
->>> drivers/gpu/drm/i915/i915_driver.c            |   1 -
->>> drivers/gpu/drm/i915/i915_irq.c               |   2 +-
->>> drivers/gpu/drm/i915/i915_trace.h             | 573 -----------------
->>> drivers/gpu/drm/i915/intel_pm.c               |   2 +-
->>> 22 files changed, 621 insertions(+), 590 deletions(-)
->>> create mode 100644 drivers/gpu/drm/i915/display/intel_display_trace.c
->>> create mode 100644 drivers/gpu/drm/i915/display/intel_display_trace.h
->>>
->>>diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefi=
-le
->>>index 3b5857da4123..6ddd2d2bbaaf 100644
->>>--- a/drivers/gpu/drm/i915/Makefile
->>>+++ b/drivers/gpu/drm/i915/Makefile
->>>@@ -259,6 +259,7 @@ i915-y +=3D \
->>> 	display/intel_crt.o \
->>> 	display/intel_ddi.o \
->>> 	display/intel_ddi_buf_trans.o \
->>>+	display/intel_display_trace.o \
->>> 	display/intel_dp.o \
->>> 	display/intel_dp_aux.o \
->>> 	display/intel_dp_aux_backlight.o \
->>>diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i91=
-5/display/g4x_dp.c
->>>index dc41868d01ef..f37677df6ebf 100644
->>>--- a/drivers/gpu/drm/i915/display/g4x_dp.c
->>>+++ b/drivers/gpu/drm/i915/display/g4x_dp.c
->>>@@ -9,6 +9,7 @@
->>> #include "intel_audio.h"
->>> #include "intel_backlight.h"
->>> #include "intel_connector.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_dp.h"
->>>diff --git a/drivers/gpu/drm/i915/display/g4x_hdmi.c b/drivers/gpu/drm/i=
-915/display/g4x_hdmi.c
->>>index f5b4dd5b4275..06e00b1eaa7c 100644
->>>--- a/drivers/gpu/drm/i915/display/g4x_hdmi.c
->>>+++ b/drivers/gpu/drm/i915/display/g4x_hdmi.c
->>>@@ -8,6 +8,7 @@
->>> #include "g4x_hdmi.h"
->>> #include "intel_audio.h"
->>> #include "intel_connector.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_dpio_phy.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers=
-/gpu/drm/i915/display/intel_atomic_plane.c
->>>index 27b8f99dd099..89005628cc3a 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
->>>@@ -35,15 +35,16 @@
->>> #include <drm/drm_fourcc.h>
->>> #include <drm/drm_plane_helper.h>
->>>
->>>-#include "i915_trace.h"
->>>+#include "gt/intel_rps.h"
->>>+
->>> #include "intel_atomic_plane.h"
->>> #include "intel_cdclk.h"
->>>+#include "intel_display_trace.h"
->>> #include "intel_display_types.h"
->>> #include "intel_fb.h"
->>> #include "intel_fb_pin.h"
->>> #include "intel_pm.h"
->>> #include "intel_sprite.h"
->>>-#include "gt/intel_rps.h"
->>>
->>> static void intel_plane_state_reset(struct intel_plane_state *plane_sta=
-te,
->>> 				    struct intel_plane *plane)
->>>diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/dr=
-m/i915/display/intel_audio.c
->>>index 03c3111ebdf0..991170c803e1 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_audio.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_audio.c
->>>@@ -31,6 +31,7 @@
->>> #include "intel_atomic.h"
->>> #include "intel_audio.h"
->>> #include "intel_cdclk.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_lpe_audio.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/dr=
-m/i915/display/intel_cdclk.c
->>>index a5569f21811c..639a64733f61 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
->>>@@ -27,6 +27,7 @@
->>> #include "intel_audio.h"
->>> #include "intel_bw.h"
->>> #include "intel_cdclk.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_pcode.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm=
-/i915/display/intel_crtc.c
->>>index 43554b591904..6930fbedc97d 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_crtc.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
->>>@@ -12,8 +12,8 @@
->>> #include <drm/drm_plane_helper.h>
->>> #include <drm/drm_vblank_work.h>
->>>
->>>-#include "i915_trace.h"
->>> #include "i915_vgpu.h"
->>>+#include "i9xx_plane.h"
->>> #include "icl_dsi.h"
->>> #include "intel_atomic.h"
->>> #include "intel_atomic_plane.h"
->>>@@ -21,13 +21,13 @@
->>> #include "intel_crtc.h"
->>> #include "intel_cursor.h"
->>> #include "intel_display_debugfs.h"
->>>+#include "intel_display_trace.h"
->>> #include "intel_display_types.h"
->>> #include "intel_dsi.h"
->>> #include "intel_pipe_crc.h"
->>> #include "intel_psr.h"
->>> #include "intel_sprite.h"
->>> #include "intel_vrr.h"
->>>-#include "i9xx_plane.h"
->>> #include "skl_universal_plane.h"
->>>
->>> static void assert_vblank_disabled(struct drm_crtc *crtc)
->>>diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.c b/driver=
-s/gpu/drm/i915/display/intel_display_trace.c
->>>new file mode 100644
->>>index 000000000000..737979ada869
->>>--- /dev/null
->>>+++ b/drivers/gpu/drm/i915/display/intel_display_trace.c
->>>@@ -0,0 +1,9 @@
->>>+// SPDX-License-Identifier: GPL-2.0
->>>+/*
->>>+ * Copyright =C2=A9 2021 Intel Corporation
->>>+ */
->>>+
->>>+#ifndef __CHECKER__
->>>+#define CREATE_TRACE_POINTS
->>>+#include "intel_display_trace.h"
->>>+#endif
->>>diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/driver=
-s/gpu/drm/i915/display/intel_display_trace.h
->>>new file mode 100644
->>>index 000000000000..4043e1276383
->>>--- /dev/null
->>>+++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
->>>@@ -0,0 +1,587 @@
->>>+/* SPDX-License-Identifier: GPL-2.0 */
->>>+/*
->>>+ * Copyright =C2=A9 2021 Intel Corporation
->>>+ */
->>>+
->>>+#undef TRACE_SYSTEM
->>>+#define TRACE_SYSTEM i915
->>>+
->>>+#if !defined(__INTEL_DISPLAY_TRACE_H__) || defined(TRACE_HEADER_MULTI_R=
-EAD)
->>>+#define __INTEL_DISPLAY_TRACE_H__
->>>+
->>>+#include <linux/types.h>
->>>+#include <linux/tracepoint.h>
->>>+
->>>+#include "i915_drv.h"
->>>+#include "intel_crtc.h"
->>>+#include "intel_display_types.h"
->>>+
->>>+TRACE_EVENT(intel_pipe_enable,
->>>+	    TP_PROTO(struct intel_crtc *crtc),
->>>+	    TP_ARGS(crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __array(u32, frame, 3)
->>>+			     __array(u32, scanline, 3)
->>>+			     __field(enum pipe, pipe)
->>>+			     ),
->>>+	    TP_fast_assign(
->>>+			   struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
->>>+			   struct intel_crtc *it__;
->>>+			   for_each_intel_crtc(&dev_priv->drm, it__) {
->>>+				   __entry->frame[it__->pipe] =3D intel_crtc_get_vblank_counter(it_=
-_);
->>>+				   __entry->scanline[it__->pipe] =3D intel_get_crtc_scanline(it__);
->>>+			   }
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c enable, pipe A: frame=3D%u, scanline=3D%u, pipe=
- B: frame=3D%u, scanline=3D%u, pipe C: frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe),
->>>+		      __entry->frame[PIPE_A], __entry->scanline[PIPE_A],
->>>+		      __entry->frame[PIPE_B], __entry->scanline[PIPE_B],
->>>+		      __entry->frame[PIPE_C], __entry->scanline[PIPE_C])
->>>+);
->>>+
->>>+TRACE_EVENT(intel_pipe_disable,
->>>+	    TP_PROTO(struct intel_crtc *crtc),
->>>+	    TP_ARGS(crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __array(u32, frame, 3)
->>>+			     __array(u32, scanline, 3)
->>>+			     __field(enum pipe, pipe)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
->>>+			   struct intel_crtc *it__;
->>>+			   for_each_intel_crtc(&dev_priv->drm, it__) {
->>>+				   __entry->frame[it__->pipe] =3D intel_crtc_get_vblank_counter(it_=
-_);
->>>+				   __entry->scanline[it__->pipe] =3D intel_get_crtc_scanline(it__);
->>>+			   }
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c disable, pipe A: frame=3D%u, scanline=3D%u, pip=
-e B: frame=3D%u, scanline=3D%u, pipe C: frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe),
->>>+		      __entry->frame[PIPE_A], __entry->scanline[PIPE_A],
->>>+		      __entry->frame[PIPE_B], __entry->scanline[PIPE_B],
->>>+		      __entry->frame[PIPE_C], __entry->scanline[PIPE_C])
->>>+);
->>>+
->>>+TRACE_EVENT(intel_pipe_crc,
->>>+	    TP_PROTO(struct intel_crtc *crtc, const u32 *crcs),
->>>+	    TP_ARGS(crtc, crcs),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __array(u32, crcs, 5)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   memcpy(__entry->crcs, crcs, sizeof(__entry->crcs));
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u crc=3D%08x %08x %08x=
- %08x %08x",
->>>+		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline,
->>>+		      __entry->crcs[0], __entry->crcs[1], __entry->crcs[2],
->>>+		      __entry->crcs[3], __entry->crcs[4])
->>>+);
->>>+
->>>+TRACE_EVENT(intel_cpu_fifo_underrun,
->>>+	    TP_PROTO(struct drm_i915_private *dev_priv, enum pipe pipe),
->>>+	    TP_ARGS(dev_priv, pipe),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			    struct intel_crtc *crtc =3D intel_crtc_for_pipe(dev_priv, pipe);
->>>+			   __entry->pipe =3D pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe),
->>>+		      __entry->frame, __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_pch_fifo_underrun,
->>>+	    TP_PROTO(struct drm_i915_private *dev_priv, enum pipe pch_transcod=
-er),
->>>+	    TP_ARGS(dev_priv, pch_transcoder),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   enum pipe pipe =3D pch_transcoder;
->>>+			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(dev_priv, pipe);
->>>+			   __entry->pipe =3D pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pch transcoder %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe),
->>>+		      __entry->frame, __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_memory_cxsr,
->>>+	    TP_PROTO(struct drm_i915_private *dev_priv, bool old, bool new),
->>>+	    TP_ARGS(dev_priv, old, new),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __array(u32, frame, 3)
->>>+			     __array(u32, scanline, 3)
->>>+			     __field(bool, old)
->>>+			     __field(bool, new)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   struct intel_crtc *crtc;
->>>+			   for_each_intel_crtc(&dev_priv->drm, crtc) {
->>>+				   __entry->frame[crtc->pipe] =3D intel_crtc_get_vblank_counter(crt=
-c);
->>>+				   __entry->scanline[crtc->pipe] =3D intel_get_crtc_scanline(crtc);
->>>+			   }
->>>+			   __entry->old =3D old;
->>>+			   __entry->new =3D new;
->>>+			   ),
->>>+
->>>+	    TP_printk("%s->%s, pipe A: frame=3D%u, scanline=3D%u, pipe B: fram=
-e=3D%u, scanline=3D%u, pipe C: frame=3D%u, scanline=3D%u",
->>>+		      onoff(__entry->old), onoff(__entry->new),
->>>+		      __entry->frame[PIPE_A], __entry->scanline[PIPE_A],
->>>+		      __entry->frame[PIPE_B], __entry->scanline[PIPE_B],
->>>+		      __entry->frame[PIPE_C], __entry->scanline[PIPE_C])
->>>+);
->>>+
->>>+TRACE_EVENT(g4x_wm,
->>>+	    TP_PROTO(struct intel_crtc *crtc, const struct g4x_wm_values *wm),
->>>+	    TP_ARGS(crtc, wm),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __field(u16, primary)
->>>+			     __field(u16, sprite)
->>>+			     __field(u16, cursor)
->>>+			     __field(u16, sr_plane)
->>>+			     __field(u16, sr_cursor)
->>>+			     __field(u16, sr_fbc)
->>>+			     __field(u16, hpll_plane)
->>>+			     __field(u16, hpll_cursor)
->>>+			     __field(u16, hpll_fbc)
->>>+			     __field(bool, cxsr)
->>>+			     __field(bool, hpll)
->>>+			     __field(bool, fbc)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   __entry->primary =3D wm->pipe[crtc->pipe].plane[PLANE_PRIMARY];
->>>+			   __entry->sprite =3D wm->pipe[crtc->pipe].plane[PLANE_SPRITE0];
->>>+			   __entry->cursor =3D wm->pipe[crtc->pipe].plane[PLANE_CURSOR];
->>>+			   __entry->sr_plane =3D wm->sr.plane;
->>>+			   __entry->sr_cursor =3D wm->sr.cursor;
->>>+			   __entry->sr_fbc =3D wm->sr.fbc;
->>>+			   __entry->hpll_plane =3D wm->hpll.plane;
->>>+			   __entry->hpll_cursor =3D wm->hpll.cursor;
->>>+			   __entry->hpll_fbc =3D wm->hpll.fbc;
->>>+			   __entry->cxsr =3D wm->cxsr;
->>>+			   __entry->hpll =3D wm->hpll_en;
->>>+			   __entry->fbc =3D wm->fbc_en;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, wm %d/%d/%d, sr %s/=
-%d/%d/%d, hpll %s/%d/%d/%d, fbc %s",
->>>+		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline,
->>>+		      __entry->primary, __entry->sprite, __entry->cursor,
->>>+		      yesno(__entry->cxsr), __entry->sr_plane, __entry->sr_cursor, __=
-entry->sr_fbc,
->>>+		      yesno(__entry->hpll), __entry->hpll_plane, __entry->hpll_cursor=
-, __entry->hpll_fbc,
->>>+		      yesno(__entry->fbc))
->>>+);
->>>+
->>>+TRACE_EVENT(vlv_wm,
->>>+	    TP_PROTO(struct intel_crtc *crtc, const struct vlv_wm_values *wm),
->>>+	    TP_ARGS(crtc, wm),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __field(u32, level)
->>>+			     __field(u32, cxsr)
->>>+			     __field(u32, primary)
->>>+			     __field(u32, sprite0)
->>>+			     __field(u32, sprite1)
->>>+			     __field(u32, cursor)
->>>+			     __field(u32, sr_plane)
->>>+			     __field(u32, sr_cursor)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   __entry->level =3D wm->level;
->>>+			   __entry->cxsr =3D wm->cxsr;
->>>+			   __entry->primary =3D wm->pipe[crtc->pipe].plane[PLANE_PRIMARY];
->>>+			   __entry->sprite0 =3D wm->pipe[crtc->pipe].plane[PLANE_SPRITE0];
->>>+			   __entry->sprite1 =3D wm->pipe[crtc->pipe].plane[PLANE_SPRITE1];
->>>+			   __entry->cursor =3D wm->pipe[crtc->pipe].plane[PLANE_CURSOR];
->>>+			   __entry->sr_plane =3D wm->sr.plane;
->>>+			   __entry->sr_cursor =3D wm->sr.cursor;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, level=3D%d, cxsr=3D=
-%d, wm %d/%d/%d/%d, sr %d/%d",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		      __entry->scanline, __entry->level, __entry->cxsr,
->>>+		      __entry->primary, __entry->sprite0, __entry->sprite1, __entry->=
-cursor,
->>>+		      __entry->sr_plane, __entry->sr_cursor)
->>>+);
->>>+
->>>+TRACE_EVENT(vlv_fifo_size,
->>>+	    TP_PROTO(struct intel_crtc *crtc, u32 sprite0_start, u32 sprite1_s=
-tart, u32 fifo_size),
->>>+	    TP_ARGS(crtc, sprite0_start, sprite1_start, fifo_size),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __field(u32, sprite0_start)
->>>+			     __field(u32, sprite1_start)
->>>+			     __field(u32, fifo_size)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   __entry->sprite0_start =3D sprite0_start;
->>>+			   __entry->sprite1_start =3D sprite1_start;
->>>+			   __entry->fifo_size =3D fifo_size;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, %d/%d/%d",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		      __entry->scanline, __entry->sprite0_start,
->>>+		      __entry->sprite1_start, __entry->fifo_size)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_plane_update_noarm,
->>>+	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
->>>+	    TP_ARGS(plane, crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __array(int, src, 4)
->>>+			     __array(int, dst, 4)
->>>+			     __string(name, plane->name)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __assign_str(name, plane->name);
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   memcpy(__entry->src, &plane->state->src, sizeof(__entry->src));
->>>+			   memcpy(__entry->dst, &plane->state->dst, sizeof(__entry->dst));
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, plane %s, frame=3D%u, scanline=3D%u, " DRM_REC=
-T_FP_FMT " -> " DRM_RECT_FMT,
->>>+		      pipe_name(__entry->pipe), __get_str(name),
->>>+		      __entry->frame, __entry->scanline,
->>>+		      DRM_RECT_FP_ARG((const struct drm_rect *)__entry->src),
->>>+		      DRM_RECT_ARG((const struct drm_rect *)__entry->dst))
->>>+);
->>>+
->>>+TRACE_EVENT(intel_plane_update_arm,
->>>+	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
->>>+	    TP_ARGS(plane, crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __array(int, src, 4)
->>>+			     __array(int, dst, 4)
->>>+			     __string(name, plane->name)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __assign_str(name, plane->name);
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   memcpy(__entry->src, &plane->state->src, sizeof(__entry->src));
->>>+			   memcpy(__entry->dst, &plane->state->dst, sizeof(__entry->dst));
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, plane %s, frame=3D%u, scanline=3D%u, " DRM_REC=
-T_FP_FMT " -> " DRM_RECT_FMT,
->>>+		      pipe_name(__entry->pipe), __get_str(name),
->>>+		      __entry->frame, __entry->scanline,
->>>+		      DRM_RECT_FP_ARG((const struct drm_rect *)__entry->src),
->>>+		      DRM_RECT_ARG((const struct drm_rect *)__entry->dst))
->>>+);
->>>+
->>>+TRACE_EVENT(intel_plane_disable_arm,
->>>+	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
->>>+	    TP_ARGS(plane, crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __string(name, plane->name)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __assign_str(name, plane->name);
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, plane %s, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __get_str(name),
->>>+		      __entry->frame, __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_fbc_activate,
->>>+	    TP_PROTO(struct intel_plane *plane),
->>>+	    TP_ARGS(plane),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(to_i915(plane->ba=
-se.dev),
->>>+									 plane->pipe);
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_fbc_deactivate,
->>>+	    TP_PROTO(struct intel_plane *plane),
->>>+	    TP_ARGS(plane),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(to_i915(plane->ba=
-se.dev),
->>>+									 plane->pipe);
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_fbc_nuke,
->>>+	    TP_PROTO(struct intel_plane *plane),
->>>+	    TP_ARGS(plane),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(to_i915(plane->ba=
-se.dev),
->>>+									 plane->pipe);
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_crtc_vblank_work_start,
->>>+	    TP_PROTO(struct intel_crtc *crtc),
->>>+	    TP_ARGS(crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		       __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_crtc_vblank_work_end,
->>>+	    TP_PROTO(struct intel_crtc *crtc),
->>>+	    TP_ARGS(crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		       __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_pipe_update_start,
->>>+	    TP_PROTO(struct intel_crtc *crtc),
->>>+	    TP_ARGS(crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __field(u32, min)
->>>+			     __field(u32, max)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>+			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>+			   __entry->min =3D crtc->debug.min_vbl;
->>>+			   __entry->max =3D crtc->debug.max_vbl;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, min=3D%u, max=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		       __entry->scanline, __entry->min, __entry->max)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_pipe_update_vblank_evaded,
->>>+	    TP_PROTO(struct intel_crtc *crtc),
->>>+	    TP_ARGS(crtc),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     __field(u32, min)
->>>+			     __field(u32, max)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D crtc->debug.start_vbl_count;
->>>+			   __entry->scanline =3D crtc->debug.scanline_start;
->>>+			   __entry->min =3D crtc->debug.min_vbl;
->>>+			   __entry->max =3D crtc->debug.max_vbl;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, min=3D%u, max=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		       __entry->scanline, __entry->min, __entry->max)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_pipe_update_end,
->>>+	    TP_PROTO(struct intel_crtc *crtc, u32 frame, int scanline_end),
->>>+	    TP_ARGS(crtc, frame, scanline_end),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(enum pipe, pipe)
->>>+			     __field(u32, frame)
->>>+			     __field(u32, scanline)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->pipe =3D crtc->pipe;
->>>+			   __entry->frame =3D frame;
->>>+			   __entry->scanline =3D scanline_end;
->>>+			   ),
->>>+
->>>+	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>+		      pipe_name(__entry->pipe), __entry->frame,
->>>+		      __entry->scanline)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_frontbuffer_invalidate,
->>>+	    TP_PROTO(unsigned int frontbuffer_bits, unsigned int origin),
->>>+	    TP_ARGS(frontbuffer_bits, origin),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(unsigned int, frontbuffer_bits)
->>>+			     __field(unsigned int, origin)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->frontbuffer_bits =3D frontbuffer_bits;
->>>+			   __entry->origin =3D origin;
->>>+			   ),
->>>+
->>>+	    TP_printk("frontbuffer_bits=3D0x%08x, origin=3D%u",
->>>+		      __entry->frontbuffer_bits, __entry->origin)
->>>+);
->>>+
->>>+TRACE_EVENT(intel_frontbuffer_flush,
->>>+	    TP_PROTO(unsigned int frontbuffer_bits, unsigned int origin),
->>>+	    TP_ARGS(frontbuffer_bits, origin),
->>>+
->>>+	    TP_STRUCT__entry(
->>>+			     __field(unsigned int, frontbuffer_bits)
->>>+			     __field(unsigned int, origin)
->>>+			     ),
->>>+
->>>+	    TP_fast_assign(
->>>+			   __entry->frontbuffer_bits =3D frontbuffer_bits;
->>>+			   __entry->origin =3D origin;
->>>+			   ),
->>>+
->>>+	    TP_printk("frontbuffer_bits=3D0x%08x, origin=3D%u",
->>>+		      __entry->frontbuffer_bits, __entry->origin)
->>>+);
->>>+
->>>+#endif /* __INTEL_DISPLAY_TRACE_H__ */
->>>+
->>>+/* This part must be outside protection */
->>>+#undef TRACE_INCLUDE_PATH
->>>+#undef TRACE_INCLUDE_FILE
->>>+#define TRACE_INCLUDE_PATH ../../drivers/gpu/drm/i915/display
->>>+#define TRACE_INCLUDE_FILE intel_display_trace
->>>+#include <trace/define_trace.h>
->>>diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i=
-915/display/intel_dp.c
->>>index a24831acb7da..b5e2508db1cf 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_dp.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_dp.c
->>>@@ -47,6 +47,7 @@
->>> #include "intel_audio.h"
->>> #include "intel_backlight.h"
->>> #include "intel_connector.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_ddi.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/=
-i915/display/intel_fbc.c
->>>index 6efbef7a1fc0..8be01b93015f 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_fbc.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
->>>@@ -41,10 +41,10 @@
->>> #include <drm/drm_fourcc.h>
->>>
->>> #include "i915_drv.h"
->>>-#include "i915_trace.h"
->>> #include "i915_vgpu.h"
->>> #include "intel_cdclk.h"
->>> #include "intel_de.h"
->>>+#include "intel_display_trace.h"
->>> #include "intel_display_types.h"
->>> #include "intel_fbc.h"
->>> #include "intel_frontbuffer.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/=
-i915/display/intel_fdi.c
->>>index be77be626420..3d6e22923601 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_fdi.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
->>>@@ -4,6 +4,7 @@
->>>  */
->>>
->>> #include "intel_atomic.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_ddi.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c b/driver=
-s/gpu/drm/i915/display/intel_fifo_underrun.c
->>>index 76045ce84739..d636d21fa9ce 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
->>>@@ -26,8 +26,8 @@
->>>  */
->>>
->>> #include "i915_drv.h"
->>>-#include "i915_trace.h"
->>> #include "intel_de.h"
->>>+#include "intel_display_trace.h"
->>> #include "intel_display_types.h"
->>> #include "intel_fbc.h"
->>> #include "intel_fifo_underrun.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/=
-gpu/drm/i915/display/intel_frontbuffer.c
->>>index 0492446cd04a..791248f812aa 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
->>>@@ -55,14 +55,13 @@
->>>  * cancelled as soon as busyness is detected.
->>>  */
->>>
->>>-#include "display/intel_dp.h"
->>>-
->>> #include "i915_drv.h"
->>>-#include "i915_trace.h"
->>>+#include "intel_display_trace.h"
->>> #include "intel_display_types.h"
->>>+#include "intel_dp.h"
->>>+#include "intel_drrs.h"
->>> #include "intel_fbc.h"
->>> #include "intel_frontbuffer.h"
->>>-#include "intel_drrs.h"
->>> #include "intel_psr.h"
->>>
->>> /**
->>>diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/d=
-rm/i915/display/intel_sprite.c
->>>index 926f5cdc65fd..2357a1301f48 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_sprite.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
->>>@@ -40,15 +40,15 @@
->>> #include <drm/drm_rect.h>
->>>
->>> #include "i915_drv.h"
->>>-#include "i915_trace.h"
->>> #include "i915_vgpu.h"
->>>+#include "i9xx_plane.h"
->>> #include "intel_atomic_plane.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_fb.h"
->>> #include "intel_frontbuffer.h"
->>> #include "intel_sprite.h"
->>>-#include "i9xx_plane.h"
->>> #include "intel_vrr.h"
->>>
->>> int intel_plane_check_src_coordinates(struct intel_plane_state *plane_s=
-tate)
->>>diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i=
-915/display/intel_tv.c
->>>index fc77947dc3d5..8a39989b87ad 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_tv.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_tv.c
->>>@@ -36,6 +36,7 @@
->>>
->>> #include "i915_drv.h"
->>> #include "intel_connector.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_hotplug.h"
->>>diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm=
-/i915/display/intel_vdsc.c
->>>index c6851b0e0bed..1cc4170e6ec8 100644
->>>--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
->>>+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
->>>@@ -6,12 +6,14 @@
->>>  *         Manasi Navare <manasi.d.navare@intel.com>
->>>  */
->>> #include <linux/limits.h>
->>>+
->>> #include "i915_drv.h"
->>>+#include "intel_crtc.h"
->>> #include "intel_de.h"
->>> #include "intel_display_types.h"
->>> #include "intel_dsi.h"
->>>-#include "intel_vdsc.h"
->>> #include "intel_qp_tables.h"
->>>+#include "intel_vdsc.h"
->>>
->>> enum ROW_INDEX_BPP {
->>> 	ROW_INDEX_6BPP =3D 0,
->>>diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/=
-i915_debugfs.c
->>>index 390d541f64ea..bafb902269de 100644
->>>--- a/drivers/gpu/drm/i915/i915_debugfs.c
->>>+++ b/drivers/gpu/drm/i915/i915_debugfs.c
->>>@@ -48,7 +48,6 @@
->>> #include "i915_debugfs_params.h"
->>> #include "i915_irq.h"
->>> #include "i915_scheduler.h"
->>>-#include "i915_trace.h"
->>> #include "intel_pm.h"
->>>
->>> static inline struct drm_i915_private *node_to_i915(struct drm_info_nod=
-e *node)
->>>diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i=
-915_driver.c
->>>index bbc99fc5888f..e9125f14b3d1 100644
->>>--- a/drivers/gpu/drm/i915/i915_driver.c
->>>+++ b/drivers/gpu/drm/i915/i915_driver.c
->>>@@ -82,7 +82,6 @@
->>> #include "i915_suspend.h"
->>> #include "i915_switcheroo.h"
->>> #include "i915_sysfs.h"
->>>-#include "i915_trace.h"
->>> #include "i915_vgpu.h"
->>> #include "intel_dram.h"
->>> #include "intel_gvt.h"
->>>diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915=
-_irq.c
->>>index d0be94456bd8..5b98fb0532b5 100644
->>>--- a/drivers/gpu/drm/i915/i915_irq.c
->>>+++ b/drivers/gpu/drm/i915/i915_irq.c
->>>@@ -35,6 +35,7 @@
->>> #include <drm/drm_drv.h>
->>>
->>> #include "display/intel_de.h"
->>>+#include "display/intel_display_trace.h"
->>> #include "display/intel_display_types.h"
->>> #include "display/intel_fifo_underrun.h"
->>> #include "display/intel_hotplug.h"
->>>@@ -49,7 +50,6 @@
->>>
->>> #include "i915_drv.h"
->>> #include "i915_irq.h"
->>>-#include "i915_trace.h"
->>> #include "intel_pm.h"
->>>
->>> /**
->>>diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i9=
-15_trace.h
->>>index a07bed5333cc..37b5c9e9d260 100644
->>>--- a/drivers/gpu/drm/i915/i915_trace.h
->>>+++ b/drivers/gpu/drm/i915/i915_trace.h
->>>@@ -12,584 +12,11 @@
->>>
->>> #include <drm/drm_drv.h>
->>>
->>>-#include "display/intel_crtc.h"
->>>-#include "display/intel_display_types.h"
->>> #include "gt/intel_engine.h"
->>>
->>> #include "i915_drv.h"
->>> #include "i915_irq.h"
->>>
->>>-/* watermark/fifo updates */
->>>-
->>>-TRACE_EVENT(intel_pipe_enable,
->>>-	    TP_PROTO(struct intel_crtc *crtc),
->>>-	    TP_ARGS(crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __array(u32, frame, 3)
->>>-			     __array(u32, scanline, 3)
->>>-			     __field(enum pipe, pipe)
->>>-			     ),
->>>-	    TP_fast_assign(
->>>-			   struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
->>>-			   struct intel_crtc *it__;
->>>-			   for_each_intel_crtc(&dev_priv->drm, it__) {
->>>-				   __entry->frame[it__->pipe] =3D intel_crtc_get_vblank_counter(it_=
-_);
->>>-				   __entry->scanline[it__->pipe] =3D intel_get_crtc_scanline(it__);
->>>-			   }
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c enable, pipe A: frame=3D%u, scanline=3D%u, pipe=
- B: frame=3D%u, scanline=3D%u, pipe C: frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe),
->>>-		      __entry->frame[PIPE_A], __entry->scanline[PIPE_A],
->>>-		      __entry->frame[PIPE_B], __entry->scanline[PIPE_B],
->>>-		      __entry->frame[PIPE_C], __entry->scanline[PIPE_C])
->>>-);
->>>-
->>>-TRACE_EVENT(intel_pipe_disable,
->>>-	    TP_PROTO(struct intel_crtc *crtc),
->>>-	    TP_ARGS(crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __array(u32, frame, 3)
->>>-			     __array(u32, scanline, 3)
->>>-			     __field(enum pipe, pipe)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
->>>-			   struct intel_crtc *it__;
->>>-			   for_each_intel_crtc(&dev_priv->drm, it__) {
->>>-				   __entry->frame[it__->pipe] =3D intel_crtc_get_vblank_counter(it_=
-_);
->>>-				   __entry->scanline[it__->pipe] =3D intel_get_crtc_scanline(it__);
->>>-			   }
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c disable, pipe A: frame=3D%u, scanline=3D%u, pip=
-e B: frame=3D%u, scanline=3D%u, pipe C: frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe),
->>>-		      __entry->frame[PIPE_A], __entry->scanline[PIPE_A],
->>>-		      __entry->frame[PIPE_B], __entry->scanline[PIPE_B],
->>>-		      __entry->frame[PIPE_C], __entry->scanline[PIPE_C])
->>>-);
->>>-
->>>-TRACE_EVENT(intel_pipe_crc,
->>>-	    TP_PROTO(struct intel_crtc *crtc, const u32 *crcs),
->>>-	    TP_ARGS(crtc, crcs),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __array(u32, crcs, 5)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   memcpy(__entry->crcs, crcs, sizeof(__entry->crcs));
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u crc=3D%08x %08x %08x=
- %08x %08x",
->>>-		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline,
->>>-		      __entry->crcs[0], __entry->crcs[1], __entry->crcs[2],
->>>-		      __entry->crcs[3], __entry->crcs[4])
->>>-);
->>>-
->>>-TRACE_EVENT(intel_cpu_fifo_underrun,
->>>-	    TP_PROTO(struct drm_i915_private *dev_priv, enum pipe pipe),
->>>-	    TP_ARGS(dev_priv, pipe),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			    struct intel_crtc *crtc =3D intel_crtc_for_pipe(dev_priv, pipe);
->>>-			   __entry->pipe =3D pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe),
->>>-		      __entry->frame, __entry->scanline)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_pch_fifo_underrun,
->>>-	    TP_PROTO(struct drm_i915_private *dev_priv, enum pipe pch_transcod=
-er),
->>>-	    TP_ARGS(dev_priv, pch_transcoder),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   enum pipe pipe =3D pch_transcoder;
->>>-			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(dev_priv, pipe);
->>>-			   __entry->pipe =3D pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pch transcoder %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe),
->>>-		      __entry->frame, __entry->scanline)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_memory_cxsr,
->>>-	    TP_PROTO(struct drm_i915_private *dev_priv, bool old, bool new),
->>>-	    TP_ARGS(dev_priv, old, new),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __array(u32, frame, 3)
->>>-			     __array(u32, scanline, 3)
->>>-			     __field(bool, old)
->>>-			     __field(bool, new)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   struct intel_crtc *crtc;
->>>-			   for_each_intel_crtc(&dev_priv->drm, crtc) {
->>>-				   __entry->frame[crtc->pipe] =3D intel_crtc_get_vblank_counter(crt=
-c);
->>>-				   __entry->scanline[crtc->pipe] =3D intel_get_crtc_scanline(crtc);
->>>-			   }
->>>-			   __entry->old =3D old;
->>>-			   __entry->new =3D new;
->>>-			   ),
->>>-
->>>-	    TP_printk("%s->%s, pipe A: frame=3D%u, scanline=3D%u, pipe B: fram=
-e=3D%u, scanline=3D%u, pipe C: frame=3D%u, scanline=3D%u",
->>>-		      onoff(__entry->old), onoff(__entry->new),
->>>-		      __entry->frame[PIPE_A], __entry->scanline[PIPE_A],
->>>-		      __entry->frame[PIPE_B], __entry->scanline[PIPE_B],
->>>-		      __entry->frame[PIPE_C], __entry->scanline[PIPE_C])
->>>-);
->>>-
->>>-TRACE_EVENT(g4x_wm,
->>>-	    TP_PROTO(struct intel_crtc *crtc, const struct g4x_wm_values *wm),
->>>-	    TP_ARGS(crtc, wm),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __field(u16, primary)
->>>-			     __field(u16, sprite)
->>>-			     __field(u16, cursor)
->>>-			     __field(u16, sr_plane)
->>>-			     __field(u16, sr_cursor)
->>>-			     __field(u16, sr_fbc)
->>>-			     __field(u16, hpll_plane)
->>>-			     __field(u16, hpll_cursor)
->>>-			     __field(u16, hpll_fbc)
->>>-			     __field(bool, cxsr)
->>>-			     __field(bool, hpll)
->>>-			     __field(bool, fbc)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   __entry->primary =3D wm->pipe[crtc->pipe].plane[PLANE_PRIMARY];
->>>-			   __entry->sprite =3D wm->pipe[crtc->pipe].plane[PLANE_SPRITE0];
->>>-			   __entry->cursor =3D wm->pipe[crtc->pipe].plane[PLANE_CURSOR];
->>>-			   __entry->sr_plane =3D wm->sr.plane;
->>>-			   __entry->sr_cursor =3D wm->sr.cursor;
->>>-			   __entry->sr_fbc =3D wm->sr.fbc;
->>>-			   __entry->hpll_plane =3D wm->hpll.plane;
->>>-			   __entry->hpll_cursor =3D wm->hpll.cursor;
->>>-			   __entry->hpll_fbc =3D wm->hpll.fbc;
->>>-			   __entry->cxsr =3D wm->cxsr;
->>>-			   __entry->hpll =3D wm->hpll_en;
->>>-			   __entry->fbc =3D wm->fbc_en;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, wm %d/%d/%d, sr %s/=
-%d/%d/%d, hpll %s/%d/%d/%d, fbc %s",
->>>-		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline,
->>>-		      __entry->primary, __entry->sprite, __entry->cursor,
->>>-		      yesno(__entry->cxsr), __entry->sr_plane, __entry->sr_cursor, __=
-entry->sr_fbc,
->>>-		      yesno(__entry->hpll), __entry->hpll_plane, __entry->hpll_cursor=
-, __entry->hpll_fbc,
->>>-		      yesno(__entry->fbc))
->>>-);
->>>-
->>>-TRACE_EVENT(vlv_wm,
->>>-	    TP_PROTO(struct intel_crtc *crtc, const struct vlv_wm_values *wm),
->>>-	    TP_ARGS(crtc, wm),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __field(u32, level)
->>>-			     __field(u32, cxsr)
->>>-			     __field(u32, primary)
->>>-			     __field(u32, sprite0)
->>>-			     __field(u32, sprite1)
->>>-			     __field(u32, cursor)
->>>-			     __field(u32, sr_plane)
->>>-			     __field(u32, sr_cursor)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   __entry->level =3D wm->level;
->>>-			   __entry->cxsr =3D wm->cxsr;
->>>-			   __entry->primary =3D wm->pipe[crtc->pipe].plane[PLANE_PRIMARY];
->>>-			   __entry->sprite0 =3D wm->pipe[crtc->pipe].plane[PLANE_SPRITE0];
->>>-			   __entry->sprite1 =3D wm->pipe[crtc->pipe].plane[PLANE_SPRITE1];
->>>-			   __entry->cursor =3D wm->pipe[crtc->pipe].plane[PLANE_CURSOR];
->>>-			   __entry->sr_plane =3D wm->sr.plane;
->>>-			   __entry->sr_cursor =3D wm->sr.cursor;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, level=3D%d, cxsr=3D=
-%d, wm %d/%d/%d/%d, sr %d/%d",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		      __entry->scanline, __entry->level, __entry->cxsr,
->>>-		      __entry->primary, __entry->sprite0, __entry->sprite1, __entry->=
-cursor,
->>>-		      __entry->sr_plane, __entry->sr_cursor)
->>>-);
->>>-
->>>-TRACE_EVENT(vlv_fifo_size,
->>>-	    TP_PROTO(struct intel_crtc *crtc, u32 sprite0_start, u32 sprite1_s=
-tart, u32 fifo_size),
->>>-	    TP_ARGS(crtc, sprite0_start, sprite1_start, fifo_size),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __field(u32, sprite0_start)
->>>-			     __field(u32, sprite1_start)
->>>-			     __field(u32, fifo_size)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   __entry->sprite0_start =3D sprite0_start;
->>>-			   __entry->sprite1_start =3D sprite1_start;
->>>-			   __entry->fifo_size =3D fifo_size;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, %d/%d/%d",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		      __entry->scanline, __entry->sprite0_start,
->>>-		      __entry->sprite1_start, __entry->fifo_size)
->>>-);
->>>-
->>>-/* plane updates */
->>>-
->>>-TRACE_EVENT(intel_plane_update_noarm,
->>>-	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
->>>-	    TP_ARGS(plane, crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __array(int, src, 4)
->>>-			     __array(int, dst, 4)
->>>-			     __string(name, plane->name)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __assign_str(name, plane->name);
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   memcpy(__entry->src, &plane->state->src, sizeof(__entry->src));
->>>-			   memcpy(__entry->dst, &plane->state->dst, sizeof(__entry->dst));
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, plane %s, frame=3D%u, scanline=3D%u, " DRM_REC=
-T_FP_FMT " -> " DRM_RECT_FMT,
->>>-		      pipe_name(__entry->pipe), __get_str(name),
->>>-		      __entry->frame, __entry->scanline,
->>>-		      DRM_RECT_FP_ARG((const struct drm_rect *)__entry->src),
->>>-		      DRM_RECT_ARG((const struct drm_rect *)__entry->dst))
->>>-);
->>>-
->>>-TRACE_EVENT(intel_plane_update_arm,
->>>-	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
->>>-	    TP_ARGS(plane, crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __array(int, src, 4)
->>>-			     __array(int, dst, 4)
->>>-			     __string(name, plane->name)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __assign_str(name, plane->name);
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   memcpy(__entry->src, &plane->state->src, sizeof(__entry->src));
->>>-			   memcpy(__entry->dst, &plane->state->dst, sizeof(__entry->dst));
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, plane %s, frame=3D%u, scanline=3D%u, " DRM_REC=
-T_FP_FMT " -> " DRM_RECT_FMT,
->>>-		      pipe_name(__entry->pipe), __get_str(name),
->>>-		      __entry->frame, __entry->scanline,
->>>-		      DRM_RECT_FP_ARG((const struct drm_rect *)__entry->src),
->>>-		      DRM_RECT_ARG((const struct drm_rect *)__entry->dst))
->>>-);
->>>-
->>>-TRACE_EVENT(intel_plane_disable_arm,
->>>-	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
->>>-	    TP_ARGS(plane, crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __string(name, plane->name)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __assign_str(name, plane->name);
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, plane %s, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __get_str(name),
->>>-		      __entry->frame, __entry->scanline)
->>>-);
->>>-
->>>-/* fbc */
->>>-
->>>-TRACE_EVENT(intel_fbc_activate,
->>>-	    TP_PROTO(struct intel_plane *plane),
->>>-	    TP_ARGS(plane),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(to_i915(plane->ba=
-se.dev),
->>>-									 plane->pipe);
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_fbc_deactivate,
->>>-	    TP_PROTO(struct intel_plane *plane),
->>>-	    TP_ARGS(plane),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(to_i915(plane->ba=
-se.dev),
->>>-									 plane->pipe);
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_fbc_nuke,
->>>-	    TP_PROTO(struct intel_plane *plane),
->>>-	    TP_ARGS(plane),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   struct intel_crtc *crtc =3D intel_crtc_for_pipe(to_i915(plane->ba=
-se.dev),
->>>-									 plane->pipe);
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame, __entry->scanline)
->>>-);
->>>-
->>>-/* pipe updates */
->>>-
->>>-TRACE_EVENT(intel_crtc_vblank_work_start,
->>>-	    TP_PROTO(struct intel_crtc *crtc),
->>>-	    TP_ARGS(crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		       __entry->scanline)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_crtc_vblank_work_end,
->>>-	    TP_PROTO(struct intel_crtc *crtc),
->>>-	    TP_ARGS(crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		       __entry->scanline)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_pipe_update_start,
->>>-	    TP_PROTO(struct intel_crtc *crtc),
->>>-	    TP_ARGS(crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __field(u32, min)
->>>-			     __field(u32, max)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
->>>-			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
->>>-			   __entry->min =3D crtc->debug.min_vbl;
->>>-			   __entry->max =3D crtc->debug.max_vbl;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, min=3D%u, max=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		       __entry->scanline, __entry->min, __entry->max)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_pipe_update_vblank_evaded,
->>>-	    TP_PROTO(struct intel_crtc *crtc),
->>>-	    TP_ARGS(crtc),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     __field(u32, min)
->>>-			     __field(u32, max)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D crtc->debug.start_vbl_count;
->>>-			   __entry->scanline =3D crtc->debug.scanline_start;
->>>-			   __entry->min =3D crtc->debug.min_vbl;
->>>-			   __entry->max =3D crtc->debug.max_vbl;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u, min=3D%u, max=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		       __entry->scanline, __entry->min, __entry->max)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_pipe_update_end,
->>>-	    TP_PROTO(struct intel_crtc *crtc, u32 frame, int scanline_end),
->>>-	    TP_ARGS(crtc, frame, scanline_end),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(enum pipe, pipe)
->>>-			     __field(u32, frame)
->>>-			     __field(u32, scanline)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->pipe =3D crtc->pipe;
->>>-			   __entry->frame =3D frame;
->>>-			   __entry->scanline =3D scanline_end;
->>>-			   ),
->>>-
->>>-	    TP_printk("pipe %c, frame=3D%u, scanline=3D%u",
->>>-		      pipe_name(__entry->pipe), __entry->frame,
->>>-		      __entry->scanline)
->>>-);
->>>-
->>>-/* frontbuffer tracking */
->>>-
->>>-TRACE_EVENT(intel_frontbuffer_invalidate,
->>>-	    TP_PROTO(unsigned int frontbuffer_bits, unsigned int origin),
->>>-	    TP_ARGS(frontbuffer_bits, origin),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(unsigned int, frontbuffer_bits)
->>>-			     __field(unsigned int, origin)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->frontbuffer_bits =3D frontbuffer_bits;
->>>-			   __entry->origin =3D origin;
->>>-			   ),
->>>-
->>>-	    TP_printk("frontbuffer_bits=3D0x%08x, origin=3D%u",
->>>-		      __entry->frontbuffer_bits, __entry->origin)
->>>-);
->>>-
->>>-TRACE_EVENT(intel_frontbuffer_flush,
->>>-	    TP_PROTO(unsigned int frontbuffer_bits, unsigned int origin),
->>>-	    TP_ARGS(frontbuffer_bits, origin),
->>>-
->>>-	    TP_STRUCT__entry(
->>>-			     __field(unsigned int, frontbuffer_bits)
->>>-			     __field(unsigned int, origin)
->>>-			     ),
->>>-
->>>-	    TP_fast_assign(
->>>-			   __entry->frontbuffer_bits =3D frontbuffer_bits;
->>>-			   __entry->origin =3D origin;
->>>-			   ),
->>>-
->>>-	    TP_printk("frontbuffer_bits=3D0x%08x, origin=3D%u",
->>>-		      __entry->frontbuffer_bits, __entry->origin)
->>>-);
->>>-
->>> /* object tracking */
->>>
->>> TRACE_EVENT(i915_gem_object_create,
->>>diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/inte=
-l_pm.c
->>>index fe3787425780..abad48e1690e 100644
->>>--- a/drivers/gpu/drm/i915/intel_pm.c
->>>+++ b/drivers/gpu/drm/i915/intel_pm.c
->>>@@ -36,6 +36,7 @@
->>> #include "display/intel_atomic_plane.h"
->>> #include "display/intel_bw.h"
->>> #include "display/intel_de.h"
->>>+#include "display/intel_display_trace.h"
->>> #include "display/intel_display_types.h"
->>> #include "display/intel_fb.h"
->>> #include "display/intel_fbc.h"
->>>@@ -47,7 +48,6 @@
->>> #include "i915_drv.h"
->>> #include "i915_fixed.h"
->>> #include "i915_irq.h"
->>>-#include "i915_trace.h"
->>> #include "intel_pcode.h"
->>> #include "intel_pm.h"
->>> #include "vlv_sideband.h"
->>>--=20
->>>2.30.2
->>>
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
