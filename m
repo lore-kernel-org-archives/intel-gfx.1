@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D34FCC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AFBC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D84A10F76A;
-	Thu,  9 Dec 2021 16:55:45 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0254F89E63
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:51:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385A710FA1A;
+	Thu,  9 Dec 2021 16:55:51 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 818B1891DD;
+ Thu,  9 Dec 2021 15:46:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639068703; x=1670604703;
+ t=1639064815; x=1670600815;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/GgfCSVrr+M5zb+1IyY2xwoVr59G06mugNoNXVPX/Iw=;
- b=imj9cTGDQfR+I52h6SQJw+DZwK1qOGs1B/lmA1dbxkJIFpWB2dJOTUtO
- Rsl0ptz140K58ZprSpQj/49eTXgprCLsPsbygk/GpID83Pxb68zaybUOp
- Ged+znySInY7osqQmCqku4K7hIoy3NxQR24ezgJmPMV6Hxs/qyY18SafD
- Fn0rOMRjOmPFCAfoWzqs5P91X7YtlNufBxUVNR2GL3aO3ZBHBBahDyV08
- xMJKD0FUbxYF2mLgnzvtxeaLmkzITN7/DHG/5YFrp1gpYcjB3yWm6KJS3
- 7sjO9Niy3W5k9QlKmZKzshTW5YL9iWLCMq1g8LVyGfQAmVb0C+SVM1VTY w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="238374006"
-X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="238374006"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:51:43 -0800
-X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="516377940"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:51:41 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 18:51:23 +0200
-Message-Id: <66f687db7321846049a6aa524dfafd45cf0cb77f.1639068649.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1639068649.git.jani.nikula@intel.com>
-References: <cover.1639068649.git.jani.nikula@intel.com>
+ bh=CFoqsd0cKLjWQpbJ9ovJS/u4/21gRck4+jUTqov7OHg=;
+ b=dnwlxfz3vGuPGIPQ5+42uwQ3wwCve/fmRQLV2/1Kz0q0O055UygqBAI9
+ KF6QYDePi9gm7c8z/IopnNoaPOgX2Qd+te/IphNpCDkaqIYfwJQkCxfBF
+ sqPs5PLAWqXmKzKS4SjunN4/v3XBohcOsn0WVbXpK+KibHhlS6fJfojDj
+ +pnxLgski8TdeeNVNt73AEAyOTdJgOCWz3wB6Ejfp8D4+ihx8/K3u4kw2
+ GkfqNFlOMLG7/y3cBXjHHft0wN8L0YJJAbnyXDy57/3HSuZFCSYSnP62M
+ bPZqQabRBk0h4k0rZ7Q4lU++UsG+kI9+ndn/c2hpS+hJMQs4kdYiCYgte Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298917212"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298917212"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503535261"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:31 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 21:15:32 +0530
+Message-Id: <20211209154533.4084-16-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211209154533.4084-1-ramalingam.c@intel.com>
+References: <20211209154533.4084-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/cdclk: un-inline intel_cdclk_state
- functions
+Subject: [Intel-gfx] [PATCH v4 15/16] drm/i915/Flat-CCS: Document on
+ Flat-CCS memory compression
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,71 +57,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: Kenneth Graunke <kenneth@whitecape.org>,
+ Slawomir Milczarek <slawomir.milczarek@intel.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Simon Ser <contact@emersion.fr>,
+ mesa-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hide the details better.
+Documents the Flat-CCS feature and kernel handling required along with
+modifiers used.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+cc: Simon Ser <contact@emersion.fr>
+cc: Pekka Paalanen <ppaalanen@gmail.com>
+Cc: Jordan Justen <jordan.l.justen@intel.com>
+Cc: Kenneth Graunke <kenneth@whitecape.org>
+Cc: mesa-dev@lists.freedesktop.org
+Cc: Tony Ye <tony.ye@intel.com>
+Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_cdclk.h | 13 ++++++++-----
- 2 files changed, 26 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 47 +++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index a216a350006d..84674a4f7226 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2630,6 +2630,24 @@ intel_atomic_get_cdclk_state(struct intel_atomic_state *state)
- 	return to_intel_cdclk_state(cdclk_state);
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 0fb83d0bec91..2d7ea9b6e8fb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -595,6 +595,53 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 	return err;
  }
  
-+struct intel_cdclk_state *
-+to_intel_cdclk_state(struct intel_global_state *cdclk_state)
-+{
-+	return container_of(cdclk_state, struct intel_cdclk_state, base);
-+}
++/**
++ * DOC: Flat-CCS - Memory compression for Local memory
++ *
++ * On Xe-HP and later devices, we use dedicated compression control state (CCS)
++ * stored in local memory for each surface, to support the 3D and media
++ * compression formats.
++ *
++ * The memory required for the CCS of the entire local memory is 1/256 of the
++ * local memory size. So before the kernel boot, the required memory is reserved
++ * for the CCS data and a secure register will be programmed with the CCS base
++ * address.
++ *
++ * Flat CCS data needs to be cleared when a lmem object is allocated.
++ * And CCS data can be copied in and out of CCS region through
++ * XY_CTRL_SURF_COPY_BLT. CPU can't access the CCS data directly.
++ *
++ * When we exaust the lmem, if the object's placements support smem, then we can
++ * directly decompress the compressed lmem object into smem and start using it
++ * from smem itself.
++ *
++ * But when we need to swapout the compressed lmem object into a smem region
++ * though objects' placement doesn't support smem, then we copy the lmem content
++ * as it is into smem region along with ccs data (using XY_CTRL_SURF_COPY_BLT).
++ * When the object is referred, lmem content will be swaped in along with
++ * restoration of the CCS data (using XY_CTRL_SURF_COPY_BLT) at corresponding
++ * location.
++ *
++ *
++ * Flat-CCS Modifiers for different compression formats
++ * ----------------------------------------------------
++ *
++ * I915_FORMAT_MOD_F_TILED_DG2_RC_CCS - used to indicate the buffers of Flat CCS
++ * render compression formats. Though the general layout is same as
++ * I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS, new hashing/compression algorithm is
++ * used. Render compression uses 128 byte compression blocks
++ *
++ * I915_FORMAT_MOD_F_TILED_DG2_MC_CCS -used to indicate the buffers of Flat CCS
++ * media compression formats. Though the general layout is same as
++ * I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS, new hashing/compression algorithm is
++ * used. Media compression uses 256 byte compression blocks.
++ *
++ * I915_FORMAT_MOD_F_TILED_DG2_RC_CCS_CC - used to indicate the buffers of Flat
++ * CCS clear color render compression formats. Unified compression format for
++ * clear color render compression. The genral layout is a tiled layout using
++ * 4Kb tiles i.e Tile4 layout.
++ */
 +
-+struct intel_cdclk_state *
-+intel_atomic_get_old_cdclk_state(struct intel_atomic_state *state)
-+{
-+	return to_intel_cdclk_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->cdclk.obj));
-+}
-+
-+struct intel_cdclk_state *
-+intel_atomic_get_new_cdclk_state(struct intel_atomic_state *state)
-+{
-+	return to_intel_cdclk_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->cdclk.obj));
-+}
-+
- int intel_cdclk_atomic_check(struct intel_atomic_state *state,
- 			     bool *need_cdclk_calc)
+ static inline u32 *i915_flush_dw(u32 *cmd, u64 dst, u32 flags)
  {
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
-index bb3a778c506b..77e8c8e1708f 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.h
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
-@@ -76,11 +76,14 @@ int intel_cdclk_atomic_check(struct intel_atomic_state *state,
- struct intel_cdclk_state *
- intel_atomic_get_cdclk_state(struct intel_atomic_state *state);
- 
--#define to_intel_cdclk_state(x) container_of((x), struct intel_cdclk_state, base)
--#define intel_atomic_get_old_cdclk_state(state) \
--	to_intel_cdclk_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->cdclk.obj))
--#define intel_atomic_get_new_cdclk_state(state) \
--	to_intel_cdclk_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->cdclk.obj))
-+struct intel_cdclk_state *
-+to_intel_cdclk_state(struct intel_global_state *cdclk_state);
-+
-+struct intel_cdclk_state *
-+intel_atomic_get_old_cdclk_state(struct intel_atomic_state *state);
-+
-+struct intel_cdclk_state *
-+intel_atomic_get_new_cdclk_state(struct intel_atomic_state *state);
- 
- int intel_cdclk_init(struct drm_i915_private *dev_priv);
- 
+ 	/* Mask the 3 LSB to use the PPGTT address space */
 -- 
-2.30.2
+2.20.1
 
