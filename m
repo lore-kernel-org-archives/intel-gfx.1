@@ -4,34 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E1F2C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB466C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:55:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E10D10E5ED;
-	Thu,  9 Dec 2021 16:53:10 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C44710E117
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 06:03:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298779400"
-X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="298779400"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 16:59:51 -0800
-X-IronPort-AV: E=Sophos;i="5.88,190,1635231600"; d="scan'208";a="612311339"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 16:59:51 -0800
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C9710E62A;
+	Thu,  9 Dec 2021 16:53:14 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B480A10E116
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 06:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639031707; x=1670567707;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dzfRbsQDS8x2HDH9VEbfO8JMIflO5xZZu6GSPO12huo=;
+ b=mGXytOFCw109yekjBvfT3FLq+oogWvH0boOE9XmP14R71JZtaeRtzwJA
+ 5e1/HZBp/zxQ75viAFgb3oo8UgoRlAsT94U+bPoe+ozfOjD/Vuc8SdBPJ
+ ih+RSdPlx/rdyrJgfidBF6R/iUYq04aAYrETLWtVWoy5hHk6ywb4nIfRk
+ uRMFdBPdTXXDphdzqkVJXP6Xi+7agAxXBh8qFxkg/Cy3R07S/kLygIfIy
+ AJEIN+/VHgEtA8xWA1N4yVbBM5ggFOYyeLsU0Tg6yh/QltDngTgoECMyb
+ APdLn+2GG8OYvVSHVELhnqB/KRJGr2JrJqLg+1t0jzBrAH60F31M1M4Da g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="238255954"
+X-IronPort-AV: E=Sophos;i="5.88,191,1635231600"; d="scan'208";a="238255954"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 22:35:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,191,1635231600"; d="scan'208";a="516156616"
+Received: from sdutt-nuc10i5fnh.jf.intel.com ([10.165.21.151])
+ by orsmga008.jf.intel.com with ESMTP; 08 Dec 2021 22:35:07 -0800
+From: Jasmine Newsome <jasmine.newsome@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  8 Dec 2021 16:56:09 -0800
-Message-Id: <20211209005610.1499729-3-daniele.ceraolospurio@intel.com>
+Date: Wed,  8 Dec 2021 22:33:24 -0800
+Message-Id: <20211209063324.1672413-1-jasmine.newsome@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211209005610.1499729-1-daniele.ceraolospurio@intel.com>
-References: <20211209005610.1499729-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/uc: Prepare for different firmware
- key sizes
+Subject: [Intel-gfx] [PATCH] drm/i915/gem: Use local pointer ttm for
+ __i915_ttm_move
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,38 +54,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jasmine.newsome@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Using local pointer ttm as argument in  __i915_ttm_move
+instead of bo->ttm, as local pointer was previously assigned
+to bo->ttm in function. This will make code a bit more readable.
 
-Future GuC/HuC firmwares might be signed with different key sizes.
-Don't assume that it must be always 2048 bits long.
-
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Jasmine Newsome <jasmine.newsome@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index b7fa51aefdff..01683f5f95bd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -322,13 +322,6 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 	uc_fw->ucode_size = (css->size_dw - css->header_size_dw) * sizeof(u32);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 80df9f592407..56b6573b5c93 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -763,7 +763,7 @@ int i915_ttm_move(struct ttm_buffer_object *bo, bool evict,
+ 			return PTR_ERR(dep);
+ 		}
  
- 	/* now RSA */
--	if (unlikely(css->key_size_dw != UOS_RSA_SCRATCH_COUNT)) {
--		drm_warn(&i915->drm, "%s firmware %s: unexpected key size: %u != %u\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->path,
--			 css->key_size_dw, UOS_RSA_SCRATCH_COUNT);
--		err = -EPROTO;
--		goto fail;
--	}
- 	uc_fw->rsa_size = css->key_size_dw * sizeof(u32);
- 
- 	/* At least, it should have header, uCode and RSA. Size of all three. */
+-		migration_fence = __i915_ttm_move(bo, clear, dst_mem, bo->ttm,
++		migration_fence = __i915_ttm_move(bo, clear, dst_mem, ttm,
+ 						  dst_rsgt, true, dep);
+ 		dma_fence_put(dep);
+ 	}
 -- 
 2.25.1
 
