@@ -4,35 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3256FC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 424B1C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:01:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC7F10E64E;
-	Thu,  9 Dec 2021 16:54:35 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8465C10E120
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 14:43:15 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="238053122"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="238053122"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 06:43:14 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="463254723"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga006.jf.intel.com with SMTP; 09 Dec 2021 06:43:12 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 09 Dec 2021 16:43:11 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 16:43:09 +0200
-Message-Id: <20211209144311.3221-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2BF10E609;
+	Thu,  9 Dec 2021 16:54:39 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8573410E120;
+ Thu,  9 Dec 2021 15:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639064766; x=1670600766;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DrNXqwGgAO+1lUJRT2MqybX+A18nxjM8ixh5l/KKQik=;
+ b=grI60tGN7j8/2VPH7PEsvtoKaOIeTEsgqF/jsU3HeqyrO5uiIrNPAcsg
+ G2/DQPHn3xHCUzEtdnaLjmCsZUtMct0A+t30488Hzu+QvPqMWyJiGQbkg
+ C7tntXJ1WC+cpjOWzXB6Fv/Ow3moaGL3N/qi8yi6j33bXl3UXs15oQ78F
+ Ho54NLPITRgZUsl40eolyqifFOeTPwQVuh1VBfnW4C0C/ixt7g24PoGYy
+ glAZmcFhEsEsp15eCthz7IStZcIy7ix5IPnXupiBRznZwI9X4YPAvv62N
+ RzObdZ15NlKZJAI8YAPFGYVwNFOjg9Tzt/6QHbvNT4I8jMMu4bxUP18X9 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298916822"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298916822"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:45:58 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503535129"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:45:55 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 21:15:19 +0530
+Message-Id: <20211209154533.4084-3-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211209154533.4084-1-ramalingam.c@intel.com>
+References: <20211209154533.4084-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Fix up pixel_rate vs. clock
- confusion in wm calculations
+Subject: [Intel-gfx] [PATCH v4 02/16] drm/i915/xehpsdv: support 64K GTT pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,231 +56,285 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
 
-Use pixel_rate rather than crtc_clock in the watermark calculations.
-These are actually identical on gmch platforms for now since
-we don't adjust the pixel rate based on pfit downscaling. But
-pixel_rate is the thing we are actually interested here so use
-the proper name for it.
+XEHPSDV optimises 64K GTT pages for local-memory, since everything
+should be allocated at 64K granularity. We say goodbye to sparse
+entries, and instead get a compact 256B page-table for 64K pages,
+which should be more cache friendly. 4K pages for local-memory
+are no longer supported by the HW.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Stuart Summers <stuart.summers@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 52 ++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 30 deletions(-)
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  60 ++++++++++
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 109 +++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |   3 +
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |   1 +
+ 4 files changed, 170 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 434b1f8b7fe3..b5d5b625a321 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -915,15 +915,13 @@ static void pnv_update_wm(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index c69c7d45aabc..bd8dc1a28022 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -1483,6 +1483,65 @@ static int igt_ppgtt_sanity_check(void *arg)
+ 	return err;
+ }
  
- 	crtc = single_enabled_crtc(dev_priv);
- 	if (crtc) {
--		const struct drm_display_mode *pipe_mode =
--			&crtc->config->hw.pipe_mode;
- 		const struct drm_framebuffer *fb =
- 			crtc->base.primary->state->fb;
-+		int pixel_rate = crtc->config->pixel_rate;
- 		int cpp = fb->format->cpp[0];
--		int clock = pipe_mode->crtc_clock;
- 
- 		/* Display SR */
--		wm = intel_calculate_wm(clock, &pnv_display_wm,
-+		wm = intel_calculate_wm(pixel_rate, &pnv_display_wm,
- 					pnv_display_wm.fifo_size,
- 					cpp, latency->display_sr);
- 		reg = intel_uncore_read(&dev_priv->uncore, DSPFW1);
-@@ -933,7 +931,7 @@ static void pnv_update_wm(struct drm_i915_private *dev_priv)
- 		drm_dbg_kms(&dev_priv->drm, "DSPFW1 register is %x\n", reg);
- 
- 		/* cursor SR */
--		wm = intel_calculate_wm(clock, &pnv_cursor_wm,
-+		wm = intel_calculate_wm(pixel_rate, &pnv_cursor_wm,
- 					pnv_display_wm.fifo_size,
- 					4, latency->cursor_sr);
- 		reg = intel_uncore_read(&dev_priv->uncore, DSPFW3);
-@@ -942,7 +940,7 @@ static void pnv_update_wm(struct drm_i915_private *dev_priv)
- 		intel_uncore_write(&dev_priv->uncore, DSPFW3, reg);
- 
- 		/* Display HPLL off SR */
--		wm = intel_calculate_wm(clock, &pnv_display_hplloff_wm,
-+		wm = intel_calculate_wm(pixel_rate, &pnv_display_hplloff_wm,
- 					pnv_display_hplloff_wm.fifo_size,
- 					cpp, latency->display_hpll_disable);
- 		reg = intel_uncore_read(&dev_priv->uncore, DSPFW3);
-@@ -951,7 +949,7 @@ static void pnv_update_wm(struct drm_i915_private *dev_priv)
- 		intel_uncore_write(&dev_priv->uncore, DSPFW3, reg);
- 
- 		/* cursor HPLL off SR */
--		wm = intel_calculate_wm(clock, &pnv_cursor_hplloff_wm,
-+		wm = intel_calculate_wm(pixel_rate, &pnv_cursor_hplloff_wm,
- 					pnv_display_hplloff_wm.fifo_size,
- 					4, latency->cursor_hpll_disable);
- 		reg = intel_uncore_read(&dev_priv->uncore, DSPFW3);
-@@ -1154,7 +1152,7 @@ static u16 g4x_compute_wm(const struct intel_crtc_state *crtc_state,
- 	const struct drm_display_mode *pipe_mode =
- 		&crtc_state->hw.pipe_mode;
- 	unsigned int latency = dev_priv->wm.pri_latency[level] * 10;
--	unsigned int clock, htotal, cpp, width, wm;
-+	unsigned int pixel_rate, htotal, cpp, width, wm;
- 
- 	if (latency == 0)
- 		return USHRT_MAX;
-@@ -1175,21 +1173,21 @@ static u16 g4x_compute_wm(const struct intel_crtc_state *crtc_state,
- 	    level != G4X_WM_LEVEL_NORMAL)
- 		cpp = max(cpp, 4u);
- 
--	clock = pipe_mode->crtc_clock;
-+	pixel_rate = crtc_state->pixel_rate;
- 	htotal = pipe_mode->crtc_htotal;
- 
- 	width = drm_rect_width(&plane_state->uapi.dst);
- 
- 	if (plane->id == PLANE_CURSOR) {
--		wm = intel_wm_method2(clock, htotal, width, cpp, latency);
-+		wm = intel_wm_method2(pixel_rate, htotal, width, cpp, latency);
- 	} else if (plane->id == PLANE_PRIMARY &&
- 		   level == G4X_WM_LEVEL_NORMAL) {
--		wm = intel_wm_method1(clock, cpp, latency);
-+		wm = intel_wm_method1(pixel_rate, cpp, latency);
- 	} else {
- 		unsigned int small, large;
- 
--		small = intel_wm_method1(clock, cpp, latency);
--		large = intel_wm_method2(clock, htotal, width, cpp, latency);
-+		small = intel_wm_method1(pixel_rate, cpp, latency);
-+		large = intel_wm_method2(pixel_rate, htotal, width, cpp, latency);
- 
- 		wm = min(small, large);
- 	}
-@@ -1674,7 +1672,7 @@ static u16 vlv_compute_wm_level(const struct intel_crtc_state *crtc_state,
- 	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
- 	const struct drm_display_mode *pipe_mode =
- 		&crtc_state->hw.pipe_mode;
--	unsigned int clock, htotal, cpp, width, wm;
-+	unsigned int pixel_rate, htotal, cpp, width, wm;
- 
- 	if (dev_priv->wm.pri_latency[level] == 0)
- 		return USHRT_MAX;
-@@ -1683,7 +1681,7 @@ static u16 vlv_compute_wm_level(const struct intel_crtc_state *crtc_state,
- 		return 0;
- 
- 	cpp = plane_state->hw.fb->format->cpp[0];
--	clock = pipe_mode->crtc_clock;
-+	pixel_rate = crtc_state->pixel_rate;
- 	htotal = pipe_mode->crtc_htotal;
- 	width = crtc_state->pipe_src_w;
- 
-@@ -1696,7 +1694,7 @@ static u16 vlv_compute_wm_level(const struct intel_crtc_state *crtc_state,
- 		 */
- 		wm = 63;
- 	} else {
--		wm = vlv_wm_method2(clock, htotal, width, cpp,
-+		wm = vlv_wm_method2(pixel_rate, htotal, width, cpp,
- 				    dev_priv->wm.pri_latency[level] * 10);
- 	}
- 
-@@ -2277,13 +2275,13 @@ static void i965_update_wm(struct drm_i915_private *dev_priv)
- 			&crtc->config->hw.pipe_mode;
- 		const struct drm_framebuffer *fb =
- 			crtc->base.primary->state->fb;
--		int clock = pipe_mode->crtc_clock;
-+		int pixel_rate = crtc->config->pixel_rate;
- 		int htotal = pipe_mode->crtc_htotal;
- 		int hdisplay = crtc->config->pipe_src_w;
- 		int cpp = fb->format->cpp[0];
- 		int entries;
- 
--		entries = intel_wm_method2(clock, htotal,
-+		entries = intel_wm_method2(pixel_rate, htotal,
- 					   hdisplay, cpp, sr_latency_ns / 100);
- 		entries = DIV_ROUND_UP(entries, I915_FIFO_LINE_SIZE);
- 		srwm = I965_FIFO_SIZE - entries;
-@@ -2294,7 +2292,7 @@ static void i965_update_wm(struct drm_i915_private *dev_priv)
- 			    "self-refresh entries: %d, wm: %d\n",
- 			    entries, srwm);
- 
--		entries = intel_wm_method2(clock, htotal,
-+		entries = intel_wm_method2(pixel_rate, htotal,
- 					   crtc->base.cursor->state->crtc_w, 4,
- 					   sr_latency_ns / 100);
- 		entries = DIV_ROUND_UP(entries,
-@@ -2373,8 +2371,6 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 		fifo_size = i9xx_get_fifo_size(dev_priv, PLANE_A);
- 	crtc = intel_crtc_for_plane(dev_priv, PLANE_A);
- 	if (intel_crtc_active(crtc)) {
--		const struct drm_display_mode *pipe_mode =
--			&crtc->config->hw.pipe_mode;
- 		const struct drm_framebuffer *fb =
- 			crtc->base.primary->state->fb;
- 		int cpp;
-@@ -2384,7 +2380,7 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 		else
- 			cpp = fb->format->cpp[0];
- 
--		planea_wm = intel_calculate_wm(pipe_mode->crtc_clock,
-+		planea_wm = intel_calculate_wm(crtc->config->pixel_rate,
- 					       wm_info, fifo_size, cpp,
- 					       pessimal_latency_ns);
- 		enabled = crtc;
-@@ -2403,8 +2399,6 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 		fifo_size = i9xx_get_fifo_size(dev_priv, PLANE_B);
- 	crtc = intel_crtc_for_plane(dev_priv, PLANE_B);
- 	if (intel_crtc_active(crtc)) {
--		const struct drm_display_mode *pipe_mode =
--			&crtc->config->hw.pipe_mode;
- 		const struct drm_framebuffer *fb =
- 			crtc->base.primary->state->fb;
- 		int cpp;
-@@ -2414,7 +2408,7 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 		else
- 			cpp = fb->format->cpp[0];
- 
--		planeb_wm = intel_calculate_wm(pipe_mode->crtc_clock,
-+		planeb_wm = intel_calculate_wm(crtc->config->pixel_rate,
- 					       wm_info, fifo_size, cpp,
- 					       pessimal_latency_ns);
- 		if (enabled == NULL)
-@@ -2456,7 +2450,7 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 			&enabled->config->hw.pipe_mode;
- 		const struct drm_framebuffer *fb =
- 			enabled->base.primary->state->fb;
--		int clock = pipe_mode->crtc_clock;
-+		int pixel_rate = enabled->config->pixel_rate;
- 		int htotal = pipe_mode->crtc_htotal;
- 		int hdisplay = enabled->config->pipe_src_w;
- 		int cpp;
-@@ -2467,7 +2461,7 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 		else
- 			cpp = fb->format->cpp[0];
- 
--		entries = intel_wm_method2(clock, htotal, hdisplay, cpp,
-+		entries = intel_wm_method2(pixel_rate, htotal, hdisplay, cpp,
- 					   sr_latency_ns / 100);
- 		entries = DIV_ROUND_UP(entries, wm_info->cacheline_size);
- 		drm_dbg_kms(&dev_priv->drm,
-@@ -2504,7 +2498,6 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- static void i845_update_wm(struct drm_i915_private *dev_priv)
++static int igt_ppgtt_compact(void *arg)
++{
++	struct drm_i915_private *i915 = arg;
++	struct drm_i915_gem_object *obj;
++	int err;
++
++	/*
++	 * Simple test to catch issues with compact 64K pages -- since the pt is
++	 * compacted to 256B that gives us 32 entries per pt, however since the
++	 * backing page for the pt is 4K, any extra entries we might incorrectly
++	 * write out should be ignored by the HW. If ever hit such a case this
++	 * test should catch it since some of our writes would land in scratch.
++	 */
++
++	if (!HAS_64K_PAGES(i915)) {
++		pr_info("device lacks compact 64K page support, skipping\n");
++		return 0;
++	}
++
++	if (!HAS_LMEM(i915)) {
++		pr_info("device lacks LMEM support, skipping\n");
++		return 0;
++	}
++
++	/* We want the range to cover multiple page-table boundaries. */
++	obj = i915_gem_object_create_lmem(i915, SZ_4M, 0);
++	if (IS_ERR(obj))
++		return err;
++
++	err = i915_gem_object_pin_pages_unlocked(obj);
++	if (err)
++		goto out_put;
++
++	if (obj->mm.page_sizes.phys < I915_GTT_PAGE_SIZE_64K) {
++		pr_info("LMEM compact unable to allocate huge-page(s)\n");
++		goto out_unpin;
++	}
++
++	/*
++	 * Disable 2M GTT pages by forcing the page-size to 64K for the GTT
++	 * insertion.
++	 */
++	obj->mm.page_sizes.sg = I915_GTT_PAGE_SIZE_64K;
++
++	err = igt_write_huge(i915, obj);
++	if (err)
++		pr_err("LMEM compact write-huge failed\n");
++
++out_unpin:
++	i915_gem_object_unpin_pages(obj);
++out_put:
++	i915_gem_object_put(obj);
++
++	if (err == -ENOMEM)
++		err = 0;
++
++	return err;
++}
++
+ static int igt_tmpfs_fallback(void *arg)
  {
- 	struct intel_crtc *crtc;
--	const struct drm_display_mode *pipe_mode;
- 	u32 fwater_lo;
- 	int planea_wm;
+ 	struct drm_i915_private *i915 = arg;
+@@ -1740,6 +1799,7 @@ int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_tmpfs_fallback),
+ 		SUBTEST(igt_ppgtt_smoke_huge),
+ 		SUBTEST(igt_ppgtt_sanity_check),
++		SUBTEST(igt_ppgtt_compact),
+ 	};
  
-@@ -2512,8 +2505,7 @@ static void i845_update_wm(struct drm_i915_private *dev_priv)
- 	if (crtc == NULL)
- 		return;
+ 	if (!HAS_PPGTT(i915)) {
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index b012c50f7ce7..8d081497e87e 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -233,6 +233,8 @@ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
+ 						   start, end, lvl);
+ 		} else {
+ 			unsigned int count;
++			unsigned int pte = gen8_pd_index(start, 0);
++			unsigned int num_ptes;
+ 			u64 *vaddr;
  
--	pipe_mode = &crtc->config->hw.pipe_mode;
--	planea_wm = intel_calculate_wm(pipe_mode->crtc_clock,
-+	planea_wm = intel_calculate_wm(crtc->config->pixel_rate,
- 				       &i845_wm_info,
- 				       i845_get_fifo_size(dev_priv, PLANE_A),
- 				       4, pessimal_latency_ns);
+ 			count = gen8_pt_count(start, end);
+@@ -242,10 +244,18 @@ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
+ 			    atomic_read(&pt->used));
+ 			GEM_BUG_ON(!count || count >= atomic_read(&pt->used));
+ 
++			num_ptes = count;
++			if (pt->is_compact) {
++				GEM_BUG_ON(num_ptes % 16);
++				GEM_BUG_ON(pte % 16);
++				num_ptes /= 16;
++				pte /= 16;
++			}
++
+ 			vaddr = px_vaddr(pt);
+-			memset64(vaddr + gen8_pd_index(start, 0),
++			memset64(vaddr + pte,
+ 				 vm->scratch[0]->encode,
+-				 count);
++				 num_ptes);
+ 
+ 			atomic_sub(count, &pt->used);
+ 			start += count;
+@@ -453,6 +463,96 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
+ 	return idx;
+ }
+ 
++static void
++xehpsdv_ppgtt_insert_huge(struct i915_vma *vma,
++			  struct sgt_dma *iter,
++			  enum i915_cache_level cache_level,
++			  u32 flags)
++{
++	const gen8_pte_t pte_encode = vma->vm->pte_encode(0, cache_level, flags);
++	unsigned int rem = sg_dma_len(iter->sg);
++	u64 start = vma->node.start;
++
++	GEM_BUG_ON(!i915_vm_is_4lvl(vma->vm));
++
++	do {
++		struct i915_page_directory * const pdp =
++			gen8_pdp_for_page_address(vma->vm, start);
++		struct i915_page_directory * const pd =
++			i915_pd_entry(pdp, __gen8_pte_index(start, 2));
++		struct i915_page_table *pt =
++			i915_pt_entry(pd, __gen8_pte_index(start, 1));
++		gen8_pte_t encode = pte_encode;
++		unsigned int page_size;
++		gen8_pte_t *vaddr;
++		u16 index, max;
++
++		max = I915_PDES;
++
++		if (vma->page_sizes.sg & I915_GTT_PAGE_SIZE_2M &&
++		    IS_ALIGNED(iter->dma, I915_GTT_PAGE_SIZE_2M) &&
++		    rem >= I915_GTT_PAGE_SIZE_2M &&
++		    !__gen8_pte_index(start, 0)) {
++			index = __gen8_pte_index(start, 1);
++			encode |= GEN8_PDE_PS_2M;
++			page_size = I915_GTT_PAGE_SIZE_2M;
++
++			vaddr = px_vaddr(pd);
++		} else {
++			if (encode & GEN12_PPGTT_PTE_LM) {
++				GEM_BUG_ON(!i915_gem_object_is_lmem(vma->obj));
++				GEM_BUG_ON(__gen8_pte_index(start, 0) % 16);
++				GEM_BUG_ON(rem < I915_GTT_PAGE_SIZE_64K);
++				GEM_BUG_ON(!IS_ALIGNED(iter->dma,
++						       I915_GTT_PAGE_SIZE_64K));
++
++				index = __gen8_pte_index(start, 0) / 16;
++				page_size = I915_GTT_PAGE_SIZE_64K;
++
++				max /= 16;
++
++				vaddr = px_vaddr(pd);
++				vaddr[__gen8_pte_index(start, 1)] |= GEN12_PDE_64K;
++
++				pt->is_compact = true;
++			} else {
++				GEM_BUG_ON(i915_gem_object_is_lmem(vma->obj));
++				GEM_BUG_ON(pt->is_compact);
++				index =  __gen8_pte_index(start, 0);
++				page_size = I915_GTT_PAGE_SIZE;
++			}
++
++			vaddr = px_vaddr(pt);
++		}
++
++		do {
++			GEM_BUG_ON(rem < page_size);
++			vaddr[index++] = encode | iter->dma;
++
++			start += page_size;
++			iter->dma += page_size;
++			rem -= page_size;
++			if (iter->dma >= iter->max) {
++				iter->sg = __sg_next(iter->sg);
++				if (!iter->sg)
++					break;
++
++				rem = sg_dma_len(iter->sg);
++				if (!rem)
++					break;
++
++				iter->dma = sg_dma_address(iter->sg);
++				iter->max = iter->dma + rem;
++
++				if (unlikely(!IS_ALIGNED(iter->dma, page_size)))
++					break;
++			}
++		} while (rem >= page_size && index < max);
++
++		vma->page_sizes.gtt |= page_size;
++	} while (iter->sg && sg_dma_len(iter->sg));
++}
++
+ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
+ 				   struct sgt_dma *iter,
+ 				   enum i915_cache_level cache_level,
+@@ -585,7 +685,10 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
+ 	struct sgt_dma iter = sgt_dma(vma);
+ 
+ 	if (vma->page_sizes.sg > I915_GTT_PAGE_SIZE) {
+-		gen8_ppgtt_insert_huge(vma, &iter, cache_level, flags);
++		if (HAS_64K_PAGES(vm->i915))
++			xehpsdv_ppgtt_insert_huge(vma, &iter, cache_level, flags);
++		else
++			gen8_ppgtt_insert_huge(vma, &iter, cache_level, flags);
+ 	} else  {
+ 		u64 idx = vma->node.start >> GEN8_PTE_SHIFT;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index ff3867e69720..85ff11ebcbd5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -91,6 +91,8 @@ typedef u64 gen8_pte_t;
+ 
+ #define GEN12_GGTT_PTE_LM	BIT_ULL(1)
+ 
++#define GEN12_PDE_64K BIT(6)
++
+ /*
+  * Cacheability Control is a 4-bit value. The low three bits are stored in bits
+  * 3:1 of the PTE, while the fourth bit is stored in bit 11 of the PTE.
+@@ -159,6 +161,7 @@ struct i915_page_table {
+ 		atomic_t used;
+ 		struct i915_page_table *stash;
+ 	};
++	bool is_compact;
+ };
+ 
+ struct i915_page_directory {
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index 4396bfd630d8..b8238f5bc8b1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -26,6 +26,7 @@ struct i915_page_table *alloc_pt(struct i915_address_space *vm)
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
++	pt->is_compact = false;
+ 	atomic_set(&pt->used, 0);
+ 	return pt;
+ }
 -- 
-2.32.0
+2.20.1
 
