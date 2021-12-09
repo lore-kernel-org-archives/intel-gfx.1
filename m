@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E022C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:59:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28E23C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28E2110E1EB;
-	Thu,  9 Dec 2021 16:54:16 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C4F89F08
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:51:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 629F110E1ED;
+	Thu,  9 Dec 2021 16:54:11 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0A5891DD;
+ Thu,  9 Dec 2021 15:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639068716; x=1670604716;
+ t=1639064818; x=1670600818;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hY2mm3uEmRvWsabaP+Ck+2CS6mmBdmhazajyEwTx6Mo=;
- b=PbjsgSN+NrSqZP7WQJ52y4BRNXki0clTGU5fW9kn5Bd5rfW7MgQeQRx5
- Mng1PotcVCflQMpmO2xY/jgmH3EMfnbZgU0apqUoFf761mptuLOcm4Iqz
- ClYJBNzat91YkZwjpip4Xo0OxPb22EzAURsuLfph/RgnsXDmmlOvOr/C9
- VLeHNrbUe6njuoFCuf2NPQubvVky6yjdcvlGlY9aQJrby01Jp31igIeXY
- epBxJJ5ByDIqp4d/k0z7BIrKxV/XdrukMAAjbzQnVfUp97szEaTW9KAoX
- uiGjJwNE8JrvaKtvzWr/qych32Uu2NG6H0kUuCDGSDY12nl6evuWeaHJz Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="225417987"
-X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="225417987"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:51:55 -0800
-X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="462206379"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 08:51:51 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 18:51:25 +0200
-Message-Id: <5f410f0fa5fe469895c1bfbe68aa92511053d5fa.1639068649.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1639068649.git.jani.nikula@intel.com>
-References: <cover.1639068649.git.jani.nikula@intel.com>
+ bh=L2Hbm0AXNsu1t3eNcZY304Dflr8gpsGAkaCW3gW7Nec=;
+ b=hjkhN77JbzHVRv8r99ifHlyJAxcW9SyBp5AVQif5fy9OUmVDKKqf+ZLW
+ dT3OqnX9diUqH3ftZ/5AwsQ68BTZgIzxgJsRGeG+OkdT+RUpFXMqLUgOu
+ iVYnGr0RSI8G0fFHg+kVAoPRIib5VQTrvtXpHDROBRl7kmAeCVcN2jQXP
+ y6D07oiowg8/TMJ6RGTFvdPbaRHkh1UWT+auZyReSyncYNYcUc1C2H1bc
+ tSmFiECgvnNHIOES6bE6Zj0zDq7HlfpqK9nNZCBMB1Mhd4pBCzifVcZ3P
+ U61wEPcSJDt2QqvPjIwqwzJOl9oSRYYROqHVOvcJUX40W9rcQS+7XxW1j g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298917239"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298917239"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:39 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503535285"
+Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:46:35 -0800
+From: Ramalingam C <ramalingam.c@intel.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 21:15:33 +0530
+Message-Id: <20211209154533.4084-17-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211209154533.4084-1-ramalingam.c@intel.com>
+References: <20211209154533.4084-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/cdclk: turn around i915_drv.h and
- intel_cdclk.h dependency
+Subject: [Intel-gfx] [PATCH v4 16/16] Doc/gpu/rfc/i915: i915 DG2 uAPI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,81 +56,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: Kenneth Graunke <kenneth@whitecape.org>,
+ Slawomir Milczarek <slawomir.milczarek@intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Simon Ser <contact@emersion.fr>,
+ mesa-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_cdclk.h only needs i915_drv.h for struct intel_cdclk_config. Move
-the definition to intel_cdclk.h and turn the includes around to avoid
-including i915_drv.h from other headers.
+Details of the new features getting added as part of DG2 enabling and their
+implicit impact on the uAPI.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+v2: improvised the Flat-CCS documentation [Danvet & CQ]
+
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+cc: Matthew Auld <matthew.auld@intel.com>
+cc: Simon Ser <contact@emersion.fr>
+cc: Pekka Paalanen <ppaalanen@gmail.com>
+Cc: Jordan Justen <jordan.l.justen@intel.com>
+Cc: Kenneth Graunke <kenneth@whitecape.org>
+Cc: mesa-dev@lists.freedesktop.org
+Cc: Tony Ye <tony.ye@intel.com>
+Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_atomic.c | 1 +
- drivers/gpu/drm/i915/display/intel_cdclk.h  | 6 +++++-
- drivers/gpu/drm/i915/i915_drv.h             | 6 +-----
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ Documentation/gpu/rfc/i915_dg2.rst | 32 ++++++++++++++++++++++++++++++
+ Documentation/gpu/rfc/index.rst    |  3 +++
+ 2 files changed, 35 insertions(+)
+ create mode 100644 Documentation/gpu/rfc/i915_dg2.rst
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index b4e7ac51aa31..ff17bec7a67d 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -34,6 +34,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_plane_helper.h>
- 
-+#include "i915_drv.h"
- #include "intel_atomic.h"
- #include "intel_cdclk.h"
- #include "intel_display_types.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
-index 50b93226517e..e11db06a81c2 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.h
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
-@@ -8,7 +8,6 @@
- 
- #include <linux/types.h>
- 
--#include "i915_drv.h"
- #include "intel_display.h"
- #include "intel_global_state.h"
- 
-@@ -16,6 +15,11 @@ struct drm_i915_private;
- struct intel_atomic_state;
- struct intel_crtc_state;
- 
-+struct intel_cdclk_config {
-+	unsigned int cdclk, vco, ref, bypass;
-+	u8 voltage_level;
-+};
+diff --git a/Documentation/gpu/rfc/i915_dg2.rst b/Documentation/gpu/rfc/i915_dg2.rst
+new file mode 100644
+index 000000000000..9d28b1812bc7
+--- /dev/null
++++ b/Documentation/gpu/rfc/i915_dg2.rst
+@@ -0,0 +1,32 @@
++====================
++I915 DG2 RFC Section
++====================
 +
- struct intel_cdclk_state {
- 	struct intel_global_state base;
++Upstream plan
++=============
++Plan to upstream the DG2 enabling is:
++
++* Merge basic HW enabling for DG2 (Still without pciid)
++* Merge the 64k support for lmem
++* Merge the flat CCS enabling patches
++* Add the pciid for DG2 and enable the DG2 in CI
++
++
++64K page support for lmem
++=========================
++On DG2 hw, local-memory supports minimum GTT page size of 64k only. 4k is not
++supported anymore.
++
++DG2 hw doesn't support the 64k (lmem) and 4k (smem) pages in the same ppgtt
++Page table. Refer the struct drm_i915_gem_create_ext for the implication of
++handling the 64k page size.
++
++.. kernel-doc:: include/uapi/drm/i915_drm.h
++        :functions: drm_i915_gem_create_ext
++
++
++Flat CCS support for lmem
++=========================
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_migrate.c
++        :doc: Flat-CCS - Memory compression for Local memory
+diff --git a/Documentation/gpu/rfc/index.rst b/Documentation/gpu/rfc/index.rst
+index 91e93a705230..afb320ed4028 100644
+--- a/Documentation/gpu/rfc/index.rst
++++ b/Documentation/gpu/rfc/index.rst
+@@ -20,6 +20,9 @@ host such documentation:
  
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index e36aea6453c2..a198f7e075d9 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -65,6 +65,7 @@
- #include "i915_utils.h"
+     i915_gem_lmem.rst
  
- #include "display/intel_bios.h"
-+#include "display/intel_cdclk.h"
- #include "display/intel_display.h"
- #include "display/intel_display_power.h"
- #include "display/intel_dmc.h"
-@@ -625,11 +626,6 @@ struct i915_virtual_gpu {
- 	u32 caps;
- };
++.. toctree::
++    i915_dg2.rst
++
+ .. toctree::
  
--struct intel_cdclk_config {
--	unsigned int cdclk, vco, ref, bypass;
--	u8 voltage_level;
--};
--
- struct i915_selftest_stash {
- 	atomic_t counter;
- 	struct ida mock_region_instances;
+     i915_scheduler.rst
 -- 
-2.30.2
+2.20.1
 
