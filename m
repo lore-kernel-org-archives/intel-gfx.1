@@ -4,47 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038AAC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C3AC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6966010E7B6;
-	Thu,  9 Dec 2021 16:55:23 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF8F891D4;
- Thu,  9 Dec 2021 15:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639064809; x=1670600809;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=86iS98JXZ4kPTyKVOxO/shhOj8RyLDAPgBVvLWijt8c=;
- b=Hyo3zvS60Zx03EfeozCKmOoEE8PHkAMh/HMGXgRgRNT5N2IFPWgQ5M0S
- LWHctqnngSQWiYieb5KDlGtkTYuEM0CNI+CYgAOaWb5QL5E5WfNpMfcfH
- mNfbIiyZ/D8XgcQ5Ho2gfR90v3QEsAnyvCNNHuk3q57rspC77l2NNDRva
- Vae4mblZcqp1ZLD91VWM3ByKTZfJnSxLkrWZ+RoTG/3faElg+gFTS0ztM
- +wdKSbUusFDUrbMVJ7gxc5fpc2IyeqjucyIrADkgnm/pXht0maXrO68uG
- IErjHEY5vr2vA5JyLRg1J/ob5nKQcBQm3TzSeF2s1mTHjEDJlSQttMtIo w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298917161"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298917161"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 07:46:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503535247"
-Received: from ramaling-i9x.iind.intel.com ([10.99.66.205])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 07:46:27 -0800
-From: Ramalingam C <ramalingam.c@intel.com>
-To: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Thu,  9 Dec 2021 21:15:31 +0530
-Message-Id: <20211209154533.4084-15-ramalingam.c@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211209154533.4084-1-ramalingam.c@intel.com>
-References: <20211209154533.4084-1-ramalingam.c@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B359710F28B;
+	Thu,  9 Dec 2021 16:55:25 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 648BF89F47
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:25:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="236832214"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="236832214"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:25:41 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="516294338"
+Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:25:39 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Pallavi Mishra <pallavi.mishra@intel.com>
+In-Reply-To: <38d8d4458215227dcf2983f1cdc920c7771c9108.camel@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211203063257.52053-1-pallavi.mishra@intel.com>
+ <Yan5RE4+T7hTHDI/@intel.com>
+ <38d8d4458215227dcf2983f1cdc920c7771c9108.camel@linux.intel.com>
+Date: Thu, 09 Dec 2021 15:25:35 +0200
+Message-ID: <87wnkd3o6o.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 14/16] drm/i915/uapi: document behaviour for
- DG2 64K support
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix possible null ptr dereferences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,125 +48,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenneth Graunke <kenneth@whitecape.org>,
- Slawomir Milczarek <slawomir.milczarek@intel.com>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- Hellstrom Thomas <thomas.hellstrom@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Simon Ser <contact@emersion.fr>,
- mesa-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Auld <matthew.auld@intel.com>
+On Fri, 03 Dec 2021, Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.co=
+m> wrote:
+> On Fri, 2021-12-03 at 13:02 +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
+>> On Fri, Dec 03, 2021 at 12:02:57PM +0530, Pallavi Mishra wrote:
+>> > add null ptr checks to prevent crash/exceptions.
+>>=20
+>> BUG_ON()s aren't going to fix anything.
+>>=20
+>> > Signed-off-by: Pallavi Mishra <pallavi.mishra@intel.com>
+>
+> Pallavi,=20
+>
+> The NULL pointer dereferences here are probably all false positives
+> from a static analyzer. However the GEM_BUG_ONs are fine to assert that
+> the assumption really holds and to clearly point out what's going wrong
+> if they are hit in CI tests.
 
-On discrete platforms like DG2, we need to support a minimum page size
-of 64K when dealing with device local-memory. This is quite tricky for
-various reasons, so try to document the new implicit uapi for this.
+I think we're massively overusing GEM_BUG_ON() all over the place.
 
-v2: Fixed suggestions on formatting [Daniel]
+BR,
+Jani.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-cc: Simon Ser <contact@emersion.fr>
-cc: Pekka Paalanen <ppaalanen@gmail.com>
-Cc: Jordan Justen <jordan.l.justen@intel.com>
-Cc: Kenneth Graunke <kenneth@whitecape.org>
-Cc: mesa-dev@lists.freedesktop.org
-Cc: Tony Ye <tony.ye@intel.com>
-Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
----
- include/uapi/drm/i915_drm.h | 67 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 62 insertions(+), 5 deletions(-)
 
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 5e678917da70..b7441593434c 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1118,10 +1118,16 @@ struct drm_i915_gem_exec_object2 {
- 	/**
- 	 * When the EXEC_OBJECT_PINNED flag is specified this is populated by
- 	 * the user with the GTT offset at which this object will be pinned.
-+	 *
- 	 * When the I915_EXEC_NO_RELOC flag is specified this must contain the
- 	 * presumed_offset of the object.
-+	 *
- 	 * During execbuffer2 the kernel populates it with the value of the
- 	 * current GTT offset of the object, for future presumed_offset writes.
-+	 *
-+	 * See struct drm_i915_gem_create_ext for the rules when dealing with
-+	 * alignment restrictions with I915_MEMORY_CLASS_DEVICE, on devices with
-+	 * minimum page sizes, like DG2.
- 	 */
- 	__u64 offset;
- 
-@@ -3145,11 +3151,62 @@ struct drm_i915_gem_create_ext {
- 	 *
- 	 * The (page-aligned) allocated size for the object will be returned.
- 	 *
--	 * Note that for some devices we have might have further minimum
--	 * page-size restrictions(larger than 4K), like for device local-memory.
--	 * However in general the final size here should always reflect any
--	 * rounding up, if for example using the I915_GEM_CREATE_EXT_MEMORY_REGIONS
--	 * extension to place the object in device local-memory.
-+	 *
-+	 * **DG2 64K min page size implications:**
-+	 *
-+	 * On discrete platforms, starting from DG2, we have to contend with GTT
-+	 * page size restrictions when dealing with I915_MEMORY_CLASS_DEVICE
-+	 * objects.  Specifically the hardware only supports 64K or larger GTT
-+	 * page sizes for such memory. The kernel will already ensure that all
-+	 * I915_MEMORY_CLASS_DEVICE memory is allocated using 64K or larger page
-+	 * sizes underneath.
-+	 *
-+	 * Note that the returned size here will always reflect any required
-+	 * rounding up done by the kernel, i.e 4K will now become 64K on devices
-+	 * such as DG2.
-+	 *
-+	 * **Special DG2 GTT address alignment requirement:**
-+	 *
-+	 * The GTT alignment will also need be at least 64K for  such objects.
-+	 *
-+	 * Note that due to how the hardware implements 64K GTT page support, we
-+	 * have some further complications:
-+	 *
-+	 *   1) The entire PDE(which covers a 2M virtual address range), must
-+	 *   contain only 64K PTEs, i.e mixing 4K and 64K PTEs in the same
-+	 *   PDE is forbidden by the hardware.
-+	 *
-+	 *   2) We still need to support 4K PTEs for I915_MEMORY_CLASS_SYSTEM
-+	 *   objects.
-+	 *
-+	 * To handle the above the kernel implements a memory coloring scheme to
-+	 * prevent userspace from mixing I915_MEMORY_CLASS_DEVICE and
-+	 * I915_MEMORY_CLASS_SYSTEM objects in the same PDE. If the kernel is
-+	 * ever unable to evict the required pages for the given PDE(different
-+	 * color) when inserting the object into the GTT then it will simply
-+	 * fail the request.
-+	 *
-+	 * Since userspace needs to manage the GTT address space themselves,
-+	 * special care is needed to ensure this doesn't happen. The simplest
-+	 * scheme is to simply align and round up all I915_MEMORY_CLASS_DEVICE
-+	 * objects to 2M, which avoids any issues here. At the very least this
-+	 * is likely needed for objects that can be placed in both
-+	 * I915_MEMORY_CLASS_DEVICE and I915_MEMORY_CLASS_SYSTEM, to avoid
-+	 * potential issues when the kernel needs to migrate the object behind
-+	 * the scenes, since that might also involve evicting other objects.
-+	 *
-+	 * **To summarise the GTT rules, on platforms like DG2:**
-+	 *
-+	 *   1) All objects that can be placed in I915_MEMORY_CLASS_DEVICE must
-+	 *   have 64K alignment. The kernel will reject this otherwise.
-+	 *
-+	 *   2) All I915_MEMORY_CLASS_DEVICE objects must never be placed in
-+	 *   the same PDE with other I915_MEMORY_CLASS_SYSTEM objects. The
-+	 *   kernel will reject this otherwise.
-+	 *
-+	 *   3) Objects that can be placed in both I915_MEMORY_CLASS_DEVICE and
-+	 *   I915_MEMORY_CLASS_SYSTEM should probably be aligned and padded out
-+	 *   to 2M.
- 	 */
- 	__u64 size;
- 	/**
--- 
-2.20.1
 
+>
+> But the commit message must reflect that.
+>
+> /Thomas.
+>
+>
+>> > ---
+>> > =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 3 +++
+>> > =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 3 ++-
+>> > =C2=A02 files changed, 5 insertions(+), 1 deletion(-)
+>> >=20
+>> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> > b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> > index 218a9b3037c7..997fe73c205b 100644
+>> > --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> > @@ -906,6 +906,8 @@ vm_access_ttm(struct vm_area_struct *area,
+>> > unsigned long addr,
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct drm_i915_gem_ob=
+ject *obj =3D
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0i915_ttm_to_gem(area->vm_private_data);
+>> > =C2=A0
+>> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!obj);
+>> > +
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (i915_gem_object_is=
+_readonly(obj) && write)
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0return -EACCES;
+>> > =C2=A0
+>> > @@ -966,6 +968,7 @@ static const struct drm_i915_gem_object_ops
+>> > i915_gem_ttm_obj_ops =3D {
+>> > =C2=A0void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
+>> > =C2=A0{
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct drm_i915_gem_ob=
+ject *obj =3D i915_ttm_to_gem(bo);
+>> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!obj);
+>> > =C2=A0
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0i915_gem_object_releas=
+e_memory_region(obj);
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0mutex_destroy(&obj->tt=
+m.get_io_page.lock);
+>> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+>> > b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+>> > index 80df9f592407..2b684903a9f5 100644
+>> > --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+>> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+>> > @@ -371,6 +371,7 @@ int i915_ttm_move_notify(struct
+>> > ttm_buffer_object *bo)
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct drm_i915_gem_ob=
+ject *obj =3D i915_ttm_to_gem(bo);
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int ret;
+>> > =C2=A0
+>> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!obj);
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ret =3D i915_gem_objec=
+t_unbind(obj,
+>> > I915_GEM_OBJECT_UNBIND_ACTIVE);
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0return ret;
+>> > @@ -506,7 +507,7 @@ static void i915_ttm_memcpy_init(struct
+>> > i915_ttm_memcpy_arg *arg,
+>> > =C2=A0
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0dst_reg =3D i915_ttm_r=
+egion(bo->bdev, dst_mem->mem_type);
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0src_reg =3D i915_ttm_r=
+egion(bo->bdev, bo->resource-
+>> > >mem_type);
+>> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!dst_reg || !src=
+_reg);
+>> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GEM_BUG_ON(!dst_reg || !src=
+_reg || !obj);
+>> > =C2=A0
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0arg->dst_iter =3D !i91=
+5_ttm_cpu_maps_iomem(dst_mem) ?
+>> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0ttm_kmap_iter_tt_init(&arg->_dst_iter.tt, dst_tt=
+m)
+>> > :
+>> > --=20
+>> > 2.25.1
+>>=20
+>
+>
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
