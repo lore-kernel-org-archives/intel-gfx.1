@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46988C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:59:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D1CC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F35A610E4A7;
-	Thu,  9 Dec 2021 16:54:08 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3DC89F47;
- Thu,  9 Dec 2021 13:25:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="262199598"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="262199598"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:25:35 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="463232674"
-Received: from achlenov-mobl2.ccr.corp.intel.com (HELO intel.com)
- ([10.252.52.59])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:25:32 -0800
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Intel GFX <intel-gfx@lists.freedesktop.org>,
- DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Thu,  9 Dec 2021 15:25:03 +0200
-Message-Id: <20211209132512.47241-3-andi.shyti@linux.intel.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211209132512.47241-1-andi.shyti@linux.intel.com>
-References: <20211209132512.47241-1-andi.shyti@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B48710E4A9;
+	Thu,  9 Dec 2021 16:54:09 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5199210E119
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:15:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="324354473"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="324354473"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:15:15 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="516291782"
+Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:15:00 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20211203112029.1057-1-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211203112029.1057-1-ville.syrjala@linux.intel.com>
+Date: Thu, 09 Dec 2021 15:14:52 +0200
+Message-ID: <87zgp93ooj.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 02/11] drm/i915: Introduce to_gt() helper
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915: Nuke {pipe,
+ plane}_to_crtc_mapping[]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,66 +46,176 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michał Winiarski <michal.winiarski@intel.com>
+On Fri, 03 Dec 2021, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> These plane/pipe->crtc mapping arrays are rather pointless.
+> Get rid of them and just iterate the lists instead.
 
-To allow further refactoring and abstract away the fact that GT is
-stored inside i915 private.
-No functional changes.
+Nice follow-up to my cleanups. On the series,
 
-Signed-off-by: Michał Winiarski <michal.winiarski@intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c | 7 +------
- drivers/gpu/drm/i915/i915_drv.h                | 5 +++++
- 2 files changed, 6 insertions(+), 6 deletions(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-index acc49c56a9f3..9db3dcbd917f 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-@@ -9,11 +9,6 @@
- #include "intel_engine_pm.h"
- #include "intel_gt_buffer_pool.h"
- 
--static struct intel_gt *to_gt(struct intel_gt_buffer_pool *pool)
--{
--	return container_of(pool, struct intel_gt, buffer_pool);
--}
--
- static struct list_head *
- bucket_for_size(struct intel_gt_buffer_pool *pool, size_t sz)
- {
-@@ -141,7 +136,7 @@ static struct intel_gt_buffer_pool_node *
- node_create(struct intel_gt_buffer_pool *pool, size_t sz,
- 	    enum i915_map_type type)
- {
--	struct intel_gt *gt = to_gt(pool);
-+	struct intel_gt *gt = container_of(pool, struct intel_gt, buffer_pool);
- 	struct intel_gt_buffer_pool_node *node;
- 	struct drm_i915_gem_object *obj;
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index ae7dc7862b5d..c6f34ac353ff 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1080,6 +1080,11 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
- 	return pci_get_drvdata(pdev);
- }
- 
-+static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
-+{
-+	return &i915->gt;
-+}
-+
- /* Simple iterator over all initialised engines */
- #define for_each_engine(engine__, dev_priv__, id__) \
- 	for ((id__) = 0; \
--- 
-2.34.1
+intel_crtc_first() might have been nice for the prefix, but does it
+sound too awkward? *shrug*
 
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_crtc.c | 44 ++++++++++-------------
+>  drivers/gpu/drm/i915/display/intel_crtc.h |  1 -
+>  drivers/gpu/drm/i915/display/intel_vdsc.c | 13 ++-----
+>  drivers/gpu/drm/i915/i915_drv.h           |  3 --
+>  4 files changed, 20 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/=
+i915/display/intel_crtc.c
+> index 43554b591904..96554f5652f1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+> @@ -36,14 +36,6 @@ static void assert_vblank_disabled(struct drm_crtc *cr=
+tc)
+>  		drm_crtc_vblank_put(crtc);
+>  }
+>=20=20
+> -bool intel_pipe_valid(struct drm_i915_private *i915, enum pipe pipe)
+> -{
+> -	return (pipe >=3D 0 &&
+> -		pipe < ARRAY_SIZE(i915->pipe_to_crtc_mapping) &&
+> -		INTEL_INFO(i915)->pipe_mask & BIT(pipe) &&
+> -		i915->pipe_to_crtc_mapping[pipe]);
+> -}
+> -
+>  struct intel_crtc *intel_get_first_crtc(struct drm_i915_private *i915)
+>  {
+>  	return to_intel_crtc(drm_crtc_from_index(&i915->drm, 0));
+> @@ -52,16 +44,28 @@ struct intel_crtc *intel_get_first_crtc(struct drm_i9=
+15_private *i915)
+>  struct intel_crtc *intel_crtc_for_pipe(struct drm_i915_private *i915,
+>  				       enum pipe pipe)
+>  {
+> -	/* pipe_to_crtc_mapping may have hole on any of 3 display pipe system */
+> -	drm_WARN_ON(&i915->drm,
+> -		    !(INTEL_INFO(i915)->pipe_mask & BIT(pipe)));
+> -	return i915->pipe_to_crtc_mapping[pipe];
+> +	struct intel_crtc *crtc;
+> +
+> +	for_each_intel_crtc(&i915->drm, crtc) {
+> +		if (crtc->pipe =3D=3D pipe)
+> +			return crtc;
+> +	}
+> +
+> +	return NULL;
+>  }
+>=20=20
+>  struct intel_crtc *intel_crtc_for_plane(struct drm_i915_private *i915,
+> -					enum i9xx_plane_id plane)
+> +					enum i9xx_plane_id i9xx_plane)
+>  {
+> -	return i915->plane_to_crtc_mapping[plane];
+> +	struct intel_plane *plane;
+> +
+> +	for_each_intel_plane(&i915->drm, plane) {
+> +		if (plane->id =3D=3D PLANE_PRIMARY &&
+> +		    plane->i9xx_plane =3D=3D i9xx_plane)
+> +			return intel_crtc_for_pipe(i915, plane->pipe);
+> +	}
+> +
+> +	return NULL;
+>  }
+>=20=20
+>  void intel_crtc_wait_for_next_vblank(struct intel_crtc *crtc)
+> @@ -369,18 +373,6 @@ int intel_crtc_init(struct drm_i915_private *dev_pri=
+v, enum pipe pipe)
+>  	if (ret)
+>  		goto fail;
+>=20=20
+> -	BUG_ON(pipe >=3D ARRAY_SIZE(dev_priv->pipe_to_crtc_mapping) ||
+> -	       dev_priv->pipe_to_crtc_mapping[pipe] !=3D NULL);
+> -	dev_priv->pipe_to_crtc_mapping[pipe] =3D crtc;
+> -
+> -	if (DISPLAY_VER(dev_priv) < 9) {
+> -		enum i9xx_plane_id i9xx_plane =3D primary->i9xx_plane;
+> -
+> -		BUG_ON(i9xx_plane >=3D ARRAY_SIZE(dev_priv->plane_to_crtc_mapping) ||
+> -		       dev_priv->plane_to_crtc_mapping[i9xx_plane] !=3D NULL);
+> -		dev_priv->plane_to_crtc_mapping[i9xx_plane] =3D crtc;
+> -	}
+> -
+>  	if (DISPLAY_VER(dev_priv) >=3D 11)
+>  		drm_crtc_create_scaling_filter_property(&crtc->base,
+>  						BIT(DRM_SCALING_FILTER_DEFAULT) |
+> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/=
+i915/display/intel_crtc.h
+> index 23110e91ecd6..4654f0eb65a2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_crtc.h
+> +++ b/drivers/gpu/drm/i915/display/intel_crtc.h
+> @@ -29,7 +29,6 @@ void intel_crtc_vblank_off(const struct intel_crtc_stat=
+e *crtc_state);
+>  void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state);
+>  void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state);
+>  void intel_wait_for_vblank_workers(struct intel_atomic_state *state);
+> -bool intel_pipe_valid(struct drm_i915_private *i915, enum pipe pipe);
+>  struct intel_crtc *intel_get_first_crtc(struct drm_i915_private *i915);
+>  struct intel_crtc *intel_crtc_for_pipe(struct drm_i915_private *i915,
+>  				       enum pipe pipe);
+> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/=
+i915/display/intel_vdsc.c
+> index c6851b0e0bed..7fe5d328c721 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> @@ -1110,25 +1110,16 @@ static i915_reg_t dss_ctl2_reg(struct intel_crtc =
+*crtc, enum transcoder cpu_tran
+>  		ICL_PIPE_DSS_CTL2(crtc->pipe) : DSS_CTL2;
+>  }
+>=20=20
+> -static struct intel_crtc *
+> -_get_crtc_for_pipe(struct drm_i915_private *i915, enum pipe pipe)
+> -{
+> -	if (!intel_pipe_valid(i915, pipe))
+> -		return NULL;
+> -
+> -	return intel_crtc_for_pipe(i915, pipe);
+> -}
+> -
+>  struct intel_crtc *
+>  intel_dsc_get_bigjoiner_secondary(const struct intel_crtc *primary_crtc)
+>  {
+> -	return _get_crtc_for_pipe(to_i915(primary_crtc->base.dev), primary_crtc=
+->pipe + 1);
+> +	return intel_crtc_for_pipe(to_i915(primary_crtc->base.dev), primary_crt=
+c->pipe + 1);
+>  }
+>=20=20
+>  static struct intel_crtc *
+>  intel_dsc_get_bigjoiner_primary(const struct intel_crtc *secondary_crtc)
+>  {
+> -	return _get_crtc_for_pipe(to_i915(secondary_crtc->base.dev), secondary_=
+crtc->pipe - 1);
+> +	return intel_crtc_for_pipe(to_i915(secondary_crtc->base.dev), secondary=
+_crtc->pipe - 1);
+>  }
+>=20=20
+>  void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crt=
+c_state)
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_=
+drv.h
+> index 262783d5db2b..60f11b114031 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -943,9 +943,6 @@ struct drm_i915_private {
+>=20=20
+>  	/* Kernel Modesetting */
+>=20=20
+> -	struct intel_crtc *plane_to_crtc_mapping[I915_MAX_PIPES];
+> -	struct intel_crtc *pipe_to_crtc_mapping[I915_MAX_PIPES];
+> -
+>  	/**
+>  	 * dpll and cdclk state is protected by connection_mutex
+>  	 * dpll.lock serializes intel_{prepare,enable,disable}_shared_dpll.
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
