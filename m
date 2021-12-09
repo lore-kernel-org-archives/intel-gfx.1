@@ -4,41 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8588FC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:06:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86127C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51CF10E12B;
-	Thu,  9 Dec 2021 17:06:36 +0000 (UTC)
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0324310E121;
- Thu,  9 Dec 2021 15:09:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1639062553;
- x=1670598553; h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=W2ubuTB0lhYmOjPQa69hEhEIuxyUGZeyP9M+nuyzdoI=;
- b=l42P+TdouKR//8y/s1tY7Dq14beSJhmkqg48OUmWKmYZl8zu1L7wGl9g
- nL6YkfaeWLoKl0wgbNsAqENKKefGOUm7Tq61mpG6xjCretjywP5AMi4ye
- mcc7EXpGZRdC+SAGCYT1WpeUsoNuf4bcUbxzgbLgFPMuPDofV4Kb868Rf
- +oklWYDuj6kQf/kilASoii+yLC+XP3BPt6Uy+UdI3Zyg4HaB01IhSUhXv
- 2ohEgIznLTO3UPLgOo9ix27DfKigzVTT8K6kumkU1HvaGjvjTqUjZh4B7
- 3/iC4cjhx2ozMYySoFPrcTvAiy5lsgMkrkd3DRSExVwmhdFB8sGPQNgDu w==;
-Date: Thu, 9 Dec 2021 16:09:10 +0100
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: "jim.cromie@gmail.com" <jim.cromie@gmail.com>
-Message-ID: <20211209150910.GA23668@axis.com>
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
- <20211112114953.GA1381@axis.com>
- <CAJfuBxxnuXAR7Jgn74MNQC7MLRc0xcDLw1cCidUJ9Xyar+O_2g@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6AA610E143;
+	Thu,  9 Dec 2021 17:11:14 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E514710E141;
+ Thu,  9 Dec 2021 17:11:12 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="301538010"
+X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="301538010"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 09:06:11 -0800
+X-IronPort-AV: E=Sophos;i="5.88,193,1635231600"; d="scan'208";a="462212264"
+Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 09:06:07 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>, Intel GFX
+ <intel-gfx@lists.freedesktop.org>, DRI Devel
+ <dri-devel@lists.freedesktop.org>
+In-Reply-To: <20211209132512.47241-2-andi.shyti@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211209132512.47241-1-andi.shyti@linux.intel.com>
+ <20211209132512.47241-2-andi.shyti@linux.intel.com>
+Date: Thu, 09 Dec 2021 19:06:02 +0200
+Message-ID: <87ilvx3dz9.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <CAJfuBxxnuXAR7Jgn74MNQC7MLRc0xcDLw1cCidUJ9Xyar+O_2g@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Thu, 09 Dec 2021 17:06:35 +0000
-Subject: Re: [Intel-gfx] [PATCH v10 08/10] dyndbg: add print-to-tracefs,
- selftest with it - RFC
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v6 01/11] drm/i915: Store backpointer to GT
+ in uncore
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,416 +48,201 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "quic_saipraka@quicinc.com" <quic_saipraka@quicinc.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Will Deacon <will@kernel.org>,
- "maz@kernel.org" <maz@kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Arnd Bergmann <arnd@arndb.de>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Steven Rostedt <rostedt@goodmis.org>, Jason Baron <jbaron@akamai.com>,
- Sean Paul <seanpaul@chromium.org>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
- "quic_psodagud@quicinc.com" <quic_psodagud@quicinc.com>,
- "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 08, 2021 at 06:16:10AM +0100, jim.cromie@gmail.com wrote:
-> are you planning to dust this patchset off and resubmit it ?
-> 
-> Ive been playing with it and learning ftrace (decade+ late),
-> I found your boot-line example very helpful as 1st steps
-> (still havent even tried the filtering)
-> 
-> 
-> with these adjustments (voiced partly to test my understanding)
-> I would support it, and rework my patchset to use it.
-> 
-> - change flag to -e, good mnemonics for event/trace-event
->    T is good too, but uppercase, no need to go there.
+On Thu, 09 Dec 2021, Andi Shyti <andi.shyti@linux.intel.com> wrote:
+> From: Micha=C5=82 Winiarski <michal.winiarski@intel.com>
+>
+> We now support a per-gt uncore, yet we're not able to infer which GT
+> we're operating upon.  Let's store a backpointer for now.
+>
+> Signed-off-by: Micha=C5=82 Winiarski <michal.winiarski@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_gt.c               | 11 +++++++----
+>  drivers/gpu/drm/i915/gt/intel_gt.h               |  1 +
+>  drivers/gpu/drm/i915/i915_driver.c               |  5 +++--
+>  drivers/gpu/drm/i915/intel_uncore.c              |  9 +++++----
+>  drivers/gpu/drm/i915/intel_uncore.h              |  3 ++-
+>  drivers/gpu/drm/i915/selftests/mock_gem_device.c |  4 ++--
+>  drivers/gpu/drm/i915/selftests/mock_uncore.c     |  2 +-
+>  7 files changed, 21 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt=
+/intel_gt.c
+> index f2422d48be32..f98f0fb21efb 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+> @@ -25,11 +25,8 @@
+>  #include "shmem_utils.h"
+>  #include "pxp/intel_pxp.h"
+>=20=20
+> -void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i=
+915)
+> +void __intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private =
+*i915)
+>  {
+> -	gt->i915 =3D i915;
+> -	gt->uncore =3D &i915->uncore;
+> -
+>  	spin_lock_init(&gt->irq_lock);
+>=20=20
+>  	INIT_LIST_HEAD(&gt->closed_vma);
+> @@ -48,6 +45,12 @@ void intel_gt_init_early(struct intel_gt *gt, struct d=
+rm_i915_private *i915)
+>  	intel_rps_init_early(&gt->rps);
+>  }
+>=20=20
+> +void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i=
+915)
+> +{
+> +	gt->i915 =3D i915;
+> +	gt->uncore =3D &i915->uncore;
+> +}
+> +
+>  int intel_gt_probe_lmem(struct intel_gt *gt)
+>  {
+>  	struct drm_i915_private *i915 =3D gt->i915;
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt=
+/intel_gt.h
+> index 74e771871a9b..3ace129eb2af 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+> @@ -35,6 +35,7 @@ static inline struct intel_gt *huc_to_gt(struct intel_h=
+uc *huc)
+>  }
+>=20=20
+>  void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i=
+915);
+> +void __intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private =
+*i915);
+>  void intel_gt_init_hw_early(struct intel_gt *gt, struct i915_ggtt *ggtt);
+>  int intel_gt_probe_lmem(struct intel_gt *gt);
+>  int intel_gt_init_mmio(struct intel_gt *gt);
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i9=
+15_driver.c
+> index e9125f14b3d1..42ae5a12040d 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -314,8 +314,9 @@ static int i915_driver_early_probe(struct drm_i915_pr=
+ivate *dev_priv)
+>  	intel_device_info_subplatform_init(dev_priv);
+>  	intel_step_init(dev_priv);
+>=20=20
+> +	intel_gt_init_early(&dev_priv->gt, dev_priv);
+>  	intel_uncore_mmio_debug_init_early(&dev_priv->mmio_debug);
+> -	intel_uncore_init_early(&dev_priv->uncore, dev_priv);
+> +	intel_uncore_init_early(&dev_priv->uncore, &dev_priv->gt);
+>=20=20
+>  	spin_lock_init(&dev_priv->irq_lock);
+>  	spin_lock_init(&dev_priv->gpu_error.lock);
+> @@ -346,7 +347,7 @@ static int i915_driver_early_probe(struct drm_i915_pr=
+ivate *dev_priv)
+>=20=20
+>  	intel_wopcm_init_early(&dev_priv->wopcm);
+>=20=20
+> -	intel_gt_init_early(&dev_priv->gt, dev_priv);
+> +	__intel_gt_init_early(&dev_priv->gt, dev_priv);
 
-Any flag name works for me.
+Why double underscores here? It looks like it's supposed to be internal
+to intel_gt, not to be called by anyone else.
 
-> - include/trace/events/dyndbg.h - separate file, not mixed with print.h
->   dyndbg class, so trace_event=dyndbg:*
-> 
-> - 1 event type per pr_debug, dev_dbg, netdev_dbg ? ibdev_dbg ?
->   with the extra args: descriptor that Steven wanted,
->   probably also struct <|net|ib>dev
+BR,
+Jani.
 
-For my use cases I don't see much value in having separate events for
-the different debug functions, but since all of them can be easily
-enabled (dyndbg:*, as you noted), that works for me too.
 
-> If youre too busy for a while, I'd eventually take a (slow) run at it.
 
-You're welcome to have a go.  I think you've already rebased the
-patchset, but here's a diff top of v5.16-rc4 for reference.  I noticed a
-bug inside the CONFIG_JUMP_LABEL handling (also present in the last
-version I posted) which should be fixed as part of the diff below (I've
-added a comment).  Proper tests for this, like the ones you are adding
-in your patchset, would certainly be a good idea.  Thanks.
+>=20=20
+>  	i915_gem_init_early(dev_priv);
+>=20=20
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/i=
+ntel_uncore.c
+> index abdac78d3976..fc25ebf1a593 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.c
+> +++ b/drivers/gpu/drm/i915/intel_uncore.c
+> @@ -2061,12 +2061,13 @@ void intel_uncore_cleanup_mmio(struct intel_uncor=
+e *uncore)
+>  }
+>=20=20
+>  void intel_uncore_init_early(struct intel_uncore *uncore,
+> -			     struct drm_i915_private *i915)
+> +			     struct intel_gt *gt)
+>  {
+>  	spin_lock_init(&uncore->lock);
+> -	uncore->i915 =3D i915;
+> -	uncore->rpm =3D &i915->runtime_pm;
+> -	uncore->debug =3D &i915->mmio_debug;
+> +	uncore->i915 =3D gt->i915;
+> +	uncore->gt =3D gt;
+> +	uncore->rpm =3D &gt->i915->runtime_pm;
+> +	uncore->debug =3D &gt->i915->mmio_debug;
+>  }
+>=20=20
+>  static void uncore_raw_init(struct intel_uncore *uncore)
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/i=
+ntel_uncore.h
+> index d1d17b04e29f..210fe2a71612 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.h
+> +++ b/drivers/gpu/drm/i915/intel_uncore.h
+> @@ -129,6 +129,7 @@ struct intel_uncore {
+>  	void __iomem *regs;
+>=20=20
+>  	struct drm_i915_private *i915;
+> +	struct intel_gt *gt;
+>  	struct intel_runtime_pm *rpm;
+>=20=20
+>  	spinlock_t lock; /** lock is also taken in irq contexts. */
+> @@ -217,7 +218,7 @@ u32 intel_uncore_read_with_mcr_steering(struct intel_=
+uncore *uncore,
+>  void
+>  intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_=
+debug);
+>  void intel_uncore_init_early(struct intel_uncore *uncore,
+> -			     struct drm_i915_private *i915);
+> +			     struct intel_gt *gt);
+>  int intel_uncore_setup_mmio(struct intel_uncore *uncore);
+>  int intel_uncore_init_mmio(struct intel_uncore *uncore);
+>  void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
+> diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/g=
+pu/drm/i915/selftests/mock_gem_device.c
+> index d0e2e61de8d4..eeb632aac4a7 100644
+> --- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> +++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> @@ -175,12 +175,12 @@ struct drm_i915_private *mock_gem_device(void)
+>  	mkwrite_device_info(i915)->memory_regions =3D REGION_SMEM;
+>  	intel_memory_regions_hw_probe(i915);
+>=20=20
+> -	mock_uncore_init(&i915->uncore, i915);
+> -
+>  	spin_lock_init(&i915->gpu_error.lock);
+>=20=20
+>  	i915_gem_init__mm(i915);
+>  	intel_gt_init_early(&i915->gt, i915);
+> +	__intel_gt_init_early(&i915->gt, i915);
+> +	mock_uncore_init(&i915->uncore, i915);
+>  	atomic_inc(&i915->gt.wakeref.count); /* disable; no hw support */
+>  	i915->gt.awake =3D -ENODEV;
+>=20=20
+> diff --git a/drivers/gpu/drm/i915/selftests/mock_uncore.c b/drivers/gpu/d=
+rm/i915/selftests/mock_uncore.c
+> index ca57e4008701..b3790ef137e4 100644
+> --- a/drivers/gpu/drm/i915/selftests/mock_uncore.c
+> +++ b/drivers/gpu/drm/i915/selftests/mock_uncore.c
+> @@ -42,7 +42,7 @@ __nop_read(64)
+>  void mock_uncore_init(struct intel_uncore *uncore,
+>  		      struct drm_i915_private *i915)
+>  {
+> -	intel_uncore_init_early(uncore, i915);
+> +	intel_uncore_init_early(uncore, &i915->gt);
+>=20=20
+>  	ASSIGN_RAW_WRITE_MMIO_VFUNCS(uncore, nop);
+>  	ASSIGN_RAW_READ_MMIO_VFUNCS(uncore, nop);
 
-8<-------------
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index a89cfa083155..b9c4e808befc 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -228,6 +228,7 @@ of the characters::
- The flags are::
- 
-   p    enables the pr_debug() callsite.
-+  x    enables trace to the printk:dyndbg event
-   f    Include the function name in the printed message
-   l    Include line number in the printed message
-   m    Include module name in the printed message
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index dce631e678dd..bc21bfb0fdc6 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -27,7 +27,7 @@ struct _ddebug {
- 	 * writes commands to <debugfs>/dynamic_debug/control
- 	 */
- #define _DPRINTK_FLAGS_NONE	0
--#define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
-+#define _DPRINTK_FLAGS_PRINTK	(1<<0) /* printk() a message using the format */
- #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
- #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
- #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
-@@ -37,8 +37,11 @@ struct _ddebug {
- 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
- 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
- 
-+#define _DPRINTK_FLAGS_TRACE		(1<<5)
-+#define _DPRINTK_FLAGS_ENABLE		(_DPRINTK_FLAGS_PRINTK | \
-+					 _DPRINTK_FLAGS_TRACE)
- #if defined DEBUG
--#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
-+#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
- #else
- #define _DPRINTK_FLAGS_DEFAULT 0
- #endif
-@@ -120,10 +123,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 
- #ifdef DEBUG
- #define DYNAMIC_DEBUG_BRANCH(descriptor) \
--	likely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
-+	likely(descriptor.flags & _DPRINTK_FLAGS_ENABLE)
- #else
- #define DYNAMIC_DEBUG_BRANCH(descriptor) \
--	unlikely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
-+	unlikely(descriptor.flags & _DPRINTK_FLAGS_ENABLE)
- #endif
- 
- #endif /* CONFIG_JUMP_LABEL */
-diff --git a/include/trace/events/printk.h b/include/trace/events/printk.h
-index 13d405b2fd8b..1f78bd237a91 100644
---- a/include/trace/events/printk.h
-+++ b/include/trace/events/printk.h
-@@ -7,7 +7,7 @@
- 
- #include <linux/tracepoint.h>
- 
--TRACE_EVENT(console,
-+DECLARE_EVENT_CLASS(printk,
- 	TP_PROTO(const char *text, size_t len),
- 
- 	TP_ARGS(text, len),
-@@ -31,6 +31,16 @@ TRACE_EVENT(console,
- 
- 	TP_printk("%s", __get_str(msg))
- );
-+
-+DEFINE_EVENT(printk, console,
-+	TP_PROTO(const char *text, size_t len),
-+	TP_ARGS(text, len)
-+);
-+
-+DEFINE_EVENT(printk, dyndbg,
-+	TP_PROTO(const char *text, size_t len),
-+	TP_ARGS(text, len)
-+);
- #endif /* _TRACE_PRINTK_H */
- 
- /* This part must be outside protection */
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index dd7f56af9aed..161454fa0af8 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -36,6 +36,7 @@
- #include <linux/sched.h>
- #include <linux/device.h>
- #include <linux/netdevice.h>
-+#include <trace/events/printk.h>
- 
- #include <rdma/ib_verbs.h>
- 
-@@ -86,11 +87,12 @@ static inline const char *trim_prefix(const char *path)
- }
- 
- static struct { unsigned flag:8; char opt_char; } opt_array[] = {
--	{ _DPRINTK_FLAGS_PRINT, 'p' },
-+	{ _DPRINTK_FLAGS_PRINTK, 'p' },
- 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
- 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
- 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
- 	{ _DPRINTK_FLAGS_INCL_TID, 't' },
-+	{ _DPRINTK_FLAGS_TRACE, 'x' },
- 	{ _DPRINTK_FLAGS_NONE, '_' },
- };
- 
-@@ -210,11 +212,23 @@ static int ddebug_change(const struct ddebug_query *query,
- 			if (newflags == dp->flags)
- 				continue;
- #ifdef CONFIG_JUMP_LABEL
--			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
--				if (!(modifiers->flags & _DPRINTK_FLAGS_PRINT))
-+			if (dp->flags & _DPRINTK_FLAGS_ENABLE) {
-+				/*
-+				 * The newflags check is to ensure that the
-+				 * static branch doesn't get disabled in step
-+				 * 3:
-+				 *
-+				 * (1) +pf
-+				 * (2) +x
-+				 * (3) -pf
-+				 */
-+				if (!(modifiers->flags & _DPRINTK_FLAGS_ENABLE) &&
-+				    !(newflags & _DPRINTK_FLAGS_ENABLE)) {
- 					static_branch_disable(&dp->key.dd_key_true);
--			} else if (modifiers->flags & _DPRINTK_FLAGS_PRINT)
-+				}
-+			} else if (modifiers->flags & _DPRINTK_FLAGS_ENABLE) {
- 				static_branch_enable(&dp->key.dd_key_true);
-+			}
- #endif
- 			dp->flags = newflags;
- 			v4pr_info("changed %s:%d [%s]%s =%s\n",
-@@ -621,6 +635,96 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
- 	return buf;
- }
- 
-+/*
-+ * This code is heavily based on __ftrace_trace_stack().
-+ *
-+ * Allow 4 levels of nesting: normal, softirq, irq, NMI.
-+ */
-+#define DYNAMIC_TRACE_NESTING	4
-+
-+struct dynamic_trace_buf {
-+	char buf[256];
-+};
-+
-+struct dynamic_trace_bufs {
-+	struct dynamic_trace_buf bufs[DYNAMIC_TRACE_NESTING];
-+};
-+
-+static DEFINE_PER_CPU(struct dynamic_trace_bufs, dynamic_trace_bufs);
-+static DEFINE_PER_CPU(int, dynamic_trace_reserve);
-+
-+static void dynamic_trace(const char *fmt, va_list args)
-+{
-+	struct dynamic_trace_buf *buf;
-+	int bufidx;
-+	int len;
-+
-+	preempt_disable_notrace();
-+
-+	bufidx = __this_cpu_inc_return(dynamic_trace_reserve) - 1;
-+
-+	if (WARN_ON_ONCE(bufidx > DYNAMIC_TRACE_NESTING))
-+		goto out;
-+
-+	/* For the same reasons as in __ftrace_trace_stack(). */
-+	barrier();
-+
-+	buf = this_cpu_ptr(dynamic_trace_bufs.bufs) + bufidx;
-+
-+	len = vscnprintf(buf->buf, sizeof(buf->buf), fmt, args);
-+	trace_dyndbg(buf->buf, len);
-+
-+out:
-+	/* As above. */
-+	barrier();
-+	__this_cpu_dec(dynamic_trace_reserve);
-+	preempt_enable_notrace();
-+}
-+
-+static void dynamic_printk(unsigned int flags, const char *fmt, ...)
-+{
-+	if (flags & _DPRINTK_FLAGS_TRACE) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		/*
-+		 * All callers include the KERN_DEBUG prefix to keep the
-+		 * vprintk case simple; strip it out for tracing.
-+		 */
-+		dynamic_trace(fmt + strlen(KERN_DEBUG), args);
-+		va_end(args);
-+	}
-+
-+	if (flags & _DPRINTK_FLAGS_PRINTK) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		vprintk(fmt, args);
-+		va_end(args);
-+	}
-+}
-+
-+static void dynamic_dev_printk(unsigned int flags, const struct device *dev,
-+			       const char *fmt, ...)
-+{
-+
-+	if (flags & _DPRINTK_FLAGS_TRACE) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		dynamic_trace(fmt, args);
-+		va_end(args);
-+	}
-+
-+	if (flags & _DPRINTK_FLAGS_PRINTK) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		dev_vprintk_emit(LOGLEVEL_DEBUG, dev, fmt, args);
-+		va_end(args);
-+	}
-+}
-+
- static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
- {
- 	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
-@@ -642,7 +746,8 @@ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 
--	printk(KERN_DEBUG "%s%pV", dynamic_emit_prefix(descriptor, buf), &vaf);
-+	dynamic_printk(descriptor->flags, KERN_DEBUG "%s%pV",
-+		       dynamic_emit_prefix(descriptor, buf), &vaf);
- 
- 	va_end(args);
- }
-@@ -652,6 +757,7 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
- 		      const struct device *dev, const char *fmt, ...)
- {
- 	struct va_format vaf;
-+	unsigned int flags;
- 	va_list args;
- 
- 	BUG_ON(!descriptor);
-@@ -661,16 +767,18 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
-+	flags = descriptor->flags;
- 
- 	if (!dev) {
--		printk(KERN_DEBUG "(NULL device *): %pV", &vaf);
-+		dynamic_printk(flags, KERN_DEBUG "(NULL device *): %pV",
-+			      &vaf);
- 	} else {
- 		char buf[PREFIX_SIZE] = "";
- 
--		dev_printk_emit(LOGLEVEL_DEBUG, dev, "%s%s %s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(dev), dev_name(dev),
--				&vaf);
-+		dynamic_dev_printk(flags, dev, "%s%s %s: %pV",
-+				   dynamic_emit_prefix(descriptor, buf),
-+				   dev_driver_string(dev), dev_name(dev),
-+				   &vaf);
- 	}
- 
- 	va_end(args);
-@@ -683,6 +791,7 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 			  const struct net_device *dev, const char *fmt, ...)
- {
- 	struct va_format vaf;
-+	unsigned int flags;
- 	va_list args;
- 
- 	BUG_ON(!descriptor);
-@@ -692,22 +801,24 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
-+	flags = descriptor->flags;
- 
- 	if (dev && dev->dev.parent) {
- 		char buf[PREFIX_SIZE] = "";
- 
--		dev_printk_emit(LOGLEVEL_DEBUG, dev->dev.parent,
--				"%s%s %s %s%s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(dev->dev.parent),
--				dev_name(dev->dev.parent),
--				netdev_name(dev), netdev_reg_state(dev),
--				&vaf);
-+		dynamic_dev_printk(flags, dev->dev.parent,
-+				   "%s%s %s %s%s: %pV",
-+				   dynamic_emit_prefix(descriptor, buf),
-+				   dev_driver_string(dev->dev.parent),
-+				   dev_name(dev->dev.parent),
-+				   netdev_name(dev), netdev_reg_state(dev),
-+				   &vaf);
- 	} else if (dev) {
--		printk(KERN_DEBUG "%s%s: %pV", netdev_name(dev),
--		       netdev_reg_state(dev), &vaf);
-+		dynamic_printk(flags, KERN_DEBUG "%s%s: %pV",
-+			       netdev_name(dev), netdev_reg_state(dev), &vaf);
- 	} else {
--		printk(KERN_DEBUG "(NULL net_device): %pV", &vaf);
-+		dynamic_printk(flags, KERN_DEBUG "(NULL net_device): %pV",
-+			       &vaf);
- 	}
- 
- 	va_end(args);
-@@ -722,27 +833,31 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 			 const struct ib_device *ibdev, const char *fmt, ...)
- {
- 	struct va_format vaf;
-+	unsigned int flags;
- 	va_list args;
- 
- 	va_start(args, fmt);
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
-+	flags = descriptor->flags;
- 
- 	if (ibdev && ibdev->dev.parent) {
- 		char buf[PREFIX_SIZE] = "";
- 
--		dev_printk_emit(LOGLEVEL_DEBUG, ibdev->dev.parent,
--				"%s%s %s %s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(ibdev->dev.parent),
--				dev_name(ibdev->dev.parent),
--				dev_name(&ibdev->dev),
--				&vaf);
-+		dynamic_dev_printk(flags, ibdev->dev.parent,
-+				   "%s%s %s %s: %pV",
-+				   dynamic_emit_prefix(descriptor, buf),
-+				   dev_driver_string(ibdev->dev.parent),
-+				   dev_name(ibdev->dev.parent),
-+				   dev_name(&ibdev->dev),
-+				   &vaf);
- 	} else if (ibdev) {
--		printk(KERN_DEBUG "%s: %pV", dev_name(&ibdev->dev), &vaf);
-+		dynamic_printk(flags, KERN_DEBUG "%s: %pV",
-+			       dev_name(&ibdev->dev), &vaf);
- 	} else {
--		printk(KERN_DEBUG "(NULL ib_device): %pV", &vaf);
-+		dynamic_printk(flags, KERN_DEBUG "(NULL ib_device): %pV",
-+			       &vaf);
- 	}
- 
- 	va_end(args);
+--=20
+Jani Nikula, Intel Open Source Graphics Center
