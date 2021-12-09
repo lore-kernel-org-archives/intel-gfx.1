@@ -4,34 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A89F7C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:58:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E401DC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E913410E994;
-	Thu,  9 Dec 2021 16:53:50 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B965B10E11E
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:32:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="224962881"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="224962881"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:32:28 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503489299"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:32:26 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20211130110607.3902085-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211130110607.3902085-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Date: Thu, 09 Dec 2021 15:32:22 +0200
-Message-ID: <87tufh3nvd.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 674AC10E48E;
+	Thu,  9 Dec 2021 16:53:49 +0000 (UTC)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 192C589F8E;
+ Thu,  9 Dec 2021 12:17:47 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id g9so4945180qvd.2;
+ Thu, 09 Dec 2021 04:17:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=L/k9GrWcJhYBbsArhqmJxhaaL7EILnJZ2YfN/ur/nf4=;
+ b=PtdpzwH78vDhD2gEztbjxqCf9UB3B8B8vlUNyVCxyNiNfwbvWnX6xFtZRCjAM03VVg
+ /Ze51a8ZkRm/4nEiFRxbYmU2E646zYpayz/cXWqE2yc8nSDloDxJr77x8nCPcmAcCEC1
+ T3uhQwvsBUlTsgXO6GYw5VVUmml+zSB/9oFjouAtp/K5UhZhaZZ85XMi/hJp7I5hRUEL
+ CbYQzX2t0NKGJmSGmYigc9ilgJ0NEybUfvM0vC7yklqgaN/bJeA01Xj5OMMAW9PZR0u/
+ o9Tr1s7d3naUPCkz5TxjRuRHWIyveT9xjGWfzXLLAK4YXJS4YlngnAU7O6YhexKnJulx
+ CskQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=L/k9GrWcJhYBbsArhqmJxhaaL7EILnJZ2YfN/ur/nf4=;
+ b=L4IHwXeeGmtNY6ef3PnCmHoZBbXh2zCmg/Nt4gHwPQTgSewrMK5LPebv9zSeEMfbxc
+ zwoPIjwoIceb+eAIAxSsieY29YoILsmKU45ybi0eXepzqpWf03azThsmylgrvsHAHFXT
+ VECBmtwDc+V/Yfvc4rjd/crZq1SdaPQ1zPTwyXBsosp/ZipYTRwRNXAl+RxIyE2fqSzN
+ 2CvS2w6T+o/2+EbpUTb/o8qXbrLq6c1ZSfCx78CWzWYsf39adlaKfetg9QIVdozrOcuJ
+ YRgKW4Z5vXrSKtsbbVoN0PmztGl+dM5Q9rqtidIQL3+5pOZugoKSq0Hnp2YVNrkGxuQq
+ CYxA==
+X-Gm-Message-State: AOAM533dNqusD5JbsTlXce2haamTjbwcmmQIUXAAU9OiUdsl2wd/bno5
+ bJaKFvA13K0nvJQ3IZSbP4I1pEsEVFhbeRVlpdKKijhH5GQ=
+X-Google-Smtp-Source: ABdhPJzrtDos8G2oSo0VYPeqb3mNT2Axpi8umu2/b8zB5beVl4AXjh9e7aOWhOaYPw9UJcP/1sKxEULBzxn0mTF9P6A=
+X-Received: by 2002:ad4:5ce8:: with SMTP id iv8mr15719025qvb.21.1639052265909; 
+ Thu, 09 Dec 2021 04:17:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/adl-n: Enable ADL-N platform
+References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
+ <20211129134735.628712-12-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20211129134735.628712-12-maarten.lankhorst@linux.intel.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Thu, 9 Dec 2021 12:17:19 +0000
+Message-ID: <CAM0jSHOH4JACquBQc0rTBbNTuo7x6FznZ6FEaEJfr9DDDF1crQ@mail.gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [PATCH v2 11/16] drm/i915: Call i915_gem_evict_vm
+ in vm_fault_gtt to prevent new ENOSPC errors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,137 +63,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 30 Nov 2021, Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com> wrote:
-> Adding PCI device ids and enabling ADL-N platform.
-> ADL-N from i915 point of view is subplatform of ADL-P.
+On Mon, 29 Nov 2021 at 13:58, Maarten Lankhorst
+<maarten.lankhorst@linux.intel.com> wrote:
 >
-> BSpec: 68397
+> Now that we cannot unbind kill the currently locked object directly
+
+Can this be reworded slightly? Not sure what is meant by "unbind kill" here.
+
+> because we're removing short term pinning, we may have to unbind the
+> object from gtt manually, using a i915_gem_evict_vm() call.
 >
-> Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 > ---
->  arch/x86/kernel/early-quirks.c           | 1 +
->  drivers/gpu/drm/i915/i915_drv.h          | 2 ++
->  drivers/gpu/drm/i915/i915_pci.c          | 1 +
->  drivers/gpu/drm/i915/intel_device_info.c | 7 +++++++
->  drivers/gpu/drm/i915/intel_device_info.h | 3 +++
->  include/drm/i915_pciids.h                | 5 +++++
->  6 files changed, 19 insertions(+)
+>  drivers/gpu/drm/i915/gem/i915_gem_mman.c | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
 >
-> diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
-> index 391a4e2b8604..b9800d9f11b0 100644
-> --- a/arch/x86/kernel/early-quirks.c
-> +++ b/arch/x86/kernel/early-quirks.c
-> @@ -554,6 +554,7 @@ static const struct pci_device_id intel_early_ids[] __initconst = {
->  	INTEL_RKL_IDS(&gen11_early_ops),
->  	INTEL_ADLS_IDS(&gen11_early_ops),
->  	INTEL_ADLP_IDS(&gen11_early_ops),
-> +	INTEL_ADLN_IDS(&gen11_early_ops),
->  };
->  
->  struct resource intel_graphics_stolen_res __ro_after_init = DEFINE_RES_MEM(0, 0);
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 1bfadd9127fc..e8fd98064692 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -1463,6 +1463,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
->  #define IS_DG1(dev_priv)        IS_PLATFORM(dev_priv, INTEL_DG1)
->  #define IS_ALDERLAKE_S(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_S)
->  #define IS_ALDERLAKE_P(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_P)
-> +#define IS_ALDERLAKE_N(dev_priv) \
-> +	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_N)
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> index 65fc6ff5f59d..6d557bb9926f 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> @@ -357,8 +357,22 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
+>                         vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
+>                 }
+>
+> -               /* The entire mappable GGTT is pinned? Unexpected! */
+> -               GEM_BUG_ON(vma == ERR_PTR(-ENOSPC));
+> +               /*
+> +                * The entire mappable GGTT is pinned? Unexpected!
+> +                * Try to evict the object we locked too, as normally we skip it
+> +                * due to lack of short term pinning inside execbuf.
+> +                */
+> +               if (vma == ERR_PTR(-ENOSPC)) {
+> +                       ret = mutex_lock_interruptible(&ggtt->vm.mutex);
+> +                       if (!ret) {
+> +                               ret = i915_gem_evict_vm(&ggtt->vm, &ww);
 
-Similar to RPL-S enabling, we don't want to have a check that looks like
-a platform check (such as IS_ALDERLAKE_N()) but is in fact a
-sub-platform check.
+Would it make sense to pass an extra flag for the above ggtt_pin(maybe
+PIN_EVICT_SHARED)? Such that evict_for_something can handle the
+already locked object and then also any vma sharing the same dma-resv
+object here? Or at least trying to nuke the entire vm, just for the
+mappable portion seems maybe overkill? Or perhaps we never expect to
+hit this in the real world?
 
-This leads to stuff like
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-	if (IS_ALDERLAKE_P() && !IS_ALDERLAKE_N())
-
-which is super confusing.
-
-See [1].
-
-
-BR,
-Jani.
-
-
-
-[1] https://lore.kernel.org/r/87czmso6l7.fsf@intel.com
-
-
->  #define IS_XEHPSDV(dev_priv) IS_PLATFORM(dev_priv, INTEL_XEHPSDV)
->  #define IS_DG2(dev_priv)	IS_PLATFORM(dev_priv, INTEL_DG2)
->  #define IS_DG2_G10(dev_priv) \
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index f01cba4ec283..9b816eddbcaf 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -1130,6 +1130,7 @@ static const struct pci_device_id pciidlist[] = {
->  	INTEL_RKL_IDS(&rkl_info),
->  	INTEL_ADLS_IDS(&adl_s_info),
->  	INTEL_ADLP_IDS(&adl_p_info),
-> +	INTEL_ADLN_IDS(&adl_p_info),
->  	INTEL_DG1_IDS(&dg1_info),
->  	{0, 0, 0}
->  };
-> diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-> index 6e6b317bc33c..5d04dea5bd01 100644
-> --- a/drivers/gpu/drm/i915/intel_device_info.c
-> +++ b/drivers/gpu/drm/i915/intel_device_info.c
-> @@ -182,6 +182,10 @@ static const u16 subplatform_portf_ids[] = {
->  	INTEL_ICL_PORT_F_IDS(0),
->  };
->  
-> +static const u16 subplatform_n_ids[] = {
-> +	INTEL_ADLN_IDS(0),
-> +};
-> +
->  static bool find_devid(u16 id, const u16 *p, unsigned int num)
->  {
->  	for (; num; num--, p++) {
-> @@ -218,6 +222,9 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
->  	} else if (find_devid(devid, subplatform_portf_ids,
->  			      ARRAY_SIZE(subplatform_portf_ids))) {
->  		mask = BIT(INTEL_SUBPLATFORM_PORTF);
-> +	} else if (find_devid(devid, subplatform_n_ids,
-> +			      ARRAY_SIZE(subplatform_n_ids))) {
-> +		mask = BIT(INTEL_SUBPLATFORM_N);
->  	}
->  
->  	if (IS_TIGERLAKE(i915)) {
-> diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-> index 669f0d26c3c3..d4d2d230d04a 100644
-> --- a/drivers/gpu/drm/i915/intel_device_info.h
-> +++ b/drivers/gpu/drm/i915/intel_device_info.h
-> @@ -110,6 +110,9 @@ enum intel_platform {
->  #define INTEL_SUBPLATFORM_G10	0
->  #define INTEL_SUBPLATFORM_G11	1
->  
-> +/* ADL */
-> +#define INTEL_SUBPLATFORM_N	0
-> +
->  enum intel_ppgtt_type {
->  	INTEL_PPGTT_NONE = I915_GEM_PPGTT_NONE,
->  	INTEL_PPGTT_ALIASING = I915_GEM_PPGTT_ALIASING,
-> diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
-> index c00ac54692d7..5de540db8269 100644
-> --- a/include/drm/i915_pciids.h
-> +++ b/include/drm/i915_pciids.h
-> @@ -666,4 +666,9 @@
->  	INTEL_VGA_DEVICE(0x46C2, info), \
->  	INTEL_VGA_DEVICE(0x46C3, info)
->  
-> +/* ADL-N */
-> +#define INTEL_ADLN_IDS(info) \
-> +	INTEL_VGA_DEVICE(0x46D0, info), \
-> +	INTEL_VGA_DEVICE(0x46D1, info), \
-> +	INTEL_VGA_DEVICE(0x46D2, info)
->  #endif /* _I915_PCIIDS_H */
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> +                               mutex_unlock(&ggtt->vm.mutex);
+> +                       }
+> +                       if (ret)
+> +                               goto err_reset;
+> +                       vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
+> +               }
+> +               GEM_WARN_ON(vma == ERR_PTR(-ENOSPC));
+>         }
+>         if (IS_ERR(vma)) {
+>                 ret = PTR_ERR(vma);
+> --
+> 2.34.0
+>
