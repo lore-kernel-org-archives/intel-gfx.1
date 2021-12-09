@@ -4,42 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37A62C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5833C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D70710EB7E;
-	Thu,  9 Dec 2021 16:54:30 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A336C10E11E;
- Thu,  9 Dec 2021 13:45:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="238039603"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="238039603"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:45:58 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503493541"
-Received: from shrehore-mobl2.ger.corp.intel.com (HELO [10.252.51.183])
- ([10.252.51.183])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:45:56 -0800
-Message-ID: <1188bcc7-9415-adbb-1ec2-7016392d2923@linux.intel.com>
-Date: Thu, 9 Dec 2021 14:45:53 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27D1910EBA7;
+	Thu,  9 Dec 2021 16:54:33 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89CCD89F47;
+ Thu,  9 Dec 2021 13:25:31 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="301478589"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="301478589"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:25:22 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="516294208"
+Received: from achlenov-mobl2.ccr.corp.intel.com (HELO intel.com)
+ ([10.252.52.59])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:25:18 -0800
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ DRI Devel <dri-devel@lists.freedesktop.org>
+Date: Thu,  9 Dec 2021 15:25:01 +0200
+Message-Id: <20211209132512.47241-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.3.2
-Content-Language: en-US
-To: Matthew Auld <matthew.william.auld@gmail.com>
-References: <20211129134735.628712-1-maarten.lankhorst@linux.intel.com>
- <20211129134735.628712-13-maarten.lankhorst@linux.intel.com>
- <CAM0jSHM1P0-UqYC01vpjvogW_5ECwonnnmtmiKi3go4Di4+NKQ@mail.gmail.com>
- <f7bb808e-65c6-5e81-e129-58858a94db79@linux.intel.com>
- <CAM0jSHOZv54mLng+CHCajFq2eberkaRX8RdKWsSDwOQPG2rdGQ@mail.gmail.com>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <CAM0jSHOZv54mLng+CHCajFq2eberkaRX8RdKWsSDwOQPG2rdGQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 12/16] drm/i915: Add
- i915_vma_unbind_unlocked, and take obj lock for i915_vma_unbind
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v6 00/11] More preparation for multi gt patches
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,88 +44,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
+Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 09-12-2021 14:40, Matthew Auld wrote:
-> On Thu, 9 Dec 2021 at 13:25, Maarten Lankhorst
-> <maarten.lankhorst@linux.intel.com> wrote:
->> On 09-12-2021 14:05, Matthew Auld wrote:
->>> On Mon, 29 Nov 2021 at 13:58, Maarten Lankhorst
->>> <maarten.lankhorst@linux.intel.com> wrote:
->>>> We want to remove more members of i915_vma, which requires the locking to be
->>>> held more often.
->>>>
->>>> Start requiring gem object lock for i915_vma_unbind, as it's one of the
->>>> callers that may unpin pages.
->>>>
->>>> Some special care is needed when evicting, because the last reference to the
->>>> object may be held by the VMA, so after __i915_vma_unbind, vma may be garbage,
->>>> and we need to cache vma->obj before unlocking.
->>>>
->>>> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->>>> ---
->>> <snip>
->>>
->>>> @@ -129,22 +129,47 @@ void i915_ggtt_suspend_vm(struct i915_address_space *vm)
->>>>
->>>>         drm_WARN_ON(&vm->i915->drm, !vm->is_ggtt && !vm->is_dpt);
->>>>
->>>> +retry:
->>>> +       i915_gem_drain_freed_objects(vm->i915);
->>>> +
->>>>         mutex_lock(&vm->mutex);
->>>>
->>>>         /* Skip rewriting PTE on VMA unbind. */
->>>>         open = atomic_xchg(&vm->open, 0);
->>>>
->>>>         list_for_each_entry_safe(vma, vn, &vm->bound_list, vm_link) {
->>>> +               struct drm_i915_gem_object *obj = vma->obj;
->>>> +
->>>>                 GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
->>>> +
->>>>                 i915_vma_wait_for_bind(vma);
->>>>
->>>> -               if (i915_vma_is_pinned(vma))
->>>> +               if (i915_vma_is_pinned(vma) || !i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND))
->>>>                         continue;
->>>>
->>>> -               if (!i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND)) {
->>>> -                       __i915_vma_evict(vma);
->>>> -                       drm_mm_remove_node(&vma->node);
->>>> +               /* unlikely to race when GPU is idle, so no worry about slowpath.. */
->>>> +               if (!i915_gem_object_trylock(obj, NULL)) {
->>>> +                       atomic_set(&vm->open, open);
->>> Does this need a comment about barriers?
->> Not sure, it's guarded by vm->mutex.
->>>> +
->>>> +                       i915_gem_object_get(obj);
->>> Should this not be kref_get_unless_zero? Assuming the vm->mutex is the
->>> only thing keeping the object alive here, won't this lead to potential
->>> uaf/double-free or something? Also should we not plonk this before the
->>> trylock? Or maybe I'm missing something here?
->> Normally you're correct, this is normally the case, but we drain freed objects and this path should only be run during s/r, at which point userspace should be dead, GPU idle, and we just drained all freed objects above.
->>
->> It would be a bug if we still found a dead object, as nothing should be running.
-> Hmm, Ok. So why do we expect the trylock to ever fail here? Who else
-> can grab it at this stage?
-It probably shouldn't, should probably be a WARN if it happens.
->>>> +                       mutex_unlock(&vm->mutex);
->>>> +
->>>> +                       i915_gem_object_lock(obj, NULL);
->>>> +                       open = i915_vma_unbind(vma);
->>>> +                       i915_gem_object_unlock(obj);
->>>> +
->>>> +                       GEM_WARN_ON(open);
->>>> +
->>>> +                       i915_gem_object_put(obj);
->>>> +                       goto retry;
->>>>                 }
->>>> +
->>>> +               i915_vma_wait_for_bind(vma);
->>> We also call wait_for_bind above, is that intentional?
->> Should be harmless, but first one should probably be removed. :)
->>
+Hi,
+
+the first patch concludes the first stage of refactoring which
+makes the use of intel_gt on the different subsystem. It's taken
+from Matt's series and it has alread been reviewed. The patch has
+just been replaced before any multitile patches and I think it
+can be already pushed.
+
+Patch 2-10 are a simple abstraction of the i915->gt which now is
+under the to_gt() wrapper. This part is mostly taken from Michał.
+
+Patch 11 changes i915->gt to i915->gt0.
+
+Andi
+
+Changelog:
+==========
+Patchwork: https://patchwork.freedesktop.org/series/97020/
+
+v5 -> v6:
+ - fixed the assignement of i915->gt->ggtt = ggtt in the mock gem
+   device that was making use of it before.
+
+v4 -> v5:
+ - use to_gt() instead of to_root_gt() and use Michał work done
+   previously.
+ - split the /i915->gt/to_gt()/ patch in smaller chunks in order
+   to make review easier. (Thanks Lucas)
+
+v3 -> v4:
+ - the intel_gt_init_early() has been split as it was causing
+   some headaches for the order of the early initialization. The
+   split has been done keeping in mind the coming next patch in
+   the series that wil make this a static function.
+
+v2 -> v3:
+ - sed -i ... took too much freedom and changed more than it was
+   supposed to.
+ - fix a compile error which did not appear in my local build
+
+v1 -> v2:
+ - patch 2: do not use anymore the reference i915->gt but use
+   to_root_gt(), coming from Matt Roper's patch.
+ - fix some comments from Chris.
+
+Andi Shyti (3):
+  drm/i915/selftests: Use to_gt() helper
+  drm/i915/pxp: Use to_gt() helper
+  drm/i915: Rename i915->gt to i915->gt0
+
+Michał Winiarski (8):
+  drm/i915: Store backpointer to GT in uncore
+  drm/i915: Introduce to_gt() helper
+  drm/i915/display: Use to_gt() helper
+  drm/i915/gt: Use to_gt() helper
+  drm/i915/gem: Use to_gt() helper
+  drm/i915/gvt: Use to_gt() helper
+  drm/i915: Use to_gt() helper
+  drm/i915: Use to_gt() helper for GGTT accesses
+
+ .../gpu/drm/i915/display/intel_atomic_plane.c |  4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 18 +++---
+ drivers/gpu/drm/i915/display/intel_dpt.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
+ .../drm/i915/display/intel_plane_initial.c    |  2 +-
+ .../drm/i915/display/skl_universal_plane.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 22 ++++----
+ drivers/gpu/drm/i915/gem/i915_gem_context.h   |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_create.c    |  2 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      | 18 +++---
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c        |  8 +--
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  8 +--
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_throttle.c  |  3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 12 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |  2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  4 +-
+ .../i915/gem/selftests/i915_gem_client_blt.c  |  4 +-
+ .../drm/i915/gem/selftests/i915_gem_context.c | 12 ++--
+ .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    | 42 +++++++-------
+ .../drm/i915/gem/selftests/i915_gem_object.c  |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_user.c   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          | 14 ++---
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  6 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 11 ++--
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  1 +
+ .../gpu/drm/i915/gt/intel_gt_buffer_pool.c    |  7 +--
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  4 +-
+ drivers/gpu/drm/i915/gt/intel_rps.c           | 12 ++--
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  2 +-
+ drivers/gpu/drm/i915/gt/mock_engine.c         | 10 ++--
+ drivers/gpu/drm/i915/gt/selftest_context.c    |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_engine.c     |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  4 +-
+ .../drm/i915/gt/selftest_engine_heartbeat.c   |  4 +-
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  |  6 +-
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c      |  8 +--
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |  4 +-
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c      |  4 +-
+ .../drm/i915/gt/selftest_ring_submission.c    |  4 +-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c       |  6 +-
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   |  6 +-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |  4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  2 +-
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |  2 +-
+ .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  2 +-
+ drivers/gpu/drm/i915/gvt/gvt.c                |  2 +-
+ drivers/gpu/drm/i915/gvt/scheduler.c          |  2 +-
+ drivers/gpu/drm/i915/i915_debugfs.c           | 38 ++++++-------
+ drivers/gpu/drm/i915/i915_debugfs_params.c    |  4 +-
+ drivers/gpu/drm/i915/i915_driver.c            | 33 +++++------
+ drivers/gpu/drm/i915/i915_drv.h               | 11 +++-
+ drivers/gpu/drm/i915/i915_gem.c               | 32 +++++------
+ drivers/gpu/drm/i915/i915_gem_gtt.c           |  6 +-
+ drivers/gpu/drm/i915/i915_getparam.c          | 12 ++--
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  4 +-
+ drivers/gpu/drm/i915/i915_irq.c               | 56 +++++++++----------
+ drivers/gpu/drm/i915/i915_perf.c              |  6 +-
+ drivers/gpu/drm/i915/i915_pmu.c               | 14 ++---
+ drivers/gpu/drm/i915/i915_query.c             |  2 +-
+ drivers/gpu/drm/i915/i915_sysfs.c             | 22 ++++----
+ drivers/gpu/drm/i915/intel_gvt.c              |  2 +-
+ drivers/gpu/drm/i915/intel_uncore.c           |  9 +--
+ drivers/gpu/drm/i915/intel_uncore.h           |  3 +-
+ drivers/gpu/drm/i915/intel_wopcm.c            |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      |  6 +-
+ drivers/gpu/drm/i915/selftests/i915_active.c  |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_gem.c     | 10 ++--
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   |  6 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 10 ++--
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c | 12 ++--
+ .../gpu/drm/i915/selftests/i915_selftest.c    |  4 +-
+ drivers/gpu/drm/i915/selftests/i915_vma.c     |  2 +-
+ .../gpu/drm/i915/selftests/igt_flush_test.c   |  2 +-
+ .../gpu/drm/i915/selftests/igt_live_test.c    |  4 +-
+ .../drm/i915/selftests/intel_memory_region.c  |  4 +-
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |  2 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  | 34 +++++------
+ drivers/gpu/drm/i915/selftests/mock_gtt.c     |  6 +-
+ drivers/gpu/drm/i915/selftests/mock_uncore.c  |  2 +-
+ 88 files changed, 353 insertions(+), 339 deletions(-)
+
+-- 
+2.34.1
 
