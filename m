@@ -4,47 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A15FDC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F46AC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52C710E594;
-	Thu,  9 Dec 2021 16:54:20 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5A710E11E
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639057898; x=1670593898;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uIb31tU10Z7ejnMCVZdEQvc+FspX+OKZwgg2SDjiBEg=;
- b=k/RIjrMtrh2YFI5D2x7sy29vuBb5PQmHbd2Ae2uM8pYizIyD798h+i7Z
- NfZ/h3HJgLHsALgjQ3Uqakrk8c4kLqqrw32PgQ6srX2BGxVE0Lyx3a5z1
- dm0JMzjv73y4Nrw6fxBhFGHxJUd/I32RMP2g59Dqr2aomRjYz4K59SpPO
- fbonAj8m7VTNu0LUYt0MnNSiwlrMWsImw1sLV9rgN8VmULTHPZh2RTBKR
- XDqXjiYZE7xnRJw9S8Jvfn5B9NTQSHmP/qvU4VXyRWzqWo+L+srva/ogb
- gTcf9rcSWM6FFN41edkn0gAm2apLhsXy6U3/C9xczpdZcxsmk/atqtNTP Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="224965694"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="224965694"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:51:37 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="543599125"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:51:36 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 15:51:01 +0200
-Message-Id: <9d063d12963b995a5db90e05317f40907234956f.1639057801.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1639057801.git.jani.nikula@intel.com>
-References: <cover.1639057801.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87C8D10EAE7;
+	Thu,  9 Dec 2021 16:54:23 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2164710E120;
+ Thu,  9 Dec 2021 14:13:18 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="237908361"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="237908361"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 06:13:17 -0800
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503502184"
+Received: from nyildiz-mobl.ger.corp.intel.com (HELO thellstr-mobl1.intel.com)
+ ([10.252.5.141])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 06:13:15 -0800
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu,  9 Dec 2021 15:13:04 +0100
+Message-Id: <20211209141304.393479-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/pxp: un-inline
- intel_pxp_is_enabled()
+Subject: [Intel-gfx] [PATCH] drm/i915: Don't leak the capture list items
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,72 +44,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the interest of reducing include dependencies, un-inline
-intel_pxp_is_enabled().
+When we recently converted the capture code to use vma snapshots,
+we forgot to free the struct i915_capture_list list items after use.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Fix that by bringing back a kfree.
+
+Fixes: ff20afc4cee7 ("drm/i915: Update error capture code to avoid using the current vma state")
+Cc: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c |  5 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h | 14 ++++++++------
- 2 files changed, 13 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index e2314ad9546d..15311eaed848 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -44,6 +44,11 @@ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
- 	return container_of(pxp, struct intel_gt, pxp);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 471cde0e9883..fe682b6902aa 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -307,6 +307,7 @@ void i915_request_free_capture_list(struct i915_capture_list *capture)
+ 		struct i915_capture_list *next = capture->next;
+ 
+ 		i915_vma_snapshot_put(capture->vma_snapshot);
++		kfree(capture);
+ 		capture = next;
+ 	}
  }
- 
-+bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
-+{
-+	return pxp->ce;
-+}
-+
- bool intel_pxp_is_active(const struct intel_pxp *pxp)
- {
- 	return pxp->arb_is_valid;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index aa262258d4d4..f9999ca8a6f1 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -6,17 +6,14 @@
- #ifndef __INTEL_PXP_H__
- #define __INTEL_PXP_H__
- 
--#include "intel_pxp_types.h"
-+#include <linux/types.h>
- 
-+struct intel_pxp;
- struct drm_i915_gem_object;
- 
--static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
--{
--	return pxp->ce;
--}
--
- #ifdef CONFIG_DRM_I915_PXP
- struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
-+bool intel_pxp_is_enabled(const struct intel_pxp *pxp);
- bool intel_pxp_is_active(const struct intel_pxp *pxp);
- 
- void intel_pxp_init(struct intel_pxp *pxp);
-@@ -48,6 +45,11 @@ static inline int intel_pxp_start(struct intel_pxp *pxp)
- 	return -ENODEV;
- }
- 
-+static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
-+{
-+	return false;
-+}
-+
- static inline bool intel_pxp_is_active(const struct intel_pxp *pxp)
- {
- 	return false;
 -- 
-2.30.2
+2.31.1
 
