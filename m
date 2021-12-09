@@ -4,37 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D670C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 883D4C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:01:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24FB510E631;
-	Thu,  9 Dec 2021 16:54:36 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8188E10E120
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 14:43:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="225377885"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="225377885"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 06:43:17 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA3CA10E629;
+	Thu,  9 Dec 2021 16:54:39 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C413F10E121;
+ Thu,  9 Dec 2021 15:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639062901; x=1670598901;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=i4VTU44a7vwNBDgQOwjIJ8qx7a6awh3B2AlbEsl7LaM=;
+ b=bB/TFh01e9RaGZ/svyw14gKojT8MfLRjkDKifDNCW+DNOhg59rIl7MIB
+ KYb4KrHNMZbVbID055lCMbbi71IdGRFBAy6x4ylJFkG+i+jTSgP7kFF1Q
+ zXL+gZdPjQVtQK7etfeIqxsJk8fUI8q5ZrUgoZCGBHmo9YheWtTj8WeLs
+ akQAfbgGOJ6b+CA4cctXCDiokFY9h04vC9Oq7RqVI0NNH7weq8yRiZicW
+ 8vI9pouworYQuUa96iJliaBOwAKvmb9o0QstKHgSscu9mWa8ERBf5f9KL
+ xA79eoTcivxDOxxAMZoHdhY9lK3vBLHynmw2O0SQiQNWu3yWDtuBaS7mA g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="298909088"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="298909088"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 07:15:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="543613916"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga001.jf.intel.com with SMTP; 09 Dec 2021 06:43:15 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 09 Dec 2021 16:43:15 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 16:43:10 +0200
-Message-Id: <20211209144311.3221-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211209144311.3221-1-ville.syrjala@linux.intel.com>
-References: <20211209144311.3221-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="680357558"
+Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
+ by orsmga005.jf.intel.com with ESMTP; 09 Dec 2021 07:15:00 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Thu, 9 Dec 2021 15:14:58 +0000
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2308.020;
+ Thu, 9 Dec 2021 07:14:57 -0800
+From: "Chery, Nanley G" <nanley.g.chery@intel.com>
+To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH 1/2] drm/i915: Introduce new Tile 4 format
+Thread-Index: AQHX7OohHRHIyXgnbE247GMp18/vBqwqQl1Q
+Date: Thu, 9 Dec 2021 15:14:56 +0000
+Message-ID: <b4302b4804784f2c9379be244ed4f279@intel.com>
+References: <20211209104711.14790-1-stanislav.lisovskiy@intel.com>
+In-Reply-To: <20211209104711.14790-1-stanislav.lisovskiy@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.22.254.132]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Use the correct plane source
- width in watermark calculations
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Introduce new Tile 4 format
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,94 +70,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Currently we sometimes use the plane destination width, or just the
-pipe src width as the plane source width in the watermark calculatons.
-Use the correct thing everywhere.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/intel_pm.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+> -----Original Message-----
+> From: Lisovskiy, Stanislav <stanislav.lisovskiy@intel.com>
+> Sent: Thursday, December 9, 2021 5:47 AM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org; Lisovskiy, Stanislav
+> <stanislav.lisovskiy@intel.com>; Saarinen, Jani <jani.saarinen@intel.com>=
+; C,
+> Ramalingam <ramalingam.c@intel.com>; ville.syrjala@linux.intel.com; Deak,
+> Imre <imre.deak@intel.com>; Chery, Nanley G <nanley.g.chery@intel.com>
+> Subject: [PATCH 1/2] drm/i915: Introduce new Tile 4 format
+>=20
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index b5d5b625a321..baa5f9fdf17c 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -1175,8 +1175,7 @@ static u16 g4x_compute_wm(const struct intel_crtc_state *crtc_state,
- 
- 	pixel_rate = crtc_state->pixel_rate;
- 	htotal = pipe_mode->crtc_htotal;
--
--	width = drm_rect_width(&plane_state->uapi.dst);
-+	width = drm_rect_width(&plane_state->uapi.src) >> 16;
- 
- 	if (plane->id == PLANE_CURSOR) {
- 		wm = intel_wm_method2(pixel_rate, htotal, width, cpp, latency);
-@@ -1683,7 +1682,7 @@ static u16 vlv_compute_wm_level(const struct intel_crtc_state *crtc_state,
- 	cpp = plane_state->hw.fb->format->cpp[0];
- 	pixel_rate = crtc_state->pixel_rate;
- 	htotal = pipe_mode->crtc_htotal;
--	width = crtc_state->pipe_src_w;
-+	width = drm_rect_width(&plane_state->uapi.src) >> 16;
- 
- 	if (plane->id == PLANE_CURSOR) {
- 		/*
-@@ -2277,12 +2276,12 @@ static void i965_update_wm(struct drm_i915_private *dev_priv)
- 			crtc->base.primary->state->fb;
- 		int pixel_rate = crtc->config->pixel_rate;
- 		int htotal = pipe_mode->crtc_htotal;
--		int hdisplay = crtc->config->pipe_src_w;
-+		int width = drm_rect_width(&crtc->base.primary->state->src) >> 16;
- 		int cpp = fb->format->cpp[0];
- 		int entries;
- 
- 		entries = intel_wm_method2(pixel_rate, htotal,
--					   hdisplay, cpp, sr_latency_ns / 100);
-+					   width, cpp, sr_latency_ns / 100);
- 		entries = DIV_ROUND_UP(entries, I915_FIFO_LINE_SIZE);
- 		srwm = I965_FIFO_SIZE - entries;
- 		if (srwm < 0)
-@@ -2452,7 +2451,7 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 			enabled->base.primary->state->fb;
- 		int pixel_rate = enabled->config->pixel_rate;
- 		int htotal = pipe_mode->crtc_htotal;
--		int hdisplay = enabled->config->pipe_src_w;
-+		int width = drm_rect_width(&enabled->base.primary->state->src) >> 16;
- 		int cpp;
- 		int entries;
- 
-@@ -2461,7 +2460,7 @@ static void i9xx_update_wm(struct drm_i915_private *dev_priv)
- 		else
- 			cpp = fb->format->cpp[0];
- 
--		entries = intel_wm_method2(pixel_rate, htotal, hdisplay, cpp,
-+		entries = intel_wm_method2(pixel_rate, htotal, width, cpp,
- 					   sr_latency_ns / 100);
- 		entries = DIV_ROUND_UP(entries, wm_info->cacheline_size);
- 		drm_dbg_kms(&dev_priv->drm,
-@@ -2596,7 +2595,7 @@ static u32 ilk_compute_pri_wm(const struct intel_crtc_state *crtc_state,
- 
- 	method2 = ilk_wm_method2(crtc_state->pixel_rate,
- 				 crtc_state->hw.pipe_mode.crtc_htotal,
--				 drm_rect_width(&plane_state->uapi.dst),
-+				 drm_rect_width(&plane_state->uapi.src) >> 16,
- 				 cpp, mem_value);
- 
- 	return min(method1, method2);
-@@ -2624,7 +2623,7 @@ static u32 ilk_compute_spr_wm(const struct intel_crtc_state *crtc_state,
- 	method1 = ilk_wm_method1(crtc_state->pixel_rate, cpp, mem_value);
- 	method2 = ilk_wm_method2(crtc_state->pixel_rate,
- 				 crtc_state->hw.pipe_mode.crtc_htotal,
--				 drm_rect_width(&plane_state->uapi.dst),
-+				 drm_rect_width(&plane_state->uapi.src) >> 16,
- 				 cpp, mem_value);
- 	return min(method1, method2);
- }
--- 
-2.32.0
+We want this patch to be 2/2, right? That way, we expose public kernel supp=
+ort for the format after the kernel gains internal support for it.=20
+
+With that fixed, this patch is:
+
+Acked-by: Nanley Chery <nanley.g.chery@intel.com>
+
+Alternatively, you could apply the ack to the prior combined patch if you'd=
+ like.
+
+-Nanley
+
+
+
+> This tiling layout uses 4KB tiles in a row-major layout. It has the same =
+shape as
+> Tile Y at two granularities: 4KB (128B x 32) and 64B (16B x 4). It only d=
+iffers from
+> Tile Y at the 256B granularity in between. At this granularity, Tile Y ha=
+s a shape
+> of 16B x 32 rows, but this tiling has a shape of 64B x 8 rows.
+>=20
+> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> ---
+>  include/uapi/drm/drm_fourcc.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>=20
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.=
+h
+> index 7f652c96845b..a146c6df1066 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -565,6 +565,17 @@ extern "C" {
+>   */
+>  #define I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC
+> fourcc_mod_code(INTEL, 8)
+>=20
+> +/*
+> + * Intel Tile 4 layout
+> + *
+> + * This is a tiled layout using 4KB tiles in a row-major layout. It has
+> +the same
+> + * shape as Tile Y at two granularities: 4KB (128B x 32) and 64B (16B x
+> +4). It
+> + * only differs from Tile Y at the 256B granularity in between. At this
+> + * granularity, Tile Y has a shape of 16B x 32 rows, but this tiling
+> +has a shape
+> + * of 64B x 8 rows.
+> + */
+> +#define I915_FORMAT_MOD_4_TILED         fourcc_mod_code(INTEL, 9)
+> +
+>  /*
+>   * Tiled, NV12MT, grouped in 64 (pixels) x 32 (lines) -sized macroblocks
+>   *
+> --
+> 2.24.1.485.gad05a3d8e5
 
