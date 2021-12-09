@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84599C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:56:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA715C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67C2810E7A7;
-	Thu,  9 Dec 2021 16:53:25 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 443A489A72;
- Thu,  9 Dec 2021 10:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6621910E83F;
+	Thu,  9 Dec 2021 16:53:33 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBAD589E5B
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 12:07:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639046895; x=1670582895;
- h=from:to:cc:subject:date:message-id:mime-version:
+ t=1639051626; x=1670587626;
+ h=from:to:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=0qwuMU1+ShCnCFqCOhdeQPqaCkYWO3mE3ynbdPPhrB8=;
- b=fQIIncHkCDaX8XraO2KHcAfOEbNWiQv1StZwNZxLnjMR/EDnGlktJzeS
- cOQL+rCbjVO0IfgAA1XPKwVGEIIbA3yWcbxlWqKlKgXHbFLxqEBoZ8Xwl
- dtoI9VSKv96VkkiHMGIPa7CrK7EechNYUTLFOFcLdYGpUQROyGfsQ+lNB
- MkQP6ZVgCtSEY1IyHJFObg60EpsjxMGLlOF0FeH/8gdb+8t3Fi2r84Ypb
- pYhBiMcYM7F6PEm3xxXeCUfDPvvffqoJKiPtnPry5vh5k1goqFGh2wHx2
- gGu78KJnhK845Ouo9f5zfsKo//JpZWxoj7CfYP2tupUCsb5HOYSAL4hGB g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="218761062"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="218761062"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 02:47:15 -0800
+ bh=X0F8C1F5odHZ3V3wWxMxaqqsNgGvOlyLyUDGHLO1mt8=;
+ b=AGtuXxq4rY6hjCsdWMUJLiFihliFyZ3aAwGvCbH347bnVVz4cylxYpYl
+ QB/pgis71ex3k/ofblx08CDiRuN+RRPQBXlYhuNlUUYbt61mIvMFAfFQU
+ vLniHzzOY+5WQZnjkIo3JwV7eKNbNfuA4N11E0KsC6iSMCVMeMNN8FBky
+ JCLRcMwTNr5G7VzHfr+cDUA1JMc8N//HC3+QUHVix95x618zKQaCpYd1R
+ gWSQd79xjCMhzyyBKvdE7MyGC/41v4hunLWGNC3T0KkM4cLdd9e7Epatg
+ AIhglgDVbAy2DnZSnpovrSYysimZBkUDt11kXstnbYupX1p9KM8MChqGv w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="262188336"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="262188336"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 04:07:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="680287460"
-Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
- ([10.237.72.167])
- by orsmga005.jf.intel.com with ESMTP; 09 Dec 2021 02:47:12 -0800
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="516273470"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by orsmga008.jf.intel.com with ESMTP; 09 Dec 2021 04:07:04 -0800
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 12:47:10 +0200
-Message-Id: <20211209104711.14790-1-stanislav.lisovskiy@intel.com>
-X-Mailer: git-send-email 2.24.1.485.gad05a3d8e5
+Date: Thu,  9 Dec 2021 17:31:34 +0530
+Message-Id: <20211209120134.4057906-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915: Introduce new Tile 4 format
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: prepare reset based on reset domain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,43 +53,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nanley.g.chery@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This tiling layout uses 4KB tiles in a row-major layout. It has the same
-shape as Tile Y at two granularities: 4KB (128B x 32) and 64B (16B x 4). It
-only differs from Tile Y at the 256B granularity in between. At this
-granularity, Tile Y has a shape of 16B x 32 rows, but this tiling has a shape
-of 64B x 8 rows.
+Most code paths does full reset with preparing all
+engines for reset except below two :
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+1. Single engine reset needs to prepare engines for
+reset based on its reset domain. In __intel_engine
+_reset_bh is a place needs loop over to do engine
+prepare for all engines which are in same reset
+domain before triggering reset.
+
+2. enable_error_interrupt() in drivers/gpu/drm/i915/
+gt/intel_execlists_submission.c needs similar change.
+
+whenever there is full reset done, engine prepare for
+all engines are already being called right now before
+actual reset triggered, except above two scenario
+seeking single engine reset.
+
+Note: Requirement of this change is occurred recently
+because whenever engine does reset, all engines in
+same reset domain gets reset and in case engine goes
+for reset before stopping CS or applying required W/A,
+there are high chances of hang/crash. reset_prepare_
+engine takes care of it.
+
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 ---
- include/uapi/drm/drm_fourcc.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c |  9 +++++++++
+ drivers/gpu/drm/i915/gt/intel_reset.c                | 12 ++++++++++--
+ drivers/gpu/drm/i915/gt/intel_reset.h                |  1 +
+ 3 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-index 7f652c96845b..a146c6df1066 100644
---- a/include/uapi/drm/drm_fourcc.h
-+++ b/include/uapi/drm/drm_fourcc.h
-@@ -565,6 +565,17 @@ extern "C" {
-  */
- #define I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC fourcc_mod_code(INTEL, 8)
- 
-+/*
-+ * Intel Tile 4 layout
-+ *
-+ * This is a tiled layout using 4KB tiles in a row-major layout. It has the same
-+ * shape as Tile Y at two granularities: 4KB (128B x 32) and 64B (16B x 4). It
-+ * only differs from Tile Y at the 256B granularity in between. At this
-+ * granularity, Tile Y has a shape of 16B x 32 rows, but this tiling has a shape
-+ * of 64B x 8 rows.
-+ */
-+#define I915_FORMAT_MOD_4_TILED         fourcc_mod_code(INTEL, 9)
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index a69df5e9e77a..668e7ba5b254 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2806,6 +2806,15 @@ static void enable_error_interrupt(struct intel_engine_cs *engine)
+ 		drm_err(&engine->i915->drm,
+ 			"engine '%s' resumed still in error: %08x\n",
+ 			engine->name, status);
++		if (engine->reset_domain) {
++			struct intel_engine_cs *nengine;
++			enum intel_engine_id id;
 +
- /*
-  * Tiled, NV12MT, grouped in 64 (pixels) x 32 (lines) -sized macroblocks
-  *
++			for_each_engine(nengine, engine->gt, id)
++				if (nengine->reset_domain ==
++				    engine->reset_domain)
++					reset_prepare_engine(nengine);
++		}
+ 		__intel_gt_reset(engine->gt, engine->mask);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 63199f0550e6..454d6ab1d9f4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -705,7 +705,7 @@ int intel_reset_guc(struct intel_gt *gt)
+  * Ensure irq handler finishes, and not run again.
+  * Also return the active request so that we only search for it once.
+  */
+-static void reset_prepare_engine(struct intel_engine_cs *engine)
++void reset_prepare_engine(struct intel_engine_cs *engine)
+ {
+ 	/*
+ 	 * During the reset sequence, we must prevent the engine from
+@@ -1167,7 +1167,15 @@ int __intel_engine_reset_bh(struct intel_engine_cs *engine, const char *msg)
+ 	if (!intel_engine_pm_get_if_awake(engine))
+ 		return 0;
+ 
+-	reset_prepare_engine(engine);
++	if (engine->reset_domain) {
++		struct intel_engine_cs *nengine;
++		enum intel_engine_id id;
++
++		for_each_engine(nengine, gt, id)
++			if (nengine->reset_domain ==
++			    engine->reset_domain)
++				reset_prepare_engine(nengine);
++	}
+ 
+ 	if (msg)
+ 		drm_notice(&engine->i915->drm,
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.h b/drivers/gpu/drm/i915/gt/intel_reset.h
+index adc734e67387..7abd5d49f0e5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.h
++++ b/drivers/gpu/drm/i915/gt/intel_reset.h
+@@ -28,6 +28,7 @@ void intel_gt_handle_error(struct intel_gt *gt,
+ 			   const char *fmt, ...);
+ #define I915_ERROR_CAPTURE BIT(0)
+ 
++void reset_prepare_engine(struct intel_engine_cs *engine);
+ void intel_gt_reset(struct intel_gt *gt,
+ 		    intel_engine_mask_t stalled_mask,
+ 		    const char *reason);
 -- 
-2.24.1.485.gad05a3d8e5
+2.31.1
 
