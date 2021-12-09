@@ -4,44 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E63EC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 566ABC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2C1A10E4AB;
-	Thu,  9 Dec 2021 16:54:11 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE5AE10E11E
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:51:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639057869; x=1670593869;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=scS9bKyM70SI5RwKgsgsA7NrKAeTavonCcAMJEF6UNM=;
- b=ZLtEAp9I3/nsJDACPj7F1q2e91k3XUeoDVDFmiF1EOS7n4dbC+U6BM+2
- yUD8909SxpjUxR+f9/dsnqaPtdAH4VVVe6PRsfU4p89Mi5iSj1pc/+5MQ
- pys29e1pLvHUngPDBrpyeD+XusfRSfNjIe/AZD6LSEp/aUBkDdGJPOeV5
- nGyaG61ruzarDrXGENbUf65yE6FOc0HnWcpY0zhOskqaJUo14uB/gHyKu
- tGUQf+kHGtIG2XTHaK2Z902dW/Ip/aXVHn5mMV2gGI9K9kdTUHKox/g6F
- MHzRHPRraLiK4kViMgBp1M7PBVeyXE9GaEYTspj4LaID9ma/Lq2u7walb A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="237904306"
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="237904306"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:51:09 -0800
-X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="680331714"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.19.112])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2021 05:51:07 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 15:50:55 +0200
-Message-Id: <cover.1639057801.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40B3A10E1FF;
+	Thu,  9 Dec 2021 16:54:16 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D43B89F45
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 13:24:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10192"; a="262199415"
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="262199415"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 05:24:17 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,192,1635231600"; d="scan'208";a="503486183"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga007.jf.intel.com with SMTP; 09 Dec 2021 05:24:15 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 09 Dec 2021 15:24:13 +0200
+Date: Thu, 9 Dec 2021 15:24:13 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <YbIDffl2Uy7oHXUF@intel.com>
+References: <20211203112029.1057-1-ville.syrjala@linux.intel.com>
+ <87zgp93ooj.fsf@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/7] drm/i915: include reductions
+In-Reply-To: <87zgp93ooj.fsf@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915: Nuke {pipe,
+ plane}_to_crtc_mapping[]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,32 +49,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove some useless includes as well as ones that can be removed with
-trivial changes.
+On Thu, Dec 09, 2021 at 03:14:52PM +0200, Jani Nikula wrote:
+> On Fri, 03 Dec 2021, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> >
+> > These plane/pipe->crtc mapping arrays are rather pointless.
+> > Get rid of them and just iterate the lists instead.
+> 
+> Nice follow-up to my cleanups. On the series,
+> 
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> intel_crtc_first() might have been nice for the prefix, but does it
+> sound too awkward? *shrug*
 
-Jani Nikula (7):
-  drm/i915/reset: remove useless intel_display_types.h include
-  drm/i915/active: remove useless i915_utils.h include
-  drm/i915/psr: avoid intel_frontbuffer.h include with declaration
-  drm/i915/fbc: avoid intel_frontbuffer.h include with declaration
-  drm/i915/fb: reduce include dependencies
-  drm/i915/pxp: un-inline intel_pxp_is_enabled()
-  drm/i915/pxp: remove useless includes
+Yeah, sounds a bit wonky to my ear.
 
- drivers/gpu/drm/i915/display/intel_fbc.h         |  3 +--
- drivers/gpu/drm/i915/display/intel_frontbuffer.h |  2 +-
- drivers/gpu/drm/i915/display/intel_psr.h         | 11 ++++++-----
- drivers/gpu/drm/i915/gt/intel_reset.c            |  1 -
- drivers/gpu/drm/i915/i915_active_types.h         |  2 --
- drivers/gpu/drm/i915/pxp/intel_pxp.c             |  5 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h             | 14 ++++++++------
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h       |  2 --
- 8 files changed, 21 insertions(+), 19 deletions(-)
+I'd probably have of those "wtf does that do?" moments if I saw
+a intel_crtc_first() call in the code.
 
 -- 
-2.30.2
-
+Ville Syrjälä
+Intel
