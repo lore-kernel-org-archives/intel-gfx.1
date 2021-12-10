@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E10DC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 23:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7058EC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 23:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 649CA10E591;
-	Fri, 10 Dec 2021 23:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1352910E594;
+	Fri, 10 Dec 2021 23:24:14 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E505610E57F;
- Fri, 10 Dec 2021 23:24:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE87710E57F;
+ Fri, 10 Dec 2021 23:24:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639178651; x=1670714651;
+ t=1639178652; x=1670714652;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aqh3fjrZFwZQdyV8F2E3MUV9jSvhWsBpM7NLkE5MlFc=;
- b=NjVDNRkTWKV2nh/os6rPFZGayLvVr7+HHXJwqnUHzqaWaKeJJexqsYOx
- SvcnGCAk9kqh0+0RR69I3WMEoIpL+aHWPlGggp53mja4dAzLQoVd+nEig
- uIto9jJ5GGvql+y0HMi3cyQLiid7fKjK7QS5pLic9MEtNjCTQUWs4Vn4q
- kJUltbhs3efjFe7crWrGR/GD1w6tek1IE0Uj9jWrt9VuBmHkJWTYbg81D
- hCJKTwCZh7XUzeuNUcB9P9Z3VCpGCKfAlq2u9jqfaYB2r56NFfCDfiTJg
- Kk7yGSJt42iAYLmisEsXICN/CPBqvKdaM7Gs4CBsJLZHURWZp4VXt5cZ3 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237212365"
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="237212365"
+ bh=XiALd5f06n3blk5zwMdSEUYN4OgzR63VH6agsJ1iuzU=;
+ b=beVT9UZR74keTL0gB5y/O2Upw4g/bUDwQ4CZo/OmqiXA8dektPanqxvL
+ LnZTVDDxlFCPbNmzoaoPvc44/5ncRFMzh1QSMfNGUKhod8nAPTx1yCZlK
+ lvmrO6rg3WQoCKP56tcxDvPBeyNwQANAEsXOLsjrI/zl/oGl6QrUqXmFU
+ qawU25k3DZoFpWC4g3g7FKVH3nhV3JQAOVeAALExr74MfmCeGEsSCIOrF
+ MYYOncOTFvdVycJzusY2dRCpcMlbrunDfQXR6kvGHBrGssi8tFaFveFt7
+ nNyVS3ztC52uCDoPBSxhAH9CwG1F0TYCVnOet9oqMpJtJCDUtZvsosxcD Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237212378"
+X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="237212378"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 15:24:10 -0800
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="463861444"
+ 10 Dec 2021 15:24:11 -0800
+X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="463861465"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 15:24:09 -0800
+ 10 Dec 2021 15:24:11 -0800
 From: ira.weiny@intel.com
 To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Date: Fri, 10 Dec 2021 15:23:59 -0800
-Message-Id: <20211210232404.4098157-3-ira.weiny@intel.com>
+Date: Fri, 10 Dec 2021 15:24:02 -0800
+Message-Id: <20211210232404.4098157-6-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211210232404.4098157-1-ira.weiny@intel.com>
 References: <20211210232404.4098157-1-ira.weiny@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/7] drm/amd: Replace kmap() with
+Subject: [Intel-gfx] [PATCH 5/7] drm/msm: Alter comment to use
  kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,43 +66,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-kmap() is being deprecated.  These maps are thread local and can be
-replaced with kmap_local_page().
+kmap() is being deprecated.  So this comment could be misleading in the
+future.
 
-Replace kmap() with kmap_local_page()
+Change this comment to point to using kmap_local_page().  While here
+remove 'we' from the comment.
 
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index c875f1cdd2af..a3a2c73a44bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2281,9 +2281,9 @@ static ssize_t amdgpu_iomem_read(struct file *f, char __user *buf,
- 		if (p->mapping != adev->mman.bdev.dev_mapping)
- 			return -EPERM;
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 282628d6b72c..654ae0d13eaf 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -438,8 +438,8 @@ static int submit_reloc(struct msm_gem_submit *submit, struct msm_gem_object *ob
+ 		return -EINVAL;
+ 	}
  
--		ptr = kmap(p);
-+		ptr = kmap_local_page(p);
- 		r = copy_to_user(buf, ptr + off, bytes);
--		kunmap(p);
-+		kunmap_local(ptr);
- 		if (r)
- 			return -EFAULT;
- 
-@@ -2332,9 +2332,9 @@ static ssize_t amdgpu_iomem_write(struct file *f, const char __user *buf,
- 		if (p->mapping != adev->mman.bdev.dev_mapping)
- 			return -EPERM;
- 
--		ptr = kmap(p);
-+		ptr = kmap_local_page(p);
- 		r = copy_from_user(ptr + off, buf, bytes);
--		kunmap(p);
-+		kunmap_local(ptr);
- 		if (r)
- 			return -EFAULT;
+-	/* For now, just map the entire thing.  Eventually we probably
+-	 * to do it page-by-page, w/ kmap() if not vmap()d..
++	/* For now, just map the entire thing.  Eventually it should probably
++	 * be done page-by-page, w/ kmap_local_page() if not vmap()d..
+ 	 */
+ 	ptr = msm_gem_get_vaddr_locked(&obj->base);
  
 -- 
 2.31.1
