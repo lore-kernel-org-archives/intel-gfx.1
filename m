@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47650C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 13:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C204C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 13:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9A510E288;
-	Fri, 10 Dec 2021 13:17:21 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A2DC10E286
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 13:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E39A10E286;
+	Fri, 10 Dec 2021 13:17:29 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC7510E286
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 13:17:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639142240; x=1670678240;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=YrV7aRrRH2Hec+oInxJYzVoP3oP9Mw42AAhh3r+FxQM=;
- b=NHgWz7InNQIoXaiyHZjHKv4BohrDvu6QvFOJJmewWlVYDRdGk6eHslEU
- SBuygjD+l/HhfIv98n4XhVBXQxu1Nhqk5ELbnUlBiOTM7mYUNkvlSFZvS
- 5x9gqwLxRRpNvR/rVCobcnJaLjWgu3gLP4DuGU9gFypBHiQxJb5azgyAk
- 6V6hKY9ZyTwYXuAZnD0Oz3YY3DAy2eAq/AxEYl35IapVnne7YyK19fh+B
- 9OMWFOgbfLzNT6S12yDQfLjwf12R695+DbVDr4zm/I7TWaTPzSmuZQetg
- hJgQKV1aOF+5N4v20eIcGsOWCbWUvdajxjQ3Z3ZzGWeOSkKeXDWex3hpj Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="262454392"
-X-IronPort-AV: E=Sophos;i="5.88,195,1635231600"; d="scan'208";a="262454392"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 05:17:10 -0800
-X-IronPort-AV: E=Sophos;i="5.88,195,1635231600"; d="scan'208";a="480724229"
+ t=1639142247; x=1670678247;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fxckU7DhhZiz5gbeqaAsTOENtqTYJ4z8ObZWvrmPPg4=;
+ b=PGOV5Nucp4KXz+G5t2f9IRRanjlJ4nJD4tGiC+hLyfTZv+skoZ7qkccz
+ PGId9DDm3A6RQq4DRLKlyjb4jt/x7L70JVZSdWS0sOv2WhG7MsZWhJf3C
+ ai2AkoLXEBQZqx9GmCmhLJd1WSTdjMugJYqGKrRrIrMY+MZBncDADww+V
+ zhP5PbCMpTSD72xUe8vSFurIA1oxg0c+9J2VNhEhq72az92sSZoMnDtwU
+ u/4+ME6kHcGjfe5mX/0o2hto9vdGMNVCJeod0s+sGbodsfcU2fR+8yEIC
+ V7/iSJaZB9FFfKwBupLVLq/iK9z+Gc63W27yrS8i6Mh7WYEwE/YWO8ucN A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="324606102"
+X-IronPort-AV: E=Sophos;i="5.88,195,1635231600"; d="scan'208";a="324606102"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Dec 2021 05:17:27 -0800
+X-IronPort-AV: E=Sophos;i="5.88,195,1635231600"; d="scan'208";a="516760805"
 Received: from mpcorrig-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.4.173])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 05:17:08 -0800
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Dec 2021 05:17:24 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 10 Dec 2021 15:16:54 +0200
-Message-Id: <cover.1639142167.git.jani.nikula@intel.com>
+Date: Fri, 10 Dec 2021 15:16:57 +0200
+Message-Id: <ee35f2f01f731c21f24a238f2d1690b09ac2da1f.1639142167.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1639142167.git.jani.nikula@intel.com>
+References: <cover.1639142167.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/7] drm/i915: include reductions
+Subject: [Intel-gfx] [PATCH v2 3/7] drm/i915/psr: avoid intel_frontbuffer.h
+ include with declaration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,28 +63,43 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2 of https://patchwork.freedesktop.org/series/97789/
+Reduce include dependencies using forward declarations.
 
-Jani Nikula (7):
-  drm/i915/reset: include intel_display.h instead of
-    intel_display_types.h
-  drm/i915/active: remove useless i915_utils.h include
-  drm/i915/psr: avoid intel_frontbuffer.h include with declaration
-  drm/i915/fbc: avoid intel_frontbuffer.h include with declaration
-  drm/i915/fb: reduce include dependencies
-  drm/i915/pxp: un-inline intel_pxp_is_enabled()
-  drm/i915/pxp: remove useless includes
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.h | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_fbc.h         |  3 +--
- drivers/gpu/drm/i915/display/intel_frontbuffer.h |  2 +-
- drivers/gpu/drm/i915/display/intel_psr.h         | 11 ++++++-----
- drivers/gpu/drm/i915/gt/intel_reset.c            |  2 +-
- drivers/gpu/drm/i915/i915_active_types.h         |  2 --
- drivers/gpu/drm/i915/pxp/intel_pxp.c             |  5 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h             | 15 +++++++++------
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h       |  2 --
- 8 files changed, 23 insertions(+), 19 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
+index 3d9c0e13c329..f6526d9ccfdc 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.h
++++ b/drivers/gpu/drm/i915/display/intel_psr.h
+@@ -6,18 +6,19 @@
+ #ifndef __INTEL_PSR_H__
+ #define __INTEL_PSR_H__
+ 
+-#include "intel_frontbuffer.h"
++#include <linux/types.h>
+ 
++enum fb_op_origin;
+ struct drm_connector;
+ struct drm_connector_state;
+ struct drm_i915_private;
++struct intel_atomic_state;
++struct intel_crtc;
+ struct intel_crtc_state;
+ struct intel_dp;
+-struct intel_crtc;
+-struct intel_atomic_state;
+-struct intel_plane_state;
+-struct intel_plane;
+ struct intel_encoder;
++struct intel_plane;
++struct intel_plane_state;
+ 
+ void intel_psr_init_dpcd(struct intel_dp *intel_dp);
+ void intel_psr_pre_plane_update(struct intel_atomic_state *state,
 -- 
 2.30.2
 
