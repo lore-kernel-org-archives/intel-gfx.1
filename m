@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC271C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 04:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6AD7C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 04:01:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4B910E1F0;
-	Fri, 10 Dec 2021 04:00:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C0010E1F0;
+	Fri, 10 Dec 2021 04:01:42 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 816D710E1EE;
- Fri, 10 Dec 2021 04:00:34 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 644CE10E1F0;
+ Fri, 10 Dec 2021 04:01:41 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 78CE7AADD1;
- Fri, 10 Dec 2021 04:00:34 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5FFC8AADD1;
+ Fri, 10 Dec 2021 04:01:41 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Fri, 10 Dec 2021 04:00:34 -0000
-Message-ID: <163910883447.3445.16367955133928402638@emeril.freedesktop.org>
+Date: Fri, 10 Dec 2021 04:01:41 -0000
+Message-ID: <163910890138.3445.12647524984991550647@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <cover.1639068649.git.jani.nikula@intel.com>
 In-Reply-To: <cover.1639068649.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/cdclk=3A_improve_abstractions?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/cdclk=3A_improve_abstractions?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,19 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-6f998c44f2eb drm/i915/cdclk: move intel_atomic_check_cdclk() to intel_cdclk.c
-9a302307adb3 drm/i915/cdclk: un-inline intel_cdclk_state functions
--:27: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
-#27: FILE: drivers/gpu/drm/i915/display/intel_cdclk.c:2642:
-+	return to_intel_cdclk_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->cdclk.obj));
-
--:33: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
-#33: FILE: drivers/gpu/drm/i915/display/intel_cdclk.c:2648:
-+	return to_intel_cdclk_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->cdclk.obj));
-
-total: 0 errors, 2 warnings, 0 checks, 43 lines checked
-8a09ab9559e2 drm/i915/cdclk: hide struct intel_cdclk_vals
-f957246959a0 drm/i915/cdclk: turn around i915_drv.h and intel_cdclk.h dependency
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
