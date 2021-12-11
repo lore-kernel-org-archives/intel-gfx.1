@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD1EC433FE
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 01:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20CB0C433EF
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 01:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 112AB10E691;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A6110E68E;
 	Sat, 11 Dec 2021 01:01:59 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E94D10E68D;
- Sat, 11 Dec 2021 01:01:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C6410E697;
+ Sat, 11 Dec 2021 01:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639184516; x=1670720516;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9GHjpu2JWB/LfIDhmPB1fbJtv8dI+453iXK0DeIytDQ=;
- b=ItIDDB4recCzG7oYSJvhOdN5PpWyFD6dC5G1h7xLnt+UpHZPHA80QhqY
- faK9DfT97QPEEtVbd3ZKReO/PxBlV/+/JReJNO8JzLOgws+Zd8/Vn7ihw
- Y55XzDTqQXzwZvIaa0mlxjOmqHKwQhNm3MFot5AwvAZ26GzL9NIV6ym3P
- D4Wv7mkgE37pQ47QyX1hAiVvGHH/jkud8lg0MrIYOFJj3400ai/P6DGvf
- T04ajhk1PGmBKY1sPeOtAn7cP0xZfa++B27px5tdGZ6ZakwEcHa7/64r8
- Teys1pG9+boaS32Q1WTeHfukNwMoZZFSO7Ocr2tA+2cYdPNDtBxKZ39QM A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="238298241"
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="238298241"
+ t=1639184517; x=1670720517;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=OdsUvmRw9TLlymtokHFSvtkj/Ygx10/bfsmO3JWkK9o=;
+ b=R0wHuXQF46H3Hg8Q3O23HeBtEUpL6SpcmgidShOrw+UQ+l96WxMKFlON
+ fCXUHkJW9Llo1jRn22yOL+ti+lBkmeB7FKHi3HnKQc5NGf80HpXqyfCOz
+ 4Gdei5QiBMtcigXsmvusXHOuul4GNG8uOkTQ3xzOk9Gas0kGdw+x1CM6H
+ eOXaJqbRki6oEOuFRUyhOYXLchlfsIARH4km2f7STPSZ+m7lRze9MUxKi
+ bnBX4PG8vX7AB4pOly9Weuc9suzSQm/wY6zxp7Zj1df/OlnP94Nx/+Vzy
+ tyxdjeoSrIFywyGlqWWqWOQIhwt8UEvFCrfvUHspttDvhztPtIiB3JyLp g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="238298247"
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="238298247"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 17:01:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="517002944"
+ 10 Dec 2021 17:01:42 -0800
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="517002964"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 17:01:41 -0800
+ 10 Dec 2021 17:01:42 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 10 Dec 2021 16:56:05 -0800
-Message-Id: <20211211005612.8575-1-matthew.brost@intel.com>
+Date: Fri, 10 Dec 2021 16:56:09 -0800
+Message-Id: <20211211005612.8575-5-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20211211005612.8575-1-matthew.brost@intel.com>
+References: <20211211005612.8575-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/7] Fix stealing guc_ids + test
+Subject: [Intel-gfx] [PATCH 4/7] drm/i915/guc: Don't hog IRQs when
+ destroying contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,35 +60,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Patches 1 & 2 address bugs in stealing of guc_ids and patch 7 tests this
-path.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Patches 4-6 address some issues with the CTs exposed by the selftest in
-patch 7. Basically if a lot of contexts were all deregistered all at
-once, the CT channel could deadlock.
+While attempting to debug a CT deadlock issue in various CI failures
+(most easily reproduced with gem_ctx_create/basic-files), I was seeing
+CPU deadlock errors being reported. This were because the context
+destroy loop was blocking waiting on H2G space from inside an IRQ
+spinlock. There was deadlock as such, it's just that the H2G queue was
+full of context destroy commands and GuC was taking a long time to
+process them. However, the kernel was seeing the large amount of time
+spent inside the IRQ lock as a dead CPU. Various Bad Things(tm) would
+then happen (heartbeat failures, CT deadlock errors, outstanding H2G
+WARNs, etc.).
 
-Patch 3 is a small fix that is already review but just included for CI.
+Re-working the loop to only acquire the spinlock around the list
+management (which is all it is meant to protect) rather than the
+entire destroy operation seems to fix all the above issues.
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 45 ++++++++++++-------
+ 1 file changed, 28 insertions(+), 17 deletions(-)
 
-John Harrison (1):
-  drm/i915/guc: Don't hog IRQs when destroying contexts
-
-Matthew Brost (6):
-  drm/i915/guc: Use correct context lock when callig
-    clr_context_registered
-  drm/i915/guc: Only assign guc_id.id when stealing guc_id
-  drm/i915/guc: Remove racey GEM_BUG_ON
-  drm/i915/guc: Add extra debug on CT deadlock
-  drm/i915/guc: Kick G2H tasklet if no credits
-  drm/i915/guc: Selftest for stealing of guc ids
-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  12 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  18 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  68 ++++---
- drivers/gpu/drm/i915/gt/uc/selftest_guc.c     | 171 ++++++++++++++++++
- 4 files changed, 241 insertions(+), 28 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 36c2965db49b..96fcf869e3ff 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2644,7 +2644,6 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ 	unsigned long flags;
+ 	bool disabled;
+ 
+-	lockdep_assert_held(&guc->submission_state.lock);
+ 	GEM_BUG_ON(!intel_gt_pm_is_awake(gt));
+ 	GEM_BUG_ON(!lrc_desc_registered(guc, ce->guc_id.id));
+ 	GEM_BUG_ON(ce != __get_context(guc, ce->guc_id.id));
+@@ -2660,7 +2659,7 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ 	}
+ 	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+ 	if (unlikely(disabled)) {
+-		__release_guc_id(guc, ce);
++		release_guc_id(guc, ce);
+ 		__guc_context_destroy(ce);
+ 		return;
+ 	}
+@@ -2694,36 +2693,48 @@ static void __guc_context_destroy(struct intel_context *ce)
+ 
+ static void guc_flush_destroyed_contexts(struct intel_guc *guc)
+ {
+-	struct intel_context *ce, *cn;
++	struct intel_context *ce;
+ 	unsigned long flags;
+ 
+ 	GEM_BUG_ON(!submission_disabled(guc) &&
+ 		   guc_submission_initialized(guc));
+ 
+-	spin_lock_irqsave(&guc->submission_state.lock, flags);
+-	list_for_each_entry_safe(ce, cn,
+-				 &guc->submission_state.destroyed_contexts,
+-				 destroyed_link) {
+-		list_del_init(&ce->destroyed_link);
+-		__release_guc_id(guc, ce);
++	while (!list_empty(&guc->submission_state.destroyed_contexts)) {
++		spin_lock_irqsave(&guc->submission_state.lock, flags);
++		ce = list_first_entry_or_null(&guc->submission_state.destroyed_contexts,
++					      struct intel_context,
++					      destroyed_link);
++		if (ce)
++			list_del_init(&ce->destroyed_link);
++		spin_unlock_irqrestore(&guc->submission_state.lock, flags);
++
++		if (!ce)
++			break;
++
++		release_guc_id(guc, ce);
+ 		__guc_context_destroy(ce);
+ 	}
+-	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
+ }
+ 
+ static void deregister_destroyed_contexts(struct intel_guc *guc)
+ {
+-	struct intel_context *ce, *cn;
++	struct intel_context *ce;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&guc->submission_state.lock, flags);
+-	list_for_each_entry_safe(ce, cn,
+-				 &guc->submission_state.destroyed_contexts,
+-				 destroyed_link) {
+-		list_del_init(&ce->destroyed_link);
++	while (!list_empty(&guc->submission_state.destroyed_contexts)) {
++		spin_lock_irqsave(&guc->submission_state.lock, flags);
++		ce = list_first_entry_or_null(&guc->submission_state.destroyed_contexts,
++					      struct intel_context,
++					      destroyed_link);
++		if (ce)
++			list_del_init(&ce->destroyed_link);
++		spin_unlock_irqrestore(&guc->submission_state.lock, flags);
++
++		if (!ce)
++			break;
++
+ 		guc_lrc_desc_unpin(ce);
+ 	}
+-	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
+ }
+ 
+ static void destroyed_worker_func(struct work_struct *w)
 -- 
 2.33.1
 
