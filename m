@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C6EC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 06:59:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45A3FC433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 06:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C7910E3B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E88FD10E3D1;
 	Sat, 11 Dec 2021 06:59:02 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE66F10E3A3;
- Sat, 11 Dec 2021 06:59:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 407E110E3BF;
+ Sat, 11 Dec 2021 06:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639205940; x=1670741940;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=mqUEUc+k0IVqvy59u65ruNbfLrjfne0QlF/whZ1qY3w=;
- b=jqkfCO8HGj4onbGtoxLMkywyvXTndk0rKhhG9pZqTxm3hKj9e/XkCLFi
- kY4TWfzpKNCx8nVjuyWQo4j40KtO364IH8uNI4g3QXd0vCysWOWFkEgnL
- wElSCAgtlxcO2M0zR1gbwdyZAT+VzDajBK3q0XMh+1oZCHl6lFHZlt6GO
- aEr/9m3wQdgbKOkNDaN3yrPBLI0JfpSLeOcqAYauKPcvSf7jSTrNqNl7s
- JXHFizZaLeFwlwAvFX/V06ganbvTXtJDIf82h/mBe2dQ12L0suwhfNtM+
- EzLV3ZHmEhyyRp77g4Ell4JQ++UQGO53zpbP9E9FVLRgeLLTkeoIQxCnj Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237249045"
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="237249045"
+ t=1639205941; x=1670741941;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Lz6kcdq5Ya6xFKebpRqe9l48NRg0MJy/TW8PC0vQhBA=;
+ b=CuRk3/gsaQAJn80tiAlh5T+wGccfQix6beVN745KeMd9R8+vsR8hRBSR
+ Rc1SjLlu/DmMWND324R/pID+cj9LtyutahiOaa7ycBhor7UFy5AsDyKcY
+ 66XS8xgc20T1fTubkIEFn8B7+F8o0eUS+/CDmyMpnwVz36MjkncvY2Xeo
+ BDLQugwrnEu1+Pvzz5ta9zcCKQUoUlZowpljK2HqXXSeO3urcev9jJQVB
+ b+Dp2AHZhOwW4gERruLIsXYYnVsQqXeTpcDrEjUhvxDyTg5EmCCMir2vh
+ +c8H28tx9RC5TXrYAIh1Jb68P9KFTZhyyAnUrIQSenOf1lrPlmKYhInA0 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237249048"
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="237249048"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Dec 2021 22:59:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="463979848"
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="463979857"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga006.jf.intel.com with ESMTP; 10 Dec 2021 22:58:59 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 10 Dec 2021 22:58:55 -0800
-Message-Id: <20211211065859.2248188-1-John.C.Harrison@Intel.com>
+Date: Fri, 10 Dec 2021 22:58:58 -0800
+Message-Id: <20211211065859.2248188-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211211065859.2248188-1-John.C.Harrison@Intel.com>
+References: <20211211065859.2248188-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/4] More fixes/tweaks to GuC support
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/guc: Flag an error if an engine
+ reset fails
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,25 +64,58 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Allow engine resets on RCS, report problems with engine resets,
-improve GuC log usability.
+If GuC encounters an error during engine reset, the i915 driver
+promotes to full GT reset. This includes an info message about why the
+reset is happening. However, that is not treated as a failure by any
+of the CI systems because resets are an expected occurrance during
+testing. This kind of failure is a major problem and should never
+happen. So, complain more loudly and make sure CI notices.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-
-John Harrison (4):
-  drm/i915/guc: Speed up GuC log dumps
-  drm/i915/guc: Increase GuC log size for CONFIG_DEBUG_GEM
-  drm/i915/guc: Flag an error if an engine reset fails
-  drm/i915: Improve long running OCL w/a for GuC submission
-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 42 +++++++++++++-
- drivers/gpu/drm/i915/gt/intel_gt_debugfs.h    | 21 +++++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |  5 +-
- .../drm/i915/gt/uc/intel_guc_log_debugfs.c    | 58 ++++++++++++++++++-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 14 ++++-
- 5 files changed, 125 insertions(+), 15 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 97311119da6f..6015815f1da0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4018,11 +4018,12 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+ 					 const u32 *msg, u32 len)
+ {
+ 	struct intel_engine_cs *engine;
++	struct intel_gt *gt = guc_to_gt(guc);
+ 	u8 guc_class, instance;
+ 	u32 reason;
+ 
+ 	if (unlikely(len != 3)) {
+-		drm_err(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
++		drm_err(&gt->i915->drm, "Invalid length %u", len);
+ 		return -EPROTO;
+ 	}
+ 
+@@ -4032,12 +4033,19 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+ 
+ 	engine = guc_lookup_engine(guc, guc_class, instance);
+ 	if (unlikely(!engine)) {
+-		drm_err(&guc_to_gt(guc)->i915->drm,
++		drm_err(&gt->i915->drm,
+ 			"Invalid engine %d:%d", guc_class, instance);
+ 		return -EPROTO;
+ 	}
+ 
+-	intel_gt_handle_error(guc_to_gt(guc), engine->mask,
++	/*
++	 * This is an unexpected failure of a hardware feature. So, log a real
++	 * error message not just the informational that comes with the reset.
++	 */
++	drm_err(&gt->i915->drm, "GuC engine reset request failed on %d:%d (%s) because %d",
++		guc_class, instance, engine->name, reason);
++
++	intel_gt_handle_error(gt, engine->mask,
+ 			      I915_ERROR_CAPTURE,
+ 			      "GuC failed to reset %s (reason=0x%08x)\n",
+ 			      engine->name, reason);
 -- 
 2.25.1
 
