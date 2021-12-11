@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA24C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3858C433FE
 	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 06:59:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A56B10E3D2;
-	Sat, 11 Dec 2021 06:59:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C2910E5AB;
+	Sat, 11 Dec 2021 06:59:05 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F035110E3B3;
- Sat, 11 Dec 2021 06:59:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 621B910E3A3;
+ Sat, 11 Dec 2021 06:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639205940; x=1670741940;
+ t=1639205941; x=1670741941;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=VeaTcmkQV0TSpDcijcaY4A1S2Jhvv9jWM2wC93NKIZ4=;
- b=SHSHOh1MX5YmgvJL7uKEAUbQxbdja1kl1osEfJfM7ry0zDqGuqA4SIt3
- 516e0vkyYtIzDe7SlI7yGOtZc8kdOu8g7dV+eIzUGg2Fm45k4r23NKj0v
- cqc7WG0VBR4E4OYuxcwreDIt1/4RU/9y9CckWKDQpZo2H0YrVfJg+oBCs
- rhdb6XEIb+bRkx6yYvcM/lvTOpFeFhVamcH5k/K8vPKLZYwKgDQNfV4zZ
- YPQyDIFvBKthNzdjCROTBK64ZEAA8ZB10wAvqik45sZ5Qd263fv7ukPI0
- xwSL2ARZOco//VPx7aEszwNe9d0OSp256f8KDB0mmjENkAnkW9hYv4kM7 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237249046"
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="237249046"
+ bh=rIJnYoAjhrOOkWPNRWUi/BrcwvPrM/K4Ak699pCY9Dk=;
+ b=TK12NSGDh+sdm3Qrbi7a/jDAfeHYPRTyNKx9pIErqXlfNDvp1ZRE57Uz
+ g1AsPNAM8yvLMrwG/uoUWUZv+MyvN4eBi79jA9y64ywex2igdcUfFbI/x
+ 7v8afk9BYM6tOENgBqK0fUI1j/gAsCqn+JUDPDX9FIUvJFopW1kBHTo1E
+ t5XnCk9v5a58TD9ubAKuFpFRFhWX68c/rHSXTiQUHTFNji4YkraE76qgD
+ mfYjRIXQWQ+BlHq3dqH/xddxI3mOH9MIzEnwyjerzsnpFCS4mbzREuKKp
+ VJSVXenslN31zlrbL4ulK7IsteVcOlMIpopDCwZ6TndrsDJc/7ojAjjuB A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237249049"
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="237249049"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Dec 2021 22:59:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="463979851"
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="463979859"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga006.jf.intel.com with ESMTP; 10 Dec 2021 22:58:59 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 10 Dec 2021 22:58:56 -0800
-Message-Id: <20211211065859.2248188-2-John.C.Harrison@Intel.com>
+Date: Fri, 10 Dec 2021 22:58:59 -0800
+Message-Id: <20211211065859.2248188-5-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211211065859.2248188-1-John.C.Harrison@Intel.com>
 References: <20211211065859.2248188-1-John.C.Harrison@Intel.com>
@@ -44,7 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/guc: Speed up GuC log dumps
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Improve long running OCL w/a for
+ GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,142 +64,86 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Add support for telling the debugfs interface the size of the GuC log
-dump in advance. Without that, the underlying framework keeps calling
-the 'show' function with larger and larger buffer allocations until it
-fits. That means reading the log from graphics memory many times - 16
-times with the full 18MB log size.
+A workaround was added to the driver to allow OpenCL workloads to run
+'forever' by disabling pre-emption on the RCS engine for Gen12.
+It is not totally unbound as the heartbeat will kick in eventually
+and cause a reset of the hung engine.
 
-v2: Don't return error codes from size query. Report overflow in the
-error dump as well (review feedback from Daniele).
+However, this does not work well in GuC submission mode. In GuC mode,
+the pre-emption timeout is how GuC detects hung contexts and triggers
+a per engine reset. Thus, disabling the timeout means also losing all
+per engine reset ability. A full GT reset will still occur when the
+heartbeat finally expires, but that is a much more destructive and
+undesirable mechanism.
+
+The purpose of the workaround is actually to give OpenCL tasks longer
+to reach a pre-emption point after a pre-emption request has been
+issued. This is necessary because Gen12 does not support mid-thread
+pre-emption and OpenCL can have long running threads.
+
+So, rather than disabling the timeout completely, just set it to a
+'long' value. Likewise, bump the heartbeat interval. That gives the
+OpenCL thread sufficient time to reach a pre-emption point without
+being killed off either by the GuC or by the heartbeat.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_debugfs.h    | 21 +++++--
- .../drm/i915/gt/uc/intel_guc_log_debugfs.c    | 58 ++++++++++++++++++-
- 2 files changed, 71 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 42 +++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.h b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.h
-index e307ceb99031..17e79b735cfe 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.h
-@@ -10,11 +10,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 352254e001b4..26af8d60fe2b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -382,9 +382,45 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
+ 	engine->props.timeslice_duration_ms =
+ 		CONFIG_DRM_I915_TIMESLICE_DURATION;
  
- struct intel_gt;
+-	/* Override to uninterruptible for OpenCL workloads. */
+-	if (GRAPHICS_VER(i915) == 12 && engine->class == RENDER_CLASS)
+-		engine->props.preempt_timeout_ms = 0;
++	/*
++	 * Mid-thread pre-emption is not available in Gen12. Unfortunately,
++	 * some OpenCL workloads run quite long threads. That means they get
++	 * reset due to not pre-empting in a timely manner.
++	 * The execlist solution was to disable pre-emption completely.
++	 * However, pre-emption timeouts are the way GuC detects hung contexts
++	 * and triggers engine resets. Thus, without pre-emption, there is no
++	 * per engine reset. And full GT reset is much more intrusive. So keep
++	 * the timeout for GuC submission platforms and just bump it to be
++	 * much larger. Also bump the heartbeat timeout to match, otherwise
++	 * the heartbeat can expire before the pre-emption can timeout and
++	 * thus trigger a full GT reset anyway.
++	 */
++	if (GRAPHICS_VER(i915) == 12 && engine->class == RENDER_CLASS) {
++		if (intel_uc_wants_guc_submission(&gt->uc)) {
++			const unsigned long min_preempt = 7500;
++			const unsigned long min_beat = 5000;
++
++			if (engine->props.preempt_timeout_ms &&
++			    engine->props.preempt_timeout_ms < min_preempt) {
++				drm_info(&gt->i915->drm, "Bumping pre-emption timeout from %ld to %ld on %s to allow slow compute pre-emption\n",
++					 engine->props.preempt_timeout_ms,
++					 min_preempt, engine->name);
++
++				engine->props.preempt_timeout_ms = min_preempt;
++			}
++
++			if (engine->props.heartbeat_interval_ms &&
++			    engine->props.heartbeat_interval_ms < min_beat) {
++				drm_info(&gt->i915->drm, "Bumping heartbeat interval from %ld to %ld on %s to allow slow compute pre-emption\n",
++					 engine->props.heartbeat_interval_ms,
++					 min_beat, engine->name);
++
++				engine->props.heartbeat_interval_ms = min_beat;
++			}
++		} else {
++			engine->props.preempt_timeout_ms = 0;
++		}
++	}
  
--#define DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(__name)				\
--	static int __name ## _open(struct inode *inode, struct file *file) \
--{									\
--	return single_open(file, __name ## _show, inode->i_private);	\
--}									\
-+#define __GT_DEBUGFS_ATTRIBUTE_FOPS(__name)				\
- static const struct file_operations __name ## _fops = {			\
- 	.owner = THIS_MODULE,						\
- 	.open = __name ## _open,					\
-@@ -23,6 +19,21 @@ static const struct file_operations __name ## _fops = {			\
- 	.release = single_release,					\
- }
+ 	engine->defaults = engine->props; /* never to change again */
  
-+#define DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(__name)			\
-+static int __name ## _open(struct inode *inode, struct file *file)	\
-+{									\
-+	return single_open(file, __name ## _show, inode->i_private);	\
-+}									\
-+__GT_DEBUGFS_ATTRIBUTE_FOPS(__name)
-+
-+#define DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE_WITH_SIZE(__name, __size_vf)		\
-+static int __name ## _open(struct inode *inode, struct file *file)		\
-+{										\
-+	return single_open_size(file, __name ## _show, inode->i_private,	\
-+			    __size_vf(inode->i_private));			\
-+}										\
-+__GT_DEBUGFS_ATTRIBUTE_FOPS(__name)
-+
- void intel_gt_debugfs_register(struct intel_gt *gt);
- 
- struct intel_gt_debugfs_file {
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log_debugfs.c
-index 8fd068049376..ddfbe334689f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log_debugfs.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log_debugfs.c
-@@ -10,22 +10,74 @@
- #include "intel_guc.h"
- #include "intel_guc_log.h"
- #include "intel_guc_log_debugfs.h"
-+#include "intel_uc.h"
-+
-+static u32 obj_to_guc_log_dump_size(struct drm_i915_gem_object *obj)
-+{
-+	u32 size;
-+
-+	if (!obj)
-+		return PAGE_SIZE;
-+
-+	/* "0x%08x 0x%08x 0x%08x 0x%08x\n" => 16 bytes -> 44 chars => x2.75 */
-+	size = ((obj->base.size * 11) + 3) / 4;
-+
-+	/* Add padding for final blank line, any extra header info, etc. */
-+	size = PAGE_ALIGN(size + PAGE_SIZE);
-+
-+	return size;
-+}
-+
-+static u32 guc_log_dump_size(struct intel_guc_log *log)
-+{
-+	struct intel_guc *guc = log_to_guc(log);
-+
-+	if (!intel_guc_is_supported(guc))
-+		return PAGE_SIZE;
-+
-+	if (!log->vma)
-+		return PAGE_SIZE;
-+
-+	return obj_to_guc_log_dump_size(log->vma->obj);
-+}
- 
- static int guc_log_dump_show(struct seq_file *m, void *data)
- {
- 	struct drm_printer p = drm_seq_file_printer(m);
-+	int ret;
- 
--	return intel_guc_log_dump(m->private, &p, false);
-+	ret = intel_guc_log_dump(m->private, &p, false);
-+
-+	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM) && seq_has_overflowed(m))
-+		pr_warn_once("preallocated size:%zx for %s exceeded\n",
-+			     m->size, __func__);
-+
-+	return ret;
-+}
-+DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE_WITH_SIZE(guc_log_dump, guc_log_dump_size);
-+
-+static u32 guc_load_err_dump_size(struct intel_guc_log *log)
-+{
-+	struct intel_guc *guc = log_to_guc(log);
-+	struct intel_uc *uc = container_of(guc, struct intel_uc, guc);
-+
-+	if (!intel_guc_is_supported(guc))
-+		return PAGE_SIZE;
-+
-+	return obj_to_guc_log_dump_size(uc->load_err_log);
- }
--DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(guc_log_dump);
- 
- static int guc_load_err_log_dump_show(struct seq_file *m, void *data)
- {
- 	struct drm_printer p = drm_seq_file_printer(m);
- 
-+	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM) && seq_has_overflowed(m))
-+		pr_warn_once("preallocated size:%zx for %s exceeded\n",
-+			     m->size, __func__);
-+
- 	return intel_guc_log_dump(m->private, &p, true);
- }
--DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(guc_load_err_log_dump);
-+DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE_WITH_SIZE(guc_load_err_log_dump, guc_load_err_dump_size);
- 
- static int guc_log_level_get(void *data, u64 *val)
- {
 -- 
 2.25.1
 
