@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D9DFC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 17:41:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C246C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Dec 2021 17:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 535E810E41B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A48FD10E602;
 	Sat, 11 Dec 2021 17:41:15 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E773A10E2E4;
- Sat, 11 Dec 2021 17:41:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C77F10E330;
+ Sat, 11 Dec 2021 17:41:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1639244474; x=1670780474;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=DGT5qCnkrYczQ4QmWQrFegXKWKfOJfDpMn5RuRBi61s=;
- b=WVxs9oStxTCWwvUWLHR2KoNzZAYvEWL5IVFd4hAc5KOYHf6oiAhJgbR8
- MbftFti1VtrPQRe6b7nxKUmIzWlDucqegWh3Bz3eyf//YAEWGtSzZIp5w
- CUrq2NMsdM6npexlLG/3cSnevrD1Q+2V7JSLdi7ZM6jjhjg6oOYc3Oyfg
- 11b9/mH57bZWYwfR6L96IiA1gZmf0m2YdPGDw1Wm33z5vSswjhbCiDhIc
- hCg67Zin0RrhoxzhBqmzntTFCSe9O0jz14MBwNs5M2cc2BY8x/Yk671Jw
- Jy8omLhzedFdFkVF5U5IGPpTiX474DV+dgNSYeVb1WYBpfYhUPyE8W/HG Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10195"; a="238493208"
-X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="238493208"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+t+IYa+onmrRcxvOJjKYFtf3l6LDynZbl3ClATBruNA=;
+ b=bknpqkvGSRXJdpq2gD9V+AxXR3rAu4I/uYczksk/tPgDZO8bc8/rRuNv
+ 4g+n1LwMwTdpse1ID+gdDFZAonmltHmppp0UywkH4ZlHC8EnLjtyGg1wv
+ lUczSPq0Y3zepl8Mxb51lsypdtttsPUFgAqd/5ubabmcFHvVXBXTp4+Jy
+ 7TlrC0Bhi+6Eq7Im60AsxWjQi7kgHQxF3fCKwO9zTTReKQNIrYaX8rmhs
+ vs5ZAmBRi/rcGMlzXmWtelVB7BKxtd8qC0N3rrcuP/gro6xo7outbeqUl
+ BEo19kVnvony2elVSUqri5hv6rNxvuJsTqNk7AkyoLCOxaXoQo6wrt065 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10195"; a="238493211"
+X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="238493211"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Dec 2021 09:41:13 -0800
-X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="602548099"
+X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="602548108"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Dec 2021 09:41:13 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Sat, 11 Dec 2021 09:35:38 -0800
-Message-Id: <20211211173545.23536-1-matthew.brost@intel.com>
+Date: Sat, 11 Dec 2021 09:35:41 -0800
+Message-Id: <20211211173545.23536-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20211211173545.23536-1-matthew.brost@intel.com>
+References: <20211211173545.23536-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/7] Fix stealing guc_ids + test
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/guc: Remove racey GEM_BUG_ON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,37 +59,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Patches 1 & 2 address bugs in stealing of guc_ids and patch 7 tests this
-path.
+A full GT reset can race with the last context put resulting in the
+context ref count being zero but the destroyed bit not yet being set.
+Remove GEM_BUG_ON in scrub_guc_desc_for_outstanding_g2h that asserts the
+destroyed bit must be set in ref count is zero.
 
-Patches 4-6 address some issues with the CTs exposed by the selftest in
-patch 7. Basically if a lot of contexts were all deregistered all at
-once, the CT channel could deadlock.
-
-Patch 3 is a small fix that is already review but just included for CI.
-
-v2: Address comments, resend for CI
-
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-John Harrison (1):
-  drm/i915/guc: Don't hog IRQs when destroying contexts
-
-Matthew Brost (6):
-  drm/i915/guc: Use correct context lock when callig
-    clr_context_registered
-  drm/i915/guc: Only assign guc_id.id when stealing guc_id
-  drm/i915/guc: Remove racey GEM_BUG_ON
-  drm/i915/guc: Add extra debug on CT deadlock
-  drm/i915/guc: Kick G2H tasklet if no credits
-  drm/i915/guc: Selftest for stealing of guc ids
-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  12 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  18 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  69 ++++---
- drivers/gpu/drm/i915/gt/uc/selftest_guc.c     | 173 ++++++++++++++++++
- 4 files changed, 244 insertions(+), 28 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 0fb2eeff0262..36c2965db49b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1040,8 +1040,6 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+ 
+ 		spin_unlock(&ce->guc_state.lock);
+ 
+-		GEM_BUG_ON(!do_put && !destroyed);
+-
+ 		if (pending_enable || destroyed || deregister) {
+ 			decr_outstanding_submission_g2h(guc);
+ 			if (deregister)
 -- 
 2.33.1
 
