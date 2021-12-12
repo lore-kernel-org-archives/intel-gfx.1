@@ -4,50 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37159C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 14:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69232C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 14:22:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCD310E79C;
-	Mon, 13 Dec 2021 14:02:33 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8CAB10E79C
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 14:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639404152; x=1670940152;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=ZCh9t44rMnmAOHXxSbK6prmRL4A4GND7IN1+l6JAzS8=;
- b=UkOxb7Fy1e25NkhaQHTVHZcyF3nqz0aQVDExq8vzLGT5Xhxz7Zn5Rzr0
- UlHmtmMGGbgZbwmGQB2vA3Gi98f7ZPeiK8JkHoCX6crO0FzSlvk7BM4OP
- Pqrj58CTSHiK0ml/p6hkvQyKdyAqBI9nsqkeSEC8pb8HbPMrYrqs9dQf/
- /OFsVOlm8+LFg0OkTtuRrV1GtDECJur1AnKoVnokXLdJ94K8EOlndzHep
- 99D+Nhm+eCT5A3Os7iznvvmJUFTbC5mZf0/tbqGZ9eBU2n+bX/Kgg4J/L
- WrPT7ffWFpNZ0WMGb7v+nddHsRjW2jYRJOThE+B2FwH/Iuq+CJtdbL+L1 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10196"; a="238679981"
-X-IronPort-AV: E=Sophos;i="5.88,202,1635231600"; d="scan'208";a="238679981"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2021 06:01:20 -0800
-X-IronPort-AV: E=Sophos;i="5.88,202,1635231600"; d="scan'208";a="609027017"
-Received: from ppolasze-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.20.7])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2021 06:01:18 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20211213134450.3082-5-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211213134450.3082-1-ville.syrjala@linux.intel.com>
- <20211213134450.3082-5-ville.syrjala@linux.intel.com>
-Date: Mon, 13 Dec 2021 16:01:15 +0200
-Message-ID: <87ilvs7ges.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A80B310E74C;
+	Mon, 13 Dec 2021 14:22:50 +0000 (UTC)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FFD10F457;
+ Sun, 12 Dec 2021 13:21:13 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id l7so20163697lja.2;
+ Sun, 12 Dec 2021 05:21:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:date:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=OqbqU4KpmW/3a9GBJWdom5eobHCfr5y41fxq+2EJ74o=;
+ b=FbCKqnEsfyakFxGNKJN3vDPQJyZz7PHJFIodMKcNY3Pdkgz7FXGzy0L7ocJr8COiWK
+ MBmU/+89VqUS8h9PpPiRVMzqJjelW71Q2NYaiJFNG5GYdAIaq+273py08Q91+Svverty
+ XPUIyiv41KHyqC4/mDtYdK3vVA3bq5A1QPph1wcgVybmiUXSWCJPMqMw72ipNLMUcoyP
+ mwdeS0XnWgKi4u3TLeMTT5kqNpOKE+2Ndhl912oxMuEyxgXvKVSshHkqGJ8Z/ZkcJh9K
+ myT62odNsUV0nn/h7yy/3p4UnYAYI2nvrvAqVqT0JS3DR0G3bKRkP2GkPEYHrmcAUOef
+ Owrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:date:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=OqbqU4KpmW/3a9GBJWdom5eobHCfr5y41fxq+2EJ74o=;
+ b=tmxsQtUybbfsg1TamxhUUyicDPLEk5R8rH/Q0WJqOfjfm8C5EgpkPyRs3/gPmut4dU
+ IpMa02qZyh2yc/qDhNJs/xBPZo9KyAOEyODmAUIAu5hKlw2erw2qaLasjflrPx1x5sza
+ djPMQzlN+5BPJjCKgEKX7TVzRNk/+dI9IiBwoliqu7W6NBA6fSrH34Q/YhDpt2vNJ8vQ
+ ptrUq9SyOUa4ZlGVBTYhbyqi4J2HXvbS9YFakYTRXzs8xAtT3+CM5TUYxTjWqmC6ye78
+ +yMLdHPVoGxFle40bIGyqs/OWGl/7ldXEN1dk0rDQOZHBaLbQFAhkgZ0XdSZjHhjt4Gm
+ EJyA==
+X-Gm-Message-State: AOAM530vl6bxc4DXeezQqNpqWlL4r2cqAfg9mhmW4Eumc+nSSe+EJlqq
+ 4ij//kwFTr1n38Ag/ZnK8MY=
+X-Google-Smtp-Source: ABdhPJxyMcH3Sd75rK2a3m8f127DepuJ+gI6/b3Mxv85uX5aWMYqdyERzLWhjqz8aK60GNb8C9maDw==
+X-Received: by 2002:a2e:9b17:: with SMTP id u23mr24197847lji.258.1639315271757; 
+ Sun, 12 Dec 2021 05:21:11 -0800 (PST)
+Received: from rikard (h-155-4-221-129.NA.cust.bahnhof.se. [155.4.221.129])
+ by smtp.gmail.com with ESMTPSA id s4sm1040386ljp.73.2021.12.12.05.21.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 12 Dec 2021 05:21:11 -0800 (PST)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+X-Google-Original-From: Rikard Falkeborn <rikard.falkeborn>
+Date: Sun, 12 Dec 2021 14:21:08 +0100
+To: "Wang, Zhi A" <zhi.a.wang@intel.com>
+Message-ID: <YbX3RPtqtGhoRSV1@rikard>
+References: <20211204105527.15741-1-rikard.falkeborn@gmail.com>
+ <20211204105527.15741-8-rikard.falkeborn@gmail.com>
+ <6e73f014-730c-3334-c0e6-7e0665f47fec@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v2 4/4] drm/i915/fbc: Register per-crtc
- debugfs files
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6e73f014-730c-3334-c0e6-7e0665f47fec@intel.com>
+X-Mailman-Approved-At: Mon, 13 Dec 2021 14:22:49 +0000
+Subject: Re: [Intel-gfx] [PATCH 7/9] drm/i915/gvt: Constify formats
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +71,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 13 Dec 2021, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Expose FBC debugfs files for each crtc. These may or may not point
-> to the same FBC instance depending on the platform.
->
-> We leave the old global debugfs files in place until
-> igt catches up to the new per-crtc approach.
->
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_fbc.c | 31 +++++++++++++++---------
->  1 file changed, 19 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i=
-915/display/intel_fbc.c
-> index 53c93387710c..eafd84e7f058 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-> @@ -1798,25 +1798,32 @@ DEFINE_SIMPLE_ATTRIBUTE(intel_fbc_debugfs_false_c=
-olor_fops,
->  			intel_fbc_debugfs_false_color_set,
->  			"%llu\n");
->=20=20
-> -static void intel_fbc_debugfs_add(struct intel_fbc *fbc)
-> +static void intel_fbc_debugfs_add(struct intel_fbc *fbc,
-> +				  struct dentry *parent)
->  {
-> -	struct drm_i915_private *i915 =3D fbc->i915;
-> -	struct drm_minor *minor =3D i915->drm.primary;
-> -
-> -	debugfs_create_file("i915_fbc_status", 0444,
-> -			    minor->debugfs_root, fbc,
-> -			    &intel_fbc_debugfs_status_fops);
-> +	debugfs_create_file("i915_fbc_status", 0444, parent,
-> +			    fbc, &intel_fbc_debugfs_status_fops);
->=20=20
->  	if (fbc->funcs->set_false_color)
-> -		debugfs_create_file("i915_fbc_false_color", 0644,
-> -				    minor->debugfs_root, fbc,
-> -				    &intel_fbc_debugfs_false_color_fops);
-> +		debugfs_create_file("i915_fbc_false_color", 0644, parent,
-> +				    fbc, &intel_fbc_debugfs_false_color_fops);
->  }
->=20=20
->  void intel_fbc_debugfs_register(struct drm_i915_private *i915)
->  {
-> -	struct intel_fbc *fbc =3D i915->fbc[INTEL_FBC_A];
-> +	struct drm_minor *minor =3D i915->drm.primary;
-> +	struct intel_crtc *crtc;
-> +	struct intel_fbc *fbc;
->=20=20
-> +	for_each_intel_crtc(&i915->drm, crtc) {
-> +		struct intel_plane *plane =3D to_intel_plane(crtc->base.primary);
-> +
-> +		if (plane->fbc)
-> +			intel_fbc_debugfs_add(plane->fbc, crtc->base.debugfs_entry);
-> +	}
+On Fri, Dec 10, 2021 at 08:20:22AM +0000, Wang, Zhi A wrote:
+> On 12/4/2021 12:55 PM, Rikard Falkeborn wrote:
+> > These are never modified, so make them const to allow the compiler to
+> > put them in read-only memory. WHile at it, make the description const
+> > char* since it is never modified.
+> >
+> > Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+> > ---
+> >   drivers/gpu/drm/i915/gvt/fb_decoder.c | 24 ++++++++++++------------
+> >   1 file changed, 12 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+> > index 11a8baba6822..3c8736ae8fed 100644
+> > --- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
+> > +++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+> > @@ -40,12 +40,12 @@
+> >   
+> >   #define PRIMARY_FORMAT_NUM	16
+> >   struct pixel_format {
+> > -	int	drm_format;	/* Pixel format in DRM definition */
+> > -	int	bpp;		/* Bits per pixel, 0 indicates invalid */
+> > -	char	*desc;		/* The description */
+> > +	int		drm_format;	/* Pixel format in DRM definition */
+> > +	int		bpp;		/* Bits per pixel, 0 indicates invalid */
+> > +	const char	*desc;		/* The description */
+> >   };
+> Thanks so much for this. According to the code of i915, we prefer using 
+> one space as seperator.
+> >   
 
-I think the per-crtc debugfs files should be registered via
-intel_crtc_debugfs_add(). Maybe leave the current
-intel_fbc_debugfs_register() function as-is and remove once igt is
-fixed.
+Thanks for reviewing. Just to clarify, is this how you want it to look:
 
-BR,
-Jani.
+struct pixel_format {
+	int drm_format;     /* Pixel format in DRM definition */
+	int bpp;            /* Bits per pixel, 0 indicates invalid */
+	char *desc;         /* The description */
+};
 
-
-> +
-> +	/* FIXME: remove this once igt is on board with per-crtc stuff */
-> +	fbc =3D i915->fbc[INTEL_FBC_A];
->  	if (fbc)
-> -		intel_fbc_debugfs_add(fbc);
-> +		intel_fbc_debugfs_add(fbc, minor->debugfs_root);
->  }
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
+Rikard
