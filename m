@@ -4,56 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D6C1C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 14:22:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A2EC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 15:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720D710E76E;
-	Mon, 13 Dec 2021 14:22:51 +0000 (UTC)
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD66E10E2D0
- for <intel-gfx@lists.freedesktop.org>; Sat, 11 Dec 2021 03:15:16 +0000 (UTC)
-Received: by mail-yb1-xb2c.google.com with SMTP id v203so25567368ybe.6
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 19:15:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=l3bdCq7anI4Qe4LpjY7De0uPwaZQ3bCtaimkhxYLK0E=;
- b=nNetR2AzfTLhui2PQ+7hmgjZhFvIGzpwe7aiGSNMmmEgDgUb7g1pzOger4MGu3O31E
- WE9NByiRX9sy0O1Ih5sYMYYK/AB2lqY9aD443ErRzasd6m4qaetOtQIXgEk0h/viVlZL
- dCCs7ITh4XiSuZv/AwS/3l82LUBXAR7wsfzGGF/xwndgYnOdEjI+gcgsDzHZrU3zbqNQ
- QuFtCaclFhpQygETRqCMho7ogWYkq8pOVDAo4Xo8zRGzY2MPAt2rXlxCHLh8tqPBGfer
- xJQZvHNC/vJjdYvQuT0ENploKS9YstkExZvRzkEQ5/RmVo2uHcVroTFR3g1Pu8rXqoBi
- K/5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=l3bdCq7anI4Qe4LpjY7De0uPwaZQ3bCtaimkhxYLK0E=;
- b=jvMzxqSHcftkOMrVDBCD+Sc+e0rK5rcosLBaoHIGxxH8Q2sQ3i7apa5GFiy/oNQAk0
- xfx67NelTp4TsLqOQ9e6mOtJ3qBumMyzOEML9OmbZlZdFbyvOXEupkXXGqjXfIM5T0Ax
- EfC2lAB0ZZJ1N5GcXKO/r1PBhdVGzmxpZOtlHOCyBW2kOiTHvFriwGWrwwBjabrm1t1q
- 2hhkFQLmZLvAXBMfOn+tLyxjw+UAKOTw00ZBcIzZpmU1ZSuRTWDzi0w7OkSUCkbariE+
- VjnX/4v6o79rONsu2GGrJgYue7qGpmQkrducyV8TFfnIXGGdWnVQrZU9qA5H72ETq5cE
- T0RQ==
-X-Gm-Message-State: AOAM533cKFIBicd6zKT6OtRSFNwtseLyW4berOG9mtjpCJu9OE4SRt/W
- lCCOmdRqwyTLV5AwUxVN5PPecKuSVP7vL+USqB5eIGa8EBc4XEhV3ICQw07O
-X-Google-Smtp-Source: ABdhPJx5ktlm7Otb2Aj95+k6jt4bEqTeWZcNH4f/pbAM7QAbu2y0VWQINhpwOvHGJnl8HkHbFeTqNLqOgWxldyl2ylw=
-X-Received: by 2002:a25:8b04:: with SMTP id i4mr20660724ybl.663.1639192515836; 
- Fri, 10 Dec 2021 19:15:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D37410E701;
+	Mon, 13 Dec 2021 15:04:45 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B32710E701
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 15:04:44 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10196"; a="299532841"
+X-IronPort-AV: E=Sophos;i="5.88,202,1635231600"; d="scan'208";a="299532841"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2021 07:04:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,202,1635231600"; d="scan'208";a="464658590"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga006.jf.intel.com with SMTP; 13 Dec 2021 07:04:16 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 13 Dec 2021 17:04:15 +0200
+Date: Mon, 13 Dec 2021 17:04:15 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <Ybdg7xgPpClI8kNQ@intel.com>
+References: <20211213134450.3082-1-ville.syrjala@linux.intel.com>
+ <20211213134450.3082-5-ville.syrjala@linux.intel.com>
+ <87ilvs7ges.fsf@intel.com>
 MIME-Version: 1.0
-References: <20211210061152.29087-1-linmq006@gmail.com>
- <163915440013.3443.3422971101904441012@emeril.freedesktop.org>
-In-Reply-To: <163915440013.3443.3422971101904441012@emeril.freedesktop.org>
-From: =?UTF-8?B?5p6X5aaZ5YCp?= <linmq006@gmail.com>
-Date: Sat, 11 Dec 2021 11:15:04 +0800
-Message-ID: <CAH-r-ZEv0zWZgb1rq6e1q722gy_0tK9hkNiwQfkidO2YJo3FYQ@mail.gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000009ffd5405d2d63fc3"
-X-Mailman-Approved-At: Mon, 13 Dec 2021 14:22:49 +0000
-Subject: Re: [Intel-gfx] 
-	=?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
-	=?utf-8?q?/i915/selftests=3A_Fix_inconsistent_object_in_IS=5FERR_a?=
-	=?utf-8?q?nd_PTR=5FERR?=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87ilvs7ges.fsf@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v2 4/4] drm/i915/fbc: Register per-crtc
+ debugfs files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,77 +50,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---0000000000009ffd5405d2d63fc3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Dec 13, 2021 at 04:01:15PM +0200, Jani Nikula wrote:
+> On Mon, 13 Dec 2021, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> >
+> > Expose FBC debugfs files for each crtc. These may or may not point
+> > to the same FBC instance depending on the platform.
+> >
+> > We leave the old global debugfs files in place until
+> > igt catches up to the new per-crtc approach.
+> >
+> > Cc: Jani Nikula <jani.nikula@intel.com>
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_fbc.c | 31 +++++++++++++++---------
+> >  1 file changed, 19 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+> > index 53c93387710c..eafd84e7f058 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fbc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+> > @@ -1798,25 +1798,32 @@ DEFINE_SIMPLE_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
+> >  			intel_fbc_debugfs_false_color_set,
+> >  			"%llu\n");
+> >  
+> > -static void intel_fbc_debugfs_add(struct intel_fbc *fbc)
+> > +static void intel_fbc_debugfs_add(struct intel_fbc *fbc,
+> > +				  struct dentry *parent)
+> >  {
+> > -	struct drm_i915_private *i915 = fbc->i915;
+> > -	struct drm_minor *minor = i915->drm.primary;
+> > -
+> > -	debugfs_create_file("i915_fbc_status", 0444,
+> > -			    minor->debugfs_root, fbc,
+> > -			    &intel_fbc_debugfs_status_fops);
+> > +	debugfs_create_file("i915_fbc_status", 0444, parent,
+> > +			    fbc, &intel_fbc_debugfs_status_fops);
+> >  
+> >  	if (fbc->funcs->set_false_color)
+> > -		debugfs_create_file("i915_fbc_false_color", 0644,
+> > -				    minor->debugfs_root, fbc,
+> > -				    &intel_fbc_debugfs_false_color_fops);
+> > +		debugfs_create_file("i915_fbc_false_color", 0644, parent,
+> > +				    fbc, &intel_fbc_debugfs_false_color_fops);
+> >  }
+> >  
+> >  void intel_fbc_debugfs_register(struct drm_i915_private *i915)
+> >  {
+> > -	struct intel_fbc *fbc = i915->fbc[INTEL_FBC_A];
+> > +	struct drm_minor *minor = i915->drm.primary;
+> > +	struct intel_crtc *crtc;
+> > +	struct intel_fbc *fbc;
+> >  
+> > +	for_each_intel_crtc(&i915->drm, crtc) {
+> > +		struct intel_plane *plane = to_intel_plane(crtc->base.primary);
+> > +
+> > +		if (plane->fbc)
+> > +			intel_fbc_debugfs_add(plane->fbc, crtc->base.debugfs_entry);
+> > +	}
+> 
+> I think the per-crtc debugfs files should be registered via
+> intel_crtc_debugfs_add().
 
-I have no idea why it failed without a detailed log, from my humble
-opinion, this bug indeed exists and is easy to understand, I hope someone
-could look into it.
+I supposs. Seems a bit more leaky as far as abstractions goes
+though. It would make a lot more sense if crtcs could be
+registered dynamically, but they can't. I'll respin anyway.
 
-Patchwork <patchwork@emeril.freedesktop.org> =E4=BA=8E2021=E5=B9=B412=E6=9C=
-=8811=E6=97=A5=E5=91=A8=E5=85=AD 00:40=E5=86=99=E9=81=93=EF=BC=9A
-
-> *Patch Details*
-> *Series:* drm/i915/selftests: Fix inconsistent object in IS_ERR and
-> PTR_ERR
-> *URL:* https://patchwork.freedesktop.org/series/97868/
-> *State:* failure
->
-> Applying: drm/i915/selftests: Fix inconsistent object in IS_ERR and PTR_E=
-RR
-> Using index info to reconstruct a base tree...
-> M drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-> Falling back to patching base and 3-way merge...
-> No changes -- Patch already applied.
->
-
---0000000000009ffd5405d2d63fc3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I have no idea why it failed without a detailed log,=C2=A0=
-from my humble opinion, this bug indeed exists and is easy to understand, I=
- hope someone could look into it.</div><br><div class=3D"gmail_quote"><div =
-dir=3D"ltr" class=3D"gmail_attr">Patchwork &lt;<a href=3D"mailto:patchwork@=
-emeril.freedesktop.org">patchwork@emeril.freedesktop.org</a>&gt; =E4=BA=8E2=
-021=E5=B9=B412=E6=9C=8811=E6=97=A5=E5=91=A8=E5=85=AD 00:40=E5=86=99=E9=81=
-=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<u></u>
-
-=20
- =20
- =20
- =20
-
-<div>
-
-
-<b>Patch Details</b>
-<table>
-<tbody><tr><td><b>Series:</b></td><td>drm/i915/selftests: Fix inconsistent =
-object in IS_ERR and PTR_ERR</td></tr>
-<tr><td><b>URL:</b></td><td><a href=3D"https://patchwork.freedesktop.org/se=
-ries/97868/" target=3D"_blank">https://patchwork.freedesktop.org/series/978=
-68/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-</tbody></table>
-
-
-    <p>Applying: drm/i915/selftests: Fix inconsistent object in IS_ERR and =
-PTR_ERR<br>
-Using index info to reconstruct a base tree...<br>
-M   drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c<br>
-Falling back to patching base and 3-way merge...<br>
-No changes -- Patch already applied.</p>
-
-</div>
-
-</blockquote></div>
-
---0000000000009ffd5405d2d63fc3--
+-- 
+Ville Syrjälä
+Intel
