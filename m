@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A85C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 23:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CBC9C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 23:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1135410E9CA;
-	Mon, 13 Dec 2021 23:29:20 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F8F10E8FD;
- Mon, 13 Dec 2021 23:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA4810E9A4;
+	Mon, 13 Dec 2021 23:29:23 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0B010E8E7;
+ Mon, 13 Dec 2021 23:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639438157; x=1670974157;
+ t=1639438156; x=1670974156;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=z6Ap4p7sMzVPrtRKXn8i9OKN5M9Iw4/bYDjGm0FBZVQ=;
- b=TivgzshB7l/QTTTr5MBqPRKur6rclVmwJ4ToqPzHNbCPcHElsO2jbS6h
- KZGRsYf4MCDkcvYSGUOA5x6xfMobMbWcaxOFZLRYEOYcB5p5FLxgGhehB
- 947HXH5ufqro5divbzCCzA95d8PYBpQaOvNfY11ffZJe4gEBScGiTVh28
- ojXOwEGPEK3VxjsPOEKHadWed7g6gxlOPhOzcuY94yvVPBLvwdtu/S6SP
- NowGKBNg6okoCNQOg+TLNUl3w42cWNOwDXDY1+KwleDzfPs+cVGYmsCG4
- uXh8NuTNc49s/pkV6S806e1VZdO1cSsO2qArnx+ai7o5BYbZBKW9hDkp+ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10197"; a="299635176"
-X-IronPort-AV: E=Sophos;i="5.88,203,1635231600"; d="scan'208";a="299635176"
+ bh=y+V1ruqqyVjX3tXVYzc8a0q43Puzc7nprMmUSUmUJ7s=;
+ b=gzOoE0EvyWla/6K5QnzFRPu9j0CtRQnFVyq5MxBMVCkspid65/sKTwdR
+ p0Qudzo5LliR+hYXGLTvraceGSXUjGVcwXeCb0IheYgw6ieHjDcfCjer+
+ zvHnpUETv3xUzNPi+aU+EHTQ3HdkV4ag1NKpYe0UzYG+VWWxOoXjJqLHJ
+ NEEObs5zbNkyyLqsTM9aF2yvbZ4GXtifMgevAHiodmZqyGcdrTa7zGmSf
+ XSxVVIbMD7gQrcxZF1zCQZJuVWQ6vJnHlJ4tB8SUsC3UQpnVu+n/OWTNk
+ fWhP8MdxmF2U3KU6XzZgzMeO7d+7+a5Mr/b96wyOLKaQiBXigczMJ+744 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10197"; a="236385945"
+X-IronPort-AV: E=Sophos;i="5.88,203,1635231600"; d="scan'208";a="236385945"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2021 15:29:16 -0800
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2021 15:29:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,203,1635231600"; d="scan'208";a="517975935"
+X-IronPort-AV: E=Sophos;i="5.88,203,1635231600"; d="scan'208";a="517975918"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga008.jf.intel.com with ESMTP; 13 Dec 2021 15:29:15 -0800
 From: John.C.Harrison@Intel.com
 To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Mon, 13 Dec 2021 15:29:11 -0800
-Message-Id: <20211213232914.2523139-9-John.C.Harrison@Intel.com>
+Date: Mon, 13 Dec 2021 15:29:06 -0800
+Message-Id: <20211213232914.2523139-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211213232914.2523139-1-John.C.Harrison@Intel.com>
 References: <20211213232914.2523139-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 08/11] lib/store: Refactor common store
- code into helper function
+Subject: [Intel-gfx] [PATCH i-g-t 03/11] tests/i915/i915_hangman: Update
+ capture test to use engine structure
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,382 +64,55 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-A lot of tests use almost identical code for creating a batch buffer
-which does a single write to memory. This patch collects two such
-instances into a common helper function. Unfortunately, the other
-instances are all subtly different enough to make it not so trivial to
-try to use the helper. It could be done but it is unclear if it is
-worth the effort at this point. This patch proves the concept, if
-people like it enough then it can be extended.
+The capture test was still using old style ring_id and ring_name
+(derived from the engine structure at the higher level). Update it to
+just take the engine structure directly.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- lib/igt_store.c             | 114 ++++++++++++++++++++++++++++++++++++
- lib/igt_store.h             |  30 ++++++++++
- lib/meson.build             |   1 +
- tests/i915/gem_exec_fence.c |  77 ++----------------------
- tests/i915/i915_hangman.c   |  61 +------------------
- 5 files changed, 152 insertions(+), 131 deletions(-)
- create mode 100644 lib/igt_store.c
- create mode 100644 lib/igt_store.h
+ tests/i915/i915_hangman.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/lib/igt_store.c b/lib/igt_store.c
-new file mode 100644
-index 000000000..6d9869b58
---- /dev/null
-+++ b/lib/igt_store.c
-@@ -0,0 +1,114 @@
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "i915/gem_create.h"
-+#include "igt_core.h"
-+#include "drmtest.h"
-+#include "igt_store.h"
-+#include "intel_chipset.h"
-+#include "intel_reg.h"
-+#include "ioctl_wrappers.h"
-+#include "lib/intel_allocator.h"
-+
-+/**
-+ * SECTION:igt_store_word
-+ * @short_description: Library for writing a value to memory
-+ * @title: StoreWord
-+ * @include: igt.h
-+ *
-+ * A lot of igt testcases need some mechanism for writing a value to memory
-+ * as a test that a batch buffer has executed.
-+ *
-+ * NB: Requires master for STORE_DWORD on gen4/5.
-+ */
-+void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-+		    const struct intel_execution_engine2 *e,
-+		    int fence, uint32_t target_handle,
-+		    uint64_t target_offset, uint32_t target_value)
-+{
-+	const int SCRATCH = 0;
-+	const int BATCH = 1;
-+	const unsigned int gen = intel_gen(intel_get_drm_devid(fd));
-+	struct drm_i915_gem_exec_object2 obj[2];
-+	struct drm_i915_gem_relocation_entry reloc;
-+	struct drm_i915_gem_execbuffer2 execbuf;
-+	uint32_t batch[16], delta;
-+	uint64_t bb_offset;
-+	int i;
-+
-+	memset(&execbuf, 0, sizeof(execbuf));
-+	execbuf.buffers_ptr = to_user_pointer(obj);
-+	execbuf.buffer_count = ARRAY_SIZE(obj);
-+	execbuf.flags = e->flags;
-+	execbuf.rsvd1 = ctx->id;
-+	if (fence != -1) {
-+		execbuf.flags |= I915_EXEC_FENCE_IN;
-+		execbuf.rsvd2 = fence;
-+	}
-+	if (gen < 6)
-+		execbuf.flags |= I915_EXEC_SECURE;
-+
-+	memset(obj, 0, sizeof(obj));
-+	obj[SCRATCH].handle = target_handle;
-+
-+	obj[BATCH].handle = gem_create(fd, 4096);
-+	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
-+	obj[BATCH].relocation_count = !ahnd ? 1 : 0;
-+	bb_offset = get_offset(ahnd, obj[BATCH].handle, 4096, 0);
-+	memset(&reloc, 0, sizeof(reloc));
-+
-+	i = 0;
-+	delta = sizeof(uint32_t) * target_value;	/* why value not offset??? */
-+	if (!ahnd) {
-+		reloc.target_handle = obj[SCRATCH].handle;
-+		reloc.presumed_offset = -1;
-+		reloc.offset = sizeof(uint32_t) * (i + 1);
-+		reloc.delta = delta;
-+		reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
-+		reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
-+	} else {
-+		obj[SCRATCH].offset = target_offset;
-+		obj[SCRATCH].flags |= EXEC_OBJECT_PINNED | EXEC_OBJECT_WRITE;
-+		obj[BATCH].offset = bb_offset;
-+		obj[BATCH].flags |= EXEC_OBJECT_PINNED;
-+	}
-+	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
-+	if (gen >= 8) {
-+		batch[++i] = target_offset + delta;
-+		batch[++i] = target_offset >> 32;
-+	} else if (gen >= 4) {
-+		batch[++i] = 0;
-+		batch[++i] = delta;
-+		reloc.offset += sizeof(uint32_t);
-+	} else {
-+		batch[i]--;
-+		batch[++i] = delta;
-+	}
-+	batch[++i] = target_value;
-+	batch[++i] = MI_BATCH_BUFFER_END;
-+	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
-+	gem_execbuf(fd, &execbuf);
-+	gem_close(fd, obj[BATCH].handle);
-+	put_offset(ahnd, obj[BATCH].handle);
-+}
-diff --git a/lib/igt_store.h b/lib/igt_store.h
-new file mode 100644
-index 000000000..4d5979e07
---- /dev/null
-+++ b/lib/igt_store.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright © 2020 Intel Corporation
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "igt_gt.h"
-+
-+void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-+		    const struct intel_execution_engine2 *e,
-+		    int fence, uint32_t target_handle,
-+		    uint64_t target_offset, uint32_t target_value);
-diff --git a/lib/meson.build b/lib/meson.build
-index b9568a71b..3e43316d1 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -72,6 +72,7 @@ lib_sources = [
- 	'igt_map.c',
- 	'igt_pm.c',
- 	'igt_dummyload.c',
-+	'igt_store.c',
- 	'uwildmat/uwildmat.c',
- 	'igt_kmod.c',
- 	'igt_panfrost.c',
-diff --git a/tests/i915/gem_exec_fence.c b/tests/i915/gem_exec_fence.c
-index 9a6336ce9..c4091a454 100644
---- a/tests/i915/gem_exec_fence.c
-+++ b/tests/i915/gem_exec_fence.c
-@@ -28,6 +28,7 @@
- #include "i915/gem.h"
- #include "i915/gem_create.h"
- #include "igt.h"
-+#include "igt_store.h"
- #include "igt_syncobj.h"
- #include "igt_sysfs.h"
- #include "igt_vgem.h"
-@@ -57,74 +58,6 @@ struct sync_merge_data {
- #define   MI_SEMAPHORE_SAD_EQ_SDD       (4 << 12)
- #define   MI_SEMAPHORE_SAD_NEQ_SDD      (5 << 12)
- 
--static void store(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
--		  const struct intel_execution_engine2 *e,
--		  int fence, uint32_t target, uint64_t target_offset,
--		  unsigned offset_value)
--{
--	const int SCRATCH = 0;
--	const int BATCH = 1;
--	const unsigned int gen = intel_gen(intel_get_drm_devid(fd));
--	struct drm_i915_gem_exec_object2 obj[2];
--	struct drm_i915_gem_relocation_entry reloc;
--	struct drm_i915_gem_execbuffer2 execbuf;
--	uint32_t batch[16], delta;
--	uint64_t bb_offset;
--	int i;
--
--	memset(&execbuf, 0, sizeof(execbuf));
--	execbuf.buffers_ptr = to_user_pointer(obj);
--	execbuf.buffer_count = 2;
--	execbuf.flags = e->flags | I915_EXEC_FENCE_IN;
--	execbuf.rsvd1 = ctx->id;
--	execbuf.rsvd2 = fence;
--	if (gen < 6)
--		execbuf.flags |= I915_EXEC_SECURE;
--
--	memset(obj, 0, sizeof(obj));
--	obj[SCRATCH].handle = target;
--
--	obj[BATCH].handle = gem_create(fd, 4096);
--	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
--	obj[BATCH].relocation_count = !ahnd ? 1 : 0;
--	bb_offset = get_offset(ahnd, obj[BATCH].handle, 4096, 0);
--	memset(&reloc, 0, sizeof(reloc));
--
--	i = 0;
--	delta = sizeof(uint32_t) * offset_value;
--	if (!ahnd) {
--		reloc.target_handle = obj[SCRATCH].handle;
--		reloc.presumed_offset = -1;
--		reloc.offset = sizeof(uint32_t) * (i + 1);
--		reloc.delta = delta;
--		reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
--		reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
--	} else {
--		obj[SCRATCH].offset = target_offset;
--		obj[SCRATCH].flags |= EXEC_OBJECT_PINNED | EXEC_OBJECT_WRITE;
--		obj[BATCH].offset = bb_offset;
--		obj[BATCH].flags |= EXEC_OBJECT_PINNED;
--	}
--	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
--	if (gen >= 8) {
--		batch[++i] = target_offset + delta;
--		batch[++i] = target_offset >> 32;
--	} else if (gen >= 4) {
--		batch[++i] = 0;
--		batch[++i] = delta;
--		reloc.offset += sizeof(uint32_t);
--	} else {
--		batch[i]--;
--		batch[++i] = delta;
--	}
--	batch[++i] = offset_value;
--	batch[++i] = MI_BATCH_BUFFER_END;
--	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
--	gem_execbuf(fd, &execbuf);
--	gem_close(fd, obj[BATCH].handle);
--	put_offset(ahnd, obj[BATCH].handle);
--}
--
- static bool fence_busy(int fence)
- {
- 	return poll(&(struct pollfd){fence, POLLIN}, 1, 0) == 0;
-@@ -400,13 +333,13 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
- 			continue;
- 
- 		if (flags & NONBLOCK) {
--			store(fd, ahnd, ctx, e2, spin->out_fence,
--			      scratch, scratch_offset, i);
-+			igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
-+				       scratch, scratch_offset, i);
- 		} else {
- 			igt_fork(child, 1) {
- 				ahnd = get_reloc_ahnd(fd, ctx->id);
--				store(fd, ahnd, ctx, e2, spin->out_fence,
--				      scratch, scratch_offset, i);
-+				igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
-+					       scratch, scratch_offset, i);
- 				put_ahnd(ahnd);
- 			}
- 		}
 diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-index 20653b479..4cb9b8b85 100644
+index 24d3b2739..bd787d7b4 100644
 --- a/tests/i915/i915_hangman.c
 +++ b/tests/i915/i915_hangman.c
-@@ -36,6 +36,7 @@
- #include "i915/gem.h"
- #include "i915/gem_create.h"
- #include "igt.h"
-+#include "igt_store.h"
- #include "igt_sysfs.h"
- #include "igt_debugfs.h"
- #include "sw_sync.h"
-@@ -51,64 +52,6 @@ static int sysfs = -1;
+@@ -207,8 +207,8 @@ static void check_error_state(const char *expected_ring_name,
+ 	igt_assert(found);
+ }
  
- IGT_TEST_DESCRIPTION("Tests for hang detection and recovery");
- 
--/* Requires master for STORE_DWORD on gen4/5 */
--static void store(int fd, const struct intel_execution_engine2 *e,
--		  int fence, uint32_t target, unsigned offset_value)
--{
--	const int SCRATCH = 0;
--	const int BATCH = 1;
--	const int gen = intel_gen(intel_get_drm_devid(fd));
--	struct drm_i915_gem_exec_object2 obj[2];
--	struct drm_i915_gem_relocation_entry reloc;
--	struct drm_i915_gem_execbuffer2 execbuf;
--	uint32_t batch[16];
--	int i;
--
--	memset(&execbuf, 0, sizeof(execbuf));
--	execbuf.buffers_ptr = to_user_pointer(obj);
--	execbuf.buffer_count = ARRAY_SIZE(obj);
--	execbuf.flags = e->flags;
--	if (fence != -1) {
--		execbuf.flags |= I915_EXEC_FENCE_IN;
--		execbuf.rsvd2 = fence;
--	}
--	if (gen < 6)
--		execbuf.flags |= I915_EXEC_SECURE;
--
--	memset(obj, 0, sizeof(obj));
--	obj[SCRATCH].handle = target;
--
--	obj[BATCH].handle = gem_create(fd, 4096);
--	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
--	obj[BATCH].relocation_count = 1;
--	memset(&reloc, 0, sizeof(reloc));
--
--	i = 0;
--	reloc.target_handle = obj[SCRATCH].handle;
--	reloc.presumed_offset = -1;
--	reloc.offset = sizeof(uint32_t) * (i + 1);
--	reloc.delta = sizeof(uint32_t) * offset_value;
--	reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
--	reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
--	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
--	if (gen >= 8) {
--		batch[++i] = reloc.delta;
--		batch[++i] = 0;
--	} else if (gen >= 4) {
--		batch[++i] = 0;
--		batch[++i] = reloc.delta;
--		reloc.offset += sizeof(uint32_t);
--	} else {
--		batch[i]--;
--		batch[++i] = reloc.delta;
--	}
--	batch[++i] = offset_value;
--	batch[++i] = MI_BATCH_BUFFER_END;
--	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
--	gem_execbuf(fd, &execbuf);
--	gem_close(fd, obj[BATCH].handle);
--}
--
- static void check_alive(void)
+-static void test_error_state_capture(const intel_ctx_t *ctx, unsigned ring_id,
+-				     const char *ring_name)
++static void test_error_state_capture(const intel_ctx_t *ctx,
++				     const struct intel_execution_engine2 *e)
  {
- 	const struct intel_execution_engine2 *engine;
-@@ -138,7 +81,7 @@ static void check_alive(void)
- 			continue;
+ 	uint32_t *batch;
+ 	igt_hang_t hang;
+@@ -217,7 +217,7 @@ static void test_error_state_capture(const intel_ctx_t *ctx, unsigned ring_id,
  
- 		/* +OFFSET_ALIVE to ensure engine zero doesn't get a false negative */
--		store(fd, engine, -1, scratch, i + OFFSET_ALIVE);
-+		igt_store_word(fd, ahnd, ctx, engine, -1, scratch, i + OFFSET_ALIVE, i + OFFSET_ALIVE);
- 		i++;
+ 	clear_error_state();
+ 
+-	hang = igt_hang_ctx_with_ahnd(device, ahnd, ctx->id, ring_id,
++	hang = igt_hang_ctx_with_ahnd(device, ahnd, ctx->id, e->flags,
+ 				      HANG_ALLOW_CAPTURE);
+ 	offset = hang.spin->obj[IGT_SPIN_BATCH].offset;
+ 
+@@ -226,7 +226,7 @@ static void test_error_state_capture(const intel_ctx_t *ctx, unsigned ring_id,
+ 
+ 	igt_post_hang_ring(device, hang);
+ 
+-	check_error_state(ring_name, offset, batch);
++	check_error_state(e->name, offset, batch);
+ 	munmap(batch, 4096);
+ 	put_ahnd(ahnd);
+ }
+@@ -351,7 +351,7 @@ igt_main
+ 	igt_subtest_with_dynamic("error-state-capture") {
+ 		for_each_ctx_engine(device, ctx, e) {
+ 			igt_dynamic_f("%s", e->name)
+-				test_error_state_capture(ctx, e->flags, e->name);
++				test_error_state_capture(ctx, e);
+ 		}
  	}
  
 -- 
