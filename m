@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2307EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 19:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1237C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 19:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7023A10E8A6;
-	Mon, 13 Dec 2021 19:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 060B610E8A1;
+	Mon, 13 Dec 2021 19:21:18 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B8FD210E8A1;
- Mon, 13 Dec 2021 19:13:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4C00C10E89D;
+ Mon, 13 Dec 2021 19:21:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B231DA363D;
- Mon, 13 Dec 2021 19:13:34 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 441ECA47DF;
+ Mon, 13 Dec 2021 19:21:17 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ira Weiny" <ira.weiny@intel.com>
-Date: Mon, 13 Dec 2021 19:13:34 -0000
-Message-ID: <163942281470.29014.341971473879138801@emeril.freedesktop.org>
+To: broonie@kernel.org
+Date: Mon, 13 Dec 2021 19:21:17 -0000
+Message-ID: <163942327725.29014.17288893098762007761@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20211210232404.4098157-1-ira.weiny@intel.com>
-In-Reply-To: <20211210232404.4098157-1-ira.weiny@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBE?=
- =?utf-8?q?RM_kmap=28=29_fixes_and_kmap=5Flocal=5Fpage=28=29_conversions_?=
- =?utf-8?b?KHJldjIp?=
+References: <20211213170753.3680209-1-broonie@kernel.org>
+In-Reply-To: <20211213170753.3680209-1-broonie@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Fix_implicit_use_of_struct_pci=5Fdev?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,22 +47,26 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: DRM kmap() fixes and kmap_local_page() conversions (rev2)
-URL   : https://patchwork.freedesktop.org/series/97889/
-State : failure
+Series: drm/i915: Fix implicit use of struct pci_dev
+URL   : https://patchwork.freedesktop.org/series/97975/
+State : warning
 
 == Summary ==
 
-Applying: drm/i915: Replace kmap() with kmap_local_page()
-error: patch failed: include/linux/highmem-internal.h:246
-error: include/linux/highmem-internal.h: patch does not apply
-error: Did you hand edit your patch?
-It does not apply to blobs recorded in its index.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Using index info to reconstruct a base tree...
-Patch failed at 0001 drm/i915: Replace kmap() with kmap_local_page()
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+$ dim checkpatch origin/drm-tip
+be0180f70dc2 drm/i915: Fix implicit use of struct pci_dev
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+In file included from /tmp/next/build/drivers/gpu/drm/i915/intel_device_info.h:32,
+
+-:13: WARNING:USE_RELATIVE_PATH: use relative pathname instead of absolute in changelog text
+#13: 
+                 from /tmp/next/build/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:11:
+
+-:14: WARNING:USE_RELATIVE_PATH: use relative pathname instead of absolute in changelog text
+#14: 
+/tmp/next/build/drivers/gpu/drm/i915/display/intel_display.h:643:39: error: 'struct pci_dev' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+
+total: 0 errors, 3 warnings, 0 checks, 7 lines checked
 
 
