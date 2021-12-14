@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E87C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 14:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BE56C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 14:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7367710E4AD;
-	Tue, 14 Dec 2021 14:03:13 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A627210E455;
- Tue, 14 Dec 2021 14:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02D8910E4BE;
+	Tue, 14 Dec 2021 14:03:15 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E9710E49A;
+ Tue, 14 Dec 2021 14:03:13 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1639490589;
+ s=2020; t=1639490590;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ojUQOHApDdOULcoyUp+VYtjZvFRJbzhx7Iz5Y5kJCcY=;
- b=NevLdg4+xQ8xysT7CQWBdF4L5YJ1/ZOeNm08mMS8DHmpakVm1zLJNqvSndg65UIH5dTJ7P
- W1d6E8sv+94reRTTX9U5moA5NLYW+C9WO4XYytTvoha7cpB+dyeFjS6ToobN5Mhzw22CWX
- S4n9rB+3uJEA/ZpSjnXXKFgKYqYXaIA8ee0cYRIjy5NMkNuDgFhmU803mQMpLOQIO2ZrMT
- M+7t3ox3WpwlcpeD2U8/ygMyQg1UxDgaVSNpH9whzBHq9Lv+glSE7RuvTvV2JQiDYL51td
- RGoFl2LmtvvoMvWfX3B22jegRX5YaYhLYJmHaCTvxGxd8MgITci8EFMd+nDoYA==
+ bh=CRHAs/uzahnAA5+Nw2tOKbmdd9Sj5qBHbGJNI8etFHY=;
+ b=Qtb8r+ktywmfcI34lOP/azxk1XssHiDv48zXXazIm8x4IElKm6bnhZbZwYHb3z4dZZbS9r
+ cwysum3zBAPbh6Fs6t/PMgVoOFBRf/Qa319/oysZRD6jHFD9ZMaZUwNAXT3fXvP401mSfe
+ 49ecPPzni15Xl0B7YPe9ekPlxviVGoFij+kf6KGFqIUHicdDitJIKDSLxFPm9CuXb5LqC3
+ zn4yD2JcgZkqHFCVgp86Hqo63ZZvmOa8tFGt5J8S7xtdjgl5bDfZkibaA7EzsHsp1trzUN
+ hGQlP5H3vKmANMMERsbEuvP4ot8oTiOL03/OLOa+tueOwnEhB4YhmhFztKokgw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1639490589;
+ s=2020e; t=1639490590;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ojUQOHApDdOULcoyUp+VYtjZvFRJbzhx7Iz5Y5kJCcY=;
- b=qIoK8soBTdFdIXS2U93x/AssrK/xG0zvxwyP+bPmApVCK+LjWGJC+62QptRY0VL1Xlya9A
- g2KjS3ih2m/5PVAg==
+ bh=CRHAs/uzahnAA5+Nw2tOKbmdd9Sj5qBHbGJNI8etFHY=;
+ b=9jxIp8YbXiDaOYDpk3u6u6l/3IVUZxEmQPWRi2gEDxRBYdellQYJLbuvBWQpoArXFr+Bya
+ x56vBh+F4L+9lnAw==
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Dec 2021 15:02:57 +0100
-Message-Id: <20211214140301.520464-5-bigeasy@linutronix.de>
+Date: Tue, 14 Dec 2021 15:03:00 +0100
+Message-Id: <20211214140301.520464-8-bigeasy@linutronix.de>
 In-Reply-To: <20211214140301.520464-1-bigeasy@linutronix.de>
 References: <20211214140301.520464-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915: Use preempt_disable/enable_rt()
- where recommended
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915: Disable tracing points on
+ PREEMPT_RT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,69 +58,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Mike Galbraith <umgwanakikbuti@gmail.com>,
+ Luca Abeni <lucabe72@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
  Thomas Gleixner <tglx@linutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mike Galbraith <umgwanakikbuti@gmail.com>
+Luca Abeni reported this:
+| BUG: scheduling while atomic: kworker/u8:2/15203/0x00000003
+| CPU: 1 PID: 15203 Comm: kworker/u8:2 Not tainted 4.19.1-rt3 #10
+| Call Trace:
+|  rt_spin_lock+0x3f/0x50
+|  gen6_read32+0x45/0x1d0 [i915]
+|  g4x_get_vblank_counter+0x36/0x40 [i915]
+|  trace_event_raw_event_i915_pipe_update_start+0x7d/0xf0 [i915]
 
-Mario Kleiner suggest in commit
-  ad3543ede630f ("drm/intel: Push get_scanout_position() timestamping into =
-kms driver.")
+The tracing events use trace_i915_pipe_update_start() among other events
+use functions acquire spinlock_t locks which are transformed into
+sleeping locks on PREEMPT_RT. A few trace points use
+intel_get_crtc_scanline(), others use ->get_vblank_counter() wich also
+might acquire a sleeping locks on PREEMPT_RT.
+At the time the arguments are evaluated within trace point, preemption
+is disabled and so the locks must not be acquired on PREEMPT_RT.
 
-a spots where preemption should be disabled on PREEMPT_RT. The
-difference is that on PREEMPT_RT the intel_uncore::lock disables neither
-preemption nor interrupts and so region remains preemptible.
+Based on this I don't see any other way than disable trace points on
+PREMPT_RT.
 
-The area covers only register reads and writes. The part that worries me
-is:
-- __intel_get_crtc_scanline() the worst case is 100us if no match is
-  found.
-
-- intel_crtc_scanlines_since_frame_timestamp() not sure how long this
-  may take in the worst case.
-
-It was in the RT queue for a while and nobody complained.
-Disable preemption on PREEPMPT_RT during timestamping.
-
-[bigeasy: patch description.]
-
-Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
-Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Reported-by: Luca Abeni <lucabe72@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_trace.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_ir=
-q.c
-index 038a9ec563c10..8e9ff0bcbc7e4 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -916,7 +916,8 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_=
-crtc,
- 	 */
- 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_=
+trace.h
+index 8104981a66044..64c3fa7cc05df 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -2,6 +2,10 @@
+ #if !defined(_I915_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
+ #define _I915_TRACE_H_
 =20
--	/* preempt_disable_rt() should go right here in PREEMPT_RT patchset. */
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-+		preempt_disable();
-=20
- 	/* Get optional system timestamp before query. */
- 	if (stime)
-@@ -980,7 +981,8 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_=
-crtc,
- 	if (etime)
- 		*etime =3D ktime_get();
-=20
--	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-+		preempt_enable();
-=20
- 	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
-=20
++#ifdef CONFIG_PREEMPT_RT
++#define NOTRACE
++#endif
++
+ #include <linux/stringify.h>
+ #include <linux/types.h>
+ #include <linux/tracepoint.h>
 --=20
 2.34.1
 
