@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E185CC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 17:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95F20C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 17:14:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E454710E1E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC6F10E1DC;
 	Tue, 14 Dec 2021 17:14:36 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7966610E1E7;
- Tue, 14 Dec 2021 17:14:33 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DE910E16E;
+ Tue, 14 Dec 2021 17:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639502073; x=1671038073;
+ t=1639502071; x=1671038071;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=V7mhzQQhvb0lTvzXO4pMuWvuZcuZfU52N2KDqvUj19Q=;
- b=FxgGXpVQjg9u2ibULBCJ5bX5lxBsma+7n4igqBYF0rDvxBb5XHUqZoAy
- NjeAr5Nq3HbrzKiG6094pi4PaLiOVwFzmRa5vRZgW9g/67dQBI44UdZC0
- NXQXOhPGpbnITstIIQGMPHx50fBSloxYXoVhkISNNlGmvOm5NWt2DdVjZ
- tDWJ8ZL5O1HPqzYp/tqORXkpvq8NWzaiw3EKmOyesWfAIE50wZQC9+Z4U
- 0itZhzUIt8B2qDK7xtSjZZEQstSEeO+fONkyhoVAyKjc64fk6Lv1HsuYn
- PsN+F9Yzte0VAxCaXbZ5D4lT8kFIr6j6F3bLWW+rqXNX09DTjcgrxMXLv w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10197"; a="302405486"
-X-IronPort-AV: E=Sophos;i="5.88,205,1635231600"; d="scan'208";a="302405486"
+ bh=xs4Uezz0ZR31ss+ptKygyEXbVGcCanPcDYRuGPs0HPE=;
+ b=ns6ySsaH0qeaJTcYHI0vo2CnoJB1IV2Zo5nEojUHf8reVu7T+bjoVMGa
+ 1Fo/5kiNzVSk9+5RPiLlEpuD8DfKIkPh2Nu340IBmaPKTTTKQh6FnZqUQ
+ oDyJOZVC0hL6QmJ1ehil1YHIY64pKtokjxrKuIxfG70fZJZoY94+8gbtf
+ RCX8Xap7nGKxf8ZokhfsyKPVN9xGY4eS3HKOJnDoC8Sg92qhy7oFZ29mn
+ kq4LT7AseRiOhwGhWUegw2W/+aFSGy6IgyFEjhLpnUEf4XrBqseD6blv5
+ 920iDOs86fhZuGnJpX/2pzujShYIhzeQa2FXz2q7VMdSWZo5qf8hLQuke Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10197"; a="219043201"
+X-IronPort-AV: E=Sophos;i="5.88,205,1635231600"; d="scan'208";a="219043201"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Dec 2021 09:10:28 -0800
-X-IronPort-AV: E=Sophos;i="5.88,205,1635231600"; d="scan'208";a="614357559"
+X-IronPort-AV: E=Sophos;i="5.88,205,1635231600"; d="scan'208";a="614357546"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Dec 2021 09:10:26 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 14 Dec 2021 09:04:59 -0800
-Message-Id: <20211214170500.28569-7-matthew.brost@intel.com>
+Date: Tue, 14 Dec 2021 09:04:55 -0800
+Message-Id: <20211214170500.28569-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211214170500.28569-1-matthew.brost@intel.com>
 References: <20211214170500.28569-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/guc: Kick G2H tasklet if no credits
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/guc: Only assign guc_id.id when
+ stealing guc_id
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,40 +60,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's be paranoid and kick the G2H tasklet, which dequeues messages, if
-G2H credits are exhausted.
+Previously assigned whole guc_id structure (list, spin lock) which is
+incorrect, only assign the guc_id.id.
 
+Fixes: 0f7976506de61 ("drm/i915/guc: Rework and simplify locking")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 741be9abab68..aa6dd6415202 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -591,12 +591,19 @@ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 9b7b4f4e0d91..0fb2eeff0262 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1935,7 +1935,7 @@ static int steal_guc_id(struct intel_guc *guc, struct intel_context *ce)
+ 		GEM_BUG_ON(intel_context_is_parent(cn));
  
- static int has_room_nb(struct intel_guc_ct *ct, u32 h2g_dw, u32 g2h_dw)
- {
-+	bool h2g = h2g_has_room(ct, h2g_dw);
-+	bool g2h = g2h_has_room(ct, g2h_dw);
-+
- 	lockdep_assert_held(&ct->ctbs.send.lock);
+ 		list_del_init(&cn->guc_id.link);
+-		ce->guc_id = cn->guc_id;
++		ce->guc_id.id = cn->guc_id.id;
  
--	if (unlikely(!h2g_has_room(ct, h2g_dw) || !g2h_has_room(ct, g2h_dw))) {
-+	if (unlikely(!h2g || !g2h)) {
- 		if (ct->stall_time == KTIME_MAX)
- 			ct->stall_time = ktime_get();
- 
-+		/* Be paranoid and kick G2H tasklet to free credits */
-+		if (!g2h)
-+			tasklet_hi_schedule(&ct->receive_tasklet);
-+
- 		if (unlikely(ct_deadlocked(ct)))
- 			return -EPIPE;
- 		else
+ 		spin_lock(&cn->guc_state.lock);
+ 		clr_context_registered(cn);
 -- 
 2.33.1
 
