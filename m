@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E253BC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 14:03:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 872A0C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 14:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0139010E532;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FB4610E533;
 	Tue, 14 Dec 2021 14:03:16 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334CC10E48B;
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C2010E455;
  Tue, 14 Dec 2021 14:03:13 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1639490591;
+ s=2020; t=1639490590;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jh/7UFfBch5SSyqRuaFviWKciryzGNdklJoJwVS23Fw=;
- b=thc0iS+vTpbCGfq61xMnk2whHFya75y2GloqPTOmrlZWow2XZKWonu4jVriQbcIt6P8L5/
- qnMA/I6ImoLpVJQV+cN0/I9Dp/FB1YdbY6SrxIb8zpOPBYSUKdD0fkhZHemaAVIzcSSJMr
- pDmFe5Z6pwLRPKva7kjdVGw3FNLM6TfZlautLgNAA9ZYonH3Jpg7YLvRqlluga/GywYGPO
- qLmnfmDHGc0BgGQuvRz8arBxF7BMnE7k8ixpA08uVUFa4pH24EoxZytFd0dhcHcViHXByU
- Xjx7pB6eLIvpcS4TdGuw1I2NQAfFNZUlMr3NKjNgeu64Uw9Jdd/Oeu0tC9b4nw==
+ bh=78RmYywlYeFpLA4zEe6NDOWQn/5nT4A5D3elN1GcEx4=;
+ b=EwCUnC4F1/G4OtZaG2pwMn6tyOg830OhIQz9HkLRGx+O62p/AxwWAj9p9R6KGl5qYy5svc
+ LSElGj8fVcuaKMYn6MW+cllyu7JWecLAXka6e+MbXZoAXdkbUQA51+WnTeCX3C+MIxAm7A
+ avI2FK8Az33ah3BZOhicfJnaP6Ca75jM1Lpkoke4mW2D4mO/tuPk6Xts/XplDKSanTlskt
+ uKN9gvgRUK9lpSI0IBBX8E/NHXDuzdXpwzoKtvPxurrBXf4zrdWanhilDqCe+1tg2MKEVQ
+ psyF/jCbs+PmedOsp7H6jmRlmQzKabQ4zmvHIaqXDuI/Yg5PempLGFcoBFaTyQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1639490591;
+ s=2020e; t=1639490590;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jh/7UFfBch5SSyqRuaFviWKciryzGNdklJoJwVS23Fw=;
- b=txPrm5X8mt5LcVNbN3NIknigGNWpUBYGWhypg7htCp6FXjPkDmqQ1F3Gk5AAet56D00Xv7
- ZWkTevpbdIJ6QdAg==
+ bh=78RmYywlYeFpLA4zEe6NDOWQn/5nT4A5D3elN1GcEx4=;
+ b=rSx8wtgKzekPGO5QDXXCDyGlMJSjzSMdW1y0Xl0rHqgoVpsDpNhwtwc1NAOKujZ7vR/At3
+ 85FXV4UPml06ZwAg==
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Dec 2021 15:03:01 +0100
-Message-Id: <20211214140301.520464-9-bigeasy@linutronix.de>
+Date: Tue, 14 Dec 2021 15:02:59 +0100
+Message-Id: <20211214140301.520464-7-bigeasy@linutronix.de>
 In-Reply-To: <20211214140301.520464-1-bigeasy@linutronix.de>
 References: <20211214140301.520464-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH 8/8] drm/i915: skip
- DRM_I915_LOW_LEVEL_TRACEPOINTS with NOTRACE
+Subject: [Intel-gfx] [PATCH 6/8] drm/i915: Don't check for atomic context on
+ PREEMPT_RT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,36 +59,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@linutronix.de>
+ Thomas Gleixner <tglx@linutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The order of the header files is important. If this header file is
-included after tracepoint.h was included then the NOTRACE here becomes a
-nop. Currently this happens for two .c files which use the tracepoitns
-behind DRM_I915_LOW_LEVEL_TRACEPOINTS.
+The !in_atomic() check in _wait_for_atomic() triggers on PREEMPT_RT
+because the uncore::lock is a spinlock_t and does not disable
+preemption or interrupts.
 
-Cc: Steven Rostedt <rostedt@goodmis.org>
+Changing the uncore:lock to a raw_spinlock_t doubles the worst case
+latency on an otherwise idle testbox during testing. Therefore I'm
+currently unsure about changing this.
+
+Link: https://lore.kernel.org/all/20211006164628.s2mtsdd2jdbfyf7g@linutroni=
+x.de/
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- drivers/gpu/drm/i915/i915_trace.h | 2 +-
+ drivers/gpu/drm/i915/i915_utils.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_=
-trace.h
-index 64c3fa7cc05df..89a4089bc4baf 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -823,7 +823,7 @@ DEFINE_EVENT(i915_request, i915_request_add,
- 	     TP_ARGS(rq)
- );
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_=
+utils.h
+index 7a5925072466a..b7b56fb1e2fc7 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -344,7 +344,7 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_=
+jiffies, int to_wait_ms)
+ #define wait_for(COND, MS)		_wait_for((COND), (MS) * 1000, 10, 1000)
 =20
--#if defined(CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS)
-+#if defined(CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS) && !defined(NOTRACE)
- DEFINE_EVENT(i915_request, i915_request_guc_submit,
- 	     TP_PROTO(struct i915_request *rq),
- 	     TP_ARGS(rq)
+ /* If CONFIG_PREEMPT_COUNT is disabled, in_atomic() always reports false. =
+*/
+-#if defined(CONFIG_DRM_I915_DEBUG) && defined(CONFIG_PREEMPT_COUNT)
++#if defined(CONFIG_DRM_I915_DEBUG) && defined(CONFIG_PREEMPT_COUNT) && !de=
+fined(CONFIG_PREEMPT_RT)
+ # define _WAIT_FOR_ATOMIC_CHECK(ATOMIC) WARN_ON_ONCE((ATOMIC) && !in_atomi=
+c())
+ #else
+ # define _WAIT_FOR_ATOMIC_CHECK(ATOMIC) do { } while (0)
 --=20
 2.34.1
 
