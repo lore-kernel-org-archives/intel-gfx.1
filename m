@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14F0CC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 14:28:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C779FC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 14:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5360A1122CD;
-	Thu, 16 Dec 2021 14:28:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1FB31122D1;
+	Thu, 16 Dec 2021 14:28:13 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD48D10FF3B;
- Thu, 16 Dec 2021 14:28:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C60751122C4;
+ Thu, 16 Dec 2021 14:28:08 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Dec 2021 15:27:43 +0100
-Message-Id: <20211216142749.1966107-12-maarten.lankhorst@linux.intel.com>
+Date: Thu, 16 Dec 2021 15:27:48 +0100
+Message-Id: <20211216142749.1966107-17-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211216142749.1966107-1-maarten.lankhorst@linux.intel.com>
 References: <20211216142749.1966107-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/17] drm/i915: Add ww ctx to
- i915_gem_object_trylock
+Subject: [Intel-gfx] [PATCH v3 16/17] drm/i915: Remove support for unlocked
+ i915_vma unbind
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,113 +39,125 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is required for i915_gem_evict_vm, to be able to evict the entire VM,
-including objects that are already locked to the current ww ctx.
+Now that we require the object lock for all ops, some code handling
+race conditions can be removed.
+
+This is required to not take short-term pins inside execbuf.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Acked-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.h   | 8 ++++++--
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c | 4 ++--
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c   | 2 +-
- drivers/gpu/drm/i915/gt/intel_engine_pm.c    | 2 +-
- drivers/gpu/drm/i915/gt/mock_engine.c        | 2 +-
- drivers/gpu/drm/i915/gt/selftest_migrate.c   | 2 +-
- 6 files changed, 12 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/i915_vma.c | 55 +++++----------------------------
+ 1 file changed, 8 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 66f20b803b01..f66d46882ea7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -210,9 +210,13 @@ static inline int i915_gem_object_lock_interruptible(struct drm_i915_gem_object
- 	return __i915_gem_object_lock(obj, ww, true);
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 97093ecc3f97..bdd348fc755c 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -776,7 +776,6 @@ i915_vma_detach(struct i915_vma *vma)
+ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
+ {
+ 	unsigned int bound;
+-	bool pinned = true;
+ 
+ 	bound = atomic_read(&vma->flags);
+ 	do {
+@@ -786,34 +785,10 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
+ 		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR)))
+ 			return false;
+ 
+-		if (!(bound & I915_VMA_PIN_MASK))
+-			goto unpinned;
+-
+ 		GEM_BUG_ON(((bound + 1) & I915_VMA_PIN_MASK) == 0);
+ 	} while (!atomic_try_cmpxchg(&vma->flags, &bound, bound + 1));
+ 
+ 	return true;
+-
+-unpinned:
+-	/*
+-	 * If pin_count==0, but we are bound, check under the lock to avoid
+-	 * racing with a concurrent i915_vma_unbind().
+-	 */
+-	mutex_lock(&vma->vm->mutex);
+-	do {
+-		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR))) {
+-			pinned = false;
+-			break;
+-		}
+-
+-		if (unlikely(flags & ~bound)) {
+-			pinned = false;
+-			break;
+-		}
+-	} while (!atomic_try_cmpxchg(&vma->flags, &bound, bound + 1));
+-	mutex_unlock(&vma->vm->mutex);
+-
+-	return pinned;
  }
  
--static inline bool i915_gem_object_trylock(struct drm_i915_gem_object *obj)
-+static inline bool i915_gem_object_trylock(struct drm_i915_gem_object *obj,
-+					   struct i915_gem_ww_ctx *ww)
+ static struct scatterlist *
+@@ -1152,7 +1127,6 @@ static int
+ __i915_vma_get_pages(struct i915_vma *vma)
  {
--	return dma_resv_trylock(obj->base.resv);
-+	if (!ww)
-+		return dma_resv_trylock(obj->base.resv);
-+	else
-+		return ww_mutex_trylock(&obj->base.resv->lock, &ww->ctx);
- }
+ 	struct sg_table *pages;
+-	int ret;
  
- static inline void i915_gem_object_unlock(struct drm_i915_gem_object *obj)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index ad2123369e0d..85ff182ddbc2 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -216,7 +216,7 @@ i915_gem_shrink(struct i915_gem_ww_ctx *ww,
- 
- 			/* May arrive from get_pages on another bo */
- 			if (!ww) {
--				if (!i915_gem_object_trylock(obj))
-+				if (!i915_gem_object_trylock(obj, NULL))
- 					goto skip;
- 			} else {
- 				err = i915_gem_object_lock(obj, ww);
-@@ -410,7 +410,7 @@ i915_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr
- 		if (!vma->iomap || i915_vma_is_active(vma))
- 			continue;
- 
--		if (!i915_gem_object_trylock(obj))
-+		if (!i915_gem_object_trylock(obj, NULL))
- 			continue;
- 
- 		if (__i915_vma_unbind(vma) == 0)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index ad7a8e9e13e7..7df50fd6cc7b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -656,7 +656,7 @@ static int __i915_gem_object_create_stolen(struct intel_memory_region *mem,
- 	cache_level = HAS_LLC(mem->i915) ? I915_CACHE_LLC : I915_CACHE_NONE;
- 	i915_gem_object_set_cache_coherency(obj, cache_level);
- 
--	if (WARN_ON(!i915_gem_object_trylock(obj)))
-+	if (WARN_ON(!i915_gem_object_trylock(obj, NULL)))
- 		return -EBUSY;
- 
- 	i915_gem_object_init_memory_region(obj, mem);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-index a8a2ad44b7e3..b0a4a2dbe3ee 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-@@ -26,7 +26,7 @@ static void dbg_poison_ce(struct intel_context *ce)
- 		int type = i915_coherent_map_type(ce->engine->i915, obj, true);
- 		void *map;
- 
--		if (!i915_gem_object_trylock(obj))
-+		if (!i915_gem_object_trylock(obj, NULL))
- 			return;
- 
- 		map = i915_gem_object_pin_map(obj, type);
-diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index bb99fc03f503..240265354274 100644
---- a/drivers/gpu/drm/i915/gt/mock_engine.c
-+++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -17,7 +17,7 @@ static int mock_timeline_pin(struct intel_timeline *tl)
- {
- 	int err;
- 
--	if (WARN_ON(!i915_gem_object_trylock(tl->hwsp_ggtt->obj)))
-+	if (WARN_ON(!i915_gem_object_trylock(tl->hwsp_ggtt->obj, NULL)))
- 		return -EBUSY;
- 
- 	err = intel_timeline_pin_map(tl);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-index e21787301bbd..cb574ea6b29d 100644
---- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-@@ -465,7 +465,7 @@ create_init_lmem_internal(struct intel_gt *gt, size_t sz, bool try_lmem)
- 			return obj;
+ 	/*
+ 	 * The vma->pages are only valid within the lifespan of the borrowed
+@@ -1185,18 +1159,16 @@ __i915_vma_get_pages(struct i915_vma *vma)
+ 		break;
  	}
  
--	i915_gem_object_trylock(obj);
-+	i915_gem_object_trylock(obj, NULL);
- 	err = i915_gem_object_pin_pages(obj);
- 	if (err) {
- 		i915_gem_object_unlock(obj);
+-	ret = 0;
+ 	if (IS_ERR(pages)) {
+-		ret = PTR_ERR(pages);
+-		pages = NULL;
+ 		drm_err(&vma->vm->i915->drm,
+-			"Failed to get pages for VMA view type %u (%d)!\n",
+-			vma->ggtt_view.type, ret);
++			"Failed to get pages for VMA view type %u (%ld)!\n",
++			vma->ggtt_view.type, PTR_ERR(pages));
++		return PTR_ERR(pages);
+ 	}
+ 
+ 	vma->pages = pages;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ I915_SELFTEST_EXPORT int i915_vma_get_pages(struct i915_vma *vma)
+@@ -1228,25 +1200,14 @@ I915_SELFTEST_EXPORT int i915_vma_get_pages(struct i915_vma *vma)
+ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
+ {
+ 	/* We allocate under vma_get_pages, so beware the shrinker */
+-	struct sg_table *pages = READ_ONCE(vma->pages);
+-
+ 	GEM_BUG_ON(atomic_read(&vma->pages_count) < count);
+ 
+ 	if (atomic_sub_return(count, &vma->pages_count) == 0) {
+-		/*
+-		 * The atomic_sub_return is a read barrier for the READ_ONCE of
+-		 * vma->pages above.
+-		 *
+-		 * READ_ONCE is safe because this is either called from the same
+-		 * function (i915_vma_pin_ww), or guarded by vma->vm->mutex.
+-		 *
+-		 * TODO: We're leaving vma->pages dangling, until vma->obj->resv
+-		 * lock is required.
+-		 */
+-		if (pages != vma->obj->mm.pages) {
+-			sg_free_table(pages);
+-			kfree(pages);
++		if (vma->pages != vma->obj->mm.pages) {
++			sg_free_table(vma->pages);
++			kfree(vma->pages);
+ 		}
++		vma->pages = NULL;
+ 
+ 		i915_gem_object_unpin_pages(vma->obj);
+ 	}
 -- 
 2.34.1
 
