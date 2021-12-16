@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFCCC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 14:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 573CAC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 14:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15FAA1122DD;
-	Thu, 16 Dec 2021 14:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23B0C1122C4;
+	Thu, 16 Dec 2021 14:28:13 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2AA10FF15;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6800010FF0E;
  Thu, 16 Dec 2021 14:28:07 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Dec 2021 15:27:40 +0100
-Message-Id: <20211216142749.1966107-9-maarten.lankhorst@linux.intel.com>
+Date: Thu, 16 Dec 2021 15:27:39 +0100
+Message-Id: <20211216142749.1966107-8-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211216142749.1966107-1-maarten.lankhorst@linux.intel.com>
 References: <20211216142749.1966107-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 08/17] drm/i915: Call i915_gem_evict_vm in
- vm_fault_gtt to prevent new ENOSPC errors
+Subject: [Intel-gfx] [PATCH v3 07/17] drm/i915: Ensure i915_vma tests do not
+ get -ENOSPC with the locking changes.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,44 +40,60 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we cannot unbind kill the currently locked object directly
-because we're removing short term pinning, we may have to unbind the
-object from gtt manually, using a i915_gem_evict_vm() call.
+Now that we require locking to evict, multiple vmas from the same object
+might not be evicted. This is expected and required, because execbuf will
+move to short-term pinning by using the lock only. This will cause these
+tests to fail, because they create a ton of vma's for the same object.
+
+Unbind manually to prevent spurious -ENOSPC in those mock tests.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_vma.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index af81d6c3332a..00cd9642669a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -358,8 +358,22 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
- 			vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
- 		}
+diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
+index 1f10fe36619b..5c5809dfe9b2 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_vma.c
++++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
+@@ -691,7 +691,11 @@ static int igt_vma_rotate_remap(void *arg)
+ 					}
  
--		/* The entire mappable GGTT is pinned? Unexpected! */
--		GEM_BUG_ON(vma == ERR_PTR(-ENOSPC));
-+		/*
-+		 * The entire mappable GGTT is pinned? Unexpected!
-+		 * Try to evict the object we locked too, as normally we skip it
-+		 * due to lack of short term pinning inside execbuf.
-+		 */
-+		if (vma == ERR_PTR(-ENOSPC)) {
-+			ret = mutex_lock_interruptible(&ggtt->vm.mutex);
-+			if (!ret) {
-+				ret = i915_gem_evict_vm(&ggtt->vm);
-+				mutex_unlock(&ggtt->vm.mutex);
-+			}
-+			if (ret)
-+				goto err_reset;
-+			vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
+ 					i915_vma_unpin(vma);
+-
++					err = i915_vma_unbind(vma);
++					if (err) {
++						pr_err("Unbinding returned %i\n", err);
++						goto out_object;
++					}
+ 					cond_resched();
+ 				}
+ 			}
+@@ -848,6 +852,11 @@ static int igt_vma_partial(void *arg)
+ 
+ 				i915_vma_unpin(vma);
+ 				nvma++;
++				err = i915_vma_unbind(vma);
++				if (err) {
++					pr_err("Unbinding returned %i\n", err);
++					goto out_object;
++				}
+ 
+ 				cond_resched();
+ 			}
+@@ -882,6 +891,12 @@ static int igt_vma_partial(void *arg)
+ 
+ 		i915_vma_unpin(vma);
+ 
++		err = i915_vma_unbind(vma);
++		if (err) {
++			pr_err("Unbinding returned %i\n", err);
++			goto out_object;
 +		}
-+		GEM_WARN_ON(vma == ERR_PTR(-ENOSPC));
- 	}
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
++
+ 		count = 0;
+ 		list_for_each_entry(vma, &obj->vma.list, obj_link)
+ 			count++;
 -- 
 2.34.1
 
