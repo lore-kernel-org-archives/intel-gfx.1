@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47987C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 14:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78EDCC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 14:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1196D112888;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6822E11288C;
 	Fri, 17 Dec 2021 14:53:02 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94056112880;
- Fri, 17 Dec 2021 14:52:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="300540431"
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="300540431"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 285DB11287B;
+ Fri, 17 Dec 2021 14:52:55 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="300540421"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="300540421"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2021 06:52:58 -0800
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="506789781"
+ 17 Dec 2021 06:52:54 -0800
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="506789770"
 Received: from olindum-mobl1.ger.corp.intel.com (HELO
  thellstr-mobl1.intel.com) ([10.249.254.180])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2021 06:52:56 -0800
+ 17 Dec 2021 06:52:52 -0800
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 17 Dec 2021 15:52:28 +0100
-Message-Id: <20211217145228.10987-8-thomas.hellstrom@linux.intel.com>
+Date: Fri, 17 Dec 2021 15:52:26 +0100
+Message-Id: <20211217145228.10987-6-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211217145228.10987-1-thomas.hellstrom@linux.intel.com>
 References: <20211217145228.10987-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 7/7] drm/i915: Use struct vma_resource
- instead of struct vma_snapshot
+Subject: [Intel-gfx] [PATCH v3 5/7] drm/i915: Use the vma resource as
+ argument for gtt binding / unbinding
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,850 +52,1380 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is always a struct vma_resource guaranteed to be alive when we
-access a corresponding struct vma_snapshot.
+When introducing asynchronous unbinding, the vma itself may no longer
+be alive when the actual binding or unbinding takes place.
 
-So ditch the latter and instead of allocating vma_snapshots, reference
-the already existning vma_resource.
+Update the gtt i915_vma_ops accordingly to take a struct i915_vma_resource
+instead of a struct i915_vma for the bind_vma() and unbind_vma() ops.
+Similarly change the insert_entries() op for struct i915_address_space.
 
-This requires a couple of extra members in struct vma_resource but that's
-a small price to pay for the simplification.
+Replace a couple of i915_vma_snapshot members with their newly introduced
+i915_vma_resource counterparts, since they have the same lifetime.
+
+Also make sure to avoid changing the struct i915_vma_flags (in particular
+the bind flags) async. That should now only be done sync under the
+vm mutex.
 
 v2:
-- Fix a missing include and declaration (kernel test robot <lkp@intel.com>)
+- Update the vma_res::bound_flags when binding to the aliased ggtt
 
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |   1 -
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  15 +--
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   9 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  87 ++++++------
- drivers/gpu/drm/i915/i915_request.c           |  12 +-
- drivers/gpu/drm/i915/i915_request.h           |   6 +-
- drivers/gpu/drm/i915/i915_vma.c               |  14 +-
- drivers/gpu/drm/i915/i915_vma_resource.c      |   3 +
- drivers/gpu/drm/i915/i915_vma_resource.h      |  28 +++-
- drivers/gpu/drm/i915/i915_vma_snapshot.c      | 125 ------------------
- drivers/gpu/drm/i915/i915_vma_snapshot.h      | 101 --------------
- 11 files changed, 88 insertions(+), 313 deletions(-)
- delete mode 100644 drivers/gpu/drm/i915/i915_vma_snapshot.c
- delete mode 100644 drivers/gpu/drm/i915/i915_vma_snapshot.h
+ drivers/gpu/drm/i915/display/intel_dpt.c      | 27 ++---
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 27 +----
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   | 37 +++----
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c          | 19 ++--
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 37 +++----
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  4 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          | 70 ++++++-------
+ drivers/gpu/drm/i915/gt/intel_gtt.h           | 15 +--
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         | 22 +++--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 13 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h      |  2 +-
+ drivers/gpu/drm/i915/i915_debugfs.c           |  3 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  6 +-
+ drivers/gpu/drm/i915/i915_vma.c               | 24 ++++-
+ drivers/gpu/drm/i915/i915_vma.h               | 11 +--
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  9 +-
+ drivers/gpu/drm/i915/i915_vma_resource.h      | 99 ++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_vma_snapshot.c      |  4 -
+ drivers/gpu/drm/i915/i915_vma_snapshot.h      |  8 --
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 64 ++++++++----
+ drivers/gpu/drm/i915/selftests/mock_gtt.c     | 12 +--
+ 21 files changed, 307 insertions(+), 206 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 98433ad74194..aa86ac33effc 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -175,7 +175,6 @@ i915-y += \
- 	  i915_ttm_buddy_manager.o \
- 	  i915_vma.o \
- 	  i915_vma_resource.o \
--	  i915_vma_snapshot.o \
- 	  intel_wopcm.o
+diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
+index 963ca7155b06..f9f2a4ef38cd 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpt.c
++++ b/drivers/gpu/drm/i915/display/intel_dpt.c
+@@ -48,7 +48,7 @@ static void dpt_insert_page(struct i915_address_space *vm,
+ }
  
- # general-purpose microcontroller (GuC) support
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index b6faae1f9081..51649bbb8cc3 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -29,7 +29,6 @@
- #include "i915_gem_ioctls.h"
- #include "i915_trace.h"
- #include "i915_user_extensions.h"
--#include "i915_vma_snapshot.h"
- 
- struct eb_vma {
- 	struct i915_vma *vma;
-@@ -1952,7 +1951,6 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
+ static void dpt_insert_entries(struct i915_address_space *vm,
+-			       struct i915_vma *vma,
++			       struct i915_vma_resource *vma_res,
+ 			       enum i915_cache_level level,
+ 			       u32 flags)
  {
- 	const unsigned int count = eb->buffer_count;
- 	unsigned int i = count, j;
--	struct i915_vma_snapshot *vsnap;
+@@ -64,8 +64,8 @@ static void dpt_insert_entries(struct i915_address_space *vm,
+ 	 * not to allow the user to override access to a read only page.
+ 	 */
  
- 	while (i--) {
- 		struct eb_vma *ev = &eb->vma[i];
-@@ -1962,11 +1960,6 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
- 		if (!(flags & EXEC_OBJECT_CAPTURE))
- 			continue;
+-	i = vma->node.start / I915_GTT_PAGE_SIZE;
+-	for_each_sgt_daddr(addr, sgt_iter, vma->pages)
++	i = vma_res->start / I915_GTT_PAGE_SIZE;
++	for_each_sgt_daddr(addr, sgt_iter, vma_res->bi.pages)
+ 		gen8_set_pte(&base[i++], pte_encode | addr);
+ }
  
--		vsnap = i915_vma_snapshot_alloc(GFP_KERNEL);
--		if (!vsnap)
--			continue;
+@@ -76,35 +76,38 @@ static void dpt_clear_range(struct i915_address_space *vm,
+ 
+ static void dpt_bind_vma(struct i915_address_space *vm,
+ 			 struct i915_vm_pt_stash *stash,
+-			 struct i915_vma *vma,
++			 struct i915_vma_resource *vma_res,
+ 			 enum i915_cache_level cache_level,
+ 			 u32 flags)
+ {
+-	struct drm_i915_gem_object *obj = vma->obj;
+ 	u32 pte_flags;
+ 
++	if (vma_res->bound_flags)
++		return;
++
+ 	/* Applicable to VLV (gen8+ do not support RO in the GGTT) */
+ 	pte_flags = 0;
+-	if (vma->vm->has_read_only && i915_gem_object_is_readonly(obj))
++	if (vm->has_read_only && vma_res->bi.readonly)
+ 		pte_flags |= PTE_READ_ONLY;
+-	if (i915_gem_object_is_lmem(obj))
++	if (vma_res->bi.lmem)
+ 		pte_flags |= PTE_LM;
+ 
+-	vma->vm->insert_entries(vma->vm, vma, cache_level, pte_flags);
++	vm->insert_entries(vm, vma_res, cache_level, pte_flags);
+ 
+-	vma->page_sizes.gtt = I915_GTT_PAGE_SIZE;
++	vma_res->page_sizes_gtt = I915_GTT_PAGE_SIZE;
+ 
+ 	/*
+ 	 * Without aliasing PPGTT there's no difference between
+ 	 * GLOBAL/LOCAL_BIND, it's all the same ptes. Hence unconditionally
+ 	 * upgrade to both bound if we bind either to avoid double-binding.
+ 	 */
+-	atomic_or(I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND, &vma->flags);
++	vma_res->bound_flags = I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND;
+ }
+ 
+-static void dpt_unbind_vma(struct i915_address_space *vm, struct i915_vma *vma)
++static void dpt_unbind_vma(struct i915_address_space *vm,
++			   struct i915_vma_resource *vma_res)
+ {
+-	vm->clear_range(vm, vma->node.start, vma->size);
++	vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+ }
+ 
+ static void dpt_cleanup(struct i915_address_space *vm)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index f9f7e44099fe..f99d260e0684 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -15,6 +15,7 @@
+ 
+ #include "i915_active.h"
+ #include "i915_selftest.h"
++#include "i915_vma_resource.h"
+ 
+ struct drm_i915_gem_object;
+ struct intel_fronbuffer;
+@@ -549,31 +550,7 @@ struct drm_i915_gem_object {
+ 		struct sg_table *pages;
+ 		void *mapping;
+ 
+-		struct i915_page_sizes {
+-			/**
+-			 * The sg mask of the pages sg_table. i.e the mask of
+-			 * of the lengths for each sg entry.
+-			 */
+-			unsigned int phys;
 -
--		i915_vma_snapshot_init(vsnap, vma, "user");
- 		for_each_batch_create_order(eb, j) {
- 			struct i915_capture_list *capture;
+-			/**
+-			 * The gtt page sizes we are allowed to use given the
+-			 * sg mask and the supported page sizes. This will
+-			 * express the smallest unit we can use for the whole
+-			 * object, as well as the larger sizes we may be able
+-			 * to use opportunistically.
+-			 */
+-			unsigned int sg;
+-
+-			/**
+-			 * The actual gtt page size usage. Since we can have
+-			 * multiple vma associated with this object we need to
+-			 * prevent any trampling of state, hence a copy of this
+-			 * struct also lives in each vma, therefore the gtt
+-			 * value here should only be read/write through the vma.
+-			 */
+-			unsigned int gtt;
+-		} page_sizes;
++		struct i915_page_sizes page_sizes;
  
-@@ -1975,10 +1968,9 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
- 				continue;
+ 		I915_SELFTEST_DECLARE(unsigned int page_mask);
  
- 			capture->next = eb->capture_lists[j];
--			capture->vma_snapshot = i915_vma_snapshot_get(vsnap);
-+			capture->vma_res = i915_vma_resource_get(vma->resource);
- 			eb->capture_lists[j] = capture;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index c69c7d45aabc..52c82cd4b548 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -370,9 +370,9 @@ static int igt_check_page_sizes(struct i915_vma *vma)
+ 		err = -EINVAL;
+ 	}
+ 
+-	if (!HAS_PAGE_SIZES(i915, vma->page_sizes.gtt)) {
++	if (!HAS_PAGE_SIZES(i915, vma->resource->page_sizes_gtt)) {
+ 		pr_err("unsupported page_sizes.gtt=%u, supported=%u\n",
+-		       vma->page_sizes.gtt & ~supported, supported);
++		       vma->resource->page_sizes_gtt & ~supported, supported);
+ 		err = -EINVAL;
+ 	}
+ 
+@@ -403,15 +403,9 @@ static int igt_check_page_sizes(struct i915_vma *vma)
+ 	if (i915_gem_object_is_lmem(obj) &&
+ 	    IS_ALIGNED(vma->node.start, SZ_2M) &&
+ 	    vma->page_sizes.sg & SZ_2M &&
+-	    vma->page_sizes.gtt < SZ_2M) {
++	    vma->resource->page_sizes_gtt < SZ_2M) {
+ 		pr_err("gtt pages mismatch for LMEM, expected 2M GTT pages, sg(%u), gtt(%u)\n",
+-		       vma->page_sizes.sg, vma->page_sizes.gtt);
+-		err = -EINVAL;
+-	}
+-
+-	if (obj->mm.page_sizes.gtt) {
+-		pr_err("obj->page_sizes.gtt(%u) should never be set\n",
+-		       obj->mm.page_sizes.gtt);
++		       vma->page_sizes.sg, vma->resource->page_sizes_gtt);
+ 		err = -EINVAL;
+ 	}
+ 
+@@ -547,9 +541,9 @@ static int igt_mock_memory_region_huge_pages(void *arg)
+ 				goto out_unpin;
+ 			}
+ 
+-			if (vma->page_sizes.gtt != page_size) {
++			if (vma->resource->page_sizes_gtt != page_size) {
+ 				pr_err("%s page_sizes.gtt=%u, expected=%u\n",
+-				       __func__, vma->page_sizes.gtt,
++				       __func__, vma->resource->page_sizes_gtt,
+ 				       page_size);
+ 				err = -EINVAL;
+ 				goto out_unpin;
+@@ -630,9 +624,9 @@ static int igt_mock_ppgtt_misaligned_dma(void *arg)
+ 
+ 		err = igt_check_page_sizes(vma);
+ 
+-		if (vma->page_sizes.gtt != page_size) {
++		if (vma->resource->page_sizes_gtt != page_size) {
+ 			pr_err("page_sizes.gtt=%u, expected %u\n",
+-			       vma->page_sizes.gtt, page_size);
++			       vma->resource->page_sizes_gtt, page_size);
+ 			err = -EINVAL;
  		}
--		i915_vma_snapshot_put(vsnap);
+ 
+@@ -657,9 +651,10 @@ static int igt_mock_ppgtt_misaligned_dma(void *arg)
+ 
+ 			err = igt_check_page_sizes(vma);
+ 
+-			if (vma->page_sizes.gtt != I915_GTT_PAGE_SIZE_4K) {
++			if (vma->resource->page_sizes_gtt != I915_GTT_PAGE_SIZE_4K) {
+ 				pr_err("page_sizes.gtt=%u, expected %llu\n",
+-				       vma->page_sizes.gtt, I915_GTT_PAGE_SIZE_4K);
++				       vma->resource->page_sizes_gtt,
++				       I915_GTT_PAGE_SIZE_4K);
+ 				err = -EINVAL;
+ 			}
+ 
+@@ -805,9 +800,9 @@ static int igt_mock_ppgtt_huge_fill(void *arg)
+ 			}
+ 		}
+ 
+-		if (vma->page_sizes.gtt != expected_gtt) {
++		if (vma->resource->page_sizes_gtt != expected_gtt) {
+ 			pr_err("gtt=%u, expected=%u, size=%zd, single=%s\n",
+-			       vma->page_sizes.gtt, expected_gtt,
++			       vma->resource->page_sizes_gtt, expected_gtt,
+ 			       obj->base.size, yesno(!!single));
+ 			err = -EINVAL;
+ 			break;
+@@ -961,10 +956,10 @@ static int igt_mock_ppgtt_64K(void *arg)
+ 				}
+ 			}
+ 
+-			if (vma->page_sizes.gtt != expected_gtt) {
++			if (vma->resource->page_sizes_gtt != expected_gtt) {
+ 				pr_err("gtt=%u, expected=%u, i=%d, single=%s\n",
+-				       vma->page_sizes.gtt, expected_gtt, i,
+-				       yesno(!!single));
++				       vma->resource->page_sizes_gtt,
++				       expected_gtt, i, yesno(!!single));
+ 				err = -EINVAL;
+ 				goto out_vma_unpin;
+ 			}
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index c0d149f04949..37ae471cbae9 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -104,17 +104,17 @@ static void gen6_ppgtt_clear_range(struct i915_address_space *vm,
+ }
+ 
+ static void gen6_ppgtt_insert_entries(struct i915_address_space *vm,
+-				      struct i915_vma *vma,
++				      struct i915_vma_resource *vma_res,
+ 				      enum i915_cache_level cache_level,
+ 				      u32 flags)
+ {
+ 	struct i915_ppgtt *ppgtt = i915_vm_to_ppgtt(vm);
+ 	struct i915_page_directory * const pd = ppgtt->pd;
+-	unsigned int first_entry = vma->node.start / I915_GTT_PAGE_SIZE;
++	unsigned int first_entry = vma_res->start / I915_GTT_PAGE_SIZE;
+ 	unsigned int act_pt = first_entry / GEN6_PTES;
+ 	unsigned int act_pte = first_entry % GEN6_PTES;
+ 	const u32 pte_encode = vm->pte_encode(0, cache_level, flags);
+-	struct sgt_dma iter = sgt_dma(vma);
++	struct sgt_dma iter = sgt_dma(vma_res);
+ 	gen6_pte_t *vaddr;
+ 
+ 	GEM_BUG_ON(!pd->entry[act_pt]);
+@@ -140,7 +140,7 @@ static void gen6_ppgtt_insert_entries(struct i915_address_space *vm,
+ 		}
+ 	} while (1);
+ 
+-	vma->page_sizes.gtt = I915_GTT_PAGE_SIZE;
++	vma_res->page_sizes_gtt = I915_GTT_PAGE_SIZE;
+ }
+ 
+ static void gen6_flush_pd(struct gen6_ppgtt *ppgtt, u64 start, u64 end)
+@@ -284,13 +284,13 @@ static void pd_vma_clear_pages(struct i915_vma *vma)
+ 
+ static void pd_vma_bind(struct i915_address_space *vm,
+ 			struct i915_vm_pt_stash *stash,
+-			struct i915_vma *vma,
++			struct i915_vma_resource *vma_res,
+ 			enum i915_cache_level cache_level,
+ 			u32 unused)
+ {
+ 	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
+-	struct gen6_ppgtt *ppgtt = vma->private;
+-	u32 ggtt_offset = i915_ggtt_offset(vma) / I915_GTT_PAGE_SIZE;
++	struct gen6_ppgtt *ppgtt = vma_res->private;
++	u32 ggtt_offset = vma_res->start / I915_GTT_PAGE_SIZE;
+ 
+ 	ppgtt->pp_dir = ggtt_offset * sizeof(gen6_pte_t) << 10;
+ 	ppgtt->pd_addr = (gen6_pte_t __iomem *)ggtt->gsm + ggtt_offset;
+@@ -298,9 +298,10 @@ static void pd_vma_bind(struct i915_address_space *vm,
+ 	gen6_flush_pd(ppgtt, 0, ppgtt->base.vm.total);
+ }
+ 
+-static void pd_vma_unbind(struct i915_address_space *vm, struct i915_vma *vma)
++static void pd_vma_unbind(struct i915_address_space *vm,
++			  struct i915_vma_resource *vma_res)
+ {
+-	struct gen6_ppgtt *ppgtt = vma->private;
++	struct gen6_ppgtt *ppgtt = vma_res->private;
+ 	struct i915_page_directory * const pd = ppgtt->base.pd;
+ 	struct i915_page_table *pt;
+ 	unsigned int pde;
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index b012c50f7ce7..c43e724afa9f 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -453,20 +453,21 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
+ 	return idx;
+ }
+ 
+-static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
++static void gen8_ppgtt_insert_huge(struct i915_address_space *vm,
++				   struct i915_vma_resource *vma_res,
+ 				   struct sgt_dma *iter,
+ 				   enum i915_cache_level cache_level,
+ 				   u32 flags)
+ {
+ 	const gen8_pte_t pte_encode = gen8_pte_encode(0, cache_level, flags);
+ 	unsigned int rem = sg_dma_len(iter->sg);
+-	u64 start = vma->node.start;
++	u64 start = vma_res->start;
+ 
+-	GEM_BUG_ON(!i915_vm_is_4lvl(vma->vm));
++	GEM_BUG_ON(!i915_vm_is_4lvl(vm));
+ 
+ 	do {
+ 		struct i915_page_directory * const pdp =
+-			gen8_pdp_for_page_address(vma->vm, start);
++			gen8_pdp_for_page_address(vm, start);
+ 		struct i915_page_directory * const pd =
+ 			i915_pd_entry(pdp, __gen8_pte_index(start, 2));
+ 		gen8_pte_t encode = pte_encode;
+@@ -475,7 +476,7 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
+ 		gen8_pte_t *vaddr;
+ 		u16 index;
+ 
+-		if (vma->page_sizes.sg & I915_GTT_PAGE_SIZE_2M &&
++		if (vma_res->bi.page_sizes.sg & I915_GTT_PAGE_SIZE_2M &&
+ 		    IS_ALIGNED(iter->dma, I915_GTT_PAGE_SIZE_2M) &&
+ 		    rem >= I915_GTT_PAGE_SIZE_2M &&
+ 		    !__gen8_pte_index(start, 0)) {
+@@ -492,7 +493,7 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
+ 			page_size = I915_GTT_PAGE_SIZE;
+ 
+ 			if (!index &&
+-			    vma->page_sizes.sg & I915_GTT_PAGE_SIZE_64K &&
++			    vma_res->bi.page_sizes.sg & I915_GTT_PAGE_SIZE_64K &&
+ 			    IS_ALIGNED(iter->dma, I915_GTT_PAGE_SIZE_64K) &&
+ 			    (IS_ALIGNED(rem, I915_GTT_PAGE_SIZE_64K) ||
+ 			     rem >= (I915_PDES - index) * I915_GTT_PAGE_SIZE))
+@@ -541,9 +542,9 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
+ 		 */
+ 		if (maybe_64K != -1 &&
+ 		    (index == I915_PDES ||
+-		     (i915_vm_has_scratch_64K(vma->vm) &&
+-		      !iter->sg && IS_ALIGNED(vma->node.start +
+-					      vma->node.size,
++		     (i915_vm_has_scratch_64K(vm) &&
++		      !iter->sg && IS_ALIGNED(vma_res->start +
++					      vma_res->node_size,
+ 					      I915_GTT_PAGE_SIZE_2M)))) {
+ 			vaddr = px_vaddr(pd);
+ 			vaddr[maybe_64K] |= GEN8_PDE_IPS_64K;
+@@ -559,10 +560,10 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
+ 			 * instead - which we detect as missing results during
+ 			 * selftests.
+ 			 */
+-			if (I915_SELFTEST_ONLY(vma->vm->scrub_64K)) {
++			if (I915_SELFTEST_ONLY(vm->scrub_64K)) {
+ 				u16 i;
+ 
+-				encode = vma->vm->scratch[0]->encode;
++				encode = vm->scratch[0]->encode;
+ 				vaddr = px_vaddr(i915_pt_entry(pd, maybe_64K));
+ 
+ 				for (i = 1; i < index; i += 16)
+@@ -572,22 +573,22 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
+ 			}
+ 		}
+ 
+-		vma->page_sizes.gtt |= page_size;
++		vma_res->page_sizes_gtt |= page_size;
+ 	} while (iter->sg && sg_dma_len(iter->sg));
+ }
+ 
+ static void gen8_ppgtt_insert(struct i915_address_space *vm,
+-			      struct i915_vma *vma,
++			      struct i915_vma_resource *vma_res,
+ 			      enum i915_cache_level cache_level,
+ 			      u32 flags)
+ {
+ 	struct i915_ppgtt * const ppgtt = i915_vm_to_ppgtt(vm);
+-	struct sgt_dma iter = sgt_dma(vma);
++	struct sgt_dma iter = sgt_dma(vma_res);
+ 
+-	if (vma->page_sizes.sg > I915_GTT_PAGE_SIZE) {
+-		gen8_ppgtt_insert_huge(vma, &iter, cache_level, flags);
++	if (vma_res->bi.page_sizes.sg > I915_GTT_PAGE_SIZE) {
++		gen8_ppgtt_insert_huge(vm, vma_res, &iter, cache_level, flags);
+ 	} else  {
+-		u64 idx = vma->node.start >> GEN8_PTE_SHIFT;
++		u64 idx = vma_res->start >> GEN8_PTE_SHIFT;
+ 
+ 		do {
+ 			struct i915_page_directory * const pdp =
+@@ -597,7 +598,7 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
+ 						    cache_level, flags);
+ 		} while (idx);
+ 
+-		vma->page_sizes.gtt = I915_GTT_PAGE_SIZE;
++		vma_res->page_sizes_gtt = I915_GTT_PAGE_SIZE;
  	}
  }
  
-@@ -3281,9 +3273,8 @@ eb_requests_create(struct i915_execbuffer *eb, struct dma_fence *in_fence,
- 		 * _onstack interface.
- 		 */
- 		if (eb->batches[i]->vma)
--			i915_vma_snapshot_init_onstack(&eb->requests[i]->batch_snapshot,
--						       eb->batches[i]->vma,
--						       "batch");
-+			eb->requests[i]->batch_res =
-+				i915_vma_resource_get(eb->batches[i]->vma->resource);
- 		if (eb->batch_pool) {
- 			GEM_BUG_ON(intel_context_is_parallel(eb->context));
- 			intel_gt_buffer_pool_mark_active(eb->batch_pool,
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 74aa90587061..d1daa4cc2895 100644
+index 352254e001b4..74aa90587061 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1708,18 +1708,15 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 
- static void print_request_ring(struct drm_printer *m, struct i915_request *rq)
- {
--	struct i915_vma_snapshot *vsnap = &rq->batch_snapshot;
-+	struct i915_vma_resource *vma_res = rq->batch_res;
- 	void *ring;
- 	int size;
- 
--	if (!i915_vma_snapshot_present(vsnap))
--		vsnap = NULL;
--
+@@ -1718,8 +1718,8 @@ static void print_request_ring(struct drm_printer *m, struct i915_request *rq)
  	drm_printf(m,
  		   "[head %04x, postfix %04x, tail %04x, batch 0x%08x_%08x]:\n",
  		   rq->head, rq->postfix, rq->tail,
--		   vsnap ? upper_32_bits(vsnap->vma_resource->start) : ~0u,
--		   vsnap ? lower_32_bits(vsnap->vma_resource->start) : ~0u);
-+		   vma_res ? upper_32_bits(vma_res->start) : ~0u,
-+		   vma_res ? lower_32_bits(vma_res->start) : ~0u);
+-		   vsnap ? upper_32_bits(vsnap->gtt_offset) : ~0u,
+-		   vsnap ? lower_32_bits(vsnap->gtt_offset) : ~0u);
++		   vsnap ? upper_32_bits(vsnap->vma_resource->start) : ~0u,
++		   vsnap ? lower_32_bits(vsnap->vma_resource->start) : ~0u);
  
  	size = rq->tail - rq->head;
  	if (rq->tail < rq->head)
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index e5bb6ecf1202..e07802eadfd0 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -48,7 +48,6 @@
- #include "i915_gpu_error.h"
- #include "i915_memcpy.h"
- #include "i915_scatterlist.h"
--#include "i915_vma_snapshot.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index d85a1050f4a8..ad54941fcb98 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -238,7 +238,7 @@ static void gen8_ggtt_insert_page(struct i915_address_space *vm,
+ }
  
- #define ALLOW_FAIL (__GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
- #define ATOMIC_MAYFAIL (GFP_ATOMIC | __GFP_NOWARN)
-@@ -1013,8 +1012,10 @@ void __i915_gpu_coredump_free(struct kref *error_ref)
- 
- static struct i915_vma_coredump *
- i915_vma_coredump_create(const struct intel_gt *gt,
--			 const struct i915_vma_snapshot *vsnap,
--			 struct i915_vma_compress *compress)
-+			 const struct i915_vma_resource *vma_res,
-+			 struct i915_vma_compress *compress,
-+			 const char *name)
-+
+ static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
+-				     struct i915_vma *vma,
++				     struct i915_vma_resource *vma_res,
+ 				     enum i915_cache_level level,
+ 				     u32 flags)
  {
- 	struct i915_ggtt *ggtt = gt->ggtt;
- 	const u64 slot = ggtt->error_capture.start;
-@@ -1024,7 +1025,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+@@ -255,10 +255,10 @@ static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
+ 	 */
  
- 	might_sleep();
+ 	gte = (gen8_pte_t __iomem *)ggtt->gsm;
+-	gte += vma->node.start / I915_GTT_PAGE_SIZE;
+-	end = gte + vma->node.size / I915_GTT_PAGE_SIZE;
++	gte += vma_res->start / I915_GTT_PAGE_SIZE;
++	end = gte + vma_res->node_size / I915_GTT_PAGE_SIZE;
  
--	if (!vsnap || !vsnap->pages || !compress)
-+	if (!vma_res || !vma_res->bi.pages || !compress)
- 		return NULL;
+-	for_each_sgt_daddr(addr, iter, vma->pages)
++	for_each_sgt_daddr(addr, iter, vma_res->bi.pages)
+ 		gen8_set_pte(gte++, pte_encode | addr);
+ 	GEM_BUG_ON(gte > end);
  
- 	dst = kmalloc(sizeof(*dst), ALLOW_FAIL);
-@@ -1037,12 +1038,12 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+@@ -295,7 +295,7 @@ static void gen6_ggtt_insert_page(struct i915_address_space *vm,
+  * through the GMADR mapped BAR (i915->mm.gtt->gtt).
+  */
+ static void gen6_ggtt_insert_entries(struct i915_address_space *vm,
+-				     struct i915_vma *vma,
++				     struct i915_vma_resource *vma_res,
+ 				     enum i915_cache_level level,
+ 				     u32 flags)
+ {
+@@ -306,10 +306,10 @@ static void gen6_ggtt_insert_entries(struct i915_address_space *vm,
+ 	dma_addr_t addr;
+ 
+ 	gte = (gen6_pte_t __iomem *)ggtt->gsm;
+-	gte += vma->node.start / I915_GTT_PAGE_SIZE;
+-	end = gte + vma->node.size / I915_GTT_PAGE_SIZE;
++	gte += vma_res->start / I915_GTT_PAGE_SIZE;
++	end = gte + vma_res->node_size / I915_GTT_PAGE_SIZE;
+ 
+-	for_each_sgt_daddr(addr, iter, vma->pages)
++	for_each_sgt_daddr(addr, iter, vma_res->bi.pages)
+ 		iowrite32(vm->pte_encode(addr, level, flags), gte++);
+ 	GEM_BUG_ON(gte > end);
+ 
+@@ -392,7 +392,7 @@ static void bxt_vtd_ggtt_insert_page__BKL(struct i915_address_space *vm,
+ 
+ struct insert_entries {
+ 	struct i915_address_space *vm;
+-	struct i915_vma *vma;
++	struct i915_vma_resource *vma_res;
+ 	enum i915_cache_level level;
+ 	u32 flags;
+ };
+@@ -401,18 +401,18 @@ static int bxt_vtd_ggtt_insert_entries__cb(void *_arg)
+ {
+ 	struct insert_entries *arg = _arg;
+ 
+-	gen8_ggtt_insert_entries(arg->vm, arg->vma, arg->level, arg->flags);
++	gen8_ggtt_insert_entries(arg->vm, arg->vma_res, arg->level, arg->flags);
+ 	bxt_vtd_ggtt_wa(arg->vm);
+ 
+ 	return 0;
+ }
+ 
+ static void bxt_vtd_ggtt_insert_entries__BKL(struct i915_address_space *vm,
+-					     struct i915_vma *vma,
++					     struct i915_vma_resource *vma_res,
+ 					     enum i915_cache_level level,
+ 					     u32 flags)
+ {
+-	struct insert_entries arg = { vm, vma, level, flags };
++	struct insert_entries arg = { vm, vma_res, level, flags };
+ 
+ 	stop_machine(bxt_vtd_ggtt_insert_entries__cb, &arg, NULL);
+ }
+@@ -451,14 +451,14 @@ static void i915_ggtt_insert_page(struct i915_address_space *vm,
+ }
+ 
+ static void i915_ggtt_insert_entries(struct i915_address_space *vm,
+-				     struct i915_vma *vma,
++				     struct i915_vma_resource *vma_res,
+ 				     enum i915_cache_level cache_level,
+ 				     u32 unused)
+ {
+ 	unsigned int flags = (cache_level == I915_CACHE_NONE) ?
+ 		AGP_USER_MEMORY : AGP_USER_CACHED_MEMORY;
+ 
+-	intel_gtt_insert_sg_entries(vma->pages, vma->node.start >> PAGE_SHIFT,
++	intel_gtt_insert_sg_entries(vma_res->bi.pages, vma_res->start >> PAGE_SHIFT,
+ 				    flags);
+ }
+ 
+@@ -470,30 +470,32 @@ static void i915_ggtt_clear_range(struct i915_address_space *vm,
+ 
+ static void ggtt_bind_vma(struct i915_address_space *vm,
+ 			  struct i915_vm_pt_stash *stash,
+-			  struct i915_vma *vma,
++			  struct i915_vma_resource *vma_res,
+ 			  enum i915_cache_level cache_level,
+ 			  u32 flags)
+ {
+-	struct drm_i915_gem_object *obj = vma->obj;
+ 	u32 pte_flags;
+ 
+-	if (i915_vma_is_bound(vma, ~flags & I915_VMA_BIND_MASK))
++	if (vma_res->bound_flags & (~flags & I915_VMA_BIND_MASK))
+ 		return;
+ 
++	vma_res->bound_flags |= flags;
++
+ 	/* Applicable to VLV (gen8+ do not support RO in the GGTT) */
+ 	pte_flags = 0;
+-	if (i915_gem_object_is_readonly(obj))
++	if (vma_res->bi.readonly)
+ 		pte_flags |= PTE_READ_ONLY;
+-	if (i915_gem_object_is_lmem(obj))
++	if (vma_res->bi.lmem)
+ 		pte_flags |= PTE_LM;
+ 
+-	vm->insert_entries(vm, vma, cache_level, pte_flags);
+-	vma->page_sizes.gtt = I915_GTT_PAGE_SIZE;
++	vm->insert_entries(vm, vma_res, cache_level, pte_flags);
++	vma_res->page_sizes_gtt = I915_GTT_PAGE_SIZE;
+ }
+ 
+-static void ggtt_unbind_vma(struct i915_address_space *vm, struct i915_vma *vma)
++static void ggtt_unbind_vma(struct i915_address_space *vm,
++			    struct i915_vma_resource *vma_res)
+ {
+-	vm->clear_range(vm, vma->node.start, vma->size);
++	vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+ }
+ 
+ static int ggtt_reserve_guc_top(struct i915_ggtt *ggtt)
+@@ -626,7 +628,7 @@ static int init_ggtt(struct i915_ggtt *ggtt)
+ 
+ static void aliasing_gtt_bind_vma(struct i915_address_space *vm,
+ 				  struct i915_vm_pt_stash *stash,
+-				  struct i915_vma *vma,
++				  struct i915_vma_resource *vma_res,
+ 				  enum i915_cache_level cache_level,
+ 				  u32 flags)
+ {
+@@ -634,25 +636,27 @@ static void aliasing_gtt_bind_vma(struct i915_address_space *vm,
+ 
+ 	/* Currently applicable only to VLV */
+ 	pte_flags = 0;
+-	if (i915_gem_object_is_readonly(vma->obj))
++	if (vma_res->bi.readonly)
+ 		pte_flags |= PTE_READ_ONLY;
+ 
+ 	if (flags & I915_VMA_LOCAL_BIND)
+ 		ppgtt_bind_vma(&i915_vm_to_ggtt(vm)->alias->vm,
+-			       stash, vma, cache_level, flags);
++			       stash, vma_res, cache_level, flags);
+ 
+ 	if (flags & I915_VMA_GLOBAL_BIND)
+-		vm->insert_entries(vm, vma, cache_level, pte_flags);
++		vm->insert_entries(vm, vma_res, cache_level, pte_flags);
++
++	vma_res->bound_flags |= flags;
+ }
+ 
+ static void aliasing_gtt_unbind_vma(struct i915_address_space *vm,
+-				    struct i915_vma *vma)
++				    struct i915_vma_resource *vma_res)
+ {
+-	if (i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND))
+-		vm->clear_range(vm, vma->node.start, vma->size);
++	if (vma_res->bound_flags & I915_VMA_GLOBAL_BIND)
++		vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+ 
+-	if (i915_vma_is_bound(vma, I915_VMA_LOCAL_BIND))
+-		ppgtt_unbind_vma(&i915_vm_to_ggtt(vm)->alias->vm, vma);
++	if (vma_res->bound_flags & I915_VMA_LOCAL_BIND)
++		ppgtt_unbind_vma(&i915_vm_to_ggtt(vm)->alias->vm, vma_res);
+ }
+ 
+ static int init_aliasing_ppgtt(struct i915_ggtt *ggtt)
+@@ -1304,7 +1308,7 @@ bool i915_ggtt_resume_vm(struct i915_address_space *vm)
+ 			atomic_read(&vma->flags) & I915_VMA_BIND_MASK;
+ 
+ 		GEM_BUG_ON(!was_bound);
+-		vma->ops->bind_vma(vm, NULL, vma,
++		vma->ops->bind_vma(vm, NULL, vma->resource,
+ 				   obj ? obj->cache_level : 0,
+ 				   was_bound);
+ 		if (obj) { /* only used during resume => exclusive access */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 15b98321e89a..19c2497630e8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -27,6 +27,7 @@
+ 
+ #include "gt/intel_reset.h"
+ #include "i915_selftest.h"
++#include "i915_vma_resource.h"
+ #include "i915_vma_types.h"
+ 
+ #define I915_GFP_ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+@@ -200,7 +201,7 @@ struct i915_vma_ops {
+ 	/* Map an object into an address space with the given cache flags. */
+ 	void (*bind_vma)(struct i915_address_space *vm,
+ 			 struct i915_vm_pt_stash *stash,
+-			 struct i915_vma *vma,
++			 struct i915_vma_resource *vma_res,
+ 			 enum i915_cache_level cache_level,
+ 			 u32 flags);
+ 	/*
+@@ -208,7 +209,7 @@ struct i915_vma_ops {
+ 	 * setting the valid PTE entries to a reserved scratch page.
+ 	 */
+ 	void (*unbind_vma)(struct i915_address_space *vm,
+-			   struct i915_vma *vma);
++			   struct i915_vma_resource *vma_res);
+ 
+ 	int (*set_pages)(struct i915_vma *vma);
+ 	void (*clear_pages)(struct i915_vma *vma);
+@@ -288,7 +289,7 @@ struct i915_address_space {
+ 			    enum i915_cache_level cache_level,
+ 			    u32 flags);
+ 	void (*insert_entries)(struct i915_address_space *vm,
+-			       struct i915_vma *vma,
++			       struct i915_vma_resource *vma_res,
+ 			       enum i915_cache_level cache_level,
+ 			       u32 flags);
+ 	void (*cleanup)(struct i915_address_space *vm);
+@@ -607,11 +608,11 @@ void clear_pages(struct i915_vma *vma);
+ 
+ void ppgtt_bind_vma(struct i915_address_space *vm,
+ 		    struct i915_vm_pt_stash *stash,
+-		    struct i915_vma *vma,
++		    struct i915_vma_resource *vma_res,
+ 		    enum i915_cache_level cache_level,
+ 		    u32 flags);
+ void ppgtt_unbind_vma(struct i915_address_space *vm,
+-		      struct i915_vma *vma);
++		      struct i915_vma_resource *vma_res);
+ 
+ void gtt_write_workarounds(struct intel_gt *gt);
+ 
+@@ -634,8 +635,8 @@ __vm_create_scratch_for_read_pinned(struct i915_address_space *vm, unsigned long
+ static inline struct sgt_dma {
+ 	struct scatterlist *sg;
+ 	dma_addr_t dma, max;
+-} sgt_dma(struct i915_vma *vma) {
+-	struct scatterlist *sg = vma->pages->sgl;
++} sgt_dma(struct i915_vma_resource *vma_res) {
++	struct scatterlist *sg = vma_res->bi.pages->sgl;
+ 	dma_addr_t addr = sg_dma_address(sg);
+ 
+ 	return (struct sgt_dma){ sg, addr, addr + sg_dma_len(sg) };
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index 4396bfd630d8..39ed6d709022 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -179,32 +179,34 @@ struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt,
+ 
+ void ppgtt_bind_vma(struct i915_address_space *vm,
+ 		    struct i915_vm_pt_stash *stash,
+-		    struct i915_vma *vma,
++		    struct i915_vma_resource *vma_res,
+ 		    enum i915_cache_level cache_level,
+ 		    u32 flags)
+ {
+ 	u32 pte_flags;
+ 
+-	if (!test_bit(I915_VMA_ALLOC_BIT, __i915_vma_flags(vma))) {
+-		vm->allocate_va_range(vm, stash, vma->node.start, vma->size);
+-		set_bit(I915_VMA_ALLOC_BIT, __i915_vma_flags(vma));
++	if (!vma_res->allocated) {
++		vm->allocate_va_range(vm, stash, vma_res->start,
++				      vma_res->vma_size);
++		vma_res->allocated = true;
  	}
  
- 	INIT_LIST_HEAD(&dst->page_list);
--	strcpy(dst->name, vsnap->name);
-+	strcpy(dst->name, name);
+ 	/* Applicable to VLV, and gen8+ */
+ 	pte_flags = 0;
+-	if (i915_gem_object_is_readonly(vma->obj))
++	if (vma_res->bi.readonly)
+ 		pte_flags |= PTE_READ_ONLY;
+-	if (i915_gem_object_is_lmem(vma->obj))
++	if (vma_res->bi.lmem)
+ 		pte_flags |= PTE_LM;
+ 
+-	vm->insert_entries(vm, vma, cache_level, pte_flags);
++	vm->insert_entries(vm, vma_res, cache_level, pte_flags);
+ 	wmb();
+ }
+ 
+-void ppgtt_unbind_vma(struct i915_address_space *vm, struct i915_vma *vma)
++void ppgtt_unbind_vma(struct i915_address_space *vm,
++		      struct i915_vma_resource *vma_res)
+ {
+-	if (test_and_clear_bit(I915_VMA_ALLOC_BIT, __i915_vma_flags(vma)))
+-		vm->clear_range(vm, vma->node.start, vma->size);
++	if (vma_res->allocated)
++		vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+ }
+ 
+ static unsigned long pd_count(u64 size, int shift)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index a5af05bde6f2..777fc6f0ceff 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -448,20 +448,19 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
+ {
+ 	struct drm_i915_gem_object *obj = uc_fw->obj;
+ 	struct i915_ggtt *ggtt = __uc_fw_to_gt(uc_fw)->ggtt;
+-	struct i915_vma *dummy = &uc_fw->dummy;
++	struct i915_vma_resource *dummy = &uc_fw->dummy;
+ 	u32 pte_flags = 0;
+ 
+-	dummy->node.start = uc_fw_ggtt_offset(uc_fw);
+-	dummy->node.size = obj->base.size;
+-	dummy->pages = obj->mm.pages;
+-	dummy->vm = &ggtt->vm;
++	dummy->start = uc_fw_ggtt_offset(uc_fw);
++	dummy->node_size = obj->base.size;
++	dummy->bi.pages = obj->mm.pages;
+ 
+ 	GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
+-	GEM_BUG_ON(dummy->node.size > ggtt->uc_fw.size);
++	GEM_BUG_ON(dummy->node_size > ggtt->uc_fw.size);
+ 
+ 	/* uc_fw->obj cache domains were not controlled across suspend */
+ 	if (i915_gem_object_has_struct_page(obj))
+-		drm_clflush_sg(dummy->pages);
++		drm_clflush_sg(dummy->bi.pages);
+ 
+ 	if (i915_gem_object_is_lmem(obj))
+ 		pte_flags |= PTE_LM;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
+index d9d1dc0b4cbb..3229018877d3 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
+@@ -85,7 +85,7 @@ struct intel_uc_fw {
+ 	 * threaded as it done during driver load (inherently single threaded)
+ 	 * or during a GT reset (mutex guarantees single threaded).
+ 	 */
+-	struct i915_vma dummy;
++	struct i915_vma_resource dummy;
+ 	struct i915_vma *rsa_data;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 359d8ffc6e36..ec2cffddfd7b 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -170,7 +170,8 @@ i915_debugfs_describe_obj(struct seq_file *m, struct drm_i915_gem_object *obj)
+ 		seq_printf(m, " (%s offset: %08llx, size: %08llx, pages: %s",
+ 			   stringify_vma_type(vma),
+ 			   vma->node.start, vma->node.size,
+-			   stringify_page_sizes(vma->page_sizes.gtt, NULL, 0));
++			   stringify_page_sizes(vma->resource->page_sizes_gtt,
++						NULL, 0));
+ 		if (i915_vma_is_ggtt(vma) || i915_vma_is_dpt(vma)) {
+ 			switch (vma->ggtt_view.type) {
+ 			case I915_GGTT_VIEW_NORMAL:
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index e06d3aee0017..e5bb6ecf1202 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1040,9 +1040,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+ 	strcpy(dst->name, vsnap->name);
  	dst->next = NULL;
  
--	dst->gtt_offset = vsnap->vma_resource->start;
--	dst->gtt_size = vsnap->vma_resource->node_size;
--	dst->gtt_page_sizes = vsnap->vma_resource->page_sizes_gtt;
-+	dst->gtt_offset = vma_res->start;
-+	dst->gtt_size = vma_res->node_size;
-+	dst->gtt_page_sizes = vma_res->page_sizes_gtt;
+-	dst->gtt_offset = vsnap->gtt_offset;
+-	dst->gtt_size = vsnap->gtt_size;
+-	dst->gtt_page_sizes = vsnap->page_sizes;
++	dst->gtt_offset = vsnap->vma_resource->start;
++	dst->gtt_size = vsnap->vma_resource->node_size;
++	dst->gtt_page_sizes = vsnap->vma_resource->page_sizes_gtt;
  	dst->unused = 0;
  
  	ret = -EINVAL;
-@@ -1050,7 +1051,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 		void __iomem *s;
- 		dma_addr_t dma;
- 
--		for_each_sgt_daddr(dma, iter, vsnap->pages) {
-+		for_each_sgt_daddr(dma, iter, vma_res->bi.pages) {
- 			mutex_lock(&ggtt->error_mutex);
- 			ggtt->vm.insert_page(&ggtt->vm, dma, slot,
- 					     I915_CACHE_NONE, 0);
-@@ -1068,11 +1069,11 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 			if (ret)
- 				break;
- 		}
--	} else if (vsnap->mr && vsnap->mr->type != INTEL_MEMORY_SYSTEM) {
--		struct intel_memory_region *mem = vsnap->mr;
-+	} else if (vma_res->bi.lmem) {
-+		struct intel_memory_region *mem = vma_res->mr;
- 		dma_addr_t dma;
- 
--		for_each_sgt_daddr(dma, iter, vsnap->pages) {
-+		for_each_sgt_daddr(dma, iter, vma_res->bi.pages) {
- 			void __iomem *s;
- 
- 			s = io_mapping_map_wc(&mem->iomap,
-@@ -1088,7 +1089,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 	} else {
- 		struct page *page;
- 
--		for_each_sgt_page(page, iter, vsnap->pages) {
-+		for_each_sgt_page(page, iter, vma_res->bi.pages) {
- 			void *s;
- 
- 			drm_clflush_pages(&page, 1);
-@@ -1324,33 +1325,32 @@ static bool record_context(struct i915_gem_context_coredump *e,
- 
- struct intel_engine_capture_vma {
- 	struct intel_engine_capture_vma *next;
--	struct i915_vma_snapshot *vsnap;
-+	struct i915_vma_resource *vma_res;
- 	char name[16];
- 	bool lockdep_cookie;
- };
- 
- static struct intel_engine_capture_vma *
- capture_vma_snapshot(struct intel_engine_capture_vma *next,
--		     struct i915_vma_snapshot *vsnap,
--		     gfp_t gfp)
-+		     struct i915_vma_resource *vma_res,
-+		     gfp_t gfp, const char *name)
- {
- 	struct intel_engine_capture_vma *c;
- 
--	if (!i915_vma_snapshot_present(vsnap))
-+	if (!vma_res)
- 		return next;
- 
- 	c = kmalloc(sizeof(*c), gfp);
- 	if (!c)
- 		return next;
- 
--	if (!i915_vma_snapshot_resource_pin(vsnap, &c->lockdep_cookie)) {
-+	if (!i915_vma_resource_hold(vma_res, &c->lockdep_cookie)) {
- 		kfree(c);
- 		return next;
- 	}
- 
--	strcpy(c->name, vsnap->name);
--	c->vsnap = vsnap;
--	i915_vma_snapshot_get(vsnap);
-+	strcpy(c->name, name);
-+	c->vma_res = i915_vma_resource_get(vma_res);
- 
- 	c->next = next;
- 	return c;
-@@ -1362,8 +1362,6 @@ capture_vma(struct intel_engine_capture_vma *next,
- 	    const char *name,
- 	    gfp_t gfp)
- {
--	struct i915_vma_snapshot *vsnap;
--
- 	if (!vma)
- 		return next;
- 
-@@ -1372,19 +1370,10 @@ capture_vma(struct intel_engine_capture_vma *next,
- 	 * to a struct i915_vma_snapshot at command submission time.
- 	 * Not here.
- 	 */
--	GEM_WARN_ON(!i915_vma_is_pinned(vma));
--	if (!i915_vma_is_pinned(vma))
--		return next;
--
--	vsnap = i915_vma_snapshot_alloc(gfp);
--	if (!vsnap)
-+	if (GEM_WARN_ON(!i915_vma_is_pinned(vma)))
- 		return next;
- 
--	i915_vma_snapshot_init(vsnap, vma, name);
--	next = capture_vma_snapshot(next, vsnap, gfp);
--
--	/* FIXME: Replace on async unbind. */
--	i915_vma_snapshot_put(vsnap);
-+	next = capture_vma_snapshot(next, vma->resource, gfp, name);
- 
- 	return next;
- }
-@@ -1397,7 +1386,8 @@ capture_user(struct intel_engine_capture_vma *capture,
- 	struct i915_capture_list *c;
- 
- 	for (c = rq->capture_list; c; c = c->next)
--		capture = capture_vma_snapshot(capture, c->vma_snapshot, gfp);
-+		capture = capture_vma_snapshot(capture, c->vma_res, gfp,
-+					       "user");
- 
- 	return capture;
- }
-@@ -1415,16 +1405,19 @@ static struct i915_vma_coredump *
- create_vma_coredump(const struct intel_gt *gt, struct i915_vma *vma,
- 		    const char *name, struct i915_vma_compress *compress)
- {
--	struct i915_vma_coredump *ret;
--	struct i915_vma_snapshot tmp;
-+	struct i915_vma_coredump *ret = NULL;
-+	struct i915_vma_resource *vma_res;
-+	bool lockdep_cookie;
- 
- 	if (!vma)
- 		return NULL;
- 
--	GEM_WARN_ON(!i915_vma_is_pinned(vma));
--	i915_vma_snapshot_init_onstack(&tmp, vma, name);
--	ret = i915_vma_coredump_create(gt, &tmp, compress);
--	i915_vma_snapshot_put_onstack(&tmp);
-+	vma_res = vma->resource;
-+
-+	if (i915_vma_resource_hold(vma_res, &lockdep_cookie)) {
-+		ret = i915_vma_coredump_create(gt, vma_res, compress, name);
-+		i915_vma_resource_unhold(vma_res, lockdep_cookie);
-+	}
- 
- 	return ret;
- }
-@@ -1471,7 +1464,7 @@ intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
- 	 * as the simplest method to avoid being overwritten
- 	 * by userspace.
- 	 */
--	vma = capture_vma_snapshot(vma, &rq->batch_snapshot, gfp);
-+	vma = capture_vma_snapshot(vma, rq->batch_res, gfp, "batch");
- 	vma = capture_user(vma, rq, gfp);
- 	vma = capture_vma(vma, rq->ring->vma, "ring", gfp);
- 	vma = capture_vma(vma, rq->context->state, "HW context", gfp);
-@@ -1492,14 +1485,14 @@ intel_engine_coredump_add_vma(struct intel_engine_coredump *ee,
- 
- 	while (capture) {
- 		struct intel_engine_capture_vma *this = capture;
--		struct i915_vma_snapshot *vsnap = this->vsnap;
-+		struct i915_vma_resource *vma_res = this->vma_res;
- 
- 		add_vma(ee,
--			i915_vma_coredump_create(engine->gt,
--						 vsnap, compress));
-+			i915_vma_coredump_create(engine->gt, vma_res,
-+						 compress, this->name));
- 
--		i915_vma_snapshot_resource_unpin(vsnap, this->lockdep_cookie);
--		i915_vma_snapshot_put(vsnap);
-+		i915_vma_resource_unhold(vma_res, this->lockdep_cookie);
-+		i915_vma_resource_put(vma_res);
- 
- 		capture = this->next;
- 		kfree(this);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 76cf5ac91e94..ba3a70b2cc57 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -116,8 +116,10 @@ static void i915_fence_release(struct dma_fence *fence)
- 		   rq->guc_prio != GUC_PRIO_FINI);
- 
- 	i915_request_free_capture_list(fetch_and_zero(&rq->capture_list));
--	if (i915_vma_snapshot_present(&rq->batch_snapshot))
--		i915_vma_snapshot_put_onstack(&rq->batch_snapshot);
-+	if (rq->batch_res) {
-+		i915_vma_resource_put(rq->batch_res);
-+		rq->batch_res = NULL;
-+	}
- 
- 	/*
- 	 * The request is put onto a RCU freelist (i.e. the address
-@@ -308,7 +310,7 @@ void i915_request_free_capture_list(struct i915_capture_list *capture)
- 	while (capture) {
- 		struct i915_capture_list *next = capture->next;
- 
--		i915_vma_snapshot_put(capture->vma_snapshot);
-+		i915_vma_resource_put(capture->vma_res);
- 		kfree(capture);
- 		capture = next;
- 	}
-@@ -854,7 +856,7 @@ static void __i915_request_ctor(void *arg)
- 	i915_sw_fence_init(&rq->semaphore, semaphore_notify);
- 
- 	clear_capture_list(rq);
--	rq->batch_snapshot.present = false;
-+	rq->batch_res = NULL;
- 
- 	init_llist_head(&rq->execute_cb);
- }
-@@ -960,7 +962,7 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
- 	__rq_init_watchdog(rq);
- 	assert_capture_list_is_null(rq);
- 	GEM_BUG_ON(!llist_empty(&rq->execute_cb));
--	GEM_BUG_ON(i915_vma_snapshot_present(&rq->batch_snapshot));
-+	GEM_BUG_ON(rq->batch_res);
- 
- 	/*
- 	 * Reserve space in the ring buffer for all the commands required to
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 170ee78c2858..28b1f9db5487 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -40,7 +40,7 @@
- #include "i915_scheduler.h"
- #include "i915_selftest.h"
- #include "i915_sw_fence.h"
--#include "i915_vma_snapshot.h"
-+#include "i915_vma_resource.h"
- 
- #include <uapi/drm/i915_drm.h>
- 
-@@ -52,7 +52,7 @@ struct i915_request;
- 
- #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
- struct i915_capture_list {
--	struct i915_vma_snapshot *vma_snapshot;
-+	struct i915_vma_resource *vma_res;
- 	struct i915_capture_list *next;
- };
- 
-@@ -300,7 +300,7 @@ struct i915_request {
- 	/** Batch buffer pointer for selftest internal use. */
- 	I915_SELFTEST_DECLARE(struct i915_vma *batch);
- 
--	struct i915_vma_snapshot batch_snapshot;
-+	struct i915_vma_resource *batch_res;
- 
- #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
- 	/**
 diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index aac0d78d25dd..18e6cd863dbe 100644
+index 4308659bf552..7ad7e5251df6 100644
 --- a/drivers/gpu/drm/i915/i915_vma.c
 +++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -289,7 +289,6 @@ struct i915_vma_work {
- 	struct i915_vma_resource *vma_res;
- 	struct drm_i915_gem_object *pinned;
- 	struct i915_sw_dma_fence_cb cb;
--	struct i915_refct_sgt *rsgt;
- 	enum i915_cache_level cache_level;
- 	unsigned int flags;
- };
-@@ -317,8 +316,6 @@ static void __vma_release(struct dma_fence_work *work)
- 	i915_vm_put(vw->vm);
- 	if (vw->vma_res)
- 		i915_vma_resource_put(vw->vma_res);
--	if (vw->rsgt)
--		i915_refct_sgt_put(vw->rsgt);
+@@ -299,7 +299,7 @@ static void __vma_bind(struct dma_fence_work *work)
+ 	struct i915_vma *vma = vw->vma;
+ 
+ 	vma->ops->bind_vma(vw->vm, &vw->stash,
+-			   vma, vw->cache_level, vw->flags);
++			   vma->resource, vw->cache_level, vw->flags);
  }
  
- static const struct dma_fence_work_ops bind_ops = {
-@@ -393,8 +390,8 @@ i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
- 	struct drm_i915_gem_object *obj = vma->obj;
+ static void __vma_release(struct dma_fence_work *work)
+@@ -380,6 +380,21 @@ static int i915_vma_verify_bind_complete(struct i915_vma *vma)
+ #define i915_vma_verify_bind_complete(_vma) 0
+ #endif
  
- 	i915_vma_resource_init(vma_res, vma->vm, vma->pages, &vma->page_sizes,
--			       i915_gem_object_is_readonly(obj),
--			       i915_gem_object_is_lmem(obj),
-+			       obj->mm.rsgt, i915_gem_object_is_readonly(obj),
-+			       i915_gem_object_is_lmem(obj), obj->mm.region,
- 			       vma->ops, vma->private, vma->node.start,
- 			       vma->node.size, vma->size);
- }
-@@ -485,8 +482,6 @@ int i915_vma_bind(struct i915_vma *vma,
- 		work->vma_res = i915_vma_resource_get(vma->resource);
- 		work->cache_level = cache_level;
- 		work->flags = bind_flags;
--		if (vma->obj->mm.rsgt)
--			work->rsgt = i915_refct_sgt_get(vma->obj->mm.rsgt);
++I915_SELFTEST_EXPORT void
++i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
++				struct i915_vma *vma)
++{
++	struct drm_i915_gem_object *obj = vma->obj;
++
++	i915_vma_resource_init(vma_res, vma->pages, &vma->page_sizes,
++			       i915_gem_object_is_readonly(obj),
++			       i915_gem_object_is_lmem(obj),
++			       vma->private,
++			       vma->node.start,
++			       vma->node.size,
++			       vma->size);
++}
++
+ /**
+  * i915_vma_bind - Sets up PTEs for an VMA in it's corresponding address space.
+  * @vma: VMA to map
+@@ -437,7 +452,7 @@ int i915_vma_bind(struct i915_vma *vma,
+ 		GEM_WARN_ON(!vma_flags);
+ 		kfree(vma_res);
+ 	} else {
+-		i915_vma_resource_init(vma_res);
++		i915_vma_resource_init_from_vma(vma_res, vma);
+ 		vma->resource = vma_res;
+ 	}
+ 	trace_i915_vma_bind(vma, bind_flags);
+@@ -477,7 +492,8 @@ int i915_vma_bind(struct i915_vma *vma,
+ 			if (ret)
+ 				return ret;
+ 		}
+-		vma->ops->bind_vma(vma->vm, NULL, vma, cache_level, bind_flags);
++		vma->ops->bind_vma(vma->vm, NULL, vma->resource, cache_level,
++				   bind_flags);
+ 	}
  
- 		/*
- 		 * Note we only want to chain up to the migration fence on
-@@ -1425,7 +1420,7 @@ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async)
- 	GEM_BUG_ON(i915_vma_has_userfault(vma));
+ 	atomic_or(bind_flags, &vma->flags);
+@@ -1381,7 +1397,7 @@ void __i915_vma_evict(struct i915_vma *vma)
  
- 	/* Object backend must be async capable. */
--	GEM_WARN_ON(async && !vma->obj->mm.rsgt);
-+	GEM_WARN_ON(async && !vma->resource->bi.pages_rsgt);
- 
- 	trace_i915_vma_unbind(vma);
- 	unbind_fence = i915_vma_resource_unbind(vma->resource);
-@@ -1435,9 +1430,6 @@ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async)
+ 	if (likely(atomic_read(&vma->vm->open))) {
+ 		trace_i915_vma_unbind(vma);
+-		vma->ops->unbind_vma(vma->vm, vma);
++		vma->ops->unbind_vma(vma->vm, vma->resource);
+ 	}
  	atomic_and(~(I915_VMA_BIND_MASK | I915_VMA_ERROR | I915_VMA_GGTT_WRITE),
  		   &vma->flags);
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 947ca7b3f3fa..e634fb1d22bf 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -341,12 +341,6 @@ void __iomem *i915_vma_pin_iomap(struct i915_vma *vma);
+  */
+ void i915_vma_unpin_iomap(struct i915_vma *vma);
  
--	/* Object backend must be async capable. */
--	GEM_WARN_ON(async && !vma->obj->mm.rsgt);
+-static inline struct page *i915_vma_first_page(struct i915_vma *vma)
+-{
+-	GEM_BUG_ON(!vma->pages);
+-	return sg_page(vma->pages->sgl);
+-}
 -
- 	i915_vma_detach(vma);
- 
- 	if (!async && unbind_fence) {
-diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
-index 0cee831fa83e..c142a2366b62 100644
---- a/drivers/gpu/drm/i915/i915_vma_resource.c
-+++ b/drivers/gpu/drm/i915/i915_vma_resource.c
-@@ -8,6 +8,7 @@
- 
- #include "i915_sw_fence.h"
- #include "i915_vma_resource.h"
-+#include "intel_memory_region.h"
- 
- #include "gt/intel_gtt.h"
- 
-@@ -103,6 +104,8 @@ static void __i915_vma_resource_unhold(struct i915_vma_resource *vma_res)
- 		return;
- 
- 	dma_fence_signal(&vma_res->unbind_fence);
-+	if (vma_res->bi.pages_rsgt)
-+		i915_refct_sgt_put(vma_res->bi.pages_rsgt);
+ /**
+  * i915_vma_pin_fence - pin fencing state
+  * @vma: vma to pin fencing for
+@@ -447,6 +441,11 @@ i915_vma_get_current_resource(struct i915_vma *vma)
+ 	return i915_vma_resource_get(vma->resource);
  }
  
++#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
++void i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
++				     struct i915_vma *vma);
++#endif
++
+ void i915_vma_module_exit(void);
+ int i915_vma_module_init(void);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
+index 833e987bed2a..c86db89ab5d2 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.c
++++ b/drivers/gpu/drm/i915/i915_vma_resource.c
+@@ -23,15 +23,12 @@ static struct dma_fence_ops unbind_fence_ops = {
+ };
+ 
  /**
+- * i915_vma_resource_init - Initialize a vma resource.
++ * __i915_vma_resource_init - Initialize a vma resource.
+  * @vma_res: The vma resource to initialize
+  *
+- * Initializes a vma resource allocated using i915_vma_resource_alloc().
+- * The reason for having separate allocate and initialize function is that
+- * initialization may need to be performed from under a lock where
+- * allocation is not allowed.
++ * Initializes the private members of a vma resource.
+  */
+-void i915_vma_resource_init(struct i915_vma_resource *vma_res)
++void __i915_vma_resource_init(struct i915_vma_resource *vma_res)
+ {
+ 	spin_lock_init(&vma_res->lock);
+ 	dma_fence_init(&vma_res->unbind_fence, &unbind_fence_ops,
 diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
-index 26914558bf6f..e45e7fb65f96 100644
+index 34744da23072..9872de58268b 100644
 --- a/drivers/gpu/drm/i915/i915_vma_resource.h
 +++ b/drivers/gpu/drm/i915/i915_vma_resource.h
-@@ -10,8 +10,11 @@
+@@ -9,6 +9,25 @@
+ #include <linux/dma-fence.h>
  #include <linux/refcount.h>
  
- #include "i915_gem.h"
-+#include "i915_scatterlist.h"
- #include "i915_sw_fence.h"
- 
-+struct intel_memory_region;
++#include "i915_gem.h"
 +
- struct i915_page_sizes {
- 	/**
- 	 * The sg mask of the pages sg_table. i.e the mask of
-@@ -46,6 +49,7 @@ struct i915_page_sizes {
-  * @__subtree_last: Interval tree private member.
-  * @vm: non-refcounted pointer to the vm. This is for internal use only and
-  * this member is cleared after vm_resource unbind.
-+ * @mr: The memory region of the object pointed to by the vma.
-  * @ops: Pointer to the backend i915_vma_ops.
-  * @private: Bind backend private info.
-  * @start: Offset into the address space of bind range start.
-@@ -54,8 +58,10 @@ struct i915_page_sizes {
-  * @page_sizes_gtt: Resulting page sizes from the bind operation.
-  * @bound_flags: Flags indicating binding status.
-  * @allocated: Backend private data. TODO: Should move into @private.
-- * @immediate_unbind: Unbind can be done immediately and don't need to be
-- * deferred to a work item awaiting unsignaled fences.
-+ * @immediate_unbind: Unbind can be done immediately and doesn't need to be
-+ * deferred to a work item awaiting unsignaled fences. This is a hack.
-+ * (dma_fence_work uses a fence flag for this, but this seems slightly
-+ * cleaner).
++struct i915_page_sizes {
++	/**
++	 * The sg mask of the pages sg_table. i.e the mask of
++	 * the lengths for each sg entry.
++	 */
++	unsigned int phys;
++
++	/**
++	 * The gtt page sizes we are allowed to use given the
++	 * sg mask and the supported page sizes. This will
++	 * express the smallest unit we can use for the whole
++	 * object, as well as the larger sizes we may be able
++	 * to use opportunistically.
++	 */
++	unsigned int sg;
++};
++
+ /**
+  * struct i915_vma_resource - Snapshotted unbind information.
+  * @unbind_fence: Fence to mark unbinding complete. Note that this fence
+@@ -20,6 +39,13 @@
+  * @hold_count: Number of holders blocking the fence from finishing.
+  * The vma itself is keeping a hold, which is released when unbind
+  * is scheduled.
++ * @private: Bind backend private info.
++ * @start: Offset into the address space of bind range start.
++ * @node_size: Size of the allocated range manager node.
++ * @vma_size: Bind size.
++ * @page_sizes_gtt: Resulting page sizes from the bind operation.
++ * @bound_flags: Flags indicating binding status.
++ * @allocated: Backend private data. TODO: Should move into @private.
   *
   * The lifetime of a struct i915_vma_resource is from a binding request to
   * the actual possible asynchronous unbind has completed.
-@@ -79,16 +85,22 @@ struct i915_vma_resource {
- 	 * and flags
- 	 * @pages: The pages sg-table.
- 	 * @page_sizes: Page sizes of the pages.
-+	 * @pages_rsgt: Refcounted sg-table when delayed object destruction
-+	 * is supported. May be NULL.
- 	 * @readonly: Whether the vma should be bound read-only.
- 	 * @lmem: Whether the vma points to lmem.
- 	 */
- 	struct i915_vma_bindinfo {
- 		struct sg_table *pages;
- 		struct i915_page_sizes page_sizes;
-+		struct i915_refct_sgt *pages_rsgt;
- 		bool readonly:1;
- 		bool lmem:1;
- 	} bi;
+@@ -29,6 +55,32 @@ struct i915_vma_resource {
+ 	/* See above for description of the lock. */
+ 	spinlock_t lock;
+ 	refcount_t hold_count;
++
++	/**
++	 * struct i915_vma_bindinfo - Information needed for async bind
++	 * only but that can be dropped after the bind has taken place.
++	 * Consider making this a separate argument to the bind_vma
++	 * op, coalescing with other arguments like vm, stash, cache_level
++	 * and flags
++	 * @pages: The pages sg-table.
++	 * @page_sizes: Page sizes of the pages.
++	 * @readonly: Whether the vma should be bound read-only.
++	 * @lmem: Whether the vma points to lmem.
++	 */
++	struct i915_vma_bindinfo {
++		struct sg_table *pages;
++		struct i915_page_sizes page_sizes;
++		bool readonly:1;
++		bool lmem:1;
++	} bi;
++
++	void *private;
++	unsigned long start;
++	unsigned long node_size;
++	unsigned long vma_size;
++	u32 page_sizes_gtt;
++	u32 bound_flags;
++	bool allocated:1;
+ };
  
-+#if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
-+	struct intel_memory_region *mr;
-+#endif
- 	const struct i915_vma_ops *ops;
- 	void *private;
- 	unsigned long start;
-@@ -143,8 +155,11 @@ static inline void i915_vma_resource_put(struct i915_vma_resource *vma_res)
-  * @vm: Pointer to the vm.
-  * @pages: The pages sg-table.
-  * @page_sizes: Page sizes of the pages.
-+ * @pages_rsgt: Pointer to a struct i915_refct_sgt of an object with
-+ * delayed destruction.
-  * @readonly: Whether the vma should be bound read-only.
-  * @lmem: Whether the vma points to lmem.
-+ * @mr: The memory region of the object the vma points to.
-  * @ops: The backend ops.
-  * @private: Bind backend private info.
-  * @start: Offset into the address space of bind range start.
-@@ -160,8 +175,10 @@ static inline void i915_vma_resource_init(struct i915_vma_resource *vma_res,
- 					  struct i915_address_space *vm,
- 					  struct sg_table *pages,
- 					  const struct i915_page_sizes *page_sizes,
-+					  struct i915_refct_sgt *pages_rsgt,
- 					  bool readonly,
- 					  bool lmem,
-+					  struct intel_memory_region *mr,
- 					  const struct i915_vma_ops *ops,
- 					  void *private,
- 					  unsigned long start,
-@@ -172,8 +189,13 @@ static inline void i915_vma_resource_init(struct i915_vma_resource *vma_res,
- 	vma_res->vm = vm;
- 	vma_res->bi.pages = pages;
- 	vma_res->bi.page_sizes = *page_sizes;
-+	if (pages_rsgt)
-+		vma_res->bi.pages_rsgt = i915_refct_sgt_get(pages_rsgt);
- 	vma_res->bi.readonly = readonly;
- 	vma_res->bi.lmem = lmem;
-+#if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
-+	vma_res->mr = mr;
-+#endif
- 	vma_res->ops = ops;
- 	vma_res->private = private;
- 	vma_res->start = start;
-@@ -184,6 +206,8 @@ static inline void i915_vma_resource_init(struct i915_vma_resource *vma_res,
- static inline void i915_vma_resource_fini(struct i915_vma_resource *vma_res)
- {
- 	GEM_BUG_ON(refcount_read(&vma_res->hold_count) != 1);
-+	if (vma_res->bi.pages_rsgt)
-+		i915_refct_sgt_put(vma_res->bi.pages_rsgt);
- 	i915_sw_fence_fini(&vma_res->chain);
+ bool i915_vma_resource_hold(struct i915_vma_resource *vma_res,
+@@ -41,6 +93,8 @@ struct i915_vma_resource *i915_vma_resource_alloc(void);
+ 
+ struct dma_fence *i915_vma_resource_unbind(struct i915_vma_resource *vma_res);
+ 
++void __i915_vma_resource_init(struct i915_vma_resource *vma_res);
++
+ /**
+  * i915_vma_resource_get - Take a reference on a vma resource
+  * @vma_res: The vma resource on which to take a reference.
+@@ -63,8 +117,47 @@ static inline void i915_vma_resource_put(struct i915_vma_resource *vma_res)
+ 	dma_fence_put(&vma_res->unbind_fence);
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_vma_snapshot.c b/drivers/gpu/drm/i915/i915_vma_snapshot.c
-deleted file mode 100644
-index 69f62c1ca967..000000000000
---- a/drivers/gpu/drm/i915/i915_vma_snapshot.c
-+++ /dev/null
-@@ -1,125 +0,0 @@
--// SPDX-License-Identifier: MIT
--/*
-- * Copyright © 2021 Intel Corporation
-- */
--
--#include "i915_vma_resource.h"
--#include "i915_vma_snapshot.h"
--#include "i915_vma_types.h"
--#include "i915_vma.h"
--
--/**
-- * i915_vma_snapshot_init - Initialize a struct i915_vma_snapshot from
-- * a struct i915_vma.
-- * @vsnap: The i915_vma_snapshot to init.
-- * @vma: A struct i915_vma used to initialize @vsnap.
-- * @name: Name associated with the snapshot. The character pointer needs to
-- * stay alive over the lifitime of the shapsot
-- */
--void i915_vma_snapshot_init(struct i915_vma_snapshot *vsnap,
--			    struct i915_vma *vma,
--			    const char *name)
--{
--	if (!i915_vma_is_pinned(vma))
--		assert_object_held(vma->obj);
--
--	vsnap->name = name;
--	vsnap->obj_size = vma->obj->base.size;
--	vsnap->pages = vma->pages;
--	vsnap->pages_rsgt = NULL;
--	vsnap->mr = NULL;
--	if (vma->obj->mm.rsgt)
--		vsnap->pages_rsgt = i915_refct_sgt_get(vma->obj->mm.rsgt);
--	vsnap->mr = vma->obj->mm.region;
--	kref_init(&vsnap->kref);
--	vsnap->vma_resource = i915_vma_get_current_resource(vma);
--	vsnap->onstack = false;
--	vsnap->present = true;
--}
--
--/**
-- * i915_vma_snapshot_init_onstack - Initialize a struct i915_vma_snapshot from
-- * a struct i915_vma, but avoid kfreeing it on last put.
-- * @vsnap: The i915_vma_snapshot to init.
-- * @vma: A struct i915_vma used to initialize @vsnap.
-- * @name: Name associated with the snapshot. The character pointer needs to
-- * stay alive over the lifitime of the shapsot
-- */
--void i915_vma_snapshot_init_onstack(struct i915_vma_snapshot *vsnap,
--				    struct i915_vma *vma,
--				    const char *name)
--{
--	i915_vma_snapshot_init(vsnap, vma, name);
--	vsnap->onstack = true;
--}
--
--static void vma_snapshot_release(struct kref *ref)
--{
--	struct i915_vma_snapshot *vsnap =
--		container_of(ref, typeof(*vsnap), kref);
--
--	vsnap->present = false;
--	i915_vma_resource_put(vsnap->vma_resource);
--	if (vsnap->pages_rsgt)
--		i915_refct_sgt_put(vsnap->pages_rsgt);
--	if (!vsnap->onstack)
--		kfree(vsnap);
--}
--
--/**
-- * i915_vma_snapshot_put - Put an i915_vma_snapshot pointer reference
-- * @vsnap: The pointer reference
-- */
--void i915_vma_snapshot_put(struct i915_vma_snapshot *vsnap)
--{
--	kref_put(&vsnap->kref, vma_snapshot_release);
--}
--
--/**
-- * i915_vma_snapshot_put_onstack - Put an onstcak i915_vma_snapshot pointer
-- * reference and varify that the structure is released
-- * @vsnap: The pointer reference
-- *
-- * This function is intended to be paired with a i915_vma_init_onstack()
-- * and should be called before exiting the scope that declared or
-- * freeing the structure that embedded @vsnap to verify that all references
-- * have been released.
-- */
--void i915_vma_snapshot_put_onstack(struct i915_vma_snapshot *vsnap)
--{
--	if (!kref_put(&vsnap->kref, vma_snapshot_release))
--		GEM_BUG_ON(1);
--}
--
--/**
-- * i915_vma_snapshot_resource_pin - Temporarily block the memory the
-- * vma snapshot is pointing to from being released.
-- * @vsnap: The vma snapshot.
-- * @lockdep_cookie: Pointer to bool needed for lockdep support. This needs
-- * to be passed to the paired i915_vma_snapshot_resource_unpin.
-- *
-- * This function will temporarily try to hold up a fence or similar structure
-- * and will therefore enter a fence signaling critical section.
-- *
-- * Return: true if we succeeded in blocking the memory from being released,
-- * false otherwise.
-- */
--bool i915_vma_snapshot_resource_pin(struct i915_vma_snapshot *vsnap,
--				    bool *lockdep_cookie)
--{
--	return i915_vma_resource_hold(vsnap->vma_resource, lockdep_cookie);
--}
--
--/**
-- * i915_vma_snapshot_resource_unpin - Unblock vma snapshot memory from
-- * being released.
-- * @vsnap: The vma snapshot.
-- * @lockdep_cookie: Cookie returned from matching i915_vma_resource_pin().
-- *
-- * Might leave a fence signalling critical section and signal a fence.
-- */
--void i915_vma_snapshot_resource_unpin(struct i915_vma_snapshot *vsnap,
--				      bool lockdep_cookie)
--{
--	i915_vma_resource_unhold(vsnap->vma_resource, lockdep_cookie);
--}
-diff --git a/drivers/gpu/drm/i915/i915_vma_snapshot.h b/drivers/gpu/drm/i915/i915_vma_snapshot.h
-deleted file mode 100644
-index 1b08ce9f8576..000000000000
---- a/drivers/gpu/drm/i915/i915_vma_snapshot.h
-+++ /dev/null
-@@ -1,101 +0,0 @@
--/* SPDX-License-Identifier: MIT */
--/*
-- * Copyright © 2021 Intel Corporation
-- */
--#ifndef _I915_VMA_SNAPSHOT_H_
--#define _I915_VMA_SNAPSHOT_H_
--
--#include <linux/kref.h>
--#include <linux/slab.h>
--#include <linux/types.h>
--
--struct i915_active;
--struct i915_refct_sgt;
--struct i915_vma;
--struct intel_memory_region;
--struct sg_table;
--
--/**
-- * DOC: Simple utilities for snapshotting GPU vma metadata, later used for
-- * error capture. Vi use a separate header for this to avoid issues due to
-- * recursive header includes.
-- */
--
--/**
-- * struct i915_vma_snapshot - Snapshot of vma metadata.
-- * @obj_size: The size of the underlying object in bytes.
-- * @pages: The struct sg_table pointing to the pages bound.
-- * @pages_rsgt: The refcounted sg_table holding the reference for @pages if any.
-- * @mr: The memory region pointed for the pages bound.
-- * @kref: Reference for this structure.
-- * @vma_resource: Pointer to the vma resource representing the vma binding.
-- * @onstack: Whether the structure shouldn't be freed on final put.
-- * @present: Whether the structure is present and initialized.
-- */
--struct i915_vma_snapshot {
--	const char *name;
--	size_t obj_size;
--	struct sg_table *pages;
--	struct i915_refct_sgt *pages_rsgt;
--	struct intel_memory_region *mr;
--	struct kref kref;
--	struct i915_vma_resource *vma_resource;
--	bool onstack:1;
--	bool present:1;
--};
--
--void i915_vma_snapshot_init(struct i915_vma_snapshot *vsnap,
--			    struct i915_vma *vma,
--			    const char *name);
--
--void i915_vma_snapshot_init_onstack(struct i915_vma_snapshot *vsnap,
--				    struct i915_vma *vma,
--				    const char *name);
--
--void i915_vma_snapshot_put(struct i915_vma_snapshot *vsnap);
--
--void i915_vma_snapshot_put_onstack(struct i915_vma_snapshot *vsnap);
--
--bool i915_vma_snapshot_resource_pin(struct i915_vma_snapshot *vsnap,
--				    bool *lockdep_cookie);
--
--void i915_vma_snapshot_resource_unpin(struct i915_vma_snapshot *vsnap,
--				      bool lockdep_cookie);
--
--/**
-- * i915_vma_snapshot_alloc - Allocate a struct i915_vma_snapshot
-- * @gfp: Allocation mode.
-- *
-- * Return: A pointer to a struct i915_vma_snapshot if successful.
-- * NULL otherwise.
-- */
--static inline struct i915_vma_snapshot *i915_vma_snapshot_alloc(gfp_t gfp)
--{
--	return kmalloc(sizeof(struct i915_vma_snapshot), gfp);
--}
--
--/**
-- * i915_vma_snapshot_get - Take a reference on a struct i915_vma_snapshot
-- *
-- * Return: A pointer to a struct i915_vma_snapshot.
-- */
--static inline struct i915_vma_snapshot *
--i915_vma_snapshot_get(struct i915_vma_snapshot *vsnap)
--{
--	kref_get(&vsnap->kref);
--	return vsnap;
--}
--
--/**
-- * i915_vma_snapshot_present - Whether a struct i915_vma_snapshot is
-- * present and initialized.
-- *
-- * Return: true if present and initialized; false otherwise.
-- */
--static inline bool
--i915_vma_snapshot_present(const struct i915_vma_snapshot *vsnap)
--{
--	return vsnap && vsnap->present;
--}
--
+-#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+-void i915_vma_resource_init(struct i915_vma_resource *vma_res);
 -#endif
++/**
++ * i915_vma_resource_init - Initialize a vma resource.
++ * @vma_res: The vma resource to initialize
++ * @pages: The pages sg-table.
++ * @page_sizes: Page sizes of the pages.
++ * @readonly: Whether the vma should be bound read-only.
++ * @lmem: Whether the vma points to lmem.
++ * @private: Bind backend private info.
++ * @start: Offset into the address space of bind range start.
++ * @node_size: Size of the allocated range manager node.
++ * @size: Bind size.
++ *
++ * Initializes a vma resource allocated using i915_vma_resource_alloc().
++ * The reason for having separate allocate and initialize function is that
++ * initialization may need to be performed from under a lock where
++ * allocation is not allowed.
++ */
++static inline void i915_vma_resource_init(struct i915_vma_resource *vma_res,
++					  struct sg_table *pages,
++					  const struct i915_page_sizes *page_sizes,
++					  bool readonly,
++					  bool lmem,
++					  void *private,
++					  unsigned long start,
++					  unsigned long node_size,
++					  unsigned long size)
++{
++	__i915_vma_resource_init(vma_res);
++	vma_res->bi.pages = pages;
++	vma_res->bi.page_sizes = *page_sizes;
++	vma_res->bi.readonly = readonly;
++	vma_res->bi.lmem = lmem;
++	vma_res->private = private;
++	vma_res->start = start;
++	vma_res->node_size = node_size;
++	vma_res->vma_size = size;
++}
++
++static inline void i915_vma_resource_fini(struct i915_vma_resource *vma_res)
++{
++	GEM_BUG_ON(refcount_read(&vma_res->hold_count) != 1);
++}
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_vma_snapshot.c b/drivers/gpu/drm/i915/i915_vma_snapshot.c
+index f7333c7a2f5e..69f62c1ca967 100644
+--- a/drivers/gpu/drm/i915/i915_vma_snapshot.c
++++ b/drivers/gpu/drm/i915/i915_vma_snapshot.c
+@@ -24,11 +24,7 @@ void i915_vma_snapshot_init(struct i915_vma_snapshot *vsnap,
+ 		assert_object_held(vma->obj);
+ 
+ 	vsnap->name = name;
+-	vsnap->size = vma->size;
+ 	vsnap->obj_size = vma->obj->base.size;
+-	vsnap->gtt_offset = vma->node.start;
+-	vsnap->gtt_size = vma->node.size;
+-	vsnap->page_sizes = vma->page_sizes.gtt;
+ 	vsnap->pages = vma->pages;
+ 	vsnap->pages_rsgt = NULL;
+ 	vsnap->mr = NULL;
+diff --git a/drivers/gpu/drm/i915/i915_vma_snapshot.h b/drivers/gpu/drm/i915/i915_vma_snapshot.h
+index e74588dd676b..1b08ce9f8576 100644
+--- a/drivers/gpu/drm/i915/i915_vma_snapshot.h
++++ b/drivers/gpu/drm/i915/i915_vma_snapshot.h
+@@ -23,31 +23,23 @@ struct sg_table;
+ 
+ /**
+  * struct i915_vma_snapshot - Snapshot of vma metadata.
+- * @size: The vma size in bytes.
+  * @obj_size: The size of the underlying object in bytes.
+- * @gtt_offset: The gtt offset the vma is bound to.
+- * @gtt_size: The size in bytes allocated for the vma in the GTT.
+  * @pages: The struct sg_table pointing to the pages bound.
+  * @pages_rsgt: The refcounted sg_table holding the reference for @pages if any.
+  * @mr: The memory region pointed for the pages bound.
+  * @kref: Reference for this structure.
+  * @vma_resource: Pointer to the vma resource representing the vma binding.
+- * @page_sizes: The vma GTT page sizes information.
+  * @onstack: Whether the structure shouldn't be freed on final put.
+  * @present: Whether the structure is present and initialized.
+  */
+ struct i915_vma_snapshot {
+ 	const char *name;
+-	size_t size;
+ 	size_t obj_size;
+-	size_t gtt_offset;
+-	size_t gtt_size;
+ 	struct sg_table *pages;
+ 	struct i915_refct_sgt *pages_rsgt;
+ 	struct intel_memory_region *mr;
+ 	struct kref kref;
+ 	struct i915_vma_resource *vma_resource;
+-	u32 page_sizes;
+ 	bool onstack:1;
+ 	bool present:1;
+ };
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 29b48fedc675..1279b44e1566 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -239,11 +239,11 @@ static int lowlevel_hole(struct i915_address_space *vm,
+ 			 unsigned long end_time)
+ {
+ 	I915_RND_STATE(seed_prng);
+-	struct i915_vma *mock_vma;
++	struct i915_vma_resource *mock_vma_res;
+ 	unsigned int size;
+ 
+-	mock_vma = kzalloc(sizeof(*mock_vma), GFP_KERNEL);
+-	if (!mock_vma)
++	mock_vma_res = kzalloc(sizeof(*mock_vma_res), GFP_KERNEL);
++	if (!mock_vma_res)
+ 		return -ENOMEM;
+ 
+ 	/* Keep creating larger objects until one cannot fit into the hole */
+@@ -269,7 +269,7 @@ static int lowlevel_hole(struct i915_address_space *vm,
+ 				break;
+ 		} while (count >>= 1);
+ 		if (!count) {
+-			kfree(mock_vma);
++			kfree(mock_vma_res);
+ 			return -ENOMEM;
+ 		}
+ 		GEM_BUG_ON(!order);
+@@ -343,12 +343,12 @@ static int lowlevel_hole(struct i915_address_space *vm,
+ 					break;
+ 			}
+ 
+-			mock_vma->pages = obj->mm.pages;
+-			mock_vma->node.size = BIT_ULL(size);
+-			mock_vma->node.start = addr;
++			mock_vma_res->bi.pages = obj->mm.pages;
++			mock_vma_res->node_size = BIT_ULL(size);
++			mock_vma_res->start = addr;
+ 
+ 			with_intel_runtime_pm(vm->gt->uncore->rpm, wakeref)
+-				vm->insert_entries(vm, mock_vma,
++			  vm->insert_entries(vm, mock_vma_res,
+ 						   I915_CACHE_NONE, 0);
+ 		}
+ 		count = n;
+@@ -371,7 +371,7 @@ static int lowlevel_hole(struct i915_address_space *vm,
+ 		cleanup_freed_objects(vm->i915);
+ 	}
+ 
+-	kfree(mock_vma);
++	kfree(mock_vma_res);
+ 	return 0;
+ }
+ 
+@@ -1280,6 +1280,7 @@ static void track_vma_bind(struct i915_vma *vma)
+ 	atomic_set(&vma->pages_count, I915_VMA_PAGES_ACTIVE);
+ 	__i915_gem_object_pin_pages(obj);
+ 	vma->pages = obj->mm.pages;
++	vma->resource->bi.pages = vma->pages;
+ 
+ 	mutex_lock(&vma->vm->mutex);
+ 	list_add_tail(&vma->vm_link, &vma->vm->bound_list);
+@@ -1354,7 +1355,7 @@ static int reserve_gtt_with_resource(struct i915_vma *vma, u64 offset)
+ 				   obj->cache_level,
+ 				   0);
+ 	if (!err) {
+-		i915_vma_resource_init(vma_res);
++		i915_vma_resource_init_from_vma(vma_res, vma);
+ 		vma->resource = vma_res;
+ 	} else {
+ 		kfree(vma_res);
+@@ -1533,7 +1534,7 @@ static int insert_gtt_with_resource(struct i915_vma *vma)
+ 	err = i915_gem_gtt_insert(vm, &vma->node, obj->base.size, 0,
+ 				  obj->cache_level, 0, vm->total, 0);
+ 	if (!err) {
+-		i915_vma_resource_init(vma_res);
++		i915_vma_resource_init_from_vma(vma_res, vma);
+ 		vma->resource = vma_res;
+ 	} else {
+ 		kfree(vma_res);
+@@ -1958,6 +1959,7 @@ static int igt_cs_tlb(void *arg)
+ 			struct i915_vm_pt_stash stash = {};
+ 			struct i915_request *rq;
+ 			struct i915_gem_ww_ctx ww;
++			struct i915_vma_resource *vma_res;
+ 			u64 offset;
+ 
+ 			offset = igt_random_offset(&prng,
+@@ -1976,6 +1978,13 @@ static int igt_cs_tlb(void *arg)
+ 			if (err)
+ 				goto end;
+ 
++			vma_res = i915_vma_resource_alloc();
++			if (IS_ERR(vma_res)) {
++				vma->ops->clear_pages(vma);
++				err = PTR_ERR(vma_res);
++				goto end;
++			}
++
+ 			i915_gem_ww_ctx_init(&ww, false);
+ retry:
+ 			err = i915_vm_lock_objects(vm, &ww);
+@@ -1997,51 +2006,62 @@ static int igt_cs_tlb(void *arg)
+ 					goto retry;
+ 			}
+ 			i915_gem_ww_ctx_fini(&ww);
+-			if (err)
++			if (err) {
++				kfree(vma_res);
+ 				goto end;
++			}
+ 
++			i915_vma_resource_init_from_vma(vma_res, vma);
+ 			/* Prime the TLB with the dummy pages */
+ 			for (i = 0; i < count; i++) {
+-				vma->node.start = offset + i * PAGE_SIZE;
+-				vm->insert_entries(vm, vma, I915_CACHE_NONE, 0);
++				vma_res->start = offset + i * PAGE_SIZE;
++				vm->insert_entries(vm, vma_res, I915_CACHE_NONE,
++						   0);
+ 
+-				rq = submit_batch(ce, vma->node.start);
++				rq = submit_batch(ce, vma_res->start);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					i915_vma_resource_fini(vma_res);
++					kfree(vma_res);
+ 					goto end;
+ 				}
+ 				i915_request_put(rq);
+ 			}
+-
++			i915_vma_resource_fini(vma_res);
+ 			vma->ops->clear_pages(vma);
+ 
+ 			err = context_sync(ce);
+ 			if (err) {
+ 				pr_err("%s: dummy setup timed out\n",
+ 				       ce->engine->name);
++				kfree(vma_res);
+ 				goto end;
+ 			}
+ 
+ 			vma = i915_vma_instance(act, vm, NULL);
+ 			if (IS_ERR(vma)) {
++				kfree(vma_res);
+ 				err = PTR_ERR(vma);
+ 				goto end;
+ 			}
+ 
+ 			err = vma->ops->set_pages(vma);
+-			if (err)
++			if (err) {
++				kfree(vma_res);
+ 				goto end;
++			}
+ 
++			i915_vma_resource_init_from_vma(vma_res, vma);
+ 			/* Replace the TLB with target batches */
+ 			for (i = 0; i < count; i++) {
+ 				struct i915_request *rq;
+ 				u32 *cs = batch + i * 64 / sizeof(*cs);
+ 				u64 addr;
+ 
+-				vma->node.start = offset + i * PAGE_SIZE;
+-				vm->insert_entries(vm, vma, I915_CACHE_NONE, 0);
++				vma_res->start = offset + i * PAGE_SIZE;
++				vm->insert_entries(vm, vma_res, I915_CACHE_NONE, 0);
+ 
+-				addr = vma->node.start + i * 64;
++				addr = vma_res->start + i * 64;
+ 				cs[4] = MI_NOOP;
+ 				cs[6] = lower_32_bits(addr);
+ 				cs[7] = upper_32_bits(addr);
+@@ -2050,6 +2070,8 @@ static int igt_cs_tlb(void *arg)
+ 				rq = submit_batch(ce, addr);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					i915_vma_resource_fini(vma_res);
++					kfree(vma_res);
+ 					goto end;
+ 				}
+ 
+@@ -2066,6 +2088,8 @@ static int igt_cs_tlb(void *arg)
+ 			}
+ 			end_spin(batch, count - 1);
+ 
++			i915_vma_resource_fini(vma_res);
++			kfree(vma_res);
+ 			vma->ops->clear_pages(vma);
+ 
+ 			err = context_sync(ce);
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+index 32ca8962d0ab..3287804689a4 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+@@ -33,23 +33,23 @@ static void mock_insert_page(struct i915_address_space *vm,
+ }
+ 
+ static void mock_insert_entries(struct i915_address_space *vm,
+-				struct i915_vma *vma,
++				struct i915_vma_resource *vma_res,
+ 				enum i915_cache_level level, u32 flags)
+ {
+ }
+ 
+ static void mock_bind_ppgtt(struct i915_address_space *vm,
+ 			    struct i915_vm_pt_stash *stash,
+-			    struct i915_vma *vma,
++			    struct i915_vma_resource *vma_res,
+ 			    enum i915_cache_level cache_level,
+ 			    u32 flags)
+ {
+ 	GEM_BUG_ON(flags & I915_VMA_GLOBAL_BIND);
+-	set_bit(I915_VMA_LOCAL_BIND_BIT, __i915_vma_flags(vma));
++	vma_res->bound_flags |= flags;
+ }
+ 
+ static void mock_unbind_ppgtt(struct i915_address_space *vm,
+-			      struct i915_vma *vma)
++			      struct i915_vma_resource *vma_res)
+ {
+ }
+ 
+@@ -95,14 +95,14 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
+ 
+ static void mock_bind_ggtt(struct i915_address_space *vm,
+ 			   struct i915_vm_pt_stash *stash,
+-			   struct i915_vma *vma,
++			   struct i915_vma_resource *vma_res,
+ 			   enum i915_cache_level cache_level,
+ 			   u32 flags)
+ {
+ }
+ 
+ static void mock_unbind_ggtt(struct i915_address_space *vm,
+-			     struct i915_vma *vma)
++			     struct i915_vma_resource *vma_res)
+ {
+ }
+ 
 -- 
 2.31.1
 
