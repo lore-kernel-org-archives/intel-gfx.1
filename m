@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D71C2C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 15:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE778C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 15:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6996010E31B;
-	Fri, 17 Dec 2021 15:54:26 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD7A10E4BC
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 15:54:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10201"; a="326065648"
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="326065648"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2021 07:54:19 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73E9810E4CF;
+	Fri, 17 Dec 2021 15:54:28 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83F8D10E31B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 15:54:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10201"; a="226633641"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="226633641"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 07:54:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="519790001"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="466544753"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga008.jf.intel.com with SMTP; 17 Dec 2021 07:54:16 -0800
+ by orsmga006.jf.intel.com with SMTP; 17 Dec 2021 07:54:22 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 17 Dec 2021 17:54:15 +0200
+ Fri, 17 Dec 2021 17:54:21 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 17 Dec 2021 17:54:01 +0200
-Message-Id: <20211217155403.31477-5-ville.syrjala@linux.intel.com>
+Date: Fri, 17 Dec 2021 17:54:03 +0200
+Message-Id: <20211217155403.31477-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211217155403.31477-1-ville.syrjala@linux.intel.com>
 References: <20211217155403.31477-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915/bios: Throw out the
- !has_ddi_port_info() codepaths
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915/hdmi: Ignore DP++ TMDS clock limit
+ for native HDMI ports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,176 +52,54 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Now that we parse the DDI port info from the VBT on all g4x+ platforms
-we can throw out all the old codepaths in intel_bios_is_port_present(),
-intel_bios_is_port_edp() and intel_bios_is_port_dp_dual_mode(). None
-of these should be called on pre-g4x platforms.
+Lots of machines these days seem to have a crappy type1 DP dual
+mode adaptor chip slapped onto the motherboard. Based on the
+DP dual mode spec we currently limit those to 165MHz max TMDS
+clock.
 
-For good measure throw in a WARN into intel_bios_is_port_present()
-should someone get the urge to call it on older platforms. The
-other two functions are specific to HDMI and DP so should not need
-any protection as those encoder types don't even exist on older
-platforms.
+Windows OTOH ignores DP dual mode adaptors when the VBT
+indicates that the port is not actually DP++, so we can
+perhaps assume that the vendors did intend that the 165MHz
+clock limit doesn't apply here. Though it would be much
+nicer if they actually declared an explicit limit through
+VBT, but that doesn't seem to be happening either.
+
+So in order to match Windows behaviour let's ignore the
+DP dual mode adaptor's TMDS clock limit for ports that
+don't look like DP++ in VBT.
+
+Unfortunately many older VBTs misdelcare their DP++ ports
+as just HDMI (eg. ILK Dell Latitude E5410) or DP (eg. SNB
+Lenovo ThinkPad X220). So we can't really do this universally
+without risking black screens. I suppose a sensible cutoff
+is HSW+ since that's when 4k became a thing and one might
+assume that the machines have been tested to work with higher
+TMDS clock rates.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c     | 99 ++-----------------
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 15 ---
- 2 files changed, 9 insertions(+), 105 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index d7d64d3bf083..f5aa2c72b2fe 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2663,37 +2663,10 @@ bool intel_bios_is_lvds_present(struct drm_i915_private *i915, u8 *i2c_pin)
-  */
- bool intel_bios_is_port_present(struct drm_i915_private *i915, enum port port)
- {
--	const struct intel_bios_encoder_data *devdata;
--	const struct child_device_config *child;
--	static const struct {
--		u16 dp, hdmi;
--	} port_mapping[] = {
--		[PORT_B] = { DVO_PORT_DPB, DVO_PORT_HDMIB, },
--		[PORT_C] = { DVO_PORT_DPC, DVO_PORT_HDMIC, },
--		[PORT_D] = { DVO_PORT_DPD, DVO_PORT_HDMID, },
--		[PORT_E] = { DVO_PORT_DPE, DVO_PORT_HDMIE, },
--		[PORT_F] = { DVO_PORT_DPF, DVO_PORT_HDMIF, },
--	};
-+	if (WARN_ON(!has_ddi_port_info(i915)))
-+		return true;
- 
--	if (has_ddi_port_info(i915))
--		return i915->vbt.ports[port];
--
--	/* FIXME maybe deal with port A as well? */
--	if (drm_WARN_ON(&i915->drm,
--			port == PORT_A) || port >= ARRAY_SIZE(port_mapping))
--		return false;
--
--	list_for_each_entry(devdata, &i915->vbt.display_devices, node) {
--		child = &devdata->child;
--
--		if ((child->dvo_port == port_mapping[port].dp ||
--		     child->dvo_port == port_mapping[port].hdmi) &&
--		    (child->device_type & (DEVICE_TYPE_TMDS_DVI_SIGNALING |
--					   DEVICE_TYPE_DISPLAYPORT_OUTPUT)))
--			return true;
--	}
--
--	return false;
-+	return i915->vbt.ports[port];
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 3b5b9e7b05b7..9f0557d9e9a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2359,6 +2359,14 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector, bool has_edid)
+ 		    "DP dual mode adaptor (%s) detected (max TMDS clock: %d kHz)\n",
+ 		    drm_dp_get_dual_mode_type_name(type),
+ 		    hdmi->dp_dual_mode.max_tmds_clock);
++
++	/* Older VBTs are often buggy and can't be trusted :( Play it safe. */
++	if ((DISPLAY_VER(dev_priv) >= 8 || IS_BROADWELL(dev_priv)) &&
++	    !intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
++		drm_dbg_kms(&dev_priv->drm,
++			    "Ignoring DP dual mode adaptor max TMDS clock for native HDMI port\n");
++		hdmi->dp_dual_mode.max_tmds_clock = 0;
++	}
  }
  
- /**
-@@ -2705,34 +2678,10 @@ bool intel_bios_is_port_present(struct drm_i915_private *i915, enum port port)
-  */
- bool intel_bios_is_port_edp(struct drm_i915_private *i915, enum port port)
- {
--	const struct intel_bios_encoder_data *devdata;
--	const struct child_device_config *child;
--	static const short port_mapping[] = {
--		[PORT_B] = DVO_PORT_DPB,
--		[PORT_C] = DVO_PORT_DPC,
--		[PORT_D] = DVO_PORT_DPD,
--		[PORT_E] = DVO_PORT_DPE,
--		[PORT_F] = DVO_PORT_DPF,
--	};
-+	const struct intel_bios_encoder_data *devdata =
-+		intel_bios_encoder_data_lookup(i915, port);
- 
--	if (has_ddi_port_info(i915)) {
--		const struct intel_bios_encoder_data *devdata;
--
--		devdata = intel_bios_encoder_data_lookup(i915, port);
--
--		return devdata && intel_bios_encoder_supports_edp(devdata);
--	}
--
--	list_for_each_entry(devdata, &i915->vbt.display_devices, node) {
--		child = &devdata->child;
--
--		if (child->dvo_port == port_mapping[port] &&
--		    (child->device_type & DEVICE_TYPE_eDP_BITS) ==
--		    (DEVICE_TYPE_eDP & DEVICE_TYPE_eDP_BITS))
--			return true;
--	}
--
--	return false;
-+	return devdata && intel_bios_encoder_supports_edp(devdata);
- }
- 
- static bool child_dev_is_dp_dual_mode(const struct child_device_config *child)
-@@ -2755,40 +2704,10 @@ static bool child_dev_is_dp_dual_mode(const struct child_device_config *child)
- bool intel_bios_is_port_dp_dual_mode(struct drm_i915_private *i915,
- 				     enum port port)
- {
--	static const struct {
--		u16 dp, hdmi;
--	} port_mapping[] = {
--		/*
--		 * Buggy VBTs may declare DP ports as having
--		 * HDMI type dvo_port :( So let's check both.
--		 */
--		[PORT_B] = { DVO_PORT_DPB, DVO_PORT_HDMIB, },
--		[PORT_C] = { DVO_PORT_DPC, DVO_PORT_HDMIC, },
--		[PORT_D] = { DVO_PORT_DPD, DVO_PORT_HDMID, },
--		[PORT_E] = { DVO_PORT_DPE, DVO_PORT_HDMIE, },
--		[PORT_F] = { DVO_PORT_DPF, DVO_PORT_HDMIF, },
--	};
--	const struct intel_bios_encoder_data *devdata;
-+	const struct intel_bios_encoder_data *devdata =
-+		intel_bios_encoder_data_lookup(i915, port);
- 
--	if (has_ddi_port_info(i915)) {
--		const struct intel_bios_encoder_data *devdata;
--
--		devdata = intel_bios_encoder_data_lookup(i915, port);
--
--		return devdata && child_dev_is_dp_dual_mode(&devdata->child);
--	}
--
--	if (port == PORT_A || port >= ARRAY_SIZE(port_mapping))
--		return false;
--
--	list_for_each_entry(devdata, &i915->vbt.display_devices, node) {
--		if ((devdata->child.dvo_port == port_mapping[port].dp ||
--		     devdata->child.dvo_port == port_mapping[port].hdmi) &&
--		    child_dev_is_dp_dual_mode(&devdata->child))
--			return true;
--	}
--
--	return false;
-+	return devdata && child_dev_is_dp_dual_mode(&devdata->child);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index f043d85ba64d..c23582769f34 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -226,21 +226,6 @@ struct bdb_general_features {
- #define DEVICE_TYPE_DIGITAL_OUTPUT	(1 << 1)
- #define DEVICE_TYPE_ANALOG_OUTPUT	(1 << 0)
- 
--/*
-- * Bits we care about when checking for DEVICE_TYPE_eDP. Depending on the
-- * system, the other bits may or may not be set for eDP outputs.
-- */
--#define DEVICE_TYPE_eDP_BITS \
--	(DEVICE_TYPE_INTERNAL_CONNECTOR |	\
--	 DEVICE_TYPE_MIPI_OUTPUT |		\
--	 DEVICE_TYPE_COMPOSITE_OUTPUT |		\
--	 DEVICE_TYPE_DUAL_CHANNEL |		\
--	 DEVICE_TYPE_LVDS_SIGNALING |		\
--	 DEVICE_TYPE_TMDS_DVI_SIGNALING |	\
--	 DEVICE_TYPE_VIDEO_SIGNALING |		\
--	 DEVICE_TYPE_DISPLAYPORT_OUTPUT |	\
--	 DEVICE_TYPE_ANALOG_OUTPUT)
--
- #define DEVICE_TYPE_DP_DUAL_MODE_BITS \
- 	(DEVICE_TYPE_INTERNAL_CONNECTOR |	\
- 	 DEVICE_TYPE_MIPI_OUTPUT |		\
+ static bool
 -- 
 2.32.0
 
