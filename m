@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF59C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 20:25:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D4FDC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 20:29:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C77710E5B6;
-	Fri, 17 Dec 2021 20:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E71510E5DE;
+	Fri, 17 Dec 2021 20:29:35 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 02D9810E5B6;
- Fri, 17 Dec 2021 20:25:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 18B1010E5DE;
+ Fri, 17 Dec 2021 20:29:33 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F2A5AA9A42;
- Fri, 17 Dec 2021 20:25:37 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 104A4A9A42;
+ Fri, 17 Dec 2021 20:29:33 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Anusha Srivatsa" <anusha.srivatsa@intel.com>
-Date: Fri, 17 Dec 2021 20:25:37 -0000
-Message-ID: <163977273799.10412.11373422880678330948@emeril.freedesktop.org>
+Date: Fri, 17 Dec 2021 20:29:33 -0000
+Message-ID: <163977297306.10412.8931881010859826399@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20211217200302.2855240-1-anusha.srivatsa@intel.com>
 In-Reply-To: <20211217200302.2855240-1-anusha.srivatsa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/display=3A_Move_cdclk_checks_to_atomic_check_=28rev2?=
- =?utf-8?q?=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/display=3A_Move_cdclk_checks_to_atomic_check_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,8 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/display/intel_cdclk.c:2025: warning: Function parameter or member 'dev_priv' not described in 'intel_cdclk_needs_modeset'
+./drivers/gpu/drm/i915/display/intel_cdclk.c:2085: warning: Function parameter or member 'dev_priv' not described in 'intel_cdclk_changed'
 
 
