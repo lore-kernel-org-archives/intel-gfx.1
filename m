@@ -4,43 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69815C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 00:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F8DDC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 00:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC52710EBCD;
-	Tue, 21 Dec 2021 00:33:31 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A993C10ED71
- for <Intel-GFX@lists.freedesktop.org>; Tue, 21 Dec 2021 00:33:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8A6810E2A2;
+	Tue, 21 Dec 2021 00:52:23 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D20B010E2A2;
+ Tue, 21 Dec 2021 00:52:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640046810; x=1671582810;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fRBRqTxEx+BL3S0gUUc8sK1XSmUMURLrleL6ieCDm3Y=;
- b=l09T8Uw4WIcUqt2JhY1PeBFV3BfCSnwrl/He9S8uHwBbmQNvDLmG3QJG
- KRlUbcBrZcDPiIPs4pKQ5wAoaH/ElJNEi1COP0Je/K87C/8UzU11SJdzV
- 2ToFLwiJBGwuWL+nmEvDb0ro3HEFhgBMaOjOPVtVb1usjHkGBiyWkh1aX
- yrDnu5i5S7RzHihZHrGVasHbMKGFyfHmWmIzsiyokAIO6pFt7WIbknJ1c
- /mR6c6DhD9xR2+imTvM8c9U3mrLxNR+6FWjSEw0E3xuCV3gxGjV0v69t2
- XtzF9hlOIPXi5ITfV7G4HwccpSkvHW5/0IPzW5+jVNDrbscYzWOFzhSvt w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10204"; a="240249056"
-X-IronPort-AV: E=Sophos;i="5.88,221,1635231600"; d="scan'208";a="240249056"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2021 16:33:30 -0800
+ t=1640047942; x=1671583942;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=XwM6+/4Tbeubh9FsNBjILnWryi9IyY2D2LlTrWj1Ggg=;
+ b=mqgM5jcSEXm13TDDp3u1upsomTgjWxwwQoUd+n5UBZofu+AoteadOS1h
+ cBKOWT8vPeMovz6JpeDUu16fq6eb3Vep9ukTr1/dyGFf/+KwBy0TXklfM
+ sfY9U4pbMLJtPz0bPM2dmCzWIka6TaHHtlLcwQII7P+qCxNvFOc/oTceJ
+ lb7S4FIUmNJC1t1qaU7MKqvzR3hOlfn/bziDE5wkf7SH3zHJP8fiuUoR5
+ hveDCrlaXBpY06rjSESKY4Pm4LfoagbSFr0und4ivv8s8GOKtg/WP7kY/
+ ht40JpOQayAbSohyRXXIeUx21zXx9nokjvE0UhqVYgPHLu8XMr0aK+2U6 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10204"; a="264483624"
+X-IronPort-AV: E=Sophos;i="5.88,221,1635231600"; d="scan'208";a="264483624"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2021 16:52:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,221,1635231600"; d="scan'208";a="613279068"
+X-IronPort-AV: E=Sophos;i="5.88,221,1635231600"; d="scan'208";a="547739318"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga002.fm.intel.com with ESMTP; 20 Dec 2021 16:33:29 -0800
+ by orsmga001.jf.intel.com with ESMTP; 20 Dec 2021 16:52:21 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Mon, 20 Dec 2021 16:33:29 -0800
-Message-Id: <20211221003329.1054464-1-John.C.Harrison@Intel.com>
+Date: Mon, 20 Dec 2021 16:52:19 -0800
+Message-Id: <20211221005221.1090824-2-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211221005221.1090824-1-John.C.Harrison@Intel.com>
+References: <20211221005221.1090824-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI] PR for new GuC v69.0.3
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/guc: Temporarily bump the GuC load
+ timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,44 +58,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The following changes since commit b0e898fbaf377c99a36aac6fdeb7250003648ca4:
+From: John Harrison <John.C.Harrison@Intel.com>
 
-  linux-firmware: Update firmware file for Intel Bluetooth 9462 (2021-11-23 12:31:45 -0500)
+There is a known (but exceedingly unlikely) race condition where the
+asynchronous frequency management code could reduce the GT clock while
+a GuC reload is in progress (during a full GT reset). A fix is in
+progress but there are complex locking issues to be resolved. In the
+meantime bump the timeout to 500ms. Even at slowest clock, this
+should be sufficient. And in the working case, a larger timeout makes
+no difference.
 
-are available in the Git repository at:
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-  git://anongit.freedesktop.org/drm/drm-firmware guc_v69.0.3
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+index 31420ce1ce6b..c03bde5ec61f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+@@ -105,12 +105,21 @@ static int guc_wait_ucode(struct intel_uncore *uncore)
+ 	/*
+ 	 * Wait for the GuC to start up.
+ 	 * NB: Docs recommend not using the interrupt for completion.
+-	 * Measurements indicate this should take no more than 20ms, so a
++	 * Measurements indicate this should take no more than 20ms
++	 * (assuming the GT clock is at maximum frequency). So, a
+ 	 * timeout here indicates that the GuC has failed and is unusable.
+ 	 * (Higher levels of the driver may decide to reset the GuC and
+ 	 * attempt the ucode load again if this happens.)
++	 *
++	 * FIXME: There is a known (but exceedingly unlikely) race condition
++	 * where the asynchronous frequency management code could reduce
++	 * the GT clock while a GuC reload is in progress (during a full
++	 * GT reset). A fix is in progress but there are complex locking
++	 * issues to be resolved. In the meantime bump the timeout to
++	 * 500ms. Even at slowest clock, this should be sufficient. And
++	 * in the working case, a larger timeout makes no difference.
+ 	 */
+-	ret = wait_for(guc_ready(uncore, &status), 100);
++	ret = wait_for(guc_ready(uncore, &status), 500);
+ 	if (ret) {
+ 		struct drm_device *drm = &uncore->i915->drm;
+ 
+-- 
+2.25.1
 
-for you to fetch changes up to 548b304a35b77cd43c1242e0eae68f775bd0df2a:
-
-  i915: Add GuC v69.0.3 for all platforms (2021-12-15 13:28:54 -0800)
-
-----------------------------------------------------------------
-John Harrison (1):
-      i915: Add GuC v69.0.3 for all platforms
-
- WHENCE                   |  30 ++++++++++++++++++++++++++++++
- i915/adlp_guc_69.0.3.bin | Bin 0 -> 356416 bytes
- i915/bxt_guc_69.0.3.bin  | Bin 0 -> 216768 bytes
- i915/cml_guc_69.0.3.bin  | Bin 0 -> 217664 bytes
- i915/dg1_guc_69.0.3.bin  | Bin 0 -> 323968 bytes
- i915/ehl_guc_69.0.3.bin  | Bin 0 -> 343360 bytes
- i915/glk_guc_69.0.3.bin  | Bin 0 -> 217216 bytes
- i915/icl_guc_69.0.3.bin  | Bin 0 -> 343360 bytes
- i915/kbl_guc_69.0.3.bin  | Bin 0 -> 217664 bytes
- i915/skl_guc_69.0.3.bin  | Bin 0 -> 216704 bytes
- i915/tgl_guc_69.0.3.bin  | Bin 0 -> 343296 bytes
- 11 files changed, 30 insertions(+)
- create mode 100644 i915/adlp_guc_69.0.3.bin
- create mode 100644 i915/bxt_guc_69.0.3.bin
- create mode 100644 i915/cml_guc_69.0.3.bin
- create mode 100644 i915/dg1_guc_69.0.3.bin
- create mode 100644 i915/ehl_guc_69.0.3.bin
- create mode 100644 i915/glk_guc_69.0.3.bin
- create mode 100644 i915/icl_guc_69.0.3.bin
- create mode 100644 i915/kbl_guc_69.0.3.bin
- create mode 100644 i915/skl_guc_69.0.3.bin
- create mode 100644 i915/tgl_guc_69.0.3.bin
