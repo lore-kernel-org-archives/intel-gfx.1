@@ -4,64 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCDC3C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 040B1C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E55714B437;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 074F714B436;
 	Mon, 10 Jan 2022 13:24:17 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2C610EBC7;
- Fri,  7 Jan 2022 17:26:09 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- x18-20020a7bc212000000b00347cc83ec07so1029442wmi.4; 
- Fri, 07 Jan 2022 09:26:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=Ht1OfskK18Tncu8hyQlhD7qZAAQL5kUIMY/RPcI5GWg=;
- b=ovBuHMMnaNmXki6e8ZuoIbwSgvKSbD1rksXRBmgyYUmyP/xeQbqX4CMXw2qDxMN1Vj
- v7Bki5RCHpIU0e56V7Y7EQ3kE2ZXPFmptqvRvDxQZ7chM4UIxRpXdp4o+0LjlKd7pW8q
- cXEGNj0CLps7TCexKvhCcrnl6NC6GUvVbPn8655XITD+oVFX6A77Yf0ibTqVflUqhgVm
- PGjvs5ZFG+72tWQn2lyUd3vH8tp3g1Iw+bUZuz3gxylapUn9yZgbIyZOi1em49vjoi94
- cNXMt0hYVQD9rJAfir0whVAbi7g644rWd6NP5cRkYKgohSf4SMg+HMJ/SIjKzTUI7Shm
- kngw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=Ht1OfskK18Tncu8hyQlhD7qZAAQL5kUIMY/RPcI5GWg=;
- b=i9DBCsOYLDZO37P6QpfMWDWlrh653HsdKCiqXz6W/zPdVLzNiybYnEK7GORpwFpcWa
- QgZ3EvMNBwT7U1dpD1PsBCwB4pW4Y8qZ75REktan+WaRHLROUGvc+WK0BtAObn4YZyfi
- Bqr9ZdY6dW+Ve4M6hBda+YvLexLXKtSJv9WRdVmOFT8nYOe3MmCUHK5SVGKtxFKp0aFi
- NzrTz3LKOWen6+UhrK4+YY145F0HDA7y1cZRcwbOeY98l2tqLuinTZMX0Zu6NdIGIfLY
- m8IOAgM3BZZ6mtjmZNkAGIlubxFJ/3qNSI55Dk9l6yj3+zEFrjIukZXvNsipbpQ5D4kR
- KWvQ==
-X-Gm-Message-State: AOAM533qQtJnhFyKTx9itenkKqkXf3MqfWJI/34WqbGrZkOSC6bOaZMB
- vjIlhuM2Br2u4Xebhj0nTWc=
-X-Google-Smtp-Source: ABdhPJxKyHsrAgQTVgZgLm+52z4ULS2Pqwjxj4lcuAMX76VGeJnjfcycUSa/PS919Hvdw9jf9FQEkg==
-X-Received: by 2002:a1c:5403:: with SMTP id i3mr10241280wmb.66.1641576368115; 
- Fri, 07 Jan 2022 09:26:08 -0800 (PST)
-Received: from elementary ([217.113.240.86])
- by smtp.gmail.com with ESMTPSA id s10sm8325202wmr.30.2022.01.07.09.26.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jan 2022 09:26:07 -0800 (PST)
-Date: Fri, 7 Jan 2022 18:26:01 +0100
-From: =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>
-To: Simon Ser <contact@emersion.fr>
-Message-ID: <20220107172601.GA122757@elementary>
-References: <20211226112503.31771-1-jose.exposito89@gmail.com>
- <20211226112503.31771-3-jose.exposito89@gmail.com>
- <3DdB6YPUQr4O063yNreefZcIm6p5Z6HORoVVbk5RTMmjz8qvnxMse42hLvfDmA323KG-TWLc_JUFZEEEIkoINXQuAzjLVe2jRRM01tQgYOU=@emersion.fr>
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Tue, 21 Dec 2021 02:30:34 UTC
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5D410E41E;
+ Tue, 21 Dec 2021 02:30:34 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=14; SR=0; TI=SMTPD_---0V.IKijQ_1640053524; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0V.IKijQ_1640053524) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 21 Dec 2021 10:25:25 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: airlied@linux.ie
+Date: Tue, 21 Dec 2021 10:25:23 +0800
+Message-Id: <20211221022523.86071-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3DdB6YPUQr4O063yNreefZcIm6p5Z6HORoVVbk5RTMmjz8qvnxMse42hLvfDmA323KG-TWLc_JUFZEEEIkoINXQuAzjLVe2jRRM01tQgYOU=@emersion.fr>
-X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:15 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 2/6] drm/plane: Fix typo in
- format_mod_supported documentation
+X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
+Subject: [Intel-gfx] [PATCH -next] drm/i915/gvt: Fix
+ intel_vgpu_default_mmio_write() kernel-doc comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,27 +43,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
- benjamin.gaignard@linaro.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
- intel-gfx@lists.freedesktop.org, s.hauer@pengutronix.de, mripard@kernel.org,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
- yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
- philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
- dmitry.baryshkov@linaro.org, shawnguo@kernel.org
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ Yang Li <yang.lee@linux.alibaba.com>, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Simon,
+Fix function name in handlers.c kernel-doc comment
+to remove some warnings found by running scripts/kernel-doc,
+which is caused by using 'make W=1'.
+drivers/gpu/drm/i915/gvt/handlers.c:3812: warning: expecting prototype
+for intel_t_default_mmio_write(). Prototype was for
+intel_vgpu_default_mmio_write() instead.
 
-On Wed, Jan 05, 2022 at 11:54:43PM +0000, Simon Ser wrote:
-> Pushed patches 1 & 2 to drm-misc-next. Thanks for your contribution!
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Fixes: e39c5add3221 ("drm/i915/gvt: vGPU MMIO virtualization")
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/i915/gvt/handlers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks a lot for the review and for applying the changes, appreciate it.
+diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+index 3938df0db188..32027a7e08af 100644
+--- a/drivers/gpu/drm/i915/gvt/handlers.c
++++ b/drivers/gpu/drm/i915/gvt/handlers.c
+@@ -3798,7 +3798,7 @@ int intel_vgpu_default_mmio_read(struct intel_vgpu *vgpu, unsigned int offset,
+ }
+ 
+ /**
+- * intel_t_default_mmio_write - default MMIO write handler
++ * intel_vgpu_default_mmio_write - default MMIO write handler
+  * @vgpu: a vGPU
+  * @offset: access offset
+  * @p_data: write data buffer
+-- 
+2.20.1.7.g153144c
 
-Is there something that needs to improve in the other 4 patches?
-Or just waiting on maintainers input?
-
-Thanks,
-José Expósito
