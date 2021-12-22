@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6D9C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 751BBC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5314C14B431;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8528514B433;
 	Mon, 10 Jan 2022 13:24:16 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 745D51128BD;
- Wed, 22 Dec 2021 09:06:02 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- bg2-20020a05600c3c8200b0034565c2be15so3421747wmb.0; 
- Wed, 22 Dec 2021 01:06:02 -0800 (PST)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF7F910FF49;
+ Wed, 22 Dec 2021 09:05:57 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id r17so3502224wrc.3;
+ Wed, 22 Dec 2021 01:05:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=udzgSr2XOO8m43wZrlgxQCrOrIrYf8SlPUnoZjFzTYk=;
- b=E3MxQbgD6jp8QTL0eeprZVCT29X4TsAZ9rSxABqoJKJws7UxtL3y3Rb2aRJp575Ctn
- hesvkKOolE8pblgflzdy9N9arwD4TLsVdHjcz4j1NzcMqlx9cge1sYvwMWt+PDGrEnZv
- Y5i0OTQsxOJNGvY9tnt72sq1D1nlChs/Dlk7DLlupN28xGHToNFRR3dsa0SwxLOuKQbY
- 5utUtrQy+t8z0vA8wy2xlzgyZq7k4kWhzakGbvKVtthnxoUy3g+/ce/GXp3eUfCWGNTv
- 3YHSQ7vjPxoH+APQRxDnNB3K64KnRQzbtCWTUulgJeyw5GEOzsGQN3ujO/QZQbujfoWg
- PFhA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yFNkjOhkbVUPCPag3+lAuNDHEf6o3ru8j250NbFjPto=;
+ b=PWovdBphqrEK39M+gpDvGqxAdVPJl6QRH08LDrE+POux+PO7tP7Nq3+hmvFGa/a53/
+ XL4qcWwkKXpqepZ9OJ6dRIlDgLiBr3KiSIaAltvzLJG+QFcoIeTRF+DE3+Lq8xaCSkcO
+ DCmqg/yNfXwUSWbixP4Nz4sPf/o+ES/VSQZ8Jq8iUBnnixA7IEI2eepCOHFPVWsyTEre
+ VrauRXaUmPCXzMC+Pnr0GHA4Aj7LOhjmvVG1i0T5IXo8SZiYdj/FkZZ7dJSrSMSN3tbx
+ c+6weXHSCO2prqtwazZPDjQ4pA2nwe5rCz5NLTI4oGG5wPHKr2CBamLoX96GgGiPaFHp
+ cY1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=udzgSr2XOO8m43wZrlgxQCrOrIrYf8SlPUnoZjFzTYk=;
- b=tAwpO8bPqxM6RNVQCueNwYto5rJ9gX70q2yK7B8eDsAQ9HTb8x0GWPyGvX132DDO4J
- IY+a3srXAcg0JbfuBB/D9Rzlb/7oJjfCKx9oQOl4haQ1r7znJKnWMe+WbYQkQBijs/cP
- OURDSlXKVKdzpvmCrjq9U0k6RR0lJIe1p7p9UCug37w+yGTJCdGN9FHyWYCk+azwaAui
- ef7uRJHigQY58BvrMsMSR+Lx8VWlV2OJfI0GnZ7AuyIvbQeJ+v5vEDVIiQ3P9Vps05Yf
- GS3O/I263i5CG7nuSfZ9GqNg2uXgbDJFoitzX2Bv7ZkX2YvIjs2kIiv5m6vJrNbHBrSj
- u8Gw==
-X-Gm-Message-State: AOAM532dYxRxqR6Akyz24IM/30k3Ld8xxtVC19H/QWOvazbJtQAwE+3D
- MREHMBdET+N3FtkaP8CnUNY=
-X-Google-Smtp-Source: ABdhPJyucSE6tLj1nZatpMDhi96s0rRJ4voGBbwV+cnaaT+IgfOg7RVHe2BjZm9f/hkIq7HlprLhNQ==
-X-Received: by 2002:a1c:440a:: with SMTP id r10mr226427wma.4.1640163961031;
- Wed, 22 Dec 2021 01:06:01 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yFNkjOhkbVUPCPag3+lAuNDHEf6o3ru8j250NbFjPto=;
+ b=6OY7TDEd1dPkif2JwtEySM941cuQrf3zQILdISqN8gsltqNS9POjx8Pg8AhjBNwXi8
+ l9RZ8tRDNz7uHcdrn0Fsb3SY+ONzWkHTa7i1hBC22ylTu5B/ETc5gCWV6GNTcikx4qpX
+ a8870t7XeE0w0sF+JXoEue6n7iwXQr/+B9g7dBtatvUXZ74wCjrnxxmGlOpJkJj5gMUA
+ Y3ylUQG9ZnrHQGF7lq0iCX28SWyBm7KhUx4OH+pQqZsOB++nyDpRGvSgblsJ45oTPGbd
+ jvHfy+Eu+OHGstrHjfTqg6XtVNfHMjRqs9KqAATbj4fD298UKekuvMRDw2+sdlfdnVNR
+ M8kg==
+X-Gm-Message-State: AOAM531XfVGPlo6QJNICQF0TP5vjaBGZwBoZ06Nq9EE4hW0jFflDml4p
+ SCtswp89pRDRneO4xlllbxM=
+X-Google-Smtp-Source: ABdhPJy7flmzMTQMI+3SUiNfM2NPwtetHwfXTX+i112NC6r7WXwuYpXcaDAx0EErcXx/XtP7nmcycA==
+X-Received: by 2002:a5d:64ed:: with SMTP id g13mr1384847wri.197.1640163956459; 
+ Wed, 22 Dec 2021 01:05:56 -0800 (PST)
 Received: from localhost.localdomain ([217.113.240.86])
- by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.05.59
+ by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.05.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Dec 2021 01:06:00 -0800 (PST)
+ Wed, 22 Dec 2021 01:05:56 -0800 (PST)
 From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
 To: contact@emersion.fr
-Date: Wed, 22 Dec 2021 10:05:49 +0100
-Message-Id: <20211222090552.25972-4-jose.exposito89@gmail.com>
+Date: Wed, 22 Dec 2021 10:05:46 +0100
+Message-Id: <20211222090552.25972-1-jose.exposito89@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211222090552.25972-1-jose.exposito89@gmail.com>
-References: <20211222090552.25972-1-jose.exposito89@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH v2 3/6] drm/simple-kms: Drop
- format_mod_supported function
+Subject: [Intel-gfx] [PATCH v2 0/6] Add missing format_mod_supported
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,40 +82,46 @@ Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The "drm_plane_funcs.format_mod_supported" can be removed in favor of
-the default implementation.
+Hi all,
 
-Signed-off-by: José Expósito <jose.exposito89@gmail.com>
----
- drivers/gpu/drm/drm_simple_kms_helper.c | 8 --------
- 1 file changed, 8 deletions(-)
+This patchset supersedes [1]. Now the title is a bit misleading, but
+I left it this way to (hopefully) facilitate the maintainers' work.
 
-diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
-index 72989ed1baba..2c6aa67c6956 100644
---- a/drivers/gpu/drm/drm_simple_kms_helper.c
-+++ b/drivers/gpu/drm/drm_simple_kms_helper.c
-@@ -284,13 +284,6 @@ static void drm_simple_kms_plane_cleanup_fb(struct drm_plane *plane,
- 	pipe->funcs->cleanup_fb(pipe, state);
- }
- 
--static bool drm_simple_kms_format_mod_supported(struct drm_plane *plane,
--						uint32_t format,
--						uint64_t modifier)
--{
--	return modifier == DRM_FORMAT_MOD_LINEAR;
--}
--
- static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
- 	.prepare_fb = drm_simple_kms_plane_prepare_fb,
- 	.cleanup_fb = drm_simple_kms_plane_cleanup_fb,
-@@ -339,7 +332,6 @@ static const struct drm_plane_funcs drm_simple_kms_plane_funcs = {
- 	.reset			= drm_simple_kms_plane_reset,
- 	.atomic_duplicate_state	= drm_simple_kms_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_simple_kms_plane_destroy_state,
--	.format_mod_supported   = drm_simple_kms_format_mod_supported,
- };
- 
- /**
+A little context: Originally, I sent a patch adding modifiers to the
+VKMS driver and Simon Ser kindly reviewed it and pointed out that
+"format_mod_supported" was missing [2].
+I asked if the docs were incorrect or if it was a bug in
+"create_in_format_blob".
+
+In the first version of this series, Simon Ser and Dmitry Baryshkov
+agreed [1] that the code should behave as documented and
+"create_in_format_blob" should be changed.
+
+This second version implements the required changes and drops the
+"format_mod_supported" in the drivers that can use the default
+implementation.
+
+Jose
+
+[1] https://lore.kernel.org/dri-devel/CAA8EJpqJ-tWmb5Ba6XSK59toCtLb3nRRmVH8da4Ud_rrRYytmw@mail.gmail.com/T/
+[2] https://lore.kernel.org/dri-devel/20211216170532.GA16349@elementary/T/
+
+José Expósito (6):
+  drm/plane: Make format_mod_supported truly optional
+  drm/plane: Fix typo in format_mod_supported documentation
+  drm/simple-kms: Drop format_mod_supported function
+  drm/i915/display: Drop format_mod_supported function
+  drm: mxsfb: Drop format_mod_supported function
+  drm/stm: ltdc: Drop format_mod_supported function
+
+ drivers/gpu/drm/drm_plane.c                 |  8 ++------
+ drivers/gpu/drm/drm_simple_kms_helper.c     |  8 --------
+ drivers/gpu/drm/i915/display/intel_cursor.c |  8 --------
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c           |  8 --------
+ drivers/gpu/drm/stm/ltdc.c                  | 11 -----------
+ include/drm/drm_plane.h                     |  2 +-
+ 6 files changed, 3 insertions(+), 42 deletions(-)
+
 -- 
 2.25.1
 
