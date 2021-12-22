@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E98DEC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C902CC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29352113F6F;
-	Mon, 10 Jan 2022 13:24:45 +0000 (UTC)
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Thu, 23 Dec 2021 03:49:31 UTC
-Received: from zg8tmty1ljiyny4xntqumjca.icoremail.net
- (zg8tmty1ljiyny4xntqumjca.icoremail.net [165.227.154.27])
- by gabe.freedesktop.org (Postfix) with SMTP id AD2ED10E26A
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Dec 2021 03:49:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fudan.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id:MIME-Version:Content-Transfer-Encoding; bh=BMyBRwvhGy
- luiRrlY86sBHaPYG7tA6Ci8GsbTDeggR0=; b=VqpLZHizDwmZztJ2SuqDojQVfS
- M9MEieTjUPfnKc6e/0lrLekaEYWztnpjsK7xs0oCFQqht+ORbfQU75G3Zh/iXHNR
- me9LWNSAO+oQtK6H2+Q+83b6EQCZjhuhZTb2yE/+ygn7nxrBQ7GO65HuLTN9YbmU
- P23gLXjKj+Kx9Tyco=
-Received: from localhost.localdomain (unknown [10.102.225.147])
- by app2 (Coremail) with SMTP id XQUFCgDHzob378NhybUSAA--.1652S4;
- Thu, 23 Dec 2021 11:42:12 +0800 (CST)
-From: Xin Xiong <xiongx18@fudan.edu.cn>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-Date: Thu, 23 Dec 2021 11:39:49 +0800
-Message-Id: <20211223033948.5208-1-xiongx18@fudan.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E11113B36;
+	Mon, 10 Jan 2022 13:24:47 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACDA10FF49;
+ Wed, 22 Dec 2021 09:05:59 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id i12so1086918wmq.4;
+ Wed, 22 Dec 2021 01:05:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=4JUlyn+OB9q/nAkx157+4tz8tby5UzCmjnk2cgpU7/E=;
+ b=bu3nJO8MFxa2c3oQBbJ83GmuDcUoW/SXO45yCpT+W+biCuOoDSCSUHLDaLok8S5hJO
+ AGIc638dQmhbYpVFO3fcT9cyc67PGfn2OhQTD/r1mPw1TTpNMQjoh0TYQr+U02yOW+tu
+ X442JQhjJcoe+krNyki1Sg1bJOTF9j3gNtXaGIIPkZZp3cmiigPYVLCFUFLhsYanQnie
+ TuzmHfDaVWrRYXrnE27kVoBZrfZiA2Sk8z72o7/mpw+6dFQl8nVHTQNcderx02plvF5i
+ nSPpg9Ra28b5DwLGb8L/YCKoscQfG/MHB4XsUEBcGl83DyyOnlwlpLq4zhH15So0AFvo
+ r8sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=4JUlyn+OB9q/nAkx157+4tz8tby5UzCmjnk2cgpU7/E=;
+ b=AQnsA2dwZZb1ibjhIxcETyVX5OBob6IniM4RtpSX6taadInSQt6PIYpMy+VYmtpkwC
+ ebV9CIPo0nspdP4YSQDOe61fZQf7XUxax/Lc6/cMqa12YqEzq0/Is9DWsCntBvc5aOfA
+ cB/azTmSFGsSG55hyl/x6yVjb79fx8aijqIJ2Q6Z2Jp11sAez3qDujtlCW+MA0M/dpI2
+ lLxjqNWMJBLpvXHbWsO33pVYaxYSz7Pfnx/yj2F5wy9iqZicHfBzRqU+SUbL9fpSRqBA
+ sw9aDWl8Y7Y2kDcOw4uEysdqXvKN3SYCQVfmIlsuXsNOKmjd+yuQKEWwzGZDvsBHhlIf
+ 4bow==
+X-Gm-Message-State: AOAM533VDibaxPo4A/jum0vNQb3tqZY9peP857tu1ZTbgbyzPPyLvarU
+ hzz/8DLQ5yaiuJNhxET5I0Y=
+X-Google-Smtp-Source: ABdhPJytwBVNsRsjyCUwyNbd1c89P3F94MwHR3ncwRrz/bBC3+610uzB064VOeAclTRMoqfrorHsTQ==
+X-Received: by 2002:a05:600c:c6:: with SMTP id u6mr219660wmm.8.1640163957972; 
+ Wed, 22 Dec 2021 01:05:57 -0800 (PST)
+Received: from localhost.localdomain ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.05.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Dec 2021 01:05:57 -0800 (PST)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: contact@emersion.fr
+Date: Wed, 22 Dec 2021 10:05:47 +0100
+Message-Id: <20211222090552.25972-2-jose.exposito89@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211222090552.25972-1-jose.exposito89@gmail.com>
+References: <20211222090552.25972-1-jose.exposito89@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: XQUFCgDHzob378NhybUSAA--.1652S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZryUGF45JFW7Kw1UWw4UArb_yoW8JFykp3
- y3ZFy8CrZ5tF17ta1xJFnFvasxAay3WFy8G39rGwsxAr1DZF18tFWS9Fy3AryUGryfJa4S
- yF92kFy5WFy5AF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4U
- JVW0owA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
- rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
- 8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
- xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
- AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
- cIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
- v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUOrcfUUUUU
-X-CM-SenderInfo: arytiiqsuqiimz6i3vldqovvfxof0/1tbiAQ4EEFKp456+1QAAs2
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/selftests: fix potential refcnt issue
- of a dma_buf object
+Subject: [Intel-gfx] =?utf-8?q?=5BPATCH_v2_1/6=5D_drm/plane=3A_Make_forma?=
+ =?utf-8?q?t=5Fmod=5Fsupported_truly=C2=A0optional?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,46 +70,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xin Tan <tanxin.ctf@gmail.com>, yuanxzhang@fudan.edu.cn,
- Xiyu Yang <xiyuyang19@fudan.edu.cn>, Xin Xiong <xiongx18@fudan.edu.cn>
+Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
+ benjamin.gaignard@linaro.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
+ intel-gfx@lists.freedesktop.org, tzimmermann@suse.de, s.hauer@pengutronix.de,
+ mripard@kernel.org, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ dmitry.baryshkov@linaro.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ shawnguo@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This issue happens in an error path of igt_dmabuf_export_vmap(). When
-dma_buf_vmap() succeeds and memchr_inv() returns nonzero, the function
-forgets to decrement `vmapping_counter` of the dma_buf object, which
-may result in refcount leaks.
+The documentation for "drm_plane_funcs.format_mod_supported" reads:
 
-Fix it by calling dma_buf_vunmap() under label `out_dma_map` in
-certain error path.
+  This *optional* hook is used for the DRM to determine if the given
+  format/modifier combination is valid for the plane. This allows the
+  DRM to generate the correct format bitmask (which formats apply to
+  which modifier), and to validate modifiers at atomic_check time.
 
-Signed-off-by: Xin Xiong <xiongx18@fudan.edu.cn>
-Signed-off-by: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
+  *If not present*, then any modifier in the plane's modifier
+  list is allowed with any of the plane's formats.
+
+However, where the function is not present, an invalid IN_FORMATS blob
+property with modifiers but no formats is exposed to user-space.
+
+This breaks the latest Weston [1]. For testing purposes, I extracted the
+affected code to a standalone program [2].
+
+Make "create_in_format_blob" behave as documented.
+
+[1] https://gitlab.freedesktop.org/wayland/weston/-/blob/9.0/libweston/backend-drm/kms.c#L431
+[2] https://github.com/JoseExposito/drm-sandbox/blob/main/in_formats.c
+
+Signed-off-by: José Expósito <jose.exposito89@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_plane.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 4a6bb64c3..b24bc506f 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -428,12 +428,14 @@ static int igt_dmabuf_export_vmap(void *arg)
- 	if (memchr_inv(ptr, 0, dmabuf->size)) {
- 		pr_err("Exported object not initialiased to zero!\n");
- 		err = -EINVAL;
--		goto out;
-+		goto out_dma_map;
- 	}
+diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+index 82afb854141b..c1186b7215ee 100644
+--- a/drivers/gpu/drm/drm_plane.c
++++ b/drivers/gpu/drm/drm_plane.c
+@@ -202,17 +202,13 @@ static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane
  
- 	memset(ptr, 0xc5, dmabuf->size);
+ 	memcpy(formats_ptr(blob_data), plane->format_types, formats_size);
  
- 	err = 0;
-+
-+out_dma_map:
- 	dma_buf_vunmap(dmabuf, &map);
- out:
- 	dma_buf_put(dmabuf);
+-	/* If we can't determine support, just bail */
+-	if (!plane->funcs->format_mod_supported)
+-		goto done;
+-
+ 	mod = modifiers_ptr(blob_data);
+ 	for (i = 0; i < plane->modifier_count; i++) {
+ 		for (j = 0; j < plane->format_count; j++) {
+-			if (plane->funcs->format_mod_supported(plane,
++			if (!plane->funcs->format_mod_supported ||
++			    plane->funcs->format_mod_supported(plane,
+ 							       plane->format_types[j],
+ 							       plane->modifiers[i])) {
+-
+ 				mod->formats |= 1ULL << j;
+ 			}
+ 		}
 -- 
 2.25.1
 
