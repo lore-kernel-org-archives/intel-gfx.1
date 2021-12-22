@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70BA9C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6D9C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC78414B434;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5314C14B431;
 	Mon, 10 Jan 2022 13:24:16 +0000 (UTC)
-X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
- Sat, 08 Jan 2022 10:41:22 UTC
-Received: from sender4-of-o53.zoho.com (sender4-of-o53.zoho.com
- [136.143.188.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C0E10EAA7
- for <intel-gfx@lists.freedesktop.org>; Sat,  8 Jan 2022 10:41:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1641637565; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=WgwiF0IYgyDlk4sAQxBjW6mUA1+fgjV7K8Cs0jGpFlgK3qSb2txrn6yulsyS1HxdYLVv6cXgoeEwu7eL/BdxJGHE1UEamNfFyYo6+ixo5hnNyUz8xvPiIMnzhtBArfnBt2t62qSImcF8zZ5pa1l2j+QpkCnv6PYzKo7dHaEwB8I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1641637565;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=3oVlywFdC3C3cF00ZwzlVKVn1orvNCqgXAwzOeRwhtk=; 
- b=bIUnhLXdT+toGHXrpaeRpa62UfChA7ZyGTAXuRKE5/OLQnGp9UToBHdO/TBGVGPxN3mE2BfKvsRIlP3oD6wVUstLkWABXvvObSxiZyixqEFPwXyiYmCDt8z+/0c+2wFnZ37cpfq7D4e9M7EILAPrkx8pPxCt96FHBej56bzAEsg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=kodeit.net;
- spf=pass  smtp.mailfrom=admin@kodeit.net;
- dmarc=pass header.from=<admin@kodeit.net>
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=main; d=kodeit.net; 
- h=content-type:mime-version:subject:from:in-reply-to:date:cc:message-id:references:to;
- b=CWYkWfLtdxdoCXumCRIqGv1DkoGnO5qu+roaHH4onYXU1AKzDPUDTIxWSrRSoq4CMFDPtVD5AwZz
- 7IKlF5txXinTXysaqfzeimGf7uIcLZ3UeseVyXFC/lyDyIoKQgIK/YdmTk1yt01N3236ccq74ICC
- nRZCPLcOEBCaKfoY+U8=  
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1641637565; 
- s=zoho; d=kodeit.net; i=admin@kodeit.net;
- h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:To;
- bh=3oVlywFdC3C3cF00ZwzlVKVn1orvNCqgXAwzOeRwhtk=;
- b=a8F3i5HIfGrVxah1A+HHDqpK6x36WYVJoA5Ca106Vua5o/re9YC0ruEcAMHD2Drk
- Enc57WfDVW9Mt2nKECQ4wOjZ6XIXyPwbKcCxoPYUSqjnUnw3YY0oVuME7BT64x5bxkW
- ju80kGi45gzF8NGshRO98SppkVmRxXyE7x73sdu8=
-Received: from smtpclient.apple (70.120.98.38 [70.120.98.38]) by
- mx.zohomail.com with SMTPS id 1641637563409375.69097930732096;
- Sat, 8 Jan 2022 02:26:03 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.13\))
-From: Aun-Ali Zaidi <admin@kodeit.net>
-In-Reply-To: <AC748346-8777-4107-9E7D-526D5854F11B@outlook.com>
-Date: Sat, 8 Jan 2022 04:26:00 -0600
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D5A25DCE-75BB-404A-9CBC-979B762DD151@kodeit.net>
-References: <20220108050812.6303-1-redecorating@protonmail.com>
- <AC748346-8777-4107-9E7D-526D5854F11B@outlook.com>
-To: Ashish Arora <ashisharora.linux@outlook.com>
-X-Mailer: Apple Mail (2.3654.120.0.1.13)
-X-ZohoMailClient: External
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745D51128BD;
+ Wed, 22 Dec 2021 09:06:02 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ bg2-20020a05600c3c8200b0034565c2be15so3421747wmb.0; 
+ Wed, 22 Dec 2021 01:06:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=udzgSr2XOO8m43wZrlgxQCrOrIrYf8SlPUnoZjFzTYk=;
+ b=E3MxQbgD6jp8QTL0eeprZVCT29X4TsAZ9rSxABqoJKJws7UxtL3y3Rb2aRJp575Ctn
+ hesvkKOolE8pblgflzdy9N9arwD4TLsVdHjcz4j1NzcMqlx9cge1sYvwMWt+PDGrEnZv
+ Y5i0OTQsxOJNGvY9tnt72sq1D1nlChs/Dlk7DLlupN28xGHToNFRR3dsa0SwxLOuKQbY
+ 5utUtrQy+t8z0vA8wy2xlzgyZq7k4kWhzakGbvKVtthnxoUy3g+/ce/GXp3eUfCWGNTv
+ 3YHSQ7vjPxoH+APQRxDnNB3K64KnRQzbtCWTUulgJeyw5GEOzsGQN3ujO/QZQbujfoWg
+ PFhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=udzgSr2XOO8m43wZrlgxQCrOrIrYf8SlPUnoZjFzTYk=;
+ b=tAwpO8bPqxM6RNVQCueNwYto5rJ9gX70q2yK7B8eDsAQ9HTb8x0GWPyGvX132DDO4J
+ IY+a3srXAcg0JbfuBB/D9Rzlb/7oJjfCKx9oQOl4haQ1r7znJKnWMe+WbYQkQBijs/cP
+ OURDSlXKVKdzpvmCrjq9U0k6RR0lJIe1p7p9UCug37w+yGTJCdGN9FHyWYCk+azwaAui
+ ef7uRJHigQY58BvrMsMSR+Lx8VWlV2OJfI0GnZ7AuyIvbQeJ+v5vEDVIiQ3P9Vps05Yf
+ GS3O/I263i5CG7nuSfZ9GqNg2uXgbDJFoitzX2Bv7ZkX2YvIjs2kIiv5m6vJrNbHBrSj
+ u8Gw==
+X-Gm-Message-State: AOAM532dYxRxqR6Akyz24IM/30k3Ld8xxtVC19H/QWOvazbJtQAwE+3D
+ MREHMBdET+N3FtkaP8CnUNY=
+X-Google-Smtp-Source: ABdhPJyucSE6tLj1nZatpMDhi96s0rRJ4voGBbwV+cnaaT+IgfOg7RVHe2BjZm9f/hkIq7HlprLhNQ==
+X-Received: by 2002:a1c:440a:: with SMTP id r10mr226427wma.4.1640163961031;
+ Wed, 22 Dec 2021 01:06:01 -0800 (PST)
+Received: from localhost.localdomain ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.05.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Dec 2021 01:06:00 -0800 (PST)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: contact@emersion.fr
+Date: Wed, 22 Dec 2021 10:05:49 +0100
+Message-Id: <20211222090552.25972-4-jose.exposito89@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211222090552.25972-1-jose.exposito89@gmail.com>
+References: <20211222090552.25972-1-jose.exposito89@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Discard large BIOS framebuffers
- causing display corruption.
+Subject: [Intel-gfx] [PATCH v2 3/6] drm/simple-kms: Drop
+ format_mod_supported function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,22 +71,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Orlando Chamberlain <redecorating@protonmail.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Aditya Garg <gargaditya08@live.com>
+Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
+ benjamin.gaignard@linaro.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
+ intel-gfx@lists.freedesktop.org, tzimmermann@suse.de, s.hauer@pengutronix.de,
+ mripard@kernel.org, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ dmitry.baryshkov@linaro.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ shawnguo@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-LGTM
+The "drm_plane_funcs.format_mod_supported" can be removed in favor of
+the default implementation.
 
-=E2=80=94
-Aun-Ali Zaidi
+Signed-off-by: José Expósito <jose.exposito89@gmail.com>
+---
+ drivers/gpu/drm/drm_simple_kms_helper.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-> On Jan 8, 2022, at 3:59 AM, Ashish Arora =
-<ashisharora.linux@outlook.com> wrote:
->=20
->=20
-> I believe I forgot to add Aditya to the conversation. So, I am sending =
-the patch as an attachment for those who want to test :)<0001-drm.patch>
+diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
+index 72989ed1baba..2c6aa67c6956 100644
+--- a/drivers/gpu/drm/drm_simple_kms_helper.c
++++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+@@ -284,13 +284,6 @@ static void drm_simple_kms_plane_cleanup_fb(struct drm_plane *plane,
+ 	pipe->funcs->cleanup_fb(pipe, state);
+ }
+ 
+-static bool drm_simple_kms_format_mod_supported(struct drm_plane *plane,
+-						uint32_t format,
+-						uint64_t modifier)
+-{
+-	return modifier == DRM_FORMAT_MOD_LINEAR;
+-}
+-
+ static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
+ 	.prepare_fb = drm_simple_kms_plane_prepare_fb,
+ 	.cleanup_fb = drm_simple_kms_plane_cleanup_fb,
+@@ -339,7 +332,6 @@ static const struct drm_plane_funcs drm_simple_kms_plane_funcs = {
+ 	.reset			= drm_simple_kms_plane_reset,
+ 	.atomic_duplicate_state	= drm_simple_kms_plane_duplicate_state,
+ 	.atomic_destroy_state	= drm_simple_kms_plane_destroy_state,
+-	.format_mod_supported   = drm_simple_kms_format_mod_supported,
+ };
+ 
+ /**
+-- 
+2.25.1
 
