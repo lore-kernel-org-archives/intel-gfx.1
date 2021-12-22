@@ -4,45 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15698C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB694C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 000CE14B43B;
-	Mon, 10 Jan 2022 13:24:18 +0000 (UTC)
-X-Greylist: delayed 345 seconds by postgrey-1.36 at gabe;
- Sun, 09 Jan 2022 00:02:41 UTC
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A85910E154;
- Sun,  9 Jan 2022 00:02:41 +0000 (UTC)
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with ESMTPSA id 4JWcSj2Nmgz9c;
- Sun,  9 Jan 2022 00:56:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1641686214; bh=Z2n6Y6Sf4Y6Bf2Ppe85jypN2n8Y8lV1D9040Mx5hpos=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ni4KnjOtn+hCc9wZqB4O1lyd/SQvYGeDveDJiVEyqIzfK9xa+8kQssISAVkp10OOS
- QJG+E4XBi/DI9IrVihm8pNKRfTZCFWiUpeYSaANqHiLQuq0Ni5+Hq9janns3FG36Kf
- HRKczCvbqcseuavdP2cQwxe7fy71FhFJj6Gm6Y4uGMMVMQSeRiX37DK+TgkZiuj3fa
- u28xFMriqr/zJvK9WXZtbO48c35IRJ1q6hNu/DUpyyFQUSD8XVJ//1ciCunkK6TGIC
- W3OZnrCmSV3xtiEnJdTHJ2fKvOUk+pZzPnn8646Ku8Z1lL9KH0tHYrreIjGwZuj/iD
- 1zclsDw8lR1IQ==
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 0.103.4 at mail
-Date: Sun, 9 Jan 2022 00:56:51 +0100
-From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <Ydokw2y6w9JlCsgR@qmqm.qmqm.pl>
-References: <20211215104318.18866-1-tzimmermann@suse.de>
- <20211215104318.18866-4-tzimmermann@suse.de>
- <87pmpy3za7.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D823D10FB42;
+	Mon, 10 Jan 2022 13:24:44 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C9FE10FBAD
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 07:47:58 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id s1so3112267wrg.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 23:47:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=f9IoHpTdU4hn8/VqrgcBZySrATwg7Us2omhUYvDJbjs=;
+ b=XidapGpHhgr3RhaFb7ce5Hw2biz05P/Zajdv4toYTj0p8Bxqxr9EKdBaNbJLdrnYon
+ hytKvHWK6jPtb9d0Bc/4JIzwOOjerdnXS1REjObYn/Pv0v4tqX5kfDzX9aD5MmQUgR1m
+ qVMfBGwDC3t5xUPP5uSwVTwvnZPWnKPsB3Pr4WT2UzEyrSZHfa99yS9OND+TfcTPcsnp
+ 9vU+zd0P1BHi80M0dkK8U2DP7Ame9Edp5WHwuDelY9M48TV3jm15p2GyKE/QKqC6if+z
+ KZZ/SBRmVncXZI2VdRpsRVAiYIQu0QorB26YBLHzuLV+2kb+grPgc4a/Hvmhk5A2NWMR
+ s9Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=f9IoHpTdU4hn8/VqrgcBZySrATwg7Us2omhUYvDJbjs=;
+ b=cwxT3vy2/Wq5s3klNEtix+vQg2tRXBaBwsXCWdX/CO0/INYSRWUEIvNjxJ44IOP/53
+ Mct0krR944tI7eLa5U3YniyDwQqU7k2I12MBsKBSazidZmLv1nSTi1w2lwQNhqTRxbC8
+ P0t5Iq0SUgLqGqKvU5U2kuYqJDCfQ0F47aUjfNZe3GWz7JYyIzTxqY4flu9seoUThk8v
+ AuSSG5GMN3cpdTlNDFu11TJ+peeiclHQMDZZaQ2nvkLkm2kQzmsyj/JogTDoFfb+oXRf
+ CE44YfZwFd1sCyGmCVPXsS2filLWh7+kyXb2PaOLgm0wlXLwhjgg+qFyKIZ86kum6AMZ
+ PRCQ==
+X-Gm-Message-State: AOAM530oBy0C0Uq5+NlNEEGgOVJN2wqkWFL9yHdAKaZaVjvCpVSmCB5z
+ 9ttSUX43jJXwUROZvH76oNFRGv+QhDQ=
+X-Google-Smtp-Source: ABdhPJw/pujxhzX2X0mZW7tV5xUrAnDQleqBIoLZUoOzzpeF9WvxtB6+DWIyq1YD6GSNKGgW5UpOag==
+X-Received: by 2002:a5d:4d91:: with SMTP id b17mr1255140wru.214.1640159276927; 
+ Tue, 21 Dec 2021 23:47:56 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id p18sm7389788wmq.0.2021.12.21.23.47.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Dec 2021 23:47:56 -0800 (PST)
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ daniel@ffwll.ch, intel-gfx@lists.freedesktop.org
+References: <20211221140713.367218-1-christian.koenig@amd.com>
+ <a78c405c05b7e2f2c0536c8d31a4ca1d586ba4c9.camel@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <501085a8-91e1-8d51-3046-339014ed94df@gmail.com>
+Date: Wed, 22 Dec 2021 08:47:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-2
-Content-Disposition: inline
+In-Reply-To: <a78c405c05b7e2f2c0536c8d31a4ca1d586ba4c9.camel@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87pmpy3za7.fsf@intel.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 3/5] drm/dp: Move DisplayPort helpers
- into separate helper module
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: remove questionable fence
+ optimization during copy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,26 +76,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- mripard@kernel.org, nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 15, 2021 at 01:04:00PM +0200, Jani Nikula wrote:
-> On Wed, 15 Dec 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > 	* move DP helper code into dp/ (Jani)
-> 
-> I suggested adding the subdirectory, but I'm going to bikeshed the name,
-> which I didn't suggest.
-> 
-> $ find drivers/gpu/drm -mindepth 1 -maxdepth 1 -type d | wc -l
-> 68
+Am 21.12.21 um 16:47 schrieb Thomas Hellström:
+> Hi, Christian,
+>
+> On Tue, 2021-12-21 at 15:07 +0100, Christian König wrote:
+>> First of all as discussed multiple times now kernel copies *must*
+>> always wait
+>> for all fences in a BO before actually doing the copy. This is
+>> mandatory.
+> This patch looks ok to me.
+>
+> Regarding the discussion I was just awaiting  Daniel's reply from
+> yesterday:
+>
+> https://lists.freedesktop.org/archives/intel-gfx/2021-December/285717.html
+>
+> since his earlier reply
+>
+> https://lists.freedesktop.org/archives/intel-gfx/2021-December/285717.html
+>
+> contradicted your previous reply
+>
+> https://lists.freedesktop.org/archives/intel-gfx/2021-December/284467.html
+>
+> That confirmed all writes had to add an exclusive fence, and confirmed
+> that starting the blit early was ok.
+>
+> So I was left a bit confused as to what the rules really were.
+>
+> So now if I understand both of you correctly, writers that want to opt
+> out of implicit syncing do *not* need to add an exclusive fence. Is
+> that correct?
 
-Maybe the hardware-specific drivers could be moved up to drivers/gpu/
-instead? That would make it obvious what code is generic and what is not.
+Yes, that's a good summary of the problem.
 
-Best Regards
-Micha� Miros�aw
+>> Additional to that drop the handling when there can't be a shared
+>> slot
+>> allocated on the source BO and just properly return an error code.
+>> Otherwise
+>> this code path would only be tested under out of memory conditions.
+> Good point.
+>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>
+> Ok if I add this to drm-intel-gt-next?
+
+Please go ahead.
+
+Thanks,
+Christian.
+
+>
+> /Thomas
+>
+>
+
