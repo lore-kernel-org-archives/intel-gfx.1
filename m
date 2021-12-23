@@ -4,33 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 040B1C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4485BC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074F714B436;
-	Mon, 10 Jan 2022 13:24:17 +0000 (UTC)
-X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
- Tue, 21 Dec 2021 02:30:34 UTC
-Received: from out30-133.freemail.mail.aliyun.com
- (out30-133.freemail.mail.aliyun.com [115.124.30.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5D410E41E;
- Tue, 21 Dec 2021 02:30:34 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=yang.lee@linux.alibaba.com;
- NM=1; PH=DS; RN=14; SR=0; TI=SMTPD_---0V.IKijQ_1640053524; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0V.IKijQ_1640053524) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 21 Dec 2021 10:25:25 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: airlied@linux.ie
-Date: Tue, 21 Dec 2021 10:25:23 +0800
-Message-Id: <20211221022523.86071-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3738314B430;
+	Mon, 10 Jan 2022 13:24:16 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1BD910E133;
+ Thu, 23 Dec 2021 16:57:13 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ n10-20020a7bc5ca000000b00345c520d38eso3218547wmk.1; 
+ Thu, 23 Dec 2021 08:57:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=x19kNH14ExPsQ28C6SlBYVGa8akiQhXJZ1zBC3AV6iQ=;
+ b=M227YuJRwIPX/CPb7Lg+WOaaHsKzAMYXB/Da0yMQGvxGa0saRVV+di4RqWZbiRK50Q
+ trtNNAA5U+lBSeLSDkBTYNHzvTkoRut7yqBa7TwaK2JiNuabxmv5BOwtUV4KRi5pR2ah
+ +So40Cr4Iob4Tt6iSivBaTYonKePYDmJoO96G2315qHEemCOzvUnpTMv67mZ828dG624
+ KlLSAQZAPCK0t6oW5/w0P/ratE8Q/gOGGcfxxVQgmWw9mxWxwPnvkTDBy6VlAIJ/qwC5
+ FqwkC9EauN7+/9F2aBN7XWx0UBUkBy4Fy8msCrRtBKZG4HbI823JZ/pJxnGPdlZrGi+r
+ XB+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=x19kNH14ExPsQ28C6SlBYVGa8akiQhXJZ1zBC3AV6iQ=;
+ b=bNT20AVbejhPM5A/f4FGUYLg/C64ITOoZujhpbmJDat7zxQLjS1WIKx++OfKB9nzTQ
+ H81N2UnPTqNUP+Tw7wR/LyrftANRfk+YGgHphJJKTY5XRz6t1PX2nu9l/h/3D6HQiDWn
+ CkbHneOu0BTtDictpN+8c73GD8eOfsjHZVAuvjLkEH8ezAcNQZ7s/+bUnJ83JF2NIC5U
+ bwLguiHD/JamY30OZWEJnG8hHkWeChUrBVLwsfqC1Xwmqg9SNkVCtEO31cjvROtiE3Zu
+ NMhlqqgFx7TkUFJK70IEASCRvsqfYnwmiF8xhJtIx4F/xjKZYWES+G1HI9NmxTGWMY0E
+ bmug==
+X-Gm-Message-State: AOAM533VePLOzssk6Y6JEzINFLO/PU/pyCTjTwTRpWzAcaJ3MadFPG66
+ oeg9BE3vkVf1B5Yqf43R3LA=
+X-Google-Smtp-Source: ABdhPJx0hYSOm4vDZR/gdV0QEOZLF2E0+HdDedp9MlR3fSt42MKgNwt3bY/4NeUgqZTjBr+NJEe+5g==
+X-Received: by 2002:a1c:1d0d:: with SMTP id d13mr2448580wmd.78.1640278632133; 
+ Thu, 23 Dec 2021 08:57:12 -0800 (PST)
+Received: from elementary ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id u23sm4893233wmc.7.2021.12.23.08.57.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Dec 2021 08:57:11 -0800 (PST)
+Date: Thu, 23 Dec 2021 17:57:06 +0100
+From: =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Message-ID: <20211223165706.GA11019@elementary>
+References: <20211222090552.25972-1-jose.exposito89@gmail.com>
+ <20211222090552.25972-2-jose.exposito89@gmail.com>
+ <YcRkB7uWyt4EbcZm@intel.com>
+ <PIq2EEI7giz2rOuv2cfySbdxwht8AaCye140X5C7NejjXT6kD67E3E28uvg4Ebhob12EJUBtAxGPFNOgZwSWLYEfMtdhRNt3mR8bBGBJmU4=@emersion.fr>
+ <YcSPt+81fuzteeCu@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <YcSPt+81fuzteeCu@intel.com>
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH -next] drm/i915/gvt: Fix
- intel_vgpu_default_mmio_write() kernel-doc comment
+Subject: Re: [Intel-gfx] 
+ =?iso-8859-1?q?=5BPATCH_v2_1/6=5D_drm/plane=3A_Make_?=
+ =?iso-8859-1?q?format=5Fmod=5Fsupported_truly=A0optional?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,39 +77,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- Yang Li <yang.lee@linux.alibaba.com>, intel-gvt-dev@lists.freedesktop.org
+Cc: marex@denx.de, mcoquelin.stm32@gmail.com, kernel@pengutronix.de,
+ s.hauer@pengutronix.de, tzimmermann@suse.de, airlied@linux.ie,
+ Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
+ alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, yannick.fertre@foss.st.com, linux-imx@nxp.com,
+ benjamin.gaignard@linaro.org, dmitry.baryshkov@linaro.org, shawnguo@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ philippe.cornu@foss.st.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix function name in handlers.c kernel-doc comment
-to remove some warnings found by running scripts/kernel-doc,
-which is caused by using 'make W=1'.
-drivers/gpu/drm/i915/gvt/handlers.c:3812: warning: expecting prototype
-for intel_t_default_mmio_write(). Prototype was for
-intel_vgpu_default_mmio_write() instead.
+Thanks for your reviews :) I'll wait a couple of days to see
+if somebody else wants to comment and I'll send v3 adding the
+reviewed by tags and fixing the compiler warning.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Fixes: e39c5add3221 ("drm/i915/gvt: vGPU MMIO virtualization")
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/i915/gvt/handlers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, Dec 23, 2021 at 05:03:19PM +0200, Ville Syrjälä wrote:
+> Another related thing that might be worth checking is whether
+> drivers generally do anything to validate the modifiers in
+> the addfb2 ioctl. Looks like i915 and amdgpu are the only ones
+> to use drm_any_plane_has_format() for that, so all the other
+> drivers must either be checking it manually (or they're just
+> potentially broken when handed unexpected modifiers by evil
+> userspace).
 
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index 3938df0db188..32027a7e08af 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -3798,7 +3798,7 @@ int intel_vgpu_default_mmio_read(struct intel_vgpu *vgpu, unsigned int offset,
- }
- 
- /**
-- * intel_t_default_mmio_write - default MMIO write handler
-+ * intel_vgpu_default_mmio_write - default MMIO write handler
-  * @vgpu: a vGPU
-  * @offset: access offset
-  * @p_data: write data buffer
--- 
-2.20.1.7.g153144c
+I'm pretty new to this subsystem, so please correct me if I'm 
+wrong, but after looking into a couple of drivers I think you
+are right, this check is missing in some drivers.
 
+This possible bug reminds me of this ToDo task [1]:
+
+> Many drivers wrap drm_gem_fb_create() only to check for valid formats. For
+> atomic drivers we could check for valid formats by calling
+> drm_plane_check_pixel_format() against all planes, and pass if any plane
+> supports the format. For non-atomic that's not possible since like the format
+> list for the primary plane is fake and we'd therefor reject valid formats.
+
+I had a look to the Raspberry Pi driver (mainly because I'm trying
+to understand it) and it looks like the check is missing. Other
+drivers, for example Mali, are checking the format modifier manually.
+
+I'll try to do some actual testing during Christmas and see
+how it goes.
+
+José Expósito
+
+[1] https://www.kernel.org/doc/html/latest/gpu/todo.html#drm-framebuffer-funcs-and-drm-mode-config-funcs-fb-create-cleanup
