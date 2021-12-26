@@ -4,58 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B7AC433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 627FAC433F5
 	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D44E11A483;
-	Mon, 10 Jan 2022 13:25:12 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7042210F7A2
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jan 2022 14:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1641393644;
- bh=G5jn2VmNGSfngWGtTuVSZfUwnoLgVtUV6u4JgbQEbMw=;
- h=X-UI-Sender-Class:Date:From:To:Subject;
- b=GkfmMeTrHQxAuxdYZ5WlIYhRXX7g+zmjicCVMB+SbGk/u2ER3Ayt3+FfGfqZNW0hA
- vzd2tTEfHgEzh+pdJqyA2efK3jFwKxMlqLzCLoONlUdTMuNGPTcATQ9KPgvhX3ec/B
- tR1/LxElZFh5o2r+1H5Gf1SL7xv9tg3qm+J9NqqM=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from pop-os ([37.5.248.227]) by mail.gmx.net (mrgmx104
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1MZktj-1mr8wt2GU3-00Wlh8 for
- <intel-gfx@lists.freedesktop.org>; Wed, 05 Jan 2022 15:40:44 +0100
-Date: Wed, 5 Jan 2022 15:40:43 +0100
-From: Florian Dollinger <dollinger.florian@gmx.de>
-To: "=?utf-8?Q?intel-gfx=40lists.freedesktop.org?="
- <intel-gfx@lists.freedesktop.org>
-Message-ID: <45037273-8319-4B7E-8968-87CDB123CCBA@getmailspring.com>
-X-Mailer: Mailspring
+	by gabe.freedesktop.org (Postfix) with ESMTP id 779D711A682;
+	Mon, 10 Jan 2022 13:25:13 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7B4010E953;
+ Sun, 26 Dec 2021 11:25:22 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id v11so26499463wrw.10;
+ Sun, 26 Dec 2021 03:25:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=3uC+zpueN0jaqztWM7eUqBfpEMbmsR8tb66iIJAnvGU=;
+ b=RwDE0YPkDLqtqo7Dvnlm/ydiYanOQlnAMem2isy3ndgorcODT7JcvNFIyr443LTwSg
+ WliRTsg8U5K6xpvrcgejsyGKhya4NPPV1Uea3wAuINZpe69Qi4Co3GCY8+RCvB5zICJN
+ 79sCOX7fKsf0zNbAvzhCEj30xYFAmhu4mxWkaRe0EvJkW/pW8fygcR8ybIZ/WTrgKhBW
+ WcMktKG4ZIskNlW/H43GfZIK16XeZawEhw7iKEf6idJrc9oK20T4+HFBD3es+GpMVzr9
+ czP8Xc5f78UoC+IsRP3PfKQz9Rc6Zl71pPJ9HwZfuNpEHKkQuf3Bn8gfrACtKdQA8/At
+ oNXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=3uC+zpueN0jaqztWM7eUqBfpEMbmsR8tb66iIJAnvGU=;
+ b=Lx1iPFsobjOJGaIatNfrO4a8bmx8wQaawc2hY7bh2PonVN98q0mzY6gxz9wFL1vI3Y
+ rSEMGl3qi3od8bQ8CYzD6VkcUv4F2FXIBwEekaJQsSVEaunx4r0MAHBRJuXwRbDKavhN
+ zvRn7FcpUN5RKZ4GtEgHe3QZopn/NhTLaEAklyo9O5oX4IvDhlM2EuBkKUDUTFRQI0eu
+ jVDygJak0V0qNvmgl/Qsfx/Bm+ihfv1nR/HUZ5xyPa6ITAbqU0iI+Zjj1MbnKUK9EOY5
+ PRR2IEXuyvgIOcp1okFvYk4l/VyXYi/2jpyRGAVhdacKlR73iccQoBK8qk7vT/nRhr5U
+ /wuQ==
+X-Gm-Message-State: AOAM531+E1hXlhTRmPjX+Wd7F4ciQDaB7oFTDr8Zf+xrz8qm0Ffkk4+g
+ KFojVVFJEY/PptXoJVMYC1Q=
+X-Google-Smtp-Source: ABdhPJwPiaAlI5ue8SBY/hNuXdX5I1LiZxPv2bA/DypMkY+1VW51yINEbKM/DxTgrTs1AI5TJvkxhw==
+X-Received: by 2002:adf:9004:: with SMTP id h4mr9898117wrh.593.1640517921215; 
+ Sun, 26 Dec 2021 03:25:21 -0800 (PST)
+Received: from localhost.localdomain ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id g12sm13654743wrd.71.2021.12.26.03.25.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 26 Dec 2021 03:25:20 -0800 (PST)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: contact@emersion.fr
+Date: Sun, 26 Dec 2021 12:25:02 +0100
+Message-Id: <20211226112503.31771-6-jose.exposito89@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211226112503.31771-1-jose.exposito89@gmail.com>
+References: <20211226112503.31771-1-jose.exposito89@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-X-Provags-ID: V03:K1:cEvlHQ+Tv3h4VuFn8V6+QEgxd57PqH33wJjC0w3B5BTnEZDKuc9
- gNnNHm5YPctQfN2OQdSnx35FzIx2JOzIP65gWVx1X8OaoTD0Fm2uiNQ4H+g3xZVaEh8Kp4q
- 4qgay1c5JW+Jpot0EJ6T/gMTsvhX+4HQRkWgt6WPC62iQL3AAG0Lp00P+0zbTENH6VupDET
- HXYO77X31q+TaA2wF95qw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:oElc/Ws3nPY=:lXpT3hwX93sfiyZasoeV7+
- itrEbfuQYsVLmQX9CgJXhxyJHH6XckrPRMq1s07Tp8s6VI3scPTLEgl2oVYo6DyqVOZ8rbY2m
- sGsyBFcLU5V4GF9L+9GexgenPIZ7YhsMSzt6H7MnANX813RFi/hbw+BUPNhWcQEq1sl50rSMi
- 86eC/tzrj1jYlTU6oy4JrHXvh3C4D3ITs4qYLahjbiUgjbdW4A0lfxUvvZg45ga2RFfkLY2xN
- yew+U0rG//9Lu2lgx7b6XAYHew3Hm5f88VoQqtKBV0UdlE5Cm+kxfk651j9IGBRsfNwZOkJw5
- WH8evgftyGsWaf/bqNabe++xFQ1Ai+SnzaxHfvbgTM8XY1QBt/CKqWNvs3y+E8tBXQTzoTNjB
- P1En1K66lOfdYRwBca7da8SZvWcPZ9YZahjuPIgx2Dio8DNOzqv1D2/saPNQFdb4rTkvzgTcR
- aMXHv517CNb+/cymD3z2u2jK5Ijl3CTICbbR7d3mRs7+suJil4ZodWDhsZQakyoGgrg+ZSM52
- 9zFJQodeIGOpDSidEG5IkDQTapZacDqRdbVjg6C8ZV9s4ywFIaC3rOdDvnvnhCiTwEU/nL+xh
- ekfq0AbwwM2DDzfYZe/JvhU42pU4mbzG1gNReMBCbYvQPPiUremt4isT7csG8hT3maGSzwfQP
- XTouiYI9fQxeULrrVOwi2EFWWVk+G03gmIG20razS5QSPChWzwD8RI4NQZ2u02alaSnKalBot
- 5rvsKTZaL50UKBbWSBg+gngAiLzpL+UUSoafkEplzcBkfBd3oo6OjPHw4wta9ji946yFqlrc5
- TXNNqSxHQXR+lHVPNCSsoCGXDUVy08oWIfH8G8rgsIFyhilV6tIajkU8v9cszURN0gpMklEl9
- 5rMw3k9TKArd5xmTEfAs3qpXe+iZqx2gu0heDiJiR5gZtbS5hp1UMM9nez5sGLj1B/FsQmew+
- 2HV6ojRYdv2PxSRTOGnVWJe0end31hnAyTXgduw9F0kwJfzAr8vNqZzAzcA8EMVIHsjpJdqoG
- JKk9BbrBKkpdAZgNrXpr+CzTOl2w2iaKqcNKQEG+4GzOYZlW+yp6btYpCPcXzlskAKwH2YdUd
- 5xoPOPG5wVouI8=
-X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] i915 hangs up every second time in deep suspend
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:15 +0000
+Subject: [Intel-gfx] [PATCH v3 5/6] drm: mxsfb: Drop format_mod_supported
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,24 +70,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
+ benjamin.gaignard@linaro.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
+ intel-gfx@lists.freedesktop.org, s.hauer@pengutronix.de, mripard@kernel.org,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
+ yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ dmitry.baryshkov@linaro.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ shawnguo@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-My Lenovo Thinkbook 13s-IWL is hanging up every second time when I put
-the device into the deep suspend mode.
+The "drm_plane_funcs.format_mod_supported" can be removed in favor of
+the default implementation.
 
-I put the device into suspend, the display is turning off, but the power
-button does not reach the slowly flashing mode. After a while the Laptop
-simply reboots.
+Signed-off-by: José Expósito <jose.exposito89@gmail.com>
+---
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-I was able to work around the crash using the i915.enable_dc = 0 option.
-Unfortunately this is to the expense of battery life for sure.
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+index 0655582ae8ed..df32e1c3cc5d 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+@@ -554,13 +554,6 @@ static void mxsfb_plane_overlay_atomic_update(struct drm_plane *plane,
+ 	writel(ctrl, mxsfb->base + LCDC_AS_CTRL);
+ }
+ 
+-static bool mxsfb_format_mod_supported(struct drm_plane *plane,
+-				       uint32_t format,
+-				       uint64_t modifier)
+-{
+-	return modifier == DRM_FORMAT_MOD_LINEAR;
+-}
+-
+ static const struct drm_plane_helper_funcs mxsfb_plane_primary_helper_funcs = {
+ 	.atomic_check = mxsfb_plane_atomic_check,
+ 	.atomic_update = mxsfb_plane_primary_atomic_update,
+@@ -572,7 +565,6 @@ static const struct drm_plane_helper_funcs mxsfb_plane_overlay_helper_funcs = {
+ };
+ 
+ static const struct drm_plane_funcs mxsfb_plane_funcs = {
+-	.format_mod_supported	= mxsfb_format_mod_supported,
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+ 	.destroy		= drm_plane_cleanup,
+-- 
+2.25.1
 
-In order to help debuging this issue I would like to submit the
-error_state, but since the system is rebooting it is gone as soon as I
-get access to it.
-
-I already described the issue here: https://gitlab.freedesktop.org/drm/intel/-/issues/4918
-
-Is there anything I could do to help solving this issue?
-Best Regards, Flo
