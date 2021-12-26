@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A9DC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCE0C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC1D514B42A;
-	Mon, 10 Jan 2022 13:24:15 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6C910E8C4
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 14:07:16 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id q16so27183058wrg.7
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 06:07:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630F814B432;
+	Mon, 10 Jan 2022 13:24:16 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C4210E954;
+ Sun, 26 Dec 2021 11:25:24 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id a9so26462465wrr.8;
+ Sun, 26 Dec 2021 03:25:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1sy3pJYdzrgFvMeevz7H8Vur31O14m4PM+D+sDME900=;
- b=gfYdUHEd/y/UlyczKTDuNzLjRz1f8KV8jYlLbJwopHgq39ZX8nkCKvdSjruwk4YnW+
- 220cculpKFuFuGvV+UOXLi/l39Udgz5VwTFpmREq17OkM6A4mRc1LAIVd9BrRxYhheGF
- gwgFVsbR5gpkRHaoxHiuDoG3ITFVm6W45NW8LX6rSmyhFI0K/+XVO9gY0RVaoa4NyIQG
- E43SDwd9Vy6hd+GB0lXrJVEKh49QIxOSd7pfxICdQYnfp/76k0rnMGllrSjhVUiTBC1N
- eW0LJFR45v5pklpql/sUP3WwQh3rUDkPQPflASVByx+jg4I22Q2vLzehDaDPzvJgbeMO
- aIcw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=3w0cyRxbnflG1Lzaa+D9LFgBBXj2WLi8B2+0IaB0cco=;
+ b=PwXLZV+6O9zswzpPoQeLANPNLyAa5j9TTefYDsBvxzJHw7hsiT7vgEJO67viIuaBiK
+ joS9USvBHQU7W3SIlSlVlgL1mYDZ9GdAj6OOVHGzOLhwrXOtxouH24D1FvTOcNPBx1hu
+ cgYJFZ0JNDK45DRlTqL7+hohi4LKCBmpHJMZ7FYsBeaLfb3+QvZpNbnybehWxIYzAW9A
+ zIdhrscxtU7zpauASJezylBL9be5Gt7PrhZ4YGNwtTDe/dk3r/8eHOBjzyS88i2wv2vz
+ I6dy2YgPWM+zzpAj2FRI6ftDhWK37okU082jWiQr1P8b2ZnvThZubK2qMqrpGqHTwjcb
+ AcZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1sy3pJYdzrgFvMeevz7H8Vur31O14m4PM+D+sDME900=;
- b=dOOuKfj1Ya6pbgunEPeIJeO7efPy4AysopjI1WSUGtrexh0jK4Wtde0M1TvyKxxmP6
- 5Q+Ok+J1MNFXUfZsc4i9BDDy0mkuq8CP1DWJc0cJzYh3cWLjFm5sm6EH67Xvl1IXyBGO
- G5NowIUOm8ircA7LGD04RWD97upcUjATOBtuBRi5uBwEPwArCJsOsCfdqpGpLIRyK9rY
- FPnCKGdOgLdty9cU+JrEHFf0f0NaTOjjmAgU7fY1sJenz9lseMO3j0OV7x5qnPOHhAa3
- pP/wRbl8/yzs+xYxbb2DKJSdTioSqWM/ZNlcM2OufuKNddvPRCJoV+b6PFCvd1sVH9Jg
- Ab0g==
-X-Gm-Message-State: AOAM5327mmktBNzH7PBzC9yuMHKzsP1q5CGXKKn6CjoQe3j2uk6swf2X
- xi3LcMlUsi14x77t3E+YQTsh01LpJFo=
-X-Google-Smtp-Source: ABdhPJwHHrL4S/pXuvgVxP4/AyR3LTLk2rIMtNYby4tnxUCD/PEKqbg3zP2uFhsCYt1EvYBapwgJoQ==
-X-Received: by 2002:a5d:64c2:: with SMTP id f2mr2838028wri.483.1640095635235; 
- Tue, 21 Dec 2021 06:07:15 -0800 (PST)
-Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id o10sm10850956wrc.55.2021.12.21.06.07.13
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=3w0cyRxbnflG1Lzaa+D9LFgBBXj2WLi8B2+0IaB0cco=;
+ b=e5sxsSBV8f/zG2WRSOqjURPEVHCodY3HiF7fP/xCSg9gospQ6J4K+JnUkAn80I0JBe
+ mphW1ZSODNA652cDdxCRGP3QHVyprIGOsLixdtG4WmU+fhO5dFODeKDj1hA+pSbPcfh1
+ g3H2TvEdVCeNBySGuTgjXjbESpLsHKu0bQgqfnqj6LuztreUHWqKBlTqZ/MRdlhGK8y2
+ Slv3L/D9mLt4z0F1lRK7yb8ylO3C6jIZ5fEUeROn7RR8n3My852yM8NDhTvTjgaT+uoR
+ peC5xbw/f4/mbSNydF9hBYDpm7lj2qDaNCVqbAHSU00G5+XG8pAu6LKLAwkhIZb2rJdX
+ jtgg==
+X-Gm-Message-State: AOAM532D7Z+mebfpcGw671qZc7HMEfj5iBZDkLk1gqbOGlTsVrxJn2UW
+ JfNhY0Bsfyx+zpfXdF7ZcUg=
+X-Google-Smtp-Source: ABdhPJyMMwBvN0I/TVcPJvi99lJUbcE0uky0CFSE//bOHq3fI8piG76lCpdID1rhkzRsL/yanK1mSw==
+X-Received: by 2002:a5d:638b:: with SMTP id p11mr9352371wru.241.1640517922894; 
+ Sun, 26 Dec 2021 03:25:22 -0800 (PST)
+Received: from localhost.localdomain ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id g12sm13654743wrd.71.2021.12.26.03.25.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Dec 2021 06:07:14 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, daniel@ffwll.ch,
- intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Dec 2021 15:07:13 +0100
-Message-Id: <20211221140713.367218-1-christian.koenig@amd.com>
+ Sun, 26 Dec 2021 03:25:22 -0800 (PST)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: contact@emersion.fr
+Date: Sun, 26 Dec 2021 12:25:03 +0100
+Message-Id: <20211226112503.31771-7-jose.exposito89@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211226112503.31771-1-jose.exposito89@gmail.com>
+References: <20211226112503.31771-1-jose.exposito89@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: remove questionable fence
- optimization during copy
+X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:15 +0000
+Subject: [Intel-gfx] [PATCH v3 6/6] drm/stm: ltdc: Drop format_mod_supported
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,103 +70,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
+ benjamin.gaignard@linaro.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
+ intel-gfx@lists.freedesktop.org, s.hauer@pengutronix.de, mripard@kernel.org,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
+ yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ dmitry.baryshkov@linaro.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ shawnguo@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-First of all as discussed multiple times now kernel copies *must* always wait
-for all fences in a BO before actually doing the copy. This is mandatory.
+The "drm_plane_funcs.format_mod_supported" can be removed in favor of
+the default implementation.
 
-Additional to that drop the handling when there can't be a shared slot
-allocated on the source BO and just properly return an error code. Otherwise
-this code path would only be tested under out of memory conditions.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: José Expósito <jose.exposito89@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 39 +++++++-------------
- 1 file changed, 14 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/stm/ltdc.c | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 80df9f592407..798f310d710c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -250,19 +250,14 @@ static struct dma_fence *i915_deps_to_fence(struct i915_deps *deps,
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index dbdee954692a..ef909e50f0e4 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -925,16 +925,6 @@ static void ltdc_plane_atomic_print_state(struct drm_printer *p,
+ 	fpsi->counter = 0;
  }
  
- static int i915_deps_add_resv(struct i915_deps *deps, struct dma_resv *resv,
--			      bool all, const bool no_excl,
- 			      const struct ttm_operation_ctx *ctx)
- {
- 	struct dma_resv_iter iter;
- 	struct dma_fence *fence;
-+	int ret;
- 
- 	dma_resv_assert_held(resv);
--	dma_resv_for_each_fence(&iter, resv, all, fence) {
--		int ret;
+-static bool ltdc_plane_format_mod_supported(struct drm_plane *plane,
+-					    u32 format,
+-					    u64 modifier)
+-{
+-	if (modifier == DRM_FORMAT_MOD_LINEAR)
+-		return true;
 -
--		if (no_excl && dma_resv_iter_is_exclusive(&iter))
--			continue;
+-	return false;
+-}
 -
-+	dma_resv_for_each_fence(&iter, resv, true, fence) {
- 		ret = i915_deps_add_dependency(deps, fence, ctx);
- 		if (ret)
- 			return ret;
-@@ -698,7 +693,7 @@ static struct dma_fence *prev_fence(struct ttm_buffer_object *bo,
- 		 * TODO: Only await excl fence here, and shared fences before
- 		 * signaling the migration fence.
- 		 */
--		ret = i915_deps_add_resv(&deps, bo->base.resv, true, false, ctx);
-+		ret = i915_deps_add_resv(&deps, bo->base.resv, ctx);
- 	if (ret)
- 		return ERR_PTR(ret);
+ static const struct drm_plane_funcs ltdc_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+@@ -943,7 +933,6 @@ static const struct drm_plane_funcs ltdc_plane_funcs = {
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.atomic_print_state = ltdc_plane_atomic_print_state,
+-	.format_mod_supported = ltdc_plane_format_mod_supported,
+ };
  
-@@ -828,22 +823,21 @@ int i915_gem_obj_copy_ttm(struct drm_i915_gem_object *dst,
- 	struct i915_refct_sgt *dst_rsgt;
- 	struct dma_fence *copy_fence, *dep_fence;
- 	struct i915_deps deps;
--	int ret, shared_err;
-+	int ret;
- 
- 	assert_object_held(dst);
- 	assert_object_held(src);
- 	i915_deps_init(&deps, GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
- 
--	/*
--	 * We plan to add a shared fence only for the source. If that
--	 * fails, we await all source fences before commencing
--	 * the copy instead of only the exclusive.
--	 */
--	shared_err = dma_resv_reserve_shared(src_bo->base.resv, 1);
--	ret = i915_deps_add_resv(&deps, dst_bo->base.resv, true, false, &ctx);
--	if (!ret)
--		ret = i915_deps_add_resv(&deps, src_bo->base.resv,
--					 !!shared_err, false, &ctx);
-+	ret = dma_resv_reserve_shared(src_bo->base.resv, 1);
-+	if (ret)
-+		return ret;
-+
-+	ret = i915_deps_add_resv(&deps, dst_bo->base.resv, &ctx);
-+	if (ret)
-+		return ret;
-+
-+	ret = i915_deps_add_resv(&deps, src_bo->base.resv, &ctx);
- 	if (ret)
- 		return ret;
- 
-@@ -861,12 +855,7 @@ int i915_gem_obj_copy_ttm(struct drm_i915_gem_object *dst,
- 		return PTR_ERR_OR_ZERO(copy_fence);
- 
- 	dma_resv_add_excl_fence(dst_bo->base.resv, copy_fence);
--
--	/* If we failed to reserve a shared slot, add an exclusive fence */
--	if (shared_err)
--		dma_resv_add_excl_fence(src_bo->base.resv, copy_fence);
--	else
--		dma_resv_add_shared_fence(src_bo->base.resv, copy_fence);
-+	dma_resv_add_shared_fence(src_bo->base.resv, copy_fence);
- 
- 	dma_fence_put(copy_fence);
- 
+ static const struct drm_plane_helper_funcs ltdc_plane_helper_funcs = {
 -- 
 2.25.1
 
