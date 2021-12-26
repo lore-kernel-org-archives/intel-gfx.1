@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 751BBC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E0CEC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8528514B433;
-	Mon, 10 Jan 2022 13:24:16 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF7F910FF49;
- Wed, 22 Dec 2021 09:05:57 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id r17so3502224wrc.3;
- Wed, 22 Dec 2021 01:05:57 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF7C14B43A;
+	Mon, 10 Jan 2022 13:24:17 +0000 (UTC)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E28510E94F;
+ Sun, 26 Dec 2021 11:25:13 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ b186-20020a1c1bc3000000b00345734afe78so6962410wmb.0; 
+ Sun, 26 Dec 2021 03:25:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=yFNkjOhkbVUPCPag3+lAuNDHEf6o3ru8j250NbFjPto=;
- b=PWovdBphqrEK39M+gpDvGqxAdVPJl6QRH08LDrE+POux+PO7tP7Nq3+hmvFGa/a53/
- XL4qcWwkKXpqepZ9OJ6dRIlDgLiBr3KiSIaAltvzLJG+QFcoIeTRF+DE3+Lq8xaCSkcO
- DCmqg/yNfXwUSWbixP4Nz4sPf/o+ES/VSQZ8Jq8iUBnnixA7IEI2eepCOHFPVWsyTEre
- VrauRXaUmPCXzMC+Pnr0GHA4Aj7LOhjmvVG1i0T5IXo8SZiYdj/FkZZ7dJSrSMSN3tbx
- c+6weXHSCO2prqtwazZPDjQ4pA2nwe5rCz5NLTI4oGG5wPHKr2CBamLoX96GgGiPaFHp
- cY1Q==
+ bh=MfySaQF3GaGT3rKhp9bzdbdDRm7QyTsYlFaa9SIqgGk=;
+ b=qT65bImUN96BSUsorxOakT1Pmg3FQcOtCRO8UOzh45/+T06C3mZuMn0Fw+gQOU2F21
+ soEjAjCbxIVI4iZZnAsvS9VvHfGJKBXRCf6NmwN0G130W+OZaFKnH7EZnkrdHkgwHROP
+ +0KZ6T+OlQgI72s2f6TBshRmysdplrfFcFkDAyzkTGmYZURMW8d1LMFqaaleqd+3rlMQ
+ 0RlSdf0Dcd9KhEK2cf8yjWFGIyXH/znLFv6huY92C7k1icypdPx6UWBCUOSuSZwu6vg6
+ kWmA2y2c1dWmV7bC/lIKDWe6XAQxmMAhNgTLhJ9hRliz+ENdROWuc90jenrwx80PqFzu
+ yx2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=yFNkjOhkbVUPCPag3+lAuNDHEf6o3ru8j250NbFjPto=;
- b=6OY7TDEd1dPkif2JwtEySM941cuQrf3zQILdISqN8gsltqNS9POjx8Pg8AhjBNwXi8
- l9RZ8tRDNz7uHcdrn0Fsb3SY+ONzWkHTa7i1hBC22ylTu5B/ETc5gCWV6GNTcikx4qpX
- a8870t7XeE0w0sF+JXoEue6n7iwXQr/+B9g7dBtatvUXZ74wCjrnxxmGlOpJkJj5gMUA
- Y3ylUQG9ZnrHQGF7lq0iCX28SWyBm7KhUx4OH+pQqZsOB++nyDpRGvSgblsJ45oTPGbd
- jvHfy+Eu+OHGstrHjfTqg6XtVNfHMjRqs9KqAATbj4fD298UKekuvMRDw2+sdlfdnVNR
- M8kg==
-X-Gm-Message-State: AOAM531XfVGPlo6QJNICQF0TP5vjaBGZwBoZ06Nq9EE4hW0jFflDml4p
- SCtswp89pRDRneO4xlllbxM=
-X-Google-Smtp-Source: ABdhPJy7flmzMTQMI+3SUiNfM2NPwtetHwfXTX+i112NC6r7WXwuYpXcaDAx0EErcXx/XtP7nmcycA==
-X-Received: by 2002:a5d:64ed:: with SMTP id g13mr1384847wri.197.1640163956459; 
- Wed, 22 Dec 2021 01:05:56 -0800 (PST)
+ bh=MfySaQF3GaGT3rKhp9bzdbdDRm7QyTsYlFaa9SIqgGk=;
+ b=hu+qYmC5euhcKJ2j1J1bdMJ28D+uER95VpG5Wi/301+ofVUyD4O3JYwj4slpSyh6LQ
+ tzEZ8hBntyR443322Jv2w223ox9G5GzeC4n8SRRCnsa7YUAYrIENt3JMlDG8Yp0zF1CQ
+ O33MZWJ2Qtabv4B04CISOKA60r+TZaIgZNsUOKb14T19W0QFz3CmVIBqHnuKSVHdX5Hk
+ dFMeJE9qNB6J51V9xeUYIgviTB6gVCTGmsAeRZssFM9XvRtDZbHCledcL+ZgFAK5zV++
+ mY/l39M50JPvXoTHGs83bFS+DAaKbClxYVx1ysWTb/YsnjhADbOhtNf/xinCtJ8f/9XJ
+ W7Bg==
+X-Gm-Message-State: AOAM533RsUzTfLVGZRIWglnJLzTzLnmUoSppMw5YX57lXcHCOoCnnrtt
+ 8IIlmKss+ZAXWYwmRROAk2M=
+X-Google-Smtp-Source: ABdhPJw59MvLvZ2RZ+XzSNYkTilLCKgdLom4W7pXuZ8fRzh57pIUaKcZzFzTnlj18iy9FRBp2KTB3w==
+X-Received: by 2002:a7b:c08c:: with SMTP id r12mr10128651wmh.161.1640517912047; 
+ Sun, 26 Dec 2021 03:25:12 -0800 (PST)
 Received: from localhost.localdomain ([217.113.240.86])
- by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.05.54
+ by smtp.gmail.com with ESMTPSA id g12sm13654743wrd.71.2021.12.26.03.25.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Dec 2021 01:05:56 -0800 (PST)
+ Sun, 26 Dec 2021 03:25:11 -0800 (PST)
 From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
 To: contact@emersion.fr
-Date: Wed, 22 Dec 2021 10:05:46 +0100
-Message-Id: <20211222090552.25972-1-jose.exposito89@gmail.com>
+Date: Sun, 26 Dec 2021 12:24:57 +0100
+Message-Id: <20211226112503.31771-1-jose.exposito89@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH v2 0/6] Add missing format_mod_supported
+Subject: [Intel-gfx] [PATCH v3 0/6] Add missing format_mod_supported
  functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,9 +72,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
  benjamin.gaignard@linaro.org, festevam@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
- intel-gfx@lists.freedesktop.org, tzimmermann@suse.de, s.hauer@pengutronix.de,
- mripard@kernel.org, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, s.hauer@pengutronix.de, mripard@kernel.org,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
  yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
  philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
  dmitry.baryshkov@linaro.org,
@@ -97,14 +98,19 @@ In the first version of this series, Simon Ser and Dmitry Baryshkov
 agreed [1] that the code should behave as documented and
 "create_in_format_blob" should be changed.
 
-This second version implements the required changes and drops the
+The second version implemented the required changes and drops the
 "format_mod_supported" in the drivers that can use the default
-implementation.
+implementation. [3]
 
-Jose
+This third version fixes a compiler warning and adds the reviewed
+by tags.
+
+Thanks,
+José Expósito
 
 [1] https://lore.kernel.org/dri-devel/CAA8EJpqJ-tWmb5Ba6XSK59toCtLb3nRRmVH8da4Ud_rrRYytmw@mail.gmail.com/T/
 [2] https://lore.kernel.org/dri-devel/20211216170532.GA16349@elementary/T/
+[3] https://lore.kernel.org/dri-devel/20211222090552.25972-1-jose.exposito89@gmail.com/T/
 
 José Expósito (6):
   drm/plane: Make format_mod_supported truly optional
@@ -114,13 +120,13 @@ José Expósito (6):
   drm: mxsfb: Drop format_mod_supported function
   drm/stm: ltdc: Drop format_mod_supported function
 
- drivers/gpu/drm/drm_plane.c                 |  8 ++------
+ drivers/gpu/drm/drm_plane.c                 |  9 ++-------
  drivers/gpu/drm/drm_simple_kms_helper.c     |  8 --------
  drivers/gpu/drm/i915/display/intel_cursor.c |  8 --------
  drivers/gpu/drm/mxsfb/mxsfb_kms.c           |  8 --------
  drivers/gpu/drm/stm/ltdc.c                  | 11 -----------
  include/drm/drm_plane.h                     |  2 +-
- 6 files changed, 3 insertions(+), 42 deletions(-)
+ 6 files changed, 3 insertions(+), 43 deletions(-)
 
 -- 
 2.25.1
