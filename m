@@ -4,62 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6461DC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 13:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF815C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 14:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0DA10F3B2;
-	Wed,  5 Jan 2022 13:55:45 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4462210F3B0;
- Wed,  5 Jan 2022 13:55:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB63710F730;
+	Wed,  5 Jan 2022 14:33:55 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D8D310F730
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jan 2022 14:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641390943; x=1672926943;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=tp2NHll9mLQSop0C6P88+KDsutFmd5ql7LKxOWgh0Ig=;
- b=QTYOmkiHKc3BpqYlya4kKrRr+f2pvQaPqtGqM/u+Bi//e8Zpn0x28F0l
- BEKgUsYw8gtHgSqGZekdUxxiH9f8pfYRenZX44QQVJPk/VN9YQ03WnnOw
- QLZIGB2Jd5Mypjcn0Sh8FKy9Hf6nBnoBy4b6G7j1iOMVxfhfgXGRxLVYW
- MpRUWDWlP1JnBZjzfK7Qm5Nhw1qcLej/TqWypdhfYwcn8ShouFHPeAVcb
- xRF8UFLKmiiA/+NwLRA1cERMwioVnHkIN8UHWmxBLoHDwDXqwzHBHYR72
- i22B2GIpYz+t/6TXhvKKFlKbBFwGeYvYr5T5w6gMCNGXannYbp1sNx6Nn A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="242399368"
-X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="242399368"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 05:44:22 -0800
-X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="556527898"
-Received: from fhoeg-mobl1.ger.corp.intel.com (HELO [10.249.254.213])
- ([10.249.254.213])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 05:44:20 -0800
-Message-ID: <8ea33d30-7765-4c2a-8e19-a99e993d8b33@linux.intel.com>
-Date: Wed, 5 Jan 2022 14:44:17 +0100
+ t=1641393234; x=1672929234;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=Af4eeBD1VXr8NH1oteHCCKWYzAasHPTkE3XDYLcK2Gw=;
+ b=mfrO84DiKhSnuG41zpsh5qfNWl27TXhri0jD1u5AaGMnRwhvZGUUKsvd
+ DlFpZJmBEyqSTo66Kd/nOl2uD6jb+c/e3/MZoYs3/7X9MmlXF1aZWgPI9
+ hKFXXo4A77EYutfi1l0yaojnkXo9fXEXN/SGYXyFOEPSzNqE6FZTy+TQd
+ DiWYMXbWnlxgNEGlvxU3CsXEJmUpJHe7xcZnBkH86ib0iEKxzM5Lo91lb
+ sUX2nLHDnBYn9SowuqDyIbdFrshR+os6rMbSO/23I1ROt9g6NdVKt7QWy
+ SxPQjrrYc0Syv0vy5L1lCRmMVJCaGh1eR8aG1IjgDYE/SHE2arx88hz+I g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="303207026"
+X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="303207026"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2022 06:33:25 -0800
+X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="472514618"
+Received: from jwebb-mobl1.ger.corp.intel.com (HELO [10.213.202.78])
+ ([10.213.202.78])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2022 06:33:24 -0800
+Message-ID: <0a340da0-ccdc-c90f-b181-1f0ad3d5a440@linux.intel.com>
+Date: Wed, 5 Jan 2022 14:33:22 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
+ Thunderbird/91.3.1
 Content-Language: en-US
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-To: "Zeng, Oak" <oak.zeng@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Bloomfield, Jon" <jon.bloomfield@intel.com>,
- "Vetter, Daniel" <daniel.vetter@intel.com>,
- "Wilson, Chris P" <chris.p.wilson@intel.com>
-References: <20220103115947.92688-1-thomas.hellstrom@linux.intel.com>
- <20220103115947.92688-3-thomas.hellstrom@linux.intel.com>
- <BN6PR11MB1633E8200E7999D439707F2392499@BN6PR11MB1633.namprd11.prod.outlook.com>
- <c501276b-58f4-9764-30d2-5da2ae00e7e9@linux.intel.com>
- <BN6PR11MB1633BB7DDA0486B79F6B6C2492499@BN6PR11MB1633.namprd11.prod.outlook.com>
- <f31472df-3239-5903-ea3c-60fd58b4e1d8@linux.intel.com>
- <BN6PR11MB1633C76CD53EFBBCFA843C8F924A9@BN6PR11MB1633.namprd11.prod.outlook.com>
- <b00e0f20-4398-f97d-5343-88f32828c468@linux.intel.com>
-In-Reply-To: <b00e0f20-4398-f97d-5343-88f32828c468@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20220105100520.976092-1-jani.nikula@intel.com>
+ <20220105100520.976092-2-jani.nikula@intel.com>
+ <170a7507-ff7e-204f-eba3-89571ab87842@linux.intel.com>
+ <875yqytqv4.fsf@intel.com>
+ <bee03d1e-06dd-6243-e711-ab8d7c7081bb@linux.intel.com>
+ <87ee5mjp7h.fsf@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <87ee5mjp7h.fsf@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v4 2/4] drm/i915: Use the vma resource as
- argument for gtt binding / unbinding
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/uncore: rename
+ i915_reg_read_ioctl intel_uncore_reg_read_ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,159 +66,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Auld, Matthew" <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 1/4/22 17:07, Thomas Hellström wrote:
-> Hi, Oak,
->
-> On 1/4/22 16:35, Zeng, Oak wrote:
->>
->> Regards,
->> Oak
->>
->>> -----Original Message-----
->>> From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Sent: January 4, 2022 3:29 AM
->>> To: Zeng, Oak <oak.zeng@intel.com>; intel-gfx@lists.freedesktop.org; 
->>> dri-devel@lists.freedesktop.org
->>> Cc: Auld, Matthew <matthew.auld@intel.com>
->>> Subject: Re: [Intel-gfx] [PATCH v4 2/4] drm/i915: Use the vma 
->>> resource as argument for gtt binding / unbinding
->>>
->>> Hi, Oak.
->>>
->>> On 1/4/22 00:08, Zeng, Oak wrote:
->>>> Regards,
->>>> Oak
->>> Looks like your emails always start with "Regards, Oak". a 
->>> misconfiguration?
->> My mail client (outlook) is set to automatically add a regards, when 
->> I compose new mail or reply email. Not a big problem 😊
->>
->>>
->>>>> -----Original Message-----
->>>>> From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>>>> Sent: January 3, 2022 1:58 PM
->>>>> To: Zeng, Oak <oak.zeng@intel.com>; 
->>>>> intel-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->>>>> Cc: Auld, Matthew <matthew.auld@intel.com>
->>>>> Subject: Re: [Intel-gfx] [PATCH v4 2/4] drm/i915: Use the vma 
->>>>> resource as argument for gtt binding / unbinding
->>>>>
->>>>> Hi, Oak.
->>>>>
->>>>> On 1/3/22 19:17, Zeng, Oak wrote:
->>>>>> Regards,
->>>>>> Oak
->>>>>>
->>>>>>> -----Original Message-----
->>>>>>> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On 
->>>>>>> Behalf Of Thomas Hellström
->>>>>>> Sent: January 3, 2022 7:00 AM
->>>>>>> To: intel-gfx@lists.freedesktop.org; 
->>>>>>> dri-devel@lists.freedesktop.org
->>>>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>; Auld, 
->>>>>>> Matthew <matthew.auld@intel.com>
->>>>>>> Subject: [Intel-gfx] [PATCH v4 2/4] drm/i915: Use the vma 
->>>>>>> resource as argument for gtt binding / unbinding
->>>>>>>
->>>>>>> When introducing asynchronous unbinding, the vma itself may no 
->>>>>>> longer
->>>>>>> be alive when the actual binding or unbinding takes place.
->>>>>> Can we take an extra reference counter of the vma to keep the vma 
->>>>>> alive, until the actual binding/unbinding takes place?
->>>>> The point here is that that's not needed, and should be avoided.
->>>> Can you explain more why "keeping vma alive until unbinding takes 
->>>> place" should be avoided?
+On 05/01/2022 13:18, Jani Nikula wrote:
+> On Wed, 05 Jan 2022, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+>> On 05/01/2022 10:32, Jani Nikula wrote:
+>>> On Wed, 05 Jan 2022, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+>>>> On 05/01/2022 10:05, Jani Nikula wrote:
+>>>>> Follow the usual naming convention.
 >>>>
->>>> As I understand it, your series introduce asynchronized unbinding. 
->>>> But since vma might be no longer alive at the time of unbinding.
->>> To overcome this difficulty, you introduce a vma resource structure 
->>> and you guarantee vma resource is alive at bind/unbind time. So
->>> you can use vma resource for the bind/unbind operation. My question 
->>> is, can we achieve the asynchronized unbinding still using vma
->>> structure by keeping vma structure alive ( by ref count it). This 
->>> way the change should be much smaller (compared to this series). Why
->>> it is harmful to keep the vma alive? Maybe you have other reasons to 
->>> introduce vma resource that I don't see.
->>>
->>> When we allow asynchronous unbinding, it's allowed to immediately 
->>> rebind
->>> the vma, possibly into the same gpu virtual address, but with different
->>> pages. And when doing that we don't want to block waiting for the 
->>> unbind
->>> to execute.
->> Imagine this sequence:
->>
->> 1. Virtual address a1 is bound to physical page p1
->> 2. Unbind a1 from p1, asynchronous so actual unbind not happen yet
->> 3. bind a1 to physical page p2, page table is changed, now a1 
->> pointing to p2 in page table.
->> 4. #2 now take place now - since in page table, a1 points to p2 now, 
->> does a1 point to scratch page after #4?
->
-> Here, 3) will also become async, awaiting any pending unbinds in the 
-> address range provided to 3), in particular, the bind in 3) will await 
-> 4). See i915_vma_resource_bind_dep_await(), and the discussion on 
-> whether or not to use an interval tree for this at the start of 
-> i915_vma_resource.c
->
->> In fact, we could allow a large number of outstanding binds
->>> and unbinds for a vma, which makes the vma structure unsuitable to 
->>> track
->>> this, since there will no longer be a single mapping between a set of
->>> active pages and a vma, or a virtual gpu range and a vma.
->> I agree that if pages - vma - virtual gpu range is not 1:1:1 mapping, 
->> we need introduce a finer-grained vma resource to for the non-1:1 
->> mapping. I also understand the asynchronous unbinding utilize the 
->> virtual address space more effectively. But my feeling is that this 
->> non-1:1 mapping makes our program hard to understand and maintain. 
->> Since this non- 1:1 mapping is introduced by asynchronous 
->> binding/unbinding, maybe the real question here is, is it really 
->> benefit to introduce asynchronous unbinding?
->
-> That's a relevant question, which I've asked myself a couple of times. 
-> Async unbinding has complicated things like error capture and indeed 
-> complicates the understanding of the binding process as well.
->
-> The main gain is that we avoid a sync point at LMEM eviction, enabling 
-> us to pipeline eviction, moving forward it may also find use in the 
-> shrinker and for user-space prematurely wanting to re-use softpin 
-> addresses.
->
-> /Thomas
->
->>
->> I am still not familiar enough to the codes. I suggest other experts 
->> to take a look also. @Bloomfield, Jon @Vetter, Daniel @Wilson, Chris P.
-
-It might make sense here to point out as well that the direction from 
-the arch team is towards moving towards gpu-writes of page-table entries 
-for binding and unbinding, also keeping small PCI bars in mind, which 
-will more or less force us to allow async unbinding for maintained 
-performance.
-
-/Thomas
-
-
->>
->> Regards,
->> Oak
->>> Thanks,
->>>
->>> /Thomas
->>>
->>>> Regards,
->>>> Oak
+>>>> But intel_uncore_ prefix usually means functions takes intel_uncore as
+>>>> the first argument.
 >>>>
->>>>    If the
->>>>> vma is no longer alive, that means nobody uses it anymore, but the 
->>>>> GPU
->>>>> may still have work in the pipe that references the GPU virtual 
->>>>> address.
->>>>>
->>>>> /Thomas.
->>>>>
+>>>> Maybe solution here is that i915_reg_read_ioctl does not belong in
+>>>> intel_uncore.c, it being the UAPI layer thing? I guess arguments could
+>>>> be made for either way.
+>>>
+>>> My position is that the function and file prefixes go hand in
+>>> hand. You'll always know where to place a function, and you'll always
+>>> know where the function is to be found.
+>>>
+>>> If you can *also* make the context argument follow the pattern, it's
+>>> obviously better, and indicates the division to files is working out
+>>> nicely. However, in a lot of cases you'll need to pass struct
+>>> drm_i915_private or similar as the first parameter to e.g. init
+>>> functions. It can't be the rigid rule.
+>>>
+>>> I'm fine with moving the entire function somewhere else, as long as the
+>>> declaration is not in i915_drv.h. There's no longer a i915_drv.c, and
+>>> i915_drv.h should not have function declarations at all.
+>>
+>> Yes I agree it cannot be a rigid rule. I just that it feels
+>> intel_uncore.[hc] is too low level to me to hold an ioctl
+>> implementation, and header actually feels wrong to have the declaration.
+>> Not least it is about _one_ of the uncores, while the ioctl is not
+>> operating on that level, albeit undefined at the moment how exactly it
+>> would work for multi-tile.
+>>
+>> Would it be too early, or unwarranted at this point, to maybe consider
+>> adding i915_ioctls.[hc]?
+> 
+> Then the conversation would be about putting together a ton of unrelated
+> functions where the only thing in common is that they're an ioctl
+> implementation. Arguably many of them would have less in common than the
+> reg read ioctl has with uncore!
+
+I imagined it as a place for ioctls which don't fit anywhere else, like 
+it this case it is not a family of ioctls but and odd one out. So yes, 
+first "problem" would be there is only one to put there and no line of 
+sight for others.
+
+> And when is it okay to put an ioctl in the i915_ioctls.c file and when
+> is it warranted to put it somewhere else? It's just a different set of
+> problems.
+
+When it does not fit anywhere else?
+
+>> I like the i915_ prefix of ioctls for consistency.. i915_getparam_ioctl,
+>> i915_query_ioctl, i915_perf_..., i915_gem_....
+> 
+> The display ioctls have intel_ prefix anyway. It's the _ioctl suffix
+> that we use.
+> 
+> Again, my main driver here is cleaning up i915_drv.h. I can shove the
+> reg read ioctl somewhere other than intel_uncore.[ch] too. But as it
+> stands, the only alternative that seems better than intel_uncore.[ch] at
+> the moment is adding a dedicated file for a 60-line function.
+
+I understand your motivation and I wouldn't nack your efforts, but I 
+also cannot yet make myself ack it. Is 60 lines so bad? Lets see..
+
+$ find . -name "*.c" -print0 | xargs -0 wc -l | sort -nr
+...
+      59 ./selftests/mock_request.c
+      59 ./gt/uc/intel_uc_debugfs.c
+      59 ./gem/i915_gemfs.c
+      52 ./selftests/igt_mmap.c
+      51 ./selftests/igt_reset.c
+      49 ./selftests/mock_uncore.c
+      47 ./selftests/igt_atomic.c
+      36 ./gt/uc/intel_huc_debugfs.c
+      36 ./gt/intel_gt_engines_debugfs.c
+      35 ./selftests/igt_flush_test.c
+      34 ./selftests/librapl.c
+      34 ./gvt/trace_points.c
+      29 ./gt/selftests/mock_timeline.c
+      27 ./gt/selftest_engine.c
+      26 ./gt/uc/intel_huc_fw.c
+      15 ./i915_config.c
+      14 ./i915_trace_points.c
+       9 ./display/intel_display_trace.c
+
+So kind of meh, wouldn't be first. I'd add a dedicated file just for the 
+benefit of being able to legitimately keep the i915_reg_read_ioctl name. 
+Come multi-tile it may get company. Even though at the moment I am not 
+aware anyone is trying to add multi-tile aware reg read, but I expect 
+there will be need as long as need for the existing one exists.
+
+Regards,
+
+Tvrtko
