@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 861DCC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 19:58:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC858C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 19:58:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 027C010E427;
-	Wed,  5 Jan 2022 19:58:17 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD14D10E414
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jan 2022 19:58:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 268EE10E397;
+	Wed,  5 Jan 2022 19:58:28 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 119C910E442
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jan 2022 19:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641412695; x=1672948695;
+ t=1641412706; x=1672948706;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XnbpYWC1t2MUe68zPghacKIssjKYZJ0XKQzy2JVqTkE=;
- b=dCMNdFIUuZ92imBJeI5Wyv0cGFA3XRVBaJk6HqjvUM2t2htmJRIvSG8f
- ENTw0d5MIu7qFcRpMa1YTpIcK/hbgr1DufoQXVjMja0Lx091zMpVXanx+
- vLO4nCnbWh1TuhGttQzRY0cJBDzxP5YQr0ThRJn5B/YQwzqnMDgf/n+y0
- KaxlIkK0OVMUk3YRFtSB2sCscDKSgMoKeo5WXD4leK+HnR8mWJfFCrnrN
- WV4paAzmnYftQlKpmJFVjWobhuhLnSsNEhssd08oa5ITxdH9b+xbvf4xN
- wtlh1X7BypUqvh9JnyQ9TXrYd/+gKh/UF+eXnsE4HEosxv4IAGbFhuyCo Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="223210712"
-X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="223210712"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 11:58:15 -0800
-X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="556658847"
+ bh=krq1Rfb+nyYxfHi7kuFJ0R1WHPL/mFq5Ov1cBO/+awQ=;
+ b=m56Z1tZcpKV6y8hZ1G3RydSiTsXqAvg6Iv02/snPyAjEjgqVCbPEVlnS
+ Vask1qxgl7dxCHV2QpBw1nGhP7p7XPDjgiaLa/PR7LxBO+qQthnuTxc75
+ 7qqgvV8aFu0STNnAUCVvZKalITUiDX6g1AasNsOq3tE6jeyiPFHdHWeNi
+ kuG2zJMjQ9tmoXTm6Ar75pkSluG9+31HjmEdHxITqu3h5MFg+lKDoGpXD
+ vKpH/jVTXYLN3xK/8BN0Au1+oEf9T/0HUdoF0z2w75c6q5aKsPCwxh+je
+ Y2z4ohVe1TLNJ1RvdF8ICm8qm8Upmw+uGXCnLnoF4YFm9wN+zuEJ26laK w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="242482995"
+X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="242482995"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2022 11:58:25 -0800
+X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="760929174"
 Received: from menright-mobl1.amr.corp.intel.com (HELO localhost)
  ([10.252.25.244])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 11:58:12 -0800
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2022 11:58:22 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Jan 2022 21:56:33 +0200
-Message-Id: <ec7c02b8f6cae360b8c086121a4b48c782202375.1641411696.git.jani.nikula@intel.com>
+Date: Wed,  5 Jan 2022 21:56:35 +0200
+Message-Id: <c22172f880630f96573ecafd0cf26aa725b28d8b.1641411696.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1641411696.git.jani.nikula@intel.com>
 References: <cover.1641411696.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 17/21] drm/i915: include shmem_fs.h only where
- needed
+Subject: [Intel-gfx] [PATCH 19/21] drm/i915: axe lots of unnecessary
+ includes from i915_drv.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,52 +62,64 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Don't include shmem_fs.h in i915_drv.h, reducing the build dependencies.
+It's fairly difficult to ensure these are actually not needed due to
+indirect includes via other files. However, it's easier to add them back
+as needed and, most importantly, where needed instead of exhaustively
+proving they're unnecessary.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c   | 2 ++
- drivers/gpu/drm/i915/i915_drv.h           | 1 -
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_drv.h | 18 ------------------
+ 1 file changed, 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 3414122245f0..60f962f0c041 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/pagevec.h>
-+#include <linux/shmem_fs.h>
- #include <linux/swap.h>
- 
- #include <drm/drm_cache.h>
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 923cc7ad8d70..37a28784992d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2021 Intel Corporation
-  */
- 
-+#include <linux/shmem_fs.h>
-+
- #include <drm/ttm/ttm_bo_driver.h>
- #include <drm/ttm/ttm_placement.h>
- 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f287abb94df2..30533862c10c 100644
+index 4421bfd3fe2f..7ceb4b596c1c 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -46,7 +46,6 @@
- #include <linux/perf_event.h>
- #include <linux/pm_qos.h>
- #include <linux/dma-resv.h>
--#include <linux/shmem_fs.h>
- #include <linux/stackdepot.h>
+@@ -34,25 +34,12 @@
  
- #include <drm/drm_gem.h>
+ #include <asm/hypervisor.h>
+ 
+-#include <linux/io-mapping.h>
+ #include <linux/i2c.h>
+ #include <linux/i2c-algo-bit.h>
+-#include <linux/backlight.h>
+-#include <linux/hash.h>
+ #include <linux/intel-iommu.h>
+-#include <linux/kref.h>
+-#include <linux/mm_types.h>
+-#include <linux/perf_event.h>
+ #include <linux/pm_qos.h>
+-#include <linux/dma-resv.h>
+-#include <linux/stackdepot.h>
+ 
+-#include <drm/drm_gem.h>
+-#include <drm/drm_auth.h>
+-#include <drm/drm_util.h>
+-#include <drm/drm_dsc.h>
+ #include <drm/drm_connector.h>
+-#include <drm/i915_mei_hdcp_interface.h>
+ #include <drm/ttm/ttm_device.h>
+ 
+ #include "i915_params.h"
+@@ -90,17 +77,12 @@
+ #include "intel_runtime_pm.h"
+ #include "intel_step.h"
+ #include "intel_uncore.h"
+-#include "intel_wakeref.h"
+ #include "intel_wopcm.h"
+ 
+ #include "i915_gem.h"
+-#include "i915_gem_gtt.h"
+ #include "i915_gpu_error.h"
+ #include "i915_perf_types.h"
+-#include "i915_request.h"
+ #include "i915_scheduler.h"
+-#include "gt/intel_timeline.h"
+-#include "i915_vma.h"
+ 
+ 
+ /* General customization:
 -- 
 2.30.2
 
