@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2425FC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 05:45:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90FE4C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 05:46:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E90610E5FA;
-	Wed,  5 Jan 2022 05:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD6CB10F49E;
+	Wed,  5 Jan 2022 05:46:48 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id C4E1810E617;
- Wed,  5 Jan 2022 05:45:37 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A281810F499;
+ Wed,  5 Jan 2022 05:46:47 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id BF241A008A;
- Wed,  5 Jan 2022 05:45:37 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id A28B7A008A;
+ Wed,  5 Jan 2022 05:46:47 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andi Shyti" <andi.shyti@linux.intel.com>
-Date: Wed, 05 Jan 2022 05:45:37 -0000
-Message-ID: <164136153775.25401.2265293866296808881@emeril.freedesktop.org>
+Date: Wed, 05 Jan 2022 05:46:47 -0000
+Message-ID: <164136160766.25402.11262619491043135915@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20211219212500.61432-1-andi.shyti@linux.intel.com>
 In-Reply-To: <20211219212500.61432-1-andi.shyti@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_More_preparation_for_multi_gt_patches_=28rev4=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?More_preparation_for_multi_gt_patches_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,27 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-4f190d35025d drm/i915/gt: Use to_gt() helper for GGTT accesses
-afd4ed1a47d2 drm/i915: Use to_gt() helper for GGTT accesses
--:235: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#235: FILE: drivers/gpu/drm/i915/i915_perf.c:1634:
-+		intel_gt_ns_to_clock_interval(to_gt(stream->perf->i915),
-+		atomic64_read(&stream->perf->noa_programming_delay));
-
-total: 0 errors, 0 warnings, 1 checks, 176 lines checked
-5f1faa95095c drm/i915/gem: Use to_gt() helper for GGTT accesses
--:304: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
-#304: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c:323:
-+			      (1 + next_prime_number(to_gt(i915)->ggtt->vm.total >> PAGE_SHIFT)) << PAGE_SHIFT);
-
--:335: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
-#335: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c:460:
-+			      (1 + next_prime_number(to_gt(i915)->ggtt->vm.total >> PAGE_SHIFT)) << PAGE_SHIFT);
-
-total: 0 errors, 2 warnings, 0 checks, 287 lines checked
-d1f4dc7bb6bb drm/i915/display: Use to_gt() helper for GGTT accesses
-dd2830cfee21 drm/i915/selftests: Use to_gt() helper for GGTT accesses
-7f9fe7d9fcfd drm/i915: Remove unused i915->ggtt
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
