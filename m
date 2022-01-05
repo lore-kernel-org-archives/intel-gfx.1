@@ -4,59 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E0CEC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42BA1C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF7C14B43A;
-	Mon, 10 Jan 2022 13:24:17 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E28510E94F;
- Sun, 26 Dec 2021 11:25:13 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- b186-20020a1c1bc3000000b00345734afe78so6962410wmb.0; 
- Sun, 26 Dec 2021 03:25:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MfySaQF3GaGT3rKhp9bzdbdDRm7QyTsYlFaa9SIqgGk=;
- b=qT65bImUN96BSUsorxOakT1Pmg3FQcOtCRO8UOzh45/+T06C3mZuMn0Fw+gQOU2F21
- soEjAjCbxIVI4iZZnAsvS9VvHfGJKBXRCf6NmwN0G130W+OZaFKnH7EZnkrdHkgwHROP
- +0KZ6T+OlQgI72s2f6TBshRmysdplrfFcFkDAyzkTGmYZURMW8d1LMFqaaleqd+3rlMQ
- 0RlSdf0Dcd9KhEK2cf8yjWFGIyXH/znLFv6huY92C7k1icypdPx6UWBCUOSuSZwu6vg6
- kWmA2y2c1dWmV7bC/lIKDWe6XAQxmMAhNgTLhJ9hRliz+ENdROWuc90jenrwx80PqFzu
- yx2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MfySaQF3GaGT3rKhp9bzdbdDRm7QyTsYlFaa9SIqgGk=;
- b=hu+qYmC5euhcKJ2j1J1bdMJ28D+uER95VpG5Wi/301+ofVUyD4O3JYwj4slpSyh6LQ
- tzEZ8hBntyR443322Jv2w223ox9G5GzeC4n8SRRCnsa7YUAYrIENt3JMlDG8Yp0zF1CQ
- O33MZWJ2Qtabv4B04CISOKA60r+TZaIgZNsUOKb14T19W0QFz3CmVIBqHnuKSVHdX5Hk
- dFMeJE9qNB6J51V9xeUYIgviTB6gVCTGmsAeRZssFM9XvRtDZbHCledcL+ZgFAK5zV++
- mY/l39M50JPvXoTHGs83bFS+DAaKbClxYVx1ysWTb/YsnjhADbOhtNf/xinCtJ8f/9XJ
- W7Bg==
-X-Gm-Message-State: AOAM533RsUzTfLVGZRIWglnJLzTzLnmUoSppMw5YX57lXcHCOoCnnrtt
- 8IIlmKss+ZAXWYwmRROAk2M=
-X-Google-Smtp-Source: ABdhPJw59MvLvZ2RZ+XzSNYkTilLCKgdLom4W7pXuZ8fRzh57pIUaKcZzFzTnlj18iy9FRBp2KTB3w==
-X-Received: by 2002:a7b:c08c:: with SMTP id r12mr10128651wmh.161.1640517912047; 
- Sun, 26 Dec 2021 03:25:12 -0800 (PST)
-Received: from localhost.localdomain ([217.113.240.86])
- by smtp.gmail.com with ESMTPSA id g12sm13654743wrd.71.2021.12.26.03.25.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Dec 2021 03:25:11 -0800 (PST)
-From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
-To: contact@emersion.fr
-Date: Sun, 26 Dec 2021 12:24:57 +0100
-Message-Id: <20211226112503.31771-1-jose.exposito89@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FC514B435;
+	Mon, 10 Jan 2022 13:24:18 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B635910E82C;
+ Wed,  5 Jan 2022 09:36:11 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R871e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=11; SR=0; TI=SMTPD_---0V10PFNA_1641375366; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0V10PFNA_1641375366) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 05 Jan 2022 17:36:07 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: jani.nikula@linux.intel.com,
+	airlied@linux.ie
+Date: Wed,  5 Jan 2022 17:36:05 +0800
+Message-Id: <20220105093605.66436-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH v3 0/6] Add missing format_mod_supported
- functions
+Subject: [Intel-gfx] [PATCH -next v2] drm/i915/fbc: replace
+ DEFINE_SIMPLE_ATTRIBUTE with DEFINE_DEBUGFS_ATTRIBUTE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,65 +42,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
- benjamin.gaignard@linaro.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
- intel-gfx@lists.freedesktop.org, s.hauer@pengutronix.de, mripard@kernel.org,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
- yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
- philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
- dmitry.baryshkov@linaro.org,
- =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
- shawnguo@kernel.org
+Cc: intel-gfx@lists.freedesktop.org, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yang Li <yang.lee@linux.alibaba.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+Fix the following coccicheck warning:
+./drivers/gpu/drm/i915/display/intel_fbc.c:1757:0-23: WARNING:
+intel_fbc_debugfs_false_color_fops should be defined with
+DEFINE_DEBUGFS_ATTRIBUTE
 
-This patchset supersedes [1]. Now the title is a bit misleading, but
-I left it this way to (hopefully) facilitate the maintainers' work.
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/i915/display/intel_fbc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-A little context: Originally, I sent a patch adding modifiers to the
-VKMS driver and Simon Ser kindly reviewed it and pointed out that
-"format_mod_supported" was missing [2].
-I asked if the docs were incorrect or if it was a bug in
-"create_in_format_blob".
-
-In the first version of this series, Simon Ser and Dmitry Baryshkov
-agreed [1] that the code should behave as documented and
-"create_in_format_blob" should be changed.
-
-The second version implemented the required changes and drops the
-"format_mod_supported" in the drivers that can use the default
-implementation. [3]
-
-This third version fixes a compiler warning and adds the reviewed
-by tags.
-
-Thanks,
-José Expósito
-
-[1] https://lore.kernel.org/dri-devel/CAA8EJpqJ-tWmb5Ba6XSK59toCtLb3nRRmVH8da4Ud_rrRYytmw@mail.gmail.com/T/
-[2] https://lore.kernel.org/dri-devel/20211216170532.GA16349@elementary/T/
-[3] https://lore.kernel.org/dri-devel/20211222090552.25972-1-jose.exposito89@gmail.com/T/
-
-José Expósito (6):
-  drm/plane: Make format_mod_supported truly optional
-  drm/plane: Fix typo in format_mod_supported documentation
-  drm/simple-kms: Drop format_mod_supported function
-  drm/i915/display: Drop format_mod_supported function
-  drm: mxsfb: Drop format_mod_supported function
-  drm/stm: ltdc: Drop format_mod_supported function
-
- drivers/gpu/drm/drm_plane.c                 |  9 ++-------
- drivers/gpu/drm/drm_simple_kms_helper.c     |  8 --------
- drivers/gpu/drm/i915/display/intel_cursor.c |  8 --------
- drivers/gpu/drm/mxsfb/mxsfb_kms.c           |  8 --------
- drivers/gpu/drm/stm/ltdc.c                  | 11 -----------
- include/drm/drm_plane.h                     |  2 +-
- 6 files changed, 3 insertions(+), 43 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index 160fd2bdafe5..9ab844ea7992 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -1754,10 +1754,10 @@ static int intel_fbc_debugfs_false_color_set(void *data, u64 val)
+ 	return 0;
+ }
+ 
+-DEFINE_SIMPLE_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
+-			intel_fbc_debugfs_false_color_get,
+-			intel_fbc_debugfs_false_color_set,
+-			"%llu\n");
++DEFINE_DEBUGFS_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
++			 intel_fbc_debugfs_false_color_get,
++			 intel_fbc_debugfs_false_color_set,
++			 "%llu\n");
+ 
+ static void intel_fbc_debugfs_add(struct intel_fbc *fbc)
+ {
 -- 
-2.25.1
+2.20.1.7.g153144c
 
