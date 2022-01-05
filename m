@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0720DC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 19:57:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC59C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jan 2022 19:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4606910E401;
-	Wed,  5 Jan 2022 19:57:12 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 019F910E401
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jan 2022 19:57:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C17010E414;
+	Wed,  5 Jan 2022 19:57:16 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0313F10E414
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jan 2022 19:57:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641412631; x=1672948631;
+ t=1641412635; x=1672948635;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KVgYBe7FEqYkX59VZVV8gJ9zw7pnOhKnOW7yizmat0A=;
- b=JJFEV5Iur5mhirSdHFVCy69fVMdg4N2osIp1L3tTGOthD8aq//Lh+6Om
- CuBUDWXRPCW0suMYxxH71/86L+92hkLDxlKfSWqc5x24ricEJjTc7NC83
- PwdtqFw0lRtdqegIvyoMBqZ0K6xZKxTiVfdAEQZw+5dgXsMg8kXe9jon3
- fCscy++Jj9EKFXia46fN/6dgMO9whO8TAEn+0AtU1P6dAgBF25ucaL6l1
- EV6UV5bNCllieb0g/v/TDEPS+ujmZufmOHwgFq9LnHXzqkGdgodfacV7E
- 42lbuc9qqTjUBFE0LO/g2aYo6V6lRWIhg4nJE8Et1EHEIJHhY+p0B5VNK g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="305877573"
-X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="305877573"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 11:57:10 -0800
-X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="470693705"
+ bh=wv44+782HsuC5thh+nTNqqtUOcj5+m3fLcB0meOd8Vo=;
+ b=OiXwYpflTBehZkAG71aO6mM6cjzdwuvhcbWeNfVJBdvx4NJkRyDg2EqZ
+ HFkO6f5aZZW/I5guaKzWVMCvn6/UoL72jaP1jZxJjuswogXYh81FvpnAn
+ uSJeg7aNliP7IL7H350mf7HzrSrxVRk8EHpGrBOjxHOqV0UTsozZ5evgE
+ zzOFgxZr00MjVt+F6XPRuAdOVQajbJK0sKW/+fBkqufaibgBeQkK871fI
+ 4rZdwOQVzJ5h0fOAXsuMUXZS+K8qEb/Kg3LYQz/6FEQCIQ+ljNYvvjwRx
+ 9okeDb10dW1rT5DNhaXtBKf7aSurt6xdAIydErr/2FtqzA5Q7Na3OgRUL g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="242482782"
+X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="242482782"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2022 11:56:54 -0800
+X-IronPort-AV: E=Sophos;i="5.88,264,1635231600"; d="scan'208";a="621260042"
 Received: from menright-mobl1.amr.corp.intel.com (HELO localhost)
  ([10.252.25.244])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 11:57:08 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2022 11:56:51 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Jan 2022 21:56:21 +0200
-Message-Id: <430cefd14731000d2bada42901f8a257d65b3a51.1641411696.git.jani.nikula@intel.com>
+Date: Wed,  5 Jan 2022 21:56:18 +0200
+Message-Id: <6072c36ee95485fdcab432eaeb6612231cf9e72c.1641411696.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1641411696.git.jani.nikula@intel.com>
 References: <cover.1641411696.git.jani.nikula@intel.com>
@@ -45,7 +45,7 @@ MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/21] drm/i915: split out gem/i915_gem_tiling.h
+Subject: [Intel-gfx] [PATCH 02/21] drm/i915: split out i915_cmd_parser.h
  from i915_drv.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,83 +63,124 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We already have the gem/i915_gem_tiling.c file.
+We already have the i915_cmd_parser.c file.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_tiling.c |  1 +
- drivers/gpu/drm/i915/gem/i915_gem_tiling.h | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/i915_drv.h            |  5 -----
- drivers/gpu/drm/i915/i915_vma.c            |  2 +-
- 4 files changed, 20 insertions(+), 6 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_tiling.h
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
+ drivers/gpu/drm/i915/i915_cmd_parser.c        |  1 +
+ drivers/gpu/drm/i915/i915_cmd_parser.h        | 26 +++++++++++++++++++
+ drivers/gpu/drm/i915/i915_drv.h               | 12 ---------
+ drivers/gpu/drm/i915/i915_getparam.c          |  1 +
+ 6 files changed, 30 insertions(+), 13 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/i915_cmd_parser.h
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-index ef4d0f7dc118..cf324329703f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-@@ -12,6 +12,7 @@
- #include "i915_gem_ioctls.h"
- #include "i915_gem_mman.h"
- #include "i915_gem_object.h"
-+#include "i915_gem_tiling.h"
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index e9541244027a..62387218d9a6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -23,6 +23,7 @@
  
- /**
-  * DOC: buffer object tiling
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.h b/drivers/gpu/drm/i915/gem/i915_gem_tiling.h
+ #include "pxp/intel_pxp.h"
+ 
++#include "i915_cmd_parser.h"
+ #include "i915_drv.h"
+ #include "i915_gem_clflush.h"
+ #include "i915_gem_context.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 352254e001b4..548d599c09dc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -7,8 +7,8 @@
+ 
+ #include "gem/i915_gem_context.h"
+ 
++#include "i915_cmd_parser.h"
+ #include "i915_drv.h"
+-
+ #include "intel_breadcrumbs.h"
+ #include "intel_context.h"
+ #include "intel_engine.h"
+diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
+index e0403ce9ce69..9c90740520a9 100644
+--- a/drivers/gpu/drm/i915/i915_cmd_parser.c
++++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
+@@ -28,6 +28,7 @@
+ #include "gt/intel_engine.h"
+ #include "gt/intel_gpu_commands.h"
+ 
++#include "i915_cmd_parser.h"
+ #include "i915_drv.h"
+ #include "i915_memcpy.h"
+ 
+diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.h b/drivers/gpu/drm/i915/i915_cmd_parser.h
 new file mode 100644
-index 000000000000..9924196a8139
+index 000000000000..ba70ac6c97cd
 --- /dev/null
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.h
-@@ -0,0 +1,18 @@
++++ b/drivers/gpu/drm/i915/i915_cmd_parser.h
+@@ -0,0 +1,26 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
-+ * Copyright © 2022 Intel Corporation
++ * Copyright © 2021 Intel Corporation
 + */
 +
-+#ifndef __I915_GEM_TILING_H__
-+#define __I915_GEM_TILING_H__
++#ifndef __I915_CMD_PARSER_H__
++#define __I915_CMD_PARSER_H__
 +
 +#include <linux/types.h>
 +
 +struct drm_i915_private;
++struct intel_engine_cs;
++struct i915_vma;
 +
-+u32 i915_gem_fence_size(struct drm_i915_private *i915, u32 size,
-+			unsigned int tiling, unsigned int stride);
-+u32 i915_gem_fence_alignment(struct drm_i915_private *i915, u32 size,
-+			     unsigned int tiling, unsigned int stride);
++int i915_cmd_parser_get_version(struct drm_i915_private *dev_priv);
++int intel_engine_init_cmd_parser(struct intel_engine_cs *engine);
++void intel_engine_cleanup_cmd_parser(struct intel_engine_cs *engine);
++int intel_engine_cmd_parser(struct intel_engine_cs *engine,
++			    struct i915_vma *batch,
++			    unsigned long batch_offset,
++			    unsigned long batch_length,
++			    struct i915_vma *shadow,
++			    bool trampoline);
++#define I915_CMD_PARSER_TRAMPOLINE_SIZE 8
 +
-+#endif /* __I915_GEM_TILING_H__ */
++#endif /* __I915_CMD_PARSER_H__ */
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 9cc3b5b9ec39..bb48ab725a44 100644
+index c6a24c6d07b7..5c3a78aa0a7b 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1734,11 +1734,6 @@ static inline bool i915_gem_object_needs_bit17_swizzle(struct drm_i915_gem_objec
- 		i915_gem_object_is_tiled(obj);
- }
+@@ -1754,18 +1754,6 @@ u32 i915_gem_fence_alignment(struct drm_i915_private *dev_priv, u32 size,
  
--u32 i915_gem_fence_size(struct drm_i915_private *dev_priv, u32 size,
--			unsigned int tiling, unsigned int stride);
--u32 i915_gem_fence_alignment(struct drm_i915_private *dev_priv, u32 size,
--			     unsigned int tiling, unsigned int stride);
--
  const char *i915_cache_level_str(struct drm_i915_private *i915, int type);
  
- /* intel_device_info.c */
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 09d3424c9270..81a611b7d36f 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -26,8 +26,8 @@
- #include <drm/drm_gem.h>
- 
- #include "display/intel_frontbuffer.h"
+-/* i915_cmd_parser.c */
+-int i915_cmd_parser_get_version(struct drm_i915_private *dev_priv);
+-int intel_engine_init_cmd_parser(struct intel_engine_cs *engine);
+-void intel_engine_cleanup_cmd_parser(struct intel_engine_cs *engine);
+-int intel_engine_cmd_parser(struct intel_engine_cs *engine,
+-			    struct i915_vma *batch,
+-			    unsigned long batch_offset,
+-			    unsigned long batch_length,
+-			    struct i915_vma *shadow,
+-			    bool trampoline);
+-#define I915_CMD_PARSER_TRAMPOLINE_SIZE 8
 -
- #include "gem/i915_gem_lmem.h"
-+#include "gem/i915_gem_tiling.h"
- #include "gt/intel_engine.h"
- #include "gt/intel_engine_heartbeat.h"
- #include "gt/intel_gt.h"
+ /* intel_device_info.c */
+ static inline struct intel_device_info *
+ mkwrite_device_info(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+index 70e634106295..dbe49fd87283 100644
+--- a/drivers/gpu/drm/i915/i915_getparam.c
++++ b/drivers/gpu/drm/i915/i915_getparam.c
+@@ -5,6 +5,7 @@
+ #include "gem/i915_gem_mman.h"
+ #include "gt/intel_engine_user.h"
+ 
++#include "i915_cmd_parser.h"
+ #include "i915_drv.h"
+ #include "i915_getparam.h"
+ #include "i915_perf.h"
 -- 
 2.30.2
 
