@@ -4,48 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78E3C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 16:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA25BC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 16:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F14710FB99;
-	Thu,  6 Jan 2022 16:49:26 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDE6310F2CF;
- Thu,  6 Jan 2022 16:49:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D74610EA2F;
+	Thu,  6 Jan 2022 16:51:27 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE7010E651;
+ Thu,  6 Jan 2022 16:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641487761; x=1673023761;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=x4C/bnlAOYnvbQY5BEERj6Bjcwa1P7p4rX7Vht1EeGc=;
- b=DlVwF8CxHV4k2W6mdPw5WUaJVkn+SRbFUkwr0Nxbbm6D6hX7/Oxuuocu
- O2y7AeWbCfy8JVo0iINRElBrfIaUxQqBpjH+CBjUMrwllb/Z8pWp56tjh
- Mf+fvUJqp08jS3uHnlM3rYBf276N8H0IsjEVvJpcScHr6z0rphQAIlgQF
- tUDfm4QC3tCKrsB1q6CwA92r9QFOw0XfBaZmPnb5/Cd/rgLS/aMVoEEhZ
- fMcJFQQfFWW1DWOkltPWz0moTU8aodigJ+Vomj9vMH/JZEk8BLJaY7uas
- O11mO4wkSRUMKHS3rx4v8+eAbLIIMq/vIXKBCyukyzO5sRBULwqg4+Z9X Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="229502240"
-X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="229502240"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2022 08:49:21 -0800
-X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="513468440"
-Received: from leitchrx-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ t=1641487885; x=1673023885;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=10p9OHZqgKYHNloL5U1ejKnDsVPwkCjlSJscm+rb0ZM=;
+ b=NOJ3imeJVepOKq1qBRQATMw1xL3KB5Qn6ZPPs3/QxlYSde3v3XJL9Drw
+ uBYOa3qdq8TORDDes0+nolav5stjxLDd4gcZ/5P4FNYA5YDHFvphUjfjM
+ 7giW+2YccPgL5OSSdUaHpAmFbcMBe7z2nHKJI3fV/Y/I6lzN4vL9pyf2/
+ wvNm1eol7dDobvkj5Dno3VPyHhD7F9jjiGZrlXQsNNvEsmKLj45NUM3Qy
+ MGSpq/wHVsuqTdnjkAY6YHoElrN8lSSwjsJ8Ljy8MIIcDOMfcJlA3Wvn+
+ dP/kgF6dPFkztfEHqXLLtC354Xc74qkzAwiS9OlK1kF9QIooFcWdgcPeJ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="242894780"
+X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="242894780"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2022 08:51:24 -0800
+X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="472995652"
+Received: from leitchrx-mobl.ger.corp.intel.com (HELO [10.213.202.197])
  ([10.213.202.197])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2022 08:49:20 -0800
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: igt-dev@lists.freedesktop.org
-Date: Thu,  6 Jan 2022 16:49:14 +0000
-Message-Id: <20220106164915.56855-3-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220106164915.56855-1-tvrtko.ursulin@linux.intel.com>
-References: <20220106164915.56855-1-tvrtko.ursulin@linux.intel.com>
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2022 08:51:23 -0800
+Message-ID: <b1179113-908f-e5a8-a555-67557b8d83aa@linux.intel.com>
+Date: Thu, 6 Jan 2022 16:51:21 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 2/3] tests/i915/drm_fdinfo: Basic and
- functional tests for GPU busyness exported via fdinfo
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Content-Language: en-US
+To: Matthew Brost <matthew.brost@intel.com>
+References: <20220104233056.11245-1-matthew.brost@intel.com>
+ <3ae7e493-4b77-9e87-ca6f-34f85cab4ecb@linux.intel.com>
+ <20220105162402.GA33126@jons-linux-dev-box>
+ <40920051-1aef-1e14-ec7e-03d158e02c22@linux.intel.com>
+ <20220106161847.GA7452@jons-linux-dev-box>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20220106161847.GA7452@jons-linux-dev-box>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Lock timeline mutex directly in
+ error path of eb_pin_timeline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,602 +65,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Mostly inherited from the perf_pmu, some basic tests, and some tests to
-verify exported GPU busyness is as expected.
+On 06/01/2022 16:18, Matthew Brost wrote:
+> On Thu, Jan 06, 2022 at 09:56:03AM +0000, Tvrtko Ursulin wrote:
+>>
+>> On 05/01/2022 16:24, Matthew Brost wrote:
+>>> On Wed, Jan 05, 2022 at 09:35:44AM +0000, Tvrtko Ursulin wrote:
+>>>>
+>>>> On 04/01/2022 23:30, Matthew Brost wrote:
+>>>>> Don't use the interruptable version of the timeline mutex lock in the
+>>>>
+>>>> interruptible
+>>>>
+>>>>> error path of eb_pin_timeline as the cleanup must always happen.
+>>>>>
+>>>>> v2:
+>>>>>     (John Harrison)
+>>>>>      - Don't check for interrupt during mutex lock
+>>>>>
+>>>>> Fixes: 544460c33821 ("drm/i915: Multi-BB execbuf")
+>>>>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>>>>> ---
+>>>>>     drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 4 ++--
+>>>>>     1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+>>>>> index e9541244027a..e96e133cbb1f 100644
+>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+>>>>> @@ -2516,9 +2516,9 @@ static int eb_pin_timeline(struct i915_execbuffer *eb, struct intel_context *ce,
+>>>>>     				      timeout) < 0) {
+>>>>>     			i915_request_put(rq);
+>>>>> -			tl = intel_context_timeline_lock(ce);
+>>>>> +			mutex_lock(&ce->timeline->mutex);
+>>>>
+>>>> On the other hand it is more user friendly to handle signals (which maybe
+>>>> does not matter in this case, not sure any longer how long hold time it can
+>>>> have) but there is also a question of consistency within the very function
+>>>> you are changing.
+>>>>
+>>>> Apart from consistency, what about the parent-child magic
+>>>> intel_context_timeline_lock does and you wouldn't have here?
+>>>>
+>>>> And what about the very existence of intel_context_timeline_lock as a
+>>>> component boundary separation API, if it is used inconsistently throughout
+>>>> i915_gem_execbuffer.c?
+>>>
+>>> intel_context_timeline_lock does 2 things:
+>>>
+>>> 1. Handles lockdep nesting of timeline locks for parent-child contexts
+>>> ensuring locks are acquired from parent to last child, then released
+>>> last child to parent
+>>> 2. Allows the mutex lock to be interrupted
+>>>
+>>> This helper should be used in setup steps where a user can signal abort
+>>> (context pinning time + request creation time), by 'should be' I mean
+>>> this was how it was done before I extended the execbuf IOCTL for
+>>> multiple BBs. Slightly confusing but this is what was in place so I
+>>> stuck with it.
+>>>
+>>> This code here is an error path that only hold at most 1 timeline lock
+>>> (no nesting required) and is a path that must be executed as it is a
+>>> cleanup step (not allowed to be interrupted by user, intel_context_exit
+>>> must be called or we have dangling engine PM refs).
+>>>
+>>> Make sense? I probably should update the comment message to explain this
+>>> a bit better as it did take me a bit to understand how this locking
+>>> worked.
+>>
+>> The part which does not make sense is this:
+>>
+> 
+> I'll try to explain this again...
+> 
+>> eb_pin_timeline()
+>> {
+>> ...
+>> 	tl = intel_context_timeline_lock(ce);
+>> 	if (IS_ERR(tl))
+>> 		return PTR_ERR(tl);
+> 
+> This part is allowed to be aborted by the user.
+> 
+>>
+>> ... do some throttling, and if it fail:
+>> 			mutex_lock(&ce->timeline->mutex);
+> 
+> This part is not.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- tests/i915/drm_fdinfo.c | 555 ++++++++++++++++++++++++++++++++++++++++
- tests/meson.build       |   8 +
- 2 files changed, 563 insertions(+)
- create mode 100644 tests/i915/drm_fdinfo.c
+Pfft got it this time round.
 
-diff --git a/tests/i915/drm_fdinfo.c b/tests/i915/drm_fdinfo.c
-new file mode 100644
-index 000000000000..e3b1ebb0f454
---- /dev/null
-+++ b/tests/i915/drm_fdinfo.c
-@@ -0,0 +1,555 @@
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "igt.h"
-+#include "igt_core.h"
-+#include "igt_device.h"
-+#include "igt_drm_fdinfo.h"
-+#include "i915/gem.h"
-+#include "intel_ctx.h"
-+
-+IGT_TEST_DESCRIPTION("Test the i915 drm fdinfo data");
-+
-+const double tolerance = 0.05f;
-+const unsigned long batch_duration_ns = 500e6;
-+
-+#define __assert_within_epsilon(x, ref, tol_up, tol_down) \
-+	igt_assert_f((double)(x) <= (1.0 + (tol_up)) * (double)(ref) && \
-+		     (double)(x) >= (1.0 - (tol_down)) * (double)(ref), \
-+		     "'%s' != '%s' (%f not within +%.1f%%/-%.1f%% tolerance of %f)\n",\
-+		     #x, #ref, (double)(x), \
-+		     (tol_up) * 100.0, (tol_down) * 100.0, \
-+		     (double)(ref))
-+
-+#define assert_within_epsilon(x, ref, tolerance) \
-+	__assert_within_epsilon(x, ref, tolerance, tolerance)
-+
-+static void basics(int i915, unsigned int num_classes)
-+{
-+	struct drm_client_fdinfo info = { };
-+	bool ret;
-+
-+	ret = igt_parse_drm_fdinfo(i915, &info);
-+	igt_assert(ret);
-+
-+	igt_assert(!strcmp(info.driver, "i915"));
-+
-+	igt_assert_eq(info.num_engines, num_classes);
-+}
-+
-+/*
-+ * Helper for cases where we assert on time spent sleeping (directly or
-+ * indirectly), so make it more robust by ensuring the system sleep time
-+ * is within test tolerance to start with.
-+ */
-+static unsigned int measured_usleep(unsigned int usec)
-+{
-+	struct timespec ts = { };
-+	unsigned int slept;
-+
-+	slept = igt_nsec_elapsed(&ts);
-+	igt_assert(slept == 0);
-+	do {
-+		usleep(usec - slept);
-+		slept = igt_nsec_elapsed(&ts) / 1000;
-+	} while (slept < usec);
-+
-+	return igt_nsec_elapsed(&ts);
-+}
-+
-+#define TEST_BUSY (1)
-+#define FLAG_SYNC (2)
-+#define TEST_TRAILING_IDLE (4)
-+#define FLAG_HANG (8)
-+#define TEST_ISOLATION (16)
-+
-+static igt_spin_t *__spin_poll(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-+			       const struct intel_execution_engine2 *e)
-+{
-+	struct igt_spin_factory opts = {
-+		.ahnd = ahnd,
-+		.ctx = ctx,
-+		.engine = e->flags,
-+	};
-+
-+	if (gem_class_can_store_dword(fd, e->class))
-+		opts.flags |= IGT_SPIN_POLL_RUN;
-+
-+	return __igt_spin_factory(fd, &opts);
-+}
-+
-+static unsigned long __spin_wait(int fd, igt_spin_t *spin)
-+{
-+	struct timespec start = { };
-+
-+	igt_nsec_elapsed(&start);
-+
-+	if (igt_spin_has_poll(spin)) {
-+		unsigned long timeout = 0;
-+
-+		while (!igt_spin_has_started(spin)) {
-+			unsigned long t = igt_nsec_elapsed(&start);
-+
-+			igt_assert(gem_bo_busy(fd, spin->handle));
-+			if ((t - timeout) > 250e6) {
-+				timeout = t;
-+				igt_warn("Spinner not running after %.2fms\n",
-+					 (double)t / 1e6);
-+				igt_assert(t < 2e9);
-+			}
-+		}
-+	} else {
-+		igt_debug("__spin_wait - usleep mode\n");
-+		usleep(500e3); /* Better than nothing! */
-+	}
-+
-+	igt_assert(gem_bo_busy(fd, spin->handle));
-+	return igt_nsec_elapsed(&start);
-+}
-+
-+static igt_spin_t *__spin_sync(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-+			       const struct intel_execution_engine2 *e)
-+{
-+	igt_spin_t *spin = __spin_poll(fd, ahnd, ctx, e);
-+
-+	__spin_wait(fd, spin);
-+
-+	return spin;
-+}
-+
-+static igt_spin_t *spin_sync(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-+			     const struct intel_execution_engine2 *e)
-+{
-+	igt_require_gem(fd);
-+
-+	return __spin_sync(fd, ahnd, ctx, e);
-+}
-+
-+static void end_spin(int fd, igt_spin_t *spin, unsigned int flags)
-+{
-+	if (!spin)
-+		return;
-+
-+	igt_spin_end(spin);
-+
-+	if (flags & FLAG_SYNC)
-+		gem_sync(fd, spin->handle);
-+
-+	if (flags & TEST_TRAILING_IDLE) {
-+		unsigned long t, timeout = 0;
-+		struct timespec start = { };
-+
-+		igt_nsec_elapsed(&start);
-+
-+		do {
-+			t = igt_nsec_elapsed(&start);
-+
-+			if (gem_bo_busy(fd, spin->handle) &&
-+			    (t - timeout) > 10e6) {
-+				timeout = t;
-+				igt_warn("Spinner not idle after %.2fms\n",
-+					 (double)t / 1e6);
-+			}
-+
-+			usleep(1e3);
-+		} while (t < batch_duration_ns / 5);
-+	}
-+}
-+
-+static uint64_t read_busy(int i915, unsigned int class)
-+{
-+	struct drm_client_fdinfo info = { };
-+
-+	igt_assert(igt_parse_drm_fdinfo(i915, &info));
-+
-+	return info.busy[class];
-+}
-+
-+static void
-+single(int gem_fd, const intel_ctx_t *ctx,
-+       const struct intel_execution_engine2 *e, unsigned int flags)
-+{
-+	unsigned long slept;
-+	igt_spin_t *spin;
-+	uint64_t val;
-+	int spin_fd;
-+	uint64_t ahnd;
-+
-+	if (flags & TEST_ISOLATION) {
-+		spin_fd = gem_reopen_driver(gem_fd);
-+		ctx = intel_ctx_create_all_physical(spin_fd);
-+	} else {
-+		spin_fd = gem_fd;
-+	}
-+
-+	ahnd = get_reloc_ahnd(spin_fd, ctx->id);
-+
-+	if (flags & TEST_BUSY)
-+		spin = spin_sync(spin_fd, ahnd, ctx, e);
-+	else
-+		spin = NULL;
-+
-+	val = read_busy(gem_fd, e->class);
-+	slept = measured_usleep(batch_duration_ns / 1000);
-+	if (flags & TEST_TRAILING_IDLE)
-+		end_spin(spin_fd, spin, flags);
-+	val = read_busy(gem_fd, e->class) - val;
-+
-+	if (flags & FLAG_HANG)
-+		igt_force_gpu_reset(spin_fd);
-+	else
-+		end_spin(spin_fd, spin, FLAG_SYNC);
-+
-+	assert_within_epsilon(val,
-+			      (flags & TEST_BUSY) && !(flags & TEST_ISOLATION) ?
-+			      slept : 0.0f,
-+			      tolerance);
-+
-+	/* Check for idle after hang. */
-+	if (flags & FLAG_HANG) {
-+		gem_quiescent_gpu(spin_fd);
-+		igt_assert(!gem_bo_busy(spin_fd, spin->handle));
-+
-+		val = read_busy(gem_fd, e->class);
-+		slept = measured_usleep(batch_duration_ns / 1000);
-+		val = read_busy(gem_fd, e->class) - val;
-+
-+		assert_within_epsilon(val, 0, tolerance);
-+	}
-+
-+	igt_spin_free(spin_fd, spin);
-+	put_ahnd(ahnd);
-+
-+	gem_quiescent_gpu(spin_fd);
-+}
-+
-+static void log_busy(unsigned int num_engines, uint64_t *val)
-+{
-+	char buf[1024];
-+	int rem = sizeof(buf);
-+	unsigned int i;
-+	char *p = buf;
-+
-+	for (i = 0; i < num_engines; i++) {
-+		int len;
-+
-+		len = snprintf(p, rem, "%u=%" PRIu64 "\n",  i, val[i]);
-+		igt_assert(len > 0);
-+		rem -= len;
-+		p += len;
-+	}
-+
-+	igt_info("%s", buf);
-+}
-+
-+static void read_busy_all(int i915, uint64_t *val)
-+{
-+	struct drm_client_fdinfo info = { };
-+
-+	igt_assert(igt_parse_drm_fdinfo(i915, &info));
-+
-+	memcpy(val, info.busy, sizeof(info.busy));
-+}
-+
-+static void
-+busy_check_all(int gem_fd, const intel_ctx_t *ctx,
-+	       const struct intel_execution_engine2 *e,
-+	       const unsigned int num_engines,
-+	       const unsigned int classes[16], const unsigned int num_classes,
-+	       unsigned int flags)
-+{
-+	uint64_t ahnd = get_reloc_ahnd(gem_fd, ctx->id);
-+	uint64_t tval[2][16];
-+	unsigned long slept;
-+	uint64_t val[16];
-+	igt_spin_t *spin;
-+	unsigned int i;
-+
-+	memset(tval, 0, sizeof(tval));
-+
-+	spin = spin_sync(gem_fd, ahnd, ctx, e);
-+
-+	read_busy_all(gem_fd, tval[0]);
-+	slept = measured_usleep(batch_duration_ns / 1000);
-+	if (flags & TEST_TRAILING_IDLE)
-+		end_spin(gem_fd, spin, flags);
-+	read_busy_all(gem_fd, tval[1]);
-+
-+	end_spin(gem_fd, spin, FLAG_SYNC);
-+	igt_spin_free(gem_fd, spin);
-+	put_ahnd(ahnd);
-+
-+	for (i = 0; i < num_classes; i++)
-+		val[i] = tval[1][i] - tval[0][i];
-+
-+	log_busy(num_classes, val);
-+
-+	for (i = 0; i < num_classes; i++) {
-+		double target = i == e->class ? slept : 0.0f;
-+
-+		assert_within_epsilon(val[i], target, tolerance);
-+	}
-+
-+	gem_quiescent_gpu(gem_fd);
-+}
-+
-+static void
-+__submit_spin(int gem_fd, igt_spin_t *spin,
-+	      const struct intel_execution_engine2 *e,
-+	      int offset)
-+{
-+	struct drm_i915_gem_execbuffer2 eb = spin->execbuf;
-+
-+	eb.flags &= ~(0x3f | I915_EXEC_BSD_MASK);
-+	eb.flags |= e->flags | I915_EXEC_NO_RELOC;
-+	eb.batch_start_offset += offset;
-+
-+	gem_execbuf(gem_fd, &eb);
-+}
-+
-+static void
-+most_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
-+		    const struct intel_execution_engine2 *e,
-+		    const unsigned int num_engines,
-+		    const unsigned int classes[16],
-+		    const unsigned int num_classes,
-+		    unsigned int flags)
-+{
-+	uint64_t ahnd = get_reloc_ahnd(gem_fd, ctx->id);
-+	unsigned int busy_class[num_classes];
-+	struct intel_execution_engine2 *e_;
-+	igt_spin_t *spin = NULL;
-+	uint64_t tval[2][16];
-+	unsigned long slept;
-+	uint64_t val[16];
-+	unsigned int i;
-+
-+	memset(busy_class, 0, sizeof(busy_class));
-+	memset(tval, 0, sizeof(tval));
-+
-+	for_each_ctx_engine(gem_fd, ctx, e_) {
-+		if (e->class == e_->class && e->instance == e_->instance) {
-+			continue;
-+		} else if (spin) {
-+			__submit_spin(gem_fd, spin, e_, 64);
-+			busy_class[e_->class]++;
-+		} else {
-+			spin = __spin_poll(gem_fd, ahnd, ctx, e_);
-+			busy_class[e_->class]++;
-+		}
-+	}
-+	igt_require(spin); /* at least one busy engine */
-+
-+	/* Small delay to allow engines to start. */
-+	usleep(__spin_wait(gem_fd, spin) * num_engines / 1e3);
-+
-+	read_busy_all(gem_fd, tval[0]);
-+	slept = measured_usleep(batch_duration_ns / 1000);
-+	if (flags & TEST_TRAILING_IDLE)
-+		end_spin(gem_fd, spin, flags);
-+	read_busy_all(gem_fd, tval[1]);
-+
-+	end_spin(gem_fd, spin, FLAG_SYNC);
-+	igt_spin_free(gem_fd, spin);
-+	put_ahnd(ahnd);
-+
-+	for (i = 0; i < num_classes; i++)
-+		val[i] = tval[1][i] - tval[0][i];
-+
-+	log_busy(num_classes, val);
-+
-+	for (i = 0; i < num_classes; i++) {
-+		double target = slept * busy_class[i];
-+
-+		assert_within_epsilon(val[i], target, tolerance);
-+	}
-+	gem_quiescent_gpu(gem_fd);
-+}
-+
-+static void
-+all_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
-+		   const unsigned int num_engines,
-+		   const unsigned int classes[16],
-+		   const unsigned int num_classes,
-+		   unsigned int flags)
-+{
-+	uint64_t ahnd = get_reloc_ahnd(gem_fd, ctx->id);
-+	unsigned int busy_class[num_classes];
-+	struct intel_execution_engine2 *e;
-+	igt_spin_t *spin = NULL;
-+	uint64_t tval[2][16];
-+	unsigned long slept;
-+	uint64_t val[16];
-+	unsigned int i;
-+
-+	memset(busy_class, 0, sizeof(busy_class));
-+	memset(tval, 0, sizeof(tval));
-+
-+	for_each_ctx_engine(gem_fd, ctx, e) {
-+		if (spin)
-+			__submit_spin(gem_fd, spin, e, 64);
-+		else
-+			spin = __spin_poll(gem_fd, ahnd, ctx, e);
-+		busy_class[e->class]++;
-+	}
-+
-+	/* Small delay to allow engines to start. */
-+	usleep(__spin_wait(gem_fd, spin) * num_engines / 1e3);
-+
-+	read_busy_all(gem_fd, tval[0]);
-+	slept = measured_usleep(batch_duration_ns / 1000);
-+	if (flags & TEST_TRAILING_IDLE)
-+		end_spin(gem_fd, spin, flags);
-+	read_busy_all(gem_fd, tval[1]);
-+
-+	end_spin(gem_fd, spin, FLAG_SYNC);
-+	igt_spin_free(gem_fd, spin);
-+	put_ahnd(ahnd);
-+
-+	for (i = 0; i < num_classes; i++)
-+		val[i] = tval[1][i] - tval[0][i];
-+
-+	log_busy(num_classes, val);
-+
-+	for (i = 0; i < num_classes; i++) {
-+		double target = slept * busy_class[i];
-+
-+		assert_within_epsilon(val[i], target, tolerance);
-+	}
-+	gem_quiescent_gpu(gem_fd);
-+}
-+
-+#define test_each_engine(T, i915, ctx, e) \
-+	igt_subtest_with_dynamic(T) for_each_ctx_engine(i915, ctx, e) \
-+		igt_dynamic_f("%s", e->name)
-+
-+igt_main
-+{
-+	unsigned int num_engines = 0, num_classes = 0;
-+	const struct intel_execution_engine2 *e;
-+	unsigned int classes[16] = { };
-+	const intel_ctx_t *ctx = NULL;
-+	int i915 = -1;
-+
-+	igt_fixture {
-+		unsigned int i;
-+
-+		i915 = __drm_open_driver(DRIVER_INTEL);
-+
-+		igt_require_gem(i915);
-+
-+		ctx = intel_ctx_create_all_physical(i915);
-+
-+		for_each_ctx_engine(i915, ctx, e) {
-+			num_engines++;
-+			igt_assert(e->class < ARRAY_SIZE(classes));
-+			classes[e->class]++;
-+		}
-+		igt_require(num_engines);
-+
-+		for (i = 0; i < ARRAY_SIZE(classes); i++) {
-+			if (classes[i])
-+				num_classes++;
-+		}
-+		igt_assert(num_classes);
-+	}
-+
-+	/**
-+	 * Test basic fdinfo content.
-+	 */
-+	igt_subtest("basics")
-+		basics(i915, num_classes);
-+
-+	/**
-+	 * Test that engines show no load when idle.
-+	 */
-+	test_each_engine("idle", i915, ctx, e)
-+		single(i915, ctx, e, 0);
-+
-+	/**
-+	 * Test that a single engine reports load correctly.
-+	 */
-+	test_each_engine("busy", i915, ctx, e)
-+		single(i915, ctx, e, TEST_BUSY);
-+
-+	test_each_engine("busy-idle", i915, ctx, e)
-+		single(i915, ctx, e, TEST_BUSY | TEST_TRAILING_IDLE);
-+
-+	test_each_engine("busy-hang", i915, ctx, e) {
-+		igt_hang_t hang = igt_allow_hang(i915, ctx->id, 0);
-+
-+		single(i915, ctx, e, TEST_BUSY | FLAG_HANG);
-+
-+		igt_disallow_hang(i915, hang);
-+	}
-+
-+	/**
-+	 * Test that when one engine is loaded other report no
-+	 * load.
-+	 */
-+	test_each_engine("busy-check-all", i915, ctx, e)
-+		busy_check_all(i915, ctx, e, num_engines, classes, num_classes,
-+			       TEST_BUSY);
-+
-+	test_each_engine("busy-idle-check-all", i915, ctx, e)
-+		busy_check_all(i915, ctx, e, num_engines, classes, num_classes,
-+			       TEST_BUSY | TEST_TRAILING_IDLE);
-+
-+	/**
-+	 * Test that when all except one engine are loaded all
-+	 * loads are correctly reported.
-+	 */
-+	test_each_engine("most-busy-check-all", i915, ctx, e)
-+		most_busy_check_all(i915, ctx, e, num_engines,
-+				    classes, num_classes,
-+				    TEST_BUSY);
-+
-+	test_each_engine("most-busy-idle-check-all", i915, ctx, e)
-+		most_busy_check_all(i915, ctx, e, num_engines,
-+				    classes, num_classes,
-+				    TEST_BUSY | TEST_TRAILING_IDLE);
-+
-+	/**
-+	 * Test that when all engines are loaded all loads are
-+	 * correctly reported.
-+	 */
-+	igt_subtest("all-busy-check-all")
-+		all_busy_check_all(i915, ctx, num_engines, classes, num_classes,
-+				   TEST_BUSY);
-+
-+	igt_subtest("all-busy-idle-check-all")
-+		all_busy_check_all(i915, ctx, num_engines, classes, num_classes,
-+				   TEST_BUSY | TEST_TRAILING_IDLE);
-+
-+	/**
-+	 * Test for no cross-client contamination.
-+	 */
-+	test_each_engine("isolation", i915, ctx, e)
-+		single(i915, ctx, e, TEST_BUSY | TEST_ISOLATION);
-+
-+	igt_fixture {
-+		intel_ctx_destroy(i915, ctx);
-+		close(i915);
-+	}
-+}
-diff --git a/tests/meson.build b/tests/meson.build
-index c14acf993e12..9007019aa49c 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -289,6 +289,14 @@ foreach prog : i915_progs
- 	test_list += prog
- endforeach
- 
-+test_executables += executable('drm_fdinfo',
-+	   join_paths('i915', 'drm_fdinfo.c'),
-+	   dependencies : test_deps + [ lib_igt_drm_fdinfo ],
-+	   install_dir : libexecdir,
-+	   install_rpath : libexecdir_rpathdir,
-+	   install : true)
-+test_list += 'drm_fdinfo'
-+
- test_executables += executable('dumb_buffer', 'dumb_buffer.c',
- 	   dependencies : test_deps + [ libatomic ],
- 	   install_dir : libexecdir,
--- 
-2.32.0
+I suggest a comment above the mutex to this effect. And maybe still 
+consider the explicit error path which may be more readable due single 
+request put, but it's up to you.
 
+Regards,
+
+Tvrtko
