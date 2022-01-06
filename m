@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94A49C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 17:49:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 296CEC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 17:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C5210EEC1;
-	Thu,  6 Jan 2022 17:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C127D10EDF9;
+	Thu,  6 Jan 2022 17:49:33 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD5110ED98;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C381B10EEC1;
  Thu,  6 Jan 2022 17:49:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1641491371; x=1673027371;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9UUfIakJFEIFcVy2zf3eVamvfxFBZePzHHEtcL/2UqE=;
- b=U1Pt9u3BWz7Njog+zbwTDcZ6oW4XmZimfMKtLxx0G83C/g3C3JzkXbPF
- ifNmvRvbYbLtuiaMprbkSeqjefoHHE37TnOVb6WwPjgxyR40DaPYh5JYu
- pPgMF4bc4KXj2i1iuFz0UH1zvVvMgN2GyyHE2AZSqNgjUKjx6rSJqSQ2d
- 35ble1ifMZCXecCZw74R+lGVKbz99qw4i5mRMOAbatnPgc0ou8l6z9okY
- lOob4/o44RxB99qk4WMtbJa3cU4jGmmfLMMgPMmibYOmh3GZTGO8UK2DG
- FckzKhX+TI59ucCDV7R1SLR6JnqRHt3poRqNOmMUbq8EMDr/5IWdkZxXo g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="266993570"
-X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="266993570"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ThdzYGTaFKmmDoMBGIiWAaXKHmCsdehsSeaxQY8R8ro=;
+ b=WbU6SIcLDKXuGTO8e/c/5g6rZCPP748CLJC2bk1BGtprbxsZQn66cM45
+ mwa3Cop67iHphVO+ix+zEj79Vr6C8WsiGXCx+tGV5Y5u5lMsE8TOZffg2
+ yUmc+JHVdtq7izuGs9gHCzkxo84/eqSzjMhjAM12FBHYXg4ypHyeRoIle
+ M6+2WxNGCpAI69TezIZG52DA2F3yeTzh+2/98IR0ButGVlGF4518J+4p0
+ lvBZd5EYCq2EZq91v7yH0NQjsAW+OyyTHIWIhRcICCKC01NbbuaM3ELC4
+ iRuRCF1urkKbgtKfZzRyM1Gz0o4Idp8pDgVhqtQ6he7KQVynMwK3W5OmO A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="266993581"
+X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="266993581"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2022 09:49:21 -0800
-X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="473015572"
+ 06 Jan 2022 09:49:26 -0800
+X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="473015637"
 Received: from lsgoh-mobl1.gar.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.249.65.184])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2022 09:49:18 -0800
+ 06 Jan 2022 09:49:24 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  6 Jan 2022 17:49:07 +0000
-Message-Id: <20220106174910.280616-1-matthew.auld@intel.com>
+Date: Thu,  6 Jan 2022 17:49:09 +0000
+Message-Id: <20220106174910.280616-3-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20220106174910.280616-1-matthew.auld@intel.com>
+References: <20220106174910.280616-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/4] drm/i915: don't call free_mmap_offset
- when purging
+Subject: [Intel-gfx] [PATCH v3 3/4] drm/i915/ttm: add unmap_virtual callback
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,67 +62,101 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The TTM backend is in theory the only user here(also purge should only
-be called once we have dropped the pages), where it is setup at object
-creation and is only removed once the object is destroyed. Also
-resetting the node here might be iffy since the ttm fault handler
-uses the stored fake offset to determine the page offset within the pages
-array.
+Ensure we call ttm_bo_unmap_virtual when releasing the pages.
+Importantly this should now handle the ttm swapping case, and all other
+places that already call into i915_ttm_move_notify().
 
-This also blows up in the dontneed-before-mmap test, since the
-expectation is that the vma_node will live on, until the object is
-destroyed:
+v2: fix up the selftest
 
-<2> [749.062902] kernel BUG at drivers/gpu/drm/i915/gem/i915_gem_ttm.c:943!
-<4> [749.062923] invalid opcode: 0000 [#1] PREEMPT SMP NOPTI
-<4> [749.062928] CPU: 0 PID: 1643 Comm: gem_madvise Tainted: G     U  W         5.16.0-rc8-CI-CI_DRM_11046+ #1
-<4> [749.062933] Hardware name: Gigabyte Technology Co., Ltd. GB-Z390 Garuda/GB-Z390 Garuda-CF, BIOS IG1c 11/19/2019
-<4> [749.062937] RIP: 0010:i915_ttm_mmap_offset.cold.35+0x5b/0x5d [i915]
-<4> [749.063044] Code: 00 48 c7 c2 a0 23 4e a0 48 c7 c7 26 df 4a a0 e8 95 1d d0 e0 bf 01 00 00 00 e8 8b ec cf e0 31 f6 bf 09 00 00 00 e8 5f 30 c0 e0 <0f> 0b 48 c7 c1 24 4b 56 a0 ba 5b 03 00 00 48 c7 c6 c0 23 4e a0 48
-<4> [749.063052] RSP: 0018:ffffc90002ab7d38 EFLAGS: 00010246
-<4> [749.063056] RAX: 0000000000000240 RBX: ffff88811f2e61c0 RCX: 0000000000000006
-<4> [749.063060] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000009
-<4> [749.063063] RBP: ffffc90002ab7e58 R08: 0000000000000001 R09: 0000000000000001
-<4> [749.063067] R10: 000000000123d0f8 R11: ffffc90002ab7b20 R12: ffff888112a1a000
-<4> [749.063071] R13: 0000000000000004 R14: ffff88811f2e61c0 R15: ffff888112a1a000
-<4> [749.063074] FS:  00007f6e5fcad500(0000) GS:ffff8884ad600000(0000) knlGS:0000000000000000
-<4> [749.063078] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-<4> [749.063081] CR2: 00007efd264e39f0 CR3: 0000000115fd6005 CR4: 00000000003706f0
-<4> [749.063085] Call Trace:
-<4> [749.063087]  <TASK>
-<4> [749.063089]  __assign_mmap_offset+0x41/0x300 [i915]
-<4> [749.063171]  __assign_mmap_offset_handle+0x159/0x270 [i915]
-<4> [749.063248]  ? i915_gem_dumb_mmap_offset+0x70/0x70 [i915]
-<4> [749.063325]  drm_ioctl_kernel+0xae/0x140
-<4> [749.063330]  drm_ioctl+0x201/0x3d0
-<4> [749.063333]  ? i915_gem_dumb_mmap_offset+0x70/0x70 [i915]
-<4> [749.063409]  ? do_user_addr_fault+0x200/0x670
-<4> [749.063415]  __x64_sys_ioctl+0x6d/0xa0
-<4> [749.063419]  do_syscall_64+0x3a/0xb0
-<4> [749.063423]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-<4> [749.063428] RIP: 0033:0x7f6e5f100317
-
-Testcase: igt/gem_madvise/dontneed-before-mmap
 Fixes: cf3e3e86d779 ("drm/i915: Use ttm mmap handling for ttm bo's.")
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pages.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c       |  3 +++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h   |  1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c        |  6 ++++++
+ .../gpu/drm/i915/gem/selftests/i915_gem_mman.c | 18 ++++--------------
+ 4 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 89b70f5cde7a..9f429ed6e78a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -161,7 +161,6 @@ int i915_gem_object_pin_pages_unlocked(struct drm_i915_gem_object *obj)
- /* Immediately discard the backing storage */
- int i915_gem_object_truncate(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index ee5ec0fd4807..5ac2506f4ee8 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -538,6 +538,9 @@ void i915_gem_object_release_mmap_offset(struct drm_i915_gem_object *obj)
  {
--	drm_gem_free_mmap_offset(&obj->base);
- 	if (obj->ops->truncate)
- 		return obj->ops->truncate(obj);
+ 	struct i915_mmap_offset *mmo, *mn;
  
++	if (obj->ops->unmap_virtual)
++		obj->ops->unmap_virtual(obj);
++
+ 	spin_lock(&obj->mmo.lock);
+ 	rbtree_postorder_for_each_entry_safe(mmo, mn,
+ 					     &obj->mmo.offsets, offset) {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index f9f7e44099fe..4b4829eb16c2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -67,6 +67,7 @@ struct drm_i915_gem_object_ops {
+ 	int (*pwrite)(struct drm_i915_gem_object *obj,
+ 		      const struct drm_i915_gem_pwrite *arg);
+ 	u64 (*mmap_offset)(struct drm_i915_gem_object *obj);
++	void (*unmap_virtual)(struct drm_i915_gem_object *obj);
+ 
+ 	int (*dmabuf_export)(struct drm_i915_gem_object *obj);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 8d61d4538a64..1530d9f0bc81 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -950,6 +950,11 @@ static u64 i915_ttm_mmap_offset(struct drm_i915_gem_object *obj)
+ 	return drm_vma_node_offset_addr(&obj->base.vma_node);
+ }
+ 
++static void i915_ttm_unmap_virtual(struct drm_i915_gem_object *obj)
++{
++	ttm_bo_unmap_virtual(i915_gem_to_ttm(obj));
++}
++
+ static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
+ 	.name = "i915_gem_object_ttm",
+ 	.flags = I915_GEM_OBJECT_IS_SHRINKABLE |
+@@ -965,6 +970,7 @@ static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
+ 	.migrate = i915_ttm_migrate,
+ 
+ 	.mmap_offset = i915_ttm_mmap_offset,
++	.unmap_virtual = i915_ttm_unmap_virtual,
+ 	.mmap_ops = &vm_ops_ttm,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 743a098facf2..f61356b72b1c 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -1369,20 +1369,10 @@ static int __igt_mmap_revoke(struct drm_i915_private *i915,
+ 		}
+ 	}
+ 
+-	if (!obj->ops->mmap_ops) {
+-		err = check_absent(addr, obj->base.size);
+-		if (err) {
+-			pr_err("%s: was not absent\n", obj->mm.region->name);
+-			goto out_unmap;
+-		}
+-	} else {
+-		/* ttm allows access to evicted regions by design */
+-
+-		err = check_present(addr, obj->base.size);
+-		if (err) {
+-			pr_err("%s: was not present\n", obj->mm.region->name);
+-			goto out_unmap;
+-		}
++	err = check_absent(addr, obj->base.size);
++	if (err) {
++		pr_err("%s: was not absent\n", obj->mm.region->name);
++		goto out_unmap;
+ 	}
+ 
+ out_unmap:
 -- 
 2.31.1
 
