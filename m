@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF36C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 16:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7447DC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 16:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07C310FC45;
-	Thu,  6 Jan 2022 16:56:02 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C217510FC15;
- Thu,  6 Jan 2022 16:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E982F10FC67;
+	Thu,  6 Jan 2022 16:58:32 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2370F10FC67;
+ Thu,  6 Jan 2022 16:58:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641488160; x=1673024160;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Zv05nudHe4lliwAOLEW9jjaBVRvKIIo8cQeQOYHCo/Y=;
- b=Jsx/t7UYiQdyR1E+ZDAfQjnriF1ufYO99hKWQmzkEL+a3PXRvkCfndBh
- /A2pCKajTqKlgE8/6Z+g5k3ZnXgRkBojngcVcs5KnkI8oaHcznLXJHgUV
- zhAX/RXI5zrgImZ3SN0xxfHpn1LAXJT/F4wkOtmzvaVq5/lbx8wkLNVJP
- 9d0ipXhPI8VApFD+oP+tT5hVrxPOE+4hGwnkPJAIOQaXPr6Tca3bVYFAl
- DlB0wtme240pLeO9cF4zx7glTk4P5tKrQKuNXvn77oUc8H8tMrHpDZu6L
- jvdSlZ1LqopOSwz0MntvR9HUbUtpYX7qZgCuAX5ElocHpKtLYBA2h+a3J w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="266981066"
-X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="266981066"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2022 08:56:00 -0800
-X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="470998038"
-Received: from leitchrx-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
- ([10.213.202.197])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2022 08:55:58 -0800
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu,  6 Jan 2022 16:55:36 +0000
-Message-Id: <20220106165536.57208-8-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220106165536.57208-1-tvrtko.ursulin@linux.intel.com>
-References: <20220106165536.57208-1-tvrtko.ursulin@linux.intel.com>
+ t=1641488312; x=1673024312;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=TLxcQL4l0DXexFlv8708bMibTqWcLsWCXF0p7w5Ql9o=;
+ b=BH6rh3lChnaGWQ/ShrHAqnm5qT+tNXdAkDtXS9q4F65D7Y9f9v8rfyf+
+ goNJ0uK1NUaXY8Ae/cNpbD9l63t9EPtsclt5jRcpnvAA4zMCFLax43UWA
+ x5IpAnik+ADwqTDVI/4ci8AFMtBZskx61/LCWd7Kkpvp2rl+ygVBkoVDx
+ BqrVXD49unyLHt1sKUTyzu7f8Bj9ukKkNyA0bvCTKLbq70tdqpvLXj0TF
+ SkjXHiPWIgz2gY0f74eJ8j0Qb9Jt6Pvq4Y36po9ZKYMrAqTKLI1I+7J2z
+ h+L25/jtuOZ682LYNB586KtmI5J9XAd65RWXKBl3w5idDKBjHkftIM7ti g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10217"; a="241509386"
+X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="241509386"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2022 08:58:25 -0800
+X-IronPort-AV: E=Sophos;i="5.88,267,1635231600"; d="scan'208";a="621576831"
+Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
+ ([10.1.27.20])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2022 08:58:25 -0800
+Date: Thu, 6 Jan 2022 08:52:31 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20220106165231.GA22261@jons-linux-dev-box>
+References: <20220104233056.11245-1-matthew.brost@intel.com>
+ <3ae7e493-4b77-9e87-ca6f-34f85cab4ecb@linux.intel.com>
+ <20220105162402.GA33126@jons-linux-dev-box>
+ <40920051-1aef-1e14-ec7e-03d158e02c22@linux.intel.com>
+ <20220106161847.GA7452@jons-linux-dev-box>
+ <b1179113-908f-e5a8-a555-67557b8d83aa@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/7] drm/i915: Expose client engine utilisation
- via fdinfo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b1179113-908f-e5a8-a555-67557b8d83aa@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Lock timeline mutex directly in
+ error path of eb_pin_timeline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,218 +63,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Chris Healy <cphealy@gmail.com>, David M Nieto <David.Nieto@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Thu, Jan 06, 2022 at 04:51:21PM +0000, Tvrtko Ursulin wrote:
+> 
+> On 06/01/2022 16:18, Matthew Brost wrote:
+> > On Thu, Jan 06, 2022 at 09:56:03AM +0000, Tvrtko Ursulin wrote:
+> > > 
+> > > On 05/01/2022 16:24, Matthew Brost wrote:
+> > > > On Wed, Jan 05, 2022 at 09:35:44AM +0000, Tvrtko Ursulin wrote:
+> > > > > 
+> > > > > On 04/01/2022 23:30, Matthew Brost wrote:
+> > > > > > Don't use the interruptable version of the timeline mutex lock in the
+> > > > > 
+> > > > > interruptible
+> > > > > 
+> > > > > > error path of eb_pin_timeline as the cleanup must always happen.
+> > > > > > 
+> > > > > > v2:
+> > > > > >     (John Harrison)
+> > > > > >      - Don't check for interrupt during mutex lock
+> > > > > > 
+> > > > > > Fixes: 544460c33821 ("drm/i915: Multi-BB execbuf")
+> > > > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > > > > > ---
+> > > > > >     drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 4 ++--
+> > > > > >     1 file changed, 2 insertions(+), 2 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> > > > > > index e9541244027a..e96e133cbb1f 100644
+> > > > > > --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> > > > > > +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> > > > > > @@ -2516,9 +2516,9 @@ static int eb_pin_timeline(struct i915_execbuffer *eb, struct intel_context *ce,
+> > > > > >     				      timeout) < 0) {
+> > > > > >     			i915_request_put(rq);
+> > > > > > -			tl = intel_context_timeline_lock(ce);
+> > > > > > +			mutex_lock(&ce->timeline->mutex);
+> > > > > 
+> > > > > On the other hand it is more user friendly to handle signals (which maybe
+> > > > > does not matter in this case, not sure any longer how long hold time it can
+> > > > > have) but there is also a question of consistency within the very function
+> > > > > you are changing.
+> > > > > 
+> > > > > Apart from consistency, what about the parent-child magic
+> > > > > intel_context_timeline_lock does and you wouldn't have here?
+> > > > > 
+> > > > > And what about the very existence of intel_context_timeline_lock as a
+> > > > > component boundary separation API, if it is used inconsistently throughout
+> > > > > i915_gem_execbuffer.c?
+> > > > 
+> > > > intel_context_timeline_lock does 2 things:
+> > > > 
+> > > > 1. Handles lockdep nesting of timeline locks for parent-child contexts
+> > > > ensuring locks are acquired from parent to last child, then released
+> > > > last child to parent
+> > > > 2. Allows the mutex lock to be interrupted
+> > > > 
+> > > > This helper should be used in setup steps where a user can signal abort
+> > > > (context pinning time + request creation time), by 'should be' I mean
+> > > > this was how it was done before I extended the execbuf IOCTL for
+> > > > multiple BBs. Slightly confusing but this is what was in place so I
+> > > > stuck with it.
+> > > > 
+> > > > This code here is an error path that only hold at most 1 timeline lock
+> > > > (no nesting required) and is a path that must be executed as it is a
+> > > > cleanup step (not allowed to be interrupted by user, intel_context_exit
+> > > > must be called or we have dangling engine PM refs).
+> > > > 
+> > > > Make sense? I probably should update the comment message to explain this
+> > > > a bit better as it did take me a bit to understand how this locking
+> > > > worked.
+> > > 
+> > > The part which does not make sense is this:
+> > > 
+> > 
+> > I'll try to explain this again...
+> > 
+> > > eb_pin_timeline()
+> > > {
+> > > ...
+> > > 	tl = intel_context_timeline_lock(ce);
+> > > 	if (IS_ERR(tl))
+> > > 		return PTR_ERR(tl);
+> > 
+> > This part is allowed to be aborted by the user.
+> > 
+> > > 
+> > > ... do some throttling, and if it fail:
+> > > 			mutex_lock(&ce->timeline->mutex);
+> > 
+> > This part is not.
+> 
+> Pfft got it this time round.
+> 
+> I suggest a comment above the mutex to this effect. And maybe still consider
+> the explicit error path which may be more readable due single request put,
+> but it's up to you.
+> 
 
-Similar to AMD commit
-874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
-infrastructure added in previous patches, we add basic client info
-and GPU engine utilisation for i915.
+I'll add comment and see how adding an explict error path looks in the code.
 
-Example of the output:
+Matt
 
-  pos:    0
-  flags:  0100002
-  mnt_id: 21
-  drm-driver: i915
-  drm-pdev:   0000:00:02.0
-  drm-client-id:      7
-  drm-engine-render:  9288864723 ns
-  drm-engine-copy:    2035071108 ns
-  drm-engine-video:   0 ns
-  drm-engine-video-enhance:   0 ns
-
-v2:
- * Update for removal of name and pid.
-
-v3:
- * Use drm_driver.name.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: David M Nieto <David.Nieto@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Chris Healy <cphealy@gmail.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- Documentation/gpu/drm-usage-stats.rst  |  6 +++
- Documentation/gpu/i915.rst             | 27 ++++++++++
- drivers/gpu/drm/i915/i915_driver.c     |  3 ++
- drivers/gpu/drm/i915/i915_drm_client.c | 73 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_drm_client.h |  4 ++
- 5 files changed, 113 insertions(+)
-
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index c669026be244..6952f8389d07 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -95,3 +95,9 @@ object belong to this client, in the respective memory region.
- 
- Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
- indicating kibi- or mebi-bytes.
-+
-+===============================
-+Driver specific implementations
-+===============================
-+
-+:ref:`i915-usage-stats`
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index b7d801993bfa..29f412a0c3dc 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -708,3 +708,30 @@ The style guide for ``i915_reg.h``.
- 
- .. kernel-doc:: drivers/gpu/drm/i915/i915_reg.h
-    :doc: The i915 register macro definition style guide
-+
-+.. _i915-usage-stats:
-+
-+i915 DRM client usage stats implementation
-+==========================================
-+
-+The drm/i915 driver implements the DRM client usage stats specification as
-+documented in :ref:`drm-client-usage-stats`.
-+
-+Example of the output showing the implemented key value pairs and entirety of
-+the currenly possible format options:
-+
-+::
-+
-+      pos:    0
-+      flags:  0100002
-+      mnt_id: 21
-+      drm-driver: i915
-+      drm-pdev:   0000:00:02.0
-+      drm-client-id:      7
-+      drm-engine-render:  9288864723 ns
-+      drm-engine-copy:    2035071108 ns
-+      drm-engine-video:   0 ns
-+      drm-engine-video-enhance:   0 ns
-+
-+Possible `drm-engine-` key names are: `render`, `copy`, `video` and
-+`video-enhance`.
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c9b18dadf828..bb8e621046d7 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1755,6 +1755,9 @@ static const struct file_operations i915_driver_fops = {
- 	.read = drm_read,
- 	.compat_ioctl = i915_ioc32_compat_ioctl,
- 	.llseek = noop_llseek,
-+#ifdef CONFIG_PROC_FS
-+	.show_fdinfo = i915_drm_client_fdinfo,
-+#endif
- };
- 
- static int
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-index 91a8559bebf7..06dbd20ce763 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.c
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -7,6 +7,11 @@
- #include <linux/slab.h>
- #include <linux/types.h>
- 
-+#include <uapi/drm/i915_drm.h>
-+
-+#include <drm/drm_print.h>
-+
-+#include "gem/i915_gem_context.h"
- #include "i915_drm_client.h"
- #include "i915_gem.h"
- #include "i915_utils.h"
-@@ -68,3 +73,71 @@ void i915_drm_clients_fini(struct i915_drm_clients *clients)
- 	GEM_BUG_ON(!xa_empty(&clients->xarray));
- 	xa_destroy(&clients->xarray);
- }
-+
-+#ifdef CONFIG_PROC_FS
-+static const char * const uabi_class_names[] = {
-+	[I915_ENGINE_CLASS_RENDER] = "render",
-+	[I915_ENGINE_CLASS_COPY] = "copy",
-+	[I915_ENGINE_CLASS_VIDEO] = "video",
-+	[I915_ENGINE_CLASS_VIDEO_ENHANCE] = "video-enhance",
-+};
-+
-+static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
-+{
-+	struct i915_gem_engines_iter it;
-+	struct intel_context *ce;
-+	u64 total = 0;
-+
-+	for_each_gem_engine(ce, rcu_dereference(ctx->engines), it) {
-+		if (ce->engine->uabi_class != class)
-+			continue;
-+
-+		total += intel_context_get_total_runtime_ns(ce);
-+	}
-+
-+	return total;
-+}
-+
-+static void
-+show_client_class(struct seq_file *m,
-+		  struct i915_drm_client *client,
-+		  unsigned int class)
-+{
-+	const struct list_head *list = &client->ctx_list;
-+	u64 total = atomic64_read(&client->past_runtime[class]);
-+	struct i915_gem_context *ctx;
-+
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(ctx, list, client_link)
-+		total += busy_add(ctx, class);
-+	rcu_read_unlock();
-+
-+	return seq_printf(m, "drm-engine-%s:\t%llu ns\n",
-+			  uabi_class_names[class], total);
-+}
-+
-+void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
-+{
-+	struct drm_file *file = f->private_data;
-+	struct drm_i915_file_private *file_priv = file->driver_priv;
-+	struct drm_i915_private *i915 = file_priv->dev_priv;
-+	struct i915_drm_client *client = file_priv->client;
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-+	unsigned int i;
-+
-+	/*
-+	 * ******************************************************************
-+	 * For text output format description please see drm-usage-stats.rst!
-+	 * ******************************************************************
-+	 */
-+
-+	seq_printf(m, "drm-driver:\t%s\n", i915->drm.driver->name);
-+	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n",
-+		   pci_domain_nr(pdev->bus), pdev->bus->number,
-+		   PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
-+	seq_printf(m, "drm-client-id:\t%u\n", client->id);
-+
-+	for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++)
-+		show_client_class(m, client, i);
-+}
-+#endif
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
-index 7416e18aa33c..d96d6a06302e 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.h
-+++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -57,6 +57,10 @@ static inline void i915_drm_client_put(struct i915_drm_client *client)
- 
- struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients);
- 
-+#ifdef CONFIG_PROC_FS
-+void i915_drm_client_fdinfo(struct seq_file *m, struct file *f);
-+#endif
-+
- void i915_drm_clients_fini(struct i915_drm_clients *clients);
- 
- #endif /* !__I915_DRM_CLIENT_H__ */
--- 
-2.32.0
-
+> Regards,
+> 
+> Tvrtko
