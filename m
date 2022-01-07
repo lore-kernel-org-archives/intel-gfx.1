@@ -4,60 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57203C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCDC3C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E74C14B42C;
-	Mon, 10 Jan 2022 13:24:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E55714B437;
+	Mon, 10 Jan 2022 13:24:17 +0000 (UTC)
 Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
  [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BEF01128F1;
- Wed, 22 Dec 2021 09:06:05 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id i12so1087168wmq.4;
- Wed, 22 Dec 2021 01:06:05 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2C610EBC7;
+ Fri,  7 Jan 2022 17:26:09 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ x18-20020a7bc212000000b00347cc83ec07so1029442wmi.4; 
+ Fri, 07 Jan 2022 09:26:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=3uC+zpueN0jaqztWM7eUqBfpEMbmsR8tb66iIJAnvGU=;
- b=DN/hezu8BpvlioFiGvPzdpBnLgh7II07BN9W7INVCzSlG/W+L+9oRlBVBOiyDVwRzN
- BxgyMTO/wmtmvNY2yXs/gCKyTnr8BxUmdvjzLD3hV1ZGJ2BdB+8MLPEPziAae6wboQaN
- ct81mDMbeL8K1H6rjhaTxYKOMQmxKDQyYUYXFmLa6yleKnfY7pur/hrESfd4/7lXHtR0
- 67vFJ1qpR18/R1lSFtZJYGFK26vg4J3pntLCw3ctkAYE+u2xLA95KJ0zfx6oMhr99A2L
- qFh4JurVj8/5urKMAIyJ7sljhjX2t06BNLt5+W0Mw36NQiXYgzUd/f17GYlA+Edw5nP8
- 5XPQ==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=Ht1OfskK18Tncu8hyQlhD7qZAAQL5kUIMY/RPcI5GWg=;
+ b=ovBuHMMnaNmXki6e8ZuoIbwSgvKSbD1rksXRBmgyYUmyP/xeQbqX4CMXw2qDxMN1Vj
+ v7Bki5RCHpIU0e56V7Y7EQ3kE2ZXPFmptqvRvDxQZ7chM4UIxRpXdp4o+0LjlKd7pW8q
+ cXEGNj0CLps7TCexKvhCcrnl6NC6GUvVbPn8655XITD+oVFX6A77Yf0ibTqVflUqhgVm
+ PGjvs5ZFG+72tWQn2lyUd3vH8tp3g1Iw+bUZuz3gxylapUn9yZgbIyZOi1em49vjoi94
+ cNXMt0hYVQD9rJAfir0whVAbi7g644rWd6NP5cRkYKgohSf4SMg+HMJ/SIjKzTUI7Shm
+ kngw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=3uC+zpueN0jaqztWM7eUqBfpEMbmsR8tb66iIJAnvGU=;
- b=yaThkAUy/ZBpVB/yOlto/dPvAqWexido9MQN++mHQBiR3ZzvNptbrtO0xm8oCAfZAe
- T/wCdwAjPib/UIW8GXsCdme+2W/4NsUdJSIeD9XwJNK77Pm3SrwP2/FoNF6qFltC5rvk
- hGThJTofsCpoYX81zwQCqoF4pUXsEtoH4fW6UuLeqShCsjDGvqR+awvvql22MhjOHPCr
- JhzkQvkoj7BI212VbaorLUmYfKWwLMD/yn/ds2tfZ1bv5ow1NKtzVNcqnsnWol0aZ3/5
- 1MdPFeEfWkL2NCd/deYuL9DC23sGnTsBdQv6rCobBF3x7HgS9KPlr3S5sToMEVZRXZoS
- x8vg==
-X-Gm-Message-State: AOAM53225kJmWoqltxAlVZVuwOY529XPlHrpAOw90GitzABZyOuHsgIR
- BmLOhweGRYLkKm8YWNwWhvk=
-X-Google-Smtp-Source: ABdhPJwjkqCU2eOiLPDiEpUgnr87YSHM9DTy3lNdv7hPr78L5Q1Nuo13SkbxfvjjlDc4nJ6/guabtA==
-X-Received: by 2002:a05:600c:296:: with SMTP id 22mr208645wmk.11.1640163964078; 
- Wed, 22 Dec 2021 01:06:04 -0800 (PST)
-Received: from localhost.localdomain ([217.113.240.86])
- by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.06.02
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=Ht1OfskK18Tncu8hyQlhD7qZAAQL5kUIMY/RPcI5GWg=;
+ b=i9DBCsOYLDZO37P6QpfMWDWlrh653HsdKCiqXz6W/zPdVLzNiybYnEK7GORpwFpcWa
+ QgZ3EvMNBwT7U1dpD1PsBCwB4pW4Y8qZ75REktan+WaRHLROUGvc+WK0BtAObn4YZyfi
+ Bqr9ZdY6dW+Ve4M6hBda+YvLexLXKtSJv9WRdVmOFT8nYOe3MmCUHK5SVGKtxFKp0aFi
+ NzrTz3LKOWen6+UhrK4+YY145F0HDA7y1cZRcwbOeY98l2tqLuinTZMX0Zu6NdIGIfLY
+ m8IOAgM3BZZ6mtjmZNkAGIlubxFJ/3qNSI55Dk9l6yj3+zEFrjIukZXvNsipbpQ5D4kR
+ KWvQ==
+X-Gm-Message-State: AOAM533qQtJnhFyKTx9itenkKqkXf3MqfWJI/34WqbGrZkOSC6bOaZMB
+ vjIlhuM2Br2u4Xebhj0nTWc=
+X-Google-Smtp-Source: ABdhPJxKyHsrAgQTVgZgLm+52z4ULS2Pqwjxj4lcuAMX76VGeJnjfcycUSa/PS919Hvdw9jf9FQEkg==
+X-Received: by 2002:a1c:5403:: with SMTP id i3mr10241280wmb.66.1641576368115; 
+ Fri, 07 Jan 2022 09:26:08 -0800 (PST)
+Received: from elementary ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id s10sm8325202wmr.30.2022.01.07.09.26.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Dec 2021 01:06:03 -0800 (PST)
-From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
-To: contact@emersion.fr
-Date: Wed, 22 Dec 2021 10:05:51 +0100
-Message-Id: <20211222090552.25972-6-jose.exposito89@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211222090552.25972-1-jose.exposito89@gmail.com>
-References: <20211222090552.25972-1-jose.exposito89@gmail.com>
+ Fri, 07 Jan 2022 09:26:07 -0800 (PST)
+Date: Fri, 7 Jan 2022 18:26:01 +0100
+From: =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>
+To: Simon Ser <contact@emersion.fr>
+Message-ID: <20220107172601.GA122757@elementary>
+References: <20211226112503.31771-1-jose.exposito89@gmail.com>
+ <20211226112503.31771-3-jose.exposito89@gmail.com>
+ <3DdB6YPUQr4O063yNreefZcIm6p5Z6HORoVVbk5RTMmjz8qvnxMse42hLvfDmA323KG-TWLc_JUFZEEEIkoINXQuAzjLVe2jRRM01tQgYOU=@emersion.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH v2 5/6] drm: mxsfb: Drop format_mod_supported
- function
+In-Reply-To: <3DdB6YPUQr4O063yNreefZcIm6p5Z6HORoVVbk5RTMmjz8qvnxMse42hLvfDmA323KG-TWLc_JUFZEEEIkoINXQuAzjLVe2jRRM01tQgYOU=@emersion.fr>
+X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:15 +0000
+Subject: Re: [Intel-gfx] [PATCH v3 2/6] drm/plane: Fix typo in
+ format_mod_supported documentation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +77,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Cc: airlied@linux.ie, alexandre.torgue@foss.st.com, stefan@agner.ch,
  benjamin.gaignard@linaro.org, festevam@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, marex@denx.de, linux-imx@nxp.com,
- intel-gfx@lists.freedesktop.org, tzimmermann@suse.de, s.hauer@pengutronix.de,
- mripard@kernel.org, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, s.hauer@pengutronix.de, mripard@kernel.org,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
  yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
  philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
- dmitry.baryshkov@linaro.org,
- =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
- shawnguo@kernel.org
+ dmitry.baryshkov@linaro.org, shawnguo@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The "drm_plane_funcs.format_mod_supported" can be removed in favor of
-the default implementation.
+Hi Simon,
 
-Signed-off-by: JosÃ© ExpÃ³sito <jose.exposito89@gmail.com>
----
- drivers/gpu/drm/mxsfb/mxsfb_kms.c | 8 --------
- 1 file changed, 8 deletions(-)
+On Wed, Jan 05, 2022 at 11:54:43PM +0000, Simon Ser wrote:
+> Pushed patches 1 & 2 to drm-misc-next. Thanks for your contribution!
 
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-index 0655582ae8ed..df32e1c3cc5d 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-@@ -554,13 +554,6 @@ static void mxsfb_plane_overlay_atomic_update(struct drm_plane *plane,
- 	writel(ctrl, mxsfb->base + LCDC_AS_CTRL);
- }
- 
--static bool mxsfb_format_mod_supported(struct drm_plane *plane,
--				       uint32_t format,
--				       uint64_t modifier)
--{
--	return modifier == DRM_FORMAT_MOD_LINEAR;
--}
--
- static const struct drm_plane_helper_funcs mxsfb_plane_primary_helper_funcs = {
- 	.atomic_check = mxsfb_plane_atomic_check,
- 	.atomic_update = mxsfb_plane_primary_atomic_update,
-@@ -572,7 +565,6 @@ static const struct drm_plane_helper_funcs mxsfb_plane_overlay_helper_funcs = {
- };
- 
- static const struct drm_plane_funcs mxsfb_plane_funcs = {
--	.format_mod_supported	= mxsfb_format_mod_supported,
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.destroy		= drm_plane_cleanup,
--- 
-2.25.1
+Thanks a lot for the review and for applying the changes, appreciate it.
 
+Is there something that needs to improve in the other 4 patches?
+Or just waiting on maintainers input?
+
+Thanks,
+José Expósito
