@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4FE3C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA8F2C433EF
 	for <intel-gfx@archiver.kernel.org>; Sat,  8 Jan 2022 04:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4A11113604;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4D2A113607;
 	Sat,  8 Jan 2022 04:41:02 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1EE5113609
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E063D113607
  for <intel-gfx@lists.freedesktop.org>; Sat,  8 Jan 2022 04:41:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1641616861; x=1673152861;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Hus4ZiLnEpQy5bUoJ+6azUfM9ocDbSU1py1yI3G6eLY=;
- b=gVnWK4wUFmAAweWb1nOBE9OFOfmQfIQUl7g26QUQST5niavJBv/qu2Up
- WZNi85M36y+/7NcnU2lVzwXvnVigkgysRh2XjbzMN1f6cVtgal4XMLej2
- uM/FW7jWxEyUWT33m5HCT3SO1zqZYWo37TAaLQzD61GG9uTgBKF4HwGJP
- Kz1siYjCOiST7Y5Zy53O1YjhKJJYyLyTOY089LSb1pAejthYQJ+c/EPiD
- tiSyNmK9Gx+gq0DAYS3fIkYwyxxNQ4CVcIoaRJlWq8JMv/5HXsNZT5OgB
- VoYHebEp+74hMpzdUzeQqaaLmeYWDVvDODdXvmjZPBkZ8DftCwt9TjJgm g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10220"; a="240533984"
-X-IronPort-AV: E=Sophos;i="5.88,272,1635231600"; d="scan'208";a="240533984"
+ bh=kG+EAFCTI8diWXXHT10tQVL0PQ/9iV/ijTPS2HBP2yo=;
+ b=dR/UR0gzCoq3hAfCWUDnJhD/Vm6RnT/8tVlPmcG+SbVDR5X/tNTO03HR
+ XOuQgJaj76mIBrMCHtb8nwz85VVWaq3kdDLvpGMzdai05T3xCgS2b71L2
+ xw+BY+RXOfWmn+4vz5ztv5GSYGzIb6n+NVvqXSjPGhi9D3C4zWBkNe17F
+ fKbXrJmOgx+ZwrFXKLQxod2pwAYZQr9cn4yzmyWmQm90COYZq/n8HVl/+
+ 8Tb4YMeha7EhfV84BPp73234RwgmBAQ4UN/H36pYAQ/Y/J6SiHm+yewGr
+ o0WF63Oa13llCX12fpI2pTx2DIew/MAk2OWs3oEiD9ZWC1QVyq4Vy1GDs w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10220"; a="240533986"
+X-IronPort-AV: E=Sophos;i="5.88,272,1635231600"; d="scan'208";a="240533986"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Jan 2022 20:41:00 -0800
-X-IronPort-AV: E=Sophos;i="5.88,272,1635231600"; d="scan'208";a="668975714"
+X-IronPort-AV: E=Sophos;i="5.88,272,1635231600"; d="scan'208";a="668975720"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Jan 2022 20:41:00 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 Jan 2022 20:40:50 -0800
-Message-Id: <20220108044055.3123418-3-matthew.d.roper@intel.com>
+Date: Fri,  7 Jan 2022 20:40:52 -0800
+Message-Id: <20220108044055.3123418-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220108044055.3123418-1-matthew.d.roper@intel.com>
 References: <20220108044055.3123418-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/7] drm/i915: Parameterize PWRCTX_MAXCNT
+Subject: [Intel-gfx] [PATCH v2 4/7] drm/i915: Use RING_PSMI_CTL rather than
+ per-engine macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,55 +59,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than having separate definitions for each engine, create a single
-parameterized macro that takes the engine base offset.  This will also
-ensure we get to the proper offset if we ever need to use these
-registers on newer platforms (where the media engine offsets have
-changed).
+We have a parameterized macro for RING_PSMI_CTL; let's use that instead
+of the per-engine definitions where possible.
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rc6.c | 8 ++++----
- drivers/gpu/drm/i915/i915_reg.h     | 6 +-----
- 2 files changed, 5 insertions(+), 9 deletions(-)
+ .../gpu/drm/i915/gt/intel_ring_submission.c   | 10 +++++-----
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  2 +-
+ drivers/gpu/drm/i915/i915_reg.h               | 19 +++++++------------
+ drivers/gpu/drm/i915/intel_pm.c               |  4 ++--
+ 4 files changed, 15 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index c3155ee58689..45891e6f0b98 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -449,10 +449,10 @@ static bool bxt_check_bios_rc6_setup(struct intel_rc6 *rc6)
- 		enable_rc6 = false;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 3e6fac0340ef..56c009ecfdf2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -1002,15 +1002,15 @@ static void gen6_bsd_submit_request(struct i915_request *request)
+ 	/* Disable notification that the ring is IDLE. The GT
+ 	 * will then assume that it is busy and bring it out of rc6.
+ 	 */
+-	intel_uncore_write_fw(uncore, GEN6_BSD_SLEEP_PSMI_CONTROL,
+-			      _MASKED_BIT_ENABLE(GEN6_BSD_SLEEP_MSG_DISABLE));
++	intel_uncore_write_fw(uncore, RING_PSMI_CTL(GEN6_BSD_RING_BASE),
++			      _MASKED_BIT_ENABLE(GEN6_PSMI_SLEEP_MSG_DISABLE));
  
--	if (!((intel_uncore_read(uncore, PWRCTX_MAXCNT_RCSUNIT) & IDLE_TIME_MASK) > 1 &&
--	      (intel_uncore_read(uncore, PWRCTX_MAXCNT_VCSUNIT0) & IDLE_TIME_MASK) > 1 &&
--	      (intel_uncore_read(uncore, PWRCTX_MAXCNT_BCSUNIT) & IDLE_TIME_MASK) > 1 &&
--	      (intel_uncore_read(uncore, PWRCTX_MAXCNT_VECSUNIT) & IDLE_TIME_MASK) > 1)) {
-+	if (!((intel_uncore_read(uncore, PWRCTX_MAXCNT(RENDER_RING_BASE)) & IDLE_TIME_MASK) > 1 &&
-+	      (intel_uncore_read(uncore, PWRCTX_MAXCNT(GEN6_BSD_RING_BASE)) & IDLE_TIME_MASK) > 1 &&
-+	      (intel_uncore_read(uncore, PWRCTX_MAXCNT(BLT_RING_BASE)) & IDLE_TIME_MASK) > 1 &&
-+	      (intel_uncore_read(uncore, PWRCTX_MAXCNT(VEBOX_RING_BASE)) & IDLE_TIME_MASK) > 1)) {
- 		drm_dbg(&i915->drm,
- 			"Engine Idle wait time not set properly.\n");
- 		enable_rc6 = false;
+ 	/* Clear the context id. Here be magic! */
+ 	intel_uncore_write64_fw(uncore, GEN6_BSD_RNCID, 0x0);
+ 
+ 	/* Wait for the ring not to be idle, i.e. for it to wake up. */
+ 	if (__intel_wait_for_register_fw(uncore,
+-					 GEN6_BSD_SLEEP_PSMI_CONTROL,
++					 RING_PSMI_CTL(GEN6_BSD_RING_BASE),
+ 					 GEN6_BSD_SLEEP_INDICATOR,
+ 					 0,
+ 					 1000, 0, NULL))
+@@ -1023,8 +1023,8 @@ static void gen6_bsd_submit_request(struct i915_request *request)
+ 	/* Let the ring send IDLE messages to the GT again,
+ 	 * and so let it sleep to conserve power when idle.
+ 	 */
+-	intel_uncore_write_fw(uncore, GEN6_BSD_SLEEP_PSMI_CONTROL,
+-			      _MASKED_BIT_DISABLE(GEN6_BSD_SLEEP_MSG_DISABLE));
++	intel_uncore_write_fw(uncore, RING_PSMI_CTL(GEN6_BSD_RING_BASE),
++			      _MASKED_BIT_DISABLE(GEN6_PSMI_SLEEP_MSG_DISABLE));
+ 
+ 	intel_uncore_forcewake_put(uncore, FORCEWAKE_ALL);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 2d87dc81cd63..977619ea839a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2208,7 +2208,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		 * For DG1 this only applies to A0.
+ 		 */
+ 		wa_masked_en(wal,
+-			     GEN6_RC_SLEEP_PSMI_CONTROL,
++			     RING_PSMI_CTL(RENDER_RING_BASE),
+ 			     GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE |
+ 			     GEN8_RC_SEMA_IDLE_MSG_DISABLE);
+ 	}
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 86e459010465..23330faecf07 100644
+index 5b1f93112001..b227a1e58f9b 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -9297,11 +9297,7 @@ enum {
- #define	   RC6_CTX_IN_DRAM			(1 << 0)
- #define  RC6_CTX_BASE				_MMIO(0xD48)
- #define    RC6_CTX_BASE_MASK			0xFFFFFFF0
--#define  PWRCTX_MAXCNT_RCSUNIT			_MMIO(0x2054)
--#define  PWRCTX_MAXCNT_VCSUNIT0			_MMIO(0x12054)
--#define  PWRCTX_MAXCNT_BCSUNIT			_MMIO(0x22054)
--#define  PWRCTX_MAXCNT_VECSUNIT			_MMIO(0x1A054)
--#define  PWRCTX_MAXCNT_VCSUNIT1			_MMIO(0x1C054)
-+#define  PWRCTX_MAXCNT(base)			_MMIO((base) + 0x54)
- #define    IDLE_TIME_MASK			0xFFFFF
- #define  FORCEWAKE				_MMIO(0xA18C)
- #define  FORCEWAKE_VLV				_MMIO(0x1300b0)
+@@ -2563,6 +2563,13 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define GEN6_VEVSYNC	(RING_SYNC_2(VEBOX_RING_BASE))
+ #define GEN6_NOSYNC	INVALID_MMIO_REG
+ #define RING_PSMI_CTL(base)	_MMIO((base) + 0x50)
++#define   GEN8_RC_SEMA_IDLE_MSG_DISABLE		REG_BIT(12)
++#define   GEN8_FF_DOP_CLOCK_GATE_DISABLE	REG_BIT(10)
++#define   GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE REG_BIT(7)
++#define   GEN6_BSD_GO_INDICATOR			REG_BIT(4)
++#define   GEN6_BSD_SLEEP_INDICATOR		REG_BIT(3)
++#define   GEN6_BSD_SLEEP_FLUSH_DISABLE		REG_BIT(2)
++#define   GEN6_PSMI_SLEEP_MSG_DISABLE		REG_BIT(0)
+ #define RING_MAX_IDLE(base)	_MMIO((base) + 0x54)
+ #define RING_HWS_PGA(base)	_MMIO((base) + 0x80)
+ #define RING_ID(base)		_MMIO((base) + 0x8c)
+@@ -3122,12 +3129,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define   GEN8_4x4_STC_OPTIMIZATION_DISABLE	(1 << 6)
+ #define   GEN9_PARTIAL_RESOLVE_IN_VC_DISABLE	(1 << 1)
+ 
+-#define GEN6_RC_SLEEP_PSMI_CONTROL	_MMIO(0x2050)
+-#define   GEN6_PSMI_SLEEP_MSG_DISABLE	(1 << 0)
+-#define   GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE REG_BIT(7)
+-#define   GEN8_RC_SEMA_IDLE_MSG_DISABLE	(1 << 12)
+-#define   GEN8_FF_DOP_CLOCK_GATE_DISABLE	(1 << 10)
+-
+ #define GEN6_RCS_PWR_FSM _MMIO(0x22ac)
+ #define GEN9_RCS_FE_FSM2 _MMIO(0x22a4)
+ 
+@@ -3213,12 +3214,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define XEHP_EU_ENABLE			_MMIO(0x9134)
+ #define XEHP_EU_ENA_MASK		0xFF
+ 
+-#define GEN6_BSD_SLEEP_PSMI_CONTROL	_MMIO(0x12050)
+-#define   GEN6_BSD_SLEEP_MSG_DISABLE	(1 << 0)
+-#define   GEN6_BSD_SLEEP_FLUSH_DISABLE	(1 << 2)
+-#define   GEN6_BSD_SLEEP_INDICATOR	(1 << 3)
+-#define   GEN6_BSD_GO_INDICATOR		(1 << 4)
+-
+ /* On modern GEN architectures interrupt control consists of two sets
+  * of registers. The first set pertains to the ring generating the
+  * interrupt. The second control is for the functional block generating the
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 2d0955d13776..710dee28a014 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7654,7 +7654,7 @@ static void bdw_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		   intel_uncore_read(&dev_priv->uncore, GEN7_FF_THREAD_MODE) &
+ 		   ~(GEN8_FF_DS_REF_CNT_FFME | GEN7_FF_VS_REF_CNT_FFME));
+ 
+-	intel_uncore_write(&dev_priv->uncore, GEN6_RC_SLEEP_PSMI_CONTROL,
++	intel_uncore_write(&dev_priv->uncore, RING_PSMI_CTL(RENDER_RING_BASE),
+ 		   _MASKED_BIT_ENABLE(GEN8_RC_SEMA_IDLE_MSG_DISABLE));
+ 
+ 	/* WaDisableSDEUnitClockGating:bdw */
+@@ -7795,7 +7795,7 @@ static void chv_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		   ~(GEN8_FF_DS_REF_CNT_FFME | GEN7_FF_VS_REF_CNT_FFME));
+ 
+ 	/* WaDisableSemaphoreAndSyncFlipWait:chv */
+-	intel_uncore_write(&dev_priv->uncore, GEN6_RC_SLEEP_PSMI_CONTROL,
++	intel_uncore_write(&dev_priv->uncore, RING_PSMI_CTL(RENDER_RING_BASE),
+ 		   _MASKED_BIT_ENABLE(GEN8_RC_SEMA_IDLE_MSG_DISABLE));
+ 
+ 	/* WaDisableCSUnitClockGating:chv */
 -- 
 2.34.1
 
