@@ -4,93 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B7FC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F2DC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 497A012ABB6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A64D12ABC8;
 	Mon, 10 Jan 2022 13:24:46 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01olkn2084.outbound.protection.outlook.com [40.92.52.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80421113DDC
- for <intel-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 12:35:33 +0000 (UTC)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01olkn2101.outbound.protection.outlook.com [40.92.53.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 645531124A5
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 Jan 2022 10:43:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MPJxPL6Qe609hyqb06XZcPdVaRe/lAkxVnY0ItjPZU4MS2V0BhcXRCJDmEDaCY6Nf29qmrMSwguMxgBKCioQfOTAN75O72QZURw+NGp50oIVWRQPX6bB/I0MsgLOpJ337MFotOEsuscifJEFB3Kn2M3PGAVYbBGVPwIE8hoEdADIWA/GqS3ScR3oYWSx/UA5nm+B1Ml5mI6TyCEWl04nAaZcm4CQr7bXl68+uqMnDuK9fUnqDKqUMVpUcyjnyEM6AL1+2QC4p93loneWj0N4IIdBuifQJc5VwOSB/QI7WAcRtFkktQjppWGh/40bbN8oQY0Gbp6rc/PCNWC1Pa2GhQ==
+ b=LWr+MZ0JQCKIRg9Be91bzTBdbqsmuMxc4XROgSFgDCov0nHGgOHHH+v8lfvUCZgXwOkGIfQ84uwWw6QPwdzk4UnkAItJxKbyRJQEeypsWtMeYy7n6VQv45ncQozi10ncHQEKiouAlxBnu6qgM2I8h0Jp+gAzLwPXNI8uYEnOHeY68cK7pZk/OTkc/KM+cmUO5LJ7uDuwOQZLMPyEfwiMIkhE2EmUqp9tXsRJ5TW35+vaxsDppv5KZwIJl3vtJsAqj/n4NdLX6W4IdGOyPp77B2DUFbZlMfVnk3t7aAFAUMt2RMRQZ8OUeZMOOj9+30jauQY74RUrajJDeNvmx///Lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DhKW4J/oNIvKD9ka7X7KeU4S0OapDLmAn2RRqB31h6s=;
- b=FB+70jQGPkK6cxMl9kx1lsesAGG6jAzK7+R6xF06PjVVGJLc6PU5WfuzFSZmeWa4gK/lwE2h1x59sd0PRTGWsvTWeFamcokr55ngTg50sF4YRLkAF35kvGJurO178u70YjhfzQdf40i9Dn1I4AkA7NE5ylX54tf9d4Q2UEV1m+/riUqhO0tYttllR65JlqJCXPmGnt+fHObXatuefbp+4MvEUB0XTKSHJ8jGIweZaKa76pbbGYbmiFv8EHbn6nMxiGjq0PYig2SucgVoVuCNp52x9eRIpc+fVxmZKPouaqkTqlU7qfGzDizmJGgc2m3dq1194nTg4Y9yBdKtFPP0FQ==
+ bh=RFQCPszbW6BnjyQowRhFgrXT2bJPtwajmDs7S5dveHY=;
+ b=AE9KoSVtMSfHOnZTe7ROe3o5ArPiGppg0fBWFfuzWoW42aWuecIh/LagcR8ILPIWGMtENfc2b854+KdFuaza1ORu1pAjfQCwVvO8H+tFPhhdlAqqylEivQQQhJAHuVkCWbnhYOhHt8MFoUqrI52nDZGrlmWoW6PAk5ZF5xKdSk+fmdp+a96Q2+WtpMOMZ73hJI2c+PnuaZUhHRLphvn8mUbOaUsG13RC+aac4FkM9gKBX+cOoygXmqI+SAf4ZNDtQL9Icmn6Gy+GVAuFeAaUF1tb2bbkQGS1deeK98Y5D1/uy90QvN/kf1KWFLd5LUabW8mqg1qVYa6KRiYvCcNd3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DhKW4J/oNIvKD9ka7X7KeU4S0OapDLmAn2RRqB31h6s=;
- b=JV2FrRVVm5LOaHDKGO9yGVkMPK/GI1JN15fRMtsTfSpbHi4IrG+7QYXbRDW3gbZfX3jUDJpXiPgh7QVMYoNWrEFv+Y7hGirMfZVrT4cgbMFi+EvrMn1q2vsDb/hBVioWjx9yX2lC5+rnFpPS9VPQXcNcvSa7lDtnMYTNDweHcp4k1UUeTMym5BLZxNNG+zZqpwkVTT2OQkh/+5druL/vYDLcre5jgdW2CRSGn2QsIj3+Ct0wqjy42YE704Lcg+UuTpMYTg8GVxkRBUzoka5picEGHpsY3Cpwamkuv8KgGES6bRXIfQfDljNNoplDtSMnZB/z15v1CJ9PEoAz3RtPIA==
+ bh=RFQCPszbW6BnjyQowRhFgrXT2bJPtwajmDs7S5dveHY=;
+ b=TlH0cpkpcyCTM7OPyz7c+ubyD3//tLg959m+UXtTLc2FdcXdOJbr20/2QbcvU0xosleC5qqQ83GwXeXHdUC9SAbuWJFF9ScUbF+aVh97Lil1D9WSx6QnQ5rRsCS/z02XnbCRbyGMUFKRCj28BtcP+PwYuzlFlzHJQLqDMoTRfXJCIru4XLmnstB+hqz8DxRwuyOPoe0q9GeyJLkshlhhOkyfj201Q24FWo+K0Vntm8t65XmslhLL2J9ovYuGqhy+Xb02nwrvF44WB9plkothGjFlLLNiaipNukDtoiRc6KRitfyNAZG4M1WvYeoOiH8uO7rfDq46NLriyi92xC7K2g==
 Received: from PS2PR03MB3719.apcprd03.prod.outlook.com (2603:1096:300:38::18)
- by SG2PR03MB6293.apcprd03.prod.outlook.com (2603:1096:4:174::6) with
+ by SG2PR03MB3449.apcprd03.prod.outlook.com (2603:1096:4:19::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.5; Fri, 7 Jan
- 2022 12:35:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.7; Sat, 8 Jan
+ 2022 10:43:18 +0000
 Received: from PS2PR03MB3719.apcprd03.prod.outlook.com
  ([fe80::f9e6:8a12:82ba:99ca]) by PS2PR03MB3719.apcprd03.prod.outlook.com
- ([fe80::f9e6:8a12:82ba:99ca%5]) with mapi id 15.20.4867.006; Fri, 7 Jan 2022
- 12:35:29 +0000
+ ([fe80::f9e6:8a12:82ba:99ca%5]) with mapi id 15.20.4867.006; Sat, 8 Jan 2022
+ 10:43:19 +0000
 From: Ashish Arora <ashisharora.linux@outlook.com>
-To: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>
+To: Aun-Ali Zaidi <admin@kodeit.net>
 Thread-Topic: [PATCH] drm/i915: Discard large BIOS framebuffers causing
  display corruption.
-Thread-Index: AQHYA8MNt8F1XFTiBUy3hKQV5EWfpw==
-Date: Fri, 7 Jan 2022 12:35:28 +0000
-Message-ID: <7F167771-2D0A-40AD-8162-645E7EE2B9A0@outlook.com>
+Thread-Index: AQHYBE5G/QSI5yAchkqDOVM07m5d8qxY5DiAgAAHbgCAAATUgA==
+Date: Sat, 8 Jan 2022 10:43:18 +0000
+Message-ID: <676F392C-A3AD-41FA-A06A-E4D276D940F1@outlook.com>
+References: <20220108050812.6303-1-redecorating@protonmail.com>
+ <AC748346-8777-4107-9E7D-526D5854F11B@outlook.com>
+ <D5A25DCE-75BB-404A-9CBC-979B762DD151@kodeit.net>
+In-Reply-To: <D5A25DCE-75BB-404A-9CBC-979B762DD151@kodeit.net>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [GJrIlXB6qbCtFAxV7wmVLFiTQGLcALaXSH6SElDcsGqt35D8K84fAmr1yG/JodFL]
+x-tmn: [1+KjZQrHCZLQW8WeTjb467DoWM4xwef+PkU4MJAHdge39v0Wj0QbYyf5OZVOr+qE]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8274b306-c65b-44f7-2666-08d9d1da3029
-x-ms-traffictypediagnostic: SG2PR03MB6293:EE_
+x-ms-office365-filtering-correlation-id: bcbe1fea-926c-426e-7806-08d9d293af42
+x-ms-exchange-slblob-mailprops: c2lCoQNu4IDmVCEb86mVc81tg2mOJ6d0aJf6b8eoFDar55VUbke2WW2/o0QIZyHpe3DS7pfxgP5rpMzCPf1QppWayQ3Lgpg1GsdfjewwcRHo1WE1wn7pL3a8hg+6nTH5t7cG71PfZXi18MgSvw4SEkR5wU7TNSJR8aUFLCSGRLSCmZslmwpR+2zPHeeIIcboSeIKoRJNOWPhnAyJB1wokFd358/QlFi06p+baGjPJUGdjID7lvsPdXFbYGKqegtlZuXMjUjrdSZfEaUBzHP9PUzT/BjNRUOPQNFcExxReV17FWUU9kSS27IS5w+x2g5huXqNPyOUSO2tM1Joa/33y90BTH60a2orCQKdnUaHrsJ4W90p55JBJRje0TZvyEQZeB41DWrx92MW4gZk4w+B/RM/7NXIFeGEwiyPoKJXolKsSECt7TSGuvq03cb9inSrtocb11imtFYYexREdPgXJaTZj0PTcXJu12AxrzsMJ91dszge5j5PZj+PyCLbudh7VTCe13d6CO4Wb5BVnroSKvQlzhLSYKpxWkWbN0UV/n3m2z6tVZ3hdRbUGUlDFpI52YDndV8kSjYggybHhpHpN0x4groReFP+tcrHZXGYucQ+W3ma9DnJ/35TEfADvq+2fDZAKUDbxI+EXxtKvPMIcH5AtBn3/Oq2SuthEX93tc0Fuvi0xXov9ynrwlbAibhVG5XGI6dM8+MvwOvkRx925TCn00LCj2lKGP3o9B5fy/g=
+x-ms-traffictypediagnostic: SG2PR03MB3449:EE_
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hFvPi79emgoGUjpoTlguEsOuJ3AwmUvOjISvNV38nWQtDvHXQiXXxOyQZwCVaciszdegJjcsA6OesKz26KWVkV6f4jn4Wc5sw7hg/CTDEO6vqZJ3hlq0qSDNNadVLmzLH3tg+lhl+LSB9HMu4LBQZE0PYaWFLFPTe/4JjuEkFbnrc2Hsf19wS5tXolwj/Goz5MOUliWgwYFPzzuxQP74kCkADk6+gkGHsny0bhS/l2WK76XVYIeMLW5dYddRLc1DdMqXx15nkS22d51TaQCQ45bkxexk5vvZcdbkGfWUkrs9ir8Fequ71lNlb8tnmTPF9id6IV2FCQHOlvR9jOD9CgTJEpj+UPo1OOcvp9DL4Iq447Q7mTh7MDB2KPEYPmDEhDBgMG3g/Yzlb1KlU6NgEl5tl4kzanXhQwT3gh5Xpa/AMbItV6kE15ryvRsQEIXszOqwpAJPkhDaZCXB8hAKGJ5SG3JDX9n1qXWcw7EPoiz4kIc5BcCdfGLzz5gew0xIWZ7OJV0c0ai3l9FpRcKiog1bsnnqpMvbwVhLLlto79TyvKOKjxAi572Xi7JiGU8umrh+a31R0ySi7em1d5XEdQ==
+x-microsoft-antispam-message-info: FzqruyFO66vD/cslqpb5Kam3ArO7yfwinXMWfaV/Gm4kNIzEZD9ezPrpG3O+FxucahqBnV24gOMTs9WAukfLcWFZ9zQFS+WAgaGEWbvYKTxTHCxA0z2itq4m3nfOw/7Kd7HBoeMqtHJ0/7ZHrbjMXJ9q+NWC8rkj7MAEHqLNseg6tCK8qERSbbmxY5buBeRVYEH04MGIaGhpNt/JQv1hDz8z137LfCKYQISQiWIA8tA9fdA5rwLCB1tK0NtBrmkHye0p0WL3XXZZNGytDFYWTkHKPbl61u3N7Z/YbfInYmfMABrcU6rl811DM38H2llOfLv5S+1TipcsN33Guqaec29ogE1ag+2fbaBKBf9UQNddI31t6JTxcoOnGyiLO0U2ZJauIqpU5B2/Ze/urWqwoTRrTWr5TDTOs2NiPKrPqGtoI1dsFefzNpZpjXDDEZi4yz2yaAXkgns3EBqywv1mIIAVGGESCjbX3jyNiH/vxnQbMyxVdokTgi3Yh4F2f0TqwtJqL4pnUB6M8NgJzD6xmdp7Qio2srUR+olHhJrXC6XT0RQjb5L+WS5KzARkZBwcOlnoNyuSdqF4BZOifuatIw==
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ox+ikQxHSGBlDmW3zi7pkrnEF8elljCj3RitkOaxS+UWwkddHEhsj6/T0hH+?=
- =?us-ascii?Q?JItsmcovtqZzM5dfdRGDUR+gkDSYUvEep5f31imwpXpcfwLQ3WxPP08yw3mf?=
- =?us-ascii?Q?4BaE8d5CMygMB1ox0AT1v6QPoDy70DqB0QL6buVU5xmhA/SoLMxFgDWqFZE+?=
- =?us-ascii?Q?1pXm1SiwGHGH77uwRLgoLt8NdcdIYygBrJI1QtsDDQ7jQmNx0fvNES/COncw?=
- =?us-ascii?Q?B80nhvbCL4Zfv1Jc2vLEGw4TWsNmdhJ0tXY/09r4QOad7I0rsxklnEWHcj8e?=
- =?us-ascii?Q?VCjgawZbh+Tez0vDDQ9nYliSf79TbSxIRU7ndA2LeAvGtfwHnuFzUsTvMaqL?=
- =?us-ascii?Q?i/erv+gVSkP/w4VN8d+h6m5CRPCbK7CnfAfOtfAxkqFH/J9C/6WThIpqJ3tC?=
- =?us-ascii?Q?V/ul2fzNOWDRcGlrnT8q3CE6Ucnxv2eJedgD7e+1wFEd9UYcJ4msZhPg+GTn?=
- =?us-ascii?Q?Zk2WbPvX5alwX2rE8tFlH05iVOso/gX0kQHdrEe3pV7MabGK7XYKptcVCuXt?=
- =?us-ascii?Q?XXUIFSTX+4pvOnZqJQTrTVLXvl/qi7Jk33B1ygKD+EDoG+aYnnPEzs0uumgN?=
- =?us-ascii?Q?R9IJ9OcYuyelWioPEcnO2MRMrBsMCKbPhThG2ozZxBhAsV9Pjw14mOX0XhFQ?=
- =?us-ascii?Q?lmje/3PGynO3Qfz9oXXnpngkGjBMoLjet3PXc7HVy9PX8FH448d11TzUVMqm?=
- =?us-ascii?Q?GsrJ1KBFdtKWz4fS/xa35Ak+A26ZP2BBh93ipaY2on5DilUADL3a0G5qQ7lv?=
- =?us-ascii?Q?uD84T8WOSJ7fPE9qUyWdbAkU8wKGeOuSYTM8awM97LbgcQI83bqHhjEBPfzA?=
- =?us-ascii?Q?0dBRqpNLJD8LQgIkxx4dOEzRpTvMCreUJhufVh1COkbKhuq0cSa5jiDBAZ0o?=
- =?us-ascii?Q?h/0wyLOdp+jFh//sEe/M99v9jO52BqAJ5zecc3s+kO79a34+gVo8b0Mo1m8C?=
- =?us-ascii?Q?EGncavzmUlD3dhNaOxQ9nKMBOeAwCph9Kwn1z7c8pNwRYKI+eTno9SeoI/JX?=
- =?us-ascii?Q?mRSbUyNDrze59p9vYh3Utgdwbw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C358D448AE72B4459F10867E239A1A65@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ekoySnVIU0txeUVNRmFhSVhJZlFEZkpvYnA3aUI0dFJSVVRJdGNoa3l6K3c4?=
+ =?utf-8?B?VGZMWUpNR0tpOWV1MXBhRDJkWS92OEQxTXl0SWhlakF4akxZZDNaNUhlUUJF?=
+ =?utf-8?B?RVF0aU5HWkJjcWxLZkc0bUY3eE10YkZIMjllRVZJalIzdTBJMkNnUFFwSU9H?=
+ =?utf-8?B?aWRBUC83dit3VWRML2lReVd1eS96MFBVdmR2QjVRRThUNGpyZVJjMDAzalRy?=
+ =?utf-8?B?RDNNSm5sYk5vUk1UQU5UdGY3NmNPM2F3UmpQOXlBaVJPSGJ0NFd5UmZLUkxQ?=
+ =?utf-8?B?ZTVSbE1EQm9rTS9qVkdMWHdvZHg0dzllN2ZBcWpBRm5OaWpzano2eXpvZUdW?=
+ =?utf-8?B?QXgrYUdOZncyTFVwQzltN3FrcDRZR2F3b2FQQ2o4S0dRNWp5K1BabGVPSFVi?=
+ =?utf-8?B?K2hjdnZLUGhXbWtqaFNJVCs4dmkwSGttem0vVjhnM1BuVmttdHBHcVRhVWIy?=
+ =?utf-8?B?WEtLM3JMa3V2YTJVdTNSL0tDVTdPOUszK1VIdTl4dDZMTWh1SkZvWHNRQlpH?=
+ =?utf-8?B?YWNjODJSRmRhdTFJYUdIazRxNTNLR3lHVWZ1QWp6SEkxazVoYVlORW1maEhQ?=
+ =?utf-8?B?ajVOcUlnYldDZTRxZHJacmptR0RHMzVBOFpxaTE0QVpXZW8zYWpPdk9vRGtH?=
+ =?utf-8?B?TEVQbVp2dml5QkdSZTAwcHFpdDhUZXg2WWc1NkQ1SUhUNE56Qk9XU2g1Uk1t?=
+ =?utf-8?B?TU9sc0NvNlp5UHU4UEFhYmNHbXVGM250a21iQWUya04vQ1c4eWJBQlBuQjdp?=
+ =?utf-8?B?WHhvWTI0NDZlb29HOFVia1JDOEFGTjZnSE9oRzdoc0JXWTZHSEFjOVgyaEVp?=
+ =?utf-8?B?R2RMZzJyczdOYWxWanBTYy9tMjB2dkp1N0FzZGFkTEUyQm5zWGpZTEg3NG5G?=
+ =?utf-8?B?Mnd4Z1NudkZvWkl5M2k1VHVVOFo1QWkvdzNZSzloSVBrUXFCQ0dFM2MyODl3?=
+ =?utf-8?B?MHNXSE9NR1NCdzA3WWlXZWZQQnBGbEt5Yyt5VTZ5Zld4RFFCNHlESUwrQVdh?=
+ =?utf-8?B?NGJxWVVxcjVIczNFSWxaWjBKT2xKcGNWSXBVTy9NczlHMHhzNFFEV2tKMmJ4?=
+ =?utf-8?B?SWtRYWlicEFUUFVna3R4VmtUd3dwVS9PTGkwdVpkQU11MFlVL0QzaTJEL3hh?=
+ =?utf-8?B?U0lIRmk3c0V4bE50b1lXNU1POGNLOG5LVGdoQUFYck1iVnJTUllBQlhGc2lx?=
+ =?utf-8?B?dWwyVWZxQXBLb3IzMWt5S2F5TVJRb3Y3azRRQW1FTGEwV2RwdW16VXc3NEF4?=
+ =?utf-8?B?SmI0Vk43bVVQZEsvVm8xVnl5OEdnNS93VE8rQU5raWpVbHh5VnZqdkdnYURj?=
+ =?utf-8?B?WUNJWnJJTXhYTkc2cmxiNmlRS2x1dG1UVGNFc0JQMmM3MUpIZE5uVXFGMi9C?=
+ =?utf-8?B?ZzBqcDdSUWZ6UUE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A1C7FDBC4756E548AB367766868F569D@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PS2PR03MB3719.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8274b306-c65b-44f7-2666-08d9d1da3029
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jan 2022 12:35:28.9464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcbe1fea-926c-426e-7806-08d9d293af42
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2022 10:43:18.9999 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR03MB6293
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR03MB3449
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Discard large BIOS framebuffers
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Discard large BIOS framebuffers
  causing display corruption.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,46 +113,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Orlando Chamberlain <redecorating@protonmail.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Aditya Garg <gargaditya08@live.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ashish Arora <ashisharora.linux@outlook.com>
-
-On certain 4k panels, the BIOS framebuffer is larger than what panel
-requires causing display corruption. Introduce a check for the same.
-
-Signed-off-by: Ashish Arora <ashisharora.linux@outlook.com>
----
- drivers/gpu/drm/i915/display/intel_fbdev.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i=
-915/display/intel_fbdev.c
-index adc3a81be..f9952e1f8 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -193,6 +193,17 @@ static int intelfb_create(struct drm_fb_helper *helper=
-,
- 	struct drm_i915_gem_object *obj;
- 	int ret;
-=20
-+	if (intel_fb &&
-+	    (sizes->fb_width < intel_fb->base.width ||
-+	     sizes->fb_height < intel_fb->base.height)) {
-+		drm_dbg_kms(&dev_priv->drm,
-+			    "BIOS fb too large (%dx%d), we require (%dx%d),"
-+			    " releasing it\n",
-+			    intel_fb->base.width, intel_fb->base.height,
-+			    sizes->fb_width, sizes->fb_height);
-+		drm_framebuffer_put(&intel_fb->base);
-+		intel_fb =3D ifbdev->fb =3D NULL;
-+	}
- 	if (intel_fb &&
- 	    (sizes->fb_width > intel_fb->base.width ||
- 	     sizes->fb_height > intel_fb->base.height)) {
---=20
-2.25.1
-
-
+TWF5IEkgYWRkIHlvdXIgcmV2aWV3ZWQtYnkgQXVuLUFsaSBaYWlkaSA/DQoNCj4gT24gMDgtSmFu
+LTIwMjIsIGF0IDM6NTYgUE0sIEF1bi1BbGkgWmFpZGkgPGFkbWluQGtvZGVpdC5uZXQ+IHdyb3Rl
+Og0KPiANCj4gTEdUTQ0KPiANCj4g4oCUDQo+IEF1bi1BbGkgWmFpZGkNCj4gDQo+PiBPbiBKYW4g
+OCwgMjAyMiwgYXQgMzo1OSBBTSwgQXNoaXNoIEFyb3JhIDxhc2hpc2hhcm9yYS5saW51eEBvdXRs
+b29rLmNvbT4gd3JvdGU6DQo+PiANCj4+IA0KPj4gSSBiZWxpZXZlIEkgZm9yZ290IHRvIGFkZCBB
+ZGl0eWEgdG8gdGhlIGNvbnZlcnNhdGlvbi4gU28sIEkgYW0gc2VuZGluZyB0aGUgcGF0Y2ggYXMg
+YW4gYXR0YWNobWVudCBmb3IgdGhvc2Ugd2hvIHdhbnQgdG8gdGVzdCA6KTwwMDAxLWRybS5wYXRj
+aD4NCj4gDQoNCg==
