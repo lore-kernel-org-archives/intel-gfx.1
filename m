@@ -4,66 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB694C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B807C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D823D10FB42;
-	Mon, 10 Jan 2022 13:24:44 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C9FE10FBAD
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 07:47:58 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id s1so3112267wrg.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 23:47:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=f9IoHpTdU4hn8/VqrgcBZySrATwg7Us2omhUYvDJbjs=;
- b=XidapGpHhgr3RhaFb7ce5Hw2biz05P/Zajdv4toYTj0p8Bxqxr9EKdBaNbJLdrnYon
- hytKvHWK6jPtb9d0Bc/4JIzwOOjerdnXS1REjObYn/Pv0v4tqX5kfDzX9aD5MmQUgR1m
- qVMfBGwDC3t5xUPP5uSwVTwvnZPWnKPsB3Pr4WT2UzEyrSZHfa99yS9OND+TfcTPcsnp
- 9vU+zd0P1BHi80M0dkK8U2DP7Ame9Edp5WHwuDelY9M48TV3jm15p2GyKE/QKqC6if+z
- KZZ/SBRmVncXZI2VdRpsRVAiYIQu0QorB26YBLHzuLV+2kb+grPgc4a/Hvmhk5A2NWMR
- s9Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=f9IoHpTdU4hn8/VqrgcBZySrATwg7Us2omhUYvDJbjs=;
- b=cwxT3vy2/Wq5s3klNEtix+vQg2tRXBaBwsXCWdX/CO0/INYSRWUEIvNjxJ44IOP/53
- Mct0krR944tI7eLa5U3YniyDwQqU7k2I12MBsKBSazidZmLv1nSTi1w2lwQNhqTRxbC8
- P0t5Iq0SUgLqGqKvU5U2kuYqJDCfQ0F47aUjfNZe3GWz7JYyIzTxqY4flu9seoUThk8v
- AuSSG5GMN3cpdTlNDFu11TJ+peeiclHQMDZZaQ2nvkLkm2kQzmsyj/JogTDoFfb+oXRf
- CE44YfZwFd1sCyGmCVPXsS2filLWh7+kyXb2PaOLgm0wlXLwhjgg+qFyKIZ86kum6AMZ
- PRCQ==
-X-Gm-Message-State: AOAM530oBy0C0Uq5+NlNEEGgOVJN2wqkWFL9yHdAKaZaVjvCpVSmCB5z
- 9ttSUX43jJXwUROZvH76oNFRGv+QhDQ=
-X-Google-Smtp-Source: ABdhPJw/pujxhzX2X0mZW7tV5xUrAnDQleqBIoLZUoOzzpeF9WvxtB6+DWIyq1YD6GSNKGgW5UpOag==
-X-Received: by 2002:a5d:4d91:: with SMTP id b17mr1255140wru.214.1640159276927; 
- Tue, 21 Dec 2021 23:47:56 -0800 (PST)
-Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id p18sm7389788wmq.0.2021.12.21.23.47.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Dec 2021 23:47:56 -0800 (PST)
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- daniel@ffwll.ch, intel-gfx@lists.freedesktop.org
-References: <20211221140713.367218-1-christian.koenig@amd.com>
- <a78c405c05b7e2f2c0536c8d31a4ca1d586ba4c9.camel@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <501085a8-91e1-8d51-3046-339014ed94df@gmail.com>
-Date: Wed, 22 Dec 2021 08:47:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64F1511B2B3;
+	Mon, 10 Jan 2022 13:24:45 +0000 (UTC)
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBFAD11A6C2
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 Jan 2022 05:17:13 +0000 (UTC)
+Received: from mail-0301.mail-europe.com (mail-0301.mail-europe.com
+ [188.165.51.139])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ by mail-4321.protonmail.ch (Postfix) with ESMTPS id 4JW7Vs5qjwz4x0F0
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 Jan 2022 05:12:05 +0000 (UTC)
+Authentication-Results: mail-4321.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
+ header.b="QGEtXTxe"
+Date: Sat, 08 Jan 2022 05:11:50 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail2; t=1641618721;
+ bh=/j2Vx1bVQJXPbpvBXRiaCl4gIC+8JojGiGdJO7cqyB0=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:From:To:Cc;
+ b=QGEtXTxetiOWU/1q7fkqclnSXkd95iuiWFTPSHAVarKQCDtsBuqp2BRAvStu5HQED
+ w5nW5A6R5alBGRmzKFBef9WImrZ3eehWK8eVdsqOVsshFTpFHixaewrqf+FWH54+UI
+ P1dDg8PZ/NMmfhXfmBTT1O4Z3yvM2HgEkBW+Fo7PmUjW4bkHolRZGTpAToRpwAiaRq
+ 07E41t4DZV10MBPP4kznsdngux7Hppcvhukg2KmH3k1wNuV/iQWzAq6g+2cA6+b2oI
+ p+lJPgd23AUjgnPirTArbYkpiGqMR3nxpt3ldwYYO4ZBAaSOUZJXnajhsqFNz9ZWvW
+ U9VJJpW9HwoQw==
+To: jani.nikula@linux.intel.com
+From: Orlando Chamberlain <redecorating@protonmail.com>
+Message-ID: <20220108050812.6303-1-redecorating@protonmail.com>
 MIME-Version: 1.0
-In-Reply-To: <a78c405c05b7e2f2c0536c8d31a4ca1d586ba4c9.camel@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: remove questionable fence
- optimization during copy
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Discard large BIOS framebuffers
+ causing display corruption.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +54,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Orlando Chamberlain <redecorating@protonmail.com>
+Cc: Aun-Ali Zaidi <admin@kodeit.net>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, ashisharora.linux@outlook.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 21.12.21 um 16:47 schrieb Thomas Hellström:
-> Hi, Christian,
->
-> On Tue, 2021-12-21 at 15:07 +0100, Christian König wrote:
->> First of all as discussed multiple times now kernel copies *must*
->> always wait
->> for all fences in a BO before actually doing the copy. This is
->> mandatory.
-> This patch looks ok to me.
->
-> Regarding the discussion I was just awaiting  Daniel's reply from
-> yesterday:
->
-> https://lists.freedesktop.org/archives/intel-gfx/2021-December/285717.html
->
-> since his earlier reply
->
-> https://lists.freedesktop.org/archives/intel-gfx/2021-December/285717.html
->
-> contradicted your previous reply
->
-> https://lists.freedesktop.org/archives/intel-gfx/2021-December/284467.html
->
-> That confirmed all writes had to add an exclusive fence, and confirmed
-> that starting the blit early was ok.
->
-> So I was left a bit confused as to what the rules really were.
->
-> So now if I understand both of you correctly, writers that want to opt
-> out of implicit syncing do *not* need to add an exclusive fence. Is
-> that correct?
+I haven't observed "display corruption", but on my MacBookPro16,1 the botto=
+m
+and right edges of the TTY are not on the screen, so a few lines of text
+cannot be seen.
 
-Yes, that's a good summary of the problem.
+This also occurs on the internal displays of all (as far as I know) other
+2018-2020 Intel Macbooks when using the Intel GPU (The 15" and 16" ones
+also have an AMDGPU, but this issue occurs when they have the Intel GPU
+set as the boot gpu).
 
->> Additional to that drop the handling when there can't be a shared
->> slot
->> allocated on the source BO and just properly return an error code.
->> Otherwise
->> this code path would only be tested under out of memory conditions.
-> Good point.
->
->> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->
-> Ok if I add this to drm-intel-gt-next?
+There's a similar patch that hasn't been sent upstream that people with the=
+se
+Macbooks have been using:
+https://github.com/aunali1/linux-mbp-arch/blob/master/7001-drm-i915-fbdev-D=
+iscard-BIOS-framebuffers-exceeding-h.patch
 
-Please go ahead.
+Cc: Aun-Ali Zaidi <admin@kodeit.net>
 
+--
 Thanks,
-Christian.
-
->
-> /Thomas
->
->
+Orlando
 
