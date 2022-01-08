@@ -4,32 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42BA1C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15698C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20FC514B435;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 000CE14B43B;
 	Mon, 10 Jan 2022 13:24:18 +0000 (UTC)
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B635910E82C;
- Wed,  5 Jan 2022 09:36:11 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R871e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407; MF=yang.lee@linux.alibaba.com;
- NM=1; PH=DS; RN=11; SR=0; TI=SMTPD_---0V10PFNA_1641375366; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0V10PFNA_1641375366) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 05 Jan 2022 17:36:07 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: jani.nikula@linux.intel.com,
-	airlied@linux.ie
-Date: Wed,  5 Jan 2022 17:36:05 +0800
-Message-Id: <20220105093605.66436-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+X-Greylist: delayed 345 seconds by postgrey-1.36 at gabe;
+ Sun, 09 Jan 2022 00:02:41 UTC
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A85910E154;
+ Sun,  9 Jan 2022 00:02:41 +0000 (UTC)
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 4JWcSj2Nmgz9c;
+ Sun,  9 Jan 2022 00:56:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1641686214; bh=Z2n6Y6Sf4Y6Bf2Ppe85jypN2n8Y8lV1D9040Mx5hpos=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ni4KnjOtn+hCc9wZqB4O1lyd/SQvYGeDveDJiVEyqIzfK9xa+8kQssISAVkp10OOS
+ QJG+E4XBi/DI9IrVihm8pNKRfTZCFWiUpeYSaANqHiLQuq0Ni5+Hq9janns3FG36Kf
+ HRKczCvbqcseuavdP2cQwxe7fy71FhFJj6Gm6Y4uGMMVMQSeRiX37DK+TgkZiuj3fa
+ u28xFMriqr/zJvK9WXZtbO48c35IRJ1q6hNu/DUpyyFQUSD8XVJ//1ciCunkK6TGIC
+ W3OZnrCmSV3xtiEnJdTHJ2fKvOUk+pZzPnn8646Ku8Z1lL9KH0tHYrreIjGwZuj/iD
+ 1zclsDw8lR1IQ==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.103.4 at mail
+Date: Sun, 9 Jan 2022 00:56:51 +0100
+From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <Ydokw2y6w9JlCsgR@qmqm.qmqm.pl>
+References: <20211215104318.18866-1-tzimmermann@suse.de>
+ <20211215104318.18866-4-tzimmermann@suse.de>
+ <87pmpy3za7.fsf@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-2
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87pmpy3za7.fsf@intel.com>
 X-Mailman-Approved-At: Mon, 10 Jan 2022 13:24:14 +0000
-Subject: [Intel-gfx] [PATCH -next v2] drm/i915/fbc: replace
- DEFINE_SIMPLE_ATTRIBUTE with DEFINE_DEBUGFS_ATTRIBUTE
+Subject: Re: [Intel-gfx] [PATCH v2 3/5] drm/dp: Move DisplayPort helpers
+ into separate helper module
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,42 +55,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yang Li <yang.lee@linux.alibaba.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ mripard@kernel.org, nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix the following coccicheck warning:
-./drivers/gpu/drm/i915/display/intel_fbc.c:1757:0-23: WARNING:
-intel_fbc_debugfs_false_color_fops should be defined with
-DEFINE_DEBUGFS_ATTRIBUTE
+On Wed, Dec 15, 2021 at 01:04:00PM +0200, Jani Nikula wrote:
+> On Wed, 15 Dec 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > 	* move DP helper code into dp/ (Jani)
+> 
+> I suggested adding the subdirectory, but I'm going to bikeshed the name,
+> which I didn't suggest.
+> 
+> $ find drivers/gpu/drm -mindepth 1 -maxdepth 1 -type d | wc -l
+> 68
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/i915/display/intel_fbc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Maybe the hardware-specific drivers could be moved up to drivers/gpu/
+instead? That would make it obvious what code is generic and what is not.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 160fd2bdafe5..9ab844ea7992 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -1754,10 +1754,10 @@ static int intel_fbc_debugfs_false_color_set(void *data, u64 val)
- 	return 0;
- }
- 
--DEFINE_SIMPLE_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
--			intel_fbc_debugfs_false_color_get,
--			intel_fbc_debugfs_false_color_set,
--			"%llu\n");
-+DEFINE_DEBUGFS_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
-+			 intel_fbc_debugfs_false_color_get,
-+			 intel_fbc_debugfs_false_color_set,
-+			 "%llu\n");
- 
- static void intel_fbc_debugfs_add(struct intel_fbc *fbc)
- {
--- 
-2.20.1.7.g153144c
-
+Best Regards
+Micha³ Miros³aw
