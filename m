@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09EC8C433F5
-	for <intel-gfx@archiver.kernel.org>; Sun,  9 Jan 2022 14:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF32C433EF
+	for <intel-gfx@archiver.kernel.org>; Sun,  9 Jan 2022 14:20:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E743810E2EE;
-	Sun,  9 Jan 2022 14:20:30 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A50B210E784;
- Sun,  9 Jan 2022 14:20:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75F6C10EC59;
+	Sun,  9 Jan 2022 14:20:31 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E04910E2EE;
+ Sun,  9 Jan 2022 14:20:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JUDksVbcjJYfsdmBI9jAowxNpnm2gXKYUwdRuOVIjQYoyCeJ5Dl+QrnEf7LUZ8igWNR2EjJWQRxNAtI6U5J/9mUdcate3QM33WCnDDQAVSXI6tCK6YMv2q9bT+4eiJNgC4dOYl0tnkhH3EeSlkWEJaQguOzRFSjXvohSkFLHCmIjcWpE/H5mvBnVzw4FhWOadr8mtZaok1B3Ej/7JG6K/QAmJpktNWFUh3jeDYNORDC8kCw6rsSZBmfDm6/Z0oGFeO7wBWEeUnZetbojttFwoaxGf0izeU2JcJoGOEBKE3akvwX6sXfxcZEKSnrHHzfMXuKyk90DCffmF3oxvn+XBA==
+ b=FPRoZl2WaPT4vFdg45NrhT7zFr42INHXP4WxMkQCxtYc+45RJZSw7JqUDF6GveCMOajW4ou0K8nuuedBTOJwR9mk/XUAzwF9njWyaBW96A0abtTQDhmPjOGHeiUNZHY5OwyjYL2ALcK6JdmCiJyCBxI1NKuiWEZiC4NjAn37px6UlCjk+pHjyR5b1/rMLCL3Iw09yUCngY8U6ws0yCRuvQBFNFMk7LjOB+OcMXNrq8xXtswWkP4DW9oAZC9k8DT43x0IPvPtaSjLaO8+1yoSokAik1SG4hEF2ze5b1XRNnspbyi1/UcJzegmrxnncKpb34RTS6FSeFfMPpLfGQah8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2kIgAxTsZOmMt/R5KguyZmOmobVdLpO5qp1KF1znmrk=;
- b=c+f4iTk5ZjlyCguU87+3p0tnR9X7sNea6s4jviFg2qVEIE/sUQ7hs5bgMCWaE47MgcNYcq5dUb30fJPfkrLB9P98YVgoiudW4+A/l6N/wCqNNW/MBLC1LOPUxcZWfDVznAbIty6X4BS/mVSFcUJ5RAxGVIhoPhiyjM4MRQaE5Yu8FaJZCZqkuuxPZYiRD763/r7slJqudJVriHsUFYsyqhHjOWy0Keh3l3Vdm1JbMuOf/tLvvS9TXCGLAgnXi7AAU0NSM6TBw6lwKKokXNIWHCaylANI+vuaSof7cnEcY3zwn0TizI97O4M/MRhQvxAzAayhcBhNTmmIeTZenoJCyA==
+ bh=Is4jq7tc15r/64c7pUUbmLHhNlmOHuLjsXh05SG6rCk=;
+ b=iQ9+PTuHs1BsnKtkI3cHlBB9jt8ALYJAxEBpO8vgGvbm6nKDBseSblU6TVpZT28ZSX+d+vjFzbbX+S1ndle3aZpQA537PT3wHYczQO7XvDZhsIG0OBWntkkQpLccXC+9LgpqvOHdu9izxyHh3mE33YHIl1I6ZqdRNxlhSUhEKnxfx6AIKT1JFG9mF5gzwx4P829nS/sw0V0b+riFkicw6hyGB8hkhjhYKzMSZgWfPOxswI4sqT/8HZOt0TN5NDD3n9F5ZttTRLHHpJJ1+APG5m6yAoObekDmoR0FRxeAa03kkOkL88MhimlkG/BuKG0ScT6vtJMpdrq7ialvJqWWeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2kIgAxTsZOmMt/R5KguyZmOmobVdLpO5qp1KF1znmrk=;
- b=PeYFPcNb4SWGCzCZMsSgRb/3LNoX/SwXtUt+zs0FyN7xZWva1EAjNnBeoIEq7Qu2RWKQbo1078qTHnjQpqJqmP1XwOQY5tGoidKzf0KI+WkhRn0Hg4LJkOfn+cdcWa0XOqilClTpiAN86lcojxe1Q/p5NpGHpHPAYoknhrjCD84=
-Received: from BN1PR10CA0021.namprd10.prod.outlook.com (2603:10b6:408:e0::26)
- by SN6PR12MB2623.namprd12.prod.outlook.com (2603:10b6:805:6f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Sun, 9 Jan
- 2022 14:20:26 +0000
+ bh=Is4jq7tc15r/64c7pUUbmLHhNlmOHuLjsXh05SG6rCk=;
+ b=jbI1N9MS/nAeBqY+fepKR1teExPBNHHTFYGSTvT+BWrF0tqVAam3D5pUarpJHzE5c2l4ThGFRATASR60AQT6Izdx/MF+mFwOOyMpEECz3CEWt+E9Hzd7IHv6t7VMLj9Dr/qisaor6mf61ZF2JUFBFc3cHMESMPaVpZcfDcMKl+I=
+Received: from BN1PR10CA0015.namprd10.prod.outlook.com (2603:10b6:408:e0::20)
+ by DM6PR12MB3145.namprd12.prod.outlook.com (2603:10b6:5:3a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Sun, 9 Jan
+ 2022 14:20:25 +0000
 Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e0:cafe::d2) by BN1PR10CA0021.outlook.office365.com
- (2603:10b6:408:e0::26) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:e0:cafe::91) by BN1PR10CA0015.outlook.office365.com
+ (2603:10b6:408:e0::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9 via Frontend
- Transport; Sun, 9 Jan 2022 14:20:26 +0000
+ Transport; Sun, 9 Jan 2022 14:20:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4867.9 via Frontend Transport; Sun, 9 Jan 2022 14:20:26 +0000
+ 15.20.4867.9 via Frontend Transport; Sun, 9 Jan 2022 14:20:25 +0000
 Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Sun, 9 Jan
- 2022 08:20:21 -0600
+ 2022 08:20:15 -0600
 From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
  <amd-gfx@lists.freedesktop.org>
-Date: Sun, 9 Jan 2022 19:49:50 +0530
-Message-ID: <20220109141951.134432-5-Arunpravin.PaneerSelvam@amd.com>
+Date: Sun, 9 Jan 2022 19:49:48 +0530
+Message-ID: <20220109141951.134432-3-Arunpravin.PaneerSelvam@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220109141951.134432-1-Arunpravin.PaneerSelvam@amd.com>
 References: <20220109141951.134432-1-Arunpravin.PaneerSelvam@amd.com>
@@ -68,30 +68,29 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 793a5d82-d8c1-4693-6adf-08d9d37b2e64
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2623:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR12MB262314BA87AE4FC1BDF6C79DE44F9@SN6PR12MB2623.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 8f10facb-3ef1-46eb-7437-08d9d37b2dc9
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3145:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB314582CC17BF4CC8AF3E6687E44F9@DM6PR12MB3145.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ahR4wcxrok9pdaIxNf2GAxL2elERvLmAQa8MlPDcdQyD6t54LN6gTfjvbpb9mCXhqpWRBJxv/zWA0bJZBkRakQ+LjOPxYfRnMbvNCkbssPUuNbak+DV7J9t/hEa89oP4r2Uov0v72hfbpaobbcev2WXlHcP219Ix6Htpd3N2JwUkcO6uduJqARPb6You+PCwF8sBZOat+aNk09YPFqbwSextUgYVT+2A3Z+0lvbhUL4gvnETKw6ZPDt2ppkVZe5v4wZSdGLNUAIL3Ovy4x0Q072AV6NjimANQ4ve3/mKcSP59TlVef6r63qL4CAE3zuo/Lq/wvGjl33aIssc4z0tfA/ZiNC/2C6vPLEWbUSLFoioFkN/2dsG7FyU1R/hsPqjlQb84uE3ARrljSLk62I2uHGxMmf/eJQZ/6QPk/m9EbkzvVKL/PyuG4QUIGvDnctBcFpaArVrzp20w5ngTjGxCANyJ45RCYpwo1qQlSljP06DxhOtUQtydvMjfVZ1/aqb6WnhdUHz6pqsguTwyuvDJRP49JynyyB9EmLwRfbZkt6Fw8I70w3o+trL0ZMqZT8Cr8WZ5aA8XEPp8v5kdw2R6RuFLllHn147wylX9VK8MSrgtaFCXh8L9Rfuewc6gzRr4Gleb3OU/Hm89jILK7mSsTugPTHdBTJGOfptdvTyMJnHFphMo14s3R7l0FEzXZdKkFPWZMSBz1E+mTjNi8oxKrZQImi2lhmYzExn8K9STjtkBt46rWS7Jg8LBOm9uErTyRJE0AeEFmooeIOr49GZ7BCewhmM0BitadleJ5ryrSI=
+X-Microsoft-Antispam-Message-Info: B5AziFRnF+0/bgFrI/rlrxqjy5XM+sVYM/EFKxF3N681A5XD1eEIYA7ekMuoQGuLARRJ+pmBUXMCakCWHwDINQVbjOs2N2RI5t6GlICti5cpuF2EfPd05DK+Sns2v21lUh4O/kNOr+VbVdKFbpkYLzBLKRZiHrH2Xil4ha+PtLRR6crv1B5jtOPzKxxnwi9iNgBkwYkT40L+lsdVo3q7x7mMH3obuInxLFzt8TN9ocZM4S35paxumLShd3U5P72M9JebsI9SYbNDDQRfP/vQIecEfuIz790lDSKnHCzFYsO0kZmtWdKeN+2G6ymX87Lc4ziJZD2PtPe0TMkhIsNM6QoME4Mn0jLBa8DXY71D5UJ5ACPxyxYPV63slJB1O/yYowKDQRqgUeVLU6lGbsot3VoaRLnB3IIJeeY+vtOeaFqlcxeyyBR0UrT+IeM7nn8Ii3CKz8prjSOf4d6wHRPABJ9kD9iK0nDliEIfL+4oh/AXafbVPpN6gPyK4SIqorvbG9xIR4Cp4egO6+K/UNAS70t+DmjcA3Kaq2pTX16SjimHlaLGcTdcxgXSDArUPh/+fYFy7K1682gdBWV+h32Yzjp4JPIecX2RIGbovKcx+bsPO1xLC0+2c++HF3djGiDEzHJou7vj+uWqQFQQG8E5sRbgzs2qRZ/Ku+wR1ZhA+ukaLSHdZevUHlUhE0iwaSypaDwQqx5LfXm/N6e/pAmZ0ge3+rH+vOWSiL4lZOzcEe/6jHbK4wJ+l255vHMp3gbnm3EQB4GDyXc8tLz0PoR7CDSXbWJiBXKLsSd1kyXn7ScLv4UL5orGfkRvxFHup+Uz4x30AOtUr++2XdMm5u4F4Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(46966006)(36840700001)(110136005)(54906003)(2906002)(70586007)(83380400001)(36860700001)(2616005)(508600001)(82310400004)(336012)(4326008)(8676002)(1076003)(70206006)(6666004)(5660300002)(356005)(16526019)(316002)(86362001)(40460700001)(36756003)(426003)(8936002)(81166007)(47076005)(186003)(7696005)(26005)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(40470700002)(81166007)(16526019)(508600001)(6666004)(8676002)(110136005)(316002)(82310400004)(336012)(4326008)(2616005)(426003)(54906003)(26005)(47076005)(36860700001)(2906002)(36756003)(1076003)(356005)(70586007)(40460700001)(70206006)(8936002)(83380400001)(5660300002)(7696005)(86362001)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2022 14:20:26.1938 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 793a5d82-d8c1-4693-6adf-08d9d37b2e64
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2022 14:20:25.1938 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f10facb-3ef1-46eb-7437-08d9d37b2dc9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2623
-Subject: [Intel-gfx] [PATCH v7 5/6] drm/amdgpu: move vram inline functions
- into a header
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3145
+Subject: [Intel-gfx] [PATCH v7 3/6] drm: implement top-down allocation method
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,72 +108,119 @@ Cc: Arunpravin <Arunpravin.PaneerSelvam@amd.com>, matthew.auld@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move shared vram inline functions and structs
-into a header file
+Implemented a function which walk through the order list,
+compares the offset and returns the maximum offset block,
+this method is unpredictable in obtaining the high range
+address blocks which depends on allocation and deallocation.
+for instance, if driver requests address at a low specific
+range, allocator traverses from the root block and splits
+the larger blocks until it reaches the specific block and
+in the process of splitting, lower orders in the freelist
+are occupied with low range address blocks and for the
+subsequent TOPDOWN memory request we may return the low
+range blocks.To overcome this issue, we may go with the
+below approach.
+
+The other approach, sorting each order list entries in
+ascending order and compares the last entry of each
+order list in the freelist and return the max block.
+This creates sorting overhead on every drm_buddy_free()
+request and split up of larger blocks for a single page
+request.
+
+v2:
+  - Fix alignment issues(Matthew Auld)
+  - Remove unnecessary list_empty check(Matthew Auld)
+  - merged the below patch to see the feature in action
+     - add top-down alloc support to i915 driver
 
 Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 51 ++++++++++++++++++++
- 1 file changed, 51 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+ drivers/gpu/drm/drm_buddy.c                   | 36 ++++++++++++++++---
+ drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |  3 ++
+ include/drm/drm_buddy.h                       |  1 +
+ 3 files changed, 35 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-new file mode 100644
-index 000000000000..59983464cce5
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-@@ -0,0 +1,51 @@
-+/* SPDX-License-Identifier: MIT
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_VRAM_MGR_H__
-+#define __AMDGPU_VRAM_MGR_H__
-+
-+#include <drm/drm_buddy.h>
-+
-+struct amdgpu_vram_mgr_node {
-+	struct ttm_resource base;
-+	struct list_head blocks;
-+	unsigned long flags;
-+};
-+
-+static inline u64 amdgpu_node_start(struct drm_buddy_block *block)
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index cd914d104b1a..11356c2bb7aa 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -369,6 +369,26 @@ alloc_range_bias(struct drm_buddy *mm,
+ 	return ERR_PTR(err);
+ }
+ 
++static struct drm_buddy_block *
++get_maxblock(struct list_head *head)
 +{
-+	return drm_buddy_block_offset(block);
++	struct drm_buddy_block *max_block = NULL, *node;
++
++	max_block = list_first_entry_or_null(head,
++					     struct drm_buddy_block,
++					     link);
++	if (!max_block)
++		return NULL;
++
++	list_for_each_entry(node, head, link) {
++		if (drm_buddy_block_offset(node) >
++		    drm_buddy_block_offset(max_block))
++			max_block = node;
++	}
++
++	return max_block;
 +}
 +
-+static inline u64 amdgpu_node_size(struct drm_buddy_block *block)
-+{
-+	return PAGE_SIZE << drm_buddy_block_order(block);
-+}
+ static struct drm_buddy_block *
+ alloc_from_freelist(struct drm_buddy *mm,
+ 		    unsigned int order,
+@@ -379,11 +399,17 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 	int err;
+ 
+ 	for (i = order; i <= mm->max_order; ++i) {
+-		block = list_first_entry_or_null(&mm->free_list[i],
+-						 struct drm_buddy_block,
+-						 link);
+-		if (block)
+-			break;
++		if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
++			block = get_maxblock(&mm->free_list[i]);
++			if (block)
++				break;
++		} else {
++			block = list_first_entry_or_null(&mm->free_list[i],
++							 struct drm_buddy_block,
++							 link);
++			if (block)
++				break;
++		}
+ 	}
+ 
+ 	if (!block)
+diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+index 143657a706ae..ae9201246bb5 100644
+--- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
++++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+@@ -53,6 +53,9 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+ 	INIT_LIST_HEAD(&bman_res->blocks);
+ 	bman_res->mm = mm;
+ 
++	if (place->flags & TTM_PL_FLAG_TOPDOWN)
++		bman_res->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
 +
-+static inline struct amdgpu_vram_mgr_node *
-+to_amdgpu_vram_mgr_node(struct ttm_resource *res)
-+{
-+	return container_of(res, struct amdgpu_vram_mgr_node, base);
-+}
-+
-+#endif
+ 	if (place->fpfn || lpfn != man->size)
+ 		bman_res->flags |= DRM_BUDDY_RANGE_ALLOCATION;
+ 
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 865664b90a8a..424fc443115e 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -28,6 +28,7 @@
+ })
+ 
+ #define DRM_BUDDY_RANGE_ALLOCATION (1 << 0)
++#define DRM_BUDDY_TOPDOWN_ALLOCATION (1 << 1)
+ 
+ struct drm_buddy_block {
+ #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
 -- 
 2.25.1
 
