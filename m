@@ -4,26 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7FF0C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 11:52:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F64AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 13:07:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45A8814AC16;
-	Mon, 10 Jan 2022 11:51:43 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 748F614A96B;
- Mon, 10 Jan 2022 11:51:39 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Jan 2022 12:51:31 +0100
-Message-Id: <20220110115133.1500718-6-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220110115133.1500718-1-maarten.lankhorst@linux.intel.com>
-References: <20220110115133.1500718-1-maarten.lankhorst@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2C712BE0A;
+	Mon, 10 Jan 2022 13:07:42 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 524EA12BE0B;
+ Mon, 10 Jan 2022 13:07:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 4EFDFA7DFB;
+ Mon, 10 Jan 2022 13:07:40 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 5/7] drm/i915: Remove
- assert_object_held_shared
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>
+Date: Mon, 10 Jan 2022 13:07:40 -0000
+Message-ID: <164182006028.28742.5884542469101166175@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220110115133.1500718-1-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20220110115133.1500718-1-maarten.lankhorst@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Remove_short_term_pins_from_execbuf_by_requirin?=
+ =?utf-8?q?g_lock_to_unbind=2E_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,164 +41,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This duck tape workaround is no longer required, unbind and destroy are
-fixed to take the obj->resv mutex before destroying and obj->mm.lock has
-been removed, always requiring obj->resv as well.
+== Series Details ==
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_object.c  |  4 ++--
- drivers/gpu/drm/i915/gem/i915_gem_object.h  | 14 --------------
- drivers/gpu/drm/i915/gem/i915_gem_pages.c   | 10 +++++-----
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c |  2 +-
- drivers/gpu/drm/i915/i915_vma.c             |  6 +++---
- 5 files changed, 11 insertions(+), 25 deletions(-)
+Series: drm/i915: Remove short term pins from execbuf by requiring lock to unbind. (rev2)
+URL   : https://patchwork.freedesktop.org/series/98137/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index d87b508b59b1..fd34b1a115c4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -550,7 +550,7 @@ bool i915_gem_object_has_struct_page(const struct drm_i915_gem_object *obj)
- #ifdef CONFIG_LOCKDEP
- 	if (IS_DGFX(to_i915(obj->base.dev)) &&
- 	    i915_gem_object_evictable((void __force *)obj))
--		assert_object_held_shared(obj);
-+		assert_object_held(obj);
- #endif
- 	return obj->mem_flags & I915_BO_FLAG_STRUCT_PAGE;
- }
-@@ -569,7 +569,7 @@ bool i915_gem_object_has_iomem(const struct drm_i915_gem_object *obj)
- #ifdef CONFIG_LOCKDEP
- 	if (IS_DGFX(to_i915(obj->base.dev)) &&
- 	    i915_gem_object_evictable((void __force *)obj))
--		assert_object_held_shared(obj);
-+		assert_object_held(obj);
- #endif
- 	return obj->mem_flags & I915_BO_FLAG_IOMEM;
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index bc448f895ae8..c1cdfaf2d1e3 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -157,20 +157,6 @@ i915_gem_object_put(struct drm_i915_gem_object *obj)
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+0a564d5e4bd9 drm/i915: Call i915_gem_evict_vm in vm_fault_gtt to prevent new ENOSPC errors, v2.
+2ffa12202a76 drm/i915: Add locking to i915_gem_evict_vm()
+775c2d0a1bd1 drm/i915: Add object locking to i915_gem_evict_for_node and i915_gem_evict_something
+-:148: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#148: FILE: drivers/gpu/drm/i915/i915_gem_evict.c:252:
  
- #define assert_object_held(obj) dma_resv_assert_held((obj)->base.resv)
- 
--/*
-- * If more than one potential simultaneous locker, assert held.
-- */
--static inline void assert_object_held_shared(const struct drm_i915_gem_object *obj)
--{
--	/*
--	 * Note mm list lookup is protected by
--	 * kref_get_unless_zero().
--	 */
--	if (IS_ENABLED(CONFIG_LOCKDEP) &&
--	    kref_read(&obj->base.refcount) > 0)
--		assert_object_held(obj);
--}
--
- static inline int __i915_gem_object_lock(struct drm_i915_gem_object *obj,
- 					 struct i915_gem_ww_ctx *ww,
- 					 bool intr)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 7d2211fbe548..a1a785068779 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -19,7 +19,7 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
- 	bool shrinkable;
- 	int i;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (i915_gem_object_is_volatile(obj))
- 		obj->mm.madv = I915_MADV_DONTNEED;
-@@ -95,7 +95,7 @@ int ____i915_gem_object_get_pages(struct drm_i915_gem_object *obj)
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	int err;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (unlikely(obj->mm.madv != I915_MADV_WILLNEED)) {
- 		drm_dbg(&i915->drm,
-@@ -122,7 +122,7 @@ int __i915_gem_object_get_pages(struct drm_i915_gem_object *obj)
- 
- 	assert_object_held(obj);
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (unlikely(!i915_gem_object_has_pages(obj))) {
- 		GEM_BUG_ON(i915_gem_object_has_pinned_pages(obj));
-@@ -191,7 +191,7 @@ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj)
- {
- 	struct sg_table *pages;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	pages = fetch_and_zero(&obj->mm.pages);
- 	if (IS_ERR_OR_NULL(pages))
-@@ -222,7 +222,7 @@ int __i915_gem_object_put_pages(struct drm_i915_gem_object *obj)
- 		return -EBUSY;
- 
- 	/* May be called by shrinker from within get_pages() (on another bo) */
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	i915_gem_object_release_mmap_offset(obj);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 3cc01c30dd62..8a0da441225b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -109,7 +109,7 @@ static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object *obj)
- {
- 	struct page **pvec = NULL;
- 
--	assert_object_held_shared(obj);
-+	assert_object_held(obj);
- 
- 	if (!--obj->userptr.page_ref) {
- 		pvec = obj->userptr.pvec;
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index b7f25ff65c19..11e10e0d628c 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1730,7 +1730,7 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
- void __i915_vma_evict(struct i915_vma *vma)
- {
- 	GEM_BUG_ON(i915_vma_is_pinned(vma));
--	assert_object_held_shared(vma->obj);
-+	assert_object_held(vma->obj);
- 
- 	if (i915_vma_is_map_and_fenceable(vma)) {
- 		/* Force a pagefault for domain tracking on next user access */
-@@ -1776,7 +1776,7 @@ int __i915_vma_unbind(struct i915_vma *vma)
- 	int ret;
- 
- 	lockdep_assert_held(&vma->vm->mutex);
--	assert_object_held_shared(vma->obj);
-+	assert_object_held(vma->obj);
- 
- 	if (!drm_mm_node_allocated(&vma->node))
- 		return 0;
-@@ -1808,7 +1808,7 @@ int i915_vma_unbind(struct i915_vma *vma)
- 	intel_wakeref_t wakeref = 0;
- 	int err;
- 
--	assert_object_held_shared(vma->obj);
-+	assert_object_held(vma->obj);
- 
- 	/* Optimistic wait before taking the mutex */
- 	err = i915_vma_sync(vma);
--- 
-2.34.1
++
+
+total: 0 errors, 0 warnings, 1 checks, 364 lines checked
+ec557f8e7070 drm/i915: Add i915_vma_unbind_unlocked, and take obj lock for i915_vma_unbind, v2.
+-:7: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#7: 
+We want to remove more members of i915_vma, which requires the locking to be
+
+total: 0 errors, 1 warnings, 0 checks, 317 lines checked
+24fe65e145e6 drm/i915: Remove assert_object_held_shared
+f5cb09503ae0 drm/i915: Remove support for unlocked i915_vma unbind
+953cc81f3a16 drm/i915: Remove short-term pins from execbuf, v6.
+
 
