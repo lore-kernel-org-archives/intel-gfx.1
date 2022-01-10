@@ -4,48 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80FACC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 11:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F4D2C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 11:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB08D14A710;
-	Mon, 10 Jan 2022 11:20:57 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6871114A70F
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 11:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641813656; x=1673349656;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=MO5RkgTsAp8EwuBCEzQfgaz62HqVVkaIq4I2h93B39A=;
- b=a+p4eIr+nao/K77DcPK2I4ZftNXN6H4Z9FKLJBHPioXTgU2jyfbkQZUa
- bitVY7x5psuDGPYEoSwrYwIxC8WxeaZJ+mqCHAFU3g2uLx9YRxRamqPAE
- 4My8K4KmkCtgMi4VI0xGRCbF4LvoDC1F1ja41L9JUVjOPCpc+9ire9sUS
- JX1Vj1xRSVXSH46Q/1JYBLcjnw5sqD7xEC3BiGetz6RPL4VW1gzb96pB7
- OX8IDsVGlXhzOShLTD1co1ikEaZb4RzZlvvtlHrxCdl/83P0B0WzlIROF
- iUOgOxc2CGP1+WbwZnEeNpaD6mkA0PF7nLxDuCZ0lNJVLBTIYkSEAp1Nm A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10222"; a="223186156"
-X-IronPort-AV: E=Sophos;i="5.88,276,1635231600"; d="scan'208";a="223186156"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 03:20:55 -0800
-X-IronPort-AV: E=Sophos;i="5.88,276,1635231600"; d="scan'208";a="514641168"
-Received: from bdoyle2-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.26.184])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 03:20:54 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20220108044055.3123418-2-matthew.d.roper@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220108044055.3123418-1-matthew.d.roper@intel.com>
- <20220108044055.3123418-2-matthew.d.roper@intel.com>
-Date: Mon, 10 Jan 2022 13:20:51 +0200
-Message-ID: <87czkzalbg.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C52514A92E;
+	Mon, 10 Jan 2022 11:51:39 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl
+ [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2612412BD2C;
+ Mon, 10 Jan 2022 11:51:38 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 10 Jan 2022 12:51:28 +0100
+Message-Id: <20220110115133.1500718-3-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220110115133.1500718-1-maarten.lankhorst@linux.intel.com>
+References: <20220110115133.1500718-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2 1/7] drm/i915: Use parameterized GPR
- register definitions everywhere
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 2/7] drm/i915: Add locking to
+ i915_gem_evict_vm()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,142 +36,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 07 Jan 2022, Matt Roper <matthew.d.roper@intel.com> wrote:
-> Since we have an engine-parameterized macro GEN8_RING_CS_GPR, let's use
-> that in place of the HSW_CS_GPR and BCS_GPR register definitions.
->
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+i915_gem_evict_vm will need to be able to evict objects that are
+locked by the current ctx. By testing if the current context already
+locked the object, we can do this correctly. This allows us to
+evict the entire vm even if we already hold some objects' locks.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Previously, this was spread over several commits, but it makes
+more sense to commit the changes to i915_gem_evict_vm separately
+from the changes to i915_gem_evict_something() and
+i915_gem_evict_for_node().
 
-> ---
->  drivers/gpu/drm/i915/i915_cmd_parser.c | 68 ++++++++++++++------------
->  drivers/gpu/drm/i915/i915_reg.h        |  8 ---
->  2 files changed, 36 insertions(+), 40 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
-> index e0403ce9ce69..20191a32478a 100644
-> --- a/drivers/gpu/drm/i915/i915_cmd_parser.c
-> +++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
-> @@ -591,6 +591,10 @@ struct drm_i915_reg_descriptor {
->  	{ .addr = _reg(idx) }, \
->  	{ .addr = _reg ## _UDW(idx) }
->  
-> +#define REG64_BASE_IDX(_reg, base, idx) \
-> +	{ .addr = _reg(base, idx) }, \
-> +	{ .addr = _reg ## _UDW(base, idx) }
-> +
->  static const struct drm_i915_reg_descriptor gen7_render_regs[] = {
->  	REG64(GPGPU_THREADS_DISPATCHED),
->  	REG64(HS_INVOCATION_COUNT),
-> @@ -636,22 +640,22 @@ static const struct drm_i915_reg_descriptor gen7_render_regs[] = {
->  };
->  
->  static const struct drm_i915_reg_descriptor hsw_render_regs[] = {
-> -	REG64_IDX(HSW_CS_GPR, 0),
-> -	REG64_IDX(HSW_CS_GPR, 1),
-> -	REG64_IDX(HSW_CS_GPR, 2),
-> -	REG64_IDX(HSW_CS_GPR, 3),
-> -	REG64_IDX(HSW_CS_GPR, 4),
-> -	REG64_IDX(HSW_CS_GPR, 5),
-> -	REG64_IDX(HSW_CS_GPR, 6),
-> -	REG64_IDX(HSW_CS_GPR, 7),
-> -	REG64_IDX(HSW_CS_GPR, 8),
-> -	REG64_IDX(HSW_CS_GPR, 9),
-> -	REG64_IDX(HSW_CS_GPR, 10),
-> -	REG64_IDX(HSW_CS_GPR, 11),
-> -	REG64_IDX(HSW_CS_GPR, 12),
-> -	REG64_IDX(HSW_CS_GPR, 13),
-> -	REG64_IDX(HSW_CS_GPR, 14),
-> -	REG64_IDX(HSW_CS_GPR, 15),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 0),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 1),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 2),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 3),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 4),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 5),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 6),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 7),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 8),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 9),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 10),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 11),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 12),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 13),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 14),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 15),
->  	REG32(HSW_SCRATCH1,
->  	      .mask = ~HSW_SCRATCH1_L3_DATA_ATOMICS_DISABLE,
->  	      .value = 0),
-> @@ -674,22 +678,22 @@ static const struct drm_i915_reg_descriptor gen9_blt_regs[] = {
->  	REG32(BCS_SWCTRL),
->  	REG64_IDX(RING_TIMESTAMP, BLT_RING_BASE),
->  	REG32_IDX(RING_CTX_TIMESTAMP, BLT_RING_BASE),
-> -	REG64_IDX(BCS_GPR, 0),
-> -	REG64_IDX(BCS_GPR, 1),
-> -	REG64_IDX(BCS_GPR, 2),
-> -	REG64_IDX(BCS_GPR, 3),
-> -	REG64_IDX(BCS_GPR, 4),
-> -	REG64_IDX(BCS_GPR, 5),
-> -	REG64_IDX(BCS_GPR, 6),
-> -	REG64_IDX(BCS_GPR, 7),
-> -	REG64_IDX(BCS_GPR, 8),
-> -	REG64_IDX(BCS_GPR, 9),
-> -	REG64_IDX(BCS_GPR, 10),
-> -	REG64_IDX(BCS_GPR, 11),
-> -	REG64_IDX(BCS_GPR, 12),
-> -	REG64_IDX(BCS_GPR, 13),
-> -	REG64_IDX(BCS_GPR, 14),
-> -	REG64_IDX(BCS_GPR, 15),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 0),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 1),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 2),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 3),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 4),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 5),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 6),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 7),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 8),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 9),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 10),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 11),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 12),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 13),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 14),
-> +	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 15),
->  };
->  
->  #undef REG64
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index e20e832162b4..86e459010465 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -599,10 +599,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
->  #define   BCS_SRC_Y REG_BIT(0)
->  #define   BCS_DST_Y REG_BIT(1)
->  
-> -/* There are 16 GPR registers */
-> -#define BCS_GPR(n)	_MMIO(0x22600 + (n) * 8)
-> -#define BCS_GPR_UDW(n)	_MMIO(0x22600 + (n) * 8 + 4)
-> -
->  #define GPGPU_THREADS_DISPATCHED        _MMIO(0x2290)
->  #define GPGPU_THREADS_DISPATCHED_UDW	_MMIO(0x2290 + 4)
->  #define HS_INVOCATION_COUNT             _MMIO(0x2300)
-> @@ -646,10 +642,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
->  #define GEN7_GPGPU_DISPATCHDIMY         _MMIO(0x2504)
->  #define GEN7_GPGPU_DISPATCHDIMZ         _MMIO(0x2508)
->  
-> -/* There are the 16 64-bit CS General Purpose Registers */
-> -#define HSW_CS_GPR(n)                   _MMIO(0x2600 + (n) * 8)
-> -#define HSW_CS_GPR_UDW(n)               _MMIO(0x2600 + (n) * 8 + 4)
-> -
->  #define GEN7_OACONTROL _MMIO(0x2360)
->  #define  GEN7_OACONTROL_CTX_MASK	    0xFFFFF000
->  #define  GEN7_OACONTROL_TIMER_PERIOD_MASK   0x3F
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h               |  3 +-
+ drivers/gpu/drm/i915/i915_gem_evict.c         | 30 +++++++++++++++++--
+ drivers/gpu/drm/i915/i915_vma.c               |  7 ++++-
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   | 10 +++++--
+ 6 files changed, 46 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 5ecc85b96a3d..da35a143af36 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -766,7 +766,7 @@ static int eb_reserve(struct i915_execbuffer *eb)
+ 		case 1:
+ 			/* Too fragmented, unbind everything and retry */
+ 			mutex_lock(&eb->context->vm->mutex);
+-			err = i915_gem_evict_vm(eb->context->vm);
++			err = i915_gem_evict_vm(eb->context->vm, &eb->ww);
+ 			mutex_unlock(&eb->context->vm->mutex);
+ 			if (err)
+ 				return err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 4337f3c1400c..4afad1604a6a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -366,7 +366,7 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
+ 		if (vma == ERR_PTR(-ENOSPC)) {
+ 			ret = mutex_lock_interruptible(&ggtt->vm.mutex);
+ 			if (!ret) {
+-				ret = i915_gem_evict_vm(&ggtt->vm);
++				ret = i915_gem_evict_vm(&ggtt->vm, &ww);
+ 				mutex_unlock(&ggtt->vm.mutex);
+ 			}
+ 			if (ret)
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 2f9336302e6c..ef121ddef418 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1729,7 +1729,8 @@ int __must_check i915_gem_evict_something(struct i915_address_space *vm,
+ int __must_check i915_gem_evict_for_node(struct i915_address_space *vm,
+ 					 struct drm_mm_node *node,
+ 					 unsigned int flags);
+-int i915_gem_evict_vm(struct i915_address_space *vm);
++int i915_gem_evict_vm(struct i915_address_space *vm,
++		      struct i915_gem_ww_ctx *ww);
+ 
+ /* i915_gem_internal.c */
+ struct drm_i915_gem_object *
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index 2b73ddb11c66..bfd66f539fc1 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -367,7 +367,7 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
+  * To clarify: This is for freeing up virtual address space, not for freeing
+  * memory in e.g. the shrinker.
+  */
+-int i915_gem_evict_vm(struct i915_address_space *vm)
++int i915_gem_evict_vm(struct i915_address_space *vm, struct i915_gem_ww_ctx *ww)
+ {
+ 	int ret = 0;
+ 
+@@ -388,24 +388,50 @@ int i915_gem_evict_vm(struct i915_address_space *vm)
+ 	do {
+ 		struct i915_vma *vma, *vn;
+ 		LIST_HEAD(eviction_list);
++		LIST_HEAD(locked_eviction_list);
+ 
+ 		list_for_each_entry(vma, &vm->bound_list, vm_link) {
+ 			if (i915_vma_is_pinned(vma))
+ 				continue;
+ 
++			/*
++			 * If we already own the lock, trylock fails. In case the resv
++			 * is shared among multiple objects, we still need the object ref.
++			 */
++			if (ww && (dma_resv_locking_ctx(vma->obj->base.resv) == &ww->ctx)) {
++				__i915_vma_pin(vma);
++				list_add(&vma->evict_link, &locked_eviction_list);
++				continue;
++			}
++
++			if (!i915_gem_object_trylock(vma->obj, ww))
++				continue;
++
+ 			__i915_vma_pin(vma);
+ 			list_add(&vma->evict_link, &eviction_list);
+ 		}
+-		if (list_empty(&eviction_list))
++		if (list_empty(&eviction_list) && list_empty(&locked_eviction_list))
+ 			break;
+ 
+ 		ret = 0;
++		/* Unbind locked objects first, before unlocking the eviction_list */
++		list_for_each_entry_safe(vma, vn, &locked_eviction_list, evict_link) {
++			__i915_vma_unpin(vma);
++
++			if (ret == 0)
++				ret = __i915_vma_unbind(vma);
++			if (ret != -EINTR) /* "Get me out of here!" */
++				ret = 0;
++		}
++
+ 		list_for_each_entry_safe(vma, vn, &eviction_list, evict_link) {
+ 			__i915_vma_unpin(vma);
+ 			if (ret == 0)
+ 				ret = __i915_vma_unbind(vma);
+ 			if (ret != -EINTR) /* "Get me out of here!" */
+ 				ret = 0;
++
++			i915_gem_object_unlock(vma->obj);
+ 		}
+ 	} while (ret == 0);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index be208a8f1ed0..32620f93beab 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1463,7 +1463,12 @@ static int __i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 		/* Unlike i915_vma_pin, we don't take no for an answer! */
+ 		flush_idle_contexts(vm->gt);
+ 		if (mutex_lock_interruptible(&vm->mutex) == 0) {
+-			i915_gem_evict_vm(vm);
++			/*
++			 * We pass NULL ww here, as we don't want to unbind
++			 * locked objects when called from execbuf when pinning
++			 * is removed. This would probably regress badly.
++			 */
++			i915_gem_evict_vm(vm, NULL);
+ 			mutex_unlock(&vm->mutex);
+ 		}
+ 	} while (1);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+index 75b709c26dd3..7c075c16a573 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+@@ -331,6 +331,7 @@ static int igt_evict_vm(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	struct i915_ggtt *ggtt = gt->ggtt;
++	struct i915_gem_ww_ctx ww;
+ 	LIST_HEAD(objects);
+ 	int err;
+ 
+@@ -342,7 +343,7 @@ static int igt_evict_vm(void *arg)
+ 
+ 	/* Everything is pinned, nothing should happen */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_vm(&ggtt->vm);
++	err = i915_gem_evict_vm(&ggtt->vm, NULL);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (err) {
+ 		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
+@@ -352,9 +353,14 @@ static int igt_evict_vm(void *arg)
+ 
+ 	unpin_ggtt(ggtt);
+ 
++	i915_gem_ww_ctx_init(&ww, false);
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_vm(&ggtt->vm);
++	err = i915_gem_evict_vm(&ggtt->vm, &ww);
+ 	mutex_unlock(&ggtt->vm.mutex);
++
++	/* no -EDEADLK handling; can't happen with vm.mutex in place */
++	i915_gem_ww_ctx_fini(&ww);
++
+ 	if (err) {
+ 		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
+ 		       err);
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.34.1
+
