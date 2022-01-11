@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8989CC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D1BC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 200DA1121DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8948A10FF49;
 	Tue, 11 Jan 2022 05:16:07 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2759C10FFF0
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 05:16:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF60010FF49
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 05:16:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641878166; x=1673414166;
+ t=1641878165; x=1673414165;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BscsC2E2JR7ZrWSKL4RV0ZvoAwIrbC24Xeisa+X6//4=;
- b=ntnkqPymO1uya/MXkJXb9fZEJfjgXLNCsMmc0CDcslo/mgaPHPiAnT8Z
- g+g4xRtLuUCMwMEci7ID3+XnDwEn3IebLuOMqGK55MI9RPTOEWj53dEtM
- C3JzqRe5EXXTq9KS20J6moxwLLOzghCOIHIBUk/F7gyAgzO5VCcQSWIPy
- h0rPusPjH8H2HpZ8IqnqsmQvWGJHXFQkX50AQunkC9G6cOGfNzSkpeDOb
- kyxpFPe+6IC29ETJjIGDDdfO5HXoEG5SJinQTIK9MtOl7txuphA20glFG
- cmVq/VbzX5RMzyc6FDEp0AbE0m49Oo1ZOM26MCXvJ29LIVnmZ7L7x5kiD Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358341"
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358341"
+ bh=7BpfS2KE11fqSnYyj9Kb+HqX6G0Fdw9Terzh6v6hxWc=;
+ b=RDnJ8VtIgRdmLluDHTl6/Yu9QW7Lql/9EGS6TdhiQElWU09iFRu/XLdL
+ jaZ8JSF1fpddSD13p3o7/t1ZwxPuI/PldqQhg00fyXFh5XOREnPsKsOtX
+ vvkbifd9VymEpm52ShBLpN6sf2oqSH98ydhtBVUDXs7pMB4C/iM8tN8oW
+ HERMt09fU1p70vhvmwI+tOzZp2bXxezZGf+b01L10UhJetUXwEUEoGnFF
+ Hzxnp1xeQwLC7BbxFQhnKW4pbl0sUDq/HvhyMRTB+swIzkeAa2hxD2I8k
+ Jy80UTDzK/+IHzjdra4eUUf02ivRJyXmmUd/E4FFuOQrO2xXNYL/bgp5M A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358338"
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358338"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 21:16:05 -0800
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399157"
+ 10 Jan 2022 21:16:04 -0800
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399148"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 21:16:05 -0800
+ 10 Jan 2022 21:16:04 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Jan 2022 21:15:54 -0800
-Message-Id: <20220111051600.3429104-6-matthew.d.roper@intel.com>
+Date: Mon, 10 Jan 2022 21:15:51 -0800
+Message-Id: <20220111051600.3429104-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220111051600.3429104-1-matthew.d.roper@intel.com>
 References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 05/11] drm/i915: Replace GFX_MODE_GEN7 with
- RING_MODE_GEN7
+Subject: [Intel-gfx] [PATCH v3 02/11] drm/i915: Parameterize PWRCTX_MAXCNT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +59,56 @@ Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's preferable to use parameterized register macros where possible.
+Rather than having separate definitions for each engine, create a single
+parameterized macro that takes the engine base offset.  This will also
+ensure we get to the proper offset if we ever need to use these
+registers on newer platforms (where the media engine offsets have
+changed).
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 2 +-
- drivers/gpu/drm/i915/gvt/mmio_context.c     | 4 ++--
- drivers/gpu/drm/i915/i915_reg.h             | 1 -
- 3 files changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rc6.c | 8 ++++----
+ drivers/gpu/drm/i915/i915_reg.h     | 6 +-----
+ 2 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 977619ea839a..895939a941d6 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -2423,7 +2423,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 	if (GRAPHICS_VER(i915) == 7) {
- 		/* WaBCSVCSTlbInvalidationMode:ivb,vlv,hsw */
- 		wa_masked_en(wal,
--			     GFX_MODE_GEN7,
-+			     RING_MODE_GEN7(RENDER_RING_BASE),
- 			     GFX_TLB_INVALIDATE_EXPLICIT | GFX_REPLAY_MODE);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index c3155ee58689..45891e6f0b98 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -449,10 +449,10 @@ static bool bxt_check_bios_rc6_setup(struct intel_rc6 *rc6)
+ 		enable_rc6 = false;
+ 	}
  
- 		/* WaDisable_RenderCache_OperationalFlush:ivb,vlv,hsw */
-diff --git a/drivers/gpu/drm/i915/gvt/mmio_context.c b/drivers/gpu/drm/i915/gvt/mmio_context.c
-index f776c470914d..abc81cdc9e5d 100644
---- a/drivers/gpu/drm/i915/gvt/mmio_context.c
-+++ b/drivers/gpu/drm/i915/gvt/mmio_context.c
-@@ -44,7 +44,7 @@
- 
- /* Raw offset is appened to each line for convenience. */
- static struct engine_mmio gen8_engine_mmio_list[] __cacheline_aligned = {
--	{RCS0, GFX_MODE_GEN7, 0xffff, false}, /* 0x229c */
-+	{RCS0, RING_MODE_GEN7(RENDER_RING_BASE), 0xffff, false}, /* 0x229c */
- 	{RCS0, GEN9_CTX_PREEMPT_REG, 0x0, false}, /* 0x2248 */
- 	{RCS0, HWSTAM, 0x0, false}, /* 0x2098 */
- 	{RCS0, INSTPM, 0xffff, true}, /* 0x20c0 */
-@@ -76,7 +76,7 @@ static struct engine_mmio gen8_engine_mmio_list[] __cacheline_aligned = {
- };
- 
- static struct engine_mmio gen9_engine_mmio_list[] __cacheline_aligned = {
--	{RCS0, GFX_MODE_GEN7, 0xffff, false}, /* 0x229c */
-+	{RCS0, RING_MODE_GEN7(RENDER_RING_BASE), 0xffff, false}, /* 0x229c */
- 	{RCS0, GEN9_CTX_PREEMPT_REG, 0x0, false}, /* 0x2248 */
- 	{RCS0, HWSTAM, 0x0, false}, /* 0x2098 */
- 	{RCS0, INSTPM, 0xffff, true}, /* 0x20c0 */
+-	if (!((intel_uncore_read(uncore, PWRCTX_MAXCNT_RCSUNIT) & IDLE_TIME_MASK) > 1 &&
+-	      (intel_uncore_read(uncore, PWRCTX_MAXCNT_VCSUNIT0) & IDLE_TIME_MASK) > 1 &&
+-	      (intel_uncore_read(uncore, PWRCTX_MAXCNT_BCSUNIT) & IDLE_TIME_MASK) > 1 &&
+-	      (intel_uncore_read(uncore, PWRCTX_MAXCNT_VECSUNIT) & IDLE_TIME_MASK) > 1)) {
++	if (!((intel_uncore_read(uncore, PWRCTX_MAXCNT(RENDER_RING_BASE)) & IDLE_TIME_MASK) > 1 &&
++	      (intel_uncore_read(uncore, PWRCTX_MAXCNT(GEN6_BSD_RING_BASE)) & IDLE_TIME_MASK) > 1 &&
++	      (intel_uncore_read(uncore, PWRCTX_MAXCNT(BLT_RING_BASE)) & IDLE_TIME_MASK) > 1 &&
++	      (intel_uncore_read(uncore, PWRCTX_MAXCNT(VEBOX_RING_BASE)) & IDLE_TIME_MASK) > 1)) {
+ 		drm_dbg(&i915->drm,
+ 			"Engine Idle wait time not set properly.\n");
+ 		enable_rc6 = false;
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0be2397fc61e..25f6bde36add 100644
+index 149cf4d25569..3ef332833c4c 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2669,7 +2669,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- 	 GEN9_STATE_ACK_TDL1 | GEN9_STATE_ACK_TDL0)
- 
- #define GFX_MODE	_MMIO(0x2520)
--#define GFX_MODE_GEN7	_MMIO(0x229c)
- #define RING_MODE_GEN7(base)	_MMIO((base) + 0x29c)
- #define   GFX_RUN_LIST_ENABLE		(1 << 15)
- #define   GFX_INTERRUPT_STEERING	(1 << 14)
+@@ -9048,11 +9048,7 @@ enum {
+ #define	   RC6_CTX_IN_DRAM			(1 << 0)
+ #define  RC6_CTX_BASE				_MMIO(0xD48)
+ #define    RC6_CTX_BASE_MASK			0xFFFFFFF0
+-#define  PWRCTX_MAXCNT_RCSUNIT			_MMIO(0x2054)
+-#define  PWRCTX_MAXCNT_VCSUNIT0			_MMIO(0x12054)
+-#define  PWRCTX_MAXCNT_BCSUNIT			_MMIO(0x22054)
+-#define  PWRCTX_MAXCNT_VECSUNIT			_MMIO(0x1A054)
+-#define  PWRCTX_MAXCNT_VCSUNIT1			_MMIO(0x1C054)
++#define  PWRCTX_MAXCNT(base)			_MMIO((base) + 0x54)
+ #define    IDLE_TIME_MASK			0xFFFFF
+ #define  FORCEWAKE				_MMIO(0xA18C)
+ #define  FORCEWAKE_VLV				_MMIO(0x1300b0)
 -- 
 2.34.1
 
