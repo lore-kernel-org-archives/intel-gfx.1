@@ -4,48 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE588C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 13:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4578BC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 14:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDFC10E873;
-	Tue, 11 Jan 2022 13:50:13 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8400610E873
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 13:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641909012; x=1673445012;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=D1YV8mQeV9jSOvwAqylFFUeW3r5W6r98UdHwKsijPUs=;
- b=Nj2aS11CkU/atDx4MShIBrKQIDBhYMlzoQAjaoW9gjGVRw8Em7vRvaUT
- 9D94LxpbjvPQrsBjRlWZ0KuSn5WqfBEbwY3ubaxgUFFDTFnGFoxTI9YNs
- SYMNSsbN7mVJjtPVzR9N0G7v9zBW4MURoefEcnPw0f7TaWRD7eGGZiOjb
- yUunRSS8fu/jEL1ZE0unL//vAk1aLOeGXbPoRge6eZmyRm67ixXgupJya
- y/sv17xDoOQOF6rkyQQWOTgpYhDraNOyiqzaLYcLAw+CCSrsacrFztViw
- Oi3o1KzBb9pNLpBPXMLEV+ekDKslIqCJgCz9BKM/sPXbjgU1Dw8pucijz Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="242297660"
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="242297660"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2022 05:50:12 -0800
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="515097300"
-Received: from sjobrien-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.252.25.241])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2022 05:50:10 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20220111051600.3429104-12-matthew.d.roper@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
- <20220111051600.3429104-12-matthew.d.roper@intel.com>
-Date: Tue, 11 Jan 2022 15:50:07 +0200
-Message-ID: <87a6g28jqo.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A828910E52F;
+	Tue, 11 Jan 2022 14:06:04 +0000 (UTC)
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01olkn2082.outbound.protection.outlook.com [40.92.52.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C8210EA74
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 07:55:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JMZashP1Eg6JB11YE0uNS9rwMIuvAkFiFYp5tuLsJweysntGDwT/dN4NRqaj9r9k71pAumrdrFo39HVNK1nLHyJxa4oTmytsbI9+stclgOHBVIdFvPwy9cfRMpX7VyTfhmNp4vU4AV4OhzPKD1TwkhY78ynpzl0gCyd+9VtZ7v1yr3UW0jICpKpu8MVSI+TDhYIQa4nA0BS+ThbrZSnBXr/c/ACDnAOLkSp1x7DT3AS94MkRsn2ycbftRaY8iBVtALGqFy7Idp0OH1iRojwnsr/GxQr0wIVUdFBeXljVrxnKmCSRXBrR0u438m0P/1+XyHE+1p7FfXYW3tO+Cy1/Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qH0Qdh65hBTE2Q8c+DXRwIYOIoqdushMiNU/i2QYc9w=;
+ b=ZPVmQpefYtWkdT/xUE3YUofWjivpURD5uf/4PRvinkjPQArqpv4Fo06Ijvj+EBcu8wL03UkDdQzW0v0uL+UceapEBC6Juua+UmD4dD8VUj7aqCsoL9FFD1SF1pjE9/fUJKgL3isHr8PXxyfJVLdrkJ3So9pUSToalPQ8z/99e8gEW4W7IdLVYxXt2jeYGrKytW/cD29QMndEX3el+fkqVTTC2CWzVkOeaHI0jF6k5JRO3Q/GH/jYKSlM3vCukEye5u5aJW8YFoqW7rkTW8wmeXK+VQ0I6VJw2f9wCOs2WDTXaGxzf77gMEDuv8fg5GElb/2RWbWcIuvRg9zQYKeGqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qH0Qdh65hBTE2Q8c+DXRwIYOIoqdushMiNU/i2QYc9w=;
+ b=mjfz5SPWU3N7B0y8jGcNo2Qp0//dhARuC6dytd/cPuPGNS2ogbDURX7iJnqt7PKd7VVuIRGn8dKCiupmawGFUE9bQ7wKm3WBwTJOhGMbm5sDnjqQEgKUJ5ylU/5rCiomGpr8OcOYGHL4hPZbK6TdKKm9VS8V4/ghWm5YlP84pF2+aWBAzqTqAiT6tlOEwMIsXnWnp8GUAGwtjEs41M5c8jXB1bhv4Fs865syaSf72WkBlpSunYWyzAbCxF40AvsvHpaC2544Xn3iLE/fQ1nqmSLESa6FRMsx0MO2UY0LvQSPH6D2Oq9nJ4W59jiesjYZM28VVVqaRcVIRUJAUKDHrA==
+Received: from PS2PR03MB3719.apcprd03.prod.outlook.com (2603:1096:300:38::18)
+ by PS2PR03MB3765.apcprd03.prod.outlook.com (2603:1096:300:3f::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.4; Tue, 11 Jan
+ 2022 07:55:22 +0000
+Received: from PS2PR03MB3719.apcprd03.prod.outlook.com
+ ([fe80::f9e6:8a12:82ba:99ca]) by PS2PR03MB3719.apcprd03.prod.outlook.com
+ ([fe80::f9e6:8a12:82ba:99ca%5]) with mapi id 15.20.4888.008; Tue, 11 Jan 2022
+ 07:55:22 +0000
+From: Ashish Arora <ashisharora.linux@outlook.com>
+To: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>
+Thread-Topic: [PATCH - v3] drm/i915: Discard large BIOS framebuffers causing
+ display corruption.
+Thread-Index: AQHYBsCVM1Dct5Q6jUiXOKjP73prPQ==
+Date: Tue, 11 Jan 2022 07:55:22 +0000
+Message-ID: <31D69334-DEF9-41B7-968B-B847796926FF@outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [JrAFnfwQmY7e/LKGIZYu2kQUBuZS8bhlIgxXJ4vvAmjk3YsWKz6wgkddHtQwQoxW]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e091a454-f5c5-4858-5802-08d9d4d7b878
+x-ms-traffictypediagnostic: PS2PR03MB3765:EE_
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: oTHG46r0dpOV/o+9MKl8lXEs/30CdhsIcVpsSQ98q1VOJURnvIJFddLG0RLrF77GoDOjmR9cpP5sZjoOmj9TAhlZZ23ySarU2UkR8ioV44QCBtm9IGbfFlZ8SN1knaHX4E/ShOUCrc8etDPGgdunTfc66p7pz3Sideb72E2bhH/1CCCNPbnBEkXPMJgTegLPtD5zbZQ2L9LENECadSRmOq5wXn6VAs/NGx9Yz8aKtzydwMzF/ySWU3YeqyIo81NxGlYW78CM3awDJ8mwVWBe/33HP+c05bWELhH4+MqvGzU8OyhKdJyZltrDp9xXWqDDtiJnlE5N5wrdJOB6a6okhQ+94ZIVR5WY/B4ftlp8p8LtBIgd1bg910oxdqZYoJNlI9425Vg1eUGTZRLYneHa8ynR8PQZczs/tTD3x8spp+Nafq++AdKH4rfwY9bxQ35VIG24aOUIugRCuH3+6mu+EYG7eTj44WrjbtmUGdwDXeTgil8pfb1o5/cnNBZLFX1UfePJ7+z61sKIcx0DDrNIPLui2Cpj/W3tIJOX7zcjQAPfEt0RMbOgi0A++l0Qx7VycEDtDHPs3743cNG7yPR51w==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?B9AIvvBSf8NuMa/TeiwmxSHzmkZybx//LudlerkbH47VRkK7b8Pf5NL5g3+0?=
+ =?us-ascii?Q?pvPfOiV6xQTTsY+8UOvPYvHohDkaJ9T7IQOAyJ+gcymVAwqz2d1W9tKxpJIV?=
+ =?us-ascii?Q?/L6jisxX31xP4063T8BoVapA3scUInv9OdzBGptlVlvQni57oZ9xzSNZhjcV?=
+ =?us-ascii?Q?nfABbiv6PO4pDMf8lexC2wgFvIFdbBGu0/GQ2Az7Y0nLohh5iKwz/tLVwfmd?=
+ =?us-ascii?Q?gWIl6DGj1okvuOMo/nBabNomVK1M1bN16NUyT0yH9tS6OFJTx/iFOhv9TA9m?=
+ =?us-ascii?Q?Lp/CXsxghs3xmFYxXKzSzsfJrc5GD6YSFN/2Z2DtCh0xdDywedFVUHce1wcL?=
+ =?us-ascii?Q?sle+PW791PASg8Q/lFiM/dvC9iomBMWS5+wOnmWe3PL6xmIwKDQYEviWtzvz?=
+ =?us-ascii?Q?P/qs4bJoWrD4dy47iDL7PnwuVthopsp53ove8XIySTiv3Jl1PEnKOLSyZCNb?=
+ =?us-ascii?Q?upFlehGFe8wiqjVjiPZqbTMFVIMQCom9rmLzbegZkbDFrtNPRF/w/2YbHfAG?=
+ =?us-ascii?Q?zg2DqYwc5kwoPnsgfClReMilO9PmEMT3WxffXzav0cGY9r9yK4Ug8anoHO48?=
+ =?us-ascii?Q?PoNFjQqz64Wkj71Zyy9l6HVBDFgZGLyeYTKrmC4w9JBScIqy8K5PstZiMoqU?=
+ =?us-ascii?Q?dIHTIwEFgs9B+WrvJdBhiaO4+A5wKhjTTaxjFwGqugLndJG0e8jikjjaQ0AO?=
+ =?us-ascii?Q?n8Q3dfCumF7uQAFcDdgJor2ZUBQpeTTxQGXhVxgn84Iem6/3pBi3ZwepIncw?=
+ =?us-ascii?Q?qLTGYQAKmIKtdMqtgLZJLAbBMnu1lm7NiAEOYUjqn44lAn/9aAuTEo9/MMvq?=
+ =?us-ascii?Q?viGoMYFJKt0mh2dmPDs1vER5YKxCFi3FHMsoXQoKkmp1R6vZSHbKZbXfqchY?=
+ =?us-ascii?Q?aVYdJ1jtmOMWgDxrvxL5MeMFKfOZeV0mcZfmbf0BNv66Z9KWBaZhLqece58r?=
+ =?us-ascii?Q?N/QeN25bexM7Q1dGRJWOVspp1QCgrxagO5Oq/L0lw/k0BclwNkdI1eg/K+It?=
+ =?us-ascii?Q?Ees2s1bxHBlThmoflBGue2fatQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <42F7421C0816FA4DAA7E395835D0F4D5@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v3 11/11] drm/i915: Drop unused _PORT3 and
- _PORT4 TC phy register offsets
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PS2PR03MB3719.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: e091a454-f5c5-4858-5802-08d9d4d7b878
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2022 07:55:22.7118 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS2PR03MB3765
+X-Mailman-Approved-At: Tue, 11 Jan 2022 14:06:03 +0000
+Subject: [Intel-gfx] [PATCH - v3] drm/i915: Discard large BIOS framebuffers
+ causing display corruption.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,239 +104,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 10 Jan 2022, Matt Roper <matthew.d.roper@intel.com> wrote:
-> All MG/DKL PHY register regions are evenly spaced offset-wise (0x168000,
-> 0x169000, 0x16A000, 0x16B000) so the _MMIO_PORT() macro we use to access
-> their registers only needs the first two offsets.  We can drop the
-> _PORT3 and _PORT4 offsets which are never directly referenced.
->
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+From: Ashish Arora <ashisharora.linux@outlook.com>
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+On certain 4k panels and Macs, the BIOS framebuffer is larger than what
+panel requires causing display corruption. Introduce a check for the same.
 
-> ---
->  .../gpu/drm/i915/display/intel_tc_phy_regs.h  | 64 -------------------
->  1 file changed, 64 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h b/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
-> index 87b74c3c35a7..5a545086f959 100644
-> --- a/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
-> @@ -15,10 +15,6 @@
->  #define MG_TX_LINK_PARAMS_TX1LN1_PORT1		0x16852C
->  #define MG_TX_LINK_PARAMS_TX1LN0_PORT2		0x16912C
->  #define MG_TX_LINK_PARAMS_TX1LN1_PORT2		0x16952C
-> -#define MG_TX_LINK_PARAMS_TX1LN0_PORT3		0x16A12C
-> -#define MG_TX_LINK_PARAMS_TX1LN1_PORT3		0x16A52C
-> -#define MG_TX_LINK_PARAMS_TX1LN0_PORT4		0x16B12C
-> -#define MG_TX_LINK_PARAMS_TX1LN1_PORT4		0x16B52C
->  #define MG_TX1_LINK_PARAMS(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_LINK_PARAMS_TX1LN0_PORT1, \
->  		       MG_TX_LINK_PARAMS_TX1LN0_PORT2, \
-> @@ -28,10 +24,6 @@
->  #define MG_TX_LINK_PARAMS_TX2LN1_PORT1		0x1684AC
->  #define MG_TX_LINK_PARAMS_TX2LN0_PORT2		0x1690AC
->  #define MG_TX_LINK_PARAMS_TX2LN1_PORT2		0x1694AC
-> -#define MG_TX_LINK_PARAMS_TX2LN0_PORT3		0x16A0AC
-> -#define MG_TX_LINK_PARAMS_TX2LN1_PORT3		0x16A4AC
-> -#define MG_TX_LINK_PARAMS_TX2LN0_PORT4		0x16B0AC
-> -#define MG_TX_LINK_PARAMS_TX2LN1_PORT4		0x16B4AC
->  #define MG_TX2_LINK_PARAMS(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_LINK_PARAMS_TX2LN0_PORT1, \
->  		       MG_TX_LINK_PARAMS_TX2LN0_PORT2, \
-> @@ -42,10 +34,6 @@
->  #define MG_TX_PISO_READLOAD_TX1LN1_PORT1		0x16854C
->  #define MG_TX_PISO_READLOAD_TX1LN0_PORT2		0x16914C
->  #define MG_TX_PISO_READLOAD_TX1LN1_PORT2		0x16954C
-> -#define MG_TX_PISO_READLOAD_TX1LN0_PORT3		0x16A14C
-> -#define MG_TX_PISO_READLOAD_TX1LN1_PORT3		0x16A54C
-> -#define MG_TX_PISO_READLOAD_TX1LN0_PORT4		0x16B14C
-> -#define MG_TX_PISO_READLOAD_TX1LN1_PORT4		0x16B54C
->  #define MG_TX1_PISO_READLOAD(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_PISO_READLOAD_TX1LN0_PORT1, \
->  		       MG_TX_PISO_READLOAD_TX1LN0_PORT2, \
-> @@ -55,10 +43,6 @@
->  #define MG_TX_PISO_READLOAD_TX2LN1_PORT1		0x1684CC
->  #define MG_TX_PISO_READLOAD_TX2LN0_PORT2		0x1690CC
->  #define MG_TX_PISO_READLOAD_TX2LN1_PORT2		0x1694CC
-> -#define MG_TX_PISO_READLOAD_TX2LN0_PORT3		0x16A0CC
-> -#define MG_TX_PISO_READLOAD_TX2LN1_PORT3		0x16A4CC
-> -#define MG_TX_PISO_READLOAD_TX2LN0_PORT4		0x16B0CC
-> -#define MG_TX_PISO_READLOAD_TX2LN1_PORT4		0x16B4CC
->  #define MG_TX2_PISO_READLOAD(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_PISO_READLOAD_TX2LN0_PORT1, \
->  		       MG_TX_PISO_READLOAD_TX2LN0_PORT2, \
-> @@ -69,10 +53,6 @@
->  #define MG_TX_SWINGCTRL_TX1LN1_PORT1		0x168548
->  #define MG_TX_SWINGCTRL_TX1LN0_PORT2		0x169148
->  #define MG_TX_SWINGCTRL_TX1LN1_PORT2		0x169548
-> -#define MG_TX_SWINGCTRL_TX1LN0_PORT3		0x16A148
-> -#define MG_TX_SWINGCTRL_TX1LN1_PORT3		0x16A548
-> -#define MG_TX_SWINGCTRL_TX1LN0_PORT4		0x16B148
-> -#define MG_TX_SWINGCTRL_TX1LN1_PORT4		0x16B548
->  #define MG_TX1_SWINGCTRL(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_SWINGCTRL_TX1LN0_PORT1, \
->  		       MG_TX_SWINGCTRL_TX1LN0_PORT2, \
-> @@ -82,10 +62,6 @@
->  #define MG_TX_SWINGCTRL_TX2LN1_PORT1		0x1684C8
->  #define MG_TX_SWINGCTRL_TX2LN0_PORT2		0x1690C8
->  #define MG_TX_SWINGCTRL_TX2LN1_PORT2		0x1694C8
-> -#define MG_TX_SWINGCTRL_TX2LN0_PORT3		0x16A0C8
-> -#define MG_TX_SWINGCTRL_TX2LN1_PORT3		0x16A4C8
-> -#define MG_TX_SWINGCTRL_TX2LN0_PORT4		0x16B0C8
-> -#define MG_TX_SWINGCTRL_TX2LN1_PORT4		0x16B4C8
->  #define MG_TX2_SWINGCTRL(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_SWINGCTRL_TX2LN0_PORT1, \
->  		       MG_TX_SWINGCTRL_TX2LN0_PORT2, \
-> @@ -110,10 +86,6 @@
->  #define MG_TX_DRVCTRL_TX2LN1_PORT1			0x1684C4
->  #define MG_TX_DRVCTRL_TX2LN0_PORT2			0x1690C4
->  #define MG_TX_DRVCTRL_TX2LN1_PORT2			0x1694C4
-> -#define MG_TX_DRVCTRL_TX2LN0_PORT3			0x16A0C4
-> -#define MG_TX_DRVCTRL_TX2LN1_PORT3			0x16A4C4
-> -#define MG_TX_DRVCTRL_TX2LN0_PORT4			0x16B0C4
-> -#define MG_TX_DRVCTRL_TX2LN1_PORT4			0x16B4C4
->  #define MG_TX2_DRVCTRL(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_DRVCTRL_TX2LN0_PORT1, \
->  		       MG_TX_DRVCTRL_TX2LN0_PORT2, \
-> @@ -130,10 +102,6 @@
->  #define MG_CLKHUB_LN1_PORT1			0x16879C
->  #define MG_CLKHUB_LN0_PORT2			0x16939C
->  #define MG_CLKHUB_LN1_PORT2			0x16979C
-> -#define MG_CLKHUB_LN0_PORT3			0x16A39C
-> -#define MG_CLKHUB_LN1_PORT3			0x16A79C
-> -#define MG_CLKHUB_LN0_PORT4			0x16B39C
-> -#define MG_CLKHUB_LN1_PORT4			0x16B79C
->  #define MG_CLKHUB(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_CLKHUB_LN0_PORT1, \
->  		       MG_CLKHUB_LN0_PORT2, \
-> @@ -144,10 +112,6 @@
->  #define MG_TX_DCC_TX1LN1_PORT1			0x168510
->  #define MG_TX_DCC_TX1LN0_PORT2			0x169110
->  #define MG_TX_DCC_TX1LN1_PORT2			0x169510
-> -#define MG_TX_DCC_TX1LN0_PORT3			0x16A110
-> -#define MG_TX_DCC_TX1LN1_PORT3			0x16A510
-> -#define MG_TX_DCC_TX1LN0_PORT4			0x16B110
-> -#define MG_TX_DCC_TX1LN1_PORT4			0x16B510
->  #define MG_TX1_DCC(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_DCC_TX1LN0_PORT1, \
->  		       MG_TX_DCC_TX1LN0_PORT2, \
-> @@ -156,10 +120,6 @@
->  #define MG_TX_DCC_TX2LN1_PORT1			0x168490
->  #define MG_TX_DCC_TX2LN0_PORT2			0x169090
->  #define MG_TX_DCC_TX2LN1_PORT2			0x169490
-> -#define MG_TX_DCC_TX2LN0_PORT3			0x16A090
-> -#define MG_TX_DCC_TX2LN1_PORT3			0x16A490
-> -#define MG_TX_DCC_TX2LN0_PORT4			0x16B090
-> -#define MG_TX_DCC_TX2LN1_PORT4			0x16B490
->  #define MG_TX2_DCC(ln, tc_port) \
->  	MG_PHY_PORT_LN(ln, tc_port, MG_TX_DCC_TX2LN0_PORT1, \
->  		       MG_TX_DCC_TX2LN0_PORT2, \
-> @@ -172,10 +132,6 @@
->  #define MG_DP_MODE_LN1_ACU_PORT1			0x1687A0
->  #define MG_DP_MODE_LN0_ACU_PORT2			0x1693A0
->  #define MG_DP_MODE_LN1_ACU_PORT2			0x1697A0
-> -#define MG_DP_MODE_LN0_ACU_PORT3			0x16A3A0
-> -#define MG_DP_MODE_LN1_ACU_PORT3			0x16A7A0
-> -#define MG_DP_MODE_LN0_ACU_PORT4			0x16B3A0
-> -#define MG_DP_MODE_LN1_ACU_PORT4			0x16B7A0
->  #define MG_DP_MODE(ln, tc_port)	\
->  	MG_PHY_PORT_LN(ln, tc_port, MG_DP_MODE_LN0_ACU_PORT1, \
->  		       MG_DP_MODE_LN0_ACU_PORT2, \
-> @@ -200,8 +156,6 @@
->  
->  #define _MG_REFCLKIN_CTL_PORT1				0x16892C
->  #define _MG_REFCLKIN_CTL_PORT2				0x16992C
-> -#define _MG_REFCLKIN_CTL_PORT3				0x16A92C
-> -#define _MG_REFCLKIN_CTL_PORT4				0x16B92C
->  #define   MG_REFCLKIN_CTL_OD_2_MUX(x)			((x) << 8)
->  #define   MG_REFCLKIN_CTL_OD_2_MUX_MASK			(0x7 << 8)
->  #define MG_REFCLKIN_CTL(tc_port) _MMIO_PORT((tc_port), \
-> @@ -210,8 +164,6 @@
->  
->  #define _MG_CLKTOP2_CORECLKCTL1_PORT1			0x1688D8
->  #define _MG_CLKTOP2_CORECLKCTL1_PORT2			0x1698D8
-> -#define _MG_CLKTOP2_CORECLKCTL1_PORT3			0x16A8D8
-> -#define _MG_CLKTOP2_CORECLKCTL1_PORT4			0x16B8D8
->  #define   MG_CLKTOP2_CORECLKCTL1_B_DIVRATIO(x)		((x) << 16)
->  #define   MG_CLKTOP2_CORECLKCTL1_B_DIVRATIO_MASK	(0xff << 16)
->  #define   MG_CLKTOP2_CORECLKCTL1_A_DIVRATIO(x)		((x) << 8)
-> @@ -222,8 +174,6 @@
->  
->  #define _MG_CLKTOP2_HSCLKCTL_PORT1			0x1688D4
->  #define _MG_CLKTOP2_HSCLKCTL_PORT2			0x1698D4
-> -#define _MG_CLKTOP2_HSCLKCTL_PORT3			0x16A8D4
-> -#define _MG_CLKTOP2_HSCLKCTL_PORT4			0x16B8D4
->  #define   MG_CLKTOP2_HSCLKCTL_CORE_INPUTSEL(x)		((x) << 16)
->  #define   MG_CLKTOP2_HSCLKCTL_CORE_INPUTSEL_MASK	(0x1 << 16)
->  #define   MG_CLKTOP2_HSCLKCTL_TLINEDRV_CLKSEL(x)	((x) << 14)
-> @@ -242,8 +192,6 @@
->  
->  #define _MG_PLL_DIV0_PORT1				0x168A00
->  #define _MG_PLL_DIV0_PORT2				0x169A00
-> -#define _MG_PLL_DIV0_PORT3				0x16AA00
-> -#define _MG_PLL_DIV0_PORT4				0x16BA00
->  #define   MG_PLL_DIV0_FRACNEN_H				(1 << 30)
->  #define   MG_PLL_DIV0_FBDIV_FRAC_MASK			(0x3fffff << 8)
->  #define   MG_PLL_DIV0_FBDIV_FRAC_SHIFT			8
-> @@ -255,8 +203,6 @@
->  
->  #define _MG_PLL_DIV1_PORT1				0x168A04
->  #define _MG_PLL_DIV1_PORT2				0x169A04
-> -#define _MG_PLL_DIV1_PORT3				0x16AA04
-> -#define _MG_PLL_DIV1_PORT4				0x16BA04
->  #define   MG_PLL_DIV1_IREF_NDIVRATIO(x)			((x) << 16)
->  #define   MG_PLL_DIV1_DITHER_DIV_1			(0 << 12)
->  #define   MG_PLL_DIV1_DITHER_DIV_2			(1 << 12)
-> @@ -270,8 +216,6 @@
->  
->  #define _MG_PLL_LF_PORT1				0x168A08
->  #define _MG_PLL_LF_PORT2				0x169A08
-> -#define _MG_PLL_LF_PORT3				0x16AA08
-> -#define _MG_PLL_LF_PORT4				0x16BA08
->  #define   MG_PLL_LF_TDCTARGETCNT(x)			((x) << 24)
->  #define   MG_PLL_LF_AFCCNTSEL_256			(0 << 20)
->  #define   MG_PLL_LF_AFCCNTSEL_512			(1 << 20)
-> @@ -283,8 +227,6 @@
->  
->  #define _MG_PLL_FRAC_LOCK_PORT1				0x168A0C
->  #define _MG_PLL_FRAC_LOCK_PORT2				0x169A0C
-> -#define _MG_PLL_FRAC_LOCK_PORT3				0x16AA0C
-> -#define _MG_PLL_FRAC_LOCK_PORT4				0x16BA0C
->  #define   MG_PLL_FRAC_LOCK_TRUELOCK_CRIT_32		(1 << 18)
->  #define   MG_PLL_FRAC_LOCK_EARLYLOCK_CRIT_32		(1 << 16)
->  #define   MG_PLL_FRAC_LOCK_LOCKTHRESH(x)		((x) << 11)
-> @@ -297,8 +239,6 @@
->  
->  #define _MG_PLL_SSC_PORT1				0x168A10
->  #define _MG_PLL_SSC_PORT2				0x169A10
-> -#define _MG_PLL_SSC_PORT3				0x16AA10
-> -#define _MG_PLL_SSC_PORT4				0x16BA10
->  #define   MG_PLL_SSC_EN					(1 << 28)
->  #define   MG_PLL_SSC_TYPE(x)				((x) << 26)
->  #define   MG_PLL_SSC_STEPLENGTH(x)			((x) << 16)
-> @@ -310,8 +250,6 @@
->  
->  #define _MG_PLL_BIAS_PORT1				0x168A14
->  #define _MG_PLL_BIAS_PORT2				0x169A14
-> -#define _MG_PLL_BIAS_PORT3				0x16AA14
-> -#define _MG_PLL_BIAS_PORT4				0x16BA14
->  #define   MG_PLL_BIAS_BIAS_GB_SEL(x)			((x) << 30)
->  #define   MG_PLL_BIAS_BIAS_GB_SEL_MASK			(0x3 << 30)
->  #define   MG_PLL_BIAS_INIT_DCOAMP(x)			((x) << 24)
-> @@ -330,8 +268,6 @@
->  
->  #define _MG_PLL_TDC_COLDST_BIAS_PORT1			0x168A18
->  #define _MG_PLL_TDC_COLDST_BIAS_PORT2			0x169A18
-> -#define _MG_PLL_TDC_COLDST_BIAS_PORT3			0x16AA18
-> -#define _MG_PLL_TDC_COLDST_BIAS_PORT4			0x16BA18
->  #define   MG_PLL_TDC_COLDST_IREFINT_EN			(1 << 27)
->  #define   MG_PLL_TDC_COLDST_REFBIAS_START_PULSE_W(x)	((x) << 17)
->  #define   MG_PLL_TDC_COLDST_COLDSTART			(1 << 16)
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Signed-off-by: Ashish Arora <ashisharora.linux@outlook.com>
+Reviewed-by: Aun-Ali Zaidi <admin@kodeit.net>
+---
+V2 :- Use !=3D instead of < and >
+V3 :- Mention Macs (Thanks to Orlando)
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i=
+915/display/intel_fbdev.c
+index 842c04e63..16b1c82b2 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -181,10 +181,10 @@ static int intelfb_create(struct drm_fb_helper *helpe=
+r,
+ 	int ret;
+=20
+ 	if (intel_fb &&
+-	    (sizes->fb_width > intel_fb->base.width ||
+-	     sizes->fb_height > intel_fb->base.height)) {
++	    (sizes->fb_width !=3D intel_fb->base.width ||
++	     sizes->fb_height !=3D intel_fb->base.height)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+-			    "BIOS fb too small (%dx%d), we require (%dx%d),"
++			    "BIOS fb not valid (%dx%d), we require (%dx%d),"
+ 			    " releasing it\n",
+ 			    intel_fb->base.width, intel_fb->base.height,
+ 			    sizes->fb_width, sizes->fb_height);
+--=20
+2.25.1
+
+
