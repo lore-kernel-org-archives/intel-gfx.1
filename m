@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3F5C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9782C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A794112216;
-	Tue, 11 Jan 2022 05:16:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 884A911222A;
+	Tue, 11 Jan 2022 05:16:12 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CBBE1121DF
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAE7611221C
  for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 05:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1641878166; x=1673414166;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Kza/KDRRNh2rycjX3r5JczORyTiBrWS27CT+x/B/NJw=;
- b=IK8JejgPjceOBBBSmzQLBTxEdVgjRS7nZmBwmFwPV7KWAoFwNPtBfP2g
- wpU6/o1JE/lRMPGSjdD+2hgXVPBC64xvkyJXlej5WV5jRQJ87LBUczeL0
- C5HenGnZULXjUbNADSu9XVIqfL60nAG6st07irGM7ym1zOq2puxb/hGeM
- Et/0NnuMq9BaFBQ+HdZCJnpz9EHsC+H4v7qo+Hv5XBht+euGw+i3skUdf
- OZoDxH1Dlkp6pUR836BU30P0ERck+Jp0LcRdz+GSeaDEb1/qvNKGesteN
- 2uqIBBdrn5Z+NwJnZGaL8TlPlxZZkk9WCzv9+H5L7k8R4+Becv1bnfey+ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358344"
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358344"
+ bh=wh/M6i9Ie6J+WQkbFwIMDfoBJeRApnJQBJQXsjvdlQw=;
+ b=iwPOSL8S6U8in3fXfCA9M9mduKbDJnSYDyqZTM/09wOjpgTCl80Dtzhy
+ 2ID4MA8LDgFI0K5u570X/aSF12jZm6ayvLfWxgHTAsF07W8Ix2W6djYBm
+ DJDEfBEiaUj/e87wjXDPus/rPIeuG50MxzSDpuwWQiw+UA0DVSAOu0WcJ
+ 6YPlDu13hzPFVQuFKXZ+CfnP4R1pLXmyHpsIuT+jyS8zDkvxtzI/3UYY4
+ doodmyXOIvj2dCX46tyqNQNwMFuGjKasG6jFBlfa5GIlCb5ktrAMc/ipj
+ 2/UTihPCHn8sR1pAaJx2lgoRB+jRVlR32HfyGLE+95FFIMym00g+PO601 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358349"
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358349"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 21:16:05 -0800
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399167"
+ 10 Jan 2022 21:16:06 -0800
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399176"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 21:16:05 -0800
+ 10 Jan 2022 21:16:06 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Jan 2022 21:15:57 -0800
-Message-Id: <20220111051600.3429104-9-matthew.d.roper@intel.com>
+Date: Mon, 10 Jan 2022 21:16:00 -0800
+Message-Id: <20220111051600.3429104-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220111051600.3429104-1-matthew.d.roper@intel.com>
 References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 08/11] drm/i915: Move SNPS PHY registers to
- their own header
+Subject: [Intel-gfx] [PATCH v3 11/11] drm/i915: Drop unused _PORT3 and
+ _PORT4 TC phy register offsets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,198 +56,235 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These registers are only needed in a couple files and on specific
-platforms; let's keep them separate from the general register pool.
-
-v2:
- - Don't forget to include i915_reg_defs.h (Jani)
- - Ensure include guard matches header name (Jani)
+All MG/DKL PHY register regions are evenly spaced offset-wise (0x168000,
+0x169000, 0x16A000, 0x16B000) so the _MMIO_PORT() macro we use to access
+their registers only needs the first two offsets.  We can drop the
+_PORT3 and _PORT4 offsets which are never directly referenced.
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_snps_phy.c |  1 +
- .../drm/i915/display/intel_snps_phy_regs.h    | 75 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h               | 67 -----------------
- 3 files changed, 76 insertions(+), 67 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_snps_phy_regs.h
+ .../gpu/drm/i915/display/intel_tc_phy_regs.h  | 64 -------------------
+ 1 file changed, 64 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index 09f405e4d363..718bfdbae9c8 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -10,6 +10,7 @@
- #include "intel_de.h"
- #include "intel_display_types.h"
- #include "intel_snps_phy.h"
-+#include "intel_snps_phy_regs.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h b/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
+index 87b74c3c35a7..5a545086f959 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
+@@ -15,10 +15,6 @@
+ #define MG_TX_LINK_PARAMS_TX1LN1_PORT1		0x16852C
+ #define MG_TX_LINK_PARAMS_TX1LN0_PORT2		0x16912C
+ #define MG_TX_LINK_PARAMS_TX1LN1_PORT2		0x16952C
+-#define MG_TX_LINK_PARAMS_TX1LN0_PORT3		0x16A12C
+-#define MG_TX_LINK_PARAMS_TX1LN1_PORT3		0x16A52C
+-#define MG_TX_LINK_PARAMS_TX1LN0_PORT4		0x16B12C
+-#define MG_TX_LINK_PARAMS_TX1LN1_PORT4		0x16B52C
+ #define MG_TX1_LINK_PARAMS(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_LINK_PARAMS_TX1LN0_PORT1, \
+ 		       MG_TX_LINK_PARAMS_TX1LN0_PORT2, \
+@@ -28,10 +24,6 @@
+ #define MG_TX_LINK_PARAMS_TX2LN1_PORT1		0x1684AC
+ #define MG_TX_LINK_PARAMS_TX2LN0_PORT2		0x1690AC
+ #define MG_TX_LINK_PARAMS_TX2LN1_PORT2		0x1694AC
+-#define MG_TX_LINK_PARAMS_TX2LN0_PORT3		0x16A0AC
+-#define MG_TX_LINK_PARAMS_TX2LN1_PORT3		0x16A4AC
+-#define MG_TX_LINK_PARAMS_TX2LN0_PORT4		0x16B0AC
+-#define MG_TX_LINK_PARAMS_TX2LN1_PORT4		0x16B4AC
+ #define MG_TX2_LINK_PARAMS(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_LINK_PARAMS_TX2LN0_PORT1, \
+ 		       MG_TX_LINK_PARAMS_TX2LN0_PORT2, \
+@@ -42,10 +34,6 @@
+ #define MG_TX_PISO_READLOAD_TX1LN1_PORT1		0x16854C
+ #define MG_TX_PISO_READLOAD_TX1LN0_PORT2		0x16914C
+ #define MG_TX_PISO_READLOAD_TX1LN1_PORT2		0x16954C
+-#define MG_TX_PISO_READLOAD_TX1LN0_PORT3		0x16A14C
+-#define MG_TX_PISO_READLOAD_TX1LN1_PORT3		0x16A54C
+-#define MG_TX_PISO_READLOAD_TX1LN0_PORT4		0x16B14C
+-#define MG_TX_PISO_READLOAD_TX1LN1_PORT4		0x16B54C
+ #define MG_TX1_PISO_READLOAD(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_PISO_READLOAD_TX1LN0_PORT1, \
+ 		       MG_TX_PISO_READLOAD_TX1LN0_PORT2, \
+@@ -55,10 +43,6 @@
+ #define MG_TX_PISO_READLOAD_TX2LN1_PORT1		0x1684CC
+ #define MG_TX_PISO_READLOAD_TX2LN0_PORT2		0x1690CC
+ #define MG_TX_PISO_READLOAD_TX2LN1_PORT2		0x1694CC
+-#define MG_TX_PISO_READLOAD_TX2LN0_PORT3		0x16A0CC
+-#define MG_TX_PISO_READLOAD_TX2LN1_PORT3		0x16A4CC
+-#define MG_TX_PISO_READLOAD_TX2LN0_PORT4		0x16B0CC
+-#define MG_TX_PISO_READLOAD_TX2LN1_PORT4		0x16B4CC
+ #define MG_TX2_PISO_READLOAD(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_PISO_READLOAD_TX2LN0_PORT1, \
+ 		       MG_TX_PISO_READLOAD_TX2LN0_PORT2, \
+@@ -69,10 +53,6 @@
+ #define MG_TX_SWINGCTRL_TX1LN1_PORT1		0x168548
+ #define MG_TX_SWINGCTRL_TX1LN0_PORT2		0x169148
+ #define MG_TX_SWINGCTRL_TX1LN1_PORT2		0x169548
+-#define MG_TX_SWINGCTRL_TX1LN0_PORT3		0x16A148
+-#define MG_TX_SWINGCTRL_TX1LN1_PORT3		0x16A548
+-#define MG_TX_SWINGCTRL_TX1LN0_PORT4		0x16B148
+-#define MG_TX_SWINGCTRL_TX1LN1_PORT4		0x16B548
+ #define MG_TX1_SWINGCTRL(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_SWINGCTRL_TX1LN0_PORT1, \
+ 		       MG_TX_SWINGCTRL_TX1LN0_PORT2, \
+@@ -82,10 +62,6 @@
+ #define MG_TX_SWINGCTRL_TX2LN1_PORT1		0x1684C8
+ #define MG_TX_SWINGCTRL_TX2LN0_PORT2		0x1690C8
+ #define MG_TX_SWINGCTRL_TX2LN1_PORT2		0x1694C8
+-#define MG_TX_SWINGCTRL_TX2LN0_PORT3		0x16A0C8
+-#define MG_TX_SWINGCTRL_TX2LN1_PORT3		0x16A4C8
+-#define MG_TX_SWINGCTRL_TX2LN0_PORT4		0x16B0C8
+-#define MG_TX_SWINGCTRL_TX2LN1_PORT4		0x16B4C8
+ #define MG_TX2_SWINGCTRL(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_SWINGCTRL_TX2LN0_PORT1, \
+ 		       MG_TX_SWINGCTRL_TX2LN0_PORT2, \
+@@ -110,10 +86,6 @@
+ #define MG_TX_DRVCTRL_TX2LN1_PORT1			0x1684C4
+ #define MG_TX_DRVCTRL_TX2LN0_PORT2			0x1690C4
+ #define MG_TX_DRVCTRL_TX2LN1_PORT2			0x1694C4
+-#define MG_TX_DRVCTRL_TX2LN0_PORT3			0x16A0C4
+-#define MG_TX_DRVCTRL_TX2LN1_PORT3			0x16A4C4
+-#define MG_TX_DRVCTRL_TX2LN0_PORT4			0x16B0C4
+-#define MG_TX_DRVCTRL_TX2LN1_PORT4			0x16B4C4
+ #define MG_TX2_DRVCTRL(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_DRVCTRL_TX2LN0_PORT1, \
+ 		       MG_TX_DRVCTRL_TX2LN0_PORT2, \
+@@ -130,10 +102,6 @@
+ #define MG_CLKHUB_LN1_PORT1			0x16879C
+ #define MG_CLKHUB_LN0_PORT2			0x16939C
+ #define MG_CLKHUB_LN1_PORT2			0x16979C
+-#define MG_CLKHUB_LN0_PORT3			0x16A39C
+-#define MG_CLKHUB_LN1_PORT3			0x16A79C
+-#define MG_CLKHUB_LN0_PORT4			0x16B39C
+-#define MG_CLKHUB_LN1_PORT4			0x16B79C
+ #define MG_CLKHUB(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_CLKHUB_LN0_PORT1, \
+ 		       MG_CLKHUB_LN0_PORT2, \
+@@ -144,10 +112,6 @@
+ #define MG_TX_DCC_TX1LN1_PORT1			0x168510
+ #define MG_TX_DCC_TX1LN0_PORT2			0x169110
+ #define MG_TX_DCC_TX1LN1_PORT2			0x169510
+-#define MG_TX_DCC_TX1LN0_PORT3			0x16A110
+-#define MG_TX_DCC_TX1LN1_PORT3			0x16A510
+-#define MG_TX_DCC_TX1LN0_PORT4			0x16B110
+-#define MG_TX_DCC_TX1LN1_PORT4			0x16B510
+ #define MG_TX1_DCC(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_DCC_TX1LN0_PORT1, \
+ 		       MG_TX_DCC_TX1LN0_PORT2, \
+@@ -156,10 +120,6 @@
+ #define MG_TX_DCC_TX2LN1_PORT1			0x168490
+ #define MG_TX_DCC_TX2LN0_PORT2			0x169090
+ #define MG_TX_DCC_TX2LN1_PORT2			0x169490
+-#define MG_TX_DCC_TX2LN0_PORT3			0x16A090
+-#define MG_TX_DCC_TX2LN1_PORT3			0x16A490
+-#define MG_TX_DCC_TX2LN0_PORT4			0x16B090
+-#define MG_TX_DCC_TX2LN1_PORT4			0x16B490
+ #define MG_TX2_DCC(ln, tc_port) \
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_TX_DCC_TX2LN0_PORT1, \
+ 		       MG_TX_DCC_TX2LN0_PORT2, \
+@@ -172,10 +132,6 @@
+ #define MG_DP_MODE_LN1_ACU_PORT1			0x1687A0
+ #define MG_DP_MODE_LN0_ACU_PORT2			0x1693A0
+ #define MG_DP_MODE_LN1_ACU_PORT2			0x1697A0
+-#define MG_DP_MODE_LN0_ACU_PORT3			0x16A3A0
+-#define MG_DP_MODE_LN1_ACU_PORT3			0x16A7A0
+-#define MG_DP_MODE_LN0_ACU_PORT4			0x16B3A0
+-#define MG_DP_MODE_LN1_ACU_PORT4			0x16B7A0
+ #define MG_DP_MODE(ln, tc_port)	\
+ 	MG_PHY_PORT_LN(ln, tc_port, MG_DP_MODE_LN0_ACU_PORT1, \
+ 		       MG_DP_MODE_LN0_ACU_PORT2, \
+@@ -200,8 +156,6 @@
  
- /**
-  * DOC: Synopsis PHY support
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h b/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h
-new file mode 100644
-index 000000000000..0543465aaf14
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h
-@@ -0,0 +1,75 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_SNPS_PHY_REGS__
-+#define __INTEL_SNPS_PHY_REGS__
-+
-+#include "i915_reg_defs.h"
-+
-+#define _SNPS_PHY_A_BASE			0x168000
-+#define _SNPS_PHY_B_BASE			0x169000
-+#define _SNPS_PHY(phy)				_PHY(phy, \
-+						     _SNPS_PHY_A_BASE, \
-+						     _SNPS_PHY_B_BASE)
-+#define _SNPS2(phy, reg)			(_SNPS_PHY(phy) - \
-+						 _SNPS_PHY_A_BASE + (reg))
-+#define _MMIO_SNPS(phy, reg)			_MMIO(_SNPS2(phy, reg))
-+#define _MMIO_SNPS_LN(ln, phy, reg)		_MMIO(_SNPS2(phy, \
-+							     (reg) + (ln) * 0x10))
-+
-+#define SNPS_PHY_MPLLB_CP(phy)			_MMIO_SNPS(phy, 0x168000)
-+#define   SNPS_PHY_MPLLB_CP_INT			REG_GENMASK(31, 25)
-+#define   SNPS_PHY_MPLLB_CP_INT_GS		REG_GENMASK(23, 17)
-+#define   SNPS_PHY_MPLLB_CP_PROP		REG_GENMASK(15, 9)
-+#define   SNPS_PHY_MPLLB_CP_PROP_GS		REG_GENMASK(7, 1)
-+
-+#define SNPS_PHY_MPLLB_DIV(phy)			_MMIO_SNPS(phy, 0x168004)
-+#define   SNPS_PHY_MPLLB_FORCE_EN		REG_BIT(31)
-+#define   SNPS_PHY_MPLLB_DIV_CLK_EN		REG_BIT(30)
-+#define   SNPS_PHY_MPLLB_DIV5_CLK_EN		REG_BIT(29)
-+#define   SNPS_PHY_MPLLB_V2I			REG_GENMASK(27, 26)
-+#define   SNPS_PHY_MPLLB_FREQ_VCO		REG_GENMASK(25, 24)
-+#define   SNPS_PHY_MPLLB_DIV_MULTIPLIER		REG_GENMASK(23, 16)
-+#define   SNPS_PHY_MPLLB_PMIX_EN		REG_BIT(10)
-+#define   SNPS_PHY_MPLLB_DP2_MODE		REG_BIT(9)
-+#define   SNPS_PHY_MPLLB_WORD_DIV2_EN		REG_BIT(8)
-+#define   SNPS_PHY_MPLLB_TX_CLK_DIV		REG_GENMASK(7, 5)
-+#define   SNPS_PHY_MPLLB_SHIM_DIV32_CLK_SEL	REG_BIT(0)
-+
-+#define SNPS_PHY_MPLLB_FRACN1(phy)		_MMIO_SNPS(phy, 0x168008)
-+#define   SNPS_PHY_MPLLB_FRACN_EN		REG_BIT(31)
-+#define   SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN	REG_BIT(30)
-+#define   SNPS_PHY_MPLLB_FRACN_DEN		REG_GENMASK(15, 0)
-+
-+#define SNPS_PHY_MPLLB_FRACN2(phy)		_MMIO_SNPS(phy, 0x16800C)
-+#define   SNPS_PHY_MPLLB_FRACN_REM		REG_GENMASK(31, 16)
-+#define   SNPS_PHY_MPLLB_FRACN_QUOT		REG_GENMASK(15, 0)
-+
-+#define SNPS_PHY_MPLLB_SSCEN(phy)		_MMIO_SNPS(phy, 0x168014)
-+#define   SNPS_PHY_MPLLB_SSC_EN			REG_BIT(31)
-+#define   SNPS_PHY_MPLLB_SSC_UP_SPREAD		REG_BIT(30)
-+#define   SNPS_PHY_MPLLB_SSC_PEAK		REG_GENMASK(29, 10)
-+
-+#define SNPS_PHY_MPLLB_SSCSTEP(phy)		_MMIO_SNPS(phy, 0x168018)
-+#define   SNPS_PHY_MPLLB_SSC_STEPSIZE		REG_GENMASK(31, 11)
-+
-+#define SNPS_PHY_MPLLB_DIV2(phy)		_MMIO_SNPS(phy, 0x16801C)
-+#define   SNPS_PHY_MPLLB_HDMI_PIXEL_CLK_DIV	REG_GENMASK(19, 18)
-+#define   SNPS_PHY_MPLLB_HDMI_DIV		REG_GENMASK(17, 15)
-+#define   SNPS_PHY_MPLLB_REF_CLK_DIV		REG_GENMASK(14, 12)
-+#define   SNPS_PHY_MPLLB_MULTIPLIER		REG_GENMASK(11, 0)
-+
-+#define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
-+#define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
-+
-+#define SNPS_PHY_TX_REQ(phy)			_MMIO_SNPS(phy, 0x168200)
-+#define   SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR	REG_GENMASK(31, 30)
-+
-+#define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
-+#define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
-+#define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
-+#define   SNPS_PHY_TX_EQ_PRE			REG_GENMASK(7, 2)
-+
-+#endif /* __INTEL_SNPS_PHY_REGS__ */
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index b504d67c2752..71fefd04d71b 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1883,73 +1883,6 @@
- #define   MG_DP_MODE_CFG_DP_X2_MODE			(1 << 7)
- #define   MG_DP_MODE_CFG_DP_X1_MODE			(1 << 6)
+ #define _MG_REFCLKIN_CTL_PORT1				0x16892C
+ #define _MG_REFCLKIN_CTL_PORT2				0x16992C
+-#define _MG_REFCLKIN_CTL_PORT3				0x16A92C
+-#define _MG_REFCLKIN_CTL_PORT4				0x16B92C
+ #define   MG_REFCLKIN_CTL_OD_2_MUX(x)			((x) << 8)
+ #define   MG_REFCLKIN_CTL_OD_2_MUX_MASK			(0x7 << 8)
+ #define MG_REFCLKIN_CTL(tc_port) _MMIO_PORT((tc_port), \
+@@ -210,8 +164,6 @@
  
--/*
-- * DG2 SNPS PHY registers (TC1 = PHY_E)
-- */
--#define _SNPS_PHY_A_BASE			0x168000
--#define _SNPS_PHY_B_BASE			0x169000
--#define _SNPS_PHY(phy)				_PHY(phy, \
--						     _SNPS_PHY_A_BASE, \
--						     _SNPS_PHY_B_BASE)
--#define _SNPS2(phy, reg)			(_SNPS_PHY(phy) - \
--						 _SNPS_PHY_A_BASE + (reg))
--#define _MMIO_SNPS(phy, reg)			_MMIO(_SNPS2(phy, reg))
--#define _MMIO_SNPS_LN(ln, phy, reg)		_MMIO(_SNPS2(phy, \
--							     (reg) + (ln) * 0x10))
--
--#define SNPS_PHY_MPLLB_CP(phy)			_MMIO_SNPS(phy, 0x168000)
--#define   SNPS_PHY_MPLLB_CP_INT			REG_GENMASK(31, 25)
--#define   SNPS_PHY_MPLLB_CP_INT_GS		REG_GENMASK(23, 17)
--#define   SNPS_PHY_MPLLB_CP_PROP		REG_GENMASK(15, 9)
--#define   SNPS_PHY_MPLLB_CP_PROP_GS		REG_GENMASK(7, 1)
--
--#define SNPS_PHY_MPLLB_DIV(phy)			_MMIO_SNPS(phy, 0x168004)
--#define   SNPS_PHY_MPLLB_FORCE_EN		REG_BIT(31)
--#define   SNPS_PHY_MPLLB_DIV_CLK_EN		REG_BIT(30)
--#define   SNPS_PHY_MPLLB_DIV5_CLK_EN		REG_BIT(29)
--#define   SNPS_PHY_MPLLB_V2I			REG_GENMASK(27, 26)
--#define   SNPS_PHY_MPLLB_FREQ_VCO		REG_GENMASK(25, 24)
--#define   SNPS_PHY_MPLLB_DIV_MULTIPLIER		REG_GENMASK(23, 16)
--#define   SNPS_PHY_MPLLB_PMIX_EN		REG_BIT(10)
--#define   SNPS_PHY_MPLLB_DP2_MODE		REG_BIT(9)
--#define   SNPS_PHY_MPLLB_WORD_DIV2_EN		REG_BIT(8)
--#define   SNPS_PHY_MPLLB_TX_CLK_DIV		REG_GENMASK(7, 5)
--#define   SNPS_PHY_MPLLB_SHIM_DIV32_CLK_SEL	REG_BIT(0)
--
--#define SNPS_PHY_MPLLB_FRACN1(phy)		_MMIO_SNPS(phy, 0x168008)
--#define   SNPS_PHY_MPLLB_FRACN_EN		REG_BIT(31)
--#define   SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN	REG_BIT(30)
--#define   SNPS_PHY_MPLLB_FRACN_DEN		REG_GENMASK(15, 0)
--
--#define SNPS_PHY_MPLLB_FRACN2(phy)		_MMIO_SNPS(phy, 0x16800C)
--#define   SNPS_PHY_MPLLB_FRACN_REM		REG_GENMASK(31, 16)
--#define   SNPS_PHY_MPLLB_FRACN_QUOT		REG_GENMASK(15, 0)
--
--#define SNPS_PHY_MPLLB_SSCEN(phy)		_MMIO_SNPS(phy, 0x168014)
--#define   SNPS_PHY_MPLLB_SSC_EN			REG_BIT(31)
--#define   SNPS_PHY_MPLLB_SSC_UP_SPREAD		REG_BIT(30)
--#define   SNPS_PHY_MPLLB_SSC_PEAK		REG_GENMASK(29, 10)
--
--#define SNPS_PHY_MPLLB_SSCSTEP(phy)		_MMIO_SNPS(phy, 0x168018)
--#define   SNPS_PHY_MPLLB_SSC_STEPSIZE		REG_GENMASK(31, 11)
--
--#define SNPS_PHY_MPLLB_DIV2(phy)		_MMIO_SNPS(phy, 0x16801C)
--#define   SNPS_PHY_MPLLB_HDMI_PIXEL_CLK_DIV	REG_GENMASK(19, 18)
--#define   SNPS_PHY_MPLLB_HDMI_DIV		REG_GENMASK(17, 15)
--#define   SNPS_PHY_MPLLB_REF_CLK_DIV		REG_GENMASK(14, 12)
--#define   SNPS_PHY_MPLLB_MULTIPLIER		REG_GENMASK(11, 0)
--
--#define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
--#define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
--
--#define SNPS_PHY_TX_REQ(phy)			_MMIO_SNPS(phy, 0x168200)
--#define   SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR	REG_GENMASK(31, 30)
--
--#define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
--#define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
--#define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
--#define   SNPS_PHY_TX_EQ_PRE			REG_GENMASK(7, 2)
--
- /* The spec defines this only for BXT PHY0, but lets assume that this
-  * would exist for PHY1 too if it had a second channel.
-  */
+ #define _MG_CLKTOP2_CORECLKCTL1_PORT1			0x1688D8
+ #define _MG_CLKTOP2_CORECLKCTL1_PORT2			0x1698D8
+-#define _MG_CLKTOP2_CORECLKCTL1_PORT3			0x16A8D8
+-#define _MG_CLKTOP2_CORECLKCTL1_PORT4			0x16B8D8
+ #define   MG_CLKTOP2_CORECLKCTL1_B_DIVRATIO(x)		((x) << 16)
+ #define   MG_CLKTOP2_CORECLKCTL1_B_DIVRATIO_MASK	(0xff << 16)
+ #define   MG_CLKTOP2_CORECLKCTL1_A_DIVRATIO(x)		((x) << 8)
+@@ -222,8 +174,6 @@
+ 
+ #define _MG_CLKTOP2_HSCLKCTL_PORT1			0x1688D4
+ #define _MG_CLKTOP2_HSCLKCTL_PORT2			0x1698D4
+-#define _MG_CLKTOP2_HSCLKCTL_PORT3			0x16A8D4
+-#define _MG_CLKTOP2_HSCLKCTL_PORT4			0x16B8D4
+ #define   MG_CLKTOP2_HSCLKCTL_CORE_INPUTSEL(x)		((x) << 16)
+ #define   MG_CLKTOP2_HSCLKCTL_CORE_INPUTSEL_MASK	(0x1 << 16)
+ #define   MG_CLKTOP2_HSCLKCTL_TLINEDRV_CLKSEL(x)	((x) << 14)
+@@ -242,8 +192,6 @@
+ 
+ #define _MG_PLL_DIV0_PORT1				0x168A00
+ #define _MG_PLL_DIV0_PORT2				0x169A00
+-#define _MG_PLL_DIV0_PORT3				0x16AA00
+-#define _MG_PLL_DIV0_PORT4				0x16BA00
+ #define   MG_PLL_DIV0_FRACNEN_H				(1 << 30)
+ #define   MG_PLL_DIV0_FBDIV_FRAC_MASK			(0x3fffff << 8)
+ #define   MG_PLL_DIV0_FBDIV_FRAC_SHIFT			8
+@@ -255,8 +203,6 @@
+ 
+ #define _MG_PLL_DIV1_PORT1				0x168A04
+ #define _MG_PLL_DIV1_PORT2				0x169A04
+-#define _MG_PLL_DIV1_PORT3				0x16AA04
+-#define _MG_PLL_DIV1_PORT4				0x16BA04
+ #define   MG_PLL_DIV1_IREF_NDIVRATIO(x)			((x) << 16)
+ #define   MG_PLL_DIV1_DITHER_DIV_1			(0 << 12)
+ #define   MG_PLL_DIV1_DITHER_DIV_2			(1 << 12)
+@@ -270,8 +216,6 @@
+ 
+ #define _MG_PLL_LF_PORT1				0x168A08
+ #define _MG_PLL_LF_PORT2				0x169A08
+-#define _MG_PLL_LF_PORT3				0x16AA08
+-#define _MG_PLL_LF_PORT4				0x16BA08
+ #define   MG_PLL_LF_TDCTARGETCNT(x)			((x) << 24)
+ #define   MG_PLL_LF_AFCCNTSEL_256			(0 << 20)
+ #define   MG_PLL_LF_AFCCNTSEL_512			(1 << 20)
+@@ -283,8 +227,6 @@
+ 
+ #define _MG_PLL_FRAC_LOCK_PORT1				0x168A0C
+ #define _MG_PLL_FRAC_LOCK_PORT2				0x169A0C
+-#define _MG_PLL_FRAC_LOCK_PORT3				0x16AA0C
+-#define _MG_PLL_FRAC_LOCK_PORT4				0x16BA0C
+ #define   MG_PLL_FRAC_LOCK_TRUELOCK_CRIT_32		(1 << 18)
+ #define   MG_PLL_FRAC_LOCK_EARLYLOCK_CRIT_32		(1 << 16)
+ #define   MG_PLL_FRAC_LOCK_LOCKTHRESH(x)		((x) << 11)
+@@ -297,8 +239,6 @@
+ 
+ #define _MG_PLL_SSC_PORT1				0x168A10
+ #define _MG_PLL_SSC_PORT2				0x169A10
+-#define _MG_PLL_SSC_PORT3				0x16AA10
+-#define _MG_PLL_SSC_PORT4				0x16BA10
+ #define   MG_PLL_SSC_EN					(1 << 28)
+ #define   MG_PLL_SSC_TYPE(x)				((x) << 26)
+ #define   MG_PLL_SSC_STEPLENGTH(x)			((x) << 16)
+@@ -310,8 +250,6 @@
+ 
+ #define _MG_PLL_BIAS_PORT1				0x168A14
+ #define _MG_PLL_BIAS_PORT2				0x169A14
+-#define _MG_PLL_BIAS_PORT3				0x16AA14
+-#define _MG_PLL_BIAS_PORT4				0x16BA14
+ #define   MG_PLL_BIAS_BIAS_GB_SEL(x)			((x) << 30)
+ #define   MG_PLL_BIAS_BIAS_GB_SEL_MASK			(0x3 << 30)
+ #define   MG_PLL_BIAS_INIT_DCOAMP(x)			((x) << 24)
+@@ -330,8 +268,6 @@
+ 
+ #define _MG_PLL_TDC_COLDST_BIAS_PORT1			0x168A18
+ #define _MG_PLL_TDC_COLDST_BIAS_PORT2			0x169A18
+-#define _MG_PLL_TDC_COLDST_BIAS_PORT3			0x16AA18
+-#define _MG_PLL_TDC_COLDST_BIAS_PORT4			0x16BA18
+ #define   MG_PLL_TDC_COLDST_IREFINT_EN			(1 << 27)
+ #define   MG_PLL_TDC_COLDST_REFBIAS_START_PULSE_W(x)	((x) << 17)
+ #define   MG_PLL_TDC_COLDST_COLDSTART			(1 << 16)
 -- 
 2.34.1
 
