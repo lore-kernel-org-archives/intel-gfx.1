@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714AEC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 16:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E92AEC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 16:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92BC910E4C7;
-	Tue, 11 Jan 2022 16:37:19 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A140910E493;
- Tue, 11 Jan 2022 16:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7075D10E560;
+	Tue, 11 Jan 2022 16:40:53 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8695C10E560
+ for <Intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 16:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641919037; x=1673455037;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UqOiHDLP56nD/P5m6Thf/FxNrZhsnkb+fpb2TWLDnck=;
- b=FgnEjkfakp5tSRZunj2BdVnUwEzCXdbstNm85s6uCL5azTBzHMImsVCU
- izNXN0jaGE2OhA8wNYtXVlewPjJDr7qPxpHsn2r95DyUOsYGBVLBTOohO
- Me04tZmkFg+JMdPsMiGTwGSdzSsKEBgO5T0uJhZsYgYL1qbC+Z681HNrf
- tiX7eEI3lnAZscjtS3dsqErqC6Lf1SgfW/Z9WHxoTo9CUdM/9za7aKLWu
- w8Ff7KqD03CQO156N4luZtSRO2makpHHx17B7CKKQy4iepJ3WXptcUIAO
- RJlns6jagrkeBH32jc4PM/+4WRijkiyq6BNbZCRsGj2fH2hvJSpXtdUAx g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243327031"
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243327031"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2022 08:36:13 -0800
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="515149678"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2022 08:36:12 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Tue, 11 Jan 2022 08:30:19 -0800
-Message-Id: <20220111163019.13694-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+ t=1641919252; x=1673455252;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=Qpdb2ahkV4jKjiUaHh2m9357z0VAJXh3tWhLMUtTaCs=;
+ b=UWshvdp7TgyQeu2aox3j2iM0at1Apm4OZMGqiON2rKKBox6kz/AmYcaz
+ b4ha1y5qgVLnKJs/AXc8a/9TWwcDudEDDF9P/jx3cLkSjUjE5fRyG4pBd
+ T+Lr6+XP5R6CL9o/qquXDP35otOldxRWyYDLYaduYhgjzZiJTVtPagtHw
+ /67aZGwdFYF0WgBydyZx/AZA/sNzWg65ZO6IKX5Iu7pO8Q0xrC9LMs1Yj
+ FsOowxwP6icYC7Bm35sIjoBb0tR2IRMR1t3B7W1vliQCCFLS2yiIS+7RA
+ x4osI/6rABUjogm1rUjkoZimhL7NLTZ4+LMxULhwzqCejvjw9HtCN+UZG g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="230869705"
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="230869705"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2022 08:40:37 -0800
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="691051529"
+Received: from sjobrien-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.252.25.241])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2022 08:40:35 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Souza, Jose" <jose.souza@intel.com>, "Intel-gfx@lists.freedesktop.org"
+ <Intel-gfx@lists.freedesktop.org>, "Taylor, Clinton A"
+ <clinton.a.taylor@intel.com>
+In-Reply-To: <9fc25061bdf311a470ac916c5abbb421b574d8d8.camel@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220110234520.6836-1-clinton.a.taylor@intel.com>
+ <9fc25061bdf311a470ac916c5abbb421b574d8d8.camel@intel.com>
+Date: Tue, 11 Jan 2022 18:40:31 +0200
+Message-ID: <87zgo26xa8.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Flip guc_id allocation partition
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/snps: vswing value refined for
+ SNPS phys
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,119 +64,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the multi-lrc guc_id from the lower allocation partition (0 to
-number of multi-lrc guc_ids) to upper allocation partition (number of
-single-lrc to max guc_ids).
+On Tue, 11 Jan 2022, "Souza, Jose" <jose.souza@intel.com> wrote:
+> On Mon, 2022-01-10 at 15:45 -0800, clinton.a.taylor@intel.com wrote:
+>> From: Clint Taylor <clinton.a.taylor@intel.com>
+>>=20
+>> Updated new values from BSPEC.
+>>=20
+>> BSPEC: 53920
+>>=20
+>
+> Reviewed-by: Jos=C3=A9 Roberto de Souza <jose.souza@intel.com>
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 57 ++++++++++++++-----
- 1 file changed, 42 insertions(+), 15 deletions(-)
+Oh, I failed to reply that I've pushed this already. But thanks for
+confirming it matches the spec. :)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 9989d121127df..1bacc9621cea8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -147,6 +147,8 @@ guc_create_parallel(struct intel_engine_cs **engines,
-  */
- #define NUMBER_MULTI_LRC_GUC_ID(guc)	\
- 	((guc)->submission_state.num_guc_ids / 16)
-+#define NUMBER_SINGLE_LRC_GUC_ID(guc)	\
-+	((guc)->submission_state.num_guc_ids - NUMBER_MULTI_LRC_GUC_ID(guc))
- 
- /*
-  * Below is a set of functions which control the GuC scheduling state which
-@@ -1776,11 +1778,6 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 	INIT_WORK(&guc->submission_state.destroyed_worker,
- 		  destroyed_worker_func);
- 
--	guc->submission_state.guc_ids_bitmap =
--		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
--	if (!guc->submission_state.guc_ids_bitmap)
--		return -ENOMEM;
--
- 	spin_lock_init(&guc->timestamp.lock);
- 	INIT_DELAYED_WORK(&guc->timestamp.work, guc_timestamp_ping);
- 	guc->timestamp.ping_delay = (POLL_TIME_CLKS / gt->clock_frequency + 1) * HZ;
-@@ -1796,7 +1793,8 @@ void intel_guc_submission_fini(struct intel_guc *guc)
- 	guc_flush_destroyed_contexts(guc);
- 	guc_lrc_desc_pool_destroy(guc);
- 	i915_sched_engine_put(guc->sched_engine);
--	bitmap_free(guc->submission_state.guc_ids_bitmap);
-+	if (guc->submission_state.guc_ids_bitmap)
-+		bitmap_free(guc->submission_state.guc_ids_bitmap);
- }
- 
- static inline void queue_request(struct i915_sched_engine *sched_engine,
-@@ -1863,6 +1861,33 @@ static void guc_submit_request(struct i915_request *rq)
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
- }
- 
-+static int new_mlrc_guc_id(struct intel_guc *guc, struct intel_context *ce)
-+{
-+	int ret;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+	GEM_BUG_ON(!guc->submission_state.guc_ids_bitmap);
-+
-+	ret =  bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
-+				       NUMBER_MULTI_LRC_GUC_ID(guc),
-+				       order_base_2(ce->parallel.number_children
-+						    + 1));
-+	if (likely(!(ret < 0)))
-+		ret += NUMBER_SINGLE_LRC_GUC_ID(guc);
-+
-+	return ret;
-+}
-+
-+static int new_slrc_guc_id(struct intel_guc *guc, struct intel_context *ce)
-+{
-+	GEM_BUG_ON(intel_context_is_parent(ce));
-+
-+	return ida_simple_get(&guc->submission_state.guc_ids,
-+			      0, NUMBER_SINGLE_LRC_GUC_ID(guc),
-+			      GFP_KERNEL | __GFP_RETRY_MAYFAIL |
-+			      __GFP_NOWARN);
-+}
-+
- static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
+BR,
+Jani.
+
+>
+>> Cc: Jani Nikula <jani.nikula@intel.com>
+>> Cc: Jos=C3=A9 Roberto de Souza <jose.souza@intel.com>
+>> Cc: Imre Deak <imre.deak@intel.com>
+>> Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+>> ---
+>>  .../drm/i915/display/intel_ddi_buf_trans.c    | 42 +++++++++----------
+>>  1 file changed, 21 insertions(+), 21 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/driver=
+s/gpu/drm/i915/display/intel_ddi_buf_trans.c
+>> index 1e689d573512..09d6ab13536c 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+>> @@ -985,15 +985,15 @@ static const struct intel_ddi_buf_trans adlp_dkl_p=
+hy_trans_dp_hbr2_hbr3 =3D {
+>>  };
+>>=20=20
+>>  static const union intel_ddi_buf_trans_entry _dg2_snps_trans[] =3D {
+>> -	{ .snps =3D { 26, 0, 0 } },	/* VS 0, pre-emph 0 */
+>> -	{ .snps =3D { 33, 0, 6 } },	/* VS 0, pre-emph 1 */
+>> -	{ .snps =3D { 38, 0, 12 } },	/* VS 0, pre-emph 2 */
+>> -	{ .snps =3D { 43, 0, 19 } },	/* VS 0, pre-emph 3 */
+>> -	{ .snps =3D { 39, 0, 0 } },	/* VS 1, pre-emph 0 */
+>> -	{ .snps =3D { 44, 0, 8 } },	/* VS 1, pre-emph 1 */
+>> -	{ .snps =3D { 47, 0, 15 } },	/* VS 1, pre-emph 2 */
+>> -	{ .snps =3D { 52, 0, 0 } },	/* VS 2, pre-emph 0 */
+>> -	{ .snps =3D { 51, 0, 10 } },	/* VS 2, pre-emph 1 */
+>> +	{ .snps =3D { 25, 0, 0 } },	/* VS 0, pre-emph 0 */
+>> +	{ .snps =3D { 32, 0, 6 } },	/* VS 0, pre-emph 1 */
+>> +	{ .snps =3D { 35, 0, 10 } },	/* VS 0, pre-emph 2 */
+>> +	{ .snps =3D { 43, 0, 17 } },	/* VS 0, pre-emph 3 */
+>> +	{ .snps =3D { 35, 0, 0 } },	/* VS 1, pre-emph 0 */
+>> +	{ .snps =3D { 45, 0, 8 } },	/* VS 1, pre-emph 1 */
+>> +	{ .snps =3D { 48, 0, 14 } },	/* VS 1, pre-emph 2 */
+>> +	{ .snps =3D { 47, 0, 0 } },	/* VS 2, pre-emph 0 */
+>> +	{ .snps =3D { 55, 0, 7 } },	/* VS 2, pre-emph 1 */
+>>  	{ .snps =3D { 62, 0, 0 } },	/* VS 3, pre-emph 0 */
+>>  };
+>>=20=20
+>> @@ -1005,21 +1005,21 @@ static const struct intel_ddi_buf_trans dg2_snps=
+_trans =3D {
+>>=20=20
+>>  static const union intel_ddi_buf_trans_entry _dg2_snps_trans_uhbr[] =3D=
  {
- 	int ret;
-@@ -1870,16 +1895,10 @@ static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
- 	GEM_BUG_ON(intel_context_is_child(ce));
- 
- 	if (intel_context_is_parent(ce))
--		ret = bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
--					      NUMBER_MULTI_LRC_GUC_ID(guc),
--					      order_base_2(ce->parallel.number_children
--							   + 1));
-+		ret = new_mlrc_guc_id(guc, ce);
- 	else
--		ret = ida_simple_get(&guc->submission_state.guc_ids,
--				     NUMBER_MULTI_LRC_GUC_ID(guc),
--				     guc->submission_state.num_guc_ids,
--				     GFP_KERNEL | __GFP_RETRY_MAYFAIL |
--				     __GFP_NOWARN);
-+		ret = new_slrc_guc_id(guc, ce);
-+
- 	if (unlikely(ret < 0))
- 		return ret;
- 
-@@ -1989,6 +2008,14 @@ static int pin_guc_id(struct intel_guc *guc, struct intel_context *ce)
- 
- 	GEM_BUG_ON(atomic_read(&ce->guc_id.ref));
- 
-+	if (unlikely(intel_context_is_parent(ce) &&
-+		     !guc->submission_state.guc_ids_bitmap)) {
-+		guc->submission_state.guc_ids_bitmap =
-+			bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
-+		if (!guc->submission_state.guc_ids_bitmap)
-+			return -ENOMEM;
-+	}
-+
- try_again:
- 	spin_lock_irqsave(&guc->submission_state.lock, flags);
- 
--- 
-2.34.1
+>>  	{ .snps =3D { 62, 0, 0 } },	/* preset 0 */
+>> -	{ .snps =3D { 56, 0, 6 } },	/* preset 1 */
+>> -	{ .snps =3D { 51, 0, 11 } },	/* preset 2 */
+>> -	{ .snps =3D { 48, 0, 14 } },	/* preset 3 */
+>> -	{ .snps =3D { 43, 0, 19 } },	/* preset 4 */
+>> +	{ .snps =3D { 55, 0, 7 } },	/* preset 1 */
+>> +	{ .snps =3D { 50, 0, 12 } },	/* preset 2 */
+>> +	{ .snps =3D { 44, 0, 18 } },	/* preset 3 */
+>> +	{ .snps =3D { 35, 0, 21 } },	/* preset 4 */
+>>  	{ .snps =3D { 59, 3, 0 } },	/* preset 5 */
+>>  	{ .snps =3D { 53, 3, 6 } },	/* preset 6 */
+>> -	{ .snps =3D { 49, 3, 10 } },	/* preset 7 */
+>> -	{ .snps =3D { 45, 3, 14 } },	/* preset 8 */
+>> -	{ .snps =3D { 42, 3, 17 } },	/* preset 9 */
+>> +	{ .snps =3D { 48, 3, 11 } },	/* preset 7 */
+>> +	{ .snps =3D { 42, 5, 15 } },	/* preset 8 */
+>> +	{ .snps =3D { 37, 5, 20 } },	/* preset 9 */
+>>  	{ .snps =3D { 56, 6, 0 } },	/* preset 10 */
+>> -	{ .snps =3D { 50, 6, 6 } },	/* preset 11 */
+>> -	{ .snps =3D { 47, 6, 9 } },	/* preset 12 */
+>> -	{ .snps =3D { 42, 6, 14 } },	/* preset 13 */
+>> -	{ .snps =3D { 46, 8, 8 } },	/* preset 14 */
+>> -	{ .snps =3D { 56, 3, 3 } },	/* preset 15 */
+>> +	{ .snps =3D { 48, 7, 7 } },	/* preset 11 */
+>> +	{ .snps =3D { 45, 7, 10 } },	/* preset 12 */
+>> +	{ .snps =3D { 39, 8, 15 } },	/* preset 13 */
+>> +	{ .snps =3D { 48, 14, 0 } },	/* preset 14 */
+>> +	{ .snps =3D { 45, 4, 4 } },	/* preset 15 */
+>>  };
+>>=20=20
+>>  static const struct intel_ddi_buf_trans dg2_snps_trans_uhbr =3D {
+>
 
+--=20
+Jani Nikula, Intel Open Source Graphics Center
