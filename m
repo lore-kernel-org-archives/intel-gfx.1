@@ -4,46 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFDBC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF52CC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45414112AFA;
-	Tue, 11 Jan 2022 05:16:17 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8343E10F906
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 05:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641878165; x=1673414165;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=xi9f6dKFMT6LEfIPyQULfXQAspQnlvG2Nn2OQuzSyeQ=;
- b=HmZ6e3qIhMTrNW986TEqw4cFG7Mrl2gOf3hyIgG3Rz/kM3NSn9OxkD+c
- k1jlqb6YQjJltv/LOkD3gVIZwUuhtEGtV7mTgI7Sd8B8qNpupUEBJsK7t
- 4K250BxLCtu+oaFBxMWoxEyGwlm5ejPLkJNpsoAVlsAFFqn6fUSmM0z2r
- 66GQt8ZvQ3L2ZCjWvIjLb9eIntJSKzEVtOzWehR9HunGcTkXDLzekgIXp
- K6L0tIRgewjcq7mM3n8EL6P3345JTtCelG0wfUV+Ph2Af9VdtY/EyliOw
- WDX97ux9TrYq8iMAJBIB6OLToBJrYRvhJcj5sky3h6Gw8yEimDBxdtk4p w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358337"
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358337"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 21:16:04 -0800
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399144"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 21:16:04 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Jan 2022 21:15:50 -0800
-Message-Id: <20220111051600.3429104-2-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220111051600.3429104-1-matthew.d.roper@intel.com>
-References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 192BA11AD43;
+	Tue, 11 Jan 2022 05:45:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9E57411AD2D;
+ Tue, 11 Jan 2022 05:45:49 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9BE70AA0ED;
+ Tue, 11 Jan 2022 05:45:49 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 01/11] drm/i915: Use parameterized GPR
- register definitions everywhere
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Date: Tue, 11 Jan 2022 05:45:49 -0000
+Message-ID: <164187994961.24977.5840277533445497927@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
+In-Reply-To: <20220111051600.3429104-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Start_cleaning_up_register_definitions_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,140 +40,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we have an engine-parameterized macro GEN8_RING_CS_GPR, let's use
-that in place of the HSW_CS_GPR and BCS_GPR register definitions.
+== Series Details ==
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/i915_cmd_parser.c | 68 ++++++++++++++------------
- drivers/gpu/drm/i915/i915_reg.h        |  8 ---
- 2 files changed, 36 insertions(+), 40 deletions(-)
+Series: Start cleaning up register definitions (rev3)
+URL   : https://patchwork.freedesktop.org/series/98575/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
-index 9c90740520a9..a804373bcd17 100644
---- a/drivers/gpu/drm/i915/i915_cmd_parser.c
-+++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
-@@ -592,6 +592,10 @@ struct drm_i915_reg_descriptor {
- 	{ .addr = _reg(idx) }, \
- 	{ .addr = _reg ## _UDW(idx) }
- 
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+e41d2f04b72a drm/i915: Use parameterized GPR register definitions everywhere
+-:22: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#22: FILE: drivers/gpu/drm/i915/i915_cmd_parser.c:595:
 +#define REG64_BASE_IDX(_reg, base, idx) \
 +	{ .addr = _reg(base, idx) }, \
 +	{ .addr = _reg ## _UDW(base, idx) }
+
+-:22: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'base' - possible side-effects?
+#22: FILE: drivers/gpu/drm/i915/i915_cmd_parser.c:595:
++#define REG64_BASE_IDX(_reg, base, idx) \
++	{ .addr = _reg(base, idx) }, \
++	{ .addr = _reg ## _UDW(base, idx) }
+
+-:22: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'idx' - possible side-effects?
+#22: FILE: drivers/gpu/drm/i915/i915_cmd_parser.c:595:
++#define REG64_BASE_IDX(_reg, base, idx) \
++	{ .addr = _reg(base, idx) }, \
++	{ .addr = _reg ## _UDW(base, idx) }
+
+total: 1 errors, 0 warnings, 2 checks, 106 lines checked
+e327ba8e8c11 drm/i915: Parameterize PWRCTX_MAXCNT
+015378528220 drm/i915: Parameterize ECOSKPD
+b7b8ca9b04ef drm/i915: Use RING_PSMI_CTL rather than per-engine macros
+-:114: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#114: FILE: drivers/gpu/drm/i915/intel_pm.c:7658:
++	intel_uncore_write(&dev_priv->uncore, RING_PSMI_CTL(RENDER_RING_BASE),
+ 		   _MASKED_BIT_ENABLE(GEN8_RC_SEMA_IDLE_MSG_DISABLE));
+
+-:123: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#123: FILE: drivers/gpu/drm/i915/intel_pm.c:7799:
++	intel_uncore_write(&dev_priv->uncore, RING_PSMI_CTL(RENDER_RING_BASE),
+ 		   _MASKED_BIT_ENABLE(GEN8_RC_SEMA_IDLE_MSG_DISABLE));
+
+total: 0 errors, 0 warnings, 2 checks, 89 lines checked
+b3f3b6cd9677 drm/i915: Replace GFX_MODE_GEN7 with RING_MODE_GEN7
+00c2a2d5bca6 drm/i915: Introduce i915_reg_defs.h
+-:121: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#121: 
+new file mode 100644
+
+-:145: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__n' - possible side-effects?
+#145: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:20:
++#define REG_BIT(__n)							\
++	((u32)(BIT(__n) +						\
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&		\
++				 ((__n) < 0 || (__n) > 31))))
+
+-:159: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__high' - possible side-effects?
+#159: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:34:
++#define REG_GENMASK(__high, __low)					\
++	((u32)(GENMASK(__high, __low) +					\
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&	\
++				 __is_constexpr(__low) &&		\
++				 ((__low) < 0 || (__high) > 31 || (__low) > (__high)))))
+
+-:159: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__low' - possible side-effects?
+#159: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:34:
++#define REG_GENMASK(__high, __low)					\
++	((u32)(GENMASK(__high, __low) +					\
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&	\
++				 __is_constexpr(__low) &&		\
++				 ((__low) < 0 || (__high) > 31 || (__low) > (__high)))))
+
+-:168: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__x' - possible side-effects?
+#168: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:43:
++#define IS_POWER_OF_2(__x)		((__x) && (((__x) & ((__x) - 1)) == 0))
+
+-:180: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__mask' - possible side-effects?
+#180: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:55:
++#define REG_FIELD_PREP(__mask, __val)						\
++	((u32)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +	\
++	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +		\
++	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U32_MAX) +		\
++	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:180: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__val' - possible side-effects?
+#180: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:55:
++#define REG_FIELD_PREP(__mask, __val)						\
++	((u32)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +	\
++	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +		\
++	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U32_MAX) +		\
++	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:185: WARNING:LONG_LINE: line length of 128 exceeds 100 columns
+#185: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:60:
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:199: WARNING:NEW_TYPEDEFS: do not add new typedefs
+#199: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:74:
++typedef struct {
+
+-:222: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#222: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:97:
 +
- static const struct drm_i915_reg_descriptor gen7_render_regs[] = {
- 	REG64(GPGPU_THREADS_DISPATCHED),
- 	REG64(HS_INVOCATION_COUNT),
-@@ -637,22 +641,22 @@ static const struct drm_i915_reg_descriptor gen7_render_regs[] = {
- };
- 
- static const struct drm_i915_reg_descriptor hsw_render_regs[] = {
--	REG64_IDX(HSW_CS_GPR, 0),
--	REG64_IDX(HSW_CS_GPR, 1),
--	REG64_IDX(HSW_CS_GPR, 2),
--	REG64_IDX(HSW_CS_GPR, 3),
--	REG64_IDX(HSW_CS_GPR, 4),
--	REG64_IDX(HSW_CS_GPR, 5),
--	REG64_IDX(HSW_CS_GPR, 6),
--	REG64_IDX(HSW_CS_GPR, 7),
--	REG64_IDX(HSW_CS_GPR, 8),
--	REG64_IDX(HSW_CS_GPR, 9),
--	REG64_IDX(HSW_CS_GPR, 10),
--	REG64_IDX(HSW_CS_GPR, 11),
--	REG64_IDX(HSW_CS_GPR, 12),
--	REG64_IDX(HSW_CS_GPR, 13),
--	REG64_IDX(HSW_CS_GPR, 14),
--	REG64_IDX(HSW_CS_GPR, 15),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 0),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 1),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 2),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 3),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 4),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 5),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 6),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 7),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 8),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 9),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 10),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 11),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 12),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 13),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 14),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, RENDER_RING_BASE, 15),
- 	REG32(HSW_SCRATCH1,
- 	      .mask = ~HSW_SCRATCH1_L3_DATA_ATOMICS_DISABLE,
- 	      .value = 0),
-@@ -675,22 +679,22 @@ static const struct drm_i915_reg_descriptor gen9_blt_regs[] = {
- 	REG32(BCS_SWCTRL),
- 	REG64_IDX(RING_TIMESTAMP, BLT_RING_BASE),
- 	REG32_IDX(RING_CTX_TIMESTAMP, BLT_RING_BASE),
--	REG64_IDX(BCS_GPR, 0),
--	REG64_IDX(BCS_GPR, 1),
--	REG64_IDX(BCS_GPR, 2),
--	REG64_IDX(BCS_GPR, 3),
--	REG64_IDX(BCS_GPR, 4),
--	REG64_IDX(BCS_GPR, 5),
--	REG64_IDX(BCS_GPR, 6),
--	REG64_IDX(BCS_GPR, 7),
--	REG64_IDX(BCS_GPR, 8),
--	REG64_IDX(BCS_GPR, 9),
--	REG64_IDX(BCS_GPR, 10),
--	REG64_IDX(BCS_GPR, 11),
--	REG64_IDX(BCS_GPR, 12),
--	REG64_IDX(BCS_GPR, 13),
--	REG64_IDX(BCS_GPR, 14),
--	REG64_IDX(BCS_GPR, 15),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 0),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 1),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 2),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 3),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 4),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 5),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 6),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 7),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 8),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 9),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 10),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 11),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 12),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 13),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 14),
-+	REG64_BASE_IDX(GEN8_RING_CS_GPR, BLT_RING_BASE, 15),
- };
- 
- #undef REG64
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 61ade07068c8..149cf4d25569 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -521,10 +521,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   BCS_SRC_Y REG_BIT(0)
- #define   BCS_DST_Y REG_BIT(1)
- 
--/* There are 16 GPR registers */
--#define BCS_GPR(n)	_MMIO(0x22600 + (n) * 8)
--#define BCS_GPR_UDW(n)	_MMIO(0x22600 + (n) * 8 + 4)
--
- #define GPGPU_THREADS_DISPATCHED        _MMIO(0x2290)
- #define GPGPU_THREADS_DISPATCHED_UDW	_MMIO(0x2290 + 4)
- #define HS_INVOCATION_COUNT             _MMIO(0x2300)
-@@ -568,10 +564,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN7_GPGPU_DISPATCHDIMY         _MMIO(0x2504)
- #define GEN7_GPGPU_DISPATCHDIMZ         _MMIO(0x2508)
- 
--/* There are the 16 64-bit CS General Purpose Registers */
--#define HSW_CS_GPR(n)                   _MMIO(0x2600 + (n) * 8)
--#define HSW_CS_GPR_UDW(n)               _MMIO(0x2600 + (n) * 8 + 4)
--
- #define GEN7_OACONTROL _MMIO(0x2360)
- #define  GEN7_OACONTROL_CTX_MASK	    0xFFFFF000
- #define  GEN7_OACONTROL_TIMER_PERIOD_MASK   0x3F
--- 
-2.34.1
++
+
+total: 0 errors, 3 warnings, 7 checks, 198 lines checked
+c6d204da3552 drm/i915/gt: Move engine registers to their own header
+-:66: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#66: 
+new file mode 100644
+
+-:266: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#266: FILE: drivers/gpu/drm/i915/gt/intel_engine_regs.h:196:
++
++
+
+-:638: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#638: FILE: drivers/gpu/drm/i915/i915_reg.h:2202:
++
++
+
+total: 0 errors, 1 warnings, 2 checks, 668 lines checked
+f9b30303c8f3 drm/i915: Move SNPS PHY registers to their own header
+-:30: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#30: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 155 lines checked
+a1b5e1b0786f drm/i915: Move combo PHY registers to their own header
+-:37: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#37: 
+new file mode 100644
+
+-:149: WARNING:SPACE_BEFORE_TAB: please, no space before tabs
+#149: FILE: drivers/gpu/drm/i915/display/intel_combo_phy_regs.h:108:
++#define _ICL_PORT_TX_DW_LN(dw, ln, phy) ^I(_ICL_COMBOPHY(phy) + \$
+
+-:197: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#197: FILE: drivers/gpu/drm/i915/display/intel_combo_phy_regs.h:156:
++#define   ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_DIV2	REG_FIELD_PREP(ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_MASK, 0x1)
+
+total: 0 errors, 3 warnings, 0 checks, 357 lines checked
+00b848b9a979 drm/i915: Move TC PHY registers to their own header
+-:50: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#50: 
+new file mode 100644
+
+-:65: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'ln0p1' - possible side-effects?
+#65: FILE: drivers/gpu/drm/i915/display/intel_tc_phy_regs.h:11:
++#define MG_PHY_PORT_LN(ln, tc_port, ln0p1, ln0p2, ln1p1) \
++	_MMIO(_PORT(tc_port, ln0p1, ln0p2) + (ln) * ((ln1p1) - (ln0p1)))
+
+total: 0 errors, 1 warnings, 1 checks, 716 lines checked
+024d6cafab40 drm/i915: Drop unused _PORT3 and _PORT4 TC phy register offsets
+
 
