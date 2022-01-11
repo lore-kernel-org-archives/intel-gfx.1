@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96894C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A55C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 05:16:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A4811221C;
-	Tue, 11 Jan 2022 05:16:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08EE112C3E;
+	Tue, 11 Jan 2022 05:16:13 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1589F10FF49
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95D6D10FFF0
  for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 05:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1641878166; x=1673414166;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o0/IaTnDWTeedT7mIu6/2wL4XDAaKTODL1G8XVNi8h0=;
- b=DE8ZNevLfwFZMSX+2lpdh9K+WbyoKonmTpfBJ17WA7VTnAzRRNJH4/jc
- 4wxdQg7jRqwfcpdtwIfEJizADXsPIQj/2cBpNJuRgFO64Ea5PuDhTCROU
- QraEPdBRE5E04eySDEbfQ+i1I+GDh2a16fmJ6lUpAJ7wEp71WgZZpNhXe
- xqkMETOIcxnwRsIaHm2jmI8OB0DEzi+gYEcQl9kQlU2fW1MZipR5jhhuE
- omVTckAEVCshEukLsCk0dTgqojh2/dOgTmL8mhwTpCBPocj3nP5lapWjj
- gmInZClH9I3kMhGyzcSEVc3jHIWI2BVRcOUZy7BUrjsSBlOF4Me4Y+Thf g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358340"
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358340"
+ bh=3NYQtbA344RlKSIN5nMW8DXPCaALXNjkcsw8QUSfaCw=;
+ b=ThfEfomEPavC5GE4VPSf4ohWGDH/49cMcaue16kD1L6SLGEwiZgr9G3E
+ FnkGRLddcT9LWzy4ksxSzD5Q/UkY+SBlWJQIkPUKaE5dGdG+bqbeR8KZC
+ 7rJmDP4EnZhh9PbZ6nYGtNNfG0tHMbD+oJhGk+pGtWLQnUmvcTmJ7x8jM
+ cntnhg0H7CK1CwVa7B/8Jto4zfJqjo9Xd98L70ZH+jkGOhk8rr/7ZZjGK
+ ESA77gH+2TY2lgWr4Qmh+hyFfljbi9yR9KFC3nSf7VfFq6npk/wsY76Gk
+ aLD/ldQgY7HL3rRK6hz870KYVquTqdIPYoDbTSaQG/WLynm/Clxa/O24k A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10223"; a="243358345"
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="243358345"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Jan 2022 21:16:05 -0800
-X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399154"
+X-IronPort-AV: E=Sophos;i="5.88,279,1635231600"; d="scan'208";a="474399170"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Jan 2022 21:16:05 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Jan 2022 21:15:53 -0800
-Message-Id: <20220111051600.3429104-5-matthew.d.roper@intel.com>
+Date: Mon, 10 Jan 2022 21:15:58 -0800
+Message-Id: <20220111051600.3429104-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220111051600.3429104-1-matthew.d.roper@intel.com>
 References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 04/11] drm/i915: Use RING_PSMI_CTL rather
- than per-engine macros
+Subject: [Intel-gfx] [PATCH v3 09/11] drm/i915: Move combo PHY registers to
+ their own header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,136 +57,418 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have a parameterized macro for RING_PSMI_CTL; let's use that instead
-of the per-engine definitions where possible.
+These registers are only needed in a couple files and on specific
+platforms; let's keep them separate from the general register pool.
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../gpu/drm/i915/gt/intel_ring_submission.c   | 10 +++++-----
- drivers/gpu/drm/i915/gt/intel_workarounds.c   |  2 +-
- drivers/gpu/drm/i915/i915_reg.h               | 19 +++++++------------
- drivers/gpu/drm/i915/intel_pm.c               |  4 ++--
- 4 files changed, 15 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   1 +
+ .../gpu/drm/i915/display/intel_combo_phy.c    |   1 +
+ .../drm/i915/display/intel_combo_phy_regs.h   | 162 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   1 +
+ .../drm/i915/display/intel_display_power.c    |   1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |   1 +
+ drivers/gpu/drm/i915/i915_reg.h               | 154 -----------------
+ 7 files changed, 167 insertions(+), 154 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_combo_phy_regs.h
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 3e6fac0340ef..56c009ecfdf2 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -1002,15 +1002,15 @@ static void gen6_bsd_submit_request(struct i915_request *request)
- 	/* Disable notification that the ring is IDLE. The GT
- 	 * will then assume that it is busy and bring it out of rc6.
- 	 */
--	intel_uncore_write_fw(uncore, GEN6_BSD_SLEEP_PSMI_CONTROL,
--			      _MASKED_BIT_ENABLE(GEN6_BSD_SLEEP_MSG_DISABLE));
-+	intel_uncore_write_fw(uncore, RING_PSMI_CTL(GEN6_BSD_RING_BASE),
-+			      _MASKED_BIT_ENABLE(GEN6_PSMI_SLEEP_MSG_DISABLE));
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 5781e9fac8b4..95f49535fa6e 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -32,6 +32,7 @@
+ #include "intel_atomic.h"
+ #include "intel_backlight.h"
+ #include "intel_combo_phy.h"
++#include "intel_combo_phy_regs.h"
+ #include "intel_connector.h"
+ #include "intel_crtc.h"
+ #include "intel_ddi.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_combo_phy.c b/drivers/gpu/drm/i915/display/intel_combo_phy.c
+index f628e0542933..4dfe77351b8b 100644
+--- a/drivers/gpu/drm/i915/display/intel_combo_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_combo_phy.c
+@@ -4,6 +4,7 @@
+  */
  
- 	/* Clear the context id. Here be magic! */
- 	intel_uncore_write64_fw(uncore, GEN6_BSD_RNCID, 0x0);
+ #include "intel_combo_phy.h"
++#include "intel_combo_phy_regs.h"
+ #include "intel_de.h"
+ #include "intel_display_types.h"
  
- 	/* Wait for the ring not to be idle, i.e. for it to wake up. */
- 	if (__intel_wait_for_register_fw(uncore,
--					 GEN6_BSD_SLEEP_PSMI_CONTROL,
-+					 RING_PSMI_CTL(GEN6_BSD_RING_BASE),
- 					 GEN6_BSD_SLEEP_INDICATOR,
- 					 0,
- 					 1000, 0, NULL))
-@@ -1023,8 +1023,8 @@ static void gen6_bsd_submit_request(struct i915_request *request)
- 	/* Let the ring send IDLE messages to the GT again,
- 	 * and so let it sleep to conserve power when idle.
- 	 */
--	intel_uncore_write_fw(uncore, GEN6_BSD_SLEEP_PSMI_CONTROL,
--			      _MASKED_BIT_DISABLE(GEN6_BSD_SLEEP_MSG_DISABLE));
-+	intel_uncore_write_fw(uncore, RING_PSMI_CTL(GEN6_BSD_RING_BASE),
-+			      _MASKED_BIT_DISABLE(GEN6_PSMI_SLEEP_MSG_DISABLE));
- 
- 	intel_uncore_forcewake_put(uncore, FORCEWAKE_ALL);
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 2d87dc81cd63..977619ea839a 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -2208,7 +2208,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 		 * For DG1 this only applies to A0.
- 		 */
- 		wa_masked_en(wal,
--			     GEN6_RC_SLEEP_PSMI_CONTROL,
-+			     RING_PSMI_CTL(RENDER_RING_BASE),
- 			     GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE |
- 			     GEN8_RC_SEMA_IDLE_MSG_DISABLE);
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_combo_phy_regs.h b/drivers/gpu/drm/i915/display/intel_combo_phy_regs.h
+new file mode 100644
+index 000000000000..2ed65193ca19
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/intel_combo_phy_regs.h
+@@ -0,0 +1,162 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++
++#ifndef __INTEL_COMBO_PHY_REGS__
++#define __INTEL_COMBO_PHY_REGS__
++
++#include "i915_reg_defs.h"
++
++#define _ICL_COMBOPHY_A				0x162000
++#define _ICL_COMBOPHY_B				0x6C000
++#define _EHL_COMBOPHY_C				0x160000
++#define _RKL_COMBOPHY_D				0x161000
++#define _ADL_COMBOPHY_E				0x16B000
++
++#define _ICL_COMBOPHY(phy)			_PICK(phy, _ICL_COMBOPHY_A, \
++						      _ICL_COMBOPHY_B, \
++						      _EHL_COMBOPHY_C, \
++						      _RKL_COMBOPHY_D, \
++						      _ADL_COMBOPHY_E)
++
++/* ICL Port CL_DW registers */
++#define _ICL_PORT_CL_DW(dw, phy)		(_ICL_COMBOPHY(phy) + \
++						 4 * (dw))
++
++#define ICL_PORT_CL_DW5(phy)			_MMIO(_ICL_PORT_CL_DW(5, phy))
++#define   CL_POWER_DOWN_ENABLE			(1 << 4)
++#define   SUS_CLOCK_CONFIG			(3 << 0)
++
++#define ICL_PORT_CL_DW10(phy)			_MMIO(_ICL_PORT_CL_DW(10, phy))
++#define  PG_SEQ_DELAY_OVERRIDE_MASK		(3 << 25)
++#define  PG_SEQ_DELAY_OVERRIDE_SHIFT		25
++#define  PG_SEQ_DELAY_OVERRIDE_ENABLE		(1 << 24)
++#define  PWR_UP_ALL_LANES			(0x0 << 4)
++#define  PWR_DOWN_LN_3_2_1			(0xe << 4)
++#define  PWR_DOWN_LN_3_2			(0xc << 4)
++#define  PWR_DOWN_LN_3				(0x8 << 4)
++#define  PWR_DOWN_LN_2_1_0			(0x7 << 4)
++#define  PWR_DOWN_LN_1_0			(0x3 << 4)
++#define  PWR_DOWN_LN_3_1			(0xa << 4)
++#define  PWR_DOWN_LN_3_1_0			(0xb << 4)
++#define  PWR_DOWN_LN_MASK			(0xf << 4)
++#define  PWR_DOWN_LN_SHIFT			4
++#define  EDP4K2K_MODE_OVRD_EN			(1 << 3)
++#define  EDP4K2K_MODE_OVRD_OPTIMIZED		(1 << 2)
++
++#define ICL_PORT_CL_DW12(phy)			_MMIO(_ICL_PORT_CL_DW(12, phy))
++#define   ICL_LANE_ENABLE_AUX			(1 << 0)
++
++/* ICL Port COMP_DW registers */
++#define _ICL_PORT_COMP				0x100
++#define _ICL_PORT_COMP_DW(dw, phy)		(_ICL_COMBOPHY(phy) + \
++						 _ICL_PORT_COMP + 4 * (dw))
++
++#define ICL_PORT_COMP_DW0(phy)			_MMIO(_ICL_PORT_COMP_DW(0, phy))
++#define   COMP_INIT				(1 << 31)
++
++#define ICL_PORT_COMP_DW1(phy)			_MMIO(_ICL_PORT_COMP_DW(1, phy))
++
++#define ICL_PORT_COMP_DW3(phy)			_MMIO(_ICL_PORT_COMP_DW(3, phy))
++#define   PROCESS_INFO_DOT_0			(0 << 26)
++#define   PROCESS_INFO_DOT_1			(1 << 26)
++#define   PROCESS_INFO_DOT_4			(2 << 26)
++#define   PROCESS_INFO_MASK			(7 << 26)
++#define   PROCESS_INFO_SHIFT			26
++#define   VOLTAGE_INFO_0_85V			(0 << 24)
++#define   VOLTAGE_INFO_0_95V			(1 << 24)
++#define   VOLTAGE_INFO_1_05V			(2 << 24)
++#define   VOLTAGE_INFO_MASK			(3 << 24)
++#define   VOLTAGE_INFO_SHIFT			24
++
++#define ICL_PORT_COMP_DW8(phy)			_MMIO(_ICL_PORT_COMP_DW(8, phy))
++#define   IREFGEN				(1 << 24)
++
++#define ICL_PORT_COMP_DW9(phy)			_MMIO(_ICL_PORT_COMP_DW(9, phy))
++
++#define ICL_PORT_COMP_DW10(phy)			_MMIO(_ICL_PORT_COMP_DW(10, phy))
++
++/* ICL Port PCS registers */
++#define _ICL_PORT_PCS_AUX			0x300
++#define _ICL_PORT_PCS_GRP			0x600
++#define _ICL_PORT_PCS_LN(ln)			(0x800 + (ln) * 0x100)
++#define _ICL_PORT_PCS_DW_AUX(dw, phy)		(_ICL_COMBOPHY(phy) + \
++						 _ICL_PORT_PCS_AUX + 4 * (dw))
++#define _ICL_PORT_PCS_DW_GRP(dw, phy)		(_ICL_COMBOPHY(phy) + \
++						 _ICL_PORT_PCS_GRP + 4 * (dw))
++#define _ICL_PORT_PCS_DW_LN(dw, ln, phy)	 (_ICL_COMBOPHY(phy) + \
++						  _ICL_PORT_PCS_LN(ln) + 4 * (dw))
++#define ICL_PORT_PCS_DW1_AUX(phy)		_MMIO(_ICL_PORT_PCS_DW_AUX(1, phy))
++#define ICL_PORT_PCS_DW1_GRP(phy)		_MMIO(_ICL_PORT_PCS_DW_GRP(1, phy))
++#define ICL_PORT_PCS_DW1_LN(ln, phy)		_MMIO(_ICL_PORT_PCS_DW_LN(1, ln, phy))
++#define   DCC_MODE_SELECT_MASK			(0x3 << 20)
++#define   DCC_MODE_SELECT_CONTINUOSLY		(0x3 << 20)
++#define   COMMON_KEEPER_EN			(1 << 26)
++#define   LATENCY_OPTIM_MASK			(0x3 << 2)
++#define   LATENCY_OPTIM_VAL(x)			((x) << 2)
++
++/* ICL Port TX registers */
++#define _ICL_PORT_TX_AUX			0x380
++#define _ICL_PORT_TX_GRP			0x680
++#define _ICL_PORT_TX_LN(ln)			(0x880 + (ln) * 0x100)
++
++#define _ICL_PORT_TX_DW_AUX(dw, phy)		(_ICL_COMBOPHY(phy) + \
++						 _ICL_PORT_TX_AUX + 4 * (dw))
++#define _ICL_PORT_TX_DW_GRP(dw, phy)		(_ICL_COMBOPHY(phy) + \
++						 _ICL_PORT_TX_GRP + 4 * (dw))
++#define _ICL_PORT_TX_DW_LN(dw, ln, phy) 	(_ICL_COMBOPHY(phy) + \
++						  _ICL_PORT_TX_LN(ln) + 4 * (dw))
++
++#define ICL_PORT_TX_DW2_AUX(phy)		_MMIO(_ICL_PORT_TX_DW_AUX(2, phy))
++#define ICL_PORT_TX_DW2_GRP(phy)		_MMIO(_ICL_PORT_TX_DW_GRP(2, phy))
++#define ICL_PORT_TX_DW2_LN(ln, phy)		_MMIO(_ICL_PORT_TX_DW_LN(2, ln, phy))
++#define   SWING_SEL_UPPER(x)			(((x) >> 3) << 15)
++#define   SWING_SEL_UPPER_MASK			(1 << 15)
++#define   SWING_SEL_LOWER(x)			(((x) & 0x7) << 11)
++#define   SWING_SEL_LOWER_MASK			(0x7 << 11)
++#define   FRC_LATENCY_OPTIM_MASK		(0x7 << 8)
++#define   FRC_LATENCY_OPTIM_VAL(x)		((x) << 8)
++#define   RCOMP_SCALAR(x)			((x) << 0)
++#define   RCOMP_SCALAR_MASK			(0xFF << 0)
++
++#define ICL_PORT_TX_DW4_AUX(phy)		_MMIO(_ICL_PORT_TX_DW_AUX(4, phy))
++#define ICL_PORT_TX_DW4_GRP(phy)		_MMIO(_ICL_PORT_TX_DW_GRP(4, phy))
++#define ICL_PORT_TX_DW4_LN(ln, phy)		_MMIO(_ICL_PORT_TX_DW_LN(4, ln, phy))
++#define   LOADGEN_SELECT			(1 << 31)
++#define   POST_CURSOR_1(x)			((x) << 12)
++#define   POST_CURSOR_1_MASK			(0x3F << 12)
++#define   POST_CURSOR_2(x)			((x) << 6)
++#define   POST_CURSOR_2_MASK			(0x3F << 6)
++#define   CURSOR_COEFF(x)			((x) << 0)
++#define   CURSOR_COEFF_MASK			(0x3F << 0)
++
++#define ICL_PORT_TX_DW5_AUX(phy)		_MMIO(_ICL_PORT_TX_DW_AUX(5, phy))
++#define ICL_PORT_TX_DW5_GRP(phy)		_MMIO(_ICL_PORT_TX_DW_GRP(5, phy))
++#define ICL_PORT_TX_DW5_LN(ln, phy)		_MMIO(_ICL_PORT_TX_DW_LN(5, ln, phy))
++#define   TX_TRAINING_EN			(1 << 31)
++#define   TAP2_DISABLE				(1 << 30)
++#define   TAP3_DISABLE				(1 << 29)
++#define   SCALING_MODE_SEL(x)			((x) << 18)
++#define   SCALING_MODE_SEL_MASK			(0x7 << 18)
++#define   RTERM_SELECT(x)			((x) << 3)
++#define   RTERM_SELECT_MASK			(0x7 << 3)
++
++#define ICL_PORT_TX_DW7_AUX(phy)		_MMIO(_ICL_PORT_TX_DW_AUX(7, phy))
++#define ICL_PORT_TX_DW7_GRP(phy)		_MMIO(_ICL_PORT_TX_DW_GRP(7, phy))
++#define ICL_PORT_TX_DW7_LN(ln, phy)		_MMIO(_ICL_PORT_TX_DW_LN(7, ln, phy))
++#define   N_SCALAR(x)				((x) << 24)
++#define   N_SCALAR_MASK				(0x7F << 24)
++
++#define ICL_PORT_TX_DW8_AUX(phy)		_MMIO(_ICL_PORT_TX_DW_AUX(8, phy))
++#define ICL_PORT_TX_DW8_GRP(phy)		_MMIO(_ICL_PORT_TX_DW_GRP(8, phy))
++#define ICL_PORT_TX_DW8_LN(ln, phy)		_MMIO(_ICL_PORT_TX_DW_LN(8, ln, phy))
++#define   ICL_PORT_TX_DW8_ODCC_CLK_SEL		REG_BIT(31)
++#define   ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_MASK	REG_GENMASK(30, 29)
++#define   ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_DIV2	REG_FIELD_PREP(ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_MASK, 0x1)
++
++#define _ICL_DPHY_CHKN_REG			0x194
++#define ICL_DPHY_CHKN(port)			_MMIO(_ICL_COMBOPHY(port) + _ICL_DPHY_CHKN_REG)
++#define   ICL_DPHY_CHKN_AFE_OVER_PPI_STRAP	REG_BIT(7)
++
++#endif /* __INTEL_COMBO_PHY_REGS__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 9c9d574f0b8c..766a8dbe095d 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -32,6 +32,7 @@
+ #include "intel_audio.h"
+ #include "intel_backlight.h"
+ #include "intel_combo_phy.h"
++#include "intel_combo_phy_regs.h"
+ #include "intel_connector.h"
+ #include "intel_crtc.h"
+ #include "intel_ddi.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 05babdcf5f2e..fba35fb6d2df 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -7,6 +7,7 @@
+ #include "i915_irq.h"
+ #include "intel_cdclk.h"
+ #include "intel_combo_phy.h"
++#include "intel_combo_phy_regs.h"
+ #include "intel_crt.h"
+ #include "intel_de.h"
+ #include "intel_display_power.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d6d8c9922feb..942a755a0c48 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -46,6 +46,7 @@
+ #include "intel_atomic.h"
+ #include "intel_audio.h"
+ #include "intel_backlight.h"
++#include "intel_combo_phy_regs.h"
+ #include "intel_connector.h"
+ #include "intel_crtc.h"
+ #include "intel_ddi.h"
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index a4c9d2005c46..0be2397fc61e 100644
+index 71fefd04d71b..7646982be30b 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2314,6 +2314,13 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN6_VEVSYNC	(RING_SYNC_2(VEBOX_RING_BASE))
- #define GEN6_NOSYNC	INVALID_MMIO_REG
- #define RING_PSMI_CTL(base)	_MMIO((base) + 0x50)
-+#define   GEN8_RC_SEMA_IDLE_MSG_DISABLE		REG_BIT(12)
-+#define   GEN8_FF_DOP_CLOCK_GATE_DISABLE	REG_BIT(10)
-+#define   GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE REG_BIT(7)
-+#define   GEN6_BSD_GO_INDICATOR			REG_BIT(4)
-+#define   GEN6_BSD_SLEEP_INDICATOR		REG_BIT(3)
-+#define   GEN6_BSD_SLEEP_FLUSH_DISABLE		REG_BIT(2)
-+#define   GEN6_PSMI_SLEEP_MSG_DISABLE		REG_BIT(0)
- #define RING_MAX_IDLE(base)	_MMIO((base) + 0x54)
- #define RING_HWS_PGA(base)	_MMIO((base) + 0x80)
- #define RING_ID(base)		_MMIO((base) + 0x8c)
-@@ -2873,12 +2880,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   GEN8_4x4_STC_OPTIMIZATION_DISABLE	(1 << 6)
- #define   GEN9_PARTIAL_RESOLVE_IN_VC_DISABLE	(1 << 1)
+@@ -1554,160 +1554,6 @@
+ #define   OCL2_LDOFUSE_PWR_DIS		(1 << 6)
+ #define BXT_PORT_CL1CM_DW30(phy)	_BXT_PHY((phy), _PORT_CL1CM_DW30_BC)
  
--#define GEN6_RC_SLEEP_PSMI_CONTROL	_MMIO(0x2050)
--#define   GEN6_PSMI_SLEEP_MSG_DISABLE	(1 << 0)
--#define   GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE REG_BIT(7)
--#define   GEN8_RC_SEMA_IDLE_MSG_DISABLE	(1 << 12)
--#define   GEN8_FF_DOP_CLOCK_GATE_DISABLE	(1 << 10)
+-/*
+- * ICL Port/COMBO-PHY Registers
+- */
+-#define _ICL_COMBOPHY_A			0x162000
+-#define _ICL_COMBOPHY_B			0x6C000
+-#define _EHL_COMBOPHY_C			0x160000
+-#define _RKL_COMBOPHY_D			0x161000
+-#define _ADL_COMBOPHY_E			0x16B000
 -
- #define GEN6_RCS_PWR_FSM _MMIO(0x22ac)
- #define GEN9_RCS_FE_FSM2 _MMIO(0x22a4)
- 
-@@ -2964,12 +2965,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define XEHP_EU_ENABLE			_MMIO(0x9134)
- #define XEHP_EU_ENA_MASK		0xFF
- 
--#define GEN6_BSD_SLEEP_PSMI_CONTROL	_MMIO(0x12050)
--#define   GEN6_BSD_SLEEP_MSG_DISABLE	(1 << 0)
--#define   GEN6_BSD_SLEEP_FLUSH_DISABLE	(1 << 2)
--#define   GEN6_BSD_SLEEP_INDICATOR	(1 << 3)
--#define   GEN6_BSD_GO_INDICATOR		(1 << 4)
+-#define _ICL_COMBOPHY(phy)		_PICK(phy, _ICL_COMBOPHY_A, \
+-					      _ICL_COMBOPHY_B, \
+-					      _EHL_COMBOPHY_C, \
+-					      _RKL_COMBOPHY_D, \
+-					      _ADL_COMBOPHY_E)
 -
- /* On modern GEN architectures interrupt control consists of two sets
-  * of registers. The first set pertains to the ring generating the
-  * interrupt. The second control is for the functional block generating the
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 2d0955d13776..710dee28a014 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -7654,7 +7654,7 @@ static void bdw_init_clock_gating(struct drm_i915_private *dev_priv)
- 		   intel_uncore_read(&dev_priv->uncore, GEN7_FF_THREAD_MODE) &
- 		   ~(GEN8_FF_DS_REF_CNT_FFME | GEN7_FF_VS_REF_CNT_FFME));
+-/* ICL Port CL_DW registers */
+-#define _ICL_PORT_CL_DW(dw, phy)	(_ICL_COMBOPHY(phy) + \
+-					 4 * (dw))
+-
+-#define ICL_PORT_CL_DW5(phy)		_MMIO(_ICL_PORT_CL_DW(5, phy))
+-#define   CL_POWER_DOWN_ENABLE		(1 << 4)
+-#define   SUS_CLOCK_CONFIG		(3 << 0)
+-
+-#define ICL_PORT_CL_DW10(phy)		_MMIO(_ICL_PORT_CL_DW(10, phy))
+-#define  PG_SEQ_DELAY_OVERRIDE_MASK	(3 << 25)
+-#define  PG_SEQ_DELAY_OVERRIDE_SHIFT	25
+-#define  PG_SEQ_DELAY_OVERRIDE_ENABLE	(1 << 24)
+-#define  PWR_UP_ALL_LANES		(0x0 << 4)
+-#define  PWR_DOWN_LN_3_2_1		(0xe << 4)
+-#define  PWR_DOWN_LN_3_2		(0xc << 4)
+-#define  PWR_DOWN_LN_3			(0x8 << 4)
+-#define  PWR_DOWN_LN_2_1_0		(0x7 << 4)
+-#define  PWR_DOWN_LN_1_0		(0x3 << 4)
+-#define  PWR_DOWN_LN_3_1		(0xa << 4)
+-#define  PWR_DOWN_LN_3_1_0		(0xb << 4)
+-#define  PWR_DOWN_LN_MASK		(0xf << 4)
+-#define  PWR_DOWN_LN_SHIFT		4
+-#define  EDP4K2K_MODE_OVRD_EN		(1 << 3)
+-#define  EDP4K2K_MODE_OVRD_OPTIMIZED	(1 << 2)
+-
+-#define ICL_PORT_CL_DW12(phy)		_MMIO(_ICL_PORT_CL_DW(12, phy))
+-#define   ICL_LANE_ENABLE_AUX		(1 << 0)
+-
+-/* ICL Port COMP_DW registers */
+-#define _ICL_PORT_COMP			0x100
+-#define _ICL_PORT_COMP_DW(dw, phy)	(_ICL_COMBOPHY(phy) + \
+-					 _ICL_PORT_COMP + 4 * (dw))
+-
+-#define ICL_PORT_COMP_DW0(phy)		_MMIO(_ICL_PORT_COMP_DW(0, phy))
+-#define   COMP_INIT			(1 << 31)
+-
+-#define ICL_PORT_COMP_DW1(phy)		_MMIO(_ICL_PORT_COMP_DW(1, phy))
+-
+-#define ICL_PORT_COMP_DW3(phy)		_MMIO(_ICL_PORT_COMP_DW(3, phy))
+-#define   PROCESS_INFO_DOT_0		(0 << 26)
+-#define   PROCESS_INFO_DOT_1		(1 << 26)
+-#define   PROCESS_INFO_DOT_4		(2 << 26)
+-#define   PROCESS_INFO_MASK		(7 << 26)
+-#define   PROCESS_INFO_SHIFT		26
+-#define   VOLTAGE_INFO_0_85V		(0 << 24)
+-#define   VOLTAGE_INFO_0_95V		(1 << 24)
+-#define   VOLTAGE_INFO_1_05V		(2 << 24)
+-#define   VOLTAGE_INFO_MASK		(3 << 24)
+-#define   VOLTAGE_INFO_SHIFT		24
+-
+-#define ICL_PORT_COMP_DW8(phy)		_MMIO(_ICL_PORT_COMP_DW(8, phy))
+-#define   IREFGEN			(1 << 24)
+-
+-#define ICL_PORT_COMP_DW9(phy)		_MMIO(_ICL_PORT_COMP_DW(9, phy))
+-
+-#define ICL_PORT_COMP_DW10(phy)		_MMIO(_ICL_PORT_COMP_DW(10, phy))
+-
+-/* ICL Port PCS registers */
+-#define _ICL_PORT_PCS_AUX		0x300
+-#define _ICL_PORT_PCS_GRP		0x600
+-#define _ICL_PORT_PCS_LN(ln)		(0x800 + (ln) * 0x100)
+-#define _ICL_PORT_PCS_DW_AUX(dw, phy)	(_ICL_COMBOPHY(phy) + \
+-					 _ICL_PORT_PCS_AUX + 4 * (dw))
+-#define _ICL_PORT_PCS_DW_GRP(dw, phy)	(_ICL_COMBOPHY(phy) + \
+-					 _ICL_PORT_PCS_GRP + 4 * (dw))
+-#define _ICL_PORT_PCS_DW_LN(dw, ln, phy) (_ICL_COMBOPHY(phy) + \
+-					  _ICL_PORT_PCS_LN(ln) + 4 * (dw))
+-#define ICL_PORT_PCS_DW1_AUX(phy)	_MMIO(_ICL_PORT_PCS_DW_AUX(1, phy))
+-#define ICL_PORT_PCS_DW1_GRP(phy)	_MMIO(_ICL_PORT_PCS_DW_GRP(1, phy))
+-#define ICL_PORT_PCS_DW1_LN(ln, phy)	_MMIO(_ICL_PORT_PCS_DW_LN(1, ln, phy))
+-#define   DCC_MODE_SELECT_MASK		(0x3 << 20)
+-#define   DCC_MODE_SELECT_CONTINUOSLY	(0x3 << 20)
+-#define   COMMON_KEEPER_EN		(1 << 26)
+-#define   LATENCY_OPTIM_MASK		(0x3 << 2)
+-#define   LATENCY_OPTIM_VAL(x)		((x) << 2)
+-
+-/* ICL Port TX registers */
+-#define _ICL_PORT_TX_AUX		0x380
+-#define _ICL_PORT_TX_GRP		0x680
+-#define _ICL_PORT_TX_LN(ln)		(0x880 + (ln) * 0x100)
+-
+-#define _ICL_PORT_TX_DW_AUX(dw, phy)	(_ICL_COMBOPHY(phy) + \
+-					 _ICL_PORT_TX_AUX + 4 * (dw))
+-#define _ICL_PORT_TX_DW_GRP(dw, phy)	(_ICL_COMBOPHY(phy) + \
+-					 _ICL_PORT_TX_GRP + 4 * (dw))
+-#define _ICL_PORT_TX_DW_LN(dw, ln, phy) (_ICL_COMBOPHY(phy) + \
+-					  _ICL_PORT_TX_LN(ln) + 4 * (dw))
+-
+-#define ICL_PORT_TX_DW2_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(2, phy))
+-#define ICL_PORT_TX_DW2_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(2, phy))
+-#define ICL_PORT_TX_DW2_LN(ln, phy)	_MMIO(_ICL_PORT_TX_DW_LN(2, ln, phy))
+-#define   SWING_SEL_UPPER(x)		(((x) >> 3) << 15)
+-#define   SWING_SEL_UPPER_MASK		(1 << 15)
+-#define   SWING_SEL_LOWER(x)		(((x) & 0x7) << 11)
+-#define   SWING_SEL_LOWER_MASK		(0x7 << 11)
+-#define   FRC_LATENCY_OPTIM_MASK	(0x7 << 8)
+-#define   FRC_LATENCY_OPTIM_VAL(x)	((x) << 8)
+-#define   RCOMP_SCALAR(x)		((x) << 0)
+-#define   RCOMP_SCALAR_MASK		(0xFF << 0)
+-
+-#define ICL_PORT_TX_DW4_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(4, phy))
+-#define ICL_PORT_TX_DW4_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(4, phy))
+-#define ICL_PORT_TX_DW4_LN(ln, phy)	_MMIO(_ICL_PORT_TX_DW_LN(4, ln, phy))
+-#define   LOADGEN_SELECT		(1 << 31)
+-#define   POST_CURSOR_1(x)		((x) << 12)
+-#define   POST_CURSOR_1_MASK		(0x3F << 12)
+-#define   POST_CURSOR_2(x)		((x) << 6)
+-#define   POST_CURSOR_2_MASK		(0x3F << 6)
+-#define   CURSOR_COEFF(x)		((x) << 0)
+-#define   CURSOR_COEFF_MASK		(0x3F << 0)
+-
+-#define ICL_PORT_TX_DW5_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(5, phy))
+-#define ICL_PORT_TX_DW5_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(5, phy))
+-#define ICL_PORT_TX_DW5_LN(ln, phy)	_MMIO(_ICL_PORT_TX_DW_LN(5, ln, phy))
+-#define   TX_TRAINING_EN		(1 << 31)
+-#define   TAP2_DISABLE			(1 << 30)
+-#define   TAP3_DISABLE			(1 << 29)
+-#define   SCALING_MODE_SEL(x)		((x) << 18)
+-#define   SCALING_MODE_SEL_MASK		(0x7 << 18)
+-#define   RTERM_SELECT(x)		((x) << 3)
+-#define   RTERM_SELECT_MASK		(0x7 << 3)
+-
+-#define ICL_PORT_TX_DW7_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(7, phy))
+-#define ICL_PORT_TX_DW7_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(7, phy))
+-#define ICL_PORT_TX_DW7_LN(ln, phy)	_MMIO(_ICL_PORT_TX_DW_LN(7, ln, phy))
+-#define   N_SCALAR(x)			((x) << 24)
+-#define   N_SCALAR_MASK			(0x7F << 24)
+-
+-#define ICL_PORT_TX_DW8_AUX(phy)		_MMIO(_ICL_PORT_TX_DW_AUX(8, phy))
+-#define ICL_PORT_TX_DW8_GRP(phy)		_MMIO(_ICL_PORT_TX_DW_GRP(8, phy))
+-#define ICL_PORT_TX_DW8_LN(ln, phy)		_MMIO(_ICL_PORT_TX_DW_LN(8, ln, phy))
+-#define   ICL_PORT_TX_DW8_ODCC_CLK_SEL		REG_BIT(31)
+-#define   ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_MASK	REG_GENMASK(30, 29)
+-#define   ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_DIV2	REG_FIELD_PREP(ICL_PORT_TX_DW8_ODCC_CLK_DIV_SEL_MASK, 0x1)
+-
+-#define _ICL_DPHY_CHKN_REG			0x194
+-#define ICL_DPHY_CHKN(port)			_MMIO(_ICL_COMBOPHY(port) + _ICL_DPHY_CHKN_REG)
+-#define   ICL_DPHY_CHKN_AFE_OVER_PPI_STRAP	REG_BIT(7)
+-
+ #define MG_PHY_PORT_LN(ln, tc_port, ln0p1, ln0p2, ln1p1) \
+ 	_MMIO(_PORT(tc_port, ln0p1, ln0p2) + (ln) * ((ln1p1) - (ln0p1)))
  
--	intel_uncore_write(&dev_priv->uncore, GEN6_RC_SLEEP_PSMI_CONTROL,
-+	intel_uncore_write(&dev_priv->uncore, RING_PSMI_CTL(RENDER_RING_BASE),
- 		   _MASKED_BIT_ENABLE(GEN8_RC_SEMA_IDLE_MSG_DISABLE));
- 
- 	/* WaDisableSDEUnitClockGating:bdw */
-@@ -7795,7 +7795,7 @@ static void chv_init_clock_gating(struct drm_i915_private *dev_priv)
- 		   ~(GEN8_FF_DS_REF_CNT_FFME | GEN7_FF_VS_REF_CNT_FFME));
- 
- 	/* WaDisableSemaphoreAndSyncFlipWait:chv */
--	intel_uncore_write(&dev_priv->uncore, GEN6_RC_SLEEP_PSMI_CONTROL,
-+	intel_uncore_write(&dev_priv->uncore, RING_PSMI_CTL(RENDER_RING_BASE),
- 		   _MASKED_BIT_ENABLE(GEN8_RC_SEMA_IDLE_MSG_DISABLE));
- 
- 	/* WaDisableCSUnitClockGating:chv */
 -- 
 2.34.1
 
