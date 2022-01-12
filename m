@@ -4,30 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204B6C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 09:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 040E9C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 09:56:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 994261134FA;
-	Wed, 12 Jan 2022 09:31:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 07E221134F9;
- Wed, 12 Jan 2022 09:31:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 03442AADD2;
- Wed, 12 Jan 2022 09:31:51 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3265158827720263005=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76BD010E2FA;
+	Wed, 12 Jan 2022 09:56:09 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7016810E2FA
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 09:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1641981367; x=1673517367;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XYXTMeeZA79FgVTocpQqxhFsoZxkLSm2GJyGSfiN1Dw=;
+ b=mn0WqHNdkhPu/KegE4q6YOiiEjM4nvsyuY3ZrvjS1qLYSYMsM+eeO0Rr
+ H05ZYRjYSvH9+/uoltIz9WKUAEuXcnVJDBFfd1zlM5I++7pVsmF52zHBt
+ Yz2YEIt0reGxU7A/pRYmu0e52Zj/j6spNHqaKolRSp4kenw/U+uKnr0j3
+ A+If0Yl7GYhewSeCXB8FiSbNP8tsA2uglz3S/gkJlfOE05e89hFw94tWT
+ 2IVpandpqwRGcEEsSr+qjwjhj/wd/UD0FO3qSM+7D3Nz0Sms2TzZMBtGK
+ 6atKm/fvOU2I/kSeCVPzyhh3qpNHYHceOTS11zaN1hH+KCClhgsLE2i6U A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="307051538"
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="307051538"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 01:56:06 -0800
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="529107202"
+Received: from unknown (HELO intel.com) ([10.237.72.65])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 01:56:05 -0800
+Date: Wed, 12 Jan 2022 11:55:59 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20220112095559.GA23873@intel.com>
+References: <20220111160812.21344-1-stanislav.lisovskiy@intel.com>
+ <87wnj66x1w.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Wed, 12 Jan 2022 09:31:50 -0000
-Message-ID: <164197991098.21761.3193401232626221688@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <cover.1641977368.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1641977368.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?b?L2k5MTU6IGNsZWFuIHVwIGk5MTVfZHJ2LmgsIHBhcnQgMiwgdGFrZSAyLi4u?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87wnj66x1w.fsf@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Recalculate CDCLK if plane
+ scaling ratio changes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,261 +58,150 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3265158827720263005==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, Jan 11, 2022 at 06:45:31PM +0200, Jani Nikula wrote:
+> On Tue, 11 Jan 2022, Stanislav Lisovskiy <stanislav.lisovskiy@intel.com> wrote:
+> > Currently we only recalculate CDCLK if active plane mask changes
+> > or if we do a full modeset, however according to BSpec
+> > required Dbuf bandwidth calculations also depend on pipe/plane
+> > scaling ratio, which means that CDCLK must be recalculated
+> > everytime plane scaling ratio changes, because it affects
+> > display buffer bandwidth requirements.
+> >
+> > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c | 63 +++++++++++++++++++-
+> >  1 file changed, 60 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> > index bf7ce684dd8e..2c616348e993 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -7499,13 +7499,65 @@ static int intel_bigjoiner_add_affected_planes(struct intel_atomic_state *state)
+> >  	return 0;
+> >  }
+> >  
+> > +static bool scaling_affects_cdclk(struct intel_plane_state *old_plane_state,
+> > +				  struct intel_plane_state *new_plane_state)
+> > +{
+> > +	int old_src_w = drm_rect_width(&old_plane_state->uapi.src) >> 16;
+> > +	int old_src_h = drm_rect_height(&old_plane_state->uapi.src) >> 16;
+> > +	int old_dst_w = drm_rect_width(&old_plane_state->uapi.dst);
+> > +	int old_dst_h = drm_rect_height(&old_plane_state->uapi.dst);
+> > +	int new_src_w = drm_rect_width(&new_plane_state->uapi.src) >> 16;
+> > +	int new_src_h = drm_rect_height(&new_plane_state->uapi.src) >> 16;
+> > +	int new_dst_w = drm_rect_width(&new_plane_state->uapi.dst);
+> > +	int new_dst_h = drm_rect_height(&new_plane_state->uapi.dst);
+> > +	int old_hscale_ratio, new_hscale_ratio;
+> > +	int old_vscale_ratio, new_vscale_ratio;
+> > +
+> > +	if (needs_scaling(old_plane_state) != needs_scaling(new_plane_state))
+> > +		return true;
+> > +
+> > +	if (!old_dst_w || !old_dst_h)
+> > +		return true;
+> > +
+> > +	DRM_DEBUG_KMS("old_dst_w %d old_dst_h %d\n", old_dst_w, old_dst_h);
+> > +
+> > +	old_hscale_ratio = DIV_ROUND_UP(old_src_w, old_dst_w);
+> > +	old_vscale_ratio = DIV_ROUND_UP(old_src_h, old_dst_h);
+> > +
+> > +	if (!new_dst_w || !new_dst_h)
+> > +		return true;
+> > +
+> > +	DRM_DEBUG_KMS("new_dst_w %d new_dst_h %d\n", new_dst_w, new_dst_h);
+> > +
+> > +	new_hscale_ratio = DIV_ROUND_UP(new_src_w, new_dst_w);
+> > +	new_vscale_ratio = DIV_ROUND_UP(new_src_h, new_dst_h);
+> > +
+> > +	DRM_DEBUG_KMS("new_hscale_ratio %d new_vscale_ratio %d "
+> > +		      "old_hscale_ratio %d old_vscale_ratio %d\n",
+> > +		      new_hscale_ratio, new_vscale_ratio,
+> > +		      old_hscale_ratio, old_vscale_ratio);
+> 
+> All of the debug logging seem excessive? Also, please use drm_dbg_atomic
+> or drm_dbg_kms instead of DRM_DEBUG_KMS for the ones that need to stay.
 
-== Series Details ==
+Yes, I should probably leave only message repoting that cdclk has to be 
+recalculated. Otherwise indeed seems excessive - was just using it for
+debugging.
 
-Series: drm/i915: clean up i915_drv.h, part 2, take 2...
-URL   : https://patchwork.freedesktop.org/series/98780/
-State : success
+Stan
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_11069 -> Patchwork_21977
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/index.html
-
-Participating hosts (44 -> 40)
-------------------------------
-
-  Missing    (4): fi-bdw-samus fi-bsw-cyan bat-adlp-4 fi-pnv-d510 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_21977 that come from known issues:
-
-### CI changes ###
-
-#### Issues hit ####
-
-  * boot:
-    - fi-ilk-650:         [PASS][1] -> [FAIL][2] ([i915#4684])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-ilk-650/boot.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-ilk-650/boot.html
-
-  
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@cs-compute:
-    - fi-cfl-guc:         NOTRUN -> [SKIP][3] ([fdo#109271]) +26 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-guc/igt@amdgpu/amd_basic@cs-compute.html
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - fi-bdw-5557u:       [PASS][4] -> [INCOMPLETE][5] ([i915#146])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
-
-  * igt@gem_flink_basic@bad-flink:
-    - fi-skl-6600u:       [PASS][6] -> [INCOMPLETE][7] ([i915#4547])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-skl-6600u/igt@gem_flink_basic@bad-flink.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-skl-6600u/igt@gem_flink_basic@bad-flink.html
-
-  * igt@kms_chamelium@dp-edid-read:
-    - fi-cfl-guc:         NOTRUN -> [SKIP][8] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-guc/igt@kms_chamelium@dp-edid-read.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:
-    - fi-cfl-8109u:       [PASS][9] -> [DMESG-WARN][10] ([i915#295]) +11 similar issues
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
-    - fi-cfl-guc:         NOTRUN -> [SKIP][11] ([fdo#109271] / [i915#533])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-guc/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
-
-  * igt@runner@aborted:
-    - fi-skl-6600u:       NOTRUN -> [FAIL][12] ([i915#2722] / [i915#4312])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-skl-6600u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - fi-tgl-1115g4:      [FAIL][13] ([i915#1888]) -> [PASS][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3@smem.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3@smem.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
-  [i915#2722]: https://gitlab.freedesktop.org/drm/intel/issues/2722
-  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
-  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4547]: https://gitlab.freedesktop.org/drm/intel/issues/4547
-  [i915#4684]: https://gitlab.freedesktop.org/drm/intel/issues/4684
-  [i915#4898]: https://gitlab.freedesktop.org/drm/intel/issues/4898
-  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_11069 -> Patchwork_21977
-
-  CI-20190529: 20190529
-  CI_DRM_11069: fd4f1b6004407e645951f719524b404211ba101d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6326: ec75f64fcbcf4aac58fbf1bf629e8f59b19db4ce @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_21977: 053eeffdee44217632c5e812a414c4432babd35b @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-053eeffdee44 drm/i915: split out gem/i915_gem_domain.h from i915_drv.h
-11d91d8d6869 drm/i915: split out gem/i915_gem_create.h from i915_drv.h
-cf8ab18d3fe4 drm/i915: split out gem/i915_gem_dmabuf.h from i915_drv.h
-9f784bea9fa1 drm/i915: remove leftover i915_gem_pm.h declarations from i915_drv.h
-41a85094d2e1 drm/i915: split out i915_gem_internal.h from i915_drv.h
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/index.html
-
---===============3265158827720263005==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: clean up i915_drv.h, part 2, take 2...</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/98780/">https://patchwork.freedesktop.org/series/98780/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_11069 -&gt; Patchwork_21977</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/index.html</p>
-<h2>Participating hosts (44 -&gt; 40)</h2>
-<p>Missing    (4): fi-bdw-samus fi-bsw-cyan bat-adlp-4 fi-pnv-d510 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_21977 that come from known issues:</p>
-<h3>CI changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>boot:<ul>
-<li>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-ilk-650/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-ilk-650/boot.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4684">i915#4684</a>)</li>
-</ul>
-</li>
-</ul>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@cs-compute:</p>
-<ul>
-<li>fi-cfl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-guc/igt@amdgpu/amd_basic@cs-compute.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +26 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s3@smem:</p>
-<ul>
-<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_flink_basic@bad-flink:</p>
-<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-skl-6600u/igt@gem_flink_basic@bad-flink.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-skl-6600u/igt@gem_flink_basic@bad-flink.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4547">i915#4547</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-edid-read:</p>
-<ul>
-<li>fi-cfl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-guc/igt@kms_chamelium@dp-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) +11 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
-<ul>
-<li>fi-cfl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-cfl-guc/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-skl-6600u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2722">i915#2722</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_exec_suspend@basic-s3@smem:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11069/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3@smem.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_21977/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_11069 -&gt; Patchwork_21977</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_11069: fd4f1b6004407e645951f719524b404211ba101d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6326: ec75f64fcbcf4aac58fbf1bf629e8f59b19db4ce @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_21977: 053eeffdee44217632c5e812a414c4432babd35b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>053eeffdee44 drm/i915: split out gem/i915_gem_domain.h from i915_drv.h<br />
-11d91d8d6869 drm/i915: split out gem/i915_gem_create.h from i915_drv.h<br />
-cf8ab18d3fe4 drm/i915: split out gem/i915_gem_dmabuf.h from i915_drv.h<br />
-9f784bea9fa1 drm/i915: remove leftover i915_gem_pm.h declarations from i915_drv.h<br />
-41a85094d2e1 drm/i915: split out i915_gem_internal.h from i915_drv.h</p>
-
-</body>
-</html>
-
---===============3265158827720263005==--
+> 
+> BR,
+> Jani.
+> 
+> > +
+> > +	if ((old_hscale_ratio != new_hscale_ratio) ||
+> > +	    (old_vscale_ratio != new_vscale_ratio)) {
+> > +		DRM_DEBUG_KMS("Scaling ratios changed from %dx%d"
+> > +			      " to %dx%d - need cdclk recalc\n",
+> > +			      old_hscale_ratio, old_vscale_ratio,
+> > +			      new_hscale_ratio, new_vscale_ratio);
+> > +		return true;
+> > +	}
+> > +
+> > +	return false;
+> > +}
+> > +
+> >  static int intel_atomic_check_planes(struct intel_atomic_state *state)
+> >  {
+> >  	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+> >  	struct intel_crtc_state *old_crtc_state, *new_crtc_state;
+> >  	struct intel_plane_state *plane_state;
+> > +	struct intel_plane_state *old_plane_state;
+> >  	struct intel_plane *plane;
+> >  	struct intel_crtc *crtc;
+> > +	bool need_cdclk_calc = false;
+> >  	int i, ret;
+> >  
+> >  	ret = icl_add_linked_planes(state);
+> > @@ -7516,7 +7568,7 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > -	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
+> > +	for_each_oldnew_intel_plane_in_state(state, plane, old_plane_state, plane_state, i) {
+> >  		ret = intel_plane_atomic_check(state, plane);
+> >  		if (ret) {
+> >  			drm_dbg_atomic(&dev_priv->drm,
+> > @@ -7524,6 +7576,9 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+> >  				       plane->base.base.id, plane->base.name);
+> >  			return ret;
+> >  		}
+> > +
+> > +		if (scaling_affects_cdclk(old_plane_state, plane_state))
+> > +			need_cdclk_calc = true;
+> >  	}
+> >  
+> >  	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
+> > @@ -7539,18 +7594,20 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+> >  		 * the planes' minimum cdclk calculation. Add such planes
+> >  		 * to the state before we compute the minimum cdclk.
+> >  		 */
+> > -		if (!active_planes_affects_min_cdclk(dev_priv))
+> > +		if (!active_planes_affects_min_cdclk(dev_priv) && !need_cdclk_calc)
+> >  			continue;
+> >  
+> >  		old_active_planes = old_crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+> >  		new_active_planes = new_crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+> >  
+> > -		if (hweight8(old_active_planes) == hweight8(new_active_planes))
+> > +		if ((hweight8(old_active_planes) == hweight8(new_active_planes)) && !need_cdclk_calc)
+> >  			continue;
+> >  
+> >  		ret = intel_crtc_add_planes_to_state(state, crtc, new_active_planes);
+> >  		if (ret)
+> >  			return ret;
+> > +
+> > +
+> >  	}
+> >  
+> >  	return 0;
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
