@@ -4,62 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6A49C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 12:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E44C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 13:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFD210F95E;
-	Wed, 12 Jan 2022 12:58:24 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 650CA10F8D3
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 12:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA5F10FF6D;
+	Wed, 12 Jan 2022 13:06:05 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 615B010FF6D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 13:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641992303; x=1673528303;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=19rSS8ZqdNhWsMRiUzYQTZA1RP3OOZnsahA+VDC8kXE=;
- b=YCvMr3SbCbbe4GS4Hc5C2GBKsRV3+QmHi7V4JewjqfX2eLliDAn8Qt6t
- 6X40eU4eLOfHlDycFt/ItbI5GEebZI44kFQp4EFXdDTPR8w6oRQVaWfcs
- 9Woy2GbSQtzIupmaGwMm2gw6q8kMt9QuQiIxhJ6DUYhcn6hqei1Nji8Ds
- HdKlevZXEmQEez2KiTIBC94YoYs89i4tXwAeoqCRXgDtLLbBDcLigi/Da
- 2OjKBdaT5qaQI7q6SdhhJ7Ajd6FEFVJ00x2/hGgSWLKswlmzV3BM5c+xu
- uvHs26Kl+bO45iteOiTk8gssHyeIYUwpNrJyaGo/o7xQdoXvDtFR8JoAv w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="243522940"
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="243522940"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 04:58:22 -0800
+ t=1641992764; x=1673528764;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=UQQcvoRPDa23wEKUqgrcvvk4Q8u6Hzj2p0+8CB4Et4o=;
+ b=aekSOePikMq4VQqC1N+wvG+LQSV2MyOWjKbzolorTGG2mKHZEie662fj
+ +OvA01PDrSpSGhhcgkeVw9DHR8wEwpRrRCGmUqBPz04vgY4eSM+Cjq7bj
+ JhZpNvZmTADeHyuxsyWOWvd15XLBMb6AdB4kjAG+1eDIU+LEmgjP08p/c
+ gyZSIgESikLAqOUHnKWZjFaIM2stFr9CW4ZrVsrDL0X0CwmrMeTl2pZf/
+ dyFPI+xWCBILWI4kDcwNwpRzCt0PbOetVkflZ2Ouy18ykx04trPnbNU6U
+ ztSKHnvb2jRphGi4P68KqKKv06pFqNToZBe04+wm9nz8g/dIKwkb9CPHf Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="223708658"
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="223708658"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 05:06:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="762869688"
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
- by fmsmga006.fm.intel.com with ESMTP; 12 Jan 2022 04:58:22 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Wed, 12 Jan 2022 12:58:20 +0000
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2308.020;
- Wed, 12 Jan 2022 04:58:19 -0800
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "Nikula, Jani" <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCH] drm/i915/psr: remove unused lines_to_wait vbt info
-Thread-Index: AQHYB6dd7VC0CU6wBECkcXiyCAADB6xf32SA
-Date: Wed, 12 Jan 2022 12:58:19 +0000
-Message-ID: <fe05d609b9425e997a4145fe5a7761419b2e27c3.camel@intel.com>
-References: <20220112112715.1234366-1-jani.nikula@intel.com>
-In-Reply-To: <20220112112715.1234366-1-jani.nikula@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.1.200.100]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AF0AB836CBCB0D4CBF711135F6B9942A@intel.com>
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="623434157"
+Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
+ ([10.237.72.65])
+ by orsmga004.jf.intel.com with ESMTP; 12 Jan 2022 05:06:00 -0800
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 12 Jan 2022 15:06:01 +0200
+Message-Id: <20220112130601.2955-1-stanislav.lisovskiy@intel.com>
+X-Mailer: git-send-email 2.24.1.485.gad05a3d8e5
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/psr: remove unused lines_to_wait
- vbt info
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915: Recalculate CDCLK if plane scaling
+ ratio changes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,52 +58,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyMDIyLTAxLTEyIGF0IDEzOjI3ICswMjAwLCBKYW5pIE5pa3VsYSB3cm90ZToNCj4g
-VGhlIGxpbmVzX3RvX3dhaXQgaW5mbyBmcm9tIFZCVCBpcyBuZXZlciB1c2VkLiBSZW1vdmUuDQo+
-IA0KDQpSZXZpZXdlZC1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRl
-bC5jb20+DQoNCj4gQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwu
-Y29tPg0KPiBDYzogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5ob2dhbmRlckBpbnRlbC5jb20+DQo+
-IENjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPg0KPiBT
-aWduZWQtb2ZmLWJ5OiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPg0KPiANCj4g
-LS0tDQo+IA0KPiBOb3QgZXhhY3RseSBhIHYyLCBidXQgcmF0aGVyIGEgcmVwbGFjZW1lbnQgZm9y
-IFsxXS4NCj4gDQo+IFsxXSBodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvcGF0Y2gv
-bXNnaWQvMjAyMjAxMDQwODU0MjEuMjEzNzkzLTEtamFuaS5uaWt1bGFAaW50ZWwuY29tDQo+IC0t
-LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9iaW9zLmMgfCAyMCAtLS0t
-LS0tLS0tLS0tLS0tLS0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCAgICAg
-ICAgICAgfCAgOCAtLS0tLS0tLQ0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAyOCBkZWxldGlvbnMoLSkN
-Cj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jp
-b3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYmlvcy5jDQo+IGluZGV4
-IGM3YThkNTE3Y2U4MS4uMjYyNDA2YzAwZTUzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Jpb3MuYw0KPiBAQCAtOTA1LDI2ICs5MDUsNiBAQCBwYXJzZV9wc3Io
-c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsIGNvbnN0IHN0cnVjdCBiZGJfaGVhZGVyICpi
-ZGIpDQo+ICAJaTkxNS0+dmJ0LnBzci5pZGxlX2ZyYW1lcyA9IHBzcl90YWJsZS0+aWRsZV9mcmFt
-ZXMgPCAwID8gMCA6DQo+ICAJCXBzcl90YWJsZS0+aWRsZV9mcmFtZXMgPiAxNSA/IDE1IDogcHNy
-X3RhYmxlLT5pZGxlX2ZyYW1lczsNCj4gIA0KPiAtCXN3aXRjaCAocHNyX3RhYmxlLT5saW5lc190
-b193YWl0KSB7DQo+IC0JY2FzZSAwOg0KPiAtCQlpOTE1LT52YnQucHNyLmxpbmVzX3RvX3dhaXQg
-PSBQU1JfMF9MSU5FU19UT19XQUlUOw0KPiAtCQlicmVhazsNCj4gLQljYXNlIDE6DQo+IC0JCWk5
-MTUtPnZidC5wc3IubGluZXNfdG9fd2FpdCA9IFBTUl8xX0xJTkVfVE9fV0FJVDsNCj4gLQkJYnJl
-YWs7DQo+IC0JY2FzZSAyOg0KPiAtCQlpOTE1LT52YnQucHNyLmxpbmVzX3RvX3dhaXQgPSBQU1Jf
-NF9MSU5FU19UT19XQUlUOw0KPiAtCQlicmVhazsNCj4gLQljYXNlIDM6DQo+IC0JCWk5MTUtPnZi
-dC5wc3IubGluZXNfdG9fd2FpdCA9IFBTUl84X0xJTkVTX1RPX1dBSVQ7DQo+IC0JCWJyZWFrOw0K
-PiAtCWRlZmF1bHQ6DQo+IC0JCWRybV9kYmdfa21zKCZpOTE1LT5kcm0sDQo+IC0JCQkgICAgIlZC
-VCBoYXMgdW5rbm93biBQU1IgbGluZXMgdG8gd2FpdCAldVxuIiwNCj4gLQkJCSAgICBwc3JfdGFi
-bGUtPmxpbmVzX3RvX3dhaXQpOw0KPiAtCQlicmVhazsNCj4gLQl9DQo+IC0NCj4gIAkvKg0KPiAg
-CSAqIE5ldyBwc3Igb3B0aW9ucyAwPTUwMHVzLCAxPTEwMHVzLCAyPTI1MDB1cywgMz0wdXMNCj4g
-IAkgKiBPbGQgZGVjaW1hbCB2YWx1ZSBpcyB3YWtlIHVwIHRpbWUgaW4gbXVsdGlwbGVzIG9mIDEw
-MCB1cy4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oDQo+IGluZGV4IDZjYWVjMmVjYThjZC4uODkw
-ZjFmNmZiYzQ5IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5o
-DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgNCj4gQEAgLTUxNCwxMyAr
-NTE0LDYgQEAgaTkxNV9mZW5jZV90aW1lb3V0KGNvbnN0IHN0cnVjdCBkcm1faTkxNV9wcml2YXRl
-ICppOTE1KQ0KPiAgLyogQW1vdW50IG9mIFBTRiBHViBwb2ludHMsIEJTcGVjIHByZWNpc2VseSBk
-ZWZpbmVzIHRoaXMgKi8NCj4gICNkZWZpbmUgSTkxNV9OVU1fUFNGX0dWX1BPSU5UUyAzDQo+ICAN
-Cj4gLWVudW0gcHNyX2xpbmVzX3RvX3dhaXQgew0KPiAtCVBTUl8wX0xJTkVTX1RPX1dBSVQgPSAw
-LA0KPiAtCVBTUl8xX0xJTkVfVE9fV0FJVCwNCj4gLQlQU1JfNF9MSU5FU19UT19XQUlULA0KPiAt
-CVBTUl84X0xJTkVTX1RPX1dBSVQNCj4gLX07DQo+IC0NCj4gIHN0cnVjdCBpbnRlbF92YnRfZGF0
-YSB7DQo+ICAJLyogYmRiIHZlcnNpb24gKi8NCj4gIAl1MTYgdmVyc2lvbjsNCj4gQEAgLTU2MCw3
-ICs1NTMsNiBAQCBzdHJ1Y3QgaW50ZWxfdmJ0X2RhdGEgew0KPiAgCQlib29sIGZ1bGxfbGluazsN
-Cj4gIAkJYm9vbCByZXF1aXJlX2F1eF93YWtldXA7DQo+ICAJCWludCBpZGxlX2ZyYW1lczsNCj4g
-LQkJZW51bSBwc3JfbGluZXNfdG9fd2FpdCBsaW5lc190b193YWl0Ow0KPiAgCQlpbnQgdHAxX3dh
-a2V1cF90aW1lX3VzOw0KPiAgCQlpbnQgdHAyX3RwM193YWtldXBfdGltZV91czsNCj4gIAkJaW50
-IHBzcjJfdHAyX3RwM193YWtldXBfdGltZV91czsNCg0K
+Currently we only recalculate CDCLK if active plane mask changes
+or if we do a full modeset, however according to BSpec
+required Dbuf bandwidth calculations also depend on pipe/plane
+scaling ratio, which means that CDCLK must be recalculated
+everytime plane scaling ratio changes, because it affects
+display buffer bandwidth requirements.
+
+v2: - Removed excessive debugs(Jani Nikula)
+    - Switched to drm_dbg_kms(Jani Nikula)
+
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 56 ++++++++++++++++++--
+ 1 file changed, 53 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index bf7ce684dd8e..256cf803e6b0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7499,13 +7499,57 @@ static int intel_bigjoiner_add_affected_planes(struct intel_atomic_state *state)
+ 	return 0;
+ }
+ 
++static bool scaling_affects_cdclk(struct intel_plane_state *old_plane_state,
++				  struct intel_plane_state *new_plane_state)
++{
++	struct drm_i915_private *i915 = to_i915(new_plane_state->uapi.plane->dev);
++	int old_src_w = drm_rect_width(&old_plane_state->uapi.src) >> 16;
++	int old_src_h = drm_rect_height(&old_plane_state->uapi.src) >> 16;
++	int old_dst_w = drm_rect_width(&old_plane_state->uapi.dst);
++	int old_dst_h = drm_rect_height(&old_plane_state->uapi.dst);
++	int new_src_w = drm_rect_width(&new_plane_state->uapi.src) >> 16;
++	int new_src_h = drm_rect_height(&new_plane_state->uapi.src) >> 16;
++	int new_dst_w = drm_rect_width(&new_plane_state->uapi.dst);
++	int new_dst_h = drm_rect_height(&new_plane_state->uapi.dst);
++	int old_hscale_ratio, new_hscale_ratio;
++	int old_vscale_ratio, new_vscale_ratio;
++
++	if (needs_scaling(old_plane_state) != needs_scaling(new_plane_state))
++		return true;
++
++	if (!old_dst_w || !old_dst_h)
++		return true;
++
++	old_hscale_ratio = DIV_ROUND_UP(old_src_w, old_dst_w);
++	old_vscale_ratio = DIV_ROUND_UP(old_src_h, old_dst_h);
++
++	if (!new_dst_w || !new_dst_h)
++		return true;
++
++	new_hscale_ratio = DIV_ROUND_UP(new_src_w, new_dst_w);
++	new_vscale_ratio = DIV_ROUND_UP(new_src_h, new_dst_h);
++
++	if ((old_hscale_ratio != new_hscale_ratio) ||
++	    (old_vscale_ratio != new_vscale_ratio)) {
++		drm_dbg_kms(&i915->drm, "Scaling ratios changed from %dx%d"
++			    " to %dx%d - need cdclk recalc\n",
++			    old_hscale_ratio, old_vscale_ratio,
++			    new_hscale_ratio, new_vscale_ratio);
++		return true;
++	}
++
++	return false;
++}
++
+ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+ 	struct intel_crtc_state *old_crtc_state, *new_crtc_state;
+ 	struct intel_plane_state *plane_state;
++	struct intel_plane_state *old_plane_state;
+ 	struct intel_plane *plane;
+ 	struct intel_crtc *crtc;
++	bool need_cdclk_calc = false;
+ 	int i, ret;
+ 
+ 	ret = icl_add_linked_planes(state);
+@@ -7516,7 +7560,7 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+ 	if (ret)
+ 		return ret;
+ 
+-	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
++	for_each_oldnew_intel_plane_in_state(state, plane, old_plane_state, plane_state, i) {
+ 		ret = intel_plane_atomic_check(state, plane);
+ 		if (ret) {
+ 			drm_dbg_atomic(&dev_priv->drm,
+@@ -7524,6 +7568,9 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+ 				       plane->base.base.id, plane->base.name);
+ 			return ret;
+ 		}
++
++		if (scaling_affects_cdclk(old_plane_state, plane_state))
++			need_cdclk_calc = true;
+ 	}
+ 
+ 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
+@@ -7539,18 +7586,21 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+ 		 * the planes' minimum cdclk calculation. Add such planes
+ 		 * to the state before we compute the minimum cdclk.
+ 		 */
+-		if (!active_planes_affects_min_cdclk(dev_priv))
++		if (!active_planes_affects_min_cdclk(dev_priv) && !need_cdclk_calc)
+ 			continue;
+ 
+ 		old_active_planes = old_crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+ 		new_active_planes = new_crtc_state->active_planes & ~BIT(PLANE_CURSOR);
+ 
+-		if (hweight8(old_active_planes) == hweight8(new_active_planes))
++		if ((hweight8(old_active_planes) == hweight8(new_active_planes)) &&
++		    !need_cdclk_calc)
+ 			continue;
+ 
+ 		ret = intel_crtc_add_planes_to_state(state, crtc, new_active_planes);
+ 		if (ret)
+ 			return ret;
++
++
+ 	}
+ 
+ 	return 0;
+-- 
+2.24.1.485.gad05a3d8e5
+
