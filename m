@@ -4,44 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85358C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 19:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9D3C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 19:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B1D10E316;
-	Wed, 12 Jan 2022 19:42:32 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FBE810E316
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 19:42:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1133610E583;
+	Wed, 12 Jan 2022 19:50:43 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC8DF10EC74
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 19:50:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642016552; x=1673552552;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=DnIIBQNTD2yfLdOZuNCSsEIthF5iRtc2KKjVDSxXROE=;
- b=KoANv5/4DIwhQhD+kRQKU0IhK+i2jLjf+5Rrz1y3Uc7vqyhPFuyRNwvD
- Hey/j6gEOsI0LeDpWmYbnxTOniiyCI1uWqTslOAY0WnNJNOiyJL2vQ4gd
- H1X/PIc6UtLq14XmtMr+jCRPKAHGH8q5ByzhP5jhyUK1gKiFh+e0/RHUs
- tUj5JWdnJEiMr5Ee7ddmchicDw8M4sZpw7z4hPanQlOXOXPLH/1f1Qcmm
- Eli7ZI4NCwfIOD5gUjcRDiQB3l0qOwwJZpOmABZmjLnl+R1llT3Z8dY5C
- IXadEwUAmeXvpxHOTHNGw3SCt8RmfQKMwKdjt4uqn+3uXQjziz7LYsy6H A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="242657117"
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="242657117"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 11:42:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="529344625"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 12 Jan 2022 11:42:31 -0800
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Jan 2022 11:57:22 -0800
-Message-Id: <20220112195722.16639-1-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
+ t=1642017041; x=1673553041;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version;
+ bh=0AaRpxZW2AHj2BLMTNQCnYkxL+iCJbSbgtLILWXrRRI=;
+ b=IYIHCe7SBfx0XSm15Rf3yY73oVrMO7tMQ+76ciCWOohyVr84c5Gp+Cvf
+ sSE207cy8vhnN3UVXBTPVMmZ6vDc1Xx29S224ENFSEc/uhYtNB3RntB0c
+ NstBLhPsrKSTgj6TRFC40zKkExcPpnBL+lr4fkukjr4hOpY3qBFbnMEuF
+ CmSl2t9wCYjITJVAS2FKVJtZmNj0sopzwfv5TmlVTJcUzvuViZcnEZ1p/
+ VSJwmdS7WlUED7LnN3F2YsYJQdLhoVzaZ/88AQawEwkpvJWti39/+xT5J
+ 5drUv98Meal1C99NACY8t1IsmIHr8x7k4FRv+jWTH0Y4VKuX58pL1Af7V A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="244044384"
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="244044384"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 11:50:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="558841503"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by orsmga001.jf.intel.com with ESMTP; 12 Jan 2022 11:50:41 -0800
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Wed, 12 Jan 2022 11:50:40 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Wed, 12 Jan 2022 11:50:39 -0800
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2308.020;
+ Wed, 12 Jan 2022 11:50:39 -0800
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH 04/14] drm/i915: Sipmplify PLANE_STRIDE
+ masking
+Thread-Index: AQHX5tVmd69vnmQxOUas5/2G1BLKe6xglDqA
+Date: Wed, 12 Jan 2022 19:50:39 +0000
+Message-ID: <86655bcdda4033eb9f85702e029ecee198be2f2f.camel@intel.com>
+References: <20211201152552.7821-1-ville.syrjala@linux.intel.com>
+ <20211201152552.7821-5-ville.syrjala@linux.intel.com>
+In-Reply-To: <20211201152552.7821-5-ville.syrjala@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2068BD2A839CF444A24F571025A3EF0B@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/display/vrr: Reset VRR capable
- property on a long hpd
+Subject: Re: [Intel-gfx] [PATCH 04/14] drm/i915: Sipmplify PLANE_STRIDE
+ masking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +81,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With some VRR panels, user can turn VRR ON/OFF on the fly from the panel settings.
-When VRR is turned OFF ,sends a long HPD to the driver clearing the Ignore MSA bit
-in the DPCD. Currently the driver parses that onevery HPD but fails to reset
-the corresponding VRR Capable Connector property.
-Hence the userspace still sees this as VRR Capable panel which is incorrect.
-
-Fix this by explicitly resetting the connector property.
-
-Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index df2a7d86aef0..4f1418f02b76 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4539,15 +4539,24 @@ static int intel_dp_get_modes(struct drm_connector *connector)
- {
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
- 	struct edid *edid;
-+	struct drm_i915_private *dev_priv = to_i915(connector->dev);
- 	int num_modes = 0;
- 
- 	edid = intel_connector->detect_edid;
- 	if (edid) {
- 		num_modes = intel_connector_update_modes(connector, edid);
- 
--		if (intel_vrr_is_capable(connector))
-+		if (intel_vrr_is_capable(connector)) {
-+			drm_dbg_kms(&dev_priv->drm, "VRR capable  = TRUE for [CONNECTOR:%d:%s]\n",
-+				    connector->base.id, connector->name);
- 			drm_connector_set_vrr_capable_property(connector,
- 							       true);
-+		} else {
-+			drm_dbg_kms(&dev_priv->drm, "VRR capable = false for [CONNECTOR:%d:%s]\n",
-+				    connector->base.id, connector->name);
-+			drm_connector_set_vrr_capable_property(connector,
-+							       false);
-+		}
- 	}
- 
- 	/* Also add fixed mode, which may or may not be present in EDID */
--- 
-2.19.1
-
+T24gV2VkLCAyMDIxLTEyLTAxIGF0IDE3OjI1ICswMjAwLCBWaWxsZSBTeXJqYWxhIHdyb3RlOg0K
+PiBGcm9tOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPg0K
+PiANCj4gVGhlcmUncyBubyBuZWVkIHRvIGhhdmUgc2VwYXJhdGUgbWFza3MgZm9yIHRoZSBzdHJp
+ZGUgYml0ZmllbGQNCj4gaW4gUExBTkVfU1RSSURFIGZvciBkaWZmZXJlbnQgcGxhdGZvcm1zLiBB
+bGwgdGhlIGV4dHJhIGJpdHMNCj4gYXJlIGhhcmRjb2RlZCB0byB6ZXJvIGFueXdheS4NCj4gDQo+
+IEFsc28gdGhlIG1hc2tzIHdlJ3JlIHVzaW5nIG5vdyBkb24ndCBldmVuIG1hdGNoIHRoZSBhY3R1
+YWwgaGFyZHdhcmUNCj4gc2luY2UgdGhlIGJpdGZpZWxkIHdhcyBvbmx5IDEwIGJpdHMgb24gc2ts
+L2Rlcml2YXRpdmVzLCBvbmx5IGdldHRpbmcNCj4gYnVtcGVkIHRvIDExIGJpdHMgb24gZ2xrLg0K
+PiANCj4gU28gbGV0J3MganVzdCB1c2UgYSAxMiBiaXQgbWFzayBmb3IgZXZlcnl0aGluZy4NCg0K
+UmV2aWV3ZWQtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29t
+Pg0KDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFA
+bGludXguaW50ZWwuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+c2tsX3VuaXZlcnNhbF9wbGFuZS5jIHwgNSArLS0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aTkxNV9yZWcuaCAgICAgICAgICAgICAgICAgICAgfCAzICstLQ0KPiAgMiBmaWxlcyBjaGFuZ2Vk
+LCAyIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L3NrbF91bml2ZXJzYWxfcGxhbmUuYw0KPiBpbmRleCAwOTk0
+ODkyMjAxNmIuLjk4NGJiMzVlY2YwNiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMNCj4gQEAgLTIzNDcsMTAgKzIzNDcs
+NyBAQCBza2xfZ2V0X2luaXRpYWxfcGxhbmVfY29uZmlnKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRj
+LA0KPiAgCXZhbCA9IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsIFBMQU5FX1NUUklERShwaXBlLCBw
+bGFuZV9pZCkpOw0KPiAgCXN0cmlkZV9tdWx0ID0gc2tsX3BsYW5lX3N0cmlkZV9tdWx0KGZiLCAw
+LCBEUk1fTU9ERV9ST1RBVEVfMCk7DQo+ICANCj4gLQlpZiAoRElTUExBWV9WRVIoZGV2X3ByaXYp
+ID49IDEzKQ0KPiAtCQlmYi0+cGl0Y2hlc1swXSA9ICh2YWwgJiBQTEFORV9TVFJJREVfTUFTS19Y
+RUxQRCkgKiBzdHJpZGVfbXVsdDsNCj4gLQllbHNlDQo+IC0JCWZiLT5waXRjaGVzWzBdID0gKHZh
+bCAmIFBMQU5FX1NUUklERV9NQVNLKSAqIHN0cmlkZV9tdWx0Ow0KPiArCWZiLT5waXRjaGVzWzBd
+ID0gKHZhbCAmIFBMQU5FX1NUUklERV9NQVNLKSAqIHN0cmlkZV9tdWx0Ow0KPiAgDQo+ICAJYWxp
+Z25lZF9oZWlnaHQgPSBpbnRlbF9mYl9hbGlnbl9oZWlnaHQoZmIsIDAsIGZiLT5oZWlnaHQpOw0K
+PiAgDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oIGIvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaA0KPiBpbmRleCAwMmQ4ZGIwM2MwYmYuLjYwNjZi
+MWUyNzYzYyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaA0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oDQo+IEBAIC03NDQwLDggKzc0
+NDAsNyBAQCBlbnVtIHsNCj4gIAlfUElQRShwaXBlLCBfUExBTkVfU1RSSURFXzNfQSwgX1BMQU5F
+X1NUUklERV8zX0IpDQo+ICAjZGVmaW5lIFBMQU5FX1NUUklERShwaXBlLCBwbGFuZSkJXA0KPiAg
+CV9NTUlPX1BMQU5FKHBsYW5lLCBfUExBTkVfU1RSSURFXzEocGlwZSksIF9QTEFORV9TVFJJREVf
+MihwaXBlKSkNCj4gLSNkZWZpbmUgUExBTkVfU1RSSURFX01BU0sJCVJFR19HRU5NQVNLKDEwLCAw
+KQ0KPiAtI2RlZmluZSBQTEFORV9TVFJJREVfTUFTS19YRUxQRAkJUkVHX0dFTk1BU0soMTEsIDAp
+DQo+ICsjZGVmaW5lIFBMQU5FX1NUUklERV9NQVNLCQlSRUdfR0VOTUFTSygxMSwgMCkNCj4gIA0K
+PiAgI2RlZmluZSBfUExBTkVfUE9TXzFfQgkJCQkweDcxMThjDQo+ICAjZGVmaW5lIF9QTEFORV9Q
+T1NfMl9CCQkJCTB4NzEyOGMNCg0K
