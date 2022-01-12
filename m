@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43620C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 17:29:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14536C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 17:59:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D3F410F7A4;
-	Wed, 12 Jan 2022 17:29:32 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFB210F7A0;
- Wed, 12 Jan 2022 17:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9348010E231;
+	Wed, 12 Jan 2022 17:59:31 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D44AF10E231;
+ Wed, 12 Jan 2022 17:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642008571; x=1673544571;
+ t=1642010370; x=1673546370;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=hJegF/7qpRipc0wF5xCtA4l9HboCT9Y6QMaoc4bDvYQ=;
- b=DhNV7JO/rDuCMRmkciBollr+FtiqfjfrK9u5GIgowmHFFZrrSfeRG6PY
- dhnA6O7ZvIPJfgVDQffMMa0ykR2ONXxQANFeSxK/Gufck0CNVE4et5nGx
- 3YQQu9PlcxMBsOFf+w6frxSAP51fFnAUSughD6Dz3AVSDr8Cebi9w+rIA
- SnfRY7f/G5xGmIVoNpqq+P1bjS11Zhim7Wz18KlOt4tnC+c/mW89MkjNP
- 7qtqgh6H/6buLog8GiiBb+M3mtPPJakfyxLvrlllj2RA0L48NRoob5yg9
- 1OZWWEdDTRzw71+iqJKB+uOKXeFswQ5WItEv4c288bRN9mChVuGsnTbkf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="307139918"
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="307139918"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 09:29:30 -0800
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="558782364"
+ mime-version:in-reply-to;
+ bh=d/LjtuAyqmkFIWB4hNh60XmaO1IJi5r5eKvYN+nL3Gg=;
+ b=DUHG5GDg++c6+Obn8RvFKjys3We9Zc95F3ybGpqFNb61e30p1ZdkClQQ
+ YQO1JRTflnH0uyVI51quT1Yukoc6+g4KMCcdw3lcRvoHZEq4k0BKBiLVw
+ svlUMeafj4G2b0c0uEjnPDoZEs6vlwimcoAk+hcXjMhEwLcr15rY8HcNw
+ wqoo6y21ZwHqA0CKI1Sj84clg0UH5d/2KETl6AcLePZwsp+YbyHrQzck0
+ VqDCEdFUgYCriHI5ayoQFfkFi0Pevcp5a2npLaJtPfrXUGdYQ4qp9F6+e
+ hk2BUfa3r3+eL83iK1Lfni29vZsaIxpISQfj80StUpu8kpHQdq7YlzcTG w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="241353294"
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="241353294"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 09:59:30 -0800
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="623541892"
 Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
  ([10.1.27.20])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 09:29:30 -0800
-Date: Wed, 12 Jan 2022 09:23:39 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 09:59:29 -0800
+Date: Wed, 12 Jan 2022 09:53:38 -0800
 From: Matthew Brost <matthew.brost@intel.com>
-To: Piotr =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>
-Message-ID: <20220112172339.GA18127@jons-linux-dev-box>
-References: <20220111163019.13694-1-matthew.brost@intel.com>
- <4f9a8e6a-5a12-2d6b-bdb9-f40269045874@linux.intel.com>
- <20220112170906.ln6es7v7f7gyaj5g@intel.com>
+To: Miaoqian Lin <linmq006@gmail.com>
+Message-ID: <20220112175338.GA12463@jons-linux-dev-box>
+References: <20211222075832.1732-1-linmq006@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220112170906.ln6es7v7f7gyaj5g@intel.com>
+In-Reply-To: <20211222075832.1732-1-linmq006@gmail.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Flip guc_id allocation partition
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Fix NULL vs IS_ERR
+ checking for kernel_context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,147 +58,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Andi Shyti <andi.shyti@intel.com>, David Airlie <airlied@linux.ie>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 12, 2022 at 06:09:06PM +0100, Piotr Piórkowski wrote:
-> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote on śro [2022-sty-12 08:54:19 +0000]:
-> > 
-> > On 11/01/2022 16:30, Matthew Brost wrote:
-> > > Move the multi-lrc guc_id from the lower allocation partition (0 to
-> > > number of multi-lrc guc_ids) to upper allocation partition (number of
-> > > single-lrc to max guc_ids).
-> > 
-> > Just a reminder that best practice for commit messages is to include the
-> > "why" as well.
-> > 
-> > Regards,
-> > 
-> > Tvrtko
-> > 
-> 
->  In my opinion this patch is good step forward.
->  Lazy allocation of the bitmap for MLRC and moving the MLRC pool to the 
->  end will allow easier development contexts for SR-IOV.
->  Introduction of two new helpers (new_mlrc_guc_id and new_slrc_guc_id) cleans up the code.
-> 
->  I agree with Tvrtko's comment that you should expand your commit
->  message.
+On Wed, Dec 22, 2021 at 07:58:29AM +0000, Miaoqian Lin wrote:
+> Since i915_gem_create_context() function return error pointers,
+> the kernel_context() function does not return null, It returns error
+> pointers too. Using IS_ERR() to check the return value to fix this.
 > 
 
-Agree. Didn't know if I could talk about SR-IOV publicly but clearly
-can so add an explaination in the next rev.
+Just a nit, err is initialized to -ENOMEM in a bunch of these tests
+which isn't needed anymore. If you want to clean that up too, feel free.
 
-> One thing I personally don't like is this NUMBER_SINGLE_LRC_GUC_ID definition (same for MLRC)
-> In my opinion it should be inline function and this value 1/16 defined as constant
+With that:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com> 
 
-Agree. I'll move these to functions in next rev.
-
-Matt
-
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/gt/selftest_execlists.c | 41 ++++++++++++++------
+>  1 file changed, 29 insertions(+), 12 deletions(-)
 > 
-> - Piotr
-> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > ---
-> > >   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 57 ++++++++++++++-----
-> > >   1 file changed, 42 insertions(+), 15 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > index 9989d121127df..1bacc9621cea8 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > @@ -147,6 +147,8 @@ guc_create_parallel(struct intel_engine_cs **engines,
-> > >    */
-> > >   #define NUMBER_MULTI_LRC_GUC_ID(guc)	\
-> > >   	((guc)->submission_state.num_guc_ids / 16)
-> > > +#define NUMBER_SINGLE_LRC_GUC_ID(guc)	\
-> > > +	((guc)->submission_state.num_guc_ids - NUMBER_MULTI_LRC_GUC_ID(guc))
-> > >   /*
-> > >    * Below is a set of functions which control the GuC scheduling state which
-> > > @@ -1776,11 +1778,6 @@ int intel_guc_submission_init(struct intel_guc *guc)
-> > >   	INIT_WORK(&guc->submission_state.destroyed_worker,
-> > >   		  destroyed_worker_func);
-> > > -	guc->submission_state.guc_ids_bitmap =
-> > > -		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
-> > > -	if (!guc->submission_state.guc_ids_bitmap)
-> > > -		return -ENOMEM;
-> > > -
-> > >   	spin_lock_init(&guc->timestamp.lock);
-> > >   	INIT_DELAYED_WORK(&guc->timestamp.work, guc_timestamp_ping);
-> > >   	guc->timestamp.ping_delay = (POLL_TIME_CLKS / gt->clock_frequency + 1) * HZ;
-> > > @@ -1796,7 +1793,8 @@ void intel_guc_submission_fini(struct intel_guc *guc)
-> > >   	guc_flush_destroyed_contexts(guc);
-> > >   	guc_lrc_desc_pool_destroy(guc);
-> > >   	i915_sched_engine_put(guc->sched_engine);
-> > > -	bitmap_free(guc->submission_state.guc_ids_bitmap);
-> > > +	if (guc->submission_state.guc_ids_bitmap)
-> > > +		bitmap_free(guc->submission_state.guc_ids_bitmap);
-> > >   }
-> > >   static inline void queue_request(struct i915_sched_engine *sched_engine,
-> > > @@ -1863,6 +1861,33 @@ static void guc_submit_request(struct i915_request *rq)
-> > >   	spin_unlock_irqrestore(&sched_engine->lock, flags);
-> > >   }
-> > > +static int new_mlrc_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> > > +{
-> > > +	int ret;
-> > > +
-> > > +	GEM_BUG_ON(!intel_context_is_parent(ce));
-> > > +	GEM_BUG_ON(!guc->submission_state.guc_ids_bitmap);
-> > > +
-> > > +	ret =  bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
-> > > +				       NUMBER_MULTI_LRC_GUC_ID(guc),
-> > > +				       order_base_2(ce->parallel.number_children
-> > > +						    + 1));
-> > > +	if (likely(!(ret < 0)))
-> > > +		ret += NUMBER_SINGLE_LRC_GUC_ID(guc);
-> > > +
-> > > +	return ret;
-> > > +}
-> > > +
-> > > +static int new_slrc_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> > > +{
-> > > +	GEM_BUG_ON(intel_context_is_parent(ce));
-> > > +
-> > > +	return ida_simple_get(&guc->submission_state.guc_ids,
-> > > +			      0, NUMBER_SINGLE_LRC_GUC_ID(guc),
-> > > +			      GFP_KERNEL | __GFP_RETRY_MAYFAIL |
-> > > +			      __GFP_NOWARN);
-> > > +}
-> > > +
-> > >   static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> > >   {
-> > >   	int ret;
-> > > @@ -1870,16 +1895,10 @@ static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> > >   	GEM_BUG_ON(intel_context_is_child(ce));
-> > >   	if (intel_context_is_parent(ce))
-> > > -		ret = bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
-> > > -					      NUMBER_MULTI_LRC_GUC_ID(guc),
-> > > -					      order_base_2(ce->parallel.number_children
-> > > -							   + 1));
-> > > +		ret = new_mlrc_guc_id(guc, ce);
-> > >   	else
-> > > -		ret = ida_simple_get(&guc->submission_state.guc_ids,
-> > > -				     NUMBER_MULTI_LRC_GUC_ID(guc),
-> > > -				     guc->submission_state.num_guc_ids,
-> > > -				     GFP_KERNEL | __GFP_RETRY_MAYFAIL |
-> > > -				     __GFP_NOWARN);
-> > > +		ret = new_slrc_guc_id(guc, ce);
-> > > +
-> > >   	if (unlikely(ret < 0))
-> > >   		return ret;
-> > > @@ -1989,6 +2008,14 @@ static int pin_guc_id(struct intel_guc *guc, struct intel_context *ce)
-> > >   	GEM_BUG_ON(atomic_read(&ce->guc_id.ref));
-> > > +	if (unlikely(intel_context_is_parent(ce) &&
-> > > +		     !guc->submission_state.guc_ids_bitmap)) {
-> > > +		guc->submission_state.guc_ids_bitmap =
-> > > +			bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
-> > > +		if (!guc->submission_state.guc_ids_bitmap)
-> > > +			return -ENOMEM;
-> > > +	}
-> > > +
-> > >   try_again:
-> > >   	spin_lock_irqsave(&guc->submission_state.lock, flags);
-> > > 
-> 
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+> index b367ecfa42de..eacfe920afed 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+> @@ -1540,13 +1540,16 @@ static int live_busywait_preempt(void *arg)
+>  	 */
+>  
+>  	ctx_hi = kernel_context(gt->i915, NULL);
+> -	if (!ctx_hi)
+> -		return -ENOMEM;
+> +	if (IS_ERR(ctx_hi))
+> +		return IS_ERR(ctx_hi);
+> +
+>  	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+>  
+>  	ctx_lo = kernel_context(gt->i915, NULL);
+> -	if (!ctx_lo)
+> +	if (IS_ERR(ctx_lo)) {
+> +		err = PTR_ERR(ctx_lo);
+>  		goto err_ctx_hi;
+> +	}
+>  	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+>  
+>  	obj = i915_gem_object_create_internal(gt->i915, PAGE_SIZE);
+> @@ -1742,13 +1745,17 @@ static int live_preempt(void *arg)
+>  		goto err_spin_hi;
+>  
+>  	ctx_hi = kernel_context(gt->i915, NULL);
+> -	if (!ctx_hi)
+> +	if (IS_ERR(ctx_hi)) {
+> +		err = PTR_ERR(ctx_hi);
+>  		goto err_spin_lo;
+> +	}
+>  	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+>  
+>  	ctx_lo = kernel_context(gt->i915, NULL);
+> -	if (!ctx_lo)
+> +	if (IS_ERR(ctx_lo)) {
+> +		err = PTR_ERR(ctx_lo);
+>  		goto err_ctx_hi;
+> +	}
+>  	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+>  
+>  	for_each_engine(engine, gt, id) {
+> @@ -1834,12 +1841,16 @@ static int live_late_preempt(void *arg)
+>  		goto err_spin_hi;
+>  
+>  	ctx_hi = kernel_context(gt->i915, NULL);
+> -	if (!ctx_hi)
+> +	if (IS_ERR(ctx_hi)) {
+> +		err = PTR_ERR(ctx_hi);
+>  		goto err_spin_lo;
+> +	}
+>  
+>  	ctx_lo = kernel_context(gt->i915, NULL);
+> -	if (!ctx_lo)
+> +	if (IS_ERR(ctx_lo)) {
+> +		err = PTR_ERR(ctx_lo);
+>  		goto err_ctx_hi;
+> +	}
+>  
+>  	/* Make sure ctx_lo stays before ctx_hi until we trigger preemption. */
+>  	ctx_lo->sched.priority = 1;
+> @@ -1928,8 +1939,8 @@ struct preempt_client {
+>  static int preempt_client_init(struct intel_gt *gt, struct preempt_client *c)
+>  {
+>  	c->ctx = kernel_context(gt->i915, NULL);
+> -	if (!c->ctx)
+> -		return -ENOMEM;
+> +	if (IS_ERR(c->ctx))
+> +		return PTR_ERR(c->ctx);
+>  
+>  	if (igt_spinner_init(&c->spin, gt))
+>  		goto err_ctx;
+> @@ -3385,13 +3396,17 @@ static int live_preempt_timeout(void *arg)
+>  		return -ENOMEM;
+>  
+>  	ctx_hi = kernel_context(gt->i915, NULL);
+> -	if (!ctx_hi)
+> +	if (IS_ERR(ctx_hi)) {
+> +		err = PTR_ERR(ctx_hi);
+>  		goto err_spin_lo;
+> +	}
+>  	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+>  
+>  	ctx_lo = kernel_context(gt->i915, NULL);
+> -	if (!ctx_lo)
+> +	if (IS_ERR(ctx_lo)) {
+> +		err = PTR_ERR(ctx_lo);
+>  		goto err_ctx_hi;
+> +	}
+>  	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+>  
+>  	for_each_engine(engine, gt, id) {
+> @@ -3683,8 +3698,10 @@ static int live_preempt_smoke(void *arg)
+>  
+>  	for (n = 0; n < smoke.ncontext; n++) {
+>  		smoke.contexts[n] = kernel_context(smoke.gt->i915, NULL);
+> -		if (!smoke.contexts[n])
+> +		if (IS_ERR(smoke.contexts[n])) {
+> +			err = PTR_ERR(smoke.contexts[n]);
+>  			goto err_ctx;
+> +		}
+>  	}
+>  
+>  	for (n = 0; n < ARRAY_SIZE(phase); n++) {
 > -- 
+> 2.17.1
+> 
