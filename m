@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3262C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 16:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3FEC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 16:42:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F142010E438;
-	Thu, 13 Jan 2022 16:33:42 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD94210E11D;
- Thu, 13 Jan 2022 16:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB37610E2C6;
+	Thu, 13 Jan 2022 16:42:54 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEDD210E2C6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 16:42:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642091621; x=1673627621;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xYWjvymHgFVnPfT8FYqwGnGzVZI581j5O57ArIWzSPo=;
- b=jgHnPzy74E/DBBIvpqqE8sTYw6lzRMhrXnnBo9TRzVl4OobsqFu6Siu7
- BMXnA/oQFyxCc92BN1e6ZV3be702ASHG65iIDertnjYob95HUGJZprire
- yWHN4KSxH6hQKmSjHKiIWu7QazUkTZVFlg5DgfJMY198ZQPpcKcaGRIoL
- XsPiHFaWensKOkDha9rVXEzHDUhDOuPathgwKHIUcLm7nBfnpg3sRYOSs
- lq5Q1PgKdKZpQoHWfkAhWV0ZoyZkY19TAMadh/zLwuvEwJ2JESyFjN8BH
- OioI6N0VDAkci/B0mbKSgXmwbPwRlUIGCsuqWHRKT4GgB0vHLZ8yTPte3 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="243844467"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="243844467"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 08:33:39 -0800
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="763311386"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 08:33:39 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Thu, 13 Jan 2022 08:27:47 -0800
-Message-Id: <20220113162747.4017-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+ t=1642092173; x=1673628173;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=TNPRFbpAMfzxX9fzXnZ6k0ftr8r8WzM6uUhGdwOI2mg=;
+ b=c9MHjfDaxZ/R3wsVAkkn9qeJvv3DYxpcWXkJ12cnqnKV6//VXpucb2yJ
+ cPqhu99V8MvRg/X2DlupuGjMxYYE/q0HEyXAqHUe3avMNLb5uuymJFFlc
+ alVJnZz1d4vpPo88YGPXZawvmBC8XG5y/fnhUjfMy5XKZYFjWGai0lJb0
+ BrSMAuAg/6n2VnqsWCHz+qmrxrqVLiS+L8s9gSc4apdO9kdLwHRmXOlXS
+ X7HzGVWe+U4m4QtyIVMP9FV6YR/bjn51LNJyxnnwz/dFrr1cUDvS31kIo
+ A7nbgKSDapWAzdQkLLQDoqvL9Opxv7jD2GLsTqpN5S/Ce54mAzLkmyXso Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="241609924"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="241609924"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 08:42:52 -0800
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="529728694"
+Received: from tzumwalt-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.235.203])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 08:42:52 -0800
+Date: Thu, 13 Jan 2022 08:42:52 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20220113164252.awsjfafrooeycev6@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <cover.1642072583.git.jani.nikula@intel.com>
+ <2c18d26a7e6ceb025af7e91a56f8694de94fd3ee.1642072583.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Flip guc_id allocation partition
+In-Reply-To: <2c18d26a7e6ceb025af7e91a56f8694de94fd3ee.1642072583.git.jani.nikula@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915/opregion: check port number
+ bounds for SWSCI display power state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,156 +60,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the multi-lrc guc_id from the lower allocation partition (0 to
-number of multi-lrc guc_ids) to upper allocation partition (number of
-single-lrc to max guc_ids).
+On Thu, Jan 13, 2022 at 01:18:03PM +0200, Jani Nikula wrote:
+>The mapping from enum port to whatever port numbering scheme is used by
+>the SWSCI Display Power State Notification is odd, and the memory of it
+>has faded. In any case, the parameter only has space for ports numbered
+>[0..4], and UBSAN reports bit shift beyond it when the platform has port
+>F or more.
+>
+>Since the SWSCI functionality is supposed to be obsolete for new
+>platforms (i.e. ones that might have port F or more), just bail out
+>early if the mapped and mangled port number is beyond what the Display
+>Power State Notification can support.
+>
+>Fixes: 9c4b0a683193 ("drm/i915: add opregion function to notify bios of encoder enable/disable")
+>Cc: <stable@vger.kernel.org> # v3.13+
+>Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+>Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4800
+>Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>---
+> drivers/gpu/drm/i915/display/intel_opregion.c | 15 +++++++++++++++
+> 1 file changed, 15 insertions(+)
+>
+>diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+>index af9d30f56cc1..ad1afe9df6c3 100644
+>--- a/drivers/gpu/drm/i915/display/intel_opregion.c
+>+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+>@@ -363,6 +363,21 @@ int intel_opregion_notify_encoder(struct intel_encoder *intel_encoder,
+> 		port++;
+> 	}
+>
+>+	/*
+>+	 * The port numbering and mapping here is bizarre. The now-obsolete
+>+	 * swsci spec supports ports numbered [0..4]. Port E is handled as a
+>+	 * special case, but port F and beyond are not. The functionality is
+>+	 * supposed to be obsolete for new platforms. Just bail out if the port
+>+	 * number is out of bounds after mapping.
+>+	 */
+>+	if (port > 4) {
+>+		drm_dbg_kms(&dev_priv->drm,
+>+			    "[ENCODER:%d:%s] port %c (index %u) out of bounds for display power state notification\n",
+>+			    intel_encoder->base.base.id, intel_encoder->base.name,
+>+			    port_name(intel_encoder->port), port);
 
-This will help when a native driver transitions to a PF after driver
-load time. If the perma-pin guc_ids (kernel contexts) are in a low range
-it is easy reduce total number of guc_ids as the allocated slrc are in a
-valid range the mlrc range moves to an unused range. Assuming no mlrc
-are allocated and few slrc are used the native to PF transition is
-seamless for the guc_id resource.
+Do we need this log message? It will always trigger for platforms with
+PORT F and callers simply ignore the return value.
 
-v2:
- (Michal / Tvrtko)
-  - Add an explaination to commit message of why this patch is needed
- (Michal / Piotr)
-  - Replace marcos with functions
- (Michal)
-  - Rework logic flow in new_mlrc_guc_id
-  - Unconditionally call bitmap_free
-v3:
- (Michal)
-  - Move allocation of mlrc bitmap back submission init
- (CI)
-  - Resend for CI
-
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 77 ++++++++++++++-----
- 1 file changed, 56 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 23a40f10d376d..fce58365b3ff8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -138,17 +138,6 @@ guc_create_parallel(struct intel_engine_cs **engines,
- 
- #define GUC_REQUEST_SIZE 64 /* bytes */
- 
--/*
-- * We reserve 1/16 of the guc_ids for multi-lrc as these need to be contiguous
-- * per the GuC submission interface. A different allocation algorithm is used
-- * (bitmap vs. ida) between multi-lrc and single-lrc hence the reason to
-- * partition the guc_id space. We believe the number of multi-lrc contexts in
-- * use should be low and 1/16 should be sufficient. Minimum of 32 guc_ids for
-- * multi-lrc.
-- */
--#define NUMBER_MULTI_LRC_GUC_ID(guc)	\
--	((guc)->submission_state.num_guc_ids / 16)
--
- /*
-  * Below is a set of functions which control the GuC scheduling state which
-  * require a lock.
-@@ -1746,6 +1735,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
- }
- 
- static void destroyed_worker_func(struct work_struct *w);
-+static int number_mlrc_guc_id(struct intel_guc *guc);
- 
- /*
-  * Set up the memory resources to be shared with the GuC (via the GGTT)
-@@ -1778,7 +1768,7 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 		  destroyed_worker_func);
- 
- 	guc->submission_state.guc_ids_bitmap =
--		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
-+		bitmap_zalloc(number_mlrc_guc_id(guc), GFP_KERNEL);
- 	if (!guc->submission_state.guc_ids_bitmap)
- 		return -ENOMEM;
- 
-@@ -1864,6 +1854,57 @@ static void guc_submit_request(struct i915_request *rq)
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
- }
- 
-+/*
-+ * We reserve 1/16 of the guc_ids for multi-lrc as these need to be contiguous
-+ * per the GuC submission interface. A different allocation algorithm is used
-+ * (bitmap vs. ida) between multi-lrc and single-lrc hence the reason to
-+ * partition the guc_id space. We believe the number of multi-lrc contexts in
-+ * use should be low and 1/16 should be sufficient.
-+ */
-+#define MLRC_GUC_ID_RATIO	16
-+
-+static int number_mlrc_guc_id(struct intel_guc *guc)
-+{
-+	return guc->submission_state.num_guc_ids / MLRC_GUC_ID_RATIO;
-+}
-+
-+static int number_slrc_guc_id(struct intel_guc *guc)
-+{
-+	return guc->submission_state.num_guc_ids - number_mlrc_guc_id(guc);
-+}
-+
-+static int mlrc_guc_id_base(struct intel_guc *guc)
-+{
-+	return number_slrc_guc_id(guc);
-+}
-+
-+static int new_mlrc_guc_id(struct intel_guc *guc, struct intel_context *ce)
-+{
-+	int ret;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+	GEM_BUG_ON(!guc->submission_state.guc_ids_bitmap);
-+
-+	ret =  bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
-+				       number_mlrc_guc_id(guc),
-+				       order_base_2(ce->parallel.number_children
-+						    + 1));
-+	if (unlikely(ret < 0))
-+		return ret;
-+
-+	return ret + mlrc_guc_id_base(guc);
-+}
-+
-+static int new_slrc_guc_id(struct intel_guc *guc, struct intel_context *ce)
-+{
-+	GEM_BUG_ON(intel_context_is_parent(ce));
-+
-+	return ida_simple_get(&guc->submission_state.guc_ids,
-+			      0, number_slrc_guc_id(guc),
-+			      GFP_KERNEL | __GFP_RETRY_MAYFAIL |
-+			      __GFP_NOWARN);
-+}
-+
- static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
- {
- 	int ret;
-@@ -1871,16 +1912,10 @@ static int new_guc_id(struct intel_guc *guc, struct intel_context *ce)
- 	GEM_BUG_ON(intel_context_is_child(ce));
- 
- 	if (intel_context_is_parent(ce))
--		ret = bitmap_find_free_region(guc->submission_state.guc_ids_bitmap,
--					      NUMBER_MULTI_LRC_GUC_ID(guc),
--					      order_base_2(ce->parallel.number_children
--							   + 1));
-+		ret = new_mlrc_guc_id(guc, ce);
- 	else
--		ret = ida_simple_get(&guc->submission_state.guc_ids,
--				     NUMBER_MULTI_LRC_GUC_ID(guc),
--				     guc->submission_state.num_guc_ids,
--				     GFP_KERNEL | __GFP_RETRY_MAYFAIL |
--				     __GFP_NOWARN);
-+		ret = new_slrc_guc_id(guc, ce);
-+
- 	if (unlikely(ret < 0))
- 		return ret;
- 
--- 
-2.34.1
-
+Lucas De Marchi
