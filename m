@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F19B4C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D0D6C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E15710E2B3;
-	Thu, 13 Jan 2022 20:04:17 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1B3310E2B3;
- Thu, 13 Jan 2022 20:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D695C10E2B3;
+	Thu, 13 Jan 2022 20:06:42 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBA9410E148;
+ Thu, 13 Jan 2022 20:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642104255; x=1673640255;
+ t=1642104401; x=1673640401;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=houc8fQvm5Lltx/wN2zSHWWUYu/Fb9foJvJKGw394OE=;
- b=ErB/uBHXobVr2wS87h2Gggew+o7Cc7w7ecqH+7oatZ1mW3HqxIyKRHrT
- yo9eRGeVsvQfl2YW+fvw3lPgBfCC+mrkw/+fSmG2D2RDVvtN9deZi8iD7
- Baidysc6LtLXGz9HBWAiOTnmU79t6cL5SGfXFjxdFu65ogH4CHJoDRQzL
- LRjp3Is6QSMgTRxE4hjKMX6f/o2dVM8PJDf/KaIsFCZBUpAgqTxq9uSwW
- AR61uaAxJexfc3l8Mg1HmscOEf6kVsqSTj9/JKh91Qm7GERSvYKuMgtBC
- J2gPjH0jhgAAEoMk51oBc6J/Hw1FEkDbTTUnip2f/k7VKdh/1eV91NkB5 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244306531"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="244306531"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 12:04:15 -0800
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="516069454"
+ bh=KHWZGVOPe+OtUGlUt3SvsKoKMZ/ZDNqY1Fvi6R7WTfA=;
+ b=IkH15pK8bFYFCMcc7ndqGfgfRwbnYUsK7IQJ2kLYHzmq2NFGHctayaa+
+ 8SnnETyr7sxQFhbremjMwaujTTMv/MhMXN07QbUWvuzAdVkNPasePd9I2
+ TqHOFFj/lgS3U9oj+ZDiC5Ys4IaBNj7IYGKVuYk9ml3qeQZJZyxPDK5/G
+ 6tHtSdI/ZuzOofMJcQ4DrmcLl2oYgSn9A+u/5BfyYI25cFr+8cFuVpWZS
+ /TVCqpcNqm0hmh8IL7W1NavIFqHQWD1SYo/f5vfmQhW7aQl33Rh+PgiBh
+ BsS5Pjuba9iDiPRh7gWMU3tWOwKISi9PCpkcAVK2wiHJloVU03E3OJpEP A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="241665317"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="241665317"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 12:06:40 -0800
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="529814659"
 Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
  ([10.1.27.20])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 12:04:14 -0800
-Date: Thu, 13 Jan 2022 11:58:24 -0800
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 12:06:40 -0800
+Date: Thu, 13 Jan 2022 12:00:50 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: John.C.Harrison@Intel.com
-Message-ID: <20220113195824.GA7322@jons-linux-dev-box>
+Message-ID: <20220113200050.GA12059@jons-linux-dev-box>
 References: <20220113195947.1536897-1-John.C.Harrison@Intel.com>
- <20220113195947.1536897-4-John.C.Harrison@Intel.com>
+ <20220113195947.1536897-7-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220113195947.1536897-4-John.C.Harrison@Intel.com>
+In-Reply-To: <20220113195947.1536897-7-John.C.Harrison@Intel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH v3 i-g-t 03/15]
- tests/i915/i915_hangman: Update capture test to use engine structure
+Subject: Re: [Intel-gfx] [PATCH v3 i-g-t 06/15] tests/i915/i915_hangman: Use
+ the correct context in hangcheck_unterminated
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,63 +63,33 @@ Cc: IGT-Dev@Lists.FreeDesktop.Org, Intel-GFX@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 13, 2022 at 11:59:35AM -0800, John.C.Harrison@Intel.com wrote:
+On Thu, Jan 13, 2022 at 11:59:38AM -0800, John.C.Harrison@Intel.com wrote:
 > From: John Harrison <John.C.Harrison@Intel.com>
 > 
-> The capture test was still using old style ring_id and ring_name
-> (derived from the engine structure at the higher level). Update it to
-> just take the engine structure directly.
+> The hangman framework sets up a context that is valid for all engines
+> and has things like banning disabled. The 'unterminated' test then
+> ignores it and uses the default context. Fix that.
 > 
 > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
 > ---
->  tests/i915/i915_hangman.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>  tests/i915/i915_hangman.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 > diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-> index f64b8819d..280eac197 100644
+> index 354769f39..6656b3fcd 100644
 > --- a/tests/i915/i915_hangman.c
 > +++ b/tests/i915/i915_hangman.c
-> @@ -207,8 +207,8 @@ static void check_error_state(const char *expected_ring_name,
->  	igt_assert(found);
->  }
+> @@ -347,6 +347,7 @@ static void hangcheck_unterminated(const intel_ctx_t *ctx)
+>  	memset(&execbuf, 0, sizeof(execbuf));
+>  	execbuf.buffers_ptr = (uintptr_t)&gem_exec;
+>  	execbuf.buffer_count = 1;
+> +	execbuf.rsvd1 = ctx->id;
 >  
-> -static void test_error_state_capture(const intel_ctx_t *ctx, unsigned ring_id,
-> -				     const char *ring_name)
-> +static void test_error_state_capture(const intel_ctx_t *ctx,
-> +				     const struct intel_execution_engine2 *e)
->  {
->  	uint32_t *batch;
->  	igt_hang_t hang;
-> @@ -217,7 +217,7 @@ static void test_error_state_capture(const intel_ctx_t *ctx, unsigned ring_id,
->  
->  	clear_error_state();
->  
-> -	hang = igt_hang_ctx_with_ahnd(device, ahnd, ctx->id, ring_id,
-> +	hang = igt_hang_ctx_with_ahnd(device, ahnd, ctx->id, e->flags,
->  				      HANG_ALLOW_CAPTURE);
->  	offset = hang.spin->obj[IGT_SPIN_BATCH].offset;
->  
-> @@ -226,7 +226,7 @@ static void test_error_state_capture(const intel_ctx_t *ctx, unsigned ring_id,
->  
->  	igt_post_hang_ring(device, hang);
->  
-> -	check_error_state(ring_name, offset, batch);
-> +	check_error_state(e->name, offset, batch);
->  	munmap(batch, 4096);
->  	put_ahnd(ahnd);
->  }
-> @@ -351,7 +351,7 @@ igt_main
->  	igt_subtest_with_dynamic("error-state-capture") {
->  		for_each_ctx_engine(device, ctx, e) {
->  			igt_dynamic_f("%s", e->name)
-> -				test_error_state_capture(ctx, e->flags, e->name);
-> +				test_error_state_capture(ctx, e);
->  		}
->  	}
->  
+>  	gem_execbuf(device, &execbuf);
+>  	if (gem_wait(device, handle, &timeout_ns) != 0) {
 > -- 
 > 2.25.1
 > 
