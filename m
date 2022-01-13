@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9D6C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 16:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88357C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 16:59:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1738810E128;
-	Thu, 13 Jan 2022 16:58:53 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0739610E46D
- for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 16:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF4FA10E128;
+	Thu, 13 Jan 2022 16:59:46 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E8D10E29F;
+ Thu, 13 Jan 2022 16:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642093132; x=1673629132;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=dp3CIE5LwrA/5K0UpaJSSTi9UHI7CFcisbGJz9uRlhk=;
- b=PQ7uJRf65oRnJMY8irnunh/2BOH2hkntFjVkbcuoYRP+Wpjo1VPbgFQo
- MWeYx0EG/1g8+nNoK1U6sxV5ae71MXkfPnguRqho8YHWKpOAVuWVS5SxY
- IWaC/MoagZoLQRLfKQE/GbCwDkTmQRp+uNyQAWns+DIoeKc1JxDs5vSZH
- aFajtgv3fGAW+F85NlQMzCc+XffFXVs56IBKSUtWXifZouDLY61YZKISp
- ZCPiQ0QvQWjYRHx1fIAeu5qUnFrG0BdOMWqCGOOFlG9hHkKQwBIO7J/Vy
- ZHzflfJXxu04vT1jwpV0z004obLa3+7gPWZ9YQ29mTWijYvw+lULSWmke A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="244257582"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="244257582"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 08:58:51 -0800
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="623910667"
-Received: from joneil3-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.0.221])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 08:58:49 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>, Matt Roper
- <matthew.d.roper@intel.com>
-In-Reply-To: <Yd9LFygL5q43ziNW@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220111051600.3429104-1-matthew.d.roper@intel.com>
- <Yd9LFygL5q43ziNW@intel.com>
-Date: Thu, 13 Jan 2022 18:58:47 +0200
-Message-ID: <8735lr7et4.fsf@intel.com>
+ t=1642093185; x=1673629185;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=EGUqvwufRLocPQ6vvRULh0hIPrGzzPCgxxW3imVHCDQ=;
+ b=fFmlrijqp9DueaEkyAfdaZntXn8txB9SKQK5SemiHqe/HhamVCtFj37d
+ 5O2BPI2aKFNZ7OvaXmD8undHpWjv3yeNG8KBI6LxrXUf7OhNUle17Nl1R
+ oS2kbB2JHyQMHJh/DWRjyxVwEwrX1T0cx82OLvKBCgrw6W6EhH5s6d3DO
+ fD/gMt+kVyR6q/cpb8oBj7Z4fjWWNBNXs2UFqQ10FgFLiXusFdSgk+rZp
+ TwZnn9MG4xRb/gJfv/PiCl8QKdi18knSgbzBUdodHqkfCjXJTDxAwzaXv
+ kxVNDRjHXwEH9w9lLbt2mJeB8mqudJI2SZg6iuxU54v0yfGnNhjUPcGEZ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="268409166"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="268409166"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 08:59:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="515999145"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
+ by orsmga007.jf.intel.com with ESMTP; 13 Jan 2022 08:59:44 -0800
+From: John.C.Harrison@Intel.com
+To: IGT-Dev@Lists.FreeDesktop.Org
+Date: Thu, 13 Jan 2022 08:59:30 -0800
+Message-Id: <20220113165944.1414015-2-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220113165944.1414015-1-John.C.Harrison@Intel.com>
+References: <20220113165944.1414015-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v3 00/11] Start cleaning up register
- definitions
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 i-g-t 01/15] tests/i915/i915_hangman: Add
+ descriptions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,26 +58,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Intel-GFX@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 12 Jan 2022, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
-> I understand that I'm late to the fun here, but I got myself wondering if
-> we couldn't separated the registers in a "regs" directory
-> and find some way to organize them in IP blocks matching the hw...
->
-> mainly thinking about 2 cases:
->
-> 1. searching for registers usages...
-> 2. the idea of having some sort of auto generation from spec...
+From: John Harrison <John.C.Harrison@Intel.com>
 
-At least to me it's more important to split these between display and
-gt, and I'd prefer not to have them in the same directory.
+Added descriptions of the various sub-tests and the test as a whole.
 
-BR,
-Jani.
+v2: Added missing linefeed (spotted by Petri)
 
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Petri Latvala <petri.latvala@intel.com>
+---
+ tests/i915/i915_hangman.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
+diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
+index 4c18c22db..b9c4d9983 100644
+--- a/tests/i915/i915_hangman.c
++++ b/tests/i915/i915_hangman.c
+@@ -46,6 +46,8 @@
+ static int device = -1;
+ static int sysfs = -1;
+ 
++IGT_TEST_DESCRIPTION("Tests for hang detection and recovery");
++
+ static bool has_error_state(int dir)
+ {
+ 	bool result;
+@@ -315,9 +317,9 @@ static void hangcheck_unterminated(void)
+ 
+ 	gem_execbuf(device, &execbuf);
+ 	if (gem_wait(device, handle, &timeout_ns) != 0) {
+-		/* need to manually trigger an hang to clean before failing */
++		/* need to manually trigger a hang to clean before failing */
+ 		igt_force_gpu_reset(device);
+-		igt_assert_f(0, "unterminated batch did not trigger an hang!");
++		igt_assert_f(0, "unterminated batch did not trigger a hang!\n");
+ 	}
+ }
+ 
+@@ -341,9 +343,11 @@ igt_main
+ 		igt_require(has_error_state(sysfs));
+ 	}
+ 
++	igt_describe("Basic error capture");
+ 	igt_subtest("error-state-basic")
+ 		test_error_state_basic();
+ 
++	igt_describe("Per engine error capture");
+ 	igt_subtest_with_dynamic("error-state-capture") {
+ 		for_each_ctx_engine(device, ctx, e) {
+ 			igt_dynamic_f("%s", e->name)
+@@ -351,6 +355,7 @@ igt_main
+ 		}
+ 	}
+ 
++	igt_describe("Per engine hang recovery (spin)");
+ 	igt_subtest_with_dynamic("engine-hang") {
+                 int has_gpu_reset = 0;
+ 		struct drm_i915_getparam gp = {
+@@ -369,6 +374,7 @@ igt_main
+ 		}
+ 	}
+ 
++	igt_describe("Per engine hang recovery (invalid CS)");
+ 	igt_subtest_with_dynamic("engine-error") {
+ 		int has_gpu_reset = 0;
+ 		struct drm_i915_getparam gp = {
+@@ -386,6 +392,7 @@ igt_main
+ 		}
+ 	}
+ 
++	igt_describe("Check that executing unintialised memory causes a hang");
+ 	igt_subtest("hangcheck-unterminated")
+ 		hangcheck_unterminated();
+ 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
