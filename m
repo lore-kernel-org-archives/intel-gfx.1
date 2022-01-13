@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A21F5C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 23:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F223C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 23:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 960E810E830;
-	Thu, 13 Jan 2022 23:51:24 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B165110E80D;
- Thu, 13 Jan 2022 23:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6347A10E84B;
+	Thu, 13 Jan 2022 23:51:26 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7626810E830;
+ Thu, 13 Jan 2022 23:51:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642117881; x=1673653881;
+ t=1642117882; x=1673653882;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=K3jPJpQTeic6zp56inDr1MNH8duJnRRchk+iNPrI0VA=;
- b=FbXr9TG3Hwi+MA/3aqwllUdwZfR9niQTfMP8WIfAGYUIKpslYBRVBPs8
- gsIVcSAq+r8ec5DDyakilizSx0Pw8Qfc5/L2Mfffj1fX/b//WE4cdLqau
- onAEjpmqRp2W2TSEFjY5kMjJiWgO0F+uisw+EDFknLYnQNU0+ANmU/vhB
- IeL0kDO+lu8KqjCI0/pffrqRt673srPUns5bH1aklUJyEMteYVz/URmUj
- +m8CQTCBvCD9IXoia0k7ART9tYO8oTTDDS/NbiAYrs4LfIljDHeDCC3bx
- WbQeUuXI0E+C0CwZP5OUEEdC5j/qjMI8dMVn1HYFJllVqwvYn4XXCGWqf Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244096540"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="244096540"
+ bh=kWEDePAmLif+gIyj+ZdyY0kO5wDTBpqOFRg0tOpVc1M=;
+ b=BzjO1YyNopTVZjAhsG4Q7CjtoaSGKe3l+jxgrt1tWYQrzRx/52hPOosO
+ vGm2RIin32Cx8vmGtUB45rf5GH2XKoIHrXNJTWJxc33go7jrEMKzgdkY/
+ kAxG+VA47cB/GKbU3L2A/vFHHASzhABfBF5TiPZMc5H9kZJVfZlYOUdNu
+ bgxFCVUcsjUTYVGpkl9owPs+FC3Fd1R9ngaB48ktF7FJhR0m9RleHwzZD
+ wdmEM/9Fc1lMFGBd22T4XwNdZNIRWh/flJsu9ttEH2iKontTSzFfObrbq
+ +hb422q88pWApIUmi3vpAVX7mGZVZDYWvxthf7MHC/IGNW9QyLErLlOkD Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="268502305"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="268502305"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 15:51:19 -0800
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 15:51:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="620782992"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="620783050"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga002.fm.intel.com with ESMTP; 13 Jan 2022 15:51:19 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 13 Jan 2022 15:51:21 -0800
 From: John.C.Harrison@Intel.com
 To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Thu, 13 Jan 2022 15:51:07 -0800
-Message-Id: <20220113235118.1575410-5-John.C.Harrison@Intel.com>
+Date: Thu, 13 Jan 2022 15:51:16 -0800
+Message-Id: <20220113235118.1575410-14-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220113235118.1575410-1-John.C.Harrison@Intel.com>
 References: <20220113235118.1575410-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 i-g-t 04/15] tests/i915/i915_hangman:
- Explicitly test per engine reset vs full GPU reset
+Subject: [Intel-gfx] [PATCH v4 i-g-t 13/15] lib/i915: Add helper for
+ non-destructive engine property updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,131 +64,97 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Although the hangman test was ensuring that *some* reset functionality
-was enabled, it did not differentiate what kind. The infrastructure
-required to choose between per engine reset or full GT reset was
-recently added. So update this test to use it as well.
+Various tests want to configure engine properties such as pre-emption
+timeout and heartbeat interval. Some don't bother to restore the
+original values again afterwards. So, add a helper to make it easier
+to do this.
+
+v2: Fix for platforms with no pre-emption capability.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- tests/i915/i915_hangman.c | 76 +++++++++++++++++++++++++--------------
- 1 file changed, 49 insertions(+), 27 deletions(-)
+ lib/i915/gem_engine_topology.c | 46 ++++++++++++++++++++++++++++++++++
+ lib/i915/gem_engine_topology.h |  9 +++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-index 280eac197..7b8390a6c 100644
---- a/tests/i915/i915_hangman.c
-+++ b/tests/i915/i915_hangman.c
-@@ -323,40 +323,26 @@ static void hangcheck_unterminated(const intel_ctx_t *ctx)
- 	}
+diff --git a/lib/i915/gem_engine_topology.c b/lib/i915/gem_engine_topology.c
+index 729f42b0a..bd12d0bc9 100644
+--- a/lib/i915/gem_engine_topology.c
++++ b/lib/i915/gem_engine_topology.c
+@@ -488,6 +488,52 @@ int gem_engine_property_printf(int i915, const char *engine, const char *attr,
+ 	return ret;
  }
  
--igt_main
-+static void do_tests(const char *name, const char *prefix,
-+		     const intel_ctx_t *ctx)
- {
- 	const struct intel_execution_engine2 *e;
--	const intel_ctx_t *ctx;
--	igt_hang_t hang = {};
--
--	igt_fixture {
--		device = drm_open_driver(DRIVER_INTEL);
--		igt_require_gem(device);
--
--		ctx = intel_ctx_create_all_physical(device);
--
--		hang = igt_allow_hang(device, ctx->id, HANG_ALLOW_CAPTURE);
--
--		sysfs = igt_sysfs_open(device);
--		igt_assert(sysfs != -1);
--
--		igt_require(has_error_state(sysfs));
--	}
-+	char buff[256];
- 
--	igt_describe("Basic error capture");
--	igt_subtest("error-state-basic")
--		test_error_state_basic();
--
--	igt_describe("Per engine error capture");
--	igt_subtest_with_dynamic("error-state-capture") {
-+	snprintf(buff, sizeof(buff), "Per engine error capture (%s reset)", name);
-+	igt_describe(buff);
-+	snprintf(buff, sizeof(buff), "%s-error-state-capture", prefix);
-+	igt_subtest_with_dynamic(buff) {
- 		for_each_ctx_engine(device, ctx, e) {
- 			igt_dynamic_f("%s", e->name)
- 				test_error_state_capture(ctx, e);
- 		}
- 	}
- 
--	igt_describe("Per engine hang recovery (spin)");
--	igt_subtest_with_dynamic("engine-hang") {
-+	snprintf(buff, sizeof(buff), "Per engine hang recovery (spin, %s reset)", name);
-+	igt_describe(buff);
-+	snprintf(buff, sizeof(buff), "%s-engine-hang", prefix);
-+	igt_subtest_with_dynamic(buff) {
-                 int has_gpu_reset = 0;
- 		struct drm_i915_getparam gp = {
- 			.param = I915_PARAM_HAS_GPU_RESET,
-@@ -374,8 +360,10 @@ igt_main
- 		}
- 	}
- 
--	igt_describe("Per engine hang recovery (invalid CS)");
--	igt_subtest_with_dynamic("engine-error") {
-+	snprintf(buff, sizeof(buff), "Per engine hang recovery (invalid CS, %s reset)", name);
-+	igt_describe(buff);
-+	snprintf(buff, sizeof(buff), "%s-engine-error", prefix);
-+	igt_subtest_with_dynamic(buff) {
- 		int has_gpu_reset = 0;
- 		struct drm_i915_getparam gp = {
- 			.param = I915_PARAM_HAS_GPU_RESET,
-@@ -391,11 +379,45 @@ igt_main
- 				test_engine_hang(ctx, e, IGT_SPIN_INVALID_CS);
- 		}
- 	}
++/* Ensure fast hang detection */
++void gem_engine_properties_configure(int fd, struct gem_engine_properties *params)
++{
++	int ret;
++	struct gem_engine_properties write = *params;
++
++	ret = gem_engine_property_scanf(fd, write.engine->name,
++					"heartbeat_interval_ms",
++					"%d", &params->heartbeat_interval);
++	igt_assert_eq(ret, 1);
++
++	ret = gem_engine_property_printf(fd, write.engine->name,
++					 "heartbeat_interval_ms", "%d",
++					 write.heartbeat_interval);
++	igt_assert_lt(0, ret);
++
++	if (gem_scheduler_has_preemption(fd)) {
++		ret = gem_engine_property_scanf(fd, write.engine->name,
++						"preempt_timeout_ms",
++						"%d", &params->preempt_timeout);
++		igt_assert_eq(ret, 1);
++
++		ret = gem_engine_property_printf(fd, write.engine->name,
++						 "preempt_timeout_ms", "%d",
++						 write.preempt_timeout);
++		igt_assert_lt(0, ret);
++	}
 +}
 +
-+igt_main
++void gem_engine_properties_restore(int fd, const struct gem_engine_properties *saved)
 +{
-+	const intel_ctx_t *ctx;
-+	igt_hang_t hang = {};
++	int ret;
 +
-+	igt_fixture {
-+		device = drm_open_driver(DRIVER_INTEL);
-+		igt_require_gem(device);
++	ret = gem_engine_property_printf(fd, saved->engine->name,
++					 "heartbeat_interval_ms", "%d",
++					 saved->heartbeat_interval);
++	igt_assert_lt(0, ret);
 +
-+		ctx = intel_ctx_create_all_physical(device);
-+
-+		hang = igt_allow_hang(device, ctx->id, HANG_ALLOW_CAPTURE);
-+
-+		sysfs = igt_sysfs_open(device);
-+		igt_assert(sysfs != -1);
-+
-+		igt_require(has_error_state(sysfs));
++	if (gem_scheduler_has_preemption(fd)) {
++		ret = gem_engine_property_printf(fd, saved->engine->name,
++						 "preempt_timeout_ms", "%d",
++						 saved->preempt_timeout);
++		igt_assert_lt(0, ret);
 +	}
++}
 +
-+	igt_describe("Basic error capture");
-+	igt_subtest("error-state-basic")
-+		test_error_state_basic();
+ uint32_t gem_engine_mmio_base(int i915, const char *engine)
+ {
+ 	unsigned int mmio = 0;
+diff --git a/lib/i915/gem_engine_topology.h b/lib/i915/gem_engine_topology.h
+index 4cfab560b..b413aa8ab 100644
+--- a/lib/i915/gem_engine_topology.h
++++ b/lib/i915/gem_engine_topology.h
+@@ -115,6 +115,15 @@ struct intel_execution_engine2 gem_eb_flags_to_engine(unsigned int flags);
+ 	     ((e__) = intel_get_current_physical_engine(&i__##e__)); \
+ 	     intel_next_engine(&i__##e__))
  
- 	igt_describe("Check that executing unintialised memory causes a hang");
- 	igt_subtest("hangcheck-unterminated")
- 		hangcheck_unterminated(ctx);
- 
-+	do_tests("GT", "gt", ctx);
++struct gem_engine_properties {
++	const struct intel_execution_engine2 *engine;
++	int preempt_timeout;
++	int heartbeat_interval;
++};
 +
-+	igt_fixture {
-+		igt_disallow_hang(device, hang);
++void gem_engine_properties_configure(int fd, struct gem_engine_properties *params);
++void gem_engine_properties_restore(int fd, const struct gem_engine_properties *saved);
 +
-+		hang = igt_allow_hang(device, ctx->id, HANG_ALLOW_CAPTURE | HANG_WANT_ENGINE_RESET);
-+	}
-+
-+	do_tests("engine", "engine", ctx);
-+
- 	igt_fixture {
- 		igt_disallow_hang(device, hang);
- 		intel_ctx_destroy(device, ctx);
+ __attribute__((format(scanf, 4, 5)))
+ int gem_engine_property_scanf(int i915, const char *engine, const char *attr,
+ 			      const char *fmt, ...);
 -- 
 2.25.1
 
