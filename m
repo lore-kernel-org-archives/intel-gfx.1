@@ -4,31 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADDCC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 18:14:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B286DC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 18:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A26A810E536;
-	Thu, 13 Jan 2022 18:14:27 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7595D10E536;
- Thu, 13 Jan 2022 18:14:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 760B6A0099;
- Thu, 13 Jan 2022 18:14:26 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 217BD10E536;
+	Thu, 13 Jan 2022 18:21:23 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B2B10E536;
+ Thu, 13 Jan 2022 18:21:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642098082; x=1673634082;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tWbsgazn/tjQR0KTwVBh6b1CzVRbkjOVZiiYhiwqNOY=;
+ b=elGEyMLrH5a6n4/hxGjcFZE6QH8OcZQ7HBuJDn3wsGkZRzy9OcSR4i5i
+ OUxLGu1VdrYe5DjmffolbZU4IlfzfyyG4Q2V7m1Hcovd/v/x+ZkJ27uWp
+ 8a/mWZpXmMzQavUYrmCh3+bOymC1DdquyeLFuuah4L/Bj4Ok5slJMo8sV
+ +sbpZQnAO2pgmf1qhpzqvEawIuWB+SnHFBBZXunz3bJfiEUKL6KKmrxut
+ LChY9Lrz2E6d5582JRjBCBqDd2qx0xEpzwQfZsOOWAWow8lKZEdEK/4es
+ 9eundifxUEyhzlkomFFF5xHD8Z0FTXl4k0slS3dBchIAIXKFDHmUXngKi A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="268440150"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="268440150"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 10:19:43 -0800
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="765634138"
+Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 10:19:43 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Thu, 13 Jan 2022 10:13:49 -0800
+Message-Id: <20220113181351.21296-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
-Date: Thu, 13 Jan 2022 18:14:26 -0000
-Message-ID: <164209766648.19001.14119947202048224610@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220113174826.50272-1-jose.souza@intel.com>
-In-Reply-To: <20220113174826.50272-1-jose.souza@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/display/adlp=3A_Implement_new_step_in_the_TC_voltage_s?=
- =?utf-8?q?wing_prog_sequence?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 0/2] Remove some hacks required for GuC 62.0.0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,21 +54,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Remove a hack required because schedule disable done G2H was received
+before context reset G2H in GuC firmware 62.0.0. Since we have upgraded
+69.0.3, this is no longer required.
 
-Series: drm/i915/display/adlp: Implement new step in the TC voltage swing prog sequence
-URL   : https://patchwork.freedesktop.org/series/98853/
-State : warning
+Also revive selftest which proves this works before / after change.
 
-== Summary ==
+v2:
+  - Address John Harrion's comments
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
+Matthew Brost (2):
+  drm/i915/selftests: Add a cancel request selftest that triggers a
+    reset
+  drm/i915/guc: Remove hacks for reset and schedule disable G2H being
+    received out of order
+
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  30 +----
+ drivers/gpu/drm/i915/selftests/i915_request.c | 117 ++++++++++++++++++
+ 2 files changed, 119 insertions(+), 28 deletions(-)
+
+-- 
+2.34.1
 
