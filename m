@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 904F3C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D461C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:30:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E034710E3E0;
-	Thu, 13 Jan 2022 20:29:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD67510E12A;
+	Thu, 13 Jan 2022 20:30:25 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F142610E12A;
- Thu, 13 Jan 2022 20:29:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63B5B10E12A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 20:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642105785; x=1673641785;
+ t=1642105824; x=1673641824;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=dvyyy0ZD9OhhNrJxvnwD86UWiGAMydTydGhrh5aaqUs=;
- b=AuLdt09QQcUqTivKc1MqOYS/EjWKgyW5d4NfOobP5mExReln7y3WItx5
- 7MQmw0mWvghdfjzBDbtCBKYP1MD+vcN5/qxRXLSjgE8Ed24f97GDbgAOq
- Wx4vIT2vLSHSw9IKlErN72xUhw/Jaw0SWz9hE3N3ytl3coP9ulfgqExJN
- kJu8h8qRsdPENolwrHgSsbF9nX/4aDYLds2qiEBsspe86rHTZuh3xRGTI
- zTyfLmMludl46v+4mbkCY5Og7IGeTZ6Rd3t5NWeJQNpN3dhPHp41AaPOY
- PuqsvAacx3Uikpbi43NeD1Qdl5EjzEAYHMb/Hkt2Oza/tavNT3yG8yFCA w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="224089124"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="224089124"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ mime-version:in-reply-to;
+ bh=ptfBsesx6ZHgmTebVNBbX3n4w1IBZZLo+wk8NAHBYnc=;
+ b=NPA+fJh4u6zhZmPzUzwhuBPJrE7zRbUXFKbvbhvwJxGDb2OOo58kdVKl
+ t2z3HNFUOv/8WFTnsC9nY/nE6ZmjaQn0Jefp/vUCxytmq8gMD9nUVjlWy
+ LScCkZFFeCM/qlAp0W1sby3xZrLzXP3ISiJLYrJgx2zHknLFKXGXY5B93
+ fDVcbf8L0lav5Azw7oBnzbmngvftg29gkMIPURTsny9+un/oEa7FMk6ns
+ QCr7vHYlRlzQogAax+QE/V3Znrv1fe2bo91vFzEMUPrudkqle6klSLtZD
+ /933B6KmPzJHGmaOAt/sVXTitPmUd+IU5IAPS/y2tO/qZArhc9T2Jy61i g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="224089213"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="224089213"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 12:29:45 -0800
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="691938049"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 12:29:44 -0800
-Date: Thu, 13 Jan 2022 12:23:55 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Message-ID: <20220113202355.GA9211@jons-linux-dev-box>
-References: <20220113195947.1536897-1-John.C.Harrison@Intel.com>
- <20220113195947.1536897-8-John.C.Harrison@Intel.com>
- <20220113201002.GA13315@jons-linux-dev-box>
- <c50ce63a-e280-b000-942f-84cae295a1e1@intel.com>
+ 13 Jan 2022 12:30:13 -0800
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="473351136"
+Received: from cdaffron-mobl.amr.corp.intel.com (HELO intel.com)
+ ([10.255.32.51])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 12:30:12 -0800
+Date: Thu, 13 Jan 2022 15:30:11 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Juston Li <juston.li@intel.com>
+Message-ID: <YeCL08gh1FrNIzI/@intel.com>
+References: <20220106200236.489656-1-juston.li@intel.com>
+ <20220106200236.489656-2-juston.li@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c50ce63a-e280-b000-942f-84cae295a1e1@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH v3 i-g-t 07/15] lib/store:
- Refactor common store code into helper function
+In-Reply-To: <20220106200236.489656-2-juston.li@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 1/1] drm/i915/pxp: Hold RPM wakelock
+ during PXP unbind
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,309 +58,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: IGT-Dev@Lists.FreeDesktop.Org, Intel-GFX@Lists.FreeDesktop.Org
+Cc: intel-gfx@lists.freedesktop.org, alan.previn.teres.alexis@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 13, 2022 at 12:27:00PM -0800, John Harrison wrote:
-> On 1/13/2022 12:10, Matthew Brost wrote:
-> > On Thu, Jan 13, 2022 at 11:59:39AM -0800, John.C.Harrison@Intel.com wrote:
-> > > From: John Harrison <John.C.Harrison@Intel.com>
-> > > 
-> > > A lot of tests use almost identical code for creating a batch buffer
-> > > which does a single write to memory and another is about to be added.
-> > > Instead, move the most generic version into a common helper function.
-> > > Unfortunately, the other instances are all subtly different enough to
-> > > make it not so trivial to try to use the helper. It could be done but
-> > > it is unclear if it is worth the effort at this point. This patch
-> > > proves the concept, if people like it enough then it can be extended.
-> > > 
-> > > v2: Fix up object address vs store offset confusion (with help from
-> > > Zbigniew K).
-> > > 
-> > > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> > > ---
-> > >   lib/igt_store.c             | 96 +++++++++++++++++++++++++++++++++++++
-> > >   lib/igt_store.h             | 12 +++++
-> > >   lib/meson.build             |  1 +
-> > >   tests/i915/gem_exec_fence.c | 77 ++---------------------------
-> > >   tests/i915/i915_hangman.c   |  1 +
-> > >   5 files changed, 115 insertions(+), 72 deletions(-)
-> > >   create mode 100644 lib/igt_store.c
-> > >   create mode 100644 lib/igt_store.h
-> > > 
-> > > diff --git a/lib/igt_store.c b/lib/igt_store.c
-> > > new file mode 100644
-> > > index 000000000..42c888b55
-> > > --- /dev/null
-> > > +++ b/lib/igt_store.c
-> > > @@ -0,0 +1,96 @@
-> > > +/* SPDX-License-Identifier: MIT */
-> > > +/*
-> > > + * Copyright © 2021 Intel Corporation
-> > > + */
-> > > +
-> > > +#include "i915/gem_create.h"
-> > > +#include "igt_core.h"
-> > > +#include "drmtest.h"
-> > > +#include "igt_store.h"
-> > > +#include "intel_chipset.h"
-> > > +#include "intel_reg.h"
-> > > +#include "ioctl_wrappers.h"
-> > > +#include "lib/intel_allocator.h"
-> > > +
-> > > +/**
-> > > + * SECTION:igt_store_word
-> > > + * @short_description: Library for writing a value to memory
-> > > + * @title: StoreWord
-> > > + * @include: igt.h
-> > > + *
-> > > + * A lot of igt testcases need some mechanism for writing a value to memory
-> > > + * as a test that a batch buffer has executed.
-> > > + *
-> > > + * NB: Requires master for STORE_DWORD on gen4/5.
-> > > + */
-> > > +void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-> > > +		    const struct intel_execution_engine2 *e,
-> > > +		    int fence, uint32_t target_handle,
-> > > +		    uint64_t target_gpu_addr,
-> > > +		    uint64_t store_offset, uint32_t store_value)
-> > > +{
-> > > +	const int SCRATCH = 0;
-> > > +	const int BATCH = 1;
-> > > +	const unsigned int gen = intel_gen(intel_get_drm_devid(fd));
-> > > +	struct drm_i915_gem_exec_object2 obj[2];
-> > > +	struct drm_i915_gem_relocation_entry reloc;
-> > > +	struct drm_i915_gem_execbuffer2 execbuf;
-> > > +	uint32_t batch[16], delta;
-> > > +	uint64_t bb_offset;
-> > > +	int i;
-> > > +
-> > > +	memset(&execbuf, 0, sizeof(execbuf));
-> > > +	execbuf.buffers_ptr = to_user_pointer(obj);
-> > > +	execbuf.buffer_count = ARRAY_SIZE(obj);
-> > > +	execbuf.flags = e->flags;
-> > > +	execbuf.rsvd1 = ctx->id;
-> > > +	if (fence != -1) {
-> > > +		execbuf.flags |= I915_EXEC_FENCE_IN;
-> > > +		execbuf.rsvd2 = fence;
-> > > +	}
-> > > +	if (gen < 6)
-> > > +		execbuf.flags |= I915_EXEC_SECURE;
-> > > +
-> > > +	memset(obj, 0, sizeof(obj));
-> > > +	obj[SCRATCH].handle = target_handle;
-> > > +
-> > > +	obj[BATCH].handle = gem_create(fd, 4096);
-> > > +	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
-> > > +	obj[BATCH].relocation_count = !ahnd ? 1 : 0;
-> > > +	bb_offset = get_offset(ahnd, obj[BATCH].handle, 4096, 0);
-> > > +	memset(&reloc, 0, sizeof(reloc));
-> > > +
-> > > +	i = 0;
-> > > +	delta = sizeof(uint32_t) * store_offset;
-> > Can't this overflow the delta as store_offset is a u64?
-> Oops.
+On Thu, Jan 06, 2022 at 12:02:36PM -0800, Juston Li wrote:
+> Similar to commit b8d8436840ca ("drm/i915/gt: Hold RPM wakelock during
+> PXP suspend") but to fix the same warning for unbind during shutdown:
 > 
-> Yeah, this code was a right mess of data words being used as addresses and
-> random copies supporting 64bit or only 32bit offsets. I believe it's
-> currently fine as even platforms which can theoretically support >32bits
-> don't actually use it. But yes, will repost with a 64bit version of delta.
+> ------------[ cut here ]------------
+> RPM wakelock ref not held during HW access
+> WARNING: CPU: 0 PID: 4139 at drivers/gpu/drm/i915/intel_runtime_pm.h:115
+> gen12_fwtable_write32+0x1b7/0
+> Modules linked in: 8021q ccm rfcomm cmac algif_hash algif_skcipher
+> af_alg uinput snd_hda_codec_hdmi vf industrialio iwl7000_mac80211
+> cros_ec_sensorhub lzo_rle lzo_compress zram iwlwifi cfg80211 joydev
+> CPU: 0 PID: 4139 Comm: halt Tainted: G     U  W
+> 5.10.84 #13 344e11e079c4a03940d949e537eab645f6
+> RIP: 0010:gen12_fwtable_write32+0x1b7/0x200
+> Code: 48 c7 c7 fc b3 b5 89 31 c0 e8 2c f3 ad ff 0f 0b e9 04 ff ff ff c6
+> 05 71 e9 1d 01 01 48 c7 c7 d67
+> RSP: 0018:ffffa09ec0bb3bb0 EFLAGS: 00010246
+> RAX: 12dde97bbd260300 RBX: 00000000000320f0 RCX: ffffffff89e60ea0
+> RDX: 0000000000000000 RSI: 00000000ffffdfff RDI: ffffffff89e60e70
+> RBP: ffffa09ec0bb3bd8 R08: 0000000000000000 R09: ffffa09ec0bb3950
+> R10: 00000000ffffdfff R11: ffffffff89e91160 R12: 0000000000000000
+> R13: 0000000028121969 R14: ffff9515c32f0990 R15: 0000000040000000
+> FS:  0000790dcf225740(0000) GS:ffff951737800000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000058b25efae147 CR3: 0000000133ea6001 CR4: 0000000000770ef0
+> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> DR3: 0000000000000000 DR6: 00000000ffff07f0 DR7: 0000000000000400
+> PKRU: 55555554
+> Call Trace:
+>  intel_pxp_fini_hw+0x2f/0x39
+>  i915_pxp_tee_component_unbind+0x1c/0x42
+>  component_unbind+0x32/0x48
+>  component_unbind_all+0x80/0x9d
+>  take_down_master+0x24/0x36
+>  component_master_del+0x56/0x70
+>  mei_pxp_remove+0x2c/0x68
+>  mei_cl_device_remove+0x35/0x68
+>  device_release_driver_internal+0x100/0x1a1
+>  mei_cl_bus_remove_device+0x21/0x79
+>  mei_cl_bus_remove_devices+0x3b/0x51
+>  mei_stop+0x3b/0xae
+>  mei_me_shutdown+0x23/0x58
+>  device_shutdown+0x144/0x1d3
+>  kernel_power_off+0x13/0x4c
+>  __se_sys_reboot+0x1d4/0x1e9
+>  do_syscall_64+0x43/0x55
+>  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> RIP: 0033:0x790dcf316273
+> Code: 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00
+> 00 89 fa be 69 19 12 28 bf ad8
+> RSP: 002b:00007ffca0df9198 EFLAGS: 00000202 ORIG_RAX: 00000000000000a9
+> RAX: ffffffffffffffda RBX: 000000004321fedc RCX: 0000790dcf316273
+> RDX: 000000004321fedc RSI: 0000000028121969 RDI: 00000000fee1dead
+> RBP: 00007ffca0df9200 R08: 0000000000000007 R09: 0000563ce8cd8970
+> R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffca0df9308
+> R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000003
+> ---[ end trace 2f501b01b348f114 ]---
+> ACPI: Preparing to enter system sleep state S5
+> reboot: Power down
 > 
-> > 
-> > > +	if (!ahnd) {
-> > > +		reloc.target_handle = obj[SCRATCH].handle;
-> > > +		reloc.presumed_offset = -1;
-> > > +		reloc.offset = sizeof(uint32_t) * (i + 1);
+> Changes since v1:
+>  - Rebase to latest drm-tip
+> 
+> Fixes: 0cfab4cb3c4e ("drm/i915/pxp: Enable PXP power management")
+> Suggested-by: Lee Shawn C <shawn.c.lee@intel.com>
+> Signed-off-by: Juston Li <juston.li@intel.com>
+> Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Then just be safe, probably assert the upper 32 bits of delta are clear too.
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-Matt
+and pushing to drm-intel-next right now.
 
-> > > +		reloc.delta = delta;
-> > > +		reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
-> > > +		reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
-> > > +	} else {
-> > > +		obj[SCRATCH].offset = target_gpu_addr;
-> > > +		obj[SCRATCH].flags |= EXEC_OBJECT_PINNED | EXEC_OBJECT_WRITE;
-> > > +		obj[BATCH].offset = bb_offset;
-> > > +		obj[BATCH].flags |= EXEC_OBJECT_PINNED;
-> > > +	}
-> > > +	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
-> > > +	if (gen >= 8) {
-> > > +		batch[++i] = target_gpu_addr + delta;
-> > > +		batch[++i] = (target_gpu_addr + delta) >> 32;
-> > This is different from the previous code, presumably this is fixing a
-> > bug where delta + bits 31:0 of target_gpu_addr overflows into the upper
-> > 32 bits?
-> > 
-> > Matt
-> Yeah, some copies of this code were definitely broken for >32bit addresses.
+Thanks for the patch.
+
+> ---
+>  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> John.
-> 
-> > 
-> > > +	} else if (gen >= 4) {
-> > > +		batch[++i] = 0;
-> > > +		batch[++i] = delta;
-> > > +		reloc.offset += sizeof(uint32_t);
-> > > +	} else {
-> > > +		batch[i]--;
-> > > +		batch[++i] = delta;
-> > > +	}
-> > > +	batch[++i] = store_value;
-> > > +	batch[++i] = MI_BATCH_BUFFER_END;
-> > > +	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
-> > > +	gem_execbuf(fd, &execbuf);
-> > > +	gem_close(fd, obj[BATCH].handle);
-> > > +	put_offset(ahnd, obj[BATCH].handle);
-> > > +}
-> > > diff --git a/lib/igt_store.h b/lib/igt_store.h
-> > > new file mode 100644
-> > > index 000000000..5c6c8263c
-> > > --- /dev/null
-> > > +++ b/lib/igt_store.h
-> > > @@ -0,0 +1,12 @@
-> > > +/* SPDX-License-Identifier: MIT */
-> > > +/*
-> > > + * Copyright © 2021 Intel Corporation
-> > > + */
-> > > +
-> > > +#include "igt_gt.h"
-> > > +
-> > > +void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-> > > +		    const struct intel_execution_engine2 *e,
-> > > +		    int fence, uint32_t target_handle,
-> > > +		    uint64_t target_gpu_addr,
-> > > +		    uint64_t store_offset, uint32_t store_value);
-> > > diff --git a/lib/meson.build b/lib/meson.build
-> > > index b9568a71b..3e43316d1 100644
-> > > --- a/lib/meson.build
-> > > +++ b/lib/meson.build
-> > > @@ -72,6 +72,7 @@ lib_sources = [
-> > >   	'igt_map.c',
-> > >   	'igt_pm.c',
-> > >   	'igt_dummyload.c',
-> > > +	'igt_store.c',
-> > >   	'uwildmat/uwildmat.c',
-> > >   	'igt_kmod.c',
-> > >   	'igt_panfrost.c',
-> > > diff --git a/tests/i915/gem_exec_fence.c b/tests/i915/gem_exec_fence.c
-> > > index 9a6336ce9..196236b27 100644
-> > > --- a/tests/i915/gem_exec_fence.c
-> > > +++ b/tests/i915/gem_exec_fence.c
-> > > @@ -28,6 +28,7 @@
-> > >   #include "i915/gem.h"
-> > >   #include "i915/gem_create.h"
-> > >   #include "igt.h"
-> > > +#include "igt_store.h"
-> > >   #include "igt_syncobj.h"
-> > >   #include "igt_sysfs.h"
-> > >   #include "igt_vgem.h"
-> > > @@ -57,74 +58,6 @@ struct sync_merge_data {
-> > >   #define   MI_SEMAPHORE_SAD_EQ_SDD       (4 << 12)
-> > >   #define   MI_SEMAPHORE_SAD_NEQ_SDD      (5 << 12)
-> > > -static void store(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
-> > > -		  const struct intel_execution_engine2 *e,
-> > > -		  int fence, uint32_t target, uint64_t target_offset,
-> > > -		  unsigned offset_value)
-> > > -{
-> > > -	const int SCRATCH = 0;
-> > > -	const int BATCH = 1;
-> > > -	const unsigned int gen = intel_gen(intel_get_drm_devid(fd));
-> > > -	struct drm_i915_gem_exec_object2 obj[2];
-> > > -	struct drm_i915_gem_relocation_entry reloc;
-> > > -	struct drm_i915_gem_execbuffer2 execbuf;
-> > > -	uint32_t batch[16], delta;
-> > > -	uint64_t bb_offset;
-> > > -	int i;
-> > > -
-> > > -	memset(&execbuf, 0, sizeof(execbuf));
-> > > -	execbuf.buffers_ptr = to_user_pointer(obj);
-> > > -	execbuf.buffer_count = 2;
-> > > -	execbuf.flags = e->flags | I915_EXEC_FENCE_IN;
-> > > -	execbuf.rsvd1 = ctx->id;
-> > > -	execbuf.rsvd2 = fence;
-> > > -	if (gen < 6)
-> > > -		execbuf.flags |= I915_EXEC_SECURE;
-> > > -
-> > > -	memset(obj, 0, sizeof(obj));
-> > > -	obj[SCRATCH].handle = target;
-> > > -
-> > > -	obj[BATCH].handle = gem_create(fd, 4096);
-> > > -	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
-> > > -	obj[BATCH].relocation_count = !ahnd ? 1 : 0;
-> > > -	bb_offset = get_offset(ahnd, obj[BATCH].handle, 4096, 0);
-> > > -	memset(&reloc, 0, sizeof(reloc));
-> > > -
-> > > -	i = 0;
-> > > -	delta = sizeof(uint32_t) * offset_value;
-> > > -	if (!ahnd) {
-> > > -		reloc.target_handle = obj[SCRATCH].handle;
-> > > -		reloc.presumed_offset = -1;
-> > > -		reloc.offset = sizeof(uint32_t) * (i + 1);
-> > > -		reloc.delta = delta;
-> > > -		reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
-> > > -		reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
-> > > -	} else {
-> > > -		obj[SCRATCH].offset = target_offset;
-> > > -		obj[SCRATCH].flags |= EXEC_OBJECT_PINNED | EXEC_OBJECT_WRITE;
-> > > -		obj[BATCH].offset = bb_offset;
-> > > -		obj[BATCH].flags |= EXEC_OBJECT_PINNED;
-> > > -	}
-> > > -	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
-> > > -	if (gen >= 8) {
-> > > -		batch[++i] = target_offset + delta;
-> > > -		batch[++i] = target_offset >> 32;
-> > > -	} else if (gen >= 4) {
-> > > -		batch[++i] = 0;
-> > > -		batch[++i] = delta;
-> > > -		reloc.offset += sizeof(uint32_t);
-> > > -	} else {
-> > > -		batch[i]--;
-> > > -		batch[++i] = delta;
-> > > -	}
-> > > -	batch[++i] = offset_value;
-> > > -	batch[++i] = MI_BATCH_BUFFER_END;
-> > > -	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
-> > > -	gem_execbuf(fd, &execbuf);
-> > > -	gem_close(fd, obj[BATCH].handle);
-> > > -	put_offset(ahnd, obj[BATCH].handle);
-> > > -}
-> > > -
-> > >   static bool fence_busy(int fence)
-> > >   {
-> > >   	return poll(&(struct pollfd){fence, POLLIN}, 1, 0) == 0;
-> > > @@ -400,13 +333,13 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
-> > >   			continue;
-> > >   		if (flags & NONBLOCK) {
-> > > -			store(fd, ahnd, ctx, e2, spin->out_fence,
-> > > -			      scratch, scratch_offset, i);
-> > > +			igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
-> > > +				       scratch, scratch_offset, i, i);
-> > >   		} else {
-> > >   			igt_fork(child, 1) {
-> > >   				ahnd = get_reloc_ahnd(fd, ctx->id);
-> > > -				store(fd, ahnd, ctx, e2, spin->out_fence,
-> > > -				      scratch, scratch_offset, i);
-> > > +				igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
-> > > +					       scratch, scratch_offset, i, i);
-> > >   				put_ahnd(ahnd);
-> > >   			}
-> > >   		}
-> > > diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-> > > index 6656b3fcd..5a0c9497c 100644
-> > > --- a/tests/i915/i915_hangman.c
-> > > +++ b/tests/i915/i915_hangman.c
-> > > @@ -36,6 +36,7 @@
-> > >   #include "i915/gem.h"
-> > >   #include "i915/gem_create.h"
-> > >   #include "igt.h"
-> > > +#include "igt_store.h"
-> > >   #include "igt_sysfs.h"
-> > >   #include "igt_debugfs.h"
-> > >   #include "sw_sync.h"
-> > > -- 
-> > > 2.25.1
-> > > 
+> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+> index 195b2323ec00..4b6f5655fab5 100644
+> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+> @@ -107,9 +107,12 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+>  static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
+>  					  struct device *tee_kdev, void *data)
+>  {
+> +	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
+>  	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
+> +	intel_wakeref_t wakeref;
+>  
+> -	intel_pxp_fini_hw(pxp);
+> +	with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
+> +		intel_pxp_fini_hw(pxp);
+>  
+>  	mutex_lock(&pxp->tee_mutex);
+>  	pxp->pxp_component = NULL;
+> -- 
+> 2.31.1
 > 
