@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AAE1C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D3DC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF96910E48F;
-	Thu, 13 Jan 2022 19:59:57 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68B3310E55F;
- Thu, 13 Jan 2022 19:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99D4310E597;
+	Thu, 13 Jan 2022 19:59:59 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25FE410E4BB;
+ Thu, 13 Jan 2022 19:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642103990; x=1673639990;
+ t=1642103991; x=1673639991;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dCMHhLtuyDAaYuuFapL/srpcfvOcjAyjuPnjrQQYWLo=;
- b=Q26H4IjM4RT7xkaJarSfWMgBFU48WJ0dhs6AAxSTCPYZKLaoTRCG/YLE
- 9Fb0q+hfME87GaDiheT/7pr9uGUy8tYT8R30ik0iGWTjZhHi1cJerBgBg
- nUmXzuZ1stdJmHrrvRMuj3wzdvckt6VF+oLYVLehG6vL65GYjxWLeND2l
- TQ8oE6ggQDyeHMN7WG0YA+QN1D7sMYuyB6vApDPECzOOzxjEBhTkhex4F
- 1tAfPy2uiqZEYBm5i71Au3+aqaDVAWVf59q8RJ4ruIrLiUTN6KZapPh6T
- RVOwJosq7r4+8eU61GJ+Q4C0jCffDqTiBKF0jZqbl13GO8h81qxw6yn9T w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="241663867"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="241663867"
+ bh=XH+K7d6DGVBoZ02EaARWsp6oDNye/F+FQt/WCpafT7o=;
+ b=VtkVQIUVmOEBu12f2BCI16uLyH7HhLF7H6Pasd75iuYMBuJB83ehgU/F
+ rtZQq70JbeEcI8TzlC3Pb0VqjDs0nQL1DYZCbYuYU2cdYWRKFhz0Ys727
+ ExE8ZfvHg2d4s8lUI7GzrhwKpEScyuZDXQuXSElvo2Uk0oRP8OltTz1XB
+ jZ+1V8hpHUfha5spTdtaw4rVAauT4i6DnH8lSxeueRFuM6I9k5k6Z/Hj4
+ HpgnvnYRrY0VlKMCdkWYcVxkPHbX1tMkUX4hri00L2e47V0osKgI0GDoi
+ K6fecojpL3y3bW4VDVxQMxzEgytI6/FHqE9KrKE9diTuboa+FN6ahDkaF w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244056001"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="244056001"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Jan 2022 11:59:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="475477473"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="475477494"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga006.jf.intel.com with ESMTP; 13 Jan 2022 11:59:48 -0800
 From: John.C.Harrison@Intel.com
 To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Thu, 13 Jan 2022 11:59:38 -0800
-Message-Id: <20220113195947.1536897-7-John.C.Harrison@Intel.com>
+Date: Thu, 13 Jan 2022 11:59:45 -0800
+Message-Id: <20220113195947.1536897-14-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220113195947.1536897-1-John.C.Harrison@Intel.com>
 References: <20220113195947.1536897-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 i-g-t 06/15] tests/i915/i915_hangman: Use the
- correct context in hangcheck_unterminated
+Subject: [Intel-gfx] [PATCH v3 i-g-t 13/15] lib/i915: Add helper for
+ non-destructive engine property updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,27 +64,96 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The hangman framework sets up a context that is valid for all engines
-and has things like banning disabled. The 'unterminated' test then
-ignores it and uses the default context. Fix that.
+Various tests want to configure engine properties such as pre-emption
+timeout and heartbeat interval. Some don't bother to restore the
+original values again afterwards. So, add a helper to make it easier
+to do this.
+
+v2: Fix for platforms with no pre-emption capability.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- tests/i915/i915_hangman.c | 1 +
- 1 file changed, 1 insertion(+)
+ lib/i915/gem_engine_topology.c | 46 ++++++++++++++++++++++++++++++++++
+ lib/i915/gem_engine_topology.h |  9 +++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-index 354769f39..6656b3fcd 100644
---- a/tests/i915/i915_hangman.c
-+++ b/tests/i915/i915_hangman.c
-@@ -347,6 +347,7 @@ static void hangcheck_unterminated(const intel_ctx_t *ctx)
- 	memset(&execbuf, 0, sizeof(execbuf));
- 	execbuf.buffers_ptr = (uintptr_t)&gem_exec;
- 	execbuf.buffer_count = 1;
-+	execbuf.rsvd1 = ctx->id;
+diff --git a/lib/i915/gem_engine_topology.c b/lib/i915/gem_engine_topology.c
+index 729f42b0a..bd12d0bc9 100644
+--- a/lib/i915/gem_engine_topology.c
++++ b/lib/i915/gem_engine_topology.c
+@@ -488,6 +488,52 @@ int gem_engine_property_printf(int i915, const char *engine, const char *attr,
+ 	return ret;
+ }
  
- 	gem_execbuf(device, &execbuf);
- 	if (gem_wait(device, handle, &timeout_ns) != 0) {
++/* Ensure fast hang detection */
++void gem_engine_properties_configure(int fd, struct gem_engine_properties *params)
++{
++	int ret;
++	struct gem_engine_properties write = *params;
++
++	ret = gem_engine_property_scanf(fd, write.engine->name,
++					"heartbeat_interval_ms",
++					"%d", &params->heartbeat_interval);
++	igt_assert_eq(ret, 1);
++
++	ret = gem_engine_property_printf(fd, write.engine->name,
++					 "heartbeat_interval_ms", "%d",
++					 write.heartbeat_interval);
++	igt_assert_lt(0, ret);
++
++	if (gem_scheduler_has_preemption(fd)) {
++		ret = gem_engine_property_scanf(fd, write.engine->name,
++						"preempt_timeout_ms",
++						"%d", &params->preempt_timeout);
++		igt_assert_eq(ret, 1);
++
++		ret = gem_engine_property_printf(fd, write.engine->name,
++						 "preempt_timeout_ms", "%d",
++						 write.preempt_timeout);
++		igt_assert_lt(0, ret);
++	}
++}
++
++void gem_engine_properties_restore(int fd, const struct gem_engine_properties *saved)
++{
++	int ret;
++
++	ret = gem_engine_property_printf(fd, saved->engine->name,
++					 "heartbeat_interval_ms", "%d",
++					 saved->heartbeat_interval);
++	igt_assert_lt(0, ret);
++
++	if (gem_scheduler_has_preemption(fd)) {
++		ret = gem_engine_property_printf(fd, saved->engine->name,
++						 "preempt_timeout_ms", "%d",
++						 saved->preempt_timeout);
++		igt_assert_lt(0, ret);
++	}
++}
++
+ uint32_t gem_engine_mmio_base(int i915, const char *engine)
+ {
+ 	unsigned int mmio = 0;
+diff --git a/lib/i915/gem_engine_topology.h b/lib/i915/gem_engine_topology.h
+index 4cfab560b..b413aa8ab 100644
+--- a/lib/i915/gem_engine_topology.h
++++ b/lib/i915/gem_engine_topology.h
+@@ -115,6 +115,15 @@ struct intel_execution_engine2 gem_eb_flags_to_engine(unsigned int flags);
+ 	     ((e__) = intel_get_current_physical_engine(&i__##e__)); \
+ 	     intel_next_engine(&i__##e__))
+ 
++struct gem_engine_properties {
++	const struct intel_execution_engine2 *engine;
++	int preempt_timeout;
++	int heartbeat_interval;
++};
++
++void gem_engine_properties_configure(int fd, struct gem_engine_properties *params);
++void gem_engine_properties_restore(int fd, const struct gem_engine_properties *saved);
++
+ __attribute__((format(scanf, 4, 5)))
+ int gem_engine_property_scanf(int i915, const char *engine, const char *attr,
+ 			      const char *fmt, ...);
 -- 
 2.25.1
 
