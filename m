@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A716C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 23:51:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7C7DC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 23:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D34E910E84C;
-	Thu, 13 Jan 2022 23:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE7B10E845;
+	Thu, 13 Jan 2022 23:51:28 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C62510E823;
- Thu, 13 Jan 2022 23:51:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37E1810E819;
+ Thu, 13 Jan 2022 23:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642117883; x=1673653883;
+ t=1642117881; x=1673653881;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=GvTeMj4p496eF/cgKeteC+4cJZcBT8YpC6yo0tfo/ds=;
- b=kBoOsfF5fpqZhdXCavDDghMD7SmsPcYtd4X0m6LEAVwKA0Q622BoVlHO
- H90ZvBdG1z8IXw8N77B5xbThcGk0z01XCKVbLk6ueyUVerlwDT7C7xiCU
- 5UdWZwaOtXUBdp8gSELCWxRNLyAfOpogaOk6zh4X1w2+8kLCWJWc4aHTR
- 11hexWjbeq4pGugRAeVW6ZmlfZl049SreYBpKrLFeig4v0fz7vbGne9+C
- XQlWBBmjGPz5Vix/SPHU2SL8J0ZFtNk3LmzkFIsMKZYLVE5qVOufWvnEH
- 1xwqWdlbXar+h9cz5SZk47dvc5BItg1LAJzESFsymTeasq81Z1vM9Lzxn w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="268502308"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="268502308"
+ bh=cs5gQSsP0d/L1sEikswy9RQh+s+74zBLBuqvD98IuGE=;
+ b=YCV71N2x9FDdOXvu4bIg7TpuiEoE+g5kuKxPfct6KHvQR5YBhXn2O4tB
+ ohfGqXiTuux43ycJ3OPf0H3B5UjEYlebI5M5pQwhHngC9HwJicoEpjoGP
+ Gs4k9OqWoaTOEBoPU3zHr+IwdjAOa1rHuV0OnRABHjU9LVeL4HEkt+OrE
+ ZpZdh6ez23lA1RA9+udEvPqhbRJUUxhz3xxVQIBoLwaFl5M18MC0jgmyA
+ hpgljmVoEIlnkrASybDk3kgey6cR/bCsSx51PSoQ34CL4S5kBiqAwFrrc
+ 3hRAHXoFalFQdm1DBwY/gQr2uBEre0cZ/s72tNviSyjy/JZeltTzpikgj w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="268502292"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="268502292"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 15:51:22 -0800
+ 13 Jan 2022 15:51:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="620783062"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="620783019"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga002.fm.intel.com with ESMTP; 13 Jan 2022 15:51:22 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 13 Jan 2022 15:51:20 -0800
 From: John.C.Harrison@Intel.com
 To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Thu, 13 Jan 2022 15:51:18 -0800
-Message-Id: <20220113235118.1575410-16-John.C.Harrison@Intel.com>
+Date: Thu, 13 Jan 2022 15:51:12 -0800
+Message-Id: <20220113235118.1575410-10-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220113235118.1575410-1-John.C.Harrison@Intel.com>
 References: <20220113235118.1575410-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 i-g-t 15/15] tests/i915/gem_exec_capture:
- Restore engines
+Subject: [Intel-gfx] [PATCH v4 i-g-t 09/15] tests/i915/i915_hangman: Remove
+ reliance on context persistance
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,140 +64,75 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The test was updated some engine properties but not restoring them
-afterwards. That would leave the system in a non-default state which
-could potentially affect subsequent tests. Fix it by using the new
-save/restore engine properties helper functions.
+The hang test was relying on context persitence for no particular
+reason. That is, it would set a bunch of background spinners running
+then immediately destroy the active contexts but expect the spinners
+to keep spinning. With the current implementation of context
+persistence in i915, that means that super high priority pings are
+sent to each engine at the start of the test. Depending upon the
+timing and platform, one of those unexpected pings could cause test
+failures.
+
+There is no need to require context persitence in this test. So change
+to managing the contexts cleanly and only destroying them when they
+are no longer in use.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- tests/i915/gem_exec_capture.c | 37 ++++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
+ tests/i915/i915_hangman.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/tests/i915/gem_exec_capture.c b/tests/i915/gem_exec_capture.c
-index 9beb36fc7..51db07c41 100644
---- a/tests/i915/gem_exec_capture.c
-+++ b/tests/i915/gem_exec_capture.c
-@@ -209,14 +209,21 @@ static int check_error_state(int dir, struct offset *obj_offsets, int obj_count,
- 	return blobs;
- }
- 
--static void configure_hangs(int fd, const struct intel_execution_engine2 *e, int ctxt_id)
-+static struct gem_engine_properties
-+configure_hangs(int fd, const struct intel_execution_engine2 *e, int ctxt_id)
+diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
+index 73a86ec9e..24087931c 100644
+--- a/tests/i915/i915_hangman.c
++++ b/tests/i915/i915_hangman.c
+@@ -289,27 +289,29 @@ test_engine_hang(const intel_ctx_t *ctx,
+ 		 const struct intel_execution_engine2 *e, unsigned int flags)
  {
-+	struct gem_engine_properties props;
+ 	const struct intel_execution_engine2 *other;
+-	const intel_ctx_t *tmp_ctx;
++	const intel_ctx_t *local_ctx[GEM_MAX_ENGINES];
+ 	igt_spin_t *spin, *next;
+ 	IGT_LIST_HEAD(list);
+ 	uint64_t ahnd = get_reloc_ahnd(device, ctx->id), ahndN;
++	int num_ctx;
+ 
+ 	igt_skip_on(flags & IGT_SPIN_INVALID_CS &&
+ 		    gem_engine_has_cmdparser(device, &ctx->cfg, e->flags));
+ 
+ 	/* Fill all the other engines with background load */
++	num_ctx = 0;
+ 	for_each_ctx_engine(device, ctx, other) {
+ 		if (other->flags == e->flags)
+ 			continue;
+ 
+-		tmp_ctx = intel_ctx_create(device, &ctx->cfg);
+-		ahndN = get_reloc_ahnd(device, tmp_ctx->id);
++		local_ctx[num_ctx] = intel_ctx_create(device, &ctx->cfg);
++		ahndN = get_reloc_ahnd(device, local_ctx[num_ctx]->id);
+ 		spin = __igt_spin_new(device,
+ 				      .ahnd = ahndN,
+-				      .ctx = tmp_ctx,
++				      .ctx = local_ctx[num_ctx],
+ 				      .engine = other->flags,
+ 				      .flags = IGT_SPIN_FENCE_OUT);
+-		intel_ctx_destroy(device, tmp_ctx);
++		num_ctx++;
+ 
+ 		igt_list_move(&spin->link, &list);
+ 	}
+@@ -339,7 +341,10 @@ test_engine_hang(const intel_ctx_t *ctx,
+ 		igt_spin_free(device, spin);
+ 		put_ahnd(ahndN);
+ 	}
 +
- 	/* Ensure fast hang detection */
--	gem_engine_property_printf(fd, e->name, "preempt_timeout_ms", "%d", 250);
--	gem_engine_property_printf(fd, e->name, "heartbeat_interval_ms", "%d", 500);
-+	props.engine = e;
-+	props.preempt_timeout = 250;
-+	props.heartbeat_interval = 500;
-+	gem_engine_properties_configure(fd, &props);
- 
- 	/* Allow engine based resets and disable banning */
- 	igt_allow_hang(fd, ctxt_id, HANG_ALLOW_CAPTURE | HANG_WANT_ENGINE_RESET);
-+
-+	return props;
- }
- 
- static bool fence_busy(int fence)
-@@ -256,8 +263,9 @@ static void __capture1(int fd, int dir, uint64_t ahnd, const intel_ctx_t *ctx,
- 	uint32_t *batch, *seqno;
- 	struct offset offset;
- 	int i, fence_out;
-+	struct gem_engine_properties saved_engine;
- 
--	configure_hangs(fd, e, ctx->id);
-+	saved_engine = configure_hangs(fd, e, ctx->id);
- 
- 	memset(obj, 0, sizeof(obj));
- 	obj[SCRATCH].handle = gem_create_in_memory_regions(fd, 4096, region);
-@@ -371,6 +379,8 @@ static void __capture1(int fd, int dir, uint64_t ahnd, const intel_ctx_t *ctx,
- 	gem_close(fd, obj[BATCH].handle);
- 	gem_close(fd, obj[NOCAPTURE].handle);
- 	gem_close(fd, obj[SCRATCH].handle);
-+
-+	gem_engine_properties_restore(fd, &saved_engine);
- }
- 
- static void capture(int fd, int dir, const intel_ctx_t *ctx,
-@@ -417,8 +427,9 @@ __captureN(int fd, int dir, uint64_t ahnd, const intel_ctx_t *ctx,
- 	uint32_t *batch, *seqno;
- 	struct offset *offsets;
- 	int i, fence_out;
-+	struct gem_engine_properties saved_engine;
- 
--	configure_hangs(fd, e, ctx->id);
-+	saved_engine = configure_hangs(fd, e, ctx->id);
- 
- 	offsets = calloc(count, sizeof(*offsets));
- 	igt_assert(offsets);
-@@ -559,10 +570,12 @@ __captureN(int fd, int dir, uint64_t ahnd, const intel_ctx_t *ctx,
- 
- 	qsort(offsets, count, sizeof(*offsets), cmp);
- 	igt_assert(offsets[0].addr <= offsets[count-1].addr);
-+
-+	gem_engine_properties_restore(fd, &saved_engine);
- 	return offsets;
- }
- 
--#define find_first_available_engine(fd, ctx, e) \
-+#define find_first_available_engine(fd, ctx, e, saved) \
- 	do { \
- 		ctx = intel_ctx_create_all_physical(fd); \
- 		igt_assert(ctx); \
-@@ -570,7 +583,7 @@ __captureN(int fd, int dir, uint64_t ahnd, const intel_ctx_t *ctx,
- 			for_each_if(gem_class_can_store_dword(fd, e->class)) \
- 				break; \
- 		igt_assert(e); \
--		configure_hangs(fd, e, ctx->id); \
-+		saved = configure_hangs(fd, e, ctx->id); \
- 	} while(0)
- 
- static void many(int fd, int dir, uint64_t size, unsigned int flags)
-@@ -580,8 +593,9 @@ static void many(int fd, int dir, uint64_t size, unsigned int flags)
- 	uint64_t ram, gtt, ahnd;
- 	unsigned long count, blobs;
- 	struct offset *offsets;
-+	struct gem_engine_properties saved_engine;
- 
--	find_first_available_engine(fd, ctx, e);
-+	find_first_available_engine(fd, ctx, e, saved_engine);
- 
- 	gtt = gem_aperture_size(fd) / size;
- 	ram = (intel_get_avail_ram_mb() << 20) / size;
-@@ -602,6 +616,8 @@ static void many(int fd, int dir, uint64_t size, unsigned int flags)
- 
- 	free(offsets);
  	put_ahnd(ahnd);
-+
-+	gem_engine_properties_restore(fd, &saved_engine);
++	while (num_ctx)
++		intel_ctx_destroy(device, local_ctx[--num_ctx]);
+ 
+ 	check_alive();
  }
- 
- static void prioinv(int fd, int dir, const intel_ctx_t *ctx,
-@@ -697,8 +713,9 @@ static void userptr(int fd, int dir)
- 	void *ptr;
- 	int obj_size = 4096;
- 	uint32_t system_region = INTEL_MEMORY_REGION_ID(I915_SYSTEM_MEMORY, 0);
-+	struct gem_engine_properties saved_engine;
- 
--	find_first_available_engine(fd, ctx, e);
-+	find_first_available_engine(fd, ctx, e, saved_engine);
- 
- 	igt_assert(posix_memalign(&ptr, obj_size, obj_size) == 0);
- 	memset(ptr, 0, obj_size);
-@@ -710,6 +727,8 @@ static void userptr(int fd, int dir)
- 	gem_close(fd, handle);
- 	put_ahnd(ahnd);
- 	free(ptr);
-+
-+	gem_engine_properties_restore(fd, &saved_engine);
- }
- 
- static bool has_capture(int fd)
 -- 
 2.25.1
 
