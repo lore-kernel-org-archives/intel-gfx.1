@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEF12C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 904F3C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 20:29:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A20510E12A;
-	Thu, 13 Jan 2022 20:28:10 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D63C10E12A
- for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 20:28:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E034710E3E0;
+	Thu, 13 Jan 2022 20:29:47 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F142610E12A;
+ Thu, 13 Jan 2022 20:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642105689; x=1673641689;
+ t=1642105785; x=1673641785;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4jBT5ycwnM55thgrZrd9uTtbBOM/bPFuFI56nj826/A=;
- b=B3ngvVSnRdG6vTsE95OnKxK+lsY89EGAti7SJoGx+IfRBYCjRAq+tD5m
- o6ZhtZo1L5ZaO5Wm1SUWd1WtuFYgN2zEm3L4mwAMFOLQYD/tOd8tHclJk
- /mXbmpJ7imnbZrL3trqnc+JPnMm2PDRzdGneEnL1hxenhtoQ/nilVjsdM
- 8rHXMiwZJqMQQ4Ke122o0uZEKDOX+75ghedm3tSaSZNL1zxDLi6mUIzEU
- a0dpi/LW64DDEn2upuCt0aCgybL68qMYZ8AT5RxoJ+hmzMBDna20GvR8p
- HtmzQAn6z7kUY1X8mQDJrWCv+EFlkgtjxJvBPcrrUHm3O/tzeznpt+gQb A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="242922733"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="242922733"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 12:28:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="473349794"
-Received: from cdaffron-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.255.32.51])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 12:28:07 -0800
-Date: Thu, 13 Jan 2022 15:28:05 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <YeCLVeAjskTCiflA@intel.com>
-References: <20220113002128.7wcji4n5rlpchlyt@ldmartin-desk2>
- <20220113010645.GA301048@bhelgaas>
- <20220113012829.pquif5ujboyohzld@ldmartin-desk2>
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=dvyyy0ZD9OhhNrJxvnwD86UWiGAMydTydGhrh5aaqUs=;
+ b=AuLdt09QQcUqTivKc1MqOYS/EjWKgyW5d4NfOobP5mExReln7y3WItx5
+ 7MQmw0mWvghdfjzBDbtCBKYP1MD+vcN5/qxRXLSjgE8Ed24f97GDbgAOq
+ Wx4vIT2vLSHSw9IKlErN72xUhw/Jaw0SWz9hE3N3ytl3coP9ulfgqExJN
+ kJu8h8qRsdPENolwrHgSsbF9nX/4aDYLds2qiEBsspe86rHTZuh3xRGTI
+ zTyfLmMludl46v+4mbkCY5Og7IGeTZ6Rd3t5NWeJQNpN3dhPHp41AaPOY
+ PuqsvAacx3Uikpbi43NeD1Qdl5EjzEAYHMb/Hkt2Oza/tavNT3yG8yFCA w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="224089124"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="224089124"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 12:29:45 -0800
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="691938049"
+Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
+ ([10.1.27.20])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 12:29:44 -0800
+Date: Thu, 13 Jan 2022 12:23:55 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: John Harrison <john.c.harrison@intel.com>
+Message-ID: <20220113202355.GA9211@jons-linux-dev-box>
+References: <20220113195947.1536897-1-John.C.Harrison@Intel.com>
+ <20220113195947.1536897-8-John.C.Harrison@Intel.com>
+ <20220113201002.GA13315@jons-linux-dev-box>
+ <c50ce63a-e280-b000-942f-84cae295a1e1@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20220113012829.pquif5ujboyohzld@ldmartin-desk2>
-Subject: Re: [Intel-gfx] [PATCH v4] x86/quirks: Replace QFLAG_APPLY_ONCE
- with static locals
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c50ce63a-e280-b000-942f-84cae295a1e1@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [igt-dev] [PATCH v3 i-g-t 07/15] lib/store:
+ Refactor common store code into helper function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,73 +62,309 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, linux-pci@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, x86@kernel.org,
- Ingo Molnar <mingo@redhat.com>, Bjorn Helgaas <helgaas@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@linutronix.de>
+Cc: IGT-Dev@Lists.FreeDesktop.Org, Intel-GFX@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 12, 2022 at 05:28:29PM -0800, Lucas De Marchi wrote:
-> On Wed, Jan 12, 2022 at 07:06:45PM -0600, Bjorn Helgaas wrote:
-> > On Wed, Jan 12, 2022 at 04:21:28PM -0800, Lucas De Marchi wrote:
-> > > On Wed, Jan 12, 2022 at 06:08:05PM -0600, Bjorn Helgaas wrote:
-> > > > On Wed, Jan 12, 2022 at 03:30:43PM -0800, Lucas De Marchi wrote:
-> > > > > The flags are only used to mark a quirk to be called once and nothing
-> > > > > else. Also, that logic may not be appropriate if the quirk wants to
-> > > > > do additional filtering and set quirk as applied by itself.
-> > > > >
-> > > > > So replace the uses of QFLAG_APPLY_ONCE with static local variables in
-> > > > > the few quirks that use this logic and remove all the flags logic.
-> > > > >
-> > > > > Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> > > > > Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
-> > > >
-> > > > Only occurred to me now, but another, less intrusive approach would be
-> > > > to just remove QFLAG_APPLY_ONCE from intel_graphics_quirks() and do
-> > > > its bookkeeping internally, e.g.,
+On Thu, Jan 13, 2022 at 12:27:00PM -0800, John Harrison wrote:
+> On 1/13/2022 12:10, Matthew Brost wrote:
+> > On Thu, Jan 13, 2022 at 11:59:39AM -0800, John.C.Harrison@Intel.com wrote:
+> > > From: John Harrison <John.C.Harrison@Intel.com>
 > > > 
-> > > that is actually what I suggested after your comment in v2: this would
-> > > be the first patch with "minimal fix". But then to keep it consistent
-> > > with the other calls to follow up with additional patches on top
-> > > converting them as well.  Maybe what I wrote wasn't clear in the
-> > > direction? Copying it here:
+> > > A lot of tests use almost identical code for creating a batch buffer
+> > > which does a single write to memory and another is about to be added.
+> > > Instead, move the most generic version into a common helper function.
+> > > Unfortunately, the other instances are all subtly different enough to
+> > > make it not so trivial to try to use the helper. It could be done but
+> > > it is unclear if it is worth the effort at this point. This patch
+> > > proves the concept, if people like it enough then it can be extended.
 > > > 
-> > > 	1) add the static local only to intel graphics quirk  and remove the
-> > > 	flag from this item
-> > > 	2 and 3) add the static local to other functions and remove the flag
-> > > 	from those items
-> > > 	4) remove the flag from the table, the defines and its usage.
-> > > 	5) fix the coding style (to be clear, it's already wrong, not
-> > > 	something wrong introduced here... maybe could be squashed in (4)?)
+> > > v2: Fix up object address vs store offset confusion (with help from
+> > > Zbigniew K).
+> > > 
+> > > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> > > ---
+> > >   lib/igt_store.c             | 96 +++++++++++++++++++++++++++++++++++++
+> > >   lib/igt_store.h             | 12 +++++
+> > >   lib/meson.build             |  1 +
+> > >   tests/i915/gem_exec_fence.c | 77 ++---------------------------
+> > >   tests/i915/i915_hangman.c   |  1 +
+> > >   5 files changed, 115 insertions(+), 72 deletions(-)
+> > >   create mode 100644 lib/igt_store.c
+> > >   create mode 100644 lib/igt_store.h
+> > > 
+> > > diff --git a/lib/igt_store.c b/lib/igt_store.c
+> > > new file mode 100644
+> > > index 000000000..42c888b55
+> > > --- /dev/null
+> > > +++ b/lib/igt_store.c
+> > > @@ -0,0 +1,96 @@
+> > > +/* SPDX-License-Identifier: MIT */
+> > > +/*
+> > > + * Copyright © 2021 Intel Corporation
+> > > + */
+> > > +
+> > > +#include "i915/gem_create.h"
+> > > +#include "igt_core.h"
+> > > +#include "drmtest.h"
+> > > +#include "igt_store.h"
+> > > +#include "intel_chipset.h"
+> > > +#include "intel_reg.h"
+> > > +#include "ioctl_wrappers.h"
+> > > +#include "lib/intel_allocator.h"
+> > > +
+> > > +/**
+> > > + * SECTION:igt_store_word
+> > > + * @short_description: Library for writing a value to memory
+> > > + * @title: StoreWord
+> > > + * @include: igt.h
+> > > + *
+> > > + * A lot of igt testcases need some mechanism for writing a value to memory
+> > > + * as a test that a batch buffer has executed.
+> > > + *
+> > > + * NB: Requires master for STORE_DWORD on gen4/5.
+> > > + */
+> > > +void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
+> > > +		    const struct intel_execution_engine2 *e,
+> > > +		    int fence, uint32_t target_handle,
+> > > +		    uint64_t target_gpu_addr,
+> > > +		    uint64_t store_offset, uint32_t store_value)
+> > > +{
+> > > +	const int SCRATCH = 0;
+> > > +	const int BATCH = 1;
+> > > +	const unsigned int gen = intel_gen(intel_get_drm_devid(fd));
+> > > +	struct drm_i915_gem_exec_object2 obj[2];
+> > > +	struct drm_i915_gem_relocation_entry reloc;
+> > > +	struct drm_i915_gem_execbuffer2 execbuf;
+> > > +	uint32_t batch[16], delta;
+> > > +	uint64_t bb_offset;
+> > > +	int i;
+> > > +
+> > > +	memset(&execbuf, 0, sizeof(execbuf));
+> > > +	execbuf.buffers_ptr = to_user_pointer(obj);
+> > > +	execbuf.buffer_count = ARRAY_SIZE(obj);
+> > > +	execbuf.flags = e->flags;
+> > > +	execbuf.rsvd1 = ctx->id;
+> > > +	if (fence != -1) {
+> > > +		execbuf.flags |= I915_EXEC_FENCE_IN;
+> > > +		execbuf.rsvd2 = fence;
+> > > +	}
+> > > +	if (gen < 6)
+> > > +		execbuf.flags |= I915_EXEC_SECURE;
+> > > +
+> > > +	memset(obj, 0, sizeof(obj));
+> > > +	obj[SCRATCH].handle = target_handle;
+> > > +
+> > > +	obj[BATCH].handle = gem_create(fd, 4096);
+> > > +	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
+> > > +	obj[BATCH].relocation_count = !ahnd ? 1 : 0;
+> > > +	bb_offset = get_offset(ahnd, obj[BATCH].handle, 4096, 0);
+> > > +	memset(&reloc, 0, sizeof(reloc));
+> > > +
+> > > +	i = 0;
+> > > +	delta = sizeof(uint32_t) * store_offset;
+> > Can't this overflow the delta as store_offset is a u64?
+> Oops.
+> 
+> Yeah, this code was a right mess of data words being used as addresses and
+> random copies supporting 64bit or only 32bit offsets. I believe it's
+> currently fine as even platforms which can theoretically support >32bits
+> don't actually use it. But yes, will repost with a 64bit version of delta.
+> 
 > > 
-> > Oh, sorry, I guess I just skimmed over that without really
-> > comprehending it.
+> > > +	if (!ahnd) {
+> > > +		reloc.target_handle = obj[SCRATCH].handle;
+> > > +		reloc.presumed_offset = -1;
+> > > +		reloc.offset = sizeof(uint32_t) * (i + 1);
+
+Then just be safe, probably assert the upper 32 bits of delta are clear too.
+
+Matt
+
+> > > +		reloc.delta = delta;
+> > > +		reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
+> > > +		reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
+> > > +	} else {
+> > > +		obj[SCRATCH].offset = target_gpu_addr;
+> > > +		obj[SCRATCH].flags |= EXEC_OBJECT_PINNED | EXEC_OBJECT_WRITE;
+> > > +		obj[BATCH].offset = bb_offset;
+> > > +		obj[BATCH].flags |= EXEC_OBJECT_PINNED;
+> > > +	}
+> > > +	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
+> > > +	if (gen >= 8) {
+> > > +		batch[++i] = target_gpu_addr + delta;
+> > > +		batch[++i] = (target_gpu_addr + delta) >> 32;
+> > This is different from the previous code, presumably this is fixing a
+> > bug where delta + bits 31:0 of target_gpu_addr overflows into the upper
+> > 32 bits?
 > > 
-> > Although the patch below is basically just 1 from above and doesn't
-> > require any changes to the other functions or the flags themselves
-> > (2-4 above).
+> > Matt
+> Yeah, some copies of this code were definitely broken for >32bit addresses.
 > 
-> Yes, but I would do the rest of the conversion anyway. It would be odd
-> to be inconsistent with just a few functions. So in the end I think we
-> would achieve the same goal.
+> John.
 > 
-> I would really prefer this approach, having the bug fix first, if I was
-> concerned about having to backport this to linux-stable beyond 5.10.y
-> (we have a trivial conflict on 5.10).
+> > 
+> > > +	} else if (gen >= 4) {
+> > > +		batch[++i] = 0;
+> > > +		batch[++i] = delta;
+> > > +		reloc.offset += sizeof(uint32_t);
+> > > +	} else {
+> > > +		batch[i]--;
+> > > +		batch[++i] = delta;
+> > > +	}
+> > > +	batch[++i] = store_value;
+> > > +	batch[++i] = MI_BATCH_BUFFER_END;
+> > > +	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
+> > > +	gem_execbuf(fd, &execbuf);
+> > > +	gem_close(fd, obj[BATCH].handle);
+> > > +	put_offset(ahnd, obj[BATCH].handle);
+> > > +}
+> > > diff --git a/lib/igt_store.h b/lib/igt_store.h
+> > > new file mode 100644
+> > > index 000000000..5c6c8263c
+> > > --- /dev/null
+> > > +++ b/lib/igt_store.h
+> > > @@ -0,0 +1,12 @@
+> > > +/* SPDX-License-Identifier: MIT */
+> > > +/*
+> > > + * Copyright © 2021 Intel Corporation
+> > > + */
+> > > +
+> > > +#include "igt_gt.h"
+> > > +
+> > > +void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
+> > > +		    const struct intel_execution_engine2 *e,
+> > > +		    int fence, uint32_t target_handle,
+> > > +		    uint64_t target_gpu_addr,
+> > > +		    uint64_t store_offset, uint32_t store_value);
+> > > diff --git a/lib/meson.build b/lib/meson.build
+> > > index b9568a71b..3e43316d1 100644
+> > > --- a/lib/meson.build
+> > > +++ b/lib/meson.build
+> > > @@ -72,6 +72,7 @@ lib_sources = [
+> > >   	'igt_map.c',
+> > >   	'igt_pm.c',
+> > >   	'igt_dummyload.c',
+> > > +	'igt_store.c',
+> > >   	'uwildmat/uwildmat.c',
+> > >   	'igt_kmod.c',
+> > >   	'igt_panfrost.c',
+> > > diff --git a/tests/i915/gem_exec_fence.c b/tests/i915/gem_exec_fence.c
+> > > index 9a6336ce9..196236b27 100644
+> > > --- a/tests/i915/gem_exec_fence.c
+> > > +++ b/tests/i915/gem_exec_fence.c
+> > > @@ -28,6 +28,7 @@
+> > >   #include "i915/gem.h"
+> > >   #include "i915/gem_create.h"
+> > >   #include "igt.h"
+> > > +#include "igt_store.h"
+> > >   #include "igt_syncobj.h"
+> > >   #include "igt_sysfs.h"
+> > >   #include "igt_vgem.h"
+> > > @@ -57,74 +58,6 @@ struct sync_merge_data {
+> > >   #define   MI_SEMAPHORE_SAD_EQ_SDD       (4 << 12)
+> > >   #define   MI_SEMAPHORE_SAD_NEQ_SDD      (5 << 12)
+> > > -static void store(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
+> > > -		  const struct intel_execution_engine2 *e,
+> > > -		  int fence, uint32_t target, uint64_t target_offset,
+> > > -		  unsigned offset_value)
+> > > -{
+> > > -	const int SCRATCH = 0;
+> > > -	const int BATCH = 1;
+> > > -	const unsigned int gen = intel_gen(intel_get_drm_devid(fd));
+> > > -	struct drm_i915_gem_exec_object2 obj[2];
+> > > -	struct drm_i915_gem_relocation_entry reloc;
+> > > -	struct drm_i915_gem_execbuffer2 execbuf;
+> > > -	uint32_t batch[16], delta;
+> > > -	uint64_t bb_offset;
+> > > -	int i;
+> > > -
+> > > -	memset(&execbuf, 0, sizeof(execbuf));
+> > > -	execbuf.buffers_ptr = to_user_pointer(obj);
+> > > -	execbuf.buffer_count = 2;
+> > > -	execbuf.flags = e->flags | I915_EXEC_FENCE_IN;
+> > > -	execbuf.rsvd1 = ctx->id;
+> > > -	execbuf.rsvd2 = fence;
+> > > -	if (gen < 6)
+> > > -		execbuf.flags |= I915_EXEC_SECURE;
+> > > -
+> > > -	memset(obj, 0, sizeof(obj));
+> > > -	obj[SCRATCH].handle = target;
+> > > -
+> > > -	obj[BATCH].handle = gem_create(fd, 4096);
+> > > -	obj[BATCH].relocs_ptr = to_user_pointer(&reloc);
+> > > -	obj[BATCH].relocation_count = !ahnd ? 1 : 0;
+> > > -	bb_offset = get_offset(ahnd, obj[BATCH].handle, 4096, 0);
+> > > -	memset(&reloc, 0, sizeof(reloc));
+> > > -
+> > > -	i = 0;
+> > > -	delta = sizeof(uint32_t) * offset_value;
+> > > -	if (!ahnd) {
+> > > -		reloc.target_handle = obj[SCRATCH].handle;
+> > > -		reloc.presumed_offset = -1;
+> > > -		reloc.offset = sizeof(uint32_t) * (i + 1);
+> > > -		reloc.delta = delta;
+> > > -		reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
+> > > -		reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
+> > > -	} else {
+> > > -		obj[SCRATCH].offset = target_offset;
+> > > -		obj[SCRATCH].flags |= EXEC_OBJECT_PINNED | EXEC_OBJECT_WRITE;
+> > > -		obj[BATCH].offset = bb_offset;
+> > > -		obj[BATCH].flags |= EXEC_OBJECT_PINNED;
+> > > -	}
+> > > -	batch[i] = MI_STORE_DWORD_IMM | (gen < 6 ? 1 << 22 : 0);
+> > > -	if (gen >= 8) {
+> > > -		batch[++i] = target_offset + delta;
+> > > -		batch[++i] = target_offset >> 32;
+> > > -	} else if (gen >= 4) {
+> > > -		batch[++i] = 0;
+> > > -		batch[++i] = delta;
+> > > -		reloc.offset += sizeof(uint32_t);
+> > > -	} else {
+> > > -		batch[i]--;
+> > > -		batch[++i] = delta;
+> > > -	}
+> > > -	batch[++i] = offset_value;
+> > > -	batch[++i] = MI_BATCH_BUFFER_END;
+> > > -	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
+> > > -	gem_execbuf(fd, &execbuf);
+> > > -	gem_close(fd, obj[BATCH].handle);
+> > > -	put_offset(ahnd, obj[BATCH].handle);
+> > > -}
+> > > -
+> > >   static bool fence_busy(int fence)
+> > >   {
+> > >   	return poll(&(struct pollfd){fence, POLLIN}, 1, 0) == 0;
+> > > @@ -400,13 +333,13 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
+> > >   			continue;
+> > >   		if (flags & NONBLOCK) {
+> > > -			store(fd, ahnd, ctx, e2, spin->out_fence,
+> > > -			      scratch, scratch_offset, i);
+> > > +			igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
+> > > +				       scratch, scratch_offset, i, i);
+> > >   		} else {
+> > >   			igt_fork(child, 1) {
+> > >   				ahnd = get_reloc_ahnd(fd, ctx->id);
+> > > -				store(fd, ahnd, ctx, e2, spin->out_fence,
+> > > -				      scratch, scratch_offset, i);
+> > > +				igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
+> > > +					       scratch, scratch_offset, i, i);
+> > >   				put_ahnd(ahnd);
+> > >   			}
+> > >   		}
+> > > diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
+> > > index 6656b3fcd..5a0c9497c 100644
+> > > --- a/tests/i915/i915_hangman.c
+> > > +++ b/tests/i915/i915_hangman.c
+> > > @@ -36,6 +36,7 @@
+> > >   #include "i915/gem.h"
+> > >   #include "i915/gem_create.h"
+> > >   #include "igt.h"
+> > > +#include "igt_store.h"
+> > >   #include "igt_sysfs.h"
+> > >   #include "igt_debugfs.h"
+> > >   #include "sw_sync.h"
+> > > -- 
+> > > 2.25.1
+> > > 
 > 
-> However given this situation is new (Intel GPU + Intel Discrete GPU)
-> rare (it also needs a PCI topology in a certain way to reproduce it),
-> I'm not too concerned. Not even sure if it's worth submitting to
-> linux-stable.
-
-+1 on the minimal fix approach first and send that to stable 5.10+.
-We will hit this case for sure.
-
-also +1 on the discussed ideas as a follow up.
-
-> 
-> I'll wait others to chime in on one way vs the other.
-> 
-> thanks
-> Lucas De Marchi
