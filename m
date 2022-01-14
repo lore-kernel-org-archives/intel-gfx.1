@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7C7DC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 23:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F34C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 00:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE7B10E845;
-	Thu, 13 Jan 2022 23:51:28 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E1810E819;
- Thu, 13 Jan 2022 23:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4645010E867;
+	Fri, 14 Jan 2022 00:28:14 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A4910E867
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 00:28:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642117881; x=1673653881;
+ t=1642120092; x=1673656092;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cs5gQSsP0d/L1sEikswy9RQh+s+74zBLBuqvD98IuGE=;
- b=YCV71N2x9FDdOXvu4bIg7TpuiEoE+g5kuKxPfct6KHvQR5YBhXn2O4tB
- ohfGqXiTuux43ycJ3OPf0H3B5UjEYlebI5M5pQwhHngC9HwJicoEpjoGP
- Gs4k9OqWoaTOEBoPU3zHr+IwdjAOa1rHuV0OnRABHjU9LVeL4HEkt+OrE
- ZpZdh6ez23lA1RA9+udEvPqhbRJUUxhz3xxVQIBoLwaFl5M18MC0jgmyA
- hpgljmVoEIlnkrASybDk3kgey6cR/bCsSx51PSoQ34CL4S5kBiqAwFrrc
- 3hRAHXoFalFQdm1DBwY/gQr2uBEre0cZ/s72tNviSyjy/JZeltTzpikgj w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="268502292"
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="268502292"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2022 15:51:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="620783019"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga002.fm.intel.com with ESMTP; 13 Jan 2022 15:51:20 -0800
-From: John.C.Harrison@Intel.com
-To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Thu, 13 Jan 2022 15:51:12 -0800
-Message-Id: <20220113235118.1575410-10-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220113235118.1575410-1-John.C.Harrison@Intel.com>
-References: <20220113235118.1575410-1-John.C.Harrison@Intel.com>
+ bh=gChLAsxaUfo34M70y3IYu5wvatIKFodsmuRuEKDfuLg=;
+ b=jkzg+7GHkJHHeo+ECX5ml3At5/m0StFTGuHFfg7zxp7so9M4KMsAFaY4
+ z33PmP9HKs1dr/Pe+ipiwaOcaSV8La9BmLhhwnOe8YQAm6x3h3Ban1Zwv
+ jwCMKa6mLjlIn4ssbul6KJ/6MmxI4PMDBT7vPQX47Ae3cY5/DqAa47F/N
+ g6oLJfOllyzRLAFh0bEJ+DiHIOVvrIgYOiUKOixOGWKsDDpU5UbBFF7Q7
+ 7Z+ew9aMdOKP7VR7QLAMatV9CUOI5HVJ6InCeFnsMqj1G6vArd2JnXd4K
+ coBvazI+sHCn3+VQ6OAm73uE7Zlw6Am5FNcD/9InZZkWB3i6YjfBlu07F Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244103840"
+X-IronPort-AV: E=Sophos;i="5.88,287,1635231600"; d="scan'208";a="244103840"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 16:28:12 -0800
+X-IronPort-AV: E=Sophos;i="5.88,287,1635231600"; d="scan'208";a="491317602"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 16:28:12 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: x86@kernel.org
+Date: Thu, 13 Jan 2022 16:28:40 -0800
+Message-Id: <20220114002843.2083382-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220114002843.2083382-1-lucas.demarchi@intel.com>
+References: <20220114002843.2083382-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 i-g-t 09/15] tests/i915/i915_hangman: Remove
- reliance on context persistance
+Subject: [Intel-gfx] [PATCH v5 2/5] x86/quirks: Stop using QFLAG_APPLY_ONCE
+ in via_bugs()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,81 +56,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-GFX@Lists.FreeDesktop.Org
+Cc: linux-pci@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@linutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+Adopt the same approach as in intel_graphics_quirks(), with a static
+local variable, to control when the quirk has already been applied.
+However, contrary to intel_graphics_quirks() here we always set it as
+applied as soon as it's called to avoid changing the current behavior
+that is not failing.
 
-The hang test was relying on context persitence for no particular
-reason. That is, it would set a bunch of background spinners running
-then immediately destroy the active contexts but expect the spinners
-to keep spinning. With the current implementation of context
-persistence in i915, that means that super high priority pings are
-sent to each engine at the start of the test. Depending upon the
-timing and platform, one of those unexpected pings could cause test
-failures.
+After converting other users, it will allow us to remove all the logic
+handling the flags.
 
-There is no need to require context persitence in this test. So change
-to managing the contexts cleanly and only destroying them when they
-are no longer in use.
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- tests/i915/i915_hangman.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ arch/x86/kernel/early-quirks.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-index 73a86ec9e..24087931c 100644
---- a/tests/i915/i915_hangman.c
-+++ b/tests/i915/i915_hangman.c
-@@ -289,27 +289,29 @@ test_engine_hang(const intel_ctx_t *ctx,
- 		 const struct intel_execution_engine2 *e, unsigned int flags)
+diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
+index de9a76eb544e..59cc67aace93 100644
+--- a/arch/x86/kernel/early-quirks.c
++++ b/arch/x86/kernel/early-quirks.c
+@@ -57,6 +57,13 @@ static void __init fix_hypertransport_config(int num, int slot, int func)
+ static void __init via_bugs(int  num, int slot, int func)
  {
- 	const struct intel_execution_engine2 *other;
--	const intel_ctx_t *tmp_ctx;
-+	const intel_ctx_t *local_ctx[GEM_MAX_ENGINES];
- 	igt_spin_t *spin, *next;
- 	IGT_LIST_HEAD(list);
- 	uint64_t ahnd = get_reloc_ahnd(device, ctx->id), ahndN;
-+	int num_ctx;
- 
- 	igt_skip_on(flags & IGT_SPIN_INVALID_CS &&
- 		    gem_engine_has_cmdparser(device, &ctx->cfg, e->flags));
- 
- 	/* Fill all the other engines with background load */
-+	num_ctx = 0;
- 	for_each_ctx_engine(device, ctx, other) {
- 		if (other->flags == e->flags)
- 			continue;
- 
--		tmp_ctx = intel_ctx_create(device, &ctx->cfg);
--		ahndN = get_reloc_ahnd(device, tmp_ctx->id);
-+		local_ctx[num_ctx] = intel_ctx_create(device, &ctx->cfg);
-+		ahndN = get_reloc_ahnd(device, local_ctx[num_ctx]->id);
- 		spin = __igt_spin_new(device,
- 				      .ahnd = ahndN,
--				      .ctx = tmp_ctx,
-+				      .ctx = local_ctx[num_ctx],
- 				      .engine = other->flags,
- 				      .flags = IGT_SPIN_FENCE_OUT);
--		intel_ctx_destroy(device, tmp_ctx);
-+		num_ctx++;
- 
- 		igt_list_move(&spin->link, &list);
- 	}
-@@ -339,7 +341,10 @@ test_engine_hang(const intel_ctx_t *ctx,
- 		igt_spin_free(device, spin);
- 		put_ahnd(ahndN);
- 	}
+ #ifdef CONFIG_GART_IOMMU
++	static bool quirk_applied __initdata;
 +
- 	put_ahnd(ahnd);
-+	while (num_ctx)
-+		intel_ctx_destroy(device, local_ctx[--num_ctx]);
- 
- 	check_alive();
- }
++	if (quirk_applied)
++		return;
++
++	quirk_applied = true;
++
+ 	if ((max_pfn > MAX_DMA32_PFN ||  force_iommu) &&
+ 	    !gart_iommu_aperture_allowed) {
+ 		printk(KERN_INFO
+@@ -697,7 +704,7 @@ static struct chipset early_qrk[] __initdata = {
+ 	{ PCI_VENDOR_ID_NVIDIA, PCI_ANY_ID,
+ 	  PCI_CLASS_BRIDGE_PCI, PCI_ANY_ID, QFLAG_APPLY_ONCE, nvidia_bugs },
+ 	{ PCI_VENDOR_ID_VIA, PCI_ANY_ID,
+-	  PCI_CLASS_BRIDGE_PCI, PCI_ANY_ID, QFLAG_APPLY_ONCE, via_bugs },
++	  PCI_CLASS_BRIDGE_PCI, PCI_ANY_ID, 0, via_bugs },
+ 	{ PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_K8_NB,
+ 	  PCI_CLASS_BRIDGE_HOST, PCI_ANY_ID, 0, fix_hypertransport_config },
+ 	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_IXP400_SMBUS,
 -- 
-2.25.1
+2.34.1
 
