@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FAA4C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 18:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D64C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 18:17:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34BCA10E1C4;
-	Fri, 14 Jan 2022 18:17:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53B4D10E206;
+	Fri, 14 Jan 2022 18:17:39 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EEAD10E1CE;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BEF110E206;
  Fri, 14 Jan 2022 18:17:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1642184235; x=1673720235;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EnyT+dq+GuzzwfvvcH4v+mjZUdOE5Al4DQ+ee95tbRA=;
- b=N3vt0X8SinJGw7KqHLkXzLnnkf/ByY85jf8wH3kyOQ8qJQhIuT9rSnkF
- OZJ3ZWRMBaeJ2WOC96S3iFSqbDP0tl5LLhl+q/eHSReu/DAVe6od+I4LK
- iLkSze2NP3iEM4YqN3zJri0lcYCmAHNoPeBMkoe9o732Sjf55pQYQjhP/
- qO9f8slQzwJ9KqFwjZR+p3J2QGF0W614+MLVsbK8bwk6U72c0l4q+Dp0u
- bZzOL6/hSELz8GN86OEAQvZFyEoTHetBDUO3mbL1+ROyk9dQWoBvST1Tb
- o3eTIlG1F/NFGYkv4I1UKuNdwbjNNko+vzmIga19XxlBg3iGaLFc7rMbB A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10227"; a="224988562"
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="224988562"
+ bh=Z6smWQJGvexpulqbAYXaLPR4Fr+AEtDam+zkR4d/lHc=;
+ b=e5/+skZYwaVtAGGJ9TrvpQKHwTwq/3hi2z1XgQDQWLn5Pvh7KQrs+Kj+
+ AlTdvW9+uDCr6Wu4qz8ZsggoQjLo9PrvJJMg35d+HQtEVSM6QF7zbvdn2
+ Z108j4OMppxHrzWAYsYatIzaK4AsqTeRX3sjFzPuQHytv34kHCKzflyHz
+ ta/J4aH65Yq2yj4ctNjFjNDfdS8TX8et9QISJW1dXljd2wSDtl6X6m6Yx
+ 8vAnA/BO3prPX788p+oElUhCeYBTOzXfwkNDTubd8/RpvVKL8ANZicesY
+ fCh4ykFS6FsP5vc7MZqDo6ZQKZcu0MN9vF71gpM/x6rikoNtSeY1B0dC6 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10227"; a="224988563"
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="224988563"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Jan 2022 10:17:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="491602010"
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="491602016"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga002.jf.intel.com with ESMTP; 14 Jan 2022 10:17:13 -0800
 From: John.C.Harrison@Intel.com
 To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Fri, 14 Jan 2022 10:17:06 -0800
-Message-Id: <20220114181713.1798514-9-John.C.Harrison@Intel.com>
+Date: Fri, 14 Jan 2022 10:17:08 -0800
+Message-Id: <20220114181713.1798514-11-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220114181713.1798514-1-John.C.Harrison@Intel.com>
 References: <20220114181713.1798514-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 i-g-t 08/15] tests/i915/i915_hangman: Add
- alive-ness test after error capture
+Subject: [Intel-gfx] [PATCH v5 i-g-t 10/15] tests/i915/i915_hangman: Run
+ background task on all engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,127 +64,39 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Added a an extra step to the i915_hangman tests to check that the
-system is still alive after the hang and recovery. This submits a
-simple batch to each engine which does a write to memory and checks
-that the write occurred.
-
-v2: Use _device_coherent instead of _wc for mapping memory to support
-discrete boards.
+As opposed to only on the non-target engines. This means that there is
+some other workload present for the scheduler to switch between and so
+detet the hang immediately.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- tests/i915/i915_hangman.c | 59 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ tests/i915/i915_hangman.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
-index 5a0c9497c..73a86ec9e 100644
+index 24087931c..a1aeeba6d 100644
 --- a/tests/i915/i915_hangman.c
 +++ b/tests/i915/i915_hangman.c
-@@ -48,8 +48,57 @@
- static int device = -1;
- static int sysfs = -1;
+@@ -298,12 +298,14 @@ test_engine_hang(const intel_ctx_t *ctx,
+ 	igt_skip_on(flags & IGT_SPIN_INVALID_CS &&
+ 		    gem_engine_has_cmdparser(device, &ctx->cfg, e->flags));
  
-+#define OFFSET_ALIVE	10
-+
- IGT_TEST_DESCRIPTION("Tests for hang detection and recovery");
- 
-+static void check_alive(void)
-+{
-+	const struct intel_execution_engine2 *engine;
-+	const intel_ctx_t *ctx;
-+	uint32_t scratch, *out;
-+	int fd, i = 0;
-+	uint64_t ahnd, scratch_addr;
-+
-+	fd = drm_open_driver(DRIVER_INTEL);
-+	igt_require(gem_class_can_store_dword(fd, 0));
-+
-+	ctx = intel_ctx_create_all_physical(fd);
-+	ahnd = get_reloc_ahnd(fd, ctx->id);
-+	scratch = gem_create(fd, 4096);
-+	scratch_addr = get_offset(ahnd, scratch, 4096, 0);
-+	out = gem_mmap__device_coherent(fd, scratch, 0, 4096, PROT_WRITE | PROT_READ);
-+	gem_set_domain(fd, scratch,
-+			I915_GEM_DOMAIN_GTT, I915_GEM_DOMAIN_GTT);
-+
-+	for_each_physical_engine(fd, engine) {
-+		igt_assert_eq_u32(out[i + OFFSET_ALIVE], 0);
-+		i++;
-+	}
-+
-+	i = 0;
-+	for_each_ctx_engine(fd, ctx, engine) {
-+		if (!gem_class_can_store_dword(fd, engine->class))
-+			continue;
-+
-+		/* +OFFSET_ALIVE to ensure engine zero doesn't get a false negative */
-+		igt_store_word(fd, ahnd, ctx, engine, -1, scratch, scratch_addr,
-+			       i + OFFSET_ALIVE, i + OFFSET_ALIVE);
-+		i++;
-+	}
-+
-+	gem_set_domain(fd, scratch, I915_GEM_DOMAIN_GTT, 0);
-+
-+	while (i--)
-+		igt_assert_eq_u32(out[i + OFFSET_ALIVE], i + OFFSET_ALIVE);
-+
-+	munmap(out, 4096);
-+	gem_close(fd, scratch);
-+	put_ahnd(ahnd);
-+	intel_ctx_destroy(fd, ctx);
-+	close(fd);
-+}
-+
- static bool has_error_state(int dir)
- {
- 	bool result;
-@@ -231,6 +280,8 @@ static void test_error_state_capture(const intel_ctx_t *ctx,
- 	check_error_state(e->name, offset, batch);
- 	munmap(batch, 4096);
- 	put_ahnd(ahnd);
-+
-+	check_alive();
- }
- 
- static void
-@@ -289,6 +340,8 @@ test_engine_hang(const intel_ctx_t *ctx,
- 		put_ahnd(ahndN);
- 	}
- 	put_ahnd(ahnd);
-+
-+	check_alive();
- }
- 
- static int hang_count;
-@@ -321,6 +374,8 @@ static void test_hang_detector(const intel_ctx_t *ctx,
- 
- 	/* Did it work? */
- 	igt_assert(hang_count == 1);
-+
-+	check_alive();
- }
- 
- /* This test covers the case where we end up in an uninitialised area of the
-@@ -356,6 +411,8 @@ static void hangcheck_unterminated(const intel_ctx_t *ctx)
- 		igt_force_gpu_reset(device);
- 		igt_assert_f(0, "unterminated batch did not trigger a hang!\n");
- 	}
-+
-+	check_alive();
- }
- 
- static void do_tests(const char *name, const char *prefix,
-@@ -433,6 +490,8 @@ igt_main
- 		igt_assert(sysfs != -1);
- 
- 		igt_require(has_error_state(sysfs));
-+
-+		gem_require_mmap_device_coherent(device);
- 	}
- 
- 	igt_describe("Basic error capture");
+-	/* Fill all the other engines with background load */
++	/*
++	 * Fill all engines with background load.
++	 * This verifies that independent engines are unaffected and gives
++	 * the target engine something to switch between so it notices the
++	 * hang.
++	 */
+ 	num_ctx = 0;
+ 	for_each_ctx_engine(device, ctx, other) {
+-		if (other->flags == e->flags)
+-			continue;
+-
+ 		local_ctx[num_ctx] = intel_ctx_create(device, &ctx->cfg);
+ 		ahndN = get_reloc_ahnd(device, local_ctx[num_ctx]->id);
+ 		spin = __igt_spin_new(device,
 -- 
 2.25.1
 
