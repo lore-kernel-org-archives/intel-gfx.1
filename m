@@ -4,56 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42AF9C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 13:23:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7303C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 13:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BCBC10E2E8;
-	Fri, 14 Jan 2022 13:23:06 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63B6D10E2D8
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 13:23:05 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id t20so8133160wrb.4
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 05:23:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=yGm+HoMnmHYq1hZff4imUtmCDuhFjGImOK6d/VwMT8U=;
- b=JC7r1JvhMle4ohgH2rJv/L6PPPETDeM903H6xJX4DXBu0n6vg8jjoMrKnFnKpOmXgD
- f5C/0sHKGxlG3LvoKtBo1VuLRldJTHGz1obhec8P9Zj87y4X3VUYhI0jeVteqNAr6G12
- Ga3OnRiK5anvR2rbDpQzYOqsF4DwEu7VSva/4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=yGm+HoMnmHYq1hZff4imUtmCDuhFjGImOK6d/VwMT8U=;
- b=UcwdQ4I496MJjlRI7XcYuqu6y5ADXfLegQnJPWJlBTUVQLQgD//2zHOvCU2eG8kH2J
- p3jvYpnMTrXneFG8QdXKx8EEopjn+WN9si1HmECMwIOS9GAn1xC1hUt4l8maZN6rzuv1
- mnCyuudYlh43oQFcyqLh4DXuMYtD3aV3ZcS/ipxenA4wNmKPDf5yV53ycdWpU5A+4aYW
- 5Lr5rT7Nb5bybw3tFrZ0F0lMWmzrS4uZhT7XPD25Nm7UbbYndtsoK1rsp0k3HMcuDu6/
- rLKUqMAyQSWUEjCcxlBScyK9YTHRQdpT2qbjenciuOilMcBeTUnDDPhgFPjixPWQN2wk
- DJTg==
-X-Gm-Message-State: AOAM533RXHrb36BijOXKpur0ar7s0bopbzXJOuBj3B6PGj4f1uplG5gK
- zh4Ctq/uc14d80p08LJ239vxaA==
-X-Google-Smtp-Source: ABdhPJwxg9XgDQbTXk32UaqyyrqXwrYkliEKezS83CKc9ThCMa4OYZ+9K9MgcPWbw6tFIE1wv0xe/w==
-X-Received: by 2002:a05:6000:1786:: with SMTP id
- e6mr8056858wrg.432.1642166583781; 
- Fri, 14 Jan 2022 05:23:03 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id t5sm5253375wrw.12.2022.01.14.05.23.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jan 2022 05:23:03 -0800 (PST)
-Date: Fri, 14 Jan 2022 14:23:01 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <YeF5NQUzc4UKO465@phenom.ffwll.local>
-References: <Yd/xzyCM87rfrwQT@tursulin-mobl2>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1AAF10E2D8;
+	Fri, 14 Jan 2022 13:23:26 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1559510E341;
+ Fri, 14 Jan 2022 13:23:26 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 14 Jan 2022 14:23:16 +0100
+Message-Id: <20220114132320.109030-3-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220114132320.109030-1-maarten.lankhorst@linux.intel.com>
+References: <20220114132320.109030-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Yd/xzyCM87rfrwQT@tursulin-mobl2>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [PULL] drm-intel-next-fixes
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v6 2/6] drm/i915: Add locking to
+ i915_gem_evict_vm(), v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +35,202 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Dave Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 13, 2022 at 09:33:03AM +0000, Tvrtko Ursulin wrote:
-> 
-> Hi Dave and Daniel,
-> 
-> A few fixes for the merge window.
-> 
-> One dealing with runtime PM handling on the PXP unbind path and a few
-> regarding the newly added TTM backend support.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
-> ---
-> 
-> drm-intel-next-fixes-2022-01-13:
-> - Hold runtime PM wakelock during PXP unbind (Juston Li)
-> - Three fixes for the TTM backend fault handling (Matthew Auld)
-> - Make sure to unmap when purging in the TTM backend (Matthew Auld)
-> The following changes since commit c65fe9cbbfd61dbc12868f9ed4940c80fcb249e8:
-> 
->   drm/i915/fbc: Remember to update FBC state even when not reallocating CFB (2021-12-27 11:46:48 +0200)
-> 
-> are available in the Git repository at:
-> 
->   git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-next-fixes-2022-01-13
+i915_gem_evict_vm will need to be able to evict objects that are
+locked by the current ctx. By testing if the current context already
+locked the object, we can do this correctly. This allows us to
+evict the entire vm even if we already hold some objects' locks.
 
-Pulled, thanks.
--Daniel
+Previously, this was spread over several commits, but it makes
+more sense to commit the changes to i915_gem_evict_vm separately
+from the changes to i915_gem_evict_something() and
+i915_gem_evict_for_node().
 
-> 
-> for you to fetch changes up to 6ef295e34297433c78ea02dfcf1c649a769050bb:
-> 
->   drm/i915/ttm: ensure we unmap when purging (2022-01-10 14:00:47 +0000)
-> 
-> ----------------------------------------------------------------
-> - Hold runtime PM wakelock during PXP unbind (Juston Li)
-> - Three fixes for the TTM backend fault handling (Matthew Auld)
-> - Make sure to unmap when purging in the TTM backend (Matthew Auld)
-> 
-> ----------------------------------------------------------------
-> Juston Li (1):
->       drm/i915/pxp: Hold RPM wakelock during PXP unbind
-> 
-> Matthew Auld (4):
->       drm/i915: don't call free_mmap_offset when purging
->       drm/i915/ttm: only fault WILLNEED objects
->       drm/i915/ttm: add unmap_virtual callback
->       drm/i915/ttm: ensure we unmap when purging
-> 
->  drivers/gpu/drm/i915/gem/i915_gem_mman.c           |  3 +++
->  drivers/gpu/drm/i915/gem/i915_gem_object_types.h   |  1 +
->  drivers/gpu/drm/i915/gem/i915_gem_pages.c          |  1 -
->  drivers/gpu/drm/i915/gem/i915_gem_ttm.c            | 27 +++++++++++++++++++++-
->  drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 18 ++++-----------
->  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c           |  5 +++-
->  6 files changed, 38 insertions(+), 17 deletions(-)
+Changes since v1:
+- Handle evicting dead objects better.
 
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  2 +-
+ drivers/gpu/drm/i915/i915_gem_evict.c         | 32 +++++++++++++++++--
+ drivers/gpu/drm/i915/i915_gem_evict.h         |  4 ++-
+ drivers/gpu/drm/i915/i915_vma.c               |  7 +++-
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   | 10 ++++--
+ 6 files changed, 49 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index cf283b5f6ffe..4d832d6696b5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -767,7 +767,7 @@ static int eb_reserve(struct i915_execbuffer *eb)
+ 		case 1:
+ 			/* Too fragmented, unbind everything and retry */
+ 			mutex_lock(&eb->context->vm->mutex);
+-			err = i915_gem_evict_vm(eb->context->vm);
++			err = i915_gem_evict_vm(eb->context->vm, &eb->ww);
+ 			mutex_unlock(&eb->context->vm->mutex);
+ 			if (err)
+ 				return err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index fafd158e5313..a69787999d09 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -367,7 +367,7 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
+ 		if (vma == ERR_PTR(-ENOSPC)) {
+ 			ret = mutex_lock_interruptible(&ggtt->vm.mutex);
+ 			if (!ret) {
+-				ret = i915_gem_evict_vm(&ggtt->vm);
++				ret = i915_gem_evict_vm(&ggtt->vm, &ww);
+ 				mutex_unlock(&ggtt->vm.mutex);
+ 			}
+ 			if (ret)
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index 24eee0c2055f..91f82ecb9ef4 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -368,7 +368,7 @@ int i915_gem_evict_for_node(struct i915_address_space *vm,
+  * To clarify: This is for freeing up virtual address space, not for freeing
+  * memory in e.g. the shrinker.
+  */
+-int i915_gem_evict_vm(struct i915_address_space *vm)
++int i915_gem_evict_vm(struct i915_address_space *vm, struct i915_gem_ww_ctx *ww)
+ {
+ 	int ret = 0;
+ 
+@@ -389,24 +389,52 @@ int i915_gem_evict_vm(struct i915_address_space *vm)
+ 	do {
+ 		struct i915_vma *vma, *vn;
+ 		LIST_HEAD(eviction_list);
++		LIST_HEAD(locked_eviction_list);
+ 
+ 		list_for_each_entry(vma, &vm->bound_list, vm_link) {
+ 			if (i915_vma_is_pinned(vma))
+ 				continue;
+ 
++			/*
++			 * If we already own the lock, trylock fails. In case
++			 * the resv is shared among multiple objects, we still
++			 * need the object ref.
++			 */
++			if (!kref_read(&vma->obj->base.refcount) ||
++			    (ww && (dma_resv_locking_ctx(vma->obj->base.resv) == &ww->ctx))) {
++				__i915_vma_pin(vma);
++				list_add(&vma->evict_link, &locked_eviction_list);
++				continue;
++			}
++
++			if (!i915_gem_object_trylock(vma->obj, ww))
++				continue;
++
+ 			__i915_vma_pin(vma);
+ 			list_add(&vma->evict_link, &eviction_list);
+ 		}
+-		if (list_empty(&eviction_list))
++		if (list_empty(&eviction_list) && list_empty(&locked_eviction_list))
+ 			break;
+ 
+ 		ret = 0;
++		/* Unbind locked objects first, before unlocking the eviction_list */
++		list_for_each_entry_safe(vma, vn, &locked_eviction_list, evict_link) {
++			__i915_vma_unpin(vma);
++
++			if (ret == 0)
++				ret = __i915_vma_unbind(vma);
++			if (ret != -EINTR) /* "Get me out of here!" */
++				ret = 0;
++		}
++
+ 		list_for_each_entry_safe(vma, vn, &eviction_list, evict_link) {
+ 			__i915_vma_unpin(vma);
+ 			if (ret == 0)
+ 				ret = __i915_vma_unbind(vma);
+ 			if (ret != -EINTR) /* "Get me out of here!" */
+ 				ret = 0;
++
++			i915_gem_object_unlock(vma->obj);
+ 		}
+ 	} while (ret == 0);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.h b/drivers/gpu/drm/i915/i915_gem_evict.h
+index d4478b6ad11b..f5b7a9100609 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.h
++++ b/drivers/gpu/drm/i915/i915_gem_evict.h
+@@ -10,6 +10,7 @@
+ 
+ struct drm_mm_node;
+ struct i915_address_space;
++struct i915_gem_ww_ctx;
+ 
+ int __must_check i915_gem_evict_something(struct i915_address_space *vm,
+ 					  u64 min_size, u64 alignment,
+@@ -19,6 +20,7 @@ int __must_check i915_gem_evict_something(struct i915_address_space *vm,
+ int __must_check i915_gem_evict_for_node(struct i915_address_space *vm,
+ 					 struct drm_mm_node *node,
+ 					 unsigned int flags);
+-int i915_gem_evict_vm(struct i915_address_space *vm);
++int i915_gem_evict_vm(struct i915_address_space *vm,
++		      struct i915_gem_ww_ctx *ww);
+ 
+ #endif /* __I915_GEM_EVICT_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 1f15c3298112..8477cae5f877 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1535,7 +1535,12 @@ static int __i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 		/* Unlike i915_vma_pin, we don't take no for an answer! */
+ 		flush_idle_contexts(vm->gt);
+ 		if (mutex_lock_interruptible(&vm->mutex) == 0) {
+-			i915_gem_evict_vm(vm);
++			/*
++			 * We pass NULL ww here, as we don't want to unbind
++			 * locked objects when called from execbuf when pinning
++			 * is removed. This would probably regress badly.
++			 */
++			i915_gem_evict_vm(vm, NULL);
+ 			mutex_unlock(&vm->mutex);
+ 		}
+ 	} while (1);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+index 75b709c26dd3..7c075c16a573 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+@@ -331,6 +331,7 @@ static int igt_evict_vm(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	struct i915_ggtt *ggtt = gt->ggtt;
++	struct i915_gem_ww_ctx ww;
+ 	LIST_HEAD(objects);
+ 	int err;
+ 
+@@ -342,7 +343,7 @@ static int igt_evict_vm(void *arg)
+ 
+ 	/* Everything is pinned, nothing should happen */
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_vm(&ggtt->vm);
++	err = i915_gem_evict_vm(&ggtt->vm, NULL);
+ 	mutex_unlock(&ggtt->vm.mutex);
+ 	if (err) {
+ 		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
+@@ -352,9 +353,14 @@ static int igt_evict_vm(void *arg)
+ 
+ 	unpin_ggtt(ggtt);
+ 
++	i915_gem_ww_ctx_init(&ww, false);
+ 	mutex_lock(&ggtt->vm.mutex);
+-	err = i915_gem_evict_vm(&ggtt->vm);
++	err = i915_gem_evict_vm(&ggtt->vm, &ww);
+ 	mutex_unlock(&ggtt->vm.mutex);
++
++	/* no -EDEADLK handling; can't happen with vm.mutex in place */
++	i915_gem_ww_ctx_fini(&ww);
++
+ 	if (err) {
+ 		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
+ 		       err);
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.34.1
+
