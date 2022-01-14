@@ -4,40 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B4AC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 12:58:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0A8C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 13:00:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73E9A10E291;
-	Fri, 14 Jan 2022 12:58:29 +0000 (UTC)
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Fri, 14 Jan 2022 11:54:07 UTC
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF8010E13A;
- Fri, 14 Jan 2022 11:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1642161248;
- x=1673697248; h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=AMs+u9nkmpDZ5lxA/fLhYjA5QxFXQFce1TTDfia+q9o=;
- b=BwnurFI7TWdUrKvcHbOtcOxy6j66lWHbOY25eFyI7MGQ16S7Ofa9uyUw
- bBUz9a9+r7UuIExfqKaIaXSVAN5E5tYg7Wku7GC44+9rj0X8QwffSE3B9
- RMpYq2uX5eGW2CHnRm/rqnN/n95eJKaom5cFT3zQQq8RDXA/5bGJHj1t3
- qjoxC56I0hBLhu4lBYEPC1/1baWAOEAuuS9mwYltDRfl2w9OXZx9zeuCL
- P2I58Bswrn8mPnZYSHUNWUVrL3WoFf/4z64G8SycEl5HAio6FUzfQMUaP
- 0go8S0UZVavRw0l0w5QAp1ewoU2PjODMGxnEKWolr1h8KIELBITe9I0AW Q==;
-Date: Fri, 14 Jan 2022 12:46:54 +0100
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: Jim Cromie <jim.cromie@gmail.com>
-Message-ID: <20220114114654.GA23983@axis.com>
-References: <20220107052942.1349447-1-jim.cromie@gmail.com>
- <20220107052942.1349447-4-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB7E010E292;
+	Fri, 14 Jan 2022 13:00:56 +0000 (UTC)
+X-Greylist: delayed 353 seconds by postgrey-1.36 at gabe;
+ Fri, 14 Jan 2022 13:00:54 UTC
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58D010E182;
+ Fri, 14 Jan 2022 13:00:54 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id B378058052A;
+ Fri, 14 Jan 2022 07:54:57 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Fri, 14 Jan 2022 07:54:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:mime-version:content-type; s=
+ fm1; bh=4vz8jiRtdgPk0aHROxTUPN4cGx3LbMnExa2UCEEdsQ0=; b=kKBaakPW
+ E4LdZJGDk/IWHquEOKN8L20ye6q1SBFLqlZJBb6AL1laaIRPWDrHHfX84xkgz95W
+ 2SbYHxaMpmKNcdpGjaUJWTjsBbf2W9z0rYpPs0hs31R8UecGacTajo1DquGfzv44
+ gDeXj+LmVEJRy1opIesDXsTTWZHDA3YUwt0HaJiT1hlNgDkxofEUdhabJi8FdcW7
+ i8qa69APhktrLbnWDGrvUOFlQ40Bx0q7dVsz3zrsyyEHAYJJl5tpEzA690aam5nM
+ rrXR3TVmn5BSwy69KjxtnxAEFsAhJFT1I0Eb5gA5lyRgoAqby+JtblfHElE+iK39
+ yH0/RmlYx+0g4g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=4vz8jiRtdgPk0aHROxTUPN4cGx3Lb
+ MnExa2UCEEdsQ0=; b=i48fXHMvBUke0pkrX8g+BOH1y4j8+ab5B6Alcx8fcSVAq
+ PSLaBAXzvKB5QyCiTFxXFfJQc9FWxwmy0AUsXDHHViDRMHlbZVnraB/6QSVVvtIf
+ pESxjQ8jhJ8ShoV9csrkY8URp60E83btkYe+uNciKrOmB/Xd7EAKBoO++BBP+jF/
+ ALTpYz1ltQcX1tMVx527qJZMT1rVLUMgWr7tqSSfpBONxh+v/pjdsGFQST5B16BB
+ n2F1CcPRtOgAOAiEvirRBFSFmTSnPiOTn8cDA/UrxkUEIMrJFy1U2i+yZhidoAJa
+ 663D3Tyq6a+9eLMbdXeIzGyi6zgSZv3eAbNd2Lpjw==
+X-ME-Sender: <xms:oHLhYQs837A2VM2ylk4wPBXeXvjEnmd9SPEbFKce6C71JeW1bVNLwQ>
+ <xme:oHLhYdeOGAuW20tu5Ze8Ba5u4lsguzPN8TRonJSBh_tH-_1Gs0Joret2_O9gocVGf
+ fVY6A671cAqKYscjMo>
+X-ME-Received: <xmr:oHLhYbxTXuHWE41SjloRnRFtI-UbFnrIH1geZqOWGnkzex5UgO0aOARH3f7dUOemtcJiazezVCrzVevAMYqPYnr5ERaldc8Rb4d0jYI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrtdehgdegiecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkgggtugesghdtreertddtvdenucfhrhhomhepofgrgihimhgvucft
+ ihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtthgvrh
+ hnpeeguedvtdehgeeghefhieegteffueefleevgefgkeevgeeiveduleejueegvdeigfen
+ ucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucevlhhushhtvghrufhiii
+ gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgv
+ tghh
+X-ME-Proxy: <xmx:oXLhYTP7lzJ-mBS5BeB2EOCncuDRNfQnCT1vF6-pFd3rCvJsG2ocOg>
+ <xmx:oXLhYQ-LrR_BW7csMjhSF8pMekAuaVwNy3wd8YLYGgNE1Ldi21-qVw>
+ <xmx:oXLhYbVLjhxH96PUJ4Dnj8fzRVrJI34IDTRDc17kbUPp1gv9i2U4FQ>
+ <xmx:oXLhYR3_WJlMqwb_Z7HiCez3jP289eWkJY8dvhNScEvtEdbtegbuSQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 14 Jan 2022 07:54:56 -0500 (EST)
+Date: Fri, 14 Jan 2022 13:54:54 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20220114125454.zs46ny52lrxk3ljz@houat>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ckajgawkwsianjye"
 Content-Disposition: inline
-In-Reply-To: <20220107052942.1349447-4-jim.cromie@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Fri, 14 Jan 2022 12:58:28 +0000
-Subject: Re: [Intel-gfx] [PATCH v11 03/19] dyndbg: add write-to-tracefs code
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,120 +79,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "quic_saipraka@quicinc.com" <quic_saipraka@quicinc.com>,
- "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "will@kernel.org" <will@kernel.org>, "maz@kernel.org" <maz@kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "jbaron@akamai.com" <jbaron@akamai.com>,
- "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "quic_psodagud@quicinc.com" <quic_psodagud@quicinc.com>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 07, 2022 at 06:29:26AM +0100, Jim Cromie wrote:
-> adds: dynamic_trace()
->  uses trace_console() temporarily to issue printk:console event
->  uses internal-ish __ftrace_trace_stack code:
->       4-context buffer stack, barriers per Steve
-> 
-> call it from new funcs:
->   dynamic_printk() - print to both syslog/tracefs
->   dynamic_dev_printk() - dev-print to both syslog/tracefs
-> 
-> These handle both _DPRINTK_FLAGS_PRINTK and _DPRINTK_FLAGS_TRACE
-> cases, allowing to vsnprintf the message once and use it for both,
-> skipping past the KERN_DEBUG character for tracing.
-> 
-> Finally, adjust the callers: __dynamic_{pr_debug,{,net,ib}dev_dbg},
-> replacing printk and dev_printk with the new funcs above.
-> 
-> The _DPRINTK_FLAGS_TRACE flag character s 'T', so the following finds
-> all callsites enabled for tracing:
-> 
->   grep -P =p?T /proc/dynamic_debug/control
-> 
-> Enabling debug-to-tracefs is 2 steps:
-> 
->   # event enable
->   echo 1 > /sys/kernel/tracing/events/dyndbg/enable
->   # callsite enable
->   echo module foo +T > /proc/dynamic_debug/control
-> 
-> This patch,~1,~2 are based upon:
->   https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/
-> 
-> .. with simplification of temporarily reusing trace_console() rather
-> than adding a new printk:dyndbg event.  Soon, add 2 new events
-> capturing the pr_debug & dev_dbg() args.
 
-The example above does not match the code in this patch since the
-dyndbg:* events are only added in a later patch.  Perhaps you could
-reorder this patch stack so that you don't use trace_console() in this
-patch just to replace it with the new events in the next patch?
+--ckajgawkwsianjye
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> CC: vincent.whitchurch@axis.com
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
->  .../admin-guide/dynamic-debug-howto.rst       |   1 +
->  lib/dynamic_debug.c                           | 155 +++++++++++++++---
->  2 files changed, 130 insertions(+), 26 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-[...]
-> @@ -723,29 +822,33 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
->  {
->  	struct va_format vaf;
->  	va_list args;
-> +	unsigned int flags;
->  
->  	va_start(args, fmt);
->  
->  	vaf.fmt = fmt;
->  	vaf.va = &args;
-> +	flags = descriptor->flags;
->  
->  	if (ibdev && ibdev->dev.parent) {
->  		char buf[PREFIX_SIZE] = "";
->  
-> -		dev_printk_emit(LOGLEVEL_DEBUG, ibdev->dev.parent,
-> -				"%s%s %s %s: %pV",
-> -				dynamic_emit_prefix(descriptor, buf),
-> -				dev_driver_string(ibdev->dev.parent),
-> -				dev_name(ibdev->dev.parent),
-> -				dev_name(&ibdev->dev),
-> -				&vaf);
-> +		dynamic_dev_printk(flags, ibdev->dev.parent,
-> +				   "%s%s %s %s: %pV",
-> +				   dynamic_emit_prefix(descriptor, buf),
-> +				   dev_driver_string(ibdev->dev.parent),
-> +				   dev_name(ibdev->dev.parent),
-> +				   dev_name(&ibdev->dev),
-> +				   &vaf);
->  	} else if (ibdev) {
-> -		printk(KERN_DEBUG "%s: %pV", dev_name(&ibdev->dev), &vaf);
-> +		dynamic_printk(flags, KERN_DEBUG "%s%s: %pV",
-> +			       dev_name(&ibdev->dev), &vaf);
->  	} else {
-> -		printk(KERN_DEBUG "(NULL ib_device): %pV", &vaf);
-> +		dynamic_printk(flags, KERN_DEBUG "(NULL ip_device): %pV",
-> +			       &vaf);
->  	}
->  
-> -	va_end(args);
-> +va_end(args);
+Hi Dave, Daniel,
 
-This looks like an unintentional whitespace change?
+Here's a few patches stuck in drm-misc-fixes for some time.
+
+Maxime
+
+drm-misc-fixes-2022-01-14:
+Two DT bindings fixes for meson, a device refcounting fix for sun4i, a
+probe fix for vga16fb, a locking fix for the CMA dma-buf heap and a
+compilation fix for ttm.
+The following changes since commit 67f74302f45d5d862f22ced3297624e50ac352f0:
+
+  drm/nouveau: wait for the exclusive fence after the shared ones v2 (2021-12-21 09:24:31 +0100)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2022-01-14
+
+for you to fetch changes up to 016017a195b86d9761e91cb052438bf71207a12f:
+
+  drm/ttm: fix compilation on ARCH=um (2022-01-14 13:30:56 +0100)
+
+----------------------------------------------------------------
+Two DT bindings fixes for meson, a device refcounting fix for sun4i, a
+probe fix for vga16fb, a locking fix for the CMA dma-buf heap and a
+compilation fix for ttm.
+
+----------------------------------------------------------------
+Alexander Stein (2):
+      dt-bindings: display: meson-vpu: Add missing amlogic,canvas property
+      dt-bindings: display: meson-dw-hdmi: add missing sound-name-prefix property
+
+Javier Martinez Canillas (1):
+      video: vga16fb: Only probe for EGA and VGA 16 color graphic cards
+
+Johannes Berg (1):
+      drm/ttm: fix compilation on ARCH=um
+
+Miaoqian Lin (1):
+      drm/sun4i: dw-hdmi: Fix missing put_device() call in sun8i_hdmi_phy_get
+
+Weizhao Ouyang (1):
+      dma-buf: cma_heap: Fix mutex locking section
+
+ .../bindings/display/amlogic,meson-dw-hdmi.yaml    |  5 +++++
+ .../bindings/display/amlogic,meson-vpu.yaml        |  6 ++++++
+ drivers/dma-buf/heaps/cma_heap.c                   |  6 ++++--
+ drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c             |  4 +++-
+ drivers/gpu/drm/ttm/ttm_module.c                   |  4 +++-
+ drivers/video/fbdev/vga16fb.c                      | 24 ++++++++++++++++++++++
+ 6 files changed, 45 insertions(+), 4 deletions(-)
+
+--ckajgawkwsianjye
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYeFyngAKCRDj7w1vZxhR
+xSVgAQDSlTxXJFSNfDTJySFbVuP5u5qdqmxKzJ+CPxzNHnKF5AD/Xb5ThH3SnLU5
+hcnbZ1TnDcLxi5DFJ2IyANeRW602xgk=
+=Vkds
+-----END PGP SIGNATURE-----
+
+--ckajgawkwsianjye--
