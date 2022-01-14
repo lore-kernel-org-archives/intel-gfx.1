@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D287AC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 18:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF63C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 18:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5B910E1C4;
-	Fri, 14 Jan 2022 18:00:04 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBF8E10E1B5;
- Fri, 14 Jan 2022 18:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7DB910E1AF;
+	Fri, 14 Jan 2022 18:17:14 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484FE10E1A2;
+ Fri, 14 Jan 2022 18:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642183202; x=1673719202;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=cMf8/2/PJ41uSKfkL7coxjRTx15r04R7Dj5oaGo0ieE=;
- b=QIW6zxws0m5MXYhSdCWIwkKL4MeB6NdEZmbstdyzkOTnWWpsE+d18w7u
- kyDAetsWisAYEZ5eSVEJqBBuLF5cu6AjwjirTogmUh1/4bGL4rbyc1tYo
- 20h+DKNoduZ1QAB3+qgbM1ubJt4qzKzBWAmrZT8Q2t8RzufGAJIfCYcU8
- w8kYYhvhi+tXDC1Hk7vQVazm2004UNQ+b42h3HyvQKku1retQPBU5O2eI
- M92hOFsqu63Wo7TO76PK7bz0wTa0lbw7i+LVOcgyjrChIgwJfDUeEeUZ+
- oA8FPvXQNC0MZhQZQKOybE0T7Po2qkzro/uCoO7FaOnxJzCTY2jjCtH5g g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10227"; a="231646495"
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="231646495"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 10:00:02 -0800
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="530352791"
-Received: from schruefk-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.252.49.248])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 09:59:58 -0800
-Date: Fri, 14 Jan 2022 19:59:54 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <YeG6GrzU/QYUY1RH@intel.intel>
-References: <20220112222031.82883-1-andi.shyti@linux.intel.com>
- <20220112222031.82883-2-andi.shyti@linux.intel.com>
- <YeGq/b6JjJaxSE0z@mdroper-desk1.amr.corp.intel.com>
+ t=1642184234; x=1673720234;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vAX38frD0b2VP7OXQ2CJUCeYVxyJS0cSbS1OwCNhjC0=;
+ b=iu6oCxChkKrhqtGtRH7O8TnjOZa/DPim/xvq/ExUX+5MViWFDPApiOe3
+ iYhJQe8g5To/dDY8arW+O8MGNn7lKTYMIieo1lias/6NX0ohKHjguAwsc
+ jakdHLsFiW/FJZqKeAf4acuCjhO9zICEz+cecSqgzlKrQ+XBH7n0noh/d
+ IC56HWtOo174jHcTKU6ozKRdoovNB/sfcEN3VZYC2ZyDSnkBm3Z4TmV35
+ in+8eyyvycyGvGvKyb2+KEUOdhpShc+j2BSDDLR788KPkUVm8djX8Kwa6
+ REPWhG6rHfS5cf6Nx7W5VXkXSZEpqt71QD8amjd6PGuuwbnmYnGyg15XK g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10227"; a="224988553"
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="224988553"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 10:17:13 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="491601992"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
+ by orsmga002.jf.intel.com with ESMTP; 14 Jan 2022 10:17:13 -0800
+From: John.C.Harrison@Intel.com
+To: IGT-Dev@Lists.FreeDesktop.Org
+Date: Fri, 14 Jan 2022 10:17:00 -0800
+Message-Id: <20220114181713.1798514-3-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220114181713.1798514-1-John.C.Harrison@Intel.com>
+References: <20220114181713.1798514-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YeGq/b6JjJaxSE0z@mdroper-desk1.amr.corp.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 1/2] drm/i915: Prepare for multiple GTs
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v5 i-g-t 02/15] lib/hang: Fix
+ igt_require_hang_ring to work with all engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +58,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Intel GFX <intel-gfx@lists.freedesktop.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- DRI Devel <dri-devel@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>
+Cc: Intel-GFX@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Matt,
+From: John Harrison <John.C.Harrison@Intel.com>
 
-[...]
+The above function was checking for valid rings via the old interface.
+The new scheme is to check for engines on contexts as there are now
+more engines than could be supported.
 
-> > -int intel_uncore_setup_mmio(struct intel_uncore *uncore)
-> > +int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
-> >  {
-> >  	struct drm_i915_private *i915 = uncore->i915;
-> > -	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-> > -	int mmio_bar;
-> >  	int mmio_size;
-> >  
-> > -	mmio_bar = GRAPHICS_VER(i915) == 2 ? 1 : 0;
-> >  	/*
-> >  	 * Before gen4, the registers and the GTT are behind different BARs.
-> >  	 * However, from gen4 onwards, the registers and the GTT are shared
-> > @@ -2044,7 +2041,7 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore)
-> >  	else
-> >  		mmio_size = 2 * 1024 * 1024;
-> >  
-> > -	uncore->regs = pci_iomap(pdev, mmio_bar, mmio_size);
-> > +	uncore->regs = ioremap(phys_addr, mmio_size);
-> 
-> Is there a specific reason we switch to ioremap() instead of
-> pci_iomap_range()?  I.e., we could pass 'phys_offset' rather than
-> 'phys_addr' and call
-> 
->         pci_iomap_range(pdev, mmio_bar, phys_offset, mmio_size);
-> 
-> Not that it really matters too much either way as far as I can see;
-> ioremap()/iounmap() should work fine too.
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+---
+ lib/igt_gt.c              | 6 +++---
+ lib/igt_gt.h              | 2 +-
+ tests/i915/i915_hangman.c | 6 +++---
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-this was originally changed by Abdiel (I think) and I left as it
-is as I tried to change as less as I could from the original
-work.
+diff --git a/lib/igt_gt.c b/lib/igt_gt.c
+index 7c7df95ee..50da512f2 100644
+--- a/lib/igt_gt.c
++++ b/lib/igt_gt.c
+@@ -122,12 +122,12 @@ static void eat_error_state(int dev)
+  * to be done under hang injection.
+  * Default: false
+  */
+-void igt_require_hang_ring(int fd, int ring)
++void igt_require_hang_ring(int fd, uint32_t ctx, int ring)
+ {
+ 	if (!igt_check_boolean_env_var("IGT_HANG", true))
+ 		igt_skip("hang injection disabled by user [IGT_HANG=0]\n");
+ 
+-	gem_require_ring(fd, ring);
++        igt_require(gem_context_has_engine(fd, ctx, ring));
+ 	gem_context_require_bannable(fd);
+ 	if (!igt_check_boolean_env_var("IGT_HANG_WITHOUT_RESET", false))
+ 		igt_require(has_gpu_reset(fd));
+@@ -290,7 +290,7 @@ static igt_hang_t __igt_hang_ctx(int fd, uint64_t ahnd, uint32_t ctx, int ring,
+ 	igt_spin_t *spin;
+ 	unsigned ban;
+ 
+-	igt_require_hang_ring(fd, ring);
++	igt_require_hang_ring(fd, ctx, ring);
+ 
+ 	/* check if non-default ctx submission is allowed */
+ 	igt_require(ctx == 0 || has_ctx_exec(fd, ring, ctx));
+diff --git a/lib/igt_gt.h b/lib/igt_gt.h
+index c5059817b..3d10349e4 100644
+--- a/lib/igt_gt.h
++++ b/lib/igt_gt.h
+@@ -31,7 +31,7 @@
+ #include "i915/i915_drm_local.h"
+ #include "i915_drm.h"
+ 
+-void igt_require_hang_ring(int fd, int ring);
++void igt_require_hang_ring(int fd, uint32_t ctx, int ring);
+ 
+ typedef struct igt_hang {
+ 	igt_spin_t *spin;
+diff --git a/tests/i915/i915_hangman.c b/tests/i915/i915_hangman.c
+index b9c4d9983..f64b8819d 100644
+--- a/tests/i915/i915_hangman.c
++++ b/tests/i915/i915_hangman.c
+@@ -295,7 +295,7 @@ test_engine_hang(const intel_ctx_t *ctx,
+  * case and it takes a lot more time to wrap, so the acthd can potentially keep
+  * increasing for a long time
+  */
+-static void hangcheck_unterminated(void)
++static void hangcheck_unterminated(const intel_ctx_t *ctx)
+ {
+ 	/* timeout needs to be greater than ~5*hangcheck */
+ 	int64_t timeout_ns = 100ull * NSEC_PER_SEC; /* 100 seconds */
+@@ -304,7 +304,7 @@ static void hangcheck_unterminated(void)
+ 	uint32_t handle;
+ 
+ 	igt_require(gem_uses_full_ppgtt(device));
+-	igt_require_hang_ring(device, 0);
++	igt_require_hang_ring(device, ctx->id, 0);
+ 
+ 	handle = gem_create(device, 4096);
+ 
+@@ -394,7 +394,7 @@ igt_main
+ 
+ 	igt_describe("Check that executing unintialised memory causes a hang");
+ 	igt_subtest("hangcheck-unterminated")
+-		hangcheck_unterminated();
++		hangcheck_unterminated(ctx);
+ 
+ 	igt_fixture {
+ 		igt_disallow_hang(device, hang);
+-- 
+2.25.1
 
-> Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-
-Thank you!
-
-Andi
