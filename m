@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B246C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 22:01:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC38DC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 22:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF4A10E2CA;
-	Tue, 18 Jan 2022 22:01:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC2810E19F;
+	Tue, 18 Jan 2022 22:02:27 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id B3F8110E19F;
- Tue, 18 Jan 2022 22:01:04 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 67A0D10E38D;
+ Tue, 18 Jan 2022 22:02:25 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B0130AA914;
- Tue, 18 Jan 2022 22:01:04 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 67AD0AA914;
+ Tue, 18 Jan 2022 22:02:25 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matthew Brost" <matthew.brost@intel.com>
-Date: Tue, 18 Jan 2022 22:01:04 -0000
-Message-ID: <164254326468.25099.2131434745942433312@emeril.freedesktop.org>
+Date: Tue, 18 Jan 2022 22:02:25 -0000
+Message-ID: <164254334542.25102.18352608564144254075@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220118214357.33740-1-matthew.brost@intel.com>
 In-Reply-To: <20220118214357.33740-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Flush_G2H_handler_during_a_GT_reset_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Flush_G2H_handler_during_a_GT_reset_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,12 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-49cfdd902b91 drm/i915: Allocate intel_engine_coredump_alloc with ALLOW_FAIL
-ac359b31efe8 drm/i915/guc: Add work queue to trigger a GT reset
-7ccc4752e12a drm/i915/guc: Flush G2H handler during a GT reset
--:49: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Matthew Brost <matthew.brost@intel.com>' != 'Signed-off-by: Matthew Brost <mattthew.brost@intel.com>'
-
-total: 0 errors, 1 warnings, 0 checks, 30 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
