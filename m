@@ -4,38 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBA48C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 17:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4669EC433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 17:53:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E2B010E34F;
-	Wed, 19 Jan 2022 17:51:56 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31AE310E307
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 17:51:55 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 92419B8198D;
- Wed, 19 Jan 2022 17:51:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CCEC004E1;
- Wed, 19 Jan 2022 17:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1642614712;
- bh=QsWDQvNKpqCglgKA2IleZuJy64rc5ENQciBuCdVwMgM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=p4sGnrfyDFYnoXmSg+y0jG8I9cT2ka1BLVcuDHbfEDXyl7LPixij10ayGoYSwsZmv
- II2v+e1hxdMt9EtWi/6SDNuqxzEBwJguI0aqQXg1O1uLRGVJtMu6+rVKQ0IeAXIzn6
- WYQMD9ez5ugypn9B7AhcC0Tb256bwvccKX4iJ1z8=
-Date: Wed, 19 Jan 2022 18:51:49 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alexander Usyskin <alexander.usyskin@intel.com>
-Message-ID: <YehPtWZ2aGlFOvWK@kroah.com>
-References: <20220119155807.222657-1-alexander.usyskin@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220119155807.222657-1-alexander.usyskin@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 0/5] Add driver for GSC controller
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6A8C10E182;
+	Wed, 19 Jan 2022 17:53:44 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82C6B10E26B;
+ Tue, 18 Jan 2022 17:33:57 +0000 (UTC)
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20IHV1Jg007704; 
+ Tue, 18 Jan 2022 17:33:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : subject :
+ from : to : cc : date : in-reply-to : references : content-type :
+ mime-version : content-transfer-encoding; s=pp1;
+ bh=m4YN97Ezf2X/IRbd4dP5YwvtjgnOkn/CfTbzX/eD88Y=;
+ b=rFReYoDFyPnMufNkyObkZTGR9Aes38GTG7hC1RvKU1VC+An7ctNIc+SdyIO0svJeyaq8
+ Ku06J7YqCIEVmCDFo8fpCo8PVjNZy+Yc2xHTeUvi3w2pn4A1XeFYzzsajR+NGXIVZoUV
+ ZrKQC2d8S8PHJdKf7aK1/ZlZLwxoSENV1i5UEuJNryxa0f8PIiBQgXjJqdWreeSVLj3n
+ Q+bUzhss0dcqDfT2LwYrMx2XtqMFNnjfdRf2H0R8fmpJEujZymU96C0o9VpN+WAA4+Ua
+ sLi3jHxtcELuMEoo1UkseuQTNUWckAgUIX4D6vBqXDxfg2jSN4Hno3aUjrPEqV1kPglh aQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3dnkwhvhnr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jan 2022 17:33:51 +0000
+Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 20IH71BU030410;
+ Tue, 18 Jan 2022 17:33:50 GMT
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3dnkwhvhn4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jan 2022 17:33:50 +0000
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20IHXnHE030389;
+ Tue, 18 Jan 2022 17:33:49 GMT
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by ppma04wdc.us.ibm.com with ESMTP id 3dknwapk10-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jan 2022 17:33:48 +0000
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 20IHXj9w34275584
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 18 Jan 2022 17:33:45 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 89EE1C6055;
+ Tue, 18 Jan 2022 17:33:45 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 15585C605D;
+ Tue, 18 Jan 2022 17:33:42 +0000 (GMT)
+Received: from farman-thinkpad-t470p (unknown [9.211.138.251])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Tue, 18 Jan 2022 17:33:42 +0000 (GMT)
+Message-ID: <4be1db57a8cc91b97c117b6dbda3aa11c9566c13.camel@linux.ibm.com>
+From: Eric Farman <farman@linux.ibm.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Date: Tue, 18 Jan 2022 12:33:41 -0500
+In-Reply-To: <20220117153527.GA84788@nvidia.com>
+References: <PH0PR11MB5658A7BB11922E5B6267892AC3619@PH0PR11MB5658.namprd11.prod.outlook.com>
+ <595bba117f20742dd581fd951555b0e1f630264e.camel@linux.ibm.com>
+ <PH0PR11MB565874CB787A1ACFB12CFF6CC3679@PH0PR11MB5658.namprd11.prod.outlook.com>
+ <24628dc7-c6b2-1287-b435-e12e7b3d59a8@intel.com>
+ <9866678ecaafffebbfad8493e192e248b8be8f27.camel@linux.ibm.com>
+ <20220117153527.GA84788@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5 (3.28.5-18.el8) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: agc4J7S_SraIH9Ze5EI8TmQdJz-DrhiV
+X-Proofpoint-GUID: X3ZmPE-bw4Nitd0RzkIhNbbXDB0mmpE-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-18_05,2022-01-18_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=949 lowpriorityscore=0 mlxscore=0 bulkscore=0 phishscore=0
+ impostorscore=0 spamscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2110150000 definitions=main-2201180105
+X-Mailman-Approved-At: Wed, 19 Jan 2022 17:53:42 +0000
+Subject: Re: [Intel-gfx] [RE]: [PATCH v3 10/10] vfio/ccw: Move the lifecycle
+ of the struct vfio_ccw_private to the mdev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,27 +103,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tomas Winkler <tomas.winkler@intel.com>,
- Vitaly Lubart <vitaly.lubart@intel.com>
+Cc: Matthew Rosato <mjrosato@linux.ibm.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "kwankhede@nvidia.com" <kwankhede@nvidia.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ Liu Yi L <yi.l.liu@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "corbet@lwn.net" <corbet@lwn.net>, Halil Pasic <pasic@linux.ibm.com>,
+ "borntraeger@de.ibm.com" <borntraeger@de.ibm.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Jason Herne <jjherne@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ "akrowiak@linux.ibm.com" <akrowiak@linux.ibm.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 19, 2022 at 05:58:02PM +0200, Alexander Usyskin wrote:
-> GSC is a graphics system controller, it provides
-> a chassis controller for graphics discrete cards.
+On Mon, 2022-01-17 at 11:35 -0400, Jason Gunthorpe wrote:
+> On Fri, Jan 14, 2022 at 11:30:36AM -0500, Eric Farman wrote:
+> > On Fri, 2022-01-14 at 20:28 +0800, Liu Yi L wrote:
+> > > Hi Eric,
+> > > 
+> > > Hope you are back from new year holiday.:-) Have you got chane to
+> > > consider
+> > > this patch?
+> > 
+> > Hi Yi Liu,
+> > 
+> > It's coming up the list, but it's not there yet. Haven't forgotten.
+> > :)
 > 
-> There are two MEI interfaces in GSC: HECI1 and HECI2.
-> 
-> This series includes instantiation of the auxiliary devices for HECI2
-> and mei-gsc auxiliary device driver that binds to the auxiliary device.
-> 
-> In v2 the platform device was replaced by the auxiliary device.
-> 
-> Greg KH, please review and ACK the MEI patches.
-> We are pushing all through gfx tree as the auxiliary device belongs there.
+> Liu would like to see ccw use a normal lifecycle for the vfio_device
+> backing memory, is there a shorter path to achieve that then what I
+> came up with?
 
-I will review this after 5.17-rc1 is out.  Please give us some time,
-there is no rush.
+Getting through your proposal is the task on our plate. Just not enough
+hours in the day at the moment, sorry.
 
-greg k-h
+Eric
+
+> 
+> Jason
+
