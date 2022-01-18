@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B82A8C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 10:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EEF1C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 10:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AFE41129FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF24112A26;
 	Tue, 18 Jan 2022 10:02:10 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE2E10E253
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6D110EBE0
  for <intel-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 10:02:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1642500128; x=1674036128;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4viAgEt5edSARdyfa8fviMqgLXR7bbjpX83XfNMZ6qI=;
- b=VZqRJ6C5p9wUvV2Vg+SCURJ2tY5mZrDe0zLDNmN9edQmYVO2ZDpBq7Up
- o5pd+6kyeO5ttodPmLB4gDFytrr2Wzvd/Mo5bLI//7zn882x0IwAWLiM4
- mkijLqsTEW7fCP/KFkVyO1WwzWoJXh1y928znmMSEXNB9yR5X4m+YrQ3H
- fC6MwHLuJ9S8GEyarxx4gP0yhI4uWEjDMLKzizLSxsqYD2e+s2NZMzY/5
- f0Ji3KvsxP3FG5LzMIRzGns4fQiEZXkvCuscSdfkWZTGbUJDm/yAP87rZ
- zNX57DPsw74Y1MGT22bE4o4G4PBuIG2oH2JWoELueGddD7cvwQvsdo+jq w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10230"; a="243603794"
-X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="243603794"
+ bh=JWhDQ/c4f37m8pggHDG345Z6VsLWcMufA/8eWPQ9FCg=;
+ b=gb4nIPU2lDk/4c/66l2FVRrftdyLmitD+qrh9MtTQy4tZv22sE3RD8Lg
+ Hk3D/NvsZc/URzmytiCxV/Q0i+eXOwY4yRLR71FX40kf08HnuwBCjd38b
+ wptJUz9aBrR/LJx9775Q+WSS5zMocGbH3PehZFBkVPaOy/hFJJtnj3UCe
+ vVmpsCBW/Okg/jpiQI7+X3rT23MpQZ3rpf0unQEr0ArOve1TOc+SQo19c
+ gHjLErMCcQ8LMbdRnB7+mIwrTUnC4G7b3iZquIptsQ2TgCDJccl07GAGL
+ Wlyt1Sgpsk2W8RXAuo746OSmeQURvV8oULh3DVdoXPzJyzEukeLXBnJSb A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10230"; a="244576581"
+X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="244576581"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Jan 2022 02:02:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="615306449"
+X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="615306435"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by FMSMGA003.fm.intel.com with ESMTP; 18 Jan 2022 02:02:06 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Jan 2022 02:03:57 -0800
-Message-Id: <20220118100358.1329655-7-alan.previn.teres.alexis@intel.com>
+Date: Tue, 18 Jan 2022 02:03:53 -0800
+Message-Id: <20220118100358.1329655-3-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220118100358.1329655-1-alan.previn.teres.alexis@intel.com>
 References: <20220118100358.1329655-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/guc: Copy new GuC error capture
- logs upon G2H notification.
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/guc: Add XE_LP registers for GuC
+ error state capture.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,437 +60,353 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Upon the G2H Notify-Err-Capture event, make a snapshot of the error
-state capture logs from the GuC-log buffer (error capture region)
-into an bigger interim circular buffer store that can be parsed
-later during gpu coredump printing.
+Add device specific tables and register lists to cover different engines
+class types for GuC error state capture for XE_LP products.
 
-Also, do the same for where we reset GuC submission and need to
-flush outstanding logs.
+Also, add runtime allocation and freeing of extended register lists
+for registers that need steering identifiers that depend on
+the detected HW config.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   7 +
- drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  12 ++
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 186 ++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_capture.h    |   1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  26 ++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |   4 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  14 +-
- 7 files changed, 240 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |   2 +
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 208 +++++++++++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   4 +-
+ 3 files changed, 186 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 7afdadc7656f..82a69f54cddb 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -173,4 +173,11 @@ enum intel_guc_sleep_state_status {
- #define GUC_LOG_CONTROL_VERBOSITY_MASK	(0xF << GUC_LOG_CONTROL_VERBOSITY_SHIFT)
- #define GUC_LOG_CONTROL_DEFAULT_LOGGING	(1 << 8)
- 
-+enum intel_guc_state_capture_event_status {
-+	INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_SUCCESS = 0x0,
-+	INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_NOSPACE = 0x1,
-+};
-+
-+#define INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_MASK      0x1
-+
- #endif /* _ABI_GUC_ACTIONS_ABI_H */
 diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-index 495cdb0228c6..d9ea5df64b06 100644
+index 15b8c02b8a76..a2f97d04ff18 100644
 --- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
 +++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-@@ -63,11 +63,23 @@ struct guc_state_capture_group_t {
- 	struct guc_state_capture_t capture_entries[0];
- } __packed;
- 
-+struct guc_capture_out_store {
-+	/* An interim storage to copy the GuC error-capture-output before
-+	 * parsing and reporting via proper reporting flows with formatting.
-+	 */
-+	unsigned char *addr;
-+	size_t size;
-+	unsigned long head; /* inject new output capture data */
-+	unsigned long tail; /* remove output capture data when reporting */
-+	struct mutex lock; /*lock head or tail when copying capture in or extracting out*/
-+};
-+
- struct __guc_state_capture_priv {
- 	struct __guc_mmio_reg_descr_group *reglists;
- 	u16 num_instance_regs[GUC_CAPTURE_LIST_INDEX_MAX][GUC_MAX_ENGINE_CLASSES];
- 	u16 num_class_regs[GUC_CAPTURE_LIST_INDEX_MAX][GUC_MAX_ENGINE_CLASSES];
- 	u16 num_global_regs[GUC_CAPTURE_LIST_INDEX_MAX];
-+	struct guc_capture_out_store out_store;
+@@ -24,6 +24,8 @@ struct __guc_mmio_reg_descr_group {
+ 	u32 owner; /* see enum guc_capture_owner */
+ 	u32 type; /* see enum guc_capture_type */
+ 	u32 engine; /* as per MAX_ENGINE_CLASS */
++	int num_ext;
++	struct __guc_mmio_reg_descr *ext;
  };
  
- #endif /* _INTEL_GUC_CAPTURE_FWIF_H */
+ struct __guc_state_capture_priv {
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index b637628905ec..fc80c5f31915 100644
+index 20c537274e60..6adfb5c07bcf 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2021-2021 Intel Corporation
+@@ -19,20 +19,84 @@
+  * NOTE: For engine-registers, GuC only needs the register offsets
+  *       from the engine-mmio-base
   */
- 
-+#include <linux/circ_buf.h>
- #include <linux/types.h>
- 
- #include <drm/drm_print.h>
-@@ -12,6 +13,8 @@
- #include "guc_capture_fwif.h"
- #include "intel_guc_fwif.h"
- #include "i915_drv.h"
-+#include "i915_gpu_error.h"
-+#include "i915_irq.h"
- #include "i915_memcpy.h"
- 
- /*
-@@ -629,6 +632,9 @@ int intel_guc_capture_output_min_size_est(struct intel_guc *guc)
- 	int worst_min_size = 0, num_regs = 0;
- 	u16 tmp = 0;
- 
-+	if (!guc->capture.priv)
-+		return -ENODEV;
++#define COMMON_GEN12BASE_GLOBAL() \
++	{GEN12_FAULT_TLB_DATA0,    0,      0, "GEN12_FAULT_TLB_DATA0"}, \
++	{GEN12_FAULT_TLB_DATA1,    0,      0, "GEN12_FAULT_TLB_DATA1"}, \
++	{FORCEWAKE_MT,             0,      0, "FORCEWAKE_MT"}, \
++	{DERRMR,                   0,      0, "DERRMR"}, \
++	{GEN12_AUX_ERR_DBG,        0,      0, "GEN12_AUX_ERR_DBG"}, \
++	{GEN12_GAM_DONE,           0,      0, "GEN12_GAM_DONE"}, \
++	{GEN11_GUC_SG_INTR_ENABLE, 0,      0, "GEN11_GUC_SG_INTR_ENABLE"}, \
++	{GEN11_CRYPTO_RSVD_INTR_ENABLE, 0, 0, "GEN11_CRYPTO_RSVD_INTR_ENABLE"}, \
++	{GEN11_GUNIT_CSME_INTR_ENABLE, 0,  0, "GEN11_GUNIT_CSME_INTR_ENABLE"}, \
++	{GEN11_GPM_WGBOXPERF_INTR_ENABLE, 0, 0, "GEN11_GPM_WGBOXPERF_INTR_ENABLE"}, \
++	{GEN8_DE_MISC_IER,         0,      0, "GEN8_DE_MISC_IER"}, \
++	{GEN12_RING_FAULT_REG,     0,      0, "GEN12_RING_FAULT_REG"}
 +
- 	/*
- 	 * If every single engine-instance suffered a failure in quick succession but
- 	 * were all unrelated, then a burst of multiple error-capture events would dump
-@@ -667,8 +673,174 @@ int intel_guc_capture_output_min_size_est(struct intel_guc *guc)
- 	return (worst_min_size * GUC_CAPTURE_OVERBUFFER_MULTIPLIER);
- }
- 
-+/*
-+ * KMD Init time flows:
-+ * --------------------
-+ *     --> alloc A: GuC input capture regs lists (registered via ADS)
-+ *                  List acquired via intel_guc_capture_list_count + intel_guc_capture_list_init
-+ *                  Size = global-reg-list + (class-reg-list) + (num-instances x instance-reg-list)
-+ *                  Device tables carry: 1x global, 1x per-class, 1x per-instance)
-+ *                  Caller needs to call per-class and per-instance multiplie times
-+ *
-+ *     --> alloc B: GuC output capture buf (registered via guc_init_params(log_param))
-+ *                  Size = #define CAPTURE_BUFFER_SIZE (warns if on too-small)
-+ *                  Note2: 'x 3' to hold multiple capture groups
-+ *
-+ *     --> alloc C: GuC capture interim circular buffer storage in system mem
-+ *                  Size = 'power_of_two(sizeof(B))' as per kernel circular buffer helper
-+ *
-+ * GUC Runtime notify capture:
-+ * --------------------------
-+ *     --> G2H STATE_CAPTURE_NOTIFICATION
-+ *                   L--> intel_guc_capture_store_snapshot
-+ *                           L--> Copies from B (head->tail) into C
-+ */
++#define COMMON_GEN12BASE_ENGINE_INSTANCE() \
++	{RING_PSMI_CTL(0),         0,      0, "RING_PSMI_CTL"}, \
++	{RING_ESR(0),              0,      0, "RING_ESR"}, \
++	{RING_DMA_FADD(0),         0,      0, "RING_DMA_FADD_LOW32"}, \
++	{RING_DMA_FADD_UDW(0),     0,      0, "RING_DMA_FADD_UP32"}, \
++	{RING_IPEIR(0),            0,      0, "RING_IPEIR"}, \
++	{RING_IPEHR(0),            0,      0, "RING_IPEHR"}, \
++	{RING_INSTPS(0),           0,      0, "RING_INSTPS"}, \
++	{RING_BBADDR(0),           0,      0, "RING_BBADDR_LOW32"}, \
++	{RING_BBADDR_UDW(0),       0,      0, "RING_BBADDR_UP32"}, \
++	{RING_BBSTATE(0),          0,      0, "RING_BBSTATE"}, \
++	{CCID(0),                  0,      0, "CCID"}, \
++	{RING_ACTHD(0),            0,      0, "RING_ACTHD_LOW32"}, \
++	{RING_ACTHD_UDW(0),        0,      0, "RING_ACTHD_UP32"}, \
++	{RING_INSTPM(0),           0,      0, "RING_INSTPM"}, \
++	{RING_NOPID(0),            0,      0, "RING_NOPID"}, \
++	{RING_START(0),            0,      0, "RING_START"}, \
++	{RING_HEAD(0),             0,      0, "RING_HEAD"}, \
++	{RING_TAIL(0),             0,      0, "RING_TAIL"}, \
++	{RING_CTL(0),              0,      0, "RING_CTL"}, \
++	{RING_MI_MODE(0),          0,      0, "RING_MI_MODE"}, \
++	{RING_CONTEXT_CONTROL(0),  0,      0, "RING_CONTEXT_CONTROL"}, \
++	{RING_INSTDONE(0),         0,      0, "RING_INSTDONE"}, \
++	{RING_HWS_PGA(0),          0,      0, "RING_HWS_PGA"}, \
++	{RING_MODE_GEN7(0),        0,      0, "RING_MODE_GEN7"}, \
++	{GEN8_RING_PDP_LDW(0, 0),  0,      0, "GEN8_RING_PDP0_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 0),  0,      0, "GEN8_RING_PDP0_UDW"}, \
++	{GEN8_RING_PDP_LDW(0, 1),  0,      0, "GEN8_RING_PDP1_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 1),  0,      0, "GEN8_RING_PDP1_UDW"}, \
++	{GEN8_RING_PDP_LDW(0, 2),  0,      0, "GEN8_RING_PDP2_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 2),  0,      0, "GEN8_RING_PDP2_UDW"}, \
++	{GEN8_RING_PDP_LDW(0, 3),  0,      0, "GEN8_RING_PDP3_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 3),  0,      0, "GEN8_RING_PDP3_UDW"}
 +
-+static void guc_capture_store_insert(struct intel_guc *guc, struct guc_capture_out_store *store,
-+				     unsigned char *new_data, size_t bytes)
-+{
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+	unsigned char *dst_data = store->addr;
-+	unsigned long h, t;
-+	size_t tmp;
++#define COMMON_GEN12BASE_HAS_EU() \
++	{EIR,                      0,      0, "EIR"}
 +
-+	h = store->head;
-+	t = store->tail;
-+	if (CIRC_SPACE(h, t, store->size) >= bytes) {
-+		while (bytes) {
-+			tmp = CIRC_SPACE_TO_END(h, t, store->size);
-+			if (tmp) {
-+				tmp = tmp < bytes ? tmp : bytes;
-+				i915_unaligned_memcpy_from_wc(&dst_data[h], new_data, tmp);
-+				bytes -= tmp;
-+				new_data += tmp;
-+				h = (h + tmp) & (store->size - 1);
-+			} else {
-+				drm_err(&i915->drm, "circbuf copy-to ptr-corruption!\n");
-+				break;
-+			}
-+		}
-+		store->head = h;
-+	} else {
-+		drm_err(&i915->drm, "GuC capture interim-store insufficient space!\n");
-+	}
-+}
++#define COMMON_GEN12BASE_RENDER() \
++	{GEN7_SC_INSTDONE,         0,      0, "GEN7_SC_INSTDONE"}, \
++	{GEN12_SC_INSTDONE_EXTRA,  0,      0, "GEN12_SC_INSTDONE_EXTRA"}, \
++	{GEN12_SC_INSTDONE_EXTRA2, 0,      0, "GEN12_SC_INSTDONE_EXTRA2"}
 +
-+static void __guc_capture_store_snapshot_work(struct intel_guc *guc)
-+{
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+	unsigned int buffer_size, read_offset, write_offset, bytes_to_copy, full_count;
-+	struct guc_log_buffer_state *log_buf_state;
-+	struct guc_log_buffer_state log_buf_state_local;
-+	void *src_data, *dst_data = NULL;
-+	bool new_overflow;
++#define COMMON_GEN12BASE_VEC() \
++	{GEN11_VCS_VECS_INTR_ENABLE, 0,    0, "GEN11_VCS_VECS_INTR_ENABLE"}, \
++	{GEN12_SFC_DONE(0),        0,      0, "GEN12_SFC_DONE0"}, \
++	{GEN12_SFC_DONE(1),        0,      0, "GEN12_SFC_DONE1"}, \
++	{GEN12_SFC_DONE(2),        0,      0, "GEN12_SFC_DONE2"}, \
++	{GEN12_SFC_DONE(3),        0,      0, "GEN12_SFC_DONE3"}
 +
-+	/* Lock to get the pointer to GuC capture-log-buffer-state */
-+	mutex_lock(&guc->log_state[GUC_CAPTURE_LOG_BUFFER].lock);
-+	log_buf_state = guc->log.buf_addr +
-+			(sizeof(struct guc_log_buffer_state) * GUC_CAPTURE_LOG_BUFFER);
-+	src_data = guc->log.buf_addr + intel_guc_get_log_buffer_offset(GUC_CAPTURE_LOG_BUFFER);
-+
-+	/*
-+	 * Make a copy of the state structure, inside GuC log buffer
-+	 * (which is uncached mapped), on the stack to avoid reading
-+	 * from it multiple times.
-+	 */
-+	memcpy(&log_buf_state_local, log_buf_state, sizeof(struct guc_log_buffer_state));
-+	buffer_size = intel_guc_get_log_buffer_size(GUC_CAPTURE_LOG_BUFFER);
-+	read_offset = log_buf_state_local.read_ptr;
-+	write_offset = log_buf_state_local.sampled_write_ptr;
-+	full_count = log_buf_state_local.buffer_full_cnt;
-+
-+	/* Bookkeeping stuff */
-+	guc->log_state[GUC_CAPTURE_LOG_BUFFER].flush += log_buf_state_local.flush_to_file;
-+	new_overflow = intel_guc_check_log_buf_overflow(guc,
-+							&guc->log_state[GUC_CAPTURE_LOG_BUFFER],
-+							full_count);
-+
-+	/* Update the state of shared log buffer */
-+	log_buf_state->read_ptr = write_offset;
-+	log_buf_state->flush_to_file = 0;
-+
-+	mutex_unlock(&guc->log_state[GUC_CAPTURE_LOG_BUFFER].lock);
-+
-+	dst_data = guc->capture.priv->out_store.addr;
-+	if (dst_data) {
-+		mutex_lock(&guc->capture.priv->out_store.lock);
-+
-+		/* Now copy the actual logs. */
-+		if (unlikely(new_overflow)) {
-+			/* copy the whole buffer in case of overflow */
-+			read_offset = 0;
-+			write_offset = buffer_size;
-+		} else if (unlikely((read_offset > buffer_size) ||
-+			   (write_offset > buffer_size))) {
-+			drm_err(&i915->drm, "invalid GuC log capture buffer state!\n");
-+			/* copy whole buffer as offsets are unreliable */
-+			read_offset = 0;
-+			write_offset = buffer_size;
-+		}
-+
-+		/* first copy from the tail end of the GuC log capture buffer */
-+		if (read_offset > write_offset) {
-+			guc_capture_store_insert(guc, &guc->capture.priv->out_store, src_data,
-+						 write_offset);
-+			bytes_to_copy = buffer_size - read_offset;
-+		} else {
-+			bytes_to_copy = write_offset - read_offset;
-+		}
-+		guc_capture_store_insert(guc, &guc->capture.priv->out_store, src_data + read_offset,
-+					 bytes_to_copy);
-+
-+		mutex_unlock(&guc->capture.priv->out_store.lock);
-+	}
-+}
-+
-+void intel_guc_capture_store_snapshot(struct intel_guc *guc)
-+{
-+	if (guc->capture.priv)
-+		__guc_capture_store_snapshot_work(guc);
-+}
-+
-+static void guc_capture_store_destroy(struct intel_guc *guc)
-+{
-+	mutex_destroy(&guc->capture.priv->out_store.lock);
-+	guc->capture.priv->out_store.size = 0;
-+	kfree(guc->capture.priv->out_store.addr);
-+	guc->capture.priv->out_store.addr = NULL;
-+}
-+
-+static int guc_capture_store_create(struct intel_guc *guc)
-+{
-+	/*
-+	 * Make this interim buffer larger than GuC capture output buffer so that we can absorb
-+	 * a little delay when processing the raw capture dumps into text friendly logs
-+	 * for the i915_gpu_coredump output
-+	 */
-+	size_t max_dump_size;
-+
-+	GEM_BUG_ON(guc->capture.priv->out_store.addr);
-+
-+	max_dump_size = PAGE_ALIGN(intel_guc_capture_output_min_size_est(guc));
-+	max_dump_size = roundup_pow_of_two(max_dump_size);
-+
-+	guc->capture.priv->out_store.addr = kzalloc(max_dump_size, GFP_KERNEL);
-+	if (!guc->capture.priv->out_store.addr)
-+		return -ENOMEM;
-+
-+	guc->capture.priv->out_store.size = max_dump_size;
-+	mutex_init(&guc->capture.priv->out_store.lock);
-+
-+	return 0;
-+}
-+
- void intel_guc_capture_destroy(struct intel_guc *guc)
- {
-+	if (!guc->capture.priv)
-+		return;
-+
-+	intel_synchronize_irq(guc_to_gt(guc)->i915);
-+	guc_capture_store_destroy(guc);
- 	guc_capture_clear_ext_regs(guc->capture.priv->reglists);
- 	kfree(guc->capture.priv);
- 	guc->capture.priv = NULL;
-@@ -676,10 +848,24 @@ void intel_guc_capture_destroy(struct intel_guc *guc)
- 
- int intel_guc_capture_init(struct intel_guc *guc)
- {
-+	int ret;
-+
- 	guc->capture.priv = kzalloc(sizeof(*guc->capture.priv), GFP_KERNEL);
- 	if (!guc->capture.priv)
- 		return -ENOMEM;
-+
- 	guc->capture.priv->reglists = guc_capture_get_device_reglist(guc);
-+	/*
-+	 * allocate interim store at init time so we dont require memory
-+	 * allocation whilst in the midst of the reset + capture
-+	 */
-+	ret = guc_capture_store_create(guc);
-+	if (ret) {
-+		guc_capture_clear_ext_regs(guc->capture.priv->reglists);
-+		kfree(guc->capture.priv);
-+		guc->capture.priv = NULL;
-+		return ret;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-index 4d3e5221128c..c240a4cc046b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-@@ -14,6 +14,7 @@ struct guc_gt_system_info;
- 
- int intel_guc_capture_prep_lists(struct intel_guc *guc, struct guc_ads *blob, u32 blob_ggtt,
- 				 u32 capture_offset, struct guc_gt_system_info *sysinfo);
-+void intel_guc_capture_store_snapshot(struct intel_guc *guc);
- int intel_guc_capture_output_min_size_est(struct intel_guc *guc);
- void intel_guc_capture_destroy(struct intel_guc *guc);
- int intel_guc_capture_init(struct intel_guc *guc);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index d6b1a3c0fb15..194b17e8c2ae 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -157,9 +157,9 @@ static void *guc_get_write_buffer(struct intel_guc_log *log)
- 	return relay_reserve(log->relay.channel, 0);
- }
- 
--static bool guc_check_log_buf_overflow(struct intel_guc *guc,
--				       struct intel_guc_log_stats *log_state,
--				       unsigned int full_cnt)
-+bool intel_guc_check_log_buf_overflow(struct intel_guc *guc,
-+				      struct intel_guc_log_stats *log_state,
-+				      unsigned int full_cnt)
- {
- 	unsigned int prev_full_cnt = log_state->sampled_overflow;
- 	bool overflow = false;
-@@ -182,7 +182,7 @@ static bool guc_check_log_buf_overflow(struct intel_guc *guc,
- 	return overflow;
- }
- 
--static unsigned int guc_get_log_buffer_size(enum guc_log_buffer_type type)
-+unsigned int intel_guc_get_log_buffer_size(enum guc_log_buffer_type type)
- {
- 	switch (type) {
- 	case GUC_DEBUG_LOG_BUFFER:
-@@ -198,6 +198,20 @@ static unsigned int guc_get_log_buffer_size(enum guc_log_buffer_type type)
- 	return 0;
- }
- 
-+size_t intel_guc_get_log_buffer_offset(enum guc_log_buffer_type type)
-+{
-+	enum guc_log_buffer_type i;
-+	size_t offset = PAGE_SIZE;/* for the log_buffer_states */
-+
-+	for (i = GUC_DEBUG_LOG_BUFFER; i < GUC_MAX_LOG_BUFFER; i++) {
-+		if (i == type)
-+			break;
-+		offset += intel_guc_get_log_buffer_size(i);
-+	}
-+
-+	return offset;
-+}
-+
- static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- {
- 	struct intel_guc *guc = log_to_guc(log);
-@@ -247,14 +261,14 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- 		mutex_lock(&logstate->lock);
- 		memcpy(&log_buf_state_local, log_buf_state,
- 		       sizeof(struct guc_log_buffer_state));
--		buffer_size = guc_get_log_buffer_size(type);
-+		buffer_size = intel_guc_get_log_buffer_size(type);
- 		read_offset = log_buf_state_local.read_ptr;
- 		write_offset = log_buf_state_local.sampled_write_ptr;
- 		full_cnt = log_buf_state_local.buffer_full_cnt;
- 
- 		/* Bookkeeping stuff */
- 		logstate->flush += log_buf_state_local.flush_to_file;
--		new_overflow = guc_check_log_buf_overflow(guc, logstate, full_cnt);
-+		new_overflow = intel_guc_check_log_buf_overflow(guc, logstate, full_cnt);
- 
- 		/* Update the state of shared log buffer */
- 		log_buf_state->read_ptr = write_offset;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
-index b6e8e9ee37b7..f16de816447d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
-@@ -68,6 +68,10 @@ struct intel_guc_log {
+ /* XE_LPD - Global */
+ static struct __guc_mmio_reg_descr xe_lpd_global_regs[] = {
+-	{GEN12_RING_FAULT_REG,     0,      0, "GEN12_RING_FAULT_REG"}
++	COMMON_GEN12BASE_GLOBAL(),
  };
  
- void intel_guc_log_init_early(struct intel_guc_log *log);
-+bool intel_guc_check_log_buf_overflow(struct intel_guc *guc, struct intel_guc_log_stats *state,
-+				      unsigned int full_cnt);
-+unsigned int intel_guc_get_log_buffer_size(enum guc_log_buffer_type type);
-+size_t intel_guc_get_log_buffer_offset(enum guc_log_buffer_type type);
- int intel_guc_log_create(struct intel_guc_log *log);
- void intel_guc_log_destroy(struct intel_guc_log *log);
+ /* XE_LPD - Render / Compute Per-Class */
+ static struct __guc_mmio_reg_descr xe_lpd_rc_class_regs[] = {
+-	{EIR,                      0,      0, "EIR"}
++	COMMON_GEN12BASE_HAS_EU(),
++	COMMON_GEN12BASE_RENDER(),
++	{GEN11_RENDER_COPY_INTR_ENABLE, 0, 0, "GEN11_RENDER_COPY_INTR_ENABLE"},
+ };
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 23a40f10d376..baaa33472a50 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -24,6 +24,7 @@
- #include "gt/intel_ring.h"
+ /* XE_LPD - Render / Compute Per-Engine-Instance */
+ static struct __guc_mmio_reg_descr xe_lpd_rc_inst_regs[] = {
+-	{RING_HEAD(0),             0,      0, "RING_HEAD"},
+-	{RING_TAIL(0),             0,      0, "RING_TAIL"},
++	COMMON_GEN12BASE_ENGINE_INSTANCE(),
+ };
  
- #include "intel_guc_ads.h"
-+#include "intel_guc_capture.h"
- #include "intel_guc_submission.h"
+ /* XE_LPD - Media Decode/Encode Per-Class */
+@@ -41,18 +105,26 @@ static struct __guc_mmio_reg_descr xe_lpd_vd_class_regs[] = {
  
- #include "i915_drv.h"
-@@ -1431,6 +1432,8 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ /* XE_LPD - Media Decode/Encode Per-Engine-Instance */
+ static struct __guc_mmio_reg_descr xe_lpd_vd_inst_regs[] = {
+-	{RING_HEAD(0),             0,      0, "RING_HEAD"},
+-	{RING_TAIL(0),             0,      0, "RING_TAIL"},
++	COMMON_GEN12BASE_ENGINE_INSTANCE(),
+ };
+ 
+ /* XE_LPD - Video Enhancement Per-Class */
+ static struct __guc_mmio_reg_descr xe_lpd_vec_class_regs[] = {
++	COMMON_GEN12BASE_VEC(),
+ };
+ 
+ /* XE_LPD - Video Enhancement Per-Engine-Instance */
+ static struct __guc_mmio_reg_descr xe_lpd_vec_inst_regs[] = {
+-	{RING_HEAD(0),             0,      0, "RING_HEAD"},
+-	{RING_TAIL(0),             0,      0, "RING_TAIL"},
++	COMMON_GEN12BASE_ENGINE_INSTANCE(),
++};
++
++/* XE_LPD - Media Decode/Encode Per-Class */
++static struct __guc_mmio_reg_descr xe_lpd_blt_class_regs[] = {
++};
++
++/* XE_LPD - Media Decode/Encode Per-Engine-Instance */
++static struct __guc_mmio_reg_descr xe_lpd_blt_inst_regs[] = {
++	COMMON_GEN12BASE_ENGINE_INSTANCE(),
+ };
+ 
+ #define TO_GCAP_DEF_OWNER(x) (GUC_CAPTURE_LIST_INDEX_##x)
+@@ -64,6 +136,8 @@ static struct __guc_mmio_reg_descr xe_lpd_vec_inst_regs[] = {
+ 		.owner = TO_GCAP_DEF_OWNER(regsowner), \
+ 		.type = TO_GCAP_DEF_TYPE(regstype), \
+ 		.engine = class, \
++		.num_ext = 0, \
++		.ext = NULL, \
  	}
  
- 	scrub_guc_desc_for_outstanding_g2h(guc);
+ /* List of lists */
+@@ -75,9 +149,92 @@ static struct __guc_mmio_reg_descr_group xe_lpd_lists[] = {
+ 	MAKE_REGLIST(xe_lpd_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEO_CLASS),
+ 	MAKE_REGLIST(xe_lpd_vec_class_regs, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
+ 	MAKE_REGLIST(xe_lpd_vec_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEOENHANCE_CLASS),
++	MAKE_REGLIST(xe_lpd_blt_class_regs, PF, ENGINE_CLASS, GUC_BLITTER_CLASS),
++	MAKE_REGLIST(xe_lpd_blt_inst_regs, PF, ENGINE_INSTANCE, GUC_BLITTER_CLASS),
+ 	{}
+ };
+ 
++static struct __guc_mmio_reg_descr_group *
++guc_capture_get_one_list(struct __guc_mmio_reg_descr_group *reglists, u32 owner, u32 type, u32 id)
++{
++	int i;
 +
-+	intel_guc_capture_store_snapshot(guc);
++	if (!reglists)
++		return NULL;
++
++	for (i = 0; reglists[i].list; i++) {
++		if (reglists[i].owner == owner && reglists[i].type == type &&
++		    (reglists[i].engine == id || reglists[i].type == GUC_CAPTURE_LIST_TYPE_GLOBAL))
++		return &reglists[i];
++	}
++
++	return NULL;
++}
++
++static void guc_capture_clear_ext_regs(struct __guc_mmio_reg_descr_group *lists)
++{
++	while (lists->list) {
++		kfree(lists->ext);
++		lists->ext = NULL;
++		++lists;
++	}
++}
++
++struct __ext_steer_reg {
++	const char *name;
++	i915_reg_t reg;
++};
++
++static struct __ext_steer_reg xelpd_extregs[] = {
++	{"GEN7_SAMPLER_INSTDONE", GEN7_SAMPLER_INSTDONE},
++	{"GEN7_ROW_INSTDONE", GEN7_ROW_INSTDONE}
++};
++
++static void
++guc_capture_alloc_steered_list_xelpd(struct intel_guc *guc,
++				     struct __guc_mmio_reg_descr_group *lists)
++{
++	struct intel_gt *gt = guc_to_gt(guc);
++	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++	struct sseu_dev_info *sseu;
++	int slice, subslice, i, num_tot_regs = 0;
++	struct __guc_mmio_reg_descr_group *list;
++	struct __guc_mmio_reg_descr *extarray;
++	int num_steer_regs = ARRAY_SIZE(xelpd_extregs);
++
++	/* In XE_LP we only care about render-class steering registers during error-capture */
++	list = guc_capture_get_one_list(lists, GUC_CAPTURE_LIST_INDEX_PF,
++					GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS, GUC_RENDER_CLASS);
++	if (!list)
++		return;
++
++	if (list->ext)
++		return; /* already populated */
++
++	sseu = &gt->info.sseu;
++	for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
++		num_tot_regs += num_steer_regs;
++	}
++	if (!num_tot_regs)
++		return;
++
++	list->ext = kcalloc(num_tot_regs, sizeof(struct __guc_mmio_reg_descr), GFP_KERNEL);
++	if (!list->ext)
++		return;
++
++	extarray = list->ext;
++	for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
++		for (i = 0; i < num_steer_regs; i++) {
++			extarray->reg = xelpd_extregs[i].reg;
++			extarray->flags = FIELD_PREP(GUC_REGSET_STEERING_GROUP, slice);
++			extarray->flags |= FIELD_PREP(GUC_REGSET_STEERING_INSTANCE, subslice);
++			extarray->regname = xelpd_extregs[i].name;
++			++extarray;
++		}
++	}
++	list->num_ext = num_tot_regs;
++}
++
+ static struct __guc_mmio_reg_descr_group *
+ guc_capture_get_device_reglist(struct intel_guc *guc)
+ {
+@@ -91,29 +248,13 @@ guc_capture_get_device_reglist(struct intel_guc *guc)
+ 		 * these at init time based on hw config add it as an extension
+ 		 * list at the end of the pre-populated render list.
+ 		 */
++		guc_capture_alloc_steered_list_xelpd(guc, xe_lpd_lists);
+ 		return xe_lpd_lists;
+ 	}
+ 
+ 	return NULL;
  }
  
- static struct intel_engine_cs *
-@@ -4025,17 +4028,20 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
- int intel_guc_error_capture_process_msg(struct intel_guc *guc,
- 					const u32 *msg, u32 len)
+-static struct __guc_mmio_reg_descr_group *
+-guc_capture_get_one_list(struct __guc_mmio_reg_descr_group *reglists, u32 owner, u32 type, u32 id)
+-{
+-	int i;
+-
+-	if (!reglists)
+-		return NULL;
+-
+-	for (i = 0; reglists[i].list; i++) {
+-		if (reglists[i].owner == owner && reglists[i].type == type &&
+-		    (reglists[i].engine == id || reglists[i].type == GUC_CAPTURE_LIST_TYPE_GLOBAL))
+-		return &reglists[i];
+-	}
+-
+-	return NULL;
+-}
+-
+ static const char *
+ guc_capture_stringify_owner(u32 owner)
  {
--	int status;
-+	u32 status;
- 
- 	if (unlikely(len != 1)) {
- 		drm_dbg(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
- 		return -EPROTO;
+@@ -184,7 +325,7 @@ static int
+ guc_capture_list_init(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+ 		      struct guc_mmio_reg *ptr, u16 num_entries)
+ {
+-	u32 j = 0;
++	u32 j = 0, k = 0;
+ 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+ 	struct __guc_mmio_reg_descr_group *reglists = guc->capture.priv->reglists;
+ 	struct __guc_mmio_reg_descr_group *match;
+@@ -200,6 +341,18 @@ guc_capture_list_init(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+ 			ptr[j].flags = match->list[j].flags;
+ 			ptr[j].mask = match->list[j].mask;
+ 		}
++		if (match->ext) {
++			for (j = match->num_regs, k = 0; j < num_entries &&
++			     j < (match->num_regs + match->num_ext); ++j, ++k) {
++				ptr[j].offset = match->ext[k].reg.reg;
++				ptr[j].value = 0xDEADF00D;
++				ptr[j].flags = match->ext[k].flags;
++				ptr[j].mask = match->ext[k].mask;
++			}
++		}
++		if (j < num_entries)
++			drm_dbg(&i915->drm, "GuC-capture: Init reglist short %d out %d.\n",
++				(int)j, (int)num_entries);
+ 		return 0;
  	}
  
--	status = msg[0];
--	drm_info(&guc_to_gt(guc)->i915->drm, "Got error capture: status = %d", status);
-+	status = msg[0] & INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_MASK;
-+	if (status == INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_NOSPACE)
-+		drm_warn(&guc_to_gt(guc)->i915->drm, "G2H-Error capture no space");
-+	else
-+		drm_info(&guc_to_gt(guc)->i915->drm, "G2H-Received error capture");
+@@ -282,7 +435,7 @@ guc_capture_list_count(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+ 		return -ENODATA;
+ 	}
  
--	/* FIXME: Do something with the capture */
-+	intel_guc_capture_store_snapshot(guc);
- 
+-	*num_entries = match->num_regs;
++	*num_entries = match->num_regs + match->num_ext;
  	return 0;
  }
+ 
+@@ -435,6 +588,7 @@ int intel_guc_capture_prep_lists(struct intel_guc *guc, struct guc_ads *blob, u3
+ 
+ void intel_guc_capture_destroy(struct intel_guc *guc)
+ {
++	guc_capture_clear_ext_regs(guc->capture.priv->reglists);
+ 	kfree(guc->capture.priv);
+ 	guc->capture.priv = NULL;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 92bfe25a5e85..50fcd987f2a2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -271,10 +271,12 @@ struct guc_mmio_reg {
+ 	u32 offset;
+ 	u32 value;
+ 	u32 flags;
+-	u32 mask;
+ #define GUC_REGSET_MASKED		BIT(0)
+ #define GUC_REGSET_MASKED_WITH_VALUE	BIT(2)
+ #define GUC_REGSET_RESTORE_ONLY		BIT(3)
++#define GUC_REGSET_STEERING_GROUP       GENMASK(15, 12)
++#define GUC_REGSET_STEERING_INSTANCE    GENMASK(23, 20)
++	u32 mask;
+ } __packed;
+ 
+ /* GuC register sets */
 -- 
 2.25.1
 
