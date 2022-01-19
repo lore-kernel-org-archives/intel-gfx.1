@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8815EC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 07:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C8FC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 07:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 123EE10E26E;
-	Wed, 19 Jan 2022 07:24:30 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEEA010E18C;
- Wed, 19 Jan 2022 07:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642577067; x=1674113067;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=D8Hcj6/0idCaGqbYLAjOwo8mGw2XLo6q3lh1A6mM9gI=;
- b=VD0HKivQ+g/aP/dYr6XIscnvTqiDjRpua+QDcUwsPnE/8itfG6sCdJGv
- 61iBIG2A3cbXQnH0gzuydaT2rwmuhzQ7DSmGOVEWpzkX6j6u3WEnAyufQ
- JG3opJ7UNv0xz5w8sljT+ak6LtUzSDfrftaQ1eTdIG7wxd+pCUqeYr6w8
- AVqBi0K2HvJn6R6ExY2q/lowWjHa799NjSk6Sh502nvzIYGCOEJJZwAjZ
- LiFyPCHOjXo/h9XfUQPsPC5aYMD75q8ozwoY8zl8PZYpycfdDsDbffAlD
- kYZ/T50jHuAGNFolsX1XrmScpaA0wE7LKKb5mRo5fH6s2ne7lI3dElRAf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="244799930"
-X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="244799930"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2022 23:24:27 -0800
-X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="530544508"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2022 23:24:26 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
- netdev@vger.kernel.org
-Date: Tue, 18 Jan 2022 23:24:49 -0800
-Message-Id: <20220119072450.2890107-3-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220119072450.2890107-1-lucas.demarchi@intel.com>
-References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3E4910E175;
+	Wed, 19 Jan 2022 07:34:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B7ABF10E175;
+ Wed, 19 Jan 2022 07:34:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B3460A00A0;
+ Wed, 19 Jan 2022 07:34:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] lib/string_helpers: Add helpers for
- enable[d]/disable[d]
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Wed, 19 Jan 2022 07:34:11 -0000
+Message-ID: <164257765172.22604.11067127023347215119@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+In-Reply-To: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_lib/string=5Fhelpers=3A_Add_a_few_string_helpers?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +40,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
- Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Leo Li <sunpeng.li@amd.com>, Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Steven Rostedt <rostedt@goodmis.org>, Mikita Lipski <mikita.lipski@amd.com>,
- Eryk Brol <eryk.brol@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Raju Rangoju <rajur@chelsio.com>, Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S . Miller" <davem@davemloft.net>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Follow the yes/no logic and add helpers for enabled/disabled and
-enable/disable - those are not so common throughout the kernel,
-but they give a nice way to reuse the strings to log things as
-enabled/disabled or enable/disable.
+== Series Details ==
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/i915_utils.h | 10 ----------
- include/linux/string_helpers.h    |  2 ++
- 2 files changed, 2 insertions(+), 10 deletions(-)
+Series: lib/string_helpers: Add a few string helpers
+URL   : https://patchwork.freedesktop.org/series/99030/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index 2a8781cc648b..cbec79bae0d2 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -419,16 +419,6 @@ static inline const char *onoff(bool v)
- 	return v ? "on" : "off";
- }
- 
--static inline const char *enabledisable(bool v)
--{
--	return v ? "enable" : "disable";
--}
--
--static inline const char *enableddisabled(bool v)
--{
--	return v ? "enabled" : "disabled";
--}
--
- void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint);
- static inline void __add_taint_for_CI(unsigned int taint)
- {
-diff --git a/include/linux/string_helpers.h b/include/linux/string_helpers.h
-index e980dec05d31..e4b82f364ee1 100644
---- a/include/linux/string_helpers.h
-+++ b/include/linux/string_helpers.h
-@@ -103,5 +103,7 @@ char *kstrdup_quotable_file(struct file *file, gfp_t gfp);
- void kfree_strarray(char **array, size_t n);
- 
- static inline const char *yesno(bool v) { return v ? "yes" : "no"; }
-+static inline const char *enabledisable(bool v) { return v ? "enable" : "disable"; }
-+static inline const char *enableddisabled(bool v) { return v ? "enabled" : "disabled"; }
- 
- #endif
--- 
-2.34.1
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+034eadde40c9 lib/string_helpers: Consolidate yesno() implementation
+89d43a829163 lib/string_helpers: Add helpers for enable[d]/disable[d]
+e313af85bf87 drm: Convert open yes/no strings to yesno()
+-:23: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#23: 
+1442171   60344     800 1503315  16f053 ./drivers/gpu/drm/radeon/radeon.ko.old
+
+-:92: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#92: FILE: drivers/gpu/drm/drm_client_modeset.c:245:
++			      connector->display_info.non_desktop ? "non desktop" : yesno(enabled[i]));
+
+total: 0 errors, 2 warnings, 0 checks, 133 lines checked
+
 
