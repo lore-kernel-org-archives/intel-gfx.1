@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABC4BC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 21:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5973CC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 21:30:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4133510E70D;
-	Wed, 19 Jan 2022 21:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4041A10E212;
+	Wed, 19 Jan 2022 21:30:10 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D665710E425;
- Wed, 19 Jan 2022 21:14:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F123210E1FD;
+ Wed, 19 Jan 2022 21:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642626878; x=1674162878;
- h=from:to:subject:date:message-id:mime-version:
+ t=1642627809; x=1674163809;
+ h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=eoChbUb+MK9MnSv+RJPD37hp9TDVeWrkTrngH/4rGsw=;
- b=h4GKE8tPKMoI+ILvR+3AdHMBljUX3uE3EPIfDjP23pjMemOXbBtzQ694
- p2rWrMgie+wOVrRAqcx4tIE2wThY9prCCIqU0vYUN3/S3OZOHKiV/W3xK
- jJXO+HiOVAQ8P+o3fBZYveiCIJe797x12kZBiQ+3S22E8yJvvt9yA7xK0
- uAmoGwxgMXhVkbKlVPtGDeldHxdscLVvMEQ2vJfmQ2WeZLjIh+tARLnTf
- l7MlHUb0iwbu0M717lBRmSrOz2gP3V373JVAFsehR5Cl4U3FmCb1YGpIn
- p+WVzYW4h1sIl4rH7l36fa+6e66Z39IWDLWKOhKNktj9dK8tqj2YPvBsp g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="331544617"
-X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="331544617"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ bh=mpe9gB541//AlFP8RLmA4Ew4Et3UTAh1YBR/JaCYBd0=;
+ b=nJV8AEFgFzgyxNFZi6oyAxa5AEiZZPwgp4CkVhCNV6FNxBwvs/kFp4uP
+ ta7mvql1ZPra3e2oynJ1jngZP6+slGJXWL3WEQj5Mnjpi1heMNF8NTSLL
+ uG6CiCqAdvKjBaAAWIhwWHYkXTQrweH+WH3H4OfHwkxYlLsBsxQx5RaCg
+ rvYjKQbYh1/Z5OQyfzg6dk84JLIK7lzFhh6IfP+vgF+UBNuFUICg3WRmU
+ GSV2mWTORW2pzOCDANlqMxUMEIllgdYPXesE36FdtPhzEd7TCRMuC2P/N
+ Pdu7Ppdn4nU6eY04BL4bbrGEVpmc469ZTrVjM5aAP4tZGVTp2G5FdwuMA A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="331548313"
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="331548313"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 13:12:36 -0800
-X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="693942121"
+ 19 Jan 2022 13:30:08 -0800
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="475289709"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 13:12:27 -0800
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 13:30:08 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <dri-devel@lists.freedesktop.org>,
 	<intel-gfx@lists.freedesktop.org>
-Date: Wed, 19 Jan 2022 13:06:39 -0800
-Message-Id: <20220119210639.33053-1-matthew.brost@intel.com>
+Date: Wed, 19 Jan 2022 13:24:16 -0800
+Message-Id: <20220119212419.23068-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/guc: Ensure multi-lrc fini breadcrumb
- math is correct
+Subject: [Intel-gfx] [PATCH 0/3] Flush G2H handler during a GT reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,123 +57,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Realized that the GuC multi-lrc fini breadcrumb emit code is very
-delicate as the math this code does relies on functions it calls to emit
-a certain number of DWs. Add a few GEM_BUG_ONs to assert the math is
-correct.
+After a small fix to error capture code, we now can flush G2H during a
+GT reset which simplifies code and seals some extreme corner case races. 
 
 v2:
-  - Rebase + resend for CI
- (Checkpatch)
-  - Fix blank line warning
+ (CI)
+  - Don't trigger GT reset from G2H handler
+v3:
+  - Address John Harrison's comments
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 33 +++++++++++++++----
- 1 file changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 3918f1be114f..650efd3d3a48 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4429,27 +4429,31 @@ static inline bool skip_handshake(struct i915_request *rq)
- 	return test_bit(I915_FENCE_FLAG_SKIP_PARALLEL, &rq->fence.flags);
- }
- 
-+#define NON_SKIP_LEN	6
- static u32 *
- emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- 						 u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
-+	__maybe_unused u32 *before_fini_breadcrumb_user_interrupt_cs;
-+	__maybe_unused u32 *start_fini_breadcrumb_cs = cs;
- 
- 	GEM_BUG_ON(!intel_context_is_parent(ce));
- 
- 	if (unlikely(skip_handshake(rq))) {
- 		/*
- 		 * NOP everything in __emit_fini_breadcrumb_parent_no_preempt_mid_batch,
--		 * the -6 comes from the length of the emits below.
-+		 * the NON_SKIP_LEN comes from the length of the emits below.
- 		 */
- 		memset(cs, 0, sizeof(u32) *
--		       (ce->engine->emit_fini_breadcrumb_dw - 6));
--		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+		       (ce->engine->emit_fini_breadcrumb_dw - NON_SKIP_LEN));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - NON_SKIP_LEN;
- 	} else {
- 		cs = __emit_fini_breadcrumb_parent_no_preempt_mid_batch(rq, cs);
- 	}
- 
- 	/* Emit fini breadcrumb */
-+	before_fini_breadcrumb_user_interrupt_cs = cs;
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
- 				  i915_request_active_timeline(rq)->hwsp_offset,
-@@ -4459,6 +4463,12 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
- 	*cs++ = MI_USER_INTERRUPT;
- 	*cs++ = MI_NOOP;
- 
-+	/* Ensure our math for skip + emit is correct */
-+	GEM_BUG_ON(before_fini_breadcrumb_user_interrupt_cs + NON_SKIP_LEN !=
-+		   cs);
-+	GEM_BUG_ON(start_fini_breadcrumb_cs +
-+		   ce->engine->emit_fini_breadcrumb_dw != cs);
-+
- 	rq->tail = intel_ring_offset(rq, cs);
- 
- 	return cs;
-@@ -4501,22 +4511,25 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
- 						u32 *cs)
- {
- 	struct intel_context *ce = rq->context;
-+	__maybe_unused u32 *before_fini_breadcrumb_user_interrupt_cs;
-+	__maybe_unused u32 *start_fini_breadcrumb_cs = cs;
- 
- 	GEM_BUG_ON(!intel_context_is_child(ce));
- 
- 	if (unlikely(skip_handshake(rq))) {
- 		/*
- 		 * NOP everything in __emit_fini_breadcrumb_child_no_preempt_mid_batch,
--		 * the -6 comes from the length of the emits below.
-+		 * the NON_SKIP_LEN comes from the length of the emits below.
- 		 */
- 		memset(cs, 0, sizeof(u32) *
--		       (ce->engine->emit_fini_breadcrumb_dw - 6));
--		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
-+		       (ce->engine->emit_fini_breadcrumb_dw - NON_SKIP_LEN));
-+		cs += ce->engine->emit_fini_breadcrumb_dw - NON_SKIP_LEN;
- 	} else {
- 		cs = __emit_fini_breadcrumb_child_no_preempt_mid_batch(rq, cs);
- 	}
- 
- 	/* Emit fini breadcrumb */
-+	before_fini_breadcrumb_user_interrupt_cs = cs;
- 	cs = gen8_emit_ggtt_write(cs,
- 				  rq->fence.seqno,
- 				  i915_request_active_timeline(rq)->hwsp_offset,
-@@ -4526,11 +4539,19 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
- 	*cs++ = MI_USER_INTERRUPT;
- 	*cs++ = MI_NOOP;
- 
-+	/* Ensure our math for skip + emit is correct */
-+	GEM_BUG_ON(before_fini_breadcrumb_user_interrupt_cs + NON_SKIP_LEN !=
-+		   cs);
-+	GEM_BUG_ON(start_fini_breadcrumb_cs +
-+		   ce->engine->emit_fini_breadcrumb_dw != cs);
-+
- 	rq->tail = intel_ring_offset(rq, cs);
- 
- 	return cs;
- }
- 
-+#undef NON_SKIP_LEN
-+
- static struct intel_context *
- guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 		   unsigned long flags)
+Matthew Brost (3):
+  drm/i915: Allocate intel_engine_coredump_alloc with ALLOW_FAIL
+  drm/i915/guc: Add work queue to trigger a GT reset
+  drm/i915/guc: Flush G2H handler during a GT reset
+
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  9 +++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 55 ++++++++++++-------
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
+ 3 files changed, 44 insertions(+), 22 deletions(-)
+
 -- 
 2.34.1
 
