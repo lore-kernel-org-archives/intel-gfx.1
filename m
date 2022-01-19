@@ -4,40 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56516C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 20:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D360C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 21:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E7110E209;
-	Wed, 19 Jan 2022 20:58:29 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4619110E203;
- Wed, 19 Jan 2022 20:58:28 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D4040B81BFB;
- Wed, 19 Jan 2022 20:58:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD93AC340E1;
- Wed, 19 Jan 2022 20:58:19 +0000 (UTC)
-Date: Wed, 19 Jan 2022 15:58:18 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Message-ID: <20220119155818.7ab45e0e@gandalf.local.home>
-In-Reply-To: <YehlEe1prbwhxZEv@smile.fi.intel.com>
-References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
- <20220119072450.2890107-2-lucas.demarchi@intel.com>
- <CAHp75Vf5QOD_UtDK8VbxNApEBuJvzUic0NkzDNmRo3Q7Ud+=qw@mail.gmail.com>
- <20220119100102.61f9bfde@gandalf.local.home>
- <06420a70f4434c2b8590cc89cad0dd6a@AcuMS.aculab.com>
- <9c26ca9bf75d494ea966059d9bcbc2b5@AcuMS.aculab.com>
- <YehlEe1prbwhxZEv@smile.fi.intel.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF8B10E201;
+	Wed, 19 Jan 2022 21:00:11 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 726FB10E19C;
+ Wed, 19 Jan 2022 21:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642626009; x=1674162009;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=7F9ORrUaQeTiy8qnjU6o+mCE4xM09P19XlwT3rwFuqE=;
+ b=lA6eL1zPPqTMEunPRs1QOtxCuzAmnjYyiypOn94XRD6EnzGxnavo4v5P
+ fszfBT+WRmFAprXSaqe22zfBNTdyXhtpIX26kAMfPYhFyiKyFycBJn+4p
+ AdMuzJBTOpH7ypYgdvmXA4vQcoVMV9dS7ulw5Wly3Q3fiCN1dHvJFI47J
+ XtXChy5WyPSQXhZDK+c65feRdv/Uif+fulxorwFJD9o5AVyGQURFyzH1+
+ VG4HwfO3RuVoHUUdLKs2qeFOg1Rsy8X92YkBgwA/fqzdu0chpf5FGKVdn
+ 95FjORNPyL7J+FbCJ38ZE2TSBVdgSBRNB6qAg1bnYDZm/cC6yF+C2hSu0 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="245146576"
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="245146576"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 12:59:52 -0800
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="693938234"
+Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
+ ([10.1.27.20])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 12:59:52 -0800
+Date: Wed, 19 Jan 2022 12:54:05 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: John Harrison <john.c.harrison@intel.com>
+Message-ID: <20220119205405.GA32440@jons-linux-dev-box>
+References: <20220118214357.33740-1-matthew.brost@intel.com>
+ <20220118214357.33740-3-matthew.brost@intel.com>
+ <50355add-0758-c4cc-df74-a6bb329ceb15@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 1/3] lib/string_helpers: Consolidate yesno()
- implementation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <50355add-0758-c4cc-df74-a6bb329ceb15@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915/guc: Add work queue to trigger
+ a GT reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,51 +60,123 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Raju Rangoju <rajur@chelsio.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Eryk Brol <eryk.brol@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- "linux-security-module@vger.kernel.org"
- <linux-security-module@vger.kernel.org>,
- David Laight <David.Laight@aculab.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S . Miller" <davem@davemloft.net>
+Cc: thomas.hellstrom@linux.intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 19 Jan 2022 21:22:57 +0200
-Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+On Tue, Jan 18, 2022 at 05:37:01PM -0800, John Harrison wrote:
+> On 1/18/2022 13:43, Matthew Brost wrote:
+> > The G2H handler needs to be flushed during a GT reset but a G2H
+> > indicating engine reset failure can trigger a GT reset. Add a worker to
+> > trigger the GT when a engine reset failure is received to break this
+> s/a/an/
+> 
 
-> On Wed, Jan 19, 2022 at 04:38:26PM +0000, David Laight wrote:
-> > > > > > +static inline const char *yesno(bool v) { return v ? "yes" : "no"; }  
-> > > 
-> > > 	return "yes\0no" + v * 4;
-> > > 
-> > > :-)  
+Yep.
+
+> > circular dependency.
 > > 
-> > except '"no\0\0yes" + v * 4' works a bit better.  
-> 
-> Is it a C code obfuscation contest?
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> >   drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  5 ++++
+> >   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 23 +++++++++++++++----
+> >   2 files changed, 24 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> > index 9d26a86fe557a..60ea8deef5392 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> > @@ -119,6 +119,11 @@ struct intel_guc {
+> >   		 * function as it might be in an atomic context (no sleeping)
+> >   		 */
+> >   		struct work_struct destroyed_worker;
+> > +		/**
+> > +		 * @reset_worker: worker to trigger a GT reset after an engine
+> > +		 * reset fails
+> > +		 */
+> > +		struct work_struct reset_worker;
+> >   	} submission_state;
+> >   	/**
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> > index 23a40f10d376d..cdd8d691251ff 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> > @@ -1746,6 +1746,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+> >   }
+> >   static void destroyed_worker_func(struct work_struct *w);
+> > +static void reset_worker_func(struct work_struct *w);
+> >   /*
+> >    * Set up the memory resources to be shared with the GuC (via the GGTT)
+> > @@ -1776,6 +1777,8 @@ int intel_guc_submission_init(struct intel_guc *guc)
+> >   	INIT_LIST_HEAD(&guc->submission_state.destroyed_contexts);
+> >   	INIT_WORK(&guc->submission_state.destroyed_worker,
+> >   		  destroyed_worker_func);
+> > +	INIT_WORK(&guc->submission_state.reset_worker,
+> > +		  reset_worker_func);
+> >   	guc->submission_state.guc_ids_bitmap =
+> >   		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
+> > @@ -4052,6 +4055,17 @@ guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance)
+> >   	return gt->engine_class[engine_class][instance];
+> >   }
+> > +static void reset_worker_func(struct work_struct *w)
+> > +{
+> > +	struct intel_guc *guc = container_of(w, struct intel_guc,
+> > +					     submission_state.reset_worker);
+> > +	struct intel_gt *gt = guc_to_gt(guc);
+> > +
+> > +	intel_gt_handle_error(gt, ALL_ENGINES,
+> > +			      I915_ERROR_CAPTURE,
+> > +			      "GuC failed to reset a engine\n");
+> s/a/an/
 > 
 
-	return '/'/'/';
+Yep.
 
--- Steve
+> > +}
+> > +
+> >   int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+> >   					 const u32 *msg, u32 len)
+> >   {
+> > @@ -4083,10 +4097,11 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+> >   	drm_err(&gt->i915->drm, "GuC engine reset request failed on %d:%d (%s) because 0x%08X",
+> >   		guc_class, instance, engine->name, reason);
+> > -	intel_gt_handle_error(gt, engine->mask,
+> > -			      I915_ERROR_CAPTURE,
+> > -			      "GuC failed to reset %s (reason=0x%08x)\n",
+> > -			      engine->name, reason);
+> The engine name and reason code are lost from the error capture? I guess we
+> still get it in the drm_err above, though. So probably not an issue. We
+> shouldn't be getting these from end users and any internal CI run is only
+> likely to give us the dmesg, not the error capture anyway! However, still
+
+That was my reasoning on the msg too.
+
+> seems like it is work saving engine->mask in the submission_state structure
+> (ORing in, in case there are multiple resets). Clearing it should be safe
+> because once a GT reset has happened, we aren't getting any more G2Hs. And
+> we can't have multiple message handlers running concurrently, right? So no
+> need to protect the OR either.
+> 
+
+I could do that but the engine->mask is really only used for the error
+capture with GuC submission as any i915 based reset with GuC submission
+is a GT reset. Going from engine->mask to ALL_ENGINES will just capture
+all engine state before doing a GT reset which probably isn't a bad
+thing, right?
+
+I can update the commit message explaining this if that helps.
+
+Matt 
+
+> John.
+> 
+> 
+> > +	/*
+> > +	 * A GT reset flushes this worker queue (G2H handler) so we must use
+> > +	 * another worker to trigger a GT reset.
+> > +	 */
+> > +	queue_work(system_unbound_wq, &guc->submission_state.reset_worker);
+> >   	return 0;
+> >   }
+> 
