@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96455C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 20:35:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C4A8C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 20:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6343A10E1AF;
-	Wed, 19 Jan 2022 20:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B7410E1C0;
+	Wed, 19 Jan 2022 20:35:48 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C809C10E177;
- Wed, 19 Jan 2022 20:35:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B63210E177;
+ Wed, 19 Jan 2022 20:35:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642624542; x=1674160542;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UF9yAX42tg1nrhEU9onAxfuRO6sv1k85eL8CU6KKcZE=;
- b=mbRK4FnV43FlmTZwueJo4nxhvg0AwOR6MKCZ8vf2eGRm6OdOBhWPU4TM
- 8taXkE4RlPLEnXYgIxui0JRMZFAMw1fDvDXL6fxH8Rf7seeJzse3T34IP
- Cd/I+HKodFQIU6HQd63sdE6KxbaRzWgtaDeqc0kr1kk7/sDepNHQXSSJB
- rc34Edo26L9+RPpoQsz/zXhu7ukp/f/KN6iEES6snmIrkQx7Ivp+wRABw
- h4OAY8roV89kld8w0gwKjht4kEFXhEcf5CmmbQxfvxQ2q/mpvC/vc7oat
- alcFyA7d/c++ZVZ0lQ1moKhVI+PHEGF2gStEIuQyCyXE248TnnZAPiy3O Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="245385330"
-X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="245385330"
+ t=1642624543; x=1674160543;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=lddCU8rFW3YNlxHR3xT7eMCRWM3EKACaWB7e0BadotY=;
+ b=gLx7S9o/jMjYSN0uKEPZen1y+7V+F4kgYHB21vU/+/kg90GH7k3sAD8W
+ XuFD2Ml2G5j/Dv4jLca0qC/A6LnmYoRPJ9MHqivy50G36idme53hawhm8
+ E6eMSC6N5UAfjDs/QlHdDwfw4wM/M794qpzu9adTehsZrq9aSMvxmb6Qx
+ bEKXGoxh20f9KMxrKSQnla7e0McfMtxfEe/G/V/LDmE+pHIGU3odMsE09
+ q54GIZesxqGHJDwuN/wwIY9KCBAyklSKMDwQcUG4N7HdjKvKTYXLGxGMA
+ VqD3P1xe33FF2KRooLeKT29q7KzA2oVqtjtpw5MO99ebN34S5TEz/qCjD Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="245385333"
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="245385333"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Jan 2022 12:35:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="561188542"
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="561188548"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga001.jf.intel.com with ESMTP; 19 Jan 2022 12:35:41 -0800
+ by orsmga001.jf.intel.com with ESMTP; 19 Jan 2022 12:35:42 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 19 Jan 2022 12:35:39 -0800
-Message-Id: <20220119203541.2410082-1-John.C.Harrison@Intel.com>
+Date: Wed, 19 Jan 2022 12:35:41 -0800
+Message-Id: <20220119203541.2410082-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220119203541.2410082-1-John.C.Harrison@Intel.com>
+References: <20220119203541.2410082-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/2] Add support for querying hw info that
- UMDs need
+Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/uapi: Add query for hwconfig
+ table
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +58,126 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Katarzyna Cencelewska <katarzyna.cencelewska@intel.com>,
- DRI-Devel@Lists.FreeDesktop.Org, Jason Ekstrand <jason.ekstrand@intel.com>
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>,
+ DRI-Devel@Lists.FreeDesktop.Org,
+ Slawomir Milczarek <slawomir.milczarek@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-Various UMDs require hardware configuration information about the
-current platform. A bunch of static information is available in a
-fixed table that can be retrieved from the GuC.
+GuC contains a consolidated table with a bunch of information about the
+current device.
 
-v2: Rebased to newer baseline and added a kerneldoc comment.
-v3: Rebased to newer baseline and newer GuC interface.
+Previously, this information was spread and hardcoded to all the components
+including GuC, i915 and various UMDs. The goal here is to consolidate
+the data into GuC in a way that all interested components can grab the
+very latest and synchronized information using a simple query.
 
-Test-with: 20220119200137.2364940-2-John.C.Harrison@Intel.com
-UMD: https://github.com/intel/compute-runtime/pull/432/files
-UMD: https://github.com/intel/media-driver/pull/1239/files
+As per most of the other queries, this one can be called twice.
+Once with item.length=0 to determine the exact buffer size, then
+allocate the user memory and call it again for to retrieve the
+table data. For example:
+  struct drm_i915_query_item item = {
+    .query_id = DRM_I915_QUERY_HWCONCFIG_TABLE;
+  };
+  query.items_ptr = (int64_t) &item;
+  query.num_items = 1;
 
-CC: Katarzyna Cencelewska <katarzyna.cencelewska@intel.com>
-CC: Tony Ye <tony.ye@intel.com>
-CC: Jason Ekstrand <jason.ekstrand@intel.com>
+  ioctl(fd, DRM_IOCTL_I915_QUERY, query, sizeof(query));
+
+  if (item.length <= 0)
+    return -ENOENT;
+
+  data = malloc(item.length);
+  item.data_ptr = (int64_t) &data;
+  ioctl(fd, DRM_IOCTL_I915_QUERY, query, sizeof(query));
+
+  // Parse the data as appropriate...
+
+The returned array is a simple and flexible KLV (Key/Length/Value)
+formatted table. For example, it could be just:
+  enum device_attr {
+     ATTR_SOME_VALUE = 0,
+     ATTR_SOME_MASK  = 1,
+  };
+
+  static const u32 hwconfig[] = {
+      ATTR_SOME_VALUE,
+      1,             // Value Length in DWords
+      8,             // Value
+
+      ATTR_SOME_MASK,
+      3,
+      0x00FFFFFFFF, 0xFFFFFFFF, 0xFF000000,
+  };
+
+The attribute ids are defined in a hardware spec.
+
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/i915_query.c | 23 +++++++++++++++++++++++
+ include/uapi/drm/i915_drm.h       |  1 +
+ 2 files changed, 24 insertions(+)
 
-
-John Harrison (1):
-  drm/i915/guc: Add fetch of hwconfig table
-
-Rodrigo Vivi (1):
-  drm/i915/uapi: Add query for hwconfig table
-
- drivers/gpu/drm/i915/Makefile                 |   1 +
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   1 +
- .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   |   4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   3 +
- .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.c   | 151 ++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.h   |  19 +++
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   6 +
- drivers/gpu/drm/i915/i915_query.c             |  23 +++
- include/uapi/drm/i915_drm.h                   |   1 +
- 9 files changed, 209 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.h
-
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index 2dfbc22857a3..609e64d5f395 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -479,12 +479,35 @@ static int query_memregion_info(struct drm_i915_private *i915,
+ 	return total_length;
+ }
+ 
++static int query_hwconfig_table(struct drm_i915_private *i915,
++				struct drm_i915_query_item *query_item)
++{
++	struct intel_gt *gt = to_gt(i915);
++	struct intel_guc_hwconfig *hwconfig = &gt->uc.guc.hwconfig;
++
++	if (!hwconfig->size || !hwconfig->ptr)
++		return -ENODEV;
++
++	if (query_item->length == 0)
++		return hwconfig->size;
++
++	if (query_item->length < hwconfig->size)
++		return -EINVAL;
++
++	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr),
++			 hwconfig->ptr, hwconfig->size))
++		return -EFAULT;
++
++	return hwconfig->size;
++}
++
+ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+ 					struct drm_i915_query_item *query_item) = {
+ 	query_topology_info,
+ 	query_engine_info,
+ 	query_perf_config,
+ 	query_memregion_info,
++	query_hwconfig_table,
+ };
+ 
+ int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 914ebd9290e5..132515199f27 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2685,6 +2685,7 @@ struct drm_i915_query_item {
+ #define DRM_I915_QUERY_ENGINE_INFO	2
+ #define DRM_I915_QUERY_PERF_CONFIG      3
+ #define DRM_I915_QUERY_MEMORY_REGIONS   4
++#define DRM_I915_QUERY_HWCONFIG_TABLE   5
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	/**
 -- 
 2.25.1
 
