@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71B33C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 19:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3A0C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 19:30:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D933910EDE7;
-	Wed, 19 Jan 2022 19:16:04 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88A2510EDE6
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 19:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642619763; x=1674155763;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qOvSgVcqM0zvCDjQiWwlLjoHIjXNBvlEZ7VlpT447dw=;
- b=bWNI91Kp+K6FMvy5gkupKy3VW07AW1KtAp8SiBK72VYDLttKW9u/xLL7
- kYRVvpSqrdmL2ErjmUMn/70870haD9SwtU02zJaSZhy2yJTn+sYMtW44O
- NCz0FcDI6caQTtCidxDUi7UoXokaj4UE1Omj4lpc29VyRdOArRN+kb07P
- 1PrXbx3a4HhQJWoFFR2zOrLAxeio/LIooiqYrxb5ximCbfhJSAEs7LpH/
- 86EVvOUWtuAvMdhJZpr7anW7cAxU6+V+Lb5vEnJb2uq1Z+798yCyDg5vw
- /CWAj5h/+kfKBTnfJqxB7YKqP2urC05dt6C0UlQ1d7OFCUEWWa40A83UH A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="244959742"
-X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="244959742"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 10:54:36 -0800
-X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="532429819"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 10:54:36 -0800
-Date: Wed, 19 Jan 2022 11:09:47 -0800
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20220119190942.GA20150@labuser-Z97X-UD5H>
-References: <20220119122150.12941-1-ville.syrjala@linux.intel.com>
- <87o847bvri.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3398F10EA2C;
+	Wed, 19 Jan 2022 19:30:04 +0000 (UTC)
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC3410E9D1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 19:30:02 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id i65so3182733pfc.9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 11:30:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zkE3gBX2/QfYoel4swoSHgs5kA+i+V9qePn15ui3sTI=;
+ b=kRiKuFyW7T5olELOo6g51MwWBpGPH9fTqQJSPb83Tt1J5T2FmicCgTbaXi+VOo0vwf
+ L+lx+mESopsZDWaobfTRNiknO+HJ8PcoOu56aAIOwrmGPIoJf4vCc8knWniqvGUcV9vw
+ NRgqL6ahwta5tLYMr6a3sKCs5TloVR8CYGrxDdeVHAk8gUop6HHmWdmSlXfCatN93r3x
+ xLpuVMHsRlDOwk82hslZcWjM7pK/r72ywSAuI7ZAiE/q+27flMdZC67dAsbAx4rw3//B
+ TPb2xI7BCUfTRYmhaJ+Adci5MCkpr2w6YYRLOm95GoC4cRRnQVDhwFjhlLVLXw2DfiAv
+ MTSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zkE3gBX2/QfYoel4swoSHgs5kA+i+V9qePn15ui3sTI=;
+ b=mLcts3/410ul0X8gBo7DkEV9eAKtZAD79yB67yJCpoStvjE9ZHcEBIMgd0Q5ND2QNN
+ e42jnnA7OIajaMPc+8J0Jf00PqiCkIuA/8rjg7G5pQ4xOB1Yv5DSLP8ziuUxIOdRDyJX
+ zz7ib6oOml6NJdU5D1YelNXRdR/WT4cdkDM15DEBN6MAnvg5iR9ioRAUDwL03PQIt4Vl
+ xglS056tlKcUTVcr6IlR0UVNzFrcKGSwqlJLkZAHfXpA8wXhdZeWS3aC84N019riILXD
+ EgbLSS44PrzL1qKg4mjpX83gURj64bymnadQj1mraD1NSvMe7vKNNxtHSyHybjJRK96p
+ HGjA==
+X-Gm-Message-State: AOAM531ctI6AL7tMtDsuPQpcekQh4Pecfj2UiMbuUKKU2+PZSaipspXB
+ bHGNwPEqf3ttRutSBir2KoZoZt7m8vQ=
+X-Google-Smtp-Source: ABdhPJz9CP6JlspuzcOubZ5F8ejK31AWikdLqsUBCJpIAdSr0aiQclDXs74h3MfBk2J3yF7h7zhxGQ==
+X-Received: by 2002:a62:75c1:0:b0:4be:9d1:1699 with SMTP id
+ q184-20020a6275c1000000b004be09d11699mr32192623pfc.37.1642620601587; 
+ Wed, 19 Jan 2022 11:30:01 -0800 (PST)
+Received: from gnu-tgl-3.localdomain ([172.58.35.133])
+ by smtp.gmail.com with ESMTPSA id nn1sm7082474pjb.16.2022.01.19.11.30.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Jan 2022 11:30:01 -0800 (PST)
+Received: from gnu-tgl-3.. (localhost [IPv6:::1])
+ by gnu-tgl-3.localdomain (Postfix) with ESMTP id DB36DC0195;
+ Wed, 19 Jan 2022 11:29:59 -0800 (PST)
+From: "H.J. Lu" <hjl.tools@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 19 Jan 2022 11:29:52 -0800
+Message-Id: <20220119192952.3829148-1-hjl.tools@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87o847bvri.fsf@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Nuke dg2_ddi_pre_enable_dp()
+Subject: [Intel-gfx] [PATCH v2] drm/i915/bios: Workaround broken video BIOS
+ in LG Gram 2021
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,199 +70,233 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: "H.J. Lu" <hjl.tools@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 19, 2022 at 05:17:05PM +0200, Jani Nikula wrote:
-> On Wed, 19 Jan 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >
-> > dg2_ddi_pre_enable_dp() has outlived its usefulness so eliminate
-> > it.
-> >
-> > The one thing that tgl_ddi_pre_enable_dp() is missing that we
-> > need is intel_ddi_config_transcoder_dp2(). So we'll bring that
-> > over.
-> >
-> > tgl_ddi_pre_enable_dp() does also have a few things that
-> > dg2_ddi_pre_enable_dp() didn't have:
-> > - icl_program_mg_dp_mode() -> nop due to intel_phy_is_tc()==false on DG2
-> > - intel_ddi_power_up_lanes() -> nop due to intel_phy_is_combo()==false on DG2
-> > - intel_ddi_mso_configure() -> only matters for MSO panels
-> >
-> > Another slight difference is that dg2_ddi_pre_enable_dp() was
-> > missing a bigjoiner check around intel_dsc_enable(), which
-> > tgl_ddi_pre_enable_dp() does have.
+LG Gram 2021 laptop 17Z95P-K.ADE9U1 OpRegion has
 
-Thanks Ville for this patch, I was just comparing differences between dg2_pre_enable_dp and tgl_pre_enable_dp
-in regards to a bug and there is totally no need for two functions with the checks you have here.
+FW size: 0x2200
+VBT size: 0x2000
+BDB offset: 0x30
+BDB size: 0x216e
 
-For the bigjoiner check aroind intel_dsc_enable(), I think the function intel_dsc_dp_pps_write(encoder, crtc_state);
-also needs to be moved into that check. 
-And then this functions needs to be called from icl_ddi_bigjoiner_pre_enable() where we call intel_dsc_enable
+Add intel_init_opregion_quirks to use FW size as VBT size on LG Gram
+17Z95P-K.ADE9U1 and update intel_bios_is_valid_vbt to use FW size,
+instead of VBT size if the quirk is applied, in range_overflows_t for
+BDB size overflow check.  This fixes:
 
-With that:
+https://gitlab.freedesktop.org/drm/intel/-/issues/4763
 
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: H.J. Lu <hjl.tools@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c     | 15 ++++---
+ drivers/gpu/drm/i915/display/intel_bios.h     |  3 +-
+ drivers/gpu/drm/i915/display/intel_opregion.c |  9 +++--
+ drivers/gpu/drm/i915/display/intel_quirks.c   | 40 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
+ drivers/gpu/drm/i915/i915_drv.h               |  1 +
+ 6 files changed, 59 insertions(+), 10 deletions(-)
 
-Manasi
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 7d04572dd18b..d6442ec2dc70 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2268,12 +2268,14 @@ static const struct bdb_header *get_bdb_header(const struct vbt_header *vbt)
+ 
+ /**
+  * intel_bios_is_valid_vbt - does the given buffer contain a valid VBT
++ * @dev_priv:	i915 device instance
+  * @buf:	pointer to a buffer to validate
+  * @size:	size of the buffer
+  *
+  * Returns true on valid VBT.
+  */
+-bool intel_bios_is_valid_vbt(const void *buf, size_t size)
++bool intel_bios_is_valid_vbt(struct drm_i915_private *dev_priv,
++			     const void *buf, size_t size)
+ {
+ 	const struct vbt_header *vbt = buf;
+ 	const struct bdb_header *bdb;
+@@ -2296,16 +2298,17 @@ bool intel_bios_is_valid_vbt(const void *buf, size_t size)
+ 		return false;
+ 	}
+ 
+-	size = vbt->vbt_size;
+-
+ 	if (range_overflows_t(size_t,
+ 			      vbt->bdb_offset,
+ 			      sizeof(struct bdb_header),
+-			      size)) {
++			      vbt->vbt_size)) {
+ 		DRM_DEBUG_DRIVER("BDB header incomplete\n");
+ 		return false;
+ 	}
+ 
++	if (!(dev_priv->quirks & QUIRK_USE_FW_SIZE_AS_VBT_SIZE))
++		size = vbt->vbt_size;
++
+ 	bdb = get_bdb_header(vbt);
+ 	if (range_overflows_t(size_t, vbt->bdb_offset, bdb->bdb_size, size)) {
+ 		DRM_DEBUG_DRIVER("BDB incomplete\n");
+@@ -2359,7 +2362,7 @@ static struct vbt_header *spi_oprom_get_vbt(struct drm_i915_private *i915)
+ 		*(vbt + store++) = data;
+ 	}
+ 
+-	if (!intel_bios_is_valid_vbt(vbt, vbt_size))
++	if (!intel_bios_is_valid_vbt(i915, vbt, vbt_size))
+ 		goto err_free_vbt;
+ 
+ 	drm_dbg_kms(&i915->drm, "Found valid VBT in SPI flash\n");
+@@ -2416,7 +2419,7 @@ static struct vbt_header *oprom_get_vbt(struct drm_i915_private *i915)
+ 
+ 	memcpy_fromio(vbt, p, vbt_size);
+ 
+-	if (!intel_bios_is_valid_vbt(vbt, vbt_size))
++	if (!intel_bios_is_valid_vbt(i915, vbt, vbt_size))
+ 		goto err_free_vbt;
+ 
+ 	pci_unmap_rom(pdev, oprom);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index 4709c4d29805..368ee87390e7 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -231,7 +231,8 @@ struct mipi_pps_data {
+ 
+ void intel_bios_init(struct drm_i915_private *dev_priv);
+ void intel_bios_driver_remove(struct drm_i915_private *dev_priv);
+-bool intel_bios_is_valid_vbt(const void *buf, size_t size);
++bool intel_bios_is_valid_vbt(struct drm_i915_private *dev_priv,
++			     const void *buf, size_t size);
+ bool intel_bios_is_tv_present(struct drm_i915_private *dev_priv);
+ bool intel_bios_is_lvds_present(struct drm_i915_private *dev_priv, u8 *i2c_pin);
+ bool intel_bios_is_port_present(struct drm_i915_private *dev_priv, enum port port);
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+index af9d30f56cc1..7a9b4d72d18c 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.c
++++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+@@ -36,6 +36,7 @@
+ #include "intel_display_types.h"
+ #include "intel_opregion.h"
+ #include "intel_pci_config.h"
++#include "intel_quirks.h"
+ 
+ #define OPREGION_HEADER_OFFSET 0
+ #define OPREGION_ACPI_OFFSET   0x100
+@@ -817,7 +818,7 @@ static int intel_load_vbt_firmware(struct drm_i915_private *dev_priv)
+ 		return ret;
+ 	}
+ 
+-	if (intel_bios_is_valid_vbt(fw->data, fw->size)) {
++	if (intel_bios_is_valid_vbt(dev_priv, fw->data, fw->size)) {
+ 		opregion->vbt_firmware = kmemdup(fw->data, fw->size, GFP_KERNEL);
+ 		if (opregion->vbt_firmware) {
+ 			drm_dbg_kms(&dev_priv->drm,
+@@ -922,6 +923,8 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ 	if (dmi_check_system(intel_no_opregion_vbt))
+ 		goto out;
+ 
++	intel_init_opregion_quirks(dev_priv);
++
+ 	if (opregion->header->over.major >= 2 && opregion->asle &&
+ 	    opregion->asle->rvda && opregion->asle->rvds) {
+ 		resource_size_t rvda = opregion->asle->rvda;
+@@ -944,7 +947,7 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ 
+ 		vbt = opregion->rvda;
+ 		vbt_size = opregion->asle->rvds;
+-		if (intel_bios_is_valid_vbt(vbt, vbt_size)) {
++		if (intel_bios_is_valid_vbt(dev_priv, vbt, vbt_size)) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Found valid VBT in ACPI OpRegion (RVDA)\n");
+ 			opregion->vbt = vbt;
+@@ -969,7 +972,7 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ 	vbt_size = (mboxes & MBOX_ASLE_EXT) ?
+ 		OPREGION_ASLE_EXT_OFFSET : OPREGION_SIZE;
+ 	vbt_size -= OPREGION_VBT_OFFSET;
+-	if (intel_bios_is_valid_vbt(vbt, vbt_size)) {
++	if (intel_bios_is_valid_vbt(dev_priv, vbt, vbt_size)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Found valid VBT in ACPI OpRegion (Mailbox #4)\n");
+ 		opregion->vbt = vbt;
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index c8488f5ebd04..c2604e8b5353 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -133,6 +133,36 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 	},
+ };
+ 
++static void quirk_opregion_use_fw_size_as_vbt_size(struct drm_i915_private *i915)
++{
++	i915->quirks |= QUIRK_USE_FW_SIZE_AS_VBT_SIZE;
++	drm_info(&i915->drm, "Applying FW size as VBT size quirk in OpRegion\n");
++}
++
++static int intel_dmi_opregion_use_fw_size_as_vbt_size(const struct dmi_system_id *id)
++{
++	DRM_INFO("Use FW size as VBT size on %s in OpRegion\n", id->ident);
++	return 1;
++}
++
++static const struct intel_dmi_quirk intel_dmi_opregion_quirks[] = {
++	{
++		.dmi_id_list = &(const struct dmi_system_id[]) {
++			{
++				.callback = intel_dmi_opregion_use_fw_size_as_vbt_size,
++				.ident = "LG Gram 17Z95P-K.ADE9U1",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "17Z95P-K.ADE9U1"),
++					    DMI_EXACT_MATCH(DMI_BIOS_VERSION, "T4ZF0040 X64"),
++					    DMI_EXACT_MATCH(DMI_BIOS_DATE, "10/06/2021"),
++				},
++			},
++			{ }
++		},
++		.hook = quirk_opregion_use_fw_size_as_vbt_size,
++	},
++};
++
+ static struct intel_quirk intel_quirks[] = {
+ 	/* Lenovo U160 cannot use SSC on LVDS */
+ 	{ 0x0046, 0x17aa, 0x3920, quirk_ssc_force_disable },
+@@ -213,3 +243,13 @@ void intel_init_quirks(struct drm_i915_private *i915)
+ 			intel_dmi_quirks[i].hook(i915);
+ 	}
+ }
++
++void intel_init_opregion_quirks(struct drm_i915_private *i915)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(intel_dmi_opregion_quirks); i++) {
++		if (dmi_check_system(*intel_dmi_opregion_quirks[i].dmi_id_list) != 0)
++			intel_dmi_opregion_quirks[i].hook(i915);
++	}
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index b0fcff142a56..3a6a84e0d502 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -9,5 +9,6 @@
+ struct drm_i915_private;
+ 
+ void intel_init_quirks(struct drm_i915_private *dev_priv);
++void intel_init_opregion_quirks(struct drm_i915_private *dev_priv);
+ 
+ #endif /* __INTEL_QUIRKS_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 890f1f6fbc49..6bd84964e989 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -403,6 +403,7 @@ struct i915_drrs {
+ #define QUIRK_INCREASE_T12_DELAY (1<<6)
+ #define QUIRK_INCREASE_DDI_DISABLED_TIME (1<<7)
+ #define QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK (1<<8)
++#define QUIRK_USE_FW_SIZE_AS_VBT_SIZE (1 << 9)
+ 
+ struct intel_fbdev;
+ 
+-- 
+2.34.1
 
-> 
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> 
-> The modeset step bspec references could use a cleanup too. If they
-> aren't stable number&letter combos for *one* platform, let alone many,
-> we should probably just remove them.
-> 
-> >
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_ddi.c | 117 +----------------------
-> >  1 file changed, 4 insertions(+), 113 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > index 4e93eac926a5..2f20abc5122d 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > @@ -2289,116 +2289,6 @@ static void intel_ddi_mso_configure(const struct intel_crtc_state *crtc_state)
-> >  		     OVERLAP_PIXELS_MASK, dss1);
-> >  }
-> >  
-> > -static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
-> > -				  struct intel_encoder *encoder,
-> > -				  const struct intel_crtc_state *crtc_state,
-> > -				  const struct drm_connector_state *conn_state)
-> > -{
-> > -	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-> > -	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-> > -	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-> > -	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
-> > -
-> > -	intel_dp_set_link_params(intel_dp, crtc_state->port_clock,
-> > -				 crtc_state->lane_count);
-> > -
-> > -	/*
-> > -	 * We only configure what the register value will be here.  Actual
-> > -	 * enabling happens during link training farther down.
-> > -	 */
-> > -	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
-> > -
-> > -	/*
-> > -	 * 1. Enable Power Wells
-> > -	 *
-> > -	 * This was handled at the beginning of intel_atomic_commit_tail(),
-> > -	 * before we called down into this function.
-> > -	 */
-> > -
-> > -	/* 2. Enable Panel Power if PPS is required */
-> > -	intel_pps_on(intel_dp);
-> > -
-> > -	/*
-> > -	 * 3. Enable the port PLL.
-> > -	 */
-> > -	intel_ddi_enable_clock(encoder, crtc_state);
-> > -
-> > -	/* 4. Enable IO power */
-> > -	if (!intel_tc_port_in_tbt_alt_mode(dig_port))
-> > -		dig_port->ddi_io_wakeref = intel_display_power_get(dev_priv,
-> > -								   dig_port->ddi_io_power_domain);
-> > -
-> > -	/*
-> > -	 * 5. The rest of the below are substeps under the bspec's "Enable and
-> > -	 * Train Display Port" step.  Note that steps that are specific to
-> > -	 * MST will be handled by intel_mst_pre_enable_dp() before/after it
-> > -	 * calls into this function.  Also intel_mst_pre_enable_dp() only calls
-> > -	 * us when active_mst_links==0, so any steps designated for "single
-> > -	 * stream or multi-stream master transcoder" can just be performed
-> > -	 * unconditionally here.
-> > -	 */
-> > -
-> > -	/*
-> > -	 * 5.a Configure Transcoder Clock Select to direct the Port clock to the
-> > -	 * Transcoder.
-> > -	 */
-> > -	intel_ddi_enable_pipe_clock(encoder, crtc_state);
-> > -
-> > -	/* 5.b Configure transcoder for DP 2.0 128b/132b */
-> > -	intel_ddi_config_transcoder_dp2(encoder, crtc_state);
-> > -
-> > -	/*
-> > -	 * 5.c Configure TRANS_DDI_FUNC_CTL DDI Select, DDI Mode Select & MST
-> > -	 * Transport Select
-> > -	 */
-> > -	intel_ddi_config_transcoder_func(encoder, crtc_state);
-> > -
-> > -	/*
-> > -	 * 5.d Configure & enable DP_TP_CTL with link training pattern 1
-> > -	 * selected
-> > -	 *
-> > -	 * This will be handled by the intel_dp_start_link_train() farther
-> > -	 * down this function.
-> > -	 */
-> > -
-> > -	/* 5.e Configure voltage swing and related IO settings */
-> > -	encoder->set_signal_levels(encoder, crtc_state);
-> > -
-> > -	if (!is_mst)
-> > -		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
-> > -
-> > -	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
-> > -	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
-> > -	/*
-> > -	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
-> > -	 * in the FEC_CONFIGURATION register to 1 before initiating link
-> > -	 * training
-> > -	 */
-> > -	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
-> > -	intel_dp_check_frl_training(intel_dp);
-> > -	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
-> > -
-> > -	/*
-> > -	 * 5.h Follow DisplayPort specification training sequence (see notes for
-> > -	 *     failure handling)
-> > -	 * 5.i If DisplayPort multi-stream - Set DP_TP_CTL link training to Idle
-> > -	 *     Pattern, wait for 5 idle patterns (DP_TP_STATUS Min_Idles_Sent)
-> > -	 *     (timeout after 800 us)
-> > -	 */
-> > -	intel_dp_start_link_train(intel_dp, crtc_state);
-> > -
-> > -	/* 5.j Set DP_TP_CTL link training to Normal */
-> > -	if (!is_trans_port_sync_mode(crtc_state))
-> > -		intel_dp_stop_link_train(intel_dp, crtc_state);
-> > -
-> > -	/* 5.k Configure and enable FEC if needed */
-> > -	intel_ddi_enable_fec(encoder, crtc_state);
-> > -
-> > -	intel_dsc_dp_pps_write(encoder, crtc_state);
-> > -
-> > -	intel_dsc_enable(crtc_state);
-> > -}
-> > -
-> >  static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
-> >  				  struct intel_encoder *encoder,
-> >  				  const struct intel_crtc_state *crtc_state,
-> > @@ -2472,6 +2362,9 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
-> >  	 */
-> >  	intel_ddi_enable_pipe_clock(encoder, crtc_state);
-> >  
-> > +	if (HAS_DP20(dev_priv))
-> > +		intel_ddi_config_transcoder_dp2(encoder, crtc_state);
-> > +
-> >  	/*
-> >  	 * 7.b Configure TRANS_DDI_FUNC_CTL DDI Select, DDI Mode Select & MST
-> >  	 * Transport Select
-> > @@ -2612,9 +2505,7 @@ static void intel_ddi_pre_enable_dp(struct intel_atomic_state *state,
-> >  {
-> >  	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-> >  
-> > -	if (IS_DG2(dev_priv))
-> > -		dg2_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
-> > -	else if (DISPLAY_VER(dev_priv) >= 12)
-> > +	if (DISPLAY_VER(dev_priv) >= 12)
-> >  		tgl_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
-> >  	else
-> >  		hsw_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
-> 
-> -- 
-> Jani Nikula, Intel Open Source Graphics Center
