@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6859BC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 18:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75268C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 18:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C4F10EC91;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E623F10ECFA;
 	Thu, 20 Jan 2022 18:42:46 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB83F10EC67;
- Thu, 20 Jan 2022 18:42:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5574410EC67;
+ Thu, 20 Jan 2022 18:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642704164; x=1674240164;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=yjQuO4qTReRDJOqLGvX4UXpCi5SqZcuUsAFvblxtyus=;
- b=Ux7vgNHYrwrOUyexyuMPmbWIJSrH9QJUdiykjy3pHnmwKiDO3nJKMzZx
- SFwha+sn2mbdtSo+HEwqHg9b8XDfAf11OTOxSj6MjI9IO51yF5ciH7cRo
- q84a1whiwp0l/iwwW0ug4gTwQIQkFvIw8y+jzV5LbPVIXQ9iby5VtRbHL
- Lu/H6StcHfR+jmhY1mBN4kayrecHfpfxN5Yt3P28k2+WTFAdSSwrNudYN
- kSZGTasIFGoJchPPeB0U7A/3nYxUp1YlRGvj0Pz+hyfc1OhmtIc7UuY8y
- YYEJihVyi1YzCEwgq9XoFe2I+t1T26bn+PfjuuYVAJr1itYGg5nM/aevG g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="245220042"
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="245220042"
+ t=1642704165; x=1674240165;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=G0SjvEPz9Yi1Ks09ajSxEJXu0p1pV6Y1ejfsZNZjrl4=;
+ b=jF8vBeJNbFnWZvwnmHxKr3miDr8XM9BB879Pjiej3TqNnIL1ql6Hb82r
+ vrNWv2wN+PBCU6ZBdpCrGb4USUrJqQe3DtTguM199tjxIIi5U8HAcInCh
+ ypf4Vtmr0B4oLKLS91Q0+Kg1lCpBtJI9gzbhpenngHd6R1sToeocg3Cf7
+ /nLJ1kA2NC/gkqUFWrYZc5zgumSjhpWpWam/6qbPZh8wyH6IettMpilWm
+ ycYPySKpvwzu2YMmVY3wz06GAxrIU5FXOEJEi2orl1p/iqGe2MbhyQuBo
+ VW1gWpKzgBchQ0w9dkkUJW2zDiqNSzX38dtpwdiZyHu/oIUwoMFPsrkVC g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="245220044"
+X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="245220044"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jan 2022 10:42:44 -0800
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="626416200"
+X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="626416208"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 10:42:43 -0800
+ 20 Jan 2022 10:42:44 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 20 Jan 2022 10:36:53 -0800
-Message-Id: <20220120183655.3228-1-matthew.brost@intel.com>
+Date: Thu, 20 Jan 2022 10:36:55 -0800
+Message-Id: <20220120183655.3228-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220120183655.3228-1-matthew.brost@intel.com>
+References: <20220120183655.3228-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] A few CT updates
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/guc: Print CT descriptor status in
+ CT debug function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,17 +60,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A couple of minor CT updates. 1 for performance, 1 for extra debug.
+Noticed that the CT descriptor status was not printed in the CT debug
+function, add that in.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Matthew Brost (2):
-  drm/i915/guc: Don't check CT descriptor status before CT write / read
-  drm/i915/guc: Print CT descriptor status in CT debug function
-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 948cf31429412..5df2e3413796e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -1219,10 +1219,14 @@ void intel_guc_ct_print_info(struct intel_guc_ct *ct,
+ 		   ct->ctbs.send.desc->head);
+ 	drm_printf(p, "Tail: %u\n",
+ 		   ct->ctbs.send.desc->tail);
++	drm_printf(p, "Status: %u\n",
++		   ct->ctbs.send.desc->status);
+ 	drm_printf(p, "G2H Space: %u\n",
+ 		   atomic_read(&ct->ctbs.recv.space) * 4);
+ 	drm_printf(p, "Head: %u\n",
+ 		   ct->ctbs.recv.desc->head);
+ 	drm_printf(p, "Tail: %u\n",
+ 		   ct->ctbs.recv.desc->tail);
++	drm_printf(p, "Status: %u\n",
++		   ct->ctbs.recv.desc->status);
+ }
 -- 
 2.34.1
 
