@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68139C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 06:32:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AF3C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 06:38:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5EB610E600;
-	Thu, 20 Jan 2022 06:32:30 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC0A310E600
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 06:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4446C10E33F;
+	Thu, 20 Jan 2022 06:38:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 490ED10E33F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 06:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642660348; x=1674196348;
- h=message-id:subject:from:to:date:in-reply-to:references:
- mime-version; bh=FuTxJjDatYHfj8gYkJ6MZQd6EFwQKKWw5XL+f8bCZU8=;
- b=MKaRqNanhHOlm8GtLMcG+Dki1X3Ps1CcyXJphbPI7Rr3zhywp8l7zgj9
- hw7hLtkj86E8zIPZ27cJH+rUdSG6ymLB8ZIgw0S9vPll3dwyaqKRIlR/+
- G8ch2sjNxWL5+t0x8nO6mIxN7/zmbysGeu3p6Oj2LbnquD8Gc2EvnE03p
- iECslKfzugFVvSF8f/1YKammbmPbx+vcSRLmwyuxlQiMydTfW6Lg76EGV
- BSZRd/X/DRhLw4wj91oSXJODT5CulUo130FL38Pw+tyzLEZS0DX6youxQ
- 8V0mBpkEQ9y9w0nR4Q09RiUYOG6wOvruNO/fe0/FFogtzMv+fzU9vG57g w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10232"; a="242844922"
-X-IronPort-AV: E=Sophos;i="5.88,301,1635231600"; 
- d="scan'208,217";a="242844922"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 22:32:05 -0800
-X-IronPort-AV: E=Sophos;i="5.88,301,1635231600"; 
- d="scan'208,217";a="672439660"
-Received: from cmathias-mobl1.ger.corp.intel.com (HELO [10.249.254.225])
- ([10.249.254.225])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 22:32:04 -0800
-Message-ID: <667ba27fbe28de9e5632a7617a1e37a260f0d356.camel@linux.intel.com>
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+ t=1642660718; x=1674196718;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=kyIqCD97Yneg8QBdCnuLPCpmFfpCE8UYh1ENbJHbMaA=;
+ b=TbZy7byZK15eB1JUFA1m3tW7VWiAuDKjGRPq8ANDmSo3blzaI0l4VF+3
+ O0PRfmxdSmrvzyido5VFfVDiOo92Stg9FgLgGpgir5bP9JGTDEVGoSssZ
+ FO7IW3ECBEOc5DLjY9heQMLvo9vmhhUr+X67nAK8IOQnQe/+22agRp3UC
+ CDTSz/BuGaj+OJEdpWCdh8XbRb/DZuRUqqe4BCSTMSsU+WIY7WeF/JNlR
+ ujmU2rPJ3Xfsvznfvf2YGKS27F+sXtVOmHiw5pnS00GLfIA7sZcwnbLYT
+ OZFlr7u0o+imDKvnAVhVs1m2PmeyuzFmoLnFAm94MeZ0Ua3t9rwuSZA3X A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10232"; a="306016189"
+X-IronPort-AV: E=Sophos;i="5.88,301,1635231600"; d="scan'208";a="306016189"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 22:38:37 -0800
+X-IronPort-AV: E=Sophos;i="5.88,301,1635231600"; d="scan'208";a="530898178"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 22:38:36 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Jan 2022 07:32:01 +0100
-In-Reply-To: <164264298299.22531.1826661941114637392@emeril.freedesktop.org>
-References: <20220119174734.213552-1-thomas.hellstrom@linux.intel.com>
- <164264298299.22531.1826661941114637392@emeril.freedesktop.org>
-Content-Type: multipart/alternative; boundary="=-/4e+FtV2WWQz/AxJoZ/3"
-User-Agent: Evolution 3.40.4 (3.40.4-2.fc34) 
+Date: Wed, 19 Jan 2022 22:38:09 -0800
+Message-Id: <20220120063809.1020633-7-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220120063809.1020633-1-matthew.d.roper@intel.com>
+References: <20220120063809.1020633-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLklHVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Fix_vma_resource_freeing_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915: Only include i915_reg.h from .c
+ files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,82 +56,787 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Several of our i915 header files, have been including i915_reg.h.  This
+means that any change to i915_reg.h will trigger a full rebuild of
+pretty much every file of the driver, even those that don't have any
+kind of register access.  Let's delete the i915_reg.h include from all
+headers and include an explicit include from the .c files that truly
+need the register definitions; those that need a definition of
+i915_reg_t for a function definition can get it from i915_reg_defs.h
+instead.
 
---=-/4e+FtV2WWQz/AxJoZ/3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+We also remove two non-register #define's (VLV_DISPLAY_BASE and
+GEN12_SFC_DONE_MAX) into i915_reg_defs.h to allow us to drop the
+i915_reg.h include from a couple of headers.
 
-On Thu, 2022-01-20 at 01:43 +0000, Patchwork wrote:
-> Patch Details
-> Series:drm/i915: Fix vma resource freeing
-> (rev2)URL:https://patchwork.freedesktop.org/series/99055/State:failur
-> e
-> Details:https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22029/index.html
-> CI Bug Log - changes from CI_DRM_11110_full -> Patchwork_22029_fullSummaryFAILURE
-> Serious unknown changes coming with Patchwork_22029_full absolutely
-> need to be
-> verified manually.
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_22029_full, please notify your bug team to
-> allow them
-> to document this new failure mode, which will reduce false positives
-> in CI.
-> Participating hosts (10 -> 10)No changes in participating hosts
-> Possible new issuesHere are the unknown changes that may have been introduced in
-> Patchwork_22029_full:
-> IGT changesPossible regressions * igt@gem_ctx_isolation@preservation-s3@vecs0:shard-skl: PASS ->
->    INCOMPLETE
-> Known issues
+There's probably a lot more header dependency optimization possible, but
+the changes here roughly cut the number of files compiled after 'touch
+i915_reg.h' in half --- a good first step.
 
-Unrelated failure.
+Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/g4x_hdmi.h               | 2 +-
+ drivers/gpu/drm/i915/display/intel_atomic.c           | 1 +
+ drivers/gpu/drm/i915/display/intel_bios.c             | 1 +
+ drivers/gpu/drm/i915/display/intel_bw.c               | 1 +
+ drivers/gpu/drm/i915/display/intel_crt.h              | 2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.h              | 2 +-
+ drivers/gpu/drm/i915/display/intel_de.h               | 1 -
+ drivers/gpu/drm/i915/display/intel_display_power.h    | 1 -
+ drivers/gpu/drm/i915/display/intel_dmc.h              | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp.h               | 2 --
+ drivers/gpu/drm/i915/display/intel_dsb.h              | 2 +-
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c          | 1 +
+ drivers/gpu/drm/i915/display/intel_dvo_dev.h          | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.h             | 2 --
+ drivers/gpu/drm/i915/display/intel_lvds.h             | 2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.h             | 2 +-
+ drivers/gpu/drm/i915/display/intel_tc.c               | 1 +
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c            | 1 +
+ drivers/gpu/drm/i915/gem/i915_gem_tiling.c            | 1 +
+ drivers/gpu/drm/i915/gt/gen2_engine_cs.c              | 1 +
+ drivers/gpu/drm/i915/gt/intel_engine.h                | 1 -
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c          | 1 +
+ drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c        | 1 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c         | 1 +
+ drivers/gpu/drm/i915/gt/intel_llc.c                   | 1 +
+ drivers/gpu/drm/i915/gt/intel_rc6.c                   | 1 +
+ drivers/gpu/drm/i915/gt/intel_rc6.h                   | 2 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c           | 1 +
+ drivers/gpu/drm/i915/gt/intel_workarounds_types.h     | 2 +-
+ drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h | 1 -
+ drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h            | 2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c           | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_huc.h                | 2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c              | 1 +
+ drivers/gpu/drm/i915/gvt/aperture_gm.c                | 1 +
+ drivers/gpu/drm/i915/gvt/display.c                    | 1 +
+ drivers/gpu/drm/i915/gvt/dmabuf.c                     | 1 +
+ drivers/gpu/drm/i915/gvt/edid.c                       | 1 +
+ drivers/gpu/drm/i915/gvt/fb_decoder.c                 | 1 +
+ drivers/gpu/drm/i915/gvt/handlers.c                   | 1 +
+ drivers/gpu/drm/i915/gvt/interrupt.c                  | 1 +
+ drivers/gpu/drm/i915/gvt/interrupt.h                  | 2 +-
+ drivers/gpu/drm/i915/gvt/mmio.c                       | 1 +
+ drivers/gpu/drm/i915/gvt/mmio_context.h               | 1 -
+ drivers/gpu/drm/i915/i915_cmd_parser.c                | 1 +
+ drivers/gpu/drm/i915/i915_drv.h                       | 1 -
+ drivers/gpu/drm/i915/i915_pci.c                       | 1 +
+ drivers/gpu/drm/i915/i915_perf_types.h                | 2 +-
+ drivers/gpu/drm/i915/i915_reg.h                       | 3 ---
+ drivers/gpu/drm/i915/i915_reg_defs.h                  | 4 ++++
+ drivers/gpu/drm/i915/intel_dram.c                     | 1 +
+ drivers/gpu/drm/i915/intel_pcode.c                    | 1 +
+ drivers/gpu/drm/i915/intel_pm.h                       | 1 -
+ drivers/gpu/drm/i915/intel_sbi.c                      | 1 +
+ drivers/gpu/drm/i915/intel_uncore.h                   | 2 +-
+ drivers/gpu/drm/i915/vlv_sideband.c                   | 1 +
+ 56 files changed, 49 insertions(+), 29 deletions(-)
 
-/Thomas
-
-
-
---=-/4e+FtV2WWQz/AxJoZ/3
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html><head>
- =20
-  <title>Project List - Patchwork</title>
-  <style id=3D"css-table-select" type=3D"text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body><div>On Thu, 2022-01-20 at 01:43 +0000, Patchwork wrote:</div><blockq=
-uote type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf soli=
-d;padding-left:1ex"><div><b>Patch Details</b></div><div><table><tbody><tr><=
-td><b>Series:</b></td><td>drm/i915: Fix vma resource freeing (rev2)</td></t=
-r><tr><td><b>URL:</b></td><td><a href=3D"https://patchwork.freedesktop.org/=
-series/99055/">https://patchwork.freedesktop.org/series/99055/</a></td></tr=
-><tr><td><b>State:</b></td><td>failure</td></tr> <tr><td><b>Details:</b></t=
-d><td><a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22029/i=
-ndex.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22029/index.h=
-tml</a></td></tr></tbody></table> </div><h1>CI Bug Log - changes from CI_DR=
-M_11110_full -&gt; Patchwork_22029_full</h1><h2>Summary</h2><p><strong>FAIL=
-URE</strong></p><p>Serious unknown changes coming with Patchwork_22029_full=
- absolutely need to be<br> verified manually.</p><p>If you think the report=
-ed changes have nothing to do with the changes<br> introduced in Patchwork_=
-22029_full, please notify your bug team to allow them<br> to document this =
-new failure mode, which will reduce false positives in CI.</p><h2>Participa=
-ting hosts (10 -&gt; 10)</h2><p>No changes in participating hosts</p><h2>Po=
-ssible new issues</h2><p>Here are the unknown changes that may have been in=
-troduced in Patchwork_22029_full:</p><h3>IGT changes</h3><h4>Possible regre=
-ssions</h4><ul><li>igt@gem_ctx_isolation@preservation-s3@vecs0:<ul><li>shar=
-d-skl: <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11110/sha=
-rd-skl8/igt@gem_ctx_isolation@preservation-s3@vecs0.html">PASS</a> -&gt; <a=
- href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22029/shard-skl=
-6/igt@gem_ctx_isolation@preservation-s3@vecs0.html">INCOMPLETE</a></li></ul=
-></li></ul><h2>Known issues</h2></blockquote><div><br></div><div>Unrelated =
-failure.</div><div><br></div><div>/Thomas</div><div><br></div><blockquote t=
-ype=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;padd=
-ing-left:1ex"></blockquote><div><br></div><div><span></span></div></body></=
-html>
-
---=-/4e+FtV2WWQz/AxJoZ/3--
+diff --git a/drivers/gpu/drm/i915/display/g4x_hdmi.h b/drivers/gpu/drm/i915/display/g4x_hdmi.h
+index 7aca14b602c6..db9a93bc9321 100644
+--- a/drivers/gpu/drm/i915/display/g4x_hdmi.h
++++ b/drivers/gpu/drm/i915/display/g4x_hdmi.h
+@@ -8,7 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ enum port;
+ struct drm_i915_private;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index 1080741d1561..093904065112 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -35,6 +35,7 @@
+ #include <drm/drm_plane_helper.h>
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_atomic.h"
+ #include "intel_cdclk.h"
+ #include "intel_display_types.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 7d04572dd18b..a0b818b127df 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -32,6 +32,7 @@
+ #include "display/intel_gmbus.h"
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ 
+ #define _INTEL_BIOS_PRIVATE
+ #include "intel_vbt_defs.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index c35bad21b657..5dce3cf0ed12 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -5,6 +5,7 @@
+ 
+ #include <drm/drm_atomic_state_helper.h>
+ 
++#include "i915_reg.h"
+ #include "intel_atomic.h"
+ #include "intel_bw.h"
+ #include "intel_cdclk.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_crt.h b/drivers/gpu/drm/i915/display/intel_crt.h
+index 6c5c44600cbd..c6071efd93ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_crt.h
++++ b/drivers/gpu/drm/i915/display/intel_crt.h
+@@ -6,7 +6,7 @@
+ #ifndef __INTEL_CRT_H__
+ #define __INTEL_CRT_H__
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ enum pipe;
+ struct drm_encoder;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
+index c2fea6562917..d39076facdce 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.h
++++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+@@ -6,7 +6,7 @@
+ #ifndef __INTEL_DDI_H__
+ #define __INTEL_DDI_H__
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct drm_connector_state;
+ struct drm_i915_private;
+diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
+index 9d8c177aa228..9c104f65e4c8 100644
+--- a/drivers/gpu/drm/i915/display/intel_de.h
++++ b/drivers/gpu/drm/i915/display/intel_de.h
+@@ -7,7 +7,6 @@
+ #define __INTEL_DE_H__
+ 
+ #include "i915_drv.h"
+-#include "i915_reg.h"
+ #include "i915_trace.h"
+ #include "intel_uncore.h"
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+index 686d18eaa24c..930be3a0f8ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+@@ -7,7 +7,6 @@
+ #define __INTEL_DISPLAY_POWER_H__
+ 
+ #include "intel_runtime_pm.h"
+-#include "i915_reg.h"
+ 
+ enum dpio_channel;
+ enum dpio_phy;
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
+index b20f3441ca60..7c590309a3a9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc.h
+@@ -6,7 +6,7 @@
+ #ifndef __INTEL_DMC_H__
+ #define __INTEL_DMC_H__
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ #include "intel_wakeref.h"
+ #include <linux/workqueue.h>
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index b64145a3869a..d457e17bdc57 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -8,8 +8,6 @@
+ 
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
+-
+ enum intel_output_format;
+ enum pipe;
+ enum port;
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.h b/drivers/gpu/drm/i915/display/intel_dsb.h
+index 654a11f24b80..6cb9c580cdca 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.h
++++ b/drivers/gpu/drm/i915/display/intel_dsb.h
+@@ -8,7 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct intel_crtc_state;
+ struct i915_vma;
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index da0bd056f3d3..a85574c413e8 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -39,6 +39,7 @@
+ #include <video/mipi_display.h>
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_display_types.h"
+ #include "intel_dsi.h"
+ #include "intel_dsi_vbt.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_dvo_dev.h b/drivers/gpu/drm/i915/display/intel_dvo_dev.h
+index 94a6ae1e0292..d96c3cc46e50 100644
+--- a/drivers/gpu/drm/i915/display/intel_dvo_dev.h
++++ b/drivers/gpu/drm/i915/display/intel_dvo_dev.h
+@@ -27,7 +27,7 @@
+ 
+ #include <drm/drm_crtc.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct intel_dvo_device {
+ 	const char *name;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
+index 2bf440eb400a..ab3ae245eb66 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.h
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
+@@ -9,8 +9,6 @@
+ #include <linux/hdmi.h>
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
+-
+ struct drm_connector;
+ struct drm_encoder;
+ struct drm_i915_private;
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.h b/drivers/gpu/drm/i915/display/intel_lvds.h
+index bc9c8b84ba2f..9d3372dc503f 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.h
++++ b/drivers/gpu/drm/i915/display/intel_lvds.h
+@@ -8,7 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ enum pipe;
+ struct drm_i915_private;
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.h b/drivers/gpu/drm/i915/display/intel_sdvo.h
+index 72065e4360d5..2868852c85f2 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.h
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.h
+@@ -8,7 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct drm_i915_private;
+ enum pipe;
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index 4eefe7b0bb26..e5b8b52025de 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_display.h"
+ #include "intel_display_types.h"
+ #include "intel_dp_mst.h"
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index 26975d857776..1de73a644965 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -14,6 +14,7 @@
+ #include "gem/i915_gem_region.h"
+ #include "i915_drv.h"
+ #include "i915_gem_stolen.h"
++#include "i915_reg.h"
+ #include "i915_vgpu.h"
+ 
+ /*
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+index f37ba4f54979..d6adda5bf96b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+@@ -13,6 +13,7 @@
+ #include "i915_gem_mman.h"
+ #include "i915_gem_object.h"
+ #include "i915_gem_tiling.h"
++#include "i915_reg.h"
+ 
+ /**
+  * DOC: buffer object tiling
+diff --git a/drivers/gpu/drm/i915/gt/gen2_engine_cs.c b/drivers/gpu/drm/i915/gt/gen2_engine_cs.c
+index e0e8d228b31f..1c82caf525c3 100644
+--- a/drivers/gpu/drm/i915/gt/gen2_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen2_engine_cs.c
+@@ -5,6 +5,7 @@
+ 
+ #include "gen2_engine_cs.h"
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_engine.h"
+ #include "intel_engine_regs.h"
+ #include "intel_gpu_commands.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 08559ace0ada..0e353d8c2bc8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -11,7 +11,6 @@
+ #include <linux/seqlock.h>
+ 
+ #include "i915_pmu.h"
+-#include "i915_reg.h"
+ #include "i915_request.h"
+ #include "i915_selftest.h"
+ #include "intel_engine_types.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+index 85d66bd1667f..ee4049ee1fc9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "i915_scatterlist.h"
+ #include "i915_pvinfo.h"
+ #include "i915_vgpu.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
+index c7321c94b956..0db822c3b7e5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_gt.h"
+ #include "intel_gt_clock_utils.h"
+ #include "intel_gt_regs.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index 47ec4b2043e8..4e448c13a64c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -7,6 +7,7 @@
+ #include <linux/seq_file.h>
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_gt.h"
+ #include "intel_gt_clock_utils.h"
+ #include "intel_gt_debugfs.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_llc.c b/drivers/gpu/drm/i915/gt/intel_llc.c
+index 63f18830c611..335c65758d6f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_llc.c
++++ b/drivers/gpu/drm/i915/gt/intel_llc.c
+@@ -7,6 +7,7 @@
+ #include <linux/cpufreq.h>
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_gt.h"
+ #include "intel_llc.h"
+ #include "intel_pcode.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index 5458e6606301..6df359c534fe 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -6,6 +6,7 @@
+ #include <linux/pm_runtime.h>
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "i915_vgpu.h"
+ #include "intel_engine_regs.h"
+ #include "intel_gt.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.h b/drivers/gpu/drm/i915/gt/intel_rc6.h
+index e119ec4a0bcc..b6fea71afc22 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.h
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.h
+@@ -6,7 +6,7 @@
+ #ifndef INTEL_RC6_H
+ #define INTEL_RC6_H
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct intel_engine_cs;
+ struct intel_rc6;
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index 21215a080088..cb3f66707b21 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_memory_region.h"
+ #include "intel_region_lmem.h"
+ #include "intel_region_ttm.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
+index 1e873681795d..8a4b6de4e754 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
+@@ -8,7 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct i915_wa {
+ 	i915_reg_t	reg;
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
+index 7a8d4bfc5f6a..62cb4254a77a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
+@@ -7,7 +7,6 @@
+ #define _GUC_ACTIONS_SLPC_ABI_H_
+ 
+ #include <linux/types.h>
+-#include "i915_reg.h"
+ 
+ /**
+  * DOC: SLPC SHARED DATA STRUCTURE
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
+index e6bd66d6ce5a..aa057ac7e346 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
+@@ -9,7 +9,7 @@
+ #include <linux/compiler.h>
+ #include <linux/types.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ /* Definitions of GuC H/W registers, bits, etc */
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index 57ae9ac98505..ddbea939b1dc 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_guc_slpc.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_regs.h"
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+index ae8c8a6c8cc8..73ec670800f2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+@@ -6,7 +6,7 @@
+ #ifndef _INTEL_HUC_H_
+ #define _INTEL_HUC_H_
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ #include "intel_uc_fw.h"
+ #include "intel_huc_fw.h"
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 62db14d41042..ba4f0970749b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -11,6 +11,7 @@
+ #include "intel_uc_fw.h"
+ #include "intel_uc_fw_abi.h"
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ 
+ static inline struct intel_gt *
+ ____uc_fw_to_gt(struct intel_uc_fw *uc_fw, enum intel_uc_fw_type type)
+diff --git a/drivers/gpu/drm/i915/gvt/aperture_gm.c b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+index c08098a167e9..557f3314291a 100644
+--- a/drivers/gpu/drm/i915/gvt/aperture_gm.c
++++ b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+@@ -35,6 +35,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gt/intel_ggtt_fencing.h"
+ #include "gvt.h"
+ 
+diff --git a/drivers/gpu/drm/i915/gvt/display.c b/drivers/gpu/drm/i915/gvt/display.c
+index 8ce5d2b2e330..54bfb0f928cd 100644
+--- a/drivers/gpu/drm/i915/gvt/display.c
++++ b/drivers/gpu/drm/i915/gvt/display.c
+@@ -33,6 +33,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gvt.h"
+ 
+ static int get_edp_pipe(struct intel_vgpu *vgpu)
+diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+index 8882843bf7ab..6dd3757cdf87 100644
+--- a/drivers/gpu/drm/i915/gvt/dmabuf.c
++++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+@@ -32,6 +32,7 @@
+ #include <linux/vfio.h>
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gvt.h"
+ 
+ #define GEN8_DECODE_PTE(pte) (pte & GENMASK_ULL(63, 12))
+diff --git a/drivers/gpu/drm/i915/gvt/edid.c b/drivers/gpu/drm/i915/gvt/edid.c
+index 22247805c345..a30ba2d7b7ba 100644
+--- a/drivers/gpu/drm/i915/gvt/edid.c
++++ b/drivers/gpu/drm/i915/gvt/edid.c
+@@ -33,6 +33,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gvt.h"
+ 
+ #define GMBUS1_TOTAL_BYTES_SHIFT 16
+diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+index 40ace46bad46..c81f232d05a8 100644
+--- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
++++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
+@@ -37,6 +37,7 @@
+ #include "i915_drv.h"
+ #include "gvt.h"
+ #include "i915_pvinfo.h"
++#include "i915_reg.h"
+ 
+ #define PRIMARY_FORMAT_NUM	16
+ struct pixel_format {
+diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+index 3eb9961f6b29..5476642a70fb 100644
+--- a/drivers/gpu/drm/i915/gvt/handlers.c
++++ b/drivers/gpu/drm/i915/gvt/handlers.c
+@@ -37,6 +37,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gvt.h"
+ #include "i915_pvinfo.h"
+ #include "display/intel_display_types.h"
+diff --git a/drivers/gpu/drm/i915/gvt/interrupt.c b/drivers/gpu/drm/i915/gvt/interrupt.c
+index 9ccc6b1ecc28..228f623d466d 100644
+--- a/drivers/gpu/drm/i915/gvt/interrupt.c
++++ b/drivers/gpu/drm/i915/gvt/interrupt.c
+@@ -30,6 +30,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gvt.h"
+ #include "trace.h"
+ 
+diff --git a/drivers/gpu/drm/i915/gvt/interrupt.h b/drivers/gpu/drm/i915/gvt/interrupt.h
+index 0989e180ed54..b62f04ab47cb 100644
+--- a/drivers/gpu/drm/i915/gvt/interrupt.h
++++ b/drivers/gpu/drm/i915/gvt/interrupt.h
+@@ -35,7 +35,7 @@
+ #include <linux/hrtimer.h>
+ #include <linux/kernel.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ enum intel_gvt_event_type {
+ 	RCS_MI_USER_INTERRUPT = 0,
+diff --git a/drivers/gpu/drm/i915/gvt/mmio.c b/drivers/gpu/drm/i915/gvt/mmio.c
+index 0215e1ea621d..5db0ef83d522 100644
+--- a/drivers/gpu/drm/i915/gvt/mmio.c
++++ b/drivers/gpu/drm/i915/gvt/mmio.c
+@@ -34,6 +34,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "gvt.h"
+ 
+ #include "gt/intel_gt_regs.h"
+diff --git a/drivers/gpu/drm/i915/gvt/mmio_context.h b/drivers/gpu/drm/i915/gvt/mmio_context.h
+index 128fd7f4d509..9540813b88e5 100644
+--- a/drivers/gpu/drm/i915/gvt/mmio_context.h
++++ b/drivers/gpu/drm/i915/gvt/mmio_context.h
+@@ -41,7 +41,6 @@
+ #include "gt/intel_engine_regs.h"
+ #include "gt/intel_engine_types.h"
+ #include "gt/intel_lrc_reg.h"
+-#include "i915_reg.h"
+ 
+ struct i915_request;
+ struct intel_context;
+diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
+index b394b3c3e073..aea4c30645ff 100644
+--- a/drivers/gpu/drm/i915/i915_cmd_parser.c
++++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
+@@ -33,6 +33,7 @@
+ #include "i915_cmd_parser.h"
+ #include "i915_drv.h"
+ #include "i915_memcpy.h"
++#include "i915_reg.h"
+ 
+ /**
+  * DOC: batch buffer command parser
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 890f1f6fbc49..e969a5ca5038 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -61,7 +61,6 @@
+ #include <drm/ttm/ttm_device.h>
+ 
+ #include "i915_params.h"
+-#include "i915_reg.h"
+ #include "i915_utils.h"
+ 
+ #include "display/intel_bios.h"
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 8261b6455747..189d3bb8955a 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -28,6 +28,7 @@
+ #include "i915_driver.h"
+ #include "i915_drv.h"
+ #include "i915_pci.h"
++#include "i915_reg.h"
+ 
+ #define PLATFORM(x) .platform = (x)
+ #define GEN(x) \
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index aa14354a5120..473a3c0544bb 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -18,7 +18,7 @@
+ #include <uapi/drm/i915_drm.h>
+ 
+ #include "gt/intel_sseu.h"
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ #include "intel_wakeref.h"
+ 
+ struct drm_i915_private;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5e283bdb3ab7..f51751f9c8d8 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -115,7 +115,6 @@
+  *  #define GEN8_BAR                    _MMIO(0xb888)
+  */
+ 
+-#define VLV_DISPLAY_BASE		0x180000
+ #define VLV_MIPI_BASE			VLV_DISPLAY_BASE
+ #define BXT_MIPI_BASE			0x60000
+ 
+@@ -189,8 +188,6 @@
+ #define _MASKED_BIT_ENABLE(a)	({ typeof(a) _a = (a); _MASKED_FIELD(_a, _a); })
+ #define _MASKED_BIT_DISABLE(a)	(_MASKED_FIELD((a), 0))
+ 
+-#define GEN12_SFC_DONE_MAX		4
+-
+ #define GU_CNTL				_MMIO(0x101010)
+ #define   LMEM_INIT			REG_BIT(7)
+ 
+diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
+index 6ee51d4a233a..34d37bbf08cd 100644
+--- a/drivers/gpu/drm/i915/i915_reg_defs.h
++++ b/drivers/gpu/drm/i915/i915_reg_defs.h
+@@ -94,4 +94,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ 	return !i915_mmio_reg_equal(reg, INVALID_MMIO_REG);
+ }
+ 
++#define VLV_DISPLAY_BASE		0x180000
++
++#define GEN12_SFC_DONE_MAX		4
++
+ #endif /* __I915_REG_DEFS__ */
+diff --git a/drivers/gpu/drm/i915/intel_dram.c b/drivers/gpu/drm/i915/intel_dram.c
+index 3e26ccabf7f9..723bd0411a0e 100644
+--- a/drivers/gpu/drm/i915/intel_dram.c
++++ b/drivers/gpu/drm/i915/intel_dram.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_dram.h"
+ #include "intel_pcode.h"
+ 
+diff --git a/drivers/gpu/drm/i915/intel_pcode.c b/drivers/gpu/drm/i915/intel_pcode.c
+index db4403f63cac..391a37492ce5 100644
+--- a/drivers/gpu/drm/i915/intel_pcode.c
++++ b/drivers/gpu/drm/i915/intel_pcode.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "i915_drv.h"
++#include "i915_reg.h"
+ #include "intel_pcode.h"
+ 
+ static int gen6_check_mailbox_status(u32 mbox)
+diff --git a/drivers/gpu/drm/i915/intel_pm.h b/drivers/gpu/drm/i915/intel_pm.h
+index 990cdcaf85ce..ae821e35d5fc 100644
+--- a/drivers/gpu/drm/i915/intel_pm.h
++++ b/drivers/gpu/drm/i915/intel_pm.h
+@@ -12,7 +12,6 @@
+ #include "display/intel_global_state.h"
+ 
+ #include "i915_drv.h"
+-#include "i915_reg.h"
+ 
+ struct drm_device;
+ struct drm_i915_private;
+diff --git a/drivers/gpu/drm/i915/intel_sbi.c b/drivers/gpu/drm/i915/intel_sbi.c
+index 5ba8490a31e6..5c6e517c73f4 100644
+--- a/drivers/gpu/drm/i915/intel_sbi.c
++++ b/drivers/gpu/drm/i915/intel_sbi.c
+@@ -7,6 +7,7 @@
+ 
+ #include "i915_drv.h"
+ #include "intel_sbi.h"
++#include "i915_reg.h"
+ 
+ /* SBI access */
+ static int intel_sbi_rw(struct drm_i915_private *i915, u16 reg,
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index 210fe2a71612..785063025ec8 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -30,7 +30,7 @@
+ #include <linux/hrtimer.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
+ 
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
+ 
+ struct drm_i915_private;
+ struct intel_runtime_pm;
+diff --git a/drivers/gpu/drm/i915/vlv_sideband.c b/drivers/gpu/drm/i915/vlv_sideband.c
+index ed2ac5752ac4..c26001300ebd 100644
+--- a/drivers/gpu/drm/i915/vlv_sideband.c
++++ b/drivers/gpu/drm/i915/vlv_sideband.c
+@@ -5,6 +5,7 @@
+ 
+ #include "i915_drv.h"
+ #include "i915_iosf_mbi.h"
++#include "i915_reg.h"
+ #include "vlv_sideband.h"
+ 
+ /*
+-- 
+2.34.1
 
