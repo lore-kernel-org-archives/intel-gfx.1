@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DEFEC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 10:31:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF22C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 10:33:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0259B10E5AE;
-	Thu, 20 Jan 2022 10:31:06 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E83410E5ED
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 10:31:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348E310E886;
+	Thu, 20 Jan 2022 10:33:10 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3222210E8B9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 10:33:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642674664; x=1674210664;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=ov8fjPJVa76xer2XckeTdIRyrQ/ixZRNDCTNlEoTnPI=;
- b=ZLPbModqTLuQGWfMDbSqJkSnzv44+342qNdc2oiyIiMaRcADMI4+wWSA
- J5XT038OpFxSnDyO0qm4p2r2NxealLVVIGoLS7B7jiirIL5Vs3fdY+q6w
- 6El36PAWPeFgBsTcKknL6TruT/4Pn9ma2l9qlAHrN153Dgsg/Ut3mg6ww
- 6HhNJ2Hs6aK1dV603b2n02aqQKwYvFHiovkzmczoeZ44ixqPBXuhCXkwT
- yYqOxO6a483fVOAlxeOFO/P1MRqpHTMQ9thwfOG4CFBdbBJhkyRja8KUn
- no2jW657wjixpNDHDSU+EyGy9RoAAhVUjFbKSweacsCWrBPKHIC3Hgkka w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10232"; a="308659385"
-X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="308659385"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 02:31:03 -0800
-X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="532714585"
+ t=1642674788; x=1674210788;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=ey756TbheAZJz4OQPzKwwMur1q6wtxngDiFIKCH8X0U=;
+ b=Mi8UU8ofXcCz/D2AlU6HZOlbye7tEb2vO+Z6Ugq5y7cc0uEV6l/VNEbC
+ zrxGM36cFbTdkChESEj9JC5CB76+nueqnJBlmDNCfwDEHxKOI2Lt/e6kE
+ DmX6AelMPkPUrCxuTEiuXTiykGTlzv8/dh7LhD/XUq7bZH9bfMaqjcpos
+ yP1y7QkkQyKspEH5UwX1JX83mStKNMqGbMsGSxnmXOik+2Gcrv35GYPqH
+ Vljq8clYQV/NshdznV5VnBoDHrLRSJtBavTzbfoTytsQW8r8DZ0eRl9dn
+ apde0QsuTEuK6Y0kRYCcAb6KVlKOy5Q7SCdiDOLoGkufeh6vqj39VqxGd g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10232"; a="245276855"
+X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="245276855"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2022 02:32:11 -0800
+X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="518563515"
 Received: from davidfsc-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.252.52.140])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 02:31:02 -0800
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2022 02:32:10 -0800
 From: Jani Nikula <jani.nikula@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>,
-	intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Jan 2022 12:30:43 +0200
-Message-Id: <20220120103043.3054510-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <d828da66122b11d33ba80dbe6b6a742881a3ebcd.1641317930.git.jani.nikula@intel.com>
-References: <d828da66122b11d33ba80dbe6b6a742881a3ebcd.1641317930.git.jani.nikula@intel.com>
-MIME-Version: 1.0
+To: "Shankar, Uma" <uma.shankar@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+In-Reply-To: <c0a48445d9c84a7cb644f392699c9028@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/mst: only ack the ESI we actually
- handled
+References: <cover.1641317930.git.jani.nikula@intel.com>
+ <1049e7188a76c421fab7797b5c4a6aa1b709f4c9.1641317930.git.jani.nikula@intel.com>
+ <c0a48445d9c84a7cb644f392699c9028@intel.com>
+Date: Thu, 20 Jan 2022 12:32:05 +0200
+Message-ID: <87h79yaeai.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 2/7] drm/i915/mst: abstract
+ intel_dp_ack_sink_irq_esi()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,70 +62,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Seems odd that we clear all event status indicators if we've only
-handled some. Only clear the ones we've handled.
+On Thu, 20 Jan 2022, "Shankar, Uma" <uma.shankar@intel.com> wrote:
+>> -----Original Message-----
+>> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Jani Nikula
+>> Sent: Tuesday, January 4, 2022 11:10 PM
+>> To: intel-gfx@lists.freedesktop.org
+>> Cc: Nikula, Jani <jani.nikula@intel.com>
+>> Subject: [Intel-gfx] [PATCH 2/7] drm/i915/mst: abstract intel_dp_ack_sink_irq_esi()
+>> 
+>> Smaller functions make the thing easier to read. Debug log failures to ack.
+>> 
+>> Note: Looks like we have the retry loop simply because of hysterical raisins, dating
+>
+> Nit: Typo in reasons.
 
-v2: ack DOWN_REP and UP_REQ only if they were set in esi (Ville)
+;)
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+http://www.catb.org/jargon/html/H/hysterical-reasons.html
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 0960e6e3be77..cb726cee9e1d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3625,13 +3625,17 @@ static void intel_dp_handle_test_request(struct intel_dp *intel_dp)
- }
- 
- static void
--intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, bool *handled)
-+intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, u8 *ack)
- {
--	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, handled);
-+	bool handled = false;
-+
-+	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
-+	if (handled)
-+		ack[1] |= esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
- 
- 	if (esi[1] & DP_CP_IRQ) {
- 		intel_hdcp_handle_cp_irq(intel_dp->attached_connector);
--		*handled = true;
-+		ack[1] |= DP_CP_IRQ;
- 	}
- }
- 
-@@ -3683,7 +3687,7 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 
- 	for (;;) {
- 		u8 esi[4] = {};
--		bool handled;
-+		u8 ack[4] = {};
- 
- 		if (!intel_dp_get_sink_irq_esi(intel_dp, esi)) {
- 			drm_dbg_kms(&i915->drm,
-@@ -3699,15 +3703,15 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 		    esi[3] & LINK_STATUS_CHANGED) {
- 			if (!intel_dp_mst_link_status(intel_dp))
- 				link_ok = false;
--			handled = true;
-+			ack[3] |= LINK_STATUS_CHANGED;
- 		}
- 
--		intel_dp_mst_hpd_irq(intel_dp, esi, &handled);
-+		intel_dp_mst_hpd_irq(intel_dp, esi, ack);
- 
--		if (!handled)
-+		if (!memchr_inv(ack, 0, sizeof(ack)))
- 			break;
- 
--		if (!intel_dp_ack_sink_irq_esi(intel_dp, esi))
-+		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
- 			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
- 	}
- 
+>
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+>
+>> back to the original DP MST enabling. Keep it, though I have no idea why we have it.
+>> 
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_dp.c | 25 +++++++++++++++----------
+>>  1 file changed, 15 insertions(+), 10 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+>> b/drivers/gpu/drm/i915/display/intel_dp.c
+>> index 357c39e09bf6..ebf80a875a41 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> @@ -2820,6 +2820,19 @@ intel_dp_get_sink_irq_esi(struct intel_dp *intel_dp, u8
+>> *sink_irq_vector)
+>>  		DP_DPRX_ESI_LEN;
+>>  }
+>> 
+>> +static bool intel_dp_ack_sink_irq_esi(struct intel_dp *intel_dp, u8
+>> +esi[4]) {
+>> +	int retry;
+>> +
+>> +	for (retry = 0; retry < 3; retry++) {
+>> +		if (drm_dp_dpcd_write(&intel_dp->aux, DP_SINK_COUNT_ESI + 1,
+>> +				      &esi[1], 3) == 3)
+>> +			return true;
+>> +	}
+>> +
+>> +	return false;
+>> +}
+>> +
+>>  bool
+>>  intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+>>  		       const struct drm_connector_state *conn_state) @@ -3660,7
+>> +3673,6 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
+>>  		 */
+>>  		u8 esi[DP_DPRX_ESI_LEN+2] = {};
+>>  		bool handled;
+>> -		int retry;
+>> 
+>>  		if (!intel_dp_get_sink_irq_esi(intel_dp, esi)) {
+>>  			drm_dbg_kms(&i915->drm,
+>> @@ -3685,15 +3697,8 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
+>>  		if (!handled)
+>>  			break;
+>> 
+>> -		for (retry = 0; retry < 3; retry++) {
+>> -			int wret;
+>> -
+>> -			wret = drm_dp_dpcd_write(&intel_dp->aux,
+>> -						 DP_SINK_COUNT_ESI+1,
+>> -						 &esi[1], 3);
+>> -			if (wret == 3)
+>> -				break;
+>> -		}
+>> +		if (!intel_dp_ack_sink_irq_esi(intel_dp, esi))
+>> +			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+>>  	}
+>> 
+>>  	return link_ok;
+>> --
+>> 2.30.2
+>
+
 -- 
-2.30.2
-
+Jani Nikula, Intel Open Source Graphics Center
