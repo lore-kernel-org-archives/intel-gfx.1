@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2BB1C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 20:41:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E836AC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 20:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E89610E710;
-	Thu, 20 Jan 2022 20:40:52 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E678810E6AB;
- Thu, 20 Jan 2022 20:40:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id 9E7721F41939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1642711246;
- bh=qusgV1IrpWYls6MEMfHoyhKydIqb2h/EGi15Q1HGAKE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MiSjcAAy4vIwo8kFIMKz9I/1NuVHLqqMeZdDg8or7m4/LWiV7UHWfr7MHoHjXQIjs
- UCsrxp8x67v+I9+DAaSEUT5cQ/6L0injeXGb1LReoBHRdFSNHXxqgVoyXXa8CleRtl
- UwvL5m7vBkOuCc20eTPFZ0BprZIU40o0TCiQSdywDr/iA8awx7td7OMggKPOBAg3z6
- eRvs7CEzEKud5L7nW20izFDBiCTNh7dTd4Ksa1i4LZJn79nZj11CDKjIxmWSpEbuYk
- 43LRu3FhVkjxR6cKJLIMmRlTm63pRCAAHp033MoSluJ9y1wP6UJXN2cWeibfyFjNhO
- JIdI/3ibT/Bgg==
-From: Robert Beckett <bob.beckett@collabora.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 20 Jan 2022 20:37:19 +0000
-Message-Id: <20220120203721.632424-5-bob.beckett@collabora.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220120203721.632424-1-bob.beckett@collabora.com>
-References: <20220120203721.632424-1-bob.beckett@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5920210E519;
+	Thu, 20 Jan 2022 20:48:25 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C451110E519
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 20:48:23 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B08D7B81E55;
+ Thu, 20 Jan 2022 20:48:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B62C340E0;
+ Thu, 20 Jan 2022 20:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1642711699;
+ bh=w4VcuI/3zhWQl6ui5BVYNLaRbVfgrW/jIa3EPwGsGew=;
+ h=Date:From:To:Cc:Subject:From;
+ b=RrYZEAwegilX/Cs6ioExmUZfcShhX2NrNRBY2sL8NAIPYklsEJrNwUI3Sqfft5uTn
+ ca6if3JFve3hUDsKzwoYjyhyaU1sWSHYm3mP3H64vnZm8mswOlhHr4G9hbCH0DqpEY
+ MvTeH5O8LUgBfkZeBbjNN3cWptyeHIFjd98sXYYsAt5cFMxhty2/j+CeZX6yMBpFlO
+ E98WRCgY8ED+ljmB8pQKV2KluyeuQDln5slrdvyjuHktErnOWHa2A2dMyq9wJ5HDcH
+ 1DWIhpHczLVCQeM9l2bPaxewpFkO+Krzhnvk9g4gB3IB0ZH42sGAbFp8vDl44MPgC6
+ 9aQtoGOgc9M4Q==
+Date: Thu, 20 Jan 2022 14:48:17 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20220120204817.GA1065181@bhelgaas>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 4/5] drm/i915: add gtt misalignment test
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Intel-gfx] [GIT PULL] PCI fixes for v5.17
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,197 +50,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: x86@kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ linux-pci@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@linutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add test to check handling of misaligned offsets and sizes
+The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 130 ++++++++++++++++++
- 1 file changed, 130 insertions(+)
+  Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 2f3f0c01786b..76696a5e547e 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -22,10 +22,12 @@
-  *
-  */
- 
-+#include "gt/intel_gtt.h"
- #include <linux/list_sort.h>
- #include <linux/prime_numbers.h>
- 
- #include "gem/i915_gem_context.h"
-+#include "gem/i915_gem_region.h"
- #include "gem/selftests/mock_context.h"
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-@@ -1067,6 +1069,120 @@ static int shrink_boom(struct i915_address_space *vm,
- 	return err;
- }
- 
-+static int misaligned_case(struct i915_address_space *vm, struct intel_memory_region *mr,
-+			   u64 addr, u64 size, unsigned long flags)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u64 expected_vma_size, expected_node_size;
-+
-+	obj = i915_gem_object_create_region(mr, size, 0, 0);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, addr | flags);
-+	if (err)
-+		goto err_put;
-+	i915_vma_unpin(vma);
-+
-+	if (!drm_mm_node_allocated(&vma->node)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	if (i915_vma_misplaced(vma, 0, 0, addr | flags)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
-+	expected_node_size = expected_vma_size;
-+
-+	if (IS_DG2(vm->i915) && i915_gem_object_is_lmem(obj)) {
-+		/* dg2 should expand lmem node to 2MB */
-+		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
-+		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
-+	}
-+
-+	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
-+		err = i915_vma_unbind(vma);
-+		err = -EBADSLT;
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_unbind(vma);
-+	if (err)
-+		goto err_put;
-+
-+	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-+
-+err_put:
-+	i915_gem_object_put(obj);
-+	cleanup_freed_objects(vm->i915);
-+	return err;
-+}
-+
-+static int misaligned_pin(struct i915_address_space *vm,
-+			  u64 hole_start, u64 hole_end,
-+			  unsigned long end_time)
-+{
-+	struct intel_memory_region *mr;
-+	enum intel_region_id id;
-+	unsigned long flags = PIN_OFFSET_FIXED | PIN_USER;
-+	int err = 0;
-+	u64 hole_size = hole_end - hole_start;
-+
-+	if (i915_is_ggtt(vm))
-+		flags |= PIN_GLOBAL;
-+
-+	for_each_memory_region(mr, vm->i915, id) {
-+		u64 min_alignment = i915_vm_min_alignment(vm, id);
-+		u64 size = min_alignment;
-+		u64 addr = round_up(hole_start + (hole_size / 2), min_alignment);
-+
-+		/* we can't test < 4k alignment due to flags being encoded in lower bits */
-+		if (min_alignment != I915_GTT_PAGE_SIZE_4K) {
-+			err = misaligned_case(vm, mr, addr + (min_alignment / 2), size, flags);
-+			/* misaligned should error with -EINVAL*/
-+			if (!err)
-+				err = -EBADSLT;
-+			if (err != -EINVAL)
-+				return err;
-+		}
-+
-+		/* test for vma->size expansion to min page size */
-+		err = misaligned_case(vm, mr, addr, PAGE_SIZE, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+
-+		/* test for intermediate size not expanding vma->size for large alignments */
-+		err = misaligned_case(vm, mr, addr, size / 2, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 			  int (*func)(struct i915_address_space *vm,
- 				      u64 hole_start, u64 hole_end,
-@@ -1136,6 +1252,12 @@ static int igt_ppgtt_shrink_boom(void *arg)
- 	return exercise_ppgtt(arg, shrink_boom);
- }
- 
-+static int igt_ppgtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ppgtt(arg, misaligned_pin);
-+}
-+
-+
- static int sort_holes(void *priv, const struct list_head *A,
- 		      const struct list_head *B)
- {
-@@ -1208,6 +1330,12 @@ static int igt_ggtt_lowlevel(void *arg)
- 	return exercise_ggtt(arg, lowlevel_hole);
- }
- 
-+static int igt_ggtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ggtt(arg, misaligned_pin);
-+}
-+
-+
- static int igt_ggtt_page(void *arg)
- {
- 	const unsigned int count = PAGE_SIZE/sizeof(u32);
-@@ -2180,12 +2308,14 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ppgtt_fill),
- 		SUBTEST(igt_ppgtt_shrink),
- 		SUBTEST(igt_ppgtt_shrink_boom),
-+		SUBTEST(igt_ppgtt_misaligned_pin),
- 		SUBTEST(igt_ggtt_lowlevel),
- 		SUBTEST(igt_ggtt_drunk),
- 		SUBTEST(igt_ggtt_walk),
- 		SUBTEST(igt_ggtt_pot),
- 		SUBTEST(igt_ggtt_fill),
- 		SUBTEST(igt_ggtt_page),
-+		SUBTEST(igt_ggtt_misaligned_pin),
- 		SUBTEST(igt_cs_tlb),
- 	};
- 
--- 
-2.25.1
+are available in the Git repository at:
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci.git tags/pci-v5.17-fixes-1
+
+for you to fetch changes up to 9c494ca4d3a535f9ca11ad6af1813983c1c6cbdd:
+
+  x86/gpu: Reserve stolen memory for first integrated Intel GPU (2022-01-18 14:19:06 -0600)
+
+----------------------------------------------------------------
+PCI fixes:
+
+  - Reserve "stolen memory" for integrated Intel GPU, even if it's not
+    the first GPU to be enumerated (Lucas De Marchi)
+
+----------------------------------------------------------------
+Lucas De Marchi (1):
+      x86/gpu: Reserve stolen memory for first integrated Intel GPU
+
+ arch/x86/kernel/early-quirks.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
