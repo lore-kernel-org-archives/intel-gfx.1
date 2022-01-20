@@ -4,50 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B87C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 11:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0A4FC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 11:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5918310E33C;
-	Thu, 20 Jan 2022 11:29:59 +0000 (UTC)
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BBD910E3EC
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 11:29:58 +0000 (UTC)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- b20-20020a4a3414000000b002dda566aba7so2007404ooa.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 03:29:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=W7JXjaqm7V3bpzDwilXPUfypdE73x8aOPswbWUwlTsQ=;
- b=eauMCDS5eHDDXshj/qy653Hr66VZ2+1x6Hp8thmwfHUadyvdSok4bFlO/owXeELQ7N
- DjCImWp/bl7DkgHNaooO1ia8CF95FTpLxFfCErimFy6mdxglW+YJw4rvNn6YVhMsZxcu
- QwF/lWxymtg9EWpvEFTx7MYTuxNSwnMgvfB3E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=W7JXjaqm7V3bpzDwilXPUfypdE73x8aOPswbWUwlTsQ=;
- b=iaKFOCHtBGKh8fQK/BZASU6cWdOSpioY6QsynvXWBZKQqr8vkXjhNjd9TjGY7s8lZZ
- kmopWLXZoZX55szY9LshxzTpj1R6ti4+ZIDnRB2URvSn2ZdBnv0iZavS+hXJ66rAufWK
- br9lwIVPJSUUVBLK7otFpbBlqT328ADe/LEGU3BGK1n1cjLjdxPlM+nhMB5b2cKbd115
- O4OCTwZdY10eECZkEUcY8UvNeVefwySjjvYB4RZOmIQXMn4mPlNTCPpqYxZRUfen0fvF
- UKkMNwfTW728VLenYe2WVyJbjOyAA3nZ2dMSyZopKRVlj/GbFJY1meH/Z9FlVEP31tr9
- P0SA==
-X-Gm-Message-State: AOAM530R7dbgj/YdDdmG1KKIJc+/637N4JXMJXlgUoR3CtmsMMbmGKeF
- kjT0Juo58bITO4CefAReydQdGgfMhCVNKsGVIQQ9/g==
-X-Google-Smtp-Source: ABdhPJxVwI2BoMgc3LExtZr6VpT3lQegMHi4gnCqqSe4FEHYk/5dXqPo6rJ7nFXeJGJUab/chYIHKv8xPFnkmBumDjc=
-X-Received: by 2002:aca:b103:: with SMTP id a3mr7188831oif.14.1642678197514;
- Thu, 20 Jan 2022 03:29:57 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D93E610E4C6;
+	Thu, 20 Jan 2022 11:31:31 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9FE10E4C6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 11:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642678290; x=1674214290;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=+E926DQGaUi/w9VUv6IPl3FLsFlZhWpYgkrjsT9m4h0=;
+ b=ccggR6lIldweqckKjX65CiwGm/SRSmS5ham63Z+eAod12DdQjfBydFSM
+ rwwlbja6lBZQO5qv1smrSz8aK37D6o/JeeIFncj3fxchTROoDZ0LTM0gf
+ tiYZ8UHqvkxpYSaOoBVEOSxurmUTcqlsydInzfsbqVjg5W86N+IMSOdBo
+ IsTMDrC6lJFT13QGIvY4pONQkX6C7YMG8iWOTEdrbltQ4TxLBkPtKp3qv
+ 29kHPW+21fQyDr6DWQqKcHevOoKn/lHZoF3Zk4BfhFgj3aWu7RjyMUGlL
+ SGowGKbrjYjGAI9uwJHM8p69xWuJrLrb/fQYPm0Z9Zgtmdzapc7sMIjWc w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10232"; a="245286727"
+X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="245286727"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2022 03:31:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="765282393"
+Received: from irsmsx605.ger.corp.intel.com ([163.33.146.138])
+ by fmsmga006.fm.intel.com with ESMTP; 20 Jan 2022 03:31:29 -0800
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ IRSMSX605.ger.corp.intel.com (163.33.146.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Thu, 20 Jan 2022 11:31:27 +0000
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2308.020;
+ Thu, 20 Jan 2022 17:01:25 +0530
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Nikula, Jani" <jani.nikula@intel.com>, "Nikula, Jani"
+ <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH v2] drm/i915/mst: only ack the ESI we
+ actually handled
+Thread-Index: AQHYDe0XSiX/2r3PwUW2m1X5WBLBjaxrxnHg
+Date: Thu, 20 Jan 2022 11:31:25 +0000
+Message-ID: <6f607f172c8147f6b87fa0c2e33d96a8@intel.com>
+References: <20220112110319.1172110-7-jani.nikula@intel.com>
+ <20220120110102.3116218-1-jani.nikula@intel.com>
+In-Reply-To: <20220120110102.3116218-1-jani.nikula@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.6.200.16
+x-originating-ip: [10.223.10.1]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20220120094856.3004147-1-jani.nikula@intel.com>
-In-Reply-To: <20220120094856.3004147-1-jani.nikula@intel.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 20 Jan 2022 12:29:46 +0100
-Message-ID: <CAKMK7uHqf_Cn02WuZtx7m4_fe-rDKZ=cz0OoHusvEwYBGmVSiA@mail.gmail.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH] drm/locking: fix drm_modeset_acquire_ctx
- kernel-doc
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/mst: only ack the ESI we
+ actually handled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +77,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 20, 2022 at 10:49 AM Jani Nikula <jani.nikula@intel.com> wrote:
->
-> The stack_depot member was added without kernel-doc, leading to below
-> warning. Fix it.
->
-> ./include/drm/drm_modeset_lock.h:74: warning: Function parameter or
-> member 'stack_depot' not described in 'drm_modeset_acquire_ctx'
->
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Fixes: cd06ab2fd48f ("drm/locking: add backtrace for locking contended locks without backoff")
+
+
+> -----Original Message-----
+> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ja=
+ni Nikula
+> Sent: Thursday, January 20, 2022 4:31 PM
+> To: Nikula, Jani <jani.nikula@intel.com>; intel-gfx@lists.freedesktop.org
+> Subject: [Intel-gfx] [PATCH v2] drm/i915/mst: only ack the ESI we actuall=
+y handled
+>=20
+> Seems odd that we clear all event status indicators if we've only handled=
+ some. Only
+> clear the ones we've handled.
+>=20
+> v2: ack DOWN_REP and UP_REQ only if they were set in esi (Ville)
+
+Looks Good to me.
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+
 > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 > ---
->  include/drm/drm_modeset_lock.h | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/include/drm/drm_modeset_lock.h b/include/drm/drm_modeset_lock.h
-> index b84693fbd2b5..ec4f543c3d95 100644
-> --- a/include/drm/drm_modeset_lock.h
-> +++ b/include/drm/drm_modeset_lock.h
-> @@ -34,6 +34,7 @@ struct drm_modeset_lock;
->   * struct drm_modeset_acquire_ctx - locking context (see ww_acquire_ctx)
->   * @ww_ctx: base acquire ctx
->   * @contended: used internally for -EDEADLK handling
-> + * @stack_depot: used internally for contention debugging
-
-Uh would be nice to switch to the inline style, since we already have
-inline comments (just not kerneldoc). Either way:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-
->   * @locked: list of held locks
->   * @trylock_only: trylock mode used in atomic contexts/panic notifiers
->   * @interruptible: whether interruptible locking should be used.
+>  drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 0960e6e3be77..cb726cee9e1d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3625,13 +3625,17 @@ static void intel_dp_handle_test_request(struct
+> intel_dp *intel_dp)  }
+>=20
+>  static void
+> -intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, bool *handled)
+> +intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, u8 *ack)
+>  {
+> -	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, handled);
+> +	bool handled =3D false;
+> +
+> +	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
+> +	if (handled)
+> +		ack[1] |=3D esi[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+>=20
+>  	if (esi[1] & DP_CP_IRQ) {
+>  		intel_hdcp_handle_cp_irq(intel_dp->attached_connector);
+> -		*handled =3D true;
+> +		ack[1] |=3D DP_CP_IRQ;
+>  	}
+>  }
+>=20
+> @@ -3683,7 +3687,7 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp=
+)
+>=20
+>  	for (;;) {
+>  		u8 esi[4] =3D {};
+> -		bool handled;
+> +		u8 ack[4] =3D {};
+>=20
+>  		if (!intel_dp_get_sink_irq_esi(intel_dp, esi)) {
+>  			drm_dbg_kms(&i915->drm,
+> @@ -3699,15 +3703,15 @@ intel_dp_check_mst_status(struct intel_dp *intel_=
+dp)
+>  		    esi[3] & LINK_STATUS_CHANGED) {
+>  			if (!intel_dp_mst_link_status(intel_dp))
+>  				link_ok =3D false;
+> -			handled =3D true;
+> +			ack[3] |=3D LINK_STATUS_CHANGED;
+>  		}
+>=20
+> -		intel_dp_mst_hpd_irq(intel_dp, esi, &handled);
+> +		intel_dp_mst_hpd_irq(intel_dp, esi, ack);
+>=20
+> -		if (!handled)
+> +		if (!memchr_inv(ack, 0, sizeof(ack)))
+>  			break;
+>=20
+> -		if (!intel_dp_ack_sink_irq_esi(intel_dp, esi))
+> +		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+>  			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+>  	}
+>=20
 > --
 > 2.30.2
->
 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
