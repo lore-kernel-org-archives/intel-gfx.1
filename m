@@ -4,41 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A80B3C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 19:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57796C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 19:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4598D10E371;
-	Fri, 21 Jan 2022 19:52:01 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D6BF10E371;
- Fri, 21 Jan 2022 19:51:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id 87E9D1F465B3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1642794708;
- bh=qJBTRmyi9jDfM31GVctlUir6LnB5ZIPa2X5lbTLEuQg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WmCxd5GxJg4nCXzqxOrII12RwEhRP7YNe8DkovWANA5rD1tmfjL1e611hjfv45T/V
- 4z4A948x1us4VuYe3iR0dwde0GQT3s/EFkSOqvQZNVmczTb7vupz/ad/Y91brYb5Dz
- FMvXSUMMNTR6RDW9tLUM6mrZ2C3PQ0Ej/r9tcTEl7iRziSVSyoJO3ji9isXRkSr7kz
- 4f7LBKGVWAuJb2XOcNfyH7dqwrpHuW/JyOCz1e5JDmCh7R3YT/kimX2Kzth99smdwb
- rgpTvZYmXfYjc7iKNgdsVC0UutISk9c1CS3qA6NE8KS+g9Pj7hDDF5bT0btUHJ4GeV
- 5x2Qx8rk0o8xA==
-From: Robert Beckett <bob.beckett@collabora.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 21 Jan 2022 19:50:38 +0000
-Message-Id: <20220121195040.2145227-5-bob.beckett@collabora.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220121195040.2145227-1-bob.beckett@collabora.com>
-References: <20220121195040.2145227-1-bob.beckett@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEAAE10E420;
+	Fri, 21 Jan 2022 19:54:40 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB9C10E420
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 19:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642794880; x=1674330880;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=54Z2cmbN5+iJ4f6SMhYS1iOTS1Bdqmq81545kGSGhJ4=;
+ b=ONuV+VOiqtAcwE4YPkPU561QZnnU5AXN6zxgExAp4xvLfj48BmvvHYyL
+ r0uDMh1BhADFONs66nB4EY9gHHSRwQfDf5sAE+v8JbMXRGq834PN42Xx9
+ 1vbLRRiCmozgP2AzEfIhIrJtd6vPMIgBUADujQ9e1zSxGWI5Z5Ht4N5EC
+ sgAQlSDFf0tNmc0g9OeUvSgxqVkGpuDTTkgecaVm3Zp8xFb1gY5o0B12k
+ emIfQOQe4ENWjQugaMuPkBqFoToE+/Q6ZoH8FFsXB3r2ulE6x0eaW/yt5
+ dHNDab1ipQ+qjWZkHSGKqQdhKaskRj/GQSnP3UFaj3hPqlU8APC1e4ol0 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10234"; a="225717229"
+X-IronPort-AV: E=Sophos;i="5.88,306,1635231600"; d="scan'208";a="225717229"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2022 11:53:40 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,306,1635231600"; d="scan'208";a="519199809"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.147])
+ by orsmga007.jf.intel.com with SMTP; 21 Jan 2022 11:53:37 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 21 Jan 2022 21:53:36 +0200
+Date: Fri, 21 Jan 2022 21:53:36 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>
+Message-ID: <YesPQBga1LbmS3jB@intel.com>
+References: <20220121192450.208535-1-jose.souza@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 4/5] drm/i915: add gtt misalignment test
+In-Reply-To: <20220121192450.208535-1-jose.souza@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix errors when there is no free
+ DSM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,200 +60,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add test to check handling of misaligned offsets and sizes
+On Fri, Jan 21, 2022 at 11:24:50AM -0800, José Roberto de Souza wrote:
+> Part of DSM(data stolen memory) is reserved for HW functions and GUC
+> and in some platform this reserved block takes the whole DSM leaving
+> no memory to allocated by i915_gem_object_create_stolen() and friends.
+> 
+> In such cases i915_gem_init_stolen() was not calling drm_mm_init()
+> and returning 0, causing errors later when testing memory
+> (intel_memory_region_memtest()) and in intel_memory_regions_hw_probe()
+> saying setup of memory region failed:
 
-v4:
-	* remove spurious blank lines
-	* explicitly cast intel_region_id to intel_memory_type in misaligned_pin
-Reported-by: kernel test robot <lkp@intel.com>
+I think you might that a bit backwards. There are a lot of other cases
+where don't initialize stolen and still return 0 here. But in those cases
+we *don't* call drm_mm_init() and everyone just uses drm_mm_initialized()
+to check whether stolen was actually initialized or not.
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 128 ++++++++++++++++++
- 1 file changed, 128 insertions(+)
+> 
+> checking generic (91000000 300000) vs hw (23fe7e000000 2000000)
+> checking generic (91000000 300000) vs hw (237800000000 800000000)
+> i915 0000:8c:00.0: [drm:i915_gem_init_stolen [i915]] GEN6_STOLEN_RESERVED = 0x00000003ff800185
+> i915 0000:8c:00.0: [drm:i915_gem_init_stolen [i915]] Memory reserved for graphics device: 8192K, usable: 0K
+> i915 0000:8c:00.0: Failed to read back from memory region:[mem 0x3ff800000-0x3ff7fffff] at [0x0000237bff800000 + 0x0000000000000000] for i915_gem_stolen_lmem_setup [i915]; wrote 0, read (ff, ff, ff)
+> i915 0000:8c:00.0: [drm] *ERROR* Failed to setup region 6 (type=3:0), error -22
+> [drm:intel_gt_setup_lmem [i915]] LMEM: debug trace data region: [0x0-0x2000000]
+> i915 0000:8c:00.0: [drm:intel_gt_setup_lmem [i915]] Local memory: [mem 0x00000000-0x3faffffff]
+> 
+> Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 9 ++++++---
+>  drivers/gpu/drm/i915/intel_memory_region.c | 3 +++
+>  2 files changed, 9 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+> index 26975d8577760..6e90357b2d1fd 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+> @@ -495,13 +495,16 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+>  	 * memory, so just consider the start. */
+>  	reserved_total = stolen_top - reserved_base;
+>  
+> +	i915->stolen_usable_size =
+> +		resource_size(&i915->dsm) - reserved_total;
+> +
+>  	drm_dbg(&i915->drm,
+>  		"Memory reserved for graphics device: %lluK, usable: %lluK\n",
+>  		(u64)resource_size(&i915->dsm) >> 10,
+> -		((u64)resource_size(&i915->dsm) - reserved_total) >> 10);
+> +		(u64)i915->stolen_usable_size >> 10);
+>  
+> -	i915->stolen_usable_size =
+> -		resource_size(&i915->dsm) - reserved_total;
+> +	if (i915->stolen_usable_size == 0)
+> +		return -ENOMEM;
+>  
+>  	/* Basic memrange allocator for stolen space. */
+>  	drm_mm_init(&i915->mm.stolen, 0, i915->stolen_usable_size);
+> diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
+> index c70d7e286a512..317d67fa3a36e 100644
+> --- a/drivers/gpu/drm/i915/intel_memory_region.c
+> +++ b/drivers/gpu/drm/i915/intel_memory_region.c
+> @@ -324,6 +324,9 @@ int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
+>  
+>  		if (IS_ERR(mem)) {
+>  			err = PTR_ERR(mem);
+> +			if (err == -ENOMEM)
+> +				continue;
+> +
+>  			drm_err(&i915->drm,
+>  				"Failed to setup region(%d) type=%d\n",
+>  				err, type);
+> -- 
+> 2.34.1
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index b80788a2b7f9..f082b5ff3b5e 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -22,10 +22,12 @@
-  *
-  */
- 
-+#include "gt/intel_gtt.h"
- #include <linux/list_sort.h>
- #include <linux/prime_numbers.h>
- 
- #include "gem/i915_gem_context.h"
-+#include "gem/i915_gem_region.h"
- #include "gem/selftests/mock_context.h"
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-@@ -1067,6 +1069,120 @@ static int shrink_boom(struct i915_address_space *vm,
- 	return err;
- }
- 
-+static int misaligned_case(struct i915_address_space *vm, struct intel_memory_region *mr,
-+			   u64 addr, u64 size, unsigned long flags)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u64 expected_vma_size, expected_node_size;
-+
-+	obj = i915_gem_object_create_region(mr, size, 0, 0);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, addr | flags);
-+	if (err)
-+		goto err_put;
-+	i915_vma_unpin(vma);
-+
-+	if (!drm_mm_node_allocated(&vma->node)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	if (i915_vma_misplaced(vma, 0, 0, addr | flags)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
-+	expected_node_size = expected_vma_size;
-+
-+	if (IS_DG2(vm->i915) && i915_gem_object_is_lmem(obj)) {
-+		/* dg2 should expand lmem node to 2MB */
-+		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
-+		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
-+	}
-+
-+	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
-+		err = i915_vma_unbind(vma);
-+		err = -EBADSLT;
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_unbind(vma);
-+	if (err)
-+		goto err_put;
-+
-+	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-+
-+err_put:
-+	i915_gem_object_put(obj);
-+	cleanup_freed_objects(vm->i915);
-+	return err;
-+}
-+
-+static int misaligned_pin(struct i915_address_space *vm,
-+			  u64 hole_start, u64 hole_end,
-+			  unsigned long end_time)
-+{
-+	struct intel_memory_region *mr;
-+	enum intel_region_id id;
-+	unsigned long flags = PIN_OFFSET_FIXED | PIN_USER;
-+	int err = 0;
-+	u64 hole_size = hole_end - hole_start;
-+
-+	if (i915_is_ggtt(vm))
-+		flags |= PIN_GLOBAL;
-+
-+	for_each_memory_region(mr, vm->i915, id) {
-+		u64 min_alignment = i915_vm_min_alignment(vm, (enum intel_memory_type)id);
-+		u64 size = min_alignment;
-+		u64 addr = round_up(hole_start + (hole_size / 2), min_alignment);
-+
-+		/* we can't test < 4k alignment due to flags being encoded in lower bits */
-+		if (min_alignment != I915_GTT_PAGE_SIZE_4K) {
-+			err = misaligned_case(vm, mr, addr + (min_alignment / 2), size, flags);
-+			/* misaligned should error with -EINVAL*/
-+			if (!err)
-+				err = -EBADSLT;
-+			if (err != -EINVAL)
-+				return err;
-+		}
-+
-+		/* test for vma->size expansion to min page size */
-+		err = misaligned_case(vm, mr, addr, PAGE_SIZE, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+
-+		/* test for intermediate size not expanding vma->size for large alignments */
-+		err = misaligned_case(vm, mr, addr, size / 2, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 			  int (*func)(struct i915_address_space *vm,
- 				      u64 hole_start, u64 hole_end,
-@@ -1136,6 +1252,11 @@ static int igt_ppgtt_shrink_boom(void *arg)
- 	return exercise_ppgtt(arg, shrink_boom);
- }
- 
-+static int igt_ppgtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ppgtt(arg, misaligned_pin);
-+}
-+
- static int sort_holes(void *priv, const struct list_head *A,
- 		      const struct list_head *B)
- {
-@@ -1208,6 +1329,11 @@ static int igt_ggtt_lowlevel(void *arg)
- 	return exercise_ggtt(arg, lowlevel_hole);
- }
- 
-+static int igt_ggtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ggtt(arg, misaligned_pin);
-+}
-+
- static int igt_ggtt_page(void *arg)
- {
- 	const unsigned int count = PAGE_SIZE/sizeof(u32);
-@@ -2180,12 +2306,14 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ppgtt_fill),
- 		SUBTEST(igt_ppgtt_shrink),
- 		SUBTEST(igt_ppgtt_shrink_boom),
-+		SUBTEST(igt_ppgtt_misaligned_pin),
- 		SUBTEST(igt_ggtt_lowlevel),
- 		SUBTEST(igt_ggtt_drunk),
- 		SUBTEST(igt_ggtt_walk),
- 		SUBTEST(igt_ggtt_pot),
- 		SUBTEST(igt_ggtt_fill),
- 		SUBTEST(igt_ggtt_page),
-+		SUBTEST(igt_ggtt_misaligned_pin),
- 		SUBTEST(igt_cs_tlb),
- 	};
- 
 -- 
-2.25.1
-
+Ville Syrjälä
+Intel
