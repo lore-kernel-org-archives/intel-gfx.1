@@ -4,68 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00F90C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5BDAC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F34B10EAA0;
-	Mon, 24 Jan 2022 13:32:12 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 498EF10E71D;
- Mon, 24 Jan 2022 12:08:30 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- o30-20020a05600c511e00b0034f4c3186f4so2961397wms.3; 
- Mon, 24 Jan 2022 04:08:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=XArnnH4OvrxRcoFfpFy+puuAOs1zK8Kgo1S3kPJSJSw=;
- b=Jc276FuGvUAjhsukljJ+yBmJsnTKcW5NrocuudRyuV338c+REYomAqV50vs3b9w4gw
- jQUdowlUT4PRsPPsTAx3vb+xhwoOyrYKpR9Yc+Tii6O6Pa7p/nbIXGl23Dc7cyglQCdj
- /h5svWv15McmcBB+SVksjK92+h0n0fJw40OLE2eieebA957FhvtKGR0hjGKQV4L8E1jT
- ULJQlldeeOX3wdAa0621QBFB1gY3WE2BqPzwM3CJ5bFnJLxjaQPzu5VlFPBnYQIxnLda
- Vhqv8J9RWPMvMK4I0olcJ33FVxRcdbNGVrSgt20UGyTLJIwHtLqMfwvzw6f3J+0KLU90
- m9Tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=XArnnH4OvrxRcoFfpFy+puuAOs1zK8Kgo1S3kPJSJSw=;
- b=Opz/v7ZvEE0lBdRSVns4oxR8dqMsqJP+eCSbZHxDCNQNQXyQjK/MIJ2Nhn7P+6zhG+
- Oo3hOrl8rKaI51blpOVxIN8X0TWAT8q9sHSnXhzhlxJ2M+49a5qfcTdeWtIilZItDo4y
- UNKgr+0T+8G4BLUpWbkI846JqWTDpcovMp63Nl5oMqoNB+Asn5k4n3to3qhr0I2shTRJ
- ZoPjeOgPC0mHAHBYFWcTvrGZbh9L1FwO9bSNlZO0ZhtsIjvuW8tX/poe1vhtNzLTxtyx
- VruVscqFNJAUPSZxaPpaq0ZRu8V6hsTWZV3GBU3nQ6WXQh9UEsAgqJjWsoONId4pzb6t
- /DnQ==
-X-Gm-Message-State: AOAM530bwdsr7Ym0RuLoIL+9av85VLSTBAzoGjN8Ujzr49nMOL+QE+zo
- szb0kRh3a5PLzVSHj1ir9Wo83zveDDY=
-X-Google-Smtp-Source: ABdhPJxx9aW2LXSFk8wJPNYSMOgRQT/XrKepKIzP/Y7B/Y5B2yDT0IK8LOJk1hzSqfc71Sgws6OTQA==
-X-Received: by 2002:a7b:c5c4:: with SMTP id n4mr1572870wmk.134.1643026108567; 
- Mon, 24 Jan 2022 04:08:28 -0800 (PST)
-Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id c14sm17849799wri.32.2022.01.24.04.08.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jan 2022 04:08:28 -0800 (PST)
-To: ira.weiny@intel.com, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220124015409.807587-1-ira.weiny@intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <a56344b6-b1bd-6749-5ed2-5f38bf79dcee@gmail.com>
-Date: Mon, 24 Jan 2022 13:08:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 778FE10EB39;
+	Mon, 24 Jan 2022 13:32:13 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA5A210E4C5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:29 +0000 (UTC)
+Received: from sobremesa.fritz.box (unknown
+ [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 803111F465E0;
+ Fri, 21 Jan 2022 22:23:28 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1642803808;
+ bh=zUFKHTkvUUgIOHUBpU0oo06qEEm7i/rGOapoLLvS11U=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=JAlHHz+RapvzjpnvJgyOpFvXe//mNiW1KaNbpTx74U6WqzLW06QmPmRMEisp/B9V8
+ +YhUYBHKUP0st1G3xzkduqBS//XtRkOV2Z09MdlbWPzjb2SEKYW6PrZq4S4pgk1k60
+ FoLY9FIptXzs+jTr3b05kGTvDqltTCxL2v68zE4yrZHEpvERzvCcMeFroS+8BtNBez
+ LdGtZTWHPRp8M56sVCzHfYqIF0bYWvHwiyqHnUfEIh5LrNjanTCqGlHpAVJHPOyFsy
+ pu5lD6FGc9ZHa3ia3vmvZhaSc3Y1X5h+uKeeHh/m/OSVKQNtkGd+jUnHrUnAZzYziR
+ 5UVB0Y8FvAfcQ==
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
+Date: Fri, 21 Jan 2022 22:22:51 +0000
+Message-Id: <20220121222252.3296117-5-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
+References: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-In-Reply-To: <20220124015409.807587-1-ira.weiny@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: Re: [Intel-gfx] [PATCH V2 0/7] DRM kmap() fixes and
- kmap_local_page() conversions
+Subject: [Intel-gfx] [RFC PATCH 4/5] drm/i915/flat-CCS: handle CCS block
+ blit for bo migrations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,74 +53,412 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 24.01.22 um 02:54 schrieb ira.weiny@intel.com:
-> From: Ira Weiny <ira.weiny@intel.com>
->
-> Changes from V1:
-> 	Use memcpy_to_page() where appropriate
-> 	Rebased to latest
->
-> The kmap() call may cause issues with work being done with persistent memory.
-> For this and other reasons it is being deprecated.
+Because the smem-evicted bo that holds the CCS block has to be blitted
+separately from the original compressed bo, two sets of PTEs have to
+be emitted for every bo copy.
 
-I'm really wondering how we should be able to implement the kernel 
-mapping without kmap in TTM.
+This commit is partially based off another commit from Ramalingam C
+<ramalingam.c@intel.com>, currently under discussion.
 
-> This series starts by converting the last easy kmap() uses in the drm tree to
-> kmap_local_page().
->
-> The final 2 patches fix bugs found while working on the ttm_bo_kmap_ttm()
-> conversion.  They are valid fixes but were found via code inspection not
-> because of any actual bug so don't require a stable tag.[1]
->
-> There is one more call to kmap() used in ttm_bo_kmap_ttm().  Unfortunately,
-> fixing this is not straight forward so it is left to future work.[2]
+Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/i915/gt/intel_migrate.c    | 288 +++++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_migrate.h    |   2 +
+ drivers/gpu/drm/i915/gt/selftest_migrate.c |   3 +-
+ 3 files changed, 207 insertions(+), 86 deletions(-)
 
-Patches #2, #4, #6 and #7 are Reviewed-by: Christian König 
-<christian.koenig@amd.com>
-
-How to you now want to push those upstream? I can pick them up for the 
-AMD tree like Daniel suggested or you can push them through something else.
-
-Regards,
-Christian.
-
->
-> [1] https://lore.kernel.org/lkml/fb71af05-a889-8f6e-031b-426b58a64f00@amd.com/
-> [2] https://lore.kernel.org/lkml/20211215210949.GW3538886@iweiny-DESK2.sc.intel.com/
->
->
-> Ira Weiny (7):
-> drm/i915: Replace kmap() with kmap_local_page()
-> drm/amd: Replace kmap() with kmap_local_page()
-> drm/gma: Remove calls to kmap()
-> drm/radeon: Replace kmap() with kmap_local_page()
-> drm/msm: Alter comment to use kmap_local_page()
-> drm/amdgpu: Ensure kunmap is called on error
-> drm/radeon: Ensure kunmap is called on error
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
-> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
-> drivers/gpu/drm/gma500/gma_display.c | 6 ++----
-> drivers/gpu/drm/gma500/mmu.c | 8 ++++----
-> drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 6 ++----
-> drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
-> drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c | 4 ++--
-> drivers/gpu/drm/i915/gt/shmem_utils.c | 7 ++-----
-> drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
-> drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
-> drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
-> drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
-> drivers/gpu/drm/radeon/radeon_uvd.c | 1 +
-> 13 files changed, 32 insertions(+), 37 deletions(-)
->
-> --
-> 2.31.1
->
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 716f2f51c7f9..da0fcc42c43c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -447,14 +447,183 @@ static bool wa_1209644611_applies(int ver, u32 size)
+ 	return height % 4 == 3 && height <= 8;
+ }
+ 
++static inline u32 *i915_flush_dw(u32 *cmd, u64 dst, u32 flags)
++{
++	/* Mask the 3 LSB to use the PPGTT address space */
++	*cmd++ = MI_FLUSH_DW | flags;
++	*cmd++ = lower_32_bits(dst);
++	*cmd++ = upper_32_bits(dst);
++
++	return cmd;
++}
++
++static u32 calc_ctrl_surf_instr_size(struct drm_i915_private *i915, int
++size)
++{
++	u32 num_cmds, num_blks, total_size;
++
++	if (!GET_CCS_SIZE(i915, size))
++		return 0;
++
++	/*
++	 * XY_CTRL_SURF_COPY_BLT transfers CCS in 256 byte
++	 * blocks. one XY_CTRL_SURF_COPY_BLT command can
++	 * trnasfer upto 1024 blocks.
++	 */
++	num_blks = (GET_CCS_SIZE(i915, size) +
++			   (NUM_CCS_BYTES_PER_BLOCK - 1)) >> 8;
++	num_cmds = (num_blks + (NUM_CCS_BLKS_PER_XFER - 1)) >> 10;
++	total_size = (XY_CTRL_SURF_INSTR_SIZE) * num_cmds;
++
++	/*
++	 * We need to add a flush before and after
++	 * XY_CTRL_SURF_COPY_BLT
++	 */
++	total_size += 2 * MI_FLUSH_DW_SIZE;
++	return total_size;
++}
++
++static u32 *_i915_ctrl_surf_copy_blt(u32 *cmd, u64 src_addr, u64 dst_addr,
++				     u8 src_mem_access, u8 dst_mem_access,
++				     int src_mocs, int dst_mocs,
++				     u16 num_ccs_blocks)
++{
++	int i = num_ccs_blocks;
++
++	/*
++	 * The XY_CTRL_SURF_COPY_BLT instruction is used to copy the CCS
++	 * data in and out of the CCS region.
++	 *
++	 * We can copy at most 1024 blocks of 256 bytes using one
++	 * XY_CTRL_SURF_COPY_BLT instruction.
++	 *
++	 * In case we need to copy more than 1024 blocks, we need to add
++	 * another instruction to the same batch buffer.
++	 *
++	 * 1024 blocks of 256 bytes of CCS represent a total 256KB of CCS.
++	 *
++	 * 256 KB of CCS represents 256 * 256 KB = 64 MB of LMEM.
++	 */
++	do {
++		/*
++		 * We use logical AND with 1023 since the size field
++		 * takes values which is in the range of 0 - 1023
++		 */
++		*cmd++ = ((XY_CTRL_SURF_COPY_BLT) |
++			  (src_mem_access << SRC_ACCESS_TYPE_SHIFT) |
++			  (dst_mem_access << DST_ACCESS_TYPE_SHIFT) |
++			  (((i - 1) & 1023) << CCS_SIZE_SHIFT));
++		*cmd++ = lower_32_bits(src_addr);
++		*cmd++ = ((upper_32_bits(src_addr) & 0xFFFF) |
++			  (src_mocs << XY_CTRL_SURF_MOCS_SHIFT));
++		*cmd++ = lower_32_bits(dst_addr);
++		*cmd++ = ((upper_32_bits(dst_addr) & 0xFFFF) |
++			  (dst_mocs << XY_CTRL_SURF_MOCS_SHIFT));
++		src_addr += SZ_64M;
++		dst_addr += SZ_64M;
++		i -= NUM_CCS_BLKS_PER_XFER;
++	} while (i > 0);
++
++	return cmd;
++}
++
++
++static int emit_ccs(struct i915_request *rq,
++		    struct sgt_dma *it_lmem,
++		    enum i915_cache_level lmem_cache_level,
++		    struct sgt_dma *it_css,
++		    enum i915_cache_level css_cache_level,
++		    bool lmem2smem,
++		    int size)
++{
++	struct drm_i915_private *i915 = rq->engine->i915;
++	u32 num_ccs_blks = (GET_CCS_SIZE(i915, size) +
++			    NUM_CCS_BYTES_PER_BLOCK - 1) >> 8;
++	struct sgt_dma *it_src, *it_dst;
++	enum i915_cache_level src_cache_level;
++	enum i915_cache_level dst_cache_level;
++	u8 src_access, dst_access;
++	u32 src_offset, dst_offset;
++	u32 ccs_ring_size;
++	int err, len;
++	u32 *cs;
++
++	ccs_ring_size = calc_ctrl_surf_instr_size(i915, size);
++
++	err = emit_no_arbitration(rq);
++	if (err)
++		return -EINVAL;
++
++	src_offset = 0;
++	dst_offset = CHUNK_SZ;
++	if (HAS_64K_PAGES(i915)) {
++		src_offset = 0;
++		dst_offset = 0;
++		if (lmem2smem)
++			src_offset = CHUNK_SZ;
++		else
++			dst_offset = 2 * CHUNK_SZ;
++	}
++
++	if (lmem2smem) {
++		it_src = it_lmem;
++		it_dst = it_css;
++		src_cache_level = lmem_cache_level;
++		dst_cache_level = css_cache_level;
++	} else {
++		it_src = it_css;
++		it_dst = it_lmem;
++		src_cache_level = css_cache_level;
++		dst_cache_level = lmem_cache_level;
++	}
++
++	len = emit_pte(rq, it_src, src_cache_level,
++		       lmem2smem ? true : false,
++		       src_offset, CHUNK_SZ);
++	if (len <= 0)
++		return len;
++
++	err = emit_pte(rq, it_src, dst_cache_level,
++		       lmem2smem ? false : true,
++		       dst_offset, len);
++	if (err < 0)
++		return err;
++	if (err < len)
++		return -EINVAL;
++
++	err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
++	if (err)
++		return err;
++
++	cs = intel_ring_begin(rq, round_up(ccs_ring_size, 2));
++
++	src_access = !lmem2smem;
++	dst_access = !src_access;
++
++	cs = _i915_ctrl_surf_copy_blt(cs,
++				      src_offset,
++				      dst_offset,
++				      src_access,
++				      dst_access,
++				      1, 1,
++				      num_ccs_blks);
++	cs = i915_flush_dw(cs, dst_offset, MI_FLUSH_LLC | MI_FLUSH_CCS);
++
++	intel_ring_advance(rq, cs);
++
++	return 0;
++}
++
+ static int emit_copy(struct i915_request *rq,
+-		     u32 dst_offset, u32 src_offset, int size)
++		     bool dst_is_lmem, u32 dst_offset,
++		     bool src_is_lmem, u32 src_offset,
++		     int size)
+ {
+ 	const int ver = GRAPHICS_VER(rq->engine->i915);
+ 	u32 instance = rq->engine->instance;
+ 	u32 *cs;
+ 
+-	cs = intel_ring_begin(rq, ver >= 8 ? 10 : 6);
++	cs = intel_ring_begin(rq, round_up(ver >= 8 ? 10 : 6, 2));
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
+ 
+@@ -503,6 +672,8 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 			   struct scatterlist *dst,
+ 			   enum i915_cache_level dst_cache_level,
+ 			   bool dst_is_lmem,
++			   struct scatterlist *css_blk,
++			   enum i915_cache_level css_cache_level,
+ 			   struct i915_request **out)
+ {
+ 	struct sgt_dma it_src = sg_sgt(src), it_dst = sg_sgt(dst);
+@@ -576,7 +747,31 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		err = emit_copy(rq, dst_offset, src_offset, len);
++		err = emit_copy(rq, dst_is_lmem, dst_offset, src_is_lmem,
++				src_offset, len);
++
++		if (HAS_FLAT_CCS(ce->engine->i915) && css_blk) {
++			struct sgt_dma it_css_smem = sg_sgt(css_blk);
++			enum i915_cache_level lmem_cache_level;
++			struct sgt_dma *it_lmem;
++			bool lmem2smem;
++
++			if (dst_is_lmem) {
++				it_lmem = &it_dst;
++				lmem_cache_level = dst_cache_level;
++				lmem2smem = false;
++			} else {
++				it_lmem = &it_src;
++				lmem_cache_level = src_cache_level;
++				lmem2smem = true;
++			}
++
++			err = emit_ccs(rq, it_lmem, lmem_cache_level,
++				       &it_css_smem, css_cache_level,
++				       lmem2smem, len);
++			if (err)
++				goto out_rq;
++		}
+ 
+ 		/* Arbitration is re-enabled between requests. */
+ out_rq:
+@@ -641,84 +836,6 @@ intel_context_migrate_copy(struct intel_context *ce,
+  * 4Kb tiles i.e Tile4 layout.
+  */
+ 
+-static inline u32 *i915_flush_dw(u32 *cmd, u64 dst, u32 flags)
+-{
+-	/* Mask the 3 LSB to use the PPGTT address space */
+-	*cmd++ = MI_FLUSH_DW | flags;
+-	*cmd++ = lower_32_bits(dst);
+-	*cmd++ = upper_32_bits(dst);
+-
+-	return cmd;
+-}
+-
+-static u32 calc_ctrl_surf_instr_size(struct drm_i915_private *i915, int size)
+-{
+-	u32 num_cmds, num_blks, total_size;
+-
+-	if (!GET_CCS_SIZE(i915, size))
+-		return 0;
+-
+-	/*
+-	 * XY_CTRL_SURF_COPY_BLT transfers CCS in 256 byte
+-	 * blocks. one XY_CTRL_SURF_COPY_BLT command can
+-	 * trnasfer upto 1024 blocks.
+-	 */
+-	num_blks = (GET_CCS_SIZE(i915, size) +
+-			   (NUM_CCS_BYTES_PER_BLOCK - 1)) >> 8;
+-	num_cmds = (num_blks + (NUM_CCS_BLKS_PER_XFER - 1)) >> 10;
+-	total_size = (XY_CTRL_SURF_INSTR_SIZE) * num_cmds;
+-
+-	/*
+-	 * We need to add a flush before and after
+-	 * XY_CTRL_SURF_COPY_BLT
+-	 */
+-	total_size += 2 * MI_FLUSH_DW_SIZE;
+-	return total_size;
+-}
+-
+-static u32 *_i915_ctrl_surf_copy_blt(u32 *cmd, u64 src_addr, u64 dst_addr,
+-				     u8 src_mem_access, u8 dst_mem_access,
+-				     int src_mocs, int dst_mocs,
+-				     u16 num_ccs_blocks)
+-{
+-	int i = num_ccs_blocks;
+-
+-	/*
+-	 * The XY_CTRL_SURF_COPY_BLT instruction is used to copy the CCS
+-	 * data in and out of the CCS region.
+-	 *
+-	 * We can copy at most 1024 blocks of 256 bytes using one
+-	 * XY_CTRL_SURF_COPY_BLT instruction.
+-	 *
+-	 * In case we need to copy more than 1024 blocks, we need to add
+-	 * another instruction to the same batch buffer.
+-	 *
+-	 * 1024 blocks of 256 bytes of CCS represent a total 256KB of CCS.
+-	 *
+-	 * 256 KB of CCS represents 256 * 256 KB = 64 MB of LMEM.
+-	 */
+-	do {
+-		/*
+-		 * We use logical AND with 1023 since the size field
+-		 * takes values which is in the range of 0 - 1023
+-		 */
+-		*cmd++ = ((XY_CTRL_SURF_COPY_BLT) |
+-			  (src_mem_access << SRC_ACCESS_TYPE_SHIFT) |
+-			  (dst_mem_access << DST_ACCESS_TYPE_SHIFT) |
+-			  (((i - 1) & 1023) << CCS_SIZE_SHIFT));
+-		*cmd++ = lower_32_bits(src_addr);
+-		*cmd++ = ((upper_32_bits(src_addr) & 0xFFFF) |
+-			  (src_mocs << XY_CTRL_SURF_MOCS_SHIFT));
+-		*cmd++ = lower_32_bits(dst_addr);
+-		*cmd++ = ((upper_32_bits(dst_addr) & 0xFFFF) |
+-			  (dst_mocs << XY_CTRL_SURF_MOCS_SHIFT));
+-		src_addr += SZ_64M;
+-		dst_addr += SZ_64M;
+-		i -= NUM_CCS_BLKS_PER_XFER;
+-	} while (i > 0);
+-
+-	return cmd;
+-}
+ 
+ static int emit_clear(struct i915_request *rq,
+ 		      u64 offset,
+@@ -740,7 +857,7 @@ static int emit_clear(struct i915_request *rq,
+ 			 calc_ctrl_surf_instr_size(i915, size)
+ 			 : 0;
+ 
+-	cs = intel_ring_begin(rq, ver >= 8 ? 8 + ccs_ring_size : 6);
++	cs = intel_ring_begin(rq, round_up(ver >= 8 ? 8 + ccs_ring_size : 6, 2));
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
+ 
+@@ -764,8 +881,7 @@ static int emit_clear(struct i915_request *rq,
+ 	}
+ 
+ 	if (is_lmem && HAS_FLAT_CCS(i915) && !value) {
+-		num_ccs_blks = (GET_CCS_SIZE(i915, size) +
+-				NUM_CCS_BYTES_PER_BLOCK - 1) >> 8;
++		num_ccs_blks = GET_CCS_SIZE(i915, size);
+ 		/*
+ 		 * Flat CCS surface can only be accessed via
+ 		 * XY_CTRL_SURF_COPY_BLT CMD and using indirect
+@@ -784,6 +900,8 @@ static int emit_clear(struct i915_request *rq,
+ 					      1, 1,
+ 					      num_ccs_blks);
+ 		cs = i915_flush_dw(cs, offset, MI_FLUSH_LLC | MI_FLUSH_CCS);
++		if (ccs_ring_size & 1)
++			*cs++ = MI_NOOP;
+ 	}
+ 	intel_ring_advance(rq, cs);
+ 	return 0;
+@@ -898,7 +1016,7 @@ int intel_migrate_copy(struct intel_migrate *m,
+ 	err = intel_context_migrate_copy(ce, deps,
+ 					 src, src_cache_level, src_is_lmem,
+ 					 dst, dst_cache_level, dst_is_lmem,
+-					 out);
++					 NULL, I915_CACHE_NONE, out);
+ 
+ 	intel_context_unpin(ce);
+ out:
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.h b/drivers/gpu/drm/i915/gt/intel_migrate.h
+index ccc677ec4aa3..dce63a0dba33 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.h
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.h
+@@ -41,6 +41,8 @@ int intel_context_migrate_copy(struct intel_context *ce,
+ 			       struct scatterlist *dst,
+ 			       enum i915_cache_level dst_cache_level,
+ 			       bool dst_is_lmem,
++			       struct scatterlist *cssblk,
++			       enum i915_cache_level css_cache_level,
+ 			       struct i915_request **out);
+ 
+ int
+diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+index fa4293d2944f..2a2fa6186e31 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
++++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+@@ -231,7 +231,7 @@ static int __global_copy(struct intel_migrate *migrate,
+ 					  i915_gem_object_is_lmem(src),
+ 					  dst->mm.pages->sgl, dst->cache_level,
+ 					  i915_gem_object_is_lmem(dst),
+-					  out);
++					  NULL, I915_CACHE_NONE, out);
+ }
+ 
+ static int
+@@ -582,6 +582,7 @@ static int __perf_copy_blt(struct intel_context *ce,
+ 						 src_is_lmem,
+ 						 dst, dst_cache_level,
+ 						 dst_is_lmem,
++						 NULL, I915_CACHE_NONE,
+ 						 &rq);
+ 		if (rq) {
+ 			if (i915_request_wait(rq, 0, MAX_SCHEDULE_TIMEOUT) < 0)
+-- 
+2.34.1
 
