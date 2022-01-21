@@ -4,59 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EFDEC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B89C433EF
 	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B54A10E749;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C77E10E4B3;
 	Mon, 24 Jan 2022 13:32:10 +0000 (UTC)
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 197D210E34D;
- Mon, 24 Jan 2022 12:58:45 +0000 (UTC)
-Received: by mail-pj1-x1035.google.com with SMTP id
- n16-20020a17090a091000b001b46196d572so16791494pjn.5; 
- Mon, 24 Jan 2022 04:58:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=jKkNxr+1cB+XB6YIAl08DtywpPMNPFY1xvETiNerBv4=;
- b=ZTfY83ziPZR4GDz3xQZpQlufTJscwAsvrvRRKBUGWxqDkdA1va0RwigvqsJh8vqQS2
- Cr1CSfGsdyFEDox/gdOe5UN+gfJl/M1PhQGqJzwQ7WkKUKAP0LFzEedI6vKoyqCpdEF9
- 3gSBuybAkNcdAU6be2n77jFlYV6Dl9/KVa8pK++wGo/ARHH4NuZJ22KzHFwt8CBWqGT4
- oeOm3pKjlWSLNYHeBK0FjBJXueBfTunP+wd2pFCeti1eTpXzXT2rppGwLhnnHXUkLTBL
- RY3CsxJneexPIuOsYHKLRG4PaJwytL1K04wvJIgNj4fjM2IKDQ1GN6+0dopPvh4yxYVt
- o8iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=jKkNxr+1cB+XB6YIAl08DtywpPMNPFY1xvETiNerBv4=;
- b=d4NtthIIbKrfcXEkl+BJ+A/wSD5dnN1oCN1qPeWW4pPws8E3qw0agROg9izXtaUsRj
- OgLuoeQgHzBFYXxDGqNSeL+jXTEbztykeY3uQESM+v61WmqTEHQcsfMk7TbXr0ZqniVy
- zA1Mdb9cD6I9nL8wX3XZiEq8jrppqDxZlqb1QcnpiGMzyIAvlOj32rIZRYKb+J9CdhNw
- cVHbGeCKs0AyTxug2M4PN0qTzg5xAx37vGnHBIE8VMP1CD+LA0YclBZWA7zOtYgt043v
- +t3q0QL24SWg9s5z95v9Ny4hmWBd5VT/gx2EMDRZqrxXcehGXQ1DYjT0/0955yF5rqE4
- xo7g==
-X-Gm-Message-State: AOAM533yURa9mcUlXsI8vOFqzE5r7lHz6qBNKMmtQAichLRVv8b7VkwZ
- db6m9UDYa3LaI2spHeHweiOZLZz9GGGPh5pE5z0=
-X-Google-Smtp-Source: ABdhPJyYbcsc9C2l2KCNpEBfLe8n7n6WB0ovH6E/D5v67OB9y4UJCJuIP9SuFmcGrvjnGCSW3/k40Q==
-X-Received: by 2002:a17:902:ab82:b0:14a:188a:cd1f with SMTP id
- f2-20020a170902ab8200b0014a188acd1fmr14279622plr.44.1643029124671; 
- Mon, 24 Jan 2022 04:58:44 -0800 (PST)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id
- s23sm17794805pfg.144.2022.01.24.04.58.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 04:58:44 -0800 (PST)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: matthew.brost@intel.com
-Date: Mon, 24 Jan 2022 12:58:37 +0000
-Message-Id: <20220124125837.10467-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220112175338.GA12463@jons-linux-dev-box>
-References: <20220112175338.GA12463@jons-linux-dev-box>
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C830010E4E0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:27 +0000 (UTC)
+Received: from sobremesa.fritz.box (unknown
+ [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 4AF801F465DB;
+ Fri, 21 Jan 2022 22:23:26 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1642803806;
+ bh=Ghd051lnC0neneuf8YUtplot8CtjmLxYuRnduSFEU+w=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Gc0wQq0a1KHaJU2YCbj/3zITqqx0Ii7Y+q3GrjkANwtWmW83+6lgCyZYv9TEsNCy2
+ 4U+wx2jr6UPJ5gTfp/1Y9JmSTP+IghZAZrEkBxDG8fSCgVVv+Nx3z55aKBc8AukRob
+ FTEsnw4QRY8uYGLt7q0cd9iK1Yzlvtiy/4p8/zYgaetCEBGzAi1LDOXFbWuB919pgD
+ fm/b+iWzDylL/xh1zfUOQ3JPptUVd+ihpGx1EDBVG8OVxUZjkydN5ibCcN2Bgukyjd
+ 9Vo5d/h+E8iAUapHGOUC6CL4LQ0pX0TSdtt+WPreBRPprerw2zzNReMIe+zJLxaQ7K
+ lxHCQgUUS2+cA==
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
+Date: Fri, 21 Jan 2022 22:22:47 +0000
+Message-Id: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH v2] drm/i915/selftests: Fix NULL vs IS_ERR
- checking for kernel_context
+Subject: [Intel-gfx] [RFC PATCH 0/5] Add basic support for flat-CCS bo
+ evictions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,140 +50,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linmq006@gmail.com, andi.shyti@intel.com, airlied@linux.ie,
- intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk
+Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since i915_gem_create_context() function return error pointers,
-the kernel_context() function does not return null, It returns error
-pointers too. Using IS_ERR() to check the return value to fix this.
+This series is a first attempt at handling the eviction of flat-CCS
+compressed lmem-placed bo's.
 
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
-Changes in v2:
-- clean up unneeded initialization of err.
----
- drivers/gpu/drm/i915/gt/selftest_execlists.c | 43 ++++++++++++++------
- 1 file changed, 30 insertions(+), 13 deletions(-)
+The official specification of flat CCS behaviour dictates that:
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index b367ecfa42de..0d453ddcede4 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -1531,7 +1531,7 @@ static int live_busywait_preempt(void *arg)
- 	struct drm_i915_gem_object *obj;
- 	struct i915_vma *vma;
- 	enum intel_engine_id id;
--	int err = -ENOMEM;
-+	int err;
- 	u32 *map;
- 
- 	/*
-@@ -1540,13 +1540,16 @@ static int live_busywait_preempt(void *arg)
- 	 */
- 
- 	ctx_hi = kernel_context(gt->i915, NULL);
--	if (!ctx_hi)
--		return -ENOMEM;
-+	if (IS_ERR(ctx_hi))
-+		return IS_ERR(ctx_hi);
-+
- 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
- 
- 	ctx_lo = kernel_context(gt->i915, NULL);
--	if (!ctx_lo)
-+	if (IS_ERR(ctx_lo)) {
-+		err = PTR_ERR(ctx_lo);
- 		goto err_ctx_hi;
-+	}
- 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
- 
- 	obj = i915_gem_object_create_internal(gt->i915, PAGE_SIZE);
-@@ -1742,13 +1745,17 @@ static int live_preempt(void *arg)
- 		goto err_spin_hi;
- 
- 	ctx_hi = kernel_context(gt->i915, NULL);
--	if (!ctx_hi)
-+	if (IS_ERR(ctx_hi)) {
-+		err = PTR_ERR(ctx_hi);
- 		goto err_spin_lo;
-+	}
- 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
- 
- 	ctx_lo = kernel_context(gt->i915, NULL);
--	if (!ctx_lo)
-+	if (IS_ERR(ctx_lo)) {
-+		err = PTR_ERR(ctx_lo);
- 		goto err_ctx_hi;
-+	}
- 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
- 
- 	for_each_engine(engine, gt, id) {
-@@ -1834,12 +1841,16 @@ static int live_late_preempt(void *arg)
- 		goto err_spin_hi;
- 
- 	ctx_hi = kernel_context(gt->i915, NULL);
--	if (!ctx_hi)
-+	if (IS_ERR(ctx_hi)) {
-+		err = PTR_ERR(ctx_hi);
- 		goto err_spin_lo;
-+	}
- 
- 	ctx_lo = kernel_context(gt->i915, NULL);
--	if (!ctx_lo)
-+	if (IS_ERR(ctx_lo)) {
-+		err = PTR_ERR(ctx_lo);
- 		goto err_ctx_hi;
-+	}
- 
- 	/* Make sure ctx_lo stays before ctx_hi until we trigger preemption. */
- 	ctx_lo->sched.priority = 1;
-@@ -1928,8 +1939,8 @@ struct preempt_client {
- static int preempt_client_init(struct intel_gt *gt, struct preempt_client *c)
- {
- 	c->ctx = kernel_context(gt->i915, NULL);
--	if (!c->ctx)
--		return -ENOMEM;
-+	if (IS_ERR(c->ctx))
-+		return PTR_ERR(c->ctx);
- 
- 	if (igt_spinner_init(&c->spin, gt))
- 		goto err_ctx;
-@@ -3385,13 +3396,17 @@ static int live_preempt_timeout(void *arg)
- 		return -ENOMEM;
- 
- 	ctx_hi = kernel_context(gt->i915, NULL);
--	if (!ctx_hi)
-+	if (IS_ERR(ctx_hi)) {
-+		err = PTR_ERR(ctx_hi);
- 		goto err_spin_lo;
-+	}
- 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
- 
- 	ctx_lo = kernel_context(gt->i915, NULL);
--	if (!ctx_lo)
-+	if (IS_ERR(ctx_lo)) {
-+		err = PTR_ERR(ctx_lo);
- 		goto err_ctx_hi;
-+	}
- 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
- 
- 	for_each_engine(engine, gt, id) {
-@@ -3683,8 +3698,10 @@ static int live_preempt_smoke(void *arg)
- 
- 	for (n = 0; n < smoke.ncontext; n++) {
- 		smoke.contexts[n] = kernel_context(smoke.gt->i915, NULL);
--		if (!smoke.contexts[n])
-+		if (IS_ERR(smoke.contexts[n])) {
-+			err = PTR_ERR(smoke.contexts[n]);
- 			goto err_ctx;
-+		}
- 	}
- 
- 	for (n = 0; n < ARRAY_SIZE(phase); n++) {
+"Flat CCS data needs to be cleared when a lmem object is allocated.  And CCS
+data can be copied in and out of CCS region through XY_CTRL_SURF_COPY_BLT. CPU
+can't access the CCS data directly.
+                                                                             
+When we exaust the lmem, if the object's placements support smem, then we can
+directly decompress the compressed lmem object into smem and start using it from
+smem itself.
+                                                                             
+But when we need to swapout the compressed lmem object into a smem region though
+objects' placement doesn't support smem, then we copy the lmem content as it is
+into smem region along with ccs data (using XY_CTRL_SURF_COPY_BLT).  When the
+object is referred, lmem content will be swaped in along with restoration of the
+CCS data (using XY_CTRL_SURF_COPY_BLT) at corresponding location."
+
+Design decisions:
+
+ - A separate GEM bo of type `ttm_bo_type_kernel` is created to hold the
+ contents of the CCS block when an lmem-only object is evicted onto smem. This
+ is because this bo should never be mmap'able onto user space.
+
+ - Whether a bo is meant to contain flat-CCS compressed data is marked by adding
+ specific surface modifiers that describe a FB object which contains the
+ relevant bo. This is done through a specific DRM library call.
+
+ - At an eviction event, the bo's buffer data and its corresponding CCS block
+ have to be moved between smem and lmem in two separate blit operations. Because
+ of my poor knowledge of the blit unit, it's very likely that the way I
+ programmed it is somehow wrong.
+
+ - At the moment, migrating a flat-CCS lmem-only object from smem back onto lmem
+ will fail if its flat-CCS swap bo had not been created. However, a bo lifecycle
+ begins in smem when it's created, even its original placement specifies lmem
+ only. Between the time that a bo is freshly created and an execbuf2 ioctl
+ actually moves it onto lmem and allocates its backing storage, the user might've
+ called mmap on it, a scenario which I haven't yet accounted for.
+
+Part of the blitting engine code was borrowed from Ramalingam C <ramalingam.c@intel.com>,
+who has been working in parallel on the same problem, although in a slightly
+different approach.
+
+For testing, a flat-CCS driver self-test is under preparation.
+
+Adrian Larumbe (5):
+  drm/i915/flat-CCS: Add GEM BO structure fields for flat-CCS
+  drm/i915/flat-CCS: Add flat CCS plane capabilities and modifiers
+  drm/i915/flat-CCS: move GET_CCS_SIZE macro into driver-wide header
+  drm/i915/flat-CCS: handle CCS block blit for bo migrations
+  drm/i915/flat-CCS: handle creation and destruction of flat CCS bo's
+
+ drivers/gpu/drm/i915/display/intel_fb.c       |  36 ++-
+ drivers/gpu/drm/i915/display/intel_fb.h       |   1 +
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  10 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  11 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  78 ++++-
+ drivers/gpu/drm/i915/gt/intel_migrate.c       | 289 ++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_migrate.h       |   2 +
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |   3 +-
+ drivers/gpu/drm/i915/i915_drv.h               |   5 +
+ 9 files changed, 342 insertions(+), 93 deletions(-)
+
 -- 
-2.17.1
+2.34.1
 
