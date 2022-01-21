@@ -4,65 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4979C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7893C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D363F10EA5A;
-	Mon, 24 Jan 2022 13:32:11 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFB8610E7DE;
- Mon, 24 Jan 2022 13:03:39 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id w11so1308391wra.4;
- Mon, 24 Jan 2022 05:03:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=dl1dUYcNTDp2GOm0X9C0j70YZVM11w1ghZ3iu9NNtok=;
- b=eU0Way/p0gtmxtdXNwIJ0cJ1YMvpXPNq1X9Q84RaqxsLycEgkYVHdXY4vFIX/Ao5tf
- 7bdBaz9m2saCHhtUpfULRrmNtvxumofa4Dt9HUTIE20xH3J2cTnrPgakeYBQAyvlK39x
- Ms4E/NygDlHxoieyBlSf8ypfUr9wBulYBzlwb720y2E4+hQ6MhtPENhfZBYjPEJLWwGn
- CXDckfmUJijLv2Ill6jtZd6lpzr8f4OuCCQLrcDXpXhHXUGxcIibtkmZVIiYt2Om26gc
- yQbiijahJ2z1PqVwSDUla0jKeOvdCIP9zO1AHqdYc2EEwi01knXl9kFyw4giBxZkYVul
- puBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=dl1dUYcNTDp2GOm0X9C0j70YZVM11w1ghZ3iu9NNtok=;
- b=cu1YNM9n2eu9UthNGDi/cv/iuFXUqT7y4XFZJPgAXhrPxtdkKOhE3mmLThdm5axHa2
- kgsIDhksWI/0IuWJK0Gq6aybYJ7UcVXSNxvqVBYFsr663q5CsshqGozyRXNKLswlTfBW
- GO4GXpwXHg+mI8qfW55j0ZgiqUpgCbryTmG36HDv/lWv6qnyBIZ9oPYCyXzt/hQ8XXjK
- GhR7Jhj4jUasQ5OmA9VTCG+LBRkFW0q3KCPkHkWD4HWWj6OFQuPM2dq4O0o9GYcT+yZv
- 6vItHLYenrnwvcn5Zm9Ht79m4bp+WmLSm3iUCArXUFcxScVoWnYKcw0uLaDG5it0GMxa
- u/QA==
-X-Gm-Message-State: AOAM531Sfp7HbVbrIGwvPtaGcHlgb+U0s0Pkej3nhv8uy0/63/NufRlK
- OMXTXpf3cCsTSjQlF8je5fo=
-X-Google-Smtp-Source: ABdhPJwAu7+U0MqbGH2TAyInUKLCd01EqoEzOU37D1z1qWDfHgZ+sfo/tjzM3H0sQlkYGj3OC6tkOg==
-X-Received: by 2002:a05:6000:1861:: with SMTP id
- d1mr12886342wri.497.1643029418557; 
- Mon, 24 Jan 2022 05:03:38 -0800 (PST)
-Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 05:03:38 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, sumit.semwal@linaro.org,
- gustavo@padovan.org, daniel.vetter@ffwll.ch, zackr@vmware.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 24 Jan 2022 14:03:24 +0100
-Message-Id: <20220124130328.2376-8-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220124130328.2376-1-christian.koenig@amd.com>
-References: <20220124130328.2376-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E60F510EB13;
+	Mon, 24 Jan 2022 13:32:12 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9EA10E53F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:29 +0000 (UTC)
+Received: from sobremesa.fritz.box (unknown
+ [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 31D451F465DD;
+ Fri, 21 Jan 2022 22:23:28 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1642803808;
+ bh=n+0IEGxkng9ZHqSYt8vH77lbfgL8OX72/a/UvCZz9Hw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YvS0Tt00ofjJ6d9dqEswahPuaWiKg3AyrhgP1WuKUUlJf2i6YPScyr7LvvVK49H0v
+ p3WxfJAiY1ZIAYX8kHjYfuqPfmcuE5W1gcR78aheEeWUz+904TakYHTNOZJMTnqWEJ
+ dan1tL44GadrsGqePzp/+gte/LMci7Vyh3X1JUj8I0pEATXyTYiTUDbR+rZS8Cko2X
+ tEzmYT4i5N0MlCFNbU6BRI8h8g2fRpuwSfddqU7uk7+g0jHHsxnn6rCaSe+6qeHnUc
+ WLQP/ir0fLDVlR42nmpP6C7Z89TnWUFGzHnDY/NZcFZ/cnoFKukYIIiy5pGkqhJtUQ
+ vkBGHlqfqbhNQ==
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
+Date: Fri, 21 Jan 2022 22:22:49 +0000
+Message-Id: <20220121222252.3296117-3-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
+References: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH 07/11] dma-buf: Add dma_fence_array_for_each (v2)
+Subject: [Intel-gfx] [RFC PATCH 2/5] drm/i915/flat-CCS: Add flat CCS plane
+ capabilities and modifiers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,97 +52,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Christian König <ckoenig.leichtzumerken@gmail.com>
+Adds frame buffer support code for flat-CCS devices, like DG2. A flat-CCS
+modifier is attached to a fb object that contains the original bo by means
+of the drmModeAddFB2WithModifiers drm API call.
 
-Add a helper to iterate over all fences in a dma_fence_array object.
-
-v2 (Jason Ekstrand)
- - Return NULL from dma_fence_array_first if head == NULL.  This matches
-   the iterator behavior of dma_fence_chain_for_each in that it iterates
-   zero times if head == NULL.
- - Return NULL from dma_fence_array_next if index > array->num_fences.
-
-Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Reviewed-by: Jason Ekstrand <jason@jlekstrand.net>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/dma-buf/dma-fence-array.c | 27 +++++++++++++++++++++++++++
- include/linux/dma-fence-array.h   | 17 +++++++++++++++++
- 2 files changed, 44 insertions(+)
+ drivers/gpu/drm/i915/display/intel_fb.c | 36 ++++++++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_fb.h |  1 +
+ 2 files changed, 33 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
-index cb1bacb5a42b..52b85d292383 100644
---- a/drivers/dma-buf/dma-fence-array.c
-+++ b/drivers/dma-buf/dma-fence-array.c
-@@ -219,3 +219,30 @@ bool dma_fence_match_context(struct dma_fence *fence, u64 context)
- 	return true;
- }
- EXPORT_SYMBOL(dma_fence_match_context);
-+
-+struct dma_fence *dma_fence_array_first(struct dma_fence *head)
-+{
-+	struct dma_fence_array *array;
-+
-+	if (!head)
-+		return NULL;
-+
-+	array = to_dma_fence_array(head);
-+	if (!array)
-+		return head;
-+
-+	return array->fences[0];
-+}
-+EXPORT_SYMBOL(dma_fence_array_first);
-+
-+struct dma_fence *dma_fence_array_next(struct dma_fence *head,
-+				       unsigned int index)
-+{
-+	struct dma_fence_array *array = to_dma_fence_array(head);
-+
-+	if (!array || index >= array->num_fences)
-+		return NULL;
-+
-+	return array->fences[index];
-+}
-+EXPORT_SYMBOL(dma_fence_array_next);
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index fec374f69e12..e34dcb0bb462 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -61,6 +61,19 @@ to_dma_fence_array(struct dma_fence *fence)
- 	return container_of(fence, struct dma_fence_array, base);
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 72040f580911..6f998d1956bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -158,19 +158,24 @@ static const struct intel_modifier_desc intel_modifiers[] = {
+ 	{
+ 		.modifier = I915_FORMAT_MOD_4_TILED_DG2_MC_CCS,
+ 		.display_ver = { 13, 14 },
+-		.plane_caps = INTEL_PLANE_CAP_TILING_4 | INTEL_PLANE_CAP_CCS_MC,
++		.plane_caps = INTEL_PLANE_CAP_TILING_4 |
++				INTEL_PLANE_CAP_CCS_MC |
++				INTEL_PLANE_CAP_DG2_CCS,
+ 	}, {
+ 		.modifier = I915_FORMAT_MOD_4_TILED_DG2_RC_CCS_CC,
+ 		.display_ver = { 13, 14 },
+-		.plane_caps = INTEL_PLANE_CAP_TILING_4 | INTEL_PLANE_CAP_CCS_RC_CC,
+-
++		.plane_caps = INTEL_PLANE_CAP_TILING_4 |
++				INTEL_PLANE_CAP_CCS_RC_CC |
++				INTEL_PLANE_CAP_DG2_CCS,
+ 		.ccs.cc_planes = BIT(1),
+ 
+ 		FORMAT_OVERRIDE(gen12_flat_ccs_cc_formats),
+ 	}, {
+ 		.modifier = I915_FORMAT_MOD_4_TILED_DG2_RC_CCS,
+ 		.display_ver = { 13, 14 },
+-		.plane_caps = INTEL_PLANE_CAP_TILING_4 | INTEL_PLANE_CAP_CCS_RC,
++		.plane_caps = INTEL_PLANE_CAP_TILING_4 |
++				INTEL_PLANE_CAP_CCS_RC |
++				INTEL_PLANE_CAP_DG2_CCS,
+ 	}, {
+ 		.modifier = I915_FORMAT_MOD_4_TILED,
+ 		.display_ver = { 13, 14 },
+@@ -313,6 +318,20 @@ bool intel_fb_is_ccs_modifier(u64 modifier)
+ 				      INTEL_PLANE_CAP_CCS_MASK);
  }
  
 +/**
-+ * dma_fence_array_for_each - iterate over all fences in array
-+ * @fence: current fence
-+ * @index: index into the array
-+ * @head: potential dma_fence_array object
++ * if (intel_fb_is_dg2_ccs_modifier): Check if a modifier is a DG2 CCS modifier type
++ * @modifier: Modifier to check
 + *
-+ * Test if @array is a dma_fence_array object and if yes iterate over all fences
-+ * in the array. If not just iterate over the fence in @array itself.
++ * Returns:
++ * Returns %true if @modifier is a render, render with color clear or
++ * media compression modifier compatible with DG2 devices.
 + */
-+#define dma_fence_array_for_each(fence, index, head)			\
-+	for (index = 0, fence = dma_fence_array_first(head); fence;	\
-+	     ++(index), fence = dma_fence_array_next(head, index))
++bool intel_fb_is_dg2_ccs_modifier(u64 modifier)
++{
++	return plane_caps_contain_any(lookup_modifier(modifier)->plane_caps,
++				      INTEL_PLANE_CAP_DG2_CCS);
++}
 +
- struct dma_fence_array *dma_fence_array_create(int num_fences,
- 					       struct dma_fence **fences,
- 					       u64 context, unsigned seqno,
-@@ -68,4 +81,8 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
+ /**
+  * intel_fb_is_rc_ccs_cc_modifier: Check if a modifier is an RC CCS CC modifier type
+  * @modifier: Modifier to check
+@@ -2000,6 +2019,15 @@ int intel_framebuffer_init(struct intel_framebuffer *intel_fb,
+ 		intel_fb->dpt_vm = vm;
+ 	}
  
- bool dma_fence_match_context(struct dma_fence *fence, u64 context);
- 
-+struct dma_fence *dma_fence_array_first(struct dma_fence *head);
-+struct dma_fence *dma_fence_array_next(struct dma_fence *head,
-+				       unsigned int index);
++	/*
++	 * In devices with flat CCS support, a compressed buffer object
++	 * will need to shuffle its CCS block back and forth between lmem
++	 * and smem at object migration events.
++	 */
++	if (intel_fb_is_dg2_ccs_modifier(fb->modifier) && HAS_FLAT_CCS(dev_priv))
++		if (!i915_gem_object_migratable(obj) && i915_gem_object_is_lmem(obj))
++			obj->flat_css.enabled = true;
 +
- #endif /* __LINUX_DMA_FENCE_ARRAY_H */
+ 	ret = drm_framebuffer_init(&dev_priv->drm, fb, &intel_fb_funcs);
+ 	if (ret) {
+ 		drm_err(&dev_priv->drm, "framebuffer init failed %d\n", ret);
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
+index 12386f13a4e0..5bd74ff9a449 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.h
++++ b/drivers/gpu/drm/i915/display/intel_fb.h
+@@ -28,6 +28,7 @@ struct intel_plane_state;
+ #define INTEL_PLANE_CAP_TILING_Y	BIT(4)
+ #define INTEL_PLANE_CAP_TILING_Yf	BIT(5)
+ #define INTEL_PLANE_CAP_TILING_4	BIT(6)
++#define INTEL_PLANE_CAP_DG2_CCS		BIT(7)
+ 
+ bool intel_fb_is_ccs_modifier(u64 modifier);
+ bool intel_fb_is_rc_ccs_cc_modifier(u64 modifier);
 -- 
-2.25.1
+2.34.1
 
