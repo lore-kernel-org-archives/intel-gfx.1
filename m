@@ -4,44 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F8E3C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 04:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3411CC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 04:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F57810E532;
-	Fri, 21 Jan 2022 04:37:11 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A24B10E476;
- Fri, 21 Jan 2022 04:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642739828; x=1674275828;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=sz6SzmBXAt2m5mxFQ5dQsMziRyMDYdVVHXe/b7y+lds=;
- b=ek3npj5nIQSd39ZUqJZuVcmfuldjStzRXweLyI+9Fv+FbEe0ssA4b1Rl
- t0euIEXcLLGNOqBk3vI29uYYdFMuLEVFj9fALPFeCZMlR8q39RXxecjEk
- 38e5I3Sq4BO0lb9QSbtLrR4KZTDampTIm7kMYF+4CwzqcUTU8vwGMqwC2
- qNJuZjtjSubR3+6Ho+sS8A9eOZkbTNUwg5ktqZKFtZ3GoWWwiLV1qGY0e
- chNcWkNIK/Z4tHkCaqHew1sR1hNAzenoYA7Io/VI1e8yxGwpzB6019Oyd
- sCmn9gRGhwH6v17KKDBHt1oJE8Yrg65nYOVfrwAxMRKy5AfUZrXtAgnmJ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="244384009"
-X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="244384009"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 20:37:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="626596547"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 20:37:07 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Thu, 20 Jan 2022 20:31:15 -0800
-Message-Id: <20220121043118.24886-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACAF910E629;
+	Fri, 21 Jan 2022 04:59:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8BBB410E629;
+ Fri, 21 Jan 2022 04:59:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 88083A0BCB;
+ Fri, 21 Jan 2022 04:59:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] Flush G2H handler during a GT reset
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Date: Fri, 21 Jan 2022 04:59:12 -0000
+Message-ID: <164274115252.19938.15398633689202738796@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220121043118.24886-1-matthew.brost@intel.com>
+In-Reply-To: <20220121043118.24886-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Flush_G2H_handler_during_a_GT_reset?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,33 +40,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After a small fix to error capture code, we now can flush G2H during a
-GT reset which simplifies code and seals some extreme corner case races. 
+== Series Details ==
 
-v2:
- (CI)
-  - Don't trigger GT reset from G2H handler
-v3:
-  - Address John Harrison's comments
-v4:
-  - Address John Harrison's comments
+Series: Flush G2H handler during a GT reset
+URL   : https://patchwork.freedesktop.org/series/99136/
+State : warning
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+== Summary ==
 
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
-Matthew Brost (3):
-  drm/i915: Allocate intel_engine_coredump_alloc with ALLOW_FAIL
-  drm/i915/guc: Add work queue to trigger a GT reset
-  drm/i915/guc: Flush G2H handler during a GT reset
-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  9 +++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 55 ++++++++++++-------
- drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
- 3 files changed, 44 insertions(+), 22 deletions(-)
-
--- 
-2.34.1
 
