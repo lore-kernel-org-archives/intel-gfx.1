@@ -4,66 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25298C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D40C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C320A10EC49;
-	Mon, 24 Jan 2022 13:32:47 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC2710EA98;
- Mon, 24 Jan 2022 13:03:36 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id s18so13466167wrv.7;
- Mon, 24 Jan 2022 05:03:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=nkHC8QZFOIHT45+bm5mbkRLb4msTxzU2f5F+QSxdoAg=;
- b=T7+N3iUT/tvx0/HroBHPMeE8P01beuEHO5jLeP/wMjXxLkAUimfP4cVdk7IW3px50p
- cARlb7W/5m4Cjr+ptCbaxnuDHgSMk6Nqg6PXHkPvd1CGWLe9ks1SjkXxwP0u/EEfVu/h
- xzIinNMNARHC5HJvsROQaBsiiT41chqJoAsQhQw0P5t0PTyIq4qLyetolwOG8DATZjfc
- 54+qV4wvlqhEtueI1eseV1Wc2GCJMle4GwcFNZF3kbLVrH8rT514mwYLs+W2IG7eKKqw
- DXbALz12EBFUNDvRrFQAGiE7ayS5A1ZRrzEL6wrbTgFOvn2e2Ayghj2ydqYyRQVbktQq
- Kuvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=nkHC8QZFOIHT45+bm5mbkRLb4msTxzU2f5F+QSxdoAg=;
- b=uYsQsXDvhEnmcs0uedDKQXsw1Yp4JkOzQpGtvfBd9xjh/kZuUwkRfPr1Xl0QnD+Owe
- 7GHuKUW3W1Tzd33jWHRIK2hjPGtTzQCCFzrqESfLWHy2u2IQuOF+MwBPpw2B00t6h6od
- GIHwlKxricSD0ZbTXOfA9RPI8dONZ6pPvy2zLNq5XMEISCEbIvZgH2Br2Z0rULUW9/RN
- BLURDf9f96u3PYuNHo1KsSJfDyATXXvjfVhAzLVB88834VLUACFDsE75N2q3QZ2G69Rv
- eYZnDNeeIzobaCsg3/STno4EmGq+Y4lktB7apXwHKWAefjuuw/PslWE1xFYiWTWt13rK
- PNzg==
-X-Gm-Message-State: AOAM531BbJMwIr1yZcwa5E0uS3w/aAcQRBf/OfOzNlIlGvqoAjq7YTAh
- 09tKc1B30ZhOn3rax2AXImw=
-X-Google-Smtp-Source: ABdhPJwszP5PKy5lRXuewCh5csQKxLvCvH5uGeQwuqcGu00xvYDhD0SHw9IA7jKagtr48W1cDQ1sQQ==
-X-Received: by 2002:a05:6000:2cc:: with SMTP id
- o12mr7195807wry.41.1643029414650; 
- Mon, 24 Jan 2022 05:03:34 -0800 (PST)
-Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 05:03:34 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, sumit.semwal@linaro.org,
- gustavo@padovan.org, daniel.vetter@ffwll.ch, zackr@vmware.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 24 Jan 2022 14:03:20 +0100
-Message-Id: <20220124130328.2376-4-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220124130328.2376-1-christian.koenig@amd.com>
-References: <20220124130328.2376-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B02310EC4E;
+	Mon, 24 Jan 2022 13:32:48 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9EB10E527
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:29 +0000 (UTC)
+Received: from sobremesa.fritz.box (unknown
+ [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 0C4E51F465DC;
+ Fri, 21 Jan 2022 22:23:28 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1642803808;
+ bh=O3v0PZrqH6q/uQ8VdahEWhNAIObVOHNGfAOpFmqhzgs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Q2ZjTywkqr0POxXvcGJfQRu7nGcxhMD0dWXYd4pj4b13yD5yAH3lMa6KITSs119O2
+ 5f3Wyzo1xCqxE6reiDNhVnssq3WNP+4M72nerBFnvwFlqw5lOW4aVXIAvRVMMwPBO/
+ Ps9YDw85y/qE7xKi/DM7vWd7A9b6oYgw2FzbCTOnv1T8PVqx1ZPZrTUrHgYmZT112G
+ nFhaB2THjyLX71/sFxZOJyaWIOHjEDNICq1KZCQSaCI0fTgiDNl6+euNyHBzu4cqEx
+ iO9741v4wCyoIoiaM9thQynZp0FAbHjY6s6Wa11nGeh8TUKoMlsCHrFmh2yyK9DRFB
+ uA1xHDus73OlQ==
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
+Date: Fri, 21 Jan 2022 22:22:48 +0000
+Message-Id: <20220121222252.3296117-2-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
+References: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH 03/11] dma-buf: consolidate dma_fence subclass
- checking
+Subject: [Intel-gfx] [RFC PATCH 1/5] drm/i915/flat-CCS: Add GEM bo structure
+ fields for flat-CCS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,123 +53,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Consolidate the wrapper functions to check for dma_fence
-subclasses in the dma_fence header.
+When a flat-CCS aware bo is evicted from lmem, its control surface will be
+written out into smem. This will be done in the shape of a kernel-only bo
+attached to the original bo.
 
-This makes it easier to document and also check the different
-requirements for fence containers in the subclasses.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
 ---
- include/linux/dma-fence-array.h | 15 +------------
- include/linux/dma-fence-chain.h |  3 +--
- include/linux/dma-fence.h       | 38 +++++++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index 303dd712220f..fec374f69e12 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -45,19 +45,6 @@ struct dma_fence_array {
- 	struct irq_work work;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 71e778ecaeb8..9f574e149c58 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -628,6 +628,16 @@ struct drm_i915_gem_object {
+ 
+ 		void *gvt_info;
+ 	};
++
++	/**
++	 * This is set if the object is lmem-placeable, supports flat
++	 * CCS and is compressed. In that case, a separate block of
++	 * stolen lmem memory will contain its compression data.
++	 */
++	struct {
++		struct drm_i915_gem_object *swap;
++		bool enabled:1;
++	} flat_css;
  };
  
--extern const struct dma_fence_ops dma_fence_array_ops;
--
--/**
-- * dma_fence_is_array - check if a fence is from the array subsclass
-- * @fence: fence to test
-- *
-- * Return true if it is a dma_fence_array and false otherwise.
-- */
--static inline bool dma_fence_is_array(struct dma_fence *fence)
--{
--	return fence->ops == &dma_fence_array_ops;
--}
--
- /**
-  * to_dma_fence_array - cast a fence to a dma_fence_array
-  * @fence: fence to cast to a dma_fence_array
-@@ -68,7 +55,7 @@ static inline bool dma_fence_is_array(struct dma_fence *fence)
- static inline struct dma_fence_array *
- to_dma_fence_array(struct dma_fence *fence)
- {
--	if (fence->ops != &dma_fence_array_ops)
-+	if (!fence || !dma_fence_is_array(fence))
- 		return NULL;
- 
- 	return container_of(fence, struct dma_fence_array, base);
-diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-chain.h
-index 54fe3443fd2c..ee906b659694 100644
---- a/include/linux/dma-fence-chain.h
-+++ b/include/linux/dma-fence-chain.h
-@@ -49,7 +49,6 @@ struct dma_fence_chain {
- 	spinlock_t lock;
- };
- 
--extern const struct dma_fence_ops dma_fence_chain_ops;
- 
- /**
-  * to_dma_fence_chain - cast a fence to a dma_fence_chain
-@@ -61,7 +60,7 @@ extern const struct dma_fence_ops dma_fence_chain_ops;
- static inline struct dma_fence_chain *
- to_dma_fence_chain(struct dma_fence *fence)
- {
--	if (!fence || fence->ops != &dma_fence_chain_ops)
-+	if (!fence || !dma_fence_is_chain(fence))
- 		return NULL;
- 
- 	return container_of(fence, struct dma_fence_chain, base);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 1ea691753bd3..775cdc0b4f24 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -587,4 +587,42 @@ struct dma_fence *dma_fence_get_stub(void);
- struct dma_fence *dma_fence_allocate_private_stub(void);
- u64 dma_fence_context_alloc(unsigned num);
- 
-+extern const struct dma_fence_ops dma_fence_array_ops;
-+extern const struct dma_fence_ops dma_fence_chain_ops;
-+
-+/**
-+ * dma_fence_is_array - check if a fence is from the array subclass
-+ * @fence: the fence to test
-+ *
-+ * Return true if it is a dma_fence_array and false otherwise.
-+ */
-+static inline bool dma_fence_is_array(struct dma_fence *fence)
-+{
-+	return fence->ops == &dma_fence_array_ops;
-+}
-+
-+/**
-+ * dma_fence_is_chain - check if a fence is from the chain subclass
-+ * @fence: the fence to test
-+ *
-+ * Return true if it is a dma_fence_chain and false otherwise.
-+ */
-+static inline bool dma_fence_is_chain(struct dma_fence *fence)
-+{
-+	return fence->ops == &dma_fence_chain_ops;
-+}
-+
-+/**
-+ * dma_fence_is_container - check if a fence is a container for other fences
-+ * @fence: the fence to test
-+ *
-+ * Return true if this fence is a container for other fences, false otherwise.
-+ * This is important since we can't build up large fence structure or otherwise
-+ * we run into recursion during operation on those fences.
-+ */
-+static inline bool dma_fence_is_container(struct dma_fence *fence)
-+{
-+	return dma_fence_is_array(fence) || dma_fence_is_chain(fence);
-+}
-+
- #endif /* __LINUX_DMA_FENCE_H */
+ static inline struct drm_i915_gem_object *
 -- 
-2.25.1
+2.34.1
 
