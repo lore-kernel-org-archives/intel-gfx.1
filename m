@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBC7C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 04:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A649C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 04:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 731ED10E4F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE8410E4CC;
 	Fri, 21 Jan 2022 04:37:10 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCB0310E4CC;
- Fri, 21 Jan 2022 04:37:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38EBF10E4CC;
+ Fri, 21 Jan 2022 04:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1642739829; x=1674275829;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JTdd8/O36pIBpX8B8vOvIBMgOq7icQmr3hTL4xnipDc=;
- b=KoXn2djgHWrNTmVR4yjk6HB/g+zQMKpqo8NDw87oVt4Nksr8/BE4DD46
- rzuT4TSX+oUNcxcBGwMov9CPPMdNn3SfedDm2vl7DTxkOhim237yD6U5E
- 3CujAWibAO30txudykrxvEheiCi6q3e+u/GOtlomexJ0mJcIPaWL0G9bt
- ULCzmUYGFJk1jWhWb4iwFOOAUKjNvL1SDTO2uP5nLI5DacDR9Nz8W4aXb
- kMR2s6h8ZLYANMuN61vHc9DhqadJ11Cjrl2Akal8k9j0kkDA/Nk0G4aGG
- HzvTciQxN9YQIWsaI7axNBWY+DecBVEoq2i0XhzoEjX04TPevWWSJPrYl w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="244384010"
-X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="244384010"
+ bh=GjyPCXjpUKEZDE0XdIh5WsjCMtBgJdkFP76RiM+s2XY=;
+ b=ZIPo/YQJ0C284kSGlhkXz9Ko7VZP2gjiiT8cBL/RvYouZCG7DgRJKSHZ
+ 18MnpWmbTlgzmK52ezm6eeEEoLqFjrSoDe42++ka2KBLbuE+WHiEGjlEz
+ +IMDMOvEilvM6XO2APZjsZiq0M/3cdeqYe/cnaYHsR6JwwKM7tLLeRmwM
+ DkjnEqgPKhvb1QLvWNlpG00SdECOiBTtwdmrx6rxop2XBuP4PVdHemOti
+ 8DqfZFXHgA0ldRymHl/roTvGIDUazxr1iXCKeaDuvkgIlfisxPaE0UlUv
+ yQiJAT26AmNxqzOQJl4v+OcI75JzUyFgA+ZVtmxzzpkClKMfILSHEUihs A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="244384012"
+X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="244384012"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jan 2022 20:37:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="626596551"
+X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="626596559"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 20:37:07 -0800
+ 20 Jan 2022 20:37:08 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 20 Jan 2022 20:31:16 -0800
-Message-Id: <20220121043118.24886-2-matthew.brost@intel.com>
+Date: Thu, 20 Jan 2022 20:31:18 -0800
+Message-Id: <20220121043118.24886-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220121043118.24886-1-matthew.brost@intel.com>
 References: <20220121043118.24886-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Allocate
- intel_engine_coredump_alloc with ALLOW_FAIL
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/guc: Flush G2H handler during a GT
+ reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,34 +60,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allocate intel_engine_coredump_alloc with ALLOW_FAIL rather than
-GFP_KERNEL to fully decouple the error capture from fence signalling.
+Now that the error capture is fully decoupled from fence signalling
+(request retirement to free memory, which in turn depends on resets) we
+can safely flush the G2H handler during a GT reset. This eliminates
+corner cases where GuC generated G2H (e.g. engine resets) race with a GT
+reset.
 
 v2:
  (John Harrison)
-  - Fix typo in commit message (s/do/to)
-
-Fixes: 8b91cdd4f8649 ("drm/i915: Use __GFP_KSWAPD_RECLAIM in the capture code")
+  - Fix typo in commit message (s/is/in)
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c  | 18 +-----------------
+ 1 file changed, 1 insertion(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 67f3515f07e7a..aee42eae4729f 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1516,7 +1516,7 @@ capture_engine(struct intel_engine_cs *engine,
- 	struct i915_request *rq = NULL;
- 	unsigned long flags;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 9a3f503d201aa..1331ff91c5b05 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1396,8 +1396,6 @@ static void guc_flush_destroyed_contexts(struct intel_guc *guc);
  
--	ee = intel_engine_coredump_alloc(engine, GFP_KERNEL);
-+	ee = intel_engine_coredump_alloc(engine, ALLOW_FAIL);
- 	if (!ee)
- 		return NULL;
+ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ {
+-	int i;
+-
+ 	if (unlikely(!guc_submission_initialized(guc))) {
+ 		/* Reset called during driver load? GuC not yet initialised! */
+ 		return;
+@@ -1414,21 +1412,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
  
+ 	guc_flush_submissions(guc);
+ 	guc_flush_destroyed_contexts(guc);
+-
+-	/*
+-	 * Handle any outstanding G2Hs before reset. Call IRQ handler directly
+-	 * each pass as interrupt have been disabled. We always scrub for
+-	 * outstanding G2H as it is possible for outstanding_submission_g2h to
+-	 * be incremented after the context state update.
+-	 */
+-	for (i = 0; i < 4 && atomic_read(&guc->outstanding_submission_g2h); ++i) {
+-		intel_guc_to_host_event_handler(guc);
+-#define wait_for_reset(guc, wait_var) \
+-		intel_guc_wait_for_pending_msg(guc, wait_var, false, (HZ / 20))
+-		do {
+-			wait_for_reset(guc, &guc->outstanding_submission_g2h);
+-		} while (!list_empty(&guc->ct.requests.incoming));
+-	}
++	flush_work(&guc->ct.requests.worker);
+ 
+ 	scrub_guc_desc_for_outstanding_g2h(guc);
+ }
 -- 
 2.34.1
 
