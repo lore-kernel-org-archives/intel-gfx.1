@@ -4,43 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D40C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20090C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B02310EC4E;
-	Mon, 24 Jan 2022 13:32:48 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9EB10E527
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:29 +0000 (UTC)
-Received: from sobremesa.fritz.box (unknown
- [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: alarumbe)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 0C4E51F465DC;
- Fri, 21 Jan 2022 22:23:28 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1642803808;
- bh=O3v0PZrqH6q/uQ8VdahEWhNAIObVOHNGfAOpFmqhzgs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Q2ZjTywkqr0POxXvcGJfQRu7nGcxhMD0dWXYd4pj4b13yD5yAH3lMa6KITSs119O2
- 5f3Wyzo1xCqxE6reiDNhVnssq3WNP+4M72nerBFnvwFlqw5lOW4aVXIAvRVMMwPBO/
- Ps9YDw85y/qE7xKi/DM7vWd7A9b6oYgw2FzbCTOnv1T8PVqx1ZPZrTUrHgYmZT112G
- nFhaB2THjyLX71/sFxZOJyaWIOHjEDNICq1KZCQSaCI0fTgiDNl6+euNyHBzu4cqEx
- iO9741v4wCyoIoiaM9thQynZp0FAbHjY6s6Wa11nGeh8TUKoMlsCHrFmh2yyK9DRFB
- uA1xHDus73OlQ==
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
-Date: Fri, 21 Jan 2022 22:22:48 +0000
-Message-Id: <20220121222252.3296117-2-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
-References: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8713310E749;
+	Mon, 24 Jan 2022 13:32:57 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C08810E4DB;
+ Sun, 23 Jan 2022 22:30:33 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ l12-20020a7bc34c000000b003467c58cbdfso32958185wmj.2; 
+ Sun, 23 Jan 2022 14:30:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=05N9uh+4Ak2VGTM8SLSYA5VF5ZUwizJAzi30P4Q0iRw=;
+ b=NPt3mdSMhrv9lsWtnCpYgVJT+P4r6DvFFVhWMEF+qsCMv8p/KM3MY7GzS08yOUteuT
+ LHagLw8sHXlFvgO5E7F0DAzgxBgUTrPXv4yXumLELORCfCMPHjN8lGSSHuPtwArbJ4gO
+ 1jTCF5oZteYXfjGjloKP2mmrwgvDAwkUgZ84SYQSMyAS1HoiT+6+FUNVUwjhz1wjAoLc
+ +Lp5xCdC1CF9p6d0fn0sfbk4L00rrxkJrARp+FqqNrhtdPvhnNDq0jZS4DQfr5STlSVu
+ LjaqfnKEDhI+29JSc07xts8njJhV1vUV5PirqvK/+XRuIqasz7YESbIHXaA7SxlgDQjv
+ MtSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=05N9uh+4Ak2VGTM8SLSYA5VF5ZUwizJAzi30P4Q0iRw=;
+ b=seX3XF1j4SDjyz3TgKZjk/w4EjEU+TSKap2HeDDqKZRdn3mtTcOj+z2BSV/TNkoGcM
+ io0cF1+BkKbxpnxHE7hZCIe1wot68arbm1Xb8UoVkl+sZBk6KLzkZC07WAftC396czQc
+ lvQ2rWYD0rD6gMdOjoI9P38mM8knEbFHYLhId/Y5PKvmBwwlBP1U22CAiCmJ+WK/vInd
+ IRxaPlxKB9kOAXCXCDvXqRVFfRjy1Zv3YwSlnbJAxcZSf5zTdhZ92Xj/TBjKcIBn3jm1
+ iYm9o0D2BUlgOBEYcgttuUWxd9DmNBN67bHtCFHcWGZNBfKAm3j408V3z3qwmscEKjdI
+ 0oqQ==
+X-Gm-Message-State: AOAM531qryMIJ1KI0fAJs6KZDRcafEYGUF3QOJYbomdMtIfOr7HVy2TY
+ sJujA9OlWVp/wjEVxEBCnIo=
+X-Google-Smtp-Source: ABdhPJyMJ8VXx50B3SxP9I2RY6ip0w1a1Kzi1Kf73vVfrPUNQ54IUDnlElLRNFHeZuitW7cwxfi/eA==
+X-Received: by 2002:a1c:7316:: with SMTP id d22mr9132678wmb.5.1642977032008;
+ Sun, 23 Jan 2022 14:30:32 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194])
+ by smtp.gmail.com with ESMTPSA id n10sm14436700wrf.96.2022.01.23.14.30.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 Jan 2022 14:30:31 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Sun, 23 Jan 2022 22:30:30 +0000
+Message-Id: <20220123223030.6005-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [RFC PATCH 1/5] drm/i915/flat-CCS: Add GEM bo structure
- fields for flat-CCS
+Subject: [Intel-gfx] [PATCH] drm/i915/selftests: make static read-only array
+ page_count const
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,40 +75,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: adrian.larumbe@collabora.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When a flat-CCS aware bo is evicted from lmem, its control surface will be
-written out into smem. This will be done in the shape of a kernel-only bo
-attached to the original bo.
+The static array page_count is read-only so it make sense to make
+it const.
 
-Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/selftests/scatterlist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 71e778ecaeb8..9f574e149c58 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -628,6 +628,16 @@ struct drm_i915_gem_object {
- 
- 		void *gvt_info;
- 	};
-+
-+	/**
-+	 * This is set if the object is lmem-placeable, supports flat
-+	 * CCS and is compressed. In that case, a separate block of
-+	 * stolen lmem memory will contain its compression data.
-+	 */
-+	struct {
-+		struct drm_i915_gem_object *swap;
-+		bool enabled:1;
-+	} flat_css;
- };
- 
- static inline struct drm_i915_gem_object *
+diff --git a/drivers/gpu/drm/i915/selftests/scatterlist.c b/drivers/gpu/drm/i915/selftests/scatterlist.c
+index d599186d5b71..a4f2fbb451e2 100644
+--- a/drivers/gpu/drm/i915/selftests/scatterlist.c
++++ b/drivers/gpu/drm/i915/selftests/scatterlist.c
+@@ -195,7 +195,7 @@ static unsigned int random_page_size_pages(unsigned long n,
+ 					   struct rnd_state *rnd)
+ {
+ 	/* 4K, 64K, 2M */
+-	static unsigned int page_count[] = {
++	static const unsigned int page_count[] = {
+ 		BIT(12) >> PAGE_SHIFT,
+ 		BIT(16) >> PAGE_SHIFT,
+ 		BIT(21) >> PAGE_SHIFT,
 -- 
-2.34.1
+2.33.1
 
