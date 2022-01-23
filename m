@@ -4,65 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8328DC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2924C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C57F710E8AE;
-	Mon, 24 Jan 2022 13:32:10 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13CD210E7DE;
- Mon, 24 Jan 2022 13:03:38 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id s18so13466341wrv.7;
- Mon, 24 Jan 2022 05:03:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=OIMpCxdpOEYcnoEMYTLid8nSDucpIJk7Qs0av1g9rGU=;
- b=Za0l1xsonKjouvDIMROzfQL6VhlP8mzkESil1aeWuJGWeszrr05TDVJRnNQPHMjAmL
- ciUKjhRVlVdfIoWOstpjaFKypK3pZm8V3ujTya8XDZfJjQi5YVtpMaPGRFLaPYd6AzFX
- fAtr6XVhop5ak70LhAo3KDlnf7lqgftnijiM4MhYk3o6XKMxyXLbeAIpRygNIyHsfjPC
- ULnsMaFPKcBIJg7wQ05fw7igggYGtQTZS9cUIHtdH9r2hva7pZW+dJpwrEyi/0J0gjlU
- aTxrjnGzBGw8J3B65Hj0RK4nSgn+engUyV+MR5IoBAUUvROjofmJTZzKJ0a3KpOVSV4O
- nwpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=OIMpCxdpOEYcnoEMYTLid8nSDucpIJk7Qs0av1g9rGU=;
- b=NWeETnhQImnHfjWAvsfU/aPfEpS6CotaVpnCadepDsjP+a6pn/DfVPn0RhWa737fa9
- sVpStKp3fac/6VjWooqzd0bsg8at8epSU2aPh+6qc9QQimWAq5kbDlVPVUC+e9t5E9qU
- psFS61sJFks6Zq7AitEav6++vN/AwFbR8WYLcYSahIQzG95xafSrJgP7EF2zEon+d/R8
- HWzdrfEMgUiKt60VIfLcrkwem/SzmPW5Hti1OJ1yQgpiqapdL73aJ3fKlu03EpRX3OS+
- VekXYYPH+3E2bgzIpatnBKF0XvxTgpuowhi/oK7863IUHAwT8Dq3V8N10TysGRQdpZch
- 3xPw==
-X-Gm-Message-State: AOAM530UQg2OtgJfV1eA7FZsUsVpxk+J+mHxx1GEw5r3xN6arXDOji12
- Tasq6aVBy26kwwux/wA9AJU=
-X-Google-Smtp-Source: ABdhPJybmvbb5mAUUvu0Ijhnddxeo7Xw1mcpCy2qmY9reEMoeiW/+OvaQYIKxw/RSfns4ryIV8XoZA==
-X-Received: by 2002:adf:f804:: with SMTP id s4mr7647788wrp.425.1643029416642; 
- Mon, 24 Jan 2022 05:03:36 -0800 (PST)
-Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 05:03:36 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, sumit.semwal@linaro.org,
- gustavo@padovan.org, daniel.vetter@ffwll.ch, zackr@vmware.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 24 Jan 2022 14:03:22 +0100
-Message-Id: <20220124130328.2376-6-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220124130328.2376-1-christian.koenig@amd.com>
-References: <20220124130328.2376-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7325710E995;
+	Mon, 24 Jan 2022 13:32:11 +0000 (UTC)
+X-Greylist: delayed 330 seconds by postgrey-1.36 at gabe;
+ Sun, 23 Jan 2022 19:26:02 UTC
+Received: from forward101o.mail.yandex.net (forward101o.mail.yandex.net
+ [IPv6:2a02:6b8:0:1a2d::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D49DF10E11C
+ for <intel-gfx@lists.freedesktop.org>; Sun, 23 Jan 2022 19:26:02 +0000 (UTC)
+Received: from forward102q.mail.yandex.net (forward102q.mail.yandex.net
+ [IPv6:2a02:6b8:c0e:1ba:0:640:516:4e7d])
+ by forward101o.mail.yandex.net (Yandex) with ESMTP id 55EAF369C258;
+ Sun, 23 Jan 2022 22:20:29 +0300 (MSK)
+Received: from vla1-4e4ee944ff6b.qloud-c.yandex.net
+ (vla1-4e4ee944ff6b.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0d:3192:0:640:4e4e:e944])
+ by forward102q.mail.yandex.net (Yandex) with ESMTP id 51394BF00002;
+ Sun, 23 Jan 2022 22:20:29 +0300 (MSK)
+Received: from vla5-445dc1c4c112.qloud-c.yandex.net
+ (vla5-445dc1c4c112.qloud-c.yandex.net [2a02:6b8:c18:3609:0:640:445d:c1c4])
+ by vla1-4e4ee944ff6b.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
+ N586EWrcrw-KSfaudax; Sun, 23 Jan 2022 22:20:29 +0300
+Authentication-Results: vla1-4e4ee944ff6b.qloud-c.yandex.net; dkim=pass
+Received: by vla5-445dc1c4c112.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id TJMeNIfkIw-KQQKhsVM; Sun, 23 Jan 2022 22:20:27 +0300
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client certificate not present)
+X-Yandex-Fwd: 2
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Date: Sun, 23 Jan 2022 22:19:55 +0300
+Message-Id: <20220123191955.57994-1-iam@lach.pw>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220118215956.17229-1-iam@lach.pw>
+References: <20220118215956.17229-1-iam@lach.pw>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH 05/11] dma-buf: Warn about dma_fence_chain
- container rules v2
+Subject: [Intel-gfx] [PATCH v2] drm/edid: Support type 7 timings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,42 +59,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yaroslav Bolyukin <iam@lach.pw>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Chaining of dma_fence_chain objects is only allowed through the prev
-fence and not through the contained fence.
+Per VESA DisplayID Standard v2.0: Type VII Timing – Detailed Timing Data
 
-Warn about that when we create a dma_fence_chain.
+Definitions were already provided as type I, but not used
 
-v2: fix comment style
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
 ---
- drivers/dma-buf/dma-fence-chain.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/drm_edid.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
-index 1b4cb3e5cec9..084c6927b735 100644
---- a/drivers/dma-buf/dma-fence-chain.c
-+++ b/drivers/dma-buf/dma-fence-chain.c
-@@ -254,5 +254,14 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
- 
- 	dma_fence_init(&chain->base, &dma_fence_chain_ops,
- 		       &chain->lock, context, seqno);
-+
-+	/*
-+	 * Chaining dma_fence_chain container together is only allowed through
-+	 * the prev fence and not through the contained fence.
-+	 *
-+	 * The correct way of handling this is to flatten out the fence
-+	 * structure into a dma_fence_array by the caller instead.
-+	 */
-+	WARN_ON(dma_fence_is_chain(fence));
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 12893e7be..5f2ae5bfa 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -5405,7 +5405,8 @@ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edi
  }
- EXPORT_SYMBOL(dma_fence_chain_init);
+ 
+ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
+-							    struct displayid_detailed_timings_1 *timings)
++							    struct displayid_detailed_timings_1 *timings,
++							    bool type_7)
+ {
+ 	struct drm_display_mode *mode;
+ 	unsigned pixel_clock = (timings->pixel_clock[0] |
+@@ -5426,7 +5427,8 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+ 	if (!mode)
+ 		return NULL;
+ 
+-	mode->clock = pixel_clock * 10;
++	/* resolution is kHz for type VII, and 10 kHz for type I */
++	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
+ 	mode->hdisplay = hactive;
+ 	mode->hsync_start = mode->hdisplay + hsync;
+ 	mode->hsync_end = mode->hsync_start + hsync_width;
+@@ -5457,6 +5459,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+ 	int num_timings;
+ 	struct drm_display_mode *newmode;
+ 	int num_modes = 0;
++	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+ 	/* blocks must be multiple of 20 bytes length */
+ 	if (block->num_bytes % 20)
+ 		return 0;
+@@ -5465,7 +5468,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+ 	for (i = 0; i < num_timings; i++) {
+ 		struct displayid_detailed_timings_1 *timings = &det->timings[i];
+ 
+-		newmode = drm_mode_displayid_detailed(connector->dev, timings);
++		newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
+ 		if (!newmode)
+ 			continue;
+ 
+@@ -5484,7 +5487,8 @@ static int add_displayid_detailed_modes(struct drm_connector *connector,
+ 
+ 	displayid_iter_edid_begin(edid, &iter);
+ 	displayid_iter_for_each(block, &iter) {
+-		if (block->tag == DATA_BLOCK_TYPE_1_DETAILED_TIMING)
++		if (block->tag == DATA_BLOCK_TYPE_1_DETAILED_TIMING ||
++		    block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING)
+ 			num_modes += add_displayid_detailed_1_modes(connector, block);
+ 	}
+ 	displayid_iter_end(&iter);
+
+base-commit: 99613159ad749543621da8238acf1a122880144e
 -- 
-2.25.1
+2.34.1
 
