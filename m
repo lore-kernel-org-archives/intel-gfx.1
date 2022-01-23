@@ -4,42 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7891C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9050DC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B186010EACB;
-	Mon, 24 Jan 2022 13:32:12 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F74610E4B8
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:29 +0000 (UTC)
-Received: from sobremesa.fritz.box (unknown
- [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: alarumbe)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 5AEA71F465DE;
- Fri, 21 Jan 2022 22:23:28 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1642803808;
- bh=HywVXqkFYUQwQW4dizv3Olfnjyz5xHTBWsw+8hLC6G0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lQO7v8wqZgjG4t7epyy4tdf0MD1VH9tb7Rxqs6L1Ah58wtvNYW+PqusUMKyyOqZXR
- b/QTEIVUppvFOlc2o6T5/5vuGL6wz71Gw57f+fxdVJyMHbfH50+hHT0cnPnr5JTqVl
- YKG8fGICCEQGcPBPFchRMRMD6KjNWNlT5s19FRaCF0a16EFjaeNnDwRK0AYzRsNjvz
- RYCQT5DCc1QLYj3u4aWE9EEY+uiLe9ZLdRoVu2g+EJADkVOK1yYvxN0/V0ZA17Kq+9
- 6FgYSh/N6uoPPrbNHT1TVBSD96n1Z8FeZJMhwdG1EX7k5LIZmhEQ1Kwi+ylguF6dvs
- WA1h8WXxs0vlw==
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
-Date: Fri, 21 Jan 2022 22:22:50 +0000
-Message-Id: <20220121222252.3296117-4-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
-References: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABC410EB2C;
+	Mon, 24 Jan 2022 13:32:13 +0000 (UTC)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1518810E950;
+ Sun, 23 Jan 2022 18:40:42 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ my12-20020a17090b4c8c00b001b528ba1cd7so9261295pjb.1; 
+ Sun, 23 Jan 2022 10:40:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=475Re6o4qrxmTY2+dJD1szR+aZ9ztNBAVJwVf2XomiQ=;
+ b=jmVObv+DHvV/nfgWMGm7G0AiVWxWK811CYrpCGiHV6xY0cRphRK/F1bxcyarhazE7G
+ QO3y6iESjwSCWQV4XxfbN0VGrGzLnz+MQAZouCPpYGATGaaGpx/xFlQQHIUbUBuvRRw5
+ 0P/sPgZ/Zob1yCiUwsGdNVWUVVlgMqpf+xC55wv1WQFaeiZGDLCbtdTLECSRwzD1BwDr
+ 5hJchQzstXRUP379uF+B/2jyU8zwFVQtEt3XnUASMZLgJzQPBHWzsJ7NMd9Pe5Hmto0M
+ h6UFu1fpTLkx6o30OssQidiED5LGIyGRgU4+4B2Dhf6WKpYvcVZFv0Kk+WkaLBOUlnoc
+ 3Wyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=475Re6o4qrxmTY2+dJD1szR+aZ9ztNBAVJwVf2XomiQ=;
+ b=5E51w8uV/1vNzEipKpblv6nQVtc1Zm738fECzdBuye8E4M0A3e0IhbZBKX1t5vDoGl
+ 3xatnHIp72p2jYIkqzgNT5CEndSKiMYUxL72nkmZG8sHZnsa/lprQKffbBJd9CRE0cvR
+ Ne1cSOpLBACEoSV/Zl/DRW//5dTuB5xadfszVOiLuBknGK4NtsNjMKMUl2kB0BFKZlm0
+ aQF5vnecmoC6q/lSN0IrmqskNj2JsPgdGtmUD6XRkWJz7SlgG6cx6RCvtT09yOIjnV6V
+ lzCHwPOT2uvKmcfErNoa8D82GBh8v+SJYHjIB2Tb1HDHwAYPpWJyBEcrMlKscs5kp6li
+ jqyQ==
+X-Gm-Message-State: AOAM532M5bvXG6je68Iod3mcclqmQJQFM0JJllbhOGfwpFNB+vub2VPe
+ jkU3kREL0jj1YFhUV2992CM=
+X-Google-Smtp-Source: ABdhPJyghkxvVhznkwLCfy/A1+7acBwkBZ1BlnfDfQwJqPCZvzndSaF4vpp9USN1uOTwz9n3zy27xQ==
+X-Received: by 2002:a17:90a:460f:: with SMTP id
+ w15mr9814786pjg.123.1642963241641; 
+ Sun, 23 Jan 2022 10:40:41 -0800 (PST)
+Received: from localhost (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id q9sm13712586pfk.137.2022.01.23.10.40.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 Jan 2022 10:40:41 -0800 (PST)
+From: Yury Norov <yury.norov@gmail.com>
+To: Yury Norov <yury.norov@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ David Laight <David.Laight@aculab.com>, Joe Perches <joe@perches.com>,
+ Dennis Zhou <dennis@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Alexey Klimov <aklimov@redhat.com>, linux-kernel@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Sun, 23 Jan 2022 10:38:48 -0800
+Message-Id: <20220123183925.1052919-18-yury.norov@gmail.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220123183925.1052919-1-yury.norov@gmail.com>
+References: <20220123183925.1052919-1-yury.norov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [RFC PATCH 3/5] drm/i915/flat-CCS: move GET_CCS_SIZE
- macro into driver-wide header
+Subject: [Intel-gfx] [PATCH 17/54] gpu: drm: replace cpumask_weight with
+ cpumask_empty where appropriate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,53 +88,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It has to be used by other files other than low-level migration code.
+i915_pmu_cpu_online() calls cpumask_weight() to check if any bit of a
+given cpumask is set. We can do it more efficiently with cpumask_empty()
+because cpumask_empty() stops traversing the cpumask as soon as it finds
+first set bit, while cpumask_weight() counts all bits unconditionally.
 
-Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
+Signed-off-by: Yury Norov <yury.norov@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/intel_migrate.c | 1 -
- drivers/gpu/drm/i915/i915_drv.h         | 5 +++++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-index a210c911905e..716f2f51c7f9 100644
---- a/drivers/gpu/drm/i915/gt/intel_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-@@ -16,7 +16,6 @@ struct insert_pte_data {
- };
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index ea655161793e..1894c876b31d 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -1048,7 +1048,7 @@ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+ 	GEM_BUG_ON(!pmu->base.event_init);
  
- #define CHUNK_SZ SZ_8M /* ~1ms at 8GiB/s preemption delay */
--#define GET_CCS_SIZE(i915, size)	(HAS_FLAT_CCS(i915) ? (size) >> 8 : 0)
+ 	/* Select the first online CPU as a designated reader. */
+-	if (!cpumask_weight(&i915_pmu_cpumask))
++	if (cpumask_empty(&i915_pmu_cpumask))
+ 		cpumask_set_cpu(cpu, &i915_pmu_cpumask);
  
- static bool engine_supports_migration(struct intel_engine_cs *engine)
- {
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 5623892ceab9..6b890a6674e4 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -105,6 +105,7 @@
- #include "i915_request.h"
- #include "i915_scheduler.h"
- #include "gt/intel_timeline.h"
-+#include "gt/intel_gpu_commands.h"
- #include "i915_vma.h"
- 
- 
-@@ -1526,6 +1527,10 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HAS_FLAT_CCS(dev_priv)   (INTEL_INFO(dev_priv)->has_flat_ccs)
- 
-+#define GET_CCS_SIZE(i915, size) (HAS_FLAT_CCS(i915) ? \
-+				  DIV_ROUND_UP(size, NUM_CCS_BYTES_PER_BLOCK) \
-+				  0)
-+
- #define HAS_GT_UC(dev_priv)	(INTEL_INFO(dev_priv)->has_gt_uc)
- 
- #define HAS_POOLED_EU(dev_priv)	(INTEL_INFO(dev_priv)->has_pooled_eu)
+ 	return 0;
 -- 
-2.34.1
+2.30.2
 
