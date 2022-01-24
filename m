@@ -4,40 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B89C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B7EEC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C77E10E4B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C70CE10E8F8;
 	Mon, 24 Jan 2022 13:32:10 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C830010E4E0
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 22:23:27 +0000 (UTC)
-Received: from sobremesa.fritz.box (unknown
- [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: alarumbe)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 4AF801F465DB;
- Fri, 21 Jan 2022 22:23:26 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1642803806;
- bh=Ghd051lnC0neneuf8YUtplot8CtjmLxYuRnduSFEU+w=;
- h=From:To:Cc:Subject:Date:From;
- b=Gc0wQq0a1KHaJU2YCbj/3zITqqx0Ii7Y+q3GrjkANwtWmW83+6lgCyZYv9TEsNCy2
- 4U+wx2jr6UPJ5gTfp/1Y9JmSTP+IghZAZrEkBxDG8fSCgVVv+Nx3z55aKBc8AukRob
- FTEsnw4QRY8uYGLt7q0cd9iK1Yzlvtiy/4p8/zYgaetCEBGzAi1LDOXFbWuB919pgD
- fm/b+iWzDylL/xh1zfUOQ3JPptUVd+ihpGx1EDBVG8OVxUZjkydN5ibCcN2Bgukyjd
- 9Vo5d/h+E8iAUapHGOUC6CL4LQ0pX0TSdtt+WPreBRPprerw2zzNReMIe+zJLxaQ7K
- lxHCQgUUS2+cA==
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: daniel@ffwll.ch, ramalingam.c@intel.com, intel-gfx@lists.freedesktop.org
-Date: Fri, 21 Jan 2022 22:22:47 +0000
-Message-Id: <20220121222252.3296117-1-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB2410ED36;
+ Mon, 24 Jan 2022 13:03:44 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id c2so22886767wml.1;
+ Mon, 24 Jan 2022 05:03:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=ZOOWkC73PSVhRT0FPLika7h1bqOJ9nqV8+v2bYOzvlk=;
+ b=BN4G1G1uZmHVPUdddjzKNuL0BBo7JYTZkQQyIvk63C2H72ryniGJxuuRifcQLLoCcm
+ hQwVCCkXY/wNaT8Z1LaA+v4ExIHN3M2+LZG+Ug8dM2uWX854BnKbbn68p/3FS2OroLOb
+ xU7JiItwucYfKwsJ9Hn1ShkWz9e21axei8cwYaT+zsIxR1gHW1Un4Wf+iQTjGKG/E+Wi
+ afnlSkLzpvjkp8rMGslR8XUxIXdZoNpKmak7xl9EwIMJy6OE+3pLF9L2trntd29LJy93
+ UzUH+l1iyBU3yjh+Fy/gUyccrfa8UFM1UapXbIlsUQnUvBNQpK37fm9gCMyYjn58wLqU
+ 6RMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ZOOWkC73PSVhRT0FPLika7h1bqOJ9nqV8+v2bYOzvlk=;
+ b=Bkk2ZpyPgsNkuFCg5oaTBPgJV+g/xs2tAf0zEex0F8Wie8nxG5Uj2UAtpHsRYaQM9k
+ U8afa/ypdMYCM4zK6brCuCW+pPqtuW/jgxuTTMiwdsXVIf8fY+sELp5fcuO5Bq6tDXHE
+ HiaiAuJ3bb3Uc6+fVLNnF2lPkJ3r1XdtDSOoaibZcXoMEmcJtBLAwc1m24QQF+n4z74p
+ JkG4LercgdKE6XuVU6giyyJMC3gHZ2SzRK50njno/dRwx54L9VfaP+8iZx6brSbuV3Zk
+ T4ORSzfKzPsZoKY4iZjDOxEhHwSxuqZTvNCx+AQZPA7L13ilT2FIM8VtHi+5FdY/JYtc
+ oXOQ==
+X-Gm-Message-State: AOAM532RZZ2yjhcYtDL9Gy4XON5cnBEAsqj4RGslBnv2QnXJTrFj14Rm
+ U015a/lxCSg7pLjBXP+frEY=
+X-Google-Smtp-Source: ABdhPJyM1SO5I7sGhctwpaezFuuegLgqLtmxJh+6i7GsHrfxCcvi0BoPrElxd8RWOVOT+IekzQ33ow==
+X-Received: by 2002:a1c:e913:: with SMTP id q19mr1753907wmc.87.1643029422366; 
+ Mon, 24 Jan 2022 05:03:42 -0800 (PST)
+Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jan 2022 05:03:42 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, sumit.semwal@linaro.org,
+ gustavo@padovan.org, daniel.vetter@ffwll.ch, zackr@vmware.com,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Date: Mon, 24 Jan 2022 14:03:28 +0100
+Message-Id: <20220124130328.2376-12-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220124130328.2376-1-christian.koenig@amd.com>
+References: <20220124130328.2376-1-christian.koenig@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [RFC PATCH 0/5] Add basic support for flat-CCS bo
- evictions
+Subject: [Intel-gfx] [PATCH 11/11] drm/vmwgfx: remove vmw_wait_dma_fence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,75 +74,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series is a first attempt at handling the eviction of flat-CCS
-compressed lmem-placed bo's.
+Decomposing fence containers don't seem to make any sense here.
 
-The official specification of flat CCS behaviour dictates that:
+So just remove the function entirely and call dma_fence_wait() directly.
 
-"Flat CCS data needs to be cleared when a lmem object is allocated.  And CCS
-data can be copied in and out of CCS region through XY_CTRL_SURF_COPY_BLT. CPU
-can't access the CCS data directly.
-                                                                             
-When we exaust the lmem, if the object's placements support smem, then we can
-directly decompress the compressed lmem object into smem and start using it from
-smem itself.
-                                                                             
-But when we need to swapout the compressed lmem object into a smem region though
-objects' placement doesn't support smem, then we copy the lmem content as it is
-into smem region along with ccs data (using XY_CTRL_SURF_COPY_BLT).  When the
-object is referred, lmem content will be swaped in along with restoration of the
-CCS data (using XY_CTRL_SURF_COPY_BLT) at corresponding location."
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Cc: VMware Graphics <linux-graphics-maintainer@vmware.com>
+Cc: Zack Rusin <zackr@vmware.com>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c   | 46 -------------------------
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.h   |  3 --
+ 3 files changed, 1 insertion(+), 50 deletions(-)
 
-Design decisions:
-
- - A separate GEM bo of type `ttm_bo_type_kernel` is created to hold the
- contents of the CCS block when an lmem-only object is evicted onto smem. This
- is because this bo should never be mmap'able onto user space.
-
- - Whether a bo is meant to contain flat-CCS compressed data is marked by adding
- specific surface modifiers that describe a FB object which contains the
- relevant bo. This is done through a specific DRM library call.
-
- - At an eviction event, the bo's buffer data and its corresponding CCS block
- have to be moved between smem and lmem in two separate blit operations. Because
- of my poor knowledge of the blit unit, it's very likely that the way I
- programmed it is somehow wrong.
-
- - At the moment, migrating a flat-CCS lmem-only object from smem back onto lmem
- will fail if its flat-CCS swap bo had not been created. However, a bo lifecycle
- begins in smem when it's created, even its original placement specifies lmem
- only. Between the time that a bo is freshly created and an execbuf2 ioctl
- actually moves it onto lmem and allocates its backing storage, the user might've
- called mmap on it, a scenario which I haven't yet accounted for.
-
-Part of the blitting engine code was borrowed from Ramalingam C <ramalingam.c@intel.com>,
-who has been working in parallel on the same problem, although in a slightly
-different approach.
-
-For testing, a flat-CCS driver self-test is under preparation.
-
-Adrian Larumbe (5):
-  drm/i915/flat-CCS: Add GEM BO structure fields for flat-CCS
-  drm/i915/flat-CCS: Add flat CCS plane capabilities and modifiers
-  drm/i915/flat-CCS: move GET_CCS_SIZE macro into driver-wide header
-  drm/i915/flat-CCS: handle CCS block blit for bo migrations
-  drm/i915/flat-CCS: handle creation and destruction of flat CCS bo's
-
- drivers/gpu/drm/i915/display/intel_fb.c       |  36 ++-
- drivers/gpu/drm/i915/display/intel_fb.h       |   1 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  10 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  11 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  78 ++++-
- drivers/gpu/drm/i915/gt/intel_migrate.c       | 289 ++++++++++++------
- drivers/gpu/drm/i915/gt/intel_migrate.h       |   2 +
- drivers/gpu/drm/i915/gt/selftest_migrate.c    |   3 +-
- drivers/gpu/drm/i915/i915_drv.h               |   5 +
- 9 files changed, 342 insertions(+), 93 deletions(-)
-
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index 44ca23b0ea4e..0ff28f0e3eb4 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -4500,7 +4500,7 @@ int vmw_execbuf_ioctl(struct drm_device *dev, void *data,
+ 			goto mksstats_out;
+ 		}
+ 
+-		ret = vmw_wait_dma_fence(dev_priv->fman, in_fence);
++		ret = dma_fence_wait(in_fence, true);
+ 		if (ret)
+ 			goto out;
+ 	}
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+index c60d395f9e2e..430f83a1847c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+@@ -621,52 +621,6 @@ int vmw_user_fence_create(struct drm_file *file_priv,
+ 	return ret;
+ }
+ 
+-
+-/**
+- * vmw_wait_dma_fence - Wait for a dma fence
+- *
+- * @fman: pointer to a fence manager
+- * @fence: DMA fence to wait on
+- *
+- * This function handles the case when the fence is actually a fence
+- * array.  If that's the case, it'll wait on each of the child fence
+- */
+-int vmw_wait_dma_fence(struct vmw_fence_manager *fman,
+-		       struct dma_fence *fence)
+-{
+-	struct dma_fence_array *fence_array;
+-	int ret = 0;
+-	int i;
+-
+-
+-	if (dma_fence_is_signaled(fence))
+-		return 0;
+-
+-	if (!dma_fence_is_array(fence))
+-		return dma_fence_wait(fence, true);
+-
+-	/* From i915: Note that if the fence-array was created in
+-	 * signal-on-any mode, we should *not* decompose it into its individual
+-	 * fences. However, we don't currently store which mode the fence-array
+-	 * is operating in. Fortunately, the only user of signal-on-any is
+-	 * private to amdgpu and we should not see any incoming fence-array
+-	 * from sync-file being in signal-on-any mode.
+-	 */
+-
+-	fence_array = to_dma_fence_array(fence);
+-	for (i = 0; i < fence_array->num_fences; i++) {
+-		struct dma_fence *child = fence_array->fences[i];
+-
+-		ret = dma_fence_wait(child, true);
+-
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-
+ /*
+  * vmw_fence_fifo_down - signal all unsignaled fence objects.
+  */
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
+index 079ab4f3ba51..a7eee579c76a 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
+@@ -104,9 +104,6 @@ extern int vmw_user_fence_create(struct drm_file *file_priv,
+ 				 struct vmw_fence_obj **p_fence,
+ 				 uint32_t *p_handle);
+ 
+-extern int vmw_wait_dma_fence(struct vmw_fence_manager *fman,
+-			      struct dma_fence *fence);
+-
+ extern void vmw_fence_fifo_up(struct vmw_fence_manager *fman);
+ 
+ extern void vmw_fence_fifo_down(struct vmw_fence_manager *fman);
 -- 
-2.34.1
+2.25.1
 
