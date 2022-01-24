@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E3BC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 01:54:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78590C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 01:54:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2D1410E343;
-	Mon, 24 Jan 2022 01:54:14 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA1410E343;
- Mon, 24 Jan 2022 01:54:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA75610E401;
+	Mon, 24 Jan 2022 01:54:15 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 847F410E27C;
+ Mon, 24 Jan 2022 01:54:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642989254; x=1674525254;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=RJ38NFsCxCGkkXpWENl1lI1EVp6t2oKoNxmZY3ee8wg=;
- b=CgThPryLL8fp3ibUG6UG81aSWGm1CglCZj5jOmTBcIV/lDwvongHh8hv
- nFKqwDR1YXjvdz9/dor7RZo21sDHCd6B0pKBl2KPnwe0GApP6uQ6cMma5
- m84gkiKPTSl8gQct6vujrOn6SYoaMDRJCjqjopEjNGchmk0Njo5eSDXyl
- CMCv77cs1q+8AXHe4+E443UbgG/XJxIn93arbjBVNNozeyIJM972kHOOG
- +Pk9Uqp0H+mF5GXfoFObT4tdrZIL0su5QmhrmfLgHsaUV8p7G3Rhv+SGI
- pbtRrYXmGXQnlqiCZ2RWM/TWXMj92lYmOkqHVj+ichdxnclPy++sdgw0g w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="226616218"
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="226616218"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2022 17:54:13 -0800
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="627320389"
+ t=1642989253; x=1674525253;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ngiBZ4miI2i9+e7eQ8QzZsVgrw+8WTFv/7YWGiVXsVM=;
+ b=dbSgAmfaBp99HEcKeaCjAP3tUZPP4LaKY6z1QaaM36A09fmWs70TXQHK
+ 2bQvC0LK/898ZThWp9yMXUzqWRXUXRuzxEuQzGkSVTgo0JHzDzX8worIO
+ 7r2o0iZVYjamOCdmC8h8aXU95r3qwUEvC9cJzmVlkFrO3h2ToS3trDi+0
+ kuzmBIERDwEasgP3K02jWisCO0KJMJxGUP9IFYrmVFKe7ZdqeZSmv8UBd
+ 3SjtKCbf1oiDCqKkcataCEokjYX1mEkeecaTOID/69jRspBAlagus3OAj
+ MZ57NXSjWtLCchrLC5uHbj208iJlGyK1EvXYlIPyUOkAoex09WEAhcLNh Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="225923424"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="225923424"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2022 17:54:12 -0800
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="476550367"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2022 17:54:13 -0800
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2022 17:54:12 -0800
 From: ira.weiny@intel.com
 To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Date: Sun, 23 Jan 2022 17:54:04 -0800
-Message-Id: <20220124015409.807587-3-ira.weiny@intel.com>
+Date: Sun, 23 Jan 2022 17:54:02 -0800
+Message-Id: <20220124015409.807587-1-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220124015409.807587-1-ira.weiny@intel.com>
-References: <20220124015409.807587-1-ira.weiny@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V2 2/7] drm/amd: Replace kmap() with
- kmap_local_page()
+Subject: [Intel-gfx] [PATCH V2 0/7] DRM kmap() fixes and kmap_local_page()
+ conversions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,44 +64,51 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-kmap() is being deprecated.  These maps are thread local and can be
-replaced with kmap_local_page().
+Changes from V1:
+	Use memcpy_to_page() where appropriate
+	Rebased to latest
 
-Replace kmap() with kmap_local_page()
+The kmap() call may cause issues with work being done with persistent memory.
+For this and other reasons it is being deprecated.
 
-Signed-off-by: Ira Weiny <ira.weiny@intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This series starts by converting the last easy kmap() uses in the drm tree to
+kmap_local_page().
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 5c3f24069f2a..54973824f8f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2272,9 +2272,9 @@ static ssize_t amdgpu_iomem_read(struct file *f, char __user *buf,
- 		if (p->mapping != adev->mman.bdev.dev_mapping)
- 			return -EPERM;
- 
--		ptr = kmap(p);
-+		ptr = kmap_local_page(p);
- 		r = copy_to_user(buf, ptr + off, bytes);
--		kunmap(p);
-+		kunmap_local(ptr);
- 		if (r)
- 			return -EFAULT;
- 
-@@ -2323,9 +2323,9 @@ static ssize_t amdgpu_iomem_write(struct file *f, const char __user *buf,
- 		if (p->mapping != adev->mman.bdev.dev_mapping)
- 			return -EPERM;
- 
--		ptr = kmap(p);
-+		ptr = kmap_local_page(p);
- 		r = copy_from_user(ptr + off, buf, bytes);
--		kunmap(p);
-+		kunmap_local(ptr);
- 		if (r)
- 			return -EFAULT;
- 
--- 
+The final 2 patches fix bugs found while working on the ttm_bo_kmap_ttm()
+conversion.  They are valid fixes but were found via code inspection not
+because of any actual bug so don't require a stable tag.[1]
+
+There is one more call to kmap() used in ttm_bo_kmap_ttm().  Unfortunately,
+fixing this is not straight forward so it is left to future work.[2]
+
+[1] https://lore.kernel.org/lkml/fb71af05-a889-8f6e-031b-426b58a64f00@amd.com/
+[2] https://lore.kernel.org/lkml/20211215210949.GW3538886@iweiny-DESK2.sc.intel.com/
+
+
+Ira Weiny (7):
+drm/i915: Replace kmap() with kmap_local_page()
+drm/amd: Replace kmap() with kmap_local_page()
+drm/gma: Remove calls to kmap()
+drm/radeon: Replace kmap() with kmap_local_page()
+drm/msm: Alter comment to use kmap_local_page()
+drm/amdgpu: Ensure kunmap is called on error
+drm/radeon: Ensure kunmap is called on error
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
+drivers/gpu/drm/gma500/gma_display.c | 6 ++----
+drivers/gpu/drm/gma500/mmu.c | 8 ++++----
+drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 6 ++----
+drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
+drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c | 4 ++--
+drivers/gpu/drm/i915/gt/shmem_utils.c | 7 ++-----
+drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
+drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
+drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
+drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
+drivers/gpu/drm/radeon/radeon_uvd.c | 1 +
+13 files changed, 32 insertions(+), 37 deletions(-)
+
+--
 2.31.1
 
