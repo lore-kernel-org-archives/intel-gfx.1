@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C06AC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 01:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 459BEC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 01:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B39210E4B6;
-	Mon, 24 Jan 2022 01:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C62310E63D;
+	Mon, 24 Jan 2022 01:54:21 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 574B410E27C;
- Mon, 24 Jan 2022 01:54:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A14FB10E3FB;
+ Mon, 24 Jan 2022 01:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642989254; x=1674525254;
+ t=1642989255; x=1674525255;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+LXecIMRVcm+6l6u17VPJeZsX7SGcDdtoraU1ufkp0U=;
- b=R5xyLskPBTZNg58Kl/RPA5/3s7uSoIYM/XXZGmgN7bKkeqjdO44ODBUc
- JzQ8UMsLgq4YyfHs63pUMNoV40cVaW7bZdgAo/SAcbOESCEGvfnTo3JOj
- oZjIixLOl6XBjVpTE09R5jbkmqbYFCwlYKSrfy4pMWXZVWPBuoub++QpC
- dtW3UNaQutkloRSpQnfbTPjEXQiJ+8Cq+yxvzTOwpqJq+5Rlf76SrX+bK
- qGJ3Nf7TRkreXbMjo5gqaGsK9eGGuE3/dVzLcdZspcJREWftHDWXqbYzM
- 493fJ7c0KTr/vTx65y8RB0JFBfpO6CS66mqyVCSwAE+IxmuQywMOLC0vY A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="226616219"
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="226616219"
+ bh=8QsQEKSxoLGHydWZTS5T8WXMzBP5ZWfGvu6Ze1y391U=;
+ b=HmjPJ0I7fUjK05LRt3yk8Fy/iRmUsSIS7UL3AtG6XI/dLSIGi6ojslZQ
+ +jZBfDmV7ruuU+AvcZ/0oxCMTY6YAdeUROg3laUEBHcmzycaBH2Z3vI+n
+ HMCt507oTKSbZIHcaLzES9rrFj7Vc0e7YUqCvBMvQIAUuG4FE9autOdGn
+ M8J8xvZ0cL4iDAuv6SSw/2Xs201VOuLNLfoYa8AcDXlp9qa491oA4Sas3
+ P3SShzo8FlHwwSyybOV0nLxXYt31kx1F1Naq4SqkM3kA9xtjuuikNB2Yg
+ QEi7eM/1TlfoL+cveDEwXAWZMhJbP0WyhNe3+tO/FVBoPifJJxkgSqm5F w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="226616227"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="226616227"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2022 17:54:14 -0800
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="627320393"
+ 23 Jan 2022 17:54:15 -0800
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="627320407"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2022 17:54:13 -0800
+ 23 Jan 2022 17:54:15 -0800
 From: ira.weiny@intel.com
 To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Date: Sun, 23 Jan 2022 17:54:05 -0800
-Message-Id: <20220124015409.807587-4-ira.weiny@intel.com>
+Date: Sun, 23 Jan 2022 17:54:08 -0800
+Message-Id: <20220124015409.807587-7-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220124015409.807587-1-ira.weiny@intel.com>
 References: <20220124015409.807587-1-ira.weiny@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V2 3/7] drm/gma: Remove calls to kmap()
+Subject: [Intel-gfx] [PATCH V2 6/7] drm/amdgpu: Ensure kunmap is called on
+ error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,68 +66,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-kmap() is being deprecated and these instances are easy to convert to
-kmap_local_page().
+The default case leaves the buffer object mapped in error.
 
-Furthermore, in gma_crtc_cursor_set() use the memcpy_from_page() helper
-instead of an open coded use of kmap_local_page().
+Add amdgpu_bo_kunmap() to that case to ensure the mapping is cleaned up.
 
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
----
- drivers/gpu/drm/gma500/gma_display.c | 6 ++----
- drivers/gpu/drm/gma500/mmu.c         | 8 ++++----
- 2 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/gma_display.c b/drivers/gpu/drm/gma500/gma_display.c
-index 99da3118131a..60ba7de59139 100644
---- a/drivers/gpu/drm/gma500/gma_display.c
-+++ b/drivers/gpu/drm/gma500/gma_display.c
-@@ -335,7 +335,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
- 	struct psb_gem_object *pobj;
- 	struct psb_gem_object *cursor_pobj = gma_crtc->cursor_pobj;
- 	struct drm_gem_object *obj;
--	void *tmp_dst, *tmp_src;
-+	void *tmp_dst;
- 	int ret = 0, i, cursor_pages;
+---
+NOTE: It seems like this function could use a fair bit of refactoring
+but this is the easiest way to fix the actual bug.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 6f8de11a17f1..b3ffd0f6b35f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -889,6 +889,7 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *ctx,
+ 		return 0;
  
- 	/* If we didn't get a handle then turn the cursor off */
-@@ -400,9 +400,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
- 		/* Copy the cursor to cursor mem */
- 		tmp_dst = dev_priv->vram_addr + cursor_pobj->offset;
- 		for (i = 0; i < cursor_pages; i++) {
--			tmp_src = kmap(pobj->pages[i]);
--			memcpy(tmp_dst, tmp_src, PAGE_SIZE);
--			kunmap(pobj->pages[i]);
-+			memcpy_from_page(tmp_dst, pobj->pages[i], 0, PAGE_SIZE);
- 			tmp_dst += PAGE_SIZE;
- 		}
- 
-diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
-index fe9ace2a7967..a70b01ccdf70 100644
---- a/drivers/gpu/drm/gma500/mmu.c
-+++ b/drivers/gpu/drm/gma500/mmu.c
-@@ -184,17 +184,17 @@ struct psb_mmu_pd *psb_mmu_alloc_pd(struct psb_mmu_driver *driver,
- 		pd->invalid_pte = 0;
+ 	default:
++		amdgpu_bo_kunmap(bo);
+ 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
  	}
  
--	v = kmap(pd->dummy_pt);
-+	v = kmap_local_page(pd->dummy_pt);
- 	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
- 		v[i] = pd->invalid_pte;
- 
--	kunmap(pd->dummy_pt);
-+	kunmap_local(v);
- 
--	v = kmap(pd->p);
-+	v = kmap_local_page(pd->p);
- 	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
- 		v[i] = pd->invalid_pde;
- 
--	kunmap(pd->p);
-+	kunmap_local(v);
- 
- 	clear_page(kmap(pd->dummy_page));
- 	kunmap(pd->dummy_page);
 -- 
 2.31.1
 
