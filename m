@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB4DCC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00F90C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26A310EA38;
-	Mon, 24 Jan 2022 13:32:11 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4945710ECAC;
- Mon, 24 Jan 2022 13:03:43 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id v13so13445019wrv.10;
- Mon, 24 Jan 2022 05:03:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F34B10EAA0;
+	Mon, 24 Jan 2022 13:32:12 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 498EF10E71D;
+ Mon, 24 Jan 2022 12:08:30 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ o30-20020a05600c511e00b0034f4c3186f4so2961397wms.3; 
+ Mon, 24 Jan 2022 04:08:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=MJIzfIJj7sWuWjvaqjpDxEclvLa+rSTBKh+L03ndIwY=;
- b=mayDO4SqOT6sf2NhBRvsP0DLMeVKsM7h9unw0ZHqmAWO5qafsGittBMwjgB4z6OJuQ
- jBzh/KUjDickCvFJoxImLwpQ+sWe+hi0m3cmoC8RVrEeGIbc44mSybgkJeLH095QjZfJ
- Iscy4NwK29NCxKpviz2Blk8d1UPvdiTwsE0Q+dNdpC7yeYOhs1683+YyjjZvAyyEnQQs
- wL7RdeiZpJaNpeQd4GrkUha0BCFhyDc9nau7zAFAdXS6j3kEoeWd6FpVnDtahI8vRzPq
- l+uXy/zp3B+bBcPruwUH842qiv29poaQp54esQjWkbHGlby30p3cPlz0mGDr/ELlnM6p
- XvSQ==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=XArnnH4OvrxRcoFfpFy+puuAOs1zK8Kgo1S3kPJSJSw=;
+ b=Jc276FuGvUAjhsukljJ+yBmJsnTKcW5NrocuudRyuV338c+REYomAqV50vs3b9w4gw
+ jQUdowlUT4PRsPPsTAx3vb+xhwoOyrYKpR9Yc+Tii6O6Pa7p/nbIXGl23Dc7cyglQCdj
+ /h5svWv15McmcBB+SVksjK92+h0n0fJw40OLE2eieebA957FhvtKGR0hjGKQV4L8E1jT
+ ULJQlldeeOX3wdAa0621QBFB1gY3WE2BqPzwM3CJ5bFnJLxjaQPzu5VlFPBnYQIxnLda
+ Vhqv8J9RWPMvMK4I0olcJ33FVxRcdbNGVrSgt20UGyTLJIwHtLqMfwvzw6f3J+0KLU90
+ m9Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=MJIzfIJj7sWuWjvaqjpDxEclvLa+rSTBKh+L03ndIwY=;
- b=6C39EklZi/Y1WzL1NFqDpxhXoF3oSjFw2yOZtj4qEG1IAcfcdFYUbi5/I7FsgVjnaW
- PMpZShZCLHQqWn9wclh/ibXBmuax9Dnf/ZyMOdQFw/S3VcRLwNQYJCV1Kmfo2eaGNTvY
- 2WOkLhM5Q0okMkMrD5bpBlrtA40tf2i9Eyhige8jIW84PR6JineDY/tSylFttDrcFYbe
- xevnIdKvlnNk9RaTlgd7N8e7/QCoQBu9K0IOjtq4A1PGaQjBV0NVILmaxSD31okacntL
- 2UjGhfo8jUZ0znsDDm7WbGaQgBj3NCh7bCDkscO0+48Ndz/fAPBiDtmMjAnzUdGVbDRk
- KhXg==
-X-Gm-Message-State: AOAM530L/YqamU2KPN7KLahb3W++CvH2JTvxi1WSfPXxitFM+YoCArWX
- v063yQdTcJFDurcYQwvyIUc=
-X-Google-Smtp-Source: ABdhPJxs2g8ipzz/+fii/LaxWHZmuklRaYRFm9GrwFmRzJY1FJzjG8l+Js3pYAYVarlheQ8AYF0SAw==
-X-Received: by 2002:adf:fe85:: with SMTP id l5mr13914919wrr.661.1643029421485; 
- Mon, 24 Jan 2022 05:03:41 -0800 (PST)
-Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 05:03:41 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, sumit.semwal@linaro.org,
- gustavo@padovan.org, daniel.vetter@ffwll.ch, zackr@vmware.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 24 Jan 2022 14:03:27 +0100
-Message-Id: <20220124130328.2376-11-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220124130328.2376-1-christian.koenig@amd.com>
-References: <20220124130328.2376-1-christian.koenig@amd.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=XArnnH4OvrxRcoFfpFy+puuAOs1zK8Kgo1S3kPJSJSw=;
+ b=Opz/v7ZvEE0lBdRSVns4oxR8dqMsqJP+eCSbZHxDCNQNQXyQjK/MIJ2Nhn7P+6zhG+
+ Oo3hOrl8rKaI51blpOVxIN8X0TWAT8q9sHSnXhzhlxJ2M+49a5qfcTdeWtIilZItDo4y
+ UNKgr+0T+8G4BLUpWbkI846JqWTDpcovMp63Nl5oMqoNB+Asn5k4n3to3qhr0I2shTRJ
+ ZoPjeOgPC0mHAHBYFWcTvrGZbh9L1FwO9bSNlZO0ZhtsIjvuW8tX/poe1vhtNzLTxtyx
+ VruVscqFNJAUPSZxaPpaq0ZRu8V6hsTWZV3GBU3nQ6WXQh9UEsAgqJjWsoONId4pzb6t
+ /DnQ==
+X-Gm-Message-State: AOAM530bwdsr7Ym0RuLoIL+9av85VLSTBAzoGjN8Ujzr49nMOL+QE+zo
+ szb0kRh3a5PLzVSHj1ir9Wo83zveDDY=
+X-Google-Smtp-Source: ABdhPJxx9aW2LXSFk8wJPNYSMOgRQT/XrKepKIzP/Y7B/Y5B2yDT0IK8LOJk1hzSqfc71Sgws6OTQA==
+X-Received: by 2002:a7b:c5c4:: with SMTP id n4mr1572870wmk.134.1643026108567; 
+ Mon, 24 Jan 2022 04:08:28 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id c14sm17849799wri.32.2022.01.24.04.08.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jan 2022 04:08:28 -0800 (PST)
+To: ira.weiny@intel.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220124015409.807587-1-ira.weiny@intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a56344b6-b1bd-6749-5ed2-5f38bf79dcee@gmail.com>
+Date: Mon, 24 Jan 2022 13:08:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20220124015409.807587-1-ira.weiny@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH 10/11] drm/i915: use dma_fence extractor
- functions
+Subject: Re: [Intel-gfx] [PATCH V2 0/7] DRM kmap() fixes and
+ kmap_local_page() conversions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,241 +78,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of manually messing with the data structures use the iterators
-and extraction helpers provided by the framework.
+Am 24.01.22 um 02:54 schrieb ira.weiny@intel.com:
+> From: Ira Weiny <ira.weiny@intel.com>
+>
+> Changes from V1:
+> 	Use memcpy_to_page() where appropriate
+> 	Rebased to latest
+>
+> The kmap() call may cause issues with work being done with persistent memory.
+> For this and other reasons it is being deprecated.
 
-This whole handling should essentially go away when boost handling is
-implemented in the core dma-buf framework.
+I'm really wondering how we should be able to implement the kernel 
+mapping without kmap in TTM.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_busy.c | 40 ++++++--------------
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 31 ++++------------
- drivers/gpu/drm/i915/i915_request.c      | 47 +++++++-----------------
- 3 files changed, 33 insertions(+), 85 deletions(-)
+> This series starts by converting the last easy kmap() uses in the drm tree to
+> kmap_local_page().
+>
+> The final 2 patches fix bugs found while working on the ttm_bo_kmap_ttm()
+> conversion.  They are valid fixes but were found via code inspection not
+> because of any actual bug so don't require a stable tag.[1]
+>
+> There is one more call to kmap() used in ttm_bo_kmap_ttm().  Unfortunately,
+> fixing this is not straight forward so it is left to future work.[2]
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-index 470fdfd61a0f..4ea7a5b26405 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
-@@ -41,6 +41,8 @@ static __always_inline unsigned int
- __busy_set_if_active(struct dma_fence *fence, u32 (*flag)(u16 id))
- {
- 	const struct i915_request *rq;
-+	struct dma_fence *current_fence;
-+	unsigned int i;
- 
- 	/*
- 	 * We have to check the current hw status of the fence as the uABI
-@@ -58,40 +60,22 @@ __busy_set_if_active(struct dma_fence *fence, u32 (*flag)(u16 id))
- 	 *
- 	 * 2. A single i915 request.
- 	 */
--	if (dma_fence_is_array(fence)) {
--		struct dma_fence_array *array = to_dma_fence_array(fence);
--		struct dma_fence **child = array->fences;
--		unsigned int nchild = array->num_fences;
--
--		do {
--			struct dma_fence *current_fence = *child++;
--
--			/* Not an i915 fence, can't be busy per above */
--			if (!dma_fence_is_i915(current_fence) ||
--			    !test_bit(I915_FENCE_FLAG_COMPOSITE,
--				      &current_fence->flags)) {
--				return 0;
--			}
--
--			rq = to_request(current_fence);
--			if (!i915_request_completed(rq))
--				return flag(rq->engine->uabi_class);
--		} while (--nchild);
--
--		/* All requests in array complete, not busy */
--		return 0;
--	} else {
--		if (!dma_fence_is_i915(fence))
--			return 0;
-+	dma_fence_array_for_each(current_fence, i, fence) {
- 
--		rq = to_request(fence);
--		if (i915_request_completed(rq))
-+		/* Not an i915 fence, can't be busy per above */
-+		if (!dma_fence_is_i915(current_fence) ||
-+		    !test_bit(I915_FENCE_FLAG_COMPOSITE, &current_fence->flags))
- 			return 0;
- 
-+		rq = to_request(current_fence);
- 		/* Beware type-expansion follies! */
- 		BUILD_BUG_ON(!typecheck(u16, rq->engine->uabi_class));
--		return flag(rq->engine->uabi_class);
-+		if (!i915_request_completed(rq))
-+			return flag(rq->engine->uabi_class);
- 	}
-+
-+	/* All requests in array complete, not busy */
-+	return 0;
- }
- 
- static __always_inline unsigned int
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index dab3d30c09a0..13f37b6aedf7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -72,11 +72,6 @@ static void fence_set_priority(struct dma_fence *fence,
- 	rcu_read_unlock();
- }
- 
--static inline bool __dma_fence_is_chain(const struct dma_fence *fence)
--{
--	return fence->ops == &dma_fence_chain_ops;
--}
--
- void i915_gem_fence_wait_priority(struct dma_fence *fence,
- 				  const struct i915_sched_attr *attr)
- {
-@@ -85,25 +80,15 @@ void i915_gem_fence_wait_priority(struct dma_fence *fence,
- 
- 	local_bh_disable();
- 
--	/* Recurse once into a fence-array */
--	if (dma_fence_is_array(fence)) {
--		struct dma_fence_array *array = to_dma_fence_array(fence);
--		int i;
-+	/* The chain is ordered; if we boost the last, we boost all */
-+	dma_fence_chain_for_each(fence, fence) {
-+		struct dma_fence *array, *element;
-+		unsigned int i;
- 
--		for (i = 0; i < array->num_fences; i++)
--			fence_set_priority(array->fences[i], attr);
--	} else if (__dma_fence_is_chain(fence)) {
--		struct dma_fence *iter;
--
--		/* The chain is ordered; if we boost the last, we boost all */
--		dma_fence_chain_for_each(iter, fence) {
--			fence_set_priority(to_dma_fence_chain(iter)->fence,
--					   attr);
--			break;
--		}
--		dma_fence_put(iter);
--	} else {
--		fence_set_priority(fence, attr);
-+		/* Recurse once into a fence-array */
-+		array = dma_fence_chain_contained(fence);
-+		dma_fence_array_for_each(element, i, array)
-+			fence_set_priority(element, attr);
- 	}
- 
- 	local_bh_enable(); /* kick the tasklets if queues were reprioritised */
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index ad175d662b4e..2d8add5b5da9 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1345,18 +1345,15 @@ i915_request_await_external(struct i915_request *rq, struct dma_fence *fence)
- 	struct dma_fence *iter;
- 	int err = 0;
- 
--	if (!to_dma_fence_chain(fence))
--		return __i915_request_await_external(rq, fence);
--
- 	dma_fence_chain_for_each(iter, fence) {
--		struct dma_fence_chain *chain = to_dma_fence_chain(iter);
-+		struct dma_fence *tmp = dma_fence_chain_contained(iter);
- 
--		if (!dma_fence_is_i915(chain->fence)) {
-+		if (!dma_fence_is_i915(tmp)) {
- 			err = __i915_request_await_external(rq, iter);
- 			break;
- 		}
- 
--		err = i915_request_await_dma_fence(rq, chain->fence);
-+		err = i915_request_await_dma_fence(rq, tmp);
- 		if (err < 0)
- 			break;
- 	}
-@@ -1386,24 +1383,14 @@ static bool is_same_parallel_context(struct i915_request *to,
- 
- int
- i915_request_await_execution(struct i915_request *rq,
--			     struct dma_fence *fence)
-+			     struct dma_fence *array)
- {
--	struct dma_fence **child = &fence;
--	unsigned int nchild = 1;
-+	struct dma_fence *fence;
-+	unsigned int i;
- 	int ret;
- 
--	if (dma_fence_is_array(fence)) {
--		struct dma_fence_array *array = to_dma_fence_array(fence);
--
--		/* XXX Error for signal-on-any fence arrays */
-+	dma_fence_array_for_each(fence, i, array) {
- 
--		child = array->fences;
--		nchild = array->num_fences;
--		GEM_BUG_ON(!nchild);
--	}
--
--	do {
--		fence = *child++;
- 		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
- 			continue;
- 
-@@ -1425,7 +1412,7 @@ i915_request_await_execution(struct i915_request *rq,
- 		}
- 		if (ret < 0)
- 			return ret;
--	} while (--nchild);
-+	}
- 
- 	return 0;
- }
-@@ -1482,10 +1469,10 @@ i915_request_await_request(struct i915_request *to, struct i915_request *from)
- }
- 
- int
--i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
-+i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *array)
- {
--	struct dma_fence **child = &fence;
--	unsigned int nchild = 1;
-+	struct dma_fence *fence;
-+	unsigned int i;
- 	int ret;
- 
- 	/*
-@@ -1496,16 +1483,8 @@ i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
- 	 * amdgpu and we should not see any incoming fence-array from
- 	 * sync-file being in signal-on-any mode.
- 	 */
--	if (dma_fence_is_array(fence)) {
--		struct dma_fence_array *array = to_dma_fence_array(fence);
--
--		child = array->fences;
--		nchild = array->num_fences;
--		GEM_BUG_ON(!nchild);
--	}
-+	dma_fence_array_for_each(fence, i, array) {
- 
--	do {
--		fence = *child++;
- 		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
- 			continue;
- 
-@@ -1537,7 +1516,7 @@ i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
- 		if (fence->context)
- 			intel_timeline_sync_set(i915_request_timeline(rq),
- 						fence);
--	} while (--nchild);
-+	}
- 
- 	return 0;
- }
--- 
-2.25.1
+Patches #2, #4, #6 and #7 are Reviewed-by: Christian König 
+<christian.koenig@amd.com>
+
+How to you now want to push those upstream? I can pick them up for the 
+AMD tree like Daniel suggested or you can push them through something else.
+
+Regards,
+Christian.
+
+>
+> [1] https://lore.kernel.org/lkml/fb71af05-a889-8f6e-031b-426b58a64f00@amd.com/
+> [2] https://lore.kernel.org/lkml/20211215210949.GW3538886@iweiny-DESK2.sc.intel.com/
+>
+>
+> Ira Weiny (7):
+> drm/i915: Replace kmap() with kmap_local_page()
+> drm/amd: Replace kmap() with kmap_local_page()
+> drm/gma: Remove calls to kmap()
+> drm/radeon: Replace kmap() with kmap_local_page()
+> drm/msm: Alter comment to use kmap_local_page()
+> drm/amdgpu: Ensure kunmap is called on error
+> drm/radeon: Ensure kunmap is called on error
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
+> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
+> drivers/gpu/drm/gma500/gma_display.c | 6 ++----
+> drivers/gpu/drm/gma500/mmu.c | 8 ++++----
+> drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 6 ++----
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
+> drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c | 4 ++--
+> drivers/gpu/drm/i915/gt/shmem_utils.c | 7 ++-----
+> drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
+> drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
+> drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
+> drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
+> drivers/gpu/drm/radeon/radeon_uvd.c | 1 +
+> 13 files changed, 32 insertions(+), 37 deletions(-)
+>
+> --
+> 2.31.1
+>
 
