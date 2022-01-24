@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F12C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 15:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1409AC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 15:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 116F810EA19;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9235F10EAA4;
 	Mon, 24 Jan 2022 15:07:48 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCC810EA19;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67C9310E820;
  Mon, 24 Jan 2022 15:07:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1643036867; x=1674572867;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=b6ZfPNlH1bdVOf0y5koMdz+A5G5QomkOwRH1qLRv67k=;
- b=a8RSpMWZgSu7dVd4g2gxhIwbu4hH41I9yB9KiTXo5isvVk6jpUOXzKB7
- VBrpDC7QPxyHHPe3Y7vLSBjIOfia72qYVwoQ0yehbVr6N3aegR1WPl+I3
- i7jgCCpdljJiHvkTV08llQFPYvhK7KUQB+kiDoNk5tj4vU/AfpdBrJep+
- xQnpvxFpYTYVnE0qBsf6t+q/5qhsdkvsDRRMlwl/52W2IGjm7NTHQR305
- HFOD3LbarrG/bCjYCnsQysqmvRF/B6yg57FKZjqwa42m0eQUkYh5XjZ7o
- mT3+fqdnaoyO5mULJrQ1qPTzMdwO+nyXGQ/aSO8fBRnzB3RLZqikNwMhB Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="246282843"
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="246282843"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=w8i0kNLZ+J/FaTCaK6bIp4mS/4ohpsR4Ayo95FIHlT4=;
+ b=K4dOWtsbzWkpoRnRlaViG6JA1KFmBEBjMAXB+31eN0E23q+c9yHGPWu1
+ q44od7iksuoICCLUyHc91/n+si0IOoGVRwCVwokD95fGjxMfSDRfZsWX1
+ t44Cdeag+A4XQMl6kdUAA9VmclVHC/6wXj9uj2kAeYMdFOxIPUbyfkrf5
+ AlW6EZlEh5eP3/YFRT48u6428SPaelCQ4lix5Fiytn6OuLo0phcwO6XFj
+ QJ7ePQZMLu/+LEiSIqj+4hdioUjnHzzfg11IccLX3PmH+3rHxsXU9oC+9
+ 3CVDGUwGg6B9iJdzgeJp1eMWfqoxd8H+Lo8lC0rIWY1FLjHbOUFy2Eydx A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="246282837"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="246282837"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 Jan 2022 07:07:44 -0800
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="532104901"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="532104890"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 Jan 2022 07:07:44 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Mon, 24 Jan 2022 07:01:57 -0800
-Message-Id: <20220124150157.15758-5-matthew.brost@intel.com>
+Date: Mon, 24 Jan 2022 07:01:53 -0800
+Message-Id: <20220124150157.15758-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220124150157.15758-1-matthew.brost@intel.com>
-References: <20220124150157.15758-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/selftests: Set preemption timeout
- to zero in cancel reset test
+Subject: [Intel-gfx] [PATCH 0/4] Fix up request cancel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +57,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Set the preemption timeout to zero to prove that request cancellation
-with preemption disabled works. Also this seals a race between a
-possible preemption and request cancellation.
+Fix request cancellation + add request cancel low level trace point.
+
+v2:
+  - Update cancel reset selftest preemption timeout value to zero
+  - Fix bug in execlists cancel code
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/selftests/i915_request.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index 2a99dd7c2fe8a..e522e24129f9b 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -790,8 +790,9 @@ static int __cancel_completed(struct intel_engine_cs *engine)
-  * wait for spinner to start, create a NOP request and submit it, cancel the
-  * spinner, wait for spinner to complete and verify it failed with an error,
-  * finally wait for NOP request to complete verify it succeeded without an
-- * error. Preemption timeout also reduced / restored so test runs in a timely
-- * maner.
-+ * error. Preemption timeout also set to zero to ensure cancellation works with
-+ * preemption disabled and to ensure the NOP request doesn't trigger a
-+ * preemption on the spinner sealing a race between a preemption and the cancel.
-  */
- static int __cancel_reset(struct drm_i915_private *i915,
- 			  struct intel_engine_cs *engine)
-@@ -807,7 +808,7 @@ static int __cancel_reset(struct drm_i915_private *i915,
- 		return 0;
- 
- 	preempt_timeout_ms = engine->props.preempt_timeout_ms;
--	engine->props.preempt_timeout_ms = 100;
-+	engine->props.preempt_timeout_ms = 0;
- 
- 	if (igt_spinner_init(&spin, engine->gt))
- 		goto out_restore;
+Matthew Brost (4):
+  drm/i915: Add request cancel low level trace point
+  drm/i915/guc: Cancel requests immediately
+  drm/i915/execlists: Fix execlists request cancellation corner case
+  drm/i915/selftests: Set preemption timeout to zero in cancel reset
+    test
+
+ drivers/gpu/drm/i915/gt/intel_context.h       |  1 +
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  5 ++
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 23 ++++++++--
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |  1 +
+ .../drm/i915/gt/intel_execlists_submission.c  | 18 +++++---
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 46 +++++++++++--------
+ drivers/gpu/drm/i915/i915_request.h           |  6 +++
+ drivers/gpu/drm/i915/i915_trace.h             | 10 ++++
+ drivers/gpu/drm/i915/selftests/i915_request.c |  7 +--
+ 9 files changed, 84 insertions(+), 33 deletions(-)
+
 -- 
 2.34.1
 
