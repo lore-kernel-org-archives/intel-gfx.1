@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC39C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E42CC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6796210EC6A;
-	Mon, 24 Jan 2022 13:32:39 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB14010EA82;
- Mon, 24 Jan 2022 13:03:38 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id h29so10817364wrb.5;
- Mon, 24 Jan 2022 05:03:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7364610ECD4;
+	Mon, 24 Jan 2022 13:32:47 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6C1410E7DE;
+ Mon, 24 Jan 2022 13:03:34 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id v13so13444323wrv.10;
+ Mon, 24 Jan 2022 05:03:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=NMvNPKP34hAKYGcpxJqq3LnQ/oLcKhJxLzf1TGkhp7o=;
- b=k4LocfeKqgCiOSb/bFkVIe+Ku658A7zBja842FU5zGdTH4NyJvvfBvfC1rpFFs/N9/
- Dz+5WYB/YSi4WC1+4LkgurAiJyl+Ru/4fkgqNb3xGwpZdaDJwD7gjOKTUwopixnAKqn4
- iSCVjbdzTeGr4092nLs7seeDslt4C2M6A7kFCdCvePJtVUcIhx+hFdOmVcEVrykssxmJ
- Beh7uRJ+R6fz4YBEwJlnyF7nk2PsAr2V2oc1+3P8wI58BHuzqHoBknI6IldOXNgAzr41
- hzBUWmho+twZ4l0H7oJUgIFpgP0rpopfmrHJkhaGpiMJFm9NaXimRQVpNtQ82+mf2OtL
- kUVg==
+ bh=r0nXcZqVGQ6Ta4bR5kQnQWxyJcyVFZB12g3PuPb0C9w=;
+ b=nftL/d7gjyMEVVqsmMsHQvvAHZjqRoZ87F4j8U53Z9SJqdadiTw6wNOpuacpXloMF7
+ mM2hanVVVbDCcS/uSnaRZJC019c85wYViQ5ztmnWHsRnb2Lrm6MfWE3TyXhQJMrs9yQA
+ ZKTahxOYqEsb0xrlWhkYMrAkBgsIxGXaoLjDjl799P/xlWA+ajY8cPeTdXXGEIOw5AaR
+ X27W5xQhEWV9lGeJBNMQEcn8sa8MF/c5UhuSC1xUxvBHFj6loLfGu6TxVEM4M3NuhYHe
+ 0koUaI1OB+aYjgH0cNn12jKctMsw42vABGE9K+KKvQzXfVpNjzvQvt6tAkoiyc3IOkOV
+ kRRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=NMvNPKP34hAKYGcpxJqq3LnQ/oLcKhJxLzf1TGkhp7o=;
- b=0v8uwIRygD/Dgp3I5AiIuC1XpFdFKua6IXwSlstHEqZuIAHY069funSkqGh9cW5Qbm
- lk66paZfXE2MRQiAMLHbsLa7K6GII/iPcJp3j5jrgsJs3QOY4SYgb06xuFa282vqzoZM
- xKi2+ST0G+Rv6RJWQCTCuspiGvj01e6lQXPPs8NgXslG5uf6DdIxL8GYkXPV22IxaoKb
- sk1pf60QrReI/5Owq1k6CdhJAfOTWM14CPrz9VKgRaw3jikr2EaCdoA/BriwZbLNBVde
- Qczb5YBCJTVy2d+8ZQOauV1gO01Dv8YuxlvZX5s5Q+w5LkfFrB1xyLpa9hFMyHJpvnW9
- PdRQ==
-X-Gm-Message-State: AOAM530s7Djq6fXUGgBTHjq9JTOSm87KjAO+14Jw1SpBe0WUjXPKVuQC
- NhuvV47w9uDeFPSuZw4I4Us=
-X-Google-Smtp-Source: ABdhPJxQFRSIdOY815uMIjIuICHy/VNW3E4LthwsrDEXVnYnOzu387vE+YAzcwllAcmtblw8wKBGmA==
-X-Received: by 2002:a5d:6510:: with SMTP id x16mr5230197wru.613.1643029417626; 
- Mon, 24 Jan 2022 05:03:37 -0800 (PST)
+ bh=r0nXcZqVGQ6Ta4bR5kQnQWxyJcyVFZB12g3PuPb0C9w=;
+ b=C3pTJLnjZJVy/dFbO3t0MXHBshgn6ga9AH+YEueD3zzV5y0epnDcbc1tijgZVom52/
+ 0jvgUMUCFIzv2+uERmPU5BRwjSjwEdiv6Wke1cKbcPF/THq8Za6VmpLbEXn4uekFjDPT
+ 9FvtWDNYnhmLdK6NFcdAJkaPiOd6Fin49OHS1HovxoTqet5rMd1WFOHYSr1JKDI68DmX
+ 4o6kEAIjphKYUBj+CkotAG5WqoZbXArV21iFQjkPK0+Me6Q003iVOIEbAnQGCQACJqkB
+ OJ33pllwUdYcSgYBJ6mMEDoTnJPNS5jK+b8Sz+7QeBqREyie1RNejxaBhLlhvqAbTak2
+ xkcA==
+X-Gm-Message-State: AOAM530J9QijaEZ7lPfYQjgioMa1MaI5n7SjWnP8zTKgpuarkkzomn7R
+ cosCa+1/Ma9tfNgyfB6nncA=
+X-Google-Smtp-Source: ABdhPJz2zt//EU8ROABvVL+unJmuxPgWOCUhgF7nNeJ9i10SZvbdXAJUV6qDThFd6rwZC53Myvv24Q==
+X-Received: by 2002:adf:e806:: with SMTP id o6mr14903326wrm.331.1643029413522; 
+ Mon, 24 Jan 2022 05:03:33 -0800 (PST)
 Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.36
+ by smtp.gmail.com with ESMTPSA id g4sm16543554wrd.12.2022.01.24.05.03.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 05:03:37 -0800 (PST)
+ Mon, 24 Jan 2022 05:03:33 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -52,8 +52,8 @@ To: thomas.hellstrom@linux.intel.com, sumit.semwal@linaro.org,
  gustavo@padovan.org, daniel.vetter@ffwll.ch, zackr@vmware.com,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Mon, 24 Jan 2022 14:03:23 +0100
-Message-Id: <20220124130328.2376-7-christian.koenig@amd.com>
+Date: Mon, 24 Jan 2022 14:03:19 +0100
+Message-Id: <20220124130328.2376-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220124130328.2376-1-christian.koenig@amd.com>
 References: <20220124130328.2376-1-christian.koenig@amd.com>
@@ -61,8 +61,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH 06/11] dma-buf: warn about containers in
- dma_resv object
+Subject: [Intel-gfx] [PATCH 02/11] drm/amdgpu: use ttm_resource_manager_debug
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,30 +77,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drivers should not add containers as shared fences to the dma_resv
-object, instead each fence should be added individually.
+Instead of calling the debug operation directly.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Reviewed-by: Huang Rui <ray.huang@amd.com>
 ---
- drivers/dma-buf/dma-resv.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 6dd9a40b55d4..e8a0c1d51da2 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -256,6 +256,11 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index fb0d8bffdce2..eac2ff4647e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2076,7 +2076,7 @@ static int amdgpu_mm_vram_table_show(struct seq_file *m, void *unused)
+ 							    TTM_PL_VRAM);
+ 	struct drm_printer p = drm_seq_file_printer(m);
  
- 	dma_resv_assert_held(obj);
+-	man->func->debug(man, &p);
++	ttm_resource_manager_debug(man, &p);
+ 	return 0;
+ }
  
-+	/* Drivers should not add containers here, instead add each fence
-+	 * individually.
-+	 */
-+	WARN_ON(dma_fence_is_container(fence));
-+
- 	fobj = dma_resv_shared_list(obj);
- 	count = fobj->shared_count;
+@@ -2094,7 +2094,7 @@ static int amdgpu_mm_tt_table_show(struct seq_file *m, void *unused)
+ 							    TTM_PL_TT);
+ 	struct drm_printer p = drm_seq_file_printer(m);
+ 
+-	man->func->debug(man, &p);
++	ttm_resource_manager_debug(man, &p);
+ 	return 0;
+ }
+ 
+@@ -2105,7 +2105,7 @@ static int amdgpu_mm_gds_table_show(struct seq_file *m, void *unused)
+ 							    AMDGPU_PL_GDS);
+ 	struct drm_printer p = drm_seq_file_printer(m);
+ 
+-	man->func->debug(man, &p);
++	ttm_resource_manager_debug(man, &p);
+ 	return 0;
+ }
+ 
+@@ -2116,7 +2116,7 @@ static int amdgpu_mm_gws_table_show(struct seq_file *m, void *unused)
+ 							    AMDGPU_PL_GWS);
+ 	struct drm_printer p = drm_seq_file_printer(m);
+ 
+-	man->func->debug(man, &p);
++	ttm_resource_manager_debug(man, &p);
+ 	return 0;
+ }
+ 
+@@ -2127,7 +2127,7 @@ static int amdgpu_mm_oa_table_show(struct seq_file *m, void *unused)
+ 							    AMDGPU_PL_OA);
+ 	struct drm_printer p = drm_seq_file_printer(m);
+ 
+-	man->func->debug(man, &p);
++	ttm_resource_manager_debug(man, &p);
+ 	return 0;
+ }
  
 -- 
 2.25.1
