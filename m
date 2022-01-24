@@ -4,65 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20090C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD3E5C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8713310E749;
-	Mon, 24 Jan 2022 13:32:57 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C08810E4DB;
- Sun, 23 Jan 2022 22:30:33 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- l12-20020a7bc34c000000b003467c58cbdfso32958185wmj.2; 
- Sun, 23 Jan 2022 14:30:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=05N9uh+4Ak2VGTM8SLSYA5VF5ZUwizJAzi30P4Q0iRw=;
- b=NPt3mdSMhrv9lsWtnCpYgVJT+P4r6DvFFVhWMEF+qsCMv8p/KM3MY7GzS08yOUteuT
- LHagLw8sHXlFvgO5E7F0DAzgxBgUTrPXv4yXumLELORCfCMPHjN8lGSSHuPtwArbJ4gO
- 1jTCF5oZteYXfjGjloKP2mmrwgvDAwkUgZ84SYQSMyAS1HoiT+6+FUNVUwjhz1wjAoLc
- +Lp5xCdC1CF9p6d0fn0sfbk4L00rrxkJrARp+FqqNrhtdPvhnNDq0jZS4DQfr5STlSVu
- LjaqfnKEDhI+29JSc07xts8njJhV1vUV5PirqvK/+XRuIqasz7YESbIHXaA7SxlgDQjv
- MtSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=05N9uh+4Ak2VGTM8SLSYA5VF5ZUwizJAzi30P4Q0iRw=;
- b=seX3XF1j4SDjyz3TgKZjk/w4EjEU+TSKap2HeDDqKZRdn3mtTcOj+z2BSV/TNkoGcM
- io0cF1+BkKbxpnxHE7hZCIe1wot68arbm1Xb8UoVkl+sZBk6KLzkZC07WAftC396czQc
- lvQ2rWYD0rD6gMdOjoI9P38mM8knEbFHYLhId/Y5PKvmBwwlBP1U22CAiCmJ+WK/vInd
- IRxaPlxKB9kOAXCXCDvXqRVFfRjy1Zv3YwSlnbJAxcZSf5zTdhZ92Xj/TBjKcIBn3jm1
- iYm9o0D2BUlgOBEYcgttuUWxd9DmNBN67bHtCFHcWGZNBfKAm3j408V3z3qwmscEKjdI
- 0oqQ==
-X-Gm-Message-State: AOAM531qryMIJ1KI0fAJs6KZDRcafEYGUF3QOJYbomdMtIfOr7HVy2TY
- sJujA9OlWVp/wjEVxEBCnIo=
-X-Google-Smtp-Source: ABdhPJyMJ8VXx50B3SxP9I2RY6ip0w1a1Kzi1Kf73vVfrPUNQ54IUDnlElLRNFHeZuitW7cwxfi/eA==
-X-Received: by 2002:a1c:7316:: with SMTP id d22mr9132678wmb.5.1642977032008;
- Sun, 23 Jan 2022 14:30:32 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
- by smtp.gmail.com with ESMTPSA id n10sm14436700wrf.96.2022.01.23.14.30.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Jan 2022 14:30:31 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Sun, 23 Jan 2022 22:30:30 +0000
-Message-Id: <20220123223030.6005-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.33.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9D910E7D5;
+	Mon, 24 Jan 2022 13:52:30 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC2DD10E7D5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 13:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643032348; x=1674568348;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=MUbux6bLGLe2R0MCyjPga3V3kVlVQVtgnWkMJI6Hm9w=;
+ b=hOrc7YgcCskG5edCL/Mbrhnwvg1BSkG5IZTMbc2otxpW2aEFhfhj6+o6
+ U8N3Dytx1o0dzjlv7AZkar6kfLyw99GvJwKMxFNgjet2A+JfEkVWmlHUS
+ K1kdw6KJE/dJO6Ob3JrVZIzmvNJJkcq2txs9phZfA4Odd9k/oBtwK1CF4
+ WkWZ8MRBjRbgHE/WS/adUJoCHy2RtgrYQu6If7/jlpY6NRPKnP+Azcqjl
+ vNr6Lk6jzDYWTa9QUqflDAxHg+6DY7A8hVBzSeOgG0hqsZ9fnK7ou86a4
+ p4Z9YXHDDWt7XEPXBgxLNr2sMND8N0tgXqvJI7nZJylXHlfHIJ2eNg6hS w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="226026741"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="226026741"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2022 05:52:28 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="519949970"
+Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
+ ([10.237.72.65])
+ by orsmga007.jf.intel.com with ESMTP; 24 Jan 2022 05:52:26 -0800
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 24 Jan 2022 15:52:34 +0200
+Message-Id: <20220124135234.12030-1-stanislav.lisovskiy@intel.com>
+X-Mailer: git-send-email 2.24.1.485.gad05a3d8e5
+In-Reply-To: <20220124090653.14547-5-stanislav.lisovskiy@intel.com>
+References: <20220124090653.14547-5-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/selftests: make static read-only array
- page_count const
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Don't allocate extra ddb during
+ async flip for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,31 +58,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The static array page_count is read-only so it make sense to make
-it const.
+In terms of async flip optimization we don't to allocate
+extra ddb space, so lets skip it.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+v2: - Extracted min ddb async flip check to separate function
+      (Ville Syrjälä)
+    - Used this function to prevent false positive WARN
+      to be triggered(Ville Syrjälä)
+
+v3: - Renamed dg2_need_min_ddb to need_min_ddb thus making
+      it more universal.
+    - Also used DISPLAY_VER instead of IS_DG2(Ville Syrjälä)
+    - Use rate = 0 instead of just setting extra = 0, thus
+      letting other planes to use extra ddb and avoiding WARN
+      (Ville Syrjälä)
+
+v4: - Renamed needs_min_ddb as s/needs/use/ to match
+      the wm0 counterpart(Ville Syrjälä)
+    - Added plane->async_flip check to use_min_ddb(now
+      passing plane as a parameter to do that)(Ville Syrjälä)
+    - Account for use_min_ddb also when calculating total data rate
+      (Ville Syrjälä)
+
+v5:
+    - Use for_each_intel_plane_on_crtc instead of for_each_intel_plane_id
+      to get plane->async_flip check and account for all planes(Ville Syrjälä)
+    - Fix line wrapping(Ville Syrjälä)
+    - Set plane data rate conditionally, avoiding on redundant assignment
+      (Ville Syrjälä)
+    - Removed redundant whitespace(Ville Syrjälä)
+    - Handle use_min_ddb case in skl_plane_relative_data_rate instead of
+      icl_get_total_relative_data_rate(Ville Syrjälä)
+
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- drivers/gpu/drm/i915/selftests/scatterlist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/intel_pm.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/selftests/scatterlist.c b/drivers/gpu/drm/i915/selftests/scatterlist.c
-index d599186d5b71..a4f2fbb451e2 100644
---- a/drivers/gpu/drm/i915/selftests/scatterlist.c
-+++ b/drivers/gpu/drm/i915/selftests/scatterlist.c
-@@ -195,7 +195,7 @@ static unsigned int random_page_size_pages(unsigned long n,
- 					   struct rnd_state *rnd)
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 0bb4c941f950..bb147e5a77b6 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -4906,6 +4906,16 @@ static u8 skl_compute_dbuf_slices(struct intel_crtc *crtc, u8 active_pipes)
+ 	return active_pipes & BIT(pipe) ? BIT(DBUF_S1) : 0;
+ }
+ 
++static bool use_min_ddb(const struct intel_crtc_state *crtc_state,
++			struct intel_plane *plane)
++{
++	struct drm_i915_private *i915 = to_i915(plane->base.dev);
++
++	return DISPLAY_VER(i915) >= 13 &&
++	       crtc_state->uapi.async_flip &&
++	       plane->async_flip;
++}
++
+ static bool use_minimal_wm0_only(const struct intel_crtc_state *crtc_state,
+ 				 struct intel_plane *plane)
  {
- 	/* 4K, 64K, 2M */
--	static unsigned int page_count[] = {
-+	static const unsigned int page_count[] = {
- 		BIT(12) >> PAGE_SHIFT,
- 		BIT(16) >> PAGE_SHIFT,
- 		BIT(21) >> PAGE_SHIFT,
+@@ -4934,6 +4944,14 @@ skl_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
+ 	if (plane->id == PLANE_CURSOR)
+ 		return 0;
+ 
++	/*
++	 * We calculate extra ddb based on ratio plane rate/total data rate
++	 * in case, in some cases we should not allocate extra ddb for the plane,
++	 * so do not count its data rate, if this is the case.
++	 */
++	if (use_min_ddb(crtc_state, plane))
++		return 0;
++
+ 	if (color_plane == 1 &&
+ 	    !intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
+ 		return 0;
 -- 
-2.33.1
+2.24.1.485.gad05a3d8e5
 
