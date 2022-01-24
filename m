@@ -4,109 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C66BC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:18:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EFDEC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 13:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C66FD10E3CB;
-	Mon, 24 Jan 2022 13:18:06 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2089.outbound.protection.outlook.com [40.107.95.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26A010E95D;
- Mon, 24 Jan 2022 13:18:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cke3RNWzWprJNQBJWo9BfY1LTnI3kFj8gl9+hFnywBfSv0Q+FNiBdsotooPljRxqylfoAxkvMj0KAUmI7p0itc3ua+/EVcfa2KLny5KgZY3AzngxrA7JbXUBQOOPFNk2GyZg4HGqt/L76vLWC5aPyqusKCcaMxfe76Aq/o2m8JvAb54Ykso3V4Pgcp9v7e/zleuxnvEzJhVFxiFBkVzMPd4W9GB+TkicsLrh0xpU0PI69/JO2OU/JuA8l9YyQOxHRO77dHmfgHXGb7qf9f9AN7M/P1pTj6UJPJjkV+KHxHwyQ0Ujbz9qbAhaQ+DM/7585yoc8ThKLFQXYKCrJagDQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jQ1ctbYWyR7COQ+Vd3WpqAIK34dkCpUvsvES6mASoQ0=;
- b=Rue+17aPsVJjQWGn8dmH+dlg1DibxDom5utxqLkpx8j+RA9itRlrtNy3gcDB8nrIF/WHz69nqxyttOrBXOcbRtdrxJMGZ1JdDzzOjR5vcW00wiePgzSVD+0kKvSz81lcuEyUONzfNPsgWQH7xJm3IYPp/K4vs7LhBYi5EYxtYPfMYVMQtUfj5UYvfqfkDlfE6An9koaYBIZ6ZI/anGg86xcbT22E3gU5Yj8WadBTDcqbFUcSB4Q2IMYC7DsT8iLPKfY1D2qSTLlwuOH08/014J4DPF+Im5GKk2vop+v1tv0MPb9wbkdwoCsswpHVs+xUUkFgwkzYQjO6TX0i/wiing==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jQ1ctbYWyR7COQ+Vd3WpqAIK34dkCpUvsvES6mASoQ0=;
- b=li0jf6UDTeMGeYkinLYa+T9nbpcc0MkkwSYw1ernUxD2Nn46W0bSsqFr3XcFif3XvLWOcG+kSHlp1/feIaPKPOAzwuBYOfxK3u1IbNQubHy4rgUd+aG2tHHr0n4NHPnl8OL87pvtOVCPaCIDfvzOXkiFo0yQ8+jmiqxnif43d0NRZ4V5F+5VOfUBz8tL9S4Z5LtOpu0KeFyV75frAGt8/zYGP8V3ougreVQGjkWbXgTVZPDjvS6dOYkQmJGeJhphXnfdbUSimUGkpqXzqM2WDEBG/qjtEjHLZ4O2fLzM7G9SMKpISoVgJ/WVqBZYM7tpF/4TZbFymj5ucVOa5CDWcw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
- by DM5PR1201MB0076.namprd12.prod.outlook.com (2603:10b6:4:55::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Mon, 24 Jan
- 2022 13:18:04 +0000
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::ad3f:373f:b7d3:19c2]) by MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::ad3f:373f:b7d3:19c2%7]) with mapi id 15.20.4909.017; Mon, 24 Jan 2022
- 13:18:03 +0000
-Date: Mon, 24 Jan 2022 09:18:02 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: zhi.wang.linux@gmail.com
-Message-ID: <20220124131802.GA966497@nvidia.com>
-References: <20211129123832.105196-1-zhi.a.wang@intel.com>
- <20211130164622.GA15150@lst.de>
- <e183b95f-89d1-3a2f-27e2-82aa2b10e8fc@intel.com>
- <20220124094004.GA23537@lst.de>
- <004201d8110a$db3ec9e0$91bc5da0$@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <004201d8110a$db3ec9e0$91bc5da0$@gmail.com>
-X-ClientProxiedBy: MN2PR12CA0016.namprd12.prod.outlook.com
- (2603:10b6:208:a8::29) To MN2PR12MB4192.namprd12.prod.outlook.com
- (2603:10b6:208:1d5::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 47d99020-6f32-4a0c-92db-08d9df3bf3de
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0076:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB00767D30F1E62C5967BE2728C25E9@DM5PR1201MB0076.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1BWc/WfkJ/SMumCaAQwFEVk2Q7TvuHhh2XlykIlZsm86F0O7sh37nZa1E0AjS5MqmhTSVVZe/jh0yoT6UVshiTFkpMUP7Aa65KAoyQjH+fbGYPy7z9f6C1CqEek3C2ObPRLQz1aOI+sDxpzOacYyYNs1TWTRlrxRIASprAfsHjb7ZN7Yg7BUmjX7zM+7GvsQ5+VbfmFdnZM5dHVeRAa7RhQuCmDGZHc2dSufHMXbKkfaC+thU5ndIAzfEOv/0uZGCAXd4SVjEuK1GC/93fhLGYBNfO8NxMqdSPMavudE8wceE1IA9NLCLCQulBYmmuICWlMYRsSif96xhLNfCKTFoxjbnTGmOpK4jmQf8JbgbfpPok0sN1rUXV2M5kRwlPL5LR5C77sJOJhD+3SEDCabgW8Dv6N2Ecyg5V2oXNNKL3R0iyxI0ow2nCZ2vU07ppyO4/38ENMMstFScOwUJ0EueEmlerpD4xO39L3EISEect84CYnPgR/yMEcicmg2Z6Bd+9SsMQ/2urIngeHwhKGSctXpXB5e9IvvnvS0MPrJYowEuS/DOOOruUxjkkn5bhWOvCpSeIvbcqEmrVtBGrPKl2PhbsIgopgl1Pj+7z7Xx2oYizTwgCLLl64ipxoq7MhFbjMlGwKMbFwj0i/XsTYBPXVvqreSNyKrAsP1qFQCl3LbezsItGsToAgf5kymGX6W
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(36756003)(5660300002)(508600001)(86362001)(186003)(66946007)(6916009)(66476007)(66556008)(2906002)(33656002)(558084003)(1076003)(54906003)(6486002)(38100700002)(7416002)(316002)(8676002)(26005)(4326008)(8936002)(6506007)(6512007)(2616005)(27376004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?naJgoDZ5K0DuQxmrB44V50FH1O6UYqtHKwvGK6zOrVmPy5x1dbYVGZbTUktn?=
- =?us-ascii?Q?V/c5zxEuxNvJNkJDfyOg8OTc3kCVZfdKE/jywBc/EVmAOWiwjbsZv18AgLvs?=
- =?us-ascii?Q?zzELNgS6QMcYwMmdghBWDyFMG2ub/XfboIJZlOK0HZkEIp3+CxsC2EynUVO3?=
- =?us-ascii?Q?PrfLLxfHGNKtCj8vr/349jfE+K7OP7SLwwAaUQX6hBo6EPmv+YjIrigwc419?=
- =?us-ascii?Q?V/QcfWxYOm/UaTl6aaz25NT3+uR8kGqC7aHkzJKgTHHwAXPb3P2aEHsCxtq0?=
- =?us-ascii?Q?R6FdK6+kkV1/9eNcZWjN7YixoK3rgri6y9/6QEEus9B3JAfvx1DWjVpTUbU8?=
- =?us-ascii?Q?SMBdi+kXmxKmE+Lw4t3fv/wty/GmlUKN3rkKC5ww1Qy52v8IkFonGcOEogi6?=
- =?us-ascii?Q?BYcTZS7But9Myi4fVgS1mQSgQqcL7nrd894qZGDAiO+owAiIwxGF+msiSviF?=
- =?us-ascii?Q?oO3BcnHkZwyJ9B9NpNfrEjiyD7aIcxPuYdjOcZdQ6QsoCMpOsTEJATecdLDO?=
- =?us-ascii?Q?cAFIwnsntNk93pVvIJcq1LavOWlQxZLfYkls/+uKieOX3QyxsP+4mqQ1BbfP?=
- =?us-ascii?Q?4J0WodIoCit1bODSfGbBkTrfsz1MmeAn0sr8Mlb27l2sEjDMePd5BBmXwb/g?=
- =?us-ascii?Q?1jj6hUjiP6SUmWLFo4nwhIrwL393x4pDoyX87lKR9JulwjBBgcYvcSgyTA0K?=
- =?us-ascii?Q?POOFg3x0osKM0HLqvsQaaKCZbF44JfrU8jNWsTzTmGmpuL2Qj1UvMxlq2tx/?=
- =?us-ascii?Q?Wr+x50xXGp5pPRFT2ZCkIRQOTqUWjHRS6uXEUC1UBtL0tlfKFqsdxUrF87Yu?=
- =?us-ascii?Q?/WqUxStYViXfdR/9P03FJr+LGO58sdA8/2D8F5lYRlq3RArb/QgEkVH+SsDE?=
- =?us-ascii?Q?1F+kjcCW1lGTx9V9r1f/BObsW1PbCMoeRC6Pnb91MyZrZC3uLnjnQzbwFsxr?=
- =?us-ascii?Q?/ihOwJVzSK3xnEuFI8/oMLYujVy2sPiuFjtey42/eqBrovmnd+aG58VMFTxi?=
- =?us-ascii?Q?BSZRZA3vdeJMfy2aHf7QgIYYCm1AscEM0c29oLEw062050gVk9ijKQagfCcP?=
- =?us-ascii?Q?EXOIMtWfC+vaxCVFS9TEuuwT+Xp6M1neUFo1WKSMVgO5NZaE0DdWuSPSn4Qf?=
- =?us-ascii?Q?92YbNi8APmllYLxoarwQCr5xCEFkYhKA/gCYagREqsj22iZXP5xxTPf5fn2t?=
- =?us-ascii?Q?g6oK0SC+3jj+DyiP4IfHZo6/szUVgJqkx+Kn2JiLb7QevhmtBAQuw+0cp5pN?=
- =?us-ascii?Q?fIv1mT2HVSVFF9EnVuJp/MfZUDVcxrkdyQNJZZwKA/I31uPZ9PGzYBo4wliA?=
- =?us-ascii?Q?6DgCzcpRG+xFAki13NR+2lanZ0V7TtOraAKVdysh0145Bh3A2T0DIkYx/RJh?=
- =?us-ascii?Q?Q+z5bzRzvh55TcTzPfHUNE2tnqm5Qc5fHj3c2bACsA73c1TLi7MSma4bPV5b?=
- =?us-ascii?Q?o3RkVL3Wy1ma4HrWz1T1UJauLFIgl2Mp2DvBVzc0JErFMgpaOAG64VVRnCHI?=
- =?us-ascii?Q?WpvNbt/vZUYDSUsWWgpMraSSBltwpO1bs98Kwh0SLwQqMCi0HTZNqvMB5TLO?=
- =?us-ascii?Q?v+ztnzdrSssvVNmhLrM=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47d99020-6f32-4a0c-92db-08d9df3bf3de
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2022 13:18:03.8868 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NaQW7fT3zbopg/B13Q5AEFy7QvGVTZQRKT6KTgpydHvgmqoJ9IvsRJXU9aC/SRrL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0076
-Subject: Re: [Intel-gfx] [PATCH v4 1/2] i915/gvt: Introduce the
- mmio_info_table.c to support VFIO new mdev API
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B54A10E749;
+	Mon, 24 Jan 2022 13:32:10 +0000 (UTC)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 197D210E34D;
+ Mon, 24 Jan 2022 12:58:45 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ n16-20020a17090a091000b001b46196d572so16791494pjn.5; 
+ Mon, 24 Jan 2022 04:58:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=jKkNxr+1cB+XB6YIAl08DtywpPMNPFY1xvETiNerBv4=;
+ b=ZTfY83ziPZR4GDz3xQZpQlufTJscwAsvrvRRKBUGWxqDkdA1va0RwigvqsJh8vqQS2
+ Cr1CSfGsdyFEDox/gdOe5UN+gfJl/M1PhQGqJzwQ7WkKUKAP0LFzEedI6vKoyqCpdEF9
+ 3gSBuybAkNcdAU6be2n77jFlYV6Dl9/KVa8pK++wGo/ARHH4NuZJ22KzHFwt8CBWqGT4
+ oeOm3pKjlWSLNYHeBK0FjBJXueBfTunP+wd2pFCeti1eTpXzXT2rppGwLhnnHXUkLTBL
+ RY3CsxJneexPIuOsYHKLRG4PaJwytL1K04wvJIgNj4fjM2IKDQ1GN6+0dopPvh4yxYVt
+ o8iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=jKkNxr+1cB+XB6YIAl08DtywpPMNPFY1xvETiNerBv4=;
+ b=d4NtthIIbKrfcXEkl+BJ+A/wSD5dnN1oCN1qPeWW4pPws8E3qw0agROg9izXtaUsRj
+ OgLuoeQgHzBFYXxDGqNSeL+jXTEbztykeY3uQESM+v61WmqTEHQcsfMk7TbXr0ZqniVy
+ zA1Mdb9cD6I9nL8wX3XZiEq8jrppqDxZlqb1QcnpiGMzyIAvlOj32rIZRYKb+J9CdhNw
+ cVHbGeCKs0AyTxug2M4PN0qTzg5xAx37vGnHBIE8VMP1CD+LA0YclBZWA7zOtYgt043v
+ +t3q0QL24SWg9s5z95v9Ny4hmWBd5VT/gx2EMDRZqrxXcehGXQ1DYjT0/0955yF5rqE4
+ xo7g==
+X-Gm-Message-State: AOAM533yURa9mcUlXsI8vOFqzE5r7lHz6qBNKMmtQAichLRVv8b7VkwZ
+ db6m9UDYa3LaI2spHeHweiOZLZz9GGGPh5pE5z0=
+X-Google-Smtp-Source: ABdhPJyYbcsc9C2l2KCNpEBfLe8n7n6WB0ovH6E/D5v67OB9y4UJCJuIP9SuFmcGrvjnGCSW3/k40Q==
+X-Received: by 2002:a17:902:ab82:b0:14a:188a:cd1f with SMTP id
+ f2-20020a170902ab8200b0014a188acd1fmr14279622plr.44.1643029124671; 
+ Mon, 24 Jan 2022 04:58:44 -0800 (PST)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id
+ s23sm17794805pfg.144.2022.01.24.04.58.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jan 2022 04:58:44 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: matthew.brost@intel.com
+Date: Mon, 24 Jan 2022 12:58:37 +0000
+Message-Id: <20220124125837.10467-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220112175338.GA12463@jons-linux-dev-box>
+References: <20220112175338.GA12463@jons-linux-dev-box>
+X-Mailman-Approved-At: Mon, 24 Jan 2022 13:32:09 +0000
+Subject: [Intel-gfx] [PATCH v2] drm/i915/selftests: Fix NULL vs IS_ERR
+ checking for kernel_context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,17 +69,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "'Xu, Terrence'" <terrence.xu@intel.com>,
- intel-gvt-dev@lists.freedesktop.org, 'Christoph Hellwig' <hch@lst.de>
+Cc: linmq006@gmail.com, andi.shyti@intel.com, airlied@linux.ie,
+ intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ chris@chris-wilson.co.uk
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 24, 2022 at 12:12:12PM +0200, zhi.wang.linux@gmail.com wrote:
-> Hi Christoph and Jason:
-> 
-> Have been talking with Raj. I am going to work on this series this week. 
+Since i915_gem_create_context() function return error pointers,
+the kernel_context() function does not return null, It returns error
+pointers too. Using IS_ERR() to check the return value to fix this.
 
-Thanks!
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+Changes in v2:
+- clean up unneeded initialization of err.
+---
+ drivers/gpu/drm/i915/gt/selftest_execlists.c | 43 ++++++++++++++------
+ 1 file changed, 30 insertions(+), 13 deletions(-)
 
-Jason
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index b367ecfa42de..0d453ddcede4 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -1531,7 +1531,7 @@ static int live_busywait_preempt(void *arg)
+ 	struct drm_i915_gem_object *obj;
+ 	struct i915_vma *vma;
+ 	enum intel_engine_id id;
+-	int err = -ENOMEM;
++	int err;
+ 	u32 *map;
+ 
+ 	/*
+@@ -1540,13 +1540,16 @@ static int live_busywait_preempt(void *arg)
+ 	 */
+ 
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
+-		return -ENOMEM;
++	if (IS_ERR(ctx_hi))
++		return IS_ERR(ctx_hi);
++
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	obj = i915_gem_object_create_internal(gt->i915, PAGE_SIZE);
+@@ -1742,13 +1745,17 @@ static int live_preempt(void *arg)
+ 		goto err_spin_hi;
+ 
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
++	if (IS_ERR(ctx_hi)) {
++		err = PTR_ERR(ctx_hi);
+ 		goto err_spin_lo;
++	}
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	for_each_engine(engine, gt, id) {
+@@ -1834,12 +1841,16 @@ static int live_late_preempt(void *arg)
+ 		goto err_spin_hi;
+ 
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
++	if (IS_ERR(ctx_hi)) {
++		err = PTR_ERR(ctx_hi);
+ 		goto err_spin_lo;
++	}
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 
+ 	/* Make sure ctx_lo stays before ctx_hi until we trigger preemption. */
+ 	ctx_lo->sched.priority = 1;
+@@ -1928,8 +1939,8 @@ struct preempt_client {
+ static int preempt_client_init(struct intel_gt *gt, struct preempt_client *c)
+ {
+ 	c->ctx = kernel_context(gt->i915, NULL);
+-	if (!c->ctx)
+-		return -ENOMEM;
++	if (IS_ERR(c->ctx))
++		return PTR_ERR(c->ctx);
+ 
+ 	if (igt_spinner_init(&c->spin, gt))
+ 		goto err_ctx;
+@@ -3385,13 +3396,17 @@ static int live_preempt_timeout(void *arg)
+ 		return -ENOMEM;
+ 
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
++	if (IS_ERR(ctx_hi)) {
++		err = PTR_ERR(ctx_hi);
+ 		goto err_spin_lo;
++	}
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	for_each_engine(engine, gt, id) {
+@@ -3683,8 +3698,10 @@ static int live_preempt_smoke(void *arg)
+ 
+ 	for (n = 0; n < smoke.ncontext; n++) {
+ 		smoke.contexts[n] = kernel_context(smoke.gt->i915, NULL);
+-		if (!smoke.contexts[n])
++		if (IS_ERR(smoke.contexts[n])) {
++			err = PTR_ERR(smoke.contexts[n]);
+ 			goto err_ctx;
++		}
+ 	}
+ 
+ 	for (n = 0; n < ARRAY_SIZE(phase); n++) {
+-- 
+2.17.1
+
