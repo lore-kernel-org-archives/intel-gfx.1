@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0187C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 22:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0215C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 22:14:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E4910E340;
-	Tue, 25 Jan 2022 22:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C05010E167;
+	Tue, 25 Jan 2022 22:14:03 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6E03410E167;
- Tue, 25 Jan 2022 22:12:47 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 02F1A10E167;
+ Tue, 25 Jan 2022 22:14:01 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 659CEA00A0;
- Tue, 25 Jan 2022 22:12:47 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 029B5A00A0;
+ Tue, 25 Jan 2022 22:14:01 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Robert Beckett" <bob.beckett@collabora.com>
-Date: Tue, 25 Jan 2022 22:12:47 -0000
-Message-ID: <164314876737.27371.880428187767329268@emeril.freedesktop.org>
+Date: Tue, 25 Jan 2022 22:14:01 -0000
+Message-ID: <164314884100.27364.17819964371701805312@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220125193530.3272386-1-bob.beckett@collabora.com>
 In-Reply-To: <20220125193530.3272386-1-bob.beckett@collabora.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_discrete_card_64K_page_support_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?discrete_card_64K_page_support_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,44 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-df51c5a24eef drm/i915: add needs_compact_pt flag
-c3d4f40f9033 drm/i915: enforce min GTT alignment for discrete cards
--:294: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#294: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:457:
-+						if (offset < hole_start + aligned_size)
-
--:306: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#306: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:481:
-+						if (offset + aligned_size > hole_end)
-
--:324: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#324: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:497:
-+						if (offset < hole_start + aligned_size)
-
--:336: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#336: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:520:
-+						if (offset + aligned_size > hole_end)
-
--:354: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#354: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:536:
-+						if (offset < hole_start + aligned_size)
-
--:366: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#366: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:560:
-+						if (offset + aligned_size > hole_end)
-
--:384: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#384: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:576:
-+						if (offset < hole_start + aligned_size)
-
--:396: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
-#396: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:599:
-+						if (offset + aligned_size > hole_end)
-
-total: 0 errors, 8 warnings, 0 checks, 436 lines checked
-c39377079d4d drm/i915: support 64K GTT pages for discrete cards
-c3028878f829 drm/i915: add gtt misalignment test
-7dd58d6f3a52 drm/i915/uapi: document behaviour for DG2 64K support
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
