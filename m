@@ -4,47 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3591DC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 09:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85EE9C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 09:28:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C702010EEF3;
-	Tue, 25 Jan 2022 09:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE0B10EDFF;
+	Tue, 25 Jan 2022 09:28:56 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56BF10EEF3;
- Tue, 25 Jan 2022 09:12:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E135710EDFF;
+ Tue, 25 Jan 2022 09:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643101941; x=1674637941;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=20Dy+Cod31MYR/zJV9wtDFBhZU+1b0D0uQWNfLXW37o=;
- b=FS4+RTgqTDGpFBdVNeMqbYTlTCMV9tYLDlHy1ucj3IO3aDkZDSHlgdfM
- Rbfbo2DBakotuQIu5G13jKBBDN727V+BvaMN/T7t/lGIBgP78USao7RAY
- HvRBvfz+42sTJ0MBp6TuwPjfGf86abQ0DemSRbJPtQmxO/b48i8Ytspnr
- qO2seCKlP3sJV+8rX1Lq1G9Lt9X0FbmmB1EI1Bv3qDKiNSYUhrR8HtDAF
- iH90CiYxrUFdNAmF7ZjDvkrIxOjch5LxRChdgtog/TfdS1Y4xbucdmrjw
- sdW47lhVVUeaBP7ll52bPEjrVsLcV1xvJAeUFAqO/SSOtBB+NPQTaj2Ot A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10237"; a="246042331"
-X-IronPort-AV: E=Sophos;i="5.88,314,1635231600"; d="scan'208";a="246042331"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ t=1643102935; x=1674638935;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=/3uEJq4zPTSgXMeNYS74/NJZJxAc2UOZUhqwmZmqIfw=;
+ b=bTNcKjQ4y/ekFOUHKFidqDUGH7863msbDffDaQ7OGxDEy04dAJE2hYpZ
+ /ERIlXHxAPavVjy1UXJ5KxH7vzANtSrLzWxJWwETti1mBgWCBsIN4wi0/
+ 61yKIZ7P3PbNvodgTERY2AXniQLPjTdHnC6Okyvne1Ns5ZpHYwNu+P3If
+ z8DRb4dCV97JGKhyrJ7d5YC5ieW2zjRdM3wf3KMknKUV8B3+zvOazaQ1V
+ xRZT+om0y3fTZKVQ1hxXNOOXSq8W0LFAxNFhme1HZUh8JpEmcLMm3v4na
+ Hy7uYXxUHW+p9zQt607xKg8uPU12+A75TPQe7x3IQ17nci9PGXCSr0kSQ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10237"; a="246044825"
+X-IronPort-AV: E=Sophos;i="5.88,314,1635231600"; d="scan'208";a="246044825"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2022 01:12:20 -0800
-X-IronPort-AV: E=Sophos;i="5.88,314,1635231600"; d="scan'208";a="695768104"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2022 01:12:18 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue, 25 Jan 2022 14:28:00 +0530
-Message-Id: <20220125085801.1025521-3-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220125085801.1025521-1-ankit.k.nautiyal@intel.com>
-References: <20220125085801.1025521-1-ankit.k.nautiyal@intel.com>
+ 25 Jan 2022 01:28:55 -0800
+X-IronPort-AV: E=Sophos;i="5.88,314,1635231600"; d="scan'208";a="532366265"
+Received: from thpham-mobl1.amr.corp.intel.com (HELO [10.213.172.16])
+ ([10.213.172.16])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2022 01:28:51 -0800
+Message-ID: <bab43c36-a3de-f96a-6530-4ab3a55b8ba0@linux.intel.com>
+Date: Tue, 25 Jan 2022 09:28:44 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/drm_edid: Add helper to get max FRL
- rate for an HDMI sink
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Content-Language: en-US
+To: Yury Norov <yury.norov@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, David Laight
+ <David.Laight@aculab.com>, Joe Perches <joe@perches.com>,
+ Dennis Zhou <dennis@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Alexey Klimov <aklimov@redhat.com>, linux-kernel@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20220123183925.1052919-1-yury.norov@gmail.com>
+ <20220123183925.1052919-18-yury.norov@gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20220123183925.1052919-18-yury.norov@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 17/54] gpu: drm: replace cpumask_weight with
+ cpumask_empty where appropriate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,107 +81,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the common function for getting the max FRL rate for an HDMI sink,
-from intel_dp.c to drm/drm_edid.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/drm_edid.c              | 38 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c | 19 ++++---------
- include/drm/drm_edid.h                  |  2 ++
- 3 files changed, 45 insertions(+), 14 deletions(-)
+On 23/01/2022 18:38, Yury Norov wrote:
+> i915_pmu_cpu_online() calls cpumask_weight() to check if any bit of a
+> given cpumask is set. We can do it more efficiently with cpumask_empty()
+> because cpumask_empty() stops traversing the cpumask as soon as it finds
+> first set bit, while cpumask_weight() counts all bits unconditionally.
+> 
+> Signed-off-by: Yury Norov <yury.norov@gmail.com>
+> ---
+>   drivers/gpu/drm/i915/i915_pmu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+> index ea655161793e..1894c876b31d 100644
+> --- a/drivers/gpu/drm/i915/i915_pmu.c
+> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+> @@ -1048,7 +1048,7 @@ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+>   	GEM_BUG_ON(!pmu->base.event_init);
+>   
+>   	/* Select the first online CPU as a designated reader. */
+> -	if (!cpumask_weight(&i915_pmu_cpumask))
+> +	if (cpumask_empty(&i915_pmu_cpumask))
+>   		cpumask_set_cpu(cpu, &i915_pmu_cpumask);
+>   
+>   	return 0;
+> 
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index eb61a1a92dc0..75b538b4c87f 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6176,3 +6176,41 @@ void drm_update_tile_info(struct drm_connector *connector,
- 		connector->tile_group = NULL;
- 	}
- }
-+
-+/**
-+ * drm_hdmi_sink_max_frl - get the max frl rate from HDMI2.1 sink
-+ * @connector - connector with HDMI2.1 sink
-+ *
-+ * RETURNS:
-+ * max frl rate supported by the HDMI2.1 sink, 0 if FRL not supported
-+ */
-+int drm_hdmi_sink_max_frl(struct drm_connector *connector)
-+{
-+	int max_lanes = connector->display_info.hdmi.max_lanes;
-+	int rate_per_lane = connector->display_info.hdmi.max_frl_rate_per_lane;
-+
-+	return max_lanes * rate_per_lane;
-+}
-+EXPORT_SYMBOL(drm_hdmi_sink_max_frl);
-+
-+/**
-+ * drm_hdmi_sink_dsc_max_frl - get the max frl rate from HDMI2.1 sink
-+ * with DSC1.2 compression.
-+ * @connector - connector with HDMI2.1 sink
-+ *
-+ * RETURNS:
-+ * max frl rate supported by the HDMI2.1 sink with DSC1.2, 0 if FRL not supported
-+ */
-+int drm_hdmi_sink_dsc_max_frl(struct drm_connector *connector)
-+{
-+	int max_dsc_lanes, dsc_rate_per_lane;
-+
-+	if (!connector->display_info.hdmi.dsc_cap.v_1p2)
-+		return 0;
-+
-+	max_dsc_lanes = connector->display_info.hdmi.dsc_cap.max_lanes;
-+	dsc_rate_per_lane = connector->display_info.hdmi.dsc_cap.max_frl_rate_per_lane;
-+
-+	return max_dsc_lanes * dsc_rate_per_lane;
-+}
-+EXPORT_SYMBOL(drm_hdmi_sink_dsc_max_frl);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4d4579a301f6..f7fe7de7e553 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2190,22 +2190,13 @@ static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp)
- {
- 	struct intel_connector *intel_connector = intel_dp->attached_connector;
- 	struct drm_connector *connector = &intel_connector->base;
--	int max_frl_rate;
--	int max_lanes, rate_per_lane;
--	int max_dsc_lanes, dsc_rate_per_lane;
-+	int max_frl = drm_hdmi_sink_max_frl(connector);
-+	int dsc_max_frl = drm_hdmi_sink_dsc_max_frl(connector);
- 
--	max_lanes = connector->display_info.hdmi.max_lanes;
--	rate_per_lane = connector->display_info.hdmi.max_frl_rate_per_lane;
--	max_frl_rate = max_lanes * rate_per_lane;
-+	if (dsc_max_frl)
-+		return min(max_frl, dsc_max_frl);
- 
--	if (connector->display_info.hdmi.dsc_cap.v_1p2) {
--		max_dsc_lanes = connector->display_info.hdmi.dsc_cap.max_lanes;
--		dsc_rate_per_lane = connector->display_info.hdmi.dsc_cap.max_frl_rate_per_lane;
--		if (max_dsc_lanes && dsc_rate_per_lane)
--			max_frl_rate = min(max_frl_rate, max_dsc_lanes * dsc_rate_per_lane);
--	}
--
--	return max_frl_rate;
-+	return max_frl;
- }
- 
- static bool
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index 18f6c700f6d0..5003e1254c44 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -592,6 +592,8 @@ drm_display_mode_from_cea_vic(struct drm_device *dev,
- 			      u8 video_code);
- const u8 *drm_find_edid_extension(const struct edid *edid,
- 				  int ext_id, int *ext_index);
-+int drm_hdmi_sink_max_frl(struct drm_connector *connector);
-+int drm_hdmi_sink_dsc_max_frl(struct drm_connector *connector);
- 
- 
- #endif /* __DRM_EDID_H__ */
--- 
-2.25.1
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
+I see it's a large series which only partially appeared on our mailing 
+lists. So for instance it hasn't got tested by our automated CI. (Not 
+that I expect any problems in this patch.)
+
+What are the plans in terms of which tree will it get merged through?
+
+Regards,
+
+Tvrtko
