@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF44C28CF5
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 18:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAC6C63682
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 18:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCA3610E4C2;
-	Wed, 26 Jan 2022 18:17:28 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1759410E4C2
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 18:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101FE10E38C;
+	Wed, 26 Jan 2022 18:25:03 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA5F410E38C;
+ Wed, 26 Jan 2022 18:25:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643221048; x=1674757048;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=5/XBCvmprpQABc0+sKrb83JZbjixsIq9rCllobsmn1Q=;
- b=J3dppF5Yak/S8ebN5TckyJ6uSwIg2q5cg2/vrXI0Vsk1HGwNTza8r01X
- ijyw6IW2OkLXveSpM5mpnTMjnXVQehGH/KhO+hoAGl8eI5u4fi37TGMPj
- QKder1Oa4y7FcOhxH8agDQasZkw5T1SkXpDiJaP4zpEqAk9/UztfOhOFz
- PQbgJ079EFZMJWDmi5Y/GZirTSqkaYobSEClGAemHxNJkL5/gpz2Ip1r9
- Lvf626ZF/CWW+JvhY1udJDm6BC+0txoYrNVgCzQ6IbRdy0t3lRPM6lEdo
- fwFjk8xV98jDwN0knKY729IjOcbPk9lQ099+TRheTIA6zDDDCisrqQr77 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="233990564"
-X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="233990564"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 10:17:27 -0800
-X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="628386980"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 10:17:27 -0800
-Date: Wed, 26 Jan 2022 10:32:51 -0800
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20220126183251.GA8244@labuser-Z97X-UD5H>
-References: <20220112195722.16639-1-manasi.d.navare@intel.com>
- <87zgny5wfa.fsf@intel.com>
+ t=1643221501; x=1674757501;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=hM7HDkJbApR2GD/yQT9ziotZaDQgdL9ixm1lADqtjpA=;
+ b=gaOo1iykWSULGICKnqMvSaxMNhRsXblXgcIHSf1qlMSclvADzTUF6+5t
+ 4s0pF69w2Q3MDXkN6DOWDRJ0FmAsUQMry+uHyouGDHKxgKEXJyU9SYkou
+ tYcaOr/ENOS3r2hRfgbTTGMuVqGdF8bExmnPDnA+uKOTwbfky0KmeuJSf
+ hlTLOPZaP4C0H2zGbWHZFEKg1gZgqu8bwbecmue2N1obM7mubiS3EEPQd
+ aOHGIOXY/8OulYC1GHb0L707ZllconjeN7ZWg4WhcA8wmobVbfk0vhtCm
+ 8M83YBTFqPZN4YE5Xj+s3sMNWAYVHeEnLJCGH0zTPfqJQQDYFEtjE7XUz w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="271068041"
+X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="271068041"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 10:25:01 -0800
+X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="696325523"
+Received: from nbasu-mobl.ger.corp.intel.com (HELO localhost) ([10.252.16.197])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 10:24:58 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20220126004345.1137674-2-lucas.demarchi@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220126004345.1137674-1-lucas.demarchi@intel.com>
+ <20220126004345.1137674-2-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 20:24:54 +0200
+Message-ID: <87ee4uxsll.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87zgny5wfa.fsf@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/vrr: Reset VRR capable
- property on a long hpd
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm: Stop spamming log with drm_cache
+ message
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +57,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 14, 2022 at 02:33:29PM +0200, Jani Nikula wrote:
-> On Wed, 12 Jan 2022, Manasi Navare <manasi.d.navare@intel.com> wrote:
-> > With some VRR panels, user can turn VRR ON/OFF on the fly from the panel settings.
-> > When VRR is turned OFF ,sends a long HPD to the driver clearing the Ignore MSA bit
-> > in the DPCD. Currently the driver parses that onevery HPD but fails to reset
-> > the corresponding VRR Capable Connector property.
-> > Hence the userspace still sees this as VRR Capable panel which is incorrect.
-> >
-> > Fix this by explicitly resetting the connector property.
-> >
-> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp.c | 11 ++++++++++-
-> >  1 file changed, 10 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> > index df2a7d86aef0..4f1418f02b76 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -4539,15 +4539,24 @@ static int intel_dp_get_modes(struct drm_connector *connector)
-> >  {
-> >  	struct intel_connector *intel_connector = to_intel_connector(connector);
-> >  	struct edid *edid;
-> > +	struct drm_i915_private *dev_priv = to_i915(connector->dev);
-> 
-> Please call it "i915" for new stuff.
+On Tue, 25 Jan 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> Only x86 and in some cases PPC have support added in drm_cache.c for the
+> clflush class of functions. However warning once is sufficient to taint
+> the log instead of spamming it with "Architecture has no drm_cache.c
+> support" every few millisecond.
+>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> ---
+>  drivers/gpu/drm/drm_cache.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
+> index f19d9acbe959..2d5a4c463a4f 100644
+> --- a/drivers/gpu/drm/drm_cache.c
+> +++ b/drivers/gpu/drm/drm_cache.c
+> @@ -112,7 +112,6 @@ drm_clflush_pages(struct page *pages[], unsigned long num_pages)
+>  		kunmap_atomic(page_virtual);
+>  	}
+>  #else
+> -	pr_err("Architecture has no drm_cache.c support\n");
+>  	WARN_ON_ONCE(1);
 
-Okay yes will change this to i915
-> 
-> >  	int num_modes = 0;
-> >  
-> >  	edid = intel_connector->detect_edid;
-> >  	if (edid) {
-> >  		num_modes = intel_connector_update_modes(connector, edid);
-> >  
-> > -		if (intel_vrr_is_capable(connector))
-> > +		if (intel_vrr_is_capable(connector)) {
-> > +			drm_dbg_kms(&dev_priv->drm, "VRR capable  = TRUE for [CONNECTOR:%d:%s]\n",
-> > +				    connector->base.id, connector->name);
-> >  			drm_connector_set_vrr_capable_property(connector,
-> >  							       true);
-> > +		} else {
-> > +			drm_dbg_kms(&dev_priv->drm, "VRR capable = false for [CONNECTOR:%d:%s]\n",
-> > +				    connector->base.id, connector->name);
-> > +			drm_connector_set_vrr_capable_property(connector,
-> > +							       false);
-> > +		}
-> 
-> Please don't repeat yourself! Also, prefer having [CONNECTOR:%d:%s] at
-> the beginning.
-> 
-> 		bool capable = intel_vrr_is_capable(connector);
-> 
-> 		drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
-> 			    connector->base.id, connector->name, yesno(capable));
->                 drm_connector_set_vrr_capable_property(connector, capable);
+An alternative would be to replace the two lines with:
 
-Okay agree, thanks for the suggestion, will change in the v2 and resend
+	WARN_ONCE(1, "Architecture has no drm_cache.c support\n");
 
-Regards
-Manasi
+But I'm not insisting.
 
-> 
-> BR,
-> Jani.
-> 
-> 
-> >  	}
-> >  
-> >  	/* Also add fixed mode, which may or may not be present in EDID */
-> 
-> -- 
-> Jani Nikula, Intel Open Source Graphics Center
+BR,
+Jani.
+
+
+>  #endif
+>  }
+> @@ -143,7 +142,6 @@ drm_clflush_sg(struct sg_table *st)
+>  	if (wbinvd_on_all_cpus())
+>  		pr_err("Timed out waiting for cache flush\n");
+>  #else
+> -	pr_err("Architecture has no drm_cache.c support\n");
+>  	WARN_ON_ONCE(1);
+>  #endif
+>  }
+> @@ -177,7 +175,6 @@ drm_clflush_virt_range(void *addr, unsigned long length)
+>  	if (wbinvd_on_all_cpus())
+>  		pr_err("Timed out waiting for cache flush\n");
+>  #else
+> -	pr_err("Architecture has no drm_cache.c support\n");
+>  	WARN_ON_ONCE(1);
+>  #endif
+>  }
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
