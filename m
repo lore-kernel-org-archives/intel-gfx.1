@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E17FFC28CF5
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 15:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA643C2BA4C
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 15:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D1B510E733;
-	Wed, 26 Jan 2022 15:22:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2418210E8C0;
+	Wed, 26 Jan 2022 15:22:15 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBB4610E7B7;
- Wed, 26 Jan 2022 15:22:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA9610E7B7;
+ Wed, 26 Jan 2022 15:22:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643210528; x=1674746528;
+ t=1643210531; x=1674746531;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=W4OjaVTox6D6B+zItbh2R9HayM32vUFDVeVkJzKjszc=;
- b=MMRpt3Cl32+fWmBCh99eKtKHBTWMrHx8BDHv21t2YTWIZs7Xf47fvzH5
- 93Y/eLmTgRmmclU4e+T+OSMGhRAvyUKkQAcM3X6ovpMdukMwr7ZPLOybk
- AgaXqg3oiORBdi3aUIDzVXJBQe+XOhXijk8v7cvjA/VNjZi4yUwFO0rHp
- QvDX6XkNEbYM3UV9PHJe4m8c4A13BgtMywYGJyFP/KQSFQD16KKEowhrT
- HyPn7Wm2qa43ONv53RmGNaBaAtZtDf7vnuJ1Gg6UN8N8dcqnKFRYC2ofi
- GE5b0lGeAQyU0CvZlV/iCAEvFb0cXVT4hInPIXiDwv+7sM8cNGjRHHxMM w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="309885202"
-X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="309885202"
+ bh=Sct6csulG7TjYqbvvlRac8PPEeaLM5ZF4Apu5JBWjas=;
+ b=Pv8gqHtFe6bGcWKGrvnadNfazcp9c+kaB0dlN+hjmmh+3j2MZSF0S0B7
+ NNRfATXh24e8TuGEox++aqLFsc6N/fTaZbOBdudv8HoJVreRLAaMjNw1H
+ 8Y6iHWOLyI5Oginr0+fl+OQ/VX8yDvpqe/FoR8aUu7T7tHU3vwaFRDSVi
+ pUnxXQPgtSXigrDDmtia83Vc6Rdgu6e4nZAhZ+4w1JdcyB2lbnhyuK5U/
+ ojhH7VpxQ4VmxBlncWNsswGlwxeyYPdrJKgs3F9e+OAI5WpbkJTcKB0I7
+ YDmWlGakb1qRogtUHzZFJwqKaYxoNh2xKLP/s+PXdg4oDpF9h46q2zH0L g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="309885211"
+X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="309885211"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 07:22:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="674386231"
+ 26 Jan 2022 07:22:11 -0800
+X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="674386241"
 Received: from jamesstx-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.213.247.182])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 07:22:07 -0800
+ 26 Jan 2022 07:22:10 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 15:21:38 +0000
-Message-Id: <20220126152155.3070602-4-matthew.auld@intel.com>
+Date: Wed, 26 Jan 2022 15:21:40 +0000
+Message-Id: <20220126152155.3070602-6-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220126152155.3070602-1-matthew.auld@intel.com>
 References: <20220126152155.3070602-1-matthew.auld@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/20] drm: implement a method to free unused
- pages
+Subject: [Intel-gfx] [PATCH 05/20] drm/i915/ttm: require mappable by default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,170 +57,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+On devices with non-mappable LMEM ensure we always allocate the pages
+within the mappable portion. For now we assume that all LMEM buffers
+will require CPU access, which is also inline with pretty much all
+current kernel internal users. In the next patch we will introduce a new
+flag to override this behaviour.
 
-On contiguous allocation, we round up the size
-to the *next* power of 2, implement a function
-to free the unused pages after the newly allocate block.
-
-v2(Matthew Auld):
-  - replace function name 'drm_buddy_free_unused_pages' with
-    drm_buddy_block_trim
-  - replace input argument name 'actual_size' with 'new_size'
-  - add more validation checks for input arguments
-  - add overlaps check to avoid needless searching and splitting
-  - merged the below patch to see the feature in action
-     - add free unused pages support to i915 driver
-  - lock drm_buddy_block_trim() function as it calls mark_free/mark_split
-    are all globally visible
-
-v3(Matthew Auld):
-  - remove trim method error handling as we address the failure case
-    at drm_buddy_block_trim() function
-
-v4:
-  - in case of trim, at __alloc_range() split_block failure path
-    marks the block as free and removes it from the original list,
-    potentially also freeing it, to overcome this problem, we turn
-    the drm_buddy_block_trim() input node into a temporary node to
-    prevent recursively freeing itself, but still retain the
-    un-splitting/freeing of the other nodes(Matthew Auld)
-
-  - modify the drm_buddy_block_trim() function return type
-
-v5(Matthew Auld):
-  - revert drm_buddy_block_trim() function return type changes in v4
-  - modify drm_buddy_block_trim() passing argument n_pages to original_size
-    as n_pages has already been rounded up to the next power-of-two and
-    passing n_pages results noop
-
-v6:
-  - fix warnings reported by kernel test robot <lkp@intel.com>
-
-Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/drm_buddy.c                   | 65 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 10 +++
- include/drm/drm_buddy.h                       |  4 ++
- 3 files changed, 79 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 4 ++++
+ drivers/gpu/drm/i915/intel_region_ttm.c | 5 +++++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index 6aa5c1ce25bf..c5902a81b8c5 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -546,6 +546,71 @@ static int __drm_buddy_alloc_range(struct drm_buddy *mm,
- 	return __alloc_range(mm, &dfs, start, size, blocks);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index e1140ca3d9a0..d9a04c7d41b1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -128,6 +128,10 @@ i915_ttm_place_from_region(const struct intel_memory_region *mr,
+ 
+ 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
+ 		place->flags = TTM_PL_FLAG_CONTIGUOUS;
++	if (mr->io_size && mr->io_size < mr->total) {
++		place->fpfn = 0;
++		place->lpfn = mr->io_size >> PAGE_SHIFT;
++	}
  }
  
-+/**
-+ * drm_buddy_block_trim - free unused pages
-+ *
-+ * @mm: DRM buddy manager
-+ * @new_size: original size requested
-+ * @blocks: output list head to add allocated blocks
-+ *
-+ * For contiguous allocation, we round up the size to the nearest
-+ * power of two value, drivers consume *actual* size, so remaining
-+ * portions are unused and it can be freed.
-+ *
-+ * Returns:
-+ * 0 on success, error code on failure.
-+ */
-+int drm_buddy_block_trim(struct drm_buddy *mm,
-+			 u64 new_size,
-+			 struct list_head *blocks)
-+{
-+	struct drm_buddy_block *parent;
-+	struct drm_buddy_block *block;
-+	LIST_HEAD(dfs);
-+	u64 new_start;
-+	int err;
-+
-+	if (!list_is_singular(blocks))
-+		return -EINVAL;
-+
-+	block = list_first_entry(blocks,
-+				 struct drm_buddy_block,
-+				 link);
-+
-+	if (!drm_buddy_block_is_allocated(block))
-+		return -EINVAL;
-+
-+	if (new_size > drm_buddy_block_size(mm, block))
-+		return -EINVAL;
-+
-+	if (!new_size && !IS_ALIGNED(new_size, mm->chunk_size))
-+		return -EINVAL;
-+
-+	if (new_size == drm_buddy_block_size(mm, block))
-+		return 0;
-+
-+	list_del(&block->link);
-+	mark_free(mm, block);
-+	mm->avail += drm_buddy_block_size(mm, block);
-+
-+	/* Prevent recursively freeing this node */
-+	parent = block->parent;
-+	block->parent = NULL;
-+
-+	new_start = drm_buddy_block_offset(block);
-+	list_add(&block->tmp_link, &dfs);
-+	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks);
-+	if (err) {
-+		mark_allocated(block);
-+		mm->avail -= drm_buddy_block_size(mm, block);
-+		list_add(&block->link, blocks);
+ static void
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index f2b888c16958..4689192d5e8d 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -199,6 +199,11 @@ intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
+ 	struct ttm_resource *res;
+ 	int ret;
+ 
++	if (mem->io_size && mem->io_size < mem->total) {
++		place.fpfn = 0;
++		place.lpfn = mem->io_size >> PAGE_SHIFT;
 +	}
 +
-+	block->parent = parent;
-+	return err;
-+}
-+EXPORT_SYMBOL(drm_buddy_block_trim);
-+
- /**
-  * drm_buddy_alloc_blocks - allocate power-of-two blocks
-  *
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index 3662434b64bb..53eb100688a6 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -97,6 +97,16 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 	if (unlikely(err))
- 		goto err_free_blocks;
+ 	mock_bo.base.size = size;
+ 	place.flags = flags;
  
-+	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-+		u64 original_size = (u64)bman_res->base.num_pages << PAGE_SHIFT;
-+
-+		mutex_lock(&bman->lock);
-+		drm_buddy_block_trim(mm,
-+				     original_size,
-+				     &bman_res->blocks);
-+		mutex_unlock(&bman->lock);
-+	}
-+
- 	*res = &bman_res->base;
- 	return 0;
- 
-diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-index 424fc443115e..17ca928fce8e 100644
---- a/include/drm/drm_buddy.h
-+++ b/include/drm/drm_buddy.h
-@@ -145,6 +145,10 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
- 			   struct list_head *blocks,
- 			   unsigned long flags);
- 
-+int drm_buddy_block_trim(struct drm_buddy *mm,
-+			 u64 new_size,
-+			 struct list_head *blocks);
-+
- void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
- 
- void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects);
 -- 
 2.34.1
 
