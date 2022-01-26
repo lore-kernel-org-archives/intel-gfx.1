@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A7FC2BA4C
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB650C2BA4C
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E56210E705;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD95C10E923;
 	Wed, 26 Jan 2022 20:36:28 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EDC010E421;
- Wed, 26 Jan 2022 20:36:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 018E310E802;
+ Wed, 26 Jan 2022 20:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1643229387; x=1674765387;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ywn5t+uERBPsNyA7kStV3ap4UDQVPmgaxiuknWHkU7s=;
- b=VPy8Sh/ZkOsEjyy4LOMJDOAFkteY9mQEw/V8qcdS3EDp3Zem1DoZWXSW
- o0pJK5KVYLvigYeZqxDP72fX+IFwtynk4GVV6ovk5ZsFE/D/bLgYptal9
- KadJqPRXIVvAy+mRsra/U+d41zHy8H/5q7lZvtvRZL5OprZ2NJxz6eFLS
- 6VGBtsH2kH1YUf2BcKyQ6T34MFCFEhaQdZ9DF582TqwqrKyliiZ81EIYr
- e++2zPDGjjKPjfS1dhxc5VQnhhLlZUCcQ6lMxFSZE64U3o0wih0pU7SD8
- xpSW33470JzhUE+3FLkGCxfINIqLYoKMjAynhps235wguOQRiBgKALrmr g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000502"
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000502"
+ bh=tgargJNzKlTM8tDsHk4I1m9HBRI9PHrfYBs/SzQ0JCA=;
+ b=LY/zdgFsn+zam4oi5TjeiZHqozZQN8DQKJjMFI+duHQxP0p8kifuo7UB
+ eLObR/ymtS2ruFMy3/Ix24EHhw7TaeB4K0ixqCkQeviZDXDr5lW5ho8Nu
+ 17MlegvInw2aFyNy/KqXZ/cG5bDb+SZ6RIkAcnfGWhpOUYfSf2ifmFXqK
+ eG6q8dQg+6tkbla34SziRSaBjEesXNA41wx2+9AqhwWUjDEgQ1vJPLWum
+ cLwJcjoNFvMHN09J8/hgZTqHsYr5Pb9qpDRuZbCKirIji8mWkw2mWxxmi
+ al40xqnNOJzn2AHiNpJKLCMAcz7Si/8pLuz8/R85tCWAIhdbDt4cE2YyQ Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000498"
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000498"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:23 -0800
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221509"
+ 26 Jan 2022 12:36:22 -0800
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221501"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:23 -0800
+ 26 Jan 2022 12:36:22 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 12:36:49 -0800
-Message-Id: <20220126203702.1784589-7-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 12:36:47 -0800
+Message-Id: <20220126203702.1784589-5-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.0
 In-Reply-To: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 References: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/19] drm/i915/guc: Convert golden context init
- to dma_buf_map
+Subject: [Intel-gfx] [PATCH 04/19] drm/i915/guc: Keep dma_buf_map of
+ ads_blob around
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,9 +62,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now the map is saved during creation, so use it to initialize the
-golden context, reading from shmem and writing to either system or IO
-memory.
+Convert intel_guc_ads_create() and initialization to use dma_buf_map
+rather than plain pointer and save it in the guc struct. This will help
+with additional updates to the ads_blob after the
+creation/initialization by abstracting the IO vs system memory.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -74,80 +75,57 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 25 +++++++++++-----------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h     | 4 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 6 ++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 697d9d66acef..e2e0df1c3d91 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -6,8 +6,9 @@
+ #ifndef _INTEL_GUC_H_
+ #define _INTEL_GUC_H_
+ 
+-#include <linux/xarray.h>
+ #include <linux/delay.h>
++#include <linux/dma-buf.h>
++#include <linux/xarray.h>
+ 
+ #include "intel_uncore.h"
+ #include "intel_guc_fw.h"
+@@ -148,6 +149,7 @@ struct intel_guc {
+ 	struct i915_vma *ads_vma;
+ 	/** @ads_blob: contents of the GuC ADS */
+ 	struct __guc_ads_blob *ads_blob;
++	struct dma_buf_map ads_map;
+ 	/** @ads_regset_size: size of the save/restore regsets in the ADS */
+ 	u32 ads_regset_size;
+ 	/** @ads_golden_ctxt_size: size of the golden contexts in the ADS */
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 01d2c1ead680..bcf52ac4fe35 100644
+index 668bf4ac9b0c..c012858376f0 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -473,18 +473,17 @@ static struct intel_engine_cs *find_engine_state(struct intel_gt *gt, u8 engine_
+@@ -623,6 +623,11 @@ int intel_guc_ads_create(struct intel_guc *guc)
+ 	if (ret)
+ 		return ret;
  
- static void guc_init_golden_context(struct intel_guc *guc)
++	if (i915_gem_object_is_lmem(guc->ads_vma->obj))
++		dma_buf_map_set_vaddr_iomem(&guc->ads_map, (void __iomem *)guc->ads_blob);
++	else
++		dma_buf_map_set_vaddr(&guc->ads_map, guc->ads_blob);
++
+ 	__guc_ads_init(guc);
+ 
+ 	return 0;
+@@ -644,6 +649,7 @@ void intel_guc_ads_destroy(struct intel_guc *guc)
  {
--	struct __guc_ads_blob *blob = guc->ads_blob;
- 	struct intel_engine_cs *engine;
- 	struct intel_gt *gt = guc_to_gt(guc);
-+	struct dma_buf_map golden_context_map;
- 	u32 addr_ggtt, offset;
- 	u32 total_size = 0, alloc_size, real_size;
- 	u8 engine_class, guc_class;
--	u8 *ptr;
+ 	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
+ 	guc->ads_blob = NULL;
++	dma_buf_map_clear(&guc->ads_map);
+ }
  
- 	if (!intel_uc_uses_guc_submission(&gt->uc))
- 		return;
- 
--	GEM_BUG_ON(!blob);
-+	GEM_BUG_ON(dma_buf_map_is_null(&guc->ads_map));
- 
- 	/*
- 	 * Go back and fill in the golden context data now that it is
-@@ -492,15 +491,15 @@ static void guc_init_golden_context(struct intel_guc *guc)
- 	 */
- 	offset = guc_ads_golden_ctxt_offset(guc);
- 	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
--	ptr = ((u8 *)blob) + offset;
-+
-+	golden_context_map = DMA_BUF_MAP_INIT_OFFSET(&guc->ads_map, offset);
- 
- 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
- 		if (engine_class == OTHER_CLASS)
- 			continue;
- 
- 		guc_class = engine_class_to_guc_class(engine_class);
--
--		if (!blob->system_info.engine_enabled_masks[guc_class])
-+		if (!ads_blob_read(guc, system_info.engine_enabled_masks[guc_class]))
- 			continue;
- 
- 		real_size = intel_engine_context_size(gt, engine_class);
-@@ -511,18 +510,20 @@ static void guc_init_golden_context(struct intel_guc *guc)
- 		if (!engine) {
- 			drm_err(&gt->i915->drm, "No engine state recorded for class %d!\n",
- 				engine_class);
--			blob->ads.eng_state_size[guc_class] = 0;
--			blob->ads.golden_context_lrca[guc_class] = 0;
-+			ads_blob_write(guc, ads.eng_state_size[guc_class], 0);
-+			ads_blob_write(guc, ads.golden_context_lrca[guc_class], 0);
- 			continue;
- 		}
- 
--		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] !=
-+		GEM_BUG_ON(ads_blob_read(guc, ads.eng_state_size[guc_class]) !=
- 			   real_size - LRC_SKIP_SIZE);
--		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
-+		GEM_BUG_ON(ads_blob_read(guc, ads.golden_context_lrca[guc_class]) != addr_ggtt);
-+
- 		addr_ggtt += alloc_size;
- 
--		shmem_read(engine->default_state, 0, ptr, real_size);
--		ptr += alloc_size;
-+		shmem_read_to_dma_buf_map(engine->default_state, 0,
-+					  &golden_context_map, real_size);
-+		dma_buf_map_incr(&golden_context_map, alloc_size);
- 	}
- 
- 	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
+ static void guc_ads_private_data_reset(struct intel_guc *guc)
 -- 
 2.35.0
 
