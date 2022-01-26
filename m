@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92865C5DF62
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 327C9C63684
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47EFF10E421;
-	Wed, 26 Jan 2022 20:36:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA6910E938;
+	Wed, 26 Jan 2022 20:36:29 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAE710E421;
- Wed, 26 Jan 2022 20:36:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFFD10E802;
+ Wed, 26 Jan 2022 20:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643229386; x=1674765386;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=m6a7ksHqrFBRFuzuDvYBCJL8gq6YspyfPiiCWbUNdnw=;
- b=h9vaGuQE4EXfhKD+bNRHiUA/GKQAuZYOuSrm/jQH1D2X9ba8EnzbzBwW
- V32OT/BrZknb+T1s2g0GXhvdyqVuEAGWIoOc0XbPean5GymSz5gAy2eav
- 7UhMHvui0kI6VpE786g6vJcapqK0EnKPWfxEqtWSPfeoOLvxDOnSpvKX8
- 0dRyVPXpJFCbzcCKAZuGpwVe4E9nV6ozMRS58p01WLoFVezubByRDSw1X
- +KHgkDrMC5fvK0IvPCjxq1LMcdGmllDSH/TpuqgRglUCLihBv8iznNxxU
- Rc6DAA4EXYFcX/H4QuE4gQHmd0zWesOvGgORxqE6gWauj1vrVI63x+iic g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000492"
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000492"
+ t=1643229387; x=1674765387;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=IrlXjlrSWxXOy2UwGYcFGyJqa/q0NhSjnDXBLVc54aM=;
+ b=PF6ElnBFQKkhQxfe/7+bqkSQ1NVaqiHcfvyxwetyvgQtHZMHi6HGrabz
+ CGiwIczEVw9wAdPCDunMjV6hkemhdUdG2mfMLy9rGf09of4UBDTTJyl9/
+ azrIDS/oHZBvBt0sRVVi9Mykvzz3z3rbQJsHs9QLstfDnXvTNdyrac6wV
+ L8zu2gQkC91ljMau63OFUWB0SqA5pIAsK5TnL8e/hlyCiNR4jOa/LKHUI
+ Ge7LVt0wMHEKFeBgNCWXw8wwmvTp9eM90k5T93A2JGLaJGQbcvfLbGdPc
+ MtjkME+OgY5arDCwYEDyNshWLDxCaSkczprOKXwWYHE/24j5TI+a7gYPU w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000505"
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000505"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:22 -0800
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221487"
+ 26 Jan 2022 12:36:23 -0800
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221519"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:21 -0800
+ 26 Jan 2022 12:36:23 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 12:36:43 -0800
-Message-Id: <20220126203702.1784589-1-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 12:36:52 -0800
+Message-Id: <20220126203702.1784589-10-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.0
+In-Reply-To: <20220126203702.1784589-1-lucas.demarchi@intel.com>
+References: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/19] drm/i915/guc: Refactor ADS access to use
- dma_buf_map
+Subject: [Intel-gfx] [PATCH 09/19] dma-buf-map: Add wrapper over memset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,104 +56,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linaro-mm-sig@lists.linaro.org, Matthew Auld <matthew.auld@intel.com>,
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linaro-mm-sig@lists.linaro.org, Sumit Semwal <sumit.semwal@linaro.org>,
  linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While porting i915 to arm64 we noticed some issues accessing lmem.
-Some writes were getting corrupted and the final state of the buffer
-didn't have exactly what we wrote. This became evident when enabling
-GuC submission: depending on the number of engines the ADS struct was
-being corrupted and GuC would reject it, refusin to initialize.
+Just like memcpy_toio(), there is also need to write a direct value to a
+memory block. Add dma_buf_map_memset() to abstract memset() vs memset_io()
 
-From Documentation/core-api/bus-virt-phys-mapping.rst:
-
-	This memory is called "PCI memory" or "shared memory" or "IO memory" or
-	whatever, and there is only one way to access it: the readb/writeb and
-	related functions. You should never take the address of such memory, because
-	there is really nothing you can do with such an address: it's not
-	conceptually in the same memory space as "real memory" at all, so you cannot
-	just dereference a pointer. (Sadly, on x86 it **is** in the same memory space,
-	so on x86 it actually works to just deference a pointer, but it's not
-	portable).
-
-When reading or writing words directly to IO memory, in order to be portable
-the Linux kernel provides the abstraction detailed in section "Differences
-between I/O access functions" of Documentation/driver-api/device-io.rst.
-
-This limits our ability to simply overlay our structs on top a buffer
-and directly access it since that buffer may come from IO memory rather than
-system memory. Hence the approach taken in intel_guc_ads.c needs to be
-refactored. This is not the only place in i915 that neeed to be changed, but
-the one causing the most problems, with a real reproducer. This first set of
-patch focuses on fixing the gem object to pass the ADS
-
-After the addition of a few helpers in the dma_buf_map API, most of
-intel_guc_ads.c can be converted to use it. The exception is the regset
-initialization: we'd incur into a lot of extra indirection when
-reading/writting each register. So the regset is converted to use a
-temporary buffer allocated on probe, which is then copied to its
-final location when finishing the initialization or on gt reset.
-
-Testing on some discrete cards, after this change we can correctly pass the
-ADS struct to GuC and have it initialized correctly.
-
-thanks
-Lucas De Marchi
-
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Christian König <christian.koenig@amd.com>
 Cc: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: linaro-mm-sig@lists.linaro.org
 Cc: linux-kernel@vger.kernel.org
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ include/linux/dma-buf-map.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-Lucas De Marchi (19):
-  dma-buf-map: Add read/write helpers
-  dma-buf-map: Add helper to initialize second map
-  drm/i915/gt: Add helper for shmem copy to dma_buf_map
-  drm/i915/guc: Keep dma_buf_map of ads_blob around
-  drm/i915/guc: Add read/write helpers for ADS blob
-  drm/i915/guc: Convert golden context init to dma_buf_map
-  drm/i915/guc: Convert policies update to dma_buf_map
-  drm/i915/guc: Convert engine record to dma_buf_map
-  dma-buf-map: Add wrapper over memset
-  drm/i915/guc: Convert guc_ads_private_data_reset to dma_buf_map
-  drm/i915/guc: Convert golden context prep to dma_buf_map
-  drm/i915/guc: Replace check for golden context size
-  drm/i915/guc: Convert mapping table to dma_buf_map
-  drm/i915/guc: Convert capture list to dma_buf_map
-  drm/i915/guc: Prepare for error propagation
-  drm/i915/guc: Use a single pass to calculate regset
-  drm/i915/guc: Convert guc_mmio_reg_state_init to dma_buf_map
-  drm/i915/guc: Convert __guc_ads_init to dma_buf_map
-  drm/i915/guc: Remove plain ads_blob pointer
-
- drivers/gpu/drm/i915/gt/shmem_utils.c         |  32 ++
- drivers/gpu/drm/i915/gt/shmem_utils.h         |   3 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  14 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    | 374 +++++++++++-------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |   3 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  11 +-
- include/linux/dma-buf-map.h                   | 127 ++++++
- 7 files changed, 405 insertions(+), 159 deletions(-)
-
+diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
+index 3514a859f628..c9fb04264cd0 100644
+--- a/include/linux/dma-buf-map.h
++++ b/include/linux/dma-buf-map.h
+@@ -317,6 +317,23 @@ static inline void dma_buf_map_memcpy_to(struct dma_buf_map *dst, const void *sr
+ 		memcpy(dst->vaddr, src, len);
+ }
+ 
++/**
++ * dma_buf_map_memset - Memset into dma-buf mapping
++ * @dst:	The dma-buf mapping structure
++ * @value:	The value to set
++ * @len:	The number of bytes to set in dst
++ *
++ * Set value in dma-buf mapping. Depending on the buffer's location, the helper
++ * picks the correct method of accessing the memory.
++ */
++static inline void dma_buf_map_memset(struct dma_buf_map *dst, int value, size_t len)
++{
++	if (dst->is_iomem)
++		memset_io(dst->vaddr_iomem, value, len);
++	else
++		memset(dst->vaddr, value, len);
++}
++
+ /**
+  * dma_buf_map_incr - Increments the address stored in a dma-buf mapping
+  * @map:	The dma-buf mapping structure
 -- 
 2.35.0
 
