@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB1CC2BA4C
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 10:44:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D06CC28CF5
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 10:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D808210E808;
-	Wed, 26 Jan 2022 10:44:05 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5183210E808
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 10:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2139110E863;
+	Wed, 26 Jan 2022 10:46:24 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE9910E794
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 10:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643193844; x=1674729844;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=f+7+QoBhlzImHYkfJJm3hZlgyky9AOV+11LcpKZ8Bbo=;
- b=eBki3oA5M1ztDUDMOkwpEYrFc3Ftv2QuLAaalP0RFIb6bpH/Le8p0KI6
- zo9NC9WE5k+9ILBUmuT91cSC+3V99zPbUjNLpRJwZD+eBL7HrzCwBKh/b
- fXzNRWDR/KiqIEUvpByx+gqtKY+b0lY9Pc3Gdsa1rT2ph/hEmWNSX2AVt
- AgP9m5X1suNMfrM0ozMOsjGv1GN36j+FJjT85VoBo5AF6m6cw0CgXUtXb
- OjB08hvmT2+Ke5Pg5+8gPgqjkBQLOWnxFLjmDkC43VwsnHVMwsqFBAQUt
- JOEZwVsX729dR8kf3aKMOG9fqbfXo1PH2JSmFdFZsLvfLWup+c/fc/g1z A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="226500346"
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="226500346"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 02:44:01 -0800
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="479842901"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 02:43:59 -0800
-From: Imre Deak <imre.deak@intel.com>
+ t=1643193983; x=1674729983;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=eicmfpyCiIqIPAf2EL+ZbNd7M5FRgeHz6LGhGBzqhN4=;
+ b=MHWcY5E3+a5cKT06Niadq8WITTwq8o2QLZm9Gw99M8JkS3PuASqPaS+4
+ 9ppuH74ZTH66N1OFdqPHWf+1XipHRPdK66yng3XzRLZvNSeCwkVbA8VlC
+ WVM7yNRPlKC+6FakWW9lW606a+yr0nOiRczHutPi7+0gaERAeFTwtwMBA
+ xEpLwSQufxS07NV9R5tZ6GKERqnlkquBP7eRGq7/tNARKZDYl9LLTj/M8
+ 9ofBOz7BsPBI/Hts59I9hWg1zjZaf+5NOYDv31lsKqhDqSHcT351PnZV9
+ FsSKe0N4fHS78T/4s4u9FX1e6GuuClzwB2r6eDo1q90OuzJw9Au0Qba4K Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="246301875"
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="246301875"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 02:46:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477445969"
+Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
+ by orsmga003.jf.intel.com with ESMTP; 26 Jan 2022 02:46:22 -0800
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 12:43:56 +0200
-Message-Id: <20220126104356.2022975-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.27.0
+Date: Wed, 26 Jan 2022 02:48:15 -0800
+Message-Id: <20220126104822.3653079-4-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220126104822.3653079-1-alan.previn.teres.alexis@intel.com>
+References: <20220126104822.3653079-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/adlp: Fix TypeC PHY-ready status
- readout
+Subject: [Intel-gfx] [PATCH v5 03/10] drm/i915/guc: Add DG2 registers for
+ GuC error state capture.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,43 +56,125 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chia-Lin Kao <acelan.kao@canonical.com>, stable@vger.kernel.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The TCSS_DDI_STATUS register is indexed by tc_port not by the FIA port
-index, fix this up. This only caused an issue on TC#3/4 ports in legacy
-mode, as in all other cases the two indices either match (on TC#1/2) or
-the TCSS_DDI_STATUS_READY flag is set regardless of something being
-connected or not (on TC#1/2/3/4 in dp-alt and tbt-alt modes).
+Add additional DG2 registers for GuC error state capture.
 
-Reported-and-tested-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
-Fixes: 55ce306c2aa1 ("drm/i915/adl_p: Implement TC sequences")
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4698
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Cc: <stable@vger.kernel.org> # v5.14+
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 64 ++++++++++++++-----
+ 1 file changed, 49 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 4eefe7b0bb263..3291124a99e5a 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -346,10 +346,11 @@ static bool icl_tc_phy_status_complete(struct intel_digital_port *dig_port)
- static bool adl_tc_phy_status_complete(struct intel_digital_port *dig_port)
- {
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-+	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
- 	struct intel_uncore *uncore = &i915->uncore;
- 	u32 val;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+index b6882074fc8d..19719daffed4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+@@ -179,19 +179,23 @@ static struct __ext_steer_reg xelpd_extregs[] = {
+ 	{"GEN7_ROW_INSTDONE", GEN7_ROW_INSTDONE}
+ };
  
--	val = intel_uncore_read(uncore, TCSS_DDI_STATUS(dig_port->tc_phy_fia_idx));
-+	val = intel_uncore_read(uncore, TCSS_DDI_STATUS(tc_port));
- 	if (val == 0xffffffff) {
- 		drm_dbg_kms(&i915->drm,
- 			    "Port %s: PHY in TCCOLD, assuming not complete\n",
++static struct __ext_steer_reg xehpg_extregs[] = {
++	{"XEHPG_INSTDONE_GEOM_SVG", XEHPG_INSTDONE_GEOM_SVG}
++};
++
+ static void
+-guc_capture_alloc_steered_list_xelpd(struct intel_guc *guc,
+-				     struct __guc_mmio_reg_descr_group *lists)
++guc_capture_alloc_steered_list_xe_lpd_hpg(struct intel_guc *guc,
++					  struct __guc_mmio_reg_descr_group *lists,
++					  u32 ipver)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+ 	struct sseu_dev_info *sseu;
+-	int slice, subslice, i, num_tot_regs = 0;
++	int slice, subslice, i, iter, num_steer_regs, num_tot_regs = 0;
+ 	struct __guc_mmio_reg_descr_group *list;
+ 	struct __guc_mmio_reg_descr *extarray;
+-	int num_steer_regs = ARRAY_SIZE(xelpd_extregs);
+ 
+-	/* In XE_LP we only care about render-class steering registers during error-capture */
++	/* In XE_LP / HPG we only have render-class steering registers during error-capture */
+ 	list = guc_capture_get_one_list(lists, GUC_CAPTURE_LIST_INDEX_PF,
+ 					GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS, GUC_RENDER_CLASS);
+ 	if (!list)
+@@ -200,10 +204,21 @@ guc_capture_alloc_steered_list_xelpd(struct intel_guc *guc,
+ 	if (list->ext)
+ 		return; /* already populated */
+ 
++	num_steer_regs = ARRAY_SIZE(xelpd_extregs);
++	if (ipver >= IP_VER(12, 55))
++		num_steer_regs += ARRAY_SIZE(xehpg_extregs);
++
+ 	sseu = &gt->info.sseu;
+-	for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
+-		num_tot_regs += num_steer_regs;
++	if (ipver >= IP_VER(12, 50)) {
++		for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice) {
++			num_tot_regs += num_steer_regs;
++		}
++	} else {
++		for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
++			num_tot_regs += num_steer_regs;
++		}
+ 	}
++
+ 	if (!num_tot_regs)
+ 		return;
+ 
+@@ -212,15 +227,31 @@ guc_capture_alloc_steered_list_xelpd(struct intel_guc *guc,
+ 		return;
+ 
+ 	extarray = list->ext;
+-	for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
+-		for (i = 0; i < num_steer_regs; i++) {
+-			extarray->reg = xelpd_extregs[i].reg;
+-			extarray->flags = FIELD_PREP(GUC_REGSET_STEERING_GROUP, slice);
+-			extarray->flags |= FIELD_PREP(GUC_REGSET_STEERING_INSTANCE, subslice);
+-			extarray->regname = xelpd_extregs[i].name;
+-			++extarray;
++
++#define POPULATE_NEXT_EXTREG(ext, list, idx, slicenum, subslicenum) \
++	{ \
++		(ext)->reg = list[idx].reg; \
++		(ext)->flags = FIELD_PREP(GUC_REGSET_STEERING_GROUP, slicenum); \
++		(ext)->flags |= FIELD_PREP(GUC_REGSET_STEERING_INSTANCE, subslicenum); \
++		(ext)->regname = xelpd_extregs[i].name; \
++		++(ext); \
++	}
++	if (ipver >= IP_VER(12, 50)) {
++		for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice) {
++			for (i = 0; i < ARRAY_SIZE(xelpd_extregs); i++)
++				POPULATE_NEXT_EXTREG(extarray, xelpd_extregs, i, slice, subslice)
++			for (i = 0; i < ARRAY_SIZE(xehpg_extregs) && ipver >= IP_VER(12, 55);
++			     i++)
++				POPULATE_NEXT_EXTREG(extarray, xehpg_extregs, i, slice, subslice)
++		}
++	} else {
++		for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
++			for (i = 0; i < num_steer_regs; i++)
++				POPULATE_NEXT_EXTREG(extarray, xelpd_extregs, i, slice, subslice)
+ 		}
+ 	}
++#undef POPULATE_NEXT_EXTREG
++
+ 	list->num_ext = num_tot_regs;
+ }
+ 
+@@ -237,7 +268,10 @@ guc_capture_get_device_reglist(struct intel_guc *guc)
+ 		 * these at init time based on hw config add it as an extension
+ 		 * list at the end of the pre-populated render list.
+ 		 */
+-		guc_capture_alloc_steered_list_xelpd(guc, xe_lpd_lists);
++		guc_capture_alloc_steered_list_xe_lpd_hpg(guc, xe_lpd_lists, IP_VER(12, 0));
++		return xe_lpd_lists;
++	} else if (IS_DG2(i915)) {
++		guc_capture_alloc_steered_list_xe_lpd_hpg(guc, xe_lpd_lists, IP_VER(12, 55));
+ 		return xe_lpd_lists;
+ 	}
+ 
 -- 
-2.27.0
+2.25.1
 
