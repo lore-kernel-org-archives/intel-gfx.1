@@ -4,48 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE516C63684
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5364C2BA4C
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB5E710E878;
-	Wed, 26 Jan 2022 09:39:52 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1F089E59;
- Wed, 26 Jan 2022 09:39:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0159D89428;
+	Wed, 26 Jan 2022 09:43:58 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 529AE10E7E5;
+ Wed, 26 Jan 2022 09:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643189988; x=1674725988;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=KcRtycUl4lDfGh110lR4XASfjxvG1FP1xhGR1aDDOAA=;
- b=PU2lSpTH4Jxo20A5ScDL5pHTrTTsqIpsypv05LFpK+HDHL7LQpFL6ip+
- MbMuekP0YZIr/BiSPpjPXCzhnVFyJmyedSnQ7CL6sIm3eIuVHee8vYmAi
- PAnzXaUUEaGckofJnc0hX1mIC9xVeUMTG0eYeyvGu/PD4KZ/n0BkE1rTa
- iccbe6/mDgx37tITfuFuJ1oFuuUTwCHhFKmWaJryef/x73RqQtZTE0t90
- dAKcQYBAQn3z95HsQGCq39ByVhq8/lHZ9AjE/ohbZZS/YR1KY+8HeSt47
- R9mm2Abp6wpxR/uwZT2yW5WgsHgk+hiQwb/MLppW/1tppfWXKf5M9xdol Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="246293754"
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="246293754"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477433109"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:30 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
- netdev@vger.kernel.org
-Date: Wed, 26 Jan 2022 01:39:50 -0800
-Message-Id: <20220126093951.1470898-11-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220126093951.1470898-1-lucas.demarchi@intel.com>
-References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+ t=1643190236; x=1674726236;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=FqtfkDWNNeSe+gVQGRrv7zXdFjdNf4dd0UsnuMjMtq0=;
+ b=AsDiqbkRW+/Neu2u0WsOiWEmytuZutr+6t8Za1la+g17HZmxkprC2zB2
+ 3/6awLt7BxYNdOvTf9tFCzqJzy9w89VySXXXQBYD5XDiVR/79RHRP/bKi
+ H029dFRDhLnFBjHvN0BEwgRF/ER58GEJNnozJm1DWoW4MEu8sXXYOKPH8
+ 8QAW8zJdeERtiiTzrJu0HvA2gSPxOjCw/HCmy7q/KI5E5M5Bb+aTeliVj
+ 21Z8vdGgSIkdYIScdNPfQRHXKRAdT41k5e3l1fPKN8dBj3TX8OXl8SJwg
+ IfmATwRpqn81pyxrPtctp8dli6HtHtmDwnjZfWqQXDH2+V+V0dP95J+TO g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="245348616"
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="245348616"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 01:43:55 -0800
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="581055423"
+Received: from mburchar-mobl.amr.corp.intel.com (HELO [10.212.54.252])
+ ([10.212.54.252])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 01:43:52 -0800
+Message-ID: <e920081b-f590-7381-cf57-9f73fa846225@linux.intel.com>
+Date: Wed, 26 Jan 2022 09:43:50 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 10/11] tomoyo: Use str_yes_no()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Content-Language: en-US
+To: Yury Norov <yury.norov@gmail.com>
+References: <20220123183925.1052919-1-yury.norov@gmail.com>
+ <20220123183925.1052919-18-yury.norov@gmail.com>
+ <bab43c36-a3de-f96a-6530-4ab3a55b8ba0@linux.intel.com>
+ <CAAH8bW8jcNM--D_cUtWNe7cbBjVAENq_SEapDcPjit=BB705JA@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <CAAH8bW8jcNM--D_cUtWNe7cbBjVAENq_SEapDcPjit=BB705JA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 17/54] gpu: drm: replace cpumask_weight with
+ cpumask_empty where appropriate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,114 +64,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
- Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Leo Li <sunpeng.li@amd.com>, Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+Cc: Emil Renner Berthing <kernel@esmil.dk>, dri-devel@lists.freedesktop.org,
+ Peter Zijlstra <peterz@infradead.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Raju Rangoju <rajur@chelsio.com>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@linux.ie>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Alexey Klimov <aklimov@redhat.com>, David Laight <David.Laight@aculab.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Joe Perches <joe@perches.com>, Dennis Zhou <dennis@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove the local yesno() implementation and adopt the str_yes_no() from
-linux/string_helpers.h.
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- security/tomoyo/audit.c  |  2 +-
- security/tomoyo/common.c | 19 +++++--------------
- security/tomoyo/common.h |  1 -
- 3 files changed, 6 insertions(+), 16 deletions(-)
+On 25/01/2022 18:16, Yury Norov wrote:
+> On Tue, Jan 25, 2022 at 1:28 AM Tvrtko Ursulin
+> <tvrtko.ursulin@linux.intel.com> wrote:
+>>
+>>
+>> On 23/01/2022 18:38, Yury Norov wrote:
+>>> i915_pmu_cpu_online() calls cpumask_weight() to check if any bit of a
+>>> given cpumask is set. We can do it more efficiently with cpumask_empty()
+>>> because cpumask_empty() stops traversing the cpumask as soon as it finds
+>>> first set bit, while cpumask_weight() counts all bits unconditionally.
+>>>
+>>> Signed-off-by: Yury Norov <yury.norov@gmail.com>
+>>> ---
+>>>    drivers/gpu/drm/i915/i915_pmu.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+>>> index ea655161793e..1894c876b31d 100644
+>>> --- a/drivers/gpu/drm/i915/i915_pmu.c
+>>> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+>>> @@ -1048,7 +1048,7 @@ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+>>>        GEM_BUG_ON(!pmu->base.event_init);
+>>>
+>>>        /* Select the first online CPU as a designated reader. */
+>>> -     if (!cpumask_weight(&i915_pmu_cpumask))
+>>> +     if (cpumask_empty(&i915_pmu_cpumask))
+>>>                cpumask_set_cpu(cpu, &i915_pmu_cpumask);
+>>>
+>>>        return 0;
+>>>
+>>
+>> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>
+>> I see it's a large series which only partially appeared on our mailing
+>> lists.
+> 
+> The series is here: https://lkml.org/lkml/2022/1/23/223
+> The branch: https://github.com/norov/linux/tree/bitmap-20220123
+> 
+>> So for instance it hasn't got tested by our automated CI. (Not
+>> that I expect any problems in this patch.)
+> 
+> Would be great if you give a test for the whole series, thanks!
 
-diff --git a/security/tomoyo/audit.c b/security/tomoyo/audit.c
-index d79bf07e16be..023bedd9dfa3 100644
---- a/security/tomoyo/audit.c
-+++ b/security/tomoyo/audit.c
-@@ -166,7 +166,7 @@ static char *tomoyo_print_header(struct tomoyo_request_info *r)
- 		       "#%04u/%02u/%02u %02u:%02u:%02u# profile=%u mode=%s granted=%s (global-pid=%u) task={ pid=%u ppid=%u uid=%u gid=%u euid=%u egid=%u suid=%u sgid=%u fsuid=%u fsgid=%u }",
- 		       stamp.year, stamp.month, stamp.day, stamp.hour,
- 		       stamp.min, stamp.sec, r->profile, tomoyo_mode[r->mode],
--		       tomoyo_yesno(r->granted), gpid, tomoyo_sys_getpid(),
-+		       str_yes_no(r->granted), gpid, tomoyo_sys_getpid(),
- 		       tomoyo_sys_getppid(),
- 		       from_kuid(&init_user_ns, current_uid()),
- 		       from_kgid(&init_user_ns, current_gid()),
-diff --git a/security/tomoyo/common.c b/security/tomoyo/common.c
-index 5c64927bf2b3..ff17abc96e5c 100644
---- a/security/tomoyo/common.c
-+++ b/security/tomoyo/common.c
-@@ -8,6 +8,7 @@
- #include <linux/uaccess.h>
- #include <linux/slab.h>
- #include <linux/security.h>
-+#include <linux/string_helpers.h>
- #include "common.h"
- 
- /* String table for operation mode. */
-@@ -174,16 +175,6 @@ static bool tomoyo_manage_by_non_root;
- 
- /* Utility functions. */
- 
--/**
-- * tomoyo_yesno - Return "yes" or "no".
-- *
-- * @value: Bool value.
-- */
--const char *tomoyo_yesno(const unsigned int value)
--{
--	return value ? "yes" : "no";
--}
--
- /**
-  * tomoyo_addprintf - strncat()-like-snprintf().
-  *
-@@ -730,8 +721,8 @@ static void tomoyo_print_config(struct tomoyo_io_buffer *head, const u8 config)
- {
- 	tomoyo_io_printf(head, "={ mode=%s grant_log=%s reject_log=%s }\n",
- 			 tomoyo_mode[config & 3],
--			 tomoyo_yesno(config & TOMOYO_CONFIG_WANT_GRANT_LOG),
--			 tomoyo_yesno(config & TOMOYO_CONFIG_WANT_REJECT_LOG));
-+			 str_yes_no(config & TOMOYO_CONFIG_WANT_GRANT_LOG),
-+			 str_yes_no(config & TOMOYO_CONFIG_WANT_REJECT_LOG));
- }
- 
- /**
-@@ -1354,8 +1345,8 @@ static bool tomoyo_print_condition(struct tomoyo_io_buffer *head,
- 	case 3:
- 		if (cond->grant_log != TOMOYO_GRANTLOG_AUTO)
- 			tomoyo_io_printf(head, " grant_log=%s",
--					 tomoyo_yesno(cond->grant_log ==
--						      TOMOYO_GRANTLOG_YES));
-+					 str_yes_no(cond->grant_log ==
-+						    TOMOYO_GRANTLOG_YES));
- 		tomoyo_set_lf(head);
- 		return true;
- 	}
-diff --git a/security/tomoyo/common.h b/security/tomoyo/common.h
-index 85246b9df7ca..ca285f362705 100644
---- a/security/tomoyo/common.h
-+++ b/security/tomoyo/common.h
-@@ -959,7 +959,6 @@ char *tomoyo_read_token(struct tomoyo_acl_param *param);
- char *tomoyo_realpath_from_path(const struct path *path);
- char *tomoyo_realpath_nofollow(const char *pathname);
- const char *tomoyo_get_exe(void);
--const char *tomoyo_yesno(const unsigned int value);
- const struct tomoyo_path_info *tomoyo_compare_name_union
- (const struct tomoyo_path_info *name, const struct tomoyo_name_union *ptr);
- const struct tomoyo_path_info *tomoyo_get_domainname
--- 
-2.34.1
+Can't really test the whole series for you, but if you want to send just 
+the i915 patch standalone to the intel-gfx mailing list, that would 
+trigger the CI run and if that passes we can merge that single one.
 
+>> What are the plans in terms of which tree will it get merged through?
+> 
+> For the patches that will not be merged by maintainers of corresponding
+> subsystems, I'll use my bitmap branch and send it to linux-next.
+
+Or I guess we can wait for them to trickle back to us this way.
+
+Regards,
+
+Tvrtko
