@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B943C5DF62
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:36:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C93C2BA4C
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C2410E802;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09FE110E936;
 	Wed, 26 Jan 2022 20:36:28 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F37B10E705;
- Wed, 26 Jan 2022 20:36:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D991510E802;
+ Wed, 26 Jan 2022 20:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643229386; x=1674765386;
+ t=1643229388; x=1674765388;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fT5raPuy4gQlCWtdlnkOy0l3+TfxT0XyYHiwiGiH8uo=;
- b=lI9fHdrsctMT9Bp/sNs7zmjUj8buzy3tIcHMoo0WinvmytFuHfEpizbX
- wruxTmRwc9JXD/ySziGpC9XvbQ8PBRPWl6HpS7s8SOsnL/257ne5xUy7Q
- IjJ4CCYzcADSU9WANSLpe68o/7M5Pe2/EcIE61Ys5LaA8xKh73BEzutH3
- 3RZNnUTec67Xr/xhFyLj28L2fSAoRwRsp0PipX/YBXtINg4QMcJoSSKyQ
- h9cgfbR54OAsezJ91GXdiJg6QLmciIY7ogreNcwHUpYHUYFdW9s9h9a98
- HWgL669rJq5P/G1mUO9dPqW2ZX5y1Ds7qZlgHUQa4i6CFHdcrSpgTGzpc w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000494"
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000494"
+ bh=wvaX2JPdSHUYHOOHVGj913/CgerpbT8u5T6WEedTlfM=;
+ b=i7kpZvRjLWtARpZ5YVz6vEpA9388dXBfglwJtsFAerV+vahXgP9Wltvt
+ KB6/MrV9N5lVgFoeaV4uyWvDgtv3cFGkuD++V6qfcFqZ9N2hGcgcsLRLH
+ 7qoLBp1o6h5xSqcz83DqUjSQYPul8rFZ8RHNElO0pB3c8xes8f0T8UkWC
+ t8TlWEr5nS4pFWjLfgG40Hmu9/I4Gr6rolmSfMODd9ICrSRd4JQ0KT1ys
+ qRNqvrLLsltyjvr1/iUfTNteJ+7inJYPqsF6wjMgpLnuAz2Fjw2f+opHg
+ i+ZfXzI839y9hb1SODZA484bWDiDU7qybslwaNB0IvjbuliRKyLjHQDZp A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000513"
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000513"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:22 -0800
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221490"
+ 26 Jan 2022 12:36:24 -0800
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221531"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:22 -0800
+ 26 Jan 2022 12:36:24 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 12:36:44 -0800
-Message-Id: <20220126203702.1784589-2-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 12:36:56 -0800
+Message-Id: <20220126203702.1784589-14-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.0
 In-Reply-To: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 References: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/19] dma-buf-map: Add read/write helpers
+Subject: [Intel-gfx] [PATCH 13/19] drm/i915/guc: Convert mapping table to
+ dma_buf_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,141 +57,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linaro-mm-sig@lists.linaro.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In certain situations it's useful to be able to read or write to an
-offset that is calculated by having the memory layout given by a struct
-declaration. Usually we are going to read/write a u8, u16, u32 or u64.
+Use dma_buf_map to write the fields system_info.mapping_table[][].
+Since we already have the info_map around where needed, just use it
+instead of going through guc->ads_map.
 
-Add a pair of macros dma_buf_map_read_field()/dma_buf_map_write_field()
-to calculate the offset of a struct member and memcpy the data from/to
-the dma_buf_map. We could use readb, readw, readl, readq and the write*
-counterparts, however due to alignment issues this may not work on all
-architectures. If alignment needs to be checked to call the right
-function, it's not possible to decide at compile-time which function to
-call: so just leave the decision to the memcpy function that will do
-exactly that on IO memory or dereference the pointer.
-
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: linux-kernel@vger.kernel.org
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- include/linux/dma-buf-map.h | 81 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
-index 19fa0b5ae5ec..65e927d9ce33 100644
---- a/include/linux/dma-buf-map.h
-+++ b/include/linux/dma-buf-map.h
-@@ -6,6 +6,7 @@
- #ifndef __DMA_BUF_MAP_H__
- #define __DMA_BUF_MAP_H__
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 8e4768289792..dca7c3db9cdd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -204,7 +204,7 @@ int intel_guc_global_policies_update(struct intel_guc *guc)
+ }
  
-+#include <linux/kernel.h>
- #include <linux/io.h>
- #include <linux/string.h>
+ static void guc_mapping_table_init(struct intel_gt *gt,
+-				   struct guc_gt_system_info *system_info)
++				   struct dma_buf_map *info_map)
+ {
+ 	unsigned int i, j;
+ 	struct intel_engine_cs *engine;
+@@ -213,14 +213,14 @@ static void guc_mapping_table_init(struct intel_gt *gt,
+ 	/* Table must be set to invalid values for entries not used */
+ 	for (i = 0; i < GUC_MAX_ENGINE_CLASSES; ++i)
+ 		for (j = 0; j < GUC_MAX_INSTANCES_PER_CLASS; ++j)
+-			system_info->mapping_table[i][j] =
+-				GUC_MAX_INSTANCES_PER_CLASS;
++			info_map_write(info_map, mapping_table[i][j],
++				       GUC_MAX_INSTANCES_PER_CLASS);
  
-@@ -229,6 +230,46 @@ static inline void dma_buf_map_clear(struct dma_buf_map *map)
+ 	for_each_engine(engine, gt, id) {
+ 		u8 guc_class = engine_class_to_guc_class(engine->class);
+ 
+-		system_info->mapping_table[guc_class][ilog2(engine->logical_mask)] =
+-			engine->instance;
++		info_map_write(info_map, mapping_table[guc_class][ilog2(engine->logical_mask)],
++			       engine->instance);
  	}
  }
  
-+/**
-+ * dma_buf_map_memcpy_to_offset - Memcpy into offset of dma-buf mapping
-+ * @dst:	The dma-buf mapping structure
-+ * @offset:	The offset from which to copy
-+ * @src:	The source buffer
-+ * @len:	The number of byte in src
-+ *
-+ * Copies data into a dma-buf mapping with an offset. The source buffer is in
-+ * system memory. Depending on the buffer's location, the helper picks the
-+ * correct method of accessing the memory.
-+ */
-+static inline void dma_buf_map_memcpy_to_offset(struct dma_buf_map *dst, size_t offset,
-+						const void *src, size_t len)
-+{
-+	if (dst->is_iomem)
-+		memcpy_toio(dst->vaddr_iomem + offset, src, len);
-+	else
-+		memcpy(dst->vaddr + offset, src, len);
-+}
-+
-+/**
-+ * dma_buf_map_memcpy_from_offset - Memcpy from offset of dma-buf mapping into system memory
-+ * @dst:	Destination in system memory
-+ * @src:	The dma-buf mapping structure
-+ * @src:	The offset from which to copy
-+ * @len:	The number of byte in src
-+ *
-+ * Copies data from a dma-buf mapping with an offset. The dest buffer is in
-+ * system memory. Depending on the mapping location, the helper picks the
-+ * correct method of accessing the memory.
-+ */
-+static inline void dma_buf_map_memcpy_from_offset(void *dst, const struct dma_buf_map *src,
-+						  size_t offset, size_t len)
-+{
-+	if (src->is_iomem)
-+		memcpy_fromio(dst, src->vaddr_iomem + offset, len);
-+	else
-+		memcpy(dst, src->vaddr + offset, len);
-+}
-+
- /**
-  * dma_buf_map_memcpy_to - Memcpy into dma-buf mapping
-  * @dst:	The dma-buf mapping structure
-@@ -263,4 +304,44 @@ static inline void dma_buf_map_incr(struct dma_buf_map *map, size_t incr)
- 		map->vaddr += incr;
- }
+@@ -595,7 +595,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	/* Golden contexts for re-initialising after a watchdog reset */
+ 	guc_prep_golden_context(guc);
  
-+/**
-+ * dma_buf_map_read_field - Read struct member from dma-buf mapping with
-+ * arbitrary size and handling un-aligned accesses
-+ *
-+ * @map__:	The dma-buf mapping structure
-+ * @type__:	The struct to be used containing the field to read
-+ * @field__:	Member from struct we want to read
-+ *
-+ * Read a value from dma-buf mapping calculating the offset and size: this assumes
-+ * the dma-buf mapping is aligned with a a struct type__. A single u8, u16, u32
-+ * or u64 can be read, based on the offset and size of type__.field__.
-+ */
-+#define dma_buf_map_read_field(map__, type__, field__) ({				\
-+	type__ *t__;									\
-+	typeof(t__->field__) val__;							\
-+	dma_buf_map_memcpy_from_offset(&val__, map__, offsetof(type__, field__),	\
-+				       sizeof(t__->field__));				\
-+	val__;										\
-+})
-+
-+/**
-+ * dma_buf_map_write_field - Write struct member to the dma-buf mapping with
-+ * arbitrary size and handling un-aligned accesses
-+ *
-+ * @map__:	The dma-buf mapping structure
-+ * @type__:	The struct to be used containing the field to write
-+ * @field__:	Member from struct we want to write
-+ * @val__:	Value to be written
-+ *
-+ * Write a value to the dma-buf mapping calculating the offset and size.
-+ * A single u8, u16, u32 or u64 can be written based on the offset and size of
-+ * type__.field__.
-+ */
-+#define dma_buf_map_write_field(map__, type__, field__, val__) ({			\
-+	type__ *t__;									\
-+	typeof(t__->field__) val____ = val__;						\
-+	dma_buf_map_memcpy_to_offset(map__, offsetof(type__, field__),			\
-+				     &val____, sizeof(t__->field__));			\
-+})
-+
- #endif /* __DMA_BUF_MAP_H__ */
+-	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
++	guc_mapping_table_init(guc_to_gt(guc), &info_map);
+ 
+ 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
+ 
 -- 
 2.35.0
 
