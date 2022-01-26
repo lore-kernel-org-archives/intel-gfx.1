@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF072C28CF5
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CBE3C28CF5
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F27910E7DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5B6810E81D;
 	Wed, 26 Jan 2022 09:39:35 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6275010E7D8;
- Wed, 26 Jan 2022 09:39:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B12310E7E2;
+ Wed, 26 Jan 2022 09:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643189970; x=1674725970;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ZbI2cuArWWdUB2fC+oAVhsfmcYeXYC2uQgZrAJN4GB4=;
- b=GLIqyRFEIxT1aoRhdHUsHxJ+0XKCS0nhEfogfzowNTv5VwguGJK8UTSv
- 7ePIOUZGN7hMwH4E7t2j2qBgaaQCU85iSun8NU9zoc06roYMTAEZjl0s2
- Us7skCUJ5iKOALTy6AXCTBSWPDOIybHceczOZm8MtrcHQg+uycPlHusWB
- mmA1FE0p/asGJoHPDQxlwPTvkT6UZzVlbmG/1jRD9aPBetNsq2IP7TGJh
- dYIbfMg18erxA4hVHSuVIphDmlOdAndxp4D1CAzEB868zaHbSaN9PLJd/
- 8GB8YrwiOhzTllag2mvefhXQ74+lRyL7GrWs26DL2aAUIsDLdOo/mX/wA A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="227188776"
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="227188776"
+ t=1643189971; x=1674725971;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8iMFQNE1tKdEntd1mooCssxbmlgFxACc7Z1+IcG5fl4=;
+ b=OOR2XnBNQRXdcgiQ9tM3YbsoOfoqN118GjTEHOQ2mcYcknVx1OwJpXmq
+ X8wQlfIKcJLaYkhbsU7dgaBWj8qXBqGKnvqU6ElxJ4bD14S31HoMmuSm+
+ 2KafbFgw3yzsieX4E+a80NGp7wfigggi3IjOuauW1A2FZmVhky8msm8Ll
+ cMCKqIqMdRNoOqsxNt7f4WPPmR6qzbmXSqMZKTvXjHPzcfNFh6CzyjZfo
+ VSbpJBIZQupMqFj20wizkQp2AB6omVxCOulYrn8qL48PQYT2X2JCERSKA
+ CSAZ7n8jCaDKHBsxsfMo0KnF3Wl+ruPZWYFccWBUGyKxIPAXYpFO93nNd Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="227188792"
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="227188792"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:29 -0800
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477433076"
+ 26 Jan 2022 01:39:31 -0800
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477433092"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:29 -0800
+ 26 Jan 2022 01:39:30 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
  netdev@vger.kernel.org
-Date: Wed, 26 Jan 2022 01:39:40 -0800
-Message-Id: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 01:39:45 -0800
+Message-Id: <20220126093951.1470898-6-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/11] lib/string_helpers: Add a few string
- helpers
+Subject: [Intel-gfx] [PATCH v2 05/11] drm/i915: Use str_enabled_disabled()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,14 +59,15 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
  Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>, Leo Li <sunpeng.li@amd.com>,
  Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
  Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
  Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Leo Li <sunpeng.li@amd.com>, Julia Lawall <julia.lawall@lip6.fr>,
+ Jani Nikula <jani.nikula@intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
  Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
  Steven Rostedt <rostedt@goodmis.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -79,150 +80,355 @@ Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some helpers under lib/string_helpers.h so they can be used
-throughout the kernel. When I started doing this there were 2 other
-previous attempts I know of, not counting the iterations each of them
-had:
+Remove the local enableddisabled() implementation and adopt the
+str_enabled_disabled() from linux/string_helpers.h.
 
-1) https://lore.kernel.org/all/20191023131308.9420-1-jani.nikula@intel.com/
-2) https://lore.kernel.org/all/20210215142137.64476-1-andriy.shevchenko@linux.intel.com/#t
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_backlight.c   |  3 ++-
+ drivers/gpu/drm/i915/display/intel_display.c     | 16 ++++++++--------
+ .../gpu/drm/i915/display/intel_display_debugfs.c |  8 ++++----
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c     |  7 ++++---
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c      |  3 ++-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c        |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c        |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c       |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c        |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c            |  4 ++--
+ drivers/gpu/drm/i915/i915_debugfs.c              |  2 +-
+ drivers/gpu/drm/i915/i915_driver.c               |  4 +++-
+ drivers/gpu/drm/i915/i915_utils.h                |  6 +-----
+ drivers/gpu/drm/i915/intel_pm.c                  |  4 ++--
+ 14 files changed, 33 insertions(+), 32 deletions(-)
 
-Now there is also the v1 of this same patch series:
-https://lore.kernel.org/all/20220119072450.2890107-1-lucas.demarchi@intel.com/
-
-Going through the comments I tried to find some common ground and
-justification for what is in here, addressing some of the concerns
-raised.
-
-a. This version should be a drop-in replacement for what is currently in
-   the tree, with no change in behavior or binary size. For binary
-   size what I checked was that the linked objects in the end have the
-   same size (gcc 11). From comments in the previous attempts this seems
-   also the case for earlier compiler versions
-
-b. I didn't change the function name to choice_* as suggested by Andrew
-   Morton in 20191023155619.43e0013f0c8c673a5c508c1e@linux-foundation.org
-   because other people argumented in favor of shorter names for these
-   simple helpers - if they are long and people simply not use due to
-   that, we failed. However as pointed out in v1 of this patchseries,
-   onoff(), yesno(), enabledisable(), enableddisabled() have some
-   issues: the last 2 are hard to read and for the first 2 it would not
-   be hard to have the symbol to clash with variable names.
-   From comments in v1, most people were in favor (or at least not
-   opposed) to using str_on_off(), str_yes_no(), str_enable_disable()
-   and str_enabled_disabled().
-
-c. Use string_helper.h for these helpers - pulling string.h in the
-   compilations units was one of the concerns and I think re-using this
-   already existing header is better than creating a new string-choice.h
-
-d. One alternative to all of this suggested by Christian König
-   (43456ba7-c372-84cc-4949-dcb817188e21@amd.com) would be to add a
-   printk format. But besides the comment, he also seemed to like
-   the common function. This brought the argument from others that the
-   simple yesno()/enabledisable() already used in the code (or new
-   renamed version) is easier to remember and use than e.g. %py[DOY]
-
-
-Changes in v2:
-
-  - Use str_ prefix and separate other words with underscore: it's a
-    little bit longer, but should improve readability
-
-  - Patches we re-split due to the rename: first patch adds all the new
-    functions, then additional patches try to do one conversion at a
-    time. While doing so, there were some fixes for issues already
-    present along the way
-
-  - Style suggestions from v1 were adopted
-
-In v1 it was suggested to apply this in drm-misc. I will leave this to
-maintainers to decide: maybe it would be simpler to merge the first
-patches on drm-intel-next, wait for the back merge and merge the rest
-through drm-misc - my fear is a big conflict with other work going in
-drm-intel-next since the bulk of the rename is there.
-
-I tried to figure out acks and reviews from v1 and apply them to how the
-patches are now split.
-
-thanks
-Lucas De Marchi
-
-Lucas De Marchi (11):
-  lib/string_helpers: Consolidate string helpers implementation
-  drm/i915: Fix trailing semicolon
-  drm/i915: Use str_yes_no()
-  drm/i915: Use str_enable_disable()
-  drm/i915: Use str_enabled_disabled()
-  drm/i915: Use str_on_off()
-  drm/amd/display: Use str_yes_no()
-  drm/gem: Sort includes alphabetically
-  drm: Convert open-coded yes/no strings to yesno()
-  tomoyo: Use str_yes_no()
-  cxgb4: Use str_yes_no()
-
- drivers/gpu/drm/amd/amdgpu/atom.c             |   4 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  14 +-
- drivers/gpu/drm/dp/drm_dp.c                   |   3 +-
- drivers/gpu/drm/drm_client_modeset.c          |   3 +-
- drivers/gpu/drm/drm_gem.c                     |  23 +-
- drivers/gpu/drm/i915/display/g4x_dp.c         |   6 +-
- .../gpu/drm/i915/display/intel_backlight.c    |   3 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |   4 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  46 ++--
- .../drm/i915/display/intel_display_debugfs.c  |  74 +++---
- .../drm/i915/display/intel_display_power.c    |   4 +-
- .../drm/i915/display/intel_display_trace.h    |   9 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  20 +-
- drivers/gpu/drm/i915/display/intel_dpll.c     |   3 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   7 +-
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |   7 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      |   4 +-
- drivers/gpu/drm/i915/display/intel_fdi.c      |   8 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |   3 +-
- drivers/gpu/drm/i915/display/intel_sprite.c   |   6 +-
- drivers/gpu/drm/i915/display/vlv_dsi_pll.c    |   3 +-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |   9 +-
- .../drm/i915/gem/selftests/i915_gem_context.c |   7 +-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   3 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  11 +-
- .../drm/i915/gt/intel_execlists_submission.c  |   7 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   3 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |  52 ++--
- drivers/gpu/drm/i915/gt/intel_rc6.c           |   5 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |   3 +-
- drivers/gpu/drm/i915/gt/intel_rps.c           |  13 +-
- drivers/gpu/drm/i915/gt/intel_sseu.c          |   9 +-
- drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c  |  10 +-
- drivers/gpu/drm/i915/gt/selftest_timeline.c   |   3 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   5 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |   5 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c     |   6 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |   4 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  14 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c |  20 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |  17 +-
- drivers/gpu/drm/i915/i915_driver.c            |   4 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |   9 +-
- drivers/gpu/drm/i915/i915_params.c            |   5 +-
- drivers/gpu/drm/i915/i915_utils.h             |  21 +-
- drivers/gpu/drm/i915/intel_device_info.c      |   8 +-
- drivers/gpu/drm/i915/intel_dram.c             |  10 +-
- drivers/gpu/drm/i915/intel_pm.c               |  14 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |   4 +-
- drivers/gpu/drm/i915/selftests/i915_active.c  |   3 +-
- drivers/gpu/drm/i915/vlv_suspend.c            |   3 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |   5 +-
- drivers/gpu/drm/radeon/atom.c                 |   3 +-
- drivers/gpu/drm/v3d/v3d_debugfs.c             |  11 +-
- drivers/gpu/drm/virtio/virtgpu_debugfs.c      |   4 +-
- .../ethernet/chelsio/cxgb4/cxgb4_debugfs.c    | 249 ++++++++++--------
- include/linux/string_helpers.h                |  20 ++
- security/tomoyo/audit.c                       |   2 +-
- security/tomoyo/common.c                      |  19 +-
- security/tomoyo/common.h                      |   1 -
- 60 files changed, 482 insertions(+), 373 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index 98f7ea44042f..c8e1fc53a881 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/kernel.h>
+ #include <linux/pwm.h>
++#include <linux/string_helpers.h>
+ 
+ #include "intel_backlight.h"
+ #include "intel_connector.h"
+@@ -1633,7 +1634,7 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "Connector %s backlight initialized, %s, brightness %u/%u\n",
+ 		    connector->base.name,
+-		    enableddisabled(panel->backlight.enabled),
++		    str_enabled_disabled(panel->backlight.enabled),
+ 		    panel->backlight.level, panel->backlight.max);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index bd453861088e..8920bdb53b7b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3110,8 +3110,8 @@ static void intel_panel_sanitize_ssc(struct drm_i915_private *dev_priv)
+ 		if (dev_priv->vbt.lvds_use_ssc != bios_lvds_use_ssc) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "SSC %s by BIOS, overriding VBT which says %s\n",
+-				    enableddisabled(bios_lvds_use_ssc),
+-				    enableddisabled(dev_priv->vbt.lvds_use_ssc));
++				    str_enabled_disabled(bios_lvds_use_ssc),
++				    str_enabled_disabled(dev_priv->vbt.lvds_use_ssc));
+ 			dev_priv->vbt.lvds_use_ssc = bios_lvds_use_ssc;
+ 		}
+ 	}
+@@ -5648,7 +5648,7 @@ static void intel_dump_pipe_config(const struct intel_crtc_state *pipe_config,
+ 		    pipe_config->bigjoiner ? "master" : "no");
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "splitter: %s, link count %d, overlap %d\n",
+-		    enableddisabled(pipe_config->splitter.enable),
++		    str_enabled_disabled(pipe_config->splitter.enable),
+ 		    pipe_config->splitter.link_count,
+ 		    pipe_config->splitter.pixel_overlap);
+ 
+@@ -5736,7 +5736,7 @@ static void intel_dump_pipe_config(const struct intel_crtc_state *pipe_config,
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "pch pfit: " DRM_RECT_FMT ", %s, force thru: %s\n",
+ 			    DRM_RECT_ARG(&pipe_config->pch_pfit.dst),
+-			    enableddisabled(pipe_config->pch_pfit.enabled),
++			    str_enabled_disabled(pipe_config->pch_pfit.enabled),
+ 			    str_yes_no(pipe_config->pch_pfit.force_thru));
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "ips: %i, double wide: %i\n",
+@@ -10300,7 +10300,7 @@ static void readout_plane_state(struct drm_i915_private *dev_priv)
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "[PLANE:%d:%s] hw state readout: %s, pipe %c\n",
+ 			    plane->base.base.id, plane->base.name,
+-			    enableddisabled(visible), pipe_name(pipe));
++			    str_enabled_disabled(visible), pipe_name(pipe));
+ 	}
+ 
+ 	for_each_intel_crtc(&dev_priv->drm, crtc) {
+@@ -10346,7 +10346,7 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "[CRTC:%d:%s] hw state readout: %s\n",
+ 			    crtc->base.base.id, crtc->base.name,
+-			    enableddisabled(crtc_state->hw.active));
++			    str_enabled_disabled(crtc_state->hw.active));
+ 	}
+ 
+ 	cdclk_state->active_pipes = dbuf_state->active_pipes = active_pipes;
+@@ -10384,7 +10384,7 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "[ENCODER:%d:%s] hw state readout: %s, pipe %c\n",
+ 			    encoder->base.base.id, encoder->base.name,
+-			    enableddisabled(encoder->base.crtc),
++			    str_enabled_disabled(encoder->base.crtc),
+ 			    pipe_name(pipe));
+ 	}
+ 
+@@ -10422,7 +10422,7 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "[CONNECTOR:%d:%s] hw state readout: %s\n",
+ 			    connector->base.base.id, connector->base.name,
+-			    enableddisabled(connector->base.encoder));
++			    str_enabled_disabled(connector->base.encoder));
+ 	}
+ 	drm_connector_list_iter_end(&conn_iter);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index a9ba998e0659..6bc820c3f00e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -93,7 +93,7 @@ static int i915_sr_status(struct seq_file *m, void *unused)
+ 
+ 	intel_display_power_put(dev_priv, POWER_DOMAIN_INIT, wakeref);
+ 
+-	seq_printf(m, "self-refresh: %s\n", enableddisabled(sr_enabled));
++	seq_printf(m, "self-refresh: %s\n", str_enabled_disabled(sr_enabled));
+ 
+ 	return 0;
+ }
+@@ -296,7 +296,7 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
+ 		enabled = val & EDP_PSR_ENABLE;
+ 	}
+ 	seq_printf(m, "Source PSR ctl: %s [0x%08x]\n",
+-		   enableddisabled(enabled), val);
++		   str_enabled_disabled(enabled), val);
+ 	psr_source_status(intel_dp, m);
+ 	seq_printf(m, "Busy frontbuffer bits: 0x%08x\n",
+ 		   psr->busy_frontbuffer_bits);
+@@ -343,7 +343,7 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
+ 		}
+ 
+ 		seq_printf(m, "PSR2 selective fetch: %s\n",
+-			   enableddisabled(psr->psr2_sel_fetch_enabled));
++			   str_enabled_disabled(psr->psr2_sel_fetch_enabled));
+ 	}
+ 
+ unlock:
+@@ -1268,7 +1268,7 @@ static int i915_lpsp_status(struct seq_file *m, void *unused)
+ 		return 0;
+ 	}
+ 
+-	seq_printf(m, "LPSP: %s\n", enableddisabled(lpsp_enabled));
++	seq_printf(m, "LPSP: %s\n", str_enabled_disabled(lpsp_enabled));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index da0bd056f3d3..5e1e2e7fe382 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -30,6 +30,7 @@
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/pinctrl/machine.h>
+ #include <linux/slab.h>
++#include <linux/string_helpers.h>
+ 
+ #include <asm/unaligned.h>
+ 
+@@ -684,9 +685,9 @@ void intel_dsi_log_params(struct intel_dsi *intel_dsi)
+ 		    intel_dsi->burst_mode_ratio);
+ 	drm_dbg_kms(&i915->drm, "Reset timer %d\n", intel_dsi->rst_timer_val);
+ 	drm_dbg_kms(&i915->drm, "Eot %s\n",
+-		    enableddisabled(intel_dsi->eotp_pkt));
++		    str_enabled_disabled(intel_dsi->eotp_pkt));
+ 	drm_dbg_kms(&i915->drm, "Clockstop %s\n",
+-		    enableddisabled(!intel_dsi->clock_stop));
++		    str_enabled_disabled(!intel_dsi->clock_stop));
+ 	drm_dbg_kms(&i915->drm, "Mode %s\n",
+ 		    intel_dsi->operation_mode ? "command" : "video");
+ 	if (intel_dsi->dual_link == DSI_DUAL_LINK_FRONT_BACK)
+@@ -713,7 +714,7 @@ void intel_dsi_log_params(struct intel_dsi *intel_dsi)
+ 	drm_dbg_kms(&i915->drm, "HS to LP Clock Count 0x%x\n",
+ 		    intel_dsi->clk_hs_to_lp_count);
+ 	drm_dbg_kms(&i915->drm, "BTA %s\n",
+-		    enableddisabled(!(intel_dsi->video_frmt_cfg_bits & DISABLE_VIDEO_BTA)));
++		    str_enabled_disabled(!(intel_dsi->video_frmt_cfg_bits & DISABLE_VIDEO_BTA)));
+ }
+ 
+ bool intel_dsi_vbt_init(struct intel_dsi *intel_dsi, u16 panel_id)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 209cf265bf74..9dc9dccf7b09 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/kthread.h>
++#include <linux/string_helpers.h>
+ #include <trace/events/dma_fence.h>
+ #include <uapi/linux/sched/types.h>
+ 
+@@ -512,7 +513,7 @@ void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
+ 	if (!b)
+ 		return;
+ 
+-	drm_printf(p, "IRQ: %s\n", enableddisabled(b->irq_armed));
++	drm_printf(p, "IRQ: %s\n", str_enabled_disabled(b->irq_armed));
+ 	if (!list_empty(&b->signalers))
+ 		print_signals(b, p);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 07de0fb56f51..6f4a39a3b44f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1642,7 +1642,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+ 
+ 		drm_printf(m, "\tExeclist tasklet queued? %s (%s), preempt? %s, timeslice? %s\n",
+ 			   str_yes_no(test_bit(TASKLET_STATE_SCHED, &engine->sched_engine->tasklet.state)),
+-			   enableddisabled(!atomic_read(&engine->sched_engine->tasklet.count)),
++			   str_enabled_disabled(!atomic_read(&engine->sched_engine->tasklet.count)),
+ 			   repr_timer(&engine->execlists.preempt),
+ 			   repr_timer(&engine->execlists.timer));
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 31c3c3bceb95..0cfb29440c47 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -1203,7 +1203,7 @@ void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
+ void intel_guc_ct_print_info(struct intel_guc_ct *ct,
+ 			     struct drm_printer *p)
+ {
+-	drm_printf(p, "CT %s\n", enableddisabled(ct->enabled));
++	drm_printf(p, "CT %s\n", str_enabled_disabled(ct->enabled));
+ 
+ 	if (!ct->enabled)
+ 		return;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 8a99c2e624c2..a24dc6441872 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -477,7 +477,7 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 
+ 	log->level = __get_default_log_level(log);
+ 	DRM_DEBUG_DRIVER("guc_log_level=%d (%s, verbose:%s, verbosity:%d)\n",
+-			 log->level, enableddisabled(log->level),
++			 log->level, str_enabled_disabled(log->level),
+ 			 str_yes_no(GUC_LOG_LEVEL_IS_VERBOSE(log->level)),
+ 			 GUC_LOG_LEVEL_TO_VERBOSITY(log->level));
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
+index f8fc90ea71e7..e00661fb0853 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
+@@ -66,7 +66,7 @@ static int __guc_rc_control(struct intel_guc *guc, bool enable)
+ 	}
+ 
+ 	drm_info(&gt->i915->drm, "GuC RC: %s\n",
+-		 enableddisabled(enable));
++		 str_enabled_disabled(enable));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 8e756d4c2c16..8c9ef690ac9d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -524,9 +524,9 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 	}
+ 
+ 	drm_info(&i915->drm, "GuC submission %s\n",
+-		 enableddisabled(intel_uc_uses_guc_submission(uc)));
++		 str_enabled_disabled(intel_uc_uses_guc_submission(uc)));
+ 	drm_info(&i915->drm, "GuC SLPC %s\n",
+-		 enableddisabled(intel_uc_uses_guc_slpc(uc)));
++		 str_enabled_disabled(intel_uc_uses_guc_slpc(uc)));
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 8e70c404bcc5..b98ea01af075 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -478,7 +478,7 @@ static int i915_runtime_pm_status(struct seq_file *m, void *unused)
+ 		seq_puts(m, "Runtime power management not supported\n");
+ 
+ 	seq_printf(m, "Runtime power status: %s\n",
+-		   enableddisabled(!dev_priv->power_domains.init_wakeref));
++		   str_enabled_disabled(!dev_priv->power_domains.init_wakeref));
+ 
+ 	seq_printf(m, "GPU idle: %s\n", str_yes_no(!to_gt(dev_priv)->awake));
+ 	seq_printf(m, "IRQs disabled: %s\n",
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 3d41f532a5d6..e89afce4c576 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -36,6 +36,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/pnp.h>
+ #include <linux/slab.h>
++#include <linux/string_helpers.h>
+ #include <linux/vga_switcheroo.h>
+ #include <linux/vt.h>
+ 
+@@ -749,7 +750,8 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
+ void
+ i915_print_iommu_status(struct drm_i915_private *i915, struct drm_printer *p)
+ {
+-	drm_printf(p, "iommu: %s\n", enableddisabled(intel_vtd_active(i915)));
++	drm_printf(p, "iommu: %s\n",
++		   str_enabled_disabled(intel_vtd_active(i915)));
+ }
+ 
+ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index 06aac2be49ee..6d26920d0632 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -28,6 +28,7 @@
+ #include <linux/list.h>
+ #include <linux/overflow.h>
+ #include <linux/sched.h>
++#include <linux/string_helpers.h>
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
+ #include <linux/sched/clock.h>
+@@ -404,11 +405,6 @@ static inline const char *onoff(bool v)
+ 	return v ? "on" : "off";
+ }
+ 
+-static inline const char *enableddisabled(bool v)
+-{
+-	return v ? "enabled" : "disabled";
+-}
+-
+ void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint);
+ static inline void __add_taint_for_CI(unsigned int taint)
+ {
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index c538a66687bd..69f442200784 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -413,8 +413,8 @@ static bool _intel_set_memory_cxsr(struct drm_i915_private *dev_priv, bool enabl
+ 	trace_intel_memory_cxsr(dev_priv, was_enabled, enable);
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "memory self-refresh is %s (was %s)\n",
+-		    enableddisabled(enable),
+-		    enableddisabled(was_enabled));
++		    str_enabled_disabled(enable),
++		    str_enabled_disabled(was_enabled));
+ 
+ 	return was_enabled;
+ }
 -- 
 2.34.1
 
