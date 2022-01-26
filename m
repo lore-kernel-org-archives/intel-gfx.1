@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0BC7C5DF62
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77788C63686
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 20:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA4DA10E911;
-	Wed, 26 Jan 2022 20:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2A310E987;
+	Wed, 26 Jan 2022 20:36:35 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EFA10E705;
- Wed, 26 Jan 2022 20:36:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5832B10E905;
+ Wed, 26 Jan 2022 20:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643229387; x=1674765387;
+ t=1643229388; x=1674765388;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5kSZoar6nlEfqZa5tDaufHgc1xCfnJq/vZPkOM+Iu0k=;
- b=cH/pnI9UyaKoX82ht4fRnLN69Th4XjTdNPpPSNay4WNWT8woPzeZ10tE
- 0ZJmtd1u23ecoDG+TEuSQIggk+OcmCmZH3Uf5O2tk4h19yBg+c5fwHUHv
- kw95sdLW7//uqCivg2zsBvuY9paTbzAaFArcfj+zHhd8gfT/bH2ttcRo+
- Z2iZnEizg1HWtd0qdbfHpLhzFwIEH1ZOOq0gl9nsj9O1Agl/9w/ve1XEP
- 9Af19jiKJfXJrRKb34y/bgVH1/EYZszeOLFRXKUdXcVV5smc/z06iakI1
- luskz4wpASVxWl5lf5GUQo3meLOdXWa4yXyjrzGYw1PpumURByfS1s59E Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000512"
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000512"
+ bh=nAOdyzWpMBIDR4UoBoQpVEZ/NUm8W56CiB6CYm9l6HI=;
+ b=OFu/Rpz5cMSy1tUYyJUIlrfqpbZzWgErQtWMKZSJ1LqpH2CXTbJSrEb0
+ 3sA2XdC9Cg/p1vUXFWjasf0EHI3jTs/j3G+K5w+weHctX/h8FtCls1TMU
+ z91KssreVdA5GFoXbJnd10sBh7Gh/CjV0wCe7g6IjXRnLaIlm86BkIlFQ
+ e0jgE7bLp+xAXcOUz67Sxk4LsxeRulReauaDR4zWHTcuCkjtWHz/Wz13e
+ XXzPoAJXFLsNYWWBG8CtHePPnHqowmYPzVaAUP4x2bn90XPZNAQqCP8uS
+ Zqc1NUiPZVfxvKonTyROymxwphkKA/MFZzd0snXrWORDGpaRyBKxVTi2R g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="333000520"
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="333000520"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:24 -0800
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221528"
+ 26 Jan 2022 12:36:26 -0800
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581221543"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 12:36:24 -0800
+ 26 Jan 2022 12:36:25 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 12:36:55 -0800
-Message-Id: <20220126203702.1784589-13-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 12:37:00 -0800
+Message-Id: <20220126203702.1784589-18-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.0
 In-Reply-To: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 References: <20220126203702.1784589-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/19] drm/i915/guc: Replace check for golden
- context size
+Subject: [Intel-gfx] [PATCH 17/19] drm/i915/guc: Convert
+ guc_mmio_reg_state_init to dma_buf_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,14 +62,9 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the other places in this function, guc->ads_map is being protected
-from access when it's not yet set. However the last check is actually
-about guc->ads_golden_ctxt_size been set before.  These checks should
-always match as the size is initialized on the first call to
-guc_prep_golden_context(), but it's clearer if we have a single return
-and check for guc->ads_golden_ctxt_size.
-
-This is just a readability improvement, no change in behavior.
+Now that the regset list is prepared, convert guc_mmio_reg_state_init()
+to use dma_buf_map to copy the array to the final location and
+initialize additional fields in ads.reg_state_list.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -79,27 +74,80 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 30 +++++++++++++---------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index dd9ec47eed16..8e4768289792 100644
+index 390101ee3661..cb0f543b0e86 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -461,10 +461,10 @@ static int guc_prep_golden_context(struct intel_guc *guc)
- 		addr_ggtt += alloc_size;
- 	}
- 
--	if (dma_buf_map_is_null(&guc->ads_map))
--		return total_size;
-+	/* Make sure current size matches what we calculated previously */
-+	if (guc->ads_golden_ctxt_size)
-+		GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
- 
--	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
- 	return total_size;
+@@ -372,40 +372,46 @@ static long guc_mmio_reg_state_create(struct intel_guc *guc)
+ 	return total * sizeof(struct guc_mmio_reg);
  }
  
+-static void guc_mmio_reg_state_init(struct intel_guc *guc,
+-				    struct __guc_ads_blob *blob)
++static void guc_mmio_reg_state_init(struct intel_guc *guc)
+ {
++	struct dma_buf_map ads_regset_map;
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	struct intel_engine_cs *engine;
+-	struct guc_mmio_reg *ads_registers;
+ 	enum intel_engine_id id;
+ 	u32 addr_ggtt, offset;
+ 
+ 	offset = guc_ads_regset_offset(guc);
+ 	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
+-	ads_registers = (struct guc_mmio_reg *)(((u8 *)blob) + offset);
++	ads_regset_map = DMA_BUF_MAP_INIT_OFFSET(&guc->ads_map, offset);
+ 
+-	memcpy(ads_registers, guc->ads_regset, guc->ads_regset_size);
++	dma_buf_map_memcpy_to(&ads_regset_map, guc->ads_regset,
++			      guc->ads_regset_size);
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		u32 count = guc->ads_regset_count[id];
+-		struct guc_mmio_reg_set *ads_reg_set;
+ 		u8 guc_class;
+ 
+ 		/* Class index is checked in class converter */
+ 		GEM_BUG_ON(engine->instance >= GUC_MAX_INSTANCES_PER_CLASS);
+ 
+ 		guc_class = engine_class_to_guc_class(engine->class);
+-		ads_reg_set = &blob->ads.reg_state_list[guc_class][engine->instance];
+ 
+ 		if (!count) {
+-			ads_reg_set->address = 0;
+-			ads_reg_set->count = 0;
++			ads_blob_write(guc,
++				       ads.reg_state_list[guc_class][engine->instance].address,
++				       0);
++			ads_blob_write(guc,
++				       ads.reg_state_list[guc_class][engine->instance].count,
++				       0);
+ 			continue;
+ 		}
+ 
+-		ads_reg_set->address = addr_ggtt;
+-		ads_reg_set->count = count;
++		ads_blob_write(guc,
++			       ads.reg_state_list[guc_class][engine->instance].address,
++			       addr_ggtt);
++		ads_blob_write(guc,
++			       ads.reg_state_list[guc_class][engine->instance].count,
++			       count);
+ 
+ 		addr_ggtt += count * sizeof(struct guc_mmio_reg);
+ 	}
+@@ -635,7 +641,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	blob->ads.gt_system_info = base + ptr_offset(blob, system_info);
+ 
+ 	/* MMIO save/restore list */
+-	guc_mmio_reg_state_init(guc, blob);
++	guc_mmio_reg_state_init(guc);
+ 
+ 	/* Private Data */
+ 	blob->ads.private_data = base + guc_ads_private_data_offset(guc);
 -- 
 2.35.0
 
