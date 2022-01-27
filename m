@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE19C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35620C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5043A10E64C;
-	Thu, 27 Jan 2022 09:33:14 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB2F10EDA8
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:33:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B28910EE50;
+	Thu, 27 Jan 2022 09:33:19 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A937B10EE50
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643275990; x=1674811990;
+ t=1643275997; x=1674811997;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=JXOIoNBHXovbb9jLDyhRPpH8omH2PpHIoHHwWuH5qfw=;
- b=Ayw9kjw6eTrrorLqKQGhcJaL1YLfr6UVLGhno75+C2QlsaQawgBMwI0y
- oe74iq3WCj0M3rd7rcMGCArBXilh+KIhfeKlhK96pQe0ieTOTVTuwCWlb
- 21bW8T7v1PHqoFQfOuja6x/9Uk+blErO13xVfW4tljTO4JD6LP6//+mci
- cYLFsg7rUOgwou1l9vqWXWkDe1F9Z87Nu/5Z+eDYjirCopqI2lgbmf4rY
- YANcj+CUwfbkZ0erv078Ne7glnhXT7EaHaJEAvf4k2locRq0FdoUBwXvM
- PfkhHJQsnPId8lMoeH6wur2uHS8jzIUir1+TB2rSzSLW7p8YBi/vgVyqa w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="310113644"
-X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="310113644"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2022 01:33:09 -0800
+ bh=BLhuQIJvig8XrfCD48zBWcAsk02rSFW9uYVC6wZ3O3s=;
+ b=Mu3+8lIS+GHYG4uutEw4dnzFEJl0HtbNi0MDXxOGw1U4cS3vNOa4tB+S
+ qmax3+XMtT3+9Nhs1PMYKmH3VOXOgp10o0n5N7P45gRlqnax9iV9unm5X
+ 38+un5y5cURNuwGb9RztI/AJxTPmwRe7vy5G+KjMLUVgW4c0dZ2u8kkfh
+ MShGOu8Py4rDlqnphM4EY1fqN4PY7n2NlKFsYQz74to90sPotvBxeZIH0
+ 4nPN9tDTagQxCvHNHOjHqBJqN5jh4ReRuJQXLJsbtem1ZHbIwEx7+3DSs
+ Hl/Ouh1buhFBaIhfwTB6M+Yn7utKLv2/rn9feqNh1vh/WZpQ4rhijIUm1 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="227472880"
+X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="227472880"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2022 01:33:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="521154806"
+X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="563723248"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.147])
- by orsmga007.jf.intel.com with SMTP; 27 Jan 2022 01:33:07 -0800
+ by orsmga001.jf.intel.com with SMTP; 27 Jan 2022 01:33:14 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 27 Jan 2022 11:33:06 +0200
+ Thu, 27 Jan 2022 11:33:13 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Jan 2022 11:32:50 +0200
-Message-Id: <20220127093303.17309-2-ville.syrjala@linux.intel.com>
+Date: Thu, 27 Jan 2022 11:32:52 +0200
+Message-Id: <20220127093303.17309-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220127093303.17309-1-ville.syrjala@linux.intel.com>
 References: <20220127093303.17309-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/14] drm/i915: Extract intel_{get,set}_m_n()
+Subject: [Intel-gfx] [PATCH 03/14] drm/i915: s/gmch_{m,n}/data_{m,n}/
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,181 +63,187 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Make the M/N setup/readout a bit less repitive by extracting
-a few small helpers.
+Rename the gmch_* M/N members to data_* to match the register
+definitions and thus make life a little less confusing.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 109 ++++++++-----------
- 1 file changed, 47 insertions(+), 62 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c     |  4 +-
+ drivers/gpu/drm/i915/display/intel_display.c | 48 ++++++++++----------
+ drivers/gpu/drm/i915/display/intel_display.h |  4 +-
+ drivers/gpu/drm/i915/display/intel_dp.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_drrs.c    |  2 +-
+ 5 files changed, 30 insertions(+), 30 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 5d1f7d6218c5..ca8becb07e45 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3684,8 +3684,8 @@ static bool m_n_equal(const struct intel_link_m_n *m_n_1,
+ 		      const struct intel_link_m_n *m_n_2)
+ {
+ 	return m_n_1->tu == m_n_2->tu &&
+-		m_n_1->gmch_m == m_n_2->gmch_m &&
+-		m_n_1->gmch_n == m_n_2->gmch_n &&
++		m_n_1->data_m == m_n_2->data_m &&
++		m_n_1->data_n == m_n_2->data_n &&
+ 		m_n_1->link_m == m_n_2->link_m &&
+ 		m_n_1->link_n == m_n_2->link_n;
+ }
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 91add3d85151..f76faa195cb9 100644
+index d91164d1eb92..75de794185b2 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3113,6 +3113,17 @@ static void intel_panel_sanitize_ssc(struct drm_i915_private *dev_priv)
- 	}
- }
+@@ -3082,7 +3082,7 @@ intel_link_compute_m_n(u16 bits_per_pixel, int nlanes,
+ 	m_n->tu = 64;
+ 	compute_m_n(data_clock,
+ 		    link_clock * nlanes * 8,
+-		    &m_n->gmch_m, &m_n->gmch_n,
++		    &m_n->data_m, &m_n->data_n,
+ 		    constant_n);
  
-+static void intel_set_m_n(struct drm_i915_private *i915,
-+			  const struct intel_link_m_n *m_n,
-+			  i915_reg_t data_m_reg, i915_reg_t data_n_reg,
-+			  i915_reg_t link_m_reg, i915_reg_t link_n_reg)
-+{
-+	intel_de_write(i915, data_m_reg, TU_SIZE(m_n->tu) | m_n->gmch_m);
-+	intel_de_write(i915, data_n_reg, m_n->gmch_n);
-+	intel_de_write(i915, link_m_reg, m_n->link_m);
-+	intel_de_write(i915, link_n_reg, m_n->link_n);
-+}
-+
- static void intel_pch_transcoder_set_m_n(const struct intel_crtc_state *crtc_state,
- 					 const struct intel_link_m_n *m_n)
+ 	compute_m_n(pixel_clock, link_clock,
+@@ -3118,8 +3118,8 @@ static void intel_set_m_n(struct drm_i915_private *i915,
+ 			  i915_reg_t data_m_reg, i915_reg_t data_n_reg,
+ 			  i915_reg_t link_m_reg, i915_reg_t link_n_reg)
  {
-@@ -3120,11 +3131,9 @@ static void intel_pch_transcoder_set_m_n(const struct intel_crtc_state *crtc_sta
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum pipe pipe = crtc->pipe;
- 
--	intel_de_write(dev_priv, PCH_TRANS_DATA_M1(pipe),
--		       TU_SIZE(m_n->tu) | m_n->gmch_m);
--	intel_de_write(dev_priv, PCH_TRANS_DATA_N1(pipe), m_n->gmch_n);
--	intel_de_write(dev_priv, PCH_TRANS_LINK_M1(pipe), m_n->link_m);
--	intel_de_write(dev_priv, PCH_TRANS_LINK_N1(pipe), m_n->link_n);
-+	intel_set_m_n(dev_priv, m_n,
-+		      PCH_TRANS_DATA_M1(pipe), PCH_TRANS_DATA_N1(pipe),
-+		      PCH_TRANS_LINK_M1(pipe), PCH_TRANS_LINK_N1(pipe));
+-	intel_de_write(i915, data_m_reg, TU_SIZE(m_n->tu) | m_n->gmch_m);
+-	intel_de_write(i915, data_n_reg, m_n->gmch_n);
++	intel_de_write(i915, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
++	intel_de_write(i915, data_n_reg, m_n->data_n);
+ 	intel_de_write(i915, link_m_reg, m_n->link_m);
+ 	intel_de_write(i915, link_n_reg, m_n->link_n);
  }
- 
- static bool transcoder_has_m2_n2(struct drm_i915_private *dev_priv,
-@@ -3150,35 +3159,23 @@ static void intel_cpu_transcoder_set_m_n(const struct intel_crtc_state *crtc_sta
- 	enum transcoder transcoder = crtc_state->cpu_transcoder;
- 
- 	if (DISPLAY_VER(dev_priv) >= 5) {
--		intel_de_write(dev_priv, PIPE_DATA_M1(transcoder),
--			       TU_SIZE(m_n->tu) | m_n->gmch_m);
--		intel_de_write(dev_priv, PIPE_DATA_N1(transcoder),
--			       m_n->gmch_n);
--		intel_de_write(dev_priv, PIPE_LINK_M1(transcoder),
--			       m_n->link_m);
--		intel_de_write(dev_priv, PIPE_LINK_N1(transcoder),
--			       m_n->link_n);
-+		intel_set_m_n(dev_priv, m_n,
-+			      PIPE_DATA_M1(transcoder), PIPE_DATA_N1(transcoder),
-+			      PIPE_LINK_M1(transcoder), PIPE_LINK_N1(transcoder));
- 		/*
- 		 *  M2_N2 registers are set only if DRRS is supported
- 		 * (to make sure the registers are not unnecessarily accessed).
- 		 */
- 		if (m2_n2 && crtc_state->has_drrs &&
- 		    transcoder_has_m2_n2(dev_priv, transcoder)) {
--			intel_de_write(dev_priv, PIPE_DATA_M2(transcoder),
--				       TU_SIZE(m2_n2->tu) | m2_n2->gmch_m);
--			intel_de_write(dev_priv, PIPE_DATA_N2(transcoder),
--				       m2_n2->gmch_n);
--			intel_de_write(dev_priv, PIPE_LINK_M2(transcoder),
--				       m2_n2->link_m);
--			intel_de_write(dev_priv, PIPE_LINK_N2(transcoder),
--				       m2_n2->link_n);
-+			intel_set_m_n(dev_priv, m2_n2,
-+				      PIPE_DATA_M2(transcoder), PIPE_DATA_N2(transcoder),
-+				      PIPE_LINK_M2(transcoder), PIPE_LINK_N2(transcoder));
- 		}
- 	} else {
--		intel_de_write(dev_priv, PIPE_DATA_M_G4X(pipe),
--			       TU_SIZE(m_n->tu) | m_n->gmch_m);
--		intel_de_write(dev_priv, PIPE_DATA_N_G4X(pipe), m_n->gmch_n);
--		intel_de_write(dev_priv, PIPE_LINK_M_G4X(pipe), m_n->link_m);
--		intel_de_write(dev_priv, PIPE_LINK_N_G4X(pipe), m_n->link_n);
-+		intel_set_m_n(dev_priv, m_n,
-+			      PIPE_DATA_M_G4X(pipe), PIPE_DATA_N_G4X(pipe),
-+			      PIPE_LINK_M_G4X(pipe), PIPE_LINK_N_G4X(pipe));
- 	}
- }
- 
-@@ -3863,6 +3860,18 @@ int ilk_get_lanes_required(int target_clock, int link_bw, int bpp)
- 	return DIV_ROUND_UP(bps, link_bw * 8);
- }
- 
-+static void intel_get_m_n(struct drm_i915_private *i915,
-+			  struct intel_link_m_n *m_n,
-+			  i915_reg_t data_m_reg, i915_reg_t data_n_reg,
-+			  i915_reg_t link_m_reg, i915_reg_t link_n_reg)
-+{
-+	m_n->link_m = intel_de_read(i915, link_m_reg);
-+	m_n->link_n = intel_de_read(i915, link_n_reg);
-+	m_n->gmch_m = intel_de_read(i915, data_m_reg) & ~TU_SIZE_MASK;
-+	m_n->gmch_n = intel_de_read(i915, data_n_reg);
-+	m_n->tu = ((intel_de_read(i915, data_m_reg) & TU_SIZE_MASK) >> TU_SIZE_SHIFT) + 1;
-+}
-+
- static void intel_pch_transcoder_get_m_n(struct intel_crtc *crtc,
- 					 struct intel_link_m_n *m_n)
+@@ -3867,8 +3867,8 @@ static void intel_get_m_n(struct drm_i915_private *i915,
  {
-@@ -3870,13 +3879,9 @@ static void intel_pch_transcoder_get_m_n(struct intel_crtc *crtc,
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	enum pipe pipe = crtc->pipe;
- 
--	m_n->link_m = intel_de_read(dev_priv, PCH_TRANS_LINK_M1(pipe));
--	m_n->link_n = intel_de_read(dev_priv, PCH_TRANS_LINK_N1(pipe));
--	m_n->gmch_m = intel_de_read(dev_priv, PCH_TRANS_DATA_M1(pipe))
--		& ~TU_SIZE_MASK;
--	m_n->gmch_n = intel_de_read(dev_priv, PCH_TRANS_DATA_N1(pipe));
--	m_n->tu = ((intel_de_read(dev_priv, PCH_TRANS_DATA_M1(pipe))
--		    & TU_SIZE_MASK) >> TU_SIZE_SHIFT) + 1;
-+	intel_get_m_n(dev_priv, m_n,
-+		      PCH_TRANS_DATA_M1(pipe), PCH_TRANS_DATA_N1(pipe),
-+		      PCH_TRANS_LINK_M1(pipe), PCH_TRANS_LINK_N1(pipe));
+ 	m_n->link_m = intel_de_read(i915, link_m_reg) & DATA_LINK_M_N_MASK;
+ 	m_n->link_n = intel_de_read(i915, link_n_reg) & DATA_LINK_M_N_MASK;
+-	m_n->gmch_m = intel_de_read(i915, data_m_reg) & DATA_LINK_M_N_MASK;
+-	m_n->gmch_n = intel_de_read(i915, data_n_reg) & DATA_LINK_M_N_MASK;
++	m_n->data_m = intel_de_read(i915, data_m_reg) & DATA_LINK_M_N_MASK;
++	m_n->data_n = intel_de_read(i915, data_n_reg) & DATA_LINK_M_N_MASK;
+ 	m_n->tu = REG_FIELD_GET(TU_SIZE_MASK, intel_de_read(i915, data_m_reg)) + 1;
  }
  
- static void intel_cpu_transcoder_get_m_n(struct intel_crtc *crtc,
-@@ -3888,39 +3893,19 @@ static void intel_cpu_transcoder_get_m_n(struct intel_crtc *crtc,
- 	enum pipe pipe = crtc->pipe;
+@@ -5498,9 +5498,9 @@ intel_dump_m_n_config(const struct intel_crtc_state *pipe_config,
+ 	struct drm_i915_private *i915 = to_i915(pipe_config->uapi.crtc->dev);
  
- 	if (DISPLAY_VER(dev_priv) >= 5) {
--		m_n->link_m = intel_de_read(dev_priv,
--					    PIPE_LINK_M1(transcoder));
--		m_n->link_n = intel_de_read(dev_priv,
--					    PIPE_LINK_N1(transcoder));
--		m_n->gmch_m = intel_de_read(dev_priv,
--					    PIPE_DATA_M1(transcoder))
--			& ~TU_SIZE_MASK;
--		m_n->gmch_n = intel_de_read(dev_priv,
--					    PIPE_DATA_N1(transcoder));
--		m_n->tu = ((intel_de_read(dev_priv, PIPE_DATA_M1(transcoder))
--			    & TU_SIZE_MASK) >> TU_SIZE_SHIFT) + 1;
-+		intel_get_m_n(dev_priv, m_n,
-+			      PIPE_DATA_M1(transcoder), PIPE_DATA_N1(transcoder),
-+			      PIPE_LINK_M1(transcoder), PIPE_LINK_N1(transcoder));
- 
- 		if (m2_n2 && transcoder_has_m2_n2(dev_priv, transcoder)) {
--			m2_n2->link_m = intel_de_read(dev_priv,
--						      PIPE_LINK_M2(transcoder));
--			m2_n2->link_n =	intel_de_read(dev_priv,
--							     PIPE_LINK_N2(transcoder));
--			m2_n2->gmch_m =	intel_de_read(dev_priv,
--							     PIPE_DATA_M2(transcoder))
--					& ~TU_SIZE_MASK;
--			m2_n2->gmch_n =	intel_de_read(dev_priv,
--							     PIPE_DATA_N2(transcoder));
--			m2_n2->tu = ((intel_de_read(dev_priv, PIPE_DATA_M2(transcoder))
--					& TU_SIZE_MASK) >> TU_SIZE_SHIFT) + 1;
-+			intel_get_m_n(dev_priv, m2_n2,
-+				      PIPE_DATA_M2(transcoder), PIPE_DATA_N2(transcoder),
-+				      PIPE_LINK_M2(transcoder), PIPE_LINK_N2(transcoder));
- 		}
- 	} else {
--		m_n->link_m = intel_de_read(dev_priv, PIPE_LINK_M_G4X(pipe));
--		m_n->link_n = intel_de_read(dev_priv, PIPE_LINK_N_G4X(pipe));
--		m_n->gmch_m = intel_de_read(dev_priv, PIPE_DATA_M_G4X(pipe))
--			& ~TU_SIZE_MASK;
--		m_n->gmch_n = intel_de_read(dev_priv, PIPE_DATA_N_G4X(pipe));
--		m_n->tu = ((intel_de_read(dev_priv, PIPE_DATA_M_G4X(pipe))
--			    & TU_SIZE_MASK) >> TU_SIZE_SHIFT) + 1;
-+		intel_get_m_n(dev_priv, m_n,
-+			      PIPE_DATA_M_G4X(pipe), PIPE_DATA_N_G4X(pipe),
-+			      PIPE_LINK_M_G4X(pipe), PIPE_LINK_N_G4X(pipe));
- 	}
+ 	drm_dbg_kms(&i915->drm,
+-		    "%s: lanes: %i; gmch_m: %u, gmch_n: %u, link_m: %u, link_n: %u, tu: %u\n",
++		    "%s: lanes: %i; data_m: %u, data_n: %u, link_m: %u, link_n: %u, tu: %u\n",
+ 		    id, lane_count,
+-		    m_n->gmch_m, m_n->gmch_n,
++		    m_n->data_m, m_n->data_n,
+ 		    m_n->link_m, m_n->link_n, m_n->tu);
  }
  
+@@ -6196,8 +6196,8 @@ intel_compare_link_m_n(const struct intel_link_m_n *m_n,
+ 		       bool exact)
+ {
+ 	return m_n->tu == m2_n2->tu &&
+-		intel_compare_m_n(m_n->gmch_m, m_n->gmch_n,
+-				  m2_n2->gmch_m, m2_n2->gmch_n, exact) &&
++		intel_compare_m_n(m_n->data_m, m_n->data_n,
++				  m2_n2->data_m, m2_n2->data_n, exact) &&
+ 		intel_compare_m_n(m_n->link_m, m_n->link_n,
+ 				  m2_n2->link_m, m2_n2->link_n, exact);
+ }
+@@ -6396,16 +6396,16 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 				    &pipe_config->name,\
+ 				    !fastset)) { \
+ 		pipe_config_mismatch(fastset, crtc, __stringify(name), \
+-				     "(expected tu %i gmch %i/%i link %i/%i, " \
+-				     "found tu %i, gmch %i/%i link %i/%i)", \
++				     "(expected tu %i data %i/%i link %i/%i, " \
++				     "found tu %i, data %i/%i link %i/%i)", \
+ 				     current_config->name.tu, \
+-				     current_config->name.gmch_m, \
+-				     current_config->name.gmch_n, \
++				     current_config->name.data_m, \
++				     current_config->name.data_n, \
+ 				     current_config->name.link_m, \
+ 				     current_config->name.link_n, \
+ 				     pipe_config->name.tu, \
+-				     pipe_config->name.gmch_m, \
+-				     pipe_config->name.gmch_n, \
++				     pipe_config->name.data_m, \
++				     pipe_config->name.data_n, \
+ 				     pipe_config->name.link_m, \
+ 				     pipe_config->name.link_n); \
+ 		ret = false; \
+@@ -6423,22 +6423,22 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	    !intel_compare_link_m_n(&current_config->alt_name, \
+ 				    &pipe_config->name, !fastset)) { \
+ 		pipe_config_mismatch(fastset, crtc, __stringify(name), \
+-				     "(expected tu %i gmch %i/%i link %i/%i, " \
+-				     "or tu %i gmch %i/%i link %i/%i, " \
+-				     "found tu %i, gmch %i/%i link %i/%i)", \
++				     "(expected tu %i data %i/%i link %i/%i, " \
++				     "or tu %i data %i/%i link %i/%i, " \
++				     "found tu %i, data %i/%i link %i/%i)", \
+ 				     current_config->name.tu, \
+-				     current_config->name.gmch_m, \
+-				     current_config->name.gmch_n, \
++				     current_config->name.data_m, \
++				     current_config->name.data_n, \
+ 				     current_config->name.link_m, \
+ 				     current_config->name.link_n, \
+ 				     current_config->alt_name.tu, \
+-				     current_config->alt_name.gmch_m, \
+-				     current_config->alt_name.gmch_n, \
++				     current_config->alt_name.data_m, \
++				     current_config->alt_name.data_n, \
+ 				     current_config->alt_name.link_m, \
+ 				     current_config->alt_name.link_n, \
+ 				     pipe_config->name.tu, \
+-				     pipe_config->name.gmch_m, \
+-				     pipe_config->name.gmch_n, \
++				     pipe_config->name.data_m, \
++				     pipe_config->name.data_n, \
+ 				     pipe_config->name.link_m, \
+ 				     pipe_config->name.link_n); \
+ 		ret = false; \
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index b61b75248ded..a241007f5c82 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -317,8 +317,8 @@ enum aux_ch {
+ /* Used by dp and fdi links */
+ struct intel_link_m_n {
+ 	u32 tu;
+-	u32 gmch_m;
+-	u32 gmch_n;
++	u32 data_m;
++	u32 data_n;
+ 	u32 link_m;
+ 	u32 link_n;
+ };
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 4d4579a301f6..146b83916005 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1895,7 +1895,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 
+ 	/* FIXME: abstract this better */
+ 	if (pipe_config->splitter.enable)
+-		pipe_config->dp_m_n.gmch_m *= pipe_config->splitter.link_count;
++		pipe_config->dp_m_n.data_m *= pipe_config->splitter.link_count;
+ 
+ 	if (!HAS_DDI(dev_priv))
+ 		g4x_dp_set_clock(encoder, pipe_config);
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index c1439fcb5a95..46be46f2c47e 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -84,7 +84,7 @@ intel_drrs_compute_config(struct intel_dp *intel_dp,
+ 
+ 	/* FIXME: abstract this better */
+ 	if (pipe_config->splitter.enable)
+-		pipe_config->dp_m2_n2.gmch_m *= pipe_config->splitter.link_count;
++		pipe_config->dp_m2_n2.data_m *= pipe_config->splitter.link_count;
+ }
+ 
+ static void intel_drrs_set_state(struct drm_i915_private *dev_priv,
 -- 
 2.34.1
 
