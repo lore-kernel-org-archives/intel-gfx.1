@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51A2EC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 02:01:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8495C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 02:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4B610E667;
-	Thu, 27 Jan 2022 02:01:39 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A85010E16E
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 02:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3781C10E16E;
+	Thu, 27 Jan 2022 02:02:49 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3F110E16E;
+ Thu, 27 Jan 2022 02:02:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643248895; x=1674784895;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Oo1k31+7f5OupiqFlJP47kAjJTG4kJxuT9RN7ecoALo=;
- b=dZjS2EZ+taXso73nTZFh03my6uAEqCCGxb7g2uFZe3AJJWDPIrT7YR1t
- 8Xvy/NA9K3rTAZm4XadRVo9vdFJcBsNNwQQ9J9uMxYml5hYsB3D/GxgE7
- X8jeSPaibSqE4vIn94212I4Yg5ayMrCl+iD86C9l+8aeYVJlLVqyyn3zP
- uXLtdFjQwl2hy5bgpw6FJtCgx5h5blK/1yFw0q/O61Ox57OChdqEulR5w
- kVLqh4NpLd4+XkrTW6S2wYMHdFUV/clBR26RXnslYj1DofUZ8z9uHO8S9
- 1x+j7K85Bb3kPFpLuBH8xax2bU2luL2HRGKfG1sQ7L4j9HP5A4X7E07Xk g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="226695300"
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="226695300"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 18:00:39 -0800
-X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="535434585"
-Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 18:00:39 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Jan 2022 18:00:34 -0800
-Message-Id: <20220127020035.985786-1-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.33.1
+ t=1643248968; x=1674784968;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=l330bVIfzq2/Omlczm6XHCCNktKF1RHkIS9hMGnpjjU=;
+ b=P7+a/+onJgsBlCH5zriXExn4oKuc37Y3gkGZRUZ9MMabp+K9SbQSsZg9
+ 25RLpMrtD5xbtqlTljiijG9aEk/ggIZq3+nNDtNtsUmDXHO/d+73oY2Xf
+ 4X/qGsSwQWOagkm6fKW/BFcOnRRvELe3W9P7COCgCE+qiGc0/v3nRtGsd
+ Yev7WZiTmpfr4gjQhqx26zywLUZnut/SZOgp9v0pmhl2O9Qi5AdMPFRQW
+ O5hcNZDR0hOMIERQWjpRntUnQLVgbAWcUK3fWg83nvfH2Osizqixo2oYo
+ yMcCY35DBK/Y6a/L/aF4AV3GXh4tgbQCOcPG68CiBOJ768oQ9gD0XihMZ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="230292965"
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="230292965"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 18:02:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="581308090"
+Received: from lkp-server01.sh.intel.com (HELO 276f1b88eecb) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 26 Jan 2022 18:02:32 -0800
+Received: from kbuild by 276f1b88eecb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nCu7M-000LyE-3F; Thu, 27 Jan 2022 02:02:32 +0000
+Date: Thu, 27 Jan 2022 10:02:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
+Message-ID: <202201270902.HcRe2frP-lkp@intel.com>
+References: <20220126203702.1784589-17-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/pmu: Fix KMD and GuC race on
- accessing busyness
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220126203702.1784589-17-lucas.demarchi@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH 16/19] drm/i915/guc: Use a single pass to
+ calculate regset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,134 +60,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ kbuild-all@lists.01.org, llvm@lists.linux.dev, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GuC updates shared memory and KMD reads it. Since this is not
-synchronized, we run into a race where the value read is inconsistent.
-Sometimes the inconsistency is in reading the upper MSB bytes of the
-last_switch_in value. 2 types of cases are seen - upper 8 bits are zero
-and upper 24 bits are zero. Since these are non-zero values, it is
-not trivial to determine validity of these values. Instead we read the
-values multiple times until they are consistent. In test runs, 3
-attempts results in consistent values. The upper bound is set to 6
-attempts and may need to be tuned as per any new occurences.
+Hi Lucas,
 
-Since the duration that gt is parked can vary, the patch also updates
-the gt timestamp on unpark before starting the worker.
+Thank you for the patch! Perhaps something to improve:
 
-v2:
-- Initialize i
-- Use READ_ONCE to access engine record
+[auto build test WARNING on drm-tip/drm-tip]
+[also build test WARNING on next-20220125]
+[cannot apply to drm-intel/for-linux-next drm-exynos/exynos-drm-next drm/drm-next tegra-drm/drm/tegra/for-next linus/master airlied/drm-next v5.17-rc1]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-Fixes: 77cdd054dd2c ("drm/i915/pmu: Connect engine busyness stats from GuC to pmu")
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+url:    https://github.com/0day-ci/linux/commits/Lucas-De-Marchi/drm-i915-guc-Refactor-ADS-access-to-use-dma_buf_map/20220127-043912
+base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
+config: i386-randconfig-a011 (https://download.01.org/0day-ci/archive/20220127/202201270902.HcRe2frP-lkp@intel.com/config)
+compiler: clang version 14.0.0 (https://github.com/llvm/llvm-project 2a1b7aa016c0f4b5598806205bdfbab1ea2d92c4)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/313757d9ed833acea4ee2bb0e3f3565d6efcf3cc
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Lucas-De-Marchi/drm-i915-guc-Refactor-ADS-access-to-use-dma_buf_map/20220127-043912
+        git checkout 313757d9ed833acea4ee2bb0e3f3565d6efcf3cc
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash drivers/gpu/drm/i915/
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c:370:3: warning: format specifies type 'unsigned long' but the argument has type 'unsigned int' [-Wformat]
+                   (temp_set.storage_max * sizeof(struct guc_mmio_reg)) >> 10);
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/drm/drm_print.h:461:63: note: expanded from macro 'drm_dbg'
+           drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+                                                                 ~~~    ^~~~~~~~~~~
+   1 warning generated.
+
+
+vim +370 drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+
+   348	
+   349	static long guc_mmio_reg_state_create(struct intel_guc *guc)
+   350	{
+   351		struct intel_gt *gt = guc_to_gt(guc);
+   352		struct intel_engine_cs *engine;
+   353		enum intel_engine_id id;
+   354		struct temp_regset temp_set = {};
+   355		long total = 0;
+   356	
+   357		for_each_engine(engine, gt, id) {
+   358			u32 used = temp_set.storage_used;
+   359	
+   360			if (guc_mmio_regset_init(&temp_set, engine) < 0)
+   361				return -1;
+   362	
+   363			guc->ads_regset_count[id] = temp_set.storage_used - used;
+   364			total += guc->ads_regset_count[id];
+   365		}
+   366	
+   367		guc->ads_regset = temp_set.storage;
+   368	
+   369		drm_dbg(&guc_to_gt(guc)->i915->drm, "Used %lu KB for temporary ADS regset\n",
+ > 370			(temp_set.storage_max * sizeof(struct guc_mmio_reg)) >> 10);
+   371	
+   372		return total * sizeof(struct guc_mmio_reg);
+   373	}
+   374	
+
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 58 +++++++++++++++++--
- 1 file changed, 54 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index db9615dcb0ec..4e9154cacc58 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1114,6 +1114,19 @@ __extend_last_switch(struct intel_guc *guc, u64 *prev_start, u32 new_start)
- 	if (new_start == lower_32_bits(*prev_start))
- 		return;
- 
-+	/*
-+	 * When gt is unparked, we update the gt timestamp and start the ping
-+	 * worker that updates the gt_stamp every POLL_TIME_CLKS. As long as gt
-+	 * is unparked, all switched in contexts will have a start time that is
-+	 * within +/- POLL_TIME_CLKS of the most recent gt_stamp.
-+	 *
-+	 * If neither gt_stamp nor new_start has rolled over, then the
-+	 * gt_stamp_hi does not need to be adjusted, however if one of them has
-+	 * rolled over, we need to adjust gt_stamp_hi accordingly.
-+	 *
-+	 * The below conditions address the cases of new_start rollover and
-+	 * gt_stamp_last rollover respectively.
-+	 */
- 	if (new_start < gt_stamp_last &&
- 	    (new_start - gt_stamp_last) <= POLL_TIME_CLKS)
- 		gt_stamp_hi++;
-@@ -1125,17 +1138,45 @@ __extend_last_switch(struct intel_guc *guc, u64 *prev_start, u32 new_start)
- 	*prev_start = ((u64)gt_stamp_hi << 32) | new_start;
- }
- 
--static void guc_update_engine_gt_clks(struct intel_engine_cs *engine)
-+/*
-+ * GuC updates shared memory and KMD reads it. Since this is not synchronized,
-+ * we run into a race where the value read is inconsistent. Sometimes the
-+ * inconsistency is in reading the upper MSB bytes of the last_in value when
-+ * this race occurs. 2 types of cases are seen - upper 8 bits are zero and upper
-+ * 24 bits are zero. Since these are non-zero values, it is non-trivial to
-+ * determine validity of these values. Instead we read the values multiple times
-+ * until they are consistent. In test runs, 3 attempts results in consistent
-+ * values. The upper bound is set to 6 attempts and may need to be tuned as per
-+ * any new occurences.
-+ */
-+static void __get_engine_usage_record(struct intel_engine_cs *engine,
-+				      u32 *last_in, u32 *id, u32 *total)
- {
- 	struct guc_engine_usage_record *rec = intel_guc_engine_usage(engine);
-+	int i = 0;
-+
-+	do {
-+		*last_in = READ_ONCE(rec->last_switch_in_stamp);
-+		*id = READ_ONCE(rec->current_context_index);
-+		*total = READ_ONCE(rec->total_runtime);
-+
-+		if (READ_ONCE(rec->last_switch_in_stamp) == *last_in &&
-+		    READ_ONCE(rec->current_context_index) == *id &&
-+		    READ_ONCE(rec->total_runtime) == *total)
-+			break;
-+	} while (++i < 6);
-+}
-+
-+static void guc_update_engine_gt_clks(struct intel_engine_cs *engine)
-+{
- 	struct intel_engine_guc_stats *stats = &engine->stats.guc;
- 	struct intel_guc *guc = &engine->gt->uc.guc;
--	u32 last_switch = rec->last_switch_in_stamp;
--	u32 ctx_id = rec->current_context_index;
--	u32 total = rec->total_runtime;
-+	u32 last_switch, ctx_id, total;
- 
- 	lockdep_assert_held(&guc->timestamp.lock);
- 
-+	__get_engine_usage_record(engine, &last_switch, &ctx_id, &total);
-+
- 	stats->running = ctx_id != ~0U && last_switch;
- 	if (stats->running)
- 		__extend_last_switch(guc, &stats->start_gt_clk, last_switch);
-@@ -1237,6 +1278,10 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
- 	if (!in_reset && intel_gt_pm_get_if_awake(gt)) {
- 		stats_saved = *stats;
- 		gt_stamp_saved = guc->timestamp.gt_stamp;
-+		/*
-+		 * Update gt_clks, then gt timestamp to simplify the 'gt_stamp -
-+		 * start_gt_clk' calculation below for active engines.
-+		 */
- 		guc_update_engine_gt_clks(engine);
- 		guc_update_pm_timestamp(guc, now);
- 		intel_gt_pm_put_async(gt);
-@@ -1365,10 +1410,15 @@ void intel_guc_busyness_park(struct intel_gt *gt)
- void intel_guc_busyness_unpark(struct intel_gt *gt)
- {
- 	struct intel_guc *guc = &gt->uc.guc;
-+	unsigned long flags;
-+	ktime_t unused;
- 
- 	if (!guc_submission_initialized(guc))
- 		return;
- 
-+	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	guc_update_pm_timestamp(guc, &unused);
-+	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
- 	mod_delayed_work(system_highpri_wq, &guc->timestamp.work,
- 			 guc->timestamp.ping_delay);
- }
--- 
-2.33.1
-
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
