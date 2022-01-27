@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348BDC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:33:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0701EC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:33:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2239510EB00;
-	Thu, 27 Jan 2022 09:33:28 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA5D210EF7B
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEC0810EFC5;
+	Thu, 27 Jan 2022 09:33:36 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3918210EF7B;
+ Thu, 27 Jan 2022 09:33:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643276006; x=1674812006;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=ib7ANNVdr6RkwRiApjs9jfCNGnRfIXsu8+O3dv1AZ8I=;
- b=EGvB21znAQalic1b3Tgu4CM03rlzGgEtIw89UFfZAdUX4KaLyEaWhpy3
- d10EcW1u8BnZfJimHdaybdX4yzPdM8nU3dimwD6jlgR7YN2hFz0h+wKV6
- oO7i9RjTizKwQkkjGgz1Qrs50aaZ4B986udnkPCFW+xCDb4Vmd3nR1BfW
- QlY6PxJtzWXaJ1Fv8CS8khYZfZTTVXgjP08wwkWfFZ6uTOhs+dBEL/AIZ
- 1LEnq4QP5Rm0bkSYck2R/2GKbvDbeR7DAJWKx0/Fg7o7NquI8d/mvJ4sp
- rkbuXlKWdl9lO7PfSgT4aF3XUjX47Co54TIHV+GAAHLMGKY7zVTzaL5o1 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="246578219"
-X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="246578219"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2022 01:33:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="581412952"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.147])
- by fmsmga008.fm.intel.com with SMTP; 27 Jan 2022 01:33:23 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 27 Jan 2022 11:33:22 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Jan 2022 11:32:55 +0200
-Message-Id: <20220127093303.17309-7-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220127093303.17309-1-ville.syrjala@linux.intel.com>
-References: <20220127093303.17309-1-ville.syrjala@linux.intel.com>
+ t=1643276014; x=1674812014;
+ h=date:from:to:subject:message-id:references:mime-version:
+ content-transfer-encoding:in-reply-to;
+ bh=70bvD9FchQOD0i4lLqg413fUh6fr+M8PLj6aT5wcP/A=;
+ b=Yep//h8gQivjJcqN+rzl0kTulNkCNgpCIwP03DBKLLBCt4UFqArvlAEh
+ TScKWxPNPqq6edUYefSykcZWt7o5cfXOACl0aLyBeN1U3f0sH3lGFWE4Z
+ pf5ZfR8caLdFWCfUHzn0pcQE86ZOIVc7461YMH2uCaDwyx9df9G/FwG0W
+ Ctkahkf4BfxsJ2BC2VyJuC6eMQMtQ7dFwRZ30ySy66TjcE47W/VmWMZ12
+ Obq/OAVu/SXrtCZq7ybqpnPsck8x/HVuiyo2GK3rvoQ+guTvUHSuGlsHa
+ sEHithKnj5SzSNRju28bCy9Xh421RRCmAXjtsatJRdEE3uy+HvebXw1vc w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="244400077"
+X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="244400077"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2022 01:33:33 -0800
+X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="480224705"
+Received: from anithaha-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.224.126])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2022 01:33:32 -0800
+Date: Thu, 27 Jan 2022 01:33:32 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Daniel Vetter <daniel@ffwll.ch>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linaro-mm-sig@lists.linaro.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org
+Message-ID: <20220127093332.wnkd2qy4tvwg5i5l@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20220126203702.1784589-1-lucas.demarchi@intel.com>
+ <20220126203702.1784589-3-lucas.demarchi@intel.com>
+ <f0dbdcc0-13b5-c484-0bf3-a1f8c3e48954@amd.com>
+ <20220127075728.ygwgorhnrwaocdqv@ldmartin-desk2>
+ <3066c6a7-fc73-d34d-d209-a3ff6818dfb6@amd.com>
+ <YfJedaoeJjE3grum@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/14] drm/i915: Move PCH transcoder M/N setup
- into the PCH code
+In-Reply-To: <YfJedaoeJjE3grum@phenom.ffwll.local>
+Subject: Re: [Intel-gfx] [PATCH 02/19] dma-buf-map: Add helper to initialize
+ second map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,299 +71,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+On Thu, Jan 27, 2022 at 09:57:25AM +0100, Daniel Vetter wrote:
+>On Thu, Jan 27, 2022 at 09:02:54AM +0100, Christian Kˆnig wrote:
+>> Am 27.01.22 um 08:57 schrieb Lucas De Marchi:
+>> > On Thu, Jan 27, 2022 at 08:27:11AM +0100, Christian Kˆnig wrote:
+>> > > Am 26.01.22 um 21:36 schrieb Lucas De Marchi:
+>> > > > When dma_buf_map struct is passed around, it's useful to be able to
+>> > > > initialize a second map that takes care of reading/writing to an offset
+>> > > > of the original map.
+>> > > >
+>> > > > Add a helper that copies the struct and add the offset to the proper
+>> > > > address.
+>> > >
+>> > > Well what you propose here can lead to all kind of problems and is
+>> > > rather bad design as far as I can see.
+>> > >
+>> > > The struct dma_buf_map is only to be filled in by the exporter and
+>> > > should not be modified in this way by the importer.
+>> >
+>> > humn... not sure if I was† clear. There is no importer and exporter here.
+>>
+>> Yeah, and exactly that's what I'm pointing out as problem here.
+>>
+>> You are using the inter driver framework for something internal to the
+>> driver. That is an absolutely clear NAK!
+>>
+>> We could discuss that, but you guys are just sending around patches to do
+>> this without any consensus that this is a good idea.
+>
+>Uh I suggested this, also we're already using dma_buf_map all over the
+>place as a convenient abstraction. So imo that's all fine, it should allow
+>drivers to simplify some code where on igpu it's in normal kernel memory
+>and on dgpu it's behind some pci bar.
+>
+>Maybe we should have a better name for that struct (and maybe also a
+>better place), but way back when we discussed that bikeshed I didn't come
+>up with anything better really.
 
-Do the PCH transcoder M/N setup next to where all the other
-PCH transcoder stuff is programmed.
+I suggest iosys_map since it abstracts access to IO and system memory.
 
-Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/g4x_dp.c         |  1 +
- drivers/gpu/drm/i915/display/intel_display.c  | 92 ++++---------------
- drivers/gpu/drm/i915/display/intel_display.h  | 14 ++-
- .../gpu/drm/i915/display/intel_pch_display.c  | 48 ++++++++++
- .../gpu/drm/i915/display/intel_pch_display.h  |  6 ++
- 5 files changed, 83 insertions(+), 78 deletions(-)
+>
+>> > There is a role delegation on filling out and reading a buffer when
+>> > that buffer represents a struct layout.
+>> >
+>> > struct bla {
+>> > ††††int a;
+>> > ††††int b;
+>> > ††††int c;
+>> > ††††struct foo foo;
+>> > ††††struct bar bar;
+>> > ††††int d;
+>> > }
+>> >
+>> >
+>> > This implementation allows you to have:
+>> >
+>> > ††††fill_foo(struct dma_buf_map *bla_map) { ... }
+>> > ††††fill_bar(struct dma_buf_map *bla_map) { ... }
+>> >
+>> > and the first thing these do is to make sure the map it's pointing to
+>> > is relative to the struct it's supposed to write/read. Otherwise you're
+>> > suggesting everything to be relative to struct bla, or to do the same
+>> > I'm doing it, but IMO more prone to error:
+>> >
+>> > ††††struct dma_buf_map map = *bla_map;
+>> > ††††dma_buf_map_incr(map, offsetof(...));
+>
+>Wrt the issue at hand I think the above is perfectly fine code. The idea
+>with dma_buf_map is really that it's just a special pointer, so writing
+>the code exactly as pointer code feels best. Unfortunately you cannot make
+>them typesafe (because of C), so the code sometimes looks a bit ugly.
+>Otherwise we could do stuff like container_of and all that with
+>typechecking in the macros.
 
-diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
-index da2b59d990bb..a08936d8c0e7 100644
---- a/drivers/gpu/drm/i915/display/g4x_dp.c
-+++ b/drivers/gpu/drm/i915/display/g4x_dp.c
-@@ -18,6 +18,7 @@
- #include "intel_fifo_underrun.h"
- #include "intel_hdmi.h"
- #include "intel_hotplug.h"
-+#include "intel_pch_display.h"
- #include "intel_pps.h"
- #include "vlv_sideband.h"
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3b40a0b0b79e..602ea6d15628 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -118,10 +118,6 @@
- 
- static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state);
- static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state);
--static void intel_pch_transcoder_set_m1_n1(struct intel_crtc *crtc,
--					   const struct intel_link_m_n *m_n);
--static void intel_pch_transcoder_set_m2_n2(struct intel_crtc *crtc,
--					   const struct intel_link_m_n *m_n);
- static void i9xx_set_pipeconf(const struct intel_crtc_state *crtc_state);
- static void ilk_set_pipeconf(const struct intel_crtc_state *crtc_state);
- static void hsw_set_transconf(const struct intel_crtc_state *crtc_state);
-@@ -1837,26 +1833,18 @@ static void ilk_crtc_enable(struct intel_atomic_state *state,
- 	intel_set_cpu_fifo_underrun_reporting(dev_priv, pipe, false);
- 	intel_set_pch_fifo_underrun_reporting(dev_priv, pipe, false);
- 
--	if (intel_crtc_has_dp_encoder(new_crtc_state)) {
--		if (new_crtc_state->has_pch_encoder) {
--			intel_pch_transcoder_set_m1_n1(crtc,
--						       &new_crtc_state->dp_m_n);
--			intel_pch_transcoder_set_m2_n2(crtc,
--						       &new_crtc_state->dp_m2_n2);
--		} else {
--			intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
--						       &new_crtc_state->dp_m_n);
--			intel_cpu_transcoder_set_m2_n2(crtc, cpu_transcoder,
--						       &new_crtc_state->dp_m2_n2);
--		}
--	}
--
--	intel_set_transcoder_timings(new_crtc_state);
--	intel_set_pipe_src_size(new_crtc_state);
--
--	if (new_crtc_state->has_pch_encoder)
-+	if (new_crtc_state->has_pch_encoder) {
- 		intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
- 					       &new_crtc_state->fdi_m_n);
-+	} else if (intel_crtc_has_dp_encoder(new_crtc_state)) {
-+		intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
-+					       &new_crtc_state->dp_m_n);
-+		intel_cpu_transcoder_set_m2_n2(crtc, cpu_transcoder,
-+					       &new_crtc_state->dp_m2_n2);
-+	}
-+
-+	intel_set_transcoder_timings(new_crtc_state);
-+	intel_set_pipe_src_size(new_crtc_state);
- 
- 	ilk_set_pipeconf(new_crtc_state);
- 
-@@ -3133,10 +3121,10 @@ static void intel_panel_sanitize_ssc(struct drm_i915_private *dev_priv)
- 	}
- }
- 
--static void intel_set_m_n(struct drm_i915_private *i915,
--			  const struct intel_link_m_n *m_n,
--			  i915_reg_t data_m_reg, i915_reg_t data_n_reg,
--			  i915_reg_t link_m_reg, i915_reg_t link_n_reg)
-+void intel_set_m_n(struct drm_i915_private *i915,
-+		   const struct intel_link_m_n *m_n,
-+		   i915_reg_t data_m_reg, i915_reg_t data_n_reg,
-+		   i915_reg_t link_m_reg, i915_reg_t link_n_reg)
- {
- 	intel_de_write(i915, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
- 	intel_de_write(i915, data_n_reg, m_n->data_n);
-@@ -3144,28 +3132,6 @@ static void intel_set_m_n(struct drm_i915_private *i915,
- 	intel_de_write(i915, link_n_reg, m_n->link_n);
- }
- 
--static void intel_pch_transcoder_set_m1_n1(struct intel_crtc *crtc,
--					   const struct intel_link_m_n *m_n)
--{
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	enum pipe pipe = crtc->pipe;
--
--	intel_set_m_n(dev_priv, m_n,
--		      PCH_TRANS_DATA_M1(pipe), PCH_TRANS_DATA_N1(pipe),
--		      PCH_TRANS_LINK_M1(pipe), PCH_TRANS_LINK_N1(pipe));
--}
--
--static void intel_pch_transcoder_set_m2_n2(struct intel_crtc *crtc,
--					   const struct intel_link_m_n *m_n)
--{
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	enum pipe pipe = crtc->pipe;
--
--	intel_set_m_n(dev_priv, m_n,
--		      PCH_TRANS_DATA_M2(pipe), PCH_TRANS_DATA_N2(pipe),
--		      PCH_TRANS_LINK_M2(pipe), PCH_TRANS_LINK_N2(pipe));
--}
--
- static bool transcoder_has_m2_n2(struct drm_i915_private *dev_priv,
- 				 enum transcoder cpu_transcoder)
- {
-@@ -3861,10 +3827,10 @@ int ilk_get_lanes_required(int target_clock, int link_bw, int bpp)
- 	return DIV_ROUND_UP(bps, link_bw * 8);
- }
- 
--static void intel_get_m_n(struct drm_i915_private *i915,
--			  struct intel_link_m_n *m_n,
--			  i915_reg_t data_m_reg, i915_reg_t data_n_reg,
--			  i915_reg_t link_m_reg, i915_reg_t link_n_reg)
-+void intel_get_m_n(struct drm_i915_private *i915,
-+		   struct intel_link_m_n *m_n,
-+		   i915_reg_t data_m_reg, i915_reg_t data_n_reg,
-+		   i915_reg_t link_m_reg, i915_reg_t link_n_reg)
- {
- 	m_n->link_m = intel_de_read(i915, link_m_reg) & DATA_LINK_M_N_MASK;
- 	m_n->link_n = intel_de_read(i915, link_n_reg) & DATA_LINK_M_N_MASK;
-@@ -3873,28 +3839,6 @@ static void intel_get_m_n(struct drm_i915_private *i915,
- 	m_n->tu = REG_FIELD_GET(TU_SIZE_MASK, intel_de_read(i915, data_m_reg)) + 1;
- }
- 
--void intel_pch_transcoder_get_m1_n1(struct intel_crtc *crtc,
--				    struct intel_link_m_n *m_n)
--{
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	enum pipe pipe = crtc->pipe;
--
--	intel_get_m_n(dev_priv, m_n,
--		      PCH_TRANS_DATA_M1(pipe), PCH_TRANS_DATA_N1(pipe),
--		      PCH_TRANS_LINK_M1(pipe), PCH_TRANS_LINK_N1(pipe));
--}
--
--void intel_pch_transcoder_get_m2_n2(struct intel_crtc *crtc,
--				    struct intel_link_m_n *m_n)
--{
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	enum pipe pipe = crtc->pipe;
--
--	intel_get_m_n(dev_priv, m_n,
--		      PCH_TRANS_DATA_M2(pipe), PCH_TRANS_DATA_N2(pipe),
--		      PCH_TRANS_LINK_M2(pipe), PCH_TRANS_LINK_N2(pipe));
--}
--
- void intel_cpu_transcoder_get_m1_n1(struct intel_crtc *crtc,
- 				    enum transcoder cpu_transcoder,
- 				    struct intel_link_m_n *m_n)
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 090534eb4535..afa312e11624 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -27,6 +27,8 @@
- 
- #include <drm/drm_util.h>
- 
-+#include "i915_reg_defs.h"
-+
- enum drm_scaling_filter;
- struct dpll;
- struct drm_connector;
-@@ -553,6 +555,14 @@ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
- 				bool bigjoiner);
- enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port);
- bool is_trans_port_sync_mode(const struct intel_crtc_state *state);
-+void intel_set_m_n(struct drm_i915_private *i915,
-+		   const struct intel_link_m_n *m_n,
-+		   i915_reg_t data_m_reg, i915_reg_t data_n_reg,
-+		   i915_reg_t link_m_reg, i915_reg_t link_n_reg);
-+void intel_get_m_n(struct drm_i915_private *i915,
-+		   struct intel_link_m_n *m_n,
-+		   i915_reg_t data_m_reg, i915_reg_t data_n_reg,
-+		   i915_reg_t link_m_reg, i915_reg_t link_n_reg);
- void intel_cpu_transcoder_set_m1_n1(struct intel_crtc *crtc,
- 				    enum transcoder cpu_transcoder,
- 				    const struct intel_link_m_n *m_n);
-@@ -565,10 +575,6 @@ void intel_cpu_transcoder_get_m1_n1(struct intel_crtc *crtc,
- void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc,
- 				    enum transcoder cpu_transcoder,
- 				    struct intel_link_m_n *m_n);
--void intel_pch_transcoder_get_m1_n1(struct intel_crtc *crtc,
--				    struct intel_link_m_n *m_n);
--void intel_pch_transcoder_get_m2_n2(struct intel_crtc *crtc,
--				    struct intel_link_m_n *m_n);
- 
- void intel_plane_destroy(struct drm_plane *plane);
- void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.c b/drivers/gpu/drm/i915/display/intel_pch_display.c
-index dd010be534a2..9192769e3337 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_pch_display.c
-@@ -88,6 +88,50 @@ static void assert_pch_transcoder_disabled(struct drm_i915_private *dev_priv,
- 			pipe_name(pipe));
- }
- 
-+static void intel_pch_transcoder_set_m1_n1(struct intel_crtc *crtc,
-+					   const struct intel_link_m_n *m_n)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	enum pipe pipe = crtc->pipe;
-+
-+	intel_set_m_n(dev_priv, m_n,
-+		      PCH_TRANS_DATA_M1(pipe), PCH_TRANS_DATA_N1(pipe),
-+		      PCH_TRANS_LINK_M1(pipe), PCH_TRANS_LINK_N1(pipe));
-+}
-+
-+static void intel_pch_transcoder_set_m2_n2(struct intel_crtc *crtc,
-+					   const struct intel_link_m_n *m_n)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	enum pipe pipe = crtc->pipe;
-+
-+	intel_set_m_n(dev_priv, m_n,
-+		      PCH_TRANS_DATA_M2(pipe), PCH_TRANS_DATA_N2(pipe),
-+		      PCH_TRANS_LINK_M2(pipe), PCH_TRANS_LINK_N2(pipe));
-+}
-+
-+void intel_pch_transcoder_get_m1_n1(struct intel_crtc *crtc,
-+				    struct intel_link_m_n *m_n)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	enum pipe pipe = crtc->pipe;
-+
-+	intel_get_m_n(dev_priv, m_n,
-+		      PCH_TRANS_DATA_M1(pipe), PCH_TRANS_DATA_N1(pipe),
-+		      PCH_TRANS_LINK_M1(pipe), PCH_TRANS_LINK_N1(pipe));
-+}
-+
-+void intel_pch_transcoder_get_m2_n2(struct intel_crtc *crtc,
-+				    struct intel_link_m_n *m_n)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	enum pipe pipe = crtc->pipe;
-+
-+	intel_get_m_n(dev_priv, m_n,
-+		      PCH_TRANS_DATA_M2(pipe), PCH_TRANS_DATA_N2(pipe),
-+		      PCH_TRANS_LINK_M2(pipe), PCH_TRANS_LINK_N2(pipe));
-+}
-+
- static void ilk_pch_transcoder_set_timings(const struct intel_crtc_state *crtc_state,
- 					   enum pipe pch_transcoder)
- {
-@@ -278,6 +322,10 @@ void ilk_pch_enable(struct intel_atomic_state *state,
- 
- 	/* set transcoder timing, panel must allow it */
- 	assert_pps_unlocked(dev_priv, pipe);
-+	if (intel_crtc_has_dp_encoder(crtc_state)) {
-+		intel_pch_transcoder_set_m1_n1(crtc, &crtc_state->dp_m_n);
-+		intel_pch_transcoder_set_m2_n2(crtc, &crtc_state->dp_m2_n2);
-+	}
- 	ilk_pch_transcoder_set_timings(crtc_state, pipe);
- 
- 	intel_fdi_normal_train(crtc);
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.h b/drivers/gpu/drm/i915/display/intel_pch_display.h
-index f915fa4241d7..749473d99320 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_pch_display.h
-@@ -9,6 +9,7 @@
- struct intel_atomic_state;
- struct intel_crtc;
- struct intel_crtc_state;
-+struct intel_link_m_n;
- 
- void ilk_pch_pre_enable(struct intel_atomic_state *state,
- 			struct intel_crtc *crtc);
-@@ -26,4 +27,9 @@ void lpt_pch_disable(struct intel_atomic_state *state,
- 		     struct intel_crtc *crtc);
- void lpt_pch_get_config(struct intel_crtc_state *crtc_state);
- 
-+void intel_pch_transcoder_get_m1_n1(struct intel_crtc *crtc,
-+				    struct intel_link_m_n *m_n);
-+void intel_pch_transcoder_get_m2_n2(struct intel_crtc *crtc,
-+				    struct intel_link_m_n *m_n);
-+
- #endif
--- 
-2.34.1
+I had exactly this code above, but after writting quite a few patches
+using it, particularly with functions that have to write to 2 maps (see
+patch 6 for example), it felt much better to have something to
+initialize correctly from the start
 
+	struct dma_buf_map other_map = *bla_map;
+	/* poor Lucas forgetting dma_buf_map_incr(map, offsetof(...)); */
+
+is error prone and hard to debug since you will be reading/writting
+from/to another location rather than exploding
+
+While with the construct below
+
+	other_map;
+	...
+	other_map = INITIALIZER()
+
+I can rely on the compiler complaining about uninitialized var. And
+in most of the cases I can just have this single line in the beggining of the
+function when the offset is constant:
+
+	struct dma_buf_map other_map = INITIALIZER(bla_map, offsetof(..));
+
+Lucas De Marchi
+
+>-Daniel
+>
+>> > IMO this construct is worse because at a point in time in the function
+>> > the map was pointing to the wrong thing the function was supposed to
+>> > read/write.
+>> >
+>> > It's also useful when the function has double duty, updating a global
+>> > part of the struct and a table inside it (see example in patch 6)
+>> >
+>> > thanks
+>> > Lucas De Marchi
+>>
+>
+>-- 
+>Daniel Vetter
+>Software Engineer, Intel Corporation
+>http://blog.ffwll.ch
