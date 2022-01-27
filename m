@@ -4,31 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC30C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 00:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B8E4C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 02:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8907910E72F;
-	Thu, 27 Jan 2022 00:48:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0FCED10E72F;
- Thu, 27 Jan 2022 00:48:04 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0F47BA77A5;
- Thu, 27 Jan 2022 00:48:04 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C888310E16E;
+	Thu, 27 Jan 2022 02:01:35 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1718010E16E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 02:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643248895; x=1674784895;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Cl58kGY1jR3viTT/MbTOMkYhSA1+qx7EA+vPrYJ14PI=;
+ b=cmPgQ51NK3fAx0szRuwLkllCopRKOiA1hKS1L+gMdri2VUaG7F2L/lmX
+ Sk0rPQK6oRcqIM6BdDz0A2xO+PgRmwHyHb6tbiIf0Iwmsk5gq//9vm4P3
+ 2b1V5YlC2lbCRjfxRf2XDQpxf5wQWKPYlp4CYTMudBeIgguhxTYz3D8RM
+ YtQ/1z2UuQHDBrlz3E8DvpNtH3TOsJAaiDEHs3OQFj247K3RehOynyGHS
+ TIF2sq/GRYv0Jgyn86H4XWgTG0SZzdB3lMI+faaigj5SwN/nH594VV0/c
+ xrRJpEKATiZzDkTaLoG0qiG12p+ApFNypjdcwB4Dh8SNf886+z0DXgbMJ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="226695302"
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="226695302"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 18:00:39 -0800
+X-IronPort-AV: E=Sophos;i="5.88,319,1635231600"; d="scan'208";a="535434586"
+Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 18:00:39 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 26 Jan 2022 18:00:35 -0800
+Message-Id: <20220127020035.985786-2-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20220127020035.985786-1-umesh.nerlige.ramappa@intel.com>
+References: <20220127020035.985786-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Date: Thu, 27 Jan 2022 00:48:04 -0000
-Message-ID: <164324448405.23659.6511148594756441355@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220127001529.978596-1-umesh.nerlige.ramappa@intel.com>
-In-Reply-To: <20220127001529.978596-1-umesh.nerlige.ramappa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
- =?utf-8?q?eries_starting_with_=5B1/2=5D_drm/i915/pmu=3A_Fix_KMD_and_GuC_r?=
- =?utf-8?q?ace_on_accessing_busyness?=
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/pmu: Use existing uncore helper to
+ read gpm_timestamp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,43 +56,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Use intel_uncore_read64_2x32 to read upper and lower fields of the GPM
+timestamp.
 
-Series: series starting with [1/2] drm/i915/pmu: Fix KMD and GuC race on accessing busyness
-URL   : https://patchwork.freedesktop.org/series/99386/
-State : failure
+v2: Fix compile error
 
-== Summary ==
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-CALL    scripts/checksyscalls.sh
-  CALL    scripts/atomic/check-atomics.sh
-  DESCEND objtool
-  CHK     include/generated/compile.h
-  CC [M]  drivers/gpu/drm/i915/gt/uc/intel_guc_submission.o
-drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c: In function ‘guc_update_pm_timestamp’:
-drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:1217:36: error: ‘uncore’ undeclared (first use in this function); did you mean ‘node’?
-  gpm_ts = intel_uncore_read64_2x32(uncore, MISC_STATUS0, MISC_STATUS1) >>
-                                    ^~~~~~
-                                    node
-drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:1217:36: note: each undeclared identifier is reported only once for each function it appears in
-drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:1210:19: error: unused variable ‘gt’ [-Werror=unused-variable]
-  struct intel_gt *gt = guc_to_gt(guc);
-                   ^~
-cc1: all warnings being treated as errors
-scripts/Makefile.build:288: recipe for target 'drivers/gpu/drm/i915/gt/uc/intel_guc_submission.o' failed
-make[4]: *** [drivers/gpu/drm/i915/gt/uc/intel_guc_submission.o] Error 1
-scripts/Makefile.build:550: recipe for target 'drivers/gpu/drm/i915' failed
-make[3]: *** [drivers/gpu/drm/i915] Error 2
-scripts/Makefile.build:550: recipe for target 'drivers/gpu/drm' failed
-make[2]: *** [drivers/gpu/drm] Error 2
-scripts/Makefile.build:550: recipe for target 'drivers/gpu' failed
-make[1]: *** [drivers/gpu] Error 2
-Makefile:1831: recipe for target 'drivers' failed
-make: *** [drivers] Error 2
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 4e9154cacc58..6052148068d7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1205,20 +1205,6 @@ static u32 gpm_timestamp_shift(struct intel_gt *gt)
+ 	return 3 - shift;
+ }
+ 
+-static u64 gpm_timestamp(struct intel_gt *gt)
+-{
+-	u32 lo, hi, old_hi, loop = 0;
+-
+-	hi = intel_uncore_read(gt->uncore, MISC_STATUS1);
+-	do {
+-		lo = intel_uncore_read(gt->uncore, MISC_STATUS0);
+-		old_hi = hi;
+-		hi = intel_uncore_read(gt->uncore, MISC_STATUS1);
+-	} while (old_hi != hi && loop++ < 2);
+-
+-	return ((u64)hi << 32) | lo;
+-}
+-
+ static void guc_update_pm_timestamp(struct intel_guc *guc, ktime_t *now)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+@@ -1228,7 +1214,8 @@ static void guc_update_pm_timestamp(struct intel_guc *guc, ktime_t *now)
+ 	lockdep_assert_held(&guc->timestamp.lock);
+ 
+ 	gt_stamp_hi = upper_32_bits(guc->timestamp.gt_stamp);
+-	gpm_ts = gpm_timestamp(gt) >> guc->timestamp.shift;
++	gpm_ts = intel_uncore_read64_2x32(gt->uncore, MISC_STATUS0,
++					  MISC_STATUS1) >> guc->timestamp.shift;
+ 	gt_stamp_lo = lower_32_bits(gpm_ts);
+ 	*now = ktime_get();
+ 
+-- 
+2.33.1
 
