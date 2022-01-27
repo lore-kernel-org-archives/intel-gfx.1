@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 764DAC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24EC7C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCB9D10EE95;
-	Thu, 27 Jan 2022 09:33:19 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6F110EE50
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:33:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED61210EFC2;
+	Thu, 27 Jan 2022 09:33:26 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4735010EF97
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:33:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643275998; x=1674811998;
+ t=1643276000; x=1674812000;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ToMohH22bptrYBJ3xHGARmKCJ1oNfuhuIcIew9GlQe0=;
- b=cPTpXNcEtQw9LJya0fzXTJSgeKS2zWtim7xjKWhl+m3Yz4Tloows22e1
- j9mb+KFpYKyRUB62mJYCD6amRAK9BKbg6Sq3PgkzRBPsPD/882O/1snvk
- 7jgPR+b/E//Afl/8rp4cUOnlSjQPLSGKf1oE+ihruNtwf6CTBcHo/epmu
- 7xX+pICz1WSh+zJ+1Zy6wa7vWi+YBBo01c3K3dDTQOzr1Qs5iHH9oCiWt
- XaGCbogYA4Hy+97yvY3L3A1uzWubc/8odo85GBZMlY9ZhYLeheUVSdKKl
- DTxLgQKzeX8VxTrmqxKiE9uvkXY9WuUNb2wTVDLCzw79nsdFLGcTZ2pnx w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="244400009"
-X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="244400009"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2022 01:33:17 -0800
+ bh=WjkTu/A6k1mmYISO8jwd3RZuJpLGsCrLyScAHUk2BsQ=;
+ b=nuZnmCEq60//8/SBgJ+S+Vqx+YoBIRSSlsGTB3GEC1JxGsFv0sej2ffu
+ PMHqNB7qgA4c0b3+IERQcC+iPuoaOtOKnJNt6utsThHlndj10Ummp2zJi
+ MtU80Bjx9/wXcanINozCZXF4gUy+9yI9ALu0crw4pX5TYqzOQV7aSIr4y
+ wYScy9arbSPKOL+t4ZrdvpFa4z8hLoAUlFpQrR7TPfmicLm7Qg2r7ywsW
+ 2LWu8ZOgNXKIwz3ppPTVg5v4+GaPcCLRsCC9BH9ITUnhNWr6Ut20VROYp
+ O/xgkJYkUHvo45EUZewG23Ox71r2MUUY+kg9kiQB/+8Hu5gn18R3F9aA+ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10239"; a="227472887"
+X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="227472887"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2022 01:33:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="480224572"
+X-IronPort-AV: E=Sophos;i="5.88,320,1635231600"; d="scan'208";a="495669107"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.147])
- by orsmga006.jf.intel.com with SMTP; 27 Jan 2022 01:33:10 -0800
+ by orsmga002.jf.intel.com with SMTP; 27 Jan 2022 01:33:17 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 27 Jan 2022 11:33:10 +0200
+ Thu, 27 Jan 2022 11:33:16 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Jan 2022 11:32:51 +0200
-Message-Id: <20220127093303.17309-3-ville.syrjala@linux.intel.com>
+Date: Thu, 27 Jan 2022 11:32:53 +0200
+Message-Id: <20220127093303.17309-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220127093303.17309-1-ville.syrjala@linux.intel.com>
 References: <20220127093303.17309-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/14] drm/i915: Clean up M/N register defines
+Subject: [Intel-gfx] [PATCH 04/14] drm/i915: Move drrs hardware bit frobbing
+ to small helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,97 +64,101 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use REG_GENMASK() & co. for the M/N register values. There are
-also a lot of weird unused defines (eg. *_OFFSET) we can just
-throw out.
+Split the drrs code that actually changes the refresh rate
+(via PIPECONF or M/N values) to small helper functions that
+only deal with the hardware details an nothing else. We'll
+soon have a third way of doing this, and it's less confusing
+when each difference method lives in its own funciton.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 10 ++++-----
- drivers/gpu/drm/i915/i915_reg.h              | 22 +++-----------------
- 2 files changed, 8 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/display/intel_drrs.c | 67 ++++++++++++-----------
+ 1 file changed, 36 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f76faa195cb9..d91164d1eb92 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3865,11 +3865,11 @@ static void intel_get_m_n(struct drm_i915_private *i915,
- 			  i915_reg_t data_m_reg, i915_reg_t data_n_reg,
- 			  i915_reg_t link_m_reg, i915_reg_t link_n_reg)
- {
--	m_n->link_m = intel_de_read(i915, link_m_reg);
--	m_n->link_n = intel_de_read(i915, link_n_reg);
--	m_n->gmch_m = intel_de_read(i915, data_m_reg) & ~TU_SIZE_MASK;
--	m_n->gmch_n = intel_de_read(i915, data_n_reg);
--	m_n->tu = ((intel_de_read(i915, data_m_reg) & TU_SIZE_MASK) >> TU_SIZE_SHIFT) + 1;
-+	m_n->link_m = intel_de_read(i915, link_m_reg) & DATA_LINK_M_N_MASK;
-+	m_n->link_n = intel_de_read(i915, link_n_reg) & DATA_LINK_M_N_MASK;
-+	m_n->gmch_m = intel_de_read(i915, data_m_reg) & DATA_LINK_M_N_MASK;
-+	m_n->gmch_n = intel_de_read(i915, data_n_reg) & DATA_LINK_M_N_MASK;
-+	m_n->tu = REG_FIELD_GET(TU_SIZE_MASK, intel_de_read(i915, data_m_reg)) + 1;
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index 46be46f2c47e..0cacdb174fd0 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -87,6 +87,38 @@ intel_drrs_compute_config(struct intel_dp *intel_dp,
+ 		pipe_config->dp_m2_n2.data_m *= pipe_config->splitter.link_count;
  }
  
- static void intel_pch_transcoder_get_m_n(struct intel_crtc *crtc,
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2e4dd9db63fe..ec48406eb37a 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5209,16 +5209,14 @@ enum {
- #define _PIPEB_DATA_M_G4X	0x71050
++static void
++intel_drrs_set_refresh_rate_pipeconf(const struct intel_crtc_state *crtc_state,
++				     enum drrs_refresh_rate_type refresh_type)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
++	u32 val, bit;
++
++	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
++		bit = PIPECONF_EDP_RR_MODE_SWITCH_VLV;
++	else
++		bit = PIPECONF_EDP_RR_MODE_SWITCH;
++
++	val = intel_de_read(dev_priv, PIPECONF(cpu_transcoder));
++
++	if (refresh_type == DRRS_LOW_RR)
++		val |= bit;
++	else
++		val &= ~bit;
++
++	intel_de_write(dev_priv, PIPECONF(cpu_transcoder), val);
++}
++
++static void
++intel_drrs_set_refresh_rate_m_n(const struct intel_crtc_state *crtc_state,
++				enum drrs_refresh_rate_type refresh_type)
++{
++	intel_dp_set_m_n(crtc_state,
++			 refresh_type == DRRS_LOW_RR ? M2_N2 : M1_N1);
++}
++
+ static void intel_drrs_set_state(struct drm_i915_private *dev_priv,
+ 				 const struct intel_crtc_state *crtc_state,
+ 				 enum drrs_refresh_rate_type refresh_type)
+@@ -120,37 +152,10 @@ static void intel_drrs_set_state(struct drm_i915_private *dev_priv,
+ 		return;
+ 	}
  
- /* Transfer unit size for display port - 1, default is 0x3f (for TU size 64) */
--#define  TU_SIZE(x)             (((x) - 1) << 25) /* default size 64 */
--#define  TU_SIZE_SHIFT		25
--#define  TU_SIZE_MASK           (0x3f << 25)
-+#define  TU_SIZE_MASK		REG_GENMASK(30, 25)
-+#define  TU_SIZE(x)		REG_FIELD_PREP(TU_SIZE_MASK, (x) - 1) /* default size 64 */
- 
--#define  DATA_LINK_M_N_MASK	(0xffffff)
-+#define  DATA_LINK_M_N_MASK	REG_GENMASK(23, 0)
- #define  DATA_LINK_N_MAX	(0x800000)
- 
- #define _PIPEA_DATA_N_G4X	0x70054
- #define _PIPEB_DATA_N_G4X	0x71054
--#define   PIPE_GMCH_DATA_N_MASK			(0xffffff)
- 
- /*
-  * Computing Link M and N values for the Display Port link
-@@ -5233,11 +5231,8 @@ enum {
- 
- #define _PIPEA_LINK_M_G4X	0x70060
- #define _PIPEB_LINK_M_G4X	0x71060
--#define   PIPEA_DP_LINK_M_MASK			(0xffffff)
+-	if (DISPLAY_VER(dev_priv) >= 8 && !IS_CHERRYVIEW(dev_priv)) {
+-		switch (refresh_type) {
+-		case DRRS_HIGH_RR:
+-			intel_dp_set_m_n(crtc_state, M1_N1);
+-			break;
+-		case DRRS_LOW_RR:
+-			intel_dp_set_m_n(crtc_state, M2_N2);
+-			break;
+-		case DRRS_MAX_RR:
+-		default:
+-			drm_err(&dev_priv->drm,
+-				"Unsupported refreshrate type\n");
+-		}
+-	} else if (DISPLAY_VER(dev_priv) > 6) {
+-		i915_reg_t reg = PIPECONF(crtc_state->cpu_transcoder);
+-		u32 val;
 -
- #define _PIPEA_LINK_N_G4X	0x70064
- #define _PIPEB_LINK_N_G4X	0x71064
--#define   PIPEA_DP_LINK_N_MASK			(0xffffff)
+-		val = intel_de_read(dev_priv, reg);
+-		if (refresh_type == DRRS_LOW_RR) {
+-			if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+-				val |= PIPECONF_EDP_RR_MODE_SWITCH_VLV;
+-			else
+-				val |= PIPECONF_EDP_RR_MODE_SWITCH;
+-		} else {
+-			if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+-				val &= ~PIPECONF_EDP_RR_MODE_SWITCH_VLV;
+-			else
+-				val &= ~PIPECONF_EDP_RR_MODE_SWITCH;
+-		}
+-		intel_de_write(dev_priv, reg, val);
+-	}
++	if (DISPLAY_VER(dev_priv) >= 8 && !IS_CHERRYVIEW(dev_priv))
++		intel_drrs_set_refresh_rate_m_n(crtc_state, refresh_type);
++	else if (DISPLAY_VER(dev_priv) > 6)
++		intel_drrs_set_refresh_rate_pipeconf(crtc_state, refresh_type);
  
- #define PIPE_DATA_M_G4X(pipe) _MMIO_PIPE(pipe, _PIPEA_DATA_M_G4X, _PIPEB_DATA_M_G4X)
- #define PIPE_DATA_N_G4X(pipe) _MMIO_PIPE(pipe, _PIPEA_DATA_N_G4X, _PIPEB_DATA_N_G4X)
-@@ -6840,24 +6835,13 @@ enum {
- 
- 
- #define _PIPEA_DATA_M1		0x60030
--#define  PIPE_DATA_M1_OFFSET    0
- #define _PIPEA_DATA_N1		0x60034
--#define  PIPE_DATA_N1_OFFSET    0
--
- #define _PIPEA_DATA_M2		0x60038
--#define  PIPE_DATA_M2_OFFSET    0
- #define _PIPEA_DATA_N2		0x6003c
--#define  PIPE_DATA_N2_OFFSET    0
--
- #define _PIPEA_LINK_M1		0x60040
--#define  PIPE_LINK_M1_OFFSET    0
- #define _PIPEA_LINK_N1		0x60044
--#define  PIPE_LINK_N1_OFFSET    0
--
- #define _PIPEA_LINK_M2		0x60048
--#define  PIPE_LINK_M2_OFFSET    0
- #define _PIPEA_LINK_N2		0x6004c
--#define  PIPE_LINK_N2_OFFSET    0
- 
- /* PIPEB timing regs are same start from 0x61000 */
+ 	dev_priv->drrs.refresh_rate_type = refresh_type;
  
 -- 
 2.34.1
