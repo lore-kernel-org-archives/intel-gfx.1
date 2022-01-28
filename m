@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 826A7C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ADCCC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:49:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A51810E714;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B1F610E81B;
 	Fri, 28 Jan 2022 11:49:40 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1CFF10E80D
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFF410E740
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643370571; x=1674906571;
+ t=1643370567; x=1674906567;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=IxPIpbv+Ord7zO5Y/n+bLXsglWx9jz96rVc/8qoiuI8=;
- b=JAmjBvPWXESD2lI9hg9IIY6/J59Pz4uW6GyV0Wa2juzim4fgSkmDAwXg
- /hVh8QFV6yI1QTFuROMVWD8AsB+8KK6F8qo3zUl4DZHXbx6oZhkQFrJ5C
- 2vxxFYBmg5hN1N3QUHXE2e8dY41Yh8RVgBmZu9LohE98bg79AnSbThTlL
- OMk9JuXFtwMGsYoDNsqFs9fzdNOlQ7BLH6qFzUoHLVfwhCSpnzeOFW5nE
- 0s8W87Vh+K/JrnOLVaeu3UrPrmlU/tBmOmMta5npr82WC3Fg2dued0RET
- GTvvOK7oDVu8NqhlDFUIWrTS8vfQlFd1hNW/6UDCUPOBc9NWfggEbpKoc Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420936"
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420936"
+ bh=udJZFGUgSEpaYgjLLY44C4qfasxlqISHikRAP8BVZqc=;
+ b=jDQ3C/Mb7oSDmdx6CdAD5rKUAwHVzsrRrB1E21pg9/ikjmi/+f6dgbVV
+ NfCue1lfAN+B06YSAKkt8o9a817eqnWCrzN3qvz2O8cbDb5IL9Z81Z0MI
+ jta8Oc9i/YsdL/Fy/aaRuW1UnndAjgT3YacadUt3/g9hVRD/vcVAsv5Gx
+ DW0DTFRTt7rb5OkTJvYj1WemvKpuPXZZ9f7YMHV7INIW/QRdYZguTKHEZ
+ P2lcNDnPNSpKWESLioEDXw6XNfjt7T/6RhSMmfNN1wkXL4WUUhonMnoh1
+ 1cRgLmpbvbpp8fbR7QKE6UKL7H/sML4R7CdvjK4wEHz7R8xWMWQrOOgJi g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420929"
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420929"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:30 -0800
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712844"
+ 28 Jan 2022 03:49:27 -0800
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712832"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:29 -0800
+ 28 Jan 2022 03:49:26 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 13:49:05 +0200
-Message-Id: <20220128114914.2339526-11-imre.deak@intel.com>
+Date: Fri, 28 Jan 2022 13:49:02 +0200
+Message-Id: <20220128114914.2339526-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20220128114914.2339526-1-imre.deak@intel.com>
 References: <20220128114914.2339526-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/19] drm/i915: Convert the u64 power well
- domains mask to a bitmap
+Subject: [Intel-gfx] [PATCH 07/19] drm/i915: Rename the power domain names
+ to end with pipes/ports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,627 +59,821 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To remove the aliasing of the power domain enum values in a follow-up
-patch in this patchset (requiring a bigger mask) and allow for defining
-additional power domains in the future (at least some upcoming TypeC
-changes requires this) convert the u64 i915_power_well_desc::domains
-mask to a bitmap.
+Make all power domain names end with the pipe/port instance for
+consistency.
 
-For simplicity I changed the for_each_power_domain_well() macros to
-accept one domain only instead of a mask, as there isn't any current
-user passing multiple domains.
+No functional changes.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  |  65 ++++-----
- .../drm/i915/display/intel_display_power.c    | 123 +++++++++++-------
- .../drm/i915/display/intel_display_power.h    |  16 ++-
- .../display/intel_display_power_internal.h    |   2 +-
- .../i915/display/intel_display_power_map.c    |   4 +-
- 5 files changed, 119 insertions(+), 91 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   8 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  34 +-
+ .../drm/i915/display/intel_display_power.h    |  66 ++--
+ .../i915/display/intel_display_power_map.c    | 300 +++++++++---------
+ 5 files changed, 205 insertions(+), 205 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 2d5bb9195b20f..990671e7aba21 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -398,8 +398,8 @@ static void get_dsi_io_power_domains(struct drm_i915_private *dev_priv,
+ 		intel_dsi->io_wakeref[port] =
+ 			intel_display_power_get(dev_priv,
+ 						port == PORT_A ?
+-						POWER_DOMAIN_PORT_DDI_A_IO :
+-						POWER_DOMAIN_PORT_DDI_B_IO);
++						POWER_DOMAIN_PORT_DDI_IO_A :
++						POWER_DOMAIN_PORT_DDI_IO_B);
+ 	}
+ }
+ 
+@@ -1425,8 +1425,8 @@ static void gen11_dsi_disable_io_power(struct intel_encoder *encoder)
+ 		wakeref = fetch_and_zero(&intel_dsi->io_wakeref[port]);
+ 		intel_display_power_put(dev_priv,
+ 					port == PORT_A ?
+-					POWER_DOMAIN_PORT_DDI_A_IO :
+-					POWER_DOMAIN_PORT_DDI_B_IO,
++					POWER_DOMAIN_PORT_DDI_IO_A :
++					POWER_DOMAIN_PORT_DDI_IO_B,
+ 					wakeref);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 5d1f7d6218c51..530032f3bb2c2 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4475,7 +4475,7 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
+ 	}
+ 
+ 	drm_WARN_ON(&dev_priv->drm, port > PORT_I);
+-	dig_port->ddi_io_power_domain = POWER_DOMAIN_PORT_DDI_A_IO +
++	dig_port->ddi_io_power_domain = POWER_DOMAIN_PORT_DDI_IO_A +
+ 					      port - PORT_A;
+ 
+ 	if (init_dp) {
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3094cfc668c81..d0b9618383ce3 100644
+index 91add3d85151c..3094cfc668c81 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2372,66 +2372,71 @@ intel_legacy_aux_to_power_domain(enum aux_ch aux_ch)
- 	}
- }
- 
--static u64 get_crtc_power_domains(struct intel_crtc_state *crtc_state)
-+static void get_crtc_power_domains(struct intel_crtc_state *crtc_state,
-+				   intel_power_domain_mask_t *mask)
+@@ -2289,23 +2289,23 @@ enum intel_display_power_domain intel_port_to_power_domain(enum port port)
  {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 	struct drm_encoder *encoder;
- 	enum pipe pipe = crtc->pipe;
--	u64 mask;
-+
-+	bitmap_zero(mask->bits, POWER_DOMAIN_NUM);
- 
- 	if (!crtc_state->hw.active)
--		return 0;
-+		return;
- 
--	mask = BIT_ULL(POWER_DOMAIN_PIPE(pipe));
--	mask |= BIT_ULL(POWER_DOMAIN_TRANSCODER(cpu_transcoder));
-+	set_bit(POWER_DOMAIN_PIPE(pipe), mask->bits);
-+	set_bit(POWER_DOMAIN_TRANSCODER(cpu_transcoder), mask->bits);
- 	if (crtc_state->pch_pfit.enabled ||
- 	    crtc_state->pch_pfit.force_thru)
--		mask |= BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER(pipe));
-+		set_bit(POWER_DOMAIN_PIPE_PANEL_FITTER(pipe), mask->bits);
- 
- 	drm_for_each_encoder_mask(encoder, &dev_priv->drm,
- 				  crtc_state->uapi.encoder_mask) {
- 		struct intel_encoder *intel_encoder = to_intel_encoder(encoder);
- 
--		mask |= BIT_ULL(intel_encoder->power_domain);
-+		set_bit(intel_encoder->power_domain, mask->bits);
- 	}
- 
- 	if (HAS_DDI(dev_priv) && crtc_state->has_audio)
--		mask |= BIT_ULL(POWER_DOMAIN_AUDIO_MMIO);
-+		set_bit(POWER_DOMAIN_AUDIO_MMIO, mask->bits);
- 
- 	if (crtc_state->shared_dpll)
--		mask |= BIT_ULL(POWER_DOMAIN_DISPLAY_CORE);
-+		set_bit(POWER_DOMAIN_DISPLAY_CORE, mask->bits);
- 
- 	if (crtc_state->dsc.compression_enable)
--		mask |= BIT_ULL(intel_dsc_power_domain(crtc, cpu_transcoder));
--
--	return mask;
-+		set_bit(intel_dsc_power_domain(crtc, cpu_transcoder), mask->bits);
- }
- 
--static u64
--modeset_get_crtc_power_domains(struct intel_crtc_state *crtc_state)
-+static void
-+modeset_get_crtc_power_domains(struct intel_crtc_state *crtc_state,
-+			       intel_power_domain_mask_t *old_domains)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum intel_display_power_domain domain;
--	u64 domains, new_domains, old_domains;
-+	intel_power_domain_mask_t domains, new_domains;
- 
--	domains = get_crtc_power_domains(crtc_state);
-+	get_crtc_power_domains(crtc_state, &domains);
- 
--	new_domains = domains & ~crtc->enabled_power_domains.mask;
--	old_domains = crtc->enabled_power_domains.mask & ~domains;
-+	bitmap_andnot(new_domains.bits,
-+		      domains.bits,
-+		      crtc->enabled_power_domains.mask.bits,
-+		      POWER_DOMAIN_NUM);
-+	bitmap_andnot(old_domains->bits,
-+		      crtc->enabled_power_domains.mask.bits,
-+		      domains.bits,
-+		      POWER_DOMAIN_NUM);
- 
--	for_each_power_domain(domain, new_domains)
-+	for_each_power_domain(domain, &new_domains)
- 		intel_display_power_get_in_set(dev_priv,
- 					       &crtc->enabled_power_domains,
- 					       domain);
--
--	return old_domains;
- }
- 
- static void modeset_put_crtc_power_domains(struct intel_crtc *crtc,
--					   u64 domains)
-+					   intel_power_domain_mask_t *domains)
- {
- 	intel_display_power_put_mask_in_set(to_i915(crtc->base.dev),
- 					    &crtc->enabled_power_domains,
-@@ -8628,7 +8633,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
- 	struct intel_crtc *crtc;
--	u64 put_domains[I915_MAX_PIPES] = {};
-+	intel_power_domain_mask_t put_domains[I915_MAX_PIPES] = {};
- 	intel_wakeref_t wakeref = 0;
- 	int i;
- 
-@@ -8645,9 +8650,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 					    new_crtc_state, i) {
- 		if (intel_crtc_needs_modeset(new_crtc_state) ||
- 		    new_crtc_state->update_pipe) {
--
--			put_domains[crtc->pipe] =
--				modeset_get_crtc_power_domains(new_crtc_state);
-+			modeset_get_crtc_power_domains(new_crtc_state, &put_domains[crtc->pipe]);
+ 	switch (port) {
+ 	case PORT_A:
+-		return POWER_DOMAIN_PORT_DDI_A_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_A;
+ 	case PORT_B:
+-		return POWER_DOMAIN_PORT_DDI_B_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_B;
+ 	case PORT_C:
+-		return POWER_DOMAIN_PORT_DDI_C_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_C;
+ 	case PORT_D:
+-		return POWER_DOMAIN_PORT_DDI_D_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_D;
+ 	case PORT_E:
+-		return POWER_DOMAIN_PORT_DDI_E_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_E;
+ 	case PORT_F:
+-		return POWER_DOMAIN_PORT_DDI_F_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_F;
+ 	case PORT_G:
+-		return POWER_DOMAIN_PORT_DDI_G_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_G;
+ 	case PORT_H:
+-		return POWER_DOMAIN_PORT_DDI_H_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_H;
+ 	case PORT_I:
+-		return POWER_DOMAIN_PORT_DDI_I_LANES;
++		return POWER_DOMAIN_PORT_DDI_LANES_I;
+ 	default:
+ 		MISSING_CASE(port);
+ 		return POWER_DOMAIN_PORT_OTHER;
+@@ -2318,22 +2318,22 @@ intel_aux_power_domain(struct intel_digital_port *dig_port)
+ 	if (intel_tc_port_in_tbt_alt_mode(dig_port)) {
+ 		switch (dig_port->aux_ch) {
+ 		case AUX_CH_C:
+-			return POWER_DOMAIN_AUX_C_TBT;
++			return POWER_DOMAIN_AUX_TBT_C;
+ 		case AUX_CH_D:
+-			return POWER_DOMAIN_AUX_D_TBT;
++			return POWER_DOMAIN_AUX_TBT_D;
+ 		case AUX_CH_E:
+-			return POWER_DOMAIN_AUX_E_TBT;
++			return POWER_DOMAIN_AUX_TBT_E;
+ 		case AUX_CH_F:
+-			return POWER_DOMAIN_AUX_F_TBT;
++			return POWER_DOMAIN_AUX_TBT_F;
+ 		case AUX_CH_G:
+-			return POWER_DOMAIN_AUX_G_TBT;
++			return POWER_DOMAIN_AUX_TBT_G;
+ 		case AUX_CH_H:
+-			return POWER_DOMAIN_AUX_H_TBT;
++			return POWER_DOMAIN_AUX_TBT_H;
+ 		case AUX_CH_I:
+-			return POWER_DOMAIN_AUX_I_TBT;
++			return POWER_DOMAIN_AUX_TBT_I;
+ 		default:
+ 			MISSING_CASE(dig_port->aux_ch);
+-			return POWER_DOMAIN_AUX_C_TBT;
++			return POWER_DOMAIN_AUX_TBT_C;
  		}
  	}
  
-@@ -8746,7 +8749,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 		intel_post_plane_update(state, crtc);
- 
--		modeset_put_crtc_power_domains(crtc, put_domains[crtc->pipe]);
-+		modeset_put_crtc_power_domains(crtc, &put_domains[crtc->pipe]);
- 
- 		intel_modeset_verify_crtc(crtc, state, old_crtc_state, new_crtc_state);
- 
-@@ -10702,11 +10705,11 @@ intel_modeset_setup_hw_state(struct drm_device *dev,
- 	for_each_intel_crtc(dev, crtc) {
- 		struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
--		u64 put_domains;
-+		intel_power_domain_mask_t put_domains;
- 
--		put_domains = modeset_get_crtc_power_domains(crtc_state);
--		if (drm_WARN_ON(dev, put_domains))
--			modeset_put_crtc_power_domains(crtc, put_domains);
-+		modeset_get_crtc_power_domains(crtc_state, &put_domains);
-+		if (drm_WARN_ON(dev, !bitmap_empty(put_domains.bits, POWER_DOMAIN_NUM)))
-+			modeset_put_crtc_power_domains(crtc, &put_domains);
- 	}
- 
- 	intel_display_power_put(dev_priv, POWER_DOMAIN_INIT, wakeref);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index a370ef8376410..cf014d79682ca 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -38,13 +38,13 @@
- 	     (__power_well) - (__dev_priv)->power_domains.power_wells >= 0;	\
- 	     (__power_well)--)
- 
--#define for_each_power_domain_well(__dev_priv, __power_well, __domain_mask)	\
-+#define for_each_power_domain_well(__dev_priv, __power_well, __domain)	\
- 	for_each_power_well(__dev_priv, __power_well)				\
--		for_each_if((__power_well)->domains & (__domain_mask))
-+		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
- 
--#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain_mask) \
-+#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain) \
- 	for_each_power_well_reverse(__dev_priv, __power_well)		        \
--		for_each_if((__power_well)->domains & (__domain_mask))
-+		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
- 
- struct i915_power_well_regs {
- 	i915_reg_t bios;
-@@ -141,7 +141,7 @@ bool __intel_display_power_is_enabled(struct drm_i915_private *dev_priv,
- 
- 	is_enabled = true;
- 
--	for_each_power_domain_well_reverse(dev_priv, power_well, BIT_ULL(domain)) {
-+	for_each_power_domain_well_reverse(dev_priv, power_well, domain) {
- 		if (power_well->desc->always_on)
- 			continue;
- 
-@@ -460,13 +460,18 @@ icl_combo_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
- 
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
- 
--static u64 async_put_domains_mask(struct i915_power_domains *power_domains);
-+static void async_put_domains_mask(struct i915_power_domains *power_domains,
-+				   intel_power_domain_mask_t *mask);
- 
- static int power_well_async_ref_count(struct drm_i915_private *dev_priv,
- 				      struct i915_power_well *power_well)
- {
--	int refs = hweight64(power_well->domains &
--			     async_put_domains_mask(&dev_priv->power_domains));
-+	intel_power_domain_mask_t domain_mask;
-+	int refs;
-+
-+	async_put_domains_mask(&dev_priv->power_domains, &domain_mask);
-+	bitmap_and(domain_mask.bits, domain_mask.bits, power_well->domains.bits, POWER_DOMAIN_NUM);
-+	refs = bitmap_weight(domain_mask.bits, POWER_DOMAIN_NUM);
- 
- 	drm_WARN_ON(&dev_priv->drm, refs > power_well->count);
- 
-@@ -1869,10 +1874,13 @@ static void chv_pipe_power_well_disable(struct drm_i915_private *dev_priv,
- 	chv_set_pipe_power_well(dev_priv, power_well, false);
- }
- 
--static u64 __async_put_domains_mask(struct i915_power_domains *power_domains)
-+static void __async_put_domains_mask(struct i915_power_domains *power_domains,
-+				     intel_power_domain_mask_t *mask)
- {
--	return power_domains->async_put_domains[0] |
--	       power_domains->async_put_domains[1];
-+	bitmap_or(mask->bits,
-+		  power_domains->async_put_domains[0].bits,
-+		  power_domains->async_put_domains[1].bits,
-+		  POWER_DOMAIN_NUM);
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
-@@ -1883,8 +1891,11 @@ assert_async_put_domain_masks_disjoint(struct i915_power_domains *power_domains)
- 	struct drm_i915_private *i915 = container_of(power_domains,
- 						     struct drm_i915_private,
- 						     power_domains);
--	return !drm_WARN_ON(&i915->drm, power_domains->async_put_domains[0] &
--			    power_domains->async_put_domains[1]);
-+
-+	return !drm_WARN_ON(&i915->drm,
-+			    bitmap_intersects(power_domains->async_put_domains[0].bits,
-+					      power_domains->async_put_domains[1].bits,
-+					      POWER_DOMAIN_NUM));
- }
- 
- static bool
-@@ -1893,14 +1904,17 @@ __async_put_domains_state_ok(struct i915_power_domains *power_domains)
- 	struct drm_i915_private *i915 = container_of(power_domains,
- 						     struct drm_i915_private,
- 						     power_domains);
-+	intel_power_domain_mask_t async_put_mask;
- 	enum intel_display_power_domain domain;
- 	bool err = false;
- 
- 	err |= !assert_async_put_domain_masks_disjoint(power_domains);
--	err |= drm_WARN_ON(&i915->drm, !!power_domains->async_put_wakeref !=
--			   !!__async_put_domains_mask(power_domains));
-+	__async_put_domains_mask(power_domains, &async_put_mask);
-+	err |= drm_WARN_ON(&i915->drm,
-+			   !!power_domains->async_put_wakeref !=
-+			   !bitmap_empty(async_put_mask.bits, POWER_DOMAIN_NUM));
- 
--	for_each_power_domain(domain, __async_put_domains_mask(power_domains))
-+	for_each_power_domain(domain, &async_put_mask)
- 		err |= drm_WARN_ON(&i915->drm,
- 				   power_domains->domain_use_count[domain] != 1);
- 
-@@ -1908,14 +1922,14 @@ __async_put_domains_state_ok(struct i915_power_domains *power_domains)
- }
- 
- static void print_power_domains(struct i915_power_domains *power_domains,
--				const char *prefix, u64 mask)
-+				const char *prefix, intel_power_domain_mask_t *mask)
- {
- 	struct drm_i915_private *i915 = container_of(power_domains,
- 						     struct drm_i915_private,
- 						     power_domains);
- 	enum intel_display_power_domain domain;
- 
--	drm_dbg(&i915->drm, "%s (%lu):\n", prefix, hweight64(mask));
-+	drm_dbg(&i915->drm, "%s (%d):\n", prefix, bitmap_weight(mask->bits, POWER_DOMAIN_NUM));
- 	for_each_power_domain(domain, mask)
- 		drm_dbg(&i915->drm, "%s use_count %d\n",
- 			intel_display_power_domain_str(domain),
-@@ -1933,9 +1947,9 @@ print_async_put_domains_state(struct i915_power_domains *power_domains)
- 		power_domains->async_put_wakeref);
- 
- 	print_power_domains(power_domains, "async_put_domains[0]",
--			    power_domains->async_put_domains[0]);
-+			    &power_domains->async_put_domains[0]);
- 	print_power_domains(power_domains, "async_put_domains[1]",
--			    power_domains->async_put_domains[1]);
-+			    &power_domains->async_put_domains[1]);
- }
- 
- static void
-@@ -1959,11 +1973,13 @@ verify_async_put_domains_state(struct i915_power_domains *power_domains)
- 
- #endif /* CONFIG_DRM_I915_DEBUG_RUNTIME_PM */
- 
--static u64 async_put_domains_mask(struct i915_power_domains *power_domains)
-+static void async_put_domains_mask(struct i915_power_domains *power_domains,
-+				   intel_power_domain_mask_t *mask)
-+
- {
- 	assert_async_put_domain_masks_disjoint(power_domains);
- 
--	return __async_put_domains_mask(power_domains);
-+	__async_put_domains_mask(power_domains, mask);
- }
- 
- static void
-@@ -1972,8 +1988,8 @@ async_put_domains_clear_domain(struct i915_power_domains *power_domains,
- {
- 	assert_async_put_domain_masks_disjoint(power_domains);
- 
--	power_domains->async_put_domains[0] &= ~BIT_ULL(domain);
--	power_domains->async_put_domains[1] &= ~BIT_ULL(domain);
-+	clear_bit(domain, power_domains->async_put_domains[0].bits);
-+	clear_bit(domain, power_domains->async_put_domains[1].bits);
- }
- 
- static bool
-@@ -1981,16 +1997,19 @@ intel_display_power_grab_async_put_ref(struct drm_i915_private *dev_priv,
- 				       enum intel_display_power_domain domain)
- {
- 	struct i915_power_domains *power_domains = &dev_priv->power_domains;
-+	intel_power_domain_mask_t async_put_mask;
- 	bool ret = false;
- 
--	if (!(async_put_domains_mask(power_domains) & BIT_ULL(domain)))
-+	async_put_domains_mask(power_domains, &async_put_mask);
-+	if (!test_bit(domain, async_put_mask.bits))
- 		goto out_verify;
- 
- 	async_put_domains_clear_domain(power_domains, domain);
- 
- 	ret = true;
- 
--	if (async_put_domains_mask(power_domains))
-+	async_put_domains_mask(power_domains, &async_put_mask);
-+	if (!bitmap_empty(async_put_mask.bits, POWER_DOMAIN_NUM))
- 		goto out_verify;
- 
- 	cancel_delayed_work(&power_domains->async_put_work);
-@@ -2012,7 +2031,7 @@ __intel_display_power_get_domain(struct drm_i915_private *dev_priv,
- 	if (intel_display_power_grab_async_put_ref(dev_priv, domain))
- 		return;
- 
--	for_each_power_domain_well(dev_priv, power_well, BIT_ULL(domain))
-+	for_each_power_domain_well(dev_priv, power_well, domain)
- 		intel_power_well_get(dev_priv, power_well);
- 
- 	power_domains->domain_use_count[domain]++;
-@@ -2093,20 +2112,22 @@ __intel_display_power_put_domain(struct drm_i915_private *dev_priv,
- 	struct i915_power_domains *power_domains;
- 	struct i915_power_well *power_well;
- 	const char *name = intel_display_power_domain_str(domain);
-+	intel_power_domain_mask_t async_put_mask;
- 
- 	power_domains = &dev_priv->power_domains;
- 
- 	drm_WARN(&dev_priv->drm, !power_domains->domain_use_count[domain],
- 		 "Use count on domain %s is already zero\n",
- 		 name);
-+	async_put_domains_mask(power_domains, &async_put_mask);
- 	drm_WARN(&dev_priv->drm,
--		 async_put_domains_mask(power_domains) & BIT_ULL(domain),
-+		 test_bit(domain, async_put_mask.bits),
- 		 "Async disabling of domain %s is pending\n",
- 		 name);
- 
- 	power_domains->domain_use_count[domain]--;
- 
--	for_each_power_domain_well_reverse(dev_priv, power_well, BIT_ULL(domain))
-+	for_each_power_domain_well_reverse(dev_priv, power_well, domain)
- 		intel_power_well_put(dev_priv, power_well);
- }
- 
-@@ -2135,7 +2156,7 @@ queue_async_put_domains_work(struct i915_power_domains *power_domains,
- }
- 
- static void
--release_async_put_domains(struct i915_power_domains *power_domains, u64 mask)
-+release_async_put_domains(struct i915_power_domains *power_domains, intel_power_domain_mask_t *mask)
- {
- 	struct drm_i915_private *dev_priv =
- 		container_of(power_domains, struct drm_i915_private,
-@@ -2183,12 +2204,15 @@ intel_display_power_put_async_work(struct work_struct *work)
- 		goto out_verify;
- 
- 	release_async_put_domains(power_domains,
--				  power_domains->async_put_domains[0]);
-+				  &power_domains->async_put_domains[0]);
- 
- 	/* Requeue the work if more domains were async put meanwhile. */
--	if (power_domains->async_put_domains[1]) {
--		power_domains->async_put_domains[0] =
--			fetch_and_zero(&power_domains->async_put_domains[1]);
-+	if (!bitmap_empty(power_domains->async_put_domains[1].bits, POWER_DOMAIN_NUM)) {
-+		bitmap_copy(power_domains->async_put_domains[0].bits,
-+			    power_domains->async_put_domains[1].bits,
-+			    POWER_DOMAIN_NUM);
-+		bitmap_zero(power_domains->async_put_domains[1].bits,
-+			    POWER_DOMAIN_NUM);
- 		queue_async_put_domains_work(power_domains,
- 					     fetch_and_zero(&new_work_wakeref));
- 	} else {
-@@ -2240,9 +2264,9 @@ void __intel_display_power_put_async(struct drm_i915_private *i915,
- 
- 	/* Let a pending work requeue itself or queue a new one. */
- 	if (power_domains->async_put_wakeref) {
--		power_domains->async_put_domains[1] |= BIT_ULL(domain);
-+		set_bit(domain, power_domains->async_put_domains[1].bits);
- 	} else {
--		power_domains->async_put_domains[0] |= BIT_ULL(domain);
-+		set_bit(domain, power_domains->async_put_domains[0].bits);
- 		queue_async_put_domains_work(power_domains,
- 					     fetch_and_zero(&work_wakeref));
- 	}
-@@ -2273,6 +2297,7 @@ void __intel_display_power_put_async(struct drm_i915_private *i915,
- void intel_display_power_flush_work(struct drm_i915_private *i915)
- {
- 	struct i915_power_domains *power_domains = &i915->power_domains;
-+	intel_power_domain_mask_t async_put_mask;
- 	intel_wakeref_t work_wakeref;
- 
- 	mutex_lock(&power_domains->lock);
-@@ -2281,8 +2306,8 @@ void intel_display_power_flush_work(struct drm_i915_private *i915)
- 	if (!work_wakeref)
- 		goto out_verify;
- 
--	release_async_put_domains(power_domains,
--				  async_put_domains_mask(power_domains));
-+	async_put_domains_mask(power_domains, &async_put_mask);
-+	release_async_put_domains(power_domains, &async_put_mask);
- 	cancel_delayed_work(&power_domains->async_put_work);
- 
- out_verify:
-@@ -2361,13 +2386,13 @@ intel_display_power_get_in_set(struct drm_i915_private *i915,
- {
- 	intel_wakeref_t __maybe_unused wf;
- 
--	drm_WARN_ON(&i915->drm, power_domain_set->mask & BIT_ULL(domain));
-+	drm_WARN_ON(&i915->drm, test_bit(domain, power_domain_set->mask.bits));
- 
- 	wf = intel_display_power_get(i915, domain);
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
- 	power_domain_set->wakerefs[domain] = wf;
- #endif
--	power_domain_set->mask |= BIT_ULL(domain);
-+	set_bit(domain, power_domain_set->mask.bits);
- }
- 
- bool
-@@ -2377,7 +2402,7 @@ intel_display_power_get_in_set_if_enabled(struct drm_i915_private *i915,
- {
- 	intel_wakeref_t wf;
- 
--	drm_WARN_ON(&i915->drm, power_domain_set->mask & BIT_ULL(domain));
-+	drm_WARN_ON(&i915->drm, test_bit(domain, power_domain_set->mask.bits));
- 
- 	wf = intel_display_power_get_if_enabled(i915, domain);
- 	if (!wf)
-@@ -2386,7 +2411,7 @@ intel_display_power_get_in_set_if_enabled(struct drm_i915_private *i915,
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
- 	power_domain_set->wakerefs[domain] = wf;
- #endif
--	power_domain_set->mask |= BIT_ULL(domain);
-+	set_bit(domain, power_domain_set->mask.bits);
- 
- 	return true;
- }
-@@ -2394,11 +2419,11 @@ intel_display_power_get_in_set_if_enabled(struct drm_i915_private *i915,
- void
- intel_display_power_put_mask_in_set(struct drm_i915_private *i915,
- 				    struct intel_display_power_domain_set *power_domain_set,
--				    u64 mask)
-+				    intel_power_domain_mask_t *mask)
- {
- 	enum intel_display_power_domain domain;
- 
--	drm_WARN_ON(&i915->drm, mask & ~power_domain_set->mask);
-+	drm_WARN_ON(&i915->drm, !bitmap_subset(mask->bits, power_domain_set->mask.bits, POWER_DOMAIN_NUM));
- 
- 	for_each_power_domain(domain, mask) {
- 		intel_wakeref_t __maybe_unused wf = -1;
-@@ -2407,7 +2432,7 @@ intel_display_power_put_mask_in_set(struct drm_i915_private *i915,
- 		wf = fetch_and_zero(&power_domain_set->wakerefs[domain]);
- #endif
- 		intel_display_power_put(i915, domain, wf);
--		power_domain_set->mask &= ~BIT_ULL(domain);
-+		clear_bit(domain, power_domain_set->mask.bits);
- 	}
- }
- 
-@@ -2711,8 +2736,6 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
- 	dev_priv->dmc.target_dc_state =
- 		sanitize_target_dc_state(dev_priv, DC_STATE_EN_UPTO_DC6);
- 
--	BUILD_BUG_ON(POWER_DOMAIN_NUM > 64);
--
- 	mutex_init(&power_domains->lock);
- 
- 	INIT_DELAYED_WORK(&power_domains->async_put_work,
-@@ -3805,7 +3828,7 @@ static void intel_power_domains_dump_info(struct drm_i915_private *i915)
- 		drm_dbg(&i915->drm, "%-25s %d\n",
- 			power_well->desc->name, power_well->count);
- 
--		for_each_power_domain(domain, power_well->domains)
-+		for_each_power_domain(domain, &power_well->domains)
- 			drm_dbg(&i915->drm, "  %-23s %d\n",
- 				intel_display_power_domain_str(domain),
- 				power_domains->domain_use_count[domain]);
-@@ -3847,7 +3870,7 @@ static void intel_power_domains_verify_state(struct drm_i915_private *i915)
- 				power_well->count, enabled);
- 
- 		domains_count = 0;
--		for_each_power_domain(domain, power_well->domains)
-+		for_each_power_domain(domain, &power_well->domains)
- 			domains_count += power_domains->domain_use_count[domain];
- 
- 		if (power_well->count != domains_count) {
-@@ -3962,7 +3985,7 @@ void intel_display_power_debug(struct drm_i915_private *i915, struct seq_file *m
- 		seq_printf(m, "%-25s %d\n", power_well->desc->name,
- 			   power_well->count);
- 
--		for_each_power_domain(power_domain, power_well->domains)
-+		for_each_power_domain(power_domain, &power_well->domains)
- 			seq_printf(m, "  %-23s %d\n",
- 				   intel_display_power_domain_str(power_domain),
- 				   power_domains->domain_use_count[power_domain]);
 diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index c3232809b95f9..c7155801f9bc6 100644
+index a0e68ae691021..c3232809b95f9 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_power.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -164,6 +164,8 @@ enum i915_power_well_id {
+@@ -26,10 +26,10 @@ enum intel_display_power_domain {
+ 	POWER_DOMAIN_PIPE_B,
+ 	POWER_DOMAIN_PIPE_C,
+ 	POWER_DOMAIN_PIPE_D,
+-	POWER_DOMAIN_PIPE_A_PANEL_FITTER,
+-	POWER_DOMAIN_PIPE_B_PANEL_FITTER,
+-	POWER_DOMAIN_PIPE_C_PANEL_FITTER,
+-	POWER_DOMAIN_PIPE_D_PANEL_FITTER,
++	POWER_DOMAIN_PIPE_PANEL_FITTER_A,
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B,
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C,
++	POWER_DOMAIN_PIPE_PANEL_FITTER_D,
+ 	POWER_DOMAIN_TRANSCODER_A,
+ 	POWER_DOMAIN_TRANSCODER_B,
+ 	POWER_DOMAIN_TRANSCODER_C,
+@@ -41,17 +41,17 @@ enum intel_display_power_domain {
+ 	/* VDSC/joining for eDP/DSI transcoder (ICL) or pipe A (TGL) */
+ 	POWER_DOMAIN_TRANSCODER_VDSC_PW2,
+ 
+-	POWER_DOMAIN_PORT_DDI_A_LANES,
+-	POWER_DOMAIN_PORT_DDI_B_LANES,
+-	POWER_DOMAIN_PORT_DDI_C_LANES,
+-	POWER_DOMAIN_PORT_DDI_D_LANES,
+-	POWER_DOMAIN_PORT_DDI_E_LANES,
+-	POWER_DOMAIN_PORT_DDI_F_LANES,
+-	POWER_DOMAIN_PORT_DDI_G_LANES,
+-	POWER_DOMAIN_PORT_DDI_H_LANES,
+-	POWER_DOMAIN_PORT_DDI_I_LANES,
++	POWER_DOMAIN_PORT_DDI_LANES_A,
++	POWER_DOMAIN_PORT_DDI_LANES_B,
++	POWER_DOMAIN_PORT_DDI_LANES_C,
++	POWER_DOMAIN_PORT_DDI_LANES_D,
++	POWER_DOMAIN_PORT_DDI_LANES_E,
++	POWER_DOMAIN_PORT_DDI_LANES_F,
++	POWER_DOMAIN_PORT_DDI_LANES_G,
++	POWER_DOMAIN_PORT_DDI_LANES_H,
++	POWER_DOMAIN_PORT_DDI_LANES_I,
+ 
+-	POWER_DOMAIN_PORT_DDI_LANES_TC1 = POWER_DOMAIN_PORT_DDI_D_LANES, /* tgl+ */
++	POWER_DOMAIN_PORT_DDI_LANES_TC1 = POWER_DOMAIN_PORT_DDI_LANES_D, /* tgl+ */
+ 	POWER_DOMAIN_PORT_DDI_LANES_TC2,
+ 	POWER_DOMAIN_PORT_DDI_LANES_TC3,
+ 	POWER_DOMAIN_PORT_DDI_LANES_TC4,
+@@ -61,17 +61,17 @@ enum intel_display_power_domain {
+ 	POWER_DOMAIN_PORT_DDI_LANES_D_XELPD = POWER_DOMAIN_PORT_DDI_LANES_TC5, /* XELPD */
+ 	POWER_DOMAIN_PORT_DDI_LANES_E_XELPD,
+ 
+-	POWER_DOMAIN_PORT_DDI_A_IO,
+-	POWER_DOMAIN_PORT_DDI_B_IO,
+-	POWER_DOMAIN_PORT_DDI_C_IO,
+-	POWER_DOMAIN_PORT_DDI_D_IO,
+-	POWER_DOMAIN_PORT_DDI_E_IO,
+-	POWER_DOMAIN_PORT_DDI_F_IO,
+-	POWER_DOMAIN_PORT_DDI_G_IO,
+-	POWER_DOMAIN_PORT_DDI_H_IO,
+-	POWER_DOMAIN_PORT_DDI_I_IO,
++	POWER_DOMAIN_PORT_DDI_IO_A,
++	POWER_DOMAIN_PORT_DDI_IO_B,
++	POWER_DOMAIN_PORT_DDI_IO_C,
++	POWER_DOMAIN_PORT_DDI_IO_D,
++	POWER_DOMAIN_PORT_DDI_IO_E,
++	POWER_DOMAIN_PORT_DDI_IO_F,
++	POWER_DOMAIN_PORT_DDI_IO_G,
++	POWER_DOMAIN_PORT_DDI_IO_H,
++	POWER_DOMAIN_PORT_DDI_IO_I,
+ 
+-	POWER_DOMAIN_PORT_DDI_IO_TC1 = POWER_DOMAIN_PORT_DDI_D_IO, /* tgl+ */
++	POWER_DOMAIN_PORT_DDI_IO_TC1 = POWER_DOMAIN_PORT_DDI_IO_D, /* tgl+ */
+ 	POWER_DOMAIN_PORT_DDI_IO_TC2,
+ 	POWER_DOMAIN_PORT_DDI_IO_TC3,
+ 	POWER_DOMAIN_PORT_DDI_IO_TC4,
+@@ -108,15 +108,15 @@ enum intel_display_power_domain {
+ 	POWER_DOMAIN_AUX_E_XELPD,
+ 
+ 	POWER_DOMAIN_AUX_IO_A,
+-	POWER_DOMAIN_AUX_C_TBT,
+-	POWER_DOMAIN_AUX_D_TBT,
+-	POWER_DOMAIN_AUX_E_TBT,
+-	POWER_DOMAIN_AUX_F_TBT,
+-	POWER_DOMAIN_AUX_G_TBT,
+-	POWER_DOMAIN_AUX_H_TBT,
+-	POWER_DOMAIN_AUX_I_TBT,
++	POWER_DOMAIN_AUX_TBT_C,
++	POWER_DOMAIN_AUX_TBT_D,
++	POWER_DOMAIN_AUX_TBT_E,
++	POWER_DOMAIN_AUX_TBT_F,
++	POWER_DOMAIN_AUX_TBT_G,
++	POWER_DOMAIN_AUX_TBT_H,
++	POWER_DOMAIN_AUX_TBT_I,
+ 
+-	POWER_DOMAIN_AUX_TBT1 = POWER_DOMAIN_AUX_D_TBT, /* tgl+ */
++	POWER_DOMAIN_AUX_TBT1 = POWER_DOMAIN_AUX_TBT_D, /* tgl+ */
+ 	POWER_DOMAIN_AUX_TBT2,
+ 	POWER_DOMAIN_AUX_TBT3,
+ 	POWER_DOMAIN_AUX_TBT4,
+@@ -159,7 +159,7 @@ enum i915_power_well_id {
+ 
+ #define POWER_DOMAIN_PIPE(pipe) ((pipe) + POWER_DOMAIN_PIPE_A)
+ #define POWER_DOMAIN_PIPE_PANEL_FITTER(pipe) \
+-		((pipe) + POWER_DOMAIN_PIPE_A_PANEL_FITTER)
++		((pipe) + POWER_DOMAIN_PIPE_PANEL_FITTER_A)
+ #define POWER_DOMAIN_TRANSCODER(tran) \
  	((tran) == TRANSCODER_EDP ? POWER_DOMAIN_TRANSCODER_EDP : \
  	 (tran) + POWER_DOMAIN_TRANSCODER_A)
- 
-+typedef struct { DECLARE_BITMAP(bits, POWER_DOMAIN_NUM); } intel_power_domain_mask_t;
-+
- struct i915_power_domains {
- 	/*
- 	 * Power wells needed for initialization at driver init and suspend
-@@ -181,21 +183,21 @@ struct i915_power_domains {
- 
- 	struct delayed_work async_put_work;
- 	intel_wakeref_t async_put_wakeref;
--	u64 async_put_domains[2];
-+	intel_power_domain_mask_t async_put_domains[2];
- 
- 	struct i915_power_well *power_wells;
- };
- 
- struct intel_display_power_domain_set {
--	u64 mask;
-+	intel_power_domain_mask_t mask;
- #ifdef CONFIG_DRM_I915_DEBUG_RUNTIME_PM
- 	intel_wakeref_t wakerefs[POWER_DOMAIN_NUM];
- #endif
- };
- 
--#define for_each_power_domain(domain, mask)				\
--	for ((domain) = 0; (domain) < POWER_DOMAIN_NUM; (domain)++)	\
--		for_each_if(BIT_ULL(domain) & (mask))
-+#define for_each_power_domain(__domain, __mask)				\
-+	for ((__domain) = 0; (__domain) < POWER_DOMAIN_NUM; (__domain)++)	\
-+		for_each_if(test_bit((__domain), (__mask)->bits))
- 
- /* intel_display_power.c */
- int intel_power_domains_init(struct drm_i915_private *dev_priv);
-@@ -278,13 +280,13 @@ intel_display_power_get_in_set_if_enabled(struct drm_i915_private *i915,
- void
- intel_display_power_put_mask_in_set(struct drm_i915_private *i915,
- 				    struct intel_display_power_domain_set *power_domain_set,
--				    u64 mask);
-+				    intel_power_domain_mask_t *mask);
- 
- static inline void
- intel_display_power_put_all_in_set(struct drm_i915_private *i915,
- 				   struct intel_display_power_domain_set *power_domain_set)
- {
--	intel_display_power_put_mask_in_set(i915, power_domain_set, power_domain_set->mask);
-+	intel_display_power_put_mask_in_set(i915, power_domain_set, &power_domain_set->mask);
- }
- 
- void intel_display_power_debug(struct drm_i915_private *i915, struct seq_file *m);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_internal.h b/drivers/gpu/drm/i915/display/intel_display_power_internal.h
-index 49f6155e62c47..c4167ac2f21f8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_internal.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_internal.h
-@@ -68,7 +68,7 @@ struct i915_power_well_desc {
- 
- struct i915_power_well {
- 	const struct i915_power_well_desc *desc;
--	u64 domains;
-+	intel_power_domain_mask_t domains;
- 	/* power well enable/disable usage count */
- 	int count;
- 	/* cached hw enabled state */
 diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 42f5541c5ecc8..7ec4cafec6ba5 100644
+index 92bf6337274eb..30c9d94b55929 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -2220,13 +2220,13 @@ static void init_power_well_domains(const struct i915_power_well_desc *desc,
- 		return;
+@@ -26,14 +26,14 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
+ 		return "PIPE_C";
+ 	case POWER_DOMAIN_PIPE_D:
+ 		return "PIPE_D";
+-	case POWER_DOMAIN_PIPE_A_PANEL_FITTER:
+-		return "PIPE_A_PANEL_FITTER";
+-	case POWER_DOMAIN_PIPE_B_PANEL_FITTER:
+-		return "PIPE_B_PANEL_FITTER";
+-	case POWER_DOMAIN_PIPE_C_PANEL_FITTER:
+-		return "PIPE_C_PANEL_FITTER";
+-	case POWER_DOMAIN_PIPE_D_PANEL_FITTER:
+-		return "PIPE_D_PANEL_FITTER";
++	case POWER_DOMAIN_PIPE_PANEL_FITTER_A:
++		return "PIPE_PANEL_FITTER_A";
++	case POWER_DOMAIN_PIPE_PANEL_FITTER_B:
++		return "PIPE_PANEL_FITTER_B";
++	case POWER_DOMAIN_PIPE_PANEL_FITTER_C:
++		return "PIPE_PANEL_FITTER_C";
++	case POWER_DOMAIN_PIPE_PANEL_FITTER_D:
++		return "PIPE_PANEL_FITTER_D";
+ 	case POWER_DOMAIN_TRANSCODER_A:
+ 		return "TRANSCODER_A";
+ 	case POWER_DOMAIN_TRANSCODER_B:
+@@ -50,42 +50,42 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
+ 		return "TRANSCODER_DSI_C";
+ 	case POWER_DOMAIN_TRANSCODER_VDSC_PW2:
+ 		return "TRANSCODER_VDSC_PW2";
+-	case POWER_DOMAIN_PORT_DDI_A_LANES:
+-		return "PORT_DDI_A_LANES";
+-	case POWER_DOMAIN_PORT_DDI_B_LANES:
+-		return "PORT_DDI_B_LANES";
+-	case POWER_DOMAIN_PORT_DDI_C_LANES:
+-		return "PORT_DDI_C_LANES";
+-	case POWER_DOMAIN_PORT_DDI_D_LANES:
+-		return "PORT_DDI_D_LANES";
+-	case POWER_DOMAIN_PORT_DDI_E_LANES:
+-		return "PORT_DDI_E_LANES";
+-	case POWER_DOMAIN_PORT_DDI_F_LANES:
+-		return "PORT_DDI_F_LANES";
+-	case POWER_DOMAIN_PORT_DDI_G_LANES:
+-		return "PORT_DDI_G_LANES";
+-	case POWER_DOMAIN_PORT_DDI_H_LANES:
+-		return "PORT_DDI_H_LANES";
+-	case POWER_DOMAIN_PORT_DDI_I_LANES:
+-		return "PORT_DDI_I_LANES";
+-	case POWER_DOMAIN_PORT_DDI_A_IO:
+-		return "PORT_DDI_A_IO";
+-	case POWER_DOMAIN_PORT_DDI_B_IO:
+-		return "PORT_DDI_B_IO";
+-	case POWER_DOMAIN_PORT_DDI_C_IO:
+-		return "PORT_DDI_C_IO";
+-	case POWER_DOMAIN_PORT_DDI_D_IO:
+-		return "PORT_DDI_D_IO";
+-	case POWER_DOMAIN_PORT_DDI_E_IO:
+-		return "PORT_DDI_E_IO";
+-	case POWER_DOMAIN_PORT_DDI_F_IO:
+-		return "PORT_DDI_F_IO";
+-	case POWER_DOMAIN_PORT_DDI_G_IO:
+-		return "PORT_DDI_G_IO";
+-	case POWER_DOMAIN_PORT_DDI_H_IO:
+-		return "PORT_DDI_H_IO";
+-	case POWER_DOMAIN_PORT_DDI_I_IO:
+-		return "PORT_DDI_I_IO";
++	case POWER_DOMAIN_PORT_DDI_LANES_A:
++		return "PORT_DDI_LANES_A";
++	case POWER_DOMAIN_PORT_DDI_LANES_B:
++		return "PORT_DDI_LANES_B";
++	case POWER_DOMAIN_PORT_DDI_LANES_C:
++		return "PORT_DDI_LANES_C";
++	case POWER_DOMAIN_PORT_DDI_LANES_D:
++		return "PORT_DDI_LANES_D";
++	case POWER_DOMAIN_PORT_DDI_LANES_E:
++		return "PORT_DDI_LANES_E";
++	case POWER_DOMAIN_PORT_DDI_LANES_F:
++		return "PORT_DDI_LANES_F";
++	case POWER_DOMAIN_PORT_DDI_LANES_G:
++		return "PORT_DDI_LANES_G";
++	case POWER_DOMAIN_PORT_DDI_LANES_H:
++		return "PORT_DDI_LANES_H";
++	case POWER_DOMAIN_PORT_DDI_LANES_I:
++		return "PORT_DDI_LANES_I";
++	case POWER_DOMAIN_PORT_DDI_IO_A:
++		return "PORT_DDI_IO_A";
++	case POWER_DOMAIN_PORT_DDI_IO_B:
++		return "PORT_DDI_IO_B";
++	case POWER_DOMAIN_PORT_DDI_IO_C:
++		return "PORT_DDI_IO_C";
++	case POWER_DOMAIN_PORT_DDI_IO_D:
++		return "PORT_DDI_IO_D";
++	case POWER_DOMAIN_PORT_DDI_IO_E:
++		return "PORT_DDI_IO_E";
++	case POWER_DOMAIN_PORT_DDI_IO_F:
++		return "PORT_DDI_IO_F";
++	case POWER_DOMAIN_PORT_DDI_IO_G:
++		return "PORT_DDI_IO_G";
++	case POWER_DOMAIN_PORT_DDI_IO_H:
++		return "PORT_DDI_IO_H";
++	case POWER_DOMAIN_PORT_DDI_IO_I:
++		return "PORT_DDI_IO_I";
+ 	case POWER_DOMAIN_PORT_DSI:
+ 		return "PORT_DSI";
+ 	case POWER_DOMAIN_PORT_CRT:
+@@ -118,20 +118,20 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
+ 		return "AUX_I";
+ 	case POWER_DOMAIN_AUX_IO_A:
+ 		return "AUX_IO_A";
+-	case POWER_DOMAIN_AUX_C_TBT:
+-		return "AUX_C_TBT";
+-	case POWER_DOMAIN_AUX_D_TBT:
+-		return "AUX_D_TBT";
+-	case POWER_DOMAIN_AUX_E_TBT:
+-		return "AUX_E_TBT";
+-	case POWER_DOMAIN_AUX_F_TBT:
+-		return "AUX_F_TBT";
+-	case POWER_DOMAIN_AUX_G_TBT:
+-		return "AUX_G_TBT";
+-	case POWER_DOMAIN_AUX_H_TBT:
+-		return "AUX_H_TBT";
+-	case POWER_DOMAIN_AUX_I_TBT:
+-		return "AUX_I_TBT";
++	case POWER_DOMAIN_AUX_TBT_C:
++		return "AUX_TBT_C";
++	case POWER_DOMAIN_AUX_TBT_D:
++		return "AUX_TBT_D";
++	case POWER_DOMAIN_AUX_TBT_E:
++		return "AUX_TBT_E";
++	case POWER_DOMAIN_AUX_TBT_F:
++		return "AUX_TBT_F";
++	case POWER_DOMAIN_AUX_TBT_G:
++		return "AUX_TBT_G";
++	case POWER_DOMAIN_AUX_TBT_H:
++		return "AUX_TBT_H";
++	case POWER_DOMAIN_AUX_TBT_I:
++		return "AUX_TBT_I";
+ 	case POWER_DOMAIN_GMBUS:
+ 		return "GMBUS";
+ 	case POWER_DOMAIN_INIT:
+@@ -163,8 +163,8 @@ static const struct i915_power_well_desc i9xx_always_on_power_well[] = {
+ #define I830_PIPES_POWER_DOMAINS (		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_A_PANEL_FITTER) |	\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_A) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+@@ -187,15 +187,15 @@ static const struct i915_power_well_desc i830_power_wells[] = {
+ #define HSW_DISPLAY_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_A_PANEL_FITTER) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_A) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D) |		\
+ 	BIT_ULL(POWER_DOMAIN_PORT_CRT) | /* DDI E */	\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |				\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+@@ -224,14 +224,14 @@ static const struct i915_power_well_desc hsw_power_wells[] = {
+ #define BDW_DISPLAY_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D) |		\
+ 	BIT_ULL(POWER_DOMAIN_PORT_CRT) | /* DDI E */	\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |				\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+@@ -262,12 +262,12 @@ static const struct i915_power_well_desc bdw_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_DISPLAY_CORE) |	\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_A_PANEL_FITTER) |	\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_A) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DSI) |		\
+ 	BIT_ULL(POWER_DOMAIN_PORT_CRT) |		\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |			\
+@@ -279,30 +279,30 @@ static const struct i915_power_well_desc bdw_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_INIT))
  
- 	if (desc->domain_list->count == 0) {
--		power_well->domains = GENMASK_ULL(POWER_DOMAIN_NUM - 1, 0);
-+		bitmap_fill(power_well->domains.bits, POWER_DOMAIN_NUM);
+ #define VLV_DPIO_CMN_BC_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_CRT) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
  
- 		return;
- 	}
+ #define VLV_DPIO_TX_B_LANES_01_POWER_DOMAINS (	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
  
- 	for (j = 0; j < desc->domain_list->count; j++)
--		power_well->domains |= BIT_ULL(desc->domain_list->list[j]);
-+		set_bit(desc->domain_list->list[j], power_well->domains.bits);
- }
+ #define VLV_DPIO_TX_B_LANES_23_POWER_DOMAINS (	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
  
- static int
+ #define VLV_DPIO_TX_C_LANES_01_POWER_DOMAINS (	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define VLV_DPIO_TX_C_LANES_23_POWER_DOMAINS (	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+@@ -381,15 +381,15 @@ static const struct i915_power_well_desc vlv_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_PIPE_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_A_PANEL_FITTER) |	\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_A) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DSI) |		\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |			\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+@@ -401,14 +401,14 @@ static const struct i915_power_well_desc vlv_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define CHV_DPIO_CMN_BC_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define CHV_DPIO_CMN_D_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D) |	\
+ 	BIT_ULL(POWER_DOMAIN_AUX_D) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+@@ -451,15 +451,15 @@ static const struct i915_power_well_desc chv_power_wells[] = {
+ #define SKL_DISPLAY_POWERWELL_2_POWER_DOMAINS (		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_E_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_E) |		\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |				\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+@@ -476,20 +476,20 @@ static const struct i915_power_well_desc chv_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define SKL_DISPLAY_DDI_IO_A_E_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_A_IO) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_E_IO) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_A) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_E) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define SKL_DISPLAY_DDI_IO_B_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_IO) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define SKL_DISPLAY_DDI_IO_C_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_IO) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define SKL_DISPLAY_DDI_IO_D_POWER_DOMAINS (		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_IO) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_D) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ static const struct i915_power_well_desc skl_power_wells[] = {
+@@ -574,13 +574,13 @@ static const struct i915_power_well_desc skl_power_wells[] = {
+ #define BXT_DISPLAY_POWERWELL_2_POWER_DOMAINS (		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |				\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+@@ -597,13 +597,13 @@ static const struct i915_power_well_desc skl_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define BXT_DPIO_CMN_A_POWER_DOMAINS (			\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_A_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define BXT_DPIO_CMN_BC_POWER_DOMAINS (			\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+@@ -664,13 +664,13 @@ static const struct i915_power_well_desc bxt_power_wells[] = {
+ #define GLK_DISPLAY_POWERWELL_2_POWER_DOMAINS (		\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |		\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |				\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+@@ -686,22 +686,22 @@ static const struct i915_power_well_desc bxt_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_GT_IRQ) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+-#define GLK_DISPLAY_DDI_IO_A_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_PORT_DDI_A_IO)
+-#define GLK_DISPLAY_DDI_IO_B_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_IO)
+-#define GLK_DISPLAY_DDI_IO_C_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_IO)
++#define GLK_DISPLAY_DDI_IO_A_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_A)
++#define GLK_DISPLAY_DDI_IO_B_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_B)
++#define GLK_DISPLAY_DDI_IO_C_POWER_DOMAINS	BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_C)
+ 
+ #define GLK_DPIO_CMN_A_POWER_DOMAINS (			\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_A_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define GLK_DPIO_CMN_B_POWER_DOMAINS (			\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define GLK_DPIO_CMN_C_POWER_DOMAINS (			\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+@@ -843,22 +843,22 @@ static const struct i915_power_well_desc glk_power_wells[] = {
+  */
+ #define ICL_PW_4_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 	/* VDSC/joining */
+ 
+ #define ICL_PW_3_POWER_DOMAINS (			\
+ 	ICL_PW_4_POWER_DOMAINS |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_A) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_B_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_E_LANES) |	\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_F_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_B) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_E) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_F) |	\
+ 	BIT_ULL(POWER_DOMAIN_VGA) |			\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+ 	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |		\
+@@ -867,10 +867,10 @@ static const struct i915_power_well_desc glk_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_AUX_D) |			\
+ 	BIT_ULL(POWER_DOMAIN_AUX_E) |			\
+ 	BIT_ULL(POWER_DOMAIN_AUX_F) |			\
+-	BIT_ULL(POWER_DOMAIN_AUX_C_TBT) |		\
+-	BIT_ULL(POWER_DOMAIN_AUX_D_TBT) |		\
+-	BIT_ULL(POWER_DOMAIN_AUX_E_TBT) |		\
+-	BIT_ULL(POWER_DOMAIN_AUX_F_TBT) |		\
++	BIT_ULL(POWER_DOMAIN_AUX_TBT_C) |		\
++	BIT_ULL(POWER_DOMAIN_AUX_TBT_D) |		\
++	BIT_ULL(POWER_DOMAIN_AUX_TBT_E) |		\
++	BIT_ULL(POWER_DOMAIN_AUX_TBT_F) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 	/*
+ 	 * - transcoder WD
+@@ -892,12 +892,12 @@ static const struct i915_power_well_desc glk_power_wells[] = {
+ 	BIT_ULL(POWER_DOMAIN_DC_OFF) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+-#define ICL_DDI_IO_A_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_A_IO)
+-#define ICL_DDI_IO_B_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_B_IO)
+-#define ICL_DDI_IO_C_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_C_IO)
+-#define ICL_DDI_IO_D_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_D_IO)
+-#define ICL_DDI_IO_E_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_E_IO)
+-#define ICL_DDI_IO_F_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_F_IO)
++#define ICL_DDI_IO_A_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_A)
++#define ICL_DDI_IO_B_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_B)
++#define ICL_DDI_IO_C_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_C)
++#define ICL_DDI_IO_D_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_D)
++#define ICL_DDI_IO_E_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_E)
++#define ICL_DDI_IO_F_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_PORT_DDI_IO_F)
+ 
+ #define ICL_AUX_A_IO_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+@@ -908,10 +908,10 @@ static const struct i915_power_well_desc glk_power_wells[] = {
+ #define ICL_AUX_D_TC2_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_D)
+ #define ICL_AUX_E_TC3_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_E)
+ #define ICL_AUX_F_TC4_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_F)
+-#define ICL_AUX_C_TBT1_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_C_TBT)
+-#define ICL_AUX_D_TBT2_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_D_TBT)
+-#define ICL_AUX_E_TBT3_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_E_TBT)
+-#define ICL_AUX_F_TBT4_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_F_TBT)
++#define ICL_AUX_C_TBT1_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_TBT_C)
++#define ICL_AUX_D_TBT2_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_TBT_D)
++#define ICL_AUX_E_TBT3_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_TBT_E)
++#define ICL_AUX_F_TBT4_IO_POWER_DOMAINS		BIT_ULL(POWER_DOMAIN_AUX_TBT_F)
+ 
+ static const struct i915_power_well_desc icl_power_wells[] = {
+ 	{
+@@ -1107,21 +1107,21 @@ static const struct i915_power_well_desc icl_power_wells[] = {
+ 
+ #define TGL_PW_5_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_D) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_D_PANEL_FITTER) |     \
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_D) |     \
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_D) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define TGL_PW_4_POWER_DOMAINS (			\
+ 	TGL_PW_5_POWER_DOMAINS |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define TGL_PW_3_POWER_DOMAINS (			\
+ 	TGL_PW_4_POWER_DOMAINS |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC2) |	\
+@@ -1478,14 +1478,14 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
+ 
+ #define RKL_PW_4_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define RKL_PW_3_POWER_DOMAINS (			\
+ 	RKL_PW_4_POWER_DOMAINS |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC2) |	\
+@@ -1641,7 +1641,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
+ #define DG1_PW_3_POWER_DOMAINS (			\
+ 	TGL_PW_4_POWER_DOMAINS |			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC2) |	\
+@@ -1816,32 +1816,32 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
+ 
+ #define XELPD_PW_D_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_D) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_D_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_D) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_D) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define XELPD_PW_C_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define XELPD_PW_B_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_B) |	\
+ 	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define XELPD_PW_A_POWER_DOMAINS (			\
+ 	BIT_ULL(POWER_DOMAIN_PIPE_A) |			\
+-	BIT_ULL(POWER_DOMAIN_PIPE_A_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PIPE_PANEL_FITTER_A) |	\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
+ #define XELPD_PW_2_POWER_DOMAINS (			\
+ 	XELPD_PW_B_POWER_DOMAINS |			\
+ 	XELPD_PW_C_POWER_DOMAINS |			\
+ 	XELPD_PW_D_POWER_DOMAINS |			\
+-	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_C) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D_XELPD) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_E_XELPD) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
 -- 
 2.27.0
 
