@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB42C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 22:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12003C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 22:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2097F10E16A;
-	Fri, 28 Jan 2022 22:10:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9200A10E1A3;
+	Fri, 28 Jan 2022 22:10:37 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B700710E16A
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 22:10:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFFCE10E12F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 22:10:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643407831; x=1674943831;
+ t=1643407827; x=1674943827;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o6HuYlnP32PX1lqgHE1fsvZCwjUKZXMxGSqa7+v9E8k=;
- b=COIT096c3NQnPUSzJHwJWNMzKlsSWGOPqZCssiAN3s9DypDPcQX1kT8O
- uaqc1iFCWtX5Wrw8MxOF7lEcgpxoh30yyuZFUBS9m4vka8/jlPl5BXK+v
- YYhosl5TTq04uIWzMwTVF6NGEtMSbgiGyL/OlUBsXty+M1Dbk4NsWiwX2
- NVuvDe7TnaUeTmQjNfeR3gK998XLAfDDZ0jnQosV61nPOub2s0XsdiqrP
- Va3hbFt75UTZaovCGBJMtjy8stpj3yIZ7uKLqhtEQo4wW71nGQHf8AiUu
- yPLI3g3+oioNJV6/QEbbDI1H7KxddRYWv5X68/6XodgK8hNneLKFyuYP4 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10241"; a="247155723"
-X-IronPort-AV: E=Sophos;i="5.88,325,1635231600"; d="scan'208";a="247155723"
+ bh=6zTEknoVaxiuRxXTc+Z65iUg+OzsiYopUNvx6L9CAP4=;
+ b=YF58Bw1bLGLCbF1FikyprfgqLLlFahOe5iq8TOSzz+r215hINQaMNev+
+ 4gne+M0OIslvuDt8P0Z1Jlmhz0Ddr+E5vRQSsztE/rrNLKWOpngoiXgcR
+ FnlSPZwPYUF01cdPkF4dhlpq1rlEx2XCiXf3kVSykoXCQW5oVx1KztLSF
+ g6X+E/faCUQkiKmrLAzSD5i3k1R6emxB+Ils1SvkvC9I5WthDzDR94Suy
+ B1WmAAgnZaQ9yECU3RWw6bXUBtt1rnbOPEGfNmGDIAJ87GtchkUeX8Lbu
+ 1BaJ3zwqXkDXl2pkPNv9lxecwqAHWe3bouC52w4sorYsnskdEmK8I2YJk A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10241"; a="247155719"
+X-IronPort-AV: E=Sophos;i="5.88,325,1635231600"; d="scan'208";a="247155719"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 14:10:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,325,1635231600"; d="scan'208";a="496265942"
+ 28 Jan 2022 14:10:27 -0800
+X-IronPort-AV: E=Sophos;i="5.88,325,1635231600"; d="scan'208";a="496265923"
 Received: from bainsko-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.209.109.18])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 14:10:29 -0800
+ 28 Jan 2022 14:10:27 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 14:10:20 -0800
-Message-Id: <20220128221020.188253-5-michael.cheng@intel.com>
+Date: Fri, 28 Jan 2022 14:10:18 -0800
+Message-Id: <20220128221020.188253-3-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220128221020.188253-1-michael.cheng@intel.com>
 References: <20220128221020.188253-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915/: Re-work clflush_write32
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/gt: Re-work
+ invalidate_csb_entries
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +62,29 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com, matthew.auld@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use drm_clflush_virt_range instead of clflushopt and remove the memory
-barrier, since drm_clflush_virt_range takes care of that.
+Re-work invalidate_csb_entries to use drm_clflush_virt_range. This will
+prevent compiler errors when building for non-x86 architectures.
 
 Signed-off-by: Michael Cheng <michael.cheng@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 498b458fd784..0854276ff7ba 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1332,10 +1332,8 @@ static void *reloc_vaddr(struct i915_vma *vma,
- static void clflush_write32(u32 *addr, u32 value, unsigned int flushes)
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 960a9aaf4f3a..90b5daf9433d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1647,8 +1647,8 @@ cancel_port_requests(struct intel_engine_execlists * const execlists,
+ 
+ static void invalidate_csb_entries(const u64 *first, const u64 *last)
  {
- 	if (unlikely(flushes & (CLFLUSH_BEFORE | CLFLUSH_AFTER))) {
--		if (flushes & CLFLUSH_BEFORE) {
--			clflushopt(addr);
--			mb();
--		}
-+		if (flushes & CLFLUSH_BEFORE)
-+			drm_clflush_virt_range(addr, sizeof(addr));
- 
- 		*addr = value;
- 
-@@ -1347,7 +1345,7 @@ static void clflush_write32(u32 *addr, u32 value, unsigned int flushes)
- 		 * to ensure ordering of clflush wrt to the system.
- 		 */
- 		if (flushes & CLFLUSH_AFTER)
--			clflushopt(addr);
-+			drm_clflush_virt_range(addr, sizeof(addr));
- 	} else
- 		*addr = value;
+-	clflush((void *)first);
+-	clflush((void *)last);
++	drm_clflush_virt_range((void *)first, sizeof(*first));
++	drm_clflush_virt_range((void *)last, sizeof(*last));
  }
+ 
+ /*
 -- 
 2.25.1
 
