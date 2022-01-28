@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77FEFC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50497C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:49:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD69410E71A;
-	Fri, 28 Jan 2022 11:49:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2D510E72D;
+	Fri, 28 Jan 2022 11:49:27 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26E2C10E6FC
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9531710E714
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643370559; x=1674906559;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=1mfUkMILhBA7P+kzuYmazMxB2QC2zwAVgxnHJ7HoNcY=;
- b=DRLOJrW/abGKxMrlJtkV6EQSMAaSXh/Mf3RpItI2jp76LiN14aqJNGE8
- p3AqbXrT0pjIEJV5O5ZwoJRTcNuZIhHjpJ5t9z/ULw+wBNwSDSCNNUnwr
- e+XjuvB0ds+DMwIUHydchHzLKvAWNw2MwDUml/VRS8J1mtHdorLN21bFQ
- 44z9OrqUe7qGWVQLV5ENU6I96CVsDFAhrpA+nrFR7WKYHnqFNaASpllD/
- eCGmcLmssnUM96OFFnvGdQLXmtWe1PwNlMbnaIB1zdCNatx356UqO1KZb
- yuJ/vXnKDkQXpsYk+tBTpUraLIFC4hAoyW0sOoX8UDrsvExm8v2S8yIQL g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420909"
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420909"
+ t=1643370560; x=1674906560;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=KIYh8nqA9TO9eJgoB5Jb++DEOnq00dknVNp7+o0x9Yg=;
+ b=gpZ0dU82ro1gWcO7F2gGSpP5jMbS6pMoRZVXrxUeTtB1vtd/kbPQ85Xi
+ oaCCTL7vZYEZEsnep5r4ztmzJjvG4epAPklI9MChSjEfqu5nKuPjdcbql
+ CIvT4qCsbaf0xOJMVPNSGx3YL2yIGHnTp59aCbAid4yLKgTuonweoxbKc
+ +k3u4dBPPDJEbKSUhHXg3C5xzDBmVHZXTQeHbjzMZFGqM8WmrZKtE+pZe
+ PFSlxAF4eenxYi+uM1iGI7IHkemvNTesBcmL1pV9isCPNNnLoOf86qA0z
+ SK6Nb/eqqGmnq44vfDFocZkUZXJDy6sI7szF89pbsXSRyS1BoaPgraWK4 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420916"
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420916"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:18 -0800
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712804"
+ 28 Jan 2022 03:49:20 -0800
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712816"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:17 -0800
+ 28 Jan 2022 03:49:19 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 13:48:55 +0200
-Message-Id: <20220128114914.2339526-1-imre.deak@intel.com>
+Date: Fri, 28 Jan 2022 13:48:57 +0200
+Message-Id: <20220128114914.2339526-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20220128114914.2339526-1-imre.deak@intel.com>
+References: <20220128114914.2339526-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/19] drm/i915: Refactor the display power
- domain mappings
+Subject: [Intel-gfx] [PATCH 02/19] drm/i915: Unexport the
+ for_each_power_well() macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,61 +59,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset moves the per-platform display power domain->power well
-mapping descriptors to a separate file and simplifies them by sharing
-descriptor data among port power well instances and platforms where
-possible.
+The for_each_power_well() macros are only used in intel_display_power.c,
+so unexport them.
 
-The power well and domain names are also sanitized to match the actual
-specification terminology. For this the patchset removes the aliasing
-among the display power domain enum values, which in turn required
-extending the u64 domain mask to a bitmap.
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ .../drm/i915/display/intel_display_power.c    | 20 +++++++++++++++++++
+ .../drm/i915/display/intel_display_power.h    | 20 -------------------
+ 2 files changed, 20 insertions(+), 20 deletions(-)
 
-I also pushed the changes to:
-https://github.com/ideak/linux/commits/power-domain-refactor
-
-Imre Deak (19):
-  drm/i915: Fix the VDSC_PW2 power domain enum value
-  drm/i915: Unexport the for_each_power_well() macros
-  drm/i915: Move the i915_power_well_regs struct into
-    i915_power_well_ops
-  drm/i915: Move the power domain->well mappings to
-    intel_display_power_map.c
-  drm/i915: Move the dg2 fixed_enable_delay power well param to a common
-    bitfield
-  drm/i915: Move the HSW power well flags to a common bitfield
-  drm/i915: Rename the power domain names to end with pipes/ports
-  drm/i915: Sanitize the power well names
-  drm/i915: Convert the power well descriptor domain mask to a list
-  drm/i915: Convert the u64 power well domains mask to a bitmap
-  drm/i915: Simplify power well definitions by adding power well
-    instances
-  drm/i915: Allow platforms to share power well descriptors
-  drm/i915: Simplify the DG1 power well descriptors
-  drm/i915: Sanitize the ADL-S power well definition
-  drm/i915: Sanitize the port -> DDI/AUX power domain mapping for each
-    platform
-  drm/i915: Remove the aliasing of power domain enum values
-  drm/i915: Remove the ICL specific TBT power domains
-  drm/i915: Remove duplicate DDI/AUX power domain mappings
-  drm/i915: Remove the XELPD specific AUX and DDI power domains
-
- drivers/gpu/drm/i915/Makefile                 |    1 +
- drivers/gpu/drm/i915/display/g4x_dp.c         |    3 +-
- drivers/gpu/drm/i915/display/g4x_hdmi.c       |    3 +-
- drivers/gpu/drm/i915/display/icl_dsi.c        |    8 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |    5 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  149 +-
- drivers/gpu/drm/i915/display/intel_display.h  |    4 +-
- .../drm/i915/display/intel_display_power.c    | 2904 ++---------------
- .../drm/i915/display/intel_display_power.h    |  133 +-
- .../display/intel_display_power_internal.h    |  106 +
- .../i915/display/intel_display_power_map.c    | 1848 +++++++++++
- drivers/gpu/drm/i915/display/intel_tc.c       |    4 +-
- 12 files changed, 2263 insertions(+), 2905 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_power_internal.h
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_power_map.c
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index e64d407e7b8db..b500cc94ded75 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -25,6 +25,26 @@
+ #include "intel_vga.h"
+ #include "vlv_sideband.h"
+ 
++#define for_each_power_well(__dev_priv, __power_well)				\
++	for ((__power_well) = (__dev_priv)->power_domains.power_wells;	\
++	     (__power_well) - (__dev_priv)->power_domains.power_wells <	\
++		(__dev_priv)->power_domains.power_well_count;		\
++	     (__power_well)++)
++
++#define for_each_power_well_reverse(__dev_priv, __power_well)			\
++	for ((__power_well) = (__dev_priv)->power_domains.power_wells +		\
++			      (__dev_priv)->power_domains.power_well_count - 1;	\
++	     (__power_well) - (__dev_priv)->power_domains.power_wells >= 0;	\
++	     (__power_well)--)
++
++#define for_each_power_domain_well(__dev_priv, __power_well, __domain_mask)	\
++	for_each_power_well(__dev_priv, __power_well)				\
++		for_each_if((__power_well)->desc->domains & (__domain_mask))
++
++#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain_mask) \
++	for_each_power_well_reverse(__dev_priv, __power_well)		        \
++		for_each_if((__power_well)->desc->domains & (__domain_mask))
++
+ struct i915_power_well_ops {
+ 	/*
+ 	 * Synchronize the well's hw state to match the current sw state, for
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+index a3997f05cd89b..b30e6133c66d0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+@@ -197,26 +197,6 @@ struct intel_display_power_domain_set {
+ 	for ((domain) = 0; (domain) < POWER_DOMAIN_NUM; (domain)++)	\
+ 		for_each_if(BIT_ULL(domain) & (mask))
+ 
+-#define for_each_power_well(__dev_priv, __power_well)				\
+-	for ((__power_well) = (__dev_priv)->power_domains.power_wells;	\
+-	     (__power_well) - (__dev_priv)->power_domains.power_wells <	\
+-		(__dev_priv)->power_domains.power_well_count;		\
+-	     (__power_well)++)
+-
+-#define for_each_power_well_reverse(__dev_priv, __power_well)			\
+-	for ((__power_well) = (__dev_priv)->power_domains.power_wells +		\
+-			      (__dev_priv)->power_domains.power_well_count - 1;	\
+-	     (__power_well) - (__dev_priv)->power_domains.power_wells >= 0;	\
+-	     (__power_well)--)
+-
+-#define for_each_power_domain_well(__dev_priv, __power_well, __domain_mask)	\
+-	for_each_power_well(__dev_priv, __power_well)				\
+-		for_each_if((__power_well)->desc->domains & (__domain_mask))
+-
+-#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain_mask) \
+-	for_each_power_well_reverse(__dev_priv, __power_well)		        \
+-		for_each_if((__power_well)->desc->domains & (__domain_mask))
+-
+ int intel_power_domains_init(struct drm_i915_private *dev_priv);
+ void intel_power_domains_cleanup(struct drm_i915_private *dev_priv);
+ void intel_power_domains_init_hw(struct drm_i915_private *dev_priv, bool resume);
 -- 
 2.27.0
 
