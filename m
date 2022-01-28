@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF3D5C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 18:52:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB07DC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 18:52:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE9DD10E7E6;
-	Fri, 28 Jan 2022 18:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA79610E758;
+	Fri, 28 Jan 2022 18:52:22 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 028C310E76F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BC5710E752;
  Fri, 28 Jan 2022 18:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643395938; x=1674931938;
+ t=1643395937; x=1674931937;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=PS1m/23XRkcfXAhz6RTQAnh4TmNL9PFELEsRwE9opwc=;
- b=RAB2GBNZtWqLCIFi+z3GhEtlrze9B3uKQ9if2rj8CtqYM3903/m723Dx
- LeOS8Xc7cgtSQIZXZCpE7bv7fTGqimsCgh/yLXAxQ9XyoEh3A/1kamJmm
- ChRv0gkiSzjymB9qjUconQWPhuRZg5f6WeIfH7W4Yqski0qiLZ3DydPMT
- Okr6mL2Bca91gVlFsPNqzJmegOOT6GvrDED8i8enHpsznoqWZIDyIuWRZ
- ZLKp3yUGgMb33Lc2hkHcNfiLNIp65UxpG6zsB0zWU4n/5n9HMYJlLgWdo
- LUX361VG4s/R3wwujgXG1eD/sumKBdXtWZihWLsjifanCHpYcQm+D70PB g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310490208"
-X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="310490208"
+ bh=QJdXPyU5oTAxDiQoh/0/qeoqVUU5wh9YcGZsW6UH1UI=;
+ b=E/fGaOjnD1k0jI9RbHlPn2sozPU82QZjxoWYU6HBAo6ghk041SeIUCH1
+ 3JSyk12GazTu8RO1RhuHOULMtnOQgynS4cayy9TvaZNeYAcZXjlyDWwEz
+ goo8sgLrNQ/uSlR/vKaHGKojSF4JEs8IQ+zaCdkc6TciZ7uufRnfZr8zz
+ 9yWnLAWhTISnownJb2FLekJsrrZ0H0IyFzLByfIk5JcTdG8ltsodgFD4C
+ pmGGO0bPx7cZPRq7waFjEd968kSbDyz95uUT43fQy95OxOKG5pyNcE8eh
+ J6u3CEnK/lXHehLa1GwLbGdWy40PMkxsXzYhRy6WNPfYZGP21o/qJyvTM Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310490195"
+X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="310490195"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 10:52:17 -0800
-X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="625718077"
+ 28 Jan 2022 10:52:12 -0800
+X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="625718046"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 10:52:14 -0800
+ 28 Jan 2022 10:52:10 -0800
 From: Ramalingam C <ramalingam.c@intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Date: Sat, 29 Jan 2022 00:22:08 +0530
-Message-Id: <20220128185209.18077-5-ramalingam.c@intel.com>
+Date: Sat, 29 Jan 2022 00:22:06 +0530
+Message-Id: <20220128185209.18077-3-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220128185209.18077-1-ramalingam.c@intel.com>
 References: <20220128185209.18077-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915/dg2: Add Wa_22011100796
+Subject: [Intel-gfx] [PATCH 2/5] drm/i915: align the plane_vma to
+ min_page_size of stolen mem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,43 +58,45 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Hellstrom Thomas <thomas.hellstrom@intel.com>,
- Matthew Auld <matthew.auld@intel.com>
+ Matthew Auld <matthew.auld@intel.com>,
+ Chris P Wilson <chris.p.wilson@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Bruce Chang <yu.bruce.chang@intel.com>
+Align the plane vma size to the stolem memory regions' min_page_size.
 
-Whenever Full soft reset is required, reset all individual engines
-first, and then do a full soft reset.
-
-Signed-off-by: Bruce Chang <yu.bruce.chang@intel.com>
-cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+cc: Matthew Auld <matthew.auld@intel.com>
+cc: Chris P Wilson <chris.p.wilson@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_reset.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/i915/display/intel_plane_initial.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 6f2821cca409..5fae56b89319 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -600,6 +600,15 @@ static int gen8_reset_engines(struct intel_gt *gt,
- 		 */
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+index e4186a0b8edb..543877998078 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
++++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+@@ -46,17 +46,18 @@ static struct i915_vma *
+ initial_plane_vma(struct drm_i915_private *i915,
+ 		  struct intel_initial_plane_config *plane_config)
+ {
++	struct intel_memory_region *mem = i915->mm.stolen_region;
+ 	struct drm_i915_gem_object *obj;
+ 	struct i915_vma *vma;
+ 	u32 base, size;
  
-+	/*
-+	 * Wa_22011100796:dg2, whenever Full soft reset is required,
-+	 * reset all individual engines firstly, and then do a full soft reset.
-+	 *
-+	 * This is best effort, so ignore any error from the initial reset.
-+	 */
-+	if (IS_DG2(gt->i915) && engine_mask == ALL_ENGINES)
-+		gen11_reset_engines(gt, gt->info.engine_mask, 0);
-+
- 	if (GRAPHICS_VER(gt->i915) >= 11)
- 		ret = gen11_reset_engines(gt, engine_mask, retry);
- 	else
+-	if (plane_config->size == 0)
++	if (!mem || plane_config->size == 0)
+ 		return NULL;
+ 
+ 	base = round_down(plane_config->base,
+ 			  I915_GTT_MIN_ALIGNMENT);
+ 	size = round_up(plane_config->base + plane_config->size,
+-			I915_GTT_MIN_ALIGNMENT);
++			mem->min_page_size);
+ 	size -= base;
+ 
+ 	/*
 -- 
 2.20.1
 
