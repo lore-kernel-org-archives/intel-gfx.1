@@ -4,46 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859E0C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 22:10:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF55C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 22:31:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A822910E1A6;
-	Fri, 28 Jan 2022 22:10:37 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0944210E16A
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 22:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643407829; x=1674943829;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=11J5sPY1q+j655IojBKmL8NFVvoFQ538N23aefaI9vk=;
- b=N5qJevynHIZwakvgAY6sr1NIcz8IoMjyZuLBxfikDeWeGifriO/KezQm
- COjlU28RyVWtgnxQAxg4mDKwgZYup59/56wrfnMfLFak6SaSh9bxXc8Qf
- D8q6l+Qu8V1YrajUi0MCXuUI+Mhb2e/DNI8QESheE+R4YePOe7VAzvNwC
- 66QTHQS75+v8+qrk+rZvvvD+ekEnhoiHAiAHbYo6stVQZw3YS53bo1K9l
- kzoO9D3qGDp1KTydcZINaXnFhCFiCoMh4gdh9RJ/42ZmbZ+/ND431L3MI
- FaHOS1fE1mFDCbTzjucx3t4vMkWcB/uW/VnYKhk9DOQ6Zm+ZlTX3zF5pa w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10241"; a="247155720"
-X-IronPort-AV: E=Sophos;i="5.88,325,1635231600"; d="scan'208";a="247155720"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 14:10:28 -0800
-X-IronPort-AV: E=Sophos;i="5.88,325,1635231600"; d="scan'208";a="496265926"
-Received: from bainsko-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
- ([10.209.109.18])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 14:10:27 -0800
-From: Michael Cheng <michael.cheng@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 14:10:19 -0800
-Message-Id: <20220128221020.188253-4-michael.cheng@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220128221020.188253-1-michael.cheng@intel.com>
-References: <20220128221020.188253-1-michael.cheng@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 764A410E124;
+	Fri, 28 Jan 2022 22:31:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2132810E124;
+ Fri, 28 Jan 2022 22:31:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1B603AA0ED;
+ Fri, 28 Jan 2022 22:31:58 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915/gt: Re-work reset_csb
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Michael Cheng" <michael.cheng@intel.com>
+Date: Fri, 28 Jan 2022 22:31:58 -0000
+Message-ID: <164340911808.27321.10613246296165287301@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220128221020.188253-1-michael.cheng@intel.com>
+In-Reply-To: <20220128221020.188253-1-michael.cheng@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Use_drm=5Fclflush*_instead_of_clflush_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,32 +40,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michael.cheng@intel.com, lucas.demarchi@intel.com, matthew.auld@intel.com,
- mika.kuoppala@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use drm_clflush_virt_range instead of directly invoking clflush. This
-will prevent compiler errors when building for non-x86 architectures.
+== Series Details ==
 
-Signed-off-by: Michael Cheng <michael.cheng@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 ++
- 1 file changed, 2 insertions(+)
+Series: Use drm_clflush* instead of clflush (rev2)
+URL   : https://patchwork.freedesktop.org/series/99450/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 90b5daf9433d..e8a2e2683b81 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2951,6 +2951,8 @@ reset_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
- 
- 	mb(); /* paranoia: read the CSB pointers from after the reset */
- 	clflush(execlists->csb_write);
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+c57ea525b16d drm/i915/gt: Re-work intel_write_status_page
+addcbfa4043f drm/i915/gt: Re-work invalidate_csb_entries
+1818a889230d drm/i915/gt: Re-work reset_csb
+-:20: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#20: FILE: drivers/gpu/drm/i915/gt/intel_execlists_submission.c:2955:
 +	drm_clflush_virt_range(execlists->csb_write,
 +			sizeof(execlists->csb_write));
- 	mb();
- 
- 	inactive = process_csb(engine, inactive); /* drain preemption events */
--- 
-2.25.1
+
+total: 0 errors, 0 warnings, 1 checks, 8 lines checked
+f9a30ee54be5 drm/i915/: Re-work clflush_write32
+
 
