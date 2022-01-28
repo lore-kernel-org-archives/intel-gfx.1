@@ -4,45 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3195BC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852D5C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 12:49:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 154BB10E6CA;
-	Fri, 28 Jan 2022 11:49:55 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 848E110E818
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643370568; x=1674906568;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=I7LyFIUtoLeCmBgOGLo5URCG7QZtWdp/PIj3bFGBqCY=;
- b=Wh+2+WLks7ksYgIgznsUxtf76TT7YWMTnttxgSLSv7G8QbviT9PA0FbH
- Gt3VSOjSEqjzurf3XEOisIyBvvOMh55/a66Q2DFarDb83SzmSnadYNVZB
- r/dEWhGLZ8jXk6UvpDtP36EbT0JX9RU+hKBv4gG4xGs2X39CjoMs9/4Jf
- SfrEDmy329qWdMV60AQwdgwY51lAsp9cqnnQYyKi78sF8y6vWoMXAcBMi
- 7X1TVr6aJtc3tgeIJ82qSeu3Ge5TIGrJZuCXmNi7kIPcI3AwqjPeQA6vf
- qa09G5yIAFqzvV4FSqbI8FM/CeigpJvg3H4D43uEPbJVOniEKPQt28Id4 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420932"
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420932"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:28 -0800
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712834"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:27 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 13:49:03 +0200
-Message-Id: <20220128114914.2339526-9-imre.deak@intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20220128114914.2339526-1-imre.deak@intel.com>
-References: <20220128114914.2339526-1-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1FD210E6A3;
+	Fri, 28 Jan 2022 12:49:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 51BA610E64A;
+ Fri, 28 Jan 2022 12:49:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 4B6B1A0169;
+ Fri, 28 Jan 2022 12:49:50 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/19] drm/i915: Sanitize the power well names
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Date: Fri, 28 Jan 2022 12:49:50 -0000
+Message-ID: <164337419027.27319.13155723525139890@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220128114914.2339526-1-imre.deak@intel.com>
+In-Reply-To: <20220128114914.2339526-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Refactor_the_display_power_domain_mappings?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,1138 +40,703 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the shortest descriptive name for all power wells for simplicity and
-to use the same name for the same type of power wells on multiple
-platforms.
+== Series Details ==
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- .../i915/display/intel_display_power_map.c    | 254 +++++++++---------
- 1 file changed, 127 insertions(+), 127 deletions(-)
+Series: drm/i915: Refactor the display power domain mappings
+URL   : https://patchwork.freedesktop.org/series/99476/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 30c9d94b55929..773b133902e3d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -500,7 +500,7 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -511,7 +511,7 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "MISC IO power well",
-+		.name = "MISC_IO",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -521,12 +521,12 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_MISC_IO,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = SKL_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = SKL_DISPLAY_POWERWELL_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_vga = true,
-@@ -537,7 +537,7 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_PW_2,
- 		},
- 	}, {
--		.name = "DDI A/E IO power well",
-+		.name = "DDI_IO_A_E",
- 		.domains = SKL_DISPLAY_DDI_IO_A_E_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -545,7 +545,7 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_DDI_A_E,
- 		},
- 	}, {
--		.name = "DDI B IO power well",
-+		.name = "DDI_IO_B",
- 		.domains = SKL_DISPLAY_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -553,7 +553,7 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_DDI_B,
- 		},
- 	}, {
--		.name = "DDI C IO power well",
-+		.name = "DDI_IO_C",
- 		.domains = SKL_DISPLAY_DDI_IO_C_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -561,7 +561,7 @@ static const struct i915_power_well_desc skl_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_DDI_C,
- 		},
- 	}, {
--		.name = "DDI D IO power well",
-+		.name = "DDI_IO_D",
- 		.domains = SKL_DISPLAY_DDI_IO_D_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -616,7 +616,7 @@ static const struct i915_power_well_desc bxt_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -627,12 +627,12 @@ static const struct i915_power_well_desc bxt_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = BXT_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = BXT_DISPLAY_POWERWELL_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_vga = true,
-@@ -726,7 +726,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -737,12 +737,12 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = GLK_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = GLK_DISPLAY_POWERWELL_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_vga = true,
-@@ -777,7 +777,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.bxt.phy = DPIO_PHY2,
- 		},
- 	}, {
--		.name = "AUX A",
-+		.name = "AUX_A",
- 		.domains = GLK_DISPLAY_AUX_A_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -785,7 +785,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.hsw.idx = GLK_PW_CTL_IDX_AUX_A,
- 		},
- 	}, {
--		.name = "AUX B",
-+		.name = "AUX_B",
- 		.domains = GLK_DISPLAY_AUX_B_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -793,7 +793,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.hsw.idx = GLK_PW_CTL_IDX_AUX_B,
- 		},
- 	}, {
--		.name = "AUX C",
-+		.name = "AUX_C",
- 		.domains = GLK_DISPLAY_AUX_C_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -801,7 +801,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.hsw.idx = GLK_PW_CTL_IDX_AUX_C,
- 		},
- 	}, {
--		.name = "DDI A IO power well",
-+		.name = "DDI_IO_A",
- 		.domains = GLK_DISPLAY_DDI_IO_A_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -809,7 +809,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.hsw.idx = GLK_PW_CTL_IDX_DDI_A,
- 		},
- 	}, {
--		.name = "DDI B IO power well",
-+		.name = "DDI_IO_B",
- 		.domains = GLK_DISPLAY_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -817,7 +817,7 @@ static const struct i915_power_well_desc glk_power_wells[] = {
- 			.hsw.idx = SKL_PW_CTL_IDX_DDI_B,
- 		},
- 	}, {
--		.name = "DDI C IO power well",
-+		.name = "DDI_IO_C",
- 		.domains = GLK_DISPLAY_DDI_IO_C_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -921,7 +921,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -932,12 +932,12 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = ICL_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = ICL_PW_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -946,7 +946,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_2,
- 		},
- 	}, {
--		.name = "power well 3",
-+		.name = "PW_3",
- 		.domains = ICL_PW_3_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_vga = true,
-@@ -957,7 +957,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_3,
- 		},
- 	}, {
--		.name = "DDI A IO",
-+		.name = "DDI_IO_A",
- 		.domains = ICL_DDI_IO_A_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -965,7 +965,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_A,
- 		},
- 	}, {
--		.name = "DDI B IO",
-+		.name = "DDI_IO_B",
- 		.domains = ICL_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -973,7 +973,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_B,
- 		},
- 	}, {
--		.name = "DDI C IO",
-+		.name = "DDI_IO_C",
- 		.domains = ICL_DDI_IO_C_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -981,7 +981,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_C,
- 		},
- 	}, {
--		.name = "DDI D IO",
-+		.name = "DDI_IO_D",
- 		.domains = ICL_DDI_IO_D_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -989,7 +989,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_D,
- 		},
- 	}, {
--		.name = "DDI E IO",
-+		.name = "DDI_IO_E",
- 		.domains = ICL_DDI_IO_E_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -997,7 +997,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_E,
- 		},
- 	}, {
--		.name = "DDI F IO",
-+		.name = "DDI_IO_F",
- 		.domains = ICL_DDI_IO_F_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1005,7 +1005,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_F,
- 		},
- 	}, {
--		.name = "AUX A",
-+		.name = "AUX_A",
- 		.domains = ICL_AUX_A_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1013,7 +1013,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
- 		},
- 	}, {
--		.name = "AUX B",
-+		.name = "AUX_B",
- 		.domains = ICL_AUX_B_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1021,7 +1021,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
- 		},
- 	}, {
--		.name = "AUX C TC1",
-+		.name = "AUX_C",
- 		.domains = ICL_AUX_C_TC1_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1030,7 +1030,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_C,
- 		},
- 	}, {
--		.name = "AUX D TC2",
-+		.name = "AUX_D",
- 		.domains = ICL_AUX_D_TC2_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1039,7 +1039,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_D,
- 		},
- 	}, {
--		.name = "AUX E TC3",
-+		.name = "AUX_E",
- 		.domains = ICL_AUX_E_TC3_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1048,7 +1048,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_E,
- 		},
- 	}, {
--		.name = "AUX F TC4",
-+		.name = "AUX_F",
- 		.domains = ICL_AUX_F_TC4_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1057,7 +1057,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_F,
- 		},
- 	}, {
--		.name = "AUX C TBT1",
-+		.name = "AUX_TBT1",
- 		.domains = ICL_AUX_C_TBT1_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1066,7 +1066,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_TBT1,
- 		},
- 	}, {
--		.name = "AUX D TBT2",
-+		.name = "AUX_TBT2",
- 		.domains = ICL_AUX_D_TBT2_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1075,7 +1075,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_TBT2,
- 		},
- 	}, {
--		.name = "AUX E TBT3",
-+		.name = "AUX_TBT3",
- 		.domains = ICL_AUX_E_TBT3_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1084,7 +1084,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_TBT3,
- 		},
- 	}, {
--		.name = "AUX F TBT4",
-+		.name = "AUX_TBT4",
- 		.domains = ICL_AUX_F_TBT4_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1093,7 +1093,7 @@ static const struct i915_power_well_desc icl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_TBT4,
- 		},
- 	}, {
--		.name = "power well 4",
-+		.name = "PW_4",
- 		.domains = ICL_PW_4_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_C),
-@@ -1209,7 +1209,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -1220,12 +1220,12 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = TGL_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = TGL_PW_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1234,7 +1234,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_2,
- 		},
- 	}, {
--		.name = "power well 3",
-+		.name = "PW_3",
- 		.domains = TGL_PW_3_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_vga = true,
-@@ -1245,7 +1245,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_3,
- 		},
- 	}, {
--		.name = "DDI A IO",
-+		.name = "DDI_IO_A",
- 		.domains = ICL_DDI_IO_A_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1253,7 +1253,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_A,
- 		}
- 	}, {
--		.name = "DDI B IO",
-+		.name = "DDI_IO_B",
- 		.domains = ICL_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1261,7 +1261,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_B,
- 		}
- 	}, {
--		.name = "DDI C IO",
-+		.name = "DDI_IO_C",
- 		.domains = ICL_DDI_IO_C_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1269,7 +1269,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_C,
- 		}
- 	}, {
--		.name = "DDI IO TC1",
-+		.name = "DDI_IO_TC1",
- 		.domains = TGL_DDI_IO_TC1_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1277,7 +1277,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC1,
- 		},
- 	}, {
--		.name = "DDI IO TC2",
-+		.name = "DDI_IO_TC2",
- 		.domains = TGL_DDI_IO_TC2_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1285,7 +1285,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC2,
- 		},
- 	}, {
--		.name = "DDI IO TC3",
-+		.name = "DDI_IO_TC3",
- 		.domains = TGL_DDI_IO_TC3_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1293,7 +1293,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC3,
- 		},
- 	}, {
--		.name = "DDI IO TC4",
-+		.name = "DDI_IO_TC4",
- 		.domains = TGL_DDI_IO_TC4_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1301,7 +1301,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC4,
- 		},
- 	}, {
--		.name = "DDI IO TC5",
-+		.name = "DDI_IO_TC5",
- 		.domains = TGL_DDI_IO_TC5_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1309,7 +1309,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC5,
- 		},
- 	}, {
--		.name = "DDI IO TC6",
-+		.name = "DDI_IO_TC6",
- 		.domains = TGL_DDI_IO_TC6_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1317,12 +1317,12 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC6,
- 		},
- 	}, {
--		.name = "TC cold off",
-+		.name = "TC_cold_off",
- 		.domains = TGL_TC_COLD_OFF_POWER_DOMAINS,
- 		.ops = &tgl_tc_cold_off_ops,
- 		.id = TGL_DISP_PW_TC_COLD_OFF,
- 	}, {
--		.name = "AUX A",
-+		.name = "AUX_A",
- 		.domains = TGL_AUX_A_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1330,7 +1330,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
- 		},
- 	}, {
--		.name = "AUX B",
-+		.name = "AUX_B",
- 		.domains = TGL_AUX_B_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1338,7 +1338,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
- 		},
- 	}, {
--		.name = "AUX C",
-+		.name = "AUX_C",
- 		.domains = TGL_AUX_C_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1346,7 +1346,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_C,
- 		},
- 	}, {
--		.name = "AUX USBC1",
-+		.name = "AUX_USBC1",
- 		.domains = TGL_AUX_IO_USBC1_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1355,7 +1355,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
- 		},
- 	}, {
--		.name = "AUX USBC2",
-+		.name = "AUX_USBC2",
- 		.domains = TGL_AUX_IO_USBC2_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1364,7 +1364,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC2,
- 		},
- 	}, {
--		.name = "AUX USBC3",
-+		.name = "AUX_USBC3",
- 		.domains = TGL_AUX_IO_USBC3_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1373,7 +1373,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC3,
- 		},
- 	}, {
--		.name = "AUX USBC4",
-+		.name = "AUX_USBC4",
- 		.domains = TGL_AUX_IO_USBC4_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1382,7 +1382,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC4,
- 		},
- 	}, {
--		.name = "AUX USBC5",
-+		.name = "AUX_USBC5",
- 		.domains = TGL_AUX_IO_USBC5_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1391,7 +1391,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC5,
- 		},
- 	}, {
--		.name = "AUX USBC6",
-+		.name = "AUX_USBC6",
- 		.domains = TGL_AUX_IO_USBC6_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1400,7 +1400,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC6,
- 		},
- 	}, {
--		.name = "AUX TBT1",
-+		.name = "AUX_TBT1",
- 		.domains = TGL_AUX_IO_TBT1_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1409,7 +1409,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT1,
- 		},
- 	}, {
--		.name = "AUX TBT2",
-+		.name = "AUX_TBT2",
- 		.domains = TGL_AUX_IO_TBT2_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1418,7 +1418,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT2,
- 		},
- 	}, {
--		.name = "AUX TBT3",
-+		.name = "AUX_TBT3",
- 		.domains = TGL_AUX_IO_TBT3_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1427,7 +1427,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT3,
- 		},
- 	}, {
--		.name = "AUX TBT4",
-+		.name = "AUX_TBT4",
- 		.domains = TGL_AUX_IO_TBT4_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1436,7 +1436,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT4,
- 		},
- 	}, {
--		.name = "AUX TBT5",
-+		.name = "AUX_TBT5",
- 		.domains = TGL_AUX_IO_TBT5_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1445,7 +1445,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT5,
- 		},
- 	}, {
--		.name = "AUX TBT6",
-+		.name = "AUX_TBT6",
- 		.domains = TGL_AUX_IO_TBT6_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -1454,7 +1454,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT6,
- 		},
- 	}, {
--		.name = "power well 4",
-+		.name = "PW_4",
- 		.domains = TGL_PW_4_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1464,7 +1464,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_4,
- 		}
- 	}, {
--		.name = "power well 5",
-+		.name = "PW_5",
- 		.domains = TGL_PW_5_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1532,7 +1532,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -1543,12 +1543,12 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = RKL_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 3",
-+		.name = "PW_3",
- 		.domains = RKL_PW_3_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_B),
-@@ -1559,7 +1559,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_3,
- 		},
- 	}, {
--		.name = "power well 4",
-+		.name = "PW_4",
- 		.domains = RKL_PW_4_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1569,7 +1569,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_4,
- 		}
- 	}, {
--		.name = "DDI A IO",
-+		.name = "DDI_IO_A",
- 		.domains = ICL_DDI_IO_A_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1577,7 +1577,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_A,
- 		}
- 	}, {
--		.name = "DDI B IO",
-+		.name = "DDI_IO_B",
- 		.domains = ICL_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1585,7 +1585,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_B,
- 		}
- 	}, {
--		.name = "DDI IO TC1",
-+		.name = "DDI_IO_TC1",
- 		.domains = TGL_DDI_IO_TC1_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1593,7 +1593,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC1,
- 		},
- 	}, {
--		.name = "DDI IO TC2",
-+		.name = "DDI_IO_TC2",
- 		.domains = TGL_DDI_IO_TC2_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1601,7 +1601,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC2,
- 		},
- 	}, {
--		.name = "AUX A",
-+		.name = "AUX_A",
- 		.domains = ICL_AUX_A_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1609,7 +1609,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
- 		},
- 	}, {
--		.name = "AUX B",
-+		.name = "AUX_B",
- 		.domains = ICL_AUX_B_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1617,7 +1617,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
- 		},
- 	}, {
--		.name = "AUX USBC1",
-+		.name = "AUX_USBC1",
- 		.domains = TGL_AUX_IO_USBC1_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1625,7 +1625,7 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
- 		},
- 	}, {
--		.name = "AUX USBC2",
-+		.name = "AUX_USBC2",
- 		.domains = TGL_AUX_IO_USBC2_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1672,7 +1672,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -1683,12 +1683,12 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = DG1_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = DG1_PW_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1697,7 +1697,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_2,
- 		},
- 	}, {
--		.name = "power well 3",
-+		.name = "PW_3",
- 		.domains = DG1_PW_3_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_B),
-@@ -1708,7 +1708,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_3,
- 		},
- 	}, {
--		.name = "DDI A IO",
-+		.name = "DDI_IO_A",
- 		.domains = ICL_DDI_IO_A_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1716,7 +1716,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_A,
- 		}
- 	}, {
--		.name = "DDI B IO",
-+		.name = "DDI_IO_B",
- 		.domains = ICL_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1724,7 +1724,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_B,
- 		}
- 	}, {
--		.name = "DDI IO TC1",
-+		.name = "DDI_IO_TC1",
- 		.domains = TGL_DDI_IO_TC1_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1732,7 +1732,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC1,
- 		},
- 	}, {
--		.name = "DDI IO TC2",
-+		.name = "DDI_IO_TC2",
- 		.domains = TGL_DDI_IO_TC2_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1740,7 +1740,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC2,
- 		},
- 	}, {
--		.name = "AUX A",
-+		.name = "AUX_A",
- 		.domains = TGL_AUX_A_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1748,7 +1748,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
- 		},
- 	}, {
--		.name = "AUX B",
-+		.name = "AUX_B",
- 		.domains = TGL_AUX_B_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1756,7 +1756,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
- 		},
- 	}, {
--		.name = "AUX USBC1",
-+		.name = "AUX_USBC1",
- 		.domains = TGL_AUX_IO_USBC1_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1765,7 +1765,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
- 		},
- 	}, {
--		.name = "AUX USBC2",
-+		.name = "AUX_USBC2",
- 		.domains = TGL_AUX_IO_USBC2_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = false,
-@@ -1774,7 +1774,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC2,
- 		},
- 	}, {
--		.name = "power well 4",
-+		.name = "PW_4",
- 		.domains = TGL_PW_4_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1784,7 +1784,7 @@ static const struct i915_power_well_desc dg1_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_4,
- 		}
- 	}, {
--		.name = "power well 5",
-+		.name = "PW_5",
- 		.domains = TGL_PW_5_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
-@@ -1916,7 +1916,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 		.always_on = true,
- 		.id = DISP_PW_ID_NONE,
- 	}, {
--		.name = "power well 1",
-+		.name = "PW_1",
- 		/* Handled by the DMC firmware */
- 		.domains = 0,
- 		.ops = &hsw_power_well_ops,
-@@ -1927,12 +1927,12 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_1,
- 		},
- 	}, {
--		.name = "DC off",
-+		.name = "DC_off",
- 		.domains = XELPD_DISPLAY_DC_OFF_POWER_DOMAINS,
- 		.ops = &gen9_dc_off_power_well_ops,
- 		.id = SKL_DISP_DC_OFF,
- 	}, {
--		.name = "power well 2",
-+		.name = "PW_2",
- 		.domains = XELPD_PW_2_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.has_vga = true,
-@@ -1942,7 +1942,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_PW_2,
- 		},
- 	}, {
--		.name = "power well A",
-+		.name = "PW_A",
- 		.domains = XELPD_PW_A_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_A),
-@@ -1952,7 +1952,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_PW_A,
- 		},
- 	}, {
--		.name = "power well B",
-+		.name = "PW_B",
- 		.domains = XELPD_PW_B_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_B),
-@@ -1962,7 +1962,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_PW_B,
- 		},
- 	}, {
--		.name = "power well C",
-+		.name = "PW_C",
- 		.domains = XELPD_PW_C_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_C),
-@@ -1972,7 +1972,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_PW_C,
- 		},
- 	}, {
--		.name = "power well D",
-+		.name = "PW_D",
- 		.domains = XELPD_PW_D_POWER_DOMAINS,
- 		.ops = &hsw_power_well_ops,
- 		.irq_pipe_mask = BIT(PIPE_D),
-@@ -1982,7 +1982,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_PW_D,
- 		},
- 	}, {
--		.name = "DDI A IO",
-+		.name = "DDI_IO_A",
- 		.domains = ICL_DDI_IO_A_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1990,7 +1990,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_A,
- 		}
- 	}, {
--		.name = "DDI B IO",
-+		.name = "DDI_IO_B",
- 		.domains = ICL_DDI_IO_B_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -1998,7 +1998,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_B,
- 		}
- 	}, {
--		.name = "DDI C IO",
-+		.name = "DDI_IO_C",
- 		.domains = ICL_DDI_IO_C_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2006,7 +2006,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_DDI_C,
- 		}
- 	}, {
--		.name = "DDI IO D_XELPD",
-+		.name = "DDI_IO_D_XELPD",
- 		.domains = XELPD_DDI_IO_D_XELPD_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2014,7 +2014,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_DDI_D,
- 		}
- 	}, {
--		.name = "DDI IO E_XELPD",
-+		.name = "DDI_IO_E_XELPD",
- 		.domains = XELPD_DDI_IO_E_XELPD_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2022,7 +2022,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_DDI_E,
- 		}
- 	}, {
--		.name = "DDI IO TC1",
-+		.name = "DDI_IO_TC1",
- 		.domains = XELPD_DDI_IO_TC1_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2030,7 +2030,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC1,
- 		}
- 	}, {
--		.name = "DDI IO TC2",
-+		.name = "DDI_IO_TC2",
- 		.domains = XELPD_DDI_IO_TC2_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2038,7 +2038,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC2,
- 		}
- 	}, {
--		.name = "DDI IO TC3",
-+		.name = "DDI_IO_TC3",
- 		.domains = XELPD_DDI_IO_TC3_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2046,7 +2046,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC3,
- 		}
- 	}, {
--		.name = "DDI IO TC4",
-+		.name = "DDI_IO_TC4",
- 		.domains = XELPD_DDI_IO_TC4_POWER_DOMAINS,
- 		.ops = &icl_ddi_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2054,7 +2054,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC4,
- 		}
- 	}, {
--		.name = "AUX A",
-+		.name = "AUX_A",
- 		.domains = ICL_AUX_A_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.fixed_enable_delay = true,
-@@ -2063,7 +2063,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
- 		},
- 	}, {
--		.name = "AUX B",
-+		.name = "AUX_B",
- 		.domains = ICL_AUX_B_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.fixed_enable_delay = true,
-@@ -2072,7 +2072,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
- 		},
- 	}, {
--		.name = "AUX C",
-+		.name = "AUX_C",
- 		.domains = TGL_AUX_C_IO_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.fixed_enable_delay = true,
-@@ -2081,7 +2081,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_C,
- 		},
- 	}, {
--		.name = "AUX D_XELPD",
-+		.name = "AUX_D_XELPD",
- 		.domains = XELPD_AUX_IO_D_XELPD_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.fixed_enable_delay = true,
-@@ -2090,7 +2090,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_AUX_D,
- 		},
- 	}, {
--		.name = "AUX E_XELPD",
-+		.name = "AUX_E_XELPD",
- 		.domains = XELPD_AUX_IO_E_XELPD_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2098,7 +2098,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = XELPD_PW_CTL_IDX_AUX_E,
- 		},
- 	}, {
--		.name = "AUX USBC1",
-+		.name = "AUX_USBC1",
- 		.domains = XELPD_AUX_IO_USBC1_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.fixed_enable_delay = true,
-@@ -2107,7 +2107,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
- 		},
- 	}, {
--		.name = "AUX USBC2",
-+		.name = "AUX_USBC2",
- 		.domains = XELPD_AUX_IO_USBC2_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2115,7 +2115,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC2,
- 		},
- 	}, {
--		.name = "AUX USBC3",
-+		.name = "AUX_USBC3",
- 		.domains = XELPD_AUX_IO_USBC3_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2123,7 +2123,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC3,
- 		},
- 	}, {
--		.name = "AUX USBC4",
-+		.name = "AUX_USBC4",
- 		.domains = XELPD_AUX_IO_USBC4_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.id = DISP_PW_ID_NONE,
-@@ -2131,7 +2131,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC4,
- 		},
- 	}, {
--		.name = "AUX TBT1",
-+		.name = "AUX_TBT1",
- 		.domains = XELPD_AUX_IO_TBT1_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -2140,7 +2140,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT1,
- 		},
- 	}, {
--		.name = "AUX TBT2",
-+		.name = "AUX_TBT2",
- 		.domains = XELPD_AUX_IO_TBT2_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -2149,7 +2149,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT2,
- 		},
- 	}, {
--		.name = "AUX TBT3",
-+		.name = "AUX_TBT3",
- 		.domains = XELPD_AUX_IO_TBT3_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
-@@ -2158,7 +2158,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TBT3,
- 		},
- 	}, {
--		.name = "AUX TBT4",
-+		.name = "AUX_TBT4",
- 		.domains = XELPD_AUX_IO_TBT4_POWER_DOMAINS,
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
--- 
-2.27.0
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+b526cacc94dc drm/i915: Fix the VDSC_PW2 power domain enum value
+2f95deec7aed drm/i915: Unexport the for_each_power_well() macros
+-:19: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__dev_priv' - possible side-effects?
+#19: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:28:
++#define for_each_power_well(__dev_priv, __power_well)				\
++	for ((__power_well) = (__dev_priv)->power_domains.power_wells;	\
++	     (__power_well) - (__dev_priv)->power_domains.power_wells <	\
++		(__dev_priv)->power_domains.power_well_count;		\
++	     (__power_well)++)
+
+-:19: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well' - possible side-effects?
+#19: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:28:
++#define for_each_power_well(__dev_priv, __power_well)				\
++	for ((__power_well) = (__dev_priv)->power_domains.power_wells;	\
++	     (__power_well) - (__dev_priv)->power_domains.power_wells <	\
++		(__dev_priv)->power_domains.power_well_count;		\
++	     (__power_well)++)
+
+-:25: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__dev_priv' - possible side-effects?
+#25: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:34:
++#define for_each_power_well_reverse(__dev_priv, __power_well)			\
++	for ((__power_well) = (__dev_priv)->power_domains.power_wells +		\
++			      (__dev_priv)->power_domains.power_well_count - 1;	\
++	     (__power_well) - (__dev_priv)->power_domains.power_wells >= 0;	\
++	     (__power_well)--)
+
+-:25: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well' - possible side-effects?
+#25: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:34:
++#define for_each_power_well_reverse(__dev_priv, __power_well)			\
++	for ((__power_well) = (__dev_priv)->power_domains.power_wells +		\
++			      (__dev_priv)->power_domains.power_well_count - 1;	\
++	     (__power_well) - (__dev_priv)->power_domains.power_wells >= 0;	\
++	     (__power_well)--)
+
+-:31: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#31: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:40:
++#define for_each_power_domain_well(__dev_priv, __power_well, __domain_mask)	\
++	for_each_power_well(__dev_priv, __power_well)				\
++		for_each_if((__power_well)->desc->domains & (__domain_mask))
+
+-:31: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well' - possible side-effects?
+#31: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:40:
++#define for_each_power_domain_well(__dev_priv, __power_well, __domain_mask)	\
++	for_each_power_well(__dev_priv, __power_well)				\
++		for_each_if((__power_well)->desc->domains & (__domain_mask))
+
+-:35: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#35: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:44:
++#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain_mask) \
++	for_each_power_well_reverse(__dev_priv, __power_well)		        \
++		for_each_if((__power_well)->desc->domains & (__domain_mask))
+
+-:35: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well' - possible side-effects?
+#35: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:44:
++#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain_mask) \
++	for_each_power_well_reverse(__dev_priv, __power_well)		        \
++		for_each_if((__power_well)->desc->domains & (__domain_mask))
+
+total: 2 errors, 0 warnings, 6 checks, 52 lines checked
+0cceed36071a drm/i915: Move the i915_power_well_regs struct into i915_power_well_ops
+18079359bdb7 drm/i915: Move the power domain->well mappings to intel_display_power_map.c
+-:2705: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#2705: 
+new file mode 100644
+
+-:2809: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_display_power_map.c', please use '//' instead
+#2809: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1:
++/* SPDX-License-Identifier: MIT */
+
+-:2809: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#2809: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1:
++/* SPDX-License-Identifier: MIT */
+
+-:5024: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well_descs' - possible side-effects?
+#5024: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:2216:
++#define set_power_wells_mask(power_domains, __power_well_descs, skip_mask) \
++	__set_power_wells(power_domains, __power_well_descs, \
++			  ARRAY_SIZE(__power_well_descs), skip_mask)
+
+total: 0 errors, 3 warnings, 1 checks, 5028 lines checked
+b7347fe242d7 drm/i915: Move the dg2 fixed_enable_delay power well param to a common bitfield
+7f3b9c90f90e drm/i915: Move the HSW power well flags to a common bitfield
+e9c6e51f909b drm/i915: Rename the power domain names to end with pipes/ports
+cecd93009957 drm/i915: Sanitize the power well names
+f2b0c2050d8f drm/i915: Convert the power well descriptor domain mask to a list
+-:103: ERROR:BRACKET_SPACE: space prohibited before open square bracket '['
+#103: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:14:
++	((__elem_type []){ __VA_ARGS__ })
+
+-:103: ERROR:SPACING: space required before the open brace '{'
+#103: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:14:
++	((__elem_type []){ __VA_ARGS__ })
+
+-:105: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__elems' - possible side-effects?
+#105: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:16:
++#define __LIST(__elems) { \
++	.list = __elems, \
++	.count = ARRAY_SIZE(__elems), \
++}
+
+-:110: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#110: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:21:
++#define I915_PW_DOMAINS(...) \
++	(const struct i915_power_domain_list) \
++		__LIST(__LIST_INLINE_ELEMS(enum intel_display_power_domain, __VA_ARGS__))
+
+-:149: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#149: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:183:
++I915_DECL_PW_DOMAINS(i830_pwdoms_pipes,
++	POWER_DOMAIN_PIPE_A,
+
+-:192: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#192: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:207:
++I915_DECL_PW_DOMAINS(hsw_pwdoms_display,
++	POWER_DOMAIN_PIPE_B,
+
+-:245: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#245: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:244:
++I915_DECL_PW_DOMAINS(bdw_pwdoms_display,
++	POWER_DOMAIN_PIPE_B,
+
+-:328: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#328: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:281:
++I915_DECL_PW_DOMAINS(vlv_pwdoms_display,
++	POWER_DOMAIN_DISPLAY_CORE,
+
+-:348: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#348: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:301:
++I915_DECL_PW_DOMAINS(vlv_pwdoms_dpio_cmn_bc,
++	POWER_DOMAIN_PORT_DDI_LANES_B,
+
+-:356: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#356: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:309:
++I915_DECL_PW_DOMAINS(vlv_pwdoms_dpio_tx_bc_lanes,
++	POWER_DOMAIN_PORT_DDI_LANES_B,
+
+-:474: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#474: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:374:
++I915_DECL_PW_DOMAINS(chv_pwdoms_display,
++	POWER_DOMAIN_DISPLAY_CORE,
+
+-:498: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#498: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:398:
++I915_DECL_PW_DOMAINS(chv_pwdoms_dpio_cmn_bc,
++	POWER_DOMAIN_PORT_DDI_LANES_B,
+
+-:505: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#505: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:405:
++I915_DECL_PW_DOMAINS(chv_pwdoms_dpio_cmn_d,
++	POWER_DOMAIN_PORT_DDI_LANES_D,
+
+-:588: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#588: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:445:
++#define SKL_PW_2_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C, \
++	POWER_DOMAIN_TRANSCODER_A, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_TRANSCODER_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_D, \
++	POWER_DOMAIN_PORT_DDI_LANES_E, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_MMIO, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_B, \
++	POWER_DOMAIN_AUX_C, \
++	POWER_DOMAIN_AUX_D
+
+-:608: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#608: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:465:
++I915_DECL_PW_DOMAINS(skl_pwdoms_pw_2,
++	SKL_PW_2_POWER_DOMAINS,
+
+-:612: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#612: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:469:
++I915_DECL_PW_DOMAINS(skl_pwdoms_dc_off,
++	SKL_PW_2_POWER_DOMAINS,
+
+-:619: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#619: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:476:
++I915_DECL_PW_DOMAINS(skl_pwdoms_ddi_io_a_e,
++	POWER_DOMAIN_PORT_DDI_IO_A,
+
+-:624: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#624: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:481:
++I915_DECL_PW_DOMAINS(skl_pwdoms_ddi_io_b,
++	POWER_DOMAIN_PORT_DDI_IO_B,
+
+-:628: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#628: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:485:
++I915_DECL_PW_DOMAINS(skl_pwdoms_ddi_io_c,
++	POWER_DOMAIN_PORT_DDI_IO_C,
+
+-:632: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#632: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:489:
++I915_DECL_PW_DOMAINS(skl_pwdoms_ddi_io_d,
++	POWER_DOMAIN_PORT_DDI_IO_D,
+
+-:751: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#751: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:571:
++#define BXT_PW_2_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C, \
++	POWER_DOMAIN_TRANSCODER_A, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_TRANSCODER_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_C, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_MMIO, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_B, \
++	POWER_DOMAIN_AUX_C
+
+-:768: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#768: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:588:
++I915_DECL_PW_DOMAINS(bxt_pwdoms_pw_2,
++	BXT_PW_2_POWER_DOMAINS,
+
+-:772: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#772: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:592:
++I915_DECL_PW_DOMAINS(bxt_pwdoms_dc_off,
++	BXT_PW_2_POWER_DOMAINS,
+
+-:780: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#780: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:600:
++I915_DECL_PW_DOMAINS(bxt_pwdoms_dpio_cmn_a,
++	POWER_DOMAIN_PORT_DDI_LANES_A,
+
+-:785: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#785: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:605:
++I915_DECL_PW_DOMAINS(bxt_pwdoms_dpio_cmn_bc,
++	POWER_DOMAIN_PORT_DDI_LANES_B,
+
+-:900: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#900: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:664:
++#define GLK_PW_2_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C, \
++	POWER_DOMAIN_TRANSCODER_A, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_TRANSCODER_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_C, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_MMIO, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_B, \
++	POWER_DOMAIN_AUX_C
+
+-:917: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#917: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:681:
++I915_DECL_PW_DOMAINS(glk_pwdoms_pw_2,
++	GLK_PW_2_POWER_DOMAINS,
+
+-:921: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#921: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:685:
++I915_DECL_PW_DOMAINS(glk_pwdoms_dc_off,
++	GLK_PW_2_POWER_DOMAINS,
+
+-:933: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#933: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:697:
++I915_DECL_PW_DOMAINS(glk_pwdoms_dpio_cmn_a,
++	POWER_DOMAIN_PORT_DDI_LANES_A,
+
+-:938: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#938: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:702:
++I915_DECL_PW_DOMAINS(glk_pwdoms_dpio_cmn_b,
++	POWER_DOMAIN_PORT_DDI_LANES_B,
+
+-:943: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#943: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:707:
++I915_DECL_PW_DOMAINS(glk_pwdoms_dpio_cmn_c,
++	POWER_DOMAIN_PORT_DDI_LANES_C,
+
+-:948: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#948: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:712:
++I915_DECL_PW_DOMAINS(glk_pwdoms_aux_a,
++	POWER_DOMAIN_AUX_A,
+
+-:953: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#953: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:717:
++I915_DECL_PW_DOMAINS(glk_pwdoms_aux_b,
++	POWER_DOMAIN_AUX_B,
+
+-:957: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#957: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:721:
++I915_DECL_PW_DOMAINS(glk_pwdoms_aux_c,
++	POWER_DOMAIN_AUX_C,
+
+-:1080: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1080: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:847:
++#define ICL_PW_4_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C
+
+-:1085: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1085: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:852:
++I915_DECL_PW_DOMAINS(icl_pwdoms_pw_4,
++	ICL_PW_4_POWER_DOMAINS,
+
+-:1114: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1114: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:856:
++#define ICL_PW_3_POWER_DOMAINS \
++	ICL_PW_4_POWER_DOMAINS, \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_TRANSCODER_A, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_TRANSCODER_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_D, \
++	POWER_DOMAIN_PORT_DDI_LANES_E, \
++	POWER_DOMAIN_PORT_DDI_LANES_F, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_MMIO, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_B, \
++	POWER_DOMAIN_AUX_C, \
++	POWER_DOMAIN_AUX_D, \
++	POWER_DOMAIN_AUX_E, \
++	POWER_DOMAIN_AUX_F, \
++	POWER_DOMAIN_AUX_TBT_C, \
++	POWER_DOMAIN_AUX_TBT_D, \
++	POWER_DOMAIN_AUX_TBT_E, \
++	POWER_DOMAIN_AUX_TBT_F
+
+-:1140: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1140: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:882:
++I915_DECL_PW_DOMAINS(icl_pwdoms_pw_3,
++	ICL_PW_3_POWER_DOMAINS,
+
+-:1151: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1151: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:889:
++#define ICL_PW_2_POWER_DOMAINS \
++	ICL_PW_3_POWER_DOMAINS, \
++	POWER_DOMAIN_TRANSCODER_VDSC_PW2
+
+-:1156: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1156: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:894:
++I915_DECL_PW_DOMAINS(icl_pwdoms_pw_2,
++	ICL_PW_2_POWER_DOMAINS,
+
+-:1190: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1190: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:901:
++I915_DECL_PW_DOMAINS(icl_pwdoms_dc_off,
++	ICL_PW_2_POWER_DOMAINS,
+
+-:1204: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1204: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:915:
++I915_DECL_PW_DOMAINS(icl_pwdoms_aux_a,
++	POWER_DOMAIN_AUX_A,
+
+-:1508: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1508: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1119:
++#define TGL_PW_5_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_D, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_D, \
++	POWER_DOMAIN_TRANSCODER_D
+
+-:1514: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1514: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1125:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_pw_5,
++	TGL_PW_5_POWER_DOMAINS,
+
+-:1517: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1517: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1128:
++#define TGL_PW_4_POWER_DOMAINS \
++	TGL_PW_5_POWER_DOMAINS, \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C, \
++	POWER_DOMAIN_TRANSCODER_C
+
+-:1524: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1524: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1135:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_pw_4,
++	TGL_PW_4_POWER_DOMAINS,
+
+-:1527: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1527: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1138:
++#define TGL_PW_3_POWER_DOMAINS \
++	TGL_PW_4_POWER_DOMAINS, \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC1, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC2, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC3, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC4, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC5, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC6, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_MMIO, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_USBC1, \
++	POWER_DOMAIN_AUX_USBC2, \
++	POWER_DOMAIN_AUX_USBC3, \
++	POWER_DOMAIN_AUX_USBC4, \
++	POWER_DOMAIN_AUX_USBC5, \
++	POWER_DOMAIN_AUX_USBC6, \
++	POWER_DOMAIN_AUX_TBT1, \
++	POWER_DOMAIN_AUX_TBT2, \
++	POWER_DOMAIN_AUX_TBT3, \
++	POWER_DOMAIN_AUX_TBT4, \
++	POWER_DOMAIN_AUX_TBT5, \
++	POWER_DOMAIN_AUX_TBT6
+
+-:1555: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1555: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1166:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_pw_3,
++	TGL_PW_3_POWER_DOMAINS,
+
+-:1559: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1559: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1170:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_pw_2,
++	TGL_PW_3_POWER_DOMAINS,
+
+-:1564: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1564: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1175:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_dc_off,
++	TGL_PW_3_POWER_DOMAINS,
+
+-:1579: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1579: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1190:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_a,
++	POWER_DOMAIN_AUX_A,
+
+-:1599: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1599: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1210:
++I915_DECL_PW_DOMAINS(tgl_pwdoms_tc_cold_off,
++	POWER_DOMAIN_AUX_USBC1,
+
+-:1916: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1916: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1499:
++#define RKL_PW_4_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C, \
++	POWER_DOMAIN_TRANSCODER_C
+
+-:1922: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1922: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1505:
++I915_DECL_PW_DOMAINS(rkl_pwdoms_pw_4,
++	RKL_PW_4_POWER_DOMAINS,
+
+-:1925: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1925: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1508:
++#define RKL_PW_3_POWER_DOMAINS \
++	RKL_PW_4_POWER_DOMAINS, \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC1, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC2, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_MMIO, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_USBC1, \
++	POWER_DOMAIN_AUX_USBC2
+
+-:1939: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1939: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1522:
++I915_DECL_PW_DOMAINS(rkl_pwdoms_pw_3,
++	RKL_PW_3_POWER_DOMAINS,
+
+-:1955: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1955: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1547:
++I915_DECL_PW_DOMAINS(rkl_pwdoms_dc_off,
++	RKL_PW_3_POWER_DOMAINS,
+
+-:2102: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#2102: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1667:
++#define DG1_PW_3_POWER_DOMAINS \
++	TGL_PW_4_POWER_DOMAINS, \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_TRANSCODER_B, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC1, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC2, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_USBC1, \
++	POWER_DOMAIN_AUX_USBC2
+
+-:2115: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2115: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1680:
++I915_DECL_PW_DOMAINS(dg1_pwdoms_pw_3,
++	DG1_PW_3_POWER_DOMAINS,
+
+-:2119: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2119: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1684:
++I915_DECL_PW_DOMAINS(dg1_pwdoms_dc_off,
++	DG1_PW_3_POWER_DOMAINS,
+
+-:2127: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2127: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1692:
++I915_DECL_PW_DOMAINS(dg1_pwdoms_pw_2,
++	DG1_PW_3_POWER_DOMAINS,
+
+-:2313: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#2313: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1846:
++#define XELPD_PW_D_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_D, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_D, \
++	POWER_DOMAIN_TRANSCODER_D
+
+-:2319: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2319: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1852:
++I915_DECL_PW_DOMAINS(xelpd_pwdoms_pw_d,
++	XELPD_PW_D_POWER_DOMAINS,
+
+-:2322: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#2322: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1855:
++#define XELPD_PW_C_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_C, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_C, \
++	POWER_DOMAIN_TRANSCODER_C
+
+-:2328: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2328: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1861:
++I915_DECL_PW_DOMAINS(xelpd_pwdoms_pw_c,
++	XELPD_PW_C_POWER_DOMAINS,
+
+-:2331: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#2331: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1864:
++#define XELPD_PW_B_POWER_DOMAINS \
++	POWER_DOMAIN_PIPE_B, \
++	POWER_DOMAIN_PIPE_PANEL_FITTER_B, \
++	POWER_DOMAIN_TRANSCODER_B
+
+-:2337: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2337: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1870:
++I915_DECL_PW_DOMAINS(xelpd_pwdoms_pw_b,
++	XELPD_PW_B_POWER_DOMAINS,
+
+-:2341: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2341: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1874:
++I915_DECL_PW_DOMAINS(xelpd_pwdoms_pw_a,
++	POWER_DOMAIN_PIPE_A,
+
+-:2345: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#2345: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1878:
++#define XELPD_PW_2_POWER_DOMAINS \
++	XELPD_PW_B_POWER_DOMAINS, \
++	XELPD_PW_C_POWER_DOMAINS, \
++	XELPD_PW_D_POWER_DOMAINS, \
++	POWER_DOMAIN_PORT_DDI_LANES_C, \
++	POWER_DOMAIN_PORT_DDI_LANES_D_XELPD, \
++	POWER_DOMAIN_PORT_DDI_LANES_E_XELPD, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC1, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC2, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC3, \
++	POWER_DOMAIN_PORT_DDI_LANES_TC4, \
++	POWER_DOMAIN_VGA, \
++	POWER_DOMAIN_AUDIO_PLAYBACK, \
++	POWER_DOMAIN_AUX_C, \
++	POWER_DOMAIN_AUX_D_XELPD, \
++	POWER_DOMAIN_AUX_E_XELPD, \
++	POWER_DOMAIN_AUX_USBC1, \
++	POWER_DOMAIN_AUX_USBC2, \
++	POWER_DOMAIN_AUX_USBC3, \
++	POWER_DOMAIN_AUX_USBC4, \
++	POWER_DOMAIN_AUX_TBT1, \
++	POWER_DOMAIN_AUX_TBT2, \
++	POWER_DOMAIN_AUX_TBT3, \
++	POWER_DOMAIN_AUX_TBT4
+
+-:2371: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2371: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1904:
++I915_DECL_PW_DOMAINS(xelpd_pwdoms_pw_2,
++	XELPD_PW_2_POWER_DOMAINS,
+
+-:2408: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2408: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:1925:
++I915_DECL_PW_DOMAINS(xelpd_pwdoms_dc_off,
++	XELPD_PW_2_POWER_DOMAINS,
+
+total: 19 errors, 0 warnings, 52 checks, 2568 lines checked
+97c2753b151f drm/i915: Convert the u64 power well domains mask to a bitmap
+-:170: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#170: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:41:
++#define for_each_power_domain_well(__dev_priv, __power_well, __domain)	\
+ 	for_each_power_well(__dev_priv, __power_well)				\
++		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
+
+-:170: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well' - possible side-effects?
+#170: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:41:
++#define for_each_power_domain_well(__dev_priv, __power_well, __domain)	\
+ 	for_each_power_well(__dev_priv, __power_well)				\
++		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
+
+-:176: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#176: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:45:
++#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain) \
+ 	for_each_power_well_reverse(__dev_priv, __power_well)		        \
++		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
+
+-:176: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__power_well' - possible side-effects?
+#176: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:45:
++#define for_each_power_domain_well_reverse(__dev_priv, __power_well, __domain) \
+ 	for_each_power_well_reverse(__dev_priv, __power_well)		        \
++		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
+
+-:482: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#482: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:2426:
++	drm_WARN_ON(&i915->drm, !bitmap_subset(mask->bits, power_domain_set->mask.bits, POWER_DOMAIN_NUM));
+
+-:539: WARNING:NEW_TYPEDEFS: do not add new typedefs
+#539: FILE: drivers/gpu/drm/i915/display/intel_display_power.h:167:
++typedef struct { DECLARE_BITMAP(bits, POWER_DOMAIN_NUM); } intel_power_domain_mask_t;
+
+-:565: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__domain' - possible side-effects?
+#565: FILE: drivers/gpu/drm/i915/display/intel_display_power.h:198:
++#define for_each_power_domain(__domain, __mask)				\
++	for ((__domain) = 0; (__domain) < POWER_DOMAIN_NUM; (__domain)++)	\
++		for_each_if(test_bit((__domain), (__mask)->bits))
+
+total: 2 errors, 2 warnings, 3 checks, 545 lines checked
+3572a30cfdc7 drm/i915: Simplify power well definitions by adding power well instances
+-:443: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#443: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:32:
++#define I915_PW_INSTANCES(...) \
++	(const struct i915_power_well_instance_list) \
++		__LIST(__LIST_INLINE_ELEMS(struct i915_power_well_instance, __VA_ARGS__))
+
+-:450: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#450: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:39:
++
++
+
+-:460: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#460: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:182:
++		.instances = &I915_PW_INSTANCES(
+
+-:475: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#475: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:201:
++		.instances = &I915_PW_INSTANCES(
+
+-:484: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#484: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:207:
++		.instances = &I915_PW_INSTANCES(
+
+-:498: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#498: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:234:
++		.instances = &I915_PW_INSTANCES(
+
+-:507: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#507: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:240:
++		.instances = &I915_PW_INSTANCES(
+
+-:527: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#527: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:269:
++		.instances = &I915_PW_INSTANCES(
+
+-:536: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#536: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:275:
++		.instances = &I915_PW_INSTANCES(
+
+-:557: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#557: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:323:
++		.instances = &I915_PW_INSTANCES(
+
+-:566: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#566: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:329:
++		.instances = &I915_PW_INSTANCES(
+
+-:579: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#579: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:336:
++		.instances = &I915_PW_INSTANCES(
+
+-:621: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#621: FILE: drivers/gpu/drm/i915/display/intel_display_power_map.c:348:
++		.instances = &I915_PW_INSTANCES(
+
+-:640: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#640: FILE: driv
+
 
