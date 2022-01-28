@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792EEC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 10:38:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041EAC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 10:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D520610EF85;
-	Fri, 28 Jan 2022 10:38:50 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 658D410EF84
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 10:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B16510EFB6;
+	Fri, 28 Jan 2022 10:38:51 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3055910EF85
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 10:38:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643366328; x=1674902328;
+ t=1643366329; x=1674902329;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=+CDzcM8L9Yf7Drqf/ZohRJxSNpZYXCgzcyDUQ4GfGGs=;
- b=g3ntle3gzMgvsKsYYoHHH+ZAZlCqS49xuo1YQHSa2hsk5/IBtVZPmz2W
- R/p8/AUUVv4JyUotZpF2/EYx6sXzJjJ78FWCDjG7bXbBvsAMMpzZ7lPsk
- dLutxB8Dsppo8yM8MBzlIuFwg0c8guuazjiJJd3Sk0qzKpdNeaY+uCa+G
- KUE+isxjpsm55VsyPhpz7FTlQnMJE3O1Hbo/r0SXJTtQ3nWshkeWcDcgN
- 6fL/e7CNKINl/OiueAehd0hKHJLgEToSh4sq4S8HYSnEISbCs5I+LJb7b
- 3YmTrA7HsON6q6neMbejlkvQx1cXSxxqnDWId7s7cfkrjWefnuWLlGJAg g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="244698744"
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="244698744"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 02:38:47 -0800
+ bh=QqpYxux2C41QuKXEEJQItmTfMKH7ru+7I7L5Ppb9AF4=;
+ b=de8CItVCEczbjrxgNCbCheahPL88KQI7ugHYiGgCS4sdxsUw6GCmiIpG
+ 1gNMf7a57D9dHzS4Oa6BqhmAPwndmYcDpSSeWBsYoqLkBFrSRxOQrz53Q
+ lSXN07yhQ2ozLQfLMp4HBzXmozWZnJ4uagIFRckIv0lImmpySbdTYn2UL
+ MDGs2Nvki9SNIosWb/vKonAuBATYp9/KaCUEZPd6MMaxVp30hsKprTIC0
+ 7K8+JI6pbdLpEekK/VTNausuJEq+pQ6lzp/gePVxxuW+rBNlMzISPUZap
+ I4Dy4wXX9H6D3ooO7bG9tnf4/q9WATtpEEYX8bt6j50+Ly6+74VRtdl8q w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="230674460"
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="230674460"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2022 02:38:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="536084687"
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="581820589"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.147])
- by orsmga008.jf.intel.com with SMTP; 28 Jan 2022 02:38:45 -0800
+ by fmsmga008.fm.intel.com with SMTP; 28 Jan 2022 02:38:34 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 28 Jan 2022 12:38:45 +0200
+ Fri, 28 Jan 2022 12:38:33 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 12:37:56 +0200
-Message-Id: <20220128103757.22461-17-ville.syrjala@linux.intel.com>
+Date: Fri, 28 Jan 2022 12:37:52 +0200
+Message-Id: <20220128103757.22461-13-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220128103757.22461-1-ville.syrjala@linux.intel.com>
 References: <20220128103757.22461-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 16/17] drm/i915: Always check dp_m2_n2 on
- pre-bdw
+Subject: [Intel-gfx] [PATCH v2 12/17] drm/i915: Fix
+ intel_cpu_transcoder_has_m2_n2()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,39 +64,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-No point in special casing the check of dp_m2_n2 on pre-bdw platforms.
-Either the transcoder has M2/N2 in which case the values should be
-set to something sensible, or it doesn't in which case dp_m2_n2 is
-always zeroed.
+M2/N2 values are present for all ilk-ivb,vlv,chv (and hsw edp).
+Make the code reflect that.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 79d110c1f947..6d435c8be8a2 100644
+index 1e97279ba268..67c7bbbe5c88 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6478,13 +6478,12 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_I(lane_count);
- 	PIPE_CONF_CHECK_X(lane_lat_optim_mask);
+@@ -3149,11 +3149,7 @@ static bool transcoder_has_m2_n2(struct drm_i915_private *dev_priv,
+ 	if (IS_HASWELL(dev_priv))
+ 		return transcoder == TRANSCODER_EDP;
  
--	if (DISPLAY_VER(dev_priv) < 8) {
--		PIPE_CONF_CHECK_M_N(dp_m_n);
--
--		if (current_config->has_drrs)
--			PIPE_CONF_CHECK_M_N(dp_m2_n2);
--	} else
-+	if (DISPLAY_VER(dev_priv) >= 9 || IS_BROADWELL(dev_priv)) {
- 		PIPE_CONF_CHECK_M_N_ALT(dp_m_n, dp_m2_n2);
-+	} else {
-+		PIPE_CONF_CHECK_M_N(dp_m_n);
-+		PIPE_CONF_CHECK_M_N(dp_m2_n2);
-+	}
+-	/*
+-	 * Strictly speaking some registers are available before
+-	 * gen7, but we only support DRRS on gen7+
+-	 */
+-	return DISPLAY_VER(dev_priv) == 7 || IS_CHERRYVIEW(dev_priv);
++	return IS_DISPLAY_VER(dev_priv, 5, 7) || IS_CHERRYVIEW(dev_priv);
+ }
  
- 	PIPE_CONF_CHECK_X(output_types);
- 
+ void intel_cpu_transcoder_set_m1_n1(struct intel_crtc *crtc,
 -- 
 2.34.1
 
