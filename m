@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 664FCC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B9D7C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 11:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4A510E507;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 214F110E5B3;
 	Fri, 28 Jan 2022 11:49:54 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA4A10E7DB
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8473710E714
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 11:49:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643370574; x=1674906574;
+ t=1643370579; x=1674906579;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=H0kuZmjq52xUSusiK/tg71MFvy/T+xX8ElbXVWOtXa8=;
- b=SlwBwgqW4upI21EmtHnx8AWuHyopq5vhshvr73v1Q5EwjIs0MAbmcB7C
- E4djmfYt9+SGUAlHB5JnU94u4RcK2uQ1yA/k3MVKABM3pDKAH20NiuMFk
- gojRGlRIKw+ni96QVigtCfCsA0Rq330oKa/V7WYkVkgZFbF5gSpGmLTkP
- 6WhbkraZb3de+qLUgCgbR9zHtLm1ZghYvuqufoJ4JGQV0CaNeHq3PUBmH
- ro3Du8GvN7VkzT+vz6ppey0PAmwCZIp0uNEs0bLA+u+mvsZDKWnIZLJ43
- eULyBprgpDNWku9DsXpnfHhcMMqbPUC/gpWVKq3rh244HWDog5oJruglC Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420948"
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420948"
+ bh=We+FMfzgn7XxIFbVBXUrY3BXf0JHQIXEC9BD57l7//4=;
+ b=et3PoBbIw7ii2VKLlDszHkxVWRoxwn8rhYOCq8rEYA0d70NxaPKEjVlN
+ gDw9KsBQFr6wdNasMhDGvN3MfoIJeiMe2deCpyrOv3Q7w8MheOhc0HljC
+ /rP2LqrGFdftcz/bD8WNdFpqwrk0yGmyX9akfXK6WlDhfoeuipgWGZxto
+ 51TDfRaw7eBkBQRUf+2BIRMFyyeYp3Wl43ZMp7nL7kHJaSRvARgzM5v3t
+ sKZDTih1+H4aLyxQdSprjwGUC6SRwNbRtViRmem0aehoe9DP83qZ1CNtH
+ O+TqfM5X6+5VrkzIhwOIzcccnVeZQPfQ3TgAN5DIe54xJ/2ZLA7R+4G3p A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="310420967"
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="310420967"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:34 -0800
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712867"
+ 28 Jan 2022 03:49:39 -0800
+X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480712878"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 03:49:33 -0800
+ 28 Jan 2022 03:49:38 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Jan 2022 13:49:08 +0200
-Message-Id: <20220128114914.2339526-14-imre.deak@intel.com>
+Date: Fri, 28 Jan 2022 13:49:13 +0200
+Message-Id: <20220128114914.2339526-19-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20220128114914.2339526-1-imre.deak@intel.com>
 References: <20220128114914.2339526-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/19] drm/i915: Simplify the DG1 power well
- descriptors
+Subject: [Intel-gfx] [PATCH 18/19] drm/i915: Remove duplicate DDI/AUX power
+ domain mappings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +59,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplify the definition of DG1 power wells by reusing the identical
-RKL DDI/AUX descriptors.
-
-This reorders the DG1 DDI/AUX vs. PW4/5 power wells, but this shouldn't
-make a difference (it is the order on RKL and the DDI/AUX power wells
-don't have a dependency on PW4/5).
+The DDI and AUX domain -> power well mappings are identical for a few
+platforms/power well instances, reuse the mappings of earlier platforms
+for these removing the duplicate mapping of new platforms.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../i915/display/intel_display_power_map.c    | 24 ++++++-------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
+ .../i915/display/intel_display_power_map.c    | 89 +++++++------------
+ 1 file changed, 31 insertions(+), 58 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 1ddac0e15605e..164eeed3ee75c 100644
+index 1b79f04b1dd5d..2c9e55cb6e47d 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -1172,7 +1172,11 @@ static const struct i915_power_well_desc rkl_power_wells_main[] = {
- 		.ops = &hsw_power_well_ops,
- 		.has_fuses = true,
- 		.irq_pipe_mask = BIT(PIPE_C),
--	}, {
-+	},
-+};
-+
-+static const struct i915_power_well_desc rkl_power_wells_ddi_aux[] = {
-+	{
- 		.instances = &I915_PW_INSTANCES(
- 			I915_PW("DDI_IO_A", &icl_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
- 			I915_PW("DDI_IO_B", &icl_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
-@@ -1195,6 +1199,7 @@ static const struct i915_power_well_desc_list rkl_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
- 	I915_PW_DESCRIPTORS(rkl_power_wells_main),
-+	I915_PW_DESCRIPTORS(rkl_power_wells_ddi_aux),
- };
+@@ -1024,9 +1024,6 @@ I915_DECL_PW_DOMAINS(icl_pwdoms_dc_off,
+ 	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
  
- /*
-@@ -1254,22 +1259,6 @@ static const struct i915_power_well_desc dg1_power_wells_main[] = {
- 		.irq_pipe_mask = BIT(PIPE_B),
- 		.has_vga = true,
+-I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_a,	POWER_DOMAIN_PORT_DDI_IO_A);
+-I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_b,	POWER_DOMAIN_PORT_DDI_IO_B);
+-I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_c,	POWER_DOMAIN_PORT_DDI_IO_C);
+ I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_d,	POWER_DOMAIN_PORT_DDI_IO_D);
+ I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_e,	POWER_DOMAIN_PORT_DDI_IO_E);
+ I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_f,	POWER_DOMAIN_PORT_DDI_IO_F);
+@@ -1085,9 +1082,9 @@ static const struct i915_power_well_desc icl_power_wells_main[] = {
  		.has_fuses = true,
--	}, {
--		.instances = &I915_PW_INSTANCES(
--			I915_PW("DDI_IO_A", &icl_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
--			I915_PW("DDI_IO_B", &icl_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
--			I915_PW("DDI_IO_TC1", &tgl_pwdoms_ddi_io_tc1, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC1),
--			I915_PW("DDI_IO_TC2", &tgl_pwdoms_ddi_io_tc2, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC2),
--		),
--		.ops = &icl_ddi_power_well_ops,
--	}, {
--		.instances = &I915_PW_INSTANCES(
--			I915_PW("AUX_A", &tgl_pwdoms_aux_a, .hsw.idx = ICL_PW_CTL_IDX_AUX_A),
--			I915_PW("AUX_B", &tgl_pwdoms_aux_b, .hsw.idx = ICL_PW_CTL_IDX_AUX_B),
--			I915_PW("AUX_USBC1", &tgl_pwdoms_aux_usbc1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC1),
--			I915_PW("AUX_USBC2", &tgl_pwdoms_aux_usbc2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC2),
--		),
--		.ops = &icl_aux_power_well_ops,
  	}, {
  		.instances = &I915_PW_INSTANCES(
- 			I915_PW("PW_4", &tgl_pwdoms_pw_4,
-@@ -1293,6 +1282,7 @@ static const struct i915_power_well_desc_list dg1_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
- 	I915_PW_DESCRIPTORS(dg1_power_wells_main),
-+	I915_PW_DESCRIPTORS(rkl_power_wells_ddi_aux),
- };
+-			I915_PW("DDI_IO_A", &icl_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
+-			I915_PW("DDI_IO_B", &icl_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
+-			I915_PW("DDI_IO_C", &icl_pwdoms_ddi_io_c, .hsw.idx = ICL_PW_CTL_IDX_DDI_C),
++			I915_PW("DDI_IO_A", &glk_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
++			I915_PW("DDI_IO_B", &glk_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
++			I915_PW("DDI_IO_C", &glk_pwdoms_ddi_io_c, .hsw.idx = ICL_PW_CTL_IDX_DDI_C),
+ 			I915_PW("DDI_IO_D", &icl_pwdoms_ddi_io_d, .hsw.idx = ICL_PW_CTL_IDX_DDI_D),
+ 			I915_PW("DDI_IO_E", &icl_pwdoms_ddi_io_e, .hsw.idx = ICL_PW_CTL_IDX_DDI_E),
+ 			I915_PW("DDI_IO_F", &icl_pwdoms_ddi_io_f, .hsw.idx = ICL_PW_CTL_IDX_DDI_F),
+@@ -1199,12 +1196,6 @@ I915_DECL_PW_DOMAINS(tgl_pwdoms_ddi_io_tc4,	POWER_DOMAIN_PORT_DDI_IO_TC4);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_ddi_io_tc5,	POWER_DOMAIN_PORT_DDI_IO_TC5);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_ddi_io_tc6,	POWER_DOMAIN_PORT_DDI_IO_TC6);
  
- /*
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_a,
+-	POWER_DOMAIN_AUX_A,
+-	POWER_DOMAIN_AUX_IO_A);
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_b,		POWER_DOMAIN_AUX_B);
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_c,		POWER_DOMAIN_AUX_C);
+-
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_usbc1,	POWER_DOMAIN_AUX_USBC1);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_usbc2,	POWER_DOMAIN_AUX_USBC2);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_usbc3,	POWER_DOMAIN_AUX_USBC3);
+@@ -1212,10 +1203,6 @@ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_usbc4,	POWER_DOMAIN_AUX_USBC4);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_usbc5,	POWER_DOMAIN_AUX_USBC5);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_usbc6,	POWER_DOMAIN_AUX_USBC6);
+ 
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_tbt1,	POWER_DOMAIN_AUX_TBT1);
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_tbt2,	POWER_DOMAIN_AUX_TBT2);
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_tbt3,	POWER_DOMAIN_AUX_TBT3);
+-I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_tbt4,	POWER_DOMAIN_AUX_TBT4);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_tbt5,	POWER_DOMAIN_AUX_TBT5);
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_aux_tbt6,	POWER_DOMAIN_AUX_TBT6);
+ 
+@@ -1261,9 +1248,9 @@ static const struct i915_power_well_desc tgl_power_wells_main[] = {
+ 		.has_fuses = true,
+ 	}, {
+ 		.instances = &I915_PW_INSTANCES(
+-			I915_PW("DDI_IO_A", &icl_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
+-			I915_PW("DDI_IO_B", &icl_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
+-			I915_PW("DDI_IO_C", &icl_pwdoms_ddi_io_c, .hsw.idx = ICL_PW_CTL_IDX_DDI_C),
++			I915_PW("DDI_IO_A", &glk_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
++			I915_PW("DDI_IO_B", &glk_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
++			I915_PW("DDI_IO_C", &glk_pwdoms_ddi_io_c, .hsw.idx = ICL_PW_CTL_IDX_DDI_C),
+ 			I915_PW("DDI_IO_TC1", &tgl_pwdoms_ddi_io_tc1, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC1),
+ 			I915_PW("DDI_IO_TC2", &tgl_pwdoms_ddi_io_tc2, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC2),
+ 			I915_PW("DDI_IO_TC3", &tgl_pwdoms_ddi_io_tc3, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC3),
+@@ -1304,9 +1291,9 @@ static const struct i915_power_well_desc tgl_power_wells_tc_cold_off[] = {
+ static const struct i915_power_well_desc tgl_power_wells_aux[] = {
+ 	{
+ 		.instances = &I915_PW_INSTANCES(
+-			I915_PW("AUX_A", &tgl_pwdoms_aux_a, .hsw.idx = ICL_PW_CTL_IDX_AUX_A),
+-			I915_PW("AUX_B", &tgl_pwdoms_aux_b, .hsw.idx = ICL_PW_CTL_IDX_AUX_B),
+-			I915_PW("AUX_C", &tgl_pwdoms_aux_c, .hsw.idx = ICL_PW_CTL_IDX_AUX_C),
++			I915_PW("AUX_A", &icl_pwdoms_aux_a, .hsw.idx = ICL_PW_CTL_IDX_AUX_A),
++			I915_PW("AUX_B", &icl_pwdoms_aux_b, .hsw.idx = ICL_PW_CTL_IDX_AUX_B),
++			I915_PW("AUX_C", &icl_pwdoms_aux_c, .hsw.idx = ICL_PW_CTL_IDX_AUX_C),
+ 			I915_PW("AUX_USBC1", &tgl_pwdoms_aux_usbc1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC1),
+ 			I915_PW("AUX_USBC2", &tgl_pwdoms_aux_usbc2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC2),
+ 			I915_PW("AUX_USBC3", &tgl_pwdoms_aux_usbc3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC3),
+@@ -1317,10 +1304,10 @@ static const struct i915_power_well_desc tgl_power_wells_aux[] = {
+ 		.ops = &icl_aux_power_well_ops,
+ 	}, {
+ 		.instances = &I915_PW_INSTANCES(
+-			I915_PW("AUX_TBT1", &tgl_pwdoms_aux_tbt1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT1),
+-			I915_PW("AUX_TBT2", &tgl_pwdoms_aux_tbt2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT2),
+-			I915_PW("AUX_TBT3", &tgl_pwdoms_aux_tbt3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT3),
+-			I915_PW("AUX_TBT4", &tgl_pwdoms_aux_tbt4, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT4),
++			I915_PW("AUX_TBT1", &icl_pwdoms_aux_tbt1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT1),
++			I915_PW("AUX_TBT2", &icl_pwdoms_aux_tbt2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT2),
++			I915_PW("AUX_TBT3", &icl_pwdoms_aux_tbt3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT3),
++			I915_PW("AUX_TBT4", &icl_pwdoms_aux_tbt4, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT4),
+ 			I915_PW("AUX_TBT5", &tgl_pwdoms_aux_tbt5, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT5),
+ 			I915_PW("AUX_TBT6", &tgl_pwdoms_aux_tbt6, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT6),
+ 		),
+@@ -1429,8 +1416,8 @@ static const struct i915_power_well_desc rkl_power_wells_main[] = {
+ static const struct i915_power_well_desc rkl_power_wells_ddi_aux[] = {
+ 	{
+ 		.instances = &I915_PW_INSTANCES(
+-			I915_PW("DDI_IO_A", &icl_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
+-			I915_PW("DDI_IO_B", &icl_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
++			I915_PW("DDI_IO_A", &glk_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
++			I915_PW("DDI_IO_B", &glk_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
+ 			I915_PW("DDI_IO_TC1", &tgl_pwdoms_ddi_io_tc1, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC1),
+ 			I915_PW("DDI_IO_TC2", &tgl_pwdoms_ddi_io_tc2, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC2),
+ 		),
+@@ -1644,22 +1631,8 @@ I915_DECL_PW_DOMAINS(xelpd_pwdoms_dc_off,
+ I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_d_xelpd,		POWER_DOMAIN_AUX_D_XELPD);
+ I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_e_xelpd,		POWER_DOMAIN_AUX_E_XELPD);
+ 
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_usbc1,		POWER_DOMAIN_AUX_USBC1);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_usbc2,		POWER_DOMAIN_AUX_USBC2);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_usbc3,		POWER_DOMAIN_AUX_USBC3);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_usbc4,		POWER_DOMAIN_AUX_USBC4);
+-
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_tbt1,		POWER_DOMAIN_AUX_TBT1);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_tbt2,		POWER_DOMAIN_AUX_TBT2);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_tbt3,		POWER_DOMAIN_AUX_TBT3);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_aux_tbt4,		POWER_DOMAIN_AUX_TBT4);
+-
+ I915_DECL_PW_DOMAINS(xelpd_pwdoms_ddi_io_d_xelpd,	POWER_DOMAIN_PORT_DDI_IO_D_XELPD);
+ I915_DECL_PW_DOMAINS(xelpd_pwdoms_ddi_io_e_xelpd,	POWER_DOMAIN_PORT_DDI_IO_E_XELPD);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_ddi_io_tc1,		POWER_DOMAIN_PORT_DDI_IO_TC1);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_ddi_io_tc2,		POWER_DOMAIN_PORT_DDI_IO_TC2);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_ddi_io_tc3,		POWER_DOMAIN_PORT_DDI_IO_TC3);
+-I915_DECL_PW_DOMAINS(xelpd_pwdoms_ddi_io_tc4,		POWER_DOMAIN_PORT_DDI_IO_TC4);
+ 
+ static const struct i915_power_well_desc xelpd_power_wells_main[] = {
+ 	{
+@@ -1711,37 +1684,37 @@ static const struct i915_power_well_desc xelpd_power_wells_main[] = {
+ 		.has_fuses = true,
+ 	}, {
+ 		.instances = &I915_PW_INSTANCES(
+-			I915_PW("DDI_IO_A", &icl_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
+-			I915_PW("DDI_IO_B", &icl_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
+-			I915_PW("DDI_IO_C", &icl_pwdoms_ddi_io_c, .hsw.idx = ICL_PW_CTL_IDX_DDI_C),
++			I915_PW("DDI_IO_A", &glk_pwdoms_ddi_io_a, .hsw.idx = ICL_PW_CTL_IDX_DDI_A),
++			I915_PW("DDI_IO_B", &glk_pwdoms_ddi_io_b, .hsw.idx = ICL_PW_CTL_IDX_DDI_B),
++			I915_PW("DDI_IO_C", &glk_pwdoms_ddi_io_c, .hsw.idx = ICL_PW_CTL_IDX_DDI_C),
+ 			I915_PW("DDI_IO_D_XELPD", &xelpd_pwdoms_ddi_io_d_xelpd, .hsw.idx = XELPD_PW_CTL_IDX_DDI_D),
+ 			I915_PW("DDI_IO_E_XELPD", &xelpd_pwdoms_ddi_io_e_xelpd, .hsw.idx = XELPD_PW_CTL_IDX_DDI_E),
+-			I915_PW("DDI_IO_TC1", &xelpd_pwdoms_ddi_io_tc1, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC1),
+-			I915_PW("DDI_IO_TC2", &xelpd_pwdoms_ddi_io_tc2, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC2),
+-			I915_PW("DDI_IO_TC3", &xelpd_pwdoms_ddi_io_tc3, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC3),
+-			I915_PW("DDI_IO_TC4", &xelpd_pwdoms_ddi_io_tc4, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC4),
++			I915_PW("DDI_IO_TC1", &tgl_pwdoms_ddi_io_tc1, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC1),
++			I915_PW("DDI_IO_TC2", &tgl_pwdoms_ddi_io_tc2, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC2),
++			I915_PW("DDI_IO_TC3", &tgl_pwdoms_ddi_io_tc3, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC3),
++			I915_PW("DDI_IO_TC4", &tgl_pwdoms_ddi_io_tc4, .hsw.idx = TGL_PW_CTL_IDX_DDI_TC4),
+ 		),
+ 		.ops = &icl_ddi_power_well_ops,
+ 	}, {
+ 		.instances = &I915_PW_INSTANCES(
+ 			I915_PW("AUX_A", &icl_pwdoms_aux_a, .hsw.idx = ICL_PW_CTL_IDX_AUX_A),
+ 			I915_PW("AUX_B", &icl_pwdoms_aux_b, .hsw.idx = ICL_PW_CTL_IDX_AUX_B),
+-			I915_PW("AUX_C", &tgl_pwdoms_aux_c, .hsw.idx = ICL_PW_CTL_IDX_AUX_C),
++			I915_PW("AUX_C", &icl_pwdoms_aux_c, .hsw.idx = ICL_PW_CTL_IDX_AUX_C),
+ 			I915_PW("AUX_D_XELPD", &xelpd_pwdoms_aux_d_xelpd, .hsw.idx = XELPD_PW_CTL_IDX_AUX_D),
+ 			I915_PW("AUX_E_XELPD", &xelpd_pwdoms_aux_e_xelpd, .hsw.idx = XELPD_PW_CTL_IDX_AUX_E),
+-			I915_PW("AUX_USBC1", &xelpd_pwdoms_aux_usbc1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC1),
+-			I915_PW("AUX_USBC2", &xelpd_pwdoms_aux_usbc2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC2),
+-			I915_PW("AUX_USBC3", &xelpd_pwdoms_aux_usbc3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC3),
+-			I915_PW("AUX_USBC4", &xelpd_pwdoms_aux_usbc4, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC4),
++			I915_PW("AUX_USBC1", &tgl_pwdoms_aux_usbc1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC1),
++			I915_PW("AUX_USBC2", &tgl_pwdoms_aux_usbc2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC2),
++			I915_PW("AUX_USBC3", &tgl_pwdoms_aux_usbc3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC3),
++			I915_PW("AUX_USBC4", &tgl_pwdoms_aux_usbc4, .hsw.idx = TGL_PW_CTL_IDX_AUX_TC4),
+ 		),
+ 		.ops = &icl_aux_power_well_ops,
+ 		.fixed_enable_delay = true,
+ 	}, {
+ 		.instances = &I915_PW_INSTANCES(
+-			I915_PW("AUX_TBT1", &xelpd_pwdoms_aux_tbt1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT1),
+-			I915_PW("AUX_TBT2", &xelpd_pwdoms_aux_tbt2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT2),
+-			I915_PW("AUX_TBT3", &xelpd_pwdoms_aux_tbt3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT3),
+-			I915_PW("AUX_TBT4", &xelpd_pwdoms_aux_tbt4, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT4),
++			I915_PW("AUX_TBT1", &icl_pwdoms_aux_tbt1, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT1),
++			I915_PW("AUX_TBT2", &icl_pwdoms_aux_tbt2, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT2),
++			I915_PW("AUX_TBT3", &icl_pwdoms_aux_tbt3, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT3),
++			I915_PW("AUX_TBT4", &icl_pwdoms_aux_tbt4, .hsw.idx = TGL_PW_CTL_IDX_AUX_TBT4),
+ 		),
+ 		.ops = &icl_aux_power_well_ops,
+ 		.is_tc_tbt = true,
 -- 
 2.27.0
 
