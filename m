@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97862C43217
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB3CC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:06:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA60010E490;
-	Mon, 31 Jan 2022 21:06:42 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 189F710E47E
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:42 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id n8so11190216wmk.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B05810E492;
+	Mon, 31 Jan 2022 21:06:44 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E49110E42D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:40 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id h21so27909655wrb.8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SwGrwfETCM+M9+P3a4Nrp7y6QdxVSyzi92rKf4e0uVo=;
- b=J6qMgc5fOJUK3XPhn1qGhcwH2ALMYUIfKhMWansn7faeg7GJBdjaxgar/VwywGvql4
- 93rIl4vZzDgIr6h21wtvZK2gzoTF2HpHw5kK2rnmsRT15RHohQ2exKndfEkXHIEFSvJi
- RDIJiadd0mNQP9LnViwYbhh+P80BASVMK1SKs=
+ bh=maVDh36g+mbMxDQqKVsClyM2EENbHZLdIj/dxYmw5do=;
+ b=Qcsxhy2o/dS11RJsdCfS9Bxk3l2q8JaeoimOSXKdnQQwY7aFMOzBCGs3z75BZLUfjP
+ G5PY5jJU5KSJ23gLrVGnPRmbSww2IYvxZ0Ieehv+Gk524P056aEZJfV+u7yvV1LmpBj6
+ v0MRUtj2qEfuN8Rj2tN9HSteIZLF/+MTHdjd0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=SwGrwfETCM+M9+P3a4Nrp7y6QdxVSyzi92rKf4e0uVo=;
- b=K2BL+2FQOG1OWBvC6AcKBPvRACpTUQd+Ic2uzsz1VNhoNkhnI04/L8kNpbhHeNeYOF
- FXXXP/rf3P19uVlDkMlzdupmIVpuUdoxtTpPWe6cli+i+dy5k4JRmFkvTy7CvID3djl8
- HjbKvGnyDSzJfQonN38XCxJsinL3iQVRzOqoUkg5KgHPJjQhdIFjUgvRvQum54pMI9hX
- 80ISpx2HWL7pIvHmwIZOgy8Pcey9ivlXRKAIZIAFwdX+rrCNfcF/Gcer4zSjq9L+qjRB
- UmOcOGPNncj6pPp95DgwC9RVcvD105y2YdbR7RsFMbsjCvXyeJ/l7g1J288WOJUR1AYw
- w/ZA==
-X-Gm-Message-State: AOAM53383xiTcGVWy9iEGSMTtOcc3JiTy44COfwjrHsPg8sM52okAbum
- EomnJyPntYTryYXk4nicjsxu0g==
-X-Google-Smtp-Source: ABdhPJxlmDJLYtqZduMCaW0cxX2UeObaGw0dY/yqKl+E3ubVsocJ1ZEGqF+GaPai8YvkFp0Tm9EM5w==
-X-Received: by 2002:a7b:c84f:: with SMTP id c15mr28407018wml.181.1643663200650; 
- Mon, 31 Jan 2022 13:06:40 -0800 (PST)
+ bh=maVDh36g+mbMxDQqKVsClyM2EENbHZLdIj/dxYmw5do=;
+ b=VCDmGo7BIcWUI9TS7kg6qAA7zG5gVD1AF1yQ3044xzapBr+nqFLyWlO0EuqBU8Rl+g
+ TMoY27Mkh4qcfGBpDhv/673SGHwWvZ97s1DRRF7A8nZ8/ngi0Kd/lPOY24li1hTbFsZ9
+ LvbEZtTg7On/cMavhqCNh6NPSU8fdw1U2qoOavLYbpJZ4naPp5Ro1229MZ+8vQZvL8aF
+ l0WQAvMDEtIkJKFCo4U0fhSZS40rencG2n92Bxc1hu3/y4aI6iatjf9PRcBOFkejo9H7
+ l2xwzVDSqSggG+K7OsUgd8bmBwYkMpcqGTanGbRMrXTPZ7PeBgPFaESltQkrVoDpSzbx
+ qavg==
+X-Gm-Message-State: AOAM531mdV2khoehtLpW/bvm7SDFjFhb/lsQ/ypm/wlvFWnv0+Dozbbl
+ VeR1gn95EdWXpCueDhQUyUhagg==
+X-Google-Smtp-Source: ABdhPJwUiYtIFsmkn1+ZKECUjh4jElDblVWqzeBW7WDzEcxIsGU9rssDBdn9pVrrCKK6rcDF8iLQ3w==
+X-Received: by 2002:a05:6000:104e:: with SMTP id
+ c14mr19310924wrx.252.1643663198814; 
+ Mon, 31 Jan 2022 13:06:38 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.39
+ by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 13:06:40 -0800 (PST)
+ Mon, 31 Jan 2022 13:06:38 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 31 Jan 2022 22:05:37 +0100
-Message-Id: <20220131210552.482606-7-daniel.vetter@ffwll.ch>
+Date: Mon, 31 Jan 2022 22:05:35 +0100
+Message-Id: <20220131210552.482606-5-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/21] fbcon: delete delayed loading code
+Subject: [Intel-gfx] [PATCH 04/21] fbcon: delete a few unneeded forward decl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,7 +65,8 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Du Cheng <ducheng2@gmail.com>,
+Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Du Cheng <ducheng2@gmail.com>,
  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
@@ -74,65 +76,54 @@ Cc: linux-fbdev@vger.kernel.org, Du Cheng <ducheng2@gmail.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before
-
-commit 6104c37094e729f3d4ce65797002112735d49cd1
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date:   Tue Aug 1 17:32:07 2017 +0200
-
-    fbcon: Make fbcon a built-time depency for fbdev
-
-it was possible to load fbcon and fbdev drivers in any order, which
-means that fbcon init had to handle the case where fbdev drivers where
-already registered.
-
-This is no longer possible, hence delete that code.
-
-Note that the exit case is a bit more complex and will be done in a
-separate patch.
+I didn't bother with any code movement to fix the others, these just
+got a bit in the way.
 
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Helge Deller <deller@gmx.de>
 Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 Cc: Claudio Suarez <cssk@net-c.es>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: Du Cheng <ducheng2@gmail.com>
 ---
  drivers/video/fbdev/core/fbcon.c | 13 +------------
  1 file changed, 1 insertion(+), 12 deletions(-)
 
 diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 8f971de35885..814b648e8f09 100644
+index 39dc18a5de86..2a575620ef59 100644
 --- a/drivers/video/fbdev/core/fbcon.c
 +++ b/drivers/video/fbdev/core/fbcon.c
-@@ -942,7 +942,7 @@ static const char *fbcon_startup(void)
- 		return display_desc;
- 	/*
- 	 * Instead of blindly using registered_fb[0], we use info_idx, set by
--	 * fb_console_init();
-+	 * fbcon_fb_registered();
- 	 */
- 	info = registered_fb[info_idx];
- 	if (!info)
-@@ -3316,17 +3316,6 @@ static void fbcon_start(void)
- 		return;
- 	}
- #endif
--
--	if (num_registered_fb) {
--		int i;
--
--		for_each_registered_fb(i) {
--			info_idx = i;
--			break;
--		}
--
--		do_fbcon_takeover(0);
--	}
- }
+@@ -163,18 +163,7 @@ static int fbcon_cursor_noblink;
+  *  Interface used by the world
+  */
  
- static void fbcon_exit(void)
+-static const char *fbcon_startup(void);
+-static void fbcon_init(struct vc_data *vc, int init);
+-static void fbcon_deinit(struct vc_data *vc);
+-static void fbcon_clear(struct vc_data *vc, int sy, int sx, int height,
+-			int width);
+-static void fbcon_putc(struct vc_data *vc, int c, int ypos, int xpos);
+-static void fbcon_putcs(struct vc_data *vc, const unsigned short *s,
+-			int count, int ypos, int xpos);
+ static void fbcon_clear_margins(struct vc_data *vc, int bottom_only);
+-static void fbcon_cursor(struct vc_data *vc, int mode);
+-static int fbcon_switch(struct vc_data *vc);
+-static int fbcon_blank(struct vc_data *vc, int blank, int mode_switch);
+ static void fbcon_set_palette(struct vc_data *vc, const unsigned char *table);
+ 
+ /*
+@@ -184,8 +173,8 @@ static void fbcon_set_disp(struct fb_info *info, struct fb_var_screeninfo *var,
+ 			   int unit);
+ static void fbcon_modechanged(struct fb_info *info);
+ static void fbcon_set_all_vcs(struct fb_info *info);
+-static void fbcon_start(void);
+ static void fbcon_exit(void);
++
+ static struct device *fbcon_device;
+ 
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
 -- 
 2.33.0
 
