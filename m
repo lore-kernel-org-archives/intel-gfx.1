@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74C55C43219
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:07:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62366C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C38C510E585;
-	Mon, 31 Jan 2022 21:06:57 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7A7A10E579
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:53 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- f22-20020a1c1f16000000b003525bf08b1eso323479wmf.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81E9D10E596;
+	Mon, 31 Jan 2022 21:06:58 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A92A510E546
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:55 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id w11so27877974wra.4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=BL4fo+2WOVTby6QLKLV1nVWtvQ3JNOhu+8wB2s/+LIQ=;
- b=lLAk+I5V89CC9MFc55MMdOMjGF/tYWATRKVaKN+mU+U/Zp9rNdtcHwwA4O9ivim8U4
- uhebJSd0VSHz4+CYgUEh4M7+LU+xaEJZG+163OfCeS7yOE+ftK3RBaICg7lCK+O10tNI
- 7MA38sqKnpewyjNRhdRuH71H/gnUy0kn0+j0I=
+ bh=FxNR4P5lDXdqDoRY6o7wMDtTBWXikuXUtP+0kdBf7FQ=;
+ b=Lo4AW9guvOF81u6WGQBXjsTZUvFuBcQIdzBj2fKuxIY0ijvWI/WKVVcAEew+wpAmNv
+ T9o5T51UXeGAC8PY0e/dJSsEAeJCL79CCkRMNfyQnjXBUsH8+RxF6XddMCurXVkMGdfT
+ UwQJSGBW+iiRzyYdMPsOrpy+yu64udBa1ILAk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=BL4fo+2WOVTby6QLKLV1nVWtvQ3JNOhu+8wB2s/+LIQ=;
- b=CNsH8qUVVW8UGzvbuCMlsRP8ajbq9KB/1/FkolUrjvW3rGdYw3mTkAQOYEagXFMJYN
- lMSssEupHXvPdtGIbBLKWqvOS9QEZKYRHwNQyVrCY64EggfuqdBYCccC5ywyBUGj+blZ
- PgOgdhnYTxecZJ5Uee0g9TJeRbhbqVWIcM0zv9O1TJUbG1Ub7DHWEUfeOMtVczBwvmyq
- vXmDgGTWq7jSpVyRyEsZ2Uqu2IGuilHNjf63dP6cs9tarzNuvqY23zPpG1FxQl+EgTCe
- 8bpmHAAGvgjzvX10DkV8/UUvBvQPR6rIWmePxLr1pcD21sn7OEXY4qE9xQpLoxukWtH6
- CLag==
-X-Gm-Message-State: AOAM530pd3rXKS/IgszRnBtxf7adSUeL6XsIqI9KDDt9JEfmLOYYNqxc
- 2UCf59oOEF45G0Xq3jNi/Kx7tg==
-X-Google-Smtp-Source: ABdhPJym9NA44EvixyMQWymA9HgMTQo3UEXCCeTnD39yMkLuzcB/0jUZ9xIYu3slC/yauz5ZL1NXmg==
-X-Received: by 2002:a1c:f210:: with SMTP id s16mr20179198wmc.99.1643663212301; 
- Mon, 31 Jan 2022 13:06:52 -0800 (PST)
+ bh=FxNR4P5lDXdqDoRY6o7wMDtTBWXikuXUtP+0kdBf7FQ=;
+ b=wJ6Rp0yWS/B3PA64NejYntxWiqRHS02eZj2+NEy8z95sCB2lhkKlh48WjEyYraqdhP
+ 8/C9PveIkaQJ8huA1ii3XX8dOMbOMJbdBM5IH3MZZAmNRdBquDeBAtmEjleVxtaM1Z9A
+ mFAbWDSosJ2AnJwMht053pm5IKwgxPdNzKIhfhhl8WWNEEgAKEobFC5esyo3OrIdjOH+
+ fvg3FP3JwY6lF7rc0p+nxWaJs/Ys4w44Q+0iwt0g6wEC2IMQ6yvxOI7Nc03Wf5xgIT9a
+ xY5C+FQzaYZzptTLCPiOuvn3PGXvkUwtBdhCrWNARRqaRAbMASEu+/oXFsPx4XVvERf+
+ zdvg==
+X-Gm-Message-State: AOAM5321IHz0CQqga3JGnPZA23j5PSA0OO/EC0EpLQtGBqtY9wWhlR9y
+ mAtwBc2qzTxwAY2eUbO7N2vLKQ==
+X-Google-Smtp-Source: ABdhPJwF2QvK4hmf/7QGpz8EsMBpbsf23W007iTEYAPXtLNPFXTESQvIlo2rylKpGsmivnZGCNYQaQ==
+X-Received: by 2002:adf:e8ce:: with SMTP id k14mr10214483wrn.284.1643663214293; 
+ Mon, 31 Jan 2022 13:06:54 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.51
+ by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 13:06:51 -0800 (PST)
+ Mon, 31 Jan 2022 13:06:53 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 31 Jan 2022 22:05:50 +0100
-Message-Id: <20220131210552.482606-20-daniel.vetter@ffwll.ch>
+Date: Mon, 31 Jan 2022 22:05:52 +0100
+Message-Id: <20220131210552.482606-22-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/21] fbcon: Maintain a private array of fb_info
+Subject: [Intel-gfx] [PATCH 21/21] fbdev: Make registered_fb[] private to
+ fbmem.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,303 +65,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Du Cheng <ducheng2@gmail.com>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+Cc: linux-fbdev@vger.kernel.org, Zheyu Ma <zheyuma97@gmail.com>,
+ Xiyu Yang <xiyuyang19@fudan.edu.cn>, Jens Frederich <jfrederich@gmail.com>,
+ Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
+ linux-staging@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Zhen Lei <thunder.leizhen@huawei.com>,
+ Guenter Roeck <linux@roeck-us.net>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@intel.com>
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Jon Nettleton <jon.nettleton@gmail.com>, Helge Deller <deller@gmx.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Accessing the one in fbmem.c without taking the right locks is a bad
-idea. Instead maintain our own private copy, which is fully protected
-by console_lock() (like everything else in fbcon.c). That copy is
-serialized through fbcon_fb_registered/unregistered() calls.
+Well except when the olpc dcon fbdev driver is enabled, that thing
+digs around in there in rather unfixable ways.
 
-Also this means we do not need to hold a full fb_info reference, which
-is nice because doing so would mean a refcount loop between the
-console and the fb_info. But it's also not nice since it means
-console_lock() must be held absolutely everywhere. Well strictly
-speaking we could still try to do some refcounting games again by
-calling get_fb_info before we drop the console_lock. But things will
-get tricky.
+Cc oldc_dcon maintainers as fyi.
 
+Cc: Jens Frederich <jfrederich@gmail.com>
+Cc: Jon Nettleton <jon.nettleton@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: Claudio Suarez <cssk@net-c.es>
-Cc: Du Cheng <ducheng2@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
+Cc: linux-fbdev@vger.kernel.org
+Cc: Zheyu Ma <zheyuma97@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/video/fbdev/core/fbcon.c | 82 +++++++++++++++++---------------
- 1 file changed, 43 insertions(+), 39 deletions(-)
+ drivers/video/fbdev/core/fbmem.c | 8 ++++++--
+ include/linux/fb.h               | 7 +++----
+ 2 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 22581952b4fd..a0ca34b29615 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -86,10 +86,6 @@
-  * - fbcon state itself is protected by the console_lock, and the code does a
-  *   pretty good job at making sure that lock is held everywhere it's needed.
-  *
-- * - access to the registered_fb array is entirely unprotected. This should use
-- *   proper object lifetime handling, i.e. get/put_fb_info. This also means
-- *   switching from indices to proper pointers for fb_info everywhere.
-- *
-  * - fbcon doesn't bother with fb_lock/unlock at all. This is buggy, since it
-  *   means concurrent access to the same fbdev from both fbcon and userspace
-  *   will blow up. To fix this all fbcon calls from fbmem.c need to be moved out
-@@ -107,6 +103,13 @@ enum {
+diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
+index 904ef1250677..dad6572942fa 100644
+--- a/drivers/video/fbdev/core/fbmem.c
++++ b/drivers/video/fbdev/core/fbmem.c
+@@ -48,10 +48,14 @@
+ static DEFINE_MUTEX(registration_lock);
  
- static struct fbcon_display fb_display[MAX_NR_CONSOLES];
+ struct fb_info *registered_fb[FB_MAX] __read_mostly;
+-EXPORT_SYMBOL(registered_fb);
+-
+ int num_registered_fb __read_mostly;
++#if IS_ENABLED(CONFIG_OLPC_DCON)
++EXPORT_SYMBOL(registered_fb);
+ EXPORT_SYMBOL(num_registered_fb);
++#endif
++#define for_each_registered_fb(i)		\
++	for (i = 0; i < FB_MAX; i++)		\
++		if (!registered_fb[i]) {} else
  
-+struct fb_info *fbcon_registered_fb[FB_MAX];
-+int fbcon_num_registered_fb;
+ bool fb_center_logo __read_mostly;
+ 
+diff --git a/include/linux/fb.h b/include/linux/fb.h
+index a8a00d2ba1f3..e236817502c2 100644
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -622,16 +622,15 @@ extern int fb_get_color_depth(struct fb_var_screeninfo *var,
+ extern int fb_get_options(const char *name, char **option);
+ extern int fb_new_modelist(struct fb_info *info);
+ 
++#if IS_ENABLED(CONFIG_OLPC_DCON)
+ extern struct fb_info *registered_fb[FB_MAX];
 +
-+#define fbcon_for_each_registered_fb(i)		\
-+	for (i = 0; WARN_CONSOLE_UNLOCKED(), i < FB_MAX; i++)		\
-+		if (!fbcon_registered_fb[i]) {} else
-+
- static signed char con2fb_map[MAX_NR_CONSOLES];
- static signed char con2fb_map_boot[MAX_NR_CONSOLES];
+ extern int num_registered_fb;
++#endif
+ extern bool fb_center_logo;
+ extern int fb_logo_count;
+ extern struct class *fb_class;
  
-@@ -114,12 +117,7 @@ static struct fb_info *fbcon_info_from_console(int console)
+-#define for_each_registered_fb(i)		\
+-	for (i = 0; i < FB_MAX; i++)		\
+-		if (!registered_fb[i]) {} else
+-
+ static inline void lock_fb_info(struct fb_info *info)
  {
- 	WARN_CONSOLE_UNLOCKED();
- 
--	/*
--	 * Note that only con2fb_map is protected by the console lock,
--	 * registered_fb is protected by a separate mutex. This lookup can
--	 * therefore race.
--	 */
--	return registered_fb[con2fb_map[console]];
-+	return fbcon_registered_fb[con2fb_map[console]];
- }
- 
- static int logo_lines;
-@@ -516,7 +514,7 @@ static int do_fbcon_takeover(int show_logo)
- {
- 	int err, i;
- 
--	if (!num_registered_fb)
-+	if (!fbcon_num_registered_fb)
- 		return -ENODEV;
- 
- 	if (!show_logo)
-@@ -822,7 +820,7 @@ static int set_con2fb_map(int unit, int newidx, int user)
- {
- 	struct vc_data *vc = vc_cons[unit].d;
- 	int oldidx = con2fb_map[unit];
--	struct fb_info *info = registered_fb[newidx];
-+	struct fb_info *info = fbcon_registered_fb[newidx];
- 	struct fb_info *oldinfo = NULL;
- 	int found, err = 0, show_logo;
- 
-@@ -840,7 +838,7 @@ static int set_con2fb_map(int unit, int newidx, int user)
- 	}
- 
- 	if (oldidx != -1)
--		oldinfo = registered_fb[oldidx];
-+		oldinfo = fbcon_registered_fb[oldidx];
- 
- 	found = search_fb_in_map(newidx);
- 
-@@ -932,13 +930,13 @@ static const char *fbcon_startup(void)
- 	 *  If num_registered_fb is zero, this is a call for the dummy part.
- 	 *  The frame buffer devices weren't initialized yet.
- 	 */
--	if (!num_registered_fb || info_idx == -1)
-+	if (!fbcon_num_registered_fb || info_idx == -1)
- 		return display_desc;
- 	/*
- 	 * Instead of blindly using registered_fb[0], we use info_idx, set by
- 	 * fbcon_fb_registered();
- 	 */
--	info = registered_fb[info_idx];
-+	info = fbcon_registered_fb[info_idx];
- 	if (!info)
- 		return NULL;
- 	
-@@ -1153,9 +1151,9 @@ static void fbcon_release_all(void)
- 	struct fb_info *info;
- 	int i, j, mapped;
- 
--	for_each_registered_fb(i) {
-+	fbcon_for_each_registered_fb(i) {
- 		mapped = 0;
--		info = registered_fb[i];
-+		info = fbcon_registered_fb[i];
- 
- 		for (j = first_fb_vc; j <= last_fb_vc; j++) {
- 			if (con2fb_map[j] == i) {
-@@ -1182,7 +1180,7 @@ static void fbcon_deinit(struct vc_data *vc)
- 	if (idx == -1)
- 		goto finished;
- 
--	info = registered_fb[idx];
-+	info = fbcon_registered_fb[idx];
- 
- 	if (!info)
- 		goto finished;
-@@ -2118,9 +2116,9 @@ static int fbcon_switch(struct vc_data *vc)
- 	 *
- 	 * info->currcon = vc->vc_num;
- 	 */
--	for_each_registered_fb(i) {
--		if (registered_fb[i]->fbcon_par) {
--			struct fbcon_ops *o = registered_fb[i]->fbcon_par;
-+	fbcon_for_each_registered_fb(i) {
-+		if (fbcon_registered_fb[i]->fbcon_par) {
-+			struct fbcon_ops *o = fbcon_registered_fb[i]->fbcon_par;
- 
- 			o->currcon = vc->vc_num;
- 		}
-@@ -2765,7 +2763,7 @@ int fbcon_mode_deleted(struct fb_info *info,
- 		j = con2fb_map[i];
- 		if (j == -1)
- 			continue;
--		fb_info = registered_fb[j];
-+		fb_info = fbcon_registered_fb[j];
- 		if (fb_info != info)
- 			continue;
- 		p = &fb_display[i];
-@@ -2821,7 +2819,7 @@ void fbcon_fb_unbind(struct fb_info *info)
- 				set_con2fb_map(i, new_idx, 0);
- 		}
- 	} else {
--		struct fb_info *info = registered_fb[idx];
-+		struct fb_info *info = fbcon_registered_fb[idx];
- 
- 		/* This is sort of like set_con2fb_map, except it maps
- 		 * the consoles to no device and then releases the
-@@ -2851,6 +2849,9 @@ void fbcon_fb_unregistered(struct fb_info *info)
- 
- 	console_lock();
- 
-+	fbcon_registered_fb[info->node] = NULL;
-+	fbcon_num_registered_fb--;
-+
- 	if (deferred_takeover) {
- 		console_unlock();
- 		return;
-@@ -2865,7 +2866,7 @@ void fbcon_fb_unregistered(struct fb_info *info)
- 	if (idx == info_idx) {
- 		info_idx = -1;
- 
--		for_each_registered_fb(i) {
-+		fbcon_for_each_registered_fb(i) {
- 			info_idx = i;
- 			break;
- 		}
-@@ -2881,7 +2882,7 @@ void fbcon_fb_unregistered(struct fb_info *info)
- 	if (primary_device == idx)
- 		primary_device = -1;
- 
--	if (!num_registered_fb)
-+	if (!fbcon_num_registered_fb)
- 		do_unregister_con_driver(&fb_con);
- 	console_unlock();
- }
-@@ -2956,6 +2957,9 @@ int fbcon_fb_registered(struct fb_info *info)
- 	else
- 		atomic_inc(&ignore_console_lock_warning);
- 
-+	fbcon_registered_fb[info->node] = info;
-+	fbcon_num_registered_fb++;
-+
- 	idx = info->node;
- 	fbcon_select_primary(info);
- 
-@@ -3075,9 +3079,9 @@ int fbcon_set_con2fb_map_ioctl(void __user *argp)
- 		return -EINVAL;
- 	if (con2fb.framebuffer >= FB_MAX)
- 		return -EINVAL;
--	if (!registered_fb[con2fb.framebuffer])
-+	if (!fbcon_registered_fb[con2fb.framebuffer])
- 		request_module("fb%d", con2fb.framebuffer);
--	if (!registered_fb[con2fb.framebuffer]) {
-+	if (!fbcon_registered_fb[con2fb.framebuffer]) {
- 		return -EINVAL;
- 	}
- 
-@@ -3144,10 +3148,10 @@ static ssize_t store_rotate(struct device *device,
- 	console_lock();
- 	idx = con2fb_map[fg_console];
- 
--	if (idx == -1 || registered_fb[idx] == NULL)
-+	if (idx == -1 || fbcon_registered_fb[idx] == NULL)
- 		goto err;
- 
--	info = registered_fb[idx];
-+	info = fbcon_registered_fb[idx];
- 	rotate = simple_strtoul(buf, last, 0);
- 	fbcon_rotate(info, rotate);
- err:
-@@ -3166,10 +3170,10 @@ static ssize_t store_rotate_all(struct device *device,
- 	console_lock();
- 	idx = con2fb_map[fg_console];
- 
--	if (idx == -1 || registered_fb[idx] == NULL)
-+	if (idx == -1 || fbcon_registered_fb[idx] == NULL)
- 		goto err;
- 
--	info = registered_fb[idx];
-+	info = fbcon_registered_fb[idx];
- 	rotate = simple_strtoul(buf, last, 0);
- 	fbcon_rotate_all(info, rotate);
- err:
-@@ -3186,10 +3190,10 @@ static ssize_t show_rotate(struct device *device,
- 	console_lock();
- 	idx = con2fb_map[fg_console];
- 
--	if (idx == -1 || registered_fb[idx] == NULL)
-+	if (idx == -1 || fbcon_registered_fb[idx] == NULL)
- 		goto err;
- 
--	info = registered_fb[idx];
-+	info = fbcon_registered_fb[idx];
- 	rotate = fbcon_get_rotate(info);
- err:
- 	console_unlock();
-@@ -3206,10 +3210,10 @@ static ssize_t show_cursor_blink(struct device *device,
- 	console_lock();
- 	idx = con2fb_map[fg_console];
- 
--	if (idx == -1 || registered_fb[idx] == NULL)
-+	if (idx == -1 || fbcon_registered_fb[idx] == NULL)
- 		goto err;
- 
--	info = registered_fb[idx];
-+	info = fbcon_registered_fb[idx];
- 	ops = info->fbcon_par;
- 
- 	if (!ops)
-@@ -3232,10 +3236,10 @@ static ssize_t store_cursor_blink(struct device *device,
- 	console_lock();
- 	idx = con2fb_map[fg_console];
- 
--	if (idx == -1 || registered_fb[idx] == NULL)
-+	if (idx == -1 || fbcon_registered_fb[idx] == NULL)
- 		goto err;
- 
--	info = registered_fb[idx];
-+	info = fbcon_registered_fb[idx];
- 
- 	if (!info->fbcon_par)
- 		goto err;
-@@ -3295,8 +3299,8 @@ static void fbcon_register_existing_fbs(struct work_struct *work)
- 	deferred_takeover = false;
- 	logo_shown = FBCON_LOGO_DONTSHOW;
- 
--	for_each_registered_fb(i)
--		fbcon_fb_registered(registered_fb[i]);
-+	fbcon_for_each_registered_fb(i)
-+		fbcon_fb_registered(fbcon_registered_fb[i]);
- 
- 	console_unlock();
- }
+ 	mutex_lock(&info->lock);
 -- 
 2.33.0
 
