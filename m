@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0438C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0FA1C4321E
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:07:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32E210E547;
-	Mon, 31 Jan 2022 21:06:57 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0F2110E547
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:54 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id s9so27868383wrb.6
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2029810E590;
+	Mon, 31 Jan 2022 21:06:58 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF1C410E50B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:52 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ l35-20020a05600c1d2300b0034d477271c1so233989wms.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=aGreVoBv5lFrGAhkKBR22I8AcuYmyzl1ND80HuTCbWw=;
- b=Ce2EXiZ6NeWaMQg7vuTxuhe84d+UnW4ndFL8GON+RIrMFrKsXLBgnAYvw3YX7WHoob
- 8iy9fYppGJA1n5RdF5uOmTbl35qes7UPTXp58TH4VzJ/2T4MaY6yf24bJlKJAdBErdgu
- qHKH9P+j50ghgEGyY1xMaZSVgQklR+WgfJEBI=
+ bh=xR2Cpj9NPzd3PMXMumK8tGjLNRzMjrUh58YqCebhDEo=;
+ b=ZXAAWHU3cxYjQqaynKuzlDitJZki2ld78sfGg5BvoOXCxWUICbZVwllmG72oQjrJqV
+ MFAF6FjmGHluZ4RcYolzuSjzNn2P05ro9f3pwcZjHwx7b9I20PuWxiFZLgb3boxLRRsu
+ DLoJLArEnqol2fPTAyDdyu3SOHyLveDYE6buc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=aGreVoBv5lFrGAhkKBR22I8AcuYmyzl1ND80HuTCbWw=;
- b=lwFHNRdg/uQn2gH0tl7NIDnGXZifwI0rDFWE2ka0vFVveiPhAsTP2dx4uuvZ1WyofF
- fsGRlW3s+zRJ3jfQCgPyXCWrJhhzIVM459HO4XAYEaFOYGdyYRU5Wttj1iYC0Ny3l372
- jTCTvppUus6E8Lta46ZmxQAac4DLuurXVGg/MJjja0pul4k5FucdELXrm/gNnPkAuoLF
- cMCjah70NMh5BD7SGIrX+6P52NeHG1T+LdN6N4lnMKl9P6GOiRvTxtxTxytwb4PtaQFX
- OYRav+RvXNG7iVF7nZR4jEs3aivVnhdxmxuh1EOANsxBT1GnKXCKJLe3VL0ti2YCQIzb
- iC1A==
-X-Gm-Message-State: AOAM5325eDqF+BM1d5IKbUnDNvCasxk9OV4ji9hnOeruerjGBidX9esv
- y+xrwJxXr989rGbDG1jaj1j6RQ==
-X-Google-Smtp-Source: ABdhPJx/nOHwEr/5eFZj9enrGYAxDjjY1aE3BvBG5xK+gsRkdtoyvkoY3tqiyHdzYyxTwphjn5fXwQ==
-X-Received: by 2002:a5d:6341:: with SMTP id b1mr18173217wrw.719.1643663213206; 
- Mon, 31 Jan 2022 13:06:53 -0800 (PST)
+ bh=xR2Cpj9NPzd3PMXMumK8tGjLNRzMjrUh58YqCebhDEo=;
+ b=CtMiz3dwtIj41NMI+AeioSghsjt0M0svKCb9ZHJ91neWWWBGphfesRkKVwTgscWW5N
+ F7lg0MoOfM50ZuyGeRSx3arcII7CiJQKa7uaq5vH0ue6oLyDioo1OiiETMatpegKnUey
+ 3tByZ/VWrQRkOLKYjXV27WWjBcpVMvJ9irNvMroVLtN7K6dpAg0PBRijsZmxf6GIxMlh
+ iS9BJsApQva1vPY5Ys8WtNEwGTC2v4WPBrn0wAHljACTDyZS+pDkxDkj4cs+fE79ENwV
+ Suu1oakGrlCPbu0VD7UNtUQdSDED5PpfiaVjIK6SCuOXsJcmtcRtzIhm+S0ttkiekWSC
+ kMxQ==
+X-Gm-Message-State: AOAM533qLdNdAqDFWQMGeIen6+j76hsvYOwNOang/hW+2KTulIEnd9TZ
+ 1JO+Npugsss8b7fDgxYnz8ZCQw==
+X-Google-Smtp-Source: ABdhPJwsHKFlXJjctslIwLzw0eq71bo0GChWx/OaKsX1kI+rSPX9G1EgnGiUQOnkpJ2lxJyTJPvEfw==
+X-Received: by 2002:a05:600c:38a:: with SMTP id
+ w10mr23340953wmd.12.1643663211423; 
+ Mon, 31 Jan 2022 13:06:51 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.52
+ by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 13:06:52 -0800 (PST)
+ Mon, 31 Jan 2022 13:06:51 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 31 Jan 2022 22:05:51 +0100
-Message-Id: <20220131210552.482606-21-daniel.vetter@ffwll.ch>
+Date: Mon, 31 Jan 2022 22:05:49 +0100
+Message-Id: <20220131210552.482606-19-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 20/21] Revert "fbdev: Prevent probing generic
- drivers if a FB is already registered"
+Subject: [Intel-gfx] [PATCH 18/21] fbcon: untangle fbcon_exit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,87 +66,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: linux-fbdev@vger.kernel.org, Du Cheng <ducheng2@gmail.com>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  LKML <linux-kernel@vger.kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>, Peter Jones <pjones@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Ilya Trukhanov <lahvuun@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Zack Rusin <zackr@vmware.com>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Daniel Vetter <daniel.vetter@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit fb561bf9abde49f7e00fdbf9ed2ccf2d86cac8ee.
+There's a bunch of confusions going on here:
+- The deferred fbcon setup notifier should only be cleaned up from
+  fb_console_exit(), to be symmetric with fb_console_init()
+- We also need to make sure we don't race with the work, which means
+  temporarily dropping the console lock (or we can deadlock)
+- That also means no point in clearing deferred_takeover, we are
+  unloading everything anyway.
+- Finally rename fbcon_exit to fbcon_release_all and move it, since
+  that's what's it doing when being called from consw->con_deinit
+  through fbcon_deinit.
 
-With
-
-commit 27599aacbaefcbf2af7b06b0029459bbf682000d
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-Date:   Tue Jan 25 10:12:18 2022 +0100
-
-    fbdev: Hot-unplug firmware fb devices on forced removal
-
-this should be fixed properly and we can remove this somewhat hackish
-check here (e.g. this won't catch drm drivers if fbdev emulation isn't
-enabled).
-
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Zack Rusin <zackr@vmware.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Zack Rusin <zackr@vmware.com>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Cc: Ilya Trukhanov <lahvuun@gmail.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Peter Jones <pjones@redhat.com>
-Cc: linux-fbdev@vger.kernel.org
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Claudio Suarez <cssk@net-c.es>
+Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 ---
- drivers/video/fbdev/efifb.c    | 11 -----------
- drivers/video/fbdev/simplefb.c | 11 -----------
- 2 files changed, 22 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 63 ++++++++++++++++----------------
+ 1 file changed, 32 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-index ea42ba6445b2..edca3703b964 100644
---- a/drivers/video/fbdev/efifb.c
-+++ b/drivers/video/fbdev/efifb.c
-@@ -351,17 +351,6 @@ static int efifb_probe(struct platform_device *dev)
- 	char *option = NULL;
- 	efi_memory_desc_t md;
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 5c14e24d14a1..22581952b4fd 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -185,7 +185,6 @@ static void fbcon_set_disp(struct fb_info *info, struct fb_var_screeninfo *var,
+ 			   int unit);
+ static void fbcon_modechanged(struct fb_info *info);
+ static void fbcon_set_all_vcs(struct fb_info *info);
+-static void fbcon_exit(void);
  
--	/*
--	 * Generic drivers must not be registered if a framebuffer exists.
--	 * If a native driver was probed, the display hardware was already
--	 * taken and attempting to use the system framebuffer is dangerous.
--	 */
--	if (num_registered_fb > 0) {
--		dev_err(&dev->dev,
--			"efifb: a framebuffer is already registered\n");
--		return -EINVAL;
--	}
+ static struct device *fbcon_device;
+ 
+@@ -1149,6 +1148,27 @@ static void fbcon_free_font(struct fbcon_display *p, bool freefont)
+ 
+ static void set_vc_hi_font(struct vc_data *vc, bool set);
+ 
++static void fbcon_release_all(void)
++{
++	struct fb_info *info;
++	int i, j, mapped;
++
++	for_each_registered_fb(i) {
++		mapped = 0;
++		info = registered_fb[i];
++
++		for (j = first_fb_vc; j <= last_fb_vc; j++) {
++			if (con2fb_map[j] == i) {
++				mapped = 1;
++				con2fb_map[j] = -1;
++			}
++		}
++
++		if (mapped)
++			fbcon_release(info);
++	}
++}
++
+ static void fbcon_deinit(struct vc_data *vc)
+ {
+ 	struct fbcon_display *p = &fb_display[vc->vc_num];
+@@ -1188,7 +1208,7 @@ static void fbcon_deinit(struct vc_data *vc)
+ 		set_vc_hi_font(vc, false);
+ 
+ 	if (!con_is_bound(&fb_con))
+-		fbcon_exit();
++		fbcon_release_all();
+ 
+ 	if (vc->vc_num == logo_shown)
+ 		logo_shown = FBCON_LOGO_CANSHOW;
+@@ -3316,34 +3336,6 @@ static void fbcon_start(void)
+ #endif
+ }
+ 
+-static void fbcon_exit(void)
+-{
+-	struct fb_info *info;
+-	int i, j, mapped;
 -
- 	if (screen_info.orig_video_isVGA != VIDEO_TYPE_EFI || pci_dev_disabled)
- 		return -ENODEV;
- 
-diff --git a/drivers/video/fbdev/simplefb.c b/drivers/video/fbdev/simplefb.c
-index 57541887188b..ee8b4412f7e4 100644
---- a/drivers/video/fbdev/simplefb.c
-+++ b/drivers/video/fbdev/simplefb.c
-@@ -407,17 +407,6 @@ static int simplefb_probe(struct platform_device *pdev)
- 	struct simplefb_par *par;
- 	struct resource *mem;
- 
--	/*
--	 * Generic drivers must not be registered if a framebuffer exists.
--	 * If a native driver was probed, the display hardware was already
--	 * taken and attempting to use the system framebuffer is dangerous.
--	 */
--	if (num_registered_fb > 0) {
--		dev_err(&pdev->dev,
--			"simplefb: a framebuffer is already registered\n");
--		return -EINVAL;
+-#ifdef CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
+-	if (deferred_takeover) {
+-		dummycon_unregister_output_notifier(&fbcon_output_nb);
+-		deferred_takeover = false;
 -	}
+-#endif
 -
- 	if (fb_get_options("simplefb", NULL))
- 		return -ENODEV;
+-	for_each_registered_fb(i) {
+-		mapped = 0;
+-		info = registered_fb[i];
+-
+-		for (j = first_fb_vc; j <= last_fb_vc; j++) {
+-			if (con2fb_map[j] == i) {
+-				mapped = 1;
+-				con2fb_map[j] = -1;
+-			}
+-		}
+-
+-		if (mapped)
+-			fbcon_release(info);
+-	}
+-}
+-
+ void __init fb_console_init(void)
+ {
+ 	int i;
+@@ -3383,10 +3375,19 @@ static void __exit fbcon_deinit_device(void)
  
+ void __exit fb_console_exit(void)
+ {
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
++	console_lock();
++	if (deferred_takeover)
++		dummycon_unregister_output_notifier(&fbcon_output_nb);
++	console_unlock();
++
++	cancel_work_sync(&fbcon_deferred_takeover_work);
++#endif
++
+ 	console_lock();
+ 	fbcon_deinit_device();
+ 	device_destroy(fb_class, MKDEV(0, 0));
+-	fbcon_exit();
++
+ 	do_unregister_con_driver(&fb_con);
+ 	console_unlock();
+ }	
 -- 
 2.33.0
 
