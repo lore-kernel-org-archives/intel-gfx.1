@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E7EAC43217
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E573DC433FE
 	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:07:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E05A710E545;
-	Mon, 31 Jan 2022 21:06:50 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49A7A10E4A3
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:44 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id w11so27876962wra.4
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3276A10E537;
+	Mon, 31 Jan 2022 21:06:52 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 451EB10E50C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:49 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id n8so11190413wmk.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=AGFhDGryxjuBc9pLIOSfx0xFgTrTTX1sIqhqyt/kJz8=;
- b=k4RCrbw2SzASAe0fFcoeoFRDLS+QUlQzEZQGK+mgi5w94n2tRyrosagvguSOBMTayW
- cix/RUsFZwPt185f+02AQeMrThDpNBY6n/t2Jzf8mROm3DdJ0y8rtDN5jBvFCtMr2M3X
- olDb26S4XtUepgHpZ2zYxleHGUBVNLrRM3ibg=
+ bh=3hWiJw8I0v/FhKndgqc2O30e2FmZYwhYniGtWb90tWY=;
+ b=HHQSy572JqEYwMH+XAImxbYANsnDK/FocLe1VGb5+1HoyTQOlf6pkJdzMLp+bQVtjl
+ 6nGB7Yu3HDEDy7AAoG4b1oLVSDRpa9s5ddsKnU8r6m1P82LiOt+SAZcWqZYeQWPQARgU
+ WXr3wNTQE3KehfvQbrgyI6k9xn3+ZGRP2IBiM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=AGFhDGryxjuBc9pLIOSfx0xFgTrTTX1sIqhqyt/kJz8=;
- b=OLJGmaLZg8pMYCim3r3YVsJ7koY5bei17vpfC0lT88feLWCbVdKKSRx8oFCwxK3+Js
- XIA68IXdnW/Ay8YLA+I7wrYPO4Y/iSca37Ga5iliMvvhyC1YZ+GrokD/QT9LboRWAG+v
- HoNKu7WFRqYfoO7aD4FEwMwn6xmdbYuOldbuVgAbor7sfWksHz18t4RnFhQ/CW3kQ7+K
- qQqaq72zoya/AXpKew9PvCe8xo4fpSuU+vEpW03M+/VxuLCFDQ+xVcyeEbBSOPknb9n3
- q893apfQQU5G9/IUHu4x4LLXyj6bNqDwsSilh93RpQRopMKmjhvZYmoWMYC0B/NqKmpS
- UQ5A==
-X-Gm-Message-State: AOAM531iQek29UFwVhQtgBbDQtREDOJXdi7g1UV17oF/qnc9uiAA6lRT
- vpEiBOYr/2vCcOdyrKm4FMLLCA==
-X-Google-Smtp-Source: ABdhPJxZZ1xhuWVtSzpEobDrhChDtXcf2nVaPsVwPmajZXySVFdry9xQXezcJiObqHaPqFMFr0Y7Mg==
-X-Received: by 2002:a5d:6f10:: with SMTP id
- ay16mr19478357wrb.205.1643663202537; 
- Mon, 31 Jan 2022 13:06:42 -0800 (PST)
+ bh=3hWiJw8I0v/FhKndgqc2O30e2FmZYwhYniGtWb90tWY=;
+ b=6ExaHpxAvqavnQii+G3GiaqO1J9/quRBKxrHFgnC9apB3CmqugBdjRpYHBpp/0JbNE
+ 2xbYRGBFWAkjZPZKySKnm3IHRg38JUY2Lnl/mF+XoxlYecIqhekYJaBFLLnbi56+1jvY
+ uIbM+fbxBTdwc5uZ7xq49g6hqrtMyXDXulj7NsBI5iS9o3VzcVF08ObhOPCTDmb/L3qM
+ Rm+WHqYUgJQamE1HBmC8bCki5XTdhECiL8UDipBgngcKHOb2mkffoQ+vLrQ7Sd0f75qv
+ GnMCnGbCtxEmo43yXFbzhj5m35Pzk/YwD4qjoEGEHQ1IexvBhz77vPAr2ABXUAP/DRm4
+ od6w==
+X-Gm-Message-State: AOAM532gCYOCk0qMGpr/Itao4UGDVxuovM0SSqUzjV+dq5hP2/KQsOah
+ ZPJ8yRCSr1usn80XcSmmH2JO1w==
+X-Google-Smtp-Source: ABdhPJxUkcP7tvQC/1g/mrtlDB25tdXfgU7PSiuLoapLSdk12hfg/ro1vp1kr0Y7TNymzUpLM79pKg==
+X-Received: by 2002:a7b:c4c5:: with SMTP id g5mr19646400wmk.139.1643663207885; 
+ Mon, 31 Jan 2022 13:06:47 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.41
+ by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 13:06:42 -0800 (PST)
+ Mon, 31 Jan 2022 13:06:47 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 31 Jan 2022 22:05:39 +0100
-Message-Id: <20220131210552.482606-9-daniel.vetter@ffwll.ch>
+Date: Mon, 31 Jan 2022 22:05:45 +0100
+Message-Id: <20220131210552.482606-15-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/21] fbcon: Use delayed work for cursor
+Subject: [Intel-gfx] [PATCH 14/21] fbcon: use lock_fb_info in
+ fbcon_open/release
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,296 +66,112 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Du Cheng <ducheng2@gmail.com>,
+ Xiyu Yang <xiyuyang19@fudan.edu.cn>, Du Cheng <ducheng2@gmail.com>,
  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
+ Zheyu Ma <zheyuma97@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@intel.com>
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Zhen Lei <thunder.leizhen@huawei.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allows us to delete a bunch of hand-rolled stuff. Also to simplify the
-code we initialize the cursor_work completely when we allocate the
-fbcon_ops structure, instead of trying to cope with console
-re-initialization.
+Now we get to the real motiviation, because fbmem.c insists that
+that's the right lock for these.
 
-The motiviation here is that fbcon code stops using the fb_info.queue,
-which helps with locking issues around cleanup and all that in a later
-patch.
+Ofc fbcon.c has a lot more places where it probably should call
+lock_fb_info(). But looking at fbmem.c at least most of these seem to
+be protected by console_lock() too, which is probably what papers over
+any issues.
 
-Also note that this allows us to ditch the hand-rolled work cleanup in
-fbcon_exit - we already call fbcon_del_cursor_timer, which takes care
-of everything. Plus this was racy anyway.
+Note that this means we're shuffling around a bit the locking sections
+for some of the console takeover and unbind paths, but not all:
+- console binding/unbinding from the console layer never with
+lock_fb_info
+- unbind (as opposed to unlink) never bother with lock_fb_info
+
+Also the real serialization against set_par and set_pan are still
+doing by wrapping the entire ioctl code in console_lock(). So this
+shuffling shouldn't be worse than what we had from a "can you trigger
+races?" pov, but it's at least clearer.
 
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
 Cc: Claudio Suarez <cssk@net-c.es>
-Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: William Kucharski <william.kucharski@oracle.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Zheyu Ma <zheyuma97@gmail.com>
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
+Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
 ---
- drivers/video/fbdev/core/fbcon.c | 85 +++++++++++++-------------------
- drivers/video/fbdev/core/fbcon.h |  4 +-
- 2 files changed, 35 insertions(+), 54 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 5 +++++
+ drivers/video/fbdev/core/fbmem.c | 4 ----
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 814b648e8f09..affb40658fee 100644
+index 5a3391ff038d..496bc5f2133e 100644
 --- a/drivers/video/fbdev/core/fbcon.c
 +++ b/drivers/video/fbdev/core/fbcon.c
-@@ -348,8 +348,8 @@ static int get_color(struct vc_data *vc, struct fb_info *info,
+@@ -682,8 +682,10 @@ static int fbcon_invalid_charcount(struct fb_info *info, unsigned charcount)
  
- static void fb_flashcursor(struct work_struct *work)
+ static void fbcon_release(struct fb_info *info)
  {
--	struct fb_info *info = container_of(work, struct fb_info, queue);
--	struct fbcon_ops *ops = info->fbcon_par;
-+	struct fbcon_ops *ops = container_of(work, struct fbcon_ops, cursor_work.work);
-+	struct fb_info *info;
- 	struct vc_data *vc = NULL;
- 	int c;
- 	int mode;
-@@ -362,7 +362,10 @@ static void fb_flashcursor(struct work_struct *work)
- 	if (ret == 0)
++	lock_fb_info(info);
+ 	if (info->fbops->fb_release)
+ 		info->fbops->fb_release(info, 0);
++	unlock_fb_info(info);
+ 
+ 	module_put(info->fbops->owner);
+ }
+@@ -695,11 +697,14 @@ static int fbcon_open(struct fb_info *info)
+ 	if (!try_module_get(info->fbops->owner))
+ 		return -ENODEV;
+ 
++	lock_fb_info(info);
+ 	if (info->fbops->fb_open &&
+ 	    info->fbops->fb_open(info, 0)) {
++		unlock_fb_info(info);
+ 		module_put(info->fbops->owner);
+ 		return -ENODEV;
+ 	}
++	unlock_fb_info(info);
+ 
+ 	ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
+ 	if (!ops) {
+diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
+index 0fa7ede94fa6..fd51d12f2702 100644
+--- a/drivers/video/fbdev/core/fbmem.c
++++ b/drivers/video/fbdev/core/fbmem.c
+@@ -1653,9 +1653,7 @@ static int do_register_framebuffer(struct fb_info *fb_info)
+ 		console_lock();
+ 	else
+ 		atomic_inc(&ignore_console_lock_warning);
+-	lock_fb_info(fb_info);
+ 	ret = fbcon_fb_registered(fb_info);
+-	unlock_fb_info(fb_info);
+ 
+ 	if (!lockless_register_fb)
+ 		console_unlock();
+@@ -1672,9 +1670,7 @@ static void unbind_console(struct fb_info *fb_info)
  		return;
  
--	if (ops && ops->currcon != -1)
-+	/* protected by console_lock */
-+	info = ops->info;
-+
-+	if (ops->currcon != -1)
- 		vc = vc_cons[ops->currcon].d;
- 
- 	if (!vc || !con_is_visible(vc) ||
-@@ -378,42 +381,25 @@ static void fb_flashcursor(struct work_struct *work)
- 	ops->cursor(vc, info, mode, get_color(vc, info, c, 1),
- 		    get_color(vc, info, c, 0));
+ 	console_lock();
+-	lock_fb_info(fb_info);
+ 	fbcon_fb_unbind(fb_info);
+-	unlock_fb_info(fb_info);
  	console_unlock();
--}
- 
--static void cursor_timer_handler(struct timer_list *t)
--{
--	struct fbcon_ops *ops = from_timer(ops, t, cursor_timer);
--	struct fb_info *info = ops->info;
--
--	queue_work(system_power_efficient_wq, &info->queue);
--	mod_timer(&ops->cursor_timer, jiffies + ops->cur_blink_jiffies);
-+	queue_delayed_work(system_power_efficient_wq, &ops->cursor_work,
-+			   ops->cur_blink_jiffies);
  }
  
--static void fbcon_add_cursor_timer(struct fb_info *info)
-+static void fbcon_add_cursor_work(struct fb_info *info)
- {
- 	struct fbcon_ops *ops = info->fbcon_par;
- 
--	if ((!info->queue.func || info->queue.func == fb_flashcursor) &&
--	    !(ops->flags & FBCON_FLAGS_CURSOR_TIMER) &&
--	    !fbcon_cursor_noblink) {
--		if (!info->queue.func)
--			INIT_WORK(&info->queue, fb_flashcursor);
--
--		timer_setup(&ops->cursor_timer, cursor_timer_handler, 0);
--		mod_timer(&ops->cursor_timer, jiffies + ops->cur_blink_jiffies);
--		ops->flags |= FBCON_FLAGS_CURSOR_TIMER;
--	}
-+	if (!fbcon_cursor_noblink)
-+		queue_delayed_work(system_power_efficient_wq, &ops->cursor_work,
-+				   ops->cur_blink_jiffies);
- }
- 
--static void fbcon_del_cursor_timer(struct fb_info *info)
-+static void fbcon_del_cursor_work(struct fb_info *info)
- {
- 	struct fbcon_ops *ops = info->fbcon_par;
- 
--	if (info->queue.func == fb_flashcursor &&
--	    ops->flags & FBCON_FLAGS_CURSOR_TIMER) {
--		del_timer_sync(&ops->cursor_timer);
--		ops->flags &= ~FBCON_FLAGS_CURSOR_TIMER;
--	}
-+	cancel_delayed_work_sync(&ops->cursor_work);
- }
- 
- #ifndef MODULE
-@@ -712,6 +698,8 @@ static int con2fb_acquire_newinfo(struct vc_data *vc, struct fb_info *info,
- 		ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
- 		if (!ops)
- 			err = -ENOMEM;
-+
-+		INIT_DELAYED_WORK(&ops->cursor_work, fb_flashcursor);
- 	}
- 
- 	if (!err) {
-@@ -749,7 +737,7 @@ static int con2fb_release_oldinfo(struct vc_data *vc, struct fb_info *oldinfo,
- 	}
- 
- 	if (!err) {
--		fbcon_del_cursor_timer(oldinfo);
-+		fbcon_del_cursor_work(oldinfo);
- 		kfree(ops->cursor_state.mask);
- 		kfree(ops->cursor_data);
- 		kfree(ops->cursor_src);
-@@ -865,7 +853,7 @@ static int set_con2fb_map(int unit, int newidx, int user)
- 				 logo_shown != FBCON_LOGO_DONTSHOW);
- 
- 		if (!found)
--			fbcon_add_cursor_timer(info);
-+			fbcon_add_cursor_work(info);
- 		con2fb_map_boot[unit] = newidx;
- 		con2fb_init_display(vc, info, unit, show_logo);
- 	}
-@@ -962,6 +950,8 @@ static const char *fbcon_startup(void)
- 		return NULL;
- 	}
- 
-+	INIT_DELAYED_WORK(&ops->cursor_work, fb_flashcursor);
-+
- 	ops->currcon = -1;
- 	ops->graphics = 1;
- 	ops->cur_rotate = -1;
-@@ -1004,7 +994,7 @@ static const char *fbcon_startup(void)
- 		 info->var.yres,
- 		 info->var.bits_per_pixel);
- 
--	fbcon_add_cursor_timer(info);
-+	fbcon_add_cursor_work(info);
- 	return display_desc;
- }
- 
-@@ -1194,7 +1184,7 @@ static void fbcon_deinit(struct vc_data *vc)
- 		goto finished;
- 
- 	if (con_is_visible(vc))
--		fbcon_del_cursor_timer(info);
-+		fbcon_del_cursor_work(info);
- 
- 	ops->flags &= ~FBCON_FLAGS_INIT;
- finished:
-@@ -1320,9 +1310,9 @@ static void fbcon_cursor(struct vc_data *vc, int mode)
- 		return;
- 
- 	if (vc->vc_cursor_type & CUR_SW)
--		fbcon_del_cursor_timer(info);
-+		fbcon_del_cursor_work(info);
- 	else
--		fbcon_add_cursor_timer(info);
-+		fbcon_add_cursor_work(info);
- 
- 	ops->cursor_flash = (mode == CM_ERASE) ? 0 : 1;
- 
-@@ -2149,14 +2139,14 @@ static int fbcon_switch(struct vc_data *vc)
- 		}
- 
- 		if (old_info != info)
--			fbcon_del_cursor_timer(old_info);
-+			fbcon_del_cursor_work(old_info);
- 	}
- 
- 	if (fbcon_is_inactive(vc, info) ||
- 	    ops->blank_state != FB_BLANK_UNBLANK)
--		fbcon_del_cursor_timer(info);
-+		fbcon_del_cursor_work(info);
- 	else
--		fbcon_add_cursor_timer(info);
-+		fbcon_add_cursor_work(info);
- 
- 	set_blitting_type(vc, info);
- 	ops->cursor_reset = 1;
-@@ -2264,9 +2254,9 @@ static int fbcon_blank(struct vc_data *vc, int blank, int mode_switch)
- 
- 	if (mode_switch || fbcon_is_inactive(vc, info) ||
- 	    ops->blank_state != FB_BLANK_UNBLANK)
--		fbcon_del_cursor_timer(info);
-+		fbcon_del_cursor_work(info);
- 	else
--		fbcon_add_cursor_timer(info);
-+		fbcon_add_cursor_work(info);
- 
- 	return 0;
- }
-@@ -3198,7 +3188,7 @@ static ssize_t show_cursor_blink(struct device *device,
- 	if (!ops)
- 		goto err;
- 
--	blink = (ops->flags & FBCON_FLAGS_CURSOR_TIMER) ? 1 : 0;
-+	blink = delayed_work_pending(&ops->cursor_work);
- err:
- 	console_unlock();
- 	return snprintf(buf, PAGE_SIZE, "%d\n", blink);
-@@ -3227,10 +3217,10 @@ static ssize_t store_cursor_blink(struct device *device,
- 
- 	if (blink) {
- 		fbcon_cursor_noblink = 0;
--		fbcon_add_cursor_timer(info);
-+		fbcon_add_cursor_work(info);
- 	} else {
- 		fbcon_cursor_noblink = 1;
--		fbcon_del_cursor_timer(info);
-+		fbcon_del_cursor_work(info);
- 	}
- 
- err:
-@@ -3331,15 +3321,9 @@ static void fbcon_exit(void)
- #endif
- 
- 	for_each_registered_fb(i) {
--		int pending = 0;
--
- 		mapped = 0;
- 		info = registered_fb[i];
- 
--		if (info->queue.func)
--			pending = cancel_work_sync(&info->queue);
--		pr_debug("fbcon: %s pending work\n", (pending ? "canceled" : "no"));
--
- 		for (j = first_fb_vc; j <= last_fb_vc; j++) {
- 			if (con2fb_map[j] == i) {
- 				mapped = 1;
-@@ -3355,15 +3339,12 @@ static void fbcon_exit(void)
- 			if (info->fbcon_par) {
- 				struct fbcon_ops *ops = info->fbcon_par;
- 
--				fbcon_del_cursor_timer(info);
-+				fbcon_del_cursor_work(info);
- 				kfree(ops->cursor_src);
- 				kfree(ops->cursor_state.mask);
- 				kfree(info->fbcon_par);
- 				info->fbcon_par = NULL;
- 			}
--
--			if (info->queue.func == fb_flashcursor)
--				info->queue.func = NULL;
- 		}
- 	}
- }
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 5246d0f2574b..dce5ce41093e 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -14,11 +14,11 @@
- #include <linux/types.h>
- #include <linux/vt_buffer.h>
- #include <linux/vt_kern.h>
-+#include <linux/workqueue.h>
- 
- #include <asm/io.h>
- 
- #define FBCON_FLAGS_INIT         1
--#define FBCON_FLAGS_CURSOR_TIMER 2
- 
-    /*
-     *    This is the interface between the low-level console driver and the
-@@ -66,7 +66,7 @@ struct fbcon_ops {
- 	int  (*update_start)(struct fb_info *info);
- 	int  (*rotate_font)(struct fb_info *info, struct vc_data *vc);
- 	struct fb_var_screeninfo var;  /* copy of the current fb_var_screeninfo */
--	struct timer_list cursor_timer; /* Cursor timer */
-+	struct delayed_work cursor_work; /* Cursor timer */
- 	struct fb_cursor cursor_state;
- 	struct fbcon_display *p;
- 	struct fb_info *info;
 -- 
 2.33.0
 
