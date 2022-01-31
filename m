@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04225C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A23DAC4332F
 	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6165610E595;
-	Mon, 31 Jan 2022 21:06:58 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F168410E4DC
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:51 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- i187-20020a1c3bc4000000b0034d2ed1be2aso301199wma.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41F1E10E579;
+	Mon, 31 Jan 2022 21:06:59 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 234F710E537
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:50 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ l12-20020a7bc34c000000b003467c58cbdfso300108wmj.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=DLCFktF5bXfVELdSs1sFnaEEXohencjsFb8X+BTPOv4=;
- b=IHzC2SevZm5+o9SbqNmhgWdJDul0iEkmYGyVGe/SmayW6tHVYAPf+A5/26FIZeTE+D
- 0VOw3ADfS5vBpiQTuUGs2n8y+G19uSujvFy7DZ7THok1dM7BC3LIlrb046oFUnkEtglA
- ktiGzuVyyG84pbn82uIEzbyH2elqAexWphQIk=
+ bh=zvAncPlENd1mkArHeBkA576DDmIGdQX94f0ukCjnIXQ=;
+ b=U2t8kjkQ/Vt2HJQRdamapjasWFD4c3zJbcxURpYTYrPL2cbDmMJxvxEJJMlW99DO/4
+ HUhOQG+NtbaKJIqcJQ1bk77wmHdiXo6RDrFZUBjDjoYa1m3+m13Io4vvAUPU/RdXN4pI
+ fBNkESnc3jQO0p8GldNWuLNg+S4Y098h1Fh7o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=DLCFktF5bXfVELdSs1sFnaEEXohencjsFb8X+BTPOv4=;
- b=c2Belo4VEsBGe8bZ62eZNudhvnYRGNIjfxNqOkJIvHHRRA1XJ6TPfiQY8ThK9pIdt2
- woqaJThltvmojfg0lEmHtDvVuxEdF446PIFr/ir6ToMeVS+ZAhjxX+5mmwJPfoJc/Tbd
- lIaqp0mV4SWr0zLA5Pdn6lhqqmYnPFO+6OAxLXjXFismORNV5PR6BubgbFCLa4XXmXP2
- JAwxXwqkNxzA8rNyuKVvNAFxHYGlOObxLgpCm1x+HBEcyetHjc6NFMzuo7+3bARy07RW
- JtckBC2KMId7jAOfz36H53iFWAxH7z3bJqF+pzi/38/SQoPAGoo/Ni68UZjiVvmgGU6C
- XCrA==
-X-Gm-Message-State: AOAM532OcAoBbQZWMlSiGWigYT/UyK6x2BGwuDd03kjscToRmXrZfXJl
- Y181uj5UmoSVBLxwglb037hDFQ==
-X-Google-Smtp-Source: ABdhPJwL5EQol13tK1r2sH3cLNG0kbIqqGvoNKhVRDedFDmv74vH5tVE+s2M6mlbGpn9cwEZu83+7w==
-X-Received: by 2002:a05:600c:3641:: with SMTP id
- y1mr28651132wmq.44.1643663210600; 
- Mon, 31 Jan 2022 13:06:50 -0800 (PST)
+ bh=zvAncPlENd1mkArHeBkA576DDmIGdQX94f0ukCjnIXQ=;
+ b=bl154qJRbEokknvZRrppqXSbc39AQQCVAKYrRxInCzGMLO/8m5w6YXaVLxSbkPULcs
+ 81ysjIec0s5+RE8tyIBIKfptyV4YP2eiCPwJ8nYCRaPHYSxz4alX+/6fCc6QUYr7Lm7L
+ FholRe+kpToyJppPdTGceKHCr6EjZvydG7N+Rk1bpwXouV5RFyoXSye7PTDVTPCY7M7I
+ PHId9BVDEu1OilR4PBQFt3/fg1Bb+ksQ5ecgJ/KAhhOUur4Vdk0Qh6BsXnj6vGPOB3q6
+ haCtb3N6yXkLsdFhB1ogPLfQ63xLcdrCvAOwnqJ3aXP0hjfLlWUETBI/sUqFHlAGATF1
+ Yw4Q==
+X-Gm-Message-State: AOAM532eOAcCGcr9lMiJCIjqrr3H86ZzMdtdnRHyKgKMqT0E1BtPx4Md
+ P++np5kGIWWlfrMmjK8ncs3Svw==
+X-Google-Smtp-Source: ABdhPJw4OlP2ZiGsyZ53C2rKU+S/VlUSh/yp+iwZxn0Bz//sDKkThBEktGnYMjV7P/SFzkmcbMEHWA==
+X-Received: by 2002:a05:600c:19d0:: with SMTP id
+ u16mr28683628wmq.35.1643663208709; 
+ Mon, 31 Jan 2022 13:06:48 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.49
+ by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 13:06:50 -0800 (PST)
+ Mon, 31 Jan 2022 13:06:48 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 31 Jan 2022 22:05:48 +0100
-Message-Id: <20220131210552.482606-18-daniel.vetter@ffwll.ch>
+Date: Mon, 31 Jan 2022 22:05:46 +0100
+Message-Id: <20220131210552.482606-16-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 17/21] fbcon: Move more code into fbcon_release
+Subject: [Intel-gfx] [PATCH 15/21] fbcon: Consistently protect
+ deferred_takeover with console_lock()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +67,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Du Cheng <ducheng2@gmail.com>,
+Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Du Cheng <ducheng2@gmail.com>,
  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@intel.com>
+ LKML <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel.vetter@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-con2fb_release_oldinfo() has a bunch more kfree() calls than
-fbcon_exit(), but since kfree() on NULL is harmless doing that in both
-places should be ok. This is also a bit more symmetric now again with
-fbcon_open also allocating the fbcon_ops structure.
+This shouldn't be a problem in practice since until we've actually
+taken over the console there's nothing we've registered with the
+console/vt subsystem, so the exit/unbind path that check this can't
+do the wrong thing. But it's confusing, so fix it by moving it a tad
+later.
 
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 Cc: Claudio Suarez <cssk@net-c.es>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/core/fbcon.c | 33 +++++++++++++-------------------
- 1 file changed, 13 insertions(+), 20 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index e5e8aaf6f60d..5c14e24d14a1 100644
+index 496bc5f2133e..11b9f962af6f 100644
 --- a/drivers/video/fbdev/core/fbcon.c
 +++ b/drivers/video/fbdev/core/fbcon.c
-@@ -688,6 +688,18 @@ static void fbcon_release(struct fb_info *info)
- 	unlock_fb_info(info);
+@@ -3247,6 +3247,9 @@ static void fbcon_register_existing_fbs(struct work_struct *work)
  
- 	module_put(info->fbops->owner);
+ 	console_lock();
+ 
++	deferred_takeover = false;
++	logo_shown = FBCON_LOGO_DONTSHOW;
 +
-+	if (info->fbcon_par) {
-+		struct fbcon_ops *ops = info->fbcon_par;
-+
-+		fbcon_del_cursor_work(info);
-+		kfree(ops->cursor_state.mask);
-+		kfree(ops->cursor_data);
-+		kfree(ops->cursor_src);
-+		kfree(ops->fontbuffer);
-+		kfree(info->fbcon_par);
-+		info->fbcon_par = NULL;
-+	}
- }
+ 	for_each_registered_fb(i)
+ 		fbcon_fb_registered(registered_fb[i]);
  
- static int fbcon_open(struct fb_info *info)
-@@ -741,18 +753,10 @@ static int con2fb_acquire_newinfo(struct vc_data *vc, struct fb_info *info,
- static void con2fb_release_oldinfo(struct vc_data *vc, struct fb_info *oldinfo,
- 				   struct fb_info *newinfo)
- {
--	struct fbcon_ops *ops = oldinfo->fbcon_par;
- 	int ret;
+@@ -3264,8 +3267,6 @@ static int fbcon_output_notifier(struct notifier_block *nb,
+ 	pr_info("fbcon: Taking over console\n");
  
- 	fbcon_release(oldinfo);
+ 	dummycon_unregister_output_notifier(&fbcon_output_nb);
+-	deferred_takeover = false;
+-	logo_shown = FBCON_LOGO_DONTSHOW;
  
--	fbcon_del_cursor_work(oldinfo);
--	kfree(ops->cursor_state.mask);
--	kfree(ops->cursor_data);
--	kfree(ops->cursor_src);
--	kfree(ops->fontbuffer);
--	kfree(oldinfo->fbcon_par);
--	oldinfo->fbcon_par = NULL;
- 	/*
- 	  If oldinfo and newinfo are driving the same hardware,
- 	  the fb_release() method of oldinfo may attempt to
-@@ -3335,19 +3339,8 @@ static void fbcon_exit(void)
- 			}
- 		}
- 
--		if (mapped) {
--			if (info->fbcon_par) {
--				struct fbcon_ops *ops = info->fbcon_par;
--
--				fbcon_del_cursor_work(info);
--				kfree(ops->cursor_src);
--				kfree(ops->cursor_state.mask);
--				kfree(info->fbcon_par);
--				info->fbcon_par = NULL;
--			}
--
-+		if (mapped)
- 			fbcon_release(info);
--		}
- 	}
- }
- 
+ 	/* We may get called in atomic context */
+ 	schedule_work(&fbcon_deferred_takeover_work);
 -- 
 2.33.0
 
