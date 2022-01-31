@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E66BBC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:06:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 700DAC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 21:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C278610E42D;
-	Mon, 31 Jan 2022 21:06:40 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BC3710E42D
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:37 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id s9so27866993wrb.6
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D48610E47E;
+	Mon, 31 Jan 2022 21:06:42 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB3F10E42D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 21:06:39 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id r7so11184571wmq.5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:06:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=5jm2tqChG+6Cl2msdB52h1xzbJ+oW9+NC/C42g3ib0k=;
- b=V36rEEp+ouYAUNQ82bxdkn5P3ZwQiqH7dskiUsOLGI+nChuOAiU1LKuyDpurK3LEf0
- e5/Y8vrIorBlvVcS6pRAaIymj3OXuaa5pr3tcxbawteVa54wRbCrtFTofJ/mCLnXSLJY
- 8YIDLEgovB750ZktGu8IC9tQWaJXDtpdUOZFA=
+ bh=9elcEF+FUVtrFo+P664bpKhWxlWsFcRwRHhOMNgwzW0=;
+ b=XHfO/wn8IkfHT202i85gyvWrkloyUnQE6uoga9lWrzNazjOOPB/rjjTQiTJ02imTWA
+ 54VOxqV1+ChwVtmjS9FUQkPhKTM2bbY7b8fBwefpQdOiYS10EBKZRaaoaHE+LsfiEOsv
+ p7W/lx2r1iXlJDKVVMadBVoM3d+pe9DFQ63FU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=5jm2tqChG+6Cl2msdB52h1xzbJ+oW9+NC/C42g3ib0k=;
- b=GVqGloF1DFFiWtcF+WVdOAy+yNSG8S1CrIBVHCe7dvhELZ0eaKhb2zSTVRdcKIq7Fg
- ++H7mUiCeCTd4vyVpbNQUz2/Lv9WaWnkKGKAcbbq/97KVCe7TT8MOm+4iXAOW5SqUzst
- blPYILs7b0SWBvAzn4cAxgGt74SsFA1F+vWDCuNRaFzo+DphRDzFVQhrI79tA6dlK02+
- 9L14MOZX2eiv5s26WYAc4eZqG1Owfa9fgkaIKky3JLnMiV+0yoiubGR74iJ6EVax4It5
- 2ML6xHagPmxaBK5uX3eH8nc8TU6Je9PtIsbsQ74zF9vGgVc2VwuGkZX9O3E0SBJRQYju
- eKcg==
-X-Gm-Message-State: AOAM532lDxJ+sVeZYWF3U7uq81n8xDHAwsktzO7Llj6gyprlKFVGKvXk
- nx6ZuJW0NA7Y/gHxAYSnKm3N+w==
-X-Google-Smtp-Source: ABdhPJzE6MxfkQjvT5nGD4ugcetBmrXO6zOc6yI6XQCT4PSLXqTsNaSQryY0J+V6FA5cpi73SBd1Dg==
-X-Received: by 2002:a5d:64ad:: with SMTP id m13mr19468526wrp.671.1643663195774; 
- Mon, 31 Jan 2022 13:06:35 -0800 (PST)
+ bh=9elcEF+FUVtrFo+P664bpKhWxlWsFcRwRHhOMNgwzW0=;
+ b=ni7rYrBJ9TvP/KdZ8qcI7alW4ltFmws2Ci+f4UAE1oMkcbaowhvw5LO8EGTWXHtHGA
+ ejIPQtkaJECWhWdm7TbnmaioKanFJp6mXjmv6aMX/3ORhIBdpnX9FkXgdbHWNK3YvxxC
+ TDRuVy5ULRuhpG5kV7xRBwoTG406XPsGiXzJRof5ZK+TfSzM1RydoYtRJHd6Ahc7tZ98
+ 5B2tCdV3TQxgmqr/LhcG+DDiYobl2j8Tokd9s9wZbl06SG+S8dNmjPXKSjOuAzP8bwLc
+ Jx631fGeU6EYA0RV67tTdJ0sC2BntKkm6BiWEPkqpTebR68u4xBIalYwMcz+gM+fyEsp
+ 5xIA==
+X-Gm-Message-State: AOAM530E+IV8aLAGiuhGovZXUzuAB4d1cIIvnaddkvVjHQVgvwtSfaed
+ V+GLhB6LBsN3oM2QW5jMgFNTijc8LAzBFg==
+X-Google-Smtp-Source: ABdhPJzFYJxnbuwjv7BgWbSbiYaq6SzlYYSYRiulgLOPdfd4aJ33/Z0Erh9dIHL4H0VhctMf+XoN4Q==
+X-Received: by 2002:a05:600c:3593:: with SMTP id
+ p19mr19647246wmq.172.1643663197952; 
+ Mon, 31 Jan 2022 13:06:37 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.34
+ by smtp.gmail.com with ESMTPSA id b11sm314961wmq.46.2022.01.31.13.06.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 13:06:35 -0800 (PST)
+ Mon, 31 Jan 2022 13:06:37 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 31 Jan 2022 22:05:32 +0100
-Message-Id: <20220131210552.482606-2-daniel.vetter@ffwll.ch>
+Date: Mon, 31 Jan 2022 22:05:34 +0100
+Message-Id: <20220131210552.482606-4-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/21] MAINTAINERS: Add entry for fbdev core
+Subject: [Intel-gfx] [PATCH 03/21] fbcon: Restore fbcon scrolling
+ acceleration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,48 +66,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>,
+Cc: Sven Schnelle <svens@stackframe.org>, linux-fbdev@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Sam Ravnborg <sam@ravnborg.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
  Javier Martinez Canillas <javierm@redhat.com>,
  Linus Torvalds <torvalds@linux-foundation.org>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Pavel Machek <pavel@ucw.cz>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Pavel Machek <pavel@ucw.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Geert Uytterhoeven <geert@linux-m68k.org>, Dave Airlie <airlied@gmail.com>,
- Sven Schnelle <svens@stackframe.org>
+ Helge Deller <deller@gmx.de>, Gerd Hoffmann <kraxel@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ever since Tomi extracted the core code in 2014 it's been defacto me
-maintaining this, with help from others from dri-devel and sometimes
-Linus (but those are mostly merge conflicts):
+This functionally undoes 39aead8373b3 ("fbcon: Disable accelerated
+scrolling"), but behind the FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
+option.
 
-$ git shortlog -ns  drivers/video/fbdev/core/ | head -n5
-    35  Daniel Vetter
-    23  Linus Torvalds
-    10  Hans de Goede
-     9  Dave Airlie
-     6  Peter Rosin
-
-I think ideally we'd also record that the various firmware fb drivers
-(efifb, vesafb, ...) are also maintained in drm-misc because for the
-past few years the patches have either been to fix handover issues
-with drm drivers, or caused handover issues with drm drivers. So any
-other tree just doesn't make sense. But also, there's plenty of
-outdated MAINTAINER entries for these with people and git trees that
-haven't been active in years, so maybe let's just leave them alone.
-And furthermore distros are now adopting simpledrm as the firmware fb
-driver, so hopefully the need to care about the fbdev firmware drivers
-will go down going forward.
-
-Note that drm-misc is group maintained, I expect that to continue like
-we've done before, so no new expectations that patches all go through
-my hands. That would be silly. This also means I'm happy to put any
-other volunteer's name in the M: line, but otherwise git log says I'm
-the one who's stuck with this.
-
+References: https://lore.kernel.org/dri-devel/feea8303-2b83-fc36-972c-4fc8ad723bde@gmx.de/
+Fixes: 39aead8373b3 ("fbcon: Disable accelerated scrolling")
+Cc: Helge Deller <deller@gmx.de>
+Cc: <stable@vger.kernel.org> # v5.11+
+Cc: Claudio Suarez <cssk@net-c.es>
 Cc: Dave Airlie <airlied@gmail.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>
@@ -125,26 +109,85 @@ Cc: Sven Schnelle <svens@stackframe.org>
 Cc: Gerd Hoffmann <kraxel@redhat.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 ---
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/video/fbdev/core/fbcon.c | 48 ++++++++++++++++++++++++++++----
+ 1 file changed, 42 insertions(+), 6 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ea3e6c914384..49809eaa3096 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7573,6 +7573,12 @@ S:	Maintained
- W:	http://floatingpoint.sourceforge.net/emulator/index.html
- F:	arch/x86/math-emu/
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 2ff90061c7f3..39dc18a5de86 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -1125,13 +1125,15 @@ static void fbcon_init(struct vc_data *vc, int init)
  
-+FRAMEBUFFER CORE
-+M:	Daniel Vetter <daniel@ffwll.ch>
-+F:	drivers/video/fbdev/core/
-+S:	Odd Fixes
-+T:	git git://anongit.freedesktop.org/drm/drm-misc
+ 	ops->graphics = 0;
+ 
+-	/*
+-	 * No more hw acceleration for fbcon.
+-	 *
+-	 * FIXME: Garbage collect all the now dead code after sufficient time
+-	 * has passed.
+-	 */
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	if ((info->flags & FBINFO_HWACCEL_COPYAREA) &&
++	    !(info->flags & FBINFO_HWACCEL_DISABLED))
++		p->scrollmode = SCROLL_MOVE;
++	else /* default to something safe */
++		p->scrollmode = SCROLL_REDRAW;
++#else
+ 	p->scrollmode = SCROLL_REDRAW;
++#endif
+ 
+ 	/*
+ 	 *  ++guenther: console.c:vc_allocate() relies on initializing
+@@ -1971,15 +1973,49 @@ static void updatescrollmode(struct fbcon_display *p,
+ {
+ 	struct fbcon_ops *ops = info->fbcon_par;
+ 	int fh = vc->vc_font.height;
++	int cap = info->flags;
++	u16 t = 0;
++	int ypan = FBCON_SWAP(ops->rotate, info->fix.ypanstep,
++			      info->fix.xpanstep);
++	int ywrap = FBCON_SWAP(ops->rotate, info->fix.ywrapstep, t);
+ 	int yres = FBCON_SWAP(ops->rotate, info->var.yres, info->var.xres);
+ 	int vyres = FBCON_SWAP(ops->rotate, info->var.yres_virtual,
+ 				   info->var.xres_virtual);
++	int good_pan = (cap & FBINFO_HWACCEL_YPAN) &&
++		divides(ypan, vc->vc_font.height) && vyres > yres;
++	int good_wrap = (cap & FBINFO_HWACCEL_YWRAP) &&
++		divides(ywrap, vc->vc_font.height) &&
++		divides(vc->vc_font.height, vyres) &&
++		divides(vc->vc_font.height, yres);
++	int reading_fast = cap & FBINFO_READS_FAST;
++	int fast_copyarea = (cap & FBINFO_HWACCEL_COPYAREA) &&
++		!(cap & FBINFO_HWACCEL_DISABLED);
++	int fast_imageblit = (cap & FBINFO_HWACCEL_IMAGEBLIT) &&
++		!(cap & FBINFO_HWACCEL_DISABLED);
+ 
+ 	p->vrows = vyres/fh;
+ 	if (yres > (fh * (vc->vc_rows + 1)))
+ 		p->vrows -= (yres - (fh * vc->vc_rows)) / fh;
+ 	if ((yres % fh) && (vyres % fh < yres % fh))
+ 		p->vrows--;
 +
- FRAMEBUFFER LAYER
- M:	Helge Deller <deller@gmx.de>
- L:	linux-fbdev@vger.kernel.org
++	if (good_wrap || good_pan) {
++		if (reading_fast || fast_copyarea)
++			p->scrollmode = good_wrap ?
++				SCROLL_WRAP_MOVE : SCROLL_PAN_MOVE;
++		else
++			p->scrollmode = good_wrap ? SCROLL_REDRAW :
++				SCROLL_PAN_REDRAW;
++	} else {
++		if (reading_fast || (fast_copyarea && !fast_imageblit))
++			p->scrollmode = SCROLL_MOVE;
++		else
++			p->scrollmode = SCROLL_REDRAW;
++	}
++
++#ifndef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	p->scrollmode = SCROLL_REDRAW;
++#endif
+ }
+ 
+ #define PITCH(w) (((w) + 7) >> 3)
 -- 
 2.33.0
 
