@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCE1C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 07:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6FD7C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 07:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F17310E5C2;
-	Tue,  1 Feb 2022 07:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE4E10E603;
+	Tue,  1 Feb 2022 07:34:41 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D478010E5AB;
- Tue,  1 Feb 2022 07:34:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB35110E603;
+ Tue,  1 Feb 2022 07:34:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643700875; x=1675236875;
+ t=1643700878; x=1675236878;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DTK4CS/sPUtVDSPGGUOg8mPJikMQo9fYvR7wfkQ61/U=;
- b=Z8/XpPRWZ03UbaRH8FZL8VLAhBVkWiq9+DbTx7YX6iFJPA8Si+bhUnCs
- /stO6T8H+BZ9/4rXZGxb2yq/3b3uh7dhBr7OX3FBB2jpUJFBKCJYfJ2zw
- mRkk5odDgE6q0M6g7tdWOxMlogjzLTvzuMkM2rYhblyvL6U9sWGIc+Al7
- PQCO//3/neiGOGRpyiu1N/A8k6P1M/87+dnTevTMz9b2f9VwRaJA5HAJk
- VoynBChaQSUiGfp/hxNy73DmCrYxkLvnVLviJFNu/djnEMCbfUqYQ4Ymw
- SzlqSECeWhVhxJgMqoeHOk01iVmBYXMkQCW87Ngn4ClruysTdX9dCCAsQ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="245227825"
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="245227825"
+ bh=P/mh7T78VayFsQqGGcZxb0LOHZTw0jd3pS596N08/dc=;
+ b=fOK4pD3A6CkA2TzNoMu/zVAyYg37Dr/chKXD6HG4LEVlMgsQ0nGXEgfy
+ 76kaRbldSorJShNyi5z/EPvBfCpsA6itS0HxPu1UTVWLZSJ6JuToKZlA5
+ MKXjtAVUeolKjrBU+tUAvXw/HCs4exRrOKl0Yjg11wY5tmpMbJchvJ4Y9
+ 2JwtwtZWX+3eAwtgwEz7DxuPnkSbfsjE/H9cPMS5m1+M7zjjB3Y4jkC/F
+ Ho14gWfwvZyeHWxRW1ultsp102Ni2T5irPO7DZT9TgIoWGranJRcQrFGJ
+ sfNXnJ9ItG3CCYk3QvSF45Ybk/CLr0J0Db+ehlDEw5TnCUqoe/OlPOo0R A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="245227837"
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="245227837"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2022 23:34:34 -0800
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="698315962"
+ 31 Jan 2022 23:34:38 -0800
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="698315977"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2022 23:34:28 -0800
+ 31 Jan 2022 23:34:36 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Feb 2022 12:50:27 +0530
-Message-Id: <20220201072030.1466446-2-ankit.k.nautiyal@intel.com>
+Date: Tue,  1 Feb 2022 12:50:30 +0530
+Message-Id: <20220201072030.1466446-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220201072030.1466446-1-ankit.k.nautiyal@intel.com>
 References: <20220201072030.1466446-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915/hdmi: Fix the definition of
- intel_hdmi_dsc_get_bpp
+Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915/display: Simplify helpers for
+ getting DSC slices and bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +60,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix the data-type of the argument output_format to enum, for the
-function intel_hdmi_dsc_get_bpp.
+Genralize the helper for getting DSC slice count and compressed bpp
+for HDMI sink supporting DSC.
+This patch:
+-Removes the assumption on the bpc and sends it as an argument for
+calculating compressed bpc.
+-Sends the resolution, and output format as parameters for which the
+DSC paremeters are to be calculated instead of crtc_state.
 
-v2: Fixed formatting issues in commit message (Jani).
-Avoided including the header intel_display_types.h, instead used
-forward declaration for the appropriate enum. (Jani).
+v2: Added forward declaration for struct drm_display_mode.
 
-Fixes: 6e6cb758e035 ("drm/i915: Add helper functions for calculating DSC parameters for HDMI2.1")
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_hdmi.h | 5 +++--
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c   |  7 +++++--
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 24 ++++++++++++-----------
+ drivers/gpu/drm/i915/display/intel_hdmi.h |  6 ++++--
+ 3 files changed, 22 insertions(+), 15 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index f7fe7de7e553..17d08f06499b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2357,7 +2357,9 @@ intel_dp_pcon_dsc_enc_slices(struct intel_dp *intel_dp,
+ 	int pcon_max_slices = drm_dp_pcon_dsc_max_slices(intel_dp->pcon_dsc_dpcd);
+ 	int pcon_max_slice_width = drm_dp_pcon_dsc_max_slice_width(intel_dp->pcon_dsc_dpcd);
+ 
+-	return intel_hdmi_dsc_get_num_slices(crtc_state, pcon_max_slices,
++	return intel_hdmi_dsc_get_num_slices(&crtc_state->hw.adjusted_mode,
++					     crtc_state->output_format,
++					     pcon_max_slices,
+ 					     pcon_max_slice_width,
+ 					     hdmi_max_slices, hdmi_throughput);
+ }
+@@ -2374,9 +2376,10 @@ intel_dp_pcon_dsc_enc_bpp(struct intel_dp *intel_dp,
+ 	int pcon_fractional_bpp = drm_dp_pcon_dsc_bpp_incr(intel_dp->pcon_dsc_dpcd);
+ 	int hdmi_max_chunk_bytes =
+ 		connector->display_info.hdmi.dsc_cap.total_chunk_kbytes * 1024;
++	int bpc = crtc_state->pipe_bpp / 3;
+ 
+ 	return intel_hdmi_dsc_get_bpp(pcon_fractional_bpp, slice_width,
+-				      num_slices, output_format, hdmi_all_bpp,
++				      num_slices, output_format, bpc, hdmi_all_bpp,
+ 				      hdmi_max_chunk_bytes);
+ }
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 45cf0ab04009..381a9de3a015 100644
+index 381a9de3a015..f75e2384da63 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3126,8 +3126,8 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+@@ -3004,7 +3004,8 @@ int intel_hdmi_dsc_get_slice_height(int vactive)
+  * intel_hdmi_dsc_get_num_slices - get no. of dsc slices based on dsc encoder
+  * and dsc decoder capabilities
+  *
+- * @crtc_state: intel crtc_state
++ * @mode: drm_display_mode for which num of slices are needed
++ * @output_format : pipe output format
+  * @src_max_slices: maximum slices supported by the DSC encoder
+  * @src_max_slice_width: maximum slice width supported by DSC encoder
+  * @hdmi_max_slices: maximum slices supported by sink DSC decoder
+@@ -3014,7 +3015,8 @@ int intel_hdmi_dsc_get_slice_height(int vactive)
+  * and decoder.
+  */
+ int
+-intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
++intel_hdmi_dsc_get_num_slices(const struct drm_display_mode *mode,
++			      enum intel_output_format output_format,
+ 			      int src_max_slices, int src_max_slice_width,
+ 			      int hdmi_max_slices, int hdmi_throughput)
+ {
+@@ -3036,7 +3038,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ 	int max_throughput; /* max clock freq. in khz per slice */
+ 	int max_slice_width;
+ 	int slice_width;
+-	int pixel_clock = crtc_state->hw.adjusted_mode.crtc_clock;
++	int pixel_clock = mode->crtc_clock;
+ 
+ 	if (!hdmi_throughput)
+ 		return 0;
+@@ -3047,8 +3049,8 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ 	 * for 4:4:4 is 1.0. Multiplying these factors by 10 and later
+ 	 * dividing adjusted clock value by 10.
+ 	 */
+-	if (crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR444 ||
+-	    crtc_state->output_format == INTEL_OUTPUT_FORMAT_RGB)
++	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR444 ||
++	    output_format == INTEL_OUTPUT_FORMAT_RGB)
+ 		kslice_adjust = 10;
+ 	else
+ 		kslice_adjust = 5;
+@@ -3103,7 +3105,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ 		else
+ 			return 0;
+ 
+-		slice_width = DIV_ROUND_UP(crtc_state->hw.adjusted_mode.hdisplay, target_slices);
++		slice_width = DIV_ROUND_UP(mode->hdisplay, target_slices);
+ 		if (slice_width >= max_slice_width)
+ 			min_slices = target_slices + 1;
+ 	} while (slice_width >= max_slice_width);
+@@ -3119,6 +3121,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+  * @slice_width: dsc slice width supported by the source and sink
+  * @num_slices: num of slices supported by the source and sink
+  * @output_format: video output format
++ * @bpc: bits per color
+  * @hdmi_all_bpp: sink supports decoding of 1/16th bpp setting
+  * @hdmi_max_chunk_bytes: max bytes in a line of chunks supported by sink
+  *
+@@ -3126,7 +3129,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
   */
  int
  intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
--		       int output_format, bool hdmi_all_bpp,
--		       int hdmi_max_chunk_bytes)
-+		       enum intel_output_format output_format,
-+		       bool hdmi_all_bpp, int hdmi_max_chunk_bytes)
+-		       enum intel_output_format output_format,
++		       enum intel_output_format output_format, int bpc,
+ 		       bool hdmi_all_bpp, int hdmi_max_chunk_bytes)
  {
  	int max_dsc_bpp, min_dsc_bpp;
- 	int target_bytes;
+@@ -3144,18 +3147,17 @@ intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
+ 	 * for each bpp we check if no of bytes can be supported by HDMI sink
+ 	 */
+ 
+-	/* Assuming: bpc as 8*/
+ 	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+ 		min_dsc_bpp = 6;
+-		max_dsc_bpp = 3 * 4; /* 3*bpc/2 */
++		max_dsc_bpp = 3 * bpc / 2;
+ 	} else if (output_format == INTEL_OUTPUT_FORMAT_YCBCR444 ||
+ 		   output_format == INTEL_OUTPUT_FORMAT_RGB) {
+ 		min_dsc_bpp = 8;
+-		max_dsc_bpp = 3 * 8; /* 3*bpc */
++		max_dsc_bpp = 3 * bpc;
+ 	} else {
+ 		/* Assuming 4:2:2 encoding */
+ 		min_dsc_bpp = 7;
+-		max_dsc_bpp = 2 * 8; /* 2*bpc */
++		max_dsc_bpp = 2 * bpc;
+ 	}
+ 
+ 	/*
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index b577c38fa90c..ea2a3456bd4b 100644
+index ea2a3456bd4b..8a2941d285de 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.h
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -22,6 +22,7 @@ struct intel_hdmi;
- struct drm_connector_state;
- union hdmi_infoframe;
- enum port;
-+enum intel_output_format;
+@@ -12,6 +12,7 @@
+ #include "i915_reg.h"
  
- void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 			       struct intel_connector *intel_connector);
-@@ -49,8 +50,8 @@ bool intel_hdmi_limited_color_range(const struct intel_crtc_state *crtc_state,
- bool intel_hdmi_bpc_possible(const struct intel_crtc_state *crtc_state,
+ struct drm_connector;
++struct drm_display_mode;
+ struct drm_encoder;
+ struct drm_i915_private;
+ struct intel_connector;
+@@ -51,8 +52,9 @@ bool intel_hdmi_bpc_possible(const struct intel_crtc_state *crtc_state,
  			     int bpc, bool has_hdmi_sink, bool ycbcr420_output);
  int intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width,
--			   int num_slices, int output_format, bool hdmi_all_bpp,
--			   int hdmi_max_chunk_bytes);
-+			   int num_slices, enum intel_output_format output_format,
-+			   bool hdmi_all_bpp, int hdmi_max_chunk_bytes);
- int intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ 			   int num_slices, enum intel_output_format output_format,
+-			   bool hdmi_all_bpp, int hdmi_max_chunk_bytes);
+-int intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
++			   int bpc, bool hdmi_all_bpp, int hdmi_max_chunk_bytes);
++int intel_hdmi_dsc_get_num_slices(const struct drm_display_mode *mode,
++				  enum intel_output_format output_format,
  				  int src_max_slices, int src_max_slice_width,
  				  int hdmi_max_slices, int hdmi_throughput);
+ int intel_hdmi_dsc_get_slice_height(int vactive);
 -- 
 2.25.1
 
