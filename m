@@ -4,42 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA600C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 18:25:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FDB0C43219
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 18:33:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FDFB10E2EE;
-	Tue,  1 Feb 2022 18:24:47 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B9110E1A7;
- Tue,  1 Feb 2022 18:24:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id E3FF01F42EA5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1643739883;
- bh=kvherjChD+QXO4WDgvErpAUtF/lKdbg4hAr4eF3N0yc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fJLtuFva18ckZlSO7k07yeSftLO2Bhu5mf9WH5hJRJWQWRoSqEP+nPO7YAzGnM2Xx
- v1nHyFPJkU9h3/is5puzgZMInZ9l8a/Nr3cgBMQGTyhdNJ1o2IwOaOh6eXr2P+vD6T
- Ogd4548ByyZUVDVO5s3lkgyKTfCPH/06FNZTQlVrdBrl9EO6/D6EHK2nFfUauUjvHm
- 8S+t+jiVZj2qyiDg2Wkl8Rsta7tIrah3eZLlQNhzkdedqKZX+HX6nZJhIgcgntJKu5
- rElBIwdLESitJFEmHWZ9XvNPgPB4xYZ0tmYc7WHIJ6sP/fd885CwfafTiLLSH0zNyz
- pw25ikhhDVvRA==
-From: Robert Beckett <bob.beckett@collabora.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Tue,  1 Feb 2022 18:24:20 +0000
-Message-Id: <20220201182422.1548863-5-bob.beckett@collabora.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220201182422.1548863-1-bob.beckett@collabora.com>
-References: <20220201182422.1548863-1-bob.beckett@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE03110E121;
+	Tue,  1 Feb 2022 18:33:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 61A0110E121;
+ Tue,  1 Feb 2022 18:33:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5D1DCA7DFC;
+ Tue,  1 Feb 2022 18:33:55 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 4/5] drm/i915: add gtt misalignment test
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Robert Beckett" <bob.beckett@collabora.com>
+Date: Tue, 01 Feb 2022 18:33:55 -0000
+Message-ID: <164374043535.2606.17765778428761684015@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220201182422.1548863-1-bob.beckett@collabora.com>
+In-Reply-To: <20220201182422.1548863-1-bob.beckett@collabora.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_discrete_card_64K_page_support_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,206 +40,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add test to check handling of misaligned offsets and sizes
+== Series Details ==
 
-v4:
-	* remove spurious blank lines
-	* explicitly cast intel_region_id to intel_memory_type in misaligned_pin
-Reported-by: kernel test robot <lkp@intel.com>
-v6:
-	* use NEEDS_COMPACT_PT instead of hard coding for DG2
-v7:
-	* use i915_vma_unbind_unlocked in misalignment test
+Series: discrete card 64K page support (rev5)
+URL   : https://patchwork.freedesktop.org/series/99119/
+State : warning
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 128 ++++++++++++++++++
- 1 file changed, 128 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index b80788a2b7f9..9afea008192d 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -22,10 +22,12 @@
-  *
-  */
- 
-+#include "gt/intel_gtt.h"
- #include <linux/list_sort.h>
- #include <linux/prime_numbers.h>
- 
- #include "gem/i915_gem_context.h"
-+#include "gem/i915_gem_region.h"
- #include "gem/selftests/mock_context.h"
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-@@ -1067,6 +1069,120 @@ static int shrink_boom(struct i915_address_space *vm,
- 	return err;
- }
- 
-+static int misaligned_case(struct i915_address_space *vm, struct intel_memory_region *mr,
-+			   u64 addr, u64 size, unsigned long flags)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u64 expected_vma_size, expected_node_size;
-+
-+	obj = i915_gem_object_create_region(mr, size, 0, 0);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, addr | flags);
-+	if (err)
-+		goto err_put;
-+	i915_vma_unpin(vma);
-+
-+	if (!drm_mm_node_allocated(&vma->node)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	if (i915_vma_misplaced(vma, 0, 0, addr | flags)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
-+	expected_node_size = expected_vma_size;
-+
-+	if (NEEDS_COMPACT_PT(vm->i915) && i915_gem_object_is_lmem(obj)) {
-+		/* compact-pt should expand lmem node to 2MB */
-+		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
-+		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
-+	}
-+
-+	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
-+		err = i915_vma_unbind_unlocked(vma);
-+		err = -EBADSLT;
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_unbind_unlocked(vma);
-+	if (err)
-+		goto err_put;
-+
-+	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-+
-+err_put:
-+	i915_gem_object_put(obj);
-+	cleanup_freed_objects(vm->i915);
-+	return err;
-+}
-+
-+static int misaligned_pin(struct i915_address_space *vm,
-+			  u64 hole_start, u64 hole_end,
-+			  unsigned long end_time)
-+{
-+	struct intel_memory_region *mr;
-+	enum intel_region_id id;
-+	unsigned long flags = PIN_OFFSET_FIXED | PIN_USER;
-+	int err = 0;
-+	u64 hole_size = hole_end - hole_start;
-+
-+	if (i915_is_ggtt(vm))
-+		flags |= PIN_GLOBAL;
-+
-+	for_each_memory_region(mr, vm->i915, id) {
-+		u64 min_alignment = i915_vm_min_alignment(vm, (enum intel_memory_type)id);
-+		u64 size = min_alignment;
-+		u64 addr = round_up(hole_start + (hole_size / 2), min_alignment);
-+
-+		/* we can't test < 4k alignment due to flags being encoded in lower bits */
-+		if (min_alignment != I915_GTT_PAGE_SIZE_4K) {
-+			err = misaligned_case(vm, mr, addr + (min_alignment / 2), size, flags);
-+			/* misaligned should error with -EINVAL*/
-+			if (!err)
-+				err = -EBADSLT;
-+			if (err != -EINVAL)
-+				return err;
-+		}
-+
-+		/* test for vma->size expansion to min page size */
-+		err = misaligned_case(vm, mr, addr, PAGE_SIZE, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+
-+		/* test for intermediate size not expanding vma->size for large alignments */
-+		err = misaligned_case(vm, mr, addr, size / 2, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 			  int (*func)(struct i915_address_space *vm,
- 				      u64 hole_start, u64 hole_end,
-@@ -1136,6 +1252,11 @@ static int igt_ppgtt_shrink_boom(void *arg)
- 	return exercise_ppgtt(arg, shrink_boom);
- }
- 
-+static int igt_ppgtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ppgtt(arg, misaligned_pin);
-+}
-+
- static int sort_holes(void *priv, const struct list_head *A,
- 		      const struct list_head *B)
- {
-@@ -1208,6 +1329,11 @@ static int igt_ggtt_lowlevel(void *arg)
- 	return exercise_ggtt(arg, lowlevel_hole);
- }
- 
-+static int igt_ggtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ggtt(arg, misaligned_pin);
-+}
-+
- static int igt_ggtt_page(void *arg)
- {
- 	const unsigned int count = PAGE_SIZE/sizeof(u32);
-@@ -2180,12 +2306,14 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ppgtt_fill),
- 		SUBTEST(igt_ppgtt_shrink),
- 		SUBTEST(igt_ppgtt_shrink_boom),
-+		SUBTEST(igt_ppgtt_misaligned_pin),
- 		SUBTEST(igt_ggtt_lowlevel),
- 		SUBTEST(igt_ggtt_drunk),
- 		SUBTEST(igt_ggtt_walk),
- 		SUBTEST(igt_ggtt_pot),
- 		SUBTEST(igt_ggtt_fill),
- 		SUBTEST(igt_ggtt_page),
-+		SUBTEST(igt_ggtt_misaligned_pin),
- 		SUBTEST(igt_cs_tlb),
- 	};
- 
--- 
-2.25.1
+$ dim checkpatch origin/drm-tip
+640354f70085 drm/i915: add needs_compact_pt flag
+7dc2679d906a drm/i915: enforce min GTT alignment for discrete cards
+-:298: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#298: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:457:
++						if (offset < hole_start + aligned_size)
+
+-:310: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#310: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:481:
++						if (offset + aligned_size > hole_end)
+
+-:328: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#328: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:497:
++						if (offset < hole_start + aligned_size)
+
+-:340: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#340: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:520:
++						if (offset + aligned_size > hole_end)
+
+-:358: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#358: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:536:
++						if (offset < hole_start + aligned_size)
+
+-:370: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#370: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:560:
++						if (offset + aligned_size > hole_end)
+
+-:388: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#388: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:576:
++						if (offset < hole_start + aligned_size)
+
+-:400: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#400: FILE: drivers/gpu/drm/i915/selftests/i915_gem_gtt.c:599:
++						if (offset + aligned_size > hole_end)
+
+total: 0 errors, 8 warnings, 0 checks, 434 lines checked
+969ac009dcff drm/i915: support 64K GTT pages for discrete cards
+0fa221774a2e drm/i915: add gtt misalignment test
+9d2612a88ac0 drm/i915/uapi: document behaviour for DG2 64K support
+
 
