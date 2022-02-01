@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F611C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:42:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F94C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9566210E8C6;
-	Tue,  1 Feb 2022 10:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21D8010E8EF;
+	Tue,  1 Feb 2022 10:41:53 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0A510E8C6;
- Tue,  1 Feb 2022 10:41:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 389DD10E8EF;
+ Tue,  1 Feb 2022 10:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643712106; x=1675248106;
+ t=1643712110; x=1675248110;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3Bq83ol07S2VmM1AQatwXBKJPhC8dvgWchpaWbNmEp4=;
- b=Yw0to97FitBNtgKvxM4bQztLbYVDS74TkWYXrQQDRi9PMqaYJUH4w63b
- Od/bW82GlWYcuMK+sZexS4VIozsqWvFz7WTRhWIVh6oGWT9t7jKJH18EM
- uWo9ErEDVtlRB8B2haIwiEmjo8r0+wpbwbMfd2azFZhmy+CALC3UU2If2
- EjOIl2iOafFKXDtzHZ5rD2tljLmQuCskRER3/lxVjx/Sx/HW9Ngy9VVzD
- dCkIeg6z7Q9gSRr90EAaSFQ/Z+dQ1f+y3kptprnU1r/N3S2K1JQvVotKa
- E7cPfEGZKf6/WcL7xRJ7Ll3p7TJtOjd+9f6+6nSGy3pm2r/GuNkCBbkR+ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="334020554"
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="334020554"
+ bh=bmqCueniW8GQs7et8sZRijT4If1c8aNia7Vp3KGvf6o=;
+ b=muPnUVOh13FxdQH9kecf9iHYBfbeIfkODZKMY4VCt5H+KRdYfOdF2+Vl
+ DsmVR+MBElu6I/fb152wMI+rtpzAmNbnn4WcsEo86gvurQZ5ySQ3U7SWO
+ wUryIaotZ8p95xepkJFAqwuCJ/8Pb2pD+8hKqpERsuo+FQ1UGxtdLFVJ6
+ 1J/LRsKnBirbqFoR5ISe/D1xCcQYQvV+LbYL4hSjTvdJj1wv/t9R63RsY
+ 2ae3obzLVP1YpP2Yf/o8czANWmtwUmYDZqSb0f6M3xvXGFQI4DQ5U9qsA
+ 0TWbo+SA7LuOc9trb4twxKb0eFw/o2BAUQs7uY5PTkyEBdTu38neEia66 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="334020566"
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="334020566"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 02:41:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="523011131"
+ 01 Feb 2022 02:41:49 -0800
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="523011168"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 02:41:39 -0800
+ 01 Feb 2022 02:41:47 -0800
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Tue,  1 Feb 2022 16:11:17 +0530
-Message-Id: <20220201104132.3050-5-ramalingam.c@intel.com>
+Date: Tue,  1 Feb 2022 16:11:20 +0530
+Message-Id: <20220201104132.3050-8-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220201104132.3050-1-ramalingam.c@intel.com>
 References: <20220201104132.3050-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 04/19] drm/i915: add gtt misalignment test
+Subject: [Intel-gfx] [PATCH v5 07/19] drm/i915/migrate: add acceleration
+ support for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,205 +58,406 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Robert Beckett <bob.beckett@collabora.com>
+From: Matthew Auld <matthew.auld@intel.com>
 
-add test to check handling of misaligned offsets and sizes
+This is all kinds of awkward since we now have to contend with using 64K
+GTT pages when mapping anything in LMEM(including the page-tables
+themselves).
 
-v4:
-	* remove spurious blank lines
-	* explicitly cast intel_region_id to intel_memory_type in misaligned_pin
-Reported-by: kernel test robot <lkp@intel.com>
-v6:
-	* use NEEDS_COMPACT_PT instead of hard coding for DG2
+v2: Rebased [Ram]
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 128 ++++++++++++++++++
- 1 file changed, 128 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 179 +++++++++++++++++++-----
+ 1 file changed, 147 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index b80788a2b7f9..c23b1e5cc436 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -22,10 +22,12 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 18b44af56969..cac791155244 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -32,6 +32,38 @@ static bool engine_supports_migration(struct intel_engine_cs *engine)
+ 	return true;
+ }
  
-+#include "gt/intel_gtt.h"
- #include <linux/list_sort.h>
- #include <linux/prime_numbers.h>
++static void xehpsdv_toggle_pdes(struct i915_address_space *vm,
++				struct i915_page_table *pt,
++				void *data)
++{
++	struct insert_pte_data *d = data;
++
++	/*
++	 * Insert a dummy PTE into every PT that will map to LMEM to ensure
++	 * we have a correctly setup PDE structure for later use.
++	 */
++	vm->insert_page(vm, 0, d->offset, I915_CACHE_NONE, PTE_LM);
++	GEM_BUG_ON(!pt->is_compact);
++	d->offset += SZ_2M;
++}
++
++static void xehpsdv_insert_pte(struct i915_address_space *vm,
++			       struct i915_page_table *pt,
++			       void *data)
++{
++	struct insert_pte_data *d = data;
++
++	/*
++	 * We are playing tricks here, since the actual pt, from the hw
++	 * pov, is only 256bytes with 32 entries, or 4096bytes with 512
++	 * entries, but we are still guaranteed that the physical
++	 * alignment is 64K underneath for the pt, and we are careful
++	 * not to access the space in the void.
++	 */
++	vm->insert_page(vm, px_dma(pt), d->offset, I915_CACHE_NONE, PTE_LM);
++	d->offset += SZ_64K;
++}
++
+ static void insert_pte(struct i915_address_space *vm,
+ 		       struct i915_page_table *pt,
+ 		       void *data)
+@@ -74,7 +106,12 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
+ 	 * i.e. within the same non-preemptible window so that we do not switch
+ 	 * to another migration context that overwrites the PTE.
+ 	 *
+-	 * TODO: Add support for huge LMEM PTEs
++	 * On platforms with HAS_64K_PAGES support we have three windows, and
++	 * dedicate two windows just for mapping lmem pages(smem <-> smem is not
++	 * a thing), since we are forced to use 64K GTT pages underneath which
++	 * requires also modifying the PDE. An alternative might be to instead
++	 * map the PD into the GTT, and then on the fly toggle the 4K/64K mode
++	 * in the PDE from the same batch that also modifies the PTEs.
+ 	 */
  
- #include "gem/i915_gem_context.h"
-+#include "gem/i915_gem_region.h"
- #include "gem/selftests/mock_context.h"
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-@@ -1067,6 +1069,120 @@ static int shrink_boom(struct i915_address_space *vm,
+ 	vm = i915_ppgtt_create(gt, I915_BO_ALLOC_PM_EARLY);
+@@ -86,6 +123,9 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
+ 		goto err_vm;
+ 	}
+ 
++	if (HAS_64K_PAGES(gt->i915))
++		stash.pt_sz = I915_GTT_PAGE_SIZE_64K;
++
+ 	/*
+ 	 * Each engine instance is assigned its own chunk in the VM, so
+ 	 * that we can run multiple instances concurrently
+@@ -105,14 +145,20 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
+ 		 * We copy in 8MiB chunks. Each PDE covers 2MiB, so we need
+ 		 * 4x2 page directories for source/destination.
+ 		 */
+-		sz = 2 * CHUNK_SZ;
++		if (HAS_64K_PAGES(gt->i915))
++			sz = 3 * CHUNK_SZ;
++		else
++			sz = 2 * CHUNK_SZ;
+ 		d.offset = base + sz;
+ 
+ 		/*
+ 		 * We need another page directory setup so that we can write
+ 		 * the 8x512 PTE in each chunk.
+ 		 */
+-		sz += (sz >> 12) * sizeof(u64);
++		if (HAS_64K_PAGES(gt->i915))
++			sz += (sz / SZ_2M) * SZ_64K;
++		else
++			sz += (sz >> 12) * sizeof(u64);
+ 
+ 		err = i915_vm_alloc_pt_stash(&vm->vm, &stash, sz);
+ 		if (err)
+@@ -133,7 +179,18 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
+ 			goto err_vm;
+ 
+ 		/* Now allow the GPU to rewrite the PTE via its own ppGTT */
+-		vm->vm.foreach(&vm->vm, base, d.offset - base, insert_pte, &d);
++		if (HAS_64K_PAGES(gt->i915)) {
++			vm->vm.foreach(&vm->vm, base, d.offset - base,
++				       xehpsdv_insert_pte, &d);
++			d.offset = base + CHUNK_SZ;
++			vm->vm.foreach(&vm->vm,
++				       d.offset,
++				       2 * CHUNK_SZ,
++				       xehpsdv_toggle_pdes, &d);
++		} else {
++			vm->vm.foreach(&vm->vm, base, d.offset - base,
++				       insert_pte, &d);
++		}
+ 	}
+ 
+ 	return &vm->vm;
+@@ -269,19 +326,38 @@ static int emit_pte(struct i915_request *rq,
+ 		    u64 offset,
+ 		    int length)
+ {
++	bool has_64K_pages = HAS_64K_PAGES(rq->engine->i915);
+ 	const u64 encode = rq->context->vm->pte_encode(0, cache_level,
+ 						       is_lmem ? PTE_LM : 0);
+ 	struct intel_ring *ring = rq->ring;
+-	int total = 0;
++	int pkt, dword_length;
++	u32 total = 0;
++	u32 page_size;
+ 	u32 *hdr, *cs;
+-	int pkt;
+ 
+ 	GEM_BUG_ON(GRAPHICS_VER(rq->engine->i915) < 8);
+ 
++	page_size = I915_GTT_PAGE_SIZE;
++	dword_length = 0x400;
++
+ 	/* Compute the page directory offset for the target address range */
+-	offset >>= 12;
+-	offset *= sizeof(u64);
+-	offset += 2 * CHUNK_SZ;
++	if (has_64K_pages) {
++		GEM_BUG_ON(!IS_ALIGNED(offset, SZ_2M));
++
++		offset /= SZ_2M;
++		offset *= SZ_64K;
++		offset += 3 * CHUNK_SZ;
++
++		if (is_lmem) {
++			page_size = I915_GTT_PAGE_SIZE_64K;
++			dword_length = 0x40;
++		}
++	} else {
++		offset >>= 12;
++		offset *= sizeof(u64);
++		offset += 2 * CHUNK_SZ;
++	}
++
+ 	offset += (u64)rq->engine->instance << 32;
+ 
+ 	cs = intel_ring_begin(rq, 6);
+@@ -289,7 +365,7 @@ static int emit_pte(struct i915_request *rq,
+ 		return PTR_ERR(cs);
+ 
+ 	/* Pack as many PTE updates as possible into a single MI command */
+-	pkt = min_t(int, 0x400, ring->space / sizeof(u32) + 5);
++	pkt = min_t(int, dword_length, ring->space / sizeof(u32) + 5);
+ 	pkt = min_t(int, pkt, (ring->size - ring->emit) / sizeof(u32) + 5);
+ 
+ 	hdr = cs;
+@@ -299,6 +375,8 @@ static int emit_pte(struct i915_request *rq,
+ 
+ 	do {
+ 		if (cs - hdr >= pkt) {
++			int dword_rem;
++
+ 			*hdr += cs - hdr - 2;
+ 			*cs++ = MI_NOOP;
+ 
+@@ -310,7 +388,18 @@ static int emit_pte(struct i915_request *rq,
+ 			if (IS_ERR(cs))
+ 				return PTR_ERR(cs);
+ 
+-			pkt = min_t(int, 0x400, ring->space / sizeof(u32) + 5);
++			dword_rem = dword_length;
++			if (has_64K_pages) {
++				if (IS_ALIGNED(total, SZ_2M)) {
++					offset = round_up(offset, SZ_64K);
++				} else {
++					dword_rem = SZ_2M - (total & (SZ_2M - 1));
++					dword_rem /= page_size;
++					dword_rem *= 2;
++				}
++			}
++
++			pkt = min_t(int, dword_rem, ring->space / sizeof(u32) + 5);
+ 			pkt = min_t(int, pkt, (ring->size - ring->emit) / sizeof(u32) + 5);
+ 
+ 			hdr = cs;
+@@ -319,13 +408,15 @@ static int emit_pte(struct i915_request *rq,
+ 			*cs++ = upper_32_bits(offset);
+ 		}
+ 
++		GEM_BUG_ON(!IS_ALIGNED(it->dma, page_size));
++
+ 		*cs++ = lower_32_bits(encode | it->dma);
+ 		*cs++ = upper_32_bits(encode | it->dma);
+ 
+ 		offset += 8;
+-		total += I915_GTT_PAGE_SIZE;
++		total += page_size;
+ 
+-		it->dma += I915_GTT_PAGE_SIZE;
++		it->dma += page_size;
+ 		if (it->dma >= it->max) {
+ 			it->sg = __sg_next(it->sg);
+ 			if (!it->sg || sg_dma_len(it->sg) == 0)
+@@ -356,7 +447,8 @@ static bool wa_1209644611_applies(int ver, u32 size)
+ 	return height % 4 == 3 && height <= 8;
+ }
+ 
+-static int emit_copy(struct i915_request *rq, int size)
++static int emit_copy(struct i915_request *rq,
++		     u32 dst_offset, u32 src_offset, int size)
+ {
+ 	const int ver = GRAPHICS_VER(rq->engine->i915);
+ 	u32 instance = rq->engine->instance;
+@@ -371,31 +463,31 @@ static int emit_copy(struct i915_request *rq, int size)
+ 		*cs++ = BLT_DEPTH_32 | PAGE_SIZE;
+ 		*cs++ = 0;
+ 		*cs++ = size >> PAGE_SHIFT << 16 | PAGE_SIZE / 4;
+-		*cs++ = CHUNK_SZ; /* dst offset */
++		*cs++ = dst_offset;
+ 		*cs++ = instance;
+ 		*cs++ = 0;
+ 		*cs++ = PAGE_SIZE;
+-		*cs++ = 0; /* src offset */
++		*cs++ = src_offset;
+ 		*cs++ = instance;
+ 	} else if (ver >= 8) {
+ 		*cs++ = XY_SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (10 - 2);
+ 		*cs++ = BLT_DEPTH_32 | BLT_ROP_SRC_COPY | PAGE_SIZE;
+ 		*cs++ = 0;
+ 		*cs++ = size >> PAGE_SHIFT << 16 | PAGE_SIZE / 4;
+-		*cs++ = CHUNK_SZ; /* dst offset */
++		*cs++ = dst_offset;
+ 		*cs++ = instance;
+ 		*cs++ = 0;
+ 		*cs++ = PAGE_SIZE;
+-		*cs++ = 0; /* src offset */
++		*cs++ = src_offset;
+ 		*cs++ = instance;
+ 	} else {
+ 		GEM_BUG_ON(instance);
+ 		*cs++ = SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (6 - 2);
+ 		*cs++ = BLT_DEPTH_32 | BLT_ROP_SRC_COPY | PAGE_SIZE;
+ 		*cs++ = size >> PAGE_SHIFT << 16 | PAGE_SIZE;
+-		*cs++ = CHUNK_SZ; /* dst offset */
++		*cs++ = dst_offset;
+ 		*cs++ = PAGE_SIZE;
+-		*cs++ = 0; /* src offset */
++		*cs++ = src_offset;
+ 	}
+ 
+ 	intel_ring_advance(rq, cs);
+@@ -423,6 +515,7 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 	GEM_BUG_ON(ce->ring->size < SZ_64K);
+ 
+ 	do {
++		u32 src_offset, dst_offset;
+ 		int len;
+ 
+ 		rq = i915_request_create(ce);
+@@ -450,15 +543,28 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		len = emit_pte(rq, &it_src, src_cache_level, src_is_lmem, 0,
+-			       CHUNK_SZ);
++		src_offset = 0;
++		dst_offset = CHUNK_SZ;
++		if (HAS_64K_PAGES(ce->engine->i915)) {
++			GEM_BUG_ON(!src_is_lmem && !dst_is_lmem);
++
++			src_offset = 0;
++			dst_offset = 0;
++			if (src_is_lmem)
++				src_offset = CHUNK_SZ;
++			if (dst_is_lmem)
++				dst_offset = 2 * CHUNK_SZ;
++		}
++
++		len = emit_pte(rq, &it_src, src_cache_level, src_is_lmem,
++			       src_offset, CHUNK_SZ);
+ 		if (len <= 0) {
+ 			err = len;
+ 			goto out_rq;
+ 		}
+ 
+ 		err = emit_pte(rq, &it_dst, dst_cache_level, dst_is_lmem,
+-			       CHUNK_SZ, len);
++			       dst_offset, len);
+ 		if (err < 0)
+ 			goto out_rq;
+ 		if (err < len) {
+@@ -470,7 +576,7 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		err = emit_copy(rq, len);
++		err = emit_copy(rq, dst_offset, src_offset, len);
+ 
+ 		/* Arbitration is re-enabled between requests. */
+ out_rq:
+@@ -488,14 +594,18 @@ intel_context_migrate_copy(struct intel_context *ce,
  	return err;
  }
  
-+static int misaligned_case(struct i915_address_space *vm, struct intel_memory_region *mr,
-+			   u64 addr, u64 size, unsigned long flags)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u64 expected_vma_size, expected_node_size;
-+
-+	obj = i915_gem_object_create_region(mr, size, 0, 0);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, addr | flags);
-+	if (err)
-+		goto err_put;
-+	i915_vma_unpin(vma);
-+
-+	if (!drm_mm_node_allocated(&vma->node)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	if (i915_vma_misplaced(vma, 0, 0, addr | flags)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
-+	expected_node_size = expected_vma_size;
-+
-+	if (NEEDS_COMPACT_PT(vm->i915) && i915_gem_object_is_lmem(obj)) {
-+		/* compact-pt should expand lmem node to 2MB */
-+		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
-+		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
-+	}
-+
-+	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
-+		err = i915_vma_unbind(vma);
-+		err = -EBADSLT;
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_unbind(vma);
-+	if (err)
-+		goto err_put;
-+
-+	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-+
-+err_put:
-+	i915_gem_object_put(obj);
-+	cleanup_freed_objects(vm->i915);
-+	return err;
-+}
-+
-+static int misaligned_pin(struct i915_address_space *vm,
-+			  u64 hole_start, u64 hole_end,
-+			  unsigned long end_time)
-+{
-+	struct intel_memory_region *mr;
-+	enum intel_region_id id;
-+	unsigned long flags = PIN_OFFSET_FIXED | PIN_USER;
-+	int err = 0;
-+	u64 hole_size = hole_end - hole_start;
-+
-+	if (i915_is_ggtt(vm))
-+		flags |= PIN_GLOBAL;
-+
-+	for_each_memory_region(mr, vm->i915, id) {
-+		u64 min_alignment = i915_vm_min_alignment(vm, (enum intel_memory_type)id);
-+		u64 size = min_alignment;
-+		u64 addr = round_up(hole_start + (hole_size / 2), min_alignment);
-+
-+		/* we can't test < 4k alignment due to flags being encoded in lower bits */
-+		if (min_alignment != I915_GTT_PAGE_SIZE_4K) {
-+			err = misaligned_case(vm, mr, addr + (min_alignment / 2), size, flags);
-+			/* misaligned should error with -EINVAL*/
-+			if (!err)
-+				err = -EBADSLT;
-+			if (err != -EINVAL)
-+				return err;
-+		}
-+
-+		/* test for vma->size expansion to min page size */
-+		err = misaligned_case(vm, mr, addr, PAGE_SIZE, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+
-+		/* test for intermediate size not expanding vma->size for large alignments */
-+		err = misaligned_case(vm, mr, addr, size / 2, flags);
-+		if (min_alignment > hole_size) {
-+			if (!err)
-+				err = -EBADSLT;
-+			else if (err == -ENOSPC)
-+				err = 0;
-+		}
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 			  int (*func)(struct i915_address_space *vm,
- 				      u64 hole_start, u64 hole_end,
-@@ -1136,6 +1252,11 @@ static int igt_ppgtt_shrink_boom(void *arg)
- 	return exercise_ppgtt(arg, shrink_boom);
- }
- 
-+static int igt_ppgtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ppgtt(arg, misaligned_pin);
-+}
-+
- static int sort_holes(void *priv, const struct list_head *A,
- 		      const struct list_head *B)
+-static int emit_clear(struct i915_request *rq, int size, u32 value)
++static int emit_clear(struct i915_request *rq,
++		      u64 offset,
++		      int size,
++		      u32 value)
  {
-@@ -1208,6 +1329,11 @@ static int igt_ggtt_lowlevel(void *arg)
- 	return exercise_ggtt(arg, lowlevel_hole);
- }
+ 	const int ver = GRAPHICS_VER(rq->engine->i915);
+-	u32 instance = rq->engine->instance;
+ 	u32 *cs;
  
-+static int igt_ggtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ggtt(arg, misaligned_pin);
-+}
+ 	GEM_BUG_ON(size >> PAGE_SHIFT > S16_MAX);
+ 
++	offset += (u64)rq->engine->instance << 32;
 +
- static int igt_ggtt_page(void *arg)
- {
- 	const unsigned int count = PAGE_SIZE/sizeof(u32);
-@@ -2180,12 +2306,14 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ppgtt_fill),
- 		SUBTEST(igt_ppgtt_shrink),
- 		SUBTEST(igt_ppgtt_shrink_boom),
-+		SUBTEST(igt_ppgtt_misaligned_pin),
- 		SUBTEST(igt_ggtt_lowlevel),
- 		SUBTEST(igt_ggtt_drunk),
- 		SUBTEST(igt_ggtt_walk),
- 		SUBTEST(igt_ggtt_pot),
- 		SUBTEST(igt_ggtt_fill),
- 		SUBTEST(igt_ggtt_page),
-+		SUBTEST(igt_ggtt_misaligned_pin),
- 		SUBTEST(igt_cs_tlb),
- 	};
+ 	cs = intel_ring_begin(rq, ver >= 8 ? 8 : 6);
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
+@@ -505,17 +615,17 @@ static int emit_clear(struct i915_request *rq, int size, u32 value)
+ 		*cs++ = BLT_DEPTH_32 | BLT_ROP_COLOR_COPY | PAGE_SIZE;
+ 		*cs++ = 0;
+ 		*cs++ = size >> PAGE_SHIFT << 16 | PAGE_SIZE / 4;
+-		*cs++ = 0; /* offset */
+-		*cs++ = instance;
++		*cs++ = lower_32_bits(offset);
++		*cs++ = upper_32_bits(offset);
+ 		*cs++ = value;
+ 		*cs++ = MI_NOOP;
+ 	} else {
+-		GEM_BUG_ON(instance);
++		GEM_BUG_ON(upper_32_bits(offset));
+ 		*cs++ = XY_COLOR_BLT_CMD | BLT_WRITE_RGBA | (6 - 2);
+ 		*cs++ = BLT_DEPTH_32 | BLT_ROP_COLOR_COPY | PAGE_SIZE;
+ 		*cs++ = 0;
+ 		*cs++ = size >> PAGE_SHIFT << 16 | PAGE_SIZE / 4;
+-		*cs++ = 0;
++		*cs++ = lower_32_bits(offset);
+ 		*cs++ = value;
+ 	}
  
+@@ -542,6 +652,7 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 	GEM_BUG_ON(ce->ring->size < SZ_64K);
+ 
+ 	do {
++		u32 offset;
+ 		int len;
+ 
+ 		rq = i915_request_create(ce);
+@@ -569,7 +680,11 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		len = emit_pte(rq, &it, cache_level, is_lmem, 0, CHUNK_SZ);
++		offset = 0;
++		if (HAS_64K_PAGES(ce->engine->i915) && is_lmem)
++			offset = CHUNK_SZ;
++
++		len = emit_pte(rq, &it, cache_level, is_lmem, offset, CHUNK_SZ);
+ 		if (len <= 0) {
+ 			err = len;
+ 			goto out_rq;
+@@ -579,7 +694,7 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		err = emit_clear(rq, len, value);
++		err = emit_clear(rq, offset, len, value);
+ 
+ 		/* Arbitration is re-enabled between requests. */
+ out_rq:
 -- 
 2.20.1
 
