@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D6DC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 07:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F8FC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 07:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9EA10E5AB;
-	Tue,  1 Feb 2022 07:34:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB4B10E5B6;
+	Tue,  1 Feb 2022 07:34:37 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2760810E5AD;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53CF310E5AB;
  Tue,  1 Feb 2022 07:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1643700875; x=1675236875;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=nCKdOQVVEiXMPCYkfif071Y/cq2Z05NxYTaqKiHTtmg=;
- b=StgFNm7k9Rf0GMHXLs6Kglq4Py9yyhOrzsZRxHUlxp18tlMoDFGC9zuc
- ro4zLXrSc3kZfQ7N6HsT8HdteRL3D1MFNnxuHnPTpCosIcqWv4lgXVsgE
- k/yKtX7ePUpiJ7pjZa4CC0fj7MWXHLAY60mJKx2seX7iNEmKI1UEt6+2H
- DZqbIAqZD9JKtdxFppYLr3jUX2zxsweF+Do5moBv059zXaTUt19Duo9vg
- A4SNxr6uWGvVZAt5fb0aY+R+LZKELwVeTPedj2H8Sk4Gd0hA2vdtpO+R7
- L9MZIR2zjYS0mYqj63RX/hHiFLFrrEAHDSeC85q5Ga+corbuiHBweXJCV w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="245227827"
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="245227827"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Gzgd3P5OR1e40ytnVaGQrai3loWBkxN5Dhr36b+bTFs=;
+ b=cH63XnghGTCXps2VNwxkknLVbZOmbshvOrMNIAzwGGv5WHMAGfO2Zpqc
+ P/lAbnVeRx1oeTbcslheO+otl7VHvvm048U6Wi6zLHUBAo0TfwzaD6NMc
+ bkh89Flcnp5ykGPWA2cKUGxevjvboqr5/tBkH5FLXMCjUfJoIrgf3Faor
+ cEt/OMQDkKUUZtp9RAziV9pwRMtPKcgy11F19f/aUV1vKSK/sM73n4JB6
+ B27knhbnoFDTWinVTzpBOjfj4Bm02L1ZTA3fMMHJTtMiKAhs2ep/6oRHE
+ r9aS+0uZ2aVJ6NBxDhxUiuk1QUNlBwFyyVVDWB9Cg3cdDelUCATdBXEXI w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="245227829"
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="245227829"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  31 Jan 2022 23:34:34 -0800
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="698315959"
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="698315966"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2022 23:34:25 -0800
+ 31 Jan 2022 23:34:30 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Feb 2022 12:50:26 +0530
-Message-Id: <20220201072030.1466446-1-ankit.k.nautiyal@intel.com>
+Date: Tue,  1 Feb 2022 12:50:28 +0530
+Message-Id: <20220201072030.1466446-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220201072030.1466446-1-ankit.k.nautiyal@intel.com>
+References: <20220201072030.1466446-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] Minor Fixes and Refactoring for HDMI
- PCON stuff
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/edid: Add helper to get max FRL rate
+ for an HDMI sink
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,24 +60,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Misc fixes and refactoring in HDMI2.1 PCON helper functions.
-V2:
-Addressed review comments from Jani.
-Splitted the drm_helper addition and usage in separate patches.
+Add the helpers for getting the max FRL rate with and without DSC
+for an HDMI sink.
 
-Ankit Nautiyal (4):
-  drm/i915/hdmi: Fix the definition of intel_hdmi_dsc_get_bpp
-  drm/edid: Add helper to get max FRL rate for an HDMI sink
-  drm/i915/dp: Use the drm helpers for getting max FRL rate
-  drm/i915/display: Simplify helpers for getting DSC slices and bpp
+v2: Fix the subject line and documentation of the helpers (Jani).
+Split the helper definitions and usage into separate patches. (Jani).
 
- drivers/gpu/drm/drm_edid.c                | 38 +++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c   | 26 ++++++----------
- drivers/gpu/drm/i915/display/intel_hdmi.c | 26 +++++++++-------
- drivers/gpu/drm/i915/display/intel_hdmi.h |  9 ++++--
- include/drm/drm_edid.h                    |  2 ++
- 5 files changed, 70 insertions(+), 31 deletions(-)
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c | 38 ++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_edid.h     |  2 ++
+ 2 files changed, 40 insertions(+)
 
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index eb61a1a92dc0..c209fd6b24a2 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6176,3 +6176,41 @@ void drm_update_tile_info(struct drm_connector *connector,
+ 		connector->tile_group = NULL;
+ 	}
+ }
++
++/**
++ * drm_hdmi_sink_max_frl - get the max frl rate, if supported
++ * @connector - connector with HDMI sink
++ *
++ * RETURNS:
++ * max frl rate supported by the HDMI sink, 0 if FRL not supported
++ */
++int drm_hdmi_sink_max_frl(struct drm_connector *connector)
++{
++	int max_lanes = connector->display_info.hdmi.max_lanes;
++	int rate_per_lane = connector->display_info.hdmi.max_frl_rate_per_lane;
++
++	return max_lanes * rate_per_lane;
++}
++EXPORT_SYMBOL(drm_hdmi_sink_max_frl);
++
++/**
++ * drm_hdmi_sink_dsc_max_frl - get the max frl rate from HDMI sink with
++ * DSC1.2 compression.
++ * @connector - connector with HDMI sink
++ *
++ * RETURNS:
++ * max frl rate supported by the HDMI sink with DSC1.2, 0 if FRL not supported
++ */
++int drm_hdmi_sink_dsc_max_frl(struct drm_connector *connector)
++{
++	int max_dsc_lanes, dsc_rate_per_lane;
++
++	if (!connector->display_info.hdmi.dsc_cap.v_1p2)
++		return 0;
++
++	max_dsc_lanes = connector->display_info.hdmi.dsc_cap.max_lanes;
++	dsc_rate_per_lane = connector->display_info.hdmi.dsc_cap.max_frl_rate_per_lane;
++
++	return max_dsc_lanes * dsc_rate_per_lane;
++}
++EXPORT_SYMBOL(drm_hdmi_sink_dsc_max_frl);
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index 18f6c700f6d0..5003e1254c44 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -592,6 +592,8 @@ drm_display_mode_from_cea_vic(struct drm_device *dev,
+ 			      u8 video_code);
+ const u8 *drm_find_edid_extension(const struct edid *edid,
+ 				  int ext_id, int *ext_index);
++int drm_hdmi_sink_max_frl(struct drm_connector *connector);
++int drm_hdmi_sink_dsc_max_frl(struct drm_connector *connector);
+ 
+ 
+ #endif /* __DRM_EDID_H__ */
 -- 
 2.25.1
 
