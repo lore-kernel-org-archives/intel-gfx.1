@@ -4,47 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B4E8C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 17:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1D33C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 17:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A991010E145;
-	Tue,  1 Feb 2022 17:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8E210E6ED;
+	Tue,  1 Feb 2022 17:13:39 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EA810E145
- for <Intel-gfx@lists.freedesktop.org>; Tue,  1 Feb 2022 17:10:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 871F110E6E3;
+ Tue,  1 Feb 2022 17:13:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643735439; x=1675271439;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=/vzZ/eGwIv0PQmThYBy2Otg9xYu+1tu36396s0A4UM4=;
- b=S0RoT8kNcz1NZcY3zLyDuENWJQt9HfSdxoSRaFJUEW1NEYGU64TPnWad
- jnDsL6KazAm+ULOyAcK7vnjYvGrUqu7WyTvdNkkeJSYViKMUY5F2stvIk
- oobGIWi+auxlx3+mtGWi6zS7yEoCu0IifhwZyUHaI1uMbvpYTGabQM5Lh
- yzykphJZ5Q88wFwWu4V4SKlXLh/0AJ6V0Pc63/iHDCWw2jIpQsmnVTFSR
- rU7otxXDamgrbyP6TJGPFULFZT/kI8sGcLgw7xhqJyC8fCjkXl7egIJ+Q
- Hm26mImyKnaZJ8JjF5MJaEbOdkzNHEPCMho0MLbyHgIRDNSyGjunBEsOf g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10245"; a="228397644"
-X-IronPort-AV: E=Sophos;i="5.88,334,1635231600"; d="scan'208";a="228397644"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ t=1643735618; x=1675271618;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=Gh/R7MRaQ2a/ln9i6rrhbYffZQOqkPo0nwtwkODF5YE=;
+ b=E1YhdAhvDsaMumNcjZbtoNgMub7pkw4cJrjDyfGr6UcqTun2q6IoWjJY
+ 1DeGjrxmT2EZWdixNX6sT+mjxKhH44rsYvx5qxh+4uRzOoVOpTDACSSci
+ tNSX/ORzi2lplCpA80ISVH4NsFmsi/hv8Xtc21f9hWm5ruhYiVtIptZDr
+ YWwo7ps7jiM173cRzJ1pArBVaqvjPgwlT1gklV3Hz46zXqB/7Odf0Pxmu
+ WYaVkJug9w55hATEUY9uM4A0+NvyLcEcDGX9trVGkMZSKqOnAsRzwOeeF
+ LnuIhf4JvqfSbpcay1Ev6SJtpseeZGxvHjaLPY95wanj4NxO6QNITjWnJ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10245"; a="228398643"
+X-IronPort-AV: E=Sophos;i="5.88,334,1635231600"; d="scan'208";a="228398643"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 09:09:20 -0800
-X-IronPort-AV: E=Sophos;i="5.88,334,1635231600"; d="scan'208";a="534582052"
-Received: from ehanosko-mobl.ger.corp.intel.com (HELO localhost) ([10.252.6.3])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 09:09:17 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>, Tvrtko Ursulin
- <tvrtko.ursulin@linux.intel.com>
-In-Reply-To: <20220201165515.xntdympc4n3pdhif@ldmartin-desk2>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220201111533.250242-1-tvrtko.ursulin@linux.intel.com>
- <20220201165515.xntdympc4n3pdhif@ldmartin-desk2>
-Date: Tue, 01 Feb 2022 19:09:14 +0200
-Message-ID: <87o83qtsxx.fsf@intel.com>
+ 01 Feb 2022 09:12:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,334,1635231600"; d="scan'208";a="630468304"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orsmga004.jf.intel.com with ESMTP; 01 Feb 2022 09:12:58 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Tue, 1 Feb 2022 09:12:58 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Tue, 1 Feb 2022 09:12:57 -0800
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2308.020;
+ Tue, 1 Feb 2022 09:12:57 -0800
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "De
+ Marchi, Lucas" <lucas.demarchi@intel.com>
+Thread-Topic: [PATCH v3 2/3] drm/i915: Fix header test for !CONFIG_X86
+Thread-Index: AQHYFsPmXTGoWeazuUy79mlSTJdmo6x/dwcA
+Date: Tue, 1 Feb 2022 17:12:57 +0000
+Message-ID: <4f941863da55f636ad29099b31163d56a0de5dee.camel@intel.com>
+References: <20220131165926.3230642-1-lucas.demarchi@intel.com>
+ <20220131165926.3230642-3-lucas.demarchi@intel.com>
+In-Reply-To: <20220131165926.3230642-3-lucas.demarchi@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FAE6D5FF47104F408FAF380108022F4A@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [RFC 0/2] Compile out integrated
+Subject: Re: [Intel-gfx] [PATCH v3 2/3] drm/i915: Fix header test for
+ !CONFIG_X86
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,62 +77,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-gfx@lists.freedesktop.org, Michael Cheng <michael.cheng@intel.com>
+Cc: "Mullati, Siva" <siva.mullati@intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 01 Feb 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> On Tue, Feb 01, 2022 at 11:15:31AM +0000, Tvrtko Ursulin wrote:
->>From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>
->>Quicky and dirty hack based on some old ideas. Thought maybe the approach might
->>interest the Arm port guys. But with IS_GEN_RANGE removed easy gains are not so
->>big so meh.. Maybe some more easy wins with IS_DISPLAY_VER but I haven't looked
->>into that side.
->>
->> 3884664  449681    6720 4341065  423d49 i915.ko.tip
->> 3599989  429034    6688 4035711  3d947f i915.ko.noigp
->
-> By these numbers probably it's hard to justify. Another thing to consider
-> is that it's very common to have on the same system both
-> integrated and discrete - doing this would remove at compile time any
-> chance of driving the integrated one.
-
-I guess the point was, the arm systems won't have integrated, and it's
-anyway going to be a separate build.
-
-BR,
-Jani.
-
-
->
-> Lucas De Marchi
->
->>
->>Note debug kconfig so everything is inflated. Whether or not the relative gain
->>would change with production kconfig I am not sure.
->>
->>P.S.
->>I was a bit curious there were no build errors around functions no longer used
->>so either there were none (would mean patch is not really that effective), or
->>something changed with compiler warnings/smarts. Haven't looked into it.
->>
->>Tvrtko Ursulin (2):
->>  igp kconfig
->>  jsl/ehl
->>
->> drivers/gpu/drm/i915/Kconfig                  |   5 +
->> drivers/gpu/drm/i915/Kconfig.platforms        |   7 +
->> .../drm/i915/display/intel_ddi_buf_trans.c    |   4 +-
->> drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   2 +-
->> drivers/gpu/drm/i915/i915_drv.h               | 128 +++++++++++-------
->> drivers/gpu/drm/i915/i915_pci.c               |  44 +++++-
->> 6 files changed, 134 insertions(+), 56 deletions(-)
->> create mode 100644 drivers/gpu/drm/i915/Kconfig.platforms
->>
->>-- 
->>2.32.0
->>
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+T24gTW9uLCAyMDIyLTAxLTMxIGF0IDA4OjU5IC0wODAwLCBMdWNhcyBEZSBNYXJjaGkgd3JvdGU6
+DQo+IEFyY2hpdGVjdHVyZXMgb3RoZXJzIHRoYW4geDg2IGhhdmUgYSBzdHViIGltcGxlbWVudGF0
+aW9uIGNhbGxpbmcNCj4gV0FSTl9PTl9PTkNFKCkuIFRoZSBhcHByb3ByaWF0ZSBoZWFkZXJzIG5l
+ZWQgdG8gYmUgaW5jbHVkZWQsIG90aGVyd2lzZQ0KPiB0aGUgaGVhZGVyLXRlc3QgdGFyZ2V0IHdp
+bGwgZmFpbCB3aXRoOg0KPiANCj4gICBIRFJURVNUIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+bW0uaA0KPiBJbiBmaWxlIGluY2x1ZGVkIGZyb20gPGNvbW1hbmQtbGluZT46DQo+IC4vZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV9tbS5oOiBJbiBmdW5jdGlvbiDigJhyZW1hcF9pb19tYXBwaW5n
+4oCZOg0KPiAuL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfbW0uaDoyNjoyOiBlcnJvcjogaW1w
+bGljaXQgZGVjbGFyYXRpb24gb2YgZnVuY3Rpb24g4oCYV0FSTl9PTl9PTkNF4oCZIFstV2Vycm9y
+PWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQ0KPiAgICAyNiB8ICBXQVJOX09OX09OQ0Uo
+MSk7DQo+ICAgICAgIHwgIF5+fn5+fn5+fn5+fg0KPiANCj4gdjI6IERvIG5vdCBpbmNsdWRlIDxs
+aW51eC9wcmludGsuaD4gc2luY2UgY2FsbCB0byBwcl9lcnIoKSBoYXMgYmVlbg0KPiByZW1vdmVk
+DQoNClJldmlld2VkLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVs
+LmNvbT4NCg0KPiANCj4gRml4ZXM6IDY3YzQzMGJiYWFlMSAoImRybS9pOTE1OiBTa2lwIHJlbWFw
+X2lvX21hcHBpbmcoKSBmb3Igbm9uLXg4NiBwbGF0Zm9ybXMiKQ0KPiBDYzogU2l2YSBNdWxsYXRp
+IDxzaXZhLm11bGxhdGlAaW50ZWwuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBMdWNhcyBEZSBNYXJj
+aGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4NCj4gLS0tDQo+IA0KPiB2MzogTm8gY2hhbmdl
+cyBmcm9tIHByZXZpb3VzIHZlcnNpb24sIGp1c3Qgc3VibWl0dGluZyB0byB0aGUgcmlnaHQNCj4g
+bWFpbGluZyBsaXN0DQo+IA0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9tbS5oIHwgMSAr
+DQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykNCj4gDQo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X21tLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
+X21tLmgNCj4gaW5kZXggNzZmMWQ1M2JkZjM0Li4zYWQyMmJiZTgwZWIgMTAwNjQ0DQo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfbW0uaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9pOTE1X21tLmgNCj4gQEAgLTYsNiArNiw3IEBADQo+ICAjaWZuZGVmIF9fSTkxNV9NTV9I
+X18NCj4gICNkZWZpbmUgX19JOTE1X01NX0hfXw0KPiAgDQo+ICsjaW5jbHVkZSA8bGludXgvYnVn
+Lmg+DQo+ICAjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4NCj4gIA0KPiAgc3RydWN0IHZtX2FyZWFf
+c3RydWN0Ow0KDQo=
