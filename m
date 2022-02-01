@@ -4,52 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFE6EC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA0D8C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68BD510E245;
-	Tue,  1 Feb 2022 10:05:18 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEB2710E245
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Feb 2022 10:05:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643709917; x=1675245917;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qW7rzKhFQKK9K72jfnpiKdtyJfv+UtKz0fgafARsvi8=;
- b=MO4QAJTlemwZc7FykiiUvktAzL8kN4eoJyISgB5cGrdG7tPJopikWQKy
- uADmBcAG+PMbLDDhCpwXRQEUUXEqojhCJurUl4rm6AqCjQbf4PoR4EPq/
- 0sMyx4rU1wv4HwoxXG1/XXS6IN0PRKRQ1eiT+QFoM2AOKf+Vxbdibz/6z
- YdPMeydAaua+BaAmPPxpkLDScNuWbk8oFBkwNLytJ7Dsq1Da/JqkE51Oh
- eTS0AKo5ibZ/Bj4aZFFSBOG6cdce5hY91kG82sMliKGZyVfi8tr59L5g7
- ZTNt9xt/QLLMS9o3ZOCYA6vVP72hxNLMWIVHYWCFekR7LZgRdyddf0TBh A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="247877832"
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="247877832"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 02:05:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="534477993"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga007.fm.intel.com with SMTP; 01 Feb 2022 02:05:14 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 01 Feb 2022 12:05:13 +0200
-Date: Tue, 1 Feb 2022 12:05:13 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-Message-ID: <YfkF2VSxF5osAPMe@intel.com>
-References: <20220118092354.11631-1-ville.syrjala@linux.intel.com>
- <20220118092354.11631-12-ville.syrjala@linux.intel.com>
- <20220201085239.GA9569@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01B2D10E5D6;
+	Tue,  1 Feb 2022 10:18:14 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F31EE10E5C9;
+ Tue,  1 Feb 2022 10:18:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1643710667;
+ bh=wmREK8PFq/vdn0l0vClE+30BQLaE2yxdPYhw57Lv93s=;
+ h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=Z0WOLlz8BCqYtm9aPUCUPXil71JwcDLuhZNZHd7FHSTjquWIqTyuK7Nxr9bXKMr5M
+ n7y7YVN+Gut/WezgN3lhFBOckPb49UQegA/8OQfYWC8aD15Eo/caFD+yl3rjwiqe4h
+ oY1qTfesL9tHu5G/xB+F+phh6OqPL2vFOHQ+mwnU=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.20.60] ([92.116.146.124]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MaJ81-1mkzgl3Fkj-00WIVJ; Tue, 01
+ Feb 2022 11:17:46 +0100
+Message-ID: <98bf57d3-de0f-7f0e-21ce-360f661f4e25@gmx.de>
+Date: Tue, 1 Feb 2022 11:17:44 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220201085239.GA9569@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 11/15] drm/i915: Nuke
- intel_bw_calc_min_cdclk()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
+ <20220131210552.482606-4-daniel.vetter@ffwll.ch>
+ <9c22b709-cbcf-6a29-a45e-5a57ba0b9c14@gmx.de>
+In-Reply-To: <9c22b709-cbcf-6a29-a45e-5a57ba0b9c14@gmx.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:BLEyQfaZyNddFkNU0iveVjwX+bqyCCzVzYZsG8dus0NPeKpzvO4
+ XUbCXA6kU8gOWMxNdCqVD8Dl6yj+eh5kaJ1hB66nR3wiTU1PBmihCXPgud0F+nPZUgKrgD1
+ iAgcqrAu2Uqo1Ldj8aR6HnTUupZzfhVPTpdd5dRPQo7LzSY/wh2w2odvcuiXKjD4SnOVL8j
+ SiVVTKVwz9mxlCvDBA+eA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:nGL3C+F5Hog=:p8wqV+ZdqkrUkg+IP+YS7s
+ +DxdKrHEQqv9JTrY9VpF/UKWI+QQPfrPOI/idsnfOAv7u8gg0z78MZk3wVy92ksSPzZuvje7p
+ r+WusT7JH7K+b1BMwsmOi2Mfr5JowHH72hYqDg6Mf8lSIdKzIkVfClu8jsC0LB4fpBMN07Bg4
+ LKbqU1zssh6LApc8HtmSbnYkGtPvpVwv24uAUCvrG5gOTXQAqniM3aVG+1DoVHy7a4iP6ansv
+ ytcJ1EPNAROjVjNM+M5fI8jYGVhM/41/c8hnqdOaxIHUCRb5eg7RSeBNbBJ1IXYmY0p2AjMXf
+ RcLfcBhmeznw57AMTfqxXdnbdXS++R2Ctx8rIQtLkTXS3+8FXDrRr3s7VhzwgIKi13wUeNqgH
+ YvlfLgKEFhjYSpL4SwhaTY7MWoQAf/HmLkQyYNRUrY5Cn8nMujGYsgIJybx9DLZhHWNqxjsOn
+ BCccG235GotdHBHRHBH/F/+mW0obBJd3WN26OjJwtmxJ6DgUEMzJGbXxpP6T2tuxwVBRxWxIt
+ Nxznf04GB5E5Pjbtl4pOx2ViFpqDFXZ/AGNtsIJtEla25rXJfPK/8mBL8tj/FhmXP82WJEBvp
+ 5BfmMfciVmfu/hXPI7P2NF0mCIC74BG3w6rhJtKKy86OLm21ubJuFyeg9O/chPH4yziQGxMAv
+ v1fwe2MfrvZ8dxOwaVsqmyG8GGppAo4GjXvT27IdyaoHkIqN7f4+xjHiPSCp3VrWQAvbKlVLj
+ A7uxf0/0siWyXkueRPt+0cMhN8O2fXYM2jLaNwa5XMESWT0vSGixO1OoGpz7CQAdR3lptlxiZ
+ OtktLj9Xmn8Kbt6vt26WIkFa/fGP4D/2EXhIaO7tzEgl0cEHCe03OJ75dLY6n0blPrVaq33gS
+ KEDiHJfPJF34hQIBGXUEm+Sx+92pMpUyrHW//MLImEdh12W86FEeRQmY1HQ+lKBDIr+LJ+nUq
+ d4DyemULDb2R4n07yJ572JdzPjfKgKL+MA3jlhe77R7sDRufmbbKU/PPvVLM+AvcWRKBsl3/m
+ 2nP0gQx0nZZ9jvbXEjwYmg68DpDN/1THUAIKOqEakmu8xis8rx1SEjHjtvJQZjbxpvUb+Eoh2
+ 36I9IRwtzdcy74=
+Subject: Re: [Intel-gfx] [PATCH 03/21] fbcon: Restore fbcon scrolling
+ acceleration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,49 +73,126 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Pavel Machek <pavel@ucw.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dave Airlie <airlied@gmail.com>,
+ Sven Schnelle <svens@stackframe.org>, Gerd Hoffmann <kraxel@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 01, 2022 at 10:52:39AM +0200, Lisovskiy, Stanislav wrote:
-> On Tue, Jan 18, 2022 at 11:23:50AM +0200, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > intel_bw_calc_min_cdclk() is entirely pointless. All it manages to do is
-> > somehow conflate the per-pipe min cdclk with dbuf min cdclk. There is no
-> > (at least documented) dbuf min cdclk limit on pre-skl so let's just get
-> > rid of all this confusion.
-> > 
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> I think we constantly have a bit contradictional attitude towards such situation.
-> >From one perspective you can say, that those kind of "leagcy" callbacks are
-> pointless, from the other hand one might say. that we need to have a unified
-> approach for all platforms and I think we got, some legacy handlers for old
-> platforms for similar purpose as well.
-> I'm fine with both approaches, however for example when I was submitting
-> that patch, I was asked by reviewer to add this kind of legacy callback, so that we have
-> a "uniform" approach.
-> We just then need to have some standard agreement on those, which doesn't
-> depend on today's cosmic radiation levels :)
+On 2/1/22 11:16, Helge Deller wrote:
+> On 1/31/22 22:05, Daniel Vetter wrote:
+>> This functionally undoes 39aead8373b3 ("fbcon: Disable accelerated
+>> scrolling"), but behind the FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
+>> option.
+>
+> you have two trivial copy-n-paste errors in this patch which still preve=
+nt the
+> console acceleration.
+>
+>> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/cor=
+e/fbcon.c
+>> index 2ff90061c7f3..39dc18a5de86 100644
+>> --- a/drivers/video/fbdev/core/fbcon.c
+>> +++ b/drivers/video/fbdev/core/fbcon.c
+>> @@ -1125,13 +1125,15 @@ static void fbcon_init(struct vc_data *vc, int =
+init)
+>>
+>>  	ops->graphics =3D 0;
+>>
+>> -	/*
+>> -	 * No more hw acceleration for fbcon.
+>> -	 *
+>> -	 * FIXME: Garbage collect all the now dead code after sufficient time
+>> -	 * has passed.
+>> -	 */
+>> +#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+>
+> should be:
+> #ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
+>
+>
+>> +	if ((info->flags & FBINFO_HWACCEL_COPYAREA) &&
+>> +	    !(info->flags & FBINFO_HWACCEL_DISABLED))
+>> +		p->scrollmode =3D SCROLL_MOVE;
+>> +	else /* default to something safe */
+>> +		p->scrollmode =3D SCROLL_REDRAW;
+>> +#else
+>>  	p->scrollmode =3D SCROLL_REDRAW;
+>> +#endif
+>>
+>>  	/*
+>>  	 *  ++guenther: console.c:vc_allocate() relies on initializing
+>> @@ -1971,15 +1973,49 @@ static void updatescrollmode(struct fbcon_displ=
+ay *p,
+>>  {
+>>  	struct fbcon_ops *ops =3D info->fbcon_par;
+>>  	int fh =3D vc->vc_font.height;
+>> +	int cap =3D info->flags;
+>> +	u16 t =3D 0;
+>> +	int ypan =3D FBCON_SWAP(ops->rotate, info->fix.ypanstep,
+>> +			      info->fix.xpanstep);
+>> +	int ywrap =3D FBCON_SWAP(ops->rotate, info->fix.ywrapstep, t);
+>>  	int yres =3D FBCON_SWAP(ops->rotate, info->var.yres, info->var.xres);
+>>  	int vyres =3D FBCON_SWAP(ops->rotate, info->var.yres_virtual,
+>>  				   info->var.xres_virtual);
+>> +	int good_pan =3D (cap & FBINFO_HWACCEL_YPAN) &&
+>> +		divides(ypan, vc->vc_font.height) && vyres > yres;
+>> +	int good_wrap =3D (cap & FBINFO_HWACCEL_YWRAP) &&
+>> +		divides(ywrap, vc->vc_font.height) &&
+>> +		divides(vc->vc_font.height, vyres) &&
+>> +		divides(vc->vc_font.height, yres);
+>> +	int reading_fast =3D cap & FBINFO_READS_FAST;
+>> +	int fast_copyarea =3D (cap & FBINFO_HWACCEL_COPYAREA) &&
+>> +		!(cap & FBINFO_HWACCEL_DISABLED);
+>> +	int fast_imageblit =3D (cap & FBINFO_HWACCEL_IMAGEBLIT) &&
+>> +		!(cap & FBINFO_HWACCEL_DISABLED);
+>>
+>>  	p->vrows =3D vyres/fh;
+>>  	if (yres > (fh * (vc->vc_rows + 1)))
+>>  		p->vrows -=3D (yres - (fh * vc->vc_rows)) / fh;
+>>  	if ((yres % fh) && (vyres % fh < yres % fh))
+>>  		p->vrows--;
+>> +
+>> +	if (good_wrap || good_pan) {
+>> +		if (reading_fast || fast_copyarea)
+>> +			p->scrollmode =3D good_wrap ?
+>> +				SCROLL_WRAP_MOVE : SCROLL_PAN_MOVE;
+>> +		else
+>> +			p->scrollmode =3D good_wrap ? SCROLL_REDRAW :
+>> +				SCROLL_PAN_REDRAW;
+>> +	} else {
+>> +		if (reading_fast || (fast_copyarea && !fast_imageblit))
+>> +			p->scrollmode =3D SCROLL_MOVE;
+>> +		else
+>> +			p->scrollmode =3D SCROLL_REDRAW;
+>> +	}
+>> +
+>> +#ifndef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+>
+> same here... it needs to be:
+> #ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
 
-Yes in general I prefer a unified approach across all platforms.
-But in this case there is nothing to do for the old platforms as they
-don't have any kind of dbuf cdclk limit, or if there is one we don't
-know what it is since it's not documented.
+actually:
+#ifndef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
 
-So the only thing the code was really doing was conflating the
-per-pipe cdclk limit (which is handled elsewhere for all platforms
-in a  unified fashion) with something that doesn't even exist.
+>
+>
+>> +	p->scrollmode =3D SCROLL_REDRAW;
+>> +#endif
+>>  }
+>>
+>>  #define PITCH(w) (((w) + 7) >> 3)
+>>
+>
+> still reviewing the other patches...
+>
+> Helge
+>
 
-Also I don't think it was even correct anyway since it was
-using the per-pipe cdclk_state->min_cdclk[] already during
-intel_cdclk_atomic_check(), but cdclk_state->min_cdclk[]
-isn't even computed until intel_modeset_calc_cdclk() which 
-is called later. So I guess it was basically just computing 
-the max of the min_cdclk[] for all the pipes for the _old_
-state, not the new state.
-
--- 
-Ville Syrjälä
-Intel
