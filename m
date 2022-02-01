@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A643C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A54CCC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D42510E6AB;
-	Tue,  1 Feb 2022 10:19:59 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32FF810E6A0;
- Tue,  1 Feb 2022 10:19:57 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D11D91F383;
- Tue,  1 Feb 2022 10:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643710795; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Hy3OkojdDnZ5Xxw9cCiAGLIoflYtHO4YXtnft55JA4Y=;
- b=vSFVaEheZp+BzO7AkZ/eCB4Hkty5WehDjbDBSqUig2EuGp5jfklnhkix3ucVFxSkm5PejY
- cW3Gd2eRe8pvzJk1xFKPaGYCh0HVNZhUmkE2SKlzC1ebIioGn8mRtKttRWW1tUvheJH0zr
- XSgl/xaYvHeiWqQzdeeZVmG6J6EzaNA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643710795;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Hy3OkojdDnZ5Xxw9cCiAGLIoflYtHO4YXtnft55JA4Y=;
- b=7zdoXW+R+wtUda9WNHInel+UAuHXeNVnNrpRkFDnLZB9/nes+DwLzBwuTleAL2ZAjKqwlF
- 2M6gMh1gc8MikzBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7FC8E13B3D;
- Tue,  1 Feb 2022 10:19:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4MQoHksJ+WG/CwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 01 Feb 2022 10:19:55 +0000
-Message-ID: <648ac929-8de9-4ec4-f73d-d1048a419eb9@suse.de>
-Date: Tue, 1 Feb 2022 11:19:54 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B7F410E7C2;
+	Tue,  1 Feb 2022 10:21:54 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 939C910E7C2
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Feb 2022 10:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1643710910;
+ bh=rhMjI8y3jysXslMLlHfAxQLeYg7orlmWhVUeBoVQ60g=;
+ h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=iap4MJlBOw2fBp3IpPFi/8DCxTNO047yLLlUoLnRX956KWpuZihpn74LcB1dMN+4V
+ IIVUPiX7qQ+44BStDsM94H4uBycl2KNP0hDN9TsARR4ITaXig4zi7XsksoVAvD03No
+ 1RonTz72fPmTZ7JDijKo1bonfVSKILtGfCUZFQhE=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.20.60] ([92.116.146.124]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mof9F-1mQ9RW4Ayf-00p4Jh; Tue, 01
+ Feb 2022 11:16:08 +0100
+Message-ID: <9c22b709-cbcf-6a29-a45e-5a57ba0b9c14@gmx.de>
+Date: Tue, 1 Feb 2022 11:16:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ Thunderbird/91.3.0
 Content-Language: en-US
 To: Daniel Vetter <daniel.vetter@ffwll.ch>,
  DRI Development <dri-devel@lists.freedesktop.org>
 References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
- <20220131210552.482606-2-daniel.vetter@ffwll.ch>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20220131210552.482606-2-daniel.vetter@ffwll.ch>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------8AKLLWg9udfHxkot3p04zoER"
-Subject: Re: [Intel-gfx] [PATCH 01/21] MAINTAINERS: Add entry for fbdev core
+ <20220131210552.482606-4-daniel.vetter@ffwll.ch>
+From: Helge Deller <deller@gmx.de>
+In-Reply-To: <20220131210552.482606-4-daniel.vetter@ffwll.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:jflhoCckVNnaLnLLGcsVr23sboAIiW9Oegx+vqwH4cE9RiJn0so
+ xERIAfckdKuldjuruwmA2wOLubXdgZ3NtxcE+TMECbSWiMLqDLTTbt3bRgJwxZc5Z9rPY4z
+ sZNAgJgYGcwPZx+Do1gWwD2BpeKgoQIPwNq514BedbfSk7eNeKR3F0rCRCiM6qYjXB1hP1c
+ hJUm8fT1IUjX8yDqBslZg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ldWvst1vMrw=:ZHUAMUCVCOcX29puGDZjH6
+ V/QgZ0yqSJBZNkrGEHnG80qETir2kYgKsoVURK7d1tjDzjtQojQX3m8RBdFmMuqtHmhKLapl3
+ jqEyuWu5k7Yk5BSrC7+A8E0oFllElUvvKc83QDieaUyWsJjV0oyHcz5JILPTmoSNo+bJ+hj3s
+ BTFS938lTnh9kt6ut/CUlr1vpSjg2s44nl/2hVtSABiShvpwFkYefSMYwTzKfoaMoueq9NDHr
+ XSrh9bXN/EX4Y1I0vyshySoE7+KwR+y66rW8EgxBwjS+epfPbdK9x4UBSXVNo9HSrMb3GEG8X
+ bZw5BjYBB0+DBAo/CG/C11YYAwecxLq8dv+Hq2A8AU/ojSyTj5T8aOsTczviUaOVQBD/hMe1A
+ Imidl8QVgLr+J5LLs0Ec0UppVHFcSdpakQRzBsWQPkYbSkolUR9Q8UyHcttQgBD02X+kB6p38
+ 17oPTtwPvBC5MnwfO1vnyIrp9fMBTiS97jGLsyjtpkodi56V49faef9iuEeRaQQWjk5Evgh++
+ mDNkqxy5uHL+DYI5lQw1q2Fd5rr47u0ll6Xv3bEtClc6MsdYRwPU4wqMENeqVIIFSINTZByfD
+ Uy7lKLF6mW9vZ7j2VCE91O3oH9unsdbTJGDbSMYuNH7FHgh12Qicn8eOWMhm/bE7tA5vMYWXl
+ B+jsrov5VHSfXGCU5LiND+OGyOl1r8UlT43KA4yxuSsDeMktaGcYUDWDKtAlb230PlXmbZKiz
+ 8Q3WdK5ckI/idwX018r1sHnZLQ2iTfTb2w2nEXmkKqt+Q4B/hJeU4KoKyENyBreA6RJmk67Zo
+ oRzJ9QDv55VBMqJvy2Gy+iggCWCspqmjaIt3u55XvUQyGk1YUCMvAMtZE48ciGUkN9K9NDKDY
+ qJKFkHc5784Fplwu5wqe3pFxS/hYBiKqVN2JLC2eBvgCF963Y1QnT8xvwFSdHPPcH/Iw2S/2y
+ CDwcGY7ji24mxbMVABqeTpV/kzxhVTFr2qncm4U7x1ky8O3CF2P3ieYxj5LqGB+wOHiWme0IU
+ EUNRgbUa1HL74szTmj1/yHrnpJHU/qWntCrbHI2+I4Wm1rn9hEmaEIqcxYTCtij9RZ4PHetyN
+ i4eUIUGNCY4Fd0=
+Subject: Re: [Intel-gfx] [PATCH 03/21] fbcon: Restore fbcon scrolling
+ acceleration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,126 +72,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Sven Schnelle <svens@stackframe.org>,
+Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>,
  Linus Torvalds <torvalds@linux-foundation.org>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
  Javier Martinez Canillas <javierm@redhat.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, LKML <linux-kernel@vger.kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Pavel Machek <pavel@ucw.cz>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Pavel Machek <pavel@ucw.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dave Airlie <airlied@gmail.com>,
+ Sven Schnelle <svens@stackframe.org>, Gerd Hoffmann <kraxel@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8AKLLWg9udfHxkot3p04zoER
-Content-Type: multipart/mixed; boundary="------------pFSOeLpIPImoieDifLoG2h54";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-Cc: linux-fbdev@vger.kernel.org, Sam Ravnborg <sam@ravnborg.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Claudio Suarez <cssk@net-c.es>,
- Gerd Hoffmann <kraxel@redhat.com>, Pavel Machek <pavel@ucw.cz>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Sven Schnelle <svens@stackframe.org>
-Message-ID: <648ac929-8de9-4ec4-f73d-d1048a419eb9@suse.de>
-Subject: Re: [PATCH 01/21] MAINTAINERS: Add entry for fbdev core
-References: <20220131210552.482606-1-daniel.vetter@ffwll.ch>
- <20220131210552.482606-2-daniel.vetter@ffwll.ch>
-In-Reply-To: <20220131210552.482606-2-daniel.vetter@ffwll.ch>
+On 1/31/22 22:05, Daniel Vetter wrote:
+> This functionally undoes 39aead8373b3 ("fbcon: Disable accelerated
+> scrolling"), but behind the FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
+> option.
 
---------------pFSOeLpIPImoieDifLoG2h54
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+you have two trivial copy-n-paste errors in this patch which still prevent=
+ the
+console acceleration.
 
-DQoNCkFtIDMxLjAxLjIyIHVtIDIyOjA1IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoNCj4gRXZl
-ciBzaW5jZSBUb21pIGV4dHJhY3RlZCB0aGUgY29yZSBjb2RlIGluIDIwMTQgaXQncyBiZWVu
-IGRlZmFjdG8gbWUNCj4gbWFpbnRhaW5pbmcgdGhpcywgd2l0aCBoZWxwIGZyb20gb3RoZXJz
-IGZyb20gZHJpLWRldmVsIGFuZCBzb21ldGltZXMNCj4gTGludXMgKGJ1dCB0aG9zZSBhcmUg
-bW9zdGx5IG1lcmdlIGNvbmZsaWN0cyk6DQo+IA0KPiAkIGdpdCBzaG9ydGxvZyAtbnMgIGRy
-aXZlcnMvdmlkZW8vZmJkZXYvY29yZS8gfCBoZWFkIC1uNQ0KPiAgICAgIDM1ICBEYW5pZWwg
-VmV0dGVyDQo+ICAgICAgMjMgIExpbnVzIFRvcnZhbGRzDQo+ICAgICAgMTAgIEhhbnMgZGUg
-R29lZGUNCj4gICAgICAgOSAgRGF2ZSBBaXJsaWUNCj4gICAgICAgNiAgUGV0ZXIgUm9zaW4N
-Cj4gDQo+IEkgdGhpbmsgaWRlYWxseSB3ZSdkIGFsc28gcmVjb3JkIHRoYXQgdGhlIHZhcmlv
-dXMgZmlybXdhcmUgZmIgZHJpdmVycw0KPiAoZWZpZmIsIHZlc2FmYiwgLi4uKSBhcmUgYWxz
-byBtYWludGFpbmVkIGluIGRybS1taXNjIGJlY2F1c2UgZm9yIHRoZQ0KPiBwYXN0IGZldyB5
-ZWFycyB0aGUgcGF0Y2hlcyBoYXZlIGVpdGhlciBiZWVuIHRvIGZpeCBoYW5kb3ZlciBpc3N1
-ZXMNCj4gd2l0aCBkcm0gZHJpdmVycywgb3IgY2F1c2VkIGhhbmRvdmVyIGlzc3VlcyB3aXRo
-IGRybSBkcml2ZXJzLiBTbyBhbnkNCj4gb3RoZXIgdHJlZSBqdXN0IGRvZXNuJ3QgbWFrZSBz
-ZW5zZS4gQnV0IGFsc28sIHRoZXJlJ3MgcGxlbnR5IG9mDQo+IG91dGRhdGVkIE1BSU5UQUlO
-RVIgZW50cmllcyBmb3IgdGhlc2Ugd2l0aCBwZW9wbGUgYW5kIGdpdCB0cmVlcyB0aGF0DQo+
-IGhhdmVuJ3QgYmVlbiBhY3RpdmUgaW4geWVhcnMsIHNvIG1heWJlIGxldCdzIGp1c3QgbGVh
-dmUgdGhlbSBhbG9uZS4NCj4gQW5kIGZ1cnRoZXJtb3JlIGRpc3Ryb3MgYXJlIG5vdyBhZG9w
-dGluZyBzaW1wbGVkcm0gYXMgdGhlIGZpcm13YXJlIGZiDQo+IGRyaXZlciwgc28gaG9wZWZ1
-bGx5IHRoZSBuZWVkIHRvIGNhcmUgYWJvdXQgdGhlIGZiZGV2IGZpcm13YXJlIGRyaXZlcnMN
-Cj4gd2lsbCBnbyBkb3duIGdvaW5nIGZvcndhcmQuDQo+IA0KPiBOb3RlIHRoYXQgZHJtLW1p
-c2MgaXMgZ3JvdXAgbWFpbnRhaW5lZCwgSSBleHBlY3QgdGhhdCB0byBjb250aW51ZSBsaWtl
-DQo+IHdlJ3ZlIGRvbmUgYmVmb3JlLCBzbyBubyBuZXcgZXhwZWN0YXRpb25zIHRoYXQgcGF0
-Y2hlcyBhbGwgZ28gdGhyb3VnaA0KPiBteSBoYW5kcy4gVGhhdCB3b3VsZCBiZSBzaWxseS4g
-VGhpcyBhbHNvIG1lYW5zIEknbSBoYXBweSB0byBwdXQgYW55DQo+IG90aGVyIHZvbHVudGVl
-cidzIG5hbWUgaW4gdGhlIE06IGxpbmUsIGJ1dCBvdGhlcndpc2UgZ2l0IGxvZyBzYXlzIEkn
-bQ0KPiB0aGUgb25lIHdobydzIHN0dWNrIHdpdGggdGhpcy4NCj4gDQo+IENjOiBEYXZlIEFp
-cmxpZSA8YWlybGllZEBnbWFpbC5jb20+DQo+IENjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1
-bGFAbGludXguaW50ZWwuY29tPg0KPiBDYzogTGludXMgVG9ydmFsZHMgPHRvcnZhbGRzQGxp
-bnV4LWZvdW5kYXRpb24ub3JnPg0KPiBDYzogTGludXggRmJkZXYgZGV2ZWxvcG1lbnQgbGlz
-dCA8bGludXgtZmJkZXZAdmdlci5rZXJuZWwub3JnPg0KPiBDYzogUGF2ZWwgTWFjaGVrIDxw
-YXZlbEB1Y3cuY3o+DQo+IENjOiBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+DQo+
-IENjOiBHcmVnIEtyb2FoLUhhcnRtYW4gPGdyZWdraEBsaW51eGZvdW5kYXRpb24ub3JnPg0K
-PiBDYzogSmF2aWVyIE1hcnRpbmV6IENhbmlsbGFzIDxqYXZpZXJtQHJlZGhhdC5jb20+DQo+
-IENjOiBEUkkgRGV2ZWxvcG1lbnQgPGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+
-DQo+IENjOiBMaW51eCBLZXJuZWwgTWFpbGluZyBMaXN0IDxsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnPg0KPiBDYzogQ2xhdWRpbyBTdWFyZXogPGNzc2tAbmV0LWMuZXM+DQo+IENj
-OiBUb21pIFZhbGtlaW5lbiA8dG9taS52YWxrZWluZW5AdGkuY29tPg0KPiBDYzogR2VlcnQg
-VXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4NCj4gQ2M6IFRob21hcyBaaW1t
-ZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiBDYzogRGFuaWVsIFZldHRlciA8ZGFu
-aWVsLnZldHRlckBpbnRlbC5jb20+DQo+IENjOiBTdmVuIFNjaG5lbGxlIDxzdmVuc0BzdGFj
-a2ZyYW1lLm9yZz4NCj4gQ2M6IEdlcmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPg0K
-PiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNv
-bT4NCg0KQWNrZWQtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRl
-Pg0KDQo+IC0tLQ0KPiAgIE1BSU5UQUlORVJTIHwgNiArKysrKysNCj4gICAxIGZpbGUgY2hh
-bmdlZCwgNiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMg
-Yi9NQUlOVEFJTkVSUw0KPiBpbmRleCBlYTNlNmM5MTQzODQuLjQ5ODA5ZWFhMzA5NiAxMDA2
-NDQNCj4gLS0tIGEvTUFJTlRBSU5FUlMNCj4gKysrIGIvTUFJTlRBSU5FUlMNCj4gQEAgLTc1
-NzMsNiArNzU3MywxMiBAQCBTOglNYWludGFpbmVkDQo+ICAgVzoJaHR0cDovL2Zsb2F0aW5n
-cG9pbnQuc291cmNlZm9yZ2UubmV0L2VtdWxhdG9yL2luZGV4Lmh0bWwNCj4gICBGOglhcmNo
-L3g4Ni9tYXRoLWVtdS8NCj4gICANCj4gK0ZSQU1FQlVGRkVSIENPUkUNCj4gK006CURhbmll
-bCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4NCj4gK0Y6CWRyaXZlcnMvdmlkZW8vZmJkZXYv
-Y29yZS8NCj4gK1M6CU9kZCBGaXhlcw0KPiArVDoJZ2l0IGdpdDovL2Fub25naXQuZnJlZWRl
-c2t0b3Aub3JnL2RybS9kcm0tbWlzYw0KPiArDQo+ICAgRlJBTUVCVUZGRVIgTEFZRVINCj4g
-ICBNOglIZWxnZSBEZWxsZXIgPGRlbGxlckBnbXguZGU+DQo+ICAgTDoJbGludXgtZmJkZXZA
-dmdlci5rZXJuZWwub3JnDQoNCi0tIA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERy
-aXZlciBEZXZlbG9wZXINClNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0K
-TWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBB
-RyBOw7xybmJlcmcpDQpHZXNjaMOkZnRzZsO8aHJlcjogSXZvIFRvdGV2DQo=
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core=
+/fbcon.c
+> index 2ff90061c7f3..39dc18a5de86 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -1125,13 +1125,15 @@ static void fbcon_init(struct vc_data *vc, int i=
+nit)
+>
+>  	ops->graphics =3D 0;
+>
+> -	/*
+> -	 * No more hw acceleration for fbcon.
+> -	 *
+> -	 * FIXME: Garbage collect all the now dead code after sufficient time
+> -	 * has passed.
+> -	 */
+> +#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
 
---------------pFSOeLpIPImoieDifLoG2h54--
+should be:
+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
 
---------------8AKLLWg9udfHxkot3p04zoER
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+> +	if ((info->flags & FBINFO_HWACCEL_COPYAREA) &&
+> +	    !(info->flags & FBINFO_HWACCEL_DISABLED))
+> +		p->scrollmode =3D SCROLL_MOVE;
+> +	else /* default to something safe */
+> +		p->scrollmode =3D SCROLL_REDRAW;
+> +#else
+>  	p->scrollmode =3D SCROLL_REDRAW;
+> +#endif
+>
+>  	/*
+>  	 *  ++guenther: console.c:vc_allocate() relies on initializing
+> @@ -1971,15 +1973,49 @@ static void updatescrollmode(struct fbcon_displa=
+y *p,
+>  {
+>  	struct fbcon_ops *ops =3D info->fbcon_par;
+>  	int fh =3D vc->vc_font.height;
+> +	int cap =3D info->flags;
+> +	u16 t =3D 0;
+> +	int ypan =3D FBCON_SWAP(ops->rotate, info->fix.ypanstep,
+> +			      info->fix.xpanstep);
+> +	int ywrap =3D FBCON_SWAP(ops->rotate, info->fix.ywrapstep, t);
+>  	int yres =3D FBCON_SWAP(ops->rotate, info->var.yres, info->var.xres);
+>  	int vyres =3D FBCON_SWAP(ops->rotate, info->var.yres_virtual,
+>  				   info->var.xres_virtual);
+> +	int good_pan =3D (cap & FBINFO_HWACCEL_YPAN) &&
+> +		divides(ypan, vc->vc_font.height) && vyres > yres;
+> +	int good_wrap =3D (cap & FBINFO_HWACCEL_YWRAP) &&
+> +		divides(ywrap, vc->vc_font.height) &&
+> +		divides(vc->vc_font.height, vyres) &&
+> +		divides(vc->vc_font.height, yres);
+> +	int reading_fast =3D cap & FBINFO_READS_FAST;
+> +	int fast_copyarea =3D (cap & FBINFO_HWACCEL_COPYAREA) &&
+> +		!(cap & FBINFO_HWACCEL_DISABLED);
+> +	int fast_imageblit =3D (cap & FBINFO_HWACCEL_IMAGEBLIT) &&
+> +		!(cap & FBINFO_HWACCEL_DISABLED);
+>
+>  	p->vrows =3D vyres/fh;
+>  	if (yres > (fh * (vc->vc_rows + 1)))
+>  		p->vrows -=3D (yres - (fh * vc->vc_rows)) / fh;
+>  	if ((yres % fh) && (vyres % fh < yres % fh))
+>  		p->vrows--;
+> +
+> +	if (good_wrap || good_pan) {
+> +		if (reading_fast || fast_copyarea)
+> +			p->scrollmode =3D good_wrap ?
+> +				SCROLL_WRAP_MOVE : SCROLL_PAN_MOVE;
+> +		else
+> +			p->scrollmode =3D good_wrap ? SCROLL_REDRAW :
+> +				SCROLL_PAN_REDRAW;
+> +	} else {
+> +		if (reading_fast || (fast_copyarea && !fast_imageblit))
+> +			p->scrollmode =3D SCROLL_MOVE;
+> +		else
+> +			p->scrollmode =3D SCROLL_REDRAW;
+> +	}
+> +
+> +#ifndef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmH5CUoFAwAAAAAACgkQlh/E3EQov+Cd
-Tw//d5aZv0Yk1NM6Ke8rHG5R8OOkdhh7eoPXdQNC6o+y6zCAwmT087t69A4x4XS+3AFjMVlPEknC
-ysa4Y80jQ82u4ev5YqLLNAwMgmRRLxQbS4OHRtUs+uRFyUUU8EVsbfhcpQ1lOmfpRgg5duLJ6YU/
-R01NuHP5s/XrhbOgxrDXMvWoTYRz60XwwaP9HZ5bvbcEqdl9x668hK8SCW34OKg88Bm9NPyOIl/h
-oOM8zb/RTgPZph4jkjz8HLRXz5MiDTVZ9NV8Rq6+Uqj9LEi6689wRg0d/5pkL6IjwOqaV6MaoIb4
-2VgU3Po8RgML2WNA/Kc+aXS0bwmLhiWvGI2tKtBKOxpvqwfSIEN5AAGt2gUQzOE7A2/adcoP/kP0
-SnRSmp4F/WGNEFotmdhfjnmkWjrB7J6MVC1KK30W8Ngdt3ybc4rdrhrMcv1SqJC+IgzNsw0Sx5k+
-ffi27WzmwOsOttWwKKJS+sztfpqghQEfWVTG7mXeGoX8LxAY3xaBbqYggehjnA/YsnvHmAHpD9tf
-bWP/Bf1Y0fUBA5lqqdLtTwJierCOFl/1ZF4H98KNG1gWlvFzuGSAHT+Uq1lRRoh4u5rqr/UNgZZ2
-LPiou+z5iru+0UjBfvKwLNTwvbWl7Rp2/o1xXWwjU9kqxQ0fyATUJTmNfmurMJZ8GLEdREpcv7wi
-/AY=
-=mIBb
------END PGP SIGNATURE-----
+same here... it needs to be:
+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
 
---------------8AKLLWg9udfHxkot3p04zoER--
+
+> +	p->scrollmode =3D SCROLL_REDRAW;
+> +#endif
+>  }
+>
+>  #define PITCH(w) (((w) + 7) >> 3)
+>
+
+still reviewing the other patches...
+
+Helge
