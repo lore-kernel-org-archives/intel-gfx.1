@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3518C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 23:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F3E4C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 23:56:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48A0A10E456;
-	Mon, 31 Jan 2022 23:32:11 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B530910E456;
- Mon, 31 Jan 2022 23:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B31C10E13B;
+	Mon, 31 Jan 2022 23:56:37 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F40E10E13B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 23:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643671929; x=1675207929;
+ t=1643673396; x=1675209396;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=s4qd5/3eVmC0zxoBFfHu2I1L/M6RmoRcjQxyASVjkfo=;
- b=k3nIZwPTL2bOHecEr2IoH37jGHioqdaTbDnR/kUhqz/hA59QkU1P3V51
- FaVsIOjGSmc6EoX2wpjAUXFjmzK7qd9oyh8KIdnXyZZwQxVp/4m9fYLMi
- +6wYrOX2nt3MyQA1PUdz2fZz217SW3zXdBcURl8hXi85SnHXyZWRI4cTQ
- 1gXJTwNdCfz5f3KhfFh7+LSc8+hxAYB1VlJuZbhwPgof89ZOHHOSI/jB2
- O/EWPqtd2ZcFW24eZJwB4FyK2WVjZuqIQ31nEARXhUdxdsB1UCiX7elnA
- 4GCBcZUwS62j9+miXKAjwfT05b+kfm6mJCVKc61SaulHWUPq/Ad9FK4dK A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="308307264"
-X-IronPort-AV: E=Sophos;i="5.88,332,1635231600"; d="scan'208";a="308307264"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2022 15:31:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,332,1635231600"; d="scan'208";a="619554614"
-Received: from lkp-server01.sh.intel.com (HELO 276f1b88eecb) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 31 Jan 2022 15:31:54 -0800
-Received: from kbuild by 276f1b88eecb with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1nEg9K-000SSc-AF; Mon, 31 Jan 2022 23:31:54 +0000
-Date: Tue, 1 Feb 2022 07:31:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-Message-ID: <202202010613.HT19HztX-lkp@intel.com>
-References: <20220131210552.482606-14-daniel.vetter@ffwll.ch>
+ bh=tsFrefq8s9XXc+keyDjZm0Lg1KpPlTJbMUVgAK/UsKY=;
+ b=N0R4zhu2mZFaFRJyYRsddm6wfDcz7WNzb1WG2XsRKZUPwUCmuBOOJukA
+ v0FfO3j5jE4+GSYDAHsvS4pndHbsE2g8OeRpXOpZVCx0PWD5wZmbVjvny
+ ffP1V3Z0PRdCm2ns6MDOTV3VVlGNyWumNSmlwxIzTnf7YUTvN9W8HwsNV
+ RtJQ5k4XLRQdY3BU1gUW5V02wBgKxDjs1mBRzPqUsf0moS2WaDaUIhzjz
+ YaHKTroLpLVV5K245jmJ9mIQM5HQyS2VC9sDcu7RHShV0sWt4ZNEMdz8F
+ qYDCC9NZsPDo0kDWxxJIMRW7ljbezpTvECCIvx0qIwylBbTsZ/+7GKBRw g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="245171519"
+X-IronPort-AV: E=Sophos;i="5.88,332,1635231600"; d="scan'208";a="245171519"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jan 2022 15:56:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,332,1635231600"; d="scan'208";a="770942667"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jan 2022 15:56:35 -0800
+Date: Mon, 31 Jan 2022 16:12:08 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20220201001159.GA28093@labuser-Z97X-UD5H>
+References: <20220126195304.8262-1-manasi.d.navare@intel.com>
+ <87wnigum23.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220131210552.482606-14-daniel.vetter@ffwll.ch>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH 13/21] fbcon: move more common code into
- fb_open()
+In-Reply-To: <87wnigum23.fsf@intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/display/vrr: Reset VRR capable
+ property on a long hpd
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,75 +59,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kbuild-all@lists.01.org,
- Du Cheng <ducheng2@gmail.com>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel,
+On Mon, Jan 31, 2022 at 02:28:04PM +0200, Jani Nikula wrote:
+> On Wed, 26 Jan 2022, Manasi Navare <manasi.d.navare@intel.com> wrote:
+> > With some VRR panels, user can turn VRR ON/OFF on the fly from the panel settings.
+> > When VRR is turned OFF ,sends a long HPD to the driver clearing the Ignore MSA bit
+> > in the DPCD. Currently the driver parses that onevery HPD but fails to reset
+> > the corresponding VRR Capable Connector property.
+> > Hence the userspace still sees this as VRR Capable panel which is incorrect.
+> >
+> > Fix this by explicitly resetting the connector property.
+> >
+> > v2: Reset vrr capable if status == connector_disconnected
+> > v3: Use i915 and use bool vrr_capable (Jani Nikula)
+> > Cc: Jani Nikula <jani.nikula@intel.com>
+> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++++++++----
+> >  1 file changed, 12 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index 4d4579a301f6..687cb37bb22a 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -4446,6 +4446,12 @@ intel_dp_detect(struct drm_connector *connector,
+> >  		memset(&intel_dp->compliance, 0, sizeof(intel_dp->compliance));
+> >  		memset(intel_dp->dsc_dpcd, 0, sizeof(intel_dp->dsc_dpcd));
+> >  
+> > +		/* Reset VRR Capable property */
+> > +		drm_dbg_kms(&dev_priv->drm, "[CONNECTOR:%d:%s] VRR capable: FALSE\n",
+> > +			    connector->base.id, connector->name);
+> 
+> Both the comment and the logging here seem excessive.
 
-I love your patch! Perhaps something to improve:
+Okay will remove the comment, it is indeed redundant now
+> 
+> > +		drm_connector_set_vrr_capable_property(connector,
+> > +						       false);
+> > +
+> 
+> Fits on one line.
 
-[auto build test WARNING on tegra-drm/drm/tegra/for-next]
-[also build test WARNING on drm/drm-next linus/master v5.17-rc2 next-20220131]
-[cannot apply to airlied/drm-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+Sure will change that
+> 
+> >  		if (intel_dp->is_mst) {
+> >  			drm_dbg_kms(&dev_priv->drm,
+> >  				    "MST device may have disappeared %d vs %d\n",
+> > @@ -4560,15 +4566,17 @@ static int intel_dp_get_modes(struct drm_connector *connector)
+> >  {
+> >  	struct intel_connector *intel_connector = to_intel_connector(connector);
+> >  	struct edid *edid;
+> > +	struct drm_i915_private *i915 = to_i915(connector->dev);
+> >  	int num_modes = 0;
+> >  
+> >  	edid = intel_connector->detect_edid;
+> >  	if (edid) {
+> > -		num_modes = intel_connector_update_modes(connector, edid);
+> > +		bool vrr_capable = intel_vrr_is_capable(connector);
+> >  
+> > -		if (intel_vrr_is_capable(connector))
+> > -			drm_connector_set_vrr_capable_property(connector,
+> > -							       true);
+> > +		num_modes = intel_connector_update_modes(connector, edid);
+> 
+> intel_vrr_is_capable() probably needs to happen after
+> intel_connector_update_modes(), right?
 
-url:    https://github.com/0day-ci/linux/commits/Daniel-Vetter/some-fbcon-patches-mostly-locking/20220201-050907
-base:   git://anongit.freedesktop.org/tegra/linux.git drm/tegra/for-next
-config: mips-allyesconfig (https://download.01.org/0day-ci/archive/20220201/202202010613.HT19HztX-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 11.2.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/0day-ci/linux/commit/7a27c0ce71acfa8b67787d298de9836376fcc323
-        git remote add linux-review https://github.com/0day-ci/linux
-        git fetch --no-tags linux-review Daniel-Vetter/some-fbcon-patches-mostly-locking/20220201-050907
-        git checkout 7a27c0ce71acfa8b67787d298de9836376fcc323
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=mips SHELL=/bin/bash drivers/video/fbdev/core/
+Thanks Jani yes that is correct, will move this after num_modes = intel_connector_update_modes(connector, edid);
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+Manasi
 
-All warnings (new ones prefixed by >>):
-
-   drivers/video/fbdev/core/fbcon.c: In function 'con2fb_acquire_newinfo':
->> drivers/video/fbdev/core/fbcon.c:721:27: warning: variable 'ops' set but not used [-Wunused-but-set-variable]
-     721 |         struct fbcon_ops *ops = NULL;
-         |                           ^~~
-
-
-vim +/ops +721 drivers/video/fbdev/core/fbcon.c
-
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  717  
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  718  static int con2fb_acquire_newinfo(struct vc_data *vc, struct fb_info *info,
-7a27c0ce71acfa8 drivers/video/fbdev/core/fbcon.c Daniel Vetter      2022-01-31  719  				  int unit)
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  720  {
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16 @721  	struct fbcon_ops *ops = NULL;
-ba35a78b17408b6 drivers/video/fbdev/core/fbcon.c Daniel Vetter      2022-01-31  722  	int err;
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  723  
-ba35a78b17408b6 drivers/video/fbdev/core/fbcon.c Daniel Vetter      2022-01-31  724  	err = fbcon_open(info);
-ba35a78b17408b6 drivers/video/fbdev/core/fbcon.c Daniel Vetter      2022-01-31  725  	if (err)
-ba35a78b17408b6 drivers/video/fbdev/core/fbcon.c Daniel Vetter      2022-01-31  726  		return err;
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  727  
-7a27c0ce71acfa8 drivers/video/fbdev/core/fbcon.c Daniel Vetter      2022-01-31  728  	ops = info->fbcon_par;
-d1baa4ffa677bf6 drivers/video/console/fbcon.c    Antonino A. Daplas 2007-07-17  729  
-d1baa4ffa677bf6 drivers/video/console/fbcon.c    Antonino A. Daplas 2007-07-17  730  	if (vc)
-b73deed32d08740 drivers/video/console/fbcon.c    Antonino A. Daplas 2006-01-09  731  		set_blitting_type(vc, info);
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  732  
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  733  	return err;
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  734  }
-^1da177e4c3f415 drivers/video/console/fbcon.c    Linus Torvalds     2005-04-16  735  
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+> 
+> BR,
+> Jani.
+> 
+> > +		drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
+> > +			    connector->base.id, connector->name, yesno(vrr_capable));
+> > +		drm_connector_set_vrr_capable_property(connector, vrr_capable);
+> >  	}
+> >  
+> >  	/* Also add fixed mode, which may or may not be present in EDID */
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
