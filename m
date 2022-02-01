@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE2AC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:41:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F611C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF61810E8E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9566210E8C6;
 	Tue,  1 Feb 2022 10:41:49 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE94F10E8C6;
- Tue,  1 Feb 2022 10:41:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0A510E8C6;
+ Tue,  1 Feb 2022 10:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643712107; x=1675248107;
+ t=1643712106; x=1675248106;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mbuRJ0e7nK525gI4ZD7nkJZtF2bVkOJgOdvwDTzxYXI=;
- b=E8JW/ybl35ABHWVmwW3WBN7YNYYHKtElaHjaQkiI0bQHAblSsnCcEFFh
- iMtghkr/BpeqncNCGFeFQkNxKe5Dd6LArvIWEZOcn+oTSf3g12YiNT28L
- F51TCJM2yvuN1Ri4DTXrlprRCi/bLG18j61GwzKXfRUPEzWLiNtbY5c6X
- c999ouYFZYRFm+n4zkXqXpz925UEy9EZIO4r9cmYKClwyagNcbNtLvNKm
- 0ME1Rtoakg9nAjY8CgDGQ49xiyHsDBQckdeyWHhquoBQmx/mzh9+5dlHl
- 6xkSkBdhRJ1OXR9G07O6bZn+YrE3Nb898dNrVVpZpXQTmv0dabFpf/kPL Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="334020562"
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="334020562"
+ bh=3Bq83ol07S2VmM1AQatwXBKJPhC8dvgWchpaWbNmEp4=;
+ b=Yw0to97FitBNtgKvxM4bQztLbYVDS74TkWYXrQQDRi9PMqaYJUH4w63b
+ Od/bW82GlWYcuMK+sZexS4VIozsqWvFz7WTRhWIVh6oGWT9t7jKJH18EM
+ uWo9ErEDVtlRB8B2haIwiEmjo8r0+wpbwbMfd2azFZhmy+CALC3UU2If2
+ EjOIl2iOafFKXDtzHZ5rD2tljLmQuCskRER3/lxVjx/Sx/HW9Ngy9VVzD
+ dCkIeg6z7Q9gSRr90EAaSFQ/Z+dQ1f+y3kptprnU1r/N3S2K1JQvVotKa
+ E7cPfEGZKf6/WcL7xRJ7Ll3p7TJtOjd+9f6+6nSGy3pm2r/GuNkCBbkR+ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10244"; a="334020554"
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="334020554"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 02:41:47 -0800
-X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="523011147"
+ 01 Feb 2022 02:41:41 -0800
+X-IronPort-AV: E=Sophos;i="5.88,333,1635231600"; d="scan'208";a="523011131"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2022 02:41:44 -0800
+ 01 Feb 2022 02:41:39 -0800
 From: Ramalingam C <ramalingam.c@intel.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Tue,  1 Feb 2022 16:11:19 +0530
-Message-Id: <20220201104132.3050-7-ramalingam.c@intel.com>
+Date: Tue,  1 Feb 2022 16:11:17 +0530
+Message-Id: <20220201104132.3050-5-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220201104132.3050-1-ramalingam.c@intel.com>
 References: <20220201104132.3050-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 06/19] drm/i915/gtt: add
- xehpsdv_ppgtt_insert_entry
+Subject: [Intel-gfx] [PATCH v5 04/19] drm/i915: add gtt misalignment test
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,99 +57,205 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Auld <matthew.auld@intel.com>
+From: Robert Beckett <bob.beckett@collabora.com>
 
-If this is LMEM then we get a 32 entry PT, with each PTE pointing to
-some 64K block of memory, otherwise it's just the usual 512 entry PT.
-This very much assumes the caller knows what they are doing.
+add test to check handling of misaligned offsets and sizes
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Ramalingam C <ramalingam.c@intel.com>
-Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
+v4:
+	* remove spurious blank lines
+	* explicitly cast intel_region_id to intel_memory_type in misaligned_pin
+Reported-by: kernel test robot <lkp@intel.com>
+v6:
+	* use NEEDS_COMPACT_PT instead of hard coding for DG2
+
+Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 50 ++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 128 ++++++++++++++++++
+ 1 file changed, 128 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 62471730266c..f574da00eff1 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -715,13 +715,56 @@ static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
- 		gen8_pdp_for_page_index(vm, idx);
- 	struct i915_page_directory *pd =
- 		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
-+	struct i915_page_table *pt = i915_pt_entry(pd, gen8_pd_index(idx, 1));
- 	gen8_pte_t *vaddr;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index b80788a2b7f9..c23b1e5cc436 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -22,10 +22,12 @@
+  *
+  */
  
--	vaddr = px_vaddr(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
-+	GEM_BUG_ON(pt->is_compact);
-+
-+	vaddr = px_vaddr(pt);
- 	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
- 	clflush_cache_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
++#include "gt/intel_gtt.h"
+ #include <linux/list_sort.h>
+ #include <linux/prime_numbers.h>
+ 
+ #include "gem/i915_gem_context.h"
++#include "gem/i915_gem_region.h"
+ #include "gem/selftests/mock_context.h"
+ #include "gt/intel_context.h"
+ #include "gt/intel_gpu_commands.h"
+@@ -1067,6 +1069,120 @@ static int shrink_boom(struct i915_address_space *vm,
+ 	return err;
  }
  
-+static void __xehpsdv_ppgtt_insert_entry_lm(struct i915_address_space *vm,
-+					    dma_addr_t addr,
-+					    u64 offset,
-+					    enum i915_cache_level level,
-+					    u32 flags)
++static int misaligned_case(struct i915_address_space *vm, struct intel_memory_region *mr,
++			   u64 addr, u64 size, unsigned long flags)
 +{
-+	u64 idx = offset >> GEN8_PTE_SHIFT;
-+	struct i915_page_directory * const pdp =
-+		gen8_pdp_for_page_index(vm, idx);
-+	struct i915_page_directory *pd =
-+		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
-+	struct i915_page_table *pt = i915_pt_entry(pd, gen8_pd_index(idx, 1));
-+	gen8_pte_t *vaddr;
++	struct drm_i915_gem_object *obj;
++	struct i915_vma *vma;
++	int err = 0;
++	u64 expected_vma_size, expected_node_size;
 +
-+	GEM_BUG_ON(!IS_ALIGNED(addr, SZ_64K));
-+	GEM_BUG_ON(!IS_ALIGNED(offset, SZ_64K));
++	obj = i915_gem_object_create_region(mr, size, 0, 0);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
 +
-+	if (!pt->is_compact) {
-+		vaddr = px_vaddr(pd);
-+		vaddr[gen8_pd_index(idx, 1)] |= GEN12_PDE_64K;
-+		pt->is_compact = true;
++	vma = i915_vma_instance(obj, vm, NULL);
++	if (IS_ERR(vma)) {
++		err = PTR_ERR(vma);
++		goto err_put;
 +	}
 +
-+	vaddr = px_vaddr(pt);
-+	vaddr[gen8_pd_index(idx, 0) / 16] = gen8_pte_encode(addr, level, flags);
++	err = i915_vma_pin(vma, 0, 0, addr | flags);
++	if (err)
++		goto err_put;
++	i915_vma_unpin(vma);
++
++	if (!drm_mm_node_allocated(&vma->node)) {
++		err = -EINVAL;
++		goto err_put;
++	}
++
++	if (i915_vma_misplaced(vma, 0, 0, addr | flags)) {
++		err = -EINVAL;
++		goto err_put;
++	}
++
++	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
++	expected_node_size = expected_vma_size;
++
++	if (NEEDS_COMPACT_PT(vm->i915) && i915_gem_object_is_lmem(obj)) {
++		/* compact-pt should expand lmem node to 2MB */
++		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
++		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
++	}
++
++	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
++		err = i915_vma_unbind(vma);
++		err = -EBADSLT;
++		goto err_put;
++	}
++
++	err = i915_vma_unbind(vma);
++	if (err)
++		goto err_put;
++
++	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
++
++err_put:
++	i915_gem_object_put(obj);
++	cleanup_freed_objects(vm->i915);
++	return err;
 +}
 +
-+static void xehpsdv_ppgtt_insert_entry(struct i915_address_space *vm,
-+				       dma_addr_t addr,
-+				       u64 offset,
-+				       enum i915_cache_level level,
-+				       u32 flags)
++static int misaligned_pin(struct i915_address_space *vm,
++			  u64 hole_start, u64 hole_end,
++			  unsigned long end_time)
 +{
-+	if (flags & PTE_LM)
-+		return __xehpsdv_ppgtt_insert_entry_lm(vm, addr, offset,
-+						       level, flags);
++	struct intel_memory_region *mr;
++	enum intel_region_id id;
++	unsigned long flags = PIN_OFFSET_FIXED | PIN_USER;
++	int err = 0;
++	u64 hole_size = hole_end - hole_start;
 +
-+	return gen8_ppgtt_insert_entry(vm, addr, offset, level, flags);
++	if (i915_is_ggtt(vm))
++		flags |= PIN_GLOBAL;
++
++	for_each_memory_region(mr, vm->i915, id) {
++		u64 min_alignment = i915_vm_min_alignment(vm, (enum intel_memory_type)id);
++		u64 size = min_alignment;
++		u64 addr = round_up(hole_start + (hole_size / 2), min_alignment);
++
++		/* we can't test < 4k alignment due to flags being encoded in lower bits */
++		if (min_alignment != I915_GTT_PAGE_SIZE_4K) {
++			err = misaligned_case(vm, mr, addr + (min_alignment / 2), size, flags);
++			/* misaligned should error with -EINVAL*/
++			if (!err)
++				err = -EBADSLT;
++			if (err != -EINVAL)
++				return err;
++		}
++
++		/* test for vma->size expansion to min page size */
++		err = misaligned_case(vm, mr, addr, PAGE_SIZE, flags);
++		if (min_alignment > hole_size) {
++			if (!err)
++				err = -EBADSLT;
++			else if (err == -ENOSPC)
++				err = 0;
++		}
++		if (err)
++			return err;
++
++		/* test for intermediate size not expanding vma->size for large alignments */
++		err = misaligned_case(vm, mr, addr, size / 2, flags);
++		if (min_alignment > hole_size) {
++			if (!err)
++				err = -EBADSLT;
++			else if (err == -ENOSPC)
++				err = 0;
++		}
++		if (err)
++			return err;
++	}
++
++	return 0;
 +}
 +
- static int gen8_init_scratch(struct i915_address_space *vm)
- {
- 	u32 pte_flags;
-@@ -921,7 +964,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ static int exercise_ppgtt(struct drm_i915_private *dev_priv,
+ 			  int (*func)(struct i915_address_space *vm,
+ 				      u64 hole_start, u64 hole_end,
+@@ -1136,6 +1252,11 @@ static int igt_ppgtt_shrink_boom(void *arg)
+ 	return exercise_ppgtt(arg, shrink_boom);
+ }
  
- 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
- 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
--	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
-+	if (HAS_64K_PAGES(gt->i915))
-+		ppgtt->vm.insert_page = xehpsdv_ppgtt_insert_entry;
-+	else
-+		ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
- 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
- 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
- 	ppgtt->vm.foreach = gen8_ppgtt_foreach;
++static int igt_ppgtt_misaligned_pin(void *arg)
++{
++	return exercise_ppgtt(arg, misaligned_pin);
++}
++
+ static int sort_holes(void *priv, const struct list_head *A,
+ 		      const struct list_head *B)
+ {
+@@ -1208,6 +1329,11 @@ static int igt_ggtt_lowlevel(void *arg)
+ 	return exercise_ggtt(arg, lowlevel_hole);
+ }
+ 
++static int igt_ggtt_misaligned_pin(void *arg)
++{
++	return exercise_ggtt(arg, misaligned_pin);
++}
++
+ static int igt_ggtt_page(void *arg)
+ {
+ 	const unsigned int count = PAGE_SIZE/sizeof(u32);
+@@ -2180,12 +2306,14 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_ppgtt_fill),
+ 		SUBTEST(igt_ppgtt_shrink),
+ 		SUBTEST(igt_ppgtt_shrink_boom),
++		SUBTEST(igt_ppgtt_misaligned_pin),
+ 		SUBTEST(igt_ggtt_lowlevel),
+ 		SUBTEST(igt_ggtt_drunk),
+ 		SUBTEST(igt_ggtt_walk),
+ 		SUBTEST(igt_ggtt_pot),
+ 		SUBTEST(igt_ggtt_fill),
+ 		SUBTEST(igt_ggtt_page),
++		SUBTEST(igt_ggtt_misaligned_pin),
+ 		SUBTEST(igt_cs_tlb),
+ 	};
+ 
 -- 
 2.20.1
 
