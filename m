@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E53EC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA9B1C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 623E510E9E3;
-	Thu,  3 Feb 2022 09:04:44 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AABE610E9E1;
- Thu,  3 Feb 2022 09:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2192510E9E4;
+	Thu,  3 Feb 2022 09:04:46 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 916BB10E9E4;
+ Thu,  3 Feb 2022 09:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643879082; x=1675415082;
+ t=1643879084; x=1675415084;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ArETKnG5QbGKwv1LyRiJY1fC5lpFd+YU00o2DMBVH/Q=;
- b=Ngha8TKV2keKoICqSem4pOIVg6YS02YTHYzJG7zZxoPTjVKmovhyGI7d
- jc+8866UIshy9QorNvXbXmZhTor5VfTxtvZS1goIs9UqQacCwYmb4Gccz
- zpMRxmsQi9CeG4m+qo8KBvfwVOZZ8wLb6oGSEi26USpM7kVKN3Ue+ik2R
- EcFqudTZINDinWUxyWpnHq3Bh4W5SPz2rFngz4GO6R7NhFd83gqNn7EWB
- MfrP3WjKyQi+gpCM21VVyzAkR/kmd0MZjKX0V5fWOKLgjrSqLBoF6CROW
- QiAMD5BnmHZ4fkkQL62+K7KRqur12g7vVWF/7ktGmZ67v1BUJo7et08K/ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="247869598"
-X-IronPort-AV: E=Sophos;i="5.88,339,1635231600"; d="scan'208";a="247869598"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2022 01:04:24 -0800
-X-IronPort-AV: E=Sophos;i="5.88,339,1635231600"; d="scan'208";a="483173579"
+ bh=Ykh21sL9DEpB2JXwyOHqrQBPR5ZH4IGXSmiSTOLPwtc=;
+ b=FxWye4GL+jKiDqsrGplNDio9qSvtKi/fDzaMH6mvwT7P+52SJ2qHG3Lv
+ 6fsy6n5K9qtELLgcDMPSvzUVTbPKDeC7BtsTl2bH0KL4v1qZZaarqg+pE
+ Txd5lvP8Z3fkVCM64EFcPjukDiYEqwiC0F4/TFFcVgVapNy4q7Wq6S9RG
+ XhoAgUbjiZnkzDLGAC8Pl2+FlS0sQcrkMGnAU6viALf8lHP0vv5mjUhsF
+ yWduDN31PWhw7qqrVn87xoO9e/KAZh33knuob/4xkiIk2A3pSqUr8Modl
+ XkqVEp98vAwpJ5ugztCS94pNM9JIVbI1o5Qq0nwV8elo5CdphnvT6JdxU w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="231670016"
+X-IronPort-AV: E=Sophos;i="5.88,339,1635231600"; d="scan'208";a="231670016"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2022 01:04:44 -0800
+X-IronPort-AV: E=Sophos;i="5.88,339,1635231600"; d="scan'208";a="631276791"
 Received: from cbrady-mobl1.ger.corp.intel.com (HELO localhost) ([10.252.6.65])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2022 01:04:22 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2022 01:04:41 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu,  3 Feb 2022 11:03:53 +0200
-Message-Id: <c0fffbf7213c09e42be9875d38d3001e0026b063.1643878928.git.jani.nikula@intel.com>
+Date: Thu,  3 Feb 2022 11:03:57 +0200
+Message-Id: <d29b06b641263e92bc3ec0641f3c7c4cd4557aa0.1643878928.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1643878928.git.jani.nikula@intel.com>
 References: <cover.1643878928.git.jani.nikula@intel.com>
@@ -45,8 +45,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/8] drm/i915/dp: move
- intel_dp_prepare_link_train() call
+Subject: [Intel-gfx] [PATCH v2 8/8] HACK: drm/i915/dp: give more time for CDS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +62,29 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call it from the higher level function, as it will be shared between two
-code paths.
+Try to avoid the timeout during debugging.
 
 Cc: Uma Shankar <uma.shankar@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 9451f336f28f..4e507aa75a03 100644
+index 0686da36c428..c4807f7f5430 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1083,8 +1083,6 @@ intel_dp_link_train_all_phys(struct intel_dp *intel_dp,
- 	bool ret = true;
- 	int i;
+@@ -1288,6 +1288,9 @@ intel_dp_128b132b_lane_cds(struct intel_dp *intel_dp,
+ 	/* Time budget for the LANEx_CDS_DONE Sequence */
+ 	deadline = jiffies + msecs_to_jiffies((lttpr_count + 1) * 20);
  
--	intel_dp_prepare_link_train(intel_dp, crtc_state);
--
- 	for (i = lttpr_count - 1; i >= 0; i--) {
- 		enum drm_dp_phy dp_phy = DP_PHY_LTTPR(i);
- 
-@@ -1127,6 +1125,8 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- 		/* Still continue with enabling the port and link training. */
- 		lttpr_count = 0;
- 
-+	intel_dp_prepare_link_train(intel_dp, crtc_state);
++	/* FIXME: Give some slack for CDS. */
++	deadline += msecs_to_jiffies(500);
 +
- 	if (!intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count))
- 		intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
- }
+ 	for (;;) {
+ 		usleep_range(2000, 3000);
+ 
 -- 
 2.30.2
 
