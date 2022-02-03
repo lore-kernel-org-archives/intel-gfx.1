@@ -4,30 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BED76C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 13:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7A4C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 13:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 257FD10F917;
-	Thu,  3 Feb 2022 13:47:38 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2077910F917;
- Thu,  3 Feb 2022 13:47:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1F1DCA00CC;
- Thu,  3 Feb 2022 13:47:37 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4666810F919;
+	Thu,  3 Feb 2022 13:47:54 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A20910F91B;
+ Thu,  3 Feb 2022 13:47:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643896072; x=1675432072;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/FZGd9cmiCp7OJRyM77N3x0R7uI3kFfOCn2FKl5GQ7Q=;
+ b=BjHkoKB1DuSbELDdymJenKvCrN/j49QAWzY+/LgeDD71QC3h7pp8u3il
+ jjyFKaf/MFsISLeKTYJE2KLgn5SeSCgL+V+LqvhFMyIfVavaM39sObxNo
+ YKIUSdwtJxe/aL7E0z71KoNcdeRMw8FZtwhCuE/TJjrupQr1oG2i/6fiv
+ RvnzJbkFL//dc+9I4MBlR8FeoFXeOQkUe1BnYUt7k03hxbEsbgBSHj+yE
+ sycaVL07fGgVSsz2mOTVmnII32xd8H5HHEiQ/d2Fl1iJUYwIFKQR22He1
+ 4cHOo9Ugj9yyby/iwRIKH2XVrxXr+ulqYoTzCB12TTsvxMqBXBjTc7gZA g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="308872253"
+X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="308872253"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2022 05:47:29 -0800
+X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="583793056"
+Received: from unknown (HELO vandita-Z390-AORUS-ULTRA.iind.intel.com)
+ ([10.190.238.8])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2022 05:47:26 -0800
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu,  3 Feb 2022 11:20:07 +0530
+Message-Id: <20220203055012.14568-1-vandita.kulkarni@intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Thu, 03 Feb 2022 13:47:37 -0000
-Message-ID: <164389605712.15865.6076717644891788068@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <cover.1643878928.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1643878928.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/dp=2C_drm/i915=3A_128b/132b_updates_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC 0/5] Add data flow metering support for HDMI2.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +54,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ laurent.pinchart@ideasonboard.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+The below patches add support for data flow metering
+as mentioned in the section 6.5.6 FRL data flow metering
+of HDMI 2.1 specification.
 
-Series: drm/dp, drm/i915: 128b/132b updates (rev2)
-URL   : https://patchwork.freedesktop.org/series/99324/
-State : warning
+Add functions to calclulate the DFM parameters
+for the given frl config, which is further used to evaluate the
+data flow metering requirement as specified in the spec.
 
-== Summary ==
+As per the spec the below patches implement the frl capacity computation
+functions for both compressed and uncompressed video.
+Finally exposing 1 function each for compressed and uncompressed video
+to figure out if the data flow metering requirement is met or not.
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Ankit Nautiyal (1):
+  drm/hdmi21: Add support for DFM calculation with DSC
 
+Vandita Kulkarni (4):
+  drm/hdmi21: Define frl_dfm structure
+  drm/hdmi21: Add non dsc frl capacity computation helpers
+  drm/hdmi21: Add helpers to verify non-dsc DFM requirements
+  drm/hdmi21: Add frl_dfm_helper to Makefile
+
+ drivers/gpu/drm/Makefile             |   2 +-
+ drivers/gpu/drm/drm_frl_dfm_helper.c | 855 +++++++++++++++++++++++++++
+ include/drm/drm_frl_dfm_helper.h     | 131 ++++
+ 3 files changed, 987 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/drm_frl_dfm_helper.c
+ create mode 100644 include/drm/drm_frl_dfm_helper.h
+
+-- 
+2.32.0
 
