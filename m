@@ -4,46 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC57C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 14:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD62C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 14:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2430A10F981;
-	Thu,  3 Feb 2022 14:03:16 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9480F10F97F
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Feb 2022 14:03:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91A8F10F73E;
+	Thu,  3 Feb 2022 14:09:36 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75A1610F649;
+ Thu,  3 Feb 2022 14:09:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643896994; x=1675432994;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DgIg6nVBkSGJPQmEiJGYbQxZWxO9O9kq4O54vvp6maU=;
- b=DZ8cvZpfOZH1qKC1FJgHIQY8F74oCrpXcYO/zTxDgsFhadOWaifY+iE3
- A0X2vbVcqsM/K0RvBPOvnnMNrWZVoiSe1n3RDpYgdZpjzWbBHXotl9dIC
- e7jxQet9+u0XhJg/tX+IGsD9of9dtzv7+KINjs8alHpTUHcQm6Tf47Xnz
- eIyH92easJgBNGZhCdGsIHR7ICVLkXrlHGRQtKXNHZpXL5LOwVsjKChSv
- /NzXHO7iugs2tCHaUhkDbH6e/WyPepuKRgWGMXNuvRvKQN5wHW4kAhzb6
- /XkgNDhCokVPhwXek/L2jDvzt00PRPIy15Zke7iwW/oL+ImH1Azi90Z7C g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="248362855"
-X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="248362855"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2022 06:03:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="483246985"
-Received: from cbrady-mobl1.ger.corp.intel.com (HELO localhost) ([10.252.6.65])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2022 06:03:06 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Feb 2022 16:02:32 +0200
-Message-Id: <fedb27386cbad2b162d83a706273dd8ad9e8eed2.1643896905.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1643896905.git.jani.nikula@intel.com>
-References: <cover.1643896905.git.jani.nikula@intel.com>
+ t=1643897374; x=1675433374;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=O2QtWXCQqDdcv3UrVaFtiIJjas6IRdbGnIVRJcUZgv0=;
+ b=QdSlY8moAsr/RSt4RFosuCuqcRcrDCnR8was+xVTm/DkLi5OhE0tTLPq
+ GxdJFgfplkPG6L9XnE0MG6fy3p16Ec6aRvlowFZCYI3ZL1UoJKgsU9QV1
+ TPN24IEw13UphW6nFavf/Fk/vX6rig31DMVXu7/usHtikmbW04FhzhGIb
+ mBdnwrQi7p5bUeeJi0vCXOB/Qu4UdXIBODTzxfKytC6T/GwXt+Z0cLwkx
+ OKHCnbTZVGMekftb30stGrlbZGlcV6fKknQYWL8FdkUv6Dc3KsfTgdkO4
+ IMCqpj/3gYL6CTwuFjClF/MZZlJDEb2x+hZfSVsvU2qrZJvVWQ807VzrS g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="334508893"
+X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="334508893"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2022 06:09:34 -0800
+X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="627444377"
+Received: from blovejoy-mobl.ger.corp.intel.com (HELO [10.252.16.183])
+ ([10.252.16.183])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2022 06:09:33 -0800
+Message-ID: <c7d5a7e2-615c-f7ec-2a35-41a45ef279a5@intel.com>
+Date: Thu, 3 Feb 2022 14:09:30 +0000
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-GB
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20220126152155.3070602-1-matthew.auld@intel.com>
+ <20220126152155.3070602-20-matthew.auld@intel.com>
+ <a537f361-ae72-c62c-062f-4e96a9e48682@linux.intel.com>
+ <addd2b3d-95b1-f824-c7dc-c7b05b4497ba@intel.com>
+ <170468f918b202f540133e80032290424ff70936.camel@linux.intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <170468f918b202f540133e80032290424ff70936.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/dpll: hide struct intel_dpll_funcs
+Subject: Re: [Intel-gfx] [PATCH 19/20] drm/i915/lmem: don't treat small BAR
+ as an error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,56 +65,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The struct is only needed in intel_dpll.c, move it there.
+On 03/02/2022 13:56, Thomas Hellström wrote:
+> On Thu, 2022-02-03 at 11:18 +0000, Matthew Auld wrote:
+>> On 03/02/2022 09:48, Thomas Hellström wrote:
+>>>
+>>> On 1/26/22 16:21, Matthew Auld wrote:
+>>>> Just pass along the probed io_size. The backend should be able to
+>>>> utilize the entire range here, even if some of it is non-
+>>>> mappable.
+>>> Changes here LGTM.
+>>>>
+>>>> It does leave open with what to do with stolen local-memory.
+>>>
+>>> Are objects in stolen local required to be mappable?
+>>
+>>   From a quick look I don't really see such users on discrete, outside
+>> of
+>> maybe intelfb_create(), where I guess the initial fb might be located
+>> in
+>> stolen on DG1. But from DG2+ it looks like it will just be located in
+>> normal LMEM. For that I was thinking we add something like
+>> i915_gem_object_create_region_at(), and somehow wire that up to the
+>> {fpfn, lpfn}...
+> 
+> So we could then skip STOLEN completely on DG2+? Could we then also do
+> the same on DG1, at least assuming that creating and pinning an object
+> for that initial fb would be done before any other pinning into LMEM?
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dpll.c | 4 ++++
- drivers/gpu/drm/i915/i915_drv.h           | 5 +----
- 2 files changed, 5 insertions(+), 4 deletions(-)
+It looks like fbc is the main user on discrete, AFAICT, but that doesn't 
+seem to use the gem object interface, and instead just plugs into the 
+underlying drm_mm directly. So AFAIK we still want stolen on DG2/DG1 for 
+that.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 809b2004e5b2..14f5ffe27d05 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -16,6 +16,10 @@
- #include "intel_snps_phy.h"
- #include "vlv_sideband.h"
- 
-+struct intel_dpll_funcs {
-+	int (*crtc_compute_clock)(struct intel_crtc_state *crtc_state);
-+};
-+
- struct intel_limit {
- 	struct {
- 		int min, max;
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 784233ad9f16..078fc50e7eb9 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -119,6 +119,7 @@ struct intel_color_funcs;
- struct intel_connector;
- struct intel_crtc;
- struct intel_dp;
-+struct intel_dpll_funcs;
- struct intel_encoder;
- struct intel_fbdev;
- struct intel_fdi_funcs;
-@@ -323,10 +324,6 @@ struct drm_i915_wm_disp_funcs {
- 	int (*compute_global_watermarks)(struct intel_atomic_state *state);
- };
- 
--struct intel_dpll_funcs {
--	int (*crtc_compute_clock)(struct intel_crtc_state *crtc_state);
--};
--
- struct drm_i915_display_funcs {
- 	/* Returns the active state of the crtc, and if the crtc is active,
- 	 * fills out the pipe-config with the hw state. */
--- 
-2.30.2
-
+> 
+> /Thomas
+> 
+> 
