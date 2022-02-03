@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5576AC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 13:48:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94A6DC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 13:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283B010F92C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B847E10F927;
 	Thu,  3 Feb 2022 13:47:58 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9863510F91E;
- Thu,  3 Feb 2022 13:47:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 754C610F921;
+ Thu,  3 Feb 2022 13:47:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643896075; x=1675432075;
+ t=1643896074; x=1675432074;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=PsXtUpr4mALkwmby27Q4ehFCjMX9PohjMiBUXogwyNA=;
- b=gTKu35fxRCMV8oU3EMRakRBKOsoxYynY5KnUp/KqQy09Dq92JYW/Wfud
- 4SmT1zmyKBA0m48f4U6zi0pfU/ZUY4XeQLDP1IYNT65ug2DBugun97eh0
- JNeb/tb+pFJk0tFgOVRBVvyHP4zpUsk4DKYkJV8BFFmbgEfvDeHnG2O5z
- pwMVGlZpQVMMOnbDhBRcw5GQsnfGJSTiggd2qttmEC9CRF+Ghgrr+2xW/
- wEC9AXpsGjswJ0ymT+zbLebV9kgsKSLMm14KMTd5hV6k4BmUV5O/VmhQO
- PTiDc0UjK1kaPNnkwnKnDgCnYWrskXEooammzrxXlGPkzBaNSXs9ikv6/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="308872295"
-X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="308872295"
+ bh=D+hVW2qP5UQUtFoWbeVSsqf7fp9aHC9Y16jrb6ggt6Y=;
+ b=btMxjo/PRDsL86W4pNZokb9TGPl1QtmGjPk0EO8wFCx2CLnujAlOL4D5
+ Q/T0YnKRRul1iCGlKbJolsPV2iS90K31Nz8SKJL3VeZICsRq8Mn3SEieM
+ SsZ+SDJFNAmUfwCYvl/6VtPJpsjXzzGltWJZZMubMFRzSfT3cOyTHBjkg
+ inNWIk3JsT1AjrfBm0fp/YoDVpCDoxPtjEWUKyspGJPj2Y8o5R6uFxP/d
+ 19zYUxz0qChQnoeQTkxS+Dtd517GLugfI2wbqKUEtoFivVIBCCY0bEhMn
+ CRYkaEzwLDDvP5hUJCEveYjh7f5IgSgYHFUcDGmZodIhDSzh8LAPsAwiW A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10246"; a="308872279"
+X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="308872279"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2022 05:47:40 -0800
-X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="583793094"
+ 03 Feb 2022 05:47:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,340,1635231600"; d="scan'208";a="583793078"
 Received: from unknown (HELO vandita-Z390-AORUS-ULTRA.iind.intel.com)
  ([10.190.238.8])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2022 05:47:38 -0800
+ 03 Feb 2022 05:47:33 -0800
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu,  3 Feb 2022 11:20:12 +0530
-Message-Id: <20220203055012.14568-6-vandita.kulkarni@intel.com>
+Date: Thu,  3 Feb 2022 11:20:10 +0530
+Message-Id: <20220203055012.14568-4-vandita.kulkarni@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220203055012.14568-1-vandita.kulkarni@intel.com>
 References: <20220203055012.14568-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 5/5] drm/hdmi21: Add frl_dfm_helper to Makefile
+Subject: [Intel-gfx] [RFC 3/5] drm/hdmi21: Add helpers to verify non-dsc DFM
+ requirements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,26 +62,195 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the new frl_dfm_helper file to drm Makefile
+Add helpers to compute DFM variables and to verify if the
+DFM requirements are met or not in non dsc cases.
 
 Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 ---
- drivers/gpu/drm/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_frl_dfm_helper.c | 161 +++++++++++++++++++++++++++
+ include/drm/drm_frl_dfm_helper.h     |   2 +
+ 2 files changed, 163 insertions(+)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 8675c2af7ae1..4fa9b48995c8 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -17,7 +17,7 @@ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
- 		drm_dumb_buffers.o drm_mode_config.o drm_vblank.o \
- 		drm_syncobj.o drm_lease.o drm_writeback.o drm_client.o \
- 		drm_client_modeset.o drm_atomic_uapi.o \
--		drm_managed.o drm_vblank_work.o
-+		drm_managed.o drm_vblank_work.o drm_frl_dfm_helper.o
+diff --git a/drivers/gpu/drm/drm_frl_dfm_helper.c b/drivers/gpu/drm/drm_frl_dfm_helper.c
+index 8498083adf72..087905ed630a 100644
+--- a/drivers/gpu/drm/drm_frl_dfm_helper.c
++++ b/drivers/gpu/drm/drm_frl_dfm_helper.c
+@@ -394,3 +394,164 @@ drm_compute_payload_utilization(u32 frl_char_payload_actual, u32 frl_char_per_li
+ 	utilization = (frl_char_payload_actual * EFFICIENCY_MULTIPLIER) / frl_char_per_line_period;
+ 	return utilization;
+ }
++
++/* Collect link characteristics */
++static void
++drm_frl_dfm_compute_link_characteristics(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	u32 frl_bit_rate_min_kbps;
++
++	frl_dfm->params.pixel_clock_max_khz =
++		drm_get_max_legal_pixel_rate(frl_dfm->config.pixel_clock_nominal_khz);
++	frl_dfm->params.line_time_ns =
++			drm_get_min_video_line_period(frl_dfm->config.hblank,
++						      frl_dfm->config.hactive,
++						      frl_dfm->params.pixel_clock_max_khz);
++	frl_bit_rate_min_kbps = drm_get_min_frl_bit_rate(frl_dfm->config.bit_rate_kbps);
++	frl_dfm->params.char_rate_min_kbps = drm_get_min_frl_char_rate(frl_bit_rate_min_kbps);
++	frl_dfm->params.cfrl_line =
++		drm_get_total_frl_char_per_line_period(frl_dfm->params.line_time_ns,
++						       frl_dfm->params.char_rate_min_kbps,
++						       frl_dfm->config.lanes);
++}
++
++/* Determine FRL link overhead */
++static void drm_frl_dfm_compute_max_frl_link_overhead(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	u32 overhead_min;
++
++	overhead_min = drm_get_total_minimum_overhead(frl_dfm->config.lanes);
++	frl_dfm->params.overhead_max = drm_get_max_overhead(overhead_min);
++}
++
++/* Audio support Verification computations */
++static void
++drm_frl_dfm_compute_audio_hblank_min(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	u32 num_audio_pkt, audio_pkt_rate;
++
++	/*
++	 * TBD: get the actual audio pkt type as described in
++	 * table 6.44 of HDMI2.1 spec to find the num_audio_pkt,
++	 * for now assume audio sample packet and audio packet
++	 * layout as 1, resulting in number of audio packets
++	 * required to carry each audio sample or audio frame
++	 * as 1
++	 */
++	num_audio_pkt = 1;
++	audio_pkt_rate = drm_get_audio_pkt_rate(frl_dfm->config.audio_hz, num_audio_pkt);
++	frl_dfm->params.num_audio_pkts_line =
++		 drm_get_audio_pkts_hblank(audio_pkt_rate, frl_dfm->params.line_time_ns);
++	frl_dfm->params.hblank_audio_min =
++		    drm_get_audio_hblank_min(frl_dfm->params.num_audio_pkts_line);
++}
++
++/*
++ * Determine the number of tribytes required for active video , blanking period
++ * with the pixel configuration
++ */
++static void
++drm_frl_dfm_compute_tbactive_tbblank(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	u32 bpp, bytes_per_line;
++
++	bpp = drm_get_frl_bits_per_pixel(frl_dfm->config.color_format, frl_dfm->config.bpc);
++	bytes_per_line = drm_get_video_bytes_per_line(bpp, frl_dfm->config.hactive);
++
++	frl_dfm->params.tb_active = drm_get_active_video_tribytes_reqd(bytes_per_line);
++	frl_dfm->params.tb_blank =
++		drm_get_blanking_tribytes_avail(frl_dfm->config.color_format,
++						frl_dfm->config.hblank,
++						frl_dfm->config.bpc);
++}
++
++/* Verify the configuration meets the capacity requirements for the FRL configuration*/
++static bool
++drm_frl_dfm_verify_frl_capacity_requirement(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	u32 tactive_ref_ns, tblank_ref_ns, tactive_min_ns, tblank_min_ns;
++	u32 tborrowed_ns;
++
++	frl_dfm->params.ftb_avg_k =
++			drm_get_avg_tribyte_rate(frl_dfm->params.pixel_clock_max_khz,
++						 frl_dfm->params.tb_active, frl_dfm->params.tb_blank,
++						 frl_dfm->config.hactive, frl_dfm->config.hblank);
++	tactive_ref_ns = drm_get_tactive_ref(frl_dfm->params.line_time_ns,
++					     frl_dfm->config.hblank,
++					     frl_dfm->config.hactive);
++	tblank_ref_ns = drm_get_tblank_ref(frl_dfm->params.line_time_ns,
++					   frl_dfm->config.hblank,
++					   frl_dfm->config.hactive);
++	tactive_min_ns = drm_get_tactive_min(frl_dfm->config.lanes,
++					     frl_dfm->params.tb_active,
++					     frl_dfm->params.overhead_max,
++					     frl_dfm->params.char_rate_min_kbps);
++	tblank_min_ns = drm_get_tblank_min(frl_dfm->config.lanes,
++					     frl_dfm->params.tb_blank,
++					     frl_dfm->params.overhead_max,
++					     frl_dfm->params.char_rate_min_kbps);
++
++	if ((tactive_ref_ns >= tactive_min_ns) &&
++	    (tblank_ref_ns >= tblank_min_ns)) {
++		tborrowed_ns = 0;
++		frl_dfm->params.tb_borrowed = 0;
++		return true;
++	}
++
++	if ((tactive_ref_ns < tactive_min_ns) &&
++	    (tblank_ref_ns >= tblank_min_ns)) {
++		tborrowed_ns = tactive_min_ns - tactive_ref_ns;
++		frl_dfm->params.tb_borrowed = drm_get_tribytes_borrowed(tborrowed_ns,
++								 frl_dfm->params.ftb_avg_k);
++		if (frl_dfm->params.tb_borrowed <= TB_BORROWED_MAX)
++			return true;
++	}
++
++	return false;
++}
++
++/* Verify utilization does not exceed capacity */
++static bool
++drm_frl_dfm_verify_utilization_possible(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	u32 cfrl_free, cfrl_savings, frl_char_payload_actual;
++	u32 utilization, margin;
++
++	cfrl_free = drm_get_num_char_rc_compressible(frl_dfm->config.color_format,
++						     frl_dfm->config.bpc,
++						     frl_dfm->params.num_audio_pkts_line,
++						     frl_dfm->config.hblank);
++	cfrl_savings = drm_get_num_char_compression_savings(cfrl_free);
++	frl_char_payload_actual = drm_get_frl_char_payload_actual(frl_dfm->params.tb_active,
++								  frl_dfm->params.tb_blank,
++								  cfrl_savings);
++	utilization = drm_compute_payload_utilization(frl_char_payload_actual,
++							frl_dfm->params.cfrl_line);
++
++	margin = 1000 - (utilization + frl_dfm->params.overhead_max);
++
++	if (margin > 0)
++		return true;
++
++	return false;
++}
++
++/* Check if DFM requirement is met */
++bool
++drm_frl_dfm_nondsc_requirement_met(struct drm_hdmi_frl_dfm *frl_dfm)
++{
++	bool frl_capacity_req_met;
++
++	drm_frl_dfm_compute_max_frl_link_overhead(frl_dfm);
++	drm_frl_dfm_compute_link_characteristics(frl_dfm);
++	drm_frl_dfm_compute_audio_hblank_min(frl_dfm);
++	drm_frl_dfm_compute_tbactive_tbblank(frl_dfm);
++
++	frl_capacity_req_met = drm_frl_dfm_verify_frl_capacity_requirement(frl_dfm);
++
++	if (frl_capacity_req_met)
++		return drm_frl_dfm_verify_utilization_possible(frl_dfm);
++
++	return false;
++}
++EXPORT_SYMBOL(drm_frl_dfm_nondsc_requirement_met);
+diff --git a/include/drm/drm_frl_dfm_helper.h b/include/drm/drm_frl_dfm_helper.h
+index 16b8fcc7cbcc..f36b6898e9dd 100644
+--- a/include/drm/drm_frl_dfm_helper.h
++++ b/include/drm/drm_frl_dfm_helper.h
+@@ -123,4 +123,6 @@ struct drm_hdmi_frl_dfm {
+ 	struct drm_frl_dfm_params params;
+ };
  
- drm-$(CONFIG_DRM_LEGACY) += drm_agpsupport.o drm_bufs.o drm_context.o drm_dma.o \
- 			    drm_hashtab.o drm_irq.o drm_legacy_misc.o drm_lock.o \
++bool drm_frl_dfm_nondsc_requirement_met(struct drm_hdmi_frl_dfm *frl_dfm);
++
+ #endif
 -- 
 2.32.0
 
