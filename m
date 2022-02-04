@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBA8C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54390C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C433810EE8D;
-	Fri,  4 Feb 2022 17:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 821A210EEF2;
+	Fri,  4 Feb 2022 17:45:14 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9CF10E439;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0D5510E439;
  Fri,  4 Feb 2022 17:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1643996710; x=1675532710;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0grwmoxsQQuaDGKkgslEV2qlrwuNDJqIX+dOUslQeuk=;
- b=FJxS/HblE7bb9Dc6BowIL1K6Etm3Db9P//ik3weX/LShveDEgiWlys1w
- IpXDTLa64Bmm+glbg1pemKF7qDzlOx2/qdV43yNUTOcCC/ZIMIDVUCuGZ
- dyJ9lJ/0fnuUTFvu3AxG5IBQeoPQyj1eJoXkj18RWh2kM/H/pKwzwoJJw
- hxsVuEydoz8T3d194j2F9Y7bgndu3jtKmSAeB+lYHjw0e3tVb2PN66PTT
- Uh+tMMsRJmkUtQEFjzroHCChDccFpDcKAOE0OvKCWHJNxqCPyGTHecoI8
- j7nFmouCdVNKEX9FttZ8U04UxAuPslMmSbCggzgbqeHuWCpI4eFlT/qhp Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242170"
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242170"
+ bh=qCcob7Zjf6cIy9JtCNgp0M4d8lIZhpmNdIsNZ2rckb8=;
+ b=V4pxKq+fYXUMuieb41WzlI6GfIoBj8YlVSvaysgGpOg6anwscc6i2Ood
+ 4LIHzVZSINewpbC5rudUlhU5d68zwG1zBO2C5f13C0NoH2gY+pnAAtiXE
+ hxYEl4TxrCPItUVLVmh8fyVNp2u0fc789kiE3YULIZzMDLn2E5ulfABgr
+ NNgQpWkXAHdpjlX7JcA/+LSgrgn0QiOYqBQ6aIw7yMOCNolyx+YunaExJ
+ NzUdUE8eJPxRYo65tz7cs4+5RAXA/8sa9C16OaQD/t7MhBPN3PS3EdWcw
+ X10qwMCPU81m9eFVIVstbPryyY8dBXKHHQIBzJH+fIsg5K0dHo82lLgvk w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242175"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242175"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:09 -0800
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240790"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240805"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:08 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 09:44:19 -0800
-Message-Id: <20220204174436.830121-3-lucas.demarchi@intel.com>
+Date: Fri,  4 Feb 2022 09:44:24 -0800
+Message-Id: <20220204174436.830121-8-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220204174436.830121-1-lucas.demarchi@intel.com>
 References: <20220204174436.830121-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/19] iosys-map: Add offset to
- iosys_map_memcpy_to()
+Subject: [Intel-gfx] [PATCH 07/19] drm/i915/guc: Convert golden context init
+ to iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,90 +59,99 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In certain situations it's useful to be able to write to an
-offset of the mapping. Add a dst_offset to iosys_map_memcpy_to().
+Now the map is saved during creation, so use it to initialize the
+golden context, reading from shmem and writing to either system or IO
+memory.
 
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/drm_cache.c     |  2 +-
- drivers/gpu/drm/drm_fb_helper.c |  2 +-
- include/linux/iosys-map.h       | 17 +++++++++--------
- 3 files changed, 11 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 25 +++++++++++-----------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
-index 66597e411764..c3e6e615bf09 100644
---- a/drivers/gpu/drm/drm_cache.c
-+++ b/drivers/gpu/drm/drm_cache.c
-@@ -218,7 +218,7 @@ static void memcpy_fallback(struct iosys_map *dst,
- 	if (!dst->is_iomem && !src->is_iomem) {
- 		memcpy(dst->vaddr, src->vaddr, len);
- 	} else if (!src->is_iomem) {
--		iosys_map_memcpy_to(dst, src->vaddr, len);
-+		iosys_map_memcpy_to(dst, 0, src->vaddr, len);
- 	} else if (!dst->is_iomem) {
- 		memcpy_fromio(dst->vaddr, src->vaddr_iomem, len);
- 	} else {
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 238f815cb2a0..bf5cc9a42e5a 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -385,7 +385,7 @@ static void drm_fb_helper_damage_blit_real(struct drm_fb_helper *fb_helper,
- 	iosys_map_incr(dst, offset); /* go to first pixel within clip rect */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 3a0afce7564e..d32b407a2d25 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -473,18 +473,17 @@ static struct intel_engine_cs *find_engine_state(struct intel_gt *gt, u8 engine_
  
- 	for (y = clip->y1; y < clip->y2; y++) {
--		iosys_map_memcpy_to(dst, src, len);
-+		iosys_map_memcpy_to(dst, 0, src, len);
- 		iosys_map_incr(dst, fb->pitches[0]);
- 		src += fb->pitches[0];
- 	}
-diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
-index f4186f91caa6..edd7fa3be9e9 100644
---- a/include/linux/iosys-map.h
-+++ b/include/linux/iosys-map.h
-@@ -220,22 +220,23 @@ static inline void iosys_map_clear(struct iosys_map *map)
- }
- 
- /**
-- * iosys_map_memcpy_to - Memcpy into iosys mapping
-+ * iosys_map_memcpy_to_offset - Memcpy into offset of iosys_map
-  * @dst:	The iosys_map structure
-+ * @dst_offset:	The offset from which to copy
-  * @src:	The source buffer
-  * @len:	The number of byte in src
-  *
-- * Copies data into a iosys mapping. The source buffer is in system
-- * memory. Depending on the buffer's location, the helper picks the correct
-- * method of accessing the memory.
-+ * Copies data into a iosys_map with an offset. The source buffer is in
-+ * system memory. Depending on the buffer's location, the helper picks the
-+ * correct method of accessing the memory.
-  */
--static inline void iosys_map_memcpy_to(struct iosys_map *dst, const void *src,
--				       size_t len)
-+static inline void iosys_map_memcpy_to(struct iosys_map *dst, size_t dst_offset,
-+				       const void *src, size_t len)
+ static void guc_init_golden_context(struct intel_guc *guc)
  {
- 	if (dst->is_iomem)
--		memcpy_toio(dst->vaddr_iomem, src, len);
-+		memcpy_toio(dst->vaddr_iomem + dst_offset, src, len);
- 	else
--		memcpy(dst->vaddr, src, len);
-+		memcpy(dst->vaddr + dst_offset, src, len);
- }
+-	struct __guc_ads_blob *blob = guc->ads_blob;
+ 	struct intel_engine_cs *engine;
+ 	struct intel_gt *gt = guc_to_gt(guc);
++	struct iosys_map golden_context_map;
+ 	u32 addr_ggtt, offset;
+ 	u32 total_size = 0, alloc_size, real_size;
+ 	u8 engine_class, guc_class;
+-	u8 *ptr;
  
- /**
+ 	if (!intel_uc_uses_guc_submission(&gt->uc))
+ 		return;
+ 
+-	GEM_BUG_ON(!blob);
++	GEM_BUG_ON(iosys_map_is_null(&guc->ads_map));
+ 
+ 	/*
+ 	 * Go back and fill in the golden context data now that it is
+@@ -492,15 +491,15 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 	 */
+ 	offset = guc_ads_golden_ctxt_offset(guc);
+ 	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
+-	ptr = ((u8 *)blob) + offset;
++
++	golden_context_map = IOSYS_MAP_INIT_OFFSET(&guc->ads_map, offset);
+ 
+ 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
+ 		if (engine_class == OTHER_CLASS)
+ 			continue;
+ 
+ 		guc_class = engine_class_to_guc_class(engine_class);
+-
+-		if (!blob->system_info.engine_enabled_masks[guc_class])
++		if (!ads_blob_read(guc, system_info.engine_enabled_masks[guc_class]))
+ 			continue;
+ 
+ 		real_size = intel_engine_context_size(gt, engine_class);
+@@ -511,18 +510,20 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 		if (!engine) {
+ 			drm_err(&gt->i915->drm, "No engine state recorded for class %d!\n",
+ 				engine_class);
+-			blob->ads.eng_state_size[guc_class] = 0;
+-			blob->ads.golden_context_lrca[guc_class] = 0;
++			ads_blob_write(guc, ads.eng_state_size[guc_class], 0);
++			ads_blob_write(guc, ads.golden_context_lrca[guc_class], 0);
+ 			continue;
+ 		}
+ 
+-		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] !=
++		GEM_BUG_ON(ads_blob_read(guc, ads.eng_state_size[guc_class]) !=
+ 			   real_size - LRC_SKIP_SIZE);
+-		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
++		GEM_BUG_ON(ads_blob_read(guc, ads.golden_context_lrca[guc_class]) != addr_ggtt);
++
+ 		addr_ggtt += alloc_size;
+ 
+-		shmem_read(engine->default_state, 0, ptr, real_size);
+-		ptr += alloc_size;
++		shmem_read_to_iosys_map(engine->default_state, 0,
++					&golden_context_map, real_size);
++		iosys_map_incr(&golden_context_map, alloc_size);
+ 	}
+ 
+ 	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
 -- 
 2.35.1
 
