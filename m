@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A22EC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA597C4332F
 	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B66310EB29;
-	Fri,  4 Feb 2022 17:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 076E910EEEF;
+	Fri,  4 Feb 2022 17:45:14 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D3DB10E8C5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC0D210EB29;
  Fri,  4 Feb 2022 17:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1643996710; x=1675532710;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5ETlEkJotXscY1acR0RRNJRgVVqgQwciPhVqY20Tn/w=;
- b=ZPgz1ng2mkIgpeLoGS0i46+9wt0WMWlIdmk7wEL5f7K0sQAvlAHKspeV
- iRDB5ZI9WgWzP2PTAM1Ru4EkSTrPL5laCuaZbIjGYa8Lunetko395BO7a
- 0XM0catD2P73eIwOE49v5UKn4jqTM74/e2bRlyjUVF3ZoWZVhu8qD4rkz
- jV3dooJItgVWKlSetoInv0QI/0x5EcUtNWmTOwU+gUy7YPU8l+nf/fH/f
- pZw5j98fC8Tg/M+uF45pdbZz8QvWJ84osEUP+1TsYWF1iTxxSDuzZOe6D
- kbFy3YbBAqscNHsQlAtAssG4Yd0LPEBx8G7Rfb7vMQgIRH2EgqXDTohfj w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242171"
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242171"
+ bh=4S2sr+pNSe6vJUzgJpZQL05bGJYHruMpz+Scmzf9MlM=;
+ b=i/swmU59Jb/UKxX3+HIvQO1EDxJJQMHyK/fTK+LsMzuUC91FDY5Ealp3
+ JEfOMpmxgFSTiyCFY6NrYNHOy/Nqe8eq0yohnKJk14l9r/vp38Wf4p3jO
+ JkoZ7SJaiG+4lA96umSIXUD63xRRABH6/0SNIW/LKvNcebujeOFcStHdz
+ 5e1XcZZoGnc48tr8NKC2UFJme16LEwUJmavS6hxGd10jfLVjbdhn/9B7n
+ Edq9rxIPqTmX7q0/YEdEJMskiuRshg3tWnVQ64HVRJqXO/zCzmnrahg+7
+ T0Ivx9P2nTNgFuFrmSZB4ioHzb3aEgjeu3HOLLdhehZ0W9BJBTTdlD7fa g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242176"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242176"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:09 -0800
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240793"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240808"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:08 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 09:44:20 -0800
-Message-Id: <20220204174436.830121-4-lucas.demarchi@intel.com>
+Date: Fri,  4 Feb 2022 09:44:25 -0800
+Message-Id: <20220204174436.830121-9-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220204174436.830121-1-lucas.demarchi@intel.com>
 References: <20220204174436.830121-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/19] iosys-map: Add a few more helpers
+Subject: [Intel-gfx] [PATCH 08/19] drm/i915/guc: Convert policies update to
+ iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,246 +59,120 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-First the simplest ones:
+Use iosys_map to write the policies update so access to IO and system
+memory is abstracted away.
 
-	- iosys_map_memset(): when abstracting system and I/O memory,
-	  just like the memcpy() use case, memset() also has dedicated
-	  functions to be called for using IO memory.
-	- iosys_map_memcpy_from(): we may need to copy data from I/O
-	  memory, not only to.
-
-In certain situations it's useful to be able to read or write to an
-offset that is calculated by having the memory layout given by a struct
-declaration. Usually we are going to read/write a u8, u16, u32 or u64.
-
-As a pre-requisite for the implementation, add iosys_map_memcpy_from()
-to be the equivalent of iosys_map_memcpy_to(), but in the other
-direction. Then add 2 pairs of macros:
-
-	- iosys_map_rd() / iosys_map_wr()
-	- iosys_map_rd_field() / iosys_map_wr_field()
-
-The first pair takes the C-type and offset to read/write. The second
-pair uses a struct describing the layout of the mapping in order to
-calculate the offset and size being read/written.
-
-We could use readb, readw, readl, readq and the write* counterparts,
-however due to alignment issues this may not work on all architectures.
-If alignment needs to be checked to call the right function, it's not
-possible to decide at compile-time which function to call: so just leave
-the decision to the memcpy function that will do exactly that.
-
-Finally, in order to use the above macros with a map derived from
-another, add another initializer: IOSYS_MAP_INIT_OFFSET().
-
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- include/linux/iosys-map.h | 154 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 153 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 41 ++++++++++++----------
+ 1 file changed, 23 insertions(+), 18 deletions(-)
 
-diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
-index edd7fa3be9e9..96f8b61ac6fb 100644
---- a/include/linux/iosys-map.h
-+++ b/include/linux/iosys-map.h
-@@ -6,6 +6,7 @@
- #ifndef __IOSYS_MAP_H__
- #define __IOSYS_MAP_H__
- 
-+#include <linux/kernel.h>
- #include <linux/io.h>
- #include <linux/string.h>
- 
-@@ -133,6 +134,45 @@ static inline void iosys_map_set_vaddr(struct iosys_map *map, void *vaddr)
- 	map->is_iomem = false;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index d32b407a2d25..6311b9da87e4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -130,33 +130,37 @@ static u32 guc_ads_blob_size(struct intel_guc *guc)
+ 	       guc_ads_private_data_size(guc);
  }
  
-+/**
-+ * IOSYS_MAP_INIT_OFFSET - Initializes struct iosys_map from another iosys_map
-+ * @map_:	The dma-buf mapping structure to copy from
-+ * @offset_:	Offset to add to the other mapping
-+ *
-+ * Initializes a new iosys_map struct based on another passed as argument. It
-+ * does a shallow copy of the struct so it's possible to update the back storage
-+ * without changing where the original map points to. It is the equivalent of
-+ * doing:
-+ *
-+ * .. code-block: c
-+ *
-+ *	iosys_map map = other_map;
-+ *	iosys_map_incr(&map, &offset);
-+ *
-+ * Example usage:
-+ *
-+ * .. code-block: c
-+ *
-+ *	void foo(struct device *dev, struct iosys_map *base_map)
-+ *	{
-+ *		...
-+ *		struct iosys_map map = IOSYS_MAP_INIT_OFFSET(base_map, FIELD_OFFSET);
-+ *		...
-+ *	}
-+ *
-+ * The advantage of using the initializer over just increasing the offset with
-+ * ``iosys_map_incr()`` like above is that the new map will always point to the
-+ * right place of the buffer during  its scope. It reduces the risk of updating
-+ * the wrong part of the buffer and having no compiler warning about that. If
-+ * the assignment to IOSYS_MAP_INIT_OFFSET() is forgotten, the compiler can warn
-+ * using a uninitialized variable.
-+ */
-+#define IOSYS_MAP_INIT_OFFSET(map_, offset_)	(struct iosys_map)	\
-+	{								\
-+		.vaddr = (map_)->vaddr + (offset_),			\
-+		.is_iomem = (map_)->is_iomem,				\
-+	}
-+
- /**
-  * iosys_map_set_vaddr_iomem - Sets a iosys mapping structure to an address in I/O memory
-  * @map:		The iosys_map structure
-@@ -220,7 +260,7 @@ static inline void iosys_map_clear(struct iosys_map *map)
+-static void guc_policies_init(struct intel_guc *guc, struct guc_policies *policies)
++static void guc_policies_init(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	struct drm_i915_private *i915 = gt->i915;
++	u32 global_flags = 0;
+ 
+-	policies->dpc_promote_time = GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
+-	policies->max_num_work_items = GLOBAL_POLICY_MAX_NUM_WI;
++	ads_blob_write(guc, policies.dpc_promote_time,
++		       GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US);
++	ads_blob_write(guc, policies.max_num_work_items,
++		       GLOBAL_POLICY_MAX_NUM_WI);
+ 
+-	policies->global_flags = 0;
+ 	if (i915->params.reset < 2)
+-		policies->global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
++		global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
+ 
+-	policies->is_valid = 1;
++	ads_blob_write(guc, policies.global_flags, global_flags);
++	ads_blob_write(guc, policies.is_valid, 1);
  }
  
- /**
-- * iosys_map_memcpy_to_offset - Memcpy into offset of iosys_map
-+ * iosys_map_memcpy_to - Memcpy into iosys_map
-  * @dst:	The iosys_map structure
-  * @dst_offset:	The offset from which to copy
-  * @src:	The source buffer
-@@ -239,6 +279,26 @@ static inline void iosys_map_memcpy_to(struct iosys_map *dst, size_t dst_offset,
- 		memcpy(dst->vaddr + dst_offset, src, len);
+ void intel_guc_ads_print_policy_info(struct intel_guc *guc,
+ 				     struct drm_printer *dp)
+ {
+-	struct __guc_ads_blob *blob = guc->ads_blob;
+-
+-	if (unlikely(!blob))
++	if (unlikely(iosys_map_is_null(&guc->ads_map)))
+ 		return;
+ 
+ 	drm_printf(dp, "Global scheduling policies:\n");
+-	drm_printf(dp, "  DPC promote time   = %u\n", blob->policies.dpc_promote_time);
+-	drm_printf(dp, "  Max num work items = %u\n", blob->policies.max_num_work_items);
+-	drm_printf(dp, "  Flags              = %u\n", blob->policies.global_flags);
++	drm_printf(dp, "  DPC promote time   = %u\n",
++		   ads_blob_read(guc, policies.dpc_promote_time));
++	drm_printf(dp, "  Max num work items = %u\n",
++		   ads_blob_read(guc, policies.max_num_work_items));
++	drm_printf(dp, "  Flags              = %u\n",
++		   ads_blob_read(guc, policies.global_flags));
  }
  
-+/**
-+ * iosys_map_memcpy_from - Memcpy from iosys_map into system memory
-+ * @dst:	Destination in system memory
-+ * @src:	The iosys_map structure
-+ * @src_offset:	The offset from which to copy
-+ * @len:	The number of byte in src
-+ *
-+ * Copies data from a iosys_map with an offset. The dest buffer is in
-+ * system memory. Depending on the mapping location, the helper picks the
-+ * correct method of accessing the memory.
-+ */
-+static inline void iosys_map_memcpy_from(void *dst, const struct iosys_map *src,
-+					 size_t src_offset, size_t len)
-+{
-+	if (src->is_iomem)
-+		memcpy_fromio(dst, src->vaddr_iomem + src_offset, len);
-+	else
-+		memcpy(dst, src->vaddr + src_offset, len);
-+}
-+
- /**
-  * iosys_map_incr - Increments the address stored in a iosys mapping
-  * @map:	The iosys_map structure
-@@ -255,4 +315,96 @@ static inline void iosys_map_incr(struct iosys_map *map, size_t incr)
- 		map->vaddr += incr;
- }
+ static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
+@@ -171,23 +175,24 @@ static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
  
-+/**
-+ * iosys_map_memset - Memset iosys_map
-+ * @dst:	The iosys_map structure
-+ * @offset:	Offset from dst where to start setting value
-+ * @value:	The value to set
-+ * @len:	The number of bytes to set in dst
-+ *
-+ * Set value in iosys_map. Depending on the buffer's location, the helper
-+ * picks the correct method of accessing the memory.
-+ */
-+static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
-+				    int value, size_t len)
-+{
-+	if (dst->is_iomem)
-+		memset_io(dst->vaddr_iomem + offset, value, len);
-+	else
-+		memset(dst->vaddr + offset, value, len);
-+}
-+
-+/**
-+ * iosys_map_rd - Read a C-type value from the iosys_map
-+ *
-+ * @map__:	The iosys_map structure
-+ * @offset__:	The offset from which to read
-+ * @type__:	Type of the value being read
-+ *
-+ * Read a C type value from iosys_map, handling possible un-aligned accesses to
-+ * the mapping.
-+ *
-+ * Returns:
-+ * The value read from the mapping.
-+ */
-+#define iosys_map_rd(map__, offset__, type__) ({			\
-+	type__ val;							\
-+	iosys_map_memcpy_from(&val, map__, offset__, sizeof(val));	\
-+	val;								\
-+})
-+
-+/**
-+ * iosys_map_wr - Write a C-type value to the iosys_map
-+ *
-+ * @map__:	The iosys_map structure
-+ * @offset__:	The offset from the mapping to write to
-+ * @type__:	Type of the value being written
-+ * @val__:	Value to write
-+ *
-+ * Write a C-type value to the iosys_map, handling possible un-aligned accesses
-+ * to the mapping.
-+ */
-+#define iosys_map_wr(map__, offset__, type__, val__) ({			\
-+	type__ val = (val__);						\
-+	iosys_map_memcpy_to(map__, offset__, &val, sizeof(val));	\
-+})
-+
-+/**
-+ * iosys_map_rd_field - Read a member from a struct in the iosys_map
-+ *
-+ * @map__:		The iosys_map structure
-+ * @struct_type__:	The struct describing the layout of the mapping
-+ * @field__:		Member of the struct to read
-+ *
-+ * Read a value from iosys_map assuming its layout is described by a struct,
-+ * passed as argument. The offset and size to the struct member is calculated
-+ * and possible un-aligned accesses to the mapping handled.
-+ *
-+ * Returns:
-+ * The value read from the mapping.
-+ */
-+#define iosys_map_rd_field(map__, struct_type__, field__) ({			\
-+	struct_type__ *s;							\
-+	iosys_map_rd(map__, offsetof(struct_type__, field__),			\
-+		     typeof(s->field__));					\
-+})
-+
-+/**
-+ * iosys_map_wr_field - Write to a member of a struct in the iosys_map
-+ *
-+ * @map__:		The iosys_map structure
-+ * @struct_type__:	The struct describing the layout of the mapping
-+ * @field__:		Member of the struct to read
-+ * @val__:		Value to write
-+ *
-+ * Write a value to the iosys_map assuming its layout is described by a struct,
-+ * passed as argument. The offset and size to the struct member is calculated
-+ * and possible un-aligned accesses to the mapping handled.
-+ */
-+#define iosys_map_wr_field(map__, struct_type__, field__, val__) ({		\
-+	struct_type__ *s;							\
-+	iosys_map_wr(map__, offsetof(struct_type__, field__),			\
-+		     typeof(s->field__), val__);				\
-+})
-+
- #endif /* __IOSYS_MAP_H__ */
+ int intel_guc_global_policies_update(struct intel_guc *guc)
+ {
+-	struct __guc_ads_blob *blob = guc->ads_blob;
+ 	struct intel_gt *gt = guc_to_gt(guc);
++	u32 scheduler_policies;
+ 	intel_wakeref_t wakeref;
+ 	int ret;
+ 
+-	if (!blob)
++	if (iosys_map_is_null(&guc->ads_map))
+ 		return -EOPNOTSUPP;
+ 
+-	GEM_BUG_ON(!blob->ads.scheduler_policies);
++	scheduler_policies = ads_blob_read(guc, ads.scheduler_policies);
++	GEM_BUG_ON(!scheduler_policies);
+ 
+-	guc_policies_init(guc, &blob->policies);
++	guc_policies_init(guc);
+ 
+ 	if (!intel_guc_is_ready(guc))
+ 		return 0;
+ 
+ 	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref)
+-		ret = guc_action_policies_update(guc, blob->ads.scheduler_policies);
++		ret = guc_action_policies_update(guc, scheduler_policies);
+ 
+ 	return ret;
+ }
+@@ -557,7 +562,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	u32 base;
+ 
+ 	/* GuC scheduling policies */
+-	guc_policies_init(guc, &blob->policies);
++	guc_policies_init(guc);
+ 
+ 	/* System info */
+ 	fill_engine_enable_masks(gt, &blob->system_info);
 -- 
 2.35.1
 
