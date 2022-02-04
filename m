@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A8DC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:25:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AC8C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3DD10F3EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FAEB10F880;
 	Fri,  4 Feb 2022 13:25:52 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3285010F181;
- Fri,  4 Feb 2022 10:04:40 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id w25so12055702edt.7;
- Fri, 04 Feb 2022 02:04:40 -0800 (PST)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 936ED10F191;
+ Fri,  4 Feb 2022 10:04:42 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id a8so17714460ejc.8;
+ Fri, 04 Feb 2022 02:04:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=lua3ndSNkQ4/4Jps3PRoP7cS+stYoWZoem0sckVfZ4Y=;
- b=J6fLl5aNXVs7I7cJKmW+cvYJYiMnH4xxcXJmbxzwowAzLiVNNfYtym5eqlEXTMbvdO
- jyqt7VPBNUIC0WU5R2Li2xjq0YdXRtBriRfk5dvtwcvNDINzyp19MCUPG5Ev2HGQ4Vxn
- g6w7YUeeFRNBndYBK4hDHGdAJYfctaUFYScUuKccdXmC50/2zOWPew6Fx8P5yfMJHM6f
- Ux2zu4IverpLIQrG/KJy/fJPzg2aC3geRy5jXOUJxzsxCTKvYLCNUN6R+/ArrtSFZc/R
- 2yDRyM6oLmGRI5AUK3oadxHnZr+q1kOmQqPk/jr/YPq7j1VVtloVt8pyJpZIL893G9IE
- bx2Q==
+ bh=Rx5rKIs1h4pkPPx07vOixo6aKMAm9lXxnCcc7E9V7dU=;
+ b=V4HxWMBwmSqyCzF0puYOm75Pg4LHlZZd73dPSvLtWqQfaGywaL9ENrwR6EEhNWIATA
+ PAE0aikq8WPBTui6YjH5O9t3lZML+wi4Nv5h8iP+mWG7RG5Kh6MOBNXec5UsqlRNpntP
+ qc34PH94usI9h2CCHb6VTnBY/Z8ZtG5+aQU5PPt6kv/RbHa2vNu1my44LwHUTx3OkK2H
+ J3Zm8SwAGRLQRsUr0lBZdiOSg+oGsyPhfpzPgMAL0MR6K+fnuesYR+kLAsjeC1S40k2b
+ PK5gW9WEIUq21kGYU2NPSkxpJA0SMDTafKYAeFKmWAwSxRV5aKYT31ijCHFY/memfmpw
+ +VsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=lua3ndSNkQ4/4Jps3PRoP7cS+stYoWZoem0sckVfZ4Y=;
- b=IE8s/9O+4FmkPaed8Z+usvySMwMLqpHq+bykjkgZ36QXU4LVprYPqd11Vua6IZAIlM
- M0lMeVkagL3pBMxFnJ+J+q4eSdOcHcZbJ2OLV9JG46KI8oexeJ0X0EBShoJAqrbkz5qu
- 6DugMGZ5+Vv99g/hgRDGMOF/2xvv4DMkoddx5BozavGq1baOm6tCTlZoY10b7aCnlSQK
- 6V8DnSPT5VYMUAWJq7+inK3+qrOE5/03IjlXjTOIKmJHJv4abygW6mltaoVPnkhSM4+6
- ybJ4qNNIrQZ4YS66E0O6eJ9Tgi+6uv3BpXbegkAFZjYY+tSgWbFaPu9L+8CXjegDv894
- wmyg==
-X-Gm-Message-State: AOAM533QPbLctY4ZtDGJDmyqgaxhLIO3LG4fAZf6wc60WOHIs4pIfbaE
- 4MrVFe4eq06mFrI0dpFhhLE=
-X-Google-Smtp-Source: ABdhPJz8hCqpmvlhCbMTzHXgtghoGTUiIoV0KxhuC94AUMCYZjdcSIN4UbCV+Z4RoJk32V5kj+6oAQ==
-X-Received: by 2002:a50:d70e:: with SMTP id t14mr2287416edi.19.1643969078713; 
- Fri, 04 Feb 2022 02:04:38 -0800 (PST)
+ bh=Rx5rKIs1h4pkPPx07vOixo6aKMAm9lXxnCcc7E9V7dU=;
+ b=SrihcxnGlGAZ4aEdkzVsCV1T7KsHVY5IscszE1YHW5+hESQCjAxniRUgugitXdeTpd
+ Gcu5cWVhfEMR7upF02mcgXB8jfsbNibkQibl/yjAH8isL430xpaIId/PDRsZapOljP8H
+ j4f4lkQDq8F4nyi71OQ8nl/Eip5Um7toCyrVLokeH5azUuZafBTU4sFarjN0iJJOxOBs
+ CD8ygExmKUCAIN3mEIXs5JF/gVwM2cjQVC05uhyMfUdVvNX2Nwe1/Elzk0gZ1JVglPyl
+ Yi7oVxZBb7YsF/Y089n/6AYdheOdWWRZ5PG9dxpxMA7Xzbw3nSuUVVvdM9Bi3VIjQTRR
+ 4IZQ==
+X-Gm-Message-State: AOAM5330RTYq9ZwDKfPuaG0vGpprJFatbUhiwY1cRKtLiLurb5aOHEac
+ KpUuIzR9cpHyhpcEJpR52Xo=
+X-Google-Smtp-Source: ABdhPJztBHmTGU6YkwToxZohDq0/Ut4O8GCLLrmJNsoENbA0aLh4NmlUkJR6QhSWUvCE7XuAmCh5IA==
+X-Received: by 2002:a17:907:7f8f:: with SMTP id
+ qk15mr1799850ejc.287.1643969081145; 
+ Fri, 04 Feb 2022 02:04:41 -0800 (PST)
 Received: from able.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id z10sm633943edl.54.2022.02.04.02.04.37
+ by smtp.gmail.com with ESMTPSA id z10sm633943edl.54.2022.02.04.02.04.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Feb 2022 02:04:38 -0800 (PST)
+ Fri, 04 Feb 2022 02:04:40 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: sumit.semwal@linaro.org, thomas.hellstrom@linux.intel.com,
  daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 11:04:25 +0100
-Message-Id: <20220204100429.2049-3-christian.koenig@amd.com>
+Date: Fri,  4 Feb 2022 11:04:28 +0100
+Message-Id: <20220204100429.2049-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220204100429.2049-1-christian.koenig@amd.com>
 References: <20220204100429.2049-1-christian.koenig@amd.com>
@@ -60,8 +61,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 04 Feb 2022 13:25:44 +0000
-Subject: [Intel-gfx] [PATCH 2/6] dma-buf: warn about dma_fence_array
- container rules v2
+Subject: [Intel-gfx] [PATCH 5/6] dma-buf: add dma_fence_chain_contained
+ helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,45 +78,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's not allowed to nest another dma_fence container into a dma_fence_array
-or otherwise we can run into recursion.
-
-Warn about that when we create a dma_fence_array.
-
-v2: fix comment style and typo in the warning pointed out by Thomas
+It's a reoccurring pattern that we need to extract the fence
+from a dma_fence_chain object. Add a helper for this.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/dma-buf/dma-fence-array.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/dma-buf/dma-fence-chain.c |  6 ++----
+ include/linux/dma-fence-chain.h   | 15 +++++++++++++++
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
-index 3e07f961e2f3..cb1bacb5a42b 100644
---- a/drivers/dma-buf/dma-fence-array.c
-+++ b/drivers/dma-buf/dma-fence-array.c
-@@ -176,6 +176,20 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
+diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+index 084c6927b735..06f8ef97c6e8 100644
+--- a/drivers/dma-buf/dma-fence-chain.c
++++ b/drivers/dma-buf/dma-fence-chain.c
+@@ -148,8 +148,7 @@ static bool dma_fence_chain_enable_signaling(struct dma_fence *fence)
  
- 	array->base.error = PENDING_ERROR;
+ 	dma_fence_get(&head->base);
+ 	dma_fence_chain_for_each(fence, &head->base) {
+-		struct dma_fence_chain *chain = to_dma_fence_chain(fence);
+-		struct dma_fence *f = chain ? chain->fence : fence;
++		struct dma_fence *f = dma_fence_chain_contained(fence);
  
-+	/*
-+	 * dma_fence_array objects should never contain any other fence
-+	 * containers or otherwise we run into recursion and potential kernel
-+	 * stack overflow on operations on the dma_fence_array.
-+	 *
-+	 * The correct way of handling this is to flatten out the array by the
-+	 * caller instead.
-+	 *
-+	 * Enforce this here by checking that we don't create a dma_fence_array
-+	 * with any container inside.
-+	 */
-+	while (num_fences--)
-+		WARN_ON(dma_fence_is_container(fences[num_fences]));
-+
- 	return array;
+ 		dma_fence_get(f);
+ 		if (!dma_fence_add_callback(f, &head->cb, dma_fence_chain_cb)) {
+@@ -165,8 +164,7 @@ static bool dma_fence_chain_enable_signaling(struct dma_fence *fence)
+ static bool dma_fence_chain_signaled(struct dma_fence *fence)
+ {
+ 	dma_fence_chain_for_each(fence, fence) {
+-		struct dma_fence_chain *chain = to_dma_fence_chain(fence);
+-		struct dma_fence *f = chain ? chain->fence : fence;
++		struct dma_fence *f = dma_fence_chain_contained(fence);
+ 
+ 		if (!dma_fence_is_signaled(f)) {
+ 			dma_fence_put(fence);
+diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-chain.h
+index ee906b659694..10d51bcdf7b7 100644
+--- a/include/linux/dma-fence-chain.h
++++ b/include/linux/dma-fence-chain.h
+@@ -66,6 +66,21 @@ to_dma_fence_chain(struct dma_fence *fence)
+ 	return container_of(fence, struct dma_fence_chain, base);
  }
- EXPORT_SYMBOL(dma_fence_array_create);
+ 
++/**
++ * dma_fence_chain_contained - return the contained fence
++ * @fence: the fence to test
++ *
++ * If the fence is a dma_fence_chain the function returns the fence contained
++ * inside the chain object, otherwise it returns the fence itself.
++ */
++static inline struct dma_fence *
++dma_fence_chain_contained(struct dma_fence *fence)
++{
++	struct dma_fence_chain *chain = to_dma_fence_chain(fence);
++
++	return chain ? chain->fence : fence;
++}
++
+ /**
+  * dma_fence_chain_alloc
+  *
 -- 
 2.25.1
 
