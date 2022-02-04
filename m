@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 640B3C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBA8C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA0C10EEDD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C433810EE8D;
 	Fri,  4 Feb 2022 17:45:11 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B47E10E439;
- Fri,  4 Feb 2022 17:45:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9CF10E439;
+ Fri,  4 Feb 2022 17:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643996709; x=1675532709;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=MK0zDSNzIBn78M1AN1U3FO5D43IcTYkPVEuGEVdw+48=;
- b=jygxtGveTAR9c0m+lPuc5PcXhznLGWkWucA3DFJqa0TbNqFYdKoFfuIs
- 3XbFWZtItZJxDe+AjZ7sH+kuFH2uajQgSDpCOfin7bZMcCzsu9bSxEh4X
- taBSIRHe4k9fsZ+AsKQRJbd7oUEvIRzF/rRQR6i+ZZADr7SnaefsdX3Ae
- Ftk0CI74EhB1Mc2t+e14Ou8qJASm9e8PLTFpXCG+fIt7AH8adEPWPK0zp
- 5TogUBZUMa4iYsoVBJ9Wab2fpu/N5eynE/xMW8eaXG09t/kv71bhsPILp
- LSFRup7Y6lE9iUsGURuuUqnBRI+bNkiw48PibpBqq4cX7i2028sDCLR+G w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242166"
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242166"
+ t=1643996710; x=1675532710;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0grwmoxsQQuaDGKkgslEV2qlrwuNDJqIX+dOUslQeuk=;
+ b=FJxS/HblE7bb9Dc6BowIL1K6Etm3Db9P//ik3weX/LShveDEgiWlys1w
+ IpXDTLa64Bmm+glbg1pemKF7qDzlOx2/qdV43yNUTOcCC/ZIMIDVUCuGZ
+ dyJ9lJ/0fnuUTFvu3AxG5IBQeoPQyj1eJoXkj18RWh2kM/H/pKwzwoJJw
+ hxsVuEydoz8T3d194j2F9Y7bgndu3jtKmSAeB+lYHjw0e3tVb2PN66PTT
+ Uh+tMMsRJmkUtQEFjzroHCChDccFpDcKAOE0OvKCWHJNxqCPyGTHecoI8
+ j7nFmouCdVNKEX9FttZ8U04UxAuPslMmSbCggzgbqeHuWCpI4eFlT/qhp Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242170"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242170"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2022 09:45:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240784"
+ 04 Feb 2022 09:45:09 -0800
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240790"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:08 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 09:44:17 -0800
-Message-Id: <20220204174436.830121-1-lucas.demarchi@intel.com>
+Date: Fri,  4 Feb 2022 09:44:19 -0800
+Message-Id: <20220204174436.830121-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220204174436.830121-1-lucas.demarchi@intel.com>
+References: <20220204174436.830121-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/19] drm/i915/guc: Refactor ADS access to use
- iosys_map
+Subject: [Intel-gfx] [PATCH 02/19] iosys-map: Add offset to
+ iosys_map_memcpy_to()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,176 +59,90 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
  Sumit Semwal <sumit.semwal@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-2nd version of https://patchwork.freedesktop.org/series/99378/
+In certain situations it's useful to be able to write to an
+offset of the mapping. Add a dst_offset to iosys_map_memcpy_to().
 
-As first patch I'm including the dma-buf-map rename to iosys-map for
-completeness and to allow the other patches to be reviewed. However the
-first patch was also sent by itself.
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/drm_cache.c     |  2 +-
+ drivers/gpu/drm/drm_fb_helper.c |  2 +-
+ include/linux/iosys-map.h       | 17 +++++++++--------
+ 3 files changed, 11 insertions(+), 10 deletions(-)
 
-I think all the feedback from v1 was incorporated in this version. All
-the new helpers in iosys-map were squashed in a single patch as
-requested.
-
-Original cover letter:
-
-While porting i915 to arm64 we noticed some issues accessing lmem.
-Some writes were getting corrupted and the final state of the buffer
-didn't have exactly what we wrote. This became evident when enabling
-GuC submission: depending on the number of engines the ADS struct was
-being corrupted and GuC would reject it, refusin to initialize.
-
-From Documentation/core-api/bus-virt-phys-mapping.rst:
-
-	This memory is called "PCI memory" or "shared memory" or "IO memory" or
-	whatever, and there is only one way to access it: the readb/writeb and
-	related functions. You should never take the address of such memory, because
-	there is really nothing you can do with such an address: it's not
-	conceptually in the same memory space as "real memory" at all, so you cannot
-	just dereference a pointer. (Sadly, on x86 it **is** in the same memory space,
-	so on x86 it actually works to just deference a pointer, but it's not
-	portable).
-
-When reading or writing words directly to IO memory, in order to be portable
-the Linux kernel provides the abstraction detailed in section "Differences
-between I/O access functions" of Documentation/driver-api/device-io.rst.
-
-This limits our ability to simply overlay our structs on top a buffer
-and directly access it since that buffer may come from IO memory rather than
-system memory. Hence the approach taken in intel_guc_ads.c needs to be
-refactored. This is not the only place in i915 that neeed to be changed, but
-the one causing the most problems, with a real reproducer. This first set of
-patch focuses on fixing the gem object to pass the ADS
-
-After the addition of a few helpers in the dma_buf_map API, most of
-intel_guc_ads.c can be converted to use it. The exception is the regset
-initialization: we'd incur into a lot of extra indirection when
-reading/writting each register. So the regset is converted to use a
-temporary buffer allocated on probe, which is then copied to its
-final location when finishing the initialization or on gt reset.
-
-Testing on some discrete cards, after this change we can correctly pass the
-ADS struct to GuC and have it initialized correctly.
-
-thanks,
-Lucas De Marchi
-
-Lucas De Marchi (19):
-  dma-buf-map: Rename to iosys-map
-  iosys-map: Add offset to iosys_map_memcpy_to()
-  iosys-map: Add a few more helpers
-  drm/i915/gt: Add helper for shmem copy to iosys_map
-  drm/i915/guc: Keep iosys_map of ads_blob around
-  drm/i915/guc: Add read/write helpers for ADS blob
-  drm/i915/guc: Convert golden context init to iosys_map
-  drm/i915/guc: Convert policies update to iosys_map
-  drm/i915/guc: Convert engine record to iosys_map
-  drm/i915/guc: Convert guc_ads_private_data_reset to iosys_map
-  drm/i915/guc: Convert golden context prep to iosys_map
-  drm/i915/guc: Replace check for golden context size
-  drm/i915/guc: Convert mapping table to iosys_map
-  drm/i915/guc: Convert capture list to iosys_map
-  drm/i915/guc: Prepare for error propagation
-  drm/i915/guc: Use a single pass to calculate regset
-  drm/i915/guc: Convert guc_mmio_reg_state_init to iosys_map
-  drm/i915/guc: Convert __guc_ads_init to iosys_map
-  drm/i915/guc: Remove plain ads_blob pointer
-
- Documentation/driver-api/device-io.rst        |   9 +
- Documentation/driver-api/dma-buf.rst          |   9 -
- Documentation/gpu/todo.rst                    |  20 +-
- MAINTAINERS                                   |   9 +-
- drivers/dma-buf/dma-buf.c                     |  22 +-
- drivers/dma-buf/heaps/cma_heap.c              |  10 +-
- drivers/dma-buf/heaps/system_heap.c           |  10 +-
- drivers/gpu/drm/ast/ast_drv.h                 |   2 +-
- drivers/gpu/drm/ast/ast_mode.c                |   8 +-
- drivers/gpu/drm/drm_cache.c                   |  18 +-
- drivers/gpu/drm/drm_client.c                  |   9 +-
- drivers/gpu/drm/drm_fb_helper.c               |  12 +-
- drivers/gpu/drm/drm_gem.c                     |  12 +-
- drivers/gpu/drm/drm_gem_cma_helper.c          |   9 +-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c  |  16 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c        |  15 +-
- drivers/gpu/drm/drm_gem_ttm_helper.c          |   4 +-
- drivers/gpu/drm/drm_gem_vram_helper.c         |  25 +-
- drivers/gpu/drm/drm_internal.h                |   6 +-
- drivers/gpu/drm/drm_mipi_dbi.c                |   8 +-
- drivers/gpu/drm/drm_prime.c                   |   4 +-
- drivers/gpu/drm/etnaviv/etnaviv_drv.h         |   2 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   8 +-
- drivers/gpu/drm/gud/gud_pipe.c                |   4 +-
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   5 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   8 +-
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   6 +-
- .../gpu/drm/i915/gem/selftests/mock_dmabuf.c  |   6 +-
- drivers/gpu/drm/i915/gt/shmem_utils.c         |  33 ++
- drivers/gpu/drm/i915/gt/shmem_utils.h         |   3 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  14 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    | 383 +++++++++-------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |   3 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  17 +-
- drivers/gpu/drm/lima/lima_gem.c               |   3 +-
- drivers/gpu/drm/lima/lima_sched.c             |   4 +-
- drivers/gpu/drm/mediatek/mtk_drm_gem.c        |   7 +-
- drivers/gpu/drm/mediatek/mtk_drm_gem.h        |   5 +-
- drivers/gpu/drm/mgag200/mgag200_mode.c        |   4 +-
- drivers/gpu/drm/msm/msm_drv.h                 |   4 +-
- drivers/gpu/drm/msm/msm_gem_prime.c           |   6 +-
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |  13 +-
- drivers/gpu/drm/qxl/qxl_display.c             |   8 +-
- drivers/gpu/drm/qxl/qxl_draw.c                |   6 +-
- drivers/gpu/drm/qxl/qxl_drv.h                 |  10 +-
- drivers/gpu/drm/qxl/qxl_object.c              |   8 +-
- drivers/gpu/drm/qxl/qxl_object.h              |   4 +-
- drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
- drivers/gpu/drm/radeon/radeon_gem.c           |   1 +
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |   9 +-
- drivers/gpu/drm/rockchip/rockchip_drm_gem.h   |   5 +-
- drivers/gpu/drm/tegra/gem.c                   |  10 +-
- drivers/gpu/drm/tiny/cirrus.c                 |   8 +-
- drivers/gpu/drm/tiny/gm12u320.c               |   7 +-
- drivers/gpu/drm/ttm/ttm_bo_util.c             |  16 +-
- drivers/gpu/drm/ttm/ttm_resource.c            |  42 +-
- drivers/gpu/drm/ttm/ttm_tt.c                  |   8 +-
- drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
- drivers/gpu/drm/vboxvideo/vbox_mode.c         |   4 +-
- drivers/gpu/drm/vkms/vkms_composer.c          |   4 +-
- drivers/gpu/drm/vkms/vkms_drv.h               |   6 +-
- drivers/gpu/drm/vkms/vkms_plane.c             |   2 +-
- drivers/gpu/drm/vkms/vkms_writeback.c         |   2 +-
- drivers/gpu/drm/xen/xen_drm_front_gem.c       |   7 +-
- drivers/gpu/drm/xen/xen_drm_front_gem.h       |   6 +-
- .../common/videobuf2/videobuf2-dma-contig.c   |   8 +-
- .../media/common/videobuf2/videobuf2-dma-sg.c |   9 +-
- .../common/videobuf2/videobuf2-vmalloc.c      |  11 +-
- drivers/misc/fastrpc.c                        |   4 +-
- include/drm/drm_cache.h                       |   6 +-
- include/drm/drm_client.h                      |   7 +-
- include/drm/drm_gem.h                         |   6 +-
- include/drm/drm_gem_atomic_helper.h           |   6 +-
- include/drm/drm_gem_cma_helper.h              |   6 +-
- include/drm/drm_gem_framebuffer_helper.h      |   8 +-
- include/drm/drm_gem_shmem_helper.h            |  12 +-
- include/drm/drm_gem_ttm_helper.h              |   6 +-
- include/drm/drm_gem_vram_helper.h             |   9 +-
- include/drm/drm_prime.h                       |   6 +-
- include/drm/ttm/ttm_bo_api.h                  |  10 +-
- include/drm/ttm/ttm_kmap_iter.h               |  10 +-
- include/drm/ttm/ttm_resource.h                |   6 +-
- include/linux/dma-buf-map.h                   | 266 ------------
- include/linux/dma-buf.h                       |  12 +-
- include/linux/iosys-map.h                     | 410 ++++++++++++++++++
- 85 files changed, 1043 insertions(+), 730 deletions(-)
- delete mode 100644 include/linux/dma-buf-map.h
- create mode 100644 include/linux/iosys-map.h
-
+diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
+index 66597e411764..c3e6e615bf09 100644
+--- a/drivers/gpu/drm/drm_cache.c
++++ b/drivers/gpu/drm/drm_cache.c
+@@ -218,7 +218,7 @@ static void memcpy_fallback(struct iosys_map *dst,
+ 	if (!dst->is_iomem && !src->is_iomem) {
+ 		memcpy(dst->vaddr, src->vaddr, len);
+ 	} else if (!src->is_iomem) {
+-		iosys_map_memcpy_to(dst, src->vaddr, len);
++		iosys_map_memcpy_to(dst, 0, src->vaddr, len);
+ 	} else if (!dst->is_iomem) {
+ 		memcpy_fromio(dst->vaddr, src->vaddr_iomem, len);
+ 	} else {
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 238f815cb2a0..bf5cc9a42e5a 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -385,7 +385,7 @@ static void drm_fb_helper_damage_blit_real(struct drm_fb_helper *fb_helper,
+ 	iosys_map_incr(dst, offset); /* go to first pixel within clip rect */
+ 
+ 	for (y = clip->y1; y < clip->y2; y++) {
+-		iosys_map_memcpy_to(dst, src, len);
++		iosys_map_memcpy_to(dst, 0, src, len);
+ 		iosys_map_incr(dst, fb->pitches[0]);
+ 		src += fb->pitches[0];
+ 	}
+diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
+index f4186f91caa6..edd7fa3be9e9 100644
+--- a/include/linux/iosys-map.h
++++ b/include/linux/iosys-map.h
+@@ -220,22 +220,23 @@ static inline void iosys_map_clear(struct iosys_map *map)
+ }
+ 
+ /**
+- * iosys_map_memcpy_to - Memcpy into iosys mapping
++ * iosys_map_memcpy_to_offset - Memcpy into offset of iosys_map
+  * @dst:	The iosys_map structure
++ * @dst_offset:	The offset from which to copy
+  * @src:	The source buffer
+  * @len:	The number of byte in src
+  *
+- * Copies data into a iosys mapping. The source buffer is in system
+- * memory. Depending on the buffer's location, the helper picks the correct
+- * method of accessing the memory.
++ * Copies data into a iosys_map with an offset. The source buffer is in
++ * system memory. Depending on the buffer's location, the helper picks the
++ * correct method of accessing the memory.
+  */
+-static inline void iosys_map_memcpy_to(struct iosys_map *dst, const void *src,
+-				       size_t len)
++static inline void iosys_map_memcpy_to(struct iosys_map *dst, size_t dst_offset,
++				       const void *src, size_t len)
+ {
+ 	if (dst->is_iomem)
+-		memcpy_toio(dst->vaddr_iomem, src, len);
++		memcpy_toio(dst->vaddr_iomem + dst_offset, src, len);
+ 	else
+-		memcpy(dst->vaddr, src, len);
++		memcpy(dst->vaddr + dst_offset, src, len);
+ }
+ 
+ /**
 -- 
 2.35.1
 
