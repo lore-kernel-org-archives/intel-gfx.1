@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01232C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F6CC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:25:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5DB610EBF3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F058410ED68;
 	Fri,  4 Feb 2022 13:25:45 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E0510F0F2;
- Fri,  4 Feb 2022 10:04:39 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id p7so11956004edc.12;
- Fri, 04 Feb 2022 02:04:39 -0800 (PST)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE7B889A20;
+ Fri,  4 Feb 2022 13:24:01 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id m14so11247700wrg.12;
+ Fri, 04 Feb 2022 05:24:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=nkHC8QZFOIHT45+bm5mbkRLb4msTxzU2f5F+QSxdoAg=;
- b=aO5j1vpxduryKd+RGFIMJ30cU/mPsvp7GMzZS70owa2r9v428jzlHLLim5ZOiSaR4S
- 1jxu3wimsgT80a917+7M7LK/PiksuSe8drUzAyHPuSbAfFb2oCBm5GbNfVV3WFg18ksj
- lOT2STj2CV6uTuxa4GUPytFqtmhrQN5vsHlTjBsvWBTnfOoom/kjURw+rdKXdKDWDqMj
- fV5MuBmnGAA1ktoRysUY8+HGWJCYKeX3z7Dx8/ZkB1esdCld2lrenLqTIaFVeCT14mwJ
- dtZQ5wCBf0fp2k1quk8MBMVj/eidysWQIPx9tQUsA+elnVn3R0Z2bWA+A/97b7mI12gK
- n5vw==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=QAzK1MUUGHKcfpFP7rcRp+4muNcwL3NdNzqovqg5PAU=;
+ b=p6mH8U5HA7kUapYy02V6g8AaZwwyJ93/6MvVkd+ko64iXTnP7alJ559RTTZ9+a/zfV
+ PHlMCx/6BoGY1afnMsmfaxxgykh8NjbLhDmo4rVJ0EHcpUYa847vKd2MAQGAlPgshjk7
+ bZvELxumhKTdLY34dOeIEUeQ6IFgAmFPMt79Rb/mOZk8dnFgJE1YRNTi63eSpiPL21cu
+ uPECaFweLVY1vBPjxxbDY649JyhsYO/U0/QGvS44MzZbNAwzn8yj2A9D+JUreJrK3NFI
+ rI1v0yZNtgC0RLapLk41462rDCbTBct+BLxoaF7Nu9CUiIr5GlmgKQo0OMIDpUanpR42
+ aSzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=nkHC8QZFOIHT45+bm5mbkRLb4msTxzU2f5F+QSxdoAg=;
- b=YDW3iMdaKoJckzLlkiz8TQBVilBju1NixJ/Y68Xdw1QLouajzd3xtTUh1ExKjgZJm8
- gj2DdHZ34AFFxkob0xmELTsQQSv5RNwE598yuzeZzBkxvGKewU8gMULfT+KcOAtdwKlY
- AdZr+t1bbhmCinbYUw0AkupDu685k6WoiSCHwydSHM41TJN8z+PzzsvSwz5qtFkgNdqS
- zQxNo8PebYokmD820eEkuzz2ZVoxG+VeZTNOkEVWRg4LqyeC+FS1keDDH5rK4+mbQf/t
- rDeA3I7JsfBdWWmKGYW/3u9kqqPOh0SSsiWbeq4WzYKx61I1Wrtqh2hrudspsHPFRAxt
- dZmQ==
-X-Gm-Message-State: AOAM533n21MaEPuwSLiG+bAT9cHpPVplG97CiisX3IJR3u2pEzgtpLA/
- DGBaxavCn32+pr956tOqTa+w09KCdSY=
-X-Google-Smtp-Source: ABdhPJxZcJbhLtg6luNVPToQ3qurqMzcy+Lv2Uyi2KzW6Ius5EGVvfWD4cLsYJJ9yMg4UmDiqQ81qQ==
-X-Received: by 2002:aa7:db8f:: with SMTP id u15mr2316386edt.36.1643969077869; 
- Fri, 04 Feb 2022 02:04:37 -0800 (PST)
-Received: from able.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id z10sm633943edl.54.2022.02.04.02.04.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Feb 2022 02:04:37 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: sumit.semwal@linaro.org, thomas.hellstrom@linux.intel.com,
- daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 11:04:24 +0100
-Message-Id: <20220204100429.2049-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220204100429.2049-1-christian.koenig@amd.com>
-References: <20220204100429.2049-1-christian.koenig@amd.com>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=QAzK1MUUGHKcfpFP7rcRp+4muNcwL3NdNzqovqg5PAU=;
+ b=mkqK4Y5AHigdZdlBAahkJhN0CpFVJVxraJ+HOs2xWZsu/MpSUwX6hGQUrV8BXmwbgL
+ uiA8wnd856wxlSnx7Eya7HqIyueClz1eKWPAhaSmzJEfpNY6sBAUzWIXP/hIpy8ZRiEY
+ zkVVJdyK+0zRgK7b12spRFY3i0hYnt5ko/HHvU1wqfqbCmz7itSao9yQlqMOdQVcpddv
+ TAqbMnavxyVAbg0WcJOXKJJhdLHf+A5Q5veY1tZ3JqqgidMsOW58wpNBduW2MvvS+uqy
+ IxxraKlOElTRnZ28EldHHhCkUkfBgoGISmKqsxJxgCWQ3sMKpA1/Yfp4w5coOJGDuloc
+ 66mg==
+X-Gm-Message-State: AOAM532MeSiiHT2czc5EMz+260Jeno/nmQ75cjE26z+o3XUkSYNusNaT
+ 37dVpRbsenWB1UyulTSvRnr2hsDJp8A=
+X-Google-Smtp-Source: ABdhPJyvG2AHV76evFDvzMjtPqqO8vrfZ0c1N+q5sVCC+EwLjSavOf7YrpDAfu413/sX9+XAEZFyVw==
+X-Received: by 2002:adf:e0c3:: with SMTP id m3mr903737wri.216.1643981040241;
+ Fri, 04 Feb 2022 05:24:00 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:7e37:f7a5:7cd9:7eb0?
+ ([2a02:908:1252:fb60:7e37:f7a5:7cd9:7eb0])
+ by smtp.gmail.com with ESMTPSA id r12sm2058376wrw.73.2022.02.04.05.23.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Feb 2022 05:23:59 -0800 (PST)
+Message-ID: <b9d3da49-a02e-82d4-66c5-d95f824873cd@gmail.com>
+Date: Fri, 4 Feb 2022 14:23:58 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Arunpravin <arunpravin.paneerselvam@amd.com>,
+ Matthew Auld <matthew.william.auld@gmail.com>
+References: <20220127141107.173692-1-Arunpravin.PaneerSelvam@amd.com>
+ <20220127141107.173692-5-Arunpravin.PaneerSelvam@amd.com>
+ <CAM0jSHOdMDQvWxGyHfW01UAe-x_eefFQSJnzU43=t6qL_Ec77g@mail.gmail.com>
+ <c842bcfc-80ff-fafa-7242-cfca3ed65087@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <c842bcfc-80ff-fafa-7242-cfca3ed65087@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 04 Feb 2022 13:25:44 +0000
-Subject: [Intel-gfx] [PATCH 1/6] dma-buf: consolidate dma_fence subclass
- checking
+Subject: Re: [Intel-gfx] [PATCH v11 5/5] drm/amdgpu: add drm buddy support
+ to amdgpu
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,123 +78,272 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, tzimmermann@suse.de,
+ alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Consolidate the wrapper functions to check for dma_fence
-subclasses in the dma_fence header.
+Am 04.02.22 um 12:22 schrieb Arunpravin:
+> On 28/01/22 7:48 pm, Matthew Auld wrote:
+>> On Thu, 27 Jan 2022 at 14:11, Arunpravin
+>> <Arunpravin.PaneerSelvam@amd.com> wrote:
+>>> - Remove drm_mm references and replace with drm buddy functionalities
+>>> - Add res cursor support for drm buddy
+>>>
+>>> v2(Matthew Auld):
+>>>    - replace spinlock with mutex as we call kmem_cache_zalloc
+>>>      (..., GFP_KERNEL) in drm_buddy_alloc() function
+>>>
+>>>    - lock drm_buddy_block_trim() function as it calls
+>>>      mark_free/mark_split are all globally visible
+>>>
+>>> v3(Matthew Auld):
+>>>    - remove trim method error handling as we address the failure case
+>>>      at drm_buddy_block_trim() function
+>>>
+>>> v4:
+>>>    - fix warnings reported by kernel test robot <lkp@intel.com>
+>>>
+>>> v5:
+>>>    - fix merge conflict issue
+>>>
+>>> v6:
+>>>    - fix warnings reported by kernel test robot <lkp@intel.com>
+>>>
+>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/Kconfig                       |   1 +
+>>>   .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |  97 +++++--
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   7 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  | 259 ++++++++++--------
+>>>   4 files changed, 231 insertions(+), 133 deletions(-)
+>> <snip>
+>>
+>>> -/**
+>>> - * amdgpu_vram_mgr_virt_start - update virtual start address
+>>> - *
+>>> - * @mem: ttm_resource to update
+>>> - * @node: just allocated node
+>>> - *
+>>> - * Calculate a virtual BO start address to easily check if everything is CPU
+>>> - * accessible.
+>>> - */
+>>> -static void amdgpu_vram_mgr_virt_start(struct ttm_resource *mem,
+>>> -                                      struct drm_mm_node *node)
+>>> -{
+>>> -       unsigned long start;
+>>> -
+>>> -       start = node->start + node->size;
+>>> -       if (start > mem->num_pages)
+>>> -               start -= mem->num_pages;
+>>> -       else
+>>> -               start = 0;
+>>> -       mem->start = max(mem->start, start);
+>>> -}
+>>> -
+>>>   /**
+>>>    * amdgpu_vram_mgr_new - allocate new ranges
+>>>    *
+>>> @@ -366,13 +357,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>>                                 const struct ttm_place *place,
+>>>                                 struct ttm_resource **res)
+>>>   {
+>>> -       unsigned long lpfn, num_nodes, pages_per_node, pages_left, pages;
+>>> +       unsigned long lpfn, pages_per_node, pages_left, pages, n_pages;
+>>> +       u64 vis_usage = 0, mem_bytes, max_bytes, min_page_size;
+>>>          struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
+>>>          struct amdgpu_device *adev = to_amdgpu_device(mgr);
+>>> -       uint64_t vis_usage = 0, mem_bytes, max_bytes;
+>>> -       struct ttm_range_mgr_node *node;
+>>> -       struct drm_mm *mm = &mgr->mm;
+>>> -       enum drm_mm_insert_mode mode;
+>>> +       struct amdgpu_vram_mgr_node *node;
+>>> +       struct drm_buddy *mm = &mgr->mm;
+>>> +       struct drm_buddy_block *block;
+>>>          unsigned i;
+>>>          int r;
+>>>
+>>> @@ -391,10 +382,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>>                  goto error_sub;
+>>>          }
+>>>
+>>> -       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
+>>>                  pages_per_node = ~0ul;
+>>> -               num_nodes = 1;
+>>> -       } else {
+>>> +       else {
+>>>   #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>>>                  pages_per_node = HPAGE_PMD_NR;
+>>>   #else
+>>> @@ -403,11 +393,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>>   #endif
+>>>                  pages_per_node = max_t(uint32_t, pages_per_node,
+>>>                                         tbo->page_alignment);
+>>> -               num_nodes = DIV_ROUND_UP_ULL(PFN_UP(mem_bytes), pages_per_node);
+>>>          }
+>>>
+>>> -       node = kvmalloc(struct_size(node, mm_nodes, num_nodes),
+>>> -                       GFP_KERNEL | __GFP_ZERO);
+>>> +       node = kzalloc(sizeof(*node), GFP_KERNEL);
+>>>          if (!node) {
+>>>                  r = -ENOMEM;
+>>>                  goto error_sub;
+>>> @@ -415,9 +403,17 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>>
+>>>          ttm_resource_init(tbo, place, &node->base);
+>>>
+>>> -       mode = DRM_MM_INSERT_BEST;
+>>> +       INIT_LIST_HEAD(&node->blocks);
+>>> +
+>>>          if (place->flags & TTM_PL_FLAG_TOPDOWN)
+>>> -               mode = DRM_MM_INSERT_HIGH;
+>>> +               node->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
+>>> +
+>>> +       if (place->fpfn || lpfn != man->size)
+>>> +               /* Allocate blocks in desired range */
+>>> +               node->flags |= DRM_BUDDY_RANGE_ALLOCATION;
+>>> +
+>>> +       min_page_size = mgr->default_page_size;
+>>> +       BUG_ON(min_page_size < mm->chunk_size);
+>>>
+>>>          pages_left = node->base.num_pages;
+>>>
+>>> @@ -425,36 +421,61 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>>          pages = min(pages_left, 2UL << (30 - PAGE_SHIFT));
+>>>
+>>>          i = 0;
+>>> -       spin_lock(&mgr->lock);
+>>>          while (pages_left) {
+>>> -               uint32_t alignment = tbo->page_alignment;
+>>> -
+>>>                  if (pages >= pages_per_node)
+>>> -                       alignment = pages_per_node;
+>>> -
+>>> -               r = drm_mm_insert_node_in_range(mm, &node->mm_nodes[i], pages,
+>>> -                                               alignment, 0, place->fpfn,
+>>> -                                               lpfn, mode);
+>>> -               if (unlikely(r)) {
+>>> -                       if (pages > pages_per_node) {
+>>> -                               if (is_power_of_2(pages))
+>>> -                                       pages = pages / 2;
+>>> -                               else
+>>> -                                       pages = rounddown_pow_of_two(pages);
+>>> -                               continue;
+>>> -                       }
+>>> -                       goto error_free;
+>>> +                       pages = pages_per_node;
+>>> +
+>>> +               n_pages = pages;
+>>> +
+>>> +               if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>> +                       n_pages = roundup_pow_of_two(n_pages);
+>>> +                       min_page_size = (u64)n_pages << PAGE_SHIFT;
+>>> +
+>>> +                       if (n_pages > lpfn)
+>>> +                               lpfn = n_pages;
+>>>                  }
+>>>
+>>> -               vis_usage += amdgpu_vram_mgr_vis_size(adev, &node->mm_nodes[i]);
+>>> -               amdgpu_vram_mgr_virt_start(&node->base, &node->mm_nodes[i]);
+>>> +               mutex_lock(&mgr->lock);
+>>> +               r = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
+>>> +                                          (u64)lpfn << PAGE_SHIFT,
+>>> +                                          (u64)n_pages << PAGE_SHIFT,
+>>> +                                          min_page_size,
+>>> +                                          &node->blocks,
+>>> +                                          node->flags);
+>>> +               mutex_unlock(&mgr->lock);
+>>> +               if (unlikely(r))
+>>> +                       goto error_free_blocks;
+>>> +
+>>>                  pages_left -= pages;
+>>>                  ++i;
+>>>
+>>>                  if (pages > pages_left)
+>>>                          pages = pages_left;
+>>>          }
+>>> -       spin_unlock(&mgr->lock);
+>>> +
+>>> +       /* Free unused pages for contiguous allocation */
+>>> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>> +               u64 actual_size = (u64)node->base.num_pages << PAGE_SHIFT;
+>>> +
+>>> +               mutex_lock(&mgr->lock);
+>>> +               drm_buddy_block_trim(mm,
+>>> +                                    actual_size,
+>>> +                                    &node->blocks);
+>>> +               mutex_unlock(&mgr->lock);
+>>> +       }
+>>> +
+>>> +       list_for_each_entry(block, &node->blocks, link)
+>>> +               vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
+>>> +
+>>> +       block = list_first_entry_or_null(&node->blocks,
+>>> +                                        struct drm_buddy_block,
+>>> +                                        link);
+>>> +       if (!block) {
+>>> +               r = -ENOENT;
+>>> +               goto error_free_res;
+>>> +       }
+>>> +
+>>> +       node->base.start = amdgpu_node_start(block) >> PAGE_SHIFT;
+>> Hmm, does this work? It looks like there are various places checking
+>> that res->start + res->num_pages <= visible_size, which IIUC should
+>> only return true when the entire object is placed in the mappable
+>> portion. i915 is doing something similar. Also it looks like
+>> ttm_resource_compat() is potentially relying on this, like when moving
+>> something from non-mappable -> mappable in
+>> amdgpu_bo_fault_reserve_notify()?
+>>
+>> Perhaps something like:
+>>
+>> if (vis_usage == num_pages)
+>>      base.start = 0;
+>> else
+>>      base.start = visible_size;
+>>
+>> Otherwise I guess just keep amdgpu_vram_mgr_virt_start()?
+>>
+> hmm, I wonder how it works, may be we didn't go through the corner case
+> where res->start + res->num_pages > visible_size
+>
+> in amdgpu if AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED flag is enabled, we
+> set the ttm_place.lpfn = visible_pfn at
+> amdgpu_bo_placement_from_domain(). Hence, in amdgpu_vram_mgr_new()
+> function DRM_BUDDY_RANGE_ALLOCATION flag is enabled, which calls the
+> alloc_range_bias() in drm_buddy.c.
+>
+> Here we get blocks chained together in random order complying
+> visible_pfn range. say for instance num_pages = 13
+> we may get,
+> Block 1 addr - 500 (order-3)
+> Block 2 addr - 400 (order-2)
+> Block 3 addr - 600 (order-0)
+>
+> I think currently base.start = Block 1 start address fetched from the
+> list and the address 500 assigned to it, which is good for the resource
+> access since we access the blocks using the list link
+>
+> But for the check res->start + res->num_pages <= visible_size in few
+> places, this doesn't work. AFAIK, keeping amdgpu_vram_mgr_virt_start()
+> doesn't work since the function looks for nodes in continuous address to
+> calculate the start address. AFAIK, assigning the start address (400 +
+> num_pages <= visible_size) mislead in our case since we use linked list
+>
+> how about replacing the check with a bool type return function which
+> checks the each block start address + block size <= visible_size?
 
-This makes it easier to document and also check the different
-requirements for fence containers in the subclasses.
+Yeah, we already have that in the TTM code. It's just not used 
+everywhere IIRC.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- include/linux/dma-fence-array.h | 15 +------------
- include/linux/dma-fence-chain.h |  3 +--
- include/linux/dma-fence.h       | 38 +++++++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+), 16 deletions(-)
+The node->start can just be set to the invalid offset for now and should 
+be removed as soon as we don't need it any more.
 
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index 303dd712220f..fec374f69e12 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -45,19 +45,6 @@ struct dma_fence_array {
- 	struct irq_work work;
- };
- 
--extern const struct dma_fence_ops dma_fence_array_ops;
--
--/**
-- * dma_fence_is_array - check if a fence is from the array subsclass
-- * @fence: fence to test
-- *
-- * Return true if it is a dma_fence_array and false otherwise.
-- */
--static inline bool dma_fence_is_array(struct dma_fence *fence)
--{
--	return fence->ops == &dma_fence_array_ops;
--}
--
- /**
-  * to_dma_fence_array - cast a fence to a dma_fence_array
-  * @fence: fence to cast to a dma_fence_array
-@@ -68,7 +55,7 @@ static inline bool dma_fence_is_array(struct dma_fence *fence)
- static inline struct dma_fence_array *
- to_dma_fence_array(struct dma_fence *fence)
- {
--	if (fence->ops != &dma_fence_array_ops)
-+	if (!fence || !dma_fence_is_array(fence))
- 		return NULL;
- 
- 	return container_of(fence, struct dma_fence_array, base);
-diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-chain.h
-index 54fe3443fd2c..ee906b659694 100644
---- a/include/linux/dma-fence-chain.h
-+++ b/include/linux/dma-fence-chain.h
-@@ -49,7 +49,6 @@ struct dma_fence_chain {
- 	spinlock_t lock;
- };
- 
--extern const struct dma_fence_ops dma_fence_chain_ops;
- 
- /**
-  * to_dma_fence_chain - cast a fence to a dma_fence_chain
-@@ -61,7 +60,7 @@ extern const struct dma_fence_ops dma_fence_chain_ops;
- static inline struct dma_fence_chain *
- to_dma_fence_chain(struct dma_fence *fence)
- {
--	if (!fence || fence->ops != &dma_fence_chain_ops)
-+	if (!fence || !dma_fence_is_chain(fence))
- 		return NULL;
- 
- 	return container_of(fence, struct dma_fence_chain, base);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 1ea691753bd3..775cdc0b4f24 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -587,4 +587,42 @@ struct dma_fence *dma_fence_get_stub(void);
- struct dma_fence *dma_fence_allocate_private_stub(void);
- u64 dma_fence_context_alloc(unsigned num);
- 
-+extern const struct dma_fence_ops dma_fence_array_ops;
-+extern const struct dma_fence_ops dma_fence_chain_ops;
-+
-+/**
-+ * dma_fence_is_array - check if a fence is from the array subclass
-+ * @fence: the fence to test
-+ *
-+ * Return true if it is a dma_fence_array and false otherwise.
-+ */
-+static inline bool dma_fence_is_array(struct dma_fence *fence)
-+{
-+	return fence->ops == &dma_fence_array_ops;
-+}
-+
-+/**
-+ * dma_fence_is_chain - check if a fence is from the chain subclass
-+ * @fence: the fence to test
-+ *
-+ * Return true if it is a dma_fence_chain and false otherwise.
-+ */
-+static inline bool dma_fence_is_chain(struct dma_fence *fence)
-+{
-+	return fence->ops == &dma_fence_chain_ops;
-+}
-+
-+/**
-+ * dma_fence_is_container - check if a fence is a container for other fences
-+ * @fence: the fence to test
-+ *
-+ * Return true if this fence is a container for other fences, false otherwise.
-+ * This is important since we can't build up large fence structure or otherwise
-+ * we run into recursion during operation on those fences.
-+ */
-+static inline bool dma_fence_is_container(struct dma_fence *fence)
-+{
-+	return dma_fence_is_array(fence) || dma_fence_is_chain(fence);
-+}
-+
- #endif /* __LINUX_DMA_FENCE_H */
--- 
-2.25.1
+Regards,
+Christian.
 
