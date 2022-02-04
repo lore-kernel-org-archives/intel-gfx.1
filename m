@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D14C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9C8C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 17:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C289410E8C5;
-	Fri,  4 Feb 2022 17:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3776310EEFA;
+	Fri,  4 Feb 2022 17:45:15 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBE7710E8C5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A4A10EDB5;
  Fri,  4 Feb 2022 17:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643996710; x=1675532710;
+ t=1643996711; x=1675532711;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=USBESUaAfX/qIQ4pIduLG9ZnGDuPB1A9IsVh6TeAeio=;
- b=iWcm1P/xxkrJikwYrKkGT6ag0fhQJ7EW4lfLQQlGQZE09zHAFNuBp3fx
- wq8zzFUCKmebmPR4+dDbqUYizB0xmc5wtz0jVk7cpSBB5j7KZsE8xzSsi
- dA9WeDN4jbQO74XSoD3TLSlbwTeDTp/YQQu4hzXAfabOADirzgWfbxlOf
- 5H/eBW3aCxzRwxvF3VD8MtdFjP64xzFE6/9G4LIZODEDHyAfqsNIryTHZ
- CxzH2dVbfwbzk85bz9pIlj+XPJb0+bIO1kvPJQhYZtpODLlTO1+TDZ/ka
- syrikE1ZoJfm2PVKcooj5Fl9Z5/cHa6VhFUrJK+hEQSO64uYdm9+Ub5mH w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242174"
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242174"
+ bh=HTM6wgGDyctdrDu0SVmG4tpgqCszIpXkL32fGSiQcio=;
+ b=UNfM/zYH02wdSD51S9x1wHmwFiw+tTPcCGrBFu3s7EhRDyebfbkzshlF
+ ts1kC3WuAUIUtUTzLCuyh4Mq3RdBZfVuNp2ME2kipDwqk376vn7Cz0MFo
+ p1M9GeHMkWf444Qc/0/kMzqR6FJhpx/72x9PrHzRmk21qLY60AHZKnE/B
+ X7obiQcCYqdER0cCtTsqHEjyZdX888niDTrl0Sg4PPCpzSwtMYx+fsv7M
+ 4TNrakzsgV9BkkU8adhI4IyLqwBF/leiw5dPf1PPZCe/noSqLsdIm+P24
+ 31ZTHh7rpWQ4KMLBjNATG1Twx6OsEovdzDmeV9Ac3Ij9mUatcwhdJuyZX A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10248"; a="247242178"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="247242178"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:09 -0800
-X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240802"
+X-IronPort-AV: E=Sophos;i="5.88,343,1635231600"; d="scan'208";a="539240811"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Feb 2022 09:45:08 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 09:44:23 -0800
-Message-Id: <20220204174436.830121-7-lucas.demarchi@intel.com>
+Date: Fri,  4 Feb 2022 09:44:26 -0800
+Message-Id: <20220204174436.830121-10-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220204174436.830121-1-lucas.demarchi@intel.com>
 References: <20220204174436.830121-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/19] drm/i915/guc: Add read/write helpers for
- ADS blob
+Subject: [Intel-gfx] [PATCH 09/19] drm/i915/guc: Convert engine record to
+ iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,9 +66,8 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add helpers on top of iosys_map_read_field() /
-iosys_map_write_field() functions so they always use the right
-arguments and make code easier to read.
+Use iosys_map to read fields from the dma_blob so access to IO and
+system memory is abstracted away.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -78,27 +77,100 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c      | 14 ++++++--------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h      |  3 ++-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 17 ++++++++++-------
+ 3 files changed, 18 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 13671b186908..3a0afce7564e 100644
+index 6311b9da87e4..1d21a2d457e0 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -60,6 +60,13 @@ struct __guc_ads_blob {
- 	struct guc_mmio_reg regset[0];
- } __packed;
+@@ -698,18 +698,16 @@ void intel_guc_ads_reset(struct intel_guc *guc)
  
-+#define ads_blob_read(guc_, field_)					\
-+	iosys_map_rd_field(&(guc_)->ads_map, struct __guc_ads_blob, field_)
-+
-+#define ads_blob_write(guc_, field_, val_)				\
-+	iosys_map_wr_field(&(guc_)->ads_map, struct __guc_ads_blob,	\
-+			   field_, val_)
-+
- static u32 guc_ads_regset_size(struct intel_guc *guc)
+ u32 intel_guc_engine_usage_offset(struct intel_guc *guc)
  {
- 	GEM_BUG_ON(!guc->ads_regset_size);
+-	struct __guc_ads_blob *blob = guc->ads_blob;
+-	u32 base = intel_guc_ggtt_offset(guc, guc->ads_vma);
+-	u32 offset = base + ptr_offset(blob, engine_usage);
+-
+-	return offset;
++	return intel_guc_ggtt_offset(guc, guc->ads_vma) +
++		offsetof(struct __guc_ads_blob, engine_usage);
+ }
+ 
+-struct guc_engine_usage_record *intel_guc_engine_usage(struct intel_engine_cs *engine)
++struct iosys_map intel_guc_engine_usage_record_map(struct intel_engine_cs *engine)
+ {
+ 	struct intel_guc *guc = &engine->gt->uc.guc;
+-	struct __guc_ads_blob *blob = guc->ads_blob;
+ 	u8 guc_class = engine_class_to_guc_class(engine->class);
++	size_t offset = offsetof(struct __guc_ads_blob,
++				 engine_usage.engines[guc_class][ilog2(engine->logical_mask)]);
+ 
+-	return &blob->engine_usage.engines[guc_class][ilog2(engine->logical_mask)];
++	return IOSYS_MAP_INIT_OFFSET(&guc->ads_map, offset);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
+index e74c110facff..1c64f4d6ea21 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
+@@ -7,6 +7,7 @@
+ #define _INTEL_GUC_ADS_H_
+ 
+ #include <linux/types.h>
++#include <linux/iosys-map.h>
+ 
+ struct intel_guc;
+ struct drm_printer;
+@@ -18,7 +19,7 @@ void intel_guc_ads_init_late(struct intel_guc *guc);
+ void intel_guc_ads_reset(struct intel_guc *guc);
+ void intel_guc_ads_print_policy_info(struct intel_guc *guc,
+ 				     struct drm_printer *p);
+-struct guc_engine_usage_record *intel_guc_engine_usage(struct intel_engine_cs *engine);
++struct iosys_map intel_guc_engine_usage_record_map(struct intel_engine_cs *engine);
+ u32 intel_guc_engine_usage_offset(struct intel_guc *guc);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index b3a429a92c0d..6d34842f68b4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1139,6 +1139,9 @@ __extend_last_switch(struct intel_guc *guc, u64 *prev_start, u32 new_start)
+ 	*prev_start = ((u64)gt_stamp_hi << 32) | new_start;
+ }
+ 
++#define record_read(map_, field_) \
++	iosys_map_rd_field(map_, struct guc_engine_usage_record, field_)
++
+ /*
+  * GuC updates shared memory and KMD reads it. Since this is not synchronized,
+  * we run into a race where the value read is inconsistent. Sometimes the
+@@ -1153,17 +1156,17 @@ __extend_last_switch(struct intel_guc *guc, u64 *prev_start, u32 new_start)
+ static void __get_engine_usage_record(struct intel_engine_cs *engine,
+ 				      u32 *last_in, u32 *id, u32 *total)
+ {
+-	struct guc_engine_usage_record *rec = intel_guc_engine_usage(engine);
++	struct iosys_map rec_map = intel_guc_engine_usage_record_map(engine);
+ 	int i = 0;
+ 
+ 	do {
+-		*last_in = READ_ONCE(rec->last_switch_in_stamp);
+-		*id = READ_ONCE(rec->current_context_index);
+-		*total = READ_ONCE(rec->total_runtime);
++		*last_in = record_read(&rec_map, last_switch_in_stamp);
++		*id = record_read(&rec_map, current_context_index);
++		*total = record_read(&rec_map, total_runtime);
+ 
+-		if (READ_ONCE(rec->last_switch_in_stamp) == *last_in &&
+-		    READ_ONCE(rec->current_context_index) == *id &&
+-		    READ_ONCE(rec->total_runtime) == *total)
++		if (record_read(&rec_map, last_switch_in_stamp) == *last_in &&
++		    record_read(&rec_map, current_context_index) == *id &&
++		    record_read(&rec_map, total_runtime) == *total)
+ 			break;
+ 	} while (++i < 6);
+ }
 -- 
 2.35.1
 
