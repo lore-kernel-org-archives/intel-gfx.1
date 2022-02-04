@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DE8C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A8DC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C575910F3ED;
-	Fri,  4 Feb 2022 13:25:49 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B85B710F253;
- Fri,  4 Feb 2022 10:04:41 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id l5so12041578edv.3;
- Fri, 04 Feb 2022 02:04:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3DD10F3EA;
+	Fri,  4 Feb 2022 13:25:52 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3285010F181;
+ Fri,  4 Feb 2022 10:04:40 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id w25so12055702edt.7;
+ Fri, 04 Feb 2022 02:04:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=ZqHQbmrfkSeH45/mViZpX0rM/1+Zya9JLAfRq+Wk+m8=;
- b=UTfcjAcYMTX22h1fkYsOiRByUelnx3X3bl0rl1ikR/aJO6QvD61verYKIzZSBf9eVH
- XMqkOwE5kUkib2ogQLmu9HTN+sqxX1DA8ZPCtSCYN5iqJXLrxhoFmdQ3aNSg/D68jcQv
- sk+hn2kTdnDJHyibjVdqeJ3b5uXROQUOHxgr/rVe55bsaZEUijn8ZKNW33JUzpRjrlCk
- yLpLk8j7YMqZmdFpktDAjs/2waxkOlWZ1MBtbrrkfOmigChFnQ0dpfADIXLTo/ahqMOs
- tb2ROlq3i1TYTKTd8NNDQIXQazEVb/bLBK/xrNsifZJPasNxltUuj2JFQ2/T18LSIdhV
- Xt8g==
+ bh=lua3ndSNkQ4/4Jps3PRoP7cS+stYoWZoem0sckVfZ4Y=;
+ b=J6fLl5aNXVs7I7cJKmW+cvYJYiMnH4xxcXJmbxzwowAzLiVNNfYtym5eqlEXTMbvdO
+ jyqt7VPBNUIC0WU5R2Li2xjq0YdXRtBriRfk5dvtwcvNDINzyp19MCUPG5Ev2HGQ4Vxn
+ g6w7YUeeFRNBndYBK4hDHGdAJYfctaUFYScUuKccdXmC50/2zOWPew6Fx8P5yfMJHM6f
+ Ux2zu4IverpLIQrG/KJy/fJPzg2aC3geRy5jXOUJxzsxCTKvYLCNUN6R+/ArrtSFZc/R
+ 2yDRyM6oLmGRI5AUK3oadxHnZr+q1kOmQqPk/jr/YPq7j1VVtloVt8pyJpZIL893G9IE
+ bx2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ZqHQbmrfkSeH45/mViZpX0rM/1+Zya9JLAfRq+Wk+m8=;
- b=1y1AK5EyGPyypAf/oeYZfi1JVMpvNo1ihisO3kkIEaWwqOhy7DVcfru8NiER5rpWnG
- 7D6txb2uCgN7ZtnCvxwm1cPB7xLDG4XZ+VZrL+8dUm/C1Lj/MHrHNc8r1NiNKGtYZL+C
- 3ukSt3a45q3mk68BxFPlOe2XtiSncSYMGG7GoCo5jzeoJQBdcsOggE0QsNIrQFEbgboC
- +IfFcjVLH2mdJvT1C75TlRgqosOxJvbBISs3qjb5G5QSWDh+mxZPSoTGC7/m2pDXnxgN
- 63LwUySVzqDzMZXWu2uzTkUUfPlUMY2j87i1tjJyVdlffuUOhBN39nDnxzYNqTOsmH77
- 7LOQ==
-X-Gm-Message-State: AOAM5314I6gMMtvbVmgdZ3rUOAmVZ7OTtIHY7He1L6k6OujaWmiFA9We
- /i0rdIoPIYFhNgr0bkjsy1g=
-X-Google-Smtp-Source: ABdhPJzUVDomn6G0+FigRIR9w/gc5i6WBR+Ya0Sw2HySaEeAG3c5vDogUicENinZmg6AI0M2qES/dQ==
-X-Received: by 2002:a05:6402:510b:: with SMTP id
- m11mr2158175edd.203.1643969080332; 
- Fri, 04 Feb 2022 02:04:40 -0800 (PST)
+ bh=lua3ndSNkQ4/4Jps3PRoP7cS+stYoWZoem0sckVfZ4Y=;
+ b=IE8s/9O+4FmkPaed8Z+usvySMwMLqpHq+bykjkgZ36QXU4LVprYPqd11Vua6IZAIlM
+ M0lMeVkagL3pBMxFnJ+J+q4eSdOcHcZbJ2OLV9JG46KI8oexeJ0X0EBShoJAqrbkz5qu
+ 6DugMGZ5+Vv99g/hgRDGMOF/2xvv4DMkoddx5BozavGq1baOm6tCTlZoY10b7aCnlSQK
+ 6V8DnSPT5VYMUAWJq7+inK3+qrOE5/03IjlXjTOIKmJHJv4abygW6mltaoVPnkhSM4+6
+ ybJ4qNNIrQZ4YS66E0O6eJ9Tgi+6uv3BpXbegkAFZjYY+tSgWbFaPu9L+8CXjegDv894
+ wmyg==
+X-Gm-Message-State: AOAM533QPbLctY4ZtDGJDmyqgaxhLIO3LG4fAZf6wc60WOHIs4pIfbaE
+ 4MrVFe4eq06mFrI0dpFhhLE=
+X-Google-Smtp-Source: ABdhPJz8hCqpmvlhCbMTzHXgtghoGTUiIoV0KxhuC94AUMCYZjdcSIN4UbCV+Z4RoJk32V5kj+6oAQ==
+X-Received: by 2002:a50:d70e:: with SMTP id t14mr2287416edi.19.1643969078713; 
+ Fri, 04 Feb 2022 02:04:38 -0800 (PST)
 Received: from able.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id z10sm633943edl.54.2022.02.04.02.04.39
+ by smtp.gmail.com with ESMTPSA id z10sm633943edl.54.2022.02.04.02.04.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Feb 2022 02:04:40 -0800 (PST)
+ Fri, 04 Feb 2022 02:04:38 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: sumit.semwal@linaro.org, thomas.hellstrom@linux.intel.com,
  daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Feb 2022 11:04:27 +0100
-Message-Id: <20220204100429.2049-5-christian.koenig@amd.com>
+Date: Fri,  4 Feb 2022 11:04:25 +0100
+Message-Id: <20220204100429.2049-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220204100429.2049-1-christian.koenig@amd.com>
 References: <20220204100429.2049-1-christian.koenig@amd.com>
@@ -61,8 +60,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 04 Feb 2022 13:25:44 +0000
-Subject: [Intel-gfx] [PATCH 4/6] dma-buf: warn about containers in dma_resv
- object
+Subject: [Intel-gfx] [PATCH 2/6] dma-buf: warn about dma_fence_array
+ container rules v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,32 +77,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drivers should not add containers as shared fences to the dma_resv
-object, instead each fence should be added individually.
+It's not allowed to nest another dma_fence container into a dma_fence_array
+or otherwise we can run into recursion.
+
+Warn about that when we create a dma_fence_array.
+
+v2: fix comment style and typo in the warning pointed out by Thomas
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/dma-buf/dma-resv.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/dma-buf/dma-fence-array.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index ee31f15d633a..b51416405e86 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -256,6 +256,11 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
+diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
+index 3e07f961e2f3..cb1bacb5a42b 100644
+--- a/drivers/dma-buf/dma-fence-array.c
++++ b/drivers/dma-buf/dma-fence-array.c
+@@ -176,6 +176,20 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
  
- 	dma_resv_assert_held(obj);
+ 	array->base.error = PENDING_ERROR;
  
-+	/* Drivers should not add containers here, instead add each fence
-+	 * individually.
++	/*
++	 * dma_fence_array objects should never contain any other fence
++	 * containers or otherwise we run into recursion and potential kernel
++	 * stack overflow on operations on the dma_fence_array.
++	 *
++	 * The correct way of handling this is to flatten out the array by the
++	 * caller instead.
++	 *
++	 * Enforce this here by checking that we don't create a dma_fence_array
++	 * with any container inside.
 +	 */
-+	WARN_ON(dma_fence_is_container(fence));
++	while (num_fences--)
++		WARN_ON(dma_fence_is_container(fences[num_fences]));
 +
- 	fobj = dma_resv_shared_list(obj);
- 	count = fobj->shared_count;
- 
+ 	return array;
+ }
+ EXPORT_SYMBOL(dma_fence_array_create);
 -- 
 2.25.1
 
