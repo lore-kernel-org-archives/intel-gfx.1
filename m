@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED930C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66D2C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:45:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3EBA10E69E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91FD610E69C;
 	Tue,  8 Feb 2022 10:45:16 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5712510E62C;
- Tue,  8 Feb 2022 10:45:13 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1CC910E224;
+ Tue,  8 Feb 2022 10:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644317113; x=1675853113;
+ t=1644317111; x=1675853111;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kahzNB/T4+G0HyKIZZr12XUwIBr3JP+OCMxT93l9r6c=;
- b=lH3GifhQGibl4CNe+MddVRhXHB+DH9gMMHZezf8RuUuWEn91cPaIvNjL
- uSgvQQJaUyRSZ63cBn2pkov6Q8fF0lr13A5vVvV7HjCBpVsHxmtlNGbjf
- teEaT/eg60eFGaROIlknnTxHTCBB1gxHylxSaa07IeKAFiBNCxJFUcOvI
- 9gJzRhGxNImnxZrsZWas2f1FrNKEpTX8NztFwrF2GoEnp1wu9K1yW97eh
- 5WE47/nhJIFmlXBreRZX+S8vrf0UxqVuxuFVlZ73RJyCQdmz1cA5PYj3e
- GzBBCh2yXeCEqvGYH2nCwfpwNBQLYiHKZa/45jAqqPMuFt7lATwVKd0bV w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="273451086"
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="273451086"
+ bh=mN9K51vTDl0W52W7ywGb05QpC05SBH0LiTQxmYECtEA=;
+ b=nvVQpxODBIPorvhWQVGC1QDjJygFK5Qocn3bYPvSctMPdTtUwI53Jh1O
+ rUzzddEhjfFrH7hSbhsC93sSyCCk6HpJrIB2VnoMVxX01x7YEhX9fTxVN
+ n41Bcf7EfvWmcmusTr4spi5zispno4CTQC6b/Ud9leOdAxiT+6Z57eJ/h
+ NMpQrKearOlGMGBhFw6qs/Wtu++y5YF+extc/FG/oYr/Il2jFpGbOwELm
+ 1c1HjbctWDEkTPLXmdl1wwxkNv0a3dBBP98S+4jtbl14gDw+nzeWRmaSQ
+ 2v9X5CbpNguRJ65+dJlK8J8TN/JjxOc7ouvziBu9F8P+etcTIvbWUTyDM g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="249130464"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="249130464"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 02:45:12 -0800
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700804142"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 02:45:10 -0800
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700804108"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 02:45:10 -0800
+ 08 Feb 2022 02:45:09 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  8 Feb 2022 02:45:18 -0800
-Message-Id: <20220208104524.2516209-13-lucas.demarchi@intel.com>
+Date: Tue,  8 Feb 2022 02:45:07 -0800
+Message-Id: <20220208104524.2516209-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220208104524.2516209-1-lucas.demarchi@intel.com>
 References: <20220208104524.2516209-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 12/18] drm/i915/guc: Convert mapping table to
- iosys_map
+Subject: [Intel-gfx] [PATCH v2 01/18] iosys-map: Add offset to
+ iosys_map_memcpy_to()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,69 +59,92 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
  Sumit Semwal <sumit.semwal@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use iosys_map to write the fields system_info.mapping_table[][].
-Since we already have the info_map around where needed, just use it
-instead of going through guc->ads_map.
+In certain situations it's useful to be able to write to an
+offset of the mapping. Add a dst_offset to iosys_map_memcpy_to().
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_cache.c     |  2 +-
+ drivers/gpu/drm/drm_fb_helper.c |  2 +-
+ include/linux/iosys-map.h       | 17 +++++++++--------
+ 3 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 63f305597214..9230e1a499aa 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -204,7 +204,7 @@ int intel_guc_global_policies_update(struct intel_guc *guc)
- }
+diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
+index 66597e411764..c3e6e615bf09 100644
+--- a/drivers/gpu/drm/drm_cache.c
++++ b/drivers/gpu/drm/drm_cache.c
+@@ -218,7 +218,7 @@ static void memcpy_fallback(struct iosys_map *dst,
+ 	if (!dst->is_iomem && !src->is_iomem) {
+ 		memcpy(dst->vaddr, src->vaddr, len);
+ 	} else if (!src->is_iomem) {
+-		iosys_map_memcpy_to(dst, src->vaddr, len);
++		iosys_map_memcpy_to(dst, 0, src->vaddr, len);
+ 	} else if (!dst->is_iomem) {
+ 		memcpy_fromio(dst->vaddr, src->vaddr_iomem, len);
+ 	} else {
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 238f815cb2a0..bf5cc9a42e5a 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -385,7 +385,7 @@ static void drm_fb_helper_damage_blit_real(struct drm_fb_helper *fb_helper,
+ 	iosys_map_incr(dst, offset); /* go to first pixel within clip rect */
  
- static void guc_mapping_table_init(struct intel_gt *gt,
--				   struct guc_gt_system_info *system_info)
-+				   struct iosys_map *info_map)
- {
- 	unsigned int i, j;
- 	struct intel_engine_cs *engine;
-@@ -213,14 +213,14 @@ static void guc_mapping_table_init(struct intel_gt *gt,
- 	/* Table must be set to invalid values for entries not used */
- 	for (i = 0; i < GUC_MAX_ENGINE_CLASSES; ++i)
- 		for (j = 0; j < GUC_MAX_INSTANCES_PER_CLASS; ++j)
--			system_info->mapping_table[i][j] =
--				GUC_MAX_INSTANCES_PER_CLASS;
-+			info_map_write(info_map, mapping_table[i][j],
-+				       GUC_MAX_INSTANCES_PER_CLASS);
- 
- 	for_each_engine(engine, gt, id) {
- 		u8 guc_class = engine_class_to_guc_class(engine->class);
- 
--		system_info->mapping_table[guc_class][ilog2(engine->logical_mask)] =
--			engine->instance;
-+		info_map_write(info_map, mapping_table[guc_class][ilog2(engine->logical_mask)],
-+			       engine->instance);
+ 	for (y = clip->y1; y < clip->y2; y++) {
+-		iosys_map_memcpy_to(dst, src, len);
++		iosys_map_memcpy_to(dst, 0, src, len);
+ 		iosys_map_incr(dst, fb->pitches[0]);
+ 		src += fb->pitches[0];
  	}
+diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
+index f4186f91caa6..edd730b1e899 100644
+--- a/include/linux/iosys-map.h
++++ b/include/linux/iosys-map.h
+@@ -220,22 +220,23 @@ static inline void iosys_map_clear(struct iosys_map *map)
  }
  
-@@ -592,7 +592,7 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	/* Golden contexts for re-initialising after a watchdog reset */
- 	guc_prep_golden_context(guc);
+ /**
+- * iosys_map_memcpy_to - Memcpy into iosys mapping
++ * iosys_map_memcpy_to - Memcpy into offset of iosys_map
+  * @dst:	The iosys_map structure
++ * @dst_offset:	The offset from which to copy
+  * @src:	The source buffer
+  * @len:	The number of byte in src
+  *
+- * Copies data into a iosys mapping. The source buffer is in system
+- * memory. Depending on the buffer's location, the helper picks the correct
+- * method of accessing the memory.
++ * Copies data into a iosys_map with an offset. The source buffer is in
++ * system memory. Depending on the buffer's location, the helper picks the
++ * correct method of accessing the memory.
+  */
+-static inline void iosys_map_memcpy_to(struct iosys_map *dst, const void *src,
+-				       size_t len)
++static inline void iosys_map_memcpy_to(struct iosys_map *dst, size_t dst_offset,
++				       const void *src, size_t len)
+ {
+ 	if (dst->is_iomem)
+-		memcpy_toio(dst->vaddr_iomem, src, len);
++		memcpy_toio(dst->vaddr_iomem + dst_offset, src, len);
+ 	else
+-		memcpy(dst->vaddr, src, len);
++		memcpy(dst->vaddr + dst_offset, src, len);
+ }
  
--	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
-+	guc_mapping_table_init(guc_to_gt(guc), &info_map);
- 
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
- 
+ /**
 -- 
 2.35.1
 
