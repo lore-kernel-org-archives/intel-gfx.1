@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF8FC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 21:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC9BC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 21:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 507BC10E5FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B36910E610;
 	Tue,  8 Feb 2022 21:09:12 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E58F510E5D2
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 21:08:56 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id s10so591795wra.5
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 13:08:56 -0800 (PST)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E393D10E42A
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 21:08:59 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id s10so591984wra.5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 13:08:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=PCYS5QyMNkkwqTDkShTEbfPtwnFmBXM7JP7Pazg2YKM=;
- b=kTDETVVLcYRtMjjA8LySpUTc6zRE3ZqOVKlYdUkFPag87WIkrPWX47b+Rb5Gehv3cR
- LO/YoTPo1B1XpGaBAzdpwQ20SF/lTTiXX0i09lBUwufoAO3uAsw/1GqRYGbBpFouLnMs
- kFt72PsgGfZ5DstDIs4E5PvzoMLE0yCbrB9+Y=
+ bh=4RkUIVbtXWLMhEgVRprjRhLI7qLO2cMyCi+EhjvzZFw=;
+ b=hTk5ijDHDMgQxKkA9BUrH0F2len3i2uKxb473Xdpw5iK2wSxC9XmwvSbp7bYW0PLPk
+ QbKh5k1BSr/Tz0jA06DfQZya1UO90srY53nLsu9F38wakMDiTM36Bhv99fd2QZrbuYGF
+ DdQESgBxjgKfPc9w3F9JFaETCMViCRldl1gyk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=PCYS5QyMNkkwqTDkShTEbfPtwnFmBXM7JP7Pazg2YKM=;
- b=17PiJ3cyKuASwVseMQgTI509B9wKwOeRheH6limSsnmp/k5LLvw8TwjU00ojs/DDax
- FmONhKQG0vk/pR3zfmpRpjGNur/aE6ciEMDXnr1g+To/537jWDHBqUPBR9Qsok/SG0n2
- K+poUzhK0WeaX947cDff2d3C22UqdMlLbpIZ+qxR8JqUPkHkrAqT/0P/38xiw+R+esDP
- P80U/Mj7VA0tmhQQd8/RNbnTid4Gg4jXW2/HuCeaXUcAUtgJUH0PreSSzZ5P97kLVqKV
- k2iaFvkFnVi0VCF+4clT6HQLHXBr4HjJ5WKjRs8bUix2SAkZ1VELLr0otCrv64tqHJEB
- vXYw==
-X-Gm-Message-State: AOAM5328YlGnGvUxCe0J8ywoJxbv9CMpj8rxqAEH8u7pdWMr9E1/Y4J8
- ls7b/lLfZEJFsRy0g9Hw2q8XKw==
-X-Google-Smtp-Source: ABdhPJzoozBk4sCtvPwFCt7Ns2n0EIlD3c2Oag8W2C4RKf4YDquTma29XshfY3LkS6cE7lgaMjCoTA==
-X-Received: by 2002:adf:fe01:: with SMTP id n1mr5008752wrr.141.1644354535375; 
- Tue, 08 Feb 2022 13:08:55 -0800 (PST)
+ bh=4RkUIVbtXWLMhEgVRprjRhLI7qLO2cMyCi+EhjvzZFw=;
+ b=xuuI0pQJWlPLg3LDsn4NBlTIHzdeL3UK9BntQIz4D13r2mPgGGNEb2LJjW4Q8RWJkd
+ KExmyY7j+SgEauk/NMYGX1HjqRipEhvegJGZTGk8NjTcwPpVz4ONgNr4Edoo4tbPldmR
+ mrzJan8c3bcnVOvtpMNyjBOVKeA9r2Zp7mZRd3PpIuOKt3Qb8FdIEvsArpZrC6FUWoKM
+ HqulNWnNRmnjZLPfHE+TujuWSwTrRes2pbrBNOIeV/TZ244Jh4ZfRR2PaSfrH2xasb/0
+ aqjrrHStUj5onj9eZkbwXxg3h3mHxNCE+NI2FSoLcExl0UBUo03kLA7rySUugXVTytB+
+ hiCQ==
+X-Gm-Message-State: AOAM533qesI+w0vnPLSasQd7vYxhL7vRjywqSV68aNxcKvVhyCnt8h78
+ N4IaaO0wmvgKcQi1eAPg0oS1aA==
+X-Google-Smtp-Source: ABdhPJyIfpRc7ZB9NjqbdIphlUwlwXNT2L6vdvwdr3OEGArxXf4a6YivXer2aDFvbp3CRI9pZL06XA==
+X-Received: by 2002:a5d:47af:: with SMTP id 15mr5049471wrb.88.1644354538519;
+ Tue, 08 Feb 2022 13:08:58 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id o14sm3033561wmr.3.2022.02.08.13.08.54
+ by smtp.gmail.com with ESMTPSA id o14sm3033561wmr.3.2022.02.08.13.08.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Feb 2022 13:08:54 -0800 (PST)
+ Tue, 08 Feb 2022 13:08:58 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  8 Feb 2022 22:08:21 +0100
-Message-Id: <20220208210824.2238981-17-daniel.vetter@ffwll.ch>
+Date: Tue,  8 Feb 2022 22:08:24 +0100
+Message-Id: <20220208210824.2238981-20-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
 References: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 16/19] fbcon: untangle fbcon_exit
+Subject: [Intel-gfx] [PATCH v2 19/19] fbdev: Make registered_fb[] private to
+ fbmem.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,159 +65,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Du Cheng <ducheng2@gmail.com>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+Cc: linux-fbdev@vger.kernel.org, Zheyu Ma <zheyuma97@gmail.com>,
+ Xiyu Yang <xiyuyang19@fudan.edu.cn>, Jens Frederich <jfrederich@gmail.com>,
+ Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
+ linux-staging@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Zhen Lei <thunder.leizhen@huawei.com>,
+ Guenter Roeck <linux@roeck-us.net>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Jon Nettleton <jon.nettleton@gmail.com>, Helge Deller <deller@gmx.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's a bunch of confusions going on here:
-- The deferred fbcon setup notifier should only be cleaned up from
-  fb_console_exit(), to be symmetric with fb_console_init()
-- We also need to make sure we don't race with the work, which means
-  temporarily dropping the console lock (or we can deadlock)
-- That also means no point in clearing deferred_takeover, we are
-  unloading everything anyway.
-- Finally rename fbcon_exit to fbcon_release_all and move it, since
-  that's what's it doing when being called from consw->con_deinit
-  through fbcon_deinit.
+Well except when the olpc dcon fbdev driver is enabled, that thing
+digs around in there in rather unfixable ways.
 
-To answer a question from Sam just quoting my own reply:
+Cc oldc_dcon maintainers as fyi.
 
-> We loose the call to fbcon_release_all() here [in fb_console_exit()].
-> We have part of the old fbcon_exit() above, but miss the release parts.
+v2: I typoed the config name (0day)
 
-Ah yes that's the entire point of this change. The release_all in the
-fbcon exit path was only needed when fbcon was a separate module
-indepedent from core fb.ko. Which means it was possible to unload fbcon
-while having fbdev drivers registered.
-
-But since we've merged them that has become impossible, so by the time the
-fb.ko module can be unloaded, there's guaranteed to be no fbdev drivers
-left. And hence removing them is pointless.
-
-v2: Explain the why better (Sam)
-
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
+Cc: kernel test robot <lkp@intel.com>
+Cc: Jens Frederich <jfrederich@gmail.com>
+Cc: Jon Nettleton <jon.nettleton@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Claudio Suarez <cssk@net-c.es>
-Cc: Du Cheng <ducheng2@gmail.com>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
+Cc: linux-fbdev@vger.kernel.org
+Cc: Zheyu Ma <zheyuma97@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/video/fbdev/core/fbcon.c | 63 ++++++++++++++++----------------
- 1 file changed, 32 insertions(+), 31 deletions(-)
+ drivers/video/fbdev/core/fbmem.c | 8 ++++++--
+ include/linux/fb.h               | 7 +++----
+ 2 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 685b4a9e5546..944f514c77ec 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -187,7 +187,6 @@ static void fbcon_redraw_move(struct vc_data *vc, struct fbcon_display *p,
- 			      int line, int count, int dy);
- static void fbcon_modechanged(struct fb_info *info);
- static void fbcon_set_all_vcs(struct fb_info *info);
--static void fbcon_exit(void);
+diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
+index 6f6f7a763969..6f0eb596a2cd 100644
+--- a/drivers/video/fbdev/core/fbmem.c
++++ b/drivers/video/fbdev/core/fbmem.c
+@@ -49,10 +49,14 @@
+ static DEFINE_MUTEX(registration_lock);
  
- static struct device *fbcon_device;
- 
-@@ -1146,6 +1145,27 @@ static void fbcon_free_font(struct fbcon_display *p, bool freefont)
- 
- static void set_vc_hi_font(struct vc_data *vc, bool set);
- 
-+static void fbcon_release_all(void)
-+{
-+	struct fb_info *info;
-+	int i, j, mapped;
-+
-+	for_each_registered_fb(i) {
-+		mapped = 0;
-+		info = registered_fb[i];
-+
-+		for (j = first_fb_vc; j <= last_fb_vc; j++) {
-+			if (con2fb_map[j] == i) {
-+				mapped = 1;
-+				con2fb_map[j] = -1;
-+			}
-+		}
-+
-+		if (mapped)
-+			fbcon_release(info);
-+	}
-+}
-+
- static void fbcon_deinit(struct vc_data *vc)
- {
- 	struct fbcon_display *p = &fb_display[vc->vc_num];
-@@ -1185,7 +1205,7 @@ static void fbcon_deinit(struct vc_data *vc)
- 		set_vc_hi_font(vc, false);
- 
- 	if (!con_is_bound(&fb_con))
--		fbcon_exit();
-+		fbcon_release_all();
- 
- 	if (vc->vc_num == logo_shown)
- 		logo_shown = FBCON_LOGO_CANSHOW;
-@@ -3296,34 +3316,6 @@ static void fbcon_start(void)
- #endif
- }
- 
--static void fbcon_exit(void)
--{
--	struct fb_info *info;
--	int i, j, mapped;
+ struct fb_info *registered_fb[FB_MAX] __read_mostly;
+-EXPORT_SYMBOL(registered_fb);
 -
--#ifdef CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
--	if (deferred_takeover) {
--		dummycon_unregister_output_notifier(&fbcon_output_nb);
--		deferred_takeover = false;
--	}
--#endif
--
--	for_each_registered_fb(i) {
--		mapped = 0;
--		info = registered_fb[i];
--
--		for (j = first_fb_vc; j <= last_fb_vc; j++) {
--			if (con2fb_map[j] == i) {
--				mapped = 1;
--				con2fb_map[j] = -1;
--			}
--		}
--
--		if (mapped)
--			fbcon_release(info);
--	}
--}
--
- void __init fb_console_init(void)
- {
- 	int i;
-@@ -3363,10 +3355,19 @@ static void __exit fbcon_deinit_device(void)
- 
- void __exit fb_console_exit(void)
- {
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
-+	console_lock();
-+	if (deferred_takeover)
-+		dummycon_unregister_output_notifier(&fbcon_output_nb);
-+	console_unlock();
-+
-+	cancel_work_sync(&fbcon_deferred_takeover_work);
+ int num_registered_fb __read_mostly;
++#if IS_ENABLED(CONFIG_FB_OLPC_DCON)
++EXPORT_SYMBOL(registered_fb);
+ EXPORT_SYMBOL(num_registered_fb);
 +#endif
++#define for_each_registered_fb(i)		\
++	for (i = 0; i < FB_MAX; i++)		\
++		if (!registered_fb[i]) {} else
+ 
+ bool fb_center_logo __read_mostly;
+ 
+diff --git a/include/linux/fb.h b/include/linux/fb.h
+index 23b19cf8bccd..afaa1474a283 100644
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -623,16 +623,15 @@ extern int fb_get_color_depth(struct fb_var_screeninfo *var,
+ extern int fb_get_options(const char *name, char **option);
+ extern int fb_new_modelist(struct fb_info *info);
+ 
++#if IS_ENABLED(CONFIG_FB_OLPC_DCON)
+ extern struct fb_info *registered_fb[FB_MAX];
 +
- 	console_lock();
- 	fbcon_deinit_device();
- 	device_destroy(fb_class, MKDEV(0, 0));
--	fbcon_exit();
-+
- 	do_unregister_con_driver(&fb_con);
- 	console_unlock();
- }	
+ extern int num_registered_fb;
++#endif
+ extern bool fb_center_logo;
+ extern int fb_logo_count;
+ extern struct class *fb_class;
+ 
+-#define for_each_registered_fb(i)		\
+-	for (i = 0; i < FB_MAX; i++)		\
+-		if (!registered_fb[i]) {} else
+-
+ static inline void lock_fb_info(struct fb_info *info)
+ {
+ 	mutex_lock(&info->lock);
 -- 
 2.34.1
 
