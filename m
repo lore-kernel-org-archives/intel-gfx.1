@@ -4,42 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E762C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 20:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D001BC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 20:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2312210E27D;
-	Tue,  8 Feb 2022 20:34:40 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D07210E1F1;
- Tue,  8 Feb 2022 20:34:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id E9DBC1F450AC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1644352474;
- bh=a4nkZuropjxiBCGcfLEplQh8GNHdYuTJQORNeAshoTA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J0Qoyu0lWTfSzpRdhmjF9WS3SZfBtTD+j9f+JdnyGWaMSZgHrzA672BSnYELcxPSb
- oKe4ycdjEFD6PijGfpDhhK4WDpGy9BM7NltFSwaqzd6w6SUC4rweY5kVLuD0sZs/4k
- Ar1fZPmNCQ0kFoA2UBOOrnXpqQFvIeSOFk3F4svecaXL6Mu9oLqsVb2xIoJr+ZJsf/
- X2J4ndqXxh+hc7PlPOiZALdCfSWzwZHfWwhSwxIVcZ6v/FFJB8jB14T2TT8cy+eWWk
- T1pxuVElbADAANEq+I/5x2U5x7GO3sQPihnh1CqQs1WmjZqFxzOS5fLCTneXeUwVis
- RtS6i5yffTWLA==
-From: Robert Beckett <bob.beckett@collabora.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Tue,  8 Feb 2022 20:34:18 +0000
-Message-Id: <20220208203419.1094362-5-bob.beckett@collabora.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220208203419.1094362-1-bob.beckett@collabora.com>
-References: <20220208203419.1094362-1-bob.beckett@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6EA10E32B;
+	Tue,  8 Feb 2022 20:34:50 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F0410E226
+ for <Intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 20:34:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644352488; x=1675888488;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=R2eHUu9d83vP1zynLXb63+fX35bCGi9ffrHj9XKrdaA=;
+ b=CKY4bs7IPePbxEViD3jTcz9J/saazCxvvYb4pBAAUAdtQom/cU+jvwnz
+ njlLVYaEFJaudXsclhbUNClPgmQgVO1l5sr4wdod3O0AcVWCCFV3/tjeX
+ w+AwjkO1Mbp6zbnTMcOPj3SbZGvN+kZjeaqsCBYJB2kqzIKNkKvPjHoFq
+ 2RhTr/D1/L0rFkQF6My4Qxf2K5TSlnEz7m6/RFZMgE35mtDIA+faTSbAr
+ 7cezcgHV/+j7M4xMgBxF66BljhEG4om/bd7uxYqcHdM7vC9ldMjCq2AyQ
+ jC9mZJrSX8CXPR6JNDuVbgMTYpiBV4E5orMqzeHrVSqTjhDD6AwoevCwI Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="312343283"
+X-IronPort-AV: E=Sophos;i="5.88,353,1635231600"; d="scan'208";a="312343283"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 12:34:48 -0800
+X-IronPort-AV: E=Sophos;i="5.88,353,1635231600"; d="scan'208";a="499698695"
+Received: from ymtarple-mobl1.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.231.100])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 12:34:47 -0800
+Date: Tue, 8 Feb 2022 12:34:47 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20220208203447.6v5amqo6ul4upana@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20220201111533.250242-1-tvrtko.ursulin@linux.intel.com>
+ <20220201165515.xntdympc4n3pdhif@ldmartin-desk2>
+ <87o83qtsxx.fsf@intel.com>
+ <20220201172820.ckcxkt5g5xstfi5s@ldmartin-desk2>
+ <0ef577a8-578e-22dd-c287-5223c21edcb7@linux.intel.com>
+ <20220202162621.f4rr2b4li2zzvnvb@ldmartin-desk2>
+ <0558be29-979a-0b86-b4c9-f4fb5a3fe08f@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 4/5] drm/i915: add gtt misalignment test
+In-Reply-To: <0558be29-979a-0b86-b4c9-f4fb5a3fe08f@linux.intel.com>
+Subject: Re: [Intel-gfx] [RFC 0/2] Compile out integrated
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,208 +64,154 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, Intel-gfx@lists.freedesktop.org,
+ Michael Cheng <michael.cheng@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add test to check handling of misaligned offsets and sizes
+On Tue, Feb 08, 2022 at 10:31:10AM +0000, Tvrtko Ursulin wrote:
+>
+>On 02/02/2022 16:26, Lucas De Marchi wrote:
+>>On Wed, Feb 02, 2022 at 10:26:46AM +0000, Tvrtko Ursulin wrote:
+>>>
+>>>On 01/02/2022 17:28, Lucas De Marchi wrote:
+>>>>On Tue, Feb 01, 2022 at 07:09:14PM +0200, Jani Nikula wrote:
+>>>>>On Tue, 01 Feb 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+>>>>>>On Tue, Feb 01, 2022 at 11:15:31AM +0000, Tvrtko Ursulin wrote:
+>>>>>>>From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>>>>>
+>>>>>>>Quicky and dirty hack based on some old ideas. Thought 
+>>>>>>>maybe the approach might
+>>>>>>>interest the Arm port guys. But with IS_GEN_RANGE removed 
+>>>>>>>easy gains are not so
+>>>>>>>big so meh.. Maybe some more easy wins with IS_DISPLAY_VER 
+>>>>>>>but I haven't looked
+>>>>>>>into that side.
+>>>>>>>
+>>>>>>>3884664† 449681††† 6720 4341065† 423d49 i915.ko.tip
+>>>>>>>3599989† 429034††† 6688 4035711† 3d947f i915.ko.noigp
+>>>>>>
+>>>>>>By these numbers probably it's hard to justify. Another 
+>>>>>>thing to consider
+>>>>>>is that it's very common to have on the same system both
+>>>>>>integrated and discrete - doing this would remove at compile time any
+>>>>>>chance of driving the integrated one.
+>>>>>
+>>>>>I guess the point was, the arm systems won't have integrated, and it's
+>>>>>anyway going to be a separate build.
+>>>>
+>>>>so probably the focus and argument here should not be about size
+>>>>reduction. From patch 1 I see:
+>>>>
+>>>>+config DRM_I915_INTEGRATED_GPU_SUPPORT
+>>>>+†††††† bool "Support integrated GPUs"
+>>>>+†††††† default y
+>>>>+†††††† depends on DRM_I915
+>>>>+†††††† help
+>>>>+†††††††† Include support for integrated GPUs.
+>>>>
+>>>>If it's something that depends on arch rather than providing an
+>>>>option in menuconfig, then I think it could be some interesting
+>>>>investigation. However, I can't see how it would help with removing
+>>>>some code paths in the driver (e.g. the clflush() calls we were talking
+>>>>about in another patch series) since the code elimination would all
+>>>>happen at link time.
+>>>
+>>>Clflush class of problems is yet another orthogonal set of problems.
+>>>
+>>>Yes, idea was that the Kconfig option would be selected by Arm, or 
+>>>deselected by x86, whatever. But there is also a case for letting 
+>>>it be user visible.
+>>>
+>>>In general, I thought at least, we should look into not 
+>>>building/deploying binary code for irrelevant hardware on Arm 
+>>>builds. If that is clear and agreeable then I think the approach 
+>>>how to get there is really multi-pronged.
+>>>
+>>>1)
+>>>What you are partly doing with "clflush" type series. Make Arm 
+>>>relevant code paths actually compile on Arm.
+>>
+>>to be clear, the goal is to be more architecture independent
+>>and this is being tested with arm64.
+>>
+>>>
+>>>2a)
+>>>What I sent in this series - it's simple/easy dead code 
+>>>elimination from a single compilation unit.
+>>>
+>>>2b)
+>>>*If* we resurrected GRAPHICS_VER check where "ver" is part of the 
+>>>macro, eg. not doing "if (GRAPHICS_VER <=> N)" but "if 
+>>>(GRAPHICS_VERN)", or "if IS_GRAPHICS_VER(N, FOREVER)", then the 
+>>>same approach would be more effective.
+>>>
+>>>Because if N or range is the macro parameter, we can make it dead 
+>>>code based on Kconfig.
+>>
+>>yes I remember that. But when it was done the IS_GRAPHICS_VER() was
+>>already not much used. I doubt the handful places it was used in would
+>>change much of the overall picture we had at that point.
+>
+>Right, I was referring to the time when N is inside the macro. Like 
+>before IS_GEN(p, N) was replaced with GRAPHICS_VER, when N went 
+>outside the macro.
+>
+>>>This is what I demonstrated few years ago by being able to compile 
+>>>out ~3rd of a driver when selecting only execlists platforms, 
+>>>AFAIR.
+>>>
+>>>And which is why I was a bit unhappy this was getting removed not 
+>>>so long ago.
+>>>
+>>>3)
+>>>Complex step is putting LTO into use to allow dead code 
+>>>elimination between compilation units. Think:
+>>>
+>>>file1.c:
+>>>RUNTIME_INFO->needs_blah = IS_PLATFORM && blah
+>>>
+>>>file2.c
+>>>if (RUNTIME_INFO->needs_blah)
+>>>† ..dead code eliminated by LTO only..
+>>>
+>>>Few years ago Andi Kleen had a proof of concept of KBuild LTO but 
+>>>I don't know what is the status of that. If LTO can be enabled 
+>>>then work from steps 2a&b automatically works much much better.
+>>>
+>>>4)
+>>>If LTO is not there yet maybe see how to slightly refactor the 
+>>>code so that we can completely drop compilation units from the 
+>>>Makefile. Drop files like gt/intel_ring_submission.c, or similar 
+>>>if we have or can create candidates.
+>>
+>>I think this is something we have to do and to go after. I think it's
+>>more future-proof to organize the code to have a better separation of
+>>platforms, instead of relying on the linker to do the dead code
+>>elimination based on user selection.
+>
+>Yes, definitely high level refactor. I just think it can't be fully 
+>done and some dead code elimination is cheap enough to have to handle 
+>the remaining parts.
+>
+>>I'm fine with compiling out stuff on i915 right now because "this can
+>>only and will ever (as far as we know) work on x86". I'm more reluctant
+>>about adding a build option though. For the same reasons Jani mentioned
+>>and that it suddenly may open the doors for a matrix of configuration
+>>(e.g.† build with/without display, or rc6, or dsi, or
+>>name-the-feature-you-dont-want).
+>
+>Yeah okay, I was not saying it absolutely needs to be user visible. 
+>Just that it could be argued it could be. Think people building custom 
+>kernels and selecting AMD CPU and having Intel discrete graphics.
 
-v4:
-	* remove spurious blank lines
-	* explicitly cast intel_region_id to intel_memory_type in misaligned_pin
-Reported-by: kernel test robot <lkp@intel.com>
-v6:
-	* use NEEDS_COMPACT_PT instead of hard coding for DG2
-v7:
-	* use i915_vma_unbind_unlocked in misalignment test
-v8:
-	* handle stolen smem region returning -ENODEV due to
-	  uninitialized on some setups
-	* avoid trying to test bad alignments on single page hole regions
+maybe start with the non-user-visible:  make the config selection depend
+on arch. Depending how it goes, we then allow it to be configurable
+in future.
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 126 ++++++++++++++++++
- 1 file changed, 126 insertions(+)
+Lucas De Marchi
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index b80788a2b7f9..4de86e0f33e4 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -22,10 +22,12 @@
-  *
-  */
- 
-+#include "gt/intel_gtt.h"
- #include <linux/list_sort.h>
- #include <linux/prime_numbers.h>
- 
- #include "gem/i915_gem_context.h"
-+#include "gem/i915_gem_region.h"
- #include "gem/selftests/mock_context.h"
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-@@ -1067,6 +1069,118 @@ static int shrink_boom(struct i915_address_space *vm,
- 	return err;
- }
- 
-+static int misaligned_case(struct i915_address_space *vm, struct intel_memory_region *mr,
-+			   u64 addr, u64 size, unsigned long flags)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u64 expected_vma_size, expected_node_size;
-+	bool is_stolen = mr->type == INTEL_MEMORY_STOLEN_SYSTEM ||
-+			 mr->type == INTEL_MEMORY_STOLEN_LOCAL;
-+
-+	obj = i915_gem_object_create_region(mr, size, 0, 0);
-+	if (IS_ERR(obj)) {
-+		/* if iGVT-g or DMAR is active, stolen mem will be uninitialized */
-+		if (PTR_ERR(obj) == -ENODEV && is_stolen)
-+			return 0;
-+		return PTR_ERR(obj);
-+	}
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, addr | flags);
-+	if (err)
-+		goto err_put;
-+	i915_vma_unpin(vma);
-+
-+	if (!drm_mm_node_allocated(&vma->node)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	if (i915_vma_misplaced(vma, 0, 0, addr | flags)) {
-+		err = -EINVAL;
-+		goto err_put;
-+	}
-+
-+	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
-+	expected_node_size = expected_vma_size;
-+
-+	if (NEEDS_COMPACT_PT(vm->i915) && i915_gem_object_is_lmem(obj)) {
-+		/* compact-pt should expand lmem node to 2MB */
-+		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
-+		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
-+	}
-+
-+	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
-+		err = i915_vma_unbind_unlocked(vma);
-+		err = -EBADSLT;
-+		goto err_put;
-+	}
-+
-+	err = i915_vma_unbind_unlocked(vma);
-+	if (err)
-+		goto err_put;
-+
-+	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-+
-+err_put:
-+	i915_gem_object_put(obj);
-+	cleanup_freed_objects(vm->i915);
-+	return err;
-+}
-+
-+static int misaligned_pin(struct i915_address_space *vm,
-+			  u64 hole_start, u64 hole_end,
-+			  unsigned long end_time)
-+{
-+	struct intel_memory_region *mr;
-+	enum intel_region_id id;
-+	unsigned long flags = PIN_OFFSET_FIXED | PIN_USER;
-+	int err = 0;
-+	u64 hole_size = hole_end - hole_start;
-+
-+	if (i915_is_ggtt(vm))
-+		flags |= PIN_GLOBAL;
-+
-+	for_each_memory_region(mr, vm->i915, id) {
-+		u64 min_alignment = i915_vm_min_alignment(vm, (enum intel_memory_type)id);
-+		u64 size = min_alignment;
-+		u64 addr = round_down(hole_start + (hole_size / 2), min_alignment);
-+
-+		/* avoid -ENOSPC on very small hole setups */
-+		if (hole_size < 3 * min_alignment)
-+			continue;
-+
-+		/* we can't test < 4k alignment due to flags being encoded in lower bits */
-+		if (min_alignment != I915_GTT_PAGE_SIZE_4K) {
-+			err = misaligned_case(vm, mr, addr + (min_alignment / 2), size, flags);
-+			/* misaligned should error with -EINVAL*/
-+			if (!err)
-+				err = -EBADSLT;
-+			if (err != -EINVAL)
-+				return err;
-+		}
-+
-+		/* test for vma->size expansion to min page size */
-+		err = misaligned_case(vm, mr, addr, PAGE_SIZE, flags);
-+		if (err)
-+			return err;
-+
-+		/* test for intermediate size not expanding vma->size for large alignments */
-+		err = misaligned_case(vm, mr, addr, size / 2, flags);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 			  int (*func)(struct i915_address_space *vm,
- 				      u64 hole_start, u64 hole_end,
-@@ -1136,6 +1250,11 @@ static int igt_ppgtt_shrink_boom(void *arg)
- 	return exercise_ppgtt(arg, shrink_boom);
- }
- 
-+static int igt_ppgtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ppgtt(arg, misaligned_pin);
-+}
-+
- static int sort_holes(void *priv, const struct list_head *A,
- 		      const struct list_head *B)
- {
-@@ -1208,6 +1327,11 @@ static int igt_ggtt_lowlevel(void *arg)
- 	return exercise_ggtt(arg, lowlevel_hole);
- }
- 
-+static int igt_ggtt_misaligned_pin(void *arg)
-+{
-+	return exercise_ggtt(arg, misaligned_pin);
-+}
-+
- static int igt_ggtt_page(void *arg)
- {
- 	const unsigned int count = PAGE_SIZE/sizeof(u32);
-@@ -2180,12 +2304,14 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ppgtt_fill),
- 		SUBTEST(igt_ppgtt_shrink),
- 		SUBTEST(igt_ppgtt_shrink_boom),
-+		SUBTEST(igt_ppgtt_misaligned_pin),
- 		SUBTEST(igt_ggtt_lowlevel),
- 		SUBTEST(igt_ggtt_drunk),
- 		SUBTEST(igt_ggtt_walk),
- 		SUBTEST(igt_ggtt_pot),
- 		SUBTEST(igt_ggtt_fill),
- 		SUBTEST(igt_ggtt_page),
-+		SUBTEST(igt_ggtt_misaligned_pin),
- 		SUBTEST(igt_cs_tlb),
- 	};
- 
--- 
-2.25.1
-
+>
+>Regards,
+>
+>Tvrtko
