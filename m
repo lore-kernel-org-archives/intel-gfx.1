@@ -4,58 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71D96C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 13:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 928A4C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 13:21:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7B510E3B2;
-	Tue,  8 Feb 2022 13:16:34 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B036710E32E
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 13:16:33 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id co28so10297583edb.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 05:16:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=f64ILGGTSPvkUq4wQOkLsCvrb4ZuGkYGc811scBzO5Y=;
- b=T8Wb7BXXP67fgoD4bmk/761gugvMGuHrlOqeOKgdXGRRGA8Hpr66Q0K4mgEPRIcWyJ
- 99SM06lNY8yUsYRqseBBtnr/2Sg3IAK1wn9WLmX2y16UBqAGvFB1+36HyV8gEJWjEYQo
- IE4rPfrQyH9DC0prS1LerHepjG3lHs/N7aLXg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=f64ILGGTSPvkUq4wQOkLsCvrb4ZuGkYGc811scBzO5Y=;
- b=XfehgGe93MFIofs4O0kbwWqoNj7olgLbiL2zm4AGvTw+eRUQ+QZKOVWDEg/bDWd82M
- JX92kSxS1TZiiUsgw0Rtmi1af9/Ep9jfKX1huV8OHwN36U/y1ZzwovMDnquZfaLZr477
- MQ4x/4ZxUde6ntCmXel98333/U6NcEAAA815RVmgPBrfiGRKDiIK5s4UDoUpf5wFjUGf
- PI0sZDOlNTZgxmwh1LcBD7TjqMHGD0shAgW8kycNsc5bFzB2+vbi2jY3jSW1xiGgOjYl
- KmwA0MzULVYK26d2Tt7t6j69eUsA/bv3hKqvlmE3ohqddTqoPsDQZX61RaxXtfAuU/E1
- CSQg==
-X-Gm-Message-State: AOAM5314NG3awW3NjuxA+V1Fdos1hAoQVRhTIyhWo8xSG0BF0XKv4NRR
- TIT7hGzQzvD76QB6rhAdUcobwQ==
-X-Google-Smtp-Source: ABdhPJx2wnD0IuUx8PbRWWTEInm+5xp2l/xeHn+P1ddjGej4NDlto9txCIoI1cAmzs93eMDRYNOmEA==
-X-Received: by 2002:a05:6402:5110:: with SMTP id
- m16mr4441191edd.325.1644326191998; 
- Tue, 08 Feb 2022 05:16:31 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id g19sm2001960ejd.62.2022.02.08.05.16.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Feb 2022 05:16:31 -0800 (PST)
-Date: Tue, 8 Feb 2022 14:16:29 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <YgJtLSUr61S1Dxvr@phenom.ffwll.local>
-References: <20220208113815.314048-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEF7510E208;
+	Tue,  8 Feb 2022 13:21:02 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A636B10E3A6;
+ Tue,  8 Feb 2022 11:42:40 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 138E5B81A82;
+ Tue,  8 Feb 2022 11:42:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E433CC004E1;
+ Tue,  8 Feb 2022 11:42:34 +0000 (UTC)
+Message-ID: <aa1312fc-197b-c1ab-6a18-369d49c1e8f8@xs4all.nl>
+Date: Tue, 8 Feb 2022 12:42:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20220204170541.829227-1-lucas.demarchi@intel.com>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+In-Reply-To: <20220204170541.829227-1-lucas.demarchi@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220208113815.314048-1-matthew.auld@intel.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Intel-gfx] [PATCH] drm/buddy: fixup potential uaf
+X-Mailman-Approved-At: Tue, 08 Feb 2022 13:21:01 +0000
+Subject: Re: [Intel-gfx] [PATCH v4] dma-buf-map: Rename to iosys-map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,67 +46,160 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, airlied@linux.ie, daniel.vetter@ffwll.ch,
+ linux-doc@vger.kernel.org, christian.koenig@amd.com,
+ srinivas.kandagatla@linaro.org, tzimmermann@suse.de,
+ gregkh@linuxfoundation.org, nouveau@lists.freedesktop.org,
+ sumit.semwal@linaro.org, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 08, 2022 at 11:38:15AM +0000, Matthew Auld wrote:
-> If we are unlucky and somehow can't allocate enough memory when
-> splitting blocks, where we temporarily end up with the given block and
-> its buddy on the respective free list, then we need to ensure we delete
-> both blocks, and not just the buddy, before potentially freeing them.
-> 
-> v2: rebase on i915_buddy removal
-> 
-> Fixes: 14d1b9a6247c ("drm/i915: buddy allocator")
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
 
-btw wrt fixups, can you pls include the drm_buddy.c kerneldoc into
-Documentation/gpu/drm-mm.rst? That seems to be missing. Also probably some
-kerneldoc to polish to make it warning free and complete.
--Daniel
 
+On 2/4/22 18:05, Lucas De Marchi wrote:
+> Rename struct dma_buf_map to struct iosys_map and corresponding APIs.
+> Over time dma-buf-map grew up to more functionality than the one used by
+> dma-buf: in fact it's just a shim layer to abstract system memory, that
+> can be accessed via regular load and store, from IO memory that needs to
+> be acessed via arch helpers.
+> 
+> The idea is to extend this API so it can fulfill other needs, internal
+> to a single driver. Example: in the i915 driver it's desired to share
+> the implementation for integrated graphics, which uses mostly system
+> memory, with discrete graphics, which may need to access IO memory.
+> 
+> The conversion was mostly done with the following semantic patch:
+> 
+> 	@r1@
+> 	@@
+> 	- struct dma_buf_map
+> 	+ struct iosys_map
+> 
+> 	@r2@
+> 	@@
+> 	(
+> 	- DMA_BUF_MAP_INIT_VADDR
+> 	+ IOSYS_MAP_INIT_VADDR
+> 	|
+> 	- dma_buf_map_set_vaddr
+> 	+ iosys_map_set_vaddr
+> 	|
+> 	- dma_buf_map_set_vaddr_iomem
+> 	+ iosys_map_set_vaddr_iomem
+> 	|
+> 	- dma_buf_map_is_equal
+> 	+ iosys_map_is_equal
+> 	|
+> 	- dma_buf_map_is_null
+> 	+ iosys_map_is_null
+> 	|
+> 	- dma_buf_map_is_set
+> 	+ iosys_map_is_set
+> 	|
+> 	- dma_buf_map_clear
+> 	+ iosys_map_clear
+> 	|
+> 	- dma_buf_map_memcpy_to
+> 	+ iosys_map_memcpy_to
+> 	|
+> 	- dma_buf_map_incr
+> 	+ iosys_map_incr
+> 	)
+> 
+> 	@@
+> 	@@
+> 	- #include <linux/dma-buf-map.h>
+> 	+ #include <linux/iosys-map.h>
+> 
+> Then some files had their includes adjusted and some comments were
+> update to remove mentions to dma-buf-map.
+> 
+> Since this is not specific to dma-buf anymore, move the documentation to
+> the "Bus-Independent Device Accesses" section.
+> 
+> v2:
+>   - Squash patches
+> 
+> v3:
+>   - Fix wrong removal of dma-buf.h from MAINTAINERS
+>   - Move documentation from dma-buf.rst to device-io.rst
+> 
+> v4:
+>   - Change documentation tile and level
+> 
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> Acked-by: Christian KÃ¶nig <christian.koenig@amd.com>
+> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/drm_buddy.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index d60878bc9c20..2bf75e8abfaa 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -333,8 +333,10 @@ drm_buddy_alloc_blocks(struct drm_buddy *mm, unsigned int order)
->  	return block;
->  
->  out_free:
-> -	if (i != order)
-> +	if (i != order) {
-> +		list_del(&block->link);
->  		__drm_buddy_free(mm, block);
-> +	}
->  	return ERR_PTR(err);
->  }
->  EXPORT_SYMBOL(drm_buddy_alloc_blocks);
-> @@ -452,8 +454,10 @@ int drm_buddy_alloc_range(struct drm_buddy *mm,
->  	buddy = get_buddy(block);
->  	if (buddy &&
->  	    (drm_buddy_block_is_free(block) &&
-> -	     drm_buddy_block_is_free(buddy)))
-> +	     drm_buddy_block_is_free(buddy))) {
-> +		list_del(&block->link);
->  		__drm_buddy_free(mm, block);
-> +	}
->  
->  err_free:
->  	drm_buddy_free_list(mm, &allocated);
-> -- 
-> 2.34.1
-> 
+>  Documentation/driver-api/device-io.rst        |   9 +
+>  Documentation/driver-api/dma-buf.rst          |   9 -
+>  Documentation/gpu/todo.rst                    |  20 +-
+>  MAINTAINERS                                   |   9 +-
+>  drivers/dma-buf/dma-buf.c                     |  22 +-
+>  drivers/dma-buf/heaps/cma_heap.c              |  10 +-
+>  drivers/dma-buf/heaps/system_heap.c           |  10 +-
+>  drivers/gpu/drm/ast/ast_drv.h                 |   2 +-
+>  drivers/gpu/drm/ast/ast_mode.c                |   8 +-
+>  drivers/gpu/drm/drm_cache.c                   |  18 +-
+>  drivers/gpu/drm/drm_client.c                  |   9 +-
+>  drivers/gpu/drm/drm_fb_helper.c               |  12 +-
+>  drivers/gpu/drm/drm_gem.c                     |  12 +-
+>  drivers/gpu/drm/drm_gem_cma_helper.c          |   9 +-
+>  drivers/gpu/drm/drm_gem_framebuffer_helper.c  |  16 +-
+>  drivers/gpu/drm/drm_gem_shmem_helper.c        |  15 +-
+>  drivers/gpu/drm/drm_gem_ttm_helper.c          |   4 +-
+>  drivers/gpu/drm/drm_gem_vram_helper.c         |  25 +-
+>  drivers/gpu/drm/drm_internal.h                |   6 +-
+>  drivers/gpu/drm/drm_mipi_dbi.c                |   8 +-
+>  drivers/gpu/drm/drm_prime.c                   |   4 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_drv.h         |   2 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   8 +-
+>  drivers/gpu/drm/gud/gud_pipe.c                |   4 +-
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   5 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   8 +-
+>  .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   6 +-
+>  .../gpu/drm/i915/gem/selftests/mock_dmabuf.c  |   6 +-
+>  drivers/gpu/drm/lima/lima_gem.c               |   3 +-
+>  drivers/gpu/drm/lima/lima_sched.c             |   4 +-
+>  drivers/gpu/drm/mediatek/mtk_drm_gem.c        |   7 +-
+>  drivers/gpu/drm/mediatek/mtk_drm_gem.h        |   5 +-
+>  drivers/gpu/drm/mgag200/mgag200_mode.c        |   4 +-
+>  drivers/gpu/drm/msm/msm_drv.h                 |   4 +-
+>  drivers/gpu/drm/msm/msm_gem_prime.c           |   6 +-
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |  13 +-
+>  drivers/gpu/drm/qxl/qxl_display.c             |   8 +-
+>  drivers/gpu/drm/qxl/qxl_draw.c                |   6 +-
+>  drivers/gpu/drm/qxl/qxl_drv.h                 |  10 +-
+>  drivers/gpu/drm/qxl/qxl_object.c              |   8 +-
+>  drivers/gpu/drm/qxl/qxl_object.h              |   4 +-
+>  drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
+>  drivers/gpu/drm/radeon/radeon_gem.c           |   1 +
+>  drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |   9 +-
+>  drivers/gpu/drm/rockchip/rockchip_drm_gem.h   |   5 +-
+>  drivers/gpu/drm/tegra/gem.c                   |  10 +-
+>  drivers/gpu/drm/tiny/cirrus.c                 |   8 +-
+>  drivers/gpu/drm/tiny/gm12u320.c               |   7 +-
+>  drivers/gpu/drm/ttm/ttm_bo_util.c             |  16 +-
+>  drivers/gpu/drm/ttm/ttm_resource.c            |  42 +--
+>  drivers/gpu/drm/ttm/ttm_tt.c                  |   8 +-
+>  drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
+>  drivers/gpu/drm/vboxvideo/vbox_mode.c         |   4 +-
+>  drivers/gpu/drm/vkms/vkms_composer.c          |   4 +-
+>  drivers/gpu/drm/vkms/vkms_drv.h               |   6 +-
+>  drivers/gpu/drm/vkms/vkms_plane.c             |   2 +-
+>  drivers/gpu/drm/vkms/vkms_writeback.c         |   2 +-
+>  drivers/gpu/drm/xen/xen_drm_front_gem.c       |   7 +-
+>  drivers/gpu/drm/xen/xen_drm_front_gem.h       |   6 +-
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+For these three:
+
+>  .../common/videobuf2/videobuf2-dma-contig.c   |   8 +-
+>  .../media/common/videobuf2/videobuf2-dma-sg.c |   9 +-
+>  .../common/videobuf2/videobuf2-vmalloc.c      |  11 +-
+
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+
+Regards,
+
+	Hans
