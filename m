@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0975C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 13:49:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3A9C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 13:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06BEE10E478;
-	Wed,  9 Feb 2022 13:49:24 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 400C010E478
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 13:49:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644414563; x=1675950563;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=xB0C6L4R4DIOk4u7CJIneOR/rhpe5z/8zU+Ja7drdaU=;
- b=L2U5V4euCTphCC3qg2OpQLkI+D03dV0zdE6NYwKseA/XsIg6gzyu7J6d
- 6Vd0yRRhyIPE4ETC6WuwK6r54CnCeRslKEO2r6euoOk3Tw/6if2K8GVFx
- bEkzek5l5otMyU66Id9U23vx1ukjeLiDAD75O6K5CClDg5OE5r3rsJ54O
- 5StD67Oq3uQDfLWmMTCnP6CcWv/P57alh50huD3irD8ZSFujZI3QwnNye
- dgCUwT379pme3pOZS9bq3XVtHT/qMtw0UmJfUnowZJ/D2GEvPWOUx+yo3
- zqUCURvp9+T5+HTT1vnxW9wgBJINrLkceqcQgCujbZtDIvRhv3Mj6SJZ+ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="249154262"
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="249154262"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 05:49:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="629277063"
-Received: from rcallina-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.252.18.41])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 05:49:04 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Namhyung Kim <namhyung@kernel.org>
-In-Reply-To: <CAM9d7ci0By5zioo+52+14RuFrTqZfzbupJuP-908HhYB2Ovc9A@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220208184208.79303-1-namhyung@kernel.org>
- <20220208184208.79303-6-namhyung@kernel.org> <87y22lp4xx.fsf@intel.com>
- <CAM9d7ci0By5zioo+52+14RuFrTqZfzbupJuP-908HhYB2Ovc9A@mail.gmail.com>
-Date: Wed, 09 Feb 2022 15:49:01 +0200
-Message-ID: <87iltonoaa.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82AB10E478;
+	Wed,  9 Feb 2022 13:51:17 +0000 (UTC)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEF910E730
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 16:20:24 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id s18so21719042ioa.12
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 08:20:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=semihalf-com.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=D4G359qGyFqpKIwIOAwVvgxJFqtl6xrt9kKH0uEKLYU=;
+ b=z351ALnbGpDgEt8ODI2EQarmr1vQ3JfUFtw5N5X9r/6vrCI0gEChBbz3to8xA1CF/E
+ eXt7xU/kJmIJgNVn0OFO/PT4qZzWLgT+pygxCOPEfhpr8BSzAs3k0KhLG8dSUrPFtQIv
+ jZndbj/f3wfXJmQ46ly3L702PBv92wGb6uww+qmPilUg6qJi5aEpgH5e6HUXa+tnEfdu
+ H/lbUi4vKKCenZKE4wcFvTEf9SyRGSQSWajXIVeBZ3P04chFDDd3bUnY6vZC/I7bVy0F
+ tDas4J9l03VyTuGuoYoOsE/W32vKxLFKkMimO5StigE34UV8DhI/xGa8fShPxlTcGFTI
+ IEEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=D4G359qGyFqpKIwIOAwVvgxJFqtl6xrt9kKH0uEKLYU=;
+ b=uyEEgJ4EOp+y5ZOaTyEfujCq5i1ZaMTj7gGNdeKz7ISvv222eW3ZRKZ+pqtCtMI+2X
+ s4kVkP80RgRedvk5J+rorSBf7S9CCgSbuobFz5aXKE2fTnwgXjP/2bd/ZCvcieS3DMe4
+ PnHmBaIzSP3A+MGC7d90t/yafIN/T4GYKpwUkLeMli1OgweTgKmKgjSC8m2wuWh7egrF
+ fAN7UC7ojvHR9p77sEiGr6MsRzNl484VJG3ZSD+erR2ZTmk1ltaQN6t1bbNTJz7pczV4
+ tc5yRWzw/Gt91oPP/NxHqlEITTaJ7hDJs8PQwyEgFqb4Jb50NgMrz/986iHlW9Q7W6u9
+ aREw==
+X-Gm-Message-State: AOAM5310aZen5C3eJ+3uaXKf4nbfRD6euZrp0IA9CJw8ORe6gwdbHvNb
+ dAxc3oRXQk+eu6EwBYua9VD0ssV46rTaSvBs1yvr
+X-Google-Smtp-Source: ABdhPJwE2ued5IyAicmnZXgeyxKACLI0n0/dODXIpNzDqLh9pZsOcosBYci+IJO2+zE7VArPYkY33TkuJ+Ye9S63Ncs=
+X-Received: by 2002:a05:6638:3486:: with SMTP id
+ t6mr285272jal.74.1644337222498; 
+ Tue, 08 Feb 2022 08:20:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 05/12] drm/i915: Protect lockdep functions
- with #ifdef
+References: <20220201153354.11971-1-lukasz.bartosik@semihalf.com>
+ <87r18mtwn7.fsf@intel.com>
+In-Reply-To: <87r18mtwn7.fsf@intel.com>
+From: =?UTF-8?Q?=C5=81ukasz_Bartosik?= <lb@semihalf.com>
+Date: Tue, 8 Feb 2022 17:20:11 +0100
+Message-ID: <CAK8ByeKSWfeyUB73rVXQr2VKMFxNYZk9KxwYjsws3URFGfk50A@mail.gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 09 Feb 2022 13:51:16 +0000
+Subject: Re: [Intel-gfx] [PATCH v1] drm/i915: fix null pointer dereference
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,43 +70,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulmck@kernel.org, intel-gfx@lists.freedesktop.org,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Radoslaw Burny <rburny@google.com>, Byungchul Park <byungchul.park@lge.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Waiman Long <longman@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>
+Cc: upstream@semihalf.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 08 Feb 2022, Namhyung Kim <namhyung@kernel.org> wrote:
-> Hello,
+Have you had a chance to review the patch ? The crash is still there
+on v5.17-rc3.
+
+Thanks,
+Lukasz
+
+wt., 1 lut 2022 o 16:49 Jani Nikula <jani.nikula@linux.intel.com> napisa=C5=
+=82(a):
 >
-> On Tue, Feb 8, 2022 at 10:51 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
->>
->> On Tue, 08 Feb 2022, Namhyung Kim <namhyung@kernel.org> wrote:
->> > With upcoming lock tracepoints config, it'd define some of lockdep
->> > functions without enabling CONFIG_LOCKDEP actually.  The existing code
->> > assumes those functions will be removed by the preprocessor but it's
->> > not the case anymore.  Let's protect the code with #ifdef's explicitly.
->>
->> I don't understand why you can't keep the no-op stubs for
->> CONFIG_LOCKDEP=n.
 >
-> Because I want to use the lockdep annotation for other purposes.
-> But the workqueue lockdep_map was defined under LOCKDEP
-> only.  Please see the description in the cover letter.
+> Thanks for the patch, adding some Cc's from the commit that regressed.
 >
-> https://lore.kernel.org/all/20220208184208.79303-1-namhyung@kernel.org/
-
-So lockdep_init_map() might still be there and build just fine for
-CONFIG_LOCKDEP=n, but now we're actually required to wrap all call sites
-in #ifdefs depending on the purpose? I'm not convinced yet.
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> BR,
+> Jani.
+>
+> On Tue, 01 Feb 2022, Lukasz Bartosik <lb@semihalf.com> wrote:
+> > From: =C5=81ukasz Bartosik <lb@semihalf.com>
+> >
+> > Asus chromebook CX550 crashes during boot on v5.17-rc1 kernel.
+> > The root cause is null pointer defeference of bi_next
+> > in tgl_get_bw_info() in drivers/gpu/drm/i915/display/intel_bw.c.
+> >
+> > BUG: kernel NULL pointer dereference, address: 000000000000002e
+> > PGD 0 P4D 0
+> > Oops: 0002 [#1] PREEMPT SMP NOPTI
+> > CPU: 0 PID: 1 Comm: swapper/0 Tainted: G     U            5.17.0-rc1
+> > Hardware name: Google Delbin/Delbin, BIOS Google_Delbin.13672.156.3 05/=
+14/2021
+> > RIP: 0010:tgl_get_bw_info+0x2de/0x510
+> > ...
+> > [    2.554467] Call Trace:
+> > [    2.554467]  <TASK>
+> > [    2.554467]  intel_bw_init_hw+0x14a/0x434
+> > [    2.554467]  ? _printk+0x59/0x73
+> > [    2.554467]  ? _dev_err+0x77/0x91
+> > [    2.554467]  i915_driver_hw_probe+0x329/0x33e
+> > [    2.554467]  i915_driver_probe+0x4c8/0x638
+> > [    2.554467]  i915_pci_probe+0xf8/0x14e
+> > [    2.554467]  ? _raw_spin_unlock_irqrestore+0x12/0x2c
+> > [    2.554467]  pci_device_probe+0xaa/0x142
+> > [    2.554467]  really_probe+0x13f/0x2f4
+> > [    2.554467]  __driver_probe_device+0x9e/0xd3
+> > [    2.554467]  driver_probe_device+0x24/0x7c
+> > [    2.554467]  __driver_attach+0xba/0xcf
+> > [    2.554467]  ? driver_attach+0x1f/0x1f
+> > [    2.554467]  bus_for_each_dev+0x8c/0xc0
+> > [    2.554467]  bus_add_driver+0x11b/0x1f7
+> > [    2.554467]  driver_register+0x60/0xea
+> > [    2.554467]  ? mipi_dsi_bus_init+0x16/0x16
+> > [    2.554467]  i915_init+0x2c/0xb9
+> > [    2.554467]  ? mipi_dsi_bus_init+0x16/0x16
+> > [    2.554467]  do_one_initcall+0x12e/0x2b3
+> > [    2.554467]  do_initcall_level+0xd6/0xf3
+> > [    2.554467]  do_initcalls+0x4e/0x79
+> > [    2.554467]  kernel_init_freeable+0xed/0x14d
+> > [    2.554467]  ? rest_init+0xc1/0xc1
+> > [    2.554467]  kernel_init+0x1a/0x120
+> > [    2.554467]  ret_from_fork+0x1f/0x30
+> > [    2.554467]  </TASK>
+> > ...
+> > Kernel panic - not syncing: Fatal exception
+> >
+> > Fixes: c64a9a7c05be ("drm/i915: Update memory bandwidth formulae")
+> > Signed-off-by: =C5=81ukasz Bartosik <lb@semihalf.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_bw.c | 16 +++++++++-------
+> >  1 file changed, 9 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/=
+i915/display/intel_bw.c
+> > index 2da4aacc956b..bd0ed68b7faa 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> > @@ -404,15 +404,17 @@ static int tgl_get_bw_info(struct drm_i915_privat=
+e *dev_priv, const struct intel
+> >               int clpchgroup;
+> >               int j;
+> >
+> > -             if (i < num_groups - 1)
+> > -                     bi_next =3D &dev_priv->max_bw[i + 1];
+> > -
+> >               clpchgroup =3D (sa->deburst * qi.deinterleave / num_chann=
+els) << i;
+> >
+> > -             if (i < num_groups - 1 && clpchgroup < clperchgroup)
+> > -                     bi_next->num_planes =3D (ipqdepth - clpchgroup) /=
+ clpchgroup + 1;
+> > -             else
+> > -                     bi_next->num_planes =3D 0;
+> > +             if (i < num_groups - 1) {
+> > +                     bi_next =3D &dev_priv->max_bw[i + 1];
+> > +
+> > +                     if (clpchgroup < clperchgroup)
+> > +                             bi_next->num_planes =3D (ipqdepth - clpch=
+group) /
+> > +                                                    clpchgroup + 1;
+> > +                     else
+> > +                             bi_next->num_planes =3D 0;
+> > +             }
+> >
+> >               bi->num_qgv_points =3D qi.num_points;
+> >               bi->num_psf_gv_points =3D qi.num_psf_points;
+>
+> --
+> Jani Nikula, Intel Open Source Graphics Center
