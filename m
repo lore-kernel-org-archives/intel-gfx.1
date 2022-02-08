@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB06C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 21:08:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80449C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 21:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E5EC10E24B;
-	Tue,  8 Feb 2022 21:08:31 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D65D10E252
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 21:08:30 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id c192so141837wma.4
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 13:08:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 874C410E32B;
+	Tue,  8 Feb 2022 21:08:34 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E281510E366
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 21:08:32 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id w11so599672wra.4
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 13:08:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eaQEqDf6woJi3JiGI0Bz61Ya75WtHMc/MVZQW5TAKz8=;
- b=Egg8oW7w6vMCpi1QxSmX4D765EsgDJVXy+e89vdOj8VcgxsKKhCN6MHYC5vkBV761s
- UZkEzvw/pVj18r5pq4K0q9wZy7ZoHXN1MAbHYkOa+oJLstJKNQv5k6+g7Gk+7eItm4GS
- 7OnwkrdQ5S0dTeSDESYXlh317nK1+2lW6IHTs=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=gIPhliOnck3yOxw+Dv+3394kB7U1re82IdjUQLdsD7g=;
+ b=Z8I9ZWk9KMGjtYjkOSq4opEZfrkrnm27stq7L+c8hIZk05qksyUdm4+sUlt0rBndyT
+ DQX+SOTc8GS9LeEBc6pi7uSkAVol2kWAn54PJoRSgOd/ccDFsbs79VlWsrIJgy+5UY4z
+ adq/p7y0DkEQ++cwOVxs6Wiyy9rvfDf9eMg00=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eaQEqDf6woJi3JiGI0Bz61Ya75WtHMc/MVZQW5TAKz8=;
- b=7QcXCTw7LXdb50ajVurhXRxTBG+dyNeYItAUa6BIK3CcQqwyW+I9FEEtepUdpFaRn3
- oxHFk/6DB7Yh96rvlDTWs6h6uXwQwdyO9YwGl3XZmKR9KPs4Omvhiwk8yrKDeZUt9eAT
- uSObSJ0GhdyW5iklyUXiqXgeiW5E7FEZN4oBHOxEaTScXSXuQ0Nv9e3tWPexDHPWFGCZ
- oyAastvwkZxNbBIpdD3d7ba9/D+9KmQ9j13Bs03twAnAF3FRg9kIk527FKO34iYMSjXC
- mS0er+ujOyCGHuY7zjcfoDGOgEGwPigzS5KUeedsLVFeZOmIWAqwgQokJZXUie8liAXH
- s0Ww==
-X-Gm-Message-State: AOAM533c+MPiBBnnE1OpFH15gajIT/lFDvPLLZryuN1tFPtZu9ww9SnH
- mwbEWHOfQXNs3YErbFi2Yni18A==
-X-Google-Smtp-Source: ABdhPJyXbSnYegLxjgnRWGI973+iKOjTBJ+gW9TXNIyD3WsZiijJNxjj56AALEMQ0pOnnNO/sxirJw==
-X-Received: by 2002:a05:600c:4854:: with SMTP id
- j20mr1210243wmo.78.1644354509133; 
- Tue, 08 Feb 2022 13:08:29 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=gIPhliOnck3yOxw+Dv+3394kB7U1re82IdjUQLdsD7g=;
+ b=aRfpyVju4AkcIIV9eE1twN2nY5bN1esjg9V2soBGN/KRw234BTFG2D7BHlD2ExcWIc
+ Uf2N1we1BJ03OwL4JybLGsn/0us5pjWLGUxvlnuAYLb/lbbBynuCoRtzo0D23C0W1adu
+ rF8hDyltSgFrq2QLr0Q4sOaP+zgyL3S/xebNC6XaFZt0zirGPcQOJsnNhBLKBqWKR8gz
+ AQVyXXi4/QPfcOx2OIwrCPDzm7lMrLNZr4gT5wA4Pnbx9PZepTMSbI1DuW47PNDMJ+BU
+ TR22w1CJs3zROBtEwTisDW7UFYF5tDviFbaH6vMsQlhN+HEjkv8JU5NDAv9qcQamFuCF
+ mUzA==
+X-Gm-Message-State: AOAM5323RlI99eM1187FvXpbUoq/aBeDFDGDY6F+A35FVuQlimy5A/hH
+ xjGD1vdOE2Pn806b0I1rn1HoEQ==
+X-Google-Smtp-Source: ABdhPJyfRPn4N3kWII/WebNvQR+2lSObKOj91UPPo9uSAdMr7ixXbhsF1UhRz3GGz4BQn3bFDSUu7A==
+X-Received: by 2002:a5d:64c1:: with SMTP id f1mr4878344wri.5.1644354511285;
+ Tue, 08 Feb 2022 13:08:31 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id o14sm3033561wmr.3.2022.02.08.13.08.28
+ by smtp.gmail.com with ESMTPSA id o14sm3033561wmr.3.2022.02.08.13.08.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Feb 2022 13:08:28 -0800 (PST)
+ Tue, 08 Feb 2022 13:08:30 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  8 Feb 2022 22:08:05 +0100
-Message-Id: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
+Date: Tue,  8 Feb 2022 22:08:07 +0100
+Message-Id: <20220208210824.2238981-3-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
+References: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/19] fbcon patches, take two
+Subject: [Intel-gfx] [PATCH v2 02/19] fbcon: Move fbcon_bmove(_rec) functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,54 +64,198 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Du Cheng <ducheng2@gmail.com>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- linux-fbdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+ LKML <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, Helge Deller <deller@gmx.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+Avoids two forward declarations, and more importantly, matches what
+I've done in my fbcon scrolling restore patches - so I need this to
+avoid a bunch of conflicts in rebasing since we ended up merging
+Helge's series instead.
 
-Second round, mostly just compile fixed and some minor polish to commit
-messages. Also MAINTAINERS patch and fbcon scrolling patches are out
-because they landed already.
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: Claudio Suarez <cssk@net-c.es>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/video/fbdev/core/fbcon.c | 134 +++++++++++++++----------------
+ 1 file changed, 65 insertions(+), 69 deletions(-)
 
-There's still a handful here that need review (and somehow intel-gfx-ci
-just keeled over on this).
-
-Cheers, Daniel
-
-Daniel Vetter (19):
-  fbcon: delete a few unneeded forward decl
-  fbcon: Move fbcon_bmove(_rec) functions
-  fbcon: Introduce wrapper for console->fb_info lookup
-  fbcon: delete delayed loading code
-  fbdev/sysfs: Fix locking
-  fbcon: Use delayed work for cursor
-  fbcon: Replace FBCON_FLAGS_INIT with a boolean
-  fb: Delete fb_info->queue
-  fbcon: Extract fbcon_open/release helpers
-  fbcon: Ditch error handling for con2fb_release_oldinfo
-  fbcon: move more common code into fb_open()
-  fbcon: use lock_fb_info in fbcon_open/release
-  fbcon: Consistently protect deferred_takeover with console_lock()
-  fbcon: Move console_lock for register/unlink/unregister
-  fbcon: Move more code into fbcon_release
-  fbcon: untangle fbcon_exit
-  fbcon: Maintain a private array of fb_info
-  Revert "fbdev: Prevent probing generic drivers if a FB is already
-    registered"
-  fbdev: Make registered_fb[] private to fbmem.c
-
- drivers/video/fbdev/core/fbcon.c   | 692 ++++++++++++++---------------
- drivers/video/fbdev/core/fbcon.h   |   8 +-
- drivers/video/fbdev/core/fbmem.c   |  35 +-
- drivers/video/fbdev/core/fbsysfs.c |   2 +
- drivers/video/fbdev/efifb.c        |  11 -
- drivers/video/fbdev/simplefb.c     |  11 -
- include/linux/fb.h                 |   8 +-
- 7 files changed, 342 insertions(+), 425 deletions(-)
-
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 235eaab37d84..e925bb608e25 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -164,15 +164,11 @@ static int fbcon_cursor_noblink;
+  */
+ 
+ static void fbcon_clear_margins(struct vc_data *vc, int bottom_only);
+-static void fbcon_bmove(struct vc_data *vc, int sy, int sx, int dy, int dx,
+-			int height, int width);
+ static void fbcon_set_palette(struct vc_data *vc, const unsigned char *table);
+ 
+ /*
+  *  Internal routines
+  */
+-static void fbcon_bmove_rec(struct vc_data *vc, struct fbcon_display *p, int sy, int sx,
+-			    int dy, int dx, int height, int width, u_int y_break);
+ static void fbcon_set_disp(struct fb_info *info, struct fb_var_screeninfo *var,
+ 			   int unit);
+ static void fbcon_redraw_move(struct vc_data *vc, struct fbcon_display *p,
+@@ -1667,6 +1663,71 @@ static void fbcon_redraw(struct vc_data *vc, struct fbcon_display *p,
+ 	}
+ }
+ 
++static void fbcon_bmove_rec(struct vc_data *vc, struct fbcon_display *p, int sy, int sx,
++			    int dy, int dx, int height, int width, u_int y_break)
++{
++	struct fb_info *info = registered_fb[con2fb_map[vc->vc_num]];
++	struct fbcon_ops *ops = info->fbcon_par;
++	u_int b;
++
++	if (sy < y_break && sy + height > y_break) {
++		b = y_break - sy;
++		if (dy < sy) {	/* Avoid trashing self */
++			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
++					y_break);
++			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
++					height - b, width, y_break);
++		} else {
++			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
++					height - b, width, y_break);
++			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
++					y_break);
++		}
++		return;
++	}
++
++	if (dy < y_break && dy + height > y_break) {
++		b = y_break - dy;
++		if (dy < sy) {	/* Avoid trashing self */
++			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
++					y_break);
++			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
++					height - b, width, y_break);
++		} else {
++			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
++					height - b, width, y_break);
++			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
++					y_break);
++		}
++		return;
++	}
++	ops->bmove(vc, info, real_y(p, sy), sx, real_y(p, dy), dx,
++		   height, width);
++}
++
++static void fbcon_bmove(struct vc_data *vc, int sy, int sx, int dy, int dx,
++			int height, int width)
++{
++	struct fb_info *info = registered_fb[con2fb_map[vc->vc_num]];
++	struct fbcon_display *p = &fb_display[vc->vc_num];
++
++	if (fbcon_is_inactive(vc, info))
++		return;
++
++	if (!width || !height)
++		return;
++
++	/*  Split blits that cross physical y_wrap case.
++	 *  Pathological case involves 4 blits, better to use recursive
++	 *  code rather than unrolled case
++	 *
++	 *  Recursive invocations don't need to erase the cursor over and
++	 *  over again, so we use fbcon_bmove_rec()
++	 */
++	fbcon_bmove_rec(vc, p, sy, sx, dy, dx, height, width,
++			p->vrows - p->yscroll);
++}
++
+ static bool fbcon_scroll(struct vc_data *vc, unsigned int t, unsigned int b,
+ 		enum con_scroll dir, unsigned int count)
+ {
+@@ -1867,71 +1928,6 @@ static bool fbcon_scroll(struct vc_data *vc, unsigned int t, unsigned int b,
+ }
+ 
+ 
+-static void fbcon_bmove(struct vc_data *vc, int sy, int sx, int dy, int dx,
+-			int height, int width)
+-{
+-	struct fb_info *info = registered_fb[con2fb_map[vc->vc_num]];
+-	struct fbcon_display *p = &fb_display[vc->vc_num];
+-
+-	if (fbcon_is_inactive(vc, info))
+-		return;
+-
+-	if (!width || !height)
+-		return;
+-
+-	/*  Split blits that cross physical y_wrap case.
+-	 *  Pathological case involves 4 blits, better to use recursive
+-	 *  code rather than unrolled case
+-	 *
+-	 *  Recursive invocations don't need to erase the cursor over and
+-	 *  over again, so we use fbcon_bmove_rec()
+-	 */
+-	fbcon_bmove_rec(vc, p, sy, sx, dy, dx, height, width,
+-			p->vrows - p->yscroll);
+-}
+-
+-static void fbcon_bmove_rec(struct vc_data *vc, struct fbcon_display *p, int sy, int sx,
+-			    int dy, int dx, int height, int width, u_int y_break)
+-{
+-	struct fb_info *info = registered_fb[con2fb_map[vc->vc_num]];
+-	struct fbcon_ops *ops = info->fbcon_par;
+-	u_int b;
+-
+-	if (sy < y_break && sy + height > y_break) {
+-		b = y_break - sy;
+-		if (dy < sy) {	/* Avoid trashing self */
+-			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
+-					y_break);
+-			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
+-					height - b, width, y_break);
+-		} else {
+-			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
+-					height - b, width, y_break);
+-			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
+-					y_break);
+-		}
+-		return;
+-	}
+-
+-	if (dy < y_break && dy + height > y_break) {
+-		b = y_break - dy;
+-		if (dy < sy) {	/* Avoid trashing self */
+-			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
+-					y_break);
+-			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
+-					height - b, width, y_break);
+-		} else {
+-			fbcon_bmove_rec(vc, p, sy + b, sx, dy + b, dx,
+-					height - b, width, y_break);
+-			fbcon_bmove_rec(vc, p, sy, sx, dy, dx, b, width,
+-					y_break);
+-		}
+-		return;
+-	}
+-	ops->bmove(vc, info, real_y(p, sy), sx, real_y(p, dy), dx,
+-		   height, width);
+-}
+-
+ static void updatescrollmode_accel(struct fbcon_display *p,
+ 					struct fb_info *info,
+ 					struct vc_data *vc)
 -- 
 2.34.1
 
