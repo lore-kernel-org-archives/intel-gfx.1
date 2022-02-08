@@ -4,36 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 928A4C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 13:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F30BC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 13:30:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEF7510E208;
-	Tue,  8 Feb 2022 13:21:02 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A636B10E3A6;
- Tue,  8 Feb 2022 11:42:40 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 138E5B81A82;
- Tue,  8 Feb 2022 11:42:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E433CC004E1;
- Tue,  8 Feb 2022 11:42:34 +0000 (UTC)
-Message-ID: <aa1312fc-197b-c1ab-6a18-369d49c1e8f8@xs4all.nl>
-Date: Tue, 8 Feb 2022 12:42:33 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B32F10E322;
+	Tue,  8 Feb 2022 13:30:10 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 731A210E208;
+ Tue,  8 Feb 2022 13:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644327008; x=1675863008;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xAWUpOu7tDATpbu/jQ5cOugZWqn0VlRxDuqqNHcfWwc=;
+ b=hd7z5wfdkyyhYypWI969TjtNQyl2mIqmgebXmTADz1NmV7N57tVC2k63
+ u1FPiC9BMj7tk7z57CwXb4KHHXC3cVK7fov87PAqMRa8/UgqDhJPzJWha
+ 5iUZgMPPty7j0fF3ckZA7zHAVaGDHe+eTCAIRUrSkv1VwKfSM0ftMEqUF
+ U1HaH4R+k4NCKdljTp+mj0rFKKeDrRCo1kpRm+yeBz+SG2NHcGVANJPRu
+ zoU83hE/wIry839ptosvhdqB7PBIKSxM6YySrrDQIaAhh90+G/EbJqzHI
+ fg9ixW4208YfC4FpFQ50I+lDL9yQKOhNGBuNS42oRCDe5DYmhagg/yJde g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="247781460"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="247781460"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 05:30:08 -0800
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="525547172"
+Received: from ijbeckin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.19.63])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 05:30:05 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Tue,  8 Feb 2022 15:30:01 +0200
+Message-Id: <20220208133001.2986140-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <bda92c2540e661c39613167b53b5e5388a57a730.1643878928.git.jani.nikula@intel.com>
+References: <bda92c2540e661c39613167b53b5e5388a57a730.1643878928.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20220204170541.829227-1-lucas.demarchi@intel.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-In-Reply-To: <20220204170541.829227-1-lucas.demarchi@intel.com>
 Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 08 Feb 2022 13:21:01 +0000
-Subject: Re: [Intel-gfx] [PATCH v4] dma-buf-map: Rename to iosys-map
+Subject: [Intel-gfx] [PATCH v3] drm/i915/dp: rewrite DP 2.0 128b/132b link
+ training based on errata
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,160 +60,356 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Corbet <corbet@lwn.net>, airlied@linux.ie, daniel.vetter@ffwll.ch,
- linux-doc@vger.kernel.org, christian.koenig@amd.com,
- srinivas.kandagatla@linaro.org, tzimmermann@suse.de,
- gregkh@linuxfoundation.org, nouveau@lists.freedesktop.org,
- sumit.semwal@linaro.org, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The DP 2.0 errata completely overhauls the 128b/132b link training, with
+no provisions for backward compatibility with the original DP 2.0
+specification.
 
+The changes are too intrusive to consider reusing the same code for both
+8b/10b and 128b/132b, mainly because the LTTPR channel equalisation is
+done concurrently instead of serialized.
 
-On 2/4/22 18:05, Lucas De Marchi wrote:
-> Rename struct dma_buf_map to struct iosys_map and corresponding APIs.
-> Over time dma-buf-map grew up to more functionality than the one used by
-> dma-buf: in fact it's just a shim layer to abstract system memory, that
-> can be accessed via regular load and store, from IO memory that needs to
-> be acessed via arch helpers.
-> 
-> The idea is to extend this API so it can fulfill other needs, internal
-> to a single driver. Example: in the i915 driver it's desired to share
-> the implementation for integrated graphics, which uses mostly system
-> memory, with discrete graphics, which may need to access IO memory.
-> 
-> The conversion was mostly done with the following semantic patch:
-> 
-> 	@r1@
-> 	@@
-> 	- struct dma_buf_map
-> 	+ struct iosys_map
-> 
-> 	@r2@
-> 	@@
-> 	(
-> 	- DMA_BUF_MAP_INIT_VADDR
-> 	+ IOSYS_MAP_INIT_VADDR
-> 	|
-> 	- dma_buf_map_set_vaddr
-> 	+ iosys_map_set_vaddr
-> 	|
-> 	- dma_buf_map_set_vaddr_iomem
-> 	+ iosys_map_set_vaddr_iomem
-> 	|
-> 	- dma_buf_map_is_equal
-> 	+ iosys_map_is_equal
-> 	|
-> 	- dma_buf_map_is_null
-> 	+ iosys_map_is_null
-> 	|
-> 	- dma_buf_map_is_set
-> 	+ iosys_map_is_set
-> 	|
-> 	- dma_buf_map_clear
-> 	+ iosys_map_clear
-> 	|
-> 	- dma_buf_map_memcpy_to
-> 	+ iosys_map_memcpy_to
-> 	|
-> 	- dma_buf_map_incr
-> 	+ iosys_map_incr
-> 	)
-> 
-> 	@@
-> 	@@
-> 	- #include <linux/dma-buf-map.h>
-> 	+ #include <linux/iosys-map.h>
-> 
-> Then some files had their includes adjusted and some comments were
-> update to remove mentions to dma-buf-map.
-> 
-> Since this is not specific to dma-buf anymore, move the documentation to
-> the "Bus-Independent Device Accesses" section.
-> 
-> v2:
->   - Squash patches
-> 
-> v3:
->   - Fix wrong removal of dma-buf.h from MAINTAINERS
->   - Move documentation from dma-buf.rst to device-io.rst
-> 
-> v4:
->   - Change documentation tile and level
-> 
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> Acked-by: Christian König <christian.koenig@amd.com>
-> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  Documentation/driver-api/device-io.rst        |   9 +
->  Documentation/driver-api/dma-buf.rst          |   9 -
->  Documentation/gpu/todo.rst                    |  20 +-
->  MAINTAINERS                                   |   9 +-
->  drivers/dma-buf/dma-buf.c                     |  22 +-
->  drivers/dma-buf/heaps/cma_heap.c              |  10 +-
->  drivers/dma-buf/heaps/system_heap.c           |  10 +-
->  drivers/gpu/drm/ast/ast_drv.h                 |   2 +-
->  drivers/gpu/drm/ast/ast_mode.c                |   8 +-
->  drivers/gpu/drm/drm_cache.c                   |  18 +-
->  drivers/gpu/drm/drm_client.c                  |   9 +-
->  drivers/gpu/drm/drm_fb_helper.c               |  12 +-
->  drivers/gpu/drm/drm_gem.c                     |  12 +-
->  drivers/gpu/drm/drm_gem_cma_helper.c          |   9 +-
->  drivers/gpu/drm/drm_gem_framebuffer_helper.c  |  16 +-
->  drivers/gpu/drm/drm_gem_shmem_helper.c        |  15 +-
->  drivers/gpu/drm/drm_gem_ttm_helper.c          |   4 +-
->  drivers/gpu/drm/drm_gem_vram_helper.c         |  25 +-
->  drivers/gpu/drm/drm_internal.h                |   6 +-
->  drivers/gpu/drm/drm_mipi_dbi.c                |   8 +-
->  drivers/gpu/drm/drm_prime.c                   |   4 +-
->  drivers/gpu/drm/etnaviv/etnaviv_drv.h         |   2 +-
->  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   8 +-
->  drivers/gpu/drm/gud/gud_pipe.c                |   4 +-
->  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   5 +-
->  drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   8 +-
->  .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   6 +-
->  .../gpu/drm/i915/gem/selftests/mock_dmabuf.c  |   6 +-
->  drivers/gpu/drm/lima/lima_gem.c               |   3 +-
->  drivers/gpu/drm/lima/lima_sched.c             |   4 +-
->  drivers/gpu/drm/mediatek/mtk_drm_gem.c        |   7 +-
->  drivers/gpu/drm/mediatek/mtk_drm_gem.h        |   5 +-
->  drivers/gpu/drm/mgag200/mgag200_mode.c        |   4 +-
->  drivers/gpu/drm/msm/msm_drv.h                 |   4 +-
->  drivers/gpu/drm/msm/msm_gem_prime.c           |   6 +-
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |  13 +-
->  drivers/gpu/drm/qxl/qxl_display.c             |   8 +-
->  drivers/gpu/drm/qxl/qxl_draw.c                |   6 +-
->  drivers/gpu/drm/qxl/qxl_drv.h                 |  10 +-
->  drivers/gpu/drm/qxl/qxl_object.c              |   8 +-
->  drivers/gpu/drm/qxl/qxl_object.h              |   4 +-
->  drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
->  drivers/gpu/drm/radeon/radeon_gem.c           |   1 +
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |   9 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.h   |   5 +-
->  drivers/gpu/drm/tegra/gem.c                   |  10 +-
->  drivers/gpu/drm/tiny/cirrus.c                 |   8 +-
->  drivers/gpu/drm/tiny/gm12u320.c               |   7 +-
->  drivers/gpu/drm/ttm/ttm_bo_util.c             |  16 +-
->  drivers/gpu/drm/ttm/ttm_resource.c            |  42 +--
->  drivers/gpu/drm/ttm/ttm_tt.c                  |   8 +-
->  drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
->  drivers/gpu/drm/vboxvideo/vbox_mode.c         |   4 +-
->  drivers/gpu/drm/vkms/vkms_composer.c          |   4 +-
->  drivers/gpu/drm/vkms/vkms_drv.h               |   6 +-
->  drivers/gpu/drm/vkms/vkms_plane.c             |   2 +-
->  drivers/gpu/drm/vkms/vkms_writeback.c         |   2 +-
->  drivers/gpu/drm/xen/xen_drm_front_gem.c       |   7 +-
->  drivers/gpu/drm/xen/xen_drm_front_gem.h       |   6 +-
+NOTES:
 
-For these three:
+* It's a bit unclear when to wait for DP_INTERLANE_ALIGN_DONE and
+  per-lane DP_LANE_SYMBOL_LOCKED. Figure xx4 in the SCR implies the
+  LANEx_CHANNEL_EQ_DONE sequence may end with either 0x77,0x77,0x85 *or*
+  0x33,0x33,0x84 (for four lane configuration in DPCD 0x202..0x204)
+  i.e. without the above bits set. Text elsewhere seems contradictory or
+  incomplete.
 
->  .../common/videobuf2/videobuf2-dma-contig.c   |   8 +-
->  .../media/common/videobuf2/videobuf2-dma-sg.c |   9 +-
->  .../common/videobuf2/videobuf2-vmalloc.c      |  11 +-
+* We read entire link status (6 bytes) everywhere instead of individual
+  DPCD addresses.
 
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+* There are some subtle ambiguities or contradictions in the order of
+  some DPCD access and TPS signal enables/disables. It's also not clear
+  whether these are significant.
 
-Regards,
+v3:
+- Use msecs_to_jiffies_timeout() (Ville)
+- Read status at the beginning of interlane align done loop (Ville)
+- Try to simplify timeout flag use where possible (Ville)
 
-	Hans
+v2:
+- Always try one last time after timeouts to avoid races (Ville)
+- Extend timeout to cover the entire LANEx_EQ_DONE sequence (Ville)
+- Also check for eq interlane align done in LANEx_CDS_DONE Sequence (Ville)
+- Check for Intra-hop status before link training
+
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ .../drm/i915/display/intel_dp_link_training.c | 281 +++++++++++++++++-
+ 1 file changed, 280 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 4e507aa75a03..17aa5d712389 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1102,6 +1102,279 @@ intel_dp_link_train_all_phys(struct intel_dp *intel_dp,
+ 	return ret;
+ }
+ 
++
++/*
++ * 128b/132b DP LANEx_EQ_DONE Sequence (DP 2.0 E11 3.5.2.16.1)
++ */
++static bool
++intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
++			  const struct intel_crtc_state *crtc_state)
++{
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	u8 link_status[DP_LINK_STATUS_SIZE];
++	int delay_us;
++	int try, max_tries = 20;
++	unsigned long deadline;
++	bool timeout = false;
++
++	/*
++	 * Reset signal levels. Start transmitting 128b/132b TPS1.
++	 *
++	 * Put DPRX and LTTPRs (if any) into intra-hop AUX mode by writing TPS1
++	 * in DP_TRAINING_PATTERN_SET.
++	 */
++	if (!intel_dp_reset_link_train(intel_dp, crtc_state, DP_PHY_DPRX,
++				       DP_TRAINING_PATTERN_1)) {
++		drm_err(&i915->drm,
++			"[ENCODER:%d:%s] Failed to start 128b/132b TPS1\n",
++			encoder->base.base.id, encoder->base.name);
++		return false;
++	}
++
++	delay_us = drm_dp_128b132b_read_aux_rd_interval(&intel_dp->aux);
++
++	/* Read the initial TX FFE settings. */
++	if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
++		drm_err(&i915->drm,
++			"[ENCODER:%d:%s] Failed to read TX FFE presets\n",
++			encoder->base.base.id, encoder->base.name);
++		return false;
++	}
++
++	/* Update signal levels and training set as requested. */
++	intel_dp_get_adjust_train(intel_dp, crtc_state, DP_PHY_DPRX, link_status);
++	if (!intel_dp_update_link_train(intel_dp, crtc_state, DP_PHY_DPRX)) {
++		drm_err(&i915->drm,
++			"[ENCODER:%d:%s] Failed to set initial TX FFE settings\n",
++			encoder->base.base.id, encoder->base.name);
++		return false;
++	}
++
++	/* Start transmitting 128b/132b TPS2. */
++	if (!intel_dp_set_link_train(intel_dp, crtc_state, DP_PHY_DPRX,
++				     DP_TRAINING_PATTERN_2)) {
++		drm_err(&i915->drm,
++			"[ENCODER:%d:%s] Failed to start 128b/132b TPS2\n",
++			encoder->base.base.id, encoder->base.name);
++		return false;
++	}
++
++	/* Time budget for the LANEx_EQ_DONE Sequence */
++	deadline = jiffies + msecs_to_jiffies_timeout(400);
++
++	for (try = 0; try < max_tries; try++) {
++		usleep_range(delay_us, 2 * delay_us);
++
++		/*
++		 * The delay may get updated. The transmitter shall read the
++		 * delay before link status during link training.
++		 */
++		delay_us = drm_dp_128b132b_read_aux_rd_interval(&intel_dp->aux);
++
++		if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Failed to read link status\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (drm_dp_128b132b_link_training_failed(link_status)) {
++			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Downstream link training failure\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (drm_dp_128b132b_lane_channel_eq_done(link_status, crtc_state->lane_count)) {
++			drm_dbg_kms(&i915->drm,
++				    "[ENCODER:%d:%s] Lane channel eq done\n",
++				    encoder->base.base.id, encoder->base.name);
++			break;
++		}
++
++		if (timeout) {
++			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Lane channel eq timeout\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (time_after(jiffies, deadline))
++			timeout = true; /* try one last time after deadline */
++
++		/* Update signal levels and training set as requested. */
++		intel_dp_get_adjust_train(intel_dp, crtc_state, DP_PHY_DPRX, link_status);
++		if (!intel_dp_update_link_train(intel_dp, crtc_state, DP_PHY_DPRX)) {
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Failed to update TX FFE settings\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++	}
++
++	if (try == max_tries) {
++		intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++		drm_err(&i915->drm,
++			"[ENCODER:%d:%s] Max loop count reached\n",
++			encoder->base.base.id, encoder->base.name);
++		return false;
++	}
++
++	for (;;) {
++		if (time_after(jiffies, deadline))
++			timeout = true; /* try one last time after deadline */
++
++		if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Failed to read link status\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (drm_dp_128b132b_link_training_failed(link_status)) {
++			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Downstream link training failure\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (drm_dp_128b132b_eq_interlane_align_done(link_status)) {
++			drm_dbg_kms(&i915->drm,
++				    "[ENCODER:%d:%s] Interlane align done\n",
++				    encoder->base.base.id, encoder->base.name);
++			break;
++		}
++
++		if (timeout) {
++			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Interlane align timeout\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		usleep_range(2000, 3000);
++	}
++
++	return true;
++}
++
++/*
++ * 128b/132b DP LANEx_CDS_DONE Sequence (DP 2.0 E11 3.5.2.16.2)
++ */
++static bool
++intel_dp_128b132b_lane_cds(struct intel_dp *intel_dp,
++			   const struct intel_crtc_state *crtc_state,
++			   int lttpr_count)
++{
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	u8 link_status[DP_LINK_STATUS_SIZE];
++	unsigned long deadline;
++
++	if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_TRAINING_PATTERN_SET,
++			       DP_TRAINING_PATTERN_2_CDS) != 1) {
++		drm_err(&i915->drm,
++			"[ENCODER:%d:%s] Failed to start 128b/132b TPS2 CDS\n",
++			encoder->base.base.id, encoder->base.name);
++		return false;
++	}
++
++	/* Time budget for the LANEx_CDS_DONE Sequence */
++	deadline = jiffies + msecs_to_jiffies_timeout((lttpr_count + 1) * 20);
++
++	for (;;) {
++		bool timeout = false;
++
++		if (time_after(jiffies, deadline))
++			timeout = true; /* try one last time after deadline */
++
++		usleep_range(2000, 3000);
++
++		if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Failed to read link status\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (drm_dp_128b132b_eq_interlane_align_done(link_status) &&
++		    drm_dp_128b132b_cds_interlane_align_done(link_status) &&
++		    drm_dp_128b132b_lane_symbol_locked(link_status, crtc_state->lane_count)) {
++			drm_dbg_kms(&i915->drm,
++				    "[ENCODER:%d:%s] CDS interlane align done\n",
++				    encoder->base.base.id, encoder->base.name);
++			break;
++		}
++
++		if (drm_dp_128b132b_link_training_failed(link_status)) {
++			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] Downstream link training failure\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++		if (timeout) {
++			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
++			drm_err(&i915->drm,
++				"[ENCODER:%d:%s] CDS timeout\n",
++				encoder->base.base.id, encoder->base.name);
++			return false;
++		}
++
++	}
++
++	/* FIXME: Should DP_TRAINING_PATTERN_DISABLE be written first? */
++	if (intel_dp->set_idle_link_train)
++		intel_dp->set_idle_link_train(intel_dp, crtc_state);
++
++	return true;
++}
++
++/*
++ * 128b/132b link training sequence. (DP 2.0 E11 SCR on link training.)
++ */
++static bool
++intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
++			     const struct intel_crtc_state *crtc_state,
++			     int lttpr_count)
++{
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
++	struct intel_connector *connector = intel_dp->attached_connector;
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	bool passed = false;
++	u8 sink_status;
++
++	/* FIXME: We should possibly do this earlier. */
++	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_SINK_STATUS, &sink_status) != 1) {
++		drm_dbg_kms(&i915->drm, "Failed to read sink status\n");
++		return false;
++	}
++
++	if (sink_status & DP_INTRA_HOP_AUX_REPLY_INDICATION) {
++		drm_dbg_kms(&i915->drm, "Previous link training in progress\n");
++		return false;
++	}
++
++	if (intel_dp_128b132b_lane_eq(intel_dp, crtc_state) &&
++	    intel_dp_128b132b_lane_cds(intel_dp, crtc_state, lttpr_count))
++		passed = true;
++
++	drm_dbg_kms(&i915->drm,
++		    "[CONNECTOR:%d:%s][ENCODER:%d:%s] 128b/132b Link Training %s at link rate = %d, lane count = %d\n",
++		    connector->base.base.id, connector->base.name,
++		    encoder->base.base.id, encoder->base.name,
++		    passed ? "passed" : "failed",
++		    crtc_state->port_clock, crtc_state->lane_count);
++
++	return passed;
++}
++
+ /**
+  * intel_dp_start_link_train - start link training
+  * @intel_dp: DP struct
+@@ -1115,6 +1388,7 @@ intel_dp_link_train_all_phys(struct intel_dp *intel_dp,
+ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 			       const struct intel_crtc_state *crtc_state)
+ {
++	static bool passed;
+ 	/*
+ 	 * TODO: Reiniting LTTPRs here won't be needed once proper connector
+ 	 * HW state readout is added.
+@@ -1127,6 +1401,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 
+ 	intel_dp_prepare_link_train(intel_dp, crtc_state);
+ 
+-	if (!intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count))
++	if (intel_dp_is_uhbr(crtc_state))
++		passed = intel_dp_128b132b_link_train(intel_dp, crtc_state, lttpr_count);
++	else
++		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
++
++	if (!passed)
+ 		intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
+ }
+-- 
+2.30.2
+
