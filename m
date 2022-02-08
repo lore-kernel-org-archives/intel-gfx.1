@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7698C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 23:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E1D4C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 23:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F31ED10E2A2;
-	Tue,  8 Feb 2022 23:50:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7424E10E301;
+	Tue,  8 Feb 2022 23:51:47 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 69AF010E2A2;
- Tue,  8 Feb 2022 23:50:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BC9A710E154;
+ Tue,  8 Feb 2022 23:51:45 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6A886AADE1;
- Tue,  8 Feb 2022 23:50:36 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id BD85AA73C7;
+ Tue,  8 Feb 2022 23:51:45 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
-Date: Tue, 08 Feb 2022 23:50:36 -0000
-Message-ID: <164436423643.22542.4489246870923748089@emeril.freedesktop.org>
+Date: Tue, 08 Feb 2022 23:51:45 -0000
+Message-ID: <164436430577.22536.17791632836702965808@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220208213548.244829-1-jose.souza@intel.com>
 In-Reply-To: <20220208213548.244829-1-jose.souza@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display/tgl+=3A_Implement_new_PLL_programming_step?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/display/tgl+=3A_Implement_new_PLL_programming_step?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,24 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-2f56199b0301 drm/i915/display/tgl+: Implement new PLL programming step
--:50: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
-#50: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:2753:
-+		pll_state->div0 = TGL_DPLL0_DIV0_AFC_STARTUP(TGL_DPLL0_DIV0_AFC_STARTUP_OVERRIDE_VAL);
-
--:59: WARNING:LONG_LINE: line length of 116 exceeds 100 columns
-#59: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:2956:
-+			pll_state->mg_pll_div0 |= DKL_PLL_DIV0_AFC_STARTUP(TGL_DPLL0_DIV0_AFC_STARTUP_OVERRIDE_VAL);
-
--:196: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
-#196: FILE: drivers/gpu/drm/i915/i915_reg.h:7991:
-+#define TGL_DPLL0_DIV0(pll)				_MMIO_PLL(pll, _TGL_DPLL0_DIV0, _TGL_DPLL1_DIV0)
-
--:198: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
-#198: FILE: drivers/gpu/drm/i915/i915_reg.h:7993:
-+#define   TGL_DPLL0_DIV0_AFC_STARTUP(val)		REG_FIELD_PREP(TGL_DPLL0_DIV0_AFC_STARTUP_MASK, (val))
-
-total: 0 errors, 4 warnings, 0 checks, 160 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
