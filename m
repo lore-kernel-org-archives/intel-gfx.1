@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6436BC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 11:37:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB713C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 11:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC2610E662;
-	Tue,  8 Feb 2022 11:37:40 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F74A10E64C
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 11:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0158B10E211;
+	Tue,  8 Feb 2022 11:39:11 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D074610E179;
+ Tue,  8 Feb 2022 11:39:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644320246; x=1675856246;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=EXSQc1GnwvSmsVi4Z8AloluTpIg4sYMIqRqrJY5WUSI=;
- b=KiNfrjbIGazQeP08klQHw0solGNl9ZEPye9rUY1bY+LtCFT+A8+0+9QC
- bR+ybla20gfvRvyVEypSHyXIfCo7TnpFt1F2sTD1RxXcWdCGAAaM47KUq
- VbMwXrT9KiOEpZdJbxIokb2wY+UFUU1tQm2udENlhXIk6Q8cfdqyIhg6n
- d/0jUPWsMOTY7KB+yov0hcteLDzYBX18L+xdM2qy8vfrApmUf0IIP4i+6
- mdWGliC0RNw14lIuP2SPtDppDEsytkZARoNY++Tp/4OdYvHXPxVunVaS+
- iEZ56rJsQ4kO5AgJYIcFUDI8quWzZRZ0NX9prQg9ONaUhzcbZj2fVLMqz g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="232496008"
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="232496008"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 03:37:25 -0800
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="481915362"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 03:37:25 -0800
-From: Imre Deak <imre.deak@intel.com>
+ t=1644320348; x=1675856348;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kGFjpYxzUKbdYzhdaVE0eAbFb59GZXqm0cG24Mqkuzo=;
+ b=F1VJQut/6liXCX3wqGPTWS2LBpNLZcGmiSQQAVnygRJBrocerObYpZIW
+ 7dSv+kalmKvfd3uLWZzys/M46jq58sWteamifDNYCKxKcBIq2tCaCPqb+
+ 78RlrKxYkNdpBbxqGB0p7AYdHbI3zqwBwUEN7VukUKmV/Q6CHfZvPo6/i
+ ORmuuJbaMSzM3XBhIO9n3I3CDhei5eT7EkPWU02/ZF0Rms4dAffdNjvVo
+ EfGE9z1rY5CKfRi+dy50H7413uw6njgGGUGdzxDLgvWXw1xRKWXBmzniY
+ qMSFtnVn68PJ5R76m+nMKorb7xwOesrwyxMQufoGaBlBVEvp1zfF/NLZi g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="248878716"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="248878716"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 03:39:08 -0800
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700816843"
+Received: from amcgrat2-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.10.21])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 03:39:07 -0800
+From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Feb 2022 13:36:51 +0200
-Message-Id: <20220208113656.179823-22-imre.deak@intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20220208113656.179823-1-imre.deak@intel.com>
-References: <20220208113656.179823-1-imre.deak@intel.com>
+Date: Tue,  8 Feb 2022 11:38:15 +0000
+Message-Id: <20220208113815.314048-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 21/26] drm/i915: Sanitize the ADL-S power
- well definition
+Subject: [Intel-gfx] [PATCH] drm/buddy: fixup potential uaf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,159 +55,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of the skip_mask special casing of the ADL-S power well
-descriptors, add a power well descriptor list for ADL-S as well reusing
-the TGL descriptors, w/o the TC-cold power well. ADL-S doesn't have
-TypeC PHYs, so a better way would be having ADL-S specific AUX
-descriptors, but I left changing this for a follow-up.
+If we are unlucky and somehow can't allocate enough memory when
+splitting blocks, where we temporarily end up with the given block and
+its buddy on the respective free list, then we need to ensure we delete
+both blocks, and not just the buddy, before potentially freeing them.
 
-This changes the ordering of the AUX and TC-cold vs. PW_4/5 power wells
-on TGL and ADL-S, but this shouldn't make a difference (PW_4/5 don't
-depend on the AUX/TC-cold power wells).
+v2: rebase on i915_buddy removal
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Fixes: 14d1b9a6247c ("drm/i915: buddy allocator")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
 ---
- .../i915/display/intel_display_power_map.c    | 69 +++++++++++--------
- 1 file changed, 39 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/drm_buddy.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 42fbea02770fe..c4f7ff3bcc3dc 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -902,12 +902,36 @@ static const struct i915_power_well_desc tgl_power_wells_main[] = {
- 		),
- 		.ops = &icl_ddi_power_well_ops,
- 	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_4", &tgl_pwdoms_pw_4,
-+				.hsw.idx = ICL_PW_CTL_IDX_PW_4),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.has_fuses = true,
-+		.irq_pipe_mask = BIT(PIPE_C),
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_5", &tgl_pwdoms_pw_5,
-+				.hsw.idx = TGL_PW_CTL_IDX_PW_5),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.has_fuses = true,
-+		.irq_pipe_mask = BIT(PIPE_D),
-+	},
-+};
-+
-+static const struct i915_power_well_desc tgl_power_wells_tc_cold_off[] = {
-+	{
- 		.instances = &I915_PW_INSTANCES(
- 			I915_PW("TC_cold_off", &tgl_pwdoms_tc_cold_off,
- 				.id = TGL_DISP_PW_TC_COLD_OFF),
- 		),
- 		.ops = &tgl_tc_cold_off_ops,
--	}, {
-+	},
-+};
-+
-+static const struct i915_power_well_desc tgl_power_wells_aux[] = {
-+	{
- 		.instances = &I915_PW_INSTANCES(
- 			I915_PW("AUX_A", &tgl_pwdoms_aux_a, .hsw.idx = ICL_PW_CTL_IDX_AUX_A),
- 			I915_PW("AUX_B", &tgl_pwdoms_aux_b, .hsw.idx = ICL_PW_CTL_IDX_AUX_B),
-@@ -931,22 +955,6 @@ static const struct i915_power_well_desc tgl_power_wells_main[] = {
- 		),
- 		.ops = &icl_aux_power_well_ops,
- 		.is_tc_tbt = true,
--	}, {
--		.instances = &I915_PW_INSTANCES(
--			I915_PW("PW_4", &tgl_pwdoms_pw_4,
--				.hsw.idx = ICL_PW_CTL_IDX_PW_4),
--		),
--		.ops = &hsw_power_well_ops,
--		.has_fuses = true,
--		.irq_pipe_mask = BIT(PIPE_C),
--	}, {
--		.instances = &I915_PW_INSTANCES(
--			I915_PW("PW_5", &tgl_pwdoms_pw_5,
--				.hsw.idx = TGL_PW_CTL_IDX_PW_5),
--		),
--		.ops = &hsw_power_well_ops,
--		.has_fuses = true,
--		.irq_pipe_mask = BIT(PIPE_D),
- 	},
- };
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index d60878bc9c20..2bf75e8abfaa 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -333,8 +333,10 @@ drm_buddy_alloc_blocks(struct drm_buddy *mm, unsigned int order)
+ 	return block;
  
-@@ -954,6 +962,15 @@ static const struct i915_power_well_desc_list tgl_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
- 	I915_PW_DESCRIPTORS(tgl_power_wells_main),
-+	I915_PW_DESCRIPTORS(tgl_power_wells_tc_cold_off),
-+	I915_PW_DESCRIPTORS(tgl_power_wells_aux),
-+};
-+
-+static const struct i915_power_well_desc_list adls_power_wells[] = {
-+	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
-+	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
-+	I915_PW_DESCRIPTORS(tgl_power_wells_main),
-+	I915_PW_DESCRIPTORS(tgl_power_wells_aux),
- };
- 
- #define RKL_PW_4_POWER_DOMAINS \
-@@ -1400,7 +1417,7 @@ static void init_power_well_domains(const struct i915_power_well_instance *inst,
- static int
- __set_power_wells(struct i915_power_domains *power_domains,
- 		  const struct i915_power_well_desc_list *power_well_descs,
--		  int power_well_descs_sz, u64 skip_mask)
-+		  int power_well_descs_sz)
- {
- 	struct drm_i915_private *i915 = container_of(power_domains,
- 						     struct drm_i915_private,
-@@ -1413,8 +1430,7 @@ __set_power_wells(struct i915_power_domains *power_domains,
- 	int plt_idx = 0;
- 
- 	for_each_power_well_instance(power_well_descs, power_well_descs_sz, desc_list, desc, inst)
--		if (!(BIT_ULL(inst->id) & skip_mask))
--			power_well_count++;
-+		power_well_count++;
- 
- 	power_domains->power_well_count = power_well_count;
- 	power_domains->power_wells =
-@@ -1428,9 +1444,6 @@ __set_power_wells(struct i915_power_domains *power_domains,
- 		struct i915_power_well *pw = &power_domains->power_wells[plt_idx];
- 		enum i915_power_well_id id = inst->id;
- 
--		if (BIT_ULL(id) & skip_mask)
--			continue;
--
- 		pw->desc = desc;
- 		drm_WARN_ON(&i915->drm,
- 			    overflows_type(inst - desc->instances->list, pw->instance_idx));
-@@ -1451,12 +1464,9 @@ __set_power_wells(struct i915_power_domains *power_domains,
- 	return 0;
+ out_free:
+-	if (i != order)
++	if (i != order) {
++		list_del(&block->link);
+ 		__drm_buddy_free(mm, block);
++	}
+ 	return ERR_PTR(err);
  }
+ EXPORT_SYMBOL(drm_buddy_alloc_blocks);
+@@ -452,8 +454,10 @@ int drm_buddy_alloc_range(struct drm_buddy *mm,
+ 	buddy = get_buddy(block);
+ 	if (buddy &&
+ 	    (drm_buddy_block_is_free(block) &&
+-	     drm_buddy_block_is_free(buddy)))
++	     drm_buddy_block_is_free(buddy))) {
++		list_del(&block->link);
+ 		__drm_buddy_free(mm, block);
++	}
  
--#define set_power_wells_mask(power_domains, __power_well_descs, skip_mask) \
--	__set_power_wells(power_domains, __power_well_descs, \
--			  ARRAY_SIZE(__power_well_descs), skip_mask)
--
- #define set_power_wells(power_domains, __power_well_descs) \
--	set_power_wells_mask(power_domains, __power_well_descs, 0)
-+	__set_power_wells(power_domains, __power_well_descs, \
-+			  ARRAY_SIZE(__power_well_descs))
- 
- int intel_init_power_wells(struct i915_power_domains *power_domains)
- {
-@@ -1477,8 +1487,7 @@ int intel_init_power_wells(struct i915_power_domains *power_domains)
- 	else if (IS_DG1(i915))
- 		return set_power_wells(power_domains, dg1_power_wells);
- 	else if (IS_ALDERLAKE_S(i915))
--		return set_power_wells_mask(power_domains, tgl_power_wells,
--					   BIT_ULL(TGL_DISP_PW_TC_COLD_OFF));
-+		return set_power_wells(power_domains, adls_power_wells);
- 	else if (IS_ROCKETLAKE(i915))
- 		return set_power_wells(power_domains, rkl_power_wells);
- 	else if (DISPLAY_VER(i915) == 12)
+ err_free:
+ 	drm_buddy_free_list(mm, &allocated);
 -- 
-2.27.0
+2.34.1
 
