@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB233C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE27C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F33C10E48F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 787E710E636;
 	Tue,  8 Feb 2022 10:45:13 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3668A10E3FB;
- Tue,  8 Feb 2022 10:45:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51DED10E224;
+ Tue,  8 Feb 2022 10:45:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644317111; x=1675853111;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=W/ttxw1M8InLF6/k75dKdukGBMYn5FfLdHFU1W+Ur5E=;
- b=EDxbHN6TbbQymSTF2pA1aVtls1hTLrcas9wEAY3XUzxmENlnRJTYgNTy
- M0P8lpsopphcjpj4uz9UHq4OtEUUwG1/rsGkstDJFh3t+siD5kzVe3qtF
- iLnemq9aRXkahrslsLpJOztjKLugMf1PgIlSYf3DXU+X9mT3oK/pumzcJ
- +DUxk6xyKo1blV+AhXBfQ1QmT8C5tbv3+6+S9rVRwBkk0YviuKlGJxJY4
- 37ZIeLq/m/5huNUYdImfjdS0OtFTUu0zlsqJHO4UU5BOBtWcnWYyAJ3Tm
- Kdxm1Rb3s+CzSBxtUzVkbRVPYtIMUJqSaNy7Bd5vOI0+GM22n008+QQg/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="249130459"
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="249130459"
+ t=1644317112; x=1675853112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gqZNDevZLqM/RC37vfn+L0AvGvvPx+wqt3xJH2xPIQE=;
+ b=cdiV7DfOa9ABEDadC1Qs05d2Klc/FiJ8R/6BBmarjqghK2kddCl7HLyy
+ EYW53NpTNgmubBnpWxmGfeyfJSDvxV287ib4L237zR4jQXwSCCDtE3Qkw
+ 9mKS0b9beUTU3V+lKs17gYaDDXypw9yE9fDXz6u1qZXnVH65uvD8HEJcj
+ 9UfktVx+RrYj8HBJ2qlZLoXGnwiHFnHut+xsA5AUyGJM9trPEqMKgTyiT
+ uQUhINXucdWQnB67DSLFYL1vtxxZmJOnox081ldsyPuXZVBfwkavIkZFi
+ UsBArK3+qOgMZmhNM0S8a2QZBWkQY98U8z7QW1jIobno8cXNZ2Gafw/2o Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="249130468"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="249130468"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Feb 2022 02:45:10 -0800
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700804105"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700804111"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Feb 2022 02:45:09 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  8 Feb 2022 02:45:06 -0800
-Message-Id: <20220208104524.2516209-1-lucas.demarchi@intel.com>
+Date: Tue,  8 Feb 2022 02:45:08 -0800
+Message-Id: <20220208104524.2516209-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220208104524.2516209-1-lucas.demarchi@intel.com>
+References: <20220208104524.2516209-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/18] drm/i915/guc: Refactor ADS access to
- use iosys_map
+Subject: [Intel-gfx] [PATCH v2 02/18] iosys-map: Add a few more helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,102 +58,297 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
  Sumit Semwal <sumit.semwal@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v1: https://patchwork.freedesktop.org/series/99378/
-v2: https://patchwork.freedesktop.org/series/99711/
+First the simplest ones:
 
-Main from previous version:
+	- iosys_map_memset(): when abstracting system and I/O memory,
+	  just like the memcpy() use case, memset() also has dedicated
+	  functions to be called for using IO memory.
+	- iosys_map_memcpy_from(): we may need to copy data from I/O
+	  memory, not only to.
 
-	- Rename to iosys-map is already applied
-	- Rewrite IOSYS_MAP_INIT_OFFSET() and eliminate most of its
-	  users, favoring a offset variable to keep the offset from the
-	  original iosys_map.
-	- Add map offset to both iosys_map_rd_field() and
-	  iosys_map_wr_field()
-	- Include documentation with example and expected memory layout
-	  for iosys_map_rd_field()
-	- Replace
+In certain situations it's useful to be able to read or write to an
+offset that is calculated by having the memory layout given by a struct
+declaration. Usually we are going to read/write a u8, u16, u32 or u64.
 
-Original cover letter:
+As a pre-requisite for the implementation, add iosys_map_memcpy_from()
+to be the equivalent of iosys_map_memcpy_to(), but in the other
+direction. Then add 2 pairs of macros:
 
-While porting i915 to arm64 we noticed some issues accessing lmem.
-Some writes were getting corrupted and the final state of the buffer
-didn't have exactly what we wrote. This became evident when enabling
-GuC submission: depending on the number of engines the ADS struct was
-being corrupted and GuC would reject it, refusin to initialize.
+	- iosys_map_rd() / iosys_map_wr()
+	- iosys_map_rd_field() / iosys_map_wr_field()
 
-From Documentation/core-api/bus-virt-phys-mapping.rst:
+The first pair takes the C-type and offset to read/write. The second
+pair uses a struct describing the layout of the mapping in order to
+calculate the offset and size being read/written.
 
-	This memory is called "PCI memory" or "shared memory" or "IO memory" or
-	whatever, and there is only one way to access it: the readb/writeb and
-	related functions. You should never take the address of such memory, because
-	there is really nothing you can do with such an address: it's not
-	conceptually in the same memory space as "real memory" at all, so you cannot
-	just dereference a pointer. (Sadly, on x86 it **is** in the same memory space,
-	so on x86 it actually works to just deference a pointer, but it's not
-	portable).
+We could use readb, readw, readl, readq and the write* counterparts,
+however due to alignment issues this may not work on all architectures.
+If alignment needs to be checked to call the right function, it's not
+possible to decide at compile-time which function to call: so just leave
+the decision to the memcpy function that will do exactly that.
 
-When reading or writing words directly to IO memory, in order to be portable
-the Linux kernel provides the abstraction detailed in section "Differences
-between I/O access functions" of Documentation/driver-api/device-io.rst.
+Finally, in order to use the above macros with a map derived from
+another, add another initializer: IOSYS_MAP_INIT_OFFSET().
 
-This limits our ability to simply overlay our structs on top a buffer
-and directly access it since that buffer may come from IO memory rather than
-system memory. Hence the approach taken in intel_guc_ads.c needs to be
-refactored. This is not the only place in i915 that neeed to be changed, but
-the one causing the most problems, with a real reproducer. This first set of
-patch focuses on fixing the gem object to pass the ADS
+v2:
+  - Rework IOSYS_MAP_INIT_OFFSET() so it doesn't rely on aliasing rules
+    within the union
+  - Add offset to both iosys_map_rd_field() and iosys_map_wr_field() to
+    allow the struct itself to be at an offset from the mapping
+  - Add documentation to iosys_map_rd_field() with example and expected
+    memory layout
 
-After the addition of a few helpers in the dma_buf_map API, most of
-intel_guc_ads.c can be converted to use it. The exception is the regset
-initialization: we'd incur into a lot of extra indirection when
-reading/writting each register. So the regset is converted to use a
-temporary buffer allocated on probe, which is then copied to its
-final location when finishing the initialization or on gt reset.
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ include/linux/iosys-map.h | 202 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 202 insertions(+)
 
-Testing on some discrete cards, after this change we can correctly pass the
-ADS struct to GuC and have it initialized correctly.
-
-thanks
-Lucas De Marchi
-
-Lucas De Marchi (18):
-  iosys-map: Add offset to iosys_map_memcpy_to()
-  iosys-map: Add a few more helpers
-  drm/i915/gt: Add helper for shmem copy to iosys_map
-  drm/i915/guc: Keep iosys_map of ads_blob around
-  drm/i915/guc: Add read/write helpers for ADS blob
-  drm/i915/guc: Convert golden context init to iosys_map
-  drm/i915/guc: Convert policies update to iosys_map
-  drm/i915/guc: Convert engine record to iosys_map
-  drm/i915/guc: Convert guc_ads_private_data_reset to iosys_map
-  drm/i915/guc: Convert golden context prep to iosys_map
-  drm/i915/guc: Replace check for golden context size
-  drm/i915/guc: Convert mapping table to iosys_map
-  drm/i915/guc: Convert capture list to iosys_map
-  drm/i915/guc: Prepare for error propagation
-  drm/i915/guc: Use a single pass to calculate regset
-  drm/i915/guc: Convert guc_mmio_reg_state_init to iosys_map
-  drm/i915/guc: Convert __guc_ads_init to iosys_map
-  drm/i915/guc: Remove plain ads_blob pointer
-
- drivers/gpu/drm/drm_cache.c                   |   2 +-
- drivers/gpu/drm/drm_fb_helper.c               |   2 +-
- drivers/gpu/drm/i915/gt/shmem_utils.c         |  32 ++
- drivers/gpu/drm/i915/gt/shmem_utils.h         |   3 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  14 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    | 382 +++++++++++-------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |   3 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  17 +-
- include/linux/iosys-map.h                     | 219 +++++++++-
- 9 files changed, 500 insertions(+), 174 deletions(-)
-
+diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
+index edd730b1e899..c6b223534b21 100644
+--- a/include/linux/iosys-map.h
++++ b/include/linux/iosys-map.h
+@@ -6,6 +6,7 @@
+ #ifndef __IOSYS_MAP_H__
+ #define __IOSYS_MAP_H__
+ 
++#include <linux/kernel.h>
+ #include <linux/io.h>
+ #include <linux/string.h>
+ 
+@@ -120,6 +121,45 @@ struct iosys_map {
+ 		.is_iomem = false,	\
+ 	}
+ 
++/**
++ * IOSYS_MAP_INIT_OFFSET - Initializes struct iosys_map from another iosys_map
++ * @map_:	The dma-buf mapping structure to copy from
++ * @offset_:	Offset to add to the other mapping
++ *
++ * Initializes a new iosys_map struct based on another passed as argument. It
++ * does a shallow copy of the struct so it's possible to update the back storage
++ * without changing where the original map points to. It is the equivalent of
++ * doing:
++ *
++ * .. code-block:: c
++ *
++ *	iosys_map map = other_map;
++ *	iosys_map_incr(&map, &offset);
++ *
++ * Example usage:
++ *
++ * .. code-block:: c
++ *
++ *	void foo(struct device *dev, struct iosys_map *base_map)
++ *	{
++ *		...
++ *		struct iosys_map map = IOSYS_MAP_INIT_OFFSET(base_map, FIELD_OFFSET);
++ *		...
++ *	}
++ *
++ * The advantage of using the initializer over just increasing the offset with
++ * iosys_map_incr() like above is that the new map will always point to the
++ * right place of the buffer during its scope. It reduces the risk of updating
++ * the wrong part of the buffer and having no compiler warning about that. If
++ * the assignment to IOSYS_MAP_INIT_OFFSET() is forgotten, the compiler can warn
++ * about the use of uninitialized variable.
++ */
++#define IOSYS_MAP_INIT_OFFSET(map_, offset_) ({				\
++	struct iosys_map copy = *map_;					\
++	iosys_map_incr(&copy, offset_);					\
++	copy;								\
++})
++
+ /**
+  * iosys_map_set_vaddr - Sets a iosys mapping structure to an address in system memory
+  * @map:	The iosys_map structure
+@@ -239,6 +279,26 @@ static inline void iosys_map_memcpy_to(struct iosys_map *dst, size_t dst_offset,
+ 		memcpy(dst->vaddr + dst_offset, src, len);
+ }
+ 
++/**
++ * iosys_map_memcpy_from - Memcpy from iosys_map into system memory
++ * @dst:	Destination in system memory
++ * @src:	The iosys_map structure
++ * @src_offset:	The offset from which to copy
++ * @len:	The number of byte in src
++ *
++ * Copies data from a iosys_map with an offset. The dest buffer is in
++ * system memory. Depending on the mapping location, the helper picks the
++ * correct method of accessing the memory.
++ */
++static inline void iosys_map_memcpy_from(void *dst, const struct iosys_map *src,
++					 size_t src_offset, size_t len)
++{
++	if (src->is_iomem)
++		memcpy_fromio(dst, src->vaddr_iomem + src_offset, len);
++	else
++		memcpy(dst, src->vaddr + src_offset, len);
++}
++
+ /**
+  * iosys_map_incr - Increments the address stored in a iosys mapping
+  * @map:	The iosys_map structure
+@@ -255,4 +315,146 @@ static inline void iosys_map_incr(struct iosys_map *map, size_t incr)
+ 		map->vaddr += incr;
+ }
+ 
++/**
++ * iosys_map_memset - Memset iosys_map
++ * @dst:	The iosys_map structure
++ * @offset:	Offset from dst where to start setting value
++ * @value:	The value to set
++ * @len:	The number of bytes to set in dst
++ *
++ * Set value in iosys_map. Depending on the buffer's location, the helper
++ * picks the correct method of accessing the memory.
++ */
++static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
++				    int value, size_t len)
++{
++	if (dst->is_iomem)
++		memset_io(dst->vaddr_iomem + offset, value, len);
++	else
++		memset(dst->vaddr + offset, value, len);
++}
++
++/**
++ * iosys_map_rd - Read a C-type value from the iosys_map
++ *
++ * @map__:	The iosys_map structure
++ * @offset__:	The offset from which to read
++ * @type__:	Type of the value being read
++ *
++ * Read a C type value from iosys_map, handling possible un-aligned accesses to
++ * the mapping.
++ *
++ * Returns:
++ * The value read from the mapping.
++ */
++#define iosys_map_rd(map__, offset__, type__) ({			\
++	type__ val;							\
++	iosys_map_memcpy_from(&val, map__, offset__, sizeof(val));	\
++	val;								\
++})
++
++/**
++ * iosys_map_wr - Write a C-type value to the iosys_map
++ *
++ * @map__:	The iosys_map structure
++ * @offset__:	The offset from the mapping to write to
++ * @type__:	Type of the value being written
++ * @val__:	Value to write
++ *
++ * Write a C-type value to the iosys_map, handling possible un-aligned accesses
++ * to the mapping.
++ */
++#define iosys_map_wr(map__, offset__, type__, val__) ({			\
++	type__ val = (val__);						\
++	iosys_map_memcpy_to(map__, offset__, &val, sizeof(val));	\
++})
++
++/**
++ * iosys_map_rd_field - Read a member from a struct in the iosys_map
++ *
++ * @map__:		The iosys_map structure
++ * @struct_offset__:	Offset from the beggining of the map, where the struct
++ *			is located
++ * @struct_type__:	The struct describing the layout of the mapping
++ * @field__:		Member of the struct to read
++ *
++ * Read a value from iosys_map considering its layout is described by a C struct
++ * starting at @struct_offset__. The field offset and size is calculated and its
++ * value read handling possible un-aligned memory accesses. For example: suppose
++ * there is a @struct foo defined as below and the value ``foo.field2.inner2``
++ * needs to be read from the iosys_map:
++ *
++ * .. code-block:: c
++ *
++ *	struct foo {
++ *		int field1;
++ *		struct {
++ *			int inner1;
++ *			int inner2;
++ *		} field2;
++ *		int field3;
++ *	} __packed;
++ *
++ * This is the expected memory layout of a buffer using iosys_map_rd_field():
++ *
++ * +------------------------------+--------------------------+
++ * | Address                      | Content                  |
++ * +==============================+==========================+
++ * | buffer + 0000                | start of mmapped buffer  |
++ * |                              | pointed by iosys_map     |
++ * +------------------------------+--------------------------+
++ * | ...                          | ...                      |
++ * +------------------------------+--------------------------+
++ * | buffer + ``struct_offset__`` | start of ``struct foo``  |
++ * +------------------------------+--------------------------+
++ * | ...                          | ...                      |
++ * +------------------------------+--------------------------+
++ * | buffer + wwww                | ``foo.field2.inner2``    |
++ * +------------------------------+--------------------------+
++ * | ...                          | ...                      |
++ * +------------------------------+--------------------------+
++ * | buffer + yyyy                | end of ``struct foo``    |
++ * +------------------------------+--------------------------+
++ * | ...                          | ...                      |
++ * +------------------------------+--------------------------+
++ * | buffer + zzzz                | end of mmaped buffer     |
++ * +------------------------------+--------------------------+
++ *
++ * Values automatically calculated by this macro or not needed are denoted by
++ * wwww, yyyy and zzzz. This is the code to read that value:
++ *
++ * .. code-block:: c
++ *
++ *	x = iosys_map_rd_field(&map, offset, struct foo, field2.inner2);
++ *
++ * Returns:
++ * The value read from the mapping.
++ */
++#define iosys_map_rd_field(map__, struct_offset__, struct_type__, field__) ({	\
++	struct_type__ *s;							\
++	iosys_map_rd(map__, struct_offset__ + offsetof(struct_type__, field__),	\
++		     typeof(s->field__));					\
++})
++
++/**
++ * iosys_map_wr_field - Write to a member of a struct in the iosys_map
++ *
++ * @map__:		The iosys_map structure
++ * @struct_offset__:	Offset from the beggining of the map, where the struct
++ *			is located
++ * @struct_type__:	The struct describing the layout of the mapping
++ * @field__:		Member of the struct to read
++ * @val__:		Value to write
++ *
++ * Write a value to the iosys_map considering its layout is described by a C struct
++ * starting at @struct_offset__. The field offset and size is calculated and the
++ * @val__ is written handling possible un-aligned memory accesses. Refer to
++ * iosys_map_rd_field() for expected usage and memory layout.
++ */
++#define iosys_map_wr_field(map__, struct_offset__, struct_type__, field__, val__) ({	\
++	struct_type__ *s;								\
++	iosys_map_wr(map__, struct_offset__ + offsetof(struct_type__, field__),		\
++		     typeof(s->field__), val__);					\
++})
++
+ #endif /* __IOSYS_MAP_H__ */
 -- 
 2.35.1
 
