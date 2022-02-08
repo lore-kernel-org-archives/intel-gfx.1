@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC9BC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4227C4332F
 	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 21:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B36910E610;
-	Tue,  8 Feb 2022 21:09:12 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E393D10E42A
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 21:08:59 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id s10so591984wra.5
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 13:08:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC4810E5D7;
+	Tue,  8 Feb 2022 21:09:11 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABEA610E5F6
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 21:08:54 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id i15so609768wrb.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 13:08:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4RkUIVbtXWLMhEgVRprjRhLI7qLO2cMyCi+EhjvzZFw=;
- b=hTk5ijDHDMgQxKkA9BUrH0F2len3i2uKxb473Xdpw5iK2wSxC9XmwvSbp7bYW0PLPk
- QbKh5k1BSr/Tz0jA06DfQZya1UO90srY53nLsu9F38wakMDiTM36Bhv99fd2QZrbuYGF
- DdQESgBxjgKfPc9w3F9JFaETCMViCRldl1gyk=
+ bh=5dejATrMlEFDMStF3OMugI910D6zgAzmO5LlqrLdpoQ=;
+ b=Vg1y5QTUtQPV6CG6h9MGHsJhE0k2b69Rfhh2j1S9IuenRN1GWwvmFzFJpiuPcQwm9A
+ 8wtN+XoACH3DLsEdXmydVgZh8yHMegVuRM8+2Yff7ryLYiM9OyCcjpUEW/7GTKAx98je
+ TMkLIra5W9DrBamN01sItC1ThQl5ST5R9mGcM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4RkUIVbtXWLMhEgVRprjRhLI7qLO2cMyCi+EhjvzZFw=;
- b=xuuI0pQJWlPLg3LDsn4NBlTIHzdeL3UK9BntQIz4D13r2mPgGGNEb2LJjW4Q8RWJkd
- KExmyY7j+SgEauk/NMYGX1HjqRipEhvegJGZTGk8NjTcwPpVz4ONgNr4Edoo4tbPldmR
- mrzJan8c3bcnVOvtpMNyjBOVKeA9r2Zp7mZRd3PpIuOKt3Qb8FdIEvsArpZrC6FUWoKM
- HqulNWnNRmnjZLPfHE+TujuWSwTrRes2pbrBNOIeV/TZ244Jh4ZfRR2PaSfrH2xasb/0
- aqjrrHStUj5onj9eZkbwXxg3h3mHxNCE+NI2FSoLcExl0UBUo03kLA7rySUugXVTytB+
- hiCQ==
-X-Gm-Message-State: AOAM533qesI+w0vnPLSasQd7vYxhL7vRjywqSV68aNxcKvVhyCnt8h78
- N4IaaO0wmvgKcQi1eAPg0oS1aA==
-X-Google-Smtp-Source: ABdhPJyIfpRc7ZB9NjqbdIphlUwlwXNT2L6vdvwdr3OEGArxXf4a6YivXer2aDFvbp3CRI9pZL06XA==
-X-Received: by 2002:a5d:47af:: with SMTP id 15mr5049471wrb.88.1644354538519;
- Tue, 08 Feb 2022 13:08:58 -0800 (PST)
+ bh=5dejATrMlEFDMStF3OMugI910D6zgAzmO5LlqrLdpoQ=;
+ b=IkTO6P7/GyunCHyTRetOi9DQcM8mMXHxlbM3ettHlaUzs73a8fFwFYjBbOdgTP5Twa
+ TytFhs8EbUde4E5HY41kIThaxX6vEifk66W7QJsnlpp2xI7jSzEAVVNJDUJKBSP/LvR8
+ JUaETrlt0wSUofnbwaiFxMu8Rgx/lzWWdgiQMng/czg5Gr21+NHw+mD36MRCaY1ehGQ8
+ +GHT9xfed6ZGAxS0GNtz5Vdvwl79CXlSIWFwCwkupMhXJsG8KiQ0Ty1K6b7v36XzR06c
+ 41tznjnsbRWVhJuCtonaPAoLMJMawKBHYp3fVS7unYb0KZr+G6lCHuTe/96ZK/hOuAQv
+ kJSg==
+X-Gm-Message-State: AOAM531X5sMloU0Rw6lUGxRgV9vnKoUQCwDgeX6B3A7knkRL4O2LR4QJ
+ za979dewoIL5CStgB9xjNM3v+g==
+X-Google-Smtp-Source: ABdhPJxnNKHzn5v9jmu/dxkGA2+iLKqES3WUl0y1h3nMtz+C+V7YDVarwK1JvdMEbxQauvwana1kng==
+X-Received: by 2002:a5d:46c5:: with SMTP id g5mr4776916wrs.406.1644354533075; 
+ Tue, 08 Feb 2022 13:08:53 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id o14sm3033561wmr.3.2022.02.08.13.08.57
+ by smtp.gmail.com with ESMTPSA id o14sm3033561wmr.3.2022.02.08.13.08.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Feb 2022 13:08:58 -0800 (PST)
+ Tue, 08 Feb 2022 13:08:52 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  8 Feb 2022 22:08:24 +0100
-Message-Id: <20220208210824.2238981-20-daniel.vetter@ffwll.ch>
+Date: Tue,  8 Feb 2022 22:08:19 +0100
+Message-Id: <20220208210824.2238981-15-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
 References: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 19/19] fbdev: Make registered_fb[] private to
- fbmem.c
+Subject: [Intel-gfx] [PATCH v2 14/19] fbcon: Move console_lock for
+ register/unlink/unregister
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,95 +65,200 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Zheyu Ma <zheyuma97@gmail.com>,
- Xiyu Yang <xiyuyang19@fudan.edu.cn>, Jens Frederich <jfrederich@gmail.com>,
- Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Xiyu Yang <xiyuyang19@fudan.edu.cn>, Du Cheng <ducheng2@gmail.com>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- linux-staging@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Zhen Lei <thunder.leizhen@huawei.com>,
- Guenter Roeck <linux@roeck-us.net>,
+ Zheyu Ma <zheyuma97@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Jon Nettleton <jon.nettleton@gmail.com>, Helge Deller <deller@gmx.de>
+ Zhen Lei <thunder.leizhen@huawei.com>, Guenter Roeck <linux@roeck-us.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Well except when the olpc dcon fbdev driver is enabled, that thing
-digs around in there in rather unfixable ways.
+Ideally console_lock becomes an implementation detail of fbcon.c and
+doesn't show up anywhere in fbmem.c. We're still pretty far from that,
+but at least the register/unregister code is there now.
 
-Cc oldc_dcon maintainers as fyi.
+With this the do_fb_ioctl() handler is the only code in fbmem.c still
+calling console_lock().
 
-v2: I typoed the config name (0day)
-
-Cc: kernel test robot <lkp@intel.com>
-Cc: Jens Frederich <jfrederich@gmail.com>
-Cc: Jon Nettleton <jon.nettleton@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Claudio Suarez <cssk@net-c.es>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 Cc: Matthew Wilcox <willy@infradead.org>
 Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-Cc: Zhen Lei <thunder.leizhen@huawei.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-Cc: linux-fbdev@vger.kernel.org
 Cc: Zheyu Ma <zheyuma97@gmail.com>
 Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
+Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
 ---
- drivers/video/fbdev/core/fbmem.c | 8 ++++++--
- include/linux/fb.h               | 7 +++----
- 2 files changed, 9 insertions(+), 6 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 33 ++++++++++++++++++++++++++------
+ drivers/video/fbdev/core/fbmem.c | 23 ++--------------------
+ 2 files changed, 29 insertions(+), 27 deletions(-)
 
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 4f9752ee9189..abb419a091c6 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2756,10 +2756,12 @@ void fbcon_fb_unbind(struct fb_info *info)
+ 	int i, new_idx = -1;
+ 	int idx = info->node;
+ 
+-	WARN_CONSOLE_UNLOCKED();
++	console_lock();
+ 
+-	if (!fbcon_has_console_bind)
++	if (!fbcon_has_console_bind) {
++		console_unlock();
+ 		return;
++	}
+ 
+ 	for (i = first_fb_vc; i <= last_fb_vc; i++) {
+ 		if (con2fb_map[i] != idx &&
+@@ -2794,6 +2796,8 @@ void fbcon_fb_unbind(struct fb_info *info)
+ 		}
+ 		fbcon_unbind();
+ 	}
++
++	console_unlock();
+ }
+ 
+ /* called with console_lock held */
+@@ -2801,10 +2805,12 @@ void fbcon_fb_unregistered(struct fb_info *info)
+ {
+ 	int i, idx;
+ 
+-	WARN_CONSOLE_UNLOCKED();
++	console_lock();
+ 
+-	if (deferred_takeover)
++	if (deferred_takeover) {
++		console_unlock();
+ 		return;
++	}
+ 
+ 	idx = info->node;
+ 	for (i = first_fb_vc; i <= last_fb_vc; i++) {
+@@ -2833,6 +2839,7 @@ void fbcon_fb_unregistered(struct fb_info *info)
+ 
+ 	if (!num_registered_fb)
+ 		do_unregister_con_driver(&fb_con);
++	console_unlock();
+ }
+ 
+ void fbcon_remap_all(struct fb_info *info)
+@@ -2890,19 +2897,27 @@ static inline void fbcon_select_primary(struct fb_info *info)
+ }
+ #endif /* CONFIG_FRAMEBUFFER_DETECT_PRIMARY */
+ 
++static bool lockless_register_fb;
++module_param_named_unsafe(lockless_register_fb, lockless_register_fb, bool, 0400);
++MODULE_PARM_DESC(lockless_register_fb,
++	"Lockless framebuffer registration for debugging [default=off]");
++
+ /* called with console_lock held */
+ int fbcon_fb_registered(struct fb_info *info)
+ {
+ 	int ret = 0, i, idx;
+ 
+-	WARN_CONSOLE_UNLOCKED();
++	if (!lockless_register_fb)
++		console_lock();
++	else
++		atomic_inc(&ignore_console_lock_warning);
+ 
+ 	idx = info->node;
+ 	fbcon_select_primary(info);
+ 
+ 	if (deferred_takeover) {
+ 		pr_info("fbcon: Deferring console take-over\n");
+-		return 0;
++		goto out;
+ 	}
+ 
+ 	if (info_idx == -1) {
+@@ -2922,6 +2937,12 @@ int fbcon_fb_registered(struct fb_info *info)
+ 		}
+ 	}
+ 
++out:
++	if (!lockless_register_fb)
++		console_unlock();
++	else
++		atomic_dec(&ignore_console_lock_warning);
++
+ 	return ret;
+ }
+ 
 diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index 6f6f7a763969..6f0eb596a2cd 100644
+index 37656883e7bd..6f6f7a763969 100644
 --- a/drivers/video/fbdev/core/fbmem.c
 +++ b/drivers/video/fbdev/core/fbmem.c
-@@ -49,10 +49,14 @@
- static DEFINE_MUTEX(registration_lock);
+@@ -1594,14 +1594,9 @@ static void do_remove_conflicting_framebuffers(struct apertures_struct *a,
+ 	}
+ }
  
- struct fb_info *registered_fb[FB_MAX] __read_mostly;
--EXPORT_SYMBOL(registered_fb);
+-static bool lockless_register_fb;
+-module_param_named_unsafe(lockless_register_fb, lockless_register_fb, bool, 0400);
+-MODULE_PARM_DESC(lockless_register_fb,
+-	"Lockless framebuffer registration for debugging [default=off]");
 -
- int num_registered_fb __read_mostly;
-+#if IS_ENABLED(CONFIG_FB_OLPC_DCON)
-+EXPORT_SYMBOL(registered_fb);
- EXPORT_SYMBOL(num_registered_fb);
-+#endif
-+#define for_each_registered_fb(i)		\
-+	for (i = 0; i < FB_MAX; i++)		\
-+		if (!registered_fb[i]) {} else
- 
- bool fb_center_logo __read_mostly;
- 
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index 23b19cf8bccd..afaa1474a283 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -623,16 +623,15 @@ extern int fb_get_color_depth(struct fb_var_screeninfo *var,
- extern int fb_get_options(const char *name, char **option);
- extern int fb_new_modelist(struct fb_info *info);
- 
-+#if IS_ENABLED(CONFIG_FB_OLPC_DCON)
- extern struct fb_info *registered_fb[FB_MAX];
-+
- extern int num_registered_fb;
-+#endif
- extern bool fb_center_logo;
- extern int fb_logo_count;
- extern struct class *fb_class;
- 
--#define for_each_registered_fb(i)		\
--	for (i = 0; i < FB_MAX; i++)		\
--		if (!registered_fb[i]) {} else
--
- static inline void lock_fb_info(struct fb_info *info)
+ static int do_register_framebuffer(struct fb_info *fb_info)
  {
- 	mutex_lock(&info->lock);
+-	int i, ret;
++	int i;
+ 	struct fb_videomode mode;
+ 
+ 	if (fb_check_foreignness(fb_info))
+@@ -1670,17 +1665,7 @@ static int do_register_framebuffer(struct fb_info *fb_info)
+ 	}
+ #endif
+ 
+-	if (!lockless_register_fb)
+-		console_lock();
+-	else
+-		atomic_inc(&ignore_console_lock_warning);
+-	ret = fbcon_fb_registered(fb_info);
+-
+-	if (!lockless_register_fb)
+-		console_unlock();
+-	else
+-		atomic_dec(&ignore_console_lock_warning);
+-	return ret;
++	return fbcon_fb_registered(fb_info);
+ }
+ 
+ static void unbind_console(struct fb_info *fb_info)
+@@ -1690,9 +1675,7 @@ static void unbind_console(struct fb_info *fb_info)
+ 	if (WARN_ON(i < 0 || i >= FB_MAX || registered_fb[i] != fb_info))
+ 		return;
+ 
+-	console_lock();
+ 	fbcon_fb_unbind(fb_info);
+-	console_unlock();
+ }
+ 
+ static void unlink_framebuffer(struct fb_info *fb_info)
+@@ -1735,9 +1718,7 @@ static void do_unregister_framebuffer(struct fb_info *fb_info)
+ 		fb_notifier_call_chain(FB_EVENT_FB_UNREGISTERED, &event);
+ 	}
+ #endif
+-	console_lock();
+ 	fbcon_fb_unregistered(fb_info);
+-	console_unlock();
+ 
+ 	/* this may free fb info */
+ 	put_fb_info(fb_info);
 -- 
 2.34.1
 
