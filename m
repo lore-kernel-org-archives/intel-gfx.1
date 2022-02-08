@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFB2C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9D0C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:46:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71E4110E703;
-	Tue,  8 Feb 2022 10:45:21 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B302510E65A;
- Tue,  8 Feb 2022 10:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4548F10E733;
+	Tue,  8 Feb 2022 10:45:22 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3073F10E665;
+ Tue,  8 Feb 2022 10:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644317113; x=1675853113;
+ t=1644317114; x=1675853114;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hKsfs/ueD4khjt0zRLrFK6ml51A906EPY/V17+csL40=;
- b=JpfmqYZZ2vA5gxQmNQmWj7kN7zzOvicqjha4Z9L1/QK7V+164xKhv7za
- pxcB7nJU6727j+E0brSMS/cDtZNUuWCkjvhFZJwvLU8ElNZwCVITAEegb
- 1+jQExXGyH3/F1DiMiu9K/k/j7vW83ePT2SvZXNeF4sa2CFpUKzxr+gvi
- tuy9v1ppkNsj3VnsCRunHQE3Y4rxqT0DNTLYWbp4cplmRpFT77RZrmkno
- fMLLYkFbwFNIy+gycXLW9h2pqr9z3pmD1SZ+TxWPn+l3xt+ZRTzRMLFVe
- BJ4DPg4fRKxpRUJJB6NTQjbt/NnRSrFEjx0BD6264hC54dH48xL8dBX99 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="273451090"
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="273451090"
+ bh=s1Qxt0vJpDMt7ktod8rZEshbKcLSwyIQeQfqQBmocOk=;
+ b=fbB+fcgeqTEVK63GsSQ0WOngvZTEuwUwd8W42tnJj4gnPcalLeSZiOqY
+ OXzJW1L3VCUye0DiDhMpJOGdhJCG1pN384QIAEUzR4hs6eq3hPzRC0T+0
+ b2XxuTARHL0PQLlnrEW7S9sUXJvVsAmtyJCkynpR1VFR2lnff4LISorQc
+ jaJG32BplVkDNL6H4Sq4Tf1Uo0bqE0odIkcLX0HVAKkGgOAr1OgiU4eDe
+ zBO2GqDyFw4C08T4Iqft3jf7Tr66j2HZIqx0Ru9xwxwMBft6UJSU9dE71
+ 9dj8f5JvBm7USIGiKrYpaC9s1HU8SpQFTxaOXQoOqFo3LYBKcX2k7smqi g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="249130487"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="249130487"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 02:45:13 -0800
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700804162"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 02:45:12 -0800
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="700804133"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 02:45:10 -0800
+ 08 Feb 2022 02:45:09 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  8 Feb 2022 02:45:24 -0800
-Message-Id: <20220208104524.2516209-19-lucas.demarchi@intel.com>
+Date: Tue,  8 Feb 2022 02:45:15 -0800
+Message-Id: <20220208104524.2516209-10-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220208104524.2516209-1-lucas.demarchi@intel.com>
 References: <20220208104524.2516209-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 18/18] drm/i915/guc: Remove plain ads_blob
- pointer
+Subject: [Intel-gfx] [PATCH v2 09/18] drm/i915/guc: Convert
+ guc_ads_private_data_reset to iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,9 +66,8 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now we have the access to content of GuC ADS either using iosys_map
-API or using a temporary buffer. Remove guc->ads_blob as there shouldn't
-be updates using the bare pointer anymore.
+Use iosys_map_memset() to zero the private data as ADS may be either
+on system or IO memory.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -78,62 +77,24 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h     | 3 +--
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 8 ++++----
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index f857e9190750..bf7079480d47 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -147,8 +147,7 @@ struct intel_guc {
- 
- 	/** @ads_vma: object allocated to hold the GuC ADS */
- 	struct i915_vma *ads_vma;
--	/** @ads_blob: contents of the GuC ADS */
--	struct __guc_ads_blob *ads_blob;
-+	/** @ads_map: contents of the GuC ADS */
- 	struct iosys_map ads_map;
- 	/** @ads_regset_size: size of the save/restore regsets in the ADS */
- 	u32 ads_regset_size;
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index d0593063c0dc..847e00390b00 100644
+index 383c5994d4ef..7e355eef8d64 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -667,6 +667,7 @@ static void __guc_ads_init(struct intel_guc *guc)
-  */
- int intel_guc_ads_create(struct intel_guc *guc)
- {
-+	void *ads_blob;
- 	u32 size;
- 	int ret;
+@@ -671,8 +671,8 @@ static void guc_ads_private_data_reset(struct intel_guc *guc)
+ 	if (!size)
+ 		return;
  
-@@ -691,14 +692,14 @@ int intel_guc_ads_create(struct intel_guc *guc)
- 	size = guc_ads_blob_size(guc);
- 
- 	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->ads_vma,
--					     (void **)&guc->ads_blob);
-+					     &ads_blob);
- 	if (ret)
- 		return ret;
- 
- 	if (i915_gem_object_is_lmem(guc->ads_vma->obj))
--		iosys_map_set_vaddr_iomem(&guc->ads_map, (void __iomem *)guc->ads_blob);
-+		iosys_map_set_vaddr_iomem(&guc->ads_map, (void __iomem *)ads_blob);
- 	else
--		iosys_map_set_vaddr(&guc->ads_map, guc->ads_blob);
-+		iosys_map_set_vaddr(&guc->ads_map, ads_blob);
- 
- 	__guc_ads_init(guc);
- 
-@@ -720,7 +721,6 @@ void intel_guc_ads_init_late(struct intel_guc *guc)
- void intel_guc_ads_destroy(struct intel_guc *guc)
- {
- 	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
--	guc->ads_blob = NULL;
- 	iosys_map_clear(&guc->ads_map);
- 	kfree(guc->ads_regset);
+-	memset((void *)guc->ads_blob + guc_ads_private_data_offset(guc), 0,
+-	       size);
++	iosys_map_memset(&guc->ads_map, guc_ads_private_data_offset(guc),
++			 0, size);
  }
+ 
+ /**
 -- 
 2.35.1
 
