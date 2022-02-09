@@ -4,126 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFFF4C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CECA7C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1516910E2F2;
-	Mon, 14 Feb 2022 15:49:54 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2124.outbound.protection.outlook.com [40.107.215.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F1710E9D0;
- Fri, 11 Feb 2022 02:33:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mYcls2hYgTRkgRmLNYq+PpwVIWJryFOwxZNyueE26a3tnCn6NO7ctkIsPPwe6D00MxSJ4nBypq+NL9zLZs70r5i+aC86rlvau8xIqaopkvfC0KFZJCBWOSpylLCt3MiVBK4WPNMARQKjWtphsSwPWpa+Tf2nmtyfsu/aykmtjvefwPJdYbFF2gZ/u8mCC5xLeTirYR4HCMqt57p0+OpLShvt13urdeGBmVeiERdpZ0XETvdNFvXEjeKHKu4R7kmIPDamA6ueWCEkCoBHE85FmXn/Ek7O0wM8uCNrxMCQ/ydjPr1AKH9by6o/rJInotFRSWSwSFh6m1Rf+lBvL8uJ9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pTRNaeTNqvizWhskx53RuBoI6rnoc/OaONHjRSZtZb4=;
- b=laobJddwq3euwBKa5idoNzIY/7GQA2ReT4wkGY1t/IuwriDfjUWCgXneQBVKvJZbjQMEwoL2XoSepmVxUvm4oj1eS9W8kwTplcbQ7ZfYQeKDkfl/90x+zYYhHCzrezi38qdD5Kb+x8JVTSIVEnsmq9+mFydaSulJhUpxWb6V5qKXJ4v6wiDcfL8r0LLKE5vFifVM8+rF1YNx5K6Oqjdovwz+jjX98zHg4fce6+ybX38hCoKnuRd7OKqXeDzEx9iqtpZsD4TPa7KFOVPb5igkNIUlycp2VdASGx3oQvKqFTns31bbtEIwZ0BCH9ZmgJGUelczm8McgpQKhDvgDzp8QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pTRNaeTNqvizWhskx53RuBoI6rnoc/OaONHjRSZtZb4=;
- b=LuaQiHhLoMWk0Q6lAgXzFEOIF6E/Tvssv1qtqGP5p02RQG8Mvb2Dz7NV+nXvvOaHeq3gxceKD6D9jOypqntrMeIhxRWvSnVV77vTNmiVa20z3dTY4XqQWxjMbfgk3YwlPk3stSSsFVrkIniZKlundxfpguDw8QV/1s6+Co3ewWA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by PS1PR0601MB3705.apcprd06.prod.outlook.com (2603:1096:300:80::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
- 2022 02:33:02 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 02:33:01 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
- dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Date: Thu, 10 Feb 2022 18:30:35 -0800
-Message-Id: <1644546640-23283-13-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
- (2603:1096:201:21::14) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2881610E23C;
+	Mon, 14 Feb 2022 15:49:59 +0000 (UTC)
+Received: from mail.efficios.com (mail.efficios.com [167.114.26.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96DC889CD7
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 19:17:10 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.efficios.com (Postfix) with ESMTP id E5C483B48DE;
+ Wed,  9 Feb 2022 14:17:09 -0500 (EST)
+Received: from mail.efficios.com ([127.0.0.1])
+ by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id p4pAwA43GFBW; Wed,  9 Feb 2022 14:17:09 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.efficios.com (Postfix) with ESMTP id 477333B492B;
+ Wed,  9 Feb 2022 14:17:09 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com 477333B492B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=default; t=1644434229;
+ bh=yADqTyQkhJP9OM2muqi1wi9cZWwijNMCjs7GZNnU5nc=;
+ h=Date:From:To:Message-ID:MIME-Version;
+ b=hjAFoufIR8rv34T8WsJNcQHG8/h0g9PvgdEhLOVfwKchQzI7I7kmaa8BmDDKxMIb8
+ qWMtRNQ9+HYHp5RDTPgJQyWNwtJShaSLCaeaWeVFtlSiRpb8mSI0xOOaYinY+Fpkkt
+ 3o3JwteTLTuKrtXLK4G2qjxABKI2FQHxhvqVkuso+VgtU/YXYUEpEM75ArV9nCO66D
+ msEjAjad96iZYXYzCEJmCdSbVqIUrQKcdJ4RHsEWlhVnJx0YsSZuQdgiRpNm7EF9IZ
+ TqtlkNotNQEZholmuLFREIRKaa75WLNb0VPCsfQLH6JPerbhUJFETOJh59k9GszePF
+ ibWtvtXK55TGA==
+X-Virus-Scanned: amavisd-new at efficios.com
+Received: from mail.efficios.com ([127.0.0.1])
+ by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 1xFgL6eLxLgz; Wed,  9 Feb 2022 14:17:09 -0500 (EST)
+Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
+ by mail.efficios.com (Postfix) with ESMTP id 313EF3B47F2;
+ Wed,  9 Feb 2022 14:17:09 -0500 (EST)
+Date: Wed, 9 Feb 2022 14:17:09 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: Waiman Long <longman@redhat.com>
+Message-ID: <593915946.50384.1644434229077.JavaMail.zimbra@efficios.com>
+In-Reply-To: <69e5f778-8715-4acf-c027-58b6ec4a9e77@redhat.com>
+References: <20220208184208.79303-1-namhyung@kernel.org>
+ <20220209090908.GK23216@worktop.programming.kicks-ass.net>
+ <24fe6a08-5931-8e8d-8d77-459388c4654e@redhat.com>
+ <919214156.50301.1644431371345.JavaMail.zimbra@efficios.com>
+ <69e5f778-8715-4acf-c027-58b6ec4a9e77@redhat.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a0c82371-8017-4197-5f91-08d9ed06d2ea
-X-MS-TrafficTypeDiagnostic: PS1PR0601MB3705:EE_
-X-Microsoft-Antispam-PRVS: <PS1PR0601MB3705AF49C75AC16BA5099910BD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 11djht2qCnSHMekgjn3yfBRNtKoR0UKGRdDeekosS2A4AcFGfSf+QKEcjVSnzr3ieJMEzCCnbyUD7zK7fd2IcVdw0r4yjmIqyF2yGbTm+2HU4IlFNRVNlCKKDzRlZ/6cCVK37j2tZ0Mw55gBsf2CFgFEpdmKeIS+UijpaMSkOLATA7oqL0OIuuQVDg+p4PfEZaN8rqN1A2VQH7ttB9uBIX1QuI7bQLdAdVou+oIweYykJdmldP2YkkYJJxj8P9cFqoqSruo+mu2cJaEx0HEeAHnMIiO2tAhoUJQM5465VSFPX8O0eoMKKQuNpCyjC5sIljeXf0enq7aKAT6lbhSVB1nreAIimblP2EiIuFzqnnsURNqftyYJxzUPDBLAM5kenQUdKj5zUvGSpqhgiqLrHx0MtWB28l6sbzxD52d6iHp3EM1j3KM6T98sYHvMbFX0oOZRroNIYvYKkVQ41UTrURd+fIF69cftcJiBCa2U4TxXtre2edAL7Xf3Dmr5zRlq2lbuFtffgfkBkv4YbzE+Nqlwg36WM7ihe6PospLDzLIrL25Z3iXeEQz10a3Ko6R89PJzcS7JGG0eOGV1u+wijPYeha6073Gp7Mecq2MK1wX4vfIblPMSue9oHRzEojZpvmBbZx2B/+DhzfB+rH1xuC5F63LNPO4aD5udzwWf2fz6s/XwP8QuzB/cxV7XJrrd/BRaTaXaCA5ozq8eLq5y1gtQUD2ZTAdcWp005htUYf8JtG4kn7FB4qp40LfQrBdB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?j9fyLt2pN3iVlwuQgYSDuidhHBuXIqGYNxxdAxZxiLqMohOtaeQ4vcG95cj4?=
- =?us-ascii?Q?8tk23Bxd/fSNFy190paiTPbZL3vhMrekLNGVOImi/gPBk1Nmv9rA5EhMuCUP?=
- =?us-ascii?Q?je1dnQHm49etj4mp/Q/gankTIjbTVaB62MwksFHWLaiLP/pNgQUEJYyr5WoC?=
- =?us-ascii?Q?OMjBLuNNTc/mwvq11hwxOagLktLUfBsWIWzyh5eGr+/IobCHbnsPjJejsNRY?=
- =?us-ascii?Q?xZbJUywMZtmYConMfnjZ+w0HCd+Uft3dek8DObgX88vbFk1wnhyvfwk1AQ0x?=
- =?us-ascii?Q?uYuIbot6Bkxx33EGOf8p83qlCg8m0YznvJsThw3o3CGJHmiM7vv+uNLaMtlw?=
- =?us-ascii?Q?usupnjPdxbrdZXbzikVs312ML/TVP6s8qMU8b7DtjE4EqVhixvtN+ZGxIVJK?=
- =?us-ascii?Q?0KzoC8C8bktQol0RNWc818k8cAcO6wruT8ZEgZ5R8Zk+qy7bmpcdGi2FCbsW?=
- =?us-ascii?Q?s9je5QH/Yn6UCHJ1c5oG9uCwsy+NTWu5Iw/UyZUrFlveovYFyzZXsXIA3K0a?=
- =?us-ascii?Q?lxExdE3NfIXWcMgetjHAtg6j5PT2NZFgeIC/RUQaNnV4o6HVpSewEuPC0pwr?=
- =?us-ascii?Q?VgHexVgfvMw/FLOaoG/R+lKAproLn+ODDh3D1pBjq0e/gCJuBSWILxeHKahW?=
- =?us-ascii?Q?q5Jna0NBrGCp5GZ3+qrGLpGy0UCXiQUqxoi+EHYPhuY3AxYxPhR2nUlPIuXb?=
- =?us-ascii?Q?5yFuSIUekF7EchRUNEHzaK1T0eBkIkvdkOvtJRFx2/1YcA2uasFAjbzVvBHV?=
- =?us-ascii?Q?MSxF+3SACPq6sNMNgm0Cu/UH7JxUz0TCBh/SZUBT49E+7Yes8YWgFBDj205N?=
- =?us-ascii?Q?Mp+TOTxnEq/Sf/nEQPhey2gV08XSH5+37sUQo71qI16kkeOSHoUiZxZ92IR9?=
- =?us-ascii?Q?glj+z7pMxkcYjul7sFNTksL8yoKrvPERGBvpUgaRElg5qmlK2bUKO5diNCLj?=
- =?us-ascii?Q?HaewpMmmXkY5Xf7TmEQOZhAwT9/T8KrKjxzBmUpDkyo6N8Z1iijvF6S1rU5X?=
- =?us-ascii?Q?6doyYzqhqNcMQnhkv2bK27LTFrUXktrhC0ABsnJ2xZiRnWgbrFzsoblnlebD?=
- =?us-ascii?Q?rKoVD9/mufSXio0kFwHGCy8kihdYplrZdv8XCNgYMdqVkTbSILPM7+QT3feE?=
- =?us-ascii?Q?lAeO4y6o3g4K8R1jUgNrg7f0pe8o2xN5oqw+wTJXj75JdqPzbeufTeyw0YPi?=
- =?us-ascii?Q?kDFmcPQZ1YQ7aAOv9e8x37tsOHwwDeqz/N9s/rpyqto+GyGqVjh3w1KMwrgK?=
- =?us-ascii?Q?NEt2SLFP5Eb6KdYskenPL0wzNkd0yLDMz0yCNIPoDpJ44z4P2APDeA5Xzgh4?=
- =?us-ascii?Q?s7Db7ETALugxj5MA9fTSin7gcOkwlJDzxeravTfwq7laIXqNF+Mt4IEi94Rs?=
- =?us-ascii?Q?RGtman4w0dQhnGfzetD8P4kt0GstkLSxXwmeezCGkmK2tBRHEqN5Olrimr/P?=
- =?us-ascii?Q?jb5MSFNcL+dHhWKg0Cibf6vl5j1o3ZmE4CzOI6/xz2kBgG/W9YnAIg4sBXRE?=
- =?us-ascii?Q?jmYw42Kp2ugl7V2ivgeqwjtyl43EwCq3BBYSKg9FL55TxqFMyCAs/U+7bVtm?=
- =?us-ascii?Q?/7PCgwOqunni2VGWvO06JdDBSksstiVDmNMy9W3uYmtPM6SGbTApPcjW+bem?=
- =?us-ascii?Q?Uq3uRUmeM0yZNeBmyxrTv8k=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0c82371-8017-4197-5f91-08d9ed06d2ea
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:33:01.6141 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HDxsZ8OVzzcn3EziFmxkt3V6wB/ovplKbr+7kX4+3TE38TD3TwdWdWogUoybm0UyyF1ke3SnrbndMi04Mm7HgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB3705
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [167.114.26.124]
+X-Mailer: Zimbra 8.8.15_GA_4203 (ZimbraWebClient - FF96 (Linux)/8.8.15_GA_4203)
+Thread-Topic: locking: Separate lock tracepoints from lockdep/lock_stat (v1)
+Thread-Index: +C+VmEK8/wKvHxydXodKzSxj1FQLTw==
 X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
-Subject: [Intel-gfx] [PATCH V2 12/13] media: wl128x: use
- time_is_before_jiffies() instead of jiffies judgment
+Subject: Re: [Intel-gfx] [RFC 00/12] locking: Separate lock tracepoints from
+ lockdep/lock_stat (v1)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,41 +71,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wang Qing <wangqing@vivo.com>
+Cc: rcu <rcu@vger.kernel.org>, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, rostedt <rostedt@goodmis.org>,
+ Radoslaw Burny <rburny@google.com>, Byungchul Park <byungchul.park@lge.com>,
+ "Paul E. McKenney" <paul.mckenney@linaro.org>,
+ cgroups <cgroups@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ linux-btrfs <linux-btrfs@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Wang Qing <wangqing@vivo.com>
+----- On Feb 9, 2022, at 2:02 PM, Waiman Long longman@redhat.com wrote:
 
-It is better to use time_xxx() directly instead of jiffies judgment
-for understanding.
+> On 2/9/22 13:29, Mathieu Desnoyers wrote:
+>> ----- On Feb 9, 2022, at 1:19 PM, Waiman Long longman@redhat.com wrote:
+>>
+>>> On 2/9/22 04:09, Peter Zijlstra wrote:
+>>>> On Tue, Feb 08, 2022 at 10:41:56AM -0800, Namhyung Kim wrote:
+>>>>
+>>>>> Eventually I'm mostly interested in the contended locks only and I
+>>>>> want to reduce the overhead in the fast path.  By moving that, it'd be
+>>>>> easy to track contended locks with timing by using two tracepoints.
+>>>> So why not put in two new tracepoints and call it a day?
+>>>>
+>>>> Why muck about with all that lockdep stuff just to preserve the name
+>>>> (and in the process continue to blow up data structures etc..). This
+>>>> leaves distros in a bind, will they enable this config and provide
+>>>> tracepoints while bloating the data structures and destroying things
+>>>> like lockref (which relies on sizeof(spinlock_t)), or not provide this
+>>>> at all.
+>>>>
+>>>> Yes, the name is convenient, but it's just not worth it IMO. It makes
+>>>> the whole proposition too much of a trade-off.
+>>>>
+>>>> Would it not be possible to reconstruct enough useful information from
+>>>> the lock callsite?
+>>>>
+>>> I second that as I don't want to see the size of a spinlock exceeds 4
+>>> bytes in a production system.
+>>>
+>>> Instead of storing additional information (e.g. lock name) directly into
+>>> the lock itself. Maybe we can store it elsewhere and use the lock
+>>> address as the key to locate it in a hash table. We can certainly extend
+>>> the various lock init functions to do that. It will be trickier for
+>>> statically initialized locks, but we can probably find a way to do that too.
+>> If we go down that route, it would be nice if we can support a few different
+>> use-cases for various tracers out there.
+>>
+>> One use-case (a) requires the ability to query the lock name based on its
+>> address as key.
+>> For this a hash table is a good fit. This would allow tracers like ftrace to
+>> output lock names in its human-readable output which is formatted within the
+>> kernel.
+>>
+>> Another use-case (b) is to be able to "dump" the lock { name, address } tuples
+>> into the trace stream (we call this statedump events in lttng), and do the
+>> translation from address to name at post-processing. This simply requires
+>> that this information is available for iteration for both the core kernel
+>> and module locks, so the tracer can dump this information on trace start
+>> and module load.
+>>
+>> Use-case (b) is very similar to what is done for the kernel tracepoints. Based
+>> on this, implementing the init code that iterates on those sections and
+>> populates
+>> a hash table for use-case (a) should be easy enough.
+> 
+> Yes, that are good use cases for this type of functionality. I do need
+> to think about how to do it for statically initialized lock first.
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
----
- drivers/media/radio/wl128x/fmdrv_common.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Tracepoints already solved that problem.
 
-diff --git a/drivers/media/radio/wl128x/fmdrv_common.c b/drivers/media/radio/wl128x/fmdrv_common.c
-index 6142484d..a599d08
---- a/drivers/media/radio/wl128x/fmdrv_common.c
-+++ b/drivers/media/radio/wl128x/fmdrv_common.c
-@@ -23,6 +23,7 @@
- #include <linux/firmware.h>
- #include <linux/module.h>
- #include <linux/nospec.h>
-+#include <linux/jiffies.h>
- 
- #include "fmdrv.h"
- #include "fmdrv_v4l2.h"
-@@ -342,7 +343,7 @@ static void send_tasklet(struct tasklet_struct *t)
- 		return;
- 
- 	/* Check, is there any timeout happened to last transmitted packet */
--	if ((jiffies - fmdev->last_tx_jiffies) > FM_DRV_TX_TIMEOUT) {
-+	if (time_is_before_jiffies(fmdev->last_tx_jiffies + FM_DRV_TX_TIMEOUT)) {
- 		fmerr("TX timeout occurred\n");
- 		atomic_set(&fmdev->tx_cnt, 1);
- 	}
+Look at the macro DEFINE_TRACE_FN() in include/linux/tracepoint.h. You will notice that
+it statically defines a struct tracepoint in a separate section and a tracepoint_ptr_t
+in a __tracepoints_ptrs section.
+
+Then the other parts of the picture are in kernel/tracepoint.c:
+
+extern tracepoint_ptr_t __start___tracepoints_ptrs[];
+extern tracepoint_ptr_t __stop___tracepoints_ptrs[];
+
+and kernel/module.c:find_module_sections()
+
+#ifdef CONFIG_TRACEPOINTS
+        mod->tracepoints_ptrs = section_objs(info, "__tracepoints_ptrs",
+                                             sizeof(*mod->tracepoints_ptrs),
+                                             &mod->num_tracepoints);
+#endif
+
+and the iteration code over kernel and modules in kernel/tracepoint.c.
+
+All you need in addition is in include/asm-generic/vmlinux.lds.h, we add
+to the DATA_DATA define an entry such as:
+
+        STRUCT_ALIGN();                                                 \
+        *(__tracepoints)                                                \
+
+and in RO_DATA:
+
+                . = ALIGN(8);                                           \
+                __start___tracepoints_ptrs = .;                         \
+                KEEP(*(__tracepoints_ptrs)) /* Tracepoints: pointer array */ \
+                __stop___tracepoints_ptrs = .; 
+
+AFAIU, if you do something similar for a structure that contains your relevant
+lock information, it should be straightforward to handle statically initialized
+locks.
+
+Thanks,
+
+Mathieu
+
+
+> 
+> Thanks,
+> Longman
+
 -- 
-2.7.4
-
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
