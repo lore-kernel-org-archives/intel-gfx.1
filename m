@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391A9C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 11:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9881DC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 11:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A00810E6FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B23D210E6FF;
 	Wed,  9 Feb 2022 11:35:43 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D3710E6FD
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 11:35:42 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A97C310E69B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 11:35:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644406542; x=1675942542;
+ t=1644406540; x=1675942540;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=rWiMjP8l9WycIP92pDkxOMw/FMBf/vRwrCUJ5m0V/io=;
- b=ZhbOeUfgu9C6Vp6xmL7awzPm1tKRfjeTQxUs/VdI+fXyNQ7yA4kf6SAF
- GG92+Qw2tX0RowzHq4n7gIB2a+mdXzqiXExm0iUiiqLoeJOErfE8qtsMU
- jlkmwLzH6EEw2Klbi/+0JJAcsMlvyejuCpU9435N3vtNxJOX/SxYq+G8A
- zZ2xs7hiiEFygBsIE9eAScP8ktjakbw0x1Md2cx6kRx25D8fJ/EKGNxkw
- 69hL28mCaRGpBeRUCbAnxGhduiFh3ieu+2sx1tVjY3mm2pd3E0Kav6KLm
- TDxexl/o56Ap87LdUAHEQVnzYw+LVBN8maozx9shct99f8s/Y5i2I1pO0 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="249391373"
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="249391373"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 03:35:41 -0800
+ bh=BO6SVBl1m8QJyOUSPLSe/8tkGn/iYtwqmepdUbqJoMw=;
+ b=TAbCvMF3DL5fj4lGxVT9vICNYjPmJgqA9NZ4Csm0r3s0zF8uPlJZFeSS
+ cryiOGTzYnSJ0FNK5snI0piFN52DKePfywo5PVhPt5L0nJWGIk3CoN4cH
+ istEVaN+OhbzoSCQ0Dx/+8pkV29gwh5Uif5ys4fxp0fS+BYGQ+U75RiLS
+ Wh/PJbpXE1Vk7oGoGwDY2vbwpvNKAfwjtQX0IE4MXwmeN52gaTCN2Iywx
+ NhUQxmiCbE1F/KrqaXDf1gUnE1u0CMstYV/ehAZSGvSL8gbf9l84atla5
+ +pehiUSmpvGFIFkpYTssxWljoS826mqmX4Ci/cJAuMKMWwAFDuHVNTGBF g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="335586444"
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="335586444"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2022 03:35:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="622247826"
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="485210519"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by FMSMGA003.fm.intel.com with SMTP; 09 Feb 2022 03:35:39 -0800
+ by orsmga006.jf.intel.com with SMTP; 09 Feb 2022 03:35:30 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 09 Feb 2022 13:35:39 +0200
+ Wed, 09 Feb 2022 13:35:29 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Feb 2022 13:35:24 +0200
-Message-Id: <20220209113526.7595-5-ville.syrjala@linux.intel.com>
+Date: Wed,  9 Feb 2022 13:35:21 +0200
+Message-Id: <20220209113526.7595-2-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220209113526.7595-1-ville.syrjala@linux.intel.com>
 References: <20220209113526.7595-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/7] drm/i915: Extract hsw_ips_get_config()
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915: Change IPS calling convention
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +63,101 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pull the IPS state readout into hsw_ips.c.
+Follow the modern state+crtc calling convention for the IPS
+code as well.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/hsw_ips.c       | 20 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/hsw_ips.h       |  1 +
- drivers/gpu/drm/i915/display/intel_display.c | 14 +-------------
- 3 files changed, 22 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 38 +++++++++++---------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/hsw_ips.c b/drivers/gpu/drm/i915/display/hsw_ips.c
-index fb34ef615025..38014e0cc9ad 100644
---- a/drivers/gpu/drm/i915/display/hsw_ips.c
-+++ b/drivers/gpu/drm/i915/display/hsw_ips.c
-@@ -249,3 +249,23 @@ int hsw_ips_compute_config(struct intel_atomic_state *state,
- 
- 	return 0;
- }
-+
-+void hsw_ips_get_config(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+
-+	if (!hsw_crtc_supports_ips(crtc))
-+		return;
-+
-+	if (IS_HASWELL(i915)) {
-+		crtc_state->ips_enabled = intel_de_read(i915, IPS_CTL) & IPS_ENABLE;
-+	} else {
-+		/*
-+		 * We cannot readout IPS state on broadwell, set to
-+		 * true so we can set it to a defined state on first
-+		 * commit.
-+		 */
-+		crtc_state->ips_enabled = true;
-+	}
-+}
-diff --git a/drivers/gpu/drm/i915/display/hsw_ips.h b/drivers/gpu/drm/i915/display/hsw_ips.h
-index d63bdef5100a..4564dee497d7 100644
---- a/drivers/gpu/drm/i915/display/hsw_ips.h
-+++ b/drivers/gpu/drm/i915/display/hsw_ips.h
-@@ -21,5 +21,6 @@ bool hsw_crtc_supports_ips(struct intel_crtc *crtc);
- bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state);
- int hsw_ips_compute_config(struct intel_atomic_state *state,
- 			   struct intel_crtc *crtc);
-+void hsw_ips_get_config(struct intel_crtc_state *crtc_state);
- 
- #endif /* __HSW_IPS_H__ */
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 134527981e2b..cdfee4ba1166 100644
+index 5cc142a83ad7..c5d30c683911 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4191,19 +4191,7 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 			ilk_get_pfit_config(pipe_config);
+@@ -1170,11 +1170,14 @@ static void intel_crtc_dpms_overlay_disable(struct intel_crtc *crtc)
+ 	 */
+ }
+ 
+-static bool hsw_pre_update_disable_ips(const struct intel_crtc_state *old_crtc_state,
+-				       const struct intel_crtc_state *new_crtc_state)
++static bool hsw_pre_update_disable_ips(struct intel_atomic_state *state,
++				       struct intel_crtc *crtc)
+ {
+-	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
+-	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
+ 
+ 	if (!old_crtc_state->ips_enabled)
+ 		return false;
+@@ -1197,11 +1200,14 @@ static bool hsw_pre_update_disable_ips(const struct intel_crtc_state *old_crtc_s
+ 	return !new_crtc_state->ips_enabled;
+ }
+ 
+-static bool hsw_post_update_enable_ips(const struct intel_crtc_state *old_crtc_state,
+-				       const struct intel_crtc_state *new_crtc_state)
++static bool hsw_post_update_enable_ips(struct intel_atomic_state *state,
++				       struct intel_crtc *crtc)
+ {
+-	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
+-	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
+ 
+ 	if (!new_crtc_state->ips_enabled)
+ 		return false;
+@@ -1325,7 +1331,7 @@ static void intel_post_plane_update(struct intel_atomic_state *state,
+ 	if (new_crtc_state->update_wm_post && new_crtc_state->hw.active)
+ 		intel_update_watermarks(dev_priv);
+ 
+-	if (hsw_post_update_enable_ips(old_crtc_state, new_crtc_state))
++	if (hsw_post_update_enable_ips(state, crtc))
+ 		hsw_enable_ips(new_crtc_state);
+ 
+ 	intel_fbc_post_update(state, crtc);
+@@ -1430,7 +1436,7 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+ 
+ 	intel_psr_pre_plane_update(state, crtc);
+ 
+-	if (hsw_pre_update_disable_ips(old_crtc_state, new_crtc_state) &&
++	if (hsw_pre_update_disable_ips(state, crtc) &&
+ 	    hsw_disable_ips(old_crtc_state))
+ 		intel_crtc_wait_for_next_vblank(crtc);
+ 
+@@ -2812,12 +2818,12 @@ bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state)
+ 	return true;
+ }
+ 
+-static int hsw_compute_ips_config(struct intel_crtc_state *crtc_state)
++static int hsw_ips_compute_config(struct intel_atomic_state *state,
++				  struct intel_crtc *crtc)
+ {
+-	struct drm_i915_private *dev_priv =
+-		to_i915(crtc_state->uapi.crtc->dev);
+-	struct intel_atomic_state *state =
+-		to_intel_atomic_state(crtc_state->uapi.state);
++	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
++	struct intel_crtc_state *crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
+ 
+ 	crtc_state->ips_enabled = false;
+ 
+@@ -5322,7 +5328,7 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
  	}
  
--	if (hsw_crtc_supports_ips(crtc)) {
--		if (IS_HASWELL(dev_priv))
--			pipe_config->ips_enabled = intel_de_read(dev_priv,
--								 IPS_CTL) & IPS_ENABLE;
--		else {
--			/*
--			 * We cannot readout IPS state on broadwell, set to
--			 * true so we can set it to a defined state on first
--			 * commit.
--			 */
--			pipe_config->ips_enabled = true;
--		}
--	}
-+	hsw_ips_get_config(pipe_config);
- 
- 	if (pipe_config->cpu_transcoder != TRANSCODER_EDP &&
- 	    !transcoder_is_dsi(pipe_config->cpu_transcoder)) {
+ 	if (HAS_IPS(dev_priv)) {
+-		ret = hsw_compute_ips_config(crtc_state);
++		ret = hsw_ips_compute_config(state, crtc);
+ 		if (ret)
+ 			return ret;
+ 	}
 -- 
 2.34.1
 
