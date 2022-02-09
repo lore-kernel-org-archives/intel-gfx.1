@@ -4,47 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF56C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 14:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A0CDC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 15:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4FB10E288;
-	Wed,  9 Feb 2022 14:46:45 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D14A10E288
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 14:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644418004; x=1675954004;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=h+CkBbwJE56ZzhTNSMhejoFHg69rr+YQby+69ub/MOs=;
- b=NwNWmxinH+vjo9umny+VKmxscsTwQU55LXu3ENe8fqTFp3athDtw/7+2
- 9x/O+JcW3tvOE7Mj+gk8tr/oiNdvS7suC/+gP1zBcV+abAZ806TFom93n
- G1VadFx3TMQ15xm/y6xCaj3OhoSEdMTn0D+RlniufuVcx9Sq/KRwKfGLy
- /E/t7MhY3fKu8GNqYzBnqyGSeP8jGCWl9Xcin3AavvU9qYRmqVNmSP4uk
- EsHsvetiDP+x6dvBN+rpSyo02CH5hejpxTe73S7/GPxStJkitXYzRbC5v
- 9J6S9Kv8ybQdhIw4NSuTMTgcOSH1t3kM512JIWQ0XtSYPOiKV+uPUQqw8 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="273754869"
-X-IronPort-AV: E=Sophos;i="5.88,356,1635231600"; d="scan'208";a="273754869"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 06:46:43 -0800
-X-IronPort-AV: E=Sophos;i="5.88,356,1635231600"; d="scan'208";a="541123790"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 06:46:42 -0800
-Date: Wed, 9 Feb 2022 16:46:38 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>
-Message-ID: <20220209144638.GA424945@ideak-desk.fi.intel.com>
-References: <20220208213548.244829-1-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCE1E10E243;
+	Wed,  9 Feb 2022 15:10:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AC48110E243;
+ Wed,  9 Feb 2022 15:10:29 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AA2D4A0169;
+ Wed,  9 Feb 2022 15:10:29 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1071677230302240199=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220208213548.244829-1-jose.souza@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/tgl+: Implement new PLL
- programming step
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Wed, 09 Feb 2022 15:10:29 -0000
+Message-ID: <164441942968.23774.13341074606678157439@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220209123121.3337496-1-jani.nikula@intel.com>
+In-Reply-To: <20220209123121.3337496-1-jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_move_the_DRIVER=5F*_macros_to_i915=5Fdriver=2E=5Bch=5D?=
+ =?utf-8?q?_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,252 +41,240 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 08, 2022 at 01:35:48PM -0800, José Roberto de Souza wrote:
-> A new programming step was added to combo and TC PLL sequences.
-> If override_AFC_startup is set in VBT, driver should overwrite
-> AFC_startup value to 0x7 in PLL's div0 register.
-> 
-> The current understating is that only TGL needs this and all display
-> 12 and newer platforms will have a older VBT or a newer VBT with
-> override_AFC_startup set to 0 but in any case there is a
-> drm_warn_on_once() to let us know if this is not true.
-> 
-> BSpec: 49204
-> BSpec: 20122 (pending aproval, check working copies)
-> BSpec: 49968
-> BSpec: 71360
-> Cc: Imre Deak <imre.deak@intel.com>
-> Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c     |  4 ++
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 38 +++++++++++++------
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  6 ++-
->  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  8 ++++
->  drivers/gpu/drm/i915/i915_drv.h               |  1 +
->  drivers/gpu/drm/i915/i915_reg.h               | 13 +++++++
->  6 files changed, 57 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index aec0efd5350ef..a4134b63f2d49 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -596,6 +596,10 @@ parse_general_features(struct drm_i915_private *i915,
->  	} else {
->  		i915->vbt.orientation = DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
->  	}
-> +
-> +	if (bdb->version >= 249)
-> +		i915->vbt.override_afc_startup_bit = general->override_afc_startup_bit;
-> +
->  	drm_dbg_kms(&i915->drm,
->  		    "BDB_GENERAL_FEATURES int_tv_support %d int_crt_support %d lvds_use_ssc %d lvds_ssc_freq %d display_clock_mode %d fdi_rx_polarity_inverted %d\n",
->  		    i915->vbt.int_tv_support,
-> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> index 6723c3de5a80c..a60917b926de9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> @@ -2748,6 +2748,9 @@ static void icl_calc_dpll_state(struct drm_i915_private *i915,
->  		pll_state->cfgcr1 |= TGL_DPLL_CFGCR1_CFSELOVRD_NORMAL_XTAL;
->  	else
->  		pll_state->cfgcr1 |= DPLL_CFGCR1_CENTRAL_FREQ_8400;
-> +
-> +	if (i915->vbt.override_afc_startup_bit)
-> +		pll_state->div0 = TGL_DPLL0_DIV0_AFC_STARTUP(TGL_DPLL0_DIV0_AFC_STARTUP_OVERRIDE_VAL);
->  }
->  
->  static bool icl_mg_pll_find_divisors(int clock_khz, bool is_dp, bool use_ssc,
-> @@ -2949,6 +2952,8 @@ static bool icl_calc_mg_pll_state(struct intel_crtc_state *crtc_state,
->  					 DKL_PLL_DIV0_PROP_COEFF(prop_coeff) |
->  					 DKL_PLL_DIV0_FBPREDIV(m1div) |
->  					 DKL_PLL_DIV0_FBDIV_INT(m2div_int);
-> +		if (dev_priv->vbt.override_afc_startup_bit)
-> +			pll_state->mg_pll_div0 |= DKL_PLL_DIV0_AFC_STARTUP(TGL_DPLL0_DIV0_AFC_STARTUP_OVERRIDE_VAL);
->  
->  		pll_state->mg_pll_div1 = DKL_PLL_DIV1_IREF_TRIM(iref_trim) |
->  					 DKL_PLL_DIV1_TDC_TARGET_CNT(tdc_targetcnt);
-> @@ -3448,10 +3453,10 @@ static bool dkl_pll_get_hw_state(struct drm_i915_private *dev_priv,
->  		MG_CLKTOP2_CORECLKCTL1_A_DIVRATIO_MASK;
->  
->  	hw_state->mg_pll_div0 = intel_de_read(dev_priv, DKL_PLL_DIV0(tc_port));
-> -	hw_state->mg_pll_div0 &= (DKL_PLL_DIV0_INTEG_COEFF_MASK |
-> -				  DKL_PLL_DIV0_PROP_COEFF_MASK |
-> -				  DKL_PLL_DIV0_FBPREDIV_MASK |
-> -				  DKL_PLL_DIV0_FBDIV_INT_MASK);
-> +	val = DKL_PLL_DIV0_MASK;
-> +	if (dev_priv->vbt.override_afc_startup_bit)
-> +		val |= DKL_PLL_DIV0_AFC_STARTUP_MASK;
-> +	hw_state->mg_pll_div0 &= val;
->  
->  	hw_state->mg_pll_div1 = intel_de_read(dev_priv, DKL_PLL_DIV1(tc_port));
->  	hw_state->mg_pll_div1 &= (DKL_PLL_DIV1_IREF_TRIM_MASK |
-> @@ -3513,6 +3518,10 @@ static bool icl_pll_get_hw_state(struct drm_i915_private *dev_priv,
->  						 TGL_DPLL_CFGCR0(id));
->  		hw_state->cfgcr1 = intel_de_read(dev_priv,
->  						 TGL_DPLL_CFGCR1(id));
-> +		if (dev_priv->vbt.override_afc_startup_bit) {
-> +			hw_state->div0 = intel_de_read(dev_priv, TGL_DPLL0_DIV0(id));
-> +			hw_state->div0 &= TGL_DPLL0_DIV0_AFC_STARTUP_MASK;
-> +		}
->  	} else {
->  		if (IS_JSL_EHL(dev_priv) && id == DPLL_ID_EHL_DPLL4) {
->  			hw_state->cfgcr0 = intel_de_read(dev_priv,
-> @@ -3554,7 +3563,7 @@ static void icl_dpll_write(struct drm_i915_private *dev_priv,
->  {
->  	struct intel_dpll_hw_state *hw_state = &pll->state.hw_state;
->  	const enum intel_dpll_id id = pll->info->id;
-> -	i915_reg_t cfgcr0_reg, cfgcr1_reg;
-> +	i915_reg_t cfgcr0_reg, cfgcr1_reg, div0_reg = INVALID_MMIO_REG;
->  
->  	if (IS_ALDERLAKE_S(dev_priv)) {
->  		cfgcr0_reg = ADLS_DPLL_CFGCR0(id);
-> @@ -3568,6 +3577,7 @@ static void icl_dpll_write(struct drm_i915_private *dev_priv,
->  	} else if (DISPLAY_VER(dev_priv) >= 12) {
->  		cfgcr0_reg = TGL_DPLL_CFGCR0(id);
->  		cfgcr1_reg = TGL_DPLL_CFGCR1(id);
-> +		div0_reg = TGL_DPLL0_DIV0(id);
->  	} else {
->  		if (IS_JSL_EHL(dev_priv) && id == DPLL_ID_EHL_DPLL4) {
->  			cfgcr0_reg = ICL_DPLL_CFGCR0(4);
-> @@ -3580,6 +3590,12 @@ static void icl_dpll_write(struct drm_i915_private *dev_priv,
->  
->  	intel_de_write(dev_priv, cfgcr0_reg, hw_state->cfgcr0);
->  	intel_de_write(dev_priv, cfgcr1_reg, hw_state->cfgcr1);
-> +	drm_WARN_ON_ONCE(&dev_priv->drm, dev_priv->vbt.override_afc_startup_bit &&
-> +			 !i915_mmio_reg_valid(div0_reg));
-> +	if (dev_priv->vbt.override_afc_startup_bit &&
-> +	    i915_mmio_reg_valid(div0_reg))
+--===============1071677230302240199==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Could be simplified to if (override_bit && !warn(!reg_valid))
+== Series Details ==
 
-> +		intel_de_rmw(dev_priv, div0_reg, TGL_DPLL0_DIV0_AFC_STARTUP_MASK,
-> +			     hw_state->div0);
->  	intel_de_posting_read(dev_priv, cfgcr1_reg);
->  }
->  
-> @@ -3667,13 +3683,11 @@ static void dkl_pll_write(struct drm_i915_private *dev_priv,
->  	val |= hw_state->mg_clktop2_hsclkctl;
->  	intel_de_write(dev_priv, DKL_CLKTOP2_HSCLKCTL(tc_port), val);
->  
-> -	val = intel_de_read(dev_priv, DKL_PLL_DIV0(tc_port));
-> -	val &= ~(DKL_PLL_DIV0_INTEG_COEFF_MASK |
-> -		 DKL_PLL_DIV0_PROP_COEFF_MASK |
-> -		 DKL_PLL_DIV0_FBPREDIV_MASK |
-> -		 DKL_PLL_DIV0_FBDIV_INT_MASK);
-> -	val |= hw_state->mg_pll_div0;
-> -	intel_de_write(dev_priv, DKL_PLL_DIV0(tc_port), val);
-> +	val = DKL_PLL_DIV0_MASK;
-> +	if (dev_priv->vbt.override_afc_startup_bit)
-> +		val |= DKL_PLL_DIV0_AFC_STARTUP_MASK;
-> +	intel_de_rmw(dev_priv, DKL_PLL_DIV0(tc_port), val,
-> +		     hw_state->mg_pll_div0);
->  
->  	val = intel_de_read(dev_priv, DKL_PLL_DIV1(tc_port));
->  	val &= ~(DKL_PLL_DIV1_IREF_TRIM_MASK |
-> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> index 91fe181462b2e..4125d7ab54438 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> @@ -218,7 +218,11 @@ struct intel_dpll_hw_state {
->  	u32 mg_refclkin_ctl;
->  	u32 mg_clktop2_coreclkctl1;
->  	u32 mg_clktop2_hsclkctl;
-> -	u32 mg_pll_div0;
-> +	/* tgl+ */
-> +	union {
-> +		u32 div0;
-> +		u32 mg_pll_div0;
-> +	};
+Series: drm/i915: move the DRIVER_* macros to i915_driver.[ch] (rev3)
+URL   : https://patchwork.freedesktop.org/series/99671/
+State : success
 
-Imo, all the different overlapping pll states should be in some union;
-for now I'd just add div0 for tgl (intel_pipe_config_compare() would
-also need to be updated then).
+== Summary ==
 
->  	u32 mg_pll_div1;
->  	u32 mg_pll_lf;
->  	u32 mg_pll_frac_lock;
-> diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> index a39d6cfea87aa..a813ebedcae81 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> @@ -162,6 +162,14 @@ struct bdb_general_features {
->  	u8 dp_ssc_freq:1;	/* SSC freq for PCH attached eDP */
->  	u8 dp_ssc_dongle_supported:1;
->  	u8 rsvd11:2; /* finish byte */
-> +
-> +	/* byte 6 */
+CI Bug Log - changes from CI_DRM_11207 -> Patchwork_22222
+====================================================
 
-Following the above comments this would be called "bits 6".
+Summary
+-------
 
-> +	u8 tc_hpd_retry_timeout:7; /* 242 */
-> +	u8 rsvd12:1;
-> +
-> +	/* byte 7 */
-> +	u8 override_afc_startup_bit:1;/* 249 */
-> +	u8 rsvd13:7;
->  } __packed;
->  
->  /*
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 8c1706fd81f9e..c04312a8dd520 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -532,6 +532,7 @@ struct intel_vbt_data {
->  	int lvds_ssc_freq;
->  	unsigned int bios_lvds_val; /* initial [PCH_]LVDS reg val in VBIOS */
->  	enum drm_panel_orientation orientation;
-> +	bool override_afc_startup_bit;
->  
->  	enum drrs_support_type drrs_type;
->  
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 87c92314ee269..d51bdc1105037 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -7986,6 +7986,13 @@ enum skl_power_gate {
->  #define RKL_DPLL_CFGCR0(pll)		_MMIO_PLL(pll, _TGL_DPLL0_CFGCR0, \
->  						  _TGL_DPLL1_CFGCR0)
->  
-> +#define _TGL_DPLL0_DIV0					0x164B00
-> +#define _TGL_DPLL1_DIV0					0x164C00
-> +#define TGL_DPLL0_DIV0(pll)				_MMIO_PLL(pll, _TGL_DPLL0_DIV0, _TGL_DPLL1_DIV0)
-> +#define   TGL_DPLL0_DIV0_AFC_STARTUP_MASK		REG_GENMASK(27, 25)
-> +#define   TGL_DPLL0_DIV0_AFC_STARTUP(val)		REG_FIELD_PREP(TGL_DPLL0_DIV0_AFC_STARTUP_MASK, (val))
-> +#define   TGL_DPLL0_DIV0_AFC_STARTUP_OVERRIDE_VAL	(0x7)
+  **SUCCESS**
 
-The parens are not needed and the flag could be named after the value
-it encodes, so AFC_STARTUP_383.
+  No regressions found.
 
-Regardless of the above nits, the patch looks ok:
-Reviewed-by: Imre Deak <imre.deak@intel.com>
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/index.html
 
-> +
->  #define _TGL_DPLL0_CFGCR1		0x164288
->  #define _TGL_DPLL1_CFGCR1		0x164290
->  #define _TGL_TBTPLL_CFGCR1		0x1642A0
-> @@ -8033,6 +8040,8 @@ enum skl_power_gate {
->  
->  /* DEKEL PHY MMIO Address = Phy base + (internal address & ~index_mask) */
->  #define _DKL_PLL_DIV0			0x200
-> +#define   DKL_PLL_DIV0_AFC_STARTUP_MASK	REG_GENMASK(27, 25)
-> +#define   DKL_PLL_DIV0_AFC_STARTUP(val)	REG_FIELD_PREP(DKL_PLL_DIV0_AFC_STARTUP_MASK, (val))
->  #define   DKL_PLL_DIV0_INTEG_COEFF(x)	((x) << 16)
->  #define   DKL_PLL_DIV0_INTEG_COEFF_MASK	(0x1F << 16)
->  #define   DKL_PLL_DIV0_PROP_COEFF(x)	((x) << 12)
-> @@ -8042,6 +8051,10 @@ enum skl_power_gate {
->  #define   DKL_PLL_DIV0_FBPREDIV_MASK	(0xF << DKL_PLL_DIV0_FBPREDIV_SHIFT)
->  #define   DKL_PLL_DIV0_FBDIV_INT(x)	((x) << 0)
->  #define   DKL_PLL_DIV0_FBDIV_INT_MASK	(0xFF << 0)
-> +#define   DKL_PLL_DIV0_MASK		(DKL_PLL_DIV0_INTEG_COEFF_MASK | \
-> +					 DKL_PLL_DIV0_PROP_COEFF_MASK | \
-> +					 DKL_PLL_DIV0_FBPREDIV_MASK | \
-> +					 DKL_PLL_DIV0_FBDIV_INT_MASK)
->  #define DKL_PLL_DIV0(tc_port)		_MMIO(_PORT(tc_port, _DKL_PHY1_BASE, \
->  						    _DKL_PHY2_BASE) + \
->  						    _DKL_PLL_DIV0)
-> -- 
-> 2.35.1
-> 
+Participating hosts (45 -> 43)
+------------------------------
+
+  Additional (1): bat-rpls-1 
+  Missing    (3): fi-bsw-cyan shard-tglu fi-pnv-d510 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_22222 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s3@smem:
+    - fi-bdw-5557u:       [PASS][1] -> [INCOMPLETE][2] ([i915#146])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-hsw-4770:        [PASS][3] -> [INCOMPLETE][4] ([i915#3303])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - fi-cml-u2:          [PASS][5] -> [DMESG-WARN][6] ([i915#4269])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][7] ([fdo#109271]) +18 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-skl-6600u/igt@prime_vgem@basic-userptr.html
+
+  * igt@runner@aborted:
+    - fi-hsw-4770:        NOTRUN -> [FAIL][8] ([fdo#109271] / [i915#1436] / [i915#4312])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-hsw-4770/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@requests:
+    - fi-kbl-soraka:      [INCOMPLETE][9] -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-kbl-soraka/igt@i915_selftest@live@requests.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-kbl-soraka/igt@i915_selftest@live@requests.html
+
+  * igt@kms_psr@primary_page_flip:
+    - fi-skl-6600u:       [FAIL][11] ([i915#4547]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-skl-6600u/igt@kms_psr@primary_page_flip.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-skl-6600u/igt@kms_psr@primary_page_flip.html
+
+  
+#### Warnings ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg1-5:          [DMESG-FAIL][13] ([i915#4494] / [i915#4957]) -> [DMESG-FAIL][14] ([i915#4957])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
+  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#4269]: https://gitlab.freedesktop.org/drm/intel/issues/4269
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4494]: https://gitlab.freedesktop.org/drm/intel/issues/4494
+  [i915#4547]: https://gitlab.freedesktop.org/drm/intel/issues/4547
+  [i915#4898]: https://gitlab.freedesktop.org/drm/intel/issues/4898
+  [i915#4957]: https://gitlab.freedesktop.org/drm/intel/issues/4957
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11207 -> Patchwork_22222
+
+  CI-20190529: 20190529
+  CI_DRM_11207: 0d650d738ee924dc0c367ff1f33c61237a635933 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6342: 1bd167a3af9e8f6168ac89c64c64b929694d9be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_22222: 255b935bd87c4c522fef6ae909cb632e415f914b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+255b935bd87c drm/i915: move the DRIVER_* macros to i915_driver.[ch]
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/index.html
+
+--===============1071677230302240199==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: move the DRIVER_* macros to i915_driver.[ch] (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/99671/">https://patchwork.freedesktop.org/series/99671/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11207 -&gt; Patchwork_22222</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/index.html</p>
+<h2>Participating hosts (45 -&gt; 43)</h2>
+<p>Additional (1): bat-rpls-1 <br />
+  Missing    (3): fi-bsw-cyan shard-tglu fi-pnv-d510 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_22222 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3@smem:</p>
+<ul>
+<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4269">i915#4269</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-skl-6600u/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +18 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-kbl-soraka/igt@i915_selftest@live@requests.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-kbl-soraka/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_page_flip:</p>
+<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-skl-6600u/igt@kms_psr@primary_page_flip.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4547">i915#4547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/fi-skl-6600u/igt@kms_psr@primary_page_flip.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>bat-dg1-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4494">i915#4494</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22222/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11207 -&gt; Patchwork_22222</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11207: 0d650d738ee924dc0c367ff1f33c61237a635933 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6342: 1bd167a3af9e8f6168ac89c64c64b929694d9be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_22222: 255b935bd87c4c522fef6ae909cb632e415f914b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>255b935bd87c drm/i915: move the DRIVER_* macros to i915_driver.[ch]</p>
+
+</body>
+</html>
+
+--===============1071677230302240199==--
