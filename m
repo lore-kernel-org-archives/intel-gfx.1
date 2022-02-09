@@ -4,31 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CED3CC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 16:50:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D6DAC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 16:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37B2310E3A7;
-	Wed,  9 Feb 2022 16:50:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EAD8710E3C3;
- Wed,  9 Feb 2022 16:50:18 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id DBC23A73C7;
- Wed,  9 Feb 2022 16:50:18 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1758746120135440533=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE44A10E3BA;
+	Wed,  9 Feb 2022 16:53:02 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A93D10E3D1;
+ Wed,  9 Feb 2022 16:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644425582; x=1675961582;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=e3Ciq2QYPZgT+s4iAlBCtkk3t9CniM2bYjnPxiTZ4LI=;
+ b=FvcxJQlpPikf30lVxiwaguh2QVRh2yHsE9InST53tvmcIRjnZ8zxmnmD
+ LbIEN18c7WnaYgjTmWC5MUzIYjiThuTKv5zAZjdYc+WrFPeOGhgmWwXmC
+ xTudUhme+hYweFrPollW+/8zh4X+ctXiTb+ctkOrTLVDSu+uvA7QgSLsd
+ 9TJFWdc2/GwE/hp0/v386lGkW/uYTiSdU9kkpMiWXIih5jxMoufvx5NAt
+ HBFpgwb/rWV03W43a5TQ1c3vnUoTwFI4iMWe4VVRkAr1CavatDTH4KzVj
+ z9L3Kf451lJ83ndAnh70hT3c7eI3VqLp8IzvvaR4GzIn0hQGTuL8mxD/3 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="273788701"
+X-IronPort-AV: E=Sophos;i="5.88,356,1635231600"; d="scan'208";a="273788701"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2022 08:52:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,356,1635231600"; d="scan'208";a="482390232"
+Received: from lkp-server01.sh.intel.com (HELO d95dc2dabeb1) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 09 Feb 2022 08:52:57 -0800
+Received: from kbuild by d95dc2dabeb1 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nHqDA-00024O-Bz; Wed, 09 Feb 2022 16:52:56 +0000
+Date: Thu, 10 Feb 2022 00:52:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Michael Cheng <michael.cheng@intel.com>,
+	intel-gfx@lists.freedesktop.org
+Message-ID: <202202100010.fBBNyCpm-lkp@intel.com>
+References: <20220207201127.648624-5-michael.cheng@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
-Date: Wed, 09 Feb 2022 16:50:18 -0000
-Message-ID: <164442541889.23774.7056514084357902314@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220208213548.244829-1-jose.souza@intel.com>
-In-Reply-To: <20220208213548.244829-1-jose.souza@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/display/tgl+=3A_Implement_new_PLL_programming_step_=28rev?=
- =?utf-8?q?2=29?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220207201127.648624-5-michael.cheng@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v6 4/6] drm/i915/: Re-work clflush_write32
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,174 +60,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: lucas.demarchi@intel.com, michael.cheng@intel.com, kbuild-all@lists.01.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1758746120135440533==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Michael,
 
-== Series Details ==
+Thank you for the patch! Perhaps something to improve:
 
-Series: drm/i915/display/tgl+: Implement new PLL programming step (rev2)
-URL   : https://patchwork.freedesktop.org/series/99867/
-State : success
+[auto build test WARNING on drm-intel/for-linux-next]
+[also build test WARNING on drm-tip/drm-tip drm/drm-next v5.17-rc3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-== Summary ==
+url:    https://github.com/0day-ci/linux/commits/Michael-Cheng/Use-drm_clflush-instead-of-clflush/20220208-041326
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next
+config: x86_64-randconfig-c002 (https://download.01.org/0day-ci/archive/20220210/202202100010.fBBNyCpm-lkp@intel.com/config)
+compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
 
-CI Bug Log - changes from CI_DRM_11207 -> Patchwork_22225
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/index.html
-
-Participating hosts (45 -> 43)
-------------------------------
-
-  Additional (1): bat-rpls-1 
-  Missing    (3): fi-bsw-cyan shard-tglu fi-pnv-d510 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_22225 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - fi-bdw-5557u:       [PASS][1] -> [INCOMPLETE][2] ([i915#146])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][3] ([fdo#109271]) +18 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/fi-skl-6600u/igt@prime_vgem@basic-userptr.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_psr@primary_page_flip:
-    - fi-skl-6600u:       [FAIL][4] ([i915#4547]) -> [PASS][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-skl-6600u/igt@kms_psr@primary_page_flip.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/fi-skl-6600u/igt@kms_psr@primary_page_flip.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
-  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
-  [i915#4547]: https://gitlab.freedesktop.org/drm/intel/issues/4547
-  [i915#4898]: https://gitlab.freedesktop.org/drm/intel/issues/4898
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
 
-Build changes
--------------
+cocci warnings: (new ones prefixed by >>)
+>> drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1310:32-38: ERROR: application of sizeof to pointer
+   drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1322:32-38: ERROR: application of sizeof to pointer
 
-  * Linux: CI_DRM_11207 -> Patchwork_22225
+Please review and possibly fold the followup patch.
 
-  CI-20190529: 20190529
-  CI_DRM_11207: 0d650d738ee924dc0c367ff1f33c61237a635933 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6342: 1bd167a3af9e8f6168ac89c64c64b929694d9be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_22225: 1dc3174e835d6804c413bbf18264c2e42c7202c7 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-1dc3174e835d drm/i915/display/tgl+: Implement new PLL programming step
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/index.html
-
---===============1758746120135440533==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display/tgl+: Implement new PLL programming step (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/99867/">https://patchwork.freedesktop.org/series/99867/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_11207 -&gt; Patchwork_22225</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/index.html</p>
-<h2>Participating hosts (45 -&gt; 43)</h2>
-<p>Additional (1): bat-rpls-1 <br />
-  Missing    (3): fi-bsw-cyan shard-tglu fi-pnv-d510 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_22225 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s3@smem:</p>
-<ul>
-<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/fi-skl-6600u/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +18 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_psr@primary_page_flip:<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11207/fi-skl-6600u/igt@kms_psr@primary_page_flip.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4547">i915#4547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22225/fi-skl-6600u/igt@kms_psr@primary_page_flip.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_11207 -&gt; Patchwork_22225</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_11207: 0d650d738ee924dc0c367ff1f33c61237a635933 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6342: 1bd167a3af9e8f6168ac89c64c64b929694d9be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_22225: 1dc3174e835d6804c413bbf18264c2e42c7202c7 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>1dc3174e835d drm/i915/display/tgl+: Implement new PLL programming step</p>
-
-</body>
-</html>
-
---===============1758746120135440533==--
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
