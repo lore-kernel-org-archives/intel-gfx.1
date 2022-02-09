@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C68C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B713C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4271E10E2ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7BCF10E2EF;
 	Mon, 14 Feb 2022 15:49:18 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33E4B10E975
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 22:32:17 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- v6-20020a05683024a600b005ac1754342fso1144459ots.5
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 14:32:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=JrHddR19ZD1tkokZWOCBaXxsomwE9JN1w01NkG4YDyU=;
- b=AOxrl24mI7dYWR6YtN6FZh7Gl8Pj9u1/oljFksQs78r7CJZJVslHGJgUXkU3T118zO
- 5MabSKCGeA7XPcl6ZBXZ+ckDl4624CJhaTRZIvaYdMPWDswR7kRx2BnBROovCkRS5KAb
- v/dNvZSkxZ4eOyeO8ieSlwckmJ6DsV2Mu0bqephhV80yiUd6PiAibe/CXd0OUMBlSJXl
- fW0se2KH0qWF/80+Qhj3bCRSE2mHsyNIUsnlRC3kFbXUCRtMo/svqx2QM8V09K1Th68f
- qgJgmdXGbHyRfqqNF6jgkASk6+VHUf9/+aNcb/aceiaWgrrgUtF4wgFrBn6OXZl9Ohpv
- Tedw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=JrHddR19ZD1tkokZWOCBaXxsomwE9JN1w01NkG4YDyU=;
- b=SxBtd7I6qT5YhFNd3HC9Rcy13222bYdGgjzqs4jGZAV8JAsDdRZWsr5G65bzFgjjS8
- 59EGiEuiQxfmeBcjHSkYVEXbGaImIQJVNyVBUBRODFpPEqsmKiKt7/PZZwVuj+Oizhwq
- yhufs+ad/6s92epdYejvNli5GfEXPFpP2P0PG52+TRx8DbXcKZxTv6EMBjlAKtsHPBIA
- uubHUeKTmfTL2CmLojg2vFk+uY4M/iozg8SvH6ZRinlT9KKvUDf0LBf6qCFwig6ZS4/H
- XmXCQkSsnOBV6NvNth3Nt/QpgzY+HlQDqCfiuYxdFkVbE0WAyoLcuRgOLSb/v3TBPT/3
- REfw==
-X-Gm-Message-State: AOAM530e1q2RzOHql3mEC84Y1+cQeysu7dUOf9jxFahTuAIzT8WTyZXJ
- Vhkz4n0WYrzoNqFkCer9hdxwTA==
-X-Google-Smtp-Source: ABdhPJxJ7/q4RbdB3oTSoXedG6ikpzgyv4pQn6CfOszGopvOcDpzuPeg37Y9NWvFxF93GL7eMhYPBg==
-X-Received: by 2002:a05:6830:92a:: with SMTP id
- v42mr3756586ott.48.1644532336413; 
- Thu, 10 Feb 2022 14:32:16 -0800 (PST)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id 6sm8819888oig.29.2022.02.10.14.32.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 14:32:15 -0800 (PST)
-Date: Thu, 10 Feb 2022 14:34:30 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <YgWS9iZ+1uJBd9Lj@ripper>
-References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
- <20220208044328.588860-2-bjorn.andersson@linaro.org>
- <YgIecy+W/lGzL6ac@kroah.com>
+Received: from mail.efficios.com (mail.efficios.com [167.114.26.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C31310E57C
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 19:28:12 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.efficios.com (Postfix) with ESMTP id 9169C3B494A;
+ Wed,  9 Feb 2022 14:28:11 -0500 (EST)
+Received: from mail.efficios.com ([127.0.0.1])
+ by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Bq5hzq76zMBx; Wed,  9 Feb 2022 14:28:11 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.efficios.com (Postfix) with ESMTP id E99E43B4AC7;
+ Wed,  9 Feb 2022 14:28:10 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com E99E43B4AC7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=default; t=1644434891;
+ bh=XjlwNl1On6TmPijh5BHJldK1Cy6f5rlPU65IQRBXecc=;
+ h=Date:From:To:Message-ID:MIME-Version;
+ b=lcJ6LjDxmssvDwIKOUoMlicr5d+aywJSmXlRJTfbmH4xgmPoedFrQV6r3q9tKD4a/
+ 1dpN6ymkorGYD/RLPPgIwIdyLfChfI76yVxI9JFrZhlPb9f0m8Oc9zLtHilxIKXZBQ
+ jwKiwRDxiDvRaUtKcxU1/za8f4GK7gbP62qkVEdK0YvR7hWR+wQ+zLFLMFuwjteyOH
+ cMGzzJ09LJP7kAVUHeFlpfr4ABMeEU0uDrDGCpZfG8rK+Cczk81jLml32FeeqyTNrq
+ bab+3bK6c37tOu2GAzhkpLNpJPKTcXxyJtwFznXm3SstTE8AhxT/olKl2Jd8w1Sndl
+ yJW42XHRsAMyQ==
+X-Virus-Scanned: amavisd-new at efficios.com
+Received: from mail.efficios.com ([127.0.0.1])
+ by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id qTEEX-tAWWFU; Wed,  9 Feb 2022 14:28:10 -0500 (EST)
+Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
+ by mail.efficios.com (Postfix) with ESMTP id D2A0A3B4B38;
+ Wed,  9 Feb 2022 14:28:10 -0500 (EST)
+Date: Wed, 9 Feb 2022 14:28:10 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Message-ID: <718973621.50447.1644434890744.JavaMail.zimbra@efficios.com>
+In-Reply-To: <CAM9d7ci=N2NVj57k=W0ebqBzfW+ThBqYSrx-CZbgwGcbOSrEGA@mail.gmail.com>
+References: <20220208184208.79303-1-namhyung@kernel.org>
+ <20220209090908.GK23216@worktop.programming.kicks-ass.net>
+ <24fe6a08-5931-8e8d-8d77-459388c4654e@redhat.com>
+ <919214156.50301.1644431371345.JavaMail.zimbra@efficios.com>
+ <69e5f778-8715-4acf-c027-58b6ec4a9e77@redhat.com>
+ <CAM9d7ci=N2NVj57k=W0ebqBzfW+ThBqYSrx-CZbgwGcbOSrEGA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YgIecy+W/lGzL6ac@kroah.com>
-X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:56 +0000
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/msm/dp: Implement
- oob_hotplug_event()
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [167.114.26.124]
+X-Mailer: Zimbra 8.8.15_GA_4203 (ZimbraWebClient - FF96 (Linux)/8.8.15_GA_4203)
+Thread-Topic: locking: Separate lock tracepoints from lockdep/lock_stat (v1)
+Thread-Index: XmneyW/Z8kaQOCvcLgzEg6AAvUOeRA==
+X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
+Subject: Re: [Intel-gfx] [RFC 00/12] locking: Separate lock tracepoints from
+ lockdep/lock_stat (v1)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,87 +72,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, linux-usb@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: rcu <rcu@vger.kernel.org>, paulmck <paulmck@kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, rostedt <rostedt@goodmis.org>,
+ Radoslaw Burny <rburny@google.com>, Byungchul Park <byungchul.park@lge.com>,
+ cgroups <cgroups@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
+ Waiman Long <longman@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ linux-btrfs <linux-btrfs@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon 07 Feb 23:40 PST 2022, Greg Kroah-Hartman wrote:
+----- On Feb 9, 2022, at 2:22 PM, Namhyung Kim namhyung@kernel.org wrote:
 
-> On Mon, Feb 07, 2022 at 08:43:28PM -0800, Bjorn Andersson wrote:
-> > The Qualcomm DisplayPort driver contains traces of the necessary
-> > plumbing to hook up USB HPD, in the form of the dp_hpd module and the
-> > dp_usbpd_cb struct. Use this as basis for implementing the
-> > oob_hotplug_event() callback, by amending the dp_hpd module with the
-> > missing logic.
-> > 
-> > Overall the solution is similar to what's done downstream, but upstream
-> > all the code to disect the HPD notification lives on the calling side of
-> > drm_connector_oob_hotplug_event().
-> > 
-> > drm_connector_oob_hotplug_event() performs the lookup of the
-> > drm_connector based on fwnode, hence the need to assign the fwnode in
-> > dp_drm_connector_init().
-> > 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_display.c |  8 ++++++++
-> >  drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
-> >  drivers/gpu/drm/msm/dp/dp_drm.c     | 10 ++++++++++
-> >  drivers/gpu/drm/msm/dp/dp_hpd.c     | 19 +++++++++++++++++++
-> >  drivers/gpu/drm/msm/dp/dp_hpd.h     |  4 ++++
-> >  5 files changed, 43 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > index 7cc4d21f2091..124a2f794382 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > @@ -414,6 +414,13 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
-> >  	return dp_display_process_hpd_high(dp);
-> >  }
-> >  
-> > +void dp_display_oob_hotplug_event(struct msm_dp *dp_display, bool hpd_state)
-> > +{
-> > +	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
-> > +
-> > +	dp->usbpd->oob_event(dp->usbpd, hpd_state);
-> > +}
-> > +
-> >  static int dp_display_usbpd_disconnect_cb(struct device *dev)
-> >  {
-> >  	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> > @@ -1251,6 +1258,7 @@ static int dp_display_probe(struct platform_device *pdev)
-> >  	dp->pdev = pdev;
-> >  	dp->name = "drm_dp";
-> >  	dp->dp_display.connector_type = desc->connector_type;
-> > +	dp->dp_display.dev = &pdev->dev;
+> Hello,
 > 
-> You did not properly reference count this pointer you just saved.  What
-> is to keep that pointer from going away without you knowing about it?
+> On Wed, Feb 9, 2022 at 11:02 AM Waiman Long <longman@redhat.com> wrote:
+>>
+>> On 2/9/22 13:29, Mathieu Desnoyers wrote:
+>> > ----- On Feb 9, 2022, at 1:19 PM, Waiman Long longman@redhat.com wrote:
+>> >
+>> >> On 2/9/22 04:09, Peter Zijlstra wrote:
+>> >>> On Tue, Feb 08, 2022 at 10:41:56AM -0800, Namhyung Kim wrote:
+>> >>>
+>> >>>> Eventually I'm mostly interested in the contended locks only and I
+>> >>>> want to reduce the overhead in the fast path.  By moving that, it'd be
+>> >>>> easy to track contended locks with timing by using two tracepoints.
+>> >>> So why not put in two new tracepoints and call it a day?
+>> >>>
+>> >>> Why muck about with all that lockdep stuff just to preserve the name
+>> >>> (and in the process continue to blow up data structures etc..). This
+>> >>> leaves distros in a bind, will they enable this config and provide
+>> >>> tracepoints while bloating the data structures and destroying things
+>> >>> like lockref (which relies on sizeof(spinlock_t)), or not provide this
+>> >>> at all.
+>> >>>
+>> >>> Yes, the name is convenient, but it's just not worth it IMO. It makes
+>> >>> the whole proposition too much of a trade-off.
+>> >>>
+>> >>> Would it not be possible to reconstruct enough useful information from
+>> >>> the lock callsite?
+>> >>>
+>> >> I second that as I don't want to see the size of a spinlock exceeds 4
+>> >> bytes in a production system.
+>> >>
+>> >> Instead of storing additional information (e.g. lock name) directly into
+>> >> the lock itself. Maybe we can store it elsewhere and use the lock
+>> >> address as the key to locate it in a hash table. We can certainly extend
+>> >> the various lock init functions to do that. It will be trickier for
+>> >> statically initialized locks, but we can probably find a way to do that too.
+>> > If we go down that route, it would be nice if we can support a few different
+>> > use-cases for various tracers out there.
+>> >
+>> > One use-case (a) requires the ability to query the lock name based on its
+>> > address as key.
+>> > For this a hash table is a good fit. This would allow tracers like ftrace to
+>> > output lock names in its human-readable output which is formatted within the
+>> > kernel.
+>> >
+>> > Another use-case (b) is to be able to "dump" the lock { name, address } tuples
+>> > into the trace stream (we call this statedump events in lttng), and do the
+>> > translation from address to name at post-processing. This simply requires
+>> > that this information is available for iteration for both the core kernel
+>> > and module locks, so the tracer can dump this information on trace start
+>> > and module load.
+>> >
+>> > Use-case (b) is very similar to what is done for the kernel tracepoints. Based
+>> > on this, implementing the init code that iterates on those sections and
+>> > populates
+>> > a hash table for use-case (a) should be easy enough.
+>>
+>> Yes, that are good use cases for this type of functionality. I do need
+>> to think about how to do it for statically initialized lock first.
 > 
-
-The "dp" object only lives while &pdev->dev is alive, both logically and
-as its devres allocated on &pdev-dev. So for this reference I don't see
-that we should refcount it.
-
-> And you already have a pointer to pdev, why save another one here?
+> Thank you all for the review and good suggestions.
 > 
+> I'm also concerning dynamic allocated locks in a data structure.
+> If we keep the info in a hash table, we should delete it when the
+> lock is gone.  I'm not sure we have a good place to hook it up all.
 
-The Qualcomm DisplayPort driver has per-c-file private context structs
-and "dp" is one such object. So I simply can't dereference it and get to
-pdev from the other c-file in the same driver...
+I was wondering about this use case as well. Can we make it mandatory to
+declare the lock "class" (including the name) statically, even though the
+lock per-se is allocated dynamically ? Then the initialization of the lock
+embedded within the data structure would simply refer to the lock class
+definition.
 
-But I only need it in dp_drm.c to during initialization to get a
-reference to the associated fwnode, so it seems that I can rework this
-and pass the pointer as a parameter to dp_drm_connector_init().
-
-That looks to be cleaner as well.
+But perhaps I am missing something here.
 
 Thanks,
-Bjorn
+
+Mathieu
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
