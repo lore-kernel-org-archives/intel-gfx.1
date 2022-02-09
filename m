@@ -4,60 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3A9C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 13:51:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75460C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 14:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E82AB10E478;
-	Wed,  9 Feb 2022 13:51:17 +0000 (UTC)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEF910E730
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 16:20:24 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id s18so21719042ioa.12
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 08:20:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf-com.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=D4G359qGyFqpKIwIOAwVvgxJFqtl6xrt9kKH0uEKLYU=;
- b=z351ALnbGpDgEt8ODI2EQarmr1vQ3JfUFtw5N5X9r/6vrCI0gEChBbz3to8xA1CF/E
- eXt7xU/kJmIJgNVn0OFO/PT4qZzWLgT+pygxCOPEfhpr8BSzAs3k0KhLG8dSUrPFtQIv
- jZndbj/f3wfXJmQ46ly3L702PBv92wGb6uww+qmPilUg6qJi5aEpgH5e6HUXa+tnEfdu
- H/lbUi4vKKCenZKE4wcFvTEf9SyRGSQSWajXIVeBZ3P04chFDDd3bUnY6vZC/I7bVy0F
- tDas4J9l03VyTuGuoYoOsE/W32vKxLFKkMimO5StigE34UV8DhI/xGa8fShPxlTcGFTI
- IEEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=D4G359qGyFqpKIwIOAwVvgxJFqtl6xrt9kKH0uEKLYU=;
- b=uyEEgJ4EOp+y5ZOaTyEfujCq5i1ZaMTj7gGNdeKz7ISvv222eW3ZRKZ+pqtCtMI+2X
- s4kVkP80RgRedvk5J+rorSBf7S9CCgSbuobFz5aXKE2fTnwgXjP/2bd/ZCvcieS3DMe4
- PnHmBaIzSP3A+MGC7d90t/yafIN/T4GYKpwUkLeMli1OgweTgKmKgjSC8m2wuWh7egrF
- fAN7UC7ojvHR9p77sEiGr6MsRzNl484VJG3ZSD+erR2ZTmk1ltaQN6t1bbNTJz7pczV4
- tc5yRWzw/Gt91oPP/NxHqlEITTaJ7hDJs8PQwyEgFqb4Jb50NgMrz/986iHlW9Q7W6u9
- aREw==
-X-Gm-Message-State: AOAM5310aZen5C3eJ+3uaXKf4nbfRD6euZrp0IA9CJw8ORe6gwdbHvNb
- dAxc3oRXQk+eu6EwBYua9VD0ssV46rTaSvBs1yvr
-X-Google-Smtp-Source: ABdhPJwE2ued5IyAicmnZXgeyxKACLI0n0/dODXIpNzDqLh9pZsOcosBYci+IJO2+zE7VArPYkY33TkuJ+Ye9S63Ncs=
-X-Received: by 2002:a05:6638:3486:: with SMTP id
- t6mr285272jal.74.1644337222498; 
- Tue, 08 Feb 2022 08:20:22 -0800 (PST)
-MIME-Version: 1.0
-References: <20220201153354.11971-1-lukasz.bartosik@semihalf.com>
- <87r18mtwn7.fsf@intel.com>
-In-Reply-To: <87r18mtwn7.fsf@intel.com>
-From: =?UTF-8?Q?=C5=81ukasz_Bartosik?= <lb@semihalf.com>
-Date: Tue, 8 Feb 2022 17:20:11 +0100
-Message-ID: <CAK8ByeKSWfeyUB73rVXQr2VKMFxNYZk9KxwYjsws3URFGfk50A@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 631AE10E50C;
+	Wed,  9 Feb 2022 14:02:18 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA30710E4EA;
+ Wed,  9 Feb 2022 14:02:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644415336; x=1675951336;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=g06LB+wvvw32xEoQsGOkCJmGKIE3q5aMdFKDmLcj+B8=;
+ b=TR0/hHaA45s7ZYEjRDTUAQ3lpKcB3ieuBvETv/d8GxiQrEXYlQx5kCoo
+ MujzKSBdWa+Ak49mIpeVU9olE8dMLErNduVmsG2OT3ggfLwSFaltHf+1w
+ wezxiNyc4McUIj/g3+9IfP6qi21XsNpdwRAc6U+8Vj5vRnS8khtOq5qGK
+ dPq+AcALhODecv2FtrdscH+4+AuU4IwIzk4OMK7hb4PBvmAzAwG1+wgVs
+ NRhXV388JqCuJXT29dBxuCjxz8lVHo7R0nKk3tCio7ym1p88Zti7EJimQ
+ 64tjOGGDPEfXfxZrDHzBndlh/9kCna6J41qP3la+DCFCdr8MChfQBusk+ g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="246792974"
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="246792974"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2022 06:02:16 -0800
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="701260468"
+Received: from ksenyako-mobl.ccr.corp.intel.com (HELO [10.249.254.168])
+ ([10.249.254.168])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2022 06:02:14 -0800
+Message-ID: <b384ad5f76da0009dd49965769bcddbc0395111a.camel@linux.intel.com>
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ sumit.semwal@linaro.org, daniel.vetter@ffwll.ch,
+ dri-devel@lists.freedesktop.org,  linux-media@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Date: Wed, 09 Feb 2022 15:02:11 +0100
+In-Reply-To: <20220204100429.2049-4-christian.koenig@amd.com>
+References: <20220204100429.2049-1-christian.koenig@amd.com>
+ <20220204100429.2049-4-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 09 Feb 2022 13:51:16 +0000
-Subject: Re: [Intel-gfx] [PATCH v1] drm/i915: fix null pointer dereference
+User-Agent: Evolution 3.40.4 (3.40.4-2.fc34) 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH 3/6] dma-buf: Warn about dma_fence_chain
+ container rules v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,112 +62,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: upstream@semihalf.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Have you had a chance to review the patch ? The crash is still there
-on v5.17-rc3.
+On Fri, 2022-02-04 at 11:04 +0100, Christian König wrote:
+> Chaining of dma_fence_chain objects is only allowed through the prev
+> fence and not through the contained fence.
+> 
+> Warn about that when we create a dma_fence_chain.
+> 
+> v2: fix comment style
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Thanks,
-Lukasz
+It looks like this blows up in generic drm code...
 
-wt., 1 lut 2022 o 16:49 Jani Nikula <jani.nikula@linux.intel.com> napisa=C5=
-=82(a):
->
->
-> Thanks for the patch, adding some Cc's from the commit that regressed.
->
-> BR,
-> Jani.
->
-> On Tue, 01 Feb 2022, Lukasz Bartosik <lb@semihalf.com> wrote:
-> > From: =C5=81ukasz Bartosik <lb@semihalf.com>
-> >
-> > Asus chromebook CX550 crashes during boot on v5.17-rc1 kernel.
-> > The root cause is null pointer defeference of bi_next
-> > in tgl_get_bw_info() in drivers/gpu/drm/i915/display/intel_bw.c.
-> >
-> > BUG: kernel NULL pointer dereference, address: 000000000000002e
-> > PGD 0 P4D 0
-> > Oops: 0002 [#1] PREEMPT SMP NOPTI
-> > CPU: 0 PID: 1 Comm: swapper/0 Tainted: G     U            5.17.0-rc1
-> > Hardware name: Google Delbin/Delbin, BIOS Google_Delbin.13672.156.3 05/=
-14/2021
-> > RIP: 0010:tgl_get_bw_info+0x2de/0x510
-> > ...
-> > [    2.554467] Call Trace:
-> > [    2.554467]  <TASK>
-> > [    2.554467]  intel_bw_init_hw+0x14a/0x434
-> > [    2.554467]  ? _printk+0x59/0x73
-> > [    2.554467]  ? _dev_err+0x77/0x91
-> > [    2.554467]  i915_driver_hw_probe+0x329/0x33e
-> > [    2.554467]  i915_driver_probe+0x4c8/0x638
-> > [    2.554467]  i915_pci_probe+0xf8/0x14e
-> > [    2.554467]  ? _raw_spin_unlock_irqrestore+0x12/0x2c
-> > [    2.554467]  pci_device_probe+0xaa/0x142
-> > [    2.554467]  really_probe+0x13f/0x2f4
-> > [    2.554467]  __driver_probe_device+0x9e/0xd3
-> > [    2.554467]  driver_probe_device+0x24/0x7c
-> > [    2.554467]  __driver_attach+0xba/0xcf
-> > [    2.554467]  ? driver_attach+0x1f/0x1f
-> > [    2.554467]  bus_for_each_dev+0x8c/0xc0
-> > [    2.554467]  bus_add_driver+0x11b/0x1f7
-> > [    2.554467]  driver_register+0x60/0xea
-> > [    2.554467]  ? mipi_dsi_bus_init+0x16/0x16
-> > [    2.554467]  i915_init+0x2c/0xb9
-> > [    2.554467]  ? mipi_dsi_bus_init+0x16/0x16
-> > [    2.554467]  do_one_initcall+0x12e/0x2b3
-> > [    2.554467]  do_initcall_level+0xd6/0xf3
-> > [    2.554467]  do_initcalls+0x4e/0x79
-> > [    2.554467]  kernel_init_freeable+0xed/0x14d
-> > [    2.554467]  ? rest_init+0xc1/0xc1
-> > [    2.554467]  kernel_init+0x1a/0x120
-> > [    2.554467]  ret_from_fork+0x1f/0x30
-> > [    2.554467]  </TASK>
-> > ...
-> > Kernel panic - not syncing: Fatal exception
-> >
-> > Fixes: c64a9a7c05be ("drm/i915: Update memory bandwidth formulae")
-> > Signed-off-by: =C5=81ukasz Bartosik <lb@semihalf.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_bw.c | 16 +++++++++-------
-> >  1 file changed, 9 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/=
-i915/display/intel_bw.c
-> > index 2da4aacc956b..bd0ed68b7faa 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_bw.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-> > @@ -404,15 +404,17 @@ static int tgl_get_bw_info(struct drm_i915_privat=
-e *dev_priv, const struct intel
-> >               int clpchgroup;
-> >               int j;
-> >
-> > -             if (i < num_groups - 1)
-> > -                     bi_next =3D &dev_priv->max_bw[i + 1];
-> > -
-> >               clpchgroup =3D (sa->deburst * qi.deinterleave / num_chann=
-els) << i;
-> >
-> > -             if (i < num_groups - 1 && clpchgroup < clperchgroup)
-> > -                     bi_next->num_planes =3D (ipqdepth - clpchgroup) /=
- clpchgroup + 1;
-> > -             else
-> > -                     bi_next->num_planes =3D 0;
-> > +             if (i < num_groups - 1) {
-> > +                     bi_next =3D &dev_priv->max_bw[i + 1];
-> > +
-> > +                     if (clpchgroup < clperchgroup)
-> > +                             bi_next->num_planes =3D (ipqdepth - clpch=
-group) /
-> > +                                                    clpchgroup + 1;
-> > +                     else
-> > +                             bi_next->num_planes =3D 0;
-> > +             }
-> >
-> >               bi->num_qgv_points =3D qi.num_points;
-> >               bi->num_psf_gv_points =3D qi.num_psf_points;
->
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22201/shard-skl10/igt@syncobj_timeline@transfer-timeline-point.html
+
+/Thomas
+
+
