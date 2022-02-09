@@ -4,50 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C048C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 23:56:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7E0C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A33E10E993;
-	Thu, 10 Feb 2022 23:56:28 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D156510E992;
- Thu, 10 Feb 2022 23:56:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644537386; x=1676073386;
- h=date:from:to:subject:message-id:references:mime-version:
- content-transfer-encoding:in-reply-to;
- bh=3BcjqQIQxRoKscjXKhIKCcgm+/zM2SLzHzpBlQBKX0I=;
- b=HgmCfs8wrsBwv4yxyylEuBWB43I7vdbjQCovdqmkAB5dhti5hBsV9fqx
- B1x6kKsnqNS0Bgzyj7CEFT7jgLT20V2DAwwrCKybvYZBS1HXKqvNL8SLG
- h12UL6gdzlpQiQnqWj+woX9ngph+D7h8eb7XJQXhtcNWzXBFZdD34TiSn
- AAVAJQwby/NaL9QPwIu6gY4KdIHWTKTnXX6d83/SKtbZlG8I02rEm4gtk
- p73VIIlvJxc2q+Ts70sMlHSrjM/cSS2vUgtOVs5Q+Mq+gp8v8dyj6QWm3
- 2SPylIR0tNbK0d6VGugxBQ5pWMYI7wFE0ZpggQOthwZNIoqw2VYO7h5Mx w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249371249"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="249371249"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 15:56:26 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="537479062"
-Received: from jjmurray-mobl.amr.corp.intel.com (HELO msatwood-mobl)
- ([10.209.24.65])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 15:56:25 -0800
-Date: Thu, 10 Feb 2022 15:56:11 -0800
-From: Matt Atwood <matthew.s.atwood@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>;,
- intel-gfx@lists.freedesktop.org;, dri-devel@lists.freedesktop.org
-Message-ID: <20220210235611.GD4707@msatwood-mobl>
-References: <20220208104524.2516209-1-lucas.demarchi@intel.com>
- <20220208104524.2516209-8-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A25010E243;
+	Mon, 14 Feb 2022 15:48:58 +0000 (UTC)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F1F10E1DC;
+ Wed,  9 Feb 2022 18:26:03 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id cz16so6878240edb.8;
+ Wed, 09 Feb 2022 10:26:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xy1Wl1YpQUBJ+tc0SQw9hpGSoZpQOiQLuW8DVJw6UJg=;
+ b=kJ0XqzVgo4HWwoxJuhT4lXHGSLvV9GTJXnzzyFRjK3FAl7Ni8TCPYKxXeRWPzdWstV
+ 1xO6FcG0MomNvg3+BpvHpo+RCosTkaIl6THWWqgDTX2OOlaoMYEKf6Q8LfaNqAUA9ps8
+ ZhF5/su5gueN99HLXDMt6GDBSpv3rOJiunonIJdtU5Lr61zXNtgRrQ0aKiYRsM5SkPwM
+ A3qnxYpNOXa2tKc6YcpZomJM4I1x0Q8CWfajqt3wN5z8RpK5RQqOsddHPttPc3wGca09
+ D075bmE/P5gbfZ50HkV9mrfWREfW1ANenqcI04UW/cqbUlF/LBvMaTYzXXVJPnn9BjCr
+ ITrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xy1Wl1YpQUBJ+tc0SQw9hpGSoZpQOiQLuW8DVJw6UJg=;
+ b=0BqealjQp98bT5mZRtOizxHcQmsw2fpfW1MwFziGuDwptKd2xynI/gd9yPkMZdf4nb
+ gbD7wDFwyOPddj91GuZyCInBjKzY5zpDMrxBGgpAG/Wt8p6iHwWudlmYoCDAORrxbVoo
+ YjwSxmScS/BsxRYTBdA+/zs/hMXOFTWSN90vThs84oO3jhB9e39tA2IwZBYpm1GxvFji
+ RSny7x9yB8nU79ein2A5rLc5Cm0x8stuKsRqAJHcrF66wQ2LpCfdWkztQI3tikolSaDu
+ 5ANqZocFDpnJ7JmIRo1wW++5NQ2xYBmclBV5ROTc9aHAwZcGjKXNfZH6G1Dzn+XMq2Fr
+ fVvw==
+X-Gm-Message-State: AOAM531xYW+oZFvDK5K7+2fWJ1k+t1HscIWk+rclxo1iXA48YB1BllXw
+ 3XekWwQ3uATqxomL9PLt6yg1FrRgglI=
+X-Google-Smtp-Source: ABdhPJzzS7j8gHRMsRxfam2p6eWcjNvR4qSY2heS34HP7/ucko1xgpid3LD+uuBdGqNHo3etUbyGhQ==
+X-Received: by 2002:aa7:c947:: with SMTP id h7mr3894625edt.447.1644431161780; 
+ Wed, 09 Feb 2022 10:26:01 -0800 (PST)
+Received: from able.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id k7sm6190066ejp.182.2022.02.09.10.26.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Feb 2022 10:26:01 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, daniel.vetter@ffwll.ch,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Date: Wed,  9 Feb 2022 19:26:00 +0100
+Message-Id: <20220209182600.434803-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220208104524.2516209-8-lucas.demarchi@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 07/18] drm/i915/guc: Convert policies
- update to iosys_map
+X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
+Subject: [Intel-gfx] [PATCH] drm/syncobj: flatten dma_fence_chains on
+ transfer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,115 +74,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 08, 2022 at 02:45:13AM -0800, Lucas De Marchi wrote:
-> Use iosys_map to write the policies update so access to IO and system
-> memory is abstracted away.
-> 
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: John Harrison <John.C.Harrison@Intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 41 ++++++++++++----------
->  1 file changed, 23 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> index b5b3a39f0c28..6a34ab38b45f 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> @@ -130,33 +130,37 @@ static u32 guc_ads_blob_size(struct intel_guc *guc)
->  	       guc_ads_private_data_size(guc);
->  }
->  
-> -static void guc_policies_init(struct intel_guc *guc, struct guc_policies *policies)
-> +static void guc_policies_init(struct intel_guc *guc)
->  {
->  	struct intel_gt *gt = guc_to_gt(guc);
->  	struct drm_i915_private *i915 = gt->i915;
-> +	u32 global_flags = 0;
->  
-> -	policies->dpc_promote_time = GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
-> -	policies->max_num_work_items = GLOBAL_POLICY_MAX_NUM_WI;
-> +	ads_blob_write(guc, policies.dpc_promote_time,
-> +		       GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US);
-> +	ads_blob_write(guc, policies.max_num_work_items,
-> +		       GLOBAL_POLICY_MAX_NUM_WI);
->  
-> -	policies->global_flags = 0;
->  	if (i915->params.reset < 2)
-> -		policies->global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
-> +		global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
->  
-> -	policies->is_valid = 1;
-> +	ads_blob_write(guc, policies.global_flags, global_flags);
-> +	ads_blob_write(guc, policies.is_valid, 1);
->  }
->  
->  void intel_guc_ads_print_policy_info(struct intel_guc *guc,
->  				     struct drm_printer *dp)
->  {
-> -	struct __guc_ads_blob *blob = guc->ads_blob;
-> -
-> -	if (unlikely(!blob))
-> +	if (unlikely(iosys_map_is_null(&guc->ads_map)))
->  		return;
->  
->  	drm_printf(dp, "Global scheduling policies:\n");
-> -	drm_printf(dp, "  DPC promote time   = %u\n", blob->policies.dpc_promote_time);
-> -	drm_printf(dp, "  Max num work items = %u\n", blob->policies.max_num_work_items);
-> -	drm_printf(dp, "  Flags              = %u\n", blob->policies.global_flags);
-> +	drm_printf(dp, "  DPC promote time   = %u\n",
-> +		   ads_blob_read(guc, policies.dpc_promote_time));
-> +	drm_printf(dp, "  Max num work items = %u\n",
-> +		   ads_blob_read(guc, policies.max_num_work_items));
-> +	drm_printf(dp, "  Flags              = %u\n",
-> +		   ads_blob_read(guc, policies.global_flags));
->  }
->  
->  static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
-> @@ -171,23 +175,24 @@ static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
->  
->  int intel_guc_global_policies_update(struct intel_guc *guc)
->  {
-> -	struct __guc_ads_blob *blob = guc->ads_blob;
->  	struct intel_gt *gt = guc_to_gt(guc);
-> +	u32 scheduler_policies;
->  	intel_wakeref_t wakeref;
->  	int ret;
->  
-> -	if (!blob)
-> +	if (iosys_map_is_null(&guc->ads_map))
->  		return -EOPNOTSUPP;
->  
-> -	GEM_BUG_ON(!blob->ads.scheduler_policies);
-> +	scheduler_policies = ads_blob_read(guc, ads.scheduler_policies);
-> +	GEM_BUG_ON(!scheduler_policies);
->  
-> -	guc_policies_init(guc, &blob->policies);
-> +	guc_policies_init(guc);
->  
->  	if (!intel_guc_is_ready(guc))
->  		return 0;
->  
->  	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref)
-> -		ret = guc_action_policies_update(guc, blob->ads.scheduler_policies);
-> +		ret = guc_action_policies_update(guc, scheduler_policies);
->  
->  	return ret;
->  }
-> @@ -554,7 +559,7 @@ static void __guc_ads_init(struct intel_guc *guc)
->  	u32 base;
->  
->  	/* GuC scheduling policies */
-> -	guc_policies_init(guc, &blob->policies);
-> +	guc_policies_init(guc);
->  
->  	/* System info */
->  	fill_engine_enable_masks(gt, &blob->system_info);
-> -- 
-> 2.35.1
-> 
+It is illegal to add a dma_fence_chain as timeline point. Flatten out
+the fences into a dma_fence_array instead.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/drm_syncobj.c | 61 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 56 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index c313a5b4549c..7e48dcd1bee4 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -853,12 +853,57 @@ drm_syncobj_fd_to_handle_ioctl(struct drm_device *dev, void *data,
+ 					&args->handle);
+ }
+ 
++
++/*
++ * Try to flatten a dma_fence_chain into a dma_fence_array so that it can be
++ * added as timeline fence to a chain again.
++ */
++static int drm_syncobj_flatten_chain(struct dma_fence **f)
++{
++	struct dma_fence_chain *chain = to_dma_fence_chain(*f);
++	struct dma_fence *tmp, **fences;
++	struct dma_fence_array *array;
++	unsigned int count;
++
++	if (!chain)
++		return 0;
++
++	count = 0;
++	dma_fence_chain_for_each(tmp, &chain->base)
++		++count;
++
++	fences = kmalloc_array(count, sizeof(*fences), GFP_KERNEL);
++	if (!fences)
++		return -ENOMEM;
++
++	count = 0;
++	dma_fence_chain_for_each(tmp, &chain->base)
++		fences[count++] = dma_fence_get(tmp);
++
++	array = dma_fence_array_create(count, fences,
++				       dma_fence_context_alloc(1),
++				       1, false);
++	if (!array)
++		goto free_fences;
++
++	dma_fence_put(*f);
++	*f = &array->base;
++	return 0;
++
++free_fences:
++	while (count--)
++		dma_fence_put(fences[count]);
++
++	kfree(fences);
++	return -ENOMEM;
++}
++
+ static int drm_syncobj_transfer_to_timeline(struct drm_file *file_private,
+ 					    struct drm_syncobj_transfer *args)
+ {
+ 	struct drm_syncobj *timeline_syncobj = NULL;
+-	struct dma_fence *fence;
+ 	struct dma_fence_chain *chain;
++	struct dma_fence *fence;
+ 	int ret;
+ 
+ 	timeline_syncobj = drm_syncobj_find(file_private, args->dst_handle);
+@@ -869,16 +914,22 @@ static int drm_syncobj_transfer_to_timeline(struct drm_file *file_private,
+ 				     args->src_point, args->flags,
+ 				     &fence);
+ 	if (ret)
+-		goto err;
++		goto err_put_timeline;
++
++	ret = drm_syncobj_flatten_chain(&fence);
++	if (ret)
++		goto err_free_fence;
++
+ 	chain = dma_fence_chain_alloc();
+ 	if (!chain) {
+ 		ret = -ENOMEM;
+-		goto err1;
++		goto err_free_fence;
+ 	}
++
+ 	drm_syncobj_add_point(timeline_syncobj, chain, fence, args->dst_point);
+-err1:
++err_free_fence:
+ 	dma_fence_put(fence);
+-err:
++err_put_timeline:
+ 	drm_syncobj_put(timeline_syncobj);
+ 
+ 	return ret;
+-- 
+2.25.1
+
