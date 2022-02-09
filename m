@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33618C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 11:35:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B57C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 11:35:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF9DF10E6F1;
-	Wed,  9 Feb 2022 11:35:31 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5253A10E6F1
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 11:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF7210E6F8;
+	Wed,  9 Feb 2022 11:35:41 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD09610E69B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 11:35:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644406530; x=1675942530;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=r7GWXgjZZIWVT4AZOuWrI3M828mOXG+QSoXDt/jvumU=;
- b=kRgdjXfaZ9lUjAo4Xpk2FMrsu2sNSZ7NGhbxc1IQkEPGHG6PAfIPA683
- MJe5Q1WsNF2L9ZSuj1UVyQt23K9cQ7KXgCm7FTjbsTKoMSiyjeBMtLGQ4
- litPm90A7H0ZZfWVgcsnYeGdwSBomKC4/1GG+BFQukvHd7kqYYMlYaK0D
- jv9O23iy6FMmi1nVLKBgHT0ghJrk8Zz+j12qNjsJikOb1PJQ+UO5yb9sy
- hPDkpqirjOu9P+uDyn6OxzAqpZ8eHsj1LPFewH+vNjJY8HPjzZqvRdJ39
- bYxrZ6sp250TscRael0hh0JkqZhnGen+3qYeS0TWXdoA8bPLCDYUl6Axe w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="229832921"
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="229832921"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 03:35:29 -0800
+ t=1644406539; x=1675942539;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=+sG4zukblT0Csv/zvFBFSF8U0eW6H0Cp2n0XawvecV8=;
+ b=ceHajiL/IYVkn/f/qQy+Vup2sETpJJwv5czkCwm2RfmXzSsTzkTZUP9Q
+ kVdvlsUFPiCMVmhPWGJJByx0qtqvJqbhVFJy4o/xsLMqn2mfT84KT0wkm
+ qIi00OL+3j8pdAlG0//peZZr6W6k5ogqLEi+bc6t2wmotHWJDEarninwu
+ mblLU5KQeQB9sphfvlRcDKBIBUEAkRrC+z9gQ/+YX24eUO01jNLEmavJ/
+ vJaKN+ayPLcMQIjcnPTeGF7d0IOAom5uLthhGWGd9/MB7jWp96S9dX05K
+ UqGU5w9XRp0X2EbzSg/ba+orrcXCfsjReuXkzjMCKNHOZhB3cff+9z1eG Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="246768234"
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="246768234"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2022 03:35:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="525954714"
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="499940414"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga007.jf.intel.com with SMTP; 09 Feb 2022 03:35:27 -0800
+ by orsmga002.jf.intel.com with SMTP; 09 Feb 2022 03:35:36 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 09 Feb 2022 13:35:26 +0200
+ Wed, 09 Feb 2022 13:35:36 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Feb 2022 13:35:20 +0200
-Message-Id: <20220209113526.7595-1-ville.syrjala@linux.intel.com>
+Date: Wed,  9 Feb 2022 13:35:23 +0200
+Message-Id: <20220209113526.7595-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220209113526.7595-1-ville.syrjala@linux.intel.com>
+References: <20220209113526.7595-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/7] drm/i915: Move vblank waits out from IPS
- code
+Subject: [Intel-gfx] [PATCH 4/7] drm/i915: Move the IPS code to its own file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,83 +63,634 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Hoist the IPS related vblank waits one level up. Later on we'll
-want to consolidate all the potential pre-plane update vblank
-waits into one so we can't be hiding any in low level code.
+IPS is a prety well isolated feature. Move the relevant code
+to a separate file from polluting intel_display.c.
+
+I stuck to the hsw_ips since that's what the function were already
+using, and also to avoid confusion with the ILK
+"Intelligen Power Sharing"/intel_ips GPU turbo stuff.
+
+And let's also do the s/dev_priv/i915/ rename while touching
+most of the code.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 19 ++++++++++++-------
- drivers/gpu/drm/i915/display/intel_display.h |  2 +-
- 2 files changed, 13 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/Makefile                |   1 +
+ drivers/gpu/drm/i915/display/hsw_ips.c       | 251 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/hsw_ips.h       |  25 ++
+ drivers/gpu/drm/i915/display/intel_cdclk.c   |   1 +
+ drivers/gpu/drm/i915/display/intel_display.c | 239 +-----------------
+ drivers/gpu/drm/i915/display/intel_display.h |   1 -
+ 6 files changed, 279 insertions(+), 239 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/hsw_ips.c
+ create mode 100644 drivers/gpu/drm/i915/display/hsw_ips.h
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7f512f9e9e5c..5cc142a83ad7 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -752,8 +752,9 @@ void intel_plane_disable_noatomic(struct intel_crtc *crtc,
- 	crtc_state->data_rate[plane->id] = 0;
- 	crtc_state->min_cdclk[plane->id] = 0;
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index a26e6736bebb..226dbef5f64a 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -197,6 +197,7 @@ i915-y += gt/uc/intel_uc.o \
  
--	if (plane->id == PLANE_PRIMARY)
--		hsw_disable_ips(crtc_state);
-+	if (plane->id == PLANE_PRIMARY &&
-+	    hsw_disable_ips(crtc_state))
-+		intel_crtc_wait_for_next_vblank(crtc);
- 
- 	/*
- 	 * Vblank time updates from the shadow to live plane control register
-@@ -1127,14 +1128,15 @@ void hsw_enable_ips(const struct intel_crtc_state *crtc_state)
- 	}
- }
- 
--void hsw_disable_ips(const struct intel_crtc_state *crtc_state)
-+bool hsw_disable_ips(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_device *dev = crtc->base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
+ # modesetting core code
+ i915-y += \
++	display/hsw_ips.o \
+ 	display/intel_atomic.o \
+ 	display/intel_atomic_plane.o \
+ 	display/intel_audio.o \
+diff --git a/drivers/gpu/drm/i915/display/hsw_ips.c b/drivers/gpu/drm/i915/display/hsw_ips.c
+new file mode 100644
+index 000000000000..fb34ef615025
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/hsw_ips.c
+@@ -0,0 +1,251 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++
++#include "hsw_ips.h"
++#include "i915_drv.h"
++#include "i915_reg.h"
++#include "intel_de.h"
++#include "intel_display_types.h"
++#include "intel_pcode.h"
++
++static void hsw_ips_enable(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++
++	if (!crtc_state->ips_enabled)
++		return;
++
++	/*
++	 * We can only enable IPS after we enable a plane and wait for a vblank
++	 * This function is called from post_plane_update, which is run after
++	 * a vblank wait.
++	 */
++	drm_WARN_ON(&i915->drm,
++		    !(crtc_state->active_planes & ~BIT(PLANE_CURSOR)));
++
++	if (IS_BROADWELL(i915)) {
++		drm_WARN_ON(&i915->drm,
++			    snb_pcode_write(i915, DISPLAY_IPS_CONTROL,
++					    IPS_ENABLE | IPS_PCODE_CONTROL));
++		/*
++		 * Quoting Art Runyan: "its not safe to expect any particular
++		 * value in IPS_CTL bit 31 after enabling IPS through the
++		 * mailbox." Moreover, the mailbox may return a bogus state,
++		 * so we need to just enable it and continue on.
++		 */
++	} else {
++		intel_de_write(i915, IPS_CTL, IPS_ENABLE);
++		/*
++		 * The bit only becomes 1 in the next vblank, so this wait here
++		 * is essentially intel_wait_for_vblank. If we don't have this
++		 * and don't wait for vblanks until the end of crtc_enable, then
++		 * the HW state readout code will complain that the expected
++		 * IPS_CTL value is not the one we read.
++		 */
++		if (intel_de_wait_for_set(i915, IPS_CTL, IPS_ENABLE, 50))
++			drm_err(&i915->drm,
++				"Timed out waiting for IPS enable\n");
++	}
++}
++
++bool hsw_ips_disable(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
 +	bool need_vblank_wait = false;
- 
- 	if (!crtc_state->ips_enabled)
--		return;
++
++	if (!crtc_state->ips_enabled)
 +		return need_vblank_wait;
- 
- 	if (IS_BROADWELL(dev_priv)) {
- 		drm_WARN_ON(dev,
-@@ -1153,7 +1155,9 @@ void hsw_disable_ips(const struct intel_crtc_state *crtc_state)
- 	}
- 
- 	/* We need to wait for a vblank before we can disable the plane. */
--	intel_crtc_wait_for_next_vblank(crtc);
++
++	if (IS_BROADWELL(i915)) {
++		drm_WARN_ON(&i915->drm,
++			    snb_pcode_write(i915, DISPLAY_IPS_CONTROL, 0));
++		/*
++		 * Wait for PCODE to finish disabling IPS. The BSpec specified
++		 * 42ms timeout value leads to occasional timeouts so use 100ms
++		 * instead.
++		 */
++		if (intel_de_wait_for_clear(i915, IPS_CTL, IPS_ENABLE, 100))
++			drm_err(&i915->drm,
++				"Timed out waiting for IPS disable\n");
++	} else {
++		intel_de_write(i915, IPS_CTL, 0);
++		intel_de_posting_read(i915, IPS_CTL);
++	}
++
++	/* We need to wait for a vblank before we can disable the plane. */
 +	need_vblank_wait = true;
 +
 +	return need_vblank_wait;
++}
++
++static bool hsw_ips_need_disable(struct intel_atomic_state *state,
++				 struct intel_crtc *crtc)
++{
++	struct drm_i915_private *i915 = to_i915(state->base.dev);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++
++	if (!old_crtc_state->ips_enabled)
++		return false;
++
++	if (intel_crtc_needs_modeset(new_crtc_state))
++		return true;
++
++	/*
++	 * Workaround : Do not read or write the pipe palette/gamma data while
++	 * GAMMA_MODE is configured for split gamma and IPS_CTL has IPS enabled.
++	 *
++	 * Disable IPS before we program the LUT.
++	 */
++	if (IS_HASWELL(i915) &&
++	    (new_crtc_state->uapi.color_mgmt_changed ||
++	     new_crtc_state->update_pipe) &&
++	    new_crtc_state->gamma_mode == GAMMA_MODE_MODE_SPLIT)
++		return true;
++
++	return !new_crtc_state->ips_enabled;
++}
++
++bool hsw_ips_pre_update(struct intel_atomic_state *state,
++			struct intel_crtc *crtc)
++{
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++
++	if (!hsw_ips_need_disable(state, crtc))
++		return false;
++
++	return hsw_ips_disable(old_crtc_state);
++}
++
++static bool hsw_ips_need_enable(struct intel_atomic_state *state,
++				struct intel_crtc *crtc)
++{
++	struct drm_i915_private *i915 = to_i915(state->base.dev);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++
++	if (!new_crtc_state->ips_enabled)
++		return false;
++
++	if (intel_crtc_needs_modeset(new_crtc_state))
++		return true;
++
++	/*
++	 * Workaround : Do not read or write the pipe palette/gamma data while
++	 * GAMMA_MODE is configured for split gamma and IPS_CTL has IPS enabled.
++	 *
++	 * Re-enable IPS after the LUT has been programmed.
++	 */
++	if (IS_HASWELL(i915) &&
++	    (new_crtc_state->uapi.color_mgmt_changed ||
++	     new_crtc_state->update_pipe) &&
++	    new_crtc_state->gamma_mode == GAMMA_MODE_MODE_SPLIT)
++		return true;
++
++	/*
++	 * We can't read out IPS on broadwell, assume the worst and
++	 * forcibly enable IPS on the first fastset.
++	 */
++	if (new_crtc_state->update_pipe && old_crtc_state->inherited)
++		return true;
++
++	return !old_crtc_state->ips_enabled;
++}
++
++void hsw_ips_post_update(struct intel_atomic_state *state,
++			 struct intel_crtc *crtc)
++{
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++
++	if (!hsw_ips_need_enable(state, crtc))
++		return;
++
++	hsw_ips_enable(new_crtc_state);
++}
++
++/* IPS only exists on ULT machines and is tied to pipe A. */
++bool hsw_crtc_supports_ips(struct intel_crtc *crtc)
++{
++	return HAS_IPS(to_i915(crtc->base.dev)) && crtc->pipe == PIPE_A;
++}
++
++bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++
++	/* IPS only exists on ULT machines and is tied to pipe A. */
++	if (!hsw_crtc_supports_ips(crtc))
++		return false;
++
++	if (!i915->params.enable_ips)
++		return false;
++
++	if (crtc_state->pipe_bpp > 24)
++		return false;
++
++	/*
++	 * We compare against max which means we must take
++	 * the increased cdclk requirement into account when
++	 * calculating the new cdclk.
++	 *
++	 * Should measure whether using a lower cdclk w/o IPS
++	 */
++	if (IS_BROADWELL(i915) &&
++	    crtc_state->pixel_rate > i915->max_cdclk_freq * 95 / 100)
++		return false;
++
++	return true;
++}
++
++int hsw_ips_compute_config(struct intel_atomic_state *state,
++			   struct intel_crtc *crtc)
++{
++	struct drm_i915_private *i915 = to_i915(state->base.dev);
++	struct intel_crtc_state *crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++
++	crtc_state->ips_enabled = false;
++
++	if (!hsw_crtc_state_ips_capable(crtc_state))
++		return 0;
++
++	/*
++	 * When IPS gets enabled, the pipe CRC changes. Since IPS gets
++	 * enabled and disabled dynamically based on package C states,
++	 * user space can't make reliable use of the CRCs, so let's just
++	 * completely disable it.
++	 */
++	if (crtc_state->crc_enabled)
++		return 0;
++
++	/* IPS should be fine as long as at least one plane is enabled. */
++	if (!(crtc_state->active_planes & ~BIT(PLANE_CURSOR)))
++		return 0;
++
++	if (IS_BROADWELL(i915)) {
++		const struct intel_cdclk_state *cdclk_state;
++
++		cdclk_state = intel_atomic_get_cdclk_state(state);
++		if (IS_ERR(cdclk_state))
++			return PTR_ERR(cdclk_state);
++
++		/* pixel rate mustn't exceed 95% of cdclk with IPS on BDW */
++		if (crtc_state->pixel_rate > cdclk_state->logical.cdclk * 95 / 100)
++			return 0;
++	}
++
++	crtc_state->ips_enabled = true;
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/i915/display/hsw_ips.h b/drivers/gpu/drm/i915/display/hsw_ips.h
+new file mode 100644
+index 000000000000..d63bdef5100a
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/hsw_ips.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++
++#ifndef __HSW_IPS_H__
++#define __HSW_IPS_H__
++
++#include <linux/types.h>
++
++struct intel_atomic_state;
++struct intel_crtc;
++struct intel_crtc_state;
++
++bool hsw_ips_disable(const struct intel_crtc_state *crtc_state);
++bool hsw_ips_pre_update(struct intel_atomic_state *state,
++			struct intel_crtc *crtc);
++void hsw_ips_post_update(struct intel_atomic_state *state,
++			 struct intel_crtc *crtc);
++bool hsw_crtc_supports_ips(struct intel_crtc *crtc);
++bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state);
++int hsw_ips_compute_config(struct intel_atomic_state *state,
++			   struct intel_crtc *crtc);
++
++#endif /* __HSW_IPS_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 4b140a014ca8..118ef391b560 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -23,6 +23,7 @@
+ 
+ #include <linux/time.h>
+ 
++#include "hsw_ips.h"
+ #include "intel_atomic.h"
+ #include "intel_atomic_plane.h"
+ #include "intel_audio.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 08c59fdb24e5..134527981e2b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -74,6 +74,7 @@
+ 
+ #include "g4x_dp.h"
+ #include "g4x_hdmi.h"
++#include "hsw_ips.h"
+ #include "i915_drv.h"
+ #include "icl_dsi.h"
+ #include "intel_acpi.h"
+@@ -125,7 +126,6 @@ static void bdw_set_pipemisc(const struct intel_crtc_state *crtc_state);
+ static void ilk_pfit_enable(const struct intel_crtc_state *crtc_state);
+ static void intel_modeset_setup_hw_state(struct drm_device *dev,
+ 					 struct drm_modeset_acquire_ctx *ctx);
+-static bool hsw_ips_disable(const struct intel_crtc_state *crtc_state);
+ 
+ /**
+  * intel_update_watermarks - update FIFO watermark values based on current modes
+@@ -1092,75 +1092,6 @@ static void ilk_pfit_enable(const struct intel_crtc_state *crtc_state)
+ 	intel_de_write(dev_priv, PF_WIN_SZ(pipe), width << 16 | height);
  }
  
+-static void hsw_ips_enable(const struct intel_crtc_state *crtc_state)
+-{
+-	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_device *dev = crtc->base.dev;
+-	struct drm_i915_private *dev_priv = to_i915(dev);
+-
+-	if (!crtc_state->ips_enabled)
+-		return;
+-
+-	/*
+-	 * We can only enable IPS after we enable a plane and wait for a vblank
+-	 * This function is called from post_plane_update, which is run after
+-	 * a vblank wait.
+-	 */
+-	drm_WARN_ON(dev, !(crtc_state->active_planes & ~BIT(PLANE_CURSOR)));
+-
+-	if (IS_BROADWELL(dev_priv)) {
+-		drm_WARN_ON(dev, snb_pcode_write(dev_priv, DISPLAY_IPS_CONTROL,
+-						 IPS_ENABLE | IPS_PCODE_CONTROL));
+-		/* Quoting Art Runyan: "its not safe to expect any particular
+-		 * value in IPS_CTL bit 31 after enabling IPS through the
+-		 * mailbox." Moreover, the mailbox may return a bogus state,
+-		 * so we need to just enable it and continue on.
+-		 */
+-	} else {
+-		intel_de_write(dev_priv, IPS_CTL, IPS_ENABLE);
+-		/* The bit only becomes 1 in the next vblank, so this wait here
+-		 * is essentially intel_wait_for_vblank. If we don't have this
+-		 * and don't wait for vblanks until the end of crtc_enable, then
+-		 * the HW state readout code will complain that the expected
+-		 * IPS_CTL value is not the one we read. */
+-		if (intel_de_wait_for_set(dev_priv, IPS_CTL, IPS_ENABLE, 50))
+-			drm_err(&dev_priv->drm,
+-				"Timed out waiting for IPS enable\n");
+-	}
+-}
+-
+-static bool hsw_ips_disable(const struct intel_crtc_state *crtc_state)
+-{
+-	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_device *dev = crtc->base.dev;
+-	struct drm_i915_private *dev_priv = to_i915(dev);
+-	bool need_vblank_wait = false;
+-
+-	if (!crtc_state->ips_enabled)
+-		return need_vblank_wait;
+-
+-	if (IS_BROADWELL(dev_priv)) {
+-		drm_WARN_ON(dev,
+-			    snb_pcode_write(dev_priv, DISPLAY_IPS_CONTROL, 0));
+-		/*
+-		 * Wait for PCODE to finish disabling IPS. The BSpec specified
+-		 * 42ms timeout value leads to occasional timeouts so use 100ms
+-		 * instead.
+-		 */
+-		if (intel_de_wait_for_clear(dev_priv, IPS_CTL, IPS_ENABLE, 100))
+-			drm_err(&dev_priv->drm,
+-				"Timed out waiting for IPS disable\n");
+-	} else {
+-		intel_de_write(dev_priv, IPS_CTL, 0);
+-		intel_de_posting_read(dev_priv, IPS_CTL);
+-	}
+-
+-	/* We need to wait for a vblank before we can disable the plane. */
+-	need_vblank_wait = true;
+-
+-	return need_vblank_wait;
+-}
+-
  static void intel_crtc_dpms_overlay_disable(struct intel_crtc *crtc)
-@@ -1426,8 +1430,9 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+ {
+ 	if (crtc->overlay)
+@@ -1171,97 +1102,6 @@ static void intel_crtc_dpms_overlay_disable(struct intel_crtc *crtc)
+ 	 */
+ }
  
- 	intel_psr_pre_plane_update(state, crtc);
+-static bool hsw_ips_need_disable(struct intel_atomic_state *state,
+-				 struct intel_crtc *crtc)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+-	const struct intel_crtc_state *old_crtc_state =
+-		intel_atomic_get_old_crtc_state(state, crtc);
+-	const struct intel_crtc_state *new_crtc_state =
+-		intel_atomic_get_new_crtc_state(state, crtc);
+-
+-	if (!old_crtc_state->ips_enabled)
+-		return false;
+-
+-	if (intel_crtc_needs_modeset(new_crtc_state))
+-		return true;
+-
+-	/*
+-	 * Workaround : Do not read or write the pipe palette/gamma data while
+-	 * GAMMA_MODE is configured for split gamma and IPS_CTL has IPS enabled.
+-	 *
+-	 * Disable IPS before we program the LUT.
+-	 */
+-	if (IS_HASWELL(dev_priv) &&
+-	    (new_crtc_state->uapi.color_mgmt_changed ||
+-	     new_crtc_state->update_pipe) &&
+-	    new_crtc_state->gamma_mode == GAMMA_MODE_MODE_SPLIT)
+-		return true;
+-
+-	return !new_crtc_state->ips_enabled;
+-}
+-
+-static bool hsw_ips_pre_update(struct intel_atomic_state *state,
+-			       struct intel_crtc *crtc)
+-{
+-	const struct intel_crtc_state *old_crtc_state =
+-		intel_atomic_get_old_crtc_state(state, crtc);
+-
+-	if (!hsw_ips_need_disable(state, crtc))
+-		return false;
+-
+-	return hsw_ips_disable(old_crtc_state);
+-}
+-
+-static bool hsw_ips_need_enable(struct intel_atomic_state *state,
+-				struct intel_crtc *crtc)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+-	const struct intel_crtc_state *old_crtc_state =
+-		intel_atomic_get_old_crtc_state(state, crtc);
+-	const struct intel_crtc_state *new_crtc_state =
+-		intel_atomic_get_new_crtc_state(state, crtc);
+-
+-	if (!new_crtc_state->ips_enabled)
+-		return false;
+-
+-	if (intel_crtc_needs_modeset(new_crtc_state))
+-		return true;
+-
+-	/*
+-	 * Workaround : Do not read or write the pipe palette/gamma data while
+-	 * GAMMA_MODE is configured for split gamma and IPS_CTL has IPS enabled.
+-	 *
+-	 * Re-enable IPS after the LUT has been programmed.
+-	 */
+-	if (IS_HASWELL(dev_priv) &&
+-	    (new_crtc_state->uapi.color_mgmt_changed ||
+-	     new_crtc_state->update_pipe) &&
+-	    new_crtc_state->gamma_mode == GAMMA_MODE_MODE_SPLIT)
+-		return true;
+-
+-	/*
+-	 * We can't read out IPS on broadwell, assume the worst and
+-	 * forcibly enable IPS on the first fastset.
+-	 */
+-	if (new_crtc_state->update_pipe && old_crtc_state->inherited)
+-		return true;
+-
+-	return !old_crtc_state->ips_enabled;
+-}
+-
+-static void hsw_ips_post_update(struct intel_atomic_state *state,
+-				struct intel_crtc *crtc)
+-{
+-	const struct intel_crtc_state *new_crtc_state =
+-		intel_atomic_get_new_crtc_state(state, crtc);
+-
+-	if (!hsw_ips_need_enable(state, crtc))
+-		return;
+-
+-	hsw_ips_enable(new_crtc_state);
+-}
+-
+ static bool needs_nv12_wa(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+@@ -1938,12 +1778,6 @@ static void ilk_crtc_enable(struct intel_atomic_state *state,
+ 	intel_set_pch_fifo_underrun_reporting(dev_priv, pipe, true);
+ }
  
--	if (hsw_pre_update_disable_ips(old_crtc_state, new_crtc_state))
--		hsw_disable_ips(old_crtc_state);
-+	if (hsw_pre_update_disable_ips(old_crtc_state, new_crtc_state) &&
-+	    hsw_disable_ips(old_crtc_state))
-+		intel_crtc_wait_for_next_vblank(crtc);
+-/* IPS only exists on ULT machines and is tied to pipe A. */
+-static bool hsw_crtc_supports_ips(struct intel_crtc *crtc)
+-{
+-	return HAS_IPS(to_i915(crtc->base.dev)) && crtc->pipe == PIPE_A;
+-}
+-
+ static void glk_pipe_scaler_clock_gating_wa(struct drm_i915_private *dev_priv,
+ 					    enum pipe pipe, bool apply)
+ {
+@@ -2811,77 +2645,6 @@ static void intel_connector_verify_state(struct intel_crtc_state *crtc_state,
+ 	}
+ }
  
- 	if (intel_fbc_pre_update(state, crtc))
- 		intel_crtc_wait_for_next_vblank(crtc);
+-bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state)
+-{
+-	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-
+-	/* IPS only exists on ULT machines and is tied to pipe A. */
+-	if (!hsw_crtc_supports_ips(crtc))
+-		return false;
+-
+-	if (!dev_priv->params.enable_ips)
+-		return false;
+-
+-	if (crtc_state->pipe_bpp > 24)
+-		return false;
+-
+-	/*
+-	 * We compare against max which means we must take
+-	 * the increased cdclk requirement into account when
+-	 * calculating the new cdclk.
+-	 *
+-	 * Should measure whether using a lower cdclk w/o IPS
+-	 */
+-	if (IS_BROADWELL(dev_priv) &&
+-	    crtc_state->pixel_rate > dev_priv->max_cdclk_freq * 95 / 100)
+-		return false;
+-
+-	return true;
+-}
+-
+-static int hsw_ips_compute_config(struct intel_atomic_state *state,
+-				  struct intel_crtc *crtc)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+-	struct intel_crtc_state *crtc_state =
+-		intel_atomic_get_new_crtc_state(state, crtc);
+-
+-	crtc_state->ips_enabled = false;
+-
+-	if (!hsw_crtc_state_ips_capable(crtc_state))
+-		return 0;
+-
+-	/*
+-	 * When IPS gets enabled, the pipe CRC changes. Since IPS gets
+-	 * enabled and disabled dynamically based on package C states,
+-	 * user space can't make reliable use of the CRCs, so let's just
+-	 * completely disable it.
+-	 */
+-	if (crtc_state->crc_enabled)
+-		return 0;
+-
+-	/* IPS should be fine as long as at least one plane is enabled. */
+-	if (!(crtc_state->active_planes & ~BIT(PLANE_CURSOR)))
+-		return 0;
+-
+-	if (IS_BROADWELL(dev_priv)) {
+-		const struct intel_cdclk_state *cdclk_state;
+-
+-		cdclk_state = intel_atomic_get_cdclk_state(state);
+-		if (IS_ERR(cdclk_state))
+-			return PTR_ERR(cdclk_state);
+-
+-		/* pixel rate mustn't exceed 95% of cdclk with IPS on BDW */
+-		if (crtc_state->pixel_rate > cdclk_state->logical.cdclk * 95 / 100)
+-			return 0;
+-	}
+-
+-	crtc_state->ips_enabled = true;
+-
+-	return 0;
+-}
+-
+ static bool intel_crtc_supports_double_wide(const struct intel_crtc *crtc)
+ {
+ 	const struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
 diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 457738aeee3e..8f9bec36898e 100644
+index 2315088a280d..b8455e2b2373 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.h
 +++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -634,7 +634,7 @@ void i9xx_crtc_clock_get(struct intel_crtc *crtc,
+@@ -632,7 +632,6 @@ void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc,
+ void i9xx_crtc_clock_get(struct intel_crtc *crtc,
+ 			 struct intel_crtc_state *pipe_config);
  int intel_dotclock_calculate(int link_freq, const struct intel_link_m_n *m_n);
- bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state);
- void hsw_enable_ips(const struct intel_crtc_state *crtc_state);
--void hsw_disable_ips(const struct intel_crtc_state *crtc_state);
-+bool hsw_disable_ips(const struct intel_crtc_state *crtc_state);
+-bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state);
  enum intel_display_power_domain intel_port_to_power_domain(enum port port);
  enum intel_display_power_domain
  intel_aux_power_domain(struct intel_digital_port *dig_port);
