@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76EECC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:50:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED15CC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBA8210E94E;
-	Thu, 10 Feb 2022 18:50:33 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 853B410E951
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 18:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 571E410E952;
+	Thu, 10 Feb 2022 18:51:08 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E80E410E954
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 18:51:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644519030; x=1676055030;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CRJKGm9H519KtmYek4wLgK4pci7OjjE1KLv1zXIYzPg=;
- b=O/tCnrQh9ggqfhQxkDw/h257/uWAHZrWvEn7zP2PDtCy7hbycykPrpG+
- cmeapOWIi1kfsMhSQSi3MNc+OoB0j3d0J5t3uExBhTms8nMTPSAw+v16W
- NksNljaIk3VJgZFNUIezVeRXSluxAyb/SekeAjM+96R71lUYj+fLHscj/
- iMIWz4iqX7lWkCNKty2ECgja1X9r54Vnh9GYqYrtkLgandrRbNy57Up84
- J8hEmcuGtGervUSH64dyvGJRQpf+7f+hne+tkqgOvdUq5V4dGPZEWcdOV
- pRTuCZxQNXXk0YjLoXF6tajXx14mDDOaUcncRvk13gU9cKfMTcBHpIs5f A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="335985775"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="335985775"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:50:30 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="701793253"
-Received: from afdelosa-mobl1.amr.corp.intel.com (HELO
- josouza-mobl2.amr.corp.intel.com) ([10.209.167.175])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:50:29 -0800
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 10:52:23 -0800
-Message-Id: <20220210185223.95399-2-jose.souza@intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220210185223.95399-1-jose.souza@intel.com>
-References: <20220210185223.95399-1-jose.souza@intel.com>
+ t=1644519067; x=1676055067;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=NQUojKSqYIo0gC/3v2i9UJxQPwwd1hQElyCRsLayPRo=;
+ b=SwXixkRa5V8EOhvQYAAqnqvpheQnxD5Oz6myetKTH69UBoWrsnb6M52r
+ t4vFXmW4kHftJveHLQPufU47/J7qRBsi2PMC4/op6s+15NCnaK0Udno6U
+ PlXG2P9AE2TaVQP943ZxZmGTlfBJOK+17ae4iwU0agvYF5LqcQoJ3qa72
+ CzwgoFU0DC4RQth1zXQkvuyxqguhQkYnpgm/USke/NJvNcG+A8r/H0lsd
+ e1l3RibplahZvqfKeCYm3glTG91hffDs5IZZp5YjfQ1GA+pw3FaPsPW+3
+ 5+CgrWCxM2iksrbbD3qf3QhLILXHtep93TjJTAtNoSvRVVT/B1gUYttdC w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249514244"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="249514244"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 10:51:07 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="485844603"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 10:51:07 -0800
+Date: Thu, 10 Feb 2022 10:51:05 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Message-ID: <YgVemUgixMuqZEMU@mdroper-desk1.amr.corp.intel.com>
+References: <20220210164430.299456-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/display: Implement Wa_16013835468
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220210164430.299456-1-anusha.srivatsa@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dg1: Update DMC_DEBUG3 register
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,116 +56,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PSR2 workaround required when mode has delayed vblank.
+On Thu, Feb 10, 2022 at 08:44:30AM -0800, Anusha Srivatsa wrote:
+> DMC_DEBUGU3 changes from DG1+
 
-BSpec: 52890
-BSpec: 49421
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 40 ++++++++++++++++++++++--
- drivers/gpu/drm/i915/i915_reg.h          | 13 +++++---
- 2 files changed, 46 insertions(+), 7 deletions(-)
+This looks to be the same thing as the patch that Chuansheng Liu sent:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 72bd8d3261e0c..2e0b092f4b6be 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1063,7 +1063,23 @@ static void intel_psr_activate(struct intel_dp *intel_dp)
- 	intel_dp->psr.active = true;
- }
- 
--static void intel_psr_enable_source(struct intel_dp *intel_dp)
-+static u32 wa_16013835468_bit_get(struct intel_dp *intel_dp)
-+{
-+	switch (intel_dp->psr.pipe) {
-+	case PIPE_A:
-+		return LATENCY_REPORTING_REMOVED_PIPE_A;
-+	case PIPE_B:
-+		return LATENCY_REPORTING_REMOVED_PIPE_B;
-+	case PIPE_C:
-+		return LATENCY_REPORTING_REMOVED_PIPE_C;
-+	default:
-+		MISSING_CASE(intel_dp->psr.pipe);
-+		return 0;
-+	}
-+}
-+
-+static void intel_psr_enable_source(struct intel_dp *intel_dp,
-+				    const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
-@@ -1133,6 +1149,20 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp)
- 		if (IS_ALDERLAKE_P(dev_priv))
- 			intel_de_rmw(dev_priv, CLKGATE_DIS_MISC, 0,
- 				     CLKGATE_DIS_MISC_DMASC_GATING_DIS);
-+
-+		/* Wa_16013835468:tgl[b0+], dg1 */
-+		if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_B0, STEP_FOREVER) ||
-+		    IS_DG1(dev_priv)) {
-+			u16 vtotal, vblank;
-+
-+			vtotal = crtc_state->uapi.adjusted_mode.crtc_vtotal -
-+				 crtc_state->uapi.adjusted_mode.crtc_vdisplay;
-+			vblank = crtc_state->uapi.adjusted_mode.crtc_vblank_end -
-+				 crtc_state->uapi.adjusted_mode.crtc_vblank_start;
-+			if (vblank > vtotal)
-+				intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1, 0,
-+					     wa_16013835468_bit_get(intel_dp));
-+		}
- 	}
- }
- 
-@@ -1198,7 +1228,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- 	intel_write_dp_vsc_sdp(encoder, crtc_state, &crtc_state->psr_vsc);
- 	intel_snps_phy_update_psr_power_state(dev_priv, phy, true);
- 	intel_psr_enable_sink(intel_dp);
--	intel_psr_enable_source(intel_dp);
-+	intel_psr_enable_source(intel_dp, crtc_state);
- 	intel_dp->psr.enabled = true;
- 	intel_dp->psr.paused = false;
- 
-@@ -1297,6 +1327,12 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 		if (IS_ALDERLAKE_P(dev_priv))
- 			intel_de_rmw(dev_priv, CLKGATE_DIS_MISC,
- 				     CLKGATE_DIS_MISC_DMASC_GATING_DIS, 0);
-+
-+		/* Wa_16013835468:tgl[b0+], dg1 */
-+		if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_B0, STEP_FOREVER) ||
-+		    IS_DG1(dev_priv))
-+			intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1,
-+				     wa_16013835468_bit_get(intel_dp), 0);
- 	}
- 
- 	intel_snps_phy_update_psr_power_state(dev_priv, phy, false);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 87c92314ee269..1cd4056400b63 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -6040,11 +6040,14 @@
- #define HSW_NDE_RSTWRN_OPT	_MMIO(0x46408)
- #define  RESET_PCH_HANDSHAKE_ENABLE	(1 << 4)
- 
--#define GEN8_CHICKEN_DCPR_1		_MMIO(0x46430)
--#define   SKL_SELECT_ALTERNATE_DC_EXIT	REG_BIT(30)
--#define   ICL_DELAY_PMRSP		REG_BIT(22)
--#define   DISABLE_FLR_SRC		REG_BIT(15)
--#define   MASK_WAKEMEM			REG_BIT(13)
-+#define GEN8_CHICKEN_DCPR_1			_MMIO(0x46430)
-+#define   SKL_SELECT_ALTERNATE_DC_EXIT		REG_BIT(30)
-+#define   LATENCY_REPORTING_REMOVED_PIPE_C	REG_BIT(25)
-+#define   LATENCY_REPORTING_REMOVED_PIPE_B	REG_BIT(24)
-+#define   LATENCY_REPORTING_REMOVED_PIPE_A	REG_BIT(23)
-+#define   ICL_DELAY_PMRSP			REG_BIT(22)
-+#define   DISABLE_FLR_SRC			REG_BIT(15)
-+#define   MASK_WAKEMEM				REG_BIT(13)
- 
- #define GEN11_CHICKEN_DCPR_2			_MMIO(0x46434)
- #define   DCPR_MASK_MAXLATENCY_MEMUP_CLR	REG_BIT(27)
+https://patchwork.freedesktop.org/patch/473272/?series=99942&rev=1
+
+
+Matt
+
+> 
+> Bspec: 49788
+> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 6 ++++--
+>  drivers/gpu/drm/i915/i915_reg.h                      | 1 +
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> index f4de004d470f..87fc4b9b7b93 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -474,8 +474,10 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+>  		 * reg for DC3CO debugging and validation,
+>  		 * but TGL DMC f/w is using DMC_DEBUG3 reg for DC3CO counter.
+>  		 */
+> -		seq_printf(m, "DC3CO count: %d\n",
+> -			   intel_de_read(dev_priv, DMC_DEBUG3));
+> +		if (IS_DGFX(dev_priv))
+> +			seq_printf(m, "DC3CO count: %d\n", intel_de_read(dev_priv, DG1_DMC_DEBUG3));
+> +		else
+> +			seq_printf(m, "DC3CO count: %d\n", intel_de_read(dev_priv, DMC_DEBUG3));
+>  	} else {
+>  		dc5_reg = IS_BROXTON(dev_priv) ? BXT_DMC_DC3_DC5_COUNT :
+>  						 SKL_DMC_DC3_DC5_COUNT;
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index 87c92314ee26..802962e3977c 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -5633,6 +5633,7 @@
+>  #define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
+>  
+>  #define DMC_DEBUG3		_MMIO(0x101090)
+> +#define DG1_DMC_DEBUG3		_MMIO(0x13415C)
+>  
+>  /* Display Internal Timeout Register */
+>  #define RM_TIMEOUT		_MMIO(0x42060)
+> -- 
+> 2.25.1
+> 
+
 -- 
-2.35.1
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
