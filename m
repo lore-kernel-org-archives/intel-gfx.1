@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C78C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F36C433FE
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 12:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30E7F10E85A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD5B10E846;
 	Thu, 10 Feb 2022 12:16:56 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9255B10E83F;
- Thu, 10 Feb 2022 12:16:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6752910E84E;
+ Thu, 10 Feb 2022 12:16:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644495407; x=1676031407;
+ t=1644495410; x=1676031410;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sJBq9A5raQN5I5d6srWYI0Cisol/iqiezG0csSgMLak=;
- b=dr+hxKujFe44Djz2xcA4T8/UQHFG7lMvZTuGzhHtYQKg5+GgddI21mFh
- /qxpcA9Lh9fzzYdSKdCcYfY8UO00dTTlIVr0wYvkO+n+I6r1EmbzfJX6o
- ifF9Wv73MExEct0pSKqbeWl10mBYZVuzI1eMLOIWfcgrrURUwp4jKAW9W
- pn8/toV+jo8eiAHMTIDu+SJnsAruZ0p/vZ/Qv4J7HeJQZNAqRlCJ1A8dU
- 5PWQLC1Q/pUyKvD1Il+8CvzU7hISByribiNGlQUDwKCZggq2KaqSfW6AS
- abB8jpVoO5BG6kiVODE8ATpAsr3beMO2dKZMw28W+iWkB0O6Jp4h34YiO w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="247060972"
-X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="247060972"
+ bh=wycYYxY7PbN+gGKA4oTWjO+11Fw5YZXkuvhKHFG19G0=;
+ b=lKruS7wLf26ipFJAMG5sdATv65tW5z/aKtTWG9iP0zvcLB+cm2toFN/5
+ 0qZO6pO0xtyy/gKKtss3UEQ4MBxaLIsnOfwhaErr7Yll29fDKQHkwabQv
+ RZR1CS6wSWTgCwezLzdW9PJ6Ptgg1kSYSzigrN0ifL0WsXgD5PNnXSudf
+ Blh5aT7KgWstdQ7IIRnMI8QjtPVW+5FrHekFecufZn+vpogMKDa9WR+Fd
+ aM65vMhs93mzJrMp26MP+h7iEiCL65qFv2BlpPg0Sa3NuWBsmUsnvWbnb
+ D54Usorsgeu1KxTQ3XwM42djJkhxFsYsucz04hijk40GvLOpqR7ATWO/U w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="247060978"
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="247060978"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 04:16:47 -0800
-X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="485664978"
+ 10 Feb 2022 04:16:50 -0800
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="485664985"
 Received: from paulbarr-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.11.226])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 04:16:46 -0800
+ 10 Feb 2022 04:16:48 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 12:13:06 +0000
-Message-Id: <20220210121313.701004-9-matthew.auld@intel.com>
+Date: Thu, 10 Feb 2022 12:13:08 +0000
+Message-Id: <20220210121313.701004-11-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220210121313.701004-1-matthew.auld@intel.com>
 References: <20220210121313.701004-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 08/15] drm/i915/ttm: make eviction mappable
- aware
+Subject: [Intel-gfx] [PATCH v2 10/15] drm/i915/selftests: exercise mmap
+ migration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,127 +63,360 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If we need to make room for some mappable object, then we should
-only victimize objects that have one or pages that occupy the visible
-portion of LMEM. Let's also create a new priority hint for objects that
-are placed in mappable memory, where we know that CPU access was
-requested, that way we hopefully victimize these last.
+Exercise each of the migration scenarios, verifying that the final
+placement and buffer contents match our expectations.
 
-v2(Thomas): s/TTM_PL_PRIV/I915_PL_LMEM0/
+v2(Thomas): Replace for_i915_gem_ww() block with simpler object_lock()
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 65 ++++++++++++++++++++++++-
- 1 file changed, 63 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    | 304 ++++++++++++++++++
+ 2 files changed, 305 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 36e77fcf2ef9..3790e569d6a9 100644
+index 780513e98fdc..7940dfec1d56 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -5,8 +5,10 @@
+@@ -999,7 +999,7 @@ static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+ 				continue;
  
- #include <drm/ttm/ttm_bo_driver.h>
- #include <drm/ttm/ttm_placement.h>
-+#include <drm/drm_buddy.h>
- 
- #include "i915_drv.h"
-+#include "i915_ttm_buddy_manager.h"
- #include "intel_memory_region.h"
- #include "intel_region_ttm.h"
- 
-@@ -20,6 +22,7 @@
- #define I915_TTM_PRIO_PURGE     0
- #define I915_TTM_PRIO_NO_PAGES  1
- #define I915_TTM_PRIO_HAS_PAGES 2
-+#define I915_TTM_PRIO_NEEDS_CPU_ACCESS 3
- 
- /*
-  * Size of struct ttm_place vector in on-stack struct ttm_placement allocs
-@@ -337,6 +340,7 @@ static bool i915_ttm_eviction_valuable(struct ttm_buffer_object *bo,
- 				       const struct ttm_place *place)
- {
- 	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
-+	struct ttm_resource *res = bo->resource;
- 
- 	if (!obj)
- 		return false;
-@@ -350,7 +354,48 @@ static bool i915_ttm_eviction_valuable(struct ttm_buffer_object *bo,
- 		return false;
- 
- 	/* Will do for now. Our pinned objects are still on TTM's LRU lists */
--	return i915_gem_object_evictable(obj);
-+	if (!i915_gem_object_evictable(obj))
-+		return false;
-+
-+	switch (res->mem_type) {
-+	case I915_PL_LMEM0: {
-+		struct ttm_resource_manager *man =
-+			ttm_manager_type(bo->bdev, res->mem_type);
-+		struct i915_ttm_buddy_resource *bman_res =
-+			to_ttm_buddy_resource(res);
-+		struct drm_buddy *mm = bman_res->mm;
-+		struct drm_buddy_block *block;
-+
-+		if (!place->fpfn && !place->lpfn)
-+			return true;
-+
-+		GEM_BUG_ON(!place->lpfn);
-+
-+		/*
-+		 * If we just want something mappable then we can quickly check
-+		 * if the current victim resource is using any of the CPU
-+		 * visible portion.
-+		 */
-+		if (!place->fpfn &&
-+		    place->lpfn == i915_ttm_buddy_man_visible_size(man))
-+			return bman_res->used_visible_size > 0;
-+
-+		/* Real range allocation */
-+		list_for_each_entry(block, &bman_res->blocks, link) {
-+			unsigned long fpfn =
-+				drm_buddy_block_offset(block) >> PAGE_SHIFT;
-+			unsigned long lpfn = fpfn +
-+				(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
-+
-+			if (place->fpfn < lpfn && place->lpfn > fpfn)
-+				return true;
-+		}
-+		return false;
-+	} default:
-+		break;
-+	}
-+
-+	return true;
+ 			flags = obj->flags;
+-			flags &= ~I915_BO_ALLOC_TOPDOWN;
++			flags &= ~I915_BO_ALLOC_GPU_ONLY;
+ 			err = __i915_ttm_migrate(obj, mr, flags);
+ 			if (!err)
+ 				break;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index ba29767348be..7a73a0b015b9 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -10,6 +10,7 @@
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_pm.h"
++#include "gt/intel_migrate.h"
+ #include "gem/i915_gem_region.h"
+ #include "huge_gem_object.h"
+ #include "i915_selftest.h"
+@@ -999,6 +1000,308 @@ static int igt_mmap(void *arg)
+ 	return 0;
  }
  
- static void i915_ttm_evict_flags(struct ttm_buffer_object *bo,
-@@ -850,7 +895,23 @@ void i915_ttm_adjust_lru(struct drm_i915_gem_object *obj)
- 	} else if (!i915_gem_object_has_pages(obj)) {
- 		bo->priority = I915_TTM_PRIO_NO_PAGES;
- 	} else {
--		bo->priority = I915_TTM_PRIO_HAS_PAGES;
-+		struct ttm_resource_manager *man =
-+			ttm_manager_type(bo->bdev, bo->resource->mem_type);
++static void igt_close_objects(struct drm_i915_private *i915,
++			      struct list_head *objects)
++{
++	struct drm_i915_gem_object *obj, *on;
++
++	list_for_each_entry_safe(obj, on, objects, st_link) {
++		i915_gem_object_lock(obj, NULL);
++		if (i915_gem_object_has_pinned_pages(obj))
++			i915_gem_object_unpin_pages(obj);
++		/* No polluting the memory region between tests */
++		__i915_gem_object_put_pages(obj);
++		i915_gem_object_unlock(obj);
++		list_del(&obj->st_link);
++		i915_gem_object_put(obj);
++	}
++
++	cond_resched();
++
++	i915_gem_drain_freed_objects(i915);
++}
++
++static void igt_make_evictable(struct list_head *objects)
++{
++	struct drm_i915_gem_object *obj;
++
++	list_for_each_entry(obj, objects, st_link) {
++		i915_gem_object_lock(obj, NULL);
++		if (i915_gem_object_has_pinned_pages(obj))
++			i915_gem_object_unpin_pages(obj);
++		i915_gem_object_unlock(obj);
++	}
++
++	cond_resched();
++}
++
++static int igt_fill_mappable(struct intel_memory_region *mr,
++			     struct list_head *objects)
++{
++	u64 size, total;
++	int err;
++
++	total = 0;
++	size = mr->io_size;
++	do {
++		struct drm_i915_gem_object *obj;
++
++		obj = i915_gem_object_create_region(mr, size, 0, 0);
++		if (IS_ERR(obj)) {
++			err = PTR_ERR(obj);
++			goto err_close;
++		}
++
++		list_add(&obj->st_link, objects);
++
++		err = i915_gem_object_pin_pages_unlocked(obj);
++		if (err) {
++			if (err != -ENXIO && err != -ENOMEM)
++				goto err_close;
++
++			if (size == mr->min_page_size) {
++				err = 0;
++				break;
++			}
++
++			size >>= 1;
++			continue;
++		}
++
++		total += obj->base.size;
++	} while (1);
++
++	pr_info("%s filled=%lluMiB\n", __func__, total >> 20);
++	return 0;
++
++err_close:
++	igt_close_objects(mr->i915, objects);
++	return err;
++}
++
++static int ___igt_mmap_migrate(struct drm_i915_private *i915,
++			       struct drm_i915_gem_object *obj,
++			       unsigned long addr,
++			       bool unfaultable)
++{
++	struct vm_area_struct *area;
++	int err = 0, i;
++
++	pr_info("igt_mmap(%s, %d) @ %lx\n",
++		obj->mm.region->name, I915_MMAP_TYPE_FIXED, addr);
++
++	mmap_read_lock(current->mm);
++	area = vma_lookup(current->mm, addr);
++	mmap_read_unlock(current->mm);
++	if (!area) {
++		pr_err("%s: Did not create a vm_area_struct for the mmap\n",
++		       obj->mm.region->name);
++		err = -EINVAL;
++		goto out_unmap;
++	}
++
++	for (i = 0; i < obj->base.size / sizeof(u32); i++) {
++		u32 __user *ux = u64_to_user_ptr((u64)(addr + i * sizeof(*ux)));
++		u32 x;
++
++		if (get_user(x, ux)) {
++			err = -EFAULT;
++			if (!unfaultable) {
++				pr_err("%s: Unable to read from mmap, offset:%zd\n",
++				       obj->mm.region->name, i * sizeof(x));
++				goto out_unmap;
++			}
++
++			continue;
++		}
++
++		if (unfaultable) {
++			pr_err("%s: Faulted unmappable memory\n",
++			       obj->mm.region->name);
++			err = -EINVAL;
++			goto out_unmap;
++		}
++
++		if (x != expand32(POISON_INUSE)) {
++			pr_err("%s: Read incorrect value from mmap, offset:%zd, found:%x, expected:%x\n",
++			       obj->mm.region->name,
++			       i * sizeof(x), x, expand32(POISON_INUSE));
++			err = -EINVAL;
++			goto out_unmap;
++		}
++
++		x = expand32(POISON_FREE);
++		if (put_user(x, ux)) {
++			pr_err("%s: Unable to write to mmap, offset:%zd\n",
++			       obj->mm.region->name, i * sizeof(x));
++			err = -EFAULT;
++			goto out_unmap;
++		}
++	}
++
++	if (unfaultable) {
++		if (err == -EFAULT)
++			err = 0;
++	} else {
++		obj->flags &= ~I915_BO_ALLOC_GPU_ONLY;
++		err = wc_check(obj);
++	}
++out_unmap:
++	vm_munmap(addr, obj->base.size);
++	return err;
++}
++
++#define IGT_MMAP_MIGRATE_TOPDOWN     (1 << 0)
++#define IGT_MMAP_MIGRATE_FILL        (1 << 1)
++#define IGT_MMAP_MIGRATE_EVICTABLE   (1 << 2)
++#define IGT_MMAP_MIGRATE_UNFAULTABLE (1 << 3)
++static int __igt_mmap_migrate(struct intel_memory_region **placements,
++			      int n_placements,
++			      struct intel_memory_region *expected_mr,
++			      unsigned int flags)
++{
++	struct drm_i915_private *i915 = placements[0]->i915;
++	struct drm_i915_gem_object *obj;
++	struct i915_request *rq = NULL;
++	unsigned long addr;
++	LIST_HEAD(objects);
++	u64 offset;
++	int err;
++
++	obj = __i915_gem_object_create_user(i915, PAGE_SIZE,
++					    placements,
++					    n_placements);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	if (flags & IGT_MMAP_MIGRATE_TOPDOWN)
++		obj->flags |= I915_BO_ALLOC_GPU_ONLY;
++
++	err = __assign_mmap_offset(obj, I915_MMAP_TYPE_FIXED, &offset, NULL);
++	if (err)
++		goto out_put;
++
++	/*
++	 * This will eventually create a GEM context, due to opening dummy drm
++	 * file, which needs a tiny amount of mappable device memory for the top
++	 * level paging structures(and perhaps scratch), so make sure we
++	 * allocate early, to avoid tears.
++	 */
++	addr = igt_mmap_offset(i915, offset, obj->base.size,
++			       PROT_WRITE, MAP_SHARED);
++	if (IS_ERR_VALUE(addr)) {
++		err = addr;
++		goto out_put;
++	}
++
++	if (flags & IGT_MMAP_MIGRATE_FILL) {
++		err = igt_fill_mappable(placements[0], &objects);
++		if (err)
++			goto out_put;
++	}
++
++	err = i915_gem_object_lock(obj, NULL);
++	if (err)
++		goto out_put;
++
++	err = i915_gem_object_pin_pages(obj);
++	if (err) {
++		i915_gem_object_unlock(obj);
++		goto out_put;
++	}
++
++	err = intel_context_migrate_clear(to_gt(i915)->migrate.context, NULL,
++					  obj->mm.pages->sgl, obj->cache_level,
++					  i915_gem_object_is_lmem(obj),
++					  expand32(POISON_INUSE), &rq);
++	i915_gem_object_unpin_pages(obj);
++	if (rq) {
++		dma_resv_add_excl_fence(obj->base.resv, &rq->fence);
++		i915_gem_object_set_moving_fence(obj, &rq->fence);
++		i915_request_put(rq);
++	}
++	i915_gem_object_unlock(obj);
++	if (err)
++		goto out_put;
++
++	if (flags & IGT_MMAP_MIGRATE_EVICTABLE)
++		igt_make_evictable(&objects);
++
++	err = ___igt_mmap_migrate(i915, obj, addr,
++				  flags & IGT_MMAP_MIGRATE_UNFAULTABLE);
++	if (!err && obj->mm.region != expected_mr) {
++		pr_err("%s region mismatch %s\n", __func__, expected_mr->name);
++		err = -EINVAL;
++	}
++
++out_put:
++	i915_gem_object_put(obj);
++	igt_close_objects(i915, &objects);
++	return err;
++}
++
++static int igt_mmap_migrate(void *arg)
++{
++	struct drm_i915_private *i915 = arg;
++	struct intel_memory_region *system = i915->mm.regions[INTEL_REGION_SMEM];
++	struct intel_memory_region *mr;
++	enum intel_region_id id;
++
++	for_each_memory_region(mr, i915, id) {
++		struct intel_memory_region *mixed[] = { mr, system };
++		struct intel_memory_region *single[] = { mr };
++		int err;
++
++		if (mr->private)
++			continue;
++
++		if (!mr->io_size || mr->io_size == mr->total)
++			continue;
 +
 +		/*
-+		 * If we need to place an LMEM resource which doesn't need CPU
-+		 * access then we should try not to victimize mappable objects
-+		 * first, since we likely end up stealing more of the mappable
-+		 * portion. And likewise when we try to find space for a mappble
-+		 * object, we know not to ever victimize objects that don't
-+		 * occupy any mappable pages.
++		 * Allocate in the mappable portion, should be no suprises here.
 +		 */
-+		if (i915_ttm_cpu_maps_iomem(bo->resource) &&
-+		    i915_ttm_buddy_man_visible_size(man) < man->size &&
-+		    !(obj->flags & I915_BO_ALLOC_GPU_ONLY))
-+			bo->priority = I915_TTM_PRIO_NEEDS_CPU_ACCESS;
-+		else
-+			bo->priority = I915_TTM_PRIO_HAS_PAGES;
- 	}
- 
- 	ttm_bo_move_to_lru_tail(bo, bo->resource, NULL);
++		err = __igt_mmap_migrate(mixed, ARRAY_SIZE(mixed), mr, 0);
++		if (err)
++			return err;
++
++		/*
++		 * Allocate in the non-mappable portion, but force migrating to
++		 * the mappable portion on fault (LMEM -> LMEM)
++		 */
++		err = __igt_mmap_migrate(single, ARRAY_SIZE(single), mr,
++					 IGT_MMAP_MIGRATE_TOPDOWN |
++					 IGT_MMAP_MIGRATE_FILL |
++					 IGT_MMAP_MIGRATE_EVICTABLE);
++		if (err)
++			return err;
++
++		/*
++		 * Allocate in the non-mappable portion, but force spilling into
++		 * system memory on fault (LMEM -> SMEM)
++		 */
++		err = __igt_mmap_migrate(mixed, ARRAY_SIZE(mixed), system,
++					 IGT_MMAP_MIGRATE_TOPDOWN |
++					 IGT_MMAP_MIGRATE_FILL);
++		if (err)
++			return err;
++
++		/*
++		 * Allocate in the non-mappable portion, but since the mappable
++		 * portion is already full, and we can't spill to system memory,
++		 * then we should expect the fault to fail.
++		 */
++		err = __igt_mmap_migrate(single, ARRAY_SIZE(single), mr,
++					 IGT_MMAP_MIGRATE_TOPDOWN |
++					 IGT_MMAP_MIGRATE_FILL |
++					 IGT_MMAP_MIGRATE_UNFAULTABLE);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
+ static const char *repr_mmap_type(enum i915_mmap_type type)
+ {
+ 	switch (type) {
+@@ -1424,6 +1727,7 @@ int i915_gem_mman_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_smoke_tiling),
+ 		SUBTEST(igt_mmap_offset_exhaustion),
+ 		SUBTEST(igt_mmap),
++		SUBTEST(igt_mmap_migrate),
+ 		SUBTEST(igt_mmap_access),
+ 		SUBTEST(igt_mmap_revoke),
+ 		SUBTEST(igt_mmap_gpu),
 -- 
 2.34.1
 
