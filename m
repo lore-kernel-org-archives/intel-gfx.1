@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E53C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 23:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C048C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 23:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8DB710E123;
-	Thu, 10 Feb 2022 23:07:21 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F70210E123
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 23:07:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A33E10E993;
+	Thu, 10 Feb 2022 23:56:28 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D156510E992;
+ Thu, 10 Feb 2022 23:56:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644534441; x=1676070441;
+ t=1644537386; x=1676073386;
  h=date:from:to:subject:message-id:references:mime-version:
  content-transfer-encoding:in-reply-to;
- bh=ldev3h2nNVedDUaQ/gxsd4VNE8Nybe0aje10rj5ElEM=;
- b=nVV8MWgsLEpAjjuf0ylHy6jFv1QrQgQSUSkDe8cUDE1PnpXvwE9xmyCZ
- vY0+w8mGV02Vbq3JeAqhFrWDAsmsATiSEOkaB74+sAhVESoqTEZlLwbOO
- efYMGI2cTZleumFp/xbC4XW/Hn3EtN9TFzB8V8iNMqbb3xMJnJFXIQMoU
- u1EdjiGIJEG2hBWdNnJAvN8n0EojNArYfe7v0kyIga/L9mQvl4Ng1Adkb
- MCevziH+oVbA+2LYeatnlrqgHM+AJUTq1Sqm2EO5KIukp+zhL2PP1xF5v
- ilr68jvOQtu1nJztJafxpyz1zbOzuVoGpkeOsp4xIJDIZ+eFhDOt5ttP/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="237015591"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="237015591"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 15:07:20 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="774046676"
+ bh=3BcjqQIQxRoKscjXKhIKCcgm+/zM2SLzHzpBlQBKX0I=;
+ b=HgmCfs8wrsBwv4yxyylEuBWB43I7vdbjQCovdqmkAB5dhti5hBsV9fqx
+ B1x6kKsnqNS0Bgzyj7CEFT7jgLT20V2DAwwrCKybvYZBS1HXKqvNL8SLG
+ h12UL6gdzlpQiQnqWj+woX9ngph+D7h8eb7XJQXhtcNWzXBFZdD34TiSn
+ AAVAJQwby/NaL9QPwIu6gY4KdIHWTKTnXX6d83/SKtbZlG8I02rEm4gtk
+ p73VIIlvJxc2q+Ts70sMlHSrjM/cSS2vUgtOVs5Q+Mq+gp8v8dyj6QWm3
+ 2SPylIR0tNbK0d6VGugxBQ5pWMYI7wFE0ZpggQOthwZNIoqw2VYO7h5Mx w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249371249"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="249371249"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 15:56:26 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="537479062"
 Received: from jjmurray-mobl.amr.corp.intel.com (HELO msatwood-mobl)
  ([10.209.24.65])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 15:07:19 -0800
-Date: Thu, 10 Feb 2022 15:07:05 -0800
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 15:56:25 -0800
+Date: Thu, 10 Feb 2022 15:56:11 -0800
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: Lucas De Marchi <lucas.demarchi@intel.com>;,
- intel-gfx@lists.freedesktop.org
-Message-ID: <20220210230705.GC4707@msatwood-mobl>
+ intel-gfx@lists.freedesktop.org;, dri-devel@lists.freedesktop.org
+Message-ID: <20220210235611.GD4707@msatwood-mobl>
 References: <20220208104524.2516209-1-lucas.demarchi@intel.com>
- <20220208104524.2516209-7-lucas.demarchi@intel.com>
+ <20220208104524.2516209-8-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220208104524.2516209-7-lucas.demarchi@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 06/18] drm/i915/guc: Convert golden
- context init to iosys_map
+In-Reply-To: <20220208104524.2516209-8-lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 07/18] drm/i915/guc: Convert policies
+ update to iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,13 +63,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 08, 2022 at 02:45:12AM -0800, Lucas De Marchi wrote:
-> Now the map is saved during creation, so use it to initialize the
-> golden context, reading from shmem and writing to either system or IO
-> memory.
-> 
-> v2: Do not use a map iterator: add an offset to keep track of
-> destination
+On Tue, Feb 08, 2022 at 02:45:13AM -0800, Lucas De Marchi wrote:
+> Use iosys_map to write the policies update so access to IO and system
+> memory is abstracted away.
 > 
 > Cc: Matt Roper <matthew.d.roper@intel.com>
 > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -80,79 +76,102 @@ On Tue, Feb 08, 2022 at 02:45:12AM -0800, Lucas De Marchi wrote:
 Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
 > Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 > ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 26 ++++++++++------------
->  1 file changed, 12 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 41 ++++++++++++----------
+>  1 file changed, 23 insertions(+), 18 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> index 9bf9096b8337..b5b3a39f0c28 100644
+> index b5b3a39f0c28..6a34ab38b45f 100644
 > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> @@ -473,18 +473,16 @@ static struct intel_engine_cs *find_engine_state(struct intel_gt *gt, u8 engine_
+> @@ -130,33 +130,37 @@ static u32 guc_ads_blob_size(struct intel_guc *guc)
+>  	       guc_ads_private_data_size(guc);
+>  }
 >  
->  static void guc_init_golden_context(struct intel_guc *guc)
+> -static void guc_policies_init(struct intel_guc *guc, struct guc_policies *policies)
+> +static void guc_policies_init(struct intel_guc *guc)
+>  {
+>  	struct intel_gt *gt = guc_to_gt(guc);
+>  	struct drm_i915_private *i915 = gt->i915;
+> +	u32 global_flags = 0;
+>  
+> -	policies->dpc_promote_time = GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
+> -	policies->max_num_work_items = GLOBAL_POLICY_MAX_NUM_WI;
+> +	ads_blob_write(guc, policies.dpc_promote_time,
+> +		       GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US);
+> +	ads_blob_write(guc, policies.max_num_work_items,
+> +		       GLOBAL_POLICY_MAX_NUM_WI);
+>  
+> -	policies->global_flags = 0;
+>  	if (i915->params.reset < 2)
+> -		policies->global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
+> +		global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
+>  
+> -	policies->is_valid = 1;
+> +	ads_blob_write(guc, policies.global_flags, global_flags);
+> +	ads_blob_write(guc, policies.is_valid, 1);
+>  }
+>  
+>  void intel_guc_ads_print_policy_info(struct intel_guc *guc,
+>  				     struct drm_printer *dp)
 >  {
 > -	struct __guc_ads_blob *blob = guc->ads_blob;
->  	struct intel_engine_cs *engine;
->  	struct intel_gt *gt = guc_to_gt(guc);
-> -	u32 addr_ggtt, offset;
-> -	u32 total_size = 0, alloc_size, real_size;
-> +	unsigned long offset;
-> +	u32 addr_ggtt, total_size = 0, alloc_size, real_size;
->  	u8 engine_class, guc_class;
-> -	u8 *ptr;
->  
->  	if (!intel_uc_uses_guc_submission(&gt->uc))
+> -
+> -	if (unlikely(!blob))
+> +	if (unlikely(iosys_map_is_null(&guc->ads_map)))
 >  		return;
 >  
-> -	GEM_BUG_ON(!blob);
-> +	GEM_BUG_ON(iosys_map_is_null(&guc->ads_map));
+>  	drm_printf(dp, "Global scheduling policies:\n");
+> -	drm_printf(dp, "  DPC promote time   = %u\n", blob->policies.dpc_promote_time);
+> -	drm_printf(dp, "  Max num work items = %u\n", blob->policies.max_num_work_items);
+> -	drm_printf(dp, "  Flags              = %u\n", blob->policies.global_flags);
+> +	drm_printf(dp, "  DPC promote time   = %u\n",
+> +		   ads_blob_read(guc, policies.dpc_promote_time));
+> +	drm_printf(dp, "  Max num work items = %u\n",
+> +		   ads_blob_read(guc, policies.max_num_work_items));
+> +	drm_printf(dp, "  Flags              = %u\n",
+> +		   ads_blob_read(guc, policies.global_flags));
+>  }
 >  
->  	/*
->  	 * Go back and fill in the golden context data now that it is
-> @@ -492,15 +490,13 @@ static void guc_init_golden_context(struct intel_guc *guc)
->  	 */
->  	offset = guc_ads_golden_ctxt_offset(guc);
->  	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
-> -	ptr = ((u8 *)blob) + offset;
+>  static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
+> @@ -171,23 +175,24 @@ static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
 >  
->  	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
->  		if (engine_class == OTHER_CLASS)
->  			continue;
+>  int intel_guc_global_policies_update(struct intel_guc *guc)
+>  {
+> -	struct __guc_ads_blob *blob = guc->ads_blob;
+>  	struct intel_gt *gt = guc_to_gt(guc);
+> +	u32 scheduler_policies;
+>  	intel_wakeref_t wakeref;
+>  	int ret;
 >  
->  		guc_class = engine_class_to_guc_class(engine_class);
-> -
-> -		if (!blob->system_info.engine_enabled_masks[guc_class])
-> +		if (!ads_blob_read(guc, system_info.engine_enabled_masks[guc_class]))
->  			continue;
+> -	if (!blob)
+> +	if (iosys_map_is_null(&guc->ads_map))
+>  		return -EOPNOTSUPP;
 >  
->  		real_size = intel_engine_context_size(gt, engine_class);
-> @@ -511,18 +507,20 @@ static void guc_init_golden_context(struct intel_guc *guc)
->  		if (!engine) {
->  			drm_err(&gt->i915->drm, "No engine state recorded for class %d!\n",
->  				engine_class);
-> -			blob->ads.eng_state_size[guc_class] = 0;
-> -			blob->ads.golden_context_lrca[guc_class] = 0;
-> +			ads_blob_write(guc, ads.eng_state_size[guc_class], 0);
-> +			ads_blob_write(guc, ads.golden_context_lrca[guc_class], 0);
->  			continue;
->  		}
+> -	GEM_BUG_ON(!blob->ads.scheduler_policies);
+> +	scheduler_policies = ads_blob_read(guc, ads.scheduler_policies);
+> +	GEM_BUG_ON(!scheduler_policies);
 >  
-> -		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] !=
-> +		GEM_BUG_ON(ads_blob_read(guc, ads.eng_state_size[guc_class]) !=
->  			   real_size - LRC_SKIP_SIZE);
-> -		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
-> +		GEM_BUG_ON(ads_blob_read(guc, ads.golden_context_lrca[guc_class]) != addr_ggtt);
-> +
->  		addr_ggtt += alloc_size;
+> -	guc_policies_init(guc, &blob->policies);
+> +	guc_policies_init(guc);
 >  
-> -		shmem_read(engine->default_state, 0, ptr, real_size);
-> -		ptr += alloc_size;
-> +		shmem_read_to_iosys_map(engine->default_state, 0, &guc->ads_map,
-> +					offset, real_size);
-> +		offset += alloc_size;
->  	}
+>  	if (!intel_guc_is_ready(guc))
+>  		return 0;
 >  
->  	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
+>  	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref)
+> -		ret = guc_action_policies_update(guc, blob->ads.scheduler_policies);
+> +		ret = guc_action_policies_update(guc, scheduler_policies);
+>  
+>  	return ret;
+>  }
+> @@ -554,7 +559,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+>  	u32 base;
+>  
+>  	/* GuC scheduling policies */
+> -	guc_policies_init(guc, &blob->policies);
+> +	guc_policies_init(guc);
+>  
+>  	/* System info */
+>  	fill_engine_enable_masks(gt, &blob->system_info);
 > -- 
 > 2.35.1
 > 
