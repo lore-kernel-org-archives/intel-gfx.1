@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B071C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DCFBC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A5C10E956;
-	Thu, 10 Feb 2022 18:36:57 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 034EB10E94F;
- Thu, 10 Feb 2022 18:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAFDF10E951;
+	Thu, 10 Feb 2022 18:50:30 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B311810E951
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 18:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644518213; x=1676054213;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0faIJeanSVg4TVsukZep2SH9zNSBXKIPlWiirFMZ1bw=;
- b=j2f+xEHnpp2/OE1GM24nSzdTsxeM4GRMMZBayp+izgnvHck3jAnrph/w
- 7ZPgWETjV26pkYIZMNJfgfH1pGumtJs1sLYmz98LTLF4qiDmXlOnkAAld
- ohZuWOOoX1hdMyAyxB0ZR+AiR6elSmM4lWptXXjMN0RXcAT8egIaTiuJF
- i6KU1N84fTRdV/KOk+xwRzWqtWCNPqkeEf0Gw4yFCVh07k6ZlW1pNetVz
- 4JNASZZzRVnwHKlVKesiQokyf5YBqMDBT7XOE9L68nGNpqJyY7XbZ3vl6
- /0f7XF1CKSnKyjh8Yp5Su+ox+xqsne6u6QFIRqX/NXAsjoa9eBbxNxs0k g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="229528163"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="229528163"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:36:40 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="526616761"
-Received: from lmoua-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
- ([10.212.169.226])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:36:40 -0800
-From: Michael Cheng <michael.cheng@intel.com>
+ t=1644519029; x=1676055029;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=VTVuxJM3jBmw7TltORjeLjsnCjJ21b2fdnVFfcx+2dM=;
+ b=XL3+JZyM5l9zXLO2mH4wvLQtAdqCQxjVFIsp6hDMPPmt9FlzkOxqwrek
+ vQZHhE8oxlfXTGkg9u2RsLTunL/jcFeLj6WlbmXyrY8Nt1OH16uXCx8gr
+ 08BN0rBqgVDTOwQ2hPl1i3BfKbJHsPR4g9+q91H0/S/9hCEgI0uTeTzFz
+ uVUTBKLyzY6rgEeSK1mTBo9LconiXuGg2UdKNaDQe497vdIjuZsBFq2da
+ a5z80KeZaxkC5oclHjNk38QvILeBcIab9EfneNkVKEx14M4bHN8BGTx/w
+ KxSjesmaIlOj8K4pMHLzFm51m8uj3cDL5/9vnh4gXql1Pe1JZLoY//Hoa Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="335985772"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="335985772"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 10:50:29 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="701793237"
+Received: from afdelosa-mobl1.amr.corp.intel.com (HELO
+ josouza-mobl2.amr.corp.intel.com) ([10.209.167.175])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 10:50:27 -0800
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 10:36:32 -0800
-Message-Id: <20220210183636.1187973-3-michael.cheng@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220210183636.1187973-1-michael.cheng@intel.com>
-References: <20220210183636.1187973-1-michael.cheng@intel.com>
+Date: Thu, 10 Feb 2022 10:52:22 -0800
+Message-Id: <20220210185223.95399-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 2/6] drm/i915/gt: Re-work
- intel_write_status_page
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/display: Group PSR2 prog sequences
+ and workarounds
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,50 +56,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
- dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Re-work intel_write_status_page to use drm_clflush_virt_range. This
-will prevent compiler errors when building for non-x86 architectures.
+Grouping inside of the same if all the programing sequences and
+workarounds of PSR2.
+The order of programing changed in intel_psr_enable_source() but
+it will not affect PSR2 as at this point PSR2_ENABLE is still disabled.
 
-Signed-off-by: Michael Cheng <michael.cheng@intel.com>
+Cc: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 77 ++++++++++++------------
+ 1 file changed, 37 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 0e353d8c2bc8..986777c2430d 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -4,6 +4,7 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index a1a663f362e7d..72bd8d3261e0c 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1069,25 +1069,6 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp)
+ 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
+ 	u32 mask;
  
- #include <asm/cacheflush.h>
- #include <drm/drm_util.h>
-+#include <drm/drm_cache.h>
- 
- #include <linux/hashtable.h>
- #include <linux/irq_work.h>
-@@ -143,15 +144,9 @@ intel_write_status_page(struct intel_engine_cs *engine, int reg, u32 value)
- 	 * of extra paranoia to try and ensure that the HWS takes the value
- 	 * we give and that it doesn't end up trapped inside the CPU!
- 	 */
--	if (static_cpu_has(X86_FEATURE_CLFLUSH)) {
--		mb();
--		clflush(&engine->status_page.addr[reg]);
--		engine->status_page.addr[reg] = value;
--		clflush(&engine->status_page.addr[reg]);
--		mb();
--	} else {
--		WRITE_ONCE(engine->status_page.addr[reg], value);
+-	if (intel_dp->psr.psr2_enabled && DISPLAY_VER(dev_priv) == 9) {
+-		i915_reg_t reg = CHICKEN_TRANS(cpu_transcoder);
+-		u32 chicken = intel_de_read(dev_priv, reg);
+-
+-		chicken |= PSR2_VSC_ENABLE_PROG_HEADER |
+-			   PSR2_ADD_VERTICAL_LINE_COUNT;
+-		intel_de_write(dev_priv, reg, chicken);
 -	}
-+	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
-+	WRITE_ONCE(engine->status_page.addr[reg], value);
-+	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
+-
+-	/*
+-	 * Wa_16014451276:adlp
+-	 * All supported adlp panels have 1-based X granularity, this may
+-	 * cause issues if non-supported panels are used.
+-	 */
+-	if (IS_ALDERLAKE_P(dev_priv) &&
+-	    intel_dp->psr.psr2_enabled)
+-		intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
+-			     ADLP_1_BASED_X_GRANULARITY);
+-
+ 	/*
+ 	 * Per Spec: Avoid continuous PSR exit by masking MEMUP and HPD also
+ 	 * mask LPSP to avoid dependency on other drivers that might block
+@@ -1126,18 +1107,33 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp)
+ 			     intel_dp->psr.psr2_sel_fetch_enabled ?
+ 			     IGNORE_PSR2_HW_TRACKING : 0);
+ 
+-	/* Wa_16011168373:adl-p */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) &&
+-	    intel_dp->psr.psr2_enabled)
+-		intel_de_rmw(dev_priv,
+-			     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
+-			     TRANS_SET_CONTEXT_LATENCY_MASK,
+-			     TRANS_SET_CONTEXT_LATENCY_VALUE(1));
++	if (intel_dp->psr.psr2_enabled) {
++		if (DISPLAY_VER(dev_priv) == 9)
++			intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
++				     PSR2_VSC_ENABLE_PROG_HEADER |
++				     PSR2_ADD_VERTICAL_LINE_COUNT);
+ 
+-	/* Wa_16012604467:adlp */
+-	if (IS_ALDERLAKE_P(dev_priv) && intel_dp->psr.psr2_enabled)
+-		intel_de_rmw(dev_priv, CLKGATE_DIS_MISC, 0,
+-			     CLKGATE_DIS_MISC_DMASC_GATING_DIS);
++		/*
++		 * Wa_16014451276:adlp
++		 * All supported adlp panels have 1-based X granularity, this may
++		 * cause issues if non-supported panels are used.
++		 */
++		if (IS_ALDERLAKE_P(dev_priv))
++			intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
++				     ADLP_1_BASED_X_GRANULARITY);
++
++		/* Wa_16011168373:adl-p */
++		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
++			intel_de_rmw(dev_priv,
++				     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
++				     TRANS_SET_CONTEXT_LATENCY_MASK,
++				     TRANS_SET_CONTEXT_LATENCY_VALUE(1));
++
++		/* Wa_16012604467:adlp */
++		if (IS_ALDERLAKE_P(dev_priv))
++			intel_de_rmw(dev_priv, CLKGATE_DIS_MISC, 0,
++				     CLKGATE_DIS_MISC_DMASC_GATING_DIS);
++	}
  }
  
- /*
+ static bool psr_interrupt_error_check(struct intel_dp *intel_dp)
+@@ -1290,17 +1286,18 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 		intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
+ 			     DIS_RAM_BYPASS_PSR2_MAN_TRACK, 0);
+ 
+-	/* Wa_16011168373:adl-p */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) &&
+-	    intel_dp->psr.psr2_enabled)
+-		intel_de_rmw(dev_priv,
+-			     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
+-			     TRANS_SET_CONTEXT_LATENCY_MASK, 0);
++	if (intel_dp->psr.psr2_enabled) {
++		/* Wa_16011168373:adl-p */
++		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
++			intel_de_rmw(dev_priv,
++				     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
++				     TRANS_SET_CONTEXT_LATENCY_MASK, 0);
+ 
+-	/* Wa_16012604467:adlp */
+-	if (IS_ALDERLAKE_P(dev_priv) && intel_dp->psr.psr2_enabled)
+-		intel_de_rmw(dev_priv, CLKGATE_DIS_MISC,
+-			     CLKGATE_DIS_MISC_DMASC_GATING_DIS, 0);
++		/* Wa_16012604467:adlp */
++		if (IS_ALDERLAKE_P(dev_priv))
++			intel_de_rmw(dev_priv, CLKGATE_DIS_MISC,
++				     CLKGATE_DIS_MISC_DMASC_GATING_DIS, 0);
++	}
+ 
+ 	intel_snps_phy_update_psr_power_state(dev_priv, phy, false);
+ 
 -- 
-2.25.1
+2.35.1
 
