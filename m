@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2441C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1485DC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC69710E947;
-	Thu, 10 Feb 2022 18:36:44 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C87910E93C;
- Thu, 10 Feb 2022 18:36:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E468610E94D;
+	Thu, 10 Feb 2022 18:36:53 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC8E10E957;
+ Thu, 10 Feb 2022 18:36:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644518202; x=1676054202;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ho6kpFZAscusI7nIrWDNnWHNjVK2wgi7j6D5m4YBDOw=;
- b=EMJJii84nkqBH5zHNcEkutZm9O3KZAQQdabx58xS1Fmd6rhP1Xznn9ed
- oVm1fhs2MjkME/FFYfvJ6+uGfx3+KOidcMtkP6M/vltmy+C16A2xcJAAV
- nNopJ8dgS7MvKBtUWs6v1mQqTKt3YUGdnSoidTk0qSrkWqbKkYwA4uAmf
- K+etfkczI6U2KN/tetUs9ubcY2+5fM2XXXOid4I1uM79v0Igq2vzqYiy8
- ICCznsOfpeQUt/JxisQD2Q9SMwjwDH/RveMuytTtiDqe/JUSbB29uMrN1
- fGo/CR8sgeCrikxAGsR6pLoCplNoyOnEi8C68aM75OK7Wli20DPc89Ny9 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="248392700"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="248392700"
+ t=1644518212; x=1676054212;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=GS9A40cuDyA1hG33qh6dY/oSm9ukL+xhlJneJzkWmt8=;
+ b=W9vV5+G1DVr/NY9SQF3Rw6QChcJ6mx2nYXcauWHr8V0f0l0NyrqoErmH
+ G6u5LJ6nMGrluu1R1L4j/MIZFGLXLQnGezoQUUsgte5phAurlHnuP+7yg
+ LdYO27OnSXs8LylBiLb1OllS+yf5owxnRmUuVnapUZiRSVKgPLlRpLcbG
+ q2DsJPW3mB/0Ah6F/tXZt0+nZ85uhe3QNfnLGhA6+OK9TtIvKDmICE9WY
+ mn1p7oLv4qtWY80Cz0xfWraeaJXLoYFXoTn6d+fd4Ry+KDtvpD0Qsah0d
+ 3p0E0cZX9q3TnR1G1y1J7G3OSutEuy6PO+Vx+QYuOofRaUfzR+P/yQif2 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="229528160"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="229528160"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:36:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="526616786"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 10:36:40 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="526616742"
 Received: from lmoua-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.212.169.226])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:36:41 -0800
+ 10 Feb 2022 10:36:39 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 10:36:36 -0800
-Message-Id: <20220210183636.1187973-7-michael.cheng@intel.com>
+Date: Thu, 10 Feb 2022 10:36:30 -0800
+Message-Id: <20220210183636.1187973-1-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220210183636.1187973-1-michael.cheng@intel.com>
-References: <20220210183636.1187973-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 6/6] drm/i915/gt: replace cache_clflush_range
+Subject: [Intel-gfx] [PATCH v10 0/6] Use drm_clflush* instead of clflush
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,124 +59,49 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace all occurrence of cache_clflush_range with drm_clflush_virt_range.
-This will prevent compile errors on non-x86 platforms.
+This patch series re-work a few i915 functions to use drm_clflush_virt_range    
+instead of calling clflush or clflushopt directly. This will prevent errors     
+when building for non-x86 architectures.                                        
+                                                                                 
+v2: s/PAGE_SIZE/sizeof(value) for Re-work intel_write_status_page and added     
+more patches to convert additional clflush/clflushopt to use drm_clflush*.      
+(Michael Cheng)                                                                 
+                                                                                 
+v3: Drop invalidate_csb_entries and directly invoke drm_clflush_virt_ran        
+                                                                                 
+v4: Remove extra memory barriers                                                
+                                                                                 
+v5: s/cache_clflush_range/drm_clflush_virt_range  
 
-Signed-off-by: Michael Cheng <michael.cheng@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c                 | 12 ++++++------
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c |  2 +-
- drivers/gpu/drm/i915/gt/intel_gtt.c                  |  2 +-
- drivers/gpu/drm/i915/gt/intel_ppgtt.c                |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    |  2 +-
- 5 files changed, 10 insertions(+), 10 deletions(-)
+v6: Fix up "Drop invalidate_csb_entries" to use correct parameters. Also
+added in arm64 support for drm_clflush_virt_range.
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index c43e724afa9f..d0999e92621b 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -444,11 +444,11 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
- 				pd = pdp->entry[gen8_pd_index(idx, 2)];
- 			}
- 
--			clflush_cache_range(vaddr, PAGE_SIZE);
-+			drm_clflush_virt_range(vaddr, PAGE_SIZE);
- 			vaddr = px_vaddr(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
- 		}
- 	} while (1);
--	clflush_cache_range(vaddr, PAGE_SIZE);
-+	drm_clflush_virt_range(vaddr, PAGE_SIZE);
- 
- 	return idx;
- }
-@@ -532,7 +532,7 @@ static void gen8_ppgtt_insert_huge(struct i915_address_space *vm,
- 			}
- 		} while (rem >= page_size && index < I915_PDES);
- 
--		clflush_cache_range(vaddr, PAGE_SIZE);
-+		drm_clflush_virt_range(vaddr, PAGE_SIZE);
- 
- 		/*
- 		 * Is it safe to mark the 2M block as 64K? -- Either we have
-@@ -548,7 +548,7 @@ static void gen8_ppgtt_insert_huge(struct i915_address_space *vm,
- 					      I915_GTT_PAGE_SIZE_2M)))) {
- 			vaddr = px_vaddr(pd);
- 			vaddr[maybe_64K] |= GEN8_PDE_IPS_64K;
--			clflush_cache_range(vaddr, PAGE_SIZE);
-+			drm_clflush_virt_range(vaddr, PAGE_SIZE);
- 			page_size = I915_GTT_PAGE_SIZE_64K;
- 
- 			/*
-@@ -569,7 +569,7 @@ static void gen8_ppgtt_insert_huge(struct i915_address_space *vm,
- 				for (i = 1; i < index; i += 16)
- 					memset64(vaddr + i, encode, 15);
- 
--				clflush_cache_range(vaddr, PAGE_SIZE);
-+				drm_clflush_virt_range(vaddr, PAGE_SIZE);
- 			}
- 		}
- 
-@@ -617,7 +617,7 @@ static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
- 
- 	vaddr = px_vaddr(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
- 	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
--	clflush_cache_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
-+	drm_clflush_virt_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
- }
- 
- static int gen8_init_scratch(struct i915_address_space *vm)
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 11b864fd68a5..67dd4b1fc185 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2823,7 +2823,7 @@ static void execlists_sanitize(struct intel_engine_cs *engine)
- 	sanitize_hwsp(engine);
- 
- 	/* And scrub the dirty cachelines for the HWSP */
--	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
-+	drm_clflush_virt_range(engine->status_page.addr, PAGE_SIZE);
- 
- 	intel_engine_reset_pinned_contexts(engine);
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 0d6bbc8c57f2..9b594be9102f 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -255,7 +255,7 @@ fill_page_dma(struct drm_i915_gem_object *p, const u64 val, unsigned int count)
- 	void *vaddr = __px_vaddr(p);
- 
- 	memset64(vaddr, val, count);
--	clflush_cache_range(vaddr, PAGE_SIZE);
-+	drm_clflush_virt_range(vaddr, PAGE_SIZE);
- }
- 
- static void poison_scratch_page(struct drm_i915_gem_object *scratch)
-diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-index 48e6e2f87700..bd474a5123cb 100644
---- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-@@ -90,7 +90,7 @@ write_dma_entry(struct drm_i915_gem_object * const pdma,
- 	u64 * const vaddr = __px_vaddr(pdma);
- 
- 	vaddr[idx] = encoded_entry;
--	clflush_cache_range(&vaddr[idx], sizeof(u64));
-+	drm_clflush_virt_range(&vaddr[idx], sizeof(u64));
- }
- 
- void
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index b3a429a92c0d..89020706adc4 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3573,7 +3573,7 @@ static void guc_sanitize(struct intel_engine_cs *engine)
- 	sanitize_hwsp(engine);
- 
- 	/* And scrub the dirty cachelines for the HWSP */
--	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
-+	drm_clflush_virt_range(engine->status_page.addr, PAGE_SIZE);
- 
- 	intel_engine_reset_pinned_contexts(engine);
- }
+v7: Re-order patches, and use correct macro for dcache flush for arm64. 
+
+v8: Remove ifdef for asm/cacheflush.
+
+v9: Rebased
+
+v10: Replaced asm/cacheflush with linux/cacheflush
+
+Michael Cheng (6):
+  drm: Add arch arm64 for drm_clflush_virt_range
+  drm/i915/gt: Re-work intel_write_status_page
+  drm/i915/gt: Drop invalidate_csb_entries
+  drm/i915/gt: Re-work reset_csb
+  drm/i915/: Re-work clflush_write32
+  drm/i915/gt: replace cache_clflush_range
+
+ drivers/gpu/drm/drm_cache.c                   |  6 ++++++
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  8 +++-----
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 12 +++++------
+ drivers/gpu/drm/i915/gt/intel_engine.h        | 13 ++++--------
+ .../drm/i915/gt/intel_execlists_submission.c  | 20 +++++++------------
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 +-
+ 8 files changed, 29 insertions(+), 36 deletions(-)
+
 -- 
 2.25.1
 
