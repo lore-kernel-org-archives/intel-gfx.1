@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD11CC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 12:16:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05805C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 12:16:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF6210E847;
-	Thu, 10 Feb 2022 12:16:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D902710E843;
+	Thu, 10 Feb 2022 12:16:48 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E72510E840;
- Thu, 10 Feb 2022 12:16:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC6310E846;
+ Thu, 10 Feb 2022 12:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644495402; x=1676031402;
+ t=1644495406; x=1676031406;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zmTGwMRptgpyJusJS8iZvq/E3vzjEcfr5fXVw59wWE4=;
- b=HHu7kfpypl/G2ouLV5ZajH37090ucDjTGbUTAsVahSpJfOJYV0R/Wcu8
- /X9+vUiCdaARjYI6LaL623PxZY/jsLaPiUixYhPb7YlMoSKe1qql2v8aC
- rWRlJReebAWmKzXOIhgjdX5vkdAphP4Ftiw9gdRLk/sasDAa/FRv4edT9
- jdtVH6WA3cEZVxkzp+WP881dcVC7WqsFB1iHyg+QoKj0yACWuSEwaomgr
- uo/mI0xxaoYJNOp59C5OTHzx5rIZ+jodxnUgWCuE90mgzyXUhHKzwhnZl
- 4L4+hX63dAGs5S8GI/5Lr3JxVAHimX8wcCCuwNVZWeS9kym8flMQQn58I A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="247060957"
-X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="247060957"
+ bh=TSkel8cvodyiMm1cE0yPJ4fOPo0rKQT4ws8uuZA3hTM=;
+ b=Gss0duIBdS0sSG0ywTelYWz8UeDfFHIH0WtX6hIUtO55NZr/lvmJGsYx
+ yroeLVuJ3dIT9KafxI5LVuQVq5AROCVc5nVYDs8n3fv1rU2JrDTxcygrg
+ ZZ7CkJlqIs1E4nbAhuWAIJ6HS9+Th6D8uIH1EAHnjZT9HQPbYhwPQhXYu
+ 4IW4bv4do+0/v/OmTkXPuK1yei7E4vP1P88qRFU8E8yu0/G1I8TNWZqCk
+ ZMHxP3hL58ySH7meebH9uOT73mPXTG3DufLxu3wOUMsm43LS5owaSU2OJ
+ EV2hwhCTwsZO/pDlA0mjzkiu3l2TfYCM0iT8GpN0FD7s2rynzelm5QEuU g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="247060967"
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="247060967"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 04:16:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="485664953"
+ 10 Feb 2022 04:16:45 -0800
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="485664971"
 Received: from paulbarr-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.11.226])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 04:16:40 -0800
+ 10 Feb 2022 04:16:44 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 12:13:02 +0000
-Message-Id: <20220210121313.701004-5-matthew.auld@intel.com>
+Date: Thu, 10 Feb 2022 12:13:05 +0000
+Message-Id: <20220210121313.701004-8-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220210121313.701004-1-matthew.auld@intel.com>
 References: <20220210121313.701004-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 04/15] drm/i915/buddy: track available
- visible size
+Subject: [Intel-gfx] [PATCH v2 07/15] drm/i915/selftests: mock test io_size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,227 +62,183 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Track the total amount of available visible memory, and also track
-per-resource the amount of used visible memory. For now this is useful
-for our debug output, and deciding if it is even worth calling into the
-buddy allocator. In the future tracking the per-resource visible usage
-will be useful for when deciding if we should attempt to evict certain
-buffers.
-
-v2:
- - s/place->lpfn/lpfn/, that way we can avoid scanning the list if the
-   entire range is already mappable.
- - Move the end declaration inside the if block(Thomas).
- - Make sure to also account for reserved memory.
+Check that mappable vs non-mappable matches our expectations.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 68 ++++++++++++++++++-
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |  8 ++-
- drivers/gpu/drm/i915/intel_region_ttm.c       |  1 +
- 3 files changed, 75 insertions(+), 2 deletions(-)
+ .../drm/i915/selftests/intel_memory_region.c  | 143 ++++++++++++++++++
+ 1 file changed, 143 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index 76d5211c25eb..e47a3d46c6ff 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -19,6 +19,9 @@ struct i915_ttm_buddy_manager {
- 	struct drm_buddy mm;
- 	struct list_head reserved;
- 	struct mutex lock;
-+	unsigned long visible_size;
-+	unsigned long visible_avail;
-+	unsigned long visible_reserved;
- 	u64 default_page_size;
- };
- 
-@@ -87,6 +90,12 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 	n_pages = size >> ilog2(mm->chunk_size);
- 
- 	mutex_lock(&bman->lock);
-+	if (lpfn <= bman->visible_size && n_pages > bman->visible_avail) {
-+		mutex_unlock(&bman->lock);
-+		err = -ENOSPC;
-+		goto err_free_res;
-+	}
-+
- 	err = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
- 				     (u64)lpfn << PAGE_SHIFT,
- 				     (u64)n_pages << PAGE_SHIFT,
-@@ -107,6 +116,31 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 		mutex_unlock(&bman->lock);
- 	}
- 
-+	if (lpfn <= bman->visible_size) {
-+		bman_res->used_visible_size = bman_res->base.num_pages;
-+	} else {
-+		struct drm_buddy_block *block;
-+
-+		list_for_each_entry(block, &bman_res->blocks, link) {
-+			unsigned long start =
-+				drm_buddy_block_offset(block) >> PAGE_SHIFT;
-+
-+			if (start < bman->visible_size) {
-+				unsigned long end = start +
-+					(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
-+
-+				bman_res->used_visible_size +=
-+					min(end, bman->visible_size) - start;
-+			}
-+		}
-+	}
-+
-+	if (bman_res->used_visible_size) {
-+		mutex_lock(&bman->lock);
-+		bman->visible_avail -= bman_res->used_visible_size;
-+		mutex_unlock(&bman->lock);
-+	}
-+
- 	*res = &bman_res->base;
- 	return 0;
- 
-@@ -128,6 +162,7 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
- 
- 	mutex_lock(&bman->lock);
- 	drm_buddy_free_list(&bman->mm, &bman_res->blocks);
-+	bman->visible_avail += bman_res->used_visible_size;
- 	mutex_unlock(&bman->lock);
- 
- 	ttm_resource_fini(man, res);
-@@ -143,6 +178,12 @@ static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
- 	mutex_lock(&bman->lock);
- 	drm_printf(printer, "default_page_size: %lluKiB\n",
- 		   bman->default_page_size >> 10);
-+	drm_printf(printer, "visible_avail: %lluMiB\n",
-+		   (u64)bman->visible_avail << PAGE_SHIFT >> 20);
-+	drm_printf(printer, "visible_size: %lluMiB\n",
-+		   (u64)bman->visible_size << PAGE_SHIFT >> 20);
-+	drm_printf(printer, "visible_reserved: %lluMiB\n",
-+		   (u64)bman->visible_reserved << PAGE_SHIFT >> 20);
- 
- 	drm_buddy_print(&bman->mm, printer);
- 
-@@ -164,6 +205,7 @@ static const struct ttm_resource_manager_func i915_ttm_buddy_manager_func = {
-  * @type: Memory type we want to manage
-  * @use_tt: Set use_tt for the manager
-  * @size: The size in bytes to manage
-+ * @visible_size: The CPU visible size in bytes to manage
-  * @default_page_size: The default minimum page size in bytes for allocations,
-  * this must be at least as large as @chunk_size, and can be overridden by
-  * setting the BO page_alignment, to be larger or smaller as needed.
-@@ -187,7 +229,7 @@ static const struct ttm_resource_manager_func i915_ttm_buddy_manager_func = {
-  */
- int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 			    unsigned int type, bool use_tt,
--			    u64 size, u64 default_page_size,
-+			    u64 size, u64 visible_size, u64 default_page_size,
- 			    u64 chunk_size)
- {
- 	struct ttm_resource_manager *man;
-@@ -206,6 +248,8 @@ int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 	INIT_LIST_HEAD(&bman->reserved);
- 	GEM_BUG_ON(default_page_size < chunk_size);
- 	bman->default_page_size = default_page_size;
-+	bman->visible_size = visible_size >> PAGE_SHIFT;
-+	bman->visible_avail = bman->visible_size;
- 
- 	man = &bman->manager;
- 	man->use_tt = use_tt;
-@@ -250,6 +294,8 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
- 	mutex_lock(&bman->lock);
- 	drm_buddy_free_list(mm, &bman->reserved);
- 	drm_buddy_fini(mm);
-+	bman->visible_avail += bman->visible_reserved;
-+	WARN_ON_ONCE(bman->visible_avail != bman->visible_size);
- 	mutex_unlock(&bman->lock);
- 
- 	ttm_resource_manager_cleanup(man);
-@@ -273,6 +319,7 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- {
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
- 	struct drm_buddy *mm = &bman->mm;
-+	unsigned long fpfn = start >> PAGE_SHIFT;
- 	unsigned long flags = 0;
- 	int ret;
- 
-@@ -284,8 +331,27 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- 				     size, mm->chunk_size,
- 				     &bman->reserved,
- 				     flags);
-+
-+	if (fpfn < bman->visible_size) {
-+		unsigned long lpfn = fpfn + (size >> PAGE_SHIFT);
-+		unsigned long visible = min(lpfn, bman->visible_size) - fpfn;
-+
-+		bman->visible_reserved += visible;
-+		bman->visible_avail -= visible;
-+	}
- 	mutex_unlock(&bman->lock);
- 
- 	return ret;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+index 247f65f02bbf..56dec9723601 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+@@ -17,6 +17,7 @@
+ #include "gem/i915_gem_context.h"
+ #include "gem/i915_gem_lmem.h"
+ #include "gem/i915_gem_region.h"
++#include "gem/i915_gem_ttm.h"
+ #include "gem/selftests/igt_gem_utils.h"
+ #include "gem/selftests/mock_context.h"
+ #include "gt/intel_engine_pm.h"
+@@ -512,6 +513,147 @@ static int igt_mock_max_segment(void *arg)
+ 	return err;
  }
  
-+/**
-+ * i915_ttm_buddy_man_visible_size - Return the size of the CPU visible portion
-+ * in pages.
-+ * @man: The buddy allocator ttm manager
-+ */
-+u64 i915_ttm_buddy_man_visible_size(struct ttm_resource_manager *man)
++static u64 igt_object_mappable_total(struct drm_i915_gem_object *obj)
 +{
-+	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
++	struct intel_memory_region *mr = obj->mm.region;
++	struct i915_ttm_buddy_resource *bman_res =
++		to_ttm_buddy_resource(obj->mm.res);
++	struct drm_buddy *mm = bman_res->mm;
++	struct drm_buddy_block *block;
++	u64 total;
 +
-+	return bman->visible_size;
++	total = 0;
++	list_for_each_entry(block, &bman_res->blocks, link) {
++		u64 start = drm_buddy_block_offset(block);
++		u64 end = start + drm_buddy_block_size(mm, block);
++
++		if (start < mr->io_size)
++			total += min_t(u64, end, mr->io_size) - start;
++	}
++
++	return total;
 +}
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-index 72c90b432e87..35fe03a6a78c 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-@@ -21,6 +21,8 @@ struct drm_buddy;
-  * @base: struct ttm_resource base class we extend
-  * @blocks: the list of struct i915_buddy_block for this resource/allocation
-  * @flags: DRM_BUDDY_*_ALLOCATION flags
-+ * @used_visible_size: How much of this resource, if any, uses the CPU visible
-+ * portion, in pages.
-  * @mm: the struct i915_buddy_mm for this resource
-  *
-  * Extends the struct ttm_resource to manage an address space allocation with
-@@ -30,6 +32,7 @@ struct i915_ttm_buddy_resource {
- 	struct ttm_resource base;
- 	struct list_head blocks;
- 	unsigned long flags;
-+	unsigned long used_visible_size;
- 	struct drm_buddy *mm;
- };
- 
-@@ -48,11 +51,14 @@ to_ttm_buddy_resource(struct ttm_resource *res)
- 
- int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 			    unsigned type, bool use_tt,
--			    u64 size, u64 default_page_size, u64 chunk_size);
-+			    u64 size, u64 visible_size,
-+			    u64 default_page_size, u64 chunk_size);
- int i915_ttm_buddy_man_fini(struct ttm_device *bdev,
- 			    unsigned int type);
- 
- int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- 			       u64 start, u64 size);
- 
-+u64 i915_ttm_buddy_man_visible_size(struct ttm_resource_manager *man);
 +
- #endif
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index c055029c7a70..96a0bd82c1f3 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -87,6 +87,7 @@ int intel_region_ttm_init(struct intel_memory_region *mem)
- 
- 	ret = i915_ttm_buddy_man_init(bdev, mem_type, false,
- 				      resource_size(&mem->region),
-+				      mem->io_size,
- 				      mem->min_page_size, PAGE_SIZE);
- 	if (ret)
- 		return ret;
++static int igt_mock_io_size(void *arg)
++{
++	struct intel_memory_region *mr = arg;
++	struct drm_i915_private *i915 = mr->i915;
++	struct drm_i915_gem_object *obj;
++	u64 mappable_theft_total;
++	u64 io_size;
++	u64 total;
++	u64 ps;
++	u64 rem;
++	u64 size;
++	I915_RND_STATE(prng);
++	LIST_HEAD(objects);
++	int err = 0;
++
++	ps = SZ_4K;
++	if (i915_prandom_u64_state(&prng) & 1)
++		ps = SZ_64K; /* For something like DG2 */
++
++	div64_u64_rem(i915_prandom_u64_state(&prng), SZ_8G, &total);
++	total = round_down(total, ps);
++	total = max_t(u64, total, SZ_1G);
++
++	div64_u64_rem(i915_prandom_u64_state(&prng), total - ps, &io_size);
++	io_size = round_down(io_size, ps);
++	io_size = max_t(u64, io_size, SZ_256M); /* 256M seems to be the common lower limit */
++
++	pr_info("%s with ps=%llx, io_size=%llx, total=%llx\n",
++		__func__, ps, io_size, total);
++
++	mr = mock_region_create(i915, 0, total, ps, 0, io_size);
++	if (IS_ERR(mr)) {
++		err = PTR_ERR(mr);
++		goto out_err;
++	}
++
++	mappable_theft_total = 0;
++	rem = total - io_size;
++	do {
++		div64_u64_rem(i915_prandom_u64_state(&prng), rem, &size);
++		size = round_down(size, ps);
++		size = max(size, ps);
++
++		obj = igt_object_create(mr, &objects, size,
++					I915_BO_ALLOC_GPU_ONLY);
++		if (IS_ERR(obj)) {
++			pr_err("%s TOPDOWN failed with rem=%llx, size=%llx\n",
++			       __func__, rem, size);
++			err = PTR_ERR(obj);
++			goto out_close;
++		}
++
++		mappable_theft_total += igt_object_mappable_total(obj);
++		rem -= size;
++	} while (rem);
++
++	pr_info("%s mappable theft=(%lluMiB/%lluMiB), total=%lluMiB\n",
++		__func__,
++		(u64)mappable_theft_total >> 20,
++		(u64)io_size >> 20,
++		(u64)total >> 20);
++
++	/*
++	 * Even if we allocate all of the non-mappable portion, we should still
++	 * be able to dip into the mappable portion.
++	 */
++	obj = igt_object_create(mr, &objects, io_size,
++				I915_BO_ALLOC_GPU_ONLY);
++	if (IS_ERR(obj)) {
++		pr_err("%s allocation unexpectedly failed\n", __func__);
++		err = PTR_ERR(obj);
++		goto out_close;
++	}
++
++	close_objects(mr, &objects);
++
++	rem = io_size;
++	do {
++		div64_u64_rem(i915_prandom_u64_state(&prng), rem, &size);
++		size = round_down(size, ps);
++		size = max(size, ps);
++
++		obj = igt_object_create(mr, &objects, size, 0);
++		if (IS_ERR(obj)) {
++			pr_err("%s MAPPABLE failed with rem=%llx, size=%llx\n",
++			       __func__, rem, size);
++			err = PTR_ERR(obj);
++			goto out_close;
++		}
++
++		if (igt_object_mappable_total(obj) != size) {
++			pr_err("%s allocation is not mappable(size=%llx)\n",
++			       __func__, size);
++			err = -EINVAL;
++			goto out_close;
++		}
++		rem -= size;
++	} while (rem);
++
++	/*
++	 * We assume CPU access is required by default, which should result in a
++	 * failure here, even though the non-mappable portion is free.
++	 */
++	obj = igt_object_create(mr, &objects, ps, 0);
++	if (!IS_ERR(obj)) {
++		pr_err("%s allocation unexpectedly succeeded\n", __func__);
++		err = -EINVAL;
++		goto out_close;
++	}
++
++out_close:
++	close_objects(mr, &objects);
++	intel_memory_region_destroy(mr);
++out_err:
++	if (err == -ENOMEM)
++		err = 0;
++
++	return err;
++}
++
+ static int igt_gpu_write_dw(struct intel_context *ce,
+ 			    struct i915_vma *vma,
+ 			    u32 dword,
+@@ -1179,6 +1321,7 @@ int intel_memory_region_mock_selftests(void)
+ 		SUBTEST(igt_mock_contiguous),
+ 		SUBTEST(igt_mock_splintered_region),
+ 		SUBTEST(igt_mock_max_segment),
++		SUBTEST(igt_mock_io_size),
+ 	};
+ 	struct intel_memory_region *mem;
+ 	struct drm_i915_private *i915;
 -- 
 2.34.1
 
