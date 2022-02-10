@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA6F2C43217
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:37:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B071C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63A4A10E955;
-	Thu, 10 Feb 2022 18:36:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18A5C10E956;
+	Thu, 10 Feb 2022 18:36:57 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 775F410E95E;
- Thu, 10 Feb 2022 18:36:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 034EB10E94F;
+ Thu, 10 Feb 2022 18:36:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1644518213; x=1676054213;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o6HuYlnP32PX1lqgHE1fsvZCwjUKZXMxGSqa7+v9E8k=;
- b=JaDlcp4ZrMqoVnDXzO8h+1MtwXVg6bRvQ93ipenrnh/QJvOOUaypiiUw
- CFdEoHkI3dCMZcNSm8zPBIId9ho4bDKgUUn+tGwkaqqB6hMkY+lA1p5B8
- 4LM8aBgYI2xo+Iajg09/o/6zyShVJkmtq+KRYrWwG/AKJULa+DJO7k/lQ
- r8blpzEqyyoMnENyu8dCvFqsxprOaD4aKFvGIMNIKkKfXH6yQVa0pS9jf
- xJoeN8kk6ForpcdAi/3NC3YsWE6kRYqFR0h/w9GEEBIJHzeySoKxPlyTX
- tzk30MHN4yHWFpwf+SxNUbJMFuO3l6BQqzHG+CZ7fv37cb+NoG7xdb/j1 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="229528171"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="229528171"
+ bh=0faIJeanSVg4TVsukZep2SH9zNSBXKIPlWiirFMZ1bw=;
+ b=j2f+xEHnpp2/OE1GM24nSzdTsxeM4GRMMZBayp+izgnvHck3jAnrph/w
+ 7ZPgWETjV26pkYIZMNJfgfH1pGumtJs1sLYmz98LTLF4qiDmXlOnkAAld
+ ohZuWOOoX1hdMyAyxB0ZR+AiR6elSmM4lWptXXjMN0RXcAT8egIaTiuJF
+ i6KU1N84fTRdV/KOk+xwRzWqtWCNPqkeEf0Gw4yFCVh07k6ZlW1pNetVz
+ 4JNASZZzRVnwHKlVKesiQokyf5YBqMDBT7XOE9L68nGNpqJyY7XbZ3vl6
+ /0f7XF1CKSnKyjh8Yp5Su+ox+xqsne6u6QFIRqX/NXAsjoa9eBbxNxs0k g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="229528163"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="229528163"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:36:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="526616781"
+ 10 Feb 2022 10:36:40 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="526616761"
 Received: from lmoua-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.212.169.226])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:36:41 -0800
+ 10 Feb 2022 10:36:40 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 10:36:35 -0800
-Message-Id: <20220210183636.1187973-6-michael.cheng@intel.com>
+Date: Thu, 10 Feb 2022 10:36:32 -0800
+Message-Id: <20220210183636.1187973-3-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220210183636.1187973-1-michael.cheng@intel.com>
 References: <20220210183636.1187973-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 5/6] drm/i915/: Re-work clflush_write32
+Subject: [Intel-gfx] [PATCH v10 2/6] drm/i915/gt: Re-work
+ intel_write_status_page
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +62,45 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use drm_clflush_virt_range instead of clflushopt and remove the memory
-barrier, since drm_clflush_virt_range takes care of that.
+Re-work intel_write_status_page to use drm_clflush_virt_range. This
+will prevent compiler errors when building for non-x86 architectures.
 
 Signed-off-by: Michael Cheng <michael.cheng@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine.h | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 498b458fd784..0854276ff7ba 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1332,10 +1332,8 @@ static void *reloc_vaddr(struct i915_vma *vma,
- static void clflush_write32(u32 *addr, u32 value, unsigned int flushes)
- {
- 	if (unlikely(flushes & (CLFLUSH_BEFORE | CLFLUSH_AFTER))) {
--		if (flushes & CLFLUSH_BEFORE) {
--			clflushopt(addr);
--			mb();
--		}
-+		if (flushes & CLFLUSH_BEFORE)
-+			drm_clflush_virt_range(addr, sizeof(addr));
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 0e353d8c2bc8..986777c2430d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -4,6 +4,7 @@
  
- 		*addr = value;
+ #include <asm/cacheflush.h>
+ #include <drm/drm_util.h>
++#include <drm/drm_cache.h>
  
-@@ -1347,7 +1345,7 @@ static void clflush_write32(u32 *addr, u32 value, unsigned int flushes)
- 		 * to ensure ordering of clflush wrt to the system.
- 		 */
- 		if (flushes & CLFLUSH_AFTER)
--			clflushopt(addr);
-+			drm_clflush_virt_range(addr, sizeof(addr));
- 	} else
- 		*addr = value;
+ #include <linux/hashtable.h>
+ #include <linux/irq_work.h>
+@@ -143,15 +144,9 @@ intel_write_status_page(struct intel_engine_cs *engine, int reg, u32 value)
+ 	 * of extra paranoia to try and ensure that the HWS takes the value
+ 	 * we give and that it doesn't end up trapped inside the CPU!
+ 	 */
+-	if (static_cpu_has(X86_FEATURE_CLFLUSH)) {
+-		mb();
+-		clflush(&engine->status_page.addr[reg]);
+-		engine->status_page.addr[reg] = value;
+-		clflush(&engine->status_page.addr[reg]);
+-		mb();
+-	} else {
+-		WRITE_ONCE(engine->status_page.addr[reg], value);
+-	}
++	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
++	WRITE_ONCE(engine->status_page.addr[reg], value);
++	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
  }
+ 
+ /*
 -- 
 2.25.1
 
