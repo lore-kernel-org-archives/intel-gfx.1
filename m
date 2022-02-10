@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98848C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 12:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D8B2C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 12:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8CB510E830;
-	Thu, 10 Feb 2022 12:14:30 +0000 (UTC)
-X-Greylist: delayed 1832 seconds by postgrey-1.36 at gabe;
- Thu, 10 Feb 2022 12:14:29 UTC
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B917F10E82E;
- Thu, 10 Feb 2022 12:14:29 +0000 (UTC)
-Received: from fsav119.sakura.ne.jp (fsav119.sakura.ne.jp [27.133.134.246])
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 21ABhgt7011998;
- Thu, 10 Feb 2022 20:43:42 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from www262.sakura.ne.jp (202.181.97.72)
- by fsav119.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav119.sakura.ne.jp);
- Thu, 10 Feb 2022 20:43:42 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav119.sakura.ne.jp)
-Received: from [192.168.1.9] (M106072142033.v4.enabler.ne.jp [106.72.142.33])
- (authenticated bits=0)
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 21ABhbnN011847
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
- Thu, 10 Feb 2022 20:43:42 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <7f6d61f4-042f-8c9d-23ed-da6f1dcb20d0@I-love.SAKURA.ne.jp>
-Date: Thu, 10 Feb 2022 20:43:36 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011FE10E836;
+	Thu, 10 Feb 2022 12:16:38 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C6A10E830;
+ Thu, 10 Feb 2022 12:16:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644495396; x=1676031396;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Q3gJ3/BRAc5bL1wBvxiv4TXLE+qOMXsa6/+0zpr/euI=;
+ b=Tjhdwt3KX2ZacksMgk1GPYo1isOfEOUWWbl5uocYBP9dP9k0Mrxvgb8h
+ 1QpKKEbPm7owSQ0iJizPwHxlLcuWNGfGnox/mLAavICIVZEKEViGdWYb6
+ akkSx1TTcD85jJLpa50e2ebT59/XTl3RdvbxL5Inz9XsNHUN040DH0UCp
+ 3Yy1hc0UNzTPHsobH2r6p9HJUQv9cexzr/H7Jw6Y4LrUXjto3JYD2e7jL
+ H9FHAXSW0Ssl/1OD5bsh+Znncwb21Ivdqnxvx8peUiY4zv0YMwFYV3Oxy
+ /JsAkvfJrmNeJkglscuhpTp4TilgN8PfeS0DcPpIRyep8sLYYurJIbru/ Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="247060921"
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="247060921"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 04:16:36 -0800
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="485664941"
+Received: from paulbarr-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.11.226])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 04:16:34 -0800
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 10 Feb 2022 12:12:58 +0000
+Message-Id: <20220210121313.701004-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-US
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
- <20220208210824.2238981-7-daniel.vetter@ffwll.ch>
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <20220208210824.2238981-7-daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 06/19] fbcon: Use delayed work for cursor
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 00/15] Initial support for small BAR recovery
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,22 +55,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Du Cheng <ducheng2@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel.vetter@intel.com>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2022/02/09 6:08, Daniel Vetter wrote:
-> @@ -714,6 +700,8 @@ static int con2fb_acquire_newinfo(struct vc_data *vc, struct fb_info *info,
->  		ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
->  		if (!ops)
->  			err = -ENOMEM;
-> +
-> +		INIT_DELAYED_WORK(&ops->cursor_work, fb_flashcursor);
->  	}
->  
->  	if (!err) {
+Starting from DG2 we will have resizable BAR support for device local-memory,
+but in some cases the final BAR size might still be smaller than the total
+local-memory size. In such cases only part of local-memory will be CPU
+accessible, while the remainder is only accessible via the GPU. This series adds
+the basic enablers needed to ensure that the entire local-memory range is
+usable.
 
-Memory allocation fault injection will hit NULL pointer dereference.
+Needs to be applied on top of Arun' in-progress series[1].
+
+[1] https://patchwork.freedesktop.org/series/99430/
+
+v2:
+  - Various improvements and fixes as suggested by Thomas.
+
+-- 
+2.34.1
+
