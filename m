@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C252C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 00:39:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4773C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 00:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4A310E6DF;
-	Thu, 10 Feb 2022 00:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F9810E6A2;
+	Thu, 10 Feb 2022 00:39:14 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D47710E172;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6717A10E6A2;
  Thu, 10 Feb 2022 00:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1644453552; x=1675989552;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eTz887wyBv7NfdeyCIHg+z/qcdhoHBXI+e4os8TlW7Y=;
- b=cDCcsJmCZ81p+pNZiicwtDOasS3k7/1aDb+drD8UMC/AlXTY0UbtiFwi
- iZ20N0htkITJoEuKRFoMuqJCfUKRF9YPFkwpfu+pPcC1wNi8yuAP700BP
- XW5BGEhKPcMCXYYCA9QPlUiPMkrvTl1vTZFygo7ptMuSDsL95ngXSxqo0
- 3ipgwZdNv3IfEcVx/iHpkIXW+Mg7xsHJH7L1no4HqLHekN1V9pISpLtsV
- Cbzyn6twqv33omJX4VcOiXOqrAwAdD9q7HenrbawKtFbNhMf0CSjCH5UX
- jFlSqcG4+wflWSjyxtYAmEHe74A0N09gxTAcEPmItfDaOzbVThI4C2M86 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="230023278"
-X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="230023278"
+ bh=xFYLaPepw2T34Ec0qGtoebNynt7IRfx+By6ZnIjAJe8=;
+ b=SxR3Nwwd5ZOx4LECRHzLDQCAMvy9rytRKdeHmslSuRZYRfmuehGCbPZl
+ wV7plMQcs+omK1/GiBN+l6IIzgZqNUMr36+KG/EGemcndhu/OUtkSt8Q7
+ oTpAw3/ibeZdA3jMk7cE6bpDEm8AqO9t3CXFCHTB/xIELS7bK2pOeutg+
+ YFnkDu7GVHO2m0efp//r/AnXxAFqMU9LduO39zuu8qbjdNtJ7NRGSTzQu
+ LXRUMzriI02dH86DmXyCK7wqQOSXsa+YrjJIFcyZX7ACBXEf1TfsyEo6B
+ 0BY7ylOHog8GAkz1P6JYHzAuxe+bkyCO75B0ss54GiRGQK39Ya7tOTkCb A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="230023280"
+X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="230023280"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Feb 2022 16:39:11 -0800
-X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="482544751"
+X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="482544760"
 Received: from sroy1-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.209.85.186])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 16:39:10 -0800
+ 09 Feb 2022 16:39:11 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Feb 2022 16:38:59 -0800
-Message-Id: <20220210003904.1055898-2-michael.cheng@intel.com>
+Date: Wed,  9 Feb 2022 16:39:01 -0800
+Message-Id: <20220210003904.1055898-4-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220210003904.1055898-1-michael.cheng@intel.com>
 References: <20220210003904.1055898-1-michael.cheng@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 1/6] drm: Add arch arm64 for
- drm_clflush_virt_range
+Subject: [Intel-gfx] [PATCH v8 3/6] drm/i915/gt: Drop invalidate_csb_entries
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,43 +61,59 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add arm64 support for drm_clflush_virt_range. dcache_clean_inval_poc
-performs a flush by first performing a clean, follow by an invalidation
-operation.
+Drop invalidate_csb_entries and directly call drm_clflush_virt_range.
+This allows for one less function call, and prevent complier errors when
+building for non-x86 architectures.
 
-v2 (Michael Cheng): Use correct macro for cleaning and invalidation the
-		    dcache.
+v2(Michael Cheng): Drop invalidate_csb_entries function and directly
+		   invoke drm_clflush_virt_range. Thanks to Tvrtko for the
+		   sugguestion.
 
-v3 (Michael Cheng): Remove ifdef for asm/cacheflush.h
+v3(Michael Cheng): Use correct parameters for drm_clflush_virt_range.
+		   Thanks to Tvrtko for pointing this out.
 
 Signed-off-by: Michael Cheng <michael.cheng@intel.com>
 ---
- drivers/gpu/drm/drm_cache.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
-index f19d9acbe959..f167bc19afb9 100644
---- a/drivers/gpu/drm/drm_cache.c
-+++ b/drivers/gpu/drm/drm_cache.c
-@@ -28,6 +28,7 @@
-  * Authors: Thomas Hellström <thomas-at-tungstengraphics-dot-com>
-  */
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 9bb7c863172f..28f2581d3046 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1646,12 +1646,6 @@ cancel_port_requests(struct intel_engine_execlists * const execlists,
+ 	return inactive;
+ }
  
-+#include <asm/cacheflush.h>
- #include <linux/dma-buf-map.h>
- #include <linux/export.h>
- #include <linux/highmem.h>
-@@ -176,6 +177,10 @@ drm_clflush_virt_range(void *addr, unsigned long length)
+-static void invalidate_csb_entries(const u64 *first, const u64 *last)
+-{
+-	clflush((void *)first);
+-	clflush((void *)last);
+-}
+-
+ /*
+  * Starting with Gen12, the status has a new format:
+  *
+@@ -1999,7 +1993,7 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ 	 * the wash as hardware, working or not, will need to do the
+ 	 * invalidation before.
+ 	 */
+-	invalidate_csb_entries(&buf[0], &buf[num_entries - 1]);
++	drm_clflush_virt_range(&buf[0], num_entries * sizeof(buf[0]));
  
- 	if (wbinvd_on_all_cpus())
- 		pr_err("Timed out waiting for cache flush\n");
-+
-+#elif defined(CONFIG_ARM64)
-+	void *end = addr + length;
-+	dcache_clean_inval_poc((unsigned long)addr, (unsigned long)end);
- #else
- 	pr_err("Architecture has no drm_cache.c support\n");
- 	WARN_ON_ONCE(1);
+ 	/*
+ 	 * We assume that any event reflects a change in context flow
+@@ -2783,8 +2777,8 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
+ 
+ 	/* Check that the GPU does indeed update the CSB entries! */
+ 	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
+-	invalidate_csb_entries(&execlists->csb_status[0],
+-			       &execlists->csb_status[reset_value]);
++	drm_clflush_virt_range(&execlists->csb_status[0],
++		execlists->csb_size * sizeof(execlists->csb_status[0]));
+ 
+ 	/* Once more for luck and our trusty paranoia */
+ 	ENGINE_WRITE(engine, RING_CONTEXT_STATUS_PTR,
 -- 
 2.25.1
 
