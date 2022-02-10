@@ -4,46 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED15CC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 18:51:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 074A1C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 19:07:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 571E410E952;
-	Thu, 10 Feb 2022 18:51:08 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E80E410E954
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 18:51:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644519067; x=1676055067;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=NQUojKSqYIo0gC/3v2i9UJxQPwwd1hQElyCRsLayPRo=;
- b=SwXixkRa5V8EOhvQYAAqnqvpheQnxD5Oz6myetKTH69UBoWrsnb6M52r
- t4vFXmW4kHftJveHLQPufU47/J7qRBsi2PMC4/op6s+15NCnaK0Udno6U
- PlXG2P9AE2TaVQP943ZxZmGTlfBJOK+17ae4iwU0agvYF5LqcQoJ3qa72
- CzwgoFU0DC4RQth1zXQkvuyxqguhQkYnpgm/USke/NJvNcG+A8r/H0lsd
- e1l3RibplahZvqfKeCYm3glTG91hffDs5IZZp5YjfQ1GA+pw3FaPsPW+3
- 5+CgrWCxM2iksrbbD3qf3QhLILXHtep93TjJTAtNoSvRVVT/B1gUYttdC w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249514244"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="249514244"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:51:07 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="485844603"
-Received: from mdroper-desk1.fm.intel.com (HELO
- mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 10:51:07 -0800
-Date: Thu, 10 Feb 2022 10:51:05 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Message-ID: <YgVemUgixMuqZEMU@mdroper-desk1.amr.corp.intel.com>
-References: <20220210164430.299456-1-anusha.srivatsa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6041B10E2E9;
+	Thu, 10 Feb 2022 19:07:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3B3FF10E2E9;
+ Thu, 10 Feb 2022 19:07:00 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 39936A7DFB;
+ Thu, 10 Feb 2022 19:07:00 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220210164430.299456-1-anusha.srivatsa@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dg1: Update DMC_DEBUG3 register
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Michael Cheng" <michael.cheng@intel.com>
+Date: Thu, 10 Feb 2022 19:07:00 -0000
+Message-ID: <164452002021.24641.9366277947405822955@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220210183636.1187973-1-michael.cheng@intel.com>
+In-Reply-To: <20220210183636.1187973-1-michael.cheng@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Use_drm=5Fclflush*_instead_of_clflush_=28rev9=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,64 +40,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 10, 2022 at 08:44:30AM -0800, Anusha Srivatsa wrote:
-> DMC_DEBUGU3 changes from DG1+
+== Series Details ==
 
-This looks to be the same thing as the patch that Chuansheng Liu sent:
+Series: Use drm_clflush* instead of clflush (rev9)
+URL   : https://patchwork.freedesktop.org/series/99450/
+State : warning
 
-https://patchwork.freedesktop.org/patch/473272/?series=99942&rev=1
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+ea63269ee004 drm: Add arch arm64 for drm_clflush_virt_range
+-:40: WARNING:LINE_SPACING: Missing a blank line after declarations
+#40: FILE: drivers/gpu/drm/drm_cache.c:181:
++	void *end = addr + length;
++	dcache_clean_inval_poc((unsigned long)addr, (unsigned long)end);
+
+total: 0 errors, 1 warnings, 0 checks, 18 lines checked
+e83ef112b20c drm/i915/gt: Re-work intel_write_status_page
+3272afe74b53 drm/i915/gt: Drop invalidate_csb_entries
+87e71bff36de drm/i915/gt: Re-work reset_csb
+4037c1b12325 drm/i915/: Re-work clflush_write32
+ea5ae2247f97 drm/i915/gt: replace cache_clflush_range
 
 
-Matt
-
-> 
-> Bspec: 49788
-> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 6 ++++--
->  drivers/gpu/drm/i915/i915_reg.h                      | 1 +
->  2 files changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> index f4de004d470f..87fc4b9b7b93 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> @@ -474,8 +474,10 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
->  		 * reg for DC3CO debugging and validation,
->  		 * but TGL DMC f/w is using DMC_DEBUG3 reg for DC3CO counter.
->  		 */
-> -		seq_printf(m, "DC3CO count: %d\n",
-> -			   intel_de_read(dev_priv, DMC_DEBUG3));
-> +		if (IS_DGFX(dev_priv))
-> +			seq_printf(m, "DC3CO count: %d\n", intel_de_read(dev_priv, DG1_DMC_DEBUG3));
-> +		else
-> +			seq_printf(m, "DC3CO count: %d\n", intel_de_read(dev_priv, DMC_DEBUG3));
->  	} else {
->  		dc5_reg = IS_BROXTON(dev_priv) ? BXT_DMC_DC3_DC5_COUNT :
->  						 SKL_DMC_DC3_DC5_COUNT;
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 87c92314ee26..802962e3977c 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -5633,6 +5633,7 @@
->  #define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
->  
->  #define DMC_DEBUG3		_MMIO(0x101090)
-> +#define DG1_DMC_DEBUG3		_MMIO(0x13415C)
->  
->  /* Display Internal Timeout Register */
->  #define RM_TIMEOUT		_MMIO(0x42060)
-> -- 
-> 2.25.1
-> 
-
--- 
-Matt Roper
-Graphics Software Engineer
-VTT-OSGC Platform Enablement
-Intel Corporation
-(916) 356-2795
