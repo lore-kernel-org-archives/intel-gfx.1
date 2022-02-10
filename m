@@ -4,126 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C3D2C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C68C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B85DA10E2D7;
-	Mon, 14 Feb 2022 15:49:17 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2137.outbound.protection.outlook.com [40.107.255.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4E710E9C6;
- Fri, 11 Feb 2022 02:32:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hIfy3zPFMEbsGtSoSPPqbkeOZ/dLOYRhHpUAR5suGf0g13wWkXMBPST8Fhr6n/7cQw5DqX2AdL7hqO2geNXWARmpnRgvAaRXQ/b9VHLTMT8tFEIbPQnJ+qjBY0dhfBHqH/WEA3Jujet6Vqxhxo4ASGgUua+3W2YMZgdME8yLHeHNXszr8EkJZCsegRjL4m4Rrf2hzfQJXoKAzUn2Nziou+RKBQTUIjeWmLStwmtLIoriEyWVYLjFFz+JtfaJE6Yb1fvTU3haZeC0UzG/kJdWGiXtFbCnLk34hPB/ZaevsLKWne/VXoBsxKEaF19bgjwJNc1QD8CB/XAu1TEuuXdT8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AJmrL/wszRwZlM8YVbrQxGpNSgXK6M6vSTblQPIFMZk=;
- b=fZLtPnmelz9hHT+SBLwremtvuxlBf/i97duKgdlLicJMapgsGYxkM7ekYio7Pqs2xqalvaWb4a4PPyY6ePuE46T+6ECgZEg7AQPNZeiW410j8/dtomsvKjD3vfQIBxHdIFYI6CvJ0HDNZHApXCu+E8yxgvBJg4q5sNHXPw8HaXSTcCff7VQA/oPNpMgyeU0YW9nTl9KFgXwKNJOKiQU98yjlcsPcKdnafBe/Q+9lGFt45RQVyvI7yLjBrl3xGWLMxNeFahRxuyFQDtpEzF4Z/lTa4P0ARmevDbfyt9Wn2JwOJ0Ncn93UcBRzHU2abDTvZSvgJCmVDFnPL8kOP+Y64A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AJmrL/wszRwZlM8YVbrQxGpNSgXK6M6vSTblQPIFMZk=;
- b=LDllR3IILBHFO0J/aZBfYXz5fNvlV220gcDU3SWKf+HU7oHuWzU/dB0FR2LJfl/dYcSy8cqB31wWUe2Mb6FEIUq7uzbzVVCpg+g3myBOJgzqZwDq2/jtLrEXi7JxOgHSh2NqwPFlxkIDBzHxIi0wn+xWvRizEAh0w+V3IgMIFtU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by TY2PR06MB2895.apcprd06.prod.outlook.com (2603:1096:404:31::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17; Fri, 11 Feb
- 2022 02:32:05 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 02:32:05 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
- dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Date: Thu, 10 Feb 2022 18:30:29 -0800
-Message-Id: <1644546640-23283-7-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
- (2603:1096:201:21::14) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4271E10E2ED;
+	Mon, 14 Feb 2022 15:49:18 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E4B10E975
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 22:32:17 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ v6-20020a05683024a600b005ac1754342fso1144459ots.5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 14:32:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=JrHddR19ZD1tkokZWOCBaXxsomwE9JN1w01NkG4YDyU=;
+ b=AOxrl24mI7dYWR6YtN6FZh7Gl8Pj9u1/oljFksQs78r7CJZJVslHGJgUXkU3T118zO
+ 5MabSKCGeA7XPcl6ZBXZ+ckDl4624CJhaTRZIvaYdMPWDswR7kRx2BnBROovCkRS5KAb
+ v/dNvZSkxZ4eOyeO8ieSlwckmJ6DsV2Mu0bqephhV80yiUd6PiAibe/CXd0OUMBlSJXl
+ fW0se2KH0qWF/80+Qhj3bCRSE2mHsyNIUsnlRC3kFbXUCRtMo/svqx2QM8V09K1Th68f
+ qgJgmdXGbHyRfqqNF6jgkASk6+VHUf9/+aNcb/aceiaWgrrgUtF4wgFrBn6OXZl9Ohpv
+ Tedw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=JrHddR19ZD1tkokZWOCBaXxsomwE9JN1w01NkG4YDyU=;
+ b=SxBtd7I6qT5YhFNd3HC9Rcy13222bYdGgjzqs4jGZAV8JAsDdRZWsr5G65bzFgjjS8
+ 59EGiEuiQxfmeBcjHSkYVEXbGaImIQJVNyVBUBRODFpPEqsmKiKt7/PZZwVuj+Oizhwq
+ yhufs+ad/6s92epdYejvNli5GfEXPFpP2P0PG52+TRx8DbXcKZxTv6EMBjlAKtsHPBIA
+ uubHUeKTmfTL2CmLojg2vFk+uY4M/iozg8SvH6ZRinlT9KKvUDf0LBf6qCFwig6ZS4/H
+ XmXCQkSsnOBV6NvNth3Nt/QpgzY+HlQDqCfiuYxdFkVbE0WAyoLcuRgOLSb/v3TBPT/3
+ REfw==
+X-Gm-Message-State: AOAM530e1q2RzOHql3mEC84Y1+cQeysu7dUOf9jxFahTuAIzT8WTyZXJ
+ Vhkz4n0WYrzoNqFkCer9hdxwTA==
+X-Google-Smtp-Source: ABdhPJxJ7/q4RbdB3oTSoXedG6ikpzgyv4pQn6CfOszGopvOcDpzuPeg37Y9NWvFxF93GL7eMhYPBg==
+X-Received: by 2002:a05:6830:92a:: with SMTP id
+ v42mr3756586ott.48.1644532336413; 
+ Thu, 10 Feb 2022 14:32:16 -0800 (PST)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id 6sm8819888oig.29.2022.02.10.14.32.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Feb 2022 14:32:15 -0800 (PST)
+Date: Thu, 10 Feb 2022 14:34:30 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <YgWS9iZ+1uJBd9Lj@ripper>
+References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
+ <20220208044328.588860-2-bjorn.andersson@linaro.org>
+ <YgIecy+W/lGzL6ac@kroah.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d708849d-f73a-4f4d-cc35-08d9ed06b144
-X-MS-TrafficTypeDiagnostic: TY2PR06MB2895:EE_
-X-Microsoft-Antispam-PRVS: <TY2PR06MB289554482BFAB287A31191B5BD309@TY2PR06MB2895.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Knvn+ZoyuwtwWjb9mcX7NX4jSd5sdfPjHKvVg0RXnl4B0HLfdv7nMLFc7oEB4uoAC7nhPliMSDWanEG6pMpbUMVchrTfRPtCpo+Y9i2hsRrc25VPJsQIlYgbOHynMgwohX+gOCxM98x/hcUkKTKy6Ryyhot4nSM/0df5459+EPX+x8NZu34ETQArWLJOO3DJoFyzdyDDJijXFnKF8StSK8SDk/KX6pxA24EhE4BsT7pE8nNubWPzCoKTJZ7vOov0foDGTTu6krh/sLcMo6L6nZ6nydKlrooia830KyO7n+KfO43/q8wgsu0A+JODt2HzqOlnx941h+brnfgGknRGrExAUXDCl8qIKFU0jeXg2oIM3raNNQXDgmZPJOmeMV9EhhTFBr5mgg1YOlGcDkX2Rx3CZfKwql7KkyvR7akXzIHPo3pC+7d2N4rU1kFHPBOq+rv1FrY2/QtW3a0t65ZNCOQDeECkSq5ewxwXJiYpN0ZKgFH1KLjT7ocJcx1ye2Mjkzh1io96S0XXVoxVwnFgltmxzN3tbxnfFLn3kP0Jnh9Sv4sKlzKr13KfQgEjlD66Y8FsDfp3Xp3FqQnn+hJ4WkYB0fL0fxaXSwDlsdL/R1zm5erAtH3JjL2OMueHjzOjBFj1hDM2oTVUQ3HXfriBYbSf4BBfNyfwfOv7LhlhMppZxHs0XurFN1SuOtP7wCSnfPcNMxU25l/4naC+SDZhkRhEnwSvc6XBS+HkJgo+XK7hZZGCTdgfdd8zaO/cYRS9
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38100700002)(2906002)(316002)(110136005)(86362001)(6486002)(38350700002)(6506007)(6666004)(26005)(186003)(2616005)(6512007)(5660300002)(8676002)(7406005)(508600001)(36756003)(4326008)(8936002)(83380400001)(107886003)(921005)(52116002)(66556008)(66476007)(7416002)(66946007)(21314003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?j1JTYbUZFwE57rs9P/bZPsIXhEWUhUwZYslxJXmoBcB0DzYfbRs71yby+bz/?=
- =?us-ascii?Q?vz75e/QAd9pa2P700yMpBDdgLxzW6+5gs4C2NReUwTJLVy/jkasgGvEJEAMo?=
- =?us-ascii?Q?ANyh3VAVxDLRWeKzNgfmUh59OQ0gG7J78o38VzqvB2TASGOVv9JmA04H3jiz?=
- =?us-ascii?Q?VATIIQjKFAWUEX2zZraRVTaLYF/Kn/KwzMw+jry1qtD4Pk3NcNq3a9h8UVqa?=
- =?us-ascii?Q?zDvMEWaV6dI+Ps0UjvurBJ0po1LIa12Dn1BruvzU4WmY8X/Q2Sur9NeUloSc?=
- =?us-ascii?Q?8ccM0l5hQfo0YztFRCut2eaB6mWaG1NKEJ3KjWSsLKJU1ksTHAptEVL+jpRp?=
- =?us-ascii?Q?Qj7+D6zg0cYdt8RfQzBKDr/sxGlyKyCaHs1vK6+Z70aP5NdTA0vFxnluiB8C?=
- =?us-ascii?Q?p3N6bDN7BqbEpAAAMj+WVfPHTtIByNjhVb+oDGgc/O4OLFVaYNrrrVHz5Zi3?=
- =?us-ascii?Q?tt5ZMkj7zIUURoHN7vpQHb3Y99X2LhgNrHZ8kbkuhPnXNZAU0Ysfw/jsRKos?=
- =?us-ascii?Q?MzLH/vn9iS3+9Jk5h0q75TeX8s/kGubhwUfMgV/S2lLcpf0UpUsYHxxtYzon?=
- =?us-ascii?Q?K0oCVegi+YetZ4v7+g+GSVsGmb+KPqjx4Mr695Kr/ltQ8+JgB8Ia+dmkVLpm?=
- =?us-ascii?Q?dq1udpl1z/U8BjmWMAcnjNrypYQrJkBH0UESuwbjcCN/nGRl+164MP1mXYSC?=
- =?us-ascii?Q?fsVevoaKz+vMKE14aCjXvtA03yJ/PZTteqsLnw66sOptNlHnVKIL9l0Fdcj+?=
- =?us-ascii?Q?jDebUhmOIBpfoOIcioevcPPSiH9jWL1swvSekt6owINn4xveOlxIl0GOQ3j3?=
- =?us-ascii?Q?Yo71yZzslNQDV5uF5+Ur/j7819SU+IkaojzQ1dJJ1+bO7f2XBNBmRiFtCytM?=
- =?us-ascii?Q?viKz23TLEqe5WYTk+T5zePcV84QL1bJ2C+xqdrSkr8Yf6OoaeZBupFAwVm4x?=
- =?us-ascii?Q?cTVHHVYUMWx2PPwExu9WPAKIM7Uh190sthnfabctRky2InIzIZAhV4Mku/Kh?=
- =?us-ascii?Q?SzHGHOKpVYOThcYCUVE8Hmk0yhWYjAf4LcHs9rDTRBw7GqMQh0dP3IL9OLY7?=
- =?us-ascii?Q?BQ6HfAy+tZk9yltgjheKpwqhga1YZWgZQPYAlpDINa27srj1yAPpMJDC8MYd?=
- =?us-ascii?Q?Uo8qF+DflfHJJQHU/+hRlXiymTJBgXWKu12JEX7xCeknq1Hm2kyhmScKRHlU?=
- =?us-ascii?Q?1vQpaDbZgMU04tH6zjPWq4ENhOO27Qv/3PHBcZXW7HhJQ7IlfO7QKTINUY8e?=
- =?us-ascii?Q?dr/J825MBIGDIxE1ZIW2/lJoP+5aYqcAj4Mn9uwCazYon5CmGekCEjPpKYzI?=
- =?us-ascii?Q?/4U+1h5LnacScpbVRhSDZOhzC/nvAredJ67lub0o0a36TEg5zvNi9tugM5q0?=
- =?us-ascii?Q?F30Zr1Xo/YHair/UowF6j/fWerUeIUQhadUX7HZz3tJuCFj3rjerGRWG6qPW?=
- =?us-ascii?Q?q2OOJcB7iltVZ9HQI5GAo4/MsgPPdvQXOtXIVeT2fLFQeQwtp9m5ixLahLkT?=
- =?us-ascii?Q?IevJsLNjsAxF07GN1agDblRVNjIofefahuoICwB6CS/Vxns6d/Yqw/ibLnrt?=
- =?us-ascii?Q?Ve0p0IZq4Hz8+TRwiysYCTaru+5OfIlnMukaKBQz5hUy12PLehFXl8E6uVFv?=
- =?us-ascii?Q?uTbGOTOaM/sLAUWkpuhcXA0=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d708849d-f73a-4f4d-cc35-08d9ed06b144
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:32:05.1954 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AKip6f9iqiS3IpgYMeOPaufHSDL7O8bFVrZCqIKCGXNHOnl1Y+SvZVBj97LT3qYik6/RGDYwW2+DwZ8sR60wNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR06MB2895
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YgIecy+W/lGzL6ac@kroah.com>
 X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:56 +0000
-Subject: [Intel-gfx] [PATCH V2 6/13] input: serio: use
- time_is_before_jiffies() instead of jiffies judgment
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/msm/dp: Implement
+ oob_hotplug_event()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,42 +73,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wang Qing <wangqing@vivo.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, linux-usb@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Wang Qing <wangqing@vivo.com>
+On Mon 07 Feb 23:40 PST 2022, Greg Kroah-Hartman wrote:
 
-It is better to use time_xxx() directly instead of jiffies judgment
-for understanding.
+> On Mon, Feb 07, 2022 at 08:43:28PM -0800, Bjorn Andersson wrote:
+> > The Qualcomm DisplayPort driver contains traces of the necessary
+> > plumbing to hook up USB HPD, in the form of the dp_hpd module and the
+> > dp_usbpd_cb struct. Use this as basis for implementing the
+> > oob_hotplug_event() callback, by amending the dp_hpd module with the
+> > missing logic.
+> > 
+> > Overall the solution is similar to what's done downstream, but upstream
+> > all the code to disect the HPD notification lives on the calling side of
+> > drm_connector_oob_hotplug_event().
+> > 
+> > drm_connector_oob_hotplug_event() performs the lookup of the
+> > drm_connector based on fwnode, hence the need to assign the fwnode in
+> > dp_drm_connector_init().
+> > 
+> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_display.c |  8 ++++++++
+> >  drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
+> >  drivers/gpu/drm/msm/dp/dp_drm.c     | 10 ++++++++++
+> >  drivers/gpu/drm/msm/dp/dp_hpd.c     | 19 +++++++++++++++++++
+> >  drivers/gpu/drm/msm/dp/dp_hpd.h     |  4 ++++
+> >  5 files changed, 43 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > index 7cc4d21f2091..124a2f794382 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > @@ -414,6 +414,13 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
+> >  	return dp_display_process_hpd_high(dp);
+> >  }
+> >  
+> > +void dp_display_oob_hotplug_event(struct msm_dp *dp_display, bool hpd_state)
+> > +{
+> > +	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
+> > +
+> > +	dp->usbpd->oob_event(dp->usbpd, hpd_state);
+> > +}
+> > +
+> >  static int dp_display_usbpd_disconnect_cb(struct device *dev)
+> >  {
+> >  	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> > @@ -1251,6 +1258,7 @@ static int dp_display_probe(struct platform_device *pdev)
+> >  	dp->pdev = pdev;
+> >  	dp->name = "drm_dp";
+> >  	dp->dp_display.connector_type = desc->connector_type;
+> > +	dp->dp_display.dev = &pdev->dev;
+> 
+> You did not properly reference count this pointer you just saved.  What
+> is to keep that pointer from going away without you knowing about it?
+> 
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
----
- drivers/input/serio/ps2-gpio.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The "dp" object only lives while &pdev->dev is alive, both logically and
+as its devres allocated on &pdev-dev. So for this reference I don't see
+that we should refcount it.
 
-diff --git a/drivers/input/serio/ps2-gpio.c b/drivers/input/serio/ps2-gpio.c
-index 8970b49..7834296
---- a/drivers/input/serio/ps2-gpio.c
-+++ b/drivers/input/serio/ps2-gpio.c
-@@ -136,7 +136,7 @@ static irqreturn_t ps2_gpio_irq_rx(struct ps2_gpio_data *drvdata)
- 	if (old_jiffies == 0)
- 		old_jiffies = jiffies;
- 
--	if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
-+	if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
- 		dev_err(drvdata->dev,
- 			"RX: timeout, probably we missed an interrupt\n");
- 		goto err;
-@@ -237,7 +237,7 @@ static irqreturn_t ps2_gpio_irq_tx(struct ps2_gpio_data *drvdata)
- 	if (old_jiffies == 0)
- 		old_jiffies = jiffies;
- 
--	if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
-+	if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
- 		dev_err(drvdata->dev,
- 			"TX: timeout, probably we missed an interrupt\n");
- 		goto err;
--- 
-2.7.4
+> And you already have a pointer to pdev, why save another one here?
+> 
 
+The Qualcomm DisplayPort driver has per-c-file private context structs
+and "dp" is one such object. So I simply can't dereference it and get to
+pdev from the other c-file in the same driver...
+
+But I only need it in dp_drm.c to during initialization to get a
+reference to the associated fwnode, so it seems that I can rework this
+and pass the pointer as a parameter to dp_drm_connector_init().
+
+That looks to be cleaner as well.
+
+Thanks,
+Bjorn
