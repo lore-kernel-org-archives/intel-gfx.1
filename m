@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D54C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 01:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8D3C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 01:26:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4943610E3C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A25410E3E3;
 	Thu, 10 Feb 2022 01:26:23 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2727710E233;
- Thu, 10 Feb 2022 01:26:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6583610E233;
+ Thu, 10 Feb 2022 01:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644456382; x=1675992382;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0faIJeanSVg4TVsukZep2SH9zNSBXKIPlWiirFMZ1bw=;
- b=K+hcEejKo6ualxhpBH6akULfpbxVFpZQJZndbF3Ka2ZNx1PoDhNdRSEJ
- KYJcUBpmFbq/bU/8duBfGtLyrfYmoHFZE2RnqbU450+IXP/kszXs7UE7n
- P+vpGqfPwQvlcG78V7RMNOqjbxPrRWQzYgwDdBBNIazdWVhaDgKshfRMO
- 0h9kID9Z8lU85dPfMAlZ8VFHUGP/vdnfsef7h9rH9qTBR2e07D1AmJucA
- VqlReIrCyL2ZWpkDBKCC/Qx8pv4KTnP7fHc+A7zGMRvOV2yhlFp6X15kl
- GmBrPrHVZPrQ2j7tO613LRgqTF03e1/6Kgtzc3R4zlxa8ek4ougTXpyI4 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="249591579"
-X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="249591579"
+ t=1644456381; x=1675992381;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=P8Skke48yQfPbb9QLZu3ZyhQQ2iISiTnDqAGuyez1ek=;
+ b=a09XKUmwU2wT1Hr1JqglUoaL3NDYH1x3hJIWWy6U/LzV4PZgWLwb0cDc
+ xRGmmwGHj39rnxDMxeXs8Kk5KmhO4y1JrkYEhPl8iOfclIV3/Uw/smhiC
+ zK8X2ka+Q8/+NVkTa8DJGbEbg+5BqtvmlI9idtuT5VTFCaiIj3HJ2yV6Z
+ SMROdH3SPwzmrrPNSNESladTJKEUZHgydfGemJSQn0LSFwl6KYDM/lWL8
+ iMGT97rR4l2ilNIYr6nvnyHhVsPWHZiygBBbITjSAosl2ZsoAq+CKNBMv
+ drqx4yFshy64mSL5UqJrn0P6sdmXGappq2a/X6sewUVgjG5jGb6GipOXe g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="249591574"
+X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="249591574"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 17:26:22 -0800
-X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="773706172"
+ 09 Feb 2022 17:26:21 -0800
+X-IronPort-AV: E=Sophos;i="5.88,357,1635231600"; d="scan'208";a="773706163"
 Received: from sroy1-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.209.85.186])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 17:26:21 -0800
+ 09 Feb 2022 17:26:20 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Feb 2022 17:26:13 -0800
-Message-Id: <20220210012617.1061641-3-michael.cheng@intel.com>
+Date: Wed,  9 Feb 2022 17:26:11 -0800
+Message-Id: <20220210012617.1061641-1-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220210012617.1061641-1-michael.cheng@intel.com>
-References: <20220210012617.1061641-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 2/6] drm/i915/gt: Re-work
- intel_write_status_page
+Subject: [Intel-gfx] [PATCH v9 0/6] Use drm_clflush* instead of clflush
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,45 +59,47 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Re-work intel_write_status_page to use drm_clflush_virt_range. This
-will prevent compiler errors when building for non-x86 architectures.
+This patch series re-work a few i915 functions to use drm_clflush_virt_range    
+instead of calling clflush or clflushopt directly. This will prevent errors     
+when building for non-x86 architectures.                                        
+                                                                                 
+v2: s/PAGE_SIZE/sizeof(value) for Re-work intel_write_status_page and added     
+more patches to convert additional clflush/clflushopt to use drm_clflush*.      
+(Michael Cheng)                                                                 
+                                                                                 
+v3: Drop invalidate_csb_entries and directly invoke drm_clflush_virt_ran        
+                                                                                 
+v4: Remove extra memory barriers                                                
+                                                                                 
+v5: s/cache_clflush_range/drm_clflush_virt_range  
 
-Signed-off-by: Michael Cheng <michael.cheng@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine.h | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+v6: Fix up "Drop invalidate_csb_entries" to use correct parameters. Also
+added in arm64 support for drm_clflush_virt_range.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 0e353d8c2bc8..986777c2430d 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -4,6 +4,7 @@
- 
- #include <asm/cacheflush.h>
- #include <drm/drm_util.h>
-+#include <drm/drm_cache.h>
- 
- #include <linux/hashtable.h>
- #include <linux/irq_work.h>
-@@ -143,15 +144,9 @@ intel_write_status_page(struct intel_engine_cs *engine, int reg, u32 value)
- 	 * of extra paranoia to try and ensure that the HWS takes the value
- 	 * we give and that it doesn't end up trapped inside the CPU!
- 	 */
--	if (static_cpu_has(X86_FEATURE_CLFLUSH)) {
--		mb();
--		clflush(&engine->status_page.addr[reg]);
--		engine->status_page.addr[reg] = value;
--		clflush(&engine->status_page.addr[reg]);
--		mb();
--	} else {
--		WRITE_ONCE(engine->status_page.addr[reg], value);
--	}
-+	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
-+	WRITE_ONCE(engine->status_page.addr[reg], value);
-+	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
- }
- 
- /*
+v7: Re-order patches, and use correct macro for dcache flush for arm64. 
+
+v8: Remove ifdef for asm/cacheflush.
+
+v9: Rebased
+
+Michael Cheng (6):
+  drm: Add arch arm64 for drm_clflush_virt_range
+  drm/i915/gt: Re-work intel_write_status_page
+  drm/i915/gt: Drop invalidate_csb_entries
+  drm/i915/gt: Re-work reset_csb
+  drm/i915/: Re-work clflush_write32
+  drm/i915/gt: replace cache_clflush_range
+
+ drivers/gpu/drm/drm_cache.c                   |  5 +++++
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  8 +++-----
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 12 ++++++------
+ drivers/gpu/drm/i915/gt/intel_engine.h        | 13 ++++---------
+ .../drm/i915/gt/intel_execlists_submission.c  | 19 ++++++-------------
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 +-
+ 8 files changed, 27 insertions(+), 36 deletions(-)
+
 -- 
 2.25.1
 
