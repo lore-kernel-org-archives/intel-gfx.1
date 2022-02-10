@@ -4,62 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B713C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348E4C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7BCF10E2EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86B8B10E28D;
 	Mon, 14 Feb 2022 15:49:18 +0000 (UTC)
-Received: from mail.efficios.com (mail.efficios.com [167.114.26.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C31310E57C
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 19:28:12 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mail.efficios.com (Postfix) with ESMTP id 9169C3B494A;
- Wed,  9 Feb 2022 14:28:11 -0500 (EST)
-Received: from mail.efficios.com ([127.0.0.1])
- by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id Bq5hzq76zMBx; Wed,  9 Feb 2022 14:28:11 -0500 (EST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.efficios.com (Postfix) with ESMTP id E99E43B4AC7;
- Wed,  9 Feb 2022 14:28:10 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com E99E43B4AC7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=default; t=1644434891;
- bh=XjlwNl1On6TmPijh5BHJldK1Cy6f5rlPU65IQRBXecc=;
- h=Date:From:To:Message-ID:MIME-Version;
- b=lcJ6LjDxmssvDwIKOUoMlicr5d+aywJSmXlRJTfbmH4xgmPoedFrQV6r3q9tKD4a/
- 1dpN6ymkorGYD/RLPPgIwIdyLfChfI76yVxI9JFrZhlPb9f0m8Oc9zLtHilxIKXZBQ
- jwKiwRDxiDvRaUtKcxU1/za8f4GK7gbP62qkVEdK0YvR7hWR+wQ+zLFLMFuwjteyOH
- cMGzzJ09LJP7kAVUHeFlpfr4ABMeEU0uDrDGCpZfG8rK+Cczk81jLml32FeeqyTNrq
- bab+3bK6c37tOu2GAzhkpLNpJPKTcXxyJtwFznXm3SstTE8AhxT/olKl2Jd8w1Sndl
- yJW42XHRsAMyQ==
-X-Virus-Scanned: amavisd-new at efficios.com
-Received: from mail.efficios.com ([127.0.0.1])
- by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id qTEEX-tAWWFU; Wed,  9 Feb 2022 14:28:10 -0500 (EST)
-Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
- by mail.efficios.com (Postfix) with ESMTP id D2A0A3B4B38;
- Wed,  9 Feb 2022 14:28:10 -0500 (EST)
-Date: Wed, 9 Feb 2022 14:28:10 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Message-ID: <718973621.50447.1644434890744.JavaMail.zimbra@efficios.com>
-In-Reply-To: <CAM9d7ci=N2NVj57k=W0ebqBzfW+ThBqYSrx-CZbgwGcbOSrEGA@mail.gmail.com>
-References: <20220208184208.79303-1-namhyung@kernel.org>
- <20220209090908.GK23216@worktop.programming.kicks-ass.net>
- <24fe6a08-5931-8e8d-8d77-459388c4654e@redhat.com>
- <919214156.50301.1644431371345.JavaMail.zimbra@efficios.com>
- <69e5f778-8715-4acf-c027-58b6ec4a9e77@redhat.com>
- <CAM9d7ci=N2NVj57k=W0ebqBzfW+ThBqYSrx-CZbgwGcbOSrEGA@mail.gmail.com>
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2114.outbound.protection.outlook.com [40.107.255.114])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0C10E775;
+ Thu, 10 Feb 2022 08:30:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bI5S5ZIonnQEoEqFTw67AeT3GUdAFizld5wgNZ7Ko2m6KBG/u+ERL06GghB7/BtmnZbrIMPZV8FH1Ohwkie+UWkVs8vXhcvUZzPDyK4GxRAkm4Zw6tlfL4DNM+TDcucDBn41WqN0HkGRc2qJe1SNzNggZCBztQ09T1W5Ehmx8gDMUPh9r8CELi7NDrYUGx19p4rNDJO+MBDwgklWYAHlz/sVTCAIAYZUZcPDzxXhOxVwcbSw6MtyTJmXgrK96/1s5lZAUDmdo7jOD/UjVR6EjKxkPlqT95CzB8Q8GD2MYwwHvlrJVnB2KzFeTvgc6Le9fB99bg4r7kBytK0FvZXZ5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uiISIcM9l7paF91m3S6xkLnSA3s7jSVELqVf3j8YRkI=;
+ b=QTSpxU/UeYmT8Y9MK3SqiD2nL6gYQZ+Z/uHxq3XTnOez2j0pWvFGyCWf1RlsXNt9HBi0KN/bUdOxqCaxrj5WkkLzMN/fSfP2B6H9DnnxJUc2v6Js3IXSwi0JLYeAk454tXPXUPu3hj9ww7Ea6adaono2daAFLlxBLB94uJK5m2KZadah8b1QYPs7KSYqpWwYic1Lk+cHFezY/loBb9oZBlfiKtKk5NMQelRPTgr0jMvgJl/EztU5LKq2IEpSJP7NRUkVmK/iTC33OS6ukDm7+dtwVlBl0EsJ2hJUhSN5pjeeoDDHsiDA+cT7ff2MD+80YY7AIWob2NODLvy3p7MPwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uiISIcM9l7paF91m3S6xkLnSA3s7jSVELqVf3j8YRkI=;
+ b=UMBY/jdp1sCF/a/oOx20AUNYoQmxAOkt8awmECMrj7rdjyTU9s7DRMsvEM3hjgwCIEURoCoTCYxsdEgKtn3A/4UyTiY1dbKlOs+A65IpqNdNKLmjRCmrutCJMxAj+DUKII+etFU6y0e639okD7lCFJQRjeYJF0X7xNiOJMDp0qY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by PSAPR06MB4005.apcprd06.prod.outlook.com (2603:1096:301:3a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 10 Feb
+ 2022 08:30:10 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.011; Thu, 10 Feb 2022
+ 08:30:10 +0000
+From: Qing Wang <wangqing@vivo.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Feb 2022 00:30:01 -0800
+Message-Id: <1644481802-14578-1-git-send-email-wangqing@vivo.com>
+X-Mailer: git-send-email 2.7.4
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR0401CA0014.apcprd04.prod.outlook.com
+ (2603:1096:3:1::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
+ (2603:1096:100:37::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [167.114.26.124]
-X-Mailer: Zimbra 8.8.15_GA_4203 (ZimbraWebClient - FF96 (Linux)/8.8.15_GA_4203)
-Thread-Topic: locking: Separate lock tracepoints from lockdep/lock_stat (v1)
-Thread-Index: XmneyW/Z8kaQOCvcLgzEg6AAvUOeRA==
-X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
-Subject: Re: [Intel-gfx] [RFC 00/12] locking: Separate lock tracepoints from
- lockdep/lock_stat (v1)
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7adf405f-997a-4272-6559-08d9ec6f8cbf
+X-MS-TrafficTypeDiagnostic: PSAPR06MB4005:EE_
+X-Microsoft-Antispam-PRVS: <PSAPR06MB4005F0E8F455B96DBC52FA67BD2F9@PSAPR06MB4005.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Z7IQA1rH4swEDgY3h8WU4Ou/0ObQtWe4TENrrzlT9llBD3VVJbSqAhXn5SZtgdwPbm2E6Zrjq/IvLWUS+M36DxIA2pgQqZScSmWU4joXX1wm/GZdNiDUW5RIObJJejOi8JfzwkeyjRjicOrqQGxnZfhyRQFPL9uTt6AewvsN8adK+2canWEqa1KM5Rwl8iiyq8uNsNqbBlhJaPSyN0egH/Cj3Zf/buBlE2TN0gF5zi9x7ZImL9VYG28qEoUfhKTKKgCtF8O7tmf84us/6RsN8Dw3MYxobUta/oaD7aT+zD1BdAwbhTo9WOBTFY2uQHP9bcUeJHzAUEarediL79e4g8uYi/BPfVlkfdG/YuelsRRuraD0WOrjoSdSx6Kj5B9nzVAUeSTfa4V4X0ylX/KciLO+uchJ8YgWdgIhLjFkrAn+yBrpshqW9nuBcGexWT7dvryoN1bZE8rk7NlunVNw/D8bTxQht6tjWtezFpj1mYTtnXLctldvn3ic6LNB/SQkxOK8zbGA/jKHFjHONkM5WGhufvSM7qcJladMpY0ER4LbgrP0JZbgv0ZOZd9gnOSlKXEQR2Px6racFIK+DavmzsNvD2LF878mJGB/jnYFWuyFdc7ZRCYwTtDlubLzA0bmFXwVZUtdXB38fgZvfcX+sw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2906002)(8676002)(66946007)(5660300002)(4744005)(52116002)(8936002)(38100700002)(38350700002)(66556008)(6666004)(6512007)(6506007)(4326008)(6486002)(316002)(186003)(2616005)(110136005)(36756003)(86362001)(508600001)(83380400001)(107886003)(26005)(66476007)(21314003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: JTmvbm++szbCu4a+JmZYIcesiBRul9VNTEumJbadKqOqSKlzoGGwM30tfpgKKb8lCW9mFCk2Cz1HQN1W9dZWQLFUwKixS8u+pKBDv3Abvavau10OHcbPUvcxZ6/MRcLlrLSXqz2q5lJJXpV9w6aWwd1ikFaNcMwB45aAwPN5/iqmAxmW4aUktWwQ5U0UwMlbmN2KQgkjR0P+Ef8oJqeVHSmGZzrYFk1xwY6nbhj6o/GxxK7/jNNVxRCV6BauBxjUEla7B14i0zHZSSSsTw2InIDKoq+ypcWyZQszxPaBSwr0FIW8nUP9ItoR5nnW+n3cOH8E8bgS6QnVUOmez/avVXXEjI4wPscrReRJTc7e4yegYiDbZZfP+PCXhAjMgdlhj4PXMEG+iGHAkvZw/4WQAbQGFmNJ7g14iK0rPek6uMdvqBsAWqwFQN7WEQpzZ9HQ
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7adf405f-997a-4272-6559-08d9ec6f8cbf
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 08:30:09.9951 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FU6EYrE5aFREXPh9DQpZyTtJ2mLx3hEwbeQsQCiW8M+xOeg3yir5MBQ6Sp0jqFCGbHIes/72HpTyGzkLc2m5jQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSAPR06MB4005
+X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:56 +0000
+Subject: [Intel-gfx] [PATCH] gpu: drm: i915: use time_after_eq() instead of
+ jiffies judgment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,100 +92,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcu <rcu@vger.kernel.org>, paulmck <paulmck@kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, rostedt <rostedt@goodmis.org>,
- Radoslaw Burny <rburny@google.com>, Byungchul Park <byungchul.park@lge.com>,
- cgroups <cgroups@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
- Waiman Long <longman@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- linux-btrfs <linux-btrfs@vger.kernel.org>
+Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
------ On Feb 9, 2022, at 2:22 PM, Namhyung Kim namhyung@kernel.org wrote:
+From: Wang Qing <wangqing@vivo.com>
 
-> Hello,
-> 
-> On Wed, Feb 9, 2022 at 11:02 AM Waiman Long <longman@redhat.com> wrote:
->>
->> On 2/9/22 13:29, Mathieu Desnoyers wrote:
->> > ----- On Feb 9, 2022, at 1:19 PM, Waiman Long longman@redhat.com wrote:
->> >
->> >> On 2/9/22 04:09, Peter Zijlstra wrote:
->> >>> On Tue, Feb 08, 2022 at 10:41:56AM -0800, Namhyung Kim wrote:
->> >>>
->> >>>> Eventually I'm mostly interested in the contended locks only and I
->> >>>> want to reduce the overhead in the fast path.  By moving that, it'd be
->> >>>> easy to track contended locks with timing by using two tracepoints.
->> >>> So why not put in two new tracepoints and call it a day?
->> >>>
->> >>> Why muck about with all that lockdep stuff just to preserve the name
->> >>> (and in the process continue to blow up data structures etc..). This
->> >>> leaves distros in a bind, will they enable this config and provide
->> >>> tracepoints while bloating the data structures and destroying things
->> >>> like lockref (which relies on sizeof(spinlock_t)), or not provide this
->> >>> at all.
->> >>>
->> >>> Yes, the name is convenient, but it's just not worth it IMO. It makes
->> >>> the whole proposition too much of a trade-off.
->> >>>
->> >>> Would it not be possible to reconstruct enough useful information from
->> >>> the lock callsite?
->> >>>
->> >> I second that as I don't want to see the size of a spinlock exceeds 4
->> >> bytes in a production system.
->> >>
->> >> Instead of storing additional information (e.g. lock name) directly into
->> >> the lock itself. Maybe we can store it elsewhere and use the lock
->> >> address as the key to locate it in a hash table. We can certainly extend
->> >> the various lock init functions to do that. It will be trickier for
->> >> statically initialized locks, but we can probably find a way to do that too.
->> > If we go down that route, it would be nice if we can support a few different
->> > use-cases for various tracers out there.
->> >
->> > One use-case (a) requires the ability to query the lock name based on its
->> > address as key.
->> > For this a hash table is a good fit. This would allow tracers like ftrace to
->> > output lock names in its human-readable output which is formatted within the
->> > kernel.
->> >
->> > Another use-case (b) is to be able to "dump" the lock { name, address } tuples
->> > into the trace stream (we call this statedump events in lttng), and do the
->> > translation from address to name at post-processing. This simply requires
->> > that this information is available for iteration for both the core kernel
->> > and module locks, so the tracer can dump this information on trace start
->> > and module load.
->> >
->> > Use-case (b) is very similar to what is done for the kernel tracepoints. Based
->> > on this, implementing the init code that iterates on those sections and
->> > populates
->> > a hash table for use-case (a) should be easy enough.
->>
->> Yes, that are good use cases for this type of functionality. I do need
->> to think about how to do it for statically initialized lock first.
-> 
-> Thank you all for the review and good suggestions.
-> 
-> I'm also concerning dynamic allocated locks in a data structure.
-> If we keep the info in a hash table, we should delete it when the
-> lock is gone.  I'm not sure we have a good place to hook it up all.
+It is better use time_xxx() directly instead of jiffies judgment
+for understanding.
 
-I was wondering about this use case as well. Can we make it mandatory to
-declare the lock "class" (including the name) statically, even though the
-lock per-se is allocated dynamically ? Then the initialization of the lock
-embedded within the data structure would simply refer to the lock class
-definition.
+Signed-off-by: Wang Qing <wangqing@vivo.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-But perhaps I am missing something here.
-
-Thanks,
-
-Mathieu
-
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+index 9db3dcb..b289abb
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+@@ -56,7 +56,7 @@ static bool pool_free_older_than(struct intel_gt_buffer_pool *pool, long keep)
+ 				node = list_entry(pos, typeof(*node), link);
+ 
+ 				age = READ_ONCE(node->age);
+-				if (!age || jiffies - age < keep)
++				if (!age || time_before(jiffies, age + keep))
+ 					break;
+ 
+ 				/* Check we are the first to claim this node */
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-http://www.efficios.com
+2.7.4
+
