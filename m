@@ -4,126 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDDD3C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6F4C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDC3C10E2BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5A6610E29F;
 	Mon, 14 Feb 2022 15:49:16 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2125.outbound.protection.outlook.com [40.107.255.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAEC10E9C3;
- Fri, 11 Feb 2022 02:31:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JjoDUp+6IAt3TmNvWmEvU5i5dq1hw55MnOdxjOoGxLeSsL21K9GC+RjIAYuDogD9hyCMSmAXDXIBuUTgiY6APGygabA4afG2YAeGiydwOrOjePujemxSlrOibEzMhOSgzzHS5Re+fNfW25ev7KW8zLgGAiWP/g+IqJQFb4bErNAYMXAyeph6PP8/0kbBdSQDJmm/Ssrx3IX27mgvrMQexYQ/cs+dbLdy8mkBfldy17bKRkYbCf7gjz2IulcKS3ibjB6qdW15u6FQURLToSTT623qO3hw/SxxCMfN9uojGyu0UitKm/Eepm77bNJrzZa9opUBd+7tSWgGE80RSHDrtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qXuFDjruBaKh8CiDorxYd0K6ecHc6UY3H0229Ft1TgU=;
- b=J7gi71L1mH/Ktf3wkuLBFxRRtLhg+rl2PfYhyKGblXrUKQYtBmlG/M6bHM0/+Ec4uYNgeyvuDF6NgtCfYwiB0H5sKRtJubcYcDFCTt3fvSzRaZ3JirK15OnKvnaYiAUulBSav0mF9Akg6mnl9g0OKIwu0VzZ7whvEUVnT01JtsHfdDExhAcqLiwMyqGrWcWo0x9ocnTk2zUldBx8iudIcvrBc9wkuowq52zHt7mmhjLK4ksMOVV2tVtehtsEIXfKI1Z6Ib5/Yc2hOXRxBVJ6cvod9w2JHXwhol8qO5NwnuPLqc45CBlDBiOC3ujRLT+FO0TPzujJcYhlMhO9bSWfQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qXuFDjruBaKh8CiDorxYd0K6ecHc6UY3H0229Ft1TgU=;
- b=Rc6ZjedPMda0v0UqZ5HITet1gmi5Ih1I8cJCwPlCg0Bo+7IxJ5ygEf9U/IO8koI7VFPRltOPrRIFigZJPp0n6gbeHfbCaWxsJplrUnXqFE+GM1QAvjilZQkT835M92uSEP94vMr1GCHeRRC6vyzNJeUAryGfjIKaLFlA6TSkuWk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by TY2PR06MB2895.apcprd06.prod.outlook.com (2603:1096:404:31::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17; Fri, 11 Feb
- 2022 02:31:32 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 02:31:32 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 188C410E988;
+ Thu, 10 Feb 2022 23:31:39 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id c12so5036625ilm.8;
+ Thu, 10 Feb 2022 15:31:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=cBa2U3XOOVlsojEDVXj/o83IuBw5ETmXBNJi4yT/mck=;
+ b=jHSBDPHH5F/Vu7vkrUGPef+o7tUEfAEhl2PoRlxgkCIVVBSidmw9uoJm5ymTT6uz7U
+ 3pffuiDZNdBK94zTP95WUpBGuA4KamvVVf+MC7XSjB2nZG+dK2TvwXlQ6Bckx4CEO+Yo
+ e0MBSfMLtj2iby5Q2GF35xLHWDBso6GFt1XjoBnPxNu86jWo1lCR2vG4HtD5+tH/9aJP
+ OAruOIYwdHx6XDS8/GY+DdK51p13TeK26Uf/QDWOoZldYjOXc5rWsvHHoTuWsRjT3/AS
+ 10ubpI+g8KCocxoIO6IF2muT6+nBFRdueT1NFzZW82akR34riORhlm6VJ3wgO4FgV413
+ BSJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=cBa2U3XOOVlsojEDVXj/o83IuBw5ETmXBNJi4yT/mck=;
+ b=H0R5p4+mdN5Xt+lasaIc4vmjSt1KHG32qdCfpnpRL1idNn5vfwyU3n58FHtkntIMMM
+ BCaHqK2fubXSeCsySLRRUG/Ev9V4xi0dozWaVvS+UTIufS0JGnm9kP6AX7DukXoEb7Wu
+ 1nriLLlY1mCLP9+Amm7OwHkzM8Dd6O0+Y4CQnAHL2ghDDP149w97GgZPjpe/pJVFEOdG
+ 7Dv1fyqvQsBqyKajdTmSrmU0b+Gq+w8q4cGe/Pmfq+Mj7iC/MVjS/ZAJGWzlEXuTEPrP
+ h9UCDNAW0ocC5ix/ItOOYRHG6yXxw4s9hn77a73HVUW0Iqnt9HD1RM/m26t4HKhGhD/0
+ cDzQ==
+X-Gm-Message-State: AOAM533InxUbOzgmZB6P+XBjS9Ht7UFup/qCINaSGbjc9NfAk/+qq0+X
+ oNiuI8M/mmEske1dv5qEIZU=
+X-Google-Smtp-Source: ABdhPJy8lL1944IEHiv7kjDJbzucordqvuC8LbtZQRP1RQFcCYSZIqSbwhqVBTtPLxpQaswpU1x/lA==
+X-Received: by 2002:a05:6e02:148:: with SMTP id
+ j8mr4737390ilr.218.1644535898397; 
+ Thu, 10 Feb 2022 15:31:38 -0800 (PST)
+Received: from localhost ([12.28.44.171])
+ by smtp.gmail.com with ESMTPSA id l6sm7395096ilt.16.2022.02.10.15.31.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Feb 2022 15:31:38 -0800 (PST)
+From: Yury Norov <yury.norov@gmail.com>
+To: Yury Norov <yury.norov@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ David Laight <David.Laight@aculab.com>, Joe Perches <joe@perches.com>,
+ Dennis Zhou <dennis@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Alexey Klimov <aklimov@redhat.com>, linux-kernel@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
- dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Date: Thu, 10 Feb 2022 18:30:26 -0800
-Message-Id: <1644546640-23283-4-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
- (2603:1096:201:21::14) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Thu, 10 Feb 2022 14:49:02 -0800
+Message-Id: <20220210224933.379149-19-yury.norov@gmail.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220210224933.379149-1-yury.norov@gmail.com>
+References: <20220210224933.379149-1-yury.norov@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fe8ac258-883d-4bb5-0ed5-08d9ed069dbb
-X-MS-TrafficTypeDiagnostic: TY2PR06MB2895:EE_
-X-Microsoft-Antispam-PRVS: <TY2PR06MB2895D78B3ED8D2EFC148E95FBD309@TY2PR06MB2895.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zo/R/bhk4YPH5LccKiv+TX+wqX7W7/D25syY6RvkcP1xlIoeF4bHvdEVY7ZVn5LEZhd6FFobafjLvqiGAlNDktxB9/L8f6gQJMQFWwlhH9VXNBZQ7s2DIBDExQkvb7SUY5X8oqPNGlH85qRmigyEWfKVGchpeoKXRGww4S4OyxcTAZwwgRnO+JA7xLmQFWA2HqA2SDtwO39P1InflK0McUXYyFFDjZ7RdjgOvNkMfsqdQZ8Da/Bd8CJDtH+xS09saVOq2GB1R0mtTJ0Y/0JHhZkYgLCpRhPyZXVE7zhPT66CBo0xJrkWHwQCVqsgqnKnDMATM7pBHAedgfouT073upYp8bgoH7dUhk+QfSQKnKmgOTuiPY93JBWZXfSUIDr0p/+Lk28y5Lai+DpaHk7nLhGaJywUbTOC+zsLVOfbZXiYhqNnMvlON1uxhYNAYTGvPLlsf5PSNx018TCNjmhjzMCLC2VBLlzcVN/rKseRQ4ATIoICfFWkrI06dywiFPOiBQ9v12so6RcQZyKiKcGalse59lXl6sdjDKc+NHaQhDeNlnRfxXa4xcj5x+v0Z0MZ1fO7Ao07sQHLiZcvUSomnUnxhSb5ibkcDZmkLgZ1n39ySrpzCVjAmA0ni1wEH3AN+Vy8mo6uL89U4TU/84HGXZ0SwiTX1vE67/TCM/eROcUAiEpTzApJLqfXFwXmQNzd4fw4z3U0jlxiMNC186Zd69djOYJZZmpv7dBNR3sz3SWI1aBpyvqRsWawxpL0wVuA
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38100700002)(2906002)(316002)(110136005)(86362001)(6486002)(38350700002)(6506007)(6666004)(26005)(186003)(2616005)(6512007)(5660300002)(8676002)(4744005)(7406005)(508600001)(36756003)(4326008)(8936002)(83380400001)(107886003)(921005)(52116002)(66556008)(66476007)(7416002)(66946007)(21314003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?e/bIM8AuiT9udRoKnStelhbmCbuYE+e2WZTAJGisC5tRuT29x7b+a0DWP4bv?=
- =?us-ascii?Q?YNwl3iAlOCwnfti139KrGxzw4sreNnnL0mT5q+1lDX2HmmzHaW2wGv/K8ldU?=
- =?us-ascii?Q?eNic8Z55b/irrrUobHNcyFrEqMAPskhq+YJgx9PUkvBlM/r/RlYzjYaRDZQE?=
- =?us-ascii?Q?WwM5j/75QHJTu/UfSfn61Erq2ymiyAl7DAxUjNASs96TpUVjGynmM3POjclA?=
- =?us-ascii?Q?fDZDIMm6ueczPiQlBuUXaxDenwladTdwRKQsDEHe0Uhm5Rp+DPDDmbqxPuO2?=
- =?us-ascii?Q?UUqkBOvBEXqmjdRcAcezDkOYB55xcDFEENEPy2v+zCuJGPf2EIjZLl175ie+?=
- =?us-ascii?Q?uRQdzaBCP3tHfXAE3hjcF9F2rAFoX+alnmmliArjm/C62U/IEVPzsmN40ziV?=
- =?us-ascii?Q?ZAFuLbYqLuS6iNRMoVfztTpkysd8eUBNRwjKvAuznPytDtyIzZvfiRD4pceY?=
- =?us-ascii?Q?tnPH4rTEggnH/OwJJjHhUcOl+Sot3nw881tNEGuP4E08cDYbDdaJ1aj2xMHI?=
- =?us-ascii?Q?6sx1/3DiBInsR68NAI4DSE8LYLeKZ1sorcpBqH9jyF4+8nGhBA0sE7cluNDd?=
- =?us-ascii?Q?Wto8qMDdkJ5KScuN50r+aSJbob75H4wz3S6IJP7oEERyLHWYNygaS3PFKF6F?=
- =?us-ascii?Q?S9RJAGy5/n6GO56G7jpUXdX8NdTOoCTjsfH7IAXfFSXvxgACjDNByF8aPCyU?=
- =?us-ascii?Q?Q+9xFJzYpIS7tiQohPQId38tFWr3FShtbVfp06axt1Q2lp8r38fCeOt5pkO+?=
- =?us-ascii?Q?TFxs/Foyd8C7kIdi9xbgkzoc9Wo4mxrCyPDf03iCDgtpUPPg5wf/9t7UlHXH?=
- =?us-ascii?Q?aNwVb3RSaZqvpvMmfrA+giyGVTTDbREgcKjSQCoNoDtme1o1mbOfuaqV4veO?=
- =?us-ascii?Q?2P1QPYLOfunhfg+F7HfcWQHVL5Py7CVMmFIvoe0iVFKScI6BMLbcJbKza/qb?=
- =?us-ascii?Q?RWQz7tIE1DpTnxoIB+CaMEQJNgWuJNYpW/mbkYSxY1L8UqwUsBkptqQz3m0o?=
- =?us-ascii?Q?NdLh8YrzS1H4onbN8Pc+HZSwLjBns2vblomcw2Ux+7kDf24jtvn238CWythc?=
- =?us-ascii?Q?mJgTNh+VRF2J3C7Rk+Oiwu12rMuIH6bZUJOL0lmKs0n3vvRMmSbH+jMwIFUN?=
- =?us-ascii?Q?MMsNrZOr3SZIPyRry3k4xtIlFQsqHVg3hGtnM3vitS2J3mEDDvniGut+4Hm+?=
- =?us-ascii?Q?nDVaUOUmUGMo4/Ut7uYjooWHXyy3VlAO/xqEj+DJ3UNv3WIMwFKFiux9MteB?=
- =?us-ascii?Q?UNvMvc+0ylsVT5bJ9cIU8vL7JdQni3fU5T3dNNMaR0DWizPZ7uXoC8MG/dE4?=
- =?us-ascii?Q?pad+RnUI8StFM3uftnhqN+WzD0cFnMcIPmCQNH1YhcP15+Y9BiPAuaqDhsDm?=
- =?us-ascii?Q?aibuilsasq3xsDmuQMyfvdqnAyx1D0e8jw3p9/dP0ht4dovmlxCd5Xr6xYPW?=
- =?us-ascii?Q?W/8s/DQwX1Xhr5Dk7yncPNsEOPhOgAsh+FcTOV8RsfipLe8I5/hVQk18+Lks?=
- =?us-ascii?Q?jIkuAsZ9XOa9IlO1oLqnY5WTPZr3kRSQWaIDT2lp/paOfP/Bu/q5NE/qyfrj?=
- =?us-ascii?Q?s+uu34nWNAT5cxP7I2SPtkDtrj592myGYuA12vkr/x6NrrLK0+WH4ip9tSJk?=
- =?us-ascii?Q?ggSi3sULiaAT6wd4HiO7Uvw=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe8ac258-883d-4bb5-0ed5-08d9ed069dbb
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:31:32.4316 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v/oH9WScPdLif6Pl7r7BCJBGenT1qn0YKCRUYBNcVPrn3O6oBRxTzJbBkRtJgninQGAvI9WToS7m73nvAX5qyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR06MB2895
-X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:56 +0000
-Subject: [Intel-gfx] [PATCH V2 3/13] gpu: drm: i915: use
- time_is_after_jiffies() instead of jiffies judgment
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
+Subject: [Intel-gfx] [PATCH 18/49] drm/i915/pmu: replace cpumask_weight with
+ cpumask_empty where appropriate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,33 +87,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Wang Qing <wangqing@vivo.com>
+i915_pmu_cpu_online() calls cpumask_weight() to check if any bit of a
+given cpumask is set. We can do it more efficiently with cpumask_empty()
+because cpumask_empty() stops traversing the cpumask as soon as it finds
+first set bit, while cpumask_weight() counts all bits unconditionally.
 
-It is better use time_xxx() directly instead of jiffies judgment
-for understanding.
-
-Signed-off-by: Wang Qing <wangqing@vivo.com>
+Signed-off-by: Yury Norov <yury.norov@gmail.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c | 2 +-
+ drivers/gpu/drm/i915/i915_pmu.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-index 9db3dcb..b289abb
---- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
-@@ -56,7 +56,7 @@ static bool pool_free_older_than(struct intel_gt_buffer_pool *pool, long keep)
- 				node = list_entry(pos, typeof(*node), link);
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index cfc21042499d..7299ed9937dd 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -1050,7 +1050,7 @@ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+ 	GEM_BUG_ON(!pmu->base.event_init);
  
- 				age = READ_ONCE(node->age);
--				if (!age || jiffies - age < keep)
-+				if (!age || time_is_after_jiffies(age + keep))
- 					break;
+ 	/* Select the first online CPU as a designated reader. */
+-	if (!cpumask_weight(&i915_pmu_cpumask))
++	if (cpumask_empty(&i915_pmu_cpumask))
+ 		cpumask_set_cpu(cpu, &i915_pmu_cpumask);
  
- 				/* Check we are the first to claim this node */
+ 	return 0;
 -- 
-2.7.4
+2.32.0
 
