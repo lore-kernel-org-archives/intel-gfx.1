@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F9F8C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 11:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AD9DC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 11:35:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC0E10EAA2;
-	Fri, 11 Feb 2022 11:35:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E4810EACA;
+	Fri, 11 Feb 2022 11:35:05 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5FA10EA97;
- Fri, 11 Feb 2022 11:34:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45B8A10EABE;
+ Fri, 11 Feb 2022 11:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644579294; x=1676115294;
+ t=1644579302; x=1676115302;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zAiM/Hg4sZZx/2MivhbjMbjJXYTZnYYTKfhbcmYXj0E=;
- b=AWWH2ZwAOw739XUPiUKKKDkzNFl2ypfVx1AXALUqHvwdNEbvGfyxzglp
- FWvqZf4OXmVhqBeyFt6NsS5nx2uSl04VzpQhTNqsFrGGQx0Xl5x382Sjy
- Qnhf5Xam97Oo8dWBmMu/8bHhv7E2jL94hV3XEG/fIRqtiOWJBJJCskeg+
- OBJgFGm0UhNe5BPQluk3MSqzLsCjb2tDeZatCxoLkdAiY5lZ3rfX4hh08
- Osk21dWTKRCQoLIXUEFkiCpdK9Xbc8UeD9f1F7P+oaQwFSESYUxhfBW1Y
- RUj4AHUOgcv8LmYNfRr/Z3cnPctiXKhXfrC0JUtZVDFDtlWAUhkCv8kRn w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="248548232"
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="248548232"
+ bh=TwVanDsoD9kuzmRspnyRT9bsb4eoAP1GLkB738wUzsU=;
+ b=K0Ltgl9/znvU/kBvYFzYtVzEKEpPLKf2K7naHNubL+mF1x9Lq5CzEqlp
+ 7kjCuvJIBPvuNaTqZ/jQEuUm8u3NNzZTPkCiruHafaCcJGUp3w8wkRwHB
+ 3e9zwZrmRCDpUk3jwvUAe1ZCTuYzyezJaf6UU6fykqPngqAMc6EHdJOvC
+ dFR6QY+qPcyres8iTC9eiPeV96Wuw8uTehRPP+HZvPHZA34ydfXlSOnqI
+ k5CsiDoAFk+C+LOaElIvi06crK3ENQd/ydSOqq4ol1e/AQnCFqKGt3QUo
+ nE7nNJHeNGn1TlGO23DRtUgs7Y0fOgjlzAXFsB2zylJE7E0xbTIsc1Seg A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="248548248"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="248548248"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 03:34:54 -0800
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="602354960"
+ 11 Feb 2022 03:35:02 -0800
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="602354981"
 Received: from pogara-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.19.40])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 03:34:52 -0800
+ 11 Feb 2022 03:35:01 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Feb 2022 11:34:26 +0000
-Message-Id: <20220211113437.874691-5-matthew.auld@intel.com>
+Date: Fri, 11 Feb 2022 11:34:32 +0000
+Message-Id: <20220211113437.874691-11-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220211113437.874691-1-matthew.auld@intel.com>
 References: <20220211113437.874691-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 04/15] drm/i915/buddy: track available
- visible size
+Subject: [Intel-gfx] [PATCH v3 10/15] drm/i915/selftests: exercise mmap
+ migration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,233 +59,351 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Track the total amount of available visible memory, and also track
-per-resource the amount of used visible memory. For now this is useful
-for our debug output, and deciding if it is even worth calling into the
-buddy allocator. In the future tracking the per-resource visible usage
-will be useful for when deciding if we should attempt to evict certain
-buffers.
+Exercise each of the migration scenarios, verifying that the final
+placement and buffer contents match our expectations.
 
-v2:
- - s/place->lpfn/lpfn/, that way we can avoid scanning the list if the
-   entire range is already mappable.
- - Move the end declaration inside the if block(Thomas).
- - Make sure to also account for reserved memory.
+v2(Thomas): Replace for_i915_gem_ww() block with simpler object_lock()
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Acked-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 68 ++++++++++++++++++-
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |  8 ++-
- drivers/gpu/drm/i915/intel_region_ttm.c       |  1 +
- 3 files changed, 75 insertions(+), 2 deletions(-)
+ .../drm/i915/gem/selftests/i915_gem_mman.c    | 304 ++++++++++++++++++
+ 1 file changed, 304 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index 76d5211c25eb..e47a3d46c6ff 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -19,6 +19,9 @@ struct i915_ttm_buddy_manager {
- 	struct drm_buddy mm;
- 	struct list_head reserved;
- 	struct mutex lock;
-+	unsigned long visible_size;
-+	unsigned long visible_avail;
-+	unsigned long visible_reserved;
- 	u64 default_page_size;
- };
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index ba29767348be..7a73a0b015b9 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -10,6 +10,7 @@
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_pm.h"
++#include "gt/intel_migrate.h"
+ #include "gem/i915_gem_region.h"
+ #include "huge_gem_object.h"
+ #include "i915_selftest.h"
+@@ -999,6 +1000,308 @@ static int igt_mmap(void *arg)
+ 	return 0;
+ }
  
-@@ -87,6 +90,12 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 	n_pages = size >> ilog2(mm->chunk_size);
- 
- 	mutex_lock(&bman->lock);
-+	if (lpfn <= bman->visible_size && n_pages > bman->visible_avail) {
-+		mutex_unlock(&bman->lock);
-+		err = -ENOSPC;
-+		goto err_free_res;
++static void igt_close_objects(struct drm_i915_private *i915,
++			      struct list_head *objects)
++{
++	struct drm_i915_gem_object *obj, *on;
++
++	list_for_each_entry_safe(obj, on, objects, st_link) {
++		i915_gem_object_lock(obj, NULL);
++		if (i915_gem_object_has_pinned_pages(obj))
++			i915_gem_object_unpin_pages(obj);
++		/* No polluting the memory region between tests */
++		__i915_gem_object_put_pages(obj);
++		i915_gem_object_unlock(obj);
++		list_del(&obj->st_link);
++		i915_gem_object_put(obj);
 +	}
 +
- 	err = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
- 				     (u64)lpfn << PAGE_SHIFT,
- 				     (u64)n_pages << PAGE_SHIFT,
-@@ -107,6 +116,31 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 		mutex_unlock(&bman->lock);
- 	}
- 
-+	if (lpfn <= bman->visible_size) {
-+		bman_res->used_visible_size = bman_res->base.num_pages;
-+	} else {
-+		struct drm_buddy_block *block;
++	cond_resched();
 +
-+		list_for_each_entry(block, &bman_res->blocks, link) {
-+			unsigned long start =
-+				drm_buddy_block_offset(block) >> PAGE_SHIFT;
++	i915_gem_drain_freed_objects(i915);
++}
 +
-+			if (start < bman->visible_size) {
-+				unsigned long end = start +
-+					(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
++static void igt_make_evictable(struct list_head *objects)
++{
++	struct drm_i915_gem_object *obj;
 +
-+				bman_res->used_visible_size +=
-+					min(end, bman->visible_size) - start;
++	list_for_each_entry(obj, objects, st_link) {
++		i915_gem_object_lock(obj, NULL);
++		if (i915_gem_object_has_pinned_pages(obj))
++			i915_gem_object_unpin_pages(obj);
++		i915_gem_object_unlock(obj);
++	}
++
++	cond_resched();
++}
++
++static int igt_fill_mappable(struct intel_memory_region *mr,
++			     struct list_head *objects)
++{
++	u64 size, total;
++	int err;
++
++	total = 0;
++	size = mr->io_size;
++	do {
++		struct drm_i915_gem_object *obj;
++
++		obj = i915_gem_object_create_region(mr, size, 0, 0);
++		if (IS_ERR(obj)) {
++			err = PTR_ERR(obj);
++			goto err_close;
++		}
++
++		list_add(&obj->st_link, objects);
++
++		err = i915_gem_object_pin_pages_unlocked(obj);
++		if (err) {
++			if (err != -ENXIO && err != -ENOMEM)
++				goto err_close;
++
++			if (size == mr->min_page_size) {
++				err = 0;
++				break;
 +			}
++
++			size >>= 1;
++			continue;
++		}
++
++		total += obj->base.size;
++	} while (1);
++
++	pr_info("%s filled=%lluMiB\n", __func__, total >> 20);
++	return 0;
++
++err_close:
++	igt_close_objects(mr->i915, objects);
++	return err;
++}
++
++static int ___igt_mmap_migrate(struct drm_i915_private *i915,
++			       struct drm_i915_gem_object *obj,
++			       unsigned long addr,
++			       bool unfaultable)
++{
++	struct vm_area_struct *area;
++	int err = 0, i;
++
++	pr_info("igt_mmap(%s, %d) @ %lx\n",
++		obj->mm.region->name, I915_MMAP_TYPE_FIXED, addr);
++
++	mmap_read_lock(current->mm);
++	area = vma_lookup(current->mm, addr);
++	mmap_read_unlock(current->mm);
++	if (!area) {
++		pr_err("%s: Did not create a vm_area_struct for the mmap\n",
++		       obj->mm.region->name);
++		err = -EINVAL;
++		goto out_unmap;
++	}
++
++	for (i = 0; i < obj->base.size / sizeof(u32); i++) {
++		u32 __user *ux = u64_to_user_ptr((u64)(addr + i * sizeof(*ux)));
++		u32 x;
++
++		if (get_user(x, ux)) {
++			err = -EFAULT;
++			if (!unfaultable) {
++				pr_err("%s: Unable to read from mmap, offset:%zd\n",
++				       obj->mm.region->name, i * sizeof(x));
++				goto out_unmap;
++			}
++
++			continue;
++		}
++
++		if (unfaultable) {
++			pr_err("%s: Faulted unmappable memory\n",
++			       obj->mm.region->name);
++			err = -EINVAL;
++			goto out_unmap;
++		}
++
++		if (x != expand32(POISON_INUSE)) {
++			pr_err("%s: Read incorrect value from mmap, offset:%zd, found:%x, expected:%x\n",
++			       obj->mm.region->name,
++			       i * sizeof(x), x, expand32(POISON_INUSE));
++			err = -EINVAL;
++			goto out_unmap;
++		}
++
++		x = expand32(POISON_FREE);
++		if (put_user(x, ux)) {
++			pr_err("%s: Unable to write to mmap, offset:%zd\n",
++			       obj->mm.region->name, i * sizeof(x));
++			err = -EFAULT;
++			goto out_unmap;
 +		}
 +	}
 +
-+	if (bman_res->used_visible_size) {
-+		mutex_lock(&bman->lock);
-+		bman->visible_avail -= bman_res->used_visible_size;
-+		mutex_unlock(&bman->lock);
++	if (unfaultable) {
++		if (err == -EFAULT)
++			err = 0;
++	} else {
++		obj->flags &= ~I915_BO_ALLOC_GPU_ONLY;
++		err = wc_check(obj);
 +	}
-+
- 	*res = &bman_res->base;
- 	return 0;
- 
-@@ -128,6 +162,7 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
- 
- 	mutex_lock(&bman->lock);
- 	drm_buddy_free_list(&bman->mm, &bman_res->blocks);
-+	bman->visible_avail += bman_res->used_visible_size;
- 	mutex_unlock(&bman->lock);
- 
- 	ttm_resource_fini(man, res);
-@@ -143,6 +178,12 @@ static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
- 	mutex_lock(&bman->lock);
- 	drm_printf(printer, "default_page_size: %lluKiB\n",
- 		   bman->default_page_size >> 10);
-+	drm_printf(printer, "visible_avail: %lluMiB\n",
-+		   (u64)bman->visible_avail << PAGE_SHIFT >> 20);
-+	drm_printf(printer, "visible_size: %lluMiB\n",
-+		   (u64)bman->visible_size << PAGE_SHIFT >> 20);
-+	drm_printf(printer, "visible_reserved: %lluMiB\n",
-+		   (u64)bman->visible_reserved << PAGE_SHIFT >> 20);
- 
- 	drm_buddy_print(&bman->mm, printer);
- 
-@@ -164,6 +205,7 @@ static const struct ttm_resource_manager_func i915_ttm_buddy_manager_func = {
-  * @type: Memory type we want to manage
-  * @use_tt: Set use_tt for the manager
-  * @size: The size in bytes to manage
-+ * @visible_size: The CPU visible size in bytes to manage
-  * @default_page_size: The default minimum page size in bytes for allocations,
-  * this must be at least as large as @chunk_size, and can be overridden by
-  * setting the BO page_alignment, to be larger or smaller as needed.
-@@ -187,7 +229,7 @@ static const struct ttm_resource_manager_func i915_ttm_buddy_manager_func = {
-  */
- int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 			    unsigned int type, bool use_tt,
--			    u64 size, u64 default_page_size,
-+			    u64 size, u64 visible_size, u64 default_page_size,
- 			    u64 chunk_size)
- {
- 	struct ttm_resource_manager *man;
-@@ -206,6 +248,8 @@ int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 	INIT_LIST_HEAD(&bman->reserved);
- 	GEM_BUG_ON(default_page_size < chunk_size);
- 	bman->default_page_size = default_page_size;
-+	bman->visible_size = visible_size >> PAGE_SHIFT;
-+	bman->visible_avail = bman->visible_size;
- 
- 	man = &bman->manager;
- 	man->use_tt = use_tt;
-@@ -250,6 +294,8 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
- 	mutex_lock(&bman->lock);
- 	drm_buddy_free_list(mm, &bman->reserved);
- 	drm_buddy_fini(mm);
-+	bman->visible_avail += bman->visible_reserved;
-+	WARN_ON_ONCE(bman->visible_avail != bman->visible_size);
- 	mutex_unlock(&bman->lock);
- 
- 	ttm_resource_manager_cleanup(man);
-@@ -273,6 +319,7 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- {
- 	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
- 	struct drm_buddy *mm = &bman->mm;
-+	unsigned long fpfn = start >> PAGE_SHIFT;
- 	unsigned long flags = 0;
- 	int ret;
- 
-@@ -284,8 +331,27 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- 				     size, mm->chunk_size,
- 				     &bman->reserved,
- 				     flags);
-+
-+	if (fpfn < bman->visible_size) {
-+		unsigned long lpfn = fpfn + (size >> PAGE_SHIFT);
-+		unsigned long visible = min(lpfn, bman->visible_size) - fpfn;
-+
-+		bman->visible_reserved += visible;
-+		bman->visible_avail -= visible;
-+	}
- 	mutex_unlock(&bman->lock);
- 
- 	return ret;
- }
- 
-+/**
-+ * i915_ttm_buddy_man_visible_size - Return the size of the CPU visible portion
-+ * in pages.
-+ * @man: The buddy allocator ttm manager
-+ */
-+u64 i915_ttm_buddy_man_visible_size(struct ttm_resource_manager *man)
-+{
-+	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
-+
-+	return bman->visible_size;
++out_unmap:
++	vm_munmap(addr, obj->base.size);
++	return err;
 +}
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-index 72c90b432e87..35fe03a6a78c 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-@@ -21,6 +21,8 @@ struct drm_buddy;
-  * @base: struct ttm_resource base class we extend
-  * @blocks: the list of struct i915_buddy_block for this resource/allocation
-  * @flags: DRM_BUDDY_*_ALLOCATION flags
-+ * @used_visible_size: How much of this resource, if any, uses the CPU visible
-+ * portion, in pages.
-  * @mm: the struct i915_buddy_mm for this resource
-  *
-  * Extends the struct ttm_resource to manage an address space allocation with
-@@ -30,6 +32,7 @@ struct i915_ttm_buddy_resource {
- 	struct ttm_resource base;
- 	struct list_head blocks;
- 	unsigned long flags;
-+	unsigned long used_visible_size;
- 	struct drm_buddy *mm;
- };
- 
-@@ -48,11 +51,14 @@ to_ttm_buddy_resource(struct ttm_resource *res)
- 
- int i915_ttm_buddy_man_init(struct ttm_device *bdev,
- 			    unsigned type, bool use_tt,
--			    u64 size, u64 default_page_size, u64 chunk_size);
-+			    u64 size, u64 visible_size,
-+			    u64 default_page_size, u64 chunk_size);
- int i915_ttm_buddy_man_fini(struct ttm_device *bdev,
- 			    unsigned int type);
- 
- int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
- 			       u64 start, u64 size);
- 
-+u64 i915_ttm_buddy_man_visible_size(struct ttm_resource_manager *man);
 +
- #endif
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index c055029c7a70..96a0bd82c1f3 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -87,6 +87,7 @@ int intel_region_ttm_init(struct intel_memory_region *mem)
- 
- 	ret = i915_ttm_buddy_man_init(bdev, mem_type, false,
- 				      resource_size(&mem->region),
-+				      mem->io_size,
- 				      mem->min_page_size, PAGE_SIZE);
- 	if (ret)
- 		return ret;
++#define IGT_MMAP_MIGRATE_TOPDOWN     (1 << 0)
++#define IGT_MMAP_MIGRATE_FILL        (1 << 1)
++#define IGT_MMAP_MIGRATE_EVICTABLE   (1 << 2)
++#define IGT_MMAP_MIGRATE_UNFAULTABLE (1 << 3)
++static int __igt_mmap_migrate(struct intel_memory_region **placements,
++			      int n_placements,
++			      struct intel_memory_region *expected_mr,
++			      unsigned int flags)
++{
++	struct drm_i915_private *i915 = placements[0]->i915;
++	struct drm_i915_gem_object *obj;
++	struct i915_request *rq = NULL;
++	unsigned long addr;
++	LIST_HEAD(objects);
++	u64 offset;
++	int err;
++
++	obj = __i915_gem_object_create_user(i915, PAGE_SIZE,
++					    placements,
++					    n_placements);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	if (flags & IGT_MMAP_MIGRATE_TOPDOWN)
++		obj->flags |= I915_BO_ALLOC_GPU_ONLY;
++
++	err = __assign_mmap_offset(obj, I915_MMAP_TYPE_FIXED, &offset, NULL);
++	if (err)
++		goto out_put;
++
++	/*
++	 * This will eventually create a GEM context, due to opening dummy drm
++	 * file, which needs a tiny amount of mappable device memory for the top
++	 * level paging structures(and perhaps scratch), so make sure we
++	 * allocate early, to avoid tears.
++	 */
++	addr = igt_mmap_offset(i915, offset, obj->base.size,
++			       PROT_WRITE, MAP_SHARED);
++	if (IS_ERR_VALUE(addr)) {
++		err = addr;
++		goto out_put;
++	}
++
++	if (flags & IGT_MMAP_MIGRATE_FILL) {
++		err = igt_fill_mappable(placements[0], &objects);
++		if (err)
++			goto out_put;
++	}
++
++	err = i915_gem_object_lock(obj, NULL);
++	if (err)
++		goto out_put;
++
++	err = i915_gem_object_pin_pages(obj);
++	if (err) {
++		i915_gem_object_unlock(obj);
++		goto out_put;
++	}
++
++	err = intel_context_migrate_clear(to_gt(i915)->migrate.context, NULL,
++					  obj->mm.pages->sgl, obj->cache_level,
++					  i915_gem_object_is_lmem(obj),
++					  expand32(POISON_INUSE), &rq);
++	i915_gem_object_unpin_pages(obj);
++	if (rq) {
++		dma_resv_add_excl_fence(obj->base.resv, &rq->fence);
++		i915_gem_object_set_moving_fence(obj, &rq->fence);
++		i915_request_put(rq);
++	}
++	i915_gem_object_unlock(obj);
++	if (err)
++		goto out_put;
++
++	if (flags & IGT_MMAP_MIGRATE_EVICTABLE)
++		igt_make_evictable(&objects);
++
++	err = ___igt_mmap_migrate(i915, obj, addr,
++				  flags & IGT_MMAP_MIGRATE_UNFAULTABLE);
++	if (!err && obj->mm.region != expected_mr) {
++		pr_err("%s region mismatch %s\n", __func__, expected_mr->name);
++		err = -EINVAL;
++	}
++
++out_put:
++	i915_gem_object_put(obj);
++	igt_close_objects(i915, &objects);
++	return err;
++}
++
++static int igt_mmap_migrate(void *arg)
++{
++	struct drm_i915_private *i915 = arg;
++	struct intel_memory_region *system = i915->mm.regions[INTEL_REGION_SMEM];
++	struct intel_memory_region *mr;
++	enum intel_region_id id;
++
++	for_each_memory_region(mr, i915, id) {
++		struct intel_memory_region *mixed[] = { mr, system };
++		struct intel_memory_region *single[] = { mr };
++		int err;
++
++		if (mr->private)
++			continue;
++
++		if (!mr->io_size || mr->io_size == mr->total)
++			continue;
++
++		/*
++		 * Allocate in the mappable portion, should be no suprises here.
++		 */
++		err = __igt_mmap_migrate(mixed, ARRAY_SIZE(mixed), mr, 0);
++		if (err)
++			return err;
++
++		/*
++		 * Allocate in the non-mappable portion, but force migrating to
++		 * the mappable portion on fault (LMEM -> LMEM)
++		 */
++		err = __igt_mmap_migrate(single, ARRAY_SIZE(single), mr,
++					 IGT_MMAP_MIGRATE_TOPDOWN |
++					 IGT_MMAP_MIGRATE_FILL |
++					 IGT_MMAP_MIGRATE_EVICTABLE);
++		if (err)
++			return err;
++
++		/*
++		 * Allocate in the non-mappable portion, but force spilling into
++		 * system memory on fault (LMEM -> SMEM)
++		 */
++		err = __igt_mmap_migrate(mixed, ARRAY_SIZE(mixed), system,
++					 IGT_MMAP_MIGRATE_TOPDOWN |
++					 IGT_MMAP_MIGRATE_FILL);
++		if (err)
++			return err;
++
++		/*
++		 * Allocate in the non-mappable portion, but since the mappable
++		 * portion is already full, and we can't spill to system memory,
++		 * then we should expect the fault to fail.
++		 */
++		err = __igt_mmap_migrate(single, ARRAY_SIZE(single), mr,
++					 IGT_MMAP_MIGRATE_TOPDOWN |
++					 IGT_MMAP_MIGRATE_FILL |
++					 IGT_MMAP_MIGRATE_UNFAULTABLE);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
+ static const char *repr_mmap_type(enum i915_mmap_type type)
+ {
+ 	switch (type) {
+@@ -1424,6 +1727,7 @@ int i915_gem_mman_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_smoke_tiling),
+ 		SUBTEST(igt_mmap_offset_exhaustion),
+ 		SUBTEST(igt_mmap),
++		SUBTEST(igt_mmap_migrate),
+ 		SUBTEST(igt_mmap_access),
+ 		SUBTEST(igt_mmap_revoke),
+ 		SUBTEST(igt_mmap_gpu),
 -- 
 2.34.1
 
