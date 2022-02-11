@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0FD6C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 11:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB4BC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 11:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C100D10EAD3;
-	Fri, 11 Feb 2022 11:35:24 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDE9E10EAA8;
- Fri, 11 Feb 2022 11:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D72E310EAEE;
+	Fri, 11 Feb 2022 11:55:10 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1879210EA7D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 11:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644579309; x=1676115309;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Tmk7rZrySO0skbmmsF2F6X0HJXBoQN5fk8YBSuN/rN0=;
- b=AeqTuQHVMpWFAZGgf8iFFHycRWE3NKi6J0MsUwtXCX13HgcZEYcPdJFa
- KTckJwrYWwb18S6rXkfGuyT76AzwZv5AlXlfRgyetsfr6j8h3gK516u6D
- HwtpNK+aJf0ncnJunLIZKJtI63VfDUxGgu4Pu1MlYzw4aijUgXM354XLl
- /yKYfyB4ll6SVSEmj6Mz+QwDrwFQq1s24DbFl6JkXdhkdpHUv/Y+CxJDp
- 38Y72OITu1bfsObAA2wRUmhauA6LMPioP0ZpIKTozYqS+Yy9iXl2kTYA2
- 4bCV9gjtcU+dDLFBzeHHoMO5/YlWihFP4vHYdRNZcCKt2/jeUbeLSYbjF w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="248548268"
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="248548268"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 03:35:08 -0800
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="602355035"
-Received: from pogara-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.19.40])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 03:35:06 -0800
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Feb 2022 11:34:36 +0000
-Message-Id: <20220211113437.874691-15-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220211113437.874691-1-matthew.auld@intel.com>
-References: <20220211113437.874691-1-matthew.auld@intel.com>
+ t=1644580509; x=1676116509;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=MuekraLPRfOBacL87jW0B9M/97gm7SQRlolycYlVOZg=;
+ b=k98Bh3XESIfNukR9OBvddKCG3jupkYnKJdgnF7c5Cw1f0Sy9pZ2sBEzR
+ WoscjoVzRh3Ul6m/2nYJdanNCGTlcLvESnaBrnRbHSHQijF48Y49Pez6J
+ KLQOOF76u4xPKQ8MDUWpc4Ec75I+iN5TMBGZ+USusDPscarICo/8VE6Ce
+ mCFGUyoGdbUBCP7hkAXWp9O0IOsyiEBXUmrn8EuFXgyzgad3pX54QY+vh
+ SUamcdA4H/6qPPCUReGrlk4FmWWy0z6HriwCodeYw3asqHTK1jPN8d7GU
+ qroar3NZhR0Qg+Es7QC8gNIGvTIyA3K9tYnKW18uDWdB/LIHCs96eh+s8 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="313000214"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="313000214"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2022 03:55:08 -0800
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="483330711"
+Received: from rriverox-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.19.108])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2022 03:55:05 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Casey Bowman <casey.g.bowman@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20220211021510.202602-1-casey.g.bowman@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220211021510.202602-1-casey.g.bowman@intel.com>
+Date: Fri, 11 Feb 2022 13:55:02 +0200
+Message-ID: <87sfsp7h49.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 14/15] drm/i915/uapi: forbid ALLOC_GPU_ONLY
- for error capture
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [RFC PATCH v2 0/1] Splitting up platform-specific
+ calls
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,80 +57,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: michael.cheng@intel.com, lucas.demarchi@intel.com, daniel.vetter@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On platforms where there might be non-mappable LMEM, force userspace to
-mark the buffers with the correct hint. When dumping the BO contents
-during capture we need CPU access. Note this only applies to buffers
-that can be placed in LMEM, and also doesn't impact DG1.
+On Thu, 10 Feb 2022, Casey Bowman <casey.g.bowman@intel.com> wrote:
+> In this RFC I would like to ask the community their thoughts
+> on how we can best handle splitting architecture-specific
+> calls.
+>
+> I would like to address the following:
+>
+> 1. How do we want to split architecture calls? Different object files
+> per platform? Separate function calls within the same object file?
+>
+> 2. How do we address dummy functions? If we have a function call that is
+> used for one or more platforms, but is not used in another, what should
+> we do for this case?
+>
+> I've given an example of splitting an architecture call
+> in my patch with run_as_guest() being split into different
+> implementations for x86 and arm64 in separate object files, sharing
+> a single header.
+>
+> Another suggestion from Michael (michael.cheng@intel.com) involved
+> using a single object file, a single header, and splitting various
+> functions calls via ifdefs in the header file.
+>
+> I would appreciate any input on how we can avoid scaling issues when
+> including multiple architectures and multiple functions (as the number
+> of function calls will inevitably increase with more architectures).
+>
+> v2: Revised to use kernel's platform-splitting scheme.
 
-v2(Reported-by: kernel test robot <lkp@intel.com>):
-  - Also update the function signature on !CONFIG_DRM_I915_CAPTURE_ERROR
-    builds.
+I think this is overengineering.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Jon Bloomfield <jon.bloomfield@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+Just add different implementations of the functions per architecture
+next to where they are now, like I suggested before.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 498b458fd784..0166a37d252f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1965,7 +1965,7 @@ eb_find_first_request_added(struct i915_execbuffer *eb)
- #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
- 
- /* Stage with GFP_KERNEL allocations before we enter the signaling critical path */
--static void eb_capture_stage(struct i915_execbuffer *eb)
-+static int eb_capture_stage(struct i915_execbuffer *eb)
- {
- 	const unsigned int count = eb->buffer_count;
- 	unsigned int i = count, j;
-@@ -1978,6 +1978,10 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
- 		if (!(flags & EXEC_OBJECT_CAPTURE))
- 			continue;
- 
-+		if (!IS_DG1(eb->i915) &&
-+		    vma->obj->flags & I915_BO_ALLOC_GPU_ONLY)
-+			return -EINVAL;
-+
- 		for_each_batch_create_order(eb, j) {
- 			struct i915_capture_list *capture;
- 
-@@ -1990,6 +1994,8 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
- 			eb->capture_lists[j] = capture;
- 		}
- 	}
-+
-+	return 0;
- }
- 
- /* Commit once we're in the critical path */
-@@ -2031,7 +2037,7 @@ static void eb_capture_list_clear(struct i915_execbuffer *eb)
- 
- #else
- 
--static void eb_capture_stage(struct i915_execbuffer *eb)
-+static int eb_capture_stage(struct i915_execbuffer *eb)
- {
- }
- 
-@@ -3418,7 +3424,9 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 	}
- 
- 	ww_acquire_done(&eb.ww.ctx);
--	eb_capture_stage(&eb);
-+	err = eb_capture_stage(&eb);
-+	if (err)
-+		goto err_vma;
- 
- 	out_fence = eb_requests_create(&eb, in_fence, out_fence_fd);
- 	if (IS_ERR(out_fence)) {
+If we need to split them better later, it'll be a trivial undertaking,
+and we'll be in a better position to do it because we'll know how many
+functions there'll be and where they are and what they do.
+
+Adding a bunch of overhead from the start seems like the wrong thing to
+do.
+
+BR,
+Jani.
+
+
+
+
+
+>
+> Casey Bowman (1):
+>   i915/drm: Split out x86 and arm64 functionality
+>
+>  drivers/gpu/drm/i915/Makefile                         |  3 +++
+>  drivers/gpu/drm/i915/i915_drv.h                       |  7 ++-----
+>  drivers/gpu/drm/i915/platforms/Makefile               |  8 ++++++++
+>  .../arm64/include/platform/i915_hypervisor.h          | 11 +++++++++++
+>  .../platforms/x86/include/platform/i915_hypervisor.h  |  9 +++++++++
+>  5 files changed, 33 insertions(+), 5 deletions(-)
+>  create mode 100644 drivers/gpu/drm/i915/platforms/Makefile
+>  create mode 100644 drivers/gpu/drm/i915/platforms/arm64/include/platform/i915_hypervisor.h
+>  create mode 100644 drivers/gpu/drm/i915/platforms/x86/include/platform/i915_hypervisor.h
+
 -- 
-2.34.1
-
+Jani Nikula, Intel Open Source Graphics Center
