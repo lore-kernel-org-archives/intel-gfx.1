@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A35DC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 00:42:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E37BC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 00:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D31FB10E35D;
-	Fri, 11 Feb 2022 00:42:39 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF72410E35D
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 00:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F4210E35D;
+	Fri, 11 Feb 2022 00:47:25 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B232310E35D
+ for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 00:47:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644540158; x=1676076158;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=sic+p2He9PYlWdsS46CiNiRYUIpNaJOSuFDVi18+mcc=;
- b=CzGdKHBKLEoCkgE6I98okogUyisf57MWrg7cu5dyRbhH0hR02xu6wmHZ
- IpAZ7/TXGI1/L+MgQ89gE1sXIsqS4MjQ4f3rP/n3jAF1l5XRFD1tFRIUI
- 6SgjY/ULzLp1lcjhSX7mBI922RYnKE1fmNHyY2hhqREg8lSzYHBtfnxnA
- EP3w0Yg9gb5f8i5eVMnaCBArB7AftKAOg1xWwX221dkYwfmW4Nhr+ujFr
- 20kDgWBAprJABG8doBWYZo/PDFqQqVppua73u9ExVDtVITeLhtYGYy3Vh
- 6cnZ3EwEd5YEsFAn2/J+Ji9M+YAaMru1V0W+0i265CWG16YfWuEAq8nza g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="229593475"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="229593475"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 16:42:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="701908753"
-Received: from cliu38-mobl3.sh.intel.com ([10.239.147.47])
- by orsmga005.jf.intel.com with ESMTP; 10 Feb 2022 16:42:37 -0800
-From: Chuansheng Liu <chuansheng.liu@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Feb 2022 08:29:33 +0800
-Message-Id: <20220211002933.84240-1-chuansheng.liu@intel.com>
-X-Mailer: git-send-email 2.25.0.rc2
+ t=1644540444; x=1676076444;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/ADLHluQXVAQNxus/gUdnreuGTHrbvyc9UE8GLVPzu8=;
+ b=d4pkG4nFsEzxQzokfBRgJ1cS7Z65Xd9/GGSsL48COoZ4qsU6AAH8/WQa
+ gVyc3+8YnW4Vpsb/ocqA+AaVjyyPrL0s2J1IbfyiGu39/r/zaAk9E7N5f
+ FuKTVKe5VajQBS5cY0UhuORUgYFcm4MjNxiuwTbKDQt4P3rSsuNHSs3IG
+ YxQCjvy6DetLuT22yEJi6sX3pGkr3gZEQ7lLGMGnpbI8J8JNBJYBSTsJ7
+ Gt4r+PdUT6Ed1j6UYbs3CmTMjkWlpnqpqojx9VbrpBPozMDbREN6l+vef
+ c2NT/FpMFISZvnV4YOccnga2DJx5UcOb6SvU+pyw7IVu7z/oa02cT8yR8 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="247216715"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="247216715"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 16:47:23 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="486050118"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2022 16:47:22 -0800
+Date: Thu, 10 Feb 2022 16:47:20 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
+To: clinton.a.taylor@intel.com
+Message-ID: <YgWyGI4jiZlSdzcS@mdroper-desk1.amr.corp.intel.com>
+References: <20220211001342.16730-1-clinton.a.taylor@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/dg1: Update DMC_DEBUG3 register
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220211001342.16730-1-clinton.a.taylor@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/dg2: add Wa_14014947963
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,57 +56,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Current DMC_DEBUG3(_MMIO(0x101090)) address is for TGL,
-it is wrong for DG1. Just like commit 5bcc95ca382e
-("drm/i915/dg1: Update DMC_DEBUG register"), correct
-this issue for DG1 platform to avoid wrong register
-being read.
+On Thu, Feb 10, 2022 at 04:13:42PM -0800, clinton.a.taylor@intel.com wrote:
+> From: Clint Taylor <clinton.a.taylor@intel.com>
+> 
+> BSPEC: 46123
+> v2: Address review feedback [MattR]
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +++++
+>  drivers/gpu/drm/i915/i915_reg.h             | 2 ++
+>  2 files changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index b146a393cd79..c6b78529d149 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -689,6 +689,11 @@ static void dg2_ctx_workarounds_init(struct intel_engine_cs *engine,
+>  	    IS_DG2_GRAPHICS_STEP(engine->i915, G11, STEP_A0, STEP_B0))
+>  		wa_masked_en(wal, GEN9_HALF_SLICE_CHICKEN7,
+>  			     DG2_DISABLE_ROUND_ENABLE_ALLOW_FOR_SSLA);
+> +
+> +	/* wa_14014947963: DG2 G10 [B0..NONE] G11 [ALL] */
+> +	if (IS_DG2_GRAPHICS_STEP(engine->i915, G10, STEP_B0, STEP_FOREVER) ||
+> +		IS_DG2_G11(engine->i915))
 
-BSpec: 49788
+It looks like this workaround also applies to DG2-G12 (all steppings),
+so we'll need an "|| IS_DG2_G12(engine->i915)" added to the condition
+here.
 
-v2: fix "not wrong" typo. (Jani)
+> +		wa_masked_field_set(wal, VF_PREEMPTION, PREEMPTION_VERTEX_COUNT, 0x4000);
+>  }
+>  
+>  static void fakewa_disable_nestedbb_mode(struct intel_engine_cs *engine,
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index 87c92314ee26..bfbeebe57725 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -9928,4 +9928,6 @@ enum skl_power_gate {
+>  #define CLKGATE_DIS_MISC			_MMIO(0x46534)
+>  #define  CLKGATE_DIS_MISC_DMASC_GATING_DIS	REG_BIT(21)
+>  
+> +#define VF_PREEMPTION			_MMIO(0x83a4)
+> +#define  PREEMPTION_VERTEX_COUNT	REG_GENMASK(15, 0)
 
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Chuansheng Liu <chuansheng.liu@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 4 ++--
- drivers/gpu/drm/i915/i915_reg.h                      | 3 ++-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+This should go in drivers/gpu/drm/i915/gt/intel_gt_regs.h now that we've
+started splitting up the register file.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index f4de004d470f..f6c4ad8fce19 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -474,8 +474,8 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
- 		 * reg for DC3CO debugging and validation,
- 		 * but TGL DMC f/w is using DMC_DEBUG3 reg for DC3CO counter.
- 		 */
--		seq_printf(m, "DC3CO count: %d\n",
--			   intel_de_read(dev_priv, DMC_DEBUG3));
-+		seq_printf(m, "DC3CO count: %d\n", intel_de_read(dev_priv, IS_DGFX(dev_priv) ?
-+					DG1_DMC_DEBUG3 : TGL_DMC_DEBUG3));
- 	} else {
- 		dc5_reg = IS_BROXTON(dev_priv) ? BXT_DMC_DC3_DC5_COUNT :
- 						 SKL_DMC_DC3_DC5_COUNT;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 87c92314ee26..9c215a6df659 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5632,7 +5632,8 @@
- #define TGL_DMC_DEBUG_DC6_COUNT	_MMIO(0x101088)
- #define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
- 
--#define DMC_DEBUG3		_MMIO(0x101090)
-+#define TGL_DMC_DEBUG3		_MMIO(0x101090)
-+#define DG1_DMC_DEBUG3		_MMIO(0x13415c)
- 
- /* Display Internal Timeout Register */
- #define RM_TIMEOUT		_MMIO(0x42060)
+
+
+Matt
+
+>  #endif /* _I915_REG_H_ */
+> -- 
+> 2.34.1
+> 
+
 -- 
-2.25.0.rc2
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
