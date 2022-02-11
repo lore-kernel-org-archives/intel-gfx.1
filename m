@@ -4,61 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E134EC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B30AC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1562D10E312;
-	Mon, 14 Feb 2022 15:49:19 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 541F310E967
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 20:54:45 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id y23so7303096oia.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 12:54:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=XLC7rhh5NWo/WWk0O+SWaGHHQvQbuSaZ+SOvjKjiyak=;
- b=S/ZVi6aZogePykP4WzPvz135cApU38G9kkJk+rkiAEcoS/w2r//E8ItPqJc2GRWq+H
- pQ6yPCFJMbtK6K8za2CPDTvWTaXGfNOIsIBi0MjmKEj3KJZxX5+4xNVARqUFkHTM4npU
- yc1Ha0B6xY7JadBd1lr/z1PN14lVrcSRpRpEhDSsly/KTAK7E4nb1XZRLCe48o31/gbk
- UBem2H6pF5kVE31MJwEo3gzshelyxhgQhO6ip0VogNXw7kj8Rwjhw08CxAzPzrvZQojd
- lNwcJna8rK568xBSK+4uZFyOQqybmjnGIicz7OPSexn1AZuHP99R/wsymF4Dv0iM8fhc
- q4aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=XLC7rhh5NWo/WWk0O+SWaGHHQvQbuSaZ+SOvjKjiyak=;
- b=UfgADVPyuSabZhZDv3QzfH/LLDvYa7jfjJUvq1Qn6kf9YLeZTRWUHGlYQnmq7N8Rmd
- SfwUkHmZIP513ALt4BB6uvkHFfEWMzAY2F0zpIVSuQ+noKx4ag5yegWqBn8WRpeQiZJv
- +NuVDxLY/IfjmxFm1NhC8Hjzdri5zkVfx7IqkXjZWNoMPPhCHWsnHcsD0JEOklpLXgpA
- cW2OdUH6Fxmj/vIq9tw2yyKEfZByvgS38CKa5y0vBSVDiWFJIa85c5P2zNUKuG28HmZG
- xHaGx+qFw4MS57UwJ7I9RGD6n6B1iwPH1a45XskrLDB0Kg1cejflhq/dmWaPWvwITGcT
- vHgA==
-X-Gm-Message-State: AOAM531zF0iln7bK0cd9/N5Mn612de72f85kVfPR9Wp3wEm6SJsjfmoE
- WEG+AdVpWm7LbCUDiEvfaSYDQw==
-X-Google-Smtp-Source: ABdhPJxc/ajzBm0o0PKtQ2wiTHPfpY7+clG0ZxhfX1lnt+A9CBRTQGEfc6eSIyduKTQAZi46f3TcVw==
-X-Received: by 2002:a05:6808:1b26:: with SMTP id
- bx38mr1833146oib.267.1644526484397; 
- Thu, 10 Feb 2022 12:54:44 -0800 (PST)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id d14sm8516012ooh.44.2022.02.10.12.54.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 12:54:43 -0800 (PST)
-Date: Thu, 10 Feb 2022 12:56:59 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <YgV8GyK9G0gbWAaq@ripper>
-References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
- <YgJISIIacBnFyTLq@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5599A10E288;
+	Mon, 14 Feb 2022 15:49:18 +0000 (UTC)
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2131.outbound.protection.outlook.com [40.107.255.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6483310E9C2;
+ Fri, 11 Feb 2022 02:31:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hYaNSdFot0WjQEFauAxaxF7LZMAqV0LJMaBNOTZvAgVThCx3V3tVVkxNQ3QAoV8ylW8bJhqipq105DNTzkZEL3bJIYgyoXPyX41UvylIzSl3jPdF4HjC17l1R8XL0nJvybMkKAcgIeUW0EhbbG/zXYQmRiEGj+V8HYnXuZMmuspZ43HrnTD/jrCmlf1Pbp22VtIb6bnnm4s9wqsb2yXXfQnMK0fxgGRLlmfgsidCl29ECxoyiFzTGE6AdgJN7QY5LT34kcer0KAbG1bK6agXSoFiZC1Ma1F+IKW9BBajDbDs7akIwZSTi4ecxXB22kJszWuh7mFvpSKlwdLFE2D9pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tu5+LN5qA0ySjgXs2NbBDr3TFxqioxt/13v16/cZ4jU=;
+ b=P+WSgNNqf6CMi9G4UmRd12mMtvjq5KTDtvpzNqq7l4GbBJCMoUlPmDL6o2NIf5zBd9PkkYQXdapyivKOR3tVhDQGqpeajeZt2v2/Qu0B0B0hDX0PxpEdu7P9Mb7PltkS4aZy3s5LNmIz7P2cVnpKH0xwcH8KOt/O3PYrYIb0ZOh1alZ6h97RTYMZPzdZvdN/zF/+x6oHmDrmnidcf1DjZuVhobjxnubw6kCRvVADdvT+hqqLsKdJR33XUVwy/qyAOkIiIZtZGrrXYEQQHaGm8w0c2LodYDreTEf780oOtq3gNjksapLtSILa+hFA0D0RW2okVqMeyL2AkSBvcZ39/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tu5+LN5qA0ySjgXs2NbBDr3TFxqioxt/13v16/cZ4jU=;
+ b=SP+54FHc3BzIEa1Lk/wWwAoPfasJWtOsVsJmIkX4CENsCVeXHnSsYk6rE5XlwXGj8ajYAPx3PCMkk8exhtDNePt0xBEaa0WCACvRZwy9WjWOecox30jG0IkJV6OeHH2GfBRAYnK/+XRgttWj8Eyj/RQX6CSVc6MxtMO+KW9tV+0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by PU1PR06MB2326.apcprd06.prod.outlook.com (2603:1096:803:39::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17; Fri, 11 Feb
+ 2022 02:31:21 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
+ 02:31:21 +0000
+From: Qing Wang <wangqing@vivo.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+ dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 10 Feb 2022 18:30:25 -0800
+Message-Id: <1644546640-23283-3-git-send-email-wangqing@vivo.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
+References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
+Content-Type: text/plain
+X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
+ (2603:1096:201:21::14) To SL2PR06MB3082.apcprd06.prod.outlook.com
+ (2603:1096:100:37::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YgJISIIacBnFyTLq@kroah.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 54f17a6e-fe93-4639-c032-08d9ed06975e
+X-MS-TrafficTypeDiagnostic: PU1PR06MB2326:EE_
+X-Microsoft-Antispam-PRVS: <PU1PR06MB2326C71B3F3396DFE0CCDDF3BD309@PU1PR06MB2326.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Yqxj2iWIIuzZawtwdzqczDFvGCSFSic0MRN2Sf1CAFjg9Tkt8fxgnGTFe2HJnFX4Kar1GtowNhQRjpm9IFr+M5umWukIXzV2k/j6QtDDF7kU7lJUv8//Cpt/c2yjdw4yf/vh+Re/22Ux4aPtLuI+xsbDPxpx28E7ARpvvqcAxjc9VitMYrYAo2FVa5Y/eUOxzdeTEX+S1AndOk8GsUp06siDV9HGqWYtrnfP8VMQw7WWGV9hrG2U2RybmaDP4i2XZHImaMKzeJtQjqQLkJo4Qyykh9Jly5Lqi5BTSxSkVTSoOy2eBSTWnUnFJdKX3HcsqrsqhEPsZR4Lv3KW6OSUYCe0rl4jeUXzBVO3Gl1zbo7QieZEHMRBZvUu/xbcmuk4ouGKiwzDHumQ6zlSA3VEefE6trY+JiaxCcbwnizpgC1axElAFEldePYE1u2fPqawiNDlT/DZCJENGsUovimfHdB3ywzX5lF8qz1S7MWTEz1xleNSAsvzWvcNJXehKZnHMW+DBJrOg+friLegy1el0p0vXIxJvCIwam4AS5ye5G8DnAccCyhqKoT0XbQdEzw8YHZBslBXHHOltVgW6B1vd4E0ZqusU0FqcS6MbV0MhvCD9ehMRqUDzjKdS5Cjuaajj9rY2zNqgb/VV3dVFYwxqEKy/R0YJOtJcbUV1ffvQ7e7xmpYoIftASyuoTo4JrsDKkISBVnfWP3fVQ4aO0fsr2aBpJwvQZn7SjJWpSzlRhLa07VmpmWgVOa9XKLTlA4z
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6486002)(316002)(508600001)(110136005)(2616005)(52116002)(86362001)(6506007)(6512007)(186003)(26005)(2906002)(36756003)(66476007)(66556008)(66946007)(921005)(8936002)(7416002)(5660300002)(7406005)(4326008)(83380400001)(38350700002)(38100700002)(8676002)(107886003)(21314003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EPj7tTLWJhAnjd+8vEpnCLOQzaZHf/ldw+3lsmz1AF3Fva5OW0s7lere35Sn?=
+ =?us-ascii?Q?ZMOgw1FMLE5Lmxu3jCbRZbbJWvm6bA49IC0Ovbb1OnlJemmQEr+bFacWNMWD?=
+ =?us-ascii?Q?Va3OFIhZQIgjVgjJP/xRUdJLicQN0Mad9GjQRURhZGer5+ZPJXczWo+GeZ3s?=
+ =?us-ascii?Q?iUaxQ1lmWlVIMDwGXFWEJfTQvI5ZRZP6ksty6+l0ydTzHE/Zr5Ggfo6H4TeU?=
+ =?us-ascii?Q?RudUrJWvaoWYorQ71h6GZyx4YhM3NkBcnGwNhOKSgLI54p5j8EnWgzwV29OB?=
+ =?us-ascii?Q?5JDjTsKgqajNKzAYLL8/WaYNLa85oINkIIbbdSChUrisTDXbSbeeGzqd9AMb?=
+ =?us-ascii?Q?AxIigRA4CGawimMxNgmX76GCDoIOu1GLX6cyyjPI0kCEc8H7yISe/3mB9U0T?=
+ =?us-ascii?Q?AGIJOi3KDOTYR8F7XeXALtdUF+1Pwv4+buqIsQC0L1LvEJfXA3q3ephs6As/?=
+ =?us-ascii?Q?nmXP0Vm4ioAiBdQN/Nm73ROW0FPNtqepqzKVMb+db8UlRdNXm6Mv8q5znjAB?=
+ =?us-ascii?Q?3cL+r40iGl+q35H3ZrpAveydnySB8bAV7ZWijgDP3qKEdyXP+OxQfR2a++B9?=
+ =?us-ascii?Q?80W27Fr7BNRt0ZrPuXFUU3uOBvUXbCtWndZFS2auUVeyzXgiv65vmQ7d+Hol?=
+ =?us-ascii?Q?4aU8Qq69SojHQ7meBT7o9JgGPb9Du9A3WIjUYVyMhwaIAl4KWabe2yyon2mY?=
+ =?us-ascii?Q?tNBAX3SOVeXENRyJQv+006yfnkyPYgLVdxuNhZFNnM97/wgjvnsKX6kBDitc?=
+ =?us-ascii?Q?HiqMec+w/FWSAn5K9llVLbM5m0rTS8l3GfeBDr4x0/1setC8ZVVOkqYWWrAl?=
+ =?us-ascii?Q?/BINkH+wfO55iawUDQRJqglD7czL79mfImS6Dxd8jdxVr9C3iHWnLwo3JQVC?=
+ =?us-ascii?Q?bxloKb3tUGsTv8YG92ci7pOF9FaFcpBfmC9OniqngUtf4/dKwrO5Bt7jOevh?=
+ =?us-ascii?Q?hrVGmcpemlNks4EyFVo2HPxZLSnDi+7BekXwLQRIEvOVKvSXmuR1KWMi1FLs?=
+ =?us-ascii?Q?+yOy7bZe+a9oNsOrw55+F86vlxipIoWUUdjoFQ+RhY1Rg7uGyRKhCe4aOXLz?=
+ =?us-ascii?Q?8+G0wWvrjLvjMbapL/Y4CqNqmo2S1R+3UegGhAfetpqpNYEbqtlhrvGSGOY+?=
+ =?us-ascii?Q?v7gLGmLIcMHVuGouCr7Ti8nFTx71A9QYDVqSWVgUI0y6t4Qmg9cH1k3IZRpt?=
+ =?us-ascii?Q?SNFo857/WQHjaYBzjshbRuYnioTsySGjBF3jSlet1fKrE+gTvQ5KdEyGjwd5?=
+ =?us-ascii?Q?AwA9+rvBBNQwBoRWAb68ln7pXoBTzaLU/YkFW+me5Claj0MDAwaHGZMd5Pcf?=
+ =?us-ascii?Q?XVY6X195ZHQQWfVCME+ehx7djb890wXfiQstqNpRKrhztkgupPjeda0N1V/A?=
+ =?us-ascii?Q?/hT/Ga8c1dx0hOS865ftnA4dYvKEGZodAB+z90jH/LCPw9yXfgqZswjRJs3t?=
+ =?us-ascii?Q?4NHPpjm/8i69Y16vaOdhED4xQVLHhQkMDAS2C0V3pW5no3mjneytO8Fz4IR/?=
+ =?us-ascii?Q?rR3jLp9AwYZe863eMYhzZfpgbi3Qqb/r/shW1JWWhLcC1huJq4bFD53+8BYb?=
+ =?us-ascii?Q?0v34Aukej253CX40zwnXz6PJO7EXeWVIBJJxNvFrZZt0u0mguAxCR6uSdjGT?=
+ =?us-ascii?Q?LktZppNmqcNY60VH/nfFwUA=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54f17a6e-fe93-4639-c032-08d9ed06975e
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:31:21.7447 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: o5ShcZbiCtmLryyUEfbOWjk1acGLL5W9vqCQ+h3lPfIcXbBklSckOaIfy/WuPiY3vyh30C7ya9v6MlU7BMzfeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PU1PR06MB2326
 X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:56 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm: Add HPD state to
- drm_connector_oob_hotplug_event()
+Subject: [Intel-gfx] [PATCH V2 2/13] clk: mvebu: use
+ time_is_before_eq_jiffies() instead of jiffies judgment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,184 +136,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, linux-usb@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue 08 Feb 02:39 PST 2022, Greg Kroah-Hartman wrote:
+From: Wang Qing <wangqing@vivo.com>
 
-> On Mon, Feb 07, 2022 at 08:43:27PM -0800, Bjorn Andersson wrote:
-> > In some implementations, such as the Qualcomm platforms, the display
-> > driver has no way to query the current HPD state and as such it's
-> > impossible to distinguish between disconnect and attention events.
-> > 
-> > Add a parameter to drm_connector_oob_hotplug_event() to pass the HPD
-> > state.
-> > 
-> > Also push the test for unchanged state in the displayport altmode driver
-> > into the i915 driver, to allow other drivers to act upon each update.
-> > 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> > 
-> > Note that the Intel driver has only been compile tested with this patch.
-> > 
-> >  drivers/gpu/drm/drm_connector.c          |  6 ++++--
-> >  drivers/gpu/drm/i915/display/intel_dp.c  | 14 +++++++++++---
-> >  drivers/gpu/drm/i915/i915_drv.h          |  3 +++
-> >  drivers/usb/typec/altmodes/displayport.c |  9 ++-------
-> >  include/drm/drm_connector.h              |  5 +++--
-> >  5 files changed, 23 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> > index a50c82bc2b2f..ad7295597c0f 100644
-> > --- a/drivers/gpu/drm/drm_connector.c
-> > +++ b/drivers/gpu/drm/drm_connector.c
-> > @@ -2825,6 +2825,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
-> >  /**
-> >   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
-> >   * @connector_fwnode: fwnode_handle to report the event on
-> > + * @hpd_state: number of data lanes available
-> 
-> "number"?
-> 
-> >   *
-> >   * On some hardware a hotplug event notification may come from outside the display
-> >   * driver / device. An example of this is some USB Type-C setups where the hardware
-> > @@ -2834,7 +2835,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
-> >   * This function can be used to report these out-of-band events after obtaining
-> >   * a drm_connector reference through calling drm_connector_find_by_fwnode().
-> >   */
-> > -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
-> > +void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
-> > +				     bool hpd_state)
-> 
-> This is a boolean, how can it be a number?
-> 
+It is better use time_xxx() directly instead of jiffies judgment
+for understanding.
 
-The kerneldoc wasn't appropriately updated as this went from being
-"number of data lanes" to "the hot plug detect (hpd) state".
+Signed-off-by: Wang Qing <wangqing@vivo.com>
+---
+ drivers/clk/mvebu/armada-37xx-periph.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> And having a "flag" like this is a pain, how do you know what the
-> parameter really means?
-> 
+diff --git a/drivers/clk/mvebu/armada-37xx-periph.c b/drivers/clk/mvebu/armada-37xx-periph.c
+index 32ac6b6..14d73f8
+--- a/drivers/clk/mvebu/armada-37xx-periph.c
++++ b/drivers/clk/mvebu/armada-37xx-periph.c
+@@ -25,6 +25,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
++#include <linux/jiffies.h>
+ 
+ #define TBG_SEL		0x0
+ #define DIV_SEL0	0x4
+@@ -541,7 +542,7 @@ static void clk_pm_cpu_set_rate_wa(struct clk_pm_cpu *pm_cpu,
+ 	 * We are going to L0 with rate >= 1GHz. Check whether we have been at
+ 	 * L1 for long enough time. If not, go to L1 for 20ms.
+ 	 */
+-	if (pm_cpu->l1_expiration && jiffies >= pm_cpu->l1_expiration)
++	if (pm_cpu->l1_expiration && time_is_before_eq_jiffies(pm_cpu->l1_expiration))
+ 		goto invalidate_l1_exp;
+ 
+ 	regmap_update_bits(base, ARMADA_37XX_NB_CPU_LOAD,
+-- 
+2.7.4
 
-You're right, "state" isn't a boolean property, let's rename it
-"hpd_high" to clarify it.
-
-> >  {
-> >  	struct drm_connector *connector;
-> >  
-> > @@ -2843,7 +2845,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
-> >  		return;
-> >  
-> >  	if (connector->funcs->oob_hotplug_event)
-> > -		connector->funcs->oob_hotplug_event(connector);
-> > +		connector->funcs->oob_hotplug_event(connector, hpd_state);
-> >  
-> >  	drm_connector_put(connector);
-> >  }
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> > index 146b83916005..00520867d37b 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -4816,15 +4816,23 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
-> >  	return intel_modeset_synced_crtcs(state, conn);
-> >  }
-> >  
-> > -static void intel_dp_oob_hotplug_event(struct drm_connector *connector)
-> > +static void intel_dp_oob_hotplug_event(struct drm_connector *connector, bool hpd_state)
-> >  {
-> >  	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
-> >  	struct drm_i915_private *i915 = to_i915(connector->dev);
-> > +	bool need_work = false;
-> >  
-> >  	spin_lock_irq(&i915->irq_lock);
-> > -	i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
-> > +	if (hpd_state != i915->hotplug.oob_hotplug_state) {
-> > +		i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
-> > +
-> > +		i915->hotplug.oob_hotplug_state = hpd_state;
-> > +		need_work = true;
-> > +	}
-> >  	spin_unlock_irq(&i915->irq_lock);
-> > -	queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
-> > +
-> > +	if (need_work)
-> > +		queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
-> >  }
-> >  
-> >  static const struct drm_connector_funcs intel_dp_connector_funcs = {
-> > diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> > index 8c1706fd81f9..543ebf1cfcf4 100644
-> > --- a/drivers/gpu/drm/i915/i915_drv.h
-> > +++ b/drivers/gpu/drm/i915/i915_drv.h
-> > @@ -149,6 +149,9 @@ struct i915_hotplug {
-> >  	/* Whether or not to count short HPD IRQs in HPD storms */
-> >  	u8 hpd_short_storm_enabled;
-> >  
-> > +	/* Last state reported by oob_hotplug_event */
-> > +	bool oob_hotplug_state;
-> > +
-> >  	/*
-> >  	 * if we get a HPD irq from DP and a HPD irq from non-DP
-> >  	 * the non-DP HPD could block the workqueue on a mode config
-> > diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
-> > index c1d8c23baa39..a4596be4d34a 100644
-> > --- a/drivers/usb/typec/altmodes/displayport.c
-> > +++ b/drivers/usb/typec/altmodes/displayport.c
-> > @@ -59,7 +59,6 @@ struct dp_altmode {
-> >  	struct typec_displayport_data data;
-> >  
-> >  	enum dp_state state;
-> > -	bool hpd;
-> >  
-> >  	struct mutex lock; /* device lock */
-> >  	struct work_struct work;
-> > @@ -143,10 +142,7 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
-> >  		if (!ret)
-> >  			dp->state = DP_STATE_CONFIGURE;
-> >  	} else {
-> > -		if (dp->hpd != hpd) {
-> > -			drm_connector_oob_hotplug_event(dp->connector_fwnode);
-> > -			dp->hpd = hpd;
-> > -		}
-> > +		drm_connector_oob_hotplug_event(dp->connector_fwnode, hpd);
-> >  	}
-> >  
-> >  	return ret;
-> > @@ -573,8 +569,7 @@ void dp_altmode_remove(struct typec_altmode *alt)
-> >  	cancel_work_sync(&dp->work);
-> >  
-> >  	if (dp->connector_fwnode) {
-> > -		if (dp->hpd)
-> > -			drm_connector_oob_hotplug_event(dp->connector_fwnode);
-> > +		drm_connector_oob_hotplug_event(dp->connector_fwnode, false);
-> 
-> See, what does "false" here mean?
-> 
-> Name the function for what it does, do not have random flags as
-> parameters, that makes it impossible to understand what the code is
-> doing when you are reading it, without having to jump around and figure
-> out what the flags are saying.
-> 
-> And here they just don't even seem to be right :(
-> 
-
-Both the old and new code will signal to the DRM driver that the cable
-was removed, the change is that we're carrying the level in the call
-rather than just indicating that the state has changed.
-
-We could introduce some HPD_HIGH/HPD_LOW defines to make it easier to
-read. But the various places I'm looking at just represented the hpd
-state as a bool.
-
-Regards,
-Bjorn
