@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78DCC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 09:06:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B47AC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 09:06:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06EBB10EA36;
-	Fri, 11 Feb 2022 09:06:38 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6986A10E463
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 09:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AABB210E463;
+	Fri, 11 Feb 2022 09:06:41 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF7F10EA2E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 09:06:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644570396; x=1676106396;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=C2JSGBhe9hTF4buzyywkh/Y1z/ATqcVQP6HqH4OW2uM=;
- b=ATC1vd1LN42d06fHhvObDfRsLEmNN1W/QS+nP9ACZEV7xbcNVTNuuFqd
- ZJzgDx6HpfiM4hjH7SFs/kHgGGoxCEqAk150g6V4bGoNNqx+OY5voh8uy
- YECz3GRAKu/PvwlGuT20gQeR56xBrANNhPXfA9EsouG3M9pLk0QOf/B01
- DVz5SCpanVVtQc1IfmuMy2EPVkh7qO9Chs6UR1QV4gMFMbPT4ioxjsi7I
- NpAPnE2dC3cf4VCDrlz+4faI0FthV4QNPjp20RHmTLtEvXjuXm7jxklqk
- GMxoVH9zc7WRLCUxf9riGHW+vAgIaIjoZFHbiHf6VYF9NGBeG83pbuJMa g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249445645"
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="249445645"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 01:06:32 -0800
+ t=1644570399; x=1676106399;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=EVIWq2jlVgYgO2+MfIS0qRVSd45IwzstKKUZvtazM7o=;
+ b=dajHoXkX4Ib+KlrgOdV/tPmYyFzgtQkMS/DCrJVow4oh3iAsVw0+QMOl
+ bwFxAqEpWlWiDhR+iDqelooB+ZLh65rfCGfRSZOCmenaRb5qQ+a1RvgGu
+ SqtVjF9r0DDrwvz7jU4LTDkzsQQOj7gcqM8irJqtHVaq9+75arpFj2S5A
+ VZyI8EoSCQ7N4kvqg8di1Tetc8Rq10SFENtE60ULhLDebiE95R8lOAPd0
+ hOh69wUfDCy26gsT1EzFkHHaPl/bdmPcEqvjebTkHELy2hqQw3wxEvjaG
+ iu7CkHzDccad6wmflv2tfpHdumneLQlnpTpdJRDXbUfZ6iHHajjozd5Wi A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="229660956"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="229660956"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2022 01:06:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="537589996"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="542010250"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga007.fm.intel.com with SMTP; 11 Feb 2022 01:06:30 -0800
+ by orsmga008.jf.intel.com with SMTP; 11 Feb 2022 01:06:36 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 11 Feb 2022 11:06:29 +0200
+ Fri, 11 Feb 2022 11:06:35 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Feb 2022 11:06:21 +0200
-Message-Id: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
+Date: Fri, 11 Feb 2022 11:06:23 +0200
+Message-Id: <20220211090629.15555-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
+References: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/8] drm/i915: Plane/wm cleanups
+Subject: [Intel-gfx] [PATCH 2/8] drm/i915: Introduce
+ intel_arm_planes_on_crtc()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,30 +64,103 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Move some plane stuff out from intel_display.c, introduce
-a scaled_planes bitmask, and using that as an excuse clean
-up a bunch of watermark registers.
+No reason the high level intel_update_crtc() needs to know
+that there is something magical about the commit order of
+planes between different platforms. So let's hide that
+detail even better.
 
-Ville Syrjälä (8):
-  drm/i915: Move intel_plane_atomic_calc_changes() & co. out
-  drm/i915: Introduce intel_arm_planes_on_crtc()
-  drm/i915: Introduce scaled_planes bitmask
-  drm/i915: Use {active,scaled}_planes to compute ilk watermarks
-  drm/i915: Remove gen6_check_mch_setup()
-  drm/i915: Add REG_GENMASK64() and REG_FIELD_GET64()
-  drm/i915: Clean up SSKPD/MLTR defines
-  drm/i915: Polish ilk+ wm register bits
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ .../gpu/drm/i915/display/intel_atomic_plane.c | 19 +++++++++++++++----
+ .../gpu/drm/i915/display/intel_atomic_plane.h |  6 ++----
+ drivers/gpu/drm/i915/display/intel_display.c  |  6 +-----
+ 3 files changed, 18 insertions(+), 13 deletions(-)
 
- .../gpu/drm/i915/display/intel_atomic_plane.c | 204 +++++++++++++++++-
- .../gpu/drm/i915/display/intel_atomic_plane.h |  10 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 194 +----------------
- .../drm/i915/display/intel_display_debugfs.c  |   2 +-
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/i915_reg.h               |  68 +++---
- drivers/gpu/drm/i915/i915_reg_defs.h          |  57 +++--
- drivers/gpu/drm/i915/intel_pm.c               | 104 ++++-----
- 8 files changed, 322 insertions(+), 318 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index 3355eb637eac..bba2f105b7dd 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -716,8 +716,8 @@ void intel_update_planes_on_crtc(struct intel_atomic_state *state,
+ 	}
+ }
+ 
+-void skl_arm_planes_on_crtc(struct intel_atomic_state *state,
+-			    struct intel_crtc *crtc)
++static void skl_arm_planes_on_crtc(struct intel_atomic_state *state,
++				   struct intel_crtc *crtc)
+ {
+ 	struct intel_crtc_state *old_crtc_state =
+ 		intel_atomic_get_old_crtc_state(state, crtc);
+@@ -751,8 +751,8 @@ void skl_arm_planes_on_crtc(struct intel_atomic_state *state,
+ 	}
+ }
+ 
+-void i9xx_arm_planes_on_crtc(struct intel_atomic_state *state,
+-			     struct intel_crtc *crtc)
++static void i9xx_arm_planes_on_crtc(struct intel_atomic_state *state,
++				    struct intel_crtc *crtc)
+ {
+ 	struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+@@ -777,6 +777,17 @@ void i9xx_arm_planes_on_crtc(struct intel_atomic_state *state,
+ 	}
+ }
+ 
++void intel_arm_planes_on_crtc(struct intel_atomic_state *state,
++			      struct intel_crtc *crtc)
++{
++	struct drm_i915_private *i915 = to_i915(state->base.dev);
++
++	if (DISPLAY_VER(i915) >= 9)
++		skl_arm_planes_on_crtc(state, crtc);
++	else
++		i9xx_arm_planes_on_crtc(state, crtc);
++}
++
+ int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
+ 				      struct intel_crtc_state *crtc_state,
+ 				      int min_scale, int max_scale,
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
+index 9822b921279c..b7973e932e78 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
+@@ -46,10 +46,8 @@ void intel_plane_destroy_state(struct drm_plane *plane,
+ 			       struct drm_plane_state *state);
+ void intel_update_planes_on_crtc(struct intel_atomic_state *state,
+ 				 struct intel_crtc *crtc);
+-void skl_arm_planes_on_crtc(struct intel_atomic_state *state,
+-			    struct intel_crtc *crtc);
+-void i9xx_arm_planes_on_crtc(struct intel_atomic_state *state,
+-			     struct intel_crtc *crtc);
++void intel_arm_planes_on_crtc(struct intel_atomic_state *state,
++			      struct intel_crtc *crtc);
+ int intel_plane_atomic_check_with_state(const struct intel_crtc_state *old_crtc_state,
+ 					struct intel_crtc_state *crtc_state,
+ 					const struct intel_plane_state *old_plane_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 3f68fb656fb5..aac1695657df 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7796,7 +7796,6 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
+ static void intel_update_crtc(struct intel_atomic_state *state,
+ 			      struct intel_crtc *crtc)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+ 	const struct intel_crtc_state *old_crtc_state =
+ 		intel_atomic_get_old_crtc_state(state, crtc);
+ 	struct intel_crtc_state *new_crtc_state =
+@@ -7824,10 +7823,7 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 
+ 	commit_pipe_pre_planes(state, crtc);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 9)
+-		skl_arm_planes_on_crtc(state, crtc);
+-	else
+-		i9xx_arm_planes_on_crtc(state, crtc);
++	intel_arm_planes_on_crtc(state, crtc);
+ 
+ 	commit_pipe_post_planes(state, crtc);
+ 
 -- 
 2.34.1
 
