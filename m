@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9070CC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 500AAC433EF
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 09:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E087710EA32;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAFA510EA30;
 	Fri, 11 Feb 2022 09:07:17 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80BDC10EA33
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A86E210EA34
  for <intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 09:07:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1644570436; x=1676106436;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=yv8/9NVmKl/XxKeICz1qUAJfXd2Ij9k3NXn/8m44CYc=;
- b=GmesMieZrqXhNZFu691wszpN4+Cbo5R9O1XdUFpGqmif2srWTc4uU7wG
- ygtUoCpd1H2HquFsBPW3sIxVJ/6gsSmWme1OYaiBHfyODYfA0xFyz4eaT
- mBk/OjeMm0rfPfxcBXCDzbaAVNK2Be1I2DmW2YrT7FwY6RfWO7AW5shzZ
- sf/8SjCOOJ8bOnlNrSPeHnCDSkDI60ggImbtqLpqXoRloJqrAVV9cT8bL
- kzJ7lud4Jahn0F49yuR0jka8Iv0yWSppEWcAdPBbAuUy5phjlDHFNsWP4
- fH++Q8f/tG+jpd+coyy8/7zLO0b7D4M9I51KuB25NWR9PYRJJxHYiOtyC w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="230337808"
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="230337808"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ bh=1A8hea5GWzzQIThjNa8WW4gboBmAa86ULQDkzx9tTYI=;
+ b=SHhUOE74SOO/E+Ens11QmbLPFmNtI/IZARWbOQVDyxWnFRaFGo43f4si
+ H6+VBAlMTgX4f2R38f3wL3mNt1Us2YGNusRKPZbSvkn3z3fmfd5m7cpfC
+ tgoWPxx7HjdkmxWbBJBeC3ORZ2Ut3v8zUGpGApGpxENLQhOwEuGuHDd14
+ v0SEc4rWlS+PzfVqPwcJTqnUSgVqcQjcArcXd0rRyZUzXegZ1IUZiy+Cd
+ O9MbBXYTKMex+4cojIBR577bcR/XZzz7efc0Qlby6GvlrYl8UpNdouPUG
+ CQZjTE5IyyqTlj1WIBpmv18kqzGBJrNLgnVQrCZnhJNQba1dmRhwdolOa g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="230337819"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="230337819"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 01:06:50 -0800
+ 11 Feb 2022 01:06:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="500717093"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="586273319"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga002.jf.intel.com with SMTP; 11 Feb 2022 01:06:48 -0800
+ by fmsmga008.fm.intel.com with SMTP; 11 Feb 2022 01:06:53 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 11 Feb 2022 11:06:47 +0200
+ Fri, 11 Feb 2022 11:06:53 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Feb 2022 11:06:27 +0200
-Message-Id: <20220211090629.15555-7-ville.syrjala@linux.intel.com>
+Date: Fri, 11 Feb 2022 11:06:29 +0200
+Message-Id: <20220211090629.15555-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
 References: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915: Add REG_GENMASK64() and
- REG_FIELD_GET64()
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915: Polish ilk+ wm register bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,97 +63,206 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We treat SSKPD as a 64 bit register. Add the support macros
-to define/extract bits in such registers.
+Use REG_GENMASK() & co. for ilk+ watermarm registers.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg_defs.h | 57 +++++++++++++++++++++-------
- 1 file changed, 43 insertions(+), 14 deletions(-)
+ .../drm/i915/display/intel_display_debugfs.c  |  2 +-
+ drivers/gpu/drm/i915/i915_reg.h               | 41 +++++++------
+ drivers/gpu/drm/i915/intel_pm.c               | 57 +++++++++----------
+ 3 files changed, 49 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
-index 34d37bbf08cd..069799aa3768 100644
---- a/drivers/gpu/drm/i915/i915_reg_defs.h
-+++ b/drivers/gpu/drm/i915/i915_reg_defs.h
-@@ -22,20 +22,35 @@
- 	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&		\
- 				 ((__n) < 0 || (__n) > 31))))
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index f4de004d470f..b219e162f1d1 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -78,7 +78,7 @@ static int i915_sr_status(struct seq_file *m, void *unused)
+ 	if (DISPLAY_VER(dev_priv) >= 9)
+ 		/* no global SR status; inspect per-plane WM */;
+ 	else if (HAS_PCH_SPLIT(dev_priv))
+-		sr_enabled = intel_de_read(dev_priv, WM1_LP_ILK) & WM1_LP_SR_EN;
++		sr_enabled = intel_de_read(dev_priv, WM1_LP_ILK) & WM_LP_ENABLE;
+ 	else if (IS_I965GM(dev_priv) || IS_G4X(dev_priv) ||
+ 		 IS_I945G(dev_priv) || IS_I945GM(dev_priv))
+ 		sr_enabled = intel_de_read(dev_priv, FW_BLC_SELF) & FW_BLC_SELF_EN;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 278c9cbc6f3c..0dd4d34e7cd7 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4298,33 +4298,32 @@
+ #define _WM0_PIPEC_IVB		0x45200
+ #define WM0_PIPE_ILK(pipe)	_MMIO_PIPE3((pipe), _WM0_PIPEA_ILK, \
+ 					    _WM0_PIPEB_ILK, _WM0_PIPEC_IVB)
+-#define  WM0_PIPE_PLANE_MASK	(0xffff << 16)
+-#define  WM0_PIPE_PLANE_SHIFT	16
+-#define  WM0_PIPE_SPRITE_MASK	(0xff << 8)
+-#define  WM0_PIPE_SPRITE_SHIFT	8
+-#define  WM0_PIPE_CURSOR_MASK	(0xff)
++#define  WM0_PIPE_PRIMARY_MASK	REG_GENMASK(23, 16)
++#define  WM0_PIPE_SPRITE_MASK	REG_GENMASK(15, 8)
++#define  WM0_PIPE_CURSOR_MASK	REG_GENMASK(5, 0)
++#define  WM0_PIPE_PRIMARY(x)	REG_FIELD_PREP(WM0_PIPE_PRIMARY_MASK, (x))
++#define  WM0_PIPE_SPRITE(x)	REG_FIELD_PREP(WM0_PIPE_SPRITE_MASK, (x))
++#define  WM0_PIPE_CURSOR(x)	REG_FIELD_PREP(WM0_PIPE_CURSOR_MASK, (x))
+ #define WM1_LP_ILK		_MMIO(0x45108)
+-#define  WM1_LP_SR_EN		(1 << 31)
+-#define  WM1_LP_LATENCY_SHIFT	24
+-#define  WM1_LP_LATENCY_MASK	(0x7f << 24)
+-#define  WM1_LP_FBC_MASK	(0xf << 20)
+-#define  WM1_LP_FBC_SHIFT	20
+-#define  WM1_LP_FBC_SHIFT_BDW	19
+-#define  WM1_LP_SR_MASK		(0x7ff << 8)
+-#define  WM1_LP_SR_SHIFT	8
+-#define  WM1_LP_CURSOR_MASK	(0xff)
+ #define WM2_LP_ILK		_MMIO(0x4510c)
+-#define  WM2_LP_EN		(1 << 31)
+ #define WM3_LP_ILK		_MMIO(0x45110)
+-#define  WM3_LP_EN		(1 << 31)
++#define  WM_LP_ENABLE		REG_BIT(31)
++#define  WM_LP_LATENCY_MASK	REG_GENMASK(30, 24)
++#define  WM_LP_FBC_MASK_BDW	REG_GENMASK(23, 19)
++#define  WM_LP_FBC_MASK_ILK	REG_GENMASK(23, 20)
++#define  WM_LP_PRIMARY_MASK	REG_GENMASK(18, 8)
++#define  WM_LP_CURSOR_MASK	REG_GENMASK(7, 0)
++#define  WM_LP_LATENCY(x)	REG_FIELD_PREP(WM_LP_LATENCY_MASK, (x))
++#define  WM_LP_FBC_BDW(x)	REG_FIELD_PREP(WM_LP_FBC_MASK_BDW, (x))
++#define  WM_LP_FBC_ILK(x)	REG_FIELD_PREP(WM_LP_FBC_MASK_ILK, (x))
++#define  WM_LP_PRIMARY(x)	REG_FIELD_PREP(WM_LP_PRIMARY_MASK, (x))
++#define  WM_LP_CURSOR(x)	REG_FIELD_PREP(WM_LP_CURSOR_MASK, (x))
+ #define WM1S_LP_ILK		_MMIO(0x45120)
+ #define WM2S_LP_IVB		_MMIO(0x45124)
+ #define WM3S_LP_IVB		_MMIO(0x45128)
+-#define  WM1S_LP_EN		(1 << 31)
+-
+-#define HSW_WM_LP_VAL(lat, fbc, pri, cur) \
+-	(WM3_LP_EN | ((lat) << WM1_LP_LATENCY_SHIFT) | \
+-	 ((fbc) << WM1_LP_FBC_SHIFT) | ((pri) << WM1_LP_SR_SHIFT) | (cur))
++#define  WM_LP_SPRITE_ENABLE	REG_BIT(31) /* ilk/snb WM1S only */
++#define  WM_LP_SPRITE_MASK	REG_GENMASK(10, 0)
++#define  WM_LP_SPRITE(x)	REG_FIELD_PREP(WM_LP_SPRITE_MASK, (x))
  
--/**
-- * REG_GENMASK() - Prepare a continuous u32 bitmask
-- * @__high: 0-based high bit
-- * @__low: 0-based low bit
-- *
-- * Local wrapper for GENMASK() to force u32, with compile time checks.
-- *
-- * @return: Continuous bitmask from @__high to @__low, inclusive.
-- */
--#define REG_GENMASK(__high, __low)					\
--	((u32)(GENMASK(__high, __low) +					\
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&	\
-+#define _REG_GENMASK(__type, __high, __low)				\
-+	((__type)(GENMASK(__high, __low) +				\
-+	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&		\
- 				 __is_constexpr(__low) &&		\
--				 ((__low) < 0 || (__high) > 31 || (__low) > (__high)))))
-+				 ((__low) < 0 ||			\
-+				  (__high) >= BITS_PER_TYPE(__type) ||	\
-+				  (__low) > (__high)))))
-+
-+/**
-+ * REG_GENMASK() - Prepare a continuous u32 bitmask
-+ * @__high: 0-based high bit
-+ * @__low: 0-based low bit
-+ *
-+ * Local wrapper for GENMASK() to force u32, with compile time checks.
-+ *
-+ * @return: Continuous bitmask from @__high to @__low, inclusive.
-+ */
-+#define REG_GENMASK(__high, __low) _REG_GENMASK(u32, __high, __low)
-+
-+/**
-+ * REG_GENMASK64() - Prepare a continuous u64 bitmask
-+ * @__high: 0-based high bit
-+ * @__low: 0-based low bit
-+ *
-+ * Local wrapper for GENMASK() to force u32, with compile time checks.
-+ *
-+ * @return: Continuous bitmask from @__high to @__low, inclusive.
-+ */
-+#define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+ /* Memory latency timer register */
+ #define MLTR_ILK		_MMIO(0x11222)
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 605944551e1b..9382284134e6 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -3409,29 +3409,28 @@ static void ilk_compute_wm_results(struct drm_i915_private *dev_priv,
+ 		 * disabled. Doing otherwise could cause underruns.
+ 		 */
+ 		results->wm_lp[wm_lp - 1] =
+-			(ilk_wm_lp_latency(dev_priv, level) << WM1_LP_LATENCY_SHIFT) |
+-			(r->pri_val << WM1_LP_SR_SHIFT) |
+-			r->cur_val;
++			WM_LP_LATENCY(ilk_wm_lp_latency(dev_priv, level)) |
++			WM_LP_PRIMARY(r->pri_val) |
++			WM_LP_CURSOR(r->cur_val);
  
- /*
-  * Local integer constant expression version of is_power_of_2().
-@@ -59,6 +74,8 @@
- 	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
- 	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+ 		if (r->enable)
+-			results->wm_lp[wm_lp - 1] |= WM1_LP_SR_EN;
++			results->wm_lp[wm_lp - 1] |= WM_LP_ENABLE;
  
-+#define _REG_FIELD_GET(__type, __mask, __val)	((__type)FIELD_GET(__mask, __val))
+ 		if (DISPLAY_VER(dev_priv) >= 8)
+-			results->wm_lp[wm_lp - 1] |=
+-				r->fbc_val << WM1_LP_FBC_SHIFT_BDW;
++			results->wm_lp[wm_lp - 1] |= WM_LP_FBC_BDW(r->fbc_val);
+ 		else
+-			results->wm_lp[wm_lp - 1] |=
+-				r->fbc_val << WM1_LP_FBC_SHIFT;
++			results->wm_lp[wm_lp - 1] |= WM_LP_FBC_ILK(r->fbc_val);
 +
- /**
-  * REG_FIELD_GET() - Extract a u32 bitfield value
-  * @__mask: shifted mask defining the field's length and position
-@@ -69,7 +86,19 @@
-  *
-  * @return: Masked and shifted value of the field defined by @__mask in @__val.
++		results->wm_lp_spr[wm_lp - 1] = WM_LP_SPRITE(r->spr_val);
+ 
+ 		/*
+-		 * Always set WM1S_LP_EN when spr_val != 0, even if the
++		 * Always set WM_LP_SPRITE_EN when spr_val != 0, even if the
+ 		 * level is disabled. Doing otherwise could cause underruns.
+ 		 */
+ 		if (DISPLAY_VER(dev_priv) <= 6 && r->spr_val) {
+ 			drm_WARN_ON(&dev_priv->drm, wm_lp != 1);
+-			results->wm_lp_spr[wm_lp - 1] = WM1S_LP_EN | r->spr_val;
+-		} else
+-			results->wm_lp_spr[wm_lp - 1] = r->spr_val;
++			results->wm_lp_spr[wm_lp - 1] |= WM_LP_SPRITE_ENABLE;
++		}
+ 	}
+ 
+ 	/* LP0 register values */
+@@ -3444,9 +3443,9 @@ static void ilk_compute_wm_results(struct drm_i915_private *dev_priv,
+ 			continue;
+ 
+ 		results->wm_pipe[pipe] =
+-			(r->pri_val << WM0_PIPE_PLANE_SHIFT) |
+-			(r->spr_val << WM0_PIPE_SPRITE_SHIFT) |
+-			r->cur_val;
++			WM0_PIPE_PRIMARY(r->pri_val) |
++			WM0_PIPE_SPRITE(r->spr_val) |
++			WM0_PIPE_CURSOR(r->cur_val);
+ 	}
+ }
+ 
+@@ -3538,24 +3537,24 @@ static bool _ilk_disable_lp_wm(struct drm_i915_private *dev_priv,
+ 	struct ilk_wm_values *previous = &dev_priv->wm.hw;
+ 	bool changed = false;
+ 
+-	if (dirty & WM_DIRTY_LP(3) && previous->wm_lp[2] & WM1_LP_SR_EN) {
+-		previous->wm_lp[2] &= ~WM1_LP_SR_EN;
++	if (dirty & WM_DIRTY_LP(3) && previous->wm_lp[2] & WM_LP_ENABLE) {
++		previous->wm_lp[2] &= ~WM_LP_ENABLE;
+ 		intel_uncore_write(&dev_priv->uncore, WM3_LP_ILK, previous->wm_lp[2]);
+ 		changed = true;
+ 	}
+-	if (dirty & WM_DIRTY_LP(2) && previous->wm_lp[1] & WM1_LP_SR_EN) {
+-		previous->wm_lp[1] &= ~WM1_LP_SR_EN;
++	if (dirty & WM_DIRTY_LP(2) && previous->wm_lp[1] & WM_LP_ENABLE) {
++		previous->wm_lp[1] &= ~WM_LP_ENABLE;
+ 		intel_uncore_write(&dev_priv->uncore, WM2_LP_ILK, previous->wm_lp[1]);
+ 		changed = true;
+ 	}
+-	if (dirty & WM_DIRTY_LP(1) && previous->wm_lp[0] & WM1_LP_SR_EN) {
+-		previous->wm_lp[0] &= ~WM1_LP_SR_EN;
++	if (dirty & WM_DIRTY_LP(1) && previous->wm_lp[0] & WM_LP_ENABLE) {
++		previous->wm_lp[0] &= ~WM_LP_ENABLE;
+ 		intel_uncore_write(&dev_priv->uncore, WM1_LP_ILK, previous->wm_lp[0]);
+ 		changed = true;
+ 	}
+ 
+ 	/*
+-	 * Don't touch WM1S_LP_EN here.
++	 * Don't touch WM_LP_SPRITE_ENABLE here.
+ 	 * Doing so could cause underruns.
+ 	 */
+ 
+@@ -6803,9 +6802,9 @@ static void ilk_pipe_wm_get_hw_state(struct intel_crtc *crtc)
+ 		 * multiple pipes are active.
+ 		 */
+ 		active->wm[0].enable = true;
+-		active->wm[0].pri_val = (tmp & WM0_PIPE_PLANE_MASK) >> WM0_PIPE_PLANE_SHIFT;
+-		active->wm[0].spr_val = (tmp & WM0_PIPE_SPRITE_MASK) >> WM0_PIPE_SPRITE_SHIFT;
+-		active->wm[0].cur_val = tmp & WM0_PIPE_CURSOR_MASK;
++		active->wm[0].pri_val = REG_FIELD_GET(WM0_PIPE_PRIMARY_MASK, tmp);
++		active->wm[0].spr_val = REG_FIELD_GET(WM0_PIPE_SPRITE_MASK, tmp);
++		active->wm[0].cur_val = REG_FIELD_GET(WM0_PIPE_CURSOR_MASK, tmp);
+ 	} else {
+ 		int level, max_level = ilk_wm_max_level(dev_priv);
+ 
+@@ -7229,12 +7228,12 @@ void vlv_wm_sanitize(struct drm_i915_private *dev_priv)
   */
--#define REG_FIELD_GET(__mask, __val)	((u32)FIELD_GET(__mask, __val))
-+#define REG_FIELD_GET(__mask, __val)	_REG_FIELD_GET(u32, __mask, __val)
-+
-+/**
-+ * REG_FIELD_GET64() - Extract a u64 bitfield value
-+ * @__mask: shifted mask defining the field's length and position
-+ * @__val: value to extract the bitfield value from
-+ *
-+ * Local wrapper for FIELD_GET() to force u64 and for consistency with
-+ * REG_GENMASK64().
-+ *
-+ * @return: Masked and shifted value of the field defined by @__mask in @__val.
-+ */
-+#define REG_FIELD_GET64(__mask, __val)	_REG_FIELD_GET(u64, __mask, __val)
+ static void ilk_init_lp_watermarks(struct drm_i915_private *dev_priv)
+ {
+-	intel_uncore_write(&dev_priv->uncore, WM3_LP_ILK, intel_uncore_read(&dev_priv->uncore, WM3_LP_ILK) & ~WM1_LP_SR_EN);
+-	intel_uncore_write(&dev_priv->uncore, WM2_LP_ILK, intel_uncore_read(&dev_priv->uncore, WM2_LP_ILK) & ~WM1_LP_SR_EN);
+-	intel_uncore_write(&dev_priv->uncore, WM1_LP_ILK, intel_uncore_read(&dev_priv->uncore, WM1_LP_ILK) & ~WM1_LP_SR_EN);
++	intel_uncore_write(&dev_priv->uncore, WM3_LP_ILK, intel_uncore_read(&dev_priv->uncore, WM3_LP_ILK) & ~WM_LP_ENABLE);
++	intel_uncore_write(&dev_priv->uncore, WM2_LP_ILK, intel_uncore_read(&dev_priv->uncore, WM2_LP_ILK) & ~WM_LP_ENABLE);
++	intel_uncore_write(&dev_priv->uncore, WM1_LP_ILK, intel_uncore_read(&dev_priv->uncore, WM1_LP_ILK) & ~WM_LP_ENABLE);
  
- typedef struct {
- 	u32 reg;
+ 	/*
+-	 * Don't touch WM1S_LP_EN here.
++	 * Don't touch WM_LP_SPRITE_ENABLE here.
+ 	 * Doing so could cause underruns.
+ 	 */
+ }
 -- 
 2.34.1
 
