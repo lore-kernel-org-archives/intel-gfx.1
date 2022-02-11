@@ -4,30 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74AC6C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 17:19:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 909DFC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 17:59:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C858910EAE2;
-	Fri, 11 Feb 2022 17:19:31 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8134310EADE;
- Fri, 11 Feb 2022 17:19:30 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 8175FA66C9;
- Fri, 11 Feb 2022 17:19:30 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E9510E24D;
+	Fri, 11 Feb 2022 17:59:04 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E88910E24D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 17:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644602343; x=1676138343;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=I9RT5wgZHI6wFVZRMfMa7ASzQn6bBuGhMFfqAYkhedw=;
+ b=gfnR/OlAzwHs1QhE5NApAHcB/8MkihlLqBUhajN8aqQ7le7n420ZtpQB
+ Sy3LW3jBTleSsYdp4dQI3xPDvz2ChcEDbvtj6ulZY1RAMXDGEeHw1ATuT
+ WaZV57oSKq8sCsW6RJZR47ejVCtScuacyyIBWl/Yojugp0xD58cmlqOmD
+ VZiwCew5tcqbowQpZHOq/Xkr6i/1oek7fZPv1258Lq0MRAmnMyfrND+Us
+ RnO29/N3oxisSuBpHw5DA5EKU2RUz9/7J07o73YNVc+15ZUlrzpfB8Hjh
+ bjcAd7DrBDXepXFLyXbH/oLdhXjPSpv53lumZoDpyfJivRbyK48q76rR6 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10255"; a="248608981"
+X-IronPort-AV: E=Sophos;i="5.88,361,1635231600"; d="scan'208";a="248608981"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2022 09:59:03 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,361,1635231600"; d="scan'208";a="774311839"
+Received: from lkp-server01.sh.intel.com (HELO d95dc2dabeb1) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 11 Feb 2022 09:59:01 -0800
+Received: from kbuild by d95dc2dabeb1 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nIaCC-0004u0-TN; Fri, 11 Feb 2022 17:59:00 +0000
+Date: Sat, 12 Feb 2022 01:58:22 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Message-ID: <202202112353.zFgGmyBW-lkp@intel.com>
+References: <20220211090629.15555-8-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Fri, 11 Feb 2022 17:19:30 -0000
-Message-ID: <164459997052.25607.7723461073998771931@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20220211090629.15555-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiB3YXJuaW5nIGZvciBk?=
- =?utf-8?q?rm/i915=3A_Plane/wm_cleanups?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220211090629.15555-8-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH 7/8] drm/i915: Clean up SSKPD/MLTR defines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,518 +60,464 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: kbuild-all@lists.01.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Hi Ville,
 
-Series: drm/i915: Plane/wm cleanups
-URL   : https://patchwork.freedesktop.org/series/100020/
-State : warning
+Thank you for the patch! Yet something to improve:
 
-== Summary ==
+[auto build test ERROR on drm-intel/for-linux-next]
+[also build test ERROR on drm-tip/drm-tip next-20220211]
+[cannot apply to v5.17-rc3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-CALL    scripts/checksyscalls.sh
-  CALL    scripts/atomic/check-atomics.sh
-  CHK     include/generated/compile.h
-  CC [M]  drivers/gpu/drm/i915/intel_pm.o
-In file included from <command-line>:
-drivers/gpu/drm/i915/intel_pm.c: In function ‘intel_read_wm_latency’:
-./include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
-  (((~UL(0)) - (UL(1) << (l)) + 1) & \
-                      ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:62:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
-   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-           ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:62:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
-  (((~UL(0)) - (UL(1) << (l)) + 1) & \
-                      ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:64:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG((_mask) == 0, _pfx "mask is zero"); \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
-   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-           ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:64:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG((_mask) == 0, _pfx "mask is zero"); \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
-  (((~UL(0)) - (UL(1) << (l)) + 1) & \
-                      ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:65:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
-   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-           ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:65:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
-  (((~UL(0)) - (UL(1) << (l)) + 1) & \
-                      ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:65:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:66:19: note: in expansion of macro ‘__bf_shf’
-      ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
-                   ^~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
-   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-           ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:65:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:66:19: note: in expansion of macro ‘__bf_shf’
-      ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
-                   ^~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:66:16: error: right shift count is negative [-Werror=shift-count-negative]
-      ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
-                ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:65:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
-  (((~UL(0)) - (UL(1) << (l)) + 1) & \
-                      ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:68:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:68:20: note: in expansion of macro ‘__bf_cast_unsigned’
-   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
-                    ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
-   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-           ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:68:3: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
-   ^~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:68:20: note: in expansion of macro ‘__bf_cast_unsigned’
-   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
-                    ^~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~~~~~~~~~~
-./include/linux/bits.h:38:31: note: in expansion of macro ‘__GENMASK’
-  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                               ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro ‘GENMASK’
-  ((__type)(GENMASK(__high, __low) +    \
-            ^~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro ‘_REG_GENMASK’
- #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
-                                      ^~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro ‘REG_GENMASK64’
- #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
-                                  ^~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro ‘SSKPD_NEW_WM0_MASK_HSW’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-                           ^~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
-  (((~UL(0)) - (UL(1) << (l)) + 1) & \
-                      ^~
-././include/linux/compiler_types.h:326:9: note: in definition of macro ‘__compiletime_assert’
-   if (!(condition))     \
-         ^~~~~~~~~
-././include/linux/compiler_types.h:346:2: note: in expansion of macro ‘_compiletime_assert’
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
- #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:50:2: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
-  ^~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:21:2: note: in expansion of macro ‘BUILD_BUG_ON’
-  BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
-  ^~~~~~~~~~~~
-./include/linux/bitfield.h:71:3: note: in expansion of macro ‘__BUILD_BUG_ON_NOT_POWER_OF_2’
-   __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +   \
-   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-./include/linux/bitfield.h:125:3: note: in expansion of macro ‘__BF_FIELD_CHECK’
-   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
-   ^~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro ‘FIELD_GET’
- #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
-                                                        ^~~~~~~~~
-./drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro ‘_REG_FIELD_GET’
- #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
-                                        ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro ‘REG_FIELD_GET64’
-   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
-           ^~~~~~
+url:    https://github.com/0day-ci/linux/commits/Ville-Syrjala/drm-i915-Plane-wm-cleanups/20220211-170856
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next
+config: i386-defconfig (https://download.01.org/0day-ci/archive/20220211/202202112353.zFgGmyBW-lkp@intel.com/config)
+compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/0day-ci/linux/commit/24cedeb8c8ca97104e12936a4647665dd0e9b0f8
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Ville-Syrjala/drm-i915-Plane-wm-cleanups/20220211-170856
+        git checkout 24cedeb8c8ca97104e12936a4647665dd0e9b0f8
+        # save the config file to linux build tree
+        mkdir build_dir
+        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash
 
-== Logs ==
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22254/build_32bit.log
+All errors (new ones prefixed by >>):
+
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
+      35 |  (((~UL(0)) - (UL(1) << (l)) + 1) & \
+         |                      ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:65:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      65 |   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+         |   ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:66:19: note: in expansion of macro '__bf_shf'
+      66 |      ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
+         |                   ^~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:38:31: note: in expansion of macro '__GENMASK'
+      38 |  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+         |                               ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro 'GENMASK'
+      26 |  ((__type)(GENMASK(__high, __low) +    \
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
+      36 |   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
+         |           ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:65:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      65 |   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+         |   ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:66:19: note: in expansion of macro '__bf_shf'
+      66 |      ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
+         |                   ^~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:38:31: note: in expansion of macro '__GENMASK'
+      38 |  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+         |                               ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro 'GENMASK'
+      26 |  ((__type)(GENMASK(__high, __low) +    \
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+>> include/linux/bitfield.h:66:16: error: right shift count is negative [-Werror=shift-count-negative]
+      66 |      ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
+         |                ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:65:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      65 |   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
+         |   ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
+      35 |  (((~UL(0)) - (UL(1) << (l)) + 1) & \
+         |                      ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:68:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      68 |   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
+         |   ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:68:20: note: in expansion of macro '__bf_cast_unsigned'
+      68 |   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
+         |                    ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:38:31: note: in expansion of macro '__GENMASK'
+      38 |  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+         |                               ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro 'GENMASK'
+      26 |  ((__type)(GENMASK(__high, __low) +    \
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
+      36 |   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
+         |           ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:68:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      68 |   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
+         |   ^~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:68:20: note: in expansion of macro '__bf_cast_unsigned'
+      68 |   BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) > \
+         |                    ^~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+--
+         |                      ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:50:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      50 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |  ^~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:21:2: note: in expansion of macro 'BUILD_BUG_ON'
+      21 |  BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
+         |  ^~~~~~~~~~~~
+   include/linux/bitfield.h:71:3: note: in expansion of macro '__BUILD_BUG_ON_NOT_POWER_OF_2'
+      71 |   __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +   \
+         |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:72:21: note: in expansion of macro '__bf_shf'
+      72 |            (1ULL << __bf_shf(_mask))); \
+         |                     ^~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:38:31: note: in expansion of macro '__GENMASK'
+      38 |  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+         |                               ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro 'GENMASK'
+      26 |  ((__type)(GENMASK(__high, __low) +    \
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
+      36 |   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
+         |           ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:50:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      50 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |  ^~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:21:2: note: in expansion of macro 'BUILD_BUG_ON'
+      21 |  BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
+         |  ^~~~~~~~~~~~
+   include/linux/bitfield.h:71:3: note: in expansion of macro '__BUILD_BUG_ON_NOT_POWER_OF_2'
+      71 |   __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +   \
+         |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:72:21: note: in expansion of macro '__bf_shf'
+      72 |            (1ULL << __bf_shf(_mask))); \
+         |                     ^~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:38:31: note: in expansion of macro '__GENMASK'
+      38 |  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+         |                               ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro 'GENMASK'
+      26 |  ((__type)(GENMASK(__high, __low) +    \
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+>> include/linux/bitfield.h:72:18: error: left shift count is negative [-Werror=shift-count-negative]
+      72 |            (1ULL << __bf_shf(_mask))); \
+         |                  ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:50:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      50 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |  ^~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:21:2: note: in expansion of macro 'BUILD_BUG_ON'
+      21 |  BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
+         |  ^~~~~~~~~~~~
+   include/linux/bitfield.h:71:3: note: in expansion of macro '__BUILD_BUG_ON_NOT_POWER_OF_2'
+      71 |   __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +   \
+         |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:35:22: error: left shift count >= width of type [-Werror=shift-count-overflow]
+      35 |  (((~UL(0)) - (UL(1) << (l)) + 1) & \
+         |                      ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:50:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      50 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |  ^~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:21:2: note: in expansion of macro 'BUILD_BUG_ON'
+      21 |  BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
+         |  ^~~~~~~~~~~~
+   include/linux/bitfield.h:71:3: note: in expansion of macro '__BUILD_BUG_ON_NOT_POWER_OF_2'
+      71 |   __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +   \
+         |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bitfield.h:125:3: note: in expansion of macro '__BF_FIELD_CHECK'
+     125 |   __BF_FIELD_CHECK(_mask, _reg, 0U, "FIELD_GET: "); \
+         |   ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:77:56: note: in expansion of macro 'FIELD_GET'
+      77 | #define _REG_FIELD_GET(__type, __mask, __val) ((__type)FIELD_GET(__mask, __val))
+         |                                                        ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:101:40: note: in expansion of macro '_REG_FIELD_GET'
+     101 | #define REG_FIELD_GET64(__mask, __val) _REG_FIELD_GET(u64, __mask, __val)
+         |                                        ^~~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:11: note: in expansion of macro 'REG_FIELD_GET64'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |           ^~~~~~~~~~~~~~~
+   include/linux/bits.h:38:31: note: in expansion of macro '__GENMASK'
+      38 |  (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+         |                               ^~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:26:12: note: in expansion of macro 'GENMASK'
+      26 |  ((__type)(GENMASK(__high, __low) +    \
+         |            ^~~~~~~
+   drivers/gpu/drm/i915/i915_reg_defs.h:53:38: note: in expansion of macro '_REG_GENMASK'
+      53 | #define REG_GENMASK64(__high, __low) _REG_GENMASK(u64, __high, __low)
+         |                                      ^~~~~~~~~~~~
+   drivers/gpu/drm/i915/i915_reg.h:1900:34: note: in expansion of macro 'REG_GENMASK64'
+    1900 | #define   SSKPD_NEW_WM0_MASK_HSW REG_GENMASK64(63, 56)
+         |                                  ^~~~~~~~~~~~~
+   drivers/gpu/drm/i915/intel_pm.c:2949:27: note: in expansion of macro 'SSKPD_NEW_WM0_MASK_HSW'
+    2949 |   wm[0] = REG_FIELD_GET64(SSKPD_NEW_WM0_MASK_HSW, sskpd);
+         |                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/bits.h:36:11: error: right shift count is negative [-Werror=shift-count-negative]
+      36 |   (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
+         |           ^~
+   include/linux/compiler_types.h:326:9: note: in definition of macro '__compiletime_assert'
+     326 |   if (!(condition))     \
+         |         ^~~~~~~~~
+   include/linux/compiler_types.h:346:2: note: in expansion of macro '_compiletime_assert'
+     346 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |  ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:50:2: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      50 |  BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
+         |  ^~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:21:2: note: in expansion of macro 'BUILD_BUG_ON'
+      21 |  BUILD_BUG_ON(((n) & ((n) - 1)) != 0)
+         |  ^~~~~~~~~~~~
+   include/linux/bitfield.h:71:3: note: in expansion of macro '__BUILD_BUG_ON_NOT_POWER_OF_2'
+      71 |   __BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +   \
+..
+
+
+vim +66 include/linux/bitfield.h
+
+bff8c3848e071d3 Peter Zijlstra 2021-11-10  59  
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  60  #define __BF_FIELD_CHECK(_mask, _reg, _val, _pfx)			\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  61  	({								\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  62  		BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),		\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  63  				 _pfx "mask is not constant");		\
+e36488c83b6d871 Arnd Bergmann  2018-08-17  64  		BUILD_BUG_ON_MSG((_mask) == 0, _pfx "mask is zero");	\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  65  		BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?		\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31 @66  				 ~((_mask) >> __bf_shf(_mask)) & (_val) : 0, \
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  67  				 _pfx "value too large for the field"); \
+bff8c3848e071d3 Peter Zijlstra 2021-11-10  68  		BUILD_BUG_ON_MSG(__bf_cast_unsigned(_mask, _mask) >	\
+bff8c3848e071d3 Peter Zijlstra 2021-11-10  69  				 __bf_cast_unsigned(_reg, ~0ull),	\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  70  				 _pfx "type of reg too small for mask"); \
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  71  		__BUILD_BUG_ON_NOT_POWER_OF_2((_mask) +			\
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31 @72  					      (1ULL << __bf_shf(_mask))); \
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  73  	})
+3e9b3112ec74f19 Jakub Kicinski 2016-08-31  74  
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
