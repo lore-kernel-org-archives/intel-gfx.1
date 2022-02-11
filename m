@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28D69C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0FD6C433FE
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 11:35:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9504210EACF;
-	Fri, 11 Feb 2022 11:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C100D10EAD3;
+	Fri, 11 Feb 2022 11:35:24 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4541810EACD;
- Fri, 11 Feb 2022 11:35:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDE9E10EAA8;
+ Fri, 11 Feb 2022 11:35:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644579305; x=1676115305;
+ t=1644579309; x=1676115309;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Bm4/VWwj73yolCQPcub7eYPn8GkUx5eYPoPj/s9kAPo=;
- b=KE39b5FAhcp86lCJ74C9KG8BpbuXxUeG9lCCEGZyBm25IPM6FFHKhIFJ
- ut6KpCUR5b8PTMQKo0qHMKYkOrEbzK0mXa5Qey0fOwM8rousTSwRiaTgo
- pTSw/9b8pznmGMyEZZtdHaLwzh72tdt6PUwBAIqdCo48MfWxhVqgUdWo2
- T9Alq6xp40nuB4omBRRZr4rdPl/hTPB+Q2xarkrjWd0hIha6WYoGd4v9t
- v52fuFJYuyAvqXS7BsX8XVJU/Qnl/08CgMDJGY7Safldgs3VKbyi/Ossf
- zduips/WcUQrl7n5R0RlEdShzgkcg7akEpgjmFK55K+Ivz1lbJt7tQY/B A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="248548257"
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="248548257"
+ bh=Tmk7rZrySO0skbmmsF2F6X0HJXBoQN5fk8YBSuN/rN0=;
+ b=AeqTuQHVMpWFAZGgf8iFFHycRWE3NKi6J0MsUwtXCX13HgcZEYcPdJFa
+ KTckJwrYWwb18S6rXkfGuyT76AzwZv5AlXlfRgyetsfr6j8h3gK516u6D
+ HwtpNK+aJf0ncnJunLIZKJtI63VfDUxGgu4Pu1MlYzw4aijUgXM354XLl
+ /yKYfyB4ll6SVSEmj6Mz+QwDrwFQq1s24DbFl6JkXdhkdpHUv/Y+CxJDp
+ 38Y72OITu1bfsObAA2wRUmhauA6LMPioP0ZpIKTozYqS+Yy9iXl2kTYA2
+ 4bCV9gjtcU+dDLFBzeHHoMO5/YlWihFP4vHYdRNZcCKt2/jeUbeLSYbjF w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="248548268"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="248548268"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 03:35:05 -0800
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="602355005"
+ 11 Feb 2022 03:35:08 -0800
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="602355035"
 Received: from pogara-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.19.40])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 03:35:03 -0800
+ 11 Feb 2022 03:35:06 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Feb 2022 11:34:34 +0000
-Message-Id: <20220211113437.874691-13-matthew.auld@intel.com>
+Date: Fri, 11 Feb 2022 11:34:36 +0000
+Message-Id: <20220211113437.874691-15-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220211113437.874691-1-matthew.auld@intel.com>
 References: <20220211113437.874691-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 12/15] drm/i915/create: apply ALLOC_GPU_ONLY
- by default
+Subject: [Intel-gfx] [PATCH v3 14/15] drm/i915/uapi: forbid ALLOC_GPU_ONLY
+ for error capture
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,52 +63,75 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting from DG2+, when dealing with LMEM, we assume that by default
-all userspace allocations should be placed in the non-mappable portion
-of LMEM.  Note that dumb buffers are not included here, since these are
-not "GPU accelerated" and likely need CPU access. We choose to just
-always set GPU_ONLY, and let the backend figure out if that should be
-ignored on discrete devices.
+On platforms where there might be non-mappable LMEM, force userspace to
+mark the buffers with the correct hint. When dumping the BO contents
+during capture we need CPU access. Note this only applies to buffers
+that can be placed in LMEM, and also doesn't impact DG1.
 
-In a later patch userspace will be able to provide a hint if CPU access
-to the buffer is needed.
-
-v2(Thomas)
- - Apply GPU_ONLY on all discrete devices, but only if the BO can be
-   placed in LMEM. Down in the depths this should be turned into a noop,
-   where required, and as an annotation it still make some sense. If we
-   apply it regardless of the placements then we end up needing to check
-   the placements during exec capture. Also it's slightly inconsistent
-   since the NEEDS_CPU_ACCESS can only be applied on objects that can be
-   placed in LMEM. The other annoyance would be gem_create_ext vs plain
-   gem_create, if we were to always apply GPU_ONLY.
+v2(Reported-by: kernel test robot <lkp@intel.com>):
+  - Also update the function signature on !CONFIG_DRM_I915_CAPTURE_ERROR
+    builds.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Jon Bloomfield <jon.bloomfield@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_create.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-index 9402d4bf4ffc..ecb8c2feec46 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-@@ -424,6 +424,14 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
- 		ext_data.n_placements = 1;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 498b458fd784..0166a37d252f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1965,7 +1965,7 @@ eb_find_first_request_added(struct i915_execbuffer *eb)
+ #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
+ 
+ /* Stage with GFP_KERNEL allocations before we enter the signaling critical path */
+-static void eb_capture_stage(struct i915_execbuffer *eb)
++static int eb_capture_stage(struct i915_execbuffer *eb)
+ {
+ 	const unsigned int count = eb->buffer_count;
+ 	unsigned int i = count, j;
+@@ -1978,6 +1978,10 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
+ 		if (!(flags & EXEC_OBJECT_CAPTURE))
+ 			continue;
+ 
++		if (!IS_DG1(eb->i915) &&
++		    vma->obj->flags & I915_BO_ALLOC_GPU_ONLY)
++			return -EINVAL;
++
+ 		for_each_batch_create_order(eb, j) {
+ 			struct i915_capture_list *capture;
+ 
+@@ -1990,6 +1994,8 @@ static void eb_capture_stage(struct i915_execbuffer *eb)
+ 			eb->capture_lists[j] = capture;
+ 		}
+ 	}
++
++	return 0;
+ }
+ 
+ /* Commit once we're in the critical path */
+@@ -2031,7 +2037,7 @@ static void eb_capture_list_clear(struct i915_execbuffer *eb)
+ 
+ #else
+ 
+-static void eb_capture_stage(struct i915_execbuffer *eb)
++static int eb_capture_stage(struct i915_execbuffer *eb)
+ {
+ }
+ 
+@@ -3418,7 +3424,9 @@ i915_gem_do_execbuffer(struct drm_device *dev,
  	}
  
-+	/*
-+	 * TODO: add a userspace hint to force CPU_ACCESS for the object, which
-+	 * can override this.
-+	 */
-+	if (ext_data.n_placements > 1 ||
-+	    ext_data.placements[0]->type != INTEL_MEMORY_SYSTEM)
-+		ext_data.flags |= I915_BO_ALLOC_GPU_ONLY;
-+
- 	obj = __i915_gem_object_create_user_ext(i915, args->size,
- 						ext_data.placements,
- 						ext_data.n_placements,
+ 	ww_acquire_done(&eb.ww.ctx);
+-	eb_capture_stage(&eb);
++	err = eb_capture_stage(&eb);
++	if (err)
++		goto err_vma;
+ 
+ 	out_fence = eb_requests_create(&eb, in_fence, out_fence_fd);
+ 	if (IS_ERR(out_fence)) {
 -- 
 2.34.1
 
