@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89896C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A12BEC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5BCF10E2B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DAAA10E237;
 	Mon, 14 Feb 2022 15:49:16 +0000 (UTC)
 Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2131.outbound.protection.outlook.com [40.107.215.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E774210E9D5;
- Fri, 11 Feb 2022 02:33:13 +0000 (UTC)
+ (mail-sgaapc01on2094.outbound.protection.outlook.com [40.107.215.94])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD4410E9D0;
+ Fri, 11 Feb 2022 02:32:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EzfWLT+EzT+znwPSOPxqYdnBY7QKPKT6xxh7031m/bF047AkYSygyMImdSlJl7Xk1sxpnvkh6zhz7seT2CW96QhxMJVhCqD5LV9WGERMvsE0Gna7L5M2WzS0yXlAPR7duJYN4jTiwVUSsJRlWarXn6MDRZvsxk+C9MBlJdH7vBkECxUkfAgU9ypBlSnYDUa2Swk62MZLXf1oK9+yXkxAJTP2LzqepyjlwULEKvvJFTItqrGP8TVa3Bycl+1ArBaczrzGr2vNhVM+ku2hIYZJFZ/Vg65twefXMjvVUo+OErYjB24sIvIjv4GlqtmlF5scHx/AhB1fV43+Mgfe4EMbsw==
+ b=UiQJFTEih73bBALf1QoZYNGQZxJYPwuTMlBHnrxtrv5yt/xNU/2LFRfWOEKHWfXCwiyw5P+O9U2JHHxSJQMc9sisSnt9BdwOiKiv/0SMZOJDHWK8YKEg+WD8TrMt9Hi/RlKL2RlOx8cpoLimvxH0vJe3JLHIOkWpUl6AuIRdr0fsT9brcay5C5xKS7Bdfrx3YJ/ZwUwQW1F6hwWUefkMjwshlri4k3gLtohnKsDmdfPh8+Jf6bMtCB/rJ+wqnyWwchKhAuQrll7eKxc624ohexL53U7JYIVY0dYhY7bNL2VJb96zKYgcIB1LSWoZBu+9jwTEl+tN+Gu0in66AqRDmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZCGsYVl1Rk2DP391pMDtEyG1sAbTFMqpUMsjQddFGaQ=;
- b=OqMFox67bITNfWyykhjVy4MY+GlnCKsJQHprufDn+2ft5A0WfXVSxd0miXUo+2hqaWTv1OyjH3Yc9wCeTS4evaUftK7N1P2ytElqJHNqBPMzjo/rs9FcBL7XUFpvQoAPYytVsBHlBY/YzqtAX3j3Zfexkin7PIHh+bx4yV0dqfywBE8bBNTZVjcbSl0eIauXfGeP06P6Cj6oyySWn1iiHMbsBLngH5GdjevH+7ZUiF4qfx19fHmbNom3z0efZ5JtUHudRakEKABRCXelIUpeBbU6g48AjqhrrqreAMPceSd9/BsmryGKiH/bGcUJJ8jE5rmT67dyAoq6OeIqzoQ3mQ==
+ bh=+UreqemZWhtM2swqJ+H17H399YlhMiGbGC0zkfmGrrc=;
+ b=FbK5GvEtTCAJ0klEeE5j/lafBCC7jMN2X5OA+3J+kP1lyJgJTyxyBkgOA5aLBZT0yjqxB146ibxH4ZZuqQf7zpzsc4FvwUUdQFgbZuIBrh7tg4bTfUiVmW5XYXiAluqAn9/Zg5ThGk0VHs9m7U/5RMaZi1beDPXN1l4mAgThREW9DOWDqGAnPM6+Y88mM67NpIrXvaFiOWpLGfxXBJyPSW6T0f9t/2ROGNwK3tvTA3L5+N25Ha4qV1vbaeRYKkMF+Ij0lR4nmMDSNq4WVFsEobnN2t1gf/IE1dUlU60xq7zfB5+JAVYSmdoHtj3lklt/8+SfrHgHMgmcxa5uYog+Tw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
  s=selector2-vivo0-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZCGsYVl1Rk2DP391pMDtEyG1sAbTFMqpUMsjQddFGaQ=;
- b=DqJJpqg7B6IBOs5Ucw6n44AN6YSysS3ZJS7oPEefh9yBrmUMJsgFMHhtxGGK/+tJRaE4cZBJVBz+RnUZf9pyt39no9qp39jdOhQXTJHvLEwh/SUQt/bMDEIcTE1zmQOFE0fVDdaTF7YddltOn0vCidp4vW/EEAeXfvTrSAEwJsk=
+ bh=+UreqemZWhtM2swqJ+H17H399YlhMiGbGC0zkfmGrrc=;
+ b=ep4/6Byvp6rmc1SWOOXXbvra047BBmWb/rK+CWh3V2GHkhNJsRqncB0kn8KolGU/VweyBYhtXm4596m6gxVgWzs2RByboAqmk8aLsgFS0EVqxOOTwxUESvCFN8laKFmkruLPA0SYcZdU1a/gGSUXxnC7spA63ob1ujffM8wsRdc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vivo.com;
 Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
  by PS1PR0601MB3705.apcprd06.prod.outlook.com (2603:1096:300:80::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
- 2022 02:33:11 +0000
+ 2022 02:32:51 +0000
 Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
  ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
  ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 02:33:10 +0000
+ 02:32:51 +0000
 From: Qing Wang <wangqing@vivo.com>
 To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -59,8 +59,8 @@ To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Date: Thu, 10 Feb 2022 18:30:36 -0800
-Message-Id: <1644546640-23283-14-git-send-email-wangqing@vivo.com>
+Date: Thu, 10 Feb 2022 18:30:34 -0800
+Message-Id: <1644546640-23283-12-git-send-email-wangqing@vivo.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
 References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
@@ -70,59 +70,59 @@ X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
  (2603:1096:100:37::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6ecfda2a-ef55-44e3-464c-08d9ed06d858
+X-MS-Office365-Filtering-Correlation-Id: cd8769e6-d363-4ee5-4a94-08d9ed06cca8
 X-MS-TrafficTypeDiagnostic: PS1PR0601MB3705:EE_
-X-Microsoft-Antispam-PRVS: <PS1PR0601MB37053AFD614E2C1FEAFBD6BABD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
+X-Microsoft-Antispam-PRVS: <PS1PR0601MB370540B185341396776FBE22BD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gET8Awy8O3rfEJ2KEFZxWC/slmqXyDgtNj99XlkJW1GWzk84hR/TRK5gKO+GMjL72JwFI6j44TQUDhyT7fJawFzngVXOjZNW+FCCe3vSeBoo9xJOKgQxhSWjwsNyPnsN5QtAphPEQowiinJNUfJGXO4YlIGTyoyPK47tqB7e1ELN/au+VZg2KiVmmdlujxOKh/svgY0Btkt3E1EU9XAaEB/fDl1iFeRBWsyOehLabAOAzB+QTpaJiwz7tTdFl1zm2hEOus6Fm0fQfZvqk7e0K3FB0ES4SOOasvK/MidWtWFzOusgZm2g8OODEW2qChgbIg2e82TJhCANYnYxOzi8e9bEKklSRDc45QifSPZODJHCPBiccXPEwJBMtlg27FzB4C/7N9kSCGDwpu8iJx+Azt+wOrawMWlEco+uFtBmgGZCXWpereILX4Rc2jc7V2AGuLNNTs+gOjMB0zGeJEI9X4q4Qq2u181f0/uja1Bfc4bWCt2sagAz/YMuFQU0PyrnOEIrjC+Dip5zndrETRa7qjBq9QY0yRNQrCZX/j8PyOMfxzDS+WLZNHCFxbFearaLwLx0F0UZUycs9wkTmVmTzZPKD3zwVN6eFYLH3eo+zHNWxp5IEa8sxVkNxTP5j1EaArvagxtVMxLVnAleAObs8ibPNXRtibSSfBbfbrNrXK+43VI5q+1mUQsllCh8Oyviqwm46moiYKGuo49/PM7F2RgyY1Echn1GhCN32kJi9/4=
+X-Microsoft-Antispam-Message-Info: ap7cwPaUAtNcN60g89R7HvJFIlY8DkMtY273D4LMkoqQfd0JkwOfeTniOqvhhDmdcgQDoqcPA+4JIUnqYVEvpMY3Dxu5BQDVnVr29loaChOH8HquGgiN1QPnQIDczyyXWE+CPfDW7TkI7i128MAOkSuUSSqTCXm+nek7xImLdHJ1WlMuRK3ZPGskZkhIPdWvW7rIj9hRhyc/4ogsBY02mA7uayw9Ze1gS0Y0YGohY6F56oj7+4rht1taKTFtkFIlyhMFvkPYKUBiSRTveuXc5oIkoDQb38aVSRX1xcLekMs/78YNm2G4OjKFBSOjIlxtBzWkFMELHPNddvn6u65fz/cIsOFhAbPX/QXrBV2KkyczwiR/nvSOLhN+DdFDO1iW7QndGPyE3OMKrRgz6QwvRo3hjL68myq0ILZl3t2QfovI7mikeVch4tNe+YdyuwxuwA/aJTmB+UpBrZVSVjUCQutrMZZP9ZXNBd+57npHdia7GeKv55Yc9y1mTjgeOSnfTd+Ep9SIGtS+Q7Y5Pi1CtTMuTHmF0RL6vIOC9Qm5jY8Gexnsm0e1N4feg9BhxixDxt5E4F1FNiZdlTVA/giIVU8zoBYOM0XTQ+1b8p3CYvzx2wD3W48B3GiuMjwoD6kWJgwYyLgkfqIKArNTlIYdxQRbS9ctwuFMRoxVoyPee0ztOPefN5M1kF/IBa4pwCrMKtlEmRs2DhWxgQQhI0obSfd/E2yhZVh++W0NA9LKTgUqz2Fpe/rDcgwfQDzGpg6j
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);
+ SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(4744005)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?anxVmQzQteJnVybznqZkGfIiz7nVC4C/C1I0BoUPZOiTIogrlkXJQfPjamKT?=
- =?us-ascii?Q?oJ/GBiaYBt42qmKppqJRYlI6K8e8oDSseJKFoNBR04iv6/fm+Lx7GWQvRPd2?=
- =?us-ascii?Q?oa1twpXDMI4qvuvmPwZAkhoKDxF0B174B/eCGvcrZb7MuG3t4wRSryhy++4e?=
- =?us-ascii?Q?x1neH6Wqoj90ulCVvy5lZyrMXkQgTs3QUhg3tOd5nh+d/+3M0Ry0g23wvfNp?=
- =?us-ascii?Q?XjL+GSbFdHDYkdh8FY8WD+0jdtn5kt+zr6DoklFBlihTRmOPDsmAV5lF7ysL?=
- =?us-ascii?Q?7Ot3qkCxkgN6pm8DFreYAQqEpBVcHa9nG/CgeRF7kuwCG4Qp5zSCWpkvAilj?=
- =?us-ascii?Q?+BRyPmamsXHVBCD8KgKSCNvrjxsPNqNfqIOuYlhdCcma00ieIvNk0ZZrkVhg?=
- =?us-ascii?Q?1i6VM7n+qZA599hn/GshE8jQdY3SQ476lJakG6ATJeBo8ph1RCyYfr5vtgx+?=
- =?us-ascii?Q?DuYyutc5Cl7ZbdkYiK0/YjkgOrS6Q91fRSA9ffUTob6enZ3DAwORawFIBL5t?=
- =?us-ascii?Q?CEOPBiHPL4rCujB6wstavCGEUdUniEda70+r8aqtK5YaTkpMa3f/VGGjqYhO?=
- =?us-ascii?Q?RqXiFumiP4zSdqZJULVM5uUUXbVs3ezbCsUaJioSKn0ebUP3bUDyGqPscVKs?=
- =?us-ascii?Q?6SPTJAgp3JhddiZzHFnHbyYlEKO+tPqeIOtQpu/N+JJP+mSJK2CfocrN5A9C?=
- =?us-ascii?Q?H7W35Ydlo5Y7iBCSUa+YM5eGX2PovUV/g5+TJbrVyS1O1VS11FZgsI1ooqiN?=
- =?us-ascii?Q?eY5fqBMZ3IgzHqvBoueLUSCZpUWkoulRF40IN9THC9O2FL4yTz7kJmH6u8DB?=
- =?us-ascii?Q?p4ueZ8ZPfFfUfaser2NE4V2AvtLieom2/4HHb/esIgPzqSNcHy1SMH6Yqu9T?=
- =?us-ascii?Q?ij/kDCVsMQa5ahFGZJicU5qFtwtSDpUMyNkPvUbdMMZkzihwrke1FXD0O1CL?=
- =?us-ascii?Q?LYKOaHRAOc6DGdNZYRTpoNLq047VAMxzRkOHIUUoE5Jq3J9kmtbV+Kk4CVcR?=
- =?us-ascii?Q?/3gPFKfERJ7n2uREHPAqYxq3sjDcxmdPW44xPZKbTq3uE4N4/Z49lO1lzrOE?=
- =?us-ascii?Q?v2a8odAA5+otNk+qAlk0ccQsoMkk3BcwFDNFk7QlIT1UoIrbNhOG3VtEm7hl?=
- =?us-ascii?Q?zI39hCe8/Ebnw4vX6HLRt3KMgLqyCGknQn29QpQgZ/ARx6BCJ19zTEqGeH1F?=
- =?us-ascii?Q?5ocRmCkZMyI8Ke+F6qMylorIcRz6b7721btXextPwLRRMozloFGWmLc5aIb+?=
- =?us-ascii?Q?tMEY/1vMG+D9DmH+eZtYThlQbHn4BQKkZma7/miULWcqc63kQT+hLwhUnj7j?=
- =?us-ascii?Q?v6zcGFy4bbaInAjgb6eoy+3rBMdrA2zJ4VFYdL0zd3z3WxD2sJLfKF35kjEq?=
- =?us-ascii?Q?7wHXFUNq+jRihuVEe2vuTsqTtBwuCDKQW7XklkcaKQ9CZSWh9mt3h7a/jtOu?=
- =?us-ascii?Q?Kg3nYMr0455m7f3VUWVteWlS9A0gtaublibFTjEYc3sGv+xoITeJoQ7Uw+Kw?=
- =?us-ascii?Q?2lWQAREqiQ9wixIO7ywDetYMx7LpB1JoZnJb4gGVHx2QqQPp3bPkXezFKtUq?=
- =?us-ascii?Q?x8GzjbGPH9PpYHBeIIpgbkb8mAtjfKBVfNE8KrxHotMy2YXr+er6qy9SCFw8?=
- =?us-ascii?Q?zXNvEoji+nBbytiph8ID4VM=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XvPcCmrYkA7Du7Opc3xsGLAaIokoQ7W1OShKVIydnA+J7YAcXUPMplhB79ad?=
+ =?us-ascii?Q?BS1jV2QoRFBmYSqZQgElNmIAUjkiAxOKdm/qa4lVPqW2DdOZvKVWQ0cGw9xY?=
+ =?us-ascii?Q?0CAMD2rtEg4e9h8GgWiOH02JP69rahWcYtbq/ikqxOtMql0i1T7GazuXXFjK?=
+ =?us-ascii?Q?HABeZfp4WEdy6FhduNh60ZJMfd3ynm2QnV7BJSBWsyeriCUJZ7ZLwAZFn89I?=
+ =?us-ascii?Q?ny1flmH1D0EUlGAXmDdIdFcf+okHQKWXY70+Kfkw5n1d9uE0pYXcNSalyEYJ?=
+ =?us-ascii?Q?KY4ZxjEaWZANn9DfPu07IcKp+x/ycvKGA5WkYsr6G3zeE4yT8gCyusBQXEmY?=
+ =?us-ascii?Q?kR2HnTHczSgnWg5GV+NOToEuJ/x2HkqvWNn6PLjRprHjacRyGHVWPQ+1UClM?=
+ =?us-ascii?Q?6ADzqlB0gLDiaedxuLYKler9/eozVLtqOBDW48G2Usp1ZDAmCCl8RUjsSnv6?=
+ =?us-ascii?Q?Pq8PapRcBTAuRnGEQVBKmV+8V3yyl25Obo9lT/q044qh+5DrS1HZEq5PNPb5?=
+ =?us-ascii?Q?i4sfY5LZGhvDZoGyJTmvPssqm4JzfBsdZGgrYunCMdi1oPCnQ7mJuaAl9FWI?=
+ =?us-ascii?Q?pPkn/3DqYYVt+MQ4Z1ZkNXMJreHXOHpxILcCKOjfiBUKsr2QWyQPGd6lafpV?=
+ =?us-ascii?Q?YpAPACIvar7lNhGei3TkMwYX8nIfonqCyU++KJVxYnBiavQgpB82cqpPEGID?=
+ =?us-ascii?Q?10fzmPpFAXyw0/o+sYDe6Hd7vhNpGaBQ35pyWyprLZoE4gDfCOHX2S3SF9/r?=
+ =?us-ascii?Q?/jYsy0Wz4r4p89rH2aliKggG5OzOyBb3JEKB9JkJTJDMZYzfQM5ffQ9tJkbC?=
+ =?us-ascii?Q?1YrB7xfaf5QO2LDsra6rhgkfPvUJ8+YYf3FadrvifDHGZ2ChrAUUckkWTqgb?=
+ =?us-ascii?Q?d1yPZayI6nq2LTy70KM7y0II7Ah/f+sF/MpfD7KOonHNKT7HDuYSD/TMI77C?=
+ =?us-ascii?Q?x1uftmRAxkEZ/S7oKeZh6kUeYA/Enw/exb4hFxz/9PNrBpL+DcYgLFTSIXwn?=
+ =?us-ascii?Q?cCG8oj+0rv87jJsNnjdGzx8neujGdRtM+WPFdWsYcQfRYBzBzLjxu/jsLEIB?=
+ =?us-ascii?Q?mmdyfXhh79+bLkmtL/suJKl7O6by4z6r/yGen3lxMxX2rhneaeX9SFdAh8aS?=
+ =?us-ascii?Q?pAxvQJW3zTGlEAXkSnZJWy5tzgWb4gEiCtJR59EMPl1GjZVlwX061IKIDjew?=
+ =?us-ascii?Q?dpXoTnIZncRRuZjeuNoga5f/8bVBcOJuYckD33D5dYsky8erptryBYosZcjf?=
+ =?us-ascii?Q?4DzxdHpPOxqErz8MILaTs4zqqjAM1YSrq+5lIKktfVOaEOmH9o0D9GohmtWr?=
+ =?us-ascii?Q?HUK9REILIRNJlnIRS0X/VNO8hO4fn88pnY5DQKLCr/L11xTyhxLot/gGGWqP?=
+ =?us-ascii?Q?75R/t9t6s6bqCxdyCdzGoJJaxs+qOY9pc4KF7YbKAoj67h0XLyO4NLQThd66?=
+ =?us-ascii?Q?hq2NWJVXU7senmUKbKsKi68dyNG2oh1+XuKBYSE77hdLG27BFnWSEVAI4PmZ?=
+ =?us-ascii?Q?DASJsafXRxMJrG/rEXeTS8s23Y5aMjwrvGfgwz1EgAXNGxzdmc3BI26eI8FT?=
+ =?us-ascii?Q?IEjVHGUQQVrlePgOMkzaCSDEcT0x17+/68J6deTXkvrOUs5rmIao4MTx5mBr?=
+ =?us-ascii?Q?NOr2LJNZoFcItflcG2P7krg=3D?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ecfda2a-ef55-44e3-464c-08d9ed06d858
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd8769e6-d363-4ee5-4a94-08d9ed06cca8
 X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:33:10.8323 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:32:51.1459 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +8mJtO29nBoysTeez6egaCcwz1EVAAOfzUIKKBW62z5C2FaTL3wFUrZi2JsNpYWrBJ5be6JEHEfDI/DMXA3DLw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: FIOV+VJxkJuy36z1KAD455OyGjtcPWPNha6WYplMGJurR2u+NV8i5/TONQWOZGXQcVf1YatOzY/HvVtoXP9poQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB3705
-X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
-Subject: [Intel-gfx] [PATCH V2 13/13] media: vivid: use
+X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:56 +0000
+Subject: [Intel-gfx] [PATCH V2 11/13] media: tda8083: use
  time_is_after_jiffies() instead of jiffies judgment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,96 +147,22 @@ for understanding.
 
 Signed-off-by: Wang Qing <wangqing@vivo.com>
 ---
- drivers/media/test-drivers/vivid/vivid-kthread-cap.c   | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-out.c   | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-touch.c | 3 ++-
- drivers/media/test-drivers/vivid/vivid-sdr-cap.c       | 3 ++-
- 4 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/media/dvb-frontends/tda8083.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/test-drivers/vivid/vivid-kthread-cap.c b/drivers/media/test-drivers/vivid/vivid-kthread-cap.c
-index 6baa046..295f4a3
---- a/drivers/media/test-drivers/vivid/vivid-kthread-cap.c
-+++ b/drivers/media/test-drivers/vivid/vivid-kthread-cap.c
-@@ -18,6 +18,7 @@
- #include <linux/freezer.h>
- #include <linux/random.h>
- #include <linux/v4l2-dv-timings.h>
-+#include <linux/jiffies.h>
- #include <asm/div64.h>
- #include <media/videobuf2-vmalloc.h>
- #include <media/v4l2-dv-timings.h>
-@@ -893,7 +894,7 @@ static int vivid_thread_vid_cap(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
+diff --git a/drivers/media/dvb-frontends/tda8083.c b/drivers/media/dvb-frontends/tda8083.c
+index 5be11fd..49c4fe1
+--- a/drivers/media/dvb-frontends/tda8083.c
++++ b/drivers/media/dvb-frontends/tda8083.c
+@@ -162,7 +162,7 @@ static void tda8083_wait_diseqc_fifo (struct tda8083_state* state, int timeout)
+ {
+ 	unsigned long start = jiffies;
  
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-kthread-out.c b/drivers/media/test-drivers/vivid/vivid-kthread-out.c
-index b6d4316..13f737e
---- a/drivers/media/test-drivers/vivid/vivid-kthread-out.c
-+++ b/drivers/media/test-drivers/vivid/vivid-kthread-out.c
-@@ -18,6 +18,7 @@
- #include <linux/freezer.h>
- #include <linux/random.h>
- #include <linux/v4l2-dv-timings.h>
-+#include <linux/jiffies.h>
- #include <asm/div64.h>
- #include <media/videobuf2-vmalloc.h>
- #include <media/v4l2-dv-timings.h>
-@@ -234,7 +235,7 @@ static int vivid_thread_vid_out(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-kthread-touch.c b/drivers/media/test-drivers/vivid/vivid-kthread-touch.c
-index f065faae..8828243
---- a/drivers/media/test-drivers/vivid/vivid-kthread-touch.c
-+++ b/drivers/media/test-drivers/vivid/vivid-kthread-touch.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/freezer.h>
-+#include <linux/jiffies.h>
- #include "vivid-core.h"
- #include "vivid-kthread-touch.h"
- #include "vivid-touch-cap.h"
-@@ -134,7 +135,7 @@ static int vivid_thread_touch_cap(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-sdr-cap.c b/drivers/media/test-drivers/vivid/vivid-sdr-cap.c
-index 59fd508..f82856b
---- a/drivers/media/test-drivers/vivid/vivid-sdr-cap.c
-+++ b/drivers/media/test-drivers/vivid/vivid-sdr-cap.c
-@@ -17,6 +17,7 @@
- #include <media/v4l2-event.h>
- #include <media/v4l2-dv-timings.h>
- #include <linux/fixp-arith.h>
-+#include <linux/jiffies.h>
- 
- #include "vivid-core.h"
- #include "vivid-ctrls.h"
-@@ -205,7 +206,7 @@ static int vivid_thread_sdr_cap(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
+-	while (jiffies - start < timeout &&
++	while (time_is_after_jiffies(start + timeout) &&
+ 	       !(tda8083_readreg(state, 0x02) & 0x80))
+ 	{
+ 		msleep(50);
 -- 
 2.7.4
 
