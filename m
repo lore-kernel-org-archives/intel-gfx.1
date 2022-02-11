@@ -4,65 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B9ABC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFFF4C433FE
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1D310E2FA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1516910E2F2;
 	Mon, 14 Feb 2022 15:49:54 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE85B10F2F7;
- Sun, 13 Feb 2022 06:51:34 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id c4so2417836pfl.7;
- Sat, 12 Feb 2022 22:51:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8jN3bHrs2SjohtF/Og+xdp1QXzW54h0HCo7HFf5/MZw=;
- b=eGO6WKGk4GF2G1wmSF6YwpVCyUpzoU7kgAHkt2OWvZscvoVLb2sotXMmB0JArmFkdH
- GZxv240kCgeHEhPXTYzUDow84izMIzZxlfxRqdHQ6poqNxgqd3SBEdZaBIbOt2VfzCOz
- WB90oXtyxZJqjWoJkG72qtck4qMxHp+GNv+NNlHkFfVAzLOP6WpCXganJp/d3GKhz3Yp
- dDQ2IWWdYJRDLLYVl86vEf0KIoDIv6kqdWbViLcQzUP/6utM0FpBiWqZQKW5fLsjZNxa
- AqbUxPohLLEDKau9zLqZLxyzAnQdLrzEjf/iAMJb2D4TcTY3N0qUMmOdvnfMu8pjio9Y
- a0FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8jN3bHrs2SjohtF/Og+xdp1QXzW54h0HCo7HFf5/MZw=;
- b=sHrPkIwCfE5ZcONUxGpo5XNYMhvgPQMkvqtnFGXp6DcE32hB/E4b0d40/9w3u64q/Y
- ekKMlWnGltzW+Pxn4RjMYRQUqWu32D7b0fChPB84CsvsC1a4RdRUNwlos5Re4jzkQncV
- rV7A8S6YzTTbr7eVOwtYMnNunRKVswizANfsKEdn1GRPJPlRoobFuA04+O/gI2qK8JdY
- NTUepk4xqsNRMZ2ekLW1s2BSWtZNLbJIFJFbEOus+lCi7FNsiH5znf1Cydc72xSoKc+b
- 3Zho91B3gcjri/CfJQIq7WLDSTsVSLk1gQ6rAzJsi4M4FBnDSSh8EszRfjHI2bsEI7qN
- 3tiw==
-X-Gm-Message-State: AOAM531UlFFv0A8V6SFiM0XMVV2eAQVt0j46eHDdjZpl9McC4PHaOiip
- xjvUYfsggjeMw8ybpxWDj8Q=
-X-Google-Smtp-Source: ABdhPJzJFjlAe/vGkkjEE8ukKoZrPMom+3E9OHjTtQHdOrydJ0vW9rr7l+VrgOEHXNJQZysF9XqUjQ==
-X-Received: by 2002:a63:d318:: with SMTP id b24mr7253607pgg.255.1644735094326; 
- Sat, 12 Feb 2022 22:51:34 -0800 (PST)
-Received: from ubuntu-server.local
- (99-105-211-126.lightspeed.sntcca.sbcglobal.net. [99.105.211.126])
- by smtp.googlemail.com with ESMTPSA id v2sm9794515pjt.55.2022.02.12.22.51.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Feb 2022 22:51:34 -0800 (PST)
-From: Tong Zhang <ztong0001@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on2124.outbound.protection.outlook.com [40.107.215.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43F1710E9D0;
+ Fri, 11 Feb 2022 02:33:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mYcls2hYgTRkgRmLNYq+PpwVIWJryFOwxZNyueE26a3tnCn6NO7ctkIsPPwe6D00MxSJ4nBypq+NL9zLZs70r5i+aC86rlvau8xIqaopkvfC0KFZJCBWOSpylLCt3MiVBK4WPNMARQKjWtphsSwPWpa+Tf2nmtyfsu/aykmtjvefwPJdYbFF2gZ/u8mCC5xLeTirYR4HCMqt57p0+OpLShvt13urdeGBmVeiERdpZ0XETvdNFvXEjeKHKu4R7kmIPDamA6ueWCEkCoBHE85FmXn/Ek7O0wM8uCNrxMCQ/ydjPr1AKH9by6o/rJInotFRSWSwSFh6m1Rf+lBvL8uJ9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pTRNaeTNqvizWhskx53RuBoI6rnoc/OaONHjRSZtZb4=;
+ b=laobJddwq3euwBKa5idoNzIY/7GQA2ReT4wkGY1t/IuwriDfjUWCgXneQBVKvJZbjQMEwoL2XoSepmVxUvm4oj1eS9W8kwTplcbQ7ZfYQeKDkfl/90x+zYYhHCzrezi38qdD5Kb+x8JVTSIVEnsmq9+mFydaSulJhUpxWb6V5qKXJ4v6wiDcfL8r0LLKE5vFifVM8+rF1YNx5K6Oqjdovwz+jjX98zHg4fce6+ybX38hCoKnuRd7OKqXeDzEx9iqtpZsD4TPa7KFOVPb5igkNIUlycp2VdASGx3oQvKqFTns31bbtEIwZ0BCH9ZmgJGUelczm8McgpQKhDvgDzp8QA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pTRNaeTNqvizWhskx53RuBoI6rnoc/OaONHjRSZtZb4=;
+ b=LuaQiHhLoMWk0Q6lAgXzFEOIF6E/Tvssv1qtqGP5p02RQG8Mvb2Dz7NV+nXvvOaHeq3gxceKD6D9jOypqntrMeIhxRWvSnVV77vTNmiVa20z3dTY4XqQWxjMbfgk3YwlPk3stSSsFVrkIniZKlundxfpguDw8QV/1s6+Co3ewWA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by PS1PR0601MB3705.apcprd06.prod.outlook.com (2603:1096:300:80::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
+ 2022 02:33:02 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
+ 02:33:01 +0000
+From: Qing Wang <wangqing@vivo.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Date: Sat, 12 Feb 2022 22:51:06 -0800
-Message-Id: <20220213065106.48062-1-ztong0001@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+ dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 10 Feb 2022 18:30:35 -0800
+Message-Id: <1644546640-23283-13-git-send-email-wangqing@vivo.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
+References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
+Content-Type: text/plain
+X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
+ (2603:1096:201:21::14) To SL2PR06MB3082.apcprd06.prod.outlook.com
+ (2603:1096:100:37::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a0c82371-8017-4197-5f91-08d9ed06d2ea
+X-MS-TrafficTypeDiagnostic: PS1PR0601MB3705:EE_
+X-Microsoft-Antispam-PRVS: <PS1PR0601MB3705AF49C75AC16BA5099910BD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 11djht2qCnSHMekgjn3yfBRNtKoR0UKGRdDeekosS2A4AcFGfSf+QKEcjVSnzr3ieJMEzCCnbyUD7zK7fd2IcVdw0r4yjmIqyF2yGbTm+2HU4IlFNRVNlCKKDzRlZ/6cCVK37j2tZ0Mw55gBsf2CFgFEpdmKeIS+UijpaMSkOLATA7oqL0OIuuQVDg+p4PfEZaN8rqN1A2VQH7ttB9uBIX1QuI7bQLdAdVou+oIweYykJdmldP2YkkYJJxj8P9cFqoqSruo+mu2cJaEx0HEeAHnMIiO2tAhoUJQM5465VSFPX8O0eoMKKQuNpCyjC5sIljeXf0enq7aKAT6lbhSVB1nreAIimblP2EiIuFzqnnsURNqftyYJxzUPDBLAM5kenQUdKj5zUvGSpqhgiqLrHx0MtWB28l6sbzxD52d6iHp3EM1j3KM6T98sYHvMbFX0oOZRroNIYvYKkVQ41UTrURd+fIF69cftcJiBCa2U4TxXtre2edAL7Xf3Dmr5zRlq2lbuFtffgfkBkv4YbzE+Nqlwg36WM7ihe6PospLDzLIrL25Z3iXeEQz10a3Ko6R89PJzcS7JGG0eOGV1u+wijPYeha6073Gp7Mecq2MK1wX4vfIblPMSue9oHRzEojZpvmBbZx2B/+DhzfB+rH1xuC5F63LNPO4aD5udzwWf2fz6s/XwP8QuzB/cxV7XJrrd/BRaTaXaCA5ozq8eLq5y1gtQUD2ZTAdcWp005htUYf8JtG4kn7FB4qp40LfQrBdB
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?j9fyLt2pN3iVlwuQgYSDuidhHBuXIqGYNxxdAxZxiLqMohOtaeQ4vcG95cj4?=
+ =?us-ascii?Q?8tk23Bxd/fSNFy190paiTPbZL3vhMrekLNGVOImi/gPBk1Nmv9rA5EhMuCUP?=
+ =?us-ascii?Q?je1dnQHm49etj4mp/Q/gankTIjbTVaB62MwksFHWLaiLP/pNgQUEJYyr5WoC?=
+ =?us-ascii?Q?OMjBLuNNTc/mwvq11hwxOagLktLUfBsWIWzyh5eGr+/IobCHbnsPjJejsNRY?=
+ =?us-ascii?Q?xZbJUywMZtmYConMfnjZ+w0HCd+Uft3dek8DObgX88vbFk1wnhyvfwk1AQ0x?=
+ =?us-ascii?Q?uYuIbot6Bkxx33EGOf8p83qlCg8m0YznvJsThw3o3CGJHmiM7vv+uNLaMtlw?=
+ =?us-ascii?Q?usupnjPdxbrdZXbzikVs312ML/TVP6s8qMU8b7DtjE4EqVhixvtN+ZGxIVJK?=
+ =?us-ascii?Q?0KzoC8C8bktQol0RNWc818k8cAcO6wruT8ZEgZ5R8Zk+qy7bmpcdGi2FCbsW?=
+ =?us-ascii?Q?s9je5QH/Yn6UCHJ1c5oG9uCwsy+NTWu5Iw/UyZUrFlveovYFyzZXsXIA3K0a?=
+ =?us-ascii?Q?lxExdE3NfIXWcMgetjHAtg6j5PT2NZFgeIC/RUQaNnV4o6HVpSewEuPC0pwr?=
+ =?us-ascii?Q?VgHexVgfvMw/FLOaoG/R+lKAproLn+ODDh3D1pBjq0e/gCJuBSWILxeHKahW?=
+ =?us-ascii?Q?q5Jna0NBrGCp5GZ3+qrGLpGy0UCXiQUqxoi+EHYPhuY3AxYxPhR2nUlPIuXb?=
+ =?us-ascii?Q?5yFuSIUekF7EchRUNEHzaK1T0eBkIkvdkOvtJRFx2/1YcA2uasFAjbzVvBHV?=
+ =?us-ascii?Q?MSxF+3SACPq6sNMNgm0Cu/UH7JxUz0TCBh/SZUBT49E+7Yes8YWgFBDj205N?=
+ =?us-ascii?Q?Mp+TOTxnEq/Sf/nEQPhey2gV08XSH5+37sUQo71qI16kkeOSHoUiZxZ92IR9?=
+ =?us-ascii?Q?glj+z7pMxkcYjul7sFNTksL8yoKrvPERGBvpUgaRElg5qmlK2bUKO5diNCLj?=
+ =?us-ascii?Q?HaewpMmmXkY5Xf7TmEQOZhAwT9/T8KrKjxzBmUpDkyo6N8Z1iijvF6S1rU5X?=
+ =?us-ascii?Q?6doyYzqhqNcMQnhkv2bK27LTFrUXktrhC0ABsnJ2xZiRnWgbrFzsoblnlebD?=
+ =?us-ascii?Q?rKoVD9/mufSXio0kFwHGCy8kihdYplrZdv8XCNgYMdqVkTbSILPM7+QT3feE?=
+ =?us-ascii?Q?lAeO4y6o3g4K8R1jUgNrg7f0pe8o2xN5oqw+wTJXj75JdqPzbeufTeyw0YPi?=
+ =?us-ascii?Q?kDFmcPQZ1YQ7aAOv9e8x37tsOHwwDeqz/N9s/rpyqto+GyGqVjh3w1KMwrgK?=
+ =?us-ascii?Q?NEt2SLFP5Eb6KdYskenPL0wzNkd0yLDMz0yCNIPoDpJ44z4P2APDeA5Xzgh4?=
+ =?us-ascii?Q?s7Db7ETALugxj5MA9fTSin7gcOkwlJDzxeravTfwq7laIXqNF+Mt4IEi94Rs?=
+ =?us-ascii?Q?RGtman4w0dQhnGfzetD8P4kt0GstkLSxXwmeezCGkmK2tBRHEqN5Olrimr/P?=
+ =?us-ascii?Q?jb5MSFNcL+dHhWKg0Cibf6vl5j1o3ZmE4CzOI6/xz2kBgG/W9YnAIg4sBXRE?=
+ =?us-ascii?Q?jmYw42Kp2ugl7V2ivgeqwjtyl43EwCq3BBYSKg9FL55TxqFMyCAs/U+7bVtm?=
+ =?us-ascii?Q?/7PCgwOqunni2VGWvO06JdDBSksstiVDmNMy9W3uYmtPM6SGbTApPcjW+bem?=
+ =?us-ascii?Q?Uq3uRUmeM0yZNeBmyxrTv8k=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0c82371-8017-4197-5f91-08d9ed06d2ea
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:33:01.6141 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HDxsZ8OVzzcn3EziFmxkt3V6wB/ovplKbr+7kX4+3TE38TD3TwdWdWogUoybm0UyyF1ke3SnrbndMi04Mm7HgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB3705
 X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: fix build issue when using clang
+Subject: [Intel-gfx] [PATCH V2 12/13] media: wl128x: use
+ time_is_before_jiffies() instead of jiffies judgment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,46 +136,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tong Zhang <ztong0001@gmail.com>
+Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm/i915 target adds some extra cflags, especially it does re-apply -Wall.
-In clang this will override -Wno-format-security and cause the build to
-fail when CONFIG_DRM_I915_WERROR=y. While with GCC this does not happen.
-We reapply -Wno-format-security here to get around this issue.
+From: Wang Qing <wangqing@vivo.com>
 
-drivers/gpu/drm/i915/gt/intel_gt.c:983:2: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
-        GEM_TRACE("ERROR\n");
-        ^~~~~~~~~~~~~~~~~~~~
-./drivers/gpu/drm/i915/i915_gem.h:76:24: note: expanded from macro 'GEM_TRACE'
- #define GEM_TRACE(...) trace_printk(__VA_ARGS__)
-                       ^~~~~~~~~~~~~~~~~~~~~~~~~
-./include/linux/kernel.h:369:3: note: expanded from macro 'trace_printk'
-                do_trace_printk(fmt, ##__VA_ARGS__);    \
-                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-./include/linux/kernel.h:383:30: note: expanded from macro 'do_trace_printk'
-                __trace_bprintk(_THIS_IP_, trace_printk_fmt, ##args);   \
-                                           ^~~~~~~~~~~~~~~~
-drivers/gpu/drm/i915/gt/intel_gt.c:983:2: note: treat the string as an argument to avoid this
+It is better to use time_xxx() directly instead of jiffies judgment
+for understanding.
 
-Signed-off-by: Tong Zhang <ztong0001@gmail.com>
+Signed-off-by: Wang Qing <wangqing@vivo.com>
 ---
- drivers/gpu/drm/i915/Makefile | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/radio/wl128x/fmdrv_common.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 1b62b9f65196..c04e05a3d39f 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -13,6 +13,7 @@
- # will most likely get a sudden build breakage... Hopefully we will fix
- # new warnings before CI updates!
- subdir-ccflags-y := -Wall -Wextra
-+subdir-ccflags-y += -Wno-format-security
- subdir-ccflags-y += -Wno-unused-parameter
- subdir-ccflags-y += -Wno-type-limits
- subdir-ccflags-y += -Wno-missing-field-initializers
+diff --git a/drivers/media/radio/wl128x/fmdrv_common.c b/drivers/media/radio/wl128x/fmdrv_common.c
+index 6142484d..a599d08
+--- a/drivers/media/radio/wl128x/fmdrv_common.c
++++ b/drivers/media/radio/wl128x/fmdrv_common.c
+@@ -23,6 +23,7 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/nospec.h>
++#include <linux/jiffies.h>
+ 
+ #include "fmdrv.h"
+ #include "fmdrv_v4l2.h"
+@@ -342,7 +343,7 @@ static void send_tasklet(struct tasklet_struct *t)
+ 		return;
+ 
+ 	/* Check, is there any timeout happened to last transmitted packet */
+-	if ((jiffies - fmdev->last_tx_jiffies) > FM_DRV_TX_TIMEOUT) {
++	if (time_is_before_jiffies(fmdev->last_tx_jiffies + FM_DRV_TX_TIMEOUT)) {
+ 		fmerr("TX timeout occurred\n");
+ 		atomic_set(&fmdev->tx_cnt, 1);
+ 	}
 -- 
-2.25.1
+2.7.4
 
