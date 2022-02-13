@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F24C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B9ABC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 15:49:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B465C10E243;
-	Mon, 14 Feb 2022 15:49:53 +0000 (UTC)
-X-Greylist: delayed 539 seconds by postgrey-1.36 at gabe;
- Wed, 09 Feb 2022 18:38:32 UTC
-Received: from mail.efficios.com (mail.efficios.com [167.114.26.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D38A310E4DA
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 18:38:32 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mail.efficios.com (Postfix) with ESMTP id 578B63B44D6;
- Wed,  9 Feb 2022 13:29:32 -0500 (EST)
-Received: from mail.efficios.com ([127.0.0.1])
- by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id PvkRZioEQ2qz; Wed,  9 Feb 2022 13:29:31 -0500 (EST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.efficios.com (Postfix) with ESMTP id 959143B44D5;
- Wed,  9 Feb 2022 13:29:31 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com 959143B44D5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=default; t=1644431371;
- bh=+Zw/hovgsG1BmQcx6P8MQWbrVbn2r+dD1nEP9OsP7vM=;
- h=Date:From:To:Message-ID:MIME-Version;
- b=d+/EJaPNp+fG2gPBRFh9aZtT/SzlY0BX9NyB3hkOcS9zHh3V1BO8Lz/3adWucY2QW
- fmTuQ3YcN/KOYJrI8BuHL72b6g6lUEW6w4xwgAMoqSiW7w7szEM9zsL/eHioPgbpXt
- BhOBvhBW78a6BZjb9dC5qSmzAh+B/y3sbfqKHplgFhF/QqJkHvfRrYlFNTh8PtgLE5
- YuimU6VD1LdRv7w1yOFSszTZpzhDbxLS6XX6bIZpG6sh4sOKBDn+HUVj5k8p6VVtC1
- gkcbUtZ/uVhNNHX3U8U1+Wcy3GCtGTDanpe09W6+vdOFPKH58JmcUWSnShPQC5H0Ee
- EHG/4T/xZ8KSg==
-X-Virus-Scanned: amavisd-new at efficios.com
-Received: from mail.efficios.com ([127.0.0.1])
- by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id XNJjAuNwWaY3; Wed,  9 Feb 2022 13:29:31 -0500 (EST)
-Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
- by mail.efficios.com (Postfix) with ESMTP id 7E0593B4782;
- Wed,  9 Feb 2022 13:29:31 -0500 (EST)
-Date: Wed, 9 Feb 2022 13:29:31 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Waiman Long <longman@redhat.com>
-Message-ID: <919214156.50301.1644431371345.JavaMail.zimbra@efficios.com>
-In-Reply-To: <24fe6a08-5931-8e8d-8d77-459388c4654e@redhat.com>
-References: <20220208184208.79303-1-namhyung@kernel.org>
- <20220209090908.GK23216@worktop.programming.kicks-ass.net>
- <24fe6a08-5931-8e8d-8d77-459388c4654e@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1D310E2FA;
+	Mon, 14 Feb 2022 15:49:54 +0000 (UTC)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE85B10F2F7;
+ Sun, 13 Feb 2022 06:51:34 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id c4so2417836pfl.7;
+ Sat, 12 Feb 2022 22:51:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8jN3bHrs2SjohtF/Og+xdp1QXzW54h0HCo7HFf5/MZw=;
+ b=eGO6WKGk4GF2G1wmSF6YwpVCyUpzoU7kgAHkt2OWvZscvoVLb2sotXMmB0JArmFkdH
+ GZxv240kCgeHEhPXTYzUDow84izMIzZxlfxRqdHQ6poqNxgqd3SBEdZaBIbOt2VfzCOz
+ WB90oXtyxZJqjWoJkG72qtck4qMxHp+GNv+NNlHkFfVAzLOP6WpCXganJp/d3GKhz3Yp
+ dDQ2IWWdYJRDLLYVl86vEf0KIoDIv6kqdWbViLcQzUP/6utM0FpBiWqZQKW5fLsjZNxa
+ AqbUxPohLLEDKau9zLqZLxyzAnQdLrzEjf/iAMJb2D4TcTY3N0qUMmOdvnfMu8pjio9Y
+ a0FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8jN3bHrs2SjohtF/Og+xdp1QXzW54h0HCo7HFf5/MZw=;
+ b=sHrPkIwCfE5ZcONUxGpo5XNYMhvgPQMkvqtnFGXp6DcE32hB/E4b0d40/9w3u64q/Y
+ ekKMlWnGltzW+Pxn4RjMYRQUqWu32D7b0fChPB84CsvsC1a4RdRUNwlos5Re4jzkQncV
+ rV7A8S6YzTTbr7eVOwtYMnNunRKVswizANfsKEdn1GRPJPlRoobFuA04+O/gI2qK8JdY
+ NTUepk4xqsNRMZ2ekLW1s2BSWtZNLbJIFJFbEOus+lCi7FNsiH5znf1Cydc72xSoKc+b
+ 3Zho91B3gcjri/CfJQIq7WLDSTsVSLk1gQ6rAzJsi4M4FBnDSSh8EszRfjHI2bsEI7qN
+ 3tiw==
+X-Gm-Message-State: AOAM531UlFFv0A8V6SFiM0XMVV2eAQVt0j46eHDdjZpl9McC4PHaOiip
+ xjvUYfsggjeMw8ybpxWDj8Q=
+X-Google-Smtp-Source: ABdhPJzJFjlAe/vGkkjEE8ukKoZrPMom+3E9OHjTtQHdOrydJ0vW9rr7l+VrgOEHXNJQZysF9XqUjQ==
+X-Received: by 2002:a63:d318:: with SMTP id b24mr7253607pgg.255.1644735094326; 
+ Sat, 12 Feb 2022 22:51:34 -0800 (PST)
+Received: from ubuntu-server.local
+ (99-105-211-126.lightspeed.sntcca.sbcglobal.net. [99.105.211.126])
+ by smtp.googlemail.com with ESMTPSA id v2sm9794515pjt.55.2022.02.12.22.51.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Feb 2022 22:51:34 -0800 (PST)
+From: Tong Zhang <ztong0001@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Date: Sat, 12 Feb 2022 22:51:06 -0800
+Message-Id: <20220213065106.48062-1-ztong0001@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [167.114.26.124]
-X-Mailer: Zimbra 8.8.15_GA_4203 (ZimbraWebClient - FF96 (Linux)/8.8.15_GA_4203)
-Thread-Topic: locking: Separate lock tracepoints from lockdep/lock_stat (v1)
-Thread-Index: mgD4nhH5tY/jYF4873tct6XNo0H1KQ==
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Feb 2022 15:48:57 +0000
-Subject: Re: [Intel-gfx] [RFC 00/12] locking: Separate lock tracepoints from
- lockdep/lock_stat (v1)
+Subject: [Intel-gfx] [PATCH] drm/i915: fix build issue when using clang
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,73 +75,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcu <rcu@vger.kernel.org>, intel-gfx@lists.freedesktop.org,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, rostedt <rostedt@goodmis.org>,
- Radoslaw Burny <rburny@google.com>, Byungchul Park <byungchul.park@lge.com>,
- "Paul E. McKenney" <paul.mckenney@linaro.org>,
- cgroups <cgroups@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- linux-btrfs <linux-btrfs@vger.kernel.org>
+Cc: Tong Zhang <ztong0001@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
------ On Feb 9, 2022, at 1:19 PM, Waiman Long longman@redhat.com wrote:
+drm/i915 target adds some extra cflags, especially it does re-apply -Wall.
+In clang this will override -Wno-format-security and cause the build to
+fail when CONFIG_DRM_I915_WERROR=y. While with GCC this does not happen.
+We reapply -Wno-format-security here to get around this issue.
 
-> On 2/9/22 04:09, Peter Zijlstra wrote:
->> On Tue, Feb 08, 2022 at 10:41:56AM -0800, Namhyung Kim wrote:
->>
->>> Eventually I'm mostly interested in the contended locks only and I
->>> want to reduce the overhead in the fast path.  By moving that, it'd be
->>> easy to track contended locks with timing by using two tracepoints.
->> So why not put in two new tracepoints and call it a day?
->>
->> Why muck about with all that lockdep stuff just to preserve the name
->> (and in the process continue to blow up data structures etc..). This
->> leaves distros in a bind, will they enable this config and provide
->> tracepoints while bloating the data structures and destroying things
->> like lockref (which relies on sizeof(spinlock_t)), or not provide this
->> at all.
->>
->> Yes, the name is convenient, but it's just not worth it IMO. It makes
->> the whole proposition too much of a trade-off.
->>
->> Would it not be possible to reconstruct enough useful information from
->> the lock callsite?
->>
-> I second that as I don't want to see the size of a spinlock exceeds 4
-> bytes in a production system.
-> 
-> Instead of storing additional information (e.g. lock name) directly into
-> the lock itself. Maybe we can store it elsewhere and use the lock
-> address as the key to locate it in a hash table. We can certainly extend
-> the various lock init functions to do that. It will be trickier for
-> statically initialized locks, but we can probably find a way to do that too.
+drivers/gpu/drm/i915/gt/intel_gt.c:983:2: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
+        GEM_TRACE("ERROR\n");
+        ^~~~~~~~~~~~~~~~~~~~
+./drivers/gpu/drm/i915/i915_gem.h:76:24: note: expanded from macro 'GEM_TRACE'
+ #define GEM_TRACE(...) trace_printk(__VA_ARGS__)
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~
+./include/linux/kernel.h:369:3: note: expanded from macro 'trace_printk'
+                do_trace_printk(fmt, ##__VA_ARGS__);    \
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./include/linux/kernel.h:383:30: note: expanded from macro 'do_trace_printk'
+                __trace_bprintk(_THIS_IP_, trace_printk_fmt, ##args);   \
+                                           ^~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/gt/intel_gt.c:983:2: note: treat the string as an argument to avoid this
 
-If we go down that route, it would be nice if we can support a few different
-use-cases for various tracers out there.
+Signed-off-by: Tong Zhang <ztong0001@gmail.com>
+---
+ drivers/gpu/drm/i915/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
 
-One use-case (a) requires the ability to query the lock name based on its address as key.
-For this a hash table is a good fit. This would allow tracers like ftrace to
-output lock names in its human-readable output which is formatted within the kernel.
-
-Another use-case (b) is to be able to "dump" the lock { name, address } tuples
-into the trace stream (we call this statedump events in lttng), and do the
-translation from address to name at post-processing. This simply requires
-that this information is available for iteration for both the core kernel
-and module locks, so the tracer can dump this information on trace start
-and module load.
-
-Use-case (b) is very similar to what is done for the kernel tracepoints. Based
-on this, implementing the init code that iterates on those sections and populates
-a hash table for use-case (a) should be easy enough.
-
-Thanks,
-
-Mathieu
-
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 1b62b9f65196..c04e05a3d39f 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -13,6 +13,7 @@
+ # will most likely get a sudden build breakage... Hopefully we will fix
+ # new warnings before CI updates!
+ subdir-ccflags-y := -Wall -Wextra
++subdir-ccflags-y += -Wno-format-security
+ subdir-ccflags-y += -Wno-unused-parameter
+ subdir-ccflags-y += -Wno-type-limits
+ subdir-ccflags-y += -Wno-missing-field-initializers
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-http://www.efficios.com
+2.25.1
+
