@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348E5C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A849EC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74A2110E2BE;
-	Mon, 14 Feb 2022 10:00:04 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E5E10E2B7
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAB2910E2E2;
+	Mon, 14 Feb 2022 10:01:18 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B200D10E2E2;
+ Mon, 14 Feb 2022 10:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644832802; x=1676368802;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=DDrX0idvxXsYRL9NxGrTZUYXHzCqJYqMdq3HQSiVkSc=;
- b=QSPeNdX/iVIPkKTcKh7YS5qkh5tY/5veMo8/qENAZh7EEqSSHr6XMUGK
- +XlYFvNENJvoE4w+PRxgrk92MLi52iYI1q6LoNPJIhNbo12YWvAcdb8FD
- 7sNfG23BIH9xkTs2lZccdvkQCqxNyiHfRAbL3KkWjCnAcgLifY0L7w5fq
- k9PgZGT4JVdUmzzMFy44RKvTeMQ4cOWM99TErnqK5OLPu3uRDdUtL+52K
- diFR3Dgt6T6lGOiwV8BmufM1It1UztgcB97S6v+8s4lciXDrwtVhOk8VZ
- obf+DeoHBIJRQMVOvedyg4Jo2LkIwxG2FIe5+702sFWpf1MWsgl+d4Or9 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="248889884"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="248889884"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:00:02 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="485335896"
-Received: from unknown (HELO intel.com) ([10.237.72.65])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 01:59:58 -0800
-Date: Mon, 14 Feb 2022 12:00:11 +0200
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20220214100011.GA24878@intel.com>
-References: <20220214091811.13725-1-ville.syrjala@linux.intel.com>
- <20220214091811.13725-7-ville.syrjala@linux.intel.com>
+ t=1644832877; x=1676368877;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=hbA9JlLdvAAfcjPpN7hWCsFwxF/9P4dYQRZD/kcGy2U=;
+ b=e6UQjpI9W6sIy7VovSYtOs50RQuez3fhWIx1Lll5Z1wS5EkvFSWpVQ/g
+ KXuiO0kZxhx3xPXJGWe6GDZU8P8Bj9OHmUYkOjLvPfZQ7kuBC92B5+tbF
+ SctwbfJrLGdFpXphNW/mc39WPWPzMOSS9YPys8rkY+ZvGxUz0kcfwS1B8
+ 6/wU1tfB2OPL7x0lpVC6JR+oTwcYnbChiuwP2xgahIkfPsczJqaTnHROx
+ Wni9TRG7H9geSiEeqc1QTqqFNiYsUQ6skq1fWcYMeOffyyJInM/slx3V0
+ c5GLhVSbWpfFJiTMLjj/HoAN+fmmgRz7e9raCDIXjHTwzuttF/OldxIB9 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="274628529"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="274628529"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:01:17 -0800
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="543383125"
+Received: from unknown (HELO vandita-Z390-AORUS-ULTRA.iind.intel.com)
+ ([10.190.238.8])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:01:14 -0800
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 14 Feb 2022 07:33:52 +0530
+Message-Id: <20220214020357.10063-1-vandita.kulkarni@intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220214091811.13725-7-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 6/6] drm/i915: Pimp icl+ sagv pre/post update
+Subject: [Intel-gfx] [RFC v2 0/5] Add data flow metering support for HDMI2.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +54,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ laurent.pinchart@ideasonboard.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 14, 2022 at 11:18:11AM +0200, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Add some debugs on what exactly we're doing to the QGV point mask
-> in the icl+ sagv pre/post plane update hooks. Currently we're just
-> guessing.
-> 
-> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/intel_pm.c | 37 ++++++++++++++++-----------------
->  1 file changed, 18 insertions(+), 19 deletions(-)
+The below patches add support for data flow metering
+as mentioned in the section 6.5.6 FRL data flow metering
+of HDMI 2.1 specification.
 
-Weird I think, I had those debugs initially. Definitely remember
-there was something similar. Was it kinda removed later?
+Add functions to calclulate the DFM parameters
+for the given frl config, which is further used to evaluate the
+data flow metering requirement as specified in the spec.
 
-Stan
+As per the spec the below patches implement the frl capacity computation
+functions for both compressed and uncompressed video.
+Finally exposing 1 function each for compressed and uncompressed video
+to figure out if the data flow metering requirement is met or not.
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
- 
-> 
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> index 8b70cdc3b58b..5d1f1a9988bb 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -3818,26 +3818,22 @@ static void icl_sagv_pre_plane_update(struct intel_atomic_state *state)
->  		intel_atomic_get_old_bw_state(state);
->  	const struct intel_bw_state *new_bw_state =
->  		intel_atomic_get_new_bw_state(state);
-> -	u32 new_mask;
-> +	u32 old_mask, new_mask;
->  
->  	if (!new_bw_state)
->  		return;
->  
-> -	/*
-> -	 * Nothing to mask
-> -	 */
-> -	if (new_bw_state->qgv_points_mask == old_bw_state->qgv_points_mask)
-> -		return;
-> -
-> +	old_mask = old_bw_state->qgv_points_mask;
->  	new_mask = old_bw_state->qgv_points_mask | new_bw_state->qgv_points_mask;
->  
-> -	/*
-> -	 * If new mask is zero - means there is nothing to mask,
-> -	 * we can only unmask, which should be done in unmask.
-> -	 */
-> -	if (!new_mask)
-> +	if (old_mask == new_mask)
->  		return;
->  
-> +	WARN_ON(!new_bw_state->base.changed);
-> +
-> +	drm_dbg_kms(&dev_priv->drm, "Restricting QGV points: 0x%x -> 0x%x\n",
-> +		    old_mask, new_mask);
-> +
->  	/*
->  	 * Restrict required qgv points before updating the configuration.
->  	 * According to BSpec we can't mask and unmask qgv points at the same
-> @@ -3854,19 +3850,22 @@ static void icl_sagv_post_plane_update(struct intel_atomic_state *state)
->  		intel_atomic_get_old_bw_state(state);
->  	const struct intel_bw_state *new_bw_state =
->  		intel_atomic_get_new_bw_state(state);
-> -	u32 new_mask = 0;
-> +	u32 old_mask, new_mask;
->  
->  	if (!new_bw_state)
->  		return;
->  
-> -	/*
-> -	 * Nothing to unmask
-> -	 */
-> -	if (new_bw_state->qgv_points_mask == old_bw_state->qgv_points_mask)
-> -		return;
-> -
-> +	old_mask = old_bw_state->qgv_points_mask | new_bw_state->qgv_points_mask;
->  	new_mask = new_bw_state->qgv_points_mask;
->  
-> +	if (old_mask == new_mask)
-> +		return;
-> +
-> +	WARN_ON(!new_bw_state->base.changed);
-> +
-> +	drm_dbg_kms(&dev_priv->drm, "Relaxing QGV points: 0x%x -> 0x%x\n",
-> +		    old_mask, new_mask);
-> +
->  	/*
->  	 * Allow required qgv points after updating the configuration.
->  	 * According to BSpec we can't mask and unmask qgv points at the same
-> -- 
-> 2.34.1
-> 
+v2: Changed u32 to unsigned int, corrected patch 4 to address build
+issue, addressed checkpatch issues, moved the drm_frl_dfm_helper under
+kms_helpers section for compilation in the Makefile.
+
+Ankit Nautiyal (1):
+  drm/hdmi21: Add support for DFM calculation with DSC
+
+Vandita Kulkarni (4):
+  drm/hdmi21: Define frl_dfm structure
+  drm/hdmi21: Add non dsc frl capacity computation helpers
+  drm/hdmi21: Add helpers to verify non-dsc DFM requirements
+  drm/hdmi21: Add frl_dfm_helper to Makefile
+
+ drivers/gpu/drm/Makefile             |   4 +-
+ drivers/gpu/drm/drm_frl_dfm_helper.c | 854 +++++++++++++++++++++++++++
+ include/drm/drm_frl_dfm_helper.h     | 129 ++++
+ 3 files changed, 986 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/drm_frl_dfm_helper.c
+ create mode 100644 include/drm/drm_frl_dfm_helper.h
+
+-- 
+2.32.0
+
