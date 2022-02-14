@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2873C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C233C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D03610E4FA;
-	Mon, 14 Feb 2022 10:55:52 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F5A510E4F7
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0998910E516;
+	Mon, 14 Feb 2022 10:55:57 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44AAF10E516
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644836150; x=1676372150;
+ t=1644836156; x=1676372156;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eqNUiYbsDo7gATT+mNfh8IuNM4MydhFp340ht6UmAzA=;
- b=enwGmF4UtkX9/HgtUeUbIxyXAoj1tkMO0nfh739kDtpRTjhvxmsE1xl1
- FOuxNyIvZhbk8YktXF2YlhIuZrjviN+HgTIg3i63UPglclq+IDOKiz2OK
- j1R05v9Ty8ajo3nEY5jJSU7XZis+cMjEpBFbXoleq1jaFOShWunOIBU3P
- cGNr9j8pi0k7m3OZAVKCTYLyuWLNG3OVqwRBwOaMz903qXyqA84qYltYV
- mSGTKyupq7c0IPXxUrJSMwhsx7/NIxWLBLdSzN3ZlwuXv+QGtgiJSYXor
- laMjKZR8kVKBRXSthz+jfZnfiStGTMzoumF/QqPJC5qtPBYm2amSw6SSc w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="310802951"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="310802951"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:55:50 -0800
+ bh=1EzmigTbH5GkGY2ZaTymV9ct2+8X8WIBjMVqQ5GsFAQ=;
+ b=MpyzIKKEst+sTE/354A39Xm9vqNJoS60FrERQSnszzt5LbhdK5ypdrt9
+ SHjxVncTgDuwrqyx3Udq0lwz4wEk6oA4rxirwzhdYLbT6LhauBZMoRjgO
+ KlgCM/jEL0VsbZYCCrYHGxcVJfjQ1fMPT4SArFUBthUyVJWmVD1V5DiLk
+ pwpIonR5UwY/E3D4olLr3kYv1d88Y1BpNonyWJ1iHmdaezJsjgIt4b3lf
+ 3L346I4dFvb2eOKlrMjmDBEgywnKzRnHbeHK+1kIOcFFEWDmTk3zCS30k
+ jwQ47du2uXxq66KeTaho3OGH+NWoYqrF2Gy63I91LNKiLYP5CPyf2CipU g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="248898022"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="248898022"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:55:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="680415328"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="587151537"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga001.fm.intel.com with SMTP; 14 Feb 2022 02:55:47 -0800
+ by fmsmga008.fm.intel.com with SMTP; 14 Feb 2022 02:55:37 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Feb 2022 12:55:46 +0200
+ Mon, 14 Feb 2022 12:55:36 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Feb 2022 12:55:32 +0200
-Message-Id: <20220214105532.13049-5-ville.syrjala@linux.intel.com>
+Date: Mon, 14 Feb 2022 12:55:29 +0200
+Message-Id: <20220214105532.13049-2-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220214105532.13049-1-ville.syrjala@linux.intel.com>
 References: <20220214105532.13049-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Pimp async flip debugs
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Don't skip ddb allocation if
+ data_rate==0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,157 +64,85 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Print the offending plane/crtc id+name in the async flip debugs.
+data_rate==0 no longer means a plane is disabled, it could
+also mean we want to use the minimum ddb allocation for it.
+Hence we can't bail out early during ddb allocation or
+else we'll simply forget to allocate any ddb for such planes.
 
 Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Fixes: 6a4d8cc6bbbf ("drm/i915: Don't allocate extra ddb during async flip for DG2")
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 63 ++++++++++++++------
- 1 file changed, 44 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/intel_pm.c | 30 ++++++++++++------------------
+ 1 file changed, 12 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 93db8ffa54f8..51ef393ff87b 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7541,18 +7541,24 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
- 	if (!new_crtc_state->uapi.async_flip)
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 1179bf31f743..ec2de4f13b5e 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -5114,12 +5114,15 @@ skl_allocate_plane_ddb(struct skl_plane_ddb_iter *iter,
+ 		       const struct skl_wm_level *wm,
+ 		       u64 data_rate)
+ {
+-	u16 extra;
++	u16 extra = 0;
  
--	if (intel_crtc_needs_modeset(new_crtc_state)) {
--		drm_dbg_kms(&i915->drm, "Modeset Required. Async flip not supported\n");
--		return -EINVAL;
--	}
--
- 	if (!new_crtc_state->hw.active) {
--		drm_dbg_kms(&i915->drm, "CRTC inactive\n");
-+		drm_dbg_kms(&i915->drm,
-+			    "[CRTC:%d:%s] not active\n",
-+			    crtc->base.base.id, crtc->base.name);
- 		return -EINVAL;
- 	}
-+
-+	if (intel_crtc_needs_modeset(new_crtc_state)) {
-+		drm_dbg_kms(&i915->drm,
-+			    "[CRTC:%d:%s] modeset required\n",
-+			    crtc->base.base.id, crtc->base.name);
-+		return -EINVAL;
+-	extra = min_t(u16, iter->size,
+-		      DIV64_U64_ROUND_UP(iter->size * data_rate, iter->data_rate));
+-	iter->size -= extra;
+-	iter->data_rate -= data_rate;
++	if (data_rate) {
++		extra = min_t(u16, iter->size,
++			      DIV64_U64_ROUND_UP(iter->size * data_rate,
++						 iter->data_rate));
++		iter->size -= extra;
++		iter->data_rate -= data_rate;
 +	}
-+
- 	if (old_crtc_state->active_planes != new_crtc_state->active_planes) {
- 		drm_dbg_kms(&i915->drm,
--			    "Active planes cannot be changed during async flip\n");
-+			    "[CRTC:%d:%s] Active planes cannot be in async flip\n",
-+			    crtc->base.base.id, crtc->base.name);
+ 
+ 	return wm->min_ddb_alloc + extra;
+ }
+@@ -5162,9 +5165,6 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
+ 	skl_ddb_entry_init(&crtc_state->wm.skl.plane_ddb_y[PLANE_CURSOR],
+ 			   alloc->end - iter.total[PLANE_CURSOR], alloc->end);
+ 
+-	if (iter.data_rate == 0)
+-		return 0;
+-
+ 	/*
+ 	 * Find the highest watermark level for which we can satisfy the block
+ 	 * requirement of active planes.
+@@ -5203,6 +5203,10 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
  		return -EINVAL;
  	}
  
-@@ -7593,75 +7599,94 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
- 			break;
- 		default:
- 			drm_dbg_kms(&i915->drm,
--				    "Linear memory/CCS does not support async flips\n");
-+				    "[PLANE:%d:%s] Modifier does not support async flips\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
++	/* avoid the WARN later when we don't allocate any extra DDB */
++	if (iter.data_rate == 0)
++		iter.size = 0;
++
+ 	/*
+ 	 * Grant each plane the blocks it requires at the highest achievable
+ 	 * watermark level, plus an extra share of the leftover blocks
+@@ -5215,20 +5219,10 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
+ 		if (plane_id == PLANE_CURSOR)
+ 			continue;
  
- 		if (new_plane_state->hw.fb->format->num_planes > 1) {
- 			drm_dbg_kms(&i915->drm,
--				    "Planar formats not supported with async flips\n");
-+				    "[PLANE:%d:%s] Planar formats do not support async flips\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
+-		/*
+-		 * We've accounted for all active planes; remaining planes are
+-		 * all disabled.
+-		 */
+-		if (iter.data_rate == 0)
+-			break;
+-
+ 		iter.total[plane_id] =
+ 			skl_allocate_plane_ddb(&iter, &wm->wm[level],
+ 					       crtc_state->plane_data_rate[plane_id]);
  
- 		if (old_plane_state->view.color_plane[0].mapping_stride !=
- 		    new_plane_state->view.color_plane[0].mapping_stride) {
--			drm_dbg_kms(&i915->drm, "Stride cannot be changed in async flip\n");
-+			drm_dbg_kms(&i915->drm,
-+				    "[PLANE:%d:%s] Stride cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.fb->modifier !=
- 		    new_plane_state->hw.fb->modifier) {
- 			drm_dbg_kms(&i915->drm,
--				    "Framebuffer modifiers cannot be changed in async flip\n");
-+				    "[PLANE:%d:%s] Modifier cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.fb->format !=
- 		    new_plane_state->hw.fb->format) {
- 			drm_dbg_kms(&i915->drm,
--				    "Framebuffer format cannot be changed in async flip\n");
-+				    "[PLANE:%d:%s] Pixel format cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.rotation !=
- 		    new_plane_state->hw.rotation) {
--			drm_dbg_kms(&i915->drm, "Rotation cannot be changed in async flip\n");
-+			drm_dbg_kms(&i915->drm,
-+				    "[PLANE:%d:%s] Rotation cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (!drm_rect_equals(&old_plane_state->uapi.src, &new_plane_state->uapi.src) ||
- 		    !drm_rect_equals(&old_plane_state->uapi.dst, &new_plane_state->uapi.dst)) {
- 			drm_dbg_kms(&i915->drm,
--				    "Plane size/co-ordinates cannot be changed in async flip\n");
-+				    "[PLANE:%d:%s] Size/co-ordinates cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.alpha != new_plane_state->hw.alpha) {
--			drm_dbg_kms(&i915->drm, "Alpha value cannot be changed in async flip\n");
-+			drm_dbg_kms(&i915->drm,
-+				    "[PLANES:%d:%s] Alpha value cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.pixel_blend_mode !=
- 		    new_plane_state->hw.pixel_blend_mode) {
- 			drm_dbg_kms(&i915->drm,
--				    "Pixel blend mode cannot be changed in async flip\n");
-+				    "[PLANE:%d:%s] Pixel blend mode cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.color_encoding != new_plane_state->hw.color_encoding) {
- 			drm_dbg_kms(&i915->drm,
--				    "Color encoding cannot be changed in async flip\n");
-+				    "[PLANE:%d:%s] Color encoding cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		if (old_plane_state->hw.color_range != new_plane_state->hw.color_range) {
--			drm_dbg_kms(&i915->drm, "Color range cannot be changed in async flip\n");
-+			drm_dbg_kms(&i915->drm,
-+				    "[PLANE:%d:%s] Color range cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
- 		}
- 
- 		/* plane decryption is allow to change only in synchronous flips */
--		if (old_plane_state->decrypt != new_plane_state->decrypt)
-+		if (old_plane_state->decrypt != new_plane_state->decrypt) {
-+			drm_dbg_kms(&i915->drm,
-+				    "[PLANE:%d:%s] Decryption cannot be changed in async flip\n",
-+				    plane->base.base.id, plane->base.name);
- 			return -EINVAL;
-+		}
- 	}
- 
- 	return 0;
+-		if (iter.data_rate == 0)
+-			break;
+-
+ 		iter.uv_total[plane_id] =
+ 			skl_allocate_plane_ddb(&iter, &wm->uv_wm[level],
+ 					       crtc_state->uv_plane_data_rate[plane_id]);
 -- 
 2.34.1
 
