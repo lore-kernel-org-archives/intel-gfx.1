@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 812D5C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:27:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB438C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAD9110E52C;
-	Mon, 14 Feb 2022 10:27:34 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 892E310E50F
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:27:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B6010E4F7;
+	Mon, 14 Feb 2022 10:55:50 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5BD10E4F7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644834453; x=1676370453;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=YkNyQX8Uc0oAmx3GK90LXZcU+WxM6AGNpZgPSqtWj6w=;
- b=MhTlEAdOodAfgyCi5bu7SZjeCnNN9t3RddgHI5nB+3Y9ReVGWA4xIyN+
- L7IH+OtmZQkC9Kx1HHe0j/rxSwOXNMRdPhGcP4ikR0DcigqJSnvZOGyqE
- oRKziuyd0ooVOHQt9u6JtYSM+prMaG/pEQ5XwlFr4MuUCe/ImYlhVDR4G
- FhJf+1YVy/NT0LcuHAixzGN+g1/MZkZei+GMv2NwlYUyFWHVX1LVw3/sl
- VTZApJePoSGM/K8aNuGMrmG4Re0ZymGlY0x/055BcFpzM/EQe1uF4d+Vi
- cnU9G715sXwgOn4AfEOjmLTSNKgn/VzBM7rK4cRh4iKX4+iYnnznHUkCp Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="233609327"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="233609327"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:27:33 -0800
+ t=1644836149; x=1676372149;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=wNZVF8nrEz5LekaN6iWPzYUrs3ddoFBM5PeaXeaQRAY=;
+ b=ZCVVzsQRrzu4FARgEyUVClleS0DGEXythUbrBAXvXdgEn4Ki8zVidXwx
+ 51KRzxlotCkgUcyqJBjZ2/CVQmQIO2aODO2m96ZUorQHv6jbDr7OQtOMY
+ tYB7SiUZW6xTG9kK9gZWpA773YPXk1I9H8WaTojACFUI8wTKgOMyiKyqS
+ oZgdRnpSDUzFZ+ZoHb0U7/KqAT3eyKqS6nVVeEiiT4aE0f9mXc8k8MuN4
+ R3Y/n+cB4MqAGDNYEfj8//ItxMiqckAkaqxG5uSbVb7DOrPmXDb9lQZFl
+ jxNHvlQ8YS7JJBfhbhtjYjfJh76Aqkx+Av+QGbnyzjYIOE4I7NomZ8BHY w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="250271666"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="250271666"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:55:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="501697068"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="538532368"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga002.jf.intel.com with SMTP; 14 Feb 2022 02:27:30 -0800
+ by fmsmga007.fm.intel.com with SMTP; 14 Feb 2022 02:55:44 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Feb 2022 12:27:30 +0200
-Date: Mon, 14 Feb 2022 12:27:30 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-Message-ID: <YgouksR7cIvoRGQA@intel.com>
-References: <20220214091811.13725-1-ville.syrjala@linux.intel.com>
- <20220214091811.13725-7-ville.syrjala@linux.intel.com>
- <20220214100011.GA24878@intel.com>
+ Mon, 14 Feb 2022 12:55:43 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 14 Feb 2022 12:55:31 +0200
+Message-Id: <20220214105532.13049-4-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220214105532.13049-1-ville.syrjala@linux.intel.com>
+References: <20220214105532.13049-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220214100011.GA24878@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 6/6] drm/i915: Pimp icl+ sagv pre/post update
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Fix the async flip wm0/ddb
+ optimization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,109 +59,219 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 14, 2022 at 12:00:11PM +0200, Lisovskiy, Stanislav wrote:
-> On Mon, Feb 14, 2022 at 11:18:11AM +0200, Ville Syrjala wrote:
-> > From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> > 
-> > Add some debugs on what exactly we're doing to the QGV point mask
-> > in the icl+ sagv pre/post plane update hooks. Currently we're just
-> > guessing.
-> > 
-> > Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-> > Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/intel_pm.c | 37 ++++++++++++++++-----------------
-> >  1 file changed, 18 insertions(+), 19 deletions(-)
-> 
-> Weird I think, I had those debugs initially. Definitely remember
-> there was something similar. Was it kinda removed later?
+From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
 
-Can't immediately see any such debugs being added or removed
-by any commit.
+The current implementation of the async flip wm0/ddb optimization
+does not work at all. The biggest problem is that we skip the
+whole intel_pipe_update_{start,end}() dance and thus never actually
+complete the commit that is trying to do the wm/ddb change.
 
-> 
-> Stan
-> 
-> Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
->  
-> > 
-> > diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> > index 8b70cdc3b58b..5d1f1a9988bb 100644
-> > --- a/drivers/gpu/drm/i915/intel_pm.c
-> > +++ b/drivers/gpu/drm/i915/intel_pm.c
-> > @@ -3818,26 +3818,22 @@ static void icl_sagv_pre_plane_update(struct intel_atomic_state *state)
-> >  		intel_atomic_get_old_bw_state(state);
-> >  	const struct intel_bw_state *new_bw_state =
-> >  		intel_atomic_get_new_bw_state(state);
-> > -	u32 new_mask;
-> > +	u32 old_mask, new_mask;
-> >  
-> >  	if (!new_bw_state)
-> >  		return;
-> >  
-> > -	/*
-> > -	 * Nothing to mask
-> > -	 */
-> > -	if (new_bw_state->qgv_points_mask == old_bw_state->qgv_points_mask)
-> > -		return;
-> > -
-> > +	old_mask = old_bw_state->qgv_points_mask;
-> >  	new_mask = old_bw_state->qgv_points_mask | new_bw_state->qgv_points_mask;
-> >  
-> > -	/*
-> > -	 * If new mask is zero - means there is nothing to mask,
-> > -	 * we can only unmask, which should be done in unmask.
-> > -	 */
-> > -	if (!new_mask)
-> > +	if (old_mask == new_mask)
-> >  		return;
-> >  
-> > +	WARN_ON(!new_bw_state->base.changed);
-> > +
-> > +	drm_dbg_kms(&dev_priv->drm, "Restricting QGV points: 0x%x -> 0x%x\n",
-> > +		    old_mask, new_mask);
-> > +
-> >  	/*
-> >  	 * Restrict required qgv points before updating the configuration.
-> >  	 * According to BSpec we can't mask and unmask qgv points at the same
-> > @@ -3854,19 +3850,22 @@ static void icl_sagv_post_plane_update(struct intel_atomic_state *state)
-> >  		intel_atomic_get_old_bw_state(state);
-> >  	const struct intel_bw_state *new_bw_state =
-> >  		intel_atomic_get_new_bw_state(state);
-> > -	u32 new_mask = 0;
-> > +	u32 old_mask, new_mask;
-> >  
-> >  	if (!new_bw_state)
-> >  		return;
-> >  
-> > -	/*
-> > -	 * Nothing to unmask
-> > -	 */
-> > -	if (new_bw_state->qgv_points_mask == old_bw_state->qgv_points_mask)
-> > -		return;
-> > -
-> > +	old_mask = old_bw_state->qgv_points_mask | new_bw_state->qgv_points_mask;
-> >  	new_mask = new_bw_state->qgv_points_mask;
-> >  
-> > +	if (old_mask == new_mask)
-> > +		return;
-> > +
-> > +	WARN_ON(!new_bw_state->base.changed);
-> > +
-> > +	drm_dbg_kms(&dev_priv->drm, "Relaxing QGV points: 0x%x -> 0x%x\n",
-> > +		    old_mask, new_mask);
-> > +
-> >  	/*
-> >  	 * Allow required qgv points after updating the configuration.
-> >  	 * According to BSpec we can't mask and unmask qgv points at the same
-> > -- 
-> > 2.34.1
-> > 
+To fix this we need to move the do_async_flip flag to the crtc
+state since we handle commits per-pipe, not per-plane.
 
+Also since all planes can now be included in the first/last
+"async flip" (which gets converted to a sync flip to do the
+wm/ddb mangling) we need to be more careful when checking if
+the plane state is async flip comptatible. Only planes doing
+the async flip should be checked and other planes are perfectly
+fine not adhereing to any async flip related limitations.
+
+However for subsequent commits which are actually going do the
+async flip in hardware we want to make sure no other planes
+are in the state. That should never happen assuming we did our
+job correctly, so we'll toss in a WARN to make sure we catch
+any bugs here.
+
+Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Fixes: c3639f3be480 ("drm/i915: Use wm0 only during async flips for DG2")
+Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_atomic.c   |  1 +
+ .../gpu/drm/i915/display/intel_atomic_plane.c |  5 +--
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 40 +++++++++++--------
+ .../drm/i915/display/intel_display_types.h    |  6 +--
+ 5 files changed, 31 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index e0667d163266..40da7910f845 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -262,6 +262,7 @@ intel_crtc_duplicate_state(struct drm_crtc *crtc)
+ 	crtc_state->preload_luts = false;
+ 	crtc_state->inherited = false;
+ 	crtc_state->wm.need_postvbl_update = false;
++	crtc_state->do_async_flip = false;
+ 	crtc_state->fb_bits = 0;
+ 	crtc_state->update_planes = 0;
+ 	crtc_state->dsb = NULL;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index bec02333bdeb..df92cb9c7ff6 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -109,7 +109,6 @@ intel_plane_duplicate_state(struct drm_plane *plane)
+ 	intel_state->ggtt_vma = NULL;
+ 	intel_state->dpt_vma = NULL;
+ 	intel_state->flags = 0;
+-	intel_state->do_async_flip = false;
+ 
+ 	/* add reference to fb */
+ 	if (intel_state->hw.fb)
+@@ -492,7 +491,7 @@ void intel_plane_update_arm(struct intel_plane *plane,
+ 
+ 	trace_intel_plane_update_arm(&plane->base, crtc);
+ 
+-	if (plane_state->do_async_flip)
++	if (crtc_state->do_async_flip && plane->async_flip)
+ 		plane->async_flip(plane, crtc_state, plane_state, true);
+ 	else
+ 		plane->update_arm(plane, crtc_state, plane_state);
+@@ -517,7 +516,7 @@ void intel_update_planes_on_crtc(struct intel_atomic_state *state,
+ 	struct intel_plane *plane;
+ 	int i;
+ 
+-	if (new_crtc_state->uapi.async_flip)
++	if (new_crtc_state->do_async_flip)
+ 		return;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 08ee3e17ee5c..65827481c1b1 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -485,7 +485,7 @@ void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state)
+ 		intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI);
+ 	DEFINE_WAIT(wait);
+ 
+-	if (new_crtc_state->uapi.async_flip)
++	if (new_crtc_state->do_async_flip)
+ 		return;
+ 
+ 	if (intel_crtc_needs_vblank_work(new_crtc_state))
+@@ -630,7 +630,7 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
+ 	ktime_t end_vbl_time = ktime_get();
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 
+-	if (new_crtc_state->uapi.async_flip)
++	if (new_crtc_state->do_async_flip)
+ 		return;
+ 
+ 	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5a8c7816d29e..93db8ffa54f8 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1231,10 +1231,8 @@ static void intel_crtc_enable_flip_done(struct intel_atomic_state *state,
+ 	int i;
+ 
+ 	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
+-		if (plane->enable_flip_done &&
+-		    plane->pipe == crtc->pipe &&
+-		    update_planes & BIT(plane->id) &&
+-		    plane_state->do_async_flip)
++		if (plane->pipe == crtc->pipe &&
++		    update_planes & BIT(plane->id))
+ 			plane->enable_flip_done(plane);
+ 	}
+ }
+@@ -1250,10 +1248,8 @@ static void intel_crtc_disable_flip_done(struct intel_atomic_state *state,
+ 	int i;
+ 
+ 	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
+-		if (plane->disable_flip_done &&
+-		    plane->pipe == crtc->pipe &&
+-		    update_planes & BIT(plane->id) &&
+-		    plane_state->do_async_flip)
++		if (plane->pipe == crtc->pipe &&
++		    update_planes & BIT(plane->id))
+ 			plane->disable_flip_done(plane);
+ 	}
+ }
+@@ -4772,7 +4768,7 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
+ 		new_crtc_state->disable_lp_wm = true;
+ 
+ 	if (intel_plane_do_async_flip(plane, old_crtc_state, new_crtc_state))
+-		new_plane_state->do_async_flip = true;
++		new_crtc_state->do_async_flip = true;
+ 
+ 	return 0;
+ }
+@@ -7566,14 +7562,24 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
+ 			continue;
+ 
+ 		/*
+-		 * TODO: Async flip is only supported through the page flip IOCTL
+-		 * as of now. So support currently added for primary plane only.
+-		 * Support for other planes on platforms on which supports
+-		 * this(vlv/chv and icl+) should be added when async flip is
+-		 * enabled in the atomic IOCTL path.
++		 * Only async flip capable planes should be in the state
++		 * if we're really about to ask the hardware to perform
++		 * an async flip. We should never get this far otherwise.
++		 */
++		if (drm_WARN_ON(&i915->drm,
++				new_crtc_state->do_async_flip && !plane->async_flip))
++			return -EINVAL;
++
++		/*
++		 * Only check async flip capable planes other planes
++		 * may be involved in the initial commit due to
++		 * the wm0/ddb optimization.
++		 *
++		 * TODO maybe should track which planes actually
++		 * were requested to do the async flip...
+ 		 */
+ 		if (!plane->async_flip)
+-			return -EINVAL;
++			continue;
+ 
+ 		/*
+ 		 * FIXME: This check is kept generic for all platforms.
+@@ -8527,7 +8533,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	intel_dbuf_pre_plane_update(state);
+ 
+ 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
+-		if (new_crtc_state->uapi.async_flip)
++		if (new_crtc_state->do_async_flip)
+ 			intel_crtc_enable_flip_done(state, crtc);
+ 	}
+ 
+@@ -8553,7 +8559,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	drm_atomic_helper_wait_for_flip_done(dev, &state->base);
+ 
+ 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
+-		if (new_crtc_state->uapi.async_flip)
++		if (new_crtc_state->do_async_flip)
+ 			intel_crtc_disable_flip_done(state, crtc);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 60e15226a8cb..adfd19b5a77d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -634,9 +634,6 @@ struct intel_plane_state {
+ 
+ 	struct intel_fb_view view;
+ 
+-	/* Indicates if async flip is required */
+-	bool do_async_flip;
+-
+ 	/* Plane pxp decryption state */
+ 	bool decrypt;
+ 
+@@ -972,6 +969,9 @@ struct intel_crtc_state {
+ 	bool preload_luts;
+ 	bool inherited; /* state inherited from BIOS? */
+ 
++	/* Ask the hardware to actually async flip? */
++	bool do_async_flip;
++
+ 	/* Pipe source size (ie. panel fitter input size)
+ 	 * All planes will be positioned inside this space,
+ 	 * and get clipped at the edges. */
 -- 
-Ville Syrj‰l‰
-Intel
+2.34.1
+
