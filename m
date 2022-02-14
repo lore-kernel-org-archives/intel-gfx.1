@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF5FC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 275CFC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 10:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02DC10E30F;
-	Mon, 14 Feb 2022 10:01:33 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D911D10E30F;
- Mon, 14 Feb 2022 10:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87FBB10E3B9;
+	Mon, 14 Feb 2022 10:05:22 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBEB610E3B9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644832890; x=1676368890;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6ki3B4SKMeAIMpeJIvZP+6K8tc+2XPgGgemO1vx5zbg=;
- b=M6dvmS59od6s9wViTZeLFcXsgVZEKwBY7pu4OMMBZV8kBBLz9cvBaG+s
- H4Jx2uBvgWLLje25DDtLSl++qqGMmyelpYfi8DjtQrBmxOe6TR9FKJBYz
- JpAh1+2zM4pBwN77Nw/XDjQwhs9JA2xSjp0HfFGmtmZ8t5It7ovGanovh
- rwyiiG7FxsMyVeGKVjHjOAGLuTOC+PkVG+dteEd/BsFSSyhFTgcn10D0r
- CGVSZ7Ld7uyMHD3yekpIOUmFVCiOpePRI1AGFgLkSjDiYyxXPb1qoyLTs
- ccASKxSMJmPzjzyTuWHECITmga9WtOfLCZD0VzLUe1GiXSh9r2nGeQwsb A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="274628589"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="274628589"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:01:30 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="543383384"
-Received: from unknown (HELO vandita-Z390-AORUS-ULTRA.iind.intel.com)
- ([10.190.238.8])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:01:28 -0800
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 14 Feb 2022 07:33:57 +0530
-Message-Id: <20220214020357.10063-6-vandita.kulkarni@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220214020357.10063-1-vandita.kulkarni@intel.com>
-References: <20220214020357.10063-1-vandita.kulkarni@intel.com>
+ t=1644833120; x=1676369120;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=IL3YihDfuvHQy2k7ONpPOfZoz5LYSI2xsdMMwC8NXdk=;
+ b=BoysNoDMFHDeIqNRDVXnjSbOop1LOX2Aye5NIgGS7a5rRD12UwzaSapN
+ IVOUVfu+gnh7pUlsiZ1FSeHovc2nWpw1DGRDKNoKla20V2q+y3KBPp8x9
+ fU6p7HgTOoQ04JzyOJyL+E9UgOCpkZm5xHyCWtFap7MLqBqDVR4CzkN+Y
+ rSruFomzb8q7nZwylhhIf+bDDd3A57k6EeD9r09Pku0oEunbDMcsUE2LW
+ gcdYSXEqIQ8GH5gVRuysxbsnq/TMrVf3DX4aIV4uU+gmVnMnu64n0QezV
+ 1/uaHjP6mPRcTKdIyn6rwFmSfNI469wJnCm0Jng8vg1+bhhd/VRnySKgV w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="230695995"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="230695995"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:05:20 -0800
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="635064689"
+Received: from unknown (HELO intel.com) ([10.237.72.65])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:05:18 -0800
+Date: Mon, 14 Feb 2022 12:05:36 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20220214100536.GB24878@intel.com>
+References: <20220214091811.13725-1-ville.syrjala@linux.intel.com>
+ <20220214091811.13725-3-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC v2 5/5] drm/hdmi21: Add frl_dfm_helper to Makefile
+In-Reply-To: <20220214091811.13725-3-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915: Fix bw atomic check when
+ switching between SAGV vs. no SAGV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,33 +59,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- laurent.pinchart@ideasonboard.com
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the new frl_dfm_helper file to drm Makefile
+On Mon, Feb 14, 2022 at 11:18:07AM +0200, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> If the only thing that is changing is SAGV vs. no SAGV but
+> the number of active planes and the total data rates end up
+> unchanged we currently bail out of intel_bw_atomic_check()
+> early and forget to actually compute the new WGV point
+> mask and thus won't actually enable/disable SAGV as requested.
+> This ends up poorly if we end up running with SAGV enabled
+> when we shouldn't. Usually ends up in underruns.
+> To fix this let's go through the QGV point mask computation
+> if anyone else already added the bw state for us.
 
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
----
- drivers/gpu/drm/Makefile | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Haven't been looking this in a while. Despite we have been
+looking like few revisions together still some bugs :(
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 8675c2af7ae1..81fe3df8bfda 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -57,7 +57,9 @@ drm_kms_helper-y := drm_bridge_connector.o drm_crtc_helper.o \
- 		drm_scdc_helper.o drm_gem_atomic_helper.o \
- 		drm_gem_framebuffer_helper.o \
- 		drm_atomic_state_helper.o drm_damage_helper.o \
--		drm_format_helper.o drm_self_refresh_helper.o drm_rect.o
-+		drm_format_helper.o drm_self_refresh_helper.o drm_rect.o \
-+		drm_frl_dfm_helper.o
-+
- drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
- drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fb_helper.o
- 
--- 
-2.32.0
+I thought SAGV vs No SAGV can't change if active planes 
+or data rate didn't change? Because it means we probably
+still have same ddb allocations, which means SAGV state
+will just stay the same.
 
+Stan
+
+> 
+> Cc: stable@vger.kernel.org
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Fixes: 20f505f22531 ("drm/i915: Restrict qgv points which don't have enough bandwidth.")
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_bw.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+> index 23aa8e06de18..d72ccee7d53b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> @@ -846,6 +846,13 @@ int intel_bw_atomic_check(struct intel_atomic_state *state)
+>  	if (num_psf_gv_points > 0)
+>  		mask |= REG_GENMASK(num_psf_gv_points - 1, 0) << ADLS_PSF_PT_SHIFT;
+>  
+> +	/*
+> +	 * If we already have the bw state then recompute everything
+> +	 * even if pipe data_rate / active_planes didn't change.
+> +	 * Other things (such as SAGV) may have changed.
+> +	 */
+> +	new_bw_state = intel_atomic_get_new_bw_state(state);
+> +
+>  	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
+>  					    new_crtc_state, i) {
+>  		unsigned int old_data_rate =
+> -- 
+> 2.34.1
+> 
