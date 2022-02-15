@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7097C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 18:32:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61212C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 18:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1175E10E51C;
-	Tue, 15 Feb 2022 18:32:44 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CBA310E51C
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 18:32:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C206F10E534;
+	Tue, 15 Feb 2022 18:32:48 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555E710E539
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 18:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644949961; x=1676485961;
+ t=1644949967; x=1676485967;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=MPJR6xIvoGoHr19GD1rFGU8CAx0B6m5+dnVJspZfobo=;
- b=KGRyShD9aBzVTDhMA3upZ8Y17rQvvfwQdcA414u2cZhUocR0bE72leqB
- RLhg2E+zf/Wbxrh6IrcybTj9QnLPKDRXRlCSQ8w7Ajd221unusmW7SrQk
- TKxZxog+974pTE71n7gPrMefHlscqqHrUNxBvtlBNit3Ob8/D2XJJ1rku
- XZknsIUe4aXFqf5gDPR3+yzx16ptQuq/Er1mjkzj9WdvxQ1sA2mCOUZSB
- 2cI07YfcVfeW/jqS7VG7vbFwTX7NcgWd8K73+wql7uLCpdFVCzBLfrNBF
- y/uJjoHNtwRCRMxzBGzHJcirRzC0ovCvHSsk2qKbrNETFgPFUGhl2oMa7 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="233967893"
-X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="233967893"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2022 10:32:40 -0800
+ bh=w86nN8CmYD/vkhOT1kXV9M3eO5gxoS29Og0+Fpe/kkY=;
+ b=DsIlUR4H1OFOupcJhxaljyJ4tJTBznc37vQwcEmJEbNYyKj5DDWQVMhT
+ 89ANF59pg7VZOrX/ZlAGS2QyWVxcxXlghuBUFAKehgPY1+6XJ7u2dIekl
+ UH3ZAAc+SkcfUsRAi+NtXdkYuhQH316dNG5fPukzQHuLhH8K/LiPtjxYU
+ 2uj8sxVgQLMUD7UdtC7zQtVMIuznqlPgMAfAUuqpLZ4ZN7UduZ8zdmi5A
+ pA9xI74DKTYyoGZefZgfhpIUZlDf03AY55kXinv8ce3o8CwBZ4yHm+OPs
+ 0X67fXdpd8UZMqyveH2vsg8cyMEz6hy+Al/vkB84PCxaAIAZb/DInnOCC w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="250371105"
+X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="250371105"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2022 10:32:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="587849628"
+X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="539472506"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga008.fm.intel.com with SMTP; 15 Feb 2022 10:32:38 -0800
+ by fmsmga007.fm.intel.com with SMTP; 15 Feb 2022 10:32:44 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 15 Feb 2022 20:32:37 +0200
+ Tue, 15 Feb 2022 20:32:43 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Feb 2022 20:32:06 +0200
-Message-Id: <20220215183208.6143-11-ville.syrjala@linux.intel.com>
+Date: Tue, 15 Feb 2022 20:32:08 +0200
+Message-Id: <20220215183208.6143-13-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220215183208.6143-1-ville.syrjala@linux.intel.com>
 References: <20220215183208.6143-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/12] drm/i915: Eliminate bigjoiner boolean
+Subject: [Intel-gfx] [PATCH 12/12] drm/i915: Make the PIPESC rect relative
+ to the entire bigjoiner area
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,329 +64,148 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Since we now have the bigjoiner_pipes bitmask the boolean
-is redundant. Get rid of it.
-
-Also, populating bigjoiner_pipes already during
-encoder->compute_config() allows us to use it much earlier
-during the state calculation as well. The initial aim is
-to use it in intel_crtc_compute_config().
+When using bigjoiner it's useful to know the offset of each
+individual pipe in the whole set of joined pipes. Let's include
+that information in our PIPESRC rectangle. With this we can make
+the plane clipping code blissfully unaware of bigjoiner usage, as
+all we have to do is remove the pipe's offset from the final plane
+destination coordinates.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 50 ++++++++-----------
- .../drm/i915/display/intel_display_debugfs.c  |  2 +-
- .../drm/i915/display/intel_display_types.h    |  3 --
- drivers/gpu/drm/i915/display/intel_dp.c       | 13 ++---
- drivers/gpu/drm/i915/display/intel_vdsc.c     |  8 +--
- .../drm/i915/display/skl_universal_plane.c    |  2 +-
- 7 files changed, 36 insertions(+), 44 deletions(-)
+ .../gpu/drm/i915/display/intel_atomic_plane.c |  7 +++---
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  8 ++++---
+ drivers/gpu/drm/i915/display/intel_display.c  | 21 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_overlay.c  | 22 +++++++++----------
+ 4 files changed, 40 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 1f448f4e9aaf..da6cf0515164 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -640,7 +640,7 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 	 * FIXME bigjoiner fastpath would be good
- 	 */
- 	if (!crtc_state->hw.active || intel_crtc_needs_modeset(crtc_state) ||
--	    crtc_state->update_pipe || crtc_state->bigjoiner)
-+	    crtc_state->update_pipe || crtc_state->bigjoiner_pipes)
- 		goto slow;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index 4f5a17e008a5..ab25be519193 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -628,10 +628,6 @@ int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
+ 		return -ERANGE;
+ 	}
  
+-	/* right side of the image is on the slave crtc, adjust dst to match */
+-	if (intel_crtc_is_bigjoiner_slave(crtc_state))
+-		drm_rect_translate(dst, -drm_rect_width(&crtc_state->pipe_src), 0);
+-
  	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 47b5d8cc16fd..192474163edb 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1926,7 +1926,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
- 	if (drm_WARN_ON(&dev_priv->drm, crtc->active))
- 		return;
+ 	 * FIXME: This might need further adjustment for seamless scaling
+ 	 * with phase information, for the 2p2 and 2p1 scenarios.
+@@ -648,6 +644,9 @@ int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
+ 		return -EINVAL;
+ 	}
  
--	if (!new_crtc_state->bigjoiner) {
-+	if (!new_crtc_state->bigjoiner_pipes) {
- 		intel_encoders_pre_pll_enable(state, crtc);
- 
- 		if (new_crtc_state->shared_dpll)
-@@ -2727,7 +2727,7 @@ static void intel_crtc_compute_pixel_rate(struct intel_crtc_state *crtc_state)
- static void intel_bigjoiner_adjust_timings(const struct intel_crtc_state *crtc_state,
- 					   struct drm_display_mode *mode)
- {
--	if (!crtc_state->bigjoiner)
-+	if (!crtc_state->bigjoiner_pipes)
- 		return;
- 
- 	mode->crtc_clock /= 2;
-@@ -2811,7 +2811,7 @@ static void intel_bigjoiner_compute_pipe_src(struct intel_crtc_state *crtc_state
- {
- 	int width, height;
- 
--	if (!crtc_state->bigjoiner)
-+	if (!crtc_state->bigjoiner_pipes)
- 		return;
- 
- 	width = drm_rect_width(&crtc_state->pipe_src);
-@@ -4218,7 +4218,6 @@ static void intel_bigjoiner_get_config(struct intel_crtc_state *crtc_state)
- 	if (((master_pipes | slave_pipes) & BIT(pipe)) == 0)
- 		return;
- 
--	crtc_state->bigjoiner = true;
- 	crtc_state->bigjoiner_pipes =
- 		BIT(get_bigjoiner_master_pipe(pipe, master_pipes, slave_pipes)) |
- 		get_bigjoiner_slave_pipes(pipe, master_pipes, slave_pipes);
-@@ -5804,6 +5803,9 @@ copy_bigjoiner_crtc_state_modeset(struct intel_atomic_state *state,
- 		intel_atomic_get_new_crtc_state(state, master_crtc);
- 	struct intel_crtc_state *saved_state;
- 
-+	WARN_ON(master_crtc_state->bigjoiner_pipes !=
-+		slave_crtc_state->bigjoiner_pipes);
-+
- 	saved_state = kmemdup(master_crtc_state, sizeof(*saved_state), GFP_KERNEL);
- 	if (!saved_state)
- 		return -ENOMEM;
-@@ -5834,6 +5836,9 @@ copy_bigjoiner_crtc_state_modeset(struct intel_atomic_state *state,
- 	slave_crtc_state->uapi.connectors_changed = master_crtc_state->uapi.connectors_changed;
- 	slave_crtc_state->uapi.active_changed = master_crtc_state->uapi.active_changed;
- 
-+	WARN_ON(master_crtc_state->bigjoiner_pipes !=
-+		slave_crtc_state->bigjoiner_pipes);
++	/* final plane coordinates will be relative to the plane's pipe */
++	drm_rect_translate(dst, -clip->x1, -clip->y1);
 +
  	return 0;
  }
  
-@@ -6604,7 +6609,6 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index da6cf0515164..9279e2783e7e 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -152,9 +152,11 @@ static int intel_check_cursor(struct intel_crtc_state *crtc_state,
+ 	/* Use the unclipped src/dst rectangles, which we program to hw */
+ 	plane_state->uapi.src = src;
+ 	plane_state->uapi.dst = dst;
+-	if (intel_crtc_is_bigjoiner_slave(crtc_state))
+-		drm_rect_translate(&plane_state->uapi.dst,
+-				   -drm_rect_width(&crtc_state->pipe_src), 0);
++
++	/* final plane coordinates will be relative to the plane's pipe */
++	drm_rect_translate(&plane_state->uapi.dst,
++			   -crtc_state->pipe_src.x1,
++			   -crtc_state->pipe_src.y1);
  
- 	PIPE_CONF_CHECK_X(sync_mode_slaves_mask);
- 	PIPE_CONF_CHECK_I(master_transcoder);
--	PIPE_CONF_CHECK_BOOL(bigjoiner);
- 	PIPE_CONF_CHECK_X(bigjoiner_pipes);
- 
- 	PIPE_CONF_CHECK_I(dsc.compression_enable);
-@@ -7535,32 +7539,26 @@ static int intel_atomic_check_bigjoiner(struct intel_atomic_state *state,
- 	struct intel_crtc_state *master_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, master_crtc);
- 	struct intel_crtc *slave_crtc;
--	u8 slave_pipes;
- 
--	/*
--	 * TODO: encoder.compute_config() may be the best
--	 * place to populate the bitmask for the master crtc.
--	 * For now encoder.compute_config() just flags things
--	 * as needing bigjoiner and we populate the bitmask
--	 * here.
--	 */
--	WARN_ON(master_crtc_state->bigjoiner_pipes);
--
--	if (!master_crtc_state->bigjoiner)
-+	if (!master_crtc_state->bigjoiner_pipes)
- 		return 0;
- 
--	slave_pipes = BIT(master_crtc->pipe + 1);
-+	/* sanity check */
-+	if (drm_WARN_ON(&i915->drm,
-+			master_crtc->pipe != bigjoiner_master_pipe(master_crtc_state)))
-+		return -EINVAL;
- 
--	if (slave_pipes & ~bigjoiner_pipes(i915)) {
-+	if (master_crtc_state->bigjoiner_pipes & ~bigjoiner_pipes(i915)) {
- 		drm_dbg_kms(&i915->drm,
- 			    "[CRTC:%d:%s] Cannot act as big joiner master "
--			    "(need 0x%x as slave pipes, only 0x%x possible)\n",
-+			    "(need 0x%x as pipes, only 0x%x possible)\n",
- 			    master_crtc->base.base.id, master_crtc->base.name,
--			    slave_pipes, bigjoiner_pipes(i915));
-+			    master_crtc_state->bigjoiner_pipes, bigjoiner_pipes(i915));
- 		return -EINVAL;
+ 	ret = intel_cursor_check_surface(plane_state);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 0690470eab97..628599958afd 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3195,6 +3195,23 @@ static void intel_get_transcoder_timings(struct intel_crtc *crtc,
  	}
- 
--	for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc, slave_pipes) {
-+	for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
-+					 intel_crtc_bigjoiner_slave_pipes(master_crtc_state)) {
- 		struct intel_crtc_state *slave_crtc_state;
- 		int ret;
- 
-@@ -7594,10 +7592,8 @@ static int intel_atomic_check_bigjoiner(struct intel_atomic_state *state,
- 			    slave_crtc->base.base.id, slave_crtc->base.name,
- 			    master_crtc->base.base.id, master_crtc->base.name);
- 
--		master_crtc_state->bigjoiner_pipes =
--			BIT(master_crtc->pipe) | BIT(slave_crtc->pipe);
- 		slave_crtc_state->bigjoiner_pipes =
--			BIT(master_crtc->pipe) | BIT(slave_crtc->pipe);
-+			master_crtc_state->bigjoiner_pipes;
- 
- 		ret = copy_bigjoiner_crtc_state_modeset(state, slave_crtc);
- 		if (ret)
-@@ -7620,13 +7616,11 @@ static void kill_bigjoiner_slave(struct intel_atomic_state *state,
- 		struct intel_crtc_state *slave_crtc_state =
- 			intel_atomic_get_new_crtc_state(state, slave_crtc);
- 
--		slave_crtc_state->bigjoiner = false;
- 		slave_crtc_state->bigjoiner_pipes = 0;
- 
- 		intel_crtc_copy_uapi_to_hw_state_modeset(state, slave_crtc);
- 	}
- 
--	master_crtc_state->bigjoiner = false;
- 	master_crtc_state->bigjoiner_pipes = 0;
  }
  
-@@ -7936,7 +7930,7 @@ static int intel_atomic_check(struct drm_device *dev,
- 			}
- 		}
- 
--		if (new_crtc_state->bigjoiner) {
-+		if (new_crtc_state->bigjoiner_pipes) {
- 			if (intel_pipes_need_modeset(state, new_crtc_state->bigjoiner_pipes)) {
- 				new_crtc_state->uapi.mode_changed = true;
- 				new_crtc_state->update_pipe = false;
-@@ -10338,7 +10332,7 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
- 			intel_encoder_get_config(encoder, crtc_state);
- 
- 			/* read out to slave crtc as well for bigjoiner */
--			if (crtc_state->bigjoiner) {
-+			if (crtc_state->bigjoiner_pipes) {
- 				struct intel_crtc *slave_crtc;
- 
- 				/* encoder should read be linked to bigjoiner master */
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 475ae7e7f760..c87718ae2c46 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -935,7 +935,7 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
- 		intel_scaler_info(m, crtc);
- 	}
- 
--	if (crtc_state->bigjoiner)
-+	if (crtc_state->bigjoiner_pipes)
- 		seq_printf(m, "\tLinked to 0x%x pipes as a %s\n",
- 			   crtc_state->bigjoiner_pipes,
- 			   intel_crtc_is_bigjoiner_slave(crtc_state) ? "slave" : "master");
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index c1a291b6b638..92357fdbd0f0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1199,9 +1199,6 @@ struct intel_crtc_state {
- 	/* enable pipe csc? */
- 	bool csc_enable;
- 
--	/* enable pipe big joiner? */
--	bool bigjoiner;
--
- 	/* big joiner pipe bitmask */
- 	u8 bigjoiner_pipes;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1046e7fe310a..05e1da3c43e2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1424,13 +1424,13 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 						    pipe_config->lane_count,
- 						    adjusted_mode->crtc_clock,
- 						    adjusted_mode->crtc_hdisplay,
--						    pipe_config->bigjoiner,
-+						    pipe_config->bigjoiner_pipes,
- 						    pipe_bpp);
- 		dsc_dp_slice_count =
- 			intel_dp_dsc_get_slice_count(intel_dp,
- 						     adjusted_mode->crtc_clock,
- 						     adjusted_mode->crtc_hdisplay,
--						     pipe_config->bigjoiner);
-+						     pipe_config->bigjoiner_pipes);
- 		if (!dsc_max_output_bpp || !dsc_dp_slice_count) {
- 			drm_dbg_kms(&dev_priv->drm,
- 				    "Compressed BPP/Slice Count not supported\n");
-@@ -1464,7 +1464,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	 * then we need to use 2 VDSC instances.
- 	 */
- 	if (adjusted_mode->crtc_clock > dev_priv->max_cdclk_freq ||
--	    pipe_config->bigjoiner) {
-+	    pipe_config->bigjoiner_pipes) {
- 		if (pipe_config->dsc.slice_count < 2) {
- 			drm_dbg_kms(&dev_priv->drm,
- 				    "Cannot split stream to use 2 VDSC instances\n");
-@@ -1500,6 +1500,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 			     struct drm_connector_state *conn_state)
++static void intel_bigjoiner_adjust_pipe_src(struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	int num_pipes = hweight8(crtc_state->bigjoiner_pipes);
++	enum pipe master_pipe, pipe = crtc->pipe;
++	int width;
++
++	if (num_pipes < 2)
++		return;
++
++	master_pipe = bigjoiner_master_pipe(crtc_state);
++	width = drm_rect_width(&crtc_state->pipe_src);
++
++	drm_rect_translate_to(&crtc_state->pipe_src,
++			      (pipe - master_pipe) * width, 0);
++}
++
+ static void intel_get_pipe_src_size(struct intel_crtc *crtc,
+ 				    struct intel_crtc_state *pipe_config)
  {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
- 	const struct drm_display_mode *adjusted_mode =
- 		&pipe_config->hw.adjusted_mode;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-@@ -1537,7 +1538,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+@@ -3207,6 +3224,8 @@ static void intel_get_pipe_src_size(struct intel_crtc *crtc,
+ 	drm_rect_init(&pipe_config->pipe_src, 0, 0,
+ 		      REG_FIELD_GET(PIPESRC_WIDTH_MASK, tmp) + 1,
+ 		      REG_FIELD_GET(PIPESRC_HEIGHT_MASK, tmp) + 1);
++
++	intel_bigjoiner_adjust_pipe_src(pipe_config);
+ }
  
- 	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
- 				    adjusted_mode->crtc_clock))
--		pipe_config->bigjoiner = true;
-+		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
+ static void i9xx_set_pipeconf(const struct intel_crtc_state *crtc_state)
+@@ -6034,6 +6053,8 @@ intel_modeset_pipe_config_late(struct intel_crtc_state *crtc_state)
+ 	struct drm_connector *connector;
+ 	int i;
  
- 	/*
- 	 * Optimize for slow and wide for everything, because there are some
-@@ -1550,8 +1551,8 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 	 * onwards pipe joiner can be enabled without compression.
- 	 */
- 	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
--	if (ret || intel_dp->force_dsc_en || (DISPLAY_VER(i915) < 13 &&
--					      pipe_config->bigjoiner)) {
-+	if (ret || intel_dp->force_dsc_en ||
-+	    (DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes)) {
- 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
- 						  conn_state, &limits);
- 		if (ret < 0)
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 545eff5bf158..28a1c982750e 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -579,7 +579,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 	u8 num_vdsc_instances = (crtc_state->dsc.dsc_split) ? 2 : 1;
- 	int i = 0;
++	intel_bigjoiner_adjust_pipe_src(crtc_state);
++
+ 	for_each_new_connector_in_state(&state->base, connector,
+ 					conn_state, i) {
+ 		struct intel_encoder *encoder =
+diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+index 631e1f1dc5e6..ee46561b5ae8 100644
+--- a/drivers/gpu/drm/i915/display/intel_overlay.c
++++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+@@ -958,21 +958,21 @@ static void update_pfit_vscale_ratio(struct intel_overlay *overlay)
+ static int check_overlay_dst(struct intel_overlay *overlay,
+ 			     struct drm_intel_overlay_put_image *rec)
+ {
+-	const struct intel_crtc_state *pipe_config =
++	const struct intel_crtc_state *crtc_state =
+ 		overlay->crtc->config;
+-	int pipe_src_w = drm_rect_width(&pipe_config->pipe_src);
+-	int pipe_src_h = drm_rect_height(&pipe_config->pipe_src);
++	struct drm_rect req, clipped;
  
--	if (crtc_state->bigjoiner)
-+	if (crtc_state->bigjoiner_pipes)
- 		num_vdsc_instances *= 2;
+-	if (rec->dst_height == 0 || rec->dst_width == 0)
+-		return -EINVAL;
++	drm_rect_init(&req, rec->dst_x, rec->dst_y,
++		      rec->dst_width, rec->dst_height);
++
++	clipped = req;
++	drm_rect_intersect(&clipped, &crtc_state->pipe_src);
  
- 	/* Populate PICTURE_PARAMETER_SET_0 registers */
-@@ -1113,7 +1113,7 @@ void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crtc_state)
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 dss_ctl1_val = 0;
+-	if (rec->dst_x < pipe_src_w &&
+-	    rec->dst_x + rec->dst_width <= pipe_src_w &&
+-	    rec->dst_y < pipe_src_h &&
+-	    rec->dst_y + rec->dst_height <= pipe_src_h)
+-		return 0;
+-	else
++	if (!drm_rect_visible(&clipped) ||
++	    !drm_rect_equals(&clipped, &req))
+ 		return -EINVAL;
++
++	return 0;
+ }
  
--	if (crtc_state->bigjoiner && !crtc_state->dsc.compression_enable) {
-+	if (crtc_state->bigjoiner_pipes && !crtc_state->dsc.compression_enable) {
- 		if (intel_crtc_is_bigjoiner_slave(crtc_state))
- 			dss_ctl1_val |= UNCOMPRESSED_JOINER_SLAVE;
- 		else
-@@ -1140,7 +1140,7 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
- 		dss_ctl2_val |= RIGHT_BRANCH_VDSC_ENABLE;
- 		dss_ctl1_val |= JOINER_ENABLE;
- 	}
--	if (crtc_state->bigjoiner) {
-+	if (crtc_state->bigjoiner_pipes) {
- 		dss_ctl1_val |= BIG_JOINER_ENABLE;
- 		if (!intel_crtc_is_bigjoiner_slave(crtc_state))
- 			dss_ctl1_val |= MASTER_BIG_JOINER_ENABLE;
-@@ -1156,7 +1156,7 @@ void intel_dsc_disable(const struct intel_crtc_state *old_crtc_state)
- 
- 	/* Disable only if either of them is enabled */
- 	if (old_crtc_state->dsc.compression_enable ||
--	    old_crtc_state->bigjoiner) {
-+	    old_crtc_state->bigjoiner_pipes) {
- 		intel_de_write(dev_priv, dss_ctl1_reg(crtc, old_crtc_state->cpu_transcoder), 0);
- 		intel_de_write(dev_priv, dss_ctl2_reg(crtc, old_crtc_state->cpu_transcoder), 0);
- 	}
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index c73758d18b6f..925e0bd8bb72 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2284,7 +2284,7 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
- 
- 	drm_WARN_ON(dev, pipe != crtc->pipe);
- 
--	if (crtc_state->bigjoiner) {
-+	if (crtc_state->bigjoiner_pipes) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Unsupported bigjoiner configuration for initial FB\n");
- 		return;
+ static int check_overlay_scaling(struct drm_intel_overlay_put_image *rec)
 -- 
 2.34.1
 
