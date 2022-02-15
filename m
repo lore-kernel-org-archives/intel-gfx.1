@@ -4,126 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E85C0C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:17:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6EAC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:17:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E395810E579;
-	Tue, 15 Feb 2022 14:17:14 +0000 (UTC)
-Received: from APC01-HK2-obe.outbound.protection.outlook.com
- (mail-eopbgr1300093.outbound.protection.outlook.com [40.107.130.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754C810E122;
- Tue, 15 Feb 2022 01:56:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e6UQWV4bqEDJDGfdCFd6Pkg7SdRTh6+CSZJpFaA7F4MRkZi7s8vXECdwYSpLY0Q8sHcLhE98L3nSKrkcTW2sHh0T0cM9BJLECcsSaYeBxuXVZthTml4peUxptH3hnStvK0c62nO4R+w6ur8cvNT1pqRlqne2gHo9PBPq1ZojJaDhwxf4Lr3eHx8Vtw89h8VDDFMyFc0rBZQkrmJZKjmYEXCGS++fuvUyL5HIWUcYKD7TNmXuMMUphXNUKAZ0aZRcjpdBMGofxNX3Zl5hV88pYaWKRlhZrYZNnZW0XCuNawPYAyhm8dB38dJx9BBJWCL4o6qUC1WEacZnA5x3I+bR8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yrGpKWbmRp/53st+CREaW7lUNhmT8V/Jkoa0ucLI3So=;
- b=A9ZNuTRG6C9jWDrPfbPeHSv+G2PAf1WG+1xfeiIBJfYVGLTFJEsQBxVKQVFbVZaq8S8riNedShGZqhXQ4rVweXJOEgEhWoAxaD6VZP8ujchjC46fooRSwbXesKUjAhM3j7y9Y6sN9uJ5dF03QUvCGHYY0m546Mmn3SGbXX2ZRNj9E1pdGWhH6usstRJdqPxrGpP2a8N2tGebRihfVPK4zUZbso0iFbgApzDyhdg6JsHLruUdA/SQ+w5EKzJPwxeLdaxDKKPAENlOt0YKHmXojkvyrRQYB9pDM4mv9T6DaOh4JM00HJCQBWGeeyoG+tPDF3MJu469ZgVRuuJGXBFhDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yrGpKWbmRp/53st+CREaW7lUNhmT8V/Jkoa0ucLI3So=;
- b=RsEPiHO8X6r80bTwPLzwXmsIYsMUKr/BMrD5n1U5+KWQIxEKEm0skCqdtifp9wL6Y0WvIsWI7G19VuSaS5rUQQYWrNHX0/ml4ZFjN0vwKlscJk4VyH7rqMlk2lrjFZqIL5/Vd52BNVXYbdOkqttynGb+VzoZieJGLttFlIKU+Nc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by PS1PR0601MB1866.apcprd06.prod.outlook.com (2603:1096:803:6::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Tue, 15 Feb
- 2022 01:56:37 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
- 01:56:37 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
- dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Date: Mon, 14 Feb 2022 17:55:42 -0800
-Message-Id: <1644890154-64915-6-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
-References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR06CA0012.apcprd06.prod.outlook.com
- (2603:1096:202:2e::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B9C10E5F9;
+	Tue, 15 Feb 2022 14:17:19 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F16810E14D;
+ Tue, 15 Feb 2022 04:03:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: krisman) with ESMTPSA id A6AEC1F43572
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1644897824;
+ bh=VG0gC/LlBYOoQhn5utxIdgmPSt7IfHbptUv0GV7NTBo=;
+ h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
+ b=Ub6dmZitRz45cR9qIKXjTsVXU7KmUgK7H9oGw3VoIqMVy2lNgKyINSxJJ4Mxa9LeQ
+ OSnaNgDQeenPnKVsHAu7FJW2ksmbmmFKxFZ9DhHBEOytGwf5+mTHiU3/rYyeYKZgAI
+ 353erPgVFDlsdFJrWkpczRGLtWgrEDwEWidKsuTfjbzacs2ubqbjvCv53HpQkQgTDO
+ sveWRuEs68cTQpVqRLx8QCaXWu0m6E77IzTClO5SoAIoZgIg7biB2Noa4C7YbpiD3/
+ +EhnyHcdKXZg/HDB7nczR4ihB2+cz0qN/2Cx4c4omJOGZErQyt9d55dDNGrym2WOmM
+ PBwrKU+TudUGg==
+From: Gabriel Krisman Bertazi <krisman@collabora.com>
+To: Hsin-Yi Wang <hsinyi@chromium.org>
+Organization: Collabora
+References: <20220208084234.1684930-1-hsinyi@chromium.org>
+ <87leydhqt3.fsf@collabora.com>
+ <CAJMQK-igpiYj-pkgG9amrQuVzf1Mc9BDDOwOdKLUbceKr=CHiQ@mail.gmail.com>
+Date: Mon, 14 Feb 2022 23:03:39 -0500
+In-Reply-To: <CAJMQK-igpiYj-pkgG9amrQuVzf1Mc9BDDOwOdKLUbceKr=CHiQ@mail.gmail.com>
+ (Hsin-Yi Wang's message of "Tue, 15 Feb 2022 11:15:02 +0800")
+Message-ID: <87czjoixno.fsf@collabora.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eadfbac3-950b-4e51-be2f-08d9f0266665
-X-MS-TrafficTypeDiagnostic: PS1PR0601MB1866:EE_
-X-Microsoft-Antispam-PRVS: <PS1PR0601MB18668268A528DD80828EFBA2BD349@PS1PR0601MB1866.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sIoEfQemArsyulB5SoveymUgtCUx2xxzYy8UevUrqedCT7AVUtfGLKgvtMBl0B/j0EFZtGoiarNcH0PsWYj2P+d8+4QAJNKvHrhdlYWVdbc4ixPwQ1jgMreZmSC46pFJccm8h+uCIABXQnQjBDyEod3T9odut8IXpDteejFmeIShKCNcxGrOBoiUa2lyIk7HdzLaQFOoryvMWaKvIzf9sgCVpk/wduHsDQztJD/vhbPWtmuw1UAkiO+6V4gmhZhrjcizlPcNipi/GK4cmFP126zxjn+M3c3Td+PVzFZxS3uec3CDqfVXn4k10jQKHIqrFpnVit1cY6ilZYbqopl9t2P0lz8q4iNK1cPdle6dEHVWChAkoukdmkqW7VnBBXlMe5fT2CCyUQGbMCyXMOtquTaVZfXthJFjT69L5ImDDcsqx6xx1lJ/t8H+HRsDojEe1rsmL0iTwWmMqW83OWJUQuV4DP5tEgAg6J7XFG89MDCuTXKw1sw6EPJ0cTNrxaRjJuPQ+cbh9J5drX4jIP6kDFycWDx3Zwq7XDlA6bNoph+ddqV5CPk0RLIvPfFpRDDiTtVOqnV0mai7+5iyBHerM+utD9M02oxH3OccGhwNLYXoNELDpNuWLwse00MdUTJtpQR71T3cE5Gk2zvu8oQ7U18+4zXsAw6tj4XZzm5mvtOe/R2xGYBtEDsvZXHItmfxXZclirnMiuGLBAXQsW1mh7tJ5Ye0VfTD0GZ3MTqn8C0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(36756003)(2906002)(921005)(38350700002)(38100700002)(8936002)(7416002)(7406005)(4744005)(5660300002)(52116002)(6506007)(6666004)(86362001)(66476007)(66556008)(66946007)(8676002)(4326008)(6512007)(107886003)(26005)(110136005)(316002)(186003)(6486002)(2616005)(83380400001)(508600001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nuOoN1v5NxJXTwYzMrN0x3sqYLMRiw/LDRy6bOyD0Xsr4hYf8pMsWd+inzLm?=
- =?us-ascii?Q?tvk7emt5UWTwEK1BYfBu657jBKYwT3hnG7o24Rw5CGrlDae2canOwzEsfMs2?=
- =?us-ascii?Q?OLn1tVQR9ETMgGZINxuV+11W7xj5S+Uj4PDDvtQgeXePr+wuXBK7RgzFIdSr?=
- =?us-ascii?Q?JFdgolr7HdX9GSam0zA5nqM13feALzh2IOdiOgULRVFcGsVphYLKfFcu57L4?=
- =?us-ascii?Q?T3PuTvvZe8BXGBozZVPEf6j9Fyz2O0FteBASssgec2qwRmD2EuHxjFPCdcsr?=
- =?us-ascii?Q?zFQTAjFJLvX74qJPfOr0yq0x8ili8Yxt2vDqr+g2LTDQDoK6ClrVm63xxmrK?=
- =?us-ascii?Q?6GpP0PWLfZ+1+CVgGn9eIlRrbxWpOMsY0Bcd/Q8k0phlll+OG8ExcSrUSoAt?=
- =?us-ascii?Q?v4XAK95RND+V+n8sAM61bXuWa1MBIoiB8MPPN6v1NceIYCOqmVhXki8V4han?=
- =?us-ascii?Q?k0w+5PfiCR+q0gbTtzYl46sHlmjyOR2TCNwiExb/YgufOuq4vPnsSop8oJIC?=
- =?us-ascii?Q?0LgZ1RPqqKEDPqEyuQ45zCZB7eYAm+XuR2NxCjCx/rMfR0UkFaIbUXo7mRXn?=
- =?us-ascii?Q?PTtiGmQ9ANpqv2aGpCx3TXQGxNG5uvgYCPJ9Lr7LgFW8tyBqA3VZNjOICK8O?=
- =?us-ascii?Q?6oWfxJlp+E9vMdpPmQk768BLNoaeHP98r40/+U7H0YJu1/0abQrPzgFQuZaO?=
- =?us-ascii?Q?loc4gPoOS6h23+tRLoCmGwtnj6ucRCKeFdIdc+i+KPpzGNCALStkRFiOC8wO?=
- =?us-ascii?Q?klQ7z4/VCNeNGO0zdlywx6Ebq7IUVCCpCP248MxBk2rIuVf05MrM8BCyN1Ze?=
- =?us-ascii?Q?AoL7g+Ts5PFs5TehO/5I92XP+DYEwBMu1ZYsBpOLpa0HxVv69kZld9gyICcc?=
- =?us-ascii?Q?7oLAfv7YdTSIl/gr6u+VBEpqBNNX6q/p5p0U/+KvC3U4/QgCR5/uuRBQ66nJ?=
- =?us-ascii?Q?XMz1PNmarEmtqkkGw22G5OwNeP8v7361cY82qfQDQn5F+ZqQ3u8skqg9+16P?=
- =?us-ascii?Q?Q8Zo1aVdKUkEyySe51etV+ROMLe3bbNx3VWvfMdDoXpsmTHgvHX3/wuAOPdm?=
- =?us-ascii?Q?g/6q6CbmkfT7EP85+nqYZsCiMJMBOKztJByzJWBZy5iI9Sh2q0tDEhoow9bj?=
- =?us-ascii?Q?PplkxGUyMZMyXCRGpMWexmIo2Nom4pUSe8NcMEK9naPbj7KtM20i6J6Hlz9N?=
- =?us-ascii?Q?z0ZxR5E0HD05Es2SL4oO3+Y5au8zBAATmfsAqIB5hCumnRWlDri53SeakIjf?=
- =?us-ascii?Q?qThLforE339HXCtiXDuiLtQZBuoQjG8KEJjZgMchct6s0jchxTiVWKFm6D9U?=
- =?us-ascii?Q?jdXgFQPmUr8bZ47cdbxrvqmLjpo7etnZf23c0PWmOUuEp+8sOy7/L+oI5Uoo?=
- =?us-ascii?Q?VgqcBpkT7PSKX/XNXHknyb/dSnQCiSmcHeKm21MbplM8ivg0IRYGxcECiPUg?=
- =?us-ascii?Q?Y1GzzRYkWWjbaw6XinqqZpbvNMtYIoqTs63d6yTq6RTzRODnYlkvTUs/MA4y?=
- =?us-ascii?Q?eUM2fyH9I3kE+2JWxMmL3xVZ9z4JbJwIMThYHxS+NbOcpW8wBMfam7y1Ze16?=
- =?us-ascii?Q?Gi4aDemijDKIF1eyGtYcCIDe3WPSESgmdpxzQ2vuAMmhcG5srwt+MMqnI9Dc?=
- =?us-ascii?Q?+n0kvf3Zho0xCPx5La9Ka1s=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eadfbac3-950b-4e51-be2f-08d9f0266665
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:56:36.8565 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iBSGzwX/ZNVxWcftvmwAeS99h7MtCcwLH0F2V0ZE6zOpA7y9IDcAuvx1RaxR1CS0yG68ht/dIJrg6qqRZNiB4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB1866
+Content-Type: text/plain
 X-Mailman-Approved-At: Tue, 15 Feb 2022 14:17:14 +0000
-Subject: [Intel-gfx] [PATCH V3 5/13] hid: use time_is_after_jiffies()
- instead of open coding it
+Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
+ property creating and value setting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,34 +52,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wang Qing <wangqing@vivo.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Simon Ser <contact@emersion.fr>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Wang Qing <wangqing@vivo.com>
+Hsin-Yi Wang <hsinyi@chromium.org> writes:
 
-Use the helper function time_is_{before,after}_jiffies() to improve
-code readability.
+> On Tue, Feb 15, 2022 at 9:17 AM Gabriel Krisman Bertazi
+> <krisman@collabora.com> wrote:
+>>
+>> Hsin-Yi Wang <hsinyi@chromium.org> writes:
+>>
+>> > drm_dev_register() sets connector->registration_state to
+>> > DRM_CONNECTOR_REGISTERED and dev->registered to true. If
+>> > drm_connector_set_panel_orientation() is first called after
+>> > drm_dev_register(), it will fail several checks and results in following
+>> > warning.
+>>
+>> Hi,
+>>
+>> I stumbled upon this when investigating the same WARN_ON on amdgpu.
+>> Thanks for the patch :)
+>>
+>> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>> > index a50c82bc2b2fec..572ead7ac10690 100644
+>> > --- a/drivers/gpu/drm/drm_connector.c
+>> > +++ b/drivers/gpu/drm/drm_connector.c
+>> > @@ -1252,7 +1252,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+>> >   *   INPUT_PROP_DIRECT) will still map 1:1 to the actual LCD panel
+>> >   *   coordinates, so if userspace rotates the picture to adjust for
+>> >   *   the orientation it must also apply the same transformation to the
+>> > - *   touchscreen input coordinates. This property is initialized by calling
+>> > + *   touchscreen input coordinates. This property value is set by calling
+>> >   *   drm_connector_set_panel_orientation() or
+>> >   *   drm_connector_set_panel_orientation_with_quirk()
+>> >   *
+>> > @@ -2341,8 +2341,8 @@ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
+>> >   * @connector: connector for which to set the panel-orientation property.
+>> >   * @panel_orientation: drm_panel_orientation value to set
+>> >   *
+>> > - * This function sets the connector's panel_orientation and attaches
+>> > - * a "panel orientation" property to the connector.
+>> > + * This function sets the connector's panel_orientation value. If the property
+>> > + * doesn't exist, it will try to create one.
+>> >   *
+>> >   * Calling this function on a connector where the panel_orientation has
+>> >   * already been set is a no-op (e.g. the orientation has been overridden with
+>> > @@ -2373,19 +2373,12 @@ int drm_connector_set_panel_orientation(
+>> >       info->panel_orientation = panel_orientation;
+>> >
+>> >       prop = dev->mode_config.panel_orientation_property;
+>> > -     if (!prop) {
+>> > -             prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
+>> > -                             "panel orientation",
+>> > -                             drm_panel_orientation_enum_list,
+>> > -                             ARRAY_SIZE(drm_panel_orientation_enum_list));
+>> > -             if (!prop)
+>> > -                     return -ENOMEM;
+>> > -
+>> > -             dev->mode_config.panel_orientation_property = prop;
+>> > -     }
+>> > +     if (!prop &&
+>> > +         drm_connector_init_panel_orientation_property(connector) < 0)
+>> > +             return -ENOMEM;
+>> >
+>>
+>> In the case where the property has not been created beforehand, you
+>> forgot to reinitialize prop here, after calling
+>> drm_connector_init_panel_orientation_property().  This means
+> hi Gabriel,
+>
+> drm_connector_init_panel_orientation_property() will create prop if
+> it's null. If prop fails to be created there, it will return -ENOMEM.
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
----
- drivers/hid/intel-ish-hid/ipc/ipc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes.  But *after the property is successfully created*, the prop variable is still
+NULL.  And then you call the following, using prop, which is still NULL:
 
-diff --git a/drivers/hid/intel-ish-hid/ipc/ipc.c b/drivers/hid/intel-ish-hid/ipc/ipc.c
-index 8ccb246..15e1423
---- a/drivers/hid/intel-ish-hid/ipc/ipc.c
-+++ b/drivers/hid/intel-ish-hid/ipc/ipc.c
-@@ -578,7 +578,7 @@ static void _ish_sync_fw_clock(struct ishtp_device *dev)
- 	static unsigned long	prev_sync;
- 	uint64_t	usec;
- 
--	if (prev_sync && jiffies - prev_sync < 20 * HZ)
-+	if (prev_sync && time_is_after_jiffies(prev_sync + 20 * HZ))
- 		return;
- 
- 	prev_sync = jiffies;
+>> > +     drm_object_property_set_value(&connector->base, prop,
+>> > +                                   info->panel_orientation);
+
+This will do property->dev right on the first line of code, and dereference the
+null prop pointer.
+
+You must do
+
+  prop = dev->mode_config.panel_orientation_property;
+
+again after drm_connector_init_panel_orientation_property successfully
+returns, or call drm_object_property_set_value using
+dev->mode_config.panel_orientation_property directly:
+
+  drm_object_property_set_value(&connector->base,
+			dev->mode_config.panel_orientation_property
+		        info->panel_orientation);
+
 -- 
-2.7.4
-
+Gabriel Krisman Bertazi
