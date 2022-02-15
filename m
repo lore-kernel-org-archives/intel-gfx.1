@@ -4,55 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 231FFC433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB430C433EF
 	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:17:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D86C10E62A;
-	Tue, 15 Feb 2022 14:17:22 +0000 (UTC)
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E261B10E2C8;
- Mon, 14 Feb 2022 19:58:27 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id 124so21385063ybn.11;
- Mon, 14 Feb 2022 11:58:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=EBOPhqSf+aywWxhUqpiwT6NM6RUx7mAerBj7xaF4Kxk=;
- b=qqO3lcD+cemdiR+mXW04vHX6a84DDvxfqa3p1ElfyL7Az/3/hsz4DHtC0bT5Yk7bgc
- INz5aMjx/fsdmICmRWrJswQ4SGCwyu1FXzE6zfxapPHAaNVwXwzEpw+Qlp5wGWWjMIl6
- o/xV5PMrldoKsPnq/3NEeEI97fMyQ3TWtMaxWYZLb6dU49Gd7NMjBp/vhDPcTpI4Qq99
- td/j/ORxFAlhA7kxpiv77vhZ3RYK8VFWwkPO/D5yEPMgaGSQj5u63nO/4hWCd0fiZBzl
- tugxlyFWyrfblP5Z1lOJ5ZHvPXW9pkG1BfPNwfh7VMvsIU30MOa8GBcPrSUI1SwC1ruA
- Ffpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=EBOPhqSf+aywWxhUqpiwT6NM6RUx7mAerBj7xaF4Kxk=;
- b=D5lPIEjqag4mL7AIxlTdNzY9fjXJ0oxUzulbm36/uPil668vdvqJkSA0ACtu+Gt05y
- oHVRHmtAAeY3PoEM096aFw8HM9ss9CNsMbiPWAaTPj9buublFWyOERGaa3Lpr0cp39bp
- D6GZAWDYtKd4Wi/QnesPUjXVhThNrpvwGG5GtyQ9yQaidXDdyxBIvl2msBLzWFz3wfDf
- b+PvvetKavcN+DOdnvqFYig21JjpHfu80WwIFb/pnB7n2zrMs4ItcfS5T1FbxD/ngCff
- q20n+iUkEXTNB2PtQC1Vbp3FVv0rhqSVz2i2pE0xAyc/MldRXIPm1B9FIDlnbcsA+J29
- cyXg==
-X-Gm-Message-State: AOAM5316RkgMMfgZuy882Kn9lyaO/3mqMpBO02zjg6pI1AElA+XKSRNd
- 8FXp4nJCjCJS3cqpjhQy7runeAS1qtxwA0TRvf0=
-X-Google-Smtp-Source: ABdhPJwX1fQ9ooMynxhV+ZrSEHGFOuJ0zg+b9O+K7gr/d7kRmT6xVhPHiGTrk1wl/8FC9OBbmpm+FeVkqtr7K5Jd3Ng=
-X-Received: by 2002:a25:148b:: with SMTP id 133mr724420ybu.270.1644868706855; 
- Mon, 14 Feb 2022 11:58:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F39D10E608;
+	Tue, 15 Feb 2022 14:17:24 +0000 (UTC)
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2100.outbound.protection.outlook.com [40.107.255.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FFA10E3C5;
+ Tue, 15 Feb 2022 01:56:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YzVJ1wgt2XfqVE9jlYnPwy9sZbneAHUgf+nIh12eurTbrKMdtAoKpl+nUCSrRxw8fhQfh2yhvGMdBl7bIOTdyJTDDV/gb3CihLz2CH1hfuX9xJUsimUJsnYBYpcH28KWLdveM7FILiTgXQ1lsDvILwGIQ7lcE28v/iKR7TLfnrC1sIPm307T8Oe8XFf30ax5wjtrITsO/MwbmvJhjjPghDKivwC+aFJt9ShtM4oI+GL4rmVZW9SHIUdW1bazJEe6dzeAiXtRZ8/b6Sio+mX5BHV8wcHge44zig3qFUokbO9bVb3l+QSegYK9D2Vx0aM2S7lpXvPSLXpo1zHLZbsYBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AZUJwShf2lcm2N/QCaj1MTobvEH4aRge/LsFZHd/sYI=;
+ b=h49A1UpTgxVYzFDaujO3gPt2ofrw9iQAaxBAbkeApu0EZTSmB2NRfVzlAApfnaEgkz14UNHdXQz0dZBYylvxxOR8nLRPal1XGOb9yyx3+OlGx62wb+zoK7V2MDJVkmn3hjy0E6d5c9lRscmam/7yxnjCOw5iViudgu+Pmr1oUCLpEe4f9t2tr/KSMLwQHsKs7qnyWB+388aHVQvxvI7EYkRF0Mt8O4fNrNf1tpttk82hN3rtwMpAGIz5ES4QLSrlqs+FgireZXtEJZHcdNgRDKXkGSPi8dZwGYesf3EnmwMN+NUZBulpSAytpKg4zqy5fUm7QSeXH+bFsGIApFbO9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AZUJwShf2lcm2N/QCaj1MTobvEH4aRge/LsFZHd/sYI=;
+ b=b3ld5n6uZA1gTknnE/iIyJApOQJ2CFr6SlaR67v5FVteLqWokfhLH1PS+J9efXvFBD/6r+VYC9qbVWziOToq5CsSWejnzjwCNk99QtfdidIRTDZmq+IQgWL9ZqgjibFdzGu+bUSAz5NkG52k0kPY5fnf3OrMNcmo0AKvA5CJFzc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by TY2PR06MB2767.apcprd06.prod.outlook.com (2603:1096:404:3b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Tue, 15 Feb
+ 2022 01:56:28 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
+ 01:56:28 +0000
+From: Qing Wang <wangqing@vivo.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+ dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Date: Mon, 14 Feb 2022 17:55:40 -0800
+Message-Id: <1644890154-64915-4-git-send-email-wangqing@vivo.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+Content-Type: text/plain
+X-ClientProxiedBy: HK2PR06CA0012.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
+ (2603:1096:100:37::17)
 MIME-Version: 1.0
-References: <20220213065106.48062-1-ztong0001@gmail.com>
- <YglQW7gVNoRJ7QpQ@dev-arch.archlinux-ax161>
-In-Reply-To: <YglQW7gVNoRJ7QpQ@dev-arch.archlinux-ax161>
-From: Tong Zhang <ztong0001@gmail.com>
-Date: Mon, 14 Feb 2022 11:58:16 -0800
-Message-ID: <CAA5qM4AMf0Tzdsm3jX5_gVw0Uh3d5DwqFB0PGTvsfEwL-v4Nhw@mail.gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 350c5fef-b405-474c-85dd-08d9f0266127
+X-MS-TrafficTypeDiagnostic: TY2PR06MB2767:EE_
+X-Microsoft-Antispam-PRVS: <TY2PR06MB2767CEA2486227939D0AC07EBD349@TY2PR06MB2767.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ePSXhaPcXg4FCtC68F2lY8InSV29A9B0X7537mP4RBGWHZP5mXN708htS4S4u7wWqKMhSwagUCUhji/QcJ2mvFsxZEm/2pLfUvwFb8b3AKZJwlXAh5UPQIPL2fZ75nO1NxEBaQPqlmFXvngc53/CfB5o2pm5rl/xMvTVxPLK+4v8e1IdOnVmEDaD9lxdw43v9MBTu5b4oIS3prUue4WUwqwiNF2zoGo3VejapXFNxDPt1X2HQ/utN7+aRFJVz+nB4rI0dWys6BfO/JaT1uGVYDyhTnWC2tvI36H6NHU2Bjf3f7uFgEdaN8ZWcCqSKu0cAcksL8QDeDVlJU56i6Vz/LLqL6610jEIqsYwVYEXzM1EnKIKAnNx16JNoMsww0xBAhRwG2WO0VgNvPJXJ3CP/J4hndR7/WaSNYQUEdFQeNcDEYei3vFdEDuGW4BexNCsa8KPsUJ7o2ngxEcsVrCGxWgVBCLvsi8y3dVhDHO1ODvi9QJa9mFK5+MHgQHCdDcIL/vbNt9ALSS5CzoEHTArCcTnblAdRCEPkvWRlqj1w+QKxCgvMAEZWBoi8ygkPtETPoFbvNS9JGh/VIJZ2EoZaDSclGDFQS3MHmQp2Eon9Z0xRk34KkBfCwASiyyW68/uxjLyAQf4iZbxEXn+kjM9eOeeHiWTe7BrqPLtmjIxOQwUty26WwAfZPp5oloO94IY5HdO4tUsdbkpSy22+M7sLvlSq0k2Dtr/kq+JTu1sfL8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38100700002)(38350700002)(7406005)(7416002)(4744005)(110136005)(107886003)(921005)(316002)(26005)(186003)(2906002)(52116002)(5660300002)(8936002)(6506007)(2616005)(6512007)(6666004)(4326008)(508600001)(86362001)(83380400001)(36756003)(66476007)(66556008)(66946007)(6486002)(8676002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BaK9tJZZgUm1KrBqZG1H+LXOYbJWVBMNHl3eqdFRkRBZtvWoWGVDQB0LHTcP?=
+ =?us-ascii?Q?/vO4YjfcTYv3yBzT2DhJeOwVLJgtU4HkOV2NEL/GCzB0igWhnmNvADiBz0al?=
+ =?us-ascii?Q?kPjYnD+4hZ24hQuDjTdPyTFq3th9Ch1WqMz3FJLrZadNlkX8etXdTDiN6ydK?=
+ =?us-ascii?Q?cw81cetwlw9rCF8fTPY9YrJi5LjBCyeimc54nI0jauWuwKTZEo3MTt9AbVPw?=
+ =?us-ascii?Q?aoWcy9tsE3NbknUJQlqIIZYSWTuY4Sk+jx8gzxO0oeSBaSfYyxADwBgOrbux?=
+ =?us-ascii?Q?dyHB7XAk1zd1zdYkZFsRIA7MNwr75/e3d2iFUeOas4BgWLYmXAweKGVSjN+K?=
+ =?us-ascii?Q?A3M41pRDd+77FeILsbxw0302PEYLs5Q2ibxkOHjivAV+ZyHyF09Jo908tKOg?=
+ =?us-ascii?Q?w+CDMLH8kUAM1UYezrQ96nOZEzVvAOMcN+KhPKJ29ZVtK8bcPvCf5uFEuksb?=
+ =?us-ascii?Q?2UH8jNDqHrLwg9EUh6IqYtY2ZXgFrssd20XQ1yvgRXVTHdDU6T+ngVtSUe6r?=
+ =?us-ascii?Q?E54na1IRaVDQNv3xwFWr5ngEifny/G5xmH1oWMMLcdj2lguw3K35VVgVMYVf?=
+ =?us-ascii?Q?84rU3ynyEU8ufYKi4OMdO7++HKAFXDa5VInWyMwkTpqchRJ/DeVZqObrZKPa?=
+ =?us-ascii?Q?acUGADNZUJirsyY0QKVjUADNRxQgW0/3JhW7xahw0e8A5kLcS7DyZiO2kusn?=
+ =?us-ascii?Q?szrkuao7lfYlKIQ+NyD/PdPNxE8p3GKv4in62yLwoHdVo/9rk9McVyQvqNLc?=
+ =?us-ascii?Q?ZpsXnHk21VIcMDHHtwmLZP/IYCiI3fDUXbYHblM869HOzRbJamnssPYRms0J?=
+ =?us-ascii?Q?jtG2fBogijS6aeRcQWEAIbRN/j0NdqHHBv2tmGZRhHl2kwm3EEXd0S4JO7jO?=
+ =?us-ascii?Q?sWMTTzmkCI0toHbmXePzLnW93VmXzoAwa6JnLV8JL/tdlu81OUSnHyEU2asx?=
+ =?us-ascii?Q?zbEjoXfFbEVedkE+us9ZHKuw59JkU4SRspI7U7/K3+sg96M7rmWS0Jk0EFuX?=
+ =?us-ascii?Q?ldmoeyEJCME2RZvWzSrDmSlcT5wzybdIFV7+PC5H8ALkc6PiXtlFNCPyMt+4?=
+ =?us-ascii?Q?ayz8RAE8IbAcQxuSwOU4GNC5cKU8FdE/Xt0vfIOWDenGo2p3m5SQ6RGCvksX?=
+ =?us-ascii?Q?E8H/mQs3INUt8ra38KeMjQmJT1wBT0vd6IscFqLk0M9zUpgWUkBwkfgDhARr?=
+ =?us-ascii?Q?o2PKQjbUmGfN8hi1xzgVr95IKLvFcJQzx9tpoIuJ7VOIGkd0R6x8g+uVbofu?=
+ =?us-ascii?Q?/msxkTcPl+dg4qIvUptQ/R/cvEOm2eoeeKM0MVvxy0rwmyB4gOJRqGMmNTDA?=
+ =?us-ascii?Q?NlOMBov3RAgqCov1ij6msEh0GFA/KlkAkOUkQu0nR8EGWmbS2dvT17/Dnc+H?=
+ =?us-ascii?Q?s9Kzb9urW+kTfMbNadciL4cLn/blUhsOTjxwYYW/pvZWMZRk8YldPp63Vb2j?=
+ =?us-ascii?Q?z4hVNXwRcKoXOfbQoixyk1R72BMo6K3lqYlH3oFlpLeDoz7TnWm5urzYKQYA?=
+ =?us-ascii?Q?gIzqw0Nw/aUihezEGE599AA5XOxFV5LRnGf2ak5hTr2CsZj4wW1xkOnEKhGz?=
+ =?us-ascii?Q?DouxcTwsbYr1m3U1uhAmFvb4r7MgTuZru+1Z+YtuM5jYn02V53iiNwycDPJp?=
+ =?us-ascii?Q?XRgTXEvfBh9L5Zp7AwXEXU4=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 350c5fef-b405-474c-85dd-08d9f0266127
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:56:28.1851 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MesX6WPaJ56e7udwMc5quBO9Bo++SBp9oZSEvycwae7SZxjgXI1hb0rilNxKSpPKAc5JKBC38ib/K74jMaT0Pg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR06MB2767
 X-Mailman-Approved-At: Tue, 15 Feb 2022 14:17:14 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: fix build issue when using clang
+Subject: [Intel-gfx] [PATCH V3 3/13] gpu: drm: i915: use
+ time_is_after_jiffies() instead of open coding it
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,117 +136,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, David Airlie <airlied@linux.ie>,
- intel-gfx@lists.freedesktop.org, Nick Desaulniers <ndesaulniers@google.com>,
- open list <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>
+Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Feb 13, 2022 at 10:39 AM Nathan Chancellor <nathan@kernel.org> wrot=
-e:
->
-> On Sat, Feb 12, 2022 at 10:51:06PM -0800, Tong Zhang wrote:
-> > drm/i915 target adds some extra cflags, especially it does re-apply -Wa=
-ll.
-> > In clang this will override -Wno-format-security and cause the build to
-> > fail when CONFIG_DRM_I915_WERROR=3Dy. While with GCC this does not happ=
-en.
-> > We reapply -Wno-format-security here to get around this issue.
->
-> For what it's worth, GCC would warn in the exact same way if
-> -Wformat-security was included within -Wall like it is for clang:
->
-> drivers/gpu/drm/i915/gt/intel_gt.c: In function =E2=80=98intel_gt_invalid=
-ate_tlbs=E2=80=99:
-> drivers/gpu/drm/i915/gt/intel_gt.c:988:9: error: format not a string lite=
-ral and no format arguments [-Werror=3Dformat-security]
->   988 |         GEM_TRACE("\n");
->       |         ^~~~~~~~~
-> cc1: all warnings being treated as errors
->
-> drivers/gpu/drm/i915/gt/selftest_execlists.c: In function =E2=80=98live_s=
-anitycheck=E2=80=99:
-> drivers/gpu/drm/i915/gt/selftest_execlists.c:142:25: error: format not a =
-string literal and no format arguments [-Werror=3Dformat-security]
->   142 |                         GEM_TRACE("spinner failed to start\n");
->       |                         ^~~~~~~~~
-> drivers/gpu/drm/i915/gt/selftest_execlists.c: In function =E2=80=98live_p=
-reempt=E2=80=99:
-> drivers/gpu/drm/i915/gt/selftest_execlists.c:1775:25: error: format not a=
- string literal and no format arguments [-Werror=3Dformat-security]
->  1775 |                         GEM_TRACE("lo spinner failed to start\n")=
-;
->       |                         ^~~~~~~~~
-> drivers/gpu/drm/i915/gt/selftest_execlists.c:1792:25: error: format not a=
- string literal and no format arguments [-Werror=3Dformat-security]
->  1792 |                         GEM_TRACE("hi spinner failed to start\n")=
-;
->       |                         ^~~~~~~~~
-> cc1: all warnings being treated as errors
->
-> If fixing these warnings instead of just disabling the warning is
-> undesirable (since I feel like the entire point of the i195 cflags
-> situation is to enable more warnings than the main Makefile), I think
-> the commit message should be rewritten to something along the lines of:
->
-> "drm/i915 adds some extra cflags, namely -Wall, which causes
-> instances of -Wformat-security to appear when building with clang, even
-> though this warning is turned off kernel-wide in the main Makefile:"
->
-> > drivers/gpu/drm/i915/gt/intel_gt.c:983:2: error: format string is not a=
- string literal (potentially insecure) [-Werror,-Wformat-security]
-> >         GEM_TRACE("ERROR\n");
-> >         ^~~~~~~~~~~~~~~~~~~~
-> > ./drivers/gpu/drm/i915/i915_gem.h:76:24: note: expanded from macro 'GEM=
-_TRACE'
-> >  #define GEM_TRACE(...) trace_printk(__VA_ARGS__)
-> >                        ^~~~~~~~~~~~~~~~~~~~~~~~~
-> > ./include/linux/kernel.h:369:3: note: expanded from macro 'trace_printk=
-'
-> >                 do_trace_printk(fmt, ##__VA_ARGS__);    \
-> >                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > ./include/linux/kernel.h:383:30: note: expanded from macro 'do_trace_pr=
-intk'
-> >                 __trace_bprintk(_THIS_IP_, trace_printk_fmt, ##args);  =
- \
-> >                                            ^~~~~~~~~~~~~~~~
-> > drivers/gpu/drm/i915/gt/intel_gt.c:983:2: note: treat the string as an =
-argument to avoid this
->
-> "This does not happen with GCC because it does not enable
-> -Wformat-security with -Wall. Disable -Wformat-security within the i915
-> Makefile so that these warnings do not show up with clang."
->
-> The actual diff itself looks fine to me.
->
-> Cheers,
-> Nathan
->
-> > Signed-off-by: Tong Zhang <ztong0001@gmail.com>
-> > ---
-> >  drivers/gpu/drm/i915/Makefile | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makef=
-ile
-> > index 1b62b9f65196..c04e05a3d39f 100644
-> > --- a/drivers/gpu/drm/i915/Makefile
-> > +++ b/drivers/gpu/drm/i915/Makefile
-> > @@ -13,6 +13,7 @@
-> >  # will most likely get a sudden build breakage... Hopefully we will fi=
-x
-> >  # new warnings before CI updates!
-> >  subdir-ccflags-y :=3D -Wall -Wextra
-> > +subdir-ccflags-y +=3D -Wno-format-security
-> >  subdir-ccflags-y +=3D -Wno-unused-parameter
-> >  subdir-ccflags-y +=3D -Wno-type-limits
-> >  subdir-ccflags-y +=3D -Wno-missing-field-initializers
-> > --
-> > 2.25.1
-> >
+From: Wang Qing <wangqing@vivo.com>
 
-Thank you Nathan!
-I will send a v2 with a revised commit message.
-Thanks,
-- Tong
+Use the helper function time_is_{before,after}_jiffies() to improve
+code readability.
+
+Signed-off-by: Wang Qing <wangqing@vivo.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+index 9db3dcb..b289abb
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+@@ -56,7 +56,7 @@ static bool pool_free_older_than(struct intel_gt_buffer_pool *pool, long keep)
+ 				node = list_entry(pos, typeof(*node), link);
+ 
+ 				age = READ_ONCE(node->age);
+-				if (!age || jiffies - age < keep)
++				if (!age || time_is_after_jiffies(age + keep))
+ 					break;
+ 
+ 				/* Check we are the first to claim this node */
+-- 
+2.7.4
+
