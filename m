@@ -4,48 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C0DC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33022C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:17:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86DC910E576;
-	Tue, 15 Feb 2022 14:00:59 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B031F10E561
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 14:00:58 +0000 (UTC)
-Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
- [51.77.79.158])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- by mail-4321.protonmail.ch (Postfix) with ESMTPS id 4JyjKW1NWDz4x2Sg
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 13:55:43 +0000 (UTC)
-Authentication-Results: mail-4321.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="FV5jLIpD"
-Date: Tue, 15 Feb 2022 13:55:34 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1644933337;
- bh=6lNlCoTfcpMqvqhkT68B9BYySvB6qEPhyvPf8Q7RTQA=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID;
- b=FV5jLIpDbsQD4XNbDQkQA59s8nRJV6faVAqWXc971NcsmVKHkV3WFz9CryCy95bLx
- 5fsjgglR+qDN2pAG4VVMHRwiAW7wXc36jCrXRS53wKMt7fzTzs55bc4vbCunEn3BAO
- Tmv6nP77HGsnX02nIOQ8IrjXl+VSweaREZ7QvAy0WPIyaIHZJiF+wUQhGw9MSGBfLo
- qgnWv3NMfCuRNuSAJUdB1Fg6FknYIt7YMJoCxO4gh+GCkoF+MPbXltblCW/FsJeHuv
- NvAiabP6tolfvRebFUuddQF+PsgMjroMmSaHLkMYJmetJAyvBb3HrcDh0oks/v4+3M
- J1BM1xgrLuF9A==
-To: Emil Velikov <emil.l.velikov@gmail.com>
-From: Simon Ser <contact@emersion.fr>
-Message-ID: <KW6DNh6IRRgVJx9DfOFBnEqc4a0x-AnDXEbMxwpfEbk8dOn_KGVzAfo-slJWq-4nWW728Uc-OVpFh2w4fDE4-bxfkDuz1hFILRVvbcuXqaw=@emersion.fr>
-In-Reply-To: <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
-References: <20220208084234.1684930-1-hsinyi@chromium.org>
- <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9601110E525;
+	Tue, 15 Feb 2022 14:17:14 +0000 (UTC)
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2117.outbound.protection.outlook.com [40.107.255.117])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71D4310E3C5;
+ Tue, 15 Feb 2022 01:56:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LUoDun5NGiSjISY5ivuzLbm1D8sOs5FrFwgK/p4e/DGTha5s5ocViPpjXVm2CEUxvnClstfGYYc2fyZywt+6Quuu64sJYJwx3Ln0tQxLjoBJkpbeLJThRenVjq9xXrSq4KRi65Jw2c4y9LCEbOspEam9u7oPhD29GzBkvBvv5oV5DuFlwFrnUxi8F1D6jMJiK4CN1DdF04nGCtCwrQ7QsR20azykkxkhq8AjG35eL+4ywnPCg239BhR7931qPpH5VLyu0mcP1RHD2nhMt9mGW4pbWyHXd3t9msi4DqawyZCZrlVkR2g+7Ozt/l0ev1KtF+JB+ZWnlQNucicATXHKcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kGZeuYGXyeAgcClI3wwE48MNOwGa8NGTXiURAfe/zbQ=;
+ b=CE8ljgke7KO+nqn/dQu5NmRVl7EFnnOpcR7/4yo929YshXt12HRWiZG+NX5wW1+t1VQvDvqFwKnTKngkd5Y3Lxdcgw/uchZs5Qv0b+K0AZu+e53vlgBusb8BeYoSolkZ98pASlt7PgRYhQglnfKxg7ZwRAV6A3aSvEU1hCweYHTaBhVDU57PNzBDXemM1Et1Bs+CDwlnZKvFiygsy3Iz6HjhBZCWjHszmybasEFTfp2UivGVoY45Jt+1xm7v8FKMw+iTyjXD8uGVgbcgPSskrKcdk+Gb4dTyP3qzgMUaNsy33XPDiznjKEF8qYhVVeefkX0c4UDhAM/gfqDCRtxbCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kGZeuYGXyeAgcClI3wwE48MNOwGa8NGTXiURAfe/zbQ=;
+ b=iANhwTSzcDZNQAh46sy8MA5t0Tm7sOrPbpiotfOcNFxSh/5wKaN/BuHbPbneRlKd4PT4Gbudt2P4bW2Z+Ra4Ixd6QUJLTHrOCZPQgsikRrZyo/1rqahCcnVOIvKb2A9pZNlepDaZdOHVDZlBxoN4+lF762dDm4Kr+cqlv4oQFVY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by HK0PR06MB2771.apcprd06.prod.outlook.com (2603:1096:203:58::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Tue, 15 Feb
+ 2022 01:56:57 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
+ 01:56:56 +0000
+From: Qing Wang <wangqing@vivo.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+ dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Date: Mon, 14 Feb 2022 17:55:46 -0800
+Message-Id: <1644890154-64915-10-git-send-email-wangqing@vivo.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+Content-Type: text/plain
+X-ClientProxiedBy: HK2PR06CA0012.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
+ (2603:1096:100:37::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
- property creating and value setting
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0eca22f0-7a4d-40e8-7914-08d9f026712e
+X-MS-TrafficTypeDiagnostic: HK0PR06MB2771:EE_
+X-Microsoft-Antispam-PRVS: <HK0PR06MB277188E6101087AF9235D086BD349@HK0PR06MB2771.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:161;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Zcr4PVFb8yBmpl3ocaDvIF+2MN9J/vXB/CtUB6IOeyqRFToL+6Sv+aHpZnulkJjDqw8mT4QFXz2MZMt7vlO6lHXcEmTgPHn9mR0fIIkozVUMaNaKsgCsrWlDjBt6pvZHIefPbwWFVRRJkc6LnkoyDC337SyEZTrP7bXKuIRY3CJ6obcoC/cHd/Uopx+nVj3hBbKZblY7J/7/0rNV9xJvXHezWiv4IX8ov+WjqLzVAfU7jQi4tjRXAaQ4t7YyQ81aOdePBvy+Pgn/pNIrPP/j2FB6sDwffbv6JjEIYUVDWVU7YL7pfoLwlm5Uwq5/fev9FkauDwN4F7vInplEthZlAMGTbhMbwHLdkdoqdI93rPB40eB60pGo8oI6rgtky92Co9cEt0cbPNbHo1fl4ivKSQmIdEWuEwCh4wDE3DSiZvVkQHcxBo7JcFo0v1LzY/xsTlgX7QZkIvYrUHXDDR0XN4wY68zGamgkeCFI0abyV5157K/wtIoqdCFvjtJx6a2fvH9puGR/jDzOpl9qzV6EbZY/WkxCe7xi9hfZNZizMAViGwUtSp1+z/6PA/+MOoKriv0b1K9aiZnEVS9YDsNZDidZO3ws0YJLrQxQ+7QtE0xmnQA8e8W5juxb88RAUHAaxTok9ZxLfxiYEnhaTEvPA1F2Vo4azT7EGHwWl5YX52Bxn4oD60zEC3ycTaqC+2/Mzy6GdTgMGt+hgHM/JiuQ9Y6juTsuM10f5oRJugatg+I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6666004)(8936002)(83380400001)(26005)(186003)(6486002)(508600001)(107886003)(5660300002)(4744005)(2906002)(7416002)(7406005)(921005)(110136005)(316002)(66476007)(8676002)(36756003)(66946007)(4326008)(66556008)(6506007)(6512007)(52116002)(86362001)(2616005)(38100700002)(38350700002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kvvvXYfY3SAz0fQ9bdPKkWwlseYrmsnnNXiKA6wvTFgdPbGpEpATtSEhOssr?=
+ =?us-ascii?Q?QlRASukWmlcLYqBRGOFNNNK4w/V+ngXI1xag6H8zRzDxQrPUrjZ9W6MnNg3q?=
+ =?us-ascii?Q?pFbtJcXzspJsA2abO+qTZMQG9SIQW0qn8Ne0SD4UM0x4ciWf2bDZSFwbdfXh?=
+ =?us-ascii?Q?cs2PTH+5miWioUgV/xyqs7Va1FhtjT7sCq3cjKOipQ08RJ6TbapWnsAAj5uE?=
+ =?us-ascii?Q?2EILgNocOgNkv35E06TC8KMCPyTlALhakB65xvyMqnR14gZVJzbxNIG4/xRS?=
+ =?us-ascii?Q?/zGEBY9t9C0lBRHliJTokvqbnXNa6SCePt3wzejdqotwYiNwXk+cTLluVXPl?=
+ =?us-ascii?Q?OQr+4QI1bofV9PVUDcKe+6QLCPcvEi3L6oxhi7R6/aij6Wbz2nz/1hGmW5Mp?=
+ =?us-ascii?Q?kOfk3BDjRmjvLpQUMAbX/dhXwcTmFTyAAWvvEjJTjhnY8IbXYUBymb+8no7f?=
+ =?us-ascii?Q?JEJcv4RMScCJ6KDoy6IbO+DobeBeACuMVXQ3uDH1ugN0C76r3DtFfUfaCG7U?=
+ =?us-ascii?Q?3ECBaxjx+3VNKEU62+7QK3EdpuQOX8xVM2YRf4A4tCa5QlZm0vEETiRN+aTM?=
+ =?us-ascii?Q?Ssp6Hsyq99dcLxRo2VCewp1/29iGwgIpdLgI+Rlx/wlBj0byLtp8SQKf6pcg?=
+ =?us-ascii?Q?2GIVADcrpKH4bP2miyD45/KFg4Own0OY/iGh9aPKp0XR2dXACaMcnhs3UoTD?=
+ =?us-ascii?Q?CcRDW8SW2bfEpr6M1T04LSPUf5qIq0k6GMaaKZDiwq/U9Moyl0Y2Uq1Uk/Ei?=
+ =?us-ascii?Q?GhLUImQMqvU4whOPH9rj+4D+ZCdCdxOjm0X6wsEhLhM/+J2nPDlr3NPp7bRV?=
+ =?us-ascii?Q?2FcTbVjYmn15s7Bdn6GKP8ZhOCuQ9/BdGCsGtImuNuCrmnYeFvi20PNhXwmV?=
+ =?us-ascii?Q?3nPQ/ArLuuFuSsY0AlMRmHrw5unISCLDGfOJecHNr3pBv3qyFr8Mx2SbH42d?=
+ =?us-ascii?Q?eYfEiFjZpmp9FzOhh8HdTPy0US5tt4Y9HtDxjy2G1TK9N6sUgfdZ2q21bsoo?=
+ =?us-ascii?Q?RKseRe/BukyoibNAP0jclUFoSmIarhuBnp1HIlVvM9JkJgsCmEV7ZXG/3E7v?=
+ =?us-ascii?Q?QFzkPKoLQl+U+I5cWR1wJ2tN4cNoGxQIPGUE2srDyezmTx3XYlrtexurw4I0?=
+ =?us-ascii?Q?yVE2ZL8JRpVqjRSa0qlARtkcrySi6QURVfSAPvJY4LpYng4OHsUH1P95gkDb?=
+ =?us-ascii?Q?6/9uS4aZPGpgppkcSf7myWhFfbF/pHMXDp8Y/yTBWHhXfem09LowM6/ZP4kO?=
+ =?us-ascii?Q?8JgRLFh9QPaoiM8eDMnaC9Ep5D/MEAIwx509TTWswmx+UUjQZD025Z5LMpuK?=
+ =?us-ascii?Q?ksVCJGc+j4tBioHZJjt6cGWAF3M5WQn7bstF4eoGWO/8AvzKWQbavaFYCn19?=
+ =?us-ascii?Q?le+LZWVf47LShfnlJcMUI7Eiow7kqEaC4kSb9A1zT4TQE6C+qH90Ol421q5I?=
+ =?us-ascii?Q?Q3NLK7IQm3biXnc7UCJNPhOn72OYI1wFGJTw2Zg3rc66lQ87OTURCmAUKlRd?=
+ =?us-ascii?Q?BKwzuH9yL3ux6fS7DyC5O3m5ynichBH7gd/GsGSi9v8mbYYHiX3DfzZMjGxl?=
+ =?us-ascii?Q?FN3nTH+szzB7dkCduacK0SzjkGcNqxQ6/VK40kSSGXROCwAM5PxX/JSqx+L1?=
+ =?us-ascii?Q?BIqCa9hQvYDnHEU6b9AXadA=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0eca22f0-7a4d-40e8-7914-08d9f026712e
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:56:55.0742 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qdL8lKhc7PkTAFDvkPlXyy4TydiXOxyB804HOKylwE/yyvZufo6UIyoDiyPNIrvNv8DSmBi8AE5pkUsS+m8X6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2771
+X-Mailman-Approved-At: Tue, 15 Feb 2022 14:17:14 +0000
+Subject: [Intel-gfx] [PATCH V3 9/13] media: si21xx: use
+ time_is_before_jiffies() instead of open coding it
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +136,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Hsin-Yi Wang <hsinyi@chromium.org>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- LAKML <linux-arm-kernel@lists.infradead.org>
+Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, February 15th, 2022 at 13:04, Emil Velikov <emil.l.velikov@gmai=
-l.com> wrote:
+From: Wang Qing <wangqing@vivo.com>
 
-> Greetings everyone,
->
-> Padron for joining in so late o/
->
-> On Tue, 8 Feb 2022 at 08:42, Hsin-Yi Wang <hsinyi@chromium.org> wrote:
-> >
-> > drm_dev_register() sets connector->registration_state to
-> > DRM_CONNECTOR_REGISTERED and dev->registered to true. If
-> > drm_connector_set_panel_orientation() is first called after
-> > drm_dev_register(), it will fail several checks and results in followin=
-g
-> > warning.
-> >
-> > Add a function to create panel orientation property and set default val=
-ue
-> > to UNKNOWN, so drivers can call this function to init the property earl=
-ier
-> > , and let the panel set the real value later.
-> >
->
-> The warning illustrates a genuine race condition, where userspace will
-> read the old/invalid property value/state. So this patch masks away
-> the WARNING without addressing the actual issue.
-> Instead can we fix the respective drivers, so that no properties are
-> created after drm_dev_register()?
->
-> Longer version:
-> As we look into drm_dev_register() it's in charge of creating the
-> dev/sysfs nodes (et al). Note that connectors cannot disappear at
-> runtime.
-> For panel orientation, we are creating an immutable connector
-> properly, meaning that as soon as drm_dev_register() is called we must
-> ensure that the property is available (if applicable) and set to the
-> correct value.
+Use the helper function time_is_{before,after}_jiffies() to improve
+code readability.
 
-Unfortunately we can't quite do this. To apply the panel orientation quirks=
- we
-need to grab the EDID of the eDP connector, and this happened too late in m=
-y
-testing.
+Signed-off-by: Wang Qing <wangqing@vivo.com>
+---
+ drivers/media/dvb-frontends/si21xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-What we can do is create the prop early during module load, and update it w=
-hen
-we read the EDID (at the place where we create it right now). User-space wi=
-ll
-receive a hotplug event after the EDID is read, so will be able to pick up =
-the
-new value if any.
+diff --git a/drivers/media/dvb-frontends/si21xx.c b/drivers/media/dvb-frontends/si21xx.c
+index 001b235..1c6cf76
+--- a/drivers/media/dvb-frontends/si21xx.c
++++ b/drivers/media/dvb-frontends/si21xx.c
+@@ -336,7 +336,7 @@ static int si21xx_wait_diseqc_idle(struct si21xx_state *state, int timeout)
+ 	dprintk("%s\n", __func__);
+ 
+ 	while ((si21_readreg(state, LNB_CTRL_REG_1) & 0x8) == 8) {
+-		if (jiffies - start > timeout) {
++		if (time_is_before_jiffies(start + timeout)) {
+ 			dprintk("%s: timeout!!\n", __func__);
+ 			return -ETIMEDOUT;
+ 		}
+-- 
+2.7.4
+
