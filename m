@@ -4,30 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDA16C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 21:32:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1118FC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 21:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 573C510E546;
-	Tue, 15 Feb 2022 21:32:38 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6902B10E546;
- Tue, 15 Feb 2022 21:32:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 647FEAADD2;
- Tue, 15 Feb 2022 21:32:37 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BC0D10E546;
+	Tue, 15 Feb 2022 21:46:16 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F07210E546
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 21:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644961575; x=1676497575;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=MWScXxHT16Pnv9MTpR7ovfiabvsDQrskFmb22d4LlVs=;
+ b=ZK7FyNT/iTjLW++GLJJDDWNqFE9Q45MsDeEq1cyCeMkR1w2z2j9dVf1o
+ PMxH+I8SmrVSHo10WWuWGVZKJNZ7zn2KSZWbZw50i9Rca7I49ZWb3g/QV
+ R6tRJthQj3HKsIb/ZsKiN1n2yDq2QFmK0jVE6Jnf9SBx/UoqCdCtJ/hKq
+ pQd37JtsOz4pHEmVy9ijPQEs623HlThM6HFw5FXVOMVr8sHIMT/+OMM/r
+ HJW2vye7kMZGTcK9Ar2qI1DB6r+lepqC5PNq+wATnXK3mV3I0rhOXxXLt
+ nazmkzRk9PETD0M3R85rJmg411gfOuwB8r6cw5XSkF+BxMoQm7Gn46IxP g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="250201109"
+X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="250201109"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2022 13:46:14 -0800
+X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="633032206"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2022 13:46:14 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 15 Feb 2022 13:45:44 -0800
+Message-Id: <20220215214544.2197483-1-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Vandita Kulkarni" <vandita.kulkarni@intel.com>
-Date: Tue, 15 Feb 2022 21:32:37 -0000
-Message-ID: <164496075740.15371.12926242294335428713@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220214020357.10063-1-vandita.kulkarni@intel.com>
-In-Reply-To: <20220214020357.10063-1-vandita.kulkarni@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Add_data_flow_metering_support_for_HDMI2=2E1_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH topic/for-CI] drm/i915: Add DG2 PCI IDs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,88 +53,120 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+DG2 hardware will start showing up in CI shortly; let's make sure it's
+recognized by the driver.
 
-Series: Add data flow metering support for HDMI2.1 (rev2)
-URL   : https://patchwork.freedesktop.org/series/99668/
-State : warning
+Bspec: 44477
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/i915_pci.c          |  2 +-
+ drivers/gpu/drm/i915/intel_device_info.c | 21 ++++++++++++++++++
+ include/drm/i915_pciids.h                | 27 ++++++++++++++++++++++++
+ 3 files changed, 49 insertions(+), 1 deletion(-)
 
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-b6cc89ab987b drm/hdmi21: Define frl_dfm structure
--:13: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#13: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 124 lines checked
-1392e71508a3 drm/hdmi21: Add non dsc frl capacity computation helpers
--:12: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#12: 
-new file mode 100644
-
--:202: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
-#202: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:186:
-+				 unsigned int bpc, unsigned int audio_packets_line, unsigned int hblank)
-
--:307: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
-#307: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:291:
-+drm_get_avg_tribyte_rate(unsigned int pixel_clk_max_khz, unsigned int tb_active, unsigned int tb_blank,
-
--:396: WARNING:LONG_LINE: line length of 117 exceeds 100 columns
-#396: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:380:
-+drm_get_frl_char_payload_actual(unsigned int tribytes_active, unsigned int tribytes_blank, unsigned int cfrl_savings)
-
--:400: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
-#400: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:384:
-+	frl_char_payload_actual = DIV_ROUND_UP(3 * tribytes_active, 2) + tribytes_blank - cfrl_savings;
-
--:406: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
-#406: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:390:
-+drm_compute_payload_utilization(unsigned int frl_char_payload_actual, unsigned int frl_char_per_line_period)
-
-total: 0 errors, 6 warnings, 0 checks, 396 lines checked
-12d033bb02c0 drm/hdmi21: Add helpers to verify non-dsc DFM requirements
--:99: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#99: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:477:
-+						 frl_dfm->params.tb_active, frl_dfm->params.tb_blank,
-
-total: 0 errors, 1 warnings, 0 checks, 170 lines checked
-6db4a39d6dde drm/hdmi21: Add support for DFM calculation with DSC
--:33: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
-#33: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:571:
-+drm_get_frl_hcactive_tb_target(unsigned int dsc_bpp_x16, unsigned int slice_width, unsigned int num_slices)
-
--:53: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
-#53: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:591:
-+drm_get_frl_hcblank_tb_target(unsigned int hcactive_target_tb, unsigned int hactive, unsigned int hblank,
-
--:70: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#70: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:608:
-+	return (hcactive_target_tb + hcblank_target_tb) * (fpixelclock_max_khz / (hactive + hblank));
-
--:89: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
-#89: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:627:
-+drm_frl_dsc_tactive_target_ns(unsigned int frl_lanes, unsigned int hcactive_target_tb, unsigned int ftb_avg_k,
-
--:137: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#137: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:675:
-+				unsigned int hactive, unsigned int hblank, unsigned int line_time_ns)
-
--:146: WARNING:LONG_LINE: line length of 125 exceeds 100 columns
-#146: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:684:
-+		tb_delta_limit = (((tactive_ref_ns * FRL_TIMING_NS_MULTIPLIER) - (hcactive_target_tb / (ftb_avg_k * 1000))) *
-
--:156: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
-#156: FILE: drivers/gpu/drm/drm_frl_dfm_helper.c:694:
-+		tb_delta_limit = (_tb_delta_ns * (hcactive_target_tb + hcblank_target_tb1)) / line_time_ns;
-
-total: 0 errors, 7 warnings, 0 checks, 307 lines checked
-2c5449c01316 drm/hdmi21: Add frl_dfm_helper to Makefile
-
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 8246cbe9b01d..91677a9f330c 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1038,7 +1038,6 @@ static const struct intel_device_info xehpsdv_info = {
+ 	.require_force_probe = 1,
+ };
+ 
+-__maybe_unused
+ static const struct intel_device_info dg2_info = {
+ 	XE_HP_FEATURES,
+ 	XE_HPM_FEATURES,
+@@ -1137,6 +1136,7 @@ static const struct pci_device_id pciidlist[] = {
+ 	INTEL_ADLN_IDS(&adl_p_info),
+ 	INTEL_DG1_IDS(&dg1_info),
+ 	INTEL_RPLS_IDS(&adl_s_info),
++	INTEL_DG2_IDS(&dg2_info),
+ 	{0, 0, 0}
+ };
+ MODULE_DEVICE_TABLE(pci, pciidlist);
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 94da5aa37391..ae13bc3c7970 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -178,6 +178,18 @@ static const u16 subplatform_rpls_ids[] = {
+ 	INTEL_RPLS_IDS(0),
+ };
+ 
++static const u16 subplatform_g10_ids[] = {
++	INTEL_DG2_G10_IDS(0),
++};
++
++static const u16 subplatform_g11_ids[] = {
++	INTEL_DG2_G11_IDS(0),
++};
++
++static const u16 subplatform_g12_ids[] = {
++	INTEL_DG2_G12_IDS(0),
++};
++
+ static bool find_devid(u16 id, const u16 *p, unsigned int num)
+ {
+ 	for (; num; num--, p++) {
+@@ -220,6 +232,15 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
+ 	} else if (find_devid(devid, subplatform_rpls_ids,
+ 			      ARRAY_SIZE(subplatform_rpls_ids))) {
+ 		mask = BIT(INTEL_SUBPLATFORM_RPL_S);
++	} else if (find_devid(devid, subplatform_g10_ids,
++			      ARRAY_SIZE(subplatform_g10_ids))) {
++		mask = BIT(INTEL_SUBPLATFORM_G10);
++	} else if (find_devid(devid, subplatform_g11_ids,
++			      ARRAY_SIZE(subplatform_g11_ids))) {
++		mask = BIT(INTEL_SUBPLATFORM_G11);
++	} else if (find_devid(devid, subplatform_g12_ids,
++			      ARRAY_SIZE(subplatform_g12_ids))) {
++		mask = BIT(INTEL_SUBPLATFORM_G12);
+ 	}
+ 
+ 	if (IS_TIGERLAKE(i915)) {
+diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
+index 533890dc9da1..3609f3254f24 100644
+--- a/include/drm/i915_pciids.h
++++ b/include/drm/i915_pciids.h
+@@ -681,4 +681,31 @@
+ 	INTEL_VGA_DEVICE(0xA788, info), \
+ 	INTEL_VGA_DEVICE(0xA789, info)
+ 
++/* DG2 */
++#define INTEL_DG2_G10_IDS(info) \
++	INTEL_VGA_DEVICE(0x5690, info), \
++	INTEL_VGA_DEVICE(0x5691, info), \
++	INTEL_VGA_DEVICE(0x5692, info), \
++	INTEL_VGA_DEVICE(0x56A0, info), \
++	INTEL_VGA_DEVICE(0x56A1, info), \
++	INTEL_VGA_DEVICE(0x56A2, info)
++
++#define INTEL_DG2_G11_IDS(info) \
++	INTEL_VGA_DEVICE(0x5693, info), \
++	INTEL_VGA_DEVICE(0x5694, info), \
++	INTEL_VGA_DEVICE(0x5695, info), \
++	INTEL_VGA_DEVICE(0x56A5, info), \
++	INTEL_VGA_DEVICE(0x56A6, info), \
++	INTEL_VGA_DEVICE(0x56B0, info), \
++	INTEL_VGA_DEVICE(0x56B1, info)
++
++#define INTEL_DG2_G12_IDS(info) \
++	INTEL_VGA_DEVICE(0x56A3, info), \
++	INTEL_VGA_DEVICE(0x56A4, info)
++
++#define INTEL_DG2_IDS(info) \
++	INTEL_DG2_G10_IDS(info), \
++	INTEL_DG2_G11_IDS(info), \
++	INTEL_DG2_G12_IDS(info)
++
+ #endif /* _I915_PCIIDS_H */
+-- 
+2.34.1
 
