@@ -4,30 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A189EC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 07:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F8EC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 07:56:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4261A10E672;
-	Wed, 16 Feb 2022 07:16:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8270B10E672;
- Wed, 16 Feb 2022 07:16:35 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 82E83A008A;
- Wed, 16 Feb 2022 07:16:35 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5366234464599116230=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6529B10E824;
+	Wed, 16 Feb 2022 07:56:44 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A9E910E823;
+ Wed, 16 Feb 2022 07:56:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cmfdxzbTxy27QAm3lWSFMvkG2EHV5aO2Jdc8p7auJ0odRUqtiVn1R6dcZA5Qu7pW7KKe59YdbYwlMETv7PwMlsV4DCT6m5f/Qp+XFsGXCfhMsiDhnWNlOEFB00Sn0AJm6eOCDIf/HRD0PAbuGJD4rrKHWTfTTfodjVI6wluPCHZ4yQSfZ1iM2QWUQYS4fWecpsb5EbIekKLiAe8HyIX96L93yCbPypCrAu55Tpb/6QiUHtkKxA/AcbSNtQhz0KkIfUHuYq5otBgUuZNd4KpzAaFqVV5k9usjO/dglMK2eyv7A7ZVC9AiSUJgpNit01W77BxlOz2a+NJZwpqWLZKycA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OImgfBA8nb0w450wiRaPzeR1I7S9ldW/QFef9iVbOQs=;
+ b=kX7OM2wW3ACnZ+01Hv7B4cqs/9VOYWUknbXl0Ap2r8zfyQjnDhIoLYVXemzTZ6MZLFOrwj8Tluo+S+Ay6tTdo5oRANrMJrt2d3lDFKvgFGjCSoyMLcKZZlVWy+nxnz2DXySPLmmEl/mfpdlKEe/koVsMQczMZa9FzmEgV6X05uGOMls8PvInAFMUSdGJI2XKl/XFa2NVHDMEro+Hch61EbnyQ5ZhPXeZ+MBWJEG+aQ5oFTbWKers6CfxaYpr1OVUJj0o3gaxwrla9WviaoM4bnYnYwO+vXyGDlHPUQKaq5tTcQNy/Ki8lvfpUdfTiOcL/I304X1Y0nWHT0eoZrwtBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OImgfBA8nb0w450wiRaPzeR1I7S9ldW/QFef9iVbOQs=;
+ b=x9d1P7sGbymoB3fIjOoN2ovPFp1zmG6ugyj8kuS+0R1EBeADC4Btuc25epeXdzAdQafL218rBqPuxpszKn4vS15czkjHbP6U6SWAgw2BZ/BJf85PuqLzP5y/Mlk8qgQKLzNodav6E1P+TpImuRzYy0vVpWsgC1HBqkcFEvApXRY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by CY4PR1201MB0053.namprd12.prod.outlook.com (2603:10b6:910:23::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.17; Wed, 16 Feb
+ 2022 07:56:39 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::e550:4514:bbf5:fd82]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::e550:4514:bbf5:fd82%6]) with mapi id 15.20.4975.019; Wed, 16 Feb 2022
+ 07:56:39 +0000
+Message-ID: <aff37ec0-d13c-54fd-3f06-03953f7622bf@amd.com>
+Date: Wed, 16 Feb 2022 13:37:34 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Matthew Auld <matthew.william.auld@gmail.com>
+References: <20220213085217.2705-1-Arunpravin.PaneerSelvam@amd.com>
+ <32487d00-8ee2-b54e-cf5d-3b241ff19a5b@gmail.com>
+ <CAM0jSHNAPYjX8cD48195fkM4CoLjMFu5P0i5g2anS3-YGzf2cg@mail.gmail.com>
+ <b46a3c25-1f1d-2a76-53eb-c77f0b6eb31a@gmail.com>
+From: Arunpravin <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <b46a3c25-1f1d-2a76-53eb-c77f0b6eb31a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BMXPR01CA0008.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:d::18) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Tejas Upadhyay" <tejaskumarx.surendrakumar.upadhyay@intel.com>
-Date: Wed, 16 Feb 2022 07:16:35 -0000
-Message-ID: <164499579553.16094.7658909759193331074@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220215113818.729239-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-In-Reply-To: <20220215113818.729239-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgaW9t?=
- =?utf-8?q?mu/vt-d=3A_Add_RPLS_to_quirk_list_to_skip_TE_disabling?=
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fcce693f-39fb-43b4-b592-08d9f121dc67
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0053:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB00530C2A64918AB596200D26E4359@CY4PR1201MB0053.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vfay6s13y+dEwVDBWl9G4VUdiJ5Z4w7wzMpN/+JXonE+NI2XCZwiSyUbd4fXxxgSpLUE1WY+uJlFqDfks8mFjEpLNdo55HmtVLYrLbp51IvlTI7OCnk7G2ClGPuNcDa2/wAo8dEE8A68db5OfutcXVxy/46dAjvvTwQT5KubAQp3DCsI++7NSQYliu4zmLojx9ZRiY009/KN0w6HDmDoF4SCqSogCj7aatmmaRyYGKdicg6i+xRkEoVr9OzxITKU8Z9lwsVFF8yFp7BSLdnaCycJiOmGHlcv62C8J5vOIU/CJpMuTgVx2q+HatcmMggvFG6hNhcRylfIWVlTSviOW9ZiXQlPO3pYD51Dy3J+jTzyi3zWwdKtBwMPzIUdtMwIjslMoRmI6G3WoDrK421Iaw2IZUC9gSqldouRnPA3X5yoZ6Fr0kMIpObQu8zqKTBsdOjCOKu/aRO+8/U6DnmKYDElYOMvr8Abrr3o1LPpn3AIbzKxRW/IMFjGJxqx3naWmlJYiFgzaXKY9AASTSX+T6wz1Yuqi4BAarFxILQaWHpzvmikypQgpoR7ANPtRq30zLct7n5ixbYjgnWixhl5uEXLScYyKf5eQjSzb/2EVMd//CmXtF50BoHemuVIkLxmQOhMxzqpdvOXg/YSWH1P0YaWh1kndlnYttwKAj6Fu4kIXIthQp6uIgxApF+AUeWC2lMv+OpDlBqEDC4om+iPBtn6XtOTv3IT1ZeJlxj3haE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66574015)(2906002)(31696002)(6512007)(6666004)(2616005)(86362001)(8676002)(6506007)(8936002)(53546011)(30864003)(5660300002)(83380400001)(110136005)(54906003)(508600001)(66556008)(966005)(36756003)(66476007)(6486002)(4326008)(66946007)(316002)(38100700002)(31686004)(186003)(26005)(45080400002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWlYQU1KaFp5eTdvTUFsYXJOWFEvU1pYbWFnSGlxSnFaQkFMSVdDUkk2TzUr?=
+ =?utf-8?B?KzZmS28zQlhTSVQrWlZBNzM3TGpWYjdSYlJ5VVNUY3o5ME5CNXA5VkpyUGZl?=
+ =?utf-8?B?a1hTT003b3pjUHJ5cFU5bXUyK201Y1FuNkZrenVkUHRFN1M4dTlGWUIzUHZU?=
+ =?utf-8?B?dnJ0NE03V2x2MnIzVzkxY0dueDdpMVkzZlVqOFVpQUF0UzJuSElMOHA4ZzRF?=
+ =?utf-8?B?L0hqc2xycXlwL3hvRjJMd21JbzFIaUdjcEVsSHJjeGxyOWZTT1pEcTQ0Nkwz?=
+ =?utf-8?B?Yk9oNjZra0U5aTgzb2xhRGo1OEJabGltV2FLTXBuRlM3M1dXVzJKMkdBUkFU?=
+ =?utf-8?B?Mm9EeXhkb0NqeVZibjd5MjRoTXUyem40MzI1UmR6L3NJUVJNUkJqdXRLWmI4?=
+ =?utf-8?B?RVpMSTFVUWJFVWFsMGViWUxPaGJva0tUdnhHMEFITjdJVDN2c3RmTG15VzQw?=
+ =?utf-8?B?Ym80eUN6aWJhcm56YzNHWmErNkl0Y3ErZnBaQmdRU2Vxd2hTRlZzU2ZHOENT?=
+ =?utf-8?B?ODd3T29Uc1dKUU1qSkt2Q2tydlNneVg3aDZQQ2pxTEZCdUk3T2drOW5LN0Nn?=
+ =?utf-8?B?TFZWbTJ3TDJwMkN2dTMxdzh4bm5OVkpob3VaamVnaGhvVXhMWmhBQWUrb2xX?=
+ =?utf-8?B?WHIxR21MSnZFa3ZPME9Cc3RxZmlsbnF2R2lCN2FBSzFnWVE2dXFQZXpJekxp?=
+ =?utf-8?B?dDVMeFJPd3BybERCcE9vbnZCbGFUYTVnM2cxdFRlRmRQMWFiSHNUYXBHdDdQ?=
+ =?utf-8?B?TjZrMlk1QXJrT0FjQnh6eFFCKzdFQ21GRUZLQzA0UjVnc0haMk0rMjNaTHlP?=
+ =?utf-8?B?anpMVkthNDdWVE5Pd25heWRITHhKazdXalVKdWVkOExnWmVCN244ODZRbURr?=
+ =?utf-8?B?L0hwdVFzb1E2WGo3NFkxTjRIV1dUbHBUL3VYQ1FFcVJ3K3Z4dWhYMjhMcGlr?=
+ =?utf-8?B?S0pJaGN2MXMyTkZkZ0VzcUJSV3Y2bng2SWJBZWpmOStBeldWTnZZUy84dVhE?=
+ =?utf-8?B?M2plMHF3TEEwdXhoZTJ2WjQ1TVFOcXVNNkc2UUc0YUt0cGFSYUE0NlFjOWxq?=
+ =?utf-8?B?UFMxMkpRNzI5T3hOSVhXMldrUHBCZXJMY2lLcHBVeU5TUFZDZTdCbHdlTXpm?=
+ =?utf-8?B?QmtRWFpIR2JpWHc5RnhJOW1LN2NBSlJTUGdKRllnVnlYeWpRMlM1cXZTMElY?=
+ =?utf-8?B?MGZRcStpR1grWlErckxkTWFHaXpFRWV2VDZNN1d1cHA0NkJ1cTNCeitzYkQ2?=
+ =?utf-8?B?MGRZbHVEYUlLK2VTRDBZQmtoUkV2a3N5NVluK2N2c0dMb2ZsOU5EcnNLQUpi?=
+ =?utf-8?B?cmN4MVdkeGlwRlN5NkZPWFdmazdJWWpUbE1OM0VJWUhJWTg5TzZuR25pbExJ?=
+ =?utf-8?B?RmJydmVCT0ZrUTBLa0tiTzEreTQ1bm01ZXJqc2VPSGsrWkhTWVBIWVo1ZWNk?=
+ =?utf-8?B?TitnZlB2OFpLdDJGdVVkNTVRL0ZVeVBQeDVqZCs0TXJvMXZKRFJLUUdnMUR4?=
+ =?utf-8?B?bmtPdEk1ZUcwcGkzbWxLaHBzQTVCUno3aVYzUDBrclI0VUFQYXVtMDN0dVBV?=
+ =?utf-8?B?Lzc2dVl5SlprVVpLSERjQ1N4VzE2T3gwNzVLeGdIZVQ2WUxPNnVTRXdCOVFO?=
+ =?utf-8?B?WUpNOWowVXRyajJ3dVV4czRXSS9IRWpaN3dvek9leHd0OUlVaEgzQzB6OGF0?=
+ =?utf-8?B?OWtxOUpRaE1adWhObWM5WDNEQVE3N3BnNjlnL0Y4V3Bsd1VRWk8xS1p2WUR3?=
+ =?utf-8?B?WVRoVUllaUgrRGNzTDZ0ZmVXK0VnaVhTNWNNQm5FOUNjQll4R3hKaDlQWHdP?=
+ =?utf-8?B?ZnNUaVB0NmV6RE0xdjJtUUJJRUM2bFVjT05RWmY1aVBHMlZncTFmck13Zk9z?=
+ =?utf-8?B?SndxS2s1UkJTTHR5RmNNd3FwbHBtazFaTWpsc21uNzNYSklUY2dtM1VIVlRO?=
+ =?utf-8?B?MFN3ZkdwMDMwQU9jMEhLT0wwcjNvWGdmdkJiZEh5V0c3dlNwSy9wODdlOGhW?=
+ =?utf-8?B?N1FXZ1NWTDdVR3RVVTJIaFRGU3UxdFZWZGE0NGhoZFZLdmhBOTlSYVFBdFZw?=
+ =?utf-8?B?NzRuUHFwZkVnSVQvUkxucXAzOXZheVFYNWNrZnB3dWYrRHFQTnFRRFBtM0xu?=
+ =?utf-8?B?TWVhVWhURHRNMjRROWxMYTRPc0JYQWp2L0JkWmtYZUdkY0NPZ1VEa2EvTUpP?=
+ =?utf-8?Q?IVE3Gu0q0Kt0Nv59n5oQaho=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcce693f-39fb-43b4-b592-08d9f121dc67
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 07:56:38.8477 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ff9IobzSXj/70a+KpEZ//TYINgC6RJFpn2iQOCH/KLZvEfAnkDCZyE2uU5j19/s773bq5yib4wSlrX1V9dhOig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0053
+Subject: Re: [Intel-gfx] [PATCH v12 1/5] drm: improve drm_buddy_alloc
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,324 +131,603 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>, tzimmermann@suse.de,
+ alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5366234464599116230==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: iommu/vt-d: Add RPLS to quirk list to skip TE disabling
-URL   : https://patchwork.freedesktop.org/series/100165/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_11230 -> Patchwork_22280
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/index.html
-
-Participating hosts (50 -> 46)
-------------------------------
-
-  Missing    (4): fi-bsw-cyan shard-rkl shard-dg1 shard-tglu 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_22280 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
-    - fi-snb-2600:        NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#2190])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@verify-random:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][3] ([fdo#109271] / [i915#4613]) +3 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@gem_lmem_swapping@verify-random.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-hsw-4770:        [PASS][4] -> [INCOMPLETE][5] ([i915#3303])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-    - fi-bdw-5557u:       NOTRUN -> [INCOMPLETE][6] ([i915#3921])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-bdw-5557u/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_chamelium@vga-edid-read:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_chamelium@vga-edid-read.html
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][8] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-bdw-5557u/igt@kms_chamelium@vga-edid-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][9] ([fdo#109271]) +2 similar issues
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][10] ([fdo#109271] / [i915#533])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
-
-  * igt@kms_psr@cursor_plane_move:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][11] ([fdo#109271]) +13 similar issues
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-bdw-5557u/igt@kms_psr@cursor_plane_move.html
-
-  * igt@kms_psr@primary_page_flip:
-    - fi-skl-6600u:       NOTRUN -> [FAIL][12] ([i915#4547])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_psr@primary_page_flip.html
-
-  * igt@runner@aborted:
-    - fi-hsw-4770:        NOTRUN -> [FAIL][13] ([fdo#109271] / [i915#1436] / [i915#4312])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-hsw-4770/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - fi-skl-6600u:       [INCOMPLETE][14] ([i915#4547]) -> [PASS][15]
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html
-    - {bat-rpls-2}:       [INCOMPLETE][16] ([i915#4898]) -> [PASS][17]
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/bat-rpls-2/igt@gem_exec_suspend@basic-s3@smem.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/bat-rpls-2/igt@gem_exec_suspend@basic-s3@smem.html
-    - {bat-rpls-1}:       [INCOMPLETE][18] ([i915#4898]) -> [PASS][19]
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [INCOMPLETE][20] ([i915#3921]) -> [PASS][21]
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_frontbuffer_tracking@basic:
-    - fi-cml-u2:          [DMESG-WARN][22] ([i915#4269]) -> [PASS][23]
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#109308]: https://bugs.freedesktop.org/show_bug.cgi?id=109308
-  [fdo#111825]: https://bugs.freedesktop.org/show_bug.cgi?id=111825
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
-  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
-  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
-  [i915#3637]: https://gitlab.freedesktop.org/drm/intel/issues/3637
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4269]: https://gitlab.freedesktop.org/drm/intel/issues/4269
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4391]: https://gitlab.freedesktop.org/drm/intel/issues/4391
-  [i915#4547]: https://gitlab.freedesktop.org/drm/intel/issues/4547
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#4898]: https://gitlab.freedesktop.org/drm/intel/issues/4898
-  [i915#5068]: https://gitlab.freedesktop.org/drm/intel/issues/5068
-  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
 
 
-Build changes
--------------
+On 14/02/22 2:42 pm, Christian König wrote:
+> 
+> 
+> Am 14.02.22 um 09:36 schrieb Matthew Auld:
+>> On Mon, 14 Feb 2022 at 06:32, Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> Am 13.02.22 um 09:52 schrieb Arunpravin:
+>>>> - Make drm_buddy_alloc a single function to handle
+>>>>     range allocation and non-range allocation demands
+>>>>
+>>>> - Implemented a new function alloc_range() which allocates
+>>>>     the requested power-of-two block comply with range limitations
+>>>>
+>>>> - Moved order computation and memory alignment logic from
+>>>>     i915 driver to drm buddy
+>>>>
+>>>> v2:
+>>>>     merged below changes to keep the build unbroken
+>>>>      - drm_buddy_alloc_range() becomes obsolete and may be removed
+>>>>      - enable ttm range allocation (fpfn / lpfn) support in i915 driver
+>>>>      - apply enhanced drm_buddy_alloc() function to i915 driver
+>>>>
+>>>> v3(Matthew Auld):
+>>>>     - Fix alignment issues and remove unnecessary list_empty check
+>>>>     - add more validation checks for input arguments
+>>>>     - make alloc_range() block allocations as bottom-up
+>>>>     - optimize order computation logic
+>>>>     - replace uint64_t with u64, which is preferred in the kernel
+>>>>
+>>>> v4(Matthew Auld):
+>>>>     - keep drm_buddy_alloc_range() function implementation for generic
+>>>>       actual range allocations
+>>>>     - keep alloc_range() implementation for end bias allocations
+>>>>
+>>>> v5(Matthew Auld):
+>>>>     - modify drm_buddy_alloc() passing argument place->lpfn to lpfn
+>>>>       as place->lpfn will currently always be zero for i915
+>>>>
+>>>> v6(Matthew Auld):
+>>>>     - fixup potential uaf - If we are unlucky and can't allocate
+>>>>       enough memory when splitting blocks, where we temporarily
+>>>>       end up with the given block and its buddy on the respective
+>>>>       free list, then we need to ensure we delete both blocks,
+>>>>       and no just the buddy, before potentially freeing them
+>>>>
+>>>>     - fix warnings reported by kernel test robot <lkp@intel.com>
+>>>>
+>>>> v7(Matthew Auld):
+>>>>     - revert fixup potential uaf
+>>>>     - keep __alloc_range() add node to the list logic same as
+>>>>       drm_buddy_alloc_blocks() by having a temporary list variable
+>>>>     - at drm_buddy_alloc_blocks() keep i915 range_overflows macro
+>>>>       and add a new check for end variable
+>>>>
+>>>> v8:
+>>>>     - fix warnings reported by kernel test robot <lkp@intel.com>
+>>>>
+>>>> v9(Matthew Auld):
+>>>>     - remove DRM_BUDDY_RANGE_ALLOCATION flag
+>>>>     - remove unnecessary function description
+>>>>
+>>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>>> As long as nobody objects I'm going to push patches 1-3 to drm-misc-next
+>>> in the next hour or so:
+>> As part of this could you also push
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpatchwork.freedesktop.org%2Fseries%2F99842%2F&amp;data=04%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Cc50a2b13b2a0425e596f08d9ef9a2d60%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637804268194961068%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=ENxu%2BSquLubBYLkNYV1SIUau1u7aZMdjz22izvv3FvM%3D&amp;reserved=0 ?
+> 
+> Sure, but Arun said in our internal chat that I should wait with that 
+> anyway since he wanted to sort out one more issue.
+> 
+> Christian.
+> 
 
-  * Linux: CI_DRM_11230 -> Patchwork_22280
+working on 2 issues,
+1. I think we need to keep DRM_BUDDY_RANGE_ALLOCATION flag, some corner
+case didnt allow amdgpu driver load
 
-  CI-20190529: 20190529
-  CI_DRM_11230: e3741d576f60e3d0df5b385ba96a08ada3c760af @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6345: ee18c0497ec2c74007e299c3fdd26f1613b9f514 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_22280: c555683734fa14800a6354d6cc592d2d588b7992 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-c555683734fa iommu/vt-d: Add RPLS to quirk list to skip TE disabling
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/index.html
-
---===============5366234464599116230==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>iommu/vt-d: Add RPLS to quirk list to skip TE disabling</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/100165/">https://patchwork.freedesktop.org/series/100165/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_11230 -&gt; Patchwork_22280</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/index.html</p>
-<h2>Participating hosts (50 -&gt; 46)</h2>
-<p>Missing    (4): fi-bsw-cyan shard-rkl shard-dg1 shard-tglu </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_22280 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
-<ul>
-<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-snb-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@verify-random:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>
-<p>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>)</p>
-</li>
-<li>
-<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-bdw-5557u/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@vga-edid-read:</p>
-<ul>
-<li>
-<p>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_chamelium@vga-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</p>
-</li>
-<li>
-<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-bdw-5557u/igt@kms_chamelium@vga-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +2 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@cursor_plane_move:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-bdw-5557u/igt@kms_psr@cursor_plane_move.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +13 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@primary_page_flip:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@kms_psr@primary_page_flip.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4547">i915#4547</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s3@smem:</p>
-<ul>
-<li>
-<p>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4547">i915#4547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></p>
-</li>
-<li>
-<p>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/bat-rpls-2/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4898">i915#4898</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/bat-rpls-2/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></p>
-</li>
-<li>
-<p>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4898">i915#4898</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@basic:</p>
-<ul>
-<li>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11230/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4269">i915#4269</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22280/fi-cml-u2/igt@kms_frontbuffer_tracking@basic.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_11230 -&gt; Patchwork_22280</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_11230: e3741d576f60e3d0df5b385ba96a08ada3c760af @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6345: ee18c0497ec2c74007e299c3fdd26f1613b9f514 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_22280: c555683734fa14800a6354d6cc592d2d588b7992 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>c555683734fa iommu/vt-d: Add RPLS to quirk list to skip TE disabling</p>
-
-</body>
-</html>
-
---===============5366234464599116230==--
+2. rebasing the existing amdgpu_vram_mgr.c and resolving all conflicts
+as there are many changes merged in with the below patch
+- drm/amdgpu: remove VRAM accounting v2
+>>
+>>> Then going to take a deeper look into patches 4 and 5 to get them reviewed.
+>>>
+>>> Thanks,
+>>> Christian.
+>>>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_buddy.c                   | 292 +++++++++++++-----
+>>>>    drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |  63 ++--
+>>>>    drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |   2 +
+>>>>    include/drm/drm_buddy.h                       |  11 +-
+>>>>    4 files changed, 250 insertions(+), 118 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>>> index d60878bc9c20..e0c0d786a572 100644
+>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>> @@ -282,23 +282,97 @@ void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects)
+>>>>    }
+>>>>    EXPORT_SYMBOL(drm_buddy_free_list);
+>>>>
+>>>> -/**
+>>>> - * drm_buddy_alloc_blocks - allocate power-of-two blocks
+>>>> - *
+>>>> - * @mm: DRM buddy manager to allocate from
+>>>> - * @order: size of the allocation
+>>>> - *
+>>>> - * The order value here translates to:
+>>>> - *
+>>>> - * 0 = 2^0 * mm->chunk_size
+>>>> - * 1 = 2^1 * mm->chunk_size
+>>>> - * 2 = 2^2 * mm->chunk_size
+>>>> - *
+>>>> - * Returns:
+>>>> - * allocated ptr to the &drm_buddy_block on success
+>>>> - */
+>>>> -struct drm_buddy_block *
+>>>> -drm_buddy_alloc_blocks(struct drm_buddy *mm, unsigned int order)
+>>>> +static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+>>>> +{
+>>>> +     return s1 <= e2 && e1 >= s2;
+>>>> +}
+>>>> +
+>>>> +static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+>>>> +{
+>>>> +     return s1 <= s2 && e1 >= e2;
+>>>> +}
+>>>> +
+>>>> +static struct drm_buddy_block *
+>>>> +alloc_range_bias(struct drm_buddy *mm,
+>>>> +              u64 start, u64 end,
+>>>> +              unsigned int order)
+>>>> +{
+>>>> +     struct drm_buddy_block *block;
+>>>> +     struct drm_buddy_block *buddy;
+>>>> +     LIST_HEAD(dfs);
+>>>> +     int err;
+>>>> +     int i;
+>>>> +
+>>>> +     end = end - 1;
+>>>> +
+>>>> +     for (i = 0; i < mm->n_roots; ++i)
+>>>> +             list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>>> +
+>>>> +     do {
+>>>> +             u64 block_start;
+>>>> +             u64 block_end;
+>>>> +
+>>>> +             block = list_first_entry_or_null(&dfs,
+>>>> +                                              struct drm_buddy_block,
+>>>> +                                              tmp_link);
+>>>> +             if (!block)
+>>>> +                     break;
+>>>> +
+>>>> +             list_del(&block->tmp_link);
+>>>> +
+>>>> +             if (drm_buddy_block_order(block) < order)
+>>>> +                     continue;
+>>>> +
+>>>> +             block_start = drm_buddy_block_offset(block);
+>>>> +             block_end = block_start + drm_buddy_block_size(mm, block) - 1;
+>>>> +
+>>>> +             if (!overlaps(start, end, block_start, block_end))
+>>>> +                     continue;
+>>>> +
+>>>> +             if (drm_buddy_block_is_allocated(block))
+>>>> +                     continue;
+>>>> +
+>>>> +             if (contains(start, end, block_start, block_end) &&
+>>>> +                 order == drm_buddy_block_order(block)) {
+>>>> +                     /*
+>>>> +                      * Find the free block within the range.
+>>>> +                      */
+>>>> +                     if (drm_buddy_block_is_free(block))
+>>>> +                             return block;
+>>>> +
+>>>> +                     continue;
+>>>> +             }
+>>>> +
+>>>> +             if (!drm_buddy_block_is_split(block)) {
+>>>> +                     err = split_block(mm, block);
+>>>> +                     if (unlikely(err))
+>>>> +                             goto err_undo;
+>>>> +             }
+>>>> +
+>>>> +             list_add(&block->right->tmp_link, &dfs);
+>>>> +             list_add(&block->left->tmp_link, &dfs);
+>>>> +     } while (1);
+>>>> +
+>>>> +     return ERR_PTR(-ENOSPC);
+>>>> +
+>>>> +err_undo:
+>>>> +     /*
+>>>> +      * We really don't want to leave around a bunch of split blocks, since
+>>>> +      * bigger is better, so make sure we merge everything back before we
+>>>> +      * free the allocated blocks.
+>>>> +      */
+>>>> +     buddy = get_buddy(block);
+>>>> +     if (buddy &&
+>>>> +         (drm_buddy_block_is_free(block) &&
+>>>> +          drm_buddy_block_is_free(buddy)))
+>>>> +             __drm_buddy_free(mm, block);
+>>>> +     return ERR_PTR(err);
+>>>> +}
+>>>> +
+>>>> +static struct drm_buddy_block *
+>>>> +alloc_from_freelist(struct drm_buddy *mm,
+>>>> +                 unsigned int order,
+>>>> +                 unsigned long flags)
+>>>>    {
+>>>>        struct drm_buddy_block *block = NULL;
+>>>>        unsigned int i;
+>>>> @@ -320,78 +394,29 @@ drm_buddy_alloc_blocks(struct drm_buddy *mm, unsigned int order)
+>>>>        while (i != order) {
+>>>>                err = split_block(mm, block);
+>>>>                if (unlikely(err))
+>>>> -                     goto out_free;
+>>>> +                     goto err_undo;
+>>>>
+>>>> -             /* Go low */
+>>>> -             block = block->left;
+>>>> +             block = block->right;
+>>>>                i--;
+>>>>        }
+>>>> -
+>>>> -     mark_allocated(block);
+>>>> -     mm->avail -= drm_buddy_block_size(mm, block);
+>>>> -     kmemleak_update_trace(block);
+>>>>        return block;
+>>>>
+>>>> -out_free:
+>>>> +err_undo:
+>>>>        if (i != order)
+>>>>                __drm_buddy_free(mm, block);
+>>>>        return ERR_PTR(err);
+>>>>    }
+>>>> -EXPORT_SYMBOL(drm_buddy_alloc_blocks);
+>>>> -
+>>>> -static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+>>>> -{
+>>>> -     return s1 <= e2 && e1 >= s2;
+>>>> -}
+>>>> -
+>>>> -static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+>>>> -{
+>>>> -     return s1 <= s2 && e1 >= e2;
+>>>> -}
+>>>>
+>>>> -/**
+>>>> - * drm_buddy_alloc_range - allocate range
+>>>> - *
+>>>> - * @mm: DRM buddy manager to allocate from
+>>>> - * @blocks: output list head to add allocated blocks
+>>>> - * @start: start of the allowed range for this block
+>>>> - * @size: size of the allocation
+>>>> - *
+>>>> - * Intended for pre-allocating portions of the address space, for example to
+>>>> - * reserve a block for the initial framebuffer or similar, hence the expectation
+>>>> - * here is that drm_buddy_alloc_blocks() is still the main vehicle for
+>>>> - * allocations, so if that's not the case then the drm_mm range allocator is
+>>>> - * probably a much better fit, and so you should probably go use that instead.
+>>>> - *
+>>>> - * Note that it's safe to chain together multiple alloc_ranges
+>>>> - * with the same blocks list
+>>>> - *
+>>>> - * Returns:
+>>>> - * 0 on success, error code on failure.
+>>>> - */
+>>>> -int drm_buddy_alloc_range(struct drm_buddy *mm,
+>>>> -                       struct list_head *blocks,
+>>>> -                       u64 start, u64 size)
+>>>> +static int __alloc_range(struct drm_buddy *mm,
+>>>> +                      struct list_head *dfs,
+>>>> +                      u64 start, u64 size,
+>>>> +                      struct list_head *blocks)
+>>>>    {
+>>>>        struct drm_buddy_block *block;
+>>>>        struct drm_buddy_block *buddy;
+>>>>        LIST_HEAD(allocated);
+>>>> -     LIST_HEAD(dfs);
+>>>>        u64 end;
+>>>>        int err;
+>>>> -     int i;
+>>>> -
+>>>> -     if (size < mm->chunk_size)
+>>>> -             return -EINVAL;
+>>>> -
+>>>> -     if (!IS_ALIGNED(size | start, mm->chunk_size))
+>>>> -             return -EINVAL;
+>>>> -
+>>>> -     if (range_overflows(start, size, mm->size))
+>>>> -             return -EINVAL;
+>>>> -
+>>>> -     for (i = 0; i < mm->n_roots; ++i)
+>>>> -             list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>>>
+>>>>        end = start + size - 1;
+>>>>
+>>>> @@ -399,7 +424,7 @@ int drm_buddy_alloc_range(struct drm_buddy *mm,
+>>>>                u64 block_start;
+>>>>                u64 block_end;
+>>>>
+>>>> -             block = list_first_entry_or_null(&dfs,
+>>>> +             block = list_first_entry_or_null(dfs,
+>>>>                                                 struct drm_buddy_block,
+>>>>                                                 tmp_link);
+>>>>                if (!block)
+>>>> @@ -436,8 +461,8 @@ int drm_buddy_alloc_range(struct drm_buddy *mm,
+>>>>                                goto err_undo;
+>>>>                }
+>>>>
+>>>> -             list_add(&block->right->tmp_link, &dfs);
+>>>> -             list_add(&block->left->tmp_link, &dfs);
+>>>> +             list_add(&block->right->tmp_link, dfs);
+>>>> +             list_add(&block->left->tmp_link, dfs);
+>>>>        } while (1);
+>>>>
+>>>>        list_splice_tail(&allocated, blocks);
+>>>> @@ -459,7 +484,120 @@ int drm_buddy_alloc_range(struct drm_buddy *mm,
+>>>>        drm_buddy_free_list(mm, &allocated);
+>>>>        return err;
+>>>>    }
+>>>> -EXPORT_SYMBOL(drm_buddy_alloc_range);
+>>>> +
+>>>> +static int __drm_buddy_alloc_range(struct drm_buddy *mm,
+>>>> +                                u64 start,
+>>>> +                                u64 size,
+>>>> +                                struct list_head *blocks)
+>>>> +{
+>>>> +     LIST_HEAD(dfs);
+>>>> +     int i;
+>>>> +
+>>>> +     for (i = 0; i < mm->n_roots; ++i)
+>>>> +             list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>>> +
+>>>> +     return __alloc_range(mm, &dfs, start, size, blocks);
+>>>> +}
+>>>> +
+>>>> +/**
+>>>> + * drm_buddy_alloc_blocks - allocate power-of-two blocks
+>>>> + *
+>>>> + * @mm: DRM buddy manager to allocate from
+>>>> + * @start: start of the allowed range for this block
+>>>> + * @end: end of the allowed range for this block
+>>>> + * @size: size of the allocation
+>>>> + * @min_page_size: alignment of the allocation
+>>>> + * @blocks: output list head to add allocated blocks
+>>>> + * @flags: DRM_BUDDY_*_ALLOCATION flags
+>>>> + *
+>>>> + * alloc_range_bias() called on range limitations, which traverses
+>>>> + * the tree and returns the desired block.
+>>>> + *
+>>>> + * alloc_from_freelist() called when *no* range restrictions
+>>>> + * are enforced, which picks the block from the freelist.
+>>>> + *
+>>>> + * Returns:
+>>>> + * 0 on success, error code on failure.
+>>>> + */
+>>>> +int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>>>> +                        u64 start, u64 end, u64 size,
+>>>> +                        u64 min_page_size,
+>>>> +                        struct list_head *blocks,
+>>>> +                        unsigned long flags)
+>>>> +{
+>>>> +     struct drm_buddy_block *block = NULL;
+>>>> +     unsigned int min_order, order;
+>>>> +     unsigned long pages;
+>>>> +     LIST_HEAD(allocated);
+>>>> +     int err;
+>>>> +
+>>>> +     if (size < mm->chunk_size)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (min_page_size < mm->chunk_size)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (!is_power_of_2(min_page_size))
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (!IS_ALIGNED(start | end | size, mm->chunk_size))
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (end > mm->size)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (range_overflows(start, size, mm->size))
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     /* Actual range allocation */
+>>>> +     if (start + size == end)
+>>>> +             return __drm_buddy_alloc_range(mm, start, size, blocks);
+>>>> +
+>>>> +     pages = size >> ilog2(mm->chunk_size);
+>>>> +     order = fls(pages) - 1;
+>>>> +     min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+>>>> +
+>>>> +     do {
+>>>> +             order = min(order, (unsigned int)fls(pages) - 1);
+>>>> +             BUG_ON(order > mm->max_order);
+>>>> +             BUG_ON(order < min_order);
+>>>> +
+>>>> +             do {
+>>>> +                     if (start || end != size)
+>>>> +                             /* Allocate traversing within the range */
+>>>> +                             block = alloc_range_bias(mm, start, end, order);
+>>>> +                     else
+>>>> +                             /* Allocate from freelist */
+>>>> +                             block = alloc_from_freelist(mm, order, flags);
+>>>> +
+>>>> +                     if (!IS_ERR(block))
+>>>> +                             break;
+>>>> +
+>>>> +                     if (order-- == min_order) {
+>>>> +                             err = -ENOSPC;
+>>>> +                             goto err_free;
+>>>> +                     }
+>>>> +             } while (1);
+>>>> +
+>>>> +             mark_allocated(block);
+>>>> +             mm->avail -= drm_buddy_block_size(mm, block);
+>>>> +             kmemleak_update_trace(block);
+>>>> +             list_add_tail(&block->link, &allocated);
+>>>> +
+>>>> +             pages -= BIT(order);
+>>>> +
+>>>> +             if (!pages)
+>>>> +                     break;
+>>>> +     } while (1);
+>>>> +
+>>>> +     list_splice_tail(&allocated, blocks);
+>>>> +     return 0;
+>>>> +
+>>>> +err_free:
+>>>> +     drm_buddy_free_list(mm, &allocated);
+>>>> +     return err;
+>>>> +}
+>>>> +EXPORT_SYMBOL(drm_buddy_alloc_blocks);
+>>>>
+>>>>    /**
+>>>>     * drm_buddy_block_print - print block information
+>>>> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>>>> index 247714bab044..7aef6ad9fe84 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>>>> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>>>> @@ -36,13 +36,14 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>>        struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+>>>>        struct i915_ttm_buddy_resource *bman_res;
+>>>>        struct drm_buddy *mm = &bman->mm;
+>>>> -     unsigned long n_pages;
+>>>> -     unsigned int min_order;
+>>>> +     unsigned long n_pages, lpfn;
+>>>>        u64 min_page_size;
+>>>>        u64 size;
+>>>>        int err;
+>>>>
+>>>> -     GEM_BUG_ON(place->fpfn || place->lpfn);
+>>>> +     lpfn = place->lpfn;
+>>>> +     if (!lpfn)
+>>>> +             lpfn = man->size;
+>>>>
+>>>>        bman_res = kzalloc(sizeof(*bman_res), GFP_KERNEL);
+>>>>        if (!bman_res)
+>>>> @@ -60,10 +61,16 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>>                min_page_size = bo->page_alignment << PAGE_SHIFT;
+>>>>
+>>>>        GEM_BUG_ON(min_page_size < mm->chunk_size);
+>>>> -     min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+>>>> +
+>>>>        if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>>> +             unsigned long pages;
+>>>> +
+>>>>                size = roundup_pow_of_two(size);
+>>>> -             min_order = ilog2(size) - ilog2(mm->chunk_size);
+>>>> +             min_page_size = size;
+>>>> +
+>>>> +             pages = size >> ilog2(mm->chunk_size);
+>>>> +             if (pages > lpfn)
+>>>> +                     lpfn = pages;
+>>>>        }
+>>>>
+>>>>        if (size > mm->size) {
+>>>> @@ -73,34 +80,16 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>>
+>>>>        n_pages = size >> ilog2(mm->chunk_size);
+>>>>
+>>>> -     do {
+>>>> -             struct drm_buddy_block *block;
+>>>> -             unsigned int order;
+>>>> -
+>>>> -             order = fls(n_pages) - 1;
+>>>> -             GEM_BUG_ON(order > mm->max_order);
+>>>> -             GEM_BUG_ON(order < min_order);
+>>>> -
+>>>> -             do {
+>>>> -                     mutex_lock(&bman->lock);
+>>>> -                     block = drm_buddy_alloc_blocks(mm, order);
+>>>> -                     mutex_unlock(&bman->lock);
+>>>> -                     if (!IS_ERR(block))
+>>>> -                             break;
+>>>> -
+>>>> -                     if (order-- == min_order) {
+>>>> -                             err = -ENOSPC;
+>>>> -                             goto err_free_blocks;
+>>>> -                     }
+>>>> -             } while (1);
+>>>> -
+>>>> -             n_pages -= BIT(order);
+>>>> -
+>>>> -             list_add_tail(&block->link, &bman_res->blocks);
+>>>> -
+>>>> -             if (!n_pages)
+>>>> -                     break;
+>>>> -     } while (1);
+>>>> +     mutex_lock(&bman->lock);
+>>>> +     err = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
+>>>> +                                  (u64)lpfn << PAGE_SHIFT,
+>>>> +                                  (u64)n_pages << PAGE_SHIFT,
+>>>> +                                  min_page_size,
+>>>> +                                  &bman_res->blocks,
+>>>> +                                  bman_res->flags);
+>>>> +     mutex_unlock(&bman->lock);
+>>>> +     if (unlikely(err))
+>>>> +             goto err_free_blocks;
+>>>>
+>>>>        *res = &bman_res->base;
+>>>>        return 0;
+>>>> @@ -268,12 +257,16 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
+>>>>    {
+>>>>        struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+>>>>        struct drm_buddy *mm = &bman->mm;
+>>>> +     unsigned long flags = 0;
+>>>>        int ret;
+>>>>
+>>>>        mutex_lock(&bman->lock);
+>>>> -     ret = drm_buddy_alloc_range(mm, &bman->reserved, start, size);
+>>>> +     ret = drm_buddy_alloc_blocks(mm, start,
+>>>> +                                  start + size,
+>>>> +                                  size, mm->chunk_size,
+>>>> +                                  &bman->reserved,
+>>>> +                                  flags);
+>>>>        mutex_unlock(&bman->lock);
+>>>>
+>>>>        return ret;
+>>>>    }
+>>>> -
+>>>> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+>>>> index 312077941411..72c90b432e87 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+>>>> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+>>>> @@ -20,6 +20,7 @@ struct drm_buddy;
+>>>>     *
+>>>>     * @base: struct ttm_resource base class we extend
+>>>>     * @blocks: the list of struct i915_buddy_block for this resource/allocation
+>>>> + * @flags: DRM_BUDDY_*_ALLOCATION flags
+>>>>     * @mm: the struct i915_buddy_mm for this resource
+>>>>     *
+>>>>     * Extends the struct ttm_resource to manage an address space allocation with
+>>>> @@ -28,6 +29,7 @@ struct drm_buddy;
+>>>>    struct i915_ttm_buddy_resource {
+>>>>        struct ttm_resource base;
+>>>>        struct list_head blocks;
+>>>> +     unsigned long flags;
+>>>>        struct drm_buddy *mm;
+>>>>    };
+>>>>
+>>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>>>> index f524db152413..1f2435426c69 100644
+>>>> --- a/include/drm/drm_buddy.h
+>>>> +++ b/include/drm/drm_buddy.h
+>>>> @@ -131,12 +131,11 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size);
+>>>>
+>>>>    void drm_buddy_fini(struct drm_buddy *mm);
+>>>>
+>>>> -struct drm_buddy_block *
+>>>> -drm_buddy_alloc_blocks(struct drm_buddy *mm, unsigned int order);
+>>>> -
+>>>> -int drm_buddy_alloc_range(struct drm_buddy *mm,
+>>>> -                       struct list_head *blocks,
+>>>> -                       u64 start, u64 size);
+>>>> +int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>>>> +                        u64 start, u64 end, u64 size,
+>>>> +                        u64 min_page_size,
+>>>> +                        struct list_head *blocks,
+>>>> +                        unsigned long flags);
+>>>>
+>>>>    void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
+>>>>
+> 
