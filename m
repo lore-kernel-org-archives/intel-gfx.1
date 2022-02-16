@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C03C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93EDBC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58C0D10E8B0;
-	Wed, 16 Feb 2022 17:41:15 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFEF10E866;
- Wed, 16 Feb 2022 17:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2DA10E6EC;
+	Wed, 16 Feb 2022 17:42:56 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA5F710E6EC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Feb 2022 17:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645033259; x=1676569259;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7YCuwR1akX47yfYGLozqJrE8WX1UXKPT7c1kUJWm2DQ=;
- b=hw36MTUmdPs9rTP/2fEWDpbeMmlRnSUqXj3XRZmHXdrqjcLCBw0wIChr
- QuerWVGt590bgnxqN2g42dKT8yzOgSLAp0PpGUbJrUmoKX5WMSF+W+Eu7
- CiS7oHwt7uvMPYTYDOlDt2oh2DrF9gDoSMWK+t38DwpbsNJlbL2LMRJfO
- EaTrk6MakvT/cSSgpT7EmsRXh+232o+O1PZVSRJtQBTbd/488Y8dyvTzl
- +yxo7PxSF2NAxX6N2wLUlJzsjDkQAhPPMbje7gszLso6OKEK+ZTQo2xhG
- WjvVy9KEuq0tOU19U4O8Zz8clpYUB6nxeLTSrn+5hkYvvVH2c4qDvng+A g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641969"
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641969"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:40:59 -0800
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226720"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:40:58 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Wed, 16 Feb 2022 09:41:43 -0800
-Message-Id: <20220216174147.3073235-13-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220216174147.3073235-1-lucas.demarchi@intel.com>
-References: <20220216174147.3073235-1-lucas.demarchi@intel.com>
+ t=1645033374; x=1676569374;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=aZESj71MY3YoC1molUYefPTAkOIHhaBmgCl7WYS0coM=;
+ b=jAddRf2GCI9mxWWXPHQK7ehvRiVMPcgYM6rwKiHYQ282mOyldGJ3InTp
+ ccqkx3TajxQS370vl8w1zoD4tb9fSU8YSZvZDtph7043iH6IIYIpkuOR2
+ Ix3fPW9Uvmq1fbB33nhlO5cxgKBm+OAPeuCDaYePjvuNxu5/C5QR7VXzU
+ uK/jvanb8refwK5ceqq6WOu/DvnOGiNbFl2QWd0rjxhiJYlSoJVFqGorY
+ JxADVCYR/FoURkiX8GlzsfNzwxuXg/rwp7WwEC8cD+1CurcYf3o77wopc
+ Nmq/pffUM/qtOP9VaSgB+4g2qMY2KwwysXubE/VofbFCBy+6wW8lALAmF Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="250622602"
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="250622602"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2022 09:42:54 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="588609656"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
+ by fmsmga008.fm.intel.com with SMTP; 16 Feb 2022 09:42:51 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 16 Feb 2022 19:42:50 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 16 Feb 2022 19:42:44 +0200
+Message-Id: <20220216174250.4449-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 12/16] drm/i915/guc: Convert mapping table to
- iosys_map
+Subject: [Intel-gfx] [PATCH v2 0/6] drm/i915: SAGV fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +56,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use iosys_map to write the fields system_info.mapping_table[][].
-Since we already have the info_map around where needed, just use it
-instead of going through guc->ads_map.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+While pokingaround the watermarks/etc. I noticed our SAGV code
+has a bunch of bugs. Let's try to fix it.
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index b739781bd133..c3c31b679e79 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -204,7 +204,7 @@ int intel_guc_global_policies_update(struct intel_guc *guc)
- }
- 
- static void guc_mapping_table_init(struct intel_gt *gt,
--				   struct guc_gt_system_info *system_info)
-+				   struct iosys_map *info_map)
- {
- 	unsigned int i, j;
- 	struct intel_engine_cs *engine;
-@@ -213,14 +213,14 @@ static void guc_mapping_table_init(struct intel_gt *gt,
- 	/* Table must be set to invalid values for entries not used */
- 	for (i = 0; i < GUC_MAX_ENGINE_CLASSES; ++i)
- 		for (j = 0; j < GUC_MAX_INSTANCES_PER_CLASS; ++j)
--			system_info->mapping_table[i][j] =
--				GUC_MAX_INSTANCES_PER_CLASS;
-+			info_map_write(info_map, mapping_table[i][j],
-+				       GUC_MAX_INSTANCES_PER_CLASS);
- 
- 	for_each_engine(engine, gt, id) {
- 		u8 guc_class = engine_class_to_guc_class(engine->class);
- 
--		system_info->mapping_table[guc_class][ilog2(engine->logical_mask)] =
--			engine->instance;
-+		info_map_write(info_map, mapping_table[guc_class][ilog2(engine->logical_mask)],
-+			       engine->instance);
- 	}
- }
- 
-@@ -631,7 +631,7 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	/* Golden contexts for re-initialising after a watchdog reset */
- 	guc_prep_golden_context(guc);
- 
--	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
-+	guc_mapping_table_init(guc_to_gt(guc), &info_map);
- 
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
- 
+Pushed a few patches from v1 already. And based on the discussion
+with Stan I added a few extra refactoring patches to the end in the
+hopes of making the logic less confusing. I still prefer the oneliner
+for the immediate bugfix in patch 2 so that we don't have to backport
+the refactoring as well.
+
+Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+
+Ville Syrjälä (6):
+  drm/i915: Correctly populate use_sagv_wm for all pipes
+  drm/i915: Fix bw atomic check when switching between SAGV vs. no SAGV
+  drm/i915: Split pre-icl vs. icl+ SAGV hooks apart
+  drm/i915: Pimp icl+ sagv pre/post update
+  drm/i915: Extract icl_qgv_points_mask()
+  drm/i915: Extract intel_bw_check_data_rate()
+
+ drivers/gpu/drm/i915/display/intel_bw.c |  71 +++++++---
+ drivers/gpu/drm/i915/intel_pm.c         | 177 ++++++++++++++----------
+ 2 files changed, 154 insertions(+), 94 deletions(-)
+
 -- 
-2.35.1
+2.34.1
 
