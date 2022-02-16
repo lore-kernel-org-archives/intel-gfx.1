@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E159DC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 235BBC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEA1310E748;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF2E210E752;
 	Wed, 16 Feb 2022 17:40:55 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC07210E6FA;
- Wed, 16 Feb 2022 17:40:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954D610E728;
+ Wed, 16 Feb 2022 17:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645033254; x=1676569254;
+ t=1645033253; x=1676569253;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ioKKATaD12FXahK6GFfhLt2aX4ido1jwzEB+aWAfOo0=;
- b=eKyPf5m1pgczTLqp8i2JuVjFnAFzmqcPdSPKsfx9M1kxkLwZkoE8usap
- B8pQD+ch11AcH3jvbbOlwb+N+9AjDcr9BsU7zHCyqmO6Jh9MBqveZMrxG
- amYMf7m2ZxRkImks7vKyF4v5/2n7zmyr41gObAJIMF9u1kXbEFgk+vZp5
- yv73oyqWVKlKieRfSmEwYYEarKRLSK3V+nvj/uqzl7sNNeX+TWfV6pWld
- efE2oiSj/b7F/F7nnwQEfkxJNUXU96f9W9cQzn0hsejcjx17Y91an3Hua
- KkUHVGe8hdIeMSNhQoJZAFPSmKM9uw2SUrzxAayo+A/Z285BNi9vjg3Ua g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641939"
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641939"
+ bh=rvXopUfjDpHc+wjPGTgErpvZjrynLNqAft6dbbSTJ8M=;
+ b=U7vd3T6MgoZ2n4HSoDi3Xgg/jZX3tDt3VVNSiDK3yZMncGFYPeKflxXY
+ EBT4ypdYxsSkLkXPQPLFBQDwd8QSkVJly5DKbChtGuk1/76Rh5PUuuQbY
+ aEsVPAqg5D29383Bq3Ruu3N0PR/bUVR66MwvbS+ZRW0gqtCrBBpRtMgQo
+ rBxKtefJkgjMtKSLmvU6mKW7pZx+XDkBL3w0qh5X7iF9puNw0SHJV5jw7
+ KQcYAH3tzFfh2cNlxxSMqj5KL98PF5KUp7bBEKYK3aesad3lZ/vHsGWbf
+ 0L4MzusMn7uRHVtTaD3Kx762cw2qN7JuEFjTPFmER109tzpwS6gn73i35 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641935"
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641935"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:40:54 -0800
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226629"
+ 16 Feb 2022 09:40:53 -0800
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226609"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:40:53 -0800
+ 16 Feb 2022 09:40:52 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 16 Feb 2022 09:41:36 -0800
-Message-Id: <20220216174147.3073235-6-lucas.demarchi@intel.com>
+Date: Wed, 16 Feb 2022 09:41:34 -0800
+Message-Id: <20220216174147.3073235-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220216174147.3073235-1-lucas.demarchi@intel.com>
 References: <20220216174147.3073235-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 05/16] drm/i915/guc: Add read/write helpers
- for ADS blob
+Subject: [Intel-gfx] [PATCH v3 03/16] drm/i915/gt: Add helper for shmem copy
+ to iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +59,112 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
+ David Airlie <airlied@linux.ie>, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Matthew Auld <matthew.auld@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add helpers on top of iosys_map_read_field() /
-iosys_map_write_field() functions so they always use the right
-arguments and make code easier to read.
+Add a variant of shmem_read() that takes a iosys_map pointer rather
+than a plain pointer as argument. It's mostly a copy __shmem_rw() but
+adapting the api and removing the write support since there's currently
+only need to use iosys_map as destination.
+
+Reworking __shmem_rw() to share the implementation was tempting, but
+finding a good balance between reuse and clarity pushed towards a little
+code duplication. Since the function is small, just add the similar
+function with a copy/paste/adapt approach.
+
+v2: Add an offset as argument and instead of using a map iterator, use the
+offset to keep track of where we are writing data to.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/gt/shmem_utils.c | 32 +++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/shmem_utils.h |  3 +++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 4ea842752bbc..b645df7d46b6 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -60,6 +60,13 @@ struct __guc_ads_blob {
- 	struct guc_mmio_reg regset[0];
- } __packed;
+diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+index 0683b27a3890..402f085f3a02 100644
+--- a/drivers/gpu/drm/i915/gt/shmem_utils.c
++++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+@@ -3,6 +3,7 @@
+  * Copyright © 2020 Intel Corporation
+  */
  
-+#define ads_blob_read(guc_, field_)					\
-+	iosys_map_rd_field(&(guc_)->ads_map, 0, struct __guc_ads_blob, field_)
++#include <linux/iosys-map.h>
+ #include <linux/mm.h>
+ #include <linux/pagemap.h>
+ #include <linux/shmem_fs.h>
+@@ -123,6 +124,37 @@ static int __shmem_rw(struct file *file, loff_t off,
+ 	return 0;
+ }
+ 
++int shmem_read_to_iosys_map(struct file *file, loff_t off,
++			    struct iosys_map *map, size_t map_off, size_t len)
++{
++	unsigned long pfn;
 +
-+#define ads_blob_write(guc_, field_, val_)				\
-+	iosys_map_wr_field(&(guc_)->ads_map, 0, struct __guc_ads_blob,	\
-+			   field_, val_)
++	for (pfn = off >> PAGE_SHIFT; len; pfn++) {
++		unsigned int this =
++			min_t(size_t, PAGE_SIZE - offset_in_page(off), len);
++		struct page *page;
++		void *vaddr;
 +
- static u32 guc_ads_regset_size(struct intel_guc *guc)
++		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
++						   GFP_KERNEL);
++		if (IS_ERR(page))
++			return PTR_ERR(page);
++
++		vaddr = kmap(page);
++		iosys_map_memcpy_to(map, map_off, vaddr + offset_in_page(off),
++				    this);
++		mark_page_accessed(page);
++		kunmap(page);
++		put_page(page);
++
++		len -= this;
++		map_off += this;
++		off = 0;
++	}
++
++	return 0;
++}
++
+ int shmem_read(struct file *file, loff_t off, void *dst, size_t len)
  {
- 	GEM_BUG_ON(!guc->ads_regset_size);
+ 	return __shmem_rw(file, off, dst, len, false);
+diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.h b/drivers/gpu/drm/i915/gt/shmem_utils.h
+index c1669170c351..b2b04d88c6e5 100644
+--- a/drivers/gpu/drm/i915/gt/shmem_utils.h
++++ b/drivers/gpu/drm/i915/gt/shmem_utils.h
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
++struct iosys_map;
+ struct drm_i915_gem_object;
+ struct file;
+ 
+@@ -17,6 +18,8 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj);
+ void *shmem_pin_map(struct file *file);
+ void shmem_unpin_map(struct file *file, void *ptr);
+ 
++int shmem_read_to_iosys_map(struct file *file, loff_t off,
++			    struct iosys_map *map, size_t map_off, size_t len);
+ int shmem_read(struct file *file, loff_t off, void *dst, size_t len);
+ int shmem_write(struct file *file, loff_t off, void *src, size_t len);
+ 
 -- 
 2.35.1
 
