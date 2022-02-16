@@ -4,31 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C73C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 18:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CAACC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 18:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1294C10E25C;
-	Wed, 16 Feb 2022 18:02:23 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 33CF410E25C;
- Wed, 16 Feb 2022 18:02:22 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 30606AA0EA;
- Wed, 16 Feb 2022 18:02:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5397B10E651;
+	Wed, 16 Feb 2022 18:15:53 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBE6410E651;
+ Wed, 16 Feb 2022 18:15:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645035351; x=1676571351;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=XSaHcrYQhg2MfkEYhGe6x+1xWaV4z82MOiGzD4XpFQI=;
+ b=hoSnZ+ieKZCoba/0HovIUF3raxu3vcrn72cQRvNVYHaTOnHJueySXjq5
+ EEtZIIfNv9dRqi0tBnjLrTC47dsVHjOsWCVv1yFkQHyYdBd8Bawm0+dKm
+ xP4FPgw5vpDys6od4wdKLdFdHUMRQ/EPDhHYM7V5NPCAXqVM69b0L4Lam
+ TGL/AtwpMPqgf+xKc8K8hiGGJOHEdQ89x5JyPUOlrp4Lc3EV3Zq2DDh5Q
+ YC8KZY+hMipcSv6jpYNHCf4yChgWe1xYYTEnu4n4PezFUtcH66zHaYaI7
+ KK9J53VbKln4ukPkho2/A5lfjqcXR1XtJb25wXNycK0ZfDWS12xjht4mO w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="249523667"
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="249523667"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2022 10:15:28 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="487271250"
+Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
+ by orsmga003.jf.intel.com with ESMTP; 16 Feb 2022 10:15:28 -0800
+From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed, 16 Feb 2022 10:15:04 -0800
+Message-Id: <20220216181504.7155-1-vinay.belgaumkar@intel.com>
+X-Mailer: git-send-email 2.34.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Wed, 16 Feb 2022 18:02:22 -0000
-Message-ID: <164503454216.16093.12309596181464474632@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220215122957.2755529-1-jani.nikula@intel.com>
-In-Reply-To: <20220215122957.2755529-1-jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5Bv2=2C1/2=5D_drm/i915/fbdev=3A_add_i?=
- =?utf-8?q?ntel=5Ffbdev=5Fframebuffer=28=29_helper?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/guc/slpc: Correct the param count for
+ unset param
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,27 +55,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+SLPC unset param H2G only needs one parameter - the id of the
+param.
 
-Series: series starting with [v2,1/2] drm/i915/fbdev: add intel_fbdev_framebuffer() helper
-URL   : https://patchwork.freedesktop.org/series/100170/
-State : warning
+Fixes: 025cb07bebfa ("drm/i915/guc/slpc: Cache platform frequency limits")
 
-== Summary ==
+Suggested-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-$ dim checkpatch origin/drm-tip
-b96b00c05a02 drm/i915/fbdev: add intel_fbdev_framebuffer() helper
--:81: CHECK:LINE_SPACING: Please use a blank line after function/struct/union/enum declarations
-#81: FILE: drivers/gpu/drm/i915/display/intel_fbdev.h:54:
- }
-+static inline struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
-
-total: 0 errors, 0 warnings, 1 checks, 54 lines checked
-1bdb72ef0401 drm/i915/fbdev: hide struct intel_fbdev in intel_fbdev.c
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index 13b27b8ff74e..ba21ace973da 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -110,7 +110,7 @@ static int guc_action_slpc_unset_param(struct intel_guc *guc, u8 id)
+ {
+ 	u32 request[] = {
+ 		GUC_ACTION_HOST2GUC_PC_SLPC_REQUEST,
+-		SLPC_EVENT(SLPC_EVENT_PARAMETER_UNSET, 2),
++		SLPC_EVENT(SLPC_EVENT_PARAMETER_UNSET, 1),
+ 		id,
+ 	};
+ 
+-- 
+2.34.0
 
