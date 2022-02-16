@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0915C4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F439C433FE
 	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 572AF10E72A;
-	Wed, 16 Feb 2022 17:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 046DF10E89B;
+	Wed, 16 Feb 2022 17:41:02 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D512010E859;
- Wed, 16 Feb 2022 17:40:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF5010E859;
+ Wed, 16 Feb 2022 17:41:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645033256; x=1676569256;
+ t=1645033260; x=1676569260;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=M0ZMnLDzXExASVU3kcyEzNdpBPqgDPXxAy9QpkOLPiA=;
- b=lvEFLLqGtn80DlkXu9mOuVdUiWSS3MiFv4NtYWUqaW75KVrY4PvYMcZO
- z+QZ8+DJk94tG9MIvLKy1hzi1Rs6fLYv2sHRjLV6ogczEswWaP1qJ4aT9
- 2FT3cTgpFWPhFUfdF8a63buMZ/9U/TveAvpQzhW0H+YwDVcUg4wtW8zGD
- oWik6mTy1UXxT5KnuLPe94FjJ2tSq/yEY8KMg7fuPur7P4q7+npseQz9E
- yFagUeL7WIvKfkE6yoAVDw4/pxxZRmiHmxywKNCW8eL9bwNYSbKXzuT/1
- Tnnw89STms4M+E+HAQLovvV6IzpUKmRsDIju21Wf984C3O4neXztKpuF5 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641952"
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641952"
+ bh=vlXEMle1HLq1hf+RJ3WqOQut1raydOTHoXTFodk7P1o=;
+ b=TFI1cLthjk2TefT82nWVD7nH49zfY928Dyns8WGyG71b2W1aJ2H1WnTd
+ ORSRvNUuVAjYSr6ry5XUKveUmf3eVxmVGgaD3WQLG7N/pSlfKTVnZTmSA
+ Pkz88bE5hBNCy7uWoZ18tovy7bEP7dbUfJad2vTZpdUngBPh1WbqhzZC0
+ gUVtrDUUUHPnX8iNik6+FLKw+cmUUGBE7XsC8FXZQiEmxKjYSfNl80SFB
+ YWxmKp1HFywXenN+JiwLN5lna84iTJkAI0sjnAzE6QavM9nZImG6QV5bt
+ rs8uqvad3uA8+DI+sxxOjj/bFLZz8SfHZZ3lwO9q7CAcHhi/CJbsNSRqm Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641973"
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641973"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:40:56 -0800
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226677"
+ 16 Feb 2022 09:41:00 -0800
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226734"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:40:55 -0800
+ 16 Feb 2022 09:40:59 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 16 Feb 2022 09:41:39 -0800
-Message-Id: <20220216174147.3073235-9-lucas.demarchi@intel.com>
+Date: Wed, 16 Feb 2022 09:41:44 -0800
+Message-Id: <20220216174147.3073235-14-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220216174147.3073235-1-lucas.demarchi@intel.com>
 References: <20220216174147.3073235-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 08/16] drm/i915/guc: Convert engine record to
+Subject: [Intel-gfx] [PATCH v3 13/16] drm/i915/guc: Convert capture list to
  iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,8 +66,7 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use iosys_map to read fields from the dma_blob so access to IO and
-system memory is abstracted away.
+Use iosys_map to write the fields ads.capture_*.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -76,102 +75,47 @@ Cc: John Harrison <John.C.Harrison@Intel.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Atwood<matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c      | 14 ++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h      |  3 ++-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 17 ++++++++++-------
- 3 files changed, 18 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 7906a4df5a53..c61648ef3920 100644
+index c3c31b679e79..ec0ccdf98dfa 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -738,18 +738,16 @@ void intel_guc_ads_reset(struct intel_guc *guc)
+@@ -580,7 +580,7 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
+ }
  
- u32 intel_guc_engine_usage_offset(struct intel_guc *guc)
+-static void guc_capture_list_init(struct intel_guc *guc, struct __guc_ads_blob *blob)
++static void guc_capture_list_init(struct intel_guc *guc)
  {
--	struct __guc_ads_blob *blob = guc->ads_blob;
--	u32 base = intel_guc_ggtt_offset(guc, guc->ads_vma);
--	u32 offset = base + ptr_offset(blob, engine_usage);
--
--	return offset;
-+	return intel_guc_ggtt_offset(guc, guc->ads_vma) +
-+		offsetof(struct __guc_ads_blob, engine_usage);
+ 	int i, j;
+ 	u32 addr_ggtt, offset;
+@@ -592,11 +592,11 @@ static void guc_capture_list_init(struct intel_guc *guc, struct __guc_ads_blob *
+ 
+ 	for (i = 0; i < GUC_CAPTURE_LIST_INDEX_MAX; i++) {
+ 		for (j = 0; j < GUC_MAX_ENGINE_CLASSES; j++) {
+-			blob->ads.capture_instance[i][j] = addr_ggtt;
+-			blob->ads.capture_class[i][j] = addr_ggtt;
++			ads_blob_write(guc, ads.capture_instance[i][j], addr_ggtt);
++			ads_blob_write(guc, ads.capture_class[i][j], addr_ggtt);
+ 		}
+ 
+-		blob->ads.capture_global[i] = addr_ggtt;
++		ads_blob_write(guc, ads.capture_global[i], addr_ggtt);
+ 	}
  }
  
--struct guc_engine_usage_record *intel_guc_engine_usage(struct intel_engine_cs *engine)
-+struct iosys_map intel_guc_engine_usage_record_map(struct intel_engine_cs *engine)
- {
- 	struct intel_guc *guc = &engine->gt->uc.guc;
--	struct __guc_ads_blob *blob = guc->ads_blob;
- 	u8 guc_class = engine_class_to_guc_class(engine->class);
-+	size_t offset = offsetof(struct __guc_ads_blob,
-+				 engine_usage.engines[guc_class][ilog2(engine->logical_mask)]);
+@@ -636,7 +636,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
  
--	return &blob->engine_usage.engines[guc_class][ilog2(engine->logical_mask)];
-+	return IOSYS_MAP_INIT_OFFSET(&guc->ads_map, offset);
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-index e74c110facff..1c64f4d6ea21 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-@@ -7,6 +7,7 @@
- #define _INTEL_GUC_ADS_H_
+ 	/* Capture list for hang debug */
+-	guc_capture_list_init(guc, blob);
++	guc_capture_list_init(guc);
  
- #include <linux/types.h>
-+#include <linux/iosys-map.h>
- 
- struct intel_guc;
- struct drm_printer;
-@@ -18,7 +19,7 @@ void intel_guc_ads_init_late(struct intel_guc *guc);
- void intel_guc_ads_reset(struct intel_guc *guc);
- void intel_guc_ads_print_policy_info(struct intel_guc *guc,
- 				     struct drm_printer *p);
--struct guc_engine_usage_record *intel_guc_engine_usage(struct intel_engine_cs *engine);
-+struct iosys_map intel_guc_engine_usage_record_map(struct intel_engine_cs *engine);
- u32 intel_guc_engine_usage_offset(struct intel_guc *guc);
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index b3a429a92c0d..ab3cea352fb3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1139,6 +1139,9 @@ __extend_last_switch(struct intel_guc *guc, u64 *prev_start, u32 new_start)
- 	*prev_start = ((u64)gt_stamp_hi << 32) | new_start;
- }
- 
-+#define record_read(map_, field_) \
-+	iosys_map_rd_field(map_, 0, struct guc_engine_usage_record, field_)
-+
- /*
-  * GuC updates shared memory and KMD reads it. Since this is not synchronized,
-  * we run into a race where the value read is inconsistent. Sometimes the
-@@ -1153,17 +1156,17 @@ __extend_last_switch(struct intel_guc *guc, u64 *prev_start, u32 new_start)
- static void __get_engine_usage_record(struct intel_engine_cs *engine,
- 				      u32 *last_in, u32 *id, u32 *total)
- {
--	struct guc_engine_usage_record *rec = intel_guc_engine_usage(engine);
-+	struct iosys_map rec_map = intel_guc_engine_usage_record_map(engine);
- 	int i = 0;
- 
- 	do {
--		*last_in = READ_ONCE(rec->last_switch_in_stamp);
--		*id = READ_ONCE(rec->current_context_index);
--		*total = READ_ONCE(rec->total_runtime);
-+		*last_in = record_read(&rec_map, last_switch_in_stamp);
-+		*id = record_read(&rec_map, current_context_index);
-+		*total = record_read(&rec_map, total_runtime);
- 
--		if (READ_ONCE(rec->last_switch_in_stamp) == *last_in &&
--		    READ_ONCE(rec->current_context_index) == *id &&
--		    READ_ONCE(rec->total_runtime) == *total)
-+		if (record_read(&rec_map, last_switch_in_stamp) == *last_in &&
-+		    record_read(&rec_map, current_context_index) == *id &&
-+		    record_read(&rec_map, total_runtime) == *total)
- 			break;
- 	} while (++i < 6);
- }
+ 	/* ADS */
+ 	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
 -- 
 2.35.1
 
