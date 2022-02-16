@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF08AC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C03C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 17:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55AD210E8D2;
-	Wed, 16 Feb 2022 17:41:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C0D10E8B0;
+	Wed, 16 Feb 2022 17:41:15 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D62410E86F;
- Wed, 16 Feb 2022 17:41:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFEF10E866;
+ Wed, 16 Feb 2022 17:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645033260; x=1676569260;
+ t=1645033259; x=1676569259;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7rZyPCxxJzB4PNPxHa5HiV/iKsEXp4cGe3YV7TMoR2E=;
- b=TEftNlEQzSkCwYKYhQ++NKGhLCT10lJ0eFO4nv0u0Z1pIT1t2oXvxsIL
- lL8NqqMmrxSULRkkUQ+0d4jdcw/zO6rM2VDIqkX9rFyWM+GT7jZ9xefOT
- ZgM0WthBtdwjuc53num2iEvcOBqPhnuIhgmzYRVaTT7NvxfAIihNByQdn
- ISjIVOD48TACvjS0o3hWwAda+UgxYsp0qmPokaavNwtD+yLBg2w2CkunE
- ONilrKpG/VjJV9OCD/8x5NPO+7vq52dX6ImOeQL7woNBg3hm9MNjKHgH7
- y2lCdZg5FiQykQaSHAEgDzelKE9F5d1GaswsbT72SmrSiZna4bCMb8Toe A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641978"
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641978"
+ bh=7YCuwR1akX47yfYGLozqJrE8WX1UXKPT7c1kUJWm2DQ=;
+ b=hw36MTUmdPs9rTP/2fEWDpbeMmlRnSUqXj3XRZmHXdrqjcLCBw0wIChr
+ QuerWVGt590bgnxqN2g42dKT8yzOgSLAp0PpGUbJrUmoKX5WMSF+W+Eu7
+ CiS7oHwt7uvMPYTYDOlDt2oh2DrF9gDoSMWK+t38DwpbsNJlbL2LMRJfO
+ EaTrk6MakvT/cSSgpT7EmsRXh+232o+O1PZVSRJtQBTbd/488Y8dyvTzl
+ +yxo7PxSF2NAxX6N2wLUlJzsjDkQAhPPMbje7gszLso6OKEK+ZTQo2xhG
+ WjvVy9KEuq0tOU19U4O8Zz8clpYUB6nxeLTSrn+5hkYvvVH2c4qDvng+A g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="230641969"
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="230641969"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:41:00 -0800
-X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226744"
+ 16 Feb 2022 09:40:59 -0800
+X-IronPort-AV: E=Sophos;i="5.88,374,1635231600"; d="scan'208";a="540226720"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 09:41:00 -0800
+ 16 Feb 2022 09:40:58 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 16 Feb 2022 09:41:45 -0800
-Message-Id: <20220216174147.3073235-15-lucas.demarchi@intel.com>
+Date: Wed, 16 Feb 2022 09:41:43 -0800
+Message-Id: <20220216174147.3073235-13-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220216174147.3073235-1-lucas.demarchi@intel.com>
 References: <20220216174147.3073235-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 14/16] drm/i915/guc: Convert
- guc_mmio_reg_state_init to iosys_map
+Subject: [Intel-gfx] [PATCH v3 12/16] drm/i915/guc: Convert mapping table to
+ iosys_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,11 +66,9 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the regset list is prepared, convert guc_mmio_reg_state_init()
-to use iosys_map to copy the array to the final location and
-initialize additional fields in ads.reg_state_list.
-
-v2: Just use an offset instead of temporary iosys_map.
+Use iosys_map to write the fields system_info.mapping_table[][].
+Since we already have the info_map around where needed, just use it
+instead of going through guc->ads_map.
 
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -80,78 +78,50 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 28 ++++++++++++----------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index ec0ccdf98dfa..90cbb93a2945 100644
+index b739781bd133..c3c31b679e79 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -383,40 +383,44 @@ static long guc_mmio_reg_state_create(struct intel_guc *guc)
- 	return ret;
+@@ -204,7 +204,7 @@ int intel_guc_global_policies_update(struct intel_guc *guc)
  }
  
--static void guc_mmio_reg_state_init(struct intel_guc *guc,
--				    struct __guc_ads_blob *blob)
-+static void guc_mmio_reg_state_init(struct intel_guc *guc)
+ static void guc_mapping_table_init(struct intel_gt *gt,
+-				   struct guc_gt_system_info *system_info)
++				   struct iosys_map *info_map)
  {
- 	struct intel_gt *gt = guc_to_gt(guc);
+ 	unsigned int i, j;
  	struct intel_engine_cs *engine;
--	struct guc_mmio_reg *ads_registers;
- 	enum intel_engine_id id;
- 	u32 addr_ggtt, offset;
- 
- 	offset = guc_ads_regset_offset(guc);
- 	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
--	ads_registers = (struct guc_mmio_reg *)(((u8 *)blob) + offset);
- 
--	memcpy(ads_registers, guc->ads_regset, guc->ads_regset_size);
-+	iosys_map_memcpy_to(&guc->ads_map, offset, guc->ads_regset,
-+			    guc->ads_regset_size);
+@@ -213,14 +213,14 @@ static void guc_mapping_table_init(struct intel_gt *gt,
+ 	/* Table must be set to invalid values for entries not used */
+ 	for (i = 0; i < GUC_MAX_ENGINE_CLASSES; ++i)
+ 		for (j = 0; j < GUC_MAX_INSTANCES_PER_CLASS; ++j)
+-			system_info->mapping_table[i][j] =
+-				GUC_MAX_INSTANCES_PER_CLASS;
++			info_map_write(info_map, mapping_table[i][j],
++				       GUC_MAX_INSTANCES_PER_CLASS);
  
  	for_each_engine(engine, gt, id) {
- 		u32 count = guc->ads_regset_count[id];
--		struct guc_mmio_reg_set *ads_reg_set;
- 		u8 guc_class;
+ 		u8 guc_class = engine_class_to_guc_class(engine->class);
  
- 		/* Class index is checked in class converter */
- 		GEM_BUG_ON(engine->instance >= GUC_MAX_INSTANCES_PER_CLASS);
- 
- 		guc_class = engine_class_to_guc_class(engine->class);
--		ads_reg_set = &blob->ads.reg_state_list[guc_class][engine->instance];
- 
- 		if (!count) {
--			ads_reg_set->address = 0;
--			ads_reg_set->count = 0;
-+			ads_blob_write(guc,
-+				       ads.reg_state_list[guc_class][engine->instance].address,
-+				       0);
-+			ads_blob_write(guc,
-+				       ads.reg_state_list[guc_class][engine->instance].count,
-+				       0);
- 			continue;
- 		}
- 
--		ads_reg_set->address = addr_ggtt;
--		ads_reg_set->count = count;
-+		ads_blob_write(guc,
-+			       ads.reg_state_list[guc_class][engine->instance].address,
-+			       addr_ggtt);
-+		ads_blob_write(guc,
-+			       ads.reg_state_list[guc_class][engine->instance].count,
-+			       count);
- 
- 		addr_ggtt += count * sizeof(struct guc_mmio_reg);
+-		system_info->mapping_table[guc_class][ilog2(engine->logical_mask)] =
+-			engine->instance;
++		info_map_write(info_map, mapping_table[guc_class][ilog2(engine->logical_mask)],
++			       engine->instance);
  	}
-@@ -643,7 +647,7 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	blob->ads.gt_system_info = base + ptr_offset(blob, system_info);
+ }
  
- 	/* MMIO save/restore list */
--	guc_mmio_reg_state_init(guc, blob);
-+	guc_mmio_reg_state_init(guc);
+@@ -631,7 +631,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	/* Golden contexts for re-initialising after a watchdog reset */
+ 	guc_prep_golden_context(guc);
  
- 	/* Private Data */
- 	blob->ads.private_data = base + guc_ads_private_data_offset(guc);
+-	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
++	guc_mapping_table_init(guc_to_gt(guc), &info_map);
+ 
+ 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
+ 
 -- 
 2.35.1
 
