@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32D94C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 23:52:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3438C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 23:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE2B10E8F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6F710E8EF;
 	Thu, 17 Feb 2022 23:52:11 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0074A10E8C0;
- Thu, 17 Feb 2022 23:52:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3355510E83D;
+ Thu, 17 Feb 2022 23:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1645141930; x=1676677930;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Qr08ETg9h6rL/rbD8L2e5Lv/Mb5CmJUIz9AhD6kIH+8=;
- b=PyKYpPno49pKxaARzVTPn630IMiL5wP4HMV63XmTpk94uBuUf9zqBOM5
- JApVnO+DbfwO2rint6iA7Z8TY46+P0aj1QBUcl8rlbcz3yeTB2TzJ4VuH
- LhrFECi+x/mlq1QzcEV6x8+6rcx3qGS62QPUoF1pp4PX38NMYqacvbjyy
- 9W1agicNsH23dQOWNbph4Rl99gvygHI8F6bDMdir8rM2J9978OdGIqLvV
- Zx2RL28kdZM9SoLESVJFDWhZt6L+DB57nOp26yTqKP8lNQOeIqCnOXPCW
- 4lC2mIzXYJ5KpUBsPd08AOuYoGhaZJjMXjiIwL4nShYkDS3sUOaDwCwwj A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311748995"
-X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="311748995"
+ bh=/jtcmQCWmewm6u7f5IMw5k2Fc8FC9venu7o4KF5/f3c=;
+ b=FO3uHGxwOufKiQogXNEIBcr7Lz/LzSunLIeUlqABA4/Nwi/fuoPM55R3
+ MFYjJiQsrgIaffXu0ciVm+AjY1BPa4KYYRm/Yf4m6Qky46b7+t5xZXL+L
+ EtDsnEwFsclatfr/FkBPXOn7983IsRWGCX328gQnxuwe6cZbRRQ+JgPPe
+ 8C9PROGSa4wqLk3WsNvDsCRilI5Qv75aZCJTlkIAguNYaj3JJFJsOD70s
+ 1KKssYWpZ2N3L5qtaSBtfCZQNH3TbaVtpCl85UqoXOAqBnYqBSawzH1Ox
+ Jz+kMJegx8fy3muFYeUGU6BSmoNCRzw+1D/N/4K1R28tzHp2uzQm2YtDw g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311749000"
+X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="311749000"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Feb 2022 15:52:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="545964438"
+X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="545964447"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga008.jf.intel.com with ESMTP; 17 Feb 2022 15:52:08 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 17 Feb 2022 15:52:03 -0800
-Message-Id: <20220217235207.930153-5-John.C.Harrison@Intel.com>
+Date: Thu, 17 Feb 2022 15:52:06 -0800
+Message-Id: <20220217235207.930153-8-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220217235207.930153-1-John.C.Harrison@Intel.com>
 References: <20220217235207.930153-1-John.C.Harrison@Intel.com>
@@ -44,7 +44,7 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/guc: Split guc_lrc_desc_pin apart
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915/guc: Drop obsolete H2G definitions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,136 +63,28 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The LRC descriptor pool is going away. Further, the function that was
-populating it was also doing a bunch of logic about the context
-registration sequence. So, split that code apart into separate state
-setup and try to register functions. Note that some of those 'try to
-register' code paths actually undo the state setup and leave it to be
-redone again later (with potentially different values). This is
-inefficient. The next patch will correct this.
-
-Also, move a comment about ignoring return values to the place where
-the return values are actually ignored.
+The CTB registration process changed significantly a while back using
+a single KLV based H2G. So drop the original and now obsolete H2G
+definitions.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 45 ++++++++++++-------
- 1 file changed, 28 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ad784e8068c7..0ab2d1a24bf6 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -634,7 +634,7 @@ int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout)
- 					      true, timeout);
- }
- 
--static int guc_lrc_desc_pin(struct intel_context *ce, bool loop);
-+static int try_context_registration(struct intel_context *ce, bool loop);
- 
- static int __guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- {
-@@ -932,7 +932,7 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
- 
- 		if (unlikely(!ctx_id_mapped(guc, ce->guc_id.id) &&
- 			     !intel_context_is_banned(ce))) {
--			ret = guc_lrc_desc_pin(ce, false);
-+			ret = try_context_registration(ce, false);
- 			if (unlikely(ret == -EPIPE)) {
- 				goto deadlk;
- 			} else if (ret == -EBUSY) {
-@@ -2237,17 +2237,13 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
- 	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
- }
- 
--static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
-+static void prepare_context_registration_info(struct intel_context *ce)
- {
- 	struct intel_engine_cs *engine = ce->engine;
--	struct intel_runtime_pm *runtime_pm = engine->uncore->rpm;
- 	struct intel_guc *guc = &engine->gt->uc.guc;
- 	u32 desc_idx = ce->guc_id.id;
- 	struct guc_lrc_desc *desc;
--	bool context_registered;
--	intel_wakeref_t wakeref;
- 	struct intel_context *child;
--	int ret = 0;
- 
- 	GEM_BUG_ON(!engine->mask);
- 	GEM_BUG_ON(!sched_state_is_init(ce));
-@@ -2259,8 +2255,6 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	GEM_BUG_ON(i915_gem_object_is_lmem(guc->ct.vma->obj) !=
- 		   i915_gem_object_is_lmem(ce->ring->vma->obj));
- 
--	context_registered = ctx_id_mapped(guc, desc_idx);
--
- 	clr_ctx_id_mapping(guc, desc_idx);
- 	set_ctx_id_mapping(guc, desc_idx, ce);
- 
-@@ -2308,6 +2302,21 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 
- 		clear_children_join_go_memory(ce);
- 	}
-+}
-+
-+static int try_context_registration(struct intel_context *ce, bool loop)
-+{
-+	struct intel_engine_cs *engine = ce->engine;
-+	struct intel_runtime_pm *runtime_pm = engine->uncore->rpm;
-+	struct intel_guc *guc = &engine->gt->uc.guc;
-+	intel_wakeref_t wakeref;
-+	u32 desc_idx = ce->guc_id.id;
-+	bool context_registered;
-+	int ret = 0;
-+
-+	context_registered = ctx_id_mapped(guc, desc_idx);
-+
-+	prepare_context_registration_info(ce);
- 
- 	/*
- 	 * The context_lookup xarray is used to determine if the hardware
-@@ -3145,7 +3154,7 @@ static int guc_request_alloc(struct i915_request *rq)
- 	if (unlikely(ret < 0))
- 		return ret;
- 	if (context_needs_register(ce, !!ret)) {
--		ret = guc_lrc_desc_pin(ce, true);
-+		ret = try_context_registration(ce, true);
- 		if (unlikely(ret)) {	/* unwind */
- 			if (ret == -EPIPE) {
- 				disable_submission(guc);
-@@ -3633,9 +3642,17 @@ static void guc_set_default_submission(struct intel_engine_cs *engine)
- static inline void guc_kernel_context_pin(struct intel_guc *guc,
- 					  struct intel_context *ce)
- {
-+	/*
-+	 * Note: we purposefully do not check the returns below because
-+	 * the registration can only fail if a reset is just starting.
-+	 * This is called at the end of reset so presumably another reset
-+	 * isn't happening and even it did this code would be run again.
-+	 */
-+
- 	if (context_guc_id_invalid(ce))
- 		pin_guc_id(guc, ce);
--	guc_lrc_desc_pin(ce, true);
-+
-+	try_context_registration(ce, true);
- }
- 
- static inline void guc_init_lrc_mapping(struct intel_guc *guc)
-@@ -3653,13 +3670,7 @@ static inline void guc_init_lrc_mapping(struct intel_guc *guc)
- 	 * Also, after a reset the of the GuC we want to make sure that the
- 	 * information shared with GuC is properly reset. The kernel LRCs are
- 	 * not attached to the gem_context, so they need to be added separately.
--	 *
--	 * Note: we purposefully do not check the return of guc_lrc_desc_pin,
--	 * because that function can only fail if a reset is just starting. This
--	 * is at the end of reset so presumably another reset isn't happening
--	 * and even it did this code would be run again.
- 	 */
--
- 	for_each_engine(engine, gt, id) {
- 		struct intel_context *ce;
- 
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 7afdadc7656f..e77f955435ce 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -131,8 +131,6 @@ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
+ 	INTEL_GUC_ACTION_REGISTER_CONTEXT = 0x4502,
+ 	INTEL_GUC_ACTION_DEREGISTER_CONTEXT = 0x4503,
+-	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
+-	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
+ 	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
+ 	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
+ 	INTEL_GUC_ACTION_CLIENT_SOFT_RESET = 0x5507,
 -- 
 2.25.1
 
