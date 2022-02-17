@@ -4,65 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59AA8C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 09:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF86C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 09:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E53510EAC9;
-	Thu, 17 Feb 2022 09:41:42 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DCD10EAC4;
- Thu, 17 Feb 2022 09:41:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 028C61F37D;
- Thu, 17 Feb 2022 09:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1645090899; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VIvcIvC7mYpBKP1I/vHBxVjHVwfgu1TcpXXFXE5sFDU=;
- b=XUONyLDwncWCVDsuIZzCNtJUV0QXc+QaoH3U+41M7grP+JeeL+lS1m5sK17Q9ElxqIgmav
- GcPAGBO4VzgfxFx0U9WCYwSsTpgJfeRj+dCef1x1oLh9vKeRoX9Az5GfKeg57xxiRmBhwN
- Zip/bTQe4UDNSOIQjEbfRJjqViliEfE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1645090899;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VIvcIvC7mYpBKP1I/vHBxVjHVwfgu1TcpXXFXE5sFDU=;
- b=yqk7N+CBqISrvo9Lv3uaoJ9Rw60KmJA2sXEgMDWph2rDedw9ZoQmURlgS5MvpBDJpRc3bh
- i4oH9fWO7lTa0IBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C98D813BBF;
- Thu, 17 Feb 2022 09:41:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GN80MFIYDmIbKQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 17 Feb 2022 09:41:38 +0000
-Message-ID: <95cce34d-fa67-2da9-f065-a6dacfa980d6@suse.de>
-Date: Thu, 17 Feb 2022 10:41:38 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8625210EB36;
+	Thu, 17 Feb 2022 09:41:47 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89EC910EB1D;
+ Thu, 17 Feb 2022 09:41:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645090906; x=1676626906;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=0n2mnzriut++++zqdobTTYF+VpbN2fheJCxQx2jXG0Y=;
+ b=kE42y7WSNcox/iTbSbDnIeHJ0ODsawmMrNj+mwH9zC50TE48i4zCkamr
+ aDQu2c5piH3N/seIvfoHMJquNLet9YQJC4ULyo9jjpwhK2ekmOWP7goI3
+ sbbsIPSppgbrDnjDHuN28ZrBS4NAHcu2wbEkYwHhbBiM+2+ubphvNfKzB
+ FeFixE1//hW3M9904ZjuK09zzgjd5H8j7SDY29rZRmv83alvpPUPsuM/i
+ UOTqTUVrPPJa/Z76BkC1Tbt9wsHpcthNBXrEOvYCqtJHjmht+QEhjgHi5
+ 4T/yeKL23ncdpvOGZ9zstwuJnMZHMBCCKoh8IxYteDGbXqv2mA5SGpZKm A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="238240361"
+X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="238240361"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2022 01:41:45 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="604840808"
+Received: from lkp-server01.sh.intel.com (HELO 6f05bf9e3301) ([10.239.97.150])
+ by fmsmga004.fm.intel.com with ESMTP; 17 Feb 2022 01:41:44 -0800
+Received: from kbuild by 6f05bf9e3301 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nKdIF-00001x-Gb; Thu, 17 Feb 2022 09:41:43 +0000
+Date: Thu, 17 Feb 2022 17:40:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>
+Message-ID: <202202171718.0GTDm2wX-lkp@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>
-References: <202202171455.bclm1YBC-lkp@intel.com>
- <20220217063625.sm5ua5xf4jo2ekku@ldmartin-desk2>
- <79301ef2-03d4-ca96-3d7f-6f9b80f319e1@redhat.com>
- <20220217092545.4zpjnh344fmrcg26@ldmartin-desk2>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20220217092545.4zpjnh344fmrcg26@ldmartin-desk2>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------YuhADYhmsOwshkWQOQFsb7QJ"
-Subject: Re: [Intel-gfx] [drm-tip:drm-tip 4/8]
- drivers/gpu/drm/solomon/ssd130x.c:451:18: error: incomplete definition of
- type 'struct dma_buf_map'
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: [Intel-gfx] [drm-intel:topic/core-for-CI 1/1]
+ drivers/gpu/drm/i915/intel_device_info.c:236:14: error:
+ 'INTEL_SUBPLATFORM_G12' undeclared; did you mean 'INTEL_SUBPLATFORM_G10'?
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,121 +58,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, intel-gfx@lists.freedesktop.org,
- llvm@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
+Cc: intel-gfx@lists.freedesktop.org, kbuild-all@lists.01.org,
  dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------YuhADYhmsOwshkWQOQFsb7QJ
-Content-Type: multipart/mixed; boundary="------------pT3bPkC1ApmQhXoBnnjJcE4x";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: kbuild-all@lists.01.org, kernel test robot <lkp@intel.com>,
- intel-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org
-Message-ID: <95cce34d-fa67-2da9-f065-a6dacfa980d6@suse.de>
-Subject: Re: [Intel-gfx] [drm-tip:drm-tip 4/8]
- drivers/gpu/drm/solomon/ssd130x.c:451:18: error: incomplete definition of
- type 'struct dma_buf_map'
-References: <202202171455.bclm1YBC-lkp@intel.com>
- <20220217063625.sm5ua5xf4jo2ekku@ldmartin-desk2>
- <79301ef2-03d4-ca96-3d7f-6f9b80f319e1@redhat.com>
- <20220217092545.4zpjnh344fmrcg26@ldmartin-desk2>
-In-Reply-To: <20220217092545.4zpjnh344fmrcg26@ldmartin-desk2>
+tree:   git://anongit.freedesktop.org/drm-intel topic/core-for-CI
+head:   b56d8d7bad86a9badc1d1b9ea2d1730fa1d3978b
+commit: b56d8d7bad86a9badc1d1b9ea2d1730fa1d3978b [1/1] drm/i915: Add DG2 PCI IDs
+config: x86_64-randconfig-a011 (https://download.01.org/0day-ci/archive/20220217/202202171718.0GTDm2wX-lkp@intel.com/config)
+compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+reproduce (this is a W=1 build):
+        git remote add drm-intel git://anongit.freedesktop.org/drm-intel
+        git fetch --no-tags drm-intel topic/core-for-CI
+        git checkout b56d8d7bad86a9badc1d1b9ea2d1730fa1d3978b
+        # save the config file to linux build tree
+        mkdir build_dir
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
 
---------------pT3bPkC1ApmQhXoBnnjJcE4x
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-SGkNCg0KQW0gMTcuMDIuMjIgdW0gMTA6MjUgc2NocmllYiBMdWNhcyBEZSBNYXJjaGk6DQpb
-Li4uXQ0KPj4gJCBnaXQgZ3JlcCAiVE9ETzogVXNlIG1hcHBpbmcgYWJzdHJhY3Rpb24gcHJv
-cGVybHkiIHwgd2MgLWwNCj4+IDE1DQo+Pg0KPj4gSWYgeW91IHBvaW50IG1lIHRoZSBwcm9w
-ZXIgd2F5LCBJJ2xsIGJlIGhhcHB5IHRvIHBvc3QgYSBwYXRjaCB0byANCj4+IGNoYW5nZSBp
-dC4NCj4gDQo+IEl0IGRlcGVuZHMgd2hhdCB5b3Ugd2FudCB0byBkbyB3aXRoIHRoZSBhZGRy
-ZXNzLiBUaGVyZSBhcmUgQVBJcyB0byBjb3B5DQo+IGZyb20vdG8uIEkgYWxzbyBhZGRlZCBh
-IGZldyB0byByZWFkL3dyaXRlIHRvIGFuIG9mZnNldC4gSXQgc2VlbXMgdGhlDQo+IHByb2Js
-ZW0gaGVyZSBpcyB0aGF0IHlvdSBuZWVkIHRvIHBhc3MgdGhhdCB0byBhIGhlbHBlciwNCj4g
-ZHJtX2ZiX3hyZ2I4ODg4X3RvX21vbm9fcmV2ZXJzZWQoKS4gSSB0aGluayB0aGUgcHJvcGVy
-IHNvbHV0aW9uIHdvdWxkIGJlDQo+IHRvIGNoYW5nZSB0aGUgaGVscGVyIHRvIGFjY2VwdCBh
-biBpb3N5c19tYXAqIGFzIGFyZ3VtZW50IHJhdGhlciB0aGFuIGENCj4gdm9pZCouDQoNClRo
-ZXJlIGFyZSBzZXZlcmFsIG9mIHRoZXNlIFRPRE9zIGluIHRoZSBEUk0gY29kZSwgYmVjYXVz
-ZSBvdXIgDQpmb3JtYXQtY29udmVyc2lvbiBoZWxwZXJzIGFyZSBzdGlsbCBmcm9tIHRoZSB0
-aW1lIGJlZm9yZSANCmRtYV9idWZfbWFwL2lvc3lzX21hcC4gVGhlIGVhc2llc3Qgd29ya2Fy
-b3VuZCBpcyB0byB0YWtlIHRoZSByYXcgcG9pbnRlciANCmFuZCBnaXZlIGl0IHRvIHRoZW0u
-IE9uZSBkYXksIERSTSdzIHB1YmxpYyBibGl0IGFuZCBjb252ZXJzaW9uIA0KaW50ZXJmYWNl
-cyB3aWxsIHRha2UgYW4gaW9zeXNfbWFwIGFuZCBoYW5kbGUgdGhlIGRpZmZlcmVudCBtZW1v
-cnkgdHlwZXMgDQppbnRlcm5hbGx5Lg0KDQpKYXZpZXJtLCB0aGF0J3Mgd2hlbiB0aGUgaW50
-ZXJuYWwgX2xpbmUoKSBoZWxwZXJzIHdpbGwgYmVjb21lIHVzZWZ1bC4gDQpUaGV5IGNhbiB1
-c2Ugc3lzdGVtIG1lbW9yeSBkaXJlY3RseSwgYW5kIGZvciBJL08gbWVtb3J5IHRoZSANCmJs
-aXQvY29udmVyc2lvbiBoZWxwZXJzIGFsbG9jYXRlIGFuIGludGVybmFsIHRlbXBvcmFyeSBw
-ZXItbGluZSBidWZmZXIuIA0KVGhlIGNvZGUgeW91IG1hZGUgZm9yIHRoZSBuZXcgZHJpdmVy
-IGhhcyB0aGlzIGRlc2lnbmVkIG91dGxpbmVkIGFscmVhZHkuDQoNCkJlc3QgcmVnYXJkcw0K
-VGhvbWFzDQoNCj4gDQo+IEx1Y2FzIERlIE1hcmNoaQ0KPiANCj4+DQo+Pj4gTHVjYXMgRGUg
-TWFyY2hpDQo+Pj4NCj4+DQo+PiBbMF0NCj4+IEZyb20gZjgyNjhlNWIxNWMzMjFiNTY4NjI5
-MDQ2NjVmNWUzMTJiZjUwZDM5NyBNb24gU2VwIDE3IDAwOjAwOjAwIDIwMDENCj4+IEZyb206
-IEphdmllciBNYXJ0aW5leiBDYW5pbGxhcyA8amF2aWVybUByZWRoYXQuY29tPg0KPj4gRGF0
-ZTogVGh1LCAxNyBGZWIgMjAyMiAwOTo1MjozNyArMDEwMA0KPj4gU3ViamVjdDogW1BBVENI
-XSBkcm0vc29sb21vbjogUmVuYW1lIGRtYS1idWYtbWFwIHRvIGlvc3lzLW1hcA0KPj4NCj4+
-IENvbW1pdCA3OTM4ZjQyMTgxNjggKCJkbWEtYnVmLW1hcDogUmVuYW1lIHRvIGlvc3lzLW1h
-cCIpIHJlbmFtZWQgdGhlIA0KPj4gc3RydWN0DQo+PiBkbWFfYnVmX21hcCB0byBzdHJ1Y3Qg
-aW9zeXNfbWFwLCBidXQgdGhpcyBjaGFuZ2Ugd2Fzbid0IHByZXNlbnQgaW4gDQo+PiBkcm0t
-bWlzYw0KPj4gd2hlbiB0aGUgc3NkMTMweCBkcml2ZXIgd2FzIG1lcmdlZCwgYW5kIGl0IGNy
-ZWF0ZWQgYSBtZXJnZSBjb25mbGljdC4NCj4+DQo+PiBGaXggdGhpcyBieSByZW5hbWluZyB0
-aGUgZGF0YSBzdHJ1Y3R1cmUgdHlwZSBpbiB0aGUgc3NkMTMweCBkcml2ZXIuDQo+Pg0KPj4g
-UmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90IDxsa3BAaW50ZWwuY29tPg0KPj4gU3Vn
-Z2VzdGVkLWJ5OiBMdWNhcyBEZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4N
-Cj4+IFNpZ25lZC1vZmYtYnk6IEphdmllciBNYXJ0aW5leiBDYW5pbGxhcyA8amF2aWVybUBy
-ZWRoYXQuY29tPg0KPj4gLS0tDQo+PiBkcml2ZXJzL2dwdS9kcm0vc29sb21vbi9zc2QxMzB4
-LmMgfCAyICstDQo+PiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRp
-b24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NvbG9tb24vc3Nk
-MTMweC5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vc29sb21vbi9zc2QxMzB4LmMNCj4+IGlu
-ZGV4IDE5Njk3YzhjNWEyYy4uOTJjMTkwMmY1M2U0IDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL3NvbG9tb24vc3NkMTMweC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-c29sb21vbi9zc2QxMzB4LmMNCj4+IEBAIC00NDQsNyArNDQ0LDcgQEAgc3RhdGljIHZvaWQg
-c3NkMTMweF9jbGVhcl9zY3JlZW4oc3RydWN0IA0KPj4gc3NkMTMweF9kZXZpY2UgKnNzZDEz
-MHgpDQo+PiDCoMKgwqDCoGtmcmVlKGJ1Zik7DQo+PiB9DQo+Pg0KPj4gLXN0YXRpYyBpbnQg
-c3NkMTMweF9mYl9ibGl0X3JlY3Qoc3RydWN0IGRybV9mcmFtZWJ1ZmZlciAqZmIsIGNvbnN0
-IA0KPj4gc3RydWN0IGRtYV9idWZfbWFwICptYXAsDQo+PiArc3RhdGljIGludCBzc2QxMzB4
-X2ZiX2JsaXRfcmVjdChzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyICpmYiwgY29uc3QgDQo+PiBz
-dHJ1Y3QgaW9zeXNfbWFwICptYXAsDQo+IA0KPiBJIGFkZGVkIHRoaXMgYXMgYSBmaXh1cCB0
-byBkaW0sIHNvIGl0J3MgYXBwbGllZCBvbiB0aGUgbWVyZ2UgY29tbWl0LiBJDQo+IHRoaW5r
-IGl0IHdvdWxkIGJlIHByZWZlcnJlZCB0byBoYXZlIHRoaXMgaW4gdGhlIG1lcmdlIHJlc29s
-dXRpb24gd2hlbg0KPiBkcm0taW50ZWwgcHJvcGFnYXRlcyBhbGwgdGhlIHdheSBiYWNrIHRv
-IGRybS1taXNjDQo+IA0KPiANCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgZHJtX3JlY3QgKnJlY3QpDQo+PiB7DQo+PiDCoMKgwqDCoHN0cnVjdCBzc2QxMzB4
-X2RldmljZSAqc3NkMTMweCA9IGRybV90b19zc2QxMzB4KGZiLT5kZXYpOw0KPj4gLS0gDQo+
-PiAyLjM0LjENCj4+DQo+PiBCZXN0IHJlZ2FyZHMsDQo+PiAtLSANCj4+IEphdmllciBNYXJ0
-aW5leiBDYW5pbGxhcw0KPj4gTGludXggRW5naW5lZXJpbmcNCj4+IFJlZCBIYXQNCj4+DQoN
-Ci0tIA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXINClNV
-U0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0KTWF4ZmVsZHN0ci4gNSwgOTA0
-MDkgTsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpDQpHZXNj
-aMOkZnRzZsO8aHJlcjogSXZvIFRvdGV2DQo=
+All errors (new ones prefixed by >>):
 
---------------pT3bPkC1ApmQhXoBnnjJcE4x--
+   In file included from include/linux/bits.h:6,
+                    from include/linux/ratelimit_types.h:5,
+                    from include/linux/printk.h:10,
+                    from include/drm/drm_print.h:30,
+                    from drivers/gpu/drm/i915/intel_device_info.c:25:
+   drivers/gpu/drm/i915/intel_device_info.c: In function 'intel_device_info_subplatform_init':
+>> drivers/gpu/drm/i915/intel_device_info.c:236:14: error: 'INTEL_SUBPLATFORM_G12' undeclared (first use in this function); did you mean 'INTEL_SUBPLATFORM_G10'?
+     236 |   mask = BIT(INTEL_SUBPLATFORM_G12);
+         |              ^~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:30: note: in definition of macro 'BIT'
+       7 | #define BIT(nr)   (UL(1) << (nr))
+         |                              ^~
+   drivers/gpu/drm/i915/intel_device_info.c:236:14: note: each undeclared identifier is reported only once for each function it appears in
+     236 |   mask = BIT(INTEL_SUBPLATFORM_G12);
+         |              ^~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:30: note: in definition of macro 'BIT'
+       7 | #define BIT(nr)   (UL(1) << (nr))
+         |                              ^~
 
---------------YuhADYhmsOwshkWQOQFsb7QJ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+vim +236 drivers/gpu/drm/i915/intel_device_info.c
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmIOGFIFAwAAAAAACgkQlh/E3EQov+BW
-4Q//XeiyvJJcoP45U1PBaRWcK8SZmeRP7eDASiIcs+d3jFk0QHsAuAeUFKKUjdFdBznbDfPLey95
-nwUcWLv9ajgHbCVMlqnqyRqhWvAcb3Y8raQ34bKpxN4OzD9lPOwJ31RRtCe5grrMKUTjEwMbyPPv
-+2bJFXARNoLGEMxzU/tdawQLpdkJCAk87P4RcBqvzrueRzLEOjCA+OQJLfwlEPZtQpPIEnfvKGwF
-X8xWJ8VvIIRa97yO3k2jlMUBasp66p39Wwy83p1wnSrBZl0kL973C981HaDK7ldo8g9pifb7t0q6
-45y+yneB3zBnZ8otE8AdhpIu9C8vM1D2sTXd0j/qAjzxXRAyGPCo/DjtnGalF91LRqHgO4eztysA
-QUal6bEFQMf0vFbdrMcWGBha71NiAyo3o4c+aHAvVotGJe3f0Gw1TZlMAsybu+dnYEPr+SPK5zdz
-nG3majXELGSBYLNUJMPm3rYSDCl00J689ETjHraKg2bOVlU5JsoZGWyzhFz/3GV7kleOMK2Jy3h5
-0qnYuOTnsPVUkf8/ptzDR3b6902rveN32D4FfTjKysaUGOQ9dxCOVaoo9jODxiuJr4N3iIgw4Mc0
-D+nvF5LyWel0K8H+zGDultDlZNwTYyTpmjQgRkemt26SheO4JeZAUQArkmrNA2cpvtuwHhhlFwY/
-aSk=
-=tSjT
------END PGP SIGNATURE-----
+   201	
+   202	void intel_device_info_subplatform_init(struct drm_i915_private *i915)
+   203	{
+   204		const struct intel_device_info *info = INTEL_INFO(i915);
+   205		const struct intel_runtime_info *rinfo = RUNTIME_INFO(i915);
+   206		const unsigned int pi = __platform_mask_index(rinfo, info->platform);
+   207		const unsigned int pb = __platform_mask_bit(rinfo, info->platform);
+   208		u16 devid = INTEL_DEVID(i915);
+   209		u32 mask = 0;
+   210	
+   211		/* Make sure IS_<platform> checks are working. */
+   212		RUNTIME_INFO(i915)->platform_mask[pi] = BIT(pb);
+   213	
+   214		/* Find and mark subplatform bits based on the PCI device id. */
+   215		if (find_devid(devid, subplatform_ult_ids,
+   216			       ARRAY_SIZE(subplatform_ult_ids))) {
+   217			mask = BIT(INTEL_SUBPLATFORM_ULT);
+   218		} else if (find_devid(devid, subplatform_ulx_ids,
+   219				      ARRAY_SIZE(subplatform_ulx_ids))) {
+   220			mask = BIT(INTEL_SUBPLATFORM_ULX);
+   221			if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
+   222				/* ULX machines are also considered ULT. */
+   223				mask |= BIT(INTEL_SUBPLATFORM_ULT);
+   224			}
+   225		} else if (find_devid(devid, subplatform_portf_ids,
+   226				      ARRAY_SIZE(subplatform_portf_ids))) {
+   227			mask = BIT(INTEL_SUBPLATFORM_PORTF);
+   228		} else if (find_devid(devid, subplatform_g10_ids,
+   229				      ARRAY_SIZE(subplatform_g10_ids))) {
+   230			mask = BIT(INTEL_SUBPLATFORM_G10);
+   231		} else if (find_devid(devid, subplatform_g11_ids,
+   232				      ARRAY_SIZE(subplatform_g11_ids))) {
+   233			mask = BIT(INTEL_SUBPLATFORM_G11);
+   234		} else if (find_devid(devid, subplatform_g12_ids,
+   235				      ARRAY_SIZE(subplatform_g12_ids))) {
+ > 236			mask = BIT(INTEL_SUBPLATFORM_G12);
+   237		}
+   238	
+   239		if (IS_TIGERLAKE(i915)) {
+   240			struct pci_dev *root, *pdev = to_pci_dev(i915->drm.dev);
+   241	
+   242			root = list_first_entry(&pdev->bus->devices, typeof(*root), bus_list);
+   243	
+   244			drm_WARN_ON(&i915->drm, mask);
+   245			drm_WARN_ON(&i915->drm, (root->device & TGL_ROOT_DEVICE_MASK) !=
+   246				    TGL_ROOT_DEVICE_ID);
+   247	
+   248			switch (root->device & TGL_ROOT_DEVICE_SKU_MASK) {
+   249			case TGL_ROOT_DEVICE_SKU_ULX:
+   250				mask = BIT(INTEL_SUBPLATFORM_ULX);
+   251				break;
+   252			case TGL_ROOT_DEVICE_SKU_ULT:
+   253				mask = BIT(INTEL_SUBPLATFORM_ULT);
+   254				break;
+   255			}
+   256		}
+   257	
+   258		GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_MASK);
+   259	
+   260		RUNTIME_INFO(i915)->platform_mask[pi] |= mask;
+   261	}
+   262	
 
---------------YuhADYhmsOwshkWQOQFsb7QJ--
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
