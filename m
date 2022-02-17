@@ -4,31 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8CAC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 23:43:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369FAC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 23:52:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 996F410E17D;
-	Thu, 17 Feb 2022 23:43:21 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D430E10E17D;
- Thu, 17 Feb 2022 23:43:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D0AFEA8830;
- Thu, 17 Feb 2022 23:43:20 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5953A10E8CD;
+	Thu, 17 Feb 2022 23:52:10 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7C710E83D;
+ Thu, 17 Feb 2022 23:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645141929; x=1676677929;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=mYnLfD3C+DpXlEv6s34laC5kejqNxhVVAtl/DeShwHE=;
+ b=Fq941dnsiqgmh+CEkrt7IVVX6C2LjcXJFqsGXE8JhgYVwKwyvxqCOx9E
+ 74Vq9GxYJ8XVAEXRDOOx/MNOxuWUs7dJVfzT1x8wyyvp8atK0zgxebWYM
+ lTqmqhjR6NdDngz8dIBSPOoRDRsZGLD7tkeMd7bh04/JG1X1QyCsxavLh
+ YN3yclULJiVExZjK/DZBV8DGqsNRumQK+0QMJsKNFM6lXJ5C8f9NS0tJD
+ 3GBm+WNI0Jn42n6/b3Fe49X9OCIKnuN8z7sibgBjtc9PTve+ECOw0WBuO
+ zCjO0w4ZUW0I1ndG6Qt65O/6XjgZM7Ub0jYe3BbC5vmyYqQK1c34PgCO9 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311748996"
+X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="311748996"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2022 15:52:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="545964441"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
+ by orsmga008.jf.intel.com with ESMTP; 17 Feb 2022 15:52:08 -0800
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Date: Thu, 17 Feb 2022 15:52:04 -0800
+Message-Id: <20220217235207.930153-6-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220217235207.930153-1-John.C.Harrison@Intel.com>
+References: <20220217235207.930153-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Imre Deak" <imre.deak@intel.com>
-Date: Thu, 17 Feb 2022 23:43:20 -0000
-Message-ID: <164514140081.18053.9613450462476590106@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220217152237.670220-1-imre.deak@intel.com>
-In-Reply-To: <20220217152237.670220-1-imre.deak@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Disconnect_PHYs_left_connected_by_BIOS_on_disab?=
- =?utf-8?q?led_ports?=
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 5/8] drm/i915/guc: Move lrc desc setup to where
+ it is needed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,25 +58,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Series: drm/i915: Disconnect PHYs left connected by BIOS on disabled ports
-URL   : https://patchwork.freedesktop.org/series/100336/
-State : warning
+The LRC descriptor was being initialised early on in the context
+registration sequence. It could then be determined that the actual
+registration needs to be delayed and the descriptor would be wiped
+out. This is inefficient, so move the setup to later in the process
+after the point of no return.
 
-== Summary ==
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-$ dim checkpatch origin/drm-tip
-921ff943d11a drm/i915: Disconnect PHYs left connected by BIOS on disabled ports
--:19: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 64851a32c463 ("drm/i915/tc: Add a mode for the TypeC PHY's disconnected state")'
-#19: 
-Before commit 64851a32c463e5 the PHY connected state was read out even
-
-total: 1 errors, 0 warnings, 0 checks, 48 lines checked
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 0ab2d1a24bf6..aa74ec74194a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2153,6 +2153,8 @@ static int __guc_action_register_context(struct intel_guc *guc,
+ 					     0, loop);
+ }
+ 
++static void prepare_context_registration_info(struct intel_context *ce);
++
+ static int register_context(struct intel_context *ce, bool loop)
+ {
+ 	struct intel_guc *guc = ce_to_guc(ce);
+@@ -2163,6 +2165,8 @@ static int register_context(struct intel_context *ce, bool loop)
+ 	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_register(ce);
+ 
++	prepare_context_registration_info(ce);
++
+ 	if (intel_context_is_parent(ce))
+ 		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
+ 						      offset, loop);
+@@ -2246,7 +2250,6 @@ static void prepare_context_registration_info(struct intel_context *ce)
+ 	struct intel_context *child;
+ 
+ 	GEM_BUG_ON(!engine->mask);
+-	GEM_BUG_ON(!sched_state_is_init(ce));
+ 
+ 	/*
+ 	 * Ensure LRC + CT vmas are is same region as write barrier is done
+@@ -2314,9 +2317,13 @@ static int try_context_registration(struct intel_context *ce, bool loop)
+ 	bool context_registered;
+ 	int ret = 0;
+ 
++	GEM_BUG_ON(!sched_state_is_init(ce));
++
+ 	context_registered = ctx_id_mapped(guc, desc_idx);
+ 
+-	prepare_context_registration_info(ce);
++	if (context_registered)
++		clr_ctx_id_mapping(guc, desc_idx);
++	set_ctx_id_mapping(guc, desc_idx, ce);
+ 
+ 	/*
+ 	 * The context_lookup xarray is used to determine if the hardware
+-- 
+2.25.1
 
