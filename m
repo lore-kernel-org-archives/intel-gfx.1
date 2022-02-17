@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EDBAC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 20:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE0BC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 20:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A05510E7AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CDE610E7B8;
 	Thu, 17 Feb 2022 20:26:57 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994E510E790;
- Thu, 17 Feb 2022 20:26:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC2810E790;
+ Thu, 17 Feb 2022 20:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645129615; x=1676665615;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=cF0j/5lXhE9vXYAFhoP9dnmKk1A0LC4iuoAkt+5jVCg=;
- b=WEqivElAR0hZvT1Wf82/Yq/X8c081LI9wI8QZ1jAQFEQ8yxsCm2pScy0
- d5/AWmYt9RNWAQ3HkCjiUZwGAveqV0UbtTR5uV+x4zJ5sP7QaSwVbzO1W
- xLrlRde/U3R6HaxWqvMYl9OWZ46tdKsCaee6Zh5pdzsoyvaNRx9ocCchY
- 2a3UgpOUd9ON8+9ZwZI67gyV9e2bqY5FL4viocXYNbSjxVqzV2KD1M37z
- k2zsQIy6xITKGWPo+wsC6PTeNwfNbsmZ+M4zo4cnLAqPdsylQUU4vQ566
- eQIhCP9Xu3BwOa/X+aYY1wH86rwOYHBtcBwbPLFkmiMyBZUev7rtJZhR0 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="238370943"
-X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="238370943"
+ t=1645129616; x=1676665616;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=oVDGf1dJNIS7op/ho91MBOqEVTzq6Y+bedisro38V48=;
+ b=HNCmrCAcLps4/VCxNQf1tqeXJ3hbB0tWD0h0Pdoy9Md6iKVV93oThl9u
+ e4v6xKkUsvBwKf2nzcHw+VTGJ6/G0JUCMPVclrF++phprXPWZ9cnVxg4i
+ 0O0V8EhvuR5bHcNmfFlmBzZ8oHpUC9tFJi/2YiPWxG7s+NkFjboJyvVda
+ 0lzYHeZUjHcDbZuKwV3VvB583FIzNjAxqGooVDjtLJYgNXxSsJqPI5UX9
+ F6DjxPI7BFW6nISnJnR6I9+xD1R5blbk+m/Vh6Xy0c1CHZRoqVdlEU0qK
+ XPpdqcywPSvpO2ejDMKJ4XMNZl3orGeBDTshSFdfUv9mcv+zX3NDHG9X2 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="238370947"
+X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="238370947"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 12:26:55 -0800
-X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="545842090"
+ 17 Feb 2022 12:26:56 -0800
+X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="545842101"
 Received: from zlwang-mobl2.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.212.198.213])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 12:26:54 -0800
+ 17 Feb 2022 12:26:55 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Feb 2022 12:26:41 -0800
-Message-Id: <20220217202644.122937-1-michael.cheng@intel.com>
+Date: Thu, 17 Feb 2022 12:26:43 -0800
+Message-Id: <20220217202644.122937-3-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220217202644.122937-1-michael.cheng@intel.com>
+References: <20220217202644.122937-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/3] Move #define wbvind_on_all_cpus
+Subject: [Intel-gfx] [PATCH v2 2/3] drm/i915/gem: Remove logic for
+ wbinvd_on_all_cpus
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,26 +62,31 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series moves the logic for wbvind_on_all_cpus to drm_cache. The logic 
-changes a little here, if platform is not x86 then we throw out a warning
-for when wbvind_on_all_cpus is being called. 
+drm_cache.h now handles calls to wbinvd_on_all_cpus.
 
-v2(Michael Cheng): Move and redo logic for wbvind_on_all_cpus. Also
-		   add drm_cache.h where the function is being called and 
-		   remove uneeded header files.
+Signed-off-by: Michael Cheng <michael.cheng@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-Michael Cheng (3):
-  drm_cache: Add logic for wbvind_on_all_cpus
-  drm/i915/gem: Remove logic for wbinvd_on_all_cpus
-  drm/i915/: Add drm_cache.h
-
- drivers/gpu/drm/drm_cache.c                | 2 --
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 2 +-
- drivers/gpu/drm/i915/gem/i915_gem_pm.c     | 7 +------
- drivers/gpu/drm/i915/gt/intel_ggtt.c       | 2 +-
- include/drm/drm_cache.h                    | 6 ++++++
- 5 files changed, 9 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+index 00359ec9d58b..ee4783e4d135 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+@@ -13,12 +13,7 @@
+ #include "i915_driver.h"
+ #include "i915_drv.h"
+ 
+-#if defined(CONFIG_X86)
+-#include <asm/smp.h>
+-#else
+-#define wbinvd_on_all_cpus() \
+-	pr_warn(DRIVER_NAME ": Missing cache flush in %s\n", __func__)
+-#endif
++#include <drm/drm_cache.h>
+ 
+ void i915_gem_suspend(struct drm_i915_private *i915)
+ {
 -- 
 2.25.1
 
