@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369FAC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 23:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78CF9C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 23:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5953A10E8CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF28910E83D;
 	Thu, 17 Feb 2022 23:52:10 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7C710E83D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A35B10E17D;
  Thu, 17 Feb 2022 23:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1645141929; x=1676677929;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=mYnLfD3C+DpXlEv6s34laC5kejqNxhVVAtl/DeShwHE=;
- b=Fq941dnsiqgmh+CEkrt7IVVX6C2LjcXJFqsGXE8JhgYVwKwyvxqCOx9E
- 74Vq9GxYJ8XVAEXRDOOx/MNOxuWUs7dJVfzT1x8wyyvp8atK0zgxebWYM
- lTqmqhjR6NdDngz8dIBSPOoRDRsZGLD7tkeMd7bh04/JG1X1QyCsxavLh
- YN3yclULJiVExZjK/DZBV8DGqsNRumQK+0QMJsKNFM6lXJ5C8f9NS0tJD
- 3GBm+WNI0Jn42n6/b3Fe49X9OCIKnuN8z7sibgBjtc9PTve+ECOw0WBuO
- zCjO0w4ZUW0I1ndG6Qt65O/6XjgZM7Ub0jYe3BbC5vmyYqQK1c34PgCO9 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311748996"
-X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="311748996"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=N3RzBJO56VwywwBScoMldiEqURxaR18R2o7F6QMZm7g=;
+ b=Nfehv9Bh4jxnHMJBEwiUduDgHpR0Sh/WPT7XeMPuEuGkAteQUejMwS69
+ 7Ncl54fsDTmWK/U9AvmJHfw175HXoZOiRaaNMhRjZH/ijVu2WsRIV41dY
+ OBIr3zp7xmJODA7+p6xorkdaEJUpi1DY7DKqgpQ+8antsjZZzS38HDOEs
+ FOcCv5PIXGgBgYVs8IiZp+vdVlQy8kII77bELHzNtiYek7Ly3NSTgNePp
+ NWIYvKECgQ+/RGEt496fcxSOnLxNHmys92ucU3zWe3wO1mUjpgL8RWGhd
+ 70l6c6FeqELLoMGkqkkoWs2fUNVHNcQVT4SHKnZ/iGBicwJcm1kGH++VB Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311748990"
+X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="311748990"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 15:52:08 -0800
+ 17 Feb 2022 15:52:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="545964441"
+X-IronPort-AV: E=Sophos;i="5.88,377,1635231600"; d="scan'208";a="545964424"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga008.jf.intel.com with ESMTP; 17 Feb 2022 15:52:08 -0800
+ by orsmga008.jf.intel.com with ESMTP; 17 Feb 2022 15:52:07 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 17 Feb 2022 15:52:04 -0800
-Message-Id: <20220217235207.930153-6-John.C.Harrison@Intel.com>
+Date: Thu, 17 Feb 2022 15:51:59 -0800
+Message-Id: <20220217235207.930153-1-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220217235207.930153-1-John.C.Harrison@Intel.com>
-References: <20220217235207.930153-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915/guc: Move lrc desc setup to where
- it is needed
+Subject: [Intel-gfx] [PATCH 0/8] Prep work for next GuC release
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,62 +61,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The LRC descriptor was being initialised early on in the context
-registration sequence. It could then be determined that the actual
-registration needs to be delayed and the descriptor would be wiped
-out. This is inefficient, so move the setup to later in the process
-after the point of no return.
+The next GuC firmware release includes some significant backwards
+breaking API changes. One such is that there is no longer an LRC
+descriptor pool. A bunch of prep work for that change can be done in
+advance - the descriptor pool was being used for things it shouldn't
+really have been used for anyway.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 0ab2d1a24bf6..aa74ec74194a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2153,6 +2153,8 @@ static int __guc_action_register_context(struct intel_guc *guc,
- 					     0, loop);
- }
- 
-+static void prepare_context_registration_info(struct intel_context *ce);
-+
- static int register_context(struct intel_context *ce, bool loop)
- {
- 	struct intel_guc *guc = ce_to_guc(ce);
-@@ -2163,6 +2165,8 @@ static int register_context(struct intel_context *ce, bool loop)
- 	GEM_BUG_ON(intel_context_is_child(ce));
- 	trace_intel_context_register(ce);
- 
-+	prepare_context_registration_info(ce);
-+
- 	if (intel_context_is_parent(ce))
- 		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
- 						      offset, loop);
-@@ -2246,7 +2250,6 @@ static void prepare_context_registration_info(struct intel_context *ce)
- 	struct intel_context *child;
- 
- 	GEM_BUG_ON(!engine->mask);
--	GEM_BUG_ON(!sched_state_is_init(ce));
- 
- 	/*
- 	 * Ensure LRC + CT vmas are is same region as write barrier is done
-@@ -2314,9 +2317,13 @@ static int try_context_registration(struct intel_context *ce, bool loop)
- 	bool context_registered;
- 	int ret = 0;
- 
-+	GEM_BUG_ON(!sched_state_is_init(ce));
-+
- 	context_registered = ctx_id_mapped(guc, desc_idx);
- 
--	prepare_context_registration_info(ce);
-+	if (context_registered)
-+		clr_ctx_id_mapping(guc, desc_idx);
-+	set_ctx_id_mapping(guc, desc_idx, ce);
- 
- 	/*
- 	 * The context_lookup xarray is used to determine if the hardware
+
+John Harrison (8):
+  drm/i915/guc: Do not conflate lrc_desc with GuC id for registration
+  drm/i915/guc: Add an explicit 'submission_initialized' flag
+  drm/i915/guc: Better name for context id limit
+  drm/i915/guc: Split guc_lrc_desc_pin apart
+  drm/i915/guc: Move lrc desc setup to where it is needed
+  drm/i915/guc: Rename desc_idx to ctx_id
+  drm/i915/guc: Drop obsolete H2G definitions
+  drm/i915/guc: Fix potential invalid pointer dereferences when decoding
+    G2Hs
+
+ drivers/gpu/drm/i915/gt/intel_context.c       |   2 +-
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   2 -
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   4 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 183 ++++++++++--------
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |   2 +-
+ 6 files changed, 112 insertions(+), 83 deletions(-)
+
 -- 
 2.25.1
 
