@@ -4,48 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF86C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 09:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48007C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 09:52:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8625210EB36;
-	Thu, 17 Feb 2022 09:41:47 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89EC910EB1D;
- Thu, 17 Feb 2022 09:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645090906; x=1676626906;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=0n2mnzriut++++zqdobTTYF+VpbN2fheJCxQx2jXG0Y=;
- b=kE42y7WSNcox/iTbSbDnIeHJ0ODsawmMrNj+mwH9zC50TE48i4zCkamr
- aDQu2c5piH3N/seIvfoHMJquNLet9YQJC4ULyo9jjpwhK2ekmOWP7goI3
- sbbsIPSppgbrDnjDHuN28ZrBS4NAHcu2wbEkYwHhbBiM+2+ubphvNfKzB
- FeFixE1//hW3M9904ZjuK09zzgjd5H8j7SDY29rZRmv83alvpPUPsuM/i
- UOTqTUVrPPJa/Z76BkC1Tbt9wsHpcthNBXrEOvYCqtJHjmht+QEhjgHi5
- 4T/yeKL23ncdpvOGZ9zstwuJnMZHMBCCKoh8IxYteDGbXqv2mA5SGpZKm A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="238240361"
-X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="238240361"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 01:41:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="604840808"
-Received: from lkp-server01.sh.intel.com (HELO 6f05bf9e3301) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 17 Feb 2022 01:41:44 -0800
-Received: from kbuild by 6f05bf9e3301 with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1nKdIF-00001x-Gb; Thu, 17 Feb 2022 09:41:43 +0000
-Date: Thu, 17 Feb 2022 17:40:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <202202171718.0GTDm2wX-lkp@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73AA910EC9D;
+	Thu, 17 Feb 2022 09:52:01 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 754CF10EC8B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 09:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1645091518;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GjAkGPjCABeyW0Gcd3V5/Yp+7WRVwbV3GUQOEkRq3r4=;
+ b=e7cwtOyBqDM5FL5qtdoQfSuXizTaN92mi2uUprXAsBP4PIdilV0zTAP8dQv23i9GKzonCI
+ o5tarvYMh5MyDRkRgtRF0Ni3kYKTrEZ1+i+YeU4HR7LyRvN7vVzPHv1420YmX/gmP3EQ2f
+ MP1PK9bKqVXybeaJtV/2G/2oLUnzJsA=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-639-1nz6tW3WNdaVhHuxVLtkUA-1; Thu, 17 Feb 2022 04:51:57 -0500
+X-MC-Unique: 1nz6tW3WNdaVhHuxVLtkUA-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ 125-20020a1c0283000000b0037bf720e6a8so3990221wmc.8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 01:51:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=GjAkGPjCABeyW0Gcd3V5/Yp+7WRVwbV3GUQOEkRq3r4=;
+ b=LEgwQUNKpKUQOvubDi9B7EJjTwDRUmDreceQi9YQcPVcZucFymXJOT/GaTViU1fxis
+ ZT89QSj7FRwHE1RAeixH1jZ5nBt+4fFgEdoJKsIjHJvjyYAmwR7rseuQB5H7gsl8INTo
+ Gihp7ZubYyIxc+shbz2QW41RZZxfoDn140ts0Z/IdFGzy5KL4y2B12PzrGvl+5AFZ5X3
+ yys/jJp4QwQ3lbt+ol6BtgRrMlrYLO5+uHXIUVEt5SxKZvwnLx6K25t1QMvlipgWBk+q
+ chaODQVMaXz96oXj9VpUhLYmdiDyNs0KvOxhiRNT4Sbnhy4qNM7OqNWO1cvo0Y2HvwLj
+ O5KQ==
+X-Gm-Message-State: AOAM533K3WqHjwIy9tAuCuIDoWdoCHmCoOgxibpcJ2bhAIt9NperZYPX
+ vz0/BiVRGJ8gBCWstq7qH2eB2JSpz5sw3QD7WM1gvED5qcYE+y3AqG6EggtP4QeewCS+iDXi2VV
+ D/Px5Ig3P8TOy06UEWBRocASftRtx
+X-Received: by 2002:adf:f44e:0:b0:1a9:f21:2250 with SMTP id
+ f14-20020adff44e000000b001a90f212250mr1658094wrp.263.1645091515963; 
+ Thu, 17 Feb 2022 01:51:55 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyZllfGRweBQ8shZ+yBvcfWtgaeNv0G0mGqBezZOKeBuh1xIW/cWJX8HtYpgXMY57Gpy8G+/w==
+X-Received: by 2002:adf:f44e:0:b0:1a9:f21:2250 with SMTP id
+ f14-20020adff44e000000b001a90f212250mr1658084wrp.263.1645091515744; 
+ Thu, 17 Feb 2022 01:51:55 -0800 (PST)
+Received: from [192.168.1.102] ([92.176.231.205])
+ by smtp.gmail.com with ESMTPSA id n7sm688930wmd.30.2022.02.17.01.51.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Feb 2022 01:51:55 -0800 (PST)
+Message-ID: <dc350aa0-9f59-36c2-9534-f0798f3d0d6a@redhat.com>
+Date: Thu, 17 Feb 2022 10:51:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: [Intel-gfx] [drm-intel:topic/core-for-CI 1/1]
- drivers/gpu/drm/i915/intel_device_info.c:236:14: error:
- 'INTEL_SUBPLATFORM_G12' undeclared; did you mean 'INTEL_SUBPLATFORM_G10'?
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+References: <202202171455.bclm1YBC-lkp@intel.com>
+ <20220217063625.sm5ua5xf4jo2ekku@ldmartin-desk2>
+ <79301ef2-03d4-ca96-3d7f-6f9b80f319e1@redhat.com>
+ <20220217092545.4zpjnh344fmrcg26@ldmartin-desk2>
+ <95cce34d-fa67-2da9-f065-a6dacfa980d6@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <95cce34d-fa67-2da9-f065-a6dacfa980d6@suse.de>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [drm-tip:drm-tip 4/8]
+ drivers/gpu/drm/solomon/ssd130x.c:451:18: error: incomplete definition of
+ type 'struct dma_buf_map'
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,114 +93,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, kbuild-all@lists.01.org,
+Cc: kbuild-all@lists.01.org, intel-gfx@lists.freedesktop.org,
+ llvm@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
  dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tree:   git://anongit.freedesktop.org/drm-intel topic/core-for-CI
-head:   b56d8d7bad86a9badc1d1b9ea2d1730fa1d3978b
-commit: b56d8d7bad86a9badc1d1b9ea2d1730fa1d3978b [1/1] drm/i915: Add DG2 PCI IDs
-config: x86_64-randconfig-a011 (https://download.01.org/0day-ci/archive/20220217/202202171718.0GTDm2wX-lkp@intel.com/config)
-compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
-reproduce (this is a W=1 build):
-        git remote add drm-intel git://anongit.freedesktop.org/drm-intel
-        git fetch --no-tags drm-intel topic/core-for-CI
-        git checkout b56d8d7bad86a9badc1d1b9ea2d1730fa1d3978b
-        # save the config file to linux build tree
-        mkdir build_dir
-        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
+On 2/17/22 10:41, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 17.02.22 um 10:25 schrieb Lucas De Marchi:
+> [...]
+>>> $ git grep "TODO: Use mapping abstraction properly" | wc -l
+>>> 15
+>>>
+>>> If you point me the proper way, I'll be happy to post a patch to 
+>>> change it.
+>>
+>> It depends what you want to do with the address. There are APIs to copy
+>> from/to. I also added a few to read/write to an offset. It seems the
+>> problem here is that you need to pass that to a helper,
+>> drm_fb_xrgb8888_to_mono_reversed(). I think the proper solution would be
+>> to change the helper to accept an iosys_map* as argument rather than a
+>> void*.
+> 
+> There are several of these TODOs in the DRM code, because our 
+> format-conversion helpers are still from the time before 
+> dma_buf_map/iosys_map. The easiest workaround is to take the raw pointer 
+> and give it to them. One day, DRM's public blit and conversion 
+> interfaces will take an iosys_map and handle the different memory types 
+> internally.
+>
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+Yes, as Lucas mentioned there are copy from/to helpers but didn't want to
+use it because would be another unnecessary copy just to avoid to take the
+map->vaddr raw pointer and pass directly to the format-conversion helper.
 
-All errors (new ones prefixed by >>):
+> Javierm, that's when the internal _line() helpers will become useful. 
+> They can use system memory directly, and for I/O memory the 
+> blit/conversion helpers allocate an internal temporary per-line buffer. 
+> The code you made for the new driver has this designed outlined already.
+>
 
-   In file included from include/linux/bits.h:6,
-                    from include/linux/ratelimit_types.h:5,
-                    from include/linux/printk.h:10,
-                    from include/drm/drm_print.h:30,
-                    from drivers/gpu/drm/i915/intel_device_info.c:25:
-   drivers/gpu/drm/i915/intel_device_info.c: In function 'intel_device_info_subplatform_init':
->> drivers/gpu/drm/i915/intel_device_info.c:236:14: error: 'INTEL_SUBPLATFORM_G12' undeclared (first use in this function); did you mean 'INTEL_SUBPLATFORM_G10'?
-     236 |   mask = BIT(INTEL_SUBPLATFORM_G12);
-         |              ^~~~~~~~~~~~~~~~~~~~~
-   include/vdso/bits.h:7:30: note: in definition of macro 'BIT'
-       7 | #define BIT(nr)   (UL(1) << (nr))
-         |                              ^~
-   drivers/gpu/drm/i915/intel_device_info.c:236:14: note: each undeclared identifier is reported only once for each function it appears in
-     236 |   mask = BIT(INTEL_SUBPLATFORM_G12);
-         |              ^~~~~~~~~~~~~~~~~~~~~
-   include/vdso/bits.h:7:30: note: in definition of macro 'BIT'
-       7 | #define BIT(nr)   (UL(1) << (nr))
-         |                              ^~
+Indeed. I understand now what you meant when proposing to add those helpers.
+ 
+> Best regards
+> Thomas
+> 
+Best regards,
+-- 
+Javier Martinez Canillas
+Linux Engineering
+Red Hat
 
-
-vim +236 drivers/gpu/drm/i915/intel_device_info.c
-
-   201	
-   202	void intel_device_info_subplatform_init(struct drm_i915_private *i915)
-   203	{
-   204		const struct intel_device_info *info = INTEL_INFO(i915);
-   205		const struct intel_runtime_info *rinfo = RUNTIME_INFO(i915);
-   206		const unsigned int pi = __platform_mask_index(rinfo, info->platform);
-   207		const unsigned int pb = __platform_mask_bit(rinfo, info->platform);
-   208		u16 devid = INTEL_DEVID(i915);
-   209		u32 mask = 0;
-   210	
-   211		/* Make sure IS_<platform> checks are working. */
-   212		RUNTIME_INFO(i915)->platform_mask[pi] = BIT(pb);
-   213	
-   214		/* Find and mark subplatform bits based on the PCI device id. */
-   215		if (find_devid(devid, subplatform_ult_ids,
-   216			       ARRAY_SIZE(subplatform_ult_ids))) {
-   217			mask = BIT(INTEL_SUBPLATFORM_ULT);
-   218		} else if (find_devid(devid, subplatform_ulx_ids,
-   219				      ARRAY_SIZE(subplatform_ulx_ids))) {
-   220			mask = BIT(INTEL_SUBPLATFORM_ULX);
-   221			if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
-   222				/* ULX machines are also considered ULT. */
-   223				mask |= BIT(INTEL_SUBPLATFORM_ULT);
-   224			}
-   225		} else if (find_devid(devid, subplatform_portf_ids,
-   226				      ARRAY_SIZE(subplatform_portf_ids))) {
-   227			mask = BIT(INTEL_SUBPLATFORM_PORTF);
-   228		} else if (find_devid(devid, subplatform_g10_ids,
-   229				      ARRAY_SIZE(subplatform_g10_ids))) {
-   230			mask = BIT(INTEL_SUBPLATFORM_G10);
-   231		} else if (find_devid(devid, subplatform_g11_ids,
-   232				      ARRAY_SIZE(subplatform_g11_ids))) {
-   233			mask = BIT(INTEL_SUBPLATFORM_G11);
-   234		} else if (find_devid(devid, subplatform_g12_ids,
-   235				      ARRAY_SIZE(subplatform_g12_ids))) {
- > 236			mask = BIT(INTEL_SUBPLATFORM_G12);
-   237		}
-   238	
-   239		if (IS_TIGERLAKE(i915)) {
-   240			struct pci_dev *root, *pdev = to_pci_dev(i915->drm.dev);
-   241	
-   242			root = list_first_entry(&pdev->bus->devices, typeof(*root), bus_list);
-   243	
-   244			drm_WARN_ON(&i915->drm, mask);
-   245			drm_WARN_ON(&i915->drm, (root->device & TGL_ROOT_DEVICE_MASK) !=
-   246				    TGL_ROOT_DEVICE_ID);
-   247	
-   248			switch (root->device & TGL_ROOT_DEVICE_SKU_MASK) {
-   249			case TGL_ROOT_DEVICE_SKU_ULX:
-   250				mask = BIT(INTEL_SUBPLATFORM_ULX);
-   251				break;
-   252			case TGL_ROOT_DEVICE_SKU_ULT:
-   253				mask = BIT(INTEL_SUBPLATFORM_ULT);
-   254				break;
-   255			}
-   256		}
-   257	
-   258		GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_MASK);
-   259	
-   260		RUNTIME_INFO(i915)->platform_mask[pi] |= mask;
-   261	}
-   262	
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
