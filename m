@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A6CC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:48:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72DD4C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A615C10E756;
-	Thu, 17 Feb 2022 03:48:41 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C72310E74E;
- Thu, 17 Feb 2022 03:48:39 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id h5so2215010ioj.3;
- Wed, 16 Feb 2022 19:48:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E70D10E75E;
+	Thu, 17 Feb 2022 03:48:46 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C9710E75C;
+ Thu, 17 Feb 2022 03:48:44 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id 24so2193036ioe.7;
+ Wed, 16 Feb 2022 19:48:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WgWVdTddSK1VIvJpihEOxrT4Mi3SIzAJw8C0VgfJ1+E=;
- b=PFLx2BNFItOcSBVBzOes2CcfuiOg9MZFNk4GMlp3FEWB8qTgBL5FbKnZoRAKYReNL/
- ReDNJ2jxVfhXYWmadIOhteBp5jp1Sev1vNmsZeyjXjVlSxi4P2CC/txIQX7x9no42fno
- 35b9yd+0zjb90kjD0RTZWE4ze/Nt2mO0Dv2OBbNMV0VvkEHUdLIB1FJ8RryJH/Fwzuky
- RLM4b4LiDs6AJEA/W6MVIubgvSU1zPeT1bXXrH157OyjpS7EBS2G9qdbF4skflStaHXi
- nfMGkMcVbjqWYUHs2Td7/xiydiYvo50td+/vQ/lbFICW72LMNHR+7cwzpp61v9C8G6jN
- 5c0g==
+ bh=6PjYElXLHY8EElBLxhH7hX+f6tj2nXv2er8BaUyyz9Q=;
+ b=Df4EFL7dnE8UPIWveP1K240H9+va5ZvmcrTbmVMORo67e1IDR5fu0tJ2fh/9CeZkVh
+ mFaa73rQyId1lGm8x0qMRznHY/LYuzUO8HjVeXtjgSPkgjMV9Sp7tMGXqYyV4Vr16MOw
+ UZ9IBv/bT7gAN6cEoyw8E0dZ3A3oyAMPhSDllOcbdzasdncDjVaADS1HjCuByHGqf7db
+ O/SFew7/F9cymS6QZoxMmZ/TNEACWUD8ec0wQDtSTdoDTLLtD+fqaeayfbsVLg7ZPHXy
+ PSuSVVXSkbq3wnczRae5sTeMgWu50lZja+1jiFU3Rdlq3xjFOjM5SsP5jPZXCJLmVLJ5
+ 0UMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WgWVdTddSK1VIvJpihEOxrT4Mi3SIzAJw8C0VgfJ1+E=;
- b=TsEB5AWS/sQjbxn8TWNanJMxHTzHdJoINh7URuPpyIBSHyJNBBFnr3A3RoJBLlp95L
- BESvFiI4ZQKKVx8IHgmGLeMfaFVWlC4/6w6TL5g8BIziEIqdmoYowLVkHiNbt3wWtnhi
- D3SZwiYYEay1dkhNTBy2Ly/4gO4jJ6Y22djm5qndZ2gP+tFyQUEtSkHA13Hs06SFg0am
- pB5o3QL+qzVjjHWD4sK3ODHdo1cZ++0yzFiImhCW0rXgTZovkZedsjOrV1w8rRQ+V+La
- MohqXbXFtKPI3Ei5JAvIE2O4fOzYUuPif8ssE7c0nPwak95/hkDJX5gfzP6Ex/9LTpbo
- 9AoA==
-X-Gm-Message-State: AOAM5330d6wgbvdLqPdS1HTo0KgsSgDMNbJTcPjREKqHyHgN6VdwG6bM
- 0HgiQ0tCpKvxlK0MgcP/t4mmeOg2nO4guw==
-X-Google-Smtp-Source: ABdhPJw368F4fr7QiyGQIds6VCL1NhGqtcNQKtxpD3CT5e3gMbNyzA1gjwbx4VI1KL4OErxP7BRLbw==
-X-Received: by 2002:a02:a808:0:b0:30e:e741:5457 with SMTP id
- f8-20020a02a808000000b0030ee7415457mr687157jaj.289.1645069718640; 
- Wed, 16 Feb 2022 19:48:38 -0800 (PST)
+ bh=6PjYElXLHY8EElBLxhH7hX+f6tj2nXv2er8BaUyyz9Q=;
+ b=5h6pKG8DvOWX3L46TV9DL2Vr6i9uAizVVXMOAtwQJ3q05Ggwe5B/PFzgDwUUzh8n1K
+ OSIvkBHmPzxq8DuJwfgGoDoumq0ikhD9o64ii/kuVdEQ/mIeRcvA2lsQE/+SMsqDssD5
+ CZNsSE7GLrMQ7/CzYUJcAalCFHZbNDjq9OXwXJPS4NnfJe3uJaRBV70g9Ow6HNyujEZi
+ Qnx25uVGIYmoaIT7Xkw460qPYNsrdeMCk3XqUlqHBAsP52Q1r7DiTrTLrrFHAXym21AK
+ ZF/ulQSWuLklpy1dzFrIvHV0sA8qVOcc5Vub6lAgFxHxj6zMP/o5k3IntspNPpAr7jzC
+ f09A==
+X-Gm-Message-State: AOAM532XfAB7hATgwgQ4lGupKJjplOmkudpLehPRp0IZ7c2vscJICcd1
+ /Y6OFGZ50oPYMS96uk5G84o=
+X-Google-Smtp-Source: ABdhPJzR9sH68uU0hAppvHEZBaT9Ym9z655Xbz/X/cCa28As7DCvs+Zf1Eo78kfs4qYWT2yHGQ0vlw==
+X-Received: by 2002:a02:7104:0:b0:307:8124:ede0 with SMTP id
+ n4-20020a027104000000b003078124ede0mr732465jac.191.1645069723675; 
+ Wed, 16 Feb 2022 19:48:43 -0800 (PST)
 Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::1b19])
- by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.37
+ by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 19:48:38 -0800 (PST)
+ Wed, 16 Feb 2022 19:48:43 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Feb 2022 20:48:17 -0700
-Message-Id: <20220217034829.64395-2-jim.cromie@gmail.com>
+Date: Wed, 16 Feb 2022 20:48:19 -0700
+Message-Id: <20220217034829.64395-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220217034829.64395-1-jim.cromie@gmail.com>
 References: <20220217034829.64395-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/13] dyndbg: fix static_branch manipulation
+Subject: [Intel-gfx] [PATCH 03/13] dyndbg: add
+ DEFINE_DYNAMIC_DEBUG_CLASSBITS macro and callbacks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,69 +73,279 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- vincent.whitchurch@axis.com, linux@rasmusvillemoes.dk, stable@vger.kernel.org,
- seanpaul@chromium.org, joe@perches.com
+ linux@rasmusvillemoes.dk, seanpaul@chromium.org, joe@perches.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In https://lore.kernel.org/lkml/20211209150910.GA23668@axis.com/
+DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, var, bitmap_desc, classes..)
+allows users to create a drm.debug style (bitmap) sysfs interface, to
+control sets of pr_debug's according to their .class_id's
 
-Vincent's patch commented on, and worked around, a bug toggling
-static_branch's, when a 2nd PRINTK-ish flag was added.  The bug
-results in a premature static_branch_disable when the 1st of 2 flags
-was disabled.
+This wraps existing "class" keyword and behavior:
 
-The cited commit computed newflags, but then in the JUMP_LABEL block,
-did not use that result, but used just one of the terms in it.  Using
-newflags instead made the code work properly.
+   echo "module drm -p ; module drm class 0 +p ; module drm class 2 +p" >control
 
-This is Vincents test-case, reduced.  It needs the 2nd flag to work
-properly, but it's explanatory here.
+With the macro in use, this is equivalent:
 
-pt_test() {
-    echo 5 > /sys/module/dynamic_debug/verbose
+   echo 0x05 > /sys/module/drm/parameters/debug
 
-    site="module tcp" # just one callsite
-    echo " $site =_ " > /proc/dynamic_debug/control # clear it
+To use:
 
-    # A B ~A ~B
-    for flg in +T +p "-T #broke here" -p; do
-	echo " $site $flg " > /proc/dynamic_debug/control
-    done;
+DEFINE_DYNAMIC_DEBUG_CLASSBITS(debug, __drm_debug, "pmfl",
+	"drm.debug - bits => categories:",
+	/* vector of uint:4 symbols, ala enum drm_debug_category, 15 is EOL */
+	DRM_UT_CORE,
+	DRM_UT_DRIVER,
+	DRM_UT_KMS ... );
 
-    # A B ~B ~A
-    for flg in +T +p "-p #broke here" -T; do
-	echo " $site $flg " > /proc/dynamic_debug/control
-    done
-}
-pt_test
+The 3rd arg is a string with any of the dyndbg.flags [pmflt_]+
+Full exposure of the flags here lets the module author:
 
-Fixes: 84da83a6ffc0 dyndbg: combine flags & mask into a struct, simplify with it
-CC: vincent.whitchurch@axis.com
-CC: stable@vger.kernel.org
+- fully customize/take-over the decorations of enabled sites.
+  generally leaving decorations to user is preferred.
+
+- aim the debug-stream:
+  now printk, later tracefs.
+  generally toggling both together is silly
+  iface doesnt care about new flags added later
+
+- declare 2 separate sysfs-knobs, one each for p, T, if desired.
+
+- decorations are per callsite,
+  shared across sysfs-knobs for any controlled classes
+
+To support the macro, the patch adds:
+
+ - int param_set_dyndbg_classbits()
+ - int param_get_dyndbg_classbits()
+ - struct kernel_param_ops param_ops_dyndbg_classbits
+
+Following the model of kernel/params.c STANDARD_PARAM_DEFS, these are
+non-static and exported.
+
+get/set use an augmented kernel_param; the arg refs a new struct
+dyndbg_bitmap_param containing:
+
+A- the vector of classes (drm.debug "categories") being controlled
+
+This in-line vector of constants (uint [0-14]) specifies a sequence of
+controlling bits (by position, starting at 0) with the values naming
+the class_id's mapped to that bit.
+
+A value of _DPRINTK_SITE_UNCLASSED terminates the vector processing by
+param_set_dyndbg_classbits(), and is appended by the macro to insure a
+defined termination after max 15 classes are applied.
+
+Technically, the vector is a flex-array, but its size is practically
+limited to max 15 in length (repeats are pointless).
+
+B- a pointer to the user module's ulong holding the bits/state.
+
+By accessing client's bit-state, we coordinate with existing code
+that still uses drm_debug_enabled(), so they work unchanged.
+The change to ulong allows use of BIT() etc.
+
+NOTES:
+
+_DPRINTK_SITE_UNCLASSED = 15, ie 2**CLS_BITS-1, deserves special
+mention; it already marks all existing pr-debug callsites, only the
+new drm.debug callsites are initialized to other (DRM_UT_*) values.
+
+_DPRINTK_SITE_UNCLASSED is used in param_set_dyndbg_classbits() to
+limit the range of bits that are processed to what fits in uint:4.
+It also terminates the class-id list passed into the macro, so dont
+use it halfway through your list of classes-to-control.
+
+param_set_dyndbg_classbits() compares new vs old bits, and only
+updates each class on changes.  This maximally preserves the
+underlying state, which may have been customized at some point via
+`echo $cmd >control`.  So if users really want to know that all
+prdbgs are set precisely, they must pre-clear then set.
+
+Identity mapping in (A) is encouraged.  Your vector should exclude 15,
+if used, it terminates the list prematurely; any following bit
+mappings will be ignored (it is the default/non category).
+
+The whole (A) vector/list passed to the macro is:
+
+- not strictly needed: 0-N bits are scanned, only N is needed in the
+  macro interface to do this, not the whole list.
+
+- 0-N list allows juggling the bit->class map
+  Identity map is preferred.
+  15 terminates list if used. (macro impl does this)
+
+That said, (A) is self-documenting; the explicit list is greppable,
+'DRM_UT_*' provides lots of clues.  Further, it could be upgraded,
+something like:
+
+  _pick_sym_(DRM_UT_CORE, "mumble something useful about CORE debug")
+
+_pick_sym_(a,b) a		// gives us what we need here
+_pick_help_(a,b) #a " : " b	// mod-info fodder
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/linux/dynamic_debug.h | 50 +++++++++++++++++++++++
+ lib/dynamic_debug.c           | 77 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 127 insertions(+)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index d4b48f3cc6e8..e83c4e36ad29 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -209,6 +209,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 				   KERN_DEBUG, prefix_str, prefix_type,	\
+ 				   rowsize, groupsize, buf, len, ascii)
+ 
++struct kernel_param;
++int param_set_dyndbg_classbits(const char *instr, const struct kernel_param *kp);
++int param_get_dyndbg_classbits(char *buffer, const struct kernel_param *kp);
++
+ #else /* !CONFIG_DYNAMIC_DEBUG_CORE */
+ 
+ #include <linux/string.h>
+@@ -255,6 +259,52 @@ static inline int dynamic_debug_exec_queries(const char *query, const char *modn
+ 	return 0;
+ }
+ 
++struct kernel_param;
++static inline int param_set_dyndbg_classbits(const char *instr, const struct kernel_param *kp)
++{ return 0; }
++static inline int param_get_dyndbg_classbits(char *buffer, const struct kernel_param *kp)
++{ return 0; }
++
+ #endif /* !CONFIG_DYNAMIC_DEBUG_CORE */
+ 
++#define FLAGS_LEN 8
++struct dyndbg_classbits_param {
++	unsigned long *bits;		/* ref to shared state */
++	const char flags[FLAGS_LEN];	/* toggle these flags on bit-changes */
++	const int classes[];		/* indexed by bitpos */
++};
++
++#if defined(CONFIG_DYNAMIC_DEBUG) || defined(CONFIG_DYNAMIC_DEBUG_CORE)
++/**
++ * DEFINE_DYNAMIC_DEBUG_CLASSBITS() - bitmap control of classed pr_debugs
++ * @sysname: sysfs-node name
++ * @_var:    C-identifier holding bit-vector (Bits 0-14 are usable)
++ * @_flgs:   string with dyndbg flags: 'p' and/or 'T', and maybe "fmlt" also.
++ * @desc:    string summarizing the controls provided
++ * @classes: vector of callsite.class_id's (uint:4, 15 is reserved)
++ *
++ * This macro implements a DRM.debug API style bitmap, mapping bits
++ * 0-14 to classes of prdbg's, as initialized in their .class_id fields.
++ * @_flgs chooses the debug recipient; p - syslog, T - tracefs, and
++ * can include log decorations; m - module, f - function, l - line_num
++ */
++#define DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, _var, _flgs, desc, ...)	\
++	MODULE_PARM_DESC(fsname, desc);					\
++	static struct dyndbg_classbits_param ddcats_##_var = {		\
++		.bits = &(_var),					\
++		.flags = _flgs,						\
++		.classes = { __VA_ARGS__, _DPRINTK_SITE_UNCLASSED }	\
++	};								\
++	module_param_cb(fsname, &param_ops_dyndbg_classbits,		\
++			&ddcats_##_var, 0644)
++
++extern const struct kernel_param_ops param_ops_dyndbg_classbits;
++
++#else /* no dyndbg configured, throw error on macro use */
++
++#define DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, var, bitmap_desc, ...)	\
++	BUILD_BUG_ON_MSG(1, "CONFIG_DYNAMIC_DEBUG* needed to use this macro: " #fsname)
++
++#endif
++
+ #endif
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index dd7f56af9aed..a56c1286ffa4 100644
+index eb3209a7aef0..262178167358 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -211,10 +211,11 @@ static int ddebug_change(const struct ddebug_query *query,
- 				continue;
- #ifdef CONFIG_JUMP_LABEL
- 			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
--				if (!(modifiers->flags & _DPRINTK_FLAGS_PRINT))
-+				if (!(newflags & _DPRINTK_FLAGS_PRINT))
- 					static_branch_disable(&dp->key.dd_key_true);
--			} else if (modifiers->flags & _DPRINTK_FLAGS_PRINT)
-+			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
- 				static_branch_enable(&dp->key.dd_key_true);
-+			}
- #endif
- 			dp->flags = newflags;
- 			v4pr_info("changed %s:%d [%s]%s =%s\n",
+@@ -611,6 +611,83 @@ int dynamic_debug_exec_queries(const char *query, const char *modname)
+ }
+ EXPORT_SYMBOL_GPL(dynamic_debug_exec_queries);
+ 
++#ifdef CONFIG_MODULES
++#define KP_MOD_NAME kp->mod->name
++#else
++#define KP_MOD_NAME NULL /* wildcard */
++#endif
++#define FMT_QUERY_SIZE 128 /* typically need <40 */
++/**
++ * param_set_dyndbg_classbits - bits => categories >control setter
++ * @instr: string echo>d to sysfs
++ * @kp:    kp->arg has state: bits, map
++ *
++ * Enable/disable prdbgs by their "category", as specified in the
++ * DEFINE_DYNAMIC_DEBUG_BITGRPS.classbits argument.
++ *
++ * Returns: 0 or <0 if error.
++ */
++int param_set_dyndbg_classbits(const char *instr, const struct kernel_param *kp)
++{
++	unsigned long inbits;
++	int rc, i, matches = 0, totct = 0;
++	char query[FMT_QUERY_SIZE];
++	const struct dyndbg_classbits_param *dcp = kp->arg;
++
++	if (!dcp) {
++		pr_err("set_dyndbg_classbits: no bits=>queries map\n");
++		return -EINVAL;
++	}
++	rc = kstrtoul(instr, 0, &inbits);
++	if (rc) {
++		pr_err("set_dyndbg_classbits: expecting unsigned int\n");
++		return rc;
++	}
++	vpr_info("set_dyndbg_classbits: new 0x%lx old 0x%lx\n", inbits, *dcp->bits);
++
++	for (i = 0; i < _DPRINTK_SITE_UNCLASSED &&
++		dcp->classes[i] < _DPRINTK_SITE_UNCLASSED; i++) {
++
++		if (test_bit(i, &inbits) == test_bit(i, dcp->bits))
++			continue;
++		snprintf(query, FMT_QUERY_SIZE, "class %d %cT", dcp->classes[i],
++			 test_bit(i, &inbits) ? '+' : '-');
++
++		matches = ddebug_exec_queries(query, KP_MOD_NAME);
++
++		v2pr_info("bit-%d: %d matches on class:%u\n", i,
++			  matches, dcp->classes[i]);
++		totct += matches;
++	}
++	*dcp->bits = inbits;
++	vpr_info("total matches: %d\n", totct);
++	return 0;
++}
++EXPORT_SYMBOL(param_set_dyndbg_classbits);
++
++/**
++ * param_get_dyndbg_classbits - classbits reader
++ * @buffer: string description of controlled bits -> classes
++ * @kp:     kp->arg has state: bits, map
++ *
++ * Reads last written bits, underlying prdbg state may have changed since.
++ * Returns: #chars written or <0 on error
++ */
++int param_get_dyndbg_classbits(char *buffer, const struct kernel_param *kp)
++{
++	const struct dyndbg_classbits_param *p = kp->arg;
++	unsigned long val = *p->bits;
++
++	return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", val);
++}
++EXPORT_SYMBOL(param_get_dyndbg_classbits);
++
++const struct kernel_param_ops param_ops_dyndbg_classbits = {
++	.set = param_set_dyndbg_classbits,
++	.get = param_get_dyndbg_classbits,
++};
++EXPORT_SYMBOL(param_ops_dyndbg_classbits);
++
+ #define PREFIX_SIZE 64
+ 
+ static int remaining(int wrote)
 -- 
 2.35.1
 
