@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7382DC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10900C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B69110EBB2;
-	Thu, 17 Feb 2022 14:43:23 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B55D10E9A7;
- Thu, 17 Feb 2022 14:43:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E3A10EB9D;
+	Thu, 17 Feb 2022 14:43:42 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0C0B10E89B;
+ Thu, 17 Feb 2022 14:43:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645109001; x=1676645001;
+ t=1645109020; x=1676645020;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=r0MIc3rFoAcZ7QoxY0dsZ+qVzmooW0UX/f1FEpJBSjQ=;
- b=VRD82INXhhymmXm/kgCsWRqbKoxRALZqqgmmlWGjMBTLY5sT6X9qd5qr
- pKgUCtYDDxdL2RO3KPqQwjAL+iqvoFpgq9knDnka1xkKoGiYZPjt4u9K7
- Sf1JK12I4LytfgrHmZSvmu6uxN7S7klKqL8/qURK2t6Bpo+zXbJIh0J85
- BeN8jCNtNx2ZLEoQkbvNStaEk2jj63pDqGnLi8cChNdgCbKhtcxsZWiLV
- Q1gSbyIg61ctEd+PRAksHiGNjh/NAlrUrFVQ6p0GbYrsru2MFBf2bu06s
- j8XuyWsogbqevI0vdlcUuz1TavZygDNNBxoONiCyCyQAlKhoAFFvVVACP w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="337331843"
-X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="337331843"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 06:43:21 -0800
-X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="502477616"
+ bh=+GzPfklFZLJiAcbK45kwO4BMbNF5U3lCw9oAkgR+XJE=;
+ b=hFB8EcNYWINzqQxXXuTxj+6MLHgUynTxYEHOIsHluwlyWso1cKFQ3vvi
+ ZdrKKhRlIGOcsDmVrMKh4pehjOdZgjw+zMeDX2MBfi812t86POl0cuBEL
+ zDHWN+FLYPfsX7FXqxIV9NfbRWC/NOIcHnbbF1zdw/gfdm5DVfR9/pXUX
+ 4EBiSZ9UzLcPSvDvPHBylPLYvrGwFyWMoT7ruisDQc2lDzazMS3sH8B0w
+ gEde3XYRJJ7FxsE76EFsddQ93RYcdEUJ4nfhHD2Lc2YundLZj/cJD1sxm
+ bdXBG/x73ivhKPqEFU/TUZS5o8tezHVkF44uRdbqPGW6I4y/B5ouN4o1I Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="234416664"
+X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="234416664"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2022 06:43:40 -0800
+X-IronPort-AV: E=Sophos;i="5.88,376,1635231600"; d="scan'208";a="637160695"
 Received: from sewaggon-mobl1.amr.corp.intel.com (HELO intel.com)
  ([10.249.33.71])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 06:43:15 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2022 06:43:35 -0800
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Intel GFX <intel-gfx@lists.freedesktop.org>,
  DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Thu, 17 Feb 2022 15:41:52 +0100
-Message-Id: <20220217144158.21555-2-andi.shyti@linux.intel.com>
+Date: Thu, 17 Feb 2022 15:41:54 +0100
+Message-Id: <20220217144158.21555-4-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220217144158.21555-1-andi.shyti@linux.intel.com>
 References: <20220217144158.21555-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 1/7] drm/i915: Rename INTEL_REGION_LMEM with
- INTEL_REGION_LMEM_0
+Subject: [Intel-gfx] [PATCH v5 3/7] drm/i915/gt: add gt_is_root() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,177 +62,32 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the upcoming multitile support each tile will have its own
-local memory. Mark the current LMEM with the suffix '0' to
-emphasise that it belongs to the root tile.
+The "gt_is_root(struct intel_gt *gt)" helper return true if the
+gt is the root gt, which means that its id is 0. Return false
+otherwise.
 
 Suggested-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb.c               | 2 +-
- drivers/gpu/drm/i915/display/intel_fb_pin.c           | 2 +-
- drivers/gpu/drm/i915/gem/i915_gem_lmem.c              | 4 ++--
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c  | 6 +++---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c | 8 ++++----
- drivers/gpu/drm/i915/gt/intel_gt.c                    | 2 +-
- drivers/gpu/drm/i915/intel_memory_region.c            | 2 +-
- drivers/gpu/drm/i915/intel_memory_region.h            | 4 ++--
- 8 files changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 23cfe2e5ce2a..421f7238da05 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -1981,7 +1981,7 @@ intel_user_framebuffer_create(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 915d6192079b..f17f51e2d394 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -19,6 +19,11 @@ struct drm_printer;
+ 		  ##__VA_ARGS__);					\
+ } while (0)
  
- 	/* object is backed with LMEM for discrete */
- 	i915 = to_i915(obj->base.dev);
--	if (HAS_LMEM(i915) && !i915_gem_object_can_migrate(obj, INTEL_REGION_LMEM)) {
-+	if (HAS_LMEM(i915) && !i915_gem_object_can_migrate(obj, INTEL_REGION_LMEM_0)) {
- 		/* object is "remote", not in local memory */
- 		i915_gem_object_put(obj);
- 		return ERR_PTR(-EREMOTE);
-diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-index a307b4993bcf..bd6e7c98e751 100644
---- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-@@ -140,7 +140,7 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
- 	if (!ret && phys_cursor)
- 		ret = i915_gem_object_attach_phys(obj, alignment);
- 	else if (!ret && HAS_LMEM(dev_priv))
--		ret = i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM);
-+		ret = i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM_0);
- 	/* TODO: Do we need to sync when migration becomes async? */
- 	if (!ret)
- 		ret = i915_gem_object_pin_pages(obj);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-index 444f8268b9c5..47e43dc3a174 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-@@ -100,7 +100,7 @@ __i915_gem_object_create_lmem_with_ps(struct drm_i915_private *i915,
- 				      resource_size_t page_size,
- 				      unsigned int flags)
++static inline bool gt_is_root(struct intel_gt *gt)
++{
++	return !gt->info.id;
++}
++
+ static inline struct intel_gt *uc_to_gt(struct intel_uc *uc)
  {
--	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_LMEM],
-+	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_LMEM_0],
- 					     size, page_size, flags);
- }
- 
-@@ -135,6 +135,6 @@ i915_gem_object_create_lmem(struct drm_i915_private *i915,
- 			    resource_size_t size,
- 			    unsigned int flags)
- {
--	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_LMEM],
-+	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_LMEM_0],
- 					     size, 0, flags);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index b071a58dd6da..a342fd387d4e 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -88,7 +88,7 @@ static int igt_dmabuf_import_self(void *arg)
- static int igt_dmabuf_import_same_driver_lmem(void *arg)
- {
- 	struct drm_i915_private *i915 = arg;
--	struct intel_memory_region *lmem = i915->mm.regions[INTEL_REGION_LMEM];
-+	struct intel_memory_region *lmem = i915->mm.regions[INTEL_REGION_LMEM_0];
- 	struct drm_i915_gem_object *obj;
- 	struct drm_gem_object *import;
- 	struct dma_buf *dmabuf;
-@@ -252,10 +252,10 @@ static int igt_dmabuf_import_same_driver_lmem_smem(void *arg)
- 	struct drm_i915_private *i915 = arg;
- 	struct intel_memory_region *regions[2];
- 
--	if (!i915->mm.regions[INTEL_REGION_LMEM])
-+	if (!i915->mm.regions[INTEL_REGION_LMEM_0])
- 		return 0;
- 
--	regions[0] = i915->mm.regions[INTEL_REGION_LMEM];
-+	regions[0] = i915->mm.regions[INTEL_REGION_LMEM_0];
- 	regions[1] = i915->mm.regions[INTEL_REGION_SMEM];
- 	return igt_dmabuf_import_same_driver(i915, regions, 2);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-index d534141b2cf7..2c63daf932de 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-@@ -92,17 +92,17 @@ static int igt_create_migrate(struct intel_gt *gt, enum intel_region_id src,
- 
- static int igt_smem_create_migrate(void *arg)
- {
--	return igt_create_migrate(arg, INTEL_REGION_LMEM, INTEL_REGION_SMEM);
-+	return igt_create_migrate(arg, INTEL_REGION_LMEM_0, INTEL_REGION_SMEM);
- }
- 
- static int igt_lmem_create_migrate(void *arg)
- {
--	return igt_create_migrate(arg, INTEL_REGION_SMEM, INTEL_REGION_LMEM);
-+	return igt_create_migrate(arg, INTEL_REGION_SMEM, INTEL_REGION_LMEM_0);
- }
- 
- static int igt_same_create_migrate(void *arg)
- {
--	return igt_create_migrate(arg, INTEL_REGION_LMEM, INTEL_REGION_LMEM);
-+	return igt_create_migrate(arg, INTEL_REGION_LMEM_0, INTEL_REGION_LMEM_0);
- }
- 
- static int lmem_pages_migrate_one(struct i915_gem_ww_ctx *ww,
-@@ -152,7 +152,7 @@ static int lmem_pages_migrate_one(struct i915_gem_ww_ctx *ww,
- 		}
- 
- 	} else {
--		err = i915_gem_object_migrate(obj, ww, INTEL_REGION_LMEM);
-+		err = i915_gem_object_migrate(obj, ww, INTEL_REGION_LMEM_0);
- 		if (err) {
- 			pr_err("Object failed migration to lmem\n");
- 			if (err)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index e8403fa53909..db171e85f4df 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -78,7 +78,7 @@ int intel_gt_probe_lmem(struct intel_gt *gt)
- 		return err;
- 	}
- 
--	id = INTEL_REGION_LMEM;
-+	id = INTEL_REGION_LMEM_0;
- 
- 	mem->id = id;
- 
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index c70d7e286a51..18d7f0aa314e 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -17,7 +17,7 @@ static const struct {
- 		.class = INTEL_MEMORY_SYSTEM,
- 		.instance = 0,
- 	},
--	[INTEL_REGION_LMEM] = {
-+	[INTEL_REGION_LMEM_0] = {
- 		.class = INTEL_MEMORY_LOCAL,
- 		.instance = 0,
- 	},
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
-index 5625c9c38993..95db0a8029e2 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.h
-+++ b/drivers/gpu/drm/i915/intel_memory_region.h
-@@ -29,14 +29,14 @@ enum intel_memory_type {
- 
- enum intel_region_id {
- 	INTEL_REGION_SMEM = 0,
--	INTEL_REGION_LMEM,
-+	INTEL_REGION_LMEM_0,
- 	INTEL_REGION_STOLEN_SMEM,
- 	INTEL_REGION_STOLEN_LMEM,
- 	INTEL_REGION_UNKNOWN, /* Should be last */
- };
- 
- #define REGION_SMEM     BIT(INTEL_REGION_SMEM)
--#define REGION_LMEM     BIT(INTEL_REGION_LMEM)
-+#define REGION_LMEM     BIT(INTEL_REGION_LMEM_0)
- #define REGION_STOLEN_SMEM   BIT(INTEL_REGION_STOLEN_SMEM)
- #define REGION_STOLEN_LMEM   BIT(INTEL_REGION_STOLEN_LMEM)
- 
+ 	return container_of(uc, struct intel_gt, uc);
 -- 
 2.27.0
 
