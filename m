@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F79C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 18:48:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A10C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 18:48:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB4910E862;
-	Fri, 18 Feb 2022 18:48:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C90AB10E8A1;
+	Fri, 18 Feb 2022 18:48:08 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 290CB10E7EA;
- Fri, 18 Feb 2022 18:47:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDEAE10E8C8;
+ Fri, 18 Feb 2022 18:48:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645210073; x=1676746073;
+ t=1645210087; x=1676746087;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qYqiPkht20qnR8at+2JndMN4rVVZMVGIhD7k7npCWQ8=;
- b=ObOZuITF1oOvWuIPJ1MiQ0bLzlTVC+I7DqpvFryD4KpN/WidWtGqbTRq
- aMGjptGkw17ucSepFDgoyrwApfHOMlSJS6zKqQplvqRwaOzDr1netojcj
- oFEQa0hfvkfXuvqqtCQKfDUJiYbQfxEvzIJpO7oodlw2iqZOWwugHi9oL
- MlkoCJ/taf4xRD9CtW6AoilawT6hcZlGU+bN2uk2QWJ6KHB6FpYwlP1YF
- dUeNzmFMFZEhYUdCe9Yr+5OLxv5T3QGAoScqvV6VyDdK3joWq9BovUTs7
- 1jfwyD0+Gbx9OrSNY20/2w1qPRzqIt1EHLpaYo/oHRTS2ZP4sIZPtnKcK Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="238592968"
-X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="238592968"
+ bh=mbuRJ0e7nK525gI4ZD7nkJZtF2bVkOJgOdvwDTzxYXI=;
+ b=SwyjGoX/Q/FWFjFg9Pca40vGec6zEqEBwoHb8BTrhP+1GHKnQwRhglcg
+ MoRTmOOv0wUx6D72XwEDjKBrZkQ7/QA/GWoj9MkhR379Yy7wgPnv+9rIy
+ GJFYXAyI8zL4ykQIwf4HYGVvCoXP/JAVfUxgS9ODuXw9SgjagC4t4pTMI
+ amOUnbeHpcPW7gD+R1o79YvOdEbxxB5Y2b/7BOunVtBFep2V5K+Ee5U9S
+ uhi5/TTyH6DxlXcUmIB1vRm68gxyp8aLVZpmn5+ojRBuRwTo+AgNPtt+F
+ oBUZyrHqR1TjkpswU4Uyx9kFIgAR6jB5knn2RjypbYeNbo1UBmugMZnIe g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="238593008"
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="238593008"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 10:47:53 -0800
-X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="489642140"
+ 18 Feb 2022 10:48:07 -0800
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="489642292"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 10:47:50 -0800
+ 18 Feb 2022 10:48:05 -0800
 From: Ramalingam C <ramalingam.c@intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Date: Sat, 19 Feb 2022 00:17:42 +0530
-Message-Id: <20220218184752.7524-6-ramalingam.c@intel.com>
+Date: Sat, 19 Feb 2022 00:17:47 +0530
+Message-Id: <20220218184752.7524-11-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220218184752.7524-1-ramalingam.c@intel.com>
 References: <20220218184752.7524-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/15] drm/i915: add needs_compact_pt flag
+Subject: [Intel-gfx] [PATCH 10/15] drm/i915/gtt: add
+ xehpsdv_ppgtt_insert_entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,82 +63,94 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new platform flag, needs_compact_pt, to mark the requirement of
-compact pt layout support for the ppGTT when using 64K GTT pages.
+From: Matthew Auld <matthew.auld@intel.com>
 
-With this flag has_64k_pages will only indicate requirement of 64K
-GTT page sizes or larger for device local memory access.
+If this is LMEM then we get a 32 entry PT, with each PTE pointing to
+some 64K block of memory, otherwise it's just the usual 512 entry PT.
+This very much assumes the caller knows what they are doing.
 
-v6:
-	* minor doc formatting
-
-Suggested-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Ramalingam C <ramalingam.c@intel.com>
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          | 11 ++++++++---
- drivers/gpu/drm/i915/i915_pci.c          |  2 ++
- drivers/gpu/drm/i915/intel_device_info.h |  1 +
- 3 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 50 ++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f600d1cb01b3..4a3ac66e777a 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1340,12 +1340,17 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 62471730266c..f574da00eff1 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -715,13 +715,56 @@ static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
+ 		gen8_pdp_for_page_index(vm, idx);
+ 	struct i915_page_directory *pd =
+ 		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
++	struct i915_page_table *pt = i915_pt_entry(pd, gen8_pd_index(idx, 1));
+ 	gen8_pte_t *vaddr;
  
- /*
-  * Set this flag, when platform requires 64K GTT page sizes or larger for
-- * device local memory access. Also this flag implies that we require or
-- * at least support the compact PT layout for the ppGTT when using the 64K
-- * GTT pages.
-+ * device local memory access.
-  */
- #define HAS_64K_PAGES(dev_priv) (INTEL_INFO(dev_priv)->has_64k_pages)
- 
-+/*
-+ * Set this flag when platform doesn't allow both 64k pages and 4k pages in
-+ * the same PT. this flag means we need to support compact PT layout for the
-+ * ppGTT when using the 64K GTT pages.
-+ */
-+#define NEEDS_COMPACT_PT(dev_priv) (INTEL_INFO(dev_priv)->needs_compact_pt)
+-	vaddr = px_vaddr(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
++	GEM_BUG_ON(pt->is_compact);
 +
- #define HAS_IPC(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_ipc)
++	vaddr = px_vaddr(pt);
+ 	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
+ 	clflush_cache_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
+ }
  
- #define HAS_REGION(i915, i) (INTEL_INFO(i915)->memory_regions & (i))
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 91677a9f330c..8df8887d76ae 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1030,6 +1030,7 @@ static const struct intel_device_info xehpsdv_info = {
- 	PLATFORM(INTEL_XEHPSDV),
- 	.display = { },
- 	.has_64k_pages = 1,
-+	.needs_compact_pt = 1,
- 	.platform_engine_mask =
- 		BIT(RCS0) | BIT(BCS0) |
- 		BIT(VECS0) | BIT(VECS1) | BIT(VECS2) | BIT(VECS3) |
-@@ -1048,6 +1049,7 @@ static const struct intel_device_info dg2_info = {
- 	PLATFORM(INTEL_DG2),
- 	.has_guc_deprivilege = 1,
- 	.has_64k_pages = 1,
-+	.needs_compact_pt = 1,
- 	.platform_engine_mask =
- 		BIT(RCS0) | BIT(BCS0) |
- 		BIT(VECS0) | BIT(VECS1) |
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 27dcfe6f2429..f75673da768d 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -131,6 +131,7 @@ enum intel_ppgtt_type {
- 	/* Keep has_* in alphabetical order */ \
- 	func(has_64bit_reloc); \
- 	func(has_64k_pages); \
-+	func(needs_compact_pt); \
- 	func(gpu_reset_clobbers_display); \
- 	func(has_reset_engine); \
- 	func(has_global_mocs); \
++static void __xehpsdv_ppgtt_insert_entry_lm(struct i915_address_space *vm,
++					    dma_addr_t addr,
++					    u64 offset,
++					    enum i915_cache_level level,
++					    u32 flags)
++{
++	u64 idx = offset >> GEN8_PTE_SHIFT;
++	struct i915_page_directory * const pdp =
++		gen8_pdp_for_page_index(vm, idx);
++	struct i915_page_directory *pd =
++		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
++	struct i915_page_table *pt = i915_pt_entry(pd, gen8_pd_index(idx, 1));
++	gen8_pte_t *vaddr;
++
++	GEM_BUG_ON(!IS_ALIGNED(addr, SZ_64K));
++	GEM_BUG_ON(!IS_ALIGNED(offset, SZ_64K));
++
++	if (!pt->is_compact) {
++		vaddr = px_vaddr(pd);
++		vaddr[gen8_pd_index(idx, 1)] |= GEN12_PDE_64K;
++		pt->is_compact = true;
++	}
++
++	vaddr = px_vaddr(pt);
++	vaddr[gen8_pd_index(idx, 0) / 16] = gen8_pte_encode(addr, level, flags);
++}
++
++static void xehpsdv_ppgtt_insert_entry(struct i915_address_space *vm,
++				       dma_addr_t addr,
++				       u64 offset,
++				       enum i915_cache_level level,
++				       u32 flags)
++{
++	if (flags & PTE_LM)
++		return __xehpsdv_ppgtt_insert_entry_lm(vm, addr, offset,
++						       level, flags);
++
++	return gen8_ppgtt_insert_entry(vm, addr, offset, level, flags);
++}
++
+ static int gen8_init_scratch(struct i915_address_space *vm)
+ {
+ 	u32 pte_flags;
+@@ -921,7 +964,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 
+ 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
+ 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
+-	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
++	if (HAS_64K_PAGES(gt->i915))
++		ppgtt->vm.insert_page = xehpsdv_ppgtt_insert_entry;
++	else
++		ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
+ 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
+ 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
+ 	ppgtt->vm.foreach = gen8_ppgtt_foreach;
 -- 
 2.20.1
 
