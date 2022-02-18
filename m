@@ -4,52 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DDD0C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 09:21:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E8A4C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 09:53:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1C5C10F143;
-	Fri, 18 Feb 2022 09:21:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9042A10F20F;
+	Fri, 18 Feb 2022 09:53:45 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 300F810F141;
- Fri, 18 Feb 2022 09:21:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D76110F20B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 09:53:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645176093; x=1676712093;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=su/3T94pVDNsaL5hedw6oR2jhqFC6VvwaIdbglb4bg0=;
- b=WdtkrdI7gXrVKMz8NwoKGi44g3zJvWg8kyDM8ipcX/lKacKDMyg3eB+5
- KHaQDdGx0GWAltiW/ZRnYRDrizHVvhrSUE5LZUlv2UfWMKIRCGkHDPmUz
- ZZT7+96SP8FPQyx/lQ8N03sFak4+DSo9Gfpsg5KmGiP1RgCIVNBrkmdaL
- ds1+FHZTHLRlgsMTZXG+FAtN73I7MZTRvV+eiKBsMsI5pU/pBKx9CMvO/
- KxoWoWJVgOWvRz1o7hMiGJkbE5AENgfujsAu7u1MruYktigvL/9RhUExs
- eZ0Q++fAabx1haQbltBzZsQNDobW4mFjfU4ljFUql1XqUWFUQX3NkI0Io g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="248687127"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="248687127"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ t=1645178024; x=1676714024;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ZfBbyBHWO3eRkWix3dENwIGw6ZxoieHO5xR+JfFkgOI=;
+ b=j1Cr4fowP73nea1fwmTaH2Ub3CHRA1GFiBGSOnyHuwlG4aziPPiw13CJ
+ uPf/gXWoIe5XxNDTPIv3UyF7rFnjCFF7buLtME8zvKs/l5leSIa8XUauc
+ KqF4l+NDIyVZhq5pkPpgVeAuWLD3Jq0I1wp6DhRfRaNeaviRZf3O8YUSa
+ kH108aHPdXlEjfcNV+qpnB59BIdWlQOcijBkRwwMJZsnfteGM+Cz41eP+
+ 9UBERF3LKxFjqKo6e+ihj4QihCgF8dXL34LbDUrgQYK83NQt6uTIbMboh
+ +EJbZGCAGoBNiFZsBpadUcTVA/r7NFW+dZK6DAUSth2ABhGX92gb0jnY4 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="248691408"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="248691408"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 01:21:32 -0800
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="546205177"
-Received: from dkalinic-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.249.33.147])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 01:21:30 -0800
-Date: Fri, 18 Feb 2022 10:21:26 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <Yg9lFn2SFR4WwmOV@intel.intel>
-References: <20220217144158.21555-1-andi.shyti@linux.intel.com>
- <20220217144158.21555-6-andi.shyti@linux.intel.com>
- <12c2fcf8-ef3b-e59c-fe1e-23bc8f12cfe5@linux.intel.com>
- <Yg5vlgoTEfJRWP9U@intel.intel>
- <57edfc5a-a330-8661-1509-b375f67b495e@linux.intel.com>
+ 18 Feb 2022 01:53:43 -0800
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="637693773"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 01:53:43 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 18 Feb 2022 01:54:37 -0800
+Message-Id: <20220218095438.451576-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220218095438.451576-1-lucas.demarchi@intel.com>
+References: <20220218095438.451576-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <57edfc5a-a330-8661-1509-b375f67b495e@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v5 5/7] drm/i915/gt: Create per-tile RC6
- sysfs interface
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/dg2: Drop 38.4 MHz MPLLB tables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,87 +56,253 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- DRI Devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+From: Matt Roper <matthew.d.roper@intel.com>
 
-> > > > Now tiles have their own sysfs interfaces under the gt/
-> > > > directory. Because RC6 is a property that can be configured on a
-> > > > tile basis, then each tile should have its own interface
-> > > > 
-> > > > The new sysfs structure will have a similar layout for the 4 tile
-> > > > case:
-> > > > 
-> > > > /sys/.../card0
-> > > >            ├── gt
-> > > >            │   ├── gt0
-> > > >            │   │   ├── id
-> > > >            │   │   ├── rc6_enable
-> > > >            │   │   ├── rc6_residency_ms
-> > > >            .   .   .
-> > > >            .   .   .
-> > > >            .   .
-> > > >            │   └── gtN
-> > > >            │       ├── id
-> > > >            │       ├── rc6_enable
-> > > >            │       ├── rc6_residency_ms
-> > > >            │       .
-> > > >            │       .
-> > > >            │
-> > > >            └── power/                -+
-> > > >                 ├── rc6_enable        |    Original interface
-> > > >                 ├── rc6_residency_ms  +->  kept as existing ABI;
-> > > >                 .                     |    it multiplexes over
-> > > >                 .                     |    the GTs
-> > > >                                      -+
-> > > > 
-> > > > The existing interfaces have been kept in their original location
-> > > > to preserve the existing ABI. They act on all the GTs: when
-> > > > reading they provide the average value from all the GTs.
-> > > 
-> > > Average feels very odd to me. I'd ask if we can get away providing an errno
-> > > instead? Or tile zero data?
-> > 
-> > Real multiplexing would be providing something when reading and
-> > when writing. The idea of average came while revieweing with
-> > Chris the write multiplexing. Indeed it makes sense to provide
-> > some common value, but I don't know how useful it can be to the
-> > user (still if the user needs any average).
-> > 
-> > Joonas, Chris... any idea?
-> > 
-> > > Case in point, and please correct me if I am wrong, legacy rc6_enable
-> > > returns tile zero, while residency returns average.
-> > 
-> > As the interface is done now, the rc6_enable is just returning
-> > whether the gpu (i.e. i915, not gt) supports RC6 or not. I think
-> > there is a patch later.
-> > 
-> > > Even the deprecated message gets logged with every access right?
-> > > 
-> > > Btw is the deperecated message limited to multi-tile platforms (can't see
-> > > that it is) and what is the plan for that?
-> > 
-> > yes, at this point the message would need to be removed and I
-> > forgot to do it.
-> 
-> Maybe it is correct to have it, I don't know at this point. Is the plan to
-> remove the warning everywhere, or only have it on multi-tile platforms, or
-> new platforms? And/or remove legacy files after a while on all platforms, or
-> just new ones?
+Our early understanding of DG2 was incorrect; since the 5th display
+isn't actually a Type-C output, 38.4 MHz input clocks are never used on
+this platform and we can drop the corresponding MPLLB tables.
 
-At this point I guess the warning should be removed from
-everywhere (i.e.  only those RC6 and RPS interfaces that are
-duplicated/multiplexed).
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Cc: José Roberto de Souza <jose.souza@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_snps_phy.c | 208 +-----------------
+ 1 file changed, 1 insertion(+), 207 deletions(-)
 
-We shouldn't be supposed to need more usage of multiplexed
-interfaces in the future (maybe just rc6 enable, but I don't see
-it really necessary).
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+index 8fd00de981fc..0989f5d57aa3 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+@@ -250,197 +250,6 @@ static const struct intel_mpllb_state * const dg2_dp_100_tables[] = {
+ 	NULL,
+ };
+ 
+-/*
+- * Basic DP link rates with 38.4 MHz reference clock.
+- */
+-
+-static const struct intel_mpllb_state dg2_dp_rbr_38_4 = {
+-	.clock = 162000,
+-	.ref_control =
+-		REG_FIELD_PREP(SNPS_PHY_REF_CONTROL_REF_RANGE, 1),
+-	.mpllb_cp =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT, 5) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP, 25) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT_GS, 65) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP_GS, 127),
+-	.mpllb_div =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV5_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_TX_CLK_DIV, 2) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_PMIX_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_V2I, 2) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FREQ_VCO, 2),
+-	.mpllb_div2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_REF_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_MULTIPLIER, 304),
+-	.mpllb_fracn1 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_DEN, 1),
+-	.mpllb_fracn2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_QUOT, 49152),
+-};
+-
+-static const struct intel_mpllb_state dg2_dp_hbr1_38_4 = {
+-	.clock = 270000,
+-	.ref_control =
+-		REG_FIELD_PREP(SNPS_PHY_REF_CONTROL_REF_RANGE, 1),
+-	.mpllb_cp =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT, 5) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP, 25) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT_GS, 65) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP_GS, 127),
+-	.mpllb_div =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV5_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_TX_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_PMIX_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_V2I, 2) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FREQ_VCO, 3),
+-	.mpllb_div2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_REF_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_MULTIPLIER, 248),
+-	.mpllb_fracn1 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_DEN, 1),
+-	.mpllb_fracn2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_QUOT, 40960),
+-};
+-
+-static const struct intel_mpllb_state dg2_dp_hbr2_38_4 = {
+-	.clock = 540000,
+-	.ref_control =
+-		REG_FIELD_PREP(SNPS_PHY_REF_CONTROL_REF_RANGE, 1),
+-	.mpllb_cp =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT, 5) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP, 25) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT_GS, 65) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP_GS, 127),
+-	.mpllb_div =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV5_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_PMIX_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_V2I, 2) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FREQ_VCO, 3),
+-	.mpllb_div2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_REF_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_MULTIPLIER, 248),
+-	.mpllb_fracn1 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_DEN, 1),
+-	.mpllb_fracn2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_QUOT, 40960),
+-};
+-
+-static const struct intel_mpllb_state dg2_dp_hbr3_38_4 = {
+-	.clock = 810000,
+-	.ref_control =
+-		REG_FIELD_PREP(SNPS_PHY_REF_CONTROL_REF_RANGE, 1),
+-	.mpllb_cp =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT, 6) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP, 26) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT_GS, 65) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP_GS, 127),
+-	.mpllb_div =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV5_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_PMIX_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_V2I, 2),
+-	.mpllb_div2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_REF_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_MULTIPLIER, 388),
+-	.mpllb_fracn1 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_DEN, 1),
+-	.mpllb_fracn2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_QUOT, 61440),
+-};
+-
+-static const struct intel_mpllb_state dg2_dp_uhbr10_38_4 = {
+-	.clock = 1000000,
+-	.ref_control =
+-		REG_FIELD_PREP(SNPS_PHY_REF_CONTROL_REF_RANGE, 1),
+-	.mpllb_cp =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT, 5) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP, 26) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT_GS, 65) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP_GS, 127),
+-	.mpllb_div =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV5_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV_MULTIPLIER, 8) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_PMIX_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_WORD_DIV2_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DP2_MODE, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SHIM_DIV32_CLK_SEL, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_V2I, 2),
+-	.mpllb_div2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_REF_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_MULTIPLIER, 488),
+-	.mpllb_fracn1 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_DEN, 3),
+-	.mpllb_fracn2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_REM, 2) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_QUOT, 27306),
+-
+-	/*
+-	 * SSC will be enabled, DP UHBR has a minimum SSC requirement.
+-	 */
+-	.mpllb_sscen =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SSC_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SSC_PEAK, 76800),
+-	.mpllb_sscstep =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SSC_STEPSIZE, 129024),
+-};
+-
+-static const struct intel_mpllb_state dg2_dp_uhbr13_38_4 = {
+-	.clock = 1350000,
+-	.ref_control =
+-		REG_FIELD_PREP(SNPS_PHY_REF_CONTROL_REF_RANGE, 1),
+-	.mpllb_cp =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT, 6) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP, 56) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_INT_GS, 65) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_CP_PROP_GS, 127),
+-	.mpllb_div =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV5_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV_CLK_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DIV_MULTIPLIER, 8) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_PMIX_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_WORD_DIV2_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_DP2_MODE, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_V2I, 3),
+-	.mpllb_div2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_REF_CLK_DIV, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_MULTIPLIER, 670),
+-	.mpllb_fracn1 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_CGG_UPDATE_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_DEN, 1),
+-	.mpllb_fracn2 =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_FRACN_QUOT, 36864),
+-
+-	/*
+-	 * SSC will be enabled, DP UHBR has a minimum SSC requirement.
+-	 */
+-	.mpllb_sscen =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SSC_EN, 1) |
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SSC_PEAK, 103680),
+-	.mpllb_sscstep =
+-		REG_FIELD_PREP(SNPS_PHY_MPLLB_SSC_STEPSIZE, 174182),
+-};
+-
+-static const struct intel_mpllb_state * const dg2_dp_38_4_tables[] = {
+-	&dg2_dp_rbr_38_4,
+-	&dg2_dp_hbr1_38_4,
+-	&dg2_dp_hbr2_38_4,
+-	&dg2_dp_hbr3_38_4,
+-	&dg2_dp_uhbr10_38_4,
+-	&dg2_dp_uhbr13_38_4,
+-	NULL,
+-};
+-
+ /*
+  * eDP link rates with 100 MHz reference clock.
+  */
+@@ -749,22 +558,7 @@ intel_mpllb_tables_get(struct intel_crtc_state *crtc_state,
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
+ 		return dg2_edp_tables;
+ 	} else if (intel_crtc_has_dp_encoder(crtc_state)) {
+-		/*
+-		 * FIXME: Initially we're just enabling the "combo" outputs on
+-		 * port A-D.  The MPLLB for those ports takes an input from the
+-		 * "Display Filter PLL" which always has an output frequency
+-		 * of 100 MHz, hence the use of the _100 tables below.
+-		 *
+-		 * Once we enable port TC1 it will either use the same 100 MHz
+-		 * "Display Filter PLL" (when strapped to support a native
+-		 * display connection) or different 38.4 MHz "Filter PLL" when
+-		 * strapped to support a USB connection, so we'll need to check
+-		 * that to determine which table to use.
+-		 */
+-		if (0)
+-			return dg2_dp_38_4_tables;
+-		else
+-			return dg2_dp_100_tables;
++		return dg2_dp_100_tables;
+ 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
+ 		return dg2_hdmi_tables;
+ 	}
+-- 
+2.35.1
 
-Thanks,
-Andi
