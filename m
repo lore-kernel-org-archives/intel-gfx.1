@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2DD2C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 21:33:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13D5EC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 21:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B916810EA3C;
-	Fri, 18 Feb 2022 21:33:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F15D910EA55;
+	Fri, 18 Feb 2022 21:33:11 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0B910EA3E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05EF110EA3C;
  Fri, 18 Feb 2022 21:33:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645219988; x=1676755988;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=kSXGjbJ00xQzwjw2AE7oeCO5vMvetHOJzLq0UDaMMzU=;
- b=hrycMY6gTEHixLRc9kL+3uoNUOSw+c4VAbf2KHGfFjB0hMg0Mp3kO1nV
- xFEIwwxH55Row7O5AeUOH3JbbjyvRDbRSbwlIzHcT0a9bINDPjpr8CEEF
- YqHSLuDSdCF8iWwjHMidCApI7IwWefjXABkmQ+RRQ4cBK9n0mZ5RZwB+1
- ODT1eaicrxzJtwEetXu9m3fDtECZK6RdiJmghpms37tt/QGVdFMCj/rsQ
- 5S2A96YPgLPMSbhF0mzF2twMHP9wddNTb91Ksa4mZLQvdnqHf6+hhdhjo
- d9OqKsVBd8efg5rZk/qJZmpvPPf7IYz3mUYxAodEgbSX5p5aSMjrS7Szf g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="238638708"
-X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="238638708"
+ t=1645219989; x=1676755989;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ncVfe66uzdNKMKj7i/OYYYxUGUlYy74ul0X4fkC9lMo=;
+ b=nidMRqwWhBKKx0i6o18cg6orGz7TAFAEuo+o75IMoavqouK06ProMyA9
+ QVredHN668r/dBPcWaprPyNfjDGoGb023NgNcfzPIoEzQp/RmJbGx0lcn
+ ZgEFqwA2PN4Gl1RTGOebUmilagGledI2+uwLfba2gcP3hSinx30SrJXui
+ PiPXbOpz5C2Wb1n6e8sRWta7Xo68XhBzKYfFHykUVKxpTcfh6Jl+yyrT2
+ ZUEwF8sI113eSizYynFREk+EOberAjbCXS3gtw4xW9hqsv3bg9nojB0Qt
+ t7DZtp47Kw0A/zSesvYc58XUd9QRyxqP1NZbupMxXW5iBt4zLXfi+R6U8 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="238638713"
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="238638713"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Feb 2022 13:33:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="546499002"
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="546499011"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga008.jf.intel.com with ESMTP; 18 Feb 2022 13:33:07 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 18 Feb 2022 13:33:04 -0800
-Message-Id: <20220218213307.1338478-1-John.C.Harrison@Intel.com>
+Date: Fri, 18 Feb 2022 13:33:07 -0800
+Message-Id: <20220218213307.1338478-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220218213307.1338478-1-John.C.Harrison@Intel.com>
+References: <20220218213307.1338478-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] Improve anti-pre-emption w/a for compute
- workloads
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Improve long running OCL w/a for
+ GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,36 +58,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: Michal Mrozek <michal.mrozek@intel.com>, DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Compute workloads are inherently not pre-emptible on current hardware.
-Thus the pre-emption timeout was disabled as a workaround to prevent
-unwanted resets. Instead, the hang detection was left to the heartbeat
-and its (longer) timeout. This is undesirable with GuC submission as
-the heartbeat is a full GT reset rather than a per engine reset and so
-is much more destructive. Instead, just bump the pre-emption timeout
-to a big value. Also, update the heartbeat to allow such a long
-pre-emption delay in the final heartbeat period.
+A workaround was added to the driver to allow OpenCL workloads to run
+'forever' by disabling pre-emption on the RCS engine for Gen12.
+It is not totally unbound as the heartbeat will kick in eventually
+and cause a reset of the hung engine.
 
+However, this does not work well in GuC submission mode. In GuC mode,
+the pre-emption timeout is how GuC detects hung contexts and triggers
+a per engine reset. Thus, disabling the timeout means also losing all
+per engine reset ability. A full GT reset will still occur when the
+heartbeat finally expires, but that is a much more destructive and
+undesirable mechanism.
+
+The purpose of the workaround is actually to give OpenCL tasks longer
+to reach a pre-emption point after a pre-emption request has been
+issued. This is necessary because Gen12 does not support mid-thread
+pre-emption and OpenCL can have long running threads.
+
+So, rather than disabling the timeout completely, just set it to a
+'long' value.
+
+CC: Michal Mrozek <michal.mrozek@intel.com>
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-
-John Harrison (3):
-  drm/i915/guc: Limit scheduling properties to avoid overflow
-  drm/i915/gt: Make the heartbeat play nice with long pre-emption
-    timeouts
-  drm/i915: Improve long running OCL w/a for GuC submission
-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 37 +++++++++++++++++--
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 16 ++++++++
- drivers/gpu/drm/i915/gt/sysfs_engines.c       | 14 +++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  9 +++++
- 4 files changed, 73 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 2a1e9f36e6f5..64249301a227 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -385,9 +385,25 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
+ 	engine->props.timeslice_duration_ms =
+ 		CONFIG_DRM_I915_TIMESLICE_DURATION;
+ 
+-	/* Override to uninterruptible for OpenCL workloads. */
+-	if (GRAPHICS_VER(i915) == 12 && engine->class == RENDER_CLASS)
+-		engine->props.preempt_timeout_ms = 0;
++	/*
++	 * Mid-thread pre-emption is not available in Gen12. Unfortunately,
++	 * some OpenCL workloads run quite long threads. That means they get
++	 * reset due to not pre-empting in a timely manner. So, bump the
++	 * pre-emption timeout value to be much higher for compute engines.
++	 * Using three times the heartbeat period seems long enough for a
++	 * reasonable task to reach a pre-emption point but not so long as to
++	 * allow genuine hangs to go unresolved.
++	 */
++	if (GRAPHICS_VER(i915) == 12 && engine->class == RENDER_CLASS) {
++		unsigned long triple_beat = engine->props.heartbeat_interval_ms * 3;
++
++		if (triple_beat > engine->props.preempt_timeout_ms) {
++			drm_info(&gt->i915->drm, "Bumping pre-emption timeout from %ld to %ld on %s to allow slow compute pre-emption\n",
++				 engine->props.preempt_timeout_ms, triple_beat, engine->name);
++
++			engine->props.preempt_timeout_ms = triple_beat;
++		}
++	}
+ 
+ 	/* Cap timeouts to prevent overflow inside GuC */
+ 	if (intel_guc_submission_is_wanted(&gt->uc.guc)) {
 -- 
 2.25.1
 
