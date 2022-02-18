@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43F8C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB752C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C630B10F042;
-	Fri, 18 Feb 2022 10:05:42 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C9310F03B;
- Fri, 18 Feb 2022 10:05:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C79FE10F03C;
+	Fri, 18 Feb 2022 10:05:43 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2C210F04B;
+ Fri, 18 Feb 2022 10:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178738; x=1676714738;
+ t=1645178737; x=1676714737;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o6QmNTSo++wA41tkK2nAoAqaUjde1XukDSiTKroARZY=;
- b=OyCr0ZvzubFEpBi/6s9iHSbUZ9hISWCf2yl3MEnZceRmb+uPJg+KL/lF
- MBB+krnm5StPxzAFslNsXVzgFKmGvrddNEaiYQ1hs5srMch/1x2VIjDKQ
- WlCWmtGuuET32D0nt2oZWOY3VEcqKtreDmB3XtBDCcAcb3/CNVfZkRAjA
- 0O3HoaPoXBUZQ5hMX8GiiWC6OAPQc9cWqdIkbAnF/6Z55P9paL6CSye/s
- d/ivmG00Gwgzoi8N19N05AoMbRNlNChar348+JE6yqFZMzqW9UEK4PcEt
- idto2fpbEbWOXr1oyHTrCl+e8lAAKDtLpToGXHaFE7bDd+UPKMW6NYKFt g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="249931329"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="249931329"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:05:16 -0800
+ bh=6hrcWO8pt/duDuZYb+yp9duBAmECMDPJwstgNFTeNb8=;
+ b=HXEeznmCFimz2uKADUEnPIK2U+oUtw6ROb9AVP87f38fDzx1SwsnzpdF
+ KTZRRmxixAaGcMpRorvI+o6bgqXgBkz4T7r2L5EFWOTSYHL3KI4deL0It
+ rsFrg7eoaHT9vnA1KOM5Zy3WEOdjfpWNA26TiG2hqDdQTbDze2zziQ2Iy
+ 9qMIklqW523KCptc/IMpiaTi7IcOQEKgHTgHnl8e8ux9E3uSwUjfdnJ/J
+ TopXSJ3eAtRa3taxdRZxrUszurEYEUFYc8yRTd3/4qb/A3l4NWHQf/Brc
+ HKpo/6T9vaP54xppC75/7vrepm6H4FDuLE7iY5eO4gxjvV8JthIt7NvUy w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="231734295"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="231734295"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:05:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="626574532"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="546219681"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by FMSMGA003.fm.intel.com with SMTP; 18 Feb 2022 02:05:14 -0800
+ by orsmga008.jf.intel.com with SMTP; 18 Feb 2022 02:05:30 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:05:13 +0200
+ Fri, 18 Feb 2022 12:05:30 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:03:57 +0200
-Message-Id: <20220218100403.7028-17-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Feb 2022 12:04:02 +0200
+Message-Id: <20220218100403.7028-22-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/22] drm/tilcdc: Use drm_mode_copy()
+Subject: [Intel-gfx] [PATCH 21/22] drm: Use drm_mode_init() for on-stack
+ modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,89 +59,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomba@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-struct drm_display_mode embeds a list head, so overwriting
-the full struct with another one will corrupt the list
-(if the destination mode is on a list). Use drm_mode_copy()
-instead which explicitly preserves the list head of
-the destination mode.
+Initialize on-stack modes with drm_mode_init() to guarantee
+no stack garbage in the list head, or that we aren't copying
+over another mode's list head.
 
-Even if we know the destination mode is not on any list
-using drm_mode_copy() seems decent as it sets a good
-example. Bad examples of not using it might eventually
-get copied into code where preserving the list head
-actually matters.
-
-Obviously one case not covered here is when the mode
-itself is embedded in a larger structure and the whole
-structure is copied. But if we are careful when copying
-into modes embedded in structures I think we can be a
-little more reassured that bogus list heads haven't been
-propagated in.
-
-@is_mode_copy@
-@@
-drm_mode_copy(...)
-{
-...
-}
-
-@depends on !is_mode_copy@
-struct drm_display_mode *mode;
-expression E, S;
-@@
-(
-- *mode = E
-+ drm_mode_copy(mode, &E)
-|
-- memcpy(mode, E, S)
-+ drm_mode_copy(mode, E)
-)
-
-@depends on !is_mode_copy@
-struct drm_display_mode mode;
+Based on the following cocci script, with manual fixups:
+@decl@
+identifier M;
 expression E;
 @@
-(
-- mode = E
-+ drm_mode_copy(&mode, &E)
-|
-- memcpy(&mode, E, S)
-+ drm_mode_copy(&mode, E)
-)
+- struct drm_display_mode M = E;
++ struct drm_display_mode M;
 
 @@
-struct drm_display_mode *mode;
+identifier decl.M;
+expression decl.E;
+statement S, S1;
 @@
-- &*mode
-+ mode
+struct drm_display_mode M;
+... when != S
++ drm_mode_init(&M, &E);
++
+S1
 
-Cc: Jyri Sarha <jyri.sarha@iki.fi>
-Cc: Tomi Valkeinen <tomba@kernel.org>
+@@
+expression decl.E;
+@@
+- &*E
++ E
+
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/tilcdc/tilcdc_crtc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_crtc_helper.c | 8 ++++----
+ drivers/gpu/drm/drm_edid.c        | 8 ++++++--
+ drivers/gpu/drm/drm_modes.c       | 4 +++-
+ 3 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-index 29890d704cb4..853c6b443fff 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-@@ -433,7 +433,7 @@ static void tilcdc_crtc_set_mode(struct drm_crtc *crtc)
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index bff917531f33..a34aa009725f 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -297,8 +297,8 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
+ 		return false;
+ 	}
  
- 	set_scanout(crtc, fb);
+-	saved_mode = crtc->mode;
+-	saved_hwmode = crtc->hwmode;
++	drm_mode_init(&saved_mode, &crtc->mode);
++	drm_mode_init(&saved_hwmode, &crtc->hwmode);
+ 	saved_x = crtc->x;
+ 	saved_y = crtc->y;
  
--	crtc->hwmode = crtc->state->adjusted_mode;
-+	drm_mode_copy(&crtc->hwmode, &crtc->state->adjusted_mode);
+@@ -411,8 +411,8 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
+ 	drm_mode_destroy(dev, adjusted_mode);
+ 	if (!ret) {
+ 		crtc->enabled = saved_enabled;
+-		crtc->mode = saved_mode;
+-		crtc->hwmode = saved_hwmode;
++		drm_mode_copy(&crtc->mode, &saved_mode);
++		drm_mode_copy(&crtc->hwmode, &saved_hwmode);
+ 		crtc->x = saved_x;
+ 		crtc->y = saved_y;
+ 	}
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index a7663f9a11d2..1156bfeabaf6 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -3476,9 +3476,11 @@ static u8 drm_match_cea_mode_clock_tolerance(const struct drm_display_mode *to_m
+ 		match_flags |= DRM_MODE_MATCH_ASPECT_RATIO;
  
- 	tilcdc_crtc->hvtotal_us =
- 		tilcdc_mode_hvtotal(&crtc->hwmode);
+ 	for (vic = 1; vic < cea_num_vics(); vic = cea_next_vic(vic)) {
+-		struct drm_display_mode cea_mode = *cea_mode_for_vic(vic);
++		struct drm_display_mode cea_mode;
+ 		unsigned int clock1, clock2;
+ 
++		drm_mode_init(&cea_mode, cea_mode_for_vic(vic));
++
+ 		/* Check both 60Hz and 59.94Hz */
+ 		clock1 = cea_mode.clock;
+ 		clock2 = cea_mode_alternate_clock(&cea_mode);
+@@ -3515,9 +3517,11 @@ u8 drm_match_cea_mode(const struct drm_display_mode *to_match)
+ 		match_flags |= DRM_MODE_MATCH_ASPECT_RATIO;
+ 
+ 	for (vic = 1; vic < cea_num_vics(); vic = cea_next_vic(vic)) {
+-		struct drm_display_mode cea_mode = *cea_mode_for_vic(vic);
++		struct drm_display_mode cea_mode;
+ 		unsigned int clock1, clock2;
+ 
++		drm_mode_init(&cea_mode, cea_mode_for_vic(vic));
++
+ 		/* Check both 60Hz and 59.94Hz */
+ 		clock1 = cea_mode.clock;
+ 		clock2 = cea_mode_alternate_clock(&cea_mode);
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 40d4ce4a1da4..86904d082ff2 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -788,7 +788,9 @@ EXPORT_SYMBOL(drm_mode_vrefresh);
+ void drm_mode_get_hv_timing(const struct drm_display_mode *mode,
+ 			    int *hdisplay, int *vdisplay)
+ {
+-	struct drm_display_mode adjusted = *mode;
++	struct drm_display_mode adjusted;
++
++	drm_mode_init(&adjusted, mode);
+ 
+ 	drm_mode_set_crtcinfo(&adjusted, CRTC_STEREO_DOUBLE_ONLY);
+ 	*hdisplay = adjusted.crtc_hdisplay;
 -- 
 2.34.1
 
