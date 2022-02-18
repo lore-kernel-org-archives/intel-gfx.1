@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB752C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF751C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79FE10F03C;
-	Fri, 18 Feb 2022 10:05:43 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2C210F04B;
- Fri, 18 Feb 2022 10:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 279C810F052;
+	Fri, 18 Feb 2022 10:08:20 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98E9A10F04E;
+ Fri, 18 Feb 2022 10:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178737; x=1676714737;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6hrcWO8pt/duDuZYb+yp9duBAmECMDPJwstgNFTeNb8=;
- b=HXEeznmCFimz2uKADUEnPIK2U+oUtw6ROb9AVP87f38fDzx1SwsnzpdF
- KTZRRmxixAaGcMpRorvI+o6bgqXgBkz4T7r2L5EFWOTSYHL3KI4deL0It
- rsFrg7eoaHT9vnA1KOM5Zy3WEOdjfpWNA26TiG2hqDdQTbDze2zziQ2Iy
- 9qMIklqW523KCptc/IMpiaTi7IcOQEKgHTgHnl8e8ux9E3uSwUjfdnJ/J
- TopXSJ3eAtRa3taxdRZxrUszurEYEUFYc8yRTd3/4qb/A3l4NWHQf/Brc
- HKpo/6T9vaP54xppC75/7vrepm6H4FDuLE7iY5eO4gxjvV8JthIt7NvUy w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="231734295"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="231734295"
+ t=1645178898; x=1676714898;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=NL0qZO6Q51NwuLE3xq73LdrjI3Xg/7heFZK3q3vYHxY=;
+ b=CcrdCpbOBT4aVWjy87ZTyrbMkE6WspoOTv7mSorZZkIgZDh3rFODg7k8
+ YrPpNETaY7+ZMRpTgWezrbQPkQZVLt+cXctckG8fXjEnPFY1Kwd8tHY6w
+ Lqrx8TWRsMAE+vuggIX1H0U5n51PRvjXx4jip+N1+KO5Ketjhvt+j/1Nx
+ 3gYMqRM7SKerH/GRC97mCof/d62zk0p/Bl5K6wamUXwZ+Yr/SgdIjZ40O
+ yhQpOTyx+lmGhUcn4DI/1q2MqEmovFLB4yk1JnU7EirFMdWXYojEqRkFO
+ zjVA/KGD5R0ubBDgozjx+Vbt8DCD48KxLQtLh3I6RwaK8BTOIS7HyEMUQ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="238502782"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="238502782"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:05:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="546219681"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga008.jf.intel.com with SMTP; 18 Feb 2022 02:05:30 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:05:30 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:04:02 +0200
-Message-Id: <20220218100403.7028-22-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:08:18 -0800
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="546220535"
+Received: from svaddara-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.147.37])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:08:17 -0800
+Date: Fri, 18 Feb 2022 02:08:18 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Ramalingam C <ramalingam.c@intel.com>
+Message-ID: <20220218100818.qv5iqqtj4jnjz24l@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20220201104132.3050-1-ramalingam.c@intel.com>
+ <20220201104132.3050-12-ramalingam.c@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 21/22] drm: Use drm_mode_init() for on-stack
- modes
+In-Reply-To: <20220201104132.3050-12-ramalingam.c@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v5 11/19] drm/i915/lmem: Enable lmem for
+ platforms with Flat CCS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,119 +60,147 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Tue, Feb 01, 2022 at 04:11:24PM +0530, Ramalingam C wrote:
+>From: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+>
+>A portion of device memory is reserved for Flat CCS so usable
+>device memory will be reduced by size of Flat CCS. Size of
+>Flat CCS is specified in “XEHPSDV_FLAT_CCS_BASE_ADDR”.
+>So to get effective device memory we need to subtract
+>total device memory by Flat CCS memory size.
+>
+>v2:
+>  Addressed the small bar related issue [Matt]
+>  Removed a reduntant check [Matt]
+>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Signed-off-by: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+>Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+>---
+> drivers/gpu/drm/i915/gt/intel_gt.c          | 19 ++++++++++++++++
+> drivers/gpu/drm/i915/gt/intel_gt.h          |  1 +
+> drivers/gpu/drm/i915/gt/intel_region_lmem.c | 24 +++++++++++++++++++--
+> drivers/gpu/drm/i915/i915_reg.h             |  3 +++
+> 4 files changed, 45 insertions(+), 2 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+>index f59933abbb3a..e40d98cb3a2d 100644
+>--- a/drivers/gpu/drm/i915/gt/intel_gt.c
+>+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+>@@ -911,6 +911,25 @@ u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg)
+> 	return intel_uncore_read_fw(gt->uncore, reg);
+> }
+>
+>+u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg)
+>+{
+>+	int type;
+>+	u8 sliceid, subsliceid;
+>+
+>+	for (type = 0; type < NUM_STEERING_TYPES; type++) {
+>+		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
+>+			intel_gt_get_valid_steering(gt, type, &sliceid,
+>+						    &subsliceid);
+>+			return intel_uncore_read_with_mcr_steering(gt->uncore,
+>+								   reg,
+>+								   sliceid,
+>+								   subsliceid);
+>+		}
+>+	}
+>+
+>+	return intel_uncore_read(gt->uncore, reg);
+>+}
+>+
+> void intel_gt_info_print(const struct intel_gt_info *info,
+> 			 struct drm_printer *p)
+> {
+>diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+>index 2dad46c3eff2..0f571c8ee22b 100644
+>--- a/drivers/gpu/drm/i915/gt/intel_gt.h
+>+++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+>@@ -85,6 +85,7 @@ static inline bool intel_gt_needs_read_steering(struct intel_gt *gt,
+> }
+>
+> u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg);
+>+u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg);
+>
+> void intel_gt_info_print(const struct intel_gt_info *info,
+> 			 struct drm_printer *p);
+>diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+>index 21215a080088..f1d37b46b505 100644
+>--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+>+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+>@@ -205,8 +205,28 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
+> 	if (!IS_DGFX(i915))
+> 		return ERR_PTR(-ENODEV);
+>
+>-	/* Stolen starts from GSMBASE on DG1 */
+>-	lmem_size = intel_uncore_read64(uncore, GEN12_GSMBASE);
+>+	if (HAS_FLAT_CCS(i915)) {
+>+		u64 tile_stolen, flat_ccs_base_addr_reg, flat_ccs_base;
+>+
+>+		lmem_size = pci_resource_len(pdev, 2);
+>+		flat_ccs_base_addr_reg = intel_gt_read_register(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
 
-Initialize on-stack modes with drm_mode_init() to guarantee
-no stack garbage in the list head, or that we aren't copying
-over another mode's list head.
+nit since this will need a respin due to conflicts:
+we usually call _reg an i915_reg_t variable. But here you have the
+value, not the register. Maybe "flat_ccs_base_addr"?
 
-Based on the following cocci script, with manual fixups:
-@decl@
-identifier M;
-expression E;
-@@
-- struct drm_display_mode M = E;
-+ struct drm_display_mode M;
 
-@@
-identifier decl.M;
-expression decl.E;
-statement S, S1;
-@@
-struct drm_display_mode M;
-... when != S
-+ drm_mode_init(&M, &E);
-+
-S1
+>+		flat_ccs_base = (flat_ccs_base_addr_reg >> XEHPSDV_CCS_BASE_SHIFT) * SZ_64K;
+>+
+>+		if (GEM_WARN_ON(lmem_size < flat_ccs_base))
+>+			return ERR_PTR(-ENODEV);
+>+
+>+		tile_stolen = lmem_size - flat_ccs_base;
+>+
+>+		/* If the FLAT_CCS_BASE_ADDR register is not populated, flag an error */
+>+		if (tile_stolen == lmem_size)
+>+			DRM_ERROR("CCS_BASE_ADDR register did not have expected value\n");
 
-@@
-expression decl.E;
-@@
-- &*E
-+ E
+drm_err()
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_crtc_helper.c | 8 ++++----
- drivers/gpu/drm/drm_edid.c        | 8 ++++++--
- drivers/gpu/drm/drm_modes.c       | 4 +++-
- 3 files changed, 13 insertions(+), 7 deletions(-)
+>+
+>+		lmem_size -= tile_stolen;
+>+	} else {
+>+		/* Stolen starts from GSMBASE without CCS */
+>+		lmem_size = intel_uncore_read64(&i915->uncore, GEN12_GSMBASE);
+>+	}
+>+
+>
+> 	io_start = pci_resource_start(pdev, 2);
+> 	if (GEM_WARN_ON(lmem_size > pci_resource_len(pdev, 2)))
+>diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+>index 0f36af8dc3a1..9b5423572fe9 100644
+>--- a/drivers/gpu/drm/i915/i915_reg.h
+>+++ b/drivers/gpu/drm/i915/i915_reg.h
+>@@ -11651,6 +11651,9 @@ enum skl_power_gate {
+> #define   SGGI_DIS			REG_BIT(15)
+> #define   SGR_DIS			REG_BIT(13)
+>
+>+#define XEHPSDV_FLAT_CCS_BASE_ADDR             _MMIO(0x4910)
+>+#define   XEHPSDV_CCS_BASE_SHIFT               8
+>+
 
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index bff917531f33..a34aa009725f 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -297,8 +297,8 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
- 		return false;
- 	}
- 
--	saved_mode = crtc->mode;
--	saved_hwmode = crtc->hwmode;
-+	drm_mode_init(&saved_mode, &crtc->mode);
-+	drm_mode_init(&saved_hwmode, &crtc->hwmode);
- 	saved_x = crtc->x;
- 	saved_y = crtc->y;
- 
-@@ -411,8 +411,8 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
- 	drm_mode_destroy(dev, adjusted_mode);
- 	if (!ret) {
- 		crtc->enabled = saved_enabled;
--		crtc->mode = saved_mode;
--		crtc->hwmode = saved_hwmode;
-+		drm_mode_copy(&crtc->mode, &saved_mode);
-+		drm_mode_copy(&crtc->hwmode, &saved_hwmode);
- 		crtc->x = saved_x;
- 		crtc->y = saved_y;
- 	}
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index a7663f9a11d2..1156bfeabaf6 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -3476,9 +3476,11 @@ static u8 drm_match_cea_mode_clock_tolerance(const struct drm_display_mode *to_m
- 		match_flags |= DRM_MODE_MATCH_ASPECT_RATIO;
- 
- 	for (vic = 1; vic < cea_num_vics(); vic = cea_next_vic(vic)) {
--		struct drm_display_mode cea_mode = *cea_mode_for_vic(vic);
-+		struct drm_display_mode cea_mode;
- 		unsigned int clock1, clock2;
- 
-+		drm_mode_init(&cea_mode, cea_mode_for_vic(vic));
-+
- 		/* Check both 60Hz and 59.94Hz */
- 		clock1 = cea_mode.clock;
- 		clock2 = cea_mode_alternate_clock(&cea_mode);
-@@ -3515,9 +3517,11 @@ u8 drm_match_cea_mode(const struct drm_display_mode *to_match)
- 		match_flags |= DRM_MODE_MATCH_ASPECT_RATIO;
- 
- 	for (vic = 1; vic < cea_num_vics(); vic = cea_next_vic(vic)) {
--		struct drm_display_mode cea_mode = *cea_mode_for_vic(vic);
-+		struct drm_display_mode cea_mode;
- 		unsigned int clock1, clock2;
- 
-+		drm_mode_init(&cea_mode, cea_mode_for_vic(vic));
-+
- 		/* Check both 60Hz and 59.94Hz */
- 		clock1 = cea_mode.clock;
- 		clock2 = cea_mode_alternate_clock(&cea_mode);
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index 40d4ce4a1da4..86904d082ff2 100644
---- a/drivers/gpu/drm/drm_modes.c
-+++ b/drivers/gpu/drm/drm_modes.c
-@@ -788,7 +788,9 @@ EXPORT_SYMBOL(drm_mode_vrefresh);
- void drm_mode_get_hv_timing(const struct drm_display_mode *mode,
- 			    int *hdisplay, int *vdisplay)
- {
--	struct drm_display_mode adjusted = *mode;
-+	struct drm_display_mode adjusted;
-+
-+	drm_mode_init(&adjusted, mode);
- 
- 	drm_mode_set_crtcinfo(&adjusted, CRTC_STEREO_DOUBLE_ONLY);
- 	*hdisplay = adjusted.crtc_hdisplay;
--- 
-2.34.1
+you will have a conflict here... I fixed it locally by moving to
+gt/intel_gt_regs.h
 
+
+With the above,
+
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+
+Lucas De Marchi
+
+> /* gamt regs */
+> #define GEN8_L3_LRA_1_GPGPU _MMIO(0x4dd4)
+> #define   GEN8_L3_LRA_1_GPGPU_DEFAULT_VALUE_BDW  0x67F1427F /* max/min for LRA1/2 */
+>-- 
+>2.20.1
+>
