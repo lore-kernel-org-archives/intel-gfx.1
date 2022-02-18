@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F46C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37496C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39C8E10F02D;
-	Fri, 18 Feb 2022 10:05:32 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89DA710F02D;
- Fri, 18 Feb 2022 10:05:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B91F10F03B;
+	Fri, 18 Feb 2022 10:05:39 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9CA10F04A;
+ Fri, 18 Feb 2022 10:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178730; x=1676714730;
+ t=1645178737; x=1676714737;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ihmuO3QUdDD45gj7L+hNCKT40xp+aeIufb18aL8HXnc=;
- b=kHb+1b6PyoM8bg+1J5EwB6fTPOwbDLA3t9b9UV0yUx9NfnHorOkozd96
- A1u9cdAi1XRAm4rmvXJo7wu2rB3E6wbNHQ56kZCxymIikiZR7XM8/5kvC
- ebSk0TJ3vyryS9+ie/X5u0BNpacaH/D8UQbdF0F6beDBJV/5TDWMW6DAs
- 15dHl/X8flRE1T52gM5rkietk9HO+JjftADFjHLBekeMvHPVCY7ae2G9r
- GWowhRgR85Ar7Czu2TXhheW7uNb4rKEfd5xxMFEYVx77MCtV50NmTR9n5
- iPXGnM2wwMe9+a7mNlaFULk2yLnC4q1z9n8+vWrYWoRJ51gAna+3mBkIZ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="251041242"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="251041242"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:05:29 -0800
+ bh=nOECHPvfl0JwwPVl+BlPoFIr5gjGEroeK27VOEFliKc=;
+ b=dSs0dlzuxwwEDRO0NDVgXkb9iFncQbrNQUNG5UaNxJI7XCKhbBuu9wo1
+ Vf8AeWpB+ShtuzFTGwkqXqRRh7h9sjTCzrNLW0HbghBYZVf3YQtHhhUuO
+ uUaJ/lIFKUpoRSkrF5E8nrIG0nR+Vmn0l5Joj0ML20XDQ3DFviEgI3K/R
+ NJe5vAxIv7EM5U6xiWcLPz7UpNnV6ssnNP02YjaJIGYeShHeBQcBskXLI
+ WMKHVZW8Qwbzp77HMmJyqXzGnXUSRp2dfi0O8kfJ/77KMObp+WpUrVjva
+ oMl7l8+/bgQv2hS5tPdDUXGXBnU2UCqF3dkivKVFLCx35YNKWevDr6HJZ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="249931309"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="249931309"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:05:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="682442643"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="503951088"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga001.fm.intel.com with SMTP; 18 Feb 2022 02:05:27 -0800
+ by orsmga002.jf.intel.com with SMTP; 18 Feb 2022 02:05:10 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:05:26 +0200
+ Fri, 18 Feb 2022 12:05:10 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:04:01 +0200
-Message-Id: <20220218100403.7028-21-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Feb 2022 12:03:56 +0200
+Message-Id: <20220218100403.7028-16-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 20/22] drm/panel: Use drm_mode_duplicate()
+Subject: [Intel-gfx] [PATCH 15/22] drm/sti: Use drm_mode_copy()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,80 +58,115 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Sam Ravnborg <sam@ravnborg.org>
+Cc: Alain Volmat <alain.volmat@foss.st.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Replace the hand rolled drm_mode_duplicate() with the
-real thing.
+struct drm_display_mode embeds a list head, so overwriting
+the full struct with another one will corrupt the list
+(if the destination mode is on a list). Use drm_mode_copy()
+instead which explicitly preserves the list head of
+the destination mode.
 
-@is_dup@
+Even if we know the destination mode is not on any list
+using drm_mode_copy() seems decent as it sets a good
+example. Bad examples of not using it might eventually
+get copied into code where preserving the list head
+actually matters.
+
+Obviously one case not covered here is when the mode
+itself is embedded in a larger structure and the whole
+structure is copied. But if we are careful when copying
+into modes embedded in structures I think we can be a
+little more reassured that bogus list heads haven't been
+propagated in.
+
+@is_mode_copy@
 @@
-drm_mode_duplicate(...)
-{ ... }
+drm_mode_copy(...)
+{
+...
+}
 
-@depends on !is_dup@
-expression dev, oldmode;
-identifier newmode;
+@depends on !is_mode_copy@
+struct drm_display_mode *mode;
+expression E, S;
 @@
-- newmode = drm_mode_create(dev);
-+ newmode = drm_mode_duplicate(dev, oldmode);
-  ...
-- drm_mode_copy(newmode, oldmode);
+(
+- *mode = E
++ drm_mode_copy(mode, &E)
+|
+- memcpy(mode, E, S)
++ drm_mode_copy(mode, E)
+)
 
+@depends on !is_mode_copy@
+struct drm_display_mode mode;
+expression E;
+@@
+(
+- mode = E
++ drm_mode_copy(&mode, &E)
+|
+- memcpy(&mode, E, S)
++ drm_mode_copy(&mode, E)
+)
+
+@@
+struct drm_display_mode *mode;
+@@
+- &*mode
++ mode
+
+Cc: Alain Volmat <alain.volmat@foss.st.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
 ---
- drivers/gpu/drm/panel/panel-truly-nt35597.c    | 3 +--
- drivers/gpu/drm/panel/panel-visionox-rm69299.c | 4 ++--
- 2 files changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/sti/sti_dvo.c  | 2 +-
+ drivers/gpu/drm/sti/sti_hda.c  | 2 +-
+ drivers/gpu/drm/sti/sti_hdmi.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-truly-nt35597.c b/drivers/gpu/drm/panel/panel-truly-nt35597.c
-index b24b92d93ea5..9ca5c7ff41d6 100644
---- a/drivers/gpu/drm/panel/panel-truly-nt35597.c
-+++ b/drivers/gpu/drm/panel/panel-truly-nt35597.c
-@@ -446,7 +446,7 @@ static int truly_nt35597_get_modes(struct drm_panel *panel,
- 	const struct nt35597_config *config;
+diff --git a/drivers/gpu/drm/sti/sti_dvo.c b/drivers/gpu/drm/sti/sti_dvo.c
+index b6ee8a82e656..f3a5616b7daf 100644
+--- a/drivers/gpu/drm/sti/sti_dvo.c
++++ b/drivers/gpu/drm/sti/sti_dvo.c
+@@ -288,7 +288,7 @@ static void sti_dvo_set_mode(struct drm_bridge *bridge,
  
- 	config = ctx->config;
--	mode = drm_mode_create(connector->dev);
-+	mode = drm_mode_duplicate(connector->dev, config->dm);
- 	if (!mode) {
- 		dev_err(ctx->dev, "failed to create a new display mode\n");
- 		return 0;
-@@ -454,7 +454,6 @@ static int truly_nt35597_get_modes(struct drm_panel *panel,
+ 	DRM_DEBUG_DRIVER("\n");
  
- 	connector->display_info.width_mm = config->width_mm;
- 	connector->display_info.height_mm = config->height_mm;
--	drm_mode_copy(mode, config->dm);
- 	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
- 	drm_mode_probed_add(connector, mode);
+-	memcpy(&dvo->mode, mode, sizeof(struct drm_display_mode));
++	drm_mode_copy(&dvo->mode, mode);
  
-diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-index eb43503ec97b..db2443ac81d3 100644
---- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-@@ -168,7 +168,8 @@ static int visionox_rm69299_get_modes(struct drm_panel *panel,
- 	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
- 	struct drm_display_mode *mode;
+ 	/* According to the path used (main or aux), the dvo clocks should
+ 	 * have a different parent clock. */
+diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
+index 03f3377f918c..c9e6db15ab66 100644
+--- a/drivers/gpu/drm/sti/sti_hda.c
++++ b/drivers/gpu/drm/sti/sti_hda.c
+@@ -523,7 +523,7 @@ static void sti_hda_set_mode(struct drm_bridge *bridge,
  
--	mode = drm_mode_create(connector->dev);
-+	mode = drm_mode_duplicate(connector->dev,
-+				  &visionox_rm69299_1080x2248_60hz);
- 	if (!mode) {
- 		dev_err(ctx->panel.dev, "failed to create a new display mode\n");
- 		return 0;
-@@ -176,7 +177,6 @@ static int visionox_rm69299_get_modes(struct drm_panel *panel,
+ 	DRM_DEBUG_DRIVER("\n");
  
- 	connector->display_info.width_mm = 74;
- 	connector->display_info.height_mm = 131;
--	drm_mode_copy(mode, &visionox_rm69299_1080x2248_60hz);
- 	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
- 	drm_mode_probed_add(connector, mode);
+-	memcpy(&hda->mode, mode, sizeof(struct drm_display_mode));
++	drm_mode_copy(&hda->mode, mode);
  
+ 	if (!hda_get_mode_idx(hda->mode, &mode_idx)) {
+ 		DRM_ERROR("Undefined mode\n");
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index f3ace11209dd..bb2a2868de2d 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -940,7 +940,7 @@ static void sti_hdmi_set_mode(struct drm_bridge *bridge,
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+ 	/* Copy the drm display mode in the connector local structure */
+-	memcpy(&hdmi->mode, mode, sizeof(struct drm_display_mode));
++	drm_mode_copy(&hdmi->mode, mode);
+ 
+ 	/* Update clock framerate according to the selected mode */
+ 	ret = clk_set_rate(hdmi->clk_pix, mode->clock * 1000);
 -- 
 2.34.1
 
