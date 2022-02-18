@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 948F9C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 630FEC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2A6410ED80;
-	Fri, 18 Feb 2022 10:04:43 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D7810ED5F;
- Fri, 18 Feb 2022 10:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF9A10EE79;
+	Fri, 18 Feb 2022 10:04:46 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD6910ED5F;
+ Fri, 18 Feb 2022 10:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178682; x=1676714682;
+ t=1645178683; x=1676714683;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=egpcGDWyNA+kSMrTnKY0NnLDjm381z1cwgUobC378rU=;
- b=ShBuVxJGZro71XeWwDQi1mcwMGbhbQnYCiPOv91kDpixzFMaQpbgQtwo
- B3vya6LAkwNmSlPxZby8GWnZHCwgW4sPzP8Tv5hjqdb1jr7BmMBeLSKtJ
- F6RYcHTIL6G9eKo7YRLIPQmWP6trb7Jnw8VfyR5Y7fnetQuGch65f5Wlp
- P4liPah5duHFqjymwMZLHF3vI4LCWFXel6cxJ0y0snjdE3a64fjrA5bwl
- A3LR5QbGy6DG8ZUtBE+mYbddeyhGeqNaofXVyZwwllEYIfMaBj4REnTJQ
- 7GMk6zApcqed4D7Jx0WYSoyjbfqKhBowpovwp4PI083GymXDra7rMe6J+ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="249931187"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="249931187"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:04:42 -0800
+ bh=gnaFiawqbtPeA4zYVazfV1H8TuJOkHMSyuVfRyekoys=;
+ b=hCPzQA8EGAKw6el/goGN+iMkaWe50oYrO12kdMK/ebpLWDeM7gobSaM/
+ wajKXMtMKiW2OUlft4cqx7l9B8UibSVVbzN35nPuBwD21sATbQzVuztv+
+ Kc/5XBi9RG2XS8lO6K2m+gL8x04+3tUqz7iUkXkjnAwaTRcbciklkzuZ7
+ VoD+8r1aVDUFN31NS0gB2vlU/uYv0laajWtsIj40WkntBd2qpJHGeVBLY
+ 3lvqdrZ3AC7178LQq08xiGCsq9osJ24W20tXRv1StL4OV7nNnB5jjvFjF
+ hVj7hkGmvbTWJNNzaP8o/ivjfMDr52Zlt8SE+r3p73apX2b4Cyt9ogu+m A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311839771"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="311839771"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:04:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="590153734"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="572251815"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga008.fm.intel.com with SMTP; 18 Feb 2022 02:04:39 -0800
+ by orsmga001.jf.intel.com with SMTP; 18 Feb 2022 02:04:27 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:04:39 +0200
+ Fri, 18 Feb 2022 12:04:26 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:03:48 +0200
-Message-Id: <20220218100403.7028-8-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Feb 2022 12:03:45 +0200
+Message-Id: <20220218100403.7028-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/22] drm/gma500: Use drm_mode_copy()
+Subject: [Intel-gfx] [PATCH 04/22] drm/amdgpu: Use drm_mode_copy()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,7 +58,10 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
@@ -120,31 +123,63 @@ struct drm_display_mode *mode;
 - &*mode
 + mode
 
-Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/gma500/oaktrail_crtc.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/oaktrail_crtc.c b/drivers/gpu/drm/gma500/oaktrail_crtc.c
-index 36c7c2686c90..79fc602b35bc 100644
---- a/drivers/gpu/drm/gma500/oaktrail_crtc.c
-+++ b/drivers/gpu/drm/gma500/oaktrail_crtc.c
-@@ -385,12 +385,8 @@ static int oaktrail_crtc_mode_set(struct drm_crtc *crtc,
- 	if (!gma_power_begin(dev, true))
- 		return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index fa20261aa928..673078faa27a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -626,7 +626,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
+ 		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
+ 			if (mode->hdisplay != native_mode->hdisplay ||
+ 			    mode->vdisplay != native_mode->vdisplay)
+-				memcpy(native_mode, mode, sizeof(*mode));
++				drm_mode_copy(native_mode, mode);
+ 		}
+ 	}
  
--	memcpy(&gma_crtc->saved_mode,
--		mode,
--		sizeof(struct drm_display_mode));
--	memcpy(&gma_crtc->saved_adjusted_mode,
--		adjusted_mode,
--		sizeof(struct drm_display_mode));
-+	drm_mode_copy(&gma_crtc->saved_mode, mode);
-+	drm_mode_copy(&gma_crtc->saved_adjusted_mode, adjusted_mode);
+@@ -635,7 +635,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
+ 		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
+ 			if (mode->hdisplay == native_mode->hdisplay &&
+ 			    mode->vdisplay == native_mode->vdisplay) {
+-				*native_mode = *mode;
++				drm_mode_copy(native_mode, mode);
+ 				drm_mode_set_crtcinfo(native_mode, CRTC_INTERLACE_HALVE_V);
+ 				DRM_DEBUG_KMS("Determined LVDS native mode details from EDID\n");
+ 				break;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bd23c9e481eb..514280699ad5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6318,7 +6318,7 @@ get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+ 		}
+ 	}
  
- 	list_for_each_entry(connector, &mode_config->connector_list, head) {
- 		if (!connector->encoder || connector->encoder->crtc != crtc)
+-	aconnector->freesync_vid_base = *m_pref;
++	drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
+ 	return m_pref;
+ }
+ 
+@@ -6432,8 +6432,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 		recalculate_timing = is_freesync_video_mode(&mode, aconnector);
+ 		if (recalculate_timing) {
+ 			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
+-			saved_mode = mode;
+-			mode = *freesync_mode;
++			drm_mode_copy(&saved_mode, &mode);
++			drm_mode_copy(&mode, freesync_mode);
+ 		} else {
+ 			decide_crtc_timing_for_drm_display_mode(
+ 				&mode, preferred_mode, scale);
 -- 
 2.34.1
 
