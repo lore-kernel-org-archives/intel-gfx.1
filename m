@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37496C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE555C433EF
 	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B91F10F03B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2E9B10F033;
 	Fri, 18 Feb 2022 10:05:39 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA9CA10F04A;
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7075710F047;
  Fri, 18 Feb 2022 10:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1645178737; x=1676714737;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nOECHPvfl0JwwPVl+BlPoFIr5gjGEroeK27VOEFliKc=;
- b=dSs0dlzuxwwEDRO0NDVgXkb9iFncQbrNQUNG5UaNxJI7XCKhbBuu9wo1
- Vf8AeWpB+ShtuzFTGwkqXqRRh7h9sjTCzrNLW0HbghBYZVf3YQtHhhUuO
- uUaJ/lIFKUpoRSkrF5E8nrIG0nR+Vmn0l5Joj0ML20XDQ3DFviEgI3K/R
- NJe5vAxIv7EM5U6xiWcLPz7UpNnV6ssnNP02YjaJIGYeShHeBQcBskXLI
- WMKHVZW8Qwbzp77HMmJyqXzGnXUSRp2dfi0O8kfJ/77KMObp+WpUrVjva
- oMl7l8+/bgQv2hS5tPdDUXGXBnU2UCqF3dkivKVFLCx35YNKWevDr6HJZ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="249931309"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="249931309"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:05:13 -0800
+ bh=qaTNC+xXZmSxaE21z5U0LL34TH0l+uk/IjYSVhvcYhs=;
+ b=G4E6EmJA1xui9xLsIYcj3s5+yPvt27LJHUWZZEoIE1iki5K0IQV+lVpG
+ 9lSzYMRiWxVB/hsBR8zNsK4eXPwzbq3NUVf53Ez1r/3Uv7s5bFFRHiDSI
+ dgh4QQ2FatAriqjiN+SFMvo7abPC2uB1kTNo9KN0JIzdJwaCcOiDwixLG
+ sBeLhxgBW/hSBTVXatlaIVbwdysmE1VYQiKY79CvFGFXe0dg9btz4l0n3
+ YI2wdd2scFQXGvlW5K32B75rK4teOdN2pPd9h/mo7UsWaztPoXqAL4Wt4
+ O+J8KZXahpcyW/o/UWe9OLHwtI406uOjQyjgx0+6zOV4gm0jULF73rubk g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="337541527"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="337541527"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:05:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="503951088"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="530863934"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga002.jf.intel.com with SMTP; 18 Feb 2022 02:05:10 -0800
+ by orsmga007.jf.intel.com with SMTP; 18 Feb 2022 02:05:33 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:05:10 +0200
+ Fri, 18 Feb 2022 12:05:33 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:03:56 +0200
-Message-Id: <20220218100403.7028-16-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Feb 2022 12:04:03 +0200
+Message-Id: <20220218100403.7028-23-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/22] drm/sti: Use drm_mode_copy()
+Subject: [Intel-gfx] [PATCH 22/22] drm: Use drm_mode_copy()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,7 +58,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alain Volmat <alain.volmat@foss.st.com>, intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
@@ -120,53 +120,47 @@ struct drm_display_mode *mode;
 - &*mode
 + mode
 
-Cc: Alain Volmat <alain.volmat@foss.st.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/sti/sti_dvo.c  | 2 +-
- drivers/gpu/drm/sti/sti_hda.c  | 2 +-
- drivers/gpu/drm/sti/sti_hdmi.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_crtc_helper.c | 4 ++--
+ drivers/gpu/drm/drm_vblank.c      | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_dvo.c b/drivers/gpu/drm/sti/sti_dvo.c
-index b6ee8a82e656..f3a5616b7daf 100644
---- a/drivers/gpu/drm/sti/sti_dvo.c
-+++ b/drivers/gpu/drm/sti/sti_dvo.c
-@@ -288,7 +288,7 @@ static void sti_dvo_set_mode(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index a34aa009725f..b632825654a9 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -305,7 +305,7 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
+ 	/* Update crtc values up front so the driver can rely on them for mode
+ 	 * setting.
+ 	 */
+-	crtc->mode = *mode;
++	drm_mode_copy(&crtc->mode, mode);
+ 	crtc->x = x;
+ 	crtc->y = y;
  
- 	DRM_DEBUG_DRIVER("\n");
+@@ -341,7 +341,7 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
+ 	}
+ 	DRM_DEBUG_KMS("[CRTC:%d:%s]\n", crtc->base.id, crtc->name);
  
--	memcpy(&dvo->mode, mode, sizeof(struct drm_display_mode));
-+	drm_mode_copy(&dvo->mode, mode);
+-	crtc->hwmode = *adjusted_mode;
++	drm_mode_copy(&crtc->hwmode, adjusted_mode);
  
- 	/* According to the path used (main or aux), the dvo clocks should
- 	 * have a different parent clock. */
-diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
-index 03f3377f918c..c9e6db15ab66 100644
---- a/drivers/gpu/drm/sti/sti_hda.c
-+++ b/drivers/gpu/drm/sti/sti_hda.c
-@@ -523,7 +523,7 @@ static void sti_hda_set_mode(struct drm_bridge *bridge,
+ 	/* Prepare the encoders and CRTCs before setting the mode. */
+ 	drm_for_each_encoder(encoder, dev) {
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index b701cda86d0c..2ff31717a3de 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -644,7 +644,7 @@ void drm_calc_timestamping_constants(struct drm_crtc *crtc,
  
- 	DRM_DEBUG_DRIVER("\n");
+ 	vblank->linedur_ns  = linedur_ns;
+ 	vblank->framedur_ns = framedur_ns;
+-	vblank->hwmode = *mode;
++	drm_mode_copy(&vblank->hwmode, mode);
  
--	memcpy(&hda->mode, mode, sizeof(struct drm_display_mode));
-+	drm_mode_copy(&hda->mode, mode);
- 
- 	if (!hda_get_mode_idx(hda->mode, &mode_idx)) {
- 		DRM_ERROR("Undefined mode\n");
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index f3ace11209dd..bb2a2868de2d 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -940,7 +940,7 @@ static void sti_hdmi_set_mode(struct drm_bridge *bridge,
- 	DRM_DEBUG_DRIVER("\n");
- 
- 	/* Copy the drm display mode in the connector local structure */
--	memcpy(&hdmi->mode, mode, sizeof(struct drm_display_mode));
-+	drm_mode_copy(&hdmi->mode, mode);
- 
- 	/* Update clock framerate according to the selected mode */
- 	ret = clk_set_rate(hdmi->clk_pix, mode->clock * 1000);
+ 	drm_dbg_core(dev,
+ 		     "crtc %u: hwmode: htotal %d, vtotal %d, vdisplay %d\n",
 -- 
 2.34.1
 
