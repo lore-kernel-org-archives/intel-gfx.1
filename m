@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D02F6C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3159C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40D5C10F01D;
-	Fri, 18 Feb 2022 10:05:14 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CEC810EF33;
- Fri, 18 Feb 2022 10:05:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 093F310F020;
+	Fri, 18 Feb 2022 10:05:22 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1627E10F020;
+ Fri, 18 Feb 2022 10:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178711; x=1676714711;
+ t=1645178721; x=1676714721;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=snM9WT8bzeQ8MIyRP4h6q0MnlUe9Shqgn3XY53nm0Mk=;
- b=H7uBBStnlC5Ds9gN6maNnoHI4wSsp5ieyhYaLOgNuWs0Cyq89jw9NvOY
- YrrClNIgCpfZuYClODOlhQ6b3gC9EnNmwpzGPW4iJImjSHK0zFFiwevzs
- BwEJ3TlTJPE7JQU9SzXGl/vIqR8uyB2YBDpWAJlY5DGglftVA1sWOTMmq
- qy5n1phWtbjGY1hMykeiisKEiwqoiAz7vQvmhMSVVKxzVIL3Xecd3ICLW
- gsmu6wihZ0HQfa5Sva8/r3yjtweq2TnQuxF4uzzSw862idKWc7URF2pPp
- J10LIc7ry1fEpWjYpLgGUdIfchXO4CB2FHJg0aizzn7R5NjRl4Drsgd9R Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="231080032"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="231080032"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:05:10 -0800
+ bh=eCrT7k2mHaCOKRYO1OSCuF6nl+eIp+hDzsgznOb6nEY=;
+ b=asdFGhZd3EJrRk7+gHa4w5TejVjlm5pOwOGRSm0w0LHMCnmb/Sd2CRpq
+ ST/86yS1xoLPx5HW2ez5JztarS88R0UMkJiQCjtJ0pD3/xl0XDABEI61m
+ w3cn+qNHPSi/X5THFo2w24et9+qGySLqmtANiJb7JouzL0SIMi653Fpz6
+ rP00PMQsnbkZDPWdG2+a+ifgLmcwqZoL1RFxdbmgQvb1bKDrHzMZYzKyp
+ AehAHmnAfPu/C5k51FElBYs/zDzDvQcKvAYoo1Ntyc+Lacbp7k+A83a7u
+ n/oSezVRMloiLGRuWVojsZUmC4x77gzCSpvnxRtCVGr44VOMxOhs2z4Jb w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311839937"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="311839937"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:05:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="572252023"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="590153924"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga001.jf.intel.com with SMTP; 18 Feb 2022 02:05:06 -0800
+ by fmsmga008.fm.intel.com with SMTP; 18 Feb 2022 02:05:17 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:05:06 +0200
+ Fri, 18 Feb 2022 12:05:17 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:03:55 +0200
-Message-Id: <20220218100403.7028-15-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Feb 2022 12:03:58 +0200
+Message-Id: <20220218100403.7028-18-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 14/22] drm/rockchip: Use drm_mode_copy()
+Subject: [Intel-gfx] [PATCH 17/22] drm/vc4: Use drm_mode_copy()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,9 +58,8 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>, linux-arm-kernel@lists.infradead.org,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>
+Cc: intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Emma Anholt <emma@anholt.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
@@ -122,56 +121,29 @@ struct drm_display_mode *mode;
 - &*mode
 + mode
 
+Cc: Emma Anholt <emma@anholt.net>
+Cc: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Sandy Huang <hjc@rock-chips.com>
-Cc: "Heiko Stübner" <heiko@sntech.de>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
 ---
- drivers/gpu/drm/rockchip/cdn-dp-core.c | 2 +-
- drivers/gpu/drm/rockchip/inno_hdmi.c   | 2 +-
- drivers/gpu/drm/rockchip/rk3066_hdmi.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-index 4740cc14beb8..adf1027a3f20 100644
---- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
-+++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-@@ -564,7 +564,7 @@ static void cdn_dp_encoder_mode_set(struct drm_encoder *encoder,
- 	video->v_sync_polarity = !!(mode->flags & DRM_MODE_FLAG_NVSYNC);
- 	video->h_sync_polarity = !!(mode->flags & DRM_MODE_FLAG_NHSYNC);
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 5ac3216f2d4a..6c58b0fd13fb 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -1234,9 +1234,8 @@ static void vc4_hdmi_encoder_atomic_mode_set(struct drm_encoder *encoder,
+ 	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
  
--	memcpy(&dp->mode, adjusted, sizeof(*mode));
-+	drm_mode_copy(&dp->mode, adjusted);
+ 	mutex_lock(&vc4_hdmi->mutex);
+-	memcpy(&vc4_hdmi->saved_adjusted_mode,
+-	       &crtc_state->adjusted_mode,
+-	       sizeof(vc4_hdmi->saved_adjusted_mode));
++	drm_mode_copy(&vc4_hdmi->saved_adjusted_mode,
++		      &crtc_state->adjusted_mode);
+ 	mutex_unlock(&vc4_hdmi->mutex);
  }
  
- static bool cdn_dp_check_link_status(struct cdn_dp_device *dp)
-diff --git a/drivers/gpu/drm/rockchip/inno_hdmi.c b/drivers/gpu/drm/rockchip/inno_hdmi.c
-index 046e8ec2a71c..740196d30fba 100644
---- a/drivers/gpu/drm/rockchip/inno_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/inno_hdmi.c
-@@ -488,7 +488,7 @@ static void inno_hdmi_encoder_mode_set(struct drm_encoder *encoder,
- 	inno_hdmi_setup(hdmi, adj_mode);
- 
- 	/* Store the display mode for plugin/DPMS poweron events */
--	memcpy(&hdmi->previous_mode, adj_mode, sizeof(hdmi->previous_mode));
-+	drm_mode_copy(&hdmi->previous_mode, adj_mode);
- }
- 
- static void inno_hdmi_encoder_enable(struct drm_encoder *encoder)
-diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-index 1c546c3a8998..17e7c40a9e7b 100644
---- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-@@ -383,7 +383,7 @@ rk3066_hdmi_encoder_mode_set(struct drm_encoder *encoder,
- 	struct rk3066_hdmi *hdmi = to_rk3066_hdmi(encoder);
- 
- 	/* Store the display mode for plugin/DPMS poweron events. */
--	memcpy(&hdmi->previous_mode, adj_mode, sizeof(hdmi->previous_mode));
-+	drm_mode_copy(&hdmi->previous_mode, adj_mode);
- }
- 
- static void rk3066_hdmi_encoder_enable(struct drm_encoder *encoder)
 -- 
 2.34.1
 
