@@ -4,31 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15471C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 18:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C31C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 18:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5544B10E6AB;
-	Fri, 18 Feb 2022 18:04:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 14D2910E64E;
- Fri, 18 Feb 2022 18:04:40 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 120D1AA0EB;
- Fri, 18 Feb 2022 18:04:40 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A589410E6CA;
+	Fri, 18 Feb 2022 18:30:27 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1E210E121;
+ Fri, 18 Feb 2022 18:30:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645209025; x=1676745025;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8Z3QXFvu52gPtOV69W23hyphfpO7X4Ny4woK8zYxaEI=;
+ b=fm1VfhZai4vgMwh5nKxHb1j4YusfZWPoKSWps61A9Rz60RNsk2Lo/Q+i
+ RXmoqRpEOTVC0zWHGWvZdCDfnEusGbctZTj4c3jRHLprTYbx926YcR3Bs
+ qMsXPoUM97FGTcHoIF6/aHSph41VPfb4f8V5yIdTlBLj6SqsKqSmawdwF
+ EJ/VWLP6Zmc1HbOcLu3kJVcVuJgY5j8RFeYTm6rPIYTrkmHS9/bXduDJ9
+ IYYXjf7zqYkNfDL/hwLYmuUw/PDTHLZiOzBXZ1oAJaoLC8t28YpJaHk19
+ ps3rSP9BSanjt37k0Dh8+m341icpoQSvt7bwsz9y9WfouMvSDjT8L3Bpp A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="314448757"
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="314448757"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 10:30:13 -0800
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="531013578"
+Received: from svaddara-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.147.37])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 10:30:13 -0800
+Date: Fri, 18 Feb 2022 10:30:14 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <20220218183014.bhrncxii4tbkmdnn@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20220218112242.2117968-1-matthew.auld@intel.com>
+ <20220218112242.2117968-2-matthew.auld@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Imre Deak" <imre.deak@intel.com>
-Date: Fri, 18 Feb 2022 18:04:40 -0000
-Message-ID: <164520748007.25450.14709637412019547681@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220218122611.767974-1-imre.deak@intel.com>
-In-Reply-To: <20220218122611.767974-1-imre.deak@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/adlp=3A_Add_TypeC_PHY_TBT-=3EDP-alt/legacy_mode_switch?=
- =?utf-8?q?_workaround_=28rev2=29?=
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220218112242.2117968-2-matthew.auld@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/doc: remove rfc section for dg1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,21 +59,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Kenneth Graunke <kenneth@whitecape.org>,
+ mesa-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Fri, Feb 18, 2022 at 11:22:41AM +0000, Matthew Auld wrote:
+>We already completed the steps for this.
+>
+>Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Cc: Jon Bloomfield <jon.bloomfield@intel.com>
+>Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+>Cc: Jordan Justen <jordan.l.justen@intel.com>
+>Cc: Kenneth Graunke <kenneth@whitecape.org>
+>Cc: mesa-dev@lists.freedesktop.org
 
-Series: drm/i915/adlp: Add TypeC PHY TBT->DP-alt/legacy mode switch workaround (rev2)
-URL   : https://patchwork.freedesktop.org/series/100404/
-State : warning
+I was indeed wondering why that was still there and why we were going a
+similar route with DG2, but this time adding it after the plan completed.
 
-== Summary ==
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-
-
+thanks
+Lucas De Marchi
