@@ -4,50 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BEF2C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 20:56:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02BD3C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 21:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB7B810E4B9;
-	Fri, 18 Feb 2022 20:56:14 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB23A10E14F;
- Fri, 18 Feb 2022 20:56:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38CA610E1B1;
+	Fri, 18 Feb 2022 21:01:42 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 741BB10E1B1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 21:01:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645217773; x=1676753773;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=gCWzRHU3FmfqP6z4ucIUIRXirwWZn1bTYNHU7ZQCx5s=;
- b=WPFGQvct3MGgtjVGXhy9/z3Q224h6L7J9CHPvgOBxrR7gB6KfCsIsgIC
- BgcD2CgsR1ajcCczs0Ajc+WAYDm2lr+m862cTJp6MJpd36qLacnWwsPvb
- TWc970wPpLGnKAmvL7HmQfIN3Cm9F3De6e6F3zUuyT3xoroaEEpQiKgUC
- 26848hsaCrwemO7t4Yz+E2+TdyF4NfXUJel4EI4aP4H+GTfBEiyBXwmqN
- gzwPCyVeyJrUMaqD8UlwuDa5JUePNskfIQXPBap/uJSE9BHmVTgUnFp8d
- Eai+mULSX0m8+svubJIRDn3BX8r1AeGIcbK5PDTBC8LTcxhnwuYdwpvGV g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="248800897"
-X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="248800897"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 12:56:13 -0800
-X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="705521519"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 12:56:12 -0800
-Date: Fri, 18 Feb 2022 12:50:22 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <20220218205021.GA3475@jons-linux-dev-box>
-References: <20220216174147.3073235-1-lucas.demarchi@intel.com>
- <20220216174147.3073235-14-lucas.demarchi@intel.com>
+ t=1645218101; x=1676754101;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=bXIRM5Zps6Lp79LM+/hNOK4MRQnV6xlbYiTEWXeWs6o=;
+ b=dzyyDhFhuohxj/a4LdOQOE5l8IqLvebZCRo/fPbOBU6MxgDG2wIlDDXV
+ GRDQB8pwX+6h2irbDhRwvRm9N4jn4jWBhCAxAvxalRI132TujvCxvcfLz
+ v9uX35u8oNWyMhbVAIj7DqHLjYm9O7kAkyx6hdH+bGyFViaAZSXJmQwKV
+ t/iZ09NL/LnJo/YwCNnRytbznGj1DTZhEYEBeXZH2R16ifzKHM2YMIGwJ
+ QsXuKQzd0RUIX75MdbhvcsbHmphPFUmmM3SPGmljG76a5GQGR2qV9+yiL
+ bqQ1IUT17/PCLHZeuLvJOT73ZES3x9Ktt7B0yz0p2Cu8OneXs8L+QaUUQ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10262"; a="238628776"
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="238628776"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 13:01:25 -0800
+X-IronPort-AV: E=Sophos;i="5.88,379,1635231600"; d="scan'208";a="626737643"
+Received: from psanchog-mobl.amr.corp.intel.com (HELO
+ josouza-mobl2.amr.corp.intel.com) ([10.134.36.77])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 13:01:23 -0800
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 18 Feb 2022 13:03:30 -0800
+Message-Id: <20220218210330.48653-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220216174147.3073235-14-lucas.demarchi@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v3 13/16] drm/i915/guc: Convert capture list
- to iosys_map
+Subject: [Intel-gfx] [PATCH] drm/i915/rps/tgl+: Remove RPS interrupt support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,68 +55,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 16, 2022 at 09:41:44AM -0800, Lucas De Marchi wrote:
-> Use iosys_map to write the fields ads.capture_*.
-> 
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: John Harrison <John.C.Harrison@Intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+TGL+ and newer platforms don't support RPS up and low interruption
+limits.
+It is not used for broadwell and newer plaforms that supports
+execlist but here making sure that it is explicit not used even in
+debug scenarios.
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+BSpec: 33301
+BSpec: 52069
+BSpec: 9520
+HSD: 1405911647
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: JosÃ© Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_rps.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> index c3c31b679e79..ec0ccdf98dfa 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> @@ -580,7 +580,7 @@ static void guc_init_golden_context(struct intel_guc *guc)
->  	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
->  }
->  
-> -static void guc_capture_list_init(struct intel_guc *guc, struct __guc_ads_blob *blob)
-> +static void guc_capture_list_init(struct intel_guc *guc)
->  {
->  	int i, j;
->  	u32 addr_ggtt, offset;
-> @@ -592,11 +592,11 @@ static void guc_capture_list_init(struct intel_guc *guc, struct __guc_ads_blob *
->  
->  	for (i = 0; i < GUC_CAPTURE_LIST_INDEX_MAX; i++) {
->  		for (j = 0; j < GUC_MAX_ENGINE_CLASSES; j++) {
-> -			blob->ads.capture_instance[i][j] = addr_ggtt;
-> -			blob->ads.capture_class[i][j] = addr_ggtt;
-> +			ads_blob_write(guc, ads.capture_instance[i][j], addr_ggtt);
-> +			ads_blob_write(guc, ads.capture_class[i][j], addr_ggtt);
->  		}
->  
-> -		blob->ads.capture_global[i] = addr_ggtt;
-> +		ads_blob_write(guc, ads.capture_global[i], addr_ggtt);
->  	}
->  }
->  
-> @@ -636,7 +636,7 @@ static void __guc_ads_init(struct intel_guc *guc)
->  	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
->  
->  	/* Capture list for hang debug */
-> -	guc_capture_list_init(guc, blob);
-> +	guc_capture_list_init(guc);
->  
->  	/* ADS */
->  	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
-> -- 
-> 2.35.1
-> 
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index fd95449ed46da..c8124101aada2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1486,7 +1486,7 @@ void intel_rps_enable(struct intel_rps *rps)
+ 
+ 	if (has_busy_stats(rps))
+ 		intel_rps_set_timer(rps);
+-	else if (GRAPHICS_VER(i915) >= 6)
++	else if (GRAPHICS_VER(i915) >= 6 && GRAPHICS_VER(i915) <= 11)
+ 		intel_rps_set_interrupts(rps);
+ 	else
+ 		/* Ironlake currently uses intel_ips.ko */ {}
+-- 
+2.35.1
+
