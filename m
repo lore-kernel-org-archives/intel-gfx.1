@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE555C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4579FC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:05:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E9B10F033;
-	Fri, 18 Feb 2022 10:05:39 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7075710F047;
- Fri, 18 Feb 2022 10:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A66E710F040;
+	Fri, 18 Feb 2022 10:05:42 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A43D910F036;
+ Fri, 18 Feb 2022 10:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178737; x=1676714737;
+ t=1645178740; x=1676714740;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qaTNC+xXZmSxaE21z5U0LL34TH0l+uk/IjYSVhvcYhs=;
- b=G4E6EmJA1xui9xLsIYcj3s5+yPvt27LJHUWZZEoIE1iki5K0IQV+lVpG
- 9lSzYMRiWxVB/hsBR8zNsK4eXPwzbq3NUVf53Ez1r/3Uv7s5bFFRHiDSI
- dgh4QQ2FatAriqjiN+SFMvo7abPC2uB1kTNo9KN0JIzdJwaCcOiDwixLG
- sBeLhxgBW/hSBTVXatlaIVbwdysmE1VYQiKY79CvFGFXe0dg9btz4l0n3
- YI2wdd2scFQXGvlW5K32B75rK4teOdN2pPd9h/mo7UsWaztPoXqAL4Wt4
- O+J8KZXahpcyW/o/UWe9OLHwtI406uOjQyjgx0+6zOV4gm0jULF73rubk g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="337541527"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="337541527"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:05:36 -0800
+ bh=PUqy1tbdJNwPaIOxliV4UfMNjPZ/izCMpv8A1Z1PLUQ=;
+ b=c8hKm17DCb39Ai+UrJBwcOz2JsMXYf457SKR8XJo/fp0w7f4ZuQPip8n
+ WAEzi2qrI3+/UfpuuyvVqj/j+cnPCutJkik8os3DpY9JA9QnHiI7bS18K
+ xSmqsQzlny7G0FBc/jmnl/iwU7QqERvZjimbuSK591gXj6FjnSFkx9pGA
+ QuJXtXlAWZ3tFxcb7II7Lcg0N5JJAZ9vFjYmS9Owb5jP44eEMqE2vH6HI
+ 4nmnFtKvwGSOUM8MTxVjGEd4XBORYlvdCOKu6T/lr6/0iRulqSlw+tHSi
+ H63XbmX4NUWhJQF1dqIf+HSREDOqJ+ba0U5uy24Ee23mqzn/3rmXGbcrM g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="249931355"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="249931355"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:05:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="530863934"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="635674555"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga007.jf.intel.com with SMTP; 18 Feb 2022 02:05:33 -0800
+ by fmsmga002.fm.intel.com with SMTP; 18 Feb 2022 02:05:21 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:05:33 +0200
+ Fri, 18 Feb 2022 12:05:20 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 18 Feb 2022 12:04:03 +0200
-Message-Id: <20220218100403.7028-23-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Feb 2022 12:03:59 +0200
+Message-Id: <20220218100403.7028-19-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 22/22] drm: Use drm_mode_copy()
+Subject: [Intel-gfx] [PATCH 18/22] drm/i915: Use drm_mode_init() for
+ on-stack modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,103 +65,56 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-struct drm_display_mode embeds a list head, so overwriting
-the full struct with another one will corrupt the list
-(if the destination mode is on a list). Use drm_mode_copy()
-instead which explicitly preserves the list head of
-the destination mode.
+Initialize on-stack modes with drm_mode_init() to guarantee
+no stack garbage in the list head, or that we aren't copying
+over another mode's list head.
 
-Even if we know the destination mode is not on any list
-using drm_mode_copy() seems decent as it sets a good
-example. Bad examples of not using it might eventually
-get copied into code where preserving the list head
-actually matters.
-
-Obviously one case not covered here is when the mode
-itself is embedded in a larger structure and the whole
-structure is copied. But if we are careful when copying
-into modes embedded in structures I think we can be a
-little more reassured that bogus list heads haven't been
-propagated in.
-
-@is_mode_copy@
-@@
-drm_mode_copy(...)
-{
-...
-}
-
-@depends on !is_mode_copy@
-struct drm_display_mode *mode;
-expression E, S;
-@@
-(
-- *mode = E
-+ drm_mode_copy(mode, &E)
-|
-- memcpy(mode, E, S)
-+ drm_mode_copy(mode, E)
-)
-
-@depends on !is_mode_copy@
-struct drm_display_mode mode;
+Based on the following cocci script, with manual fixups:
+@decl@
+identifier M;
 expression E;
 @@
-(
-- mode = E
-+ drm_mode_copy(&mode, &E)
-|
-- memcpy(&mode, E, S)
-+ drm_mode_copy(&mode, E)
-)
+- struct drm_display_mode M = E;
++ struct drm_display_mode M;
 
 @@
-struct drm_display_mode *mode;
+identifier decl.M;
+expression decl.E;
+statement S, S1;
 @@
-- &*mode
-+ mode
+struct drm_display_mode M;
+... when != S
++ drm_mode_init(&M, &E);
++
+S1
+
+@@
+expression decl.E;
+@@
+- &*E
++ E
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_crtc_helper.c | 4 ++--
- drivers/gpu/drm/drm_vblank.c      | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index a34aa009725f..b632825654a9 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -305,7 +305,7 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
- 	/* Update crtc values up front so the driver can rely on them for mode
- 	 * setting.
- 	 */
--	crtc->mode = *mode;
-+	drm_mode_copy(&crtc->mode, mode);
- 	crtc->x = x;
- 	crtc->y = y;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 740620ef07ad..74c5a99ab276 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6898,8 +6898,9 @@ intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-	struct drm_display_mode adjusted_mode =
+-		crtc_state->hw.adjusted_mode;
++	struct drm_display_mode adjusted_mode;
++
++	drm_mode_init(&adjusted_mode, &crtc_state->hw.adjusted_mode);
  
-@@ -341,7 +341,7 @@ bool drm_crtc_helper_set_mode(struct drm_crtc *crtc,
- 	}
- 	DRM_DEBUG_KMS("[CRTC:%d:%s]\n", crtc->base.id, crtc->name);
- 
--	crtc->hwmode = *adjusted_mode;
-+	drm_mode_copy(&crtc->hwmode, adjusted_mode);
- 
- 	/* Prepare the encoders and CRTCs before setting the mode. */
- 	drm_for_each_encoder(encoder, dev) {
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index b701cda86d0c..2ff31717a3de 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -644,7 +644,7 @@ void drm_calc_timestamping_constants(struct drm_crtc *crtc,
- 
- 	vblank->linedur_ns  = linedur_ns;
- 	vblank->framedur_ns = framedur_ns;
--	vblank->hwmode = *mode;
-+	drm_mode_copy(&vblank->hwmode, mode);
- 
- 	drm_dbg_core(dev,
- 		     "crtc %u: hwmode: htotal %d, vtotal %d, vdisplay %d\n",
+ 	if (crtc_state->vrr.enable) {
+ 		adjusted_mode.crtc_vtotal = crtc_state->vrr.vmax;
 -- 
 2.34.1
 
