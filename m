@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 031D3C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 11:29:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B31C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 11:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F06210EC4B;
-	Fri, 18 Feb 2022 11:29:22 +0000 (UTC)
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8BCD10ED10
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 15:25:24 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id p5so13664183ybd.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 07:25:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MQP46pb+DPsuzuoL3BGGcclWodDFs0G/3Es7HjdxUCo=;
- b=cMfVnVTpouxlUm+jaYnytrgpG4TUi9DLUb+yI8qFyskWkAnXv+M6au1/maKPGNtmO8
- GcaWRklihf6L8yh393NfKIPLun4OQl9mYY1jRZzl8G0dxaxR37h911mKIPqAbIPKz/v+
- 6NHpGj21rf8gWajcLnxmDL3+gi1yzfX/0r5GsyQNm0G3ZDxFDCyEhP0ciU9iVcvUP+7O
- O/wtUSIJGcfT+Ts4VAKp3Aryl+D1ZEsXMiVhErXbkzytbGDcWRcL5hG4Z9uexhoyPRc9
- FH+/+Hlyt8N+opqaLI0HBwUBgEOZ3cX4lZaeTqsxqLys+lkPUrmtmR1F+dIq1tL4rZGb
- Yk0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MQP46pb+DPsuzuoL3BGGcclWodDFs0G/3Es7HjdxUCo=;
- b=U72DGkmswCqAN/6jeWvSuzFaB9eBr4BrxV3jQRKJ4kNZpMm3YtZo+eCf27C3HmcLCx
- yV2AosIhzvHgFO+ja1qN4wtqK3+ajHR+ZvOnDVPIoMfLHRKHVmKqXGG1LRLn7hGeWYqS
- D0bW3BWGStrdDpi6rm2PWacR7MHQRdR+FApyFUbs89Y0mm6O4cNlYfTC4RxBiXtBZiFh
- TI+yB/maJE4TCwkMzTrRLo7aezeoN1U0Z/PseybG6I1hdVR13rqB38McXO7reJ+Q7HVt
- X5IYVEXqCXQ+mZT09zPsslDT9qb/Op7rcP2uGPHWngJ20A1AmTEH8RuUI1SaJw3p9wuA
- vwjg==
-X-Gm-Message-State: AOAM530F8jkCTuHhoW6YI4BeYD3Pz7l7iaJMsrUWUYCo5447wIOOodp5
- +L4cs0tj+vzQAQEGWaMbqJd3HAyFkx9oMlyvmw/1sA==
-X-Google-Smtp-Source: ABdhPJyRTktloudhS4FEJQohjippofIbUD6G2axzL1w3brFImkJhKhl9UwTpCXgO94Cef378CE+W+AWSzkPuQK6S+cM=
-X-Received: by 2002:a5b:7c6:0:b0:60b:a0ce:19b with SMTP id
- t6-20020a5b07c6000000b0060ba0ce019bmr2751275ybq.407.1645111523530; 
- Thu, 17 Feb 2022 07:25:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4E0F10EA27;
+	Fri, 18 Feb 2022 11:40:06 +0000 (UTC)
+Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
+ [185.70.41.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6E310EA27
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 11:40:04 +0000 (UTC)
+Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
+ [51.77.79.158])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ by mail-41104.protonmail.ch (Postfix) with ESMTPS id 4K0V9Y53dnz4x73K
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 11:40:01 +0000 (UTC)
+Authentication-Results: mail-41104.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
+ header.b="ChUDHjrs"
+Date: Fri, 18 Feb 2022 11:39:55 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1645184396;
+ bh=SoHk44i+hSrhGCWSov+A62f5mQ4gQxdPxK6xjt+fVz8=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID;
+ b=ChUDHjrsfiukE7xWvak5fl+9SyIK7pibGyeOyRknvdnWxOVzG99VSWcQsJSiPUt6f
+ 9grvADHYFpp6DuC3gpQxTA69WdKAKyR7Mo/nwEB5QUyrC/dx+/CtDZF2YWNhQPW2Tl
+ 6+PnGc7RYTUjB1yibcvsbposFqs/0AkGQWJQfO//UxykAiqHXBvIPFzDz0UEkfa/fp
+ MPDl3GjdqU9eTZAdYmjZdoFqdVxzIO9C1MOXcv02MRUgupJ5WQim3ZWvjshZxNREVr
+ Dea5zfYRhicyLTflwxZeX0A1AFnYhkSLuejA6v53Ic38Uw3A/A2lg1P0Tvxx56g9q5
+ bAYyZ4KyBzgvQ==
+To: Hans de Goede <hdegoede@redhat.com>
+From: Simon Ser <contact@emersion.fr>
+Message-ID: <YV87l-2XXzmZ2i6GuGd__uf85s2JQkbXt_qTQDYlbBh1kW2COJoNLUDinmLCokKyy-_0ZnIMUcZeW0GdJ8zF690iYi4ThKrjc09omNMe-0g=@emersion.fr>
+In-Reply-To: <d3f0cc20-d226-ee42-cc98-b469949cec9e@redhat.com>
+References: <20220208084234.1684930-1-hsinyi@chromium.org>
+ <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
+ <KW6DNh6IRRgVJx9DfOFBnEqc4a0x-AnDXEbMxwpfEbk8dOn_KGVzAfo-slJWq-4nWW728Uc-OVpFh2w4fDE4-bxfkDuz1hFILRVvbcuXqaw=@emersion.fr>
+ <CACvgo532-pC+7DLFCo=DWTX-OnJEJvSoTmQnt3_qLhiT4cqEMg@mail.gmail.com>
+ <GYG6EVT1MqtmfKiPpMhDG9mpuATnmwVDq2PuE_dpDat5oQW_t1tUfm39lSWHj32D5r7mrog27sL4dkgdMYQ5BN830TfVOrgQ4Ts8LcO8Hcs=@emersion.fr>
+ <CACvgo52+o9_ETC+1RKzqKkyw3ZJ28RjH0BqC9DfmNAKqByud8Q@mail.gmail.com>
+ <d3f0cc20-d226-ee42-cc98-b469949cec9e@redhat.com>
 MIME-Version: 1.0
-References: <20220217140441.1218045-1-andrzej.hajda@intel.com>
- <20220217140441.1218045-3-andrzej.hajda@intel.com>
- <CANn89iKgzztLA3y6V+vw3RiyoScC3K=1Z1_gajj8H56wGWDw6A@mail.gmail.com>
-In-Reply-To: <CANn89iKgzztLA3y6V+vw3RiyoScC3K=1Z1_gajj8H56wGWDw6A@mail.gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 17 Feb 2022 07:25:12 -0800
-Message-ID: <CANn89iKsP=fO9va0pP9VrruXMKGnRhf9geGawDciTMdz3fOKhg@mail.gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 18 Feb 2022 11:29:20 +0000
-Subject: Re: [Intel-gfx] [PATCH 2/9] lib/ref_tracker: compact stacktraces
- before printing
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
+ property creating and value setting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,18 +64,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris.p.wilson@intel.com>, netdev <netdev@vger.kernel.org>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Jakub Kicinski <kuba@kernel.org>, Dmitry Vyukov <dvyukov@google.com>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ LAKML <linux-arm-kernel@lists.infradead.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 17, 2022 at 7:23 AM Eric Dumazet <edumazet@google.com> wrote:
+On Friday, February 18th, 2022 at 11:38, Hans de Goede <hdegoede@redhat.com=
+> wrote:
 
+> What I'm reading in the above is that it is being considered to allow
+> changing the panel-orientation value after the connector has been made
+> available to userspace; and let userspace know about this through a ueven=
+t.
+>
+> I believe that this is a bad idea, it is important to keep in mind here
+> what userspace (e.g. plymouth) uses this prorty for. This property is
+> used to rotate the image being rendered / shown on the framebuffer to
+> adjust for the panel orientation.
+>
+> So now lets assume we apply the correct upside-down orientation later
+> on a device with an upside-down mounted LCD panel. Then on boot the
+> following could happen:
+>
+> 1. amdgpu exports a connector for the LCD panel to userspace without
+> setting panel-orient=3Dupside-down
+> 2. plymouth sees this and renders its splash normally, but since the
+> panel is upside-down it will now actually show upside-down
 
-> Then, iterating the list and update the array (that you can keep
-> sorted by ->stack_handle)
+At this point amdgpu hasn't probed the connector yet. So the connector
+will be marked as disconnected, and plymouth shouldn't render anything.
 
-The 'sorted' part might be unnecessary, if all callers keep
-@display_limits small enough.
+> 3. amdgpu adjusts the panel-orient prop to upside-down, sends out
+> uevents
+
+That's when amdgpu marks the connector as connected. So everything
+should be fine I believe, no bad frame.
+
+> 4. Lets assume plymouth handles this well (i) and now adjust its
+> rendering and renders the next frame of the bootsplash 180=C2=B0 rotated
+> to compensate for the panel being upside down. Then from now on
+> the user will see the splash normally
+>
+> So this means that the user will briefly see the bootsplash rendered
+> upside down which IMHO is not acceptable behavior. Also see my footnote
+> about how I seriously doubt plymouth will see the panel-orient change
+> at all.
+>
+> I'm also a bit unsure about:
+>
+> a) How you can register the panel connector with userspace before
+> reading the edid, don't you need the edid to give the physical size +
+> modeline to userspace, which you cannot just leave out ?
+
+Yup. The KMS EDID property is created before the EDID is read, and is set
+to zero (NULL blob). The width/height in mm and other info are also zero.
+You can try inspecting the state printed by drm_info on any disconnected
+connector to see for yourself.
+
+> I guess the initial modeline is inherited from the video-bios, but
+> what about the physical size? Note that you cannot just change the
+> physical size later either, that gets used to determine the hidpi
+> scaling factor in the bootsplash, and changing that after the initial
+> bootsplash dislay will also look ugly
+>
+> b) Why you need the edid for the panel-orientation property at all,
+> typically the edid prom is part of the panel and the panel does not
+> know that it is mounted e.g. upside down at all, that is a property
+> of the system as a whole not of the panel as a standalone unit so
+> in my experience getting panel-orient info is something which comes
+> from the firmware /video-bios not from edid ?
+
+This is an internal DRM thing. The orientation quirks logic uses the
+mode size advertised by the EDID. I agree that at least in the Steam
+Deck case it may not make a lot of sense to use any info from the
+EDID, but that's needed for the current status quo.
+
+Also note, DisplayID has a bit to indicate the panel orientation IIRC.
+Would be nice to support parsing this at some point.
