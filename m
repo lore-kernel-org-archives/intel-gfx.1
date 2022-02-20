@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5CF3C433F5
-	for <intel-gfx@archiver.kernel.org>; Sun, 20 Feb 2022 17:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B39D3C433F5
+	for <intel-gfx@archiver.kernel.org>; Sun, 20 Feb 2022 17:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27DE410E15A;
-	Sun, 20 Feb 2022 17:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA21110E15A;
+	Sun, 20 Feb 2022 17:01:48 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 23C0D10E15A;
- Sun, 20 Feb 2022 17:00:31 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 710A110E15A;
+ Sun, 20 Feb 2022 17:01:47 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 162A7A0118;
- Sun, 20 Feb 2022 17:00:31 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7202FA0118;
+ Sun, 20 Feb 2022 17:01:47 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Anshuman Gupta" <anshuman.gupta@intel.com>
-Date: Sun, 20 Feb 2022 17:00:31 -0000
-Message-ID: <164537643105.25025.4633807886251999099@emeril.freedesktop.org>
+Date: Sun, 20 Feb 2022 17:01:47 -0000
+Message-ID: <164537650746.25024.8936982031480377542@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220220163730.5021-1-anshuman.gupta@intel.com>
 In-Reply-To: <20220220163730.5021-1-anshuman.gupta@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_DGFX_OpRegion_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?DGFX_OpRegion_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,26 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-c0905817ebdb drm/i915/opregion: Add intel_opregion_init() wrapper
-a90a3f2681d0 drm/i915/opregion: Abstract opregion function
--:214: ERROR:SPACING: space required before the open parenthesis '('
-#214: FILE: drivers/gpu/drm/i915/display/intel_opregion.c:1265:
-+	if(drm_WARN_ON(&i915->drm, !opregion->asls || !opregion->header))
-
-total: 1 errors, 0 warnings, 0 checks, 254 lines checked
-746dd2f8a0c1 drm/i915/opregion: Add dgfx opregion func
-35de4da7ebcd drm/i915/opregion: Cond dgfx opregion func registration
-90ff2a12e00a drm/i915/dgfx: OPROM OpRegion Setup
--:235: CHECK:ALLOC_SIZEOF_STRUCT: Prefer kzalloc(sizeof(*exprom_hdr)...) over kzalloc(sizeof(struct expansion_rom_header)...)
-#235: FILE: drivers/gpu/drm/i915/display/intel_opregion.c:1046:
-+	exprom_hdr = kzalloc(sizeof(struct expansion_rom_header), GFP_KERNEL);
-
--:236: CHECK:ALLOC_SIZEOF_STRUCT: Prefer kzalloc(sizeof(*exprom_pci_data)...) over kzalloc(sizeof(struct pci_data_structure)...)
-#236: FILE: drivers/gpu/drm/i915/display/intel_opregion.c:1047:
-+	exprom_pci_data = kzalloc(sizeof(struct pci_data_structure), GFP_KERNEL);
-
-total: 0 errors, 0 warnings, 2 checks, 413 lines checked
-06b60e64062b drm/i915/dgfx: Get VBT from rvda
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
