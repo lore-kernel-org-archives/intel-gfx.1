@@ -4,65 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20008C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 13:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6EBC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 13:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA44B10E67E;
-	Tue, 22 Feb 2022 13:32:57 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 055E410E509;
- Tue, 22 Feb 2022 12:03:26 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id e14so350197wrc.2;
- Tue, 22 Feb 2022 04:03:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QbmY80ocxNOiijSbsV19VPgVTJ6ROSn9KA0LYKbj2Ss=;
- b=MwbETFFEcrGhyG+LH1t68UsAe53GCSf6urVxWoBvDVlCGfAcvUfapW8Uxq2bXd6Bw+
- aNVFsaEE9mCxY2/8v7SKrARfQWLVCFjZ1NWsZB6kbfSTPt7zurbCxv8a4q9oe/gQZ7zU
- DoUAEqETC2nTzi6H82/0Mxti9k2vVGD6zRNO4+59/m9VP/krtr62munaBLFtEX74wHc3
- cNTOniX5rpos3Liz/tyu+dimFrg/XCPhg3LEimTqM8RyCA8wU7uG4CnZV0MY+zaWug6X
- 9QTWE+/aBMPOrBVboZ8H4+CC2tWeoWnbV0UrdobfF1KybUnzJNh5n4os6+JHJquE2Qj2
- 57Dw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC8010E66C;
+	Tue, 22 Feb 2022 13:32:58 +0000 (UTC)
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A629B10E358
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 23:54:24 +0000 (UTC)
+Received: by mail-yb1-xb2d.google.com with SMTP id w63so16270875ybe.10
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 15:54:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3lC+GIB4kzAe3ece369swUyKHnvK/S1h9xrQbJ/8q+w=;
+ b=GOHpLflJrqC43QFF/5GQvG7V2qEcPuaQvtK5vbSduDp5b1yp3G7IW6vFy9EFQmifR3
+ R3K6rvushU3hJCS+Q6RbNcy7Y3MCAD1xh9DmsmuJ2Cuki5Tpvo/WJIioUd+G4028WrXV
+ 6EuITKbzai/dr+E7N6V+RpaG1AFgkgkp6ZhZ8BaDO2LbPeNApEd5+THSlbqAL01gEya8
+ 0Xor7hYcueU2c9Tbn4MBzNzpxCXuancOC8749h9QPVjrrHJ3E6H1ilmIQGjh55yX4Tre
+ yHb37zO9WMY3AhiVF9UhNZkRfPoZ3Oq5BjEJAfTtRCAwySv7PvxrLqZhsd9hjmo9PsV4
+ R69A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QbmY80ocxNOiijSbsV19VPgVTJ6ROSn9KA0LYKbj2Ss=;
- b=w9iXPtwwy8G0xfWDaNcg+QrHqLZY0TwHKa85OvN2vPuNb5k782U32AuQjD0Mmigqh2
- Bhm6OhlZvoo51Wzas3o3C+cPkCyPJDZLtYVVEeSQQqptqqxMLPip7IvqJIJAG5l901sy
- EpUyaCx9mQcjoWtJpXalvzllZ51pSCMJcTrkMtoFDBc489qpcAYA+PjafNSeYfC3q7Q4
- rBx9x8HYOXLNOAnJYBoa3ck8emSTj5wT9uf62IKqXw6EF6TCoAmXpJWw7a1pfNo5jLsb
- a4zYHJZZ25bGt7X/yJ4TxOKjDd9uGERNLnPb+SA3OyV+WrhNOwtghCbzEtfsUipJxXKJ
- cn7A==
-X-Gm-Message-State: AOAM533h0tRncwNXk5lLU3m/PBTi/zYCMPCaVimo9wMDCDP6P2uDDOaG
- vV13xQj29MMHdn1+8jmwZdg=
-X-Google-Smtp-Source: ABdhPJz+y6HNF/vXrsjO1hB+4KCEYzs7HiueM6A9qCnX0USE6K7ZbYhvnQYVzFCmpLKSxqerxRCFGA==
-X-Received: by 2002:adf:f846:0:b0:1d9:3079:a02f with SMTP id
- d6-20020adff846000000b001d93079a02fmr19192537wrq.62.1645531404467; 
- Tue, 22 Feb 2022 04:03:24 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
- by smtp.gmail.com with ESMTPSA id t16sm3178500wrg.99.2022.02.22.04.03.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Feb 2022 04:03:24 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Tue, 22 Feb 2022 12:03:23 +0000
-Message-Id: <20220222120323.86480-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3lC+GIB4kzAe3ece369swUyKHnvK/S1h9xrQbJ/8q+w=;
+ b=4CcMIiOXBF0FI47v4gcf9tRef2R2zScibT3axJSI1x/XmD82kkHB7KyviQcWCqxxTQ
+ oDeKDFxjUyLnsG63bsw/+zV9uvbbONWDMLegqnrfVVDXkB54/fkvN0rLuTTit6cUBrWc
+ 4SPE085Z5DmgQv11ViJI4u87ZIHhbwYjSOikLV5GJPcbb74tA9jh8w2Y1vsnLwjfwX6C
+ DBFmpCMJVS4ZgtS8P4/hAkypWFTimJcrmmAK0HzmjXcrKr08kawI0jap7kDu6Jl73tUq
+ 7kpUTwhg9XIrQJtSz9+0sz4aOq5is3uquAmVZC/YSjA4dVoloio9PlsN68kK9sDfuKDD
+ R6ag==
+X-Gm-Message-State: AOAM533qzVVw0Dw7p/9qLrtArHU0tQ0TUQdHqS5EGUPeC3mmIv4OoKkA
+ SXhdEPTqEBSPQ7z+QZMGjkmVPlXGVCtqF4wx5ql2yg==
+X-Google-Smtp-Source: ABdhPJwK0jOhPcM1lDe3429/m25HSYMiQee5DR7/0JGbbsQegVXI/XBsnoJbutUJ1jTG6re1CQZuJ8cXV0HIPfxMSxQ=
+X-Received: by 2002:a25:a28d:0:b0:623:fa1b:3eb7 with SMTP id
+ c13-20020a25a28d000000b00623fa1b3eb7mr21159078ybi.387.1645487663454; Mon, 21
+ Feb 2022 15:54:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20220221232542.1481315-1-andrzej.hajda@intel.com>
+ <20220221232542.1481315-8-andrzej.hajda@intel.com>
+In-Reply-To: <20220221232542.1481315-8-andrzej.hajda@intel.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Mon, 21 Feb 2022 15:54:12 -0800
+Message-ID: <CANn89i+E3z-iXSJh8316KSycYk2VTS-n0E=tAOj23fuDSi1Zjg@mail.gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 22 Feb 2022 13:32:50 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: make a handful of read-only arrays
- static const
+Subject: Re: [Intel-gfx] [PATCH v3 07/11] lib/ref_tracker: remove warnings
+ in case of allocation failure
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,46 +65,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Chris Wilson <chris.p.wilson@intel.com>, netdev <netdev@vger.kernel.org>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Jakub Kicinski <kuba@kernel.org>, Dmitry Vyukov <dvyukov@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Don't populate the read-only arrays on the stack but instead make
-them static const. Also makes the object code a little smaller.
-Reformat the statements to clear up checkpatch warning.
+On Mon, Feb 21, 2022 at 3:26 PM Andrzej Hajda <andrzej.hajda@intel.com> wrote:
+>
+> Library can handle allocation failures. To avoid allocation warnings
+> __GFP_NOWARN has been added everywhere. Moreover GFP_ATOMIC has been
+> replaced with GFP_NOWAIT in case of stack allocation on tracker free
+> call.
+>
+> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+> ---
+>  lib/ref_tracker.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
+> index 2ef4596b6b36f..cae4498fcfd70 100644
+> --- a/lib/ref_tracker.c
+> +++ b/lib/ref_tracker.c
+> @@ -189,7 +189,7 @@ int ref_tracker_alloc(struct ref_tracker_dir *dir,
+>         unsigned long entries[REF_TRACKER_STACK_ENTRIES];
+>         struct ref_tracker *tracker;
+>         unsigned int nr_entries;
+> -       gfp_t gfp_mask = gfp;
+> +       gfp_t gfp_mask = gfp | __GFP_NOWARN;
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_vdsc.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+SGTM
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 3faea903b9ae..d49f66237ec3 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -378,10 +378,18 @@ calculate_rc_params(struct rc_parameters *rc,
- {
- 	int bpc = vdsc_cfg->bits_per_component;
- 	int bpp = vdsc_cfg->bits_per_pixel >> 4;
--	int ofs_und6[] = { 0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12 };
--	int ofs_und8[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
--	int ofs_und12[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
--	int ofs_und15[] = { 10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -10, -12, -12, -12 };
-+	static const int ofs_und6[] = {
-+		0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
-+	};
-+	static const int ofs_und8[] = {
-+		2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12
-+	};
-+	static const int ofs_und12[] = {
-+		2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12
-+	};
-+	static const int ofs_und15[] = {
-+		10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -10, -12, -12, -12
-+	};
- 	int qp_bpc_modifier = (bpc - 8) * 2;
- 	u32 res, buf_i, bpp_i;
- 
--- 
-2.34.1
+>         unsigned long flags;
+>
+>         WARN_ON_ONCE(dir->dead);
+> @@ -237,7 +237,8 @@ int ref_tracker_free(struct ref_tracker_dir *dir,
+>                 return -EEXIST;
+>         }
+>         nr_entries = stack_trace_save(entries, ARRAY_SIZE(entries), 1);
+> -       stack_handle = stack_depot_save(entries, nr_entries, GFP_ATOMIC);
+> +       stack_handle = stack_depot_save(entries, nr_entries,
+> +                                       GFP_NOWAIT | __GFP_NOWARN);
 
+Last time I looked at this, __GFP_NOWARN was enforced in __stack_depot_save()
+
+>
+>         spin_lock_irqsave(&dir->lock, flags);
+>         if (tracker->dead) {
+> --
+> 2.25.1
+>
