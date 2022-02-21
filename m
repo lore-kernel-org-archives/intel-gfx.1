@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AA9C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 14:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 584FAC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 14:16:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6B5E10E82F;
-	Mon, 21 Feb 2022 14:13:01 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CDC910E55B;
- Mon, 21 Feb 2022 14:12:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B421A10E4B2;
+	Mon, 21 Feb 2022 14:16:37 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8925D10E32A;
+ Mon, 21 Feb 2022 14:16:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645452780; x=1676988780;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=gmKm1K1NNqB2xjQ8t193Wm7FiYCzzg4UVyl8de03ql0=;
- b=A9QHkTyYlKDTKUeC9vULz3TjlmP0rZUWS/Xata5+uW9ftImIv9uXxvs0
- QIZRrswxhGYNjsN34G66uEDY9ysO8ZkIRPy6X3XjpmBBAHxKeMWpfZ3Cw
- 9uiYOL/7TtPJ8gBZD97Lve0/6Yk2p+FWH+SYt1N2HBMLn6FeizbwscYub
- 9+5JvZ3YctGjHdS7xmGCLRZ7s83MfDVE0VYJ2sUXqEGNEb66acykqKp1a
- ZhTVlmTAoCoayqPBjbf0EXJXipdLPm1SN6Lum3nydWwFGW99vrJgEHPEv
- kOXthh6o6gqQr4FNcCkGsXz12t9U1iXyDwV2VR2BqIgyIsYHfTj5oHtTf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10264"; a="238931650"
-X-IronPort-AV: E=Sophos;i="5.88,385,1635231600"; d="scan'208";a="238931650"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2022 06:11:41 -0800
-X-IronPort-AV: E=Sophos;i="5.88,385,1635231600"; d="scan'208";a="683217355"
+ t=1645452996; x=1676988996;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=P9C+s6K71DFns+Q+uRDn+IOqu/5pJ5iGN07JH/PtpFE=;
+ b=LGIn5gZWpuhptE97kPVg30cED1h7HMOOcrqpUyufxMD4tm+4Ws+T0PJ2
+ Ho3KZXuD8lEnt95pUqs5KktIloiK7rdP05Tun4/AuCcwWFQkW4j/YvUxk
+ h0N2hV6alrtTTtOP6OcfgH7I44domxdyvsb3rliI4SJT9i9IVe3zxwrhY
+ nW8EaGP07rV0Fslg3N8foOjzEKIAvdAHe9D/J4fYZ7vXFyWmbRkrbrJMb
+ ieA2byRWb4AaUUObuMBC2Bf8WjXgvO4+skY6NkZmxrk3M8EQ9PbXo/HDH
+ 0iBNTpXA0dEcTD+OidHbWsoJi2sdOTTzoGgINQQ1Cc17z5Sg5dykcKRRp A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10264"; a="251467124"
+X-IronPort-AV: E=Sophos;i="5.88,385,1635231600"; d="scan'208";a="251467124"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2022 06:16:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,385,1635231600"; d="scan'208";a="606400528"
 Received: from joeyegax-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.23.97])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2022 06:11:40 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2022 06:16:34 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Mon, 21 Feb 2022 14:10:35 +0000
-Message-Id: <20220221141036.2490380-5-matthew.auld@intel.com>
+Date: Mon, 21 Feb 2022 14:16:14 +0000
+Message-Id: <20220221141620.2490914-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220221141036.2490380-1-matthew.auld@intel.com>
-References: <20220221141036.2490380-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 5/6] i915/tests/capture: add a negative
- test for NEEDS_CPU_ACCESS
+Subject: [Intel-gfx] [PATCH i-g-t v2 0/6] Exercise NEEDS_CPU_ACCESS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,107 +55,15 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sanity check that the kernel does indeed reject LMEM buffers marked with
-EXEC_OBJECT_CAPTURE, that are not also marked with NEEDS_CPU_ACCESS.
+Add some initial tests for the new I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS
+flag.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- tests/i915/gem_exec_capture.c | 69 +++++++++++++++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+v2: Add missing cover letter. Likely also needed when using 'Test-with:'
 
-diff --git a/tests/i915/gem_exec_capture.c b/tests/i915/gem_exec_capture.c
-index 24ba6036..09187f62 100644
---- a/tests/i915/gem_exec_capture.c
-+++ b/tests/i915/gem_exec_capture.c
-@@ -735,6 +735,71 @@ static void userptr(int fd, int dir)
- 	gem_engine_properties_restore(fd, &saved_engine);
- }
- 
-+static bool supports_needs_cpu_access(int fd)
-+{
-+	struct drm_i915_gem_memory_class_instance regions[] = {
-+		{ I915_MEMORY_CLASS_DEVICE, },
-+		{ I915_MEMORY_CLASS_SYSTEM, },
-+	};
-+	struct drm_i915_gem_create_ext_memory_regions setparam_region = {
-+		.base = { .name = I915_GEM_CREATE_EXT_MEMORY_REGIONS },
-+		.regions = to_user_pointer(&regions),
-+		.num_regions = ARRAY_SIZE(regions),
-+	};
-+	uint64_t size = 4096;
-+	uint32_t handle;
-+	int ret;
-+
-+	ret = __gem_create_ext(fd, &size,
-+			       I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS,
-+			       &handle, &setparam_region.base);
-+	if (!ret) {
-+		gem_close(fd, handle);
-+		igt_assert(gem_has_lmem(fd)); /* Should be dgpu only */
-+	}
-+
-+	return ret == 0;
-+}
-+
-+static void capture_no_cpu_access(int fd)
-+{
-+	struct drm_i915_gem_exec_object2 exec = {
-+		.flags = EXEC_OBJECT_CAPTURE,
-+	};
-+	struct drm_i915_gem_execbuffer2 execbuf = {
-+		.buffers_ptr = to_user_pointer(&exec),
-+		.buffer_count = 1,
-+	};
-+	uint64_t size = 4096;
-+	uint32_t handle;
-+	int ret;
-+
-+	igt_require(gem_has_lmem(fd));
-+	igt_require(supports_needs_cpu_access(fd));
-+
-+	/*
-+	 * Sanity check that execbuf rejects EXEC_OBJECT_CAPTURE marked BO, that
-+	 * is not also tagged with I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS, if
-+	 * it can be placed in LMEM. This is only relevant for Dg2+.
-+	 */
-+
-+	igt_require(__gem_create_in_memory_regions(fd, &handle, &size,
-+						   REGION_LMEM(0)) == 0);
-+
-+	exec.handle = handle;
-+	ret = __gem_execbuf(fd, &execbuf);
-+	if (IS_DG1(fd)) /* Should be no impact on existing ABI */
-+		igt_assert(ret == 0);
-+	else
-+		igt_assert(ret == -EINVAL);
-+
-+	/* SMEM only buffers should work as normal */
-+	igt_assert(__gem_create_in_memory_regions(fd, &handle, &size,
-+						  REGION_SMEM) == 0);
-+	exec.handle = handle;
-+	igt_assert(__gem_execbuf(fd, &execbuf) == 0);
-+}
-+
- static bool has_capture(int fd)
- {
- 	drm_i915_getparam_t gp;
-@@ -839,6 +904,10 @@ igt_main
- 		igt_dynamic_f("%s", (e)->name)
- 			prioinv(fd, dir, ctx, e);
- 
-+	igt_describe("Verify the ABI contract when using EXEC_OBJECT_CAPTURE without I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS");
-+	igt_subtest_f("capture-non-cpu-access")
-+		capture_no_cpu_access(fd);
-+
- 	igt_fixture {
- 		close(dir);
- 		igt_disallow_hang(fd, hang);
 -- 
 2.34.1
 
