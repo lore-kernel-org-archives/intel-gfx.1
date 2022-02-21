@@ -4,48 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C24B3C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 14:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90014C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 14:33:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B83810E703;
-	Mon, 21 Feb 2022 14:16:47 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0F1D10E344;
- Mon, 21 Feb 2022 14:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645453003; x=1676989003;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=KbR5JMXW5vxjTD72SYa4Cs5GP+9QPMyZcaE6neFPaTI=;
- b=ageIkbUFmcrNT1mX18J2vFTW+71z5ezsDLYSRmpLvPGuOnyCP6IaAIBl
- YhUqWnI3EKdhju6KGalgBnXd8TAq87jqctvVsRTjQgHUcoGQPmcs4FqHB
- UbLouuN9QCcpCCwpyQSzzRfNu2n0dF5Iu1Xm+J2VVffi88caazcggQO2s
- 2GsOxHnBceagt3HqyeahIWKYf855HPk3EIXn9TchZ6YtRiFrJywSvqskL
- p8XhoIojwU3pup5hVojWtruhBkMR/zs1p7Mb2NPk+WctXuNhKmByIJYs5
- GzkstGR3JKH5JVvQp1k+gB4HBlyYbvzy+TkdcaYD7rZ2rUjsNdzBHoOEB w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10264"; a="251467144"
-X-IronPort-AV: E=Sophos;i="5.88,385,1635231600"; d="scan'208";a="251467144"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2022 06:16:40 -0800
-X-IronPort-AV: E=Sophos;i="5.88,385,1635231600"; d="scan'208";a="606400534"
-Received: from joeyegax-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.23.97])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2022 06:16:38 -0800
-From: Matthew Auld <matthew.auld@intel.com>
-To: igt-dev@lists.freedesktop.org
-Date: Mon, 21 Feb 2022 14:16:17 +0000
-Message-Id: <20220221141620.2490914-4-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220221141620.2490914-1-matthew.auld@intel.com>
-References: <20220221141620.2490914-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBBB810E4E8;
+	Mon, 21 Feb 2022 14:33:50 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9899B10E4E8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 14:33:49 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2EF11B811CB;
+ Mon, 21 Feb 2022 14:33:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27B4C340E9;
+ Mon, 21 Feb 2022 14:33:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1645454021;
+ bh=MOKLyo7/CIj15UTSyuW2OgdaszN7jrsaNp5k1YPY3aE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=uJF68NIcZywWr+dDWoAj52OBmNWOx64XPUk+mXZiEndyaMwIRzMKkA+e4U28CC9eq
+ ez/lh5CXxMUiIct56BJw6x8vMIU+uof5pMiNMyuPftd5Ac5ZFdvaYSjeDaV+Qzt2jR
+ tIxZMcE5RAzTeAG6E4Jw4b+Bjqm3Sz5f17Cle7+Q8D7OMmTN3pcptcBw9IswtuAqqQ
+ IFM0MXCEPgJ2rEM9RhXXCuJywv1ICB+9IDoOaWGo75U5EhToqwCnd32Q9anVQwjrDi
+ arAmdYdVZSW87OLP1wjynqpnUfs4HF305YoAO89GQ6Zi9OzsOuVZeWj3WeXvHsuhih
+ BolyH1ymDSFnQ==
+From: broonie@kernel.org
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>
+Date: Mon, 21 Feb 2022 14:33:36 +0000
+Message-Id: <20220221143337.3527550-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t v2 3/6] tests/i915/gem_create: test
- NEEDS_CPU_ACCESS
+Subject: [Intel-gfx] linux-next: manual merge of the drm-intel-gt tree with
+ the drm-intel tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,375 +52,97 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
+ Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some basic tests for this new flag.
+Hi all,
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- tests/i915/gem_create.c | 334 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 334 insertions(+)
+Today's linux-next merge of the drm-intel-gt tree got conflicts in:
 
-diff --git a/tests/i915/gem_create.c b/tests/i915/gem_create.c
-index a6c3c9d9..318e6491 100644
---- a/tests/i915/gem_create.c
-+++ b/tests/i915/gem_create.c
-@@ -43,6 +43,8 @@
- #include <getopt.h>
- #include <pthread.h>
- #include <stdatomic.h>
-+#include <setjmp.h>
-+#include <signal.h>
- 
- #include "drm.h"
- #include "drmtest.h"
-@@ -481,6 +483,327 @@ static void create_ext_placement_each(int fd)
- 	free(regions);
- }
- 
-+static bool supports_needs_cpu_access(int fd)
-+{
-+	struct drm_i915_gem_memory_class_instance regions[] = {
-+		{ I915_MEMORY_CLASS_DEVICE, },
-+		{ I915_MEMORY_CLASS_SYSTEM, },
-+	};
-+	struct drm_i915_gem_create_ext_memory_regions setparam_region = {
-+		.base = { .name = I915_GEM_CREATE_EXT_MEMORY_REGIONS },
-+		.regions = to_user_pointer(&regions),
-+		.num_regions = ARRAY_SIZE(regions),
-+	};
-+	uint64_t size = PAGE_SIZE;
-+	uint32_t handle;
-+	int ret;
-+
-+	ret = __gem_create_ext(fd, &size,
-+			       I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS,
-+			       &handle, &setparam_region.base);
-+	if (!ret) {
-+		gem_close(fd, handle);
-+		igt_assert(gem_has_lmem(fd)); /* Should be dgpu only */
-+	}
-+
-+	return ret == 0;
-+}
-+
-+static uint32_t batch_create_size(int fd, uint64_t size)
-+{
-+	const uint32_t bbe = MI_BATCH_BUFFER_END;
-+	uint32_t handle;
-+
-+	handle = gem_create(fd, size);
-+	gem_write(fd, handle, 0, &bbe, sizeof(bbe));
-+
-+	return handle;
-+}
-+
-+static int upload(int fd, uint32_t handle)
-+{
-+	struct drm_i915_gem_exec_object2 exec[2] = {};
-+	struct drm_i915_gem_execbuffer2 execbuf = {
-+		.buffers_ptr = to_user_pointer(&exec),
-+		.buffer_count = 2,
-+	};
-+
-+	/*
-+	 * To be reasonably sure that we are not being swindled, let's make sure
-+	 * to 'touch' the pages from the GPU first to ensure the object is for
-+	 * sure placed in one of requested regions.
-+	 */
-+	exec[0].handle = handle;
-+	exec[1].handle = batch_create_size(fd, PAGE_SIZE);
-+
-+	return __gem_execbuf(fd, &execbuf);
-+}
-+
-+static int alloc_lmem(int fd, uint32_t *handle,
-+		      struct drm_i915_gem_memory_class_instance ci,
-+		      uint64_t size, bool cpu_access, bool do_upload)
-+{
-+	struct drm_i915_gem_memory_class_instance regions[] = {
-+		ci, { I915_MEMORY_CLASS_SYSTEM, },
-+	};
-+	struct drm_i915_gem_create_ext_memory_regions setparam_region = {
-+		.base = { .name = I915_GEM_CREATE_EXT_MEMORY_REGIONS },
-+		.regions = to_user_pointer(&regions),
-+	};
-+	uint32_t flags;
-+
-+	igt_assert_eq(ci.memory_class, I915_MEMORY_CLASS_DEVICE);
-+
-+	flags = 0;
-+	setparam_region.num_regions = 1;
-+	if (cpu_access) {
-+		flags = I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS,
-+		setparam_region.num_regions = 2;
-+	}
-+
-+	*handle = gem_create_ext(fd, size, flags, &setparam_region.base);
-+
-+	if (do_upload)
-+		return upload(fd, *handle);
-+
-+	return 0;
-+}
-+
-+static void create_ext_cpu_access_sanity_check(int fd)
-+{
-+	struct drm_i915_gem_create_ext_memory_regions setparam_region = {
-+		.base = { .name = I915_GEM_CREATE_EXT_MEMORY_REGIONS },
-+	};
-+	struct drm_i915_query_memory_regions *regions;
-+	uint64_t size = PAGE_SIZE;
-+	uint32_t handle;
-+	int i;
-+
-+	/*
-+	 * The ABI is that FLAG_NEEDS_CPU_ACCESS can only be applied to LMEM +
-+	 * SMEM objects. Make sure the kernel follows that. Let's check if we
-+	 * can indeed fault the object.
-+	 */
-+
-+	/* Implicit placement; should fail */
-+	igt_assert_eq(__gem_create_ext(fd, &size,
-+				       I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS,
-+				       &handle, NULL), -EINVAL);
-+
-+	regions = gem_get_query_memory_regions(fd);
-+	igt_assert(regions);
-+	igt_assert(regions->num_regions);
-+
-+	for (i = 0; i < regions->num_regions; i++) {
-+		struct drm_i915_gem_memory_class_instance ci_regions[2] = {
-+			regions->regions[i].region,
-+			{ I915_MEMORY_CLASS_SYSTEM, },
-+		};
-+		uint32_t *ptr;
-+
-+		setparam_region.regions = to_user_pointer(ci_regions);
-+		setparam_region.num_regions = 1;
-+
-+		/* Single explicit placement; should fail */
-+		igt_assert_eq(__gem_create_ext(fd, &size,
-+					       I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS,
-+					       &handle, &setparam_region.base),
-+			      -EINVAL);
-+
-+		if (ci_regions[0].memory_class == I915_MEMORY_CLASS_SYSTEM)
-+			continue;
-+
-+		/*
-+		 * Now combine with system memory; should pass. We should also
-+		 * be able to fault it.
-+		 */
-+		setparam_region.num_regions = 2;
-+		igt_assert_eq(__gem_create_ext(fd, &size,
-+					       I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS,
-+					       &handle, &setparam_region.base),
-+			      0);
-+		upload(fd, handle);
-+		ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+					     PROT_READ | PROT_WRITE);
-+		ptr[0] = 0xdeadbeaf;
-+		gem_close(fd, handle);
-+
-+		/*
-+		 * It should also work just fine without the flag, where in the
-+		 * worst case we need to migrate it when faulting it.
-+		 */
-+		igt_assert_eq(__gem_create_ext(fd, &size,
-+					       0,
-+					       &handle, &setparam_region.base),
-+			      0);
-+		upload(fd, handle);
-+		ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+					     PROT_READ | PROT_WRITE);
-+		ptr[0] = 0xdeadbeaf;
-+		gem_close(fd, handle);
-+	}
-+
-+	free(regions);
-+}
-+
-+static uint64_t get_visible_size(int device, uint16_t instance)
-+{
-+	FILE *file;
-+	char *line = NULL;
-+	size_t line_size;
-+	int fd, i;
-+
-+	fd = igt_debugfs_open(device, "i915_gem_objects", O_RDONLY);
-+	file = fdopen(fd, "r");
-+	igt_require(getline(&line, &line_size, file) > 0);
-+
-+	i = 0;
-+	while (getline(&line, &line_size, file) > 0) {
-+		const char needle[] = "visible_size: ";
-+		const char *ptr = strstr(line, needle);
-+		long int size_mb;
-+		char *end;
-+
-+		if (!ptr)
-+			continue;
-+
-+		if (i++ != instance)
-+			continue;
-+
-+		size_mb = strtol(ptr + ARRAY_SIZE(needle)-1, &end, 10);
-+
-+		free(line);
-+		fclose(file);
-+		close(fd);
-+
-+		return size_mb << 20ULL;
-+	}
-+
-+	igt_assert(!"reached");
-+}
-+
-+static jmp_buf jmp;
-+
-+__noreturn static void sigtrap(int sig)
-+{
-+	siglongjmp(jmp, sig);
-+}
-+
-+static void trap_sigbus(uint32_t *ptr)
-+{
-+	sighandler_t old_sigbus;
-+
-+	old_sigbus = signal(SIGBUS, sigtrap);
-+	switch (sigsetjmp(jmp, SIGBUS)) {
-+	case SIGBUS:
-+		break;
-+	case 0:
-+		*ptr = 0xdeadbeaf;
-+	default:
-+		igt_assert(!"reached");
-+		break;
-+	}
-+	signal(SIGBUS, old_sigbus);
-+}
-+
-+static void create_ext_cpu_access_big(int fd)
-+{
-+	struct drm_i915_query_memory_regions *regions;
-+	int i;
-+
-+	/*
-+	 * Sanity check that we can still CPU map an overly large object, even
-+	 * if it happens to be larger the CPU visible portion of LMEM. Also
-+	 * check that an overly large allocation, which can't be spilled into
-+	 * system memory does indeed fail.
-+	 */
-+
-+	regions = gem_get_query_memory_regions(fd);
-+	igt_assert(regions);
-+	igt_assert(regions->num_regions);
-+
-+	for (i = 0; i < regions->num_regions; i++) {
-+		struct drm_i915_memory_region_info qmr = regions->regions[i];
-+		struct drm_i915_gem_memory_class_instance ci = qmr.region;
-+		uint64_t size, visible_size, lmem_size;
-+		uint32_t handle;
-+		uint32_t *ptr;
-+
-+		if (ci.memory_class == I915_MEMORY_CLASS_SYSTEM)
-+			continue;
-+
-+		lmem_size = qmr.probed_size;
-+		visible_size = get_visible_size(fd, ci.memory_instance);
-+		if (!visible_size)
-+			continue;
-+
-+		if (visible_size <= (0.70 * lmem_size)) {
-+			/*
-+			 * Too big. We should still be able to allocate it just
-+			 * fine, but faulting should result in tears.
-+			 */
-+			size = visible_size;
-+			igt_assert_eq(alloc_lmem(fd, &handle, ci, size, false, true), 0);
-+			ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+						     PROT_READ | PROT_WRITE);
-+			trap_sigbus(ptr);
-+			gem_close(fd, handle);
-+
-+			/*
-+			 * Too big again, but this time we can spill to system
-+			 * memory when faulting the object.
-+			 */
-+			size = visible_size;
-+			igt_assert_eq(alloc_lmem(fd, &handle, ci, size, true, true), 0);
-+			ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+						     PROT_READ | PROT_WRITE);
-+			ptr[0] = 0xdeadbeaf;
-+			gem_close(fd, handle);
-+
-+			/*
-+			 * Let's also move the upload to after faulting the
-+			 * pages. The current behaviour is that the pages are
-+			 * only allocated in device memory when initially
-+			 * touched by the GPU. With this in mind we should also
-+			 * make sure that the pages are indeed migrated, as
-+			 * expected.
-+			 */
-+			size = visible_size;
-+			igt_assert_eq(alloc_lmem(fd, &handle, ci, size, false, false), 0);
-+			ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+						     PROT_READ | PROT_WRITE);
-+			ptr[0] = 0xdeadbeaf; /* temp system memory */
-+			igt_assert_eq(upload(fd, handle), 0);
-+			trap_sigbus(ptr); /* non-mappable device memory */
-+			gem_close(fd, handle);
-+		}
-+
-+		/*
-+		 * Should fit. We likely need to migrate to the mappable portion
-+		 * on fault though, if this device has a small BAR, given how
-+		 * large the initial allocation is.
-+		 */
-+		size = visible_size >> 1;
-+		igt_assert_eq(alloc_lmem(fd, &handle, ci, size, false, true), 0);
-+		ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+					     PROT_READ | PROT_WRITE);
-+		ptr[0] = 0xdeadbeaf;
-+		gem_close(fd, handle);
-+
-+		/*
-+		 * And then with the CPU_ACCESS flag enabled; should also be no
-+		 * surprises here.
-+		 */
-+		igt_assert_eq(alloc_lmem(fd, &handle, ci, size, true, true), 0);
-+		ptr = gem_mmap_offset__fixed(fd, handle, 0, size,
-+					     PROT_READ | PROT_WRITE);
-+		ptr[0] = 0xdeadbeaf;
-+		gem_close(fd, handle);
-+	}
-+
-+	free(regions);
-+}
-+
- igt_main
- {
- 	int fd = -1;
-@@ -516,4 +839,15 @@ igt_main
- 	igt_subtest("create-ext-placement-all")
- 		create_ext_placement_all(fd);
- 
-+	igt_describe("Verify the basic functionally and expected ABI contract around I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS");
-+	igt_subtest("create-ext-cpu-access-sanity-check") {
-+		igt_require(supports_needs_cpu_access(fd));
-+		create_ext_cpu_access_sanity_check(fd);
-+	}
-+
-+	igt_describe("Verify the extreme cases with very large objects and I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS");
-+	igt_subtest("create-ext-cpu-access-big") {
-+		igt_require(supports_needs_cpu_access(fd));
-+		create_ext_cpu_access_big(fd);
-+	}
- }
--- 
-2.34.1
+  drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+  drivers/gpu/drm/i915/i915_drv.h
+  drivers/gpu/drm/i915/i915_reg.h
+  drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
 
+between commits:
+
+  b508d01fa577e ("drm/i915: split out i915_gem_internal.h from i915_drv.h")
+  29b9702ffe70d ("drm/i915/ttm: Return some errors instead of trying memcpy move")
+  9a8e720fd0641 ("drm/i915: split out gem/i915_gem_domain.h from i915_drv.h")
+  b508d01fa577e ("drm/i915: split out i915_gem_internal.h from i915_drv.h")
+
+from the drm-intel tree and commits:
+
+  3526b607b0239 ("drm/i915/ttm: Return some errors instead of trying memcpy move")
+  a413c99fc1e49 ("drm/i915: add gtt misalignment test")
+  b508d01fa577e ("drm/i915: split out i915_gem_internal.h from i915_drv.h")
+
+from the drm-intel-gt tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/i915/i915_drv.h
+index ffde71b6b3f1f,6ffadf4b3f1ab..0000000000000
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@@ -1089,10 -1284,10 +1087,12 @@@ IS_SUBPLATFORM(const struct drm_i915_pr
+  	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G10)
+  #define IS_DG2_G11(dev_priv) \
+  	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G11)
++ #define IS_DG2_G12(dev_priv) \
++ 	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G12)
+  #define IS_ADLS_RPLS(dev_priv) \
+  	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_S, INTEL_SUBPLATFORM_RPL_S)
+ +#define IS_ADLP_N(dev_priv) \
+ +	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_N)
+  #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
+  				    (INTEL_DEVID(dev_priv) & 0xFF00) == 0x0C00)
+  #define IS_BDW_ULT(dev_priv) \
+diff --cc drivers/gpu/drm/i915/i915_reg.h
+index 8e1b469a4cd1b,4b95c94084d98..0000000000000
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+diff --cc drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 1b508c89468c1,ca4ed9dd909b8..0000000000000
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@@ -26,7 -26,7 +26,8 @@@
+  #include <linux/prime_numbers.h>
+  
+  #include "gem/i915_gem_context.h"
+ +#include "gem/i915_gem_internal.h"
++ #include "gem/i915_gem_region.h"
+  #include "gem/selftests/mock_context.h"
+  #include "gt/intel_context.h"
+  #include "gt/intel_gpu_commands.h"
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.h b/drivers/gpu/drm/i915/i915_gem_evict.h
+index d4478b6ad11bb..b7f8e9435b2c6 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.h
++++ b/drivers/gpu/drm/i915/i915_gem_evict.h
+@@ -12,13 +12,16 @@ struct drm_mm_node;
+ struct i915_address_space;
+ 
+ int __must_check i915_gem_evict_something(struct i915_address_space *vm,
++					  struct i915_gem_ww_ctx *ww,
+ 					  u64 min_size, u64 alignment,
+ 					  unsigned long color,
+ 					  u64 start, u64 end,
+ 					  unsigned flags);
+ int __must_check i915_gem_evict_for_node(struct i915_address_space *vm,
++					 struct i915_gem_ww_ctx *ww,
+ 					 struct drm_mm_node *node,
+ 					 unsigned int flags);
+-int i915_gem_evict_vm(struct i915_address_space *vm);
++int i915_gem_evict_vm(struct i915_address_space *vm,
++		      struct i915_gem_ww_ctx *ww);
+ 
+ #endif /* __I915_GEM_EVICT_H__ */
