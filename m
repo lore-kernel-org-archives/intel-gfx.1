@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD82DC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 16:51:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E6AC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 16:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB3110E892;
-	Tue, 22 Feb 2022 16:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC2B210E8C6;
+	Tue, 22 Feb 2022 16:51:48 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D9A10E893
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 16:51:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB90510E892
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 16:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645548702; x=1677084702;
+ t=1645548704; x=1677084704;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+qXgp+trh6uKXI4QukxG53A35pQ5zaqHoCZ8Pv3Nel4=;
- b=XypNSgRWfNJTOCJNMgXXC0SMJ7LbiQymVKJanbChhKce4qWdP/5teAhT
- dtIkvIroEztbprxHh1DgH5zlFGiVU2o82W9UeKgErpF8SMiZeTgWx/sOU
- KbbDxtJikiFwnpRRS92vyCVrBA/zaSnYdmeVx59+M56ARe35mJbm+pyjd
- xtUHGA+hko1gThAZ3j56k2g/8MTB91ILjD0RF0kVZf9UiIMKIR7hZ/IaK
- Z2KswGeqAOH1+2P+7lLs/uJHXGIXk27bN49tA1oO16RIRHS/Q0OXbtndh
- ANzhmppvZwKF8NEe3RzhzY5CqxEgbqSPdXIlH9Qg1RjGAfx2en3niucd/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10266"; a="314985504"
-X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="314985504"
+ bh=Wkml+Dyf0LjA8KFOXb/WFBh1OAq+KbfMlEi4hOTjl08=;
+ b=NK0bk5UrqiCPPo+T8I+aq+kLpA6ZBjPu6PtjgErv3VlbaqnhuOBGijkQ
+ Ho8i2IFaA+Y0PHqs8DmpWzEbkwKZisket5DUiN4nR5LjIu90C5xQri7gG
+ 79B/a8IKmYSraxr3WfHdlndFR6ZAFUqH9odexlbNT/FFSh/eHtO+5ChXx
+ 2e5tRfttOdfGXrJba1Rn/Kxn0TlW9ivSjWV2qWGmq/gxE6jE3SPsUS7Wz
+ 8qeDPEddS+czpsChN7uO2lYSDNjUUtGQhLss5EjhveSPJ4KYR8M59R32o
+ 1bWYWe/hnOMkcBkWvF3U1xyI7AaQqkBlnaZjyUVytOD/l0WfAXvw0NKgi g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10266"; a="314985513"
+X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="314985513"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2022 08:51:42 -0800
-X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="547828244"
+ 22 Feb 2022 08:51:44 -0800
+X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="547828266"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2022 08:51:40 -0800
+ 22 Feb 2022 08:51:43 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Feb 2022 18:51:30 +0200
-Message-Id: <20220222165137.1004194-2-imre.deak@intel.com>
+Date: Tue, 22 Feb 2022 18:51:32 +0200
+Message-Id: <20220222165137.1004194-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20220222165137.1004194-1-imre.deak@intel.com>
 References: <20220222165137.1004194-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915: Fix the VDSC_PW2 power domain
- enum value
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Remove redundant state
+ verification during TypeC AUX power well disabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +60,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The POWER_DOMAIN_TRANSCODER() macro depends on the
-POWER_DOMAIN_TRANSCODER_A/B .. DSI_A/C enum values to be consecutive,
-move POWER_DOMAIN_TRANSCODER_VDSC_PW2 after these to ensure this. The
-wrong order didn't cause a problem, since the DSI_A/C domains are in
-always-on power wells on all relevant platforms. The same power well
-ends up being enabled/disabled when the VDSC_PW2 domain is selected
-incorrectly.
+Commit d5ce34da31456a
+("drm/i915: Add state verification for the TypeC port mode")
+added a verification to the TypeC AUX power well enable()/disable()
+hooks to check if the TypeC port related to this power well is properly
+locked. If the disabling happens asynchronously the verification is
+skipped, since in this case the port is unlocked. The detection of
+asnychronous disabling doesn't work as intended though, since the power
+well's reference count is always 0 when its disable() hook is called
+(and since there won't be any domain reference held for this power well
+either, the verification is always skipped); remove the verification
+from the disable() hook for now. In the power well's enable() hook the
+power well's reference will be always >0 and there won't be any
+asynchronous disabling pending for it, so we can drop the async refcount
+check from there.
 
-While at it add a code comment about enum values that need to stay
-consecutive.
+No functional change.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.c |  4 ++--
- drivers/gpu/drm/i915/display/intel_display_power.h | 11 +++++++++--
- 2 files changed, 11 insertions(+), 4 deletions(-)
+ .../drm/i915/display/intel_display_power.c    | 32 +------------------
+ 1 file changed, 1 insertion(+), 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 9ebae7ac32356..4ca0e61ca5932 100644
+index bf3619ae9dad2..857dd9ddba35f 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_power.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -153,12 +153,12 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
- 		return "TRANSCODER_D";
- 	case POWER_DOMAIN_TRANSCODER_EDP:
- 		return "TRANSCODER_EDP";
--	case POWER_DOMAIN_TRANSCODER_VDSC_PW2:
--		return "TRANSCODER_VDSC_PW2";
- 	case POWER_DOMAIN_TRANSCODER_DSI_A:
- 		return "TRANSCODER_DSI_A";
- 	case POWER_DOMAIN_TRANSCODER_DSI_C:
- 		return "TRANSCODER_DSI_C";
-+	case POWER_DOMAIN_TRANSCODER_VDSC_PW2:
-+		return "TRANSCODER_VDSC_PW2";
- 	case POWER_DOMAIN_PORT_DDI_A_LANES:
- 		return "PORT_DDI_A_LANES";
- 	case POWER_DOMAIN_PORT_DDI_B_LANES:
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index f6d0e6e73c6d9..f28aa4b500c42 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -14,6 +14,11 @@ struct drm_i915_private;
- struct i915_power_well;
- struct intel_encoder;
+@@ -636,28 +636,10 @@ icl_combo_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
  
-+/*
-+ * Keep the pipe, transcoder, port (DDI_LANES,DDI_IO,AUX) domain instances
-+ * consecutive, so that the pipe,transcoder,port -> power domain macros
-+ * work correctly.
-+ */
- enum intel_display_power_domain {
- 	POWER_DOMAIN_DISPLAY_CORE,
- 	POWER_DOMAIN_PIPE_A,
-@@ -29,10 +34,12 @@ enum intel_display_power_domain {
- 	POWER_DOMAIN_TRANSCODER_C,
- 	POWER_DOMAIN_TRANSCODER_D,
- 	POWER_DOMAIN_TRANSCODER_EDP,
--	/* VDSC/joining for eDP/DSI transcoder (ICL) or pipe A (TGL) */
--	POWER_DOMAIN_TRANSCODER_VDSC_PW2,
- 	POWER_DOMAIN_TRANSCODER_DSI_A,
- 	POWER_DOMAIN_TRANSCODER_DSI_C,
-+
-+	/* VDSC/joining for eDP/DSI transcoder (ICL) or pipe A (TGL) */
-+	POWER_DOMAIN_TRANSCODER_VDSC_PW2,
-+
- 	POWER_DOMAIN_PORT_DDI_A_LANES,
- 	POWER_DOMAIN_PORT_DDI_B_LANES,
- 	POWER_DOMAIN_PORT_DDI_C_LANES,
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
+ 
+-static u64 async_put_domains_mask(struct i915_power_domains *power_domains);
+-
+-static int power_well_async_ref_count(struct drm_i915_private *dev_priv,
+-				      struct i915_power_well *power_well)
+-{
+-	int refs = hweight64(power_well->desc->domains &
+-			     async_put_domains_mask(&dev_priv->power_domains));
+-
+-	drm_WARN_ON(&dev_priv->drm, refs > power_well->count);
+-
+-	return refs;
+-}
+-
+ static void icl_tc_port_assert_ref_held(struct drm_i915_private *dev_priv,
+ 					struct i915_power_well *power_well,
+ 					struct intel_digital_port *dig_port)
+ {
+-	/* Bypass the check if all references are released asynchronously */
+-	if (power_well_async_ref_count(dev_priv, power_well) ==
+-	    power_well->count)
+-		return;
+-
+ 	if (drm_WARN_ON(&dev_priv->drm, !dig_port))
+ 		return;
+ 
+@@ -748,18 +730,6 @@ icl_tc_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
+ 	}
+ }
+ 
+-static void
+-icl_tc_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
+-				  struct i915_power_well *power_well)
+-{
+-	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
+-	struct intel_digital_port *dig_port = aux_ch_to_digital_port(dev_priv, aux_ch);
+-
+-	icl_tc_port_assert_ref_held(dev_priv, power_well, dig_port);
+-
+-	hsw_power_well_disable(dev_priv, power_well);
+-}
+-
+ static void
+ icl_aux_power_well_enable(struct drm_i915_private *dev_priv,
+ 			  struct i915_power_well *power_well)
+@@ -782,7 +752,7 @@ icl_aux_power_well_disable(struct drm_i915_private *dev_priv,
+ 	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
+ 
+ 	if (intel_phy_is_tc(dev_priv, phy))
+-		return icl_tc_phy_aux_power_well_disable(dev_priv, power_well);
++		return hsw_power_well_disable(dev_priv, power_well);
+ 	else if (IS_ICELAKE(dev_priv))
+ 		return icl_combo_phy_aux_power_well_disable(dev_priv,
+ 							    power_well);
 -- 
 2.27.0
 
