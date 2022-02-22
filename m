@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D933C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 10:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD04C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 10:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C5210E499;
-	Tue, 22 Feb 2022 10:36:49 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F37910E327;
- Tue, 22 Feb 2022 10:36:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D360910E57F;
+	Tue, 22 Feb 2022 10:36:51 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28FD410E5B6;
+ Tue, 22 Feb 2022 10:36:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645526208; x=1677062208;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=t3AbhkaHxbIquCxqcd1JJ8L0E8adc/0A/h5MQhHN/Z0=;
- b=NCD0WK0IiqjW/QW3q92ZwUIKVP2J9fXuIxnlkfupcJGoQGm5DVk0BCQF
- mn66FkB/br35jdeKSdUmvKm7eWCHISwPXGd2KYoaML54vKJiE1IFDyN24
- nt4fTC/jw76BidaQyv/7oA3D1hOS7biuluXfCwbMrQFQ0vRKxwyTzcVaC
- UhCEUlbSfa5weFphwnYhVVzA/LY8IDd6ewGQWo0etywijylnA80ROzOza
- oEdMZ8294VtCcvTKeGRbdCTPR4NH/cMrM1tDOgxYdN0nrY61bioLNJhFt
- bSGpFQcGOHIjVQ6TLnIkw5s94uqgHBZ5J6qigRJb7NvucOfCHZHrsBK5w A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10265"; a="251851794"
-X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="251851794"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2022 02:36:47 -0800
-X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="573387915"
+ t=1645526210; x=1677062210;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=OUbSlsflnQ6qLFjMTlTBVFjV37kRTSsxR3Djg6ZqRFM=;
+ b=m1GSdXrWl6wuKvBMG57SeSP+iDWHI1DICMwn2oiUcDlOhjKOfjGv5KuQ
+ 8FOBHJq8PPlVCHfmj3uI73ang3Q/VMteOwYqGJfqZWPjLO2trJYVQ9+3c
+ W8E9OaX0Wj4W0XCG4fjo3hhsc4PGxGhXjZ0RECxUCtLFAK55ycGkbkc3v
+ k2DdvTVrNRqk3nkNBi2AvmmLXKXho8Pha2ZuTlkxZpis4elBzdVH0ncjS
+ geIX35gOaNfc/AdCoqWnK1KtRdLUnMMGYy2i7aG4z0R0QTGnyPM+OD797
+ qGuKOCgs6/zftH/ylsHDON30EBAudtQSboaVz/8lIviqrdJ3LeDz6pzaZ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10265"; a="314921380"
+X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="314921380"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2022 02:36:49 -0800
+X-IronPort-AV: E=Sophos;i="5.88,387,1635231600"; d="scan'208";a="606647335"
 Received: from eelele-mobl1.amr.corp.intel.com (HELO localhost)
  ([10.212.245.101])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2022 02:36:47 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2022 02:36:49 -0800
 From: Jordan Justen <jordan.l.justen@intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Tue, 22 Feb 2022 02:36:36 -0800
-Message-Id: <20220222103640.1006006-1-jordan.l.justen@intel.com>
+Date: Tue, 22 Feb 2022 02:36:38 -0800
+Message-Id: <20220222103640.1006006-3-jordan.l.justen@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220222103640.1006006-1-jordan.l.justen@intel.com>
+References: <20220222103640.1006006-1-jordan.l.justen@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 0/4] GuC HWCONFIG with documentation
+Subject: [Intel-gfx] [PATCH v5 2/4] drm/i915/uapi: Add query for hwconfig
+ blob
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +57,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Slawomir Milczarek <slawomir.milczarek@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is John/Rodrigo's 2 patches with some minor changes, and I added
-2 patches.
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-"drm/i915/uapi: Add query for hwconfig blob" was changed:
+The DRM_I915_QUERY_HWCONFIG_BLOB query item returns a blob of data
+which it receives from the GuC software. This blob provides some
+useful data about the hardware for drivers.
 
- * Rename DRM_I915_QUERY_HWCONFIG_TABLE to DRM_I915_QUERY_HWCONFIG_BLOB
-   as requested by Joonas.
+Although the blob is not fully documented at this time, the basic
+format is an array of u32 values. The array is a simple and flexible
+KLV (Key/Length/Value) formatted table. For example, it could be just:
+enum device_attr { ATTR_SOME_VALUE = 0, ATTR_SOME_MASK = 1, };
 
- * Reword commit message
+  static const u32 hwconfig[] = {
+      ATTR_SOME_VALUE,
+      1,             // Value Length in DWords
+      8,             // Value
 
- * I added Acked-by to this patch, but this only applies in the
-   context of this version of the patchset. If my changes are
-   rejected, then please *do not* add my Acked-by to the other series.
+      ATTR_SOME_MASK,
+      3,
+      0x00FFFFFFFF, 0xFFFFFFFF, 0xFF000000,
+  };
 
-   In particular, I do not want my Acked-by on the patch if the patch
-   mentions the HWCONFIG format, but is not willing to add that to the
-   actual uAPI.
+The attribute ids and meaning of the values will be documented in the
+Programmer Reference Manuals when released.
 
-   I also do not want my Acked-by on it if it mentions "consolidation"
-   of this data. Since we are dealing with open source projects (aside
-   from GuC), this doesn't seem appropriate.
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Acked-by: Jordan Justen <jordan.l.justen@intel.com>
+Tested-by: Jordan Justen <jordan.l.justen@intel.com>
+Acked-by: Jon Bloomfield <jon.bloomfield@intel.com>
+---
+ drivers/gpu/drm/i915/i915_query.c | 23 +++++++++++++++++++++++
+ include/uapi/drm/i915_drm.h       |  1 +
+ 2 files changed, 24 insertions(+)
 
-"drm/i915/uapi: Add struct drm_i915_query_hwconfig_blob_item" adds a
-struct to the uAPI and documents the return value for
-DRM_I915_QUERY_HWCONFIG_BLOB. (Except, keys / values are still
-deferred to the PRM.)
-
-"drm/i915/guc: Verify hwconfig blob matches supported format" does the
-simple verification of the blob to make sure it matches what the uAPI
-documents.
-
-v2:
- * Fix -Werror errors.
- * Rebase to drm-intel/for-linux-next instead of
-   drm-intel/for-linux-next-gt, as this seems to be what CI wants.
- * Fix u32 -> __u32.
- * Add commit message for "Verify hwconfig blob" patch as requested by
-   Tvrtko.
- * Reword text added to i915_drm.h as requested by Tvrtko. (Attempting
-   to indicate the overall blob ends right at the last blob item.)
-
-v3:
- * Add several changes suggested by Tvrtko in the "Verify hwconfig
-   blob", along with some tweaks to i915_drm.h from the feedback for
-   the same patch.
-
-v4:
- * Rewrite verify_hwconfig_blob() to hopefully be clearer without
-   relying on comments so much, and add various suggestions from
-   Michal.
- * Michal also had some suggestions in John's "drm/i915/guc: Add fetch
-   of hwconfig table" patch. I held off on making any of these changes
-   in this version.
-
-v5:
- * Add many changes suggested by Michal in John's "drm/i915/guc: Add
-   fetch of hwconfig table" patch.
- * Fix documenation formatting as suggested by Daniel in
-   "drm/i915/uapi: Add struct drm_i915_query_hwconfig_blob_item"
-
-John Harrison (1):
-  drm/i915/guc: Add fetch of hwconfig table
-
-Jordan Justen (2):
-  drm/i915/uapi: Add struct drm_i915_query_hwconfig_blob_item
-  drm/i915/guc: Verify hwconfig blob matches supported format
-
-Rodrigo Vivi (1):
-  drm/i915/uapi: Add query for hwconfig blob
-
- drivers/gpu/drm/i915/Makefile                 |   1 +
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   1 +
- .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   |   4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   3 +
- .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.c   | 187 ++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.h   |  19 ++
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   7 +
- drivers/gpu/drm/i915/i915_pci.c               |   1 +
- drivers/gpu/drm/i915/i915_query.c             |  23 +++
- drivers/gpu/drm/i915/intel_device_info.h      |   1 +
- include/uapi/drm/i915_drm.h                   |  44 +++++
- 11 files changed, 291 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.h
-
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index 2dfbc22857a3..195524e9a369 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -479,12 +479,35 @@ static int query_memregion_info(struct drm_i915_private *i915,
+ 	return total_length;
+ }
+ 
++static int query_hwconfig_blob(struct drm_i915_private *i915,
++			       struct drm_i915_query_item *query_item)
++{
++	struct intel_gt *gt = to_gt(i915);
++	struct intel_guc_hwconfig *hwconfig = &gt->uc.guc.hwconfig;
++
++	if (!hwconfig->size || !hwconfig->ptr)
++		return -ENODEV;
++
++	if (query_item->length == 0)
++		return hwconfig->size;
++
++	if (query_item->length < hwconfig->size)
++		return -EINVAL;
++
++	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr),
++			 hwconfig->ptr, hwconfig->size))
++		return -EFAULT;
++
++	return hwconfig->size;
++}
++
+ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+ 					struct drm_i915_query_item *query_item) = {
+ 	query_topology_info,
+ 	query_engine_info,
+ 	query_perf_config,
+ 	query_memregion_info,
++	query_hwconfig_blob,
+ };
+ 
+ int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 914ebd9290e5..069d2fadfbd9 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2685,6 +2685,7 @@ struct drm_i915_query_item {
+ #define DRM_I915_QUERY_ENGINE_INFO	2
+ #define DRM_I915_QUERY_PERF_CONFIG      3
+ #define DRM_I915_QUERY_MEMORY_REGIONS   4
++#define DRM_I915_QUERY_HWCONFIG_BLOB	5
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	/**
 -- 
 2.34.1
 
