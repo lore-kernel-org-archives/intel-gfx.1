@@ -4,44 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C16BEC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 01:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3766C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 01:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08FF510E525;
-	Tue, 22 Feb 2022 01:35:04 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D890F10E525
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 01:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645493702; x=1677029702;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=4PgDrBRY2YcawppbntjO6mOuyY4hpDjKmYaZ8svBETU=;
- b=dsxsK3xDmNR12qDP8brFLvqJOzNgIw1Fi0gWiDPWYkIICoC1pUSyWkM6
- 1CvXKw6Z/pl5z/v7v1trLHNTN2XEQNK2A9yzx6kMI7cf0oir3QjemuOyD
- iVijxKB+qbDtJPpHSAws0BoFba2mpFqCccnkfTYMcOfvOhKpGL8Ho8yoD
- 5D75wV1+cNDP7ZIk19Rvwn5I2mbiSaFdItDwhO7KpGIDKdwLzlg9zOnpP
- fkyRCit4dU2rFZJnvj/XFHiVdpS62ZfFNJnW8nsM5gGXR6mSqCmtdC5c/
- DNvf2EhbFboibvGdM2DlF3jc+VSXHtA3tKmnxUt4miGz6+xX4sJVxltPU Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10265"; a="312335998"
-X-IronPort-AV: E=Sophos;i="5.88,386,1635231600"; d="scan'208";a="312335998"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2022 17:35:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,386,1635231600"; d="scan'208";a="505363677"
-Received: from cliu38-mobl3.sh.intel.com ([10.239.147.47])
- by orsmga002.jf.intel.com with ESMTP; 21 Feb 2022 17:35:00 -0800
-From: Chuansheng Liu <chuansheng.liu@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Feb 2022 09:22:15 +0800
-Message-Id: <20220222012215.9545-1-chuansheng.liu@intel.com>
-X-Mailer: git-send-email 2.25.0.rc2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3502710E32D;
+	Tue, 22 Feb 2022 01:46:09 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCB1E10E32D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 01:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1645494366;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=96JzHwNa1B2QXjUWnZ374iz4+U14qI3CRmOmAH0GIUs=;
+ b=fwuCgpMQ26Il8odr942/AQhazAi/LOUGoF4MzVMs6NTmlg3wCF5RXqnsVwK7YKyLe866b9
+ BoWpayl3pVydmIaViGaR2QFrRZA0TIfXHB45KnNC1p5+nTbpqf3fWv/yJw4wRQ3acbU7OW
+ 3RmTPXNbN+Lzkr+fJXbKnCca41FkhuQ=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-454-A3TMIR7zP1-fgoF3xzHrdA-1; Mon, 21 Feb 2022 20:46:01 -0500
+X-MC-Unique: A3TMIR7zP1-fgoF3xzHrdA-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ q5-20020a05620a0d8500b004738c1b48beso16131248qkl.7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 17:46:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=96JzHwNa1B2QXjUWnZ374iz4+U14qI3CRmOmAH0GIUs=;
+ b=brZI4TM3Ox2xS1L0AKWwy0a0pBwENgMkXOaNKFWEOx09XsZqWy7yoYH0sA9/zK8P2O
+ zP60ELOeI+GJHorA3E++5SbgDWlSwu1hQE4WkM1GT1MTcMZe8BHgIwC7c24EELHdGpzs
+ dJwYwLHUa6qAO38/Uqgajr4FmbP6vUOfAxrGy+mvOOblk5+mukEfqH53h+yL1UebpBQQ
+ fXvK5MWoVxjQTMYVLyURScCV4HGL2V8Q3vXmvN8SoYG6NEc+AofeWp6J8TGCOyb88l/j
+ g4j1DBtohQ1lJdcKvohG7yr0vDUqEOx7s94DvERLYz4vyU7sOWPohksAsTsmI47dBvb6
+ wzqw==
+X-Gm-Message-State: AOAM532b5IuSlzSO5H1bTuroSg6DAvZVK101Bo9X22cKO5T80Y6exnfD
+ Uaa/1ShyWgR0ew+d0DVFZO46PC2uLVMosa5X7uzh4WaXCrszl/ahv0qAE26DXsGrtfT6MaFt972
+ fqrcLeaIRbL9lHJsDWD0WRDJgfItw
+X-Received: by 2002:a0c:bec2:0:b0:42d:7a97:7c50 with SMTP id
+ f2-20020a0cbec2000000b0042d7a977c50mr17596028qvj.64.1645494360783; 
+ Mon, 21 Feb 2022 17:46:00 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyRyX/nST1Psi3yWzhSr7BZIQG7ecyOcllTfLzjLqbPHMXIvAV7C+vXZhS0bg1zhOmNbnqosg==
+X-Received: by 2002:a0c:bec2:0:b0:42d:7a97:7c50 with SMTP id
+ f2-20020a0cbec2000000b0042d7a977c50mr17596017qvj.64.1645494360574; 
+ Mon, 21 Feb 2022 17:46:00 -0800 (PST)
+Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
+ [96.230.100.15])
+ by smtp.gmail.com with ESMTPSA id j128sm6512810qkd.61.2022.02.21.17.45.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Feb 2022 17:46:00 -0800 (PST)
+Message-ID: <e93170406e5ea46e95f44d4e33f0c86a78c0623a.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Date: Mon, 21 Feb 2022 20:45:58 -0500
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.3 (3.42.3-1.fc35)
 MIME-Version: 1.0
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: fix one mem leak in
- mmap_offset_attach()
+Subject: [Intel-gfx] 2022 X.Org Board of Directors Elections Nomination
+ period is NOW
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,64 +91,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The below memory leak information is caught:
+We are seeking nominations for candidates for election to the X.Org Foundation
+Board of Directors. All X.Org Foundation members are eligible for election to
+the board.
 
----
-unreferenced object 0xffff997dd4e3b240 (size 64):
-  comm "gem_tiled_fence", pid 10332, jiffies 4294959326 (age
-220778.420s)
-  hex dump (first 32 bytes):
-    01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 be f2 d4 7d 99 ff ff  ............}...
-  backtrace:
-    [<ffffffffa0f04365>] kmem_cache_alloc_trace+0x2e5/0x450
-    [<ffffffffc062f3ac>] drm_vma_node_allow+0x2c/0xe0 [drm]
-    [<ffffffffc13149ea>] __assign_mmap_offset_handle+0x1da/0x4a0 [i915]
-    [<ffffffffc1315235>] i915_gem_mmap_offset_ioctl+0x55/0xb0 [i915]
-    [<ffffffffc06207e4>] drm_ioctl_kernel+0xb4/0x140 [drm]
-    [<ffffffffc0620ac7>] drm_ioctl+0x257/0x410 [drm]
-    [<ffffffffa0f553ae>] __x64_sys_ioctl+0x8e/0xc0
-    [<ffffffffa1821128>] do_syscall_64+0x38/0xc0
-[<ffffffffa1a0007c>] entry_SYSCALL_64_after_hwframe+0x44/0xae
----
+Nominations for the 2022 election are now open and will remain open until
+23:59 UTC on 06 March 2022.
 
-The issue is always reproduced with the test:
-gem_tiled_fence_blits --run-subtest basic
+The Board consists of directors elected from the membership. Each year, an
+election is held to bring the total number of directors to eight. The four
+members receiving the highest vote totals will serve as directors for two year
+terms.
 
-It tries to mmap_gtt the same object several times, it is like:
-create BO
-mmap_gtt BO
-unmap BO
-mmap_gtt BO <== second time mmap_gtt
-unmap
+The directors who received two year terms starting in 2021 were Lyude Paul,
+Samuel Iglesias Gonsálvez, Manasi D Navare and Daniel Vetter. They will
+continue to serve until their term ends in 2023. Current directors whose term
+expires in 2022 are Emma Anholt, Keith Packard, Harry Wentland and Mark
+Filion.
 
-The leak happens at the second time mmap_gtt in function mmap_offset_attach(),
-it will simply increase the reference count to 2 by calling drm_vma_node_allow()
-directly since the mmo has been created at the first time.
-However the driver just revokes the vma_node one time when closing the object,
-it leads to memory leak easily.
+A director is expected to participate in the fortnightly IRC meeting to
+discuss current business and to attend the annual meeting of the X.Org
+Foundation, which will be held at a location determined in advance by the
+Board of Directors.
 
-This patch is to fix the memory leak by calling drm_vma_node_allow() one
-time also.
+A member may nominate themselves or any other member they feel is qualified.
+Nominations should be sent to the Election Committee at elections at x.org.
 
-Signed-off-by: Chuansheng Liu <chuansheng.liu@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Nominees shall be required to be current members of the X.Org Foundation, and
+submit a personal statement of up to 200 words that will be provided to
+prospective voters. The collected statements, along with the statement of
+contribution to the X.Org Foundation in the member's account page on
+http://members.x.org, will be made available to all voters to help them make
+their voting decisions.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index efe69d6b86f4..aa2d770d4280 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -680,7 +680,7 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
- 	mmo = insert_mmo(obj, mmo);
- 	GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
- out:
--	if (file)
-+	if (!drm_vma_node_is_allowed(&mmo->vma_node, file))
- 		drm_vma_node_allow(&mmo->vma_node, file);
- 	return mmo;
- 
--- 
-2.25.0.rc2
+Nominations, membership applications or renewals and completed personal
+statements must be received no later than 23:59 UTC on 6th March 2022.
+
+The slate of candidates will be published 14 March 2022 and candidate Q&A will
+begin then. The deadline for Xorg membership applications and renewals is 17
+March 2022.
+
+Cheers, Lyude Paul, on behalf of the X.Org BoD
+
 
