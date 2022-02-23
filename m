@@ -4,50 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4545C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 03:48:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0E4C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 04:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 760B310E248;
-	Wed, 23 Feb 2022 03:48:24 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F42F10E248
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 03:48:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645588103; x=1677124103;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=6xr0XZlc7cVi+Cf2sOsm8PRMmN1LtsKCDQJ6VuRav68=;
- b=FZR5+M2i4MC4kY/HrGWfMLEdKBnU17I9IdVgKlVZhWU1YNC/xgaa+hfI
- /3yU9lhkJnhpyd0NJAzg1pENPajwQDL2aEKKZ0ysEtPHtEqKc12k0BUyB
- KxTRm0UIyb7lAfahl2Vvpp4AivHtTw0/SQRHcLXxMJmpbw5hRJJC5pEoB
- dfIC78AS8pdBUdKAMIWTxRKK9yhf2R4d73GuCOfpmOnUONVBiKzH22ACZ
- z45rKyw34ITLCO0g8gyZJGraVodRvVqnzDdtdeTTDjCnqH2TBQ2qFLlz3
- F+LaTCtO9HW6hlnj4a44eQW00wRJENANw6qVx6uGABhCG0bSHX1vIEP3G g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10266"; a="338313121"
-X-IronPort-AV: E=Sophos;i="5.88,390,1635231600"; 
- d="asc'?scan'208";a="338313121"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2022 19:48:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,390,1635231600"; 
- d="asc'?scan'208";a="591554954"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.59])
- by fmsmga008.fm.intel.com with ESMTP; 22 Feb 2022 19:48:21 -0800
-Date: Wed, 23 Feb 2022 11:28:46 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <20220223032846.GE1100@zhen-hp.sh.intel.com>
-References: <20220222141424.35165-1-jose.souza@intel.com>
- <6c43bb44-e38b-572e-0f8b-2559a7f0514f@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5D410E228;
+	Wed, 23 Feb 2022 04:12:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5811710E228;
+ Wed, 23 Feb 2022 04:12:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 51DA6A73C7;
+ Wed, 23 Feb 2022 04:12:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2888711471778413540=="
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="AzNpbZlgThVzWita"
-Content-Disposition: inline
-In-Reply-To: <6c43bb44-e38b-572e-0f8b-2559a7f0514f@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/tgl: Simply subplatform
- detection
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Anusha Srivatsa" <anusha.srivatsa@intel.com>
+Date: Wed, 23 Feb 2022 04:12:38 -0000
+Message-ID: <164558955829.25286.10752701059350784049@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220222181937.592346-1-anusha.srivatsa@intel.com>
+In-Reply-To: <20220222181937.592346-1-anusha.srivatsa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/dg1=3A_Remove_require=5Fforce=5Fprobe_protection?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,215 +40,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Fred Gao <fred.gao@intel.com>, intel-gfx@lists.freedesktop.org, "He,
- Yu" <yu.he@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============2888711471778413540==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---AzNpbZlgThVzWita
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+== Series Details ==
 
-On 2022.02.22 14:21:33 +0000, Tvrtko Ursulin wrote:
->=20
-> On 22/02/2022 14:14, Jos?? Roberto de Souza wrote:
-> > In the past we had a need to differentiate TGL U and TGL Y, there
-> > was a different voltage swing table for each subplatform and some PCI
-> > ids of this subplatforms are shared but it turned out that it was a
-> > specification mistake and the voltage swing table was indeed the same
-> > but we went ahead with that patch because we needed to differentiate
-> > TGL U and Y from TGL H and by that time TGL H was embargoed so that
-> > was the perfect way to land it upstream.
-> >=20
-> > Now the embargo for TGL H is long past and now we even have
-> > INTEL_TGL_12_GT1_IDS with all TGL H ids, so we can drop this PCI root
-> > check and only rely in the PCI ids to differentiate TGL U and Y from
-> > TGL H that actually has code differences.
-> >=20
-> > Besides the simplification this will fix issues in virtualization
-> > environments where the PCI root is virtualized and don't have the same
-> > id as actual hardware.
-> >=20
-> > v2:
-> > - add and set INTEL_SUBPLATFORM_UY
->=20
-> LGTM, thanks for the tweak!
->=20
-> Looks mechanical enough so:
->=20
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->=20
+Series: drm/i915/dg1: Remove require_force_probe protection
+URL   : https://patchwork.freedesktop.org/series/100601/
+State : success
 
-Add Yu, who has been testing this under GPU passthrough case as well,
-which now release our effort for root pci device info passthrough issue.
+== Summary ==
 
-Thanks!
+CI Bug Log - changes from CI_DRM_11268 -> Patchwork_22362
+====================================================
 
->=20
-> > Cc: Fred Gao <fred.gao@intel.com>
-> > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> > Signed-off-by: Jos?? Roberto de Souza <jose.souza@intel.com>
-> > ---
-> >   .../drm/i915/display/intel_ddi_buf_trans.c    |  2 +-
-> >   drivers/gpu/drm/i915/i915_drv.h               | 11 +++-----
-> >   drivers/gpu/drm/i915/i915_reg.h               |  6 -----
-> >   drivers/gpu/drm/i915/intel_device_info.c      | 26 +++++--------------
-> >   drivers/gpu/drm/i915/intel_device_info.h      |  3 +++
-> >   drivers/gpu/drm/i915/intel_step.c             |  2 +-
-> >   6 files changed, 16 insertions(+), 34 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drive=
-rs/gpu/drm/i915/display/intel_ddi_buf_trans.c
-> > index 0c32210bf5031..934a9f9e7dabb 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-> > @@ -1321,7 +1321,7 @@ tgl_get_combo_buf_trans_dp(struct intel_encoder *=
-encoder,
-> >   	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
-> >   	if (crtc_state->port_clock > 270000) {
-> > -		if (IS_TGL_U(dev_priv) || IS_TGL_Y(dev_priv)) {
-> > +		if (IS_TGL_UY(dev_priv)) {
-> >   			return intel_get_buf_trans(&tgl_uy_combo_phy_trans_dp_hbr2,
-> >   						   n_entries);
-> >   		} else {
-> > diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i91=
-5_drv.h
-> > index 1c2f4ae4ebf98..51417e9b740f4 100644
-> > --- a/drivers/gpu/drm/i915/i915_drv.h
-> > +++ b/drivers/gpu/drm/i915/i915_drv.h
-> > @@ -1147,11 +1147,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i9=
-15,
-> >   #define IS_ICL_WITH_PORT_F(dev_priv) \
-> >   	IS_SUBPLATFORM(dev_priv, INTEL_ICELAKE, INTEL_SUBPLATFORM_PORTF)
-> > -#define IS_TGL_U(dev_priv) \
-> > -	IS_SUBPLATFORM(dev_priv, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_ULT)
-> > -
-> > -#define IS_TGL_Y(dev_priv) \
-> > -	IS_SUBPLATFORM(dev_priv, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_ULX)
-> > +#define IS_TGL_UY(dev_priv) \
-> > +	IS_SUBPLATFORM(dev_priv, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_UY)
-> >   #define IS_SKL_GRAPHICS_STEP(p, since, until) (IS_SKYLAKE(p) && IS_GR=
-APHICS_STEP(p, since, until))
-> > @@ -1170,11 +1167,11 @@ IS_SUBPLATFORM(const struct drm_i915_private *i=
-915,
-> >   	 IS_DISPLAY_STEP(__i915, since, until))
-> >   #define IS_TGL_UY_GRAPHICS_STEP(__i915, since, until) \
-> > -	((IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
-> > +	(IS_TGL_UY(__i915) && \
-> >   	 IS_GRAPHICS_STEP(__i915, since, until))
-> >   #define IS_TGL_GRAPHICS_STEP(__i915, since, until) \
-> > -	(IS_TIGERLAKE(__i915) && !(IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
-> > +	(IS_TIGERLAKE(__i915) && !IS_TGL_UY(__i915)) && \
-> >   	 IS_GRAPHICS_STEP(__i915, since, until))
-> >   #define IS_RKL_DISPLAY_STEP(p, since, until) \
-> > diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i91=
-5_reg.h
-> > index 2b8a3086ed35a..30aa1d99f2244 100644
-> > --- a/drivers/gpu/drm/i915/i915_reg.h
-> > +++ b/drivers/gpu/drm/i915/i915_reg.h
-> > @@ -8823,12 +8823,6 @@ enum skl_power_gate {
-> >   #define   DSB_ENABLE			(1 << 31)
-> >   #define   DSB_STATUS			(1 << 0)
-> > -#define TGL_ROOT_DEVICE_ID		0x9A00
-> > -#define TGL_ROOT_DEVICE_MASK		0xFF00
-> > -#define TGL_ROOT_DEVICE_SKU_MASK	0xF
-> > -#define TGL_ROOT_DEVICE_SKU_ULX		0x2
-> > -#define TGL_ROOT_DEVICE_SKU_ULT		0x4
-> > -
-> >   #define CLKREQ_POLICY			_MMIO(0x101038)
-> >   #define  CLKREQ_POLICY_MEM_UP_OVRD	REG_BIT(1)
-> > diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm=
-/i915/intel_device_info.c
-> > index ae13bc3c7970e..d03de76147912 100644
-> > --- a/drivers/gpu/drm/i915/intel_device_info.c
-> > +++ b/drivers/gpu/drm/i915/intel_device_info.c
-> > @@ -170,6 +170,10 @@ static const u16 subplatform_portf_ids[] =3D {
-> >   	INTEL_ICL_PORT_F_IDS(0),
-> >   };
-> > +static const u16 subplatform_uy_ids[] =3D {
-> > +	INTEL_TGL_12_GT2_IDS(0),
-> > +};
-> > +
-> >   static const u16 subplatform_n_ids[] =3D {
-> >   	INTEL_ADLN_IDS(0),
-> >   };
-> > @@ -226,6 +230,9 @@ void intel_device_info_subplatform_init(struct drm_=
-i915_private *i915)
-> >   	} else if (find_devid(devid, subplatform_portf_ids,
-> >   			      ARRAY_SIZE(subplatform_portf_ids))) {
-> >   		mask =3D BIT(INTEL_SUBPLATFORM_PORTF);
-> > +	} else if (find_devid(devid, subplatform_uy_ids,
-> > +			      ARRAY_SIZE(subplatform_uy_ids))) {
-> > +		mask =3D BIT(INTEL_SUBPLATFORM_UY);
-> >   	} else if (find_devid(devid, subplatform_n_ids,
-> >   				ARRAY_SIZE(subplatform_n_ids))) {
-> >   		mask =3D BIT(INTEL_SUBPLATFORM_N);
-> > @@ -243,25 +250,6 @@ void intel_device_info_subplatform_init(struct drm=
-_i915_private *i915)
-> >   		mask =3D BIT(INTEL_SUBPLATFORM_G12);
-> >   	}
-> > -	if (IS_TIGERLAKE(i915)) {
-> > -		struct pci_dev *root, *pdev =3D to_pci_dev(i915->drm.dev);
-> > -
-> > -		root =3D list_first_entry(&pdev->bus->devices, typeof(*root), bus_li=
-st);
-> > -
-> > -		drm_WARN_ON(&i915->drm, mask);
-> > -		drm_WARN_ON(&i915->drm, (root->device & TGL_ROOT_DEVICE_MASK) !=3D
-> > -			    TGL_ROOT_DEVICE_ID);
-> > -
-> > -		switch (root->device & TGL_ROOT_DEVICE_SKU_MASK) {
-> > -		case TGL_ROOT_DEVICE_SKU_ULX:
-> > -			mask =3D BIT(INTEL_SUBPLATFORM_ULX);
-> > -			break;
-> > -		case TGL_ROOT_DEVICE_SKU_ULT:
-> > -			mask =3D BIT(INTEL_SUBPLATFORM_ULT);
-> > -			break;
-> > -		}
-> > -	}
-> > -
-> >   	GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_MASK);
-> >   	RUNTIME_INFO(i915)->platform_mask[pi] |=3D mask;
-> > diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm=
-/i915/intel_device_info.h
-> > index 2508a47fb3f5e..291215d9da282 100644
-> > --- a/drivers/gpu/drm/i915/intel_device_info.h
-> > +++ b/drivers/gpu/drm/i915/intel_device_info.h
-> > @@ -106,6 +106,9 @@ enum intel_platform {
-> >   /* ICL */
-> >   #define INTEL_SUBPLATFORM_PORTF	(0)
-> > +/* TGL */
-> > +#define INTEL_SUBPLATFORM_UY	(0)
-> > +
-> >   /* DG2 */
-> >   #define INTEL_SUBPLATFORM_G10	0
-> >   #define INTEL_SUBPLATFORM_G11	1
-> > diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/i=
-ntel_step.c
-> > index ac1a796b28084..4fd69ecd14811 100644
-> > --- a/drivers/gpu/drm/i915/intel_step.c
-> > +++ b/drivers/gpu/drm/i915/intel_step.c
-> > @@ -165,7 +165,7 @@ void intel_step_init(struct drm_i915_private *i915)
-> >   	} else if (IS_ROCKETLAKE(i915)) {
-> >   		revids =3D rkl_revids;
-> >   		size =3D ARRAY_SIZE(rkl_revids);
-> > -	} else if (IS_TGL_U(i915) || IS_TGL_Y(i915)) {
-> > +	} else if (IS_TGL_UY(i915)) {
-> >   		revids =3D tgl_uy_revids;
-> >   		size =3D ARRAY_SIZE(tgl_uy_revids);
-> >   	} else if (IS_TIGERLAKE(i915)) {
+Summary
+-------
 
---AzNpbZlgThVzWita
-Content-Type: application/pgp-signature; name="signature.asc"
+  **SUCCESS**
 
------BEGIN PGP SIGNATURE-----
+  No regressions found.
 
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYhWp4wAKCRCxBBozTXgY
-J6xAAJ9Hen7IFj1PGEkOB7H6BLpp93qYZACgl4vfYUZce6lTSgWvekNcjrLarMs=
-=sBW/
------END PGP SIGNATURE-----
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/index.html
 
---AzNpbZlgThVzWita--
+Participating hosts (20 -> 16)
+------------------------------
+
+  Missing    (4): fi-icl-u2 shard-rkl shard-dg1 shard-tglu 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_22362 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@requests:
+    - fi-blb-e6850:       [PASS][1] -> [DMESG-FAIL][2] ([i915#5026])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11268/fi-blb-e6850/igt@i915_selftest@live@requests.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/fi-blb-e6850/igt@i915_selftest@live@requests.html
+
+  * igt@runner@aborted:
+    - fi-blb-e6850:       NOTRUN -> [FAIL][3] ([fdo#109271] / [i915#2403] / [i915#2426] / [i915#4312])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/fi-blb-e6850/igt@runner@aborted.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#2403]: https://gitlab.freedesktop.org/drm/intel/issues/2403
+  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#5026]: https://gitlab.freedesktop.org/drm/intel/issues/5026
+  [i915#5068]: https://gitlab.freedesktop.org/drm/intel/issues/5068
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11268 -> Patchwork_22362
+
+  CI-20190529: 20190529
+  CI_DRM_11268: 26326bf05392ab3da8cba36642a0efec97f00da9 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6352: 11b4d227d8f0efad522519c8fd9525774247c8d8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_22362: 783a44da4105a20533212faa98118e70465029a1 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+783a44da4105 drm/i915/dg1: Remove require_force_probe protection
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/index.html
+
+--===============2888711471778413540==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dg1: Remove require_force_probe protection</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/100601/">https://patchwork.freedesktop.org/series/100601/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11268 -&gt; Patchwork_22362</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/index.html</p>
+<h2>Participating hosts (20 -&gt; 16)</h2>
+<p>Missing    (4): fi-icl-u2 shard-rkl shard-dg1 shard-tglu </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_22362 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>fi-blb-e6850:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11268/fi-blb-e6850/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/fi-blb-e6850/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5026">i915#5026</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-blb-e6850:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22362/fi-blb-e6850/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2403">i915#2403</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11268 -&gt; Patchwork_22362</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11268: 26326bf05392ab3da8cba36642a0efec97f00da9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6352: 11b4d227d8f0efad522519c8fd9525774247c8d8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_22362: 783a44da4105a20533212faa98118e70465029a1 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>783a44da4105 drm/i915/dg1: Remove require_force_probe protection</p>
+
+</body>
+</html>
+
+--===============2888711471778413540==--
