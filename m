@@ -4,46 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C791C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 13:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951B3C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 13:51:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5D010F6A8;
-	Wed, 23 Feb 2022 13:47:42 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 541BD10F6B9
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 13:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645624061; x=1677160061;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DR6brSlB893Xqp27CVa0vKgHrE4QZqymRB2qBuL+POc=;
- b=hbaePG20fofBABw2wq5XMl/IeHkGuDebArNX4HEOuei5VQJyLqa+wBKV
- l3dkNpQ9O1l/5eb2Ko/PrN60pb4ePCqKF2W8t9bB1/dpY2kiSm749hvuF
- XnNY/f+7NjsZMbhYAP0w4Y2zkAt2KwRyDT0hqHwivORtMgGpQS+OSpNul
- io7fEecOo8aGNuKy5yLPrT4g90B2flbIy8serx7ObR2Hfxe7hvALDR6Re
- b9ThfiMyZDmP2Vz0xlYI/TBM+7+R9khA+DPAJkQiN0/7iK04UK5MTya2X
- fnbxv5dhUBrteOKL5qsNOKHzeapI+LpP4j9nNWxfX8JRr/ussv6GPw7yX Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10266"; a="315191664"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="315191664"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 05:47:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="591707509"
-Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.78])
- by fmsmga008.fm.intel.com with ESMTP; 23 Feb 2022 05:47:39 -0800
-From: Lee Shawn C <shawn.c.lee@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Feb 2022 22:00:10 +0800
-Message-Id: <20220223140010.16030-1-shawn.c.lee@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220215062321.832-1-ville.syrjala@linux.intel.com>
-References: <20220215062321.832-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E0610F05E;
+	Wed, 23 Feb 2022 13:51:17 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C20A10F05E;
+ Wed, 23 Feb 2022 13:51:16 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 23 Feb 2022 14:51:09 +0100
+Message-Id: <20220223135112.655569-1-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [v2] drm/i915: Fix cursor coordinates on bigjoiner slave
+Subject: [Intel-gfx] [PATCH 0/3] drm/helpers: Make the suballocation manager
+ drm generic.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,40 +33,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
+ Xinhui Pan <Xinhui.Pan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Second version of the patch. I didn't fix the copyright (which ame up
+in the previous version), as I feel the original author should send a
+patch for that.
 
-Adjust the cursor dst coordinates appripriately when it's on
-the bigjoiner slave pipe. intel_atomic_plane_check_clipping()
-already did this but with the cursor we discard those results
-(apart from uapi.visible and error checks) since the hardware
-will be doing the clipping for us.
+I've made the suballocator into its own module, and did a cleanup pass on it.
+The suballocator is generic enough to be useful for any resource that can be
+subdivided and is guarded by a completion fence.
 
-v2: fix compile error
+Maarten Lankhorst (3):
+  drm: Extract amdgpu_sa.c as a generic suballocation helper
+  drm/amd: Convert amdgpu to use suballocation helper.
+  drm/radeon: Use the drm suballocation manager implementation.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
-Tested-by: Lee Shawn C <shawn.c.lee@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/Kconfig                    |   6 +
+ drivers/gpu/drm/Makefile                   |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  29 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  21 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c     | 320 +---------------
+ drivers/gpu/drm/drm_suballoc.c             | 426 +++++++++++++++++++++
+ drivers/gpu/drm/radeon/radeon.h            |  55 +--
+ drivers/gpu/drm/radeon/radeon_ib.c         |  10 +-
+ drivers/gpu/drm/radeon/radeon_object.h     |  23 +-
+ drivers/gpu/drm/radeon/radeon_sa.c         | 314 ++-------------
+ drivers/gpu/drm/radeon/radeon_semaphore.c  |   6 +-
+ include/drm/drm_suballoc.h                 |  78 ++++
+ 13 files changed, 603 insertions(+), 693 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_suballoc.c
+ create mode 100644 include/drm/drm_suballoc.h
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 2ade8fdd9bdd..3e80763aa828 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -152,6 +152,9 @@ static int intel_check_cursor(struct intel_crtc_state *crtc_state,
- 	/* Use the unclipped src/dst rectangles, which we program to hw */
- 	plane_state->uapi.src = src;
- 	plane_state->uapi.dst = dst;
-+	if (intel_crtc_is_bigjoiner_slave(crtc_state))
-+		drm_rect_translate(&plane_state->uapi.dst,
-+				   -crtc_state->pipe_src_w, 0);
- 
- 	ret = intel_cursor_check_surface(plane_state);
- 	if (ret)
 -- 
-2.31.1
+2.34.1
 
