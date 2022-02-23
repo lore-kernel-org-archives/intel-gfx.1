@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7ABBC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 19:59:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B451C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 19:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F8588220;
-	Wed, 23 Feb 2022 19:59:00 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66BEC10E67B
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 19:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE31610E148;
+	Wed, 23 Feb 2022 19:59:56 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C3310E148
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 19:59:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645646339; x=1677182339;
+ t=1645646395; x=1677182395;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=cvEP0gTcjumnxFMPR4aw80pycjGck0QkGBcQ0XDQZug=;
- b=EyoxPX+N1k34lwkmNaXmKT9GyWfQbRWuGe/SfZJLcg7pGmLBo8RSOhMO
- 1a68Xc5FntBo0YLbP7w6GlH2AT0Ffb2NTLZmtWZ7ZMvQ3MLL58EQBWsOh
- tctilMxNKFRig0f9WLFqBBHrSDnBHBcpaERgUl4u1PWkKVhPLOkE7j187
- RiFzgGWQ2UBcsPlMZxzNUnfeH7oiSn9R4no7MM/H20aywldYLsXd9EMHY
- ClrBQRpWFQoP+66PkCOvVfI4jB3bEz3XgyVUl8YJlvfrgCuAjrquy745I
- GjjMQ79T1LFd1Fy0HiBNT+ciWkvrpZcotQwo6JCcvEs73cY83iMJdaacc Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="235577540"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="235577540"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 11:58:58 -0800
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="548417580"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 11:58:57 -0800
-Date: Wed, 23 Feb 2022 21:58:53 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>
-Message-ID: <20220223195853.GA1034106@ideak-desk.fi.intel.com>
-References: <20220222142045.48509-1-jose.souza@intel.com>
+ bh=ZEvXstwCJP35KmgbVgSHIQGNb9g+e9LXP2zn4XAamP8=;
+ b=H4PE2qmGEkqcyOiBSfVcJcv4ZJgXDlG7yHWD7OssHsDXjA7wQe+BZuev
+ RLUmZUeXvatxOba9JMu76O+BceHtbZt8DWw94KI1I2iLaGcPgUATSOwWu
+ BdJrb1O0eZYwJSr4mW636zjYpbXE1qKDBXe7X5GtJSi+KZR9y1zarnef3
+ XbSF9dye5PkPmA/NmNoHLGnR0Idtf1Y/BeSSdsbpUZDL7lAjTFSR+glCr
+ WqTwZ9d8tea9kWVhku6BfZrs1BpRYO/JkXLPbmUwsfM1ZlfHjIGU+EFq0
+ AWiL5lkP+6OcYuKsNPIUTkTh3zmyfTixOydCaCYpX1MvceFwIFXvtFGFJ Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="252261987"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="252261987"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 11:59:55 -0800
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="639445482"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 11:59:54 -0800
+Date: Wed, 23 Feb 2022 12:00:28 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20220223200022.GC9839@labuser-Z97X-UD5H>
+References: <20220223131315.18016-1-ville.syrjala@linux.intel.com>
+ <20220223131315.18016-13-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220222142045.48509-1-jose.souza@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Use unions per platform
- in intel_dpll_hw_state
+In-Reply-To: <20220223131315.18016-13-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH v2 12/13] drm/i915: Use bigjoiner_pipes more
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,139 +63,101 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 22, 2022 at 06:20:45AM -0800, José Roberto de Souza wrote:
-[...]
-> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> index ba2fdfce15792..4360e1c9266d8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> @@ -184,52 +184,74 @@ enum icl_port_dpll_id {
->  };
+On Wed, Feb 23, 2022 at 03:13:14PM +0200, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Replace the hardcoded 2 pipe assumptions when we're massaging
+> pipe_mode and the pipe_src rect to be suitable for bigjoiner.
+> Instead we can just count the number of pipes in the bitmask.
+> 
+> v2: Introduce intel_bigjoiner_num_pipes()
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 31 +++++++++++++-------
+>  1 file changed, 20 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 9b4013ed3d98..7a09bb33c1eb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -368,6 +368,11 @@ bool intel_crtc_is_bigjoiner_master(const struct intel_crtc_state *crtc_state)
+>  		crtc->pipe == bigjoiner_master_pipe(crtc_state);
+>  }
 >  
->  struct intel_dpll_hw_state {
-> -	/* i9xx, pch plls */
-> -	u32 dpll;
-> -	u32 dpll_md;
-> -	u32 fp0;
-> -	u32 fp1;
-> -
-> -	/* hsw, bdw */
-> -	u32 wrpll;
-> -	u32 spll;
-> -
-> -	/* skl */
-> -	/*
-> -	 * DPLL_CTRL1 has 6 bits for each each this DPLL. We store those in
-> -	 * lower part of ctrl1 and they get shifted into position when writing
-> -	 * the register.  This allows us to easily compare the state to share
-> -	 * the DPLL.
-> -	 */
-> -	u32 ctrl1;
-> -	/* HDMI only, 0 when used for DP */
-> -	u32 cfgcr1, cfgcr2;
-> -
-> -	/* icl */
-> -	u32 cfgcr0;
-> -
-> -	/* tgl */
-> -	u32 div0;
-> -
-> -	/* bxt */
-> -	u32 ebb0, ebb4, pll0, pll1, pll2, pll3, pll6, pll8, pll9, pll10, pcsdw12;
-> -
-> -	/*
-> -	 * ICL uses the following, already defined:
-> -	 * u32 cfgcr0, cfgcr1;
-> -	 */
-> -	u32 mg_refclkin_ctl;
-> -	u32 mg_clktop2_coreclkctl1;
-> -	u32 mg_clktop2_hsclkctl;
-> -	u32 mg_pll_div0;
-> -	u32 mg_pll_div1;
-> -	u32 mg_pll_lf;
-> -	u32 mg_pll_frac_lock;
-> -	u32 mg_pll_ssc;
-> -	u32 mg_pll_bias;
-> -	u32 mg_pll_tdc_coldst_bias;
-> -	u32 mg_pll_bias_mask;
-> -	u32 mg_pll_tdc_coldst_bias_mask;
-> +	union {
-> +		/* icl+ combo */
-> +		struct {
-> +			u32 icl_cfgcr0;
-> +			u32 icl_cfgcr1;
-> +			u32 icl_div0;
+> +static int intel_bigjoiner_num_pipes(const struct intel_crtc_state *crtc_state)
+> +{
+> +	return hweight8(crtc_state->bigjoiner_pipes);
+> +}
 
-At least icl_ddi_combo_pll_get_freq() and icl_dump_hw_state() missed
-converting cfgcr1 to icl_cfgcr1. Would it be less error-prone/simpler to
-store here all the skl+ combo state? That would also reduce the diff
-size.
+Okay yes makes sense. Although bigjoiner will always be between just 2 pipes so why not hardcode to 2 and
+use the  if (!crtc_state->bigjoiner_pipes) as the check instead of num_pipes < 2.
+When we have a joiner for 4 pipes, in that case also bigjoiner will still be only between 2 pipes.
+So in bigjoiner_pipe mask, it will always only have 2 pipes.
 
-> +		};
+Manasi
+
 > +
-> +		/* icl+ TC */
-> +		struct {
-> +			u32 mg_refclkin_ctl;
-> +			u32 mg_clktop2_coreclkctl1;
-> +			u32 mg_clktop2_hsclkctl;
-> +			u32 mg_pll_div0;
-> +			u32 mg_pll_div1;
-> +			u32 mg_pll_lf;
-> +			u32 mg_pll_frac_lock;
-> +			u32 mg_pll_ssc;
-> +			u32 mg_pll_bias;
-> +			u32 mg_pll_tdc_coldst_bias;
-> +			u32 mg_pll_bias_mask;
-> +			u32 mg_pll_tdc_coldst_bias_mask;
-> +		};
+>  struct intel_crtc *intel_master_crtc(const struct intel_crtc_state *crtc_state)
+>  {
+>  	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+> @@ -2731,16 +2736,18 @@ static void intel_crtc_compute_pixel_rate(struct intel_crtc_state *crtc_state)
+>  static void intel_bigjoiner_adjust_timings(const struct intel_crtc_state *crtc_state,
+>  					   struct drm_display_mode *mode)
+>  {
+> -	if (!crtc_state->bigjoiner_pipes)
+> +	int num_pipes = intel_bigjoiner_num_pipes(crtc_state);
 > +
-> +		/* bxt */
-> +		struct {
-> +			/* bxt */
-> +			u32 ebb0;
-> +			u32 ebb4;
-> +			u32 pll0;
-> +			u32 pll1;
-> +			u32 pll2;
-> +			u32 pll3;
-> +			u32 pll6;
-> +			u32 pll8;
-> +			u32 pll9;
-> +			u32 pll10;
-> +			u32 pcsdw12;
-> +		};
-> +
-> +		/* skl */
-> +		struct {
-> +			/*
-> +			 * DPLL_CTRL1 has 6 bits for each this DPLL. We store those in
-> +			 * lower part of ctrl1 and they get shifted into position when writing
-> +			 * the register.  This allows us to easily compare the state to share
-> +			 * the DPLL.
-> +			 */
-> +			u32 ctrl1;
-> +			u32 cfgcr1;
-> +			/* HDMI only, 0 when used for DP */
-> +			u32 cfgcr2;
-> +		};
-> +
-> +		/* hsw, bdw */
-> +		struct {
-> +			u32 wrpll;
-> +			u32 spll;
-> +		};
-> +
-> +		/* i9xx, pch plls */
-> +		struct {
-> +			u32 dpll;
-> +			u32 dpll_md;
-> +			u32 fp0;
-> +			u32 fp1;
-> +		};
-> +	};
->  };
+> +	if (num_pipes < 2)
+>  		return;
 >  
->  /**
+> -	mode->crtc_clock /= 2;
+> -	mode->crtc_hdisplay /= 2;
+> -	mode->crtc_hblank_start /= 2;
+> -	mode->crtc_hblank_end /= 2;
+> -	mode->crtc_hsync_start /= 2;
+> -	mode->crtc_hsync_end /= 2;
+> -	mode->crtc_htotal /= 2;
+> +	mode->crtc_clock /= num_pipes;
+> +	mode->crtc_hdisplay /= num_pipes;
+> +	mode->crtc_hblank_start /= num_pipes;
+> +	mode->crtc_hblank_end /= num_pipes;
+> +	mode->crtc_hsync_start /= num_pipes;
+> +	mode->crtc_hsync_end /= num_pipes;
+> +	mode->crtc_htotal /= num_pipes;
+>  }
+>  
+>  static void intel_splitter_adjust_timings(const struct intel_crtc_state *crtc_state,
+> @@ -2792,7 +2799,8 @@ static void intel_crtc_readout_derived_state(struct intel_crtc_state *crtc_state
+>  	/* Populate the "user" mode with full numbers */
+>  	drm_mode_copy(mode, pipe_mode);
+>  	intel_mode_from_crtc_timings(mode, mode);
+> -	mode->hdisplay = drm_rect_width(&crtc_state->pipe_src) << !!crtc_state->bigjoiner_pipes;
+> +	mode->hdisplay = drm_rect_width(&crtc_state->pipe_src) *
+> +		(intel_bigjoiner_num_pipes(crtc_state) ?: 1);
+>  	mode->vdisplay = drm_rect_height(&crtc_state->pipe_src);
+>  
+>  	/* Derive per-pipe timings in case bigjoiner is used */
+> @@ -2812,16 +2820,17 @@ static void intel_encoder_get_config(struct intel_encoder *encoder,
+>  
+>  static void intel_bigjoiner_compute_pipe_src(struct intel_crtc_state *crtc_state)
+>  {
+> +	int num_pipes = intel_bigjoiner_num_pipes(crtc_state);
+>  	int width, height;
+>  
+> -	if (!crtc_state->bigjoiner_pipes)
+> +	if (num_pipes < 2)
+>  		return;
+>  
+>  	width = drm_rect_width(&crtc_state->pipe_src);
+>  	height = drm_rect_height(&crtc_state->pipe_src);
+>  
+>  	drm_rect_init(&crtc_state->pipe_src, 0, 0,
+> -		      width / 2, height);
+> +		      width / num_pipes, height);
+>  }
+>  
+>  static int intel_crtc_compute_pipe_src(struct intel_crtc_state *crtc_state)
 > -- 
-> 2.35.1
+> 2.34.1
 > 
