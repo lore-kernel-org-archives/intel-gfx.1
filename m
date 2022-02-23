@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B2BC43219
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 22:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 054BBC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 22:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6546910E20C;
-	Wed, 23 Feb 2022 22:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CED910E125;
+	Wed, 23 Feb 2022 22:45:50 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 16A2C10E20C;
- Wed, 23 Feb 2022 22:44:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id ADA6410E125;
+ Wed, 23 Feb 2022 22:45:49 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1317CA66C9;
- Wed, 23 Feb 2022 22:44:30 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id AE503AADD3;
+ Wed, 23 Feb 2022 22:45:49 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
-Date: Wed, 23 Feb 2022 22:44:30 -0000
-Message-ID: <164565627004.25291.7869683153804696732@emeril.freedesktop.org>
+Date: Wed, 23 Feb 2022 22:45:49 -0000
+Message-ID: <164565634971.25291.12944638590249173922@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220222140422.1121163-1-tvrtko.ursulin@linux.intel.com>
 In-Reply-To: <20220222140422.1121163-1-tvrtko.ursulin@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Per_client_GPU_utilisation_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Per_client_GPU_utilisation_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,34 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-88a2b10167d3 drm/i915: Explicitly track DRM clients
--:130: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#130: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 234 lines checked
-558b4ab50c61 drm/i915: Make GEM contexts track DRM clients
-074459e81025 drm/i915: Track runtime spent in closed and unreachable GEM contexts
-215cabfb72ac drm/i915: Track all user contexts per client
-dba12ce7109d drm/i915: Track context current active time
--:140: WARNING:LINE_SPACING: Missing a blank line after declarations
-#140: FILE: drivers/gpu/drm/i915/gt/intel_context_types.h:149:
-+			u32 last;
-+			I915_SELFTEST_DECLARE(u32 num_underflow);
-
-total: 0 errors, 1 warnings, 0 checks, 308 lines checked
-1b5983d4c9eb drm: Document fdinfo format specification
--:45: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#45: 
-new file mode 100644
-
--:50: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
-#50: FILE: Documentation/gpu/drm-usage-stats.rst:1:
-+.. _drm-client-usage-stats:
-
-total: 0 errors, 2 warnings, 0 checks, 113 lines checked
-1a8def3ca086 drm/i915: Count engine instances per uabi class
-715f5de66760 drm/i915: Expose client engine utilisation via fdinfo
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
