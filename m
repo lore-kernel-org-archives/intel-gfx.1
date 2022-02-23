@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00259C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 19:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63DDFC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 19:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7367F10E730;
-	Wed, 23 Feb 2022 19:52:02 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B85D810E730;
- Wed, 23 Feb 2022 19:51:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 120C110E21E;
+	Wed, 23 Feb 2022 19:53:51 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7815B10E65E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 19:53:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645645917; x=1677181917;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=hY0ef9GTkxrCbOg+/YUFYF4ZbTImRNvJHpspM6WQBlg=;
- b=neeeyWisZNnKorI/lekws7FhrvtbselhUDJTZyMRv7DNiIaVvTVclxeV
- KvDzF3tnjsRUFfDq8TZAssHuJKkG+3Ms77s+bkGi502CjL0cLTxtX2ehd
- 9tLUtvtW9Qop/9ARLKs3XjEFzW3J4Ah+GAiuc0iVEwl5HoDxuWQ+aGAT7
- l2lTxSiS1+O9g94NRWErJxrKWi0ob8+kCpueoKCd8uLcAmWNlWCJpbRN/
- scahh75nVQm88olaTO2wi3MoH8BnaItHWEppJFjPdtTVe10o8TBGgZION
- 11ka4va0MAFn9nAHMGC3Cm/yP2auiFdV26/xrhO5bdnfIWehISmKwvH53 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="232688798"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="232688798"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 11:51:47 -0800
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="508576544"
-Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 11:51:46 -0800
-From: Ramalingam C <ramalingam.c@intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Feb 2022 01:22:02 +0530
-Message-Id: <20220223195203.13708-2-ramalingam.c@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20220223195203.13708-1-ramalingam.c@intel.com>
-References: <20220223195203.13708-1-ramalingam.c@intel.com>
+ t=1645646029; x=1677182029;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=RiEf5KWHwG0m1fkIxXao8udTE0Ticxq24EEOPe9QHCM=;
+ b=Ca/ffl1C7XPKVLst0iApKjxyNBSNA4LWAr+TAnEzuu0N8nRs0zTZK7S+
+ Qsg+WB3CXTuAo15Otv1fKuVCGI5CnXmgXna4eZHB+1x13Ao5QGvofGLhg
+ uUSdxgOzZx0lKsMZoKmCGJPRWhlObJHryPrOPhXCTqvNYajm4bc8NGFol
+ iS/XF4THUc345Qph1k/msoIROON1IcWNhF0mjFlLoAG7Aeerm6bHd0DAY
+ StRw1V5rZ0csq+qlUnwYzd1uOklSj1NaADEqQaEJGSsnJDij8fNtWj5en
+ 61V1HMv6Mj7vJpRTl70OArpVZeQKj2tBZyCAbgzKuhBHpGs/ZzKStZe6o g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="338505512"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="338505512"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 11:53:49 -0800
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="543445259"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 11:53:49 -0800
+Date: Wed, 23 Feb 2022 11:54:22 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20220223195422.GB9839@labuser-Z97X-UD5H>
+References: <20220223131315.18016-1-ville.syrjala@linux.intel.com>
+ <20220223131315.18016-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] kernel/hung_task: Exporting
- sysctl_hung_task_timeout_secs
+In-Reply-To: <20220223131315.18016-2-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH v2 01/13] drm/i915: Avoid negative shift due
+ to bigjoiner_pipes==0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,31 +60,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lucas.demarchi@intel.com
+Cc: intel-gfx@lists.freedesktop.org, kernel test robot <oliver.sang@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Exporting sysctl_hung_task_timeout_secs, to make it available for other
-kernel modules.
+On Wed, Feb 23, 2022 at 03:13:03PM +0200, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> bigjoiner_pipes==0 leads bigjoiner_master_pipe() to
+> do BIT(ffs(0)-1) which is undefined behaviour. The code should
+> actually still work fine since the only place we provoke
+> that is intel_crtc_bigjoiner_slave_pipes() and it'll bitwise
+> AND the result with 0, so doesn't really matter what we get
+> out of bigjoiner_master_pipe(). But best not provoke undefined
+> behaviour anyway.
+> 
+> Reported-by: kernel test robot <oliver.sang@intel.com>
+> Fixes: a6e7a006f5d5 ("drm/i915: Change bigjoiner state tracking to use the pipe bitmask")
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-cc: Lucas De Marchi <lucas.demarchi@intel.com>
----
- kernel/hung_task.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 
-diff --git a/kernel/hung_task.c b/kernel/hung_task.c
-index db59b6d4f0e7..01120265395d 100644
---- a/kernel/hung_task.c
-+++ b/kernel/hung_task.c
-@@ -43,6 +43,7 @@ int __read_mostly sysctl_hung_task_check_count = PID_MAX_LIMIT;
-  * Zero means infinite timeout - no checking done:
-  */
- unsigned long __read_mostly sysctl_hung_task_timeout_secs = CONFIG_DEFAULT_HUNG_TASK_TIMEOUT;
-+EXPORT_SYMBOL(sysctl_hung_task_timeout_secs);
- 
- /*
-  * Zero (default value) means use sysctl_hung_task_timeout_secs:
--- 
-2.20.1
+Manasi
 
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 80b19c304c43..f3f5f11a5abf 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -346,7 +346,10 @@ static enum pipe bigjoiner_master_pipe(const struct intel_crtc_state *crtc_state
+>  
+>  u8 intel_crtc_bigjoiner_slave_pipes(const struct intel_crtc_state *crtc_state)
+>  {
+> -	return crtc_state->bigjoiner_pipes & ~BIT(bigjoiner_master_pipe(crtc_state));
+> +	if (crtc_state->bigjoiner_pipes)
+> +		return crtc_state->bigjoiner_pipes & ~BIT(bigjoiner_master_pipe(crtc_state));
+> +	else
+> +		return 0;
+>  }
+>  
+>  bool intel_crtc_is_bigjoiner_slave(const struct intel_crtc_state *crtc_state)
+> -- 
+> 2.34.1
+> 
