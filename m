@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CDDC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 23:15:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96AF8C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 23:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 391CD10E1D1;
-	Wed, 23 Feb 2022 23:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0248A10E1C3;
+	Wed, 23 Feb 2022 23:15:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3E08C10E1C3;
- Wed, 23 Feb 2022 23:15:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 82CE310E1C3;
+ Wed, 23 Feb 2022 23:15:52 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 301C1A0078;
- Wed, 23 Feb 2022 23:15:16 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 83152A0078;
+ Wed, 23 Feb 2022 23:15:52 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Balasubramani Vivekanandan" <balasubramani.vivekanandan@intel.com>
-Date: Wed, 23 Feb 2022 23:15:16 -0000
-Message-ID: <164565811617.25286.17211829074183674533@emeril.freedesktop.org>
+Date: Wed, 23 Feb 2022 23:15:52 -0000
+Message-ID: <164565815253.25287.5255291852261326169@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220222145206.76118-1-balasubramani.vivekanandan@intel.com>
 In-Reply-To: <20220222145206.76118-1-balasubramani.vivekanandan@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Use_the_memcpy=5Ffrom=5Fwc_function_from_drm_?=
- =?utf-8?b?KHJldjIp?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Use_the_memcpy=5Ffrom=5Fwc_function_from_drm_=28rev?=
+ =?utf-8?q?2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,18 +54,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-00ae3268a143 drm: Relax alignment constraint for destination address
-a546db39ed55 drm: Add drm_memcpy_from_wc() variant which accepts destination address
-3e5850ca9352 drm/i915: use the memcpy_from_wc call from the drm
-e77871620252 drm/i915/guc: use the memcpy_from_wc call from the drm
-2f8f8fd84d10 drm/i915/selftests: use the memcpy_from_wc call from the drm
-40321dcb094d drm/i915/gt: Avoid direct dereferencing of io memory
--:27: ERROR:BAD_SIGN_OFF: Unrecognized email address: 'Matthew Brost <matthew.brost@intel.com'
-#27: 
-Cc: Matthew Brost <matthew.brost@intel.com
-
-total: 1 errors, 0 warnings, 0 checks, 57 lines checked
-a12d4e929d86 drm/i915: Avoid dereferencing io mapped memory
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
