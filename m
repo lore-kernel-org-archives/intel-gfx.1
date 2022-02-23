@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AEF2C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 13:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB548C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 13:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77DA610F3AA;
-	Wed, 23 Feb 2022 13:13:49 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E17B610F3AA
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 13:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1145110F3A9;
+	Wed, 23 Feb 2022 13:13:54 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF05B10F3B1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 13:13:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645622027; x=1677158027;
+ t=1645622032; x=1677158032;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uV2qryuw4V0YnQTtR5DNcQHZ/eXvZEnrXI/BseXrCSM=;
- b=OShE1bdAfQsW3Zme+waqja3ZBAstWVPor1ywVJWK+vAgXtMvVJ9lzK64
- sKQTuOI3nr5IVpcUTtagagZsuIHUpWHD1LiDFTSC4iNqvDTxNEIhyS45V
- /nk3OpoidLC4Uzeb1UTVXdyBiDek5u53KdzVX/TIFTfbnM+LyWdZAIgV4
- Av4psXhItLpC9a85uxB4IBXBiQ8uy1V0yH+ZM7dU1vXLqkzYziOobB69R
- YAQRFYyPj0HG82ajDs/kC6miaMUoULDKXJrAyQ/SpSUlS1qiDHETJe3oP
- nLKr9GQ7DgmqJhRtAbRNI6LQX+PyAXkMkO/ywlFHyUTZWVuWqQaPHYN8J Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10266"; a="338395551"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="338395551"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 05:13:47 -0800
+ bh=lmSD9BIbVW2lDow8k1SNDL8HpaeaBiygtLaLPYAQG5k=;
+ b=Zp33pCpS8PU9aYPXxhYV0LUpwpx60d4xa10G5WsGfyf2X7F05X4kN3hh
+ 8GMHB3tK5ZIAHzQlL1v5kKUjsKGyFtfP5B8P7h/OcujtmzBKMpRC/2u8w
+ 4YHUa42mPdHroA9earodhXbpw6tBfrxogLDZpIAMdNjPbsQ8vQXQo12nW
+ klUqUnQMHRdgYKl+aou9QzlZBP/MGax6a+h+RFSfn9jsVXyniNpmxua56
+ wPRG20K4MtZa7m0dJysfA+tZU498gTFwxHWv6ftGbC7wHwKl3g8t67380
+ JzUb0IkbGM4pRoDyyE0wTukRJW9clcYC+6CFNwNvFV5f8/xnOgZnSpsro w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10266"; a="249541004"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="249541004"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 05:13:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="591697898"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="543310188"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga008.fm.intel.com with SMTP; 23 Feb 2022 05:13:43 -0800
+ by fmsmga007.fm.intel.com with SMTP; 23 Feb 2022 05:13:50 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Feb 2022 15:13:39 +0200
+ Wed, 23 Feb 2022 15:13:49 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Feb 2022 15:13:09 +0200
-Message-Id: <20220223131315.18016-8-ville.syrjala@linux.intel.com>
+Date: Wed, 23 Feb 2022 15:13:11 +0200
+Message-Id: <20220223131315.18016-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220223131315.18016-1-ville.syrjala@linux.intel.com>
 References: <20220223131315.18016-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/13] drm/i915: Extract
- intel_crtc_compute_pipe_src()
+Subject: [Intel-gfx] [PATCH v2 09/13] drm/i915: Fix MSO vs. bigjoiner
+ timings confusion
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,106 +64,128 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-intel_crtc_compute_config() doesn't really tell a unified story.
-Let's chunk it up into pieces. We'll start with
-intel_crtc_compute_pipe_src().
+When calculating pipe_mode and when doing readout we need
+to order our steps correctly.
+
+1. We start with adjusted_mode crtc timings being populated
+   with the transcoder timings (either via readout or
+   compute_config(). These will be per-segment for MSO.
+2. For all other uses we want the full crtc timings so
+   we ask intel_splitter_adjust_timings() to expand
+   the per-segment numbers to their full glory
+3. If bigjoiner is used we the divide the full numbers
+   down to per-pipe numbers using intel_bigjoiner_adjust_timings()
+
+During readout we also have to reconstruct the adjusted_mode
+normal timings (ie. not the crtc_ stuff). These are supposed
+to reflect the full timings of the display. So we grab these
+between steps 2 and 3.
+
+The "user" mode readout (mainly done for fastboot purposes)
+should be whatever mode the user would have used had they
+asked us to do a modeset. We want the full timings for this
+as the per-segment timings are not suppoesed to be user visible.
+Also the user mode normal timings hdisplay/vdisplay need to
+match PIPESRC (that is where we get our PIPESRC size
+we doing a modeset with a user supplied mode).
+
+And we end up with
+- adjusted_mode normal timigns == full timings
+- adjusted_mode crtc timings == transcoder timings
+  (per-segment timings for MSO, full timings otherwise)
+- pipe_mode normal/crtc timings == pipe timings
+  (full timings divided by the number of bigjoiner pipes, if any)
+- user mode normal timings == full timings with
+  hdisplay/vdisplay replaced with PIPESRC size
+- user mode crtc timings == full timings
+
+Yes, that is a lot of timings. One day we'll try to remove
+some of the ones we don't actually need to keep around...
 
 Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 62 ++++++++++++--------
- 1 file changed, 39 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 50 +++++++++++++-------
+ 1 file changed, 32 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 650577b5e1fc..111c2458dac2 100644
+index 84829f31d73b..f0d51555617e 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2802,18 +2802,55 @@ static void intel_encoder_get_config(struct intel_encoder *encoder,
- 	intel_crtc_readout_derived_state(crtc_state);
- }
- 
-+static int intel_crtc_compute_pipe_src(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+
-+	if (crtc_state->bigjoiner)
-+		crtc_state->pipe_src_w /= 2;
-+
-+	/*
-+	 * Pipe horizontal size must be even in:
-+	 * - DVO ganged mode
-+	 * - LVDS dual channel mode
-+	 * - Double wide pipe
-+	 */
-+	if (crtc_state->pipe_src_w & 1) {
-+		if (crtc_state->double_wide) {
-+			drm_dbg_kms(&i915->drm,
-+				    "[CRTC:%d:%s] Odd pipe source width not supported with double wide pipe\n",
-+				    crtc->base.base.id, crtc->base.name);
-+			return -EINVAL;
-+		}
-+
-+		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_LVDS) &&
-+		    intel_is_dual_link_lvds(i915)) {
-+			drm_dbg_kms(&i915->drm,
-+				    "[CRTC:%d:%s] Odd pipe source width not supported with dual link LVDS\n",
-+				    crtc->base.base.id, crtc->base.name);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int intel_crtc_compute_config(struct intel_crtc *crtc,
- 				     struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+@@ -2773,25 +2773,33 @@ static void intel_crtc_readout_derived_state(struct intel_crtc_state *crtc_state
  	struct drm_display_mode *pipe_mode = &crtc_state->hw.pipe_mode;
- 	int clock_limit = i915->max_dotclk_freq;
-+	int ret;
-+
-+	ret = intel_crtc_compute_pipe_src(crtc_state);
-+	if (ret)
-+		return ret;
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
  
- 	drm_mode_copy(pipe_mode, &crtc_state->hw.adjusted_mode);
++	/*
++	 * Start with the adjusted_mode crtc timings, which
++	 * have been filled with the transcoder timings.
++	 */
+ 	drm_mode_copy(pipe_mode, adjusted_mode);
  
- 	intel_bigjoiner_adjust_timings(crtc_state, pipe_mode);
--	if (crtc_state->bigjoiner)
--		crtc_state->pipe_src_w /= 2;
- 
- 	intel_splitter_adjust_timings(crtc_state, pipe_mode);
- 
-@@ -2841,27 +2878,6 @@ static int intel_crtc_compute_config(struct intel_crtc *crtc,
- 		return -EINVAL;
- 	}
- 
--	/*
--	 * Pipe horizontal size must be even in:
--	 * - DVO ganged mode
--	 * - LVDS dual channel mode
--	 * - Double wide pipe
--	 */
--	if (crtc_state->pipe_src_w & 1) {
--		if (crtc_state->double_wide) {
--			drm_dbg_kms(&i915->drm,
--				    "Odd pipe source width not supported with double wide pipe\n");
--			return -EINVAL;
--		}
+-	intel_bigjoiner_adjust_timings(crtc_state, pipe_mode);
 -
--		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_LVDS) &&
--		    intel_is_dual_link_lvds(i915)) {
--			drm_dbg_kms(&i915->drm,
--				    "Odd pipe source width not supported with dual link LVDS\n");
--			return -EINVAL;
--		}
+-	if (crtc_state->splitter.enable) {
+-		intel_splitter_adjust_timings(crtc_state, pipe_mode);
+-
+-		intel_mode_from_crtc_timings(pipe_mode, pipe_mode);
+-		intel_mode_from_crtc_timings(adjusted_mode, pipe_mode);
+-	} else {
+-		intel_mode_from_crtc_timings(pipe_mode, pipe_mode);
+-		intel_mode_from_crtc_timings(adjusted_mode, adjusted_mode);
 -	}
 -
- 	intel_crtc_compute_pixel_rate(crtc_state);
+-	intel_crtc_compute_pixel_rate(crtc_state);
+-
+-	drm_mode_copy(mode, adjusted_mode);
++	/* Expand MSO per-segment transcoder timings to full */
++	intel_splitter_adjust_timings(crtc_state, pipe_mode);
++
++	/*
++	 * We want the full numbers in adjusted_mode normal timings,
++	 * adjusted_mode crtc timings are left with the raw transcoder
++	 * timings.
++	 */
++	intel_mode_from_crtc_timings(adjusted_mode, pipe_mode);
++
++	/* Populate the "user" mode with full numbers */
++	drm_mode_copy(mode, pipe_mode);
++	intel_mode_from_crtc_timings(mode, mode);
+ 	mode->hdisplay = crtc_state->pipe_src_w << crtc_state->bigjoiner;
+ 	mode->vdisplay = crtc_state->pipe_src_h;
++
++	/* Derive per-pipe timings in case bigjoiner is used */
++	intel_bigjoiner_adjust_timings(crtc_state, pipe_mode);
++	intel_mode_from_crtc_timings(pipe_mode, pipe_mode);
++
++	intel_crtc_compute_pixel_rate(crtc_state);
+ }
  
- 	if (crtc_state->has_pch_encoder)
+ static void intel_encoder_get_config(struct intel_encoder *encoder,
+@@ -2840,15 +2848,21 @@ static int intel_crtc_compute_pipe_mode(struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 	struct drm_display_mode *pipe_mode = &crtc_state->hw.pipe_mode;
+ 	int clock_limit = i915->max_dotclk_freq;
+ 
+-	drm_mode_copy(pipe_mode, &crtc_state->hw.adjusted_mode);
+-
+-	intel_bigjoiner_adjust_timings(crtc_state, pipe_mode);
++	/*
++	 * Start with the adjusted_mode crtc timings, which
++	 * have been filled with the transcoder timings.
++	 */
++	drm_mode_copy(pipe_mode, adjusted_mode);
+ 
++	/* Expand MSO per-segment transcoder timings to full */
+ 	intel_splitter_adjust_timings(crtc_state, pipe_mode);
+ 
++	/* Derive per-pipe timings in case bigjoiner is used */
++	intel_bigjoiner_adjust_timings(crtc_state, pipe_mode);
+ 	intel_mode_from_crtc_timings(pipe_mode, pipe_mode);
+ 
+ 	if (DISPLAY_VER(i915) < 4) {
 -- 
 2.34.1
 
