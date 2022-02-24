@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57FB3C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 16:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A77DC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 16:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B10110E5B3;
-	Thu, 24 Feb 2022 16:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6E810E5EE;
+	Thu, 24 Feb 2022 16:53:28 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14A3810E5B3
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 16:53:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDB710E5EE
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 16:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645721603; x=1677257603;
+ t=1645721604; x=1677257604;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=P3lzzn+RftSynpDKwJ6SOjCEo1bQ0SKr6Dx1uRM5KtM=;
- b=KbYsj/BYERWxZ5PM95Zp/I2UP7HDtWQ4c0R3VTjZKuo0Z28GUdJwkG3q
- NKeNlifOvBecRBitPxeJdj0RCYMqY8UEicTUFzMPCuoB6A30UuprOROm/
- gKuv6f3xbMMhcFQsNGVagY4FVfSa5DhuIGrdrzav1ejcRn9Zb2N4Cgg6X
- Exi4inPwuKfssYGlaA9+9UKxk30Mz6phJ5DqQyrHIbZAvM+bpjfd9cumT
- Mf0NDqkAR4rd6Y5C0J5pkE/IOmGyyBIXRdcQrCZ/l3keZ8AUCr3s7GWNb
- K79NKozvUQjXSvG6ner0U7NOpUpvl8vKPmJCQnOKzQeu6c+Aehv99sDaG Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252475749"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252475749"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ bh=sOpjhwSpigkrIHYQWIVDLn5hDbH9Sc/n/HSQXBAp7NM=;
+ b=Qz9FV1cJjN2SCjTczfSO0a+fc6yCWxz6ysjnoYu6i2WzriL++FxeV8ng
+ nhrKmfv5r9Ei49YJVstXi1v3x5lrp9rNC/zUFs7eqzkUfjNrQJh/cssN+
+ a9iZ7mp4jHX6+w5gzoTpJ18ZdpPuhFTAMUkoMsVEWKLBIbV/1/TKw4yo9
+ B5LZxZzK/5/Qd2eazMeOWYZqjPo2FH+R+rKIqg2QOr0E8cz4mKQlXx4zr
+ PxFKEOFn6LDZ5ml22FZKuUmZ0EKttpn7hplTqn6NLFaQ5F1kRAK30Vk4n
+ AaOx9ahkQlSyReubv90IuTmgnXM8W0wnlJ6HwzFnBucUY0WrW9Yl4tTl3 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252475779"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252475779"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 08:51:09 -0800
+ 24 Feb 2022 08:51:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="684335516"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="548827470"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga001.fm.intel.com with SMTP; 24 Feb 2022 08:51:07 -0800
+ by orsmga008.jf.intel.com with SMTP; 24 Feb 2022 08:51:10 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 24 Feb 2022 18:51:06 +0200
+ Thu, 24 Feb 2022 18:51:09 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Feb 2022 18:51:00 +0200
-Message-Id: <20220224165103.15682-2-ville.syrjala@linux.intel.com>
+Date: Thu, 24 Feb 2022 18:51:01 +0200
+Message-Id: <20220224165103.15682-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220224165103.15682-1-ville.syrjala@linux.intel.com>
 References: <20220224165103.15682-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Remove locks around skl+ scaler
- programming
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915: Make ilk+ pfit regiser unlocked
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,65 +63,51 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-All the skl+ scaler registers are suitably confined to their own
-cachelines so we don't need the uncore.lock to globally serialize
-access to these registers. We actually already dropped some of this
-in commit 14ad15296d1f ("drm/i915: Make skl+ universal plane
-registers unlocked") as the plane scaler enabling/reconfiguration
-became lockless. So let's complete that and remove the rest of
-the locks from the scaler programming as well.
+The ilk+ panel fitter register are sitting nicely on their own
+cacheline, so no need for global serialization via uncore.lock.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_scaler.c | 10 ----------
- 1 file changed, 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index c2e94118566b..ac67e9fbb713 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -412,7 +412,6 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
- 	int x = dst->x1;
- 	int y = dst->y1;
- 	int hscale, vscale;
--	unsigned long irqflags;
- 	int id;
- 	u32 ps_ctrl;
- 
-@@ -434,8 +433,6 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
- 	ps_ctrl = skl_scaler_get_filter_select(crtc_state->hw.scaling_filter, 0);
- 	ps_ctrl |=  PS_SCALER_EN | scaler_state->scalers[id].mode;
- 
--	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
--
- 	skl_scaler_setup_filter(dev_priv, pipe, id, 0,
- 				crtc_state->hw.scaling_filter);
- 
-@@ -449,8 +446,6 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
- 			  x << 16 | y);
- 	intel_de_write_fw(dev_priv, SKL_PS_WIN_SZ(pipe, id),
- 			  width << 16 | height);
--
--	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 7bf24df20b14..705f23be409c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1114,13 +1114,13 @@ static void ilk_pfit_enable(const struct intel_crtc_state *crtc_state)
+ 	 * e.g. x201.
+ 	 */
+ 	if (IS_IVYBRIDGE(dev_priv) || IS_HASWELL(dev_priv))
+-		intel_de_write(dev_priv, PF_CTL(pipe), PF_ENABLE |
+-			       PF_FILTER_MED_3x3 | PF_PIPE_SEL_IVB(pipe));
++		intel_de_write_fw(dev_priv, PF_CTL(pipe), PF_ENABLE |
++				  PF_FILTER_MED_3x3 | PF_PIPE_SEL_IVB(pipe));
+ 	else
+-		intel_de_write(dev_priv, PF_CTL(pipe), PF_ENABLE |
+-			       PF_FILTER_MED_3x3);
+-	intel_de_write(dev_priv, PF_WIN_POS(pipe), x << 16 | y);
+-	intel_de_write(dev_priv, PF_WIN_SZ(pipe), width << 16 | height);
++		intel_de_write_fw(dev_priv, PF_CTL(pipe), PF_ENABLE |
++				  PF_FILTER_MED_3x3);
++	intel_de_write_fw(dev_priv, PF_WIN_POS(pipe), x << 16 | y);
++	intel_de_write_fw(dev_priv, PF_WIN_SZ(pipe), width << 16 | height);
  }
  
- void
-@@ -519,15 +514,10 @@ static void skl_detach_scaler(struct intel_crtc *crtc, int id)
- {
- 	struct drm_device *dev = crtc->base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
--	unsigned long irqflags;
--
--	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
+ static void intel_crtc_dpms_overlay_disable(struct intel_crtc *crtc)
+@@ -2022,9 +2022,9 @@ void ilk_pfit_disable(const struct intel_crtc_state *old_crtc_state)
+ 	if (!old_crtc_state->pch_pfit.enabled)
+ 		return;
  
- 	intel_de_write_fw(dev_priv, SKL_PS_CTRL(crtc->pipe, id), 0);
- 	intel_de_write_fw(dev_priv, SKL_PS_WIN_POS(crtc->pipe, id), 0);
- 	intel_de_write_fw(dev_priv, SKL_PS_WIN_SZ(crtc->pipe, id), 0);
--
--	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
+-	intel_de_write(dev_priv, PF_CTL(pipe), 0);
+-	intel_de_write(dev_priv, PF_WIN_POS(pipe), 0);
+-	intel_de_write(dev_priv, PF_WIN_SZ(pipe), 0);
++	intel_de_write_fw(dev_priv, PF_CTL(pipe), 0);
++	intel_de_write_fw(dev_priv, PF_WIN_POS(pipe), 0);
++	intel_de_write_fw(dev_priv, PF_WIN_SZ(pipe), 0);
  }
  
- /*
+ static void ilk_crtc_disable(struct intel_atomic_state *state,
 -- 
 2.34.1
 
