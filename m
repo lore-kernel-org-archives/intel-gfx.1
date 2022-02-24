@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD1EC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 03:28:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE2F5C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 03:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BAB910E992;
-	Thu, 24 Feb 2022 03:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A42E10E119;
+	Thu, 24 Feb 2022 03:30:00 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id E850110E992;
- Thu, 24 Feb 2022 03:28:49 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6E5A810E119;
+ Thu, 24 Feb 2022 03:29:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E5650A47DF;
- Thu, 24 Feb 2022 03:28:49 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6F0B0A47DF;
+ Thu, 24 Feb 2022 03:29:59 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Thu, 24 Feb 2022 03:28:49 -0000
-Message-ID: <164567332990.32674.12794952770785096510@emeril.freedesktop.org>
+Date: Thu, 24 Feb 2022 03:29:59 -0000
+Message-ID: <164567339945.32674.365125426194534627@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220222171030.690214-1-thomas.hellstrom@linux.intel.com>
 In-Reply-To: <20220222171030.690214-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_HAX=3A_drm/i915=3A_Clarify_v?=
- =?utf-8?q?ma_lifetime_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/2=5D_HAX=3A_drm/i915=3A_Clarify_vma_l?=
+ =?utf-8?q?ifetime_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,13 +54,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-2f07f02c4157 HAX: drm/i915: Clarify vma lifetime
--:39: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#39: 
-commit bc1922e5d349 ("drm/i915: Fix a race between vma / object destruction and unbinding")
-
-total: 0 errors, 1 warnings, 0 checks, 171 lines checked
-bf5f5826af3f drm/i915: Remove the vm open count
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
