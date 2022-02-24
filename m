@@ -4,46 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A40FFC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 16:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71D77C4321E
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 17:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2198210E833;
-	Thu, 24 Feb 2022 16:53:40 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42E5110E828
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 16:53:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6B8E10E56D;
+	Thu, 24 Feb 2022 17:00:07 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9633910E56D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 17:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645721617; x=1677257617;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rqmsvzx2Y/mw+ExvWVxDVlTV/ugW8i40geuJxriIN4Y=;
- b=beGcHoSt1QyUP/Ae1ZAUbTD4E3kv8kh8LvD/S5wr3i67x26k1LIyR+tl
- A6zeYOF2TW9qHYAsRSkYKweE7AyGaWZrhvZLgM/ub/DOTbUZuzbcEFl+P
- Fa+LI3trt9ETJlvoEqcEjtvJKnrrw+wNTPyXJzlSutIT9PD38gcqEdZke
- GwBw/XNwIR9ln5q6Va837Ry4WQYO0EeFMHZE8kUteW1dG+bVqHS6eGNgi
- XUiSrVPES3oDvKQxu2jWC79J/f1KqAhFjPS6SImYA3aH/B3B0a+82clU4
- 3pwt7hWm/nTHqHoCct/lnTP7LvlXisXOO1Kh6q9hwkAg4W8ouad6qBXnA g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="249864811"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="249864811"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 08:51:07 -0800
+ t=1645722006; x=1677258006;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=w56Ml/nkX2uTU7lRQaJCQBFua0h0qsn5CKcgu2FZIyU=;
+ b=FvDGbua+b75eNk8YycMUsn0tBp771gbrO9ha81ffSGBh51+Q6B7LE+Eg
+ QcZLa4ocvKuKkZjFDNyifkr0/86Kcz0/9SIh/A/SgL59tmDFAI8NBAZsD
+ SirnxvnkRLlD+eXxU06TyiKZeqk7AyHPGaljSRCeo+5fGCa9TpU3RGvCt
+ sZo1jmK4dnqpdd19PsVhsD9OfhGM0gQiYJft0R3a1h6pzqD9vhHL8YgD1
+ hqR5yB7v9GNrFNuE1VMQczx6aCHr92QwRM6gqGiZ3X/ZcCYKJ1O0TCECw
+ aHx5SV9oaduQqciKEqIXnon0vK9YlKCftnzIrsI56OoZjZriCDGvPaUm/ g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252206439"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252206439"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2022 09:00:04 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="543763008"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="574277115"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga007.fm.intel.com with SMTP; 24 Feb 2022 08:51:04 -0800
+ by orsmga001.jf.intel.com with SMTP; 24 Feb 2022 09:00:02 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 24 Feb 2022 18:51:03 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Feb 2022 18:50:59 +0200
-Message-Id: <20220224165103.15682-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
+ Thu, 24 Feb 2022 19:00:01 +0200
+Date: Thu, 24 Feb 2022 19:00:01 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+Message-ID: <Yhe5kWpVAd8aq7uy@intel.com>
+References: <20220210062403.18690-4-ville.syrjala@linux.intel.com>
+ <20220211092604.393-1-ville.syrjala@linux.intel.com>
+ <20220224143703.GA19081@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/4] drm/i915: Optimize CSC updates for ilk+
+In-Reply-To: <20220224143703.GA19081@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v3 3/5] drm/i915: Make cursor plane
+ registers unlocked
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,31 +62,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+On Thu, Feb 24, 2022 at 04:37:03PM +0200, Lisovskiy, Stanislav wrote:
+> On Fri, Feb 11, 2022 at 11:26:04AM +0200, Ville Syrjala wrote:
+> > From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> > 
+> > Drop the locks around cursor plane register writes. The
+> > lock isn't needed since each plane's register are neatly
+> > contained on their own cachelines.
+> > 
+> > The locking did have a secondary effect of disabling
+> > interrupts around the cursor registers writes though.
+> > If we drop that then we open outselves up for sceduling
+> > delays and whatnot while on the middle of the register
+> > writes. That increases the chance of not all the register
+> > writes land during the same frame. For normal atomic
+> > commits this is not a concern as the vblank evade mechanism
+> > anyway disables interrupts around the update, but the legacy
+> > cursor codepath does not. Technically we should do a vblank
+> > evade there as well, but so far no one has bothered to hook
+> > that up. So in the meantime let's put an explicit local irq
+> > disable/enable around the legacy cursor update to keep the
+> > race window minimal.
+> > 
+> > v2: local_irq_{disable,enable}() for legacy cursor ioctl
+> 
+> Guess, this will help our infamous atomic update evasion time exceeeded.
+> I think I've even checked with similar patch.
+> Good that its finally will make its way into kernel.
 
-As we did with plane updates we can split the color management
-updates to noarm+arm pair. The CSC matrix coefficients can all
-be written in the noarm hook, with just the PIPE_CSC_mode (the
-arming register) left behind in the arm hook.
+Yeah. I also sent a new series that split color management
+to noarm+arm and drops some more usless locks.
 
-Also make the scaler/pfit completely lockless as that too
-adds overhead into the vblank evasion critical section.
+After those I think the TODO list is down to:
+- cursor noarm+arm split
+- scaler/pfit noarm+arm split
+- random locked register accesses during fastsea,
+  and maybe a few are still left in pure plane commits as well
 
-Ville Syrj√§l√§ (4):
-  drm/i915: Remove locks around skl+ scaler programming
-  drm/i915: Make ilk+ pfit regiser unlocked
-  drm/i915: Split color_commit() into noarm+arm pair
-  drm/i915: Split pipe+output CSC programming to noarm+arm pair
+> Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
- drivers/gpu/drm/i915/display/intel_color.c   | 95 +++++++++++++-------
- drivers/gpu/drm/i915/display/intel_color.h   |  3 +-
- drivers/gpu/drm/i915/display/intel_display.c | 40 +++++----
- drivers/gpu/drm/i915/display/skl_scaler.c    | 10 ---
- 4 files changed, 88 insertions(+), 60 deletions(-)
+Thanks.
 
 -- 
-2.34.1
-
+Ville Syrj‰l‰
+Intel
