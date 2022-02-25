@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0468EC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 23:23:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D0B2C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 23:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5B110E1E2;
-	Fri, 25 Feb 2022 23:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 098CB10E1E3;
+	Fri, 25 Feb 2022 23:25:43 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id F3D5710E1E2;
- Fri, 25 Feb 2022 23:23:34 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5B3C410E1E3;
+ Fri, 25 Feb 2022 23:25:42 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id EF100A00E8;
- Fri, 25 Feb 2022 23:23:34 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 57161A0078;
+ Fri, 25 Feb 2022 23:25:42 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
-Date: Fri, 25 Feb 2022 23:23:34 -0000
-Message-ID: <164583141494.6271.13284425974548809032@emeril.freedesktop.org>
+Date: Fri, 25 Feb 2022 23:25:42 -0000
+Message-ID: <164583154234.6268.2411864553576321287@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220225174118.1320237-1-tvrtko.ursulin@linux.intel.com>
 In-Reply-To: <20220225174118.1320237-1-tvrtko.ursulin@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_Fix_assert_in_i9?=
- =?utf-8?q?15=5Fggtt=5Fpin?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/2=5D_drm/i915=3A_Fix_assert_in_i915?=
+ =?utf-8?b?X2dndHRfcGlu?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,14 +54,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-4a30d90acaa9 drm/i915: Fix assert in i915_ggtt_pin
--:10: WARNING:TYPO_SPELLING: 'uknown' may be misspelled - perhaps 'unknown'?
-#10: 
-false positive are hit if lock state is uknown like after a previous
-                                        ^^^^^^
-
-total: 0 errors, 1 warnings, 0 checks, 10 lines checked
-a6883ad84986 dma-resv: Fix dma_resv_held
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
