@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B273C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 00:06:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73360C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 00:10:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDB8910E72D;
-	Fri, 25 Feb 2022 00:06:38 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8C0310E1AF;
- Fri, 25 Feb 2022 00:06:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645747585; x=1677283585;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eNPiS9edewBNE8uJh8nsm9geI6TYOHxLz0y8JdglFnM=;
- b=XGopqkBXF8YADiJBWTX8SaGG0E5E5rjcrWPgTgr2aph9tzRxe3gM8k/v
- o++qnqYQEcmUpVIxlBsgNJqY69pfMAzVCivmaF6KQ0ES3Z9x3Z6JSQOjl
- 0BY3AJ/Kld8Szy11OQ+eIWuY7Mhl6LotaiP6MobuVMY5+0MbUOgiXvl3U
- 6JQULCT/n8fBdY66589uHyGJvW+aXnhgmgg1u8Q2kmpQmZKz2X0DeLtP2
- v5kqQr9QZjsEayw/I0F1nhZj/vzE92ABxiHVTg3C8MqR3XX+TkK3r+D0M
- l+stHgfkPJ8QUXO4C6Wahnmoys3tdE5uIAvTemSvHHrS0wPMIVlIO1Bm2 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="277012943"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="277012943"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 16:06:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="592278981"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga008.fm.intel.com with ESMTP; 24 Feb 2022 16:06:25 -0800
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 24 Feb 2022 16:06:22 -0800
-Message-Id: <20220225000623.1934438-8-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220225000623.1934438-1-John.C.Harrison@Intel.com>
-References: <20220225000623.1934438-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C621210E163;
+	Fri, 25 Feb 2022 00:10:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C591B10E1BC;
+ Fri, 25 Feb 2022 00:10:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C23F0A66C9;
+ Fri, 25 Feb 2022 00:10:57 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 7/8] drm/i915/guc: Drop obsolete H2G
- definitions
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Date: Fri, 25 Feb 2022 00:10:57 -0000
+Message-ID: <164574785775.6271.10781088192638025870@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220224132142.12927-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20220224132142.12927-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_s/JSP2/ICP2/_PCH?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,35 +40,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-The CTB registration process changed significantly a while back using
-a single KLV based H2G. So drop the original and now obsolete H2G
-definitions.
+Series: drm/i915: s/JSP2/ICP2/ PCH
+URL   : https://patchwork.freedesktop.org/series/100689/
+State : warning
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h | 2 --
- 1 file changed, 2 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 7afdadc7656f..e77f955435ce 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -131,8 +131,6 @@ enum intel_guc_action {
- 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
- 	INTEL_GUC_ACTION_REGISTER_CONTEXT = 0x4502,
- 	INTEL_GUC_ACTION_DEREGISTER_CONTEXT = 0x4503,
--	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
--	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
- 	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
- 	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
- 	INTEL_GUC_ACTION_CLIENT_SOFT_RESET = 0x5507,
--- 
-2.25.1
+$ dim checkpatch origin/drm-tip
+0862321e317b drm/i915: s/JSP2/ICP2/ PCH
+-:9: WARNING:REPEATED_WORD: Possible repeated word: 'to'
+#9: 
+This JSP2 PCH actually seems to to be some special Apple
+
+total: 0 errors, 1 warnings, 0 checks, 26 lines checked
+
 
