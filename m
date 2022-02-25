@@ -4,31 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA636C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 01:16:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DCC3C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 01:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173A210E132;
-	Fri, 25 Feb 2022 01:16:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 241E010E132;
- Fri, 25 Feb 2022 01:16:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2051CA00A0;
- Fri, 25 Feb 2022 01:16:44 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8148310E14A;
+	Fri, 25 Feb 2022 01:30:36 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC4DA10E1D0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Feb 2022 01:30:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645752635; x=1677288635;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=E1BktloTbvo+Cf7VfDL95H6RZBWpPCk1v+L1m08on0A=;
+ b=mV3NXCK0vPmgYJOzJXDIRbAWDBVWtv3y6vbKDi2J7cIdi/ecgTWP/5V1
+ 8BBiKxbIShytARWl+Th6pvR/UMX+mMBs54NNzeCkmncnZD9F8Nx3lbWhA
+ pw8A9yT12ceG9k236mc4dQpul4ptlfB7s704z6TLZgnhTI0XNICwb4L3Z
+ yAJO0Iky5jv3zonUVi6uEiMIwNcZMhYQhZ28W22yHxKSYd7hV2iKEnjlK
+ k6cXel7AHD4mPI6gHiV4qIu+NeZm98q4x7DkPBmMOpb8hIX/jl6HwM8dj
+ FHpTO+3vzdnzL0NdOhOsU3h1AtoRGuuVQlrOuwcPLym+frr/CiYLqiYcT g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="232366324"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="232366324"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2022 17:30:34 -0800
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="639948933"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 24 Feb 2022 17:30:34 -0800
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 24 Feb 2022 17:30:55 -0800
+Message-Id: <20220225013055.9282-2-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20220225013055.9282-1-manasi.d.navare@intel.com>
+References: <20220225013055.9282-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>
-Date: Fri, 25 Feb 2022 01:16:44 -0000
-Message-ID: <164575180411.6270.4384033564099161881@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220223124807.3284451-1-jouni.hogander@intel.com>
-In-Reply-To: <20220223124807.3284451-1-jouni.hogander@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/psr=3A_Set_=22SF_Partial_Frame_Enable=22_also_on_full_?=
- =?utf-8?q?update_=28rev3=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v6 2/2] drm/i915/display/vrr: Reset VRR capable
+ property on a long hpd
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,21 +57,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+With some VRR panels, user can turn VRR ON/OFF on the fly from the panel settings.
+When VRR is turned OFF ,sends a long HPD to the driver clearing the Ignore MSA bit
+in the DPCD. Currently the driver parses that onevery HPD but fails to reset
+the corresponding VRR Capable Connector property.
+Hence the userspace still sees this as VRR Capable panel which is incorrect.
 
-Series: drm/i915/psr: Set "SF Partial Frame Enable" also on full update (rev3)
-URL   : https://patchwork.freedesktop.org/series/100633/
-State : warning
+Fix this by explicitly resetting the connector property.
 
-== Summary ==
+v2: Reset vrr capable if status == connector_disconnected
+v3: Use i915 and use bool vrr_capable (Jani Nikula)
+v4: Move vrr_capable to after update modes call (Jani N)
+Remove the redundant comment (Jan N)
+v5: Fixes the regression on older platforms by reseting the VRR
+only if HAS_VRR
+v6: Remove the checks from driver, add in drm core before
+setting VRR prop (Ville)
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Fixes: 390a1f8beb87 ("Revert "drm/i915/display/vrr: Reset VRR capable property on a long hpd")
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1046e7fe310a..f96123b56935 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4455,6 +4455,10 @@ intel_dp_detect(struct drm_connector *connector,
+ 		memset(&intel_dp->compliance, 0, sizeof(intel_dp->compliance));
+ 		memset(intel_dp->dsc_dpcd, 0, sizeof(intel_dp->dsc_dpcd));
+ 
++		/* Reset VRR Capable property on disconnect */
++		drm_connector_set_vrr_capable_property(connector,
++						       false);
++
+ 		if (intel_dp->is_mst) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "MST device may have disappeared %d vs %d\n",
+@@ -4569,15 +4573,18 @@ static int intel_dp_get_modes(struct drm_connector *connector)
+ {
+ 	struct intel_connector *intel_connector = to_intel_connector(connector);
+ 	struct edid *edid;
++	struct drm_i915_private *i915 = to_i915(connector->dev);
+ 	int num_modes = 0;
+ 
+ 	edid = intel_connector->detect_edid;
+ 	if (edid) {
+-		num_modes = intel_connector_update_modes(connector, edid);
++		bool vrr_capable;
+ 
+-		if (intel_vrr_is_capable(connector))
+-			drm_connector_set_vrr_capable_property(connector,
+-							       true);
++		num_modes = intel_connector_update_modes(connector, edid);
++		vrr_capable = intel_vrr_is_capable(connector);
++		drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
++			    connector->base.id, connector->name, yesno(vrr_capable));
++		drm_connector_set_vrr_capable_property(connector, vrr_capable);
+ 	}
+ 
+ 	/* Also add fixed mode, which may or may not be present in EDID */
+-- 
+2.19.1
 
