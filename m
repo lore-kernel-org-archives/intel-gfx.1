@@ -4,45 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B44BC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 01:30:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A33EC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 01:44:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 718C010E46A;
-	Fri, 25 Feb 2022 01:30:40 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A4610E14A;
- Fri, 25 Feb 2022 01:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645752635; x=1677288635;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LhMXHECP8VjSeyLSOaUahnS9eB7Fq2oF4pATO9AKlo4=;
- b=LnxlOErPD402U/OKc9iUOJa4KTMg5JJlPAHpPcWO1r8YZBaVy5v9eUxz
- Avmknswy+ULA/tE7h2j/UwDOfhypm0+bR1M77rthlXXX7tvvPz7JmcZ5o
- hENAgbPEbk2ajegxDKOrEW16RrESPNgZs8YnMLA/HoYvbruELU3yDFB2e
- etKUZnxVkYtWo5CNBhWPIpUynn02hhxOaM2EbCpf63bNMyIKk/a8nN6TR
- mtfILffjE9gD4Pn2s6K8FLXq6lmg+ThD0UpSgsgQLINuoyospOW6zwaEc
- eJsOSKVr//5zhggCm6GPt+je7ovrhCZUDgDZd6Bf5wVOSRALGxSPGJTs3 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="232366323"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="232366323"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 17:30:34 -0800
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="639948931"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 24 Feb 2022 17:30:34 -0800
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Feb 2022 17:30:54 -0800
-Message-Id: <20220225013055.9282-1-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EFA510E1DE;
+	Fri, 25 Feb 2022 01:44:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 07D7C10E54E;
+ Fri, 25 Feb 2022 01:44:02 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 03300AADD3;
+ Fri, 25 Feb 2022 01:44:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1910280811859624468=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 1/2] drm/vrr: Set VRR capable prop only if it
- is attached to connector
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Hogander, Jouni" <jouni.hogander@intel.com>
+Date: Fri, 25 Feb 2022 01:44:01 -0000
+Message-ID: <164575344197.6268.3596663395749787248@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220223124807.3284451-1-jouni.hogander@intel.com>
+In-Reply-To: <20220223124807.3284451-1-jouni.hogander@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/psr=3A_Set_=22SF_Partial_Frame_Enable=22_also_on_full_upd?=
+ =?utf-8?q?ate_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,37 +41,189 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VRR capable property is not attached by default to the connector
-It is attached only if VRR is supported.
-So if the driver tries to call drm core set prop function without
-it being attached that causes NULL dereference.
+--===============1910280811859624468==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
----
- drivers/gpu/drm/drm_connector.c | 3 +++
- 1 file changed, 3 insertions(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index a50c82bc2b2f..76a8c707c34b 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2330,6 +2330,9 @@ EXPORT_SYMBOL(drm_connector_atomic_hdr_metadata_equal);
- void drm_connector_set_vrr_capable_property(
- 		struct drm_connector *connector, bool capable)
- {
-+	if (!connector->vrr_capable_property)
-+		return;
-+
- 	drm_object_property_set_value(&connector->base,
- 				      connector->vrr_capable_property,
- 				      capable);
--- 
-2.19.1
+Series: drm/i915/psr: Set "SF Partial Frame Enable" also on full update (rev3)
+URL   : https://patchwork.freedesktop.org/series/100633/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_11284 -> Patchwork_22401
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/index.html
+
+Participating hosts (42 -> 36)
+------------------------------
+
+  Missing    (6): fi-kbl-soraka fi-bsw-cyan fi-snb-2520m fi-pnv-d510 bat-jsl-2 fi-bdw-samus 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_22401 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [PASS][1] -> [INCOMPLETE][2] ([i915#3921])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:
+    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#295]) +12 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - {bat-adlp-6}:       [DMESG-WARN][5] ([i915#3576]) -> [PASS][6] +2 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+
+  
+#### Warnings ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg1-6:          [DMESG-FAIL][7] ([i915#4957]) -> [DMESG-FAIL][8] ([i915#4494] / [i915#4957])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/bat-dg1-6/igt@i915_selftest@live@hangcheck.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/bat-dg1-6/igt@i915_selftest@live@hangcheck.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
+  [i915#3576]: https://gitlab.freedesktop.org/drm/intel/issues/3576
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+  [i915#4494]: https://gitlab.freedesktop.org/drm/intel/issues/4494
+  [i915#4957]: https://gitlab.freedesktop.org/drm/intel/issues/4957
+  [i915#5068]: https://gitlab.freedesktop.org/drm/intel/issues/5068
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11284 -> Patchwork_22401
+
+  CI-20190529: 20190529
+  CI_DRM_11284: 22ba895f56529e4d9c0533f71b1f8eb8a1b6f86e @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6357: 6546304ecf053b9c5ec278ee3c210d2c6d50a3a6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_22401: f759cb0833e1f477bd4f1c7fe435865f6bc69009 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+f759cb0833e1 drm/i915/psr: Set "SF Partial Frame Enable" also on full update
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/index.html
+
+--===============1910280811859624468==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/psr: Set &quot;SF Partial Frame Enable&quot; also on full update (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/100633/">https://patchwork.freedesktop.org/series/100633/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11284 -&gt; Patchwork_22401</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/index.html</p>
+<h2>Participating hosts (42 -&gt; 36)</h2>
+<p>Missing    (6): fi-kbl-soraka fi-bsw-cyan fi-snb-2520m fi-pnv-d510 bat-jsl-2 fi-bdw-samus </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_22401 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/fi-cfl-8109u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>) +12 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_pm_rpm@module-reload:<ul>
+<li>{bat-adlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3576">i915#3576</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">PASS</a> +2 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11284/bat-dg1-6/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22401/bat-dg1-6/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4494">i915#4494</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11284 -&gt; Patchwork_22401</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11284: 22ba895f56529e4d9c0533f71b1f8eb8a1b6f86e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6357: 6546304ecf053b9c5ec278ee3c210d2c6d50a3a6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_22401: f759cb0833e1f477bd4f1c7fe435865f6bc69009 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>f759cb0833e1 drm/i915/psr: Set "SF Partial Frame Enable" also on full update</p>
+
+</body>
+</html>
+
+--===============1910280811859624468==--
