@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 960EBC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 03:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40ABFC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 03:24:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAEE710E749;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE6B10E78B;
 	Fri, 25 Feb 2022 03:24:47 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37AAF10E730;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9093F10E730;
  Fri, 25 Feb 2022 03:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1645759486; x=1677295486;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=33Qel1iREnwbVOIPxBVs/tDj2KTi68IHE6+FV/bUuM4=;
- b=M0WVdP2aZuak2XLaToeWe+ExWCVRxTsi5uc3PjZ54MLc4fcLN2xvdDBy
- nIeKRi2QTXJliM15zy4qaubeXwLeMI8FgbnPYx+a9cVbanQXAKp2mq2Ca
- BfYPiLdu65sbQv9sK1fkEY5pY6mHprbQajM0iOFGVqM3ZdP92jYBOV99r
- vC354e3oIF4M4mK8rF4i7r/O2YyXV2/IUWHSiWK34ptkmm8EB5YKO1l4f
- SZaPWv78HEvNwgbOQUiA8dnB/g4eENIp+1v1Qf2Eo0FKctwVmpHVCwxUP
- U+2aNJUGoTUni8HhxEbf8MVeuxENg3kLmnR9TKO2oVpeLl+ZLpe0OTeis g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="277044510"
-X-IronPort-AV: E=Sophos;i="5.90,135,1643702400"; d="scan'208";a="277044510"
+ bh=+4fxoeo1X3wkXnyPCqzjiVcmIl8E747SJuJxMweCvxk=;
+ b=M0x1vYxqxoskBWuUs71w8bSbYWsMnzBCttuAJGKlF46p00KFX3AExbAq
+ jXThWl1SwYmcoCxM+9HjBIhPSs/hTh0M5tcYpKBbARgcTxzyU3HNusGTu
+ x1FNkOlMzfaZnCe74cUQFN+q0lAXEbrGXJ3vfNhGqkCR7X4jgascI71qu
+ borCe4bargNpsVVL7niCaP+fghvT+XO5/JvmHvmV2Ifl+67IH4sBHLcWZ
+ VdNIKMFjZN1oRVJyHHVXcDW0S2Yl85py4LDhjRQmBStt9tUUDyCsF5HOE
+ 5mr8j7YwxkO83LsWhu7gJYGEV81X83XIycEX9g8YQG9pLGuoxMKCHBdhM Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="277044512"
+X-IronPort-AV: E=Sophos;i="5.90,135,1643702400"; d="scan'208";a="277044512"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 Feb 2022 19:24:45 -0800
-X-IronPort-AV: E=Sophos;i="5.90,135,1643702400"; d="scan'208";a="638087450"
+X-IronPort-AV: E=Sophos;i="5.90,135,1643702400"; d="scan'208";a="638087458"
 Received: from slwinche-mobl1.amr.corp.intel.com (HELO
  mvcheng-desk2.intel.com) ([10.212.150.224])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 19:24:41 -0800
+ 24 Feb 2022 19:24:43 -0800
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Feb 2022 19:24:32 -0800
-Message-Id: <20220225032436.904942-3-michael.cheng@intel.com>
+Date: Thu, 24 Feb 2022 19:24:34 -0800
+Message-Id: <20220225032436.904942-5-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220225032436.904942-1-michael.cheng@intel.com>
 References: <20220225032436.904942-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 2/6] drm/i915/gt: Re-work
- intel_write_status_page
+Subject: [Intel-gfx] [PATCH v12 4/6] drm/i915/gt: Re-work reset_csb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,46 +61,40 @@ Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Re-work intel_write_status_page to use drm_clflush_virt_range. This
+Use drm_clflush_virt_range instead of directly invoking clflush. This
 will prevent compiler errors when building for non-x86 architectures.
+
+v2(Michael Cheng): Remove extra clflush
+
+v3(Michael Cheng): Remove memory barrier since drm_clflush_virt_range
+		   takes care of it.
+
+v4(Michael Cheng): Get the size of value and not the size of the pointer
+		   when passing in execlists->csb_write. Thanks to Matt
+		   Roper for pointing this out.
 
 Signed-off-by: Michael Cheng <michael.cheng@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index be4b1e65442f..818468e0a02e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -4,6 +4,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index e5e73a1b2e4e..89aef3ce53f0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2945,9 +2945,8 @@ reset_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ {
+ 	struct intel_engine_execlists * const execlists = &engine->execlists;
  
- #include <asm/cacheflush.h>
- #include <drm/drm_util.h>
-+#include <drm/drm_cache.h>
+-	mb(); /* paranoia: read the CSB pointers from after the reset */
+-	clflush(execlists->csb_write);
+-	mb();
++	drm_clflush_virt_range(execlists->csb_write,
++			       sizeof(execlists->csb_write[0]));
  
- #include <linux/hashtable.h>
- #include <linux/irq_work.h>
-@@ -143,15 +144,9 @@ intel_write_status_page(struct intel_engine_cs *engine, int reg, u32 value)
- 	 * of extra paranoia to try and ensure that the HWS takes the value
- 	 * we give and that it doesn't end up trapped inside the CPU!
- 	 */
--	if (static_cpu_has(X86_FEATURE_CLFLUSH)) {
--		mb();
--		clflush(&engine->status_page.addr[reg]);
--		engine->status_page.addr[reg] = value;
--		clflush(&engine->status_page.addr[reg]);
--		mb();
--	} else {
--		WRITE_ONCE(engine->status_page.addr[reg], value);
--	}
-+	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
-+	WRITE_ONCE(engine->status_page.addr[reg], value);
-+	drm_clflush_virt_range(&engine->status_page.addr[reg], sizeof(value));
- }
+ 	inactive = process_csb(engine, inactive); /* drain preemption events */
  
- /*
 -- 
 2.25.1
 
