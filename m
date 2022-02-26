@@ -4,44 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD1EC433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 26 Feb 2022 01:56:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F76C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 26 Feb 2022 02:11:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7BEB10ED9D;
-	Sat, 26 Feb 2022 01:56:24 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D7710ED9E;
- Sat, 26 Feb 2022 01:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645840583; x=1677376583;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=RkEqp4gAmk68wvf2ftIxdsmrYEQ2gJYGv79n+iuY/5s=;
- b=bCfbo5Ajxc5vZcGpFHy6T+r9wirKQ+iI9UTOhd1avQfK6YsVXQcoXiPz
- YKeBojkwSfL2OQr/r8YqFqzWB5jnir4UTQN1crkw9FcK8B/vJFl9BcsuG
- hGsNDMdpRuU+fIybGleLuOVRTdtKee7V0H03nrRo3ec8jDv/dDJqDQ97T
- i41LxSgdoRCm9c+rDg8Ia2+tWXPB9GAIMsWherrDG728Cl+pH0XHIntWk
- O5idRCPqUWIkSPLYDKiqWFIPB9WwlajYL+tPuDoil+keArXa0GGKR4cLp
- Wl/Ikby2TPfpHXJEPv4on3gCK55vBSaKdlFoEIV4IXE1yWLqqpYmsJ0by w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="232591846"
-X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="232591846"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 17:56:23 -0800
-X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="549510568"
-Received: from fphy-dev.jf.intel.com (HELO fyang16-desk.jf.intel.com)
- ([134.134.244.167])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 17:56:23 -0800
-From: fei.yang@intel.com
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Feb 2022 17:50:49 -0800
-Message-Id: <20220226015049.1379347-1-fei.yang@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99CC110E27F;
+	Sat, 26 Feb 2022 02:11:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3409410E277;
+ Sat, 26 Feb 2022 02:11:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2CCFAA00E8;
+ Sat, 26 Feb 2022 02:11:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5994714540299634737=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: avoid concurrent writes to aux_inv
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Hans de Goede" <hdegoede@redhat.com>
+Date: Sat, 26 Feb 2022 02:11:13 -0000
+Message-ID: <164584147314.9641.2952679936051058564@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220225214934.383168-1-hdegoede@redhat.com>
+In-Reply-To: <20220225214934.383168-1-hdegoede@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/5=5D_drm/i915/vlv=5Fdsi=3A_Add_DMI_quirk?=
+ =?utf-8?q?_for_wrong_panel_modeline_in_BIOS_on_Asus_TF103C_=28v2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,162 +41,243 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chris.p.wilson@intel.com, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Fei Yang <fei.yang@intel.com>
+--===============5994714540299634737==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-GPU hangs have been observed when multiple engines write to the same aux_inv
-register at the same time. To avoid this each engine should only invalidate
-its own auxiliary table. The function gen12_emit_flush_xcs() currently
-invalidate the auxiliary table for all engines because the rq->engine is not
-necessarily the engine eventually carrying out the request, and potentially
-the engine could even be a virtual one (with engine->instance being -1).
-With this patch, auxiliary table invalidation is done only for the engine
-executing the request. And the mmio address for the aux_inv register is set
-after the engine instance becomes certain.
+== Series Details ==
 
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
-Signed-off-by: Fei Yang <fei.yang@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c      | 38 +++----------------
- .../drm/i915/gt/intel_execlists_submission.c  | 38 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_request.h           |  2 +
- 3 files changed, 45 insertions(+), 33 deletions(-)
+Series: series starting with [1/5] drm/i915/vlv_dsi: Add DMI quirk for wrong panel modeline in BIOS on Asus TF103C (v2)
+URL   : https://patchwork.freedesktop.org/series/100766/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 1f8cf4f790b2..9e39d04f46cc 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -165,30 +165,6 @@ static u32 preparser_disable(bool state)
- 	return MI_ARB_CHECK | 1 << 8 | state;
- }
- 
--static i915_reg_t aux_inv_reg(const struct intel_engine_cs *engine)
--{
--	static const i915_reg_t vd[] = {
--		GEN12_VD0_AUX_NV,
--		GEN12_VD1_AUX_NV,
--		GEN12_VD2_AUX_NV,
--		GEN12_VD3_AUX_NV,
--	};
--
--	static const i915_reg_t ve[] = {
--		GEN12_VE0_AUX_NV,
--		GEN12_VE1_AUX_NV,
--	};
--
--	if (engine->class == VIDEO_DECODE_CLASS)
--		return vd[engine->instance];
--
--	if (engine->class == VIDEO_ENHANCEMENT_CLASS)
--		return ve[engine->instance];
--
--	GEM_BUG_ON("unknown aux_inv reg\n");
--	return INVALID_MMIO_REG;
--}
--
- static u32 *gen12_emit_aux_table_inv(const i915_reg_t inv_reg, u32 *cs)
- {
- 	*cs++ = MI_LOAD_REGISTER_IMM(1);
-@@ -280,7 +256,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	if (mode & EMIT_INVALIDATE)
- 		aux_inv = rq->engine->mask & ~BIT(BCS0);
- 	if (aux_inv)
--		cmd += 2 * hweight32(aux_inv) + 2;
-+		cmd += 4;
- 
- 	cs = intel_ring_begin(rq, cmd);
- 	if (IS_ERR(cs))
-@@ -311,14 +287,10 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	*cs++ = 0; /* value */
- 
- 	if (aux_inv) { /* hsdes: 1809175790 */
--		struct intel_engine_cs *engine;
--		unsigned int tmp;
--
--		*cs++ = MI_LOAD_REGISTER_IMM(hweight32(aux_inv));
--		for_each_engine_masked(engine, rq->engine->gt, aux_inv, tmp) {
--			*cs++ = i915_mmio_reg_offset(aux_inv_reg(engine));
--			*cs++ = AUX_INV;
--		}
-+		*cs++ = MI_LOAD_REGISTER_IMM(1);
-+		rq->vd_ve_aux_inv = cs;
-+		*cs++ = 0; /* address to be set at submission to HW */
-+		*cs++ = AUX_INV;
- 		*cs++ = MI_NOOP;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 961d795220a3..f56726c861b7 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1253,6 +1253,34 @@ static bool completed(const struct i915_request *rq)
- 	return __i915_request_is_complete(rq);
- }
- 
-+static i915_reg_t aux_inv_reg(const struct intel_engine_cs *engine)
-+{
-+	static const i915_reg_t vd[] = {
-+		GEN12_VD0_AUX_NV,
-+		GEN12_VD1_AUX_NV,
-+		GEN12_VD2_AUX_NV,
-+		GEN12_VD3_AUX_NV,
-+	};
-+
-+	static const i915_reg_t ve[] = {
-+		GEN12_VE0_AUX_NV,
-+		GEN12_VE1_AUX_NV,
-+	};
-+
-+	if (engine->class == VIDEO_DECODE_CLASS) {
-+		GEM_BUG_ON(engine->instance >= ARRAY_SIZE(vd));
-+		return vd[engine->instance];
-+	}
-+
-+	if (engine->class == VIDEO_ENHANCEMENT_CLASS) {
-+		GEM_BUG_ON(engine->instance >= ARRAY_SIZE(ve));
-+		return ve[engine->instance];
-+	}
-+
-+	GEM_BUG_ON("unknown aux_inv reg\n");
-+	return INVALID_MMIO_REG;
-+}
-+
- static void execlists_dequeue(struct intel_engine_cs *engine)
- {
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
-@@ -1533,6 +1561,16 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			}
- 
- 			if (__i915_request_submit(rq)) {
-+				/* hsdes: 1809175790 */
-+				if (rq->vd_ve_aux_inv &&
-+				    (engine->class == VIDEO_DECODE_CLASS ||
-+				     engine->class == VIDEO_ENHANCEMENT_CLASS)) {
-+					*rq->vd_ve_aux_inv =
-+						i915_mmio_reg_offset(
-+							aux_inv_reg(engine));
-+					rq->vd_ve_aux_inv = NULL;
-+					rq->execution_mask = engine->mask;
-+				}
- 				if (!merge) {
- 					*port++ = i915_request_get(last);
- 					last = NULL;
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 28b1f9db5487..69de32e5e15d 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -350,6 +350,8 @@ struct i915_request {
- 		struct list_head link;
- 		unsigned long delay;
- 	} mock;)
-+
-+	u32 *vd_ve_aux_inv;
- };
- 
- #define I915_FENCE_GFP (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_11290 -> Patchwork_22420
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/index.html
+
+Participating hosts (41 -> 40)
+------------------------------
+
+  Additional (1): fi-kbl-guc 
+  Missing    (2): fi-bsw-cyan fi-skl-6600u 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_22420:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_selftest@live@hangcheck:
+    - {fi-ehl-2}:         [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11290/fi-ehl-2/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-ehl-2/igt@i915_selftest@live@hangcheck.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_22420 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-guc:         NOTRUN -> [SKIP][3] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@gem_lmem_swapping@basic.html
+
+  * igt@i915_module_load@reload:
+    - fi-bxt-dsi:         [PASS][4] -> [DMESG-WARN][5] ([i915#1982])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11290/fi-bxt-dsi/igt@i915_module_load@reload.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-bxt-dsi/igt@i915_module_load@reload.html
+
+  * igt@kms_busy@basic:
+    - fi-kbl-guc:         NOTRUN -> [SKIP][6] ([fdo#109271] / [i915#1845])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_busy@basic.html
+
+  * igt@kms_chamelium@vga-hpd-fast:
+    - fi-kbl-guc:         NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_chamelium@vga-hpd-fast.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-kbl-guc:         NOTRUN -> [SKIP][8] ([fdo#109271] / [i915#533])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@kms_pipe_crc_basic@read-crc-pipe-c:
+    - fi-kbl-guc:         NOTRUN -> [SKIP][9] ([fdo#109271]) +40 similar issues
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_pipe_crc_basic@read-crc-pipe-c.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1759]: https://gitlab.freedesktop.org/drm/intel/issues/1759
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#3576]: https://gitlab.freedesktop.org/drm/intel/issues/3576
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11290 -> Patchwork_22420
+
+  CI-20190529: 20190529
+  CI_DRM_11290: e4658cb77436a0a406de83fef483b52f84e17208 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6359: 57049558c452272b27eeb099fac07e55a924bbf9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_22420: c7e5a3fbe0e41dacecc4eab3a50d79edd7a97bb9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+c7e5a3fbe0e4 drm/i915/vlv_dsi: Skip MIPI I2C sequences on Microsoft Surface 3
+255314e8c90a drm/i915/dsi: Skip MIPI I2C sequences if not listed as a I2cSerialBus resource
+45d18533c834 drm/i915/dsi: Add some debug logging to mipi_exec_i2c
+a7de4d49f9f5 drm/i915/vlv_dsi: Add DMI quirk for wrong panel size on Lenovo Yoga Tablet 2 series
+96525232d483 drm/i915/vlv_dsi: Add DMI quirk for wrong panel modeline in BIOS on Asus TF103C (v2)
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/index.html
+
+--===============5994714540299634737==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/5] drm/i915/vlv_dsi: Add DMI quirk for wrong panel modeline in BIOS on Asus TF103C (v2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/100766/">https://patchwork.freedesktop.org/series/100766/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11290 -&gt; Patchwork_22420</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Additional (1): fi-kbl-guc <br />
+  Missing    (2): fi-bsw-cyan fi-skl-6600u </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_22420:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>{fi-ehl-2}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11290/fi-ehl-2/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-ehl-2/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_22420 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>fi-bxt-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11290/fi-bxt-dsi/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-bxt-dsi/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic:</p>
+<ul>
+<li>fi-kbl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_busy@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@vga-hpd-fast:</p>
+<ul>
+<li>fi-kbl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_chamelium@vga-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-kbl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-pipe-c:</p>
+<ul>
+<li>fi-kbl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22420/fi-kbl-guc/igt@kms_pipe_crc_basic@read-crc-pipe-c.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +40 similar issues</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11290 -&gt; Patchwork_22420</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11290: e4658cb77436a0a406de83fef483b52f84e17208 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6359: 57049558c452272b27eeb099fac07e55a924bbf9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_22420: c7e5a3fbe0e41dacecc4eab3a50d79edd7a97bb9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>c7e5a3fbe0e4 drm/i915/vlv_dsi: Skip MIPI I2C sequences on Microsoft Surface 3<br />
+255314e8c90a drm/i915/dsi: Skip MIPI I2C sequences if not listed as a I2cSerialBus resource<br />
+45d18533c834 drm/i915/dsi: Add some debug logging to mipi_exec_i2c<br />
+a7de4d49f9f5 drm/i915/vlv_dsi: Add DMI quirk for wrong panel size on Lenovo Yoga Tablet 2 series<br />
+96525232d483 drm/i915/vlv_dsi: Add DMI quirk for wrong panel modeline in BIOS on Asus TF103C (v2)</p>
+
+</body>
+</html>
+
+--===============5994714540299634737==--
