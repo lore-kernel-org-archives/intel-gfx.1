@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89696C433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 26 Feb 2022 05:53:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68B21C4332F
+	for <intel-gfx@archiver.kernel.org>; Sat, 26 Feb 2022 05:53:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00BF710ED0E;
-	Sat, 26 Feb 2022 05:53:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCEEF10ED0B;
+	Sat, 26 Feb 2022 05:53:18 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F5E10ECFE
- for <intel-gfx@lists.freedesktop.org>; Sat, 26 Feb 2022 05:53:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D333E10ED04
+ for <intel-gfx@lists.freedesktop.org>; Sat, 26 Feb 2022 05:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645854797; x=1677390797;
+ t=1645854796; x=1677390796;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=O/e3PawVstDEugBLD5eraUR57pil4/C0sroaDc9l/Yo=;
- b=Cu+dZ+d3j10+7UYy5V1l8L8LMLUX5brKikyb+7yUTqt/8rUgET6hEuVr
- eShQL4US4jC/KdxGlUg81RxQwB4x/r3DL56FnmFeqlXq1WBI1I2QHgHUK
- 7zgPiBJpTyIEMPnA4aOCO7ML5ZIJfqgLocB/xjrBtx7EoHVgRscg8JeGj
- h9nRrHUgnLkGiGBRdaYTuIbjnEDDq0DBtTZBJwAm5Q/JI4z6aHxa15/tO
- Ipij2xHf2mK23HzhcHOl4OLylsSJlct7OOeXKsgUvtfvC5nbOhfkNbWND
- 47bCOOONI85tbPqaqwrtJ6d+qu7+eFcloV35A+A43cjinAoqgLcNBRBp+ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="277274597"
-X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="277274597"
+ bh=TVmnog9GpKJ80XsfNoLqmvja4sJ2rB9c+/e7s9Mr1hw=;
+ b=TaCTQZjqiMoVBuQafPpICl5aDn0sidWVfiLR3hGBA2P+xUMIDhFxHGyH
+ QUTwHGsETLBFXFooMoB0ACI78aZLXWrGVYxO/IjbRHahR8zNEPhXqrulB
+ RcCItJNnlPBGz0DdPziBMCi87/015ou9wEucITHK5yo+C6Aj3buykrvsb
+ U68wKw8M7+FPnCftMXCAXXO5o24dLQNCz+KjaiYlBOXmYSlEj2fyPyWTh
+ y+OiUXwgD3xhxI+KXSBKOVTUEKvCUncoHh1zvdoPdANMcFTd2/vGmqkH4
+ K8NMqiAlEXE8idAxxTlPlRYrmd8rsiZA6+vs+ENXyjapYqek6K9tq94XN A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="277274594"
+X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="277274594"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 21:53:17 -0800
+ 25 Feb 2022 21:53:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="574817101"
+X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="574817094"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by orsmga001.jf.intel.com with ESMTP; 25 Feb 2022 21:53:16 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Feb 2022 21:55:26 -0800
-Message-Id: <20220226055526.665514-14-alan.previn.teres.alexis@intel.com>
+Date: Fri, 25 Feb 2022 21:55:24 -0800
+Message-Id: <20220226055526.665514-12-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220226055526.665514-1-alan.previn.teres.alexis@intel.com>
 References: <20220226055526.665514-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 13/13] drm/i915/guc: Print the GuC error
- capture output register list.
+Subject: [Intel-gfx] [PATCH v6 11/13] drm/i915/guc: Pre-allocate output
+ nodes for extraction
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,373 +60,379 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Print the GuC captured error state register list (string names
-and values) when gpu_coredump_state printout is invoked via
-the i915 debugfs for flushing the gpu error-state that was
-captured prior.
-
-Since GuC could have reported multiple engine register dumps
-in a single notification event, parse the captured data
-(appearing as a stream of structures) to identify each dump as
-a different 'engine-capture-group-output'.
-
-Finally, for each 'engine-capture-group-output' that is found,
-verify if the engine register dump corresponds to the
-engine_coredump content that was previously populated by the
-i915_gpu_coredump function. That function would have copied
-the context's vma's including the bacth buffer during the
-G2H-context-reset notification that occurred earlier. Perform
-this verification check by comparing guc_id, lrca and engine-
-instance obtained from the 'engine-capture-group-output' vs a
-copy of that same info taken during i915_gpu_coredump. If
-they match, then print those vma's as well (such as the batch
-buffers).
+In the rare but possible scenario where we are in the midst of
+multiple GuC error-capture (and engine reset) events and the
+user also triggers a forced full GT reset or the internal watchdog
+triggers the same, intel_guc_submission_reset_prepare's call
+to flush_work(&guc->ct.requests.worker) can cause the G2H message
+handler to trigger intel_guc_capture_store_snapshot upon
+receiving new G2H error-capture notifications. This can happen
+despite the prior call to disable_submission(guc);. However,
+there's no race-free way for intel_guc_capture_store_snapshot to
+know that we are in the midst of a reset. That said, we can never
+dynamically allocate the output nodes in this handler. Thus, we
+shall pre-allocate a fixed number of empty nodes up front (at the
+time of ADS registration) that we can consume from or return to
+an internal cached list of nodes.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   3 +
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 162 ++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_capture.h    |   2 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   6 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |   1 +
- drivers/gpu/drm/i915/i915_gpu_error.c         |  16 +-
- drivers/gpu/drm/i915/i915_gpu_error.h         |   5 +
- 8 files changed, 184 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  19 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 178 ++++++++++++++----
+ 2 files changed, 160 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index e855c801ba28..4643745e5d09 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1629,9 +1629,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 		drm_printf(m, "\tIPEHR: 0x%08x\n", ENGINE_READ(engine, IPEHR));
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+index 7c4f1e4ae0a5..b5eea9676668 100644
+--- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+@@ -30,7 +30,7 @@ struct __guc_capture_bufstate {
+  *
+  * A single unit of extracted error-capture output data grouped together
+  * at an engine-instance level. We keep these nodes in a linked list.
+- * See outlist below.
++ * See cachelist and outlist below.
+  */
+ struct __guc_capture_parsed_output {
+ 	/*
+@@ -187,7 +187,22 @@ struct __guc_state_capture_priv {
+ 						[GUC_MAX_ENGINE_CLASSES];
  
--	if (intel_engine_uses_guc(engine)) {
--		/* nothing to print yet */
--	} else if (HAS_EXECLISTS(dev_priv)) {
-+	if (HAS_EXECLISTS(dev_priv) && !intel_engine_uses_guc(engine)) {
- 		struct i915_request * const *port, *rq;
- 		const u32 *hws =
- 			&engine->status_page.addr[I915_HWS_CSB_BUF0_INDEX];
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 9b2932d83dbe..5ded17499f82 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -437,6 +437,9 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
- int intel_guc_error_capture_process_msg(struct intel_guc *guc,
- 					const u32 *msg, u32 len);
- 
-+struct intel_engine_cs *
-+intel_guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance);
+ 	/**
+-	 * @outlist: allocated nodes with parsed engine-instance error capture data
++	 * @cachelist: Pool of pre-allocated nodes for error capture output
++	 *
++	 * We need this pool of pre-allocated nodes because we cannot
++	 * dynamically allocate new nodes when receiving the G2H notification
++	 * because the event handlers for all G2H event-processing is called
++	 * by the ct processing worker queue and when that queue is being
++	 * processed, there is no absoluate guarantee that we are not in the
++	 * midst of a GT reset operation (which doesn't allow allocations).
++	 */
++	struct list_head cachelist;
++#define PREALLOC_NODES_MAX_COUNT (3 * GUC_MAX_ENGINE_CLASSES * GUC_MAX_INSTANCES_PER_CLASS)
++#define PREALLOC_NODES_DEFAULT_NUMREGS 64
++	int max_mmio_per_node;
 +
- void intel_guc_find_hung_context(struct intel_engine_cs *engine);
- 
- int intel_guc_global_policies_update(struct intel_guc *guc);
++	/**
++	 * @outlist: Pool of pre-allocated nodes for error capture output
+ 	 *
+ 	 * A linked list of parsed GuC error-capture output data before
+ 	 * reporting with formatting via i915_gpu_coredump. Each node in this linked list shall
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 8ade155329d2..5b9b5afa8412 100644
+index 492719137bd5..944b4bd8cdfb 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -735,6 +735,21 @@ int intel_guc_capture_output_min_size_est(struct intel_guc *guc)
-  *                                    intel_engine_coredump struct (if the context and
-  *                                    engine of the event notification matches a node
-  *                                    in the link list).
-+ *
-+ * User Sysfs / Debugfs
-+ * --------------------
-+ *      --> i915_gpu_coredump_copy_to_buffer->
-+ *                   L--> err_print_to_sgl --> err_print_gt
-+ *                        L--> error_print_guc_captures
-+ *                             L--> intel_guc_capture_print_node prints the
-+ *                                  register lists values of the attached node
-+ *                                  on the error-engine-dump being reported.
-+ *                   L--> i915_reset_error_state ... -->__i915_gpu_coredump_free
-+ *                        L--> ... cleanup_gt -->
-+ *                             L--> intel_guc_capture_free_node returns the
-+ *                                  capture-output-node back to the internal
-+ *                                  cachelist for reuse.
-+ *
-  */
+@@ -582,6 +582,8 @@ intel_guc_capture_getlistsize(struct intel_guc *guc, u32 owner, u32 type, u32 cl
+ 	return 0;
+ }
  
- static int guc_capture_buf_cnt(struct __guc_capture_bufstate *buf)
-@@ -1335,9 +1350,156 @@ static void __guc_capture_process_output(struct intel_guc *guc)
++static void guc_capture_create_prealloc_nodes(struct intel_guc *guc);
++
+ int
+ intel_guc_capture_getlist(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+ 			  void **listptr)
+@@ -601,6 +603,12 @@ intel_guc_capture_getlist(struct intel_guc *guc, u32 owner, u32 type, u32 classi
+ 		return cache->status;
+ 	}
  
- #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
++	/*
++	 * ADS population of input registers is a good
++	 * time to pre-allocate cachelist output nodes
++	 */
++	guc_capture_create_prealloc_nodes(guc);
++
+ 	ret = intel_guc_capture_getlistsize(guc, owner, type, classid, &size);
+ 	if (ret) {
+ 		cache->list = NULL;
+@@ -710,7 +718,8 @@ int intel_guc_capture_output_min_size_est(struct intel_guc *guc)
+  *                                err-state-captured register-list we find, we alloc 'C':
+  *      --> alloc C: A capture-output-node structure that includes misc capture info along
+  *                   with 3 register list dumps (global, engine-class and engine-instance)
+- *                   This node is dynamically allocated and populated with the error-capture
++ *                   This node is created from a pre-allocated list of blank nodes in
++ *                   guc->capture->priv->cachelist and populated with the error-capture
+  *                   data from GuC and then it's added into guc->capture->priv->outlist linked
+  *                   list. This list is used for matchup and printout by i915_gpu_coredump
+  *                   and err_print_gt, (when user invokes the error capture sysfs).
+@@ -854,19 +863,20 @@ guc_capture_delete_one_node(struct intel_guc *guc, struct __guc_capture_parsed_o
+ }
  
-+static const char *
-+guc_capture_reg_to_str(const struct intel_guc *guc, u32 owner, u32 type,
-+		       u32 class, u32 id, u32 offset, u32 *is_ext)
+ static void
+-guc_capture_delete_nodes(struct intel_guc *guc)
++guc_capture_delete_prealloc_nodes(struct intel_guc *guc)
+ {
++	struct __guc_capture_parsed_output *n, *ntmp;
++
+ 	/*
+ 	 * NOTE: At the end of driver operation, we must assume that we
+-	 * have nodes in outlist from unclaimed error capture events
+-	 * that occurred prior to shutdown.
++	 * have prealloc nodes in both the cachelist as well as outlist
++	 * if unclaimed error capture events occurred prior to shutdown.
+ 	 */
+-	if (!list_empty(&guc->capture.priv->outlist)) {
+-		struct __guc_capture_parsed_output *n, *ntmp;
++	list_for_each_entry_safe(n, ntmp, &guc->capture.priv->outlist, link)
++		guc_capture_delete_one_node(guc, n);
+ 
+-		list_for_each_entry_safe(n, ntmp, &guc->capture.priv->outlist, link)
+-			guc_capture_delete_one_node(guc, n);
+-	}
++	list_for_each_entry_safe(n, ntmp, &guc->capture.priv->cachelist, link)
++		guc_capture_delete_one_node(guc, n);
+ }
+ 
+ static void
+@@ -883,21 +893,80 @@ guc_capture_add_node_to_outlist(struct __guc_state_capture_priv *gc,
+ 	guc_capture_add_node_to_list(node, &gc->outlist);
+ }
+ 
++static void
++guc_capture_add_node_to_cachelist(struct __guc_state_capture_priv *gc,
++				  struct __guc_capture_parsed_output *node)
 +{
-+	const struct __guc_mmio_reg_descr_group *reglists = guc->capture.priv->reglists;
-+	struct __guc_mmio_reg_descr_group *extlists = guc->capture.priv->extlists;
-+	const struct __guc_mmio_reg_descr_group *match;
-+	struct __guc_mmio_reg_descr_group *matchext;
-+	int j;
++	guc_capture_add_node_to_list(node, &gc->cachelist);
++}
 +
-+	*is_ext = 0;
-+	if (!reglists)
-+		return NULL;
+ static void
+ guc_capture_init_node(struct intel_guc *guc, struct __guc_capture_parsed_output *node)
+ {
++	struct guc_mmio_reg *tmp[GUC_CAPTURE_LIST_TYPE_MAX];
++	int i;
 +
-+	match = guc_capture_get_one_list(reglists, owner, type, id);
-+	if (!match)
-+		return NULL;
-+
-+	for (j = 0; j < match->num_regs; ++j) {
-+		if (offset == match->list[j].reg.reg)
-+			return match->list[j].regname;
++	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
++		tmp[i] = node->reginfo[i].regs;
++		memset(tmp[i], 0, sizeof(struct guc_mmio_reg) *
++		       guc->capture.priv->max_mmio_per_node);
 +	}
-+	if (extlists) {
-+		matchext = guc_capture_get_one_ext_list(extlists, owner, type, id);
-+		if (!matchext)
++	memset(node, 0, sizeof(*node));
++	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i)
++		node->reginfo[i].regs = tmp[i];
++
+ 	INIT_LIST_HEAD(&node->link);
+ }
+ 
++static struct __guc_capture_parsed_output *
++guc_capture_get_prealloc_node(struct intel_guc *guc)
++{
++	struct __guc_capture_parsed_output *found = NULL;
++
++	if (!list_empty(&guc->capture.priv->cachelist)) {
++		struct __guc_capture_parsed_output *n, *ntmp;
++
++		/* get first avail node from the cache list */
++		list_for_each_entry_safe(n, ntmp, &guc->capture.priv->cachelist, link) {
++			found = n;
++			list_del(&n->link);
++			break;
++		}
++	} else {
++		struct __guc_capture_parsed_output *n, *ntmp;
++
++		/* traverse down and steal back the oldest node already allocated */
++		list_for_each_entry_safe(n, ntmp, &guc->capture.priv->outlist, link) {
++			found = n;
++		}
++		if (found)
++			list_del(&found->link);
++	}
++	if (found)
++		guc_capture_init_node(guc, found);
++
++	return found;
++}
++
+ static struct __guc_capture_parsed_output *
+ guc_capture_alloc_one_node(struct intel_guc *guc)
+ {
+ 	struct __guc_capture_parsed_output *new;
++	int i;
+ 
+ 	new = kzalloc(sizeof(*new), GFP_KERNEL);
+ 	if (!new)
+ 		return NULL;
+ 
++	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
++		new->reginfo[i].regs = kcalloc(guc->capture.priv->max_mmio_per_node,
++					       sizeof(struct guc_mmio_reg), GFP_KERNEL);
++		if (!new->reginfo[i].regs) {
++			while (i)
++				kfree(new->reginfo[--i].regs);
 +			return NULL;
-+		for (j = 0; j < matchext->num_regs; ++j) {
-+			if (offset == matchext->extlist[j].reg.reg) {
-+				*is_ext = 1;
-+				return matchext->extlist[j].regname;
++		}
++	}
+ 	guc_capture_init_node(guc, new);
+ 
+ 	return new;
+@@ -910,7 +979,7 @@ guc_capture_clone_node(struct intel_guc *guc, struct __guc_capture_parsed_output
+ 	struct __guc_capture_parsed_output *new;
+ 	int i;
+ 
+-	new = guc_capture_alloc_one_node(guc);
++	new = guc_capture_get_prealloc_node(guc);
+ 	if (!new)
+ 		return NULL;
+ 	if (!ori)
+@@ -921,16 +990,14 @@ guc_capture_clone_node(struct intel_guc *guc, struct __guc_capture_parsed_output
+ 	/* copy reg-lists that we want to clone */
+ 	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
+ 		if (keep_reglist_mask & BIT(i)) {
+-			new->reginfo[i].regs = kcalloc(ori->reginfo[i].num_regs,
+-						       sizeof(struct guc_mmio_reg), GFP_KERNEL);
+-			if (!new->reginfo[i].regs)
+-				goto bail_clone;
++			GEM_BUG_ON(ori->reginfo[i].num_regs  >
++				   guc->capture.priv->max_mmio_per_node);
+ 
+ 			memcpy(new->reginfo[i].regs, ori->reginfo[i].regs,
+ 			       ori->reginfo[i].num_regs * sizeof(struct guc_mmio_reg));
++
+ 			new->reginfo[i].num_regs = ori->reginfo[i].num_regs;
+ 			new->reginfo[i].vfid  = ori->reginfo[i].vfid;
+-
+ 			if (i == GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS) {
+ 				new->eng_class = ori->eng_class;
+ 			} else if (i == GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE) {
+@@ -942,14 +1009,58 @@ guc_capture_clone_node(struct intel_guc *guc, struct __guc_capture_parsed_output
+ 	}
+ 
+ 	return new;
++}
+ 
+-bail_clone:
+-	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
+-		if (new->reginfo[i].regs)
+-			kfree(new->reginfo[i].regs);
++static void
++__guc_capture_create_prealloc_nodes(struct intel_guc *guc)
++{
++	struct __guc_capture_parsed_output *node = NULL;
++	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++	int i;
++
++	for (i = 0; i < PREALLOC_NODES_MAX_COUNT; ++i) {
++		node = guc_capture_alloc_one_node(guc);
++		if (!node) {
++			drm_warn(&i915->drm, "GuC Capture pre-alloc-cache failure\n");
++			/* dont free the priors, use what we got and cleanup at shutdown */
++			return;
++		}
++		guc_capture_add_node_to_cachelist(guc->capture.priv, node);
+ 	}
+-	kfree(new);
+-	return NULL;
++}
++
++static int
++guc_get_max_reglist_count(struct intel_guc *guc)
++{
++	int i, j, k, tmp, maxregcount = 0;
++
++	for (i = 0; i < GUC_CAPTURE_LIST_INDEX_MAX; ++i) {
++		for (j = 0; j < GUC_CAPTURE_LIST_TYPE_MAX; ++j) {
++			for (k = 0; k < GUC_MAX_ENGINE_CLASSES; ++k) {
++				if (j == GUC_CAPTURE_LIST_TYPE_GLOBAL && k > 0)
++					continue;
++
++				tmp = guc_cap_list_num_regs(guc->capture.priv, i, j, k);
++				if (tmp > maxregcount)
++					maxregcount = tmp;
 +			}
 +		}
 +	}
++	if (!maxregcount)
++		maxregcount = PREALLOC_NODES_DEFAULT_NUMREGS;
 +
-+	return NULL;
++	return maxregcount;
 +}
 +
-+#ifdef CONFIG_DRM_I915_DEBUG_GUC
-+#define __out(a, ...) \
-+	do { \
-+		drm_warn((&(a)->drm), __VA_ARGS__); \
-+		i915_error_printf((a), __VA_ARGS__); \
-+	} while (0)
-+#else
-+#define __out(a, ...) \
-+	i915_error_printf(a, __VA_ARGS__)
-+#endif
++static void
++guc_capture_create_prealloc_nodes(struct intel_guc *guc)
++{
++	/* skip if we've already done the pre-alloc */
++	if (guc->capture.priv->max_mmio_per_node)
++		return;
 +
-+#define GCAP_PRINT_INTEL_ENG_INFO(ebuf, eng) \
-+	do { \
-+		__out(ebuf, "    i915-Eng-Name: %s command stream\n", \
-+		      (eng)->name); \
-+		__out(ebuf, "    i915-Eng-Inst-Class: 0x%02x\n", (eng)->class); \
-+		__out(ebuf, "    i915-Eng-Inst-Id: 0x%02x\n", (eng)->instance); \
-+		__out(ebuf, "    i915-Eng-LogicalMask: 0x%08x\n", \
-+		      (eng)->logical_mask); \
-+	} while (0)
-+
-+#define GCAP_PRINT_GUC_INST_INFO(ebuf, node) \
-+	do { \
-+		__out(ebuf, "    GuC-Engine-Inst-Id: 0x%08x\n", \
-+		      (node)->eng_inst); \
-+		__out(ebuf, "    GuC-Context-Id: 0x%08x\n", (node)->guc_id); \
-+		__out(ebuf, "    LRCA: 0x%08x\n", (node)->lrca); \
-+	} while (0)
-+
- int intel_guc_capture_print_engine_node(struct drm_i915_error_state_buf *ebuf,
- 					const struct intel_engine_coredump *ee)
- {
-+	const char *grptype[GUC_STATE_CAPTURE_GROUP_TYPE_MAX] = {
-+		"full-capture",
-+		"partial-capture"
-+	};
-+	const char *datatype[GUC_CAPTURE_LIST_TYPE_MAX] = {
-+		"Global",
-+		"Engine-Class",
-+		"Engine-Instance"
-+	};
-+	struct intel_guc_state_capture *cap;
-+	struct __guc_capture_parsed_output *node;
-+	struct drm_i915_private *i915;
-+	struct guc_mmio_reg *regs;
-+	struct intel_guc *guc;
-+	struct intel_engine_cs *eng;
-+	const char *str;
-+	int numregs, i, j;
-+	u32 is_ext;
-+
-+	if (!ebuf || !ee)
-+		return -EINVAL;
-+	cap = ee->capture;
-+	if (!cap->priv || !ee->engine)
-+		return -ENODEV;
-+
-+	guc = container_of(cap, struct intel_guc, capture);
-+	i915 = (container_of(guc, struct intel_gt, uc.guc))->i915;
-+	__out(ebuf, "global --- GuC Error Capture on %s command stream:\n",
-+	      ee->engine->name);
-+
-+	node = ee->guc_capture_node;
-+	if (!node) {
-+		__out(ebuf, "  No matching ee-node\n");
-+		return 0;
-+	}
-+
-+	__out(ebuf, "Coverage:  %s\n", grptype[node->is_partial]);
-+
-+	for (i = GUC_CAPTURE_LIST_TYPE_GLOBAL; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
-+		__out(ebuf, "  RegListType: %s\n",
-+		      datatype[i % GUC_CAPTURE_LIST_TYPE_MAX]);
-+		__out(ebuf, "    Owner-Id: %d\n", node->reginfo[i].vfid);
-+
-+		switch (i) {
-+		case GUC_CAPTURE_LIST_TYPE_GLOBAL:
-+		default:
-+			break;
-+		case GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS:
-+			__out(ebuf, "    GuC-Eng-Class: %d\n", node->eng_class);
-+			__out(ebuf, "    i915-Eng-Class: %d\n",
-+			      guc_class_to_engine_class(node->eng_class));
-+			break;
-+		case GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE:
-+			eng = intel_guc_lookup_engine(guc, node->eng_class, node->eng_inst);
-+			if (eng)
-+				GCAP_PRINT_INTEL_ENG_INFO(ebuf, eng);
-+			else
-+				__out(ebuf, "    i915-Eng-Lookup Fail!\n");
-+			GCAP_PRINT_GUC_INST_INFO(ebuf, node);
-+			break;
-+		}
-+
-+		numregs = node->reginfo[i].num_regs;
-+		__out(ebuf, "    NumRegs: %d\n", numregs);
-+		j = 0;
-+		while (numregs--) {
-+			regs = node->reginfo[i].regs;
-+			str = guc_capture_reg_to_str(guc, GUC_CAPTURE_LIST_INDEX_PF, i,
-+						     node->eng_class, 0, regs[j].offset, &is_ext);
-+			if (!str)
-+				__out(ebuf, "      REG-0x%08x", regs[j].offset);
-+			else
-+				__out(ebuf, "      %s", str);
-+			if (is_ext)
-+				__out(ebuf, "[%ld][%ld]",
-+				      FIELD_GET(GUC_REGSET_STEERING_GROUP, regs[j].flags),
-+				      FIELD_GET(GUC_REGSET_STEERING_INSTANCE, regs[j].flags));
-+			__out(ebuf, ":  0x%08x\n", regs[j].value);
-+			++j;
-+		}
-+	}
- 	return 0;
++	guc->capture.priv->max_mmio_per_node = guc_get_max_reglist_count(guc);
++	__guc_capture_create_prealloc_nodes(guc);
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-index 4e6bc7103b75..5e3e090cfdd1 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-@@ -11,8 +11,8 @@
- struct drm_i915_error_state_buf;
- struct guc_ads;
- struct guc_gt_system_info;
--struct intel_context;
- struct intel_engine_coredump;
-+struct intel_context;
- struct intel_gt;
- struct intel_guc;
+ static int
+@@ -1065,13 +1176,13 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
+ 				guc_capture_add_node_to_outlist(guc->capture.priv, node);
+ 				node = NULL;
+ 			} else if (datatype == GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS &&
+-				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS].regs) {
++				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS].num_regs) {
+ 				/* Add to list, clone node and duplicate global list */
+ 				guc_capture_add_node_to_outlist(guc->capture.priv, node);
+ 				node = guc_capture_clone_node(guc, node,
+ 							      GCAP_PARSED_REGLIST_INDEX_GLOBAL);
+ 			} else if (datatype == GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE &&
+-				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE].regs) {
++				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE].num_regs) {
+ 				/* Add to list, clone node and duplicate global + class lists */
+ 				guc_capture_add_node_to_outlist(guc->capture.priv, node);
+ 				node = guc_capture_clone_node(guc, node,
+@@ -1081,7 +1192,7 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
+ 		}
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 5310719f96c8..d7c13ea0d1e0 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4084,8 +4084,8 @@ int intel_guc_error_capture_process_msg(struct intel_guc *guc,
- 	return 0;
- }
+ 		if (!node) {
+-			node = guc_capture_alloc_one_node(guc);
++			node = guc_capture_get_prealloc_node(guc);
+ 			if (!node) {
+ 				ret = -ENOMEM;
+ 				break;
+@@ -1106,17 +1217,13 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
+ 			break;
+ 		}
  
--static struct intel_engine_cs *
--guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance)
-+struct intel_engine_cs *
-+intel_guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
- 	u8 engine_class = guc_class_to_engine_class(guc_class);
-@@ -4134,7 +4134,7 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
- 	instance = msg[1];
- 	reason = msg[2];
- 
--	engine = guc_lookup_engine(guc, guc_class, instance);
-+	engine = intel_guc_lookup_engine(guc, guc_class, instance);
- 	if (unlikely(!engine)) {
- 		drm_err(&gt->i915->drm,
- 			"Invalid engine %d:%d", guc_class, instance);
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 274abf267f35..71489ce52746 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -308,6 +308,7 @@ static int i915_gpu_info_open(struct inode *inode, struct file *file)
- 	gpu = NULL;
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
- 		gpu = i915_gpu_coredump(to_gt(i915), ALL_ENGINES, CORE_DUMP_FLAG_NONE);
-+
- 	if (IS_ERR(gpu))
- 		return PTR_ERR(gpu);
- 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 3d566bbe228d..3c7b9d0e8627 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -530,8 +530,8 @@ __find_vma(struct i915_vma_coredump *vma, const char *name)
- 	return NULL;
- }
- 
--static struct i915_vma_coredump *
--find_batch(const struct intel_engine_coredump *ee)
-+struct i915_vma_coredump *
-+intel_gpu_error_find_batch(const struct intel_engine_coredump *ee)
- {
- 	return __find_vma(ee->vma, "batch");
- }
-@@ -559,7 +559,7 @@ static void error_print_engine(struct drm_i915_error_state_buf *m,
- 
- 	error_print_instdone(m, ee);
- 
--	batch = find_batch(ee);
-+	batch = intel_gpu_error_find_batch(ee);
- 	if (batch) {
- 		u64 start = batch->gtt_offset;
- 		u64 end = start + batch->gtt_size;
-@@ -610,9 +610,9 @@ void i915_error_printf(struct drm_i915_error_state_buf *e, const char *f, ...)
- 	va_end(args);
- }
- 
--static void print_error_vma(struct drm_i915_error_state_buf *m,
--			    const struct intel_engine_cs *engine,
--			    const struct i915_vma_coredump *vma)
-+void intel_gpu_error_print_vma(struct drm_i915_error_state_buf *m,
-+			       const struct intel_engine_cs *engine,
-+			       const struct i915_vma_coredump *vma)
- {
- 	char out[ASCII85_BUFSZ];
- 	struct page *page;
-@@ -681,7 +681,7 @@ static void err_print_uc(struct drm_i915_error_state_buf *m,
- 
- 	intel_uc_fw_dump(&error_uc->guc_fw, &p);
- 	intel_uc_fw_dump(&error_uc->huc_fw, &p);
--	print_error_vma(m, NULL, error_uc->guc_log);
-+	intel_gpu_error_print_vma(m, NULL, error_uc->guc_log);
- }
- 
- static void err_free_sgl(struct scatterlist *sgl)
-@@ -801,7 +801,7 @@ static void err_print_gt_engines(struct drm_i915_error_state_buf *m,
- 		error_print_context(m, "  Active context: ", &ee->context);
- 
- 		for (vma = ee->vma; vma; vma = vma->next)
--			print_error_vma(m, ee->engine, vma);
-+			intel_gpu_error_print_vma(m, ee->engine, vma);
+-		regs = NULL;
+ 		numregs = FIELD_GET(CAP_HDR_NUM_MMIOS, hdr.num_mmios);
+-		if (numregs) {
+-			regs = kcalloc(numregs, sizeof(struct guc_mmio_reg), GFP_KERNEL);
+-			if (!regs) {
+-				ret = -ENOMEM;
+-				break;
+-			}
++		if (numregs > guc->capture.priv->max_mmio_per_node) {
++			drm_dbg(&i915->drm, "GuC Capture list extraction clipped by prealloc!\n");
++			numregs = guc->capture.priv->max_mmio_per_node;
+ 		}
+ 		node->reginfo[datatype].num_regs = numregs;
+-		node->reginfo[datatype].regs = regs;
++		regs = node->reginfo[datatype].regs;
+ 		i = 0;
+ 		while (numregs--) {
+ 			if (guc_capture_log_get_register(guc, buf, &regs[i++])) {
+@@ -1136,8 +1243,8 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
+ 				break;
+ 			}
+ 		}
+-		if (node) /* else free it */
+-			kfree(node);
++		if (node) /* else return it back to cache list */
++			guc_capture_add_node_to_cachelist(guc->capture.priv, node);
  	}
- 
+ 	return ret;
  }
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
-index 64b999d8ac27..9554ce7a71ef 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.h
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.h
-@@ -237,6 +237,11 @@ static inline u32 i915_reset_engine_count(struct i915_gpu_error *error,
+@@ -1244,7 +1351,7 @@ void intel_guc_capture_destroy(struct intel_guc *guc)
  
- __printf(2, 3)
- void i915_error_printf(struct drm_i915_error_state_buf *e, const char *f, ...);
-+void intel_gpu_error_print_vma(struct drm_i915_error_state_buf *m,
-+			       const struct intel_engine_cs *engine,
-+			       const struct i915_vma_coredump *vma);
-+struct i915_vma_coredump *
-+intel_gpu_error_find_batch(const struct intel_engine_coredump *ee);
+ 	guc_capture_free_ads_cache(guc->capture.priv);
  
- struct i915_gpu_coredump *i915_gpu_coredump(struct intel_gt *gt,
- 					    intel_engine_mask_t engine_mask, u32 dump_flags);
+-	guc_capture_delete_nodes(guc);
++	guc_capture_delete_prealloc_nodes(guc);
+ 
+ 	if (guc->capture.priv->extlists) {
+ 		guc_capture_free_extlists(guc->capture.priv->extlists);
+@@ -1264,6 +1371,7 @@ int intel_guc_capture_init(struct intel_guc *guc)
+ 	guc->capture.priv->reglists = guc_capture_get_device_reglist(guc);
+ 
+ 	INIT_LIST_HEAD(&guc->capture.priv->outlist);
++	INIT_LIST_HEAD(&guc->capture.priv->cachelist);
+ 
+ 	return 0;
+ }
 -- 
 2.25.1
 
