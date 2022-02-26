@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E450C433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 26 Feb 2022 05:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62419C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 26 Feb 2022 05:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A38710ECFA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACB3110ED07;
 	Sat, 26 Feb 2022 05:53:17 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E969410ECFB;
- Sat, 26 Feb 2022 05:53:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4929610ECFF
+ for <intel-gfx@lists.freedesktop.org>; Sat, 26 Feb 2022 05:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645854794; x=1677390794;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=mN4FcCJHxU6JfbWzrzhp4ctYXRez6YuadH+Tm0Zgfv0=;
- b=cJVK8AF/JTjgy4EChRDLU8TpwWeBms7g8ZRs4HOsJJnJTP9vd4k9wV/w
- fFXCWDcqcc5b2Ag7Z2/MFvcbScilP55Gwf5Axu02JQLT+qSJ6Q/8MuxB5
- 7hHNgpCicSuN1NKGNovEqM5QmzpH5ZsEV00Wq52awqBut44I6QJmB+HyV
- NGjS2bUHhbk32fwP5CrRsjnjqFhuGmWU+lpeK8JS57NaX3UAb8JyIiASq
- co7/XsZXk5nGXg4Q4Dk29sd47HxQln/zjh2QC4Mda4ldv0LY8y7E9zauq
- lGxbJ2+c3zt/uMGAeKV59bSIcaMnLQsYrj03PvkmIEbftJSM9Bb1fXAJi g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="277274580"
-X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="277274580"
+ t=1645854796; x=1677390796;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=yuLxIWZdV7lHx6s93il+zsxxhJsLJLL+V4WnViUqBlA=;
+ b=I+eusGOcGA5WXVWxDCiSdiXZ/RwHedSrAhtnLedlciMLB+lRVFFWjSlr
+ X/sbJ1UVMN/YFAdKNJ5Eiuc/xf8atLYk/g1QCfMukTNK5abb8ZAKRNvRV
+ hpXJEiLWQVIvHKUksjTSChc45syWnxUwC7J5AQxNrndZf9fXev/oy08Ws
+ pCn0ZI1Pxg5LjmQg75JP7VkHrX52H85AumQ8DYqd1GEbRpZClky2Pe1Cu
+ PRoITXl8UURoZ4DLbEGk5f7yrEyTTX5kvK2MiKi4xNqaaBs2hn1avwy+v
+ scD/0qOsMn20COYE8moIebNkLakWGWHzDL1WsmLJ/0/LIXEWNXQYYGJPW w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="277274590"
+X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="277274590"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 21:53:14 -0800
+ 25 Feb 2022 21:53:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="574817058"
+X-IronPort-AV: E=Sophos;i="5.90,138,1643702400"; d="scan'208";a="574817084"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga001.jf.intel.com with ESMTP; 25 Feb 2022 21:53:13 -0800
+ by orsmga001.jf.intel.com with ESMTP; 25 Feb 2022 21:53:15 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Feb 2022 21:55:13 -0800
-Message-Id: <20220226055526.665514-1-alan.previn.teres.alexis@intel.com>
+Date: Fri, 25 Feb 2022 21:55:21 -0800
+Message-Id: <20220226055526.665514-9-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220226055526.665514-1-alan.previn.teres.alexis@intel.com>
+References: <20220226055526.665514-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 00/13] Add GuC Error Capture Support
+Subject: [Intel-gfx] [PATCH v6 08/13] drm/i915/guc: Add capture region into
+ intel_guc_log
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,182 +56,207 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series:
-  1. Enables support of GuC to report error-state-capture
-     using a list of MMIO registers the driver registers
-     and GuC will dump, log and notify right before a GuC
-     triggered engine-reset event.
-  2. Updates the ADS blob creation to register said lists
-     of global, engine class and engine instance registers
-     with GuC.
-  3. Defines tables of register lists that are global or
-     engine class or engine instance in scope.
-  4. Updates usage and buffer-state data for the regions
-     of the shared GuC log-buffer to accomdate both
-     the existing relay logging of general debug logs
-     along with the new error state capture usage.
-  5. Using a pool of preallocated memory, provide ability
-     to extract and format the GuC reported register-capture
-     data into chunks consistent with existing i915 error-
-     state collection flows and structures.
-  6. Connects the i915_gpu_coredump reporting function
-     to the GuC error capture module to print all GuC
-     error state capture dumps that is reported.
+GuC log buffer regions for debug-log-events, crash-dumps and
+error-state-capture are all part of a single bo allocation that
+also includes the guc_log_buffer_state structures. Now that we
+support it, increase the size allocation for error-capture.
 
-This is the 5th rev of this series with the first 3 revs
-labelled as RFC.
+Since the error-capture region is accessed at non-deterministic
+times (as part of GuC triggered context reset) while debug-log-
+events region is accessed as part of relay logging or during
+debugfs triggered dumps, move the mapping and unmapping of the
+shared buffer into intel_guc_log_create and intel_guc_log_destroy
+so that it's always mapped throughout life of GuC operation.
 
-Prior receipts of rvb's:
-  - Patch #5, #12 have received R-v-b's from Umesh Nerlige Ramappa
-    <umesh.nerlige.ramappa@intel.com>
-  - Patch #6 has received an R-v-b from Matthew Brost
-    <matthew.brost@intel.com>
+Additionally, while here, update the guc log region layout
+diagram to follow the order according to the enum definition
+as per the GuC interface.
 
-Changes from prior revs:
-  v6: - In patch #1, ADS reg-list population, we now alloc
-        regular memory to create the lists and cache them for
-        simpler and faster use by GuC ADS module at init, 
-        suspend-resume and reset cycles. This was in response
-        to review comments from Lucas De Marchi that also
-        wanted to ensure the GuC ADS module owns the final
-        copying into the ADS phyical memory.
-      - Thanks to Jani Nikula for pointing out that patch #2
-        and #3 should ensure static tables as constant and
-        dynamic lists should be allocated and cached but
-        attached to the GT level for the case of multiple
-        cards with different fusings for steered registers.
-        These are addressed now along with multiple code
-        style fixups (thanks to review comment from Umesh)
-        and splitting the steered register list generation
-        as a seperate patch.
-      - The extraction functionality, Patch #10 and #11 (was
-        patch #7), has fixed all of Umesh's review comments
-        related to the code styling. Additionally, it was
-        discovered during stress tests that the extraction
-        function could be called by the ct processing thread
-        at the same time as the start of a GT reset event.
-        Thus, a redesign was done whereby the linked list of
-        processed capture-output-nodes are allocated up
-        front and reused throughout the driver's life to
-        ensure no memory locks are taken during extraction.
-      - For patch #6 (now 7, 8 and 9), updates to
-        intel_guc_log was split into smaller chunks and the
-        log_state structure was returned back to inside of
-        the intel_guc_log struct as opposed to the
-        intel_guc struct in prior rev. This is in response
-        to review comments by Matt Brost.
-      - #Patch 13 (previously #10) is mostly identical but
-        addresses all of the code styling comments reviews
-        from Umesh.
-        
-  v5: - Added Gen9->Gen11 register list for CI coverage that
-        included Gen9 with GuC submission.
-      - Redesigned the extraction of the GuC error-capture
-        dumps by grouping them into complete per-engine-reset
-        nodes. Complete here means each node includes the
-        global, engine-class and engine-instance register
-        lists in a single structure.
-      - Extraction is decoupled from the print-out. We now
-        do the extraction immediately when receiving the
-        G2H for error-capture notification. A link list of
-        nodes is maintained with a FIFO based threshold
-        while awaiting retrieval from i915_gpu_coredump's
-        capture_engine function.
-      - Added new plumbing through the i915_gpu_coredump
-        allocation and capture functions to include a flag
-        that is used indicate that GuC had triggered the
-        reset. This new plumbing guarantees an exact match
-        from i915_gpu_coredump's per-engine vma recording
-        and node-retrieval from the guc-error-capture.
-      - Broke the coredump gt_global capture and recording
-        functions into smaller subsets so we can reuse as
-        much of the existing legacy register reading + printing
-        functions and only rely on GuC error-capture for
-        the smaller subset of registers that are tied to
-        engine workload execution.
-      - Updated the register list to follow the legacy execlist
-        format of printout.
-  v4:
-      - Rebased on latest drm-tip that has been merged with the
-        support of GuC firmware version 69.0.3 that is required
-        for GuC error-state-catpure to work.
-      - Added register list for DG2 which is the same as XE_LP
-        except an additional steering register set.
-      - Fixed a bug in the end of capture parsing loop in
-        intel_guc_capture_out_print_next_group that was not
-        properly comparing the engine-instance and engine-
-        class being parsed against the one that triggered
-        the i915_gpu_coredump.
-  v3:
-      - Fixed all review comments from rev2 except the following:
-          - Michal Wajdeczko proposed adding a seperate function
-            to lookup register string nameslookup (based on offset)
-            but decided against it because of offset conflicts
-            and the current table layout is easier to maintain.
-          - Last set of checkpatch errors pertaining to "COMPLEX
-            MACROS" should be fixed on next rev.
-      - Abstracted internal-to-guc-capture information into a new
-        __guc_state_capture_priv structure that allows the exclusion
-        of intel_guc.h and intel_guc_fwif.h from intel_guc_capture.h.
-        Now, only the first 2 patches have a wider build time
-        impact because of the changes to intel_guc_fwif.h but
-        subsequent changes to guc-capture internal structures
-        or firmware interfaces used solely by guc-capture module
-        shoudn't impact the rest of the driver build.
-      - Added missing Gen12LP registers and added slice+subslice
-        indices when reporting extended steered registers.
-      - Add additional checks to ensure that the GuC reported
-        error capture information matches the i915_gpu_coredump
-        that is being printed before we print out the corresponding
-        VMA dumps such as the batch buffer.
-   v2:
-      - Ignore - failed CI retest.
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 58 +++++++++++++---------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h |  3 +-
+ 2 files changed, 36 insertions(+), 25 deletions(-)
 
-
-Alan Previn (13):
-  drm/i915/guc: Update GuC ADS size for error capture lists
-  drm/i915/guc: Add XE_LP static registers for GuC error capture.
-  drm/i915/guc: Add XE_LP steered register lists support
-  drm/i915/guc: Add DG2 registers for GuC error state capture.
-  drm/i915/guc: Add Gen9 registers for GuC error state capture.
-  drm/i915/guc: Add GuC's error state capture output structures.
-  drm/i915/guc: Update GuC-log relay function names
-  drm/i915/guc: Add capture region into intel_guc_log
-  drm/i915/guc: Check sizing of guc_capture output
-  drm/i915/guc: Extract GuC error capture lists on G2H notification.
-  drm/i915/guc: Pre-allocate output nodes for extraction
-  drm/i915/guc: Plumb GuC-capture into gpu_coredump
-  drm/i915/guc: Print the GuC error capture output register list.
-
- drivers/gpu/drm/i915/Makefile                 |    1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |    4 +-
- .../drm/i915/gt/intel_execlists_submission.c  |    4 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |    2 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    7 +
- drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  215 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   13 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   14 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  128 +-
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 1608 +++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_capture.h    |   33 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   12 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  126 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |    7 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   18 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |    3 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  282 ++-
- drivers/gpu/drm/i915/i915_gpu_error.h         |   35 +-
- 18 files changed, 2331 insertions(+), 181 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index bf3abb7e69b0..2cc52f1eedf3 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -25,7 +25,8 @@ static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log);
+ static int guc_action_flush_log_complete(struct intel_guc *guc)
+ {
+ 	u32 action[] = {
+-		INTEL_GUC_ACTION_LOG_BUFFER_FILE_FLUSH_COMPLETE
++		INTEL_GUC_ACTION_LOG_BUFFER_FILE_FLUSH_COMPLETE,
++		GUC_DEBUG_LOG_BUFFER
+ 	};
+ 
+ 	return intel_guc_send(guc, action, ARRAY_SIZE(action));
+@@ -136,7 +137,7 @@ static void guc_move_to_next_buf(struct intel_guc_log *log)
+ 	smp_wmb();
+ 
+ 	/* All data has been written, so now move the offset of sub buffer. */
+-	relay_reserve(log->relay.channel, log->vma->obj->base.size);
++	relay_reserve(log->relay.channel, log->vma->obj->base.size - CAPTURE_BUFFER_SIZE);
+ 
+ 	/* Switch to the next sub buffer */
+ 	relay_flush(log->relay.channel);
+@@ -212,7 +213,7 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
+ 		goto out_unlock;
+ 
+ 	/* Get the pointer to shared GuC log buffer */
+-	log_buf_state = src_data = log->relay.buf_addr;
++	log_buf_state = src_data = log->buf_addr;
+ 
+ 	/* Get the pointer to local buffer to store the logs */
+ 	log_buf_snapshot_state = dst_data = guc_get_write_buffer(log);
+@@ -232,7 +233,8 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
+ 	src_data += PAGE_SIZE;
+ 	dst_data += PAGE_SIZE;
+ 
+-	for (type = GUC_DEBUG_LOG_BUFFER; type < GUC_MAX_LOG_BUFFER; type++) {
++	/* For relay logging, we exclude error state capture */
++	for (type = GUC_DEBUG_LOG_BUFFER; type <= GUC_CRASH_DUMP_LOG_BUFFER; type++) {
+ 		/*
+ 		 * Make a copy of the state structure, inside GuC log buffer
+ 		 * (which is uncached mapped), on the stack to avoid reading
+@@ -310,23 +312,17 @@ static void copy_debug_logs_work(struct work_struct *work)
+ 
+ static int guc_log_relay_map(struct intel_guc_log *log)
+ {
+-	void *vaddr;
+-
+ 	lockdep_assert_held(&log->relay.lock);
+ 
+-	if (!log->vma)
++	if (!log->vma || !log->buf_addr)
+ 		return -ENODEV;
+ 
+ 	/*
+-	 * Create a WC (Uncached for read) vmalloc mapping of log
+-	 * buffer pages, so that we can directly get the data
+-	 * (up-to-date) from memory.
++	 * WC vmalloc mapping of log buffer pages was done at
++	 * GuC Log Init time, but lets keep a ref for book-keeping
+ 	 */
+-	vaddr = i915_gem_object_pin_map_unlocked(log->vma->obj, I915_MAP_WC);
+-	if (IS_ERR(vaddr))
+-		return PTR_ERR(vaddr);
+-
+-	log->relay.buf_addr = vaddr;
++	i915_gem_object_get(log->vma->obj);
++	log->relay.buf_in_use = true;
+ 
+ 	return 0;
+ }
+@@ -335,8 +331,8 @@ static void guc_log_relay_unmap(struct intel_guc_log *log)
+ {
+ 	lockdep_assert_held(&log->relay.lock);
+ 
+-	i915_gem_object_unpin_map(log->vma->obj);
+-	log->relay.buf_addr = NULL;
++	i915_gem_object_put(log->vma->obj);
++	log->relay.buf_in_use = false;
+ }
+ 
+ void intel_guc_log_init_early(struct intel_guc_log *log)
+@@ -442,6 +438,7 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ {
+ 	struct intel_guc *guc = log_to_guc(log);
+ 	struct i915_vma *vma;
++	void *vaddr;
+ 	u32 guc_log_size;
+ 	int ret;
+ 
+@@ -449,20 +446,21 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 
+ 	/*
+ 	 *  GuC Log buffer Layout
++	 * (this ordering must follow "enum guc_log_buffer_type" definition)
+ 	 *
+ 	 *  +===============================+ 00B
+-	 *  |    Crash dump state header    |
+-	 *  +-------------------------------+ 32B
+ 	 *  |      Debug state header       |
++	 *  +-------------------------------+ 32B
++	 *  |    Crash dump state header    |
+ 	 *  +-------------------------------+ 64B
+ 	 *  |     Capture state header      |
+ 	 *  +-------------------------------+ 96B
+ 	 *  |                               |
+ 	 *  +===============================+ PAGE_SIZE (4KB)
+-	 *  |        Crash Dump logs        |
+-	 *  +===============================+ + CRASH_SIZE
+ 	 *  |          Debug logs           |
+ 	 *  +===============================+ + DEBUG_SIZE
++	 *  |        Crash Dump logs        |
++	 *  +===============================+ + CRASH_SIZE
+ 	 *  |         Capture logs          |
+ 	 *  +===============================+ + CAPTURE_SIZE
+ 	 */
+@@ -476,6 +474,17 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 	}
+ 
+ 	log->vma = vma;
++	/*
++	 * Create a WC (Uncached for read) vmalloc mapping up front immediate access to
++	 * data from memory during  critical events such as error capture
++	 */
++	vaddr = i915_gem_object_pin_map_unlocked(log->vma->obj, I915_MAP_WC);
++	if (IS_ERR(vaddr)) {
++		ret = PTR_ERR(vaddr);
++		i915_vma_unpin_and_release(&log->vma, 0);
++		goto err;
++	}
++	log->buf_addr = vaddr;
+ 
+ 	log->level = __get_default_log_level(log);
+ 	DRM_DEBUG_DRIVER("guc_log_level=%d (%s, verbose:%s, verbosity:%d)\n",
+@@ -486,13 +495,14 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 	return 0;
+ 
+ err:
+-	DRM_ERROR("Failed to allocate GuC log buffer. %d\n", ret);
++	DRM_ERROR("Failed to allocate or map GuC log buffer. %d\n", ret);
+ 	return ret;
+ }
+ 
+ void intel_guc_log_destroy(struct intel_guc_log *log)
+ {
+-	i915_vma_unpin_and_release(&log->vma, 0);
++	log->buf_addr = NULL;
++	i915_vma_unpin_and_release(&log->vma, I915_VMA_RELEASE_MAP);
+ }
+ 
+ int intel_guc_log_set_level(struct intel_guc_log *log, u32 level)
+@@ -537,7 +547,7 @@ int intel_guc_log_set_level(struct intel_guc_log *log, u32 level)
+ 
+ bool intel_guc_log_relay_created(const struct intel_guc_log *log)
+ {
+-	return log->relay.buf_addr;
++	return log->buf_addr;
+ }
+ 
+ int intel_guc_log_relay_open(struct intel_guc_log *log)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
+index d7e1b6471fed..e1345fca7729 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
+@@ -49,8 +49,9 @@ struct intel_guc;
+ struct intel_guc_log {
+ 	u32 level;
+ 	struct i915_vma *vma;
++	void *buf_addr;
+ 	struct {
+-		void *buf_addr;
++		bool buf_in_use;
+ 		bool started;
+ 		struct work_struct flush_work;
+ 		struct rchan *channel;
 -- 
 2.25.1
 
