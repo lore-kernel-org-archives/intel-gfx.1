@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44741C433F5
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Feb 2022 17:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52900C433EF
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Feb 2022 17:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B1610E5E3;
-	Sun, 27 Feb 2022 17:46:09 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64D0210E139;
- Sun, 27 Feb 2022 17:46:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645983967; x=1677519967;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=2OzZ/AWpiqrvqNPKt7fTCXLXn1pgnVaOm3u6Y6z8dgE=;
- b=WnI4JmE89dR2JSURRv+PHNMeHmZ2WCx7/ScIXvqaGBWoqcvAazzA0bvm
- xLDIbGwzbBTwlg8I0oVs+NqdaFywNAN0I5pGH5USRNqAXKjHnNgA68kr3
- rPHHljAOK21kd69kLLJBY1jhUZecOKKYeml4gsELva8MhOemh7Y3vnqxL
- fTgM62sYuLzeOnZPdciVXoIofASJRgUHDKkEq0AE72J/fNMcPJwS6+LWt
- t3gzASc/YoQxkUiWbok866lmYO75fRMyiSWesKFDcjrelk8KZ935fX+J+
- TKbY02UhydLiVpLGxXvGIV8q7oPCqiLLCt/HpzNmAcLx9VpYz8Abb7am/ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10271"; a="313469105"
-X-IronPort-AV: E=Sophos;i="5.90,141,1643702400"; d="scan'208";a="313469105"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2022 09:46:06 -0800
-X-IronPort-AV: E=Sophos;i="5.90,141,1643702400"; d="scan'208";a="549940404"
-Received: from vkasired-desk2.fm.intel.com ([10.105.128.127])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2022 09:46:06 -0800
-From: Vivek Kasireddy <vivek.kasireddy@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Sun, 27 Feb 2022 09:29:55 -0800
-Message-Id: <20220227172957.1208890-1-vivek.kasireddy@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CD710E633;
+	Sun, 27 Feb 2022 17:57:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2BFD910E633;
+ Sun, 27 Feb 2022 17:57:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 28C1FA0078;
+ Sun, 27 Feb 2022 17:57:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 0/2] drm/mm: Add an iterator to optimally walk over
- holes suitable for an allocation
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vivek Kasireddy" <vivek.kasireddy@intel.com>
+Date: Sun, 27 Feb 2022 17:57:07 -0000
+Message-ID: <164598462714.8582.17800135304217021120@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220227172957.1208890-1-vivek.kasireddy@intel.com>
+In-Reply-To: <20220227172957.1208890-1-vivek.kasireddy@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/mm=3A_Add_an_iterator_to_optimally_walk_over_holes_suit?=
+ =?utf-8?q?able_for_an_allocation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,44 +41,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The first patch is a drm core patch that replaces the for loop in
-drm_mm_insert_node_in_range() with the iterator and would not
-cause any functional changes. The second patch is a i915 driver
-specific patch that also uses the iterator but solves a different
-problem.
+== Series Details ==
 
-v2:
-- Added a new patch to this series to fix a potential NULL
-  dereference.
-- Fixed a typo associated with the iterator introduced in the
-  drm core patch.
-- Added locking around the snippet in the i915 patch that
-  traverses the GGTT hole nodes.
+Series: drm/mm: Add an iterator to optimally walk over holes suitable for an allocation
+URL   : https://patchwork.freedesktop.org/series/100796/
+State : warning
 
-v3: (Tvrtko)
-- Replaced mutex_lock with mutex_lock_interruptible_nested() in
-  the i915 patch.
+== Summary ==
 
-v4: (Tvrtko)
-- Dropped the patch added in v2 as it was deemed unnecessary.
+$ dim checkpatch origin/drm-tip
+427fbe66bc3d drm/mm: Add an iterator to optimally walk over holes for an allocation (v4)
+-:153: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pos' - possible side-effects?
+#153: FILE: include/drm/drm_mm.h:430:
++#define drm_mm_for_each_suitable_hole(pos, mm, range_start, range_end, \
++				      size, mode) \
++	for (pos = __drm_mm_first_hole(mm, range_start, range_end, size, \
++				       mode & ~DRM_MM_INSERT_ONCE); \
++	     pos; \
++	     pos = mode & DRM_MM_INSERT_ONCE ? \
++	     NULL : __drm_mm_next_hole(mm, pos, size, \
++				       mode & ~DRM_MM_INSERT_ONCE))
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
+-:153: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'mm' - possible side-effects?
+#153: FILE: include/drm/drm_mm.h:430:
++#define drm_mm_for_each_suitable_hole(pos, mm, range_start, range_end, \
++				      size, mode) \
++	for (pos = __drm_mm_first_hole(mm, range_start, range_end, size, \
++				       mode & ~DRM_MM_INSERT_ONCE); \
++	     pos; \
++	     pos = mode & DRM_MM_INSERT_ONCE ? \
++	     NULL : __drm_mm_next_hole(mm, pos, size, \
++				       mode & ~DRM_MM_INSERT_ONCE))
 
-Vivek Kasireddy (2):
-  drm/mm: Add an iterator to optimally walk over holes for an allocation
-    (v4)
-  drm/i915/gem: Don't try to map and fence large scanout buffers (v9)
+-:153: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'size' - possible side-effects?
+#153: FILE: include/drm/drm_mm.h:430:
++#define drm_mm_for_each_suitable_hole(pos, mm, range_start, range_end, \
++				      size, mode) \
++	for (pos = __drm_mm_first_hole(mm, range_start, range_end, size, \
++				       mode & ~DRM_MM_INSERT_ONCE); \
++	     pos; \
++	     pos = mode & DRM_MM_INSERT_ONCE ? \
++	     NULL : __drm_mm_next_hole(mm, pos, size, \
++				       mode & ~DRM_MM_INSERT_ONCE))
 
- drivers/gpu/drm/drm_mm.c        |  32 ++++----
- drivers/gpu/drm/i915/i915_gem.c | 128 +++++++++++++++++++++++---------
- include/drm/drm_mm.h            |  36 +++++++++
- 3 files changed, 145 insertions(+), 51 deletions(-)
+-:153: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'mode' - possible side-effects?
+#153: FILE: include/drm/drm_mm.h:430:
++#define drm_mm_for_each_suitable_hole(pos, mm, range_start, range_end, \
++				      size, mode) \
++	for (pos = __drm_mm_first_hole(mm, range_start, range_end, size, \
++				       mode & ~DRM_MM_INSERT_ONCE); \
++	     pos; \
++	     pos = mode & DRM_MM_INSERT_ONCE ? \
++	     NULL : __drm_mm_next_hole(mm, pos, size, \
++				       mode & ~DRM_MM_INSERT_ONCE))
 
--- 
-2.34.1
+-:153: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'mode' may be better as '(mode)' to avoid precedence issues
+#153: FILE: include/drm/drm_mm.h:430:
++#define drm_mm_for_each_suitable_hole(pos, mm, range_start, range_end, \
++				      size, mode) \
++	for (pos = __drm_mm_first_hole(mm, range_start, range_end, size, \
++				       mode & ~DRM_MM_INSERT_ONCE); \
++	     pos; \
++	     pos = mode & DRM_MM_INSERT_ONCE ? \
++	     NULL : __drm_mm_next_hole(mm, pos, size, \
++				       mode & ~DRM_MM_INSERT_ONCE))
+
+total: 0 errors, 0 warnings, 5 checks, 114 lines checked
+546a14fb7313 drm/i915/gem: Don't try to map and fence large scanout buffers (v9)
+
 
