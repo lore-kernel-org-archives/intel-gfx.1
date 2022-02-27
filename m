@@ -4,59 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E4F0C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D0DC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:27:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79DE110E843;
-	Mon, 28 Feb 2022 14:27:05 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8928510E39C;
- Mon, 28 Feb 2022 11:08:54 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id hw13so23946782ejc.9;
- Mon, 28 Feb 2022 03:08:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DGHuYFjchXbmgUIZ1SnPPgINXW2r1tGfV7LKxanZ5rw=;
- b=mx6+xil8F/OwTucWDkjx4s8oWe9qKYEvq+lRSteVfL7qHoHjMYzOaON1c2kL9OYiTX
- db1Mykp/ffS9il6Fqi76pAlN/G5rXNdswBXj/5Gig3gkxoatbBHPRDADsVd/P2bKgern
- FiNaHDXHNfiQkUQdDT0QxGTuel99Vo9xYQqWbNfVZEfqWt3+vAZeTOc1QbByn6ecNGa6
- S2BlhLxmBqy/aCRkfkMxvBR+4RMiFfh+//eOhtERGL+8TdWCfHba+zdrYCDUyKUpjEKv
- GoJF4WvvVQmT7fMcDismFLp5shdM79FKyOLpnEpulQji7R6fg8Aw9kXLsIi9eJ28dAK+
- e6Aw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C6E10E5E2;
+	Mon, 28 Feb 2022 14:27:19 +0000 (UTC)
+Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
+ [IPv6:2607:f8b0:4864:20::d2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A45D10E212
+ for <intel-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 23:57:56 +0000 (UTC)
+Received: by mail-io1-xd2d.google.com with SMTP id m185so12986488iof.10
+ for <intel-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 15:57:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=TYixXH/oSVNIYPjWy8IDeErfQMBt7NeciGEbuByoJUQ=;
+ b=VA7Y7/hwNTpAG0EJBvjzNcqWEEoLvSuaQCNj01nO45OyMQcgooOoCeTcGzsvRipjXT
+ GR51Exj8tHYQvvBj7rj4BWHnSURg64uycJzHdUCB+hGxEtEhlwx2pPdKlhw0XhHwjAE/
+ I4bLKsSa7ST5UvIHRTX2rxKh1qtw9ZBdmZ77wJDCw6OPEltA1/Pz2/7JbQRL0duYZ4ct
+ a7VUK+N8cmAKsjrWIe0Rajg2EbIFsIgRyubHIXT65zHok28ikdqymV+/J+ecIosK77WB
+ vpTaCXz61HY+ci7o/cRo3ZW5ylwVRVT+7wiyD0oTOFySlCVCR7thfpDnSjzQN84bD+HM
+ seNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=DGHuYFjchXbmgUIZ1SnPPgINXW2r1tGfV7LKxanZ5rw=;
- b=qXnfvPs//zJfzDEJV3Zl/xlJJu6fsATnMZYWYZWrSgs4cBsgNurs5a60xOpVc3IXh8
- 3BGKjM6Z+tKPhCk70XprJHTkq8bkjNoHKvaWSzTZ/+fu/J/CTL/qOhM6VccTo+ZFhG/A
- vfWSskLTTjzsGKPKd9b+LXQv3Gja6GNbCubyGdTI6JMJ+E+m1Mb70DWHzdCy8ic7pQLA
- 90jCYcbrqiMIG56+O4jXEu+frgzY1EXfY8rqbqPxMcmd7Mp+EiJqyMZaDmEskoqOI0Kl
- ZAVnzLUgscOaXi4/h6LPawvtkhAEv4gcQmRzeD0wNmYRNWhYsxWbTOk4CjONdTD/KF4W
- 8pkw==
-X-Gm-Message-State: AOAM533GvcgGDC3Gv1W3lz8b8ZLL/S1158ARUWSQor8a71Hj1YI0pzQE
- XgFvfEKJIPocLm+QCLVamY0=
-X-Google-Smtp-Source: ABdhPJzNctGRxtGORumk8xJxhLEhhYPBXw3MCY4PM4mZEwTJgQgzAy87Z2fgE8nw5jOtXDmEFeeNlg==
-X-Received: by 2002:a17:906:32d8:b0:6ce:d850:f79 with SMTP id
- k24-20020a17090632d800b006ced8500f79mr14260258ejk.414.1646046532887; 
- Mon, 28 Feb 2022 03:08:52 -0800 (PST)
-Received: from localhost.localdomain (dhcp-077-250-038-153.chello.nl.
- [77.250.38.153]) by smtp.googlemail.com with ESMTPSA id
- z22-20020a17090655d600b006d229436793sm4209049ejp.223.2022.02.28.03.08.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Feb 2022 03:08:52 -0800 (PST)
-From: Jakob Koschel <jakobkoschel@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 28 Feb 2022 12:08:16 +0100
-Message-Id: <20220228110822.491923-1-jakobkoschel@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ bh=TYixXH/oSVNIYPjWy8IDeErfQMBt7NeciGEbuByoJUQ=;
+ b=Zn+QcF7njzUnXlhkQiAKHbKQ4THs5XPGMNwrknqtmg3v8bSCXzo1/veA+RhIhYg2AG
+ S8wSb5klebeAouMl1sn5gwsyQoC9TlVgd43bhfqiRyrBuXro1fDuD89z8cabTGPyO3sa
+ zb3TFUm9hTk9dNKEPuHmOLnGs3tGMAe2GxSemFP44qH5nbI0WcwgHYxcXho/HmwnJMgX
+ QqRiazT1US9xU2n6MwyIlHvSfYwpOLM+DowVCktg29Ov+8EFsEzxFazRnCVnQ4eVk8hr
+ wHFjP6OSXvXQ75GnlzrKN2F2CnzIAmON8zciTVIDZeAE+obsAvM2fIBuHwuTLyqmrBCo
+ 46Kw==
+X-Gm-Message-State: AOAM531G1vwx6psz5iiF6cTh8jJIU7GdwvcvQ4Q5/IFBdM436kemSJYQ
+ an38LSZodeM1xC16PtYw2ok53w==
+X-Google-Smtp-Source: ABdhPJyPtYXXq4eTx/zm7hkEn1uc7x7ywQuCdrH5tLSdhR5RU9smY5dt5X0iXebRMULNf0pZ7UBpzA==
+X-Received: by 2002:a02:c64e:0:b0:311:b1b4:1a08 with SMTP id
+ k14-20020a02c64e000000b00311b1b41a08mr14572997jan.230.1646006275352; 
+ Sun, 27 Feb 2022 15:57:55 -0800 (PST)
+Received: from [172.22.22.26] (c-73-185-129-58.hsd1.mn.comcast.net.
+ [73.185.129.58]) by smtp.googlemail.com with ESMTPSA id
+ n7-20020a056602340700b006409737fa99sm5093280ioz.27.2022.02.27.15.57.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 27 Feb 2022 15:57:54 -0800 (PST)
+Message-ID: <72ff1b04-4f37-9851-a6e6-aded72b46c83@linaro.org>
+Date: Sun, 27 Feb 2022 17:57:52 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+References: <20220227215408.3180023-1-arnd@kernel.org>
+ <dd41c574-05b0-23bc-646c-0bd341e6e50b@linaro.org>
+ <CAHk-=wg_r01OASRuSFfbEk_YHjve2BsBbkDYiEiKTaX2jm=53g@mail.gmail.com>
+From: Alex Elder <elder@linaro.org>
+In-Reply-To: <CAHk-=wg_r01OASRuSFfbEk_YHjve2BsBbkDYiEiKTaX2jm=53g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: [Intel-gfx] [PATCH 0/6] Remove usage of list iterator past the loop
- body
+Subject: Re: [Intel-gfx] [greybus-dev] [PATCH] Kbuild: remove -std=gnu89
+ from compiler arguments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,185 +77,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
- amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
- linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
- linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
- kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
- Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
- kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
- Dan Carpenter <dan.carpenter@oracle.com>, linux-media@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
- linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
- linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
- linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Arnd Bergmann <arnd@kernel.org>, Michal Marek <michal.lkml@markovi.net>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
+ linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
+ llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
+ Alex Shi <alexs@kernel.org>, Federico Vaga <federico.vaga@vaga.pv.it>,
+ Hu Haowen <src.res@email.cn>, linux-btrfs <linux-btrfs@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ linux-doc-tw-discuss@lists.sourceforge.net,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is the first patch removing several categories of use cases of
-the list iterator variable past the loop.
-This is follow up to the discussion in:
-https://lore.kernel.org/all/20220217184829.1991035-1-jakobkoschel@gmail.com/
+On 2/27/22 5:11 PM, Linus Torvalds wrote:
+> On Sun, Feb 27, 2022 at 3:04 PM Alex Elder <elder@linaro.org> wrote:
+>>
+>> Glancing at the Greybus code, I don't believe there's any
+>> reason it needs to shift a negative value.  Such warnings
+>> could be fixed by making certain variables unsigned, for
+>> example.
+> 
+> As mentioned in the original thread, making things unsigned actually
+> is likely to introduce bugs and make things worse.
 
-As concluded in:
-https://lore.kernel.org/all/YhdfEIwI4EdtHdym@kroah.com/
-the correct use should be using a separate variable after the loop
-and using a 'tmp' variable as the list iterator.
-The list iterator will not point to a valid structure after the loop
-if no break/goto was hit. Invalid uses of the list iterator variable
-can be avoided altogether by simply using a separate pointer to
-iterate the list.
+Understood.  What I meant is that the shifts were producing
+single-bit masks from plain int values that range from 0 to 10
+or something (in a for loop).  Looking again though, that it's
+not so simple.  Regardless, your point about the warning is
+good and I won't plan to "fix" this.
 
-Linus and Greg agreed on the following pattern:
+Thanks.
 
--	struct gr_request *req;
-+	struct gr_request *req = NULL;
-+	struct gr_request *tmp;
-	struct gr_ep *ep;
-	int ret = 0;
+					-Alex
+> 
+> The warning is simply bogus, and the fact that it was enabled by
+> -Wextra in gcc for std=gnu99 and up was a mistake that looks likely to
+> be fixed in gcc.
+> 
+> So don't try to "fix" the code to make any possible warnings go away.
+> You may just make things worse.
+> 
+> (That is often true in general for the more esoteric warnings, but in
+> this case it's just painfully more obvious).
+> 
+>                Linus
 
--	list_for_each_entry(req, &ep->queue, queue) {
--		if (&req->req == _req)
-+	list_for_each_entry(tmp, &ep->queue, queue) {
-+		if (&tmp->req == _req) {
-+			req = tmp;
-			break;
-+		}
-	}
--	if (&req->req != _req) {
-+	if (!req) {
-		ret = -EINVAL;
-		goto out;
-	}
-
-
-With gnu89 the list iterator variable cannot yet be declared
-within the for loop of the list iterator.
-Moving to a more modern version of C would allow defining
-the list iterator variable within the macro, limiting
-the scope to the loop.
-This avoids any incorrect usage past the loop altogether.
-
-This are around 30% of the cases where the iterator
-variable is used past the loop (identified with a slightly
-modified version of use_after_iter.cocci).
-I've decided to split it into at a few patches separated
-by similar use cases.
-
-Because the output of get_maintainer.pl was too big,
-I included all the found lists and everyone from the
-previous discussion.
-
-Jakob Koschel (6):
-  drivers: usb: remove usage of list iterator past the loop body
-  treewide: remove using list iterator after loop body as a ptr
-  treewide: fix incorrect use to determine if list is empty
-  drivers: remove unnecessary use of list iterator variable
-  treewide: remove dereference of list iterator after loop body
-  treewide: remove check of list iterator against head past the loop
-    body
-
- arch/arm/mach-mmp/sram.c                      |  9 ++--
- arch/arm/plat-pxa/ssp.c                       | 28 +++++-------
- arch/powerpc/sysdev/fsl_gtm.c                 |  4 +-
- arch/x86/kernel/cpu/sgx/encl.c                |  6 ++-
- drivers/block/drbd/drbd_req.c                 | 45 ++++++++++++-------
- drivers/counter/counter-chrdev.c              | 26 ++++++-----
- drivers/crypto/cavium/nitrox/nitrox_main.c    | 11 +++--
- drivers/dma/dw-edma/dw-edma-core.c            |  4 +-
- drivers/dma/ppc4xx/adma.c                     | 11 +++--
- drivers/firewire/core-transaction.c           | 32 +++++++------
- drivers/firewire/sbp2.c                       | 14 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 19 +++++---
- drivers/gpu/drm/drm_memory.c                  | 15 ++++---
- drivers/gpu/drm/drm_mm.c                      | 17 ++++---
- drivers/gpu/drm/drm_vm.c                      | 13 +++---
- drivers/gpu/drm/gma500/oaktrail_lvds.c        |  9 ++--
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 14 +++---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 15 ++++---
- drivers/gpu/drm/i915/gt/intel_ring.c          | 15 ++++---
- .../gpu/drm/nouveau/nvkm/subdev/clk/base.c    | 11 +++--
- .../gpu/drm/nouveau/nvkm/subdev/fb/ramgk104.c | 13 +++---
- drivers/gpu/drm/scheduler/sched_main.c        | 14 +++---
- drivers/gpu/drm/ttm/ttm_bo.c                  | 19 ++++----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           | 22 +++++----
- drivers/infiniband/hw/hfi1/tid_rdma.c         | 16 ++++---
- drivers/infiniband/hw/mlx4/main.c             | 12 ++---
- drivers/media/dvb-frontends/mxl5xx.c          | 11 +++--
- drivers/media/pci/saa7134/saa7134-alsa.c      |  4 +-
- drivers/media/v4l2-core/v4l2-ctrls-api.c      | 31 +++++++------
- drivers/misc/mei/interrupt.c                  | 12 ++---
- .../net/ethernet/intel/i40e/i40e_ethtool.c    |  3 +-
- .../net/ethernet/qlogic/qede/qede_filter.c    | 11 +++--
- drivers/net/wireless/ath/ath6kl/htc_mbox.c    |  2 +-
- .../net/wireless/intel/ipw2x00/libipw_rx.c    | 15 ++++---
- drivers/perf/xgene_pmu.c                      | 13 +++---
- drivers/power/supply/cpcap-battery.c          | 11 +++--
- drivers/scsi/lpfc/lpfc_bsg.c                  | 16 ++++---
- drivers/scsi/scsi_transport_sas.c             | 17 ++++---
- drivers/scsi/wd719x.c                         | 12 +++--
- drivers/staging/rtl8192e/rtl819x_TSProc.c     | 17 +++----
- drivers/staging/rtl8192e/rtllib_rx.c          | 17 ++++---
- .../staging/rtl8192u/ieee80211/ieee80211_rx.c | 15 ++++---
- .../rtl8192u/ieee80211/rtl819x_TSProc.c       | 19 ++++----
- drivers/thermal/thermal_core.c                | 38 ++++++++++------
- drivers/usb/gadget/composite.c                |  9 ++--
- drivers/usb/gadget/configfs.c                 | 22 +++++----
- drivers/usb/gadget/udc/aspeed-vhub/epn.c      | 11 +++--
- drivers/usb/gadget/udc/at91_udc.c             | 26 ++++++-----
- drivers/usb/gadget/udc/atmel_usba_udc.c       | 11 +++--
- drivers/usb/gadget/udc/bdc/bdc_ep.c           | 11 +++--
- drivers/usb/gadget/udc/fsl_qe_udc.c           | 11 +++--
- drivers/usb/gadget/udc/fsl_udc_core.c         | 11 +++--
- drivers/usb/gadget/udc/goku_udc.c             | 11 +++--
- drivers/usb/gadget/udc/gr_udc.c               | 11 +++--
- drivers/usb/gadget/udc/lpc32xx_udc.c          | 11 +++--
- drivers/usb/gadget/udc/max3420_udc.c          | 11 +++--
- drivers/usb/gadget/udc/mv_u3d_core.c          | 11 +++--
- drivers/usb/gadget/udc/mv_udc_core.c          | 11 +++--
- drivers/usb/gadget/udc/net2272.c              | 12 ++---
- drivers/usb/gadget/udc/net2280.c              | 11 +++--
- drivers/usb/gadget/udc/omap_udc.c             | 11 +++--
- drivers/usb/gadget/udc/pxa25x_udc.c           | 11 +++--
- drivers/usb/gadget/udc/s3c-hsudc.c            | 11 +++--
- drivers/usb/gadget/udc/tegra-xudc.c           | 11 +++--
- drivers/usb/gadget/udc/udc-xilinx.c           | 11 +++--
- drivers/usb/mtu3/mtu3_gadget.c                | 11 +++--
- drivers/usb/musb/musb_gadget.c                | 11 +++--
- drivers/vfio/mdev/mdev_core.c                 | 11 +++--
- fs/cifs/smb2misc.c                            | 10 +++--
- fs/f2fs/segment.c                             |  9 ++--
- fs/proc/kcore.c                               | 13 +++---
- kernel/debug/kdb/kdb_main.c                   | 36 +++++++++------
- kernel/power/snapshot.c                       | 10 +++--
- kernel/trace/ftrace.c                         | 22 +++++----
- kernel/trace/trace_eprobe.c                   | 15 ++++---
- kernel/trace/trace_events.c                   | 11 ++---
- net/9p/trans_xen.c                            | 11 +++--
- net/ipv4/udp_tunnel_nic.c                     | 10 +++--
- net/tipc/name_table.c                         | 11 +++--
- net/tipc/socket.c                             | 11 +++--
- net/xfrm/xfrm_ipcomp.c                        | 11 +++--
- sound/soc/intel/catpt/pcm.c                   | 13 +++---
- sound/soc/sprd/sprd-mcdt.c                    | 13 +++---
- 83 files changed, 708 insertions(+), 465 deletions(-)
-
-
-base-commit: 7ee022567bf9e2e0b3cd92461a2f4986ecc99673
---
-2.25.1
