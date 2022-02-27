@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 432E7C433FE
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Feb 2022 08:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE058C433EF
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Feb 2022 08:35:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4AF10E64A;
-	Sun, 27 Feb 2022 08:18:41 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1D110E605;
- Sun, 27 Feb 2022 08:18:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645949920; x=1677485920;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8ZciRwQiSwDHpRBFxFqqvha+fcgKRjXdJiEt8ELXRck=;
- b=etL88AfasoIwkZzAZ6aIadjpfR5ylkofrZWjtjtB02JHfnoBj9NTY/Qq
- ONGejlgdyTg2k8IEHtF4nHBfyX5htuhGXi9tMFPPgK/6gBzA+BGKp2b8Y
- pcoOF7a+A5moJSyDEblukCeUmYWw1PXn5NGn2EGw6tkfG0DdgQnhBvezw
- n7ldAwV0jCi5dKHQ3otyh8cUorge4I666BDu09G1Yvu6JugxdZLdzXK2e
- pNGsCxdybymkcNGdVi79xCIJIAo8Z5S3scisdlUdIwMbS8uTBHrfYLUD4
- qmigU5UEATlj0BXZK9KWJrY/NIzRB5l8+ElZK3lreM20mcHs7bzR7c33Q w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10270"; a="250296016"
-X-IronPort-AV: E=Sophos;i="5.90,140,1643702400"; d="scan'208";a="250296016"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2022 00:18:39 -0800
-X-IronPort-AV: E=Sophos;i="5.90,140,1643702400"; d="scan'208";a="685041169"
-Received: from jingyiji-mobl.amr.corp.intel.com (HELO localhost)
- ([10.209.25.43])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2022 00:18:35 -0800
-From: Jordan Justen <jordan.l.justen@intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Sun, 27 Feb 2022 00:18:30 -0800
-Message-Id: <20220227081831.1089720-4-jordan.l.justen@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220227081831.1089720-1-jordan.l.justen@intel.com>
-References: <20220227081831.1089720-1-jordan.l.justen@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D97810E12C;
+	Sun, 27 Feb 2022 08:35:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7E6A010E12C;
+ Sun, 27 Feb 2022 08:35:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 77ECEA0169;
+ Sun, 27 Feb 2022 08:35:56 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 3/4] drm/i915/uapi: Add struct
- drm_i915_query_hwconfig_blob_item
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: john.c.harrison@intel.com
+Date: Sun, 27 Feb 2022 08:35:56 -0000
+Message-ID: <164595095646.8582.12391938536092567868@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220227081831.1089720-1-jordan.l.justen@intel.com>
+In-Reply-To: <20220227081831.1089720-1-jordan.l.justen@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_GuC_HWCONFIG_with_documentation_=28rev7=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +40,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Also, document DRM_I915_QUERY_HWCONFIG_BLOB with this struct.
+== Series Details ==
 
-v3:
- * Add various changes suggested by Tvrtko
+Series: GuC HWCONFIG with documentation (rev7)
+URL   : https://patchwork.freedesktop.org/series/99787/
+State : warning
 
-v5:
- * Fix documenation formatting and verified with `make htmldocs` as
-   suggested by Daniel
+== Summary ==
 
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Jordan Justen <jordan.l.justen@intel.com>
-Acked-by: Jon Bloomfield <jon.bloomfield@intel.com>
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
----
- include/uapi/drm/i915_drm.h | 43 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+$ dim checkpatch origin/drm-tip
+7666ff157a3c drm/i915/guc: Add fetch of hwconfig table
+-:108: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#108: 
+new file mode 100644
 
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 069d2fadfbd9..d033211cb862 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -3279,6 +3279,49 @@ struct drm_i915_gem_create_ext_protected_content {
- /* ID of the protected content session managed by i915 when PXP is active */
- #define I915_PROTECTED_CONTENT_DEFAULT_SESSION 0xf
- 
-+/**
-+ * DOC: GuC HWCONFIG blob uAPI
-+ *
-+ * The GuC produces a blob with information about the current device.
-+ * i915 reads this blob from GuC and makes it available via this uAPI.
-+ *
-+ * The returned blob is a sequence of items of variable length
-+ * described by struct drm_i915_query_hwconfig_blob_item.
-+ *
-+ * The overall blob returned by DRM_I915_QUERY_HWCONFIG_BLOB will end
-+ * at the same location as the end of the final struct
-+ * drm_i915_query_hwconfig_blob_item. In other words, walking through
-+ * the individual items is guaranteed to eventually arrive at the
-+ * exact end of the entire blob.
-+ */
-+
-+/**
-+ * struct drm_i915_query_hwconfig_blob_item - A single hwconfig item
-+ * within the sequence of hwconfig items returned by
-+ * DRM_I915_QUERY_HWCONFIG_BLOB.
-+ *
-+ * The length field gives the length of the data[] array. The length
-+ * is the number of u32 items in the data[] array, and *not* the
-+ * number of bytes.
-+ *
-+ * The key and length fields are required, so the minimum item size is
-+ * 2 x u32, or 8 bytes, when the length field is 0. If the length
-+ * field is 1, then the item's size is 12 bytes.
-+ *
-+ * The meaning of the key field and the data values are documented in
-+ * the Programmer's Reference Manual.
-+ */
-+struct drm_i915_query_hwconfig_blob_item {
-+	/** @key: Enum which defines how to interpret @data values. */
-+	__u32 key;
-+
-+	/** @length: The number of u32 values in the @data array. */
-+	__u32 length;
-+
-+	/** @data: Array of values with meaning defined by @key. */
-+	__u32 data[];
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
--- 
-2.34.1
+total: 0 errors, 1 warnings, 0 checks, 241 lines checked
+ef0a4c298344 drm/i915/uapi: Add query for hwconfig blob
+62ce066489b1 drm/i915/uapi: Add struct drm_i915_query_hwconfig_blob_item
+61b6c400c5e2 drm/i915/guc: Verify hwconfig blob matches supported format
+
 
