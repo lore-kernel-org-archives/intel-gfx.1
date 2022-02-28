@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC2BC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F6FBC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31B6610E199;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23F0110E87D;
 	Mon, 28 Feb 2022 17:43:13 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D561E10E84D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567CD10E85B;
  Mon, 28 Feb 2022 17:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646070187; x=1677606187;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ms2g7B4CpxD3OaGWYsJFV6y5HJWq4Miy0coNY/SeLN8=;
- b=SjhFDThpxskWyZani9KCQKO8NgC+tXaccbidqJH/040L8sTBl51deljh
- SiJVGlRAg5Efq5uXv4k/BhreNvqEOGqLLug8MmayysUXhfhBL9zOpeagp
- RgLT4uDoSxjuDA1vzmXKDrVgXuUA4bVQk5bfKKDXG3Om5wLxGH8BBVPdo
- oVqJH2Gljvvmdjp8P+cH+K+mY7vkkzPFF9+uDwzVIs/Yl7Ob8/JA+YQNJ
- KVchiCIi4PAHqKCQskfD+1nFrpij65Yo6jPHWjobKlIKBA+QVGviuxOxD
- myCyZWgaUkWCkYr6bM4ngkzBNV1GWUGT2c4sg10b2Rn0DclUtEN6ZNZ96 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="252866895"
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="252866895"
+ bh=KocxYY6MP+QL9+6gjgPTTBOATFcsbuNL34GklCrNTQo=;
+ b=b7vG+0ohhrpB227MLzK6Ww3pHXklo1u9kmDTqF+HcD3nJrf3SI77Af/O
+ 3UGezP4kh9rK59DHYOSKWYgSOKjnkxy0z5RjcBwj95El56uC1h6q6vvtX
+ XC30GwpCutzX+bXJ9MMshPo5/cbMEx+CgSsQlGPCGToMYvFSyYXosWH/J
+ e3hoOM/1tkr6EeDIM3pm/7RAHup0Re7T5wU7s4EGCAU/yjbdeR6b88jkh
+ hJsewQa1F36VFNl1a5dww7xWHLMR3/lJ30++gjUH6Dd4z3tbGDxUd34B2
+ /XojsoQw1dnpUXESe8jm9Dd7eFpP8fvT4GAitoGXDeIE6zcV46l+mJDbg w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="252866893"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="252866893"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Feb 2022 09:43:06 -0800
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392860"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392854"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Feb 2022 09:43:06 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Feb 2022 09:42:45 -0800
-Message-Id: <20220228174245.1569581-14-matthew.d.roper@intel.com>
+Date: Mon, 28 Feb 2022 09:42:43 -0800
+Message-Id: <20220228174245.1569581-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 References: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 13/13] drm/i915/xehpsdv: Move render/compute
- engine reset domains related workarounds
+Subject: [Intel-gfx] [PATCH v2 11/13] drm/i915/xehp: handle fused off CCS
+ engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,80 +61,127 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.s@intel.com>
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Registers that exist in the shared render/compute reset domain need to
-be placed on an engine workaround list to ensure that they are properly
-re-applied whenever an RCS or CCS engine is reset.  We have a number of
-workarounds (updating registers MLTICTXCTL, L3SQCREG1_CCS0,
-GEN12_MERT_MOD_CTRL, and GEN12_GAMCNTRL_CTRL) that are incorrectly
-implemented on the 'gt' workaround list and need to be moved
-accordingly.
+HW resources are divided across the active CCS engines at the compute
+slice level, with each CCS having priority on one of the cslices.
+If a compute slice has no enabled DSS, its paired compute engine is not
+usable in full parallel execution because the other ones already fully
+saturate the HW, so consider it fused off.
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.s@intel.com>
+v2(José):
+- moved it to its own function
+- fixed definition of ccs_mask
+
+Cc: Stuart Summers <stuart.summers@intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Stuart Summers <stuart.summers@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 26 ++++++++++-----------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 25 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_sseu.c      | 17 ++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_sseu.h      |  4 +++-
+ 3 files changed, 42 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 0b9435d62808..c014b40d2e9f 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1343,12 +1343,6 @@ xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	/* Wa_1409757795:xehpsdv */
- 	wa_write_or(wal, SCCGCTL94DC, CG3DDISURB);
- 
--	/* Wa_18011725039:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
--		wa_masked_dis(wal, MLTICTXCTL, TDONRENDER);
--		wa_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
--	}
--
- 	/* Wa_16011155590:xehpsdv */
- 	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE,
-@@ -1385,19 +1379,12 @@ xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 			    GAMTLBVEBOX0_CLKGATE_DIS);
- 	}
- 
--	/* Wa_14012362059:xehpsdv */
--	wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
--
- 	/* Wa_16012725990:xehpsdv */
- 	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_FOREVER))
- 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE, VFUNIT_CLKGATE_DIS);
- 
- 	/* Wa_14011060649:xehpsdv */
- 	wa_14011060649(gt, wal);
--
--	/* Wa_14014368820:xehpsdv */
--	wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
--		    GLOBAL_INVALIDATION_MODE);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 92f4cf9833ee..4fa3adc15b08 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -592,6 +592,29 @@ bool gen11_vdbox_has_sfc(struct intel_gt *gt,
+ 	return false;
  }
  
- static void
-@@ -2617,6 +2604,19 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 		/* Wa_14010449647:xehpsdv */
- 		wa_masked_en(wal, GEN7_HALF_SLICE_CHICKEN1,
- 			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
++static void engine_mask_apply_compute_fuses(struct intel_gt *gt)
++{
++	struct drm_i915_private *i915 = gt->i915;
++	struct intel_gt_info *info = &gt->info;
++	unsigned int i;
 +
-+		/* Wa_18011725039:xehpsdv */
-+		if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
-+			wa_masked_dis(wal, MLTICTXCTL, TDONRENDER);
-+			wa_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
++	/*
++	 * If all DSS in a quadrant are fused off, the corresponding CCS
++	 * engine is not available for use.
++	 */
++	if (fls(CCS_MASK(gt)) > 1) {
++		int ss_per_ccs = info->sseu.max_subslices / I915_MAX_CCS;
++		const unsigned long ccs_mask = intel_slicemask_from_dssmask(
++			intel_sseu_get_compute_subslices(&info->sseu),
++			ss_per_ccs);
++
++		for_each_clear_bit(i, &ccs_mask, I915_MAX_CCS) {
++			info->engine_mask &= ~BIT(_CCS(i));
++			drm_dbg(&i915->drm, "ccs%u fused off\n", i);
 +		}
++	}
++}
 +
-+		/* Wa_14012362059:xehpsdv */
-+		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
+ /*
+  * Determine which engines are fused off in our particular hardware.
+  * Note that we have a catch-22 situation where we need to be able to access
+@@ -673,6 +696,8 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
+ 		vebox_mask, VEBOX_MASK(gt));
+ 	GEM_BUG_ON(vebox_mask != VEBOX_MASK(gt));
+ 
++	engine_mask_apply_compute_fuses(gt);
 +
-+		/* Wa_14014368820:xehpsdv */
-+		wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
-+				GLOBAL_INVALIDATION_MODE);
- 	}
+ 	return info->engine_mask;
  }
  
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 29118c652811..4ac0bbaf0c31 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -32,7 +32,9 @@ intel_sseu_subslice_total(const struct sseu_dev_info *sseu)
+ 	return total;
+ }
+ 
+-u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
++static u32
++_intel_sseu_get_subslices(const struct sseu_dev_info *sseu,
++			  const u8 *subslice_mask, u8 slice)
+ {
+ 	int i, offset = slice * sseu->ss_stride;
+ 	u32 mask = 0;
+@@ -40,12 +42,21 @@ u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
+ 	GEM_BUG_ON(slice >= sseu->max_slices);
+ 
+ 	for (i = 0; i < sseu->ss_stride; i++)
+-		mask |= (u32)sseu->subslice_mask[offset + i] <<
+-			i * BITS_PER_BYTE;
++		mask |= (u32)subslice_mask[offset + i] << i * BITS_PER_BYTE;
+ 
+ 	return mask;
+ }
+ 
++u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
++{
++	return _intel_sseu_get_subslices(sseu, sseu->subslice_mask, slice);
++}
++
++u32 intel_sseu_get_compute_subslices(const struct sseu_dev_info *sseu)
++{
++	return _intel_sseu_get_subslices(sseu, sseu->compute_subslice_mask, 0);
++}
++
+ void intel_sseu_set_subslices(struct sseu_dev_info *sseu, int slice,
+ 			      u8 *subslice_mask, u32 ss_mask)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
+index 60882a74741e..8a79cd8eaab4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.h
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
+@@ -103,7 +103,9 @@ intel_sseu_subslice_total(const struct sseu_dev_info *sseu);
+ unsigned int
+ intel_sseu_subslices_per_slice(const struct sseu_dev_info *sseu, u8 slice);
+ 
+-u32  intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice);
++u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice);
++
++u32 intel_sseu_get_compute_subslices(const struct sseu_dev_info *sseu);
+ 
+ void intel_sseu_set_subslices(struct sseu_dev_info *sseu, int slice,
+ 			      u8 *subslice_mask, u32 ss_mask);
 -- 
 2.34.1
 
