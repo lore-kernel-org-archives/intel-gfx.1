@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157E6C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF2B7C433FE
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01EC010E82E;
-	Mon, 28 Feb 2022 14:26:08 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE9910E660;
- Mon, 28 Feb 2022 13:01:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 62228612C6;
- Mon, 28 Feb 2022 13:01:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED96C340FB;
- Mon, 28 Feb 2022 13:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646053284;
- bh=UiMZXTZJMibeG1EW/yB31l1nItCSfnX4i5UKaUmqYi4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=aUSaKk/THutssyZeRam8Ln1InKtmbtGYGpY3YWvcJayXLqxXdTg953ErM2MJCtBtt
- uScw14Tbo5bg0ZHcC8cU7sgK10lL8TIQKSzKXfK2pkZyGxYCp1liVDXA1C4GiuJ7SO
- oKHEAWYavKs1p4i7M729QMm1NwF5516rRrjec/lz5dGWlP1/n5JNj3ETeEYxIsNPJb
- BRWAhjZu7qFxrmpdGKWHJpcfMZ8eeq5JB03Rgt3ARIfPBC1Fwk7KFtLPaICIK7TX3F
- 4jMGPC4qPpWyyrTwafEVFhjGRcTqgwWsXE9jDdjsorkbn/AQNdVuR7OlQvIUmEXRhX
- usy66MwlSEfkA==
-Received: by mail-wr1-f48.google.com with SMTP id j17so15397637wrc.0;
- Mon, 28 Feb 2022 05:01:24 -0800 (PST)
-X-Gm-Message-State: AOAM5320XlH54ZcGM1jsGnAnabmys8ou0MxAz5sAwKlKu4Y/+LFWsIik
- 8rN4mc4LPFmlfJleNfIgmuVFscdwoFINFmJrgG0=
-X-Google-Smtp-Source: ABdhPJwJZ+uje/xKx7oLYKDj2bjjjypvvR3EipOurSGA++FmSYe2fJ0pQQWQ1o2kkZufMewj6tiI/1i+DeR+CamQFLs=
-X-Received: by 2002:a5d:63c2:0:b0:1ef:840e:e139 with SMTP id
- c2-20020a5d63c2000000b001ef840ee139mr8331744wrw.192.1646053282413; Mon, 28
- Feb 2022 05:01:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E717710E813;
+	Mon, 28 Feb 2022 14:26:07 +0000 (UTC)
+X-Greylist: delayed 519 seconds by postgrey-1.36 at gabe;
+ Mon, 28 Feb 2022 11:31:16 UTC
+Received: from nautica.notk.org (nautica.notk.org [91.121.71.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB7710E3C5;
+ Mon, 28 Feb 2022 11:31:16 +0000 (UTC)
+Received: by nautica.notk.org (Postfix, from userid 108)
+ id CA38FC023; Mon, 28 Feb 2022 12:22:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
+ t=1646047354; bh=nbIjFrzgDVTmB4SrJnZGd7fIFmdwChwe2lL83Uag4us=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KzQ5VK5bfQJ50dqk23dxDjUwDDK7TA/irQD0Z9CNQKb+g550mz4220rMxu0PuRkB0
+ zSH1KEphDNBJ7hKNULh8KlQjyIdBHOs8MI/nUYoPBmpLppCasulnFAsrKdaEXzwMTJ
+ IwpM9+gWlHHqb/G70sMsoon8bZGjqe3igvlHvXWdB+dQG/WEtTlWyekznVAIp4LN7e
+ b5pg6TDJ9pKPwGgBdsioef4sXDvyaKtcCCYy35g3YAfKpCdoJctnMsERag3cdTSjTi
+ 8bbBH2/ntqNttGvGikrePwX+5MLUaZ7SwFWR8e1TQHG1akbelVXWBNaL48rZXDJvyO
+ 7HTqyJ/PLNd5Q==
+Received: from odin.codewreck.org (localhost [127.0.0.1])
+ by nautica.notk.org (Postfix) with ESMTPS id 6162EC009;
+ Mon, 28 Feb 2022 12:22:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
+ t=1646047353; bh=nbIjFrzgDVTmB4SrJnZGd7fIFmdwChwe2lL83Uag4us=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E7ShsxTdVoGEbpDYFF27HXnsiskOzo+90fWYK/YK/pcgewcio/aI2ukKBbk8Ggf8c
+ PSXNNRohBAnroHDgJmzD26WOCBS51v3CgaeWJoVRlz3gzi1Wk2c722FgVeG9ZC8Gq1
+ VxeMBZJsJJ2s49Z0zkRuzCFT0FdEMmJ4Jlg8so5xUNkI1Pmhr9T77hNpqbhc5MUSIm
+ Vf9CZqLUP+U5LMthWxqmxcIfa+qcI6C/HHTtBGWVbD6UPJLDQeI2MK30nqaJN3mP3G
+ MxeZ4iTWnejwYcukxHfaPz9ZlYf9Zxp1r7k3O+mRBYZR8EPZsNImCl3hToWu78+1r5
+ 3QpJ5t/64l3TQ==
+Received: from localhost (odin.codewreck.org [local])
+ by odin.codewreck.org (OpenSMTPD) with ESMTPA id 8186bc45;
+ Mon, 28 Feb 2022 11:22:16 +0000 (UTC)
+Date: Mon, 28 Feb 2022 20:22:01 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Jakob Koschel <jakobkoschel@gmail.com>
+Message-ID: <YhywWTEIY7UnCYtL@codewreck.org>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-7-jakobkoschel@gmail.com>
 MIME-Version: 1.0
-References: <20220228103142.3301082-1-arnd@kernel.org>
- <87v8wz5frv.fsf@intel.com>
-In-Reply-To: <87v8wz5frv.fsf@intel.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Mon, 28 Feb 2022 14:01:06 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1YUR4BNu8Nrc5XW+sFjL7-hWTHh7kstV27wmj1aqc4vA@mail.gmail.com>
-Message-ID: <CAK8P3a1YUR4BNu8Nrc5XW+sFjL7-hWTHh7kstV27wmj1aqc4vA@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20220228110822.491923-7-jakobkoschel@gmail.com>
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: Re: [Intel-gfx] [PATCH] [v2] Kbuild: move to -std=gnu11
+Subject: Re: [Intel-gfx] [PATCH 6/6] treewide: remove check of list iterator
+ against head past the loop body
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,61 +65,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Michal Marek <michal.lkml@markovi.net>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
- linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
- Alex Shi <alexs@kernel.org>, Federico Vaga <federico.vaga@vaga.pv.it>,
- Hu Haowen <src.res@email.cn>, Intel Graphics <intel-gfx@lists.freedesktop.org>,
- linux-btrfs <linux-btrfs@vger.kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linux-doc-tw-discuss@lists.sourceforge.net,
- Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>, linux-media@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net, linux-tegra@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ linux-block@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 1:36 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> >
-> > One minor issue that remains is an added gcc warning for shifts of
-> > negative integers when building with -Werror, which happens with the
-> > 'make W=1' option, as well as for three drivers in the kernel that always
-> > enable -Werror, but it was only observed with the i915 driver so far.
-> > To be on the safe side, add -Wno-shift-negative-value to any -Wextra
-> > in a Makefile.
->
-> Do you mean always enable -Wall and/or -Wextra instead of -Werror?
->
-> We do use -Werror for our CI and development too, but it's hidden behind
-> a config option that depends on COMPILE_TEST=n to avoid any problems
-> with allmodconfig/allyesconfig.
+This is a bit more work (and a lot more noise), but I'd prefer if
+this were split into as many patches as there are components.
 
-What I meant here is that I'm adding -Wno-shift-negative-value to all
-four places in the kernel that already use -Wextra.
+I'm not going to review the parts of the patches that don't concern me,
+and if something turns out to be a problem later one (it shouldn't but
+one never knows) it'll be much easier to revert or put the blame on an
+individual smaller commit than on this...
 
-> For the future, makes me wonder if we couldn't have a way for drivers to
-> locally enable -Wall/-Wextra in a way that incorporates the exceptions
-> from kbuild instead of having to duplicate them.
+With that being said, ultimately I don't care that much and will leave
+that to people who do :)
 
-I have an older patch series that does this, but it also does a few other
-things that I couldn't quite get right in the end with all combinations of
-compiler versions and warning levels, so I did not submit that.
+Jakob Koschel wrote on Mon, Feb 28, 2022 at 12:08:22PM +0100:
+>  net/9p/trans_xen.c                            | 11 +++--
 
-What this allows is to have per-directory statements like
+This 9p change looks good to me.
 
-KBUILD_WARN1=1
-KBUILD_ERROR0=1
+Reviewed-by: Dominique Martinet <asmadeus@codewreck.org> # 9p
 
-to force all the default warnings (-Wall etc) to be errors, while
-making the W=1 type warnings (-Wextra etc) normal warnings.
-
-> Anyway, for the i915 changes,
->
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
-
-Thanks,
-
-       Arnd
+-- 
+Dominique
