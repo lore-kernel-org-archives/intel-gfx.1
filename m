@@ -4,32 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B163C43217
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D85C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89D5210E832;
-	Mon, 28 Feb 2022 14:26:08 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3CBF310E389;
- Mon, 28 Feb 2022 11:25:54 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4E1D1FB;
- Mon, 28 Feb 2022 03:25:53 -0800 (PST)
-Received: from FVFF77S0Q05N (unknown [10.57.20.208])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 736C33F73D;
- Mon, 28 Feb 2022 03:25:50 -0800 (PST)
-Date: Mon, 28 Feb 2022 11:25:36 +0000
-From: Mark Rutland <mark.rutland@arm.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YhyxML05rjJ/57Vk@FVFF77S0Q05N>
-References: <20220228103142.3301082-1-arnd@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E01110E83C;
+	Mon, 28 Feb 2022 14:26:09 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90FD310E3D5;
+ Mon, 28 Feb 2022 11:08:56 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id hw13so23947008ejc.9;
+ Mon, 28 Feb 2022 03:08:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=/EGi4mr40p3raaac66vU0+hvD5YB9qCu1pOgtbPKlNE=;
+ b=VH7eVEC8n4nRrOoErZmqRCmKK7V5zc3O3oKOvZo//InJ7XISRo4OXBvRXMfd2rUS1i
+ Z3McStXnEH5YC1rDBQByspf6SMehlrdIcvguNTspxofen/r+Ku9/5Zc6VDa43ZuI+L2p
+ ODGsjalHPfmdltJq4PehGBFpGUI5lnN4Jq/QY5horoOOjoTVfSDxXFEdAwVql0IqIAtS
+ 7kgSGPGWQVceCqMCNEvvla+av+fJUYIE93j17d1iaJrIlF6Edh2jwNed9PrIimvbPII3
+ vwkIbcMNChpBfeEAd9IaH2Ydb6zZyuRdWphPE+E4m5NB1jeJOzq80m/tuCsGSREkl1bm
+ sUSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=/EGi4mr40p3raaac66vU0+hvD5YB9qCu1pOgtbPKlNE=;
+ b=YmsXPbEV3npSwqaeGrFdUgTSeHZu7yent+h+9aUWt1uEdNTkhcMoUxrkYzRzDkksHa
+ eRUfIparTldIGeWaCuQWtA1Zwy6ilO+DMjEBx3uWJ6ZuUjzVdFVp8PgR3K4yRZbZ+lnU
+ o2gboErHCQxqJ2XDr/GuYSsh9lpK0nJ2ed5fC2zRAmN9+/9ATzMd0xQKRqOrELBOyhjg
+ i4+x2wfnWISXNj6ocOqBm3Zv7XN0SDNN4cSOViYlYJ9ep5M5qSXPmvR2OzeaJrUf5xPW
+ 2SVUGlAnwEsAcA4hqMvVWSthdxEtREOjRKFoSvq9orgrrIvra2u0wcpRBSXQWuoIyDOE
+ TbyA==
+X-Gm-Message-State: AOAM533o1+eoN7xTMaSzox9tXw7E0Qom+TDDZ5mcJQ8AVaKxwwvHBMdk
+ RpGlV4ZQFlf81x1qS39Txt0=
+X-Google-Smtp-Source: ABdhPJxdOZxTrBRs3m8EHdN9xiZB1+7/ZwU5F9dTBO3q/FP0GLy97OxjFGh37oi6BNvQ+yLVOlfqsg==
+X-Received: by 2002:a17:907:3dab:b0:6d6:a9a8:be4b with SMTP id
+ he43-20020a1709073dab00b006d6a9a8be4bmr4593604ejc.34.1646046534587; 
+ Mon, 28 Feb 2022 03:08:54 -0800 (PST)
+Received: from localhost.localdomain (dhcp-077-250-038-153.chello.nl.
+ [77.250.38.153]) by smtp.googlemail.com with ESMTPSA id
+ z22-20020a17090655d600b006d229436793sm4209049ejp.223.2022.02.28.03.08.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Feb 2022 03:08:54 -0800 (PST)
+From: Jakob Koschel <jakobkoschel@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 28 Feb 2022 12:08:17 +0100
+Message-Id: <20220228110822.491923-2-jakobkoschel@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220228110822.491923-1-jakobkoschel@gmail.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220228103142.3301082-1-arnd@kernel.org>
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: Re: [Intel-gfx] [PATCH] [v2] Kbuild: move to -std=gnu11
+Subject: [Intel-gfx] [PATCH 1/6] drivers: usb: remove usage of list iterator
+ past the loop body
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,248 +71,631 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-kernel@lists.infradead.org, Marco Elver <elver@google.com>,
- Michal Marek <michal.lkml@markovi.net>, linux-doc@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
- linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- greybus-dev@lists.linaro.org, Alex Shi <alexs@kernel.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>, Hu Haowen <src.res@email.cn>,
- intel-gfx@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linux-doc-tw-discuss@lists.sourceforge.net, linux-kbuild@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>, linux-media@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Arnd,
+If the list representing the request queue does not contain the expected
+request, the value of list_for_each_entry() iterator will not point to a
+valid structure. To avoid type confusion in such case, the list iterator
+scope will be limited to list_for_each_entry() loop.
 
-This is great!
+In preparation to limiting scope of a list iterator to the list traversal
+loop, use a dedicated pointer to point to the found request object.
 
-On Mon, Feb 28, 2022 at 11:27:43AM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> During a patch discussion, Linus brought up the option of changing
-> the C standard version from gnu89 to gnu99, which allows using variable
-> declaration inside of a for() loop. While the C99, C11 and later standards
-> introduce many other features, most of these are already available in
-> gnu89 as GNU extensions as well.
->
-> An earlier attempt to do this when gcc-5 started defaulting to
-> -std=gnu11 failed because at the time that caused warnings about
-> designated initializers with older compilers. Now that gcc-5.1 is the
-> minimum compiler version used for building kernels, that is no longer a
-> concern. Similarly, the behavior of 'inline' functions changes between
-> gnu89 and gnu11, but this was taken care of by defining 'inline' to
-> include __attribute__((gnu_inline)) in order to allow building with
-> clang a while ago.
-> 
-> One minor issue that remains is an added gcc warning for shifts of
-> negative integers when building with -Werror, which happens with the
-> 'make W=1' option, as well as for three drivers in the kernel that always
-> enable -Werror, but it was only observed with the i915 driver so far.
-> To be on the safe side, add -Wno-shift-negative-value to any -Wextra
-> in a Makefile.
-> 
-> Nathan Chancellor reported an additional -Wdeclaration-after-statement
-> warning that appears in a system header on arm, this still needs a
-> workaround.
+Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
+---
+ drivers/usb/gadget/udc/aspeed-vhub/epn.c | 11 ++++++----
+ drivers/usb/gadget/udc/at91_udc.c        | 26 ++++++++++++++----------
+ drivers/usb/gadget/udc/atmel_usba_udc.c  | 11 ++++++----
+ drivers/usb/gadget/udc/bdc/bdc_ep.c      | 11 +++++++---
+ drivers/usb/gadget/udc/fsl_qe_udc.c      | 11 ++++++----
+ drivers/usb/gadget/udc/fsl_udc_core.c    | 11 ++++++----
+ drivers/usb/gadget/udc/goku_udc.c        | 11 ++++++----
+ drivers/usb/gadget/udc/gr_udc.c          | 11 ++++++----
+ drivers/usb/gadget/udc/lpc32xx_udc.c     | 11 ++++++----
+ drivers/usb/gadget/udc/mv_u3d_core.c     | 11 ++++++----
+ drivers/usb/gadget/udc/mv_udc_core.c     | 11 ++++++----
+ drivers/usb/gadget/udc/net2272.c         | 12 ++++++-----
+ drivers/usb/gadget/udc/net2280.c         | 11 ++++++----
+ drivers/usb/gadget/udc/omap_udc.c        | 11 ++++++----
+ drivers/usb/gadget/udc/pxa25x_udc.c      | 11 ++++++----
+ drivers/usb/gadget/udc/s3c-hsudc.c       | 11 ++++++----
+ drivers/usb/gadget/udc/udc-xilinx.c      | 11 ++++++----
+ 17 files changed, 128 insertions(+), 75 deletions(-)
 
-FWIW, I had a go at moving to c99 a few weeks ago (to be able to use
-for-loop-declarations in some concurrency primitives), and when I tried, I also
-saw declaration-after-statement warnings when building modpost.c, which is easy
-enough to fix:
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/epn.c b/drivers/usb/gadget/udc/aspeed-vhub/epn.c
+index 917892ca8753..cad874ee4472 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/epn.c
++++ b/drivers/usb/gadget/udc/aspeed-vhub/epn.c
+@@ -466,19 +466,22 @@ static int ast_vhub_epn_dequeue(struct usb_ep* u_ep, struct usb_request *u_req)
+ {
+ 	struct ast_vhub_ep *ep = to_ast_ep(u_ep);
+ 	struct ast_vhub *vhub = ep->vhub;
+-	struct ast_vhub_req *req;
++	struct ast_vhub_req *req = NULL;
++	struct ast_vhub_req *tmp;
+ 	unsigned long flags;
+ 	int rc = -EINVAL;
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?h=treewide/gnu99&id=505775bd6fd0bc1883f3271f826963066bbdc194
+ 	spin_lock_irqsave(&vhub->lock, flags);
 
-Thanks,
-Mark.
+ 	/* Make sure it's actually queued on this endpoint */
+-	list_for_each_entry (req, &ep->queue, queue) {
+-		if (&req->req == u_req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == u_req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
 
-> The differences between gnu99, gnu11, gnu1x and gnu17 are fairly
-> minimal and mainly impact warnings at the -Wpedantic level that the
-> kernel never enables. Between these, gnu11 is the newest version
-> that is supported by all supported compiler versions, though it is
-> only the default on gcc-5, while all other supported versions of
-> gcc or clang default to gnu1x/gnu17.
-> 
-> Link: https://lore.kernel.org/lkml/CAHk-=wiyCH7xeHcmiFJ-YgXUy2Jaj7pnkdKpcovt8fYbVFW3TA@mail.gmail.com/
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1603
-> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Masahiro Yamada <masahiroy@kernel.org>
-> Cc: linux-kbuild@vger.kernel.org
-> Cc: llvm@lists.linux.dev
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> [v2]
->  - added -std=gnu11 back, rather than just relying on the default
->  - minor changes to changelog text
-> ---
->  Documentation/process/programming-language.rst              | 4 ++--
->  .../translations/it_IT/process/programming-language.rst     | 4 ++--
->  .../translations/zh_CN/process/programming-language.rst     | 4 ++--
->  .../translations/zh_TW/process/programming-language.rst     | 4 ++--
->  Makefile                                                    | 6 +++---
->  arch/arm64/kernel/vdso32/Makefile                           | 2 +-
->  drivers/gpu/drm/i915/Makefile                               | 1 +
->  drivers/staging/greybus/tools/Makefile                      | 3 ++-
->  fs/btrfs/Makefile                                           | 1 +
->  scripts/Makefile.extrawarn                                  | 1 +
->  10 files changed, 17 insertions(+), 13 deletions(-)
-> 
-> diff --git a/Documentation/process/programming-language.rst b/Documentation/process/programming-language.rst
-> index ec474a70a02f..894f2a6eb9db 100644
-> --- a/Documentation/process/programming-language.rst
-> +++ b/Documentation/process/programming-language.rst
-> @@ -5,8 +5,8 @@ Programming Language
->  
->  The kernel is written in the C programming language [c-language]_.
->  More precisely, the kernel is typically compiled with ``gcc`` [gcc]_
-> -under ``-std=gnu89`` [gcc-c-dialect-options]_: the GNU dialect of ISO C90
-> -(including some C99 features). ``clang`` [clang]_ is also supported, see
-> +under ``-std=gnu11`` [gcc-c-dialect-options]_: the GNU dialect of ISO C11
-> +(including some C17 features). ``clang`` [clang]_ is also supported, see
->  docs on :ref:`Building Linux with Clang/LLVM <kbuild_llvm>`.
->  
->  This dialect contains many extensions to the language [gnu-extensions]_,
-> diff --git a/Documentation/translations/it_IT/process/programming-language.rst b/Documentation/translations/it_IT/process/programming-language.rst
-> index 41db2598ce11..aa21097737ae 100644
-> --- a/Documentation/translations/it_IT/process/programming-language.rst
-> +++ b/Documentation/translations/it_IT/process/programming-language.rst
-> @@ -10,8 +10,8 @@ Linguaggio di programmazione
->  
->  Il kernel è scritto nel linguaggio di programmazione C [it-c-language]_.
->  Più precisamente, il kernel viene compilato con ``gcc`` [it-gcc]_ usando
-> -l'opzione ``-std=gnu89`` [it-gcc-c-dialect-options]_: il dialetto GNU
-> -dello standard ISO C90 (con l'aggiunta di alcune funzionalità da C99).
-> +l'opzione ``-std=gnu11`` [it-gcc-c-dialect-options]_: il dialetto GNU
-> +dello standard ISO C11 (con l'aggiunta di alcune funzionalità da C17).
->  Linux supporta anche ``clang`` [it-clang]_, leggete la documentazione
->  :ref:`Building Linux with Clang/LLVM <kbuild_llvm>`.
->  
-> diff --git a/Documentation/translations/zh_CN/process/programming-language.rst b/Documentation/translations/zh_CN/process/programming-language.rst
-> index 2a47a1d2ec20..58d2b3bd2d85 100644
-> --- a/Documentation/translations/zh_CN/process/programming-language.rst
-> +++ b/Documentation/translations/zh_CN/process/programming-language.rst
-> @@ -9,8 +9,8 @@
->  ============
->  
->  内核是用C语言 :ref:`c-language <cn_c-language>` 编写的。更准确地说，内核通常是用 :ref:`gcc <cn_gcc>`
-> -在 ``-std=gnu89`` :ref:`gcc-c-dialect-options <cn_gcc-c-dialect-options>` 下编译的：ISO C90的 GNU 方言（
-> -包括一些C99特性）
-> +在 ``-std=gnu11`` :ref:`gcc-c-dialect-options <cn_gcc-c-dialect-options>` 下编译的：ISO C11的 GNU 方言（
-> +包括一些C17特性）
->  
->  这种方言包含对语言 :ref:`gnu-extensions <cn_gnu-extensions>` 的许多扩展，当然，它们许多都在内核中使用。
->  
-> diff --git a/Documentation/translations/zh_TW/process/programming-language.rst b/Documentation/translations/zh_TW/process/programming-language.rst
-> index 54e3699eadf8..235de05f7e2c 100644
-> --- a/Documentation/translations/zh_TW/process/programming-language.rst
-> +++ b/Documentation/translations/zh_TW/process/programming-language.rst
-> @@ -12,8 +12,8 @@
->  ============
->  
->  內核是用C語言 :ref:`c-language <tw_c-language>` 編寫的。更準確地說，內核通常是用 :ref:`gcc <tw_gcc>`
-> -在 ``-std=gnu89`` :ref:`gcc-c-dialect-options <tw_gcc-c-dialect-options>` 下編譯的：ISO C90的 GNU 方言（
-> -包括一些C99特性）
-> +在 ``-std=gnu11`` :ref:`gcc-c-dialect-options <tw_gcc-c-dialect-options>` 下編譯的：ISO C11的 GNU 方言（
-> +包括一些C17特性）
->  
->  這種方言包含對語言 :ref:`gnu-extensions <tw_gnu-extensions>` 的許多擴展，當然，它們許多都在內核中使用。
->  
-> diff --git a/Makefile b/Makefile
-> index 289ce2be8032..66496eaeb9ec 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -432,7 +432,7 @@ HOSTCXX	= g++
->  endif
->  
->  export KBUILD_USERCFLAGS := -Wall -Wmissing-prototypes -Wstrict-prototypes \
-> -			      -O2 -fomit-frame-pointer -std=gnu89
-> +			      -O2 -fomit-frame-pointer -std=gnu11
->  export KBUILD_USERLDFLAGS :=
->  
->  KBUILD_HOSTCFLAGS   := $(KBUILD_USERCFLAGS) $(HOST_LFS_CFLAGS) $(HOSTCFLAGS)
-> @@ -515,7 +515,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs \
->  		   -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE \
->  		   -Werror=implicit-function-declaration -Werror=implicit-int \
->  		   -Werror=return-type -Wno-format-security \
-> -		   -std=gnu89
-> +		   -std=gnu11
->  KBUILD_CPPFLAGS := -D__KERNEL__
->  KBUILD_AFLAGS_KERNEL :=
->  KBUILD_CFLAGS_KERNEL :=
-> @@ -782,7 +782,7 @@ KBUILD_CFLAGS += $(KBUILD_CFLAGS-y) $(CONFIG_CC_IMPLICIT_FALLTHROUGH)
->  
->  ifdef CONFIG_CC_IS_CLANG
->  KBUILD_CPPFLAGS += -Qunused-arguments
-> -# The kernel builds with '-std=gnu89' so use of GNU extensions is acceptable.
-> +# The kernel builds with '-std=gnu11' so use of GNU extensions is acceptable.
->  KBUILD_CFLAGS += -Wno-gnu
->  # CLANG uses a _MergedGlobals as optimization, but this breaks modpost, as the
->  # source of a reference will be _MergedGlobals and not on of the whitelisted names.
-> diff --git a/arch/arm64/kernel/vdso32/Makefile b/arch/arm64/kernel/vdso32/Makefile
-> index 6c01b63ff56d..9378ea055bf2 100644
-> --- a/arch/arm64/kernel/vdso32/Makefile
-> +++ b/arch/arm64/kernel/vdso32/Makefile
-> @@ -68,7 +68,7 @@ VDSO_CFLAGS += -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
->                 -fno-strict-aliasing -fno-common \
->                 -Werror-implicit-function-declaration \
->                 -Wno-format-security \
-> -               -std=gnu89
-> +               -std=gnu11
->  VDSO_CFLAGS  += -O2
->  # Some useful compiler-dependent flags from top-level Makefile
->  VDSO_CFLAGS += $(call cc32-option,-Wdeclaration-after-statement,)
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-> index 1b62b9f65196..1618a6e0af4e 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -17,6 +17,7 @@ subdir-ccflags-y += -Wno-unused-parameter
->  subdir-ccflags-y += -Wno-type-limits
->  subdir-ccflags-y += -Wno-missing-field-initializers
->  subdir-ccflags-y += -Wno-sign-compare
-> +subdir-ccflags-y += -Wno-shift-negative-value
->  subdir-ccflags-y += $(call cc-disable-warning, unused-but-set-variable)
->  subdir-ccflags-y += $(call cc-disable-warning, frame-address)
->  subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
-> diff --git a/drivers/staging/greybus/tools/Makefile b/drivers/staging/greybus/tools/Makefile
-> index ad0ae8053b79..a3bbd73171f2 100644
-> --- a/drivers/staging/greybus/tools/Makefile
-> +++ b/drivers/staging/greybus/tools/Makefile
-> @@ -12,7 +12,8 @@ CFLAGS	+= -std=gnu99 -Wall -Wextra -g \
->  	    -Wredundant-decls \
->  	    -Wcast-align \
->  	    -Wsign-compare \
-> -	    -Wno-missing-field-initializers
-> +	    -Wno-missing-field-initializers \
-> +	    -Wno-shift-negative-value
->  
->  CC	:= $(CROSS_COMPILE)gcc
->  
-> diff --git a/fs/btrfs/Makefile b/fs/btrfs/Makefile
-> index 4188ba3fd8c3..99f9995670ea 100644
-> --- a/fs/btrfs/Makefile
-> +++ b/fs/btrfs/Makefile
-> @@ -17,6 +17,7 @@ subdir-ccflags-y += $(condflags)
->  subdir-ccflags-y += -Wno-missing-field-initializers
->  subdir-ccflags-y += -Wno-sign-compare
->  subdir-ccflags-y += -Wno-type-limits
-> +subdir-ccflags-y += -Wno-shift-negative-value
->  
->  obj-$(CONFIG_BTRFS_FS) := btrfs.o
->  
-> diff --git a/scripts/Makefile.extrawarn b/scripts/Makefile.extrawarn
-> index 8be892887d71..650d0b8ceec3 100644
-> --- a/scripts/Makefile.extrawarn
-> +++ b/scripts/Makefile.extrawarn
-> @@ -36,6 +36,7 @@ KBUILD_CFLAGS += $(call cc-option, -Wstringop-truncation)
->  KBUILD_CFLAGS += -Wno-missing-field-initializers
->  KBUILD_CFLAGS += -Wno-sign-compare
->  KBUILD_CFLAGS += -Wno-type-limits
-> +KBUILD_CFLAGS += -Wno-shift-negative-value
->  
->  KBUILD_CPPFLAGS += -DKBUILD_EXTRA_WARN1
->  
-> -- 
-> 2.29.2
-> 
+-	if (&req->req == u_req) {
++	if (req) {
+ 		EPVDBG(ep, "dequeue req @%p active=%d\n",
+ 		       req, req->active);
+ 		if (req->active)
+diff --git a/drivers/usb/gadget/udc/at91_udc.c b/drivers/usb/gadget/udc/at91_udc.c
+index 9040a0561466..0fd0307bc07b 100644
+--- a/drivers/usb/gadget/udc/at91_udc.c
++++ b/drivers/usb/gadget/udc/at91_udc.c
+@@ -150,13 +150,14 @@ static void proc_ep_show(struct seq_file *s, struct at91_ep *ep)
+ 	if (list_empty (&ep->queue))
+ 		seq_printf(s, "\t(queue empty)\n");
+
+-	else list_for_each_entry (req, &ep->queue, queue) {
+-		unsigned	length = req->req.actual;
++	else
++		list_for_each_entry(req, &ep->queue, queue) {
++			unsigned int	length = req->req.actual;
+
+-		seq_printf(s, "\treq %p len %d/%d buf %p\n",
+-				&req->req, length,
+-				req->req.length, req->req.buf);
+-	}
++			seq_printf(s, "\treq %p len %d/%d buf %p\n",
++					&req->req, length,
++					req->req.length, req->req.buf);
++		}
+ 	spin_unlock_irqrestore(&udc->lock, flags);
+ }
+
+@@ -226,7 +227,7 @@ static int proc_udc_show(struct seq_file *s, void *unused)
+
+ 	if (udc->enabled && udc->vbus) {
+ 		proc_ep_show(s, &udc->ep[0]);
+-		list_for_each_entry (ep, &udc->gadget.ep_list, ep.ep_list) {
++		list_for_each_entry(ep, &udc->gadget.ep_list, ep.ep_list) {
+ 			if (ep->ep.desc)
+ 				proc_ep_show(s, ep);
+ 		}
+@@ -704,7 +705,8 @@ static int at91_ep_queue(struct usb_ep *_ep,
+ static int at91_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct at91_ep		*ep;
+-	struct at91_request	*req;
++	struct at91_request	*req = NULL;
++	struct at91_request	*tmp;
+ 	unsigned long		flags;
+ 	struct at91_udc		*udc;
+
+@@ -717,11 +719,13 @@ static int at91_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&udc->lock, flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry (req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&udc->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/atmel_usba_udc.c b/drivers/usb/gadget/udc/atmel_usba_udc.c
+index 2b893bceea45..8e393e14f137 100644
+--- a/drivers/usb/gadget/udc/atmel_usba_udc.c
++++ b/drivers/usb/gadget/udc/atmel_usba_udc.c
+@@ -860,7 +860,8 @@ static int usba_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct usba_ep *ep = to_usba_ep(_ep);
+ 	struct usba_udc *udc = ep->udc;
+-	struct usba_request *req;
++	struct usba_request *req = NULL;
++	struct usba_request *tmp;
+ 	unsigned long flags;
+ 	u32 status;
+
+@@ -869,12 +870,14 @@ static int usba_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+
+ 	spin_lock_irqsave(&udc->lock, flags);
+
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+
+-	if (&req->req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&udc->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/bdc/bdc_ep.c b/drivers/usb/gadget/udc/bdc/bdc_ep.c
+index 8e2f20b12519..829e96791d0a 100644
+--- a/drivers/usb/gadget/udc/bdc/bdc_ep.c
++++ b/drivers/usb/gadget/udc/bdc/bdc_ep.c
+@@ -1757,6 +1757,7 @@ static int bdc_gadget_ep_dequeue(struct usb_ep *_ep,
+ 				  struct usb_request *_req)
+ {
+ 	struct bdc_req *req;
++	struct bdc_req *tmp;
+ 	unsigned long flags;
+ 	struct bdc_ep *ep;
+ 	struct bdc *bdc;
+@@ -1771,12 +1772,16 @@ static int bdc_gadget_ep_dequeue(struct usb_ep *_ep,
+ 	dev_dbg(bdc->dev, "%s ep:%s req:%p\n", __func__, ep->name, req);
+ 	bdc_dbg_bd_list(bdc, ep);
+ 	spin_lock_irqsave(&bdc->lock, flags);
++
++	req = NULL;
+ 	/* make sure it's still queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->usb_req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->usb_req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->usb_req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&bdc->lock, flags);
+ 		dev_err(bdc->dev, "usb_req !=req n");
+ 		return -EINVAL;
+diff --git a/drivers/usb/gadget/udc/fsl_qe_udc.c b/drivers/usb/gadget/udc/fsl_qe_udc.c
+index 15db7a3868fe..3979a2825e3c 100644
+--- a/drivers/usb/gadget/udc/fsl_qe_udc.c
++++ b/drivers/usb/gadget/udc/fsl_qe_udc.c
+@@ -1776,7 +1776,8 @@ static int qe_ep_queue(struct usb_ep *_ep, struct usb_request *_req,
+ static int qe_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct qe_ep *ep = container_of(_ep, struct qe_ep, ep);
+-	struct qe_req *req;
++	struct qe_req *req = NULL;
++	struct qe_req *tmp;
+ 	unsigned long flags;
+
+ 	if (!_ep || !_req)
+@@ -1785,12 +1786,14 @@ static int qe_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&ep->udc->lock, flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+
+-	if (&req->req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&ep->udc->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/fsl_udc_core.c b/drivers/usb/gadget/udc/fsl_udc_core.c
+index 29fcb9b461d7..23d670fae12c 100644
+--- a/drivers/usb/gadget/udc/fsl_udc_core.c
++++ b/drivers/usb/gadget/udc/fsl_udc_core.c
+@@ -918,7 +918,8 @@ fsl_ep_queue(struct usb_ep *_ep, struct usb_request *_req, gfp_t gfp_flags)
+ static int fsl_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct fsl_ep *ep = container_of(_ep, struct fsl_ep, ep);
+-	struct fsl_req *req;
++	struct fsl_req *req = NULL;
++	struct fsl_req *tmp;
+ 	unsigned long flags;
+ 	int ep_num, stopped, ret = 0;
+ 	u32 epctrl;
+@@ -940,11 +941,13 @@ static int fsl_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	fsl_writel(epctrl, &dr_regs->endptctrl[ep_num]);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+diff --git a/drivers/usb/gadget/udc/goku_udc.c b/drivers/usb/gadget/udc/goku_udc.c
+index 3757a772a55e..62f0b7d794ec 100644
+--- a/drivers/usb/gadget/udc/goku_udc.c
++++ b/drivers/usb/gadget/udc/goku_udc.c
+@@ -809,7 +809,8 @@ static void nuke(struct goku_ep *ep, int status)
+ /* dequeue JUST ONE request */
+ static int goku_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+-	struct goku_request	*req;
++	struct goku_request	*req = NULL;
++	struct goku_request	*tmp;
+ 	struct goku_ep		*ep;
+ 	struct goku_udc		*dev;
+ 	unsigned long		flags;
+@@ -833,11 +834,13 @@ static int goku_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&dev->lock, flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry (req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (req) {
+ 		spin_unlock_irqrestore (&dev->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/gr_udc.c b/drivers/usb/gadget/udc/gr_udc.c
+index 4b35739d3695..5d65d8ad5281 100644
+--- a/drivers/usb/gadget/udc/gr_udc.c
++++ b/drivers/usb/gadget/udc/gr_udc.c
+@@ -1690,7 +1690,8 @@ static int gr_queue_ext(struct usb_ep *_ep, struct usb_request *_req,
+ /* Dequeue JUST ONE request */
+ static int gr_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+-	struct gr_request *req;
++	struct gr_request *req = NULL;
++	struct gr_request *tmp;
+ 	struct gr_ep *ep;
+ 	struct gr_udc *dev;
+ 	int ret = 0;
+@@ -1710,11 +1711,13 @@ static int gr_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&dev->lock, flags);
+
+ 	/* Make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
+index a25d01c89564..024b646638fb 100644
+--- a/drivers/usb/gadget/udc/lpc32xx_udc.c
++++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
+@@ -1830,7 +1830,8 @@ static int lpc32xx_ep_queue(struct usb_ep *_ep,
+ static int lpc32xx_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct lpc32xx_ep *ep;
+-	struct lpc32xx_request *req;
++	struct lpc32xx_request *req = NULL;
++	struct lpc32xx_request *tmp;
+ 	unsigned long flags;
+
+ 	ep = container_of(_ep, struct lpc32xx_ep, ep);
+@@ -1840,11 +1841,13 @@ static int lpc32xx_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&ep->udc->lock, flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&ep->udc->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/mv_u3d_core.c b/drivers/usb/gadget/udc/mv_u3d_core.c
+index a1057ddfbda3..39bd0aeb58d1 100644
+--- a/drivers/usb/gadget/udc/mv_u3d_core.c
++++ b/drivers/usb/gadget/udc/mv_u3d_core.c
+@@ -844,7 +844,8 @@ mv_u3d_ep_queue(struct usb_ep *_ep, struct usb_request *_req, gfp_t gfp_flags)
+ static int mv_u3d_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct mv_u3d_ep *ep;
+-	struct mv_u3d_req *req;
++	struct mv_u3d_req *req = NULL;
++	struct mv_u3d_req *tmp;
+ 	struct mv_u3d *u3d;
+ 	struct mv_u3d_ep_context *ep_context;
+ 	struct mv_u3d_req *next_req;
+@@ -861,11 +862,13 @@ static int mv_u3d_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&ep->u3d->lock, flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+diff --git a/drivers/usb/gadget/udc/mv_udc_core.c b/drivers/usb/gadget/udc/mv_udc_core.c
+index b6d34dda028b..9d708ce49c50 100644
+--- a/drivers/usb/gadget/udc/mv_udc_core.c
++++ b/drivers/usb/gadget/udc/mv_udc_core.c
+@@ -771,7 +771,8 @@ static void mv_prime_ep(struct mv_ep *ep, struct mv_req *req)
+ static int mv_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct mv_ep *ep = container_of(_ep, struct mv_ep, ep);
+-	struct mv_req *req;
++	struct mv_req *req = NULL;
++	struct mv_req *tmp;
+ 	struct mv_udc *udc = ep->udc;
+ 	unsigned long flags;
+ 	int stopped, ret = 0;
+@@ -793,11 +794,13 @@ static int mv_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	writel(epctrlx, &udc->op_regs->epctrlx[ep->ep_num]);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+diff --git a/drivers/usb/gadget/udc/net2272.c b/drivers/usb/gadget/udc/net2272.c
+index 7c38057dcb4a..bb59200f1596 100644
+--- a/drivers/usb/gadget/udc/net2272.c
++++ b/drivers/usb/gadget/udc/net2272.c
+@@ -926,7 +926,8 @@ static int
+ net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct net2272_ep *ep;
+-	struct net2272_request *req;
++	struct net2272_request *req = NULL;
++	struct net2272_request *tmp;
+ 	unsigned long flags;
+ 	int stopped;
+
+@@ -939,11 +940,13 @@ net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	ep->stopped = 1;
+
+ 	/* make sure it's still queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		ep->stopped = stopped;
+ 		spin_unlock_irqrestore(&ep->dev->lock, flags);
+ 		return -EINVAL;
+@@ -954,7 +957,6 @@ net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 		dev_dbg(ep->dev->dev, "unlink (%s) pio\n", _ep->name);
+ 		net2272_done(ep, req, -ECONNRESET);
+ 	}
+-	req = NULL;
+ 	ep->stopped = stopped;
+
+ 	spin_unlock_irqrestore(&ep->dev->lock, flags);
+diff --git a/drivers/usb/gadget/udc/net2280.c b/drivers/usb/gadget/udc/net2280.c
+index 16e7d2db6411..dbf5592dbcf0 100644
+--- a/drivers/usb/gadget/udc/net2280.c
++++ b/drivers/usb/gadget/udc/net2280.c
+@@ -1240,7 +1240,8 @@ static void nuke(struct net2280_ep *ep)
+ static int net2280_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct net2280_ep	*ep;
+-	struct net2280_request	*req;
++	struct net2280_request	*req = NULL;
++	struct net2280_request	*tmp;
+ 	unsigned long		flags;
+ 	u32			dmactl;
+ 	int			stopped;
+@@ -1266,11 +1267,13 @@ static int net2280_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	}
+
+ 	/* make sure it's still queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		ep->stopped = stopped;
+ 		spin_unlock_irqrestore(&ep->dev->lock, flags);
+ 		ep_dbg(ep->dev, "%s: Request mismatch\n", __func__);
+diff --git a/drivers/usb/gadget/udc/omap_udc.c b/drivers/usb/gadget/udc/omap_udc.c
+index 494da00398d7..c0f6e066ccc2 100644
+--- a/drivers/usb/gadget/udc/omap_udc.c
++++ b/drivers/usb/gadget/udc/omap_udc.c
+@@ -1003,7 +1003,8 @@ omap_ep_queue(struct usb_ep *_ep, struct usb_request *_req, gfp_t gfp_flags)
+ static int omap_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct omap_ep	*ep = container_of(_ep, struct omap_ep, ep);
+-	struct omap_req	*req;
++	struct omap_req	*req = NULL;
++	struct omap_req	*tmp;
+ 	unsigned long	flags;
+
+ 	if (!_ep || !_req)
+@@ -1012,11 +1013,13 @@ static int omap_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	spin_lock_irqsave(&ep->udc->lock, flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&ep->udc->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/pxa25x_udc.c b/drivers/usb/gadget/udc/pxa25x_udc.c
+index b38747fd3bb0..889ea52bbe0a 100644
+--- a/drivers/usb/gadget/udc/pxa25x_udc.c
++++ b/drivers/usb/gadget/udc/pxa25x_udc.c
+@@ -966,7 +966,8 @@ static void nuke(struct pxa25x_ep *ep, int status)
+ static int pxa25x_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct pxa25x_ep	*ep;
+-	struct pxa25x_request	*req;
++	struct pxa25x_request	*req = NULL;
++	struct pxa25x_request	*tmp;
+ 	unsigned long		flags;
+
+ 	ep = container_of(_ep, struct pxa25x_ep, ep);
+@@ -976,11 +977,13 @@ static int pxa25x_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	local_irq_save(flags);
+
+ 	/* make sure it's actually queued on this endpoint */
+-	list_for_each_entry (req, &ep->queue, queue) {
+-		if (&req->req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->req != _req) {
++	if (!req) {
+ 		local_irq_restore(flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/s3c-hsudc.c b/drivers/usb/gadget/udc/s3c-hsudc.c
+index 89f1f8c9f02e..5006c9ebbac6 100644
+--- a/drivers/usb/gadget/udc/s3c-hsudc.c
++++ b/drivers/usb/gadget/udc/s3c-hsudc.c
+@@ -877,7 +877,8 @@ static int s3c_hsudc_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct s3c_hsudc_ep *hsep = our_ep(_ep);
+ 	struct s3c_hsudc *hsudc = hsep->dev;
+-	struct s3c_hsudc_req *hsreq;
++	struct s3c_hsudc_req *hsreq = NULL;
++	struct s3c_hsudc_req *tmp;
+ 	unsigned long flags;
+
+ 	hsep = our_ep(_ep);
+@@ -886,11 +887,13 @@ static int s3c_hsudc_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+
+ 	spin_lock_irqsave(&hsudc->lock, flags);
+
+-	list_for_each_entry(hsreq, &hsep->queue, queue) {
+-		if (&hsreq->req == _req)
++	list_for_each_entry(tmp, &hsep->queue, queue) {
++		if (&tmp->req == _req) {
++			hsreq = tmp;
+ 			break;
++		}
+ 	}
+-	if (&hsreq->req != _req) {
++	if (!hsreq) {
+ 		spin_unlock_irqrestore(&hsudc->lock, flags);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/usb/gadget/udc/udc-xilinx.c b/drivers/usb/gadget/udc/udc-xilinx.c
+index 6ce886fb7bfe..6812824cc823 100644
+--- a/drivers/usb/gadget/udc/udc-xilinx.c
++++ b/drivers/usb/gadget/udc/udc-xilinx.c
+@@ -1136,17 +1136,20 @@ static int xudc_ep_queue(struct usb_ep *_ep, struct usb_request *_req,
+ static int xudc_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ {
+ 	struct xusb_ep *ep	= to_xusb_ep(_ep);
+-	struct xusb_req *req	= to_xusb_req(_req);
++	struct xusb_req *req	= NULL;
++	struct xusb_req *tmp;
+ 	struct xusb_udc *udc	= ep->udc;
+ 	unsigned long flags;
+
+ 	spin_lock_irqsave(&udc->lock, flags);
+ 	/* Make sure it's actually queued on this endpoint */
+-	list_for_each_entry(req, &ep->queue, queue) {
+-		if (&req->usb_req == _req)
++	list_for_each_entry(tmp, &ep->queue, queue) {
++		if (&tmp->usb_req == _req) {
++			req = tmp;
+ 			break;
++		}
+ 	}
+-	if (&req->usb_req != _req) {
++	if (!req) {
+ 		spin_unlock_irqrestore(&udc->lock, flags);
+ 		return -EINVAL;
+ 	}
+--
+2.25.1
+
