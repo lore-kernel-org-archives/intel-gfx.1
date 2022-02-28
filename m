@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95DBC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF7AC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E34D10E850;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B076310E867;
 	Mon, 28 Feb 2022 17:43:12 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD3810E571;
- Mon, 28 Feb 2022 17:43:07 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C17510E4F3;
+ Mon, 28 Feb 2022 17:43:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646070187; x=1677606187;
+ t=1646070185; x=1677606185;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tJq3z7ir5ZHVZnlZ33MQFq25G8nTG/sUnms86Rs36i0=;
- b=G4ohFH0yPZnbKW5916bQS6pWeDpN3yUaiehgLzmdBaG0wFnDY0Zum5u1
- FgO4LqYyOgfbrPUivTzZ/M21M+2c1iqZeXG//iQ8BMT2vLEBBKuIQ56FF
- 1oVempLeDrT/bnnW1GVZrlS/BWFMBQ4Wy2uHmxSU2shS62q9b8aio7Uk9
- sHRv1CxFBMpkKxL4ysRUcTni23qqoKNlkwYYgWyqFKZtmL9EQC80rnW6b
- pIs7ohCaCBQpEs0meuSxHTFow1+HozuDFm3ZiFPsvWAONmydV9WFTZg0v
- QM/LrznMIpI7BTc48V1zLTq8wbb9iQQQ6PzhoJujzc3LLdUM8r4PldxMH Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="252866894"
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="252866894"
+ bh=NliItArQZijl2Q1fg+fRA/XfIfTMK8EVPqoy8d2FkE8=;
+ b=jYQgqHBCvCw/SQBaW6s8E4L/I1ml2NXx8Ce7P3Sm6v/bpn0WlekQ5GLl
+ maDS4H7vq4fpOz/3OpIBwpMPDhcxDXTTh+9AvTEDaDlNEyFRAMCM5qVUd
+ ap62cQeg9OHDezcGPEbcAwkVjrXcRL96TIMgszQarR8z9RO5Db0GOoOly
+ ZtfTHyF6H4QIhscQodgUz/CtUllEPkevQwR20B7iiAS8f2aUIIHsPXenY
+ YOGTVo9JDdqZz6K6euAU6QFA5UDQB86PUUO2hW2k2RD+9v10wK2W5Kky8
+ ErlJ1L0WQY0GpzyH39LhsqGIIKyCexytR1GxB46AhHJmDQk6bGYsnuB4k g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="240351469"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="240351469"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 09:43:06 -0800
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392857"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2022 09:43:04 -0800
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392826"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 09:43:06 -0800
+ 28 Feb 2022 09:43:04 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Feb 2022 09:42:44 -0800
-Message-Id: <20220228174245.1569581-13-matthew.d.roper@intel.com>
+Date: Mon, 28 Feb 2022 09:42:36 -0800
+Message-Id: <20220228174245.1569581-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 References: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 12/13] drm/i915/xehp: Add compute workarounds
+Subject: [Intel-gfx] [PATCH v2 04/13] drm/i915/xehp: compute engine
+ pipe_control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,133 +60,133 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Additional workarounds are required once we start exposing CCS engines.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Note that we have a number of workarounds that update registers in the
-shared render/compute reset domain.  Historically we've just added such
-registers to the RCS engine's workaround list.  But going forward we
-should be more careful to place such workarounds on a wa_list for an
-engine that definitely exists and is not fused off (e.g., a platform
-with no RCS would never apply the RCS wa_list).  We'll keep
-rcs_engine_wa_init() focused on RCS-specific workarounds that only need
-to be applied if the RCS engine is present.  A separate
-general_render_compute_wa_init() function will be used to define
-workarounds that touch registers in the shared render/compute reset
-domain and that we need to apply regardless of what render and/or
-compute engines actually exist.  Any workarounds defined in this new
-function will internally be added to the first present RCS or CCS
-engine's workaround list to ensure they get applied (and only get
-applied once rather than being needlessly re-applied several times).
+CCS will reuse the RCS functions for breadcrumb and flush emission.
+However, CCS pipe_control has additional programming restrictions:
+ - Command Streamer Stall Enable must be always set
+ - Post Sync Operations must not be set to Write PS Depth Count
+ - 3D-related bits must not be set
 
-Co-author: Srinivasan Shanmugam
+Bspec: 47112
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h     |  1 +
- drivers/gpu/drm/i915/gt/intel_lrc.c         |  6 +++
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 47 +++++++++++++++++++++
- 3 files changed, 54 insertions(+)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 35 +++++++++++++++-----
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h | 15 +++++++++
+ 2 files changed, 41 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index e629443e07ae..19cd34f24263 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1060,6 +1060,7 @@
- #define   FLOW_CONTROL_ENABLE			REG_BIT(15)
- #define   UGM_BACKUP_MODE			REG_BIT(13)
- #define   MDQ_ARBITRATION_MODE			REG_BIT(12)
-+#define   SYSTOLIC_DOP_CLOCK_GATING_DIS		REG_BIT(10)
- #define   PARTIAL_INSTRUCTION_SHOOTDOWN_DISABLE	REG_BIT(8)
- #define   STALL_DOP_GATING_DISABLE		REG_BIT(5)
- #define   THROTTLE_12_5				REG_GENMASK(4, 2)
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index d333400d29fe..e9ea576b96a4 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1217,6 +1217,12 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
- 	cs = gen12_emit_timestamp_wa(ce, cs);
- 	cs = gen12_emit_restore_scratch(ce, cs);
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 1f8cf4f790b2..0a29eaf8b0df 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -201,6 +201,8 @@ static u32 *gen12_emit_aux_table_inv(const i915_reg_t inv_reg, u32 *cs)
  
-+	/* Wa_16013000631:dg2 */
-+	if (IS_DG2_GRAPHICS_STEP(ce->engine->i915, G10, STEP_B0, STEP_C0) ||
-+	    IS_DG2_G11(ce->engine->i915))
-+		if (ce->engine->class == COMPUTE_CLASS)
-+			cs = gen8_emit_pipe_control(cs, PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE, 0);
-+
- 	return cs;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 0471d475e680..0b9435d62808 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1921,6 +1921,11 @@ static void dg2_whitelist_build(struct intel_engine_cs *engine)
- 					  RING_FORCE_TO_NONPRIV_RANGE_4);
- 
- 		break;
-+	case COMPUTE_CLASS:
-+		/* Wa_16011157294:dg2_g10 */
-+		if (IS_DG2_GRAPHICS_STEP(engine->i915, G10, STEP_A0, STEP_B0))
-+			whitelist_reg(w, GEN9_CTX_PREEMPT_REG);
-+		break;
- 	default:
- 		break;
- 	}
-@@ -2581,6 +2586,40 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 	}
- }
- 
-+/*
-+ * The workarounds in this function apply to shared registers in
-+ * the general render reset domain that aren't tied to a
-+ * specific engine.  Since all render+compute engines get reset
-+ * together, and the contents of these registers are lost during
-+ * the shared render domain reset, we'll define such workarounds
-+ * here and then add them to just a single RCS or CCS engine's
-+ * workaround list (whichever engine has the XXXX flag).
-+ */
-+static void
-+general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
-+{
-+	struct drm_i915_private *i915 = engine->i915;
-+
-+	if (IS_XEHPSDV(i915)) {
-+		/* Wa_1409954639 */
-+		wa_masked_en(wal,
-+			     GEN8_ROW_CHICKEN,
-+			     SYSTOLIC_DOP_CLOCK_GATING_DIS);
-+
-+		/* Wa_1607196519 */
-+		wa_masked_en(wal,
-+			     GEN9_ROW_CHICKEN4,
-+			     GEN12_DISABLE_GRF_CLEAR);
-+
-+		/* Wa_14010670810:xehpsdv */
-+		wa_write_or(wal, XEHP_L3NODEARBCFG, XEHP_LNESPARE);
-+
-+		/* Wa_14010449647:xehpsdv */
-+		wa_masked_en(wal, GEN7_HALF_SLICE_CHICKEN1,
-+			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
-+	}
-+}
-+
- static void
- engine_init_workarounds(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
  {
-@@ -2589,6 +2628,14 @@ engine_init_workarounds(struct intel_engine_cs *engine, struct i915_wa_list *wal
- 
- 	engine_fake_wa_init(engine, wal);
- 
-+	/*
-+	 * These are common workarounds that just need to applied
-+	 * to a single RCS/CCS engine's workaround list since
-+	 * they're reset as part of the general render domain reset.
-+	 */
-+	if (engine->class == RENDER_CLASS)
-+		general_render_compute_wa_init(engine, wal);
++	struct intel_engine_cs *engine = rq->engine;
 +
- 	if (engine->class == RENDER_CLASS)
- 		rcs_engine_wa_init(engine, wal);
- 	else
+ 	if (mode & EMIT_FLUSH) {
+ 		u32 flags = 0;
+ 		u32 *cs;
+@@ -219,6 +221,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 
+ 		flags |= PIPE_CONTROL_CS_STALL;
+ 
++		if (engine->class == COMPUTE_CLASS)
++			flags &= ~PIPE_CONTROL_3D_FLAGS;
++
+ 		cs = intel_ring_begin(rq, 6);
+ 		if (IS_ERR(cs))
+ 			return PTR_ERR(cs);
+@@ -246,6 +251,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 
+ 		flags |= PIPE_CONTROL_CS_STALL;
+ 
++		if (engine->class == COMPUTE_CLASS)
++			flags &= ~PIPE_CONTROL_3D_FLAGS;
++
+ 		cs = intel_ring_begin(rq, 8 + 4);
+ 		if (IS_ERR(cs))
+ 			return PTR_ERR(cs);
+@@ -618,19 +626,28 @@ u32 *gen12_emit_fini_breadcrumb_xcs(struct i915_request *rq, u32 *cs)
+ 
+ u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
+ {
++	struct drm_i915_private *i915 = rq->engine->i915;
++
++	u32 flags = (PIPE_CONTROL_CS_STALL |
++		     PIPE_CONTROL_TILE_CACHE_FLUSH |
++		     PIPE_CONTROL_FLUSH_L3 |
++		     PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
++		     PIPE_CONTROL_DEPTH_CACHE_FLUSH |
++		     PIPE_CONTROL_DC_FLUSH_ENABLE |
++		     PIPE_CONTROL_FLUSH_ENABLE);
++
++	if (GRAPHICS_VER(i915) == 12 && GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
++		/* Wa_1409600907 */
++		flags |= PIPE_CONTROL_DEPTH_STALL;
++
++	if (rq->engine->class == COMPUTE_CLASS)
++		flags &= ~PIPE_CONTROL_3D_FLAGS;
++
+ 	cs = gen12_emit_ggtt_write_rcs(cs,
+ 				       rq->fence.seqno,
+ 				       hwsp_offset(rq),
+ 				       PIPE_CONTROL0_HDC_PIPELINE_FLUSH,
+-				       PIPE_CONTROL_CS_STALL |
+-				       PIPE_CONTROL_TILE_CACHE_FLUSH |
+-				       PIPE_CONTROL_FLUSH_L3 |
+-				       PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
+-				       PIPE_CONTROL_DEPTH_CACHE_FLUSH |
+-				       /* Wa_1409600907:tgl */
+-				       PIPE_CONTROL_DEPTH_STALL |
+-				       PIPE_CONTROL_DC_FLUSH_ENABLE |
+-				       PIPE_CONTROL_FLUSH_ENABLE);
++				       flags);
+ 
+ 	return gen12_emit_fini_breadcrumb_tail(rq, cs);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+index f8253012d166..d112ffd56418 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
++++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+@@ -228,11 +228,14 @@
+ #define   PIPE_CONTROL_COMMAND_CACHE_INVALIDATE		(1<<29) /* gen11+ */
+ #define   PIPE_CONTROL_TILE_CACHE_FLUSH			(1<<28) /* gen11+ */
+ #define   PIPE_CONTROL_FLUSH_L3				(1<<27)
++#define   PIPE_CONTROL_AMFS_FLUSH			(1<<25) /* gen12+ */
+ #define   PIPE_CONTROL_GLOBAL_GTT_IVB			(1<<24) /* gen7+ */
+ #define   PIPE_CONTROL_MMIO_WRITE			(1<<23)
+ #define   PIPE_CONTROL_STORE_DATA_INDEX			(1<<21)
+ #define   PIPE_CONTROL_CS_STALL				(1<<20)
++#define   PIPE_CONTROL_GLOBAL_SNAPSHOT_RESET		(1<<19)
+ #define   PIPE_CONTROL_TLB_INVALIDATE			(1<<18)
++#define   PIPE_CONTROL_PSD_SYNC				(1<<17) /* gen11+ */
+ #define   PIPE_CONTROL_MEDIA_STATE_CLEAR		(1<<16)
+ #define   PIPE_CONTROL_WRITE_TIMESTAMP			(3<<14)
+ #define   PIPE_CONTROL_QW_WRITE				(1<<14)
+@@ -254,6 +257,18 @@
+ #define   PIPE_CONTROL_DEPTH_CACHE_FLUSH		(1<<0)
+ #define   PIPE_CONTROL_GLOBAL_GTT (1<<2) /* in addr dword */
+ 
++/* 3D-related flags can't be set on compute engine */
++#define PIPE_CONTROL_3D_FLAGS (\
++		PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH | \
++		PIPE_CONTROL_DEPTH_CACHE_FLUSH | \
++		PIPE_CONTROL_TILE_CACHE_FLUSH | \
++		PIPE_CONTROL_DEPTH_STALL | \
++		PIPE_CONTROL_STALL_AT_SCOREBOARD | \
++		PIPE_CONTROL_PSD_SYNC | \
++		PIPE_CONTROL_AMFS_FLUSH | \
++		PIPE_CONTROL_VF_CACHE_INVALIDATE | \
++		PIPE_CONTROL_GLOBAL_SNAPSHOT_RESET)
++
+ #define MI_MATH(x)			MI_INSTR(0x1a, (x) - 1)
+ #define MI_MATH_INSTR(opcode, op1, op2) ((opcode) << 20 | (op1) << 10 | (op2))
+ /* Opcodes for MI_MATH_INSTR */
 -- 
 2.34.1
 
