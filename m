@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC95C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 20:44:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FEDAC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 20:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB9710E70E;
-	Mon, 28 Feb 2022 20:44:35 +0000 (UTC)
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0ABA10E8BD
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 20:44:33 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id e8so19130907ljj.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:44:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92B0210E8BD;
+	Mon, 28 Feb 2022 20:46:59 +0000 (UTC)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4934E10E8BD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 20:46:58 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id b11so23425029lfb.12
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:46:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S/LNP14iVGpJY7HEU3KoWC3rGBeIOldyeXi/18P4YEg=;
- b=JCfpf2EkV0u8p2DIwI3SoZoRhHthQMEAy9/7LEkowc8JnTmPgsFXHlzh4U3t+Q6SEk
- Lc7ftzGO2kIrejoWkV3dzzd0jpx1zu67BigJ1Dmt6MH2aSREOTU5VOooJKZjMGKU+kco
- F0IyOo2hDxkf3WtcbllN4ffR7kqC0AZqO0I4w=
+ :cc; bh=qhbC6eV8gO++7ErI4p8jtmcwHU0MP2/Ov9cpdMFArow=;
+ b=WVa5dIiqx38h7wrDwDC1XUsKJKiBFCag4a2cDDwm9PX3cUtT8qqZ7IT4jQUgf/P4m+
+ SFGMe+WsS02R4cGzO91FNZKGdT/lUA2soxV9cxmDWvmKG61T36jSK+GypeHu4wmj47J3
+ J2dEWo9WRu5EKgz1ZgjNDbSUreOeJ25KIOWY4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=S/LNP14iVGpJY7HEU3KoWC3rGBeIOldyeXi/18P4YEg=;
- b=QcTi99221f1Z32kuegGwL+QnLxRmJZ5V3qBXDc8FVUtNMwFG4GyZnnktX9qgy8JdL8
- Ojv2cKQnNjQWiVyOAYtyB/AgJ8fW76WZooiZr4ZuDd7ZDvkvGMen6BgP7EkH6f+1mW0B
- usuZQq9XdLHXDKRZG/oV4MeauzQ2hWqJHQ9iTEHNw1vOfgevxyYHxuXaYizoAUJfGlzG
- ZA5M5kJgtW0R7iQXwlOut/Pcv+VqjnSJ/1aj/uR1JAtfGdx1aPemv7/bW2KdLqvbohrg
- 2yOPRvLY+GgG7AuvJFg71HNQL5zR0DfsMZuGGUuSbB2AchpenvDHkkYMhy64QeMP7Raq
- sZIA==
-X-Gm-Message-State: AOAM530CpHQ9ldSlQa55gZ3ZN7GPDDfjyiO8o5/ArWUx1cqA0vnW+efW
- rDliMSfEJCVLySzBmbXIOhCRwzQfa5JsJWDm9K8=
-X-Google-Smtp-Source: ABdhPJwWLIsc5w3iTwXM5y54Ig9XBE8o6EfT2tfHDU6vx+1whZNEe+5YbjEgIcbsZlKjl9P7bNWPqg==
-X-Received: by 2002:a05:651c:307:b0:244:c6a1:167d with SMTP id
- a7-20020a05651c030700b00244c6a1167dmr15575868ljp.263.1646081071779; 
- Mon, 28 Feb 2022 12:44:31 -0800 (PST)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com.
- [209.85.167.48]) by smtp.gmail.com with ESMTPSA id
- j9-20020a2ea909000000b0023742cb505dsm1517367ljq.82.2022.02.28.12.44.31
+ bh=qhbC6eV8gO++7ErI4p8jtmcwHU0MP2/Ov9cpdMFArow=;
+ b=ybjcmJysWULrBhdOHnrpW4n9814eOe+StmE9yansafsMpDtimn7f0ZV4tvpuLzKQJP
+ AQyA7XJDr1veg+++ALpk9cyLsH8uTVIxMZePbwjG88NYpbNaTr3Hqg1SpIUUIIrowNYF
+ iHMJZf3DJ3Z+rCJ4f5yIyNdwxxgTHCuAOSieACJ94G6Fh4yPHFBcAcgCv+1vjikLSVyU
+ xxpNr0wIm12tGFsDw06rNpLBDnmoW8tqxJ0Mpq9EXNVsQ2nsK/G6z0qQAjW+gQcZINv3
+ QBOAuFVUb6eggYDNEKrIl0MbuWFsRQqj0RzqXpcvJhwBO/byB0bkgMhDEssVgoEYH7Sm
+ f/QQ==
+X-Gm-Message-State: AOAM530h+HoH9CeLGmNAmdOguhx8Dswvje8W2nwaSpbRXYd+Q03iV9O/
+ Oc46UJarcLKfaJFJ66aXV6zBmOOz0yPGcBAJHj0=
+X-Google-Smtp-Source: ABdhPJy+mbG2Elv2JJC2dhbSN8yOb/kC0W7k84IuNVsTE2efA6oq3qeeHaZwImZi7yUw3/qq6DOaNg==
+X-Received: by 2002:a05:6512:1109:b0:443:8b32:c49d with SMTP id
+ l9-20020a056512110900b004438b32c49dmr13309567lfg.663.1646081216091; 
+ Mon, 28 Feb 2022 12:46:56 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com.
+ [209.85.167.43]) by smtp.gmail.com with ESMTPSA id
+ q28-20020ac25a1c000000b00441798d2427sm1133377lfn.32.2022.02.28.12.46.55
  for <intel-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Feb 2022 12:44:31 -0800 (PST)
-Received: by mail-lf1-f48.google.com with SMTP id b11so23415246lfb.12
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:44:31 -0800 (PST)
-X-Received: by 2002:a2e:924d:0:b0:246:370c:5618 with SMTP id
- v13-20020a2e924d000000b00246370c5618mr15158756ljg.358.1646080652034; Mon, 28
- Feb 2022 12:37:32 -0800 (PST)
+ Mon, 28 Feb 2022 12:46:55 -0800 (PST)
+Received: by mail-lf1-f43.google.com with SMTP id m14so23465330lfu.4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:46:55 -0800 (PST)
+X-Received: by 2002:a05:6512:e8a:b0:443:7b8c:579a with SMTP id
+ bi10-20020a0565120e8a00b004437b8c579amr13784522lfb.687.1646080877791; Mon, 28
+ Feb 2022 12:41:17 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <20220228110822.491923-3-jakobkoschel@gmail.com>
@@ -58,12 +58,13 @@ References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
  <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
  <Yh0tl3Lni4weIMkl@casper.infradead.org>
-In-Reply-To: <Yh0tl3Lni4weIMkl@casper.infradead.org>
+ <e3bb7d0632f8ef60f18c19976d57330e1ef00584.camel@sipsolutions.net>
+In-Reply-To: <e3bb7d0632f8ef60f18c19976d57330e1ef00584.camel@sipsolutions.net>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 28 Feb 2022 12:37:15 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wgBfJ1-cPA2LTvFyyy8owpfmtCuyiZi4+um8DhFNe+CyA@mail.gmail.com>
-Message-ID: <CAHk-=wgBfJ1-cPA2LTvFyyy8owpfmtCuyiZi4+um8DhFNe+CyA@mail.gmail.com>
-To: Matthew Wilcox <willy@infradead.org>
+Date: Mon, 28 Feb 2022 12:41:01 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjNgWNa9njuBJEoafc-cRV3SbzZfh3m5YfxcZxdCw3+XQ@mail.gmail.com>
+Message-ID: <CAHk-=wjNgWNa9njuBJEoafc-cRV3SbzZfh3m5YfxcZxdCw3+XQ@mail.gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
  after loop body as a ptr
@@ -84,9 +85,10 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
  nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, Matthew Wilcox <willy@infradead.org>,
  linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
  linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
  linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
@@ -96,14 +98,13 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  Linux Media Mailing List <linux-media@vger.kernel.org>,
  Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
  Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, "Bos, H.J." <h.j.bos@vu.nl>,
  Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
  linux-tegra <linux-tegra@vger.kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
  linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
  linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
@@ -119,41 +120,28 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 12:16 PM Matthew Wilcox <willy@infradead.org> wrote:
+On Mon, Feb 28, 2022 at 12:29 PM Johannes Berg
+<johannes@sipsolutions.net> wrote:
 >
-> Then we can never use -Wshadow ;-(  I'd love to be able to turn it on;
-> it catches real bugs.
+> If we're willing to change the API for the macro, we could do
+>
+>   list_for_each_entry(type, pos, head, member)
+>
+> and then actually take advantage of -Wshadow?
 
-Oh, we already can never use -Wshadow regardless of things like this.
-That bridge hasn't just been burned, it never existed in the first
-place.
+See my reply to Willy. There is no way -Wshadow will ever happen.
 
-The whole '-Wshadow' thing simply cannot work with local variables in
-macros - something that we've used since day 1.
+I considered that (type, pos, head, member) kind of thing, to the
+point of trying it for one file, but it ends up as horrendous syntax.
+It turns out that declaring the type separately really helps, and
+avoids crazy long lines among other things.
 
-Try this (as a "p.c" file):
+It would be unacceptable for another reason too - the amount of churn
+would just be immense. Every single use of that macro (and related
+macros) would change, even the ones that really don't need it or want
+it (ie the good kinds that already only use the variable inside the
+loop).
 
-        #define min(a,b) ({                     \
-                typeof(a) __a = (a);            \
-                typeof(b) __b = (b);            \
-                __a < __b ? __a : __b; })
+So "typeof(pos) pos" may be ugly - but it's a very localized ugly.
 
-        int min3(int a, int b, int c)
-        {
-                return min(a,min(b,c));
-        }
-
-and now do "gcc -O2 -S t.c".
-
-Then try it with -Wshadow.
-
-In other words, -Wshadow is simply not acceptable. Never has been,
-never will be, and that has nothing to do with the
-
-        typeof(pos) pos
-
-kind of thing.
-
-Your argument just isn't an argument.
-
-              Linus
+                    Linus
