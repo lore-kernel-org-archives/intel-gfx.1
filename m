@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 797EAC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E893C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC6510E831;
-	Mon, 28 Feb 2022 14:26:08 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9149D10E3F8;
- Mon, 28 Feb 2022 11:09:02 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id qx21so23946793ejb.13;
- Mon, 28 Feb 2022 03:09:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3038110E839;
+	Mon, 28 Feb 2022 14:26:09 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A882C10E654;
+ Mon, 28 Feb 2022 12:03:41 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id qk11so24336779ejb.2;
+ Mon, 28 Feb 2022 04:03:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ewSqtxWpAEouzx42J3KLaoNJ3zRCYps/nc7KO/73VjI=;
- b=NJzfXKcN7hL1Nl33p4E04eSCSKXsmXm0guAXz3+luhQpanQnRU99MCp2hnFUKYaL+B
- 1x361O+pkC4o39HmFVweecOA5EyrbgRoo6hBpKoe+ZK3uwuMgKcjXUUzcyKnqq4Ihz7Y
- 0pE7mGFU6qwm5nlEaQI6CtIcQNt/P0yiVszOfwFWGIKlTpST4oUB8Axjb2KGdfFCf6oM
- BF7gos7RIFK+C7zFe1BBqWlnyj9ABXdIe2RTMFKfzCdWuqPXqav1BQyfcB8KfJDsFPFC
- rwx0y6HLf2zquaEOFfVg855ZoIJbHt3hF+DdFMjnEF9CZ4aqYu3RYVbCj5tslcC60Xqy
- JDWw==
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=m/mYa1XqvvHLfnL3BOoOqYDa1ViNV7MB47waZKIycw0=;
+ b=puET9FaE+iPLWSLHaH0Jc15P7LML3ILv/CtQc1xDRlDOvchBnePGr3CpZ8iNTFg26S
+ MvdmzyKLao5C/5rXrSzR7jzTPZ0Yuj+7M+cqDE4eOMJCgAt9uraXgTEJwynFkzni1Fvy
+ Vjo1HNa/jUOUFI/CmrkLVTegwpA5o7Cf0wR8qBn5y2xARegC4rz7JN5F70qSFE936vyK
+ a6/WQ787WIaZ7lFx0I/tSaiXwe3z6FIrVBWdIQkzq0oVXXDZs7cCv56cl8qPmZ4RxzRI
+ sP+DHiZk3rxPTft7o6PkfUdJMVZiSNaECaj+ljhYu978P5TkgTkfoRd54h/EuhklkuKS
+ esTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ewSqtxWpAEouzx42J3KLaoNJ3zRCYps/nc7KO/73VjI=;
- b=nXw4UG3wVD07TBWSe7kEk/4Cswv3gyO0+NDoF1NyIyLFEqgYsdN6xsnKyPYUW/kS0d
- /JPBvGFFhtp/YAUIhzaFu133qOtZp+VQJ9vYWTPO2DtbPlDpTqbB1lecihsMSGbqpvmw
- 6S76A1RU1Ogh3S39lpSy4E/YENgcnWNLAml0ou/Px4A6qHN4+tTk7z0LQuCRjNbzxLus
- UscHkF8jBHXr3d52WQ6b9JljXIcWE0Bft3MsI+q9PKGZdtbLHKlA2uxaccdZ0YopPG5J
- DLkVjDHLAJKVXf1kr0iV3x2q13kuhA56ClJ23OwUKy9bbX41GSVLbObqUArkOsHabeX3
- Z4AA==
-X-Gm-Message-State: AOAM531GI45sfeUpfEfZL82iC4LzUcMkZF5kwRN0uF/yVmhxJh6yy//x
- 3VRUa2F+5Yj9u78tYTZhSXM=
-X-Google-Smtp-Source: ABdhPJzNtnbGg8Nz3uHKd7Xw6L7mCtzAWYaq4yun9pZXXpwsqc9NwfSvsBrijeUqxIoEXwfdb0F3Mg==
-X-Received: by 2002:a17:906:26da:b0:6d6:da2e:d338 with SMTP id
- u26-20020a17090626da00b006d6da2ed338mr451651ejc.700.1646046541112; 
- Mon, 28 Feb 2022 03:09:01 -0800 (PST)
-Received: from localhost.localdomain (dhcp-077-250-038-153.chello.nl.
- [77.250.38.153]) by smtp.googlemail.com with ESMTPSA id
- z22-20020a17090655d600b006d229436793sm4209049ejp.223.2022.02.28.03.08.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Feb 2022 03:09:00 -0800 (PST)
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=m/mYa1XqvvHLfnL3BOoOqYDa1ViNV7MB47waZKIycw0=;
+ b=VJcRTsoXLb8mU/ukzyHubKF/4+/27utv6UnA5nFFrLTpehXEPU9BIFhReQ4bchCjyl
+ rS5NOzP+7VzSOnBZPzlRaCLaIxDekmuFya/IojoXAIj4GxZ0QMCJroIybJiF7WIHyIvN
+ a+DfyiWRa+EO2v5nMiLbGnwiLE2RZFhHoB+ymq7INIWIsODlt2j2sML2gvhVlrGe5Tcb
+ Y7unHyrOxSTD/Gumt+MtY3s4QQZOEhTch/OI284+BYy3OqaKPvsTfci25wScgPZ4MWVE
+ Xwac4VbTagdkvF2bLxvbFyha2/IKefTbuoq3yX/qx3H1AH04h+wU+HLMux7WeZOdOj4o
+ QS2Q==
+X-Gm-Message-State: AOAM532y3ILpTFSiy4b8Qll9RnWzgNtW8OnhSNgzyUSMyMeXjvr6EB94
+ 985fs3YPfMXfNDLHB0a2pHU=
+X-Google-Smtp-Source: ABdhPJyPihjoYwx+e9NKg98XvxKCbWi7t13guT1EBLKeJ6QGdK72cKHCeJpX8hRszpc83uJxZ+jQ9w==
+X-Received: by 2002:a17:906:d14e:b0:6cd:8d7e:eec9 with SMTP id
+ br14-20020a170906d14e00b006cd8d7eeec9mr14944415ejb.28.1646049820086; 
+ Mon, 28 Feb 2022 04:03:40 -0800 (PST)
+Received: from smtpclient.apple ([2a02:8109:9d80:3f6c:957a:1d13:c949:d1f3])
+ by smtp.gmail.com with ESMTPSA id
+ l9-20020a1709060cc900b006ce04bb8668sm4257528ejh.184.2022.02.28.04.03.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 28 Feb 2022 04:03:39 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
 From: Jakob Koschel <jakobkoschel@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 28 Feb 2022 12:08:21 +0100
-Message-Id: <20220228110822.491923-6-jakobkoschel@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220228110822.491923-1-jakobkoschel@gmail.com>
+In-Reply-To: <20220228112413.GA2812@kadam>
+Date: Mon, 28 Feb 2022 13:03:36 +0100
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E31E215E-C409-40B8-8452-57E70C91484C@gmail.com>
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20220228110822.491923-2-jakobkoschel@gmail.com>
+ <20220228112413.GA2812@kadam>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+X-Mailer: Apple Mail (2.3693.60.0.1.1)
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: [Intel-gfx] [PATCH 5/6] treewide: remove dereference of list
- iterator after loop body
+Subject: Re: [Intel-gfx] [PATCH 1/6] drivers: usb: remove usage of list
+ iterator past the loop body
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,125 +86,151 @@ Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
  linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
  Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
  kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
- Dan Carpenter <dan.carpenter@oracle.com>, linux-media@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Arnd Bergman <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
- linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ v9fs-developer@lists.sourceforge.net, linux-tegra@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
- linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
- linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
+ linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ Mike Rapoport <rppt@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The list iterator variable will be a bogus pointer if no break was hit.
-Dereferencing it could load *any* out-of-bounds/undefined value
-making it unsafe to use that in the comparision to determine if the
-specific element was found.
 
-This is fixed by using a separate list iterator variable for the loop
-and only setting the original variable if a suitable element was found.
-Then determing if the element was found is simply checking if the
-variable is set.
 
-Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 11 +++++++----
- drivers/scsi/wd719x.c                          | 12 ++++++++----
- fs/f2fs/segment.c                              |  9 ++++++---
- 3 files changed, 21 insertions(+), 11 deletions(-)
+> On 28. Feb 2022, at 12:24, Dan Carpenter <dan.carpenter@oracle.com> =
+wrote:
+>=20
+> On Mon, Feb 28, 2022 at 12:08:17PM +0100, Jakob Koschel wrote:
+>> diff --git a/drivers/usb/gadget/udc/at91_udc.c =
+b/drivers/usb/gadget/udc/at91_udc.c
+>> index 9040a0561466..0fd0307bc07b 100644
+>> --- a/drivers/usb/gadget/udc/at91_udc.c
+>> +++ b/drivers/usb/gadget/udc/at91_udc.c
+>> @@ -150,13 +150,14 @@ static void proc_ep_show(struct seq_file *s, =
+struct at91_ep *ep)
+>> 	if (list_empty (&ep->queue))
+>> 		seq_printf(s, "\t(queue empty)\n");
+>>=20
+>> -	else list_for_each_entry (req, &ep->queue, queue) {
+>> -		unsigned	length =3D req->req.actual;
+>> +	else
+>> +		list_for_each_entry(req, &ep->queue, queue) {
+>> +			unsigned int	length =3D req->req.actual;
+>>=20
+>> -		seq_printf(s, "\treq %p len %d/%d buf %p\n",
+>> -				&req->req, length,
+>> -				req->req.length, req->req.buf);
+>> -	}
+>> +			seq_printf(s, "\treq %p len %d/%d buf %p\n",
+>> +					&req->req, length,
+>> +					req->req.length, req->req.buf);
+>> +		}
+>=20
+> Don't make unrelated white space changes.  It just makes the patch
+> harder to review.  As you're writing the patch make note of any
+> additional changes and do them later in a separate patch.
+>=20
+> Also a multi-line indent gets curly braces for readability even though
+> it's not required by C.  And then both sides would get curly braces.
+>=20
+>> 	spin_unlock_irqrestore(&udc->lock, flags);
+>> }
+>>=20
+>> @@ -226,7 +227,7 @@ static int proc_udc_show(struct seq_file *s, void =
+*unused)
+>>=20
+>> 	if (udc->enabled && udc->vbus) {
+>> 		proc_ep_show(s, &udc->ep[0]);
+>> -		list_for_each_entry (ep, &udc->gadget.ep_list, =
+ep.ep_list) {
+>> +		list_for_each_entry(ep, &udc->gadget.ep_list, =
+ep.ep_list) {
+>=20
+> Another unrelated change.
+>=20
+>> 			if (ep->ep.desc)
+>> 				proc_ep_show(s, ep);
+>> 		}
+>=20
+>=20
+> [ snip ]
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-index 57199be082fd..c56cd9e59a66 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-@@ -471,20 +471,23 @@ nvkm_pstate_new(struct nvkm_clk *clk, int idx)
- static int
- nvkm_clk_ustate_update(struct nvkm_clk *clk, int req)
- {
--	struct nvkm_pstate *pstate;
-+	struct nvkm_pstate *pstate = NULL;
-+	struct nvkm_pstate *tmp;
- 	int i = 0;
+Thanks for pointing out, I'll remove the changes here and note them down
+to send them separately.
 
- 	if (!clk->allow_reclock)
- 		return -ENOSYS;
+>=20
+>> diff --git a/drivers/usb/gadget/udc/net2272.c =
+b/drivers/usb/gadget/udc/net2272.c
+>> index 7c38057dcb4a..bb59200f1596 100644
+>> --- a/drivers/usb/gadget/udc/net2272.c
+>> +++ b/drivers/usb/gadget/udc/net2272.c
+>> @@ -926,7 +926,8 @@ static int
+>> net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+>> {
+>> 	struct net2272_ep *ep;
+>> -	struct net2272_request *req;
+>> +	struct net2272_request *req =3D NULL;
+>> +	struct net2272_request *tmp;
+>> 	unsigned long flags;
+>> 	int stopped;
+>>=20
+>> @@ -939,11 +940,13 @@ net2272_dequeue(struct usb_ep *_ep, struct =
+usb_request *_req)
+>> 	ep->stopped =3D 1;
+>>=20
+>> 	/* make sure it's still queued on this endpoint */
+>> -	list_for_each_entry(req, &ep->queue, queue) {
+>> -		if (&req->req =3D=3D _req)
+>> +	list_for_each_entry(tmp, &ep->queue, queue) {
+>> +		if (&tmp->req =3D=3D _req) {
+>> +			req =3D tmp;
+>> 			break;
+>> +		}
+>> 	}
+>> -	if (&req->req !=3D _req) {
+>> +	if (!req) {
+>> 		ep->stopped =3D stopped;
+>> 		spin_unlock_irqrestore(&ep->dev->lock, flags);
+>> 		return -EINVAL;
+>> @@ -954,7 +957,6 @@ net2272_dequeue(struct usb_ep *_ep, struct =
+usb_request *_req)
+>> 		dev_dbg(ep->dev->dev, "unlink (%s) pio\n", _ep->name);
+>> 		net2272_done(ep, req, -ECONNRESET);
+>> 	}
+>> -	req =3D NULL;
+>=20
+> Another unrelated change.  These are all good changes but send them as
+> separate patches.
 
- 	if (req != -1 && req != -2) {
--		list_for_each_entry(pstate, &clk->states, head) {
--			if (pstate->pstate == req)
-+		list_for_each_entry(tmp, &clk->states, head) {
-+			if (tmp->pstate == req) {
-+				pstate = tmp;
- 				break;
-+			}
- 			i++;
- 		}
+You are referring to the req =3D NULL, right?
 
--		if (pstate->pstate != req)
-+		if (!pstate)
- 			return -EINVAL;
- 		req = i;
- 	}
-diff --git a/drivers/scsi/wd719x.c b/drivers/scsi/wd719x.c
-index 1a7947554581..be270ed8e00d 100644
---- a/drivers/scsi/wd719x.c
-+++ b/drivers/scsi/wd719x.c
-@@ -684,11 +684,15 @@ static irqreturn_t wd719x_interrupt(int irq, void *dev_id)
- 	case WD719X_INT_SPIDERFAILED:
- 		/* was the cmd completed a direct or SCB command? */
- 		if (regs.bytes.OPC == WD719X_CMD_PROCESS_SCB) {
--			struct wd719x_scb *scb;
--			list_for_each_entry(scb, &wd->active_scbs, list)
--				if (SCB_out == scb->phys)
-+			struct wd719x_scb *scb = NULL;
-+			struct wd719x_scb *tmp;
-+
-+			list_for_each_entry(tmp, &wd->active_scbs, list)
-+				if (SCB_out == tmp->phys) {
-+					scb = tmp;
- 					break;
--			if (SCB_out == scb->phys)
-+				}
-+			if (scb)
- 				wd719x_interrupt_SCB(wd, regs, scb);
- 			else
- 				dev_err(&wd->pdev->dev, "card returned invalid SCB pointer\n");
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 1dabc8244083..a3684385e04a 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -356,16 +356,19 @@ void f2fs_drop_inmem_page(struct inode *inode, struct page *page)
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct list_head *head = &fi->inmem_pages;
- 	struct inmem_pages *cur = NULL;
-+	struct inmem_pages *tmp;
+I've changed the use of 'req' in the same function and assumed that I =
+can
+just remove the unnecessary statement. But if it's better to do =
+separately
+I'll do that.
 
- 	f2fs_bug_on(sbi, !page_private_atomic(page));
+>=20
+>> 	ep->stopped =3D stopped;
+>>=20
+>> 	spin_unlock_irqrestore(&ep->dev->lock, flags);
+>=20
+> regards,
+> dan carpenter
 
- 	mutex_lock(&fi->inmem_lock);
--	list_for_each_entry(cur, head, list) {
--		if (cur->page == page)
-+	list_for_each_entry(tmp, head, list) {
-+		if (tmp->page == page) {
-+			cur = tmp;
- 			break;
-+		}
- 	}
-
--	f2fs_bug_on(sbi, list_empty(head) || cur->page != page);
-+	f2fs_bug_on(sbi, !cur);
- 	list_del(&cur->list);
- 	mutex_unlock(&fi->inmem_lock);
-
---
-2.25.1
+thanks,
+Jakob Koschel
 
