@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F6FBC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62673C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23F0110E87D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE5E210E882;
 	Mon, 28 Feb 2022 17:43:13 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567CD10E85B;
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBFA10E84F;
  Mon, 28 Feb 2022 17:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646070187; x=1677606187;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KocxYY6MP+QL9+6gjgPTTBOATFcsbuNL34GklCrNTQo=;
- b=b7vG+0ohhrpB227MLzK6Ww3pHXklo1u9kmDTqF+HcD3nJrf3SI77Af/O
- 3UGezP4kh9rK59DHYOSKWYgSOKjnkxy0z5RjcBwj95El56uC1h6q6vvtX
- XC30GwpCutzX+bXJ9MMshPo5/cbMEx+CgSsQlGPCGToMYvFSyYXosWH/J
- e3hoOM/1tkr6EeDIM3pm/7RAHup0Re7T5wU7s4EGCAU/yjbdeR6b88jkh
- hJsewQa1F36VFNl1a5dww7xWHLMR3/lJ30++gjUH6Dd4z3tbGDxUd34B2
- /XojsoQw1dnpUXESe8jm9Dd7eFpP8fvT4GAitoGXDeIE6zcV46l+mJDbg w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="252866893"
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="252866893"
+ bh=17o/Nx37I6PL6bHZAAsdZKlTm3nXc9UUOB+EayUMh5E=;
+ b=n4Nr7sxc5wWYUZ9qyFdjs2IBY2iE93R5lfbz1atOd6OWvDeP2PMrKfjY
+ qiVOL7bb+Fas6eT0fYZURPfNwwBsgF3lfYnTWF35FWhUns4k1+3rbn4n/
+ NOGae3sy04ixoHUbGA7IIT9Gv00ce9yZEzrZsS8oTIgw0/MI9TI/IroWa
+ 85PbNJBeshJ1jVp876i7b8eVb8Wqj9nXgswNKCgZC9oaSnGhR0gWP8Ayy
+ 5UoszW5jjWnYbIFh/WPA5KmjoAb63WFTqIwiVOz0gXUQTS5u3BLbGCxil
+ uo7uUg8FWxez7XBMrBUsL0JT+cfKzzWvFDNEQ3W3/ebfoJBr1bPEOnSb3 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="232913192"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="232913192"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Feb 2022 09:43:06 -0800
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392854"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392845"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 09:43:06 -0800
+ 28 Feb 2022 09:43:05 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Feb 2022 09:42:43 -0800
-Message-Id: <20220228174245.1569581-12-matthew.d.roper@intel.com>
+Date: Mon, 28 Feb 2022 09:42:41 -0800
+Message-Id: <20220228174245.1569581-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 References: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/13] drm/i915/xehp: handle fused off CCS
- engines
+Subject: [Intel-gfx] [PATCH v2 09/13] drm/i915/xehp: Enable ccs/dual-ctx in
+ RCU_MODE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,127 +60,138 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+We have to specify in the Render Control Unit Mode register
+when CCS is enabled.
 
-HW resources are divided across the active CCS engines at the compute
-slice level, with each CCS having priority on one of the cslices.
-If a compute slice has no enabled DSS, its paired compute engine is not
-usable in full parallel execution because the other ones already fully
-saturate the HW, so consider it fused off.
+v2:
+ - Move RCU_MODE programming to a helper function.  (Tvrtko)
+ - Clean up and clarify comments.  (Tvrtko)
+ - Add RCU_MODE to the GuC save/restore list.  (Daniele)
 
-v2(José):
-- moved it to its own function
-- fixed definition of ccs_mask
-
-Cc: Stuart Summers <stuart.summers@intel.com>
+Bspec: 46034
+Original-author: Michel Thierry
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 25 +++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_sseu.c      | 17 ++++++++++++---
- drivers/gpu/drm/i915/gt/intel_sseu.h      |  4 +++-
- 3 files changed, 42 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine.h          |  2 ++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c       | 17 +++++++++++++++++
+ .../drm/i915/gt/intel_execlists_submission.c    | 16 ++++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 16 ++++++++++++++++
+ 4 files changed, 51 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index be4b1e65442f..1c0ab05c3c40 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -265,6 +265,8 @@ intel_engine_create_pinned_context(struct intel_engine_cs *engine,
+ 
+ void intel_engine_destroy_pinned_context(struct intel_context *ce);
+ 
++void xehp_enable_ccs_engines(struct intel_engine_cs *engine);
++
+ #define ENGINE_PHYSICAL	0
+ #define ENGINE_MOCK	1
+ #define ENGINE_VIRTUAL	2
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 92f4cf9833ee..4fa3adc15b08 100644
+index 2136c56d3abc..92f4cf9833ee 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -592,6 +592,29 @@ bool gen11_vdbox_has_sfc(struct intel_gt *gt,
- 	return false;
+@@ -2070,6 +2070,23 @@ intel_engine_execlist_find_hung_request(struct intel_engine_cs *engine)
+ 	return active;
  }
  
-+static void engine_mask_apply_compute_fuses(struct intel_gt *gt)
++void xehp_enable_ccs_engines(struct intel_engine_cs *engine)
 +{
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct intel_gt_info *info = &gt->info;
-+	unsigned int i;
-+
 +	/*
-+	 * If all DSS in a quadrant are fused off, the corresponding CCS
-+	 * engine is not available for use.
++	 * If there are any non-fused-off CCS engines, we need to enable CCS
++	 * support in the RCU_MODE register.  This only needs to be done once,
++	 * so for simplicity we'll take care of this in the RCS engine's
++	 * resume handler; since the RCS and all CCS engines belong to the
++	 * same reset domain and are reset together, this will also take care
++	 * of re-applying the setting after i915-triggered resets.
 +	 */
-+	if (fls(CCS_MASK(gt)) > 1) {
-+		int ss_per_ccs = info->sseu.max_subslices / I915_MAX_CCS;
-+		const unsigned long ccs_mask = intel_slicemask_from_dssmask(
-+			intel_sseu_get_compute_subslices(&info->sseu),
-+			ss_per_ccs);
++	if (!CCS_MASK(engine->gt))
++		return;
 +
-+		for_each_clear_bit(i, &ccs_mask, I915_MAX_CCS) {
-+			info->engine_mask &= ~BIT(_CCS(i));
-+			drm_dbg(&i915->drm, "ccs%u fused off\n", i);
-+		}
-+	}
++	intel_uncore_write(engine->uncore, GEN12_RCU_MODE,
++			   _MASKED_BIT_ENABLE(GEN12_RCU_MODE_CCS_ENABLE));
 +}
 +
- /*
-  * Determine which engines are fused off in our particular hardware.
-  * Note that we have a catch-22 situation where we need to be able to access
-@@ -673,6 +696,8 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
- 		vebox_mask, VEBOX_MASK(gt));
- 	GEM_BUG_ON(vebox_mask != VEBOX_MASK(gt));
- 
-+	engine_mask_apply_compute_fuses(gt);
-+
- 	return info->engine_mask;
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "mock_engine.c"
+ #include "selftest_engine.c"
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index c8407cc96c42..574c0542c92f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2914,6 +2914,19 @@ static int execlists_resume(struct intel_engine_cs *engine)
+ 	return 0;
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
-index 29118c652811..4ac0bbaf0c31 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
-@@ -32,7 +32,9 @@ intel_sseu_subslice_total(const struct sseu_dev_info *sseu)
- 	return total;
- }
- 
--u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
-+static u32
-+_intel_sseu_get_subslices(const struct sseu_dev_info *sseu,
-+			  const u8 *subslice_mask, u8 slice)
- {
- 	int i, offset = slice * sseu->ss_stride;
- 	u32 mask = 0;
-@@ -40,12 +42,21 @@ u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
- 	GEM_BUG_ON(slice >= sseu->max_slices);
- 
- 	for (i = 0; i < sseu->ss_stride; i++)
--		mask |= (u32)sseu->subslice_mask[offset + i] <<
--			i * BITS_PER_BYTE;
-+		mask |= (u32)subslice_mask[offset + i] << i * BITS_PER_BYTE;
- 
- 	return mask;
- }
- 
-+u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
++static int gen12_rcs_resume(struct intel_engine_cs *engine)
 +{
-+	return _intel_sseu_get_subslices(sseu, sseu->subslice_mask, slice);
++	int ret;
++
++	ret = execlists_resume(engine);
++	if (ret)
++		return ret;
++
++	xehp_enable_ccs_engines(engine);
++
++	return 0;
 +}
 +
-+u32 intel_sseu_get_compute_subslices(const struct sseu_dev_info *sseu)
-+{
-+	return _intel_sseu_get_subslices(sseu, sseu->compute_subslice_mask, 0);
-+}
-+
- void intel_sseu_set_subslices(struct sseu_dev_info *sseu, int slice,
- 			      u8 *subslice_mask, u32 ss_mask)
+ static void execlists_reset_prepare(struct intel_engine_cs *engine)
  {
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
-index 60882a74741e..8a79cd8eaab4 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.h
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
-@@ -103,7 +103,9 @@ intel_sseu_subslice_total(const struct sseu_dev_info *sseu);
- unsigned int
- intel_sseu_subslices_per_slice(const struct sseu_dev_info *sseu, u8 slice);
- 
--u32  intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice);
-+u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice);
+ 	ENGINE_TRACE(engine, "depth<-%d\n",
+@@ -3468,6 +3481,9 @@ static void rcs_submission_override(struct intel_engine_cs *engine)
+ 		engine->emit_fini_breadcrumb = gen8_emit_fini_breadcrumb_rcs;
+ 		break;
+ 	}
 +
-+u32 intel_sseu_get_compute_subslices(const struct sseu_dev_info *sseu);
++	if (engine->class == RENDER_CLASS)
++		engine->resume = gen12_rcs_resume;
+ }
  
- void intel_sseu_set_subslices(struct sseu_dev_info *sseu, int slice,
- 			      u8 *subslice_mask, u32 ss_mask);
+ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 6db8bb1982ca..7e42fecd6093 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -3619,6 +3619,19 @@ static bool guc_sched_engine_disabled(struct i915_sched_engine *sched_engine)
+ 	return !sched_engine->tasklet.callback;
+ }
+ 
++static int gen12_rcs_resume(struct intel_engine_cs *engine)
++{
++	int ret;
++
++	ret = guc_resume(engine);
++	if (ret)
++		return ret;
++
++	xehp_enable_ccs_engines(engine);
++
++	return 0;
++}
++
+ static void guc_set_default_submission(struct intel_engine_cs *engine)
+ {
+ 	engine->submit_request = guc_submit_request;
+@@ -3739,6 +3752,9 @@ static void rcs_submission_override(struct intel_engine_cs *engine)
+ 		engine->emit_fini_breadcrumb = gen8_emit_fini_breadcrumb_rcs;
+ 		break;
+ 	}
++
++	if (engine->class == RENDER_CLASS)
++		engine->resume = gen12_rcs_resume;
+ }
+ 
+ static inline void guc_default_irqs(struct intel_engine_cs *engine)
 -- 
 2.34.1
 
