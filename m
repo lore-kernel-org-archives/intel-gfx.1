@@ -4,53 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB512C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C668CC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307E810E61A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A1B10E61B;
 	Mon, 28 Feb 2022 14:26:06 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAB5610E1EA;
- Mon, 28 Feb 2022 08:07:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EBC51B80D85;
- Mon, 28 Feb 2022 08:07:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A549C340FD;
- Mon, 28 Feb 2022 08:07:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646035641;
- bh=ZIThCTjaypYDGsg6PqLBGFPVK72nb1FskfDKUMQoQFo=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=aD1Bq94lyoSrU2rCMMALEIwxpVEUCGPfDF3dSAY04qYShfUHRGnHnfOLK00oUyW0n
- ZqsMF2iFDnWnNQU4y+SGtYOAu5Ni1fTK3qmdoXezKrSqgWCYwRDMEoKeNDdb+Nkuz3
- qCcOiJz8mrsH9PbnU9Uy6ClGyXORbh7pBctQV46m71jB+a9PCxnWvZ62vTMJBnf1Xx
- q8KNT0ei+VPVQMCRbzemricf9saJwYLDd4YpN1D4EvBQKNGAbl0BWqTlhRM3X0vYXD
- MHWCP9V/paczpqcSPuXqjoBZyne5r0/hJDs5BnKQTtpBr0XDpT3ldBKKSTwvH5O2Xk
- UqCo5U8NmR1hw==
-Received: by mail-wm1-f48.google.com with SMTP id
- k29-20020a05600c1c9d00b003817fdc0f00so212782wms.4; 
- Mon, 28 Feb 2022 00:07:21 -0800 (PST)
-X-Gm-Message-State: AOAM533EeU8QDd8/LLZrVeZkeVcbK09ACGVzU26cpUko3eBDKGT4XqOP
- S4Sc/Sg7epB6TJQMc9QeLnSc/6CxOoa7fOi9kvE=
-X-Google-Smtp-Source: ABdhPJzpcZ5s+5KOBMUi70sNCMSXIqY3vXEepsFRSDE8fekaJ/SUkhm+3dpDI9J9lgxQZ0OAu6bPJpVx/Y8rip86Cms=
-X-Received: by 2002:a05:600c:4f8e:b0:381:6de4:fccc with SMTP id
- n14-20020a05600c4f8e00b003816de4fcccmr1697739wmq.82.1646035639695; Mon, 28
- Feb 2022 00:07:19 -0800 (PST)
-MIME-Version: 1.0
-References: <20220227215408.3180023-1-arnd@kernel.org>
- <CAHk-=whWbENRz-vLY6vpESDLj6kGUTKO3khGtVfipHqwewh2HQ@mail.gmail.com>
-In-Reply-To: <CAHk-=whWbENRz-vLY6vpESDLj6kGUTKO3khGtVfipHqwewh2HQ@mail.gmail.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Mon, 28 Feb 2022 09:07:03 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a3Lv_uSXt9yf-9iOV3hZgV7KvwZjL-gbLTLRgo0UOQguw@mail.gmail.com>
-Message-ID: <CAK8P3a3Lv_uSXt9yf-9iOV3hZgV7KvwZjL-gbLTLRgo0UOQguw@mail.gmail.com>
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFF8610E39C;
+ Mon, 28 Feb 2022 11:09:00 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id gb39so24033484ejc.1;
+ Mon, 28 Feb 2022 03:09:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=NwvvEiJPPM0SG7ZI4yc03tHRsjcGU4DYrm0+p7QW2+g=;
+ b=XoHp2vZs5sXnnQm8jTsL06JwdjgH4Z1Am+qeboNHSyU/csHp7G8mKHTnYwT7vMJf3q
+ 1zZobpdX4BxBQ2erAJx74EzSCDXfVaAB33jAX9ZekfWtpz9xLL4KIzz7DciQBlIBY9DK
+ vi6LJyw6u5UaEjT8CWPzRGPwv8GzX6oWgjgvygChKW8zu7PwVtsUQz/kuHu5rW/3vaBt
+ P3mcu2gbh7uG62xQrliOtXiVl+brL2WoHfh7VHyAXnwazE3NNCXTKdQujGPQMoLCoB+H
+ 4TwL3ENhlSsI5tK0hgbUY+rfbxgFEyt/dohDr5V+g2PZ9mAGfyjh/75qZVaBOXbUEFp6
+ QPtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=NwvvEiJPPM0SG7ZI4yc03tHRsjcGU4DYrm0+p7QW2+g=;
+ b=f+XH9uSRj/e/oOCGvtlTek82HmjogCxijBpZjLX+J0LCSqA6IEUDi9wyq8K0fdpTxw
+ klpvsuIWBxNsdaKW2X0gt/4Vid8spkIR7efX3CbUfCTjMb3SD9JMyJ/TXzcMnFbjVNoz
+ qFRnUswGNZWkNrL+J+q3w1/XLCuvdz+jfkT4cbql7eiwG0MQNAIx3nQHe2l+gu1S+TeT
+ na4TzcKnm0sq0MN5+4gQ6S0uxYeDDSzb8E76G57gnm6nJxxWv3Srv7HzV6jNCGSR1J+s
+ AKE5D7fowOorO3CqnFAipmssqntiHt6Bq68R3kLuzEjLdZVc1FzEowlitZ66Q41IL7L0
+ LvjA==
+X-Gm-Message-State: AOAM532zv2zXA1vhDFbxsjGnj0rZl8HXFpgJDDNA+hmUc/1wJvGI3q9p
+ nYErl/eDjg1xnDeejVF1s/Q=
+X-Google-Smtp-Source: ABdhPJwx6JZK1Sd067eYUFaKDGIuHgaxlGXhzFGfLUQYCLtFq3NCzAqvSFrK3I6DGGTf6F+6FgXuew==
+X-Received: by 2002:a17:906:2608:b0:6c9:b248:4dcf with SMTP id
+ h8-20020a170906260800b006c9b2484dcfmr14572317ejc.320.1646046539415; 
+ Mon, 28 Feb 2022 03:08:59 -0800 (PST)
+Received: from localhost.localdomain (dhcp-077-250-038-153.chello.nl.
+ [77.250.38.153]) by smtp.googlemail.com with ESMTPSA id
+ z22-20020a17090655d600b006d229436793sm4209049ejp.223.2022.02.28.03.08.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Feb 2022 03:08:59 -0800 (PST)
+From: Jakob Koschel <jakobkoschel@gmail.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 28 Feb 2022 12:08:20 +0100
+Message-Id: <20220228110822.491923-5-jakobkoschel@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220228110822.491923-1-jakobkoschel@gmail.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: Re: [Intel-gfx] [PATCH] Kbuild: remove -std=gnu89 from compiler
- arguments
+Subject: [Intel-gfx] [PATCH 4/6] drivers: remove unnecessary use of list
+ iterator variable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,60 +71,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Michal Marek <michal.lkml@markovi.net>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
- linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
- Alex Shi <alexs@kernel.org>, Federico Vaga <federico.vaga@vaga.pv.it>,
- Hu Haowen <src.res@email.cn>, linux-btrfs <linux-btrfs@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- linux-doc-tw-discuss@lists.sourceforge.net,
- Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>, linux-media@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Feb 27, 2022 at 11:36 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> And I don't want somebody with a newer compiler version to not notice
-> that he or she ended up using a c17 feature, just because _that_
-> compiler supported it, and then other people get build errors because
-> their compilers use gnu11 instead by default.
->
-> Put another way: I see absolutely no upside to allowing different
-> users using higher/lower versions of the standard. There are only
-> downsides.
->
-> If gnu11 is supported by gcc-5.1 and up, and all the relevant clang
-> versions, then let's just pick that.
+When list_for_each_entry() completes the iteration over the whole list
+without breaking the loop, the iterator value will *always* be a bogus
+pointer computed based on the head element.
 
-Ok, changed my patch to -gnu11 now.
+To avoid type confusion use the actual list head directly instead of last
+iterator value.
 
-> And if there are any possible future advantages to gnu17 (or eventual
-> gnu2x versions), let's document those, so that we can say "once our
-> compiler version requirements go up sufficiently, we'll move to gnuXX
-> because we want to take advantage of YY".
->
-> Please?
+Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
+---
+ drivers/dma/dw-edma/dw-edma-core.c             | 4 ++--
+ drivers/net/ethernet/intel/i40e/i40e_ethtool.c | 3 ++-
+ drivers/net/wireless/ath/ath6kl/htc_mbox.c     | 2 +-
+ 3 files changed, 5 insertions(+), 4 deletions(-)
 
-I think all of the options here are equally bad: picking gnu11 means
-we use a non-standard default for anything other than gcc-5 and
-may get surprised again in the future when we want to change to
-a newer version; -std=gnu1x would work as an alias for gnu17 in
-all versions including gcc-5 but is already marked as 'deprecated'
-in the gcc documentation; and using -std=gnu17 for modern compilers
-requires a workaround for gcc-7 and earlier.
+diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
+index 468d1097a1ec..7883c4831857 100644
+--- a/drivers/dma/dw-edma/dw-edma-core.c
++++ b/drivers/dma/dw-edma/dw-edma-core.c
+@@ -136,7 +136,7 @@ static void dw_edma_free_burst(struct dw_edma_chunk *chunk)
+ 	}
 
-Regarding new features from gcc-2x, I think we already use
-most of what is listed in https://en.wikipedia.org/wiki/C2x, as
-those are all GNU extensions that are valid in modern gnu89 as
-well. Newly added features seem to only depend on the compiler
-version, e.g. #elifdef works in both clang-13 and gcc-12 with
-any -std=gnu?? argument, so picking an earlier standard won't
-stop people from breaking the build with older compilers.
+ 	/* Remove the list head */
+-	kfree(child);
++	kfree(chunk->burst);
+ 	chunk->burst = NULL;
+ }
 
-         Arnd
+@@ -156,7 +156,7 @@ static void dw_edma_free_chunk(struct dw_edma_desc *desc)
+ 	}
+
+ 	/* Remove the list head */
+-	kfree(child);
++	kfree(desc->chunk);
+ 	desc->chunk = NULL;
+ }
+
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
+index 091f36adbbe1..c0ea9dbc4ff6 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
+@@ -3963,7 +3963,8 @@ static void __i40e_reprogram_flex_pit(struct i40e_pf *pf,
+ 	 * correctly, the hardware will disable flexible field parsing.
+ 	 */
+ 	if (!list_empty(flex_pit_list))
+-		last_offset = list_prev_entry(entry, list)->src_offset + 1;
++		last_offset = list_entry(flex_pit_list->prev,
++					 struct i40e_flex_pit, list)->src_offset + 1;
+
+ 	for (; i < 3; i++, last_offset++) {
+ 		i40e_write_rx_ctl(&pf->hw,
+diff --git a/drivers/net/wireless/ath/ath6kl/htc_mbox.c b/drivers/net/wireless/ath/ath6kl/htc_mbox.c
+index e3874421c4c0..cf5b05860799 100644
+--- a/drivers/net/wireless/ath/ath6kl/htc_mbox.c
++++ b/drivers/net/wireless/ath/ath6kl/htc_mbox.c
+@@ -104,7 +104,7 @@ static void ath6kl_credit_init(struct ath6kl_htc_credit_info *cred_info,
+ 	 * it use list_for_each_entry_reverse to walk around the whole ep list.
+ 	 * Therefore assign this lowestpri_ep_dist after walk around the ep_list
+ 	 */
+-	cred_info->lowestpri_ep_dist = cur_ep_dist->list;
++	cred_info->lowestpri_ep_dist = *ep_list;
+
+ 	WARN_ON(cred_info->cur_free_credits <= 0);
+
+--
+2.25.1
+
