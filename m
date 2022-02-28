@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7434C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 09:19:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2369BC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 09:19:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B263610E71A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F144B10E731;
 	Tue,  1 Mar 2022 09:19:22 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC1B10E473;
- Tue,  1 Mar 2022 06:32:38 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8577910E17F;
+ Mon, 28 Feb 2022 16:56:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2F0DDB816AD;
- Tue,  1 Mar 2022 06:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB1BC340F0;
- Tue,  1 Mar 2022 06:32:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6B6F461266;
+ Mon, 28 Feb 2022 16:56:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46A1C340E7;
+ Mon, 28 Feb 2022 16:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646116351;
- bh=/Yg/Wtj2qqC5DtZph9xh9a5I6i9ac63I49JjnGAnbz0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=VNHL/rpf4xC8OfR4t6vo9UDhccraY87hqDEaB5+IcVN4t3xSDpu027UghrvvyPQSS
- 4QuUBVLbP+fb/wau99bJi4r7o82Cq8bpmARbff3Kmy/AtDhoQCnd/xuFpD/mZTaTLe
- NB4lRdgymAA7RGUyYzHE9lasNH7iZMQkKEkyzKBO3tOdshLibbcwpXFMt0/8PjfBOI
- eBOAlJkJQ4cQoPLzxj+EO1bIuaMcgSLjX7K2SicEKpT/LLsGPP1i6N98tAlqdrYU3i
- Kp9mElgbXeQQFbCmQa35pv8BJ12s3DBVkk5Xbz9WcUOYNg9YRr2X/a7+Y15htjkLBQ
- B1WsfW9PNeplw==
-Date: Mon, 28 Feb 2022 22:32:28 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20220228223228.24cf3fd4@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
-References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
- <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
- <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
- <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
- <FC710A1A-524E-481B-A668-FC258F529A2E@gmail.com>
- <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+ s=k20201202; t=1646067380;
+ bh=523gBdVPJChXozDXmy5Cb2pK2i/xRfAcGRZVUQAHjNc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LgVJuH4da0tpuW1nX+TSzWKpqT1/5OI3uq9Url+IKydIaNvJrwxxCJ02pDsUamp0J
+ BXgyENWeP0ucoramTVXNaT23Z6w+IPOpRsVnisqnZwdBL4ARuBusSY6JLdz3305OfE
+ YtZvql2BfkwdTq2LxRIJRizjGmx3hngX5RBUDcSxgf2mLkssqkaZFIqarTisHboNdy
+ Xy986yF0zeYZbw6HX61O+ecCg/MIlsoP4bKonolKYJ+91DSdYuEy6Ckl7v583fSXhJ
+ fxInQ5iK44jGAKr2Pvl9ywk4psfT+Vv0H/AbdegLc3kV5x8iLrYBvahTmACsIjfZ5u
+ Ol9BFIfpBb+FA==
+Date: Mon, 28 Feb 2022 09:56:13 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <Yhz+rfcdp9jxgr+P@archlinux-ax161>
+References: <20220228103142.3301082-1-arnd@kernel.org>
+ <CANpmjNP6VE9G8Yng4W7Mayk-0QsqUtAXkrMUSvL5pAP5DpXSmA@mail.gmail.com>
+ <CAK8P3a3cRa1piP2BSmN2dTW4QErhSP7AMO9xqAm=_FFYprAkOA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAK8P3a3cRa1piP2BSmN2dTW4QErhSP7AMO9xqAm=_FFYprAkOA@mail.gmail.com>
 X-Mailman-Approved-At: Tue, 01 Mar 2022 09:19:22 +0000
-Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
- after loop body as a ptr
+Subject: Re: [Intel-gfx] [PATCH] [v2] Kbuild: move to -std=gnu11
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,111 +54,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless <linux-wireless@vger.kernel.org>,
- alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
- linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
- linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
- bcm-kernel-feedback-list@broadcom.com,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
- Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
- linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, llvm@lists.linux.dev,
+ dri-devel <dri-devel@lists.freedesktop.org>, Alex Shi <alexs@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Masahiro Yamada <masahiroy@kernel.org>,
+ linux-staging@lists.linux.dev, Federico Vaga <federico.vaga@vaga.pv.it>,
+ Marco Elver <elver@google.com>, Arnd Bergmann <arnd@arndb.de>,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Michal Marek <michal.lkml@markovi.net>, Hu Haowen <src.res@email.cn>,
+ linux-doc-tw-discuss@lists.sourceforge.net,
+ Nick Desaulniers <ndesaulniers@google.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
- tipc-discussion@lists.sourceforge.net,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Mike Rapoport <rppt@kernel.org>
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-btrfs <linux-btrfs@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 28 Feb 2022 16:41:04 -0800 Linus Torvalds wrote:
-> So yes, initially my idea had been to just move the iterator entirely
-> inside the macro. But specifying the type got so ugly that I think
-> that
+On Mon, Feb 28, 2022 at 12:57:55PM +0100, Arnd Bergmann wrote:
+> On Mon, Feb 28, 2022 at 12:47 PM Marco Elver <elver@google.com> wrote:
+> > On Mon, 28 Feb 2022 at 11:32, Arnd Bergmann <arnd@kernel.org> wrote:
+> >
+> > > Nathan Chancellor reported an additional -Wdeclaration-after-statement
+> > > warning that appears in a system header on arm, this still needs a
+> > > workaround.
+> >
+> > On the topic of Wdeclaration-after-statement, Clang only respects this
+> > warning with C99 and later starting with Clang 14:
+> > https://github.com/llvm/llvm-project/commit/c65186c89f35#diff-ec770381d76c859f5f572db789175fe44410a72608f58ad5dbb14335ba56eb97R61
+> >
+> > Until Clang 14, -Wdeclaration-after-statement is ignored by Clang in
+> > newer standards. If this is a big problem, we can probably convince
+> > the Clang stable folks to backport the fixes. However, the build won't
+> > fail, folks might just miss the warning if they don't also test with
+> > GCC.
+
+Unfortunately, none of the branches prior to release/14.x are going to
+see any more updates (at least as far as I am aware, as the LLVM
+community only supports one release branch at a time) but as Arnd
+mentioned below, I do not really see that as a problem, as newer
+versions of clang and GCC will catch these warnings.
+
+> I don't expect this is to be a big issue, as long as the latest clang behaves
+> as expected. There are many warnings that are only produced by one of the
+> two compilers, so this is something we already deal with.
 > 
->         typeof (pos) pos
-> 
-> trick inside the macro really ends up giving us the best of all worlds:
-> 
->  (a) let's us keep the existing syntax and code for all the nice cases
-> that did everything inside the loop anyway
-> 
->  (b) gives us a nice warning for any normal use-after-loop case
-> (unless you explicitly initialized it like that
-> sgx_mmu_notifier_release() function did for no good reason
-> 
->  (c) also guarantees that even if you don't get a warning,
-> non-converted (or newly written) bad code won't actually _work_
-> 
-> so you end up getting the new rules without any ambiguity or mistaken
+> I think it's more important to address the extra warning that Nathan
+> reported, where clang now complains about the intermingled declaration
+> in a system header when previously neither gcc nor clang noticed this.
 
-I presume the goal is that we can do this without changing existing
-code? Otherwise actually moving the iterator into the loop body would
-be an option, by creating a different hidden variable:
+Right. Based on the upstream LLVM bug, I think we should just fix
+arm_neon.h to avoid triggering -Wdeclaration-after-statement to have
+something that is (hopefully) relatively low risk for a clang-14
+backport, rather than addressing the root cause of clang warning in
+system macros, as it sounds like fixing that has some risks that are not
+fully understood at this point. The kernel only uses very specific
+system headers after commit 04e85bbf71c9 ("isystem: delete global
+-isystem compile option"), so I don't think that my suggested approach
+will have many downsides.
 
-#define list_iter(head)						\
-	for (struct list head *_l = (head)->next; _l != (head); _l = _l->next)
+I think I see how to potentially fix arm_neon.h in
+clang/utils/TableGen/NeonEmitter.cpp, I just have to think about it a
+little more.
 
-#define list_iter_entry(var, member)		\
-	list_entry(_l, typeof(*var), member)
+Realistically, I don't think special casing this in lib/raid6 is the end
+of the world:
 
+diff --git a/lib/raid6/Makefile b/lib/raid6/Makefile
+index 45e17619422b..a41ff71b90af 100644
+--- a/lib/raid6/Makefile
++++ b/lib/raid6/Makefile
+@@ -38,6 +38,10 @@ ifeq ($(CONFIG_KERNEL_MODE_NEON),y)
+ NEON_FLAGS := -ffreestanding
+ # Enable <arm_neon.h>
+ NEON_FLAGS += -isystem $(shell $(CC) -print-file-name=include)
++# https://github.com/ClangBuiltLinux/linux/issues/1603
++ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_CPU_BIG_ENDIAN),yy)
++NEON_FLAGS += -Wno-declaration-after-statement
++endif
+ ifeq ($(ARCH),arm)
+ NEON_FLAGS += -march=armv7-a -mfloat-abi=softfp -mfpu=neon
+ endif
 
-	list_iter(&p->a_head) {
-		struct entry *e = list_iter_entry(e, a_member);
+> > > The differences between gnu99, gnu11, gnu1x and gnu17 are fairly
+> > > minimal and mainly impact warnings at the -Wpedantic level that the
+> > > kernel never enables. Between these, gnu11 is the newest version
+> > > that is supported by all supported compiler versions, though it is
+> > > only the default on gcc-5, while all other supported versions of
+> > > gcc or clang default to gnu1x/gnu17.
+> > >
+> > > Link: https://lore.kernel.org/lkml/CAHk-=wiyCH7xeHcmiFJ-YgXUy2Jaj7pnkdKpcovt8fYbVFW3TA@mail.gmail.com/
+> > > Link: https://github.com/ClangBuiltLinux/linux/issues/1603
+> > > Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+> > > Cc: Masahiro Yamada <masahiroy@kernel.org>
+> > > Cc: linux-kbuild@vger.kernel.org
+> > > Cc: llvm@lists.linux.dev
+> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> >
+> > Acked-by: Marco Elver <elver@google.com>
 
-		/* use e->... */
-	}
-
-
-Or we can slide into soft insanity and exploit one of Kees'es tricks
-to encode the type of the entries "next to" the head:
-
-#define LIST_HEAD_MEM(name, type)			\
-	union {						\
-		struct list_head name;			\
-		type *name ## _entry;			\
-	}
-
-struct entry {
-	struct list_head a_member;
-};
-
-struct parent {
-	LIST_HEAD_MEM(a_head, struct entry);
-};
-
-#define list_for_each_magic(pos, head, member)				\
-	for (typeof(**(head ## _entry)) *pos = list_first_entry(head, typeof(**(head ## _entry)), member); \
-	     &pos->member != (head);					\
-	     pos = list_next_entry(pos, member))
-
-
-	list_for_each_magic(e, &p->a_head, a_member) {
-		/* use e->... */
-	}
-
-
-I'll show myself out...
+Cheers,
+Nathan
