@@ -4,36 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34601C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157E6C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 015F810E82D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01EC010E82E;
 	Mon, 28 Feb 2022 14:26:08 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4A45410E193;
- Fri, 25 Feb 2022 18:25:03 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF73E11FB;
- Fri, 25 Feb 2022 10:25:02 -0800 (PST)
-Received: from [10.57.39.47] (unknown [10.57.39.47])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FE093F70D;
- Fri, 25 Feb 2022 10:25:00 -0800 (PST)
-Message-ID: <5c254623-98d2-75f3-52cb-209b8de304b6@arm.com>
-Date: Fri, 25 Feb 2022 18:24:54 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE9910E660;
+ Mon, 28 Feb 2022 13:01:26 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 62228612C6;
+ Mon, 28 Feb 2022 13:01:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED96C340FB;
+ Mon, 28 Feb 2022 13:01:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646053284;
+ bh=UiMZXTZJMibeG1EW/yB31l1nItCSfnX4i5UKaUmqYi4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=aUSaKk/THutssyZeRam8Ln1InKtmbtGYGpY3YWvcJayXLqxXdTg953ErM2MJCtBtt
+ uScw14Tbo5bg0ZHcC8cU7sgK10lL8TIQKSzKXfK2pkZyGxYCp1liVDXA1C4GiuJ7SO
+ oKHEAWYavKs1p4i7M729QMm1NwF5516rRrjec/lz5dGWlP1/n5JNj3ETeEYxIsNPJb
+ BRWAhjZu7qFxrmpdGKWHJpcfMZ8eeq5JB03Rgt3ARIfPBC1Fwk7KFtLPaICIK7TX3F
+ 4jMGPC4qPpWyyrTwafEVFhjGRcTqgwWsXE9jDdjsorkbn/AQNdVuR7OlQvIUmEXRhX
+ usy66MwlSEfkA==
+Received: by mail-wr1-f48.google.com with SMTP id j17so15397637wrc.0;
+ Mon, 28 Feb 2022 05:01:24 -0800 (PST)
+X-Gm-Message-State: AOAM5320XlH54ZcGM1jsGnAnabmys8ou0MxAz5sAwKlKu4Y/+LFWsIik
+ 8rN4mc4LPFmlfJleNfIgmuVFscdwoFINFmJrgG0=
+X-Google-Smtp-Source: ABdhPJwJZ+uje/xKx7oLYKDj2bjjjypvvR3EipOurSGA++FmSYe2fJ0pQQWQ1o2kkZufMewj6tiI/1i+DeR+CamQFLs=
+X-Received: by 2002:a5d:63c2:0:b0:1ef:840e:e139 with SMTP id
+ c2-20020a5d63c2000000b001ef840ee139mr8331744wrw.192.1646053282413; Mon, 28
+ Feb 2022 05:01:22 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Content-Language: en-GB
-To: Michael Cheng <michael.cheng@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20220225032436.904942-1-michael.cheng@intel.com>
- <20220225032436.904942-2-michael.cheng@intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <20220225032436.904942-2-michael.cheng@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220228103142.3301082-1-arnd@kernel.org>
+ <87v8wz5frv.fsf@intel.com>
+In-Reply-To: <87v8wz5frv.fsf@intel.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 28 Feb 2022 14:01:06 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a1YUR4BNu8Nrc5XW+sFjL7-hWTHh7kstV27wmj1aqc4vA@mail.gmail.com>
+Message-ID: <CAK8P3a1YUR4BNu8Nrc5XW+sFjL7-hWTHh7kstV27wmj1aqc4vA@mail.gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: Re: [Intel-gfx] [PATCH v12 1/6] drm: Add arch arm64 for
- drm_clflush_virt_range
+Subject: Re: [Intel-gfx] [PATCH] [v2] Kbuild: move to -std=gnu11
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,61 +61,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, lucas.demarchi@intel.com,
- dri-devel@lists.freedesktop.org, Will Deacon <will@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Michal Marek <michal.lkml@markovi.net>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
+ linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
+ llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
+ Alex Shi <alexs@kernel.org>, Federico Vaga <federico.vaga@vaga.pv.it>,
+ Hu Haowen <src.res@email.cn>, Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ linux-btrfs <linux-btrfs@vger.kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-doc-tw-discuss@lists.sourceforge.net,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-[ +arm64 maintainers for their awareness, which would have been a good 
-thing to do from the start ]
+On Mon, Feb 28, 2022 at 1:36 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> >
+> > One minor issue that remains is an added gcc warning for shifts of
+> > negative integers when building with -Werror, which happens with the
+> > 'make W=1' option, as well as for three drivers in the kernel that always
+> > enable -Werror, but it was only observed with the i915 driver so far.
+> > To be on the safe side, add -Wno-shift-negative-value to any -Wextra
+> > in a Makefile.
+>
+> Do you mean always enable -Wall and/or -Wextra instead of -Werror?
+>
+> We do use -Werror for our CI and development too, but it's hidden behind
+> a config option that depends on COMPILE_TEST=n to avoid any problems
+> with allmodconfig/allyesconfig.
 
-On 2022-02-25 03:24, Michael Cheng wrote:
-> Add arm64 support for drm_clflush_virt_range. caches_clean_inval_pou
-> performs a flush by first performing a clean, follow by an invalidation
-> operation.
-> 
-> v2 (Michael Cheng): Use correct macro for cleaning and invalidation the
-> 		    dcache. Thanks Tvrtko for the suggestion.
-> 
-> v3 (Michael Cheng): Replace asm/cacheflush.h with linux/cacheflush.h
-> 
-> v4 (Michael Cheng): Arm64 does not export dcache_clean_inval_poc as a
-> 		    symbol that could be use by other modules, thus use
-> 		    caches_clean_inval_pou instead. Also this version
-> 	            removes include for cacheflush, since its already
-> 		    included base on architecture type.
-> 
-> Signed-off-by: Michael Cheng <michael.cheng@intel.com>
-> Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-> ---
->   drivers/gpu/drm/drm_cache.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
-> index c3e6e615bf09..81c28714f930 100644
-> --- a/drivers/gpu/drm/drm_cache.c
-> +++ b/drivers/gpu/drm/drm_cache.c
-> @@ -174,6 +174,11 @@ drm_clflush_virt_range(void *addr, unsigned long length)
->   
->   	if (wbinvd_on_all_cpus())
->   		pr_err("Timed out waiting for cache flush\n");
-> +
-> +#elif defined(CONFIG_ARM64)
-> +	void *end = addr + length;
-> +	caches_clean_inval_pou((unsigned long)addr, (unsigned long)end);
+What I meant here is that I'm adding -Wno-shift-negative-value to all
+four places in the kernel that already use -Wextra.
 
-Why does i915 need to ensure the CPU's instruction cache is coherent 
-with its data cache? Is it a self-modifying driver?
+> For the future, makes me wonder if we couldn't have a way for drivers to
+> locally enable -Wall/-Wextra in a way that incorporates the exceptions
+> from kbuild instead of having to duplicate them.
 
-Robin.
+I have an older patch series that does this, but it also does a few other
+things that I couldn't quite get right in the end with all combinations of
+compiler versions and warning levels, so I did not submit that.
 
-(Note that the above is somewhat of a loaded question, and I do actually 
-have half an idea of what you're trying to do here and why it won't fly, 
-but I'd like to at least assume you've read the documentation of the 
-function you decided was OK to use)
+What this allows is to have per-directory statements like
 
-> +
->   #else
->   	WARN_ONCE(1, "Architecture has no drm_cache.c support\n");
->   #endif
+KBUILD_WARN1=1
+KBUILD_ERROR0=1
+
+to force all the default warnings (-Wall etc) to be errors, while
+making the W=1 type warnings (-Wextra etc) normal warnings.
+
+> Anyway, for the i915 changes,
+>
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+Thanks,
+
+       Arnd
