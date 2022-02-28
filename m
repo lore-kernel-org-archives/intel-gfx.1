@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE08EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC2BC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 17:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1E6610E866;
-	Mon, 28 Feb 2022 17:43:12 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D271310E84E;
- Mon, 28 Feb 2022 17:43:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31B6610E199;
+	Mon, 28 Feb 2022 17:43:13 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D561E10E84D;
+ Mon, 28 Feb 2022 17:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646070186; x=1677606186;
+ t=1646070187; x=1677606187;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+UIxHbzEkt97jVdFgapQApA2qrInRxTiqzaspfnSuts=;
- b=WlSCOU/YrJtCbWUHynjPbZm32+KkLhrtOxWlFmG3ClQs4Y7iMOpjRvTI
- osl3XNhifrPhuXj82Er6kldQk2RkTqn9mgH25TwRb1ONJqDpk5+9hvnQh
- i5Mdc6vIUqc/oFcUJo+O4/H7d6LU5v1jY7EDnHFPT/cRu5lwOKCuuHdtM
- 5OeZTFU+H3SEA+sF9eeUDWi4exvIPBqtwvBi88N7c9Hg4pyTiKnEijdy8
- +J4gAraDrxLQnycJxSwByXq5SIAd8kyPXH0DzvnjymLJ2OgYeZhGqQMVM
- XaFrfovVz4CDsKUAczsZD4ndp/PhGnC12SEkQAZA0SA2rnbKcDykA8aHX w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="233561985"
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="233561985"
+ bh=ms2g7B4CpxD3OaGWYsJFV6y5HJWq4Miy0coNY/SeLN8=;
+ b=SjhFDThpxskWyZani9KCQKO8NgC+tXaccbidqJH/040L8sTBl51deljh
+ SiJVGlRAg5Efq5uXv4k/BhreNvqEOGqLLug8MmayysUXhfhBL9zOpeagp
+ RgLT4uDoSxjuDA1vzmXKDrVgXuUA4bVQk5bfKKDXG3Om5wLxGH8BBVPdo
+ oVqJH2Gljvvmdjp8P+cH+K+mY7vkkzPFF9+uDwzVIs/Yl7Ob8/JA+YQNJ
+ KVchiCIi4PAHqKCQskfD+1nFrpij65Yo6jPHWjobKlIKBA+QVGviuxOxD
+ myCyZWgaUkWCkYr6bM4ngkzBNV1GWUGT2c4sg10b2Rn0DclUtEN6ZNZ96 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="252866895"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="252866895"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Feb 2022 09:43:06 -0800
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392850"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="575392860"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 09:43:05 -0800
+ 28 Feb 2022 09:43:06 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Feb 2022 09:42:42 -0800
-Message-Id: <20220228174245.1569581-11-matthew.d.roper@intel.com>
+Date: Mon, 28 Feb 2022 09:42:45 -0800
+Message-Id: <20220228174245.1569581-14-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 References: <20220228174245.1569581-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 10/13] drm/i915/xehp: Don't support parallel
- submission on compute / render
+Subject: [Intel-gfx] [PATCH v2 13/13] drm/i915/xehpsdv: Move render/compute
+ engine reset domains related workarounds
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,55 +60,80 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Brost <matthew.brost@intel.com>
+From: Srinivasan Shanmugam <srinivasan.s@intel.com>
 
-A different emit breadcrumbs ring programming is required for compute /
-render and we don't have UMD user so just reject parallel submission for
-these engine classes.
+Registers that exist in the shared render/compute reset domain need to
+be placed on an engine workaround list to ensure that they are properly
+re-applied whenever an RCS or CCS engine is reset.  We have a number of
+workarounds (updating registers MLTICTXCTL, L3SQCREG1_CCS0,
+GEN12_MERT_MOD_CTRL, and GEN12_GAMCNTRL_CTRL) that are incorrectly
+implemented on the 'gt' workaround list and need to be moved
+accordingly.
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.s@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c         | 10 ++++++++++
- drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c |  4 ++++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 26 ++++++++++-----------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index bc6d59df064d..9ae294eb7fb4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -670,6 +670,16 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
- 				goto out_err;
- 			}
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 0b9435d62808..c014b40d2e9f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -1343,12 +1343,6 @@ xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ 	/* Wa_1409757795:xehpsdv */
+ 	wa_write_or(wal, SCCGCTL94DC, CG3DDISURB);
  
-+			/*
-+			 * We don't support breadcrumb handshake on these
-+			 * classes
-+			 */
-+			if (siblings[n]->class == RENDER_CLASS ||
-+			    siblings[n]->class == COMPUTE_CLASS) {
-+				err = -EINVAL;
-+				goto out_err;
-+			}
-+
- 			if (n) {
- 				if (prev_engine.engine_class !=
- 				    ci.engine_class) {
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-index 1297ddbf7f88..f9218a37d170 100644
---- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-@@ -154,6 +154,10 @@ static int intel_guc_multi_lrc_basic(void *arg)
- 	int ret;
+-	/* Wa_18011725039:xehpsdv */
+-	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
+-		wa_masked_dis(wal, MLTICTXCTL, TDONRENDER);
+-		wa_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
+-	}
+-
+ 	/* Wa_16011155590:xehpsdv */
+ 	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
+ 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE,
+@@ -1385,19 +1379,12 @@ xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ 			    GAMTLBVEBOX0_CLKGATE_DIS);
+ 	}
  
- 	for (class = 0; class < MAX_ENGINE_CLASS + 1; ++class) {
-+		/* We don't support breadcrumb handshake on these classes */
-+		if (class == COMPUTE_CLASS || class == RENDER_CLASS)
-+		       continue;
+-	/* Wa_14012362059:xehpsdv */
+-	wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
+-
+ 	/* Wa_16012725990:xehpsdv */
+ 	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_FOREVER))
+ 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE, VFUNIT_CLKGATE_DIS);
+ 
+ 	/* Wa_14011060649:xehpsdv */
+ 	wa_14011060649(gt, wal);
+-
+-	/* Wa_14014368820:xehpsdv */
+-	wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
+-		    GLOBAL_INVALIDATION_MODE);
+ }
+ 
+ static void
+@@ -2617,6 +2604,19 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		/* Wa_14010449647:xehpsdv */
+ 		wa_masked_en(wal, GEN7_HALF_SLICE_CHICKEN1,
+ 			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
 +
- 		ret = __intel_guc_multi_lrc_basic(gt, class);
- 		if (ret)
- 			return ret;
++		/* Wa_18011725039:xehpsdv */
++		if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
++			wa_masked_dis(wal, MLTICTXCTL, TDONRENDER);
++			wa_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
++		}
++
++		/* Wa_14012362059:xehpsdv */
++		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
++
++		/* Wa_14014368820:xehpsdv */
++		wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
++				GLOBAL_INVALIDATION_MODE);
+ 	}
+ }
+ 
 -- 
 2.34.1
 
