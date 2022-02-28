@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 008A0C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF18C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5FFF10E62D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3C8C10E625;
 	Mon, 28 Feb 2022 14:26:06 +0000 (UTC)
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2515310E149
- for <intel-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 23:04:53 +0000 (UTC)
-Received: by mail-io1-xd2d.google.com with SMTP id s1so12899093iob.9
- for <intel-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 15:04:53 -0800 (PST)
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1502110E21D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 08:07:53 +0000 (UTC)
+Received: by mail-qt1-x834.google.com with SMTP id w1so8256756qtj.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 00:07:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=eMPAICcK4QOcUsgRz8E97T+w3UaPr0GS8sH9qwWSGXg=;
- b=TuABxhmm7HCYx1EyphcHUqowSUq4YqzJ+L4Kes63psOESIzptu0Wj4kjFHqT803dkW
- LXOCN6uuuQNNzwm7+keCDoEdSypmqegF8fR9cDhta1+D1LAa+qBEyNfOQwugQP04bEn2
- WKtODuLeAVhFD3oNphX9RDY0KEZz34ygGTQ59ycNT4g6cnY8HQQyveZDnf/kj2lMnJnW
- EBAWvNuKUKLvFOA4WMP6MFxsRVx7HseHYWEaUVMrMk01HR+NzmWcIN8G6aAEVRgwv9QN
- 3n7SXvzkvndZsfFAyCqv9qQZMzunQhLtk+NzSYtok3gmgSJCJw2GIFCbdY5fQsEt1yew
- xOnA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7axuRj6JYm7SHsFwqubaOBoIuWQe+JkfOgZe8hwcemE=;
+ b=XoGGrUjjbgyJJgbkCJh4Gg2e8GJSXL9iubhJQmD8t1UQr9vokVWoUqkvGS71sI7coi
+ AkA9mzzHH8MLcIKqDi8b+utBUGUiGY+UEpmhtJzhE7pRoKTHgBgplWiG1g6AhNBhGuhd
+ 1csnr/jr0KI19+6LMabQYkyXBzpmSTRkLNNwUiZZt4lE7DagX/J/eTARsZMzlF6nrYzs
+ GhRmG9mnSodT5xIQYvl+/zGOGGtMs3RBqcmvSJCJ/SrAnxPQQjUCwOp0XPGDMvZ1J9fN
+ uWw4U8RxTDp5nwRy69XO7jZhHF9fAp0SIHkmIKTdtDV1jqpsFQumE/2TBZ5kqKjH7evR
+ A0Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=eMPAICcK4QOcUsgRz8E97T+w3UaPr0GS8sH9qwWSGXg=;
- b=nAVVjgXqxv6zQOR/UPzwhhNgXeR9GB0CvWyFXGwPsSGJbV809CJZi5Djnbels/3Y9m
- e9UNwc1perRTVVT877jqWQAkAc2K9Eu2rFe0ksMA74oQSztQuVwBBJJ23mGQHJnrCgNZ
- EoyOhFRWhEoNF3ogdyJ4lpJwYo/vCYuA6Ko0g6pciGJvlVtZb0diKzPDuxnswDOPxyEv
- 99tbdKCnzHUqljmVhbhtF4PgSbAm7swKWTvGIxwr1Kaa+WofmhNyp+XzUtopdiAXPliO
- 7pO0azcBKNzV+E+q+FVG1ph2b7a0gi0IHmx0wRjILfqno6AqNyyeOx40YbPxdKX2IRdJ
- znLw==
-X-Gm-Message-State: AOAM533DUJPFRgQx3J60vv0RbQfZJ9DOVzbl/FXziIIcGx1I9f9qTqW8
- 17rSQ9812TYbDg5c3UjO7qrCNw==
-X-Google-Smtp-Source: ABdhPJxe901PQ2e5joOOmSne9hXyiOxCtxiBFuu7rSDYJSL82EmvMjFPqJfxHhSAJuacb9QKHFIrTw==
-X-Received: by 2002:a02:cf2b:0:b0:30d:69cc:c9c3 with SMTP id
- s11-20020a02cf2b000000b0030d69ccc9c3mr13575882jar.175.1646003092361; 
- Sun, 27 Feb 2022 15:04:52 -0800 (PST)
-Received: from [172.22.22.26] (c-73-185-129-58.hsd1.mn.comcast.net.
- [73.185.129.58]) by smtp.googlemail.com with ESMTPSA id
- p15-20020a056e02104f00b002c1f581288csm5119123ilj.59.2022.02.27.15.04.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 27 Feb 2022 15:04:51 -0800 (PST)
-Message-ID: <dd41c574-05b0-23bc-646c-0bd341e6e50b@linaro.org>
-Date: Sun, 27 Feb 2022 17:04:50 -0600
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7axuRj6JYm7SHsFwqubaOBoIuWQe+JkfOgZe8hwcemE=;
+ b=pQGG+1EfxCty2KzjdocT6kexrLJxkdwxUTVOvvV8esGqTKO5by9/4u6+nwJP8/P7wR
+ XiYlQ2QwHaCqiISU0bOVPqjKsehKdcN9jqepm5+MR1QTxg6aBhrCsq1RVxJiy6e1Rqug
+ yQqm8rkOQ1Jf0D9rDCTFwGxQ2DqjMvgdrMzAHzSazwYevpVgUFVsWp+Pgf9YeWTejXTL
+ iw3j1l/8i+MTqoF1x0J2fBE1F2zj5ots6C/3NDjD+6DlA6yo+nou7AWVlsBlmyXJZOwk
+ oxGRydDy8sOvuq5KHeuTRWmirRkSey0xsNHr/Gys8fd1FwDiB4UgkwOIJsbAB9YeLFUj
+ HTNg==
+X-Gm-Message-State: AOAM531Akb2rbkUF2vh4ZalIXcW03eCUDvCST2h85ZwbgK9Url5GwNhh
+ nvGpbsyTQ+1aoFnlTfnvz6gr4i8TI0gAmrXe3YbTOA==
+X-Google-Smtp-Source: ABdhPJzdYQdPDRuiU87rTXQWLBXFDrXkJoGuNVZk0UGYWiT7E9/jxx0tqgCy1r2D301+B+veETmaZvPUX5scJFz/piQ=
+X-Received: by 2002:ac8:5cc9:0:b0:2de:8838:5888 with SMTP id
+ s9-20020ac85cc9000000b002de88385888mr15835222qta.370.1646035672083; Mon, 28
+ Feb 2022 00:07:52 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>, linux-kbuild@vger.kernel.org
-References: <20220227215408.3180023-1-arnd@kernel.org>
-From: Alex Elder <elder@linaro.org>
-In-Reply-To: <20220227215408.3180023-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220202085429.22261-1-suraj.kandpal@intel.com>
+ <20220202085429.22261-6-suraj.kandpal@intel.com>
+ <Yfp8Q6OFqTAvESOi@pendragon.ideasonboard.com>
+ <87y22ts948.fsf@intel.com>
+ <CAA8EJprrhPtDkWRk8+6Wf+OoQi4u8m_t7G5guJQW+SNuttOSgQ@mail.gmail.com>
+ <87sft1s1m5.fsf@intel.com>
+ <MWHPR11MB17412030E65D4E4821549E24E33C9@MWHPR11MB1741.namprd11.prod.outlook.com>
+ <d0677cbd-64f1-eb13-7aea-3de599134d09@quicinc.com>
+ <MWHPR11MB1741E1C4A6247CCCBECC6793E33F9@MWHPR11MB1741.namprd11.prod.outlook.com>
+ <YhyBEnI/P5KezATw@pendragon.ideasonboard.com>
+In-Reply-To: <YhyBEnI/P5KezATw@pendragon.ideasonboard.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 28 Feb 2022 11:07:41 +0300
+Message-ID: <CAA8EJpqkW2FO_G-NTodn9jrAoDtjB+GfvLoZV97Ci9WNsJhAKA@mail.gmail.com>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: Re: [Intel-gfx] [greybus-dev] [PATCH] Kbuild: remove -std=gnu89
- from compiler arguments
+Subject: Re: [Intel-gfx] [PATCH 5/6] drm/rcar_du: changes to rcar-du driver
+ resulting from drm_writeback_connector structure changes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,107 +73,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michal Marek <michal.lkml@markovi.net>, linux-doc@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
- linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- greybus-dev@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- Federico Vaga <federico.vaga@vaga.pv.it>, Hu Haowen <src.res@email.cn>,
- intel-gfx@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linux-doc-tw-discuss@lists.sourceforge.net, Alex Shi <alexs@kernel.org>
+Cc: "carsten.haitzler@arm.com" <carsten.haitzler@arm.com>, "Nikula,
+ Jani" <jani.nikula@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2/27/22 3:52 PM, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> During a patch discussion, Linus brought up the option of changing
-> the C standard version from gnu89 to gnu99, which allows using variable
-> declaration inside of a for() loop. While the C99, C11 and later standards
-> introduce many other features, most of these are already available in
-> gnu89 as GNU extensions as well.
-> 
-> An earlier attempt to do this when gcc-5 started defaulting to
-> -std=gnu11 failed because at the time that caused warnings about
-> designated initializers with older compilers. Now that gcc-5.1 is the
-> minimum compiler version used for building kernels, that is no longer a
-> concern. Similarly, the behavior of 'inline' functions changes between
-> gnu89 and gnu89, but this was taken care of by defining 'inline' to
-> include __attribute__((gnu_inline)) in order to allow building with
-> clang a while ago.
-> 
-> One minor issue that remains is an added gcc warning for shifts of
-> negative integers when building with -Werror, which happens with the
-> 'make W=1' option, as well as for three drivers in the kernel that always
-> enable -Werror, but it was only observed with the i915 driver so far.
-> 
-> Nathan Chancellor reported an additional -Wdeclaration-after-statement
-> warning that appears in a system header on arm, this still needs a
-> workaround.
-> 
-> Since the differences between gnu99, gnu11 and gnu17 are fairly minimal
-> and mainly impact warnings at the -Wpedantic level that the kernel
-> never enables, the easiest way is to just leave out the -std=gnu89
-> argument entirely, and rely on the compiler default language setting,
-> which is gnu11 for gcc-5, and gnu1x/gnu17 for all other supported
-> versions of gcc or clang.
-> 
-> Link: https://lore.kernel.org/lkml/CAHk-=wiyCH7xeHcmiFJ-YgXUy2Jaj7pnkdKpcovt8fYbVFW3TA@mail.gmail.com/
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1603
-> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Masahiro Yamada <masahiroy@kernel.org>
-> Cc: linux-kbuild@vger.kernel.org
-> Cc: llvm@lists.linux.dev
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> I put the suggestion into patch form, based on what we discussed
-> in the thread.  I only gave it minimal testing, but it would
-> be good to have it in linux-next if we want to do this in the
-> merge window.
+On Mon, 28 Feb 2022 at 11:00, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Suraj,
+>
+> On Sat, Feb 26, 2022 at 05:10:06AM +0000, Kandpal, Suraj wrote:
+> > Hi Abhinav,
+> >
+> > > Based on the discussion in this thread [1] , it seems like having drm_encoder
+> > > as a pointer seems to have merits for both of us and also in agreement with
+> > > the folks on this thread and has a better chance of an ack.
+> > >
+> > > However drm_connector is not.
+> > >
+> > > I had a brief look at your implementation. Any reason you need to go
+> > > through intel_connector here and not drm_writeback_connector directly?
+> > >
+> > > The reason I ask is that I see you are not using prepare_writeback_job hook.
+> > > If you use that, you can use the drm_writeback_connector passed on from
+> > > there instead of looping through your list like you are doing in
+> > > intel_find_writeback_connector.
+> > >
+> > > Also, none of the other entries of struct intel_connector are being used for
+> > > the writeback implementation. So does the drm_writeback_connector in
+> > > your implementation need to be an intel_connector when its anyway not
+> > > using other fields? Why cant it be just stored as a drm_writeback_connector
+> > > itself in your struct intel_wd.
+> >
+> > The reason we can't do that is i915 driver always assumes that all connectors
+> > present in device list is an intel connector and since drm_writeback_connector
+> > even though a faux connector in it's initialization calls drm_connector_init()
+> > and gets added to the drm device list and hence the i915 driver also expects
+> > a corresponding intel connector to go with it. In case I do try to make writeback
+> > connector standalone a lot of checks, a lot will have to be added all around the
+> > driver as there could be a chance that one of the drm_connector in the drm device
+> > list may not be an intel_connector.
+> > Yes right now not all fields of intel_connector are being used but we will be working
+> > on filling them as we add more functionality to writeback for example introducing
+> > content protection.
+> > So even if I do float the patch series with just drm_encoder as pointer it won't help
+> > us with our implementation if drm_connector isn't a pointer too.
+>
+> This is a direct consequence of the decision to use connectors for
+> writeback in the userspace API. This disrupts any code that assumes that
+> a connector is a connector. The problem isn't limited to kernelspace,
+> userspace has the same exact problem, which resulted in a hack to avoid
+> breaking everything. Userspace software that needs to deal with
+> writeback needs to set the DRM_CLIENT_CAP_WRITEBACK_CONNECTORS
+> capability to get the writeback connectors exposed by the kernel, but
+> more than that, a large refactoring is then often needed to chase all
+> code paths that assume a connector is a connector.
+>
+> I'm afraid the same applies to the kernel. Drivers that don't use
+> writeback are largely unaffected. Drievrs that want to use writeback
+> need to be refactored to properly handle the fact that writeback
+> connectors are special. i915 will need to go that way.
 
-Did you determine what needed the new compiler flag based on
-compilation results?
+Laurent, you have frown upon the idea of separating the connector from
+the drm_writeback_connector struct. What about the encoder?
+The msm code in question can be found at the patchwork:
+https://patchwork.freedesktop.org/series/99724/. This series depends
+on Intel's patch, but should give you the overall feeling of the code
+being shared between to-the-display and writeback pipelines.
 
-Glancing at the Greybus code, I don't believe there's any
-reason it needs to shift a negative value.  Such warnings
-could be fixed by making certain variables unsigned, for
-example.
-
-I have no objection, I'll just make a note of it.
-
-					-Alex
-
-> ---
->   Documentation/process/programming-language.rst             | 4 ++--
->   .../translations/it_IT/process/programming-language.rst    | 4 ++--
->   .../translations/zh_CN/process/programming-language.rst    | 4 ++--
->   .../translations/zh_TW/process/programming-language.rst    | 4 ++--
->   Makefile                                                   | 7 +++----
->   arch/arm64/kernel/vdso32/Makefile                          | 3 +--
->   drivers/gpu/drm/i915/Makefile                              | 1 +
->   drivers/staging/greybus/tools/Makefile                     | 3 ++-
->   fs/btrfs/Makefile                                          | 1 +
->   scripts/Makefile.extrawarn                                 | 1 +
->   10 files changed, 17 insertions(+), 15 deletions(-)
-> 
-
-. . .
-
-> diff --git a/drivers/staging/greybus/tools/Makefile b/drivers/staging/greybus/tools/Makefile
-> index ad0ae8053b79..a3bbd73171f2 100644
-> --- a/drivers/staging/greybus/tools/Makefile
-> +++ b/drivers/staging/greybus/tools/Makefile
-> @@ -12,7 +12,8 @@ CFLAGS	+= -std=gnu99 -Wall -Wextra -g \
->   	    -Wredundant-decls \
->   	    -Wcast-align \
->   	    -Wsign-compare \
-> -	    -Wno-missing-field-initializers
-> +	    -Wno-missing-field-initializers \
-> +	    -Wno-shift-negative-value
->   
->   CC	:= $(CROSS_COMPILE)gcc
->   
-
-. . .
+-- 
+With best wishes
+Dmitry
