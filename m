@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E10BC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65000C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 14:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B16DD10E61D;
-	Mon, 28 Feb 2022 14:26:06 +0000 (UTC)
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A3FC89C61;
- Mon, 28 Feb 2022 12:49:05 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id c23so14515779ioi.4;
- Mon, 28 Feb 2022 04:49:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=mOwbZLEZAA7CbHC+ZGRfJecP9SUyALH4CUgSrWMoe2Y=;
- b=MoRqzkxl3y5bj6ZSvrlCkhi2eyhrKfbhvB8EI57ZXGiPyLp+PHJZj+m6chb0C6fDg+
- djOViiwLzv9MFpsrxG2ocg2vE77iNztXu6hIk49ZVn01C9/E7TzhSRsZrkAmglSsv1P0
- O8r143/OuUhcoCPa0Miggp3nc1mD8UveBAxgUHM43Jaabl7pWw5GUu6iPUMhTTDdTm58
- OCefXbhIQ+lMMN0Zz6j3r6ZdLH+YJA+kaDIscqG3S4AdZbKqUa4EyRU1DI+O2tsiAtLa
- oDS98C0nK6Ll/C9g+hmM3g/Q+gJZoZjbPTjAeNV3AtyrmbCyt9gsn12+nKbe4Q65iE0m
- C1DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=mOwbZLEZAA7CbHC+ZGRfJecP9SUyALH4CUgSrWMoe2Y=;
- b=30c53VW1Iu511QpS/GWbT47ZmzlT433I8BulZLgedKr83CGGBy4y1MvZWtvNXVv+1q
- VOCgz/JCtucuZPORY2cpV0Clac6OUh/3KpkOf1V3epoBRZawwHYY/9KbSe1tjzMlEaTt
- 0HsiI/hpwUOjSTuxEIwomR/OSROLXXm7XGFKnOtU88HuolD5kBDGR5vSRvP130xwMBCB
- 2O59ZTLbTmCFez5hoX22/VYJaKyvg/0bMOQmSplEknsHoSjJ1hAJhSz/rGVQIzpwn8gd
- Y6Ixvp+Z6fCs/TZYgIKJeO7ClYW/JPISiQuH294Q0uHosV6IV37bHDTlWP5oSYqV3ZFl
- +zyA==
-X-Gm-Message-State: AOAM533AvXmyFAnqPD9r2KkAMdqWJcWrM+lTVlJdJEXZWrpYI15tFPr+
- tvMPeJFIzC9APMmFWxepclDCuw1hTmdqX9mqUZc=
-X-Google-Smtp-Source: ABdhPJz3q8cRMHd/oy9ZoQDTB815Cb8Pu3kGKWD99P8CNfxxFeh2KSEcEd4cG9pFBH7WrrbY5kthiPuHNKK+V71otSM=
-X-Received: by 2002:a02:c6c1:0:b0:314:b699:b8bd with SMTP id
- r1-20020a02c6c1000000b00314b699b8bdmr17570856jan.40.1646052543613; Mon, 28
- Feb 2022 04:49:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56E2310E809;
+	Mon, 28 Feb 2022 14:26:07 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A94F210E1E3;
+ Mon, 28 Feb 2022 08:11:35 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EC3C56112D;
+ Mon, 28 Feb 2022 08:11:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639D2C36AE3;
+ Mon, 28 Feb 2022 08:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646035894;
+ bh=DljB/ws5J9Owyl5yds3GZxgK+VN9CcGAOjBMjtsvHLY=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=lUHl1zVGtsG7blAH/F0UTToBcop4tD/U31a16Z8iFIbr3Yz3NZyMMruEmqnjff4ZV
+ sOXR4ep1bZSZFP0thZxfJu86f2z6+1scEBxEdmX2MzzbIbTJIcJ58A29zDedh4boJZ
+ xAOME5veJRutesYxFUwWk5sQ+QrLNYM/TVXnCtonVD/qOrj4pXJn2RS2GVaVmp52BQ
+ 5iwZQ45A8fmgwsj70jPmE+MF5yxYndWMbRpKn6LVhUyC6bqg4uPpX27ECqsMIMGs2u
+ XUwEuPOV78DTReq/jMwlT/mX0z/iDJpT5zge+xiLD8/j5HMuuicA5nzcXCsD/SOF5J
+ RTmRglaDYVWmw==
+Received: by mail-wm1-f54.google.com with SMTP id
+ o62-20020a1ca541000000b00380e3cc26b7so5506138wme.0; 
+ Mon, 28 Feb 2022 00:11:34 -0800 (PST)
+X-Gm-Message-State: AOAM533kXPwmqrXziFlroa1dTNJqkg2vUHlnyHVWL2CILw+jWpXD8elk
+ dDLBDEc1KxhbOl5HoFtwAsBFkdeqLGq9lKw2ZY4=
+X-Google-Smtp-Source: ABdhPJwcMEK5ybaUtjnn+nhdYBsBMcvPLAK49eN6lkpL2rzIto/bB9bCpNQVYXjU55YpRRxY6tLnPO6gmy6I0G+qdwc=
+X-Received: by 2002:a05:600c:3b87:b0:381:428c:24c1 with SMTP id
+ n7-20020a05600c3b8700b00381428c24c1mr8612916wms.1.1646035892684; Mon, 28 Feb
+ 2022 00:11:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20220228103142.3301082-1-arnd@kernel.org>
-In-Reply-To: <20220228103142.3301082-1-arnd@kernel.org>
-From: Alex Shi <seakeel@gmail.com>
-Date: Mon, 28 Feb 2022 20:48:27 +0800
-Message-ID: <CAJy-AmkX+3qFLUvSkWK6bBjMF_pQ5mEFWUBaO0H6D0mxmhj5Lg@mail.gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
+References: <20220227215408.3180023-1-arnd@kernel.org>
+ <dd41c574-05b0-23bc-646c-0bd341e6e50b@linaro.org>
+In-Reply-To: <dd41c574-05b0-23bc-646c-0bd341e6e50b@linaro.org>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 28 Feb 2022 09:11:16 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a05aLS1sgQdeUDN6LD3oS0khZh07pyEO9LhUC5CJHN-Kg@mail.gmail.com>
+Message-ID: <CAK8P3a05aLS1sgQdeUDN6LD3oS0khZh07pyEO9LhUC5CJHN-Kg@mail.gmail.com>
+To: Alex Elder <elder@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 28 Feb 2022 14:26:05 +0000
-Subject: Re: [Intel-gfx] [PATCH] [v2] Kbuild: move to -std=gnu11
+Subject: Re: [Intel-gfx] [greybus-dev] [PATCH] Kbuild: remove -std=gnu89
+ from compiler arguments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,291 +63,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-kernel@lists.infradead.org,
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
  Michal Marek <michal.lkml@markovi.net>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
  linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
  llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- greybus-dev@lists.linaro.org, Alex Shi <alexs@kernel.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>, Hu Haowen <src.res@email.cn>,
- intel-gfx@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
+ Alex Shi <alexs@kernel.org>, Federico Vaga <federico.vaga@vaga.pv.it>,
+ Hu Haowen <src.res@email.cn>, Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ linux-btrfs <linux-btrfs@vger.kernel.org>,
  Linus Torvalds <torvalds@linux-foundation.org>,
- linux-doc-tw-discuss@lists.sourceforge.net, linux-kbuild@vger.kernel.org
+ linux-doc-tw-discuss@lists.sourceforge.net,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 6:32 PM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> During a patch discussion, Linus brought up the option of changing
-> the C standard version from gnu89 to gnu99, which allows using variable
-> declaration inside of a for() loop. While the C99, C11 and later standard=
-s
-> introduce many other features, most of these are already available in
-> gnu89 as GNU extensions as well.
->
-> An earlier attempt to do this when gcc-5 started defaulting to
-> -std=3Dgnu11 failed because at the time that caused warnings about
-> designated initializers with older compilers. Now that gcc-5.1 is the
-> minimum compiler version used for building kernels, that is no longer a
-> concern. Similarly, the behavior of 'inline' functions changes between
-> gnu89 and gnu11, but this was taken care of by defining 'inline' to
-> include __attribute__((gnu_inline)) in order to allow building with
-> clang a while ago.
->
-> One minor issue that remains is an added gcc warning for shifts of
-> negative integers when building with -Werror, which happens with the
-> 'make W=3D1' option, as well as for three drivers in the kernel that alwa=
-ys
-> enable -Werror, but it was only observed with the i915 driver so far.
-> To be on the safe side, add -Wno-shift-negative-value to any -Wextra
-> in a Makefile.
->
-> Nathan Chancellor reported an additional -Wdeclaration-after-statement
-> warning that appears in a system header on arm, this still needs a
-> workaround.
->
-> The differences between gnu99, gnu11, gnu1x and gnu17 are fairly
-> minimal and mainly impact warnings at the -Wpedantic level that the
-> kernel never enables. Between these, gnu11 is the newest version
-> that is supported by all supported compiler versions, though it is
-> only the default on gcc-5, while all other supported versions of
-> gcc or clang default to gnu1x/gnu17.
->
-> Link: https://lore.kernel.org/lkml/CAHk-=3DwiyCH7xeHcmiFJ-YgXUy2Jaj7pnkdK=
-pcovt8fYbVFW3TA@mail.gmail.com/
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1603
-> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Masahiro Yamada <masahiroy@kernel.org>
-> Cc: linux-kbuild@vger.kernel.org
-> Cc: llvm@lists.linux.dev
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Mon, Feb 28, 2022 at 12:04 AM Alex Elder <elder@linaro.org> wrote:
+> On 2/27/22 3:52 PM, Arnd Bergmann wrote: From: Arnd Bergmann <arnd@arndb.de>
 
-For document part,
-Reviewed-by: Alex Shi <alexs@kernel.org>
+> > I put the suggestion into patch form, based on what we discussed
+> > in the thread.  I only gave it minimal testing, but it would
+> > be good to have it in linux-next if we want to do this in the
+> > merge window.
+>
+> Did you determine what needed the new compiler flag based on
+> compilation results?
+>
+> Glancing at the Greybus code, I don't believe there's any
+> reason it needs to shift a negative value.  Such warnings
+> could be fixed by making certain variables unsigned, for
+> example.
+>
+> I have no objection, I'll just make a note of it.
 
-> ---
-> [v2]
->  - added -std=3Dgnu11 back, rather than just relying on the default
->  - minor changes to changelog text
-> ---
->  Documentation/process/programming-language.rst              | 4 ++--
->  .../translations/it_IT/process/programming-language.rst     | 4 ++--
->  .../translations/zh_CN/process/programming-language.rst     | 4 ++--
->  .../translations/zh_TW/process/programming-language.rst     | 4 ++--
->  Makefile                                                    | 6 +++---
->  arch/arm64/kernel/vdso32/Makefile                           | 2 +-
->  drivers/gpu/drm/i915/Makefile                               | 1 +
->  drivers/staging/greybus/tools/Makefile                      | 3 ++-
->  fs/btrfs/Makefile                                           | 1 +
->  scripts/Makefile.extrawarn                                  | 1 +
->  10 files changed, 17 insertions(+), 13 deletions(-)
->
-> diff --git a/Documentation/process/programming-language.rst b/Documentati=
-on/process/programming-language.rst
-> index ec474a70a02f..894f2a6eb9db 100644
-> --- a/Documentation/process/programming-language.rst
-> +++ b/Documentation/process/programming-language.rst
-> @@ -5,8 +5,8 @@ Programming Language
->
->  The kernel is written in the C programming language [c-language]_.
->  More precisely, the kernel is typically compiled with ``gcc`` [gcc]_
-> -under ``-std=3Dgnu89`` [gcc-c-dialect-options]_: the GNU dialect of ISO =
-C90
-> -(including some C99 features). ``clang`` [clang]_ is also supported, see
-> +under ``-std=3Dgnu11`` [gcc-c-dialect-options]_: the GNU dialect of ISO =
-C11
-> +(including some C17 features). ``clang`` [clang]_ is also supported, see
->  docs on :ref:`Building Linux with Clang/LLVM <kbuild_llvm>`.
->
->  This dialect contains many extensions to the language [gnu-extensions]_,
-> diff --git a/Documentation/translations/it_IT/process/programming-languag=
-e.rst b/Documentation/translations/it_IT/process/programming-language.rst
-> index 41db2598ce11..aa21097737ae 100644
-> --- a/Documentation/translations/it_IT/process/programming-language.rst
-> +++ b/Documentation/translations/it_IT/process/programming-language.rst
-> @@ -10,8 +10,8 @@ Linguaggio di programmazione
->
->  Il kernel =C3=A8 scritto nel linguaggio di programmazione C [it-c-langua=
-ge]_.
->  Pi=C3=B9 precisamente, il kernel viene compilato con ``gcc`` [it-gcc]_ u=
-sando
-> -l'opzione ``-std=3Dgnu89`` [it-gcc-c-dialect-options]_: il dialetto GNU
-> -dello standard ISO C90 (con l'aggiunta di alcune funzionalit=C3=A0 da C9=
-9).
-> +l'opzione ``-std=3Dgnu11`` [it-gcc-c-dialect-options]_: il dialetto GNU
-> +dello standard ISO C11 (con l'aggiunta di alcune funzionalit=C3=A0 da C1=
-7).
->  Linux supporta anche ``clang`` [it-clang]_, leggete la documentazione
->  :ref:`Building Linux with Clang/LLVM <kbuild_llvm>`.
->
-> diff --git a/Documentation/translations/zh_CN/process/programming-languag=
-e.rst b/Documentation/translations/zh_CN/process/programming-language.rst
-> index 2a47a1d2ec20..58d2b3bd2d85 100644
-> --- a/Documentation/translations/zh_CN/process/programming-language.rst
-> +++ b/Documentation/translations/zh_CN/process/programming-language.rst
-> @@ -9,8 +9,8 @@
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
->  =E5=86=85=E6=A0=B8=E6=98=AF=E7=94=A8C=E8=AF=AD=E8=A8=80 :ref:`c-language=
- <cn_c-language>` =E7=BC=96=E5=86=99=E7=9A=84=E3=80=82=E6=9B=B4=E5=87=86=E7=
-=A1=AE=E5=9C=B0=E8=AF=B4=EF=BC=8C=E5=86=85=E6=A0=B8=E9=80=9A=E5=B8=B8=E6=98=
-=AF=E7=94=A8 :ref:`gcc <cn_gcc>`
-> -=E5=9C=A8 ``-std=3Dgnu89`` :ref:`gcc-c-dialect-options <cn_gcc-c-dialect=
--options>` =E4=B8=8B=E7=BC=96=E8=AF=91=E7=9A=84=EF=BC=9AISO C90=E7=9A=84 GN=
-U =E6=96=B9=E8=A8=80=EF=BC=88
-> -=E5=8C=85=E6=8B=AC=E4=B8=80=E4=BA=9BC99=E7=89=B9=E6=80=A7=EF=BC=89
-> +=E5=9C=A8 ``-std=3Dgnu11`` :ref:`gcc-c-dialect-options <cn_gcc-c-dialect=
--options>` =E4=B8=8B=E7=BC=96=E8=AF=91=E7=9A=84=EF=BC=9AISO C11=E7=9A=84 GN=
-U =E6=96=B9=E8=A8=80=EF=BC=88
-> +=E5=8C=85=E6=8B=AC=E4=B8=80=E4=BA=9BC17=E7=89=B9=E6=80=A7=EF=BC=89
->
->  =E8=BF=99=E7=A7=8D=E6=96=B9=E8=A8=80=E5=8C=85=E5=90=AB=E5=AF=B9=E8=AF=AD=
-=E8=A8=80 :ref:`gnu-extensions <cn_gnu-extensions>` =E7=9A=84=E8=AE=B8=E5=
-=A4=9A=E6=89=A9=E5=B1=95=EF=BC=8C=E5=BD=93=E7=84=B6=EF=BC=8C=E5=AE=83=E4=BB=
-=AC=E8=AE=B8=E5=A4=9A=E9=83=BD=E5=9C=A8=E5=86=85=E6=A0=B8=E4=B8=AD=E4=BD=BF=
-=E7=94=A8=E3=80=82
->
-> diff --git a/Documentation/translations/zh_TW/process/programming-languag=
-e.rst b/Documentation/translations/zh_TW/process/programming-language.rst
-> index 54e3699eadf8..235de05f7e2c 100644
-> --- a/Documentation/translations/zh_TW/process/programming-language.rst
-> +++ b/Documentation/translations/zh_TW/process/programming-language.rst
-> @@ -12,8 +12,8 @@
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
->  =E5=85=A7=E6=A0=B8=E6=98=AF=E7=94=A8C=E8=AA=9E=E8=A8=80 :ref:`c-language=
- <tw_c-language>` =E7=B7=A8=E5=AF=AB=E7=9A=84=E3=80=82=E6=9B=B4=E6=BA=96=E7=
-=A2=BA=E5=9C=B0=E8=AA=AA=EF=BC=8C=E5=85=A7=E6=A0=B8=E9=80=9A=E5=B8=B8=E6=98=
-=AF=E7=94=A8 :ref:`gcc <tw_gcc>`
-> -=E5=9C=A8 ``-std=3Dgnu89`` :ref:`gcc-c-dialect-options <tw_gcc-c-dialect=
--options>` =E4=B8=8B=E7=B7=A8=E8=AD=AF=E7=9A=84=EF=BC=9AISO C90=E7=9A=84 GN=
-U =E6=96=B9=E8=A8=80=EF=BC=88
-> -=E5=8C=85=E6=8B=AC=E4=B8=80=E4=BA=9BC99=E7=89=B9=E6=80=A7=EF=BC=89
-> +=E5=9C=A8 ``-std=3Dgnu11`` :ref:`gcc-c-dialect-options <tw_gcc-c-dialect=
--options>` =E4=B8=8B=E7=B7=A8=E8=AD=AF=E7=9A=84=EF=BC=9AISO C11=E7=9A=84 GN=
-U =E6=96=B9=E8=A8=80=EF=BC=88
-> +=E5=8C=85=E6=8B=AC=E4=B8=80=E4=BA=9BC17=E7=89=B9=E6=80=A7=EF=BC=89
->
->  =E9=80=99=E7=A8=AE=E6=96=B9=E8=A8=80=E5=8C=85=E5=90=AB=E5=B0=8D=E8=AA=9E=
-=E8=A8=80 :ref:`gnu-extensions <tw_gnu-extensions>` =E7=9A=84=E8=A8=B1=E5=
-=A4=9A=E6=93=B4=E5=B1=95=EF=BC=8C=E7=95=B6=E7=84=B6=EF=BC=8C=E5=AE=83=E5=80=
-=91=E8=A8=B1=E5=A4=9A=E9=83=BD=E5=9C=A8=E5=85=A7=E6=A0=B8=E4=B8=AD=E4=BD=BF=
-=E7=94=A8=E3=80=82
->
-> diff --git a/Makefile b/Makefile
-> index 289ce2be8032..66496eaeb9ec 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -432,7 +432,7 @@ HOSTCXX     =3D g++
->  endif
->
->  export KBUILD_USERCFLAGS :=3D -Wall -Wmissing-prototypes -Wstrict-protot=
-ypes \
-> -                             -O2 -fomit-frame-pointer -std=3Dgnu89
-> +                             -O2 -fomit-frame-pointer -std=3Dgnu11
->  export KBUILD_USERLDFLAGS :=3D
->
->  KBUILD_HOSTCFLAGS   :=3D $(KBUILD_USERCFLAGS) $(HOST_LFS_CFLAGS) $(HOSTC=
-FLAGS)
-> @@ -515,7 +515,7 @@ KBUILD_CFLAGS   :=3D -Wall -Wundef -Werror=3Dstrict-p=
-rototypes -Wno-trigraphs \
->                    -fno-strict-aliasing -fno-common -fshort-wchar -fno-PI=
-E \
->                    -Werror=3Dimplicit-function-declaration -Werror=3Dimpl=
-icit-int \
->                    -Werror=3Dreturn-type -Wno-format-security \
-> -                  -std=3Dgnu89
-> +                  -std=3Dgnu11
->  KBUILD_CPPFLAGS :=3D -D__KERNEL__
->  KBUILD_AFLAGS_KERNEL :=3D
->  KBUILD_CFLAGS_KERNEL :=3D
-> @@ -782,7 +782,7 @@ KBUILD_CFLAGS +=3D $(KBUILD_CFLAGS-y) $(CONFIG_CC_IMP=
-LICIT_FALLTHROUGH)
->
->  ifdef CONFIG_CC_IS_CLANG
->  KBUILD_CPPFLAGS +=3D -Qunused-arguments
-> -# The kernel builds with '-std=3Dgnu89' so use of GNU extensions is acce=
-ptable.
-> +# The kernel builds with '-std=3Dgnu11' so use of GNU extensions is acce=
-ptable.
->  KBUILD_CFLAGS +=3D -Wno-gnu
->  # CLANG uses a _MergedGlobals as optimization, but this breaks modpost, =
-as the
->  # source of a reference will be _MergedGlobals and not on of the whiteli=
-sted names.
-> diff --git a/arch/arm64/kernel/vdso32/Makefile b/arch/arm64/kernel/vdso32=
-/Makefile
-> index 6c01b63ff56d..9378ea055bf2 100644
-> --- a/arch/arm64/kernel/vdso32/Makefile
-> +++ b/arch/arm64/kernel/vdso32/Makefile
-> @@ -68,7 +68,7 @@ VDSO_CFLAGS +=3D -Wall -Wundef -Wstrict-prototypes -Wno=
--trigraphs \
->                 -fno-strict-aliasing -fno-common \
->                 -Werror-implicit-function-declaration \
->                 -Wno-format-security \
-> -               -std=3Dgnu89
-> +               -std=3Dgnu11
->  VDSO_CFLAGS  +=3D -O2
->  # Some useful compiler-dependent flags from top-level Makefile
->  VDSO_CFLAGS +=3D $(call cc32-option,-Wdeclaration-after-statement,)
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefil=
-e
-> index 1b62b9f65196..1618a6e0af4e 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -17,6 +17,7 @@ subdir-ccflags-y +=3D -Wno-unused-parameter
->  subdir-ccflags-y +=3D -Wno-type-limits
->  subdir-ccflags-y +=3D -Wno-missing-field-initializers
->  subdir-ccflags-y +=3D -Wno-sign-compare
-> +subdir-ccflags-y +=3D -Wno-shift-negative-value
->  subdir-ccflags-y +=3D $(call cc-disable-warning, unused-but-set-variable=
-)
->  subdir-ccflags-y +=3D $(call cc-disable-warning, frame-address)
->  subdir-ccflags-$(CONFIG_DRM_I915_WERROR) +=3D -Werror
-> diff --git a/drivers/staging/greybus/tools/Makefile b/drivers/staging/gre=
-ybus/tools/Makefile
-> index ad0ae8053b79..a3bbd73171f2 100644
-> --- a/drivers/staging/greybus/tools/Makefile
-> +++ b/drivers/staging/greybus/tools/Makefile
-> @@ -12,7 +12,8 @@ CFLAGS        +=3D -std=3Dgnu99 -Wall -Wextra -g \
->             -Wredundant-decls \
->             -Wcast-align \
->             -Wsign-compare \
-> -           -Wno-missing-field-initializers
-> +           -Wno-missing-field-initializers \
-> +           -Wno-shift-negative-value
->
->  CC     :=3D $(CROSS_COMPILE)gcc
->
-> diff --git a/fs/btrfs/Makefile b/fs/btrfs/Makefile
-> index 4188ba3fd8c3..99f9995670ea 100644
-> --- a/fs/btrfs/Makefile
-> +++ b/fs/btrfs/Makefile
-> @@ -17,6 +17,7 @@ subdir-ccflags-y +=3D $(condflags)
->  subdir-ccflags-y +=3D -Wno-missing-field-initializers
->  subdir-ccflags-y +=3D -Wno-sign-compare
->  subdir-ccflags-y +=3D -Wno-type-limits
-> +subdir-ccflags-y +=3D -Wno-shift-negative-value
->
->  obj-$(CONFIG_BTRFS_FS) :=3D btrfs.o
->
-> diff --git a/scripts/Makefile.extrawarn b/scripts/Makefile.extrawarn
-> index 8be892887d71..650d0b8ceec3 100644
-> --- a/scripts/Makefile.extrawarn
-> +++ b/scripts/Makefile.extrawarn
-> @@ -36,6 +36,7 @@ KBUILD_CFLAGS +=3D $(call cc-option, -Wstringop-truncat=
-ion)
->  KBUILD_CFLAGS +=3D -Wno-missing-field-initializers
->  KBUILD_CFLAGS +=3D -Wno-sign-compare
->  KBUILD_CFLAGS +=3D -Wno-type-limits
-> +KBUILD_CFLAGS +=3D -Wno-shift-negative-value
->
->  KBUILD_CPPFLAGS +=3D -DKBUILD_EXTRA_WARN1
->
-> --
-> 2.29.2
->
+I've clarified in the changelog that I'm adding the -Wno-shift-negative-value
+everywhere that -Wextra is used, not because I saw actual warnings
+for greybus and btrfs. The -Wextra is copied from scripts/Makefile.extrawarn,
+so this keeps it in sync. Ideally we should have an easier way for a
+subdirectory to get the W=1 flags without copying the list, but the
+patch I started to do this never got close to getting integrated.
+
+         Arnd
