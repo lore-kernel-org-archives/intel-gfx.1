@@ -4,62 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADFDDC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:26:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A0C0C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11E7810E305;
-	Tue,  1 Mar 2022 23:26:06 +0000 (UTC)
-X-Greylist: delayed 371 seconds by postgrey-1.36 at gabe;
- Tue, 01 Mar 2022 23:26:04 UTC
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C041B10E305
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 23:26:04 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-274-hYNDa1-rPGCuZAB3qy-How-1; Tue, 01 Mar 2022 23:19:49 +0000
-X-MC-Unique: hYNDa1-rPGCuZAB3qy-How-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.28; Tue, 1 Mar 2022 23:19:46 +0000
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.028; Tue, 1 Mar 2022 23:19:46 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Linus Torvalds' <torvalds@linux-foundation.org>
-Thread-Topic: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Thread-Index: AQHYLZ9++DU/OogLf0+tiSFmjztyUKyrHL5AgAAJGICAAAEEcA==
-Date: Tue, 1 Mar 2022 23:19:46 +0000
-Message-ID: <0ced2b155b984882b39e895f0211037c@AcuMS.aculab.com>
-References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
- <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
- <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
- <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
- <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
- <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
- <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
- <7dc860874d434d2288f36730d8ea3312@AcuMS.aculab.com>
- <CAHk-=whKqg89zu4T95+ctY-hocR6kDArpo2qO14-kV40Ga7ufw@mail.gmail.com>
-In-Reply-To: <CAHk-=whKqg89zu4T95+ctY-hocR6kDArpo2qO14-kV40Ga7ufw@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6B4510E6A4;
+	Tue,  1 Mar 2022 23:26:56 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0BC10E6A4
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 23:26:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646177216; x=1677713216;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=S5mG/n5GehpQv+z2cBkwmdJP2sz5w0O3yPiQNG5OYAM=;
+ b=epIvNn5/7LFiQaPQ2WOK20fA4YACwrW5skmIH1d0gY6BDxppxjel3EXQ
+ wxtRDETZk5EPfSWBCnAIgVveKycKLl+JQIAwiP5i39Mb35EXHrIU2jZNo
+ 5ibdKuODcXBJtMLhR/gIJgB/DQ5XPdni9tq16/0OFhh9DYhEVIaasQ6yq
+ f0L3+shNJRrtDm3IgmHC6o9hQ+UlyHhO3C1tWQkon1FWgeAQqD4EqtdB3
+ R/Owtuwpm/BNELmiZiAOc0SgWPtpyAtDoTDHLAMY4CIcDfH1QgceJi9JP
+ o8NdM8PG0+ALiOHyqFZGEBR1ZaTOSiftuM4kZyAYkJ+QgTgeyhTcqXR7Q g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233881531"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233881531"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 15:26:55 -0800
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709256123"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 15:26:55 -0800
+Date: Tue, 1 Mar 2022 15:27:41 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Message-ID: <20220301232741.GA8799@labuser-Z97X-UD5H>
+References: <20220225013055.9282-1-manasi.d.navare@intel.com>
+ <20220225013055.9282-2-manasi.d.navare@intel.com>
+ <YhidvyZ0vvxmHBwP@intel.com>
+ <20220226011055.GA13404@labuser-Z97X-UD5H>
+ <20220301193052.GA31895@labuser-Z97X-UD5H>
+ <Yh51XiI/cuj01kiu@intel.com>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
- after loop body as a ptr
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Yh51XiI/cuj01kiu@intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH v6 2/2] drm/i915/display/vrr: Reset VRR
+ capable property on a long hpd
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,86 +64,117 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
- "samba-technical@lists.samba.org" <samba-technical@lists.samba.org>,
- "linux1394-devel@lists.sourceforge.net"
- <linux1394-devel@lists.sourceforge.net>,
- "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
- linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- KVM list <kvm@vger.kernel.org>, linux-scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
- "kgdb-bugreport@lists.sourceforge.net" <kgdb-bugreport@lists.sourceforge.net>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, Arnd
- Bergman <arnd@arndb.de>, Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jakob Koschel <jakobkoschel@gmail.com>,
- "v9fs-developer@lists.sourceforge.net" <v9fs-developer@lists.sourceforge.net>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- "linux-sgx@vger.kernel.org" <linux-sgx@vger.kernel.org>,
- linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- dma <dmaengine@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, Mike
- Rapoport <rppt@kernel.org>
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTGludXMgVG9ydmFsZHMNCj4gU2VudDogMDEgTWFyY2ggMjAyMiAyMzowMw0KPiANCj4g
-T24gVHVlLCBNYXIgMSwgMjAyMiBhdCAyOjU4IFBNIERhdmlkIExhaWdodCA8RGF2aWQuTGFpZ2h0
-QGFjdWxhYi5jb20+IHdyb3RlOg0KPiA+DQo+ID4gQ2FuIGl0IGJlIHJlc29sdmVkIGJ5IG1ha2lu
-ZzoNCj4gPiAjZGVmaW5lIGxpc3RfZW50cnlfaXNfaGVhZChwb3MsIGhlYWQsIG1lbWJlcikgKChw
-b3MpID09IE5VTEwpDQo+ID4gYW5kIGRvdWJsZS1jaGVja2luZyB0aGF0IGl0IGlzbid0IHVzZWQg
-YW55d2hlcmUgZWxzZSAoZXhjZXB0IGluDQo+ID4gdGhlIGxpc3QgbWFjcm9zIHRoZW1zZWx2ZXMp
-Lg0KPiANCj4gV2VsbCwgeWVzLCBleGNlcHQgZm9yIHRoZSBmYWN0IHRoYXQgdGhlbiB0aGUgbmFt
-ZSBpcyBlbnRpcmVseSBtaXNsZWFkaW5nLi4uDQo+IA0KPiBBbmQgc29tZWJvZHkgcG9zc2libHkg
-dXNlcyBpdCB0b2dldGhlciB3aXRoIGxpc3RfZmlyc3RfZW50cnkoKSBldGMsIHNvDQo+IGl0IHJl
-YWxseSBpcyBjb21wbGV0ZWx5IGJyb2tlbiB0byBtaXggdGhhdCBjaGFuZ2Ugd2l0aCB0aGUgbGlz
-dA0KPiB0cmF2ZXJzYWwgY2hhbmdlLg0KDQpQcm9iYWJseSB0cnVlIDotKA0KDQpBY3R1YWxseSBh
-ZGRpbmcgbGlzdF9lbnRyeV9ub3RfZm91bmQoKSBhcyBhIHN5bm9ueW0gZm9yDQpsaXN0X2VudHJ5
-X2lzX2hlYWQoKSBhbmQgY2hhbmdpbmcgdGhlIDI1aXNoIHBsYWNlcyB0aGF0DQp1c2UgaXQgYWZ0
-ZXIgYSBsb29wIG1pZ2h0IHdvcmsuDQoNCk9uY2UgdGhhdCBpcyBkb25lIHRoZSBsb29wIGNhbiBi
-ZSBjaGFuZ2VkIGF0IHRoZSBzYW1lIHRpbWUNCmFzIGxpc3RfZW50cnlfbm90X2ZvdW5kKCkuDQpU
-aGF0IHdvbid0IGFmZmVjdCB0aGUgaW4tdHJlZSBjYWxsZXJzLg0KKGFuZCBteSBvdXQgb2YgdHJl
-ZSBtb2R1bGVzIGRvbid0IHVzZSB0aG9zZSBsaXN0cyAtIHNvIEkNCmRvbid0IGNhcmUgYWJvdXQg
-dGhhdCEpDQoNCkhhdmluZyBzYWlkIHRoYXQgdGhlcmUgYXJlIHNvIGZldyB1c2VycyBvZiBsaXN0
-X2VudHJ5X2lzX2hlYWQoKQ0KaXQgaXMgcmVhc29uYWJsZSB0byBnZW5lcmF0ZSB0d28gbmV3IG5h
-bWVzLg0KT25lIGZvciB1c2UgYWZ0ZXIgbGlzdF9mb3JfZWFjaF9lbnRyeSgpIGFuZCBvbmUgZm9y
-IGxpc3RfbmV4dF9lbnRyeSgpLg0KVGhlbiB0aGUgY2hhbmdlIGFsbCB0aGUgY2FsbCBzaXRlcy4N
-CkFmdGVyIHRoYXQgbGlzdF9lbnRyeV9pc19oZWFkKCkgY2FuIGJlIGRlbGV0ZWQgLSBicmVha2lu
-ZyBvdXQgb2YNCnRyZWUgY29tcGlsZXMuDQpGaW5hbGx5IGxpc3RfZm9yX2VhY2hfZW50cnkoKSBj
-YW4gYmUgcmV3cml0dGVuIHRvIHNldCBOVUxMDQphdCB0aGUgZW5kIG9mIHRoZSBsaXN0Lg0KDQoJ
-RGF2aWQNCg0KLQ0KUmVnaXN0ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQsIE1v
-dW50IEZhcm0sIE1pbHRvbiBLZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86IDEz
-OTczODYgKFdhbGVzKQ0K
+On Tue, Mar 01, 2022 at 09:34:54PM +0200, Ville Syrjälä wrote:
+> On Tue, Mar 01, 2022 at 11:30:52AM -0800, Navare, Manasi wrote:
+> > Hi Ville,
+> > 
+> > Does it make sense to add the set prop in intel_dp_Set_edid but keep the reset to false
+> > in intel_dp_detect where we clear other parameters?
+> 
+> We don't clear stuff in .detect(), or at least shouldn't. .detect() doesn't
+> even get run when forcing the connector status.
 
+Well we do clear some compliance variables there.
+But okay I can move the VRR rest stuff in intel_dp_unset_edid(), just that this will also
+get called evertime we set edid, it will always clear this first.
+
+Manasi
+
+> 
+> > 
+> > Manasi
+> > 
+> > 
+> > On Fri, Feb 25, 2022 at 05:11:02PM -0800, Navare, Manasi wrote:
+> > > On Fri, Feb 25, 2022 at 11:13:35AM +0200, Ville Syrjälä wrote:
+> > > > On Thu, Feb 24, 2022 at 05:30:55PM -0800, Manasi Navare wrote:
+> > > > > With some VRR panels, user can turn VRR ON/OFF on the fly from the panel settings.
+> > > > > When VRR is turned OFF ,sends a long HPD to the driver clearing the Ignore MSA bit
+> > > > > in the DPCD. Currently the driver parses that onevery HPD but fails to reset
+> > > > > the corresponding VRR Capable Connector property.
+> > > > > Hence the userspace still sees this as VRR Capable panel which is incorrect.
+> > > > > 
+> > > > > Fix this by explicitly resetting the connector property.
+> > > > > 
+> > > > > v2: Reset vrr capable if status == connector_disconnected
+> > > > > v3: Use i915 and use bool vrr_capable (Jani Nikula)
+> > > > > v4: Move vrr_capable to after update modes call (Jani N)
+> > > > > Remove the redundant comment (Jan N)
+> > > > > v5: Fixes the regression on older platforms by reseting the VRR
+> > > > > only if HAS_VRR
+> > > > > v6: Remove the checks from driver, add in drm core before
+> > > > > setting VRR prop (Ville)
+> > > > > 
+> > > > > Cc: Jani Nikula <jani.nikula@intel.com>
+> > > > > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > > > > Fixes: 390a1f8beb87 ("Revert "drm/i915/display/vrr: Reset VRR capable property on a long hpd")
+> > > > > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/i915/display/intel_dp.c | 15 +++++++++++----
+> > > > >  1 file changed, 11 insertions(+), 4 deletions(-)
+> > > > > 
+> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > > > index 1046e7fe310a..f96123b56935 100644
+> > > > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > > > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > > > @@ -4455,6 +4455,10 @@ intel_dp_detect(struct drm_connector *connector,
+> > > > >  		memset(&intel_dp->compliance, 0, sizeof(intel_dp->compliance));
+> > > > >  		memset(intel_dp->dsc_dpcd, 0, sizeof(intel_dp->dsc_dpcd));
+> > > > >  
+> > > > > +		/* Reset VRR Capable property on disconnect */
+> > > > > +		drm_connector_set_vrr_capable_property(connector,
+> > > > > +						       false);
+> > > > > +
+> > > > >  		if (intel_dp->is_mst) {
+> > > > >  			drm_dbg_kms(&dev_priv->drm,
+> > > > >  				    "MST device may have disappeared %d vs %d\n",
+> > > > > @@ -4569,15 +4573,18 @@ static int intel_dp_get_modes(struct drm_connector *connector)
+> > > > >  {
+> > > > >  	struct intel_connector *intel_connector = to_intel_connector(connector);
+> > > > >  	struct edid *edid;
+> > > > > +	struct drm_i915_private *i915 = to_i915(connector->dev);
+> > > > >  	int num_modes = 0;
+> > > > >  
+> > > > >  	edid = intel_connector->detect_edid;
+> > > > >  	if (edid) {
+> > > > > -		num_modes = intel_connector_update_modes(connector, edid);
+> > > > > +		bool vrr_capable;
+> > > > >  
+> > > > > -		if (intel_vrr_is_capable(connector))
+> > > > > -			drm_connector_set_vrr_capable_property(connector,
+> > > > > -							       true);
+> > > > > +		num_modes = intel_connector_update_modes(connector, edid);
+> > > > > +		vrr_capable = intel_vrr_is_capable(connector);
+> > > > > +		drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
+> > > > > +			    connector->base.id, connector->name, yesno(vrr_capable));
+> > > > > +		drm_connector_set_vrr_capable_property(connector, vrr_capable);
+> > > > 
+> > > > As mentioned on irc I think intel_dp_(un)set_edid() would be a better
+> > > > place for these.
+> > > 
+> > > Yes I guess I can add the above to check for vrr_capable and set it to true/false in intel_dp_set_edid()
+> > > 
+> > > But the resetting part needs to happen outside of intel_dp_unset_edid so that we dont always set it to false
+> > > before set_edid. It can just stay in intel_dp_detect where we clear other othing on connect status == disconnected.
+> > > Is that fine?
+> > > 
+> > > Manasi
+> > > 
+> > > > 
+> > > > >  	}
+> > > > >  
+> > > > >  	/* Also add fixed mode, which may or may not be present in EDID */
+> > > > > -- 
+> > > > > 2.19.1
+> > > > 
+> > > > -- 
+> > > > Ville Syrjälä
+> > > > Intel
+> 
+> -- 
+> Ville Syrjälä
+> Intel
