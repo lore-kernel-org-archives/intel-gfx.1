@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D63C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:31:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE0D9C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:31:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35BC510E669;
-	Tue,  1 Mar 2022 17:31:41 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80FCA10E600
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 17:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5E410E600;
+	Tue,  1 Mar 2022 17:31:43 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA3310E600
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 17:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646155899; x=1677691899;
+ t=1646155902; x=1677691902;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=8otEQLJA5Xcd/S90ZH7DgsAXoMkbidLUXIECBqnOrHY=;
- b=kRO7Jbi5uXDp+a8PA2W9bRkllpvLSe2sm10OoG6G5xj9YCYUPYKeCzJ7
- 6gqdXbQoBpupJpDIyyd5gWbT8MJtWf0xm6noxgYqAd8xaMGWbtrwtzHFq
- rZlcB80NgVTDvyn7+HnLEzPOAbo3Q3aS0kV/PS9353xO4ENeKtQ5tG/uV
- oBsp9KEc5R8RcbCeEbdp16jQ8j8V6bFjRzO3f9l4kHpjRqPwIp34akNoO
- XZjTExFBmq/DP+UTwGdVyBqA8mHpRTt0Mki12npJXxH+hgyhTj9Pah4T5
- 0uN5Qh2DwtDDq3SLuqG/hJFpdY3eGyj0Ga1D2CIgAhjBOi3zr9U4bfXm5 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233810314"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233810314"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 09:31:35 -0800
+ bh=KTrEah3Pxfe6xdeg/HR5QFXSIFd0bexk2Byz/x3cZBU=;
+ b=FlD5ax4Yke2VGspUUvXJcPkvWXSddX7x1SpZ9EKTTwG4iZTUPZ6e8CFi
+ SIREMYZUPzWZDjdsdtOOmS3QSFughGvJWvLyb8QfsaCDNdwAqXcAmfIkP
+ IhE4XMPhQGaUdoHwVPiDiU133hIa7dR8HXSS5UKQ1tN02WrzkVRvqBYyT
+ M+1/8bQLkokz1bWx3JDpqaLpPpaXCSSQQtbzUXvzajXqI4yrzuY96glKA
+ 1w42MMtlgLswG6+w9QzJ9SaeCMT5iEv2RSDJ9SuZxV8JCGjHpD0iHwc/d
+ jtTbI2EwHeN80GuzrLLsRC/0OhHqBDLQdS1NyoNLcvIKeu/f2aiDT3bDM w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="236700807"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="236700807"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 09:31:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="510599597"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="507882189"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga006.jf.intel.com with SMTP; 01 Mar 2022 09:31:32 -0800
+ by orsmga002.jf.intel.com with SMTP; 01 Mar 2022 09:31:39 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 01 Mar 2022 19:31:32 +0200
+ Tue, 01 Mar 2022 19:31:38 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Mar 2022 19:31:18 +0200
-Message-Id: <20220301173128.6988-2-ville.syrjala@linux.intel.com>
+Date: Tue,  1 Mar 2022 19:31:20 +0200
+Message-Id: <20220301173128.6988-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220301173128.6988-1-ville.syrjala@linux.intel.com>
 References: <20220301173128.6988-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/11] drm/i915: Nuke skl_wrpll_context_init()
+Subject: [Intel-gfx] [PATCH 03/11] drm/i915: Clean up some struct/array
+ initializers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +64,58 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We can trivially replace skl_wrpll_context_init() with a single
-designated initializer.
+Use the simple '= {}' form to initialize empty arrays/structs.
+Also add some missing whitespace.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 569903d47aea..1b1b70f0ff93 100644
+index 4e06c8203aca..bc26ebacae12 100644
 --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
 +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -1330,13 +1330,6 @@ struct skl_wrpll_context {
- 	unsigned int p;			/* chosen divider */
+@@ -832,7 +832,7 @@ hsw_ddi_calculate_wrpll(int clock /* in Hz */,
+ {
+ 	u64 freq2k;
+ 	unsigned p, n2, r2;
+-	struct hsw_wrpll_rnp best = { 0, 0, 0 };
++	struct hsw_wrpll_rnp best = {};
+ 	unsigned budget;
+ 
+ 	freq2k = clock / 100;
+@@ -1567,8 +1567,8 @@ skl_ddi_calculate_wrpll(int clock /* in Hz */,
+ static bool skl_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++	struct skl_wrpll_params wrpll_params = {};
+ 	u32 ctrl1, cfgcr1, cfgcr2;
+-	struct skl_wrpll_params wrpll_params = { 0, };
+ 
+ 	/*
+ 	 * See comment in intel_dpll_hw_state to understand why we always use 0
+@@ -2095,13 +2095,13 @@ struct bxt_clk_div {
+ 
+ /* pre-calculated values for DP linkrates */
+ static const struct bxt_clk_div bxt_dp_clk_val[] = {
+-	{162000, 4, 2, 32, 1677722, 1, 1},
+-	{270000, 4, 1, 27,       0, 0, 1},
+-	{540000, 2, 1, 27,       0, 0, 1},
+-	{216000, 3, 2, 32, 1677722, 1, 1},
+-	{243000, 4, 1, 24, 1258291, 1, 1},
+-	{324000, 4, 1, 32, 1677722, 1, 1},
+-	{432000, 3, 1, 32, 1677722, 1, 1}
++	{ 162000, 4, 2, 32, 1677722, 1, 1 },
++	{ 270000, 4, 1, 27,       0, 0, 1 },
++	{ 540000, 2, 1, 27,       0, 0, 1 },
++	{ 216000, 3, 2, 32, 1677722, 1, 1 },
++	{ 243000, 4, 1, 24, 1258291, 1, 1 },
++	{ 324000, 4, 1, 32, 1677722, 1, 1 },
++	{ 432000, 3, 1, 32, 1677722, 1, 1 }
  };
  
--static void skl_wrpll_context_init(struct skl_wrpll_context *ctx)
--{
--	memset(ctx, 0, sizeof(*ctx));
--
--	ctx->min_deviation = U64_MAX;
--}
--
- /* DCO freq must be within +1%/-6%  of the DCO central freq */
- #define SKL_DCO_MAX_PDEVIATION	100
- #define SKL_DCO_MAX_NDEVIATION	600
-@@ -1519,12 +1512,12 @@ skl_ddi_calculate_wrpll(int clock /* in Hz */,
- 		{ even_dividers, ARRAY_SIZE(even_dividers) },
- 		{ odd_dividers, ARRAY_SIZE(odd_dividers) },
- 	};
--	struct skl_wrpll_context ctx;
-+	struct skl_wrpll_context ctx = {
-+		.min_deviation = U64_MAX,
-+	};
- 	unsigned int dco, d, i;
- 	unsigned int p0, p1, p2;
- 
--	skl_wrpll_context_init(&ctx);
--
- 	for (d = 0; d < ARRAY_SIZE(dividers); d++) {
- 		for (dco = 0; dco < ARRAY_SIZE(dco_central_freq); dco++) {
- 			for (i = 0; i < dividers[d].n_dividers; i++) {
+ static bool
 -- 
 2.34.1
 
