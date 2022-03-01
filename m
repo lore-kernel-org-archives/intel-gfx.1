@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4529C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3D4C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE6A910E870;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF1510E848;
 	Tue,  1 Mar 2022 23:16:34 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB5C10E833;
- Tue,  1 Mar 2022 23:16:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7F2C10E85D;
+ Tue,  1 Mar 2022 23:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646176591; x=1677712591;
+ t=1646176589; x=1677712589;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ms2g7B4CpxD3OaGWYsJFV6y5HJWq4Miy0coNY/SeLN8=;
- b=G6mmEsKW24xUBvCBaw90Gvzdx7H3MZ/RDXbpaSXC0gUnypSLVksiU+VK
- /ZuU5e/jW+aA5zsQ9K9qiGeZaHe2sNtjuLTxAD0TJYTcSEpy1dVn6NCFa
- F63HWQsYEKPeQXQ8PQQ2c7EegIhHG1dlQeAOmR/ffLj5ZlaXjVK5hLXXr
- p4FWeKW+4eYm1xDgNx+1Na4tGHdiOZsJtm6Ev8kbGCNKKlSkqFtAjJ560
- WYWDv1GDS0Nfp0ak6JBoKPK4yfwaBoxTixm1VaKiRialm04K0Os9dGSc3
- dkxGmEF9j/vq/yGhZCEPT+G8I40zqoWeL+Xjkerb45vnu/N8G/XIxhHoC w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316479073"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316479073"
+ bh=EaNJ8DFzp72Q9xiHttaNlDzhQNIua2xmsJsN8xxDTp0=;
+ b=bE9HLpMoXAKhPTpCspA03dnvlfdvV7WhGv2s7zdkbiHUNX8Ia1NyP3KC
+ eGVhV4bV7yl4eI61+PWh5bSVitu921WzXzGYVvPLCbFiYpRJgATUOyvwc
+ wM78TDpKrxtxujilX2umvfDiJabJEOivjfXXh5yYPsAjbb0pKBKD8rPnI
+ N4Dx4Y6D/WT1iZUbch2ACj7OyeKtQcduGzNAcJ7rJxdN2/+njeYwYA9Bs
+ sOsHjCGd2z2NkGnfGXO5mu2tWMamGp7rewX0QoODxx0s83AOjyAsgUY1/
+ HoKOAdKHeErittPebBpcU7kjqKiwAxUeoxbdqXpbsR7POUGQmfHoImfG4 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316479062"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316479062"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 15:16:30 -0800
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709253504"
+ 01 Mar 2022 15:16:29 -0800
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709253474"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 15:16:29 -0800
+ 01 Mar 2022 15:16:28 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Mar 2022 15:15:49 -0800
-Message-Id: <20220301231549.1817978-14-matthew.d.roper@intel.com>
+Date: Tue,  1 Mar 2022 15:15:43 -0800
+Message-Id: <20220301231549.1817978-8-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220301231549.1817978-1-matthew.d.roper@intel.com>
 References: <20220301231549.1817978-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 13/13] drm/i915/xehpsdv: Move render/compute
- engine reset domains related workarounds
+Subject: [Intel-gfx] [PATCH v3 07/13] drm/i915/xehp: Define context
+ scheduling attributes in lrc descriptor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,80 +60,115 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.s@intel.com>
+In Dual Context mode the EUs are shared between render and compute
+command streamers. The hardware provides a field in the lrc descriptor
+to indicate the prioritization of the thread dispatch associated to the
+corresponding context.
 
-Registers that exist in the shared render/compute reset domain need to
-be placed on an engine workaround list to ensure that they are properly
-re-applied whenever an RCS or CCS engine is reset.  We have a number of
-workarounds (updating registers MLTICTXCTL, L3SQCREG1_CCS0,
-GEN12_MERT_MOD_CTRL, and GEN12_GAMCNTRL_CTRL) that are incorrectly
-implemented on the 'gt' workaround list and need to be moved
-accordingly.
+The context priority is set to 'low' at creation time and relies on the
+existing context priority to set it to low/normal/high.
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.s@intel.com>
+Bspec: 46145, 46260
+Original-author: Michel Thierry
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Signed-off-by: Prasad Nallani <prasad.nallani@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 26 ++++++++++-----------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c       |  4 +++-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h    |  1 +
+ .../drm/i915/gt/intel_execlists_submission.c    |  6 +++++-
+ drivers/gpu/drm/i915/gt/intel_lrc.h             | 17 +++++++++++++++++
+ 4 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 0b9435d62808..c014b40d2e9f 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1343,12 +1343,6 @@ xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	/* Wa_1409757795:xehpsdv */
- 	wa_write_or(wal, SCCGCTL94DC, CG3DDISURB);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index b0982a9e4476..2136c56d3abc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -435,8 +435,10 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
+ 		engine->props.preempt_timeout_ms = 0;
  
--	/* Wa_18011725039:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
--		wa_masked_dis(wal, MLTICTXCTL, TDONRENDER);
--		wa_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
--	}
--
- 	/* Wa_16011155590:xehpsdv */
- 	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
- 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE,
-@@ -1385,19 +1379,12 @@ xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 			    GAMTLBVEBOX0_CLKGATE_DIS);
- 	}
+ 	/* features common between engines sharing EUs */
+-	if (engine->class == RENDER_CLASS || engine->class == COMPUTE_CLASS)
++	if (engine->class == RENDER_CLASS || engine->class == COMPUTE_CLASS) {
+ 		engine->flags |= I915_ENGINE_HAS_RCS_REG_STATE;
++		engine->flags |= I915_ENGINE_HAS_EU_PRIORITY;
++	}
  
--	/* Wa_14012362059:xehpsdv */
--	wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
--
- 	/* Wa_16012725990:xehpsdv */
- 	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_FOREVER))
- 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE, VFUNIT_CLKGATE_DIS);
+ 	engine->defaults = engine->props; /* never to change again */
  
- 	/* Wa_14011060649:xehpsdv */
- 	wa_14011060649(gt, wal);
--
--	/* Wa_14014368820:xehpsdv */
--	wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
--		    GLOBAL_INVALIDATION_MODE);
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 5fa5f21bbf2d..19ff8758e34d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -525,6 +525,7 @@ struct intel_engine_cs {
+ #define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
+ #define I915_ENGINE_WANT_FORCED_PREEMPTION BIT(8)
+ #define I915_ENGINE_HAS_RCS_REG_STATE  BIT(9)
++#define I915_ENGINE_HAS_EU_PRIORITY    BIT(10)
+ 	unsigned int flags;
  
- static void
-@@ -2617,6 +2604,19 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 		/* Wa_14010449647:xehpsdv */
- 		wa_masked_en(wal, GEN7_HALF_SLICE_CHICKEN1,
- 			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 47fca5ebfa76..c8407cc96c42 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -665,9 +665,13 @@ static inline void execlists_schedule_out(struct i915_request *rq)
+ static u64 execlists_update_context(struct i915_request *rq)
+ {
+ 	struct intel_context *ce = rq->context;
+-	u64 desc = ce->lrc.desc;
++	u64 desc;
+ 	u32 tail, prev;
+ 
++	desc = ce->lrc.desc;
++	if (rq->engine->flags & I915_ENGINE_HAS_EU_PRIORITY)
++		desc |= lrc_desc_priority(rq_prio(rq));
 +
-+		/* Wa_18011725039:xehpsdv */
-+		if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
-+			wa_masked_dis(wal, MLTICTXCTL, TDONRENDER);
-+			wa_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
-+		}
-+
-+		/* Wa_14012362059:xehpsdv */
-+		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
-+
-+		/* Wa_14014368820:xehpsdv */
-+		wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
-+				GLOBAL_INVALIDATION_MODE);
- 	}
- }
+ 	/*
+ 	 * WaIdleLiteRestore:bdw,skl
+ 	 *
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
+index bb0e6c5b9922..6e4f9f58fca5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.h
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
+@@ -6,6 +6,9 @@
+ #ifndef __INTEL_LRC_H__
+ #define __INTEL_LRC_H__
  
++#include "i915_priolist_types.h"
++
++#include <linux/bitfield.h>
+ #include <linux/types.h>
+ 
+ struct drm_i915_gem_object;
+@@ -90,6 +93,10 @@ enum {
+ #define GEN8_CTX_L3LLC_COHERENT			(1 << 5)
+ #define GEN8_CTX_PRIVILEGE			(1 << 8)
+ #define GEN8_CTX_ADDRESSING_MODE_SHIFT		3
++#define GEN12_CTX_PRIORITY_MASK			GENMASK(10, 9)
++#define GEN12_CTX_PRIORITY_HIGH			FIELD_PREP(GEN12_CTX_PRIORITY_MASK, 2)
++#define GEN12_CTX_PRIORITY_NORMAL		FIELD_PREP(GEN12_CTX_PRIORITY_MASK, 1)
++#define GEN12_CTX_PRIORITY_LOW			FIELD_PREP(GEN12_CTX_PRIORITY_MASK, 0)
+ #define GEN8_CTX_ID_SHIFT			32
+ #define GEN8_CTX_ID_WIDTH			21
+ #define GEN11_SW_CTX_ID_SHIFT			37
+@@ -103,4 +110,14 @@ enum {
+ #define XEHP_SW_COUNTER_SHIFT			58
+ #define XEHP_SW_COUNTER_WIDTH			6
+ 
++static inline u32 lrc_desc_priority(int prio)
++{
++	if (prio > I915_PRIORITY_NORMAL)
++		return GEN12_CTX_PRIORITY_HIGH;
++	else if (prio < I915_PRIORITY_NORMAL)
++		return GEN12_CTX_PRIORITY_LOW;
++	else
++		return GEN12_CTX_PRIORITY_NORMAL;
++}
++
+ #endif /* __INTEL_LRC_H__ */
 -- 
 2.34.1
 
