@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A486AC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99591C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E405E10E877;
-	Tue,  1 Mar 2022 23:16:37 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0B3510E838;
- Tue,  1 Mar 2022 23:16:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646176590; x=1677712590;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=UT0dVFQp22TPpnclmcizIysi5Ln0VzfknBtpOwM1jWk=;
- b=BkSGNrQZnfHdBHPwcLjk/axAwVrGPc8iFn9hVA2GdNxGi3Bq46Cl9x+E
- D7YOibFTWun4SjfBJNirISk6aceC3dHxfc5xu5DXN59a6M/R8fIqJWkke
- Ca6o69pgqwk9c9Z19W4BJCn++rkA1Y+Ct6AJm+NbapFss0bX/3BKuJK1D
- aLbzeRIc4yfZfJJeN92e+DI9kmbbgTsu0G5MZzzA0rNMmdineiZmITRPV
- MX1Na8kZgfWV/1nL70cd9YjCyoCglBvYxUiXIKvSwtoDt+jIS2PftYjUQ
- UgXzvT1NtcC8SUrulSs822C2KX1szqrTlfKLEv4fd1rN+rzvNtPLBLMsz w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316479069"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316479069"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 15:16:29 -0800
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709253496"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 15:16:29 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Mar 2022 15:15:47 -0800
-Message-Id: <20220301231549.1817978-12-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220301231549.1817978-1-matthew.d.roper@intel.com>
-References: <20220301231549.1817978-1-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D36AF10E7D2;
+	Tue,  1 Mar 2022 23:22:42 +0000 (UTC)
+Received: from mail-vk1-xa2f.google.com (mail-vk1-xa2f.google.com
+ [IPv6:2607:f8b0:4864:20::a2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1EDC10E7D2
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 23:22:41 +0000 (UTC)
+Received: by mail-vk1-xa2f.google.com with SMTP id m195so16428vka.5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 15:22:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=MPQHz1qy9tWKEUX01tk1m93jc1oVOCglEUqkt2q1XsI=;
+ b=CnYAHzBHUhb7Ka/UTSLbIUgmHZCxBEGgYIjMw1U5jNFnmxEmMQSa3O+O2JlwK3bTpn
+ hAz37huhcy4rpcmnSnNG9qpD6kRs5YQGLy21HqsSUMgMWq2WyILF1EFXmPwNm2EtN799
+ ibzfU5d6ODVZST4T3C+RM4Phc0reu8E847gv5vWXGD9ofx9wpS2+P1acp7+/KtUE/MoK
+ gYInmtb/CpIiMsJu49B4vVF2y5BER3CH3eZmtyGnLJo4u5nSr4P3VpICcZUlJHpYa5Rf
+ PgG4lnEbzm9fDKa+6/UlIAXRsdD5JFC1IT4EF1C3zkeQNI3e9f976eOY9wpVMjUxBdRw
+ U8XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=MPQHz1qy9tWKEUX01tk1m93jc1oVOCglEUqkt2q1XsI=;
+ b=yz5YZnSw35lIymWz2GhkC/4uAZTy1Lz6vwXOy67B0r4v94uGZH74yQ5PNnUe59Glf/
+ u1DwjEqc4xliiPq2Xb5BpgBjAyMWsPMpOJ5+P0fo9geRRiRp+QEAlek9C09OAry4M06o
+ u33WPDSqbhQZu098U3bv/wHR3rShsx9utSbHLcEsOdgSoRFRAY6H74qAoJlQDAP+tjpx
+ d3VCPio7B/m1UQtAP9MtdPUf4OCeOBR0YY4BPHNNnabzZo/Ydv52pUeT7MGjypOjNUpt
+ am56vQ6jvgrABD8W9zk2X4AjpO61R0Dd5WAgIsyqy2QdwN15sv9gpYwVvoiNBQ/FBkea
+ c3cg==
+X-Gm-Message-State: AOAM531FYKeMINQEAunDNx0IzraUscNh28tVRfI71LrJwXxxQmQca83W
+ ic8d9EMU9pMyxp3rbcTHCGsy5m4Uc4iduC8etk6/FLFTh8k=
+X-Google-Smtp-Source: ABdhPJzXA6CDDO6MW9GgJnqtgIK9QThmmNZql9NaG6b+CJ+OwbOA27CpGjn7jFkWVXO+Wc5zeEXWz+rwkwD5PutfNl8=
+X-Received: by 2002:a1f:1355:0:b0:333:40fd:64ce with SMTP id
+ 82-20020a1f1355000000b0033340fd64cemr5824360vkt.17.1646176960937; Tue, 01 Mar
+ 2022 15:22:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/13] drm/i915/xehp: handle fused off CCS
- engines
+References: <20220301164629.3814634-1-jim.cromie@gmail.com>
+ <164617037032.8599.11195195015630248913@emeril.freedesktop.org>
+In-Reply-To: <164617037032.8599.11195195015630248913@emeril.freedesktop.org>
+From: jim.cromie@gmail.com
+Date: Tue, 1 Mar 2022 16:22:14 -0700
+Message-ID: <CAJfuBxwJJ99yUYGrPc_ghSwEzfQKa4QWOig=4S8o1e6938iMwA@mail.gmail.com>
+To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] 
+	=?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgdXNl?=
+	=?utf-8?q?_dynamic-debug_under_drm=2Edebug_api_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,134 +65,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+On Tue, Mar 1, 2022 at 2:32 PM Patchwork
+<patchwork@emeril.freedesktop.org> wrote:
+>
+> Patch Details
+> Series:use dynamic-debug under drm.debug api (rev2)
+> URL:https://patchwork.freedesktop.org/series/100289/
+> State:failure
+> Details:https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22448/index.html
+>
+> CI Bug Log - changes from CI_DRM_11306 -> Patchwork_22448
+>
+> Summary
+>
+> FAILURE
+>
+> Serious unknown changes coming with Patchwork_22448 absolutely need to be
+> verified manually.
+>
+> If you think the reported changes have nothing to do with the changes
+> introduced in Patchwork_22448, please notify your bug team to allow them
+> to document this new failure mode, which will reduce false positives in CI.
+>
+> External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22448/index.html
+>
+> Participating hosts (50 -> 45)
+>
+> Missing (5): shard-tglu fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus
+>
+> Possible new issues
+>
+> Here are the unknown changes that may have been introduced in Patchwork_22448:
+>
+> IGT changes
+>
+> Possible regressions
+>
+> igt@gem_exec_suspend@basic-s3@smem:
+>
+> fi-cml-u2: PASS -> INCOMPLETE
 
-HW resources are divided across the active CCS engines at the compute
-slice level, with each CCS having priority on one of the cslices.
-If a compute slice has no enabled DSS, its paired compute engine is not
-usable in full parallel execution because the other ones already fully
-saturate the HW, so consider it fused off.
 
-v2 (José):
- - moved it to its own function
- - fixed definition of ccs_mask
+this one's incomplete cuz of an ext4 boot problem and panic.  unrelated.
 
-v3 (Matt):
- - Replace fls() condition with a simple IP version test
+<2>[   77.549595] EXT4-fs error (device sda2):
+ext4_journal_check_start:83: comm dmesg: Detected aborted journal
+<3>[   77.549651] Buffer I/O error on dev sda2, logical block
+58228736, lost sync page write
+<2>[   77.549684] EXT4-fs error (device sda2):
+ext4_journal_check_start:83: comm rs:main Q:Reg: Detected aborted
+journal
+<3>[   77.550560] JBD2: Error -5 detected when updating journal
+superblock for sda2-8.
+<3>[   77.553593] Buffer I/O error on dev sda2, logical block 0, lost
+sync page write
+<3>[   77.554225] EXT4-fs (sda2): I/O error while writing superblock
+<3>[   77.554229] EXT4-fs (sda2): I/O error while writing superblock
+<0>[   77.554869] Kernel panic - not syncing: EXT4-fs (device sda2):
+panic forced after error
+<0>[   78.581703] Shutting down cpus with NMI
+<0>[   78.581733] Kernel Offset: disabled
+<4>[   78.581785] CPU: 5 PID: 957 Comm: dmesg Not tainted
+5.17.0-rc6-CI-Patchwork_22448+ #1
 
-Cc: Stuart Summers <stuart.summers@intel.com>
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 25 +++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_sseu.c      | 17 ++++++++++++---
- drivers/gpu/drm/i915/gt/intel_sseu.h      |  4 +++-
- 3 files changed, 42 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 92f4cf9833ee..809747c20bc4 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -592,6 +592,29 @@ bool gen11_vdbox_has_sfc(struct intel_gt *gt,
- 	return false;
- }
- 
-+static void engine_mask_apply_compute_fuses(struct intel_gt *gt)
-+{
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct intel_gt_info *info = &gt->info;
-+	int ss_per_ccs = info->sseu.max_subslices / I915_MAX_CCS;
-+	const unsigned long ccs_mask =
-+		intel_slicemask_from_dssmask(intel_sseu_get_compute_subslices(&info->sseu),
-+					     ss_per_ccs);
-+	unsigned int i;
-+
-+	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
-+		return;
-+
-+	/*
-+	 * If all DSS in a quadrant are fused off, the corresponding CCS
-+	 * engine is not available for use.
-+	 */
-+	for_each_clear_bit(i, &ccs_mask, I915_MAX_CCS) {
-+		info->engine_mask &= ~BIT(_CCS(i));
-+		drm_dbg(&i915->drm, "ccs%u fused off\n", i);
-+	}
-+}
-+
- /*
-  * Determine which engines are fused off in our particular hardware.
-  * Note that we have a catch-22 situation where we need to be able to access
-@@ -673,6 +696,8 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
- 		vebox_mask, VEBOX_MASK(gt));
- 	GEM_BUG_ON(vebox_mask != VEBOX_MASK(gt));
- 
-+	engine_mask_apply_compute_fuses(gt);
-+
- 	return info->engine_mask;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
-index 29118c652811..4ac0bbaf0c31 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
-@@ -32,7 +32,9 @@ intel_sseu_subslice_total(const struct sseu_dev_info *sseu)
- 	return total;
- }
- 
--u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
-+static u32
-+_intel_sseu_get_subslices(const struct sseu_dev_info *sseu,
-+			  const u8 *subslice_mask, u8 slice)
- {
- 	int i, offset = slice * sseu->ss_stride;
- 	u32 mask = 0;
-@@ -40,12 +42,21 @@ u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
- 	GEM_BUG_ON(slice >= sseu->max_slices);
- 
- 	for (i = 0; i < sseu->ss_stride; i++)
--		mask |= (u32)sseu->subslice_mask[offset + i] <<
--			i * BITS_PER_BYTE;
-+		mask |= (u32)subslice_mask[offset + i] << i * BITS_PER_BYTE;
- 
- 	return mask;
- }
- 
-+u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice)
-+{
-+	return _intel_sseu_get_subslices(sseu, sseu->subslice_mask, slice);
-+}
-+
-+u32 intel_sseu_get_compute_subslices(const struct sseu_dev_info *sseu)
-+{
-+	return _intel_sseu_get_subslices(sseu, sseu->compute_subslice_mask, 0);
-+}
-+
- void intel_sseu_set_subslices(struct sseu_dev_info *sseu, int slice,
- 			      u8 *subslice_mask, u32 ss_mask)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
-index 60882a74741e..8a79cd8eaab4 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.h
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
-@@ -103,7 +103,9 @@ intel_sseu_subslice_total(const struct sseu_dev_info *sseu);
- unsigned int
- intel_sseu_subslices_per_slice(const struct sseu_dev_info *sseu, u8 slice);
- 
--u32  intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice);
-+u32 intel_sseu_get_subslices(const struct sseu_dev_info *sseu, u8 slice);
-+
-+u32 intel_sseu_get_compute_subslices(const struct sseu_dev_info *sseu);
- 
- void intel_sseu_set_subslices(struct sseu_dev_info *sseu, int slice,
- 			      u8 *subslice_mask, u32 ss_mask);
--- 
-2.34.1
-
+>
+> Known issues
+>
+> Here are the changes found in Patchwork_22448 that come from known issues:
+>
+> c2ed9cc02d9c dyndbg: fix static_branch manipulation
