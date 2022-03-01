@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E747C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:31:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8D3C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F48710E67D;
-	Tue,  1 Mar 2022 17:31:46 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7759910E67D
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 17:31:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2130210E6AE;
+	Tue,  1 Mar 2022 17:31:50 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE37B10E6AE
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 17:31:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646155904; x=1677691904;
+ t=1646155908; x=1677691908;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=vwtgMlu6KNry6u40XTggK0IBZmyHVL8KLS1j7FEuIzU=;
- b=GQMziz6ukEPcaaVQU8DOG82yBkUhzRxbflO4/TQSzcvG1LIvg3jlwyuJ
- /l4fMeb+fwDvFyUQiSKhRnfaQLmbPJg/3KufDuZ5jyVM2z1YibTMb3Jhp
- /JedBYLBdM1Kq5DdVW1LqKC+7MUImtrsu2y2qv74UYfVWvRpWY04ZX+J5
- YUT4kmBdWAcocJsEgpAvOHTg9IoiMKe/rBNy7WizV7GOryJhKxwWpnANh
- 0niq/YiRDLrCkIkAL6sVKDs5xVY2PaQ0y9Z79UCPNlmQ5xzwQnXgrUMu+
- ktH2MvO926SyNqr3si/Up+Yt2vtjx0nk/eaA0EW9OxD6H7esAVMBngm4B g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="277860410"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="277860410"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 09:31:43 -0800
+ bh=WAVO60jVA/s5R7eSw8TG/8cOrVjOmjwyzlKiaKtR/g4=;
+ b=lsEr3It7BRsRPFZjjVcxSZSQUFbAFdPJdwmXn/C2ceSWyQddZ2qA1VI8
+ jf/Q27tpIpBx+3e0EFFdsFt/C72ssREvN3sEjpPiS1AjP/5KH/mmdp7r7
+ mlC5T9JNIAEiAzW6tC66A2BkWSbrRHwmilrawJMSNpxv6yHDRuZ6DnFlm
+ aONN7jgLRecDdj4KHESvvMdJXEVUjobVM/km1Ql8msfPEy/JruTF6abEr
+ VjFc+pHD6QXUcWzdhDmc27HXR1ZdWABVikiLgqonfgatPGwTxQTBZIfd2
+ ySpL3+zH8BkWpd/bsps610YznWcPTq0Ap+t6T3e435NoCcqElEJIy/yVR Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="253383440"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="253383440"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 09:31:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630095842"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="575782844"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by FMSMGA003.fm.intel.com with SMTP; 01 Mar 2022 09:31:42 -0800
+ by orsmga001.jf.intel.com with SMTP; 01 Mar 2022 09:31:35 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 01 Mar 2022 19:31:41 +0200
+ Tue, 01 Mar 2022 19:31:35 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Mar 2022 19:31:21 +0200
-Message-Id: <20220301173128.6988-5-ville.syrjala@linux.intel.com>
+Date: Tue,  1 Mar 2022 19:31:19 +0200
+Message-Id: <20220301173128.6988-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220301173128.6988-1-ville.syrjala@linux.intel.com>
 References: <20220301173128.6988-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/11] drm/i915: Store the /5 target clock in
- sturct dpll on vlv/chv
+Subject: [Intel-gfx] [PATCH 02/11] drm/i915: Move a bunch of stuff into
+ rodata from the stack
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,110 +64,82 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Unify vlv/chv with earlier platforms so that the sturct dpll::dot
-represents the /5 clock frequency (ie. DP symbol rate or HDMI
-TMDS rate) rather than the *5 fast clock (/2 of the bitrate).
-Makes life a little less confusing to get the same number back
-in .dot which we fed into the DPLL algorithm.
+Toss a bunch if constants into .rodata drom the stack. Also
+shrink the types of some of the arrays to reduce the size.
+
+bloat-o-meter -c intel_dpll_mgr.o:
+add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-86 (-86)
+Function                                     old     new   delta
+icl_get_dplls                               3393    3372     -21
+skl_get_dpll                                2069    2004     -65
+Total: Before=28029, After=27943, chg -0.31%
+add/remove: 0/0 grow/shrink: 0/0 up/down: 0/0 (0)
+Data                                         old     new   delta
+Total: Before=17, After=17, chg +0.00%
+add/remove: 2/0 grow/shrink: 0/2 up/down: 28/-129 (-101)
+RO Data                                      old     new   delta
+dco_central_freq                               -      24     +24
+div1_vals                                      -       4      +4
+odd_dividers                                  28       7     -21
+even_dividers                                144      36    -108
+Total: Before=3600, After=3499, chg -2.81%
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 24 +++++++++----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 14f5ffe27d05..693e07a6db80 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -253,12 +253,12 @@ static const struct intel_limit ilk_limits_dual_lvds_100m = {
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 1b1b70f0ff93..4e06c8203aca 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -1495,18 +1495,17 @@ skl_ddi_calculate_wrpll(int clock /* in Hz */,
+ 			int ref_clock,
+ 			struct skl_wrpll_params *wrpll_params)
+ {
+-	u64 afe_clock = clock * 5; /* AFE Clock is 5x Pixel clock */
+-	u64 dco_central_freq[3] = { 8400000000ULL,
+-				    9000000000ULL,
+-				    9600000000ULL };
+-	static const int even_dividers[] = {  4,  6,  8, 10, 12, 14, 16, 18, 20,
+-					     24, 28, 30, 32, 36, 40, 42, 44,
+-					     48, 52, 54, 56, 60, 64, 66, 68,
+-					     70, 72, 76, 78, 80, 84, 88, 90,
+-					     92, 96, 98 };
+-	static const int odd_dividers[] = { 3, 5, 7, 9, 15, 21, 35 };
++	static const u64 dco_central_freq[3] = { 8400000000ULL,
++						 9000000000ULL,
++						 9600000000ULL };
++	static const u8 even_dividers[] = {  4,  6,  8, 10, 12, 14, 16, 18, 20,
++					    24, 28, 30, 32, 36, 40, 42, 44,
++					    48, 52, 54, 56, 60, 64, 66, 68,
++					    70, 72, 76, 78, 80, 84, 88, 90,
++					    92, 96, 98 };
++	static const u8 odd_dividers[] = { 3, 5, 7, 9, 15, 21, 35 };
+ 	static const struct {
+-		const int *list;
++		const u8 *list;
+ 		int n_dividers;
+ 	} dividers[] = {
+ 		{ even_dividers, ARRAY_SIZE(even_dividers) },
+@@ -1517,6 +1516,7 @@ skl_ddi_calculate_wrpll(int clock /* in Hz */,
+ 	};
+ 	unsigned int dco, d, i;
+ 	unsigned int p0, p1, p2;
++	u64 afe_clock = clock * 5; /* AFE Clock is 5x Pixel clock */
  
- static const struct intel_limit intel_limits_vlv = {
- 	 /*
--	  * These are the data rate limits (measured in fast clocks)
-+	  * These are based on the data rate limits (measured in fast clocks)
- 	  * since those are the strictest limits we have. The fast
- 	  * clock and actual rate limits are more relaxed, so checking
- 	  * them would make no difference.
- 	  */
--	.dot = { .min = 25000 * 5, .max = 270000 * 5 },
-+	.dot = { .min = 25000, .max = 270000 },
- 	.vco = { .min = 4000000, .max = 6000000 },
- 	.n = { .min = 1, .max = 7 },
- 	.m1 = { .min = 2, .max = 3 },
-@@ -269,12 +269,12 @@ static const struct intel_limit intel_limits_vlv = {
+ 	for (d = 0; d < ARRAY_SIZE(dividers); d++) {
+ 		for (dco = 0; dco < ARRAY_SIZE(dco_central_freq); dco++) {
+@@ -2751,8 +2751,8 @@ static bool icl_mg_pll_find_divisors(int clock_khz, bool is_dp, bool use_ssc,
+ 				     struct intel_dpll_hw_state *state,
+ 				     bool is_dkl)
+ {
++	static const u8 div1_vals[] = { 7, 5, 3, 2 };
+ 	u32 dco_min_freq, dco_max_freq;
+-	int div1_vals[] = {7, 5, 3, 2};
+ 	unsigned int i;
+ 	int div2;
  
- static const struct intel_limit intel_limits_chv = {
- 	/*
--	 * These are the data rate limits (measured in fast clocks)
-+	 * These are based on the data rate limits (measured in fast clocks)
- 	 * since those are the strictest limits we have.  The fast
- 	 * clock and actual rate limits are more relaxed, so checking
- 	 * them would make no difference.
- 	 */
--	.dot = { .min = 25000 * 5, .max = 540000 * 5},
-+	.dot = { .min = 25000, .max = 540000 },
- 	.vco = { .min = 4800000, .max = 6480000 },
- 	.n = { .min = 1, .max = 1 },
- 	.m1 = { .min = 2, .max = 2 },
-@@ -340,9 +340,9 @@ int vlv_calc_dpll_params(int refclk, struct dpll *clock)
- 	if (WARN_ON(clock->n == 0 || clock->p == 0))
- 		return 0;
- 	clock->vco = DIV_ROUND_CLOSEST(refclk * clock->m, clock->n);
--	clock->dot = DIV_ROUND_CLOSEST(clock->vco, clock->p);
-+	clock->dot = DIV_ROUND_CLOSEST(clock->vco, 5 * clock->p);
- 
--	return clock->dot / 5;
-+	return clock->dot;
- }
- 
- int chv_calc_dpll_params(int refclk, struct dpll *clock)
-@@ -353,9 +353,9 @@ int chv_calc_dpll_params(int refclk, struct dpll *clock)
- 		return 0;
- 	clock->vco = DIV_ROUND_CLOSEST_ULL(mul_u32_u32(refclk, clock->m),
- 					   clock->n << 22);
--	clock->dot = DIV_ROUND_CLOSEST(clock->vco, clock->p);
-+	clock->dot = DIV_ROUND_CLOSEST(clock->vco, 5 * clock->p);
- 
--	return clock->dot / 5;
-+	return clock->dot;
- }
- 
- /*
-@@ -658,8 +658,6 @@ vlv_find_best_dpll(const struct intel_limit *limit,
- 	int max_n = min(limit->n.max, refclk / 19200);
- 	bool found = false;
- 
--	target *= 5; /* fast clock */
--
- 	memset(best_clock, 0, sizeof(*best_clock));
- 
- 	/* based on hardware requirement, prefer smaller n to precision */
-@@ -672,7 +670,7 @@ vlv_find_best_dpll(const struct intel_limit *limit,
- 				for (clock.m1 = limit->m1.min; clock.m1 <= limit->m1.max; clock.m1++) {
- 					unsigned int ppm;
- 
--					clock.m2 = DIV_ROUND_CLOSEST(target * clock.p * clock.n,
-+					clock.m2 = DIV_ROUND_CLOSEST(target * 5 * clock.p * clock.n,
- 								     refclk * clock.m1);
- 
- 					vlv_calc_dpll_params(refclk, &clock);
-@@ -728,7 +726,6 @@ chv_find_best_dpll(const struct intel_limit *limit,
- 	 */
- 	clock.n = 1;
- 	clock.m1 = 2;
--	target *= 5;	/* fast clock */
- 
- 	for (clock.p1 = limit->p1.max; clock.p1 >= limit->p1.min; clock.p1--) {
- 		for (clock.p2 = limit->p2.p2_fast;
-@@ -738,7 +735,7 @@ chv_find_best_dpll(const struct intel_limit *limit,
- 
- 			clock.p = clock.p1 * clock.p2;
- 
--			m2 = DIV_ROUND_CLOSEST_ULL(mul_u32_u32(target, clock.p * clock.n) << 22,
-+			m2 = DIV_ROUND_CLOSEST_ULL(mul_u32_u32(target, 5 * clock.p * clock.n) << 22,
- 						   refclk * clock.m1);
- 
- 			if (m2 > INT_MAX/clock.m1)
 -- 
 2.34.1
 
