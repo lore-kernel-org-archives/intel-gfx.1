@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EA3C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F04C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 931CC10E769;
-	Tue,  1 Mar 2022 17:32:00 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62A8010E769
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 17:31:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 451FC10E728;
+	Tue,  1 Mar 2022 17:32:11 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D746A10E784
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 17:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646155919; x=1677691919;
+ t=1646155929; x=1677691929;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=yBz1cIZ8UZxAbgzjxoaJOxqgH792kMFuogowT5Pa35w=;
- b=Dc0SuFX3uEScLSkvGHmD50mKwnI7SgDycZxyiFYxdR8OmxMDN7Go4yJ5
- fS1JA1NmP+nPNm/iVdg2nt9pQv+PQwaCgOXB3xdXmuvgK1xzd/ymigxCB
- Kge3NKmsFjxK+yufyNlius4MfupNP/M3MRGh6fzV897VNidph4z4zFru0
- sNBpBPg1dXVAGjV1cf4LvJvqX1Sdp27rcjhGkjsRfKXOlhdRgloON21GV
- HyyuaPZ1Sf+EiXff8Q1q0YnEl2h872wSu7PC88l57YTEfgJK+F2WlXPyj
- ok+sALWKHOMgmqXsvbf02s44+be4B2PjEtuumrj2tRmmfz466ClA5Xqfs w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316408587"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316408587"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 09:31:58 -0800
+ bh=shI3bnZtMGBgGK6xrv5KfwPx67fi7Q6LRovJ/5zDFxs=;
+ b=Pk2hFt4ZRkd7Z153oeKvKHCjDy/f1E8HDdPDr0zjaiX8aC2qohEOtqws
+ EbqvZBcSgEhrKvkoTIRfiB3wxGtBe4TYLcfPTsR1ZkvFMzRYidnmZRo3c
+ lHjFKZ2j9uEydSoER6QUIvqhpBSU4IKCE79BrzhFGPBYw7XFiPMlF5FB8
+ B7fq2mt42JVdLSZPrtYWqTAULOQ54VZmAXjjRCSCj0kVRYfpU31Aquzjk
+ 2p1vlJ6vAirG0oaHpQKq0NSWGTyJO+Y6CnsoJRh958F5VVtHLFqgsP7cH
+ SdgTsCMmy07o1P6u1udOVKwG4JUI4frbtdx2UHtVZEWaP4IJZrzQGpUmz Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="313911717"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="313911717"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 09:32:04 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="550818180"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="510599935"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga008.jf.intel.com with SMTP; 01 Mar 2022 09:31:56 -0800
+ by orsmga006.jf.intel.com with SMTP; 01 Mar 2022 09:32:02 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 01 Mar 2022 19:31:55 +0200
+ Tue, 01 Mar 2022 19:32:01 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Mar 2022 19:31:26 +0200
-Message-Id: <20220301173128.6988-10-ville.syrjala@linux.intel.com>
+Date: Tue,  1 Mar 2022 19:31:28 +0200
+Message-Id: <20220301173128.6988-12-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220301173128.6988-1-ville.syrjala@linux.intel.com>
 References: <20220301173128.6988-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/11] drm/i915: Replace hand rolled bxt vco
- calculation with chv_calc_dpll_params()
+Subject: [Intel-gfx] [PATCH 11/11] drm/i915: Remove struct dp_link_dpll
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,72 +63,105 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use chv_calc_dpll_params() to calculate the BXT DP DPLL VCO
-frequency.
-
-We need to add the m1 divider into bxt_dp_clk_val[] for this to work.
+struct dp_link_dpll is a pointless wrapper around struct dpll.
+Just store the desired link rate into struct dpll::dot and
+we're done.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 23 +++++++++++--------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/g4x_dp.c | 47 ++++++++++-----------------
+ 1 file changed, 18 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 58e9d5960bc6..5e39378ba1d0 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -2082,19 +2082,19 @@ static bool bxt_ddi_pll_get_hw_state(struct drm_i915_private *dev_priv,
+diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+index f67bbaaad8e0..559ce0fefaed 100644
+--- a/drivers/gpu/drm/i915/display/g4x_dp.c
++++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+@@ -22,58 +22,47 @@
+ #include "intel_pps.h"
+ #include "vlv_sideband.h"
  
- /* pre-calculated values for DP linkrates */
- static const struct dpll bxt_dp_clk_val[] = {
--	{ .dot = 162000, .p1 = 4, .p2 = 2, .n = 1,
-+	{ .dot = 162000, .p1 = 4, .p2 = 2, .n = 1, .m1 = 2,
- 	  .m2 = 0x819999a /* .m2_int = 32, m2_frac = 1677722 */ },
--	{ .dot = 270000, .p1 = 4, .p2 = 1, .n = 1,
-+	{ .dot = 270000, .p1 = 4, .p2 = 1, .n = 1, .m1 = 2,
- 	  .m2 = 0x6c00000 /* .m2_int = 27, m2_frac =       0 */ },
--	{ .dot = 540000, .p1 = 2, .p2 = 1, .n = 1,
-+	{ .dot = 540000, .p1 = 2, .p2 = 1, .n = 1, .m1 = 2,
- 	  .m2 = 0x6c00000 /* .m2_int = 27, m2_frac =       0 */ },
--	{ .dot = 216000, .p1 = 3, .p2 = 2, .n = 1,
-+	{ .dot = 216000, .p1 = 3, .p2 = 2, .n = 1, .m1 = 2,
- 	  .m2 = 0x819999a /* .m2_int = 32, m2_frac = 1677722 */ },
--	{ .dot = 243000, .p1 = 4, .p2 = 1, .n = 1,
-+	{ .dot = 243000, .p1 = 4, .p2 = 1, .n = 1, .m1 = 2,
- 	  .m2 = 0x6133333 /* .m2_int = 24, m2_frac = 1258291 */ },
--	{ .dot = 324000, .p1 = 4, .p2 = 1, .n = 1,
-+	{ .dot = 324000, .p1 = 4, .p2 = 1, .n = 1, .m1 = 2,
- 	  .m2 = 0x819999a /* .m2_int = 32, m2_frac = 1677722 */ },
--	{ .dot = 432000, .p1 = 3, .p2 = 1, .n = 1,
-+	{ .dot = 432000, .p1 = 3, .p2 = 1, .n = 1, .m1 = 2,
- 	  .m2 = 0x819999a /* .m2_int = 32, m2_frac = 1677722 */ },
+-struct dp_link_dpll {
+-	int clock;
+-	struct dpll dpll;
++static const struct dpll g4x_dpll[] = {
++	{ .dot = 162000, .p1 = 2, .p2 = 10, .n = 2, .m1 = 23, .m2 = 8, },
++	{ .dot = 270000, .p1 = 1, .p2 = 10, .n = 1, .m1 = 14, .m2 = 2, },
  };
  
-@@ -2125,18 +2125,21 @@ bxt_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state,
- static void bxt_ddi_dp_pll_dividers(struct intel_crtc_state *crtc_state,
- 				    struct dpll *clk_div)
+-static const struct dp_link_dpll g4x_dpll[] = {
+-	{ 162000,
+-		{ .p1 = 2, .p2 = 10, .n = 2, .m1 = 23, .m2 = 8 } },
+-	{ 270000,
+-		{ .p1 = 1, .p2 = 10, .n = 1, .m1 = 14, .m2 = 2 } }
++static const struct dpll pch_dpll[] = {
++	{ .dot = 162000, .p1 = 2, .p2 = 10, .n = 1, .m1 = 12, .m2 = 9, },
++	{ .dot = 270000, .p1 = 1, .p2 = 10, .n = 2, .m1 = 14, .m2 = 8, },
+ };
+ 
+-static const struct dp_link_dpll pch_dpll[] = {
+-	{ 162000,
+-		{ .p1 = 2, .p2 = 10, .n = 1, .m1 = 12, .m2 = 9 } },
+-	{ 270000,
+-		{ .p1 = 1, .p2 = 10, .n = 2, .m1 = 14, .m2 = 8 } }
+-};
+-
+-static const struct dp_link_dpll vlv_dpll[] = {
+-	{ 162000,
+-		{ .p1 = 3, .p2 = 2, .n = 5, .m1 = 3, .m2 = 81 } },
+-	{ 270000,
+-		{ .p1 = 2, .p2 = 2, .n = 1, .m1 = 2, .m2 = 27 } }
++static const struct dpll vlv_dpll[] = {
++	{ .dot = 162000, .p1 = 3, .p2 = 2, .n = 5, .m1 = 3, .m2 = 81, },
++	{ .dot = 270000, .p1 = 2, .p2 = 2, .n = 1, .m1 = 2, .m2 = 27, },
+ };
+ 
+ /*
+  * CHV supports eDP 1.4 that have  more link rates.
+  * Below only provides the fixed rate but exclude variable rate.
+  */
+-static const struct dp_link_dpll chv_dpll[] = {
++static const struct dpll chv_dpll[] = {
+ 	/*
+ 	 * CHV requires to program fractional division for m2.
+ 	 * m2 is stored in fixed point format using formula below
+ 	 * (m2_int << 22) | m2_fraction
+ 	 */
+-	{ 162000,	/* m2_int = 32, m2_fraction = 1677722 */
+-		{ .p1 = 4, .p2 = 2, .n = 1, .m1 = 2, .m2 = 0x819999a } },
+-	{ 270000,	/* m2_int = 27, m2_fraction = 0 */
+-		{ .p1 = 4, .p2 = 1, .n = 1, .m1 = 2, .m2 = 0x6c00000 } },
++	{ .dot = 162000, .p1 = 4, .p2 = 2, .n = 1, .m1 = 2,
++	  .m2 = 0x819999a /* m2_int = 32, m2_frac = 1677722 */ },
++	{ .dot = 270000, .p1 = 4, .p2 = 1, .n = 1, .m1 = 2,
++	  .m2 = 0x6c00000 /* m2_int = 27, m2_frac =       0 */ },
+ };
+ 
+ const struct dpll *vlv_get_dpll(struct drm_i915_private *i915)
  {
--	int clock = crtc_state->port_clock;
-+	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
- 	int i;
- 
- 	*clk_div = bxt_dp_clk_val[0];
- 	for (i = 0; i < ARRAY_SIZE(bxt_dp_clk_val); ++i) {
--		if (bxt_dp_clk_val[i].dot == clock) {
-+		if (crtc_state->port_clock == bxt_dp_clk_val[i].dot) {
- 			*clk_div = bxt_dp_clk_val[i];
- 			break;
- 		}
- 	}
- 
--	clk_div->vco = clock * 10 / 2 * clk_div->p1 * clk_div->p2;
-+	drm_WARN_ON(&i915->drm,
-+		    chv_calc_dpll_params(i915->dpll.ref_clks.nssc, clk_div));
-+	drm_WARN_ON(&i915->drm,
-+		    clk_div->dot != crtc_state->port_clock);
+-	return IS_CHERRYVIEW(i915) ? &chv_dpll[0].dpll : &vlv_dpll[0].dpll;
++	return IS_CHERRYVIEW(i915) ? &chv_dpll[0] : &vlv_dpll[0];
  }
  
- static bool bxt_ddi_set_dpll_hw_state(struct intel_crtc_state *crtc_state,
+ void g4x_dp_set_clock(struct intel_encoder *encoder,
+ 		      struct intel_crtc_state *pipe_config)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	const struct dp_link_dpll *divisor = NULL;
++	const struct dpll *divisor = NULL;
+ 	int i, count = 0;
+ 
+ 	if (IS_G4X(dev_priv)) {
+@@ -92,8 +81,8 @@ void g4x_dp_set_clock(struct intel_encoder *encoder,
+ 
+ 	if (divisor && count) {
+ 		for (i = 0; i < count; i++) {
+-			if (pipe_config->port_clock == divisor[i].clock) {
+-				pipe_config->dpll = divisor[i].dpll;
++			if (pipe_config->port_clock == divisor[i].dot) {
++				pipe_config->dpll = divisor[i];
+ 				pipe_config->clock_set = true;
+ 				break;
+ 			}
 -- 
 2.34.1
 
