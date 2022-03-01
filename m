@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CEE5C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 20:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5119C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 20:03:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2A810E821;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C417710E829;
 	Tue,  1 Mar 2022 20:03:02 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B6310E588;
- Tue,  1 Mar 2022 14:46:10 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 409F361520;
- Tue,  1 Mar 2022 14:46:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A403BC36AE3;
- Tue,  1 Mar 2022 14:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646145969;
- bh=O7PMjYoyVgpMGjTVJdUqo4vjOgkMH6zVD28CMdfxejY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ScbK0J6pozv/c2GDJYHlIZpbvfONFwSIK/2j9QTvGy0h6OxUAoFSJS7ACLBifahWv
- DcEHKw3lZtb+uu9XBfWLbqlt4501Amp6VUN+Dzs96ZiZLJ0WrXZIhbPfc31qIWMyNy
- ATq4x+Oqa8aCq2GW5gs+Y/j2lbHCJQUV8G4qbfbhkoke2or1lVhj8owINILXGePjRZ
- R7WocAjuMhKmJQAgH9JZzvEWwPneWdjxvB9/qREXxhHUchmngRvsvQS8MYiNKoAhTS
- lRIGGo0c7PSqmvXlDIU+2nV4tRgWSUE8CyjB1CiW2iruBEJHgJWl3+5y31XDNWkEo7
- 0CfBGfIlQclkw==
-Received: by mail-wm1-f44.google.com with SMTP id
- l2-20020a7bc342000000b0037fa585de26so1125809wmj.1; 
- Tue, 01 Mar 2022 06:46:09 -0800 (PST)
-X-Gm-Message-State: AOAM5339YuVfddwoXv8HOO/Q/VnPwTmUhSbv1XR37SyQoXGyA5ElLI+1
- DgbcJBWcWC64jiUfc0IgZrzI8hsZ6on+lfpoJXw=
-X-Google-Smtp-Source: ABdhPJxXTbyRPUGWO5ZqEHYDoeKGRHcrrv5eZPJqecMQqdHX7hdx2ouYJfmaJG1ZffheKZ5NWAXaiF6wK5E6lkn8a4k=
-X-Received: by 2002:a7b:c001:0:b0:381:1afd:5caa with SMTP id
- c1-20020a7bc001000000b003811afd5caamr17359158wmb.35.1646145967920; Tue, 01
- Mar 2022 06:46:07 -0800 (PST)
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [IPv6:2607:f8b0:4864:20::d2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B37C089819;
+ Tue,  1 Mar 2022 10:44:05 +0000 (UTC)
+Received: by mail-io1-xd2e.google.com with SMTP id r7so17968825iot.3;
+ Tue, 01 Mar 2022 02:44:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dohQLzfhr7wZu6SxVtIw3CHG42SObGN2SXyswtlVBsg=;
+ b=WrUDonvN2fO25UTk5VNVhFhd8gruRaN5xzDoP4JD0Sakac0hlwGn0vLFs4yYd4XAFv
+ uZKJIKn4j7cuELvqeeSDPXMNu2C1n0MsJpfl9rt1CcXMWz8ysAwYiWu0FU5ssFw8GnBu
+ KImb7bl4uZxpEQ889GR2FwiQtAowT5cOncwrkuheaR+UErGWa6dJdP5knzUj9ZNji+C6
+ SaCIGAmJwbqyXPo1H+nGW/xKoV4Sv5xxMQcmeQv2UvCQ1LPx9cytIPoPatO3xtpXO37Q
+ QL3drAKRoTDr8u6LO2OfPrWDqwyTUyYOMOn4N3XOwbIN3FW3QG+ijjXJMFfWWnQ72HyS
+ YuTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dohQLzfhr7wZu6SxVtIw3CHG42SObGN2SXyswtlVBsg=;
+ b=fYEMdJ5+FPFFp3tHfuZPkEAWnlaVjOSk+jEwi0Zs/1MrGGl4oUqs+8BDM0Vgya38KA
+ qzRLCa+edwLcuP3fYStVZnB1NvNnl09yxNuo3HebCp3P3JHPPbhdFwl3OnPBm7Sz3Ozr
+ 67QMuAYmWMdhfZAIEG6WLqFpMuqRjiA3SMXhplV4Jwr5qnxpYH+ys4BUqVPiMRI2Uzi7
+ WA5WU7yHEmgU2ZM7Ot3XFCoQne/KkjXw//wVAN10KKEKMqUJH0x+h74r9/TjonUTwAiL
+ U+vGvAVuv9Av4VHp8MBGv4DFJlLYSDxnIORsxHwG7eW7tlVq2IkwdCdrTBrKCHrWlasZ
+ BdNQ==
+X-Gm-Message-State: AOAM533SnM0QXgX5LSqPIab4VInY97qK1zVsjNG9XJ+hBOVF3fwvE8Uv
+ R2Lb+xMp0f5T6OzZIFOQyD60FiD0BtcxwfOQtoQ=
+X-Google-Smtp-Source: ABdhPJw1aZ/CGkeAZM6RKVYVHBay0f9lMjJdsMqyLhdijbZf60uaKu7bggqdaHiabrS+XPZY5qiqhEF5Hass1iDJqZk=
+X-Received: by 2002:a6b:661a:0:b0:640:dd42:58ff with SMTP id
+ a26-20020a6b661a000000b00640dd4258ffmr18921633ioc.64.1646131444958; Tue, 01
+ Mar 2022 02:44:04 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228103142.3301082-1-arnd@kernel.org>
- <CAKwvOdkLUx1td+qgUYy3w2ojtBG-mJTzpJg3BV8Xv56YHTxHCw@mail.gmail.com>
- <20220228214145.o37bgp3zl3rxpeo4@google.com>
-In-Reply-To: <20220228214145.o37bgp3zl3rxpeo4@google.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Tue, 1 Mar 2022 15:45:51 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2ZBOdEWTB1K9wA0v657VTZc-BC4LkDoQ0uw8Hw8FfSyg@mail.gmail.com>
-Message-ID: <CAK8P3a2ZBOdEWTB1K9wA0v657VTZc-BC4LkDoQ0uw8Hw8FfSyg@mail.gmail.com>
-To: Fangrui Song <maskray@google.com>
+In-Reply-To: <20220228103142.3301082-1-arnd@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 1 Mar 2022 11:43:53 +0100
+Message-ID: <CANiq72=wmYeBcJvRbBgRj1q_cHjZBVjxStXSu-8Ogv5bJhCqpA@mail.gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 01 Mar 2022 20:02:59 +0000
 Subject: Re: [Intel-gfx] [PATCH] [v2] Kbuild: move to -std=gnu11
@@ -64,48 +63,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Corbet <corbet@lwn.net>, Michal Marek <michal.lkml@markovi.net>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Michal Marek <michal.lkml@markovi.net>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jonathan Corbet <corbet@lwn.net>,
  linux-staging@lists.linux.dev, Masahiro Yamada <masahiroy@kernel.org>,
  llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>, Hu Haowen <src.res@email.cn>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- linux-btrfs <linux-btrfs@vger.kernel.org>,
+ Alex Shi <alexs@kernel.org>, Federico Vaga <federico.vaga@vaga.pv.it>,
+ Hu Haowen <src.res@email.cn>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Linux Btrfs <linux-btrfs@vger.kernel.org>,
  Linus Torvalds <torvalds@linux-foundation.org>,
- linux-doc-tw-discuss@lists.sourceforge.net, Alex Shi <alexs@kernel.org>
+ linux-doc-tw-discuss@lists.sourceforge.net,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 10:41 PM Fangrui Song <maskray@google.com> wrote:
-> >
-> >More precisely, the semantics of "extern inline" functions changed
-> >between ISO C90 and ISO C99.
+On Mon, Feb 28, 2022 at 11:32 AM Arnd Bergmann <arnd@kernel.org> wrote:
 >
-> Perhaps a clearer explanation to readers is: "extern inline" and "inline" swap
-> semantics with gnu_inline (-fgnu89-inline or __attribute__((__gnu_inline__))).
->
-> >That's the only concern I have, which I doubt is an issue. The kernel
-> >is already covered by the function attribute as you note.
-> >
-> >Just to have some measure:
-> >$ git grep -rn "extern inline" | wc -l
-> >116
->
-> "^inline" behaves like C99+ "extern inline"
->
-> Agree this is handled by
->
->      #define inline inline __gnu_inline __inline_maybe_unused notrace
->
+> -under ``-std=gnu89`` [gcc-c-dialect-options]_: the GNU dialect of ISO C90
+> -(including some C99 features). ``clang`` [clang]_ is also supported, see
+> +under ``-std=gnu11`` [gcc-c-dialect-options]_: the GNU dialect of ISO C11
+> +(including some C17 features). ``clang`` [clang]_ is also supported, see
 
-Ok, I've reworded it again, but kept it a bit shorter, I don't think we
-need the full explanation in this patch description in the end.
+I think the "(including some C17)" bit would not make much sense
+anymore. There were no major changes in C17 and GCC implements
+`-std=c11` and `-std=c17` as basically the same thing according to the
+docs (and GNU extensions apply equally to both, I would assume).
 
-Thanks,
+When I wrote the "(including some C99 features)" I meant that GCC
+implemented some C99 features as extensions in C90 mode, and the
+kernel used some of those (e.g. the now gone VLAs).
 
-      Arnd
+With that changed, for `programming-language.rst`:
+
+Reviewed-by: Miguel Ojeda <ojeda@kernel.org>
+
+Cheers,
+Miguel
