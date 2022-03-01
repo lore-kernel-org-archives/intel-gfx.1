@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D654C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95EC7C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:16:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2ED10E7D2;
-	Tue,  1 Mar 2022 23:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3895F10E829;
+	Tue,  1 Mar 2022 23:16:31 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5E410E7BB;
- Tue,  1 Mar 2022 23:16:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74A0910E7BB;
+ Tue,  1 Mar 2022 23:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646176587; x=1677712587;
+ t=1646176588; x=1677712588;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KRamTtQhPU13Ubh/Vuuh3ZqWdZURUtxBTuC0SLUkMJU=;
- b=Oa4sC0mBdZBav8wnAcnAODuzs7JFed0JTz6V0oOrwj6aeIgF2941PshM
- 57SJUPMVmZ8JXQ+R9nme+aXfqPwWBm1zsrLF/PWgyg+tWayo4fq7BJueW
- XiEAlINaP7BbIz2ll/Va6mGxc3hDDaqcFfKxwTWKzaKj/753rhb38k4r2
- DS49B4YVy4HeKPQ321vCdiNQn0kb04ZzO9f7Wjc5hEBQAbxSuGmcmV+if
- oZTo26c9uKmbkQBE1wILs17UwqQEVFB3YXDoM3LwQziVePqLljs7xEHTj
- /8TNDWXwQd6wS03qf1lZIJAA3QHLUY3B4sOeWW7hqo7v9Z7kjosJSOHtb w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316479051"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316479051"
+ bh=dOqmwGZeesPjMaaW2cJ1lodCCEN/QQ3RKG8iDcgeLnk=;
+ b=FSmlsCJyXuCGLCh9ufZo16Uq+ejD7nOOROZyiZwijTEHba5GQUj5un4I
+ //FVa49s9oM3w4KHCbCU763paEc1MhXXZaAu3Db/x+pYEEdLO6/M6eAGg
+ 5Z0G8V+a/vcqrrrHdjsk4gfjzQQ4A5vUPDciAZFqfJmmpM90H1X0HMhQF
+ ZZyQP4gq3bAWcrekiqvCz7Ov7VYvE52n8DNnKPH7gaqcDEXNALFV/+QgU
+ JupD2RIY5bY4URM0GjJO0e2wo0f7tbrEsY9+Tr/iHUsl6lKwU8BrMld3T
+ dsx6W4+kVH8cY1Is23HP//XQmjpYyavy7KXlbMxFBaGev2fjqxo8lRymN g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316479058"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316479058"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 15:16:27 -0800
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709253451"
+ 01 Mar 2022 15:16:28 -0800
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709253469"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 15:16:26 -0800
+ 01 Mar 2022 15:16:27 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Mar 2022 15:15:38 -0800
-Message-Id: <20220301231549.1817978-3-matthew.d.roper@intel.com>
+Date: Tue,  1 Mar 2022 15:15:42 -0800
+Message-Id: <20220301231549.1817978-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220301231549.1817978-1-matthew.d.roper@intel.com>
 References: <20220301231549.1817978-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 02/13] drm/i915/xehp: CCS shares the render
- reset domain
+Subject: [Intel-gfx] [PATCH v3 06/13] drm/i915: Move context descriptor
+ fields to intel_lrc.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,46 +56,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The reset domain is shared between render and all compute engines,
-so resetting one will affect the others.
+This is a more appropriate header for these definitions.
 
-Note:  Before performing a reset on an RCS or CCS engine, the GuC will
-attempt to preempt-to-idle the other non-hung RCS/CCS engines to avoid
-impacting other clients (since some shared modules will be reset).  If
-other engines are executing non-preemptable workloads, the impact is
-unavoidable and some work may be lost.
+v2:
+ - Cleanup whitespace. (Lucas)
 
-Bspec: 52549
-Original-author: Michel Thierry
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c |  1 +
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h   | 34 -----------------------
+ drivers/gpu/drm/i915/gt/intel_lrc.h       | 34 +++++++++++++++++++++++
+ 3 files changed, 35 insertions(+), 34 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 3190b7b462a9..3150c0847f65 100644
+index edba18c942cf..b0982a9e4476 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -341,6 +341,10 @@ static u32 get_reset_domain(u8 ver, enum intel_engine_id id)
- 			[VECS1] = GEN11_GRDOM_VECS2,
- 			[VECS2] = GEN11_GRDOM_VECS3,
- 			[VECS3] = GEN11_GRDOM_VECS4,
-+			[CCS0]  = GEN11_GRDOM_RENDER,
-+			[CCS1]  = GEN11_GRDOM_RENDER,
-+			[CCS2]  = GEN11_GRDOM_RENDER,
-+			[CCS3]  = GEN11_GRDOM_RENDER,
- 		};
- 		GEM_BUG_ON(id >= ARRAY_SIZE(engine_reset_domains) ||
- 			   !engine_reset_domains[id]);
+@@ -21,6 +21,7 @@
+ #include "intel_gt.h"
+ #include "intel_gt_requests.h"
+ #include "intel_gt_pm.h"
++#include "intel_lrc.h"
+ #include "intel_lrc_reg.h"
+ #include "intel_reset.h"
+ #include "intel_ring.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 69b826a3c381..84f189738a68 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1499,38 +1499,4 @@
+ 
+ #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
+ 
+-enum {
+-	INTEL_ADVANCED_CONTEXT = 0,
+-	INTEL_LEGACY_32B_CONTEXT,
+-	INTEL_ADVANCED_AD_CONTEXT,
+-	INTEL_LEGACY_64B_CONTEXT
+-};
+-
+-enum {
+-	FAULT_AND_HANG = 0,
+-	FAULT_AND_HALT, /* Debug only */
+-	FAULT_AND_STREAM,
+-	FAULT_AND_CONTINUE /* Unsupported */
+-};
+-
+-#define   CTX_GTT_ADDRESS_MASK			GENMASK(31, 12)
+-#define   GEN8_CTX_VALID			(1 << 0)
+-#define   GEN8_CTX_FORCE_PD_RESTORE		(1 << 1)
+-#define   GEN8_CTX_FORCE_RESTORE		(1 << 2)
+-#define   GEN8_CTX_L3LLC_COHERENT		(1 << 5)
+-#define   GEN8_CTX_PRIVILEGE			(1 << 8)
+-#define   GEN8_CTX_ADDRESSING_MODE_SHIFT	3
+-#define   GEN8_CTX_ID_SHIFT			32
+-#define   GEN8_CTX_ID_WIDTH			21
+-#define   GEN11_SW_CTX_ID_SHIFT			37
+-#define   GEN11_SW_CTX_ID_WIDTH			11
+-#define   GEN11_ENGINE_CLASS_SHIFT		61
+-#define   GEN11_ENGINE_CLASS_WIDTH		3
+-#define   GEN11_ENGINE_INSTANCE_SHIFT		48
+-#define   GEN11_ENGINE_INSTANCE_WIDTH		6
+-#define   XEHP_SW_CTX_ID_SHIFT			39
+-#define   XEHP_SW_CTX_ID_WIDTH			16
+-#define   XEHP_SW_COUNTER_SHIFT			58
+-#define   XEHP_SW_COUNTER_WIDTH			6
+-
+ #endif /* __INTEL_GT_REGS__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
+index 0b76f096b559..bb0e6c5b9922 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.h
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
+@@ -69,4 +69,38 @@ void lrc_check_regs(const struct intel_context *ce,
+ 
+ void lrc_update_runtime(struct intel_context *ce);
+ 
++enum {
++	INTEL_ADVANCED_CONTEXT = 0,
++	INTEL_LEGACY_32B_CONTEXT,
++	INTEL_ADVANCED_AD_CONTEXT,
++	INTEL_LEGACY_64B_CONTEXT
++};
++
++enum {
++	FAULT_AND_HANG = 0,
++	FAULT_AND_HALT, /* Debug only */
++	FAULT_AND_STREAM,
++	FAULT_AND_CONTINUE /* Unsupported */
++};
++
++#define CTX_GTT_ADDRESS_MASK			GENMASK(31, 12)
++#define GEN8_CTX_VALID				(1 << 0)
++#define GEN8_CTX_FORCE_PD_RESTORE		(1 << 1)
++#define GEN8_CTX_FORCE_RESTORE			(1 << 2)
++#define GEN8_CTX_L3LLC_COHERENT			(1 << 5)
++#define GEN8_CTX_PRIVILEGE			(1 << 8)
++#define GEN8_CTX_ADDRESSING_MODE_SHIFT		3
++#define GEN8_CTX_ID_SHIFT			32
++#define GEN8_CTX_ID_WIDTH			21
++#define GEN11_SW_CTX_ID_SHIFT			37
++#define GEN11_SW_CTX_ID_WIDTH			11
++#define GEN11_ENGINE_CLASS_SHIFT		61
++#define GEN11_ENGINE_CLASS_WIDTH		3
++#define GEN11_ENGINE_INSTANCE_SHIFT		48
++#define GEN11_ENGINE_INSTANCE_WIDTH		6
++#define XEHP_SW_CTX_ID_SHIFT			39
++#define XEHP_SW_CTX_ID_WIDTH			16
++#define XEHP_SW_COUNTER_SHIFT			58
++#define XEHP_SW_COUNTER_WIDTH			6
++
+ #endif /* __INTEL_LRC_H__ */
 -- 
 2.34.1
 
