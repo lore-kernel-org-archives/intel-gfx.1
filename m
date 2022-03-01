@@ -4,30 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B741C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA2CC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 23:16:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1319F10E7AC;
-	Tue,  1 Mar 2022 23:05:28 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 32B8410E7AA;
- Tue,  1 Mar 2022 23:05:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2EDF1A0096;
- Tue,  1 Mar 2022 23:05:26 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B869F10E7CE;
+	Tue,  1 Mar 2022 23:16:28 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1692B10E7BB;
+ Tue,  1 Mar 2022 23:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646176588; x=1677712588;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=x/T2p0AsCy4SIKWxLTWdLJHQMht8ZoOWGmOH/T52zLE=;
+ b=DWn2I+B+rBCVzuvYMSBXxMvx5Sj9MJ5T+ss8n5VqN5hjqzFP1JGwEFzA
+ nOwkfZmnR8/abQS+IfwhLMnBp+MnpruxYE1cpevdysPxtiMdHdFCS7c0l
+ vyWdyrzigNmloKH/0vghIPFBp/2DV/Kv7+LcgQxCEs6dhmEXmMX9rbklJ
+ nkfNd4QzRNSnVqeh+CeStiI/6LaAoAOD2eU7VZsMsv2LuuwRG8IJ1MmTJ
+ SeN98eGR0rFMV0QZAqKhpZidb8uzr50KjZpEQd47FTvyQfNneW6yjU2+q
+ Bv3gRj9aem6+eSo1qZeWc9Uu89qHwGn7NdTx9Sx8U0nWnOTC6rxNsYFKN g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="316479050"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="316479050"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 15:16:26 -0800
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="709253448"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 15:16:26 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  1 Mar 2022 15:15:37 -0800
+Message-Id: <20220301231549.1817978-2-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220301231549.1817978-1-matthew.d.roper@intel.com>
+References: <20220301231549.1817978-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arunpravin" <arunpravin.paneerselvam@amd.com>
-Date: Tue, 01 Mar 2022 23:05:26 -0000
-Message-ID: <164617592618.8600.14481531476154522242@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220301203838.4463-1-Arunpravin.PaneerSelvam@amd.com>
-In-Reply-To: <20220301203838.4463-1-Arunpravin.PaneerSelvam@amd.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/amdgpu=3A_add_drm_buddy_support_to_amdgpu?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 01/13] drm/i915/xehp: Define compute class
+ and engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,37 +56,245 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Introduce a Compute Command Streamer (CCS), which has access to
+the media and GPGPU pipelines (but not the 3D pipeline).
 
-Series: drm/amdgpu: add drm buddy support to amdgpu
-URL   : https://patchwork.freedesktop.org/series/100908/
-State : warning
+To begin with, define the compute class/engine common functions, based
+on the existing render ones.
 
-== Summary ==
+v2:
+ - Add kerneldoc for drm_i915_gem_engine_class since we're adding a new
+   element to it.  (Daniel)
+ - Make engine class <-> guc class converters use lookup tables to make
+   it more clear/explicit how the IDs map.  (Tvrtko)
 
-$ dim checkpatch origin/drm-tip
-8e830a55eacb drm/amdgpu: add drm buddy support to amdgpu
--:76: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u32' over 'uint32_t'
-#76: FILE: drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h:41:
-+	uint32_t		mem_type;
+v3:
+ - Don't update uapi for now; we'll just include the driver-internal
+   changes for the time being.
 
--:454: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
-#454: FILE: drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:412:
-+	BUG_ON(!node->base.num_pages);
+Bspec: 46167, 45544
+Original-author: Michel Thierry
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com> #v1
+---
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 28 +++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |  9 +++++-
+ drivers/gpu/drm/i915/gt/intel_engine_user.c  |  5 ++-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h      |  4 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h  | 32 ++++++++++++++------
+ drivers/gpu/drm/i915/i915_reg.h              |  4 +++
+ 6 files changed, 71 insertions(+), 11 deletions(-)
 
--:497: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
-#497: FILE: drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:436:
-+		BUG_ON(min_page_size < mm->chunk_size);
-
--:676: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#676: 
-new file mode 100644
-
-total: 0 errors, 3 warnings, 1 checks, 656 lines checked
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index e855c801ba28..3190b7b462a9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -156,6 +156,34 @@ static const struct engine_info intel_engines[] = {
+ 			{ .graphics_ver = 12, .base = XEHP_VEBOX4_RING_BASE }
+ 		},
+ 	},
++	[CCS0] = {
++		.class = COMPUTE_CLASS,
++		.instance = 0,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = GEN12_COMPUTE0_RING_BASE }
++		}
++	},
++	[CCS1] = {
++		.class = COMPUTE_CLASS,
++		.instance = 1,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = GEN12_COMPUTE1_RING_BASE }
++		}
++	},
++	[CCS2] = {
++		.class = COMPUTE_CLASS,
++		.instance = 2,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = GEN12_COMPUTE2_RING_BASE }
++		}
++	},
++	[CCS3] = {
++		.class = COMPUTE_CLASS,
++		.instance = 3,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = GEN12_COMPUTE3_RING_BASE }
++		}
++	},
+ };
+ 
+ /**
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 36365bdbe1ee..f4533ccafbaf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -33,7 +33,8 @@
+ #define VIDEO_ENHANCEMENT_CLASS	2
+ #define COPY_ENGINE_CLASS	3
+ #define OTHER_CLASS		4
+-#define MAX_ENGINE_CLASS	4
++#define COMPUTE_CLASS		5
++#define MAX_ENGINE_CLASS	5
+ #define MAX_ENGINE_INSTANCE	7
+ 
+ #define I915_MAX_SLICES	3
+@@ -95,6 +96,7 @@ struct i915_ctx_workarounds {
+ 
+ #define I915_MAX_VCS	8
+ #define I915_MAX_VECS	4
++#define I915_MAX_CCS	4
+ 
+ /*
+  * Engine IDs definitions.
+@@ -117,6 +119,11 @@ enum intel_engine_id {
+ 	VECS2,
+ 	VECS3,
+ #define _VECS(n) (VECS0 + (n))
++	CCS0,
++	CCS1,
++	CCS2,
++	CCS3,
++#define _CCS(n) (CCS0 + (n))
+ 	I915_NUM_ENGINES
+ #define INVALID_ENGINE ((enum intel_engine_id)-1)
+ };
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+index 9ce85a845105..b8c9b6b89003 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+@@ -47,6 +47,7 @@ static const u8 uabi_classes[] = {
+ 	[COPY_ENGINE_CLASS] = I915_ENGINE_CLASS_COPY,
+ 	[VIDEO_DECODE_CLASS] = I915_ENGINE_CLASS_VIDEO,
+ 	[VIDEO_ENHANCEMENT_CLASS] = I915_ENGINE_CLASS_VIDEO_ENHANCE,
++	/* TODO: Add COMPUTE_CLASS mapping once ABI is available */
+ };
+ 
+ static int engine_cmp(void *priv, const struct list_head *A,
+@@ -139,6 +140,7 @@ const char *intel_engine_class_repr(u8 class)
+ 		[COPY_ENGINE_CLASS] = "bcs",
+ 		[VIDEO_DECODE_CLASS] = "vcs",
+ 		[VIDEO_ENHANCEMENT_CLASS] = "vecs",
++		[COMPUTE_CLASS] = "ccs",
+ 	};
+ 
+ 	if (class >= ARRAY_SIZE(uabi_names) || !uabi_names[class])
+@@ -162,6 +164,7 @@ static int legacy_ring_idx(const struct legacy_ring *ring)
+ 		[COPY_ENGINE_CLASS] = { BCS0, 1 },
+ 		[VIDEO_DECODE_CLASS] = { VCS0, I915_MAX_VCS },
+ 		[VIDEO_ENHANCEMENT_CLASS] = { VECS0, I915_MAX_VECS },
++		[COMPUTE_CLASS] = { CCS0, I915_MAX_CCS },
+ 	};
+ 
+ 	if (GEM_DEBUG_WARN_ON(ring->class >= ARRAY_SIZE(map)))
+@@ -190,7 +193,7 @@ static void add_legacy_ring(struct legacy_ring *ring,
+ void intel_engines_driver_register(struct drm_i915_private *i915)
+ {
+ 	struct legacy_ring ring = {};
+-	u8 uabi_instances[4] = {};
++	u8 uabi_instances[5] = {};
+ 	struct list_head *it, *next;
+ 	struct rb_node **p, *prev;
+ 	LIST_HEAD(engines);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index d752db5669dd..530807bfe9a0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1452,6 +1452,10 @@
+ #define   GEN11_KCR				(19)
+ #define   GEN11_GTPM				(16)
+ #define   GEN11_BCS				(15)
++#define   GEN12_CCS3				(7)
++#define   GEN12_CCS2				(6)
++#define   GEN12_CCS1				(5)
++#define   GEN12_CCS0				(4)
+ #define   GEN11_RCS0				(0)
+ #define   GEN11_VECS(x)				(31 - (x))
+ #define   GEN11_VCS(x)				(x)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 6a4612a852e2..4b300b6cc0f9 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -46,8 +46,8 @@
+ #define GUC_VIDEO_CLASS			1
+ #define GUC_VIDEOENHANCE_CLASS		2
+ #define GUC_BLITTER_CLASS		3
+-#define GUC_RESERVED_CLASS		4
+-#define GUC_LAST_ENGINE_CLASS		GUC_RESERVED_CLASS
++#define GUC_COMPUTE_CLASS		4
++#define GUC_LAST_ENGINE_CLASS		GUC_COMPUTE_CLASS
+ #define GUC_MAX_ENGINE_CLASSES		16
+ #define GUC_MAX_INSTANCES_PER_CLASS	32
+ 
+@@ -156,23 +156,37 @@ FIELD_PREP(HOST2GUC_PC_SLPC_REQUEST_MSG_1_EVENT_ID, id) | \
+ FIELD_PREP(HOST2GUC_PC_SLPC_REQUEST_MSG_1_EVENT_ARGC, c) \
+ )
+ 
++/* the GuC arrays don't include OTHER_CLASS */
++static u8 engine_class_guc_class_map[] = {
++	[RENDER_CLASS]            = GUC_RENDER_CLASS,
++	[COPY_ENGINE_CLASS]       = GUC_BLITTER_CLASS,
++	[VIDEO_DECODE_CLASS]      = GUC_VIDEO_CLASS,
++	[VIDEO_ENHANCEMENT_CLASS] = GUC_VIDEOENHANCE_CLASS,
++	[COMPUTE_CLASS]           = GUC_COMPUTE_CLASS,
++};
++
++static u8 guc_class_engine_class_map[] = {
++	[GUC_RENDER_CLASS]       = RENDER_CLASS,
++	[GUC_BLITTER_CLASS]      = COPY_ENGINE_CLASS,
++	[GUC_VIDEO_CLASS]        = VIDEO_DECODE_CLASS,
++	[GUC_VIDEOENHANCE_CLASS] = VIDEO_ENHANCEMENT_CLASS,
++	[GUC_COMPUTE_CLASS]      = COMPUTE_CLASS,
++};
++
+ static inline u8 engine_class_to_guc_class(u8 class)
+ {
+-	BUILD_BUG_ON(GUC_RENDER_CLASS != RENDER_CLASS);
+-	BUILD_BUG_ON(GUC_BLITTER_CLASS != COPY_ENGINE_CLASS);
+-	BUILD_BUG_ON(GUC_VIDEO_CLASS != VIDEO_DECODE_CLASS);
+-	BUILD_BUG_ON(GUC_VIDEOENHANCE_CLASS != VIDEO_ENHANCEMENT_CLASS);
++	BUILD_BUG_ON(ARRAY_SIZE(engine_class_guc_class_map) != MAX_ENGINE_CLASS + 1);
+ 	GEM_BUG_ON(class > MAX_ENGINE_CLASS || class == OTHER_CLASS);
+ 
+-	return class;
++	return engine_class_guc_class_map[class];
+ }
+ 
+ static inline u8 guc_class_to_engine_class(u8 guc_class)
+ {
++	BUILD_BUG_ON(ARRAY_SIZE(guc_class_engine_class_map) != GUC_LAST_ENGINE_CLASS + 1);
+ 	GEM_BUG_ON(guc_class > GUC_LAST_ENGINE_CLASS);
+-	GEM_BUG_ON(guc_class == GUC_RESERVED_CLASS);
+ 
+-	return guc_class;
++	return guc_class_engine_class_map[guc_class];
+ }
+ 
+ /* Work item for submitting workloads into work queue of GuC. */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index a2f36ef91cec..6db8c426daa1 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -971,6 +971,10 @@
+ #define GEN11_VEBOX2_RING_BASE		0x1d8000
+ #define XEHP_VEBOX3_RING_BASE		0x1e8000
+ #define XEHP_VEBOX4_RING_BASE		0x1f8000
++#define GEN12_COMPUTE0_RING_BASE	0x1a000
++#define GEN12_COMPUTE1_RING_BASE	0x1c000
++#define GEN12_COMPUTE2_RING_BASE	0x1e000
++#define GEN12_COMPUTE3_RING_BASE	0x26000
+ #define BLT_RING_BASE		0x22000
+ 
+ 
+-- 
+2.34.1
 
