@@ -4,73 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBBAC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 18:47:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43ECC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 18:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF45310E750;
-	Tue,  1 Mar 2022 18:47:45 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4241D10E750
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 18:47:45 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id s24so23256999edr.5
- for <intel-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:47:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JZw99KMpsKBs3Ab/LBNeIPMebXALTITXobBfJpN/EsI=;
- b=ZEWbFFu3eWrZxUgaaScwD4ZJ//Z7mV4SGMyACB20WwCKEMFGKIBMMEXVkM4kZXdOyd
- EokMKBVyAcoYChV/SvtOh5q5h0Yafm3wlsC3jCGOeoM0h4pn550KTbE+/sUn3z3m8p0V
- ZL0gG9ZTrYCOlyUURTCDAGrluijISoqXbB1wA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JZw99KMpsKBs3Ab/LBNeIPMebXALTITXobBfJpN/EsI=;
- b=s2cLh73HkcofjybAiqj3mebIk3KvzfV1gWphRbO6f7Es0gU8X7bQiqu2IckTg5f263
- DPhrY+9regTlPFhwXFj7cAwrFQRiLiEmtDjDWUVmfAQsehZ5YVxo//BE2P9zSifGCxPp
- EJ4LDhRXwSQTYfBIrnfz6UG18HUlcXB6g6Y5Wf0RG4NVlPUTaXp/IjQyLrRie1OP9uA+
- K5yL8Bxr9W7eImAZgrhfo+/2t3gXVkcaI6bLUsssD3FrGMdu3VYkighTjvj2qxPyxzqT
- g7flzDgrEUn+JWXSv2dA3/m1XJSOfPmTx5hURbx2rK0uByjQ/JRsBtVCkPgmbFI+pJAe
- prqQ==
-X-Gm-Message-State: AOAM532SKDccDJ92Jlf4nP6dMfCSjbf7OcLpYoBbN0Sq4pdSFnw5lgS6
- BHOz1C9nAGonZoDIhhMy9IKEYUqjni2QIescWJk=
-X-Google-Smtp-Source: ABdhPJw4FnrxbR7nQ698/PF3iiWDBIA0RzTgvWoHG4sgfzS17h7BxfWh0VscsfhgcBvyZ3j9xQH2jA==
-X-Received: by 2002:a05:6402:374:b0:413:9b28:2a2c with SMTP id
- s20-20020a056402037400b004139b282a2cmr15618839edw.83.1646160463499; 
- Tue, 01 Mar 2022 10:47:43 -0800 (PST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com.
- [209.85.218.48]) by smtp.gmail.com with ESMTPSA id
- w14-20020a170906d20e00b006cee22553f7sm5572811ejz.213.2022.03.01.10.47.41
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 10:47:43 -0800 (PST)
-Received: by mail-ej1-f48.google.com with SMTP id a23so33330916eju.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:47:41 -0800 (PST)
-X-Received: by 2002:a05:6512:2033:b0:443:3d49:dac with SMTP id
- s19-20020a056512203300b004433d490dacmr16440784lfs.52.1646160451271; Tue, 01
- Mar 2022 10:47:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FDE710E768;
+	Tue,  1 Mar 2022 18:55:58 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB4F110E72F;
+ Tue,  1 Mar 2022 18:55:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646160957; x=1677696957;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=KiYPc5CVJnTri+4jbPVZJWw96F40gwH7dwYlL+D68tc=;
+ b=PGSPdtvHC/80USQihREGuwCVpfbdpXiW3bXZ2A1D8hECIJJ8+V4j7Dk6
+ I+2tpx7wvMLavwuavyryQivR8qxzR5l3sM50sDdXwjxsINAEZXXkKGJZH
+ VapUY+mrRdDy42rvFqXo98o8O2wcUZ8vWeOSkigRxaNs5GqBxqTvdW2Mi
+ 1VjTCmGAA1dAOlB90buApXXI6LN7fcrNIO1ewG0e2ISOoJR4xsM4ziZ+U
+ zGDPOe4JosiHnpXj/5CIH8ZHvdJIlOYUpzaEVxavaKLKrErNuPLM1wx/B
+ Ebrwck9HslZVcd3UTotLJfuU6f+pve13TXpGYeIKQC6ib+NTnO9ka80TY g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="250792486"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="250792486"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 10:55:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="535015584"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga007.jf.intel.com with ESMTP; 01 Mar 2022 10:55:54 -0800
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Tue, 1 Mar 2022 10:55:47 -0800
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Tue, 1 Mar 2022 10:55:47 -0800
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21 via Frontend Transport; Tue, 1 Mar 2022 10:55:47 -0800
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.47) by
+ edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Tue, 1 Mar 2022 10:55:46 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SB9lSq/F3N87MyZCI1zKagTQoR1wj+0Fw8J8Nf9QJXde+mwR5yulGdhbDrU18D8+wiuvm2q7wR1zgi5o5CxFZfsT0MefCEgnmgA4lmzMIeGeqnM2v/f+4vslNbe9U1kCTtk2+m5RbEEiZ0jiLUcpn7FFvT0KqKWaZzB0xNGkIwFcYJlAUgaWT09VBTQjAU1ce8dtMpAqqHj2JHzLM62OlzWQ/LeVZaiI2jb9J8ITq3Z3LD0O3CFLbiK2eLcOenSI0qjZccwCkzUwaj/4QhVPHYpo3ArXzwFAjTB1x2i1bZ9zGQSBoZnRG0+rDwawdu7ruNeTkGNNA/8FwKlx1E+4rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vPDdS9EKx0epQVoSbY0be52t8gOZY3Yapr9V6+GqhBw=;
+ b=NAkWE0NQFKC0v4cDFqumXeoVQRWPQH7MWyM7P7vFN4FuALiJuvF1yisvNG87R8JkIuxzs6egb1p9oOUOUtJFPvIGxwgcCMTDSV44HdaKHEe1mygSPXnCU+vGIFQU0nl9HxdTHtCqaskDXv/aNEdO8U2JAgAyESnCxaY9/fboWwzbGMcO4NoL3nffb3fW5DLRoXGy3QOu3pVfc3wCS8N9Awlq2EpfitP8kVTtmcJJQDRnhwJ8klaWRNIMc0jGy/WZ/lM3Yw2Fw3+u/UnoJXnT0s4sQwzuYBdabOweK4TnVTHAqWbV7UFJp5kk72bGctitHWI10yw7484Zdj47HltSWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5488.namprd11.prod.outlook.com (2603:10b6:5:39d::5) by
+ BN6PR1101MB2209.namprd11.prod.outlook.com (2603:10b6:405:50::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Tue, 1 Mar
+ 2022 18:55:42 +0000
+Received: from DM4PR11MB5488.namprd11.prod.outlook.com
+ ([fe80::3c4e:eb25:76ff:a869]) by DM4PR11MB5488.namprd11.prod.outlook.com
+ ([fe80::3c4e:eb25:76ff:a869%4]) with mapi id 15.20.5017.027; Tue, 1 Mar 2022
+ 18:55:42 +0000
+Message-ID: <055877c8-b99b-e8c0-d56b-c02ffd9d15c5@intel.com>
+Date: Tue, 1 Mar 2022 10:55:39 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Content-Language: en-US
+To: Matt Roper <matthew.d.roper@intel.com>, <intel-gfx@lists.freedesktop.org>
+References: <20220228174245.1569581-1-matthew.d.roper@intel.com>
+ <20220228174245.1569581-9-matthew.d.roper@intel.com>
+From: "Ceraolo Spurio, Daniele" <daniele.ceraolospurio@intel.com>
+In-Reply-To: <20220228174245.1569581-9-matthew.d.roper@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0165.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c7::20) To DM4PR11MB5488.namprd11.prod.outlook.com
+ (2603:10b6:5:39d::5)
 MIME-Version: 1.0
-References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
- <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
- <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
- <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
- <Yh0tl3Lni4weIMkl@casper.infradead.org>
- <CAHk-=wgBfJ1-cPA2LTvFyyy8owpfmtCuyiZi4+um8DhFNe+CyA@mail.gmail.com>
- <Yh1aMm3hFe/j9ZbI@casper.infradead.org>
- <CAHk-=wi0gSUMBr2SVF01Gy1xC1w1iGtJT5ztju9BPWYKjdh+NA@mail.gmail.com>
- <202203011008.AA0B5A2D@keescook>
-In-Reply-To: <202203011008.AA0B5A2D@keescook>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 1 Mar 2022 10:47:14 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whccSm8HKANQbomYrF8cqBa1wUi1dvUEUc3Nf=WoX3WHQ@mail.gmail.com>
-Message-ID: <CAHk-=whccSm8HKANQbomYrF8cqBa1wUi1dvUEUc3Nf=WoX3WHQ@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
- after loop body as a ptr
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 78ed5112-504a-44d9-00cf-08d9fbb515e6
+X-MS-TrafficTypeDiagnostic: BN6PR1101MB2209:EE_
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-Microsoft-Antispam-PRVS: <BN6PR1101MB2209073BB50471B80344C774F4029@BN6PR1101MB2209.namprd11.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EY0Nb6VBYYZZUojIIJyPufq32V+4Fc7jTOnEHM6jOcKyyVJJLYufUuVPsMRt1Q4FFFH1Z85389JYfALr+YA2YpEvFUnWoSbMwv1elvAPBU6jUQOBHcClOFMVJHWLFOPoYgwEhb+CXLSiE43slU1DHJfRvBIk5t3jq9qOAX//NR9SbTSJnhGiwaZJj9tubSkc0+UhtLfv+fdpG6JS9PXnLzt063fM7Us3GoZQ3rOYfUBdDxBwP7kgsrd9X2YlYYvhL0hMILgVPdKlB2itPytJyzsx5OqQ3EuVqd8wO56D4i43Ks+XNN9NIu6kQAW7ptEY49fcKbaK9JRxcMEaxw6ftwtASTwnW4mQrPU6cQ4l5fQh0CH7PfWrUsR4RpN147vVKlveL/77l/fB2P9W8nljkNYfdBOHWaH26moJkXfbaf1ctEmdKH1nJ6od8Cdgrjjh/1UZw6RXtU68owNJLElEl8bwQHZV756MQ8rZCOO/CYK70XtUbot3allAlNojEFcEIJh41nRJhjHN1LpubOc53VyfWI47bnjVzeMGjhTYApwvo9btn2M4nanINDFoJiJO4Nl6Z7ehlPqVK8UeSjfwfRtjgyRsVY+Iedjsvym2a7Lg8Km23IEvY/z4uxsZ9dLO7b6gHy2eF7pe2VJJZXVwM6BR2397jdJZywj5wyTj87rbn6uD7EWIMcKffP2XbeNLiHW6SJtbEaWqP1GLeryOVRV/HsJL18D7TwJV6FsogSgfWDwmeQ6ssJXGHdLwavMd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5488.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(8936002)(38100700002)(31686004)(86362001)(53546011)(2616005)(316002)(6666004)(6506007)(6512007)(186003)(26005)(83380400001)(107886003)(66476007)(4326008)(8676002)(66556008)(2906002)(31696002)(508600001)(82960400001)(66946007)(6486002)(5660300002)(450100002)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEhWdVkvbExUM2FSVU1xRmkvbElJUXNDRmJIWEpOSUhPT2RrUlRuODZzZGJF?=
+ =?utf-8?B?Wk1yWGZvakE4RncrWEZxd29DQnpEaW56NytBS2VYa3hLNS8zTUVvUnJrQ1JU?=
+ =?utf-8?B?SUlNaW9GaTR4TktxOTBkLzdCVUpZbU1RYjhlZlBKWVJGYkViQ0pXbU9WL0ZY?=
+ =?utf-8?B?a1B6cFIrbDR0UjFnSlcyQXhhTGVvZU5mSDNsNUhXYmFqQ1JDdXdEd0kwVGdV?=
+ =?utf-8?B?UE9sQXp5bURwaklMUHlqM3JrUG1EbnJTZUw3NDhMQ3ZzVDAzMHF5NVdEUU5x?=
+ =?utf-8?B?MmNlWGcreFE2Z2NzejExZW1JL1FtOGk5eUlrRjVjV3FTMG9Wckd3azNzQnc4?=
+ =?utf-8?B?bnQxc2oxN1NWekQ3SmxoK3Bwdkd2a0xUV2VaVEJBL0NiV3F2bnl5V29XZ3NL?=
+ =?utf-8?B?L2hqNFBCYy9yVGNlU1RTK09tMVJrUER6elBaeHhNbUhDMm4yaTFhQ2tJdWhK?=
+ =?utf-8?B?ZkxsRFVBc0poRitVVkZTR3JWblJJcU5jeG5SdGhLM05UMDl3ZmdsMFVQT1hI?=
+ =?utf-8?B?SkgvS2tLbHRzYTIyWEVTb0xHNDJ2UHQxN2E1V1B4dHU3NTN3UVRoTExpQ3Bk?=
+ =?utf-8?B?Wjh0UkRlZ0dMYjRSdG1hZUhPdW9BakJSTTBhM1hhb205NmxjVzRvenZUZTdw?=
+ =?utf-8?B?Z3BzTlNuQzJxWUJLMTFtQ25qcU5SMXpTVVhvUVhKWHFRRXlvU3FjOEk2U2VJ?=
+ =?utf-8?B?dzJwN2lmV3p4VkZCUitBTFhsT0c0Um03L1N5WkxoSVpLMC9jOHBybXhiNGdJ?=
+ =?utf-8?B?TFlKdWVRWDZ6S3NQZExQbkhhOTFxdmYwVTFzcGF1dDdRV1Nvbmpoci9VN3RM?=
+ =?utf-8?B?WFNMRDg3WWU2bWVEYW04aWlvRElEcWJ4cm1wUWJTd2JPODVMb3RvdXoxaXJY?=
+ =?utf-8?B?UzBlc1BSb09EN0Yyazg5MUxFNGdyS1A2TzRoZDdzcVlSclZTTlZrc3pmYk1E?=
+ =?utf-8?B?QlRuRVFjZlFKamwwL0lyWC9UalJNQVBMVDBTUHRrV3BSYVFkdERYL1ptbFIv?=
+ =?utf-8?B?Y01LcUM0SWk4YjlLQXB2UG1hTUhFVURDQ1lIdkxhTjdNdmp4MGRISmk2QjBs?=
+ =?utf-8?B?WCtNNDR3dlJVcGZGelp2NG9qa1FXcWJZWWpVbUdqRVNoMkowRXVnaUpWdjFT?=
+ =?utf-8?B?ZDZibUhxb3hvZFRGNjFXK1FxSUsyRmt1bnBiN203ZmVLbmpndUZpOEp0N2o1?=
+ =?utf-8?B?MUkvUjZETDhWcjJYVVZEdnFPS011YnVQRFE2OHJ2TUwvMWFPbWVoY01xZkZU?=
+ =?utf-8?B?bWo0UjNveCtUQTE5UTFRb3FrU3oySTNJeENzY29VWEVIMktISHowNzdxTFJG?=
+ =?utf-8?B?aFIwdzlPVDNRaXlOTVZtb2lUQVVZZXdLSFUwUEpHQXcwSjJNQ2JnaDZPcVYr?=
+ =?utf-8?B?UGdsZXBpdC9qcERaTmZxZURneUJGNkMyQUVZenI4aVBoU2V6MGUxZDRpQlEr?=
+ =?utf-8?B?MnE3VWtTMktDSXdIb1Vzci9vQkYwU2lFOXR0SUdMSDdaQmMwRzdPSGM3dnVC?=
+ =?utf-8?B?ekw5RWQwdStNekU0N20wNk5zcUgwRXFxYUp3c0VzWi9UbmJSMU56aDYrY1d5?=
+ =?utf-8?B?TUZrb2N2TEFxZDZyd1FxOUhHNGpqQUNFaTRlT2xNdEdlNnhHcnRCVEhPeDVZ?=
+ =?utf-8?B?VkFEUGRQRm1oazZZUEFDQ1dBRlBpcnAxdEsyZ3N3a05pUk1MTExKTzhFcGd3?=
+ =?utf-8?B?ZzNmMVlyRm5TMzVTc20xRnorbW5zbjR0TUhtay9xQkxzZDZoQ2szZXlvQWRi?=
+ =?utf-8?B?L0orNHBPTWJpRld6M2grSkZ5U1NIQ09KamF0UnpaUld6TWphRzUyYkFqRG9y?=
+ =?utf-8?B?Nm9FWE9MUmlNZk1TWGIwVGtxLzdqSkF4Wm1ienEyb1EySHdLN3poNEFoUE1F?=
+ =?utf-8?B?K05GdmxkZUU1T25adGpORk1BR2k5enVGWG4wVE9mUzZtQnkvRjFURGVWVHRj?=
+ =?utf-8?B?dnpiNXJnNzlJQ2Zrdk5sUmJTcUVnemtrdHNqZW40NkxBbWRFVDVJbHhrWlh3?=
+ =?utf-8?B?YmYrbDdvbzA3OU1reWJyeTc0cEtFdXNzcU1vejh1TkNvSURlc1hIWmNzRm1L?=
+ =?utf-8?B?VVVwRGZGS1Vzd0V5QWE0NlRVQkhtRHJ2b1FBSWxGdmJmWXNTYVBvOEhsdThZ?=
+ =?utf-8?B?Z1lqUE56eDR3OE9LNExhcTNwNldFMXlJTEVxRkRVZm5LaFFuRG5KcXRrSjE2?=
+ =?utf-8?B?NXo5SHBBbUY4Ri94akpiODBlV0lWdWE4RVRYY00vek1lZW9xN2tSTEltL1cy?=
+ =?utf-8?B?VjVIN3pzMFBadytEZ1daVHljZUl3PT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78ed5112-504a-44d9-00cf-08d9fbb515e6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5488.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 18:55:42.7339 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iOOkbrBAQIhATlEqoCYUrG6BM1YS3ab0akooKPYcPFFU9UPC7rJGmaU+Sx/9Wcve/eM7VEMXzk/sEHzO7DVOunubk3PYdtWOoqBGGinmWEs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1101MB2209
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2 08/13] drm/i915/xehp/guc: enable compute
+ engine inside GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,103 +162,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless <linux-wireless@vger.kernel.org>,
- alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, Matthew Wilcox <willy@infradead.org>,
- linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
- linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
- bcm-kernel-feedback-list@broadcom.com,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Arnd Bergman <arnd@arndb.de>, Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, "Bos, H.J." <h.j.bos@vu.nl>,
- Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
- linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
- tipc-discussion@lists.sourceforge.net,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Mike Rapoport <rppt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 1, 2022 at 10:14 AM Kees Cook <keescook@chromium.org> wrote:
+
+
+On 2/28/2022 9:42 AM, Matt Roper wrote:
+> From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 >
-> The first big glitch with -Wshadow was with shadowed global variables.
-> GCC 4.8 fixed that, but it still yells about shadowed functions. What
-> _almost_ works is -Wshadow=local.
+> Tell GuC that CCS is enabled by setting a bit in its ADS.
+>
+> Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+> Original-author: Michel Thierry
+> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_gt_regs.h    | 3 +++
+>   drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 5 +++++
+>   2 files changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> index 84f189738a68..e629443e07ae 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> @@ -1327,6 +1327,9 @@
+>   #define   ECOBITS_PPGTT_CACHE64B		(3 << 8)
+>   #define   ECOBITS_PPGTT_CACHE4B			(0 << 8)
+>   
+> +#define GEN12_RCU_MODE				_MMIO(0x14800)
+> +#define   GEN12_RCU_MODE_CCS_ENABLE		REG_BIT(0)
 
-Heh. Yeah, I just have long memories of "-Wshadow was a disaster". You
-looked into the details.
+Having the definition of this register in this patch is a bit weird, 
+because we're save/restoring a register we're not programming. Maybe 
+flip the order of this patch and the next one and move the register 
+definition to that?
 
-> Another way to try to catch misused shadow variables is
-> -Wunused-but-set-varible, but it, too, has tons of false positives.
+Daniele
 
-That on the face of it should be an easy warning to get technically
-right for a compiler.
+> +
+>   #define CHV_FUSE_GT				_MMIO(VLV_DISPLAY_BASE + 0x2168)
+>   #define   CHV_FGT_DISABLE_SS0			(1 << 10)
+>   #define   CHV_FGT_DISABLE_SS1			(1 << 11)
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+> index 847e00390b00..9bb551b83e7a 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+> @@ -335,6 +335,10 @@ static int guc_mmio_regset_init(struct temp_regset *regset,
+>   	ret |= GUC_MMIO_REG_ADD(regset, RING_HWS_PGA(base), false);
+>   	ret |= GUC_MMIO_REG_ADD(regset, RING_IMR(base), false);
+>   
+> +	if (engine->class == RENDER_CLASS &&
+> +	    CCS_MASK(engine->gt))
+> +		ret |= GUC_MMIO_REG_ADD(regset, GEN12_RCU_MODE, true);
+> +
+>   	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+>   		ret |= GUC_MMIO_REG_ADD(regset, wa->reg, wa->masked_reg);
+>   
+> @@ -430,6 +434,7 @@ static void fill_engine_enable_masks(struct intel_gt *gt,
+>   				     struct iosys_map *info_map)
+>   {
+>   	info_map_write(info_map, engine_enabled_masks[GUC_RENDER_CLASS], 1);
+> +	info_map_write(info_map, engine_enabled_masks[GUC_COMPUTE_CLASS], CCS_MASK(gt));
+>   	info_map_write(info_map, engine_enabled_masks[GUC_BLITTER_CLASS], 1);
+>   	info_map_write(info_map, engine_enabled_masks[GUC_VIDEO_CLASS], VDBOX_MASK(gt));
+>   	info_map_write(info_map, engine_enabled_masks[GUC_VIDEOENHANCE_CLASS], VEBOX_MASK(gt));
 
-So I assume the "false positives" are simply because we end up having
-various variables that really don't end up being used - and
-"intentionally" so).
-
-Or rather, they might only be used under some config option - perhaps
-the use is even syntactically there and parsed, but the compiler
-notices that it's turned off under some
-
-        if (IS_ENABLED(..))
-
-option? Because yeah, we have a lot of those.
-
-I think that's a common theme with a lot of compiler warnings: on the
-face of it they sound "obviously sane" and nobody should ever write
-code like that.
-
-A conditional that is always true? Sounds idiotic, and sounds like a
-reasonable thing for a compiler to warn about, since why would you
-have a conditional in the first place for that?
-
-But then you realize that maybe the conditional is a build config
-option, and "always true" suddenly makes sense. Or it's a test for
-something that is always true on _that_architecture_ but not in some
-general sense (ie testing "sizeof()"). Or it's a purely syntactic
-conditional, like "do { } while (0)".
-
-It's why I'm often so down on a lot of the odd warnings that are
-hiding under W=1 and friends. They all may make sense in the trivial
-case ("That is insane") but then in the end they happen for sane code.
-
-And yeah, -Wshadow has had tons of history with macro nesting, and
-just being badly done in the first place (eg "strlen" can be a
-perfectly fine local variable).
-
-That said, maybe people could ask the gcc and clan people for a way to
-_mark_ the places where we expect to validly see shadowing. For
-example, that "local variable in a macro expression statement" thing
-is absolutely horrendous to fix with preprocessor tricks to try to
-make for unique identifiers.
-
-But I think it would be much more syntactically reasonable to add (for
-example) a "shadow" attribute to such a variable exactly to tell the
-compiler "yeah, yeah, I know this identifier could shadow an outer
-one" and turn it off that way.
-
-               Linus
