@@ -4,38 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5813CC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 14:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EEB8C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 14:24:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7976F10E596;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDE6F10E78A;
 	Wed,  2 Mar 2022 14:24:31 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5D13D10E4F2;
- Wed,  2 Mar 2022 12:49:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B64C13D5;
- Wed,  2 Mar 2022 04:49:39 -0800 (PST)
-Received: from [10.57.39.47] (unknown [10.57.39.47])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B65673F70D;
- Wed,  2 Mar 2022 04:49:37 -0800 (PST)
-Message-ID: <2f82d150-47c4-d7c3-50da-eaf4aa4a24af@arm.com>
-Date: Wed, 2 Mar 2022 12:49:32 +0000
+X-Greylist: delayed 328 seconds by postgrey-1.36 at gabe;
+ Wed, 02 Mar 2022 05:07:40 UTC
+Received: from gimli.rothwell.id.au (unknown
+ [IPv6:2404:9400:2:0:216:3eff:fee1:997a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B045910EAA9;
+ Wed,  2 Mar 2022 05:07:40 +0000 (UTC)
+Received: from authenticated.rothwell.id.au (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.rothwell.id.au (Postfix) with ESMTPSA id 4K7hmr2W2DzyR1;
+ Wed,  2 Mar 2022 16:02:03 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rothwell.id.au;
+ s=201702; t=1646197326;
+ bh=uzjcaWgkXXsocOO4l8FmrzePxqW13WJublt0pDESlHs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=i983zv3fziLp2PBywQALnf/P1IukX8e25j0L3qxcgWqbcNX0NFGJJ2OhUJOziQEFx
+ I54UUySJ1vTgUDs4DCLaYDof1bM7c0wMqPwQbaClhxMPPaRfzjTzxF4mRlYmLIFR49
+ bmRNihxyauSeUmpK2qczkoO+1DaxPvjzfbpl2XpklIWAs0/3qZEWoS3078bH1GNZC2
+ 5jzPMNBFnhS9Zawg9OojZMOhxOsC36aCHFENrpPQzUvaSOgRzDy9eGnOewKOdJpYcs
+ BIMrYPE15YmBamkCbE7vO8Ft/GcRjCqzejnTaA5cIpiah7rJ+nA9MPLFbHqHXsJabu
+ +teymvxn3QRbA==
+Date: Wed, 2 Mar 2022 16:02:01 +1100
+From: Stephen Rothwell <sfr@rothwell.id.au>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <20220302160201.6ee2c586@elm.ozlabs.ibm.com>
+In-Reply-To: <14b6a691-d31e-2e54-cf91-352b9b30414d@amd.com>
+References: <20211117134926.1d339d71@canb.auug.org.au>
+ <20220120142639.02c54ae9@canb.auug.org.au>
+ <20220302123126.65bcbc82@canb.auug.org.au>
+ <14b6a691-d31e-2e54-cf91-352b9b30414d@amd.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Content-Language: en-GB
-To: Michael Cheng <michael.cheng@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20220225032436.904942-1-michael.cheng@intel.com>
- <20220225032436.904942-2-michael.cheng@intel.com>
- <5c254623-98d2-75f3-52cb-209b8de304b6@arm.com>
- <3750c398-e8fb-c4e1-ba31-e6ac5fbc01d0@intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <3750c398-e8fb-c4e1-ba31-e6ac5fbc01d0@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/+CPxGtbE5SBkEEZMmwIvi+1";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Wed, 02 Mar 2022 14:24:27 +0000
-Subject: Re: [Intel-gfx] [PATCH v12 1/6] drm: Add arch arm64 for
- drm_clflush_virt_range
+Subject: Re: [Intel-gfx] linux-next: build warning after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,111 +59,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, lucas.demarchi@intel.com,
- dri-devel@lists.freedesktop.org, Will Deacon <will@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2022-02-25 19:27, Michael Cheng wrote:
-> Hi Robin,
-> 
-> [ +arm64 maintainers for their awareness, which would have been a good 
-> thing to do from the start ]
-> 
->   * Thanks for adding the arm64 maintainer and sorry I didn't rope them
->     in sooner.
-> 
-> Why does i915 need to ensure the CPU's instruction cache is coherent 
-> with its data cache? Is it a self-modifying driver?
-> 
->   * Also thanks for pointing this out. Initially I was using
->     dcache_clean_inval_poc, which seem to be the equivalently to what
->     x86 is doing for dcache flushing, but it was giving me build errors
->     since its not on the global list of kernel symbols. And after
->     revisiting the documentation for caches_clean_inval_pou, it won't
->     fly for what we are trying to do. Moving forward, what would you (or
->     someone in the ARM community) suggest we do? Could it be possible to
->     export dcache_clean_inval_poc as a global symbol?
+--Sig_/+CPxGtbE5SBkEEZMmwIvi+1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Unlikely, unless something with a legitimate need for CPU-centric cache 
-maintenance like kexec or CPU hotplug ever becomes modular.
+Hi Andrey,
 
-In the case of a device driver, it's not even the basic issues of 
-assuming to find direct equivalents to x86 semantics in other CPU 
-architectures, or effectively reinventing parts of the DMA API, it's 
-even bigger than that. Once you move from being integrated in a single 
-vendor's system architecture to being on a discrete card, you 
-fundamentally *no longer have any control over cache coherency*. Whether 
-the host CPU architecture happens to be AArch64, RISC-V, or whatever 
-doesn't really matter, you're at the mercy of 3rd-party PCIe and 
-interconnect IP vendors, and SoC integrators. You'll find yourself in 
-systems where PCIe simply cannot snoop any caches, where you'd better 
-have the correct DMA API calls in place to have any hope of even the 
-most basic functionality working properly; you'll find yourself in 
-systems where even if the PCIe root complex claims to support No Snoop, 
-your uncached traffic will still end up snooping stale data that got 
-prefetched back into caches you thought you'd invalidated; you'll find 
-yourself in systems where your memory attributes may or may not get 
-forcibly rewritten by an IOMMU depending on the kernel config and/or 
-command line.
+On Tue, 1 Mar 2022 22:26:12 -0500 Andrey Grodzovsky <andrey.grodzovsky@amd.=
+com> wrote:
+>
+> Please check you have commit c7703ce38c1e Andrey Grodzovsky=C2=A0=C2=A0 3=
+ weeks ago=C2=A0=C2=A0=C2=A0 drm/amdgpu: Fix htmldoc warning
 
-It's not about simply finding a substitute for clflush, it's that the 
-reasons you have for using clflush in the first place can no longer be 
-assumed to be valid.
+That has arrived in linux-next today for the first time.  It is in the
+drm tree, but that tree has had build problems for some time and so has
+not been included completely until today.
 
-Robin.
+Thanks.
 
-> On 2022-02-25 10:24 a.m., Robin Murphy wrote:
->> [ +arm64 maintainers for their awareness, which would have been a good 
->> thing to do from the start ]
->>
->> On 2022-02-25 03:24, Michael Cheng wrote:
->>> Add arm64 support for drm_clflush_virt_range. caches_clean_inval_pou
->>> performs a flush by first performing a clean, follow by an invalidation
->>> operation.
->>>
->>> v2 (Michael Cheng): Use correct macro for cleaning and invalidation the
->>>             dcache. Thanks Tvrtko for the suggestion.
->>>
->>> v3 (Michael Cheng): Replace asm/cacheflush.h with linux/cacheflush.h
->>>
->>> v4 (Michael Cheng): Arm64 does not export dcache_clean_inval_poc as a
->>>             symbol that could be use by other modules, thus use
->>>             caches_clean_inval_pou instead. Also this version
->>>                 removes include for cacheflush, since its already
->>>             included base on architecture type.
->>>
->>> Signed-off-by: Michael Cheng <michael.cheng@intel.com>
->>> Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
->>> ---
->>>   drivers/gpu/drm/drm_cache.c | 5 +++++
->>>   1 file changed, 5 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
->>> index c3e6e615bf09..81c28714f930 100644
->>> --- a/drivers/gpu/drm/drm_cache.c
->>> +++ b/drivers/gpu/drm/drm_cache.c
->>> @@ -174,6 +174,11 @@ drm_clflush_virt_range(void *addr, unsigned long 
->>> length)
->>>         if (wbinvd_on_all_cpus())
->>>           pr_err("Timed out waiting for cache flush\n");
->>> +
->>> +#elif defined(CONFIG_ARM64)
->>> +    void *end = addr + length;
->>> +    caches_clean_inval_pou((unsigned long)addr, (unsigned long)end);
->>
->> Why does i915 need to ensure the CPU's instruction cache is coherent 
->> with its data cache? Is it a self-modifying driver?
->>
->> Robin.
->>
->> (Note that the above is somewhat of a loaded question, and I do 
->> actually have half an idea of what you're trying to do here and why it 
->> won't fly, but I'd like to at least assume you've read the 
->> documentation of the function you decided was OK to use)
->>
->>> +
->>>   #else
->>>       WARN_ONCE(1, "Architecture has no drm_cache.c support\n");
->>>   #endif
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/+CPxGtbE5SBkEEZMmwIvi+1
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmIe+kkACgkQAVBC80lX
+0Gy6zAf+JLyE27RwbUECLPb5aqE7lO8RcwYu0T82oZkMwLJ0dvV3vLJDWsspmOdW
+/GOOnbp3HgK+BnmzswANmXJ7AQKV+kZz345wLuAkxwIb093msrH4zTz7v2cSZzT9
+oBly2C2V427DkjeZAJ66Y4522MNq4tqMJIG/ElyrhWDgghqRCskQbnh5/eDZJIcc
+53IldotYe4YC5jhdWmd31rYOW+EobwSx8Pmu3NOBE3iRatj/qC+XvJzi79CLb0S2
+f0rWUxXu0q4lxIQ7mV4cKP2m9Psgpv33Jv6dxn3GNrcKz0tv2NIIuhllb1w+8b6G
+2IOvnB4EfX0fzlst9e2CsQPAj8Rwbw==
+=9KR5
+-----END PGP SIGNATURE-----
+
+--Sig_/+CPxGtbE5SBkEEZMmwIvi+1--
