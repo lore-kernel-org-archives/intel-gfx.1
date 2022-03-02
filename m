@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B3EC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 00:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D57C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 00:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 314DF10E6D3;
-	Wed,  2 Mar 2022 00:34:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A909910E666;
+	Wed,  2 Mar 2022 00:34:01 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0940F10E1D5;
- Wed,  2 Mar 2022 00:33:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C06B10E1D5;
+ Wed,  2 Mar 2022 00:33:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646181238; x=1677717238;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=JbVPYhzmaYYdyxSADxCkR2AqersbJkO87R8zJFh7sOk=;
- b=VaLolDXTDmmP7TjQrXv2iNNPmPzDbWqXZeHRG08lnPZj+GoCjGDsHjjW
- KbhRhoU8IrFZLSpZYOIoiSXzdjJIm0zEXUZgU/XrdDx7O8ZBBHhYJF23P
- ceopbyWVt87tqmBwNqus/45YKVgNn+R7mjOU5T+nx6HqLNRbjIGa8WD4m
- AN6aLoDl6KR77VKGLjEhWdt7yBJ0Ybn/zTAH945uFODw0HNBOapVuOyT5
- AQQd3ljyf0mQCinueFLdsIzWZ66oIN8IYv2tFtgb5c8UcuRlqrdmsgjH2
- YboU1tRPL8KEy7ZhL+qxpI4X2rtnLHKMBREmXlMVPSilYk/Ka47cmik1E A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233243136"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233243136"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=j0Ivf9NEDIPFNCNJ6EoBQrWoWTTEdmV0xfkB+Ek7DkQ=;
+ b=FANa8KzjYSQ212GLT9wq23SIHZ+enE+ExkuHJKofFeXlGx2NZ5WN4BGF
+ q6LbAkSMfHPcs3mzMEMW6vee6EHQbHCAOJtKHQiXORdVBRiNe4tYLD6ux
+ ravu9+Bg3G5OANhwRcPCdhL7gwUT3DQFr25u5OxWfSWvRv/j+vAkrvDru
+ WAKdXnO5deSvDME1s4agIMx4sz1QPGazUGrq9SqaGYyyjfp01+k9bbk5j
+ jKZHfOmjnAZ4ez4Zzyvb7dc3W0Crpf7pZLyfG3URaahCceAf/aDIbMl/D
+ o040dfS5i0La8UucwDete8UHn0nBXp3zmG7A6TblJb+dZusTgaz50ZUJI g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233243138"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233243138"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Mar 2022 16:33:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="639577364"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="639577371"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by fmsmga002.fm.intel.com with ESMTP; 01 Mar 2022 16:33:57 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue,  1 Mar 2022 16:33:49 -0800
-Message-Id: <20220302003357.4188363-1-John.C.Harrison@Intel.com>
+Date: Tue,  1 Mar 2022 16:33:51 -0800
+Message-Id: <20220302003357.4188363-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220302003357.4188363-1-John.C.Harrison@Intel.com>
+References: <20220302003357.4188363-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/8] Prep work for next GuC release
+Subject: [Intel-gfx] [PATCH v3 2/8] drm/i915/guc: Add an explicit
+ 'submission_initialized' flag
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +64,74 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The next GuC firmware release includes some significant backwards
-breaking API changes. One such is that there is no longer an LRC
-descriptor pool. A bunch of prep work for that change can be done in
-advance - the descriptor pool was being used for things it shouldn't
-really have been used for anyway.
-
-v2: Extend commit message on 'better name' patch. Improve 'split
-apart' patch to include some necessary re-arrangement that was in a
-later patch and which introduced an unnecessary conditional in said
-patch too. (review feedback from Daniele)
-
-v3: Rebase to newer tree.
+The LRC descriptor pool is going away. So, stop using it as a check
+for whether submission has been initialised or not.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h            | 2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 8 +++++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-
-John Harrison (8):
-  drm/i915/guc: Do not conflate lrc_desc with GuC id for registration
-  drm/i915/guc: Add an explicit 'submission_initialized' flag
-  drm/i915/guc: Better name for context id limit
-  drm/i915/guc: Split guc_lrc_desc_pin apart
-  drm/i915/guc: Move lrc desc setup to where it is needed
-  drm/i915/guc: Rename desc_idx to ctx_id
-  drm/i915/guc: Drop obsolete H2G definitions
-  drm/i915/guc: Fix potential invalid pointer dereferences when decoding
-    G2Hs
-
- drivers/gpu/drm/i915/gt/intel_context.c       |   2 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   2 -
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   4 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 181 ++++++++++--------
- drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |   2 +-
- 6 files changed, 109 insertions(+), 84 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index bf7079480d47..e439e6c1ac8b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -138,6 +138,8 @@ struct intel_guc {
+ 	bool submission_supported;
+ 	/** @submission_selected: tracks whether the user enabled GuC submission */
+ 	bool submission_selected;
++	/** @submission_initialized: tracks whether GuC submission has been initialised */
++	bool submission_initialized;
+ 	/**
+ 	 * @rc_supported: tracks whether we support GuC rc on the current platform
+ 	 */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 2f5f2099a9fc..f2251ce8776e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -508,7 +508,7 @@ static void guc_lrc_desc_pool_destroy(struct intel_guc *guc)
+ 
+ static inline bool guc_submission_initialized(struct intel_guc *guc)
+ {
+-	return !!guc->lrc_desc_pool_vaddr;
++	return guc->submission_initialized;
+ }
+ 
+ static inline void _reset_lrc_desc(struct intel_guc *guc, u32 id)
+@@ -1813,7 +1813,7 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	int ret;
+ 
+-	if (guc->lrc_desc_pool)
++	if (guc->submission_initialized)
+ 		return 0;
+ 
+ 	ret = guc_lrc_desc_pool_create(guc);
+@@ -1832,19 +1832,21 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 
+ 	guc->timestamp.ping_delay = (POLL_TIME_CLKS / gt->clock_frequency + 1) * HZ;
+ 	guc->timestamp.shift = gpm_timestamp_shift(gt);
++	guc->submission_initialized = true;
+ 
+ 	return 0;
+ }
+ 
+ void intel_guc_submission_fini(struct intel_guc *guc)
+ {
+-	if (!guc->lrc_desc_pool)
++	if (!guc->submission_initialized)
+ 		return;
+ 
+ 	guc_flush_destroyed_contexts(guc);
+ 	guc_lrc_desc_pool_destroy(guc);
+ 	i915_sched_engine_put(guc->sched_engine);
+ 	bitmap_free(guc->submission_state.guc_ids_bitmap);
++	guc->submission_initialized = false;
+ }
+ 
+ static inline void queue_request(struct i915_sched_engine *sched_engine,
 -- 
 2.25.1
 
