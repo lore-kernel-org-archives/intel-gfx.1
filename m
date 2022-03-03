@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54092C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A239AC433FE
 	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 19:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F8C10EF53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB84F10EF63;
 	Thu,  3 Mar 2022 19:12:39 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D40C310EF64
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2B0B10EF63
  for <intel-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 19:12:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646334758; x=1677870758;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=sM9AXxe4EA2G6DGQ2n7+BDhI6da50z2Ob2jpyOeMlRA=;
- b=ND1Nusm6V+LGGtsZkZ002GYyMbA+DWSZfNY5+dzUhOmcB/oHf0kLZw+7
- FA+a4WIJA49ZIkGqOCeoU+l75JSniW2LGsEx6bi6ZUIoy43rFGOFzZXwv
- ejL0Ft9JbApqEm/MkaHRgZZc7F6akaRG89IRsLOHWjGoGEf95tf5QZUC6
- W2QRenb5WRQXz71riBd0O83WWmbCyaKdDevAbBBJFJeBOHFpCCw262HRl
- HW/1/1s4A8ZxIIm7NVz9/bjgaDhIZONoximF14r2NYUPisn1Q6+XvJeg0
- Tszz+uqek5XLpCMEh8uDAJii+Q6SMJdKseJYydxs52PW4irfYTjfGamFl A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10275"; a="278471757"
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="278471757"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2022 11:12:32 -0800
+ bh=ueqV/dScgyLLboZYerSirCh9WSXFcepYVDVo4Hxazfk=;
+ b=U2dc1rEZslmL8X3nuEsMmXzYIRPTkACu6xzqtBWLd6GFV/FKYEFiG4WQ
+ BlVkyIlT+5LybGNbUs/tk/NXCFAUoXTuDb9NLJn6t6QCtwB2idLp2Z0To
+ y9phloksXbg4VZW8OkOyE3PLMXyRT/sdoT73zf/yzEXv1s2L3DU2V3Zq6
+ O1UiBLtNs+cdliCtrKMViLFYmkG2fUC7gBkCYKWOAsjpZY+GjxEUBlggV
+ vi9XEhAnkouLWTcDD0L+TyUVony7n4AEHWPZ66/23apvlsnGiHG13+27Z
+ TyYhu6OjOynGDmJBnIixl60amr1QFmVNJAsfIg4HNh9tNzpqHhXq0WWvr w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10275"; a="241205423"
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="241205423"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2022 11:12:37 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="640312842"
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="686620905"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga002.fm.intel.com with SMTP; 03 Mar 2022 11:12:30 -0800
+ by fmsmga001.fm.intel.com with SMTP; 03 Mar 2022 11:12:35 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 03 Mar 2022 21:12:29 +0200
+ Thu, 03 Mar 2022 21:12:35 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Mar 2022 21:12:05 +0200
-Message-Id: <20220303191207.27931-8-ville.syrjala@linux.intel.com>
+Date: Thu,  3 Mar 2022 21:12:07 +0200
+Message-Id: <20220303191207.27931-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220303191207.27931-1-ville.syrjala@linux.intel.com>
 References: <20220303191207.27931-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 7/9] drm/i915: Properly write lock bw_state
- when it changes
+Subject: [Intel-gfx] [PATCH v2 9/9] drm/i915: Add "maximum pipe read
+ bandwidth" checks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,59 +64,112 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The current code also forgets to call intel_atomic_lock_global_state()
-when other stuff besides the final min_cdlck changes in the state.
-That means we may throw away data which actually has changed, and
-thus we can't be at all sure what the code ends up doing during
-subsequent commits. Do the write lock properly.
+Make sure the CDCLK is high enough to support the so called
+"maximum pipe read bandwidth" limitation. Specified as
+51.2 x CDCLK.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 36 +++++++++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_bw.h |  1 +
+ 2 files changed, 32 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 0759bb95ea4b..56eebccd16e2 100644
+index ed86f3e3c66c..e5e772c4fcfb 100644
 --- a/drivers/gpu/drm/i915/display/intel_bw.c
 +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -678,6 +678,28 @@ intel_atomic_get_bw_state(struct intel_atomic_state *state)
- 	return to_intel_bw_state(bw_state);
+@@ -599,6 +599,18 @@ static unsigned int intel_bw_crtc_data_rate(const struct intel_crtc_state *crtc_
+ 	return data_rate;
  }
  
-+static bool intel_bw_state_changed(struct drm_i915_private *i915,
-+				   const struct intel_bw_state *old_bw_state,
-+				   const struct intel_bw_state *new_bw_state)
++/* "Maximum Pipe Read Bandwidth" */
++static int intel_bw_crtc_min_cdclk(const struct intel_crtc_state *crtc_state)
 +{
-+	enum pipe pipe;
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
 +
-+	for_each_pipe(i915, pipe) {
-+		const struct intel_dbuf_bw *old_crtc_bw =
-+			&old_bw_state->dbuf_bw[pipe];
-+		const struct intel_dbuf_bw *new_crtc_bw =
-+			&new_bw_state->dbuf_bw[pipe];
-+		enum dbuf_slice slice;
++	if (DISPLAY_VER(i915) < 12)
++		return 0;
 +
-+		for_each_dbuf_slice(i915, slice) {
-+			if (old_crtc_bw->used_bw[slice] != new_crtc_bw->used_bw[slice])
-+				return true;
-+		}
-+	}
-+
-+	return old_bw_state->min_cdclk != new_bw_state->min_cdclk;
++	return DIV_ROUND_UP_ULL(mul_u32_u32(intel_bw_crtc_data_rate(crtc_state), 10), 512);
 +}
 +
- static void skl_crtc_calc_dbuf_bw(struct intel_bw_state *bw_state,
- 				  const struct intel_crtc_state *crtc_state)
+ void intel_bw_crtc_update(struct intel_bw_state *bw_state,
+ 			  const struct intel_crtc_state *crtc_state)
  {
-@@ -765,7 +787,7 @@ int intel_bw_calc_min_cdclk(struct intel_atomic_state *state)
+@@ -696,6 +708,9 @@ static bool intel_bw_state_changed(struct drm_i915_private *i915,
+ 			    old_crtc_bw->active_planes[slice] != new_crtc_bw->active_planes[slice])
+ 				return true;
+ 		}
++
++		if (old_bw_state->min_cdclk[pipe] != new_bw_state->min_cdclk[pipe])
++			return true;
+ 	}
  
- 	new_bw_state->min_cdclk = DIV_ROUND_UP(max_bw, 64);
+ 	return false;
+@@ -788,7 +803,15 @@ intel_bw_dbuf_min_cdclk(struct drm_i915_private *i915,
+ int intel_bw_min_cdclk(struct drm_i915_private *i915,
+ 		       const struct intel_bw_state *bw_state)
+ {
+-	return intel_bw_dbuf_min_cdclk(i915, bw_state);
++	enum pipe pipe;
++	int min_cdclk;
++
++	min_cdclk = intel_bw_dbuf_min_cdclk(i915, bw_state);
++
++	for_each_pipe(i915, pipe)
++		min_cdclk = max(bw_state->min_cdclk[pipe], min_cdclk);
++
++	return min_cdclk;
+ }
  
--	if (new_bw_state->min_cdclk != old_bw_state->min_cdclk) {
-+	if (intel_bw_state_changed(dev_priv, old_bw_state, new_bw_state)) {
- 		int ret = intel_atomic_lock_global_state(&new_bw_state->base);
+ int intel_bw_calc_min_cdclk(struct intel_atomic_state *state,
+@@ -814,6 +837,9 @@ int intel_bw_calc_min_cdclk(struct intel_atomic_state *state,
+ 		old_bw_state = intel_atomic_get_old_bw_state(state);
  
- 		if (ret)
+ 		skl_crtc_calc_dbuf_bw(new_bw_state, crtc_state);
++
++		new_bw_state->min_cdclk[crtc->pipe] =
++			intel_bw_crtc_min_cdclk(crtc_state);
+ 	}
+ 
+ 	if (!old_bw_state)
+@@ -830,9 +856,9 @@ int intel_bw_calc_min_cdclk(struct intel_atomic_state *state,
+ 
+ 	/*
+ 	 * No need to check against the cdclk state if
+-	 * the min cdclk for the dbuf doesn't increase.
++	 * the min cdclk doesn't increase.
+ 	 *
+-	 * Ie. we only ever increase the cdclk due to dbuf
++	 * Ie. we only ever increase the cdclk due to bandwidth
+ 	 * requirements. This can reduce back and forth
+ 	 * display blinking due to constant cdclk changes.
+ 	 */
+@@ -845,9 +871,9 @@ int intel_bw_calc_min_cdclk(struct intel_atomic_state *state,
+ 
+ 	/*
+ 	 * No need to recalculate the cdclk state if
+-	 * the min cdclk for the dbuf doesn't increase.
++	 * the min cdclk doesn't increase.
+ 	 *
+-	 * Ie. we only ever increase the cdclk due to dbuf
++	 * Ie. we only ever increase the cdclk due to bandwidth
+ 	 * requirements. This can reduce back and forth
+ 	 * display blinking due to constant cdclk changes.
+ 	 */
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
+index 92fc09a8c824..cb7ee3a24a58 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.h
++++ b/drivers/gpu/drm/i915/display/intel_bw.h
+@@ -41,6 +41,7 @@ struct intel_bw_state {
+ 	 */
+ 	u16 qgv_points_mask;
+ 
++	int min_cdclk[I915_MAX_PIPES];
+ 	unsigned int data_rate[I915_MAX_PIPES];
+ 	u8 num_active_planes[I915_MAX_PIPES];
+ };
 -- 
 2.34.1
 
