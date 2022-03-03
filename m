@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B0B4C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 18:07:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F82C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 18:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6F2210E2EB;
-	Thu,  3 Mar 2022 18:07:12 +0000 (UTC)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96BC610E411;
- Thu,  3 Mar 2022 07:27:22 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id q11so3741042pln.11;
- Wed, 02 Mar 2022 23:27:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F94C10EB50;
+	Thu,  3 Mar 2022 18:07:13 +0000 (UTC)
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E30C610EF5F;
+ Thu,  3 Mar 2022 08:38:55 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id s8so92267pfk.12;
+ Thu, 03 Mar 2022 00:38:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=sgLnwuYIGskFjie2H2jjPO7yZK5PfHYTTkrYtctc5ws=;
- b=FXSRJXcZ2cyaSSh+RFzgN891/0EsPjQQYnYlHyt7Q6au+u55Yhw9CQjtuc/Xh+IxeA
- jmfOE8xDuyw6aNjCCweSWK23ooxkZ+FDp1vmELSXGe87/BlE9lQAJ5VCHRxCoJXheQ6e
- z0ZjBk6ntNVuChDJjKVkipnrg4PFzEOabNhKEpFBHr+LTEWxBydNvmRMp4x1CJuZdUwr
- yIPtetuwCR4pZCzLE6nNdjkyjeKTi+kDUarqoW7jVGs3qBeY6IJUgMC1jfObzr57dlqg
- 9D3LdaczFYPoymDULVGPmDhvRiVgHdjXQ/LS1xahv5fAEYKipZZ05ntIAVBo2UMKI5ki
- Sw5w==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=SGMF6oSM44wO/3sji0yXCG/PEtOPShxdSQ68WLQRB2g=;
+ b=ZvINIOlHF3nZHDcX3MwxAzlzprOUAV7bE6ys/MgPVlfVq9lkuahVjDHsPLQ7QbaFo9
+ fQEFqUdMgi81YiKV62ulZnN7ZvbWazV6yRB1Qn/XiuQndMVO9fvHUymuPfTr2Dg+jh50
+ vUEnvjC71yyLrdhZGmiVJ4PzTrzLKfXKpEMH9pkW4eVCRVAqTfa9XuvSN7zcx65Vy8CK
+ d46NAYhkVq2HOhizng3Ws+JRbkWyYjQl4vq/u0RRAuHhPVUlG5PBN7oH7sIbE0gusQ26
+ 6C+XTV9PxP4Ds6jAKJQCAmbFUS0yNAc3zTUs7Z/QKxXKC+XQ8KtJ4GqninQZxzg5r19Q
+ dsow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=sgLnwuYIGskFjie2H2jjPO7yZK5PfHYTTkrYtctc5ws=;
- b=deYoYYzC79aylWHFUCH0cT6ZYT8gNeiq7hdGSdx36j9rXjArS+kM9LtFDm93Uq2Od9
- XQpKO2zEMtkC5uCmYA80Af21yydxtdQZQk9cdxMBIWYBr7VIFmt6DXURctDddY3Bgpdl
- NfL6hloQTAQ0EtLNxkhJZGZD+HNsOTHsLch8cC3VKKX4G14em8m2IOhPOrTSTrG5UiqA
- JzV9HPS/K8SWz/vApH0zz96qT/wOUY102ADUYICdV1vUPG4nkLR3vErQjUgDgW2u6mNW
- yvRh1yUzYkqsCqu0dQ8Ox8BG+HnB7um6u6X6MmfkPgU/c/uDO88ux8SUjPjqqHM7w4sb
- cVMQ==
-X-Gm-Message-State: AOAM532rUtGk9VRkMLiIKgxfL1HQrIeHqoumg9RvstE7yhbISpJBLlzZ
- W1wZc006TmAD7wSlSRG2zug=
-X-Google-Smtp-Source: ABdhPJxXZq8uo59Ohm7FMpyCTbKfTT1earKguyYxXh9VkI02LjxK1/LHoatHqlibGa3Ordge+YwobQ==
-X-Received: by 2002:a17:902:9687:b0:151:7b31:9a57 with SMTP id
- n7-20020a170902968700b001517b319a57mr13723244plp.146.1646292442145; 
- Wed, 02 Mar 2022 23:27:22 -0800 (PST)
+ :references;
+ bh=SGMF6oSM44wO/3sji0yXCG/PEtOPShxdSQ68WLQRB2g=;
+ b=ADHvEPv0y6kxeiDCCghDA6+TBK37cfNeXfUO44fSOaPzM/6i5rAC7mw/ZG/qadBiZF
+ JfD8PBsWJ6oUzfis4L3+wABpOYjE6nCtVy/h5d5TLAVrF0UTqyNzdwqAAk6a+p4TaRyZ
+ 3DJMXhFncgzfS4bqMV2khvtybD70PR0I7tznCsVcibKrSJw3zMFyU6+Qov1DEx1WvyG/
+ ozROh1L5YdtQuPMcEFhWkO6XvKqpQw3gsyBbD665+hCZqFi0gBTQD2td/8phtzPCpZ3Y
+ z4qpDCTHwwmu7Axbz29Aowm22Qy7UMOTgOK+TTtongU/XQRA+CHuGnFYOwd3Rg8SXZep
+ IvCQ==
+X-Gm-Message-State: AOAM530X6vynzxd9sqI6cctcwqu9JMaBWntvzqhsXplxBcuxsaT77GYb
+ 57bW3TSwy2KMuxmRzKIQAWY=
+X-Google-Smtp-Source: ABdhPJxqu7M+1zWgFCPBx1x396RDv729JpxnE5pMePfUDpYTg5HqtDHmeV1ToBxB32C6BUNb5VRxjw==
+X-Received: by 2002:a63:f03:0:b0:374:50b5:1432 with SMTP id
+ e3-20020a630f03000000b0037450b51432mr28638188pgl.308.1646296735582; 
+ Thu, 03 Mar 2022 00:38:55 -0800 (PST)
 Received: from ubuntu.huawei.com ([119.3.119.19])
  by smtp.googlemail.com with ESMTPSA id
- nu18-20020a17090b1b1200b001bbef4d9049sm1302089pjb.23.2022.03.02.23.27.01
+ q92-20020a17090a1b6500b001bc169e26aasm6405436pjq.2.2022.03.03.00.38.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Mar 2022 23:27:21 -0800 (PST)
+ Thu, 03 Mar 2022 00:38:54 -0800 (PST)
 From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-To: david.laight@aculab.com
-Date: Thu,  3 Mar 2022 15:26:57 +0800
-Message-Id: <20220303072657.11124-1-xiam0nd.tong@gmail.com>
+To: xiam0nd.tong@gmail.com
+Date: Thu,  3 Mar 2022 16:38:31 +0800
+Message-Id: <20220303083831.11833-1-xiam0nd.tong@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <39404befad5b44b385698ff65465abe5@AcuMS.aculab.com>
-References: <39404befad5b44b385698ff65465abe5@AcuMS.aculab.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220303083007.11640-1-xiam0nd.tong@gmail.com>
+References: <20220303083007.11640-1-xiam0nd.tong@gmail.com>
 X-Mailman-Approved-At: Thu, 03 Mar 2022 18:07:12 +0000
 Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
  after loop body as a ptr
@@ -93,100 +89,17 @@ Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, gustavo@embeddedor.com,
  linux-sgx@vger.kernel.org, nathan@kernel.org, netdev@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- xiam0nd.tong@gmail.com, tipc-discussion@lists.sourceforge.net,
+ David.Laight@ACULAB.COM, tipc-discussion@lists.sourceforge.net,
  linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-mediatek@lists.infradead.org, akpm@linux-foundation.org,
  linuxppc-dev@lists.ozlabs.org, christian.koenig@amd.com, rppt@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 3 Mar 2022 04:58:23 +0000, David Laight wrote:
-> on 3 Mar 2022 10:27:29 +0800, Xiaomeng Tong wrote:
-> > The problem is the mis-use of iterator outside the loop on exit, and
-> > the iterator will be the HEAD's container_of pointer which pointers
-> > to a type-confused struct. Sidenote: The *mis-use* here refers to
-> > mistakely access to other members of the struct, instead of the
-> > list_head member which acutally is the valid HEAD.
->
-> The problem is that the HEAD's container_of pointer should never
-> be calculated at all.
-> This is what is fundamentally broken about the current definition.
+correct for typo:
 
-Yes, the rule is "the HEAD's container_of pointer should never be
-calculated at all outside the loop", but how do you make sure everyone
-follows this rule?
-Everyone makes mistakes, but we can eliminate them all from the beginning
-with the help of compiler which can catch such use-after-loop things.
-
-> > IOW, you would dereference a (NULL + offset_of_member) address here.
->
->Where?
-
-In the case where a developer do not follows the above rule, and mistakely
-access a non-list-head member of the HEAD's container_of pointer outside
-the loop. For example:
-    struct req{
-      int a;
-      struct list_head h;
-    }
-    struct req *r;
-    list_for_each_entry(r, HEAD, h) {
-      if (r->a == 0x10)
-        break;
-    }
-    // the developer made a mistake: he didn't take this situation into
-    // account where all entries in the list are *r->a != 0x10*, and now
-    // the r is the HEAD's container_of pointer. 
-    r->a = 0x20;
-Thus the "r->a = 0x20" would dereference a (NULL + offset_of_member)
-address here.
-
-> > Please remind me if i missed something, thanks.
-> >
-> > Can you share your "alternative definitions" details? thanks!
->
-> The loop should probably use as extra variable that points
-> to the 'list node' in the next structure.
-> Something like:
-> 	for (xxx *iter = head->next;
-> 		iter == &head ? ((item = NULL),0) : ((item = list_item(iter),1));
-> 		iter = item->member->next) {
-> 	   ...
-> With a bit of casting you can use 'item' to hold 'iter'.
-
-you still can not make sure everyone follows this rule: 
-"do not use iterator outside the loop" without the help of compiler,
-because item is declared outside the loop.
-
-BTW, to avoid ambiguity，the "alternative definitions" here i asked is
-something from you in this context:
-"OTOH there may be alternative definitions that can be used to get
-the compiler (or other compiler-like tools) to detect broken code.
-Even if the definition can't possibly generate a working kerrnel."
-
-> > 
-> > > OTOH there may be alternative definitions that can be used to get
-> > > the compiler (or other compiler-like tools) to detect broken code.
-> > > Even if the definition can't possibly generate a working kerrnel.
-> > 
-> > The "list_for_each_entry_inside(pos, type, head, member)" way makes
-> > the iterator invisiable outside the loop, and would be catched by
-> > compiler if use-after-loop things happened.
-
-> It is also a compete PITA for anything doing a search.
-
-You mean it would be a burden on search? can you show me some examples?
-
-Or you mean it is too long the list_for_each_entry_inside* string to live
-in one single line, and should spilt into two line? If it is the case, there
-are 2 way to mitigate it.
-1. pass a shorter t as struct type to the macro
-2. after all list_for_each_entry macros be replaced with
-list_for_each_entry_inside, remove the list_for_each_entry implementations
-and rename all list_for_each_entry_inside use back to the origin
-list_for_each_entry in a single patch.
-
-For me, it is acceptable and not a such big problem.
+-for (struct list_head *list = head->next, cond = (struct list_head *)-1; cond == (struct list_head *)-1; cond = NULL) \
++for (struct list_head *list = head->next, *cond = (struct list_head *)-1; cond == (struct list_head *)-1; cond = NULL) \
 
 --
 Xiaomeng Tong
