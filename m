@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD5EC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 19:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825D6C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 19:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A32B210EF15;
-	Thu,  3 Mar 2022 19:12:25 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E45C10EF15
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 19:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD7B610EF54;
+	Thu,  3 Mar 2022 19:12:27 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE09610EF54
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 19:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646334744; x=1677870744;
+ t=1646334746; x=1677870746;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oPxdaYGNA0b2kbjLPEIDdN/+U4aFWmVVmVZcwiFkwcM=;
- b=E0vlnjveZwMHV+OgTdZRcCKNDheBqVyvMjoAcaovx6TuQAejnuIjTjaQ
- l1XzWGU5fcAO4min5daQgu5G5KW6J1dYgJMg/JW+63+/FwzgTylBcFWfa
- 5qrzjTmWW8JWAx4Iqv3phYmLiltXi+gkniqQlXX8GysURH/EJeCoGL3Wg
- wzyqRyw2Y5RooHNTlPyAbKrab1G6nWF5L1U1DIS7ZrfO+rUvGJ1Wn8B9C
- m74bjnZhwl+scgz3MLYIZ7HH87OvCO/eKJ/jCDedDm/dqdL3C1JRn6Kqb
- F9lk7ONEV7FN7yU1Drg98APmsh6ms4lnGreSe/sKvjpdtdi/MxMZA+4De g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10275"; a="253517382"
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="253517382"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2022 11:12:20 -0800
+ bh=8rn95JWMI0qOpZalz1iQam0oB/TIkjfenKi+UM5zX44=;
+ b=kFVggzgAK7E+23r0Ncd7/kSxz86vm9FrSSpyJ1q1taTBb6BG0cUJSuuH
+ Dzzd646IKYWSR4uH9QVWL6w0nlqpIyH1dpDwKNVShy55jPqNWCDAOMj07
+ 3Jl+6anr2CSC9gpXDOGPSJwIULWHXULD1jXrVLOLUqCRqNwzDD0q9iF1e
+ lUjsDcE9DqZhQFhU/7JRuMtB88Rah8HUribaF7WewvCpsu9OwJZ3Zg0Su
+ 6PSBIFWSBlizzB0Ls0L+iMtT6UGB3gdS6H0AJQ9wNtjfcH/J94zD4JygO
+ x7RqjPJKj/JD+f9Sh3Jx+MUOOzqqQaV+vRW5A8mL5OlZsE8skuIK8OkyG g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10275"; a="251362531"
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="251362531"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2022 11:12:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="576619084"
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="630909450"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga001.jf.intel.com with SMTP; 03 Mar 2022 11:12:17 -0800
+ by FMSMGA003.fm.intel.com with SMTP; 03 Mar 2022 11:12:24 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 03 Mar 2022 21:12:17 +0200
+ Thu, 03 Mar 2022 21:12:23 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Mar 2022 21:12:01 +0200
-Message-Id: <20220303191207.27931-4-ville.syrjala@linux.intel.com>
+Date: Thu,  3 Mar 2022 21:12:03 +0200
+Message-Id: <20220303191207.27931-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220303191207.27931-1-ville.syrjala@linux.intel.com>
 References: <20220303191207.27931-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/9] drm/i915: Pre-calculate plane relative
- data rate
+Subject: [Intel-gfx] [PATCH v2 5/9] drm/i915: Nuke intel_bw_calc_min_cdclk()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,409 +63,289 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Handle the plane relative data rate in exactly the same
-way as we already handle the real data rate. Ie. pre-calculate
-it during intel_plane_atomic_check_with_state(), and assign/clear
-it for the Y plane as needed. This should guarantee that the
-tracking is 100% consistent, and makes me have to think less
-when the same apporach is used by both types of data rate.
-
-We might even want to consider replacing the relative
-data rate with the real data rate entirely, but it's not
-clear if that will produce less optimal plane ddb
-allocations. So for now lets keep using the current approach.
-
-v2: Rebase due to async flip wm optimization
+intel_bw_calc_min_cdclk() is entirely pointless. All it manages to do is
+somehow conflate the per-pipe min cdclk with dbuf min cdclk. There is no
+(at least documented) dbuf min cdclk limit on pre-skl so let's just get
+rid of all this confusion.
 
 Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- .../gpu/drm/i915/display/intel_atomic_plane.c |  64 ++++++
- drivers/gpu/drm/i915/display/intel_display.c  |   5 +
- .../drm/i915/display/intel_display_types.h    |   6 +-
- drivers/gpu/drm/i915/intel_pm.c               | 187 ++++--------------
- 4 files changed, 108 insertions(+), 154 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c    | 49 ++--------------------
+ drivers/gpu/drm/i915/display/intel_bw.h    |  1 -
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 31 +-------------
+ 3 files changed, 5 insertions(+), 76 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index b0aa65845f90..6ed2bf5b3942 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -193,6 +193,57 @@ unsigned int intel_plane_data_rate(const struct intel_crtc_state *crtc_state,
- 		fb->format->cpp[color_plane];
- }
- 
-+static bool
-+use_min_ddb(const struct intel_crtc_state *crtc_state,
-+	    struct intel_plane *plane)
-+{
-+	struct drm_i915_private *i915 = to_i915(plane->base.dev);
-+
-+	return DISPLAY_VER(i915) >= 13 &&
-+	       crtc_state->uapi.async_flip &&
-+	       plane->async_flip;
-+}
-+
-+static unsigned int
-+intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
-+			       const struct intel_plane_state *plane_state,
-+			       int color_plane)
-+{
-+	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
-+	const struct drm_framebuffer *fb = plane_state->hw.fb;
-+	int width, height;
-+
-+	if (plane->id == PLANE_CURSOR)
-+		return 0;
-+
-+	if (!plane_state->uapi.visible)
-+		return 0;
-+
-+	/*
-+	 * We calculate extra ddb based on ratio plane rate/total data rate
-+	 * in case, in some cases we should not allocate extra ddb for the plane,
-+	 * so do not count its data rate, if this is the case.
-+	 */
-+	if (use_min_ddb(crtc_state, plane))
-+		return 0;
-+
-+	/*
-+	 * Src coordinates are already rotated by 270 degrees for
-+	 * the 90/270 degree plane rotation cases (to match the
-+	 * GTT mapping), hence no need to account for rotation here.
-+	 */
-+	width = drm_rect_width(&plane_state->uapi.src) >> 16;
-+	height = drm_rect_height(&plane_state->uapi.src) >> 16;
-+
-+	/* UV plane does 1/2 pixel sub-sampling */
-+	if (color_plane == 1) {
-+		width /= 2;
-+		height /= 2;
-+	}
-+
-+	return width * height * fb->format->cpp[color_plane];
-+}
-+
- int intel_plane_calc_min_cdclk(struct intel_atomic_state *state,
- 			       struct intel_plane *plane,
- 			       bool *need_cdclk_calc)
-@@ -314,6 +365,8 @@ void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
- 	crtc_state->c8_planes &= ~BIT(plane->id);
- 	crtc_state->data_rate[plane->id] = 0;
- 	crtc_state->data_rate_y[plane->id] = 0;
-+	crtc_state->rel_data_rate[plane->id] = 0;
-+	crtc_state->rel_data_rate_y[plane->id] = 0;
- 	crtc_state->min_cdclk[plane->id] = 0;
- 
- 	plane_state->uapi.visible = false;
-@@ -545,9 +598,20 @@ int intel_plane_atomic_check_with_state(const struct intel_crtc_state *old_crtc_
- 			intel_plane_data_rate(new_crtc_state, new_plane_state, 0);
- 		new_crtc_state->data_rate[plane->id] =
- 			intel_plane_data_rate(new_crtc_state, new_plane_state, 1);
-+
-+		new_crtc_state->rel_data_rate_y[plane->id] =
-+			intel_plane_relative_data_rate(new_crtc_state,
-+						       new_plane_state, 0);
-+		new_crtc_state->rel_data_rate[plane->id] =
-+			intel_plane_relative_data_rate(new_crtc_state,
-+						       new_plane_state, 1);
- 	} else if (new_plane_state->uapi.visible) {
- 		new_crtc_state->data_rate[plane->id] =
- 			intel_plane_data_rate(new_crtc_state, new_plane_state, 0);
-+
-+		new_crtc_state->rel_data_rate[plane->id] =
-+			intel_plane_relative_data_rate(new_crtc_state,
-+						       new_plane_state, 0);
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index fa51fa85e431..df98b1d7a6f7 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -717,7 +717,7 @@ static void skl_crtc_calc_dbuf_bw(struct intel_bw_state *bw_state,
  	}
- 
- 	return intel_plane_atomic_calc_changes(old_crtc_state, new_crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 5e3174dde876..45f05a9ea03e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -786,6 +786,8 @@ void intel_plane_disable_noatomic(struct intel_crtc *crtc,
- 	fixup_plane_bitmasks(crtc_state);
- 	crtc_state->data_rate[plane->id] = 0;
- 	crtc_state->data_rate_y[plane->id] = 0;
-+	crtc_state->rel_data_rate[plane->id] = 0;
-+	crtc_state->rel_data_rate_y[plane->id] = 0;
- 	crtc_state->min_cdclk[plane->id] = 0;
- 
- 	if ((crtc_state->active_planes & ~BIT(PLANE_CURSOR)) == 0 &&
-@@ -4764,6 +4766,7 @@ static int icl_check_nv12_planes(struct intel_crtc_state *crtc_state)
- 			crtc_state->active_planes &= ~BIT(plane->id);
- 			crtc_state->update_planes |= BIT(plane->id);
- 			crtc_state->data_rate[plane->id] = 0;
-+			crtc_state->rel_data_rate[plane->id] = 0;
- 		}
- 
- 		plane_state->planar_slave = false;
-@@ -4810,6 +4813,8 @@ static int icl_check_nv12_planes(struct intel_crtc_state *crtc_state)
- 		crtc_state->update_planes |= BIT(linked->id);
- 		crtc_state->data_rate[linked->id] =
- 			crtc_state->data_rate_y[plane->id];
-+		crtc_state->rel_data_rate[linked->id] =
-+			crtc_state->rel_data_rate_y[plane->id];
- 		drm_dbg_kms(&dev_priv->drm, "Using %s as Y plane for %s\n",
- 			    linked->base.name, plane->base.name);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ad48509119ff..fb4a8dfd07dd 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1135,9 +1135,9 @@ struct intel_crtc_state {
- 	/* for planar Y */
- 	u32 data_rate_y[I915_MAX_PLANES];
- 
--	/* FIXME unify with data_rate[] */
--	u64 plane_data_rate[I915_MAX_PLANES];
--	u64 uv_plane_data_rate[I915_MAX_PLANES];
-+	/* FIXME unify with data_rate[]? */
-+	u64 rel_data_rate[I915_MAX_PLANES];
-+	u64 rel_data_rate_y[I915_MAX_PLANES];
- 
- 	/* Gamma mode programmed on the pipe */
- 	u32 gamma_mode;
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 191ef54a2f00..d292a9e65e3f 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -4899,17 +4899,6 @@ static u8 skl_compute_dbuf_slices(struct intel_crtc *crtc, u8 active_pipes, bool
- 	return active_pipes & BIT(pipe) ? BIT(DBUF_S1) : 0;
  }
  
--static bool
--use_min_ddb(const struct intel_crtc_state *crtc_state,
--	    struct intel_plane *plane)
--{
--	struct drm_i915_private *i915 = to_i915(plane->base.dev);
--
--	return DISPLAY_VER(i915) >= 13 &&
--	       crtc_state->uapi.async_flip &&
--	       plane->async_flip;
--}
--
- static bool
- use_minimal_wm0_only(const struct intel_crtc_state *crtc_state,
- 		     struct intel_plane *plane)
-@@ -4922,134 +4911,24 @@ use_minimal_wm0_only(const struct intel_crtc_state *crtc_state,
- }
- 
- static u64
--skl_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
--			     const struct intel_plane_state *plane_state,
--			     int color_plane)
-+skl_total_relative_data_rate(const struct intel_crtc_state *crtc_state)
+-int skl_bw_calc_min_cdclk(struct intel_atomic_state *state)
++int intel_bw_calc_min_cdclk(struct intel_atomic_state *state)
  {
--	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
--	const struct drm_framebuffer *fb = plane_state->hw.fb;
--	int width, height;
--
--	if (!plane_state->uapi.visible)
--		return 0;
--
--	if (plane->id == PLANE_CURSOR)
--		return 0;
--
--	/*
--	 * We calculate extra ddb based on ratio plane rate/total data rate
--	 * in case, in some cases we should not allocate extra ddb for the plane,
--	 * so do not count its data rate, if this is the case.
--	 */
--	if (use_min_ddb(crtc_state, plane))
--		return 0;
--
--	if (color_plane == 1 &&
--	    !intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
--		return 0;
--
--	/*
--	 * Src coordinates are already rotated by 270 degrees for
--	 * the 90/270 degree plane rotation cases (to match the
--	 * GTT mapping), hence no need to account for rotation here.
--	 */
--	width = drm_rect_width(&plane_state->uapi.src) >> 16;
--	height = drm_rect_height(&plane_state->uapi.src) >> 16;
--
--	/* UV plane does 1/2 pixel sub-sampling */
--	if (color_plane == 1) {
--		width /= 2;
--		height /= 2;
--	}
--
--	return width * height * fb->format->cpp[color_plane];
--}
--
--static u64
--skl_get_total_relative_data_rate(struct intel_atomic_state *state,
--				 struct intel_crtc *crtc)
--{
--	struct intel_crtc_state *crtc_state =
--		intel_atomic_get_new_crtc_state(state, crtc);
--	const struct intel_plane_state *plane_state;
--	struct intel_plane *plane;
--	u64 total_data_rate = 0;
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	enum plane_id plane_id;
--	int i;
--
--	/* Calculate and cache data rate for each plane */
--	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
--		if (plane->pipe != crtc->pipe)
--			continue;
--
--		plane_id = plane->id;
--
--		/* packed/y */
--		crtc_state->plane_data_rate[plane_id] =
--			skl_plane_relative_data_rate(crtc_state, plane_state, 0);
--
--		/* uv-plane */
--		crtc_state->uv_plane_data_rate[plane_id] =
--			skl_plane_relative_data_rate(crtc_state, plane_state, 1);
--	}
-+	u64 data_rate = 0;
+ 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+ 	struct intel_bw_state *new_bw_state = NULL;
+@@ -728,6 +728,9 @@ int skl_bw_calc_min_cdclk(struct intel_atomic_state *state)
+ 	enum pipe pipe;
+ 	int i;
  
- 	for_each_plane_id_on_crtc(crtc, plane_id) {
--		total_data_rate += crtc_state->plane_data_rate[plane_id];
--		total_data_rate += crtc_state->uv_plane_data_rate[plane_id];
--	}
--
--	return total_data_rate;
--}
--
--static u64
--icl_get_total_relative_data_rate(struct intel_atomic_state *state,
--				 struct intel_crtc *crtc)
--{
--	struct intel_crtc_state *crtc_state =
--		intel_atomic_get_new_crtc_state(state, crtc);
--	const struct intel_plane_state *plane_state;
--	struct intel_plane *plane;
--	u64 total_data_rate = 0;
--	enum plane_id plane_id;
--	int i;
--
--	/* Calculate and cache data rate for each plane */
--	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
--		if (plane->pipe != crtc->pipe)
-+		if (plane_id == PLANE_CURSOR)
- 			continue;
- 
--		plane_id = plane->id;
-+		data_rate += crtc_state->rel_data_rate[plane_id];
- 
--		if (!plane_state->planar_linked_plane) {
--			crtc_state->plane_data_rate[plane_id] =
--				skl_plane_relative_data_rate(crtc_state, plane_state, 0);
--		} else {
--			enum plane_id y_plane_id;
--
--			/*
--			 * The slave plane might not iterate in
--			 * intel_atomic_crtc_state_for_each_plane_state(),
--			 * and needs the master plane state which may be
--			 * NULL if we try get_new_plane_state(), so we
--			 * always calculate from the master.
--			 */
--			if (plane_state->planar_slave)
--				continue;
--
--			/* Y plane rate is calculated on the slave */
--			y_plane_id = plane_state->planar_linked_plane->id;
--			crtc_state->plane_data_rate[y_plane_id] =
--				skl_plane_relative_data_rate(crtc_state, plane_state, 0);
--
--			crtc_state->plane_data_rate[plane_id] =
--				skl_plane_relative_data_rate(crtc_state, plane_state, 1);
--		}
-+		if (DISPLAY_VER(i915) < 11)
-+			data_rate += crtc_state->rel_data_rate_y[plane_id];
- 	}
- 
--	for_each_plane_id_on_crtc(crtc, plane_id)
--		total_data_rate += crtc_state->plane_data_rate[plane_id];
--
--	return total_data_rate;
-+	return data_rate;
++	if (DISPLAY_VER(dev_priv) < 9)
++		return 0;
++
+ 	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
+ 		new_bw_state = intel_atomic_get_bw_state(state);
+ 		if (IS_ERR(new_bw_state))
+@@ -772,50 +775,6 @@ int skl_bw_calc_min_cdclk(struct intel_atomic_state *state)
+ 	return 0;
  }
  
- const struct skl_wm_level *
-@@ -5167,11 +5046,6 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 	if (!crtc_state->hw.active)
- 		return 0;
- 
--	if (DISPLAY_VER(dev_priv) >= 11)
--		iter.data_rate = icl_get_total_relative_data_rate(state, crtc);
--	else
--		iter.data_rate = skl_get_total_relative_data_rate(state, crtc);
+-int intel_bw_calc_min_cdclk(struct intel_atomic_state *state)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+-	struct intel_bw_state *new_bw_state = NULL;
+-	struct intel_bw_state *old_bw_state = NULL;
+-	const struct intel_crtc_state *crtc_state;
+-	struct intel_crtc *crtc;
+-	int min_cdclk = 0;
+-	enum pipe pipe;
+-	int i;
 -
- 	iter.size = skl_ddb_entry_size(alloc);
- 	if (iter.size == 0)
- 		return 0;
-@@ -5182,6 +5056,8 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 	skl_ddb_entry_init(&crtc_state->wm.skl.plane_ddb[PLANE_CURSOR],
- 			   alloc->end - iter.total[PLANE_CURSOR], alloc->end);
- 
-+	iter.data_rate = skl_total_relative_data_rate(crtc_state);
-+
- 	/*
- 	 * Find the highest watermark level for which we can satisfy the block
- 	 * requirement of active planes.
-@@ -5236,13 +5112,19 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 		if (plane_id == PLANE_CURSOR)
- 			continue;
- 
--		iter.total[plane_id] =
--			skl_allocate_plane_ddb(&iter, &wm->wm[level],
--					       crtc_state->plane_data_rate[plane_id]);
+-	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
+-		new_bw_state = intel_atomic_get_bw_state(state);
+-		if (IS_ERR(new_bw_state))
+-			return PTR_ERR(new_bw_state);
 -
--		iter.uv_total[plane_id] =
--			skl_allocate_plane_ddb(&iter, &wm->uv_wm[level],
--					       crtc_state->uv_plane_data_rate[plane_id]);
-+		if (DISPLAY_VER(dev_priv) < 11 &&
-+		    crtc_state->nv12_planes & BIT(plane_id)) {
-+			iter.total[plane_id] =
-+				skl_allocate_plane_ddb(&iter, &wm->wm[level],
-+						       crtc_state->rel_data_rate_y[plane_id]);
-+			iter.uv_total[plane_id] =
-+				skl_allocate_plane_ddb(&iter, &wm->uv_wm[level],
-+						       crtc_state->rel_data_rate[plane_id]);
-+		} else {
-+			iter.total[plane_id] =
-+				skl_allocate_plane_ddb(&iter, &wm->wm[level],
-+						       crtc_state->rel_data_rate[plane_id]);
-+		}
- 	}
- 	drm_WARN_ON(&dev_priv->drm, iter.size != 0 || iter.data_rate != 0);
- 
-@@ -5262,15 +5144,18 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 			    DISPLAY_VER(dev_priv) >= 11 && iter.uv_total[plane_id]);
- 
- 		/* Leave disabled planes at (0,0) */
--		if (iter.total[plane_id])
--			iter.start = skl_ddb_entry_init(ddb, iter.start,
--							iter.start + iter.total[plane_id]);
+-		old_bw_state = intel_atomic_get_old_bw_state(state);
+-	}
 -
--		if (iter.uv_total[plane_id]) {
--			/* hardware wants these swapped */
--			*ddb_y = *ddb;
--			iter.start = skl_ddb_entry_init(ddb, iter.start,
--							iter.start + iter.uv_total[plane_id]);
-+		if (DISPLAY_VER(dev_priv) < 11 &&
-+		    crtc_state->nv12_planes & BIT(plane_id)) {
-+			if (iter.total[plane_id])
-+				iter.start = skl_ddb_entry_init(ddb_y, iter.start,
-+								iter.start + iter.total[plane_id]);
-+			if (iter.uv_total[plane_id])
-+				iter.start = skl_ddb_entry_init(ddb, iter.start,
-+								iter.start + iter.uv_total[plane_id]);
-+		} else {
-+			if (iter.total[plane_id])
-+				iter.start = skl_ddb_entry_init(ddb, iter.start,
-+								iter.start + iter.total[plane_id]);
- 		}
- 	}
+-	if (!old_bw_state)
+-		return 0;
+-
+-	for_each_pipe(dev_priv, pipe) {
+-		struct intel_cdclk_state *cdclk_state;
+-
+-		cdclk_state = intel_atomic_get_new_cdclk_state(state);
+-		if (!cdclk_state)
+-			return 0;
+-
+-		min_cdclk = max(cdclk_state->min_cdclk[pipe], min_cdclk);
+-	}
+-
+-	new_bw_state->min_cdclk = min_cdclk;
+-
+-	if (new_bw_state->min_cdclk != old_bw_state->min_cdclk) {
+-		int ret = intel_atomic_lock_global_state(&new_bw_state->base);
+-
+-		if (ret)
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-
+ static u16 icl_qgv_points_mask(struct drm_i915_private *i915)
+ {
+ 	unsigned int num_psf_gv_points = i915->max_bw[0].num_psf_gv_points;
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
+index 0ceaed1c9656..6acdf1245b3a 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.h
++++ b/drivers/gpu/drm/i915/display/intel_bw.h
+@@ -65,6 +65,5 @@ void intel_bw_crtc_update(struct intel_bw_state *bw_state,
+ int icl_pcode_restrict_qgv_points(struct drm_i915_private *dev_priv,
+ 				  u32 points_mask);
+ int intel_bw_calc_min_cdclk(struct intel_atomic_state *state);
+-int skl_bw_calc_min_cdclk(struct intel_atomic_state *state);
+ 
+ #endif /* __INTEL_BW_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 8888fda8b701..5d0c2f8b0533 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -72,7 +72,6 @@ struct intel_cdclk_funcs {
+ 	void (*set_cdclk)(struct drm_i915_private *i915,
+ 			  const struct intel_cdclk_config *cdclk_config,
+ 			  enum pipe pipe);
+-	int (*bw_calc_min_cdclk)(struct intel_atomic_state *state);
+ 	int (*modeset_calc_cdclk)(struct intel_cdclk_state *state);
+ 	u8 (*calc_voltage_level)(int cdclk);
+ };
+@@ -83,12 +82,6 @@ void intel_cdclk_get_cdclk(struct drm_i915_private *dev_priv,
+ 	dev_priv->cdclk_funcs->get_cdclk(dev_priv, cdclk_config);
+ }
+ 
+-static int intel_cdclk_bw_calc_min_cdclk(struct intel_atomic_state *state)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+-	return dev_priv->cdclk_funcs->bw_calc_min_cdclk(state);
+-}
+-
+ static void intel_cdclk_set_cdclk(struct drm_i915_private *dev_priv,
+ 				  const struct intel_cdclk_config *cdclk_config,
+ 				  enum pipe pipe)
+@@ -2683,7 +2676,7 @@ int intel_cdclk_atomic_check(struct intel_atomic_state *state,
+ 	    old_cdclk_state->force_min_cdclk != new_cdclk_state->force_min_cdclk)
+ 		*need_cdclk_calc = true;
+ 
+-	ret = intel_cdclk_bw_calc_min_cdclk(state);
++	ret = intel_bw_calc_min_cdclk(state);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -3072,7 +3065,6 @@ u32 intel_read_rawclk(struct drm_i915_private *dev_priv)
+ static const struct intel_cdclk_funcs tgl_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+-	.bw_calc_min_cdclk = skl_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
+ 	.calc_voltage_level = tgl_calc_voltage_level,
+ };
+@@ -3080,7 +3072,6 @@ static const struct intel_cdclk_funcs tgl_cdclk_funcs = {
+ static const struct intel_cdclk_funcs ehl_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+-	.bw_calc_min_cdclk = skl_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
+ 	.calc_voltage_level = ehl_calc_voltage_level,
+ };
+@@ -3088,7 +3079,6 @@ static const struct intel_cdclk_funcs ehl_cdclk_funcs = {
+ static const struct intel_cdclk_funcs icl_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+-	.bw_calc_min_cdclk = skl_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
+ 	.calc_voltage_level = icl_calc_voltage_level,
+ };
+@@ -3096,7 +3086,6 @@ static const struct intel_cdclk_funcs icl_cdclk_funcs = {
+ static const struct intel_cdclk_funcs bxt_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+-	.bw_calc_min_cdclk = skl_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
+ 	.calc_voltage_level = bxt_calc_voltage_level,
+ };
+@@ -3104,53 +3093,45 @@ static const struct intel_cdclk_funcs bxt_cdclk_funcs = {
+ static const struct intel_cdclk_funcs skl_cdclk_funcs = {
+ 	.get_cdclk = skl_get_cdclk,
+ 	.set_cdclk = skl_set_cdclk,
+-	.bw_calc_min_cdclk = skl_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = skl_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs bdw_cdclk_funcs = {
+ 	.get_cdclk = bdw_get_cdclk,
+ 	.set_cdclk = bdw_set_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = bdw_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs chv_cdclk_funcs = {
+ 	.get_cdclk = vlv_get_cdclk,
+ 	.set_cdclk = chv_set_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = vlv_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs vlv_cdclk_funcs = {
+ 	.get_cdclk = vlv_get_cdclk,
+ 	.set_cdclk = vlv_set_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = vlv_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs hsw_cdclk_funcs = {
+ 	.get_cdclk = hsw_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ /* SNB, IVB, 965G, 945G */
+ static const struct intel_cdclk_funcs fixed_400mhz_cdclk_funcs = {
+ 	.get_cdclk = fixed_400mhz_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs ilk_cdclk_funcs = {
+ 	.get_cdclk = fixed_450mhz_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs gm45_cdclk_funcs = {
+ 	.get_cdclk = gm45_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+@@ -3158,7 +3139,6 @@ static const struct intel_cdclk_funcs gm45_cdclk_funcs = {
+ 
+ static const struct intel_cdclk_funcs i965gm_cdclk_funcs = {
+ 	.get_cdclk = i965gm_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+@@ -3166,19 +3146,16 @@ static const struct intel_cdclk_funcs i965gm_cdclk_funcs = {
+ 
+ static const struct intel_cdclk_funcs pnv_cdclk_funcs = {
+ 	.get_cdclk = pnv_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs g33_cdclk_funcs = {
+ 	.get_cdclk = g33_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs i945gm_cdclk_funcs = {
+ 	.get_cdclk = i945gm_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+@@ -3186,37 +3163,31 @@ static const struct intel_cdclk_funcs i945gm_cdclk_funcs = {
+ 
+ static const struct intel_cdclk_funcs i915gm_cdclk_funcs = {
+ 	.get_cdclk = i915gm_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs i915g_cdclk_funcs = {
+ 	.get_cdclk = fixed_333mhz_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs i865g_cdclk_funcs = {
+ 	.get_cdclk = fixed_266mhz_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs i85x_cdclk_funcs = {
+ 	.get_cdclk = i85x_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs i845g_cdclk_funcs = {
+ 	.get_cdclk = fixed_200mhz_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
+ 
+ static const struct intel_cdclk_funcs i830_cdclk_funcs = {
+ 	.get_cdclk = fixed_133mhz_get_cdclk,
+-	.bw_calc_min_cdclk = intel_bw_calc_min_cdclk,
+ 	.modeset_calc_cdclk = fixed_modeset_calc_cdclk,
+ };
  
 -- 
 2.34.1
