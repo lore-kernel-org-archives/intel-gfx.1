@@ -4,40 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3CCBC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 18:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F920C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 18:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060EC10EB85;
-	Thu,  3 Mar 2022 18:07:23 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8623910E16A;
- Wed,  2 Mar 2022 19:10:37 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A16A8139F;
- Wed,  2 Mar 2022 11:10:36 -0800 (PST)
-Received: from [10.57.39.47] (unknown [10.57.39.47])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 40F6A3F70D;
- Wed,  2 Mar 2022 11:10:34 -0800 (PST)
-Message-ID: <9d09be2d-34f2-212c-70c0-c698a1d8145a@arm.com>
-Date: Wed, 2 Mar 2022 19:10:29 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Content-Language: en-GB
-To: Michael Cheng <michael.cheng@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20220225032436.904942-1-michael.cheng@intel.com>
- <20220225032436.904942-2-michael.cheng@intel.com>
- <5c254623-98d2-75f3-52cb-209b8de304b6@arm.com>
- <3750c398-e8fb-c4e1-ba31-e6ac5fbc01d0@intel.com>
- <2f82d150-47c4-d7c3-50da-eaf4aa4a24af@arm.com>
- <49e4a740-c127-0d5d-e2e8-3ff482fdce3c@intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <49e4a740-c127-0d5d-e2e8-3ff482fdce3c@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+	by gabe.freedesktop.org (Postfix) with ESMTP id 521D110E2EB;
+	Thu,  3 Mar 2022 18:10:46 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8645910E2DF;
+ Thu,  3 Mar 2022 18:10:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646331044; x=1677867044;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=0zpW5I8VBVh5I97TA8yzzUAQStOlssMkQN1WkuDg3vI=;
+ b=MvoZz3gdOD0qbSM80fpAwiUWSlHC3N1RqQiXqf6k1O/tRcKhRiaoEBel
+ oLs3/75sOvh2PSmJVW9NVV88Zow2/Rxb9V/Slm/iR06R6XycL0nWh0ytL
+ sweGUlwG34sE+5aBUOylKYMepljoorbvLjhsPbzKtbQ/zJvfeS+RsDSSv
+ T+GVWq9DCJVdgcu248OMwcWcMgWVY652/xDsX7SzYhWmIfqvR+bjVI1F1
+ 2C5zmOOUUTKvZ8FeH2XXDpuGednVTwvefSbYKc9onCeSwtcLIbtWGsfOE
+ gzjrsXiKU/0hepEGIjI+geESop86ULFWzQN2ComOBGaJywyJxvI7dgsfs A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10275"; a="241182035"
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="241182035"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2022 09:59:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="630879382"
+Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
+ by FMSMGA003.fm.intel.com with ESMTP; 03 Mar 2022 09:59:32 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Thu, 3 Mar 2022 09:59:31 -0800
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21 via Frontend Transport; Thu, 3 Mar 2022 09:59:31 -0800
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.42) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.21; Thu, 3 Mar 2022 09:59:31 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K1mrSVhm8UQECAXpVrdocErcayu5a9HOoGjr73i0cj3QlVQNIJQjXWAvdWL8qJ54wtrKg5OVx8soFTTRw2RLSY72i9jOKvJ2OA9o3hDLYYcNU0yjANIJ417UDwnYdf0FVsd+X3ObURX8rvKYx+kQv88wjMD/Pt4G59Qy6FZ2JgRajyMABCzBoe8q/Ie5NMvZlND9c6O3xtBguMh1ZKo4DBCmzf0UxgAuMFBNBrQNv/TN28njmZRhcS+3Fn6kxvtDahRwBpzS8wYkPk7RVZU+ruPVlRHDTL8zNwaMWMpjOLG8Oa4HoUnXNMKiMSBpxgZoZhLc7su4fymcz3r+0H8+ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HUr83TSIBgXMiyFTM1aqKiygP/UN91aaYvGJIOhNLZI=;
+ b=Y6xiNb9hBflbvLpyxxBvIvAXWHKF5/VZNleqvl503c5Lomtfdu7tvWjVPGXuqFmjJ6ck+OedXyT3f+tCn4d3HCp5Kl4R7hWIvBAV+vb/ecx2FjXwnvDo1FbFI0YG8r924s1zkxfU+EgjC7XAJorRGklaEDHEp2e139Yhc2mk7VtS8u4gKutECm4+F8tcY3+tDUZpTczessTcUfzMjhNsg7c50Q1UPDq3pZKuQy0xqpJLbCAJuIsZtK+STgiKd/2BrQGVkVCOOGpjr4oJhEdkn0v0snI/qGtPjhQG6KSMcDfXkI0+u1/vNWVq0Q3+Qgiouje+XW5DLyzf6QWCZYslZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ0PR11MB4894.namprd11.prod.outlook.com (2603:10b6:a03:2d4::5)
+ by DM5PR11MB1244.namprd11.prod.outlook.com (2603:10b6:3:13::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5038.14; Thu, 3 Mar 2022 17:59:27 +0000
+Received: from SJ0PR11MB4894.namprd11.prod.outlook.com
+ ([fe80::d67:8a16:f4cd:b475]) by SJ0PR11MB4894.namprd11.prod.outlook.com
+ ([fe80::d67:8a16:f4cd:b475%8]) with mapi id 15.20.5038.014; Thu, 3 Mar 2022
+ 17:59:27 +0000
+From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Date: Thu, 3 Mar 2022 23:30:11 +0530
+Message-ID: <20220303180013.512219-6-balasubramani.vivekanandan@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220303180013.512219-1-balasubramani.vivekanandan@intel.com>
+References: <20220303180013.512219-1-balasubramani.vivekanandan@intel.com>
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Mar 2022 18:07:12 +0000
-Subject: Re: [Intel-gfx] [PATCH v12 1/6] drm: Add arch arm64 for
- drm_clflush_virt_range
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR0601CA0001.apcprd06.prod.outlook.com (2603:1096:3::11)
+ To SJ0PR11MB4894.namprd11.prod.outlook.com
+ (2603:10b6:a03:2d4::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f1175f0f-1f3b-49e2-4ee6-08d9fd3f8ef8
+X-MS-TrafficTypeDiagnostic: DM5PR11MB1244:EE_
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-Microsoft-Antispam-PRVS: <DM5PR11MB1244BEF0C1B7AB29A66F6AA79F049@DM5PR11MB1244.namprd11.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: N8mX0Sb/CMuEJnn3BRBKdFYo0gbiN3r83aGP+FVXCBgFvoYcZvu6uk+HPT1F0oI+n2hLlQfMNDazslByhzNrMaJHA84dxIYv5wdnlsmwX10v6CIUXBpn1lOUizN2X6z/bDbRkpSMqQ79NVO34ImsKrB2HL3iscIaazvjT/+QQuv4swzWUnyn8X0ktZMTwFu4C2dn1hhKvEW8otlY27gf3HiQawaMVOiod9ZFJigtXdf2GMl0CiLwj7f74dbiDs+aCxpeDom4JOmbhpgQaarKuw7jdqqdnIhgWpbxUk//AJ57QVDH22C6vR77PYN+pIcqcrJR//xAL3sqwgHHwwIH9nunnqSc7hO65aTPn7OdZasmuCuVypqkH8MS15ynq+uH5MuDk0kLx3WYJdkZmG/frvJbFNydi+fLQ1RmZnIJsMbQEOL6xJuv9MQdtw/LM/ISWeROXYQtcQvyquElwi7LwpUeMk5IJI9muttiz9h1zHS0kaWzpW0o8OBVk+R8+q/X8kttyefegbIwdc7uuGx32wfGEuhmCmE4IqFo0z3uezjqMNlGeTdthDBgrBVTECzc0M8Oooul+l6EquqYF21s5OetaiDACfeHznB18/MAL7bOVKZJL/egs4oZ9MVa/EahnFMXmIZB0PLTRuMMFGJkG7NBSZMzesBEnxU28cHL3rx57fCeTSMDOmISrkXiq9WwUDmdBPc6KoMIcEXAxFUuTA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR11MB4894.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(508600001)(6486002)(316002)(38100700002)(66946007)(66556008)(6666004)(66476007)(8676002)(82960400001)(86362001)(4326008)(54906003)(83380400001)(43170500006)(36756003)(6506007)(1076003)(2616005)(5660300002)(2906002)(6512007)(44832011)(186003)(8936002)(26005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cGlN0rLEGPqtl9pW4eoo8Kx4GrCzQDqd1/0ZFhJGkbpRy+mI8qW74sv//LKR?=
+ =?us-ascii?Q?qQ0Hqswk99mzm5w7z6l8yAk3M1sYRmyJWHPJsVlpgoZAbFbSREiGODeyBNNU?=
+ =?us-ascii?Q?DEZgfbD7RbJ16VJbQlc8iceW4O/+P7BY9dg55EDXNv4jBJT5+7OCHt7uqkl1?=
+ =?us-ascii?Q?PaSLjHPGPIbPS89drRQ38gxAACmmTzJYfUPLb8MNDCfoYFbEqpIuY1t8WUJM?=
+ =?us-ascii?Q?oRlIrYfTtJqthslm95NPwrfy2wlhF5HXtszLhTqbm9P0oGsjbHkcKlFBiDxW?=
+ =?us-ascii?Q?/MOfPAiuJtX+pWW+ig4z4FPJSMr2E98LeD9ljJbjr/oipNcLqtd6KTv3T+CV?=
+ =?us-ascii?Q?8bKk1tPxYmxEQgQbRz5hMeHJ8PzIFMp3DfMcBUULLxUV2Fbd3sj7d3LtZd1A?=
+ =?us-ascii?Q?zyY5bUM+3nWIZV5hjGIZ3kRl1POgswk/SAPtfYtL8KfRLdizYbTgy4bcCxuu?=
+ =?us-ascii?Q?pNzZ72HmznfJ3HSxCAIr1FYu+QlOZ9wRcG1OroFACUO6M4g1SrNFOa7ON+FV?=
+ =?us-ascii?Q?bmjzbVqFcxK75Uk1HPyGKxWJ38+a9T/VI+9nT7fZEx49v15X1GN0oGmOhip4?=
+ =?us-ascii?Q?9qOhUJrBR2iMM/uGxe5JFjmcTMrXUrIJHIvxouw1rpRF8u3PCQOLbTEuK8mX?=
+ =?us-ascii?Q?ynVayL89RU6obB3lDqcDCvPTDJmDXCOWrp39e+Sv9H4AoIIu17++tSErAkkH?=
+ =?us-ascii?Q?/cMA3D7bemwt6VtW2CA91lKinsreIOSYt3ikWsAIfSx5hXXXP+ooxuco3Vjj?=
+ =?us-ascii?Q?c5bcEg5wh23MPRO8u+A2rmiaf851xBIre0uAG1KNpwYlrIRo7oFyXoevgx78?=
+ =?us-ascii?Q?u5O9Cf/qoueV0rgEDuphGjYMiQoS8BblBzycWFGRVRH9wj9X+NfiCx0Uqier?=
+ =?us-ascii?Q?vVxQ5PzrDIGm8Re8lGSuCk0WBej06AIcKnvh+9spPVPyAIeZDfCyhTbj4TWj?=
+ =?us-ascii?Q?S9BGRZA6hI2CMJGKEuJsY6Y9ilFB6vl5qf+mcXfDbl8TO/hzt2vStkGxfJML?=
+ =?us-ascii?Q?JJe+xqARLRtraYWXSd/YkXt1wRtC6MUHnOdQbU3TNLUyjRkooeyNuxTmlDRn?=
+ =?us-ascii?Q?tYdLi+4jcLpdRYDsqPRwW/+brRqMsb6RROYYTAci44P1nJI/BXyDeR8nNFYf?=
+ =?us-ascii?Q?Nc3qTSPuUXHxhXxONGtH/6tOTyJpIid0SyPL3kFYlUpCYvTSTSpmmPLG5690?=
+ =?us-ascii?Q?gq29F0DFh2SZt6NsGCyaTVyZG6/GS4VLnreZzc3QrGBYbqlZYKhAZEXFrL5T?=
+ =?us-ascii?Q?mHCOgX9MQzE8VtgIFjtVlCLoNJQV275PiXVf2+c/no63UdYJhB3aR51UtcQN?=
+ =?us-ascii?Q?B9rayjqQrIxW1/E25g9TOJoeEE3Gnr4n7J8yktge3TaO7HCcKPe7dZKGUXWb?=
+ =?us-ascii?Q?W01ByRAjOKQOsfQb1sV5LwcUwxfQNQjWta5YU+fAWumopgFF9OwApR1X+XF4?=
+ =?us-ascii?Q?SE0aApLWf7nT9UY3JTmB165RHqcYKGFj/uXmychmtLzMfOEXzsIm3LkdwhZm?=
+ =?us-ascii?Q?3+rl/f0aB/UcpNKjxXkEkg/fQtEyTEDoTadHYfX2XZ90awsjoQygqQAURoaM?=
+ =?us-ascii?Q?CjoYLJvNmjH07XATbcduN+NZE4LJTPEgfnxmHdszpQ4f+VOuFQZC4lL4xrIu?=
+ =?us-ascii?Q?zOOGuwnvemNlmtNdVqCyAzcNAvuZB7+6kwMwUfbPX+Nwbx2UroKVR67eDvSZ?=
+ =?us-ascii?Q?FUbY/l35N3aNjXgeVYAD0H8tTcEWrAk5hg4DwpcF95UKetsHZBJ94o1xsCi/?=
+ =?us-ascii?Q?mjgtgT4LiQ=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1175f0f-1f3b-49e2-4ee6-08d9fd3f8ef8
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4894.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 17:59:27.4446 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TiOdEEqVwf5RXgqokEaYr4GMFcVpKTs6EjzgvDp+ftC+s4t/gnX/m1EELoQJ1cyA7wc0LNGZvzE60ilQTaPZyANQ00WFpNsMKmydi2Y2mxGZ+xh5Gg7VFwqAta6mo/+k
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR11MB1244
+X-OriginatorOrg: intel.com
+Subject: [Intel-gfx] [PATCH v2 5/7] drm/i915/selftests: use the
+ memcpy_from_wc call from the drm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,172 +147,137 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, lucas.demarchi@intel.com,
- dri-devel@lists.freedesktop.org, Will Deacon <will@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Cc: Thomas Hellstr_m <thomas.hellstrom@linux.intel.com>,
+ michael.cheng@intel.com, lucas.demarchi@intel.com, siva.mullati@intel.com,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2022-03-02 15:55, Michael Cheng wrote:
-> Thanks for the feedback Robin!
-> 
-> Sorry my choices of word weren't that great, but what I meant is to 
-> understand how ARM flushes a range of dcache for device drivers, and not 
-> an equal to x86 clflush.
-> 
-> I believe the concern is if the CPU writes an update, that update might 
-> only be sitting in the CPU cache and never make it to device memory 
-> where the device can see it; there are specific places that we are 
-> supposed to flush the CPU caches to make sure our updates are visible to 
-> the hardware.
+memcpy_from_wc functions in i915_memcpy.c will be removed and replaced
+by the implementation in drm_cache.c.
+Updated to use the functions provided by drm_cache.c.
 
-Ah, OK, if it's more about ordering, and it's actually write buffers 
-rather than caches that you care about flushing, then we might be a lot 
-safer, phew!
+v2: check if the source and destination memory address is from local
+    memory or system memory and initialize the iosys_map accordingly
+    (Lucas)
 
-For a very simple overview, in a case where the device itself needs to 
-observe memory writes in the correct order, e.g.:
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellstr_m <thomas.hellstrom@linux.intel.com>
 
-	data_descriptor.valid = 1;
+Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+---
+ .../drm/i915/selftests/intel_memory_region.c  | 41 +++++++++++++------
+ 1 file changed, 28 insertions(+), 13 deletions(-)
 
-	clflush(&data_descriptor);
+diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+index ba32893e0873..d16ecb905f3b 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+@@ -7,6 +7,7 @@
+ #include <linux/sort.h>
+ 
+ #include <drm/drm_buddy.h>
++#include <drm/drm_cache.h>
+ 
+ #include "../i915_selftest.h"
+ 
+@@ -1133,7 +1134,7 @@ static const char *repr_type(u32 type)
+ 
+ static struct drm_i915_gem_object *
+ create_region_for_mapping(struct intel_memory_region *mr, u64 size, u32 type,
+-			  void **out_addr)
++			  struct iosys_map *out_addr)
+ {
+ 	struct drm_i915_gem_object *obj;
+ 	void *addr;
+@@ -1153,7 +1154,11 @@ create_region_for_mapping(struct intel_memory_region *mr, u64 size, u32 type,
+ 		return addr;
+ 	}
+ 
+-	*out_addr = addr;
++	if (i915_gem_object_is_lmem(obj))
++		iosys_map_set_vaddr_iomem(out_addr, (void __iomem *)addr);
++	else
++		iosys_map_set_vaddr(out_addr, addr);
++
+ 	return obj;
+ }
+ 
+@@ -1164,24 +1169,33 @@ static int wrap_ktime_compare(const void *A, const void *B)
+ 	return ktime_compare(*a, *b);
+ }
+ 
+-static void igt_memcpy_long(void *dst, const void *src, size_t size)
++static void igt_memcpy_long(struct iosys_map *dst, struct iosys_map *src,
++			    size_t size)
+ {
+-	unsigned long *tmp = dst;
+-	const unsigned long *s = src;
++	unsigned long *tmp = dst->is_iomem ?
++				(unsigned long __force *)dst->vaddr_iomem :
++				dst->vaddr;
++	const unsigned long *s = src->is_iomem ?
++				(unsigned long __force *)src->vaddr_iomem :
++				src->vaddr;
+ 
+ 	size = size / sizeof(unsigned long);
+ 	while (size--)
+ 		*tmp++ = *s++;
+ }
+ 
+-static inline void igt_memcpy(void *dst, const void *src, size_t size)
++static inline void igt_memcpy(struct iosys_map *dst, struct iosys_map *src,
++			      size_t size)
+ {
+-	memcpy(dst, src, size);
++	memcpy(dst->is_iomem ? (void __force *)dst->vaddr_iomem : dst->vaddr,
++	       src->is_iomem ? (void __force *)src->vaddr_iomem : src->vaddr,
++	       size);
+ }
+ 
+-static inline void igt_memcpy_from_wc(void *dst, const void *src, size_t size)
++static inline void igt_memcpy_from_wc(struct iosys_map *dst, struct iosys_map *src,
++				      size_t size)
+ {
+-	i915_memcpy_from_wc(dst, src, size);
++	drm_memcpy_from_wc(dst, src, size);
+ }
+ 
+ static int _perf_memcpy(struct intel_memory_region *src_mr,
+@@ -1191,7 +1205,8 @@ static int _perf_memcpy(struct intel_memory_region *src_mr,
+ 	struct drm_i915_private *i915 = src_mr->i915;
+ 	const struct {
+ 		const char *name;
+-		void (*copy)(void *dst, const void *src, size_t size);
++		void (*copy)(struct iosys_map *dst, struct iosys_map *src,
++			     size_t size);
+ 		bool skip;
+ 	} tests[] = {
+ 		{
+@@ -1205,11 +1220,11 @@ static int _perf_memcpy(struct intel_memory_region *src_mr,
+ 		{
+ 			"memcpy_from_wc",
+ 			igt_memcpy_from_wc,
+-			!i915_has_memcpy_from_wc(),
++			!drm_memcpy_fastcopy_supported(),
+ 		},
+ 	};
+ 	struct drm_i915_gem_object *src, *dst;
+-	void *src_addr, *dst_addr;
++	struct iosys_map src_addr, dst_addr;
+ 	int ret = 0;
+ 	int i;
+ 
+@@ -1237,7 +1252,7 @@ static int _perf_memcpy(struct intel_memory_region *src_mr,
+ 
+ 			t0 = ktime_get();
+ 
+-			tests[i].copy(dst_addr, src_addr, size);
++			tests[i].copy(&dst_addr, &src_addr, size);
+ 
+ 			t1 = ktime_get();
+ 			t[pass] = ktime_sub(t1, t0);
+-- 
+2.25.1
 
-	command_descriptor.data = &data_descriptor
-
-	writel(/* control register to read command to then read data */)
-
-then dma_wmb() between the first two writes should be the right tool to 
-ensure that the command does not observe the command update while the 
-data update is still sat somewhere in a CPU write buffer.
-
-If you want a slightly stronger notion that, at a given point, all prior 
-writes have actually been issued and should now be visible (rather than 
-just that they won't become visible in the wrong order whenever they 
-do), then wmb() should suffice on arm64.
-
-Note that wioth arm64 memory types, a Non-Cacheable mapping of DRAM for 
-a non-coherent DMA mapping, or of VRAM in a prefetchable BAR, can still 
-be write-buffered, so barriers still matter even when actual cache 
-maintenance ops don't (and as before if you're trying to perform cache 
-maintenance outside the DMA API then you've already lost anyway). MMIO 
-registers should be mapped as Device memory via ioremap(), which is not 
-bufferable, hence the barrier implicit in writel() effectively pushes 
-out any prior buffered writes ahead of a register write, which is why we 
-don't need to worry about this most of the time.
-
-This is only a very rough overview, though, and I'm not familiar enough 
-with x86 semantics, your hardware, or the exact use-case to be able to 
-say whether barriers alone are anywhere near the right answer or not.
-
-Robin.
-
-> 
-> +Matt Roper
-> 
-> Matt, Lucas, any feed back here?
-> 
-> On 2022-03-02 4:49 a.m., Robin Murphy wrote:
->> On 2022-02-25 19:27, Michael Cheng wrote:
->>> Hi Robin,
->>>
->>> [ +arm64 maintainers for their awareness, which would have been a 
->>> good thing to do from the start ]
->>>
->>>   * Thanks for adding the arm64 maintainer and sorry I didn't rope them
->>>     in sooner.
->>>
->>> Why does i915 need to ensure the CPU's instruction cache is coherent 
->>> with its data cache? Is it a self-modifying driver?
->>>
->>>   * Also thanks for pointing this out. Initially I was using
->>>     dcache_clean_inval_poc, which seem to be the equivalently to what
->>>     x86 is doing for dcache flushing, but it was giving me build errors
->>>     since its not on the global list of kernel symbols. And after
->>>     revisiting the documentation for caches_clean_inval_pou, it won't
->>>     fly for what we are trying to do. Moving forward, what would you (or
->>>     someone in the ARM community) suggest we do? Could it be possible to
->>>     export dcache_clean_inval_poc as a global symbol?
->>
->> Unlikely, unless something with a legitimate need for CPU-centric 
->> cache maintenance like kexec or CPU hotplug ever becomes modular.
->>
->> In the case of a device driver, it's not even the basic issues of 
->> assuming to find direct equivalents to x86 semantics in other CPU 
->> architectures, or effectively reinventing parts of the DMA API, it's 
->> even bigger than that. Once you move from being integrated in a single 
->> vendor's system architecture to being on a discrete card, you 
->> fundamentally *no longer have any control over cache coherency*. 
->> Whether the host CPU architecture happens to be AArch64, RISC-V, or 
->> whatever doesn't really matter, you're at the mercy of 3rd-party PCIe 
->> and interconnect IP vendors, and SoC integrators. You'll find yourself 
->> in systems where PCIe simply cannot snoop any caches, where you'd 
->> better have the correct DMA API calls in place to have any hope of 
->> even the most basic functionality working properly; you'll find 
->> yourself in systems where even if the PCIe root complex claims to 
->> support No Snoop, your uncached traffic will still end up snooping 
->> stale data that got prefetched back into caches you thought you'd 
->> invalidated; you'll find yourself in systems where your memory 
->> attributes may or may not get forcibly rewritten by an IOMMU depending 
->> on the kernel config and/or command line.
->>
->> It's not about simply finding a substitute for clflush, it's that the 
->> reasons you have for using clflush in the first place can no longer be 
->> assumed to be valid.
->>
->> Robin.
->>
->>> On 2022-02-25 10:24 a.m., Robin Murphy wrote:
->>>> [ +arm64 maintainers for their awareness, which would have been a 
->>>> good thing to do from the start ]
->>>>
->>>> On 2022-02-25 03:24, Michael Cheng wrote:
->>>>> Add arm64 support for drm_clflush_virt_range. caches_clean_inval_pou
->>>>> performs a flush by first performing a clean, follow by an 
->>>>> invalidation
->>>>> operation.
->>>>>
->>>>> v2 (Michael Cheng): Use correct macro for cleaning and invalidation 
->>>>> the
->>>>>             dcache. Thanks Tvrtko for the suggestion.
->>>>>
->>>>> v3 (Michael Cheng): Replace asm/cacheflush.h with linux/cacheflush.h
->>>>>
->>>>> v4 (Michael Cheng): Arm64 does not export dcache_clean_inval_poc as a
->>>>>             symbol that could be use by other modules, thus use
->>>>>             caches_clean_inval_pou instead. Also this version
->>>>>                 removes include for cacheflush, since its already
->>>>>             included base on architecture type.
->>>>>
->>>>> Signed-off-by: Michael Cheng <michael.cheng@intel.com>
->>>>> Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
->>>>> ---
->>>>>   drivers/gpu/drm/drm_cache.c | 5 +++++
->>>>>   1 file changed, 5 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
->>>>> index c3e6e615bf09..81c28714f930 100644
->>>>> --- a/drivers/gpu/drm/drm_cache.c
->>>>> +++ b/drivers/gpu/drm/drm_cache.c
->>>>> @@ -174,6 +174,11 @@ drm_clflush_virt_range(void *addr, unsigned 
->>>>> long length)
->>>>>         if (wbinvd_on_all_cpus())
->>>>>           pr_err("Timed out waiting for cache flush\n");
->>>>> +
->>>>> +#elif defined(CONFIG_ARM64)
->>>>> +    void *end = addr + length;
->>>>> +    caches_clean_inval_pou((unsigned long)addr, (unsigned long)end);
->>>>
->>>> Why does i915 need to ensure the CPU's instruction cache is coherent 
->>>> with its data cache? Is it a self-modifying driver?
->>>>
->>>> Robin.
->>>>
->>>> (Note that the above is somewhat of a loaded question, and I do 
->>>> actually have half an idea of what you're trying to do here and why 
->>>> it won't fly, but I'd like to at least assume you've read the 
->>>> documentation of the function you decided was OK to use)
->>>>
->>>>> +
->>>>>   #else
->>>>>       WARN_ONCE(1, "Architecture has no drm_cache.c support\n");
->>>>>   #endif
