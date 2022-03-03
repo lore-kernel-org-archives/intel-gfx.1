@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6198EC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 18:07:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5B58C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 18:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF93510EB5D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98C8810EB58;
 	Thu,  3 Mar 2022 18:07:13 +0000 (UTC)
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C82BA10E26E;
- Thu,  3 Mar 2022 12:37:48 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- c16-20020a17090aa61000b001befad2bfaaso4256798pjq.1; 
- Thu, 03 Mar 2022 04:37:48 -0800 (PST)
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC4D10EBAC;
+ Thu,  3 Mar 2022 08:30:35 +0000 (UTC)
+Received: by mail-pf1-x442.google.com with SMTP id j1so177878pfj.5;
+ Thu, 03 Mar 2022 00:30:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=FF/MJjppdIPbLAPuX69GDDcuetlfqDD+38vpsQJKjV4=;
- b=bORDDPjE3HJ8Q+lkuHUI9YXm2z2OfuiHyYo73LjCVUqKH+mzapaLyTx7j6vUSzodyH
- H1fbBW3W0VvnP5bKsE/Cw0qa3UKie6z+yV023jD/NJPLY9kKDIxXXIT7NvpcVUCfUtIs
- KFg6MVSLFINqOtsOfPJChC2DDL1HsjgJIQ8T87wI93Fz/8cIhc43z3LdnIXEJu5YqpzN
- mnmxIpvlp/TKF5EWx4k9hHupAU2T1e2iVIXLRuFiSvdgN4U8XMzx7dalBaWhuU90/nq+
- yD0rNidPjh7VKui8oE8v/Ywp+ZPTs/OvJCCqJBXBdG8sdbvMpiVPMu/2SHGpauCCE/Ok
- XUow==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=uLpTC29O7sSEzWIyhD1PQNyRAs1/upRhzEEBO0P7TrY=;
+ b=R05ZV01Yp+GvJafCjJwp2DdNQL1X7N4+v2qDpWCUjxekJqjhV8nKttt+lgDdDv8VHZ
+ pTpad4a62LLA8SjB/yHHEpNTxY0U28zfBa611uCN9ihzVETreTphlyPy+ETyTE4AgOSy
+ RSp6pqcLA1mQfW+JjTEEtr3nMT+EN3gAPPB7pPpCIhAgeloFO+Vkph8Zctn11Qajj/U0
+ QUVjSv6dTXzOO7akWefQCdrhFJznQKo01Wl+2crhxprXX9zSh/gHLWP/Xe3lMKAcW1nu
+ BI3FrzUOW0QskfQ+hVH91vnr00ExY+gCD8VtMWG6RhFXS05x/6dGZMaR1NPNguf29zlo
+ qAtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=FF/MJjppdIPbLAPuX69GDDcuetlfqDD+38vpsQJKjV4=;
- b=2HnFN393A8feApNVh8TxT43zg7BVHpaA9O+oTQJMH1JctO0hGVWMLfNhqTTZJiuAd5
- /9h6fl2U4kL8/Qgd9mV+SDutF7lOHHp9aC3WMPSoaHeJbZPaB1BEvRGEAjxxC+qE1Ham
- 7348f0qFJMq06ZFlwTH5YqXzs7vx3sDzKrjopPqs+ZKEqvr299naU5BU5vX+hUkN1dvW
- c4xakpnEVk6zjEa+uKZjw0EoNhGEhHdrLOGRm6Gpw4S9xT3eQxYCRtxwyZjSnYBaO4W2
- UY/Tujsafj3H5cqV+13C0g1NFlwy5sw0gQtK7j8aN/XQ6vuLsBt8XtEg28QkH522/3oH
- T5MA==
-X-Gm-Message-State: AOAM531xUH8JwiYL35srQ+M+JGRPjQ2V3GiKshyoryjE1d2dL+AZ2ZCD
- HGDqhzY0bFYV2Z1f849MkIXhZqWGrVV0VQ==
-X-Google-Smtp-Source: ABdhPJwaQutGx29a4puPWhBgOBT74prgxxfsvHgGuVwO/yqGuQ+dVL8XCd59bWLeDERLYwR3js66yQ==
-X-Received: by 2002:a17:903:22d0:b0:151:97f5:db54 with SMTP id
- y16-20020a17090322d000b0015197f5db54mr7837971plg.58.1646311068298; 
- Thu, 03 Mar 2022 04:37:48 -0800 (PST)
+ :references;
+ bh=uLpTC29O7sSEzWIyhD1PQNyRAs1/upRhzEEBO0P7TrY=;
+ b=brAjms7ghR/JCtWslM2u/fhBMDhb3HjmWEWZoKpdrJF371cY0LWZK2hWAeEz/F7Y61
+ bGN1vtPO9mA45i7VOMWZOq3hL5vVPSusNjcJfyM4BXpbY9VvcQ26PLh6EGrJgDjP2vWW
+ Y8EMw8JUadBSIzppzjW73k1lbg5jZWHJZ5uSaZafJRm6S6x/MCECtj47iSNzhUX6faEx
+ 4WUUmxaUkhowhLeUvMEhcsrxcQ+RQ5WzjjPZD4xX4PCK+emioZGndmyAcIvGtUvpNn6j
+ P8kq2ylJ/1qS/lZOog55xP5q+3RyM6ABBlcMT6yVPl1eEVWU2ykv1vhovRggGIGqcUQ3
+ +lCw==
+X-Gm-Message-State: AOAM530TdXW2Lb8XBhENxevBqkoXjnGsCs4YtZME0PFkgZBW9NgCcrHE
+ /8zxTKecF3GDmWTRcwSEBJg=
+X-Google-Smtp-Source: ABdhPJxl3tqNmXwEb6Rf4RyrJiQAiYb1f64m7AmzgvvLqhkGp3dQvJbj8a24YWybBg5gGNAc3KtcpA==
+X-Received: by 2002:a63:8bca:0:b0:370:2717:3756 with SMTP id
+ j193-20020a638bca000000b0037027173756mr29011952pge.604.1646296234811; 
+ Thu, 03 Mar 2022 00:30:34 -0800 (PST)
 Received: from ubuntu.huawei.com ([119.3.119.19])
  by smtp.googlemail.com with ESMTPSA id
- t7-20020a17090a024700b001bf12386db4sm1483030pje.47.2022.03.03.04.37.24
+ d5-20020a17090acd0500b001b9c05b075dsm7342532pju.44.2022.03.03.00.30.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 04:37:47 -0800 (PST)
+ Thu, 03 Mar 2022 00:30:34 -0800 (PST)
 From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-To: david.laight@aculab.com
-Date: Thu,  3 Mar 2022 20:37:18 +0800
-Message-Id: <20220303123718.12426-1-xiam0nd.tong@gmail.com>
+To: jakobkoschel@gmail.com
+Date: Thu,  3 Mar 2022 16:30:07 +0800
+Message-Id: <20220303083007.11640-1-xiam0nd.tong@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <2d208771c50b4c6db4f43039e9d62851@AcuMS.aculab.com>
-References: <2d208771c50b4c6db4f43039e9d62851@AcuMS.aculab.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <A568BD90-FE81-4740-B1D3-C795EB636A5A@gmail.com>
+References: <A568BD90-FE81-4740-B1D3-C795EB636A5A@gmail.com>
 X-Mailman-Approved-At: Thu, 03 Mar 2022 18:07:12 +0000
 Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
  after loop body as a ptr
@@ -88,148 +83,57 @@ Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, gustavo@embeddedor.com,
  linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  bjohannesmeyer@gmail.com, linux-block@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, christophe.jaillet@wanadoo.fr,
- jakobkoschel@gmail.com, v9fs-developer@lists.sourceforge.net,
- linux-tegra@vger.kernel.org, tglx@linutronix.de,
- andriy.shevchenko@linux.intel.com, linux-arm-kernel@lists.infradead.org,
- linux-sgx@vger.kernel.org, nathan@kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- xiam0nd.tong@gmail.com, tipc-discussion@lists.sourceforge.net,
+ v9fs-developer@lists.sourceforge.net, linux-tegra@vger.kernel.org,
+ tglx@linutronix.de, andriy.shevchenko@linux.intel.com,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ nathan@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, xiam0nd.tong@gmail.com,
+ David.Laight@ACULAB.COM, tipc-discussion@lists.sourceforge.net,
  linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-mediatek@lists.infradead.org, akpm@linux-foundation.org,
  linuxppc-dev@lists.ozlabs.org, christian.koenig@amd.com, rppt@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> From: Xiaomeng Tong
-> > Sent: 03 March 2022 07:27
-> > 
-> > On Thu, 3 Mar 2022 04:58:23 +0000, David Laight wrote:
-> > > on 3 Mar 2022 10:27:29 +0800, Xiaomeng Tong wrote:
-> > > > The problem is the mis-use of iterator outside the loop on exit, and
-> > > > the iterator will be the HEAD's container_of pointer which pointers
-> > > > to a type-confused struct. Sidenote: The *mis-use* here refers to
-> > > > mistakely access to other members of the struct, instead of the
-> > > > list_head member which acutally is the valid HEAD.
-> > >
-> > > The problem is that the HEAD's container_of pointer should never
-> > > be calculated at all.
-> > > This is what is fundamentally broken about the current definition.
-> > 
-> > Yes, the rule is "the HEAD's container_of pointer should never be
-> > calculated at all outside the loop", but how do you make sure everyone
-> > follows this rule?
-> > Everyone makes mistakes, but we can eliminate them all from the beginning
-> > with the help of compiler which can catch such use-after-loop things.
-> > 
-> > > > IOW, you would dereference a (NULL + offset_of_member) address here.
-> > >
-> > >Where?
-> > 
-> > In the case where a developer do not follows the above rule, and mistakely
-> > access a non-list-head member of the HEAD's container_of pointer outside
-> > the loop. For example:
-> >     struct req{
-> >       int a;
-> >       struct list_head h;
-> >     }
-> >     struct req *r;
-> >     list_for_each_entry(r, HEAD, h) {
-> >       if (r->a == 0x10)
-> >         break;
-> >     }
-> >     // the developer made a mistake: he didn't take this situation into
-> >     // account where all entries in the list are *r->a != 0x10*, and now
-> >     // the r is the HEAD's container_of pointer.
-> >     r->a = 0x20;
-> > Thus the "r->a = 0x20" would dereference a (NULL + offset_of_member)
-> > address here.
-> 
-> That is just a bug.
-> No different to failing to check anything else might 'return'
-> a NULL pointer.
+> I think this would make sense, it would mean you only assign the containing
+> element on valid elements.
+>
+> I was thinking something along the lines of:
+>
+> #define list_for_each_entry(pos, head, member)					\
+>	for (struct list_head *list = head->next, typeof(pos) pos;	\
+>	     list == head ? 0 : (( pos = list_entry(pos, list, member), 1));	\
+>	     list = list->next)
+>
+> Although the initialization block of the for loop is not valid C, I'm
+> not sure there is any way to declare two variables of a different type
+> in the initialization part of the loop.
 
-Yes, but it‘s a mistake everyone has made and will make, we should avoid
-this at the beginning with the help of compiler.
+It can be done using a *nested loop*, like this:
 
-> Because it is a NULL dereference you find out pretty quickly.
+#define list_for_each_entry(pos, head, member)					\
+	for (struct list_head *list = head->next, cond = (struct list_head *)-1; cond == (struct list_head *)-1; cond = NULL) \
+	  for (typeof(pos) pos;	\
+	     list == head ? 0 : (( pos = list_entry(pos, list, member), 1));	\
+	     list = list->next)
 
-AFAIK，NULL dereference is a undefined bahavior, can compiler quickly
-catch it? Or it can only be applied to some simple/restricted cases.
+>
+> I believe all this does is get rid of the &pos->member == (head) check
+> to terminate the list.
 
-> The existing loop leaves you with a valid pointer to something
-> that isn't a list item.
-> 
-> > > > Please remind me if i missed something, thanks.
-> > > >
-> > > > Can you share your "alternative definitions" details? thanks!
-> > >
-> > > The loop should probably use as extra variable that points
-> > > to the 'list node' in the next structure.
-> > > Something like:
-> > > 	for (xxx *iter = head->next;
-> > > 		iter == &head ? ((item = NULL),0) : ((item = list_item(iter),1));
-> > > 		iter = item->member->next) {
-> > > 	   ...
-> > > With a bit of casting you can use 'item' to hold 'iter'.
-> > 
-> > you still can not make sure everyone follows this rule:
-> > "do not use iterator outside the loop" without the help of compiler,
-> > because item is declared outside the loop.
-> 
-> That one has 'iter' defined in the loop.
+Indeed, although the original way is harmless.
 
-Oh, sorry, I misunderstood. Then this is the same way with my way of
-list_for_each_entry_inside(pos, type, head, member), which declare
-the iterator inside the loop.
-You go further and make things like "&pos->member == (head)" goes away
-to avoid calculate the HEAD's container_of pointer, although the
-calculation is harmless.
+> It alone will not fix any of the other issues that using the iterator
+> variable after the loop currently has.
 
-> 
-> > BTW, to avoid ambiguity，the "alternative definitions" here i asked is
-> > something from you in this context:
-> > "OTOH there may be alternative definitions that can be used to get
-> > the compiler (or other compiler-like tools) to detect broken code.
-> > Even if the definition can't possibly generate a working kerrnel."
-> 
-> I was thinking of something like:
-> 	if ((pos = list_first)), 1) pos = NULL else
-> so that unchecked dereferences after the loop will be detectable
-> as NULL pointer offsets - but that in itself isn't enough to avoid
-> other warnings.
-> 
-
-Do you mean put this right after the loop (I changed somthing that i
-do not understand, please correct me if i am worng, thanks):
-       if (pos == list_first) pos = NULL; else
-and compiler can detect the following NULL derefernce?
-But if the NULL derefernce is just right after the loop originally,
-it will be masked by the *else* keyword。
-
-> > > > The "list_for_each_entry_inside(pos, type, head, member)" way makes
-> > > > the iterator invisiable outside the loop, and would be catched by
-> > > > compiler if use-after-loop things happened.
-> > 
-> > > It is also a compete PITA for anything doing a search.
-> > 
-> > You mean it would be a burden on search? can you show me some examples?
-> 
-> The whole business of having to save the pointer to the located item
-> before breaking the loop, remembering to have set it to NULL earlier etc.
-
-Ok, i see. And then you need pass a "item" to the list_for_each_entry macro
-as a new argument.
-
-> 
-> It is so much better if you can just do:
-> 		if (found)
-> 			break;
-> 
-> 	David
-
-this confused me. this way is better or the "save the pointer to the located item
-before breaking the loop" one?
+Yes, but I stick with the list_for_each_entry_inside(pos, type, head, member)
+way to make the iterator invisiable outside the loop (before and after the loop).
+It is maintainable longer-term than "type(pos) pos" one and perfect.
+see my explain:
+https://lore.kernel.org/lkml/20220302093106.8402-1-xiam0nd.tong@gmail.com/
+and list_for_each_entry_inside(pos, type, head, member) patch here:
+https://lore.kernel.org/lkml/20220301075839.4156-3-xiam0nd.tong@gmail.com/
 
 --
 Xiaomeng Tong
