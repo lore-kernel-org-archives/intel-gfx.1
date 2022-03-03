@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C08C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 11:40:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C96C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 11:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BAED10E273;
-	Thu,  3 Mar 2022 11:40:59 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4251410E273
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 11:40:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C054D10E2A3;
+	Thu,  3 Mar 2022 11:46:18 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A51FC10E2A3
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 11:46:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646307658; x=1677843658;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=WjoKDcjbd+RCPD7FXh3XfN3wuoY+ZOfNTeMGodF2+PI=;
- b=n42G3H/24M74nQPpRd9XDEJGxaFHJcHlaG0prmbXR+5ATfdkFKnOHb+h
- b9BBqEArdlFjibFD6+C9s1skp/C4povbWoFcPjq6TVBFp4uaZ/gYkssKN
- RUt1Vhja8WeMg+2YoYmOnBNeYd3Z/dTXdhMC5QHdlKrau5AZvjF2AqHHv
- 1oXVWY/crPp4BZenfWCwWlttQIRtD076IBZ4LskcUUOaeNpWon2Zsnee6
- 83zAZ+XtLHbPOG5CndV171a9AKE2vUgZgocmrf3eR6Va4QWI6vNfLIrwb
- mlDJo9N38qejzrS7eHhKwGoebXwclf0wkA2to8yG+RilUq2YZBv0hip/5 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10274"; a="251225773"
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="251225773"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2022 03:40:57 -0800
+ t=1646307977; x=1677843977;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4Y5MafYlwARmWFYGdw4U+hrdceZT6688ygmRBJv7das=;
+ b=m0pUKqBwfYM0xf4tLpeC8Uu0Z0XDvEvHy/GzaWqYscwxeOpNcjDuK88c
+ auEkF1tmHlcm9B2wl+kiea4BDiJEp5ujehFCb0SMEX0xFyffcNR5wVmuo
+ E1mcv6vlRphEvck79dyhcd9dzY0Z7ja8QMzQPwsUgyhrsiSwFogygU8bh
+ 8TnRMRKvmHg4xHyYlbvE+sOIJhIEGAPxZRQaCwq+XBmp8FMQbLBR9NGY4
+ a4jIRMV3aziWoGkzJyT/R68lgUkk2qVU/wW2/ocpP3Pvp5T2GJxlFtMXm
+ hx8jkZuU/P4ck6H0OADGPd6jscwq+AqhW2YSwq4IRtFtXCggCXeKsMwAT Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10274"; a="314367663"
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="314367663"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2022 03:46:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="686475601"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga001.fm.intel.com with SMTP; 03 Mar 2022 03:40:55 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 03 Mar 2022 13:40:55 +0200
-Date: Thu, 3 Mar 2022 13:40:55 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
-Message-ID: <YiCpR1P8t0dENNU5@intel.com>
-References: <20220302231119.16876-1-swathi.dhanavanthri@intel.com>
+X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="551719049"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by orsmga008.jf.intel.com with ESMTP; 03 Mar 2022 03:46:15 -0800
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  3 Mar 2022 17:02:52 +0530
+Message-Id: <20220303113252.212873-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220302231119.16876-1-swathi.dhanavanthri@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/adlp: Remove code related
- to underrun recovery
+Subject: [Intel-gfx] [PATCH] drm/i915/adl-n: Add stepping info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +53,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 02, 2022 at 03:11:19PM -0800, Swathi Dhanavanthri wrote:
-> This is not supported for ADLP and is not needed.
-> 
-> Signed-off-by: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+Add ADL-N stepping-substepping info in
+accordance to BSpec.
 
-Thanks. Pushed to drm-intel-next.
+Bspec: 68397
 
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 21 --------------------
->  1 file changed, 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 6cae58f921a5..541797a2ff9e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -3595,12 +3595,8 @@ static void hsw_set_transconf(const struct intel_crtc_state *crtc_state)
->  static void bdw_set_pipemisc(const struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> -	const struct intel_crtc_scaler_state *scaler_state =
-> -		&crtc_state->scaler_state;
-> -
->  	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
->  	u32 val = 0;
-> -	int i;
->  
->  	switch (crtc_state->pipe_bpp) {
->  	case 18:
-> @@ -3639,23 +3635,6 @@ static void bdw_set_pipemisc(const struct intel_crtc_state *crtc_state)
->  	if (DISPLAY_VER(dev_priv) >= 12)
->  		val |= PIPEMISC_PIXEL_ROUNDING_TRUNC;
->  
-> -	if (IS_ALDERLAKE_P(dev_priv)) {
-> -		bool scaler_in_use = false;
-> -
-> -		for (i = 0; i < crtc->num_scalers; i++) {
-> -			if (!scaler_state->scalers[i].in_use)
-> -				continue;
-> -
-> -			scaler_in_use = true;
-> -			break;
-> -		}
-> -
-> -		intel_de_rmw(dev_priv, PIPE_MISC2(crtc->pipe),
-> -			     PIPE_MISC2_BUBBLE_COUNTER_MASK,
-> -			     scaler_in_use ? PIPE_MISC2_BUBBLE_COUNTER_SCALER_EN :
-> -			     PIPE_MISC2_BUBBLE_COUNTER_SCALER_DIS);
-> -	}
-> -
->  	intel_de_write(dev_priv, PIPEMISC(crtc->pipe), val);
->  }
->  
-> -- 
-> 2.20.1
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+---
+ drivers/gpu/drm/i915/intel_step.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+index 4fd69ecd1481..74e8e4680028 100644
+--- a/drivers/gpu/drm/i915/intel_step.c
++++ b/drivers/gpu/drm/i915/intel_step.c
+@@ -131,6 +131,10 @@ static const struct intel_step_info adls_rpls_revids[] = {
+ 	[0xC] = { COMMON_GT_MEDIA_STEP(D0), .display_step = STEP_C0 },
+ };
+ 
++static const struct intel_step_info adlp_n_revids[] = {
++	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_D0 },
++};
++
+ void intel_step_init(struct drm_i915_private *i915)
+ {
+ 	const struct intel_step_info *revids = NULL;
+@@ -150,6 +154,9 @@ void intel_step_init(struct drm_i915_private *i915)
+ 	} else if (IS_XEHPSDV(i915)) {
+ 		revids = xehpsdv_revids;
+ 		size = ARRAY_SIZE(xehpsdv_revids);
++	} else if (IS_ADLP_N(i915)) {
++		revids = adlp_n_revids;
++		size = ARRAY_SIZE(adlp_n_revids);
+ 	} else if (IS_ALDERLAKE_P(i915)) {
+ 		revids = adlp_revids;
+ 		size = ARRAY_SIZE(adlp_revids);
 -- 
-Ville Syrjälä
-Intel
+2.34.1
+
