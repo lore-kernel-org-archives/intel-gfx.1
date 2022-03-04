@@ -4,68 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA3DC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 13:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B577CC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 13:56:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0678D10F980;
-	Fri,  4 Mar 2022 13:56:27 +0000 (UTC)
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82A2A10E8F7
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Mar 2022 11:26:10 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id b20so6153867qkn.9
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Mar 2022 03:26:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=A0godyTPEn2FgOlGrx2QRkrSBkW5MJikxlTCkI4Pnyk=;
- b=ZAwzNTGO8wtVj+U0QClTskN4x1J14p56TsGiFUeS6CeBsuE5ZUPpitJmK7R4hpv6bv
- JJo07K4dRItIO5xXEHo1b/Aezb1mKICt8OsoCrSbfwOTwRR44hwhHI/4DFBFPXCdH7g9
- /v5Iu34zljY1LjplMCHutrkjvGGvqELqnX34uHF2zl9ujv3/VNqNqu966ZKkCkUNQzDP
- 0CRNEvUcSySEldP3hkP04IuGL0nKanY84oDdJErFXg35dnqc3qgT54er+vO0uoSTsRYq
- B8M7VSfuJq6kOPaj8O/RYDtsruz2ygQjz5hp5/Xp7bb/bLTYmG7WH2Cc+ZzUFP2lhMry
- wNWw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D20B10F985;
+	Fri,  4 Mar 2022 13:56:31 +0000 (UTC)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EEBC10F1DF;
+ Fri,  4 Mar 2022 07:00:21 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id d17so6928086pfl.0;
+ Thu, 03 Mar 2022 23:00:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=0a+oQu3LYTAbOOyoILb+F/zkApGIum0yjd+xPCLEHo4=;
+ b=UcHSzcmMAevEFsqxc8gimvoSIew96LrW3UYvjfgkcaeLb/Edql9668oTELTgMdhcyh
+ uwTLYgNgPfuwuQfZCbkLtuIX59UkP2xXrD0mK6eOfNdOu/KSihdjQUFHL7gwAFzgpb4Z
+ PeSQfhLMwS3uLkuXfSSL1QQyblGTA4kTyWBkcty1viz6EkWmIbbGn99xu95lY6jAsJ0c
+ CbisDo/RPFGn8gAJnKluj00ht4OQ80XaXmCEvGalnXTnvAWrV5UWFfWh6kgUBnLZJvSQ
+ W0PYU136vUwP4grvjJEIhDxHc0WM1lPQ2cysIXPjh+breTQ07tU9AM0RgZ3Jr4UsSFjT
+ NaGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=A0godyTPEn2FgOlGrx2QRkrSBkW5MJikxlTCkI4Pnyk=;
- b=L5p7fmNGZxoAQc1SU8LPbZmq17hx0l0cMkwaWZ8cp20sV0K74ne+EhAjGO6f0+kZoZ
- Wkro+8fPyGIJf6wITqnFKDKCjJAZp29bSeh2diHqk4mNlQ9opeOXqVKpf1hDS+7c2dGY
- k1a3pIfDSIHoXgNOnkhYS5gdk8I0PzugqNBdvIs119RtiUj+yH6MampHjRrmCA/m1PUY
- fns4qQgBKr79dcosOQmHCcYaHbeQ8jKg15/sRUrS9hBKwHmscv83u3tueNb0EBqfvLUp
- yZFc0l4hMIo6x7CbAbnxzFbxHLwr+3Fg7QMtIXp5jMo1UzCTj72rR89kzwz+sRZVuYiX
- 0+0w==
-X-Gm-Message-State: AOAM530rGSxe/7la4burdzrkRZ7X+bqdb5X1LMDHA19cuYu923xPPSsY
- LxVq1RvjCvZisUlaik4OyGApQOp2PKZYg5iIiXd2Vw==
-X-Google-Smtp-Source: ABdhPJzVzQPUSk4nBKVCSHJzDo49mjdGomgO75XctxuXD0fkyEDwyjc3tHXhGI7M4cESOS2ys1tT88G+Gdp9xrs/+yk=
-X-Received: by 2002:a37:6215:0:b0:508:c213:72de with SMTP id
- w21-20020a376215000000b00508c21372demr2214499qkb.30.1646393169553; Fri, 04
- Mar 2022 03:26:09 -0800 (PST)
-MIME-Version: 1.0
-References: <Yfp8Q6OFqTAvESOi@pendragon.ideasonboard.com>
- <87y22ts948.fsf@intel.com>
- <YfqGbqQQz5vrDaLI@pendragon.ideasonboard.com> <87v8xxs2hz.fsf@intel.com>
- <CAF6AEGtdnWWhGp7U7nAPD4r3Uoe5BJKVm2rQ2MS=q5GqF6MYDA@mail.gmail.com>
- <YhyB0WmJDWVFO1se@pendragon.ideasonboard.com> <871qzn6vmc.fsf@intel.com>
- <Yhy/6+z7QshG+qOo@pendragon.ideasonboard.com>
- <YhzROBOwTUkZw3Ez@pendragon.ideasonboard.com>
- <4d8daabe-10d9-a3cf-d305-68414cffe4ed@quicinc.com>
- <Yh+4EOKA5FgrlZrF@pendragon.ideasonboard.com>
- <0cfd36a2-26e4-309d-d8e9-e3bf8a5d2417@quicinc.com>
- <MWHPR11MB174187335183FC24BE0F1EA5E3059@MWHPR11MB1741.namprd11.prod.outlook.com>
- <CAA8EJppTVN1EnytD5mCmr4ZTi4M8u9ENOmJuweNyDRkB3LEHnw@mail.gmail.com>
- <MWHPR11MB1741708DEFD56E02C1BBC7A3E3059@MWHPR11MB1741.namprd11.prod.outlook.com>
-In-Reply-To: <MWHPR11MB1741708DEFD56E02C1BBC7A3E3059@MWHPR11MB1741.namprd11.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 4 Mar 2022 14:25:58 +0300
-Message-ID: <CAA8EJppHOJzJt=oapYhshajWt3mSXKjoMUdcnb3T_i+62Xo8NA@mail.gmail.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=0a+oQu3LYTAbOOyoILb+F/zkApGIum0yjd+xPCLEHo4=;
+ b=hXzdQdFR7uRrMbDpGvxS2ZPGew7M6SJb0ulSwysgx7DWWXsT3bQzprQd9X21VOYFWG
+ tjU5i6+SWz30Kzz5mJjuwSb7gCtAJyzHD11O045UeWjtFbmrnAAuIN1MdUWUdqpQoCPV
+ eH/oJInZYAGMlFtqgHk0MhBQSEIaOAERrAS6tIcN1X+PubhaYyjMgzDzD658gunS0gF7
+ DrQYJeMqf4gjg+eXtXWjIl94TJtJZimrudO6UC/9tPpPcizRkDnaPuwgEuSacEFyOtma
+ BELAeSuFEyTi2gs7VQtnT3lCZanMENYcrHL8DoKzEbM7sJNfFMjxKc/kLeKNsPnrV58H
+ H8pg==
+X-Gm-Message-State: AOAM532SB0yXyGEhnflNiaEmCF7fEIo3+3woOnbr144ZnnNNUOH4nUxP
+ PxSzsoNEXKNNnnkHRV3H3Ao=
+X-Google-Smtp-Source: ABdhPJxBFOb3A6C/RlDh1uHGrWM51HjSkR68cXfNAhNGErUbSC2hd/FilwMHkJmidt1eEHAWD7GVrA==
+X-Received: by 2002:a05:6a00:cc7:b0:4ec:c6f3:ad29 with SMTP id
+ b7-20020a056a000cc700b004ecc6f3ad29mr41958698pfv.66.1646377221067; 
+ Thu, 03 Mar 2022 23:00:21 -0800 (PST)
+Received: from ubuntu.huawei.com ([119.3.119.19])
+ by smtp.googlemail.com with ESMTPSA id
+ f6-20020a654006000000b00346193b405fsm3665134pgp.44.2022.03.03.23.00.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Mar 2022 23:00:20 -0800 (PST)
+From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+To: daniel.thompson@linaro.org
+Date: Fri,  4 Mar 2022 14:59:57 +0800
+Message-Id: <20220304065957.16799-1-xiam0nd.tong@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220303121824.qdyrognluik74iph@maple.lan>
+References: <20220303121824.qdyrognluik74iph@maple.lan>
 X-Mailman-Approved-At: Fri, 04 Mar 2022 13:56:25 +0000
-Subject: Re: [Intel-gfx] [PATCH 5/6] drm/rcar_du: changes to rcar-du driver
- resulting from drm_writeback_connector structure changes
+Subject: Re: [Intel-gfx] [PATCH 2/6] treewide: remove using list iterator
+ after loop body as a ptr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,95 +68,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Carsten Haitzler <carsten.haitzler@arm.com>, "Nikula,
- Jani" <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, gustavo@embeddedor.com,
+ linux-iio@vger.kernel.org, kgdb-bugreport@lists.sourceforge.net,
+ linux@rasmusvillemoes.dk, dri-devel@lists.freedesktop.org, c.giuffrida@vu.nl,
+ amd-gfx@lists.freedesktop.org, torvalds@linux-foundation.org,
+ samba-technical@lists.samba.org, linux1394-devel@lists.sourceforge.net,
+ drbd-dev@lists.linbit.com, linux-arch@vger.kernel.org,
+ linux-cifs@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, h.j.bos@vu.nl, jgg@ziepe.ca,
+ intel-wired-lan@lists.osuosl.org, nouveau@lists.freedesktop.org,
+ bcm-kernel-feedback-list@broadcom.com, dan.carpenter@oracle.com,
+ linux-media@vger.kernel.org, keescook@chromium.org, arnd@arndb.de,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ bjohannesmeyer@gmail.com, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, christophe.jaillet@wanadoo.fr,
+ jakobkoschel@gmail.com, v9fs-developer@lists.sourceforge.net,
+ linux-tegra@vger.kernel.org, tglx@linutronix.de,
+ andriy.shevchenko@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ linux-sgx@vger.kernel.org, nathan@kernel.org, netdev@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ xiam0nd.tong@gmail.com, david.laight@aculab.com,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ akpm@linux-foundation.org, linuxppc-dev@lists.ozlabs.org,
+ christian.koenig@amd.com, rppt@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 4 Mar 2022 at 13:47, Kandpal, Suraj <suraj.kandpal@intel.com> wrote=
-:
->
-> Hi,
-> > > Hi Abhinav,
-> > > > Hi Laurent
-> > > >
-> > > > Ok sure, I can take this up but I need to understand the proposal a
-> > > > little bit more before proceeding on this. So we will discuss this
-> > > > in another email where we specifically talk about the connector cha=
-nges.
-> > > >
-> > > > Also, I am willing to take this up once the encoder part is done an=
-d
-> > > > merged so that atleast we keep moving on that as MSM WB
-> > > > implementation can proceed with that first.
-> > > >
-> > > > Hi Jani and Suraj
-> > > >
-> > > > Any concerns with splitting up the series into encoder and connecto=
-r
-> > > > OR re- arranging them?
-> > > >
-> > > > Let me know if you can do this OR I can also split this up keeping
-> > > > Suraj's name in the Co-developed by tag.
-> > > I was actually thinking of floating a new patch series with both
-> > > encoder and connector pointer changes but with a change in
-> > > initialization functions wherein we allocate a connector and encoder
-> > > incase the driver doesn=E2=80=99t have its own this should minimize t=
-he effect
-> > > on other drivers already using current drm writeback framework and al=
-so
-> > allow i915 to create its own connector.
-> >
-> > I thought that Laurent was quite strict about the connector. So I'd sug=
-gest
-> > targeting drm_writeback_connector with an optionally created encoder an=
-d
-> > the builtin connector
-> In that case even if we target that i915 will not be able to move forward=
- with its
-> implementation of writeback as builtin connector does not work for us rig=
-ht now
-> as explained earlier, optionally creating encoder and connector will help=
- everyone
-> move forward and once done we can actually sit and work on how to side st=
-ep this
-> issue using Laurent's suggestion
+On Thu, 3 Mar 2022 12:18:24 +0000, Daniel Thompson wrote:
+> On Thu, Mar 03, 2022 at 03:26:57PM +0800, Xiaomeng Tong wrote:
+> > On Thu, 3 Mar 2022 04:58:23 +0000, David Laight wrote:
+> > > on 3 Mar 2022 10:27:29 +0800, Xiaomeng Tong wrote:
+> > > > The problem is the mis-use of iterator outside the loop on exit, and
+> > > > the iterator will be the HEAD's container_of pointer which pointers
+> > > > to a type-confused struct. Sidenote: The *mis-use* here refers to
+> > > > mistakely access to other members of the struct, instead of the
+> > > > list_head member which acutally is the valid HEAD.
+> > >
+> > > The problem is that the HEAD's container_of pointer should never
+> > > be calculated at all.
+> > > This is what is fundamentally broken about the current definition.
+> > 
+> > Yes, the rule is "the HEAD's container_of pointer should never be
+> > calculated at all outside the loop", but how do you make sure everyone
+> > follows this rule?
+> 
+> Your formulation of the rule is correct: never run container_of() on HEAD
+> pointer.
 
-This is up to Laurent & other DRM maintainers to decide whether this
-approach would be accepted or not.
-So far unfortunately I have mostly seen the pushback and a strong
-suggestion to stop treating each drm_connector as i915_connector.
-I haven't checked the exact details, but IMO adding a branch if the
-connector's type is DRM_CONNECTOR_VIRTUAL should be doable.
+Actually, it is not my rule. My rule is that never access other members
+of the struct except for the list_head member after the loop, because
+this is a invalid member after loop exit, but valid for the list_head
+member which just is HEAD and the lately caculation (&pos->head) seems
+harmless.
 
-> >
-> > > We can work on Laurent's suggestion but that would first require the
-> > > initial RFC patches and then a rework from both of our drivers side t=
-o
-> > > see if they gel well with our current code which will take a
-> > > considerable amount of time. We can for now however float the patch
-> > > series up which minimally affects the current drivers and also allows
-> > > i915 and msm to move forward with its writeback implementation off
-> > > course with a proper documentation stating new drivers shouldn't try =
-to
-> > make their own connectors and encoders and that drm_writeback will do
-> > that for them.
-> > > Once that's done and merged we can work with Laurent on his proposal
-> > > to improve the drm writeback framework so that this issue can be side
-> > stepped entirely in future.
-> > > For now I would like to keep the encoder and connector pointer change=
-s
-> > together.
->
-> Best Regards,
-> Suraj Kandpal
+I have considered the case that the HEAD's container "pos" is layouted
+across the max and the min address boundary, which means the address of
+HEAD is likely 0x60, and the address of pos is likely 0xffffffe0.
+It seems ok to caculate pos with:
+((type *)(__mptr - offsetof(type, member)));
+and it seems ok to caculate head outside the loop with:
+if (&pos->head == &HEAD)
+    return NULL;
 
+The only case I can think of with the rule "never run container_of()
+on HEAD" must be followed is when the first argument (which is &HEAD)
+passing to container_of() is NULL + some offset, it may lead to the
+resulting "pos->member" access being a NULL dereference. But maybe
+the caller can take the responsibility to check if it is NULL, not
+container_of() itself.
 
+Please remind me if i missed somthing, thanks.
 
---=20
-With best wishes
-Dmitry
+> 
+> However the rule that is introduced by list_for_each_entry_inside() is
+> *not* this rule. The rule it introduces is: never access the iterator
+> variable outside the loop.
+
+Sorry for the confusion, indeed, that is two *different* rule.
+
+> 
+> Making the iterator NULL on loop exit does follow the rule you proposed
+> but using a different technique: do not allow HEAD to be stored in the
+> iterator variable after loop exit. This also makes it impossible to run
+> container_of() on the HEAD pointer.
+> 
+
+It does not. My rule is: never access the iterator variable outside the loop.
+The "Making the iterator NULL on loop exit" way still leak the pos with NULL
+outside the loop, may lead to a NULL deference.
+
+> 
+> > Everyone makes mistakes, but we can eliminate them all from the beginning
+> > with the help of compiler which can catch such use-after-loop things.
+> 
+> Indeed but if we introduce new interfaces then we don't have to worry
+> about existing usages and silent regressions. Code will have been
+> written knowing the loop can exit with the iterator set to NULL.
+
+Yes, it is more simple and compatible with existing interfaces. Howerver,
+you should make every developers to remember that "pos will be set NULL on
+loop exit", which is unreasonable and impossible for *every* single person.
+Otherwise the mis-use-after-loop will lead to a NULL dereference.
+But we can kill this problem by declaring iterator inside the loop and the
+complier will catch it if somebody mis-use-after-loop.
+
+> 
+> Sure it is still possible for programmers to make mistakes and
+> dereference the NULL pointer but C programmers are well training w.r.t.
+> NULL pointer checking so such mistakes are much less likely than with
+> the current list_for_each_entry() macro. This risk must be offset
+> against the way a NULLify approach can lead to more elegant code when we
+> are doing a list search.
+> 
+
+Yes, the NULLify approach is better than the current list_for_each_entry()
+macro, but i stick with that the list_for_each_entry_inside() way is best
+and perfect _technically_.
+
+Thus, my idea is *better a finger off than always aching*, let's settle this
+damn problem once and for all, with list_for_each_entry_inside().
+
+--
+Xiaomeng Tong
