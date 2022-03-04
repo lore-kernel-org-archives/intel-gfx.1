@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93EACC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:28:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9792C43217
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FCCD112B33;
-	Fri,  4 Mar 2022 17:28:39 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F17B112B31
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Mar 2022 17:28:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646414917; x=1677950917;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=S82fbtPQ7vBWw7N2TuW8JsGAOmrACtt4ziU2Auy65Vw=;
- b=M5zygAhab8Z0c27bC1gBun+AmFKj8KInni16r20mtCZ7ibdNCxzgF9Yv
- LxSiA7ePPcX3sgcbrcyCBeT7uwreDEY03pAB7JHQdIVqWZHAsuFeJZYkF
- YfadNtuZuqKu5tmxLSCqCUEYHaJ2c+uQyO5dIYq6QetCMFXW7JlY8vHin
- 6bYk0HeE1kMcgOgoHLudpZhqyObJ4QPd6KUG7NPUCwNt92RvXO6QMGXnk
- 5ZQxdRZWwghzMxyJOVThYrX3buO4hlgXqFRSZw4EuRdO06IHPExcwLy3x
- DwKlqkwX6XLalEy1xnHWd58LsxdYn3wU5IWbUOgDIuJRUDPHGYpGH0DR4 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="241444962"
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="241444962"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 09:28:36 -0800
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="509042079"
-Received: from vkats-mobl1.ccr.corp.intel.com (HELO [10.252.28.8])
- ([10.252.28.8])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 09:28:35 -0800
-Message-ID: <3bb37dc6-85a5-eb24-f474-8b393479eab9@intel.com>
-Date: Fri, 4 Mar 2022 17:28:33 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD1810F8E9;
+	Fri,  4 Mar 2022 17:31:18 +0000 (UTC)
+X-Greylist: delayed 500 seconds by postgrey-1.36 at gabe;
+ Fri, 04 Mar 2022 17:31:17 UTC
+Received: from ste-pvt-msa2.bahnhof.se (ste-pvt-msa2.bahnhof.se
+ [213.80.101.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE93410F8E9
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Mar 2022 17:31:17 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by ste-pvt-msa2.bahnhof.se (Postfix) with ESMTP id C33E4405D5;
+ Fri,  4 Mar 2022 18:22:54 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Authentication-Results: ste-ftg-msa2.bahnhof.se (amavisd-new);
+ dkim=pass (1024-bit key) header.d=shipmail.org
+Received: from ste-pvt-msa2.bahnhof.se ([127.0.0.1])
+ by localhost (ste-ftg-msa2.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id wDZd1ibSIDWn; Fri,  4 Mar 2022 18:22:53 +0100 (CET)
+Received: by ste-pvt-msa2.bahnhof.se (Postfix) with ESMTPA id 873B63FAC6;
+ Fri,  4 Mar 2022 18:22:52 +0100 (CET)
+Authentication-Results: ste-pvt-msa2.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b="MnvRjPQl";
+ dkim-atps=neutral
+Received: from [192.168.0.209] (unknown [192.55.54.50])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id B02C73602D9;
+ Fri,  4 Mar 2022 18:22:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1646414572; bh=gHr8KOqOwqeKr1teW7Q9RpcSa0zpk4jpfHBlF2Jhepg=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=MnvRjPQldKVl4mjKi/tWT8LZ1Y319cosG4UBNuRK0wamZwtjKNNf1bU4k0cDCY/mS
+ uL8O4iBv8/7NhjWbRIXqt+IQ4MT2IIKF3C1kxijLgWqjghF0KJOAzFYQWQnhfb9GME
+ AGCDN57UWUpk4w9hpPXniuEk/HqVhgA5urcZs6ys=
+Message-ID: <e691741a-59cd-83aa-259d-f0df01954119@shipmail.org>
+Date: Fri, 4 Mar 2022 18:22:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-GB
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
+ Thunderbird/91.3.0
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
 References: <20220304095934.925036-1-matthew.auld@intel.com>
- <20220304095934.925036-2-matthew.auld@intel.com>
- <fe19ddd39d48916c382e5bfe1c6a9f720358728b.camel@linux.intel.com>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <fe19ddd39d48916c382e5bfe1c6a9f720358728b.camel@linux.intel.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+In-Reply-To: <20220304095934.925036-1-matthew.auld@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [CI 2/2] drm/i915: limit the async bind to
- bind_async_flags
+Subject: Re: [Intel-gfx] [CI 1/2] drm/i915/fbdev: fixup setting screen_size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,79 +66,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 04/03/2022 16:41, Thomas Hellström wrote:
-> On Fri, 2022-03-04 at 09:59 +0000, Matthew Auld wrote:
->> If the vm doesn't request async binding, like for example with the
->> dpt,
->> then we should be able to skip the async path and avoid calling
->> i915_vm_lock_objects() altogether. Currently if we have a moving
->> fence
->> set for the BO(even though it might have signalled), we still take
->> the
->> async patch regardless of the bind_async setting, and then later
->> still
->> end up just doing i915_gem_object_wait_moving_fence() anyway.
->>
->> Alternatively we would need to add dummy scratch object which can be
->> locked, just for the dpt.
->>
->> Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
->> ---
->>   drivers/gpu/drm/i915/i915_vma.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/i915_vma.c
->> b/drivers/gpu/drm/i915/i915_vma.c
->> index 94fcdb7bd21d..4d4d3659c938 100644
->> --- a/drivers/gpu/drm/i915/i915_vma.c
->> +++ b/drivers/gpu/drm/i915/i915_vma.c
->> @@ -1360,8 +1360,7 @@ int i915_vma_pin_ww(struct i915_vma *vma,
->> struct i915_gem_ww_ctx *ww,
->>          if (flags & PIN_GLOBAL)
->>                  wakeref = intel_runtime_pm_get(&vma->vm->i915-
->>> runtime_pm);
->>   
->> -       moving = vma->obj ?
-> 
-> Is there a chance that "moving" will be used uninitialized later?
 
-It looks to be initialised with NULL further up.
+On 3/4/22 10:59, Matthew Auld wrote:
+> Since we are actually mapping the object and not the vma, when dealing
+> with LMEM, we should be careful and use the backing store size here,
+> since the vma->node.size could have all kinds of funny padding
+> constraints, which could result in us writing to OOB address.
+>
+> v2(Chris):
+>    - Prefer vma->size here, which should be the backing store size. Some
+>      more rework is needed here to stop using node.size in some other
+>      places.
+>
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-> 
-> 
->> i915_gem_object_get_moving_fence(vma->obj) : NULL;
->> -       if (flags & vma->vm->bind_async_flags || moving) {
->> +       if (flags & vma->vm->bind_async_flags) {
->>                  /* lock VM */
->>                  err = i915_vm_lock_objects(vma->vm, ww);
->>                  if (err)
->> @@ -1375,6 +1374,7 @@ int i915_vma_pin_ww(struct i915_vma *vma,
->> struct i915_gem_ww_ctx *ww,
->>   
->>                  work->vm = i915_vm_get(vma->vm);
->>   
->> +               moving = vma->obj ?
->> i915_gem_object_get_moving_fence(vma->obj) : NULL;
-> 
-> IIRC, with Maarten's recent changes, vma->obj is always non-NULL.
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Yup, a number of these seem to have crept back in. I was going to send a 
-follow up patch to fix all of them at once.
 
-> 
-> Otherwise LGTM.
-> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-Thanks.
-
-> 
-> 
->>                  dma_fence_work_chain(&work->base, moving);
->>   
->>                  /* Allocate enough page directories to used PTE */
-> 
-> /Thomas
-> 
-> 
+> ---
+>   drivers/gpu/drm/i915/display/intel_fbdev.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> index 2cd62a187df3..221336178991 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> @@ -279,7 +279,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+>   		/* Our framebuffer is the entirety of fbdev's system memory */
+>   		info->fix.smem_start =
+>   			(unsigned long)(ggtt->gmadr.start + vma->node.start);
+> -		info->fix.smem_len = vma->node.size;
+> +		info->fix.smem_len = vma->size;
+>   	}
+>   
+>   	vaddr = i915_vma_pin_iomap(vma);
+> @@ -290,7 +290,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+>   		goto out_unpin;
+>   	}
+>   	info->screen_base = vaddr;
+> -	info->screen_size = vma->node.size;
+> +	info->screen_size = vma->size;
+>   
+>   	drm_fb_helper_fill_info(info, &ifbdev->helper, sizes);
+>   
