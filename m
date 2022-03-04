@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC05CC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6EB8C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A23FF10FEAA;
-	Fri,  4 Mar 2022 17:24:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1F4610FEBE;
+	Fri,  4 Mar 2022 17:24:24 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A871110FE7B;
- Fri,  4 Mar 2022 17:24:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4915710FEBE;
+ Fri,  4 Mar 2022 17:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646414659; x=1677950659;
+ t=1646414663; x=1677950663;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7hv58xU1wcHWgcE/5XC7+o8riKA+DhsOkOjpo6B78kg=;
- b=gh1Q++mxJLvZIymFDnNvY4YC8DFNxUzSGXOZu0KcdHY6rio4CI5wZFIZ
- 8QzosAO9AZTn2cO7TgzC58MUmdJc4QEgA+GZcGXfTAjSh2asMBjq8/Y8S
- KQgza1A7Wrip43mfLZ90C5XzFaho+4v6zboV+KseGjaijg3BAYJHrizA6
- BEwgCnCW5K57o5Z0B4VMRWl5f4jSe3wyjCksebV3E7IMAMYujIbQcVHuu
- xdvpPnSHlpwJYsTvmjP2y6E8VzXHSYQlo91C/A410jKULGfAkequynpeS
- lO2pbAgoX3MPytzYrELqixsxhLLMRMRJsxA2LqySvJs27+CkLJghI3EPL w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="252848975"
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="252848975"
+ bh=I4teDGAH2F/kR2fXzhxSDTT7AXc0LQK3RGUOMr0ZTcQ=;
+ b=Zebne9aln3aUwSujJ8t3/rQYlL0JHoi0akc56PQVzs8ai896vzRNP7RV
+ g+nhijVzNtAEYIjOI6XKedPvTziHFsl90aKMJ2vb1nUuqe1ikmW3RNz4w
+ YTbKk7TiXai+WgJ6LSLEguOjnjgIT4NW2yjueW+P6oUH3RDll9QTYfqOB
+ w7VgBCFii518jgMet+6GqBxzurssyaTmFfU7reDpklWEEnA/cjb5O5RuU
+ P9ZV3IQuzoLn7WRIijwdq1GE9h11ZYUOMhrvYRYZguc39g6flks7+VivI
+ WDmPHuG+EJUF5jTmSr/lgIiFSvJWf20hCZUXVYYaGOM8raNYigFu8XVS1 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="252848981"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="252848981"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 09:24:19 -0800
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="631216622"
+ 04 Mar 2022 09:24:23 -0800
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="631216630"
 Received: from vkats-mobl1.ccr.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.28.8])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 09:24:18 -0800
+ 04 Mar 2022 09:24:21 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Mar 2022 17:23:29 +0000
-Message-Id: <20220304172333.991778-5-matthew.auld@intel.com>
+Date: Fri,  4 Mar 2022 17:23:31 +0000
+Message-Id: <20220304172333.991778-7-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220304172333.991778-1-matthew.auld@intel.com>
 References: <20220304172333.991778-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/buddy: tweak CONTIGUOUS rounding
+Subject: [Intel-gfx] [PATCH 6/8] drm/i915/display: Check mappable aperture
+ when pinning preallocated vma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,34 +59,51 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org
+ Ap Kamal <kamal.ap@intel.com>, Chris P Wilson <chris.p.wilson@intel.com>,
+ CQ Tang <cq.tang@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If this is an actual range allocation, and not some bias thing then the
-resultant allocation will already be naturally contiguous without
-needing any power-of-two rounding.
+From: CQ Tang <cq.tang@intel.com>
 
+When system does not have mappable aperture, ggtt->mappable_end=0. In
+this case if we pass PIN_MAPPABLE when pinning vma, the pinning code
+will return -ENOSPC. So conditionally set PIN_MAPPABLE if HAS_GMCH().
+
+Suggested-by: Chris P Wilson <chris.p.wilson@intel.com>
+Signed-off-by: CQ Tang <cq.tang@intel.com>
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Cc: Ap Kamal <kamal.ap@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_plane_initial.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index 129f668f21ff..8e4e3f72c1ef 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -71,7 +71,8 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+index 5227e5b35206..f797fcef18fc 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
++++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+@@ -51,6 +51,7 @@ initial_plane_vma(struct drm_i915_private *i915,
+ 	struct drm_i915_gem_object *obj;
+ 	struct i915_vma *vma;
+ 	u32 base, size;
++	u64 pinctl;
  
- 	GEM_BUG_ON(min_page_size < mm->chunk_size);
+ 	if (!mem || plane_config->size == 0)
+ 		return NULL;
+@@ -101,7 +102,10 @@ initial_plane_vma(struct drm_i915_private *i915,
+ 	if (IS_ERR(vma))
+ 		goto err_obj;
  
--	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-+	if (place->fpfn + bman_res->base.num_pages != place->lpfn &&
-+	    place->flags & TTM_PL_FLAG_CONTIGUOUS) {
- 		unsigned long pages;
+-	if (i915_ggtt_pin(vma, NULL, 0, PIN_MAPPABLE | PIN_OFFSET_FIXED | base))
++	pinctl = PIN_GLOBAL | PIN_OFFSET_FIXED | base;
++	if (HAS_GMCH(i915))
++		pinctl |= PIN_MAPPABLE;
++	if (i915_vma_pin(vma, 0, 0, pinctl))
+ 		goto err_obj;
  
- 		size = roundup_pow_of_two(size);
+ 	if (i915_gem_object_is_tiled(obj) &&
 -- 
 2.34.1
 
