@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6EB8C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:24:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7131EC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1F4610FEBE;
-	Fri,  4 Mar 2022 17:24:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA16112AAC;
+	Fri,  4 Mar 2022 17:24:28 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4915710FEBE;
- Fri,  4 Mar 2022 17:24:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27A9210FED3;
+ Fri,  4 Mar 2022 17:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646414663; x=1677950663;
+ t=1646414666; x=1677950666;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=I4teDGAH2F/kR2fXzhxSDTT7AXc0LQK3RGUOMr0ZTcQ=;
- b=Zebne9aln3aUwSujJ8t3/rQYlL0JHoi0akc56PQVzs8ai896vzRNP7RV
- g+nhijVzNtAEYIjOI6XKedPvTziHFsl90aKMJ2vb1nUuqe1ikmW3RNz4w
- YTbKk7TiXai+WgJ6LSLEguOjnjgIT4NW2yjueW+P6oUH3RDll9QTYfqOB
- w7VgBCFii518jgMet+6GqBxzurssyaTmFfU7reDpklWEEnA/cjb5O5RuU
- P9ZV3IQuzoLn7WRIijwdq1GE9h11ZYUOMhrvYRYZguc39g6flks7+VivI
- WDmPHuG+EJUF5jTmSr/lgIiFSvJWf20hCZUXVYYaGOM8raNYigFu8XVS1 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="252848981"
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="252848981"
+ bh=snHbOntyYfQr9K82seOaBfBl8X9a55eeg1V89w+NDqo=;
+ b=ETyQmzsF8DrK7aThU7fBmrRUXR49fewLGf3c4f3cODt7tYZuUZTZ3ADG
+ uKNkf0vg+cu1PBvziDLT9gSOBW/g+4kfVgC0ghah1aYkQemdTk6Qs8+G3
+ VjUjQgVt4x514K+GFadkB4Ckgn0BsDuOkdog8oZnIvnW1JcF6SVZS9Tgi
+ j2vsKWTDLmMRgiOnzVFcHc9tkVGZiW1lELZukCjNc7t2eijABwUy4wmsa
+ xzanRim9RrIc+XInFpnIdFcXX5V3Xnq3ZtHuCc0lzlFXEC+ikjr9yTMjn
+ cNL8i0YA8SpRrbD0/uf/K6w3HP0qeIXvA1bziMIDgpwtU3NBm/9j2TrIT w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="252848997"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="252848997"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 09:24:23 -0800
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="631216630"
+ 04 Mar 2022 09:24:26 -0800
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="631216639"
 Received: from vkats-mobl1.ccr.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.28.8])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 09:24:21 -0800
+ 04 Mar 2022 09:24:24 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Mar 2022 17:23:31 +0000
-Message-Id: <20220304172333.991778-7-matthew.auld@intel.com>
+Date: Fri,  4 Mar 2022 17:23:33 +0000
+Message-Id: <20220304172333.991778-9-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220304172333.991778-1-matthew.auld@intel.com>
 References: <20220304172333.991778-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915/display: Check mappable aperture
- when pinning preallocated vma
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915: fixup the initial fb on DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,51 +58,51 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Ap Kamal <kamal.ap@intel.com>, Chris P Wilson <chris.p.wilson@intel.com>,
- CQ Tang <cq.tang@intel.com>, dri-devel@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: CQ Tang <cq.tang@intel.com>
+On DG2+ the initial fb shouldn't be placed anywhere close to DSM, and so
+should just be allocated directly from LMEM.
 
-When system does not have mappable aperture, ggtt->mappable_end=0. In
-this case if we pass PIN_MAPPABLE when pinning vma, the pinning code
-will return -ENOSPC. So conditionally set PIN_MAPPABLE if HAS_GMCH().
-
-Suggested-by: Chris P Wilson <chris.p.wilson@intel.com>
-Signed-off-by: CQ Tang <cq.tang@intel.com>
-Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Cc: Ap Kamal <kamal.ap@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_plane_initial.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_plane_initial.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
-index 5227e5b35206..f797fcef18fc 100644
+index b39d3a8dfe45..5a3baeb620a6 100644
 --- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
 +++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
-@@ -51,6 +51,7 @@ initial_plane_vma(struct drm_i915_private *i915,
- 	struct drm_i915_gem_object *obj;
- 	struct i915_vma *vma;
- 	u32 base, size;
-+	u64 pinctl;
+@@ -68,8 +68,12 @@ initial_plane_vma(struct drm_i915_private *i915,
+ 		 * On future discrete HW, like DG2, we should be able to just
+ 		 * allocate directly from LMEM, due to larger LMEM size.
+ 		 */
+-		if (base >= i915->dsm.start)
++		if (base >= i915->dsm.start) {
+ 			base -= i915->dsm.start;
++		} else {
++			WARN_ON_ONCE(IS_DG1(i915));
++			mem = i915->mm.regions[INTEL_REGION_LMEM];
++		}
+ 	}
  
- 	if (!mem || plane_config->size == 0)
+ 	size = roundup(base + plane_config->size, mem->min_page_size);
+@@ -82,11 +86,11 @@ initial_plane_vma(struct drm_i915_private *i915,
+ 	 * features.
+ 	 */
+ 	if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
++	    mem == i915->mm.stolen_region &&
+ 	    size * 2 > i915->stolen_usable_size)
  		return NULL;
-@@ -101,7 +102,10 @@ initial_plane_vma(struct drm_i915_private *i915,
- 	if (IS_ERR(vma))
- 		goto err_obj;
  
--	if (i915_ggtt_pin(vma, NULL, 0, PIN_MAPPABLE | PIN_OFFSET_FIXED | base))
-+	pinctl = PIN_GLOBAL | PIN_OFFSET_FIXED | base;
-+	if (HAS_GMCH(i915))
-+		pinctl |= PIN_MAPPABLE;
-+	if (i915_vma_pin(vma, 0, 0, pinctl))
- 		goto err_obj;
+-	obj = i915_gem_object_create_region_at(i915->mm.stolen_region,
+-					       base, size, 0);
++	obj = i915_gem_object_create_region_at(mem, base, size, 0);
+ 	if (IS_ERR(obj))
+ 		return NULL;
  
- 	if (i915_gem_object_is_tiled(obj) &&
 -- 
 2.34.1
 
