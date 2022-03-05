@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 523EEC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Mar 2022 16:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43203C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Mar 2022 23:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751AF10EA07;
-	Sat,  5 Mar 2022 16:06:21 +0000 (UTC)
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E0910EA05;
- Sat,  5 Mar 2022 16:06:20 +0000 (UTC)
-Received: by mail-io1-xd36.google.com with SMTP id w7so12731956ioj.5;
- Sat, 05 Mar 2022 08:06:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=wo6nd2MeGmxMshtehc0riA0wTbVBfcjKppZ0twur98A=;
- b=M8jxO/hL/kIBZ6weK/ApLGvbKGlIVpZSV76KqNf7dvXDXwrbKEQK9NZBbxADzkxgsx
- s81o/EfbP+ZpDwuvQkWScscXIzE+CF2kf5GFwm41dvGRKruIYAN67USeMOTaSxD27Kpx
- KK4JDH/gLycJ8qtd+0fKjyWuyyUsrPJI1zKx0F35STkGXZbt8EjOyjxr4KeC/bcHYHRJ
- /IjDeNy+Ptqhmj7DO97Tv9c+1B+fCJB+gfhkECWHZozpdjJhiXNYEPGF/JyqAEW2ohIz
- fgb0iPuDzqWmnsGkuKNg3zJ3iipu9fBQfR3Y1QZqgW1+NBZYRMlxop5gXNeqaX7qn9HS
- BKBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=wo6nd2MeGmxMshtehc0riA0wTbVBfcjKppZ0twur98A=;
- b=7NALbTy7mskwVMfOthBJU9vEDu0nauY2QZkPyk6ZfVeW0BAiCxZWW9FpRRyj/KFKyP
- 0Kj046lcNMSE1XJIwWVuo9skcLt9+/TuDaVS0O5eh2E6RJsZeZGX7dTvP4kdsMWwO5VF
- VF5mf/q3nkImvXpWekPXoaDdWmpJvRKS+g2i5VZpd2IdFSMtieEBxWvgDpbRjEUNVQLF
- rBkQh6nE8rSvsdBDDXDQ6NwcLKj9o8Dv20dFKUD8i992thcesNmHry9ILfWuVltFvnpA
- Yl336BSsx1+lkF0bQneYbx7V36yCLFXgaZC/otObe7uutMKHZPxRdSlmg8yUDeS1xKLN
- 8Bxg==
-X-Gm-Message-State: AOAM530q36qir7cUFpmmr1smgyU8SG9YWKMDMop8vps62nafEqk6KOi5
- t3dLF0Sn7V197VoYJ5D/4Gg=
-X-Google-Smtp-Source: ABdhPJwDYk64dafNSq+/Yc3f58mT4vP9ejvcvPFEE7mAQjjdPJcdtQ36Afa/BsE0DAVwLtfZmwcrLA==
-X-Received: by 2002:a05:6602:1594:b0:640:7236:e6ea with SMTP id
- e20-20020a056602159400b006407236e6eamr3373793iow.23.1646496379438; 
- Sat, 05 Mar 2022 08:06:19 -0800 (PST)
-Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::f10e])
- by smtp.googlemail.com with ESMTPSA id
- v2-20020a92c802000000b002c1ed616004sm7008509iln.82.2022.03.05.08.06.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Mar 2022 08:06:19 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: daniel@ffwll.ch,
-	Jim Cromie <jim.cromie@gmail.com>
-Date: Sat,  5 Mar 2022 09:06:05 -0700
-Message-Id: <20220305160605.88922-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1485A10E2C5;
+	Sat,  5 Mar 2022 23:52:33 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C762C10E265;
+ Sat,  5 Mar 2022 23:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646524351; x=1678060351;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=4NM0s3UTj4k04PnpVsBnUPYvxoqU0yP5Q1OgPrRmw10=;
+ b=XHgfv2xcKxlkXV1V3gUDNrg2Wcic88SZZMsz/t5Tt3kSWcAQbpJEZKtc
+ kGpX3RoRjqgwNKqvWh6/qoUMTqLIUUJYIn68TMvcBNpYdAFLdVaWD6yng
+ q+y7zjcFhTVJ+nUJsQZQRjotdtXLDuSH+3fNeWeeMEUYztFZBPxE/Kdn0
+ 8eFV+G7SRifISMfrTkMkTUGFIr7WQRilIs66MGH+PGdn6xDoxSYx7KL3x
+ a1ik/tc/oZQy4rf0QD3EcByJqwdp9XwEYfXh1Ri9JOG0dgjZeCA4YZ7uV
+ +TSRXxZBZ8pyzPPxJyRc+pvSrn15JNyGwsc0owt3pixF73qKVQGNoXX31 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10277"; a="251760675"
+X-IronPort-AV: E=Sophos;i="5.90,158,1643702400"; d="scan'208";a="251760675"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2022 15:52:30 -0800
+X-IronPort-AV: E=Sophos;i="5.90,158,1643702400"; d="scan'208";a="595134006"
+Received: from vkasired-desk2.fm.intel.com ([10.105.128.127])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2022 15:52:30 -0800
+From: Vivek Kasireddy <vivek.kasireddy@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Sat,  5 Mar 2022 15:36:15 -0800
+Message-Id: <20220305233615.126109-3-vivek.kasireddy@intel.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <YPbPvm/xcBlTK1wq@phenom.ffwll.local>
-References: <YPbPvm/xcBlTK1wq@phenom.ffwll.local>
+In-Reply-To: <20220305233615.126109-1-vivek.kasireddy@intel.com>
+References: <20220305233615.126109-1-vivek.kasireddy@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v3 3/5] drm/print: RFC add choice to use
- dynamic debug in drm-debug
+Subject: [Intel-gfx] [CI 2/2] drm/i915/gem: Don't try to map and fence large
+ scanout buffers (v9)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,268 +58,268 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mripard@kernel.org, airlied@linux.ie, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, jbaron@akamai.com,
- dri-devel@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
- intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniel Vetter <daniel@ffwll.ch>
+On platforms capable of allowing 8K (7680 x 4320) modes, pinning 2 or
+more framebuffers/scanout buffers results in only one that is mappable/
+fenceable. Therefore, pageflipping between these 2 FBs where only one
+is mappable/fenceable creates latencies large enough to miss alternate
+vblanks thereby producing less optimal framerate.
+
+This mainly happens because when i915_gem_object_pin_to_display_plane()
+is called to pin one of the FB objs, the associated vma is identified
+as misplaced and therefore i915_vma_unbind() is called which unbinds and
+evicts it. This misplaced vma gets subseqently pinned only when
+i915_gem_object_ggtt_pin_ww() is called without PIN_MAPPABLE. This
+results in a latency of ~10ms and happens every other vblank/repaint cycle.
+Therefore, to fix this issue, we try to see if there is space to map
+at-least two objects of a given size and return early if there isn't. This
+would ensure that we do not try with PIN_MAPPABLE for any objects that
+are too big to map thereby preventing unncessary unbind.
+
+Testcase:
+Running Weston and weston-simple-egl on an Alderlake_S (ADLS) platform
+with a 8K@60 mode results in only ~40 FPS. Since upstream Weston submits
+a frame ~7ms before the next vblank, the latencies seen between atomic
+commit and flip event are 7, 24 (7 + 16.66), 7, 24..... suggesting that
+it misses the vblank every other frame.
+
+Here is the ftrace snippet that shows the source of the ~10ms latency:
+              i915_gem_object_pin_to_display_plane() {
+0.102 us   |    i915_gem_object_set_cache_level();
+                i915_gem_object_ggtt_pin_ww() {
+0.390 us   |      i915_vma_instance();
+0.178 us   |      i915_vma_misplaced();
+                  i915_vma_unbind() {
+                  __i915_active_wait() {
+0.082 us   |        i915_active_acquire_if_busy();
+0.475 us   |      }
+                  intel_runtime_pm_get() {
+0.087 us   |        intel_runtime_pm_acquire();
+0.259 us   |      }
+                  __i915_active_wait() {
+0.085 us   |        i915_active_acquire_if_busy();
+0.240 us   |      }
+                  __i915_vma_evict() {
+                    ggtt_unbind_vma() {
+                      gen8_ggtt_clear_range() {
+10507.255 us |        }
+10507.689 us |      }
+10508.516 us |   }
+
+v2: Instead of using bigjoiner checks, determine whether a scanout
+    buffer is too big by checking to see if it is possible to map
+    two of them into the ggtt.
+
+v3 (Ville):
+- Count how many fb objects can be fit into the available holes
+  instead of checking for a hole twice the object size.
+- Take alignment constraints into account.
+- Limit this large scanout buffer check to >= Gen 11 platforms.
+
+v4:
+- Remove existing heuristic that checks just for size. (Ville)
+- Return early if we find space to map at-least two objects. (Tvrtko)
+- Slightly update the commit message.
+
+v5: (Tvrtko)
+- Rename the function to indicate that the object may be too big to
+  map into the aperture.
+- Account for guard pages while calculating the total size required
+  for the object.
+- Do not subject all objects to the heuristic check and instead
+  consider objects only of a certain size.
+- Do the hole walk using the rbtree.
+- Preserve the existing PIN_NONBLOCK logic.
+- Drop the PIN_MAPPABLE check while pinning the VMA.
+
+v6: (Tvrtko)
+- Return 0 on success and the specific error code on failure to
+  preserve the existing behavior.
+
+v7: (Ville)
+- Drop the HAS_GMCH(i915), DISPLAY_VER(i915) < 11 and
+  size < ggtt->mappable_end / 4 checks.
+- Drop the redundant check that is based on previous heuristic.
+
+v8:
+- Make sure that we are holding the mutex associated with ggtt vm
+  as we traverse the hole nodes.
+
+v9: (Tvrtko)
+- Use mutex_lock_interruptible_nested() instead of mutex_lock().
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+---
+ drivers/gpu/drm/i915/i915_gem.c | 128 +++++++++++++++++++++++---------
+ 1 file changed, 94 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 2e10187cd0a0..4bef9eaa8b2e 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -49,6 +49,7 @@
+ #include "gem/i915_gem_pm.h"
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_userptr.h"
++#include "gem/i915_gem_tiling.h"
+ #include "gt/intel_engine_user.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_pm.h"
+@@ -879,6 +880,96 @@ static void discard_ggtt_vma(struct i915_vma *vma)
+ 	spin_unlock(&obj->vma.lock);
+ }
+ 
++static int
++i915_gem_object_fits_in_aperture(struct drm_i915_gem_object *obj,
++				 u64 alignment, u64 flags)
++{
++	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
++	struct drm_mm_node *hole;
++	u64 hole_start, hole_end, start, end;
++	u64 fence_size, fence_alignment;
++	unsigned int count = 0;
++	int err = 0;
++
++	/*
++	 * If the required space is larger than the available
++	 * aperture, we will not able to find a slot for the
++	 * object and unbinding the object now will be in
++	 * vain. Worse, doing so may cause us to ping-pong
++	 * the object in and out of the Global GTT and
++	 * waste a lot of cycles under the mutex.
++	 */
++	if (obj->base.size > ggtt->mappable_end)
++		return -E2BIG;
++
++	/*
++	 * If NONBLOCK is set the caller is optimistically
++	 * trying to cache the full object within the mappable
++	 * aperture, and *must* have a fallback in place for
++	 * situations where we cannot bind the object. We
++	 * can be a little more lax here and use the fallback
++	 * more often to avoid costly migrations of ourselves
++	 * and other objects within the aperture.
++	 */
++	if (!(flags & PIN_NONBLOCK))
++		return 0;
++
++	/*
++	 * Other objects such as batchbuffers are fairly small compared
++	 * to FBs and are unlikely to exahust the aperture space.
++	 * Therefore, return early if this obj is not an FB.
++	 */
++	if (!i915_gem_object_is_framebuffer(obj))
++		return 0;
++
++	fence_size = i915_gem_fence_size(i915, obj->base.size,
++					 i915_gem_object_get_tiling(obj),
++					 i915_gem_object_get_stride(obj));
++
++	if (i915_vm_has_cache_coloring(&ggtt->vm))
++		fence_size += 2 * I915_GTT_PAGE_SIZE;
++
++	fence_alignment = i915_gem_fence_alignment(i915, obj->base.size,
++						   i915_gem_object_get_tiling(obj),
++						   i915_gem_object_get_stride(obj));
++	alignment = max_t(u64, alignment, fence_alignment);
++
++	err = mutex_lock_interruptible_nested(&ggtt->vm.mutex, 0);
++	if (err)
++		return err;
++
++	/*
++	 * Assuming this object is a large scanout buffer, we try to find
++	 * out if there is room to map at-least two of them. There could
++	 * be space available to map one but to be consistent, we try to
++	 * avoid mapping/fencing any of them.
++	 */
++	drm_mm_for_each_suitable_hole(hole, &ggtt->vm.mm, 0, ggtt->mappable_end,
++				      fence_size, DRM_MM_INSERT_LOW) {
++		hole_start = drm_mm_hole_node_start(hole);
++		hole_end = hole_start + hole->hole_size;
++
++		do {
++			start = round_up(hole_start, alignment);
++			end = min_t(u64, hole_end, ggtt->mappable_end);
++
++			if (range_overflows(start, fence_size, end))
++				break;
++
++			if (++count >= 2) {
++				mutex_unlock(&ggtt->vm.mutex);
++				return 0;
++			}
++
++			hole_start = start + fence_size;
++		} while (1);
++	}
++
++	mutex_unlock(&ggtt->vm.mutex);
++	return -ENOSPC;
++}
++
+ struct i915_vma *
+ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+ 			    struct i915_gem_ww_ctx *ww,
+@@ -894,36 +985,9 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+ 
+ 	if (flags & PIN_MAPPABLE &&
+ 	    (!view || view->type == I915_GGTT_VIEW_NORMAL)) {
+-		/*
+-		 * If the required space is larger than the available
+-		 * aperture, we will not able to find a slot for the
+-		 * object and unbinding the object now will be in
+-		 * vain. Worse, doing so may cause us to ping-pong
+-		 * the object in and out of the Global GTT and
+-		 * waste a lot of cycles under the mutex.
+-		 */
+-		if (obj->base.size > ggtt->mappable_end)
+-			return ERR_PTR(-E2BIG);
+-
+-		/*
+-		 * If NONBLOCK is set the caller is optimistically
+-		 * trying to cache the full object within the mappable
+-		 * aperture, and *must* have a fallback in place for
+-		 * situations where we cannot bind the object. We
+-		 * can be a little more lax here and use the fallback
+-		 * more often to avoid costly migrations of ourselves
+-		 * and other objects within the aperture.
+-		 *
+-		 * Half-the-aperture is used as a simple heuristic.
+-		 * More interesting would to do search for a free
+-		 * block prior to making the commitment to unbind.
+-		 * That caters for the self-harm case, and with a
+-		 * little more heuristics (e.g. NOFAULT, NOEVICT)
+-		 * we could try to minimise harm to others.
+-		 */
+-		if (flags & PIN_NONBLOCK &&
+-		    obj->base.size > ggtt->mappable_end / 2)
+-			return ERR_PTR(-ENOSPC);
++		ret = i915_gem_object_fits_in_aperture(obj, alignment, flags);
++		if (ret)
++			return ERR_PTR(ret);
+ 	}
+ 
+ new_vma:
+@@ -935,10 +999,6 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
+ 		if (flags & PIN_NONBLOCK) {
+ 			if (i915_vma_is_pinned(vma) || i915_vma_is_active(vma))
+ 				return ERR_PTR(-ENOSPC);
+-
+-			if (flags & PIN_MAPPABLE &&
+-			    vma->fence_size > ggtt->mappable_end / 2)
+-				return ERR_PTR(-ENOSPC);
+ 		}
+ 
+ 		if (i915_vma_is_pinned(vma) || i915_vma_is_active(vma)) {
+-- 
+2.35.1
 
-
-Hi Daniel, everyone,
-
-Ive substantially updated this patchset,
-and I thought it useful to reply here.
-
-Im noting the biggest changes in context below, trimming heavily otherwize.
-
-Also, Ive lost the msg in my gmail-cloud, so this lacks
-the usual "Daniel said: " attribution, and the "> " marks.
-Ive prefixed "< " to 1st line of my replies where it helps.
-
-The current patchset is here:
-
-https://patchwork.freedesktop.org/series/100290/
-https://lore.kernel.org/lkml/20220217034829.64395-1-jim.cromie@gmail.com/
-
-Its "failing" patchwork CI cuz of a macro warning in dyndbg, which
-would be nice for CI to "pass" because its out of DRM tree, and
-subject to a separate review process, and in the meantime, it would be
-nice to see it under test.
-
-
-Going item by item:
-
-On Wed, Jul 14, 2021 at 11:51:36AM -0600, Jim Cromie wrote:
-> drm's debug system uses distinct categories of debug messages, encoded
-> in an enum (DRM_UT_<CATEGORY>),
-
-  enum is now renumbered to 0-15 (fits in 4 bits)
-  drm_debug_enabled() does BIT(cat)
-  15 is unclassed/reserved
-
-> Dynamic debug has no concept of category, but we can map the DRM_UT_*
-
-now it has "class" keyword, and class_id:4 field.
-
-   #> echo module drm class 1 +p > control # 1=DRM_UT_KMS iirc
-
-This interface is unused yet, DRM is its A-1 customer, are you shopping ?
-Since its unused, it cannot break anything not using it :-)
-
-> CONFIG_DRM_USE_DYNAMIC_DEBUG enables this, and is available if
-
-still true.
-
-> The indirection/switchover is layered into the macro scheme:
-
-Heres where the biggest DRM centric changes (vs old) are:
-
-The cDRM_UT_* => prefix-string mapping is gone; while it worked, it
-made the literal format strings config dependent, and was more
-complicated to explain.  Fitting category into class_id is much
-cleaner.
-
-old way replaced drm*dbg with pr_debug (at surface level)
-new way adapts drm*dbg to reuse the class-Factory macro under pr_debug.
-
-This loses pr_debug's log-decorating feature, but DRM has its own
-conventions, and extra decorations are unlikely to really add anything.
-OTOH, drm could re-use those flags to optionalize some of its conventions.
-
-> 0. A new callback on drm.debug which calls dynamic_debug_exec_queries
-
-now in dyndbg, where it belonged.  now just uses class query inside.
-
-
-This is really awesome. For merging I think we need to discuss with dyn
-debug folks whether they're all ok with this, but it's exported already
-should should be fine.
-
-< Your (fresh) endorsement should help :-)
-Particularly, the new dyndbg features need a user.
-
-> 
-> 1. A "converted" or "classy" DRM_UT_* map
->
-
-repeating, 2nd map is gone, DRM_UT_* is merely renumbered.
-
->    DRM_UT_* are unchanged, since theyre used in drm_debug_enabled()
->    and elsewhere.
-
-I think for the production version of these we need to retire/deprecate
-them, at least for drm core. Otherwise you have an annoying mismatch
-between drm.debug module option and dyn debug.
-
-< I think this isnt relevant now, since symbols are preserved.
-
-Also, the __drm_debug var is used directly by the CLASSBITS macro,
-(and therefore the callbacks), so /sys/module/drm/parameters/debug is
-preserved at an ABI-ish level. (__drm_debug now ulong, to work with BIT)
-
-> 
-> 2. drm_dev_dbg & drm_debug are renamed (prefixed with '_')
-> 
->    old names are now macros, calling either:
->      legacy:  -> to renamed fn
->      enabled: -> dev_dbg & pr_debug, with cDRM-prefix # format.
->
-
-For merging, can we pull out the renames and reorgs from this patch, and
-then maybe also the reorder the next patch in your series here to be
-before the dyn debug stuff?
-
-< the above adaptation is re-adapted to use dyndbg's new class-Factory
-macro, other stuff is gone.
-
-
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
->  drivers/gpu/drm/Kconfig     |  13 +++++
->  drivers/gpu/drm/drm_print.c |  75 ++++++++++++++++++++++++--
->  include/drm/drm_print.h     | 102 ++++++++++++++++++++++++++----------
->  3 files changed, 158 insertions(+), 32 deletions(-)
-
-update - drm parts are slightly smaller now :-)
-
-[jimc@frodo wk-next]$ git diff --stat master
- Documentation/admin-guide/dynamic-debug-howto.rst |   7 +++++
- drivers/gpu/drm/Kconfig                           |  12 ++++++++
- drivers/gpu/drm/Makefile                          |   2 ++
- drivers/gpu/drm/drm_print.c                       |  56 ++++++++++++++++++++++------------
- include/drm/drm_print.h                           |  80 +++++++++++++++++++++++++++++
- include/linux/dynamic_debug.h                     | 113 +++++++++++++++++++++++++++++
- lib/dynamic_debug.c                               | 140 +++++++++++++++++++++++++++++
- 7 files changed, 323 insertions(+), 87 deletions(-)
-
-
-I really like this, I think you can drop the RFC. A few more things that I
-think we need:
-
-- An overview kerneldoc section which explains the interfaces and how it
-  all works together. Essentially your commit message with some light
-  markup to make it look good.
-
-< not sure anything worth documenting has survived.
-
-- I think it would be really good to review the driver docs for all this
-  and make sure it's complete. Some of the interface functions aren't
-  documented yet (or maybe the ones that drivers shouldn't used need more
-  __ prefixes to denote them as internal, dunno).
-
-- I guess deprecation notice for drm_debug_enabled() and all that, so that
-  we have a consistent interface. Doing the conversion will probably
-
-< this keeps drm_debug_enabled(), and __drm_debug, so those users are fine.
-__drm_debug_enabled() is optimized version for macro-wrapped sites
-
-highlight the need for a bit more infrastructure and tooling, e.g. the
-  bigger dump functions (like edid hex dump, or also the various decode
-  helpers we have for dp, hdmi infoframes and all that) ideally have a
-  single dyn_debug label to enable all of them instead of line-by-line.
-  Tbh no idea how this should work, might need dyndbg work too.
-
-< Factory-macros should help here, havent looked.
-
-- For the driver side of this we probably want a
-  Documentation/gpu/TODO.rst entry if it's not all easy to convert
-  directly.
-
-
-> +config DRM_USE_DYNAMIC_DEBUG
-> +	bool "use dynamic debug to implement drm.debug"
-> +	default n
-> +	depends on DRM
-> +	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
-> +	depends on JUMP_LABEL
-> +	help
-> +	  The drm debug category facility does a lot of unlikely bit-field
-> +	  tests at runtime; while cheap individually, the cost accumulates.
-> +	  This option uses dynamic debug facility (if configured and
-> +	  using jump_label) to avoid those runtime checks, patching
-> +	  the kernel when those debugs are desired.
-
-Can't we just make this an internal option that's enabled automatically
-when dyndbg is around? Plus a comment somewhere that we really recommend
-enabling dyndbg for drm.  Or would this mean that in certain dyndbg
-configurations we'd loose all the debug lines, which would suck?
-
-< I have 'default y' now.
-
-WRT losing debug lines, I cant think how, but it raises a thought; cuz
-drm.debug uses .class_id, the mod,func,file info isnt needed to
-support queries (other than ad-hoc at >control), drm could drop them.
-Its already lost pr_debug's optional mod.func.ln prefix, and cannot
-use them for that.  (but Im foreshadowing, see bottom)
-
-
-Anyway there's a pile of details, but the big picture I really like.
-Especially that we can make dyndbg seamlessly support drm.debug is really
-nice.
-
-Cheers, Daniel
-
-
-< Wait, theres more ! (here comes the tease) :-D
-
-0. this patchset and others below are at:
-
-ghlinux-ro	https://github.com/jimc/linux.git (fetch)
-
-lkp-robot <lkp@intel.com> has been helping a lot.
-
-1. dd-drm branch - this patchset
-
-commit 46a5bd89e47d0f7e4ad63b4f574815f01d4290a0
-(HEAD -> dd-drm, ghlinux/dd-drm, ghlinux-ro/dd-drm)
-
-passing robot tests.
-
-2. dyn-drm-trc branch - on top of 1.dd-drm
-
-commit 0473a8ecdb15ec0e63644b77da575905c5851462
-(ghlinux/dyn-drm-trc, ghlinux-ro/dyn-drm-trc, dyn-drm-trc)
-
-It starts with Vincent Whitchurch's patch:
-  https://lore.kernel.org/lkml/20211209150910.GA23668@axis.com/
-
-which (oversimplifying) added a trace-event and called it from
-pr_debug, and which met with some approval from Steve Rostedt.
-
-It then recapitulates those changes in drm_*dbg.
-
-3. dd-diet-next - on top of 2.dyn-drm-trc.
-
-passes lkp-robot tests, but still problematic
-
-This splits struct _ddebug in 2, then de-duplicates the _ddebug_site
-records (containing repetitive module,filename,function).  In my
-fedora-ish config kernel containing ~3100 callsites in builtin
-modules, I see ~40% reduction in 24/64 of the full data footprint.
-Id expect a little more in modules, due to higher prdbgs/fns ratio.
-
-forex:  (69% compression here)
-  dyndbg: 3883 debug prints in module amdgpu (in 1190 functions)
-
-Its incomplete 2x: needs some union-fu, and more work to drop the
-.site pointer.  This would drop 8/40 from struct _ddebug, recover another 8/56 of total footprint.
-
-A noteworthy side-effect of this is that it becomes practical to drop
-all _ddebug_site data for modules which don't need/want it.
-
-DRM (in 2.dyn-drm-trc) is such a user; it gets the control it needs
-using .class_id, and has no log-decoration facility which would use
-the 3 fields.  It should just get lots of "_na_"s in cat control.
-
-Dyndbg can be easily fixed to not apply query-commands which specify
-those terms to callsites which do not have the data.
-
-
-Clearly, getting to here is gonna be a many-step process.
-DRM buy-in will certainly help :-)
-
-
-Cheers, Jim
