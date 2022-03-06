@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395C0C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 11:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49B61C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 11:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1E0D10F64E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C06C510F64F;
 	Mon,  7 Mar 2022 11:13:18 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A439B10E229;
- Sun,  6 Mar 2022 04:12:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA0C10E989;
+ Sun,  6 Mar 2022 17:03:41 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3FAD8B80B52;
- Sun,  6 Mar 2022 04:12:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D11DC340EF;
- Sun,  6 Mar 2022 04:12:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1E54960EE2;
+ Sun,  6 Mar 2022 17:03:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C1BC340EC;
+ Sun,  6 Mar 2022 17:03:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646539922;
- bh=Qq7CIqw/wyoNGqP8SxKCADK3EiMnqFZiz0Fy3Y+3lI4=;
+ s=k20201202; t=1646586218;
+ bh=PtPUUN2paGU+Jwmj1juwBiD5ERjsZEnzVi88Qbs0Ovc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dChxswxCVJWoQTWcJUnuMIlYUbzfRbQW+eLId9/Ei0rHOIrcrbjcXm/220WNeg06J
- RJSF/JqGVMgJHgTfiHNK2RdJgtuL1oOzDROr+1RBVmy23C/R4Q5soWU18mTaVTuYbx
- RxhEsAShP8lWIyrYhxtwmWYQWrgTIefRVR1iSIh5+gSp0JetS7+9tqkhX219cJxnM3
- 1p/tS5jnPbQDScKHexmgcMK7qz5OyRTw4wTvpR6qWMpAbIsV1y7AlMbPNV/rLsKwqc
- KEdDBDvuqvOoKbhTfoYuFyF5GiKzZ325omdd6KQ05ZiG+sFsHZ5JPQE1M75KOw85rU
- s1B3+qZ+VarQg==
-Date: Sun, 6 Mar 2022 06:11:21 +0200
+ b=Dys6oFTgehgchFQ7DQdOXEPJLHHAbxNF2jLMFMuDdr5BOMqDFqxL5wFgunlUp2+Sh
+ z84CKfJlzvOK9RhxOkIYUDMPMGh4I9q/+y7Qv7qmdbqgzYCvpXXHE5uPhhBMg+1Exi
+ LnK/EhN6D8a9gEt2GLoPGwdxOMqEFfKXk4M4fbSu0jot91sEoQmIy1bAjZJiT20xyP
+ UUJmQ6cJQcQ9sdrIUICRwKB0UBuyzzhqzi9Cr8/e/xRyN9teClIbT7IWmlR8H9prI9
+ IJ1zwQUQtNVNjkfsqCTMt6X4pJNGNBMneR9ZcJrCCo7xdAZ+RdZQdrsL7rxidWpi/I
+ gA6zqcqomEErg==
+Date: Sun, 6 Mar 2022 19:02:57 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <YiQ0aWhwY4BGLEMK@iki.fi>
-References: <20220306021534.83553-1-jarkko@kernel.org>
- <YiQjM7LdwoAWpC5L@casper.infradead.org> <YiQop71ABWm7hbMy@iki.fi>
- <YiQv7JEBPzgYUTTa@casper.infradead.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <YiTpQTM+V6rlDy6G@iki.fi>
+References: <20220306053211.135762-1-jarkko@kernel.org>
+ <20220306053211.135762-2-jarkko@kernel.org>
+ <YiSGgCV9u9NglYsM@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YiQv7JEBPzgYUTTa@casper.infradead.org>
+In-Reply-To: <YiSGgCV9u9NglYsM@kroah.com>
 X-Mailman-Approved-At: Mon, 07 Mar 2022 11:13:15 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC] mm: Add f_ops->populate()
+Subject: Re: [Intel-gfx] [PATCH RFC 1/3] mm: Add f_ops->populate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,49 +54,191 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nathaniel McCallum <nathaniel@profian.com>, linux-unionfs@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: zhangyiru <zhangyiru3@huawei.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
+ Vasily Averin <vvs@virtuozzo.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, Shakeel Butt <shakeelb@google.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, linux-sgx@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Nathaniel McCallum <nathaniel@profian.com>, linux-mips@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Reinette Chatre <reinette.chatre@intel.com>, codalist@coda.cs.cmu.edu,
- linux-sgx@vger.kernel.org
+ Alexey Gladkov <legion@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 06, 2022 at 03:52:12AM +0000, Matthew Wilcox wrote:
-> On Sun, Mar 06, 2022 at 05:21:11AM +0200, Jarkko Sakkinen wrote:
-> > On Sun, Mar 06, 2022 at 02:57:55AM +0000, Matthew Wilcox wrote:
-> > > On Sun, Mar 06, 2022 at 04:15:33AM +0200, Jarkko Sakkinen wrote:
-> > > > Sometimes you might want to use MAP_POPULATE to ask a device driver to
-> > > > initialize the device memory in some specific manner. SGX driver can use
-> > > > this to request more memory by issuing ENCLS[EAUG] x86 opcode for each
-> > > > page in the address range.
-> > > > 
-> > > > Add f_ops->populate() with the same parameters as f_ops->mmap() and make
-> > > > it conditionally called inside call_mmap(). Update call sites
-> > > > accodingly.
-> > > 
-> > > Your device driver has a ->mmap operation.  Why does it need another
-> > > one?  More explanation required here.
+On Sun, Mar 06, 2022 at 11:01:36AM +0100, Greg Kroah-Hartman wrote:
+> On Sun, Mar 06, 2022 at 07:32:05AM +0200, Jarkko Sakkinen wrote:
+> > Sometimes you might want to use MAP_POPULATE to ask a device driver to
+> > initialize the device memory in some specific manner. SGX driver can use
+> > this to request more memory by issuing ENCLS[EAUG] x86 opcode for each
+> > page in the address range.
 > > 
-> > f_ops->mmap() would require an additional parameter, which results
-> > heavy refactoring.
+> > Add f_ops->populate() with the same parameters as f_ops->mmap() and make
+> > it conditionally called inside call_mmap(). Update call sites
+> > accodingly.
+> > ---
+> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > v3:
+> > -       if (!ret && do_populate && file->f_op->populate)
+> > +       if (!ret && do_populate && file->f_op->populate &&
+> > +           !!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
+> > (reported by Matthew Wilcox)
+> > v2:
+> > -       if (!ret && do_populate)
+> > +       if (!ret && do_populate && file->f_op->populate)
+> > (reported by Jan Harkes)
+> > ---
+> >  arch/mips/kernel/vdso.c                    |  2 +-
+> >  drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |  2 +-
+> >  fs/coda/file.c                             |  2 +-
+> >  fs/overlayfs/file.c                        |  2 +-
+> >  include/linux/fs.h                         | 12 ++++++++++--
+> >  include/linux/mm.h                         |  2 +-
+> >  ipc/shm.c                                  |  2 +-
+> >  mm/mmap.c                                  | 10 +++++-----
+> >  mm/nommu.c                                 |  4 ++--
+> >  9 files changed, 23 insertions(+), 15 deletions(-)
 > > 
-> > struct file_operations has 1125 references in the kernel tree, so I
-> > decided to check this way around first. 
+> > diff --git a/arch/mips/kernel/vdso.c b/arch/mips/kernel/vdso.c
+> > index 3d0cf471f2fe..89f3f3da9abd 100644
+> > --- a/arch/mips/kernel/vdso.c
+> > +++ b/arch/mips/kernel/vdso.c
+> > @@ -102,7 +102,7 @@ int arch_setup_additional_pages(struct linux_binprm *bprm, int uses_interp)
+> >  		base = mmap_region(NULL, STACK_TOP, PAGE_SIZE,
+> >  				VM_READ | VM_EXEC |
+> >  				VM_MAYREAD | VM_MAYWRITE | VM_MAYEXEC,
+> > -				0, NULL);
+> > +				0, NULL, false);
+> >  		if (IS_ERR_VALUE(base)) {
+> >  			ret = base;
+> >  			goto out;
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > index 1b526039a60d..4c71f64d6a79 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > @@ -107,7 +107,7 @@ static int i915_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *
+> >  	if (!obj->base.filp)
+> >  		return -ENODEV;
+> >  
+> > -	ret = call_mmap(obj->base.filp, vma);
+> > +	ret = call_mmap(obj->base.filp, vma, false);
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > diff --git a/fs/coda/file.c b/fs/coda/file.c
+> > index 29dd87be2fb8..e14f312fdbf8 100644
+> > --- a/fs/coda/file.c
+> > +++ b/fs/coda/file.c
+> > @@ -173,7 +173,7 @@ coda_file_mmap(struct file *coda_file, struct vm_area_struct *vma)
+> >  	spin_unlock(&cii->c_lock);
+> >  
+> >  	vma->vm_file = get_file(host_file);
+> > -	ret = call_mmap(vma->vm_file, vma);
+> > +	ret = call_mmap(vma->vm_file, vma, false);
+> >  
+> >  	if (ret) {
+> >  		/* if call_mmap fails, our caller will put host_file so we
+> > diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
+> > index fa125feed0ff..b963a9397e80 100644
+> > --- a/fs/overlayfs/file.c
+> > +++ b/fs/overlayfs/file.c
+> > @@ -503,7 +503,7 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
+> >  	vma_set_file(vma, realfile);
+> >  
+> >  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
+> > -	ret = call_mmap(vma->vm_file, vma);
+> > +	ret = call_mmap(vma->vm_file, vma, false);
+> >  	revert_creds(old_cred);
+> >  	ovl_file_accessed(file);
+> >  
+> > diff --git a/include/linux/fs.h b/include/linux/fs.h
+> > index e2d892b201b0..2909e2d14af8 100644
+> > --- a/include/linux/fs.h
+> > +++ b/include/linux/fs.h
+> > @@ -42,6 +42,7 @@
+> >  #include <linux/mount.h>
+> >  #include <linux/cred.h>
+> >  #include <linux/mnt_idmapping.h>
+> > +#include <linux/mm.h>
+> >  
+> >  #include <asm/byteorder.h>
+> >  #include <uapi/linux/fs.h>
+> > @@ -1993,6 +1994,7 @@ struct file_operations {
+> >  	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
+> >  	long (*compat_ioctl) (struct file *, unsigned int, unsigned long);
+> >  	int (*mmap) (struct file *, struct vm_area_struct *);
+> > +	int (*populate)(struct file *, struct vm_area_struct *);
+> >  	unsigned long mmap_supported_flags;
+> >  	int (*open) (struct inode *, struct file *);
+> >  	int (*flush) (struct file *, fl_owner_t id);
+> > @@ -2074,9 +2076,15 @@ static inline ssize_t call_write_iter(struct file *file, struct kiocb *kio,
+> >  	return file->f_op->write_iter(kio, iter);
+> >  }
+> >  
+> > -static inline int call_mmap(struct file *file, struct vm_area_struct *vma)
+> > +static inline int call_mmap(struct file *file, struct vm_area_struct *vma, bool do_populate)
+> >  {
+> > -	return file->f_op->mmap(file, vma);
+> > +	int ret = file->f_op->mmap(file, vma);
+> > +
+> > +	if (!ret && do_populate && file->f_op->populate &&
+> > +	    !!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
+> > +		ret = file->f_op->populate(file, vma);
+> > +
+> > +	return ret;
+> >  }
+> >  
+> >  extern ssize_t vfs_read(struct file *, char __user *, size_t, loff_t *);
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 213cc569b192..6c8c036f423b 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -2683,7 +2683,7 @@ extern unsigned long get_unmapped_area(struct file *, unsigned long, unsigned lo
+> >  
+> >  extern unsigned long mmap_region(struct file *file, unsigned long addr,
+> >  	unsigned long len, vm_flags_t vm_flags, unsigned long pgoff,
+> > -	struct list_head *uf);
+> > +	struct list_head *uf, bool do_populate);
 > 
-> Are you saying that your device driver behaves differently if
-> MAP_POPULATE is set versus if it isn't?  That seems hideously broken.
+> As I have said many times before, don't add random boolean flags to
+> function arguments, as they provide no hint as to what they do at all.
+> When you read the code, you then have to go back and look up the
+> function definition here and see what exactly it means and the flow is
+> broken.
+> 
+> Make function names mean something obvious, for this, if it really is a
+> good idea to have this new flag (and I doubt it, but that's not my
+> call), then make this a mmap_region_populate() call to make it obvious
+> it is something different than the notmal mmap_region() call.
 
-MAP_POPULATE does not do anything (according to __mm_populate in mm/gup.c)
-with VMA's that have some sort of device/IO memory, i.e. vm_flags
-intersecting with VM_PFNMAP | VM_IO.
+I can create:
 
-I can extend the guard obviously to:
+* mmap_region_populate()
+* call_mmap_populate()
 
-if (!ret && do_populate && file->f_op->populate &&
-    !!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
-        file->f_op->populate(file, vma);
+This would localize the changes and leave out those boolean parameters.
+
+> But as is, this is pretty horrid, don't you agree?
+
+So can I conclude from this that in general having populate available for
+device memory is something horrid, or just the implementation path?
+
+That's the main reason why I made this RFC patch set, to get clear answer
+to that question. I.e. if it is in general sense a bad idea, I'll just
+create ioctl. If it is the implementation, I'll try to improve it.
+
+Otherwise, I don't know whether or not it is good idea to include such
+patch into the main SGX2 patch set. No means enforcibl tryy to push support
+IO memory populate.
+
+> thanks,
+> 
+> greg k-h
 
 BR, Jarkko
