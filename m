@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAFC1C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 11:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A818C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 11:13:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96C5C10F657;
-	Mon,  7 Mar 2022 11:13:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C48E510E3A9;
- Sun,  6 Mar 2022 02:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41E1710F660;
+	Mon,  7 Mar 2022 11:13:21 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3896510F272;
+ Sun,  6 Mar 2022 05:33:19 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6A2E6B80CA9;
- Sun,  6 Mar 2022 02:16:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD35C004E1;
- Sun,  6 Mar 2022 02:16:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 74A6061199;
+ Sun,  6 Mar 2022 05:33:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC34DC340EF;
+ Sun,  6 Mar 2022 05:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646532977;
- bh=qhbhEF4KNGgan5nuXFyOhv3ib4IX2nZMIJjs4aq0fyQ=;
- h=From:To:Cc:Subject:Date:From;
- b=ri6fW/rNQDL3GJBOmTvy22BllCS0Mx9/2fq6gRMgmLrV6oJc4Z2gFimfPkRq3hRsC
- Gd7hao4qpgmCrY0RcAChZl2tehIZm230vlPKPGMneipK6jdZ8pDGUSHd8gBVlbMeMK
- ZUso1mtvVo9bhmQXpMyoN0Ww/usgHR98ELsEexGCufyRWxoyRfA6q9NAMM2FmUQOEb
- A75ydaj0A4LkH0hekXA2YYPWbBOFG0WVqGA7jMmKI1RflqrU1JMT6V278Ql4KEUgMa
- XmYSpW4XlvIh2EVoWNqWMWo9RWSZl4HsxtTkhbi7WK+g6xt9qgN3Y7ROSGrUvG5KI1
- mQVatFyzsCRiQ==
+ s=k20201202; t=1646544798;
+ bh=1QleQuXD9sbYe+LmMXGxObgEQXN9PMHkgqkds+kRlTM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=br5rY6M8UUvmHms71AlgV5lsODOmGXw50MS4+I7V3fElgLb1vTu6qkTPjqi9p/dbq
+ 4yNZe7DQNlbD0VSvppQYCxnMI0UN8amuBXXfmZMqztoZCCA9IC5Nd5svIFTZMuuKUs
+ uvus/R1Z//ZKIJWKCAdh7lkXI29aKiUZm+8QTv6ORJ1FzJWbmN0xsZJ9okwsiG65HU
+ Q5NDUSii2Syt8UHh4JyJBS0siKxrhe0QxfBPhS7eXwugtFzSn/NqmWIfTYAc2e3AU7
+ SjgecmBC1M7G8Cl8UthVLZ2xk8evtzDlzNhm3mEz66egcGd+rub4wBzjX4nQkRJ5HJ
+ wGLon7vKnOtQA==
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Date: Sun,  6 Mar 2022 04:15:33 +0200
-Message-Id: <20220306021534.83553-1-jarkko@kernel.org>
+To: linux-mm@kvack.org
+Date: Sun,  6 Mar 2022 07:32:07 +0200
+Message-Id: <20220306053211.135762-4-jarkko@kernel.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220306053211.135762-1-jarkko@kernel.org>
+References: <20220306053211.135762-1-jarkko@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Mar 2022 11:13:15 +0000
-Subject: [Intel-gfx] [PATCH RFC] mm: Add f_ops->populate()
+Subject: [Intel-gfx] [PATCH RFC 3/3] x86/sgx: Implement EAUG population with
+ MAP_POPULATE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,210 +53,193 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nathaniel McCallum <nathaniel@profian.com>, linux-unionfs@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+Cc: zhangyiru <zhangyiru3@huawei.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, "H. Peter Anvin" <hpa@zytor.com>,
+ Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
+ Vasily Averin <vvs@virtuozzo.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ Shakeel Butt <shakeelb@google.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Nathaniel McCallum <nathaniel@profian.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Jarkko Sakkinen <jarkko@kernel.org>, linux-fsdevel@vger.kernel.org,
- Reinette Chatre <reinette.chatre@intel.com>, codalist@coda.cs.cmu.edu,
- linux-sgx@vger.kernel.org
+ Andrew Morton <akpm@linux-foundation.org>, Alexey Gladkov <legion@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometimes you might want to use MAP_POPULATE to ask a device driver to
-initialize the device memory in some specific manner. SGX driver can use
-this to request more memory by issuing ENCLS[EAUG] x86 opcode for each
-page in the address range.
+With SGX1 an enclave needs to be created with its maximum memory demands
+pre-allocated. Pages cannot be added to an enclave after it is initialized.
+SGX2 introduces a new function, ENCLS[EAUG] for adding pages to an
+initialized enclave.
 
-Add f_ops->populate() with the same parameters as f_ops->mmap() and make
-it conditionally called inside call_mmap(). Update call sites
-accodingly.
+Add support for dynamically adding pages to an initialized enclave with
+mmap() by populating pages with EAUG. Use f_ops->populate() callback to
+achieve this behaviour.
 
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- arch/mips/kernel/vdso.c                    |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |  2 +-
- fs/coda/file.c                             |  2 +-
- fs/overlayfs/file.c                        |  2 +-
- include/linux/fs.h                         | 10 ++++++++--
- include/linux/mm.h                         |  2 +-
- ipc/shm.c                                  |  2 +-
- mm/mmap.c                                  | 10 +++++-----
- mm/nommu.c                                 |  4 ++--
- 9 files changed, 21 insertions(+), 15 deletions(-)
+ arch/x86/kernel/cpu/sgx/driver.c | 129 +++++++++++++++++++++++++++++++
+ 1 file changed, 129 insertions(+)
 
-diff --git a/arch/mips/kernel/vdso.c b/arch/mips/kernel/vdso.c
-index 3d0cf471f2fe..89f3f3da9abd 100644
---- a/arch/mips/kernel/vdso.c
-+++ b/arch/mips/kernel/vdso.c
-@@ -102,7 +102,7 @@ int arch_setup_additional_pages(struct linux_binprm *bprm, int uses_interp)
- 		base = mmap_region(NULL, STACK_TOP, PAGE_SIZE,
- 				VM_READ | VM_EXEC |
- 				VM_MAYREAD | VM_MAYWRITE | VM_MAYEXEC,
--				0, NULL);
-+				0, NULL, false);
- 		if (IS_ERR_VALUE(base)) {
- 			ret = base;
- 			goto out;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index 1b526039a60d..4c71f64d6a79 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -107,7 +107,7 @@ static int i915_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *
- 	if (!obj->base.filp)
- 		return -ENODEV;
+diff --git a/arch/x86/kernel/cpu/sgx/driver.c b/arch/x86/kernel/cpu/sgx/driver.c
+index aa9b8b868867..0e97e7476076 100644
+--- a/arch/x86/kernel/cpu/sgx/driver.c
++++ b/arch/x86/kernel/cpu/sgx/driver.c
+@@ -9,6 +9,7 @@
+ #include <asm/traps.h>
+ #include "driver.h"
+ #include "encl.h"
++#include "encls.h"
  
--	ret = call_mmap(obj->base.filp, vma);
-+	ret = call_mmap(obj->base.filp, vma, false);
- 	if (ret)
- 		return ret;
- 
-diff --git a/fs/coda/file.c b/fs/coda/file.c
-index 29dd87be2fb8..e14f312fdbf8 100644
---- a/fs/coda/file.c
-+++ b/fs/coda/file.c
-@@ -173,7 +173,7 @@ coda_file_mmap(struct file *coda_file, struct vm_area_struct *vma)
- 	spin_unlock(&cii->c_lock);
- 
- 	vma->vm_file = get_file(host_file);
--	ret = call_mmap(vma->vm_file, vma);
-+	ret = call_mmap(vma->vm_file, vma, false);
- 
- 	if (ret) {
- 		/* if call_mmap fails, our caller will put host_file so we
-diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
-index fa125feed0ff..b963a9397e80 100644
---- a/fs/overlayfs/file.c
-+++ b/fs/overlayfs/file.c
-@@ -503,7 +503,7 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
- 	vma_set_file(vma, realfile);
- 
- 	old_cred = ovl_override_creds(file_inode(file)->i_sb);
--	ret = call_mmap(vma->vm_file, vma);
-+	ret = call_mmap(vma->vm_file, vma, false);
- 	revert_creds(old_cred);
- 	ovl_file_accessed(file);
- 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index e2d892b201b0..fb90284e1c82 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1993,6 +1993,7 @@ struct file_operations {
- 	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
- 	long (*compat_ioctl) (struct file *, unsigned int, unsigned long);
- 	int (*mmap) (struct file *, struct vm_area_struct *);
-+	int (*populate)(struct file *, struct vm_area_struct *);
- 	unsigned long mmap_supported_flags;
- 	int (*open) (struct inode *, struct file *);
- 	int (*flush) (struct file *, fl_owner_t id);
-@@ -2074,9 +2075,14 @@ static inline ssize_t call_write_iter(struct file *file, struct kiocb *kio,
- 	return file->f_op->write_iter(kio, iter);
+ u64 sgx_attributes_reserved_mask;
+ u64 sgx_xfrm_reserved_mask = ~0x3;
+@@ -101,6 +102,133 @@ static int sgx_mmap(struct file *file, struct vm_area_struct *vma)
+ 	return 0;
  }
  
--static inline int call_mmap(struct file *file, struct vm_area_struct *vma)
-+static inline int call_mmap(struct file *file, struct vm_area_struct *vma, bool do_populate)
- {
--	return file->f_op->mmap(file, vma);
-+	int ret = file->f_op->mmap(file, vma);
++static int sgx_encl_augment_page(struct sgx_encl *encl, unsigned long offset)
++{
++	struct sgx_pageinfo pginfo = {0};
++	struct sgx_encl_page *encl_page;
++	struct sgx_epc_page *epc_page;
++	struct sgx_va_page *va_page;
++	u64 secinfo_flags;
++	int ret;
 +
-+	if (!ret && do_populate)
-+		ret = file->f_op->populate(file, vma);
++	/*
++	 * Ignore internal permission checking for dynamically added pages.
++	 * They matter only for data added during the pre-initialization phase.
++	 * The enclave decides the permissions by the means of EACCEPT,
++	 * EACCEPTCOPY and EMODPE.
++	 */
++	secinfo_flags = SGX_SECINFO_R | SGX_SECINFO_W | SGX_SECINFO_X;
++	encl_page = sgx_encl_page_alloc(encl, offset, secinfo_flags);
++	if (IS_ERR(encl_page))
++		return PTR_ERR(encl_page);
++
++	epc_page = sgx_alloc_epc_page(encl_page, true);
++	if (IS_ERR(epc_page)) {
++		ret = PTR_ERR(epc_page);
++		goto err_alloc_epc_page;
++	}
++
++	va_page = sgx_encl_grow(encl);
++	if (IS_ERR(va_page)) {
++		ret = PTR_ERR(va_page);
++		goto err_grow;
++	}
++
++	mutex_lock(&encl->lock);
++
++	/*
++	 * Adding to encl->va_pages must be done under encl->lock.  Ditto for
++	 * deleting (via sgx_encl_shrink()) in the error path.
++	 */
++	if (va_page)
++		list_add(&va_page->list, &encl->va_pages);
++
++	/*
++	 * Insert prior to EADD in case of OOM.  EADD modifies MRENCLAVE, i.e.
++	 * can't be gracefully unwound, while failure on EADD/EXTEND is limited
++	 * to userspace errors (or kernel/hardware bugs).
++	 */
++	ret = xa_insert(&encl->page_array, PFN_DOWN(encl_page->desc),
++			encl_page, GFP_KERNEL);
++
++	/*
++	 * If ret == -EBUSY then page was created in another flow while
++	 * running without encl->lock
++	 */
++	if (ret)
++		goto err_xa_insert;
++
++	pginfo.secs = (unsigned long)sgx_get_epc_virt_addr(encl->secs.epc_page);
++	pginfo.addr = encl_page->desc & PAGE_MASK;
++	pginfo.metadata = 0;
++
++	ret = __eaug(&pginfo, sgx_get_epc_virt_addr(epc_page));
++	if (ret)
++		goto err_eaug;
++
++	encl_page->encl = encl;
++	encl_page->epc_page = epc_page;
++	encl_page->type = SGX_PAGE_TYPE_REG;
++	encl->secs_child_cnt++;
++
++	sgx_mark_page_reclaimable(encl_page->epc_page);
++
++	mutex_unlock(&encl->lock);
++
++	return 0;
++
++err_eaug:
++	xa_erase(&encl->page_array, PFN_DOWN(encl_page->desc));
++
++err_xa_insert:
++	sgx_encl_shrink(encl, va_page);
++	mutex_unlock(&encl->lock);
++
++err_grow:
++	sgx_encl_free_epc_page(epc_page);
++
++err_alloc_epc_page:
++	kfree(encl_page);
++
++	return VM_FAULT_SIGBUS;
++}
++
++/*
++ * Add new pages to the enclave sequentially with ENCLS[EAUG]. Note that
++ * sgx_mmap() validates that the given VMA is within the enclave range. Calling
++ * here sgx_encl_may_map() second time would too time consuming.
++ */
++static int sgx_populate(struct file *file, struct vm_area_struct *vma)
++{
++	unsigned long length = vma->vm_end - vma->vm_start;
++	struct sgx_encl *encl = file->private_data;
++	unsigned long start = encl->base - vma->vm_start;
++	unsigned long pos;
++	int ret;
++
++	/* EAUG works only for initialized enclaves. */
++	if (!test_bit(SGX_ENCL_INITIALIZED, &encl->flags))
++		return -EINVAL;
++
++	for (pos = 0 ; pos < length; pos += PAGE_SIZE) {
++		if (signal_pending(current)) {
++			if (!pos)
++				ret = -ERESTARTSYS;
++
++			break;
++		}
++
++		if (need_resched())
++			cond_resched();
++
++		ret = sgx_encl_augment_page(encl, start + pos);
++		if (ret)
++			break;
++	}
 +
 +	return ret;
- }
++}
++
+ static unsigned long sgx_get_unmapped_area(struct file *file,
+ 					   unsigned long addr,
+ 					   unsigned long len,
+@@ -133,6 +261,7 @@ static const struct file_operations sgx_encl_fops = {
+ 	.compat_ioctl		= sgx_compat_ioctl,
+ #endif
+ 	.mmap			= sgx_mmap,
++	.populate		= sgx_populate,
+ 	.get_unmapped_area	= sgx_get_unmapped_area,
+ };
  
- extern ssize_t vfs_read(struct file *, char __user *, size_t, loff_t *);
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 213cc569b192..6c8c036f423b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2683,7 +2683,7 @@ extern unsigned long get_unmapped_area(struct file *, unsigned long, unsigned lo
- 
- extern unsigned long mmap_region(struct file *file, unsigned long addr,
- 	unsigned long len, vm_flags_t vm_flags, unsigned long pgoff,
--	struct list_head *uf);
-+	struct list_head *uf, bool do_populate);
- extern unsigned long do_mmap(struct file *file, unsigned long addr,
- 	unsigned long len, unsigned long prot, unsigned long flags,
- 	unsigned long pgoff, unsigned long *populate, struct list_head *uf);
-diff --git a/ipc/shm.c b/ipc/shm.c
-index b3048ebd5c31..89b28f32acf0 100644
---- a/ipc/shm.c
-+++ b/ipc/shm.c
-@@ -587,7 +587,7 @@ static int shm_mmap(struct file *file, struct vm_area_struct *vma)
- 	if (ret)
- 		return ret;
- 
--	ret = call_mmap(sfd->file, vma);
-+	ret = call_mmap(sfd->file, vma, do_populate);
- 	if (ret) {
- 		shm_close(vma);
- 		return ret;
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 1e8fdb0b51ed..5eca79957d4c 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1413,6 +1413,7 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
- 			unsigned long flags, unsigned long pgoff,
- 			unsigned long *populate, struct list_head *uf)
- {
-+	bool do_populate = (flags & (MAP_POPULATE | MAP_NONBLOCK)) == MAP_POPULATE;
- 	struct mm_struct *mm = current->mm;
- 	vm_flags_t vm_flags;
- 	int pkey = 0;
-@@ -1579,10 +1580,9 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
- 			vm_flags |= VM_NORESERVE;
- 	}
- 
--	addr = mmap_region(file, addr, len, vm_flags, pgoff, uf);
-+	addr = mmap_region(file, addr, len, vm_flags, pgoff, uf, do_populate);
- 	if (!IS_ERR_VALUE(addr) &&
--	    ((vm_flags & VM_LOCKED) ||
--	     (flags & (MAP_POPULATE | MAP_NONBLOCK)) == MAP_POPULATE))
-+	    ((vm_flags & VM_LOCKED) || do_populate))
- 		*populate = len;
- 	return addr;
- }
-@@ -1721,7 +1721,7 @@ static inline int accountable_mapping(struct file *file, vm_flags_t vm_flags)
- 
- unsigned long mmap_region(struct file *file, unsigned long addr,
- 		unsigned long len, vm_flags_t vm_flags, unsigned long pgoff,
--		struct list_head *uf)
-+		struct list_head *uf, bool do_populate)
- {
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma, *prev, *merge;
-@@ -1790,7 +1790,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
- 		}
- 
- 		vma->vm_file = get_file(file);
--		error = call_mmap(file, vma);
-+		error = call_mmap(file, vma, do_populate);
- 		if (error)
- 			goto unmap_and_free_vma;
- 
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 55a9e48a7a02..a3c20b803c27 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -941,7 +941,7 @@ static int do_mmap_shared_file(struct vm_area_struct *vma)
- {
- 	int ret;
- 
--	ret = call_mmap(vma->vm_file, vma);
-+	ret = call_mmap(vma->vm_file, vma, false);
- 	if (ret == 0) {
- 		vma->vm_region->vm_top = vma->vm_region->vm_end;
- 		return 0;
-@@ -972,7 +972,7 @@ static int do_mmap_private(struct vm_area_struct *vma,
- 	 * - VM_MAYSHARE will be set if it may attempt to share
- 	 */
- 	if (capabilities & NOMMU_MAP_DIRECT) {
--		ret = call_mmap(vma->vm_file, vma);
-+		ret = call_mmap(vma->vm_file, vma, false);
- 		if (ret == 0) {
- 			/* shouldn't return success if we're not sharing */
- 			BUG_ON(!(vma->vm_flags & VM_MAYSHARE));
 -- 
 2.35.1
 
