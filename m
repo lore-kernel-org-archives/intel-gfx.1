@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B55D8C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 11:13:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA662C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 11:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A68DC10F659;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAE310F655;
 	Mon,  7 Mar 2022 11:13:19 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA51110F27B;
- Sun,  6 Mar 2022 05:33:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BFEF10E58A;
+ Sun,  6 Mar 2022 04:26:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 59EC3B80E66;
- Sun,  6 Mar 2022 05:33:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76AD2C340F6;
- Sun,  6 Mar 2022 05:33:10 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CFBA7B80CA5;
+ Sun,  6 Mar 2022 04:26:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A59AC340EF;
+ Sun,  6 Mar 2022 04:26:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646544791;
- bh=fYelMDSbRkCmySORRYGtRxueIY8qkKKul1PQnCLAH7Q=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YZAMFDdzpbgA0U5lhYWfExCEKBLwd01PyByv18S/fV3M4av7Un4kAWupgJzcsihqj
- 4HLqWF0AJdq76fyFRzZEBkUwPlq30bAbVAL3F/DVPx4lnWRIkK2SfXQo+CMUpVJbTn
- F/A2FHthGckJ0uCUdM0WlHn2Qi6tZ2eO/Ay2xPiVqAcLtM2wC5D9hh07K6atOgKBqY
- /g07YZOkIW9nXsbaEyJM0BYJvphPV1/7/xVz8calOm2tTVs/JZWkoyDVCRTmXTT3jg
- FCfbcZtTpQq/z61In+09wsMv+M/dJLdActsoEDlFKc4bQ0wmedMX5Gr9Z0dk5BYL9s
- f2Yz11oTiqj6Q==
+ s=k20201202; t=1646540794;
+ bh=0JU4U5+lOyIAdCnvSBFHtdXzenPHV8wshAXmaTDzyec=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=enYPYnhKNbQlGCuV9rgRWqwOZoAA2/26Pz1a1vQsn0dcwm0e7qQPAuiiY2aZa7UVz
+ 8cDgv3TRivJP53dbTwDKRp/INFtVtTyBcFDsRfqyeQOWYlbNRFC5ZfECwydfiL3Fim
+ SoL64RSWI/Bl0LUYpfWZ8NwrH4mco1sI8MJeRAxdqVYOWifM/pz21xXm607B8FMxuo
+ gcy5ANlRYV2HeBFrmP15CJtH4vIXv+C1hKT6qAMtqDnXgqigiGroyxudYT9rqm7vTs
+ Pfs7Ul86sEebvwI101HAVbOty5rPj/mvEXXDoOEnk6WPImCBA9+CkqPHxse1O0ONvE
+ 6Q37wbuuZ5B0A==
+Date: Sun, 6 Mar 2022 06:25:52 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: linux-mm@kvack.org
-Date: Sun,  6 Mar 2022 07:32:06 +0200
-Message-Id: <20220306053211.135762-3-jarkko@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220306053211.135762-1-jarkko@kernel.org>
-References: <20220306053211.135762-1-jarkko@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <YiQ30O/5LGh84z3t@iki.fi>
+References: <20220306021534.83553-1-jarkko@kernel.org>
+ <YiQjM7LdwoAWpC5L@casper.infradead.org> <YiQop71ABWm7hbMy@iki.fi>
+ <YiQv7JEBPzgYUTTa@casper.infradead.org> <YiQ0aWhwY4BGLEMK@iki.fi>
+ <YiQ2ThvkvnBBFRzD@casper.infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YiQ2ThvkvnBBFRzD@casper.infradead.org>
 X-Mailman-Approved-At: Mon, 07 Mar 2022 11:13:15 +0000
-Subject: [Intel-gfx] [PATCH RFC 2/3] x86/sgx: Export sgx_encl_page_alloc()
+Subject: Re: [Intel-gfx] [PATCH RFC] mm: Add f_ops->populate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,149 +56,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhangyiru <zhangyiru3@huawei.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, "H. Peter Anvin" <hpa@zytor.com>,
- Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
- codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
- Vasily Averin <vvs@virtuozzo.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
- Shakeel Butt <shakeelb@google.com>,
- Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nathaniel McCallum <nathaniel@profian.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Alexey Gladkov <legion@kernel.org>,
- Mike Kravetz <mike.kravetz@oracle.com>
+Cc: Nathaniel McCallum <nathaniel@profian.com>, linux-unionfs@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, codalist@coda.cs.cmu.edu,
+ linux-sgx@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move sgx_encl_page_alloc() to encl.c and export it so that it can be
-used in the implementation for MAP_POPULATE, which requires to allocate
-new enclave pages.
+On Sun, Mar 06, 2022 at 04:19:26AM +0000, Matthew Wilcox wrote:
+> On Sun, Mar 06, 2022 at 06:11:21AM +0200, Jarkko Sakkinen wrote:
+> > On Sun, Mar 06, 2022 at 03:52:12AM +0000, Matthew Wilcox wrote:
+> > > On Sun, Mar 06, 2022 at 05:21:11AM +0200, Jarkko Sakkinen wrote:
+> > > > On Sun, Mar 06, 2022 at 02:57:55AM +0000, Matthew Wilcox wrote:
+> > > > > On Sun, Mar 06, 2022 at 04:15:33AM +0200, Jarkko Sakkinen wrote:
+> > > > > > Sometimes you might want to use MAP_POPULATE to ask a device driver to
+> > > > > > initialize the device memory in some specific manner. SGX driver can use
+> > > > > > this to request more memory by issuing ENCLS[EAUG] x86 opcode for each
+> > > > > > page in the address range.
+> > > > > > 
+> > > > > > Add f_ops->populate() with the same parameters as f_ops->mmap() and make
+> > > > > > it conditionally called inside call_mmap(). Update call sites
+> > > > > > accodingly.
+> > > > > 
+> > > > > Your device driver has a ->mmap operation.  Why does it need another
+> > > > > one?  More explanation required here.
+> > > > 
+> > > > f_ops->mmap() would require an additional parameter, which results
+> > > > heavy refactoring.
+> > > > 
+> > > > struct file_operations has 1125 references in the kernel tree, so I
+> > > > decided to check this way around first. 
+> > > 
+> > > Are you saying that your device driver behaves differently if
+> > > MAP_POPULATE is set versus if it isn't?  That seems hideously broken.
+> > 
+> > MAP_POPULATE does not do anything (according to __mm_populate in mm/gup.c)
+> > with VMA's that have some sort of device/IO memory, i.e. vm_flags
+> > intersecting with VM_PFNMAP | VM_IO.
+> > 
+> > I can extend the guard obviously to:
+> > 
+> > if (!ret && do_populate && file->f_op->populate &&
+> >     !!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
+> >         file->f_op->populate(file, vma);
+> 
+> Are you deliberately avoiding the question?  I'm not asking about
+> implementation.  I'm asking about the semantics of MAP_POPULATE with
+> your driver.
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- arch/x86/kernel/cpu/sgx/encl.c  | 38 +++++++++++++++++++++++++++++++++
- arch/x86/kernel/cpu/sgx/encl.h  |  3 +++
- arch/x86/kernel/cpu/sgx/ioctl.c | 38 ---------------------------------
- 3 files changed, 41 insertions(+), 38 deletions(-)
+No. I just noticed a bug in the guard from your comment that I wanted
+point out.
 
-diff --git a/arch/x86/kernel/cpu/sgx/encl.c b/arch/x86/kernel/cpu/sgx/encl.c
-index 89aeed798ffb..79e39bd99c09 100644
---- a/arch/x86/kernel/cpu/sgx/encl.c
-+++ b/arch/x86/kernel/cpu/sgx/encl.c
-@@ -914,6 +914,44 @@ int sgx_encl_test_and_clear_young(struct mm_struct *mm,
- 	return ret;
- }
- 
-+struct sgx_encl_page *sgx_encl_page_alloc(struct sgx_encl *encl,
-+					  unsigned long offset,
-+					  u64 secinfo_flags)
-+{
-+	struct sgx_encl_page *encl_page;
-+	unsigned long prot;
-+
-+	encl_page = kzalloc(sizeof(*encl_page), GFP_KERNEL);
-+	if (!encl_page)
-+		return ERR_PTR(-ENOMEM);
-+
-+	encl_page->desc = encl->base + offset;
-+	encl_page->encl = encl;
-+
-+	prot = _calc_vm_trans(secinfo_flags, SGX_SECINFO_R, PROT_READ)  |
-+	       _calc_vm_trans(secinfo_flags, SGX_SECINFO_W, PROT_WRITE) |
-+	       _calc_vm_trans(secinfo_flags, SGX_SECINFO_X, PROT_EXEC);
-+
-+	/*
-+	 * TCS pages must always RW set for CPU access while the SECINFO
-+	 * permissions are *always* zero - the CPU ignores the user provided
-+	 * values and silently overwrites them with zero permissions.
-+	 */
-+	if ((secinfo_flags & SGX_SECINFO_PAGE_TYPE_MASK) == SGX_SECINFO_TCS)
-+		prot |= PROT_READ | PROT_WRITE;
-+
-+	/* Calculate maximum of the VM flags for the page. */
-+	encl_page->vm_max_prot_bits = calc_vm_prot_bits(prot, 0);
-+
-+	/*
-+	 * At time of allocation, the runtime protection bits are the same
-+	 * as the maximum protection bits.
-+	 */
-+	encl_page->vm_run_prot_bits = encl_page->vm_max_prot_bits;
-+
-+	return encl_page;
-+}
-+
- /**
-  * sgx_zap_enclave_ptes() - remove PTEs mapping the address from enclave
-  * @encl: the enclave
-diff --git a/arch/x86/kernel/cpu/sgx/encl.h b/arch/x86/kernel/cpu/sgx/encl.h
-index 1b6ce1da7c92..3df0d3faf3a1 100644
---- a/arch/x86/kernel/cpu/sgx/encl.h
-+++ b/arch/x86/kernel/cpu/sgx/encl.h
-@@ -113,6 +113,9 @@ int sgx_encl_get_backing(struct sgx_encl *encl, unsigned long page_index,
- void sgx_encl_put_backing(struct sgx_backing *backing, bool do_write);
- int sgx_encl_test_and_clear_young(struct mm_struct *mm,
- 				  struct sgx_encl_page *page);
-+struct sgx_encl_page *sgx_encl_page_alloc(struct sgx_encl *encl,
-+					  unsigned long offset,
-+					  u64 secinfo_flags);
- void sgx_zap_enclave_ptes(struct sgx_encl *encl, unsigned long addr);
- struct sgx_epc_page *sgx_alloc_va_page(void);
- unsigned int sgx_alloc_va_slot(struct sgx_va_page *va_page);
-diff --git a/arch/x86/kernel/cpu/sgx/ioctl.c b/arch/x86/kernel/cpu/sgx/ioctl.c
-index d8c3c07badb3..3e3ca27a6f72 100644
---- a/arch/x86/kernel/cpu/sgx/ioctl.c
-+++ b/arch/x86/kernel/cpu/sgx/ioctl.c
-@@ -169,44 +169,6 @@ static long sgx_ioc_enclave_create(struct sgx_encl *encl, void __user *arg)
- 	return ret;
- }
- 
--static struct sgx_encl_page *sgx_encl_page_alloc(struct sgx_encl *encl,
--						 unsigned long offset,
--						 u64 secinfo_flags)
--{
--	struct sgx_encl_page *encl_page;
--	unsigned long prot;
--
--	encl_page = kzalloc(sizeof(*encl_page), GFP_KERNEL);
--	if (!encl_page)
--		return ERR_PTR(-ENOMEM);
--
--	encl_page->desc = encl->base + offset;
--	encl_page->encl = encl;
--
--	prot = _calc_vm_trans(secinfo_flags, SGX_SECINFO_R, PROT_READ)  |
--	       _calc_vm_trans(secinfo_flags, SGX_SECINFO_W, PROT_WRITE) |
--	       _calc_vm_trans(secinfo_flags, SGX_SECINFO_X, PROT_EXEC);
--
--	/*
--	 * TCS pages must always RW set for CPU access while the SECINFO
--	 * permissions are *always* zero - the CPU ignores the user provided
--	 * values and silently overwrites them with zero permissions.
--	 */
--	if ((secinfo_flags & SGX_SECINFO_PAGE_TYPE_MASK) == SGX_SECINFO_TCS)
--		prot |= PROT_READ | PROT_WRITE;
--
--	/* Calculate maximum of the VM flags for the page. */
--	encl_page->vm_max_prot_bits = calc_vm_prot_bits(prot, 0);
--
--	/*
--	 * At time of allocation, the runtime protection bits are the same
--	 * as the maximum protection bits.
--	 */
--	encl_page->vm_run_prot_bits = encl_page->vm_max_prot_bits;
--
--	return encl_page;
--}
--
- static int sgx_validate_secinfo(struct sgx_secinfo *secinfo)
- {
- 	u64 perm = secinfo->flags & SGX_SECINFO_PERMISSION_MASK;
--- 
-2.35.1
+With the next version I post the corresponding change to the driver,
+in order to see this in context.
 
+BR, Jarkko
