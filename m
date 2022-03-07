@@ -4,65 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0F16C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37940C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D38A10E53C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7394A10E59D;
 	Tue,  8 Mar 2022 12:50:54 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8319B10E16A;
- Mon,  7 Mar 2022 22:00:10 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id u1so25460246wrg.11;
- Mon, 07 Mar 2022 14:00:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=VrXaIwOZOVtIvy4hHy4AW36uJVE3txcBuUPvIgUQUTk=;
- b=XHgWXNwqYyjxnOvdpUvHpl/knt8ZquuiELDtEkVC3I6XKXdmxibh9o7cveOY8e3wIU
- 4fRJhN/LdOpLZhOo0s3YPKnnbKQ65vUu+GxYY39iN5iNKVLm4dh8DL812cdKdLFIs6aR
- 3VWNN0sxgmGH/zRZVi0F8adSG7gYSL4KQoAKZIlxWF+yQehb6FLp9JFrDiTEZXA6UAKz
- 3JmY38syMUAr5b5rkhgU6hHoS2w4LEpybbBqWh3WFoJaUmaHMdbqjSaNN+3o8k5S/LO7
- 6dGGt4W2vCcrgixU4UiPuilZq+eDs6OMGritSRXSUzldpXMrDkj10Y8/hMbq0DCB9xeD
- NAfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=VrXaIwOZOVtIvy4hHy4AW36uJVE3txcBuUPvIgUQUTk=;
- b=jlnizS/MLH4b3QTA9GBnnmmd76LJup/AWrNiXYtPcVsTOkv70xN2eB3aKJxwDsMyaK
- MwTRveG4/JPq7tPHKfTmF3P/CkvyyjZWQhTVokomvu2YA9Oh8ZQmYUrurJnuRA2uSc/l
- 8jlN5ZYeHQJI/JnwbSOfGvWJiRSFnNTCWj4se1aBEFJCCtT8dwjhAc1N5py98e8quXBO
- zYaF3F1ETeqyg0oxNQ6zhCnAAWSKs3u2DTw2DccWEuvsyvrOU/XSA2o+ORw45aZdiFo7
- 3hg0WtQEz7utpsNBblvtGPSSZp5u+rqrn7uVwmEcmOk9J7aIElVUC0BKN7wQlC8aPZZB
- xuqA==
-X-Gm-Message-State: AOAM53296JxnpSvqmSW8RqGo7emSf0Vu3dj0znvKVwj52sgB6Xej74Mx
- fMB5f7ZP/BZbtDpYl+lBxH4=
-X-Google-Smtp-Source: ABdhPJyMRU1RrSDT5zpdVvAkOryRnx+5bU3JVk9GMtpjgNuO6wW51EbQcPQMSpkWh/twLP9jlWsFmA==
-X-Received: by 2002:adf:8063:0:b0:1ef:78e3:330 with SMTP id
- 90-20020adf8063000000b001ef78e30330mr9940151wrk.424.1646690408993; 
- Mon, 07 Mar 2022 14:00:08 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- o12-20020a5d62cc000000b001f048bc25dfsm12124754wrv.67.2022.03.07.14.00.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Mar 2022 14:00:08 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Mon,  7 Mar 2022 22:00:07 +0000
-Message-Id: <20220307220007.162830-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.35.1
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D389210EC5B;
+ Mon,  7 Mar 2022 13:17:36 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 22A5B611A6;
+ Mon,  7 Mar 2022 13:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09884C340E9;
+ Mon,  7 Mar 2022 13:17:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646659055;
+ bh=KXqVJsDGXLlSnyeaHKWpPIVZqxg9O3xVmH+wFrsgfeg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hCpGcO8HZcqQApVVZm6OEvQrrIR4vyEHePNnzVROHw1K1NkFuEfNdTu1I59Pj136m
+ 4rX6fL04mPPpcVfgqfegolGRx6CRsxOiRqFeONVkYWTB6X9EcC5pWRk7rEUGXwdqU6
+ OvEMg+WzhEBC6xQTzvpMuPW0Z7aAedCqClhox8xbo/mIon3gdW3d/6JNZjCYFLY4FS
+ 10pjlBodTW1xrm6ejzkguCe+Ekh4JJCoJJ2mSCIq0lgnb+KYirBLVYOdxv5JfFOaTJ
+ 0Fzo4KQ6CulRfULGVd4l8OZP4WX94xCRchBbHGrVpM8g8sXszWhkjT9Jfz9c+lUM6v
+ 8PJS0P6GeVloQ==
+Date: Mon, 7 Mar 2022 15:16:54 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <YiYFxq87p2WVkZcz@iki.fi>
+References: <20220306053211.135762-1-jarkko@kernel.org>
+ <20220306053211.135762-2-jarkko@kernel.org>
+ <YiSGgCV9u9NglYsM@kroah.com> <YiTpQTM+V6rlDy6G@iki.fi>
+ <YiU5E6qqYAI+WPw9@casper.infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/dpll: make read-only array div1_vals
- static const
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YiU5E6qqYAI+WPw9@casper.infradead.org>
+X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:52 +0000
+Subject: Re: [Intel-gfx] [PATCH RFC 1/3] mm: Add f_ops->populate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,32 +56,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: zhangyiru <zhangyiru3@huawei.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
+ Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
+ Vasily Averin <vvs@virtuozzo.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ Shakeel Butt <shakeelb@google.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Nathaniel McCallum <nathaniel@profian.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexey Gladkov <legion@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Don't populate the read-only array div1_vals on the stack but
-instead make it static const. Also makes the object code a little
-smaller.
+On Sun, Mar 06, 2022 at 10:43:31PM +0000, Matthew Wilcox wrote:
+> On Sun, Mar 06, 2022 at 07:02:57PM +0200, Jarkko Sakkinen wrote:
+> > So can I conclude from this that in general having populate available for
+> > device memory is something horrid, or just the implementation path?
+> 
+> You haven't even attempted to explain what the problem is you're trying
+> to solve.  You've shown up with some terrible code and said "Hey, is
+> this a good idea".  No, no, it's not.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The problem is that in order to include memory to enclave, which is
+essentially a reserved address range processes virtual address space
+there's two steps into it:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 569903d47aea..17668b58b30c 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -2759,7 +2759,7 @@ static bool icl_mg_pll_find_divisors(int clock_khz, bool is_dp, bool use_ssc,
- 				     bool is_dkl)
- {
- 	u32 dco_min_freq, dco_max_freq;
--	int div1_vals[] = {7, 5, 3, 2};
-+	static const int div1_vals[] = {7, 5, 3, 2};
- 	unsigned int i;
- 	int div2;
- 
--- 
-2.35.1
+1. Host side (kernel) does ENCLS[EAUG] to request a new page to be
+   added to the enclave.
+2. Enclave accepts request with ENCLU[EACCEPT] or ENCLU[EACCEPTCOPY].
 
+In the current SGX2 patch set this taken care by the page fault
+handler. I.e. the enclave calls ENCLU[EACCEPT] for an empty address
+and the #PF handler then does EAUG for a single page.
+
+So if you want to process a batch of pages this generates O(n)
+round-trips.
+
+So if there was a way pre-do a batch of EAUG's, that would allow
+to load data to the enclave without causing page faults happening
+constantly.
+
+One solution for this simply add ioctl:
+
+https://lore.kernel.org/linux-sgx/YiLRBglTEbu8cHP9@iki.fi/T/#m195ec84bf85614a140abeee245c5118c22ace8f3
+
+But in practice when you wanted to use it, you would setup the
+parameters so that they match the mmap() range. So for pratical
+user space API having mmap() take care of this would be much more
+lean option.
+
+BR, Jarkko
