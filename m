@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70DBAC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F284BC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:50:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEFCC10E505;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA04010E50C;
 	Tue,  8 Mar 2022 12:50:53 +0000 (UTC)
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0435F10E3C5;
- Tue,  8 Mar 2022 09:17:05 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id c4so15602915qtx.1;
- Tue, 08 Mar 2022 01:17:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QmFT5oX5WhVCf23K5lxag7wmD3+cmFNslYfO7qqS0x8=;
- b=O81yMp+25f3i4Ba9tRiFQz+DjxkdQvAuD7tM0reOk09HYPu27Ez//y0oCxFyKkVdbX
- R/sSoBoeDiFo9s4tYx2XUwDDcYv11O60isHjmVp68H+cDOTvi8MFquadaAVoClk9ja+v
- tgqVtJBnuu5sX6ALII+KxtdSdNG5YJKvNgNsV1Ul3e8zr5lBnLNM1T5puAZuTVFRO7fD
- ksosDAjF0UEXLdmjHrelsegsOtaPWnWvGdg7sUT57j0chxw3HyjuLjYpPYcdYKd6K5Sg
- VpzY5pDcfNa8suOuQoEaU1G9l/32J/ptGF+spDzNB9CfSYivKYkjoiflodvPIwrU+pjK
- AQow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QmFT5oX5WhVCf23K5lxag7wmD3+cmFNslYfO7qqS0x8=;
- b=CY+7BUzJhvfStFKTjP1Nyd3XDxDb8tkQf3JSif6Ou2l4mzylDufXPLORaURXjHx4o0
- 2Oup1NPgGoNkreGCi8lmoOT+hzfnIm4y8X5NkwUiS54Ajq2bLoRUj6Lt1z/3TYymHpMN
- 9dQ/FrwEPSDdwW7cHlSrGiMAx7CgbNtUNczrs8aIqyDnNs/Hpg63csqPBk4DghpmQSUD
- +9L9buaoyY092hKg7LSiqSLWJR4J5DdQvb2I3NIEMMu9LWmcjN9Bpu4TBvda+TiX8i0H
- VcpUc+W8Ihmp6s0Ax5JGm3DPEFg8Y7eZ8Lvh4g5o+KnE6QGYOD/bPDQ+Atw3TJnSD13j
- kFVw==
-X-Gm-Message-State: AOAM531j8yPBgRj+0f0kZ+HDkmxf2sfylJEyfhfCQ0B9q+Uy1vD9Z223
- LCik4Vypx1mp3TJeDw+e/WM=
-X-Google-Smtp-Source: ABdhPJxfpMw9rImA2Ik5e7BO7RxSWcCdqoCiOk0uGbtELOW0XSZkacMxARR5CzcafSh1EaJcCfPZNQ==
-X-Received: by 2002:a05:622a:13c6:b0:2de:8901:e3dd with SMTP id
- p6-20020a05622a13c600b002de8901e3ddmr12911101qtk.16.1646731024127; 
- Tue, 08 Mar 2022 01:17:04 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- c6-20020ac87d86000000b002ddd9f33ed1sm10976726qtd.44.2022.03.08.01.17.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Mar 2022 01:17:03 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: deng.changcheng@zte.com.cn
-To: joonas.lahtinen@linux.intel.com
-Date: Tue,  8 Mar 2022 09:16:55 +0000
-Message-Id: <20220308091655.2078825-1-deng.changcheng@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99E9610F722;
+ Mon,  7 Mar 2022 11:28:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AA6B3B80FAB;
+ Mon,  7 Mar 2022 11:28:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232DCC340E9;
+ Mon,  7 Mar 2022 11:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646652494;
+ bh=CoioyM0zIXElo8AmL5lOe9QJ9NofNT4LxKFCkZhNubU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SKA3As2Yp0LuIulW1zXgVDONqGP5hbS9VFG+vVYQod0UmHUi6UPA8Y8VxsEutOIxK
+ RdqcQTK2KdDpqkLso/Ze/vknDLOudeZqMzI4IyWs1I1RKkLK9P4P8w6EaAO5sjx6G4
+ Y9jdSiMw8DWfTtAdMHy3mhqsUDbwHqjgPm4WPBVE5pmFou86QdYv7Icu79rkyLMlr3
+ y1FObIg9d+jqzRRs3JF8h6WBEky7RdBwEqh/+KVxkT2O6t/pnHpmZTmzwMpPCJ5g6Y
+ eSn+tbxZFwThOFwyhU36MfvqJjhZ/XfObC59oeVuDQX1k2u5PfI3xt16lzDpGvD12s
+ qH+rdZcT7wO/w==
+Date: Mon, 7 Mar 2022 13:27:33 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Message-ID: <YiXsJRE8CWOvFNWH@iki.fi>
+References: <20220306032655.97863-1-jarkko@kernel.org>
+ <20220306152456.2649b1c56da2a4ce4f487be4@linux-foundation.org>
+ <c3083144-bfc1-3260-164c-e59b2d110df8@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c3083144-bfc1-3260-164c-e59b2d110df8@intel.com>
 X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:52 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/vlv_dsi_pll: use min_t() to make code
- cleaner
+Subject: Re: [Intel-gfx] [PATCH RFC v2] mm: Add f_ops->populate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,39 +54,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com,
- deng.changcheng@zte.com.cn, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com,
- Zeal Robot <zealci@zte.com.cn>
+Cc: codalist@telemann.coda.cs.cmu.edu, jaharkes@cs.cmu.edu,
+ Nathaniel McCallum <nathaniel@profian.com>, linux-unionfs@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Changcheng Deng <deng.changcheng@zte.com.cn>
+On Sun, Mar 06, 2022 at 03:41:54PM -0800, Dave Hansen wrote:
+> On 3/6/22 15:24, Andrew Morton wrote:
+> > On Sun,  6 Mar 2022 05:26:55 +0200 Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> > 
+> >> Sometimes you might want to use MAP_POPULATE to ask a device driver to
+> >> initialize the device memory in some specific manner. SGX driver can use
+> >> this to request more memory by issuing ENCLS[EAUG] x86 opcode for each
+> >> page in the address range.
+> > Why is this useful?  Please fully describe the benefit to kernel users.
+> > Convince us that the benefit justifies the code churn, maintenance
+> > cost and larger kernel footprint.
+> 
+> In short: page faults stink.  The core kernel has lots of ways of
+> avoiding page faults like madvise(MADV_WILLNEED) or mmap(MAP_POPULATE).
+>  But, those only work on normal RAM that the core mm manages.
+> 
+> SGX is weird.  SGX memory is managed outside the core mm.  It doesn't
+> have a 'struct page' and get_user_pages() doesn't work on it.  Its VMAs
+> are marked with VM_IO.  So, none of the existing methods for avoiding
+> page faults work on SGX memory.
+> 
+> This essentially helps extend existing "normal RAM" kernel ABIs to work
+> for avoiding faults for SGX too.  SGX users want to enjoy all of the
+> benefits of a delayed allocation policy (better resource use,
+> overcommit, NUMA affinity) but without the cost of millions of faults.
+> 
+> That said, this isn't how I would have implemented it.  I probably would
+> have hooked in to populate_vma_page_range() or its callers.
 
-Use min_t() in order to make code cleaner.
+The exact implementation path is not driver in this. I'm open for
+better options. The point of these patches is more to show an issue
+rather than solution, and they do carry RFC because of that.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
----
- drivers/gpu/drm/i915/display/vlv_dsi_pll.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Hooking into populate_vma_page_range() does sound like a better idea,
+because then it would be nicely embedded into __mm_populate() and
+other functionality that calls that function.
 
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
-index df880f44700a..f801f7ec3f9a 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
-@@ -393,10 +393,7 @@ static void glk_dsi_program_esc_clock(struct drm_device *dev,
- 	/* Calculate TXESC2 divider */
- 	div2_value = DIV_ROUND_UP(div1_value, txesc1_div);
- 
--	if (div2_value < 10)
--		txesc2_div = div2_value;
--	else
--		txesc2_div = 10;
-+	txesc2_div = min_t(u32, div2_value, 10);
- 
- 	intel_de_write(dev_priv, MIPIO_TXESC_CLK_DIV1,
- 		       (1 << (txesc1_div - 1)) & GLK_TX_ESC_CLK_DIV1_MASK);
--- 
-2.25.1
+But e.g. in __mm_populate() anything with (VM_IO | VM_PFNMAP) gets
+filtered out and never reach that function.
 
+I don't know unorthodox that'd be but could we perhaps have a VM
+flag for SGX?
+
+BR, Jarkko
