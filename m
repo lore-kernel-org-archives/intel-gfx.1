@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B840C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 040BFC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DCAF10E566;
-	Tue,  8 Mar 2022 12:51:02 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B4A10E39E;
- Mon,  7 Mar 2022 13:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 532E110E5B3;
+	Tue,  8 Mar 2022 12:51:03 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 711D510E010;
+ Mon,  7 Mar 2022 15:44:00 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 44EE0611A6;
- Mon,  7 Mar 2022 13:30:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00802C340E9;
- Mon,  7 Mar 2022 13:30:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id F38ADB815E5;
+ Mon,  7 Mar 2022 15:43:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3107EC340E9;
+ Mon,  7 Mar 2022 15:43:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646659816;
- bh=oBLz9AgNUk2wIEBHGy6U9s99emBLztMRAodnUzUj5w8=;
+ s=k20201202; t=1646667835;
+ bh=pfUclWf7OeQP6fVMwAxfeek4Z/tO6y5WQdf6JL4ro+k=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sFCk7udNm2J44RTzfUJ+MfPwopHSW/nmauJl4OmAbMfrWN2sP0SwIOWXTFvBG7ITK
- ZckklcNFLR5z7x04rHy7YPPgl/p5kkHiqVMVYe26/xj40ZZ/jSJS6b2bBHs4cT+qlg
- lSryt84BjNDG2rf9ETJvTM0G+a+p4bQl/Xod+mFKXtsAk8t/TDHR0+xtUPhy5OHE2n
- RV7OiySPImo+g4q9DZSj1HLZYgcZTUZlg7l86k4mMgBlrwGy8WT95FerjuTQ/xJ2ij
- Fs2tnxaydRH2XVd9fVLVS75/YXpyxiD2u+Dk0fyp2LN6w5OcLV76rEDlCEotG1qXaU
- ODeQnJrvkkvkg==
-Date: Mon, 7 Mar 2022 15:29:35 +0200
+ b=MGqXs4QUJZlZgCVSTmVIhUyrefWcLiV5XQbqLL4lWUXGjnXK8TQIh8MZmlhlk7Dws
+ vymCZmmrecWaK5QsPzl/JEnH42FdMm3knJaE2LeAyUSJ6XKfnw56pF4AeKS+pTp0gM
+ 5KdvMy04Dnkw4+IxsOcB497JN8wWMBQMp3/kpehP7UKOCvtf1DHR6KqD1XbWMnWqm1
+ J5NppGJKVe/xpRZtg5cS5CCRR4+KxGOb1RuKPdZJJ1tfKV82mNLMPHXXAbwf++SaN3
+ MlkGhHuxVnfK5PtQGRXqcvD5ziuoeGJJ2APZH4iRWJVk48q3ueX06DQHuMjFgRGo6P
+ 8lzRQuuKTdedQ==
+Date: Mon, 7 Mar 2022 17:43:14 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <YiYIv9guOgClLKT8@iki.fi>
-References: <20220306053211.135762-1-jarkko@kernel.org>
- <YiSb7tsUEBRGS+HA@casper.infradead.org>
- <YiW4yurDXSifTYUt@infradead.org>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <YiYoEiBklxQrb8Wj@iki.fi>
+References: <20220306032655.97863-1-jarkko@kernel.org>
+ <20220306152456.2649b1c56da2a4ce4f487be4@linux-foundation.org>
+ <c3083144-bfc1-3260-164c-e59b2d110df8@intel.com>
+ <YiYYvAWYgC+PKEx0@casper.infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YiW4yurDXSifTYUt@infradead.org>
+In-Reply-To: <YiYYvAWYgC+PKEx0@casper.infradead.org>
 X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC 0/3] MAP_POPULATE for device memory
+Subject: Re: [Intel-gfx] [PATCH RFC v2] mm: Add f_ops->populate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,38 +56,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michal Hocko <mhocko@suse.com>, zhangyiru <zhangyiru3@huawei.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
- Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, codalist@coda.cs.cmu.edu,
- Matthew Auld <matthew.auld@intel.com>, Vasily Averin <vvs@virtuozzo.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, G@iki.fi, linux-mips@vger.kernel.org,
- Shakeel Butt <shakeelb@google.com>,
- Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nathaniel McCallum <nathaniel@profian.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Alexey Gladkov <legion@kernel.org>
+Cc: codalist@telemann.coda.cs.cmu.edu, jaharkes@cs.cmu.edu,
+ Nathaniel McCallum <nathaniel@profian.com>, linux-unionfs@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Dave Hansen <dave.hansen@intel.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 06, 2022 at 11:48:26PM -0800, Christoph Hellwig wrote:
-> On Sun, Mar 06, 2022 at 11:33:02AM +0000, Matthew Wilcox wrote:
-> > On Sun, Mar 06, 2022 at 07:32:04AM +0200, Jarkko Sakkinen wrote:
-> > > For device memory (aka VM_IO | VM_PFNMAP) MAP_POPULATE does nothing. Allow
-> > > to use that for initializing the device memory by providing a new callback
-> > > f_ops->populate() for the purpose.
+On Mon, Mar 07, 2022 at 02:37:48PM +0000, Matthew Wilcox wrote:
+> On Sun, Mar 06, 2022 at 03:41:54PM -0800, Dave Hansen wrote:
+> > In short: page faults stink.  The core kernel has lots of ways of
+> > avoiding page faults like madvise(MADV_WILLNEED) or mmap(MAP_POPULATE).
+> >  But, those only work on normal RAM that the core mm manages.
 > > 
-> > As I said, NAK.
+> > SGX is weird.  SGX memory is managed outside the core mm.  It doesn't
+> > have a 'struct page' and get_user_pages() doesn't work on it.  Its VMAs
+> > are marked with VM_IO.  So, none of the existing methods for avoiding
+> > page faults work on SGX memory.
+> > 
+> > This essentially helps extend existing "normal RAM" kernel ABIs to work
+> > for avoiding faults for SGX too.  SGX users want to enjoy all of the
+> > benefits of a delayed allocation policy (better resource use,
+> > overcommit, NUMA affinity) but without the cost of millions of faults.
 > 
-> Agreed.  This is an amazingly bad interface.
+> We have a mechanism for dynamically reducing the number of page faults
+> already; it's just buried in the page cache code.  You have vma->vm_file,
+> which contains a file_ra_state.  You can use this to track where
+> recent faults have been and grow the size of the region you fault in
+> per page fault.  You don't have to (indeed probably don't want to) use
+> the same algorithm as the page cache, but the _principle_ is the same --
+> were recent speculative faults actually used; should we grow the number
+> of pages actually faulted in, or is this a random sparse workload where
+> we want to allocate individual pages.
+> 
+> Don't rely on the user to ask.  They don't know.
 
-So what would you suggest to sort out the issue? I'm happy to go with
-ioctl if nothing else is acceptable.
+This sounds like a possibility. I'll need to study it properly first
+though. Thank you for pointing this out.
 
 BR, Jarkko
