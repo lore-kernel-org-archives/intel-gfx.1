@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 040BFC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D939DC433FE
 	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 532E110E5B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348B210E5B2;
 	Tue,  8 Mar 2022 12:51:03 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 711D510E010;
- Mon,  7 Mar 2022 15:44:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0049210E03A;
+ Mon,  7 Mar 2022 15:50:16 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id F38ADB815E5;
- Mon,  7 Mar 2022 15:43:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3107EC340E9;
- Mon,  7 Mar 2022 15:43:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8ED4FB80CA8;
+ Mon,  7 Mar 2022 15:50:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C24CC340EB;
+ Mon,  7 Mar 2022 15:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646667835;
- bh=pfUclWf7OeQP6fVMwAxfeek4Z/tO6y5WQdf6JL4ro+k=;
+ s=k20201202; t=1646668214;
+ bh=kOQrIB//kV8fsU32x9w7qLTU4u76ufnPafjP+aW2LGY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MGqXs4QUJZlZgCVSTmVIhUyrefWcLiV5XQbqLL4lWUXGjnXK8TQIh8MZmlhlk7Dws
- vymCZmmrecWaK5QsPzl/JEnH42FdMm3knJaE2LeAyUSJ6XKfnw56pF4AeKS+pTp0gM
- 5KdvMy04Dnkw4+IxsOcB497JN8wWMBQMp3/kpehP7UKOCvtf1DHR6KqD1XbWMnWqm1
- J5NppGJKVe/xpRZtg5cS5CCRR4+KxGOb1RuKPdZJJ1tfKV82mNLMPHXXAbwf++SaN3
- MlkGhHuxVnfK5PtQGRXqcvD5ziuoeGJJ2APZH4iRWJVk48q3ueX06DQHuMjFgRGo6P
- 8lzRQuuKTdedQ==
-Date: Mon, 7 Mar 2022 17:43:14 +0200
+ b=Xn3UfVQig7siysNhTckqEt/3YwfSb/hQX777ZeUBNR25CWtPmBg3AozCiz0C9Vx6e
+ vI0+ZBFRrmaTJtZfVDBV/wXr9kndWweVAzDmNxzcrOpxEk6sb14183+qU7UsuGoPyD
+ BJdWxk6dfqo2i8LIPODB/uTqA5n5E/QX1Oc7iq5pAYpzAleGc7lc3aIGfn/PwB89lT
+ Ot8o/PrK/bdSm0BXhzDWSnMhi1VaTaPkbIEK8WSygHQZnXIc+PUDkiS/iC31zhENiH
+ FHocAoA6uueu5ukIdmZ08K5KjK1lXb4Pte/4tQ3FvPFI29pSDVfw1hXJlmCJ0ZynWA
+ ECBe+IItixYgw==
+Date: Mon, 7 Mar 2022 17:49:33 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <YiYoEiBklxQrb8Wj@iki.fi>
-References: <20220306032655.97863-1-jarkko@kernel.org>
- <20220306152456.2649b1c56da2a4ce4f487be4@linux-foundation.org>
- <c3083144-bfc1-3260-164c-e59b2d110df8@intel.com>
- <YiYYvAWYgC+PKEx0@casper.infradead.org>
+To: David Hildenbrand <david@redhat.com>
+Message-ID: <YiYpjdD8BYcoGQ4s@iki.fi>
+References: <20220306053211.135762-1-jarkko@kernel.org>
+ <d6b09f23-f470-c119-8d3e-7d72a3448b64@redhat.com>
+ <YiYVHTkS8IsMMw6T@iki.fi>
+ <dab25b2d-88f1-7ad5-c28a-15a97b38af03@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YiYYvAWYgC+PKEx0@casper.infradead.org>
+In-Reply-To: <dab25b2d-88f1-7ad5-c28a-15a97b38af03@redhat.com>
 X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC v2] mm: Add f_ops->populate()
+Subject: Re: [Intel-gfx] [PATCH RFC 0/3] MAP_POPULATE for device memory
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,46 +56,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: codalist@telemann.coda.cs.cmu.edu, jaharkes@cs.cmu.edu,
- Nathaniel McCallum <nathaniel@profian.com>, linux-unionfs@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Dave Hansen <dave.hansen@intel.com>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org
+Cc: Michal Hocko <mhocko@suse.com>, zhangyiru <zhangyiru3@huawei.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
+ Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
+ Vasily Averin <vvs@virtuozzo.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ Shakeel Butt <shakeelb@google.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Nathaniel McCallum <nathaniel@profian.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexey Gladkov <legion@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 07, 2022 at 02:37:48PM +0000, Matthew Wilcox wrote:
-> On Sun, Mar 06, 2022 at 03:41:54PM -0800, Dave Hansen wrote:
-> > In short: page faults stink.  The core kernel has lots of ways of
-> > avoiding page faults like madvise(MADV_WILLNEED) or mmap(MAP_POPULATE).
-> >  But, those only work on normal RAM that the core mm manages.
+On Mon, Mar 07, 2022 at 03:33:52PM +0100, David Hildenbrand wrote:
+> On 07.03.22 15:22, Jarkko Sakkinen wrote:
+> > On Mon, Mar 07, 2022 at 11:12:44AM +0100, David Hildenbrand wrote:
+> >> On 06.03.22 06:32, Jarkko Sakkinen wrote:
+> >>> For device memory (aka VM_IO | VM_PFNMAP) MAP_POPULATE does nothing. Allow
+> >>> to use that for initializing the device memory by providing a new callback
+> >>> f_ops->populate() for the purpose.
+> >>>
+> >>> SGX patches are provided to show the callback in context.
+> >>>
+> >>> An obvious alternative is a ioctl but it is less elegant and requires
+> >>> two syscalls (mmap + ioctl) per memory range, instead of just one
+> >>> (mmap).
+> >>
+> >> What about extending MADV_POPULATE_READ | MADV_POPULATE_WRITE to support
+> >> VM_IO | VM_PFNMAP (as well?) ?
 > > 
-> > SGX is weird.  SGX memory is managed outside the core mm.  It doesn't
-> > have a 'struct page' and get_user_pages() doesn't work on it.  Its VMAs
-> > are marked with VM_IO.  So, none of the existing methods for avoiding
-> > page faults work on SGX memory.
+> > What would be a proper point to bind that behaviour? For mmap/mprotect it'd
+> > be probably populate_vma_page_range() because that would span both mmap()
+> > and mprotect() (Dave's suggestion in this thread).
+> 
+> MADV_POPULATE_* ends up in faultin_vma_page_range(), right next to
+> populate_vma_page_range(). So it might require a similar way to hook
+> into the driver I guess.
+> 
 > > 
-> > This essentially helps extend existing "normal RAM" kernel ABIs to work
-> > for avoiding faults for SGX too.  SGX users want to enjoy all of the
-> > benefits of a delayed allocation policy (better resource use,
-> > overcommit, NUMA affinity) but without the cost of millions of faults.
+> > For MAP_POPULATE I did not have hard proof to show that it would be used
+> > by other drivers but for madvice() you can find at least a few ioctl
+> > based implementations:
+> > 
+> > $ git grep -e madv --and \( -e ioc \)  drivers/
+> > drivers/gpu/drm/i915/gem/i915_gem_ioctls.h:int i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+> > drivers/gpu/drm/i915/i915_driver.c:     DRM_IOCTL_DEF_DRV(I915_GEM_MADVISE, i915_gem_madvise_ioctl, DRM_RENDER_ALLOW),
+> > drivers/gpu/drm/i915/i915_gem.c:i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+> > drivers/gpu/drm/msm/msm_drv.c:static int msm_ioctl_gem_madvise(struct drm_device *dev, void *data,
+> > drivers/gpu/drm/msm/msm_drv.c:  DRM_IOCTL_DEF_DRV(MSM_GEM_MADVISE,  msm_ioctl_gem_madvise,  DRM_RENDER_ALLOW),
+> > drivers/gpu/drm/panfrost/panfrost_drv.c:static int panfrost_ioctl_madvise(struct drm_device *dev, void *data,
+> > drivers/gpu/drm/vc4/vc4_drv.c:  DRM_IOCTL_DEF_DRV(VC4_GEM_MADVISE, vc4_gem_madvise_ioctl, DRM_RENDER_ALLOW),
+> > drivers/gpu/drm/vc4/vc4_drv.h:int vc4_gem_madvise_ioctl(struct drm_device *dev, void *data,
+> > drivers/gpu/drm/vc4/vc4_gem.c:int vc4_gem_madvise_ioctl(struct drm_device *dev, void *data,
+> > 
+> > IMHO this also provides supportive claim for MAP_POPULATE, and yeah, I
+> > agree that to be consistent implementation, both madvice() and MAP_POPULATE
+> > should work.
 > 
-> We have a mechanism for dynamically reducing the number of page faults
-> already; it's just buried in the page cache code.  You have vma->vm_file,
-> which contains a file_ra_state.  You can use this to track where
-> recent faults have been and grow the size of the region you fault in
-> per page fault.  You don't have to (indeed probably don't want to) use
-> the same algorithm as the page cache, but the _principle_ is the same --
-> were recent speculative faults actually used; should we grow the number
-> of pages actually faulted in, or is this a random sparse workload where
-> we want to allocate individual pages.
+> MADV_POPULATE_WRITE + MADV_DONTNEED/FALLOC_FL_PUNCH_HOLE is one way to
+> dynamically manage memory consumption inside a sparse memory mapping
+> (preallocate/populate via MADV_POPULATE_WRITE, discard via
+> MADV_DONTNEED/FALLOC_FL_PUNCH_HOLE).  Extending that whole mechanism to
+> deal with VM_IO | VM_PFNMAP mappings as well could be interesting.
 > 
-> Don't rely on the user to ask.  They don't know.
+> At least I herd about some ideas where we might want to dynamically
+> expose memory to a VM (via virtio-mem) inside a sparse memory mapping,
+> and the memory in that sparse memory mapping is provided from a
+> dedicated memory pool managed by a device driver -- not just using
+> ordinary anonymous/file/hugetlb memory as we do right now.
+> 
+> Now, this is certainly stuff for the future, I just wanted to mention it.
 
-This sounds like a possibility. I'll need to study it properly first
-though. Thank you for pointing this out.
+For SGX purposes I'm now studying the possibly to use ra_state to get
+idea where do "prefetching" (EAUG's) in batches, as it is something
+that would not require any intrusive changes to mm but thank you for
+sharing this. Looking into implementing this properly is the 2nd option,
+if that does not work out.
+
+> -- 
+> Thanks,
+> 
+> David / dhildenb
 
 BR, Jarkko
