@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391D2C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B840C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377E310E4EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DCAF10E566;
 	Tue,  8 Mar 2022 12:51:02 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A5810E00F;
- Mon,  7 Mar 2022 15:58:48 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64B4A10E39E;
+ Mon,  7 Mar 2022 13:30:19 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 61E75B81606;
- Mon,  7 Mar 2022 15:58:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52D7C340E9;
- Mon,  7 Mar 2022 15:58:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 44EE0611A6;
+ Mon,  7 Mar 2022 13:30:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00802C340E9;
+ Mon,  7 Mar 2022 13:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646668726;
- bh=W5kqratoVSRl9NEd4VE6Iu3BSqv9ulKVQPHP1qdhNvw=;
+ s=k20201202; t=1646659816;
+ bh=oBLz9AgNUk2wIEBHGy6U9s99emBLztMRAodnUzUj5w8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aurmVE6NZjU7sOJJ+E50h+AIed6RxvrashOmy+xb2DcYubmVUquVyy5I9fekqFNX5
- Cj+DSIerBr9haVVQWprk2CNueZQDWhPWsYbjZnFm5soSe9mGKZABgiP7UB87yme/N4
- 6EPfyNphy7nkrwusx8woJNJVhhRtzd+KdAwnPwTkOb1R7gnVSFeh7a2JW9/ViytEVh
- Q601UbynX2V3G3LMpsywSlFS/RXL1A8v1EyttbFgnIXyJHWxWdXHy8L4t6dm0RnGNZ
- 1nhf2OPJo2RASPa3NwFjwplBGb8ddISaD7ZUdDcGoU3Lc8nvMUP2jl9oHK4F7hlT1g
- hFXST0Agp0K8w==
-Date: Mon, 7 Mar 2022 17:58:05 +0200
+ b=sFCk7udNm2J44RTzfUJ+MfPwopHSW/nmauJl4OmAbMfrWN2sP0SwIOWXTFvBG7ITK
+ ZckklcNFLR5z7x04rHy7YPPgl/p5kkHiqVMVYe26/xj40ZZ/jSJS6b2bBHs4cT+qlg
+ lSryt84BjNDG2rf9ETJvTM0G+a+p4bQl/Xod+mFKXtsAk8t/TDHR0+xtUPhy5OHE2n
+ RV7OiySPImo+g4q9DZSj1HLZYgcZTUZlg7l86k4mMgBlrwGy8WT95FerjuTQ/xJ2ij
+ Fs2tnxaydRH2XVd9fVLVS75/YXpyxiD2u+Dk0fyp2LN6w5OcLV76rEDlCEotG1qXaU
+ ODeQnJrvkkvkg==
+Date: Mon, 7 Mar 2022 15:29:35 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <YiYrjRW/Qmoq8c+L@iki.fi>
+Message-ID: <YiYIv9guOgClLKT8@iki.fi>
 References: <20220306053211.135762-1-jarkko@kernel.org>
  <YiSb7tsUEBRGS+HA@casper.infradead.org>
- <YiW4yurDXSifTYUt@infradead.org> <YiYIv9guOgClLKT8@iki.fi>
- <YiYrRWMp1akXY8Vb@infradead.org>
+ <YiW4yurDXSifTYUt@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YiYrRWMp1akXY8Vb@infradead.org>
+In-Reply-To: <YiW4yurDXSifTYUt@infradead.org>
 X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
 Subject: Re: [Intel-gfx] [PATCH RFC 0/3] MAP_POPULATE for device memory
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -76,19 +74,18 @@ Cc: Michal Hocko <mhocko@suse.com>, zhangyiru <zhangyiru3@huawei.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 07, 2022 at 07:56:53AM -0800, Christoph Hellwig wrote:
-> On Mon, Mar 07, 2022 at 03:29:35PM +0200, Jarkko Sakkinen wrote:
-> > So what would you suggest to sort out the issue? I'm happy to go with
-> > ioctl if nothing else is acceptable.
+On Sun, Mar 06, 2022 at 11:48:26PM -0800, Christoph Hellwig wrote:
+> On Sun, Mar 06, 2022 at 11:33:02AM +0000, Matthew Wilcox wrote:
+> > On Sun, Mar 06, 2022 at 07:32:04AM +0200, Jarkko Sakkinen wrote:
+> > > For device memory (aka VM_IO | VM_PFNMAP) MAP_POPULATE does nothing. Allow
+> > > to use that for initializing the device memory by providing a new callback
+> > > f_ops->populate() for the purpose.
+> > 
+> > As I said, NAK.
 > 
-> PLenty of drivers treat all mmaps as if MAP_POPULATE was specified,
-> typically by using (io_)remap_pfn_range.  If there any reason to only
-> optionally have the pre-fault semantics for sgx?  If not this should
-> be really simple.  And if we have a real need for it to be optional
-> we'll just need to find a sane way to pass that information to ->mmap.
+> Agreed.  This is an amazingly bad interface.
 
-Dave, what if mmap() would just unconditionally EAUG after initialization?
-
-It's an option, yes.
+So what would you suggest to sort out the issue? I'm happy to go with
+ioctl if nothing else is acceptable.
 
 BR, Jarkko
