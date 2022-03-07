@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FE4CC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A12BDC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E85910E585;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B79F10E53F;
 	Tue,  8 Mar 2022 12:50:54 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2C210F30B;
- Mon,  7 Mar 2022 13:01:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B8B10E03D;
+ Mon,  7 Mar 2022 15:44:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 10C6661197;
- Mon,  7 Mar 2022 13:01:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21564C340E9;
- Mon,  7 Mar 2022 13:01:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E65C3614BB;
+ Mon,  7 Mar 2022 15:44:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0485DC340E9;
+ Mon,  7 Mar 2022 15:44:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646658066;
- bh=vNwLmHMPAuTNQ58SyXP5JOCzc1E/QIa9EAucHhxuwk4=;
+ s=k20201202; t=1646667898;
+ bh=U0RuGnkHGZSN7rcOCs7fzKl6Y7/Lp0fhUWcoOUZcq5Q=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uvdN7XqNAxzEAmE9bN4/uMtzHnmxTF8Bf1x603RX/KNlDIprB9VVaWZhQeHHnpzbB
- L4kxbqOzloAbu6i7BoQuYqHyMOyLIeQm5T/Xe9xRq6c/W5XBudU0rcZiYQpMIqW8K8
- 1un6it52tzYgjHiFXgaZvOMiGyPNX8+j799swQCbH5hFeVmQIpZ6iuDIBfN618OhEW
- E3SyRB41KCkHqiZUuZ0YCU6MdmAWosgy6SdJC1dEwmvD9h3AKYZQWeH4JTR8WfP89z
- OZU/YwJS8GT7u3ZHIoY0Pijc0jpcUbZjNcaA6ewtS9TXcLeg8b87/dA7oNopSl/pXR
- 0BIy9frXh9DtQ==
-Date: Mon, 7 Mar 2022 15:00:25 +0200
+ b=Ij3eAcL4q9iwJKBYHI831XyC2X3aweJTDGKv6pq1qYjqFEHhsWcwvpfB4x74p7jeI
+ jFVHLTLY/v/fHZGjI13dQeb/stTFMTUwwewrvRGShRnmRMpzfD4CzTq8UH75DJsGDx
+ r0WKa4OnhjgUMOWB7xEGpUJBcf8WpA6K0sJJ9iRggWFEXACaqjHBng5aBZAJw4w+KM
+ Ar3x3Ce8iUywGtRo6BWM6TWzj4MetT1f1Ul5K0nGGW0FPta87KPXS8vPUoHbgrrlsy
+ Iq/eaXjutkywtcI/65tVlISD1sXTttoZX4PxUOO0P8p65u7DT9fjliaLz36kMGk1pb
+ 203t6MtlONLhA==
+Date: Mon, 7 Mar 2022 17:44:17 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <YiYB6WWz8cbvaAqX@iki.fi>
+To: Dave Hansen <dave.hansen@intel.com>
+Message-ID: <YiYoUfYuTDsld6L0@iki.fi>
 References: <20220306032655.97863-1-jarkko@kernel.org>
  <20220306152456.2649b1c56da2a4ce4f487be4@linux-foundation.org>
+ <c3083144-bfc1-3260-164c-e59b2d110df8@intel.com>
+ <YiXsJRE8CWOvFNWH@iki.fi>
+ <3c974f25-ece6-102b-01c3-bd7e6274f613@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220306152456.2649b1c56da2a4ce4f487be4@linux-foundation.org>
-X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:52 +0000
+In-Reply-To: <3c974f25-ece6-102b-01c3-bd7e6274f613@intel.com>
+X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
 Subject: Re: [Intel-gfx] [PATCH RFC v2] mm: Add f_ops->populate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,60 +62,22 @@ Cc: codalist@telemann.coda.cs.cmu.edu, jaharkes@cs.cmu.edu,
  intel-gfx@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
  linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, Reinette Chatre <reinette.chatre@intel.com>,
- linux-sgx@vger.kernel.org
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 06, 2022 at 03:24:56PM -0800, Andrew Morton wrote:
-> On Sun,  6 Mar 2022 05:26:55 +0200 Jarkko Sakkinen <jarkko@kernel.org> wrote:
+On Mon, Mar 07, 2022 at 07:29:22AM -0800, Dave Hansen wrote:
+> On 3/7/22 03:27, Jarkko Sakkinen wrote:
+> > But e.g. in __mm_populate() anything with (VM_IO | VM_PFNMAP) gets
+> > filtered out and never reach that function.
+> > 
+> > I don't know unorthodox that'd be but could we perhaps have a VM
+> > flag for SGX?
 > 
-> > Sometimes you might want to use MAP_POPULATE to ask a device driver to
-> > initialize the device memory in some specific manner. SGX driver can use
-> > this to request more memory by issuing ENCLS[EAUG] x86 opcode for each
-> > page in the address range.
-> 
-> Why is this useful?  Please fully describe the benefit to kernel users.
-> Convince us that the benefit justifies the code churn, maintenance
-> cost and larger kernel footprint.
-> 
-> Do we know of any other drivers which might use this?
+> SGX only works on a subset of the chips from one vendor on one
+> architecture.  That doesn't seem worth burning a VM flag.
 
-Brutal honesty: I don't know if any other drivers would use this but
-neither I would not be surprised if they did. The need for this might
-very well be "masked" by ioctl API's.  I was first proposing a ioctl
-for this but Dave suggested to at least try out this route.
-
-> > Add f_ops->populate() with the same parameters as f_ops->mmap() and make
-> > it conditionally called inside call_mmap(). Update call sites
-> > accodingly.
-> 
-> spello
-
-Thanks, I noticed that but did not want to spam with a new version just
-because of that :-)
-
-> 
-> > -static inline int call_mmap(struct file *file, struct vm_area_struct *vma)
-> > +static inline int call_mmap(struct file *file, struct vm_area_struct *vma, bool do_populate)
-> >  {
-> > -	return file->f_op->mmap(file, vma);
-> > +	int ret = file->f_op->mmap(file, vma);
-> > +
-> > +	if (!ret && do_populate && file->f_op->populate)
-> > +		ret = file->f_op->populate(file, vma);
-> > +
-> > +	return ret;
-> >  }
-> 
-> Should this still be inlined?
-
-I think it might make sense at least to have call_mmap_populate() so and
-mmap_region_populate() instead of putting that boolean parameter to every
-flow (based on Greg's feedback). But only if this implementation approach
-is used in the first place.
-
-As said, I chose to use RFC to pinpoint a bottleneck for us, not claiming
-that this would be the best possible way to work around it.
+What do you think of Matthew's idea of using ra_state for prediction?
 
 BR, Jarkko
