@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C0CCC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB0AC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:41:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB2610E2DC;
-	Tue,  8 Mar 2022 17:41:48 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D808A10E45A
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D727E10E3E6;
+	Tue,  8 Mar 2022 17:41:56 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE0B10E3E6
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:41:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646761306; x=1678297306;
+ t=1646761315; x=1678297315;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=vLxldgZX455BgAmsKI0ivxznPEYQG5pvWFnsApznGv4=;
- b=DnO8M0T0rqU8GdCXDnpGOLdWTs8gnJ6BIvUjcuHHfBwDQHAX38LnxsPA
- D26NSRd3+RxS9jW8SzRT6h2l93n4jhJtiG9ZHvLBS5a3Y6MsO88sg0ftl
- h3/zMt5P+e7cMPzj4DpBewCoHaEWOeJiMR9LISIuRdxdoMpA+djSHZEsf
- geXGeRn8//55ObLyo8MSbDtd6lHlCzWvbsQbPFMbOO1jC/05dwafDxjmh
- jlANVSpetqUzEOIl6E27lb6l3Zh/a/Rb3L8QZSWjcuu1NG/Out4BGTunz
- UHX8VVPtcLBngTQ/HV8xtPe1dDqBLpK9DZqlRCUiKf3z9JvJBCes1H9ZM w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="341191389"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="341191389"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 09:32:50 -0800
+ bh=xRv7YhiOMkta/UjBLmz+2CfgQWkAtFuAByUBX15Ll68=;
+ b=anisoCzIr3NeuS9i4nfqhoVDkSev4vqrZji5Em1Bw/fbAJZljlbXBTTN
+ fwgZaX1EUQH/7ruj+9T2LCBsc9M99E2mGXnnS/xtogo/1o4Llri28bewa
+ urSn4x174a1kkOPJWf/XsdCmcFnrXyl4MACvCu8rnqShEvmii4vT9ZwpG
+ 6803oPvoPOWayPydRgKshv87XSI0Hy8WBkA+gwQTKqsATg8mi2Cmw9xhN
+ u/IsN1h8pZ21MDMKoFbHJf+/EMrCVxDdS3OL+qVwd7jmND7rNozf1drls
+ LijIMBiGZl9fDLuIXWoxizo4wI0pdoPIk04UJmxTKduhFhMIrg24tEt2W g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="253591187"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="253591187"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 09:32:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="553715954"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="595961696"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga008.jf.intel.com with SMTP; 08 Mar 2022 09:32:48 -0800
+ by fmsmga008.fm.intel.com with SMTP; 08 Mar 2022 09:32:36 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 08 Mar 2022 19:32:47 +0200
+ Tue, 08 Mar 2022 19:32:36 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Mar 2022 19:32:30 +0200
-Message-Id: <20220308173230.4182-7-ville.syrjala@linux.intel.com>
+Date: Tue,  8 Mar 2022 19:32:26 +0200
+Message-Id: <20220308173230.4182-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220308173230.4182-1-ville.syrjala@linux.intel.com>
 References: <20220308173230.4182-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/6] drm/i915: Rename pre-icl SAGV
- enable/disable functions
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Rework SAGV block time probing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,126 +63,87 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Give the pre-icl SAGV control functions a skl_ prefix instead
-of the intel_ prefix to make it a bit more clear that they
-are not some kind of universal things that can be called on
-any platform. Also make the functions void since we never
-use the return value anyway.
+I'd like to see the SAGV block time we got from the mailbox
+in the logs regardless of whether other factors prevent the
+use of SAGV.
+
+So let's adjust the code to always query the SAGV block time,
+log it, and then reset it if SAGV is not actually supported.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 32 ++++++++++++++------------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/intel_pm.c | 38 +++++++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 166246fa27e4..bd936d4c5b0f 100644
+index 8ee31c9590a7..21c37115c36e 100644
 --- a/drivers/gpu/drm/i915/intel_pm.c
 +++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -57,7 +57,7 @@
- #include "vlv_sideband.h"
- #include "../../../platform/x86/intel_ips.h"
+@@ -3670,8 +3670,8 @@ intel_has_sagv(struct drm_i915_private *dev_priv)
+ 		dev_priv->sagv_status != I915_SAGV_NOT_CONTROLLED;
+ }
  
--static int intel_disable_sagv(struct drm_i915_private *dev_priv);
-+static void skl_sagv_disable(struct drm_i915_private *dev_priv);
- 
- struct drm_i915_clock_gating_funcs {
- 	void (*init_clock_gating)(struct drm_i915_private *i915);
-@@ -3707,7 +3707,7 @@ static void intel_sagv_init(struct drm_i915_private *i915)
- 	 * For icl+ this was already determined by intel_bw_init_hw().
- 	 */
- 	if (DISPLAY_VER(i915) < 11)
--		intel_disable_sagv(i915);
-+		skl_sagv_disable(i915);
- 
- 	drm_WARN_ON(&i915->drm, i915->sagv_status == I915_SAGV_UNKNOWN);
- 
-@@ -3737,16 +3737,15 @@ static void intel_sagv_init(struct drm_i915_private *i915)
-  *  - All planes can enable watermarks for latencies >= SAGV engine block time
-  *  - We're not using an interlaced display configuration
-  */
--static int
--intel_enable_sagv(struct drm_i915_private *dev_priv)
-+static void skl_sagv_enable(struct drm_i915_private *dev_priv)
+-static void
+-skl_setup_sagv_block_time(struct drm_i915_private *dev_priv)
++static u32
++intel_sagv_block_time(struct drm_i915_private *dev_priv)
  {
- 	int ret;
+ 	if (DISPLAY_VER(dev_priv) >= 12) {
+ 		u32 val = 0;
+@@ -3680,24 +3680,31 @@ skl_setup_sagv_block_time(struct drm_i915_private *dev_priv)
+ 		ret = snb_pcode_read(dev_priv,
+ 				     GEN12_PCODE_READ_SAGV_BLOCK_TIME_US,
+ 				     &val, NULL);
+-		if (!ret) {
+-			dev_priv->sagv_block_time_us = val;
+-			return;
++		if (ret) {
++			drm_dbg_kms(&dev_priv->drm, "Couldn't read SAGV block time!\n");
++			return -1;
+ 		}
  
- 	if (!intel_has_sagv(dev_priv))
--		return 0;
-+		return;
- 
- 	if (dev_priv->sagv_status == I915_SAGV_ENABLED)
--		return 0;
-+		return;
- 
- 	drm_dbg_kms(&dev_priv->drm, "Enabling SAGV\n");
- 	ret = snb_pcode_write(dev_priv, GEN9_PCODE_SAGV_CONTROL,
-@@ -3761,26 +3760,24 @@ intel_enable_sagv(struct drm_i915_private *dev_priv)
- 	if (IS_SKYLAKE(dev_priv) && ret == -ENXIO) {
- 		drm_dbg(&dev_priv->drm, "No SAGV found on system, ignoring\n");
- 		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
--		return 0;
-+		return;
- 	} else if (ret < 0) {
- 		drm_err(&dev_priv->drm, "Failed to enable SAGV\n");
--		return ret;
-+		return;
+-		drm_dbg(&dev_priv->drm, "Couldn't read SAGV block time!\n");
++		return val;
+ 	} else if (DISPLAY_VER(dev_priv) == 11) {
+-		dev_priv->sagv_block_time_us = 10;
+-		return;
+-	} else if (DISPLAY_VER(dev_priv) == 9) {
+-		dev_priv->sagv_block_time_us = 30;
+-		return;
++		return 10;
++	} else if (DISPLAY_VER(dev_priv) == 9 && !IS_LP(dev_priv)) {
++		return 30;
+ 	} else {
+-		MISSING_CASE(DISPLAY_VER(dev_priv));
++		/* Default to an unusable block time */
++		return -1;
  	}
++}
  
- 	dev_priv->sagv_status = I915_SAGV_ENABLED;
--	return 0;
+-	/* Default to an unusable block time */
+-	dev_priv->sagv_block_time_us = -1;
++static void intel_sagv_init(struct drm_i915_private *i915)
++{
++	i915->sagv_block_time_us = intel_sagv_block_time(i915);
++
++	drm_dbg_kms(&i915->drm, "SAGV supported: %s, original SAGV block time: %u us\n",
++		    str_yes_no(intel_has_sagv(i915)), i915->sagv_block_time_us);
++
++	if (!intel_has_sagv(i915))
++		i915->sagv_block_time_us = -1;
  }
  
--static int
--intel_disable_sagv(struct drm_i915_private *dev_priv)
-+static void skl_sagv_disable(struct drm_i915_private *dev_priv)
- {
- 	int ret;
+ /*
+@@ -8173,8 +8180,7 @@ void intel_init_pm(struct drm_i915_private *dev_priv)
+ 	else if (GRAPHICS_VER(dev_priv) == 5)
+ 		ilk_get_mem_freq(dev_priv);
  
- 	if (!intel_has_sagv(dev_priv))
--		return 0;
-+		return;
+-	if (intel_has_sagv(dev_priv))
+-		skl_setup_sagv_block_time(dev_priv);
++	intel_sagv_init(dev_priv);
  
- 	if (dev_priv->sagv_status == I915_SAGV_DISABLED)
--		return 0;
-+		return;
- 
- 	drm_dbg_kms(&dev_priv->drm, "Disabling SAGV\n");
- 	/* bspec says to keep retrying for at least 1 ms */
-@@ -3795,14 +3792,13 @@ intel_disable_sagv(struct drm_i915_private *dev_priv)
- 	if (IS_SKYLAKE(dev_priv) && ret == -ENXIO) {
- 		drm_dbg(&dev_priv->drm, "No SAGV found on system, ignoring\n");
- 		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
--		return 0;
-+		return;
- 	} else if (ret < 0) {
- 		drm_err(&dev_priv->drm, "Failed to disable SAGV (%d)\n", ret);
--		return ret;
-+		return;
- 	}
- 
- 	dev_priv->sagv_status = I915_SAGV_DISABLED;
--	return 0;
- }
- 
- static void skl_sagv_pre_plane_update(struct intel_atomic_state *state)
-@@ -3815,7 +3811,7 @@ static void skl_sagv_pre_plane_update(struct intel_atomic_state *state)
- 		return;
- 
- 	if (!intel_can_enable_sagv(i915, new_bw_state))
--		intel_disable_sagv(i915);
-+		skl_sagv_disable(i915);
- }
- 
- static void skl_sagv_post_plane_update(struct intel_atomic_state *state)
-@@ -3828,7 +3824,7 @@ static void skl_sagv_post_plane_update(struct intel_atomic_state *state)
- 		return;
- 
- 	if (intel_can_enable_sagv(i915, new_bw_state))
--		intel_enable_sagv(i915);
-+		skl_sagv_enable(i915);
- }
- 
- static void icl_sagv_pre_plane_update(struct intel_atomic_state *state)
+ 	/* For FIFO watermark updates */
+ 	if (DISPLAY_VER(dev_priv) >= 9) {
 -- 
 2.34.1
 
