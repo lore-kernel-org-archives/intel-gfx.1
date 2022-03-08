@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37940C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E820C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7394A10E59D;
-	Tue,  8 Mar 2022 12:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CAF010E5B4;
+	Tue,  8 Mar 2022 12:50:55 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D389210EC5B;
- Mon,  7 Mar 2022 13:17:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1AA10E488;
+ Tue,  8 Mar 2022 10:11:27 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 22A5B611A6;
- Mon,  7 Mar 2022 13:17:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09884C340E9;
- Mon,  7 Mar 2022 13:17:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C392F61501;
+ Tue,  8 Mar 2022 10:11:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F770C340EB;
+ Tue,  8 Mar 2022 10:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646659055;
- bh=KXqVJsDGXLlSnyeaHKWpPIVZqxg9O3xVmH+wFrsgfeg=;
+ s=k20201202; t=1646734286;
+ bh=fYSUhe3wecNdmSDhFtYlrEjcl8plDtdT7/KRcR78mg8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hCpGcO8HZcqQApVVZm6OEvQrrIR4vyEHePNnzVROHw1K1NkFuEfNdTu1I59Pj136m
- 4rX6fL04mPPpcVfgqfegolGRx6CRsxOiRqFeONVkYWTB6X9EcC5pWRk7rEUGXwdqU6
- OvEMg+WzhEBC6xQTzvpMuPW0Z7aAedCqClhox8xbo/mIon3gdW3d/6JNZjCYFLY4FS
- 10pjlBodTW1xrm6ejzkguCe+Ekh4JJCoJJ2mSCIq0lgnb+KYirBLVYOdxv5JfFOaTJ
- 0Fzo4KQ6CulRfULGVd4l8OZP4WX94xCRchBbHGrVpM8g8sXszWhkjT9Jfz9c+lUM6v
- 8PJS0P6GeVloQ==
-Date: Mon, 7 Mar 2022 15:16:54 +0200
+ b=u4nsxISBKCbp0kWFZQFzaUS+y+q3Vc8eNVHhG0Dmv4Nb/JhF26ncQ7Echex+2TBWw
+ HzESBnHl4TLrNzabSQGNB7ZbF8RfKTG8YIJq2SApT5oCxEWRfJr2l9JoJPXihK3vfQ
+ duy0ns8W9IpIrx2oeLNdvolKx2mHVixqS4CJNaiMHhOoWN2qQZmcekG4CxoSZIyJX4
+ EJo+hN5kIQOs94WI2C6ml3xu/HoLZzZhctA1CyAepjY5M6e1IrYFTj5uS071+txQfv
+ E2z0+8a/Amxg9QK2hYAnt6jFaeTl8IVajwPvjbBMhdwUfexozvzQDosql+YtSoO6QB
+ ViNC/V8kidVXQ==
+Date: Tue, 8 Mar 2022 12:10:45 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <YiYFxq87p2WVkZcz@iki.fi>
+To: David Laight <David.Laight@aculab.com>
+Message-ID: <YicrpX9K1dSdCK7u@iki.fi>
 References: <20220306053211.135762-1-jarkko@kernel.org>
- <20220306053211.135762-2-jarkko@kernel.org>
- <YiSGgCV9u9NglYsM@kroah.com> <YiTpQTM+V6rlDy6G@iki.fi>
- <YiU5E6qqYAI+WPw9@casper.infradead.org>
+ <YiSb7tsUEBRGS+HA@casper.infradead.org>
+ <YiW4yurDXSifTYUt@infradead.org> <YiYIv9guOgClLKT8@iki.fi>
+ <YiYrRWMp1akXY8Vb@infradead.org>
+ <5729d03d6a174da6b66d1534ebdb1127@AcuMS.aculab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YiU5E6qqYAI+WPw9@casper.infradead.org>
-X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:52 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC 1/3] mm: Add f_ops->populate()
+In-Reply-To: <5729d03d6a174da6b66d1534ebdb1127@AcuMS.aculab.com>
+X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
+Subject: Re: [Intel-gfx] [PATCH RFC 0/3] MAP_POPULATE for device memory
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,60 +57,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhangyiru <zhangyiru3@huawei.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
+Cc: Michal Hocko <mhocko@suse.com>, zhangyiru <zhangyiru3@huawei.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
  Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
- codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ "linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ "codalist@coda.cs.cmu.edu" <codalist@coda.cs.cmu.edu>,
+ 'Christoph Hellwig' <hch@infradead.org>, Matthew Auld <matthew.auld@intel.com>,
  Vasily Averin <vvs@virtuozzo.com>,
  Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "G@iki.fi" <G@iki.fi>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
  Shakeel Butt <shakeelb@google.com>,
- Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ "linux-sgx@vger.kernel.org" <linux-sgx@vger.kernel.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  Nathaniel McCallum <nathaniel@profian.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Alexey Gladkov <legion@kernel.org>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Alexey Gladkov <legion@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 06, 2022 at 10:43:31PM +0000, Matthew Wilcox wrote:
-> On Sun, Mar 06, 2022 at 07:02:57PM +0200, Jarkko Sakkinen wrote:
-> > So can I conclude from this that in general having populate available for
-> > device memory is something horrid, or just the implementation path?
+On Mon, Mar 07, 2022 at 10:11:19PM +0000, David Laight wrote:
+> From: Christoph Hellwig
+> > Sent: 07 March 2022 15:57
+> > 
+> > On Mon, Mar 07, 2022 at 03:29:35PM +0200, Jarkko Sakkinen wrote:
+> > > So what would you suggest to sort out the issue? I'm happy to go with
+> > > ioctl if nothing else is acceptable.
+> > 
+> > PLenty of drivers treat all mmaps as if MAP_POPULATE was specified,
+> > typically by using (io_)remap_pfn_range.  If there any reason to only
+> > optionally have the pre-fault semantics for sgx?  If not this should
+> > be really simple.  And if we have a real need for it to be optional
+> > we'll just need to find a sane way to pass that information to ->mmap.
 > 
-> You haven't even attempted to explain what the problem is you're trying
-> to solve.  You've shown up with some terrible code and said "Hey, is
-> this a good idea".  No, no, it's not.
+> Is there any space in vma->vm_flags ?
+> 
+> That would be better than an extra argument or function.
 
-The problem is that in order to include memory to enclave, which is
-essentially a reserved address range processes virtual address space
-there's two steps into it:
+It's very dense but I'll give a shot for callback route based on Dave's
+comments in this thread. I.e. use it as filter inside __mm_populate() and
+populate_vma_page_range().
 
-1. Host side (kernel) does ENCLS[EAUG] to request a new page to be
-   added to the enclave.
-2. Enclave accepts request with ENCLU[EACCEPT] or ENCLU[EACCEPTCOPY].
+For Enarx, which we are implementing being able to use MAP_POPULATE and get
+the full range EAUG'd would be best way to optimize the performance of wasm
+JIT (Enarx is a wasm run-time capable of running inside an SGX enclave, AMD
+SEV-SNP VM etc.). More so than any predictor (ra_state, madvice etc.) inside
+#PF handler, which have been suggested in this thread.
 
-In the current SGX2 patch set this taken care by the page fault
-handler. I.e. the enclave calls ENCLU[EACCEPT] for an empty address
-and the #PF handler then does EAUG for a single page.
+After some research on how we implement user space, I'd rather keep the #PF
+handler working on a single page (EAUG a single page) and have either ioctl
+or MAP_POPULATE to do the batch fill.
 
-So if you want to process a batch of pages this generates O(n)
-round-trips.
-
-So if there was a way pre-do a batch of EAUG's, that would allow
-to load data to the enclave without causing page faults happening
-constantly.
-
-One solution for this simply add ioctl:
-
-https://lore.kernel.org/linux-sgx/YiLRBglTEbu8cHP9@iki.fi/T/#m195ec84bf85614a140abeee245c5118c22ace8f3
-
-But in practice when you wanted to use it, you would setup the
-parameters so that they match the mmap() range. So for pratical
-user space API having mmap() take care of this would be much more
-lean option.
+We can still "not trust the user space" i.e. the populate does not have to
+guarantee to do the full length since the #PF handler will then fill the
+holes. This was one concern in this thread but it is not hard to address.
 
 BR, Jarkko
