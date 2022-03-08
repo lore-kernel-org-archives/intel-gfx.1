@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93500C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:42:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA1DC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:42:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F391C10E3B6;
-	Tue,  8 Mar 2022 17:42:43 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0699C10E3B6
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B321C10E2D8;
+	Tue,  8 Mar 2022 17:42:54 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D9710E2DC
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646761363; x=1678297363;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=JkZbN6gD1afd/RpQvPRe+TAZ18d4sniYfW88CXAyid4=;
- b=cqMITS4q70ilUVGv8Dn3Q+HsxtFd9BIbu0EgNOj5xOWo8U0YI0/o2Zfe
- 8o8IKKDpnD9faYF30Emeua2BwlJloVLSHkEWOFpTjCYLt5LJ4dp2JUcf6
- cemwyWWcaZ4hBdxjwEtzYwKXfmDsp1OPWh8u9nucf+/ih0J51r8cMhLmJ
- obsNlTnIgrFX+9SZoUI5C2mToLm6LCuW52Q2X9MieTZoG0mBmxfSRJ9dP
- RFnVzbn2HxpM652KzZtvbqCLqrcpG/JHI8ualHOSQccQ1G2vTpzzzfL61
- RwVEHIo4P7s+nEhRd+untaoisggbxrko76kIAwBRSfqvzKU0SrISsvv8/ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252332550"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252332550"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 09:32:35 -0800
+ t=1646761372; x=1678297372;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kRUgUYX7nSK1Pz7datAgqAM8AShHcJ606PqwoOaNhhU=;
+ b=VjGJl5uYT5yeR87/qMo8Qr60rK/6Zp/5KWlz+Dg6aIXk5vkx1KooUcEK
+ MvS73hfLpDbWJ+aw8oHegfOwnbPVK8oCIg//cvbGE2iPL7EMkmGm/6UYd
+ JatpOnXgzWcX76NGBKwyeqw7qAu4wNIQiGdHrwZZgxgCi9KTurscmEQyf
+ IeUJTihUG3tkV0eahKFBGzQixVB2h34iQhBtbUvd4LgH52eUb6udWARum
+ p/6nOpuzvVh/b9DQuKg82K0R0ojFs10afVSU7OsgplynlIg/5Lm7v+Idu
+ xxyCj1BI4DqS/8V+2io/UmlTiv0Mo3myjwRiRET4R/FE340uqIe1qtq0/ Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="234714885"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="234714885"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 09:37:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="632310358"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by FMSMGA003.fm.intel.com with SMTP; 08 Mar 2022 09:32:33 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 08 Mar 2022 19:32:33 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Mar 2022 19:32:25 +0200
-Message-Id: <20220308173230.4182-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220308173230.4182-1-ville.syrjala@linux.intel.com>
-References: <20220308173230.4182-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="513196477"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga006.jf.intel.com with ESMTP; 08 Mar 2022 09:37:00 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Date: Tue,  8 Mar 2022 19:27:59 +0200
+Message-Id: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/6] drm/i915: Remove leftover cnl SAGV block
- time
+Subject: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout in
+ i915 wait
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,33 +55,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ amadeuszx.slawinski@linux.intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+If kernel is built with hung task detection enabled and
+CONFIG_DEFAULT_HUNG_TASK_TIMEOUT set to less than 60 seconds,
+snd_hdac_i915_init() will trigger the hung task timeout in case i915 is
+not available and taint the kernel.
 
-GLK doesn't support SAGV, so with CNL gone there is no
-use for having a DISPLAY_VER==10 SAGV block time in the code.
+Split the 60sec wait into a loop of smaller waits to avoid this.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Co-developed-by: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/hda/hdac_i915.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index f70eb10ab24d..8ee31c9590a7 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -3689,9 +3689,6 @@ skl_setup_sagv_block_time(struct drm_i915_private *dev_priv)
- 	} else if (DISPLAY_VER(dev_priv) == 11) {
- 		dev_priv->sagv_block_time_us = 10;
- 		return;
--	} else if (DISPLAY_VER(dev_priv) == 10) {
--		dev_priv->sagv_block_time_us = 20;
--		return;
- 	} else if (DISPLAY_VER(dev_priv) == 9) {
- 		dev_priv->sagv_block_time_us = 30;
- 		return;
+Changes V1->V2:
+ - address local variable naming issue raised by Amadeusz
+   and use Takashi's proposal
+
+diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
+index 454474ac5716..aa48bed7baf7 100644
+--- a/sound/hda/hdac_i915.c
++++ b/sound/hda/hdac_i915.c
+@@ -143,7 +143,7 @@ static bool i915_gfx_present(void)
+ int snd_hdac_i915_init(struct hdac_bus *bus)
+ {
+ 	struct drm_audio_component *acomp;
+-	int err;
++	int err, i;
+ 
+ 	if (!i915_gfx_present())
+ 		return -ENODEV;
+@@ -159,9 +159,11 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
+ 	if (!acomp->ops) {
+ 		if (!IS_ENABLED(CONFIG_MODULES) ||
+ 		    !request_module("i915")) {
+-			/* 60s timeout */
+-			wait_for_completion_timeout(&acomp->master_bind_complete,
+-						    msecs_to_jiffies(60 * 1000));
++			/* max 60s timeout */
++			for (i = 0; i < 60; i++)
++				if (wait_for_completion_timeout(&acomp->master_bind_complete,
++								msecs_to_jiffies(1000)))
++					break;
+ 		}
+ 	}
+ 	if (!acomp->ops) {
+
+base-commit: fd7698cf0858f8c5e659b655109cd93c2f15cdd3
 -- 
-2.34.1
+2.35.1
 
