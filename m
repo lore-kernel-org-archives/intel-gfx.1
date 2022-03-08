@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FD4C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70DBAC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 12:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D67410E4D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEFCC10E505;
 	Tue,  8 Mar 2022 12:50:53 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E117810E18D;
- Mon,  7 Mar 2022 14:23:04 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 68511B8159E;
- Mon,  7 Mar 2022 14:23:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC2EC340E9;
- Mon,  7 Mar 2022 14:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646662982;
- bh=0Qn7igLK4+VBbSp7gLFhF/fhKeQP55ogIhfNSw2/WLE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cb3j8+IWzXN37rJiLWqQUGEVD4ii6/Oemo4DTwTpiEA4V+gXQjRM4GYfsht+kwvCv
- vkJFpF1Y8Pg+GuNd2qQ+eew6sU/XDArFADYPsScLC8eEggcTV4tGCGKuzP6Qy2e+Nm
- 8MpMnjvXXS57bXAShOoZPh7yoFANSySevMH1tJOyg5/bAUisWebkjLlfSpcg/EnJBj
- oyhvWTqMuoUsjTFLX0FkvNwQkf4lsrtYbzNriqlb3hba7r94ECnZbn+REMGSzfW/CT
- V2S6AFBScxSzf4ndu3c4N9itn+XJ+SP9+zowaHjtzJ2J0llO4qZf8qNCIXpl85oQ0b
- 7rNZHKbPfu+sA==
-Date: Mon, 7 Mar 2022 16:22:21 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Hildenbrand <david@redhat.com>
-Message-ID: <YiYVHTkS8IsMMw6T@iki.fi>
-References: <20220306053211.135762-1-jarkko@kernel.org>
- <d6b09f23-f470-c119-8d3e-7d72a3448b64@redhat.com>
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0435F10E3C5;
+ Tue,  8 Mar 2022 09:17:05 +0000 (UTC)
+Received: by mail-qt1-x82e.google.com with SMTP id c4so15602915qtx.1;
+ Tue, 08 Mar 2022 01:17:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QmFT5oX5WhVCf23K5lxag7wmD3+cmFNslYfO7qqS0x8=;
+ b=O81yMp+25f3i4Ba9tRiFQz+DjxkdQvAuD7tM0reOk09HYPu27Ez//y0oCxFyKkVdbX
+ R/sSoBoeDiFo9s4tYx2XUwDDcYv11O60isHjmVp68H+cDOTvi8MFquadaAVoClk9ja+v
+ tgqVtJBnuu5sX6ALII+KxtdSdNG5YJKvNgNsV1Ul3e8zr5lBnLNM1T5puAZuTVFRO7fD
+ ksosDAjF0UEXLdmjHrelsegsOtaPWnWvGdg7sUT57j0chxw3HyjuLjYpPYcdYKd6K5Sg
+ VpzY5pDcfNa8suOuQoEaU1G9l/32J/ptGF+spDzNB9CfSYivKYkjoiflodvPIwrU+pjK
+ AQow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QmFT5oX5WhVCf23K5lxag7wmD3+cmFNslYfO7qqS0x8=;
+ b=CY+7BUzJhvfStFKTjP1Nyd3XDxDb8tkQf3JSif6Ou2l4mzylDufXPLORaURXjHx4o0
+ 2Oup1NPgGoNkreGCi8lmoOT+hzfnIm4y8X5NkwUiS54Ajq2bLoRUj6Lt1z/3TYymHpMN
+ 9dQ/FrwEPSDdwW7cHlSrGiMAx7CgbNtUNczrs8aIqyDnNs/Hpg63csqPBk4DghpmQSUD
+ +9L9buaoyY092hKg7LSiqSLWJR4J5DdQvb2I3NIEMMu9LWmcjN9Bpu4TBvda+TiX8i0H
+ VcpUc+W8Ihmp6s0Ax5JGm3DPEFg8Y7eZ8Lvh4g5o+KnE6QGYOD/bPDQ+Atw3TJnSD13j
+ kFVw==
+X-Gm-Message-State: AOAM531j8yPBgRj+0f0kZ+HDkmxf2sfylJEyfhfCQ0B9q+Uy1vD9Z223
+ LCik4Vypx1mp3TJeDw+e/WM=
+X-Google-Smtp-Source: ABdhPJxfpMw9rImA2Ik5e7BO7RxSWcCdqoCiOk0uGbtELOW0XSZkacMxARR5CzcafSh1EaJcCfPZNQ==
+X-Received: by 2002:a05:622a:13c6:b0:2de:8901:e3dd with SMTP id
+ p6-20020a05622a13c600b002de8901e3ddmr12911101qtk.16.1646731024127; 
+ Tue, 08 Mar 2022 01:17:04 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ c6-20020ac87d86000000b002ddd9f33ed1sm10976726qtd.44.2022.03.08.01.17.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Mar 2022 01:17:03 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: deng.changcheng@zte.com.cn
+To: joonas.lahtinen@linux.intel.com
+Date: Tue,  8 Mar 2022 09:16:55 +0000
+Message-Id: <20220308091655.2078825-1-deng.changcheng@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d6b09f23-f470-c119-8d3e-7d72a3448b64@redhat.com>
-X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:53 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC 0/3] MAP_POPULATE for device memory
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 08 Mar 2022 12:50:52 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915/vlv_dsi_pll: use min_t() to make code
+ cleaner
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,67 +70,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michal Hocko <mhocko@suse.com>, zhangyiru <zhangyiru3@huawei.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
- Alexander Mikhalitsyn <alexander.mikhalitsyn@virtuozzo.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-unionfs@vger.kernel.org,
- codalist@coda.cs.cmu.edu, Matthew Auld <matthew.auld@intel.com>,
- Vasily Averin <vvs@virtuozzo.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
- Shakeel Butt <shakeelb@google.com>,
- Reinette Chatre <reinette.chatre@intel.com>, linux-sgx@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nathaniel McCallum <nathaniel@profian.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Alexey Gladkov <legion@kernel.org>
+Cc: airlied@linux.ie, intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com,
+ deng.changcheng@zte.com.cn, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com,
+ Zeal Robot <zealci@zte.com.cn>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 07, 2022 at 11:12:44AM +0100, David Hildenbrand wrote:
-> On 06.03.22 06:32, Jarkko Sakkinen wrote:
-> > For device memory (aka VM_IO | VM_PFNMAP) MAP_POPULATE does nothing. Allow
-> > to use that for initializing the device memory by providing a new callback
-> > f_ops->populate() for the purpose.
-> > 
-> > SGX patches are provided to show the callback in context.
-> > 
-> > An obvious alternative is a ioctl but it is less elegant and requires
-> > two syscalls (mmap + ioctl) per memory range, instead of just one
-> > (mmap).
-> 
-> What about extending MADV_POPULATE_READ | MADV_POPULATE_WRITE to support
-> VM_IO | VM_PFNMAP (as well?) ?
+From: Changcheng Deng <deng.changcheng@zte.com.cn>
 
-What would be a proper point to bind that behaviour? For mmap/mprotect it'd
-be probably populate_vma_page_range() because that would span both mmap()
-and mprotect() (Dave's suggestion in this thread).
+Use min_t() in order to make code cleaner.
 
-For MAP_POPULATE I did not have hard proof to show that it would be used
-by other drivers but for madvice() you can find at least a few ioctl
-based implementations:
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
+---
+ drivers/gpu/drm/i915/display/vlv_dsi_pll.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-$ git grep -e madv --and \( -e ioc \)  drivers/
-drivers/gpu/drm/i915/gem/i915_gem_ioctls.h:int i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
-drivers/gpu/drm/i915/i915_driver.c:     DRM_IOCTL_DEF_DRV(I915_GEM_MADVISE, i915_gem_madvise_ioctl, DRM_RENDER_ALLOW),
-drivers/gpu/drm/i915/i915_gem.c:i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
-drivers/gpu/drm/msm/msm_drv.c:static int msm_ioctl_gem_madvise(struct drm_device *dev, void *data,
-drivers/gpu/drm/msm/msm_drv.c:  DRM_IOCTL_DEF_DRV(MSM_GEM_MADVISE,  msm_ioctl_gem_madvise,  DRM_RENDER_ALLOW),
-drivers/gpu/drm/panfrost/panfrost_drv.c:static int panfrost_ioctl_madvise(struct drm_device *dev, void *data,
-drivers/gpu/drm/vc4/vc4_drv.c:  DRM_IOCTL_DEF_DRV(VC4_GEM_MADVISE, vc4_gem_madvise_ioctl, DRM_RENDER_ALLOW),
-drivers/gpu/drm/vc4/vc4_drv.h:int vc4_gem_madvise_ioctl(struct drm_device *dev, void *data,
-drivers/gpu/drm/vc4/vc4_gem.c:int vc4_gem_madvise_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+index df880f44700a..f801f7ec3f9a 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+@@ -393,10 +393,7 @@ static void glk_dsi_program_esc_clock(struct drm_device *dev,
+ 	/* Calculate TXESC2 divider */
+ 	div2_value = DIV_ROUND_UP(div1_value, txesc1_div);
+ 
+-	if (div2_value < 10)
+-		txesc2_div = div2_value;
+-	else
+-		txesc2_div = 10;
++	txesc2_div = min_t(u32, div2_value, 10);
+ 
+ 	intel_de_write(dev_priv, MIPIO_TXESC_CLK_DIV1,
+ 		       (1 << (txesc1_div - 1)) & GLK_TX_ESC_CLK_DIV1_MASK);
+-- 
+2.25.1
 
-IMHO this also provides supportive claim for MAP_POPULATE, and yeah, I
-agree that to be consistent implementation, both madvice() and MAP_POPULATE
-should work.
-
-> -- 
-> Thanks,
-> 
-> David / dhildenb
-
-BR, Jarkko
