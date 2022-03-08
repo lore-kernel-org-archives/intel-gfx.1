@@ -4,45 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA1DC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D393C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B321C10E2D8;
-	Tue,  8 Mar 2022 17:42:54 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2D9710E2DC
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:42:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7734110E29E;
+	Tue,  8 Mar 2022 17:58:08 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD42B10E289;
+ Tue,  8 Mar 2022 17:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646761372; x=1678297372;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=kRUgUYX7nSK1Pz7datAgqAM8AShHcJ606PqwoOaNhhU=;
- b=VjGJl5uYT5yeR87/qMo8Qr60rK/6Zp/5KWlz+Dg6aIXk5vkx1KooUcEK
- MvS73hfLpDbWJ+aw8oHegfOwnbPVK8oCIg//cvbGE2iPL7EMkmGm/6UYd
- JatpOnXgzWcX76NGBKwyeqw7qAu4wNIQiGdHrwZZgxgCi9KTurscmEQyf
- IeUJTihUG3tkV0eahKFBGzQixVB2h34iQhBtbUvd4LgH52eUb6udWARum
- p/6nOpuzvVh/b9DQuKg82K0R0ojFs10afVSU7OsgplynlIg/5Lm7v+Idu
- xxyCj1BI4DqS/8V+2io/UmlTiv0Mo3myjwRiRET4R/FE340uqIe1qtq0/ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="234714885"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="234714885"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 09:37:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="513196477"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga006.jf.intel.com with ESMTP; 08 Mar 2022 09:37:00 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Tue,  8 Mar 2022 19:27:59 +0200
-Message-Id: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ t=1646762285; x=1678298285;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=aHw/VEZHCid0Fkd+cLIMqhL7qRK0sJoC7cR57/zC4PA=;
+ b=BQe2VYj+p5p4c3WpAZQnizUQyLMqz87r+HykqeiRUoHRkUd0U51RjdkF
+ 7a7tkKn7DfpUo+YPMIbQGQrhESJKMcKgtbP5ZiokwXYxDfwSJXXdQPn8N
+ Z1Kp1Sc7n+UeEK9PAIEtwBkHUOi0mRJpKGTIb3q/kTGpvQrgGVimr9jWJ
+ L/+JFxcyLr1eCWw3ks+Lm+w5OmS/PWqhunxpyGOZ2SY2Jtrie92vqU3kp
+ dDpBulOG2iDZXWJRs94rY8S6mXqRtdTBbtgLxAwRk03GcHhNFSpV3Wlwp
+ iBKPs52wvjRh9M3Jm7kLWae6C2YPQMhWhbhxmj6t2CNdDMZg8uKjxuoxT Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="254497373"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="254497373"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 09:58:04 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="632322446"
+Received: from abagarwa-mobl1.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.156.1])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 09:58:04 -0800
+Date: Tue, 8 Mar 2022 09:58:03 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Thomas =?utf-8?B?SGVsbHN0csO2bSAoSW50ZWwp?= <thomas_os@shipmail.org>
+Message-ID: <20220308175803.pszuli2ms3e7tah3@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20220222172649.331661-1-michael.cheng@intel.com>
+ <20220222172649.331661-3-michael.cheng@intel.com>
+ <40f820e6-6b28-fd8a-b058-13f0bbbf71fc@shipmail.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout in
- i915 wait
+In-Reply-To: <40f820e6-6b28-fd8a-b058-13f0bbbf71fc@shipmail.org>
+Subject: Re: [Intel-gfx] [PATCH v3 2/3] drm/i915/gem: Remove logic for
+ wbinvd_on_all_cpus
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,60 +61,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- amadeuszx.slawinski@linux.intel.com
+Cc: intel-gfx@lists.freedesktop.org, Michael Cheng <michael.cheng@intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If kernel is built with hung task detection enabled and
-CONFIG_DEFAULT_HUNG_TASK_TIMEOUT set to less than 60 seconds,
-snd_hdac_i915_init() will trigger the hung task timeout in case i915 is
-not available and taint the kernel.
+On Tue, Feb 22, 2022 at 08:24:31PM +0100, Thomas Hellström (Intel) wrote:
+>Hi, Michael,
+>
+>On 2/22/22 18:26, Michael Cheng wrote:
+>>This patch removes logic for wbinvd_on_all_cpus and brings in
+>>drm_cache.h. This header has the logic that outputs a warning
+>>when wbinvd_on_all_cpus when its being used on a non-x86 platform.
+>>
+>>Signed-off-by: Michael Cheng <michael.cheng@intel.com>
+>
+>Linus has been pretty clear that he won't accept patches that add 
+>macros that works on one arch and warns on others anymore in i915 and 
+>I figure even less so in drm code.
+>
+>So we shouldn't try to move this out to drm. Instead we should 
+>restrict the wbinvd() inside our driver to integrated and X86 only. 
+>For discrete on all architectures we should be coherent and hence not 
+>be needing wbinvd().
 
-Split the 60sec wait into a loop of smaller waits to avoid this.
+the warn is there to guarantee we don't forget a code path. However
+simply adding the warning is the real issue: we should rather guarantee
+we can't take that code path. I.e., as you said refactor the code to
+guarantee it works on discrete without that logic.
 
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Co-developed-by: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/hda/hdac_i915.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+	$ git grep wbinvd_on_all_cpus -- drivers/gpu/drm/
+	drivers/gpu/drm/drm_cache.c:    if (wbinvd_on_all_cpus())
+	drivers/gpu/drm/drm_cache.c:    if (wbinvd_on_all_cpus())
+	drivers/gpu/drm/drm_cache.c:    if (wbinvd_on_all_cpus())
 
-Changes V1->V2:
- - address local variable naming issue raised by Amadeusz
-   and use Takashi's proposal
+	drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c:      * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
+	drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c:             wbinvd_on_all_cpus();
 
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index 454474ac5716..aa48bed7baf7 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -143,7 +143,7 @@ static bool i915_gfx_present(void)
- int snd_hdac_i915_init(struct hdac_bus *bus)
- {
- 	struct drm_audio_component *acomp;
--	int err;
-+	int err, i;
- 
- 	if (!i915_gfx_present())
- 		return -ENODEV;
-@@ -159,9 +159,11 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
- 	if (!acomp->ops) {
- 		if (!IS_ENABLED(CONFIG_MODULES) ||
- 		    !request_module("i915")) {
--			/* 60s timeout */
--			wait_for_completion_timeout(&acomp->master_bind_complete,
--						    msecs_to_jiffies(60 * 1000));
-+			/* max 60s timeout */
-+			for (i = 0; i < 60; i++)
-+				if (wait_for_completion_timeout(&acomp->master_bind_complete,
-+								msecs_to_jiffies(1000)))
-+					break;
- 		}
- 	}
- 	if (!acomp->ops) {
+It looks like we actually go through this on other discrete graphics. Is
+this missing an update like s/IS_DG1/IS_DGFX/? Or should we be doing
+something else?
 
-base-commit: fd7698cf0858f8c5e659b655109cd93c2f15cdd3
--- 
-2.35.1
+	drivers/gpu/drm/i915/gem/i915_gem_pm.c:#define wbinvd_on_all_cpus() \
+	drivers/gpu/drm/i915/gem/i915_gem_pm.c:         wbinvd_on_all_cpus();
 
+Those are for suspend. Revert ac05a22cd07a ("drm/i915/gem: Almagamate clflushes on suspend")
+or extract that part to a helper function and implement it differently
+for arches != x86?
+
+	drivers/gpu/drm/i915/gem/i915_gem_pm.c: wbinvd_on_all_cpus();
+
+Probably take a similar approach to the suspend case?
+
+	drivers/gpu/drm/i915/gt/intel_ggtt.c:           wbinvd_on_all_cpus();
+
+This one comes from 64b95df91f44 ("drm/i915: Assume exclusive access to objects inside resume")
+Shouldn't that be doing the invalidate if the write domain is I915_GEM_DOMAIN_CPU
+
+
+In the end I think the warning would be ok if it was the cherry on top,
+to guarantee we don't take those paths. We should probably have a
+warn_once() to avoid spamming the console. But we  also have to rework
+the code to guarantee we are the only ones who may eventually get that
+warning, and not the end user.
+
+Lucas De Marchi
+
+>
+>Thanks,
+>
+>/Thomas
+>
+>
