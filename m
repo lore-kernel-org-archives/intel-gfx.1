@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 060BFC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3434C433EF
 	for <intel-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 05:17:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74ABC10E936;
-	Wed,  9 Mar 2022 05:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76CFB10E943;
+	Wed,  9 Mar 2022 05:17:02 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B58B910E92F;
- Wed,  9 Mar 2022 05:16:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B823C10E936;
+ Wed,  9 Mar 2022 05:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646803018; x=1678339018;
+ t=1646803020; x=1678339020;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vJ1RVc0neVd7qGRykD93Y7dXSsxyfzaTYiPGsb+2Do4=;
- b=FXJuUxXFk5VYdn2WF0AgdHiaZ9SDhhx/evyGfh8o2sLp9ymX1pRSYkNJ
- FzWmkIJfI6AnpTAqA1iAhOWdFxA6zrZPPCPFSzunj0bcPWzHNvFVsLRnq
- FXsl8WT13pM5VcOWc1YxOCwysUm3jk5xbOj5HBX4Xgttc+ba0Hp7Kulr4
- 0Q31L+3Ndi3qukGYVtNY/tsLREO3L4qtjdMS3DiEmtwjwSOLIayRsvhOl
- cI6RChjg8Vvt6VIGN6FfJRm+WnimZjUzH951CbPRE/p5TJ4wo/AEGi2fL
- a/xZomGjK71JTJal2pfGlpo3y/B/hGk6uKVciqgsYdp4aH1EdIl3+OHI1 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="255081140"
-X-IronPort-AV: E=Sophos;i="5.90,166,1643702400"; d="scan'208";a="255081140"
+ bh=2mP6RRebQUE3vKxzk2Ezz1JjDoe9ZfqAwpTaqOWKV6w=;
+ b=dgUqgIc6u8jmFA9/26c8BLg1RfKR0+Jex+PvoJLbXBx+aLxii3jDQjKa
+ tA4rO3Y5x9OZRKrnQPyPP0bC6rQi4Eqjvu2yyLZsnEDEQ2t+pdtupQ005
+ zMij+Okit4o8nkRQixfCTfQq01l1nS5+fg4s/9Z5SBmDw2dVFoBVYH5yg
+ u++qEc9Uo94Q6Tq9K+bIYWsdz8YiofkJ0PvNZ78oq5xvKrqVW3zdMplWz
+ NoZtsXBxn/D8In2IW4QY9Lg5n7macj4yDCsBYcBUOdvh4h5jwoXaAusLM
+ VP/gH1BYwLZqbaM0cgT83e7if3EdZC+ZC9rHzpBEpIfOFLX2s1TIoHXfX Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="255081144"
+X-IronPort-AV: E=Sophos;i="5.90,166,1643702400"; d="scan'208";a="255081144"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 21:16:58 -0800
-X-IronPort-AV: E=Sophos;i="5.90,166,1643702400"; d="scan'208";a="711807544"
+ 08 Mar 2022 21:17:00 -0800
+X-IronPort-AV: E=Sophos;i="5.90,166,1643702400"; d="scan'208";a="711807557"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 21:16:52 -0800
+ 08 Mar 2022 21:16:57 -0800
 From: Ramalingam C <ramalingam.c@intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Date: Wed,  9 Mar 2022 10:47:05 +0530
-Message-Id: <20220309051708.22644-6-ramalingam.c@intel.com>
+Date: Wed,  9 Mar 2022 10:47:07 +0530
+Message-Id: <20220309051708.22644-8-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220309051708.22644-1-ramalingam.c@intel.com>
 References: <20220309051708.22644-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915/selftests: Check for incomplete
- LRI from the context image
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915/selftest: Always cancel semaphore
+ on error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,173 +57,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lucas.demarchi@intel.com, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: lucas.demarchi@intel.com, Chris Wilson <chris@chris-wilson.co.uk>,
+ CQ Tang <cq.tang@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-In order to keep the context image parser simple, we assume that all
-commands follow a similar format. A few, especially not MI commands on
-the render engines, have fixed lengths not encoded in a length field.
-This caused us to incorrectly skip over 3D state commands, and start
-interpretting context data as instructions. Eventually, as Daniele
-discovered, this would lead us to find addition LRI as part of the data
-and mistakenly add invalid LRI commands to the context probes.
+Ensure that we always signal the semaphore when timing out, so that if it
+happens to be stuck waiting for the semaphore we will quickly recover
+without having to wait for a reset.
 
-Stop parsing after we see the first !MI command, as we know we will have
-seen all the context registers by that point. (Mostly true for all gen
-so far, though the render context does have LRI after the first page that
-we have been ignoring so far. It would be useful to extract those as well
-so that we have the full list of user accesisble registers.)
-
-Similarly, emit a warning if we do try to emit an invalid zero-length
-LRI.
-
-Reported-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Reported-by: CQ Tang <cq.tang@intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_lrc.c | 63 ++++++++++++++++++++++----
- 1 file changed, 55 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_lrc.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index 2149b2c92793..6717ecaed178 100644
+index d8face764ee4..63fd508fea49 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -27,6 +27,9 @@
- #define NUM_GPR 16
- #define NUM_GPR_DW (NUM_GPR * 2) /* each GPR is 2 dwords */
+@@ -1530,20 +1530,17 @@ __lrc_isolation(struct intel_engine_cs *engine, u32 poison, bool relative)
+ 		usleep_range(100, 500);
  
-+#define LRI_HEADER MI_INSTR(0x22, 0)
-+#define LRI_LENGTH_MASK GENMASK(7, 0)
+ 	err = poison_registers(B, engine, poison, relative, &sema);
+-	if (err) {
+-		WRITE_ONCE(*sema.va, -1);
+-		i915_request_put(rq);
+-		goto err_result1;
+-	}
+-
+-	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
++	if (err == 0 && i915_request_wait(rq, 0, HZ / 2) < 0) {
+ 		pr_err("%s(%s): wait for results timed out\n",
+ 		       __func__, engine->name);
+-		i915_request_put(rq);
+ 		err = -ETIME;
+-		goto err_result1;
+ 	}
 +
- static struct i915_vma *create_scratch(struct intel_gt *gt)
- {
- 	return __vm_create_scratch_for_read_pinned(&gt->ggtt->vm, PAGE_SIZE);
-@@ -180,7 +183,7 @@ static int live_lrc_layout(void *arg)
- 				continue;
- 			}
++	/* Always cancel the semaphore wait, just in case the GPU gets stuck */
++	WRITE_ONCE(*sema.va, -1);
+ 	i915_request_put(rq);
++	if (err)
++		goto err_result1;
  
--			if ((lri & GENMASK(31, 23)) != MI_INSTR(0x22, 0)) {
-+			if ((lri & GENMASK(31, 23)) != LRI_HEADER) {
- 				pr_err("%s: Expected LRI command at dword %d, found %08x\n",
- 				       engine->name, dw, lri);
- 				err = -EINVAL;
-@@ -948,21 +951,43 @@ store_context(struct intel_context *ce,
- 	hw = defaults;
- 	hw += LRC_STATE_OFFSET / sizeof(*hw);
- 	do {
--		u32 len = hw[dw] & 0x7f;
-+		u32 len = hw[dw] & LRI_LENGTH_MASK;
- 		u32 cmd = MI_STORE_REGISTER_MEM_GEN8;
- 		u32 offset = 0;
- 		u32 mask = ~0;
- 
-+		/*
-+		 * Keep it simple, skip parsing complex commands
-+		 *
-+		 * At present, there are no more MI_LOAD_REGISTER_IMM
-+		 * commands after the first 3D state command. Rather
-+		 * than include a table (see i915_cmd_parser.c) of all
-+		 * the possible commands and their instruction lengths
-+		 * (or mask for variable length instructions), assume
-+		 * we have gathered the complete list of registers and
-+		 * bail out.
-+		 */
-+		if ((hw[dw] >> INSTR_CLIENT_SHIFT) != INSTR_MI_CLIENT)
-+			break;
-+
- 		if (hw[dw] == 0) {
- 			dw++;
- 			continue;
- 		}
- 
--		if ((hw[dw] & GENMASK(31, 23)) != MI_INSTR(0x22, 0)) {
-+		if ((hw[dw] & GENMASK(31, 23)) != LRI_HEADER) {
-+			/* Assume all other MI commands match LRI length mask */
- 			dw += len + 2;
- 			continue;
- 		}
- 
-+		if (!len) {
-+			pr_err("%s: invalid LRI found in context image\n",
-+			       engine->name);
-+			igt_hexdump(defaults, PAGE_SIZE);
-+			break;
-+		}
-+
- 		if (hw[dw] & MI_LRI_LRM_CS_MMIO) {
- 			mask = 0xfff;
- 			if (relative)
-@@ -1162,21 +1187,32 @@ load_context(struct intel_context *ce,
- 	hw = defaults;
- 	hw += LRC_STATE_OFFSET / sizeof(*hw);
- 	do {
--		u32 cmd = MI_INSTR(0x22, 0);
--		u32 len = hw[dw] & 0x7f;
-+		u32 len = hw[dw] & LRI_LENGTH_MASK;
-+		u32 cmd = LRI_HEADER;
- 		u32 offset = 0;
- 		u32 mask = ~0;
- 
-+		/* For simplicity, break parsing at the first complex command */
-+		if ((hw[dw] >> INSTR_CLIENT_SHIFT) != INSTR_MI_CLIENT)
-+			break;
-+
- 		if (hw[dw] == 0) {
- 			dw++;
- 			continue;
- 		}
- 
--		if ((hw[dw] & GENMASK(31, 23)) != MI_INSTR(0x22, 0)) {
-+		if ((hw[dw] & GENMASK(31, 23)) != LRI_HEADER) {
- 			dw += len + 2;
- 			continue;
- 		}
- 
-+		if (!len) {
-+			pr_err("%s: invalid LRI found in context image\n",
-+			       engine->name);
-+			igt_hexdump(defaults, PAGE_SIZE);
-+			break;
-+		}
-+
- 		if (hw[dw] & MI_LRI_LRM_CS_MMIO) {
- 			mask = 0xfff;
- 			if (relative)
-@@ -1327,19 +1363,30 @@ static int compare_isolation(struct intel_engine_cs *engine,
- 	hw = defaults;
- 	hw += LRC_STATE_OFFSET / sizeof(*hw);
- 	do {
--		u32 len = hw[dw] & 0x7f;
-+		u32 len = hw[dw] & LRI_LENGTH_MASK;
- 		bool is_relative = relative;
- 
-+		/* For simplicity, break parsing at the first complex command */
-+		if ((hw[dw] >> INSTR_CLIENT_SHIFT) != INSTR_MI_CLIENT)
-+			break;
-+
- 		if (hw[dw] == 0) {
- 			dw++;
- 			continue;
- 		}
- 
--		if ((hw[dw] & GENMASK(31, 23)) != MI_INSTR(0x22, 0)) {
-+		if ((hw[dw] & GENMASK(31, 23)) != LRI_HEADER) {
- 			dw += len + 2;
- 			continue;
- 		}
- 
-+		if (!len) {
-+			pr_err("%s: invalid LRI found in context image\n",
-+			       engine->name);
-+			igt_hexdump(defaults, PAGE_SIZE);
-+			break;
-+		}
-+
- 		if (!(hw[dw] & MI_LRI_LRM_CS_MMIO))
- 			is_relative = false;
+ 	err = compare_isolation(engine, ref, result, A, poison, relative);
  
 -- 
 2.20.1
