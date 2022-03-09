@@ -4,52 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC769C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 08:37:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 410CBC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 08:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBD610EAAD;
-	Wed,  9 Mar 2022 08:37:00 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ADE210EAA7
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 08:36:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C18E10E3B8;
+	Wed,  9 Mar 2022 08:46:09 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFD5E10E38C;
+ Wed,  9 Mar 2022 08:46:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646815019; x=1678351019;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=br0Ks0x/B/6K1FBNRqE+IVP3UylZgYmhB0SZRUpCtYM=;
- b=Y1uqqcdaNskjnD2rrad1DJtcpvQS1dq5HTN+DRVZakISOJxBFSX7CuFo
- rAGFPNCV2Utz9jpr4L2MyYrgQTLITTzO/M4QYn1Wmi3WeEVgVkq4xcO+I
- Tz9zDCASgVT9+ciFKUpe/Cidz9fTOCFXhCADIFT7iMuqjGCGm05UjLAJS
- SV5MTAEpGc1XguF0mE+SuEjX8oF+NrL4wjJ5E+QzAJLwvx99gjTkRB/2E
- hrAFlMLbStlyvCgYT1QQw7q6Dz9z7If3mZv0a1uNKJzv4W7n1OfeVQGBt
- d+D3TxqxWiUzRqWd/CTR6VQmIcDDAbJ6bMgvIFXrRwW67POxEv03c/S7d g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="341351252"
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="341351252"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 00:36:58 -0800
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="642073062"
-Received: from hedwards-mobl1.ger.corp.intel.com (HELO [10.213.198.86])
- ([10.213.198.86])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 00:36:57 -0800
-Message-ID: <f9f6f831-a05d-2d20-8ade-ab717f342ba5@linux.intel.com>
-Date: Wed, 9 Mar 2022 08:36:54 +0000
+ t=1646815567; x=1678351567;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=7jjpc8d9He9z6dyZOnytX0AgMjz8sxRIr5YFBPwkC9w=;
+ b=IvZjlNFxN6LuRNt9dVLNpLxHLp3H5PIWSriXUCq/EsbcrTTn2jOJghjV
+ p8/+Ip9dCcFgrCTJeL+pEKG3557pVYTRTFWBDkgu8ghBNY1/jpXqpN+D+
+ 5lsp/b2q8JkQr1BXL5jMibSOfj+5gJJe8ArCGw2Tj0ERI/OFwKPrIeH2R
+ X6LzATmE57mlkDvD1xmT51ULBeqyupWtnmw0VPaVxxC61/HjkWE9kna6K
+ eYCwiMpNcoiIdq516y25seGCIATpM6in5kCMxS8KwLnPQPvuzGOSoSNWX
+ t07sYHYesITDCvaLsFgip1WcNp8EsgKLTzK94TClR8zZ5CGhG9r8INqyB A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="254653807"
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="254653807"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 00:46:06 -0800
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="537919937"
+Received: from byrnec1x-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.29.235])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 00:46:03 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: cgel.zte@gmail.com, joonas.lahtinen@linux.intel.com
+In-Reply-To: <20220308091655.2078825-1-deng.changcheng@zte.com.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220308091655.2078825-1-deng.changcheng@zte.com.cn>
+Date: Wed, 09 Mar 2022 10:46:01 +0200
+Message-ID: <87a6dz1pkm.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
- tiwai@suse.de
-References: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout
- in i915 wait
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/vlv_dsi_pll: use min_t() to make
+ code cleaner
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +57,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- amadeuszx.slawinski@linux.intel.com
+Cc: airlied@linux.ie, intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com,
+ deng.changcheng@zte.com.cn, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com,
+ Zeal Robot <zealci@zte.com.cn>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 08 Mar 2022, cgel.zte@gmail.com wrote:
+> From: Changcheng Deng <deng.changcheng@zte.com.cn>
+>
+> Use min_t() in order to make code cleaner.
+>
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
 
-On 08/03/2022 17:27, Kai Vehmanen wrote:
-> If kernel is built with hung task detection enabled and
-> CONFIG_DEFAULT_HUNG_TASK_TIMEOUT set to less than 60 seconds,
-> snd_hdac_i915_init() will trigger the hung task timeout in case i915 is
-> not available and taint the kernel.
-> 
-> Split the 60sec wait into a loop of smaller waits to avoid this.
-> 
-> Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> Co-developed-by: Ramalingam C <ramalingam.c@intel.com>
-> Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Thanks, pushed to drm-intel-next.
+
+BR,
+Jani.
+
 > ---
->   sound/hda/hdac_i915.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> Changes V1->V2:
->   - address local variable naming issue raised by Amadeusz
->     and use Takashi's proposal
-> 
-> diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-> index 454474ac5716..aa48bed7baf7 100644
-> --- a/sound/hda/hdac_i915.c
-> +++ b/sound/hda/hdac_i915.c
-> @@ -143,7 +143,7 @@ static bool i915_gfx_present(void)
->   int snd_hdac_i915_init(struct hdac_bus *bus)
->   {
->   	struct drm_audio_component *acomp;
-> -	int err;
-> +	int err, i;
->   
->   	if (!i915_gfx_present())
->   		return -ENODEV;
-> @@ -159,9 +159,11 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
->   	if (!acomp->ops) {
->   		if (!IS_ENABLED(CONFIG_MODULES) ||
->   		    !request_module("i915")) {
-> -			/* 60s timeout */
+>  drivers/gpu/drm/i915/display/vlv_dsi_pll.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+> index df880f44700a..f801f7ec3f9a 100644
+> --- a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+> +++ b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+> @@ -393,10 +393,7 @@ static void glk_dsi_program_esc_clock(struct drm_device *dev,
+>  	/* Calculate TXESC2 divider */
+>  	div2_value = DIV_ROUND_UP(div1_value, txesc1_div);
+>  
+> -	if (div2_value < 10)
+> -		txesc2_div = div2_value;
+> -	else
+> -		txesc2_div = 10;
+> +	txesc2_div = min_t(u32, div2_value, 10);
+>  
+>  	intel_de_write(dev_priv, MIPIO_TXESC_CLK_DIV1,
+>  		       (1 << (txesc1_div - 1)) & GLK_TX_ESC_CLK_DIV1_MASK);
 
-Where does this 60s come from and why is the fix to work around 
-DEFAULT_HUNG_TASK_TIMEOUT in a hacky way deemed okay? For instance would 
-limiting the wait here to whatever the kconfig is set to be an option?
-
-Regards,
-
-Tvrtko
-
-> -			wait_for_completion_timeout(&acomp->master_bind_complete,
-> -						    msecs_to_jiffies(60 * 1000));
-> +			/* max 60s timeout */
-> +			for (i = 0; i < 60; i++)
-> +				if (wait_for_completion_timeout(&acomp->master_bind_complete,
-> +								msecs_to_jiffies(1000)))
-> +					break;
->   		}
->   	}
->   	if (!acomp->ops) {
-> 
-> base-commit: fd7698cf0858f8c5e659b655109cd93c2f15cdd3
+-- 
+Jani Nikula, Intel Open Source Graphics Center
