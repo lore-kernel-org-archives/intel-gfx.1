@@ -4,49 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8266C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 17:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E05FC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 17:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E41210E582;
-	Wed,  9 Mar 2022 17:02:27 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E156D10E57F
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 17:02:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBBC810E392;
+	Wed,  9 Mar 2022 17:58:24 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D31910E399
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 17:58:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646845346; x=1678381346;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=+2Rr4zgvUokLjzBqc0qzAgKyUtkqyWlwsRwoDTB1RgQ=;
- b=kGc8nQWnsFeVdiikhYL4qA7KUMNUkeKAI+Ll+ehuzqVWRRsLxdwq9pWZ
- R6yYlpQki0MZtgq//fxTf2FkWUXTqyuc9b0TBowqgFOps6u4oMOYpT5jn
- hfokzl3r5Q9mL+Wj7UyLJfVgpdoQSGGppVpEHsbtYkXvtJiBiNRZIU0FU
- 33FQdzmILtLXFc/g2nxoYxUOz7b4EdcHlsxo33CprJ2TS5QUOlQVnh7cZ
- uQRwpjhdJ7Fml2n/+knB+Kf8RnwGWB9ASM0vcna/U1WBHtUBF2tuz79A0
- GB9gjqqW+OeW6XGY4LAC8QPE6ZoFdfF766sn+gTclmtOy0vfM++9x6JeN Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="255217969"
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="255217969"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 08:50:09 -0800
+ t=1646848703; x=1678384703;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version;
+ bh=fPuHtdSClG24HIeU67xhq80B9LjfMCdkR1bIw8f0jRg=;
+ b=jQ67W1vF2QRjnBhQIyk5Xaq5uHLCt6eVudslpjybQpZ2uO2TcF02yFMD
+ s10wp/ybql2eld2Vi1skiB4otq5/RoRP9JKF1633Wudt878PgNn4h0LZU
+ Mm+5q4uhATk4/5SuFbcPq0LlNQsJ6t1G9CN/J3LEfrLDsw4iFGg3OQoVO
+ SoPZhGoB1DjftTR2Ifn+r8lSQ5K1cOYJg/RHPIvgkZAZhhdzDZaBUpyKf
+ ePMT5p/A2mZvQDj9Xcds6RD0VLlgaBnU5WbKSL3mejAlgRh91LExw5r/M
+ JdSaxRDsd+Cm737GpWZp2QX0qyoWlfirI7ttlPwNu7sN/Con4rcBGC37s Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="234998396"
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="234998396"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 09:58:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="578449090"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga001.jf.intel.com with SMTP; 09 Mar 2022 08:50:01 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 09 Mar 2022 18:50:01 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Mar 2022 18:49:44 +0200
-Message-Id: <20220309164948.10671-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220309164948.10671-1-ville.syrjala@linux.intel.com>
-References: <20220309164948.10671-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="513619935"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga006.jf.intel.com with ESMTP; 09 Mar 2022 09:58:20 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Wed, 9 Mar 2022 09:58:20 -0800
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Wed, 9 Mar 2022 09:58:19 -0800
+Received: from fmsmsx612.amr.corp.intel.com ([10.18.126.92]) by
+ fmsmsx612.amr.corp.intel.com ([10.18.126.92]) with mapi id 15.01.2308.021;
+ Wed, 9 Mar 2022 09:58:19 -0800
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Hogander, Jouni" <jouni.hogander@intel.com>
+Thread-Topic: [PATCH 2/2] drm/i915/display: Do not re-enable PSR after it was
+ marked as not reliable
+Thread-Index: AQHYMwLhZI08FfGEdU6j0VZDXZOdhKy3mZ+AgABFQ4A=
+Date: Wed, 9 Mar 2022 17:58:19 +0000
+Message-ID: <29df9c0845990c7e35e9a47ae0ebbfc0bc76a0a4.camel@intel.com>
+References: <20220308154136.406578-1-jose.souza@intel.com>
+ <20220308154136.406578-2-jose.souza@intel.com>
+ <501420c9c41f3ad7e136fa0e36b43c587257a2f8.camel@intel.com>
+In-Reply-To: <501420c9c41f3ad7e136fa0e36b43c587257a2f8.camel@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <63C051885B1ED849915F565A19C52D24@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/8] drm/i915: Reject excessive SAGV block
- time
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/display: Do not re-enable PSR
+ after it was marked as not reliable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,37 +82,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-If the mailbox returns an exceesively large SAGV block time let's just
-reject it. This avoids having to worry about overflows when we add the
-SAGV block time to the wm0 latency.
-
-We shall put the limit arbitrarily at U16_MAX. >65msec latency
-doesn't really make sense to me in any case.
-
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/intel_pm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 36f5bccabf64..166246fa27e4 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -3716,6 +3716,12 @@ static void intel_sagv_init(struct drm_i915_private *i915)
- 	drm_dbg_kms(&i915->drm, "SAGV supported: %s, original SAGV block time: %u us\n",
- 		    str_yes_no(intel_has_sagv(i915)), i915->sagv_block_time_us);
- 
-+	/* avoid overflow when adding with wm0 latency/etc. */
-+	if (drm_WARN(&i915->drm, i915->sagv_block_time_us > U16_MAX,
-+		     "Excessive SAGV block time %u, ignoring\n",
-+		     i915->sagv_block_time_us))
-+		i915->sagv_block_time_us = 0;
-+
- 	if (!intel_has_sagv(i915))
- 		i915->sagv_block_time_us = 0;
- }
--- 
-2.34.1
-
+T24gV2VkLCAyMDIyLTAzLTA5IGF0IDEzOjUxICswMDAwLCBIb2dhbmRlciwgSm91bmkgd3JvdGU6
+DQo+IEhlbGxvIEpvc2UsDQo+IA0KPiBTZWUgbXkgcXVlc3Rpb24vY29tbWVudCBiZWxvdy4NCj4g
+DQo+IE9uIFR1ZSwgMjAyMi0wMy0wOCBhdCAwNzo0MSAtMDgwMCwgSm9zw6kgUm9iZXJ0byBkZSBT
+b3V6YSB3cm90ZToNCj4gPiBJZiBhIGVycm9yIGhhcHBlbnMgYW5kIHNpbmtfbm90X3JlbGlhYmxl
+IGlzIHNldCwgUFNSIHNob3VsZCBiZQ0KPiA+IGRpc2FibGVkDQo+ID4gZm9yIGdvb2QgYnV0IHRo
+YXQgaXMgbm90IGhhcHBlbmluZy4NCj4gPiBJdCB3b3VsZCBiZSBkaXNhYmxlZCBieSB0aGUgZnVu
+Y3Rpb24gaGFuZGxpbmcgdGhlIFBTUiBlcnJvciBidXQgdGhlbg0KPiA+IG9uIHRoZSBuZXh0IGZh
+c3RzZXQgaXQgd291bGQgYmUgZW5hYmxlZCBhZ2FpbiBpbg0KPiA+IF9pbnRlbF9wc3JfcG9zdF9w
+bGFuZV91cGRhdGUoKS4NCj4gPiBJdCB3b3VsZCBvbmx5IGJlIGRpc2FibGVkIGZvciBnb29kIGlu
+IHRoZSBuZXh0IG1vZGVzZXQgd2hlcmUgaGFzX3Bzcg0KPiA+IHdpbGwgYmUgc2V0IGZhbHNlLg0K
+PiANCj4gSG93IGFib3V0IGludmFsaWRhdGUvZmx1c2g/IElmIHlvdSBnZXQgZXJyb3IgYmV0d2Vl
+bg0KPiBpbnRlbF9wc3JfaW52YWxpZGF0ZSBhbmQgaW50ZWxfcHNyX2ZsdXNoIHBzciBpcyBhY3Rp
+dmF0ZWQNCj4gZXZlbiBzaW5rX25vdF9yZWxpYWJsZSBpcyB0cnVlPw0KDQplbmFibGVkICE9IGFj
+dGl2YXRlZC4NCg0KZmx1c2ggYW5kIGludmFsaWRhdGUgZnVuY3Rpb25zIGNoZWNrcyBpZiBQU1Ig
+aXMgZW5hYmxlZCwgaWYgbm90IGl0IHJldHVybnMgYW5kIGRvIGEgdGhpbmcuDQoNCj4gDQo+ID4g
+DQo+ID4gRml4ZXM6IDljZTU4ODRlNTEzOSAoImRybS9pOTE1L2Rpc3BsYXk6IE9ubHkga2VlcCBQ
+U1IgZW5hYmxlZCBpZg0KPiA+IHRoZXJlIGlzIGFjdGl2ZSBwbGFuZXMiKQ0KPiA+IFJlcG9ydGVk
+LWJ5OiBLaGFsZWQgQWxtYWhhbGxhd3kgPGtoYWxlZC5hbG1haGFsbGF3eUBpbnRlbC5jb20+DQo+
+ID4gUmVwb3J0ZWQtYnk6IENoYXJsdG9uIExpbiA8Y2hhcmx0b24ubGluQGludGVsLmNvbT4NCj4g
+PiBDYzogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5ob2dhbmRlckBpbnRlbC5jb20+DQo+ID4gU2ln
+bmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+
+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMg
+fCAzICsrKw0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspDQo+ID4gDQo+ID4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMNCj4g
+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMNCj4gPiBpbmRleCBi
+YmQ1ODFlZDA4MTU5Li5jZDA1ZTVmZGM4Y2E5IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+ID4gQEAgLTE4NTMsNiArMTg1Myw5IEBAIHN0YXRp
+YyB2b2lkIF9pbnRlbF9wc3JfcG9zdF9wbGFuZV91cGRhdGUoY29uc3QNCj4gPiBzdHJ1Y3QgaW50
+ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gPiANCj4gPiAgICAgICAgICAgICAgIG11dGV4X2xv
+Y2soJnBzci0+bG9jayk7DQo+ID4gDQo+ID4gKyAgICAgICAgICAgICBpZiAocHNyLT5zaW5rX25v
+dF9yZWxpYWJsZSkNCj4gPiArICAgICAgICAgICAgICAgICAgICAgY29udGludWU7DQo+ID4gKw0K
+PiA+ICAgICAgICAgICAgICAgZHJtX1dBUk5fT04oJmRldl9wcml2LT5kcm0sIHBzci0+ZW5hYmxl
+ZCAmJg0KPiA+ICFjcnRjX3N0YXRlLT5hY3RpdmVfcGxhbmVzKTsNCj4gPiANCj4gPiAgICAgICAg
+ICAgICAgIC8qIE9ubHkgZW5hYmxlIGlmIHRoZXJlIGlzIGFjdGl2ZSBwbGFuZXMgKi8NCj4gDQo+
+IEJSLA0KPiANCj4gSm91bmkgSMO2Z2FuZGVyDQoNCg==
