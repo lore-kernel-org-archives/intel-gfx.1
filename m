@@ -4,156 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79488C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 00:28:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE9BC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 00:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA69E10E3C0;
-	Thu, 10 Mar 2022 00:28:35 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 954BA10E3C0
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 00:28:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF22410E1DC;
+	Thu, 10 Mar 2022 00:34:28 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FED110E1DC;
+ Thu, 10 Mar 2022 00:34:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646872114; x=1678408114;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=aeuf1mhhr1koVpS+WovCl5660mDjg7jxPA3KwQQKu64=;
- b=gP+9DFB/Pw71XqA5XE73+1GLquOxsl2XegExsCAKpScO32SnXPog3nFO
- IGg615wa/81SaWhf+F9wp7CCa1ZmmyvMEHQ/kbkRH0vbTI1gU7bNiZdmz
- /Mq63x5pwivC0mww14Bm7gWLFJkj8MV6IxCffUegFql9DUWcMckNv9KZ0
- u7rmjjN1XDUuZX2IsK4ryMH44J2PPf/uXcMUA4LJT9s8lcTxWnOtKwP7j
- Q+BukDsQx+/nXg2yRKQy+5I9QnTJxbq7MmhJV5QzUhTIb9w6meRZe/FXo
- HV8z1MegUe2jicLMXDRV3eZu6w/stP7+HyzYfMsp4uzJUVHHkH0lmK4mI A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="255066667"
-X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="255066667"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 16:28:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="513754746"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by orsmga006.jf.intel.com with ESMTP; 09 Mar 2022 16:28:33 -0800
-Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Wed, 9 Mar 2022 16:28:33 -0800
-Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
- fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Wed, 9 Mar 2022 16:28:33 -0800
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21 via Frontend Transport; Wed, 9 Mar 2022 16:28:33 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.176)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.21; Wed, 9 Mar 2022 16:28:32 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aSwvVORlAq4wsFod06CD57YzsFMIZrtEqtdriFMM0geyryibQCQQa07YQoPtfwwUjp3b2R2/032g/9ySRh4IETr1+XiZsfrHzLJCdUwmp/SXBEXNL/bZNs8eAxOKTfcCYWidiXVsS1YIN7sxrj1rXFvmHMiBleHpoOoxXEuWc2b/AKx+fEDqILof678c3ZouMwb20EF2RzWCGt3k8n5AeSXwjkGDZmfObjt8qB5wG7NkVfhdDKDJU4cwxiJq8uksv19EwLIYVJ4tkbXOiG+teOu4emEDy9CThvX/vd4llY57JegjfTU0os2mQ1CDarN3iNvgfdZRUxj0AbQIlesigA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+yj+/b5p9OZOlKz/A8QKVqyH2p1JkcYxF+iUddJRG3A=;
- b=k3kUUnA06Unl7LTv/UJW7kXXJ9wU7PCdy57ulsKnaKRe3s9e9phCyAvTWhRZ43vfc7IxqFKdUDczsdIKFFOywqynxD4HvpuczlZV0QQaHPlynM40ggDwCcNzqjw/tPP2+n92SAM/UMLK1sZHY/mJ+9Sq3NH5mryBbOsU6QxKWP1I1TjtziK3nTxpTHMVSfapyk+JVFb9ZSYuDu4sn5tw4Qud5lVse2RRnfivCZ6fSUyMZ/Iz9hDnke4gBaXZdrAi+/py1AI+2f/u0fB2Up5kw3O8GTRIxfnro2BxYRIsNAVA+esb3oGqobc1+s1Q8cPJebHN6WjHBnuN4AD4RuOZCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5488.namprd11.prod.outlook.com (2603:10b6:5:39d::5) by
- BN6PR11MB1345.namprd11.prod.outlook.com (2603:10b6:404:49::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5038.29; Thu, 10 Mar 2022 00:28:31 +0000
-Received: from DM4PR11MB5488.namprd11.prod.outlook.com
- ([fe80::3c4e:eb25:76ff:a869]) by DM4PR11MB5488.namprd11.prod.outlook.com
- ([fe80::3c4e:eb25:76ff:a869%6]) with mapi id 15.20.5038.027; Thu, 10 Mar 2022
- 00:28:30 +0000
-Message-ID: <8a8f7205-32c1-0618-a29a-c3ef66357681@intel.com>
-Date: Wed, 9 Mar 2022 16:28:27 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-US
-To: Alexander Usyskin <alexander.usyskin@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220308163654.942820-1-alexander.usyskin@intel.com>
- <20220308163654.942820-4-alexander.usyskin@intel.com>
-From: "Ceraolo Spurio, Daniele" <daniele.ceraolospurio@intel.com>
-In-Reply-To: <20220308163654.942820-4-alexander.usyskin@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH0PR07CA0007.namprd07.prod.outlook.com
- (2603:10b6:510:5::12) To DM4PR11MB5488.namprd11.prod.outlook.com
- (2603:10b6:5:39d::5)
+ t=1646872467; x=1678408467;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sQDEtC45tv0bqxqFrd928tIIioygMY7+fgvYolKBUfA=;
+ b=M9x0rO8dWerrtn3zxNEwMs1PA6ehI/+JtsmcNO5Gju6ubkYboJGZBmuQ
+ 7NmagYcrnttSHWF6DffFMStOvxYVS22gCvvbJol8XWSaSUJVlI7YnZWA4
+ DV8DPgTxvw3d9vIjhlZ6qLg753mfQsN+BqOT20x51bYZJSrq4PyuNF9xv
+ hIOf30BLhhn1en/TM7xkLsPRhQRlilWPpcjX3kRDYLH6XtQLN4Jg0BU4w
+ QZHkafykZ6/m+1ZAme+9n88SWJaaVmeGLKvSPuB6uKo19l3kb7ePbM4U1
+ RPiOkDw6RLbzF5BYqOUsfaG+vXy+oI11/NNc1Gx7MQpPizBjodrLu2YsX w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="252693330"
+X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="252693330"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 16:34:08 -0800
+X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="712156878"
+Received: from slsmith2-mobl.amr.corp.intel.com (HELO msatwood-mobl.intel.com)
+ ([10.209.13.34])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 16:34:07 -0800
+From: Matt Atwood <matthew.s.atwood@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed,  9 Mar 2022 16:34:04 -0800
+Message-Id: <20220310003404.27499-1-matthew.s.atwood@intel.com>
+X-Mailer: git-send-email 2.21.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5ffe414c-366b-428c-160f-08da022ce739
-X-MS-TrafficTypeDiagnostic: BN6PR11MB1345:EE_
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-Microsoft-Antispam-PRVS: <BN6PR11MB1345E6D4DC2C6135A1E6F9B3F40B9@BN6PR11MB1345.namprd11.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eTuPVS83bg/0H8B8Ni4ZbfRITbiONP8J3Ae5gi7WHj4jfg18rdnsoIgkCUiWvRnn1N9MJ60pjzdO0uQmlfYhIy3LwAz7dmfNamhyeVNyL6fMuGRwItYUwAP3iieuoQIkYjBauGuE2mW/CDzS4G+IHWr3yGPVPBKkotnv/+AvezlWqvfGqb4oqFlz0e9pzyepontBlTeQx0M4QPBvrB0iyIJP+PsoLwQ21kI5KmyzGXMvL4peUa7Y+tNm/JsEiLMnTx/0WfkLiqWu4CZuMSkbsKNfqqmG03t9XtYD8P61PgSUAo2n6BsdfItqzZ9NoHfbt0TISKKh+bqgmW3OAe3EV6kuyPAAFgZ9TsGwfWc9BcuQFzKN7hzUi6ZwJeNLsMx9JHfhpXNPtigfLMHl3bAMgNSBlLGVHz1W29suSnhdL29Xvq2heJmY9vcs+GDSVf6ubOT7+a9olfdZqgQ1moc1Wti3t7KyrYd09V/wRgYsVEZb/LnXCT7KCbkHk354HN4UfzruZxe8YaX4dXPLh/9xCvVRyaHvAEAvJVX824vefR5tQeNStKlJWzpbON0c4BOmD7G/1SwBOX1oTEWTUmLVZEt3zfis8NT+pI3zsyBUgnK7ri7BC+3YDdq4z2EC7B3ZEcUNrqncompCYckWgqYkis6POaoECcHB9C8a1IBRAwN+Ha2U7kpIggv1R2aB28uF4fv2o8GhjLoqP+SUelv7VNvGbNYma15wizJc07Q57W3zHB8l4QKEyw8kg4K0Pi5V
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5488.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(508600001)(31686004)(6486002)(110136005)(54906003)(316002)(4326008)(66476007)(66556008)(8676002)(66946007)(8936002)(6506007)(5660300002)(82960400001)(26005)(186003)(2616005)(83380400001)(53546011)(6512007)(6666004)(36756003)(86362001)(2906002)(31696002)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aENGbm9GWnExc0RwczAwQm80TUxaT3ExdVpFbFBtcEZmNFJZM3BkT2xVQ2lr?=
- =?utf-8?B?NSthWGozT2NGMEcwRUQ2My9zYjFKNHNBZ2N4cTgyMENLRmttbG5MUkplK0Er?=
- =?utf-8?B?Z21MMGt0eU0vU1hrVjBIMDVhbFJieklFN0RnUlJCTUJ0Q21aT016N3dnTEQr?=
- =?utf-8?B?Y1VPVlc1aWl4dDVjU3NCSkpIZWtRSERFQlNkZEI3MkZmYU9PYlorUWUzSDc4?=
- =?utf-8?B?WXJLVVdvanBzcDNGRjdtdzRLc3RwZUQ4ZHROU1FVeHBXS0lOclJBRWJLQkxi?=
- =?utf-8?B?MjRNT25jVjVNK0VlciszYVhLYytyVE8vT2pTSldVa3hGN0p3U2E5M0pqTkUy?=
- =?utf-8?B?OVI4dzdnLzFub0t0d090c3VpV3JETCtKSlRQVWtEYllxVEZuQUpDd0c2VEtO?=
- =?utf-8?B?SzUvY2htdVpZWk1CUjZFVGVjUTVlTEVHZ2lhQ2wySTlOcngwdUpDTTJ2MmZS?=
- =?utf-8?B?SC9FQ0k4T0k3Wk1KOVUyUHlkclA0T041RDV5Y1hZemVNQ2s5c3puS1g4ZC9Z?=
- =?utf-8?B?WTRoSEJDZUFrZzFOYS8yRDRnOTBSMVRlemNwQlFtd0xBLzM4bWhWZmRHMDht?=
- =?utf-8?B?alhzOUFadE5RbHFFSjBmN2tNa3FHNmdGaXc3bWRKMkNlS1p0NHlYNGpYbHE0?=
- =?utf-8?B?T2JnTHZ0OWZSTVkzWTZlOVI3UUI3VWJKUEFYb0NYL1ZubEdOeXdxSkE3YWFo?=
- =?utf-8?B?Y1lTa1IrVVBDdy9GZGhjcWx1Zm9TYWh2UmZjR3g1VThvcDdZVytjNnNGaUJr?=
- =?utf-8?B?ZjNreU5TYzVrRHp6U3YzaTQ4RXIvbTdtOFFlTDlLRG5FYzhoeVhqT2FkdTdC?=
- =?utf-8?B?SUxJNys3L1hWWnVLNkNNTHZpNitRK1k3T0ZlSHNPdUEwY2JzVzg5b3ZNcnlT?=
- =?utf-8?B?VVZMSjZrcjNEL3dTOGVXVGhlUGRXL2FFWm9DTEpDelRiNVFNNmxZditvdktP?=
- =?utf-8?B?S3MvYVYzdnZ1clhqcDN2OEtNNmU5WHl3YkQxN3pIU25qQkNzdGdvdkg5V2g5?=
- =?utf-8?B?TWh0ZDZQdm5IdVlqSi93c2VwR21mc3VIb3Frem4xbmxkQUMzNlM5ZlBzdUpr?=
- =?utf-8?B?bHhFNlJ5d0RIV1haV1M4NzI2dU9Mb0RnbGlGV04yVEtEN3J6Zkp3TWpWV2Rm?=
- =?utf-8?B?cjY1SE9QU2FJVWdmdE9UVlNPRThWdU03b1ZuNm9VbXQxYVE5b2RIYW1VS25T?=
- =?utf-8?B?UEZKd2Q5S0U5cVBqNHUyZm51VG96SkRSTms1K25lQjhxWCtlbFRDMUNPazBN?=
- =?utf-8?B?Yjk0azBhSnJOZ01QSURSdlZkeWtiK0lJVVJYbEdHZ3ZoK1ltRVNvU0RaVyts?=
- =?utf-8?B?NVM3dXJGbFA5c04ySUEvNmtyUWJ6ZzU1YzFtbDBMajBLcWxFR05BUWEyb2lG?=
- =?utf-8?B?ZE1JbnZlR05oekExZXdtMFp1YUFZdlZidy95cmtOWWdkbkZvQktDNFA3MW1R?=
- =?utf-8?B?eEoxUHNGVThvWC9xb3BYcENveGZDenBKdWlqK1dwTVBKMUZEeklIYUNPbU4w?=
- =?utf-8?B?UWV3Um5NeGdSU29pOGllSCtlZzl3WnpNRm5TQXJQOGZhd2VERGNLVDBJRmhB?=
- =?utf-8?B?cHZtSXlmMnEvSXBIeXh6ZkZJcWhYTitUelZnTGRrYk1NL2JwcDlxTXhVVlpx?=
- =?utf-8?B?U3VVZnR4d0RXbDk4aUVyYWh2YWlZTnBpa2pMbzBncGIxMGRSaXZKalVOY1Jw?=
- =?utf-8?B?dE5oQnJHR0dEWndWZXh3VTZUcUNmZDlwZkYydDMrbEZTd0NOWitwWHNVSEln?=
- =?utf-8?B?RklWZTBRaXBPWUJGRHJRVnhsUnk0OERBeUJSL0RZWmpyeWJMcDdQTDhoVTVE?=
- =?utf-8?B?ODdXSlF0U0RiZStjSkYwd3IwNERSWmVjMmg4QTFLV20rRG13NnVsYzVpbXNU?=
- =?utf-8?B?VHFQY2VVNWFyRnJjNnhxMU0vQXJWUWNXcEZiWGU3cGZlRENILzdlLzBQNldH?=
- =?utf-8?B?L1QrczdHNVVJZC9rV0ZObnlXR3ZoWVgwMitneWo4RXA5Sy9IVWVWZ1dwU3lZ?=
- =?utf-8?B?VmxGbmZ1K0svZFBpQTU0ZWZwSFBPNEk0d1loWTA4WmFJMGlOMEZDVytqQml3?=
- =?utf-8?B?U2JRRFVCeWlJQlZKUVVoOTBtWVBKNUpwcXNDQzlwcUFZWUpCangwdUNZM1F2?=
- =?utf-8?B?T1c3ZTMvMFlEaG5QdzVCVUNSbG9QUVZieFI5LzlIV2d6eU5qVE9PMDVaSVdQ?=
- =?utf-8?B?RVRaRGdxNVFlYjU2RzZVUzEwZCtrVjgrcVdCSXNxNVRJdWlqUFpheUI2eWJ1?=
- =?utf-8?B?QmlWQUhabENoelpRbjZYbTVYY2NRPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ffe414c-366b-428c-160f-08da022ce739
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5488.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 00:28:30.8690 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HLagAZEVRRqiBlmOIPU6XVvgbGZO2cHGPln0pbO+tzl0RTEa86jZwHC7MBKrwkIw3+NjwStB+l7k/CSeP+NAx2xiCgTOfou89BS1BLlj6Ug=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB1345
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v10 3/5] mei: gsc: setup char driver alive
- in spite of firmware handshake failure
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/uapi: Add
+ DRM_I915_QUERY_GEOMETRY_SUBSLICES
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,53 +56,210 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Vitaly Lubart <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Newer platforms have DSS that aren't necessarily available for both
+geometry and compute, two queries will need to exist. This introduces
+the first, when passing a valid engine class and engine instance in the
+flags returns a topology describing geometry.
 
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+UMD (mesa): https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14143
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+---
+ drivers/gpu/drm/i915/i915_query.c | 68 ++++++++++++++++++++++---------
+ include/uapi/drm/i915_drm.h       | 24 +++++++----
+ 2 files changed, 65 insertions(+), 27 deletions(-)
 
-On 3/8/2022 8:36 AM, Alexander Usyskin wrote:
-> Setup char device in spite of firmware handshake failure.
-> In order to provide host access to the firmware status registers and other
-> information required for the manufacturing process.
-
-IMO this patch should be moved to after the patch that adds the logic to 
-fetch the FW version, as that is interesting info for sysfs. Not a blocker.
-
->
-> Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-> Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-
-Daniele
-
-> ---
->   drivers/misc/mei/gsc-me.c | 11 ++++++-----
->   1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/misc/mei/gsc-me.c b/drivers/misc/mei/gsc-me.c
-> index 0afae70e0609..cf427f6fdec9 100644
-> --- a/drivers/misc/mei/gsc-me.c
-> +++ b/drivers/misc/mei/gsc-me.c
-> @@ -79,11 +79,12 @@ static int mei_gsc_probe(struct auxiliary_device *aux_dev,
->   	pm_runtime_set_active(device);
->   	pm_runtime_enable(device);
->   
-> -	if (mei_start(dev)) {
-> -		dev_err(device, "init hw failure.\n");
-> -		ret = -ENODEV;
-> -		goto err;
-> -	}
-> +	/* Continue to char device setup in spite of firmware handshake failure.
-> +	 * In order to provide access to the firmware status registers to the user
-> +	 * space via sysfs.
-> +	 */
-> +	if (mei_start(dev))
-> +		dev_warn(device, "init hw failure.\n");
->   
->   	pm_runtime_set_autosuspend_delay(device, MEI_GSC_RPM_TIMEOUT);
->   	pm_runtime_use_autosuspend(device);
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index 2dfbc22857a3..0cc2670ae09c 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -9,6 +9,7 @@
+ #include "i915_drv.h"
+ #include "i915_perf.h"
+ #include "i915_query.h"
++#include "gt/intel_engine_user.h"
+ #include <uapi/drm/i915_drm.h>
+ 
+ static int copy_query_item(void *query_hdr, size_t query_sz,
+@@ -28,36 +29,30 @@ static int copy_query_item(void *query_hdr, size_t query_sz,
+ 	return 0;
+ }
+ 
+-static int query_topology_info(struct drm_i915_private *dev_priv,
+-			       struct drm_i915_query_item *query_item)
++static int fill_topology_info(const struct sseu_dev_info *sseu,
++			      struct drm_i915_query_item *query_item,
++			      const u8 *subslice_mask)
+ {
+-	const struct sseu_dev_info *sseu = &to_gt(dev_priv)->info.sseu;
+ 	struct drm_i915_query_topology_info topo;
+ 	u32 slice_length, subslice_length, eu_length, total_length;
+ 	int ret;
+ 
+-	if (query_item->flags != 0)
+-		return -EINVAL;
++	BUILD_BUG_ON(sizeof(u8) != sizeof(sseu->slice_mask));
+ 
+ 	if (sseu->max_slices == 0)
+ 		return -ENODEV;
+ 
+-	BUILD_BUG_ON(sizeof(u8) != sizeof(sseu->slice_mask));
+-
+ 	slice_length = sizeof(sseu->slice_mask);
+ 	subslice_length = sseu->max_slices * sseu->ss_stride;
+ 	eu_length = sseu->max_slices * sseu->max_subslices * sseu->eu_stride;
+ 	total_length = sizeof(topo) + slice_length + subslice_length +
+ 		       eu_length;
+ 
+-	ret = copy_query_item(&topo, sizeof(topo), total_length,
+-			      query_item);
++	ret = copy_query_item(&topo, sizeof(topo), total_length, query_item);
++
+ 	if (ret != 0)
+ 		return ret;
+ 
+-	if (topo.flags != 0)
+-		return -EINVAL;
+-
+ 	memset(&topo, 0, sizeof(topo));
+ 	topo.max_slices = sseu->max_slices;
+ 	topo.max_subslices = sseu->max_subslices;
+@@ -69,27 +64,61 @@ static int query_topology_info(struct drm_i915_private *dev_priv,
+ 	topo.eu_stride = sseu->eu_stride;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr),
+-			   &topo, sizeof(topo)))
++			 &topo, sizeof(topo)))
+ 		return -EFAULT;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr + sizeof(topo)),
+-			   &sseu->slice_mask, slice_length))
++			 &sseu->slice_mask, slice_length))
+ 		return -EFAULT;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr +
+-					   sizeof(topo) + slice_length),
+-			   sseu->subslice_mask, subslice_length))
++					 sizeof(topo) + slice_length),
++			 subslice_mask, subslice_length))
+ 		return -EFAULT;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr +
+-					   sizeof(topo) +
+-					   slice_length + subslice_length),
+-			   sseu->eu_mask, eu_length))
++					 sizeof(topo) +
++					 slice_length + subslice_length),
++			 sseu->eu_mask, eu_length))
+ 		return -EFAULT;
+ 
+ 	return total_length;
+ }
+ 
++static int query_topology_info(struct drm_i915_private *dev_priv,
++			       struct drm_i915_query_item *query_item)
++{
++	const struct sseu_dev_info *sseu = &to_gt(dev_priv )->info.sseu;
++
++	if (query_item->flags != 0)
++		return -EINVAL;
++
++	return fill_topology_info(sseu, query_item, sseu->subslice_mask);
++}
++
++static int query_geometry_subslices(struct drm_i915_private *i915,
++				    struct drm_i915_query_item *query_item)
++{
++	const struct sseu_dev_info *sseu;
++	struct intel_engine_cs *engine;
++	u8 engine_class, engine_instance;
++
++	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
++		return -ENODEV;
++
++	engine_class = query_item->flags & 0xFF;
++	engine_instance = (query_item->flags >>8) & 0xFF;
++
++	engine = intel_engine_lookup_user(i915, engine_class, engine_instance);
++
++	if(!engine)
++		return -EINVAL;
++
++	sseu = &engine->gt->info.sseu;
++
++	return fill_topology_info(sseu, query_item, sseu->geometry_subslice_mask);
++}
++
+ static int
+ query_engine_info(struct drm_i915_private *i915,
+ 		  struct drm_i915_query_item *query_item)
+@@ -485,6 +514,7 @@ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+ 	query_engine_info,
+ 	query_perf_config,
+ 	query_memregion_info,
++	query_geometry_subslices,
+ };
+ 
+ int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 05c3642aaece..ac75d8b85803 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2687,10 +2687,11 @@ struct drm_i915_perf_oa_config {
+ struct drm_i915_query_item {
+ 	/** @query_id: The id for this query */
+ 	__u64 query_id;
+-#define DRM_I915_QUERY_TOPOLOGY_INFO    1
+-#define DRM_I915_QUERY_ENGINE_INFO	2
+-#define DRM_I915_QUERY_PERF_CONFIG      3
+-#define DRM_I915_QUERY_MEMORY_REGIONS   4
++#define DRM_I915_QUERY_TOPOLOGY_INFO    	1
++#define DRM_I915_QUERY_ENGINE_INFO		2
++#define DRM_I915_QUERY_PERF_CONFIG      	3
++#define DRM_I915_QUERY_MEMORY_REGIONS   	4
++#define DRM_I915_QUERY_GEOMETRY_SUBSLICES	5
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	/**
+@@ -2714,6 +2715,9 @@ struct drm_i915_query_item {
+ 	 *	- DRM_I915_QUERY_PERF_CONFIG_LIST
+ 	 *      - DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID
+ 	 *      - DRM_I915_QUERY_PERF_CONFIG_FOR_UUID
++	 *
++	 * When query_id == DRM_I915_QUERY_GEOMETRY_SUBSLICES must have bits 0:7 set
++	 * as a valid engine class, and bits 8:15 must have a valid engine instance.
+ 	 */
+ 	__u32 flags;
+ #define DRM_I915_QUERY_PERF_CONFIG_LIST          1
+@@ -2772,16 +2776,20 @@ struct drm_i915_query {
+ };
+ 
+ /*
+- * Data written by the kernel with query DRM_I915_QUERY_TOPOLOGY_INFO :
++ * Data written by the kernel with query DRM_I915_QUERY_TOPOLOGY_INFO,
++ * DRM_I915_QUERY_GEOMETRY_SUBSLICE:
+  *
+  * data: contains the 3 pieces of information :
+  *
+- * - the slice mask with one bit per slice telling whether a slice is
+- *   available. The availability of slice X can be queried with the following
+- *   formula :
++ * - For DRM_I915_QUERY_TOPOLOGY_INFO the slice mask with one bit per slice
++ *   telling whether a slice is available. The availability of slice X can be
++ *   queried with the following formula :
+  *
+  *           (data[X / 8] >> (X % 8)) & 1
+  *
++ * - For DRM_I915_QUERY_GEOMETRY_SUBSLICES Slices are equal to 1 and this field
++ *   is not used.
++ *
+  * - the subslice mask for each slice with one bit per subslice telling
+  *   whether a subslice is available. Gen12 has dual-subslices, which are
+  *   similar to two gen11 subslices. For gen12, this array represents dual-
+-- 
+2.21.3
 
