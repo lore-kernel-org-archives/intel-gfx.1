@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE3D8C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 00:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD0AC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 00:48:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 306D410E5EE;
-	Thu, 10 Mar 2022 00:48:44 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC14E10E625
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 00:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4962C10E625;
+	Thu, 10 Mar 2022 00:48:50 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0842F10E636
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 00:48:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646873319; x=1678409319;
+ t=1646873327; x=1678409327;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=EntD0mmBd7Jm9MglEL8pntPrT9cuVtArwa7IXJ+P1b4=;
- b=MpX7Vh5fPxAkKhyLtm6R1miXZ5zuAsm0BRGHRWC3Nvh+nnnr1/n11u77
- tFZtU9BBUEXINEnTystY0t+0SXgYq+MgfaX8cxBS1M+GM7hlj6c1qf46y
- 99HI3xKbC2XR3mKuQwv4DN4w11hyw397082JJbZ2aou453bf1NKPP+qWr
- 8RhIXA2KeMuTix4xQfRVo0nEDjZqmn5JJvfWQPu+o8SGZzem/vO6XaPVV
- /Eb5rURpc7P4aqT9ZG6vbOz8ApqIGWEq2qtyiY7t0EGIAUXRTpcPP+9zM
- yApeKv7h2MA7xVnZwxtsBTWWi7/XMlLElIWtOzjk7tOgcGHFD2fzIWnzK w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="252695675"
-X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="252695675"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 16:48:34 -0800
+ bh=MMRkQGOoRlpuWe8pGhD5NkRoPXsCDMefi8UgYsQT3gc=;
+ b=H9uDa/X9YSu1FfrfcQ8a3amaYFh+2YgqtNLdkfH3K17Oz6jfMEGi6WX+
+ h9e5/R42UY50ahtZ/Pb/oW1pXjUmiBvpqG3HDQjO5eoqZey2OChiahDGV
+ dAShnhOrMSmzdaFAn5cT7kYU3DeYMqh4iU+uM5x50txubK8EolgG4znEV
+ DHIgDWxoZtPM4R0M9dr4D+8UszXZMROfBx4L172KBc0CALnFmk1BpwG8p
+ e+DOG+nnflm8Mv4NDhsv3iblLmmMMQwDERXeZcnsv90vI255Mq5bNF8Jg
+ uFjaSFhA92GTN3YPvgJsaNCxBccYxI7LKRdiGiLaT8luEsFVwNxYsgqEo w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="235076192"
+X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="235076192"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 16:48:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="513761310"
+X-IronPort-AV: E=Sophos;i="5.90,169,1643702400"; d="scan'208";a="510700875"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga006.jf.intel.com with SMTP; 09 Mar 2022 16:48:32 -0800
+ by orsmga002.jf.intel.com with SMTP; 09 Mar 2022 16:48:38 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 10 Mar 2022 02:48:31 +0200
+ Thu, 10 Mar 2022 02:48:37 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Mar 2022 02:47:59 +0200
-Message-Id: <20220310004802.16310-11-ville.syrjala@linux.intel.com>
+Date: Thu, 10 Mar 2022 02:48:01 +0200
+Message-Id: <20220310004802.16310-13-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220310004802.16310-1-ville.syrjala@linux.intel.com>
 References: <20220310004802.16310-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/13] drm/i915: Move DRRS enable/disable higher
- up
+Subject: [Intel-gfx] [PATCH 12/13] drm/i915: Introduce intel_panel_{fixed,
+ downclock}_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,60 +64,166 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-No reason to keep the DRRS enable/disable hidden insider the encoder
-hooks. Let's just move them all the way up into platform independent
-code so that all platforms get to use them. These are nops when
-the state computation doesn't think DRRS is possible.
+Absract away the details on where we store the fixed/downclock modes,
+and also how we select them. Will be useful for static DRRS (aka.
+allowing the user to select the refresh rate for the panel).
+
+Only hooked these up into the DP code for now since that's
+the only one that can do DRRS atm.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c     | 3 ---
- drivers/gpu/drm/i915/display/intel_display.c | 4 ++++
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c    |  7 +++++--
+ drivers/gpu/drm/i915/display/intel_drrs.c  | 11 +++++++----
+ drivers/gpu/drm/i915/display/intel_panel.c | 20 ++++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_panel.h |  8 ++++++--
+ 4 files changed, 36 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index a3bf4e876fb4..e2b297d2c295 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2820,8 +2820,6 @@ static void intel_enable_ddi_dp(struct intel_atomic_state *state,
- 	if (!dig_port->lspcon.active || dig_port->dp.has_hdmi_sink)
- 		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 725c3350c923..af659320c02e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -918,8 +918,8 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
+ 	struct intel_connector *intel_connector = to_intel_connector(connector);
+-	struct drm_display_mode *fixed_mode = intel_connector->panel.fixed_mode;
+ 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
++	const struct drm_display_mode *fixed_mode;
+ 	int target_clock = mode->clock;
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+ 	int max_dotclk = dev_priv->max_dotclk_freq;
+@@ -934,6 +934,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
+ 		return MODE_H_ILLEGAL;
  
--	intel_drrs_enable(crtc_state);
--
- 	if (crtc_state->has_audio)
- 		intel_audio_codec_enable(encoder, crtc_state, conn_state);
++	fixed_mode = intel_panel_fixed_mode(intel_connector, mode);
+ 	if (intel_dp_is_edp(intel_dp) && fixed_mode) {
+ 		status = intel_panel_mode_valid(intel_connector, mode);
+ 		if (status != MODE_OK)
+@@ -1797,6 +1798,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++	const struct drm_display_mode *fixed_mode;
+ 	enum port port = encoder->port;
+ 	struct intel_connector *intel_connector = intel_dp->attached_connector;
+ 	struct intel_digital_connector_state *intel_conn_state =
+@@ -1823,7 +1825,8 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	else
+ 		pipe_config->has_audio = intel_conn_state->force_audio == HDMI_AUDIO_ON;
  
-@@ -2963,7 +2961,6 @@ static void intel_disable_ddi_dp(struct intel_atomic_state *state,
- 		intel_audio_codec_disable(encoder,
- 					  old_crtc_state, old_conn_state);
+-	if (intel_dp_is_edp(intel_dp) && intel_connector->panel.fixed_mode) {
++	fixed_mode = intel_panel_fixed_mode(intel_connector, adjusted_mode);
++	if (intel_dp_is_edp(intel_dp) && fixed_mode) {
+ 		ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+ 		if (ret)
+ 			return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index dcbbd9c48458..5b2eb55c1340 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -48,7 +48,8 @@
+  */
  
--	intel_drrs_disable(old_crtc_state);
- 	intel_psr_disable(intel_dp, old_crtc_state);
- 	intel_edp_backlight_off(old_conn_state);
- 	/* Disable the decompression in DP Sink */
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 4c7c74665819..455f19e6d43d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8106,6 +8106,8 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
- 	if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
- 		return;
+ static bool can_enable_drrs(struct intel_connector *connector,
+-			    const struct intel_crtc_state *pipe_config)
++			    const struct intel_crtc_state *pipe_config,
++			    const struct drm_display_mode *downclock_mode)
+ {
+ 	const struct drm_i915_private *i915 = to_i915(connector->base.dev);
  
-+	intel_drrs_enable(new_crtc_state);
-+
- 	/* vblanks work again, re-enable pipe CRC. */
- 	intel_crtc_enable_pipe_crc(crtc);
+@@ -64,7 +65,7 @@ static bool can_enable_drrs(struct intel_connector *connector,
+ 	if (pipe_config->has_psr)
+ 		return false;
+ 
+-	return connector->panel.downclock_mode &&
++	return downclock_mode &&
+ 		i915->vbt.drrs_type == DRRS_TYPE_SEAMLESS;
  }
-@@ -8175,6 +8177,8 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
- 	 */
- 	intel_crtc_disable_pipe_crc(crtc);
  
-+	intel_drrs_disable(old_crtc_state);
+@@ -74,9 +75,11 @@ intel_drrs_compute_config(struct intel_crtc_state *pipe_config,
+ 			  int output_bpp, bool constant_n)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
++	const struct drm_display_mode *downclock_mode =
++		intel_panel_downclock_mode(connector, &pipe_config->hw.adjusted_mode);
+ 	int pixel_clock;
+ 
+-	if (!can_enable_drrs(connector, pipe_config)) {
++	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
+ 		if (intel_cpu_transcoder_has_m2_n2(i915, pipe_config->cpu_transcoder))
+ 			intel_zero_m_n(&pipe_config->dp_m2_n2);
+ 		return;
+@@ -87,7 +90,7 @@ intel_drrs_compute_config(struct intel_crtc_state *pipe_config,
+ 
+ 	pipe_config->has_drrs = true;
+ 
+-	pixel_clock = connector->panel.downclock_mode->clock;
++	pixel_clock = downclock_mode->clock;
+ 	if (pipe_config->splitter.enable)
+ 		pixel_clock /= pipe_config->splitter.link_count;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 6cd6d4fdd5ad..127ad9643360 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -45,10 +45,25 @@ bool intel_panel_use_ssc(struct drm_i915_private *i915)
+ 		&& !(i915->quirks & QUIRK_LVDS_SSC_DISABLE);
+ }
+ 
++const struct drm_display_mode *
++intel_panel_fixed_mode(struct intel_connector *connector,
++		       const struct drm_display_mode *mode)
++{
++	return connector->panel.fixed_mode;
++}
 +
- 	dev_priv->display->crtc_disable(state, crtc);
- 	crtc->active = false;
- 	intel_fbc_disable(crtc);
++const struct drm_display_mode *
++intel_panel_downclock_mode(struct intel_connector *connector,
++			   const struct drm_display_mode *fixed_mode)
++{
++	return connector->panel.downclock_mode;
++}
++
+ int intel_panel_compute_config(struct intel_connector *connector,
+ 			       struct drm_display_mode *adjusted_mode)
+ {
+-	const struct drm_display_mode *fixed_mode = connector->panel.fixed_mode;
++	const struct drm_display_mode *fixed_mode =
++		intel_panel_fixed_mode(connector, adjusted_mode);
+ 
+ 	if (!fixed_mode)
+ 		return 0;
+@@ -508,7 +523,8 @@ enum drm_mode_status
+ intel_panel_mode_valid(struct intel_connector *connector,
+ 		       const struct drm_display_mode *mode)
+ {
+-	const struct drm_display_mode *fixed_mode = connector->panel.fixed_mode;
++	const struct drm_display_mode *fixed_mode =
++		intel_panel_fixed_mode(connector, mode);
+ 
+ 	if (!fixed_mode)
+ 		return MODE_OK;
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index d50b3f7e9e58..6d4df0e54ef2 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -24,8 +24,12 @@ void intel_panel_fini(struct intel_panel *panel);
+ enum drm_connector_status
+ intel_panel_detect(struct drm_connector *connector, bool force);
+ bool intel_panel_use_ssc(struct drm_i915_private *i915);
+-void intel_panel_fixed_mode(const struct drm_display_mode *fixed_mode,
+-			    struct drm_display_mode *adjusted_mode);
++const struct drm_display_mode *
++intel_panel_fixed_mode(struct intel_connector *connector,
++		       const struct drm_display_mode *mode);
++const struct drm_display_mode *
++intel_panel_downclock_mode(struct intel_connector *connector,
++			   const struct drm_display_mode *fixed_mode);
+ enum drm_mode_status
+ intel_panel_mode_valid(struct intel_connector *connector,
+ 		       const struct drm_display_mode *mode);
 -- 
 2.34.1
 
