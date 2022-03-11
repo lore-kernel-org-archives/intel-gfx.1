@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 296E7C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 01:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFA0C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 01:09:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D87310E609;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A13010E5E8;
 	Fri, 11 Mar 2022 01:09:04 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65A8610E5E0;
- Fri, 11 Mar 2022 01:09:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDAF10E5D9;
+ Fri, 11 Mar 2022 01:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646960943; x=1678496943;
+ t=1646960942; x=1678496942;
  h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=8SfgUvi9z7rqdWTypXJxO42LlbenxXJjHZhsi0DTcQ8=;
- b=J1tqH2gQPQDrMBU9d2ZoDM1g2f/MsspENCKfkptPG6FQd/whMccvb6vo
- T5g/qpbD7UbXIupqKRieH/DucIYyGsNm+q39pgVowshZaSeyYuIiGFbXX
- ulX7tDHmks1GA9JshDPBezdEknEs8ZPNtovNeSOjo3AZSXX2WCq2+ggSS
- 1UKDPIxy/uPSGK/UDyKVHusdLvPsU4DI0T6ySO0ErOOHOiQEHFV5Z+yo2
- YdQnxDX8CZcyOqNJWCicB7R3TKuMMa4njvmY9xJwFo0YxaxpfltpOpuWh
- 7/woUPABvOUOi2P0gzqhg7lTNiaIZHnkWhq+ANHeT1vhNX//xuKmJ/Ty3 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="255196096"
-X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="255196096"
+ bh=YM24K64FxZP/l08TDu22wSGEkoulDGFfFeQhpXnb0Zo=;
+ b=b/gZD2tD5zgUWp9w5k4KCbjIb+etHriNAXKH4GMQL1rwYcp+bFiz+tcu
+ dxaDuTCebOutTTpoEFyWTTAaEIrFUAIc4fzFo5Q7dU6nH+bu3hXY6TJAU
+ CGyKsF+ncaxB1o+fULyduy+dIbTB8d9LXtt0GhgrD79ntWM0TDwsSp0H1
+ yAA3+h9Q+kxz27yT8DQG8O+5MJwBGes8TDr/QzolMu89u+F/1rfnlt1W+
+ osCnL4/LcPgw+6US0dzJKQpzi2mtSTEN/GhL7x4mYnvi1z/Y5f3EoBLqT
+ yUhPvqwuYy1Scd4vHG3uN01YUf/yrnF3JIy+uWbnREQnVkZBxFioxmQxt g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="255196084"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="255196084"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2022 17:08:43 -0800
+ 10 Mar 2022 17:08:37 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="781701083"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="781701043"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.78])
- by fmsmga006.fm.intel.com with ESMTP; 10 Mar 2022 17:08:41 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 10 Mar 2022 17:08:36 -0800
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 11 Mar 2022 09:22:18 +0800
-Message-Id: <20220311012218.19025-6-shawn.c.lee@intel.com>
+Date: Fri, 11 Mar 2022 09:22:15 +0800
+Message-Id: <20220311012218.19025-3-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220311012218.19025-1-shawn.c.lee@intel.com>
 References: <20220311012218.19025-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [v6 5/5] drm/edid: check for HF-SCDB block
+Subject: [Intel-gfx] [v6 2/5] drm/edid: parse multiple CEA extension block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,11 +57,13 @@ Cc: cooper.chiou@intel.com, william.tseng@intel.com, jani.nikula@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Find HF-SCDB information in CEA extensions block. And retrieve
-Max_TMDS_Character_Rate that support by sink device.
+Try to find and parse more CEA ext blocks if edid->extensions
+is greater than one.
 
-v2: HF-SCDB and HF-VSDBS carry the same SCDS data. Reuse
-    drm_parse_hdmi_forum_vsdb() to parse this packet.
+v2: split prvious patch to two. And do CEA block parsing
+    in this one.
+v3: simplify this patch based on previous change.
+v4: refine patch v3.
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
@@ -69,52 +71,65 @@ Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx <intel-gfx@lists.freedesktop.org>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_edid.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index eac6ce336507..159e01be6f68 100644
+index e267d31d5c87..7717bf86c07d 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -3350,6 +3350,7 @@ add_detailed_modes(struct drm_connector *connector, struct edid *edid,
- #define EXT_VIDEO_DATA_BLOCK_420	0x0E
- #define EXT_VIDEO_CAP_BLOCK_Y420CMDB	0x0F
- #define EXT_VIDEO_HF_EEODB_DATA_BLOCK	0x78
-+#define EXT_VIDEO_HF_SCDB_DATA_BLOCK	0x79
- #define EDID_BASIC_AUDIO	(1 << 6)
- #define EDID_CEA_YCRCB444	(1 << 5)
- #define EDID_CEA_YCRCB422	(1 << 4)
-@@ -4278,6 +4279,20 @@ static bool cea_db_is_vcdb(const u8 *db)
- 	return true;
- }
- 
-+static bool cea_db_is_hdmi_forum_scdb(const u8 *db)
-+{
-+	if (cea_db_tag(db) != USE_EXTENDED_TAG)
-+		return false;
-+
-+	if (cea_db_payload_len(db) < 7)
-+		return false;
-+
-+	if (cea_db_extended_tag(db) != EXT_VIDEO_HF_SCDB_DATA_BLOCK)
-+		return false;
-+
-+	return true;
-+}
-+
- static bool cea_db_is_y420cmdb(const u8 *db)
+@@ -4320,16 +4320,22 @@ static void drm_parse_y420cmdb_bitmap(struct drm_connector *connector,
+ static int
+ add_cea_modes(struct drm_connector *connector, struct edid *edid)
  {
- 	if (cea_db_tag(db) != USE_EXTENDED_TAG)
-@@ -5273,7 +5288,8 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+-	const u8 *cea, *db, *hdmi = NULL, *video = NULL;
+-	u8 dbl, hdmi_len, video_len = 0;
+ 	int modes = 0, ext_index = 0;
  
- 		if (cea_db_is_hdmi_vsdb(db))
- 			drm_parse_hdmi_vsdb_video(connector, db);
--		if (cea_db_is_hdmi_forum_vsdb(db))
-+		if (cea_db_is_hdmi_forum_vsdb(db) ||
-+		    cea_db_is_hdmi_forum_scdb(db))
- 			drm_parse_hdmi_forum_vsdb(connector, db);
- 		if (cea_db_is_microsoft_vsdb(db))
- 			drm_parse_microsoft_vsdb(connector, db);
+-	cea = drm_find_cea_extension(edid, &ext_index);
+-	if (cea && cea_revision(cea) >= 3) {
++	for (;;) {
++		const u8 *cea, *db, *hdmi = NULL, *video = NULL;
++		u8 dbl, hdmi_len = 0, video_len = 0;
+ 		int i, start, end;
+ 
++		cea = drm_find_cea_extension(edid, &ext_index);
++		if (!cea)
++			break;
++
++		if (cea_revision(cea) < 3)
++			continue;
++
+ 		if (cea_db_offsets(cea, &start, &end))
+-			return 0;
++			continue;
+ 
+ 		for_each_cea_db(cea, i, start, end) {
+ 			db = &cea[i];
+@@ -4351,15 +4357,15 @@ add_cea_modes(struct drm_connector *connector, struct edid *edid)
+ 							  dbl - 1);
+ 			}
+ 		}
+-	}
+ 
+-	/*
+-	 * We parse the HDMI VSDB after having added the cea modes as we will
+-	 * be patching their flags when the sink supports stereo 3D.
+-	 */
+-	if (hdmi)
+-		modes += do_hdmi_vsdb_modes(connector, hdmi, hdmi_len, video,
+-					    video_len);
++		/*
++		 * We parse the HDMI VSDB after having added the cea modes as we will
++		 * be patching their flags when the sink supports stereo 3D.
++		 */
++		if (hdmi)
++			modes += do_hdmi_vsdb_modes(connector, hdmi, hdmi_len, video,
++						    video_len);
++	}
+ 
+ 	return modes;
+ }
 -- 
 2.17.1
 
