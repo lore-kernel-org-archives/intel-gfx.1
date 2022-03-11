@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFA0C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF81C433FE
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 01:09:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A13010E5E8;
-	Fri, 11 Mar 2022 01:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66FD010E643;
+	Fri, 11 Mar 2022 01:09:05 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDAF10E5D9;
- Fri, 11 Mar 2022 01:09:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29A5A10E5D9;
+ Fri, 11 Mar 2022 01:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646960942; x=1678496942;
+ t=1646960943; x=1678496943;
  h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=YM24K64FxZP/l08TDu22wSGEkoulDGFfFeQhpXnb0Zo=;
- b=b/gZD2tD5zgUWp9w5k4KCbjIb+etHriNAXKH4GMQL1rwYcp+bFiz+tcu
- dxaDuTCebOutTTpoEFyWTTAaEIrFUAIc4fzFo5Q7dU6nH+bu3hXY6TJAU
- CGyKsF+ncaxB1o+fULyduy+dIbTB8d9LXtt0GhgrD79ntWM0TDwsSp0H1
- yAA3+h9Q+kxz27yT8DQG8O+5MJwBGes8TDr/QzolMu89u+F/1rfnlt1W+
- osCnL4/LcPgw+6US0dzJKQpzi2mtSTEN/GhL7x4mYnvi1z/Y5f3EoBLqT
- yUhPvqwuYy1Scd4vHG3uN01YUf/yrnF3JIy+uWbnREQnVkZBxFioxmQxt g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="255196084"
-X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="255196084"
+ bh=5e4cyv/zWvSX/V/QZwnMOe5b+EuievTdEICfVh5FHXw=;
+ b=m+M3/Y6Uj7TzXCC9nB6TPJ4fCq4wQM80j0NO/ZeFLc0zNflK0TiTpWqr
+ 64Z25OVVZ1XJeMswOLtiEIj4w1ihLTEH1xP4hov4f/lZkBb5Z3uIi9yIo
+ 1KQIq8N5PmFS84uX3OZRZUFShxe409BVGDh/E2VfL/sb/1ZogqQsVvTIt
+ CdQHm3HuIuVgkrzsxPk3CRyMCSvhu3PcqGj7vQ7tCJcemcDozZK7VhX7A
+ DGmWTREbFGUr4mh9Wwxt4cTetSO4Hj3n9pMP+a1tLzxnLhwnWAwrWv0aq
+ KO31k2Jq3WvNY6yeTFD79iO/ip1LbaWgQ0aYFn5tbBDXpI6iYkPFhnprk w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="255196089"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="255196089"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2022 17:08:37 -0800
+ 10 Mar 2022 17:08:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="781701043"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="781701061"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.78])
- by fmsmga006.fm.intel.com with ESMTP; 10 Mar 2022 17:08:36 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 10 Mar 2022 17:08:39 -0800
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 11 Mar 2022 09:22:15 +0800
-Message-Id: <20220311012218.19025-3-shawn.c.lee@intel.com>
+Date: Fri, 11 Mar 2022 09:22:17 +0800
+Message-Id: <20220311012218.19025-5-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220311012218.19025-1-shawn.c.lee@intel.com>
 References: <20220311012218.19025-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [v6 2/5] drm/edid: parse multiple CEA extension block
+Subject: [Intel-gfx] [v6 4/5] drm/edid: parse HF-EEODB CEA extension block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,13 +57,9 @@ Cc: cooper.chiou@intel.com, william.tseng@intel.com, jani.nikula@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Try to find and parse more CEA ext blocks if edid->extensions
-is greater than one.
-
-v2: split prvious patch to two. And do CEA block parsing
-    in this one.
-v3: simplify this patch based on previous change.
-v4: refine patch v3.
+While adding CEA modes, try to get available EEODB block
+number. Then based on it to parse numbers of ext blocks,
+retrieve CEA information and add more CEA modes.
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
@@ -71,65 +67,181 @@ Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx <intel-gfx@lists.freedesktop.org>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 32 +++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/drm_displayid.c |  5 ++++-
+ drivers/gpu/drm/drm_edid.c      | 35 +++++++++++++++++++--------------
+ include/drm/drm_edid.h          |  2 +-
+ 3 files changed, 25 insertions(+), 17 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_displayid.c b/drivers/gpu/drm/drm_displayid.c
+index 32da557b960f..dc649a9efaa2 100644
+--- a/drivers/gpu/drm/drm_displayid.c
++++ b/drivers/gpu/drm/drm_displayid.c
+@@ -37,7 +37,10 @@ static const u8 *drm_find_displayid_extension(const struct edid *edid,
+ 					      int *length, int *idx,
+ 					      int *ext_index)
+ {
+-	const u8 *displayid = drm_find_edid_extension(edid, DISPLAYID_EXT, ext_index);
++	const u8 *displayid = drm_find_edid_extension(edid,
++						      DISPLAYID_EXT,
++						      ext_index,
++						      edid->extensions);
+ 	const struct displayid_header *base;
+ 	int ret;
+ 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index e267d31d5c87..7717bf86c07d 100644
+index 9f7fcecae3a2..eac6ce336507 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -4320,16 +4320,22 @@ static void drm_parse_y420cmdb_bitmap(struct drm_connector *connector,
- static int
- add_cea_modes(struct drm_connector *connector, struct edid *edid)
+@@ -3360,23 +3360,23 @@ add_detailed_modes(struct drm_connector *connector, struct edid *edid,
+  * Search EDID for CEA extension block.
+  */
+ const u8 *drm_find_edid_extension(const struct edid *edid,
+-				  int ext_id, int *ext_index)
++				  int ext_id, int *ext_index, int ext_blk_num)
  {
--	const u8 *cea, *db, *hdmi = NULL, *video = NULL;
--	u8 dbl, hdmi_len, video_len = 0;
+ 	const u8 *edid_ext = NULL;
+ 	int i;
+ 
+ 	/* No EDID or EDID extensions */
+-	if (edid == NULL || edid->extensions == 0)
++	if (edid == NULL || edid->extensions == 0 || *ext_index >= ext_blk_num)
+ 		return NULL;
+ 
+ 	/* Find CEA extension */
+-	for (i = *ext_index; i < edid->extensions; i++) {
++	for (i = *ext_index; i < ext_blk_num; i++) {
+ 		edid_ext = (const u8 *)edid + EDID_LENGTH * (i + 1);
+ 		if (edid_ext[0] == ext_id)
+ 			break;
+ 	}
+ 
+-	if (i >= edid->extensions)
++	if (i >= ext_blk_num)
+ 		return NULL;
+ 
+ 	*ext_index = i + 1;
+@@ -3384,14 +3384,15 @@ const u8 *drm_find_edid_extension(const struct edid *edid,
+ 	return edid_ext;
+ }
+ 
+-static const u8 *drm_find_cea_extension(const struct edid *edid, int *ext_index)
++static const u8 *drm_find_cea_extension(const struct edid *edid,
++					int *ext_index, int ext_blk_num)
+ {
+ 	const struct displayid_block *block;
+ 	struct displayid_iter iter;
+ 	const u8 *cea;
+ 
+ 	/* Look for a CEA extension block from ext_index */
+-	cea = drm_find_edid_extension(edid, CEA_EXT, ext_index);
++	cea = drm_find_edid_extension(edid, CEA_EXT, ext_index, ext_blk_num);
+ 	if (cea)
+ 		return cea;
+ 
+@@ -3676,7 +3677,7 @@ add_alternate_cea_modes(struct drm_connector *connector, struct edid *edid)
  	int modes = 0, ext_index = 0;
  
--	cea = drm_find_cea_extension(edid, &ext_index);
--	if (cea && cea_revision(cea) >= 3) {
-+	for (;;) {
-+		const u8 *cea, *db, *hdmi = NULL, *video = NULL;
-+		u8 dbl, hdmi_len = 0, video_len = 0;
+ 	/* Don't add CEA modes if the CEA extension block is missing */
+-	if (!drm_find_cea_extension(edid, &ext_index))
++	if (!drm_find_cea_extension(edid, &ext_index, edid->extensions))
+ 		return 0;
+ 
+ 	/*
+@@ -4328,7 +4329,7 @@ size_t drm_edid_read_hf_eeodb_blk_count(const struct edid *edid)
+ 	int i, start, end, ext_index = 0;
+ 
+ 	if (edid->extensions) {
+-		cea = drm_find_cea_extension(edid, &ext_index);
++		cea = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 
+ 		if (cea && !cea_db_offsets(cea, &start, &end))
+ 			for_each_cea_db(cea, i, start, end)
+@@ -4384,13 +4385,17 @@ static int
+ add_cea_modes(struct drm_connector *connector, struct edid *edid)
+ {
+ 	int modes = 0, ext_index = 0;
++	int ext_blk_num = drm_edid_read_hf_eeodb_blk_count(edid);
++
++	if (!ext_blk_num)
++		ext_blk_num = edid->extensions;
+ 
+ 	for (;;) {
+ 		const u8 *cea, *db, *hdmi = NULL, *video = NULL;
+ 		u8 dbl, hdmi_len = 0, video_len = 0;
  		int i, start, end;
  
-+		cea = drm_find_cea_extension(edid, &ext_index);
-+		if (!cea)
-+			break;
-+
-+		if (cea_revision(cea) < 3)
-+			continue;
-+
- 		if (cea_db_offsets(cea, &start, &end))
--			return 0;
-+			continue;
+-		cea = drm_find_cea_extension(edid, &ext_index);
++		cea = drm_find_cea_extension(edid, &ext_index, ext_blk_num);
+ 		if (!cea)
+ 			break;
  
- 		for_each_cea_db(cea, i, start, end) {
- 			db = &cea[i];
-@@ -4351,15 +4357,15 @@ add_cea_modes(struct drm_connector *connector, struct edid *edid)
- 							  dbl - 1);
- 			}
- 		}
--	}
+@@ -4639,7 +4644,7 @@ static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
+ 	if (!edid)
+ 		return;
  
--	/*
--	 * We parse the HDMI VSDB after having added the cea modes as we will
--	 * be patching their flags when the sink supports stereo 3D.
--	 */
--	if (hdmi)
--		modes += do_hdmi_vsdb_modes(connector, hdmi, hdmi_len, video,
--					    video_len);
-+		/*
-+		 * We parse the HDMI VSDB after having added the cea modes as we will
-+		 * be patching their flags when the sink supports stereo 3D.
-+		 */
-+		if (hdmi)
-+			modes += do_hdmi_vsdb_modes(connector, hdmi, hdmi_len, video,
-+						    video_len);
-+	}
+-	cea = drm_find_cea_extension(edid, &ext_index);
++	cea = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 	if (!cea) {
+ 		DRM_DEBUG_KMS("ELD: no CEA Extension found\n");
+ 		return;
+@@ -4727,7 +4732,7 @@ int drm_edid_to_sad(struct edid *edid, struct cea_sad **sads)
+ 	int i, start, end, dbl;
+ 	const u8 *cea;
  
- 	return modes;
- }
+-	cea = drm_find_cea_extension(edid, &ext_index);
++	cea = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 	if (!cea) {
+ 		DRM_DEBUG_KMS("SAD: no CEA Extension found\n");
+ 		return 0;
+@@ -4789,7 +4794,7 @@ int drm_edid_to_speaker_allocation(struct edid *edid, u8 **sadb)
+ 	int i, start, end, dbl;
+ 	const u8 *cea;
+ 
+-	cea = drm_find_cea_extension(edid, &ext_index);
++	cea = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 	if (!cea) {
+ 		DRM_DEBUG_KMS("SAD: no CEA Extension found\n");
+ 		return 0;
+@@ -4884,7 +4889,7 @@ bool drm_detect_hdmi_monitor(struct edid *edid)
+ 	int i;
+ 	int start_offset, end_offset, ext_index = 0;
+ 
+-	edid_ext = drm_find_cea_extension(edid, &ext_index);
++	edid_ext = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 	if (!edid_ext)
+ 		return false;
+ 
+@@ -4923,7 +4928,7 @@ bool drm_detect_monitor_audio(struct edid *edid)
+ 	bool has_audio = false;
+ 	int start_offset, end_offset, ext_index = 0;
+ 
+-	edid_ext = drm_find_cea_extension(edid, &ext_index);
++	edid_ext = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 	if (!edid_ext)
+ 		goto end;
+ 
+@@ -5247,7 +5252,7 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+ 	const u8 *edid_ext;
+ 	int i, start, end, ext_index = 0;
+ 
+-	edid_ext = drm_find_cea_extension(edid, &ext_index);
++	edid_ext = drm_find_cea_extension(edid, &ext_index, edid->extensions);
+ 	if (!edid_ext)
+ 		return;
+ 
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index 5549da7bd7be..5555b27e92f9 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -591,7 +591,7 @@ struct drm_display_mode *
+ drm_display_mode_from_cea_vic(struct drm_device *dev,
+ 			      u8 video_code);
+ const u8 *drm_find_edid_extension(const struct edid *edid,
+-				  int ext_id, int *ext_index);
++				  int ext_id, int *ext_index, int ext_blk_num);
+ size_t drm_edid_read_hf_eeodb_blk_count(const struct edid *edid);
+ 
+ #endif /* __DRM_EDID_H__ */
 -- 
 2.17.1
 
