@@ -4,67 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57312C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C3FC433FE
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1ED510E70D;
-	Wed, 23 Mar 2022 15:40:54 +0000 (UTC)
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442E710E3E6;
- Tue, 15 Mar 2022 20:24:52 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id h15so185476wrc.6;
- Tue, 15 Mar 2022 13:24:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SLLTqIhVx97asbYPr4Ba30RhGW0/k9gGUJ6yMqUQca8=;
- b=HGVwT2u8w1di/2Ba6Mr3uF7wANvgMQhwksp2VCgHGD+YHZd2YNQFvthoW0aL1i+eUW
- Ut+47rb5iS6ZjVGYKl2VEeLBQBkEs0iwXXdh6PwbjyICixDvwj0+2y6GSgtdUAIsve/K
- Y1u/+x3hCOFHzjtISdWRQnfcaRJHy1R3n3I8jaNS8pqfX+EFIpDL3ZyF/dR8mnWyTSFa
- 9gwxCf5RcGXqMHGEWNpB1V1Eb1DvqizTGVwm9nggVh2QjXqGLhyWVkGBzGLAJ7W79MB+
- d8Z7AKgHVKJ/vLT0PSkxbR/zwLHNXat10jflfoOOXA2Ppjcb3X0gT2rqdevVVOXxRDt6
- 0ihA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SLLTqIhVx97asbYPr4Ba30RhGW0/k9gGUJ6yMqUQca8=;
- b=eLuWbXhRN8xzW5NlE0gtRHAURJkRrEGKJM1S7ciu5DRyaNd7Qek50BHbpOaeHmXrAd
- OkZ/Vr0XvLKXxCzi1bF5E4Px1k1LY0FsyALRE83Q0pE0WfnXj5FTsx6iU47PQ+jmF44/
- vNiPCW/Sa1UrHqt44iizSeCiElvn0gWwmx7pHKWZJILReE7+ZRnF8PCADBy5ul4KwgR0
- Gf1rXWerZxvORTQ9nMWTGl0ysPchhKM42j83wNpoyI0HoP16r4oxoa4/uoq9oKJ8t8MU
- sHuAF+onE82D1CS85DSYCtaat5N4ocEk67wYilkh0GLxciRFcle6aUndWK9FOodMvk+y
- 2SxA==
-X-Gm-Message-State: AOAM530bLHLaG8YXZVCdEH9mvyEZC+lkE0Z3NzTHX0w9vwzECCl9U5SY
- UC2Bi1ytKkNb+vqXqVWwtss=
-X-Google-Smtp-Source: ABdhPJxhdTXqW/kPnVuI531rJ1j83VzktKMWxWPNmL/em2OL4k0Zaihe+NRG+blq1ChVnZ991OdzQA==
-X-Received: by 2002:a5d:6d86:0:b0:1f1:f938:6626 with SMTP id
- l6-20020a5d6d86000000b001f1f9386626mr21184356wrs.701.1647375890836; 
- Tue, 15 Mar 2022 13:24:50 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- k18-20020adfe8d2000000b0020294da2b42sm24801116wrn.117.2022.03.15.13.24.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Mar 2022 13:24:50 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 20:24:49 +0000
-Message-Id: <20220315202449.2952845-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D05110E711;
+	Wed, 23 Mar 2022 15:40:55 +0000 (UTC)
+X-Greylist: delayed 2502 seconds by postgrey-1.36 at gabe;
+ Fri, 11 Mar 2022 18:45:29 UTC
+Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
+ [IPv6:2620:100:9001:583::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DFA110E053;
+ Fri, 11 Mar 2022 18:45:29 +0000 (UTC)
+Received: from pps.filterd (m0122332.ppops.net [127.0.0.1])
+ by mx0a-00190b01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22BE4kqH005592;
+ Fri, 11 Mar 2022 18:03:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=4zUSLOEHIApF4getnC8JhdtY9QouuGFkZs+Hkia8hHQ=;
+ b=X/O2KxK2oW4Y0PATfyw/fi8gPNBVdsVXoPC+VDwDr22BDDWSjgkwErGVysHatzJxCm6o
+ 9Zy/aKWnyz9d1S3YqUZDONcK4Yf5JslbJR9vR8dJ4peF+ZSHBL1E8xEYnE+nOjIq7ijo
+ o4HawdMvcsBZMS2YIDhcsxqae+wUhotWd86p+IXf39OtosSSx78KY7hkrqPUkuoils56
+ yWkjXGVEEBKy6BRAhlUoA4rgrIh0dCJTuLDphHkQfwZuHlsoHQl7SwbQLU10UK/c06rG
+ LSXUg25BMotdHCXlL3iCkiqxf3discLVeuiw3ZVqCtpCQPASAeF2HLquQVLfjnY7+O2g WA== 
+Received: from prod-mail-ppoint7
+ (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
+ forged))
+ by mx0a-00190b01.pphosted.com (PPS) with ESMTPS id 3er3mqa1hn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 11 Mar 2022 18:03:40 +0000
+Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
+ by prod-mail-ppoint7.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
+ 22BHnAYv008913; Fri, 11 Mar 2022 13:03:39 -0500
+Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
+ by prod-mail-ppoint7.akamai.com with ESMTP id 3em43442qy-1;
+ Fri, 11 Mar 2022 13:03:39 -0500
+Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
+ by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id 5E5DA6009B; 
+ Fri, 11 Mar 2022 18:03:38 +0000 (GMT)
+Message-ID: <07aba584-ce62-ed58-29b5-0a2df78b7f1d@akamai.com>
+Date: Fri, 11 Mar 2022 13:03:37 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org
+References: <20220311044756.425777-1-jim.cromie@gmail.com>
+ <20220311044756.425777-2-jim.cromie@gmail.com>
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <20220311044756.425777-2-jim.cromie@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.816
+ definitions=2022-03-11_07:2022-03-11,
+ 2022-03-11 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxlogscore=999 mlxscore=0
+ suspectscore=0 adultscore=0 malwarescore=0 phishscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
+ definitions=main-2203110087
+X-Proofpoint-GUID: zPo83NQC2GhkaVrlXctmeZUqN0ex_B27
+X-Proofpoint-ORIG-GUID: zPo83NQC2GhkaVrlXctmeZUqN0ex_B27
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-11_07,2022-03-11_02,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ impostorscore=0
+ mlxscore=0 priorityscore=1501 suspectscore=0 spamscore=0 mlxlogscore=999
+ clxscore=1011 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
+ definitions=main-2203110089
 X-Mailman-Approved-At: Wed, 23 Mar 2022 15:40:20 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/reg: Fix spelling mistake "Unsupport"
- -> "Unsupported"
+Subject: Re: [Intel-gfx] [PATCH 1/5] dyndbg: fix static_branch manipulation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,30 +90,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: daniel.vetter@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ vincent.whitchurch@axis.com, linux@rasmusvillemoes.dk,
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
+ amd-gfx@lists.freedesktop.org, joe@perches.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in a gvt_vgpu_err error message. Fix it.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/i915/gvt/handlers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index 520a7e1942f3..a01e3a893e24 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -914,7 +914,7 @@ static int update_fdi_rx_iir_status(struct intel_vgpu *vgpu,
- 	else if (FDI_RX_IMR_TO_PIPE(offset) != INVALID_INDEX)
- 		index = FDI_RX_IMR_TO_PIPE(offset);
- 	else {
--		gvt_vgpu_err("Unsupport registers %x\n", offset);
-+		gvt_vgpu_err("Unsupported registers %x\n", offset);
- 		return -EINVAL;
- 	}
- 
--- 
-2.35.1
+On 3/10/22 23:47, Jim Cromie wrote:
+> In https://urldefense.com/v3/__https://lore.kernel.org/lkml/20211209150910.GA23668@axis.com/__;!!GjvTz_vk!HGKKoni4RVdEBgv_V0zPSNSX428bpf02zkCy2WbeQkBdVtp1QJqGX-lJYlRDGg$ 
+> 
+> Vincent's patch commented on, and worked around, a bug toggling
+> static_branch's, when a 2nd PRINTK-ish flag was added.  The bug
+> results in a premature static_branch_disable when the 1st of 2 flags
+> was disabled.
+> 
+> The cited commit computed newflags, but then in the JUMP_LABEL block,
+> failed to use that result, instead using just one of the terms in it.
+> Using newflags instead made the code work properly.
+> 
+> This is Vincents test-case, reduced.  It needs the 2nd flag to work
+> properly, but it's explanatory here.
+> 
+> pt_test() {
+>     echo 5 > /sys/module/dynamic_debug/verbose
+> 
+>     site="module tcp" # just one callsite
+>     echo " $site =_ " > /proc/dynamic_debug/control # clear it
+> 
+>     # A B ~A ~B
+>     for flg in +T +p "-T #broke here" -p; do
+> 	echo " $site $flg " > /proc/dynamic_debug/control
+>     done;
+> 
+>     # A B ~B ~A
+>     for flg in +T +p "-p #broke here" -T; do
+> 	echo " $site $flg " > /proc/dynamic_debug/control
+>     done
+> }
+> pt_test
+> 
+> Fixes: 84da83a6ffc0 dyndbg: combine flags & mask into a struct, simplify with it
+> CC: vincent.whitchurch@axis.com
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> 
+> --
+> .drop @stable, no exposed bug.
+> ---
+>  lib/dynamic_debug.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index dd7f56af9aed..a56c1286ffa4 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -211,10 +211,11 @@ static int ddebug_change(const struct ddebug_query *query,
+>  				continue;
+>  #ifdef CONFIG_JUMP_LABEL
+>  			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
+> -				if (!(modifiers->flags & _DPRINTK_FLAGS_PRINT))
+> +				if (!(newflags & _DPRINTK_FLAGS_PRINT))
+>  					static_branch_disable(&dp->key.dd_key_true);
+> -			} else if (modifiers->flags & _DPRINTK_FLAGS_PRINT)
+> +			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
+>  				static_branch_enable(&dp->key.dd_key_true);
+> +			}
+>  #endif
+>  			dp->flags = newflags;
+>  			v4pr_info("changed %s:%d [%s]%s =%s\n",
 
+
+
+Hi Jim,
+
+If iiuc this is currently a bug but could be if we add a second 'print' bit
+such as for printing to the tracing logs. That said I agree that using 'newflags'
+here makes the code more straightforward/readable. So this one is fine with
+me.
+
+Acked-by: Jason Baron <jbaron@akamai.com>
+
+Thanks,
+
+-Jason
