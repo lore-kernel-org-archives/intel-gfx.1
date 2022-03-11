@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF1FC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 00:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E63BFC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 00:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D25510E06B;
-	Fri, 11 Mar 2022 00:41:41 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56EED10E028
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Mar 2022 00:41:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CFFD10E432;
+	Fri, 11 Mar 2022 00:50:53 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB27C10E434
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Mar 2022 00:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646959299; x=1678495299;
+ t=1646959852; x=1678495852;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nPsjREB7k57DV7nUrt173zprzA4lxrKxPYLwunwqGXI=;
- b=fUCZ3fsWV1VwvZR4H8sddS0pZc257mXkUkU9PsIPm2xb294ZQRQKEuHC
- hsSpYhz4fCFnZTVKQpyWTZC0bL9qD29imEimSzbLg7mCec/jbOt/8c6GZ
- JzUoJtc5asrgrCgVb2/5EzyJ1GYG9Cf2nd8RTFFw4CzqHTjR/xEXZxdmO
- wE4OsnwzVgmNOdvLhANZn5pFVqfR5xd7c5JVXwYrDVbDqeTnvf9XkLQlW
- bLVK1fNpVQ+o+Lg7FODD6wr9q+EeZuDJaAOkQWzJWQW+dYoQxahaKGTBC
- Kc8FTAzjnaE82TWo0Vfh9Tqgw1As08aAV7XG0F2lOWVNexbSlq8cote/t w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="254272301"
-X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="254272301"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2022 16:29:16 -0800
+ bh=zP9McEsADQmohiHtrqE5XLytq6mSQ8pQjGN5InMJ4Qs=;
+ b=kVfpSAwbrGE9l3982QhyFqI/B/0Rx9BhFi3RV9VAIc0AX6ChBdgvl91d
+ +OWdbYJK7NyqywjqLdI7A5lZYhx56KjRVo+/juaigs+65l55rx1Lb/uD8
+ RImWY3O5lUFb3tKE7gAuPqhrdhpuRFkoUuVfHPIC0sYoyRG1dy3JBpIHR
+ 84sGBzLeIDOFiRVZCZ2uPhMBgbgTbcztUfCcxRaeGaiVVFYbfHmNzoCZj
+ Z4AKx889gewPAghmv1d+6BynzCS6oy1o3iIf9fwAAnZI8NphpKu6lTsWE
+ c5B89HVKdo/ikmo3HVD+4iunr/joffH1KfhDwwOniQiPIDbIi7yUL/cAT w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="237626449"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="237626449"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2022 16:40:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="596892293"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="633213673"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga008.fm.intel.com with ESMTP; 10 Mar 2022 16:29:16 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Mar 2022 16:40:47 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Mar 2022 16:31:40 -0800
-Message-Id: <20220311003140.508371-2-alan.previn.teres.alexis@intel.com>
+Date: Thu, 10 Mar 2022 16:43:11 -0800
+Message-Id: <20220311004311.514198-2-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220311003140.508371-1-alan.previn.teres.alexis@intel.com>
-References: <20220311003140.508371-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20220311004311.514198-1-alan.previn.teres.alexis@intel.com>
+References: <20220311004311.514198-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/1] drm/i915/reset: Fix error_state_read ptr
+Subject: [Intel-gfx] [PATCH v4 1/1] drm/i915/reset: Fix error_state_read ptr
  + offset use
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -151,23 +151,30 @@ The dmesg call trace:
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/i915_sysfs.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_sysfs.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
-index a4d1759375b9..c40e51298066 100644
+index a4d1759375b9..66a8880eaf19 100644
 --- a/drivers/gpu/drm/i915/i915_sysfs.c
 +++ b/drivers/gpu/drm/i915/i915_sysfs.c
-@@ -432,7 +432,7 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+@@ -432,7 +432,14 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
  	struct device *kdev = kobj_to_dev(kobj);
  	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
  	struct i915_gpu_coredump *gpu;
 -	ssize_t ret;
 +	ssize_t ret = 0;
++
++	/*
++	 * FIXME: Concurrent clients triggering resets and reading + clearing
++	 * dumps can cause inconsistent sysfs reads when a user calls in with a
++	 * non-zero offset to complete a prior partial read but the
++	 * gpu_coredump has been cleared or replaced.
++	 */
  
  	gpu = i915_first_error_state(i915);
  	if (IS_ERR(gpu)) {
-@@ -444,8 +444,10 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+@@ -444,8 +451,10 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
  		const char *str = "No error state collected\n";
  		size_t len = strlen(str);
  
