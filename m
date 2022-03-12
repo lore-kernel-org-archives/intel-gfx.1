@@ -4,46 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C514C4332F
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Mar 2022 00:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0563C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 12 Mar 2022 00:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C76D210E074;
-	Sat, 12 Mar 2022 00:11:42 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5541A10E05B
- for <intel-gfx@lists.freedesktop.org>; Sat, 12 Mar 2022 00:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647043882; x=1678579882;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fgDl/F0cZgFz1hxF8YXYYFWi+WO6MRfa+K2kasLpRFI=;
- b=C+hXi4hrChLu4toplD0FWkWAmjlCLK9F/J22YLIjvgUsyU3dE3a9XeSE
- fuzHWFM+cGlEDqKoPNv/4zxHyeKcjmOTou1cKHs7ywfG/+Fhoe7kZ0/0U
- Du01oikkdZ2KCwA8rK7+LVioLWzeoUluPCOUdBPH8xnm7ZOdcVWqaY1tf
- imFUKNPepNaISCCGLr0Yqm5VvtwA3lsj+o5RH6Cy8t7vzk2WKGxt0sgc5
- 090MLJ48IEzm7ZFUpLVszOIYFrywzu5KM+yXZ2jd1mr4UipsIoZm+vBJZ
- 9XNhPhukFpnaO8otZfm8tP+z8v4nxxK4Gse8AsHxW9tw9ghaDSINOrZzy w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="316399858"
-X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="316399858"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2022 16:11:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="514681588"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga006.jf.intel.com with ESMTP; 11 Mar 2022 16:11:21 -0800
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Mar 2022 16:13:41 -0800
-Message-Id: <20220312001344.1314090-12-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220312001344.1314090-1-alan.previn.teres.alexis@intel.com>
-References: <20220312001344.1314090-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24B2510E07D;
+	Sat, 12 Mar 2022 00:11:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B5DDC10E07D;
+ Sat, 12 Mar 2022 00:11:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B2400A0096;
+ Sat, 12 Mar 2022 00:11:57 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3660584505089633355=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 11/13] drm/i915/guc: Pre-allocate output
- nodes for extraction
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Date: Sat, 12 Mar 2022 00:11:57 -0000
+Message-ID: <164704391772.29602.750552799196294826@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220311212845.32358-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20220311212845.32358-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Reject_unsupported_TMDS_rates_on_ICL+_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,380 +40,289 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the rare but possible scenario where we are in the midst of
-multiple GuC error-capture (and engine reset) events and the
-user also triggers a forced full GT reset or the internal watchdog
-triggers the same, intel_guc_submission_reset_prepare's call
-to flush_work(&guc->ct.requests.worker) can cause the G2H message
-handler to trigger intel_guc_capture_store_snapshot upon
-receiving new G2H error-capture notifications. This can happen
-despite the prior call to disable_submission(guc);. However,
-there's no race-free way for intel_guc_capture_store_snapshot to
-know that we are in the midst of a reset. That said, we can never
-dynamically allocate the output nodes in this handler. Thus, we
-shall pre-allocate a fixed number of empty nodes up front (at the
-time of ADS registration) that we can consume from or return to
-an internal cached list of nodes.
+--===============3660584505089633355==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  19 +-
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 177 ++++++++++++++----
- 2 files changed, 161 insertions(+), 35 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-index 5d959e62d146..3624abfd22d1 100644
---- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-@@ -31,7 +31,7 @@ struct __guc_capture_bufstate {
-  *
-  * A single unit of extracted error-capture output data grouped together
-  * at an engine-instance level. We keep these nodes in a linked list.
-- * See outlist below.
-+ * See cachelist and outlist below.
-  */
- struct __guc_capture_parsed_output {
- 	/*
-@@ -190,7 +190,22 @@ struct intel_guc_state_capture {
- 	void *ads_null_cache;
- 
- 	/**
--	 * @outlist: allocated nodes with parsed engine-instance error capture data
-+	 * @cachelist: Pool of pre-allocated nodes for error capture output
-+	 *
-+	 * We need this pool of pre-allocated nodes because we cannot
-+	 * dynamically allocate new nodes when receiving the G2H notification
-+	 * because the event handlers for all G2H event-processing is called
-+	 * by the ct processing worker queue and when that queue is being
-+	 * processed, there is no absoluate guarantee that we are not in the
-+	 * midst of a GT reset operation (which doesn't allow allocations).
-+	 */
-+	struct list_head cachelist;
-+#define PREALLOC_NODES_MAX_COUNT (3 * GUC_MAX_ENGINE_CLASSES * GUC_MAX_INSTANCES_PER_CLASS)
-+#define PREALLOC_NODES_DEFAULT_NUMREGS 64
-+	int max_mmio_per_node;
-+
-+	/**
-+	 * @outlist: Pool of pre-allocated nodes for error capture output
- 	 *
- 	 * A linked list of parsed GuC error-capture output data before
- 	 * reporting with formatting via i915_gpu_coredump. Each node in this linked list shall
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 8aa6a81dd210..40d03649ef65 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -581,6 +581,8 @@ intel_guc_capture_getlistsize(struct intel_guc *guc, u32 owner, u32 type, u32 cl
- 	return 0;
- }
- 
-+static void guc_capture_create_prealloc_nodes(struct intel_guc *guc);
-+
- int
- intel_guc_capture_getlist(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
- 			  void **outptr)
-@@ -601,6 +603,12 @@ intel_guc_capture_getlist(struct intel_guc *guc, u32 owner, u32 type, u32 classi
- 		return cache->status;
- 	}
- 
-+	/*
-+	 * ADS population of input registers is a good
-+	 * time to pre-allocate cachelist output nodes
-+	 */
-+	guc_capture_create_prealloc_nodes(guc);
-+
- 	ret = intel_guc_capture_getlistsize(guc, owner, type, classid, &size);
- 	if (ret) {
- 		cache->is_valid = true;
-@@ -741,7 +749,8 @@ intel_guc_capture_output_min_size_est(struct intel_guc *guc)
-  *                                err-state-captured register-list we find, we alloc 'C':
-  *      --> alloc C: A capture-output-node structure that includes misc capture info along
-  *                   with 3 register list dumps (global, engine-class and engine-instance)
-- *                   This node is dynamically allocated and populated with the error-capture
-+ *                   This node is created from a pre-allocated list of blank nodes in
-+ *                   guc->capture->cachelist and populated with the error-capture
-  *                   data from GuC and then it's added into guc->capture->outlist linked
-  *                   list. This list is used for matchup and printout by i915_gpu_coredump
-  *                   and err_print_gt, (when user invokes the error capture sysfs).
-@@ -901,19 +910,20 @@ guc_capture_delete_one_node(struct intel_guc *guc, struct __guc_capture_parsed_o
- }
- 
- static void
--guc_capture_delete_nodes(struct intel_guc *guc)
-+guc_capture_delete_prealloc_nodes(struct intel_guc *guc)
- {
-+	struct __guc_capture_parsed_output *n, *ntmp;
-+
- 	/*
- 	 * NOTE: At the end of driver operation, we must assume that we
--	 * have nodes in outlist from unclaimed error capture events
--	 * that occurred prior to shutdown.
-+	 * have prealloc nodes in both the cachelist as well as outlist
-+	 * if unclaimed error capture events occurred prior to shutdown.
- 	 */
--	if (!list_empty(&guc->capture->outlist)) {
--		struct __guc_capture_parsed_output *n, *ntmp;
-+	list_for_each_entry_safe(n, ntmp, &guc->capture->outlist, link)
-+		guc_capture_delete_one_node(guc, n);
- 
--		list_for_each_entry_safe(n, ntmp, &guc->capture->outlist, link)
--			guc_capture_delete_one_node(guc, n);
--	}
-+	list_for_each_entry_safe(n, ntmp, &guc->capture->cachelist, link)
-+		guc_capture_delete_one_node(guc, n);
- }
- 
- static void
-@@ -930,21 +940,80 @@ guc_capture_add_node_to_outlist(struct intel_guc_state_capture *gc,
- 	guc_capture_add_node_to_list(node, &gc->outlist);
- }
- 
-+static void
-+guc_capture_add_node_to_cachelist(struct intel_guc_state_capture *gc,
-+				  struct __guc_capture_parsed_output *node)
-+{
-+	guc_capture_add_node_to_list(node, &gc->cachelist);
-+}
-+
- static void
- guc_capture_init_node(struct intel_guc *guc, struct __guc_capture_parsed_output *node)
- {
-+	struct guc_mmio_reg *tmp[GUC_CAPTURE_LIST_TYPE_MAX];
-+	int i;
-+
-+	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
-+		tmp[i] = node->reginfo[i].regs;
-+		memset(tmp[i], 0, sizeof(struct guc_mmio_reg) *
-+		       guc->capture->max_mmio_per_node);
-+	}
-+	memset(node, 0, sizeof(*node));
-+	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i)
-+		node->reginfo[i].regs = tmp[i];
-+
- 	INIT_LIST_HEAD(&node->link);
- }
- 
-+static struct __guc_capture_parsed_output *
-+guc_capture_get_prealloc_node(struct intel_guc *guc)
-+{
-+	struct __guc_capture_parsed_output *found = NULL;
-+
-+	if (!list_empty(&guc->capture->cachelist)) {
-+		struct __guc_capture_parsed_output *n, *ntmp;
-+
-+		/* get first avail node from the cache list */
-+		list_for_each_entry_safe(n, ntmp, &guc->capture->cachelist, link) {
-+			found = n;
-+			list_del(&n->link);
-+			break;
-+		}
-+	} else {
-+		struct __guc_capture_parsed_output *n, *ntmp;
-+
-+		/* traverse down and steal back the oldest node already allocated */
-+		list_for_each_entry_safe(n, ntmp, &guc->capture->outlist, link) {
-+			found = n;
-+		}
-+		if (found)
-+			list_del(&found->link);
-+	}
-+	if (found)
-+		guc_capture_init_node(guc, found);
-+
-+	return found;
-+}
-+
- static struct __guc_capture_parsed_output *
- guc_capture_alloc_one_node(struct intel_guc *guc)
- {
- 	struct __guc_capture_parsed_output *new;
-+	int i;
- 
- 	new = kzalloc(sizeof(*new), GFP_KERNEL);
- 	if (!new)
- 		return NULL;
- 
-+	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
-+		new->reginfo[i].regs = kcalloc(guc->capture->max_mmio_per_node,
-+					       sizeof(struct guc_mmio_reg), GFP_KERNEL);
-+		if (!new->reginfo[i].regs) {
-+			while (i)
-+				kfree(new->reginfo[--i].regs);
-+			return NULL;
-+		}
-+	}
- 	guc_capture_init_node(guc, new);
- 
- 	return new;
-@@ -957,7 +1026,7 @@ guc_capture_clone_node(struct intel_guc *guc, struct __guc_capture_parsed_output
- 	struct __guc_capture_parsed_output *new;
- 	int i;
- 
--	new = guc_capture_alloc_one_node(guc);
-+	new = guc_capture_get_prealloc_node(guc);
- 	if (!new)
- 		return NULL;
- 	if (!original)
-@@ -968,13 +1037,12 @@ guc_capture_clone_node(struct intel_guc *guc, struct __guc_capture_parsed_output
- 	/* copy reg-lists that we want to clone */
- 	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i) {
- 		if (keep_reglist_mask & BIT(i)) {
--			new->reginfo[i].regs = kcalloc(original->reginfo[i].num_regs,
--						       sizeof(struct guc_mmio_reg), GFP_KERNEL);
--			if (!new->reginfo[i].regs)
--				goto bail_clone;
-+			GEM_BUG_ON(original->reginfo[i].num_regs  >
-+				   guc->capture->max_mmio_per_node);
- 
- 			memcpy(new->reginfo[i].regs, original->reginfo[i].regs,
- 			       original->reginfo[i].num_regs * sizeof(struct guc_mmio_reg));
-+
- 			new->reginfo[i].num_regs = original->reginfo[i].num_regs;
- 			new->reginfo[i].vfid  = original->reginfo[i].vfid;
- 
-@@ -989,12 +1057,58 @@ guc_capture_clone_node(struct intel_guc *guc, struct __guc_capture_parsed_output
- 	}
- 
- 	return new;
-+}
- 
--bail_clone:
--	for (i = 0; i < GUC_CAPTURE_LIST_TYPE_MAX; ++i)
--		kfree(new->reginfo[i].regs);
--	kfree(new);
--	return NULL;
-+static void
-+__guc_capture_create_prealloc_nodes(struct intel_guc *guc)
-+{
-+	struct __guc_capture_parsed_output *node = NULL;
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+	int i;
-+
-+	for (i = 0; i < PREALLOC_NODES_MAX_COUNT; ++i) {
-+		node = guc_capture_alloc_one_node(guc);
-+		if (!node) {
-+			drm_warn(&i915->drm, "GuC Capture pre-alloc-cache failure\n");
-+			/* dont free the priors, use what we got and cleanup at shutdown */
-+			return;
-+		}
-+		guc_capture_add_node_to_cachelist(guc->capture, node);
-+	}
-+}
-+
-+static int
-+guc_get_max_reglist_count(struct intel_guc *guc)
-+{
-+	int i, j, k, tmp, maxregcount = 0;
-+
-+	for (i = 0; i < GUC_CAPTURE_LIST_INDEX_MAX; ++i) {
-+		for (j = 0; j < GUC_CAPTURE_LIST_TYPE_MAX; ++j) {
-+			for (k = 0; k < GUC_MAX_ENGINE_CLASSES; ++k) {
-+				if (j == GUC_CAPTURE_LIST_TYPE_GLOBAL && k > 0)
-+					continue;
-+
-+				tmp = guc_cap_list_num_regs(guc->capture, i, j, k);
-+				if (tmp > maxregcount)
-+					maxregcount = tmp;
-+			}
-+		}
-+	}
-+	if (!maxregcount)
-+		maxregcount = PREALLOC_NODES_DEFAULT_NUMREGS;
-+
-+	return maxregcount;
-+}
-+
-+static void
-+guc_capture_create_prealloc_nodes(struct intel_guc *guc)
-+{
-+	/* skip if we've already done the pre-alloc */
-+	if (guc->capture->max_mmio_per_node)
-+		return;
-+
-+	guc->capture->max_mmio_per_node = guc_get_max_reglist_count(guc);
-+	__guc_capture_create_prealloc_nodes(guc);
- }
- 
- static int
-@@ -1110,13 +1224,13 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
- 				guc_capture_add_node_to_outlist(guc->capture, node);
- 				node = NULL;
- 			} else if (datatype == GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS &&
--				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS].regs) {
-+				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS].num_regs) {
- 				/* Add to list, clone node and duplicate global list */
- 				guc_capture_add_node_to_outlist(guc->capture, node);
- 				node = guc_capture_clone_node(guc, node,
- 							      GCAP_PARSED_REGLIST_INDEX_GLOBAL);
- 			} else if (datatype == GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE &&
--				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE].regs) {
-+				   node->reginfo[GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE].num_regs) {
- 				/* Add to list, clone node and duplicate global + class lists */
- 				guc_capture_add_node_to_outlist(guc->capture, node);
- 				node = guc_capture_clone_node(guc, node,
-@@ -1126,7 +1240,7 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
- 		}
- 
- 		if (!node) {
--			node = guc_capture_alloc_one_node(guc);
-+			node = guc_capture_get_prealloc_node(guc);
- 			if (!node) {
- 				ret = -ENOMEM;
- 				break;
-@@ -1151,17 +1265,13 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
- 			break;
- 		}
- 
--		regs = NULL;
- 		numregs = FIELD_GET(CAP_HDR_NUM_MMIOS, hdr.num_mmios);
--		if (numregs) {
--			regs = kcalloc(numregs, sizeof(struct guc_mmio_reg), GFP_KERNEL);
--			if (!regs) {
--				ret = -ENOMEM;
--				break;
--			}
-+		if (numregs > guc->capture->max_mmio_per_node) {
-+			drm_dbg(&i915->drm, "GuC Capture list extraction clipped by prealloc!\n");
-+			numregs = guc->capture->max_mmio_per_node;
- 		}
- 		node->reginfo[datatype].num_regs = numregs;
--		node->reginfo[datatype].regs = regs;
-+		regs = node->reginfo[datatype].regs;
- 		i = 0;
- 		while (numregs--) {
- 			if (guc_capture_log_get_register(guc, buf, &regs[i++])) {
-@@ -1181,8 +1291,8 @@ guc_capture_extract_reglists(struct intel_guc *guc, struct __guc_capture_bufstat
- 				break;
- 			}
- 		}
--		/* else free it */
--		kfree(node);
-+		if (node) /* else return it back to cache list */
-+			guc_capture_add_node_to_cachelist(guc->capture, node);
- 	}
- 	return ret;
- }
-@@ -1290,7 +1400,7 @@ void intel_guc_capture_destroy(struct intel_guc *guc)
- 
- 	guc_capture_free_ads_cache(guc->capture);
- 
--	guc_capture_delete_nodes(guc);
-+	guc_capture_delete_prealloc_nodes(guc);
- 
- 	guc_capture_free_extlists(guc->capture->extlists);
- 	kfree(guc->capture->extlists);
-@@ -1308,6 +1418,7 @@ int intel_guc_capture_init(struct intel_guc *guc)
- 	guc->capture->reglists = guc_capture_get_device_reglist(guc);
- 
- 	INIT_LIST_HEAD(&guc->capture->outlist);
-+	INIT_LIST_HEAD(&guc->capture->cachelist);
- 
- 	return 0;
- }
--- 
-2.25.1
+Series: drm/i915: Reject unsupported TMDS rates on ICL+ (rev2)
+URL   : https://patchwork.freedesktop.org/series/101304/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_11353 -> Patchwork_22550
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Additional (2): fi-kbl-soraka fi-bwr-2160 
+  Missing    (4): fi-bsw-cyan shard-rkl shard-tglu fi-bdw-samus 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_22550 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@sync-gfx0:
+    - fi-bsw-n3050:       NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bsw-n3050/igt@amdgpu/amd_cs_nop@sync-gfx0.html
+
+  * igt@gem_exec_fence@basic-busy@bcs0:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271]) +9 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-bwr-2160:        NOTRUN -> [SKIP][3] ([fdo#109271]) +66 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bwr-2160/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][4] ([fdo#109271] / [i915#2190])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][5] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][6] ([i915#1886])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  * igt@kms_force_connector_basic@prune-stale-modes:
+    - fi-cfl-8109u:       [PASS][8] -> [DMESG-WARN][9] ([i915#295])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/fi-cfl-8109u/igt@kms_force_connector_basic@prune-stale-modes.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-cfl-8109u/igt@kms_force_connector_basic@prune-stale-modes.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][10] ([fdo#109271] / [i915#533])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@runner@aborted:
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][11] ([i915#2426] / [i915#4312])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bdw-5557u/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_mocs:
+    - fi-tgl-1115g4:      [DMESG-WARN][12] ([i915#2867]) -> [PASS][13] +20 similar issues
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/fi-tgl-1115g4/igt@i915_selftest@live@gt_mocs.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-tgl-1115g4/igt@i915_selftest@live@gt_mocs.html
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-bsw-n3050:       [DMESG-FAIL][14] ([i915#2927] / [i915#3428]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_busy@basic@modeset:
+    - {bat-adlp-6}:       [DMESG-WARN][16] -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/bat-adlp-6/igt@kms_busy@basic@modeset.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/bat-adlp-6/igt@kms_busy@basic@modeset.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#2927]: https://gitlab.freedesktop.org/drm/intel/issues/2927
+  [i915#295]: https://gitlab.freedesktop.org/drm/intel/issues/295
+  [i915#3428]: https://gitlab.freedesktop.org/drm/intel/issues/3428
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#5087]: https://gitlab.freedesktop.org/drm/intel/issues/5087
+  [i915#5257]: https://gitlab.freedesktop.org/drm/intel/issues/5257
+  [i915#5278]: https://gitlab.freedesktop.org/drm/intel/issues/5278
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11353 -> Patchwork_22550
+
+  CI-20190529: 20190529
+  CI_DRM_11353: 3b3183b6f5343a9e149ff1f6656b131d72445adc @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6378: 9c79047f49acdb6450368ee13fd8b6d28f3fb8e1 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_22550: 23a0870231076c2091044b549532084017a98e48 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+23a087023107 drm/i915: Reject unsupported TMDS rates on ICL+
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/index.html
+
+--===============3660584505089633355==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reject unsupported TMDS rates on ICL+ (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/101304/">https://patchwork.freedesktop.org/series/101304/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11353 -&gt; Patchwork_22550</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Additional (2): fi-kbl-soraka fi-bwr-2160 <br />
+  Missing    (4): fi-bsw-cyan shard-rkl shard-tglu fi-bdw-samus </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_22550 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_cs_nop@sync-gfx0:</p>
+<ul>
+<li>fi-bsw-n3050:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bsw-n3050/igt@amdgpu/amd_cs_nop@sync-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fence@basic-busy@bcs0:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@gem_exec_fence@basic-busy@bcs0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +9 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-bwr-2160:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bwr-2160/igt@gem_exec_suspend@basic-s3.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +66 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@prune-stale-modes:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/fi-cfl-8109u/igt@kms_force_connector_basic@prune-stale-modes.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-cfl-8109u/igt@kms_force_connector_basic@prune-stale-modes.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/295">i915#295</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-kbl-soraka/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_mocs:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/fi-tgl-1115g4/igt@i915_selftest@live@gt_mocs.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-tgl-1115g4/igt@i915_selftest@live@gt_mocs.html">PASS</a> +20 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2927">i915#2927</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3428">i915#3428</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@modeset:</p>
+<ul>
+<li>{bat-adlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11353/bat-adlp-6/igt@kms_busy@basic@modeset.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22550/bat-adlp-6/igt@kms_busy@basic@modeset.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11353 -&gt; Patchwork_22550</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11353: 3b3183b6f5343a9e149ff1f6656b131d72445adc @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6378: 9c79047f49acdb6450368ee13fd8b6d28f3fb8e1 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_22550: 23a0870231076c2091044b549532084017a98e48 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>23a087023107 drm/i915: Reject unsupported TMDS rates on ICL+</p>
+
+</body>
+</html>
+
+--===============3660584505089633355==--
